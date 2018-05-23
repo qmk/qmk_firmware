@@ -40,16 +40,17 @@
 
 #if !defined(WS2812_TIM_N)
     #error WS2812 timer not specified
-#elif WS2812_TIM_N == 1
-    #define WS2812_DMA_STREAM STM32_DMA1_STREAM5
-#elif WS2812_TIM_N == 2
-    #define WS2812_DMA_STREAM STM32_DMA1_STREAM2
-#elif WS2812_TIM_N == 3
-    #define WS2812_DMA_STREAM STM32_DMA1_STREAM3
-#elif WS2812_TIM_N == 4
-    #define WS2812_DMA_STREAM STM32_DMA1_STREAM7
-#else
-    #error WS2812 timer set to invalid value
+#endif
+#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32F7XX)
+    #if WS2812_TIM_N <= 2
+        #define WS2812_AF 1
+    #elif WS2812_TIM_N <= 5
+        #define WS2812_AF 2
+    #elif WS2812_TIM_N <= 11
+        #define WS2812_AF 3
+    #endif
+#elif !defined(WS2812_AF)
+    #error WS2812_AF timer alternate function not specified
 #endif
 
 #if !defined(WS2812_TIM_CH)
@@ -60,8 +61,8 @@
 
 /* --- PRIVATE CONSTANTS ---------------------------------------------------- */
 
-#define WS2812_PWM_FREQUENCY    (72000000)                                  /**< Clock frequency of PWM */
-#define WS2812_PWM_PERIOD       (90)                                        /**< Clock period in ticks. 90/(72 MHz) = 1.25 uS (as per datasheet) */
+#define WS2812_PWM_FREQUENCY    (STM32_SYSCLK/2)                            /**< Clock frequency of PWM */
+#define WS2812_PWM_PERIOD       (WS2812_PWM_FREQUENCY/800000)               /**< Clock period in ticks. 90/(72 MHz) = 1.25 uS (as per datasheet) */
 
 /**
  * @brief   Number of bit-periods to hold the data line low at the end of a frame
@@ -85,7 +86,7 @@
  * a low period of (90 - 22)/(72 MHz) = 9.44 uS. These values are within the allowable
  * bounds, and intentionally skewed as far to the low duty-cycle side as possible
  */
-#define WS2812_DUTYCYCLE_0      (22)
+#define WS2812_DUTYCYCLE_0      (WS2812_PWM_FREQUENCY/(1000000000/350))
 
 /**
  * @brief   High period for a one, in ticks
@@ -98,7 +99,7 @@
  * a low period of (90 - 56)/(72 MHz) = 4.72 uS. These values are within the allowable
  * bounds, and intentionally skewed as far to the high duty-cycle side as possible
  */
-#define WS2812_DUTYCYCLE_1      (56)
+#define WS2812_DUTYCYCLE_1      (WS2812_PWM_FREQUENCY/(1000000000/800))
 
 /* --- PRIVATE MACROS ------------------------------------------------------- */
 
@@ -173,8 +174,12 @@ void ws2812_init(void)
     for (i = 0; i < WS2812_COLOR_BIT_N; i++) ws2812_frame_buffer[i]                       = WS2812_DUTYCYCLE_0;   // All color bits are zero duty cycle
     for (i = 0; i < WS2812_RESET_BIT_N; i++) ws2812_frame_buffer[i + WS2812_COLOR_BIT_N]  = 0;                    // All reset bits are zero
 
-    // Configure PA0 as AF output
-    palSetPadMode(GPIOA, 1, PAL_MODE_ALTERNATE(1));
+    // Configure PA1 as AF output
+#ifdef WS2812_EXTERNAL_PULLUP
+    palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(WS2812_AF) | PAL_STM32_OTYPE_OPENDRAIN);
+#else
+    palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(WS2812_AF));
+#endif
 
     // PWM Configuration
     #pragma GCC diagnostic ignored "-Woverride-init"                                        // Turn off override-init warning for this struct. We use the overriding ability to set a "default" channel config
@@ -199,6 +204,8 @@ void ws2812_init(void)
     dmaStreamSetMode(WS2812_DMA_STREAM,
                      STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_BYTE |
                      STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
+      //STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_WORD |
+      //STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
 
     // Start DMA
     dmaStreamEnable(WS2812_DMA_STREAM);
@@ -231,7 +238,6 @@ ws2812_err_t ws2812_write_led(uint32_t led_number, uint8_t r, uint8_t g, uint8_t
 /** @} addtogroup WS2812 */
 
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
-  ws2812_init();
   uint8_t i = 0;
   while (i < number_of_leds) {
     ws2812_write_led(i, ledarray[i].r, ledarray[i].g, ledarray[i].b);

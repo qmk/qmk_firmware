@@ -17,6 +17,7 @@
 #include "rgblight.h"
 
 void matrix_init_kb(void) {
+  ws2812_init();
   rgblight_enable();
   rgblight_mode(1);
   rgblight_setrgb(0xFF, 0xFF, 0xFF);

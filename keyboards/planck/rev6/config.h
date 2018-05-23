@@ -129,5 +129,10 @@
 #define RGBLED_NUM WS2812_LED_N
 #define WS2812_TIM_N 1
 #define WS2812_TIM_CH 1
+#define PORT_WS2812     GPIOA
+#define PIN_WS2812      1
+#define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
+//#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
+//#define WS2812_EXTERNAL_PULLUP
 
 #endif

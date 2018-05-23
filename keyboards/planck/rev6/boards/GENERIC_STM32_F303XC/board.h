@@ -25,7 +25,7 @@
  * Board identifier.
  */
 #define BOARD_GENERIC_STM32_F303XC
-#define BOARD_NAME                  "Clueboard 60 PCB"
+#define BOARD_NAME                  "Planck PCB"
 
 /*
  * Board oscillators-related settings.
