@@ -1,7 +1,7 @@
 # edvorakjp
 
 Epaew's Enhanced Dvorak layout for Japanese Programmer  
-see [here](../../../../users/edvorakjp) for more informations.
+see [here](/users/edvorakjp) for more informations.
 
 ## License
 
