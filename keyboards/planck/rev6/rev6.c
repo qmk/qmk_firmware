@@ -16,21 +16,20 @@
 #include "rev6.h"
 #include "rgblight.h"
 
+  uint8_t *o_fb;
+
 void matrix_init_kb(void) {
   // rgblight_enable();
   // rgblight_mode(1);
   // rgblight_setrgb(0xFF, 0xFF, 0xFF);
-  ws2812_init();
+
+  ledDriverInit(2, GPIOA, 0b00000010, &o_fb);
+  testPatternFB(o_fb);
+
 	matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
 	matrix_scan_user();
-
-  int s = 0;
-  for (int n = 0; n < WS2812_LED_N; n++) {
-    int s0 = s + 10*n;
-    ws2812_write_led(n, s0%255, (s0+85)%255, (s0+170)%255);
-  }
-  s += 10;
+  testPatternFB(o_fb);
 }

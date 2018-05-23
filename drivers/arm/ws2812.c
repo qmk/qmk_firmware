@@ -1,253 +1,156 @@
-/**
- * @file    ws2812.c
- * @author  Austin Glaser <austin.glaser@gmail.com>
- * @brief   WS2812 LED driver
+/*
+ * LEDDriver.c
  *
- * Copyright (C) 2016 Austin Glaser
- *
- * This software may be modified and distributed under the terms
- * of the MIT license.  See the LICENSE file for details.
- *
- * @todo    Put in names and descriptions of variables which need to be defined to use this file
- *
- * @addtogroup WS2812
- * @{
+ *  Created on: Aug 26, 2013
+ *      Author: Omri Iluz
  */
 
-/* --- PRIVATE DEPENDENCIES ------------------------------------------------- */
-
-// This Driver
 #include "ws2812.h"
+#include "stdlib.h"
 
-// Standard
-#include <stdint.h>
+static uint8_t *fb;
+static int sLeds;
+static stm32_gpio_t *sPort;
+static uint32_t sMask;
+uint8_t* dma_source;
 
-// ChibiOS
-#include "ch.h"
-#include "hal.h"
-
-// Application
-#include "board.h"
-#include "util.h"
-
-/* --- CONFIGURATION CHECK -------------------------------------------------- */
-
-#if !defined(WS2812_LED_N)
-    #error WS2812 LED chain length not specified
-#elif WS2812_LED_N <= 0
-    #error WS2812 LED chain length set to invalid value
-#endif
-
-#if !defined(WS2812_TIM_N)
-    #error WS2812 timer not specified
-#endif
-// values for these might be found in table 14 in DM00058181 (STM32F303)
-#if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32F7XX)
-    #if WS2812_TIM_N <= 2
-        #define WS2812_AF 1
-    #elif WS2812_TIM_N <= 5
-        #define WS2812_AF 2
-    #elif WS2812_TIM_N <= 11
-        #define WS2812_AF 3
-    #endif
-#elif !defined(WS2812_AF)
-    #error WS2812_AF timer alternate function not specified
-#endif
-
-#if !defined(WS2812_TIM_CH)
-    #error WS2812 timer channel not specified
-#elif WS2812_TIM_CH >= 4
-    #error WS2812 timer channel set to invalid value
-#endif
-
-/* --- PRIVATE CONSTANTS ---------------------------------------------------- */
-
-//#define WS2812_PWM_FREQUENCY    (STM32_SYSCLK/2)                            /**< Clock frequency of PWM */
-#define WS2812_PWM_FREQUENCY    (72000000)                            /**< Clock frequency of PWM */
-//#define WS2812_PWM_PERIOD       (WS2812_PWM_FREQUENCY/800000)               /**< Clock period in ticks. 90/(72 MHz) = 1.25 uS (as per datasheet) */
-#define WS2812_PWM_PERIOD       (90)               /**< Clock period in ticks. 90/(72 MHz) = 1.25 uS (as per datasheet) */
-
-/**
- * @brief   Number of bit-periods to hold the data line low at the end of a frame
- *
- * The reset period for each frame must be at least 50 uS; so we add in 50 bit-times
- * of zeroes at the end. (50 bits)*(1.25 uS/bit) = 62.5 uS, which gives us some
- * slack in the timing requirements
- */
-#define WS2812_RESET_BIT_N      (50)
-#define WS2812_COLOR_BIT_N      (WS2812_LED_N*24)                           /**< Number of data bits */
-#define WS2812_BIT_N            (WS2812_COLOR_BIT_N + WS2812_RESET_BIT_N)   /**< Total number of bits in a frame */
-
-/**
- * @brief   High period for a zero, in ticks
- *
- * Per the datasheet:
- * - T0H: 0.200 uS to 0.500 uS, inclusive
- * - T0L: 0.650 uS to 0.950 uS, inclusive
- *
- * With a duty cycle of 22 ticks, we have a high period of 22/(72 MHz) = 3.06 uS, and
- * a low period of (90 - 22)/(72 MHz) = 9.44 uS. These values are within the allowable
- * bounds, and intentionally skewed as far to the low duty-cycle side as possible
- */
-//#define WS2812_DUTYCYCLE_0      (WS2812_PWM_FREQUENCY/(1000000000/350))
-#define WS2812_DUTYCYCLE_0      (22)
-
-/**
- * @brief   High period for a one, in ticks
- *
- * Per the datasheet:
- * - T0H: 0.550 uS to 0.850 uS, inclusive
- * - T0L: 0.450 uS to 0.750 uS, inclusive
- *
- * With a duty cycle of 56 ticks, we have a high period of 56/(72 MHz) = 7.68 uS, and
- * a low period of (90 - 56)/(72 MHz) = 4.72 uS. These values are within the allowable
- * bounds, and intentionally skewed as far to the high duty-cycle side as possible
- */
-//#define WS2812_DUTYCYCLE_1      (WS2812_PWM_FREQUENCY/(1000000000/800))
-#define WS2812_DUTYCYCLE_1      (56)
-
-/* --- PRIVATE MACROS ------------------------------------------------------- */
-
-/**
- * @brief   Generates a reference to a numbered PWM driver
- *
- * @param[in] n:            The driver (timer) number
- *
- * @return                  A reference to the driver
- */
-#define PWMD(n)                             CONCAT_EXPANDED_SYMBOLS(PWMD, n)
-
-#define WS2812_PWMD                         PWMD(WS2812_TIM_N)      /**< The PWM driver to use for the LED chain */
-
-/**
- * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given bit
- *
- * @param[in] led:                  The led index [0, @ref WS2812_LED_N)
- * @param[in] byte:                 The byte number [0, 2]
- * @param[in] bit:                  The bit number [0, 7]
- *
- * @return                          The bit index
- */
-#define WS2812_BIT(led, byte, bit)          (24*(led) + 8*(byte) + (7 - (bit)))
-
-/**
- * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given red bit
- *
- * @note    The red byte is the middle byte in the color packet
- *
- * @param[in] led:                  The led index [0, @ref WS2812_LED_N)
- * @param[in] bit:                  The bit number [0, 7]
- *
- * @return                          The bit index
- */
-#define WS2812_RED_BIT(led, bit)            WS2812_BIT((led), 1, (bit))
-
-/**
- * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given green bit
- *
- * @note    The red byte is the first byte in the color packet
- *
- * @param[in] led:                  The led index [0, @ref WS2812_LED_N)
- * @param[in] bit:                  The bit number [0, 7]
- *
- * @return                          The bit index
- */
-#define WS2812_GREEN_BIT(led, bit)          WS2812_BIT((led), 0, (bit))
-
-/**
- * @brief   Determine the index in @ref ws2812_frame_buffer "the frame buffer" of a given blue bit
- *
- * @note    The red byte is the last byte in the color packet
- *
- * @param[in] led:                  The led index [0, @ref WS2812_LED_N)
- * @param[in] bit:                  The bit index [0, 7]
- *
- * @return                          The bit index
- */
-#define WS2812_BLUE_BIT(led, bit)           WS2812_BIT((led), 2, (bit))
-
-/* --- PRIVATE VARIABLES ---------------------------------------------------- */
-
-static uint8_t ws2812_frame_buffer[WS2812_BIT_N];                             /**< Buffer for a frame */
-
-/* --- PUBLIC FUNCTIONS ----------------------------------------------------- */
-
-void ws2812_init(void)
-{
-    // Initialize led frame buffer
-    uint32_t i;
-    for (i = 0; i < WS2812_COLOR_BIT_N; i++) ws2812_frame_buffer[i]                       = WS2812_DUTYCYCLE_0;   // All color bits are zero duty cycle
-    for (i = 0; i < WS2812_RESET_BIT_N; i++) ws2812_frame_buffer[i + WS2812_COLOR_BIT_N]  = 0;                    // All reset bits are zero
-
-    // Configure PA1 as AF output
-//#ifdef WS2812_EXTERNAL_PULLUP
-//    palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(WS2812_AF) | PAL_STM32_OTYPE_OPENDRAIN);
-//#else
-    palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(1));
-//#endif
-
-    // PWM Configuration
-    #pragma GCC diagnostic ignored "-Woverride-init"                                        // Turn off override-init warning for this struct. We use the overriding ability to set a "default" channel config
-    static const PWMConfig ws2812_pwm_config = {
-        .frequency          = WS2812_PWM_FREQUENCY,
-        .period             = WS2812_PWM_PERIOD,
-        .callback           = NULL,
-        .channels = {
-            [0 ... 3]       = {.mode = PWM_OUTPUT_DISABLED,     .callback = NULL},          // Channels default to disabled
-            [WS2812_TIM_CH] = {.mode = PWM_OUTPUT_ACTIVE_HIGH,  .callback = NULL},          // Turn on the channel we care about
-        },
-        .cr2                = 0,
-        .dier               = TIM_DIER_UDE,                                                 // DMA on update event for next period
-    };
-    #pragma GCC diagnostic pop                                                              // Restore command-line warning options
-
-    // Configure DMA
-    dmaStreamAllocate(WS2812_DMA_STREAM, 10, NULL, NULL);
-    dmaStreamSetPeripheral(WS2812_DMA_STREAM, &(WS2812_PWMD.tim->CCR[WS2812_TIM_CH]));
-    dmaStreamSetMemory0(WS2812_DMA_STREAM, ws2812_frame_buffer);
-    dmaStreamSetTransactionSize(WS2812_DMA_STREAM, WS2812_BIT_N);
-    dmaStreamSetMode(WS2812_DMA_STREAM,
-                     STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_BYTE |
-                     STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
-      //STM32_DMA_CR_CHSEL(WS2812_DMA_CHANNEL) | STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_WORD | STM32_DMA_CR_MSIZE_WORD |
-      //STM32_DMA_CR_MINC | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
-
-    // Start DMA
-    dmaStreamEnable(WS2812_DMA_STREAM);
-
-    // Configure PWM
-    // NOTE: It's required that preload be enabled on the timer channel CCR register. This is currently enabled in the
-    // ChibiOS driver code, so we don't have to do anything special to the timer. If we did, we'd have to start the timer,
-    // disable counting, enable the channel, and then make whatever configuration changes we need.
-    pwmStart(&WS2812_PWMD, &ws2812_pwm_config);
-    pwmEnableChannel(&WS2812_PWMD, WS2812_TIM_CH, 0);     // Initial period is 0; output will be low until first duty cycle is DMA'd in
+void setColor(uint8_t color, uint8_t *buf,uint32_t mask){
+  int i;
+  for (i=0;i<8;i++){
+    buf[i]=((color<<i)&0b10000000?0x0:mask);
+  }
 }
 
-ws2812_err_t ws2812_write_led(uint32_t led_number, uint8_t r, uint8_t g, uint8_t b)
-{
-    // Check for valid LED
-    if (led_number >= WS2812_LED_N) return WS2812_LED_INVALID;
-
-    // Write color to frame buffer
-    uint32_t bit;
-    for (bit = 0; bit < 8; bit++) {
-        ws2812_frame_buffer[WS2812_RED_BIT(led_number, bit)]      = ((r >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
-        ws2812_frame_buffer[WS2812_GREEN_BIT(led_number, bit)]    = ((g >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
-        ws2812_frame_buffer[WS2812_BLUE_BIT(led_number, bit)]     = ((b >> bit) & 0x01) ? WS2812_DUTYCYCLE_1 : WS2812_DUTYCYCLE_0;
-    }
-
-    // Success
-    return WS2812_SUCCESS;
+void setColorRGB(Color c, uint8_t *buf, uint32_t mask){
+  setColor(c.G,buf, mask);
+  setColor(c.R,buf+8, mask);
+  setColor(c.B,buf+16, mask);
 }
 
-/** @} addtogroup WS2812 */
+/**
+ * @brief   Initialize Led Driver
+ * @details Initialize the Led Driver based on parameters.
+ *          Following initialization, the frame buffer would automatically be
+ *          exported to the supplied port and pins in the right timing to drive
+ *          a chain of WS2812B controllers
+ * @note    The function assumes the controller is running at 72Mhz
+ * @note    Timing is critical for WS2812. While all timing is done in hardware
+ *          need to verify memory bandwidth is not exhausted to avoid DMA delays
+ *
+ * @param[in] leds      length of the LED chain controlled by each pin
+ * @param[in] port      which port would be used for output
+ * @param[in] mask      Which pins would be used for output, each pin is a full chain
+ * @param[out] o_fb     initialized frame buffer
+ *
+ */
+void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint8_t **o_fb) {
+  sLeds=leds;
+  sPort=port;
+  sMask=mask;
+  palSetGroupMode(port, sMask, 0, PAL_MODE_OUTPUT_PUSHPULL|PAL_STM32_OSPEED_HIGHEST|PAL_STM32_PUPDR_FLOATING);
+
+  // configure pwm timers -
+  // timer 2 as master, active for data transmission and inactive to disable transmission during reset period (50uS)
+  // timer 3 as slave, during active time creates a 1.25 uS signal, with duty cycle controlled by frame buffer values
+  static PWMConfig pwmc2 = {72000000 / 90, /* 800Khz PWM clock frequency. 1/90 of PWMC3   */
+                            (72000000 / 90) * 0.05, /*Total period is 50ms (20FPS), including sLeds cycles + reset length for ws2812b and FB writes  */
+                            NULL,
+                            { {PWM_OUTPUT_ACTIVE_HIGH, NULL},
+                              {PWM_OUTPUT_DISABLED, NULL},
+                              {PWM_OUTPUT_DISABLED, NULL},
+                              {PWM_OUTPUT_DISABLED, NULL}},
+                              TIM_CR2_MMS_2, /* master mode selection */
+                              0, };
+  /* master mode selection */
+  static PWMConfig pwmc3 = {72000000,/* 72Mhz PWM clock frequency.   */
+                            90, /* 90 cycles period (1.25 uS per period @72Mhz       */
+                            NULL,
+                            { {PWM_OUTPUT_ACTIVE_HIGH, NULL},
+                              {PWM_OUTPUT_ACTIVE_HIGH, NULL},
+                              {PWM_OUTPUT_ACTIVE_HIGH, NULL},
+                              {PWM_OUTPUT_ACTIVE_HIGH, NULL}},
+                              0,
+                              0,
+  };
+  dma_source = chHeapAlloc(NULL, 1);
+  fb = chHeapAlloc(NULL, ((sLeds) * 24)+10);
+  *o_fb=fb;
+  int j;
+  for (j = 0; j < (sLeds) * 24; j++) fb[j] = 0;
+  dma_source[0] = sMask;
+  // DMA stream 2, triggered by channel3 pwm signal. if FB indicates, reset output value early to indicate "0" bit to ws2812
+  dmaStreamAllocate(STM32_DMA1_STREAM2, 10, NULL, NULL);
+  dmaStreamSetPeripheral(STM32_DMA1_STREAM2, &(sPort->BSRR.H.clear));
+  dmaStreamSetMemory0(STM32_DMA1_STREAM2, fb);
+  dmaStreamSetTransactionSize(STM32_DMA1_STREAM2, (sLeds) * 24);
+  dmaStreamSetMode(
+      STM32_DMA1_STREAM2,
+      STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_MINC | STM32_DMA_CR_PSIZE_BYTE
+      | STM32_DMA_CR_MSIZE_BYTE | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(2));
+  // DMA stream 3, triggered by pwm update event. output high at beginning of signal
+  dmaStreamAllocate(STM32_DMA1_STREAM3, 10, NULL, NULL);
+  dmaStreamSetPeripheral(STM32_DMA1_STREAM3, &(sPort->BSRR.H.set));
+  dmaStreamSetMemory0(STM32_DMA1_STREAM3, dma_source);
+  dmaStreamSetTransactionSize(STM32_DMA1_STREAM3, 1);
+  dmaStreamSetMode(
+      STM32_DMA1_STREAM3, STM32_DMA_CR_TEIE |
+      STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_BYTE | STM32_DMA_CR_MSIZE_BYTE
+      | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
+  // DMA stream 6, triggered by channel1 update event. reset output value late to indicate "1" bit to ws2812.
+  // always triggers but no affect if dma stream 2 already change output value to 0
+  dmaStreamAllocate(STM32_DMA1_STREAM6, 10, NULL, NULL);
+  dmaStreamSetPeripheral(STM32_DMA1_STREAM6, &(sPort->BSRR.H.clear));
+  dmaStreamSetMemory0(STM32_DMA1_STREAM6, dma_source);
+  dmaStreamSetTransactionSize(STM32_DMA1_STREAM6, 1);
+  dmaStreamSetMode(
+      STM32_DMA1_STREAM6,
+      STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_BYTE | STM32_DMA_CR_MSIZE_BYTE
+      | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
+  pwmStart(&PWMD2, &pwmc2);
+  pwmStart(&PWMD3, &pwmc3);
+  // set pwm3 as slave, triggerd by pwm2 oc1 event. disables pwmd2 for synchronization.
+  PWMD3.tim->SMCR |= TIM_SMCR_SMS_0 | TIM_SMCR_SMS_2 | TIM_SMCR_TS_0;
+  PWMD2.tim->CR1 &= ~TIM_CR1_CEN;
+  // set pwm values.
+  // 28 (duty in ticks) / 90 (period in ticks) * 1.25uS (period in S) = 0.39 uS
+  pwmEnableChannel(&PWMD3, 2, 28);
+  // 58 (duty in ticks) / 90 (period in ticks) * 1.25uS (period in S) = 0.806 uS
+  pwmEnableChannel(&PWMD3, 0, 58);
+  // active during transfer of 90 cycles * sLeds * 24 bytes * 1/90 multiplier
+  pwmEnableChannel(&PWMD2, 0, 90 * sLeds * 24 / 90);
+  // stop and reset counters for synchronization
+  PWMD2.tim->CNT = 0;
+  // Slave (TIM3) needs to "update" immediately after master (TIM2) start in order to start in sync.
+  // this initial sync is crucial for the stability of the run
+  PWMD3.tim->CNT = 89;
+  PWMD3.tim->DIER |= TIM_DIER_CC3DE | TIM_DIER_CC1DE | TIM_DIER_UDE;
+  dmaStreamEnable(STM32_DMA1_STREAM3);
+  dmaStreamEnable(STM32_DMA1_STREAM6);
+  dmaStreamEnable(STM32_DMA1_STREAM2);
+  // all systems go! both timers and all channels are configured to resonate
+  // in complete sync without any need for CPU cycles (only DMA and timers)
+  // start pwm2 for system to start resonating
+  PWMD2.tim->CR1 |= TIM_CR1_CEN;
+}
+
+void ledDriverWaitCycle(void){
+  while (PWMD2.tim->CNT < 90 * sLeds * 24 / 90){chThdSleepMicroseconds(1);};
+}
+
+void testPatternFB(uint8_t *fb){
+  int i;
+  Color tmpC = {rand()%256, rand()%256, rand()%256};
+  for (i=0;i<sLeds;i++){
+    setColorRGB(tmpC,fb+24*i, sMask);
+  }
+}
 
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
-  uint8_t i = 0;
-  while (i < number_of_leds) {
-    ws2812_write_led(i, ledarray[i].r, ledarray[i].g, ledarray[i].b);
-    i++;
-  }
+//   uint8_t i = 0;
+//   while (i < number_of_leds) {
+//     ws2812_write_led(i, ledarray[i].r, ledarray[i].g, ledarray[i].b);
+//     i++;
+//   }
 }
 
 
