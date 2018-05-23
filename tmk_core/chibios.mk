@@ -125,7 +125,7 @@ CHIBISRC := $(patsubst $(TOP_DIR)/%,%,$(CHIBISRC))
 EXTRAINCDIRS += $(CHIBIOS)/os/license \
          $(STARTUPINC) $(KERNINC) $(PORTINC) $(OSALINC) \
          $(HALINC) $(PLATFORMINC) $(BOARDINC) $(TESTINC) \
-         $(STREAMSINC) $(CHIBIOS)/os/various
+         $(STREAMSINC) $(CHIBIOS)/os/various $(COMMON_VPATH)
 
 #
 # Project, sources and paths
