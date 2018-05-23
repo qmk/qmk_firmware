@@ -3,6 +3,11 @@
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
+    // * Set our LED pins as output
+    DDRF |= (1<<0); // Keypad LED
+    DDRF |= (1<<1); // ScrLock LED
+    DDRF |= (1<<2); // NumLock LED
+    DDRF |= (1<<3); // CapsLock LED
 
 	matrix_init_user();
 }
@@ -29,8 +34,7 @@ void led_init_ports() {
     DDRF |= (1<<3); // CapsLock LED
 }
 
-void led_set_KB(uint8_t usb_led) {
-
+void led_set_kb(uint8_t usb_led) {
     DDRF |= (1<<0); // Keypad LED
     if (usb_led & (1<<USB_LED_COMPOSE)) {
         PORTF |= (1<<0);
