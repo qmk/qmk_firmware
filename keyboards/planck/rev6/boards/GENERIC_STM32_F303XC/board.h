@@ -245,7 +245,7 @@
  * PA15 - ROW4
  */
 #define VAL_GPIOA_MODER             (PIN_MODE_INPUT(GPIOA_PIN0) |         \
-                                     PIN_MODE_INPUT(GPIOA_PIN1) |           \
+                                     PIN_MODE_ALTERNATE(GPIOA_PIN1) |           \
                                      PIN_MODE_INPUT(GPIOA_PIN2) |           \
                                      PIN_MODE_INPUT(GPIOA_PIN3) |           \
                                      PIN_MODE_INPUT(GPIOA_PIN4) |           \
@@ -325,7 +325,7 @@
                                      PIN_ODR_HIGH(GPIOA_SWCLK) |            \
                                      PIN_ODR_HIGH(GPIOA_PIN15))
 #define VAL_GPIOA_AFRL              (PIN_AFIO_AF(GPIOA_PIN0, 0) |         \
-                                     PIN_AFIO_AF(GPIOA_PIN1, 0) |           \
+                                     PIN_AFIO_AF(GPIOA_PIN1, 1) |           \
                                      PIN_AFIO_AF(GPIOA_PIN2, 0) |           \
                                      PIN_AFIO_AF(GPIOA_PIN3, 0) |           \
                                      PIN_AFIO_AF(GPIOA_PIN4, 0) |           \

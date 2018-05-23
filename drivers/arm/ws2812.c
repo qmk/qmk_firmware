@@ -41,6 +41,7 @@
 #if !defined(WS2812_TIM_N)
     #error WS2812 timer not specified
 #endif
+// values for these might be found in table 14 in DM00058181 (STM32F303)
 #if defined(STM32F2XX) || defined(STM32F3XX) || defined(STM32F4XX) || defined(STM32F7XX)
     #if WS2812_TIM_N <= 2
         #define WS2812_AF 1
@@ -61,8 +62,10 @@
 
 /* --- PRIVATE CONSTANTS ---------------------------------------------------- */
 
-#define WS2812_PWM_FREQUENCY    (STM32_SYSCLK/2)                            /**< Clock frequency of PWM */
-#define WS2812_PWM_PERIOD       (WS2812_PWM_FREQUENCY/800000)               /**< Clock period in ticks. 90/(72 MHz) = 1.25 uS (as per datasheet) */
+//#define WS2812_PWM_FREQUENCY    (STM32_SYSCLK/2)                            /**< Clock frequency of PWM */
+#define WS2812_PWM_FREQUENCY    (72000000)                            /**< Clock frequency of PWM */
+//#define WS2812_PWM_PERIOD       (WS2812_PWM_FREQUENCY/800000)               /**< Clock period in ticks. 90/(72 MHz) = 1.25 uS (as per datasheet) */
+#define WS2812_PWM_PERIOD       (90)               /**< Clock period in ticks. 90/(72 MHz) = 1.25 uS (as per datasheet) */
 
 /**
  * @brief   Number of bit-periods to hold the data line low at the end of a frame
@@ -86,7 +89,8 @@
  * a low period of (90 - 22)/(72 MHz) = 9.44 uS. These values are within the allowable
  * bounds, and intentionally skewed as far to the low duty-cycle side as possible
  */
-#define WS2812_DUTYCYCLE_0      (WS2812_PWM_FREQUENCY/(1000000000/350))
+//#define WS2812_DUTYCYCLE_0      (WS2812_PWM_FREQUENCY/(1000000000/350))
+#define WS2812_DUTYCYCLE_0      (22)
 
 /**
  * @brief   High period for a one, in ticks
@@ -99,7 +103,8 @@
  * a low period of (90 - 56)/(72 MHz) = 4.72 uS. These values are within the allowable
  * bounds, and intentionally skewed as far to the high duty-cycle side as possible
  */
-#define WS2812_DUTYCYCLE_1      (WS2812_PWM_FREQUENCY/(1000000000/800))
+//#define WS2812_DUTYCYCLE_1      (WS2812_PWM_FREQUENCY/(1000000000/800))
+#define WS2812_DUTYCYCLE_1      (56)
 
 /* --- PRIVATE MACROS ------------------------------------------------------- */
 
@@ -175,11 +180,11 @@ void ws2812_init(void)
     for (i = 0; i < WS2812_RESET_BIT_N; i++) ws2812_frame_buffer[i + WS2812_COLOR_BIT_N]  = 0;                    // All reset bits are zero
 
     // Configure PA1 as AF output
-#ifdef WS2812_EXTERNAL_PULLUP
-    palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(WS2812_AF) | PAL_STM32_OTYPE_OPENDRAIN);
-#else
-    palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(WS2812_AF));
-#endif
+//#ifdef WS2812_EXTERNAL_PULLUP
+//    palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(WS2812_AF) | PAL_STM32_OTYPE_OPENDRAIN);
+//#else
+    palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(1));
+//#endif
 
     // PWM Configuration
     #pragma GCC diagnostic ignored "-Woverride-init"                                        // Turn off override-init warning for this struct. We use the overriding ability to set a "default" channel config
