@@ -91,6 +91,10 @@ uint8_t matrix_scan(void) {
     return 1;
 }
 
+__attribute__ ((weak))
+void matrix_scan_user(void) {};
+
+__attribute__ ((weak))
 void matrix_scan_kb(void) {
   // Looping keyboard code goes here
   // This runs every cycle (a lot)
