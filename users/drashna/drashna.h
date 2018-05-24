@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 // Define layer names
+<<<<<<< HEAD
 #define _QWERTY 0
 #define _NUMLOCK 0
 #define _COLEMAK 1
@@ -39,6 +40,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _RAISE 15
 #define _ADJUST 16
 
+=======
+enum userspace_layers {
+  _QWERTY = 0,
+  _NUMLOCK = 0,
+  _COLEMAK,
+  _DVORAK,
+  _WORKMAN,
+  _MODS,
+  _GAMEPAD,
+  _DIABLO,
+  _MACROS,
+  _MEDIA,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+};
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -46,6 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
+<<<<<<< HEAD
 #ifndef RGBLIGHT_ANIMATIONS // add "EXTRA_FLADS=-DDRASHNA_SETRGB" to enable this ... but don't
 #define rgblight_set_blue        rgblight_setrgb (0x00,  0x00, 0xFF);
 #define rgblight_set_red         rgblight_setrgb (0xFF,  0x00, 0x00);
@@ -81,6 +100,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 extern bool is_overwatch;
 extern bool rgb_layer_change;
+=======
+// RGB color codes are no longer located here anymore.  Instead, you will want to
+// head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
+
+extern bool clicky_enable;
+
+#ifdef RGBLIGHT_ENABLE
+void rgblight_sethsv_default_helper(uint8_t index);
+#endif // RGBLIGHT_ENABLE
+
+#define EECONFIG_USERSPACE (uint8_t *)20
+
+typedef union {
+  uint8_t raw;
+  struct {
+    bool     clicky_enable    :1;
+    bool     rgb_layer_change :1;
+    bool     is_overwatch     :1;
+  };
+} userspace_config_t;
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 
 enum userspace_custom_keycodes {
   EPRM = SAFE_RANGE, // can always be here
@@ -173,9 +213,14 @@ enum {
 #define LAYOUT KEYMAP
 #endif
 
-#define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)
+#define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
 #define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
+<<<<<<< HEAD
 #define KEYMAP_wrapper(...)           LAYOUT(__VA_ARGS__)
+=======
+#define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
+#define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 
 
 // Blocks for each of the four major keyboard layouts
@@ -240,7 +285,14 @@ enum {
 #define _________________NORMAN_R2_________________       KC_J,    KC_N,    KC_I,    KC_O,    KC_U
 #define _________________NORMAN_R3_________________       KC_P,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
 
+<<<<<<< HEAD
 
+=======
+#define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
+#define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+#define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+#define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 
 // Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
 // this allows us to quickly modify the bottom row for all of the layouts
@@ -250,4 +302,13 @@ enum {
 #define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 
+<<<<<<< HEAD
 #endif
+=======
+#define __________________ERGODOX_THUMB_CLUSTER_____________________           ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE), \
+                                                                                              KC_HOME,                 KC_PGUP, \
+                                                                LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)
+
+
+#endif // !USERSPACE
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36

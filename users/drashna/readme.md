@@ -145,4 +145,65 @@ These are called in the `process_record_user` function, using this block:
     break;
 ```
 
+<<<<<<< HEAD
 And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined, as well. 
+=======
+And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined in your `<name>.h` file fo the new macros, as well.
+
+Additionally, if you want to make sure that you can disable the function without messing with the file, you need to add this to your `/users/<name>/rules.mk`, so that it catches the flag:
+```c
+ifeq ($(strip $(NO_SECRETS)), yes)
+    OPT_DEFS += -DNO_SECRETS
+endif
+```
+
+Then, if you run `make keyboard:name NO_SECRETS=yes`, it will default to the test strings in your `<name>.c` file, rather than reading from your file. 
+
+
+Userspace EEPROM config
+-----------------------
+
+This adds EEPROM support fo the userspace, so that certain values are configurable in such a way that persists when power is lost.  Namely, just the clicky feature and the Overwatch macro option ("is_overwatch").  This is done by reading and saving the structure from EEPROM. 
+
+To implement this, first you need to specify the location:
+
+```c
+#define EECONFIG_USERSPACE (uint8_t *)20
+```
+This tells us where in the EEPROM that the data structure is located, and this specifies that it's a byte (8 bits).  However, to maximize it's usage, we want to specify a data structure here, so that we can use multiple settings.  To do that:
+
+```c
+typedef union {
+  uint8_t raw;
+  struct {
+    bool     clicky_enable  :1;
+    bool     is_overwatch   :1;
+  };
+} userspace_config_t;
+```
+Then, in your C file, you want to add: `userspace_config_t userspace_config;`, and in your `matrix_init_*` function, you want to add `userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);`
+
+From there, you'd want to use the data structure (such as `userspace_config.is_overwatch`) when you want to check this value.  
+
+And if you want to update it, update directly and then use `eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);` to write the value back to the EEPROM. 
+
+
+Pro Micro Hacking
+-----------------
+
+Well, you can get the QMK DFU bootloader working on the ProMicro. But you need to change fuses.  
+
+What worked to get into the firmware properly was: 
+
+```
+Low: 0x5E High: 0x99 Extended: 0xF3 Lock: 0xFF
+```
+
+But some of the columns and rows didn't work, like the pin mapping was wrong. Even when setting the bootloader settings.
+ 
+ This is here for future reference.  And the default fuse settings I believe were:
+
+```
+Low: 0xFF High: 0xD8 Extended: 0xC3 Lock: 0x3F
+```
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36

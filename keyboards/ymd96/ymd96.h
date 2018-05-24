@@ -41,7 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	{      K700,       K701,       K702,       K703,       K704,       K705,       K706,       KC_NO,      K708,       K709,       K710,       K711,       K712,       K713,      K714  } \
 }
 
-#define KEYMAP_JJ50( \
+#define LAYOUT_jj50( \
 K011, K010, K009, K008, K004, K005, K006, K007, K003, K002, K201, K000, \
 K111, K110, K109, K108, K104, K105, K106, K107, K103, K102, K001, K100, \
 K211, K210, K209, K208, K204, K205, K206, K207, K203, K202, K101, K200, \

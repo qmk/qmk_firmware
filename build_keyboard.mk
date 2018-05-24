@@ -204,6 +204,13 @@ endif
 # User space stuff
 USER_PATH := users/$(KEYMAP)
 -include $(USER_PATH)/rules.mk
+<<<<<<< HEAD
+=======
+ifneq ("$(wildcard $(USER_PATH)/config.h)","")
+    CONFIG_H += $(USER_PATH)/config.h
+endif
+
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make

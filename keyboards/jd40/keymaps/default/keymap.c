@@ -7,6 +7,7 @@
 #define _UL 3
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+<<<<<<< HEAD
 	[_BL] = KEYMAP(
   F12,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,   BSPC,
   TAB,  A,    S,    D,    F,    G,    H,    J,    K,    L,    ENT,
@@ -30,6 +31,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TRNS, FN4,  FN5,  FN11, FN10, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
   TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS ),
+=======
+    [_BL] = LAYOUT_kc(
+        F12, Q, W, E, R, T, Y, U, I, O, P, BSPC,
+        TAB, A, S, D, F, G, H, J, K, L, ENT,
+        LSFT, Z, X, C, V, B, N, M, COMM, UP, DOT,
+        LCTL, LGUI, LALT, FN0, SPC, SPC, FN0, LEFT, DOWN, RIGHT),
+
+    [_AL] = LAYOUT_kc(
+        GRV, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, DEL,
+        CAPS, 1, 2, 3, 4, 5, 6, 7, 8, 9, 0,
+        TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, SCLN, PGUP, QUOT,
+        TRNS, TRNS, TRNS, TRNS, FN3, FN3, TRNS, HOME, PGDN, END),
+
+    [_FL] = LAYOUT_kc(
+        TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
+        TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
+        TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
+        TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS),
+
+    [_UL] = LAYOUT_kc(
+        TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
+        TRNS, FN4, FN5, FN11, FN10, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
+        TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
+        TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS),
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 };
 
 enum function_id {

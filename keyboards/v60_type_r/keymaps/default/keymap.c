@@ -17,7 +17,7 @@
 /* This is the default ANSI layout provided by the KBP V60 Type R
 * as depicted in their manual and on the stock keycaps.
 */
-#include "v60_type_r.h"
+#include QMK_KEYBOARD_H
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
