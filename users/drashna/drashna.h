@@ -95,6 +95,8 @@ enum userspace_custom_keycodes {
   KC_SECRET_4,
   KC_SECRET_5,
   KC_CCCV,
+  KC_NUKE,
+
 #ifdef UNICODE_ENABLE
   UC_FLIP,
 #endif //UNICODE_ENABLE
