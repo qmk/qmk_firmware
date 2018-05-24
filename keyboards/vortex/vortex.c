@@ -41,9 +41,13 @@
 #define PKT_LEN RAW_EPSIZE
 static uint8_t packet_buf[PKT_LEN];
 
-uint8_t current_layout = 0;
+// Default keymaps
+extern const uint16_t keymaps_default[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
+extern const uint16_t keymaps_default_size;
+
 extern const uint8_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
 extern const char *layout_names;
+uint8_t current_layout = 0;
 
 const uint8_t firmware_id[] __attribute__ ((section (".id.firmware"))) = {
     PRODUCT_ID & 0xFF, (PRODUCT_ID >> 8) & 0xFF,
@@ -113,16 +117,23 @@ void OVERRIDE bootloader_jump(void) {
     firmware_reset(RESET_BL_MAGIC);
 }
 
-void OVERRIDE matrix_init_kb(void) {
+static void keymap_load(void) {
+    const uint32_t keymap_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t);
     // Check eeprom keymap signature
     uint8_t sig[EE_KEYMAP_SIG_LEN];
     spi_read(EE_KEYMAP_ADDR, EE_KEYMAP_SIG_LEN, sig);
     if(memcmp(sig, EE_KEYMAP_SIG, EE_KEYMAP_SIG_LEN) == 0){
-        // Load keymaps from eeprom
-        const uint32_t keymap_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t);
+        printf("Load Keymaps from EEPROM\n");
         spi_read(EE_KEYMAP_ADDR + EE_KEYMAP_SIG_LEN, keymap_size, (uint8_t *)keymaps);
+    } else {
+        printf("Load Default Keymaps\n");
+        memset(keymaps, 0, keymap_size);
+        memcpy(keymaps, keymaps_default, keymaps_default_size);
     }
+}
 
+void OVERRIDE matrix_init_kb(void) {
+    keymap_load();
     matrix_init_user();
 }
 
@@ -367,6 +378,12 @@ void OVERRIDE raw_hid_receive(uint8_t *data_in, uint8_t length) {
                         spi_write(EE_KEYMAP_ADDR, EE_KEYMAP_SIG_LEN, (const uint8_t *)EE_KEYMAP_SIG);
                         spi_wait_wip();
                         spi_write(EE_KEYMAP_ADDR + EE_KEYMAP_SIG_LEN, total_size, (const uint8_t *)keymaps);
+                        break;
+                    }
+                    case SUB_KM_RELOAD: {
+                        printf("Reload Keymap\n");
+                        keymap_load();
+                        break;
                     }
                 }
                 break;

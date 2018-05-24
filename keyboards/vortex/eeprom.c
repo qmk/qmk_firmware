@@ -23,7 +23,7 @@
 #include "vortex.h"
 #include "gd25q_flash.h"
 
-#define EEPROM_SIZE 524288 // 4Mbit = 512KiB
+#define EEPROM_SIZE 0x80000 // 4Mbit = 512KiB
 
 const uint8_t tx_rdsrl[] = { GD25Q_RDSR_L, 0 };
 
@@ -97,7 +97,7 @@ void spi_wait_wip(void) {
     do {
         // read status byte
         spi_txrx(1, NULL, &rx_data);
-    } while((rx_data & GD25Q_SR_WIP) == 0);
+    } while(rx_data & GD25Q_SR_WIP);
     spi_deselect();
 }
 

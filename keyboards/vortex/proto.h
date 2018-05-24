@@ -37,6 +37,7 @@ enum qmk_cmd {
     KM_PAGE_STRS    = 2,    //!< Layout string page.
     SUB_KM_WRITE    = 2,    //!< Write to keymap.
     SUB_KM_COMMIT   = 3,    //!< Commit keymap to EEPROM.
+    SUB_KM_RELOAD   = 4,    //!< Load keymap from EEPROM.
 
     CMD_BACKLIGHT   = 0x84, //!< Backlight commands.
     SUB_BL_INFO     = 0,    //!< Backlight map info (layers, rows, cols, type size).

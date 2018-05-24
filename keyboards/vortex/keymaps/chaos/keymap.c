@@ -18,7 +18,7 @@
 #include "vortex.h"
 #include "print.h"
 
-uint16_t keymaps[MAX_LAYERS][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t keymaps_default[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(KEYMAP_60_ANSI)
     [0] = LAYOUT_60_ansi(
         KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
@@ -64,6 +64,8 @@ uint16_t keymaps[MAX_LAYERS][MATRIX_ROWS][MATRIX_COLS] = {
     #error "No Keymap!"
 #endif
 };
+const uint16_t keymaps_default_size = sizeof(keymaps_default);
+uint16_t keymaps[MAX_LAYERS][MATRIX_ROWS][MATRIX_COLS];
 
 const uint16_t fn_actions[] = {
 
