@@ -12,7 +12,7 @@
                                   SONG(OVERWATCH_THEME) \
                                 }
 
-#define AUDIO_CLICKY_FREQ_RANDOMNESS 0.1f
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
 
 #endif
 

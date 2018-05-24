@@ -52,6 +52,8 @@ extern bool clicky_enable;
 void rgblight_sethsv_default_helper(uint8_t index);
 #endif // RGBLIGHT_ENABLE
 
+void tap(uint16_t keycode);
+
 #define EECONFIG_USERSPACE (uint8_t *)20
 
 typedef union {

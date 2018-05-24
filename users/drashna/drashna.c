@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "drashna.h"
 #include "version.h"
 #include "eeprom.h"
-
+#include "tap_dances.h"
 
 #if (__has_include("secrets.h") && !defined(NO_SECRETS))
 #include "secrets.h"
@@ -34,7 +34,6 @@ static const char * const secret[] = {
 };
 #endif
 
-
 float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
 
@@ -43,7 +42,6 @@ static uint16_t copy_paste_timer;
 userspace_config_t userspace_config;
 
 //  Helper Functions
-void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
 #ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index) {
@@ -67,71 +65,7 @@ void rgblight_sethsv_default_helper(uint8_t index) {
 }
 #endif // RGBLIGHT_ENABLE
 
-
-// =========================================  TAP DANCE  =========================================
-#ifdef TAP_DANCE_ENABLE
-//define diablo macro timer variables
-static uint16_t diablo_timer[4];
-static uint8_t diablo_times[] = { 0, 1, 3, 5, 10, 30 };
-static uint8_t diablo_key_time[4];
-
-// has the correct number of seconds elapsed (as defined by diablo_times)
-bool check_dtimer(uint8_t dtimer) { return (timer_elapsed(diablo_timer[dtimer]) < (diablo_key_time[dtimer] * 1000)) ? false : true; };
-
-// Cycle through the times for the macro, starting at 0, for disabled.
-// Max of six values, so don't exceed
-void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data, uint8_t diablo_key) {
-  if (state->count >= 7) {
-    diablo_key_time[diablo_key] = diablo_times[0];
-    reset_tap_dance(state);
-  }  else {
-    diablo_key_time[diablo_key] = diablo_times[state->count - 1];
-  }
-}
-
-// Would rather have one function for all of this, but no idea how to do that...
-void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 0); }
-void diablo_tapdance2(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 1); }
-void diablo_tapdance3(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 2); }
-void diablo_tapdance4(qk_tap_dance_state_t *state, void *user_data) { diablo_tapdance_master(state, user_data, 3); }
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // tap once to disable, and more to enable timed micros
-  [TD_D3_1] = ACTION_TAP_DANCE_FN(diablo_tapdance1),
-  [TD_D3_2] = ACTION_TAP_DANCE_FN(diablo_tapdance2),
-  [TD_D3_3] = ACTION_TAP_DANCE_FN(diablo_tapdance3),
-  [TD_D3_4] = ACTION_TAP_DANCE_FN(diablo_tapdance4),
-};
-
-// Sends the key press to system, but only if on the Diablo layer
-void send_diablo_keystroke(uint8_t diablo_key) {
-  if (biton32(layer_state) == _DIABLO) {
-    switch (diablo_key) {
-      case 0:
-        tap(KC_1); break;
-      case 1:
-        tap(KC_2); break;
-      case 2:
-        tap(KC_3); break;
-      case 3:
-        tap(KC_4); break;
-    }
-  }
-}
-
-// Checks each of the 4 timers/keys to see if enough time has elapsed
-// Runs the "send string" command if enough time has passed, and resets the timer.
-void run_diablo_macro_check(void) {
-  uint8_t dtime;
-  for (dtime = 0; dtime < 4; dtime++) {
-    if (check_dtimer(dtime) && diablo_key_time[dtime]) {
-      diablo_timer[dtime] = timer_read();
-      send_diablo_keystroke(dtime);
-    }
-  }
-}
-#endif // TAP_DANCE_ENABLE
+void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
 
 // Add reconfigurable functions here, for keymap customization
@@ -164,6 +98,10 @@ void matrix_init_user(void) {
   uint8_t default_layer = eeconfig_read_default_layer();
   userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
 
+#ifdef AUDIO_CLICKY
+  clicky_enable = userspace_config.clicky_enable;
+#endif
+
 #ifdef BOOTLOADER_CATERINA
   DDRD &= ~(1<<5);
   PORTD &= ~(1<<5);
@@ -194,10 +132,6 @@ void matrix_init_user(void) {
   #endif // RGBLIGHT_ENABLE
     }
   }
-
-#ifdef AUDIO_CLICKY
-  clicky_enable = userspace_config.clicky_enable;
-#endif
 
 #if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
 	set_unicode_input_mode(UC_WINC);
@@ -241,7 +175,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
 #endif //CONSOLE_ENABLE
-
 
   switch (keycode) {
   case KC_QWERTY:
@@ -358,17 +291,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // MACROS_ENABLED
 
 
-#ifdef TAP_DANCE_ENABLE
   case KC_DIABLO_CLEAR:  // reset all Diablo timers, disabling them
+#ifdef TAP_DANCE_ENABLE
     if (record->event.pressed) {
       uint8_t dtime;
       for (dtime = 0; dtime < 4; dtime++) {
         diablo_key_time[dtime] = diablo_times[0];
       }
     }
+#endif // TAP_DANCE_ENABLE#endif
     return false; break;
-#endif // TAP_DANCE_ENABLE
-
 
   case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
 #ifdef RGBLIGHT_ENABLE
