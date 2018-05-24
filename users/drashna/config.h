@@ -11,6 +11,9 @@
                                   SONG(DVORAK_SOUND), \
                                   SONG(OVERWATCH_THEME) \
                                 }
+
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 0.1f
+
 #endif
 
 #ifdef RGBLIGHT_ENABLE
