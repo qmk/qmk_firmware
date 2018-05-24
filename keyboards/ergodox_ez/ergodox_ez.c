@@ -112,11 +112,14 @@ uint8_t init_mcp23018(void) {
     // uint8_t sreg_prev;
     // sreg_prev=SREG;
     // cli();
-    if (i2c_initialized == 0) {
-        i2c_init();  // on pins D(1,0)
-        i2c_initialized = true;
-        _delay_ms(1000);
-    }
+
+    // if (i2c_initialized == 0) {
+    //     i2c_init();  // on pins D(1,0)
+    //     i2c_initialized = true;
+    //     _delay_ms(1000);
+    // }
+    i2c_init(); // on pins D(1,0)
+    _delay_ms(1000);
 
     // set pin direction
     // - unused  : input  : 1
