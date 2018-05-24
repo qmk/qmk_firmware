@@ -1,4 +1,4 @@
-#include "kc60.h"
+#include QMK_KEYBOARD_H
 
 #define _WM 0
 #define _QW 1
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |Ctrl | Alt | GUI |  Space/FN   | Alt | GUI | Ctrl | qwerty |
 * `-----------------------------------------------------------'
 */
-[_WM] = KEYMAP( /* Workman */
+[_WM] = LAYOUT( /* Workman */
   KC_ESC,           KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
   KC_TABM,          KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS, \
   KC_LCTL,          KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I,    KC_QUOT, _______, KC_ENT,  \
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |Ctrl | Alt | GUI |  Space/FN  | Alt | GUI | Ctrl | workman |
 * `-----------------------------------------------------------'
 */
-[_QW] = KEYMAP( /* QWERTY */
+[_QW] = LAYOUT( /* QWERTY */
   KC_ESC,           KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
   KC_TABM,          KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
   KC_LCTL,          KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, _______, KC_ENT,  \
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |Ctrl | Alt | GUI |       ,       | Alt | GUI | Ctrl |      |
 * `-----------------------------------------------------------'
 */
-[_DK] = KEYMAP( /* dead key layer */
+[_DK] = LAYOUT( /* dead key layer */
   XXXXXXX,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSPC, \
   XXXXXXX,          KC_PERC, KC_AMPR, KC_QUES, KC_PLUS, KC_AT,   KC_DLR,  KC_UNDS, KC_LBRC, KC_RBRC, KC_EXLM, KC_TILD, KC_CIRC, _______, \
   _______,          KC_HASH, KC_LPRN, KC_EQL,  KC_0,    KC_LCBR, KC_RCBR, KC_1,    KC_ASTR, KC_RPRN, KC_MINS, KC_GRV,  _______, KC_CENT, \
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |Ctrl | Alt | GUI |              | Alt | GUI | Ctrl | Reset |
 * `-----------------------------------------------------------'
 */
-[_FUN] = KEYMAP( /* function layer */
+[_FUN] = LAYOUT( /* function layer */
   KC_TRNS,          KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
   KC_ESC,           KC_CMDQ, KC_CMDD, KC_CSTB, KC_C_TB, _______, _______, KC_PGDN, KC_UP,   KC_PGUP, _______, _______, _______, KC_INS,  \
   KC_LSFT,          KC_CMDA, KC_CMDS, KC_C_LF, KC_C_RT, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_HOME, KC_END,  _______, KC_BSPC, \
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * |     |     |     |      lc       |     |     |      |      |
 * `-----------------------------------------------------------'
 */
-[_MS] = KEYMAP( /* mouse layer */
+[_MS] = LAYOUT( /* mouse layer */
   XXXXXXX,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   XXXXXXX,          KC_ACL2, KC_ACL1, KC_ACL0, _______, _______, _______, _______, KC_MS_U, _______, _______, _______, _______, _______, \
   _______,          _______, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN2, _______, _______, _______, \

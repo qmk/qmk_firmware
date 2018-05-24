@@ -17,6 +17,10 @@
                 "to": "feature_advanced_keycodes.html"
             },
             {
+                "from": "glossary.html",
+                "to": "reference_glossary.html"
+            },
+            {
                 "from": "key_lock.html",
                 "to": "feature_key_lock.html"
             },
