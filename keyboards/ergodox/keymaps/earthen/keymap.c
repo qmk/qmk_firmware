@@ -164,9 +164,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                _______,_______,_______,
        // right hand
        _______, KC_F6,   KC_F7,  KC_F8,   KC_F9,   KC_F10,  KC_F11,
-       CHOME,   CH_CELA,   CH_DQOT,   CH_QUOT,    CH_AMPR,    CH_PAST, KC_F12,
-                CH_ACUT, CH_BSLS,   CH_SLSH,    CH_QST,    KC_PPLS, _______,
-       _______, CH_PARA, CH_LESS,   CH_MORE,    CH_EQL,    CH_MINS, _______,
+       CHOME,   CH_CELA,   CH_DQOT,   CH_QUOT,    CH_PARA,    CH_PAST, KC_F12,
+                CH_ACUT, CH_BSLS,   CH_SLSH,    CH_QST,    CH_PLUS, _______,
+       _______, CH_AMPR, CH_LESS,   CH_MORE,    CH_EQL,    CH_MINS, _______,
                          _______,_______,  _______,    _______,  _______,
        _______, _______,
        _______,
