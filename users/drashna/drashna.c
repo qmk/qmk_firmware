@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "version.h"
 #include "eeprom.h"
 #include "tap_dances.h"
+#include "rgb_stuff.h"
 
 
 float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
@@ -51,6 +52,21 @@ void rgblight_sethsv_default_helper(uint8_t index) {
   }
 }
 #endif // RGBLIGHT_ENABLE
+
+// This block is for all of the gaming macros, as they were all doing
+// the same thing, but with differring text sent.
+bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
+  if (!record->event.pressed || override) {
+    clear_keyboard();
+    tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
+    wait_ms(50);
+    send_string(str);
+    wait_ms(50);
+    tap(KC_ENTER);
+  }
+  if (override) wait_ms(3000);
+  return false;
+}
 
 void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
@@ -139,24 +155,14 @@ void matrix_scan_user(void) {
   run_diablo_macro_check();
 #endif // TAP_DANCE_ENABLE
 
+#ifdef RGBLIGHT_TWINKLE
+  scan_rgblight_fadeout();
+#endif // RGBLIGHT_ENABLE
+
   matrix_scan_keymap();
 }
 
 
-// This block is for all of the gaming macros, as they were all doing
-// the same thing, but with differring text sent.
-bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
-  if (!record->event.pressed || override) {
-    clear_keyboard();
-    tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
-    wait_ms(50);
-    send_string(str);
-    wait_ms(50);
-    tap(KC_ENTER);
-  }
-  if (override) wait_ms(3000);
-  return false;
-}
 
 
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
@@ -369,7 +375,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // UNICODE_ENABLE
 
   }
-  return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
+  return process_record_keymap(keycode, record) && process_record_secrets(keycode, record) && process_record_user_rgb(keycode, record);
 }
 
 
