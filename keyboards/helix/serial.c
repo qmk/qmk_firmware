@@ -12,7 +12,7 @@
 #include <stdbool.h>
 #include "serial.h"
 
-#ifndef USE_I2C
+#ifdef USE_SERIAL
 
 // Serial pulse period in microseconds. Its probably a bad idea to lower this
 // value.
