@@ -77,5 +77,6 @@ void matrix_scan_kb(void) {
 
   rgblight_task();
   /* Nothing else for now. */
+
   matrix_scan_user();
 }
