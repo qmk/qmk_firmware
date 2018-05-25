@@ -16,7 +16,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "bigswitch.h"
 
+volatile uint8_t runonce = true;
+static uint16_t my_timer;
+
 void matrix_init_user(void) {
-  rgblight_enable();
-  rgblight_mode(9);
+  my_timer = timer_read();
+}
+
+void matrix_scan_user(void) {
+  if (runonce && timer_elapsed(my_timer) > 1000) {
+    runonce = false;
+    rgblight_sethsv(0x0, 0xff, 0x80);
+    rgblight_mode(9);
+    rgblight_enable();
+  }
 }
