@@ -20,19 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "eeprom.h"
 #include "tap_dances.h"
 
-#if (__has_include("secrets.h") && !defined(NO_SECRETS))
-#include "secrets.h"
-#else
-// `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
-// And I'm not familiar enough to know which is better or why...
-static const char * const secret[] = {
-  "test1",
-  "test2",
-  "test3",
-  "test4",
-  "test5"
-};
-#endif
 
 float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
@@ -250,15 +237,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-
-  case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
-    if (!record->event.pressed && !userspace_config.nuke_switch) {
-      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-      send_string(secret[keycode - KC_SECRET_1]);
-    }
-    return false;
-    break;
-
+/*  Code has been depreciated
+    case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
+      if (!record->event.pressed) {
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        send_string(decoy_secret[keycode - KC_SECRET_1]);
+      }
+      return false;
+      break;
+*/
 
 // These are a serious of gaming macros.
 // Only enables for the viterbi, basically,
