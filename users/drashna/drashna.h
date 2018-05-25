@@ -53,6 +53,8 @@ void rgblight_sethsv_default_helper(uint8_t index);
 #endif // RGBLIGHT_ENABLE
 
 void tap(uint16_t keycode);
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
+
 
 #define EECONFIG_USERSPACE (uint8_t *)20
 

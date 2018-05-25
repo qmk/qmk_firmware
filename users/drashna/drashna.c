@@ -254,12 +254,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-  case KC_NUKE:
-    if (!record->event.pressed) {
-      userspace_config.nuke_switch ^= 1;
-      eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
-    }
-    return false; break;
 
 // These are a serious of gaming macros.
 // Only enables for the viterbi, basically,
@@ -383,7 +377,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // UNICODE_ENABLE
 
   }
-  return process_record_keymap(keycode, record);
+  return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
 }
 
 

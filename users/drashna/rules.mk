@@ -10,6 +10,8 @@ EXTRAFLAGS        += -flto
 
 ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS
+else
+  SRC += secrets.c
 endif
 
 ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
