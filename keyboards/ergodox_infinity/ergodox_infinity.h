@@ -118,8 +118,7 @@ inline void ergodox_led_all_set(uint8_t n) {
     { B80,   B81,   B82,   B83,   B84 }  \
 }
 
-#define LAYOUT_ergodox_pretty(                                                                      \
-    /* left hand, spatial positions */     /* right hand, spatial positions */              \
+#define LAYOUT_ergodox_pretty(                                                              \
     A80, A70, A60, A50, A40, A30, A20,               B20, B30, B40, B50, B60, B70, B80,     \
     A81, A71, A61, A51, A41, A31, A21,               B21, B31, B41, B51, B61, B71, B81,     \
     A82, A72, A62, A52, A42, A32,                         B32, B42, B52, B62, B72, B82,     \
@@ -129,7 +128,6 @@ inline void ergodox_led_all_set(uint8_t n) {
                                        A04,     B04,                                        \
                              A34, A24, A14,     B14, B24, B34 )                             \
                                                                                             \
-   /* matrix positions */                \
  {                                       \
     { KC_NO, KC_NO, KC_NO, A03,   A04 }, \
     { KC_NO, KC_NO, KC_NO, A13,   A14 }, \
