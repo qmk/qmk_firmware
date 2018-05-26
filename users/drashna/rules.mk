@@ -12,8 +12,10 @@ ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS
 endif
 
-ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
-    OPT_DEFS += -DINDICATOR_LIGHTS
+ifdef RGBLIGHT_ENABLE
+  ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
+      OPT_DEFS += -DINDICATOR_LIGHTS
+  endif
 endif
 
 ifeq ($(strip $(MACROS_ENABLED)), yes)
@@ -23,5 +25,12 @@ endif
 ifdef RGBLIGHT_ENABLE
   ifeq ($(strip $(RGBLIGHT_TWINKLE)), yes)
     OPT_DEFS += -DRGBLIGHT_TWINKLE
+  endif
+endif
+
+
+ifdef CONSOLE_ENABLE
+  ifeq ($(strip $(KEYLOGGER_ENABLE)), yes)
+    OPT_DEFS += -DKEYLOGGER_ENABLE
   endif
 endif
