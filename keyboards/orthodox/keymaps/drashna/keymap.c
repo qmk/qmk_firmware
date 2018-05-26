@@ -97,26 +97,22 @@ void matrix_init_keymap(void) {
 #ifdef INDICATOR_LIGHTS
   last_mod = get_mods();
   last_led = host_keyboard_leds();
-  last_osm =get_oneshot_mods();
+  last_osm = get_oneshot_mods();
 #endif
 }
 
 uint32_t layer_state_set_keymap (uint32_t state) {
 #ifdef INDICATOR_LIGHTS
-  uint8_t modifiders = get_mods();
-  uint8_t led_usb_state = host_keyboard_leds();
-  uint8_t one_shot = get_oneshot_mods();
 
-
-  if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
+  if (last_mod & MODS_SHIFT_MASK || last_led & (1<<USB_LED_CAPS_LOCK) || last_osm & MODS_SHIFT_MASK) {
     rgblight_sethsv_at(0, 255, 255, 5);
     rgblight_sethsv_at(0, 255, 255, 10);
   }
-  if (modifiders & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
+  if (last_mod & MODS_CTRL_MASK || last_osm & MODS_CTRL_MASK) {
     rgblight_sethsv_at(51, 255, 255, 6);
     rgblight_sethsv_at(51, 255, 255, 9);
   }
-  if (modifiders & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
+  if (last_mod & MODS_ALT_MASK || last_osm & MODS_ALT_MASK) {
     rgblight_sethsv_at(120, 255, 255, 7);
     rgblight_sethsv_at(120, 255, 255, 8);
   }
@@ -131,23 +127,18 @@ void matrix_scan_keymap (void) {
 #ifdef INDICATOR_LIGHTS
   uint8_t current_mod = get_mods();
   uint8_t current_led = host_keyboard_leds();
-  uint8_t current_osm =get_oneshot_mods();
+  uint8_t current_osm = get_oneshot_mods();
 
-  if (last_mod == current_mod) {
-    last_mod = current_mod;
+  if (current_mod == last_mod || current_led == last_led || current_osm == last_osm) {
     has_mods_changed = true;
   }
-  if (last_led == current_led) {
-    last_led = current_led;
-    has_mods_changed = true;
-  }
-  if (last_osm == current_osm) {
-    last_osm = current_osm;
-    has_mods_changed = true;
-  }
+  last_mod = current_mod;
+  last_led = current_led;
+  last_osm = current_osm;
 
 
   if (userspace_config.rgb_layer_change && has_mods_changed && biton32(layer_state) == 0) {
+    has_mods_changed = false;
     if (current_mod & MODS_SHIFT_MASK || current_led & (1<<USB_LED_CAPS_LOCK) || current_osm & MODS_SHIFT_MASK) {
       rgblight_sethsv_at(0, 255, 255, 5);
       rgblight_sethsv_at(0, 255, 255, 10);
@@ -175,3 +166,7 @@ void matrix_scan_keymap (void) {
 
 }
 
+bool indicator_is_this_led_used(uint8_t index) {
+  if (index == 5 || index == 6 || index == 7 || index == 8 || index == 9 || index == 10) { return true; }
+  return false;
+}
