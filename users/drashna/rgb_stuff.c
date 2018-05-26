@@ -2,6 +2,13 @@
 #include "rgb_stuff.h"
 #include "drashna.h"
 
+#ifdef RGBLIGHT_ENABLE
+void rgblight_sethsv_default_helper(uint8_t index) {
+  extern rgblight_config_t rgblight_config;
+  rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, index);
+}
+#endif // RGBLIGHT_ENABLE
+
 #ifdef RGBLIGHT_TWINKLE
 static rgblight_fadeout lights[RGBLED_NUM];
 

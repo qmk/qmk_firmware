@@ -31,27 +31,7 @@ userspace_config_t userspace_config;
 
 //  Helper Functions
 
-#ifdef RGBLIGHT_ENABLE
-void rgblight_sethsv_default_helper(uint8_t index) {
-  uint8_t default_layer = eeconfig_read_default_layer();
-  if (default_layer & (1UL << _COLEMAK)) {
-    rgblight_sethsv_at(300, 255, 255, index);
-    rgblight_sethsv_at(300, 255, 255, index);
-  }
-  else if (default_layer & (1UL << _DVORAK)) {
-    rgblight_sethsv_at(120, 255, 255, index);
-    rgblight_sethsv_at(120, 255, 255, index);
-  }
-  else if (default_layer & (1UL << _WORKMAN)) {
-    rgblight_sethsv_at(43, 255, 255, index);
-    rgblight_sethsv_at(43, 255, 255, index);
-  }
-  else {
-    rgblight_sethsv_at(180, 255, 255, index);
-    rgblight_sethsv_at(180, 255, 255, index);
-  }
-}
-#endif // RGBLIGHT_ENABLE
+
 
 // This block is for all of the gaming macros, as they were all doing
 // the same thing, but with differring text sent.

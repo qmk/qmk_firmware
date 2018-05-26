@@ -16,18 +16,14 @@ ifdef RGBLIGHT_ENABLE
   ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
       OPT_DEFS += -DINDICATOR_LIGHTS
   endif
-endif
-
-ifeq ($(strip $(MACROS_ENABLED)), yes)
-    OPT_DEFS += -DMACROS_ENABLED
-endif
-
-ifdef RGBLIGHT_ENABLE
   ifeq ($(strip $(RGBLIGHT_TWINKLE)), yes)
     OPT_DEFS += -DRGBLIGHT_TWINKLE
   endif
 endif
 
+ifeq ($(strip $(MACROS_ENABLED)), yes)
+    OPT_DEFS += -DMACROS_ENABLED
+endif
 
 ifdef CONSOLE_ENABLE
   ifeq ($(strip $(KEYLOGGER_ENABLE)), yes)
