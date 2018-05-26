@@ -26,6 +26,12 @@ void matrix_scan_user(void) {
     SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
       SEND_STRING("https://start.duckduckgo.com"SS_TAP(X_ENTER));
     }
+    SEQ_TWO_KEYS(KC_A, KC_S) {
+      register_code(KC_LGUI);
+      register_code(KC_S);
+      unregister_code(KC_S);
+      unregister_code(KC_LGUI);
+    }
   }
 }
 ```
