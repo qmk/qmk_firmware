@@ -1,4 +1,4 @@
-#include "amjpad.h"
+#include QMK_KEYBOARD_H
 
 #ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------'
    */
 
-[_BL] = KEYMAP(
+[_BL] = LAYOUT(
   KC_ESC,KC_TAB,KC_BSPC,KC_PEQL, \
   KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS, \
   KC_P7, KC_P8, KC_P9, KC_PPLS,  \
@@ -56,8 +56,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |   0     |./FN|    |
    * `-------------------'
    */
-[_FL] = KEYMAP(
-  
+[_FL] = LAYOUT(
+
   KC_ESC,KC_TAB,KC_BSPC,KC_PEQL, \
   KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
   KC_P7, KC_P8, KC_P9, RESET,  \

@@ -1,4 +1,4 @@
-#include "amjpad.h"
+#include QMK_KEYBOARD_H
 
 #ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------'
    */
 
-[_BL] = MAXKEYMAP(
+[_BL] = LAYOUT_all(
 
   KC_ESC,  KC_TAB,  KC_MINS,KC_EQL,  \
   KC_F1,   KC_F2,   KC_F3,  KC_F4,   \
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |   0     |./FN|    |
    * `-------------------'
    */
-[_FL] = MAXKEYMAP(
+[_FL] = LAYOUT_all(
 
   KC_ESC,KC_TAB,KC_BSPC,KC_PEQL, \
   KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
