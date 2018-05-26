@@ -129,7 +129,8 @@ void matrix_scan_keymap (void) {
   uint8_t current_led = host_keyboard_leds();
   uint8_t current_osm = get_oneshot_mods();
 
-  if (current_mod == last_mod || current_led == last_led || current_osm == last_osm) {
+  if (current_mod != last_mod || current_led != last_led || current_osm != last_osm) {
+    xprintf("Mods have been updated: %u, %u, %u\nPrevious mods were:     %u, %u, %u\n\n", current_mod, current_led, current_osm, last_mod, last_led, last_osm);
     has_mods_changed = true;
   }
   last_mod = current_mod;
