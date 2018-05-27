@@ -1,13 +1,10 @@
-CANOE
+Canoe
 ========
 
-A 65% keyboard with some RGB
+A 60% keyboard with some RGB
 
 Keyboard Maintainer: QMK Community
-
-Hardware Supported: Canoe
-
-Hardware Availability: https://geekhack.org/index.php?topic=92418.0
+Hardware Supported: Percent Canoe PCB
 
 Make example for this keyboard (after setting up your build environment):
 
