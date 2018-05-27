@@ -49,7 +49,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_kc(
+  [_QWERTY] = LAYOUT(
   // ,----+-----+-----+-----+-----+-----,         ,----+-----+-----+-----+-----+-----,
        TAB,    Q,    W,    E,    R,    T,             Y,    U,    I,    O,    P, BSPC,
   // |----+-----+-----+-----+-----+-----|         |----+-----+-----+-----+-----+-----|
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                     `----+-----+-----`     `----+-----+-----`
    ),
 
-  [_LOWER] = LAYOUT_kc(
+  [_LOWER] = LAYOUT(
   // ,----+-----+-----+-----+-----+-----,         ,----+-----+-----+-----+-----+-----,
        ESC,    1,    2,    3,    4,    5,             6,    7,    8,    9,    0,  DEL,
   // |----+-----+-----+-----+-----+-----|         |----+-----+-----+-----+-----+-----|
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                     `----+-----+-----`     `----+-----+-----`
   ),
 
-  [_RAISE] = LAYOUT_kc(
+  [_RAISE] = LAYOUT(
   // ,----+-----+-----+-----+-----+-----,         ,----+-----+-----+-----+-----+-----,
        GRV, EXLM,   AT, HASH,  DLR, PERC,          CIRC, AMPR, ASTR, LPRN, RPRN,  DEL,
   // |----+-----+-----+-----+-----+-----|         |----+-----+-----+-----+-----+-----|
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               ,     ,     ,          ,     ,
   //                     `----+-----+-----`     `----+-----+-----`
    ),
-  [_ADJUST] = LAYOUT_kc(
+  [_ADJUST] = LAYOUT(
   // ,----+-----+-----+-----+-----+-----,         ,----+-----+-----+-----+-----+-----,
       STOG, xxxx, xxxx, xxxx,  RST, xxxx,          ROOT, PPLY, PSEF, xxxx, xxxx,  CAD,
   // |----+-----+-----+-----+-----+-----|         |----+-----+-----+-----+-----+-----|
