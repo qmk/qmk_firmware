@@ -1,10 +1,10 @@
 
 #include "rgb_stuff.h"
 #include "drashna.h"
+  extern rgblight_config_t rgblight_config;
 
 #ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index) {
-  extern rgblight_config_t rgblight_config;
   rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, index);
 }
 #endif // RGBLIGHT_ENABLE
@@ -23,19 +23,19 @@ void scan_rgblight_fadeout(void) {
       litup = true;
 
       if (light->life) {
-        if (biton32(layer_state) == _QWERTY) {
-          light->life -= 1;
+        light->life -= 1;
+        if (biton32(layer_state) == 0) {
           sethsv(light->hue + rand() % 0xF, 255, light->life, (LED_TYPE *)&led[light_index]);
         }
         light->timer = timer_read();
       }
       else {
-        if (light->enabled) { rgblight_sethsv_default_helper(light_index); }
+        if (light->enabled && biton32(layer_state) == 0) { rgblight_sethsv_default_helper(light_index); }
         litup = light->enabled = false;
       }
     }
   }
-  if (litup) {
+  if (litup && biton32(layer_state) == 0) {
     rgblight_set();
   }
 }
@@ -75,7 +75,7 @@ void start_rgb_light(void) {
     light->timer = timer_read();
     light->life = 0xC0 + rand() % 0x40;
 
-    light->hue = rand() % 0x168;
+    light->hue = rgblight_config.hue - (rand() % 0x20) + 10;
 
     rgblight_sethsv_at(light->hue, 255, light->life, light_index);
 }
