@@ -8,7 +8,6 @@ extern userspace_config_t userspace_config;
 uint8_t last_mod;
 uint8_t last_led;
 uint8_t last_osm;
-bool has_mods_changed = false;
 #endif
 
 #define KC_ALAP ALT_T(KC_APP)
@@ -116,16 +115,12 @@ void matrix_scan_keymap (void) {
   uint8_t current_led = host_keyboard_leds();
   uint8_t current_osm = get_oneshot_mods();
 
-  if (current_mod == last_mod || current_led == last_led || current_osm == last_osm) {
-    has_mods_changed = true;
-  }
   last_mod = current_mod;
   last_led = current_led;
   last_osm = current_osm;
 
 
-  if (userspace_config.rgb_layer_change && has_mods_changed && biton32(layer_state) == 0) {
-    has_mods_changed = false;
+  if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
     if (current_mod & MODS_SHIFT_MASK || current_led & (1<<USB_LED_CAPS_LOCK) || current_osm & MODS_SHIFT_MASK) {
       rgblight_sethsv_at(0, 255, 255, 5);
       rgblight_sethsv_at(0, 255, 255, 10);
@@ -146,9 +141,13 @@ void matrix_scan_keymap (void) {
     } else {
       rgblight_sethsv_default_helper(7);
       rgblight_sethsv_default_helper(8);
-
     }
   }
 #endif
 
+}
+
+bool indicator_is_this_led_used(uint8_t index) {
+  if (index == 5 || index == 6 || index == 7 || index == 8 || index == 9 || index == 10) { return true; }
+  return false;
 }
