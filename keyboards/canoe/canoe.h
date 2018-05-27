@@ -22,8 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define LAYOUT_ISO( \
   K0D, K0C, K0B, K0A, K09, K08, K07, K06, K05, K04, K03, K02, K01, K00, K0E, \
-  K1D, K1C, K1B, K1A, K19, K18, K17, K16, K15, K14, K13, K12, K11, K10, K1E, \
-  K2D, K2C, K2B, K2A, K29, K28, K27, K26, K25, K24, K23, K22, K21, K2E, \
+  K1D, K1C, K1B, K1A, K19, K18, K17, K16, K15, K14, K13, K12, K11, K1E, \
+  K2D, K2C, K2B, K2A, K29, K28, K27, K26, K25, K24, K23, K22, K10, K21, K2E, \
   K3D, K4A, K3C, K3B, K3A, K39, K38, K37, K36, K35, K34, K33, K32, K30, K3E, \
   K4D, K4C, K4B, K48, K44, K43, K42, K40, K4E \
 ){ \
