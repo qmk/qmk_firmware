@@ -25,11 +25,35 @@ enum custom_keycodes {
 };
 
 enum {
-  TD_MEDIA = 0
+  CT_media
 };
-
+void user_fn_on_dance_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 2) {
+    register_code (KC_MFFD);
+  }
+  if(state->count == 3){
+    register_code(KC_MRWD);
+  }
+  else {
+    register_code (KC_MPLY);
+  }
+}
+void user_fn_on_dance_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 2) {
+    unregister_code (KC_MFFD);
+  }
+  if(state->count == 3){
+    unregister_code(KC_MRWD);
+  }
+  else {
+    unregister_code (KC_MPLY);
+  }
+}
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_MEDIA] = ACTION_TAP_DANCE_DOUBLE(KC_MPLY, KC_MRWD)
+  [CT_CLN] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, user_fn_on_dance_finished, user_fn_on_dance_reset)
+};
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [CT_media] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, user_fn_on_dance_finished, user_fn_on_dance_reset)
 };
 
 // Fillers to make layering more clear
@@ -90,6 +114,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_SLSH, \
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_ENT , \
   KC_ESC,  KC_CAPS, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+=======
+[_MOUSE] =  KEYMAP( \
+  _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U, _______, _______, _______, _______, _______, _______, _______, \
+  _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+>>>>>>> 79fa9b78b9a78a187680f9fd06cf2e365e55fcac
 ),
 
 /* raise
@@ -118,14 +149,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
+<<<<<<< HEAD
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
+=======
+ * |      |      |      |      |      |             |      | media| Vol- | Vol+ | skip |
+>>>>>>> 79fa9b78b9a78a187680f9fd06cf2e365e55fcac
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = KEYMAP( \
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
   KC_LGUI,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, _______, _______, _______, \
+<<<<<<< HEAD
   _______, _______, _______, _______, _______, _______, _______, _______, TD_MEDIA, KC_VOLD, KC_VOLU, KC_MFFD \
+=======
+  _______, _______, _______, _______, _______, _______, _______, _______, TD(CT_CLN), KC_VOLD, KC_VOLU, KC_MFFD \
+>>>>>>> 79fa9b78b9a78a187680f9fd06cf2e365e55fcac
 ),
 
 /* Adjust (Lower + Raise)
