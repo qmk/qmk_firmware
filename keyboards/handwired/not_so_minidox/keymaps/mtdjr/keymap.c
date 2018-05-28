@@ -1,7 +1,4 @@
-#include "not_so_minidox.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-#include "action_macro.h"
+#include QMK_KEYBOARD_H
 #include "solenoid.h"
 
 extern keymap_config_t keymap_config;
@@ -49,7 +46,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT(
+  [_QWERTY] = LAYOUT_kc(
   // ,----+-----+-----+-----+-----+-----,         ,----+-----+-----+-----+-----+-----,
        TAB,    Q,    W,    E,    R,    T,             Y,    U,    I,    O,    P, BSPC,
   // |----+-----+-----+-----+-----+-----|         |----+-----+-----+-----+-----+-----|
@@ -61,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                     `----+-----+-----`     `----+-----+-----`
    ),
 
-  [_LOWER] = LAYOUT(
+  [_LOWER] = LAYOUT_kc(
   // ,----+-----+-----+-----+-----+-----,         ,----+-----+-----+-----+-----+-----,
        ESC,    1,    2,    3,    4,    5,             6,    7,    8,    9,    0,  DEL,
   // |----+-----+-----+-----+-----+-----|         |----+-----+-----+-----+-----+-----|
@@ -73,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                     `----+-----+-----`     `----+-----+-----`
   ),
 
-  [_RAISE] = LAYOUT(
+  [_RAISE] = LAYOUT_kc(
   // ,----+-----+-----+-----+-----+-----,         ,----+-----+-----+-----+-----+-----,
        GRV, EXLM,   AT, HASH,  DLR, PERC,          CIRC, AMPR, ASTR, LPRN, RPRN,  DEL,
   // |----+-----+-----+-----+-----+-----|         |----+-----+-----+-----+-----+-----|
@@ -84,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               ,     ,     ,          ,     ,
   //                     `----+-----+-----`     `----+-----+-----`
    ),
-  [_ADJUST] = LAYOUT(
+  [_ADJUST] = LAYOUT_kc(
   // ,----+-----+-----+-----+-----+-----,         ,----+-----+-----+-----+-----+-----,
       STOG, xxxx, xxxx, xxxx,  RST, xxxx,          ROOT, PPLY, PSEF, xxxx, xxxx,  CAD,
   // |----+-----+-----+-----+-----+-----|         |----+-----+-----+-----+-----+-----|
