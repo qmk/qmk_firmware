@@ -122,25 +122,25 @@ void matrix_scan_keymap (void) {
 
   if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
     if (current_mod & MODS_SHIFT_MASK || current_led & (1<<USB_LED_CAPS_LOCK) || current_osm & MODS_SHIFT_MASK) {
-      rgblight_sethsv_at(0, 255, 255, 5);
-      rgblight_sethsv_at(0, 255, 255, 10);
-    } else {
-      rgblight_sethsv_default_helper(5);
-      rgblight_sethsv_default_helper(10);
-    }
-    if (current_mod & MODS_CTRL_MASK || current_osm & MODS_CTRL_MASK) {
-      rgblight_sethsv_at(51, 255, 255, 6);
-      rgblight_sethsv_at(51, 255, 255, 9);
-    } else {
-      rgblight_sethsv_default_helper(6);
-      rgblight_sethsv_default_helper(9);
-    }
-    if (current_mod & MODS_GUI_MASK || current_osm & MODS_GUI_MASK) {
-      rgblight_sethsv_at(120, 255, 255, 7);
-      rgblight_sethsv_at(120, 255, 255, 8);
+      rgblight_sethsv_at(0, 255, 255, 7);
+      rgblight_sethsv_at(0, 255, 255, 12);
     } else {
       rgblight_sethsv_default_helper(7);
+      rgblight_sethsv_default_helper(12);
+    }
+    if (current_mod & MODS_CTRL_MASK || current_osm & MODS_CTRL_MASK) {
+      rgblight_sethsv_at(51, 255, 255, 8);
+      rgblight_sethsv_at(51, 255, 255, 11);
+    } else {
       rgblight_sethsv_default_helper(8);
+      rgblight_sethsv_default_helper(11);
+    }
+    if (current_mod & MODS_GUI_MASK || current_osm & MODS_GUI_MASK) {
+      rgblight_sethsv_at(120, 255, 255, 9);
+      rgblight_sethsv_at(120, 255, 255, 10);
+    } else {
+      rgblight_sethsv_default_helper(9);
+      rgblight_sethsv_default_helper(10);
     }
   }
 #endif
@@ -148,6 +148,16 @@ void matrix_scan_keymap (void) {
 }
 
 bool indicator_is_this_led_used(uint8_t index) {
-  if (index == 5 || index == 6 || index == 7 || index == 8 || index == 9 || index == 10) { return true; }
-  return false;
+  switch (index) {
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+      return true;
+      break;
+    default:
+    return false;
+  }
 }

@@ -163,6 +163,16 @@ void matrix_scan_keymap (void) {
 }
 
 bool indicator_is_this_led_used(uint8_t index) {
-  if (index == 5 || index == 6 || index == 7 || index == 8 || index == 9 || index == 10) { return true; }
-  return false;
+  switch (index) {
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 9:
+    case 10:
+      return true;
+      break;
+    default:
+    return false;
+  }
 }
