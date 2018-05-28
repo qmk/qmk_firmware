@@ -37,23 +37,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 #endif
-
-/*
- *
- *
-  { K00, K10, KNO, K30, K40 }, \
-  { K01, K11, K21, KNO, KNO }, \
-  { K02, K12, K22, K32, K42 }, \
-  { K03, K13, K23, K33, K43 }, \
-  { K04, K14, K24, K34, K44 }, \
-  { K05, K15, K25, K35, KNO }, \
-  { K06, K16, K26, K36, KNO }, \
-  { K07, K17, K27, K37, KNO }, \
-  { K08, K18, K28, K38, K48 }, \
-  { K09, K19, K29, K39, KNO }, \
-  { K0A, K1A, K2A, K3A, KNO }, \
-  { K0B, K1B, K2B, K3B, K4B }, \
-  { K0C, K1C, K2C, K3C, K4C }, \
-  { K0D, K1D, K2D, K3D, K4D }, \
-  { K0E, K1E, K2E, K3E, K4E } \
-  */
