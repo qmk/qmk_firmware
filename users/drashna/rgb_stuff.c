@@ -75,7 +75,7 @@ void start_rgb_light(void) {
     light->timer = timer_read();
     light->life = 0xC0 + rand() % 0x40;
 
-    light->hue = rgblight_config.hue - (rand() % 0x20) + 10;
+    light->hue = rgblight_config.hue + (rand() % 0xB4) - 0x54;
 
     rgblight_sethsv_at(light->hue, 255, light->life, light_index);
 }

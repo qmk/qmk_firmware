@@ -116,12 +116,12 @@ void matrix_init_user(void) {
   #endif // RGBLIGHT_ENABLE
     } else {
   #ifdef RGBLIGHT_ENABLE
-      rgblight_sethsv_teal();
+      rgblight_sethsv_cyan();
   #endif // RGBLIGHT_ENABLE
     }
   }
 
-#if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
+#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
 	set_unicode_input_mode(UC_WINC);
 #endif //UNICODE_ENABLE
 
@@ -452,7 +452,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
     else {
 #ifdef RGBLIGHT_ENABLE
-      if (userspace_config.rgb_layer_change) { rgblight_sethsv_teal(); }
+      if (userspace_config.rgb_layer_change) { rgblight_sethsv_cyan(); }
 #endif // RGBLIGHT_ENABLE
 
     }
