@@ -25,10 +25,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
 float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
 
-
 static uint16_t copy_paste_timer;
 userspace_config_t userspace_config;
 
+#ifdef INDICATOR_LIGHTS
+uint8_t last_mod;
+uint8_t last_led;
+uint8_t last_osm;
+#endif
 //  Helper Functions
 
 
@@ -98,6 +102,12 @@ void matrix_init_user(void) {
   PORTB &= ~(1<<0);
 #endif
 
+#ifdef INDICATOR_LIGHTS
+  last_mod = get_mods();
+  last_led = host_keyboard_leds();
+  last_osm = get_oneshot_mods();
+#endif
+
   if (userspace_config.rgb_layer_change) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_enable();
@@ -138,6 +148,41 @@ void matrix_scan_user(void) {
 #ifdef RGBLIGHT_TWINKLE
   scan_rgblight_fadeout();
 #endif // RGBLIGHT_ENABLE
+
+#ifdef INDICATOR_LIGHTS
+  uint8_t current_mod = get_mods();
+  uint8_t current_led = host_keyboard_leds();
+  uint8_t current_osm = get_oneshot_mods();
+
+  last_mod = current_mod;
+  last_led = current_led;
+  last_osm = current_osm;
+
+
+  if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
+    if (current_mod & MODS_SHIFT_MASK || current_led & (1<<USB_LED_CAPS_LOCK) || current_osm & MODS_SHIFT_MASK) {
+      rgblight_sethsv_at(0, 255, 255, SHFT_LED1);
+      rgblight_sethsv_at(0, 255, 255, SHFT_LED2);
+    } else {
+      rgblight_sethsv_default_helper(SHFT_LED1);
+      rgblight_sethsv_default_helper(SHFT_LED2);
+    }
+    if (current_mod & MODS_CTRL_MASK || current_osm & MODS_CTRL_MASK) {
+      rgblight_sethsv_at(51, 255, 255, CTRL_LED1);
+      rgblight_sethsv_at(51, 255, 255, CTRL_LED2);
+    } else {
+      rgblight_sethsv_default_helper(CTRL_LED1);
+      rgblight_sethsv_default_helper(CTRL_LED2);
+    }
+    if (current_mod & MODS_GUI_MASK || current_osm & MODS_GUI_MASK) {
+      rgblight_sethsv_at(120, 255, 255, GUI_LED1);
+      rgblight_sethsv_at(120, 255, 255, GUI_LED2);
+    } else {
+      rgblight_sethsv_default_helper(GUI_LED1);
+      rgblight_sethsv_default_helper(GUI_LED2);
+    }
+  }
+#endif
 
   matrix_scan_keymap();
 }
@@ -469,6 +514,22 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
     break;
   }
+
+#ifdef INDICATOR_LIGHTS
+  if (last_mod & MODS_SHIFT_MASK || last_led & (1<<USB_LED_CAPS_LOCK) || last_osm & MODS_SHIFT_MASK) {
+    rgblight_sethsv_at(0, 255, 255, SHFT_LED1);
+    rgblight_sethsv_at(0, 255, 255, SHFT_LED2);
+  }
+  if (last_mod & MODS_CTRL_MASK || last_osm & MODS_CTRL_MASK) {
+    rgblight_sethsv_at(51, 255, 255, CTRL_LED1);
+    rgblight_sethsv_at(51, 255, 255, CTRL_LED2);
+  }
+  if (last_mod & MODS_ALT_MASK || last_osm & MODS_ALT_MASK) {
+    rgblight_sethsv_at(120, 255, 255, GUI_LED1);
+    rgblight_sethsv_at(120, 255, 255, GUI_LED2);
+  }
+#endif
+
   return layer_state_set_keymap (state);
 }
 

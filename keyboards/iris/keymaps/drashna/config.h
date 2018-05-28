@@ -58,4 +58,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Drashna Hacked Iris Rev.2
 #endif
 
+#define SHFT_LED1 6
+#define SHFT_LED2 11
+
+#define CTRL_LED1 7
+#define CTRL_LED2 10
+
+#define GUI_LED1 8
+#define GUI_LED2 9
+
 #endif

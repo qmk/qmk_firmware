@@ -92,86 +92,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void matrix_init_keymap(void) {
-#ifdef INDICATOR_LIGHTS
-  last_mod = get_mods();
-  last_led = host_keyboard_leds();
-  last_osm = get_oneshot_mods();
-#endif
-}
-
-uint32_t layer_state_set_keymap (uint32_t state) {
-#ifdef INDICATOR_LIGHTS
-
-  if (last_mod & MODS_SHIFT_MASK || last_led & (1<<USB_LED_CAPS_LOCK) || last_osm & MODS_SHIFT_MASK) {
-    rgblight_sethsv_at(0, 255, 255, 5);
-    rgblight_sethsv_at(0, 255, 255, 10);
-  }
-  if (last_mod & MODS_CTRL_MASK || last_osm & MODS_CTRL_MASK) {
-    rgblight_sethsv_at(51, 255, 255, 6);
-    rgblight_sethsv_at(51, 255, 255, 9);
-  }
-  if (last_mod & MODS_ALT_MASK || last_osm & MODS_ALT_MASK) {
-    rgblight_sethsv_at(120, 255, 255, 7);
-    rgblight_sethsv_at(120, 255, 255, 8);
-  }
-#endif
-
-  return state;
-}
-
-
-void matrix_scan_keymap (void) {
-
-#ifdef INDICATOR_LIGHTS
-  uint8_t current_mod = get_mods();
-  uint8_t current_led = host_keyboard_leds();
-  uint8_t current_osm = get_oneshot_mods();
-
-
-  last_mod = current_mod;
-  last_led = current_led;
-  last_osm = current_osm;
-
-
-  if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
-    if (current_mod & MODS_SHIFT_MASK || current_led & (1<<USB_LED_CAPS_LOCK) || current_osm & MODS_SHIFT_MASK) {
-      rgblight_sethsv_at(0, 255, 255, 5);
-      rgblight_sethsv_at(0, 255, 255, 10);
-    } else {
-      rgblight_sethsv_default_helper(5);
-      rgblight_sethsv_default_helper(10);
-    }
-    if (current_mod & MODS_CTRL_MASK || current_osm & MODS_CTRL_MASK) {
-      rgblight_sethsv_at(51, 255, 255, 6);
-      rgblight_sethsv_at(51, 255, 255, 9);
-    } else {
-      rgblight_sethsv_default_helper(6);
-      rgblight_sethsv_default_helper(9);
-    }
-    if (current_mod & MODS_GUI_MASK || current_osm & MODS_GUI_MASK) {
-      rgblight_sethsv_at(120, 255, 255, 7);
-      rgblight_sethsv_at(120, 255, 255, 8);
-    } else {
-      rgblight_sethsv_default_helper(7);
-      rgblight_sethsv_default_helper(8);
-
-    }
-  }
-#endif
-
-}
 
 bool indicator_is_this_led_used(uint8_t index) {
   switch (index) {
-    case 5:
-    case 6:
-    case 7:
-    case 8:
-    case 9:
-    case 10:
+#ifdef INDICATOR_LIGHTS
+    case SHFT_LED1:
+    case SHFT_LED2:
+    case CTRL_LED1:
+    case CTRL_LED2:
+    case GUI_LED1:
+    case GUI_LED2:
       return true;
       break;
+#endif
     default:
     return false;
   }
