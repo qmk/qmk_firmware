@@ -1,8 +1,8 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
+#include QMK_KEYBOARD_CONFIG_H
 
-#define TAPPING_TERM 250
+#define SOLENOID_ENABLE
 
 #endif
