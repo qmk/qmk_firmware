@@ -1,5 +1,4 @@
 {
-    "bootloader": "bootloadHID",
     "keyboard_name": "canoe",
     "maintainer": "qmk",
     "url": "",
