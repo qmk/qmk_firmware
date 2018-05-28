@@ -15,30 +15,18 @@ void matrix_scan_kb(void) {
 };
 
 void led_init_ports(void) {
-<<<<<<< HEAD
-  // Set capslock LED pin as pinout
-=======
-  
->>>>>>> config edit for caps indicator (#3016)
+
   DDRF |= (1 << 4);
   PORTF |= (1 << 4);
 
 }
 
 void led_set_kb(uint8_t usb_led) {
-    
+
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-<<<<<<< HEAD
-      // Turn capslock on
-      PORTF &= ~(1 << 4);
-  } else {
-      // Turn capslock off
-      PORTF |= (1 << 4);
-=======
       PORTF |= (1 << 4);
   } else {
       PORTF &= ~(1 << 4);
->>>>>>> config edit for caps indicator (#3016)
   }
   led_set_user(usb_led);
 
