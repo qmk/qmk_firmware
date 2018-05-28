@@ -4,7 +4,9 @@ CANOE
 A 65% keyboard with RGB
 
 Keyboard Maintainer: QMK Community
+
 Hardware Supported: Canoe
+
 Hardware Availability: https://geekhack.org/index.php?topic=92418.0
 
 Make example for this keyboard (after setting up your build environment):
