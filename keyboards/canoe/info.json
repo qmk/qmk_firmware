@@ -6,7 +6,7 @@
     "height": 8,
     "width": 15,
     "layouts": {
-        "LAYOUT_ISO": {
+        "LAYOUT_iso": {
             "key_count": 68,
             "layout": [
                 {
