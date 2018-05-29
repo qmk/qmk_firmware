@@ -133,19 +133,41 @@ void start_rgb_light(void) {
 
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
-    if (!record->event.pressed) { return true; }
-#ifdef RGBLIGHT_TWINKLE
     switch (keycode) {
+#ifdef RGBLIGHT_TWINKLE
     case KC_A ... KC_SLASH:
     case KC_F1 ... KC_F12:
     case KC_INSERT ... KC_UP:
     case KC_KP_SLASH ... KC_KP_DOT:
     case KC_F13 ... KC_F24:
     case KC_AUDIO_MUTE ... KC_MEDIA_REWIND:
-        start_rgb_light();
-    }
+      if (record->event.pressed) { start_rgb_light(); }
+      return true; break;
 #endif // RGBLIGHT_TWINKLE
-
+  case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
+#ifdef RGBLIGHT_ENABLE
+    if (record->event.pressed) {
+      userspace_config.rgb_layer_change ^= 1;
+      xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
+      eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+      if (userspace_config.rgb_layer_change) {
+        layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
+      }
+    }
+#endif // RGBLIGHT_ENABLE
+    return false; break;
+#ifdef RGBLIGHT_ENABLE
+  case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // quantum_keycodes.h L400 for definitions
+    if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
+      if (userspace_config.rgb_layer_change) {
+        userspace_config.rgb_layer_change = false;
+        xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
+        eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+      }
+    }
+    return true; break;
+#endif // RGBLIGHT_ENABLE
+  }
     return true;
 }
 
@@ -160,7 +182,7 @@ void matrix_init_rgb(void) {
 
   if (userspace_config.rgb_layer_change) {
     uint8_t default_layer = eeconfig_read_default_layer();
-    rgblight_enable();
+    rgblight_enable_noeeprom();
     if (default_layer & (1UL << _COLEMAK)) {
       rgblight_sethsv_magenta();
     } else if (default_layer & (1UL << _DVORAK)) {
@@ -192,31 +214,31 @@ uint32_t layer_state_set_rgb(uint32_t state) {
     switch (biton32(state)) {
     case _MACROS:
       rgblight_sethsv_noeeprom_orange();
-      userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+      userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
       break;
     case _MEDIA:
       rgblight_sethsv_noeeprom_chartreuse();
-      rgblight_mode(22);
+      rgblight_mode_noeeprom(22);
       break;
     case _GAMEPAD:
       rgblight_sethsv_noeeprom_orange();
-      rgblight_mode(17);
+      rgblight_mode_noeeprom(17);
       break;
     case _DIABLO:
-        rgblight_sethsv_noeeprom_red();
-        rgblight_mode(5);
+      rgblight_sethsv_noeeprom_red();
+      rgblight_mode_noeeprom(5);
       break;
     case _RAISE:
-        rgblight_sethsv_noeeprom_yellow();
-        rgblight_mode(5);
+      rgblight_sethsv_noeeprom_yellow();
+      rgblight_mode_noeeprom(5);
       break;
     case _LOWER:
-        rgblight_sethsv_noeeprom_orange();
-        rgblight_mode(5);
+      rgblight_sethsv_noeeprom_orange();
+      rgblight_mode_noeeprom(5);
       break;
     case _ADJUST:
-        rgblight_sethsv_noeeprom_red();
-        rgblight_mode(23);
+      rgblight_sethsv_noeeprom_red();
+      rgblight_mode_noeeprom(23);
       break;
     default: //  for any other layers, or the default layer
       if (default_layer & (1UL << _COLEMAK)) {
@@ -228,7 +250,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
       } else {
         rgblight_sethsv_noeeprom_cyan();
       }
-      biton32(state) == _MODS ? rgblight_mode(2) : rgblight_mode(1); // if _MODS layer is on, then breath to denote it
+      biton32(state) == _MODS ? rgblight_mode_noeeprom(2) : rgblight_mode_noeeprom(1); // if _MODS layer is on, then breath to denote it
       break;
     }
 //    layer_state_set_indicator(); // Runs every scan, so need to call this here .... since I can't get it working "right" anyhow

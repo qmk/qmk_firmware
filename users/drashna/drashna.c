@@ -177,8 +177,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_RESET: // Custom RESET code that sets RGBLights to RED
     if (!record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
+      rgblight_enable_noeeprom();
+      rgblight_mode_noeeprom(1);
       rgblight_setrgb_red();
 #endif // RGBLIGHT_ENABLE
       reset_keyboard();
@@ -217,7 +217,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
     if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw); }
 #ifdef RGBLIGHT_ENABLE
-    userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+    userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
 #endif //RGBLIGHT_ENABLE
     return false; break;
   case KC_SALT:
@@ -256,26 +256,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 #endif // TAP_DANCE_ENABLE#endif
     return false; break;
-
-  case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
-#ifdef RGBLIGHT_ENABLE
-    if (record->event.pressed) {
-      userspace_config.rgb_layer_change ^= 1;
-      eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
-      if (userspace_config.rgb_layer_change) {
-        layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
-      }
-    }
-#endif // RGBLIGHT_ENABLE
-    return false; break;
-#ifdef RGBLIGHT_ENABLE
-  case RGB_MODE_FORWARD ... RGB_MODE_GRADIENT: // quantum_keycodes.h L400 for definitions
-    if (record->event.pressed) { //This disables layer indication, as it's assumed that if you're changing this ... you want that disabled
-      userspace_config.rgb_layer_change = false;
-      eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
-    }
-    return true; break;
-#endif // RGBLIGHT_ENABLE
 
 
   case KC_CCCV:                                    // One key copy/paste
