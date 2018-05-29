@@ -13,7 +13,6 @@
  * Use a as CTRL+A+(kc) when held, a when tapped for ultimate integration with tmux
  *  - need to make inter-operable
  * Unicode leader commands??? (symbolic unicode)
- * Multiple keystrokes to generate single keycode?
  * Mac mode vs not: -probably bootmagic or use default with dynamic swap out here
  *    KC_MFFD(KC_MEDIA_FAST_FORWARD) and KC_MRWD(KC_MEDIA_REWIND) instead of KC_MNXT and KC_MPRV
  */
@@ -36,6 +35,16 @@
 }
 
 #define _______ KC_TRNS
+
+// https://docs.qmk.fm/features/mouse-keys#configuring-the-behavior-of-mousekeys
+#define MOUSEKEY_DELAY        0
+#define MOUSEKEY_INTERVAL     10
+#define MOUSEKEY_MAX_SPEED    7
+#define MOUSEKEY_TIME_TO_MAX  10
+#define MOUSEKEY_WHEEL_DELAY  0
+
+// TODO make this work because it doesn't seem to be redefining the symbol
+#define TAPPING_TOGGLE  2
 
 #define IS_MAC 1
 #ifdef IS_MAC
@@ -174,7 +183,7 @@ static void send_n_keys(int n, ...) {
 }
 #define repeat_send_keys(n, ...) {for (int i=0; i < n; ++i) {send_keys(__VA_ARGS__);}}
 
-#define _TIMEOUT_DELAY 200 // ms
+#define _TIMEOUT_DELAY 150 // ms
 static uint16_t idle_timer;
 static bool timeout_is_active = false;
 
@@ -194,7 +203,7 @@ static inline void start_idle_timer(void) {
 }
 static inline void clear_state_after_idle_timeout(void) {
     idle_timer = 0;
-    timeout_is_active = 0;
+    timeout_is_active = false;
     // clear state here
     A_down = false;
     B_down = false; // TODO wait no??
@@ -257,6 +266,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             B_down = record->event.pressed;
             if (B_down) {
                 ++B_count;
+                timeout_is_active = false;
             }
             else {
                 if (B_count) {
