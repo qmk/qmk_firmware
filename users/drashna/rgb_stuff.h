@@ -9,3 +9,7 @@ typedef struct {
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record);
 void scan_rgblight_fadeout(void);
+void layer_state_set_rgb(void);
+void matrix_init_rgb(void);
+void matrix_scan_rgb(void);
+
