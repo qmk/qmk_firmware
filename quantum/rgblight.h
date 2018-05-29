@@ -134,7 +134,16 @@ void rgb_matrix_decrease(void);
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
+
 void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_mode_noeeprom(uint8_t mode);
+void rgblight_toggle_noeeprom(void);
+void rgblight_enable_noeeprom(void);
+void rgblight_disable_noeeprom(void);
+
+void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
+void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
+
 
 #define EZ_RGB(val) rgblight_show_solid_color((val >> 16) & 0xFF, (val >> 8) & 0xFF, val & 0xFF)
 void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b);
