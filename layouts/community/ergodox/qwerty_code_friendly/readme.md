@@ -20,7 +20,7 @@
   if using keys from both sides is inconvenient - the symbol layer has macros
   at the same key locations to type matching pairs.
 
-- The extra space-bar on the lower-left looks like it's in an obscure location,
+- The space-bar on the lower-left looks like it's in an obscure location,
   however using the larger thumb cluster
   ended up being more of a reach while typing.
 
@@ -122,30 +122,30 @@ Notes:
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 2: Keymap 2: Media and mouse keys
+## Keymap 2: Keymap 2: Media and Mouse Keys
 
 ```
 .--------------------------------------------------.  .--------------------------------------------------.
-|        |      |      |      |      |      |      |  |      |      |      |      |      |      |        |
+|        |      |      |      |      |      |      |  |Mute  |      |      |      |      |      |        |
 |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
-|        |      |      | MsUp |      |      |MWhlUp|  |      |      |      |      |      |      |        |
+|        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |      |      |      |      |        |
 |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
 |        |      |MsLeft|MsDown|MsRght|      |------|  |------| Left | Down | Up   |Right |      |        |
-|--------+------+------+------+------+------|MWhlDn|  |      |------+------+------+------+------+--------|
+|--------+------+------+------+------+------|MWhlDn|  |VolDn |------+------+------+------+------+--------|
 |        |      | Rclk | Mclk | Lclk |      |      |  |      |      |      |      |      |      |        |
 '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
   |      |      |      |      |      |                              |      |      |      |      |      |
   '----------------------------------'                              '----------------------------------'
                                      .-------------.  .-------------.
-                                     | MRwd | MFwd |  | MPrv | MNxt |
+                                     |      |      |  | MRwd | MFwd |
                               .------+------+------|  |------+------+------.
-                              |      |      |      |  |VolUp |      |      |
-                              | Mute |      |------|  |------|      | Play |
-                              |      |      |      |  |VolDn |      |      |
+                              |      |      |      |  | MPrv |      |      |
+                              |      |      |------|  |------|      | Play |
+                              |      |      |      |  | MNxt |      |      |
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 3: K-Keys & User defined words
+## Keymap 3: F-Keys & User Defined Words
 
 This is for assigning whole words to single keys.
 You can define the arguments (which must be quoted) using: `CFQ_WORD_[A-Z]`
@@ -173,6 +173,10 @@ eg: `-DCFQ_WORD_E=\"my@email.com\"`
 ```
 
 ## Changelog
+
+- 2018/05/19
+  Move all media keys to right thumb cluster
+  (matching page up/down, home/end locations).
 
 - 2018/04/14
   Add `CFQ_USE_80_KEYS` to optionally support an 80 key layout.
