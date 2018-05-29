@@ -1,4 +1,3 @@
-
 #include "drashna.h"
 #include "rgb_stuff.h"
 
@@ -15,7 +14,50 @@ void rgblight_sethsv_default_helper(uint8_t index) {
 uint8_t last_mod;
 uint8_t last_led;
 uint8_t last_osm;
-#endif
+uint8_t current_mod;
+uint8_t current_led;
+uint8_t current_osm;
+
+
+void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
+  if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
+    if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
+      rgblight_sethsv_at(0, 255, 255, SHFT_LED1);
+      rgblight_sethsv_at(0, 255, 255, SHFT_LED2);
+    } else {
+      rgblight_sethsv_default_helper(SHFT_LED1);
+      rgblight_sethsv_default_helper(SHFT_LED2);
+    }
+    if (this_mod & MODS_CTRL_MASK || this_osm & MODS_CTRL_MASK) {
+      rgblight_sethsv_at(51, 255, 255, CTRL_LED1);
+      rgblight_sethsv_at(51, 255, 255, CTRL_LED2);
+    } else {
+      rgblight_sethsv_default_helper(CTRL_LED1);
+      rgblight_sethsv_default_helper(CTRL_LED2);
+    }
+    if (this_mod & MODS_GUI_MASK || this_osm & MODS_GUI_MASK) {
+      rgblight_sethsv_at(120, 255, 255, GUI_LED1);
+      rgblight_sethsv_at(120, 255, 255, GUI_LED2);
+    } else {
+      rgblight_sethsv_default_helper(GUI_LED1);
+      rgblight_sethsv_default_helper(GUI_LED2);
+    }
+  }
+}
+
+void matrix_scan_indicator(void) {
+  current_mod = get_mods();
+  current_led = host_keyboard_leds();
+  current_osm = get_oneshot_mods();
+
+  set_rgb_indicators(current_mod, current_led, current_osm);
+
+  last_mod = current_mod;
+  last_led = current_led;
+  last_osm = current_osm;
+
+}
+#endif //INDICATOR_LIGHTS
 
 #ifdef RGBLIGHT_TWINKLE
 static rgblight_fadeout lights[RGBLED_NUM];
@@ -87,11 +129,12 @@ void start_rgb_light(void) {
 
     rgblight_sethsv_at(light->hue, 255, light->life, light_index);
 }
+#endif
 
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) { return true; }
-
+#ifdef RGBLIGHT_TWINKLE
     switch (keycode) {
     case KC_A ... KC_SLASH:
     case KC_F1 ... KC_F12:
@@ -101,37 +144,18 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     case KC_AUDIO_MUTE ... KC_MEDIA_REWIND:
         start_rgb_light();
     }
+#endif // RGBLIGHT_TWINKLE
 
     return true;
 }
 
-#else
-bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) { return true; }
-#endif
 
-
-void layer_state_set_rgb(void) {
-#ifdef INDICATOR_LIGHTS
-  if (last_mod & MODS_SHIFT_MASK || last_led & (1<<USB_LED_CAPS_LOCK) || last_osm & MODS_SHIFT_MASK) {
-    rgblight_sethsv_at(0, 255, 255, SHFT_LED1);
-    rgblight_sethsv_at(0, 255, 255, SHFT_LED2);
-  }
-  if (last_mod & MODS_CTRL_MASK || last_osm & MODS_CTRL_MASK) {
-    rgblight_sethsv_at(51, 255, 255, CTRL_LED1);
-    rgblight_sethsv_at(51, 255, 255, CTRL_LED2);
-  }
-  if (last_mod & MODS_ALT_MASK || last_osm & MODS_ALT_MASK) {
-    rgblight_sethsv_at(120, 255, 255, GUI_LED1);
-    rgblight_sethsv_at(120, 255, 255, GUI_LED2);
-  }
-#endif
-}
 
 void matrix_init_rgb(void) {
 #ifdef INDICATOR_LIGHTS
-  last_mod = get_mods();
-  last_led = host_keyboard_leds();
-  last_osm = get_oneshot_mods();
+  current_mod = last_mod = get_mods();
+  current_led = last_led = host_keyboard_leds();
+  current_osm = last_osm = get_oneshot_mods();
 #endif
 }
 
@@ -141,38 +165,61 @@ void matrix_scan_rgb(void) {
 #endif // RGBLIGHT_ENABLE
 
 #ifdef INDICATOR_LIGHTS
-  uint8_t current_mod = get_mods();
-  uint8_t current_led = host_keyboard_leds();
-  uint8_t current_osm = get_oneshot_mods();
-
-  last_mod = current_mod;
-  last_led = current_led;
-  last_osm = current_osm;
-
-
-  if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
-    if (current_mod & MODS_SHIFT_MASK || current_led & (1<<USB_LED_CAPS_LOCK) || current_osm & MODS_SHIFT_MASK) {
-      rgblight_sethsv_at(0, 255, 255, SHFT_LED1);
-      rgblight_sethsv_at(0, 255, 255, SHFT_LED2);
-    } else {
-      rgblight_sethsv_default_helper(SHFT_LED1);
-      rgblight_sethsv_default_helper(SHFT_LED2);
-    }
-    if (current_mod & MODS_CTRL_MASK || current_osm & MODS_CTRL_MASK) {
-      rgblight_sethsv_at(51, 255, 255, CTRL_LED1);
-      rgblight_sethsv_at(51, 255, 255, CTRL_LED2);
-    } else {
-      rgblight_sethsv_default_helper(CTRL_LED1);
-      rgblight_sethsv_default_helper(CTRL_LED2);
-    }
-    if (current_mod & MODS_GUI_MASK || current_osm & MODS_GUI_MASK) {
-      rgblight_sethsv_at(120, 255, 255, GUI_LED1);
-      rgblight_sethsv_at(120, 255, 255, GUI_LED2);
-    } else {
-      rgblight_sethsv_default_helper(GUI_LED1);
-      rgblight_sethsv_default_helper(GUI_LED2);
-    }
-  }
+  matrix_scan_indicator();
 #endif
 
+}
+
+
+uint32_t layer_state_set_rgb(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+  uint8_t default_layer = eeconfig_read_default_layer();
+  if (userspace_config.rgb_layer_change) {
+    switch (biton32(state)) {
+    case _MACROS:
+      rgblight_sethsv_orange();
+      userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+      break;
+    case _MEDIA:
+      rgblight_sethsv_chartreuse();
+      rgblight_mode(22);
+      break;
+    case _GAMEPAD:
+      rgblight_sethsv_orange();
+      rgblight_mode(17);
+      break;
+    case _DIABLO:
+        rgblight_sethsv_red();
+        rgblight_mode(5);
+      break;
+    case _RAISE:
+        rgblight_sethsv_yellow();
+        rgblight_mode(5);
+      break;
+    case _LOWER:
+        rgblight_sethsv_orange();
+        rgblight_mode(5);
+      break;
+    case _ADJUST:
+        rgblight_sethsv_red();
+        rgblight_mode(23);
+      break;
+    default: //  for any other layers, or the default layer
+      if (default_layer & (1UL << _COLEMAK)) {
+        rgblight_sethsv_magenta();
+      } else if (default_layer & (1UL << _DVORAK)) {
+        rgblight_sethsv_green();
+      } else if (default_layer & (1UL << _WORKMAN)) {
+        rgblight_sethsv_goldenrod();
+      } else {
+        rgblight_sethsv_cyan();
+      }
+      biton32(state) == _MODS ? rgblight_mode(2) : rgblight_mode(1); // if _MODS layer is on, then breath to denote it
+      break;
+    }
+//    layer_state_set_indicator(); // Runs every scan, so need to call this here .... since I can't get it working "right" anyhow
+  }
+#endif // RGBLIGHT_ENABLE
+
+  return state;
 }
