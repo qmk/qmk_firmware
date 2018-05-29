@@ -1,7 +1,6 @@
 
 SRC += drashna.c secrets.c rgb_stuff.c
 
-
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
   SRC += tap_dances.c
 endif
@@ -18,6 +17,9 @@ ifdef RGBLIGHT_ENABLE
   endif
   ifeq ($(strip $(RGBLIGHT_TWINKLE)), yes)
     OPT_DEFS += -DRGBLIGHT_TWINKLE
+  endif
+  ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
+    OPT_DEFS += -DRGBLIGHT_NOEEPROM
   endif
 endif
 

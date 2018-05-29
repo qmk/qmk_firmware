@@ -65,7 +65,7 @@ static rgblight_fadeout lights[RGBLED_NUM];
 __attribute__ ((weak))
 bool indicator_is_this_led_used(uint8_t index) { return false; }
 
-void scan_rgblight_fadeout(void) {
+void scan_rgblight_fadeout(void) { // Don't effing change this function .... rgblight_sethsv is supppppper intensive
   bool litup = false;
   for (uint8_t light_index = 0 ; light_index < RGBLED_NUM ; ++light_index ) {
     if (lights[light_index].enabled && timer_elapsed(lights[light_index].timer) > 10) {
@@ -157,6 +157,20 @@ void matrix_init_rgb(void) {
   current_led = last_led = host_keyboard_leds();
   current_osm = last_osm = get_oneshot_mods();
 #endif
+
+  if (userspace_config.rgb_layer_change) {
+    uint8_t default_layer = eeconfig_read_default_layer();
+    rgblight_enable();
+    if (default_layer & (1UL << _COLEMAK)) {
+      rgblight_sethsv_magenta();
+    } else if (default_layer & (1UL << _DVORAK)) {
+      rgblight_sethsv_green();
+    } else if (default_layer & (1UL << _WORKMAN)) {
+      rgblight_sethsv_goldenrod();
+    } else {
+      rgblight_sethsv_cyan();
+    }
+  }
 }
 
 void matrix_scan_rgb(void) {
@@ -177,42 +191,42 @@ uint32_t layer_state_set_rgb(uint32_t state) {
   if (userspace_config.rgb_layer_change) {
     switch (biton32(state)) {
     case _MACROS:
-      rgblight_sethsv_orange();
+      rgblight_sethsv_noeeprom_orange();
       userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
       break;
     case _MEDIA:
-      rgblight_sethsv_chartreuse();
+      rgblight_sethsv_noeeprom_chartreuse();
       rgblight_mode(22);
       break;
     case _GAMEPAD:
-      rgblight_sethsv_orange();
+      rgblight_sethsv_noeeprom_orange();
       rgblight_mode(17);
       break;
     case _DIABLO:
-        rgblight_sethsv_red();
+        rgblight_sethsv_noeeprom_red();
         rgblight_mode(5);
       break;
     case _RAISE:
-        rgblight_sethsv_yellow();
+        rgblight_sethsv_noeeprom_yellow();
         rgblight_mode(5);
       break;
     case _LOWER:
-        rgblight_sethsv_orange();
+        rgblight_sethsv_noeeprom_orange();
         rgblight_mode(5);
       break;
     case _ADJUST:
-        rgblight_sethsv_red();
+        rgblight_sethsv_noeeprom_red();
         rgblight_mode(23);
       break;
     default: //  for any other layers, or the default layer
       if (default_layer & (1UL << _COLEMAK)) {
-        rgblight_sethsv_magenta();
+        rgblight_sethsv_noeeprom_magenta();
       } else if (default_layer & (1UL << _DVORAK)) {
-        rgblight_sethsv_green();
+        rgblight_sethsv_noeeprom_green();
       } else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_sethsv_goldenrod();
+        rgblight_sethsv_noeeprom_goldenrod();
       } else {
-        rgblight_sethsv_cyan();
+        rgblight_sethsv_noeeprom_cyan();
       }
       biton32(state) == _MODS ? rgblight_mode(2) : rgblight_mode(1); // if _MODS layer is on, then breath to denote it
       break;

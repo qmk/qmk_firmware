@@ -81,7 +81,6 @@ void led_set_keymap(uint8_t usb_led) {}
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
-  uint8_t default_layer = eeconfig_read_default_layer();
   userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
 
 #ifdef AUDIO_CLICKY
@@ -96,28 +95,6 @@ void matrix_init_user(void) {
   PORTB &= ~(1<<0);
 #endif
 
-  if (userspace_config.rgb_layer_change) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-#endif // RGBLIGHT_ENABLE
-    if (default_layer & (1UL << _COLEMAK)) {
-  #ifdef RGBLIGHT_ENABLE
-      rgblight_sethsv_magenta();
-  #endif // RGBLIGHT_ENABLE
-    } else if (default_layer & (1UL << _DVORAK)) {
-  #ifdef RGBLIGHT_ENABLE
-      rgblight_sethsv_green();
-  #endif // RGBLIGHT_ENABLE
-    } else if (default_layer & (1UL << _WORKMAN)) {
-  #ifdef RGBLIGHT_ENABLE
-      rgblight_sethsv_goldenrod();
-  #endif // RGBLIGHT_ENABLE
-    } else {
-  #ifdef RGBLIGHT_ENABLE
-      rgblight_sethsv_cyan();
-  #endif // RGBLIGHT_ENABLE
-    }
-  }
 
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
 	set_unicode_input_mode(UC_WINC);
@@ -135,7 +112,10 @@ void matrix_scan_user(void) {
   run_diablo_macro_check();
 #endif // TAP_DANCE_ENABLE
 
+#ifdef RGBLIGHT_ENABLE
   matrix_scan_rgb();
+#endif // RGBLIGHT_ENABLE
+
   matrix_scan_keymap();
 }
 
