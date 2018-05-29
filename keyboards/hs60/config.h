@@ -133,7 +133,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DRIVER_COUNT 2
 #define DRIVER_1_LED_TOTAL 30
+
+#ifdef  HS60_ANSI
+#define DRIVER_2_LED_TOTAL 31
+#else
 #define DRIVER_2_LED_TOTAL 32
+#endif
+
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
 
 #endif
