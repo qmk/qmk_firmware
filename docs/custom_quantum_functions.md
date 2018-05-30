@@ -380,7 +380,7 @@ And you're done.  The RGB layer indication will only work if you want it to. And
 
 ### 'EECONFIG' Function Documentation
 
-* Keyboard/Revision: `uint32_t eeconfig_read_kb(void)` and `void eeconfig_update_kb(uint32_t val)`
-* Keymap: `uint32_t eeconfig_read_user(void)` and `void eeconfig_update_user(uint32_t val)`
+* Keyboard/Revision: `void eeconfig_init_kb(void)`, `uint32_t eeconfig_read_kb(void)` and `void eeconfig_update_kb(uint32_t val)`
+* Keymap: `void eeconfig_init_user(void)`, `uint32_t eeconfig_read_user(void)` and `void eeconfig_update_user(uint32_t val)`
 
 The `val` is the value of the data that you want to write to EEPROM.  And the `eeconfig_read_*` function return a 32 bit (DWORD) value from the EEPROM. 
