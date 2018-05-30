@@ -150,7 +150,7 @@ void rgb_matrix_set_suspend_state(bool state) {
 void rgb_matrix_test(void) {
     // Mask out bits 4 and 5
     // Increase the factor to make the test animation slower (and reduce to make it faster)
-    uint32_t factor = 10;
+    uint8_t factor = 10;
     switch ( (g_tick & (0b11 << factor)) >> factor )
     {
         case 0:
