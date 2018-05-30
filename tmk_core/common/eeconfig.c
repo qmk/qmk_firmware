@@ -15,13 +15,13 @@
 __attribute__ ((weak))
 void eeconfig_init_user(void) {
   // Reset user EEPROM value to blank, rather than to a set value
-  eeprom_update_dword(EECONFIG_USER, 0);
+  eeconfig_update_user(0);
 }
 
 __attribute__ ((weak))
 void eeconfig_init_kb(void) {
   // Reset Keyboard EEPROM value to blank, rather than to a set value
-  eeprom_update_dword(EECONFIG_KEYBOARD, 0);
+  eeconfig_update_kb(0);
 
   eeconfig_init_user();
 }

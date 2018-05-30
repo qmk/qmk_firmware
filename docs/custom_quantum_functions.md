@@ -248,7 +248,7 @@ The `state` is the bitmask of the active layers, as explained in the [Keymap Ove
 
 # Persistent Configuration (EEPROM)
 
-This allows you to configure persistent settings for your keyboard.  These settings are stored in the EEPROM of your controller, and are retained even after power loss. The settings can be read with `eeconfig_read_kb` and `eeconfig_read_user`, and can be written to using `eeconfig_update_kb` and `eeconfig_update_user`. This is useful for features that you want to be able to toggle (like toggling rgb layer indication).
+This allows you to configure persistent settings for your keyboard.  These settings are stored in the EEPROM of your controller, and are retained even after power loss. The settings can be read with `eeconfig_read_kb` and `eeconfig_read_user`, and can be written to using `eeconfig_update_kb` and `eeconfig_update_user`. This is useful for features that you want to be able to toggle (like toggling rgb layer indication).  Additionally, you can use `eeconfig_init_kb` and `eeconfig_init_user` to set the default values for the EEPROM. 
 
 The complicated part here, is that there are a bunch of ways that you can store and access data via EEPROM, and there is no "correct" way to do this.  However, you only have a DWORD (4 bytes) for each function.
 
@@ -356,6 +356,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true; // Process all other keycodes normally
   }
 }
+```
+And lastly, you want to add the `eeconfig_init_user` function, so that when the EEPROM is reset, you can specify default values, and even custom actions. For example, if you want to set rgb layer indication by default, and save the default valued. 
+
+```
+void eeconfig_init_user(void) {  // EEPROM is getting reset! 
+  user_config.rgb_layer_change = true; // We want this enabled by default
+  eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
+
+  // use the non noeeprom versions, to write these values to EEPROM too
+  rgblight_enable(); // Enable RGB by default
+  rgblight_sethsv_cyan();  // Set it to CYAN by default
+  rgblight_mode(1); // set to solid by default
+  }
 ```
 
 And you're done.  The RGB layer indication will only work if you want it to. And it will be saved, even after unplugging the board. And if you use any of the RGB codes, it will disable the layer indication, so that it stays on the mode and color that you set it to. 
