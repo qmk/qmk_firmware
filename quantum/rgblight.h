@@ -92,6 +92,7 @@ typedef union {
     uint16_t hue     :9;
     uint8_t  sat     :8;
     uint8_t  val     :8;
+    uint8_t  speed   :8;//EECONFIG needs to be increased to support this
   };
 } rgblight_config_t;
 
@@ -113,6 +114,8 @@ void rgblight_increase_sat(void);
 void rgblight_decrease_sat(void);
 void rgblight_increase_val(void);
 void rgblight_decrease_val(void);
+void rgblight_increase_speed(void);
+void rgblight_decrease_speed(void);
 void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
 uint16_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
@@ -125,6 +128,9 @@ uint32_t eeconfig_read_rgblight(void);
 void eeconfig_update_rgblight(uint32_t val);
 void eeconfig_update_rgblight_default(void);
 void eeconfig_debug_rgblight(void);
+
+void rgb_matrix_increase(void);
+void rgb_matrix_decrease(void);
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
