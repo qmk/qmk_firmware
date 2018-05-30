@@ -317,7 +317,7 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 }
 ```
-This will cause the RGB underglow to be changed ONLY if the value was enabled.  Now to configure this value, create a new keycode for `process_record_user` called `RGB_LYR`. Additionally, we want to make sure that if you use the normal RGB codes, that it turns off  Using the example above, make it look this:
+This will cause the RGB underglow to be changed ONLY if the value was enabled.  Now to configure this value, create a new keycode for `process_record_user` called `RGB_LYR` and `EPRM`. Additionally, we want to make sure that if you use the normal RGB codes, that it turns off  Using the example above, make it look this:
 ```
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -330,11 +330,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false; // Skip all further processing of this key
     case KC_ENTER:
-      // Play a tone when enter is pressed
-      if (record->event.pressed) {
-        PLAY_NOTE_ARRAY(tone_qwerty);
-      }
-      return true; // Let QMK send the enter press/release events
+        // Play a tone when enter is pressed
+        if (record->event.pressed) {
+            PLAY_NOTE_ARRAY(tone_qwerty);
+        }
+        return true; // Let QMK send the enter press/release events
+    case EPRM:
+        if (record->event.pressed) {
+            eeconfig_init(); // resets the EEPROM to default
+        }
+        return false;
     case RGB_LYR:  // This allows me to use underglow as layer indication, or as normal
         if (record->event.pressed) { 
             user_config.rgb_layer_change ^= 1; // Toggles the status
@@ -368,7 +373,7 @@ void eeconfig_init_user(void) {  // EEPROM is getting reset!
   rgblight_enable(); // Enable RGB by default
   rgblight_sethsv_cyan();  // Set it to CYAN by default
   rgblight_mode(1); // set to solid by default
-  }
+}
 ```
 
 And you're done.  The RGB layer indication will only work if you want it to. And it will be saved, even after unplugging the board. And if you use any of the RGB codes, it will disable the layer indication, so that it stays on the mode and color that you set it to. 
