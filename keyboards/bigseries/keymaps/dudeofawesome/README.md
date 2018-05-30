@@ -2,11 +2,11 @@
 
 ## Features
 
-- Tap dancing taps:
-    1. Media Play / Pause
-    1. Media Next
-    1. RGB Mode Next
-    1. RGB Mode Previous
+### Tap dancing taps:
+1. Media Play / Pause
+1. Media Next
+1. RGB Mode Next
+1. RGB Mode Previous
 
 ## Building and flashing
 
