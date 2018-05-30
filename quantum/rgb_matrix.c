@@ -18,7 +18,7 @@
 
 #include "rgb_matrix.h"
 #include <avr/io.h>
-#include "TWIlib.h"
+#include "i2c_master.h"
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "progmem.h"
@@ -722,10 +722,8 @@ void rgb_matrix_indicators_user(void) {}
 // }
 
 void rgb_matrix_init_drivers(void) {
-    //sei();
-
     // Initialize TWI
-    TWIInit();
+    i2c_init();
     IS31FL3731_init( DRIVER_ADDR_1 );
     IS31FL3731_init( DRIVER_ADDR_2 );
 
