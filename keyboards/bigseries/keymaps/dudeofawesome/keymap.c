@@ -35,8 +35,12 @@ void tap_dance (qk_tap_dance_state_t *state, void *user_data) {
       register_code(KC_MEDIA_NEXT_TRACK);
       unregister_code(KC_MEDIA_NEXT_TRACK);
       break;
-    case 3: default:
+    case 3:
       rgblight_step();
+      break;
+    case 4: default:
+      rgblight_step_reverse();
+      break;
   }
 }
 
