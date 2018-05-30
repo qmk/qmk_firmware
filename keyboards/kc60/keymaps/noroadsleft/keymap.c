@@ -31,22 +31,39 @@
 
 // Macro Definitions
 enum custom_keycodes {
-    M_L3DED = SAFE_RANGE,
-    M_GITUP,
-    M_GITDN,
+    T_L3DED = SAFE_RANGE,
+    G_PUSH,
+    G_PULL,
+    G_UPS,
+    G_ORIG,
+    G_COMM,
+    G_C10R,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch(keycode) {
-            case M_L3DED:
-                SEND_STRING("lavak3DED "); // this is our macro!
+            // these are our macros!
+            case T_L3DED:
+                SEND_STRING("lavak3DED ");
                 return false;
-            case M_GITUP:
-                SEND_STRING("git push "); // this is our macro!
+            case G_PUSH:
+                SEND_STRING("git push ");
                 return false;
-            case M_GITDN:
-                SEND_STRING("git pull "); // this is our macro!
+            case G_PULL:
+                SEND_STRING("git pull ");
+                return false;
+            case G_UPS:
+                SEND_STRING("upstream ");
+                return false;
+            case G_ORIG:
+                SEND_STRING("origin ");
+                return false;
+            case G_COMM:
+                SEND_STRING("git commit -m " SS_DOWN(X_LSHIFT) SS_TAP(X_Q) SS_TAP(X_Q) SS_UP(X_LSHIFT) SS_TAP(X_LEFT));
+                return false;
+            case G_C10R:
+                SEND_STRING("c10r-");
                 return false;
         }
     }
@@ -83,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_CALC, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_PSCR, KC_SLCK, KC_PAUS, \
     NO_CHNG, _______, _______, _______, _______, _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, KC_PENT,          \
     _______, _______, KC_APP,  BL_DEC,  BL_TOGG, BL_INC,  BL_BRTG, KC_MUTE, KC_VOLD, KC_VOLU, DF(_DV), _______,                   \
-    _______, _______, _______,                   TG(_NP),                                     _______, MO(_MA), NO_CHNG, _______  \
+    _______, _______, _______,                   TG(_NP),                                     _______, TG(_MA), NO_CHNG, _______  \
   ),
 
   /* MacOS Fn layer */
@@ -110,10 +127,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MA] = LAYOUT_60_ansi(
     //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, M_GITUP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, M_GITDN, _______, _______, _______, _______, _______, _______, M_L3DED, _______, _______, _______,          \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                   \
-    RESET,   _______, _______,                   _______,                                     _______, NO_CHNG, NO_CHNG, _______  \
+    _______, _______, G_ORIG,  G_PUSH,  G_UPS,   _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, G_PULL,  G_COMM,  _______, _______, _______, _______, T_L3DED, _______, _______, _______,          \
+    _______, _______, _______, G_C10R,  _______, _______, _______, _______, _______, _______, _______, _______,                   \
+    RESET,   _______, _______,                   _______,                                     _______, TG(_MA), NO_CHNG, _______  \
   ),
 
 };
