@@ -176,21 +176,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* myGherkin ETC
  * .-----------------------------------------------------------------------------------------------------------.
- * | RESET  |  `     | mUP    |        |        |        | SHIFT  | mUp    | mDown  |        |  \     | DEL    |
+ * | RESET  |  `     | mUP    |        |        |        | SHIFT  | mScrUp |mScrDown|        |  \     | DEL    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        | mLeft  | mDown  | mRight |        | SHIFT  |        | mBtn1  | mBtn2  |  ;     |  '     |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | Sft//Cp|        |        |        |        | C-A-D  |        |        | ALT    |  DEL   |        |
+ * |        | Sft//Cp|        |        |        |        | C-A-D  |mScrLeft| mScrRt | ALT    |  DEL   |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        | C-A-D  |        |        |        |        |        |
  * '-----------------------------------------------------------------------------------------------------------'
  */
 
  [gETC] = { /* myGherkin ETC */
-  { RESET,   KC_GRV,  KC_MS_U, _______, _______, _______, KC_RSFT, _______, _______, _______, KC_BSLS, KC_DEL   },
-  { _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_LSFT, KC_TRNS, KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT, _______  },
-  { _______, TD(TD_SFT_CAPS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LALT(LCTL(KC_DEL)), KC_TRNS, KC_TRNS, KC_LALT, KC_DEL,  _______  },
-  { _______, _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______, _______  },
+ {RESET,   KC_GRV,  KC_MS_U, _______, _______, _______, KC_RSFT, KC_WH_U, KC_WH_D, _______, KC_BSLS, KC_DEL   },
+ {_______, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_LSFT, KC_TRNS, KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT, _______  },
+ {_______, TD(TD_SFT_CAPS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LALT(LCTL(KC_DEL)), KC_WH_L, KC_WH_R, KC_LALT, KC_DEL,  _______   },
+ {_______, _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______, _______     },
  },
 
 /* SUB
