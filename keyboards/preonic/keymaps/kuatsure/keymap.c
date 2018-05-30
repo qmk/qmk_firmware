@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      | Vol- | Prev | Play | Next | Vol+ |   -  |   [  |   ]  |      |  ?   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Mute |      |      |      |     Esc     |      |      |      |      |      |
+ * |      | Mute |      |      |      |     Esc     |      | Home | PgUp | PgDwn| End  |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_preonic_grid_wrapper( \
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, KC_UP,   _______,  KC_GRV,  _______, KC_LCBR, KC_RCBR, KC_UNDS, _______, KC_PIPE, \
   _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_TILD, KC_EQL,  KC_LPRN, KC_RPRN, KC_PLUS, KC_COLN, KC_DQT , \
   _______, KC_VOLD, KC_MRWD, KC_MPLY, KC_MFFD,  KC_VOLU, KC_MINS, KC_LBRC, KC_RBRC, _______, KC_QUES, _______, \
-  _______, KC_MUTE, _______, _______, _______,  KC_ESC,  KC_ESC,  _______, _______, _______, _______, _______  \
+  _______, KC_MUTE, _______, _______, _______,  KC_ESC,  KC_ESC,  _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END   \
 ),
 
 /* Raise
@@ -130,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |    Enter    |      |      | PgUp | PgDwn|      |
+ * |      |      |      |      |      |    Enter    |      | Home | PgUp | PgDwn| End  |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_preonic_grid_wrapper( \
@@ -138,7 +138,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, ____________FUNCTION_3____________, _______, _______, _______, _______, _______, _______, KC_BSPC, \
   _______, ____________FUNCTION_2____________, _______, _______, _______, _______, _______, _______, _______, \
   _______, ____________FUNCTION_1____________, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, KC_ENT,  KC_ENT,  _______, _______, KC_PGUP, KC_PGDN, _______  \
+  _______, _______, _______, _______, _______, KC_ENT,  KC_ENT,  _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END   \
 ),
 
 /* Adjust (Lower + Raise)
