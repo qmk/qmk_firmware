@@ -8,10 +8,30 @@
 #include "eeprom_stm32.h"
 #endif
 
+/** \brief eeconfig enable
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void eeconfig_init_user(void) {
+  // Reset user EEPROM value to blank, rather than to a set value
+  eeprom_update_dword(EECONFIG_USER, 0);
+}
+
+__attribute__ ((weak))
+void eeconfig_init_kb(void) {
+  // Reset Keyboard EEPROM value to blank, rather than to a set value
+  eeprom_update_dword(EECONFIG_KEYBOARD, 0);
+
+  eeconfig_init_user();
+}
+
+
 /** \brief eeconfig initialization
  *
  * FIXME: needs doc
  */
+<<<<<<< HEAD
 void eeconfig_init(void)
 {
 #ifdef STM32F303xC
@@ -22,18 +42,32 @@ void eeconfig_init(void)
     eeprom_update_byte(EECONFIG_DEFAULT_LAYER,  0);
     eeprom_update_byte(EECONFIG_KEYMAP,         0);
     eeprom_update_byte(EECONFIG_MOUSEKEY_ACCEL, 0);
+=======
+void eeconfig_init_quantum(void) {
+  eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
+  eeprom_update_byte(EECONFIG_DEBUG,          0);
+  eeprom_update_byte(EECONFIG_DEFAULT_LAYER,  0);
+  eeprom_update_byte(EECONFIG_KEYMAP,         0);
+  eeprom_update_byte(EECONFIG_MOUSEKEY_ACCEL, 0);
+>>>>>>> Add Function level EEPROM configuration
 #ifdef BACKLIGHT_ENABLE
-    eeprom_update_byte(EECONFIG_BACKLIGHT,      0);
+  eeprom_update_byte(EECONFIG_BACKLIGHT,      0);
 #endif
 #ifdef AUDIO_ENABLE
-    eeprom_update_byte(EECONFIG_AUDIO,             0xFF); // On by default
+  eeprom_update_byte(EECONFIG_AUDIO,             0xFF); // On by default
 #endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    eeprom_update_dword(EECONFIG_RGBLIGHT,      0);
+  eeprom_update_dword(EECONFIG_RGBLIGHT,      0);
 #endif
 #ifdef STENO_ENABLE
-    eeprom_update_byte(EECONFIG_STENOMODE,      0);
+  eeprom_update_byte(EECONFIG_STENOMODE,      0);
 #endif
+
+  eeconfig_init_kb();
+}
+
+void eeconfig_init(void) {
+  eeconfig_init_quantum();
 }
 
 /** \brief eeconfig enable
@@ -51,10 +85,14 @@ void eeconfig_enable(void)
  */
 void eeconfig_disable(void)
 {
+<<<<<<< HEAD
 #ifdef STM32F303xC
     EEPROM_format();
 #endif
     eeprom_update_word(EECONFIG_MAGIC, 0xFFFF);
+=======
+    eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
+>>>>>>> Add Function level EEPROM configuration
 }
 
 /** \brief eeconfig is enabled
@@ -64,6 +102,15 @@ void eeconfig_disable(void)
 bool eeconfig_is_enabled(void)
 {
     return (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER);
+}
+
+/** \brief eeconfig is disabled
+ *
+ * FIXME: needs doc
+ */
+bool eeconfig_is_disabled(void)
+{
+    return (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER_OFF);
 }
 
 /** \brief eeconfig read debug
@@ -123,4 +170,29 @@ uint8_t eeconfig_read_audio(void)      { return eeprom_read_byte(EECONFIG_AUDIO)
  * FIXME: needs doc
  */
 void eeconfig_update_audio(uint8_t val) { eeprom_update_byte(EECONFIG_AUDIO, val); }
+
+
+/** \brief eeconfig read kb
+ *
+ * FIXME: needs doc
+ */
+uint32_t eeconfig_read_kb(void)      { return eeprom_read_dword(EECONFIG_KEYBOARD); }
+/** \brief eeconfig update kb
+ *
+ * FIXME: needs doc
+ */
+
+void eeconfig_update_kb(uint32_t val) { eeprom_update_dword(EECONFIG_KEYBOARD, val); }
+/** \brief eeconfig read user
+ *
+ * FIXME: needs doc
+ */
+uint32_t eeconfig_read_user(void)      { return eeprom_read_dword(EECONFIG_USER); }
+/** \brief eeconfig update user
+ *
+ * FIXME: needs doc
+ */
+void eeconfig_update_user(uint32_t val) { eeprom_update_dword(EECONFIG_USER, val); }
+
+
 #endif
