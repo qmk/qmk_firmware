@@ -29,7 +29,8 @@ enum layers {
 };
 
 enum tap_dancers {
-  TD_SEMICOLON
+  TD_SEMICOLON,
+  TD_GRAVE
 };
 
 #define _______ KC_TRNS
@@ -58,7 +59,9 @@ enum tap_dancers {
 #define US_QUOT   RCTL_T(KC_QUOT)
 #define US_MINS   RCTL_T(KC_QUOT)
 #define US_SCLN   TD(TD_SEMICOLON)
+#define US_GRV    TD(TD_GRAVE)
 #define US_ENT    LT(_NUM, KC_ENT)
+#define US_TAB    LCA_T(KC_TAB)
 
 #ifndef SPACE_COUNT
   #define SPACE_COUNT 1
@@ -75,6 +78,19 @@ enum tap_dancers {
   #define NM_SPC1   _______
   #define NM_SPC2   _______
   #define NM_SPC3   _______
+#elif (SPACE_COUNT == 2)
+  #define KC_SPC1   LT(_NUM,KC_ENT)
+  #define KC_SPC2   LT(_NAV,KC_SPC)
+
+  #define NV_SPC1   C_S_T(KC_ENT)
+  #define NV_SPC2   KC_SPC
+
+  #define NM_SPC1   KC_SPC
+  #define NM_SPC2   KC_0
+
+  #define KC_SPC3   XXXXXXX
+  #define NV_SPC3   XXXXXXX
+  #define NM_SPC3   XXXXXXX
 #elif (SPACE_COUNT == 3)
   #define KC_SPC1   KC_BSPC
   #define KC_SPC2   LT(_NUM,KC_ENT)
@@ -84,8 +100,8 @@ enum tap_dancers {
   #define NV_SPC2   C_S_T(KC_ENT)
   #define NV_SPC3   KC_SPC
 
-  #define NM_SPC2   XXXXXXX
   #define NM_SPC1   KC_SPC
+  #define NM_SPC2   XXXXXXX
   #define NM_SPC3   KC_0
 #else
   #error "Unsupported space count:" SPACE_COUNT
