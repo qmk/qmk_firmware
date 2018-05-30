@@ -26,8 +26,8 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
   if (runonce && timer_elapsed(my_timer) > 1000) {
     runonce = false;
-    rgblight_sethsv(0x0, 0xff, 0x80);
-    rgblight_mode(9);
-    rgblight_enable();
+    rgblight_sethsv_noeeprom(0x0, 0xff, 0x80);
+    rgblight_mode_noeeprom(9);
+    rgblight_enable_noeeprom();
   }
 }
