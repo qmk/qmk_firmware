@@ -35,26 +35,26 @@ TT(_NUMPAD),______________SWORKMAN_L2______________,                  __________
                                          _____________ERGODOX_THUMBS____________
   ),
   [_NUMPAD] = LAYOUT_ergodox_pretty_wrapper(
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,  XXXXXXX,XXXXXXX,KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX, KC_UP ,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,KC_KP_7,KC_KP_8,KC_KP_9,KC_PPLS,XXXXXXX,
-    _______,XXXXXXX,KC_LEFT,KC_DOWN,KC_RGHT,XXXXXXX,                  XXXXXXX,KC_KP_4,KC_KP_5,KC_KP_6,KC_PEQL,XXXXXXX,
-    KC_LSFT,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,KC_KP_1,KC_KP_2,KC_KP_3,KC_PENT,XXXXXXX,
-    XXXXXXX,_______,XXXXXXX,KC_LALT,KC_LGUI,                                  KC_KP_0,KC_PDOT,KC_COMM,KC_PENT,XXXXXXX,
-                                         _____________ERGODOX_THUMBS____________
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, XXXXXXX,_______,  XXXXXXX,XXXXXXX,KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX, KC_UP ,XXXXXXX, XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,KC_KP_7,KC_KP_8,KC_KP_9,KC_PPLS,XXXXXXX,
+    _______,XXXXXXX,KC_LEFT,KC_DOWN,KC_RGHT, XXXXXXX,                  XXXXXXX,KC_KP_4,KC_KP_5,KC_KP_6,KC_PEQL,XXXXXXX,
+    KC_LSFT,XXXXXXX,XXXXXXX,XXXXXXX,JJ_COPY,JJ_PASTE,XXXXXXX,  XXXXXXX,XXXXXXX,KC_KP_1,KC_KP_2,KC_KP_3,KC_PENT,XXXXXXX,
+    XXXXXXX,_______,XXXXXXX,KC_LALT,KC_LGUI,                                   KC_KP_0,KC_PDOT,KC_COMM,KC_PENT,XXXXXXX,
+                                          _____________ERGODOX_THUMBS____________
   ),
   [_MOUSE] = LAYOUT_ergodox_pretty_wrapper(
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX,KC_MS_U,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_R,XXXXXXX,XXXXXXX,
-    XXXXXXX,XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_R,XXXXXXX,                  XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,KC_WH_D,XXXXXXX,XXXXXXX,XXXXXXX,
-    _______,XXXXXXX,XXXXXXX,XXXXXXX,KC_BTN1,                                  KC_BTN2,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-                                         _____________ERGODOX_THUMBS____________
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, XXXXXXX,_______,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,KC_MS_U,XXXXXXX, XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_R,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_R, XXXXXXX,                  XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,JJ_COPY,JJ_PASTE,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,KC_WH_D,XXXXXXX,XXXXXXX,XXXXXXX,
+    _______,XXXXXXX,XXXXXXX,XXXXXXX,KC_BTN1,                                   KC_BTN2,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+                                          _____________ERGODOX_THUMBS____________
   ),
   [_TOOLS] = LAYOUT_ergodox_pretty_wrapper(
            XXXXXXX,KC_SEC1,KC_SEC2,KC_SEC3,KC_SEC4,KC_SEC5,KC_EPRM,  KC_EPRM,KC_SEC6,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
            XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
     XXXXXXX,HYPR(KC_LEFT),HYPR(KC_RGHT),HYPR(KC_F),XXXXXXX,XXXXXXX,  XXXXXXX,MEH(KC_UP),MEH(KC_DOWN),MEH(KC_LEFT),MEH(KC_RGHT),_______,
-           XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+           XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,LCTL(LGUI(KC_Q)),
            XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                                  XXXXXXX,XXXXXXX,KC_HWRK,KC_SWRK,_______,
                                          _____________ERGODOX_THUMBS____________
   )
@@ -86,7 +86,7 @@ void matrix_init_keymap(void) { // Runs boot tasks for keyboard
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     // KC_COPY and KC_PASTE have problems with different hardware/software mappings
-    // e.g. If the mappings conflict, KC_COPY will send Cmd+M which minimizes the 
+    // e.g. If the mappings conflict, KC_COPY will send Cmd+M which minimizes the
     // window and is very annoying. JJ_COPY and JJ_PASTE fix this by sending the
     // raw character rather than the KC_* code
     case JJ_COPY:
@@ -142,6 +142,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (!record->event.pressed) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         send_string_P(secret[keycode - KC_SECRET_1]);
+      }
+      return false;
+      break;
+    case MC_LOCK:
+      if (!record->event.pressed) {
+        uint8_t default_layer = biton32(default_layer_state);
+        layer_move(default_layer);
+        SEND_STRING(SS_LCTRL(SS_LGUI("q")));
       }
       return false;
       break;

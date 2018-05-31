@@ -39,6 +39,7 @@ enum custom_keycodes {
   KC_SECRET_4,
   KC_SECRET_5,
   KC_SECRET_6,
+  MC_LOCK,
 };
 
 #define KC_SEC1 KC_SECRET_1
@@ -78,14 +79,14 @@ enum custom_keycodes {
 #define _____________________ERGODOX_TOP_LEFT__________________ KC_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, JJ_ARRW
 #define _____________________ERGODOX_TOP_RIGHT_________________ KC_MINUS, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQUAL
 #define _____________________ERGODOX_BOTTOM_LEFT_______________ TG(_MOUSE), TG(_NUMPAD), SH_MON, KC_UP,   KC_LEFT
-#define _____________________ERGODOX_BOTTOM_RIGHT______________ KC_RIGHT,   KC_DOWN,     KC_SEC1,    KC_SEC2, TT(_TOOLS)
+#define _____________________ERGODOX_BOTTOM_RIGHT______________ KC_RIGHT,   KC_DOWN,     XXXXXXX,    SH_MON, TT(_TOOLS)
 
 //                                                  LEFT        |       RIGHT
 #define _____________ERGODOX_THUMBS____________ KC_APP,KC_HOME,    KC_PGUP,KC_ESC,           \
                                                         KC_END,    KC_PGDOWN,                \
                                     KC_SPACE,KC_BSPACE,JJ_COPY,    JJ_PASTE,KC_TAB,KC_ENTER
 
-// Software Driven Workman (basically QWERTY but I'm a purist)
+// Software Driven Workman (basically HW QWERTY but I'm a purist)
 #define ______________SWORKMAN_L1______________       WK_Q,     WK_D,           WK_R,           WK_W,           WK_B
 #define ______________SWORKMAN_L2______________       WK_A,     SFT_T(WK_S),    GUI_T(WK_H),    ALT_T(WK_T),    WK_G
 #define ______________SWORKMAN_L3______________ CTL_T(WK_Z),    WK_X,           WK_M,           WK_C,           WK_V
