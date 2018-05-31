@@ -585,49 +585,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //------DOUBLE PRESS, with added left navigation
         case DBL_SPC:
             if( record->event.pressed ) {
-                SEND_STRING("  "SS_TAP(KC_LEFT));
+                SEND_STRING("  "SS_TAP(X_LEFT));
             }
             return false;
             break;
         case DBL_ANG:
             if( record->event.pressed ) {
-                SEND_STRING("<>"SS_TAP(KC_LEFT));
+                SEND_STRING("<>"SS_TAP(X_LEFT));
             }
             return false;
             break;
         case DBL_PAR:
             if( record->event.pressed ) {
-                SEND_STRING("()"SS_TAP(KC_LEFT));
+                SEND_STRING("()"SS_TAP(X_LEFT));
             }
             return false;
             break;
         case DBL_SQR:
             if( record->event.pressed ) {
-                SEND_STRING("[]"SS_TAP(KC_LEFT));
+                SEND_STRING("[]"SS_TAP(X_LEFT));
             }
             return false;
             break;
         case DBL_BRC:
             if( record->event.pressed ) {
-                SEND_STRING("{}"SS_TAP(KC_LEFT));
+                SEND_STRING("{}"SS_TAP(X_LEFT));
             }
             return false;
             break;
         case DBL_QUO:
             if( record->event.pressed ) {
-                SEND_STRING("\'\'"SS_TAP(KC_LEFT));
+                SEND_STRING("\'\'"SS_TAP(X_LEFT));
             }
             return false;
             break;
         case DBL_DQT:
             if( record->event.pressed ) {
-                SEND_STRING("\"\""SS_TAP(KC_LEFT));
+                SEND_STRING("\"\""SS_TAP(X_LEFT));
             }
             return false;
             break;
         case DBL_GRV:
             if( record->event.pressed ) {
-                SEND_STRING("``"SS_TAP(KC_LEFT));
+                SEND_STRING("``"SS_TAP(X_LEFT));
             }
             return false;
             break;

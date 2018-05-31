@@ -152,13 +152,13 @@ enum {
  * | TUR | OS  | Ctrl| Alt | Shf | Spc || Ent | Lft | Dwn |  Up | Rght| MSE |
  * `------------------------------------------------------------------------' */
 #define DVORAK_1 \
-    KC_ESC,  KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_BSPC
+    KC_ESC, KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_BSPC
 #define DVORAK_2 \
-    KC_TAB,  KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_D,   KC_H,   KC_T,   KC_N,   KC_S,   KC_SLSH
+    KC_TAB, KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_D,   KC_H,   KC_T,   KC_N,   KC_S,   KC_SLSH
 #define DVORAK_3 \
-    K_NUMBER,MY_SCL, KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   MO(_SE)
+    K_NUMBR,MY_SCL, KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   MO(_SE)
 #define DVORAK_4 \
-    MO(_AL), KC_LGUI,KC_LCTL,KC_LALT,KC_LSFT,KC_SPC, KC_ENT, KC_LEFT,KC_DOWN,KC_RGHT,KC_UP,  K_MOUSE
+    MO(_AL),KC_LGUI,KC_LCTL,KC_LALT,KC_LSFT,KC_SPC, KC_ENT, KC_LEFT,KC_DOWN,KC_RGHT,KC_UP,  K_MOUSE
 #define DVORAK KM(DVORAK_1,DVORAK_2,DVORAK_3,DVORAK_4)
 
 /* Alternative character overlay
@@ -178,7 +178,7 @@ enum {
 #define ALTCHAR_3 \
     _______,DBL_DQT,CUT,    COPY,   PASTE,  _______,CUR_BIT,DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,_______
 #define ALTCHAR_4 \
-    _______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,,KC_PGUP,KC_END,_______
+    _______,_______,_______,_______,_______,_______,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END,_______
 #define ALTCHAR KM(ALTCHAR_1,ALTCHAR_2,ALTCHAR_3,ALTCHAR_4)
 
 /* Game layer
