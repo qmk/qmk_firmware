@@ -190,6 +190,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case EPRM: // Resets EEPROM
     if (record->event.pressed) {
       eeconfig_init();
+      default_layer_set(1UL<<eeconfig_read_default_layer());
+      layer_state_set(layer_state);
     }
     return false;
     break;
