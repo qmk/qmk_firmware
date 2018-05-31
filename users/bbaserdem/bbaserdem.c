@@ -48,19 +48,14 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  * over. This allows to include custom code from keymaps in the generic code
  * in this file.
  */
-
 __attribute__ ((weak)) void matrix_init_keymap(void) { }
-
 __attribute__ ((weak)) void matrix_scan_keymap(void) { }
-
 __attribute__ ((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-
 __attribute__ ((weak)) uint32_t layer_state_set_keymap (uint32_t state) {
     return state;
 }
-
 __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
 
 /* ----------------------- *\
@@ -91,12 +86,14 @@ void rgblight_saveBase(void) {
 // Load the base state back 
 void rgblight_loadBase(void) {
     // Don't do anything if not enabled
-    if ( base_tog ) {
-        rgblight_enable();
-        rgblight_mode( base_mod );
-        rgblight_sethsv( base_hue, base_sat, base_val );
-    } else {
-        rgblight_disable();
+    if ( !base_sta ) {
+        if ( base_tog ) {
+            rgblight_enable();
+            rgblight_mode( base_mod );
+            rgblight_sethsv( base_hue, base_sat, base_val );
+        } else {
+            rgblight_disable();
+        }
     }
     // Mark that base is loaded, and to be saved before leaving
     base_sta = true;
@@ -585,7 +582,56 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
             return false;
             break;
-
+//------DOUBLE PRESS, with added left navigation
+        case DBL_SPC:
+            if( record->event.pressed ) {
+                SEND_STRING("  "SS_TAP(KC_LEFT));
+            }
+            return false;
+            break;
+        case DBL_ANG:
+            if( record->event.pressed ) {
+                SEND_STRING("<>"SS_TAP(KC_LEFT));
+            }
+            return false;
+            break;
+        case DBL_PAR:
+            if( record->event.pressed ) {
+                SEND_STRING("()"SS_TAP(KC_LEFT));
+            }
+            return false;
+            break;
+        case DBL_SQR:
+            if( record->event.pressed ) {
+                SEND_STRING("[]"SS_TAP(KC_LEFT));
+            }
+            return false;
+            break;
+        case DBL_BRC:
+            if( record->event.pressed ) {
+                SEND_STRING("{}"SS_TAP(KC_LEFT));
+            }
+            return false;
+            break;
+        case DBL_QUO:
+            if( record->event.pressed ) {
+                SEND_STRING("\'\'"SS_TAP(KC_LEFT));
+            }
+            return false;
+            break;
+        case DBL_DQT:
+            if( record->event.pressed ) {
+                SEND_STRING("\"\""SS_TAP(KC_LEFT));
+            }
+            return false;
+            break;
+        case DBL_GRV:
+            if( record->event.pressed ) {
+                SEND_STRING("``"SS_TAP(KC_LEFT));
+            }
+            return false;
+            break;
+// END OF KEYCODES
     }
     return process_record_keymap(keycode, record);
 }

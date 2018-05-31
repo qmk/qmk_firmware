@@ -7,15 +7,29 @@ I have the following keymaps:
 
 * Gherkin (Does not use the user space)
 * Let's Split
+* Let's Split It Up
 * Planck
-* xd75re
+
+# Layout
+
+I use DVORAK with an unorthodox Turkish layout.
+If you wanna grab my code, andused a previous layout with a persistent base
+layer change, change it to layer 0 before proceeding.
+
+# Layers
+
+* **Dvorak**: Base layer,withdvorak layout.
+* **Alternative**: Has alternate characters.
+* **Game**: Toggled from *Function*, comfortable for gaming use.
+* **Numeric**: Has numericals and symbols. Can be locked.
+* **Function**: Layer has media and function keys.
+* **Mouse**: Manipulates mouse. Can be locked.
+* **Music** Allows playing sounds like a keyboard.
 
 # Functionality
 
-* **Gaming**: A layer for gaming, which is usually meant for QWERTY.
-* **RGB Backlight**: With layer indication, and ability to change base layer.
+* **RGB Backlight**: With layer indication, and ability to change base layer lighting mode.
 * **Secrets**: By placing a secrets.h, and not tracking it, you can store passwords etc.
-* **Music**: On Planck, there is a dedicated layer for music. (All masked) Also have sound effect for some layers.
 * **Mouse**: Mouse emulation, complete with diagonal keys.
 * **Turkish**: An AltGr-like overlay that allows some non-common letters, in unicode.
 
@@ -25,10 +39,11 @@ some insight into fringe user cases.
 
 # Issues
 
-All features are too big for the 32kB bootloader, not good for planck.
-Biggest culprid is audio and rgb lights. It seems it comes down to one or the other.
+All features are too big for the 32kB bootloader.
+Offenders are audio and rgb lights; it comes down to one or the other.
+~The Proton board, and rev 6 should fix that.~
 
 # Credits
 
 I have previously written my keymap by myself before, but I rewrote it here,
-following @drashna's user folder. Heavily influenced/copied from there.
+heavily inspired by @drashna's user folder.
