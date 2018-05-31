@@ -1,5 +1,5 @@
-#ifndef KB_H
-#define KB_H
+#ifndef CA66_H
+#define CA66_H
 
 #include "quantum.h"
 

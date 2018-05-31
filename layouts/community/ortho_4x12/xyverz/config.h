@@ -13,10 +13,10 @@
   #define RGB_DI_PIN D1
 #endif
 #ifdef KEYBOARD_levinson_rev2
-  #define RGBLED_NUM
+  #define RGBLED_NUM 1
 #endif
 #ifdef KEYBOARD_lets_split_rev2
-  #define RGBLED_NUM
+  #define RGBLED_NUM 1
 #endif
 
 #define RGBLIGHT_ANIMATIONS
