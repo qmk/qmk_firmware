@@ -21,6 +21,8 @@
 
 // place overrides here
 #define RGBLIGHT_SLEEP
+#undef MANUFACTURER
+#undef DESCRIPTION
 #define MANUFACTURER    mtdjr
 #define PRODUCT         XD75
 #define DESCRIPTION     XD75Re

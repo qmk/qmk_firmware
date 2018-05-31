@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define USE_SERIAL
  #define USE_I2C
- #define TAPPING_TERM 250
 /* Select hand configuration */
 
 // #define MASTER_LEFT
