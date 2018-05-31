@@ -69,6 +69,4 @@ SLEEP_LED_ENABLE = yes    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
 
-LAYOUTS = ortho_5x12
-
 DEFAULT_FOLDER = fortitude60/rev1
