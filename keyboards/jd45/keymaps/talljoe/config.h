@@ -14,9 +14,9 @@
     K40, K41, K42,      K44, K45, K46,      K48, K49,      K4B, K4C                 \
 ) { \
     { K10,   K11,   K12,   K13,   K14,   K15,   K16,   K17,   K18,   K19,   K1A,   K0D,   K1D    }, \
-    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2B,   KC_NO  }, \
+    { K20,   K21,   K22,   K23,   K24,   K25,   K26,   K27,   K28,   K29,   K2A,   K2C,   KC_NO  }, \
     { K30,   K32,   K33,   K34,   K35,   K36,   K37,   K38,   K39,   K3A,   K3B,   K3C,   KC_NO  }, \
-    { K40,   K00,   K41,   K42,   K45,   KC_NO, K44,   KC_NO, K48,   K49,   K3D,   K4C,   KC_NO  }  \
+    { K40,   K00,   K41,   K42,   K44,   KC_NO, K45,   KC_NO, K48,   K49,   K3D,   K4C,   KC_NO  }  \
 }
 
 #endif

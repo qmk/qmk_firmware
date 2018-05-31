@@ -21,6 +21,7 @@ enum layers {
     _NORMAN,
     _DVORAK,
     _COLMAK,
+    _MALTRON,
     _GAME,
     _NAV,
     _NUM,
@@ -50,18 +51,25 @@ enum tap_dancers {
 #define LY_NRMN   DF(_NORMAN)
 #define LY_DVRK   DF(_DVORAK)
 #define LY_CLMK   DF(_COLMAK)
+#if SPACE_COUNT >= 2
+  #define LY_MALT DF(_MALTRON)
+#else
+  #define LY_MALT KC_NO
+#endif
 #define TG_NKRO   MAGIC_TOGGLE_NKRO
 #define KC_PTT    KC_F24
 #define MS_MID    KC_MS_BTN3
 #define FX(x)     (EFFECT + x)
 
 #define US_CAPS   CTL_T(KC_ESC)
-#define US_QUOT   RCTL_T(KC_QUOT)
+#define US_ENT    RCTL_T(KC_ENT)
 #define US_MINS   RCTL_T(KC_QUOT)
 #define US_SCLN   TD(TD_SEMICOLON)
 #define US_GRV    TD(TD_GRAVE)
-#define US_ENT    LT(_NUM, KC_ENT)
+#define US_QUOT    LT(_NUM, KC_QUOT)
 #define US_TAB    LCA_T(KC_TAB)
+
+#define MALT_E    LT(_NUM, KC_E)
 
 #ifndef SPACE_COUNT
   #define SPACE_COUNT 1
@@ -79,14 +87,14 @@ enum tap_dancers {
   #define NM_SPC2   _______
   #define NM_SPC3   _______
 #elif (SPACE_COUNT == 2)
-  #define KC_SPC1   LT(_NUM,KC_ENT)
-  #define KC_SPC2   LT(_NAV,KC_SPC)
+  #define KC_SPC1   LT(_NAV,KC_SPC)
+  #define KC_SPC2   LT(_NUM,KC_ENT)
 
-  #define NV_SPC1   C_S_T(KC_ENT)
-  #define NV_SPC2   KC_SPC
+  #define NV_SPC1   KC_SPC
+  #define NV_SPC2   C_S_T(KC_ENT)
 
-  #define NM_SPC1   KC_SPC
-  #define NM_SPC2   KC_0
+  #define NM_SPC1   KC_0
+  #define NM_SPC2   KC_SPC
 
   #define KC_SPC3   XXXXXXX
   #define NV_SPC3   XXXXXXX
