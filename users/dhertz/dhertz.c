@@ -37,6 +37,15 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch(keycode) {
+        case CMD_TAB_CMD:
+            mod_or_mod_with_macro(record, KC_LGUI, SS_TAP(X_TAB));
+            return false;
+        case CMD_GRV_CMD:
+            mod_or_mod_with_macro(record, KC_RGUI, SS_TAP(X_GRAVE));
+            return false;
+    }
+
     if (record->event.pressed) {
         switch(keycode) {
             case HSH_TLD:
@@ -66,41 +75,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return process_record_keymap(keycode, record);
 }
 
-const uint16_t fn_actions[] __attribute__ ((section (".keymap.fn_actions"))) = {
-    [0]  = ACTION_FUNCTION_TAP(CMD_TAB_CMD),           // tap cmd tab or cmd
-    [1]  = ACTION_FUNCTION_TAP(CMD_GRV_CMD),                    // grave tab
-};
+static uint16_t sunds_timer;
 
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    switch (id) {
-        case CMD_TAB_CMD:
-            cmd_or_macro(record, KC_LGUI, SS_LGUI(SS_TAP(X_TAB)));
-            break;
-        case CMD_GRV_CMD:
-            cmd_or_macro(record, KC_RGUI, SS_LGUI(SS_TAP(X_GRAVE)));
-            break;
-        default:
-            action_function_keymap(record, id, opt);
-    }
-}
-
-void cmd_or_macro(keyrecord_t *record, uint16_t kc_mod, char* macro) {
+void mod_or_mod_with_macro(keyrecord_t *record, uint16_t kc_mod, char* macro) {
     if (record->event.pressed) {
-        if (record->tap.count > 0 && !record->tap.interrupted) {
-            if (record->tap.interrupted) {
-                register_mods(MOD_BIT(kc_mod));
-            }
-        } else {
-            register_mods(MOD_BIT(kc_mod));
-        }
+        sunds_timer = timer_read();
+        register_code(kc_mod);
     } else {
-        if (record->tap.count > 0 && !(record->tap.interrupted)) {
+        if (timer_elapsed(sunds_timer) < TAPPING_TERM) {
             send_string(macro);
-            record->tap.count = 0;  // ad hoc: cancel tap
-        } else {
-            unregister_mods(MOD_BIT(kc_mod));
         }
+        unregister_code(kc_mod);
     }
 }
 
