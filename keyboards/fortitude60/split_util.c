@@ -10,11 +10,7 @@
 #include "config.h"
 #include "timer.h"
 
-#ifdef USE_I2C
-#  include "i2c.h"
-#else
-#  include "serial.h"
-#endif
+#include "serial.h"
 
 volatile bool isLeftHand = true;
 
