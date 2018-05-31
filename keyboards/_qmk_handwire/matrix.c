@@ -59,7 +59,7 @@ void matrix_init(void) {
     master = right_hand;
 
     if (master) {
-      twi2c_master_init();
+      twi2c_init();
     } else {
       twi2c_slave_init();
     }

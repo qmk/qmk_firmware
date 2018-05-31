@@ -28,4 +28,13 @@ I2CSlaveMsgCB twi2c_slave_message_process, catchError, clearAfterSend;
 
 void twi2c_slave_init(void);
 
-void twi2c_master_init(void);
+void twi2c_init(void);
+uint8_t twi2c_start(uint8_t address);
+uint8_t twi2c_write(uint8_t data);
+uint8_t twi2c_read_ack(void);
+uint8_t twi2c_read_nack(void);
+uint8_t twi2c_transmit(uint8_t address, uint8_t* data, uint16_t length);
+uint8_t twi2c_receive(uint8_t address, uint8_t* data, uint16_t length);
+uint8_t twi2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length);
+uint8_t twi2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length);
+void twi2c_stop(void);
