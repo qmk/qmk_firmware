@@ -1,7 +1,7 @@
 CANOE
 ========
 
-A 65% keyboard with RGB
+A 65% keyboard with some RGB
 
 Keyboard Maintainer: QMK Community
 
