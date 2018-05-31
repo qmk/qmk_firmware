@@ -1,7 +1,7 @@
 # ErgoDox Familiar Layout
 Familiar layout for those who regularly switch back and forth from ErgoDox to "normal" QWERTY.
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](../../../../license_GPLv3.md../../../../license_GPLv3.md) [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](../../../../license_GPLv3.md) [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg)](https://github.com/RichardLitt/standard-readme)
 
 ## Table of Contents
 
@@ -66,4 +66,4 @@ I'm terrible at this; I have no background in human-computer interaction, kinesi
 1. `MENU` and `LEAD` are useless, at the moment.
 
 ## License
-QMK is licensed ([mostly](https://github.com/qmk/qmk_firmware/issues/1038)) under the [GPLv2](blob/master/license_GPLv2.md). Accordingly, to whatever extent applicable, this keymap is licensed under the [GPLv3](../../../../license_GPLv3.md).
+QMK is licensed ([mostly](https://github.com/qmk/qmk_firmware/issues/1038)) under the [GPLv2](../../../../license_GPLv2.md). Accordingly, to whatever extent applicable, this keymap is licensed under the [GPLv3](../../../../license_GPLv3.md).
