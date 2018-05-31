@@ -8,7 +8,7 @@ enum userspace_custom_keycodes {
   DFAULTS,
   TOGGLE_BACKLIGHT,
   EFFECT,
-  EFFECT_END = EFFECT + 10
+  EFFECT_END = EFFECT + 20
 };
 
 #ifndef RESET_LAYER

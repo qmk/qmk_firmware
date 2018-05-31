@@ -62,11 +62,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_LGUI, KC_LALT,                   NM_SPC2, NM_SPC1, NM_SPC3,                   KC_PDOT, KC_PCMM, KC_RCTL, KC_PTT ),
  // Adjust layer is on the split-shift key; or NAV+Enter (for non-split keyboards)
   [_ADJUST] = TEMPLATE(
-      MO_RST , FX(1)  , FX(2)  , FX(3)  , FX(4)  , FX(5)  , FX(6)  , FX(7)  , FX(8)  , FX(9)  , FX(10) , BR_DEC , BR_INC , XXXXXXX, MO_RST ,
+      MO_RST , FX(1)  , FX(2)  , FX(3)  , FX(4)  , FX(5)  , FX(8)  , FX(9)  , FX(10) , FX(20) , FX(0)  , BR_DEC , BR_INC , XXXXXXX, MO_RST ,
       MO_RST , H1_INC , S1_INC , H2_INC , S2_INC , EF_INC , RGB_HUI, RGB_SAI, RGB_MOD, RGB_M_P, DFAULTS, RGB_VAD, RGB_VAI, MO_RST ,
       XXXXXXX, H1_DEC , S1_DEC , H2_DEC , S2_DEC , EF_DEC , RGB_HUD, RGB_SAD, RGB_RMOD,RGB_M_K, RGB_M_B, RGB_M_G,          TG_ADJ ,
       TG_NKRO, LY_QWER, LY_WORK, LY_NRMN, LY_DVRK, LY_CLMK, XXXXXXX, LY_MALT, XXXXXXX, XXXXXXX, KC_MAKE,          KC_CAPS, XXXXXXX,
-      MO_RST , AG_NORM, AG_SWAP,                   XXXXXXX, BL_STEP, XXXXXXX,                   RGB_TOG, XXXXXXX, XXXXXXX, TG_GAME),
+      MO_RST , AG_NORM, AG_SWAP,                   XXXXXXX, BL_TOGG, XXXXXXX,                   RGB_TOG, XXXXXXX, XXXXXXX, TG_GAME),
   // To Reset hit FN + ` + Esc
   [_RESET] = TEMPLATE(
       RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET  ,
