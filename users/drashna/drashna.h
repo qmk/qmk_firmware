@@ -56,7 +56,7 @@ void tap(uint16_t keycode);
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
 
 
-#define EECONFIG_USERSPACE (uint8_t *)20
+#define EECONFIG_USERSPACE (uint8_t *)19
 
 typedef union {
   uint8_t raw;
