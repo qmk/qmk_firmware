@@ -60,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define BREATHING_PERIOD 5
 
 /* for Tap Dance */
-#define TAPPING_TERM 200
+#define TAPPING_TERM 700
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 //#define DEBOUNCING_DELAY 5
