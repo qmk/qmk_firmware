@@ -18,7 +18,7 @@
 
 #include "rgb_matrix.h"
 #include <avr/io.h>
-#include "TWIlib.h"
+#include "i2c_master.h"
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "progmem.h"
@@ -149,8 +149,9 @@ void rgb_matrix_set_suspend_state(bool state) {
 
 void rgb_matrix_test(void) {
     // Mask out bits 4 and 5
-    // This 2-bit value will stay the same for 16 ticks.
-    switch ( (g_tick & 0x30) >> 4 )
+    // Increase the factor to make the test animation slower (and reduce to make it faster)
+    uint8_t factor = 10;
+    switch ( (g_tick & (0b11 << factor)) >> factor )
     {
         case 0:
         {
@@ -722,10 +723,8 @@ void rgb_matrix_indicators_user(void) {}
 // }
 
 void rgb_matrix_init_drivers(void) {
-    //sei();
-
     // Initialize TWI
-    TWIInit();
+    i2c_init();
     IS31FL3731_init( DRIVER_ADDR_1 );
     IS31FL3731_init( DRIVER_ADDR_2 );
 
