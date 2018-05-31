@@ -5,6 +5,7 @@
 
 #define SOLENOID_ENABLE
 #define SOLENOID_PIN F6
+#undef  SOLENOID_ACTIVE
 #define SOLENOID_ACTIVE true
 
 #endif

@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SOLENOID_ENABLE
 #define SOLENOID_PIN C6
-#define SOLENOID_ACTIVE false
 
 /* Use I2C or Serial, not both */
 
