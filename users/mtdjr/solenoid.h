@@ -7,9 +7,10 @@
 #define SOLENOID_DEFAULT_DWELL 12
 #define SOLENOID_MAX_DWELL 100
 #define SOLENOID_MIN_DWELL 4
-#define SOLENOID_PIN F6
+//#define SOLENOID_ACTIVE false
+//#define SOLENOID_PIN F6
 
-bool solenoid_enabled = true;
+bool solenoid_enabled = SOLENOID_ACTIVE;
 bool solenoid_on = false;
 bool solenoid_buzz = false;
 bool solenoid_buzzing = false;
