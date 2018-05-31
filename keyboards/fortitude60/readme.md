@@ -4,7 +4,7 @@
 
 👊A 60% (12x5) split keyboard with staggerd column layout.👊
 
-Keyboard Maintainer: [Pekaso](https://github.com/Pekaso) [@Pekaso](https://twitter.com/Pekaso)
+Keyboard Maintainer: [Pekaso](https://github.com/Pekaso) [@Pekaso](https://twitter.com/Pekaso)  
 Hardware Supported: Fortitude60 PCB, Beetle 32u4  
 Hardware Availability: [plustk2s.com](http://plustk2s.com)
 
