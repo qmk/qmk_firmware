@@ -26,30 +26,31 @@ void eeconfig_init_kb(void) {
   eeconfig_init_user();
 }
 
+__attribute__ ((weak))
+void eeconfig_init_quantum(void) {
+  eeconfig_init_kb();
+}
 
-/** \brief eeconfig initialization
+
+  /** \brief eeconfig initialization
  *
  * FIXME: needs doc
  */
-<<<<<<< HEAD
-void eeconfig_init(void)
+void eeconfig_init_quantum(void) {
 {
 #ifdef STM32F303xC
     EEPROM_format();
 #endif
-    eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
-    eeprom_update_byte(EECONFIG_DEBUG,          0);
-    eeprom_update_byte(EECONFIG_DEFAULT_LAYER,  0);
-    eeprom_update_byte(EECONFIG_KEYMAP,         0);
-    eeprom_update_byte(EECONFIG_MOUSEKEY_ACCEL, 0);
-=======
-void eeconfig_init_quantum(void) {
   eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
   eeprom_update_byte(EECONFIG_DEBUG,          0);
   eeprom_update_byte(EECONFIG_DEFAULT_LAYER,  0);
   eeprom_update_byte(EECONFIG_KEYMAP,         0);
   eeprom_update_byte(EECONFIG_MOUSEKEY_ACCEL, 0);
->>>>>>> Add Function level EEPROM configuration
+  eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
+  eeprom_update_byte(EECONFIG_DEBUG,          0);
+  eeprom_update_byte(EECONFIG_DEFAULT_LAYER,  0);
+  eeprom_update_byte(EECONFIG_KEYMAP,         0);
+  eeprom_update_byte(EECONFIG_MOUSEKEY_ACCEL, 0);
 #ifdef BACKLIGHT_ENABLE
   eeprom_update_byte(EECONFIG_BACKLIGHT,      0);
 #endif
@@ -63,10 +64,13 @@ void eeconfig_init_quantum(void) {
   eeprom_update_byte(EECONFIG_STENOMODE,      0);
 #endif
 
-  eeconfig_init_kb();
-}
-
+/** \brief eeconfig initialization
+ *
+ * FIXME: needs doc
+ */
 void eeconfig_init(void) {
+  eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
+
   eeconfig_init_quantum();
 }
 
@@ -85,14 +89,10 @@ void eeconfig_enable(void)
  */
 void eeconfig_disable(void)
 {
-<<<<<<< HEAD
 #ifdef STM32F303xC
     EEPROM_format();
 #endif
-    eeprom_update_word(EECONFIG_MAGIC, 0xFFFF);
-=======
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
->>>>>>> Add Function level EEPROM configuration
 }
 
 /** \brief eeconfig is enabled
