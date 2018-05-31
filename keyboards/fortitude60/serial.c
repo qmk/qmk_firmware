@@ -16,7 +16,7 @@
 
 // Serial pulse period in microseconds. Its probably a bad idea to lower this
 // value.
-#define SERIAL_DELAY 32
+#define SERIAL_DELAY 24
 
 uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
 uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
@@ -28,9 +28,7 @@ inline static
 void serial_delay(void) {
   _delay_us(SERIAL_DELAY);
 }
-void serial_delay_short(void) {
-  _delay_us(SERIAL_DELAY-1);
-}
+
 inline static
 void serial_output(void) {
   SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
@@ -86,8 +84,7 @@ void sync_recv(void) {
   // This shouldn't hang if the slave disconnects because the
   // serial line will float to high if the slave does disconnect.
   while (!serial_read_pin());
-  //serial_delay();
-  _delay_us(SERIAL_DELAY-5);
+  serial_delay();
 }
 
 // Used by the slave to send a synchronization signal to the master.

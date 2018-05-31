@@ -36,11 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 extern backlight_config_t backlight_config;
 #endif
 
-#ifdef USE_I2C
-#  include "i2c.h"
-#else // USE_SERIAL
-#  include "serial.h"
-#endif
+#include "serial.h"
 
 #ifndef DEBOUNCING_DELAY
 #   define DEBOUNCING_DELAY 5
@@ -154,7 +150,6 @@ uint8_t _matrix_scan(void)
             if (matrix_changed) {
                 debouncing = true;
                 debouncing_time = timer_read();
-                PORTD ^= (1 << 2);
             }
 
 #       else
@@ -191,50 +186,6 @@ uint8_t _matrix_scan(void)
     return 1;
 }
 
-#ifdef USE_I2C
-
-// Get rows from other half over i2c
-int i2c_transaction(void) {
-    int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
-
-    int err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-    if (err) goto i2c_error;
-
-    // start of matrix stored at 0x00
-    err = i2c_master_write(0x00);
-    if (err) goto i2c_error;
-
-#ifdef BACKLIGHT_ENABLE
-    // Write backlight level for slave to read
-    err = i2c_master_write(backlight_config.enable ? backlight_config.level : 0);
-#else
-    // Write zero, so our byte index is the same
-    err = i2c_master_write(0x00);
-#endif
-    if (err) goto i2c_error;
-
-    // Start read
-    err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_READ);
-    if (err) goto i2c_error;
-
-    if (!err) {
-        int i;
-        for (i = 0; i < ROWS_PER_HAND-1; ++i) {
-            matrix[slaveOffset+i] = i2c_master_read(I2C_ACK);
-        }
-        matrix[slaveOffset+i] = i2c_master_read(I2C_NACK);
-        i2c_master_stop();
-    } else {
-i2c_error: // the cable is disconnceted, or something else went wrong
-        i2c_reset_state();
-        return err;
-    }
-
-    return 0;
-}
-
-#else // USE_SERIAL
-
 int serial_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 
@@ -252,17 +203,13 @@ int serial_transaction(void) {
 #endif
     return 0;
 }
-#endif
+
 
 uint8_t matrix_scan(void)
 {
     uint8_t ret = _matrix_scan();
 
-#ifdef USE_I2C
-    if( i2c_transaction() ) {
-#else // USE_SERIAL
     if( serial_transaction() ) {
-#endif
         // turn on the indicator led when halves are disconnected
         TXLED1;
 
@@ -289,15 +236,6 @@ void matrix_slave_scan(void) {
 
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
-#ifdef USE_I2C
-#ifdef BACKLIGHT_ENABLE
-    // Read backlight level sent from master and update level on slave
-    backlight_set(i2c_slave_buffer[0]);
-#endif
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        i2c_slave_buffer[i+1] = matrix[offset+i];
-    }
-#else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
     }
@@ -305,7 +243,6 @@ void matrix_slave_scan(void) {
 #ifdef BACKLIGHT_ENABLE
     // Read backlight level sent from master and update level on slave
     backlight_set(serial_master_buffer[SERIAL_LED_ADDR]);
-#endif
 #endif
 }
 
