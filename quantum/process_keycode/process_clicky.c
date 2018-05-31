@@ -38,29 +38,53 @@ void clicky_play(void) {
   PLAY_SONG(clicky_song);
 }
 
+void clicky_freq_up(void) {
+  float new_freq = clicky_freq * AUDIO_CLICKY_FREQ_FACTOR;
+  if (new_freq < AUDIO_CLICKY_FREQ_MAX) {
+    clicky_freq = new_freq;
+  }
+}
+
+void clicky_freq_down(void) {
+  float new_freq = clicky_freq / AUDIO_CLICKY_FREQ_FACTOR;
+  if (new_freq > AUDIO_CLICKY_FREQ_MIN) {
+    clicky_freq = new_freq;
+  }
+}
+
+void clicky_freq_reset(void) {
+  clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT;
+}
+
+void clicky_freq_toggle(void) {
+  audio_config.clicky_enable ^= 1;
+  eeconfig_update_audio(audio_config.raw);
+}
+
+void clicky_freq_on(void) {
+  audio_config.clicky_enable = 1;
+  eeconfig_update_audio(audio_config.raw);
+}
+
+void clicky_freq_off(void) {
+  audio_config.clicky_enable = 0;
+  eeconfig_update_audio(audio_config.raw);
+}
+
+bool is_clicky_on(void) {
+      return (audio_config.clicky_enable != 0);
+}
+
 bool process_clicky(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == CLICKY_TOGGLE && record->event.pressed) {
-      audio_config.clicky ^= 1;
-      eeconfig_update_audio(audio_config.raw);
-    }
+    if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_freq_toggle(); }
 
-    if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT; }
+    if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq_reset(); }
 
-    if (keycode == CLICKY_UP && record->event.pressed) {
-      float new_freq = clicky_freq * AUDIO_CLICKY_FREQ_FACTOR;
-      if (new_freq < AUDIO_CLICKY_FREQ_MAX) {
-        clicky_freq = new_freq;
-      }
-    }
-    if (keycode == CLICKY_DOWN && record->event.pressed) {
-      float new_freq = clicky_freq / AUDIO_CLICKY_FREQ_FACTOR;
-      if (new_freq > AUDIO_CLICKY_FREQ_MIN) {
-        clicky_freq = new_freq;
-      }
-    }
+    if (keycode == CLICKY_UP && record->event.pressed) { clicky_freq_up(); }
+    if (keycode == CLICKY_DOWN && record->event.pressed) { clicky_freq_down(); }
 
 
-    if ( audio_config.clicky ) {
+    if ( audio_config.clicky_enable ) {
       if (record->event.pressed) {
         clicky_play();;
       }
