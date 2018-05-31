@@ -9,7 +9,7 @@ Check out [user readme](../../../../users/bbaserdem/README.md) for more info.
 Get keyboard into reset mode, and then;
 
 ```
-make planck/rev4:default:dfu
+make planck/rev4:bbaserdem:dfu
 ```
 
 Either use sudo or set up udev rules.
