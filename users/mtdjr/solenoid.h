@@ -1,3 +1,6 @@
+#ifndef SOLENOID_H
+#define SOLENOID_H
+
 #include <timer.h>
 #include "pincontrol.h"
 
@@ -5,7 +8,6 @@
 #define SOLENOID_MAX_DWELL 100
 #define SOLENOID_MIN_DWELL 4
 #define SOLENOID_PIN F6
-
 
 bool solenoid_enabled = true;
 bool solenoid_on = false;
@@ -94,3 +96,5 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
   solenoid_check();
 }
+
+#endif
