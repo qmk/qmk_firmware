@@ -26,16 +26,11 @@ void eeconfig_init_kb(void) {
   eeconfig_init_user();
 }
 
-__attribute__ ((weak))
-void eeconfig_init_quantum(void) {
-  eeconfig_init_kb();
-}
 
-
-  /** \brief eeconfig initialization
- *
+/*
  * FIXME: needs doc
  */
+__attribute__ ((weak))
 void eeconfig_init_quantum(void) {
 {
 #ifdef STM32F303xC
