@@ -259,3 +259,12 @@ uint32_t layer_state_set_rgb(uint32_t state) {
 
   return state;
 }
+void suspend_power_down_user(void)
+{
+    rgblight_mode_noeeprom(5);
+}
+
+void suspend_wakeup_init_user(void)
+{
+    rgblight_mode_noeeprom(1);
+}
