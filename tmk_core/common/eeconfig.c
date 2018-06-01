@@ -8,6 +8,7 @@
 #include "eeprom_stm32.h"
 #endif
 
+extern uint32_t default_layer_state;
 /** \brief eeconfig enable
  *
  * FIXME: needs doc
@@ -30,7 +31,6 @@ void eeconfig_init_kb(void) {
 /*
  * FIXME: needs doc
  */
-__attribute__ ((weak))
 void eeconfig_init_quantum(void) {
 {
 #ifdef STM32F303xC
@@ -44,6 +44,7 @@ void eeconfig_init_quantum(void) {
   eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
   eeprom_update_byte(EECONFIG_DEBUG,          0);
   eeprom_update_byte(EECONFIG_DEFAULT_LAYER,  0);
+  default_layer_state = 0;
   eeprom_update_byte(EECONFIG_KEYMAP,         0);
   eeprom_update_byte(EECONFIG_MOUSEKEY_ACCEL, 0);
 #ifdef BACKLIGHT_ENABLE
@@ -58,6 +59,9 @@ void eeconfig_init_quantum(void) {
 #ifdef STENO_ENABLE
   eeprom_update_byte(EECONFIG_STENOMODE,      0);
 #endif
+
+  eeconfig_init_kb();
+}
 
 /** \brief eeconfig initialization
  *

@@ -914,14 +914,6 @@ void tap_random_base64(void) {
   }
 }
 
-void eeconfig_init_quantum(void) {
-  #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
-    PLAY_SONG(default_layer_songs[0]);
-  #endif
-  default_layer_set(1U<<0);
-  eeconfig_init_kb();
-}
-
 void matrix_init_quantum() {
   if (!eeconfig_is_enabled() && !eeconfig_is_disabled()) {
     eeconfig_init();
