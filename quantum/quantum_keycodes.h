@@ -119,7 +119,7 @@ enum quantum_keycodes {
     GRAVE_ESC,
 
     // Leader key
-#ifndef DISABLE_LEADER
+#ifdef LEADER_ENABLE
     KC_LEAD,
 #endif
 
