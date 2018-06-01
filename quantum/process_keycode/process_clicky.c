@@ -56,17 +56,17 @@ void clicky_freq_reset(void) {
   clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT;
 }
 
-void clicky_freq_toggle(void) {
+void clicky_toggle(void) {
   audio_config.clicky_enable ^= 1;
   eeconfig_update_audio(audio_config.raw);
 }
 
-void clicky_freq_on(void) {
+void clicky_on(void) {
   audio_config.clicky_enable = 1;
   eeconfig_update_audio(audio_config.raw);
 }
 
-void clicky_freq_off(void) {
+void clicky_off(void) {
   audio_config.clicky_enable = 0;
   eeconfig_update_audio(audio_config.raw);
 }
@@ -76,7 +76,10 @@ bool is_clicky_on(void) {
 }
 
 bool process_clicky(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_freq_toggle(); }
+    if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_toggle(); }
+
+    if (keycode == CLICKY_ENABLE && record->event.pressed) { clicky_on(); }
+    if (keycode == CLICKY_DISABLE && record->event.pressed) { clicky_off(); }
 
     if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq_reset(); }
 
