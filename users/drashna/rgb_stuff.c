@@ -1,13 +1,17 @@
 #include "drashna.h"
 #include "rgb_stuff.h"
 
-extern rgblight_config_t rgblight_config;
 extern userspace_config_t userspace_config;
 
 #ifdef RGBLIGHT_ENABLE
+extern rgblight_config_t rgblight_config;
+
 void rgblight_sethsv_default_helper(uint8_t index) {
   rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, index);
 }
+#else
+#undef RGBLIGHT_TWINKLE
+#undef INDICATOR_LIGHTS
 #endif // RGBLIGHT_ENABLE
 
 #ifdef INDICATOR_LIGHTS
@@ -180,30 +184,34 @@ void matrix_init_rgb(void) {
   current_osm = last_osm = get_oneshot_mods();
 #endif
 
+#ifdef RGBLIGHT_ENABLE
   if (userspace_config.rgb_layer_change) {
     uint8_t default_layer = eeconfig_read_default_layer();
     rgblight_enable_noeeprom();
     if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_sethsv_magenta();
+      rgblight_sethsv_noeeprom_magenta();
     } else if (default_layer & (1UL << _DVORAK)) {
-      rgblight_sethsv_green();
+      rgblight_sethsv_noeeprom_green();
     } else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_sethsv_goldenrod();
+      rgblight_sethsv_noeeprom_goldenrod();
     } else {
-      rgblight_sethsv_cyan();
+      rgblight_sethsv_noeeprom_cyan();
     }
   }
+#endif
 }
 
+
 void matrix_scan_rgb(void) {
+#ifdef RGBLIGHT_ENABLE
 #ifdef RGBLIGHT_TWINKLE
   scan_rgblight_fadeout();
-#endif // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_TWINKLE
 
 #ifdef INDICATOR_LIGHTS
   matrix_scan_indicator();
 #endif
-
+#endif
 }
 
 
