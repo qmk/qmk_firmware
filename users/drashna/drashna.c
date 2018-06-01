@@ -38,7 +38,7 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
     clear_keyboard();
     tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
     wait_ms(50);
-    send_string(str);
+    send_string_with_delay(str, 10);
     wait_ms(50);
     tap(KC_ENTER);
   }
@@ -160,7 +160,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
+      send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP
 #if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
                    ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
@@ -168,7 +168,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #elif defined(BOOTLOADER_CATERINA)
                    ":avrdude"
 #endif // bootloader options
-                   SS_TAP(X_ENTER));
+                   SS_TAP(X_ENTER)), 10);
     }
     return false;
     break;
@@ -197,7 +197,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case VRSN: // Prints firmware version
     if (record->event.pressed) {
-      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+      send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), 10);
     }
     return false;
     break;
