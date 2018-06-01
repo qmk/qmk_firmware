@@ -27,6 +27,10 @@
 #define BREATHING_PERIOD 6
 #endif
 
+#ifndef MACRO_DELAY
+#define MACRO_DELAY 0
+#endif
+
 #include "backlight.h"
 extern backlight_config_t backlight_config;
 
@@ -712,11 +716,11 @@ const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
 };
 
 void send_string(const char *str) {
-  send_string_with_delay(str, 0);
+  send_string_with_delay(str, MACRO_DELAY);
 }
 
 void send_string_P(const char *str) {
-  send_string_with_delay_P(str, 0);
+  send_string_with_delay_P(str, MACRO_DELAY);
 }
 
 void send_string_with_delay(const char *str, uint8_t interval) {
