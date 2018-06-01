@@ -1,13 +1,14 @@
 {
-    "keyboard_name": "Christmas Tree",
-    "keyboard_folder": "christmas_tree",
-    "url": "https://www.reddit.com/r/MechanicalKeyboards/comments/7cqxpf/gb_christmas_tree_pcb_gb_now_live/",
-    "maintainer": "That-Canadian",
-    "width": 3,
-    "height": 3,
-    "layouts": {
-        "2017": {
-            "key_count": 6
-        }
+  "keyboard_name": "Christmas Tree",
+  "keyboard_folder": "christmas_tree",
+  "url": "https://www.reddit.com/r/MechanicalKeyboards/comments/7cqxpf/gb_christmas_tree_pcb_gb_now_live/",
+  "maintainer": "That-Canadian",
+  "width": 3,
+  "height": 3,
+  "layouts": {
+    "2017": {
+      "key_count": 6,
+      "layout": [{"x":1, "y":0}, {"x":0.5, "y":1}, {"x":1.5, "y":1}, {"x":0, "y":2}, {"x":1, "y":2}, {"x":2, "y":2}]
     }
+  }
 }
