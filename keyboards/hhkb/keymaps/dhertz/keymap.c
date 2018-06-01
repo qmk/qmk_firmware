@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
               KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,
              SRCH_CTL,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,  KC_SCLN,KC_QUOT,KC_NUHS, KC_ENT,
               KC_LSFT,    KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,KC_COMM, KC_DOT, KC_SLSH,KC_NUBS,  KC_UP,   KC_RSFT,
-              NC_CTL, HSH_TLD,KC_LALT,CMD_TAB_CMD,CMD_TAB_CMD,  LYR_SPC , CMD_GRV_CMD, ISO_COUNTRY_CODE,KC_RGUI, CMD_SFT_L, KC_LEFT,KC_DOWN,KC_RGHT
+              NC_CTL, HSH_TLD,KC_LALT,CMD_TAB_CMD,CMD_TAB_CMD, LT(2, KC_SPC)  , CMD_GRV_CMD, ISO_COUNTRY_CODE,KC_RGUI, CMD_SFT_L, KC_LEFT,KC_DOWN,KC_RGHT
         ),
 
   /* Layer 1: iPad mode (Fixed)
