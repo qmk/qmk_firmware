@@ -1,5 +1,9 @@
 
-SRC += drashna.c secrets.c rgb_stuff.c
+SRC += drashna.c rgb_stuff.c
+
+ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
+  SRC += secrets.c
+endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
   SRC += tap_dances.c
