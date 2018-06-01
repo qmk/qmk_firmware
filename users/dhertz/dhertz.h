@@ -3,9 +3,6 @@
 
 #include "quantum.h"
 
-#undef TAPPING_TERM
-#define TAPPING_TERM 200
-
 #define SRCH_CTL CTL_T(KC_F19)
 #define LYR_SPC LT(1, KC_SPC)
 #define NC_CTL CTL_T(KC_F18)
