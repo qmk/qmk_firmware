@@ -17,11 +17,14 @@
 #include "twi2c.h"
 #include <string.h>
 #include <hal.h>
-#include "hal_i2cslave.h"
 #include "chprintf.h"
 #include "memstreams.h"
 #include "printf.h"
 #include "matrix.h"
+
+#ifdef I2C_SLAVE_ENABLE
+
+#include "hal_i2cslave.h"
 
 /**
  * I2C slave test routine.
@@ -38,6 +41,8 @@
 // };
 
 I2CSlaveMsgCB twi2c_slave_message_process, catchError, clearAfterSend;
+
+#endif
 
 static uint8_t twi2c_address;
 
@@ -59,6 +64,9 @@ uint8_t  rxBody[2];                       /* stores last message master sent us 
 uint8_t  txBody[MATRIX_ROWS/2];                       /* Return message buffer for computed replies */
 
 BaseSequentialStream *chp = NULL;           // Used for serial logging
+
+
+#ifdef I2C_SLAVE_ENABLE
 
 // Handler when something sent to us
 const I2CSlaveMsg echoRx =
@@ -102,6 +110,7 @@ I2CSlaveMsg echoReply = {  /* this is in RAM so size may be updated */
 };
 
 
+
 /**
  * Track I2C errors
  */
@@ -130,6 +139,8 @@ void catchError(I2CDriver *i2cp)
 extern void matrix_copy(matrix_row_t * copy);
 
 const char hexString[16] = "0123456789abcdef";
+
+
 
 /**
  *  Message processor - looks at received message, determines reply as quickly as possible
@@ -198,6 +209,8 @@ void twi2c_slave_task(void) {
     }
 }
 
+#endif
+
 uint8_t twi2c_start(uint8_t address) {
   twi2c_address = address;
   i2cStart(&I2C_DRIVER, &I2CConfig);
@@ -216,8 +229,9 @@ void twi2c_init(void) {
   // I2C_DRIVER.i2c->FLT = 4;
 }
 
+uint8_t buffer[1] = {0};
+
 uint8_t twi2c_write(uint8_t data) {
-  uint8_t buffer[1] = {0};
   return i2cMasterTransmitTimeout(&I2C_DRIVER, twi2c_address/2, &data, 1, buffer, 1, MS2ST(100));
 }
 

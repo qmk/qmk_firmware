@@ -25,8 +25,6 @@ static uint8_t encoder_state = 0;
 static int8_t encoder_value = 0;
 static int8_t encoder_LUT[] = { 0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0 };
 
-static bool dip_switch[4] = {0, 0, 0, 0};
-
 __attribute__ ((weak))
 void matrix_init_user(void) {}
 
@@ -85,12 +83,7 @@ void matrix_init(void) {
 }
 
 __attribute__ ((weak))
-void dip_update(uint8_t index, bool active) { }
-
-__attribute__ ((weak))
 void encoder_update(bool clockwise) { }
-
-bool last_dip_switch[4] = {0};
 
 #ifndef ENCODER_RESOLUTION
   #define ENCODER_RESOLUTION 4
@@ -100,16 +93,6 @@ bool last_dip_switch[4] = {0};
 #define CLOCKWISE 1
 
 uint8_t matrix_scan(void) {
-    // dip switch
-    dip_switch[0] = !palReadPad(GPIOB, 14);
-    dip_switch[1] = !palReadPad(GPIOA, 15);
-    dip_switch[2] = !palReadPad(GPIOA, 10);
-    dip_switch[3] = !palReadPad(GPIOB, 9);
-    for (uint8_t i = 0; i < 4; i++) {
-      if (last_dip_switch[i] ^ dip_switch[i])
-        dip_update(i, dip_switch[i]);
-    }
-    memcpy(last_dip_switch, dip_switch, sizeof(&dip_switch));
 
     // encoder on B12 and B13
     encoder_state <<= 2;

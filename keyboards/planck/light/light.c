@@ -140,8 +140,10 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 void matrix_init_kb(void) {
 
     // Turn status LED on
+    #ifdef KEYBOARD_planck_light_rev1
     DDRD |= (1<<6);
     PORTD |= (1<<6);
+    #endif
 
     matrix_init_user();
 }

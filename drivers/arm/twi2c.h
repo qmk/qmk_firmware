@@ -24,9 +24,13 @@
 #define slaveI2Caddress  0x30       /* Address in our terms - halved by later code */
 //#define myOtherI2Caddress 0x19
 
+#ifdef I2C_SLAVE_ENABLE
+
 I2CSlaveMsgCB twi2c_slave_message_process, catchError, clearAfterSend;
 
 void twi2c_slave_init(void);
+
+#endif
 
 void twi2c_init(void);
 uint8_t twi2c_start(uint8_t address);
