@@ -1,6 +1,5 @@
-#include "hhkb.h"
+#include QMK_KEYBOARD_H
 #include "keymap.h"
-#include "dhertz.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
