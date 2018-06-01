@@ -1,21 +1,19 @@
 #include QMK_KEYBOARD_H
 #include "mtdjr.h"
 
-#define KC_LOCK TD(TD_ENDLOCK)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
  [_QWERTY] = KC_KEYMAP(
 //  .--------------------------------------------------------------------------.
-      EXC, 1  , 2  , 3  , 4  , 5  ,PGUP,xxxx,PGDN, 6  , 7  , 8  , 9  , 0  ,BSPC,
+      EXC, 1  , 2  , 3  , 4  , 5  ,PGUP,MPNT,PGDN, 6  , 7  , 8  , 9  , 0  ,BSPC,
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
       TAB, Q  , W  ,  E , R  , T  , INS,BSLS, DEL, Y  , U  , I  , O  , P  ,QUOT,
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     LCTL, A  , S  ,  D , F  , G  ,HOME,PLUS,LOCK, H  , J  , K  , L  ,SCLN, ENT,
+     LCTL, A  , S  ,  D , F  , G  ,HOME, EQL,ELCK, H  , J  , K  , L  ,SCLN, ENT,
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
      LSFT, Z  , X  ,  C , V  , B  ,LBRC,MINS,RBRC, N  , M  ,COMM, DOT,SLSH,RSFT,
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     LOWR,LCTL,LALT,LGUI,xxxx, SPC, SPC,RASE,SPC, SPC,xxxx,LEFT,DOWN,UP  ,RGHT
+     LOWR,LCTL,LALT,LGUI,xxxx, SPC,RASE,LOWR, APP, SPC,xxxx,LEFT,DOWN,UP  ,RGHT
 //  '----+----+----+----+----+----+----+----+----+----+----+----+----+----+----'
 ),
 
@@ -25,11 +23,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
      xxxx,ROOT,PPLY,PSEF,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,
+     xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,CALC,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
      xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,MUTE,
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-         ,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,    ,xxxx,MPLY,xxxx,MPRV,VOLD,VOLU,MNXT
+         ,xxxx,xxxx,xxxx,xxxx,xxxx,    ,    ,xxxx,MPLY,xxxx,MPRV,VOLD,VOLU,MNXT
 //  '----+----+----+----+----+----+----+----+----+----+----+----+----+----+----'
 ),
 
@@ -39,11 +37,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
      xxxx,xxxx,xxxx,xxxx, RST,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-     CAPS,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx, BLI,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,
+     CAPS,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx, BLI,xxxx,xxxx,xxxx,xxxx,XLCK,xxxx,xxxx,
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
       RGB,RHUI,RHUD,RSAI,RSAD,RVAI,RVAD, BLD,xxxx,xxxx,xxxx,xxxx,BTN1,BTN2,xxxx,
 //  |----+----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-         ,xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,    ,xxxx,xxxx,xxxx,MS_L,MS_D,MS_U,MS_R
+         ,xxxx,xxxx,xxxx,xxxx,xxxx,    ,    ,xxxx,xxxx,xxxx,MS_L,MS_D,MS_U,MS_R
 //  '----+----+----+----+----+----+----+----+----+----+----+----+----+----+----'
 )
 };
