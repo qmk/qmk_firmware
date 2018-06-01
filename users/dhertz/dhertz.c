@@ -1,6 +1,5 @@
 #include "dhertz.h"
-#include "quantum.h"
-#include "action.h"
+
 // Add reconfigurable functions here, for keymap customization
 // This allows for a global, userspace functions, and continued
 // customization of the keymap.  Use _keymap instead of _user
