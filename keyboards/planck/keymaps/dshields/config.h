@@ -10,7 +10,6 @@
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define PREVENT_STUCK_MODIFIERS
 
 #define USB_MAX_POWER_CONSUMPTION 100
 #define ONESHOT_TAP_TOGGLE        2
