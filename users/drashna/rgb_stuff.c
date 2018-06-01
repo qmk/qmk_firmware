@@ -9,9 +9,14 @@ extern rgb_config_t rgb_matrix_config;
 #endif
 
 #ifdef RGBLIGHT_ENABLE
+extern rgblight_config_t rgblight_config;
+
 void rgblight_sethsv_default_helper(uint8_t index) {
   rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, index);
 }
+#else
+#undef RGBLIGHT_TWINKLE
+#undef INDICATOR_LIGHTS
 #endif // RGBLIGHT_ENABLE
 
 #ifdef INDICATOR_LIGHTS
@@ -263,15 +268,17 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 // #endif
  }
 
+
 void matrix_scan_rgb(void) {
+#ifdef RGBLIGHT_ENABLE
 #ifdef RGBLIGHT_TWINKLE
   scan_rgblight_fadeout();
-#endif // RGBLIGHT_ENABLE
+#endif // RGBLIGHT_TWINKLE
 
 #ifdef INDICATOR_LIGHTS
   matrix_scan_indicator();
 #endif
-
+#endif
 }
 
 
