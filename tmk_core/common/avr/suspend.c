@@ -196,7 +196,7 @@ void suspend_wakeup_init_user(void) { }
  */
 __attribute__ ((weak))
 void suspend_wakeup_init_kb(void) {
-  suspend_wakeup_init_user();
+  suspend_power_down_user();
 }
 /** \brief run immediately after wakeup
  *
