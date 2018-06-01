@@ -44,18 +44,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ),
 };
 
-void matrix_scan_keymap(void) {
-    uint8_t layer = biton32(layer_state);
+void matrix_init_keymap(void) {
+    rgblight_enable_noeeprom();
+    rgblight_sethsv_teal();
+}
 
-    switch (layer) {
-        case 0:
-            rgblight_setrgb_teal();
-            break;
+uint32_t layer_state_set_keymap(uint32_t state) {
+    switch (biton32(state)) {
         case 1:
-            rgblight_setrgb_magenta();
+            rgblight_sethsv_noeeprom_magenta();
             break;
-        default:
-            // none
+        default: //  for any other layers, or the default layer
+            rgblight_sethsv_noeeprom_cyan();
             break;
     }
-};
+    return state;
+}
