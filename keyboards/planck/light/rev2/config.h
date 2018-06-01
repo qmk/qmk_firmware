@@ -19,13 +19,17 @@
 #define REV6_CONFIG_H
 
 /* USB Device descriptor parameter */
-#define DEVICE_VER 0x0006
+#undef PRODUCT
+#define PRODUCT Planck Light
+#undef PRODUCT_ID
+#define PRODUCT_ID 0x6065
+#define DEVICE_VER 0x0002
 
 #undef MATRIX_ROWS
 #undef MATRIX_COLS
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 12
 
 /*
  * Keyboard Matrix Assignments

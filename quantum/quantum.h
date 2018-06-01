@@ -27,7 +27,7 @@
 #ifdef BACKLIGHT_ENABLE
     #include "backlight.h"
 #endif
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE) 
+#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
 	#include "rgb.h"
 #endif
 #ifdef RGBLIGHT_ENABLE
@@ -119,6 +119,11 @@ extern uint32_t default_layer_state;
 	#include "process_terminal.h"
 #else
 	#include "process_terminal_nop.h"
+#endif
+
+#ifndef MIN
+  #define MAX(x, y) (((x) > (y)) ? (x) : (y))
+  #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #endif
 
 #define STRINGIZE(z) #z

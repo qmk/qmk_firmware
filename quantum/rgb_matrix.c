@@ -17,14 +17,14 @@
 
 
 #include "rgb_matrix.h"
-#include <avr/io.h>
-#include "i2c_master.h"
-#include <util/delay.h>
-#include <avr/interrupt.h>
+//#include <avr/io.h>
+#include "twi2c.h"
+#include "wait.h"
+//#include <avr/interrupt.h>
 #include "progmem.h"
 #include "config.h"
 #include "eeprom.h"
-#include "lufa.h"
+//#include "lufa.h"
 #include <math.h>
 
 rgb_config_t rgb_matrix_config;
@@ -217,7 +217,7 @@ void rgb_matrix_single_LED_test(void) {
 }
 
 // All LEDs off
-void rgb_matrix_all_off(void) { 
+void rgb_matrix_all_off(void) {
     rgb_matrix_set_color_all( 0, 0, 0 );
 }
 
@@ -243,7 +243,7 @@ void rgb_matrix_solid_reactive(void) {
 
 // alphas = color1, mods = color2
 void rgb_matrix_alphas_mods(void) {
- 
+
     RGB rgb1 = hsv_to_rgb( (HSV){ .h = rgb_matrix_config.hue, .s = rgb_matrix_config.sat, .v = rgb_matrix_config.val } );
     RGB rgb2 = hsv_to_rgb( (HSV){ .h = (rgb_matrix_config.hue + 180) % 360, .s = rgb_matrix_config.sat, .v = rgb_matrix_config.val } );
 
@@ -723,7 +723,7 @@ void rgb_matrix_indicators_user(void) {}
 
 void rgb_matrix_init_drivers(void) {
     // Initialize TWI
-    i2c_init();
+    twi2c_init();
     IS31FL3731_init( DRIVER_ADDR_1 );
     IS31FL3731_init( DRIVER_ADDR_2 );
 

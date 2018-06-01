@@ -46,13 +46,12 @@ I2CSlaveMsgCB twi2c_slave_message_process, catchError, clearAfterSend;
 
 static uint8_t twi2c_address;
 
-static const I2CConfig I2CConfig = {
+static const I2CConfig i2cconfig = {
   STM32_TIMINGR_PRESC(15U) |
   STM32_TIMINGR_SCLDEL(4U) | STM32_TIMINGR_SDADEL(2U) |
   STM32_TIMINGR_SCLH(15U)  | STM32_TIMINGR_SCLL(21U),
   0,
-  0,
-  NULL
+  0
 };
 
 char initialReplyBody[50] = "Initial reply";        // 'Status' response if read without preceding write
@@ -182,7 +181,7 @@ void twi2c_slave_init(void) {
   twi2c_init();
 
 
-  i2cStart(&I2C_DRIVER, &I2CConfig);
+  i2cStart(&I2C_DRIVER, &i2cconfig);
 #if HAL_USE_I2C_SLAVE
   I2C_DRIVER.slaveTimeout = MS2ST(100);       // Time for complete message
 #endif
@@ -213,15 +212,16 @@ void twi2c_slave_task(void) {
 
 uint8_t twi2c_start(uint8_t address) {
   twi2c_address = address;
-  i2cStart(&I2C_DRIVER, &I2CConfig);
+  i2cStart(&I2C_DRIVER, &i2cconfig);
+  return 0;
 }
 
 void twi2c_init(void) {
-  palSetGroupMode(GPIOB,8,9, PAL_MODE_INPUT);       // Try releasing special pins for a short time
+  palSetGroupMode(GPIOB,6,7, PAL_MODE_INPUT);       // Try releasing special pins for a short time
   chThdSleepMilliseconds(10);
 
-  palSetPadMode(GPIOB, 9, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
-  palSetPadMode(GPIOB, 8, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
+  palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
+  palSetPadMode(GPIOB, 7, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
 
   // try high drive (from kiibohd)
   // I2C_DRIVER.i2c->C2 |= I2Cx_C2_HDRS;
@@ -229,14 +229,12 @@ void twi2c_init(void) {
   // I2C_DRIVER.i2c->FLT = 4;
 }
 
-uint8_t buffer[1] = {0};
-
 uint8_t twi2c_write(uint8_t data) {
-  return i2cMasterTransmitTimeout(&I2C_DRIVER, twi2c_address/2, &data, 1, buffer, 1, MS2ST(100));
+  return i2cMasterTransmitTimeout(&I2C_DRIVER, twi2c_address/2, &data, 1, 0, 0, MS2ST(100));
 }
 
 uint8_t twi2c_transmit(uint8_t address, uint8_t* data, uint16_t length) {
   twi2c_address = address;
-  i2cStart(&I2C_DRIVER, &I2CConfig);
-  return i2cMasterTransmitTimeout(&I2C_DRIVER, twi2c_address/2, data, length, buffer, 1, MS2ST(100));
+  i2cStart(&I2C_DRIVER, &i2cconfig);
+  return i2cMasterTransmitTimeout(&I2C_DRIVER, twi2c_address/2, data, length, 0, 0, MS2ST(100));
 }

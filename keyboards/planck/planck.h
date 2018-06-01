@@ -3,7 +3,7 @@
 
 #include "quantum.h"
 
-#ifdef __AVR__
+#if defined(__AVR__) || defined (KEYBOARD_planck_light_rev2)
 #define LAYOUT_planck_mit( \
 	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
 	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, \

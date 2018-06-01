@@ -82,7 +82,8 @@ void IS31FL3731_write_register( uint8_t addr, uint8_t reg, uint8_t data )
   g_twi_transfer_buffer[1] = data;
 
   //Transmit data until succesful
-  while(twi2c_transmit(addr << 1, g_twi_transfer_buffer,2) != 0);
+  //while(twi2c_transmit(addr << 1, g_twi_transfer_buffer,2) != 0);
+  twi2c_transmit(addr << 1, g_twi_transfer_buffer,2);
 }
 
 void IS31FL3731_write_pwm_buffer( uint8_t addr, uint8_t *pwm_buffer )
@@ -106,7 +107,8 @@ void IS31FL3731_write_pwm_buffer( uint8_t addr, uint8_t *pwm_buffer )
     }
 
     //Transmit buffer until succesful
-    while(twi2c_transmit(addr << 1, g_twi_transfer_buffer,17) != 0);
+    //while(twi2c_transmit(addr << 1, g_twi_transfer_buffer,17) != 0);
+    twi2c_transmit(addr << 1, g_twi_transfer_buffer,17);
   }
 }
 
