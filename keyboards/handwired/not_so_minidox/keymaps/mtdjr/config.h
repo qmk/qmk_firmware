@@ -1,0 +1,11 @@
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
+#include QMK_KEYBOARD_CONFIG_H
+
+#define SOLENOID_ENABLE
+#define SOLENOID_PIN F6
+#undef  SOLENOID_ACTIVE
+#define SOLENOID_ACTIVE true
+
+#endif
