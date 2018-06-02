@@ -19,6 +19,7 @@
 //Tap Dance Declarations (list of my tap dance configurations)
 enum {
   CAD_TAP_DANCE = 0
+  ,CAD_TD
 };
 
 ///// TAP DANCE GENERAL SETUP SECTION START /////
@@ -55,6 +56,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
   else return 6; //magic number. At some point this method will expand to work for more presses
 }
 ///// TAP DANCE GENERAL SETUP SECTION END /////
+
 ///// TAP DANCE FUNCTION SETUP START /////
 void on_each_tap_fn(qk_tap_dance_state_t *state, void *user_data) {
   switch (state->count) {
@@ -84,11 +86,60 @@ void on_dance_reset_fn(qk_tap_dance_state_t *state, void *user_data) {
   //my use case doesn't need anything done
 }
 ///// TAP DANCE FUNCTION SETUP END   /////
+///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION START /////
+//instantialize an instance of 'tap' for the 'CAD' tap dance.
+static tap CADtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
+  CADtap_state.state = cur_dance(state);
+  switch (CADtap_state.state) {
+    case SINGLE_TAP: 
+		//register_code(KC_SPC); 
+		SEND_STRING(SS_LGUI("l"));
+		backlight_set(3);
+		break;
+    case SINGLE_HOLD: register_code(KC_NO); break;
+    case DOUBLE_TAP: 
+		//register_code(KC_ENT); 
+		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
+		backlight_set(0);
+		break;
+    case DOUBLE_HOLD: register_code(KC_NO); break; // setting double hold to do nothing (change this if you want)
+    case DOUBLE_SINGLE_TAP: register_code(KC_NO); unregister_code(KC_NO); register_code(KC_NO);
+    //Last case is for fast typing. Assuming your key is `f`:
+    //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
+    //In order to type `ff` when typing fast, the next character will have to be hit within the `TAPPING_TERM`, which by default is 200ms.
+  }
+}
+
+void CAD_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (CADtap_state.state) {
+    case SINGLE_TAP: 
+		//register_code(KC_SPC); 
+		SEND_STRING(SS_LGUI("l"));
+		backlight_set(3);
+		break;
+    case SINGLE_HOLD: register_code(KC_NO); break;
+    case DOUBLE_TAP: 
+		//register_code(KC_ENT); 
+		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
+		backlight_set(0);
+		break;
+    case DOUBLE_HOLD: register_code(KC_NO);
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_NO);
+  }
+  CADtap_state.state = 0;
+}
+///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION END /////
 
 //Tap Dance Definitions
 //THIS SECTION HAS TO BE AT THE END OF THE TAP DANCE SECTION
 qk_tap_dance_action_t tap_dance_actions[] = {
-[CAD_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED_TIME (on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn,700)
+ [CAD_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED_TIME (on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn,700)
+,[CAD_TD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CAD_finished, CAD_reset)
 };
 
 //In Layer declaration, add tap dance item in place of a key code
@@ -125,7 +176,10 @@ void matrix_scan_user(void) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT( /* Base */
+/*
 TD(CAD_TAP_DANCE) \
+*/
+TD(CAD_TD) \
 ),
 };
 
