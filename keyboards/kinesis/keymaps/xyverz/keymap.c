@@ -1,4 +1,4 @@
-#include "kinesis.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -132,7 +132,7 @@ extern keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_DV] = KEYMAP(
+[_DV] = LAYOUT (
            // Left Hand
            KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,
            KC_RBRC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -158,10 +158,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_PGDN, LT(_KP, KC_ENT),  KC_SPC
     ),
 
-[_QW] = KEYMAP(
+[_QW] = LAYOUT (
            // Left Hand
            KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,
-           KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+           KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
            KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,
            KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
            KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
@@ -184,10 +184,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_PGDN, LT(_KP, KC_ENT),  KC_SPC
     ),
 
-[_CM] = KEYMAP(
+[_CM] = LAYOUT (
            // Left Hand
            KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,
-           KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
+           KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
            KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,
            KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,
            KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
@@ -210,7 +210,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_PGDN, LT(_KP, KC_ENT),  KC_SPC
     ),
 
-[_MD] = KEYMAP(
+[_MD] = LAYOUT (
            // Left Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
            KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
@@ -236,7 +236,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, _______
     ),
 
-[_KP] = KEYMAP(
+[_KP] = LAYOUT (
            // Left Hand
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
            KC_PWR,  _______, _______, _______, _______, _______,
@@ -300,3 +300,21 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 void matrix_init_user(void) {
 
 };
+
+void led_set_user(uint8_t usb_led) {
+    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+        PORTF |= (1<<2);
+    } else {
+        PORTF &= ~(1<<2);
+    }
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        PORTF |= (1<<3);
+    } else {
+        PORTF &= ~(1<<3);
+    }
+    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+        PORTF |= (1<<1);
+    } else {
+        PORTF &= ~(1<<1);
+    }
+}

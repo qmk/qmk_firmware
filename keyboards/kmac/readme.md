@@ -1,5 +1,4 @@
-KMAC keyboard firmware
-======================
+# KMAC keyboard firmware
 
 A Korean custom keyboard designed by Byungho Kim and the KBDMania community.
 
@@ -37,9 +36,9 @@ To define your own keymap, copy one of the [existing keymap](keymaps) folders an
 
 To make it easy to define keymaps for the different versions of the PCB two macros are provided.
 
-| PCB            | Macro                 |
-| -------------- | --------------------- |
-| Winkey PCB     | `KEYMAP()`            |
-| Winkeyless PCB | `KEYMAP_WINKEYLESS()` |
+| PCB            | Macro          |
+| -------------- | -------------- |
+| Winkey PCB     | `LAYOUT()`     |
+| Winkeyless PCB | `LAYOUT_WKL()` |
 
 To build the firmware with a custom keymap, run `make <keymap name>`

@@ -413,6 +413,8 @@ enum quantum_keycodes {
     RGB_SAD,
     RGB_VAI,
     RGB_VAD,
+    RGB_SPI,
+    RGB_SPD,
     RGB_MODE_PLAIN,
     RGB_MODE_BREATHE,
     RGB_MODE_RAINBOW,
