@@ -1,4 +1,4 @@
-![Gherkin Wanleg Layout Image](https://i.imgur.com/mXsgoro.png)
+![Gherkin Wanleg Layout Image](https://i.imgur.com/nCPog2W.png)
 
 # Gherkin Wanleg Layout
 Here is the layout I came up with to preserve a standard QWERTY layout as much as possible, in as few layers as possible for a 30 key board.
