@@ -209,12 +209,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
+        layer_off(_MDVORAK);
       }
       return false;
       break;
     case MDVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_MDVORAK);
+        layer_off(_DVORAK);
       }
       return false;
       break;
@@ -366,6 +368,7 @@ void _td_dv_finished (qk_tap_dance_state_t *state, void *user_data) {
   } else {
     s->alt = false;
 	layer_on(_DVORAK);
+  layer_off(_MDVORAK);
 	layer_off(_LOWER);
 	layer_off(_RAISE);
 	layer_off(_ADJUST);
@@ -395,7 +398,8 @@ void _td_mdv_finished (qk_tap_dance_state_t *state, void *user_data) {
     layer_on(_LOWER);
   } else {
     s->alt = false;
-	layer_on(_MDVORAK);
+  layer_off(_DVORAK);
+  layer_on(_MDVORAK);
 	layer_off(_LOWER);
 	layer_off(_MRAISE);
 	layer_off(_ADJUST);
