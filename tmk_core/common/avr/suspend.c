@@ -140,22 +140,20 @@ static void power_down(uint8_t wdto) {
     #endif
   }
 #endif
-  suspend_power_down_kb();
+    // TODO: more power saving
+    // See PicoPower application note
+    // - I/O port input with pullup
+    // - prescale clock
+    // - BOD disable
+    // - Power Reduction Register PRR
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    sleep_enable();
+    sei();
+    sleep_cpu();
+    sleep_disable();
 
-  // TODO: more power saving
-  // See PicoPower application note
-  // - I/O port input with pullup
-  // - prescale clock
-  // - BOD disable
-  // - Power Reduction Register PRR
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  sleep_enable();
-  sei();
-  sleep_cpu();
-  sleep_disable();
-
-  // Disable watchdog after sleep
-  wdt_disable();
+    // Disable watchdog after sleep
+    wdt_disable();
 }
 #endif
 
@@ -183,21 +181,6 @@ bool suspend_wakeup_condition(void) {
      return false;
 }
 
-/** \brief run user level code immediately after wakeup
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_wakeup_init_user(void) { }
-
-/** \brief run keyboard level code immediately after wakeup
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_wakeup_init_kb(void) {
-  suspend_wakeup_init_user();
-}
 /** \brief run immediately after wakeup
  *
  * FIXME: needs doc
@@ -224,7 +207,6 @@ void suspend_wakeup_init(void) {
   rgblight_timer_enable();
 #endif
 #endif
-    suspend_wakeup_init_kb();
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN

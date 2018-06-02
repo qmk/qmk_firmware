@@ -21,21 +21,6 @@ void suspend_idle(uint8_t time) {
 	wait_ms(time);
 }
 
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_power_down_user (void) { }
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_power_down_kb(void) {
-  suspend_power_down_user();
-}
-
 /** \brief suspend power down
  *
  * FIXME: needs doc
@@ -45,7 +30,6 @@ void suspend_power_down(void) {
 	// shouldn't power down TPM/FTM if we want a breathing LED
 	// also shouldn't power down USB
 
-  suspend_power_down_kb();
 	// on AVR, this enables the watchdog for 15ms (max), and goes to
 	// SLEEP_MODE_PWR_DOWN
 
@@ -67,22 +51,6 @@ bool suspend_wakeup_condition(void)
         if (matrix_get_row(r)) return true;
     }
     return false;
-}
-
-/** \brief run user level code immediately after wakeup
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_wakeup_init_user(void) { }
-
-/** \brief run keyboard level code immediately after wakeup
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_wakeup_init_kb(void) {
-  suspend_power_down_user();
 }
 
 /** \brief suspend wakeup condition
@@ -111,5 +79,4 @@ void suspend_wakeup_init(void)
 #ifdef BACKLIGHT_ENABLE
     backlight_init();
 #endif /* BACKLIGHT_ENABLE */
-  suspend_wakeup_init_kb();
 }
