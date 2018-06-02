@@ -135,16 +135,18 @@ void led_set_user(uint8_t usb_led) {
 * Keyboard/Revision: `void led_set_kb(uint8_t usb_led)`
 * Keymap: `void led_set_user(uint8_t usb_led)`
 
-# Matrix Initialization Code
+# Keyboard Initialization Code
 
 Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.
 
-### Example `matrix_init_user()` Implementation
+`matrix_init_user` can be used here as well, but this is ran earlier in the initialization process.  `keyboard_init_user` runs after everything else has initialized. So, it may be better to use `keyboard_init_user`, especially if you want to reconfigure anything else.
+
+### Example `keyboard_init_user()` Implementation
 
 This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
 ```
-void matrix_init_user(void) {
+void keyboard_init_user(void) {
   // Call the keymap level matrix init.
 
   // Set our LED pins as output
@@ -154,10 +156,10 @@ void matrix_init_user(void) {
 }
 ```
 
-### `matrix_init_*` Function Documentation
+### `keyboard_init_*` Function Documentation
 
-* Keyboard/Revision: `void matrix_init_kb(void)`
-* Keymap: `void matrix_init_user(void)`
+* Keyboard/Revision: `void keyboard_init_kb(void)`
+* Keymap: `void keyboard_init_user(void)`
 
 # Matrix Scanning Code
 
@@ -177,9 +179,38 @@ This function gets called at every matrix scan, which is basically as often as t
 You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LED's or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
 
 
+# Keyboard Idling/Wake Code
+
+If the board supports it, it can be "idled", by stopping a number of functions.  A good example of this is RGB lights or backlights.   This can save on power consumption, or may be better behavior for your keyboard.  
+
+This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_init_*`, which are called when the system is board is idled and when it wakes up, respectively. 
+
+
+### Example suspend_power_down_user() and suspend_wakeup_init_user() Implementation
+
+This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+
+```
+void suspend_power_down_user(void)
+{
+    rgb_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_user(void)
+{
+    rgb_matrix_set_suspend_state(false);
+}
+
+```
+
+### `keyboard_init_*` Function Documentation
+
+* Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
+* Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
+
 # Layer Change Code
 
-Thir runs code every time that the layers get changed.  This can be useful for layer indication, or custom layer handling. 
+This runs code every time that the layers get changed.  This can be useful for layer indication, or custom layer handling. 
 
 ### Example `layer_state_set_*` Implementation
 
