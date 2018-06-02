@@ -170,9 +170,6 @@ void reset_keyboard(void);
 void startup_user(void);
 void shutdown_user(void);
 
-void keyboard_init_user(void);
-void keyboard_init_kb(void);
-
 void register_code16 (uint16_t code);
 void unregister_code16 (uint16_t code);
 
