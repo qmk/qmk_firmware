@@ -161,6 +161,32 @@ void keyboard_init_user(void) {
 * Keyboard/Revision: `void keyboard_init_kb(void)`
 * Keymap: `void keyboard_init_user(void)`
 
+# Matrix Initialization Code
+
+Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.  
+
+The main difference between this and the `keyboard_init_*` function, is that is called as part of the matrix initialization, and happens much earlier in the process.  
+
+### Example `matrix_init_user()` Implementation
+
+This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+
+```
+void matrix_init_user(void) {
+  // Call the keymap level matrix init.
+
+  // Set our LED pins as output
+  DDRB |= (1<<1);
+  DDRB |= (1<<2);
+  DDRB |= (1<<3);
+}
+```
+
+### `matrix_init_*` Function Documentation
+
+* Keyboard/Revision: `void matrix_init_kb(void)`
+* Keymap: `void matrix_init_user(void)`
+
 # Matrix Scanning Code
 
 Whenever possible you should customize your keyboard by using `process_record_*()` and hooking into events that way, to ensure that your code does not have a negative performance impact on your keyboard. However, in rare cases it is necessary to hook into the matrix scanning. Be extremely careful with the performance of code in these functions, as it will be called at least 10 times per second.
