@@ -7,7 +7,7 @@
 #define STRING_STACK_LIMIT    120
 
 //TODO
-int xprintf(const char* format, ...) { return 0; }
+int __xprintf(const char* format, ...) { return 0; }
 
 #if 0
 /* mbed Serial */

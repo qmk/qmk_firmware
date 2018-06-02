@@ -17,11 +17,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * Keycodes based on HID Usage Keyboard/Keypad Page(0x07) plus special codes
- * http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
+ * https://web.archive.org/web/20060218214400/http://www.usb.org/developers/devclass_docs/Hut1_12.pdf
+ * or http://www.usb.org/developers/hidpage/Hut1_12v2.pdf (older)
  */
 #ifndef KEYCODE_H
 #define KEYCODE_H
 
+/* FIXME: Add doxygen comments here */
 
 #define IS_ERROR(code)           (KC_ROLL_OVER <= (code) && (code) <= KC_UNDEFINED)
 #define IS_ANY(code)             (KC_A         <= (code) && (code) <= 0xFF)
@@ -85,7 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_LCAP KC_LOCKING_CAPS
 #define KC_LNUM KC_LOCKING_NUM
 #define KC_LSCR KC_LOCKING_SCROLL
-#define KC_ERAS KC_ALT_ERASE,
+#define KC_ERAS KC_ALT_ERASE
 #define KC_CLR  KC_CLEAR
 /* Japanese specific */
 #define KC_ZKHK KC_GRAVE
@@ -94,6 +96,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_JYEN KC_INT3
 #define KC_HENK KC_INT4
 #define KC_MHEN KC_INT5
+/* Korean specific */
+#define KC_HAEN KC_LANG1
+#define KC_HANJ KC_LANG2
 /* Keypad */
 #define KC_P1   KC_KP_1
 #define KC_P2   KC_KP_2
@@ -113,6 +118,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_PPLS KC_KP_PLUS
 #define KC_PEQL KC_KP_EQUAL
 #define KC_PENT KC_KP_ENTER
+/* Unix function key */
+#define KC_EXEC KC_EXECUTE
+#define KC_SLCT KC_SELECT
+#define KC_AGIN KC_AGAIN
+#define KC_PSTE KC_PASTE
 /* Mousekey */
 #define KC_MS_U KC_MS_UP
 #define KC_MS_D KC_MS_DOWN
@@ -159,6 +169,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Transparent */
 #define KC_TRANSPARENT  1
 #define KC_TRNS KC_TRANSPARENT
+/* GUI key aliases */
+#define KC_LCMD KC_LGUI
+#define KC_LWIN KC_LGUI
+#define KC_RCMD KC_RGUI
+#define KC_RWIN KC_RGUI
 
 
 

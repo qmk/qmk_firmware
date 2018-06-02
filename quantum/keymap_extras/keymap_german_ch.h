@@ -1,3 +1,18 @@
+/* Copyright 2016 heartsekai
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef KEYMAP_SWISS_GERMAN
 #define KEYMAP_SWISS_GERMAN
 
@@ -18,6 +33,10 @@
 #define CH_E KC_E
 #define CH_F KC_F
 #define CH_G KC_G
+#ifdef CH_H
+// The ChibiOS ch.h file defines this...
+#undef CH_H
+#endif
 #define CH_H KC_H
 #define CH_I KC_I
 #define CH_J KC_J

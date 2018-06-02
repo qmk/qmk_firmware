@@ -2,7 +2,7 @@ TMK Keyboard Firmware Core Library
 ==================================
 This is a keyboard firmware library with some useful features for Atmel AVR and Cortex-M.
 
-Source code is available here: <https://github.com/tmk/tmk_keyboard/tree/core>
+Source code is available here: <https://github.com/tmk/tmk_keyboard/tree/master/tmk_core>
 
 
 Updates
@@ -23,7 +23,7 @@ These features can be used in your keyboard.
 * Mouse key           - Mouse control with keyboard
 * System Control Key  - Power Down, Sleep, Wake Up and USB Remote Wake up
 * Media Control Key   - Volume Down/Up, Mute, Next/Prev track, Play, Stop and etc
-* USB NKRO            - 120 keys(+ 8 modifiers) simultaneously
+* USB NKRO            - 248 keys(+ 8 modifiers) simultaneously
 * PS/2 mouse support  - PS/2 mouse(TrackPoint) as composite device
 * Keyboard protocols  - PS/2, ADB, M0110, Sun and other old keyboard protocols
 * User Function       - Customizable function of key with writing code
@@ -54,7 +54,7 @@ LUFA, PJRC and V-USB stack have their own license respectively.
 
 Build Firmware and Program Controller
 -------------------------------------
-See [doc/build.md](doc/build.md).
+See [doc/build.md](https://github.com/tmk/tmk_keyboard/blob/master/tmk_core/doc/build.md).
 
 
 

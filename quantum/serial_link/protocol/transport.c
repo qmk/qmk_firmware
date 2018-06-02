@@ -31,6 +31,10 @@ SOFTWARE.
 static remote_object_t* remote_objects[MAX_REMOTE_OBJECTS];
 static uint32_t num_remote_objects = 0;
 
+void reinitialize_serial_link_transport(void) {
+    num_remote_objects = 0;
+}
+
 void add_remote_objects(remote_object_t** _remote_objects, uint32_t _num_remote_objects) {
     unsigned int i;
     for(i=0;i<_num_remote_objects;i++) {

@@ -1,17 +1,17 @@
 /* USB Keyboard Plus Debug Channel Example for Teensy USB Development Board
  * http://www.pjrc.com/teensy/usb_keyboard.html
  * Copyright (c) 2009 PJRC.COM, LLC
- * 
+ *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
  * in the Software without restriction, including without limitation the rights
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -40,6 +40,12 @@
 #include "suspend.h"
 #include "action.h"
 #include "action_util.h"
+
+#ifdef NKRO_ENABLE
+  #include "keycode_config.h"
+
+  extern keymap_config_t keymap_config;
+#endif
 
 
 /**************************************************************************
@@ -694,7 +700,7 @@ ISR(USB_GEN_vect)
 		}
                 /* TODO: should keep IDLE rate on each keyboard interface */
 #ifdef NKRO_ENABLE
-		if (!keyboard_nkro && keyboard_idle && (++div4 & 3) == 0) {
+		if (!keymap_config.nkro && keyboard_idle && (++div4 & 3) == 0) {
 #else
 		if (keyboard_idle && (++div4 & 3) == 0) {
 #endif
@@ -881,7 +887,7 @@ ISR(USB_COM_vect)
 #endif
                     if (bmRequestType == 0x00 && wValue == DEVICE_REMOTE_WAKEUP) {
                         if (bRequest == SET_FEATURE) {
-                            remote_wakeup = true;   
+                            remote_wakeup = true;
                         } else {
                             remote_wakeup = false;
                         }
@@ -932,7 +938,7 @@ ISR(USB_COM_vect)
 				if (bRequest == HID_SET_PROTOCOL) {
 					keyboard_protocol = wValue;
 #ifdef NKRO_ENABLE
-                                        keyboard_nkro = !!keyboard_protocol;
+                                        keymap_config.nkro = !!keyboard_protocol;
 #endif
                                         clear_keyboard();
 					//usb_wait_in_ready();

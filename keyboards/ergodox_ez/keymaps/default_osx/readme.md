@@ -5,4 +5,4 @@ So, I took the default firmware and just made a couple of tweaks that make it ea
 1. The Cmd key is now on the right side, making Cmd+Space easier.
 2. The media keys work on OSX (But not on Windows).
 
-![default osx](default_osx_highres.png)
+![default osx](https://i.imgur.com/z0aqFDq.png)

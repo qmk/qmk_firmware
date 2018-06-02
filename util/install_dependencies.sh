@@ -20,7 +20,8 @@ if [[ -n "$(type -P pacman )" ]]; then
     arm-none-eabi-gcc \
     arm-none-eabi-binutils \
     arm-none-eabi-newlib \
-    git
+    git \
+    diffutils
 
 elif [[ -n "$(type -P apt-get)" ]]; then
   # Debian and derivatives
@@ -47,7 +48,8 @@ elif [[ -n "$(type -P apt-get)" ]]; then
     gcc-arm-none-eabi \
     binutils-arm-none-eabi \
     libnewlib-arm-none-eabi \
-    git
+    git \
+    diffutils
 
 elif [[ -n "$(type -P yum)" ]]; then
   # Fedora, CentOS or RHEL and derivatives
@@ -66,10 +68,10 @@ elif [[ -n "$(type -P yum)" ]]; then
     avr-libc \
     dfu-programmer \
     dfu-util \
-    gcc-arm-none-eabi \
-    binutils-arm-none-eabi \
-    libnewlib-arm-none-eabi \
-    git
+    arm-none-eabi-gcc-cs \
+    arm-none-eabi-newlib \
+    git \
+    diffutils
   # The listed eabi pacackes do unfortunately not exist for CentOS,
   # But at least in Fedora they do, so try to install them anyway
   # TODO: Build them from sources, if the installation fails
@@ -85,8 +87,32 @@ elif [[ -n "$(type -P zypper)" ]]; then
     patch \
     wget \
     dfu-programmer \
-    git
+    git \
+    diffutils
   # TODO: The avr and eabi tools are not available as default packages, so we need 
   # another way to install them
 
+elif [[ -n "$(type -P pkg)" ]]; then
+  # FreeBSD
+  pkg update
+  pkg install -y \
+    git \
+    wget \
+    gmake \
+    gcc \
+    zip \
+    unzip \
+    avr-binutils \
+    avr-gcc \
+    avr-libc \
+    dfu-programmer \
+    dfu-util \
+    arm-none-eabi-gcc \
+    arm-none-eabi-binutils \
+    arm-none-eabi-newlib \
+    diffutils
+elif [[ -n "$(type -P emerge)" ]]; then
+    echo 'Please check that your gcc is built with the multilib use flag enabled.'
+    emerge -vq sys-devel/crossdev
+    USE="-openmp -hardened -sanitize -vtv" crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
 fi
