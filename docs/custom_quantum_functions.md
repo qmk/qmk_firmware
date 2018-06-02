@@ -135,35 +135,11 @@ void led_set_user(uint8_t usb_led) {
 * Keyboard/Revision: `void led_set_kb(uint8_t usb_led)`
 * Keymap: `void led_set_user(uint8_t usb_led)`
 
-# Keyboard Initialization Code
-
-Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.
-
-`matrix_init_user` can be used here as well, but this is ran earlier in the initialization process.  `keyboard_init_user` runs after everything else has initialized. So, it may be better to use `keyboard_init_user`, especially if you want to reconfigure anything else.
-
-### Example `keyboard_init_user()` Implementation
-
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
-
-```
-void keyboard_init_user(void) {
-  // Call the keymap level matrix init.
-  rgbligth_enable_noeeprom(); // enables Rgb, without saving settings
-  rgblight_sethsv_noeeprom(180, 255, 255): // sets the color to teal/cyan without saving
-  rgblight_mode_noeeprom(5); // sets mode to 5 (fast breathing) without saving
-}
-```
-
-### `keyboard_init_*` Function Documentation
-
-* Keyboard/Revision: `void keyboard_init_kb(void)`
-* Keymap: `void keyboard_init_user(void)`
 
 # Matrix Initialization Code
 
 Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.  
 
-The main difference between this and the `keyboard_init_*` function, is that is called as part of the matrix initialization, and happens much earlier in the process.  
 
 ### Example `matrix_init_user()` Implementation
 
