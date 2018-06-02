@@ -165,17 +165,19 @@ In addition, it is possible to specify the brightness level of all LEDs with `er
 
 Ergodox boards also define `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness (which is the default).
 
-# Matrix Initialization Code
+# Keyboard Initialization Code
 
 Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LEDs or i&#xb2;c controllers you will need to set up that hardware before it can be used.
 
 
-### Example `matrix_init_user()` Implementation
+`matrix_init_user` can be used here as well, but this is ran earlier in the initialization process.  `keyboard_init_user` runs after everything else has initialized. So, it may be better to use `keyboard_init_user`, especially if you want to reconfigure anything else.
+
+### Example `keyboard_init_user()` Implementation
 
 This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
-```c
-void matrix_init_user(void) {
+```
+void keyboard_init_user(void) {
   // Call the keymap level matrix init.
 
   // Set our LED pins as output
@@ -185,10 +187,10 @@ void matrix_init_user(void) {
 }
 ```
 
-### `matrix_init_*` Function Documentation
+### `keyboard_init_*` Function Documentation
 
-* Keyboard/Revision: `void matrix_init_kb(void)`
-* Keymap: `void matrix_init_user(void)`
+* Keyboard/Revision: `void keyboard_init_kb(void)`
+* Keymap: `void keyboard_init_user(void)`
 
 # Matrix Scanning Code
 
