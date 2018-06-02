@@ -146,6 +146,7 @@ These control the RGB Lighting functionality.
 |`RGB_MODE_KNIGHT`  |`RGB_M_K` |"Knight Rider" animation mode                                       |
 |`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
+|`RGB_MODE_RGBCYCLIC`|`RGB_M_RGB` |Red,Green,Blue cyclic change animation mode                      |
 
 note: for backwards compatibility, `RGB_SMOD` is an alias for `RGB_MOD`.
 
