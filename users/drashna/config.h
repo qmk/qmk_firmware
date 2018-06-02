@@ -22,7 +22,7 @@
 #endif // !AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
-// #define RGBLIGHT_SLEEP
+#define RGBLIGHT_SLEEP
 #endif // RGBLIGHT_ENABLE
 
 #ifndef ONESHOT_TAP_TOGGLE
