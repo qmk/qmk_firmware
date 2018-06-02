@@ -10,4 +10,7 @@ Keyboard Maintainer: [Barry Huang](https://github.com/yj7272098)
 Hardware Supported: Play Keyboard60  
 Hardware Availability: [Play Keyboard](http://playkeyboard.qdm.com.tw/)
 
-Powered by QMK Firmware.
+Make example for this keyboard (after setting up your build environment):
+
+    make playkbtw/pk60:default
+
