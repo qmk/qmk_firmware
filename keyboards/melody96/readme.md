@@ -2,11 +2,11 @@
 
 ![melody96](https://i.imgur.com/9o0a6XF.png)
 
-TKL Keyboard from KBDFans
+96-key Keyboard from YMDK
 
-Keyboard Maintainer: [superuser41](https://github.com/kaylanm)
-Hardware Supported: melody96
-Hardware Availability: [YMDK, group buy closed](https://geekhack.org/index.php?topic=93614.0)
+Keyboard Maintainer: [superuser41](https://github.com/kaylanm)  
+Hardware Supported: melody96  
+Hardware Availability: [YMDK, group buy closed](https://geekhack.org/index.php?topic=93614.0)  
 
 Make example for this keyboard (after setting up your build environment):
 
