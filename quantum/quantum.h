@@ -27,7 +27,7 @@
 #ifdef BACKLIGHT_ENABLE
     #include "backlight.h"
 #endif
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE) 
+#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
 	#include "rgb.h"
 #endif
 #ifdef RGBLIGHT_ENABLE
@@ -169,6 +169,9 @@ void reset_keyboard(void);
 
 void startup_user(void);
 void shutdown_user(void);
+
+void keyboard_init_user(void);
+void keyboard_init_kb(void);
 
 void register_code16 (uint16_t code);
 void unregister_code16 (uint16_t code);

@@ -181,11 +181,12 @@ void keyboard_init(void) {
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
 #endif
+  keyboard_init_kb();
 }
 
 /** \brief Keyboard task: Do keyboard routine jobs
  *
- * Do routine keyboard jobs: 
+ * Do routine keyboard jobs:
  *
  * * scan matrix
  * * handle mouse movements
