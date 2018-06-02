@@ -17,7 +17,7 @@
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-// #define RGBLIGHT_SLEEP
+#define RGBLIGHT_SLEEP
 #endif // RGBLIGHT_ENABLE
 
 
