@@ -35,18 +35,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
 
+
+#define NO_UART 1
+
 #define RGB_DI_PIN C0
 #define RGBLED_NUM 12
 #define RGBLIGHT_ANIMATIONS
-
-#define RGBLIGHT_HUE_STEP 12
-#define RGBLIGHT_SAT_STEP 15
-#define RGBLIGHT_VAL_STEP 18
-
-#define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1
-
-#define TAPPING_TERM 200
 
 /*
  * Keyboard Matrix Assignments

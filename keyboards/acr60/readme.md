@@ -1,12 +1,15 @@
-# ACR60
+ACR60
+=====
 
 ![acr60](https://cdn.shopify.com/s/files/1/1697/5323/products/20170522001035_1024x1024.jpg?v=1504725199)
 
-A customizable 60% keyboard based on the DZ60.
+A customizable 60% keyboard made and sold by mechkeys.ca [More info on MECHKEYS](https://mechkeys.ca)
 
-Keyboard Maintainer: QMK Community  
+Keyboard Maintainer: [TurboMech](https://github.com/TurboMech)
+
 Hardware Supported: ACR60  
-Hardware Availability: [mechkeysca](https://mechkeys.ca/products/acr60)
+    
+Hardware Availability: [MECHKEYS](https://mechkeys.ca/products/acr60)
 
 Make example for this keyboard (after setting up your build environment):
 

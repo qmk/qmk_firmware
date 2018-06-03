@@ -113,13 +113,14 @@ endif
 
 # We can assume a ChibiOS target When MCU_FAMILY is defined , since it's not used for LUFA
 ifdef MCU_FAMILY
+    FIRMWARE_FORMAT=bin
     PLATFORM=CHIBIOS
 else
     PLATFORM=AVR
+    FIRMWARE_FORMAT=hex
 endif
 
 ifeq ($(PLATFORM),CHIBIOS)
-    include $(TMK_PATH)/protocol/chibios.mk
     include $(TMK_PATH)/chibios.mk
     OPT_OS = chibios
     ifneq ("$(wildcard $(KEYBOARD_PATH_5)/bootloader_defs.h)","")
@@ -142,6 +143,8 @@ ifeq ($(PLATFORM),CHIBIOS)
         OPT_DEFS += -include $(KEYBOARD_PATH_1)/bootloader_defs.h
      else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h)","")
         OPT_DEFS += -include $(KEYBOARD_PATH_1)/boards/$(BOARD)/bootloader_defs.h
+    else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h)","")
+        OPT_DEFS += -include $(TOP_DIR)/drivers/boards/$(BOARD)/bootloader_defs.h
     endif
 endif
 
@@ -195,14 +198,22 @@ else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
 else ifneq ($(LAYOUTS),)
     include build_layout.mk
-else 
+else
     $(error Could not find keymap)
     # this state should never be reached
 endif
 
 # User space stuff
-USER_PATH := users/$(KEYMAP)
+ifeq ("$(USER_NAME)","")
+    USER_NAME := $(KEYMAP)
+endif
+USER_PATH := users/$(USER_NAME)
+
 -include $(USER_PATH)/rules.mk
+ifneq ("$(wildcard $(USER_PATH)/config.h)","")
+    CONFIG_H += $(USER_PATH)/config.h
+endif
+
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
@@ -230,6 +241,7 @@ VPATH += $(USER_PATH)
 include common_features.mk
 include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
+include bootloader.mk
 
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
@@ -242,6 +254,10 @@ else
     include $(TMK_PATH)/protocol/lufa.mk
 endif
     include $(TMK_PATH)/avr.mk
+endif
+
+ifeq ($(PLATFORM),CHIBIOS)
+    include $(TMK_PATH)/protocol/chibios.mk
 endif
 
 ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
@@ -266,10 +282,10 @@ $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC) $(GFXINC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
-all: build sizeafter
+all: build check-size
 
 # Change the build target to build a HEX file or a library.
-build: elf hex
+build: elf cpfirmware
 #build: elf hex eep lss sym
 #build: lib
 

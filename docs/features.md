@@ -1,6 +1,6 @@
 # QMK Features
 
-QMK has a staggering number of features for building your keyboard. It can take some time to understand all of them and determine which one will acheive your goal.
+QMK has a staggering number of features for building your keyboard. It can take some time to understand all of them and determine which one will achieve your goal.
 
 
 * [Advanced Keycodes](feature_advanced_keycodes.md) - Change layers, type shifted keys, and more. Go beyond typing simple characters.
@@ -15,10 +15,12 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Macros](feature_macros.md) - Send multiple key presses when pressing only one physical key.
 * [Mouse keys](feature_mouse_keys.md) - Control your mouse pointer from your keyboard.
 * [Pointing Device](feature_pointing_device.md) - Framework for connecting your custom pointing device to your keyboard.
-* [PS2 Mouse](feature_ps2_mouse.md) - Driver for connecting a ps2 mouse directly to your keyboard.
+* [PS2 Mouse](feature_ps2_mouse.md) - Driver for connecting a PS/2 mouse directly to your keyboard.
 * [RGB Light](feature_rgblight.md) - RGB lighting for your keyboard.
-* [Space Cadet](feature_space_cadet_shift.md) - Use your left/right shift keys to type parenthesis and brackets.
+* [RGB Matrix](feature_rgb_matrix.md) - RGB Matrix lights for per key lighting.
+* [Space Cadet](feature_space_cadet.md) - Use your left/right shift keys to type parenthesis and brackets.
 * [Stenography](feature_stenography.md) - Put your keyboard into Plover mode for stenography use.
+* [Swap Hands](feature_swap_hands.md) - Mirror your keyboard for one handed usage.
 * [Tap Dance](feature_tap_dance.md) - Make a single key do as many things as you want.
 * [Terminal](feature_terminal.md) - CLI interface to the internals of your keyboard.
 * [Thermal Printer](feature_thermal_printer.md) - Connect a thermal printer to your keyboard to be able to toggle on a printed log of everything you type.
