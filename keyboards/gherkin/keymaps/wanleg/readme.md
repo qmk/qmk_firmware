@@ -49,5 +49,5 @@ Test that it installed correctly by running "avrdude" from Command Prompt. It sh
 # Pro Micro Reset Button
 The standard "RESET" keycode doesn't put the ProMicro into DFU mode, so per this [reddit post](https://www.reddit.com/r/MechanicalKeyboards/comments/4oyue5/help_tmk_reboot_to_flash_mode_bootloader_on_the/d4h9t1p/), the necessary code has been inserted into my keymap.c. Now, instead of using "RESET" I use "KC_FN0" and I can re-flash without having to short the reset pin on the ProMicro.
 
-[ ] try adding "BOOTLOADER = caterina" to rules.mk to see if that fixes "RESET" instead
-[ ] try adding "#define CATERINA_BOOTLOADER" to config.h to see if that fixes "RESET" instead
+- [ ] try adding "BOOTLOADER = caterina" to rules.mk to see if that fixes "RESET" instead
+- [ ] try adding "#define CATERINA_BOOTLOADER" to config.h to see if that fixes "RESET" instead
