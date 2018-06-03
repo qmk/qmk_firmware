@@ -101,13 +101,13 @@ void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
 		SEND_STRING(SS_LGUI("l"));
 		backlight_set(3);
 		break;
-    case SINGLE_HOLD: register_code(KC_NO); break;
+    case SINGLE_HOLD: register_code(KC_A); break;
     case DOUBLE_TAP: 
 		//register_code(KC_ENT); 
 		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
 		backlight_set(0);
 		break;
-    case DOUBLE_HOLD: register_code(KC_NO); break; // setting double hold to do nothing (change this if you want)
+    case DOUBLE_HOLD: register_code(KC_B); break; // setting double hold to do nothing (change this if you want)
     case DOUBLE_SINGLE_TAP: register_code(KC_NO); unregister_code(KC_NO); register_code(KC_NO);
     //Last case is for fast typing. Assuming your key is `f`:
     //For example, when typing the word `buffer`, and you want to make sure that you send `ff` and not `Esc`.
@@ -122,14 +122,14 @@ void CAD_reset (qk_tap_dance_state_t *state, void *user_data) {
 		SEND_STRING(SS_LGUI("l"));
 		backlight_set(3);
 		break;
-    case SINGLE_HOLD: register_code(KC_NO); break;
+    case SINGLE_HOLD: register_code(KC_C); break;
     case DOUBLE_TAP: 
 		//register_code(KC_ENT); 
 		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
 		backlight_set(0);
 		break;
-    case DOUBLE_HOLD: register_code(KC_NO);
-    case DOUBLE_SINGLE_TAP: unregister_code(KC_NO);
+    case DOUBLE_HOLD: register_code(KC_D);
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_E);
   }
   CADtap_state.state = 0;
 }
