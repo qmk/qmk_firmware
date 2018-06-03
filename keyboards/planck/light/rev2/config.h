@@ -18,6 +18,8 @@
 #ifndef REV6_CONFIG_H
 #define REV6_CONFIG_H
 
+#include "config_common.h"
+
 /* USB Device descriptor parameter */
 #undef PRODUCT
 #define PRODUCT Planck Light
@@ -41,11 +43,10 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-/* Note: These are not used for arm boards. They're here purely as documentation.
- * #define MATRIX_ROW_PINS { PB0, PB1, PB2, PA15, PA10 }
- * #define MATRIX_COL_PINS { PA2, PA3, PA6, PB14, PB15, PA8, PA9, PA7, PB3, PB4, PC14, PC15, PC13, PB5, PB6 }
- * #define UNUSED_PINS
- */
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+#define MATRIX_ROW_PINS { B5, B10, A9, A8 }
+#define MATRIX_COL_PINS { A10, B2, A15, A0, A1, A2, B0, B1, C13, A6, A7, A3 }
 
 #define MUSIC_MAP
 #undef AUDIO_VOICES

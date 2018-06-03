@@ -25,6 +25,9 @@ static uint8_t encoder_state = 0;
 static int8_t encoder_value = 0;
 static int8_t encoder_LUT[] = { 0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0 };
 
+static LINE_TYPE matrix_col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static LINE_TYPE matrix_row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+
 __attribute__ ((weak))
 void matrix_init_user(void) {}
 
@@ -52,28 +55,16 @@ void matrix_init(void) {
     encoder_state = (palReadPad(GPIOB, 12) << 0) | (palReadPad(GPIOB, 13) << 1);
 
     // actual matrix setup
-    palSetPadMode(GPIOA, 10, PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB, 2, PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOA, 15,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOA, 0,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOA, 1,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOA, 2,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB, 0, PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB, 1, PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOC, 13,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOA, 6,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOA, 7,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOA, 3,  PAL_MODE_OUTPUT_PUSHPULL);
+    for (int i = 0; i < MATRIX_COLS; i++) {
+      setPadMode(matrix_col_pins[i], PAL_MODE_OUTPUT_PUSHPULL);
+    }
 
-    palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOB, 10,  PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOA, 9,  PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOA, 8, PAL_MODE_INPUT_PULLDOWN);
-
+    for (int i = 0; i < MATRIX_ROWS; i++) {
+      setPadMode(matrix_row_pins[i], PAL_MODE_INPUT_PULLDOWN);
+    }
 
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
-
 
     matrix_init_quantum();
 }
@@ -106,48 +97,16 @@ uint8_t matrix_scan(void) {
     for (int col = 0; col < MATRIX_COLS; col++) {
         matrix_row_t data = 0;
 
-        // strobe col { A10, B2, A15, A0, A1, A2, B0, B1, C13, A6, A7, A3 }
-        switch (col) {
-            case 0:  palSetPad(GPIOA, 10); break;
-            case 1:  palSetPad(GPIOB, 2); break;
-            case 2:  palSetPad(GPIOA, 15); break;
-            case 3:  palSetPad(GPIOA, 0); break;
-            case 4:  palSetPad(GPIOA, 1); break;
-            case 5:  palSetPad(GPIOA, 2); break;
-            case 6:  palSetPad(GPIOB, 0); break;
-            case 7:  palSetPad(GPIOB, 1); break;
-            case 8:  palSetPad(GPIOC, 13); break;
-            case 9:  palSetPad(GPIOA, 6); break;
-            case 10: palSetPad(GPIOA, 7); break;
-            case 11: palSetPad(GPIOA, 3); break;
-        }
+        setPad(matrix_col_pins[col]);
 
         // need wait to settle pin state
         wait_us(20);
 
-        // read row data { B5, B10, A9, A8 }
-        data = (
-            (palReadPad(GPIOB, 5)  << 0 ) |
-            (palReadPad(GPIOB, 10) << 1 ) |
-            (palReadPad(GPIOA, 9)  << 2 ) |
-            (palReadPad(GPIOA, 8)  << 3 )
-        );
-
-        // unstrobe  col { B11, B10, B2, B1, A7, B0 }
-        switch (col) {
-            case 0:  palClearPad(GPIOA, 10); break;
-            case 1:  palClearPad(GPIOB, 2); break;
-            case 2:  palClearPad(GPIOA, 15); break;
-            case 3:  palClearPad(GPIOA, 0); break;
-            case 4:  palClearPad(GPIOA, 1); break;
-            case 5:  palClearPad(GPIOA, 2); break;
-            case 6:  palClearPad(GPIOB, 0); break;
-            case 7:  palClearPad(GPIOB, 1); break;
-            case 8:  palClearPad(GPIOC, 13); break;
-            case 9:  palClearPad(GPIOA, 6); break;
-            case 10: palClearPad(GPIOA, 7); break;
-            case 11: palClearPad(GPIOA, 3); break;
+        for (int row = 0; row < MATRIX_ROWS; row++) {
+          data |= (readPad(matrix_row_pins[row]) << row);
         }
+
+        clearPad(matrix_col_pins[col]);
 
         if (matrix_debouncing[col] != data) {
             matrix_debouncing[col] = data;
