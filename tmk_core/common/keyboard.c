@@ -71,7 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef MATRIX_HAS_GHOST
-extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
+extern uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 static matrix_row_t get_real_keys(uint8_t row, matrix_row_t rowdata){
     matrix_row_t out = 0;
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {

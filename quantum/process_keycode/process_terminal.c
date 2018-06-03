@@ -93,7 +93,7 @@ void terminal_about(void) {
 
 void terminal_help(void);
 
-extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
+extern uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
 
 void terminal_keycode(void) {
     if (strlen(arguments[1]) != 0 && strlen(arguments[2]) != 0 && strlen(arguments[3]) != 0) {

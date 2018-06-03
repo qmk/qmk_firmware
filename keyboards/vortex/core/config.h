@@ -22,35 +22,44 @@
 #define VENDOR_ID       0x04d9
 #define PRODUCT_ID      0x0175
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Vortex
-#define PRODUCT         Core
+#define MANUFACTURER    Holtek
+#define PRODUCT         Vortex Core
 #define DESCRIPTION     Vortex Core with qmk_pok3r
 
-/* key matrix size */
+#define UPDATE_PROTO_CYKB
+
+// key matrix size
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
+// Max available layers
+#define MAX_LAYERS 8
 
 #define KEYMAP_VORTEX_CORE
+// Number of supported layouts
+#define NUM_LAYOUTS 1
 
-#define RGBLED_NUM (47 + 3)
+#include "layouts.h"
 
-#define UPDATE_PROTO_VER 2
+#define RGBLED_NUM (47 + 3) // 47 keys + 3 extra
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-/* Note: These are not used for arm boards. They're here purely as documentation.
- * #define MATRIX_ROW_PINS { PB0, PB1, PB2, PA15, PA10 }
- * #define MATRIX_COL_PINS { PA2, PA3, PA6, PB14, PB15, PA8, PA9, PA7, PB3, PB4, PC14, PC15, PC13, PB5, PB6 }
- * #define UNUSED_PINS
- */
+// Matrix keymap
+
+#define KEYMAP( \
+    K62, K49, K63, K50, K64, K51, K65, K52, K66, K53, K67, K32, K55, /* 13 keys */ \
+     K36,  K25, K37, K26, K38, K27, K39, K28, K40, K29, K41,   K43,  /* 12 keys */ \
+     K12,   K17, K13, K18, K14, K19, K15, K20, K16, K30, K06, K110,  /* 12 keys */ \
+     K59, K73, K112, K46,    K35,     K111,      K21, K11, K23, K31  /* 10 keys */ \
+) { \
+    /*           ROW1   ROW2   ROW3   ROW4   ROW5   ROW6   ROW7   ROW8   */ \
+    /* COL1 */ { K67,   K31,   K32,   K41,   K21,   K06,   K55,   K73,   }, \
+    /* COL2 */ { K66,   K53,   K29,   K40,   K16,   K30,   K43,   K59,   }, \
+    /* COL3 */ { K65,   K52,   K28,   K39,   K15,   K20,   K110,  K46,   }, \
+    /* COL4 */ { K64,   K51,   K27,   K38,   K14,   K19,   K112,  KC_NO, }, \
+    /* COL5 */ { K63,   K50,   K26,   K37,   K13,   K18,   KC_NO, KC_NO, }, \
+    /* COL6 */ { K62,   K49,   K25,   K36,   K12,   K17,   K35,   K11,   }, \
+    /* COL7 */ { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K111,  KC_NO, }, \
+    /* COL8 */ { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K23,   }  \
+}
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5

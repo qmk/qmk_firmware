@@ -26,17 +26,16 @@
 /*
  * HT32F1654 w/ cykb bootloader memory setup.
  */
-MEMORY
-{
-    flash0   : org = 0x00000000, len = 0x3000                           /* bootloader */
-    flash1   : org = 0x00003000, len = 0x400                            /* version page */
-    flash2   : org = 0x00003400, len = 0x160                            /* firmware vectors */
-    flash3   : org = 0x00003400 + 0x160, len = 0x3bf8 - 0x3400 - 0x160  /* descriptor, keymaps, etc */
-    flash4   : org = 0x00003bf8, len = 12                               /* bootloader magic */
-    flash5   : org = 0x00003c04, len = 63k - 0x3c04                     /* firmware */
-    flash6   : org = 0x00000000, len = 0
+MEMORY {
+    flash0   : org = 0x00000000, len = 0x3000           /* bootloader */
+    flash1   : org = 0x00003000, len = 0x400            /* version page */
+    flash2   : org = 0x00003400, len = 0x160            /* firmware vectors */
+    flash3   : org = 0x00003560, len = 0x20             /* firmware identifier */
+    flash4   : org = 0x00003580, len = 0x3bf8 - 0x3560  /* descriptor, keymaps, etc */
+    flash5   : org = 0x00003bf8, len = 12               /* bootloader magic */
+    flash6   : org = 0x00003c04, len = 63k - 0x3c04     /* firmware */
     flash7   : org = 0x00000000, len = 0
-    ram0     : org = 0x20000000, len = 16k - 4                          /* RAM */
+    ram0     : org = 0x20000000, len = 16k - 4          /* RAM */
     ram1     : org = 0x00000000, len = 0
     ram2     : org = 0x00000000, len = 0
     ram3     : org = 0x00000000, len = 0
@@ -47,19 +46,22 @@ MEMORY
 }
 
 SECTIONS {
-    .rodata.flash3 :
-    {
-    *(.rodata.*Descriptor)
-    *(.rodata.*Report)
-    *(.rodata.*String)
-    *(.rodata.keymaps)
-    *(.rodata.pal_default_config)
-    *(.rodata.ch_debug)
+    .rodata.firmwareid : {
+        KEEP(*(.id.firmware))
     } > flash3 AT > flash3
-    .rodata.bootloadermagic :
-    {
-    KEEP(*(.magic.bootloader))
+
+    .rodata.flash4 : {
+        *(.rodata.*Descriptor)
+        *(.rodata.*Report)
+        *(.rodata.*String)
+        *(.rodata.keymaps)
+        *(.rodata.pal_default_config)
+        *(.rodata.ch_debug)
     } > flash4 AT > flash4
+
+    .rodata.bootloadermagic : {
+        KEEP(*(.magic.bootloader))
+    } > flash5 AT > flash5
 }
 
 /* For each data/text section two region are defined, a virtual region
@@ -70,23 +72,23 @@ REGION_ALIAS("VECTORS_FLASH", flash2);
 REGION_ALIAS("VECTORS_FLASH_LMA", flash2);
 
 /* Flash region to be used for constructors and destructors.*/
-REGION_ALIAS("XTORS_FLASH", flash5);
-REGION_ALIAS("XTORS_FLASH_LMA", flash5);
+REGION_ALIAS("XTORS_FLASH", flash6);
+REGION_ALIAS("XTORS_FLASH_LMA", flash6);
 
 /* Flash region to be used for code text.*/
-REGION_ALIAS("TEXT_FLASH", flash5);
-REGION_ALIAS("TEXT_FLASH_LMA", flash5);
+REGION_ALIAS("TEXT_FLASH", flash6);
+REGION_ALIAS("TEXT_FLASH_LMA", flash6);
 
 /* Flash region to be used for read only data.*/
-REGION_ALIAS("RODATA_FLASH", flash5);
-REGION_ALIAS("RODATA_FLASH_LMA", flash5);
+REGION_ALIAS("RODATA_FLASH", flash6);
+REGION_ALIAS("RODATA_FLASH_LMA", flash6);
 
 /* Flash region to be used for various.*/
-REGION_ALIAS("VARIOUS_FLASH", flash5);
-REGION_ALIAS("VARIOUS_FLASH_LMA", flash5);
+REGION_ALIAS("VARIOUS_FLASH", flash6);
+REGION_ALIAS("VARIOUS_FLASH_LMA", flash6);
 
 /* Flash region to be used for RAM(n) initialization data.*/
-REGION_ALIAS("RAM_INIT_FLASH_LMA", flash5);
+REGION_ALIAS("RAM_INIT_FLASH_LMA", flash6);
 
 /* RAM region to be used for Main stack. This stack accommodates the processing
    of all exceptions and interrupts.*/
@@ -98,7 +100,7 @@ REGION_ALIAS("PROCESS_STACK_RAM", ram0);
 
 /* RAM region to be used for data segment.*/
 REGION_ALIAS("DATA_RAM", ram0);
-REGION_ALIAS("DATA_RAM_LMA", flash5);
+REGION_ALIAS("DATA_RAM_LMA", flash6);
 
 /* RAM region to be used for BSS segment.*/
 REGION_ALIAS("BSS_RAM", ram0);

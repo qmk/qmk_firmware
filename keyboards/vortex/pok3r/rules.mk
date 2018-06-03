@@ -1,6 +1,8 @@
 # Vortex POK3R
 
 SRC = \
+	ht32.c \
+	util.c \
 	matrix.c \
 	eeprom.c \
 	backlight.c
@@ -20,6 +22,7 @@ MCU_STARTUP = ht32f165x
 BOARD = VORTEX_DUAL_60
 
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x2c00 -Wno-unused-function -fdump-rtl-dfinish -fstack-usage
+#EXTRALDFLAGS = -Wl,--print-memory-usage
 
 # Options
 

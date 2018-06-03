@@ -26,17 +26,16 @@
 /*
  * HT32F1655 w/ cykb bootloader memory setup.
  */
-MEMORY
-{
-    flash0   : org = 0x00000000, len = 0x2800                           /* bootloader */
-    flash1   : org = 0x00002800, len = 0x400                            /* version page */
-    flash2   : org = 0x00002c00, len = 0x160                            /* firmware vectors */
-    flash3   : org = 0x00002c00 + 0x160, len = 128k - 0x2c00 - 0x160    /* text, rodata, data */
-    flash4   : org = 0x00000000, len = 0
+MEMORY {
+    flash0   : org = 0x00000000, len = 0x2800           /* bootloader */
+    flash1   : org = 0x00002800, len = 0x400            /* version page */
+    flash2   : org = 0x00002c00, len = 0x160            /* firmware vectors */
+    flash3   : org = 0x00002d60, len = 0x20             /* firmware identifier */
+    flash4   : org = 0x00002d80, len = 128k - 0x2d80    /* text, rodata, data */
     flash5   : org = 0x00000000, len = 0
     flash6   : org = 0x00000000, len = 0
     flash7   : org = 0x00000000, len = 0
-    ram0     : org = 0x20000000, len = 32k - 4                          /* RAM */
+    ram0     : org = 0x20000000, len = 32k - 4          /* RAM */
     ram1     : org = 0x00000000, len = 0
     ram2     : org = 0x00000000, len = 0
     ram3     : org = 0x00000000, len = 0
@@ -44,6 +43,12 @@ MEMORY
     ram5     : org = 0x00000000, len = 0
     ram6     : org = 0x00000000, len = 0
     ram7     : org = 0x00000000, len = 0
+}
+
+SECTIONS {
+    .rodata.firmwareid : {
+        KEEP(*(.id.firmware))
+    } > flash3 AT > flash3
 }
 
 /* For each data/text section two region are defined, a virtual region
@@ -54,23 +59,23 @@ REGION_ALIAS("VECTORS_FLASH", flash2);
 REGION_ALIAS("VECTORS_FLASH_LMA", flash2);
 
 /* Flash region to be used for constructors and destructors.*/
-REGION_ALIAS("XTORS_FLASH", flash3);
-REGION_ALIAS("XTORS_FLASH_LMA", flash3);
+REGION_ALIAS("XTORS_FLASH", flash4);
+REGION_ALIAS("XTORS_FLASH_LMA", flash4);
 
 /* Flash region to be used for code text.*/
-REGION_ALIAS("TEXT_FLASH", flash3);
-REGION_ALIAS("TEXT_FLASH_LMA", flash3);
+REGION_ALIAS("TEXT_FLASH", flash4);
+REGION_ALIAS("TEXT_FLASH_LMA", flash4);
 
 /* Flash region to be used for read only data.*/
-REGION_ALIAS("RODATA_FLASH", flash3);
-REGION_ALIAS("RODATA_FLASH_LMA", flash3);
+REGION_ALIAS("RODATA_FLASH", flash4);
+REGION_ALIAS("RODATA_FLASH_LMA", flash4);
 
 /* Flash region to be used for various.*/
-REGION_ALIAS("VARIOUS_FLASH", flash3);
-REGION_ALIAS("VARIOUS_FLASH_LMA", flash3);
+REGION_ALIAS("VARIOUS_FLASH", flash4);
+REGION_ALIAS("VARIOUS_FLASH_LMA", flash4);
 
 /* Flash region to be used for RAM(n) initialization data.*/
-REGION_ALIAS("RAM_INIT_FLASH_LMA", flash3);
+REGION_ALIAS("RAM_INIT_FLASH_LMA", flash4);
 
 /* RAM region to be used for Main stack. This stack accommodates the processing
    of all exceptions and interrupts.*/
@@ -82,7 +87,7 @@ REGION_ALIAS("PROCESS_STACK_RAM", ram0);
 
 /* RAM region to be used for data segment.*/
 REGION_ALIAS("DATA_RAM", ram0);
-REGION_ALIAS("DATA_RAM_LMA", flash3);
+REGION_ALIAS("DATA_RAM_LMA", flash4);
 
 /* RAM region to be used for BSS segment.*/
 REGION_ALIAS("BSS_RAM", ram0);

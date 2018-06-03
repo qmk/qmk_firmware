@@ -46,6 +46,7 @@
 #endif
 #include "suspend.h"
 #include "wait.h"
+#include "quantum.h"
 
 /* -------------------------
  *   TMK host driver defs

@@ -45,7 +45,7 @@ FORMAT = ihex
 # Optimization level, can be [0, 1, 2, 3, s].
 #     0 = turn off optimization. s = optimize for size.
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
-OPT = s
+OPT = 0
 
 AUTOGEN ?= false
 
@@ -138,7 +138,7 @@ CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #             files -- see avr-libc docs [FIXME: not yet described there]
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
-ASFLAGS += $(ADEFS) 
+ASFLAGS += $(ADEFS)
 ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 
 #---------------- Library Options ----------------
@@ -231,11 +231,11 @@ HEXSIZE = $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex
 ELFSIZE = $(SIZE) $(BUILD_DIR)/$(TARGET).elf
 
 sizebefore:
-	@if test -f $(BUILD_DIR)/$(TARGET).hex; then $(SECHO) $(MSG_SIZE_BEFORE); $(SILENT) || $(HEXSIZE); \
+	@if test -f $(BUILD_DIR)/$(TARGET).elf; then $(SECHO) $(MSG_SIZE_BEFORE); $(SILENT) || $(ELFSIZE); \
 	2>/dev/null; $(SECHO); fi
 
 sizeafter: $(BUILD_DIR)/$(TARGET).hex
-	@if test -f $(BUILD_DIR)/$(TARGET).hex; then $(SECHO); $(SECHO) $(MSG_SIZE_AFTER); $(SILENT) || $(HEXSIZE); \
+	@if test -f $(BUILD_DIR)/$(TARGET).elf; then $(SECHO); $(SECHO) $(MSG_SIZE_AFTER); $(SILENT) || $(ELFSIZE); \
 	2>/dev/null; $(SECHO); fi
 
 # Display compiler version information.
@@ -284,7 +284,7 @@ BEGIN = gccversion sizebefore
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
 	$(eval CMD=$(CC) $(ALL_CFLAGS) $(filter-out %.txt,$^) --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
-	
+
 
 define GEN_OBJRULE
 $1_INCFLAGS := $$(patsubst %,-I%,$$($1_INC))
@@ -352,7 +352,7 @@ DEPS = $(patsubst %.o,%.d,$(OBJ))
 .PRECIOUS: $(DEPS)
 # Empty rule to force recompilation if the .d file is missing
 $(DEPS):
-	
+
 
 $(foreach OUTPUT,$(OUTPUTS),$(eval $(call GEN_OBJRULE,$(OUTPUT))))
 

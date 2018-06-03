@@ -26,4 +26,12 @@
 #define GD25Q_REMS      0x90    // Read Maufacturer/Device ID
 #define GD25Q_RDID      0x9F    // Read Identification
 
+#define GD25Q_SR_WIP    0x01    // Write In Progress
+#define GD25Q_SR_WEL    0x02    // Write Enable Latch
+#define GD25Q_SR_BP0    0x04    // Block Protect 0
+#define GD25Q_SR_BP1    0x08    // Block Protect 1
+#define GD25Q_SR_BP2    0x10    // Block Protect 2
+#define GD25Q_SR_BP3    0x20    // Block Protect 3
+#define GD25Q_SR_BP4    0x40    // Block Protect 4
+
 #endif // GD25Q_FLASH_H
