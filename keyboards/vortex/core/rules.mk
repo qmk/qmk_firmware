@@ -1,6 +1,8 @@
 # Vortex CORE
 
 SRC = \
+	ht32.c \
+	util.c \
 	matrix.c \
 	eeprom.c
 #	rgblight.c

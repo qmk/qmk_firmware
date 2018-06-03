@@ -17,9 +17,36 @@
 #ifndef PROTO_H
 #define PROTO_H
 
+// Compatibility commands
+enum pok3r_cmd {
+#if defined(UPDATE_PROTO_POK3R)
+    CMD_RESET       = 4,    //!< Reset command.
+    SUB_RESET_BL    = 1,    //!< Reset to bootloader.
+    SUB_RESET_FW    = 2,    //!< Reset firmware.
+#elif defined(UPDATE_PROTO_CYKB)
+    CMD_RESET       = 0x11, //!< Reset command.
+    SUB_RESET_BL    = 0,    //!< Reset to bootloader.
+    SUB_RESET_FW    = 1,    //!< Reset firmware.
+#endif
+
+#if defined(UPDATE_PROTO_POK3R)
+    CMD_FLASH       = 1,    //!< Internal flash command.
+    SUB_WRITE       = 1,    //!< Write 52 bytes to internal flash.
+    SUB_READ        = 2,    //!< Read 64 bytes from internal flash.
+#elif defined(UPDATE_PROTO_CYKB)
+    CMD_READ        = 0x12, //!< Read internal flash command.
+    SUB_READ_400    = 0,
+    SUB_READ_3C00   = 1,
+    SUB_READ_MODE   = 2,    //!< Get firmware mode. 0 is bootloader, 1 is firmware.
+    SUB_READ_VER1   = 0x20, //!< Read version string.
+    SUB_READ_VER2   = 0x22, //!< Read version data.
+    SUB_READ_ADDR   = 0xff, //!< Patched command, read arbitrary address.
+#endif
+};
+
 // New QMK commands
 enum qmk_cmd {
-    CMD_CTRL        = 0x81, //!< Firmware info.
+    CMD_CTRL        = 0x81, //!< Control command.
     SUB_CT_INFO     = 0,    //!< Firmware info.
     SUB_CT_LAYOUT   = 1,    //!< Set layout.
 
@@ -38,12 +65,16 @@ enum qmk_cmd {
     SUB_KM_WRITE    = 2,    //!< Write to keymap.
     SUB_KM_COMMIT   = 3,    //!< Commit keymap to EEPROM.
     SUB_KM_RELOAD   = 4,    //!< Load keymap from EEPROM.
+    SUB_KM_RESET    = 5,    //!< Load default keymap.
 
     CMD_BACKLIGHT   = 0x84, //!< Backlight commands.
     SUB_BL_INFO     = 0,    //!< Backlight map info (layers, rows, cols, type size).
     SUB_BL_READ     = 1,    //!< Read backlight map.
     SUB_BL_WRITE    = 2,    //!< Write to backlight map.
     SUB_BL_COMMIT   = 3,    //!< Commit backlight map to EEPROM.
+
+    CMD_FLASH_QMK   = 0x85, //!< Flash commands.
+    SUB_FL_READ     = 0,    //!< Read flash data.
 };
 
 #endif // PROTO_H

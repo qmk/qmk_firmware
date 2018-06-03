@@ -23,6 +23,8 @@
 #include "vortex.h"
 #include "gd25q_flash.h"
 
+#define MIN(A, B) ((A) < (B) ? (A) : (B))
+
 #define EEPROM_SIZE 0x80000 // 4Mbit = 512KiB
 
 const uint8_t tx_rdsrl[] = { GD25Q_RDSR_L, 0 };
@@ -81,7 +83,7 @@ static uint8_t spi_status(void) {
 
     spi_select();
     // send command, read status
-    spi_txrx(2, tx_rdsrl, rx_data);
+    spi_txrx(2, tx_rdsrl, rx_data); // read status register low
     spi_deselect();
 
     return rx_data[1];
@@ -90,21 +92,25 @@ static uint8_t spi_status(void) {
 // Poll SPI flash status until write done
 void spi_wait_wip(void) {
     uint8_t rx_data;
+    uint16_t count = 0;
 
     spi_select();
     // send command
-    spi_txrx(1, tx_rdsrl, NULL);
+    spi_txrx(1, tx_rdsrl, NULL); // read status register low
     do {
         // read status byte
         spi_txrx(1, NULL, &rx_data);
+        ++count;
     } while(rx_data & GD25Q_SR_WIP);
     spi_deselect();
+
+    printf("WIP Waited %d\n", count);
 }
 
 // Read SPI flash identification
 void spi_rdid(uint8_t *data) {
     uint8_t tx_data[4];
-    tx_data[0] = GD25Q_RDID;
+    tx_data[0] = GD25Q_RDID; // read id
     tx_data[1] = 0;
     tx_data[2] = 0;
     tx_data[3] = 0;
@@ -118,7 +124,7 @@ void spi_rdid(uint8_t *data) {
 // Read flash data
 void spi_read(uint32_t addr, uint16_t n, uint8_t *data) {
     uint8_t tx_data[4];
-    tx_data[0] = GD25Q_READ;
+    tx_data[0] = GD25Q_READ; // continuous read
     tx_data[1] = (addr >> 16) & 0xFF;
     tx_data[2] = (addr >> 8) & 0xFF;
     tx_data[3] = addr & 0xFF;
@@ -131,11 +137,18 @@ void spi_read(uint32_t addr, uint16_t n, uint8_t *data) {
     spi_deselect();
 }
 
-// Write flash data
-// Flash should be erased first
-void spi_write(uint32_t addr, uint16_t n, const uint8_t *data) {
+// Write flash page
+static void spi_write_page(uint32_t addr, uint16_t n, const uint8_t *data) {
+    const uint8_t page_offset = addr & 0xFF;
+    if((page_offset + n) > GD25Q40_PAGE_BYTES){
+        printf("Invalid page write size\n");
+        return;
+    }
+
+    printf("Write page %x %d\n", addr, n);
+
     uint8_t tx_data[4];
-    tx_data[0] = GD25Q_PP;
+    tx_data[0] = GD25Q_PP; // page program
     tx_data[1] = (addr >> 16) & 0xFF;
     tx_data[2] = (addr >> 8) & 0xFF;
     tx_data[3] = addr & 0xFF;
@@ -156,10 +169,28 @@ void spi_write(uint32_t addr, uint16_t n, const uint8_t *data) {
     spi_deselect();
 }
 
+// Write flash data
+// Flash should be erased first
+void spi_write(uint32_t addr, uint16_t n, const uint8_t *data) {
+    uint32_t waddr = addr;
+    uint32_t wpos = 0;
+
+    // write pages
+    while(wpos < n){
+        const uint8_t page_offset = waddr & 0xFF;
+        uint32_t rem_bytes = n - wpos;
+        uint16_t page_len = MIN(rem_bytes, GD25Q40_PAGE_BYTES - page_offset);
+        spi_wait_wip();
+        spi_write_page(waddr, page_len, data + wpos);
+        wpos += page_len;
+        waddr += page_len;
+    }
+}
+
 // Erase flash sectors
 void spi_erase(uint32_t addr) {
     uint8_t tx_data[4];
-    tx_data[0] = GD25Q_SE;
+    tx_data[0] = GD25Q_SE; // sector erase
     tx_data[1] = (addr >> 16) & 0xFF;
     tx_data[2] = (addr >> 8) & 0xFF;
     tx_data[3] = addr & 0xFF;
@@ -178,17 +209,41 @@ void spi_erase(uint32_t addr) {
     spi_deselect();
 }
 
+// Read flash data and calculate crc
+uint16_t spi_crc(uint32_t addr, uint16_t len){
+    uint8_t tx_data[4];
+    tx_data[0] = GD25Q_READ; // continuous read
+    tx_data[1] = (addr >> 16) & 0xFF;
+    tx_data[2] = (addr >> 8) & 0xFF;
+    tx_data[3] = addr & 0xFF;
+
+    uint16_t crc = 0;
+
+    spi_select();
+    // send command and address
+    spi_txrx(4, tx_data, NULL);
+    // read back flash data
+    for(uint16_t i = 0; i < len; ++i){
+        uint8_t byte;
+        spi_txrx(1, NULL, &byte);
+        crc = crc16(&byte, 1, crc);
+    }
+    spi_deselect();
+
+    return crc;
+}
+
 void spi_update(uint32_t addr, uint16_t n, const uint8_t *data) {
 
 }
 
 uint8_t eeprom_read_byte(const uint8_t *addr) {
-
+    printf("read byte %x\n", *addr);
     return 0;
 }
 
 void eeprom_write_byte(uint8_t *addr, uint8_t value) {
-
+    printf("write byte %x %02x\n", *addr, value);
 }
 
 uint16_t eeprom_read_word(const uint16_t *addr) {

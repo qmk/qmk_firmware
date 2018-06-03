@@ -1,6 +1,8 @@
 # Vortex POK3R
 
 SRC = \
+	ht32.c \
+	util.c \
 	matrix.c \
 	eeprom.c \
 	backlight.c
