@@ -12,12 +12,12 @@
   #include "ssd1306.h"
 #endif
 
-#include "lib/mode_icon_reader.c"
-#include "lib/layer_state_reader.c"
-#include "lib/host_led_state_reader.c"
-#include "lib/logo_reader.c"
-#include "lib/keylogger.c"
-#include "lib/timelogger.c"
+#include "../lib/mode_icon_reader.c"
+#include "../lib/layer_state_reader.c"
+#include "../lib/host_led_state_reader.c"
+#include "../lib/logo_reader.c"
+#include "../lib/keylogger.c"
+#include "../lib/timelogger.c"
 
 extern keymap_config_t keymap_config;
 
