@@ -71,5 +71,7 @@
 
 #define DISABLE_LEADER
 
+#define MACRO_TIMER 5
+
 #endif // !USERSPACE_CONFIG_H
 

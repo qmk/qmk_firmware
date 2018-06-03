@@ -38,7 +38,7 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
     clear_keyboard();
     tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
     wait_ms(50);
-    send_string_with_delay(str, 10);
+    send_string_with_delay(str, MACRO_TIMER);
     wait_ms(50);
     tap(KC_ENTER);
   }
@@ -197,7 +197,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case VRSN: // Prints firmware version
     if (record->event.pressed) {
-      send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), 10);
+      send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), MACRO_TIMER);
     }
     return false;
     break;
