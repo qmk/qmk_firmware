@@ -14,47 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "gherkin.h"
-////////// ProMicro Bootloader Section START //////////
-#include <avr/wdt.h>
-
-/* id for user defined functions */
-enum function_id {
-    PROMICRO_PROGRAM,
-};
-
-void promicro_bootloader_jmp(bool program) {
-    uint16_t *const bootKeyPtr = (uint16_t *)0x0800;
-
-    // Value used by Caterina bootloader use to determine whether to run the
-    // sketch or the bootloader programmer.
-    uint16_t bootKey = program ? 0x7777 : 0;
-
-    *bootKeyPtr = bootKey;
-
-    // setup watchdog timeout
-    wdt_enable(WDTO_60MS);
-
-    while(1) {} // wait for watchdog timer to trigger
-}
-
-/*
-* user defined action function
-*/
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    switch (id) {
-        case PROMICRO_PROGRAM:
-            promicro_bootloader_jmp(true);
-            break;
-        default:
-            break;
-    }
-}
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_FUNCTION(PROMICRO_PROGRAM),
-};
-// Use KC_FN0 to put ProMicro into bootloader via software
-//////////  ProMicro Bootloader Section END //////////
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
