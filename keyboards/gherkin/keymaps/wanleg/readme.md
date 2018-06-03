@@ -2,7 +2,7 @@
 
 # Gherkin Wanleg Layout
 Here is the layout I came up with to preserve a standard QWERTY layout as much as possible, in as few layers as possible for a 30 key board.
-I originally set up a few Tap Dance keys, but dropped half of them in favor of chorded versions, since in actual use, they tended to impede typing speed more than their (current) two-key versions.
+I originally set up a few Tap Dance keys, but dropped half of them in favor of chorded versions, since in actual use, they tended to impede typing speed more than their current two-key versions.
 I've left them in my layout ready for use if anyone wants to try them out:
 
 Legend Name | Single Tap | Double Tap | Hold
@@ -45,3 +45,9 @@ Test that it installed correctly by running "avrdude" from Command Prompt. It sh
 4. Open Command Prompt and run the following (substituting "com7" with whatever port you saw earlier)  
 
 `avrdude -p atmega32u4 -P com7  -c avr109  -U flash:w:YOURHEX.hex`
+
+# Pro Micro Reset Button
+The standard "RESET" keycode doesn't put the ProMicro into DFU mode, so per this [reddit post](https://www.reddit.com/r/MechanicalKeyboards/comments/4oyue5/help_tmk_reboot_to_flash_mode_bootloader_on_the/d4h9t1p/), the necessary code has been inserted into my keymap.c. Now, instead of using "RESET" I use "KC_FN0" and I can re-flash without having to short the reset pin on the ProMicro.
+
+[ ] try adding "BOOTLOADER = caterina" to rules.mk to see if that fixes "RESET" instead
+[ ] try adding "#define CATERINA_BOOTLOADER" to config.h to see if that fixes "RESET" instead
