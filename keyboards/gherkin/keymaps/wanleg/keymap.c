@@ -214,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   */
 //
 [ETC] = KEYMAP( /* ETC */
-  KC_GRV,  KC_MS_U, _______, _______, KC_FN0,  KC_RSFT, KC_WH_U, KC_WH_D, _______, KC_BSLS ,
+  KC_GRV,  KC_MS_U, _______, _______, RESET,  KC_RSFT, KC_WH_U, KC_WH_D, _______, KC_BSLS ,
   KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_LSFT, KC_BTN3, KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT ,
   TD(TD_SFT_CAPS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LALT(LCTL(KC_DEL)), KC_TRNS, KC_TRNS, KC_LALT, KC_DEL
  ),
