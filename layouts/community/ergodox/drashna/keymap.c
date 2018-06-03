@@ -324,3 +324,14 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
 
 };
 
+
+bool indicator_is_this_led_used(uint8_t index) {
+  switch (index) {
+    case 13 ... 14:
+      return true;
+      break;
+    default:
+    return false;
+  }
+}
+
