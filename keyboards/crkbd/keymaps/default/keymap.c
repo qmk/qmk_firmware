@@ -146,7 +146,7 @@ void matrix_init_user(void) {
 }
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-//#ifdef SSD1306OLED
+#ifdef SSD1306OLED
 
 void matrix_scan_user(void) {
    iota_gfx_task();
@@ -243,4 +243,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-//#endif
+#endif
