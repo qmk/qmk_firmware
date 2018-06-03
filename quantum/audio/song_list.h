@@ -187,7 +187,7 @@
     Q__NOTE(_AS5 ),        \
     Q__NOTE(_B5),        \
     Q__NOTE(_C6 ),        \
-    Q__NOTE(_CS6 ),        
+    Q__NOTE(_CS6 ),
 
 #define MAJOR_SOUND \
     Q__NOTE(_A5 ),        \
@@ -422,5 +422,17 @@
     Q__NOTE(_E5 ), \
     H__NOTE(_FS5), \
     H__NOTE(_D5 ), \
+
+#define VICTORY_FANFARE_SHORT \
+    ED_NOTE(_C6), \
+    ED_NOTE(_C6), \
+    ED_NOTE(_C6), \
+    ED_NOTE(_C6), \
+    W__NOTE(_REST), \
+    QD_NOTE(_GS5), \
+    QD_NOTE(_AS5), \
+    Q__NOTE(_C6), \
+    Q__NOTE(_AS5), \
+    Q__NOTE(_C6), \
 
 #endif
