@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 #undef RGBLED_NUM
-#define RGBLED_NUM 16     // Number of LEDs
+#define RGBLED_NUM 18     // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
@@ -41,6 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
+
+#define RGBLIGHT_LIMIT_VAL 225
 #endif // RGBLIGHT_ENABLE
 
 #ifdef AUDIO_ENABLE
@@ -55,5 +57,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef KEYBOARD_iris_rev2
 #define PRODUCT         Drashna Hacked Iris Rev.2
 #endif
+
+#define SHFT_LED1 6
+#define SHFT_LED2 11
+
+#define CTRL_LED1 7
+#define CTRL_LED2 10
+
+#define GUI_LED1 8
+#define GUI_LED2 9
 
 #endif
