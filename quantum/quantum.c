@@ -442,7 +442,7 @@ bool process_record_quantum(keyrecord_t *record) {
       }
     }
     return false;
-  case RGB_MODE_RGBCYCLIC:
+  case RGB_MODE_RGBTEST:
     if (record->event.pressed) {
       rgblight_mode(35);
     }

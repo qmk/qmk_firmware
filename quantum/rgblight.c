@@ -43,7 +43,7 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 __attribute__ ((weak))
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 __attribute__ ((weak))
-const uint16_t RGBLED_RGBCYCLIC_INTERVALS[] PROGMEM = {1024};
+const uint16_t RGBLED_RGBTEST_INTERVALS[] PROGMEM = {1024};
 
 rgblight_config_t rgblight_config;
 
@@ -248,7 +248,7 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     // MODE 15-20, snake
     // MODE 21-23, knight
     // MODE 24, xmas
-    // MODE 35  RGB cyclic
+    // MODE 35  RGB test
 
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
@@ -583,8 +583,8 @@ void rgblight_task(void) {
       // mode = 24, christmas mode
       rgblight_effect_christmas();
     } else if (rgblight_config.mode == 35) {
-      // mode = 35, RGB cyclic
-      rgblight_effect_rgbcyclic();
+      // mode = 35, RGB test
+      rgblight_effect_rgbtest();
     }
   }
 }
@@ -740,13 +740,13 @@ void rgblight_effect_christmas(void) {
   rgblight_set();
 }
 
-void rgblight_effect_rgbcyclic(void) {
+void rgblight_effect_rgbtest(void) {
   static uint8_t pos = 0;
   static uint16_t last_timer = 0;
   static uint8_t maxval = 0;
   uint8_t g; uint8_t r; uint8_t b;
 
-  if (timer_elapsed(last_timer) < pgm_read_word(&RGBLED_RGBCYCLIC_INTERVALS[0])) {
+  if (timer_elapsed(last_timer) < pgm_read_word(&RGBLED_RGBTEST_INTERVALS[0])) {
     return;
   }
 
