@@ -15,6 +15,8 @@
  */
 #include "gherkin.h"
 ////////// ProMicro Bootloader Section START //////////
+//this section can be used if the "RESET" keycode doesn't work for some reason
+//shouldn't hurt anything if you don't use it, and you can delete it if you don't want it
 #include <avr/wdt.h>
 
 /* id for user defined functions */
