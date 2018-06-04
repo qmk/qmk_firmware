@@ -27,5 +27,7 @@ typedef enum { STENO_MODE_BOLT, STENO_MODE_GEMINI } steno_mode_t;
 bool process_steno(uint16_t keycode, keyrecord_t *record);
 void steno_init(void);
 void steno_set_mode(steno_mode_t mode);
+uint8_t *steno_get_state(void);
+uint8_t *steno_get_chord(void);
 
 #endif

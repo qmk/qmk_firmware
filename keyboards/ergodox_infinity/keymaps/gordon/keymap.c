@@ -10,16 +10,6 @@
 #include "keymap_nordic.h"
 
 
-#define TLSLSH   M(TIL_SLASH)
-#define F1_F13   TD(F1F13)
-#define F2_F14   TD(F2F14)
-#define F5_F15   TD(F5F15)
-#define F4_ALTF4 TD(ALTF4)
-#define END_ESC  TD(ENDESC)
-#define SHF6_AF7 TD(F6F7)
-#define F12_RUN  TD(F12ETAPS)
-#define COMMA_TD TD(COMMA)
-
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -27,129 +17,94 @@ enum custom_keycodes {
   RGB_SLD,
 };
 
-//Tap dance enums
-enum {
-  F12TAP = 0,
-  F12ETAPS,
-  CALCCOMP,
-  REFRESH, //send R, or Control+R if double tapped.
-  ENDESC,
-  XESC, //'quad function'. x, control, escape, alt
-  ALY2, //'quad function': a, Hyper, ctrl+a, layer 2
-  PRLOCK,
-  F6F7, // Shift F6 or Alt F7
-  TABCOMBO,
-  FCTRL,
-  F3D,
-  ALTF4,
-  COMMA,
-  AT,
-  HTAB,
-  F1F13,
-  F2F14,
-  F5F15
-};
-
-
 
 // Custom tapping terms for each key.
 // Requires changes to action_taping.c
-/* uint16_t get_tapping_term(keyevent_t* event) {
-    uint16_t keycode = keymap_key_to_keycode(layer_switch_get_layer(event->key), event->key);
-    if (keycode == LT(3,KC_E) ) {
-        return TAPPING_TERM + 50;
-    }
-    return TAPPING_TERM;
-} */
+// uint16_t get_tapping_term(keyevent_t* event) {
+//     uint16_t keycode = keymap_key_to_keycode(layer_switch_get_layer(event->key), event->key);
+//     if (keycode == NAV_E ) {
+//         return TAPPING_TERM + 50;
+//     }
+//     return TAPPING_TERM;
+// }
 
-            
-// Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // simple tap dance
-  [F12ETAPS] = ACTION_TAP_DANCE_DOUBLE(KC_F12,LSFT(LCTL(KC_F10))),  
-  [REFRESH] = ACTION_TAP_DANCE_DOUBLE(KC_R,LCTL(KC_R)),
-  [ENDESC] = ACTION_TAP_DANCE_DOUBLE(KC_END, KC_ESC),
-  [CALCCOMP] = ACTION_TAP_DANCE_DOUBLE(KC_CALCULATOR, KC_MY_COMPUTER),
-  [ALTF4] = ACTION_TAP_DANCE_DOUBLE(KC_F4,LALT(KC_F4)),
-  [F6F7] = ACTION_TAP_DANCE_DOUBLE(LSFT(KC_F6), LALT(KC_F7)),
-  [F1F13] = ACTION_TAP_DANCE_DOUBLE(KC_F1, KC_F13),
-  [F2F14] = ACTION_TAP_DANCE_DOUBLE(KC_F2, KC_F14),
-  [F5F15] = ACTION_TAP_DANCE_DOUBLE(KC_F5, KC_F15),
-  [TABCOMBO] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tab_finished, tab_reset),
-  [F3D] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, bt_finished, bt_reset),
-  [COMMA] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, comma_finished, comma_reset),
-  [HTAB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL,h_finished, h_reset)
-};
+
+// _XXXXXX_ is a symbol that means, "DO NOT ASSIGN THIS KEY TO ANTYING", because the key
+//        underneath this layer is the key that sends you to/from this layer.
+//        Meaning, if you were to put something here - then you will be stuck in this layer.
+//        It is simply a visual reminder not to use that key for this layer.
+//        Example: On the numpad layer, under the letter `D` is `_XXXXXXX_`, because pressing and holding
+//          `D` sends you to the numpad layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
-//**************************FIRST LAYER - LAYER ZERO ************************************** 
+//**************************FIRST LAYER - LAYER ZERO **************************************
   [_QWERTY] = KEYMAP(
 
-    SHF6_AF7,   F1_F13,    F2_F14,   TD(F3D), F4_ALTF4,    F5_F15,   KC_F11,
-    ________,     KC_Q,  CTR_SH_W,     NAV_E, CTR_AL_R,      KC_T, PRINTSCR,
-      KC_TAB,     KC_A,     MEH_S,  NUMPAD_D,   CTRL_F,     WIN_G,
-    ALT_SHFT,   CTRL_Z,   HYPER_X,   MOUSE_C,    ALT_V,      KC_B, TT(_MOUSE),
+    SHF6_AF7, F1_F13  ,    F2_F14,   TD(F3D), F4_ALTF4,    F5_F15,   KC_F11,
+    SPRK_TCK  , Q_ESC   ,  CTR_SH_W,     NAV_E, ALT_SH_R,      KC_T, PRINTSCR,
+    KC_TAB  , KC_A    ,     MEH_S,  NUMPAD_D,   CTRL_F,     WIN_G,
+    OSL(_ONESHOT), CTRL_Z  ,   HYPER_X,   MOUSE_C,    ALT_V,      KC_B, OSL(_MOUSE),
     KC_MINUS, KC_GRAVE, KC_DELETE,   KC_LEFT, KC_RIGHT,
-                                    
-                                              KC_INSERT,  KC_DELETE, 
-                                                           ALT_HOME,
-                                    KC_LSHIFT, SYMB_BSP,    END_ESC,
+
+                                              LSFT(KC_INSERT),  TT(_QWERTY_KIDS),
+                                                          ________ ,
+                                    KC_LSHIFT, SYMB_BSP,  KC_INSERT   ,
 
                  F12_RUN,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10, TD(CALCCOMP),
-                ________,     KC_Y,     KC_U,     KC_I,     KC_O,      KC_P,  ________,
-                             WIN_H,   CTRL_J,     KC_K,    MEH_L,  COL_MOUS,  ________,
-                 KC_LEAD,     KC_N,    ALT_M, COMMA_TD, HYPE_DOT,  KC_SLASH, TD(TABCOMBO),
-                                       KC_UP,  KC_DOWN,   KC_ESC,    KC_TILD,    KC_UNDS,
+                CALTDEL ,    KC_Y,      KC_U,     KC_I,     KC_O,      KC_P,  MODRESET,
+                             WIN_H,   CTRL_J, APP_SW_K,    MEH_L,  COL_MOUS, END_HOME,
+             OSL(_ONESHOT),     KC_N,  ALT_M, COMMA_TD, HYPE_DOT,  KC_SLASH, ID_MAN_IP,
+                                       KC_UP,  KC_DOWN,KC_DELETE,    KC_TILD,    KC_UNDS,
 
-  KC_ESCAPE,  KC_DELETE,
-         ALT_T(KC_PGUP),
-  RCTL_T(KC_PGDOWN), LT(_NAV,KC_ENTER), SPAC_SYM),
+  TT(_STREET_FIGHTER),  ________,
+         KC_PGUP,
+  KC_PGDOWN, LT(_NAV,KC_ENTER), SPAC_TXT),
 
 
   //**************************SYMBOLS LAYER**************************
   [_SYMBOLS] = KEYMAP(
     ________, ________, ________, ________, ________, ________,  ________,
-    ________,   TLSLSH,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  ________,
-    ________,  KC_EXLM,  KC_PIPE,  KC_LPRN,  KC_RPRN, M(DEREF),
+    ________, DEREF   ,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  ________,
+    ________,  KC_EXLM,  KC_HASH,  KC_LPRN,  KC_RPRN,  ________,
     ________,KC_DOLLAR,  KC_PERC, LSQUIGLY, RSQUIGLY, ________,  ________,
-    ________,  M(TICK3),  ________,  ________,  ________,  
+    ________,TICK3    ,  ________,  ________,  ________,
 
                                     ________,________,
                                              ________,
-                           ________,________,________,
+                           ________,_XXXXXX_,________,
 
 
                   ________, ________, ________, ________, ________, ________, NUMLOCK,
-                  ________,   TLSLSH,  KC_PIPE,  KC_PLUS,  KC_AMPR, ________, CAPLOCK,
-                          M(EQRIGHT),  KC_DQUO, KC_EQUAL, KC_QUOTE,KC_SCOLON, ________,
-                  ________,  KC_PIPE, BK_SLASH,  ASTERSK,   KC_DOT, KC_SLASH, ________,
-                  ________,________,________,M(TILD3),________,
+                  ________,TIL_SLASH,  KC_PIPE,  KC_PLUS,  KC_AMPR, ________, CAPLOCK,
+                             EQRIGHT,  KC_DQUO, KC_EQUAL, KC_QUOTE,KC_SCOLON, ________,
+                  ________, KC_M, BK_SLASH,  ASTERSK,   KC_DOT, KC_SLASH, ________,
+                  ________,________ ,________,TILD3,________,
                                                               ________,________,
                                                                        ________,
-                                                     ________,________,________),
-  
+                                                     ________,________,_XXXXXX_),
+
   //**************************MOUSE MOVEMENT LAYER**************************
-  [_MOUSE] = KEYMAP(RESET,________,________,________,________,________,________,
-                    RESET,________,________,KC_MS_UP,________,KC_MS_WH_UP,CALTDEL,
+  [_MOUSE] = KEYMAP(UP_ENTER_RESET,________,________,________,________,________,MODRESET,
+                    RESET,KC_SECRET_5,________,KC_MS_UP,KC_SECRET_4,KC_MS_WH_UP,________,
                     ________,________,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_MS_WH_DOWN,
-                    KC_SECRET_1,________,HYPR(KC_F13),________,HYPR(KC_F14),KC_SECRET_2,________,
+                    KC_SECRET_5,KC_SECRET_4,KC_SECRET_3,_XXXXXX_,KC_SECRET_2,KC_SECRET_1,_XXXXXX_,
                     ________,________,HYPR(KC_F15),KC_MS_WH_LEFT,KC_MS_WH_RIGHT,
-                    
+
                                                        ________,________,
                                                                 ________,
                                           KC_MS_BTN1,KC_MS_BTN2,________,
-                                          
-                                         
+
+
                     ________,________,________,________,________,________,________,
-                    KC_MS_WH_UP,________,________,KC_UP,________,________,________,
-                    ________,KC_LEFT,KC_DOWN,KC_RIGHT,________,________,
-                    KC_MS_WH_DOWN,________,KC_PGUP,KC_PGDOWN,KC_MEDIA_NEXT_TRACK,________,________,
-                    KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,KC_AUDIO_MUTE,KC_MEDIA_PLAY_PAUSE,________,
+                    ________,________,________,KC_UP,________,KC_MEDIA_PLAY_PAUSE,________,
+                    ________,KC_LEFT,KC_DOWN,KC_RIGHT,_XXXXXX_,________,
+                    ________,KC_MEDIA_NEXT_TRACK,KC_AUDIO_VOL_UP,KC_AUDIO_VOL_DOWN,KC_MUTE,________,________,
+                    KC_MS_WH_UP,KC_MS_WH_DOWN,________,________,________,
                     ________,________,
                     ________,
-                    ________,________,KC_WWW_BACK),
+                    ________,KC_WWW_BACK,KC_WWW_FORWARD),
 
 
 
@@ -157,23 +112,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //**************************WINDOWS NAVIGATION LAYER**************************
 
   [_NAV] = KEYMAP(________,________,________,________,________,________,________,
-                  ________,________,SNAPLEFT,________,SNAPRGHT,LALT(KC_LEFT),________,
-                  ________,LCTL(KC_W),PREVTAB,LGUI(KC_D),NEXTTAB,________,
-                  ________,________,WORKLEFT,________,WORKRIGHT,________,________,
+                  ________,________,SNAPLEFT,_XXXXXX_,SNAPRGHT,________,________,
+                  ________,KC_WWW_BACK,PREVTAB,________,NEXTTAB,SNAPUP,
+                  ________,________,WORKLEFT,________,WORKRIGHT,SNAPDOWN,________,
                   ________,________,________,________,________,
-                  
+
                   ________,________,
                            ________,
-         ________,________,________, 
-         
-         
+         ________,________,________,
+
+
          ________,________,________,________,________,________,________,
          ________,________,SNAPUP  ,KC_UP   ,SNAPDOWN,________,________,
                   ________,KC_LEFT ,KC_DOWN ,KC_RIGHT,________,________,
          ________,________,________,________,________,________,________,
          ________,________,________,________,________,
-         
-         
+
+
          ________,________,
          ________,
          ________,________,________),
@@ -181,93 +136,205 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //****************************NUMPAD LAYER****************************
   [_NUMPAD] = KEYMAP(________,________,________,________,________,________,________,
                      ________,________,________,________,________,________,________,
-                     ________,________,________,________,________,________,
-                     ________,________,________,________,________,________,________,
+                     ________,KC_DOT  ,KC_SPACE,_XXXXXX_, KC_ESC ,________,
+                     ________,DBMS_OUT,________,________,________,________,________,
                      ________,________,________,________,________,
-                     
+
                      ________,________,
                      ________,
-                     ________,________,________,
-                     
+                     KC_PLUS,KC_MINUS,________,
+
                      BL_TOGG ,BL_STEP ,________,________,________,________,________,
                      ________,________,KC_7    ,KC_8    ,KC_9    ,________,________,
                               ________,KC_4    ,KC_5    ,KC_6    ,________,________,
-                     ________,________,KC_1    ,KC_2    ,KC_3    ,________,________,
-                                       KC_0    ,KC_0 ,  KC_DOT   ,________,________,
-                                       
+                     ________,KC_DOT,  KC_1    ,KC_2    ,KC_3    ,________,________,
+                                       KC_0    ,KC_DOT ,  KC_DOT   ,________,________,
+
                                        ________,________,
                                        ________,
                                        ________,________,KC_0),
+
+  //****************************APP SWITCH LAYER****************************
+  [_APPSWITCH] = KEYMAP(________,________,________,________,________,________,________,
+                        ________,________   ,  ________ , ________  ,________   ,________,________,
+                        ________,APP_5,APP_6,APP_7,APP_8,________,
+                        ________,DBMS_OUT,________,________,________,________,________,
+                        ________,________,________,________,________,
+
+                                                                  ________,________,
+                                                                           ________,
+                                                         KC_PLUS,________,________,
+
+                     ________,________,________,________,________,________,________,
+                     ________,________,APP_3   ,________,APP_4   ,________,________,
+                              ________,APP_1   ,_XXXXXX_,APP_2   ,________,________,
+                     ________,________,________,________,________,________,________,
+                                       ________,________,________,________,________,
+
+                    ________,________,
+                    ________,
+                    ________,________,________),
+
+
+  [_ONESHOT] = KEYMAP(  UP_ENTER_RESET , ________, ________, ________, ________, ________, ________,
+                        ________, ________, ________, KC_UP   , ________, ________, ________,
+                        ________, ________, KC_LEFT , KC_DOWN , KC_RIGHT, ________,
+                        MAGIC_TOGGLE_NKRO, ________, ________, ________, ________, ________, ________,
+                        ________, ________, ________, ________, ________,
+
+                        ________, ________,
+                        ________,
+                        ________, ________, ________,
+
+                        ________, ________, ________, ________, ________, ________, ________,
+                        ________, ________, KC_7, KC_8, KC_9, KC_PLUS, ________,
+                                  ________, KC_4, KC_5, KC_6, KC_EQUAL, ________,
+                        ________, ________, KC_1, KC_2, KC_3, KC_ASTR, ________,
+                        ________, ________, KC_0, ________, ________,
+
+                        ________, ________,
+                        ________,
+                        ________, ________, ________),
   //****************************TEXT/INTELLIJ NAVIGATION LAYER****************************
   [_TEXTNAV] = KEYMAP(________,________,________,________,________,________,________,
                       ________,MEH(KC_Q),LSFT(KC_ESCAPE),MEH(KC_D),MEH(KC_2),LALT(LSFT(KC_UP)),________,
-                      ________,LALT(KC_F7),LCTL(KC_LEFT),LCTL(KC_B),LCTL(KC_RIGHT),LALT(LSFT(KC_DOWN)),
-                      ________,________,________,LCTL(LSFT(KC_COMMA)),MEH(KC_DOT),LALT(KC_MS_WH_UP),________,________,________,________,________,________,________,________,________,________,LCTL(KC_DELETE),________,LALT(LSFT(KC_F9)),________,________,________,________,________,________,________,MEH(KC_5),LALT(LSFT(KC_Z)),________,LALT(KC_Z),________,________,________,LCTL(LSFT(KC_LEFT)),LALT(LCTL(KC_S)),LCTL(LSFT(KC_RIGHT)),LCTL(LSFT(KC_COMMA)),________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________,________)
+                      ________,________,LCTL(KC_LEFT),LCTL(KC_B),LCTL(KC_RIGHT),LALT(LSFT(KC_DOWN)),
+                      ________,________,________,LCTL(LSFT(KC_COMMA)),MEH(KC_DOT),LALT(KC_MS_WH_UP),________,
+                      ________,________,________,________,________,
+
+                      ________,________,________,________,________,________,
+
+                      LALT(LSFT(KC_F9)),________,________,________,________,________,________,________,MEH(KC_5),LALT(LSFT(KC_Z)),
+                      ________,LALT(KC_Z),________,________,________,LCTL(LSFT(KC_LEFT)),LALT(LCTL(KC_S)),LCTL(LSFT(KC_RIGHT)),
+                      LCTL(LSFT(KC_COMMA)),________,________,________,________,________,________,________,________,________,
+                      ________,________,________,________,________,________,________,________,________,_XXXXXX_),
+  [_QWERTY_KIDS] = KEYMAP(
+
+      KC_NO ,   KC_NO  , KC_NO ,     KC_NO ,   KC_NO ,      KC_NO ,     KC_NO ,
+      KC_NO ,   KC_Q   , KC_W,     KC_E, KC_R,      KC_T,   KC_NO ,
+      KC_NO ,   KC_A   , KC_S,  KC_D,   KC_F,       KC_G ,
+      KC_NO ,   KC_Z   ,   KC_X,   KC_C,    KC_V,      KC_B,   KC_NO ,
+    KC_MINUS, KC_GRAVE, KC_DELETE,   KC_LEFT, KC_RIGHT,
+
+                                                KC_NO ,    TT(_QWERTY_KIDS) ,
+                                                            KC_NO  ,
+                                    KC_LSHIFT, KC_BSPACE,    KC_NO    ,
+
+                   KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,      KC_NO ,   KC_NO ,
+                  KC_NO  ,    KC_Y,      KC_U, KC_I,     KC_O,      KC_P,    KC_NO ,
+                             KC_H,   KC_J,     KC_K,    KC_L,    KC_SCOLON , KC_NO,
+               KC_NO ,     KC_N,    KC_M,   KC_COMMA ,   KC_DOT ,  KC_SLASH,   KC_NO ,
+                                       KC_UP,  KC_DOWN,   KC_DELETE,    KC_TILD,    KC_UNDS,
+
+    KC_NO ,    KC_NO ,
+         KC_NO,
+  KC_NO, KC_ENTER, KC_SPACE),
+
+  [_STREET_FIGHTER] = KEYMAP(
+
+      KC_NO ,   KC_NO  , KC_NO ,     KC_NO ,   KC_NO ,      KC_NO ,     KC_NO ,
+      KC_NO ,   KC_NO   , DIE_1000X_LEFT,     KC_UP, DIE_1000X_RIGHT,      KC_NO,   KC_NO ,
+      KC_NO ,   KC_NO   , KC_LEFT,  KC_DOWN,   KC_RIGHT,       KC_NO ,
+      KC_NO ,   KC_NO   ,   KC_NO,   KC_NO,    KC_NO,      KC_NO,   KC_NO ,
+    KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO,
+
+                                                ________ ,    ________ ,
+                                                            ________  ,
+                                    ________, ________,    ________    ,
+
+                   KC_NO,  KC_NO ,      KC_NO ,      KC_NO , KC_NO ,   KC_NO , KC_NO ,
+                  KC_NO  , KC_NO,      KC_G, KC_H,     KC_J,      KC_NO,    KC_NO ,
+                             KC_NO,   KC_B,     KC_N,    KC_M,    KC_K , KC_NO,
+               KC_NO ,     KC_NO,    KC_NO,   KC_NO ,   KC_NO ,  KC_NO,   KC_NO ,
+                                       KC_NO,  KC_NO,   KC_NO,    KC_NO,    KC_NO,
+
+    TT(_STREET_FIGHTER) ,    ________ ,
+         ________,
+  ________, ________, ________),
+
+
+  //************************Windows navigation to directories*************************
+  [_DIRNAV] = KEYMAP(
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,________,________,
+         ________,________,KC_A,________,________,________,
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,
+
+                  ________,________,
+                           ________,
+         ________,________,________,
+
+
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,________,________,
+                  ________,________,_______,________,________,________,
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,
+
+
+         ________,________,
+         ________,
+         ________,________,________),
+
+
+  [_TEXT_MACROS] = KEYMAP(
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,________,________,
+         ________,________,KC_A,________,________,________,
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,
+
+                  ________,________,
+                           ________,
+         ________,________,________,
+
+
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,________,________,
+                  ________,________,_______,________,________,________,
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,
+
+
+         ________,________,
+         ________,
+         ________,________,________)
+
+
+/* FOR FORMATTING FUTURE LAYERS
+   NO KEY CODES SHOULD BE MORE THAN 8 CHARACTERS
+   GOES LEFT HAND THEN RIGHT HAND
+  [_DIRNAV] = KEYMAP(
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,________,
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,
+
+                  ________,________,
+                           ________,
+         ________,________,________,
+
+
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,________,________,
+                  ________,________,________,________,________,________,
+         ________,________,________,________,________,________,________,
+         ________,________,________,________,________,
+
+
+         ________,________,
+         ________,
+         ________,________,________), */
+
+
+
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
   [1] = ACTION_LAYER_TAP_TOGGLE(1)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case INFOQM: {
-          if (record->event.pressed) {
-            SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-          }
-          break;
-        }
-
-        case TIL_SLASH: {
-          if (record->event.pressed) {
-            SEND_STRING ("~/.");
-          }
-          break;
-        }
-
-        case DEREF: {
-          if (record->event.pressed) {
-            SEND_STRING ("->");
-          }
-          break;
-        }
-        
-        case EQRIGHT: {
-          if (record->event.pressed) {
-            SEND_STRING ("=>");
-          }
-          break;
-        }
-
-        case TICK3: {
-          if (record->event.pressed) {
-            SEND_STRING ("```");
-          }
-          break;
-        }
-
-        case TILD3: {
-          if (record->event.pressed) {
-            SEND_STRING ("~~~");
-          }
-          break;
-        }
-
-        case ALTTAB_START: {
-          register_code(KC_LALT);
-          layer_on(8);
-        }
-
-        case ALTTAB_END: {
-          unregister_code(KC_LALT);
-          layer_off(8);
-        }
-
-
-
-      }
-      return MACRO_NONE;
 };
 
 void matrix_scan_user(void) {
@@ -281,35 +348,51 @@ void matrix_scan_user(void) {
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
-    switch (layer) {
-        case _SYMBOLS:
-            ergodox_right_led_1_on();
-            break;
-        case _MOUSE:
-            ergodox_right_led_2_on();
-            break;
-        case _NUMPAD:
-            ergodox_right_led_3_on();
-            break;
-        case _NAV:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            break;
-        case 5:
-            ergodox_right_led_1_on();
-            ergodox_right_led_3_on();
-            break;
-        case 6:
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        case 7:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-            break;
-        default:
-            break;
-    }
+   //    _delay_ms(45);
 
+    switch (layer)
+    {
+    case _SYMBOLS:
+      ergodox_right_led_1_on();
+      break;
+    case _MOUSE:
+      ergodox_right_led_2_on();
+      break;
+    case _NUMPAD:
+      ergodox_right_led_3_on();
+      break;
+    case _NAV:
+      ergodox_right_led_1_on();
+      ergodox_right_led_2_on();
+      break;
+    case _MACROS:
+      //layer unused right now
+      break;
+    case _FUNCTION:
+      //layer unused right nowex
+      break;
+    case _APPSWITCH:
+      ergodox_right_led_2_on();
+      ergodox_right_led_3_on();
+      break;
+    case _ONESHOT:
+      ergodox_right_led_1_on();
+      ergodox_right_led_2_on();
+      ergodox_right_led_3_on();
+      break;
+    case _TEXTNAV:
+      ergodox_right_led_1_on();
+      ergodox_right_led_3_on();
+      break;
+    case _QWERTY_KIDS:
+      ergodox_right_led_1_on();
+      ergodox_right_led_2_on();
+      ergodox_right_led_3_on();
+      break;
+    case _STREET_FIGHTER:
+      ergodox_right_led_2_on();
+      ergodox_right_led_3_on();
+    default:
+      break;
+    }
 };
