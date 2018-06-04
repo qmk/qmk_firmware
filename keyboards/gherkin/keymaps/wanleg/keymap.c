@@ -14,6 +14,49 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "gherkin.h"
+////////// ProMicro Bootloader Section START //////////
+//this section can be used if the "RESET" keycode doesn't work for some reason
+//shouldn't hurt anything if you don't use it, and you can delete it if you don't want it
+#include <avr/wdt.h>
+
+/* id for user defined functions */
+enum function_id {
+    PROMICRO_PROGRAM,
+};
+
+void promicro_bootloader_jmp(bool program) {
+    uint16_t *const bootKeyPtr = (uint16_t *)0x0800;
+
+    // Value used by Caterina bootloader use to determine whether to run the
+    // sketch or the bootloader programmer.
+    uint16_t bootKey = program ? 0x7777 : 0;
+
+    *bootKeyPtr = bootKey;
+
+    // setup watchdog timeout
+    wdt_enable(WDTO_60MS);
+
+    while(1) {} // wait for watchdog timer to trigger
+}
+
+/*
+* user defined action function
+*/
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
+{
+    switch (id) {
+        case PROMICRO_PROGRAM:
+            promicro_bootloader_jmp(true);
+            break;
+        default:
+            break;
+    }
+}
+const uint16_t PROGMEM fn_actions[] = {
+    [0] = ACTION_FUNCTION(PROMICRO_PROGRAM),
+};
+// Use KC_FN0 to put ProMicro into bootloader via software
+//////////  ProMicro Bootloader Section END //////////
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -205,17 +248,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  /*
 //   *  ETC
 //   * .-----------------------------------------------------------------------------------------.
-//   * |  `     | mUP    |        |        |        | SHIFT  | mUp    | mDown  |        |  \     |
+//   * |  `     | mUP    |        |        | RESET  | SHIFT  | mUp    | mDown  |        |  \     |
 //   * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-//   * | mLeft  | mDown  | mRight |        | SHIFT  |        | mBtn1  | mBtn2  |  ;     |  '     |
+//   * | mLeft  | mDown  | mRight |        | SHIFT  | mBtn3  | mBtn1  | mBtn2  |  ;     |  '     |
 //   * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
 //   * | Sft//Cp|        |        |        |        | C-A-D  |        |        | ALT    |  DEL   |
 //   * '-----------------------------------------------------------------------------------------'
 //   */
 //
 [ETC] = KEYMAP( /* ETC */
-  KC_GRV,  KC_MS_U, _______, _______, _______, KC_RSFT, KC_WH_U, KC_WH_D, _______, KC_BSLS ,
-  KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_LSFT, KC_TRNS, KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT ,
+  KC_GRV,  KC_MS_U, _______, _______, RESET,   KC_RSFT, KC_WH_U, KC_WH_D, _______, KC_BSLS ,
+  KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS, KC_LSFT, KC_BTN3, KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT ,
   TD(TD_SFT_CAPS), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, LALT(LCTL(KC_DEL)), KC_TRNS, KC_TRNS, KC_LALT, KC_DEL
  ),
 };
