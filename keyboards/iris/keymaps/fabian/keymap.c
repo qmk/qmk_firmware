@@ -9,6 +9,7 @@ enum custom_layers {
   _QWERTY,
   _LOWER,
   _RAISE,
+  _MOUSECURSOR,
   _ADJUST,
 };
 
@@ -17,6 +18,7 @@ enum custom_keycodes {
   QWERTY,
   LOWER,
   RAISE,
+  MOUSECURSOR,
   ADJUST,
   DYNAMIC_MACRO_RANGE,
 };
@@ -39,6 +41,7 @@ enum custom_keycodes {
 #define KC_MGRV MEH_T(KC_GRV)  // Tap for Backtick, hold for Meh (Ctrl+Alt+Shift)
 #define KC_SBSP SFT_T(KC_BSPC) // Tap for Backspace, hold for Shift
 #define KC_SENT KC_SFTENT      // Tap for Enter, hold for Shift
+#define KC_SPMC F(0)           // Tap for Space, hold for MOUSECURSOR layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -52,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
      SBSP, Z  , X  , C  , V  , B  ,LALT,     RALT, N  , M  ,COMM,DOT ,SLSH,SENT,
   //`----+----+----+----+----+----+----/    \----+----+----+----+----+----+----'
-                       LGUI,LOWR,SPC ,         HTAB,RASE,RGUI
+                       LGUI,LOWR,SPMC,         HTAB,RASE,RGUI
   //                  `----+----+----'        `----+----+----'
   ),
 
@@ -66,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
      SBSP, Z  , X  , C  , V  , B  ,LALT,     RALT, K  , M  ,COMM,DOT ,SLSH,SENT,
   //`----+----+----+----+----+----+----/    \----+----+----+----+----+----+----'
-                       LGUI,LOWR,SPC ,         HTAB,RASE,RGUI
+                       LGUI,LOWR,SPMC,         HTAB,RASE,RGUI
   //                  `----+----+----'        `----+----+----'
   ),
 
@@ -98,6 +101,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                  `----+----+----'        `----+----+----'
   ),
 
+  [_MOUSECURSOR] = LAYOUT_kc(
+  //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
+         ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,    ,
+  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
+         ,    ,    , UP ,    ,    ,               WH_D,WH_R,MS_U,ACL0,ACL1,ACL2,
+  //|----+----+----+----+----+----|              |----+----+----+----+----+----|
+         ,    ,LEFT,DOWN,RGHT,    ,               WH_L,MS_L,MS_D,MS_R,BTN1,BTN2,
+  //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
+         ,    ,    ,    ,    ,    ,    ,         ,WH_U,LEFT,DOWN, UP ,RGHT,BTN3,
+  //`----+----+----+----+----+----+----/    \----+----+----+----+----+----+----'
+                           ,    ,    ,             ,    ,
+  //                  `----+----+----'        `----+----+----'
+  ),
+
   [_ADJUST] = LAYOUT( \
   //,-------+-------+-------+-------+-------+-------.                       ,-------+-------+-------+-------+-------+-------.
      xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,                        xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,xxxxxxx,
@@ -112,6 +129,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                              `-------+-------+-------'           `-------+-------+-------'
   )
 
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+    [0]  = ACTION_LAYER_TAP_KEY(_MOUSECURSOR, KC_SPC),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -162,4 +183,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
-}
+ }
