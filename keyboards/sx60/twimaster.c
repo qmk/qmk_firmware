@@ -57,7 +57,7 @@ unsigned char i2c_start(unsigned char address)
   twst = TW_STATUS & 0xF8;
   if ( (twst != TW_START) && (twst != TW_REP_START)) return 1;
 
-  /* send device address
+  /* send device address */
   TWDR = address;
   TWCR = (1<<TWINT) | (1<<TWEN);
 
