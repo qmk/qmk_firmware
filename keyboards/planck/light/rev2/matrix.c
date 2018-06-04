@@ -10,6 +10,7 @@
 #include "action.h"
 #include "keycode.h"
 #include <string.h>
+#include "quantum.h"
 
 /*
  *     col: { A10, B2, A15, A0, A1, A2, B0, B1, C13, A6, A7, A3 }

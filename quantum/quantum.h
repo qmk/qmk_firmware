@@ -17,10 +17,11 @@
 #define QUANTUM_H
 
 #if defined(__AVR__)
-#include <avr/pgmspace.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
+  #include <avr/pgmspace.h>
+  #include <avr/io.h>
+  #include <avr/interrupt.h>
 #endif
+
 #include "wait.h"
 #include "matrix.h"
 #include "keymap.h"
@@ -128,6 +129,30 @@ extern uint32_t default_layer_state;
 #ifndef MIN
   #define MAX(x, y) (((x) > (y)) ? (x) : (y))
   #define MIN(x, y) (((x) < (y)) ? (x) : (y))
+#endif
+
+
+#ifdef __AVR__
+  #include <avr/io.h>
+  #define LINE_TYPE uint8_t
+
+  #define setPadMode(line, mode) _SFR_IO8((line >> 4) + 1) mode _BV(line & 0xF)
+  #define setPad(line) _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF)
+  #define clearPad(line) _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF)
+  #define readPad(line) (_SFR_IO8(line >> 4) & _BV(line & 0xF))
+
+  #define PAD_MODE_INPUT &= ~
+  #define PAD_MODE_OUTPUT |=
+#elif defined(__arm__)
+  #include "hal.h"
+  #define LINE_TYPE ioline_t
+
+  #define setPadMode(line, mode) palSetPadMode(PAL_PORT(line), PAL_PAD(line), mode)
+  #define setPad(line) palSetPad(PAL_PORT(line), PAL_PAD(line))
+  #define clearPad(line) palClearPad(PAL_PORT(line), PAL_PAD(line))
+  #define readPad(line) palReadPad(PAL_PORT(line), PAL_PAD(line))
+
+  #define PAD_MODE_INPUT PAL_MODE_INPUT_PULLUP
 #endif
 
 #define STRINGIZE(z) #z

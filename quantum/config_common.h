@@ -23,8 +23,6 @@
 #define CUSTOM_MATRIX 2 /* Disables built-in matrix scanning code */
 
 #ifdef __AVR__
-  #include <avr/io.h>
-  #define LINE_TYPE uint8_t
 
   /* I/O pins */
   #ifndef F0
@@ -78,18 +76,8 @@
       #define A7 0x07
   #endif
 
-  #define setPadMode(line, mode) _SFR_IO8((line >> 4) + 1) mode _BV(line & 0xF)
-  #define setPad(line) _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF)
-  #define clearPad(line) _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF)
-  #define readPad(line) (_SFR_IO8(line >> 4) & _BV(line & 0xF))
 
-  #define PAD_MODE_INPUT &= ~
-  #define PAD_MODE_OUTPUT |=
-
-#else
-  #include "hal.h"
-
-  #define LINE_TYPE ioline_t
+#elif defined(__arm__)
 
   #define A0  PAL_LINE(GPIOA, 0)
   #define A1  PAL_LINE(GPIOA, 1)
@@ -188,12 +176,6 @@
   #define F14 PAL_LINE(GPIOF, 14)
   #define F15 PAL_LINE(GPIOF, 15)
 
-  #define setPadMode(line, mode) palSetPadMode(PAL_PORT(line), PAL_PAD(line), mode)
-  #define setPad(line) palSetPad(PAL_PORT(line), PAL_PAD(line))
-  #define clearPad(line) palClearPad(PAL_PORT(line), PAL_PAD(line))
-  #define readPad(line) palReadPad(PAL_PORT(line), PAL_PAD(line))
-
-  #define PAD_MODE_INPUT PAL_MODE_INPUT_PULLUP
 #endif
 
 

@@ -16,7 +16,7 @@
  */
 
 #include "encoder.h"
-#include <stdbool.h>
+#include "quantum.h"
 
 #ifndef ENCODER_RESOLUTION
   #define ENCODER_RESOLUTION 4
