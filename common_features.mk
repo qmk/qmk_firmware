@@ -209,6 +209,12 @@ ifeq ($(strip $(I2C_SLAVE_ENABLE)), yes)
     OPT_DEFS += -DI2C_SLAVE_ENABLE
 endif
 
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    OPT_DEFS += -DENCODER_ENABLE
+    SRC += $(QUANTUM_DIR)/encoder.c
+endif
+
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \

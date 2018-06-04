@@ -52,8 +52,12 @@
 #undef AUDIO_VOICES
 #undef C6_AUDIO
 
+#define NUMBER_OF_ENCODERS 1
+#define ENCODERS_PAD_A { B12 }
+#define ENCODERS_PAD_B { B13 }
+
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCE 6
+#define DEBOUNCE 0
 
 /* Prevent modifiers from being stuck on after layer changes. */
 #define PREVENT_STUCK_MODIFIERS

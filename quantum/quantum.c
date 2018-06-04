@@ -851,6 +851,9 @@ void matrix_init_quantum() {
   #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init_drivers();
   #endif
+  #ifdef ENCODER_ENABLE
+    encoder_init();
+  #endif
   matrix_init_kb();
 }
 
@@ -883,6 +886,10 @@ void matrix_scan_quantum() {
       rgb_matrix_update_pwm_buffers();
     }
     rgb_matrix_task_counter = ((rgb_matrix_task_counter + 1) % (RGB_MATRIX_SKIP_FRAMES + 1));
+  #endif
+
+  #ifdef ENCODER_ENABLE
+    encoder_read();
   #endif
 
   matrix_scan_kb();

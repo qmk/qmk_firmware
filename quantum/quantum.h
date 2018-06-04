@@ -121,6 +121,10 @@ extern uint32_t default_layer_state;
 	#include "process_terminal_nop.h"
 #endif
 
+#ifdef ENCODER_ENABLE
+  #include "encoder.h"
+#endif
+
 #ifndef MIN
   #define MAX(x, y) (((x) > (y)) ? (x) : (y))
   #define MIN(x, y) (((x) < (y)) ? (x) : (y))

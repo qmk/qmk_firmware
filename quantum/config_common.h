@@ -1,4 +1,4 @@
-/* Copyright 2015-2017 Jack Humbert
+/* Copyright 2015-2018 Jack Humbert
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 #define CUSTOM_MATRIX 2 /* Disables built-in matrix scanning code */
 
 #ifdef __AVR__
+  #include <avr/io.h>
   #define LINE_TYPE uint8_t
 
   /* I/O pins */
@@ -76,6 +77,15 @@
       #define A6 0x06
       #define A7 0x07
   #endif
+
+  #define setPadMode(line, mode) _SFR_IO8((line >> 4) + 1) mode _BV(line & 0xF)
+  #define setPad(line) _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF)
+  #define clearPad(line) _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF)
+  #define readPad(line) (_SFR_IO8(line >> 4) & _BV(line & 0xF))
+
+  #define PAD_MODE_INPUT &= ~
+  #define PAD_MODE_OUTPUT |=
+
 #else
   #include "hal.h"
 
@@ -182,6 +192,8 @@
   #define setPad(line) palSetPad(PAL_PORT(line), PAL_PAD(line))
   #define clearPad(line) palClearPad(PAL_PORT(line), PAL_PAD(line))
   #define readPad(line) palReadPad(PAL_PORT(line), PAL_PAD(line))
+
+  #define PAD_MODE_INPUT PAL_MODE_INPUT_PULLUP
 #endif
 
 
