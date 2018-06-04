@@ -35,11 +35,11 @@ static uint8_t encoder_state[NUMBER_OF_ENCODERS] = {0};
 static int8_t encoder_value[NUMBER_OF_ENCODERS] = {0};
 
 __attribute__ ((weak))
-void encoder_update_user(bool clockwise) { }
+void encoder_update_user(int8_t index, bool clockwise) { }
 
 __attribute__ ((weak))
-void encoder_update_kb(bool clockwise) {
-  encoder_update_user(clockwise);
+void encoder_update_kb(int8_t index, bool clockwise) {
+  encoder_update_user(index, clockwise);
 }
 
 void encoder_init(void) {
@@ -57,10 +57,10 @@ void encoder_read(void) {
     encoder_state[i] |= (readPad(encoders_pad_a[i]) << 0) | (readPad(encoders_pad_b[i]) << 1);
     encoder_value[i] += encoder_LUT[encoder_state[i] & 0xF];
     if (encoder_value[i] >= ENCODER_RESOLUTION) {
-        encoder_update_kb(COUNTRECLOCKWISE);
+        encoder_update_kb(i, COUNTRECLOCKWISE);
     }
     if (encoder_value[i] <= -ENCODER_RESOLUTION) { // direction is arbitrary here, but this clockwise
-        encoder_update_kb(CLOCKWISE);
+        encoder_update_kb(i, CLOCKWISE);
     }
     encoder_value[i] %= ENCODER_RESOLUTION;
   }
