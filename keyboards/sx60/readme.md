@@ -1,7 +1,7 @@
 SX60
 ===
 
-These docs are for the QMK version of the PCB. [More info on qmk.fm](http://qmk.fm/)
+![SX60](https://i.imgur.com/hZZHrRr.jpg)
 
 Keyboard Maintainer: [amnobis](https://github.com/amnobis)
 Hardware Supported: SX60

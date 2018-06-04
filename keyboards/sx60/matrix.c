@@ -60,7 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     extern const matrix_row_t matrix_mask[];
 #endif
 
-// static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const uint8_t col_pins[ATMEGA_COLS] = MATRIX_COL_PINS;
 static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 
@@ -115,7 +114,7 @@ uint8_t matrix_cols(void) {
 
 void matrix_init(void) {
 
-    // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
+    /* To use PORTF disable JTAG with writing JTD bit twice within four cycles. */
     #if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
         MCUCR |= _BV(JTD);
         MCUCR |= _BV(JTD);
@@ -123,11 +122,11 @@ void matrix_init(void) {
 
     mcp23018_status = true;
 
-    // initialize row and col
+    /* initialize row and col */
     unselect_rows();
     init_cols();
 
-    // initialize matrix state: all keys off
+    /* initialize matrix state: all keys off */
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
@@ -138,10 +137,11 @@ void matrix_init(void) {
 
 uint8_t matrix_scan(void)
 {
-    if (mcp23018_status) { // if there was an error
+    if (mcp23018_status) { 
+        /* if there was an error */
         if (++mcp23018_reset_loop == 0) {
-            // since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
-            // this will be approx bit more frequent than once per second
+            /* since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
+               this will be approx bit more frequent than once per second */
             print("trying to reset mcp23018\n");
             mcp23018_status = init_mcp23018();
             if (mcp23018_status) {
@@ -152,7 +152,7 @@ uint8_t matrix_scan(void)
         }
     }
 
-    // Set row, read cols
+    /* Set row, read cols */
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
 #       if (DEBOUNCING_DELAY > 0)
             bool matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
@@ -196,8 +196,8 @@ bool matrix_is_on(uint8_t row, uint8_t col)
 inline
 matrix_row_t matrix_get_row(uint8_t row)
 {
-    // Matrix mask lets you disable switches in the returned matrix data. For example, if you have a
-    // switch blocker installed and the switch is always pressed.
+    /* Matrix mask lets you disable switches in the returned matrix data. For example, if you have a
+       switch blocker installed and the switch is always pressed. */
 #ifdef MATRIX_MASKED
     return matrix[row] & matrix_mask[row];
 #else
@@ -229,24 +229,25 @@ static void init_cols(void)
 {
     for(uint8_t x = 0; x < ATMEGA_COLS; x++) {
         uint8_t pin = col_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); /* IN */
+        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); /* HI */
     }
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 {
-    // Store last value of row prior to reading
+    /* Store last value of row prior to reading */
     matrix_row_t last_row_value = current_matrix[current_row];
 
-    // Clear data in matrix row
+    /* Clear data in matrix row */
     current_matrix[current_row] = 0;
 
-    // Select row and wait for row selecton to stabilize
+    /* Select row and wait for row selecton to stabilize */
     select_row(current_row);
     wait_us(30);
 
-    if (mcp23018_status) { // if there was an error
+    if (mcp23018_status) { 
+        /* if there was an error */
         return 0;
     } else {
         uint16_t data = 0;
@@ -260,19 +261,17 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
         current_matrix[current_row] |= (data << 8);
     }
 
-    // uint16_t atmega_data =
-
-    // For each col...
+    /* For each col... */
     for(uint8_t col_index = 0; col_index < ATMEGA_COLS; col_index++) {
-        // Select the col pin to read (active low)
+        /* Select the col pin to read (active low) */
         uint8_t pin = col_pins[col_index];
         uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
 
-        // Populate the matrix row with the state of the col pin
+        /* Populate the matrix row with the state of the col pin */
         current_matrix[current_row] |=  pin_state ? 0 : (ROW_SHIFTER << col_index);
     }
 
-    // Unselect row
+    /* Unselect row */
     unselect_rows();
 
     return (last_row_value != current_matrix[current_row]);
@@ -280,12 +279,12 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 static void select_row(uint8_t row)
 {
-    if (mcp23018_status) { // if there was an error
-        // do nothing
+    if (mcp23018_status) { 
+        /* if there was an error do nothing */
     } else {
-        // set active row low  : 0
-        // set active row output : 1
-        // set other rows hi-Z : 1
+        /* set active row low  : 0
+           set active row output : 1
+           set other rows hi-Z : 1 */
         mcp23018_status = i2c_start(I2C_ADDR_WRITE);   if (mcp23018_status) goto out;
         mcp23018_status = i2c_write(GPIOB);            if (mcp23018_status) goto out;
         mcp23018_status = i2c_write(0xFF & ~(1<<abs(row-4))); if (mcp23018_status) goto out;
@@ -294,15 +293,15 @@ static void select_row(uint8_t row)
     }
 
     uint8_t pin = row_pins[row];
-    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); //  OUT
-    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); /*  OUT  */
+    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); /* LOW  */
 }
 
 static void unselect_rows(void)
 {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
         uint8_t pin = row_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); /* IN */
+        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); /* HI */
     }
 }
