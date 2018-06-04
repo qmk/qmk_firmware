@@ -23,6 +23,7 @@
 #define MC_PSCR LGUI(LSFT(KC_3)) // MacOS Print Screen (Command + Shift + 3)
 #define MC_HOME LGUI(KC_LEFT)    // MacOS Home (Command + Left Arrow)
 #define MC_END  LGUI(KC_RGHT)    // MacOS End (Command + Right Arrow)
+#define MC_SALL LGUI(KC_A)       // MacOS Select All
 #define MC_UNDO LGUI(KC_Z)       // MacOS Undo
 #define MC_CUT  LGUI(KC_X)       // MacOS Cut
 #define MC_COPY LGUI(KC_C)       // MacOS Copy
@@ -49,7 +50,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("lavak3DED ");
                 return false;
             case T_PEEKR:
-                SEND_STRING("\"will you touch my peeker?\"");
+                SEND_STRING("\"will u touch my peeker?\"");
                 return false;
             case G_PUSH:
                 SEND_STRING("git push ");
@@ -64,7 +65,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SEND_STRING("origin ");
                 return false;
             case G_COMM:
-                SEND_STRING("git commit -m " SS_DOWN(X_LSHIFT) SS_TAP(X_Q) SS_TAP(X_Q) SS_UP(X_LSHIFT) SS_TAP(X_LEFT));
+                SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
                 return false;
             case G_C10R:
                 SEND_STRING("c10r-");
@@ -111,8 +112,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_FM] = LAYOUT_60_ansi(
     //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
     KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
-    _______, _______, _______, _______, _______, _______, _______, MC_HOME, KC_UP,   MC_END,  _______, MC_PSCR, _______, _______, \
-    NO_CHNG, _______, _______, BL_DEC,  BL_TOGG, BL_INC,  BL_BRTG, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______,          \
+    _______, _______, _______, _______, _______, _______, KC_INS,  MC_HOME, KC_UP,   MC_END,  KC_PGUP, MC_PSCR, _______, _______, \
+    NO_CHNG, MC_SALL, _______, _______, BL_TOGG, _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______,          \
     _______, MC_UNDO, MC_CUT,  MC_COPY, MC_PSTE, _______, _______, _______, _______, _______, DF(_QW), _______,                   \
     _______, _______, _______,                   TG(_NP),                                     _______, _______, NO_CHNG, _______  \
   ),
