@@ -32,6 +32,7 @@
 // Macro Definitions
 enum custom_keycodes {
     T_L3DED = SAFE_RANGE,
+    T_PEEKR,
     G_PUSH,
     G_PULL,
     G_UPS,
@@ -46,6 +47,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             // these are our macros!
             case T_L3DED:
                 SEND_STRING("lavak3DED ");
+                return false;
+            case T_PEEKR:
+                SEND_STRING("\"will you touch my peeker?\"");
                 return false;
             case G_PUSH:
                 SEND_STRING("git push ");
@@ -127,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MA] = LAYOUT_60_ansi(
     //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, G_ORIG,  G_PUSH,  G_UPS,   _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, _______, G_ORIG,  G_PUSH,  G_UPS,   _______, _______, _______, _______, _______, T_PEEKR, _______, _______, _______, \
     _______, _______, _______, G_PULL,  G_COMM,  _______, _______, _______, _______, T_L3DED, _______, _______, _______,          \
     _______, _______, _______, G_C10R,  _______, _______, _______, _______, _______, _______, _______, _______,                   \
     RESET,   _______, _______,                   _______,                                     _______, TG(_MA), NO_CHNG, _______  \
