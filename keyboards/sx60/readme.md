@@ -1,7 +1,9 @@
 SX60
 ===
 
+
 ![SX60](https://i.imgur.com/hZZHrRr.jpg)
+
 
 Keyboard Maintainer: [amnobis](https://github.com/amnobis)
 Hardware Supported: SX60
