@@ -12,7 +12,6 @@
         "*.c": "c",
         "*.cpp": "cpp",
         "*.hpp": "cpp",
-        "xstddef": "c",
-        "iosfwd": "c"
+        "xstddef": "c"
     }
 }
