@@ -1,7 +1,6 @@
-RGBLIGHT_ENABLE = yes
-BACKLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = no
+BACKLIGHT_ENABLE = no
 TAP_DANCE_ENABLE = yes
-SLEEP_LED_ENABLE = no
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
