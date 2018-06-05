@@ -2,8 +2,6 @@
 #define CONFIG_H
 
 #include "config_common.h"
-/*required for RESET keycode to work on ProMicro*/
-#define CATERINA_BOOTLOADER
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
