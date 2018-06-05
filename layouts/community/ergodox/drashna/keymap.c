@@ -325,7 +325,7 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
 };
 
 
-bool indicator_is_this_led_used(uint8_t index) {
+bool indicator_is_this_led_used_keyboard(uint8_t index) {
   switch (index) {
     case 13 ... 14:
       return true;

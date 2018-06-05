@@ -181,16 +181,16 @@ void matrix_init_rgb(void) {
 #endif
 
   if (userspace_config.rgb_layer_change) {
-    uint8_t default_layer = eeconfig_read_default_layer();
     rgblight_enable_noeeprom();
-    if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_sethsv_magenta();
-    } else if (default_layer & (1UL << _DVORAK)) {
-      rgblight_sethsv_green();
-    } else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_sethsv_goldenrod();
-    } else {
-      rgblight_sethsv_cyan();
+    switch (biton32(default_layer_state)) {
+      case _COLEMAK:
+        rgblight_sethsv_noeeprom_magenta(); break;
+      case _DVORAK:
+        rgblight_sethsv_noeeprom_green(); break;
+      case _WORKMAN:
+        rgblight_sethsv_noeeprom_goldenrod(); break;
+      default:
+        rgblight_sethsv_noeeprom_cyan(); break;
     }
   }
 }
@@ -209,7 +209,6 @@ void matrix_scan_rgb(void) {
 
 uint32_t layer_state_set_rgb(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
-  uint8_t default_layer = eeconfig_read_default_layer();
   if (userspace_config.rgb_layer_change) {
     switch (biton32(state)) {
     case _MACROS:
@@ -241,15 +240,16 @@ uint32_t layer_state_set_rgb(uint32_t state) {
       rgblight_mode_noeeprom(23);
       break;
     default: //  for any other layers, or the default layer
-      if (default_layer & (1UL << _COLEMAK)) {
-        rgblight_sethsv_noeeprom_magenta();
-      } else if (default_layer & (1UL << _DVORAK)) {
-        rgblight_sethsv_noeeprom_green();
-      } else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_sethsv_noeeprom_goldenrod();
-      } else {
-        rgblight_sethsv_noeeprom_cyan();
-      }
+      switch (biton32(default_layer_state)) {
+        case _COLEMAK:
+          rgblight_sethsv_noeeprom_magenta(); break;
+        case _DVORAK:
+          rgblight_sethsv_noeeprom_green(); break;
+        case _WORKMAN:
+          rgblight_sethsv_noeeprom_goldenrod(); break;
+        default:
+          rgblight_sethsv_noeeprom_cyan(); break;
+        }
       biton32(state) == _MODS ? rgblight_mode_noeeprom(2) : rgblight_mode_noeeprom(1); // if _MODS layer is on, then breath to denote it
       break;
     }
