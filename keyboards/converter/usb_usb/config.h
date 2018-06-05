@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // do not #include "config_common.h" because the pin names conflict with the USB HID code.
 // CUSTOM_MATRIX is defined it that file, though, and we need it, so we define it ourselves.
 // It's a hack, yeah...
+
 #define CUSTOM_MATRIX 2
 
 /* USB Device descriptor parameter */

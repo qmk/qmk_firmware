@@ -3,7 +3,7 @@
 
 ## Quantum MK Firmware
 
-For the full Quantum feature list, see [the parent README.md](/README.md).
+For the full Quantum feature list, see [the parent README.md](/readme.md).
 
 ## Building
 

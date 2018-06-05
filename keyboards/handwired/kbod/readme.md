@@ -9,7 +9,7 @@ For the full Quantum feature list, see [the parent readme](/).
 
 ## Building
 
-Download or clone the whole firmware and use ```make handwired-kbod-default``` to generate the .hex file. You may flash it with avrdude
+Download or clone the whole firmware and use ```make handwired/kbod:default``` to generate the .hex file. You may flash it with avrdude
 
 ## Flashing
 Something along this line:

@@ -7,7 +7,7 @@ How to build and flash
 ----------------------
 
 to build;
-make atreus-dvorak_42_key
+make atreus:dvorak_42_key
 
 to flash:
 avrdude -p atmega32u4 -c avr109 -U flash:w:atreus_dvorak_42_key.hex  -P COM7

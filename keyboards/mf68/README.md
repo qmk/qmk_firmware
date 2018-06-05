@@ -9,10 +9,10 @@ Hardware Availability: [PCB files](https://github.com/di0ib/tmk_keyboard/tree/ma
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mf68-default
+    make mf68:default
 
 Example of flashing this keyboard:
 
-    make mf68-default-avrdude
+    make mf68:default:avrdude
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.

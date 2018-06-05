@@ -1,1 +1,0 @@
-SUBPROJECT_DEFAULT = stm32_f072_onekey

@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef REV1_CONFIG_H
 #define REV1_CONFIG_H
 
-#include "../config.h"
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -38,9 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B5, B4, E6, D7 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
 // #define MATRIX_COL_PINS { B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
-
-
-#define CATERINA_BOOTLOADER
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST

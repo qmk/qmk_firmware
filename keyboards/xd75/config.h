@@ -1,5 +1,5 @@
 /*
-Copyright 2017 REPLACE_WITH_YOUR_NAME
+Copyright 2017 Benjamin Kesselring
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -50,7 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
  
 #define BACKLIGHT_PIN F5
-#define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 6
 
 
