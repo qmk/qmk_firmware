@@ -67,6 +67,7 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
   { K312, K311, K310, K39, K35, K36, K3X, KC_NO, K34, K33, K32, K31 }  \
 }
 
+
 #define KC_KEYMAP( \
 	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
 	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, \
@@ -90,5 +91,6 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 
 #define KC_LAYOUT_ortho_4x12 KC_KEYMAP
 #define LAYOUT_kc_ortho_4x12 KC_KEYMAP
+
 
 #endif

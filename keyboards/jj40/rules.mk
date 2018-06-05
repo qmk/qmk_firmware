@@ -32,7 +32,7 @@ BOOTLOADER = bootloadHID
 
 # build options
 BOOTMAGIC_ENABLE = no
-MOUSEKEY_ENABLE = no
+MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = yes
@@ -45,6 +45,7 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 
 KEY_LOCK_ENABLE = yes
 
+POINTING_DEVICE_ENABLE = no
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
