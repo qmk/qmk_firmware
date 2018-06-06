@@ -442,7 +442,12 @@ bool process_record_quantum(keyrecord_t *record) {
       }
     }
     return false;
-  #endif
+  case RGB_MODE_RGBTEST:
+    if (record->event.pressed) {
+      rgblight_mode(35);
+    }
+    return false;
+  #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {
