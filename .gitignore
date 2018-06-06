@@ -20,7 +20,6 @@ build/
 *.bak
 .vagrant/
 quantum/version.h
-.idea/
 CMakeLists.txt
 cmake-build-debug
 doxygen/
@@ -43,16 +42,12 @@ doxygen/
 .project
 .settings/
 .idea
+.idea/
+.vscode/
 *.iml
 .browse.VC.db*
 *.stackdump
 util/Win_Check_Output.txt
-# Let these ones be user specific, since we have so many different configurations
-.vscode/c_cpp_properties.json
-.vscode/launch.json
-.vscode/tasks.json
-.vscode/last.sql
-.vscode/temp.sql
 .stfolder
 .tags
 
