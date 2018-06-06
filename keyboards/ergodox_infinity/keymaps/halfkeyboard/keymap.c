@@ -10,11 +10,12 @@
 #define HALFQWERTY 1 // mirrored qwerty layer
 #define DVORAK 2 // dvorak layer
 #define HALFDVORAK 3 // mirrored dvorak layer
+//no layer 4
 #define SYMB 5 // symbols
 #define HALFSYMB 6 // media keys
 #define PLVR 7 // steno plover layout
 #define SHORTCUTS 8 //layer with shortcut keys and other layer nav
-
+#define FUNCTION 9 //all F-keys, all day
 #define PROPERSTENO 10 //real steno layout
 
 enum custom_keycodes {
@@ -55,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,        KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         KC_LSFT,        KC_Z,  		  KC_X,   KC_C,   KC_V,   KC_B,   KC_MINUS,
         KC_LCTRL, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  MO(SHORTCUTS),
-                                              TG(SYMB),  KC_BTN1,
+                                              KC_LGUI,  KC_BTN1,
                                                               MU_ON,
                                          KC_SPACE,KC_DEL,KC_END,
         // right hand
@@ -64,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           KC_H,   KC_J,  KC_K,   KC_L,   KC_SCLN,		   KC_ENT,
              KC_EQL,KC_N,   KC_M,  KC_COMM,KC_DOT, KC_SLASH,   	   KC_RSFT,
                                   MO(SHORTCUTS), KC_UP,KC_DOWN,KC_RALT,           KC_RCTRL,
-             KC_BTN1,        TG(PLVR),
+             KC_BTN1,        KC_RGUI,
              MU_OFF,
              KC_PGDN,KC_TAB, LT(HALFQWERTY, KC_ENT)
     ),
@@ -235,8 +236,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_DOWN, KC_KP_4, KC_KP_5,  KC_KP_6,  KC_KP_MINUS, KC_KP_ENTER,
        KC_NO,KC_AMPR,KC_KP_1, KC_KP_2,  KC_KP_3,   KC_KP_PLUS, KC_NO,
                          KC_TRNS,KC_DOT,  KC_0,    KC_KP_EQUAL,  KC_NO,
-       KC_NO, KC_TRNS,
-       KC_NO,
+       BL_OFF, KC_TRNS,
+       BL_ON,
        KC_NO, KC_NO, LT(HALFSYMB, KC_ENT)
 ),
 /* Keymap 6: Mirrored Symbol Layer
@@ -263,7 +264,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // SYMBOLS
 [HALFSYMB] = LAYOUT_ergodox(
        // left hand
-       KC_BSPC,     KC_F12,  KC_F11,  KC_F10,  KC_F9,  KC_F8,  KC_F7,
+       KC_BSPC,   KC_F13,    KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,
        KC_NO,KC_NO,KC_KP_7, KC_KP_8, KC_KP_9,KC_KP_ASTERISK,KC_KP_SLASH,
        KC_ENTER,KC_NO,KC_KP_4, KC_KP_5, KC_KP_6,KC_KP_MINUS,
        KC_NO,KC_NO,KC_KP_1, KC_KP_2, KC_KP_3,KC_KP_PLUS,KC_KP_ENTER,
@@ -272,7 +273,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                           KC_TRANSPARENT,KC_NO,KC_NO,
        // right hand
-       KC_F6, KC_F5,   KC_F4,  KC_F3,   KC_F2,   KC_F1,  KC_BSPC,
+       KC_F19, KC_F20,   KC_F21,  KC_F22,   KC_F23,   KC_F24,  KC_BSPC,
        KC_NO,KC_PIPE,KC_LCBR,KC_RCBR, KC_SLASH, KC_BSLS, KC_NO,
              KC_GRV,KC_LPRN,KC_RPRN,  KC_SCLN, KC_QUOT, KC_NO,
        KC_NO, KC_TILD,KC_LBRC,KC_RBRC, KC_EQL,  KC_MINUS, KC_NO,
@@ -356,7 +357,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RESET, 		KC_LALT,	  LCTL(LSFT(KC_TAB)),LCTL(KC_TAB),  KC_TRANSPARENT,
                                               TG(SYMB),  TG(DVORAK),
 
-                                                              KC_NO,
+                                                              TG(FUNCTION),
                                          KC_NO,KC_NO,KC_NO,
 // right hand
              KC_RGHT,     KC_6,   KC_7,  KC_8,   KC_9,   KC_0,             KC_BSPC,
@@ -368,7 +369,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_NO,
              KC_NO,KC_NO, KC_NO
     ),
+    /* Keymap 9: Functions
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |    F1  |  F2  |  F3  |  F4  |  F5  |   F6 |      |           |      |  F1  |  F2  |  F3  |  F4  |  F5  |  F6    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * |  F7    |  F8  |  F9  |  F10 |  F11 |  F12 |      |           |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |  F13   |  F14 |  F15 |  F16 |  F17 |  F18 |------|           |------|  F13 |  F14 |  F15 |  F16 |  F17 |  F18   |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |  F19   |  F20 |  F21 |  F22 |  F23 |  F24 |      |           |      |  F19 |  F20 |  F21 |  F22 |  F23 |  F24   |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        |      |      |       |      |      |
+ *                                 ,------|------|------|       |------+------+------.
+ *                                 |      |      |      |       |      |      |      |
+ *                                 |   c  |   v  |------|       |------|  n   |  m   |
+ *                                 |      |      |      |       |      |      |      |
+ *                                 `--------------------'       `--------------------'
+ */
 
+[FUNCTION] = LAYOUT_ergodox(  // layout: layer 9
+        // left hand
+        KC_F1, KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_NO,
+        KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_NO,
+        KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18,
+        KC_F19,  KC_F20, KC_F21, KC_F22, KC_F23, KC_F24,   KC_NO,
+        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,
+                                      KC_TRNS, KC_TRNS,
+                                           KC_TRNS,
+                                 KC_NO,   KC_NO,   KC_NO,
+        // right hand
+             KC_TRNS,  KC_F1, KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,
+             KC_TRNS, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,
+                     KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18,
+               KC_NO,KC_F19,  KC_F20, KC_F21, KC_F22, KC_F23, KC_F24,
+                              KC_TRNS, KC_TRNS,  KC_NO,   KC_NO,     KC_NO,
+        KC_TRNS, KC_TRNS,
+        KC_TRNS,
+        KC_NO,  KC_NO,   KC_NO
+),
     /* Keymap 10: Steno
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -397,7 +439,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         STN_N1, STN_N2, STN_N3, STN_N4, STN_N5, STN_N6, KC_NO,
         STN_FN, STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1,
         KC_NO,  STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2,   KC_NO,
-        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
+        KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,
                                       KC_TRNS, KC_TRNS,
                                            KC_TRNS,
                                  STN_A,   STN_O,   KC_NO,
@@ -411,6 +453,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,
         KC_NO,  STN_E,   STN_U
 ),
+
 };
 
 const uint16_t PROGMEM fn_actions[] = {
