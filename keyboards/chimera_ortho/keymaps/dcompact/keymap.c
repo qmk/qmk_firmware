@@ -27,6 +27,8 @@ enum chimera_ortho_layers
 
 #define LONGPRESS_DELAY 150
 
+// These are needed because of the 'KC_'-adding macro
+// This macro can be found in ../../chimera_ortho.h
 #define KC_RESET RESET
 #define KC_ KC_TRNS 
 
@@ -93,6 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+# These control the color of the LED on the receiver
+# For color reference, see ../../chimera_ortho.h
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
     
