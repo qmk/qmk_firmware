@@ -5,9 +5,10 @@ define SEARCH_LAYOUTS_REPO
     LAYOUT_KEYMAP_PATH := $$(LAYOUTS_REPO)/$$(LAYOUT)/$$(KEYMAP)
     LAYOUT_KEYMAP_C := $$(LAYOUT_KEYMAP_PATH)/keymap.c
     ifneq ("$$(wildcard $$(LAYOUT_KEYMAP_C))","")
-        -include $$(LAYOUT_KEYMAP_PATH)/rules.mk
         KEYMAP_C := $$(LAYOUT_KEYMAP_C)
         KEYMAP_PATH := $$(LAYOUT_KEYMAP_PATH)
+    else
+      $$(error Could not find keymap)
     endif
 endef
 

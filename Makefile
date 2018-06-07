@@ -67,7 +67,7 @@ $(eval $(call NEXT_PATH_ELEMENT))
 # It's really a very simple if else chain, if you squint enough,
 # but the makefile syntax makes it very verbose.
 # If we are in a subfolder of keyboards
-# 
+#
 # *** No longer needed **
 #
 # ifeq ($(CURRENT_PATH_ELEMENT),keyboards)
@@ -320,6 +320,14 @@ define PARSE_KEYBOARD
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/.)))
     KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/.)))
+
+    # get subkeymaps too
+    KEYMAPS += $$(patsubst $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/keymaps/%,%,$$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/keymaps/*/*/.)))
+    KEYMAPS += $$(patsubst $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/keymaps/%,%,$$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/keymaps/*/*/.)))
+    KEYMAPS += $$(patsubst $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/%,%,$$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/keymaps/*/*/.)))
+    KEYMAPS += $$(patsubst $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/%,%,$$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/keymaps/*/*/.)))
+    KEYMAPS += $$(patsubst $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/%,%,$$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/keymaps/*/*/.)))
+
     # this might be needed, but in a different form
     #KEYMAPS := $$(sort $$(filter-out $$(KEYBOARD_FOLDER_1) $$(KEYBOARD_FOLDER_2) \
         $$(KEYBOARD_FOLDER_3) $$(KEYBOARD_FOLDER_4) $$(KEYBOARD_FOLDER_5), $$(KEYMAPS)))
@@ -353,8 +361,10 @@ define PARSE_KEYBOARD
 
     LAYOUT_KEYMAPS :=
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
-    
+
     KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
+
+    # $$(eval $$(info $$(KEYMAPS)))
 
     # if the rule after removing the start of it is empty (we haven't specified a kemap or target)
     # compile all the keymaps
@@ -411,7 +421,8 @@ define PARSE_KEYMAP
     MAKE_TARGET := $$(patsubst :%,%,$$(RULE))
     # We need to generate an unique indentifer to append to the COMMANDS list
     CURRENT_KB_UNDER := $$(subst /,_,$$(CURRENT_KB))
-    COMMAND := COMMAND_KEYBOARD_$$(CURRENT_KB_UNDER)_KEYMAP_$$(CURRENT_KM)
+    CURRENT_KM_UNDER := $$(subst /,_,$$(CURRENT_KM))
+    COMMAND := COMMAND_KEYBOARD_$$(CURRENT_KB_UNDER)_KEYMAP_$$(CURRENT_KM_UNDER)
     # If we are compiling a keyboard without a subproject, we want to display just the name
     # of the keyboard, otherwise keyboard/subproject
     KB_SP := $$(CURRENT_KB)

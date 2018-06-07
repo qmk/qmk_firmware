@@ -19,8 +19,9 @@ KEYBOARD_FOLDER_4 := $(notdir $(KEYBOARD_FOLDER_PATH_4))
 KEYBOARD_FOLDER_5 := $(notdir $(KEYBOARD_FOLDER_PATH_5))
 
 KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
+KEYMAP_FILESAFE := $(subst /,_,$(KEYMAP))
 
-TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
+TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP_FILESAFE)
 KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
 
 # Force expansion
@@ -176,25 +177,43 @@ MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
 MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
 
+PARENT_MAIN_KEYMAP_PATH_1 := $(patsubst %/,%,$(dir $(MAIN_KEYMAP_PATH_1)))
+PARENT_MAIN_KEYMAP_PATH_2 := $(patsubst %/,%,$(dir $(MAIN_KEYMAP_PATH_2)))
+PARENT_MAIN_KEYMAP_PATH_3 := $(patsubst %/,%,$(dir $(MAIN_KEYMAP_PATH_3)))
+PARENT_MAIN_KEYMAP_PATH_4 := $(patsubst %/,%,$(dir $(MAIN_KEYMAP_PATH_4)))
+PARENT_MAIN_KEYMAP_PATH_5 := $(patsubst %/,%,$(dir $(MAIN_KEYMAP_PATH_5)))
+
+# $(info $(PARENT_MAIN_KEYMAP_PATH_1))
+
 ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_5)/rules.mk
     KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
+else ifneq ("$(wildcard $(PARENT_MAIN_KEYMAP_PATH_5)/keymap.c)","")
+    KEYMAP_C := $(PARENT_MAIN_KEYMAP_PATH_5)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
 else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_4)/rules.mk
     KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
+else ifneq ("$(wildcard $(PARENT_MAIN_KEYMAP_PATH_4)/keymap.c)","")
+    KEYMAP_C := $(PARENT_MAIN_KEYMAP_PATH_4)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
 else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_3)/rules.mk
     KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
+else ifneq ("$(wildcard $(PARENT_MAIN_KEYMAP_PATH_3)/keymap.c)","")
+    KEYMAP_C := $(PARENT_MAIN_KEYMAP_PATH_3)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
 else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_2)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_2)/rules.mk
     KEYMAP_C := $(MAIN_KEYMAP_PATH_2)/keymap.c
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
+else ifneq ("$(wildcard $(PARENT_MAIN_KEYMAP_PATH_2)/keymap.c)","")
+    KEYMAP_C := $(PARENT_MAIN_KEYMAP_PATH_2)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
 else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_1)/rules.mk
     KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
+else ifneq ("$(wildcard $(PARENT_MAIN_KEYMAP_PATH_1)/keymap.c)","")
+    KEYMAP_C := $(PARENT_MAIN_KEYMAP_PATH_1)/keymap.c
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
 else ifneq ($(LAYOUTS),)
     include build_layout.mk
@@ -202,6 +221,9 @@ else
     $(error Could not find keymap)
     # this state should never be reached
 endif
+
+
+PARENT_KEYMAP_PATH := $(patsubst %/,%,$(dir $(KEYMAP_PATH)))
 
 # User space stuff
 ifeq ("$(USER_NAME)","")
@@ -214,12 +236,17 @@ ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
 endif
 
-
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
 KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
+-include $(PARENT_KEYMAP_PATH)/rules.mk
+-include $(KEYMAP_PATH)/rules.mk
+
+ifneq ("$(wildcard $(PARENT_KEYMAP_PATH)/config.h)","")
+    CONFIG_H += $(PARENT_KEYMAP_PATH)/config.h
+endif
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
 endif
@@ -233,6 +260,7 @@ SRC += $(KEYBOARD_SRC) \
 #EXTRALDFLAGS = -Wl,--relax
 
 # Search Path
+VPATH += $(PARENT_KEYMAP_PATH)
 VPATH += $(KEYMAP_PATH)
 VPATH += $(KEYBOARD_PATHS)
 VPATH += $(COMMON_VPATH)
