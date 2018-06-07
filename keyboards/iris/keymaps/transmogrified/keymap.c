@@ -27,6 +27,8 @@ enum custom_keycodes {
   ONEHANDL,
   RLAYER,
   LLAYER,
+  RLOCK,
+  LLOCK,
   DUAL,
   CONFIG,
 };
@@ -44,13 +46,15 @@ enum {
 /* LAYERS */
 #define KC_LLAY LLAYER
 #define KC_RLAY RLAYER
+#define KC_RLOK RLOCK
+#define KC_LLOK LLOCK
 #define KC_QWER QWERTY
 #define KC_DVOR DVORAK
 #define KC_COLE COLEMAK
 #define KC_ONER ONEHANDR
 #define KC_ONEL ONEHANDL
 #define KC_DUAL DUAL
-#define KC_CONF OSL(_CONFIG)
+#define KC_CONF CONFIG
 
 /* Custom Shortened Keys */
 #define KC_MCTB LCTL(KC_TAB)
@@ -71,7 +75,7 @@ enum {
 #define KC_BLUP BL_INC
 #define KC_BLDN BL_DEC
 #define KC_SYSR KC_SYSREQ
-#define KC_FLASH RESET
+#define KC_REST RESET
 
 /* Tap Dance */
 #define KC_LGUA TD(TD_LGUIAPP)
@@ -80,49 +84,49 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_KEYMAP(
+  [_QWERTY] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     LEAD, 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,BSPC,
+     XXXX, 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,DEL ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      CTEC, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,ENT ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     SHCL, Z  , X  , C  , V  , B  ,XXXX,     XXXX, N  , M  ,COMM,DOT ,SLSH,RSFT,
+     SHCL, Z  , X  , C  , V  , B  ,LLOK,     RLOK, N  , M  ,COMM,DOT ,SLSH,RSFT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                        LALT,LLAY,TAB ,        SPC ,RLAY,LGUA
   //                  `----+----+----'        `----+----+----'
   ),
 
-  [_COLEMAK] = KC_KEYMAP(
+  [_COLEMAK] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     LEAD, 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,BSPC,
+     XXXX, 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB , Q  , W  , F  , P  , G  ,                J  , L  , U  , Y  ,SCLN,DEL ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-     CTEC, A  , R  , S  , T  , D  ,                H  , N  , E  , I  ,SCLN,ENT ,
+     CTEC, A  , R  , S  , T  , D  ,                H  , N  , E  , I  , O  ,ENT ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     SHCL, Z  , X  , C  , V  , B  ,XXXX,     XXXX, K  , M  ,COMM,DOT ,SLSH,RSFT,
+     SHCL, Z  , X  , C  , V  , B  ,LLOK,     RLOK, K  , M  ,COMM,DOT ,SLSH,RSFT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                        LALT,LLAY,TAB ,        SPC ,RLAY,LGUA
   //                  `----+----+----'        `----+----+----'
   ),
 
-  [_DVORAK] = KC_KEYMAP(
+  [_DVORAK] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     LEAD, 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,BSPC,
+     XXXX, 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      TAB ,QUOT,COMM,DOT , P  , Y  ,                F  , G  , C  , R  , L  ,SLSH,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      CTEC, A  , O  , E  , U  , I  ,                D  , H  , T  , N  , S  ,ENT ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     SHCL,SCLN, Q  , J  , K  , X  ,XXXX,     XXXX, B  , M  , W  , V  , Z  ,EQL ,
+     SHCL,SCLN, Q  , J  , K  , X  ,LLOK,     RLOK, B  , M  , W  , V  , Z  ,EQL ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                        LALT,LLAY,TAB ,        SPC ,RLAY,LGUA
   //                  `----+----+----'        `----+----+----'
   ),
 
-  [_ONEHANDR] = KC_KEYMAP(
+  [_ONEHANDR] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
      XXXX,XXXX,XXXX,XXXX,XXXX,XXXX,                6  , 7  , 8  , 9  , 0  ,BSPC,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
@@ -136,9 +140,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                  `----+----+----'        `----+----+----'
   ),
 
-  [_ONEHANDL] = KC_KEYMAP(
+  [_ONEHANDL] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     XXXX,XXXX,XXXX,XXXX,XXXX,XXXX,                5  , 4  , 3  , 2  , 1  ,LEAD,
+     XXXX,XXXX,XXXX,XXXX,XXXX,XXXX,                5  , 4  , 3  , 2  , 1  ,XXXX,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      XXXX,XXXX,XXXX,XXXX,XXXX,XXXX,                T  , R  , E  , W  , Q  ,TAB ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
@@ -150,21 +154,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                  `----+----+----'        `----+----+----'
   ),
 
-  [_RLAYER] = KC_KEYMAP(
+  [_RLAYER] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-         ,XXXX,XXXX,XXXX,XXXX,XXXX,               MUTE,VOLD,VOLU,BLDN,BLUP,    ,
+         ,SLCK,SYSR,PSCR,INS ,PAUS,               MUTE,VOLD,VOLU,BLDN,BLUP,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,TILD,GRV ,EQL ,LBRC,RBRC,               PGUP,ASTR, UP ,AMPR,CIRC,    ,
+         ,TILD,GRV ,EQL ,LBRC,RBRC,               ASTR,HOME, UP ,PGUP,PLUS,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,EXLM,PIPE,DLR ,LPRN,RPRN,               HOME,LEFT,DOWN,RGHT,END ,QUOT,
+         ,EXLM,PIPE,DLR ,LPRN,RPRN,               AMPR,LEFT,DOWN,RGHT,MINS,QUOT,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         , AT ,HASH,PERC,LCBR,RCBR,LGUI,         ,PGDN,UNDS,MINS,PLUS,BSLS,    ,
-  //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
+         , AT ,HASH,PERC,LCBR,RCBR,    ,         ,CIRC,END ,UNDS,PGDN,BSLS,    ,
+  //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----' 
                            ,    ,    ,            ,    ,
   //                  `----+----+----'        `----+----+----'
   ),
 
-  [_LLAYER] = KC_KEYMAP(
+  [_LLAYER] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
          , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
@@ -172,15 +176,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,XXXX,MCST,DOWN,MCTB,ENT ,               SLSH, 4  , 5  , 6  ,MINS,    ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,XXXX,XXXX,BSPC,SPC ,SINS,F11 ,     F12 ,EQL , 1  , 2  , 3  ,DOT ,    ,
+         ,XXXX,XXXX,BSPC,SINS,SPC ,F11 ,     F12 ,EQL , 1  , 2  , 3  ,DOT ,    ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
                            ,    ,    ,         0  ,    ,
   //                  `----+----+----'        `----+----+----'
   ),
 
-  [_DUAL] = KC_KEYMAP(
+  [_DUAL] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-         ,XXXX,XXXX,PSCR,INS ,XXXX,               XXXX,SLEP,SLCK,PAUS,SYSR,XXXX,
+         ,XXXX,XXXX,XXXX,XXXX,XXXX,               XXXX,XXXX,XXXX,XXXX,XXXX,XXXX,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,XXXX,XXXX,XXXX,XXXX,XXXX,               XXXX,XXXX,MS_U,XXXX,XXXX,MCAD,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
@@ -192,9 +196,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                  `----+----+----'        `----+----+----'
   ),
 
-  [_CONFIG] = KC_KEYMAP(
+  [_CONFIG] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     FLASH,XXXX,XXXX,XXXX,XXXX,XXXX,               XXXX,XXXX,XXXX,XXXX,XXXX,XXXX,
+     REST,XXXX,XXXX,XXXX,XXXX,XXXX,               XXXX,XXXX,XXXX,XXXX,XXXX,XXXX,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      XXXX,QWER,XXXX,XXXX,XXXX,XXXX,               XXXX,XXXX,XXXX,ONER,XXXX,XXXX,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
@@ -237,6 +241,11 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+/* Variables for layer light toggling */
+static uint16_t currentBL = 0;
+static uint16_t rlocked = 0;
+static uint16_t llocked = 0;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
@@ -263,14 +272,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case CONFIG:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_CONFIG);
+        backlight_toggle();
+      }
+      return false;
+      break;
     case RLAYER:
       if (record->event.pressed) {
         layer_on(_RLAYER);
         update_tri_layer(_RLAYER, _LLAYER, _DUAL);
+        /* add logic to toggle backlight change when on a layer */
+        currentBL = get_backlight_level();
+        if ( currentBL == 0 || currentBL == 1 ) {
+          backlight_set(5);
+        } else {
+          backlight_set(0);
+        }
       } else {
         unregister_code(KC_LGUI);
+        rlocked = 0; 
         layer_off(_RLAYER);
         update_tri_layer(_RLAYER, _LLAYER, _DUAL);
+        if ( llocked == 0 ) {
+          backlight_set(currentBL);
+        } else {
+        }
       }
       return false;
       break;
@@ -278,9 +306,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         layer_on(_LLAYER);
         update_tri_layer(_RLAYER, _LLAYER, _DUAL);
+        /* add logic to toggle backlight change when on a layer */
+        currentBL = get_backlight_level();
+        if ( currentBL == 0 || currentBL == 1 ) {
+          backlight_set(5);
+        } else {
+          backlight_set(0);
+        }
       } else {
+        llocked = 0; 
         layer_off(_LLAYER);
         update_tri_layer(_RLAYER, _LLAYER, _DUAL);
+        if ( rlocked == 0 ) {
+          backlight_set(currentBL);
+        } else {
+        }
+      }
+      return false;
+      break;
+    case RLOCK:
+      if (record->event.pressed) {
+        layer_on(_RLAYER);
+        /* add logic to toggle backlight change when on a layer */
+        rlocked = 1; 
+        currentBL = get_backlight_level();
+        if ( currentBL == 0 || currentBL == 1 ) {
+          backlight_set(5);
+        } else {
+          backlight_set(0);
+        }
+      } else {
+      }
+      return false;
+      break;
+    case LLOCK:
+      if (record->event.pressed) {
+        layer_on(_LLAYER);
+        /* add logic to toggle backlight change when on a layer */
+        llocked = 1;
+        currentBL = get_backlight_level();
+        if ( currentBL == 0 || currentBL == 1 ) {
+          backlight_set(5);
+        } else {
+          backlight_set(0);
+        }
+      } else {
       }
       return false;
       break;
