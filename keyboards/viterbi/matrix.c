@@ -82,15 +82,6 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
     static void unselect_col(uint8_t col);
     static void select_col(uint8_t col);
 #endif
-__attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -155,7 +146,6 @@ uint8_t _matrix_scan(void)
             if (matrix_changed) {
                 debouncing = true;
                 debouncing_time = timer_read();
-                PORTD ^= (1 << 2);
             }
 
 #       else

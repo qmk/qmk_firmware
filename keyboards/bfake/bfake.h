@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#define KEYMAP( \
+#define LAYOUT_all( \
   K61, K71, K72, K73, K74, K64, K65, K75, K76, K77, K78, K68, K66, K10, K60,\
    K11, K01, K02, K03, K04, K14, K15, K05, K06, K07, K08, K18, K16,  K20,   \
     K12, K21, K22, K23, K24, K34, K35, K25, K26, K27, K28, K38,   K40,      \

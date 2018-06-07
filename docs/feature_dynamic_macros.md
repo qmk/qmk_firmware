@@ -1,4 +1,4 @@
-# Dynamic macros: record and replay macros in runtime
+# Dynamic Macros: Record and Replay Macros in Runtime
 
 QMK supports temporary macros created on the fly. We call these Dynamic Macros. They are defined by the user from the keyboard and are lost when the keyboard is unplugged or otherwise rebooted.
 
@@ -52,7 +52,7 @@ For users of the earlier versions of dynamic macros: It is still possible to fin
 
 ```c
 	uint16_t macro_kc = (keycode == MO(_DYN) ? DYN_REC_STOP : keycode);
-	
+
 	if (!process_record_dynamic_macro(macro_kc, record)) {
 		return false;
 	}

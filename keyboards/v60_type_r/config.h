@@ -48,10 +48,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
- 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
+
+#define BACKLIGHT_PIN F7
+//#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_ON_STATE 0
+
+#define RGBLIGHT_CUSTOM_DRIVER
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 1
+#define RGB_RED_PIN PF6
+#define RGB_GREEN_PIN PF5
+#define RGB_BLUE_PIN PF4
+#define RGB_DI_PIN 0
+#define RGB_STEP 16
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
