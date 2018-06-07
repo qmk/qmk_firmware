@@ -23,8 +23,8 @@
 #define PRODUCT_ID      0x1770
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    QMK
-#define PRODUCT         Handwire
-#define DESCRIPTION     "Handwire protoboard"
+#define PRODUCT         Proton C
+#define DESCRIPTION     "Proton C protoboard"
 
 /* key matrix size */
 #define MATRIX_ROWS 12
