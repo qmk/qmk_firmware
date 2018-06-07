@@ -155,8 +155,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         _delay_ms(100);
         SEND_STRING(SS_TAP(X_ENTER));
         return false;
-      case SH_GOUP:
-        SEND_STRING("cd .."SS_TAP(X_ENTER));  // Go up a directory
+      case SH_GOUP:  // Go up a directory
+        SEND_STRING("cd .."SS_TAP(X_ENTER));
         return false;
       case SH_TERM:  // Open Terminal
         SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
