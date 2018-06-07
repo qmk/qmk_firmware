@@ -1,9 +1,9 @@
 # normacos
-This keymap was designed especifically to be used on a MacOS High Sierra system with constant use of the Terminal, as it includes a multitude of macros for both the terminal as well as Spotlight Search.
+This keymap was designed specifically to be used on a MacOS High Sierra system with constant use of the Terminal, as it includes a multitude of macros for both the terminal as well as Spotlight Search.
 
 Norman keyboard layout [info page.](https://normanlayout.info/)
 
-Some Norman layout keys were placed on different layers and different positions based on available space.
+Some Norman layout keys were placed on different layers and different positions based on available space and preference.
 
 
 Macros:
@@ -13,7 +13,7 @@ Macros:
 - Slack opens Slack through Spotlight Search
 - Term opens Terminal through Spotlight Search
 - Spot opens Spotify through Spotlight Search
-- Chrome opesn Chrome through Spotlight Search
+- Chrome opens Chrome through Spotlight Search
 - OutLk opens Microsoft Outlook through Spotlight Search
 - ScnSht allows the user to take a screenshot of a selected portion of the screen
 - ClrHom clears Terminal line from beginning of line up to cursor
@@ -21,9 +21,10 @@ Macros:
 - ShHome moves Terminal cursor to beginning of line
 - ShEnd moves Terminal cursor to end of line
 - Search activates Terminal Reverse Search Command History
-- Sudo elevates last Terminal command
+- Log opens the 'Log Work' modal on Atlassian's Jira web client
 - UpDir moves working directory to its parent
 
+All macros that make use of the SEND_STRING command have a 100 millisecond wait before and after "writing" to let the computer/OS/app catch up.
 Any and all empty keys shown below are will be set in the future, and do nothing as of the time of this writing.
 
 
@@ -62,7 +63,7 @@ Any and all empty keys shown below are will be set in the future, and do nothing
 ,-----------------------------------------. ,-----------------------------------------.
 |  Tab |   !  |   @  |   #  |   $  |   %  | |   ^  |   &  |   *  |   (  |   )  |  Del |
 |------+------+------+------+------+------| |------+------+------+------+------+------|
-|CtlEsc| Sudo | UpDir| Slack| Term | OutLk| |   =  |   -  |   \  |   [  |   ]  |   `  |
+|CtlEsc|  Log | UpDir| Slack| Term | OutLk| |   =  |   -  |   \  |   [  |   ]  |   `  |
 |------+------+------+------+------+------| |------+------+------+------+------+------|
 | Shift|ClrHom|ClrEnd|ShHome| ShEnd|Search| | Play | Mute | VolDn| VolUp|ScnSht|SftEnt|
 |------+------+------+------+------+------| |------+------+------+------+------+------|
