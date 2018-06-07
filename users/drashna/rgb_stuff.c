@@ -1,5 +1,6 @@
 #include "drashna.h"
 #include "rgb_stuff.h"
+#include "eeprom.h"
 
 extern rgblight_config_t rgblight_config;
 extern userspace_config_t userspace_config;
