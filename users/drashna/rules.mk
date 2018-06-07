@@ -1,5 +1,5 @@
 
-SRC += drashna.c rgb_stuff.c
+SRC += drashna.c
 
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
   SRC += secrets.c
@@ -16,6 +16,7 @@ ifeq ($(strip $(NO_SECRETS)), yes)
 endif
 
 ifdef RGBLIGHT_ENABLE
+SRC += rgb_stuff.c
   ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
       OPT_DEFS += -DINDICATOR_LIGHTS
   endif
