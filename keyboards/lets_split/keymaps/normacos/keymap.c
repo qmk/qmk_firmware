@@ -148,26 +148,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case ADJUST:
         layer_on(_ADJUST);
         return false;
-      case SH_LOG:
-        SEND_STRING(SS_TAP(X_DOT)W(100)"log work"SS_TAPW(100)(X_ENTER));  // Open Jira log work window
+      case SH_LOG:  // Open Jira log work window
+        SEND_STRING(SS_TAP(X_DOT));
+        _delay_ms(100);
+        SEND_STRING("log work");
+        _delay_ms(100);
+        SEND_STRING(SS_TAP(X_ENTER));
         return false;
       case SH_GOUP:
         SEND_STRING("cd .."SS_TAP(X_ENTER));  // Go up a directory
         return false;
-      case SH_TERM:
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"terminal"W(100)SS_TAP(X_ENTER));  // Open Terminal
+      case SH_TERM:  // Open Terminal
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+        _delay_ms(100);
+        SEND_STRING("terminal");
+        _delay_ms(100);
+        SEND_STRING(SS_TAP(X_ENTER));
         return false;
-      case SPOT:
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"spotify app"W(100)SS_TAP(X_ENTER));  // Open Spotify
+      case SPOT:  // Open Spotify
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+        _delay_ms(100);
+        SEND_STRING("spotify app");
+        _delay_ms(100);
+        SEND_STRING(SS_TAP(X_ENTER));
         return false;
-      case SLACK:
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"slack"W(100)SS_TAP(X_ENTER));  // Open Slack
+      case SLACK:  // Open Slack
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+        _delay_ms(100);
+        SEND_STRING("slack");
+        _delay_ms(100);
+        SEND_STRING(SS_TAP(X_ENTER));
         return false;
-      case OUTLOOK:
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"outlook"W(100)SS_TAP(X_ENTER));  // Open Outlook
+      case OUTLOOK:  // Open MS Outlook
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+        _delay_ms(100);
+        SEND_STRING("outlook");
+        _delay_ms(100);
+        SEND_STRING(SS_TAP(X_ENTER));
         return false;
-      case CHROME:
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"chrome"W(100)SS_TAP(X_ENTER));  // Open Chrome
+      case CHROME:  // Open Chrome
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
+        _delay_ms(100);
+        SEND_STRING("chrome");
+        _delay_ms(100);
+        SEND_STRING(SS_TAP(X_ENTER));
+        return false;
     }
   } else {
     switch(keycode) {
