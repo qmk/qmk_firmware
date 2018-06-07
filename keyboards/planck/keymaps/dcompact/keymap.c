@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |Del/Sf|  : ; |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Bspc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  Fn  | GUI  | Alt  |Lower |Shift |Space |Raise | Alt  | GUI  |  Fn  | Ctrl |
+ * | Ctrl |  Fn  | GUI  | Alt  |Lower |Shift |Space |Raise | Alt  | GUI  |  Fn  |Enter |
  * `-----------------------------------------------------------------------------------'
  */
 [_BASE] = {
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX}
 },
 
-/* Mouse
+/* Mouse (Not Reachable on Planck)
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
