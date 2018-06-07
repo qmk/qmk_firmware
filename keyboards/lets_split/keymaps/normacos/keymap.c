@@ -149,25 +149,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_ADJUST);
         return false;
       case SH_LOG:
-        SEND_STRING(SS_TAP(X_DOT)W(100)"log work"SS_TAP(X_ENTER));  // Open Jira log work window
+        SEND_STRING(SS_TAP(X_DOT)W(100)"log work"SS_TAPW(100)(X_ENTER));  // Open Jira log work window
         return false;
       case SH_GOUP:
         SEND_STRING("cd .."SS_TAP(X_ENTER));  // Go up a directory
         return false;
       case SH_TERM:
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"terminal"SS_TAP(X_ENTER));  // Open Terminal
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"terminal"W(100)SS_TAP(X_ENTER));  // Open Terminal
         return false;
       case SPOT:
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"spotify app"SS_TAP(X_ENTER));  // Open Spotify
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"spotify app"W(100)SS_TAP(X_ENTER));  // Open Spotify
         return false;
       case SLACK:
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"slack"SS_TAP(X_ENTER));  // Open Slack
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"slack"W(100)SS_TAP(X_ENTER));  // Open Slack
         return false;
       case OUTLOOK:
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"outlook"SS_TAP(X_ENTER));  // Open Outlook
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"outlook"W(100)SS_TAP(X_ENTER));  // Open Outlook
         return false;
       case CHROME:
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"chrome"SS_TAP(X_ENTER));  // Open Chrome
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))W(100)"chrome"W(100)SS_TAP(X_ENTER));  // Open Chrome
     }
   } else {
     switch(keycode) {

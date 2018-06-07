@@ -24,7 +24,7 @@ Macros:
 - Log opens the 'Log Work' modal on Atlassian's Jira web client
 - UpDir moves working directory to its parent
 
-All macros that make use of the SEND_STRING command have a 100 millisecond wait between control keys and "writing".
+All macros that make use of the SEND_STRING command have a 100 millisecond wait before and after "writing" to let the computer/OS/app catch up.
 Any and all empty keys shown below are will be set in the future, and do nothing as of the time of this writing.
 
 
