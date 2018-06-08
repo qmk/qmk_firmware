@@ -41,6 +41,7 @@ enum custom_keycodes {
     G_COMM,
     G_C10R,
     G_BRCH,
+    SIGNA,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -75,6 +76,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return false;
             case G_BRCH:
                 SEND_STRING("$(git branch-name)");
+                layer_off(_MA);
+                return false;
+            case SIGNA:
+                SEND_STRING("\\- @noroadsleft" SS_TAP(X_ENTER));
                 layer_off(_MA);
                 return false;
         }
@@ -141,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, G_ORIG,  G_PUSH,  G_UPS,   _______, _______, _______, _______, _______, T_PEEKR, _______, _______, _______, \
     _______, _______, _______, G_PULL,  G_COMM,  _______, _______, _______, _______, T_L3DED, _______, _______, _______,          \
-    _______, _______, _______, G_C10R,  _______, G_BRCH,  _______, _______, _______, _______, _______, _______,                   \
+    _______, _______, _______, G_C10R,  _______, G_BRCH,  SIGNA,   _______, _______, _______, _______, _______,                   \
     RESET,   _______, _______,                   _______,                                     _______, TG(_MA), NO_CHNG, _______  \
   ),
 
