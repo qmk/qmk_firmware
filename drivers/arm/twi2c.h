@@ -26,6 +26,9 @@
 
 #ifdef I2C_SLAVE_ENABLE
 
+typedef void twi2c_message_received(uint8_t * body, uint16_t size);
+twi2c_message_received twi2c_message_received_callback;
+
 I2CSlaveMsgCB twi2c_slave_message_process, catchError, clearAfterSend;
 
 void twi2c_slave_init(void);
@@ -42,3 +45,6 @@ uint8_t twi2c_receive(uint8_t address, uint8_t* data, uint16_t length);
 uint8_t twi2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length);
 uint8_t twi2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length);
 void twi2c_stop(void);
+uint8_t twi2c_reply(uint8_t * data, uint16_t length);
+uint8_t twi2c_transmit_receive(uint8_t address, uint8_t * tx_body, uint16_t tx_length, uint8_t rx_body, uint16_t rx_length);
+uint8_t twi2c_start_listening(uint8_t address, twi2c_message_received callback);
