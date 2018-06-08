@@ -24,15 +24,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┤
          * │   `  │   !  │   @  │   #  │   $  │   %  │   ^  │   &  │   *  │   ü  │   ö  │   ä  │
          * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-         * │ Caps │ Home │ End  │ PgUp │ PgDn │ INS  │  F1  │   ß  │ Left │ Down │  Up  │ Rght │
+         * │ SINS │   ♥  │   ≈  │   ✓  │   ✗  │   ←  │   →  │   €  │   ß  │   Ü  │   Ö  │   Ä  │
          * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┤
-         * │ Powr │ Rset │ VoUp │ VoDn │ BLTg │ BLSt │ BLBr │ Shft │ Alt  │ Ctrl │ GUI  │      │
+         * │ Powr │ Rset │ BLSt │ Home │ End  │ PgUp │ PgDn │ Left │ Down │  Up  │ Rght │      │
          * └──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┘
          */
-        { KC_TILD , KC_1    , KC_2    , KC_3    , KC_4    , KC_5    , KC_6    , KC_7     , KC_8    , KC_9     , KC_0     , KC_DEL   } ,
-        { KC_GRV  , KC_EXLM , KC_AT   , KC_HASH , KC_DLR  , KC_PERC , KC_CIRC , KC_AMPR  , KC_ASTR , UC(L'ü') , UC(L'ö') , UC(L'ä') } ,
-        { KC_CAPS , KC_HOME , KC_END  , KC_PGUP , KC_PGDN , KC_INS  , KC_F1   , UC(L'ß') , KC_LEFT , KC_DOWN  , KC_UP    , KC_RGHT  } ,
-        { KC_PWR  , RESET   , KC_VOLU , KC_VOLD , BL_TOGG , BL_STEP , BL_BRTG , KC_RSFT  , KC_RALT , KC_RCTL  , KC_RGUI  , KC_TRNS  }
+        { KC_TILD   , KC_1     , KC_2     , KC_3     , KC_4     , KC_5      , KC_6     , KC_7     , KC_8     , KC_9     , KC_0     , KC_DEL   } ,
+        { KC_GRV    , KC_EXLM  , KC_AT    , KC_HASH  , KC_DLR   , KC_PERC   , KC_CIRC  , KC_AMPR  , KC_ASTR  , UC(L'ü') , UC(L'ö') , UC(L'ä') } ,
+        { S(KC_INS) , UC(L'♥') , UC(L'≈') , UC(L'✓') , UC(L'✗') , UC(L'←')  , UC(L'→') , UC(L'€') , UC(L'ß') , UC(L'Ü') , UC(L'Ö') , UC(L'Ä') } ,
+        { KC_PWR    , RESET    , BL_STEP  , KC_HOME  , KC_END   , KC_PGUP   , KC_PGDN  , KC_LEFT  , KC_DOWN  , KC_UP    , KC_RGHT  , KC_TRNS  }
     }
 };
 
