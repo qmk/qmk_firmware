@@ -66,8 +66,8 @@ enum tap_dancers {
 #define US_MINS   RCTL_T(KC_QUOT)
 #define US_SCLN   TD(TD_SEMICOLON)
 #define US_GRV    TD(TD_GRAVE)
-#define US_QUOT    LT(_NUM, KC_QUOT)
-#define US_TAB    LCA_T(KC_TAB)
+#define US_QUOT   LT(_NUM, KC_QUOT)
+#define US_TAB    C_S_T(KC_TAB)
 
 #define MALT_E    LT(_NUM, KC_E)
 
@@ -91,7 +91,7 @@ enum tap_dancers {
   #define KC_SPC2   LT(_NUM,KC_ENT)
 
   #define NV_SPC1   KC_SPC
-  #define NV_SPC2   C_S_T(KC_ENT)
+  #define NV_SPC2   KC_ENT
 
   #define NM_SPC1   KC_0
   #define NM_SPC2   KC_SPC
@@ -105,7 +105,7 @@ enum tap_dancers {
   #define KC_SPC3   LT(_NAV,KC_SPC)
 
   #define NV_SPC1   KC_SPC
-  #define NV_SPC2   C_S_T(KC_ENT)
+  #define NV_SPC2   KC_ENT
   #define NV_SPC3   KC_SPC
 
   #define NM_SPC1   KC_SPC
@@ -134,7 +134,7 @@ enum tap_dancers {
   #define FN_MO2 KC_NO
 #endif
 
-#ifdef TEMPLATE_TKL
+#ifndef TEMPLATE
   #define _X_ KC_NO
   #define TEMPLATE( \
     KJ4, KJ7, KI7, KH7, KG7, KG4, KF4, KF7, KE7, KD7, KR7, KR4, KE4, KB2, KJ6,      \
@@ -150,7 +150,8 @@ enum tap_dancers {
     KN2,      KJ1, KI1, KH1, KG1, KG0, KF0, KF1, KE1, KD1, KR0,      KN3,        _X_,      \
     KA4, KP2, KC6,           KX1, KK6, KX2,           KC0, KM3, KD0, KA1,   _X_, _X_, _X_  \
   )
-#else
+#endif
+#ifndef TEMPLATE_TKL
   #define TEMPLATE_TKL( \
     KJ6,      KI4, KH4, KH2, KH6, KA7, KE6, KD2, KD4, KB4, KB7, KB6, KB0,   KC7, KC5, KA5, \
     KJ4, KJ7, KI7, KH7, KG7, KG4, KF4, KF7, KE7, KD7, KR7, KR4, KE4, KB2,   KL4, KO4, KQ4, \
