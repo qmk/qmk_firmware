@@ -32,6 +32,14 @@ enum preonic_keycodes {
   GAME_MOD,
   LOWER,
   RAISE,
+
+  END_OF_LINE,
+};
+
+enum kuatsure_keycodes {
+  FTARW = END_OF_LINE + 1,
+  SEQS,
+  NSEQS,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -126,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |  F9  |  F10 |  F11 |  F12 |      |      |      |      |      |      | Bksp |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |  F5  |  F6  |  F7  |  F8  |      |      |      |      |      |      |      |
+ * |      |  F5  |  F6  |  F7  |  F8  |      |      |  =>  | ===  | !==  |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F1  |  F2  |  F3  |  F4  |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -136,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT_preonic_grid_wrapper( \
   KC_GESC, KC_EXLM, KC_AT, KC_HASH,    KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
   _______, ____________FUNCTION_3____________, _______, _______, _______, _______, _______, _______, KC_BSPC, \
-  _______, ____________FUNCTION_2____________, _______, _______, _______, _______, _______, _______, _______, \
+  _______, ____________FUNCTION_2____________, _______, _______, FTARW,   SEQS,    NSEQS,   _______, _______, \
   _______, ____________FUNCTION_1____________, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, KC_ENT,  KC_ENT,  _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END   \
 ),
@@ -207,6 +215,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+
+    case FTARW:
+      if (record->event.pressed) {
+        SEND_STRING("=>");
+      }
+      return false;
+      break;
+
+    case SEQS:
+      if (record->event.pressed) {
+        SEND_STRING("===");
+      }
+      return false;
+      break;
+
+    case NSEQS:
+      if (record->event.pressed) {
+        SEND_STRING("!==");
       }
       return false;
       break;
