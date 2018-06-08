@@ -231,10 +231,6 @@ ifeq ("$(USER_NAME)","")
 endif
 USER_PATH := users/$(USER_NAME)
 
--include $(USER_PATH)/rules.mk
-ifneq ("$(wildcard $(USER_PATH)/config.h)","")
-    CONFIG_H += $(USER_PATH)/config.h
-endif
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
@@ -243,12 +239,16 @@ KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
 
 -include $(PARENT_KEYMAP_PATH)/rules.mk
 -include $(KEYMAP_PATH)/rules.mk
+-include $(USER_PATH)/rules.mk
 
 ifneq ("$(wildcard $(PARENT_KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(PARENT_KEYMAP_PATH)/config.h
 endif
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
+endif
+ifneq ("$(wildcard $(USER_PATH)/config.h)","")
+    CONFIG_H += $(USER_PATH)/config.h
 endif
 
 # # project specific files
