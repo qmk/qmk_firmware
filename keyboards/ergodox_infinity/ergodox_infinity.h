@@ -149,7 +149,4 @@ inline void ergodox_led_all_set(uint8_t n) {
     { B80,   B81,   B82,   B83,   B84 }  \
 }
 
-#define KEYMAP LAYOUT_ergodox
-#define KEYMAP_PRETTY LAYOUT_ergodox_pretty
-
 #endif /* KEYBOARDS_ERGODOX_INFINITY_INFINITY_H_ */
