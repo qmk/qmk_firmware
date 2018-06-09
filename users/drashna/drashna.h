@@ -18,6 +18,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef USERSPACE
 #define USERSPACE
 #include "quantum.h"
+#include "version.h"
+#include "eeprom.h"
+#include "tap_dances.h"
+#include "rgb_stuff.h"
 
 // Define layer names
 enum userspace_layers {
@@ -282,7 +286,7 @@ enum {
 #define _________________ADJUST_R2_________________        AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
 #define _________________ADJUST_R3_________________        MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
 
-
+#define ___________________BLANK___________________        _______, _______, _______, _______, _______
 
 // Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
 // this allows us to quickly modify the bottom row for all of the layouts
