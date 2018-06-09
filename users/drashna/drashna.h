@@ -253,6 +253,7 @@ enum {
 #define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
+#define ___________________BLANK___________________        _______, _______, _______, _______, _______
 
 
 #define _________________LOWER_L1__________________        KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC
@@ -266,8 +267,8 @@ enum {
 
 
 #define _________________RAISE_L1__________________        ________________NUMBER_LEFT________________
-#define _________________RAISE_L2__________________        _______, _______, _______, _______, _______
-#define _________________RAISE_L3__________________        _______, _______, _______, _______, _______
+#define _________________RAISE_L2__________________        ___________________BLANK___________________
+#define _________________RAISE_L3__________________        ___________________BLANK___________________
 
 #define _________________RAISE_R1__________________        ________________NUMBER_RIGHT_______________
 #define _________________RAISE_R2__________________        _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC
@@ -283,7 +284,6 @@ enum {
 #define _________________ADJUST_R2_________________        AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
 #define _________________ADJUST_R3_________________        MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
 
-#define ___________________BLANK___________________        _______, _______, _______, _______, _______
 
 // Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
 // this allows us to quickly modify the bottom row for all of the layouts
