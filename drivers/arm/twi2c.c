@@ -112,8 +112,8 @@ uint8_t twi2c_receive(uint8_t address, uint8_t * data, uint16_t length) {
 }
 
 
-uint8_t twi2c_incoming_body[512];
-uint8_t twi2c_outgoing_body[512];
+uint8_t twi2c_incoming_body[50];
+uint8_t twi2c_outgoing_body[1024];
 
 // Response to received messages
 I2CSlaveMsg twi2c_incoming_message = {

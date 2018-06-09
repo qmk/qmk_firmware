@@ -60,6 +60,8 @@ void qwiic_keyboard_set_master(void) {
   qwiic_keyboard_master = true;
 }
 
+uint8_t command[1] = { 0x00 };
+
 void qwiic_keyboard_task(void) {
   if (USB_DRIVER.state == USB_ACTIVE)
     qwiic_keyboard_master = true;
@@ -68,8 +70,8 @@ void qwiic_keyboard_task(void) {
   if (qwiic_keyboard_master) {
     if (qwiic_keyboard_connected) {
       // send empty message, expecting matrix info
-      twi2c_transmit(qwiic_keyboard_listening_address, NULL, 0);
-      if (MSG_OK == twi2c_receive(qwiic_keyboard_listening_address,
+      if (MSG_OK == twi2c_transmit_receive(qwiic_keyboard_listening_address,
+        command, 1,
         qwiic_keyboard_matrix_message, QWIIC_KEYBOARD_MATRIX_MESSAGE_SIZE
       )) {
         // majority of this is pulled from keyboard.c:keyboard_task()
@@ -113,10 +115,10 @@ void qwiic_keyboard_task(void) {
         // disconnect
         // qwiic_keyboard_connected = false;
       }
-    } else {
+    } else { // if not connected
       // send new address to listen on, expect back keymap
-      twi2c_transmit(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS, &qwiic_keyboard_new_listening_address, 1);
-      if (MSG_OK == twi2c_receive(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS,
+      if (MSG_OK == twi2c_transmit_receive(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS,
+        &qwiic_keyboard_new_listening_address, 1,
         qwiic_keyboard_handshake_message, QWIIC_KEYBOARD_HANDSHAKE_MESSAGE_SIZE
       )) {
         qwiic_keyboard_connected = true;
@@ -130,6 +132,8 @@ void qwiic_keyboard_task(void) {
 }
 
 uint8_t qwiic_keyboard_reply[MATRIX_ROWS];
+
+float song_one_up[][2]  = SONG(ONE_UP_SOUND);
 
 void qwiic_keyboard_message_received(I2CDriver *i2cp, uint8_t * body, uint16_t size) {
   if (qwiic_keyboard_connected) {
@@ -146,6 +150,8 @@ void qwiic_keyboard_message_received(I2CDriver *i2cp, uint8_t * body, uint16_t s
     twi2c_stop();
     twi2c_start();
     twi2c_start_listening(qwiic_keyboard_listening_address, qwiic_keyboard_message_received_ptr);
+    stop_all_notes();
+    PLAY_SONG(song_one_up);
   }
 }
 
@@ -169,7 +175,7 @@ void qwiic_keyboard_read_keymap(uint8_t * pointer) {
     for (uint8_t row = 0; row < QWIIC_KEYBOARD_ROWS; row++) {
       for (uint8_t col = 0; col < QWIIC_KEYBOARD_COLS; col++) {
         uint16_t keycode = *pointer++;
-        keycode |= (*pointer++) << 8;
+        keycode |= ((*pointer++) << 8);
         qwiic_keyboard_keymap[layer][row][col] = keycode;
       }
     }
