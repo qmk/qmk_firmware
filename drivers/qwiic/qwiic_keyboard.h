@@ -19,4 +19,8 @@
 
 #include "quantum.h"
 
+void qwiic_keyboard_init(void);
+void qwiic_keyboard_task(void);
+void qwiic_keyboard_message_received(I2CDriver *i2cp, uint8_t * body, uint16_t size);
+
 #endif

@@ -124,7 +124,7 @@ endif
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     OPT_DEFS += -DRGB_MATRIX_ENABLE
     SRC += is31fl3731.c
-    SRC += twi2c.c
+    I2C_ENABLE = yes
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
     CIE1931_CURVE = yes
@@ -205,7 +205,7 @@ ifeq ($(strip $(USB_HID_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(I2C_SLAVE_ENABLE)), yes)
-    SRC += twi2c.c
+    I2C_ENABLE = yes
     OPT_DEFS += -DI2C_SLAVE_ENABLE
 endif
 
@@ -214,6 +214,14 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/encoder.c
 endif
 
+ifeq ($(strip $(QWIIC_KEYBOARD_ENABLE)), yes)
+    SRC += qwiic/qwiic_keyboard.c
+    OPT_DEFS += -DQWIIC_KEYBOARD_ENABLE
+endif
+
+ifeq ($(strip $(I2C_ENABLE)), yes)
+    SRC += twi2c.c
+endif
 
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \

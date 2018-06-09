@@ -69,6 +69,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MIDI_ENABLE
 #   include "process_midi.h"
 #endif
+#ifdef QWIIC_KEYBOARD_ENABLE
+#   include "qwiic/qwiic_keyboard.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
@@ -181,11 +184,14 @@ void keyboard_init(void) {
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
 #endif
+#ifdef QWIIC_KEYBOARD_ENABLE
+    qwiic_keyboard_init();
+#endif
 }
 
 /** \brief Keyboard task: Do keyboard routine jobs
  *
- * Do routine keyboard jobs: 
+ * Do routine keyboard jobs:
  *
  * * scan matrix
  * * handle mouse movements
@@ -289,6 +295,10 @@ MATRIX_LOOP_END:
 
 #ifdef MIDI_ENABLE
     midi_task();
+#endif
+
+#ifdef QWIIC_KEYBOARD_ENABLE
+    qwiic_keyboard_task();
 #endif
 
     // update LED

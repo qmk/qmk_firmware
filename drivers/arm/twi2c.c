@@ -20,10 +20,6 @@
 #include "chprintf.h"
 #include "memstreams.h"
 #include "printf.h"
-#include "matrix.h"
-
-#ifdef I2C_SLAVE_ENABLE
-
 #include "hal_i2cslave.h"
 
 /**
@@ -41,8 +37,7 @@
 // };
 
 I2CSlaveMsgCB twi2c_incoming_message_process, twi2c_catch_error, twi2c_clear_after_send;
-
-#endif
+twi2c_message_received twi2c_message_received_callback;
 
 static uint8_t twi2c_address;
 
@@ -53,68 +48,6 @@ static const I2CConfig i2cconfig = {
   0,
   0
 };
-
-char initialReplyBody[50] = "Initial reply";        // 'Status' response if read without preceding write
-
-
-uint32_t messageCounter = 0;                /* Counts number of messages received to return as part of response */
-
-uint8_t  rxBody[2];                       /* stores last message master sent us (intentionally a few bytes smaller than txBody) */
-uint8_t  txBody[MATRIX_ROWS/2];                       /* Return message buffer for computed replies */
-
-BaseSequentialStream *chp = NULL;           // Used for serial logging
-
-
-#ifdef I2C_SLAVE_ENABLE
-
-
-
-
-
-
-
-// Handler when something sent to us
-const I2CSlaveMsg echoRx =
-{
-  sizeof(rxBody),       /* max sizeof received msg body */
-  rxBody,               /* body of received msg */
-  NULL,                 /* do nothing on address match */
-  twi2c_slave_message_process,     /* Routine to process received messages */
-  twi2c_catch_error            /* Error hook */
-};
-
-
-// // 'Empty' reply when nothing to say, and no message received. In RAM, to allow update
-I2CSlaveMsg initialReply =
-{
-  sizeof(initialReplyBody),   /* trailing zero byte will be repeated as needed */
-  (uint8_t *)initialReplyBody,
-  NULL,                 /* do nothing on address match */
-  NULL,                 /* do nothing after reply sent */
-  twi2c_catch_error            /* Error hook */
-};
-
-// // 'Empty' reply when nothing to say, and no message received. In RAM, to allow update
-// I2CSlaveMsg initialReply =
-// {
-//   0,  /* trailing zero byte will be repeated as needed */
-//   NULL,
-//   NULL,                 /* do nothing on address match */
-//   NULL,                 /* do nothing after reply sent */
-//   twi2c_catch_error            /* Error hook */
-// };
-
-
-// Response to received messages
-I2CSlaveMsg echoReply = {  /* this is in RAM so size may be updated */
-  MATRIX_ROWS / 2,                    /* filled in with the length of the message to send */
-  txBody,               /* Response message */
-  NULL,                 /* do nothing special on address match */
-  twi2c_clear_after_send,       /* Clear receive buffer once replied */
-  twi2c_catch_error            /* Error hook */
-};
-
-
 
 /**
  * Track I2C errors
@@ -129,8 +62,6 @@ void noteI2cError(uint32_t flags)
   gotI2cError = 1;
 }
 
-
-
 /**
  * Generic error handler
  *
@@ -141,31 +72,6 @@ void twi2c_catch_error(I2CDriver *i2cp)
   noteI2cError(i2cp->errors);
 }
 
-extern void matrix_copy(matrix_row_t * copy);
-
-const char hexString[16] = "0123456789abcdef";
-
-
-
-/**
- *  Message processor - looks at received message, determines reply as quickly as possible
- *
- *  Responds with the value of the messageCounter (in hex), followed by the received message in [..]
- *
- *  Note: Called in interrupt context, so need to be quick!
- */
-void twi2c_slave_message_process(I2CDriver *i2cp) {
-
-  // size_t len = i2cSlaveBytes(i2cp);         // Number of bytes received
-
-  // memset(txBody, 0, MATRIX_ROWS / 2 * sizeof(matrix_row_t));
-  matrix_copy(txBody);
-
-  echoReply.size =  MATRIX_ROWS / 2;
-  i2cSlaveReplyI(i2cp, &echoReply);
-}
-
-
 /**
  * Callback after sending of response complete - restores default reply in case polled
  */
@@ -175,49 +81,7 @@ void twi2c_clear_after_send(I2CDriver *i2cp)
   // i2cSlaveReplyI(i2cp, &initialReply);
 }
 
-
-/**
- * Start the I2C Slave port to accept comms from master CPU
- *
- * We then go into a loop checking for errors, and never return
- */
-
-void twi2c_slave_init(twi2c_message_received * cb, uint8_t address) {
-
-  twi2c_init();
-
-
-  i2cStart(&I2C_DRIVER, &i2cconfig);
-#if HAL_USE_I2C_SLAVE
-  I2C_DRIVER.slaveTimeout = MS2ST(100);       // Time for complete message
-#endif
-
-  // i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &initialReply);
-
-  memset(txBody, 0, MATRIX_ROWS / 2 * sizeof(matrix_row_t));
-
-  i2cSlaveConfigure(&I2C_DRIVER, &echoRx, &echoReply);
-
-  // Enable match address after everything else set up
-  i2cMatchAddress(&I2C_DRIVER, address/2);
-//  i2cMatchAddress(&I2C_DRIVER, myOtherI2Caddress/2);
- // i2cMatchAddress(&I2C_DRIVER, 0);  /* "all call" */
-
-  printf("Slave I2C started\n\r");
-
-}
-
-void twi2c_slave_task(void) {
-    if (gotI2cError) {
-      gotI2cError = 0;
-        printf("I2cError: %04x\r\n", lastI2cErrorFlags);
-    }
-}
-
-#endif
-
-uint8_t twi2c_start(uint8_t address) {
-  twi2c_address = address;
+uint8_t twi2c_start(void) {
   i2cStart(&I2C_DRIVER, &i2cconfig);
   return 0;
 }
@@ -239,11 +103,14 @@ uint8_t twi2c_write(uint8_t data) {
   return i2cMasterTransmitTimeout(&I2C_DRIVER, twi2c_address/2, &data, 1, 0, 0, MS2ST(100));
 }
 
-uint8_t twi2c_transmit(uint8_t address, uint8_t* data, uint16_t length) {
-  twi2c_address = address;
-  i2cStart(&I2C_DRIVER, &i2cconfig);
-  return i2cMasterTransmitTimeout(&I2C_DRIVER, twi2c_address/2, data, length, 0, 0, MS2ST(100));
+uint8_t twi2c_transmit(uint8_t address, uint8_t * data, uint16_t length) {
+  return i2cMasterTransmitTimeout(&I2C_DRIVER, address/2, data, length, 0, 0, MS2ST(100));
 }
+
+uint8_t twi2c_receive(uint8_t address, uint8_t * data, uint16_t length) {
+  return i2cMasterReceiveTimeout(&I2C_DRIVER, address/2, data, length, MS2ST(100));
+}
+
 
 uint8_t twi2c_incoming_body[512];
 uint8_t twi2c_outgoing_body[512];
@@ -257,35 +124,40 @@ I2CSlaveMsg twi2c_incoming_message = {
   twi2c_catch_error                   /* Error hook */
 };
 
-void twi2c_incoming_message_process(I2CDriver *i2cp) {
+void twi2c_incoming_message_process(I2CDriver * i2cp) {
   size_t len = i2cSlaveBytes(i2cp);
-  twi2c_message_received_callback(twi2c_incoming_body, len);
+  (*twi2c_message_received_callback)(i2cp, twi2c_incoming_body, len);
 }
 
 // Response to received messages
-I2CSlaveMsg twi2c_outgoing_message = {  /* this is in RAM so size may be updated */
-  sizeof(twi2c_outgoing_body),                    /* filled in with the length of the message to send */
+I2CSlaveMsg twi2c_outgoing_message = {
+  sizeof(twi2c_outgoing_body),
   twi2c_outgoing_body,
   NULL,
   twi2c_clear_after_send,
-  twi2c_catch_error                   /* Error hook */
+  twi2c_catch_error
 };
 
-uint8_t twi2c_reply(uint8_t * data, uint16_t length) {
-  twi2c_outgoing_body = data;
+uint8_t twi2c_reply(I2CDriver * i2cp, uint8_t * data, uint16_t length) {
+  memcpy(twi2c_outgoing_body, data, length);
   twi2c_outgoing_message.size = length;
   i2cSlaveReplyI(i2cp, &twi2c_outgoing_message);
+  return 0;
 }
 
-uint8_t twi2c_transmit_receive(uint8_t address, uint8_t * tx_body, uint16_t tx_length, uint8_t rx_body, uint16_t rx_length) {
+uint8_t twi2c_transmit_receive(uint8_t address, uint8_t * tx_body, uint16_t tx_length, uint8_t * rx_body, uint16_t rx_length) {
   return i2cMasterTransmitTimeout(&I2C_DRIVER, address/2, tx_body, tx_length, rx_body, rx_length, MS2ST(100));
 }
 
 uint8_t twi2c_start_listening(uint8_t address, twi2c_message_received callback) {
   twi2c_message_received_callback = callback;
-  i2cStart(&I2C_DRIVER, &i2cconfig);
   I2C_DRIVER.slaveTimeout = MS2ST(100);
   i2cSlaveConfigure(&I2C_DRIVER, &twi2c_incoming_message, &twi2c_outgoing_message);
   i2cMatchAddress(&I2C_DRIVER, address/2);
   return 0;
+}
+
+void twi2c_stop(void) {
+  i2cUnmatchAll(&I2C_DRIVER);
+  i2cStop(&I2C_DRIVER);
 }
