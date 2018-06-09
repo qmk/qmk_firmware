@@ -18,10 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef USERSPACE
 #define USERSPACE
 #include "quantum.h"
-#include "version.h"
-#include "eeprom.h"
-#include "tap_dances.h"
-#include "rgb_stuff.h"
+
 
 // Define layer names
 enum userspace_layers {

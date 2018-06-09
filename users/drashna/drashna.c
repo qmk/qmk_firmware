@@ -16,7 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "drashna.h"
-
+#include "version.h"
+#include "eeprom.h"
+#include "tap_dances.h"
+#include "rgb_stuff.h"
 
 
 float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
