@@ -38,7 +38,7 @@
   { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k15, k31 } \
 }
 
-#define LAYOUT_WKL( \
+#define LAYOUT_wkl( \
   k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12, k13, k14, k15, \
   k16, k17, k18, k19, k20, k21, k22, k23, k24, k25, k26, k27, k28,    k29,   k30, \
    k31,  k32, k33, k34, k35, k36, k37, k38, k39, k40, k41, k42, k43,   k44,  k45, \
@@ -55,7 +55,7 @@
   { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k15, k30   } \
 }
 
-#define LAYOUT_WKL_SplitBS( \
+#define LAYOUT_wkl_splitbs( \
   k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12, k13, k14, k15, \
   k16, k17, k18, k19, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k81, k30, \
    k31,  k32, k33, k34, k35, k36, k37, k38, k39, k40, k41, k42, k43,   k44,  k45, \
@@ -72,7 +72,7 @@
   { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k15, k30 } \
 }
 
-#define LAYOUT_Tsangan( \
+#define LAYOUT_tsangan( \
   k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12, k13, k14, k15, \
   k16, k17, k18, k19, k20, k21, k22, k23, k24, k25, k26, k27, k28,    k29,   k30, \
    k31,  k32, k33, k34, k35, k36, k37, k38, k39, k40, k41, k42, k43,   k44,  k45, \
@@ -89,7 +89,7 @@
   { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k15, k30   } \
 }
 
-#define LAYOUT_Tsangan_SplitBS( \
+#define LAYOUT_tsangan_splitbs( \
   k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12, k13, k14, k15, \
   k16, k17, k18, k19, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k82, k30, \
    k31,  k32, k33, k34, k35, k36, k37, k38, k39, k40, k41, k42, k43,   k44,  k45, \
@@ -106,7 +106,7 @@
   { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k15, k30 } \
 }
 
-#define LAYOUT_WK( \
+#define LAYOUT_wk( \
   k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12, k13, k14, k15, \
   k16, k17, k18, k19, k20, k21, k22, k23, k24, k25, k26, k27, k28,    k29,   k30, \
    k31,  k32, k33, k34, k35, k36, k37, k38, k39, k40, k41, k42, k43,   k44,  k45, \
@@ -123,7 +123,7 @@
   { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k15, k30   } \
 }
 
-#define LAYOUT_WK_SplitBS( \
+#define LAYOUT_wk_splitbs( \
   k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12, k13, k14, k15, \
   k16, k17, k18, k19, k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k83, k30, \
    k31,  k32, k33, k34, k35, k36, k37, k38, k39, k40, k41, k42, k43,   k44,  k45, \

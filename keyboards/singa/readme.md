@@ -1,12 +1,16 @@
-# singa
+# Singa
 
-![singa](https://i.imgur.com/VVO27Tr.jpg)
+
+![Singa](https://i.imgur.com/VVO27Tr.jpg)
+
 
 A short description of the keyboard/project
+
 
 Keyboard Maintainer: [amnesia0287](https://github.com/amnesia0287)
 Hardware Supported: TGR-Elaine v1.0 PCB
 Hardware Availability: http://singakbd.com/
+
 
 Make example for this keyboard (after setting up your build environment):
 
