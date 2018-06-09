@@ -12,7 +12,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch(keycode) {
             case KC_P00:
                 // types Numpad 0 twice
-                SEND_STRING(SS_TAP(X_P0) SS_TAP(X_P0));
+                SEND_STRING(SS_TAP(X_KP_0) SS_TAP(X_KP_0));
                 return false;
         }
     }
