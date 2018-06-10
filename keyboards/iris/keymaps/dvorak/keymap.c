@@ -16,13 +16,4 @@ enum custom_keycodes {
 	ADJUST
 };
 
-// Tap dances
-enum {
-  BACKSLASH_CAPS = 0
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-  [BACKSLASH_CAPS] = ACTION_TAP_DANCE_DOUBLE(KC_BSLASH, KC_CAPSLOCK)
-};
-
 #include "dist/_keymap.c"
