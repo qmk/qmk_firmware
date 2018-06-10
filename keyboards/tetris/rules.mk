@@ -55,4 +55,4 @@ BACKLIGHT_ENABLE ?= no  # Enable keyboard backlight functionality
 AUDIO_ENABLE ?= yes
 RGBLIGHT_ENABLE ?= yes
 TAP_DANCE_ENABLE = yes
-EXTRAFLAGS        = -flto # Make the hex smaller
+EXTRAFLAGS += -flto # Make the hex smaller
