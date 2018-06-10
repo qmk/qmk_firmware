@@ -14,6 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#ifndef TWI2C_H
+#define TWI2C_H
+
 #include "ch.h"
 #include "hal.h"
 
@@ -23,17 +26,11 @@
 
 #define slaveI2Caddress  0x30       /* Address in our terms - halved by later code */
 //#define myOtherI2Caddress 0x19
-
-#ifdef I2C_SLAVE_ENABLE
-
-I2CSlaveMsgCB twi2c_slave_message_process, catchError, clearAfterSend;
-
-void twi2c_slave_init(void);
-
-#endif
+I2CSlaveMsgCB twi2c_incoming_message_process, twi2c_catch_error, twi2c_clear_after_send;
+typedef void (*twi2c_message_received)(I2CDriver *, uint8_t *, uint16_t);
 
 void twi2c_init(void);
-uint8_t twi2c_start(uint8_t address);
+uint8_t twi2c_start(void);
 uint8_t twi2c_write(uint8_t data);
 uint8_t twi2c_read_ack(void);
 uint8_t twi2c_read_nack(void);
@@ -42,3 +39,10 @@ uint8_t twi2c_receive(uint8_t address, uint8_t* data, uint16_t length);
 uint8_t twi2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length);
 uint8_t twi2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length);
 void twi2c_stop(void);
+
+uint8_t twi2c_reply(I2CDriver * i2cp, uint8_t * data, uint16_t length);
+uint8_t twi2c_transmit_receive(uint8_t address, uint8_t * tx_body, uint16_t tx_length, uint8_t * rx_body, uint16_t rx_length);
+uint8_t twi2c_start_listening(uint8_t address, twi2c_message_received callback);
+uint8_t twi2c_restart_listening(uint8_t address);
+
+#endif

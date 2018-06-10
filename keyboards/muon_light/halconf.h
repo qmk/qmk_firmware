@@ -80,6 +80,13 @@
 #endif
 
 /**
+ * @brief   Enables the I2C Slave subsystem.
+ */
+#if !defined(HAL_USE_I2C_SLAVE) || defined(__DOXYGEN__)
+#define HAL_USE_I2C_SLAVE           TRUE
+#endif
+
+/**
  * @brief   Enables the I2S subsystem.
  */
 #if !defined(HAL_USE_I2S) || defined(__DOXYGEN__)

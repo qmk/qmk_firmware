@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef QMK_HANDWIRE_H
-#define QMK_HANDWIRE_H
+#ifndef PROTON_C_H
+#define PROTON_C_H
 
 #include "quantum.h"
 
 /*
- * These are shortcuts to help you work with the various layout options. If your 
+ * These are shortcuts to help you work with the various layout options. If your
  * keymap works with one of the LAYOUT_...() macros you are encouraged to use that
- * and to contribute your keymap to the corresponding layout in 
+ * and to contribute your keymap to the corresponding layout in
  * `qmk_firmware/layouts/community`.
  */
 

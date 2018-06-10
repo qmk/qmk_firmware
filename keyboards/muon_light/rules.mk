@@ -51,12 +51,13 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes     # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 AUDIO_ENABLE = yes
-RGB_MATRIX_ENABLE = yes
-ENCODER_ENABLE = yes
+# RGB_MATRIX_ENABLE = yes
+# ENCODER_ENABLE = yes
 # SERIAL_LINK_ENABLE = yes
+I2C_SLAVE_ENABLE = yes
+QWIIC_KEYBOARD_ENABLE = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 LAYOUTS = ortho_4x6
-LAYOUTS_HAS_RGB = no
