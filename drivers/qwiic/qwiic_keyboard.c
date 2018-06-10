@@ -77,6 +77,9 @@ void qwiic_keyboard_task(void) {
         static qwiic_matrix_t matrix_prev[QWIIC_KEYBOARD_ROWS];
         qwiic_matrix_t matrix_row = 0;
         qwiic_matrix_t matrix_change = 0;
+        #ifdef QMK_KEYS_PER_SCAN
+          uint8_t keys_processed = 0;
+        #endif
         qwiic_keyboard_processing_slave = true;
         for (uint8_t r = 0; r < QWIIC_KEYBOARD_ROWS; r++) {
           matrix_row = qwiic_keyboard_matrix_message[r];
@@ -96,7 +99,7 @@ void qwiic_keyboard_task(void) {
                   if (++keys_processed >= QMK_KEYS_PER_SCAN)
                 #endif
                 // process a key per task call
-                //goto MATRIX_LOOP_END;
+                goto QWIIC_MATRIX_LOOP_END;
               }
             }
           }
@@ -107,7 +110,7 @@ void qwiic_keyboard_task(void) {
           if (!keys_processed)
         #endif
         action_exec(TICK);
-        //MATRIX_LOOP_END:
+        QWIIC_MATRIX_LOOP_END:
         qwiic_keyboard_processing_slave = false;
       } else {
         // disconnect
@@ -173,8 +176,8 @@ void qwiic_keyboard_read_keymap(uint8_t * pointer) {
   for (uint8_t layer = 0; layer < QWIIC_KEYBOARD_LAYERS; layer++) {
     for (uint8_t row = 0; row < QWIIC_KEYBOARD_ROWS; row++) {
       for (uint8_t col = 0; col < QWIIC_KEYBOARD_COLS; col++) {
-        uint16_t keycode = *pointer++;
-        keycode |= ((*pointer++) << 8);
+        uint16_t keycode = ((*pointer++) << 8);
+        keycode |= (*pointer++);
         qwiic_keyboard_keymap[layer][row][col] = keycode;
       }
     }
@@ -190,8 +193,8 @@ bool is_keyboard_master(void) {
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
   if (qwiic_keyboard_processing_slave) {
     // trick the built-in handling to accept our replacement keymap
-    //return qwiic_keyboard_keymap[(layer)][(key.row)][(key.col)];
-    return KC_A;
+    return qwiic_keyboard_keymap[(layer)][(key.row)][(key.col)];
+    //return KC_A;
   } else {
     // Read entire word (16bits)
     return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
