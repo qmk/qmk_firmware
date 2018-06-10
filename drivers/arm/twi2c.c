@@ -157,6 +157,11 @@ uint8_t twi2c_start_listening(uint8_t address, twi2c_message_received callback) 
   return 0;
 }
 
+uint8_t twi2c_restart_listening(uint8_t address) {
+  i2cMatchAddress(&I2C_DRIVER, address/2);
+  return 0;
+}
+
 void twi2c_stop(void) {
   i2cUnmatchAll(&I2C_DRIVER);
   i2cStop(&I2C_DRIVER);

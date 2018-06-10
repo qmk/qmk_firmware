@@ -43,5 +43,6 @@ void twi2c_stop(void);
 uint8_t twi2c_reply(I2CDriver * i2cp, uint8_t * data, uint16_t length);
 uint8_t twi2c_transmit_receive(uint8_t address, uint8_t * tx_body, uint16_t tx_length, uint8_t * rx_body, uint16_t rx_length);
 uint8_t twi2c_start_listening(uint8_t address, twi2c_message_received callback);
+uint8_t twi2c_restart_listening(uint8_t address);
 
 #endif
