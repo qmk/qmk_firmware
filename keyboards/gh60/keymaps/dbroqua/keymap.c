@@ -1,6 +1,4 @@
-#include "gh60.h"
-#include "action_layer.h"
-#include "rgblight.h"
+#include QMK_KEYBOARD_H
 
 #define _DEFAULT 0
 #define _FN 1
