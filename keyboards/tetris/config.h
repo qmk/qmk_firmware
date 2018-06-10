@@ -50,6 +50,7 @@
 #ifdef AUDIO_ENABLE
   #define B5_AUDIO
   #define STARTUP_SONG SONG(ONE_UP_SOUND)
+  #define NO_MUSIC_MODE
 #endif
 
 #define RGB_DI_PIN F5
