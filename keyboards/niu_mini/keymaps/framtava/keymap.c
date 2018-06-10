@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "niu_mini.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 

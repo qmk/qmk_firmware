@@ -5,8 +5,7 @@
 * @Last Modified time: 2018-05-03 11:19:34
 */
 
-#include "dz60.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 #define X KC_NO
 #define _______ KC_TRNS
