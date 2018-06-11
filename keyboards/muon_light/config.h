@@ -141,11 +141,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // 0b1110111 AD <-> VCC
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
-#define DRIVER_ADDR_1 0b1110100
-#define DRIVER_ADDR_2 0b1110110
+#define DRIVER_ADDR_1 0b1110111
+#define DRIVER_ADDR_2 0b1110101
 
 #define DRIVER_COUNT 2
-#define DRIVER_1_LED_TOTAL 25
+#define DRIVER_1_LED_TOTAL 24
 #define DRIVER_2_LED_TOTAL 24
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
 

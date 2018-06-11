@@ -75,11 +75,6 @@ void twi2c_catch_error(I2CDriver *i2cp)
 /**
  * Callback after sending of response complete - restores default reply in case polled
  */
-void twi2c_clear_after_send(I2CDriver *i2cp)
-{
-  // echoReply.size = 0;               // Clear receive message
-  // i2cSlaveReplyI(i2cp, &initialReply);
-}
 
 uint8_t twi2c_start(void) {
   i2cStart(&I2C_DRIVER, &i2cconfig);
@@ -100,11 +95,11 @@ void twi2c_init(void) {
 }
 
 uint8_t twi2c_write(uint8_t data) {
-  return i2cMasterTransmitTimeout(&I2C_DRIVER, twi2c_address/2, &data, 1, 0, 0, MS2ST(100));
+  return i2cMasterTransmitTimeout(&I2C_DRIVER, twi2c_address/2, &data, 1, NULL, 0, MS2ST(100));
 }
 
 uint8_t twi2c_transmit(uint8_t address, uint8_t * data, uint16_t length) {
-  return i2cMasterTransmitTimeout(&I2C_DRIVER, address/2, data, length, 0, 0, MS2ST(100));
+  return i2cMasterTransmitTimeout(&I2C_DRIVER, address/2, data, length, NULL, 0, MS2ST(100));
 }
 
 uint8_t twi2c_receive(uint8_t address, uint8_t * data, uint16_t length) {
@@ -112,8 +107,8 @@ uint8_t twi2c_receive(uint8_t address, uint8_t * data, uint16_t length) {
 }
 
 
-uint8_t twi2c_incoming_body[50];
-uint8_t twi2c_outgoing_body[1024];
+uint8_t twi2c_incoming_body[50] = {0};
+uint8_t twi2c_outgoing_body[1024] = {0};
 
 // Response to received messages
 I2CSlaveMsg twi2c_incoming_message = {
@@ -138,6 +133,11 @@ I2CSlaveMsg twi2c_outgoing_message = {
   twi2c_catch_error
 };
 
+void twi2c_clear_after_send(I2CDriver *i2cp) {
+  twi2c_outgoing_message.size = 0; // Clear receive message
+  //i2cSlaveReplyI(i2cp, &initialReply);
+}
+
 uint8_t twi2c_reply(I2CDriver * i2cp, uint8_t * data, uint16_t length) {
   memcpy(twi2c_outgoing_body, data, length);
   twi2c_outgoing_message.size = length;
@@ -157,8 +157,23 @@ uint8_t twi2c_start_listening(uint8_t address, twi2c_message_received callback) 
   return 0;
 }
 
-uint8_t twi2c_restart_listening(uint8_t address) {
+uint8_t twi2c_remove_listening(uint8_t address) {
+  i2cUnmatchAddress(&I2C_DRIVER, address/2);
+  return 0;
+}
+
+uint8_t twi2c_add_listening(uint8_t address) {
   i2cMatchAddress(&I2C_DRIVER, address/2);
+  return 0;
+}
+
+uint8_t twi2c_remove_listening_i(uint8_t address) {
+  i2cUnmatchAddressI(&I2C_DRIVER, address/2);
+  return 0;
+}
+
+uint8_t twi2c_add_listening_i(uint8_t address) {
+  i2cMatchAddressI(&I2C_DRIVER, address/2);
   return 0;
 }
 
