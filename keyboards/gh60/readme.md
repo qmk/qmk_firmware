@@ -6,7 +6,7 @@ GH60
 A common 60% PCB.
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: GH60 PCB  
+Hardware Supported: GH60 rev. B and rev. C  
 Hardware Availability: http://blog.komar.be/projects/gh60-programmable-keyboard/
 
 Make example for this keyboard (after setting up your build environment):
