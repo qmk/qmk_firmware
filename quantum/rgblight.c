@@ -48,7 +48,6 @@ const uint16_t RGBLED_RGBTEST_INTERVALS[] PROGMEM = {1024};
 rgblight_config_t rgblight_config;
 
 LED_TYPE led[RGBLED_NUM];
-uint8_t rgblight_inited = 0;
 bool rgblight_timer_enabled = false;
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
@@ -140,18 +139,8 @@ void eeconfig_debug_rgblight(void) {
 }
 
 void rgblight_init(void) {
-  // this is called after the matrix has been initialized.
-  // in order to allow customization from within matrix
-  // init hooks, we prevent this routine from running if
-  // it has already been called. this prevents wiping out
-  // per light customizations.
-  if (rgblight_init) {
-    return;
-  }
-
   debug_enable = 1; // Debug ON!
   dprintf("rgblight_init called.\n");
-  rgblight_inited = 1;
   dprintf("rgblight_init start!\n");
   if (!eeconfig_is_enabled()) {
     dprintf("rgblight_init eeconfig is not enabled.\n");
