@@ -241,6 +241,23 @@ If the board supports it, it can be "idled", by stopping a number of functions. 
 This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_init_*`, which are called when the system is board is idled and when it wakes up, respectively.
 
 
+### Example suspend_power_down_user() and suspend_wakeup_init_user() Implementation
+
+This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+
+```
+void suspend_power_down_user(void)
+{
+    rgb_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_user(void)
+{
+    rgb_matrix_set_suspend_state(false);
+}
+
+```
+
 # Layer Change Code
 
 This runs code every time that the layers get changed.  This can be useful for layer indication, or custom layer handling.
