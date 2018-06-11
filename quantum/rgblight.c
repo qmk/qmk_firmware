@@ -140,6 +140,15 @@ void eeconfig_debug_rgblight(void) {
 }
 
 void rgblight_init(void) {
+  // this is called after the matrix has been initialized.
+  // in order to allow customization from within matrix
+  // init hooks, we prevent this routine from running if
+  // it has already been called. this prevents wiping out
+  // per light customizations.
+  if (rgblight_init) {
+    return;
+  }
+
   debug_enable = 1; // Debug ON!
   dprintf("rgblight_init called.\n");
   rgblight_inited = 1;
