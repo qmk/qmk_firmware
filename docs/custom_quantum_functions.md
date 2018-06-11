@@ -255,8 +255,12 @@ void suspend_wakeup_init_user(void)
 {
     rgb_matrix_set_suspend_state(false);
 }
-
 ```
+
+### Keyboard suspend/wake  Function Documentation
+
+* Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
+* Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 
 # Layer Change Code
 
