@@ -193,7 +193,7 @@ void startup_user(void) {
 
 Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.  
 
-The main difference between this and the `keyboard_init_*` function, is that is called as part of the matrix initialization, and happens much earlier in the process.  
+The main difference between this and the `startup_*` function, is that is called as part of the matrix initialization, and happens much earlier in the process. So, it's best to use `startup_*`, as most everything should be loaded and properly configurable by the time `startup_*` is called. 
 
 ### Example `matrix_init_user()` Implementation
 
