@@ -1,0 +1,18 @@
+
+image: stronglytyped/arm-none-eabi-gcc
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+make-qmk:
+  tags:
+    - linux
+  stage: build
+  script: make vortex/pok3r:default vortex/pok3r_rgb:default vortex/core:default
+  artifacts:
+    paths:
+      - vortex_pok3r_default.bin
+      - vortex_pok3r_rgb_default.bin
+      - vortex_core_default.bin
+
+
