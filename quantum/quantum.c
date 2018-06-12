@@ -816,32 +816,19 @@ void tap_random_base64(void) {
   #endif
   switch (key) {
     case 0 ... 25:
-      register_code(KC_LSFT);
-      register_code(key + KC_A);
-      unregister_code(key + KC_A);
-      unregister_code(KC_LSFT);
+      send_char('A' + key);
       break;
     case 26 ... 51:
-      register_code(key - 26 + KC_A);
-      unregister_code(key - 26 + KC_A);
+      send_char('a' + (key - 26));
       break;
-    case 52:
-      register_code(KC_0);
-      unregister_code(KC_0);
-      break;
-    case 53 ... 61:
-      register_code(key - 53 + KC_1);
-      unregister_code(key - 53 + KC_1);
+    case 52 ... 61:
+      send_char('0' + (key - 52));
       break;
     case 62:
-      register_code(KC_LSFT);
-      register_code(KC_EQL);
-      unregister_code(KC_EQL);
-      unregister_code(KC_LSFT);
+      send_char('+');
       break;
     case 63:
-      register_code(KC_SLSH);
-      unregister_code(KC_SLSH);
+      send_char('/');
       break;
   }
 }

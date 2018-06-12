@@ -11,3 +11,6 @@
 [submodule "lib/googletest"]
 	path = lib/googletest
 	url = https://github.com/google/googletest
+[submodule "keyboards/hhkb/keymaps/raisuta_jp"]
+	path = keyboards/hhkb/keymaps/raisuta_jp
+	url = https://github.com/rai-suta/hhkb_jp_keymap.git
