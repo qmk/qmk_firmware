@@ -103,9 +103,4 @@ inline void gh60_wasd_leds_off(void)   	{ DDRF &= ~(1<<7); PORTF &= ~(1<<7); }
     { K40, K41, K42, KC_NO,    KC_NO,    K45, KC_NO,    KC_NO,    KC_NO,    KC_NO, K4A, K4B, K4C, K4D }  \
 }
 
-#define KEYMAP LAYOUT
-#define KEYMAP_ANSI LAYOUT_60_ansi
-#define KEYMAP_ISO LAYOUT_60_iso
-#define KEYMAP_HHKB LAYOUT_60_ansi_split_bs_rshift
-
 #endif
