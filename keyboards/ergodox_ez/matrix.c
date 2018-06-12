@@ -68,8 +68,8 @@ static void init_cols(void);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
 
-// static uint8_t mcp23018_reset_loop;
-static uint16_t mcp23018_reset_loop;
+static uint8_t mcp23018_reset_loop;
+// static uint16_t mcp23018_reset_loop;
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
 uint32_t matrix_timer;
@@ -176,8 +176,8 @@ void debounce_report(matrix_row_t change, uint8_t row) {
 uint8_t matrix_scan(void)
 {
     if (mcp23018_status) { // if there was an error
-        // if (++mcp23018_reset_loop == 0) {
-        if (++mcp23018_reset_loop >= 1300) {
+        if (++mcp23018_reset_loop == 0) {
+        // if (++mcp23018_reset_loop >= 1300) {
             // since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
             // this will be approx bit more frequent than once per second
             print("trying to reset mcp23018\n");
