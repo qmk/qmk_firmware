@@ -27,12 +27,8 @@ enum userspace_layers {
   _DVORAK,
   _WORKMAN,
   _MODS,
-  _NAV,
-  _COVECUBE,
-  _SYMB,
   _GAMEPAD,
   _DIABLO,
-  _MOUS,
   _MACROS,
   _MEDIA,
   _LOWER,
@@ -46,23 +42,29 @@ enum userspace_layers {
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
+
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
-extern bool rgb_layer_change;
 extern bool clicky_enable;
 
 #ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index);
 #endif // RGBLIGHT_ENABLE
 
-#define EECONFIG_USERSPACE (uint8_t *)20
+void tap(uint16_t keycode);
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record);
+
+
+#define EECONFIG_USERSPACE (uint8_t *)19
 
 typedef union {
-  uint32_t raw;
+  uint8_t raw;
   struct {
-    bool     clicky_enable  :1;
-    bool     is_overwatch   :1;
+    bool     clicky_enable    :1;
+    bool     rgb_layer_change :1;
+    bool     is_overwatch     :1;
+    bool     nuke_switch      :1;
   };
 } userspace_config_t;
 
@@ -95,6 +97,8 @@ enum userspace_custom_keycodes {
   KC_SECRET_4,
   KC_SECRET_5,
   KC_CCCV,
+  KC_NUKE,
+
 #ifdef UNICODE_ENABLE
   UC_FLIP,
 #endif //UNICODE_ENABLE
@@ -116,8 +120,8 @@ enum userspace_custom_keycodes {
 #define DVORAK KC_DVORAK
 #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
-#define KC_RST KC_RESET
 
+#define KC_RST KC_RESET
 
 #ifdef SWAP_HANDS_ENABLE
 #define KC_C1R3 SH_TT
@@ -128,6 +132,16 @@ enum userspace_custom_keycodes {
 // OSM keycodes, to keep things clean and easy to change
 #define KC_MLSF OSM(MOD_LSFT)
 #define KC_MRSF OSM(MOD_RSFT)
+
+#define OS_LGUI OSM(MOD_LGUI)
+#define OS_RGUI OSM(MOD_RGUI)
+#define OS_LSFT OSM(MOD_LSFT)
+#define OS_RSFT OSM(MOD_RSFT)
+#define OS_LCTL OSM(MOD_LCTL)
+#define OS_RCTL OSM(MOD_RCTL)
+#define OS_LALT OSM(MOD_LALT)
+#define OS_RALT OSM(MOD_RALT)
+#define ALT_APP ALT_T(KC_APP)
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
 
@@ -166,10 +180,10 @@ enum {
 #define LAYOUT KEYMAP
 #endif
 
-#define LAYOUT_ergodox_wrapper(...)   LAYOUT_ergodox(__VA_ARGS__)
+#define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
 #define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
-#define KEYMAP_wrapper(...)           LAYOUT(__VA_ARGS__)
-#define LAYOUT_wrapper(...)           LAYOUT(__VA_ARGS__)
+#define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
+#define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 
 
 // Blocks for each of the four major keyboard layouts
@@ -204,8 +218,8 @@ enum {
 #define ______________COLEMAK_MOD_DH_L3____________ CTL_T(KC_Z),   KC_X,    KC_C,    KC_D,    KC_V
 
 #define ______________COLEMAK_MOD_DH_R1____________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN
-#define ______________COLEMAK_MOD_DH_R2____________       KC_K,    KC_N,    KC_E,    KC_I,    KC_O
-#define ______________COLEMAK_MOD_DH_R3____________       KC_M,    KC_H,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
+#define ______________COLEMAK_MOD_DH_R2____________       KC_M,    KC_N,    KC_E,    KC_I,    KC_O
+#define ______________COLEMAK_MOD_DH_R3____________       KC_K,    KC_H,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
 
 
 #define _________________DVORAK_L1_________________        KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
@@ -231,11 +245,13 @@ enum {
 #define _________________NORMAN_L3_________________ CTL_T(KC_Z),   KC_X,    KC_C,    KC_V,    KC_B
 
 #define _________________NORMAN_R1_________________       KC_J,    KC_U,    KC_R,    KC_L,    KC_SCLN
-#define _________________NORMAN_R2_________________       KC_J,    KC_N,    KC_I,    KC_O,    KC_U
+#define _________________NORMAN_R2_________________       KC_Y,    KC_N,    KC_I,    KC_O,    KC_U
 #define _________________NORMAN_R3_________________       KC_P,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
+#define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
+#define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
 
 // Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
 // this allows us to quickly modify the bottom row for all of the layouts
@@ -245,9 +261,9 @@ enum {
 #define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 
-#define __________________ERGODOX_THUMB_CLUSTER_____________________       ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE), \
+#define __________________ERGODOX_THUMB_CLUSTER_____________________           ALT_T(KC_APP), OSM(MOD_LGUI),                 OSM(MOD_RGUI), CTL_T(KC_ESCAPE), \
                                                                                               KC_HOME,                 KC_PGUP, \
-                                                                            KC_SPACE,KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  KC_ENTER
+                                                                LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)
 
 
 #endif // !USERSPACE

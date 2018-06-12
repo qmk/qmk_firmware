@@ -96,7 +96,7 @@ Then you can create this file and add your macro strings to it:
 
 ###### secrets.h
 ```c
-PROGMEM const char secret[][64] = {
+static const char * const secrets[] = {
   "secret1",
   "secret2",
   "secret3",
@@ -116,7 +116,7 @@ In the `<name>.c` file, you will want to add this to the top:
 #else
 // `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
 // And I'm not familiar enough to know which is better or why...
-PROGMEM const char secret[][64] = {
+static const char * const secrets[] = {
   "test1",
   "test2",
   "test3",
@@ -162,7 +162,7 @@ This tells us where in the EEPROM that the data structure is located, and this s
 
 ```c
 typedef union {
-  uint32_t raw;
+  uint8_t raw;
   struct {
     bool     clicky_enable  :1;
     bool     is_overwatch   :1;
@@ -174,3 +174,23 @@ Then, in your C file, you want to add: `userspace_config_t userspace_config;`, a
 From there, you'd want to use the data structure (such as `userspace_config.is_overwatch`) when you want to check this value.  
 
 And if you want to update it, update directly and then use `eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);` to write the value back to the EEPROM. 
+
+
+Pro Micro Hacking
+-----------------
+
+Well, you can get the QMK DFU bootloader working on the ProMicro. But you need to change fuses.  
+
+What worked to get into the firmware properly was: 
+
+```
+Low: 0x5E High: 0x99 Extended: 0xF3 Lock: 0xFF
+```
+
+But some of the columns and rows didn't work, like the pin mapping was wrong. Even when setting the bootloader settings.
+ 
+ This is here for future reference.  And the default fuse settings I believe were:
+
+```
+Low: 0xFF High: 0xD8 Extended: 0xC3 Lock: 0x3F
+```

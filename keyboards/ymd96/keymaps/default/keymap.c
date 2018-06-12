@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _DEFLT 0
 #define _RAISE 1
 
+#define KEYMAP KEYMAP_DEFAULT
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	
 	/* Layer 0, default layer

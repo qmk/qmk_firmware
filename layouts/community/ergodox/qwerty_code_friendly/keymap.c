@@ -76,7 +76,7 @@
           k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, \
           k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, \
           k60, k61, k62, k63, k64, k65, k66, k67, k68, k69, \
-          k70, k71, k72, k73,           k76, k77, k78, k79)
+          k70, k71, k72, k73, k74,           k77, k78, k79)
 #  define K80(a) KC_TRNS
 #endif
 
@@ -241,7 +241,7 @@ static char cfq_word_lut_title_caps[
 ];
 
 #define LAYER_BASE 0 /* default layer */
-#define LAYER_SYMB 1 /* symbols */
+#define LAYER_KPAD 1 /* keypad */
 #define LAYER_MDIA 2 /* media keys */
 #define LAYER_FKEY 3 /* F-Keys & Words */
 
@@ -382,8 +382,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |      |      |  |      |      |      |
  *                               '--------------------'  '--------------------'
  */
-/* SYMBOLS */
-[LAYER_SYMB] = LAYOUT_ergodox_76_or_80(
+/* KEYPAD & MACRO */
+[LAYER_KPAD] = LAYOUT_ergodox_76_or_80(
   /* left hand */
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          M_BRACKET_IN_CBR,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M_ARROW_REQL,     M_BRACKET_IN_PRN,
@@ -403,47 +403,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, K80(L1K2), K80(L1K3),
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Keymap 2: F-Keys, media and mouse keys
+/* Keymap 2: Numbers, media and mouse keys
  *
  * .--------------------------------------------------.  .--------------------------------------------------.
- * |        |      |      |      |      |      |      |  |      |      |      |      |      |      |        |
+ * |        |   1  |   2  |   3  |   4  |   5  |      |  | Mute |   6  |   7  |   8  |   9  |   0  |        |
  * |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |      |MWhlUp|  |      |      |      |      |      |      |        |
+ * |        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
  * |        |      |MsLeft|MsDown|MsRght|      |------|  |------| Left | Down | Up   |Right |      |        |
- * |--------+------+------+------+------+------|MWhlDn|  |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|MWhlDn|  |VolDn |------+------+------+------+------+--------|
  * |        |      | Rclk | Mclk | Lclk |      |      |  |      |      |      |      |      |      |        |
  * '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                              |      |      |      |      |      |
  *   '----------------------------------'                              '----------------------------------'
  *                                      .-------------.  .-------------.
- *                                      | MRwd | MFwd |  | MPrv | MNxt |
+ *                                      |      |      |  | MRwd | MFwd |
  *                               .------+------+------|  |------+------+------.
- *                               |      |      |      |  |VolUp |      |      |
- *                               | Mute |      |------|  |------|      | Play |
- *                               |      |      |      |  |VolDn |      |      |
+ *                               |      |      |      |  | MPrv |      |      |
+ *                               |      |      |------|  |------|      | Play |
+ *                               |      |      |      |  | MNxt |      |      |
  *                               '--------------------'  '--------------------'
  */
-/* MEDIA AND MOUSE */
+/* MEDIA, MOUSE & NUMBERS */
 [LAYER_MDIA] = LAYOUT_ergodox_76_or_80(
   /* left hand */
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_WH_U,
   KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_BTN2, KC_BTN3, KC_BTN1, KC_TRNS, KC_WH_D,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                      KC_MRWD,   KC_MFFD,
+                                      KC_TRNS,   KC_TRNS,
                            K80(L2K0), K80(L2K1), KC_TRNS,
-                           KC_MUTE,   KC_TRNS,   KC_TRNS,
+                           KC_TRNS,   KC_TRNS,   KC_TRNS,
   /* right hand */
-  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_MUTE,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TRNS,
+  KC_VOLU,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
             KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS,
-  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_VOLD,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_MPRV, KC_MNXT,
-  KC_VOLU, K80(L2K2), K80(L1K3),
-  KC_VOLD, KC_TRNS, KC_MPLY
+  KC_MRWD, KC_MFFD,
+  KC_MPRV, K80(L2K2), K80(L2K3),
+  KC_MNXT, KC_TRNS, KC_MPLY
 ),
 /* Keymap 3: Entire Words (one for each key)
  *
@@ -491,8 +491,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(LAYER_SYMB),               /* FN1 - Momentary Layer 1 (Symbols) */
-  [2] = ACTION_LAYER_TAP_TOGGLE(LAYER_MDIA),               /* FN2 - Momentary Layer 2 (Media) */
+  [1] = ACTION_LAYER_TAP_TOGGLE(LAYER_KPAD),               /* FN1 - Momentary Layer 1 (KeyPad) */
+  [2] = ACTION_LAYER_TAP_TOGGLE(LAYER_MDIA),               /* FN2 - Momentary Layer 2 (Media, Mouse) */
   [3] = ACTION_LAYER_TAP_TOGGLE(LAYER_FKEY),               /* FN3 - Momentary Layer 3 (FKey's & Words) */
 };
 
