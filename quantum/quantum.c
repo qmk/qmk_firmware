@@ -1511,15 +1511,10 @@ __attribute__ ((weak))
 void startup_user() {}
 
 __attribute__ ((weak))
+void startup_kb(void) {
+    startup_user();
+}
+__attribute__ ((weak))
 void shutdown_user() {}
 
 //------------------------------------------------------------------------------
-
-__attribute__ ((weak))
-void keyboard_init_user(void){ }
-
-__attribute__ ((weak))
-void keyboard_init_kb(void) {
-    keyboard_init_user();
-}
-

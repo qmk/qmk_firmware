@@ -165,19 +165,18 @@ In addition, it is possible to specify the brightness level of all LEDs with `er
 
 Ergodox boards also define `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness (which is the default).
 
-# Keyboard Initialization Code
+# Keyboard `startup`  Code
 
 Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LEDs or i&#xb2;c controllers you will need to set up that hardware before it can be used.
 
+`matrix_init_user` can be used here as well, but this is ran earlier in the initialization process.  `startup_user` runs after everything else has initialized. So, it may be better to use `startup_user`, especially if you want to reconfigure anything else.
 
-`matrix_init_user` can be used here as well, but this is ran earlier in the initialization process.  `keyboard_init_user` runs after everything else has initialized. So, it may be better to use `keyboard_init_user`, especially if you want to reconfigure anything else.
-
-### Example `keyboard_init_user()` Implementation
+### Example `startup_user()` Implementation
 
 This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
 ```
-void keyboard_init_user(void) {
+void startup_user(void) {
   // Call the keymap level matrix init.
   rgbligth_enable_noeeprom(); // enables Rgb, without saving settings
   rgblight_sethsv_noeeprom(180, 255, 255): // sets the color to teal/cyan without saving
@@ -185,10 +184,10 @@ void keyboard_init_user(void) {
 }
 ```
 
-### `keyboard_init_*` Function Documentation
+### `startup_*` Function Documentation
 
-* Keyboard/Revision: `void keyboard_init_kb(void)`
-* Keymap: `void keyboard_init_user(void)`
+* Keyboard/Revision: `void startupt_kb(void)`
+* Keymap: `void startup_user(void)`
 
 # Matrix Initialization Code
 
