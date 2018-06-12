@@ -2,21 +2,21 @@
 #include "action_layer.h"
 
 const uint16_t PROGMEM keymaps[][5][15] = {
-/* Layer 0
+/* Layer 0 (Basically an HHKB MacOS layout)
 * ,-----------------------------------------------------------------------------------------.
 * | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |  \  |  ~  |
 * |-----------------------------------------------------------------------------------------+
 * | Tab   |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  | Bkspc   |
 * |-----------------------------------------------------------------------------------------+
-* | Ctrl    |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
+* | GUI     |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
 * |-----------------------------------------------------------------------------------------+
 * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |   /   |  Shift   | Fn |
 * |-----------------------------------------------------------------------------------------+
-* | Caps  |  GUI |  Alt |                    Space               |   Alt   |  GUI  |  Ctrl  |
+* | Caps  | alt  | Ctrl |                    Space               |   GUI   |  Alt  |  Ctrl  |
 * `-----------------------------------------------------------------------------------------'
 */
 
-	LAYOUT(
+LAYOUT(	
 		KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_DEL,
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC,
 		KC_LGUI, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
@@ -29,6 +29,19 @@ LAYOUT(KC_GRV, KC_F14, KC_F15, KC_TRNS, KC_TRNS, BL_DEC, BL_INC, KC_MRWD, KC_MPL
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_L, KC_LEFT, KC_RIGHT, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, BL_DEC, BL_TOGG, BL_INC, BL_STEP, KC_TRNS, KC_MRWD, KC_MPLY, KC_MFFD, KC_DOWN, KC_TRNS, KC_TRNS,
        KC_CAPS, KC_LALT, KC_LCTL, KC_SPC, KC_SPC, KC_SPC, KC_SPC, KC_RGUI, KC_RGUI, KC_RALT, KC_RCTL),
+/* Layer 0 (Basically an HHKB MacOS layout)
+* ,-----------------------------------------------------------------------------------------.
+* | Esc |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  0  |  -  |  =  |  \  |  ~  |
+* |-----------------------------------------------------------------------------------------+
+* | Tab   |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  [  |  ]  | Bkspc   |
+* |-----------------------------------------------------------------------------------------+
+* | Crtl     |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  |  '  |    Enter    |
+* |-----------------------------------------------------------------------------------------+
+* | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |   /   |  Shift   | Fn |
+* |-----------------------------------------------------------------------------------------+
+* | Caps  | gui  | Alt  |                    Space               |   alt   |  GUI  |  Ctrl  |
+* `-----------------------------------------------------------------------------------------'
+*/
 
 // layer 2
 LAYOUT( KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_DEL,
