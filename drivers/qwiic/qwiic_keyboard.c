@@ -48,12 +48,15 @@ void qwiic_keyboard_write_keymap(uint8_t * pointer);
 void qwiic_keyboard_read_keymap(uint8_t * pointer, uint8_t index);
 
 bool qwiic_keyboard_master = false;
+bool qwiic_keyboard_received_message = false;
 bool qwiic_keyboard_connected[QWIIC_KEYBOARD_MAX_DEVICES] = { false };
 uint8_t qwiic_keyboard_keymap_message[QWIIC_KEYBOARD_KEYMAP_MESSAGE_SIZE] = {0};
 uint8_t qwiic_keyboard_matrix_message[QWIIC_KEYBOARD_MATRIX_MESSAGE_SIZE] = {0};
 twi2c_message_received qwiic_keyboard_message_received_ptr = qwiic_keyboard_message_received;
 float song_one_up[][2]  = SONG(ONE_UP_SOUND);
+float song_zelda[][2]  = SONG(ZELDA_PUZZLE);
 uint8_t first_message = 0;
+uint8_t first_message_slave = 0;
 
 uint16_t qwiic_keyboard_keymap[QWIIC_KEYBOARD_MAX_DEVICES][QWIIC_KEYBOARD_LAYERS][QWIIC_KEYBOARD_ROWS][QWIIC_KEYBOARD_COLS] = {0};
 bool qwiic_keyboard_keymap_initialised[QWIIC_KEYBOARD_MAX_DEVICES] = { false };
@@ -68,9 +71,23 @@ void qwiic_keyboard_init(void) {
 }
 
 void qwiic_keyboard_set_master(void) {
-  twi2c_stop();
-  twi2c_start();
-  qwiic_keyboard_master = true;
+  if (!qwiic_keyboard_received_message) {
+    twi2c_stop();
+    twi2c_start();
+    qwiic_keyboard_master = true;
+    if (first_message == 0) {
+      PLAY_SONG(song_one_up);
+    }
+    first_message += 1;
+  }
+}
+
+void qwiic_keyboard_set_slave(void) {
+  qwiic_keyboard_received_message = true;
+  if (first_message_slave == 0) {
+    PLAY_SONG(song_zelda);
+  }
+  first_message_slave += 1;
 }
 
 static uint8_t keymap_command[1] = { 0x01 };
@@ -86,21 +103,24 @@ static uint8_t look_counter = 0;
 // }
 
 void qwiic_keyboard_get_matrix(uint8_t device_i) {
-  msg_t ret = twi2c_transmit_receive(qwiic_keyboard_listening_address[device_i],
-    matrix_command, 1,
+  // msg_t ret = twi2c_transmit_receive(qwiic_keyboard_listening_address[device_i],
+  //   matrix_command, 1,
+  //   qwiic_keyboard_matrix_message, QWIIC_KEYBOARD_MATRIX_MESSAGE_SIZE
+  // );
+  twi2c_transmit(qwiic_keyboard_listening_address[device_i], matrix_command, 1);
+  msg_t ret = twi2c_receive(qwiic_keyboard_listening_address[device_i],
     qwiic_keyboard_matrix_message, QWIIC_KEYBOARD_MATRIX_MESSAGE_SIZE
   );
   switch (ret) {
+    // majority of this is pulled from keyboard.c:keyboard_task()
     case I2C_OK:
-      SEND_STRING("1");
-      // majority of this is pulled from keyboard.c:keyboard_task()
+      qwiic_keyboard_processing_slave = device_i;
       static qwiic_row_t matrix_prev[QWIIC_KEYBOARD_ROWS];
       qwiic_row_t matrix_row = 0;
       qwiic_row_t matrix_change = 0;
       #ifdef QMK_KEYS_PER_SCAN
         uint8_t keys_processed = 0;
       #endif
-      qwiic_keyboard_processing_slave = device_i;
       for (uint8_t r = 0; r < QWIIC_KEYBOARD_ROWS; r++) {
         matrix_row = qwiic_keyboard_matrix_message[r];
         matrix_change = matrix_row ^ matrix_prev[r];
@@ -132,7 +152,6 @@ void qwiic_keyboard_get_matrix(uint8_t device_i) {
       action_exec(TICK);
       QWIIC_MATRIX_LOOP_END:
       qwiic_keyboard_processing_slave = QWIIC_KEYBOARD_NOT_PROCESSING;
-      SEND_STRING("2");
     // if (first_message == 100) {
     //   PLAY_SONG(song_one_up);
     // }
@@ -153,21 +172,19 @@ void qwiic_keyboard_task(void) {
     for (uint8_t device_i = 0; device_i < QWIIC_KEYBOARD_MAX_DEVICES; device_i++) {
       if (qwiic_keyboard_connected[device_i]) {
         // send empty message, expecting matrix info
-        // twi2c_transmit(qwiic_keyboard_listening_address[device_i], command, 1);
-        // if (MSG_OK == twi2c_receive(qwiic_keyboard_listening_address[device_i],
-        //   qwiic_keyboard_matrix_message, QWIIC_KEYBOARD_MATRIX_MESSAGE_SIZE
-        // )) {
         if (!qwiic_keyboard_keymap_initialised[device_i]) {
-          if (MSG_OK == twi2c_transmit_receive(qwiic_keyboard_listening_address[device_i],
-            keymap_command, 1,
+          // if (MSG_OK == twi2c_transmit_receive(qwiic_keyboard_listening_address[device_i],
+          //   keymap_command, 1,
+          //   qwiic_keyboard_keymap_message, QWIIC_KEYBOARD_KEYMAP_MESSAGE_SIZE
+          // )) {
+          twi2c_transmit(qwiic_keyboard_listening_address[device_i], keymap_command, 1);
+          if (MSG_OK == twi2c_receive(qwiic_keyboard_listening_address[device_i],
             qwiic_keyboard_keymap_message, QWIIC_KEYBOARD_KEYMAP_MESSAGE_SIZE
           )) {
             // load keymap into memory
             qwiic_keyboard_keymap_initialised[device_i] = true;
             qwiic_keyboard_read_keymap(qwiic_keyboard_keymap_message, device_i);
-            wait_ms(10);
             qwiic_keyboard_get_matrix(device_i);
-            SEND_STRING("3");
           }
         } else {
           qwiic_keyboard_get_matrix(device_i);
@@ -177,15 +194,15 @@ void qwiic_keyboard_task(void) {
           // send new address to listen on, expect back keymap
           uint8_t new_address = QWIIC_KEYBOARD_LISTENING_ADDRESS_START + (device_i*2);
           uint8_t address_copy = 0;
-          // twi2c_transmit(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS, &new_address, 1);
-          // if (MSG_OK == twi2c_receive(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS,
-          //   &address_copy, 1
-          // )) {
-          if (MSG_OK == twi2c_transmit_receive(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS,
-            &new_address, 1,
+          twi2c_transmit(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS, &new_address, 1);
+          if (MSG_OK == twi2c_receive(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS,
             &address_copy, 1
           )) {
-            send_byte(new_address);
+          // if (MSG_OK == twi2c_transmit_receive(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS,
+          //   &new_address, 1,
+          //   &address_copy, 1
+          // )) {
+            send_byte(address_copy);
             //if (address_copy == new_address) {
               PLAY_SONG(song_one_up);
               qwiic_keyboard_connected[device_i] = true;
@@ -200,6 +217,7 @@ void qwiic_keyboard_task(void) {
 }
 
 void qwiic_keyboard_message_received(I2CDriver *i2cp, uint8_t * body, uint16_t size) {
+  qwiic_keyboard_set_slave();
   switch (body[0]) {
     // send keymap
     case 0x01:
@@ -209,10 +227,6 @@ void qwiic_keyboard_message_received(I2CDriver *i2cp, uint8_t * body, uint16_t s
     // send matrix
     case 0x02:
     case 0x00:
-      if (first_message == 0) {
-        PLAY_SONG(song_one_up);
-      }
-      first_message += 1;
       for (uint8_t row = 0; row < QWIIC_KEYBOARD_ROWS; row++) {
         if (row < MATRIX_ROWS) {
           qwiic_keyboard_matrix_message[row] = matrix_get_row(row);
@@ -223,12 +237,12 @@ void qwiic_keyboard_message_received(I2CDriver *i2cp, uint8_t * body, uint16_t s
       twi2c_reply(i2cp, qwiic_keyboard_matrix_message, QWIIC_KEYBOARD_MATRIX_MESSAGE_SIZE);
       break;
     default:
+      qwiic_keyboard_listening_address[0] = body[0];
+      twi2c_add_listening(body[0]);
       twi2c_remove_listening(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS);
       qwiic_keyboard_connected[0] = true;
-      //qwiic_keyboard_master = false;
-      qwiic_keyboard_listening_address[0] = QWIIC_KEYBOARD_LISTENING_ADDRESS_START;
+      qwiic_keyboard_master = false;
       twi2c_reply(i2cp, qwiic_keyboard_listening_address, 1);
-      twi2c_add_listening(qwiic_keyboard_listening_address[0]);
       break;
   }
 }
