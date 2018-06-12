@@ -68,15 +68,14 @@ void qwiic_keyboard_init(void) {
 }
 
 void qwiic_keyboard_set_master(void) {
-  //twi2c_stop();
-  //twi2c_start();
-  twi2c_remove_listening(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS);
+  twi2c_stop();
+  twi2c_start();
   qwiic_keyboard_master = true;
 }
 
-uint8_t keymap_command[1] = { 0x01 };
-uint8_t matrix_command[1] = { 0x02 };
-uint8_t look_counter = 0;
+static uint8_t keymap_command[1] = { 0x01 };
+static uint8_t matrix_command[1] = { 0x02 };
+static uint8_t look_counter = 0;
 
 // uint8_t get_available_device_index(void) {
 //   for (uint8_t i = 0; i < QWIIC_KEYBOARD_MAX_DEVICES; i++) {
@@ -85,6 +84,67 @@ uint8_t look_counter = 0;
 //   }
 //   return 255;
 // }
+
+void qwiic_keyboard_get_matrix(uint8_t device_i) {
+  msg_t ret = twi2c_transmit_receive(qwiic_keyboard_listening_address[device_i],
+    matrix_command, 1,
+    qwiic_keyboard_matrix_message, QWIIC_KEYBOARD_MATRIX_MESSAGE_SIZE
+  );
+  switch (ret) {
+    case I2C_OK:
+      SEND_STRING("1");
+      // majority of this is pulled from keyboard.c:keyboard_task()
+      static qwiic_row_t matrix_prev[QWIIC_KEYBOARD_ROWS];
+      qwiic_row_t matrix_row = 0;
+      qwiic_row_t matrix_change = 0;
+      #ifdef QMK_KEYS_PER_SCAN
+        uint8_t keys_processed = 0;
+      #endif
+      qwiic_keyboard_processing_slave = device_i;
+      for (uint8_t r = 0; r < QWIIC_KEYBOARD_ROWS; r++) {
+        matrix_row = qwiic_keyboard_matrix_message[r];
+        matrix_change = matrix_row ^ matrix_prev[r];
+        if (matrix_change) {
+          for (uint8_t c = 0; c < QWIIC_KEYBOARD_COLS; c++) {
+            if (matrix_change & ((qwiic_row_t)1<<c)) {
+              action_exec((keyevent_t){
+                .key = (keypos_t){ .row = r, .col = c },
+                .pressed = (matrix_row & ((qwiic_row_t)1<<c)),
+                .time = (timer_read() | 1) /* time should not be 0 */
+              });
+              // record a processed key
+              matrix_prev[r] ^= ((qwiic_row_t)1<<c);
+              #ifdef QMK_KEYS_PER_SCAN
+                // only jump out if we have processed "enough" keys.
+                if (++keys_processed >= QMK_KEYS_PER_SCAN)
+              #endif
+              // process a key per task call
+              goto QWIIC_MATRIX_LOOP_END;
+            }
+          }
+        }
+      }
+      // call with pseudo tick event when no real key event.
+      #ifdef QMK_KEYS_PER_SCAN
+        // we can get here with some keys processed now.
+        if (!keys_processed)
+      #endif
+      action_exec(TICK);
+      QWIIC_MATRIX_LOOP_END:
+      qwiic_keyboard_processing_slave = QWIIC_KEYBOARD_NOT_PROCESSING;
+      SEND_STRING("2");
+    // if (first_message == 100) {
+    //   PLAY_SONG(song_one_up);
+    // }
+    // first_message += 1;
+      break;
+    case I2C_ERROR:
+      break;
+    default:
+      twi2c_start();
+      break;
+  }
+}
 
 void qwiic_keyboard_task(void) {
   if (USB_DRIVER.state == USB_ACTIVE)
@@ -105,56 +165,12 @@ void qwiic_keyboard_task(void) {
             // load keymap into memory
             qwiic_keyboard_keymap_initialised[device_i] = true;
             qwiic_keyboard_read_keymap(qwiic_keyboard_keymap_message, device_i);
+            wait_ms(10);
+            qwiic_keyboard_get_matrix(device_i);
+            SEND_STRING("3");
           }
         } else {
-          if (MSG_OK == twi2c_transmit_receive(qwiic_keyboard_listening_address[device_i],
-            matrix_command, 1,
-            qwiic_keyboard_matrix_message, QWIIC_KEYBOARD_MATRIX_MESSAGE_SIZE
-          )) {
-            // majority of this is pulled from keyboard.c:keyboard_task()
-            static qwiic_row_t matrix_prev[QWIIC_KEYBOARD_ROWS];
-            qwiic_row_t matrix_row = 0;
-            qwiic_row_t matrix_change = 0;
-            #ifdef QMK_KEYS_PER_SCAN
-              uint8_t keys_processed = 0;
-            #endif
-            qwiic_keyboard_processing_slave = device_i;
-            for (uint8_t r = 0; r < QWIIC_KEYBOARD_ROWS; r++) {
-              matrix_row = qwiic_keyboard_matrix_message[r];
-              matrix_change = matrix_row ^ matrix_prev[r];
-              if (matrix_change) {
-                for (uint8_t c = 0; c < QWIIC_KEYBOARD_COLS; c++) {
-                  if (matrix_change & ((qwiic_row_t)1<<c)) {
-                    action_exec((keyevent_t){
-                      .key = (keypos_t){ .row = r, .col = c },
-                      .pressed = (matrix_row & ((qwiic_row_t)1<<c)),
-                      .time = (timer_read() | 1) /* time should not be 0 */
-                    });
-                    // record a processed key
-                    matrix_prev[r] ^= ((qwiic_row_t)1<<c);
-                    #ifdef QMK_KEYS_PER_SCAN
-                      // only jump out if we have processed "enough" keys.
-                      if (++keys_processed >= QMK_KEYS_PER_SCAN)
-                    #endif
-                    // process a key per task call
-                    goto QWIIC_MATRIX_LOOP_END;
-                  }
-                }
-              }
-            }
-            // call with pseudo tick event when no real key event.
-            #ifdef QMK_KEYS_PER_SCAN
-              // we can get here with some keys processed now.
-              if (!keys_processed)
-            #endif
-            action_exec(TICK);
-            QWIIC_MATRIX_LOOP_END:
-            qwiic_keyboard_processing_slave = QWIIC_KEYBOARD_NOT_PROCESSING;
-          // if (first_message == 100) {
-          //   PLAY_SONG(song_one_up);
-          // }
-          // first_message += 1;
-          }
+          qwiic_keyboard_get_matrix(device_i);
         } // end else - not init
       } else { // if not connected
         //if (look_counter == 0) {
@@ -169,13 +185,12 @@ void qwiic_keyboard_task(void) {
             &new_address, 1,
             &address_copy, 1
           )) {
-            send_byte(address_copy);
-            if (address_copy == new_address) {
-              SEND_STRING(".");
+            send_byte(new_address);
+            //if (address_copy == new_address) {
               PLAY_SONG(song_one_up);
               qwiic_keyboard_connected[device_i] = true;
               qwiic_keyboard_listening_address[device_i] = new_address;
-            }
+            //}
           }
         //} // end if - look for new
       } // end else - connected
@@ -193,6 +208,11 @@ void qwiic_keyboard_message_received(I2CDriver *i2cp, uint8_t * body, uint16_t s
       break;
     // send matrix
     case 0x02:
+    case 0x00:
+      if (first_message == 0) {
+        PLAY_SONG(song_one_up);
+      }
+      first_message += 1;
       for (uint8_t row = 0; row < QWIIC_KEYBOARD_ROWS; row++) {
         if (row < MATRIX_ROWS) {
           qwiic_keyboard_matrix_message[row] = matrix_get_row(row);
@@ -203,12 +223,12 @@ void qwiic_keyboard_message_received(I2CDriver *i2cp, uint8_t * body, uint16_t s
       twi2c_reply(i2cp, qwiic_keyboard_matrix_message, QWIIC_KEYBOARD_MATRIX_MESSAGE_SIZE);
       break;
     default:
-      twi2c_remove_listening_i(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS);
+      twi2c_remove_listening(QWIIC_KEYBOARD_HANDSHAKE_ADDRESS);
       qwiic_keyboard_connected[0] = true;
       //qwiic_keyboard_master = false;
-      qwiic_keyboard_listening_address[0] = body[0];
-      twi2c_reply(i2cp, body, size);
-      twi2c_add_listening_i(qwiic_keyboard_listening_address[0]);
+      qwiic_keyboard_listening_address[0] = QWIIC_KEYBOARD_LISTENING_ADDRESS_START;
+      twi2c_reply(i2cp, qwiic_keyboard_listening_address, 1);
+      twi2c_add_listening(qwiic_keyboard_listening_address[0]);
       break;
   }
 }
