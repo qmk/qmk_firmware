@@ -21,7 +21,7 @@ void i2c_init(void)
 uint8_t i2c_start(uint8_t address)
 {
 	// reset TWI control register
-	//TWCR = 0;
+	TWCR = 0;
 	// transmit START condition
 	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
 	// wait for end of transmission
