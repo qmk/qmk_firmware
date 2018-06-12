@@ -23,20 +23,51 @@ define HELIX_CUSTOMISE_MSG
   $(info -  LED_BACK_ENABLE=$(LED_BACK_ENABLE))
   $(info -  LED_UNDERGLOW_ENABLE=$(LED_UNDERGLOW_ENABLE))
   $(info -  LED_ANIMATION=$(LED_ANIMATIONS))
+  $(info -  IOS_DEVICE_ENABLE=$(IOS_DEVICE_ENABLE))
 endef
 
 # Helix keyboard customize
-# you can edit follows 6 Variables
-#  jp: 以下の6つの変数を必要に応じて編集します。
+# you can edit follows 7 Variables
+#  jp: 以下の7つの変数を必要に応じて編集します。
 HELIX_ROWS = 5              # Helix Rows is 4 or 5
 OLED_ENABLE = no            # OLED_ENABLE
 LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
 LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
+IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
 ####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
 ####    Do not enable these with audio at the same time.
+
+### Helix keyboard 'default' keymap: convenient command line option
+##    make HELIX=<options> helix:defualt
+##    option= oled | back | under | na | ios
+##    ex.
+##      make HELIX=oled          helix:defualt
+##      make HELIX=oled,back     helix:defualt
+##      make HELIX=oled,under    helix:defualt
+##      make HELIX=oled,back,na  helix:defualt
+##      make HELIX=oled,back,ios helix:defualt
+##
+ifneq ($(strip $(HELIX)),)
+  ifeq ($(findstring oled,$(HELIX)), oled)
+    OLED_ENABLE = yes
+  endif
+  ifeq ($(findstring back,$(HELIX)), back)
+    LED_BACK_ENABLE = yes
+  else ifeq ($(findstring under,$(HELIX)), under)
+    LED_UNDERGLOW_ENABLE = yes
+  endif
+  ifeq ($(findstring na,$(HELIX)), na)
+    LED_ANIMATIONS = no
+  endif
+  ifeq ($(findstring ios,$(HELIX)), ios)
+    IOS_DEVICE_ENABLE = yes
+  endif
+  $(eval $(call HELIX_CUSTOMISE_MSG))
+  $(info )
+endif
 
 # Uncomment these for checking
 #   jp: コンパイル時にカスタマイズの状態を表示したい時はコメントをはずします。
@@ -61,6 +92,10 @@ else ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
   RGBLIGHT_ENABLE = yes
 else
   RGBLIGHT_ENABLE = no
+endif
+
+ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
+    OPT_DEFS += -DIOS_DEVICE_ENABLE
 endif
 
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
