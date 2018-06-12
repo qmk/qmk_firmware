@@ -89,6 +89,20 @@ By default, `MUSIC_MASK` is set to `keycode < 0xFF` which means keycodes less th
 
 Which will capture all keycodes - be careful, this will get you stuck in music mode until you restart your keyboard!
 
+For a more advanced way to control which keycodes should still be processed, you can use `music_mask_kb(keycode)` in `<keyboard>.c` and `music_mask_user(keycode)` in your `keymap.c`:
+
+    bool music_mask_user(uint16_t keycode) {
+      switch (keycode) {
+        case RAISE:
+        case LOWER:
+          return false;
+        default:
+          return true;
+      }
+    }
+
+Things that return false are not part of the mask, and are always processed.
+
 The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, add something like this to your `config.h`:
 
     #define PITCH_STANDARD_A 432.0f

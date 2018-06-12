@@ -78,30 +78,44 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLED_NUM 6
 #endif
 
-#if RGBLED_NUM <= 6
-  #define RGBLIGHT_LIMIT_VAL 255
-#else
-  #if HELIX_ROWS == 5
-    #define RGBLIGHT_LIMIT_VAL 120
+#ifndef IOS_DEVICE_ENABLE
+  #if RGBLED_NUM <= 6
+    #define RGBLIGHT_LIMIT_VAL 255
   #else
-    #define RGBLIGHT_LIMIT_VAL 130
+    #if HELIX_ROWS == 5
+      #define RGBLIGHT_LIMIT_VAL 120
+    #else
+      #define RGBLIGHT_LIMIT_VAL 130
+    #endif
   #endif
+  #define RGBLIGHT_VAL_STEP 17
+#else
+  #if RGBLED_NUM <= 6
+    #define RGBLIGHT_LIMIT_VAL 90
+  #else
+    #if HELIX_ROWS == 5
+      #define RGBLIGHT_LIMIT_VAL 35
+    #else
+      #define RGBLIGHT_LIMIT_VAL 45
+    #endif
+  #endif
+  #define RGBLIGHT_VAL_STEP 4
 #endif
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
-#endif
 
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for Helix keyboard
 //  120  RGBoff, OLEDoff
 //  120  OLED
 //  330  RGB 6
 //  300  RGB 32
 //  310  OLED & RGB 32
-  #define USB_MAX_POWER_CONSUMPTION 330
+  #define USB_MAX_POWER_CONSUMPTION 400
 #else
   // fix iPhone and iPad power adapter issue
   // iOS device need lessthan 100
   #define USB_MAX_POWER_CONSUMPTION 100
 #endif
+
+#endif /* CONFIG_USER_H */

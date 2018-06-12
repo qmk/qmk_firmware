@@ -17,6 +17,8 @@ Keyboard maintainer: [Andrew](https://github.com/sparkyman215)
 Hardware Supported: YMD96 with the ATmega32a chip.  
 Hardware Availability: The GB was run June 2017, [in this thread](https://www.reddit.com/r/mechmarket/comments/6hu3yx/vendor_ymd96_gb_is_now_live_68_an_universal_and/). The vendor has stated that they plan on selling more rounds.
 
+A very big thanks to @krusli for making the RGB underglow, Backlight, CapsLock and NumLock LEDs working correctly.
+
 ## Finding your specific matrix
 
 This firmware was modified from [ps2avrGB](https://github.com/qmk/qmk_firmware/tree/master/keyboards/ps2avrGB), also found on this qmk repo, to work with the YMD96 keyboard. However, I only have one board to test with, which might have a different layout than yours. To get qmk working with your specific layout, you'll need to follow these steps:  
