@@ -106,9 +106,8 @@ inline void ergodox_led_all_set(uint8_t n)
     ergodox_right_led_3_set(n);
 }
 
-#define KEYMAP(                                                 \
+#define LAYOUT_ergodox(                                         \
                                                                 \
-    /* left hand, spatial positions */                          \
     k00,k01,k02,k03,k04,k05,k06,                                \
     k10,k11,k12,k13,k14,k15,k16,                                \
     k20,k21,k22,k23,k24,k25,                                    \
@@ -118,7 +117,6 @@ inline void ergodox_led_all_set(uint8_t n)
                                 k54,                            \
                         k53,k52,k51,                            \
                                                                 \
-    /* right hand, spatial positions */                         \
         k07,k08,k09,k0A,k0B,k0C,k0D,                            \
         k17,k18,k19,k1A,k1B,k1C,k1D,                            \
             k28,k29,k2A,k2B,k2C,k2D,                            \
@@ -128,28 +126,26 @@ inline void ergodox_led_all_set(uint8_t n)
     k59,                                                        \
     k5C,k5B,k5A )                                               \
                                                                 \
-   /* matrix positions */                                       \
    {                                                            \
     { k00, k10, k20, k30, k40, KC_NO },   \
-    { k01, k11, k21, k31, k41, k51 },   \
-    { k02, k12, k22, k32, k42, k52 },   \
-    { k03, k13, k23, k33, k43, k53 },   \
-    { k04, k14, k24, k34, k44, k54 },   \
+    { k01, k11, k21, k31, k41, k51 },     \
+    { k02, k12, k22, k32, k42, k52 },     \
+    { k03, k13, k23, k33, k43, k53 },     \
+    { k04, k14, k24, k34, k44, k54 },     \
     { k05, k15, k25, k35, KC_NO, k55 },   \
-    { k06, k16, KC_NO, k36, KC_NO, k56 },   \
-                                                                 \
-    { k07, k17, KC_NO, k37,KC_NO, k57 },   \
-    { k08, k18, k28, k38,KC_NO, k58 },   \
-    { k09, k19, k29, k39, k49, k59 },   \
-    { k0A, k1A, k2A, k3A, k4A, k5A },   \
-    { k0B, k1B, k2B, k3B, k4B, k5B },   \
-    { k0C, k1C, k2C, k3C, k4C, k5C },   \
+    { k06, k16, KC_NO, k36, KC_NO, k56 }, \
+                                          \
+    { k07, k17, KC_NO, k37,KC_NO, k57 },  \
+    { k08, k18, k28, k38,KC_NO, k58 },    \
+    { k09, k19, k29, k39, k49, k59 },     \
+    { k0A, k1A, k2A, k3A, k4A, k5A },     \
+    { k0B, k1B, k2B, k3B, k4B, k5B },     \
+    { k0C, k1C, k2C, k3C, k4C, k5C },     \
     { k0D, k1D, k2D, k3D, k4D, KC_NO }    \
    }
 
-#define KEYMAP_80(                                              \
+#define LAYOUT_ergodox_80(                                      \
                                                                 \
-    /* left hand, spatial positions */                          \
     k00,k01,k02,k03,k04,k05,k06,                                \
     k10,k11,k12,k13,k14,k15,k16,                                \
     k20,k21,k22,k23,k24,k25,                                    \
@@ -159,7 +155,6 @@ inline void ergodox_led_all_set(uint8_t n)
                         k45,k46,k54,                            \
                         k53,k52,k51,                            \
                                                                 \
-    /* right hand, spatial positions */                         \
         k07,k08,k09,k0A,k0B,k0C,k0D,                            \
         k17,k18,k19,k1A,k1B,k1C,k1D,                            \
             k28,k29,k2A,k2B,k2C,k2D,                            \
@@ -169,27 +164,25 @@ inline void ergodox_led_all_set(uint8_t n)
     k59,k47,k48,                                                \
     k5C,k5B,k5A )                                               \
                                                                 \
-   /* matrix positions */                                       \
    {                                                            \
-    { k00, k10, k20, k30, k40, KC_NO },   \
+    { k00, k10, k20, k30, k40, KC_NO }, \
     { k01, k11, k21, k31, k41, k51 },   \
     { k02, k12, k22, k32, k42, k52 },   \
     { k03, k13, k23, k33, k43, k53 },   \
     { k04, k14, k24, k34, k44, k54 },   \
     { k05, k15, k25, k35, k45, k55 },   \
-    { k06, k16, KC_NO, k36, k46, k56 },   \
-                                                                 \
-    { k07, k17, KC_NO, k37, k47, k57 },   \
+    { k06, k16, KC_NO, k36, k46, k56 }, \
+                                        \
+    { k07, k17, KC_NO, k37, k47, k57 }, \
     { k08, k18, k28, k38, k48, k58 },   \
     { k09, k19, k29, k39, k49, k59 },   \
     { k0A, k1A, k2A, k3A, k4A, k5A },   \
     { k0B, k1B, k2B, k3B, k4B, k5B },   \
     { k0C, k1C, k2C, k3C, k4C, k5C },   \
-    { k0D, k1D, k2D, k3D, k4D, KC_NO }    \
+    { k0D, k1D, k2D, k3D, k4D, KC_NO }  \
    }
 
-#define KEYMAP_PRETTY(                                                                                        \
-    /* left hand, spatial positions */     /* right hand, spatial positions */                         \
+#define LAYOUT_ergodox_pretty(                                                                         \
     L00,L01,L02,L03,L04,L05,L06,               R00,R01,R02,R03,R04,R05,R06,                            \
     L10,L11,L12,L13,L14,L15,L16,               R10,R11,R12,R13,R14,R15,R16,                            \
     L20,L21,L22,L23,L24,L25,                       R21,R22,R23,R24,R25,R26,                            \
@@ -199,7 +192,6 @@ inline void ergodox_led_all_set(uint8_t n)
                                 L54,       R52,                                                        \
                         L53,L52,L51,       R55,R54,R53 )                                               \
                                           \
-   /* matrix positions */                 \
     {                                     \
     { L00, L10, L20, L30, L40, KC_NO },   \
     { L01, L11, L21, L31, L41, L51 },     \
@@ -218,8 +210,7 @@ inline void ergodox_led_all_set(uint8_t n)
     { R06, R16, R26, R36, R46, KC_NO }    \
     }
 
-#define KEYMAP_PRETTY_80(                                                                              \
-    /* left hand, spatial positions */     /* right hand, spatial positions */                         \
+#define LAYOUT_ergodox_pretty_80_(                                                                     \
     L00,L01,L02,L03,L04,L05,L06,               R00,R01,R02,R03,R04,R05,R06,                            \
     L10,L11,L12,L13,L14,L15,L16,               R10,R11,R12,R13,R14,R15,R16,                            \
     L20,L21,L22,L23,L24,L25,                       R21,R22,R23,R24,R25,R26,                            \
@@ -229,7 +220,6 @@ inline void ergodox_led_all_set(uint8_t n)
                         L45,L46,L54,       R52,R40,R41,                                                \
                         L53,L52,L51,       R55,R54,R53 )                                               \
                                           \
-      /* matrix positions */              \
     {                                     \
     { L00, L10, L20, L30, L40, KC_NO },   \
     { L01, L11, L21, L31, L41, L51 },     \
@@ -248,9 +238,5 @@ inline void ergodox_led_all_set(uint8_t n)
     { R06, R16, R26, R36, R46, KC_NO }    \
     }
 
-#define LAYOUT_ergodox KEYMAP
-#define LAYOUT_ergodox_pretty KEYMAP_PRETTY
-#define LAYOUT_ergodox_80 KEYMAP_80
-#define LAYOUT_ergodox_pretty_80 KEYMAP_PRETTY_80
 
 #endif
