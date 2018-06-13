@@ -20,7 +20,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [DVORAK] = LAYOUT_wrapper (
+  [DVORAK] = LAYOUT_wrapper(
                              // left hand
                              KC_GRV,     ___NUMBER_L___,   DEF_OS_LAYER_SW,
                              KC_LOCK,    ___DVORAK_L1___,  KC_LBRC,
@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              ___ERGODOX_THUMB_RIGHT___
                              ),
 
-  [XMONAD] = LAYOUT_wrapper (
+  [XMONAD] = LAYOUT_wrapper(
                              // left hand
                              ___,  ___FUNC_L___,     ___,
                              ___,  ___DVORAK_L1___,  ___,
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             ___ERGODOX_THUMB_RIGHT___
                             ),
 
-  [COLEMAK] = LAYOUT_wrapper (
+  [COLEMAK] = LAYOUT_wrapper(
                               // left hand
                               KC_GRV,     ___NUMBER_L___,    DEF_OS_LAYER_SW,
                               KC_LOCK,    ___COLEMAK_L1___,  KC_LBRC,
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               ___ERGODOX_THUMB_RIGHT___
                               ),
 
-  [WORKMAN] = LAYOUT_wrapper (
+  [WORKMAN] = LAYOUT_wrapper(
                               // left hand
                               KC_GRV,     ___NUMBER_L___,    DEF_OS_LAYER_SW,
                               KC_LOCK,    ___WORKMAN_L1___,  KC_LBRC,
@@ -183,7 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                ___ERGODOX_THUMB_RIGHT___
                                ),
 
-  [BEPO] = LAYOUT_wrapper (
+  [BEPO] = LAYOUT_wrapper(
                            // Left hand
                            BP_DLR,         ___SYMBOL_BEPO_L___,  DEF_OS_LAYER_SW,
                            KC_LOCK,        ___BEPO_FR_L1___,     DB_LBRC,

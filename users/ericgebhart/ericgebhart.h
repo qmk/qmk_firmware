@@ -250,8 +250,8 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data);
 // Since our quirky block definitions are basically a list of comma separated
 // arguments, we need a wrapper in order for these definitions to be
 // expanded before being used as arguments to the LAYOUT_xxx macro.
-#if (!defined(LAYOUT) && defined(KEYMAP))
-#define LAYOUT KEYMAP
+#if (!defined(LAYOUT) && defined(LAYOUT_ergodox))
+#define LAYOUT LAYOUT_ergodox
 #endif
 
 #define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
