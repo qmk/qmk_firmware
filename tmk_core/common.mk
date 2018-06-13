@@ -3,6 +3,8 @@ ifeq ($(PLATFORM),AVR)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
 else ifeq ($(PLATFORM),CHIBIOS)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
+else ifeq ($(PLATFORM),ARM_ATSAM)
+	PLATFORM_COMMON_DIR = $(COMMON_DIR)/arm_atsam
 else
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/test
 endif
@@ -33,6 +35,10 @@ ifeq ($(PLATFORM),CHIBIOS)
   ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
   endif
+endif
+
+ifeq ($(PLATFORM),ARM_ATSAM)
+	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
 endif
 
 ifeq ($(PLATFORM),TEST)
