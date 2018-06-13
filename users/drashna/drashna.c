@@ -57,6 +57,12 @@ __attribute__ ((weak))
 void matrix_init_keymap(void) {}
 
 __attribute__ ((weak))
+void suspend_power_down_keymap(void) {}
+
+__attribute__ ((weak))
+void suspend_wakeup_init_keymap(void) {}
+
+__attribute__ ((weak))
 void matrix_scan_keymap(void) {}
 
 __attribute__ ((weak))
@@ -101,6 +107,20 @@ void matrix_init_user(void) {
 #endif //UNICODE_ENABLE
   matrix_init_rgb();
   matrix_init_keymap();
+}
+
+
+void suspend_power_down_user(void)
+{
+    suspend_power_down_keymap();
+}
+
+void suspend_wakeup_init_user(void)
+{
+  suspend_wakeup_init_keymap();
+  #ifdef KEYBOARD_ergodox_ez
+  wait_ms(10);
+  #endif
 }
 
 
@@ -256,7 +276,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         diablo_key_time[dtime] = diablo_times[0];
       }
     }
-#endif // TAP_DANCE_ENABLE#endif
+#endif // TAP_DANCE_ENABLE
     return false; break;
 
 
