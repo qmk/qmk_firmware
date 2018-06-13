@@ -43,6 +43,7 @@
   * [Pointing Device](feature_pointing_device.md)
   * [PS/2 Mouse](feature_ps2_mouse.md)
   * [RGB Lighting](feature_rgblight.md)
+  * [RGB Matrix](feature_rgb_matrix.md)
   * [Space Cadet Shift](feature_space_cadet.md)
   * [Space Cadet Shift Enter](feature_space_shift_cadet.md)
   * [Stenography](feature_stenography.md)

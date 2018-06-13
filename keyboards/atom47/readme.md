@@ -4,11 +4,11 @@
 
 ## Support
 Keyboard Maintainer: [Maarten Dekkers](https://github.com/maartenwut)  
-Hardware Supported: Atom47 rev3
+Hardware Supported: Atom47 rev2/rev3
 Hardware Availability: [GeekHack.com Group Buy](https://geekhack.org/index.php?topic=93447.msg2545221)  
 
 
-## Features
+## Features (rev3 and up)
 - QMK Firmware  
 - 6 Underglow RGB leds  
 - In-switch leds  
@@ -19,7 +19,7 @@ Hardware Availability: [GeekHack.com Group Buy](https://geekhack.org/index.php?t
 - CapsLock indicator  
 
 ## Build
-To build the default keymap, simply run `make atom47:default`.
+To build the default keymap for the latest revision, simply run `make atom47:default`. Specifiy the revision like so: `make atom47/rev3:default`.
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 

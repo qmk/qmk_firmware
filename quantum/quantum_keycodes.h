@@ -423,6 +423,7 @@ enum quantum_keycodes {
     RGB_MODE_KNIGHT,
     RGB_MODE_XMAS,
     RGB_MODE_GRADIENT,
+    RGB_MODE_RGBTEST,
 
     // Left shift, open paren
     KC_LSPO,
@@ -586,6 +587,7 @@ enum quantum_keycodes {
 #define RGB_M_K RGB_MODE_KNIGHT
 #define RGB_M_X RGB_MODE_XMAS
 #define RGB_M_G RGB_MODE_GRADIENT
+#define RGB_M_T RGB_MODE_RGBTEST
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
 #define LT(layer, kc) (kc | QK_LAYER_TAP | ((layer & 0xF) << 8))
