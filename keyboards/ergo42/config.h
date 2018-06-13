@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 #define CATERINA_BOOTLOADER
+#define PREVENT_STUCK_MODIFIERS
 
 #define MOUSEKEY_DELAY             32
 #define MOUSEKEY_INTERVAL          16
