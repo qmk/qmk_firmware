@@ -6,6 +6,7 @@
 #include <util/twi.h>
 
 #include "i2c_master.h"
+#include "timer.h"
 
 #define F_SCL 400000UL // SCL frequency
 #define Prescaler 1
@@ -24,8 +25,18 @@ uint8_t i2c_start(uint8_t address)
 	TWCR = 0;
 	// transmit START condition
 	TWCR = (1<<TWINT) | (1<<TWSTA) | (1<<TWEN);
-	// wait for end of transmission
-	while( !(TWCR & (1<<TWINT)) );
+
+  #ifdef I2C_TIMEOUT
+    uint16_t timeout_timer = timer_read();
+    while( !(TWCR & (1<<TWINT)) ) {
+      if ((timer_read() - timeout_timer) > I2C_TIMEOUT) {
+        return 2; // should make these codes standard
+      }
+    }
+  #else
+  // wait for end of transmission
+    while( !(TWCR & (1<<TWINT)) );
+  #endif
 
 	// check if the start condition was successfully transmitted
 	if(((TW_STATUS & 0xF8) != TW_START) && ((TW_STATUS & 0xF8) != TW_REP_START)){ return 1; }
@@ -34,8 +45,18 @@ uint8_t i2c_start(uint8_t address)
 	TWDR = address;
 	// start transmission of address
 	TWCR = (1<<TWINT) | (1<<TWEN);
-	// wait for end of transmission
-	while( !(TWCR & (1<<TWINT)) );
+
+  #ifdef I2C_TIMEOUT
+    timeout_timer = timer_read();
+    while( !(TWCR & (1<<TWINT)) ) {
+      if ((timer_read() - timeout_timer) > I2C_TIMEOUT) {
+        return 2; // should make these codes standard
+      }
+    }
+  #else
+  // wait for end of transmission
+    while( !(TWCR & (1<<TWINT)) );
+  #endif
 
 	// check if the device has acknowledged the READ / WRITE mode
 	uint8_t twst = TW_STATUS & 0xF8;
@@ -50,8 +71,18 @@ uint8_t i2c_write(uint8_t data)
 	TWDR = data;
 	// start transmission of data
 	TWCR = (1<<TWINT) | (1<<TWEN);
+
+  #ifdef I2C_TIMEOUT
+    uint16_t timeout_timer = timer_read();
+    while( !(TWCR & (1<<TWINT)) ) {
+      if ((timer_read() - timeout_timer) > I2C_TIMEOUT) {
+        return 2; // should make these codes standard
+      }
+    }
+  #else
 	// wait for end of transmission
-	while( !(TWCR & (1<<TWINT)) );
+    while( !(TWCR & (1<<TWINT)) );
+  #endif
 
 	if( (TW_STATUS & 0xF8) != TW_MT_DATA_ACK ){ return 1; }
 
@@ -63,8 +94,19 @@ uint8_t i2c_read_ack(void)
 
 	// start TWI module and acknowledge data after reception
 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWEA);
-	// wait for end of transmission
-	while( !(TWCR & (1<<TWINT)) );
+
+  #ifdef I2C_TIMEOUT
+    uint16_t timeout_timer = timer_read();
+    while( !(TWCR & (1<<TWINT)) ) {
+      if ((timer_read() - timeout_timer) > I2C_TIMEOUT) {
+        return 2; // should make these codes standard
+      }
+    }
+  #else
+  // wait for end of transmission
+    while( !(TWCR & (1<<TWINT)) );
+  #endif
+
 	// return received data from TWDR
 	return TWDR;
 }
@@ -74,8 +116,19 @@ uint8_t i2c_read_nack(void)
 
 	// start receiving without acknowledging reception
 	TWCR = (1<<TWINT) | (1<<TWEN);
-	// wait for end of transmission
-	while( !(TWCR & (1<<TWINT)) );
+
+    #ifdef I2C_TIMEOUT
+    uint16_t timeout_timer = timer_read();
+    while( !(TWCR & (1<<TWINT)) ) {
+      if ((timer_read() - timeout_timer) > I2C_TIMEOUT) {
+        return 2; // should make these codes standard
+      }
+    }
+  #else
+  // wait for end of transmission
+    while( !(TWCR & (1<<TWINT)) );
+  #endif
+
 	// return received data from TWDR
 	return TWDR;
 }
@@ -144,10 +197,22 @@ uint8_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t le
 	return 0;
 }
 
-void i2c_stop(void)
+uint8_t i2c_stop(void)
 {
 	// transmit STOP condition
 	TWCR = (1<<TWINT) | (1<<TWEN) | (1<<TWSTO);
-  // wait until stop condition is executed and bus released
-  while(TWCR & (1<<TWSTO));
+
+  #ifdef I2C_TIMEOUT
+    uint16_t timeout_timer = timer_read();
+    while(TWCR & (1<<TWSTO)) {
+        if ((timer_read() - timeout_timer) > I2C_TIMEOUT) {
+        return 2; // should make these codes standard
+      }
+    }
+  #else
+    // wait for end of transmission
+    while(TWCR & (1<<TWSTO));
+  #endif
+
+  return 0;
 }
