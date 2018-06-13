@@ -115,6 +115,10 @@ extern uint32_t default_layer_state;
 	#include "process_terminal_nop.h"
 #endif
 
+#ifdef HD44780_ENABLE
+	#include "hd44780.h"
+#endif
+
 #define STRINGIZE(z) #z
 #define ADD_SLASH_X(y) STRINGIZE(\x ## y)
 #define SYMBOL_STR(x) ADD_SLASH_X(x)
@@ -187,6 +191,19 @@ void breathing_period_dec(void);
 #endif
 
 #endif
+/*
+#ifdef HD44780_ENABLE
+void lcd_init(uint8_t dispAttr); 
+void lcd_clrscr(void); 
+void lcd_home(void); 
+void lcd_gotoxy(uint8_t x, uint8_t y); 
+void lcd_putc(char c); 
+void lcd_puts(const char *s); 
+void lcd_puts_p(const char *progmem_s); 
+void lcd_command(uint8_t cmd); 
+void lcd_data(uint8_t data);
+#endif
+*/
 void send_dword(uint32_t number);
 void send_word(uint16_t number);
 void send_byte(uint8_t number);
