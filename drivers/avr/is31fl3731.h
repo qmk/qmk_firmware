@@ -31,9 +31,9 @@ typedef struct is31_led {
 
 extern const is31_led g_is31_leds[DRIVER_LED_TOTAL];
 
-void IS31FL3731_init( uint8_t addr );
-void IS31FL3731_write_register( uint8_t addr, uint8_t reg, uint8_t data );
-void IS31FL3731_write_pwm_buffer( uint8_t addr, uint8_t *pwm_buffer );
+uint8_t IS31FL3731_init( uint8_t addr );
+uint8_t IS31FL3731_write_register( uint8_t addr, uint8_t reg, uint8_t data );
+uint8_t IS31FL3731_write_pwm_buffer( uint8_t addr, uint8_t *pwm_buffer );
 
 void IS31FL3731_set_color( int index, uint8_t red, uint8_t green, uint8_t blue );
 void IS31FL3731_set_color_all( uint8_t red, uint8_t green, uint8_t blue );
@@ -44,8 +44,8 @@ void IS31FL3731_set_led_control_register( uint8_t index, bool red, bool green, b
 // (eg. from a timer interrupt).
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
-void IS31FL3731_update_pwm_buffers( uint8_t addr1, uint8_t addr2 );
-void IS31FL3731_update_led_control_registers( uint8_t addr1, uint8_t addr2 );
+uint8_t IS31FL3731_update_pwm_buffers( uint8_t addr1, uint8_t addr2 );
+uint8_t IS31FL3731_update_led_control_registers( uint8_t addr1, uint8_t addr2 );
 
 #define C1_1  0x24
 #define C1_2  0x25
