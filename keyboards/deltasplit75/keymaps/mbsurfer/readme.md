@@ -1,4 +1,4 @@
-![Mbsurfer Layout Image](https://i.imgur.com/k3t91Ep.png)
+![Mbsurfer Layout Image](https://i.imgur.com/Hz82zyh.png)
 
 # Mbsurfer's DeltaSplit75 Layout
 
