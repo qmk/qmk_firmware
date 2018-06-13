@@ -76,4 +76,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_LED B0
 #define QMK_SPEAKER C6
 
+
+#define SHFT_LED1 5
+#define SHFT_LED2 10
+
+#define CTRL_LED1 6
+#define CTRL_LED2 9
+
+#define GUI_LED1 7
+#define GUI_LED2 8
+
 #endif

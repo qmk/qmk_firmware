@@ -16,7 +16,7 @@
 
 // Serial pulse period in microseconds. Its probably a bad idea to lower this
 // value.
-#define SERIAL_DELAY 24
+#define SERIAL_DELAY 30
 
 uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
 uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
