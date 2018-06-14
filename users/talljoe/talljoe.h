@@ -21,7 +21,7 @@ enum layers {
     _NORMAN,
     _DVORAK,
     _COLMAK,
-    _MALTRON,
+    _MALTROFF,
     _GAME,
     _NAV,
     _NUM,
@@ -31,7 +31,8 @@ enum layers {
 
 enum tap_dancers {
   TD_SEMICOLON,
-  TD_GRAVE
+  TD_GRAVE,
+  TD_QUOTE,
 };
 
 #define _______ KC_TRNS
@@ -41,6 +42,7 @@ enum tap_dancers {
 #define MO_ADJ    MO(_ADJUST)
 #define MO_RST    MO(_RESET)
 #define TG_ADJ    TG(_ADJUST)
+#define TG_NUM    TG(_NUM)
 #ifdef ENABLE_GAME_LAYER
   #define TG_GAME TG(_GAME)
 #else
@@ -52,7 +54,7 @@ enum tap_dancers {
 #define LY_DVRK   DF(_DVORAK)
 #define LY_CLMK   DF(_COLMAK)
 #if SPACE_COUNT >= 2
-  #define LY_MALT DF(_MALTRON)
+  #define LY_MALT DF(_MALTROFF)
 #else
   #define LY_MALT KC_NO
 #endif
@@ -61,15 +63,18 @@ enum tap_dancers {
 #define MS_MID    KC_MS_BTN3
 #define FX(x)     (EFFECT + x)
 
-#define US_CAPS   CTL_T(KC_ESC)
+#define CTL_ESC   CTL_T(KC_ESC)
 #define US_ENT    RCTL_T(KC_ENT)
 #define US_MINS   RCTL_T(KC_QUOT)
+#define US_BSLS   LT(_NUM, KC_BSLS)
 #define US_SCLN   TD(TD_SEMICOLON)
 #define US_GRV    TD(TD_GRAVE)
-#define US_QUOT   LT(_NUM, KC_QUOT)
+#define US_QUOT   TD(TD_QUOTE)
 #define US_TAB    C_S_T(KC_TAB)
+#define SH_LBRC   LSFT_T(KC_LBRC)
+#define SH_RBRC   RSFT_T(KC_RBRC)
 
-#define MALT_E    LT(_NUM, KC_E)
+#define MLT_E     LT(_NUM, KC_E)
 
 #ifndef SPACE_COUNT
   #define SPACE_COUNT 1
@@ -100,7 +105,11 @@ enum tap_dancers {
   #define NV_SPC3   XXXXXXX
   #define NM_SPC3   XXXXXXX
 #elif (SPACE_COUNT == 3)
-  #define KC_SPC1   KC_BSPC
+  #ifdef SWAP_HANDS_ENABLE
+    #define KC_SPC1 SH_T(KC_BSPC)
+  #else
+    #define KC_SPC1 KC_BSPC
+  #endif
   #define KC_SPC2   LT(_NUM,KC_ENT)
   #define KC_SPC3   LT(_NAV,KC_SPC)
 
@@ -166,6 +175,28 @@ enum tap_dancers {
     KN2, KJ1, KI1, KH1, KG1, KG0, KF0, KF1, KE1, KD1, KR0,      KN3, KA5,           \
     KA4, KP2, KC6,           KX1, KK6, KX2,           KC0, KM3, KD0, KA1            \
   )
+#endif
+
+#ifndef TEMPLATE_ALT
+  #define TEMPLATE_ALT TEMPLATE
+#endif
+#ifndef TEMPLATE_NUM
+  #define TEMPLATE_NUM TEMPLATE_ALT
+#endif
+#ifndef TEMPLATE_NAV
+  #define TEMPLATE_NAV TEMPLATE_ALT
+#endif
+#ifndef TEMPLATE_ADJUST
+  #define TEMPLATE_ADJUST TEMPLATE_ALT
+#endif
+
+#ifndef TEMPLATE_RESET
+  #define TEMPLATE_RESET TEMPLATE_ALT( \
+      RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET  ,  \
+      RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET  ,           \
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,           \
+      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX,           \
+      RESET  , XXXXXXX, XXXXXXX,                   XXXXXXX, RESET  , XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX)
 #endif
 
 #endif
