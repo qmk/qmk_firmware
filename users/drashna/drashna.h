@@ -109,6 +109,7 @@ enum userspace_custom_keycodes {
 #define RAISE MO(_RAISE)
 #define ADJUST MO(_ADJUST)
 #define TG_MODS TG(_MODS)
+#define TG_GAME TG(_GAMEPAD)
 
 #define KC_SEC1 KC_SECRET_1
 #define KC_SEC2 KC_SECRET_2
@@ -237,7 +238,7 @@ enum {
 
 #define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN
 #define _________________WORKMAN_R2________________       KC_Y,    KC_N,    KC_E,    KC_O,    KC_I
-#define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,    CTL_T(KC_SLASH)
+#define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
 
 
 #define _________________NORMAN_L1_________________       KC_Q,    KC_W,    KC_D,    KC_F,    KC_K
@@ -251,11 +252,20 @@ enum {
 
 #define _________________MALTRON_L1________________       KC_Q,    KC_P,    KC_Y,    KC_C,    KC_B
 #define _________________MALTRON_L2________________       KC_A,    KC_N,    KC_I,    KC_S,    KC_F
-#define _________________MALTRON_L3________________ CTL_T(KC_SCLN), KC_SLASH, KC_J,    KC_G,    KC_COMM
+#define _________________MALTRON_L3________________ CTL_T(KC_SCLN), KC_SLSH, KC_J    KC_G,    KC_COMM
 
 #define _________________MALTRON_R1________________       KC_V,    KC_M,    KC_U,    KC_Z,    KC_L
 #define _________________MALTRON_R2________________       KC_D,    KC_T,    KC_D,    KC_O,    KC_R
 #define _________________MALTRON_R3________________       KC_DOT,  KC_W,    KC_K,    KC_MINS,  CTL_T(KC_x)
+
+
+#define _________________EUCALYN_L1________________       KC_SLSH, KC_COMM, KC_DOT,  KC_F,    KC_Q
+#define _________________EUCALYN_L2________________       KC_A,    KC_O,    KC_E,    KC_I,    KC_U
+#define _________________EUCALYN_L3________________ CTL_T(KC_Z),   KC_X,    KC_C,    KC_V,    KC_W
+
+#define _________________EUCALYN_R1________________       KC_M,    KC_R,    KC_D,    KC_Y,    KC_P
+#define _________________EUCALYN_R2________________       KC_G,    KC_T,    KC_K,    KC_S,    KC_N
+#define _________________EUCALYN_R3________________       KC_B,    KC_H,    KC_J,    KC_L,    CTL_T(KC_SCLN)
 
 
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
