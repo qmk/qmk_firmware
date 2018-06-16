@@ -51,20 +51,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* custom
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-   * │ esc │  G  │  M  │  D  │  L  │  V  │  H  │  U  │  C  │  P  │  B  │ bsp │
+   * │ esc │  B  │  M  │  P  │  O  │  ;  │  ^  │  V  │  D  │  L  │  J  │ bsp │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   * │ tab │  T  │  N  │  I  │  E  │  ,  │  .  │  A  │  S  │  R  │  O  │ ent │
+   * │ tab │  A  │  U  │  I  │  E  │  ,  │  C  │  T  │  S  │  R  │  N  │ ent │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   * │shift│  ;  │  W  │  J  │  F  │  X  │  Y  │  Q  │  K  │  Z  │ up  │raise│
+   * │shift│  W  │  Y  │  X  │  .  │  K  │  Z  │  Q  │  G  │  H  │  F  │raise│
    * ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
    * │ctrl │ os  │media│ alt │lower│   shift   │space│ alt │left │down │right│
    * └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
    */
   [_CUSTOM] = {
-    {KC_ESC,  KC_G,    KC_M,    KC_D,    KC_L,  KC_V,    KC_H,    KC_U,   KC_C,    KC_P,    KC_B,    KC_BSPC},
-    {KC_TAB,  KC_T,    KC_N,    KC_I,    KC_E,  KC_COMM, KC_DOT,  KC_A,   KC_S,    KC_R,    KC_O,    KC_ENT},
-    {KC_LSFT, KC_SCLN, KC_W,    KC_J,    KC_F,  KC_X,    KC_Y,    KC_Q,   KC_K,    KC_Z,    KC_UP,   RAISE},
-    {KC_LCTL, KC_LGUI, SP_MEDI, KC_LALT, LOWER, KC_LSFT, KC_LSFT, KC_SPC, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
+    {KC_ESC,  KC_B,    KC_M,    KC_P,    KC_O,   KC_SCLN, KC_CIRC, KC_V,   KC_D,    KC_L,    KC_J,    KC_BSPC},
+    {KC_TAB,  KC_A,    KC_U,    KC_I,    KC_E,   KC_COMM, KC_C,    KC_T,   KC_S,    KC_R,    KC_N,    KC_ENT},
+    {KC_LSFT, KC_W,    KC_Y,    KC_X,    KC_DOT, KC_K,    KC_Z,    KC_Q,   KC_G,    KC_H,    KC_F,    RAISE},
+    {KC_LCTL, KC_LGUI, SP_MEDI, KC_LALT, LOWER,  KC_LSFT, KC_LSFT, KC_SPC, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
   },
 
   /* gaming
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    * │  `  │  '  │  {  │  [  │  (  │  !  │  ?  │  )  │  ]  │  }  │  "  │     │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   * │     │     │     │  |  │  /  │  <  │  >  │  \  │  |  │     │pgup │     │
+   * │     │  `  │  ^  │  |  │  /  │  <  │  >  │  \  │  |  │     │pgup │     │
    * ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
    * │     │     │     │     │▒▒▒▒▒│           │     │     │home │pgdwn│ end │
    * └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = {
     {KC_CIRC, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_AMPR, KC_ASTR, KC_UNDS, KC_MINS, KC_PLUS, KC_EQUAL, KC_DEL },
     {KC_GRV,  KC_QUOT, KC_LCBR, KC_LBRC, KC_LPRN, KC_EXLM, KC_QUES, KC_RPRN, KC_RBRC, KC_RCBR, KC_DQT,   _______},
-    {_______, _______, _______, KC_PIPE, KC_SLSH, SP_LESS, SP_MORE, KC_BSLS, KC_PIPE, _______, KC_PGUP,  _______},
+    {_______, KC_GRV,  KC_CIRC, KC_PIPE, KC_SLSH, SP_LESS, SP_MORE, KC_BSLS, KC_PIPE, _______, KC_PGUP,  _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN,  KC_END }
   },
 
