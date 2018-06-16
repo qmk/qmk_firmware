@@ -58,7 +58,7 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 }
 
 
-#define LAYOUT_offset( \
+#define LAYOUT_offset_right( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K010, K011, K012, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K110, K111, K112, \
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K210, K211, K212, \
@@ -87,11 +87,6 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 )
 
 
-#define KEYMAP LAYOUT_planck_mit
-
-#define LAYOUT_2U_space LAYOUT_planck_mit
-
-#define KC_LAYOUT_ortho_4x12 LAYOUT_kc
-#define LAYOUT_kc_ortho_4x12 LAYOUT_kc
+#define LAYOUT LAYOUT_planck_mit
 
 #endif
