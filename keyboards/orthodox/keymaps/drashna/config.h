@@ -35,15 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-#ifdef TAPPING_TERM
-#undef TAPPING_TERM
-#endif
-#define TAPPING_TERM 150
-#undef PERMISSIVE_HOLD
-#define IGNORE_MOD_TAP_INTERRUPT // this makes it possible to do rolling combos (zx) with keys that convert to other keys on hold (z becomes ctrl when you hold it, and when this option isn't enabled, z rapidly followed by x actually sends Ctrl-x. That's bad.)
-#define ONESHOT_TAP_TOGGLE 2
-
-
 
 /* key combination for command */
 #ifdef IS_COMMAND
@@ -68,9 +59,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef AUDIO_ENABLE
 #define C6_AUDIO
-#define STARTUP_SONG SONG(IMPERIAL_MARCH)
+#ifdef RGBLIGHT_ENABLE
 #define NO_MUSIC_MODE
-#endif
+#endif //RGBLIGHT_ENABLE
+#endif //AUDIO_ENABLE
 
 #undef PRODUCT
 #ifdef KEYBOARD_orthodox_rev1
@@ -78,4 +70,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #elif KEYBOARD_orthodox_rev3
 #define PRODUCT         Drashna Hacked Orthodox Rev.3
 #endif
+
+#define QMK_ESC_OUTPUT D7 // usually COL
+#define QMK_ESC_INPUT D4 // usually ROW
+#define QMK_LED B0
+#define QMK_SPEAKER C6
+
+
+#define SHFT_LED1 5
+#define SHFT_LED2 10
+
+#define CTRL_LED1 6
+#define CTRL_LED2 9
+
+#define GUI_LED1 7
+#define GUI_LED2 8
+
 #endif

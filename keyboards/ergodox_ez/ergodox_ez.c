@@ -100,7 +100,7 @@ void ergodox_blink_all_leds(void)
       mcp23018_status = ergodox_left_leds_update();
     }
 #endif
-    
+
     //ergodox_led_all_on();
     //_delay_ms(333);
     ergodox_led_all_off();
@@ -185,7 +185,7 @@ uint8_t ergodox_left_leds_update(void) {
 #endif
 
 
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 // swap-hands action needs a matrix to define the swap
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {

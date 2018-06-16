@@ -2,14 +2,19 @@
 
 A basic ErgoDox layout with Planck-like tri-layer support.
 
-![ErgoDox Layout](https://i.imgur.com/9zfKPV7.png)
+![ErgoDox Layout](https://i.imgur.com/ae0Phzb.png)
 
 ## Features
 
+- Base Layers
+    - QWERTY
+    - Workman
+    - Dvorak
+    - Colemak
 - Planck-like tri-layer
-- Workman layout
 - In-progress gaming layer
-- Numpad
+- Numpad layer
+    ![numpad layer](https://i.imgur.com/oHDYpzf.png)
 - LCD colors are linked together, like the default KLL firmware
 
 ## Building and flashing

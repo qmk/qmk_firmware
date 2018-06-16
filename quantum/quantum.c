@@ -226,7 +226,13 @@ bool process_record_quantum(keyrecord_t *record) {
     // Must run first to be able to mask key_up events.
     process_key_lock(&keycode, record) &&
   #endif
+  #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
+      process_clicky(keycode, record) &&
+  #endif //AUDIO_CLICKY
     process_record_kb(keycode, record) &&
+  #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
+    process_rgb_matrix(keycode, record) &&
+  #endif
   #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
   #endif
@@ -236,7 +242,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef STENO_ENABLE
     process_steno(keycode, record) &&
   #endif
-  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE) 
+  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
@@ -304,7 +310,7 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   #endif
-  #ifdef RGBLIGHT_ENABLE
+  #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   case RGB_TOG:
     if (record->event.pressed) {
       rgblight_toggle();
@@ -360,6 +366,16 @@ bool process_record_quantum(keyrecord_t *record) {
   case RGB_VAD:
     if (record->event.pressed) {
       rgblight_decrease_val();
+    }
+    return false;
+  case RGB_SPI:
+    if (record->event.pressed) {
+      rgblight_increase_speed();
+    }
+    return false;
+  case RGB_SPD:
+    if (record->event.pressed) {
+      rgblight_decrease_speed();
     }
     return false;
   case RGB_MODE_PLAIN:
@@ -426,7 +442,12 @@ bool process_record_quantum(keyrecord_t *record) {
       }
     }
     return false;
-  #endif
+  case RGB_MODE_RGBTEST:
+    if (record->event.pressed) {
+      rgblight_mode(35);
+    }
+    return false;
+  #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {
@@ -777,12 +798,14 @@ void set_single_persistent_default_layer(uint8_t default_layer) {
   default_layer_set(1U<<default_layer);
 }
 
+uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+  uint32_t mask12 = (1UL << layer1) | (1UL << layer2);
+  uint32_t mask3 = 1UL << layer3;
+  return (state & mask12) == mask12 ? (state | mask3) : (state & ~mask3);
+}
+
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
+  layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
 }
 
 void tap_random_base64(void) {
@@ -830,8 +853,17 @@ void matrix_init_quantum() {
   #ifdef AUDIO_ENABLE
     audio_init();
   #endif
+  #ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_init_drivers();
+  #endif
   matrix_init_kb();
 }
+
+uint8_t rgb_matrix_task_counter = 0;
+
+#ifndef RGB_MATRIX_SKIP_FRAMES
+  #define RGB_MATRIX_SKIP_FRAMES 1
+#endif
 
 void matrix_scan_quantum() {
   #if defined(AUDIO_ENABLE)
@@ -850,9 +882,16 @@ void matrix_scan_quantum() {
     backlight_task();
   #endif
 
+  #ifdef RGB_MATRIX_ENABLE
+    rgb_matrix_task();
+    if (rgb_matrix_task_counter == 0) {
+      rgb_matrix_update_pwm_buffers();
+    }
+    rgb_matrix_task_counter = ((rgb_matrix_task_counter + 1) % (RGB_MATRIX_SKIP_FRAMES + 1));
+  #endif
+
   matrix_scan_kb();
 }
-
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
 
 static const uint8_t backlight_pin = BACKLIGHT_PIN;
