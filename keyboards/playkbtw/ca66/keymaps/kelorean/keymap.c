@@ -3,6 +3,7 @@
 *Made for HHKB layout with CA66 badge in lower left corner and split spacebars.
 *Left Spacebar - tap for backspace, hold for Layer1
 *Right Spacebar - tap for space, hold for Layer2
+*Layer 2 is same as Layer 1 except Left Spacebar is now delete
 *Cap Locks has been replaced with Momentary Toggle to Layer3
 *Layer 4 can be reached only by Layer3 in the '\' key
 *Layer 4 tab is the soft reset.
@@ -36,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_NO, 			   KC_NO, 	 KC_UP,    KC_NO, 	KC_NO,  KC_NO,    KC_NO,  	KC_NO,   KC_NO,     KC_NO,  KC_NO,    KC_NO,    KC_NO, 		KC_NO, 					KC_NO,	
 		KC_NO, 			   KC_LEFT,  KC_DOWN,  KC_RGHT, KC_NO, 	KC_NO, 	  KC_NO, 	KC_NO, 	 KC_NO, 	KC_NO, 	KC_NO, 	  KC_NO, 				KC_NO, 					KC_NO, 	
 		KC_NO, KC_NO, 	   KC_NO, 	 KC_NO,    KC_NO, 	KC_NO, 	KC_NO, 	  KC_NO, 	KC_NO,   KC_NO, 	KC_NO, 	KC_NO, 	  KC_NO, 	KC_NO, 								KC_NO, 
-		KC_NO, 			   KC_NO, 	 KC_NO,    KC_NO, 			KC_NO, 				KC_NO, 	 KC_NO, 	KC_NO, 				 KC_NO, KC_NO, KC_NO),
+		KC_NO, 			   KC_NO, 	 KC_NO,    KC_DEL, 			KC_NO, 				KC_NO, 	 KC_NO, 	KC_NO, 				 KC_NO, KC_NO, KC_NO),
 
 	//Layer3, Lighting Function keys, media keys and '\' is now Momentary Toggle to Layer 4, which has the soft reset.
 	[3] = LAYOUT(
