@@ -89,4 +89,6 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 
 #define LAYOUT LAYOUT_planck_mit
 
+#define LAYOUT_kc_ortho_4x12 LAYOUT_kc
+
 #endif
