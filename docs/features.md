@@ -17,8 +17,10 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Pointing Device](feature_pointing_device.md) - Framework for connecting your custom pointing device to your keyboard.
 * [PS2 Mouse](feature_ps2_mouse.md) - Driver for connecting a PS/2 mouse directly to your keyboard.
 * [RGB Light](feature_rgblight.md) - RGB lighting for your keyboard.
+* [RGB Matrix](feature_rgb_matrix.md) - RGB Matrix lights for per key lighting.
 * [Space Cadet](feature_space_cadet.md) - Use your left/right shift keys to type parenthesis and brackets.
 * [Stenography](feature_stenography.md) - Put your keyboard into Plover mode for stenography use.
+* [Swap Hands](feature_swap_hands.md) - Mirror your keyboard for one handed usage.
 * [Tap Dance](feature_tap_dance.md) - Make a single key do as many things as you want.
 * [Terminal](feature_terminal.md) - CLI interface to the internals of your keyboard.
 * [Thermal Printer](feature_thermal_printer.md) - Connect a thermal printer to your keyboard to be able to toggle on a printed log of everything you type.

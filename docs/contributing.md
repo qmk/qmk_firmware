@@ -101,7 +101,7 @@ You'll find all our documentation in the `qmk_firmware/docs` directory, or if yo
 
 Most first-time QMK contributors start with their personal keymaps. We try to keep keymap standards pretty casual (keymaps, after all, reflect the personality of their creators) but we do ask that you follow these guidelines to make it easier for others to discover and learn from your keymap.
 
-* Write a `readme.md` using [the template](https://docs.qmk.fm/documentation_templates.html#).
+* Write a `readme.md` using [the template](documentation_templates.md).
 * All Keymap PR's are squashed, so if you care about how your commits are squashed you should do it yourself
 * Do not lump features in with keymap PR's. Submit the feature first and then a second PR for the keymap.
 * Do not include `Makefile`s in your keymap folder (they're no longer used)
@@ -113,7 +113,7 @@ Keyboards are the raison d'être for QMK. Some keyboards are community maintaine
 
 We also ask that you follow these guidelines:
 
-* Write a `readme.md` using [the template](https://docs.qmk.fm/documentation_templates.html#).
+* Write a `readme.md` using [the template](documentation_templates.md).
 * Keep the number of commits reasonable or we will squash your PR
 * Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.
 * Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
@@ -140,7 +140,7 @@ We also ask that you follow these guidelines:
 
 * Keep the number of commits reasonable or we will squash your PR
 * Do not lump keyboards or keymaps in with core changes. Submit your core changes first.
-* Write [Unit Tests](http://docs.qmk.fm/unit_testing.html) for your feature
+* Write [Unit Tests](unit_testing.md) for your feature
 * Follow the style of the file you are editing. If the style is unclear or there are mixed styles you should conform to the [coding conventions](#coding-conventions) above.
 
 ## Refactoring

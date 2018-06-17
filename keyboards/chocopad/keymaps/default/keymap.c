@@ -1,61 +1,30 @@
-#include "chocopad.h"
+#include QMK_KEYBOARD_H
 
 #define _BASE 0
 #define _FN1 1
 #define _FN2 2
 
-#define KC_ KC_TRNS
 #define _______ KC_TRNS
-
-#define KC_X1 MO(_FN1)
-#define KC_X2 MO(_FN2)
-#define KC_RST RESET
-#define KC_BSTP BL_STEP
-#define KC_RTOG RGB_TOG
-#define KC_RMOD RGB_MOD
-#define KC_RHUI RGB_HUI
-#define KC_RHUD RGB_HUD
-#define KC_RSAI RGB_SAI
-#define KC_RSAD RGB_SAD
-#define KC_RVAI RGB_VAI
-#define KC_RVAD RGB_VAD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_BASE] = KC_KEYMAP(
-  //,----+----+----+----.
-     PGUP,HOME, UP ,END ,
-  //|----+----+----+----|
-     PGDN,LEFT,DOWN,RGHT,
-  //|----+----+----+----|
-      X2 ,VOLU,MPLY,MPRV,
-  //|----+----+----+----|
-      X1 ,VOLD,MUTE,MNXT
-  //`----+----+----+----'
+  [_BASE] = LAYOUT_ortho_4x4(
+    KC_PGUP,  KC_HOME,  KC_UP,    KC_END , \
+    KC_PGDN,  KC_LEFT,  KC_DOWN,  KC_RGHT, \
+    MO(_FN2), KC_VOLU,  KC_MPLY,  KC_MPRV, \
+    MO(_FN1), KC_VOLD,  KC_MUTE,  KC_MNXT  \
   ),
-
-  [_FN1] = KC_KEYMAP(
-  //,----+----+----+----.
-     ESC , P7 , P8 , P9 ,
-  //|----+----+----+----|
-     TAB , P4 , P5 , P6 ,
-  //|----+----+----+----|
-     ENT , P1 , P2 , P3 ,
-  //|----+----+----+----|
-         , P0 , P0 ,DOT 
-  //`----+----+----+----'
+  [_FN1] = LAYOUT_ortho_4x4(
+    KC_ESC,   KC_P7,    KC_P8,    KC_P9,   \
+    KC_TAB,   KC_P4,    KC_P5,    KC_P6,   \
+    KC_ENT,   KC_P1,    KC_P2,    KC_P3,   \
+    _______,  KC_P0,    KC_P0,    KC_DOT   \
   ),
-
-  [_FN2] = KC_KEYMAP(
-  //,----+----+----+----.
-     RTOG,RHUI,RSAI,RVAI,
-  //|----+----+----+----|
-     RMOD,RHUD,RSAD,RVAD,
-  //|----+----+----+----|
-         ,    ,    ,RST ,
-  //|----+----+----+----|
-     BSTP,    ,    ,    
-  //`----+----+----+----'
+  [_FN2] = LAYOUT_ortho_4x4(
+    RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI, \
+    RGB_MOD,  RGB_HUD,  RGB_SAD,  RGB_VAD, \
+    _______,  _______,  _______,  RESET,  \
+    BL_STEP,  _______,  _______,  _______  \
   )
 
 };
