@@ -22,7 +22,7 @@ Linux page].  Some distributions provide a binary, maybe called
 
 ### Building Firmware
 
-Build the firmware with `make <keyboardname>:<keymapname>`, in this case, `make ergodox_ez:jkurthoconnor`
+Build the firmware with `make <keyboardname>:<keymapname>`, e.g. `make ergodox_ez:jkurthoconnor`
 
 This results in a hex file called `ergodox_ez_keymapname.hex`, e.g.`ergodox_ez_jkurthoconnor.hex`
 
@@ -31,9 +31,7 @@ This results in a hex file called `ergodox_ez_keymapname.hex`, e.g.`ergodox_ez_j
 
 #### Using 'Manual Mode'
 
-Start the teensy loader.
-
-  - if desired, turn on Verbose mode (via Help Menu)
+Start the teensy loader.  (If desired, turn on Verbose mode via Help Menu.)
 
 Load the `.hex` file via 'File Menu / Open Hex File' (or via the page icon).
 
@@ -55,4 +53,4 @@ Click auto button or choose auto from operation menu
 Press reset button on keyboard
 
 
-See also the [QMK documentation](https://docs.qmk.fm/newbs.html)
+See also the [QMK documentation](https://docs.qmk.fm/#/)
