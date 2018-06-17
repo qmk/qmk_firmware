@@ -27,8 +27,14 @@
 #ifdef BACKLIGHT_ENABLE
     #include "backlight.h"
 #endif
+#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE) 
+	#include "rgb.h"
+#endif
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
+#endif
+#ifdef RGB_MATRIX_ENABLE
+	#include "rgb_matrix.h"
 #endif
 #include "action_layer.h"
 #include "eeconfig.h"
@@ -142,6 +148,7 @@ void send_char(char ascii_code);
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
+uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 

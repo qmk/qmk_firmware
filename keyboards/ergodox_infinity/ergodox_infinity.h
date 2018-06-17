@@ -80,7 +80,11 @@ inline void ergodox_led_all_set(uint8_t n) {
     ergodox_right_led_3_set(n);
 }
 
-#define KEYMAP( \
+/*
+ *   LEFT HAND: LINES 88-95
+ *  RIGHT HAND: LINES 97-104
+ */
+#define LAYOUT_ergodox( \
     A80, A70, A60, A50, A40, A30, A20,  \
     A81, A71, A61, A51, A41, A31, A21,  \
     A82, A72, A62, A52, A42, A32,       \
@@ -89,6 +93,7 @@ inline void ergodox_led_all_set(uint8_t n) {
                                   A13, A03, \
                                        A04, \
                              A34, A24, A14, \
+                                            \
          B20, B30, B40, B50, B60, B70, B80, \
          B21, B31, B41, B51, B61, B71, B81, \
               B32, B42, B52, B62, B72, B82, \
@@ -118,8 +123,9 @@ inline void ergodox_led_all_set(uint8_t n) {
     { B80,   B81,   B82,   B83,   B84 }  \
 }
 
-#define KEYMAP_PRETTY(                                                                      \
-    /* left hand, spatial positions */     /* right hand, spatial positions */              \
+/*  -------------- LEFT HAND --------------     -------------- RIGHT HAND -------------- */
+#define LAYOUT_ergodox_pretty(                                                              \
+                                                                                            \
     A80, A70, A60, A50, A40, A30, A20,               B20, B30, B40, B50, B60, B70, B80,     \
     A81, A71, A61, A51, A41, A31, A21,               B21, B31, B41, B51, B61, B71, B81,     \
     A82, A72, A62, A52, A42, A32,                         B32, B42, B52, B62, B72, B82,     \
@@ -150,8 +156,5 @@ inline void ergodox_led_all_set(uint8_t n) {
     { B70,   B71,   B72,   B73,   B74 }, \
     { B80,   B81,   B82,   B83,   B84 }  \
 }
-
-#define LAYOUT_ergodox KEYMAP
-#define LAYOUT_ergodox_pretty KEYMAP_PRETTY
 
 #endif /* KEYBOARDS_ERGODOX_INFINITY_INFINITY_H_ */
