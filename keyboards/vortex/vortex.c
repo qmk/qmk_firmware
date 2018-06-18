@@ -19,6 +19,7 @@
 #include "quantum.h"
 #include "raw_hid.h"
 #include "debug.h"
+#include "version.h"
 
 #include "vortex.h"
 #include "proto.h"
@@ -182,9 +183,9 @@ static void cmd_qmk_ctrl(const uint8_t *data_in, uint8_t *data_out){
         case SUB_CT_INFO: {
             to_leu16(data_out, PRODUCT_ID);
             to_leu16(data_out + 2, DEVICE_VER);
-            const char *str = "qmk_pok3r";
-            memcpy(data_out + 4, str, strlen(str));
-            printf(">> Info %s\n", str);
+            const char *str = "qmk_pok3r;" QMK_VERSION ";" QMK_BUILDDATE;
+            memcpy(data_out + 4, str, MIN(strlen(str), 56));
+            printf(">> Info\n");
             break;
         }
         case SUB_CT_LAYOUT: {

@@ -55,10 +55,10 @@
     /* COL2 */ { K66,   K53,   K29,   K40,   K16,   K30,   K43,   K59,   }, \
     /* COL3 */ { K65,   K52,   K28,   K39,   K15,   K20,   K110,  K46,   }, \
     /* COL4 */ { K64,   K51,   K27,   K38,   K14,   K19,   K112,  KC_NO, }, \
-    /* COL5 */ { K63,   K50,   K26,   K37,   K13,   K18,   KC_NO, KC_NO, }, \
+    /* COL5 */ { K63,   K50,   K26,   K37,   K13,   K18,   KC_NO, K23,   }, \
     /* COL6 */ { K62,   K49,   K25,   K36,   K12,   K17,   K35,   K11,   }, \
     /* COL7 */ { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K111,  KC_NO, }, \
-    /* COL8 */ { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K23,   }  \
+    /* COL8 */ { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, }  \
 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
