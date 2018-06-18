@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      TO(2),KC_TRANSPARENT,KC_TRANSPARENT,LALT(KC_F10),KC_ENTER,KC_BSPACE
   ),
   // Keypad, Lighting, and Mouse emulation layer
- ///* 
+ /* 
     [4] = KEYMAP(
     KC_ESCAPE,  KC_NO,      KC_NO,        KC_MS_BTN3, KC_NO,        KC_NO,          KC_NO,
     KC_TAB,     KC_NO,      KC_MS_BTN2,   KC_MS_UP,   KC_MS_BTN1,   KC_MS_WH_UP,    TO(0),
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_F17, KC_F18, KC_PGUP,  KC_PGDOWN,  KC_ENTER, KC_BSPACE
   )
   //*/
-  /*
+  ///*
   // Keypad, Lighting, and Mouse emulation layer
   [4] = KEYMAP(
     KC_ESCAPE,  KC_NO,      KC_NO,        KC_MS_BTN3, KC_NO,        KC_NO,          KC_NO,
