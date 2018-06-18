@@ -165,44 +165,44 @@ int main(void)
     uint8_t drvid;
 
     CLK_init();
-    
+
     led_ena;
     m15_ena;
-    
+
     ADC0_init();
-    
+
     matrix_init();
-    
+
     SPI_Init();
     //I2C0_init();
     I2C1_init();
-    
+
     USB2422_init();
     udc_start();
-    
+
     CDC_init();
-    
+
     while (USB2422_Port_Detect_Init() == 0) {}
-    
+
     led_off;
     m15_off;
-    
+
     led_matrix_init();
-    
+
     while (I2C3733_Init_Control() != 1);
     while (I2C3733_Init_Drivers() != 1);
-    
+
     I2C_DMAC_LED_Init();
-    
+
     i2c_led_q_init();
-    
+
     for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
         I2C_LED_Q_ONOFF(drvid); //Queue data
-    
+
     keyboard_setup();
-    
+
     keyboard_init();
-    
+
     host_set_driver(&arm_atsam_driver);
 
 #ifdef VIRTSER_ENABLE
@@ -210,9 +210,9 @@ int main(void)
 #endif //VIRTSER_ENABLE
     uint64_t next_usb_checkup = 0;
     uint64_t next_5v_checkup = 0;
-    
+
     v_5v_avg = adc_get(ADC_5V);
-        
+
     while (1)
     {
         if (usb_state == USB_STATE_POWERDOWN)
@@ -235,25 +235,25 @@ int main(void)
             }
             led_off;
         }
-        
+
         keyboard_task();
-        
+
         led_matrix_task();
-        
+
         if (CLK_get_ms() > next_5v_checkup)
         {
             next_5v_checkup = CLK_get_ms() + 5;
-            
+
             v_5v = adc_get(ADC_5V);
             v_5v_avg = 0.9 * v_5v_avg + 0.1 * v_5v;
-        
+
             gcr_compute();
         }
-        
+
         if (CLK_get_ms() > next_usb_checkup)
         {
             next_usb_checkup = CLK_get_ms() + 10;
-        
+
             USB_HandleExtraDevice();
         }
 
@@ -265,7 +265,7 @@ int main(void)
         }
 #endif //VIRTSER_ENABLE
     }
-    
+
     return 1;
 }
 

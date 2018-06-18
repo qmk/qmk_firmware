@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define P14_OUT         0x00004000                             /* PIN14 OUT Bit */
 #define P15_DIR         0x00008000                             /* PIN15 DIR Bit */
 #define P15_OUT         0x00008000                             /* PIN15 OUT Bit */
-                       
+
 #define SC2_RCLCK_LO    REG_PORT_OUTCLR1 = P14_OUT             /* PB14 Low, SC2_RCLCK Low                            */
 #define SC2_RCLCK_HI    REG_PORT_OUTSET1 = P14_OUT             /* PB14 High, SC2_RCLCK High                          */
 #define SC2_OE_ENA      REG_PORT_OUTCLR1 = P15_OUT             /* PB15 Low, SC2_OE_N Low (Shift register enabled)    */

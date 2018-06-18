@@ -2,6 +2,7 @@ ARM_ATSAM_DIR = protocol/arm_atsam
 
 SRC += $(ARM_ATSAM_DIR)/adc.c
 SRC += $(ARM_ATSAM_DIR)/clks.c
+SRC += $(ARM_ATSAM_DIR)/d51_util.c
 SRC += $(ARM_ATSAM_DIR)/i2c.c
 SRC += $(ARM_ATSAM_DIR)/led_matrix.c
 SRC += $(ARM_ATSAM_DIR)/main_arm_atsam.c

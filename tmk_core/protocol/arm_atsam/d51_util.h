@@ -23,15 +23,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //TODO: PS: Should bring these ports out to keyboard level configuration
 
 //Debug LED PA27
-#define led_ena REG_PORT_DIRSET0 = 0x08000000; //PA27 Output
-#define led_on  REG_PORT_OUTSET0 = 0x08000000; //PA27 High
-#define led_off REG_PORT_OUTCLR0 = 0x08000000; //PA27 Low
+#define led_ena REG_PORT_DIRSET0 = 0x08000000 //PA27 Output
+#define led_on  REG_PORT_OUTSET0 = 0x08000000 //PA27 High
+#define led_off REG_PORT_OUTCLR0 = 0x08000000 //PA27 Low
 
 //Debug Port PB30
-#define m15_ena REG_PORT_DIRSET1 = 0x40000000; //PB30 Output
-#define m15_on  REG_PORT_OUTSET1 = 0x40000000; //PB30 High
-#define m15_off REG_PORT_OUTCLR1 = 0x40000000; //PB30 Low
+#define m15_ena REG_PORT_DIRSET1 = 0x40000000 //PB30 Output
+#define m15_on  REG_PORT_OUTSET1 = 0x40000000 //PB30 High
+#define m15_off REG_PORT_OUTCLR1 = 0x40000000 //PB30 Low
 
-#define m15_loop(x) {uint8_t t=x; while(t--){m15_on;m15_off}}
+#define m15_loop(M15X) {uint8_t M15L=M15X; while(M15L--){m15_on;CLK_delay_us(1);m15_off;}}
+
+void m15_print(uint8_t x);
 
 #endif //_D51_UTIL_H_

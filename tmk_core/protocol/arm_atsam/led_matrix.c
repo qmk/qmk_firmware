@@ -21,63 +21,31 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void SERCOM1_0_Handler( void )
 {
-    uint32_t irqflags;
-    
-    irqflags = __get_PRIMASK();
-    __disable_irq();
-    __DMB();
-    
     if (SERCOM1->I2CM.INTFLAG.bit.ERROR)
     {
         SERCOM1->I2CM.INTFLAG.reg = SERCOM_I2CM_INTENCLR_ERROR;
     }
-    else if (SERCOM1->I2CM.INTFLAG.bit.MB)
-    {
-        SERCOM1->I2CM.INTFLAG.reg = SERCOM_I2CM_INTENCLR_MB;
-    }
-    else if (SERCOM1->I2CM.INTFLAG.bit.SB)
-    {
-        SERCOM1->I2CM.INTFLAG.reg = SERCOM_I2CM_INTENCLR_SB;
-    }
-    
-    __DMB();
-    __set_PRIMASK(irqflags);
 }
 
 void DMAC_0_Handler( void )
 {
-    uint32_t irqflags;
-    
-    irqflags = __get_PRIMASK();
-    __disable_irq();
-    __DMB();
-
     if (DMAC->Channel[0].CHINTFLAG.bit.TCMPL)
     {
         DMAC->Channel[0].CHINTFLAG.reg = DMAC_CHINTENCLR_TCMPL;
-        
-        __DMB();
-        __set_PRIMASK(irqflags);
-        
+
         sc1stop();
 
         i2c_led_q_running = 0;
 
         i2c_led_q_run();
-        
+
         return;
     }
-    else if (DMAC->Channel[0].CHINTFLAG.bit.SUSP)
-    {
-        DMAC->Channel[0].CHINTFLAG.reg = DMAC_CHINTENCLR_SUSP;
-    }
-    else if (DMAC->Channel[0].CHINTFLAG.bit.TERR)
+
+    if (DMAC->Channel[0].CHINTFLAG.bit.TERR)
     {
         DMAC->Channel[0].CHINTFLAG.reg = DMAC_CHINTENCLR_TERR;
     }
-    
-    __DMB();
-    __set_PRIMASK(irqflags);
 }
 
 issi3733_driver_t issidrv[ISSI3733_DRIVER_COUNT];
@@ -132,7 +100,7 @@ void gcr_compute(void)
       v_5v_cat_hit = 0;
       return;
     }
-    
+
     if (usb_gcr_auto)
     {
         if (v_5v_avg < V5_LOW) action = ACT_GCR_DEC;
@@ -181,7 +149,7 @@ void gcr_compute(void)
             //Power successfully cut back from LED drivers
             gcr_actual -= LED_GCR_STEP_AUTO;
             gcr_min_counter = 0;
-            
+
             //If breathe mode is active, the top end can fluctuate if the host can not supply enough current
             //So set the breathe GCR to where it becomes stable
             if (led_animation_breathing == 1)
@@ -200,17 +168,17 @@ led_disp_t disp;
 void issi3733_prepare_arrays(void)
 {
     memset(issidrv,0,sizeof(issi3733_driver_t) * ISSI3733_DRIVER_COUNT);
-    
+
     int i;
     uint8_t addrs[ISSI3733_DRIVER_COUNT] = ISSI3773_DRIVER_ADDRESSES;
-    
+
     for (i=0;i<ISSI3733_DRIVER_COUNT;i++)
     {
         issidrv[i].addr = addrs[i];
     }
-    
+
     issi3733_led_t *cur = led_map;
-    
+
     while (cur < lede)
     {
         //BYTE: 1 + (SW-1)*16 + (CS-1)
@@ -231,22 +199,22 @@ void issi3733_prepare_arrays(void)
 void disp_calc_extents(void)
 {
     issi3733_led_t *cur = led_map;
-    
+
     disp.left = 1e10;
     disp.right = -1e10;
     disp.top = -1e10;
     disp.bottom = 1e10;
-    
+
     while (cur < lede)
     {
         if (cur->x < disp.left) disp.left = cur->x;
         if (cur->x > disp.right) disp.right = cur->x;
         if (cur->y < disp.bottom) disp.bottom = cur->y;
         if (cur->y > disp.top) disp.top = cur->y;
-        
+
         cur++;
     }
-    
+
     disp.width = disp.right - disp.left;
     disp.height = disp.top - disp.bottom;
 }
@@ -254,7 +222,7 @@ void disp_calc_extents(void)
 void disp_pixel_setup(void)
 {
     issi3733_led_t *cur = led_map;
-    
+
     while (cur < lede)
     {
         cur->px = (cur->x - disp.left) / disp.width * 100;
@@ -262,7 +230,7 @@ void disp_pixel_setup(void)
         *cur->rgb.r = 0;
         *cur->rgb.g = 0;
         *cur->rgb.b = 0;
-                
+
         cur++;
     }
 }
@@ -300,36 +268,36 @@ void led_matrix_run(led_setup_t *f)
     if (led_cur == 0) //Denotes start of new processing cycle in the case of chunked processing
     {
         led_cur = led_map;
-                
+
         disp.frame += 1;
-        
+
         breathe_mult = 1;
-        
+
         if (led_animation_breathing)
         {
             led_animation_breathe_cur += breathe_step * breathe_dir;
-            
+
             if (led_animation_breathe_cur >= BREATHE_MAX_STEP)
                 breathe_dir = -1;
             else if (led_animation_breathe_cur <= BREATHE_MIN_STEP)
                 breathe_dir = 1;
-            
+
             //Brightness curve created for 256 steps, 0 - ~98%
             breathe_mult = 0.000015 * led_animation_breathe_cur * led_animation_breathe_cur;
             if (breathe_mult > 1) breathe_mult = 1;
             else if (breathe_mult < 0) breathe_mult = 0;
         }
     }
-    
+
     uint8_t fcur = 0;
     uint8_t fmax = 0;
-    
+
     //Frames setup
     while (f[fcur].end != 1)
     {
         fcur++; //Count frames
     }
-    
+
     fmax = fcur; //Store total frames count
 
     while (led_cur < lede && led_this_run < led_per_run)
@@ -337,7 +305,7 @@ void led_matrix_run(led_setup_t *f)
         ro = 0;
         go = 0;
         bo = 0;
-        
+
         if (led_lighting_mode == LED_MODE_KEYS_ONLY && led_cur->scan == 255)
         {
             //Do not act on this LED
@@ -358,16 +326,16 @@ void led_matrix_run(led_setup_t *f)
               px = led_cur->px;
               float pxmod;
               pxmod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
-              
+
               //Add in any moving effects
               if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
               {
                   pxmod *= 100.0f;
                   pxmod = (uint32_t)pxmod % 10000;
                   pxmod /= 100.0f;
-                  
+
                   px -= pxmod;
-                  
+
                   if (px > 100) px -= 100;
                   else if (px < 0) px += 100;
               }
@@ -377,19 +345,19 @@ void led_matrix_run(led_setup_t *f)
                   pxmod = (uint32_t)pxmod % 10000;
                   pxmod /= 100.0f;
                   px += pxmod;
-                  
+
                   if (px > 100) px -= 100;
                   else if (px < 0) px += 100;
               }
-              
+
               //Check if LED's px is in current frame
               if (px < f[fcur].hs) continue;
               if (px > f[fcur].he) continue;
               //note: < 0 or > 100 continue
-              
+
               //Calculate the px within the start-stop percentage for color blending
               px = (px - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
-              
+
               //Add in any color effects
               if (f[fcur].ef & EF_OVER)
               {
@@ -411,12 +379,12 @@ void led_matrix_run(led_setup_t *f)
               }
           }
         }
-        
+
         //Clamp values 0-255
         if (ro > 255) ro = 255; else if (ro < 0) ro = 0;
         if (go > 255) go = 255; else if (go < 0) go = 0;
         if (bo > 255) bo = 255; else if (bo < 0) bo = 0;
-        
+
         if (led_animation_breathing)
         {
             ro *= breathe_mult;
@@ -438,7 +406,7 @@ void led_matrix_run(led_setup_t *f)
                 #endif //NUM LOCK
                 #if USB_LED_CAPS_LOCK_SCANCODE != 255
                 (led_cur->scan == USB_LED_CAPS_LOCK_SCANCODE && kbled & (1<<USB_LED_CAPS_LOCK)) ||
-                #endif //CAPS LOCK                
+                #endif //CAPS LOCK
                 #if USB_LED_SCROLL_LOCK_SCANCODE != 255
                 (led_cur->scan == USB_LED_SCROLL_LOCK_SCANCODE && kbled & (1<<USB_LED_SCROLL_LOCK)) ||
                 #endif //SCROLL LOCK
@@ -468,9 +436,9 @@ void led_matrix_run(led_setup_t *f)
 uint8_t led_matrix_init(void)
 {
     issi3733_prepare_arrays();
-    
+
     led_matrix_prepare();
-    
+
     disp.frame = 0;
     led_next_run = 0;
 
@@ -483,7 +451,7 @@ uint8_t led_matrix_init(void)
     led_animation_breathe_cur = BREATHE_MIN_STEP;
     breathe_step = 1;
     breathe_dir = 1;
-    
+
     gcr_min_counter = 0;
     v_5v_cat_hit = 0;
 
@@ -506,7 +474,7 @@ void led_matrix_task(void)
         if (CLK_get_ms() >= led_next_run && led_cur == lede)
         {
             uint8_t drvid;
-            
+
             led_next_run = CLK_get_ms() + LED_UPDATE_RATE;  //Set next frame update time
 
             //NOTE: GCR does not need to be timed with LED processing, but there is really no harm
@@ -519,13 +487,13 @@ void led_matrix_task(void)
 
             for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
                 I2C_LED_Q_PWM(drvid); //Queue data
-            
+
             i2c_led_q_run();
-            
+
             led_cur = 0; //Signal next frame calculations may begin
         }
     }
-    
+
     //Process more data if not finished
     if (led_cur != lede)
     {

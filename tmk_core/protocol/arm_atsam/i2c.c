@@ -564,28 +564,22 @@ void i2c_led_q_init(void)
 
 uint8_t i2c_led_q_isempty(void)
 {
-    return (i2c_led_q_s == i2c_led_q_e);
+    return i2c_led_q_s == i2c_led_q_e;
 }
 
-uint8_t i2c_led_q_isfull(void)
+uint8_t i2c_led_q_size(void)
 {
-    return ((i2c_led_q_e + 1) % I2C_Q_SIZE == i2c_led_q_s);
+    return (i2c_led_q_e - i2c_led_q_s) % I2C_Q_SIZE;
+}
+
+uint8_t i2c_led_q_available(void)
+{
+    return I2C_Q_SIZE - i2c_led_q_size() - 1; //Never allow end to meet start
 }
 
 void i2c_led_q_add(uint8_t cmd)
 {
-    if (i2c_led_q_isfull())
-    {
-        //Note: Should never get here if always requesting room before add of commands
-        //      But just in case, a reset needs to happen due to unknown sequence of commands sent
-        //led_on;
-        //I2C_DMAC_LED_Init();
-        //i2c_led_q_init();
-
-        return;
-    }
-
-    //i2c_led_q_full = 0;
+    //WARNING: Always request room before adding commands!
 
     //Assign command
     i2c_led_q[i2c_led_q_e] = cmd;
@@ -598,17 +592,12 @@ void i2c_led_q_s_advance(void)
     i2c_led_q_s = (i2c_led_q_s + 1) % I2C_Q_SIZE; //Move start up one or wrap
 }
 
-uint8_t i2c_led_q_size(void)
-{
-    return (i2c_led_q_e - i2c_led_q_s) % I2C_Q_SIZE;
-}
-
 //Always request room before adding commands
 //PS: In case the queue somehow gets filled, it will reset if it can not clear up
 //PS: Could only get this to happen through unrealistic timings to overload the I2C bus
 uint8_t i2c_led_q_request_room(uint8_t request_size)
 {
-    if (I2C_Q_SIZE - i2c_led_q_size() < request_size)
+    if (request_size > i2c_led_q_available())
     {
         i2c_led_q_full++;
 
@@ -619,12 +608,11 @@ uint8_t i2c_led_q_request_room(uint8_t request_size)
             i2c_led_q_init();
             return 1;
         }
-
         return 0;
     }
 
     i2c_led_q_full = 0;
-    
+
     return 1;
 }
 
@@ -672,7 +660,7 @@ uint8_t i2c_led_q_run(void)
         i2c_led_send_onoff_dma(drvid);
     }
 
-    i2c_led_q_s_advance();
+    i2c_led_q_s_advance(); //Advance last run command or if the command byte was not serviced
 
     i2c_led_q_running = 1;
 

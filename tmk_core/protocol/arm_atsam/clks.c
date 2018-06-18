@@ -64,22 +64,6 @@ void CLK_oscctrl_init(void)
     pgclk->GENCTRL[GEN_DPLL0].bit.SRC = GCLK_SOURCE_DPLL0;
     while(pgclk->SYNCBUSY.bit.GENCTRL0);
     system_clks.freq_gclk[0] = system_clks.freq_dpll[0];
-
-    //assume reset conditions
-
-    //DFLL48 operating in open loop mode at 48MHz
-    //configure clock sources
-    //Configure DFLL48 if needed
-
-    //while (posctrl->DFLLSYNC.bit.DFLLCTRLB);
-    //posctrl->DFLLCTRLB.bit.MODE = 0;  //open loop
-    //while (posctrl->DFLLSYNC.bit.DFLLVAL)
-    //posctrl->DFLLVAL.bit.COARSE = DFLL_COARSE_VAL;
-    //while (posctrl->DFLLSYNC.bit.DFLLVAL)
-    //posctrl->DFLLVAL.bit.FINE = DFLL_FINE_VAL;
-    //while (posctrl->DFLLSYNC.bit.ENABLE);
-    //posctrl->DFLLCTRLA.bit.ENABLE = 1;
-    //while (posctrl->DFLLSYNC.reg); //wait for any - all
 }
 
 //configure for 1MHz (1 usec timebase)
@@ -144,30 +128,15 @@ void CLK_reset_time(void)
 
 void TC4_Handler()
 {
-    uint32_t irqflags;
-
-    irqflags = __get_PRIMASK();
-    __disable_irq();
-    __DMB();
-
     if (TC4->COUNT16.INTFLAG.bit.MC0)
     {
         TC4->COUNT16.INTFLAG.reg = TC_INTENCLR_MC0;
         ms_clk++;
     }
-
-    __DMB();
-    __set_PRIMASK(irqflags);
 }
 
 void TC5_Handler()
 {
-    uint32_t irqflags;
-
-    irqflags = __get_PRIMASK();
-    __disable_irq();
-    __DMB();
-
     if (TC5->COUNT16.INTFLAG.bit.MC0)
     {
         TC5->COUNT16.INTFLAG.reg = TC_INTENCLR_MC0;
@@ -175,9 +144,6 @@ void TC5_Handler()
         TC5->COUNT16.CTRLA.bit.ENABLE = 0;
         while (TC5->COUNT16.SYNCBUSY.bit.ENABLE);
     }
-
-    __DMB();
-    __set_PRIMASK(irqflags);
 }
 
 uint32_t CLK_enable_timebase(void)
@@ -376,7 +342,7 @@ uint32_t CLK_set_i2c0_freq(uint8_t sercomn, uint32_t freq)
     clk_enable_sercom_apbmask(sercomn);
 
     //all gclk0 for now
-    pgclk->PCHCTRL[sercom_pchan[sercomn]].bit.GEN=0;
+    pgclk->PCHCTRL[sercom_pchan[sercomn]].bit.GEN = 0;
     pgclk->PCHCTRL[sercom_pchan[sercomn]].bit.CHEN = 1;
 
     psercom->I2CM.CTRLA.bit.SWRST = 1;
@@ -416,31 +382,9 @@ uint32_t CLK_set_i2c1_freq(uint8_t sercomn, uint32_t freq)
 
 void CLK_init(void)
 {
-    //Mclk * pmclk = MCLK;
-
-    //zero clk values
     memset((void *) &system_clks,0,sizeof(system_clks));
 
     CLK_oscctrl_init();
     CLK_enable_timebase();
-    //CLK_set_spi_freq(CHAN_SERCOM_SPI, FREQ_SPI_DEFAULT);
-    //CLK_set_i2c0_freq(CHAN_SERCOM_I2C0, FREQ_I2C0_DEFAULT);
-    //CLK_set_i2c1_freq(CHAN_SERCOM_I2C1, FREQ_I2C1_DEFAULT);
-
-    //disable unused peripheral clocks
-    //pmclk->APBDMASK.bit.ADC1_ = 0;  //adc1, adc0 will be used
-    //pmclk->AHBMASK.bit.CMCC_ = 0; //cache controller
-    //pmclk->AHBMASK.bit.DMAC_ = 0; //DMA controller
-    //pmclk->APBAMASK.bit.EIC_ = 0;  //external interrupt controller
-    //pmclk->APBAMASK.bit.FREQM_ = 0;  //frequency meter
-    //pmclk->AHBMASK.bit.ICM_ = 0;  //integrity check module
-    //pmclk->APBDMASK.bit.I2S_ = 0;  //inter IC sound controller
-    //pmclk->APBCMASK.bit.PDEC_ = 0;  //position decoder
-    //pmclk->APBDMASK.bit.I2S_ = 0;  //inter IC sound controller
-    //pmclk->AHBMASK.bit.PUKCC_ = 0;  //public key crypto controller
-    //pmclk->AHBMASK.bit.QSPI_ = 0;  //quad serial interface
-    //pmclk->AHBMASK.bit.QSPI_2X_ = 0;  //quad serial interface
-    //pmclk->APBCMASK.bit.QSPI_ = 0;  //quad serial interface
-    //pmclk->AHBMASK.bit.SDHC0_ = 0;  //SD/MMC host controller
-    //pmclk->AHBMASK.bit.SDHC1_ = 0;  //SD/MMC host controller
 }
+
