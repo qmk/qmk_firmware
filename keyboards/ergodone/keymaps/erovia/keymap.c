@@ -1,7 +1,6 @@
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
 #include "version.h"
+#include "bootmagic.h"
 
 #define QWERTY 0    // qwerty layer
 #define COLEMAK 1   // colemak layer
@@ -190,7 +189,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-
+    // This function takes care about reading the default layer from EEPROM
+    // and setting the default_layer_state variable.
+    bootmagic();
+    // Set LED according to the default layer
+    switch (biton32(default_layer_state)) {
+      case COLEMAK:
+        // LED2 for COLEMAK
+        ergodox_right_led_2_on();
+        break;
+      case QWERTY:
+        // LED3 for QWERTY
+        ergodox_right_led_3_on();
+        break;
+    };
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
@@ -213,9 +225,4 @@ uint32_t layer_state_set_user(uint32_t state) {
         break;
     };
     return state;
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-
 };
