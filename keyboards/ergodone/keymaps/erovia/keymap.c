@@ -7,10 +7,10 @@
 #define FN 2        // function layer
 
 enum custom_keycodes {
-  QWRTY = SAFE_RANGE, // can always be here
-  CLMK,
-  VRSN,
-  FNCTN
+    QWRTY = SAFE_RANGE, // can always be here
+    CLMK,
+    VRSN,
+    FNCTN
 };
 
 /* false: Caps Lock LED is off
@@ -151,48 +151,44 @@ const uint16_t PROGMEM fn_actions[] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-    case QWRTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(QWERTY);
-      }
-      return false;
-      break;
-    case CLMK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(COLEMAK);
-      }
-      return false;
-      break;
-    case KC_CAPS:
-      if (record->event.pressed) {
-        // Turn LED1 On/Off for Caps Lock
-        if (CAPS_LED) {
-          ergodox_right_led_1_off();
-          CAPS_LED = false;
-        } else {
-          ergodox_right_led_1_on();
-          CAPS_LED = true;
+    switch (keycode) {
+      case VRSN:
+        if (record->event.pressed) {
+          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
         }
-      }
-      return true;
-      break;
-  }
-  return true;
-}
+        return false;
+        break;
+      case QWRTY:
+        if (record->event.pressed) {
+          set_single_persistent_default_layer(QWERTY);
+        }
+        return false;
+        break;
+      case CLMK:
+        if (record->event.pressed) {
+          set_single_persistent_default_layer(COLEMAK);
+        }
+        return false;
+        break;
+      case KC_CAPS:
+        if (record->event.pressed) {
+          // Turn LED1 On/Off for Caps Lock
+          if (CAPS_LED) {
+            ergodox_right_led_1_off();
+            CAPS_LED = false;
+          } else {
+            ergodox_right_led_1_on();
+            CAPS_LED = true;
+          }
+        }
+        return true;
+        break;
+    }
+    return true;
+};
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-    // This function takes care about reading the default layer from EEPROM
-    // and setting the default_layer_state variable.
-    bootmagic();
-    // Set LED according to the default layer
+// Set LED according to the default layer
+void default_layer_led_set(void) {
     switch (biton32(default_layer_state)) {
       case COLEMAK:
         // LED2 for COLEMAK
@@ -205,6 +201,15 @@ void matrix_init_user(void) {
     };
 };
 
+// Runs just one time when the keyboard initializes.
+void matrix_init_user(void) {
+    // This function takes care about reading the default layer from EEPROM
+    // and setting the default_layer_state variable.
+    bootmagic();
+
+    default_layer_led_set();
+};
+
 uint32_t layer_state_set_user(uint32_t state) {
     ergodox_led_all_off();
     switch (biton32(state)) {
@@ -214,15 +219,15 @@ uint32_t layer_state_set_user(uint32_t state) {
           break;
     };
 
-    switch (biton32(default_layer_state)) {
-      case COLEMAK:
-        // LED2 for COLEMAK
-        ergodox_right_led_2_on();
-        break;
-      case QWERTY:
-        // LED3 for QWERTY
-        ergodox_right_led_3_on();
-        break;
-    };
+    default_layer_led_set();
+
     return state;
+};
+
+void suspend_power_down_user(void) {
+    ergodox_led_all_off();
+};
+
+void suspend_wakeup_init_user(void) {
+    default_layer_led_set();
 };
