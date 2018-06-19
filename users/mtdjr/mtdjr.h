@@ -4,12 +4,19 @@
 #include "quantum.h"
 
 // Layers
-enum user_layers {
+enum user_enum {
+  // Layers
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
   SUPER,
   ADJUST,
+  // Solenoid
+  SOLENOID_TOG,
+  SOLENOID_DWELL_MINUS,
+  SOLENOID_DWELL_PLUS,
+  SOLENOID_BUZZ_ON,
+  SOLENOID_BUZZ_OFF,
 };
 
 // Macro / Send String
@@ -25,15 +32,6 @@ enum user_tapdance {
   TD_ALTLOCK,
   TD_PRINT,
   TD_ESC,
-};
-
-// Solenoid
-enum user_solenoid {
-  SOLENOID_TOG,
-  SOLENOID_DWELL_MINUS,
-  SOLENOID_DWELL_PLUS,
-  SOLENOID_BUZZ_ON,
-  SOLENOID_BUZZ_OFF,
 };
 
 

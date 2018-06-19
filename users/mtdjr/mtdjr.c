@@ -4,6 +4,7 @@
   #include "solenoid.h"
 #endif
 
+
 // Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_ESC]     = ACTION_TAP_DANCE_DOUBLE(KC_GRV, KC_ESC),
@@ -97,7 +98,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           solenoid_dwell_minus();
         }
-        #endif
+      #endif
       break;
     case SOLENOID_DWELL_PLUS:
       #ifdef SOLENOID_ENABLE
@@ -111,14 +112,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           solenoid_buzz_on();
         }
-        #endif
+      #endif
       break;
     case SOLENOID_BUZZ_OFF:
       #ifdef SOLENOID_ENABLE
         if (record->event.pressed) {
           solenoid_buzz_off();
         }
-        #endif
+      #endif
       break;
   }
   return true;
