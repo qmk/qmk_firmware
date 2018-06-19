@@ -2,8 +2,14 @@ ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
 
-EXTRAKEY_ENABLE = no
-MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
-STENO_ENABLE = yes          # Additional protocols for Stenography(+1700), requires VIRTSER
-AUDIO_ENABLE = yes          # Audio output on port C6
-MIDI_ENABLE = no            # MIDI controls
+# https://beta.docs.qmk.fm/reference/config-options#feature-options
+# Features Specifically Wanted
+EXTRAKEY_ENABLE = yes
+STENO_ENABLE = yes
+NKRO_ENABLE = yes
+AUDIO_ENABLE = yes
+
+# Features taking up space
+MOUSEKEY_ENABLE = no
+MIDI_ENABLE = no
+CONSOLE_ENABLE = no
