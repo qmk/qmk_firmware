@@ -16,6 +16,7 @@
 
 #include "planck.h"
 #include "action_layer.h"
+#include "keymap_steno.h"
 
 // Custom Keycodes and Combinations Used
 #define DEL_SHF SFT_T(KC_DEL)
@@ -45,7 +46,8 @@ enum planck_keycodes {
   RAISE,
   FUNC,
   MOUSE,
-  ADJUST
+  ADJUST,
+  EXT_PLV
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -243,4 +245,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
+}
+
+void matrix_init_user() {
+  steno_set_mode(STENO_MODE_GEMINI);
 }
