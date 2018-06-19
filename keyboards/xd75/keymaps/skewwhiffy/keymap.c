@@ -161,3 +161,51 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       }
     return MACRO_NONE;
 };
+
+bool CTRLDOWN = false;
+bool ALTDOWN = false;
+bool WINDOWN = false;
+bool SHIFTDOWN = false;
+bool TERMINALOPEN = false;
+
+void matrix_scan_user(void) {
+  if (TERMINALOPEN) {
+    rgblight_effect_rainbow_swirl(128);
+  } else if (SHIFTDOWN) {
+    rgblight_effect_breathing(3);
+  } else if (CTRLDOWN) {
+    rgblight_effect_knight(3);
+  } else if (WINDOWN) {
+    rgblight_effect_snake(3);
+  } else {
+    rgblight_setrgb(0, 0, 0);
+  }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case UK_LGUI:
+    case UK_RGUI:
+      WINDOWN = record->event.pressed;
+      TERMINALOPEN = false;
+      break;
+    case UK_LCTL:
+    case UK_RCTL:
+      CTRLDOWN = record->event.pressed;
+      break;
+    case UK_LSFT:
+    case UK_RSFT:
+      SHIFTDOWN = record->event.pressed;
+      break;
+    case UK_LALT:
+    case UK_RALT:
+      ALTDOWN = record-> event.pressed;
+      break;
+    case _TERM:
+      if (record->event.pressed) {
+        TERMINALOPEN = !TERMINALOPEN;
+      }
+      break;
+  }
+  return true;
+}
