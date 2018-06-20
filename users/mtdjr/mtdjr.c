@@ -39,8 +39,8 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
 void matrix_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-    rgblight_mode(RGB_MODE);
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(RGB_MODE);
     rgblight_sethsv (RGB_HUE, 255, 255);
   #endif
   #ifdef SOLENOID_ENABLE
@@ -64,24 +64,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_sethsv (RGB_HUE, 255, 255);
-        #endif
       }
       return false;
       break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_sethsv (0, 255, 255);
-        #endif
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_sethsv (RGB_HUE, 255, 255);
-        #endif
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
@@ -89,15 +80,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_sethsv (240, 255, 255);
-        #endif
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_sethsv (RGB_HUE, 255, 255);
-        #endif
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
@@ -150,3 +135,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 };
+
+uint32_t layer_state_set_user(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+  switch (biton32(state)) {
+    case _RAISE:
+      rgblight_sethsv_noeeprom (240, 255, 255);
+      break;
+    case _LOWER:
+      rgblight_sethsv_noeeprom (0, 255, 255);
+      break;
+    case _ADJUST:
+      rgblight_sethsv_noeeprom (0, 0, 255);
+      break;
+    default:
+      rgblight_sethsv_noeeprom (RGB_HUE, 255, 255);
+      break;
+    }
+  return state;
+}
+#endif
