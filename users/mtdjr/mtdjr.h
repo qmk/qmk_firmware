@@ -85,6 +85,10 @@ enum user_tapdance {
 #define KC_RSAD RGB_SAD
 #define KC_RVAI RGB_VAI
 #define KC_RVAD RGB_VAD
+#define KC_MOD  RGB_MOD
+#define KC_RMOD RGB_RMOD
+#define KC_RPLN RGB_M_P
+#define KC_RBTH RGB_M_B
 #define KC_BLT  BL_TOGG
 #define KC_BLS  BL_STEP
 #define KC_BLI  BL_INC

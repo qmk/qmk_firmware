@@ -45,9 +45,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ,-----------------------------.  .-----------------------------.
     xxxx,ROOT,PPLY,PSEF,xxxx,xxxx,    RST,STOG,xxxx,xxxx,xxxx, DEL,
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
-    xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,    F1 , F2 , F3 , F4 , F5 , F6 ,
+     RGB,RHUI,RSAI,RVAI, MOD,xxxx,    F1 , F2 , F3 , F4 , F5 , F6 ,
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
-    xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,    F7 , F8 , F9 , F10, F11, F12,
+    RBTH,RHUD,RSAD,RVAD,RMOD,xxxx,    F7 , F8 , F9 , F10, F11, F12,
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
         ,xxxx,xxxx,xxxx,    ,xxxx,   xxxx,    ,xxxx,xxxx,xxxx,xxxx
 // '-----------------------------'  '-----------------------------'

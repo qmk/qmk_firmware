@@ -4,6 +4,12 @@
   #include "solenoid.h"
 #endif
 
+#ifndef RGB_MODE
+  #define RGB_MODE 16
+#endif
+#ifndef RGB_HUE
+  #define RGB_HUE 285
+#endif
 
 // Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -32,6 +38,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 };
 
 void matrix_init_user(void) {
+  #ifdef RGBLIGHT_ENABLE
+    rgblight_enable();
+    rgblight_mode(RGB_MODE);
+    rgblight_sethsv (RGB_HUE, 255, 255);
+  #endif
   #ifdef SOLENOID_ENABLE
     solenoid_setup();
   #endif
@@ -53,15 +64,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
+        rgblight_sethsv (RGB_HUE, 255, 255);
       }
       return false;
       break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
+        rgblight_sethsv (0, 255, 255);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
+        rgblight_sethsv (RGB_HUE, 255, 255);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
@@ -69,9 +83,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
+        rgblight_sethsv (240, 255, 255);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
+        rgblight_sethsv (RGB_HUE, 255, 255);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
