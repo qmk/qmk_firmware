@@ -4,7 +4,11 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  /* ISO VIM arrow (ISO German layout shown)
+  /* ISO 5x1u layout (ISO German keyboard layout shown)
+   *
+   * This layout starts from a standard ISO 60% layout, but replaces the
+   * four 1.25u modifier keys in the bottom right corner with five 1u keys,
+   * enabling the user to have VIM-style arrows on this area of the board.
    * ,-----------------------------------------------------------------------------------------.
    * | Esc | 1 ! | 2 " | 3 § | 4 $ | 5 % | 6 & | 7 / | 8 ( | 9 ) | 0 = | ß ? | ´ ` | Backspace |
    * |-----------------------------------------------------------------------------------------|
