@@ -64,18 +64,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
-        rgblight_sethsv (RGB_HUE, 255, 255);
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_sethsv (RGB_HUE, 255, 255);
+        #endif
       }
       return false;
       break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
-        rgblight_sethsv (0, 255, 255);
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_sethsv (0, 255, 255);
+        #endif
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
-        rgblight_sethsv (RGB_HUE, 255, 255);
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_sethsv (RGB_HUE, 255, 255);
+        #endif
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
@@ -83,11 +89,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        rgblight_sethsv (240, 255, 255);
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_sethsv (240, 255, 255);
+        #endif
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        rgblight_sethsv (RGB_HUE, 255, 255);
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_sethsv (RGB_HUE, 255, 255);
+        #endif
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
