@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 #include <util/delay.h>
 
 
@@ -37,106 +35,109 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/*
- * ,-----------------------------------------------------------.
- * |Esc~| 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
- * |-----------------------------------------------------------|
- * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \  |
- * |-----------------------------------------------------------|
- * |FN     |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return |
- * |-----------------------------------------------------------|
- * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|  Up  |FN |
- * |-----------------------------------------------------------|
- * |Ctrl|Gui |Alt |      Space           |Alt |Left |Down|Right|
- * `-----------------------------------------------------------'
- *
- * Note: right FN triggers function layer,
- *       left FN is a one-shot button for the macro layer
- */
-[_QW] = { /* Layer 0: Qwerty */
-    {KC_ESC  , KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC},
-    {KC_TAB  , KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS},
-    {OSL(_MC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, XXXXXXX, KC_ENT },
-    {KC_LSFT , XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, F_BTN, KC_UP},
-    {KC_LCTL , KC_LGUI, KC_LALT, XXXXXXX, XXXXXXX, KC_SPC,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RALT, KC_LEFT, KC_DOWN, KC_RIGHT}
-},\
+  /*
+   * ,-----------------------------------------------------------.
+   * |Esc~| 1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |
+   * |-----------------------------------------------------------|
+   * |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|  \  |
+   * |-----------------------------------------------------------|
+   * |FN     |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return |
+   * |-----------------------------------------------------------|
+   * |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|  FN  |Up |
+   * |-----------------------------------------------------------|
+   * |Ctrl|Gui |Alt |      Space           |Alt |Left |Down|Right|
+   * `-----------------------------------------------------------'
+   *
+   * Note: right FN triggers function layer,
+   *       left FN is a one-shot button for the macro layer
+   */
+  /* Layer 0: Qwerty */
+  [_QW] = LAYOUT_60_ansi_split_rshift( \
+    KC_ESC,   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
+    KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
+    OSL(_MC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  \
+    KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          F_BTN,   KC_UP,   \
+    KC_LCTL,  KC_LGUI, KC_LALT,                   KC_SPC,                                      KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT  \
+  ),
 
-/*
- * ,-----------------------------------------------------------.
- * |GRV|F1 |F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|   DEL |
- * |-----------------------------------------------------------|
- * |  MB3|MB2|MUP|MB1|MWU|   |   |   |INS|   |RST|   |   |Print|
- * |-----------------------------------------------------------|
- * |      | ML|MDN|MR |MWD|   |   |       |   |   |   |        |
- * |-----------------------------------------------------------|
- * |CAPS    |   |   |   |   |   |   |   |   |   |   |PGUP|     |
- * |-----------------------------------------------------------|
- * |    |    |    |                        |Ctrl|HOME|PGD |END |
- * `-----------------------------------------------------------'
- */
-[_FL] = { /* Layer 1: Functions */
-    {KC_GRV     , KC_F1      ,KC_F2      ,KC_F3      , KC_F4        , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10  , KC_F11,  KC_F12   , KC_DEL },
-    {KC_MS_BTN3 , KC_MS_BTN2 ,KC_MS_UP   ,KC_MS_BTN1 , KC_MS_WH_UP  , _______, _______, _______, KC_INS , _______, RESET   , _______, _______  , KC_PSCREEN},
-    {KC_CAPS    , KC_MS_LEFT ,KC_MS_DOWN ,KC_MS_RIGHT, KC_MS_WH_DOWN, _______, _______, _______, _______, _______, _______ , XXXXXXX, KC_TILDE},
-    {_______    , XXXXXXX    , _______   , _______   , _______      , _______, _______, _______, _______, _______, _______ , _______, _______  , KC_PGUP},
-    {_______    , _______    , _______   , XXXXXXX   , XXXXXXX      , _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_RCTRL, KC_HOME, KC_PGDOWN, KC_END}
-},
+  /*
+   * ,-----------------------------------------------------------.
+   * |GRV|F1 |F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|   DEL |
+   * |-----------------------------------------------------------|
+   * |  MB3|MB2|MUP|MB1|MWU|   |   |   |INS|   |RST|   |   |Print|
+   * |-----------------------------------------------------------|
+   * |      | ML|MDN|MR |MWD|   |   |       |   |   |   |        |
+   * |-----------------------------------------------------------|
+   * |CAPS    |   |   |   |   |   |   |   |   |   |   |PGUP|     |
+   * |-----------------------------------------------------------|
+   * |    |    |    |                        |Ctrl|HOME|PGD |END |
+   * `-----------------------------------------------------------'
+   */
+  /* Layer 1: Functions */
+  [_FL] = LAYOUT_60_ansi_split_rshift(
+    KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
+    KC_BTN3, KC_BTN2, KC_MS_U, KC_BTN1, KC_WH_U, _______, _______, _______, KC_INS,  _______, RESET,   _______, _______, KC_PSCR, \
+    KC_CAPS, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, _______, _______, _______, _______, _______,          KC_TILD, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_PGUP, \
+    _______, _______, _______,                   _______,                                     KC_RCTL, KC_HOME, KC_PGDN, KC_END   \
+  ),
 
-/*
- * ,-----------------------------------------------------------.
- * |DEF|   |DUE|   |   |   |   |   |   |   |   |   |GAM|    ARR|
- * |-----------------------------------------------------------|
- * |     |MAG|CLO|DUT|RBS|TIG|MRT|   |   |COU|PSH|   |   |     |
- * |-----------------------------------------------------------|
- * |      |ADD|STS|DFF|FTC|PLL|MRG|   |STH|LOG|   |   |   F_OFF|
- * |-----------------------------------------------------------|
- * |         |   |   |COM|   |BRN|   |   |   |   |MUT|VOL+|PLPA|
- * |-----------------------------------------------------------|
- * |    |    |    |                        |APP |PREV|VOL-|NEXT|
- * `-----------------------------------------------------------'
- *
- * Abbreviations:
- * --------------
- * DEF  - return to default layer
- * DUE  - enable git duet mode
- * CLO  - git clone
- * DUT  - git duet (when in duet mode)
- * RBS  - git rebase
- * MAG  - git submodule sync --recursive && git submodule update --init --recursive && git submodule foreach --recursive "git co . && git reset --hard && git clean -dffx"
- * TIG  - tig
- * MRG  - git merge
- * MRT  - git mergetool
- * COU  - git checkout
- * PSH  - git push
- * ADD  - git add
- * STS  - git status
- * DFF  - git diff
- * FTC  - git fetch
- * PLL  - git pull
- * STH  - git stash
- * LOG  - git log
- * COM  - git commit (or git duet commit if in duet mode)
- * BRN  - git branch
- * APP  - application (windows menu key)
- * MUT  - audio mute
- * VOL+ - increase volume
- * VOL- - decrease volume
- * PLPA - play/pause
- * PREV - previous song
- * NEXT - next song
- * ARR  - backlight arrow keys
- * GAM  - backlight WASD
- *
- * Note: git commands are SEND_STRING macros sent to the
- *       currently focused window Make sure it is your terminal :)
- */
-[_MC] = { /* Layer 2: Macros (Git & Multimedia) */
-    {TO(_QW), XXXXXXX,G_DUE  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX , XXXXXXX, K_WASD , K_ARR },
-    {XXXXXXX, G_MAG  ,G_CLO  , G_DUT  , G_RBS  , G_TIG  , G_MRT  , XXXXXXX, XXXXXXX, G_COU  , G_PSH   , XXXXXXX, XXXXXXX, XXXXXXX},
-    {XXXXXXX, G_ADD  ,G_STS  , G_DFF  , G_FTC  , G_PLL  , G_MRG  , XXXXXXX, G_STH  , G_LOG  , XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX},
-    {XXXXXXX, XXXXXXX,XXXXXXX, XXXXXXX, G_COM  , XXXXXXX, G_BRN  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX , A_MUTE, A_PLPA, A_VOUP},
-    {XXXXXXX, XXXXXXX,XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, M_WAPP  , A_PREV, A_VDWN, A_NEXT}
-},
+  /*
+   * ,-----------------------------------------------------------.
+   * |DEF|   |DUE|   |   |   |   |   |   |   |   |   |GAM|    ARR|
+   * |-----------------------------------------------------------|
+   * |     |MAG|CLO|DUT|RBS|TIG|MRT|   |   |COU|PSH|   |   |     |
+   * |-----------------------------------------------------------|
+   * |      |ADD|STS|DFF|FTC|PLL|MRG|   |STH|LOG|   |   |   F_OFF|
+   * |-----------------------------------------------------------|
+   * |         |   |   |COM|   |BRN|   |   |   |   |MUT|VOL+|PLPA|
+   * |-----------------------------------------------------------|
+   * |    |    |    |                        |APP |PREV|VOL-|NEXT|
+   * `-----------------------------------------------------------'
+   *
+   * Abbreviations:
+   * --------------
+   * DEF  - return to default layer
+   * DUE  - enable git duet mode
+   * CLO  - git clone
+   * DUT  - git duet (when in duet mode)
+   * RBS  - git rebase
+   * MAG  - git submodule sync --recursive && git submodule update --init --recursive && git submodule foreach --recursive "git co . && git reset --hard && git clean -dffx"
+   * TIG  - tig
+   * MRG  - git merge
+   * MRT  - git mergetool
+   * COU  - git checkout
+   * PSH  - git push
+   * ADD  - git add
+   * STS  - git status
+   * DFF  - git diff
+   * FTC  - git fetch
+   * PLL  - git pull
+   * STH  - git stash
+   * LOG  - git log
+   * COM  - git commit (or git duet commit if in duet mode)
+   * BRN  - git branch
+   * APP  - application (windows menu key)
+   * MUT  - audio mute
+   * VOL+ - increase volume
+   * VOL- - decrease volume
+   * PLPA - play/pause
+   * PREV - previous song
+   * NEXT - next song
+   * ARR  - backlight arrow keys
+   * GAM  - backlight WASD
+   *
+   * Note: git commands are SEND_STRING macros sent to the
+   *       currently focused window Make sure it is your terminal :)
+   */
+  /* Layer 2: Macros (Git & Multimedia) */
+  [_MC] = LAYOUT_60_ansi_split_rshift( \
+    TO(_QW), XXXXXXX, G_DUE,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, K_WASD,  K_ARR,   \
+    XXXXXXX, G_MAG,   G_CLO,   G_DUT,   G_RBS,   G_TIG,   G_MRT,   XXXXXXX, XXXXXXX, G_COU,   G_PSH,   XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, G_ADD,   G_STS,   G_DFF,   G_FTC,   G_PLL,   G_MRG,   XXXXXXX, G_STH,   G_LOG,   XXXXXXX, XXXXXXX,          XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, G_COM,   XXXXXXX, G_BRN,   XXXXXXX, XXXXXXX, XXXXXXX, A_MUTE,           A_PLPA,  A_VOUP,  \
+    XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,                                     M_WAPP,  A_PREV,  A_VDWN,  A_NEXT   \
+  ),
 
 };
 
