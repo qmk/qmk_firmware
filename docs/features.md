@@ -9,6 +9,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Backlight](feature_backlight.md) - LED lighting support for your keyboard.
 * [Bootmagic](feature_bootmagic.md) - Adjust the behavior of your keyboard using hotkeys.
 * [Dynamic Macros](feature_dynamic_macros.md) - Record and playback macros from the keyboard itself.
+* [HD44780 LCD Display](feature_hd44780.md) - Support for LCD character displays using the HD44780 standard.
 * [Key Lock](feature_key_lock.md) - Lock a key in the "down" state.
 * [Layouts](feature_layouts.md) - Use one keymap with any keyboard that supports your layout.
 * [Leader Key](feature_leader_key.md) - Tap the leader key followed by a sequence to trigger custom behavior.
