@@ -199,7 +199,7 @@ endif
 
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
-    SRC += $(QUANTUM_DIR)/hd44780.c
+    SRC += drivers/avr/hd44780.c
 	OPT_DEFS += -DHD44780_ENABLE
 endif
 
