@@ -34,7 +34,7 @@ void i2c_delay(void) {
   // _delay_us(100);
 }
 
-// Setup twi to run at 100kHz
+// Setup twi to run at 100kHz or 400kHz (see ./i2c.h SCL_CLOCK)
 void i2c_master_init(void) {
   // no prescaler
   TWSR = 0;
