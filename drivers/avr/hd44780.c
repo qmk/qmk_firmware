@@ -1,6 +1,7 @@
 /****************************************************************************
  Title:     HD44780U LCD library
  Author:    Peter Fleury <pfleury@gmx.ch>  http://tinyurl.com/peterfleury
+ License:   GNU General Public License Version 3
  File:	    $Id: lcd.c,v 1.15.2.2 2015/01/17 12:16:05 peter Exp $
  Software:  AVR-GCC 3.3 
  Target:    any AVR device, memory mapped mode only for AT90S4414/8515/Mega

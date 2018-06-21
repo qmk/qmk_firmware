@@ -3,6 +3,7 @@
 /*************************************************************************
  Title	:   C include file for the HD44780U LCD library (lcd.c)
  Author:    Peter Fleury <pfleury@gmx.ch>  http://tinyurl.com/peterfleury
+ License:   GNU General Public License Version 3
  File:	    $Id: lcd.h,v 1.14.2.4 2015/01/20 17:16:07 peter Exp $
  Software:  AVR-GCC 4.x
  Hardware:  any AVR device, memory mapped mode only for AVR with 
