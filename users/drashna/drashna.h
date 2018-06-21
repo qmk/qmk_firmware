@@ -54,7 +54,8 @@ void rgblight_sethsv_default_helper(uint8_t index);
 #endif // RGBLIGHT_ENABLE
 
 void tap(uint16_t keycode);
-
+bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
+bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, unt16_t this_timer);
 
 #define EECONFIG_USERSPACE (uint8_t *)19
 
