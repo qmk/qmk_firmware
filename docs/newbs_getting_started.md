@@ -2,7 +2,7 @@
 
 Your computer keyboard has a processor inside of it, not unlike the one inside your computer. This processor runs software that is responsible for detecting button presses and sending reports about the state of the keyboard when they are pressed or released. QMK fills the role of that software, detecting button presses and passing that information on to the host computer. When you build your custom layout you are creating the equivalent of an .exe for your keyboard.
 
-QMK tries to put a lot of power into your hands by making easy things easy, and hard things possible. You don't have to know how to program to create powerful layouts, you only have to follow a few simple syntax rules. 
+QMK tries to put a lot of power into your hands by making easy things easy, and hard things possible. You don't have to know how to program to create powerful layouts, you only have to follow a few simple syntax rules.
 
 # Getting Started
 
@@ -12,15 +12,19 @@ Before you can build keymaps you need to install some software and setup your bu
 
 ### Text Editor
 
-You'll need a program that can edit and save **plain text** files. If you are on Windows you can make due with Notepad, and on Linux you can use Gedit, both of which are simple but functional text editors. On macOS you can not use TextEdit.app, it will not save plain text files. You will need to install another program such as Sublime Text.
+You'll need a program that can edit and save **plain text** files. If you are on Windows you can make due with Notepad, and on Linux you can use Gedit, both of which are simple but functional text editors. On macOS be careful with TextEdit.app, it will not save plain text files unless you make sure to select "Make Plain text" from the "Format" menu, or you can use another program such as Sublime Text.
 
-{% hint style='info' %}
-Not sure which text editor to use? Laurence Bradford wrote [a great introduction](https://learntocodewith.me/programming/basics/text-editors/) to the subject.
-{% endhint %}
+?> Not sure which text editor to use? Laurence Bradford wrote [a great introduction](https://learntocodewith.me/programming/basics/text-editors/) to the subject.
 
 ### QMK Toolbox
 
-QMK Toolbox is a Windows and macOS program that allows you to both program and debug your custom keyboard. You will want to install it so that you can easily flash your keyboard and receive the debugging messages that your keyboard will print.
+QMK Toolbox is an optional graphical Windows and macOS program that allows you to both program and debug your custom keyboard. You will likely prefer it to easily flash your keyboard and receive the debugging messages that your keyboard will print.
+
+Download the files from the links below:
+
+For Windows: "qmk_toolbox.exe" or "qmk_toolbox_install.exe" (with installer)
+
+For Mac: "QMK.Toolbox.app.zip" or "QMK.Toolbox.pkg" (with installer)
 
 * [Newest Release](https://github.com/qmk/qmk_toolbox/releases/latest)
 * [Source Code](https://github.com/qmk/qmk_toolbox/)
@@ -29,12 +33,9 @@ QMK Toolbox is a Windows and macOS program that allows you to both program and d
 
 We've tried to make QMK as easy to setup as possible. You only have to prepare your Linux or Unix environment and let QMK install the rest.
 
-{% hint style="info" %}
-If you haven't worked with the Linux/Unix command line before there are a few basic concepts and commands you should learn. These resources will teach you enough to work with QMK:
-
-* [Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)
-* [Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
-{% endhint %}
+?> If you haven't worked with the Linux/Unix command line before there are a few basic concepts and commands you should learn. These resources will teach you enough to work with QMK:<br>
+[Must Know Linux Commands](https://www.guru99.com/must-know-linux-commands.html)<br>
+[Some Basic Unix Commands](https://www.tjhsst.edu/~dhyatt/superap/unixcmd.html)
 
 ### Windows
 
@@ -47,6 +48,8 @@ You will need to install msys2 and git.
 ### macOS
 
 You will need to install homebrew. Follow the instructions on the homebrew homepage: https://brew.sh
+
+After homebrew is installed continue with "Download QMK", following step "Setup QMK" runs a script that will install other packages.
 
 ### Linux
 
@@ -63,9 +66,7 @@ Once you have setup your Linux/Unix environment you are ready to download QMK. W
     git clone https://github.com/qmk/qmk_firmware.git
     cd qmk_firmware
 
-{% hint style='info' %}
-If you already know [how to use GitHub](getting_started_github.md) we recommend you create and clone your own fork instead. If you don't know what that means you can safely ignore this message.
-{% endhint %}
+?> If you already know [how to use GitHub](getting_started_github.md) we recommend you create and clone your own fork instead. If you don't know what that means you can safely ignore this message.
 
 ## Setup QMK
 

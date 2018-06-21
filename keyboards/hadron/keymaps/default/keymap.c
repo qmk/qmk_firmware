@@ -1,7 +1,4 @@
-#include "hadron.h"
-#include "bootloader.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 #include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
@@ -79,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |  `   | Ctrl | Alt  | GUI  |Lower |Space |   0  |   .  |   =  |Space |Raise | Left | Down |  Up  |Right |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_QWERTY] = KEYMAP(
+[_QWERTY] = LAYOUT(
   KC_ESC,   KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,    KC_F9,   KC_F10,  KC_DEL,\
   KC_TAB,   KC_Q,     KC_W,    KC_E,    KC_R,    KC_T,    KC_P7,   KC_P8,   KC_P9,    KC_Y,    KC_U,    KC_I,   KC_O,    KC_P,     KC_BSPC, \
   KC_CAPS,  KC_A,     KC_S,    KC_D,    KC_F,    KC_G,    KC_P4,   KC_P5,   KC_P6,    KC_H,    KC_J,    KC_K,   KC_L,LT_MC(KC_SCLN), KC_QUOT, \
@@ -100,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   `  | Ctrl | Alt  | GUI  |Lower |Space |   0  |   .  |   =  |Space |Raise | Left | Down |  Up  |Right |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_COLEMAK] = KEYMAP(
+[_COLEMAK] = LAYOUT(
   KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,    KC_F9,   KC_F10, KC_DEL,\
   KC_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_P7,   KC_P8,   KC_P9,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_BSPC, \
   KC_LCTRL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_P4,   KC_P5,   KC_P6,    KC_H,    KC_N,    KC_E,    KC_I, LT_MC(KC_O), KC_QUOT, \
@@ -121,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   `  | Ctrl | Alt  | GUI  |Lower |Space |   0  |   .  |   =  |Space |Raise | Left | Down |  Up  |Right |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_DVORAK] = KEYMAP(
+[_DVORAK] = LAYOUT(
   KC_ESC,   KC_F1,    KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,    KC_F9,   KC_F10, KC_DEL,\
   KC_TAB,   KC_QUOT,  KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_P7,   KC_P8,   KC_P9,    KC_F,    KC_G,   KC_C,    KC_R,    KC_L,     KC_BSPC, \
   KC_LCTL,  KC_A,     KC_O,    KC_E,    KC_U,    KC_I,    KC_P4,   KC_P5,   KC_P6,    KC_D,    KC_H,   KC_T,    KC_N, LT_MC(KC_S), KC_SLSH, \
@@ -142,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_LOWER] = KEYMAP(
+[_LOWER] = LAYOUT(
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR,  KC_LPRN, KC_RPRN, KC_DEL, \
   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, _______, _______, KC_F6,   KC_UNDS, KC_PLUS,  KC_LBRC, KC_RBRC, KC_PIPE, \
@@ -163,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_RAISE] = KEYMAP(
+[_RAISE] = LAYOUT(
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
   KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, _______, _______, KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
@@ -185,7 +182,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `--------------------------------------------------------------------------------------------------------'
  */
 
-[_MOUSECURSOR] = KEYMAP(
+[_MOUSECURSOR] = LAYOUT(
   KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_WH_L, KC_MS_U, KC_WH_R,DEMOMACRO,_______, \
   _______, _______, _______, _______, _______, _______, _______, _______, KC_END , KC_PGDN, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, \
@@ -206,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
  * `--------------------------------------------------------------------------------------------------------'
  */
-[_ADJUST] = KEYMAP(
+[_ADJUST] = LAYOUT(
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
   RESET,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, KC_DEL, \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, _______, _______, AG_SWAP, QWERTY,  COLEMAK, _______,  _______,  _______, \
