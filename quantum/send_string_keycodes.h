@@ -165,7 +165,7 @@
 #define X_RALT               e6
 #define X_RGUI               e7
 
-#define /* System Control */
+/* System Control */
 #define X_SYSTEM_POWER       a5
 #define X_SYSTEM_SLEEP       a6
 #define X_SYSTEM_WAKE        a7
