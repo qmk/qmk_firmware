@@ -51,6 +51,7 @@
 #include "udi_device_conf.h"
 #include "udi.h"
 #include "udc.h"
+#include "md_bootloader.h"
 
 /**
  * \ingroup udc_group
@@ -103,10 +104,9 @@ static UDC_DESC_STORAGE usb_str_lgid_desc_t udc_string_desc_languageid = {
  */
 #ifdef USB_DEVICE_MANUFACTURE_NAME
 static uint8_t udc_string_manufacturer_name[] = USB_DEVICE_MANUFACTURE_NAME;
-#define USB_DEVICE_MANUFACTURE_NAME_SIZE  \
-	(sizeof(udc_string_manufacturer_name)-1)
+#define USB_DEVICE_MANUFACTURE_NAME_SIZE (sizeof(udc_string_manufacturer_name)-1)
 #else
-#define USB_DEVICE_MANUFACTURE_NAME_SIZE  0
+#define USB_DEVICE_MANUFACTURE_NAME_SIZE 0
 #endif
 
 /**
@@ -116,46 +116,69 @@ static uint8_t udc_string_manufacturer_name[] = USB_DEVICE_MANUFACTURE_NAME;
  */
 #ifdef USB_DEVICE_PRODUCT_NAME
 static uint8_t udc_string_product_name[] = USB_DEVICE_PRODUCT_NAME;
-#define USB_DEVICE_PRODUCT_NAME_SIZE  (sizeof(udc_string_product_name)-1)
+#define USB_DEVICE_PRODUCT_NAME_SIZE (sizeof(udc_string_product_name)-1)
 #else
-#define USB_DEVICE_PRODUCT_NAME_SIZE  0
+#define USB_DEVICE_PRODUCT_NAME_SIZE 0
 #endif
 
-/**
- * \brief Get USB device serial number
- *
- * Use the define USB_DEVICE_SERIAL_NAME to set static serial number.
- *
- * For dynamic serial number set the define USB_DEVICE_GET_SERIAL_NAME_POINTER
- * to a suitable pointer. This will also require the serial number length
- * define USB_DEVICE_GET_SERIAL_NAME_LENGTH.
- */
-#if defined USB_DEVICE_GET_SERIAL_NAME_POINTER
-	static const uint8_t *udc_get_string_serial_name(void)
-	{
-		return (const uint8_t *)USB_DEVICE_GET_SERIAL_NAME_POINTER;
-	}
-#define USB_DEVICE_SERIAL_NAME_SIZE \
-	USB_DEVICE_GET_SERIAL_NAME_LENGTH
-#elif defined USB_DEVICE_SERIAL_NAME
-	static const uint8_t *udc_get_string_serial_name(void)
-	{
-		return (const uint8_t *)USB_DEVICE_SERIAL_NAME;
-	}
-#define USB_DEVICE_SERIAL_NAME_SIZE \
-	(sizeof(USB_DEVICE_SERIAL_NAME)-1)
+#if defined USB_DEVICE_SERIAL_NAME
+#define USB_DEVICE_SERIAL_NAME_SIZE (sizeof(USB_DEVICE_SERIAL_NAME)-1)
 #else
-#define USB_DEVICE_SERIAL_NAME_SIZE  0
+#define USB_DEVICE_SERIAL_NAME_SIZE 0
 #endif
+
+uint8_t usb_device_serial_name_size = 0;
+#if defined USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
+uint8_t bootloader_serial_number[BOOTLOADER_SERIAL_MAX_SIZE+1]="";
+#endif
+static const uint8_t *udc_get_string_serial_name(void)
+{
+#if defined USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
+    uint32_t serial_address = *(uint32_t *)(BOOTLOADER_SIZE - 4); //Address of bootloader's serial number if available
+
+    if (serial_address != 0xFFFFFFFF && serial_address < (BOOTLOADER_SIZE - 4)) //Check for factory programmed serial address
+    {
+        if ((serial_address & 0xFF) % 4 == 0) //Check alignment
+        {
+            uint16_t *serial_use = (uint16_t *)(serial_address); //Point to address of string in rom
+            uint8_t serial_length = 0;
+
+            while ((*(serial_use + serial_length) > 32 && *(serial_use + serial_length) < 127) &&
+                   serial_length < BOOTLOADER_SERIAL_MAX_SIZE)
+            {
+                bootloader_serial_number[serial_length] = *(serial_use + serial_length) & 0xFF;
+                serial_length++;
+            }
+            bootloader_serial_number[serial_length] = 0;
+
+            usb_device_serial_name_size = serial_length;
+
+            return bootloader_serial_number; //Use serial programmed into bootloader rom
+        }
+    }
+#endif
+
+    usb_device_serial_name_size = USB_DEVICE_SERIAL_NAME_SIZE;
+
+#if defined USB_DEVICE_SERIAL_NAME
+    return (const uint8_t *)USB_DEVICE_SERIAL_NAME; //Use serial supplied by keyboard's config.h
+#else
+    return 0; //No serial supplied
+#endif
+}
 
 /**
  * \brief USB device string descriptor
  * Structure used to transfer ASCII strings to USB String descriptor structure.
  */
+#ifndef BOOTLOADER_SERIAL_MAX_SIZE
+#define BOOTLOADER_SERIAL_MAX_SIZE 0
+#endif //BOOTLOADER_SERIAL_MAX_SIZE
 struct udc_string_desc_t {
-	usb_str_desc_t header;
-	le16_t string[Max(Max(USB_DEVICE_MANUFACTURE_NAME_SIZE, \
-			USB_DEVICE_PRODUCT_NAME_SIZE), USB_DEVICE_SERIAL_NAME_SIZE)];
+    usb_str_desc_t header;
+    le16_t string[Max(Max(Max(USB_DEVICE_MANUFACTURE_NAME_SIZE, \
+                  USB_DEVICE_PRODUCT_NAME_SIZE), USB_DEVICE_SERIAL_NAME_SIZE), \
+                  BOOTLOADER_SERIAL_MAX_SIZE)];
 };
 COMPILER_WORD_ALIGNED
 static UDC_DESC_STORAGE struct udc_string_desc_t udc_string_desc = {
@@ -635,12 +658,10 @@ static bool udc_req_std_dev_get_str_desc(void)
 		str = udc_string_product_name;
 		break;
 #endif
-#if defined USB_DEVICE_SERIAL_NAME || defined USB_DEVICE_GET_SERIAL_NAME_POINTER
 	case 3:
-		str_length = USB_DEVICE_SERIAL_NAME_SIZE;
 		str = udc_get_string_serial_name();
+		str_length = usb_device_serial_name_size;
 		break;
-#endif
 	default:
 #ifdef UDC_GET_EXTRA_STRING
 		if (UDC_GET_EXTRA_STRING()) {

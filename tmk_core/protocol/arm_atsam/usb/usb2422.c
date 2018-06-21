@@ -16,14 +16,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "arm_atsam_protocol.h"
+#include "md_bootloader.h"
 #include <string.h>
 
 Usb2422 USB2422_shadow;
 unsigned char i2c0_buf[34];
 
-uint16_t MFRNAME[] = { 'M','a','s','s','d','r','o','p',' ','I','n','c','.' }; //Massdrop Inc.
-uint16_t PRDNAME[] = { 'M','a','s','s','d','r','o','p',' ','H','u','b' }; //Massdrop Hub
-uint16_t SERNAME[] = { '1','8','0','6','1','3','0','0','0','0','0','1' }; //180613000001
+const uint16_t MFRNAME[] = { 'M','a','s','s','d','r','o','p',' ','I','n','c','.' }; //Massdrop Inc.
+const uint16_t PRDNAME[] = { 'M','a','s','s','d','r','o','p',' ','H','u','b' }; //Massdrop Hub
+//Serial number reported stops before first found space character or at last found character
+const uint16_t SERNAME[] = { 'U','n','a','v','a','i','l','a','b','l','e' }; //Unavailable
 
 uint8_t usb_host_port;
 uint8_t usb_extra_state;
@@ -135,8 +137,26 @@ void USB_reset(void)
 void USB_configure(void)
 {
     Usb2422 * pusb2422 = &USB2422_shadow;
-
     memset(pusb2422, 0, sizeof(Usb2422));
+
+    uint16_t *serial_use = (uint16_t *)SERNAME; //Default to use SERNAME from this file
+    uint8_t serial_length = sizeof(SERNAME) / sizeof(uint16_t); //Default to use SERNAME from this file
+
+    uint32_t serial_address = *(uint32_t *)(BOOTLOADER_SIZE - 4); //Address of bootloader's serial number if available
+    
+    if (serial_address != 0xFFFFFFFF && serial_address < (BOOTLOADER_SIZE - 4)) //Check for factory programmed serial address
+    {
+        if ((serial_address & 0xFF) % 4 == 0) //Check alignment
+        {
+            serial_use = (uint16_t *)(serial_address);
+            serial_length = 0;
+            while ((*(serial_use + serial_length) > 32 && *(serial_use + serial_length) < 127) &&
+                   serial_length < BOOTLOADER_SERIAL_MAX_SIZE)
+            {
+                serial_length++;
+            }
+        }
+    }
 
     //configure Usb2422 registers
     pusb2422->VID.reg = 0x04D8; // from Microchip 4/19/2018
@@ -151,10 +171,10 @@ void USB_configure(void)
     pusb2422->HCMCB.reg = 20; // 0mA
     pusb2422->MFRSL.reg = sizeof(MFRNAME) / sizeof(uint16_t);
     pusb2422->PRDSL.reg = sizeof(PRDNAME) / sizeof(uint16_t);
-    pusb2422->SERSL.reg = sizeof(SERNAME) / sizeof(uint16_t);
+    pusb2422->SERSL.reg = serial_length;
     memcpy(pusb2422->MFRSTR, MFRNAME, sizeof(MFRNAME));
     memcpy(pusb2422->PRDSTR, PRDNAME, sizeof(PRDNAME));
-    memcpy(pusb2422->SERSTR, SERNAME, sizeof(SERNAME));
+    memcpy(pusb2422->SERSTR, serial_use, serial_length * sizeof(uint16_t));
     //pusb2422->BOOSTUP.bit.BOOST=3;    //upstream port
     //pusb2422->BOOSTDOWN.bit.BOOST1=0; // extra port
     //pusb2422->BOOSTDOWN.bit.BOOST2=2; //MCU is close

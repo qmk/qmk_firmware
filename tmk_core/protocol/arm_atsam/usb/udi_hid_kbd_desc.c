@@ -66,14 +66,6 @@
  * @{
  */
 
-//typedef struct {
-//  char key[6];
-//  char mfg[3];
-//  char serial[7];
-//} mdmfg_serial_t;
-//
-//static mdmfg_serial_t test_serial = { .key = SERIAL_KEY, .mfg = SERIAL_MFG, .serial = SERIAL_NUM };
-
 //! USB Device Descriptor
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE usb_dev_desc_t udc_device_desc = {

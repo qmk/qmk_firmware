@@ -1,0 +1,9 @@
+#ifndef _MD_BOOTLOADER_H_
+#define _MD_BOOTLOADER_H_
+
+#define MCU_HZ 48000000
+#define BOOTLOADER_SIZE 0x4000          //DO NOT MODIFY!
+#define BOOTLOADER_SERIAL_MAX_SIZE 20   //DO NOT MODIFY!
+
+#endif //_MD_BOOTLOADER_H_
+

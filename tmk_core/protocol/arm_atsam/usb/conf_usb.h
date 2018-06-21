@@ -73,6 +73,9 @@
 #define  USB_DEVICE_PRODUCT_NAME          PRODUCT
 #define  USB_DEVICE_SERIAL_NAME           SERIAL_NUM
 
+//Comment out USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL to prevent ROM lookup of factory programmed serial number
+#define  USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
+
 /**
  * Device speeds support
  * @{

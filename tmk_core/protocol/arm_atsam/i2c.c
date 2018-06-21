@@ -608,6 +608,7 @@ uint8_t i2c_led_q_request_room(uint8_t request_size)
             i2c_led_q_init();
             return 1;
         }
+
         return 0;
     }
 
