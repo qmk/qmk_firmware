@@ -30,10 +30,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [BASE] = KEYMAP( \
-  KC_JYEN,  KC_Q,    KC_W,    KC_E,            KC_R,             KC_T,   _______,             /**/ _______, KC_Y,   KC_U,                KC_I,    KC_O,    KC_P,    KC_MINS, \
-  KC_LCTRL, KC_A,    KC_S,    LT(MOUSE, KC_D), KC_F,             KC_G,   _______,             /**/ _______, KC_H,   KC_J,                KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT,  KC_Z,    KC_X,    KC_C,            KC_V,             KC_B,   _______,             /**/ _______, KC_B,   KC_N,                KC_M,    KC_COMM, KC_DOT,  KC_SLSH, \
-  _______,  _______, _______, _______,         LALT_T(KC_LANG2), KC_SPC, LT(CONTROL, KC_ESC), /**/ KC_TAB,  KC_ENT, LT(RAISE, KC_LANG1), _______, _______, _______, _______  \
+  KC_JYEN,  KC_Q,    KC_W,    KC_E,            KC_R,             KC_T,   _______, /**/ _______, KC_Y,   KC_U,                KC_I,    KC_O,    KC_P,    KC_MINS,              \
+  KC_LCTRL, KC_A,    KC_S,    LT(MOUSE, KC_D), KC_F,             KC_G,   _______, /**/ _______, KC_H,   KC_J,                KC_K,    KC_L,    KC_SCLN, LT(CONTROL, KC_QUOT), \
+  KC_LSFT,  KC_Z,    KC_X,    KC_C,            KC_V,             KC_B,   _______, /**/ _______, KC_B,   KC_N,                KC_M,    KC_COMM, KC_DOT,  KC_SLSH,              \
+  _______,  _______, _______, _______,         LALT_T(KC_LANG2), KC_SPC, KC_ESC,  /**/ KC_TAB,  KC_ENT, LT(RAISE, KC_LANG1), _______, _______, _______, _______               \
 ),
 
 /* Raise
