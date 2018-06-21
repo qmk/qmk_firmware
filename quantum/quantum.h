@@ -148,7 +148,12 @@ void send_char(char ascii_code);
 
 // For tri-layer
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3);
+<<<<<<< HEAD
+//again, unknown if actually needed. need keyboard to test.
+void update_quad_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t layer4);
+=======
 uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, uint8_t layer3);
+>>>>>>> e8eaf5630cee4f5d16b0c86627579c5a695540d5
 
 void set_single_persistent_default_layer(uint8_t default_layer);
 

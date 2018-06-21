@@ -807,6 +807,14 @@ uint32_t update_tri_layer_state(uint32_t state, uint8_t layer1, uint8_t layer2, 
 void update_tri_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   layer_state_set(update_tri_layer_state(layer_state, layer1, layer2, layer3));
 }
+//Unknown if actually needed. Need keyboard to test.
+void update_quad_layer(uint8_t layer1, uint8_t layer2, uint8_t layer3, uint8_t layer4) {
+  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
+    layer_on(layer3);
+  } else {
+    layer_off(layer3);
+  }
+}
 
 void tap_random_base64(void) {
   #if defined(__AVR_ATmega32U4__)
