@@ -20,7 +20,7 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` in QMK (recommended command line)
-* [Atmel's Flip](http://www.atmel.com/tools/flip.aspx) (not recommended)
+* [Atmel's Flip](http://www.microchip.com/developmenttools/productdetails.aspx?partno=flip) (not recommended)
 
 Flashing sequence:
 

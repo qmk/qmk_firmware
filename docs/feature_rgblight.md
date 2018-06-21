@@ -88,11 +88,36 @@ const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 Look in `rgblights.h` for all available functions, but if you want to control all or some LEDs your goto functions are:
 
 ```c
-rgblight_disable();  // turn all lights off
-rgblight_enable();  // turn lights on, based on their previous state (stored in EEPROM)
+// turn all lights off (stored in EEPROM)
+rgblight_disable();
+// turn lights on, based on their previous state (stored in EEPROM)
+rgblight_enable(); 
 
-rgblight_setrgb(r, g, b);  // where r/g/b is a number from 0..255.  Turns all the LEDs to this color
-rgblight_sethsv(h, s, v);  // HSV color control - h is a value from 0..360 and s/v is a value from 0..255
+// turn all lights off (not stored in EEPROM)
+rgblight_disable_noeeprom();
+// turn lights on, based on their previous state (not stored in EEPROM)
+rgblight_enable_noeeprom();
+
+// where r/g/b is a number from 0..255.  Turns all the LEDs to this color (ignores mode, not stored in EEPROM). 
+rgblight_setrgb(r, g, b); 
+// HSV color control - h is a value from 0..360 and s/v is a value from 0..255 (stored in EEPROM)
+rgblight_sethsv(h, s, v);  
+// HSV color control - h is a value from 0..360 and s/v is a value from 0..255 (not stored in EEPROM)
+rgblight_sethsv_noeeprom(h, s, v);  
+
+// Sets the mode, if rgb animations are enabled (stored in eeprom)
+rgblight_mode(x);
+// Sets the mode, if rgb animations are enabled (not stored in eeprom)
+rgblight_mode_noeeprom(x);
+// MODE 1, solid color
+// MODE 2-5, breathing
+// MODE 6-8, rainbow mood
+// MODE 9-14, rainbow swirl
+// MODE 15-20, snake
+// MODE 21-23, knight
+// MODE 24, xmas
+// MODE 25-34, static rainbow
+
 rgblight_setrgb_at(r,g,b, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
 rgblight_sethsv_at(h,s,v, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
 ```
@@ -121,12 +146,13 @@ These control the RGB Lighting functionality.
 |`RGB_MODE_KNIGHT`  |`RGB_M_K` |"Knight Rider" animation mode                                       |
 |`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
+|`RGB_MODE_RGBTEST `|`RGB_M_T` |Red,Green,Blue test animation mode                                  |
 
 note: for backwards compatibility, `RGB_SMOD` is an alias for `RGB_MOD`.
 
 ## Hardware Modification
 
-![Planck with RGB Underglow](https://raw.githubusercontent.com/qmk/qmk_firmware/master/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg)
+![Planck with RGB Underglow](https://raw.githubusercontent.com/qmk/qmk_firmware/3774a7fcdab5544fc787f4c200be05fcd417e31f/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg)
 
 Here is a quick demo on Youtube (with NPKC KC60) (https://www.youtube.com/watch?v=VKrpPAHlisY).
 

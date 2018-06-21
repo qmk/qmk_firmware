@@ -32,7 +32,7 @@
   { K0A, K0B, K0C, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K0J,   KC_NO, K0K, K0L,   K0M, K0N,   K0O    }  \
 }
 
-#define LAYOUT_eagle( \
+#define LAYOUT_60_ansi( \
     K4A, K4B, K4C, K4D, K4E, K4F, K4G, K4H, K4I, K4J, K4K, K4L, K4M,      K4O, \
     K3A, K3B, K3C, K3D, K3E, K3F, K3G, K3H, K3I, K3J, K3K, K3L, K3M,      K3O, \
     K2A, K2B, K2C, K2D, K2E, K2F, K2G, K2H, K2I, K2J, K2K, K2L,           K2O, \
@@ -74,3 +74,5 @@
   { KC_NO, K0B,   K0C, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, K0J,   KC_NO, KC_NO, KC_NO, K0M, K0N,   KC_NO    }  \
 }
 #endif
+
+#define LAYOUT_eagle LAYOUT_60_ansi
