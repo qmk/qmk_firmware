@@ -55,7 +55,7 @@ void rgblight_sethsv_default_helper(uint8_t index);
 
 void tap(uint16_t keycode);
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
-bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, unt16_t this_timer);
+bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 
 #define EECONFIG_USERSPACE (uint8_t *)19
 
@@ -70,15 +70,15 @@ typedef union {
 } userspace_config_t;
 
 enum userspace_custom_keycodes {
-  EPRM = SAFE_RANGE, // can always be here
-  VRSN,
-  KC_QWERTY,
-  KC_COLEMAK,
-  KC_DVORAK,
-  KC_WORKMAN,
-  KC_DIABLO_CLEAR,
-  KC_OVERWATCH,
-  KC_SALT,
+  EPRM = SAFE_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
+  VRSN,              // Prints QMK Firmware and board info
+  KC_QWERTY,         // Sets default layer to QWERTY
+  KC_COLEMAK,        // Sets default layer to COLEMAK
+  KC_DVORAK,         // Sets default layer to DVORAK
+  KC_WORKMAN,        // Sets default layer to WORKMAN
+  KC_DIABLO_CLEAR,   // Clears all Diablo Timers
+  KC_OVERWATCH,      // Toggles game macro input mode (so in OW, it defaults to game chat)
+  KC_SALT,           // See drashna.c for details
   KC_MORESALT,
   KC_SALTHARD,
   KC_GOODGAME,
@@ -89,21 +89,21 @@ enum userspace_custom_keycodes {
   KC_AIM,
   KC_C9,
   KC_GGEZ,
-  KC_MAKE,
-  KC_RESET,
-  KC_RGB_T,
-  KC_SECRET_1,
-  KC_SECRET_2,
-  KC_SECRET_3,
-  KC_SECRET_4,
-  KC_SECRET_5,
-  KC_CCCV,
-  KC_NUKE,
+  KC_MAKE,           // Run keyboard's customized make command
+  KC_RESET,          // Resets keyboard, with red underglow
+  KC_RGB_T,          // Toggles RGB Layer Indication mode
+  KC_SECRET_1,       // test1
+  KC_SECRET_2,       // test2
+  KC_SECRET_3,       // test3
+  KC_SECRET_4,       // test4
+  KC_SECRET_5,       // test5
+  KC_CCCV,           // Hold to copy, tap to paste
+  KC_NUKE,           // NUCLEAR LAUNCH DETECTED!!!
 
 #ifdef UNICODE_ENABLE
-  UC_FLIP,
+  UC_FLIP,           // Table flip (not working?)
 #endif //UNICODE_ENABLE
-  NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
+  NEW_SAFE_RANGE     //use "NEWPLACEHOLDER for keymap specific codes
 };
 
 #define LOWER MO(_LOWER)

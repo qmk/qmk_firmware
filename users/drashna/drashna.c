@@ -66,7 +66,7 @@ bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed) {
   return false;
 }
 
-bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, unt16_t this_timer) {
+bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer) {
   if(pressed) {
       this_timer= timer_read();
   } else {
