@@ -52,6 +52,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif //RGBLIGHT_ENABLE
 #endif //AUDIO_ENABLE
 
+#define QMK_ESC_OUTPUT F5 // usually COL
+#define QMK_ESC_INPUT D7 // usually ROW
+#define QMK_LED B0
+#define QMK_SPEAKER C6
 
 #undef PRODUCT
 #ifdef KEYBOARD_iris_rev2

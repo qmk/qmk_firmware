@@ -72,7 +72,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define QMK_ESC_OUTPUT D7 // usually COL
+#ifdef KEYBOARD_orthodox_rev1
 #define QMK_ESC_INPUT D4 // usually ROW
+#else
+#define QMK_ESC_INPUT D2 // usually ROW
+#endif
 #define QMK_LED B0
 #define QMK_SPEAKER C6
 
