@@ -369,7 +369,7 @@
                                      PIN_MODE_INPUT(GPIOB_PIN5) |           \
                                      PIN_MODE_ALTERNATE(GPIOB_PIN6) |   \
                                      PIN_MODE_OUTPUT(GPIOB_PIN7) |   \
-                                     PIN_MODE_INPUT(GPIOB_PIN8) |           \
+                                     PIN_MODE_OUTPUT(GPIOB_PIN8) |           \
                                      PIN_MODE_INPUT(GPIOB_PIN9) |           \
                                      PIN_MODE_INPUT(GPIOB_PIN10) |          \
                                      PIN_MODE_INPUT(GPIOB_PIN11) |          \
@@ -401,7 +401,7 @@
                                      PIN_OSPEED_VERYLOW(GPIOB_PIN5) |       \
                                      PIN_OSPEED_HIGH(GPIOB_PIN6) |      \
                                      PIN_OSPEED_VERYLOW(GPIOB_PIN7) |      \
-                                     PIN_OSPEED_VERYLOW(GPIOB_PIN8) |       \
+                                     PIN_OSPEED_HIGH(GPIOB_PIN8) |       \
                                      PIN_OSPEED_VERYLOW(GPIOB_PIN9) |       \
                                      PIN_OSPEED_VERYLOW(GPIOB_PIN10) |      \
                                      PIN_OSPEED_VERYLOW(GPIOB_PIN11) |      \
@@ -417,7 +417,7 @@
                                      PIN_PUPDR_PULLUP(GPIOB_PIN5) |         \
                                      PIN_PUPDR_FLOATING(GPIOB_PIN6) |   \
                                      PIN_PUPDR_PULLDOWN(GPIOB_PIN7) |   \
-                                     PIN_PUPDR_PULLUP(GPIOB_PIN8) |         \
+                                     PIN_PUPDR_FLOATING(GPIOB_PIN8) |         \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN9) |         \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN10) |        \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN11) |        \
