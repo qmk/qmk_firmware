@@ -381,6 +381,7 @@ check-size:
 else
 check-size:
 	echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	md5sum $(TARGET).bin >> qmk_pok3r.md5
 endif
 
 # Create build directory

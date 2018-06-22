@@ -25,6 +25,7 @@
 #define MANUFACTURER    Holtek
 #define PRODUCT         Vortex Core
 #define DESCRIPTION     Vortex Core with qmk_pok3r
+#define NAME_SLUG       "vortex/core"
 
 #define UPDATE_PROTO_CYKB
 

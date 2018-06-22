@@ -13,6 +13,7 @@ qmk_pok3r:
   artifacts:
     name: "$CI_JOB_NAME-$CI_COMMIT_REF_SLUG"
     paths:
+      - qmk_pok3r.md5
       - vortex_pok3r_default.bin
       - vortex_pok3r_rgb_default.bin
       - vortex_core_default.bin

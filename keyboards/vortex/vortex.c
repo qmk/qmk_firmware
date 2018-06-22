@@ -52,10 +52,8 @@ static const uint32_t keymap_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS * siz
 extern const char *layout_names;
 uint8_t current_layout = 0;
 
-const uint8_t firmware_id[] __attribute__ ((section (".id.firmware"))) = {
-    PRODUCT_ID & 0xFF, (PRODUCT_ID >> 8) & 0xFF,
-    'q', 'm', 'k', '_', 'p', 'o', 'k', '3', 'r', 0
-};
+const uint8_t firmware_id[] __attribute__ ((section (".id.firmware"))) =
+    "qmk_pok3r;" NAME_SLUG ";" QMK_VERSION ";" QMK_BUILDDATE;
 
 void OVERRIDE bootloader_jump(void) {
     printf("Bootloader Jump\n");

@@ -25,6 +25,7 @@
 #define MANUFACTURER    Holtek
 #define PRODUCT         Vortex POK3R
 #define DESCRIPTION     Vortex POK3R with qmk_pok3r
+#define NAME_SLUG       "vortex/pok3r"
 
 #define UPDATE_PROTO_POK3R
 

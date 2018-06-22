@@ -5,6 +5,7 @@
 *.elf
 *.hex
 *.qmk
+*.md5
 !util/bootloader.hex
 !quantum/tools/eeprom_reset.hex
 *.log

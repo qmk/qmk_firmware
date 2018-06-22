@@ -30,8 +30,8 @@ MEMORY {
     flash0   : org = 0x00000000, len = 0x2800           /* bootloader */
     flash1   : org = 0x00002800, len = 0x400            /* version page */
     flash2   : org = 0x00002c00, len = 0x160            /* firmware vectors */
-    flash3   : org = 0x00002d60, len = 0x20             /* firmware identifier */
-    flash4   : org = 0x00002d80, len = 128k - 0x2d80    /* text, rodata, data */
+    flash3   : org = 0x00002d60, len = 0x80             /* firmware identifier */
+    flash4   : org = 0x00002de0, len = 128k - 0x2de0    /* text, rodata, data */
     flash5   : org = 0x00000000, len = 0
     flash6   : org = 0x00000000, len = 0
     flash7   : org = 0x00000000, len = 0

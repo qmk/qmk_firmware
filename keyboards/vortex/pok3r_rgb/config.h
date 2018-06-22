@@ -25,6 +25,7 @@
 #define MANUFACTURER    Holtek
 #define PRODUCT         Vortex POK3R RGB
 #define DESCRIPTION     Vortex POK3R RGB with qmk_pok3r
+#define NAME_SLUG       "vortex/pok3r_rgb"
 
 #define UPDATE_PROTO_CYKB
 
