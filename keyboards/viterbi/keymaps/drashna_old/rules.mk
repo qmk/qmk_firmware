@@ -11,7 +11,7 @@ NKRO_ENABLE       = yes
 NO_SECRETS        = yes
 MACROS_ENABLED    = yes
 INDICATOR_LIGHTS  = no
-RGBLIGHT_TWINKLE  = yes
+RGBLIGHT_TWINKLE  = no
 
 LAYOUTS = ortho_5x7
 
