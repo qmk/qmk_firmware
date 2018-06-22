@@ -28,17 +28,31 @@ inline static
 void serial_delay(void) {
   _delay_us(SERIAL_DELAY);
 }
-void serial_delay_short(void) {
-  _delay_us(SERIAL_DELAY-1);
+
+inline static
+void serial_delay_half(void) {
+  _delay_us(SERIAL_DELAY/2);
 }
+
+inline static
+void serial_delay_quart(void) {
+  _delay_us(SERIAL_DELAY/4);
+}
+
 inline static
 void serial_output(void) {
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_OUTMODE
+  SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK;
+#endif
   SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
 }
 
 // make the serial pin an input with pull-up resistor
 inline static
 void serial_input(void) {
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_OUTMODE
+  SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK;
+#endif
   SERIAL_PIN_DDR  &= ~SERIAL_PIN_MASK;
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
@@ -58,12 +72,23 @@ void serial_high(void) {
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
 
+#ifdef SERIAL_DEBUG_MODE
+inline static
+void serial_debug_init(void) {
+    SERIAL_DBGPIN_DDR |= SERIAL_DBGPIN_MASK;
+}
+#else
+#define serial_debug_init()
+#endif
+
 void serial_master_init(void) {
+  serial_debug_init();
   serial_output();
   serial_high();
 }
 
 void serial_slave_init(void) {
+  serial_debug_init();
   serial_input();
 
 #ifndef USE_SERIAL_PD2
@@ -82,23 +107,42 @@ void serial_slave_init(void) {
 // Used by the master to synchronize timing with the slave.
 static
 void sync_recv(void) {
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_SYNC
+  SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK;
+#endif
   serial_input();
   // This shouldn't hang if the slave disconnects because the
   // serial line will float to high if the slave does disconnect.
   while (!serial_read_pin());
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_SYNC
+  SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK;
+  _delay_us(3);
+  SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK;
+#endif
   //serial_delay();
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_SYNC
+  _delay_us(SERIAL_DELAY-8);
+  SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK;
+#else
   _delay_us(SERIAL_DELAY-5);
+#endif
 }
 
 // Used by the slave to send a synchronization signal to the master.
 static
 void sync_send(void) {
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_SYNC
+  SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK;
+#endif
   serial_output();
 
   serial_low();
   serial_delay();
 
   serial_high();
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_SYNC
+  SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK;
+#endif
 }
 
 // Reads a byte from the serial line
@@ -108,8 +152,15 @@ uint8_t serial_read_byte(void) {
   serial_input();
   for ( uint8_t i = 0; i < 8; ++i) {
     byte = (byte << 1) | serial_read_pin();
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_RCVSAMPLE
+    SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK;
+    _delay_us(1);
+    SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK;
+    serial_delay();
+#else
     serial_delay();
     _delay_us(1);
+#endif
   }
 
   return byte;
@@ -126,7 +177,13 @@ void serial_write_byte(uint8_t data) {
     } else {
       serial_low();
     }
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_RCVSAMPLE
+    SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK;
+#endif
     serial_delay();
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_RCVSAMPLE
+    SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK;
+#endif
   }
 }
 
@@ -147,7 +204,13 @@ ISR(SERIAL_PIN_INTERRUPT) {
   serial_delay();
 
   // read the middle of pulses
+#if SERIAL_DEBUG_MODE & (SERIAL_DEBUG_MODE_WATCH_SYNC|SERIAL_DEBUG_MODE_WATCH_RCVSAMPLE)
+  SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK;
+#endif
   _delay_us(SERIAL_DELAY/2);
+#if SERIAL_DEBUG_MODE & (SERIAL_DEBUG_MODE_WATCH_SYNC|SERIAL_DEBUG_MODE_WATCH_RCVSAMPLE)
+  SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK;
+#endif
 
   uint8_t checksum_computed = 0;
   for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {

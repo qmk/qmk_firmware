@@ -24,6 +24,12 @@
 #define SERIAL_MASTER_BUFFER_LENGTH MATRIX_ROWS/2
 #endif
 
+#ifdef SERIAL_DEBUG_MODE
+#define SERIAL_DBGPIN_DDR DDRB
+#define SERIAL_DBGPIN_PORT PORTB
+#define SERIAL_DBGPIN_MASK _BV(PB5)
+#endif
+
 // Buffers for master - slave communication
 extern volatile uint8_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
 extern volatile uint8_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
