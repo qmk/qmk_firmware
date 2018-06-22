@@ -43,7 +43,7 @@ uint8_t qwiic_keyboard_handshake_message[QWIIC_KEYBOARD_HANDSHAKE_MESSAGE_SIZE] 
 uint8_t qwiic_keyboard_matrix_message[QWIIC_KEYBOARD_ROWS] = {0};
 twi2c_message_received qwiic_keyboard_message_received_ptr = qwiic_keyboard_message_received;
 
-uint16_t qwiic_keyboard_keymap[QWIIC_KEYBOARD_LAYERS][QWIIC_KEYBOARD_ROWS][QWIIC_KEYBOARD_COLS] = {0};
+uint16_t qwiic_keyboard_keymap[QWIIC_KEYBOARD_LAYERS][QWIIC_KEYBOARD_ROWS][QWIIC_KEYBOARD_COLS] = {{{0}}};
 uint8_t qwiic_keyboard_listening_address = QWIIC_KEYBOARD_LISTENING_ADDRESS_START;
 uint8_t qwiic_keyboard_processing_slave = false;
 
