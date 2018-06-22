@@ -3,9 +3,9 @@ TADA68
 
 A compact 65% keyboard.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: TADA68 PCB
-Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/products/tada68-mechanical-keyboard-gateron-swtich-65-layout-dye-sub-keycaps-cherry-profils?variant=34710238797) [kbdist](http://www.kbdist.com/)
+Keyboard Maintainer: QMK Community  
+Hardware Supported: TADA68 PCB  
+Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/products/tada68-mechanical-keyboard-gateron-swtich-65-layout-dye-sub-keycaps-cherry-profils?variant=34710238797), [kbdist](http://www.kbdist.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -15,7 +15,7 @@ See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) 
 
 ## Flashing Instructions
 
-*Read all the instructions, there are a few warnings of things to avoid doing to avoid bricking your Tada68. _It is much too easy to do!  _
+*Read all the instructions, there are a few warnings of things to avoid doing to avoid bricking your Tada68. __It is much too easy to do!__*
 
 1) from the `qmk_firmware\` directory run:
 ```

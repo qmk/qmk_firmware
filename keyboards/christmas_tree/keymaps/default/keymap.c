@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "christmas_tree.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -32,27 +32,35 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Base
- *         ,------.
- *         |   1  |
- *     ,------+------.
- *     |   2  |   3  |
- * ,------+------+------.
- * |   4  | FUNC |   6  |
- * `--------------------'
- */
-[_BASE] = KEYMAP(KC_1, KC_2, KC_3, KC_4, MO(_FUNC), KC_6),
+  /* Base
+   *         ,------.
+   *         |   1  |
+   *     ,------+------.
+   *     |   2  |   3  |
+   * ,------+------+------.
+   * |   4  | FUNC |   6  |
+   * `--------------------'
+   */
+  [_BASE] = LAYOUT(
+            KC_1,
+         KC_2, KC_3,
+    KC_4, MO(_FUNC), KC_6
+  ),
 
-/* Func
- *         ,------.
- *         |BCKLIT|
- *     ,------+------.
- *     |   8  |   9  |
- * ,------+------+------.
- * |   0  | FUNC | RESET|
- * `--------------------'
- */
-[_FUNC] = KEYMAP(BACKLIT, KC_8, KC_9, KC_0, _______, RESET)
+  /* Func
+   *         ,------.
+   *         |BCKLIT|
+   *     ,------+------.
+   *     |   8  |   9  |
+   * ,------+------+------.
+   * |   0  | FUNC | RESET|
+   * `--------------------'
+   */
+  [_FUNC] = LAYOUT(
+            BACKLIT,
+         KC_8, KC_9,
+    KC_0, _______, RESET
+  )
 
 
 };
