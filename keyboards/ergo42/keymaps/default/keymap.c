@@ -6,9 +6,9 @@ extern keymap_config_t keymap_config;
 
 #define BASE    0
 #define RAISE   1
-#define CONTROL 4
-#define MOUSE   2
-#define WHEEL   3
+#define CONTROL 2
+#define MOUSE   3
+#define WHEEL   4
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
