@@ -19,31 +19,47 @@ If you're having trouble flashing/erasing your board, and running into cryptic e
     Memory write error, use debug for more info.
     commands.c:360: Error writing memory data. (err -4)
 
-You're likely going to need to ISP flash your board/device to get it working again. Luckily, this process is pretty straight-forward, provided you have any extra programmable keyboard, Arduino, or Teensy 2.0/Teensy 2.0++. There are also dedicated ISP flashers available for this, but most cost >$15, and it's assumed that if you are googling this error, this is the first you've heard about ISP flashing, and don't have one readily available (whereas you might have some other AVR board). __We'll be using a Teensy 2.0 with Windows 10 in this guide__ - if you are comfortable doing this on another system, please consider editing this guide and contributing those instructions!   
+You're likely going to need to ISP flash your board/device to get it working again. Luckily, this process is pretty straight-forward, provided you have any extra programmable keyboard, Pro Micro, or Teensy 2.0/Teensy 2.0++. There are also dedicated ISP flashers available for this, but most cost >$15, and it's assumed that if you are googling this error, this is the first you've heard about ISP flashing, and don't have one readily available (whereas you might have some other AVR board). __We'll be using a Teensy 2.0 or Pro Micro with Windows 10 in this guide__ - if you are comfortable doing this on another system, please consider editing this guide and contributing those instructions!   
 
 ## Software Needed
 
-* [Teensy Loader](https://www.pjrc.com/teensy/loader.html) (to program the Teensy)
-* [WinAVR](http://www.ladyada.net/learn/avr/setup-win.html) (Windows)
+* [Teensy Loader](https://www.pjrc.com/teensy/loader.html) (if using a Teensy)
+* `avrdude` via [WinAVR](http://www.ladyada.net/learn/avr/setup-win.html) (for Teensy & Pro Micro)
 
 ## Wiring
 
 This is pretty straight-forward - we'll be connecting like-things to like-things in the following manner:
 
-    Flasher B0  <-> Keyboard RESET
-    Flasher B1  <-> Keyboard B1 (SCLK)
-    Flasher B2  <-> Keyboard B2 (MOSI)
-    Flasher B3  <-> Keyboard B3 (MISO)
-    Flasher VCC <-> Keyboard VCC
-    Flasher GND <-> Keyboard GND
+### Teensy 2.0
+
+    Teensy B0  <-> Keyboard RESET
+    Teensy B1  <-> Keyboard B1 (SCLK)
+    Teensy B2  <-> Keyboard B2 (MOSI)
+    Teensy B3  <-> Keyboard B3 (MISO)
+    Teensy VCC <-> Keyboard VCC
+    Teensy GND <-> Keyboard GND
+    
+### Pro Micro
+
+    Pro Micro 10 (B6)  <-> Keyboard RESET
+    Pro Micro 15 (B1)  <-> Keyboard B1 (SCLK)
+    Pro Micro 16 (B2)  <-> Keyboard B2 (MOSI)
+    Pro Micro 14 (B3)  <-> Keyboard B3 (MISO)
+    Pro Micro VCC      <-> Keyboard VCC
+    Pro Micro GND      <-> Keyboard GND
 
 ## The ISP Firmware (now pre-compiled)
 
-Download the [`util/teensy_2.0_ISP_B0.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/teensy_2.0_ISP_B0.hex) file from the repo, and load it onto your Teensy 2.0 using the Teensy Loader GUI or command line application.
+The only difference between the .hex files below is which pin is connected to RESET. You can use them on other boards as well, as long as you're aware of the pins being used.
+
+* Teensy 2.0: [`util/teensy_2.0_ISP_B0.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/teensy_2.0_ISP_B0.hex) (`B0`)
+* Pro Micro: [`util/pro_micro_ISP_B6.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/pro_mico_ISP_B6.hex) (`B6`)
 
 ## The `.hex` File
 
-Before flashing your firmware, you're going to need to and do a little preparation. We'll be appending [this bootloader (also a .hex file)](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32u4_1_0_0.hex) (atmega32u4 only - other bootloaders are available in the [`util/` folder](https://github.com/qmk/qmk_firmware/tree/master/util)) to the end of our firmware by opening the original .hex file in a text editor, and removing the last line, which should be `:00000001FF` (this is an EOF message). After that's been removed, copy the entire bootloader's contents and paste it at the end of the original file, and save it.
+If you just want to get things back to normal, you can flash only a bootloader from [`util/` folder](https://github.com/qmk/qmk_firmware/tree/master/util), and use your normal process to flash the firmware. If you'd like to do both at the same time, you can follow the directions below:
+
+To flash both your bootloader and firmware at the same time, we need to append [a bootloader (also a .hex file)](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32u4_1_0_0.hex) (atmega32u4 only - other bootloaders are available in the [`util/` folder](https://github.com/qmk/qmk_firmware/tree/master/util)) to the end of our firmware by opening the original .hex file in a text editor, and removing the last line, which should be `:00000001FF` (this is an EOF message). After that's been removed, copy the entire bootloader's contents onto a new line (with no empty lines between) and paste it at the end of the original file, and save it.
 
 It's possible to use other bootloaders here in the same way, but __you need a bootloader__, otherwise you'll have to use ISP again to write new firmware to your keyboard.
 
