@@ -134,11 +134,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_USB_STARTUP_CHECK
 
-#define WS2812_LED_N 1
-#define RGBLED_NUM WS2812_LED_N
-#define WS2812_TIM_N 2
-#define WS2812_TIM_CH 2
-#define PORT_WS2812     GPIOB
-#define PIN_WS2812      8
+#define RGBLED_NUM 1
 
 #endif

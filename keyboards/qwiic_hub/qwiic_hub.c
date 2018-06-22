@@ -19,7 +19,7 @@
 uint8_t *o_fb;
 
 void matrix_init_kb(void) {
-  ledDriverInit(8, GPIOB, 0b00000010, &o_fb);
+  ledDriverInit(1, GPIOB, 0b100000000, &o_fb);
   testPatternFB(o_fb);
 
 	matrix_init_user();
@@ -30,6 +30,8 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_kb(void) {
+
+  testPatternFB(o_fb);
   matrix_scan_user();
 }
 

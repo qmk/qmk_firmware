@@ -328,7 +328,7 @@ void rgblight_disable_noeeprom(void) {
   #ifdef RGBLIGHT_ANIMATIONS
     rgblight_timer_disable();
   #endif
-  _delay_ms(50);
+  wait_ms(50);
   rgblight_set();
 }
 
