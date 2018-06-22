@@ -154,6 +154,18 @@
 #define X_LANG7              96
 #define X_LANG8              97
 #define X_LANG9              98
+#define X_ALT_ERASE          99
+#define X_SYSREQ             9a
+#define X_CANCEL             9b
+#define X_CLEAR              9c
+#define X_PRIOR              9d
+#define X_RETURN             9e
+#define X_SEPARATOR          9f
+#define X_OUT                a0
+#define X_OPER               a1
+#define X_CLEAR_AGAIN        a2
+#define X_CRSEL              a3
+#define X_EXSEL              a4
 
 /* Modifiers */
 #define X_LCTRL              e0
