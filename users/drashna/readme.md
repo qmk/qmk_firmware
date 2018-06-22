@@ -213,15 +213,15 @@ Pro Micro Hacking
 
 Well, you can get the QMK DFU bootloader working on the ProMicro. But you need to change fuses.  
 
-What worked to get into the firmware properly was: 
+What worked to get into the firmware properly was:
 
 ```
-Low: 0x5E High: 0x99 Extended: 0xF3 Lock: 0xFF
+Low: 0x5E High: 0xD9 Extended: 0xF3 Lock: 0xFF
 ```
 
-But some of the columns and rows didn't work, like the pin mapping was wrong. Even when setting the bootloader settings.
- 
- This is here for future reference.  And the default fuse settings I believe were:
+The reason that there was some issues before, is that JTAG was still enabled, and using some of the pins that the keyboard uses.  Disabling JTAG (either by fuse, or modifying the matrix code for splits fixes the issue).
+
+And for reference, if you want to go back to caterina, the default fuse settings I believe were:
 
 ```
 Low: 0xFF High: 0xD8 Extended: 0xC3 Lock: 0x3F
