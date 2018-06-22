@@ -17,3 +17,5 @@ MACROS_ENABLED    = no
 RGBLIGHT_TWINKLE  = yes
 
 SRC += ../drashna/keymap.c
+
+BOOTLOADER        = qmk-dfu

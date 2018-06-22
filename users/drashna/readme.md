@@ -216,7 +216,7 @@ Well, you can get the QMK DFU bootloader working on the ProMicro. But you need t
 What worked to get into the firmware properly was:
 
 ```
-Low: 0x5E High: 0xD9 Extended: 0xF3 Lock: 0xFF
+Low: 0x5E High: 0xD9 Extended: 0xC3 Lock: 0x3F
 ```
 
 The reason that there was some issues before, is that JTAG was still enabled, and using some of the pins that the keyboard uses.  Disabling JTAG (either by fuse, or modifying the matrix code for splits fixes the issue).
