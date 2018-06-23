@@ -12,7 +12,7 @@ static uint8_t *fb;
 static int sLeds;
 static stm32_gpio_t *sPort;
 static uint32_t sMask;
-uint8_t* dma_source;
+uint16_t* dma_source;
 
 void setColor(uint8_t color, uint8_t *buf,uint32_t mask){
   int i;
@@ -77,8 +77,7 @@ void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint8_t **o_fb) 
   *o_fb=fb;
   int j;
   for (j = 0; j < (sLeds) * 24; j++) fb[j] = 0;
-  dma_source[0] = sMask & 0xFF;
-  dma_source[1] = sMask >> 8;
+  dma_source[0] = sMask;
   // DMA stream 2, triggered by channel3 pwm signal. if FB indicates, reset output value early to indicate "0" bit to ws2812
   dmaStreamAllocate(STM32_DMA1_STREAM2, 10, NULL, NULL);
   dmaStreamSetPeripheral(STM32_DMA1_STREAM2, &(sPort->BSRR.H.clear));
