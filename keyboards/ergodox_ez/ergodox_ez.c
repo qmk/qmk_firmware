@@ -22,7 +22,6 @@ extern inline void ergodox_right_led_set(uint8_t led, uint8_t n);
 
 extern inline void ergodox_led_all_set(uint8_t n);
 
-
 bool i2c_initialized = 0;
 i2c_status_t mcp23018_status = 0x20;
 
@@ -125,23 +124,23 @@ uint8_t init_mcp23018(void) {
     // - unused  : input  : 1
     // - input   : input  : 1
     // - driving : output : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, 0);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(IODIRA, 0);            if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000, 0);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00111111, 0);        if (mcp23018_status) goto out;
-    i2c_stop(0);
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(IODIRA, ERGODOX_EZ_I2C_TIMEOUT);            if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00000000, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
 
     // set pull-up
     // - unused  : on  : 1
     // - input   : on  : 1
     // - driving : off : 0
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, 0);    if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(GPPUA, 0);             if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00000000, 0);        if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(0b00111111, 0);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(GPPUA, ERGODOX_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00000000, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+    mcp23018_status = i2c_write(0b00111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
 
 out:
-    i2c_stop(0);
+    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
 
 #ifdef LEFT_LEDS
     if (!mcp23018_status) mcp23018_status = ergodox_left_leds_update();
@@ -165,22 +164,22 @@ uint8_t ergodox_left_leds_update(void) {
     // - unused  : hi-Z : 1
     // - input   : hi-Z : 1
     // - driving : hi-Z : 1
-    mcp23018_status = i2c_start(I2C_ADDR_WRITE, 0);
+    mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
-    mcp23018_status = i2c_write(OLATA, 0);
+    mcp23018_status = i2c_write(OLATA, ERGODOX_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b11111111
                                 & ~(ergodox_left_led_3<<LEFT_LED_3_SHIFT),
-                                0);
+                                ERGODOX_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b11111111
                                 & ~(ergodox_left_led_2<<LEFT_LED_2_SHIFT)
                                 & ~(ergodox_left_led_1<<LEFT_LED_1_SHIFT),
-                                0);
+                                ERGODOX_EZ_I2C_TIMEOUT);
     if (mcp23018_status) goto out;
 
  out:
-    i2c_stop(0);
+    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
     return mcp23018_status;
 }
 #endif

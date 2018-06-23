@@ -14,6 +14,9 @@ typedef int16_t i2c_status_t;
 #define I2C_STATUS_ERROR   (-1)
 #define I2C_STATUS_TIMEOUT (-2)
 
+#define I2C_TIMEOUT_IMMEDIATE (0)
+#define I2C_TIMEOUT_INFINITE (0xFFFF)
+
 void i2c_init(void);
 i2c_status_t i2c_start(uint8_t address, uint16_t timeout);
 i2c_status_t i2c_write(uint8_t data, uint16_t timeout);

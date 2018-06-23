@@ -295,13 +295,14 @@ static matrix_row_t read_cols(uint8_t row)
             return 0;
         } else {
             uint8_t data = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, 0);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOB, 0);             if (mcp23018_status) goto out;
-            mcp23018_status = i2c_start(I2C_ADDR_READ, 0);     if (mcp23018_status) goto out;
-            mcp23018_status = i2c_read_nack(0);                if (mcp23018_status < 0) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOB, ERGODOX_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_READ, ERGODOX_EZ_I2C_TIMEOUT);     if (mcp23018_status) goto out;
+            mcp23018_status = i2c_read_nack(ERGODOX_EZ_I2C_TIMEOUT);                if (mcp23018_status < 0) goto out;
             data = ~((uint8_t)mcp23018_status);
+            mcp23018_status = I2C_STATUS_SUCCESS;
         out:
-            i2c_stop(0);
+            i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
             return data;
         }
     } else {
@@ -350,11 +351,11 @@ static void select_row(uint8_t row)
         } else {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE, 0);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA, 0);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1<<row), 0);      if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOA, ERGODOX_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(0xFF & ~(1<<row), ERGODOX_EZ_I2C_TIMEOUT);      if (mcp23018_status) goto out;
         out:
-            i2c_stop(0);
+            i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
         }
     } else {
         // select on teensy
