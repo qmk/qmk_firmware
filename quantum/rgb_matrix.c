@@ -102,13 +102,8 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i, uint8_t
 }
 
 void rgb_matrix_update_pwm_buffers(void) {
-    uint8_t ret = IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-    ret |= IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-    if (ret == 2) {
-      wait_ms(1000);
-      i2c_stop();
-      rgb_matrix_setup_drivers();
-    }
+    IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+    IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 }
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
