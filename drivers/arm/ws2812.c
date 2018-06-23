@@ -94,7 +94,7 @@ void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint8_t **o_fb) 
   dmaStreamSetMemory0(STM32_DMA1_STREAM3, dma_source);
   dmaStreamSetTransactionSize(STM32_DMA1_STREAM3, 2);
   dmaStreamSetMode(
-      STM32_DMA1_STREAM3, STM32_DMA_CR_TEIE |
+      STM32_DMA1_STREAM3, STM32_DMA_CR_TEIE | STM32_DMA_CR_MINC |
       STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_BYTE
       | STM32_DMA_CR_MSIZE_BYTE | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
   // DMA stream 6, triggered by channel1 update event. reset output value late to indicate "1" bit to ws2812.
