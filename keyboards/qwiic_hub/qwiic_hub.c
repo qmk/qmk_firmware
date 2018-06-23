@@ -19,7 +19,7 @@
 uint8_t *o_fb;
 
 void matrix_init_kb(void) {
-  ledDriverInit(1, GPIOA, 0b1000, &o_fb);
+  ledDriverInit(1, GPIOA, 0b100000000, &o_fb);
   testPatternFB(o_fb);
 
 	matrix_init_user();
