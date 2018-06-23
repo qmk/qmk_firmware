@@ -28,7 +28,7 @@ i2c_status_t i2c_start(uint8_t address, uint16_t timeout)
 
   uint16_t timeout_timer = timer_read();
   while( !(TWCR & (1<<TWINT)) ) {
-    if (timeout && ((timer_read() - timeout_timer) > timeout)) {
+    if ((timeout != I2C_TIMEOUT_INFINITE) && ((timer_read() - timeout_timer) >= timeout)) {
       return I2C_STATUS_TIMEOUT;
     }
   }
@@ -43,7 +43,7 @@ i2c_status_t i2c_start(uint8_t address, uint16_t timeout)
 
   timeout_timer = timer_read();
   while( !(TWCR & (1<<TWINT)) ) {
-    if (timeout && ((timer_read() - timeout_timer) > timeout)) {
+    if ((timeout != I2C_TIMEOUT_INFINITE) && ((timer_read() - timeout_timer) >= timeout)) {
       return I2C_STATUS_TIMEOUT;
     }
   }
@@ -64,7 +64,7 @@ i2c_status_t i2c_write(uint8_t data, uint16_t timeout)
 
   uint16_t timeout_timer = timer_read();
   while( !(TWCR & (1<<TWINT)) ) {
-    if (timeout && ((timer_read() - timeout_timer) > timeout)) {
+    if ((timeout != I2C_TIMEOUT_INFINITE) && ((timer_read() - timeout_timer) >= timeout)) {
       return I2C_STATUS_TIMEOUT;
     }
   }
@@ -82,7 +82,7 @@ int16_t i2c_read_ack(uint16_t timeout)
 
   uint16_t timeout_timer = timer_read();
   while( !(TWCR & (1<<TWINT)) ) {
-    if (timeout && ((timer_read() - timeout_timer) > timeout)) {
+    if ((timeout != I2C_TIMEOUT_INFINITE) && ((timer_read() - timeout_timer) >= timeout)) {
       return I2C_STATUS_TIMEOUT;
     }
   }
@@ -99,7 +99,7 @@ int16_t i2c_read_nack(uint16_t timeout)
 
   uint16_t timeout_timer = timer_read();
   while( !(TWCR & (1<<TWINT)) ) {
-    if (timeout && ((timer_read() - timeout_timer) > timeout)) {
+    if ((timeout != I2C_TIMEOUT_INFINITE) && ((timer_read() - timeout_timer) >= timeout)) {
       return I2C_STATUS_TIMEOUT;
     }
   }
@@ -210,7 +210,7 @@ i2c_status_t i2c_stop(uint16_t timeout)
 
   uint16_t timeout_timer = timer_read();
   while(TWCR & (1<<TWSTO)) {
-    if (timeout && ((timer_read() - timeout_timer) > timeout)) {
+    if ((timeout != I2C_TIMEOUT_INFINITE) && ((timer_read() - timeout_timer) >= timeout)) {
       return I2C_STATUS_TIMEOUT;
     }
   }
