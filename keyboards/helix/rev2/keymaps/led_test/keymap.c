@@ -6,7 +6,6 @@
 #include "lufa.h"
 #include "split_util.h"
 #endif
-#include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
@@ -32,7 +31,7 @@ extern uint8_t is_master;
 #define _DVORAK 2
 #define _LOWER 3
 #define _RAISE 4
-#define _ADJUST 16
+#define _ADJUST 6
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -477,7 +476,6 @@ void matrix_init_user(void) {
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
-        TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
@@ -513,6 +511,12 @@ void music_scale_user(void)
 #ifdef SSD1306OLED
 
 void matrix_scan_user(void) {
+    static int scan_count = 0;
+    if( scan_count == 2 ) {
+      rgblight_enable();
+      rgblight_mode(35);
+    }
+    if( scan_count < 3 ) scan_count ++;
      iota_gfx_task();  // this is what updates the display continuously
 }
 
