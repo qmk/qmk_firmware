@@ -20,9 +20,9 @@ struct Color {
   uint8_t B;
 };
 
-void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint32_t **o_fb);
-void setColorRGB(Color c, uint32_t *buf, uint32_t mask);
-void testPatternFB(uint32_t *fb);
+void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint8_t **o_fb);
+void setColorRGB(Color c, uint8_t *buf, uint32_t mask);
+void testPatternFB(uint8_t *fb);
 void ledDriverWaitCycle(void);
 
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds);

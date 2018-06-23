@@ -16,10 +16,10 @@
 
 #include "qwiic_hub.h"
 
-uint32_t *o_fb;
+uint8_t *o_fb;
 
 void matrix_init_kb(void) {
-  ledDriverInit(1, GPIOB, (1<<8), &o_fb);
+  ledDriverInit(1, GPIOB, 0b1000000000, &o_fb);
   testPatternFB(o_fb);
 
 	matrix_init_user();
