@@ -10,8 +10,20 @@ Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 Hardware Supported: Gray COD67 
 Hardware Availability: [Zfrontier](https://en.zfrontier.com/products/cod67)
 
+At this time, flashing only works on Windows sysetms. 
+
+To put in bootloader mode, hold the `Esc` key while plugging in the USB cable. 
+
+The COD67 will show up as a drive. 
+
 Make example for this keyboard (after setting up your build environment):
 
-    make cod67:default
+    make cod67:default:bin
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+
+Rename the resulting `.bin` file to `cod67.bin`.
+
+Drag and drop `cod67.bin` to the drive, overwriting the previous `cod67.bin` stored on it. 
+
+Press the `Esc` key again to reset the board. You are now ready to type!
