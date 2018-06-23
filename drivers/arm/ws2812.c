@@ -12,7 +12,7 @@ static uint8_t *fb;
 static int sLeds;
 static stm32_gpio_t *sPort;
 static uint32_t sMask;
-uint16_t* dma_source;
+uint8_t* dma_source;
 
 void setColor(uint8_t color, uint8_t *buf,uint32_t mask){
   int i;
@@ -72,12 +72,13 @@ void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint8_t **o_fb) 
                               0,
                               0,
   };
-  dma_source = chHeapAlloc(NULL, 1);
+  dma_source = chHeapAlloc(NULL, 2);
   fb = chHeapAlloc(NULL, ((sLeds) * 24)+10);
   *o_fb=fb;
   int j;
   for (j = 0; j < (sLeds) * 24; j++) fb[j] = 0;
-  dma_source[0] = sMask;
+  dma_source[0] = sMask & 0xFF;
+  dma_source[1] = sMask >> 8;
   // DMA stream 2, triggered by channel3 pwm signal. if FB indicates, reset output value early to indicate "0" bit to ws2812
   dmaStreamAllocate(STM32_DMA1_STREAM2, 10, NULL, NULL);
   dmaStreamSetPeripheral(STM32_DMA1_STREAM2, &(sPort->BSRR.H.clear));
@@ -91,21 +92,21 @@ void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint8_t **o_fb) 
   dmaStreamAllocate(STM32_DMA1_STREAM3, 10, NULL, NULL);
   dmaStreamSetPeripheral(STM32_DMA1_STREAM3, &(sPort->BSRR.H.set));
   dmaStreamSetMemory0(STM32_DMA1_STREAM3, dma_source);
-  dmaStreamSetTransactionSize(STM32_DMA1_STREAM3, 1);
+  dmaStreamSetTransactionSize(STM32_DMA1_STREAM3, 2);
   dmaStreamSetMode(
       STM32_DMA1_STREAM3, STM32_DMA_CR_TEIE |
-      STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_BYTE | STM32_DMA_CR_MSIZE_BYTE
-      | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
+      STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_BYTE
+      | STM32_DMA_CR_MSIZE_BYTE | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
   // DMA stream 6, triggered by channel1 update event. reset output value late to indicate "1" bit to ws2812.
   // always triggers but no affect if dma stream 2 already change output value to 0
   dmaStreamAllocate(STM32_DMA1_STREAM6, 10, NULL, NULL);
   dmaStreamSetPeripheral(STM32_DMA1_STREAM6, &(sPort->BSRR.H.clear));
   dmaStreamSetMemory0(STM32_DMA1_STREAM6, dma_source);
-  dmaStreamSetTransactionSize(STM32_DMA1_STREAM6, 1);
+  dmaStreamSetTransactionSize(STM32_DMA1_STREAM6, 2);
   dmaStreamSetMode(
       STM32_DMA1_STREAM6,
-      STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_PSIZE_BYTE | STM32_DMA_CR_MSIZE_BYTE
-      | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
+      STM32_DMA_CR_DIR_M2P | STM32_DMA_CR_MINC | STM32_DMA_CR_PSIZE_BYTE
+      | STM32_DMA_CR_MSIZE_BYTE | STM32_DMA_CR_CIRC | STM32_DMA_CR_PL(3));
   pwmStart(&PWMD2, &pwmc2);
   pwmStart(&PWMD3, &pwmc3);
   // set pwm3 as slave, triggerd by pwm2 oc1 event. disables pwmd2 for synchronization.
@@ -118,6 +119,7 @@ void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint8_t **o_fb) 
   pwmEnableChannel(&PWMD3, 0, 58);
   // active during transfer of 90 cycles * sLeds * 24 bytes * 1/90 multiplier
   pwmEnableChannel(&PWMD2, 0, 90 * sLeds * 24 / 90);
+
   // stop and reset counters for synchronization
   PWMD2.tim->CNT = 0;
   // Slave (TIM3) needs to "update" immediately after master (TIM2) start in order to start in sync.
