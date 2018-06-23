@@ -16,7 +16,6 @@ void i2c_init(void)
 {
   TWSR = 0;     /* no prescaler */
 	TWBR = (uint8_t)TWBR_val;
-  //TWBR = 10;
 }
 
 i2c_status_t i2c_start(uint8_t address, uint16_t timeout)
