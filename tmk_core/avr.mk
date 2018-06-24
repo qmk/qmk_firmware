@@ -40,6 +40,8 @@ MCUFLAGS = -mmcu=$(MCU)
 #     For a directory that has spaces, enclose it in quotes.
 EXTRALIBDIRS =
 
+MODECMD='/mnt/c/Windows/System32/mode.com'
+WINAVRDIR="/mnt/c/tools/arduino/hardware/tools/avr/"
 
 #---------------- External Memory Options ----------------
 
@@ -169,9 +171,20 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
+#		COMPORT1=`$(MODECMD)|grep -o 'COM[0-9]*'` ;\
+
 avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	if $(GREP) -q -s Microsoft /proc/version; then \
-		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
+		printf "Detecting USB port, reset your controller now."; \
+		COMPORT1=`$(MODECMD)|grep -o 'COM[0-9]*'` ;\
+		AVRPATH=`echo $(WINAVRDIR)|perl -pne 's#/mnt/c/#C:/#'|perl -pne 's#\E/#\\\#g'`; \
+		while [ -z $$COMPORT2 ]; do \
+			sleep 0.5; \
+			printf "."; \
+ 			COMPORT2=`$(MODECMD)|$(GREP) -v $COMPORT1|$(GREP) -o 'COM[0-9]*'`;\
+		done; \
+		printf $$COMPORT2;\
+		$(WINAVRDIR)/bin/avrdude.exe -C $$AVRPATH\etc\\avrdude.conf -p $(MCU) -c avr109 -P $$COMPORT2 -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
 	else \
 		printf "Detecting USB port, reset your controller now."; \
 		ls /dev/tty* > /tmp/1; \
