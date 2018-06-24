@@ -115,6 +115,11 @@ uint32_t layer_state_set_keymap (uint32_t state) {
 }
 
 __attribute__ ((weak))
+uint32_t default_layer_state_set_keymap (uint32_t state) {
+  return state;
+}
+
+__attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
 
 
@@ -384,6 +389,12 @@ uint32_t layer_state_set_user(uint32_t state) {
   return layer_state_set_keymap (state);
 }
 
+uint32_t default_layer_state_set_kb(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+  state = default_layer_state_set_rgb(state);
+#endif // RGBLIGHT_ENABLE
+  return default_layer_state_set_keymap (state);
+}
 
 // Any custom LED code goes here.
 // So far, I only have keyboard specific code,
