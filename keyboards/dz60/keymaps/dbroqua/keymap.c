@@ -1,4 +1,4 @@
-#include "dz60.h"
+#include QMK_KEYBOARD_H
 
 #define _DEFAULT 0
 #define _FN 1
