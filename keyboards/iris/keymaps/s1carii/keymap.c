@@ -22,16 +22,7 @@ enum custom_keycodes {
 #define KC_LOWR LOWER
 #define KC_RASE RAISE
 #define KC_RST RESET
-#define KC_BL_S BL_STEP
 #define KC_DBUG DEBUG
-#define KC_RTOG RGB_TOG
-#define KC_RMOD RGB_MOD
-#define KC_RHUI RGB_HUI
-#define KC_RHUD RGB_HUD
-#define KC_RSAI RGB_SAI
-#define KC_RSAD RGB_SAD
-#define KC_RVAI RGB_VAI
-#define KC_RVAD RGB_VAD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -43,23 +34,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      LOWR, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,QUOT,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  ,RCTL,     END , N  , M  ,COMM,DOT ,SLSH,RSFT,
+     LSFT, Z  , X  , C  , V  , B  ,LGUI,     RCMD, N  , M  ,COMM,DOT ,SLSH,RSFT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+-+--+----+----+----'
-                       LGUI,ENT ,SPC ,         SPC ,RASE,RALT
+                       RCTL,ENT ,SPC ,         SPC ,RASE,RALT
   //                  `----+----+----'        `----+----+----'
   ),
 
   [_LOWER] = LAYOUT_kc(
   //,----+----+----+--+-+----+----.              ,----+----+-+--+----+----+----.
-     TILD,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,DEL ,
+     GRV ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,DEL ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,                   ,PGDN, UP ,PGUP,PSCR,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
          ,VOLD,VOLU,MUTE,    ,    ,               HOME,LEFT,DOWN,RGHT,INS ,    ,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-     BL_S,    ,    ,    ,    ,    ,    ,         ,END ,    ,    ,    ,    ,    ,
+     LSFT,    ,    ,    ,    ,    ,LGUI,     RCMD,END ,    ,    ,    ,    ,RSFT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+-+--+----+----+----'
-                           ,    ,DEL ,         DEL ,    , P0
+                       RCTL,ENT ,SPC ,         SPC ,    ,RALT
   //                  `----+----+----'        `----+----+----'
   ),
 
@@ -67,13 +58,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----+----+----+--+-+----+----.              ,----+----+-+--+----+----+----.
      F12 , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,F11 ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,    , UP ,    ,    ,    ,                   , P7 , P8 , P9 ,PMNS,    ,
+         ,    , UP ,    ,    ,    ,                   , P7 , P8 , P9 ,PSLS,PAST,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
-         ,LEFT,DOWN,RGHT,    ,    ,                   , P4 , P5 , P6 ,PPLS ,    ,
+         ,LEFT,DOWN,RGHT,    ,    ,                   , P4 , P5 , P6 ,PMNS,PPLS,
   //|----+----+----+----+----+----+----.    ,----|----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,         ,    , P1 , P2 , P3 ,PDOT,PENT,
+         ,    ,    ,    ,    ,    ,    ,     NLCK,    , P1 , P2 , P3 ,PDOT,PENT,
   //`----+----+----+--+-+----+----+----/    \----+----+----+-+--+----+----+----'
-                           ,    ,    ,             ,    , P0
+                       RCTL,ENT ,SPC ,         SPC ,    , P0
   //                  `----+----+----'        `----+----+----'
   ),
 
