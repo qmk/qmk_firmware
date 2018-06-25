@@ -17,25 +17,28 @@
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
 // Serial pulse period in microseconds.
-#define SELECT_SERIAL_SPEED 2
-// !!! 以下の3つ組の定義、、通信速度の「高速」、「中速」、「低速」、「超低速」の4パターンで、実測して合わせこみ
-//     選択できるようにしておく。
+#define SELECT_SERIAL_SPEED 1
 #if SELECT_SERIAL_SPEED == 0
+  // Very High speed
+  #define SERIAL_DELAY 4             // micro sec
+  #define READ_WRITE_START_ADJUST 30 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 10 // cycles
+#elif SELECT_SERIAL_SPEED == 1
   // High speed
   #define SERIAL_DELAY 6             // micro sec
   #define READ_WRITE_START_ADJUST 23 // cycles
   #define READ_WRITE_WIDTH_ADJUST 10 // cycles
-#elif SELECT_SERIAL_SPEED == 1
+#elif SELECT_SERIAL_SPEED == 2
   // Middle speed
   #define SERIAL_DELAY 12            // micro sec
   #define READ_WRITE_START_ADJUST 25 // cycles
   #define READ_WRITE_WIDTH_ADJUST 10 // cycles
-#elif SELECT_SERIAL_SPEED == 2
+#elif SELECT_SERIAL_SPEED == 3
   // Low speed
   #define SERIAL_DELAY 24            // micro sec
   #define READ_WRITE_START_ADJUST 25 // cycles
   #define READ_WRITE_WIDTH_ADJUST 10 // cycles
-#elif SELECT_SERIAL_SPEED == 3
+#elif SELECT_SERIAL_SPEED == 4
   // Very Low speed
   #define SERIAL_DELAY 50            // micro sec
   #define READ_WRITE_START_ADJUST 25 // cycles
