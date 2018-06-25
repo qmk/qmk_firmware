@@ -16,11 +16,37 @@
 
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
-// Serial pulse period in microseconds. Its probably a bad idea to lower this
-// value.
-#define SERIAL_DELAY 6             // micro sec
-#define READ_WRITE_START_ADJUST 20 // cycles
-#define READ_WRITE_WIDTH_ADJUST 10 // cycles
+// Serial pulse period in microseconds.
+#define SELECT_SERIAL_SPEED 0
+// !!! 以下の3つ組の定義、、通信速度の「高速」、「中速」、「低速」、「超低速」の4パターンで、実測して合わせこみ
+//     選択できるようにしておく。
+#if SELECT_SERIAL_SPEED == 0
+  // High speed
+  #define SERIAL_DELAY 6             // micro sec
+  #define READ_WRITE_START_ADJUST 20 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 10 // cycles
+#elif SELECT_SERIAL_SPEED == 1
+  // Middle speed
+  #define SERIAL_DELAY 12            // micro sec
+  #define READ_WRITE_START_ADJUST 20 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 10 // cycles
+  #error Serial Speed Middle not yet
+#elif SELECT_SERIAL_SPEED == 2
+  // Low speed
+  #define SERIAL_DELAY 24            // micro sec
+  #define READ_WRITE_START_ADJUST 20 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 10 // cycles
+  #error Serial Speed Low not yet
+#elif SELECT_SERIAL_SPEED == 3
+  // Very Low speed
+  #define SERIAL_DELAY 50            // micro sec
+  #define READ_WRITE_START_ADJUST 20 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 10 // cycles
+  #error Serial Speed Low not yet
+#else
+#error Illegal Serial Speed
+#endif
+
 
 #define SERIAL_DELAY_HALF1 (SERIAL_DELAY/2)
 #define SERIAL_DELAY_HALF2 (SERIAL_DELAY - SERIAL_DELAY/2)
@@ -194,7 +220,7 @@ void serial_write_byte(uint8_t data) {
     b >>= 1;
     debug_recvsample();
     serial_delay();
-    debug_recvsample()
+    debug_recvsample();
   }
   serial_low(); // sync_recv() need low
 }
