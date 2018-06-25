@@ -25,6 +25,9 @@
 #define SERIAL_DELAY_HALF1 (SERIAL_DELAY/2)
 #define SERIAL_DELAY_HALF2 (SERIAL_DELAY - SERIAL_DELAY/2)
 
+#define SLAVE_INT_WIDTH 1
+#define SLAVE_INT_RESPONSE_TIME SERIAL_DELAY
+
 uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
 uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
 
@@ -198,6 +201,7 @@ void serial_write_byte(uint8_t data) {
 
 // interrupt handle to be used by the slave device
 ISR(SERIAL_PIN_INTERRUPT) {
+  // master->slave のトリガー手順、もっといい手順が無いか検討中  !!!
   serial_output();
   sync_send();
 
@@ -214,6 +218,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
   serial_low();
 
   // slave switch to input
+  // 送受信の向き変更処理 もっといい手順が無いか検討中　!!!
   debug_iochg_on(); //1
   sync_send();
   debug_iochg_off();
@@ -226,7 +231,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
   serial_delay();
   debug_iochg_off();
 
-  // slave recv phase
+  // slave recive phase
   sync_recv();
   uint8_t checksum_computed = 0;
   for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
@@ -243,7 +248,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
   } else {
     status &= ~SLAVE_DATA_CORRUPT;
   }
-  sync_recv(); //weit master output to hight
+  sync_recv(); //weit master output to high
 }
 
 inline
@@ -261,15 +266,16 @@ int serial_update_buffers(void) {
   // this code is very time dependent, so we need to disable interrupts
   cli();
 
+  // master->slave のトリガー手順、もっといい手順が無いか検討中 !!!
   // signal to the slave that we want to start a transaction
   serial_output();
   serial_low();
-  _delay_us(1);
+  _delay_us(SLAVE_INT_WIDTH);
 
   // wait for the slaves response
   serial_input();
   serial_high();
-  _delay_us(SERIAL_DELAY);
+  _delay_us(SLAVE_INT_RESPONSE_TIME);
 
   // check if the slave is present
   if (serial_read_pin()) {
@@ -280,7 +286,7 @@ int serial_update_buffers(void) {
     return 1;
   }
 
-  // master recv phase
+  // master recive phase
   // if the slave is present syncronize with it
   sync_recv();
 
@@ -303,6 +309,7 @@ int serial_update_buffers(void) {
   }
 
   // master switch to output
+  // 送受信の向き変更処理 もっといい手順が無いか検討中　!!!
   debug_iochg_on(); //1
   sync_recv();
   debug_iochg_off();
