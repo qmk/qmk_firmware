@@ -19,6 +19,7 @@
 uint8_t *o_fb;
 
 void matrix_init_kb(void) {
+  palSetPadMode(GPIOB, 8, PAL_STM32_PUPDR_FLOATING);
   ledDriverInit(1, GPIOA, 0b1000, &o_fb);
   testPatternFB(o_fb);
 
