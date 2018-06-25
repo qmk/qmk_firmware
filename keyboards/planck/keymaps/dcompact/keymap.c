@@ -16,6 +16,7 @@
 
 #include "planck.h"
 #include "action_layer.h"
+#include "keymap_steno.h"
 
 // Custom Keycodes and Combinations Used
 #define DEL_SHF SFT_T(KC_DEL)
@@ -33,17 +34,20 @@ enum planck_layers {
   _LOWER,
   _RAISE,
   _FUNC,
-  _MOUSE,
-  _ADJUST
+  _PLOVER,
+  _ADJUST,
+  _MOUSE
 };
 
 enum planck_keycodes {
   BASE = SAFE_RANGE,
+  PLOVER,
   LOWER,
   RAISE,
   FUNC,
   MOUSE,
-  ADJUST
+  ADJUST,
+  EXT_PLV
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -56,14 +60,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |Del/Sf|  : ; |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  | Bspc |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  Fn  | GUI  | Alt  |Lower |Shift |Space |Raise | Alt  | GUI  |  Fn  |Enter |
+ * | Ctrl |Plover| GUI  | Alt  |Lower |Shift |Space |Raise | Alt  | GUI  |  Fn  |Enter |
  * `-----------------------------------------------------------------------------------'
  */
 [_BASE] = {
   {  KC_TAB, KC_QUOT, KC_COMM,  KC_DOT,    KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L, KC_SLSH},
   {  KC_ESC,    KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S, KC_MINS},
   { DEL_SHF, KC_SCLN,    KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z, KC_BSPC},
-  { KC_LCTL,    FUNC, KC_LGUI, KC_LALT,   LOWER,  KC_LSFT,  KC_SPC,   RAISE, KC_RALT, KC_RGUI,    FUNC,  KC_ENT}
+  { KC_LCTL,  PLOVER, KC_LGUI, KC_LALT,   LOWER,  KC_LSFT,  KC_SPC,   RAISE, KC_RALT, KC_RGUI,    FUNC,  KC_ENT}
 },
 
 /* Lower
@@ -138,6 +142,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX}
 },
 
+/* Plover layer (http://opensteno.org)
+ * ,-----------------------------------------------------------------------------------.
+ * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |  FN  |   S  |   T  |   P  |   H  |   *  |   *  |   F  |   P  |   L  |   T  |   D  |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |   S  |   K  |   W  |   R  |   *  |   *  |   R  |   B  |   G  |   S  |   Z  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Exit |      |      |   A  |   O  |             |   E  |   U  |  PWR | RES1 | RES2 |
+ * `-----------------------------------------------------------------------------------'
+ */
+
+[_PLOVER] = {
+  {STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC },
+  {STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR },
+  {XXXXXXX, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR },
+  {EXT_PLV, XXXXXXX, XXXXXXX, STN_A,   STN_O,   XXXXXXX, XXXXXXX, STN_E,   STN_U,   STN_PWR, STN_RE1, STN_RE2}
+},
+
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
@@ -157,6 +180,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 
 };
+
+#ifdef AUDIO_ENABLE
+  float plover_song[][2]     = SONG(PLOVER_SOUND);
+  float plover_gb_song[][2]  = SONG(PLOVER_GOODBYE_SOUND);
+#endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -188,6 +216,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case PLOVER:
+      if (!record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          stop_all_notes();
+          PLAY_SONG(plover_song);
+        #endif
+        layer_on(_PLOVER);
+      }
+      return false;
+      break;
+    case EXT_PLV:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(plover_gb_song);
+        #endif
+        layer_off(_PLOVER);
+      }
+      return false;
+      break;
     case MOUSE:
       if (record->event.pressed) {
         layer_on(_MOUSE);
@@ -198,4 +245,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
+}
+
+void matrix_init_user() {
+  steno_set_mode(STENO_MODE_GEMINI);
 }

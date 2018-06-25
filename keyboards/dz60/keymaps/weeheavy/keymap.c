@@ -1,4 +1,4 @@
-#include "dz60.h"
+#include QMK_KEYBOARD_H
 
 // Make special keycodes more visible
 #define ____ KC_TRNS
