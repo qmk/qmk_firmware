@@ -54,6 +54,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 5
+#ifdef RGBLIGHT_LIMIT_VAL
+#undef RGBLIGHT_LIMIT_VAL
+#endif
+#define RGBLIGHT_LIMIT_VAL 128
 #endif
 
 #endif
