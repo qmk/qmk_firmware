@@ -173,7 +173,16 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 
 avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	if $(GREP) -q -s Microsoft /proc/version; then \
-		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
+		printf "Detecting USB port, reset your controller now."; \
+		COMPORT1=`$(MODECMD)|grep -o 'COM[0-9]*'` ;\
+		WINAVRPATH=`echo $(WINAVRDIR)|perl -pne 's#/mnt/c/#C:/#'|perl -pne 's#\E/#\\\#g'`; \
+		while [ -z $$COMPORT2 ]; do \
+			sleep 0.5; \
+			printf "."; \
+			COMPORT2=`$(MODECMD)|$(GREP) -v $COMPORT1|$(GREP) -o 'COM[0-9]*'`;\
+		done; \
+		printf $$COMPORT2;\
+		$(WINAVRDIR)/bin/avrdude.exe -C $$WINAVRPATH\etc\\avrdude.conf -p $(MCU) -c avr109 -P $$COMPORT2 -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
 	else \
 		printf "Detecting USB port, reset your controller now."; \
 		ls /dev/tty* > /tmp/1; \
