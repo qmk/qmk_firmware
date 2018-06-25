@@ -40,8 +40,11 @@ MCUFLAGS = -mmcu=$(MCU)
 #     For a directory that has spaces, enclose it in quotes.
 EXTRALIBDIRS =
 
-MODECMD='/mnt/c/Windows/System32/mode.com'
+
+# If your environment is WSL need this.Set arduino IDE for Windows10 path  include $$WINAVRDIR/bin/avrdude.exe and $$WINAVRDIR/etc/avrdude.conf
 WINAVRDIR="/mnt/c/tools/arduino/hardware/tools/avr/"
+# If your environment is WSL need this.It is useally as it isq.
+MODECMD='/mnt/c/Windows/System32/mode.com'
 
 #---------------- External Memory Options ----------------
 
