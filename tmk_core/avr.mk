@@ -40,6 +40,8 @@ MCUFLAGS = -mmcu=$(MCU)
 #     For a directory that has spaces, enclose it in quotes.
 EXTRALIBDIRS =
 
+MODECMD='/mnt/c/Windows/System32/mode.com'
+WINAVRDIR="/mnt/c/tools/arduino/hardware/tools/avr/"
 
 #---------------- External Memory Options ----------------
 
