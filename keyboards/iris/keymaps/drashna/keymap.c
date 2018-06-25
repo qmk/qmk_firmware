@@ -79,19 +79,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-bool indicator_is_this_led_used(uint8_t index) {
-  switch (index) {
-#ifdef INDICATOR_LIGHTS
-    case SHFT_LED1:
-    case SHFT_LED2:
-    case CTRL_LED1:
-    case CTRL_LED2:
-    case GUI_LED1:
-    case GUI_LED2:
-      return true;
-      break;
-#endif
-    default:
-    return false;
-  }
+void matrix_init_keymap(void) {
+  DDRD &= ~(1<<5);
+  PORTD &= ~(1<<5);
+
+  DDRB &= ~(1<<0);
+  PORTB &= ~(1<<0);
 }
+
