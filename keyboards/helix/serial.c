@@ -17,32 +17,29 @@
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
 // Serial pulse period in microseconds.
-#define SELECT_SERIAL_SPEED 0
+#define SELECT_SERIAL_SPEED 2
 // !!! 以下の3つ組の定義、、通信速度の「高速」、「中速」、「低速」、「超低速」の4パターンで、実測して合わせこみ
 //     選択できるようにしておく。
 #if SELECT_SERIAL_SPEED == 0
   // High speed
   #define SERIAL_DELAY 6             // micro sec
-  #define READ_WRITE_START_ADJUST 20 // cycles
+  #define READ_WRITE_START_ADJUST 23 // cycles
   #define READ_WRITE_WIDTH_ADJUST 10 // cycles
 #elif SELECT_SERIAL_SPEED == 1
   // Middle speed
   #define SERIAL_DELAY 12            // micro sec
-  #define READ_WRITE_START_ADJUST 20 // cycles
+  #define READ_WRITE_START_ADJUST 25 // cycles
   #define READ_WRITE_WIDTH_ADJUST 10 // cycles
-  #error Serial Speed Middle not yet
 #elif SELECT_SERIAL_SPEED == 2
   // Low speed
   #define SERIAL_DELAY 24            // micro sec
-  #define READ_WRITE_START_ADJUST 20 // cycles
+  #define READ_WRITE_START_ADJUST 25 // cycles
   #define READ_WRITE_WIDTH_ADJUST 10 // cycles
-  #error Serial Speed Low not yet
 #elif SELECT_SERIAL_SPEED == 3
   // Very Low speed
   #define SERIAL_DELAY 50            // micro sec
-  #define READ_WRITE_START_ADJUST 20 // cycles
+  #define READ_WRITE_START_ADJUST 25 // cycles
   #define READ_WRITE_WIDTH_ADJUST 10 // cycles
-  #error Serial Speed Low not yet
 #else
 #error Illegal Serial Speed
 #endif
@@ -97,11 +94,25 @@ volatile uint8_t status = 0;
 #endif
 
 #if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_IOCHG
-  #define debug_iochg_on() SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK; _delay_us(1)
+  #define debug_iochg_on() SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK
   #define debug_iochg_off() SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK
 #else
   #define debug_iochg_on()
   #define debug_iochg_off()
+#endif
+
+#define SYNC_DEBUG_MODE 0
+#if SYNC_DEBUG_MODE == 0
+#define debug_dummy_delay_recv()
+#define debug_dummy_delay_send()
+#endif
+#if SYNC_DEBUG_MODE == 1
+#define debug_dummy_delay_recv()  _delay_us(SERIAL_DELAY_HALF1-5)
+#define debug_dummy_delay_send()
+#endif
+#if SYNC_DEBUG_MODE == 2
+#define debug_dummy_delay_recv()
+#define debug_dummy_delay_send()  _delay_us(SERIAL_DELAY_HALF1-5)
 #endif
 
 inline static
@@ -175,7 +186,9 @@ void serial_slave_init(void) {
 // !!! +- (ビット幅/2) のズレを補正する。手順再度考察
 static
 void sync_recv(void) {
+  debug_dummy_delay_recv();
   debug_sync_start();
+  while (serial_read_pin());
   // This shouldn't hang if the slave disconnects because the
   // serial line will float to high if the slave does disconnect.
   while (!serial_read_pin());
@@ -186,6 +199,7 @@ void sync_recv(void) {
 // !!! +- (ビット幅/2) のズレを補正する。手順再度考察
 static
 void sync_send(void) {
+  debug_dummy_delay_send();
   debug_sync_start();
   serial_low();
   serial_delay();
@@ -200,10 +214,10 @@ uint8_t serial_read_byte(void) {
   _delay_sub_us(READ_WRITE_START_ADJUST);
   for ( uint8_t i = 0; i < 8; ++i) {
     serial_delay_half1();   // read the middle of pulses
+    debug_recvsample();
     byte = (byte << 1) | serial_read_pin();
     debug_recvsample();
     _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
-    debug_recvsample();
     serial_delay_half2();
   }
   return byte;
@@ -224,26 +238,27 @@ void serial_write_byte(uint8_t data) {
     serial_delay();
     debug_recvsample();
   }
-  serial_low(); // sync_recv() need low
+  serial_low(); // sync_send() / senc_recv() need raise edge
 }
 
 // interrupt handle to be used by the slave device
 ISR(SERIAL_PIN_INTERRUPT) {
   // master->slave のトリガー手順、もっといい手順が無いか検討中  !!!
   serial_output();
-  sync_send();
 
   // slave send phase
   uint8_t checksum = 0;
   for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
+    sync_send();
     debug_bytewidth_start();
     serial_write_byte(serial_slave_buffer[i]);
     debug_bytewidth_end();
-    sync_send();
     checksum += serial_slave_buffer[i];
   }
+  sync_send();
+  debug_bytewidth_start();
   serial_write_byte(checksum);
-  serial_low();
+  debug_bytewidth_end();
 
   // slave switch to input
   // 送受信の向き変更処理 もっといい手順が無いか検討中　!!!
@@ -260,22 +275,25 @@ ISR(SERIAL_PIN_INTERRUPT) {
   debug_iochg_off();
 
   // slave recive phase
-  sync_recv();
   uint8_t checksum_computed = 0;
   for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
+    sync_recv();
     debug_bytewidth_start();
     serial_master_buffer[i] = serial_read_byte();
     debug_bytewidth_end();
-    sync_recv();
     checksum_computed += serial_master_buffer[i];
   }
+  sync_recv();
+  debug_bytewidth_start();
   uint8_t checksum_received = serial_read_byte();
+  debug_bytewidth_end();
 
   if ( checksum_computed != checksum_received ) {
     status |= SLAVE_DATA_CORRUPT;
   } else {
     status &= ~SLAVE_DATA_CORRUPT;
   }
+
   sync_recv(); //weit master output to high
 }
 
@@ -316,18 +334,20 @@ int serial_update_buffers(void) {
 
   // master recive phase
   // if the slave is present syncronize with it
-  sync_recv();
 
   uint8_t checksum_computed = 0;
   // receive data from the slave
   for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
+    sync_recv();
     debug_bytewidth_start();
     serial_slave_buffer[i] = serial_read_byte();
     debug_bytewidth_end();
-    sync_recv();
     checksum_computed += serial_slave_buffer[i];
   }
+  sync_recv();
+  debug_bytewidth_start();
   uint8_t checksum_received = serial_read_byte();
+  debug_bytewidth_end();
 
   if (checksum_computed != checksum_received) {
     serial_output();
@@ -353,15 +373,17 @@ int serial_update_buffers(void) {
   // master send phase
   uint8_t checksum = 0;
 
-  sync_send();
   for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
+    sync_send();
     debug_bytewidth_start();
     serial_write_byte(serial_master_buffer[i]);
     debug_bytewidth_end();
-    sync_send();
     checksum += serial_master_buffer[i];
   }
+  sync_send();
+  debug_bytewidth_start();
   serial_write_byte(checksum);
+  debug_bytewidth_end();
 
   // always, release the line when not in use
   sync_send();
