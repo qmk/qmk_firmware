@@ -172,6 +172,7 @@ void serial_slave_init(void) {
 }
 
 // Used by the master to synchronize timing with the slave.
+// !!! +- (ビット幅/2) のズレを補正する。手順再度考察
 static
 void sync_recv(void) {
   debug_sync_start();
@@ -182,6 +183,7 @@ void sync_recv(void) {
 }
 
 // Used by the slave to send a synchronization signal to the master.
+// !!! +- (ビット幅/2) のズレを補正する。手順再度考察
 static
 void sync_send(void) {
   debug_sync_start();
