@@ -23,6 +23,7 @@ enum custom_keycodes {
 #define KC_RASE RAISE
 #define KC_RST RESET
 #define KC_DBUG DEBUG
+//#define KC_DEV DEVLAYER
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -83,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
   
  /*
-    [_devlayer] = LAYOUT_kc(
+    [_DEVLAYER] = LAYOUT_kc(
   //,----+----+----+--+-+----+----.              ,----+----+-+--+----+----+----.
          ,    ,    ,    ,    ,    ,                   ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
