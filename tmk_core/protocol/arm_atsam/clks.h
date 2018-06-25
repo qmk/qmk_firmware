@@ -18,9 +18,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _CLKS_H_
 #define _CLKS_H_
 
+#ifndef MD_BOOTLOADER
+
 //From keyboard
 #include "config_led.h"
 #include "config.h"
+
+#endif //MD_BOOTLOADER
 
 #define TIMEOUT_SYNC_DEFAULT 100000
 #define SYNCERROR_I2C0 0x1

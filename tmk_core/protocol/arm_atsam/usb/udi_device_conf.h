@@ -286,13 +286,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 COMPILER_PACK_SET(1)
 
 typedef struct {
-	usb_iface_desc_t iface;
-	usb_hid_descriptor_t hid;
-	usb_ep_desc_t ep;
+    usb_iface_desc_t iface;
+    usb_hid_descriptor_t hid;
+    usb_ep_desc_t ep;
 } udi_hid_kbd_desc_t;
 
 typedef struct {
-	uint8_t array[59];
+    uint8_t array[59];
 } udi_hid_kbd_report_desc_t;
 
 #define UDI_HID_KBD_DESC {\
@@ -324,7 +324,7 @@ typedef struct {
 extern uint8_t udi_hid_kbd_report_set;
 
 //report buffer (to host)
-#define UDI_HID_KBD_REPORT_SIZE  8
+#define UDI_HID_KBD_REPORT_SIZE 8
 extern uint8_t udi_hid_kbd_report[UDI_HID_KBD_REPORT_SIZE];
 
 COMPILER_PACK_RESET()
@@ -339,13 +339,13 @@ COMPILER_PACK_RESET()
 COMPILER_PACK_SET(1)
 
 typedef struct {
-	usb_iface_desc_t iface;
-	usb_hid_descriptor_t hid;
-	usb_ep_desc_t ep;
+    usb_iface_desc_t iface;
+    usb_hid_descriptor_t hid;
+    usb_ep_desc_t ep;
 } udi_hid_exk_desc_t;
 
 typedef struct {
-	uint8_t array[54];//3];
+    uint8_t array[54];
 } udi_hid_exk_report_desc_t;
 
 #define UDI_HID_EXK_DESC {\
@@ -375,18 +375,15 @@ typedef struct {
 
 //no set report
 
-//report buffer (to host)
-extern const uint8_t udi_hid_exk_data_size[];
-extern const uint8_t udi_hid_exk_report_size[]; //has report ID
-//#define UDI_HID_EXK_DATA_SIZE_MAX 2
-//#define UDI_HID_EXK_REPORT_SIZE_MAX (UDI_HID_EXK_DATA_SIZE_MAX + 1)
+//report buffer
+#define UDI_HID_EXK_REPORT_SIZE 3
 
 typedef union {
   struct {
     uint8_t report_id;
-    uint16_t report_data;//[UDI_HID_EXK_DATA_SIZE_MAX];
+    uint16_t report_data;
  } desc;
- uint8_t raw[3];//UDI_HID_EXK_REPORT_SIZE_MAX];
+ uint8_t raw[UDI_HID_EXK_REPORT_SIZE];
 } udi_hid_exk_report_t;
 
 extern udi_hid_exk_report_t udi_hid_exk_report;
@@ -403,13 +400,13 @@ COMPILER_PACK_RESET()
 COMPILER_PACK_SET(1)
 
 typedef struct {
-	usb_iface_desc_t iface;
-	usb_hid_descriptor_t hid;
-	usb_ep_desc_t ep;
+    usb_iface_desc_t iface;
+    usb_hid_descriptor_t hid;
+    usb_ep_desc_t ep;
 } udi_hid_nkro_desc_t;
 
 typedef struct {
-	uint8_t array[57];
+    uint8_t array[57];
 } udi_hid_nkro_report_desc_t;
 
 #define UDI_HID_NKRO_DESC {\
@@ -441,7 +438,7 @@ typedef struct {
 extern uint8_t udi_hid_nkro_report_set;
 
 //report buffer
-#define UDI_HID_NKRO_REPORT_SIZE  32
+#define UDI_HID_NKRO_REPORT_SIZE 32
 extern uint8_t udi_hid_nkro_report[UDI_HID_NKRO_REPORT_SIZE];
 
 COMPILER_PACK_RESET()
@@ -456,13 +453,13 @@ COMPILER_PACK_RESET()
 COMPILER_PACK_SET(1)
 
 typedef struct {
-	usb_iface_desc_t iface;
-	usb_hid_descriptor_t hid;
-	usb_ep_desc_t ep;
+    usb_iface_desc_t iface;
+    usb_hid_descriptor_t hid;
+    usb_ep_desc_t ep;
 } udi_hid_mou_desc_t;
 
 typedef struct {
-	uint8_t array[77];//MOU PDS array[50];
+    uint8_t array[77];//MOU PDS
 } udi_hid_mou_report_desc_t;
 
 #define UDI_HID_MOU_DESC {\
@@ -492,10 +489,8 @@ typedef struct {
 
 //no set report buffer
 
-#define UDI_HID_RAW_REPORT_SIZE  RAW_EPSIZE
-
 //report buffer
-#define UDI_HID_MOU_REPORT_SIZE  5 //MOU PDS 3
+#define UDI_HID_MOU_REPORT_SIZE 5 //MOU PDS
 extern uint8_t udi_hid_mou_report[UDI_HID_MOU_REPORT_SIZE];
 
 COMPILER_PACK_RESET()
@@ -510,14 +505,14 @@ COMPILER_PACK_RESET()
 COMPILER_PACK_SET(1)
 
 typedef struct {
-	usb_iface_desc_t iface;
-	usb_hid_descriptor_t hid;
-	usb_ep_desc_t ep_out;
-	usb_ep_desc_t ep_in;
+    usb_iface_desc_t iface;
+    usb_hid_descriptor_t hid;
+    usb_ep_desc_t ep_out;
+    usb_ep_desc_t ep_in;
 } udi_hid_raw_desc_t;
 
 typedef struct {
-	uint8_t array[27];
+    uint8_t array[27];
 } udi_hid_raw_report_desc_t;
 
 #define UDI_HID_RAW_DESC {\
@@ -551,7 +546,7 @@ typedef struct {
     .ep_in.bInterval           = RAW_POLLING_INTERVAL,\
 }
 
-#define UDI_HID_RAW_REPORT_SIZE  RAW_EPSIZE
+#define UDI_HID_RAW_REPORT_SIZE RAW_EPSIZE
 
 extern uint8_t udi_hid_raw_report_set[UDI_HID_RAW_REPORT_SIZE];
 

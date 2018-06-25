@@ -134,9 +134,10 @@ uint8_t bootloader_serial_number[BOOTLOADER_SERIAL_MAX_SIZE+1]="";
 static const uint8_t *udc_get_string_serial_name(void)
 {
 #if defined USB_DEVICE_SERIAL_USE_BOOTLOADER_SERIAL
-    uint32_t serial_address = *(uint32_t *)(BOOTLOADER_SIZE - 4); //Address of bootloader's serial number if available
+    uint32_t serial_ptrloc = (uint32_t)&_srom - 4;
+    uint32_t serial_address = *(uint32_t *)serial_ptrloc; //Address of bootloader's serial number if available
 
-    if (serial_address != 0xFFFFFFFF && serial_address < (BOOTLOADER_SIZE - 4)) //Check for factory programmed serial address
+    if (serial_address != 0xFFFFFFFF && serial_address < serial_ptrloc) //Check for factory programmed serial address
     {
         if ((serial_address & 0xFF) % 4 == 0) //Check alignment
         {

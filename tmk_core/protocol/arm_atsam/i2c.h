@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _I2C_H_
 #define _I2C_H_
 
+#ifndef MD_BOOTLOADER
+
 #include "issi3733_driver.h"
 #include "config.h"
 
@@ -25,11 +27,6 @@ __attribute__((__aligned__(16)))
 DmacDescriptor dmac_desc;
 __attribute__((__aligned__(16)))
 DmacDescriptor dmac_desc_wb;
-
-void I2C0_init(void);
-uint32_t I2C0_write(int ic_addr, unsigned char * buf, uint32_t count);
-void I2C1_init(void);
-uint32_t I2C1_write(int ic_addr, unsigned char * buf, uint32_t count);
 
 uint8_t I2C3733_Init_Control(void);
 uint8_t I2C3733_Init_Drivers(void);
@@ -106,6 +103,14 @@ void I2C3733_Control_Set(uint8_t state);
 void  i2c_led_send_onoff(uint8_t drvid);
 
 void sc1stop(void);
+
+void I2C1_init(void);
+uint32_t I2C1_write(int ic_addr, unsigned char * buf, uint32_t count);
+
+#endif //MD_BOOTLOADER
+
+void I2C0_init(void);
+uint32_t I2C0_write(int ic_addr, unsigned char * buf, uint32_t count);
 
 #endif // _I2C_H_
 

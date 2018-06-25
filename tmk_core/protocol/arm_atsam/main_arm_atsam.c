@@ -162,20 +162,18 @@ void send_consumer(uint16_t data)
 
 int main(void)
 {
-    uint8_t drvid;
-
-    CLK_init();
-
     led_ena;
     m15_ena;
 
+    CLK_init();
+
     ADC0_init();
 
-    matrix_init();
-
     SPI_Init();
-    //I2C0_init();
+
     I2C1_init();
+
+    matrix_init();
 
     USB2422_init();
     udc_start();
@@ -196,6 +194,7 @@ int main(void)
 
     i2c_led_q_init();
 
+    uint8_t drvid;
     for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
         I2C_LED_Q_ONOFF(drvid); //Queue data
 

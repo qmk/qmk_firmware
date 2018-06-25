@@ -45,6 +45,10 @@ MEMORY
 /* The stack size used by the application. NOTE: you need to adjust according to your application. */
 STACK_SIZE = DEFINED(STACK_SIZE) ? STACK_SIZE : DEFINED(__stack_size__) ? __stack_size__ : 0x8000;
 
+_srom = ORIGIN(rom);
+_lrom = LENGTH(rom);
+_erom = ORIGIN(rom) + LENGTH(rom);
+
 /* Section Definitions */
 SECTIONS
 {

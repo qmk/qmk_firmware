@@ -47,56 +47,51 @@
 #ifndef _MAIN_H_
 #define _MAIN_H_
 
-/*! \brief Called by HID interface
- * Callback running when USB Host enable keyboard interface
- *
- * \retval true if keyboard startup is ok
- */
-#ifdef KBD
-bool main_kbd_enable(void);
-
-/*! \brief Called by HID interface
- * Callback running when USB Host disable keyboard interface
- */
-void main_kbd_disable(void);
-#endif
-
-/*! \brief Called when a start of frame is received on USB line
- */
-void main_sof_action(void);
-
-/*! \brief Enters the application in low power mode
- * Callback called when USB host sets USB line in suspend state
- */
+//Enters the application in low power mode
+//Callback called when USB host sets USB line in suspend state
 void main_suspend_action(void);
 
-/*! \brief Called by UDD when the USB line exit of suspend state
- */
+//Called by UDD when the USB line exit of suspend state
 void main_resume_action(void);
 
-/*! \brief Called by UDC when USB Host request to enable remote wakeup
- */
+//Called when a start of frame is received on USB line
+void main_sof_action(void);
+
+//Called by UDC when USB Host request to enable remote wakeup
 void main_remotewakeup_enable(void);
 
-/*! \brief Called by UDC when USB Host request to disable remote wakeup
- */
+//Called by UDC when USB Host request to disable remote wakeup
 void main_remotewakeup_disable(void);
 
 
+#ifdef KBD
+extern volatile bool main_b_kbd_enable;
+bool main_kbd_enable(void);
+void main_kbd_disable(void);
+#endif //KBD
+
 #ifdef NKRO
+extern volatile bool main_b_nkro_enable;
 bool main_nkro_enable(void);
 void main_nkro_disable(void);
-#endif
+#endif //NKRO
+
 #ifdef EXK
+extern volatile bool main_b_exk_enable;
 bool main_exk_enable(void);
 void main_exk_disable(void);
-#endif
+#endif //EXK
+
 #ifdef MOU
+extern volatile bool main_b_mou_enable;
 bool main_mou_enable(void);
 void main_mou_disable(void);
-#endif
+#endif //MOU
+
 #ifdef RAW
+extern volatile bool main_b_raw_enable;
 bool main_raw_enable(void);
 void main_raw_disable(void);
-#endif
+#endif //RAW
+
 #endif // _MAIN_H_

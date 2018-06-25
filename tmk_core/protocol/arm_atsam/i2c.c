@@ -15,15 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "arm_atsam_protocol.h"
+
+#ifndef MD_BOOTLOADER
+
+#include <string.h>
+
 //From keyboard
 #include "config.h"
 #include "config_led.h"
 #include "matrix.h"
-
-#include "arm_atsam_protocol.h"
-
-#include <string.h>
-
 
 static uint8_t i2c_led_q[I2C_Q_SIZE];   //I2C queue circular buffer
 static uint8_t i2c_led_q_s;             //Start of circular buffer
@@ -33,6 +34,8 @@ static uint8_t i2c_led_q_full;          //Queue full counter for reset
 static uint8_t dma_sendbuf[I2C_DMA_MAX_SEND]; //Data being written to I2C
 
 volatile uint8_t i2c_led_q_running;
+
+#endif //MD_BOOTLOADER
 
 void I2C0_init(void)
 {
@@ -106,6 +109,7 @@ uint32_t I2C0_write(int ic_addr, unsigned char * buf, uint32_t count)
     return tx_count;
 }
 
+#ifndef MD_BOOTLOADER
 void I2C1_init(void)
 {
     CLK_set_i2c1_freq(CHAN_SERCOM_I2C1, FREQ_I2C1_DEFAULT);
@@ -667,4 +671,4 @@ uint8_t i2c_led_q_run(void)
 
     return 1;
 }
-
+#endif //MD_BOOTLOADER

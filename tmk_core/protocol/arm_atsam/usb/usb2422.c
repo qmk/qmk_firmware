@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "arm_atsam_protocol.h"
-#include "md_bootloader.h"
 #include <string.h>
 
 Usb2422 USB2422_shadow;
@@ -24,13 +23,29 @@ unsigned char i2c0_buf[34];
 
 const uint16_t MFRNAME[] = { 'M','a','s','s','d','r','o','p',' ','I','n','c','.' }; //Massdrop Inc.
 const uint16_t PRDNAME[] = { 'M','a','s','s','d','r','o','p',' ','H','u','b' }; //Massdrop Hub
+#ifndef MD_BOOTLOADER
 //Serial number reported stops before first found space character or at last found character
 const uint16_t SERNAME[] = { 'U','n','a','v','a','i','l','a','b','l','e' }; //Unavailable
+#else
+//In production, this field is found, modified, and offset noted as the last 32-bit word in the bootloader space
+//The offset allows the application to use the factory programmed serial (which may differ from the physical serial label)
+//Serial number reported stops before first found space character or when max size is reached
+__attribute__((__aligned__(4)))
+const uint16_t SERNAME[BOOTLOADER_SERIAL_MAX_SIZE] = { 'M','D','H','U','B','B','O','O','T','L','0','0','0','0','0','0','0','0','0','0' };
+//NOTE: Serial replacer will not write a string longer than given here as a precaution, so give enough
+//      space as needed and adjust BOOTLOADER_SERIAL_MAX_SIZE to match amount given
+#endif //MD_BOOTLOADER
 
 uint8_t usb_host_port;
+
+#ifndef MD_BOOTLOADER
+
 uint8_t usb_extra_state;
 uint8_t usb_extra_manual;
 uint8_t usb_gcr_auto;
+
+#endif //MD_BOOTLOADER
+
 uint16_t adc_extra;
 
 void USB_write2422_block(void)
@@ -117,8 +132,12 @@ void USB2422_init(void)
 
     CLK_delay_us(100);
 
+#ifndef MD_BOOTLOADER
+
     usb_extra_manual = 0;
     usb_gcr_auto = 1;
+
+#endif //MD_BOOTLOADER
 }
 
 void USB_reset(void)
@@ -141,10 +160,14 @@ void USB_configure(void)
 
     uint16_t *serial_use = (uint16_t *)SERNAME; //Default to use SERNAME from this file
     uint8_t serial_length = sizeof(SERNAME) / sizeof(uint16_t); //Default to use SERNAME from this file
+#ifndef MD_BOOTLOADER
+    uint32_t serial_ptrloc = (uint32_t)&_srom - 4;
+#else //MD_BOOTLOADER
+    uint32_t serial_ptrloc = (uint32_t)&_erom - 4;
+#endif //MD_BOOTLOADER
+    uint32_t serial_address = *(uint32_t *)serial_ptrloc; //Address of bootloader's serial number if available
 
-    uint32_t serial_address = *(uint32_t *)(BOOTLOADER_SIZE - 4); //Address of bootloader's serial number if available
-    
-    if (serial_address != 0xFFFFFFFF && serial_address < (BOOTLOADER_SIZE - 4)) //Check for factory programmed serial address
+    if (serial_address != 0xFFFFFFFF && serial_address < serial_ptrloc) //Check for factory programmed serial address
     {
         if ((serial_address & 0xFF) % 4 == 0) //Check alignment
         {
@@ -196,8 +219,9 @@ void USB_set_host_by_voltage(void)
     //DN2 is keyboard (KEYB)
 
     usb_host_port = USB_HOST_PORT_UNKNOWN;
+#ifndef MD_BOOTLOADER
     usb_extra_state = USB_EXTRA_STATE_UNKNOWN;
-
+#endif //MD_BOOTLOADER
     srdata.bit.SRC_1 = 1;       //USBC-1 available for test
     srdata.bit.SRC_2 = 1;       //USBC-2 available for test
     srdata.bit.E_UP_N = 1;      //HOST disable
@@ -254,7 +278,9 @@ void USB_set_host_by_voltage(void)
         usb_host_port = USB_HOST_PORT_2;
     }
 
+#ifndef MD_BOOTLOADER
     usb_extra_state = USB_EXTRA_STATE_DISABLED;
+#endif //MD_BOOTLOADER
 
     USB_reset();
     USB_configure();
@@ -295,6 +321,8 @@ uint8_t USB2422_Port_Detect_Init(void)
 
     return 1;
 }
+
+#ifndef MD_BOOTLOADER
 
 void USB_ExtraSetState(uint8_t state)
 {
@@ -353,4 +381,6 @@ void USB_HandleExtraDevice(void)
     if (usb_extra_state == USB_EXTRA_STATE_DISABLED && adc_extra < USB_EXTRA_ADC_THRESHOLD) USB_ExtraSetState(USB_EXTRA_STATE_ENABLED);
     else if (usb_extra_state == USB_EXTRA_STATE_ENABLED && adc_extra > USB_EXTRA_ADC_THRESHOLD) USB_ExtraSetState(USB_EXTRA_STATE_DISABLED);
 }
+
+#endif //MD_BOOTLOADER
 

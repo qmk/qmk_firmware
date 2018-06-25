@@ -1,15 +1,23 @@
 #include "d51_util.h"
 
-//Print out up to 3 digit number through m15
-void m15_print(uint8_t x)
+//Display unsigned 32-bit number through m15
+//Read as follows: 1230 = || ||| |||| |  (note always ending toggle)
+void m15_print(uint32_t x)
 {
     int8_t t;
-    uint8_t n;
-    uint8_t p, p2;
+    uint32_t n;
+    uint32_t p, p2;
 
-    if (x >= 100) t = 2;
-    else if (x >= 10) t = 1;
-    else t = 0;
+    if      (x < 10) t = 0;
+    else if (x < 100) t = 1;
+    else if (x < 1000) t = 2;
+    else if (x < 10000) t = 3;
+    else if (x < 100000) t = 4;
+    else if (x < 1000000) t = 5;
+    else if (x < 10000000) t = 6;
+    else if (x < 100000000) t = 7;
+    else if (x < 1000000000) t = 8;
+    else t = 9;
 
     while (t >= 0)
     {

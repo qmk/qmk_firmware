@@ -34,6 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define m15_loop(M15X) {uint8_t M15L=M15X; while(M15L--){m15_on;CLK_delay_us(1);m15_off;}}
 
-void m15_print(uint8_t x);
+void m15_print(uint32_t x);
 
 #endif //_D51_UTIL_H_

@@ -47,7 +47,7 @@ void main_remotewakeup_disable(void)
 }
 
 #ifdef KBD
-static volatile bool main_b_kbd_enable = false;
+volatile bool main_b_kbd_enable = false;
 bool main_kbd_enable(void)
 {
     main_b_kbd_enable = true;
@@ -61,7 +61,7 @@ void main_kbd_disable(void)
 #endif
 
 #ifdef NKRO
-static volatile bool main_b_nkro_enable = false;
+volatile bool main_b_nkro_enable = false;
 bool main_nkro_enable(void)
 {
     main_b_nkro_enable = true;
@@ -75,7 +75,7 @@ void main_nkro_disable(void)
 #endif
 
 #ifdef EXK
-static volatile bool main_b_exk_enable = false;
+volatile bool main_b_exk_enable = false;
 bool main_exk_enable(void)
 {
     main_b_exk_enable = true;
@@ -89,7 +89,7 @@ void main_exk_disable(void)
 #endif
 
 #ifdef MOU
-static volatile bool main_b_mou_enable = false;
+volatile bool main_b_mou_enable = false;
 bool main_mou_enable(void)
 {
     main_b_mou_enable = true;
@@ -103,7 +103,7 @@ void main_mou_disable(void)
 #endif
 
 #ifdef RAW
-static volatile bool main_b_raw_enable = false;
+volatile bool main_b_raw_enable = false;
 bool main_raw_enable(void)
 {
     main_b_raw_enable = true;
