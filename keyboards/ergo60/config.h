@@ -1,6 +1,4 @@
 /*
-Copyright 2017 Benjamin Kesselring
-
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -22,11 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCDCD
-#define PRODUCT_ID      0x7575
+#define PRODUCT_ID      0x5337
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    shens
 #define PRODUCT         ergo60
-#define DESCRIPTION     ergo60 15x5 ortholinear keyboard
+#define DESCRIPTION     QMK keyboard firmware for ergo60
 
 /* key matrix size */
 #define MATRIX_ROWS 5
