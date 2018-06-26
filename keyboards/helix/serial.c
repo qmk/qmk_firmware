@@ -60,64 +60,6 @@ uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
 #define SLAVE_DATA_CORRUPT (1<<0)
 volatile uint8_t status = 0;
 
-#ifdef SERIAL_DEBUG_MODE
- #define serial_debug_init() SERIAL_DBGPIN_DDR |= SERIAL_DBGPIN_MASK
-#else
- #define serial_debug_init()
-#endif
-
-#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_OUTMODE
- #define debug_output_mode() SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK
- #define debug_input_mode()  SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK
-#else
- #define debug_output_mode()
- #define debug_input_mode()
-#endif
-
-#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_RCVSAMPLE
-  #define debug_recvsample() SERIAL_DBGPIN_PORT ^= SERIAL_DBGPIN_MASK
-#else
-  #define debug_recvsample()
-#endif
-
-#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_BYTEWIDTH
-  #define debug_bytewidth_start()  SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK
-  #define debug_bytewidth_end()  SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK
-#else
-  #define debug_bytewidth_start()
-  #define debug_bytewidth_end()
-#endif
-
-#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_SYNC
-  #define debug_sync_start() SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK
-  #define debug_sync_end() SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK
-#else
-  #define debug_sync_start()
-  #define debug_sync_end()
-#endif
-
-#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_IOCHG
-  #define debug_iochg_on() SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK
-  #define debug_iochg_off() SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK
-#else
-  #define debug_iochg_on()
-  #define debug_iochg_off()
-#endif
-
-#define SYNC_DEBUG_MODE 0
-#if SYNC_DEBUG_MODE == 0
-#define debug_dummy_delay_recv()
-#define debug_dummy_delay_send()
-#endif
-#if SYNC_DEBUG_MODE == 1
-#define debug_dummy_delay_recv()  _delay_us(3); _delay_sub_us(2)
-#define debug_dummy_delay_send()
-#endif
-#if SYNC_DEBUG_MODE == 2
-#define debug_dummy_delay_recv()
-#define debug_dummy_delay_send()  _delay_us(3); _delay_sub_us(2)
-#endif
-
 inline static
 void serial_delay(void) {
   _delay_us(SERIAL_DELAY);
@@ -135,14 +77,12 @@ void serial_delay_half2(void) {
 
 inline static
 void serial_output(void) {
-  debug_output_mode();
   SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
 }
 
 // make the serial pin an input with pull-up resistor
 inline static
 void serial_input_with_pullup(void) {
-  debug_input_mode();
   SERIAL_PIN_DDR  &= ~SERIAL_PIN_MASK;
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
@@ -163,13 +103,11 @@ void serial_high(void) {
 }
 
 void serial_master_init(void) {
-  serial_debug_init();
   serial_output();
   serial_high();
 }
 
 void serial_slave_init(void) {
-  serial_debug_init();
   serial_input_with_pullup();
 
 #ifndef USE_SERIAL_PD2
@@ -188,25 +126,19 @@ void serial_slave_init(void) {
 // Used by the sender to synchronize timing with the reciver.
 static
 void sync_recv(void) {
-  debug_sync_start();
   for (int i = 0; i < SERIAL_DELAY*5 && serial_read_pin(); i++ ) {
-      debug_sync_end();
-      debug_sync_start();
   }
   // This shouldn't hang if the slave disconnects because the
   // serial line will float to high if the slave does disconnect.
   while (!serial_read_pin());
-  debug_sync_end();
 }
 
 // Used by the reciver to send a synchronization signal to the sender.
 static
 void sync_send(void) {
-  debug_sync_start();
   serial_low();
   serial_delay();
   serial_high();
-  debug_sync_end();
 }
 
 // Reads a byte from the serial line
@@ -216,12 +148,9 @@ uint8_t serial_read_byte(void) {
   _delay_sub_us(READ_WRITE_START_ADJUST);
   for ( uint8_t i = 0; i < 8; ++i) {
     serial_delay_half1();   // read the middle of pulses
-    debug_recvsample();
     byte = (byte << 1) | serial_read_pin();
-    debug_recvsample();
     _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
     serial_delay_half2();
-    debug_dummy_delay_recv();
   }
   return byte;
 }
@@ -237,10 +166,7 @@ void serial_write_byte(uint8_t data) {
       serial_low();
     }
     b >>= 1;
-    debug_recvsample();
     serial_delay();
-    debug_recvsample();
-    debug_dummy_delay_send();
   }
   serial_low(); // sync_send() / senc_recv() need raise edge
 }
@@ -253,46 +179,28 @@ ISR(SERIAL_PIN_INTERRUPT) {
   uint8_t checksum = 0;
   for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
     sync_send();
-    debug_bytewidth_start();
     serial_write_byte(serial_slave_buffer[i]);
-    debug_bytewidth_end();
     checksum += serial_slave_buffer[i];
   }
   sync_send();
-  debug_bytewidth_start();
   serial_write_byte(checksum);
-  debug_bytewidth_end();
 
   // slave switch to input
   sync_send(); //0
-
-  debug_iochg_on();
   serial_delay_half1(); //1
-  debug_iochg_off();
-
-  debug_iochg_on();
   serial_low();         //2
-  debug_iochg_off();
-
   serial_input_with_pullup(); //2
-
-  debug_iochg_on(); //3
-  serial_delay_half1();
-  debug_iochg_off();
+  serial_delay_half1(); //3
 
   // slave recive phase
   uint8_t checksum_computed = 0;
   for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
     sync_recv();
-    debug_bytewidth_start();
     serial_master_buffer[i] = serial_read_byte();
-    debug_bytewidth_end();
     checksum_computed += serial_master_buffer[i];
   }
   sync_recv();
-  debug_bytewidth_start();
   uint8_t checksum_received = serial_read_byte();
-  debug_bytewidth_end();
 
   if ( checksum_computed != checksum_received ) {
     status |= SLAVE_DATA_CORRUPT;
@@ -344,15 +252,11 @@ int serial_update_buffers(void) {
   // receive data from the slave
   for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
     sync_recv();
-    debug_bytewidth_start();
     serial_slave_buffer[i] = serial_read_byte();
-    debug_bytewidth_end();
     checksum_computed += serial_slave_buffer[i];
   }
   sync_recv();
-  debug_bytewidth_start();
   uint8_t checksum_received = serial_read_byte();
-  debug_bytewidth_end();
 
   if (checksum_computed != checksum_received) {
     serial_output();
@@ -363,34 +267,21 @@ int serial_update_buffers(void) {
 
   // master switch to output
   sync_recv(); //0
-
-  debug_iochg_on();
   serial_delay();  //1
-  debug_iochg_off();
-
-  debug_iochg_on();
   serial_low();    //3
   serial_output(); // 3
-  debug_iochg_off();
-
-  debug_iochg_on();
   serial_delay_half1(); //4
-  debug_iochg_off();
 
   // master send phase
   uint8_t checksum = 0;
 
   for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
     sync_send();
-    debug_bytewidth_start();
     serial_write_byte(serial_master_buffer[i]);
-    debug_bytewidth_end();
     checksum += serial_master_buffer[i];
   }
   sync_send();
-  debug_bytewidth_start();
   serial_write_byte(checksum);
-  debug_bytewidth_end();
 
   // always, release the line when not in use
   sync_send();
