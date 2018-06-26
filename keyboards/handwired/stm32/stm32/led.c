@@ -26,18 +26,33 @@ void led_set(uint8_t usb_led)
 #ifdef BOARD_GENERIC_STM32_F103
         palClearPad(GPIOC, 13);
 #endif
-        /* Maple Mini */
-#ifdef BOARD_MAPLEMINI_STM32_F103
-        palSetPad(GPIOB, 1);
-#endif
     } else {
     	/* generic STM32F103C8T6 board */
 #ifdef BOARD_GENERIC_STM32_F103
     	palSetPad(GPIOC, 13);
 #endif
-        /* Maple Mini */
-#ifdef BOARD_MAPLEMINI_STM32_F103
-        palClearPad(GPIOB,1);
-#endif
     }
 }
+
+
+/* New leds configuration, decided to put here */
+/*uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case _RAISE:
+        rgblight_setrgb (0x00,  0x00, 0xFF);
+        break;
+    case _LOWER:
+        rgblight_setrgb (0xFF,  0x00, 0x00);
+        break;
+    case _PLOVER:
+        rgblight_setrgb (0x00,  0xFF, 0x00);
+        break;
+    case _ADJUST:
+        rgblight_setrgb (0x7A,  0x00, 0xFF);
+        break;
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb (0x00,  0xFF, 0xFF);
+        break;
+    }
+  return state;
+}*/

@@ -1,0 +1,9 @@
+PA2  - Alternate output  (USART2 TX)
+PA3  - Normal input      (USART2 RX)
+PA9  - Alternate output  (USART1 TX)
+PA10 - Normal input      (USART1 RX)
+PA11 - 				     (USB D-)
+PA12 - 				     (USB D+)
+
+PB10 - Push Pull output  (USB switch).
+PC13    - Push Pull output  (LED)

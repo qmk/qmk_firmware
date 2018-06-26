@@ -48,6 +48,10 @@
 #define GPIOD_OSC_IN            0
 #define GPIOD_OSC_OUT           1
 
+/* Backlighting */
+/*
+#define GPIOB_BACKLIGHT_PIN               1*/
+
 /* In case your board has a "USB enable" hardware
    controlled by a pin, define it here. (It could be just
    a 1.5k resistor connected to D+ line.)

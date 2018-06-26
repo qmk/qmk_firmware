@@ -56,16 +56,9 @@ uint8_t matrix_cols(void)
 
 /* generic STM32F103C8T6 board */
 #ifdef BOARD_GENERIC_STM32_F103
-#define LED_ON()    do { palClearPad(GPIOB, 1) ;} while (0)
-#define LED_OFF()   do { palSetPad(GPIOB, 1); } while (0)
-#define LED_TGL()   do { palTogglePad(GPIOB, 1); } while (0)
-#endif
-
-/* Maple Mini */
-#ifdef BOARD_MAPLEMINI_STM32_F103
-#define LED_ON()    do { palSetPad(GPIOB, 1) ;} while (0)
-#define LED_OFF()   do { palClearPad(GPIOB, 1); } while (0)
-#define LED_TGL()   do { palTogglePad(GPIOB, 1); } while (0)
+#define LED_ON()    do { palClearPad(GPIOA, 1) ;} while (0)
+#define LED_OFF()   do { palSetPad(GPIOA, 1); } while (0)
+#define LED_TGL()   do { palTogglePad(GPIOA, 1); } while (0)
 #endif
 
 void matrix_init(void)
@@ -143,28 +136,42 @@ void matrix_print(void)
 //  Modified by Xydane
 static void  init_cols(void)
 {
-  palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 2, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 4, PAL_MODE_INPUT_PULLUP);
   palSetPadMode(GPIOA, 5, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 1, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 3, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOA, 15, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOA, 10, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOA, 9, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOA, 8, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOB, 15, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOB, 14, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOB, 13, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOB, 12, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOB, 11, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOB, 10, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOB, 1, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOB, 0, PAL_MODE_INPUT_PULLUP);
   palSetPadMode(GPIOA, 7, PAL_MODE_INPUT_PULLUP);
-  palSetPadMode(GPIOA, 0, PAL_MODE_INPUT_PULLUP);
+  palSetPadMode(GPIOA, 6, PAL_MODE_INPUT_PULLUP);
 }
 
 /* Returns status of switches(1:on, 0:off) */
 //  Modified by Xydane
 static matrix_row_t read_cols(void)
 {
-  return ((palReadPad(GPIOA, 6)==PAL_HIGH) ? 0 : (1<<0))
-    | ((palReadPad(GPIOA, 2)==PAL_HIGH) ? 0 : (1<<1))
-    | ((palReadPad(GPIOA, 4)==PAL_HIGH) ? 0 : (1<<2))
-    | ((palReadPad(GPIOA, 5)==PAL_HIGH) ? 0 : (1<<3))
-    | ((palReadPad(GPIOA, 1)==PAL_HIGH) ? 0 : (1<<4))
-    | ((palReadPad(GPIOA, 3)==PAL_HIGH) ? 0 : (1<<5))
-    | ((palReadPad(GPIOA, 7)==PAL_HIGH) ? 0 : (1<<6))
-    | ((palReadPad(GPIOA, 0)==PAL_HIGH) ? 0 : (1<<7));
+  return ((palReadPad(GPIOA, 5)==PAL_HIGH) ? 0 : (1<<0))
+    | ((palReadPad(GPIOA, 15)==PAL_HIGH) ? 0 : (1<<1))
+    | ((palReadPad(GPIOA, 10)==PAL_HIGH) ? 0 : (1<<2))
+    | ((palReadPad(GPIOA, 9)==PAL_HIGH) ? 0 : (1<<3))
+    | ((palReadPad(GPIOA, 8)==PAL_HIGH) ? 0 : (1<<4))
+    | ((palReadPad(GPIOB, 15)==PAL_HIGH) ? 0 : (1<<5))
+    | ((palReadPad(GPIOB, 14)==PAL_HIGH) ? 0 : (1<<6))
+    | ((palReadPad(GPIOB, 13)==PAL_HIGH) ? 0 : (1<<7))
+    | ((palReadPad(GPIOB, 12)==PAL_HIGH) ? 0 : (1<<8))
+    | ((palReadPad(GPIOB, 11)==PAL_HIGH) ? 0 : (1<<9))
+    | ((palReadPad(GPIOB, 10)==PAL_HIGH) ? 0 : (1<<10))
+    | ((palReadPad(GPIOB, 1)==PAL_HIGH) ? 0 : (1<<11))
+    | ((palReadPad(GPIOB, 0)==PAL_HIGH) ? 0 : (1<<12))
+    | ((palReadPad(GPIOA, 7)==PAL_HIGH) ? 0 : (1<<13))
+    | ((palReadPad(GPIOA, 6)==PAL_HIGH) ? 0 : (1<<14));
 }
 
 /* Row pin configuration
@@ -177,15 +184,7 @@ static void unselect_rows(void)
   palSetPadMode(GPIOB, 7, PAL_MODE_INPUT);
   palSetPadMode(GPIOB, 6, PAL_MODE_INPUT);
   palSetPadMode(GPIOB, 5, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 10, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 10, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 11, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 9, PAL_MODE_INPUT);
-  palSetPadMode(GPIOA, 8, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 15, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 14, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 13, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 12, PAL_MODE_INPUT);
+  palSetPadMode(GPIOA, 4, PAL_MODE_INPUT);
 }
 
 //  Modified by Xydane
@@ -214,40 +213,8 @@ static void select_row(uint8_t row)
       palClearPad(GPIOB, 5);
       break;
     case 5:
-      palSetPadMode(GPIOA, 10, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 10);
-      break;
-    case 6:
-      palSetPadMode(GPIOB, 10, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 10);
-      break;
-    case 7:
-      palSetPadMode(GPIOB, 11, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 11);
-      break;
-    case 8:
-      palSetPadMode(GPIOA, 9, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 9);
-      break;
-    case 9:
-      palSetPadMode(GPIOA, 8, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOA, 8);
-      break;
-    case 10:
-      palSetPadMode(GPIOB, 15, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 15);
-      break;
-    case 11:
-      palSetPadMode(GPIOB, 14, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 14);
-      break;
-    case 12:
-      palSetPadMode(GPIOB, 13, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 13);
-      break;
-    case 13:
-      palSetPadMode(GPIOB, 12, PAL_MODE_OUTPUT_PUSHPULL);
-      palClearPad(GPIOB, 12);
+      palSetPadMode(GPIOA, 4, PAL_MODE_OUTPUT_PUSHPULL);
+      palClearPad(GPIOA, 4);
       break;
     }
 }

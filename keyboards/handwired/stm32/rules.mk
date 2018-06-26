@@ -4,7 +4,7 @@ CONSOLE_ENABLE = yes	# Console for debug
 COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
-CUSTOM_MATRIX = yes # Custom matrix file
-MOUSEKEY_ENABLE = yes
+CUSTOM_MATRIX = yes 	# Custom matrix file
+MOUSEKEY_ENABLE = no
 
-DEFAULT_FOLDER = chibios_test/stm32_f103_onekey
+DEFAULT_FOLDER = handwired/stm32/stm32
