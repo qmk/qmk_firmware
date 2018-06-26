@@ -19,14 +19,15 @@ Currently, the keycodes able to used with these functions are limited to the [Ba
 
 # Switching and Toggling Layers
 
-These functions allow you to activate layers in various ways.
+These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see [Keymap Overview](keymap.md#keymap-and-layers)
 
-* `MO(layer)` - momentary switch to *layer*. As soon as you let go of the key, the layer is deactivated and you pop back out to the previous layer.
-* `LT(layer, kc)` - momentary switch to *layer* when held, and *kc* when tapped.
-* `TG(layer)` - toggles a layer on or off.
-* `TO(layer)` - Goes to a layer. This code is special, because it lets you go either up or down the stack -- just goes directly to the layer you want. So while other codes only let you go _up_ the stack (from layer 0 to layer 3, for example), `TO(2)` is going to get you to layer 2, no matter where you activate it from -- even if you're currently on layer 5. This gets activated on keydown (as soon as the key is pressed).
-* `TT(layer)` - Layer Tap-Toggle. If you hold the key down, the layer becomes active, and then deactivates when you let go. And if you repeatedly tap it, the layer simply becomes active (toggles on). It needs 5 taps by default, but you can set it by defining `TAPPING_TOGGLE`, for example, `#define TAPPING_TOGGLE 2` for just two taps.
-* `LM(layer, mod)` - Momentary switch to *layer* (like MO), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers.
+* `DF(layer)` - switches the default layer. The default layer is the always-active base layer that other layers stack on top of. See below for more about the default layer. This might be used to switch from QWERTY to Dvorak layout. (Note that this is a temporary switch that only persists until the keyboard loses power. To modify the default layer in a persistent way requires deeper customization, such as calling the `set_single_persistent_default_layer` function inside of [process_record_user](custom_quantum_functions.md#programming-the-behavior-of-any-keycode).)
+* `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated. 
+* `LM(layer, mod)` - Momentarily activates *layer* (like `MO`), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers.
+* `LT(layer, kc)` - momentarily activates *layer* when held, and sends *kc* when tapped.
+* `TG(layer)` - toggles *layer*, activating it if it's inactive and vice versa
+* `TO(layer)` - activates *layer* and de-activates all other layers (except your default layer). This function is special, because instead of just adding/removing one layer to your active layer stack, it will completely replace your current active layers, uniquely allowing you to replace higher layers with a lower one. This is activated on keydown (as soon as the key is pressed).
+* `TT(layer)` - Layer Tap-Toggle. If you hold the key down, *layer* is activated, and then is de-activated when you let go (like `MO`). If you repeatedly tap it, the layer will be toggled on or off (like `TG`). It needs 5 taps by default, but you can change this by defining `TAPPING_TOGGLE` -- for example, `#define TAPPING_TOGGLE 2` to toggle on just two taps.
 
 # Working with Layers
 
@@ -36,9 +37,9 @@ Care must be taken when switching layers, it's possible to lock yourself into a 
 
 If you are just getting started with QMK you will want to keep everything simple. Follow these guidelines when setting up your layers:
 
-* Setup layer 0 as your "base" layer. This is your normal typing layer, and could be whatever layout you want (qwerty, dvorak, colemak, etc.)
+* Setup layer 0 as your default, "base" layer. This is your normal typing layer, and could be whatever layout you want (qwerty, dvorak, colemak, etc.). It's important to set this as the lowest layer since it will typically have most or all of the keyboard's keys defined, so would block other layers from having any effect if it were above them (i.e., had a higher layer number). 
 * Arrange your layers in a "tree" layout, with layer 0 as the root. Do not try to enter the same layer from more than one other layer.
-* Never try to stack a higher numbered layer on top of a lower numbered layer. Doing so is tricky and error prone.
+* In a layer's keymap, only reference higher-numbered layers. Because layers are processed from the highest-numbered (topmost) active layer down, modifying the state of lower layers can be tricky and error-prone.
 
 ### Intermediate Users
 
@@ -130,11 +131,9 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
 
-{% hint style='info' %}
-Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
+?> Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
 
-Additionally, if there is at least one right modifier, any other modifiers will turn into their right equivalents, so it is not possible to "mix and match" the two.
-{% endhint %}
+?> Additionally, if there is at least one right modifier, any other modifiers will turn into their right equivalents, so it is not possible to "mix and match" the two.
 
 # One Shot Keys
 

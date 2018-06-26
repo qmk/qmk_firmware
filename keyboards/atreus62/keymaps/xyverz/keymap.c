@@ -17,19 +17,28 @@ CHANGELOG:
  0.2 - Converted to a more Planck/Preonic keymap style file with 
        persistent layers enabled. Renamed layers to reflect OLKB maps.
        Added a TODO list.
+ 0.3 - Moved location of media & volume keys. Added Print Screen, 
+       Scroll Lock and Pause keys. Added a WOW gaming layer that
+       changes the location of Ctrl & Alt to the thumb keys. Added
+       readme.
+ 0.4 - After more useage, I realized that the ESC key was in the way 
+       of my muscle memory (gee, thanks, Planck!) so I moved it to
+       the normal Caps Lock position, and moved Caps Lock to the same
+       position on the RAISE and LOWER layers. Added code to turn off
+       the Pro Micro LEDs after flashing.
+ 0.5 - Converted keymap to LAYOUT standard.
 
 TODO:
 
  * Make the layout more efficient, even if it means changing the RAISE
    and LOWER functionality.
  * Add legends in comments for each layer. Maybe.
- * Add a gaming layer.
 
 */
 
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-#include "atreus62.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -58,60 +67,63 @@ enum atreus52_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [_DVORAK] = { /* dvorak */
-        { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS },
-        { KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    _______, KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH },
-        { KC_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    _______, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS },
-        { KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_LGUI, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT },
-        { KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL }
-    },
-    
-    [_QWERTY] = { /* qwerty */
-        { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS },
-        { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL  },
-        { KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT },
-        { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT },
-        { KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL }
-    },
-    
-    [_COLEMAK] = { /* colemak */
-        { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS },
-        { KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    _______, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_DEL  },
-        { KC_BSPC, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    _______, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT },
-        { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT },
-        { KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL}
-    },
+// Aliases to make the keymap clearer.
+#define CTL_ENT CTL_T(KC_ENT)
 
-    [_WOW] = { /* Dvorak with minor modifications for playing World of Warcraft */
-        { KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS },
-        { KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    _______, KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH },
-        { KC_CAPS, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    _______, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS },
-        { KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_LALT, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT },
-        { KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, CTL_T(KC_ENT), KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_ENT }
-    },
-    
-    [_LOWER] = {
-        { KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12  },
-        { KC_TILD, KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PIPE },
-        { _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______ },
-        { _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______ },
-        { _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______ }
-    },
-    [_RAISE] = {
-        { KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12  },
-        { KC_TILD, KC_GRV,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSLS },
-        { _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______ },
-        { _______, _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______ },
-        { _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______ }
-    },
-    [_ADJUST] = {
-        { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-        { _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-        { _______, _______, _______, _______, _______, _______, _______, _______, QWERTY,  COLEMAK, DVORAK,  _______, WOW     },
-        { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-        { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
-    },
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  [_DVORAK] = LAYOUT ( /* dvorak */
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
+    KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
+    KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
+    KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
+    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_LGUI, KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
+  ),
+
+  [_QWERTY] = LAYOUT ( /* qwerty */
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_DEL,
+    KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_LGUI, KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
+  ),
+
+  [_COLEMAK] = LAYOUT ( /* colemak */
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+    KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_DEL,
+    KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                      KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
+    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_LGUI, KC_ENT,  KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_RCTL
+  ),
+
+  [_WOW] = LAYOUT ( /* Dvorak with minor modifications for playing World of Warcraft */
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS,
+    KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH,
+    KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,
+    KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,                      KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
+    KC_LCTL, KC_LALT, KC_LEFT, KC_RGHT, LOWER,   KC_BSPC, KC_LALT, CTL_ENT, KC_SPC,  RAISE,   KC_UP,   KC_DOWN, KC_RGUI, KC_ENT
+  ),
+
+  [_LOWER] = LAYOUT (
+    KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
+    KC_TILD, KC_GRV,  _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_PIPE,
+    KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, _______, KC_PLUS, KC_LCBR, KC_RCBR, _______,
+    _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                   _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
+    _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  _______, _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______
+  ),
+  [_RAISE] = LAYOUT (
+    KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                     KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
+    KC_TILD, KC_GRV,  _______, _______, _______, _______,                   _______, _______, _______, _______, _______, KC_BSLS,
+    KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,                   _______, _______, KC_EQL,  KC_LBRC, KC_RBRC, _______,
+    _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,                   _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
+    _______, _______, KC_HOME, KC_END,  _______, KC_DEL,  _______, _______, KC_INS,  _______, KC_PGUP, KC_PGDN, _______, _______
+  ),
+  [_ADJUST] = LAYOUT (
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, RESET,   _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______,                   _______, QWERTY,  COLEMAK, DVORAK,  _______, WOW,
+    _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  ),
 
 };
 

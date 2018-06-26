@@ -89,6 +89,8 @@ This is a C header file that is one of the first things included, and will persi
   * tries to keep switch state consistent with keyboard LED state
 * `#define IS_COMMAND() ( keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) )`
   * key combination that allows the use of magic commands (useful for debugging)
+* `#define USB_MAX_POWER_CONSUMPTION`
+  * sets the maximum power (in mA) over USB for the device (default: 500)
 
 ## Features That Can Be Disabled
 
@@ -116,7 +118,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define FORCE_NKRO`
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define PREVENT_STUCK_MODIFIERS`
-  * when switching layers, this will release all mods
+  * stores the layer a key press came from so the same layer is used when the key is released, regardless of which layers are enabled
 
 ## Behaviors That Can Be Configured
 

@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CATERINA_BOOTLOADER
 
 /* define tapping term */
-#define TAPPING_TERM 120
+#define TAPPING_TERM 100
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
