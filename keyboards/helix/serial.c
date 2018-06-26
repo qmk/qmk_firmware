@@ -17,7 +17,7 @@
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
 // Serial pulse period in microseconds.
-#define SELECT_SERIAL_SPEED 1
+#define SELECT_SERIAL_SPEED 0
 #if SELECT_SERIAL_SPEED == 0
   // Very High speed
   #define SERIAL_DELAY 4             // micro sec
@@ -110,12 +110,12 @@ volatile uint8_t status = 0;
 #define debug_dummy_delay_send()
 #endif
 #if SYNC_DEBUG_MODE == 1
-#define debug_dummy_delay_recv()  _delay_us(SERIAL_DELAY_HALF1-5)
+#define debug_dummy_delay_recv()  _delay_us(3); _delay_sub_us(2)
 #define debug_dummy_delay_send()
 #endif
 #if SYNC_DEBUG_MODE == 2
 #define debug_dummy_delay_recv()
-#define debug_dummy_delay_send()  _delay_us(SERIAL_DELAY_HALF1-5)
+#define debug_dummy_delay_send()  _delay_us(3); _delay_sub_us(2)
 #endif
 
 inline static
@@ -185,24 +185,23 @@ void serial_slave_init(void) {
 #endif
 }
 
-// Used by the master to synchronize timing with the slave.
-// !!! +- (ビット幅/2) のズレを補正する。手順再度考察
+// Used by the sender to synchronize timing with the reciver.
 static
 void sync_recv(void) {
-  debug_dummy_delay_recv();
   debug_sync_start();
-  while (serial_read_pin());
+  for (int i = 0; i < SERIAL_DELAY*5 && serial_read_pin(); i++ ) {
+      debug_sync_end();
+      debug_sync_start();
+  }
   // This shouldn't hang if the slave disconnects because the
   // serial line will float to high if the slave does disconnect.
   while (!serial_read_pin());
   debug_sync_end();
 }
 
-// Used by the slave to send a synchronization signal to the master.
-// !!! +- (ビット幅/2) のズレを補正する。手順再度考察
+// Used by the reciver to send a synchronization signal to the sender.
 static
 void sync_send(void) {
-  debug_dummy_delay_send();
   debug_sync_start();
   serial_low();
   serial_delay();
@@ -222,6 +221,7 @@ uint8_t serial_read_byte(void) {
     debug_recvsample();
     _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
     serial_delay_half2();
+    debug_dummy_delay_recv();
   }
   return byte;
 }
@@ -240,6 +240,7 @@ void serial_write_byte(uint8_t data) {
     debug_recvsample();
     serial_delay();
     debug_recvsample();
+    debug_dummy_delay_send();
   }
   serial_low(); // sync_send() / senc_recv() need raise edge
 }
