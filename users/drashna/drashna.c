@@ -91,6 +91,9 @@ __attribute__ ((weak))
 void matrix_init_keymap(void) {}
 
 __attribute__ ((weak))
+void startup_keymap(void) {}
+
+__attribute__ ((weak))
 void suspend_power_down_keymap(void) {}
 
 __attribute__ ((weak))
@@ -144,10 +147,13 @@ void matrix_init_user(void) {
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
 	set_unicode_input_mode(UC_WINC);
 #endif //UNICODE_ENABLE
-  matrix_init_rgb();
   matrix_init_keymap();
 }
 
+void startup_user (void) {
+  matrix_init_rgb();
+  startup_keymap();
+}
 
 void suspend_power_down_user(void)
 {
@@ -166,6 +172,11 @@ void suspend_wakeup_init_user(void)
 // No global matrix scan code, so just run keymap's matrix
 // scan function
 void matrix_scan_user(void) {
+  static bool has_ran_yet;
+  if (!has_ran_yet) {
+    has_ran_yet = true;
+    startup_user();
+  }
 
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
   run_diablo_macro_check();
@@ -389,12 +400,11 @@ uint32_t layer_state_set_user(uint32_t state) {
   return layer_state_set_keymap (state);
 }
 
+
 uint32_t default_layer_state_set_kb(uint32_t state) {
-#ifdef RGBLIGHT_ENABLE
-  state = default_layer_state_set_rgb(state);
-#endif // RGBLIGHT_ENABLE
   return default_layer_state_set_keymap (state);
 }
+
 
 // Any custom LED code goes here.
 // So far, I only have keyboard specific code,

@@ -261,25 +261,4 @@ uint32_t layer_state_set_rgb(uint32_t state) {
   return state;
 }
 
-uint32_t default_layer_state_set_rgb(uint32_t state) {
-  static bool has_first_run;
-  switch (biton32(state)) {
-    case _QWERTY:
-      rgblight_sethsv_cyan(); break;
-    case _COLEMAK:
-      rgblight_sethsv_magenta(); break;
-    case _DVORAK:
-      rgblight_sethsv_green(); break;
-    case _WORKMAN:
-      rgblight_sethsv_goldenrod(); break;
-    default:
-      rgblight_sethsv_cyan(); break;
-  }
-  if (!has_first_run) {
-    rgblight_mode_noeeprom(1);
-    has_first_run = true;
-  } else {
-    biton32(layer_state) == _MODS ? rgblight_mode_noeeprom(2) : rgblight_mode(1);
-  }
-  return state;
-}
+
