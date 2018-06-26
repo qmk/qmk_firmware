@@ -38,8 +38,11 @@ enum custom_keycodes {
   HEART,
   JOY,
   LLAP,
+  ROFL,
   SHIT,
+  SING,
   SHRUG,
+  THINK,
   THMBDN,
   THMBUP,
   TOUNGE,
@@ -123,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | |      |      |      |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
@@ -131,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT( \
   KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC, \
   KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE, \
-  KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),_______, _______, _______, \
+  KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, KC_QS,   KC_QS,   _______, KC_TABL, _______, _______, KC_TABR \
 ),
 
@@ -141,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |      |      |      |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
@@ -149,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_RAISE] = LAYOUT( \
   KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
   KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
-  KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, _______, _______, KC_X2, \
+  KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, KC_X2, \
   _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END \
 ),
 
@@ -170,22 +173,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
 ),
+
 /* Emoji Layer
-*
-* ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-* │HYPR0│     │ ;-) │     │     │ :-P │     │     │:'-( │FLIP │     │     │
-* ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-* │HYPR1│  👆 │SHRUG│     │ :-( │     │ <3  │ :-) │     │LLAP │     │     │
-* ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-* │HYPR2│     │     │     | :-\ │ 🐛  │     │ :-D │ SHIT│     │     │     │
-* ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-* │     │     │     │     │Brig-│   Sleep   │Brig+│ 👈  │ 👎  |  👍 │ 👉 │
-* └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
-*/
+ * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+ * │HYPR0│  Q  │ ;-) │  E  │  🤣 │ :-P │  Y  │  U  │:'-( │FLIP │  P  │     │
+ * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+ * │HYPR1│  👆 │SHRUG│  D  │ :-( │  G  │ <3  │ :-) │  k  │LLAP │  ;  │     │
+ * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+ * │HYPR2│🎶x🎶│💭x💭│  C | :-\ │ 🐛  │  n  │ :-D │ SHIT│  .  │  /  │     │
+ * ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
+ * │     │     │     │     │Brig-│   Sleep   │Brig+│ 👈  │ 👎  |  👍 │ 👉 │
+ * └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
+ */
 [_EMOJI] = LAYOUT( \
-  HYPR_0,  _______, WINK,    _______, _______,  TOUNGE,  _______, _______, CRY,     FLIP,    _______, _______ , \
+  HYPR_0,  _______, WINK,    _______, ROFL,     TOUNGE,  _______, _______, CRY,     FLIP,    _______, _______ , \
   HYPR_1,  ABOVE,   SHRUG,   _______, FROWN,    _______, HEART,   JOY,     _______, LLAP,    _______, _______ , \
-  HYPR_2,  _______, _______, _______, CONFUSED, BUG, _______, GRIN,    SHIT,    _______, _______, _______ , \
+  HYPR_2,  SING,    THINK,   _______, CONFUSED, BUG, _______, GRIN,    SHIT,    _______, _______, _______ , \
   _______, _______, _______, _______, KC_SLCK,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT \
 ),
 
@@ -331,9 +334,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case ROFL:
+      if (record->event.pressed) {
+        SEND_STRING("&rofl; ");
+      }
+      return false;
+      break;
     case SHIT:
       if (record->event.pressed) {
         SEND_STRING("&shit; ");
+      }
+      return false;
+      break;
+    case SING:
+      if (record->event.pressed) {
+        SEND_STRING("_sing_");
       }
       return false;
       break;
@@ -343,6 +358,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case THINK:
+      if (record->event.pressed) {
+        SEND_STRING("_think_");
+      }
+      return false;
+      break;
+
     case THMBDN:
       if (record->event.pressed) {
         SEND_STRING("&thumbdown; ");
@@ -367,7 +389,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-
   }
 
   return true;
