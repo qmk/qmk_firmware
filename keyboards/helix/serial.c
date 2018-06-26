@@ -17,7 +17,7 @@
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
 // Serial pulse period in microseconds.
-#define SELECT_SERIAL_SPEED 0
+#define SELECT_SERIAL_SPEED 1
 #if SELECT_SERIAL_SPEED == 0
   // Very High speed
   #define SERIAL_DELAY 4             // micro sec
