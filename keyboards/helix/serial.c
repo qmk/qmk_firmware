@@ -141,7 +141,7 @@ void serial_output(void) {
 
 // make the serial pin an input with pull-up resistor
 inline static
-void serial_input(void) {
+void serial_input_with_pullup(void) {
   debug_input_mode();
   SERIAL_PIN_DDR  &= ~SERIAL_PIN_MASK;
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
@@ -170,7 +170,7 @@ void serial_master_init(void) {
 
 void serial_slave_init(void) {
   serial_debug_init();
-  serial_input();
+  serial_input_with_pullup();
 
 #ifndef USE_SERIAL_PD2
   // Enable INT0
@@ -247,7 +247,6 @@ void serial_write_byte(uint8_t data) {
 
 // interrupt handle to be used by the slave device
 ISR(SERIAL_PIN_INTERRUPT) {
-  // master->slave のトリガー手順、もっといい手順が無いか検討中  !!!
   serial_output();
 
   // slave send phase
@@ -265,17 +264,20 @@ ISR(SERIAL_PIN_INTERRUPT) {
   debug_bytewidth_end();
 
   // slave switch to input
-  // 送受信の向き変更処理 もっといい手順が無いか検討中　!!!
-  debug_iochg_on(); //1
-  sync_send();
+  sync_send(); //0
+
+  debug_iochg_on();
+  serial_delay_half1(); //1
   debug_iochg_off();
-  serial_delay_half1();
-  debug_iochg_on(); //2
-  serial_low();
+
+  debug_iochg_on();
+  serial_low();         //2
   debug_iochg_off();
-  serial_input();
+
+  serial_input_with_pullup(); //2
+
   debug_iochg_on(); //3
-  serial_delay();
+  serial_delay_half1();
   debug_iochg_off();
 
   // slave recive phase
@@ -312,19 +314,18 @@ bool serial_slave_DATA_CORRUPT(void) {
 // Returns:
 // 0 => no error
 // 1 => slave did not respond
+// 2 => checksum error
 int serial_update_buffers(void) {
   // this code is very time dependent, so we need to disable interrupts
   cli();
 
-  // master->slave のトリガー手順、もっといい手順が無いか検討中 !!!
   // signal to the slave that we want to start a transaction
   serial_output();
   serial_low();
   _delay_us(SLAVE_INT_WIDTH);
 
   // wait for the slaves response
-  serial_input();
-  serial_high();
+  serial_input_with_pullup();
   _delay_us(SLAVE_INT_RESPONSE_TIME);
 
   // check if the slave is present
@@ -361,17 +362,19 @@ int serial_update_buffers(void) {
   }
 
   // master switch to output
-  // 送受信の向き変更処理 もっといい手順が無いか検討中　!!!
-  debug_iochg_on(); //1
-  sync_recv();
+  sync_recv(); //0
+
+  debug_iochg_on();
+  serial_delay();  //1
   debug_iochg_off();
-  serial_delay();
-  debug_iochg_on(); //2
-  serial_output();
+
+  debug_iochg_on();
+  serial_low();    //3
+  serial_output(); // 3
   debug_iochg_off();
-  serial_low();
-  debug_iochg_on(); //3
-  serial_delay_half1();
+
+  debug_iochg_on();
+  serial_delay_half1(); //4
   debug_iochg_off();
 
   // master send phase
