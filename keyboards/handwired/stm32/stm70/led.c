@@ -56,3 +56,8 @@ void led_set(uint8_t usb_led)
     }
   return state;
 }*/
+
+
+// inline void gh60_caps_led_off(void)     { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
+
+// inline void gh60_caps_led_on(void)      { DDRB |=  (1<<2); PORTB &= ~(1<<2); }
