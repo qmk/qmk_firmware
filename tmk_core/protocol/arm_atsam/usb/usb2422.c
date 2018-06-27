@@ -50,9 +50,9 @@ uint16_t adc_extra;
 
 void USB_write2422_block(void)
 {
-    unsigned char * dest = i2c0_buf;
-    unsigned char * src;
-    unsigned char * base = (unsigned char *)&USB2422_shadow;
+    unsigned char *dest = i2c0_buf;
+    unsigned char *src;
+    unsigned char *base = (unsigned char *)&USB2422_shadow;
 
     for (src =  base; src < base + 256; src += 32)
     {
@@ -68,12 +68,12 @@ void USB_write2422_block(void)
 
 void USB2422_init(void)
 {
-    Gclk * pgclk = GCLK;
-    Mclk * pmclk = MCLK;
-    Port * pport = PORT;
-    Oscctrl * posc = OSCCTRL;
-    Usb * pusb = USB;
-    Srdata_t * pspi = &srdata;
+    Gclk *pgclk = GCLK;
+    Mclk *pmclk = MCLK;
+    Port *pport = PORT;
+    Oscctrl *posc = OSCCTRL;
+    Usb *pusb = USB;
+    Srdata_t *pspi = &srdata;
 
     while ((v_5v = adc_get(ADC_5V)) < ADC_5V_START_LEVEL) {}
 
@@ -91,33 +91,33 @@ void USB2422_init(void)
     pport->Group[1].PINCFG[22].bit.PMUXEN = 1;
 
     //configure and enable DFLL for USB clock recovery mode at 48MHz
-    posc->DFLLCTRLA.bit.ENABLE=0;
-    while(posc->DFLLSYNC.bit.ENABLE);
-    while(posc->DFLLSYNC.bit.DFLLCTRLB);
+    posc->DFLLCTRLA.bit.ENABLE = 0;
+    while(posc->DFLLSYNC.bit.ENABLE) {}
+    while(posc->DFLLSYNC.bit.DFLLCTRLB) {}
     posc->DFLLCTRLB.bit.USBCRM = 1;
-    while(posc->DFLLSYNC.bit.DFLLCTRLB);
+    while(posc->DFLLSYNC.bit.DFLLCTRLB) {}
     posc->DFLLCTRLB.bit.MODE = 1;
-    while(posc->DFLLSYNC.bit.DFLLCTRLB);
+    while(posc->DFLLSYNC.bit.DFLLCTRLB) {}
     posc->DFLLCTRLB.bit.QLDIS = 0;
-    while(posc->DFLLSYNC.bit.DFLLCTRLB);
+    while(posc->DFLLSYNC.bit.DFLLCTRLB) {}
     posc->DFLLCTRLB.bit.CCDIS = 1;
-    posc->DFLLMUL.bit.MUL = 0xbb80; //4800 x 1KHz
-    while(posc->DFLLSYNC.bit.DFLLMUL);
-    posc->DFLLCTRLA.bit.ENABLE=1;
-    while(posc->DFLLSYNC.bit.ENABLE);
+    posc->DFLLMUL.bit.MUL = 0xBB80; //4800 x 1KHz
+    while(posc->DFLLSYNC.bit.DFLLMUL) {}
+    posc->DFLLCTRLA.bit.ENABLE = 1;
+    while(posc->DFLLSYNC.bit.ENABLE) {}
 
     pusb->DEVICE.CTRLA.bit.SWRST = 1;
-    while(pusb->DEVICE.SYNCBUSY.bit.SWRST);
-    while(pusb->DEVICE.CTRLA.bit.SWRST);
+    while(pusb->DEVICE.SYNCBUSY.bit.SWRST) {}
+    while(pusb->DEVICE.CTRLA.bit.SWRST) {}
     //calibration from factory presets
-    pusb->DEVICE.PADCAL.bit.TRANSN = (USB_FUSES_TRANSN_ADDR >>  USB_FUSES_TRANSN_Pos) & USB_FUSES_TRANSN_Msk;
-    pusb->DEVICE.PADCAL.bit.TRANSP = (USB_FUSES_TRANSP_ADDR >>  USB_FUSES_TRANSP_Pos) & USB_FUSES_TRANSP_Msk;
-    pusb->DEVICE.PADCAL.bit.TRIM = (USB_FUSES_TRIM_ADDR >>  USB_FUSES_TRIM_Pos) & USB_FUSES_TRIM_Msk;
+    pusb->DEVICE.PADCAL.bit.TRANSN = (USB_FUSES_TRANSN_ADDR >> USB_FUSES_TRANSN_Pos) & USB_FUSES_TRANSN_Msk;
+    pusb->DEVICE.PADCAL.bit.TRANSP = (USB_FUSES_TRANSP_ADDR >> USB_FUSES_TRANSP_Pos) & USB_FUSES_TRANSP_Msk;
+    pusb->DEVICE.PADCAL.bit.TRIM = (USB_FUSES_TRIM_ADDR >> USB_FUSES_TRIM_Pos) & USB_FUSES_TRIM_Msk;
     //device mode, enabled
     pusb->DEVICE.CTRLB.bit.SPDCONF = 0; //full speed
     pusb->DEVICE.CTRLA.bit.MODE = 0;
     pusb->DEVICE.CTRLA.bit.ENABLE = 1;
-    while(pusb->DEVICE.SYNCBUSY.bit.ENABLE);
+    while(pusb->DEVICE.SYNCBUSY.bit.ENABLE) {}
 
     pusb->DEVICE.QOSCTRL.bit.DQOS = 2;
     pusb->DEVICE.QOSCTRL.bit.CQOS = 2;
@@ -142,20 +142,20 @@ void USB2422_init(void)
 
 void USB_reset(void)
 {
-    Srdata_t * pspi = &srdata;
+    Srdata_t *pspi = &srdata;
 
     //pulse reset for at least 1 usec
-    pspi->bit.HUB_RESET_N = 0;  //reset low
+    pspi->bit.HUB_RESET_N = 0; //reset low
     SPI_WriteSRData();
     CLK_delay_us(1);
-    pspi->bit.HUB_RESET_N = 1;  //reset high to run
+    pspi->bit.HUB_RESET_N = 1; //reset high to run
     SPI_WriteSRData();
     CLK_delay_us(1);
 }
 
 void USB_configure(void)
 {
-    Usb2422 * pusb2422 = &USB2422_shadow;
+    Usb2422 *pusb2422 = &USB2422_shadow;
     memset(pusb2422, 0, sizeof(Usb2422));
 
     uint16_t *serial_use = (uint16_t *)SERNAME; //Default to use SERNAME from this file

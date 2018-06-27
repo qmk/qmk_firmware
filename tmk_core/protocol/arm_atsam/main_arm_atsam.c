@@ -51,7 +51,7 @@ uint8_t keyboard_leds(void)
 {
 #ifdef NKRO_ENABLE
     if (keymap_config.nkro)
-        return udi_hid_kbd_report_set;
+        return udi_hid_nkro_report_set;
     else
 #endif //NKRO_ENABLE
         return udi_hid_kbd_report_set;
@@ -120,7 +120,7 @@ void send_mouse(report_mouse_t *report)
 void send_system(uint16_t data)
 {
 #ifdef EXTRAKEY_ENABLE
-    dprintf(buf,"s-exks %i\r\n",data);
+    dprintf("s-exks %i\r\n", data);
 
     uint32_t irqflags;
 
@@ -187,8 +187,8 @@ int main(void)
 
     led_matrix_init();
 
-    while (I2C3733_Init_Control() != 1);
-    while (I2C3733_Init_Drivers() != 1);
+    while (I2C3733_Init_Control() != 1) {}
+    while (I2C3733_Init_Drivers() != 1) {}
 
     I2C_DMAC_LED_Init();
 

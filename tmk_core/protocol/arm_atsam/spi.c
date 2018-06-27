@@ -26,17 +26,17 @@ void SPI_WriteSRData(void)
     SC2_RCLCK_LO;
 
     timeout = TIMEOUT_SYNC_DEFAULT * 1000;
-    while (!(SCSPI->SPI.INTFLAG.bit.DRE) && --timeout);
+    while (!(SCSPI->SPI.INTFLAG.bit.DRE) && --timeout) {}
     if (!timeout) sync_error |= SYNCERROR_SPI;
 
     SCSPI->SPI.DATA.bit.DATA = srdata.reg & 0xFF; //Shift in bits 7-0
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout);
+    while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout) {}
     if (!timeout) sync_error |= SYNCERROR_SPI;
 
     SCSPI->SPI.DATA.bit.DATA = (srdata.reg>>8) & 0xFF; //Shift in bits 15-8
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout);
+    while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout) {}
     if (!timeout) sync_error |= SYNCERROR_SPI;
 
     SC2_RCLCK_HI;
@@ -48,10 +48,10 @@ void SPI_Init(void)
 
     CLK_set_spi_freq(CHAN_SERCOM_SPI, FREQ_SPI_DEFAULT);
 
-    PORT->Group[0].PMUX[6].bit.PMUXE=2;
-    PORT->Group[0].PMUX[6].bit.PMUXO=2;
-    PORT->Group[0].PINCFG[12].bit.PMUXEN=1;
-    PORT->Group[0].PINCFG[13].bit.PMUXEN=1;
+    PORT->Group[0].PMUX[6].bit.PMUXE = 2;
+    PORT->Group[0].PMUX[6].bit.PMUXO = 2;
+    PORT->Group[0].PINCFG[12].bit.PMUXEN = 1;
+    PORT->Group[0].PINCFG[13].bit.PMUXEN = 1;
 
     //Configure Shift Registers
     SC2_DIRSET;
@@ -66,7 +66,7 @@ void SPI_Init(void)
 
     SCSPI->SPI.CTRLA.bit.ENABLE = 1;
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while(SCSPI->SPI.SYNCBUSY.bit.ENABLE && timeout--);
+    while(SCSPI->SPI.SYNCBUSY.bit.ENABLE && timeout--) {}
     if (!timeout) sync_error |= SYNCERROR_SPI;
 
     srdata.reg = 0;

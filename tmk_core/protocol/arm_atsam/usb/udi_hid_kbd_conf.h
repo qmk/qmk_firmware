@@ -55,7 +55,6 @@
 
 #include "udi_device_conf.h"
 
-
 #include "udi_hid_kbd.h"
 
 #endif // _UDI_HID_KBD_CONF_H_

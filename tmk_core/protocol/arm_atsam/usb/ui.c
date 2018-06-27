@@ -48,17 +48,8 @@
  #define ARM_MATH_CM4
 #endif
 
-#include "Compiler.h"
 #undef LITTLE_ENDIAN  //redefined in samd51j18a.h
 #include "samd51j18a.h"
-#include <stdbool.h>
-#include <string.h>
-#include "Arm_math.h"
-#include "Status_codes.h"
-#include "usb.h"
-#include "Usb_protocol_hid.h"
-#include "Conf_usb.h"
-#include "udc.h"
 #include "ui.h"
 
 volatile uint8_t usb_state;
@@ -74,8 +65,8 @@ volatile uint8_t usb_state;
  */
 static void ui_wakeup_handler(void)
 {
-	/* It is a wakeup then send wakeup USB */
-	udc_remotewakeup();
+    /* It is a wakeup then send wakeup USB */
+    udc_remotewakeup();
 }
 #endif
 
@@ -91,12 +82,12 @@ void ui_powerdown(void)
 
 void ui_wakeup_enable(void)
 {
-//	extint_chan_enable_callback(BUTTON_0_EIC_LINE,EXTINT_CALLBACK_TYPE_DETECT);
+
 }
 
 void ui_wakeup_disable(void)
 {
-//	extint_chan_disable_callback(BUTTON_0_EIC_LINE,EXTINT_CALLBACK_TYPE_DETECT);
+
 }
 
 void ui_wakeup(void)
@@ -104,7 +95,7 @@ void ui_wakeup(void)
     usb_state = USB_STATE_POWERUP;
 }
 
-void ui_process(uint16_t framenumber) //called via #define  UDC_SOF_EVENT()                  main_sof_action()
+void ui_process(uint16_t framenumber)
 {
 
 }

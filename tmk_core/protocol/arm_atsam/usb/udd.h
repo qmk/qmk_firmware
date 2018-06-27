@@ -71,8 +71,8 @@ typedef uint8_t udd_ep_id_t;
 //! \brief Endpoint transfer status
 //! Returned in parameters of callback register via udd_ep_run routine.
 typedef enum {
-	UDD_EP_TRANSFER_OK = 0,
-	UDD_EP_TRANSFER_ABORT = 1,
+    UDD_EP_TRANSFER_OK = 0,
+    UDD_EP_TRANSFER_ABORT = 1,
 } udd_ep_status_t;
 
 /**
@@ -82,23 +82,23 @@ typedef enum {
  * It can be updated by udc_process_setup() from UDC or *setup() from UDIs.
  */
 typedef struct {
-	//! Data received in USB SETUP packet
-	//! Note: The swap of "req.wValues" from uin16_t to le16_t is done by UDD.
-	usb_setup_req_t req;
+    //! Data received in USB SETUP packet
+    //! Note: The swap of "req.wValues" from uin16_t to le16_t is done by UDD.
+    usb_setup_req_t req;
 
-	//! Point to buffer to send or fill with data following SETUP packet
-	//! This buffer must be word align for DATA IN phase (use prefix COMPILER_WORD_ALIGNED for buffer)
-	uint8_t *payload;
+    //! Point to buffer to send or fill with data following SETUP packet
+    //! This buffer must be word align for DATA IN phase (use prefix COMPILER_WORD_ALIGNED for buffer)
+    uint8_t *payload;
 
-	//! Size of buffer to send or fill, and content the number of byte transfered
-	uint16_t payload_size;
+    //! Size of buffer to send or fill, and content the number of byte transfered
+    uint16_t payload_size;
 
-	//! Callback called after reception of ZLP from setup request
-	void (*callback) (void);
+    //! Callback called after reception of ZLP from setup request
+    void (*callback) (void);
 
-	//! Callback called when the buffer given (.payload) is full or empty.
-	//! This one return false to abort data transfer, or true with a new buffer in .payload.
-	bool(*over_under_run) (void);
+    //! Callback called when the buffer given (.payload) is full or empty.
+    //! This one return false to abort data transfer, or true with a new buffer in .payload.
+    bool(*over_under_run) (void);
 } udd_ctrl_request_t;
 extern udd_ctrl_request_t udd_g_ctrlreq;
 
@@ -135,7 +135,7 @@ typedef void (*udd_callback_halt_cleared_t) (void);
  * \param n          number of data transfered
  */
 typedef void (*udd_callback_trans_t) (udd_ep_status_t status,
-		iram_size_t nb_transfered, udd_ep_id_t ep);
+        iram_size_t nb_transfered, udd_ep_id_t ep);
 
 /**
  * \brief Authorizes the VBUS event
@@ -240,7 +240,7 @@ void udd_set_setup_payload( uint8_t *payload, uint16_t payload_size );
  * \return \c 1 if the endpoint is enabled, otherwise \c 0.
  */
 bool udd_ep_alloc(udd_ep_id_t ep, uint8_t bmAttributes,
-		uint16_t MaxEndpointSize);
+        uint16_t MaxEndpointSize);
 
 /**
  * \brief Disables an endpoint
@@ -295,7 +295,7 @@ bool udd_ep_clear_halt(udd_ep_id_t ep);
  * \return \c 1 if the register is accepted, otherwise \c 0.
  */
 bool udd_ep_wait_stall_clear(udd_ep_id_t ep,
-		udd_callback_halt_cleared_t callback);
+        udd_callback_halt_cleared_t callback);
 
 /**
  * \brief Allows to receive or send data on an endpoint
@@ -322,8 +322,8 @@ bool udd_ep_wait_stall_clear(udd_ep_id_t ep,
  * \return \c 1 if function was successfully done, otherwise \c 0.
  */
 bool udd_ep_run(udd_ep_id_t ep, bool b_shortpacket,
-		uint8_t * buf, iram_size_t buf_size,
-		udd_callback_trans_t callback);
+        uint8_t *buf, iram_size_t buf_size,
+        udd_callback_trans_t callback);
 /**
  * \brief Aborts transfer on going on endpoint
  *

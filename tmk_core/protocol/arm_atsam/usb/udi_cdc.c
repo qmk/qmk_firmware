@@ -100,18 +100,18 @@ bool udi_cdc_data_setup(void);
 uint8_t udi_cdc_getsetting(void);
 void udi_cdc_data_sof_notify(void);
 UDC_DESC_STORAGE udi_api_t udi_api_cdc_comm = {
-	.enable = udi_cdc_comm_enable,
-	.disable = udi_cdc_comm_disable,
-	.setup = udi_cdc_comm_setup,
-	.getsetting = udi_cdc_getsetting,
+    .enable = udi_cdc_comm_enable,
+    .disable = udi_cdc_comm_disable,
+    .setup = udi_cdc_comm_setup,
+    .getsetting = udi_cdc_getsetting,
     .sof_notify = NULL
 };
 UDC_DESC_STORAGE udi_api_t udi_api_cdc_data = {
-	.enable = udi_cdc_data_enable,
-	.disable = udi_cdc_data_disable,
-	.setup = udi_cdc_data_setup,
-	.getsetting = udi_cdc_getsetting,
-	.sof_notify = udi_cdc_data_sof_notify,
+    .enable = udi_cdc_data_enable,
+    .disable = udi_cdc_data_disable,
+    .setup = udi_cdc_data_setup,
+    .getsetting = udi_cdc_getsetting,
+    .sof_notify = udi_cdc_data_sof_notify,
 };
 //@}
 
@@ -277,200 +277,199 @@ static volatile bool udi_cdc_tx_both_buf_to_send[UDI_CDC_PORT_NB];
 
 bool udi_cdc_comm_enable(void)
 {
-	uint8_t port;
-	uint8_t iface_comm_num;
+    uint8_t port;
+    uint8_t iface_comm_num;
 
 //#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
-	udi_cdc_nb_comm_enabled = 0;
-/*
-#else
-	if (udi_cdc_nb_comm_enabled > UDI_CDC_PORT_NB) {
-		udi_cdc_nb_comm_enabled = 0;
-	}
-	port = udi_cdc_nb_comm_enabled;
-#endif
-*/
+    port = 0;
+    udi_cdc_nb_comm_enabled = 0;
+//#else
+//    if (udi_cdc_nb_comm_enabled > UDI_CDC_PORT_NB) {
+//        udi_cdc_nb_comm_enabled = 0;
+//    }
+//    port = udi_cdc_nb_comm_enabled;
+//#endif
 
-	// Initialize control signal management
-	udi_cdc_state[port] = CPU_TO_LE16(0);
+    // Initialize control signal management
+    udi_cdc_state[port] = CPU_TO_LE16(0);
 
-	uid_cdc_state_msg[port].header.bmRequestType =
-			USB_REQ_DIR_IN | USB_REQ_TYPE_CLASS |
-			USB_REQ_RECIP_INTERFACE;
-	uid_cdc_state_msg[port].header.bNotification = USB_REQ_CDC_NOTIFY_SERIAL_STATE;
-	uid_cdc_state_msg[port].header.wValue = LE16(0);
+    uid_cdc_state_msg[port].header.bmRequestType =
+            USB_REQ_DIR_IN | USB_REQ_TYPE_CLASS |
+            USB_REQ_RECIP_INTERFACE;
+    uid_cdc_state_msg[port].header.bNotification = USB_REQ_CDC_NOTIFY_SERIAL_STATE;
+    uid_cdc_state_msg[port].header.wValue = LE16(0);
 
+    /*
+    switch (port) {
+    #define UDI_CDC_PORT_TO_IFACE_COMM(index, unused) \
+        case index: \
+            iface_comm_num = UDI_CDC_COMM_IFACE_NUMBER_##index; \
+            break;
+        MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_PORT_TO_IFACE_COMM, ~)
+    #undef UDI_CDC_PORT_TO_IFACE_COMM
+        default:
+            iface_comm_num = UDI_CDC_COMM_IFACE_NUMBER_0;
+            break;
+        }
+    */
+    iface_comm_num = UDI_CDC_COMM_IFACE_NUMBER_0;
 
+    uid_cdc_state_msg[port].header.wIndex = LE16(iface_comm_num);
+    uid_cdc_state_msg[port].header.wLength = LE16(2);
+    uid_cdc_state_msg[port].value = CPU_TO_LE16(0);
 
-/*
-	switch (port) {
-#define UDI_CDC_PORT_TO_IFACE_COMM(index, unused) \
-	case index: \
-		iface_comm_num = UDI_CDC_COMM_IFACE_NUMBER_##index; \
-		break;
-	MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_PORT_TO_IFACE_COMM, ~)
-#undef UDI_CDC_PORT_TO_IFACE_COMM
-	default:
-		iface_comm_num = UDI_CDC_COMM_IFACE_NUMBER_0;
-		break;
-	}*/
-  iface_comm_num = UDI_CDC_COMM_IFACE_NUMBER_0;
-
-	uid_cdc_state_msg[port].header.wIndex = LE16(iface_comm_num);
-	uid_cdc_state_msg[port].header.wLength = LE16(2);
-	uid_cdc_state_msg[port].value = CPU_TO_LE16(0);
-
-	udi_cdc_line_coding[port].dwDTERate = CPU_TO_LE32(UDI_CDC_DEFAULT_RATE);
-	udi_cdc_line_coding[port].bCharFormat = UDI_CDC_DEFAULT_STOPBITS;
-	udi_cdc_line_coding[port].bParityType = UDI_CDC_DEFAULT_PARITY;
-	udi_cdc_line_coding[port].bDataBits = UDI_CDC_DEFAULT_DATABITS;
-	// Call application callback
-	// to initialize memories or indicate that interface is enabled
+    udi_cdc_line_coding[port].dwDTERate = CPU_TO_LE32(UDI_CDC_DEFAULT_RATE);
+    udi_cdc_line_coding[port].bCharFormat = UDI_CDC_DEFAULT_STOPBITS;
+    udi_cdc_line_coding[port].bParityType = UDI_CDC_DEFAULT_PARITY;
+    udi_cdc_line_coding[port].bDataBits = UDI_CDC_DEFAULT_DATABITS;
+    // Call application callback
+    // to initialize memories or indicate that interface is enabled
 #if 0
-	UDI_CDC_SET_CODING_EXT(port,(&udi_cdc_line_coding[port]));
-	if (!UDI_CDC_ENABLE_EXT(port)) {
-		return false;
-	}
+    UDI_CDC_SET_CODING_EXT(port,(&udi_cdc_line_coding[port]));
+    if (!UDI_CDC_ENABLE_EXT(port)) {
+        return false;
+    }
 #endif
-	udi_cdc_nb_comm_enabled++;
-	return true;
+    udi_cdc_nb_comm_enabled++;
+    return true;
 }
 
 bool udi_cdc_data_enable(void)
 {
-	uint8_t port;
+    uint8_t port;
 
-#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
-	udi_cdc_nb_data_enabled = 0;
-#else
-	if (udi_cdc_nb_data_enabled > UDI_CDC_PORT_NB) {
-		udi_cdc_nb_data_enabled = 0;
-	}
-	port = udi_cdc_nb_data_enabled;
-#endif
+//#if UDI_CDC_PORT_NB == 1 // To optimize code
+    port = 0;
+    udi_cdc_nb_data_enabled = 0;
+//#else
+//    if (udi_cdc_nb_data_enabled > UDI_CDC_PORT_NB) {
+//        udi_cdc_nb_data_enabled = 0;
+//    }
+//    port = udi_cdc_nb_data_enabled;
+//#endif
 
-	// Initialize TX management
-	udi_cdc_tx_trans_ongoing[port] = false;
-	udi_cdc_tx_both_buf_to_send[port] = false;
-	udi_cdc_tx_buf_sel[port] = 0;
-	udi_cdc_tx_buf_nb[port][0] = 0;
-	udi_cdc_tx_buf_nb[port][1] = 0;
-	udi_cdc_tx_sof_num[port] = 0;
-	udi_cdc_tx_send(port);
+    // Initialize TX management
+    udi_cdc_tx_trans_ongoing[port] = false;
+    udi_cdc_tx_both_buf_to_send[port] = false;
+    udi_cdc_tx_buf_sel[port] = 0;
+    udi_cdc_tx_buf_nb[port][0] = 0;
+    udi_cdc_tx_buf_nb[port][1] = 0;
+    udi_cdc_tx_sof_num[port] = 0;
+    udi_cdc_tx_send(port);
 
-	// Initialize RX management
-	udi_cdc_rx_trans_ongoing[port] = false;
-	udi_cdc_rx_buf_sel[port] = 0;
-	udi_cdc_rx_buf_nb[port][0] = 0;
-	udi_cdc_rx_buf_nb[port][1] = 0;
-	udi_cdc_rx_pos[port] = 0;
-	if (!udi_cdc_rx_start(port)) {
-		return false;
-	}
-	udi_cdc_nb_data_enabled++;
-	if (udi_cdc_nb_data_enabled == UDI_CDC_PORT_NB) {
-		udi_cdc_data_running = true;
-	}
-	return true;
+    // Initialize RX management
+    udi_cdc_rx_trans_ongoing[port] = false;
+    udi_cdc_rx_buf_sel[port] = 0;
+    udi_cdc_rx_buf_nb[port][0] = 0;
+    udi_cdc_rx_buf_nb[port][1] = 0;
+    udi_cdc_rx_pos[port] = 0;
+    if (!udi_cdc_rx_start(port)) {
+        return false;
+    }
+    udi_cdc_nb_data_enabled++;
+    if (udi_cdc_nb_data_enabled == UDI_CDC_PORT_NB) {
+        udi_cdc_data_running = true;
+    }
+    return true;
 }
 
 void udi_cdc_comm_disable(void)
 {
-	Assert(udi_cdc_nb_comm_enabled != 0);
-	udi_cdc_nb_comm_enabled--;
+    Assert(udi_cdc_nb_comm_enabled != 0);
+    udi_cdc_nb_comm_enabled--;
 }
 
 void udi_cdc_data_disable(void)
 {
-//	uint8_t port;
+//  uint8_t port;
 
-	Assert(udi_cdc_nb_data_enabled != 0);
-	udi_cdc_nb_data_enabled--;
-//	port = udi_cdc_nb_data_enabled;
-//	UDI_CDC_DISABLE_EXT(port);
-	udi_cdc_data_running = false;
+    Assert(udi_cdc_nb_data_enabled != 0);
+    udi_cdc_nb_data_enabled--;
+//  port = udi_cdc_nb_data_enabled;
+//  UDI_CDC_DISABLE_EXT(port);
+    udi_cdc_data_running = false;
 }
 
 bool udi_cdc_comm_setup(void)
 {
-	uint8_t port = udi_cdc_setup_to_port();
+    uint8_t port = udi_cdc_setup_to_port();
 
-	if (Udd_setup_is_in()) {
-		// GET Interface Requests
-		if (Udd_setup_type() == USB_REQ_TYPE_CLASS) {
-			// Requests Class Interface Get
-			switch (udd_g_ctrlreq.req.bRequest) {
-			case USB_REQ_CDC_GET_LINE_CODING:
-				// Get configuration of CDC line
-				if (sizeof(usb_cdc_line_coding_t) !=
-						udd_g_ctrlreq.req.wLength)
-					return false; // Error for USB host
-				udd_g_ctrlreq.payload =
-						(uint8_t *) &
-						udi_cdc_line_coding[port];
-				udd_g_ctrlreq.payload_size =
-						sizeof(usb_cdc_line_coding_t);
-				return true;
-			}
-		}
-	}
-	if (Udd_setup_is_out()) {
-		// SET Interface Requests
-		if (Udd_setup_type() == USB_REQ_TYPE_CLASS) {
-			// Requests Class Interface Set
-			switch (udd_g_ctrlreq.req.bRequest) {
-			case USB_REQ_CDC_SET_LINE_CODING:
-				// Change configuration of CDC line
-				if (sizeof(usb_cdc_line_coding_t) !=
-						udd_g_ctrlreq.req.wLength)
-					return false; // Error for USB host
-				udd_g_ctrlreq.callback =
-						udi_cdc_line_coding_received;
-				udd_g_ctrlreq.payload =
-						(uint8_t *) &
-						udi_cdc_line_coding[port];
-				udd_g_ctrlreq.payload_size =
-						sizeof(usb_cdc_line_coding_t);
-				return true;
-			case USB_REQ_CDC_SET_CONTROL_LINE_STATE:
-				// According cdc spec 1.1 chapter 6.2.14
-//				UDI_CDC_SET_DTR_EXT(port, (0 !=
-//						(udd_g_ctrlreq.req.wValue
-//						 & CDC_CTRL_SIGNAL_DTE_PRESENT)));
-//				UDI_CDC_SET_RTS_EXT(port, (0 !=
-//						(udd_g_ctrlreq.req.wValue
-//						 & CDC_CTRL_SIGNAL_ACTIVATE_CARRIER)));
-				return true;
-			}
-		}
-	}
-	return false;  // request Not supported
+    if (Udd_setup_is_in()) {
+        // GET Interface Requests
+        if (Udd_setup_type() == USB_REQ_TYPE_CLASS) {
+            // Requests Class Interface Get
+            switch (udd_g_ctrlreq.req.bRequest) {
+            case USB_REQ_CDC_GET_LINE_CODING:
+                // Get configuration of CDC line
+                if (sizeof(usb_cdc_line_coding_t) !=
+                        udd_g_ctrlreq.req.wLength)
+                    return false; // Error for USB host
+                udd_g_ctrlreq.payload =
+                        (uint8_t *) &
+                        udi_cdc_line_coding[port];
+                udd_g_ctrlreq.payload_size =
+                        sizeof(usb_cdc_line_coding_t);
+                return true;
+            }
+        }
+    }
+    if (Udd_setup_is_out()) {
+        // SET Interface Requests
+        if (Udd_setup_type() == USB_REQ_TYPE_CLASS) {
+            // Requests Class Interface Set
+            switch (udd_g_ctrlreq.req.bRequest) {
+            case USB_REQ_CDC_SET_LINE_CODING:
+                // Change configuration of CDC line
+                if (sizeof(usb_cdc_line_coding_t) !=
+                        udd_g_ctrlreq.req.wLength)
+                    return false; // Error for USB host
+                udd_g_ctrlreq.callback =
+                        udi_cdc_line_coding_received;
+                udd_g_ctrlreq.payload =
+                        (uint8_t *) &
+                        udi_cdc_line_coding[port];
+                udd_g_ctrlreq.payload_size =
+                        sizeof(usb_cdc_line_coding_t);
+                return true;
+            case USB_REQ_CDC_SET_CONTROL_LINE_STATE:
+                // According cdc spec 1.1 chapter 6.2.14
+//              UDI_CDC_SET_DTR_EXT(port, (0 !=
+//                      (udd_g_ctrlreq.req.wValue
+//                       & CDC_CTRL_SIGNAL_DTE_PRESENT)));
+//              UDI_CDC_SET_RTS_EXT(port, (0 !=
+//                      (udd_g_ctrlreq.req.wValue
+//                       & CDC_CTRL_SIGNAL_ACTIVATE_CARRIER)));
+                return true;
+            }
+        }
+    }
+    return false;  // request Not supported
 }
 
 bool udi_cdc_data_setup(void)
 {
-	return false;  // request Not supported
+    return false;  // request Not supported
 }
 
 uint8_t udi_cdc_getsetting(void)
 {
-	return 0;      // CDC don't have multiple alternate setting
+    return 0;      // CDC don't have multiple alternate setting
 }
 
 void udi_cdc_data_sof_notify(void)
 {
-	static uint8_t port_notify = 0;
+    static uint8_t port_notify = 0;
 
-	// A call of udi_cdc_data_sof_notify() is done for each port
-	udi_cdc_tx_send(port_notify);
+    // A call of udi_cdc_data_sof_notify() is done for each port
+    udi_cdc_tx_send(port_notify);
+    /*
 #if UDI_CDC_PORT_NB != 1 // To optimize code
-	port_notify++;
-	if (port_notify >= UDI_CDC_PORT_NB) {
-		port_notify = 0;
-	}
+    port_notify++;
+    if (port_notify >= UDI_CDC_PORT_NB) {
+        port_notify = 0;
+    }
 #endif
+    */
 }
 
 
@@ -479,735 +478,749 @@ void udi_cdc_data_sof_notify(void)
 
 static uint8_t udi_cdc_setup_to_port(void)
 {
-	uint8_t port;
+    uint8_t port;
 
-
-/*	switch (udd_g_ctrlreq.req.wIndex & 0xFF) {
+    /*
+    switch (udd_g_ctrlreq.req.wIndex & 0xFF) {
 #define UDI_CDC_IFACE_COMM_TO_PORT(iface, unused) \
-	case UDI_CDC_COMM_IFACE_NUMBER_##iface: \
-		port = iface; \
-		break;
-	MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_IFACE_COMM_TO_PORT, ~)
+    case UDI_CDC_COMM_IFACE_NUMBER_##iface: \
+        port = iface; \
+        break;
+    MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_IFACE_COMM_TO_PORT, ~)
 #undef UDI_CDC_IFACE_COMM_TO_PORT
-	default:
-		port = 0;
-		break;
-	}*/
-  port = 0;
-	return port;
+    default:
+        port = 0;
+        break;
+    }
+    */
+    port = 0;
+
+    return port;
 }
 
 static void udi_cdc_line_coding_received(void)
 {
-	uint8_t port = udi_cdc_setup_to_port();
-	UNUSED(port);
+    uint8_t port = udi_cdc_setup_to_port();
+    UNUSED(port);
 
-//	UDI_CDC_SET_CODING_EXT(port, (&udi_cdc_line_coding[port]));
+//  UDI_CDC_SET_CODING_EXT(port, (&udi_cdc_line_coding[port]));
 }
 
 static void udi_cdc_ctrl_state_change(uint8_t port, bool b_set, le16_t bit_mask)
 {
-	udd_ep_id_t ep_comm;
-	uint32_t irqflags;  //irqflags_t
+    udd_ep_id_t ep_comm;
+    uint32_t irqflags;  //irqflags_t
 
 
 //#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
+    port = 0;
 //#endif
 
-	// Update state
+    // Update state
   irqflags = __get_PRIMASK();
   __disable_irq();
   __DMB();
-	if (b_set) {
-		udi_cdc_state[port] |= bit_mask;
-	} else {
-		udi_cdc_state[port] &= ~(unsigned)bit_mask;
-	}
-	__DMB();
+    if (b_set) {
+        udi_cdc_state[port] |= bit_mask;
+    } else {
+        udi_cdc_state[port] &= ~(unsigned)bit_mask;
+    }
+    __DMB();
   __set_PRIMASK(irqflags);
 
-	// Send it if possible and state changed
-/*	switch (port) {
+    /*
+    // Send it if possible and state changed
+    switch (port) {
 #define UDI_CDC_PORT_TO_COMM_EP(index, unused) \
-	case index: \
-		ep_comm = UDI_CDC_COMM_EP_##index; \
-		break;
-	MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_PORT_TO_COMM_EP, ~)
+    case index: \
+        ep_comm = UDI_CDC_COMM_EP_##index; \
+        break;
+    MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_PORT_TO_COMM_EP, ~)
 #undef UDI_CDC_PORT_TO_COMM_EP
-	default:
-		ep_comm = UDI_CDC_COMM_EP_0;
-		break;
-	}*/
-	ep_comm = UDI_CDC_COMM_EP_0;
-	udi_cdc_ctrl_state_notify(port, ep_comm);
+    default:
+        ep_comm = UDI_CDC_COMM_EP_0;
+        break;
+    }
+    */
+    ep_comm = UDI_CDC_COMM_EP_0;
+
+    udi_cdc_ctrl_state_notify(port, ep_comm);
 }
 
 
 static void udi_cdc_ctrl_state_notify(uint8_t port, udd_ep_id_t ep)
 {
 #if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
+    port = 0;
 #endif
 
-	// Send it if possible and state changed
-	if ((!udi_cdc_serial_state_msg_ongoing[port])
-			&& (udi_cdc_state[port] != uid_cdc_state_msg[port].value)) {
-		// Fill notification message
-		uid_cdc_state_msg[port].value = udi_cdc_state[port];
-		// Send notification message
-		udi_cdc_serial_state_msg_ongoing[port] =
-				udd_ep_run(ep,
-				false,
-				(uint8_t *) & uid_cdc_state_msg[port],
-				sizeof(uid_cdc_state_msg[0]),
-				udi_cdc_serial_state_msg_sent);
-	}
+    // Send it if possible and state changed
+    if ((!udi_cdc_serial_state_msg_ongoing[port])
+            && (udi_cdc_state[port] != uid_cdc_state_msg[port].value)) {
+        // Fill notification message
+        uid_cdc_state_msg[port].value = udi_cdc_state[port];
+        // Send notification message
+        udi_cdc_serial_state_msg_ongoing[port] =
+                udd_ep_run(ep,
+                false,
+                (uint8_t *) & uid_cdc_state_msg[port],
+                sizeof(uid_cdc_state_msg[0]),
+                udi_cdc_serial_state_msg_sent);
+    }
 }
 
 
 static void udi_cdc_serial_state_msg_sent(udd_ep_status_t status, iram_size_t n, udd_ep_id_t ep)
 {
-	uint8_t port;
-	UNUSED(n);
-	UNUSED(status);
-/*
-	switch (ep) {
+    uint8_t port;
+    UNUSED(n);
+    UNUSED(status);
+
+    /*
+    switch (ep) {
 #define UDI_CDC_GET_PORT_FROM_COMM_EP(iface, unused) \
-	case UDI_CDC_COMM_EP_##iface: \
-		port = iface; \
-		break;
-	MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_GET_PORT_FROM_COMM_EP, ~)
+    case UDI_CDC_COMM_EP_##iface: \
+        port = iface; \
+        break;
+    MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_GET_PORT_FROM_COMM_EP, ~)
 #undef UDI_CDC_GET_PORT_FROM_COMM_EP
-	default:
-		port = 0;
-		break;
-	}*/
-  port = 0;
+    default:
+        port = 0;
+        break;
+    }
+    */
+    port = 0;
 
-	udi_cdc_serial_state_msg_ongoing[port] = false;
+    udi_cdc_serial_state_msg_ongoing[port] = false;
 
-	// For the irregular signals like break, the incoming ring signal,
-	// or the overrun error state, this will reset their values to zero
-	// and again will not send another notification until their state changes.
-	udi_cdc_state[port] &= ~(CDC_SERIAL_STATE_BREAK |
-			CDC_SERIAL_STATE_RING |
-			CDC_SERIAL_STATE_FRAMING |
-			CDC_SERIAL_STATE_PARITY | CDC_SERIAL_STATE_OVERRUN);
-	uid_cdc_state_msg[port].value &= ~(CDC_SERIAL_STATE_BREAK |
-			CDC_SERIAL_STATE_RING |
-			CDC_SERIAL_STATE_FRAMING |
-			CDC_SERIAL_STATE_PARITY | CDC_SERIAL_STATE_OVERRUN);
-	// Send it if possible and state changed
-	udi_cdc_ctrl_state_notify(port, ep);
+    // For the irregular signals like break, the incoming ring signal,
+    // or the overrun error state, this will reset their values to zero
+    // and again will not send another notification until their state changes.
+    udi_cdc_state[port] &= ~(CDC_SERIAL_STATE_BREAK |
+            CDC_SERIAL_STATE_RING |
+            CDC_SERIAL_STATE_FRAMING |
+            CDC_SERIAL_STATE_PARITY | CDC_SERIAL_STATE_OVERRUN);
+    uid_cdc_state_msg[port].value &= ~(CDC_SERIAL_STATE_BREAK |
+            CDC_SERIAL_STATE_RING |
+            CDC_SERIAL_STATE_FRAMING |
+            CDC_SERIAL_STATE_PARITY | CDC_SERIAL_STATE_OVERRUN);
+    // Send it if possible and state changed
+    udi_cdc_ctrl_state_notify(port, ep);
 }
-
 
 //-------------------------------------------------
 //------- Internal routines to process data transfer
 
-
 static bool udi_cdc_rx_start(uint8_t port)
 {
-	uint32_t irqflags;  //irqflags_t
-	uint8_t buf_sel_trans;
-	udd_ep_id_t ep;
+    uint32_t irqflags;  //irqflags_t
+    uint8_t buf_sel_trans;
+    udd_ep_id_t ep;
 
 //#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
+    port = 0;
 //#endif
 
-	irqflags = __get_PRIMASK();
+    irqflags = __get_PRIMASK();
   __disable_irq();
   __DMB();
-	buf_sel_trans = udi_cdc_rx_buf_sel[port];
-	if (udi_cdc_rx_trans_ongoing[port] ||
-		(udi_cdc_rx_pos[port] < udi_cdc_rx_buf_nb[port][buf_sel_trans])) {
-		// Transfer already on-going or current buffer no empty
-	  __DMB();
+    buf_sel_trans = udi_cdc_rx_buf_sel[port];
+    if (udi_cdc_rx_trans_ongoing[port] ||
+        (udi_cdc_rx_pos[port] < udi_cdc_rx_buf_nb[port][buf_sel_trans])) {
+        // Transfer already on-going or current buffer no empty
+      __DMB();
     __set_PRIMASK(irqflags);
-		return false;
-	}
+        return false;
+    }
 
-	// Change current buffer
-	udi_cdc_rx_pos[port] = 0;
-	udi_cdc_rx_buf_sel[port] = (buf_sel_trans==0)?1:0;
+    // Change current buffer
+    udi_cdc_rx_pos[port] = 0;
+    udi_cdc_rx_buf_sel[port] = (buf_sel_trans==0)?1:0;
 
-	// Start transfer on RX
-	udi_cdc_rx_trans_ongoing[port] = true;
+    // Start transfer on RX
+    udi_cdc_rx_trans_ongoing[port] = true;
   __DMB();
   __set_PRIMASK(irqflags);
 
-	if (udi_cdc_multi_is_rx_ready(port)) {
-//		UDI_CDC_RX_NOTIFY(port);
-	}
-	// Send the buffer with enable of short packet
-/*	switch (port) {
+    if (udi_cdc_multi_is_rx_ready(port)) {
+//      UDI_CDC_RX_NOTIFY(port);
+    }
+
+    /*
+    // Send the buffer with enable of short packet
+    switch (port) {
 #define UDI_CDC_PORT_TO_DATA_EP_OUT(index, unused) \
-	case index: \
-		ep = UDI_CDC_DATA_EP_OUT_##index; \
-		break;
-	MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_PORT_TO_DATA_EP_OUT, ~)
+    case index: \
+        ep = UDI_CDC_DATA_EP_OUT_##index; \
+        break;
+    MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_PORT_TO_DATA_EP_OUT, ~)
 #undef UDI_CDC_PORT_TO_DATA_EP_OUT
-	default:
-		ep = UDI_CDC_DATA_EP_OUT_0;
-		break;
-	}*/
+    default:
+        ep = UDI_CDC_DATA_EP_OUT_0;
+        break;
+    }
+    */
+    ep = UDI_CDC_DATA_EP_OUT_0;
 
-	ep = UDI_CDC_DATA_EP_OUT_0;
- 
-	return udd_ep_run(ep,
-			true,
-			udi_cdc_rx_buf[port][buf_sel_trans],
-			UDI_CDC_RX_BUFFERS,
-			udi_cdc_data_received);
+    return udd_ep_run(ep,
+            true,
+            udi_cdc_rx_buf[port][buf_sel_trans],
+            UDI_CDC_RX_BUFFERS,
+            udi_cdc_data_received);
 }
-
 
 static void udi_cdc_data_received(udd_ep_status_t status, iram_size_t n, udd_ep_id_t ep)
 {
-	uint8_t buf_sel_trans;
-	uint8_t port;
+    uint8_t buf_sel_trans;
+    uint8_t port;
 
-/*	switch (ep) {
+    /*
+    switch (ep) {
 #define UDI_CDC_DATA_EP_OUT_TO_PORT(index, unused) \
-	case UDI_CDC_DATA_EP_OUT_##index: \
-		port = index; \
-		break;
-	MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_DATA_EP_OUT_TO_PORT, ~)
+    case UDI_CDC_DATA_EP_OUT_##index: \
+        port = index; \
+        break;
+    MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_DATA_EP_OUT_TO_PORT, ~)
 #undef UDI_CDC_DATA_EP_OUT_TO_PORT
-	default:
-		port = 0;
-		break;
-	}*/
-  port = 0;
+    default:
+        port = 0;
+        break;
+    }
+    */
+    port = 0;
 
-	if (UDD_EP_TRANSFER_OK != status) {
-		// Abort reception
-		return;
-	}
-	buf_sel_trans = (udi_cdc_rx_buf_sel[port]==0)?1:0;
-	if (!n) {
-		udd_ep_run( ep,
-				true,
-				udi_cdc_rx_buf[port][buf_sel_trans],
-				UDI_CDC_RX_BUFFERS,
-				udi_cdc_data_received);
-		return;
-	}
-	udi_cdc_rx_buf_nb[port][buf_sel_trans] = n;
-	udi_cdc_rx_trans_ongoing[port] = false;
-	udi_cdc_rx_start(port);
+    if (UDD_EP_TRANSFER_OK != status) {
+        // Abort reception
+        return;
+    }
+
+    buf_sel_trans = (udi_cdc_rx_buf_sel[port]==0)?1:0;
+
+    if (!n) {
+        udd_ep_run( ep,
+                true,
+                udi_cdc_rx_buf[port][buf_sel_trans],
+                UDI_CDC_RX_BUFFERS,
+                udi_cdc_data_received);
+        return;
+    }
+
+    udi_cdc_rx_buf_nb[port][buf_sel_trans] = n;
+    udi_cdc_rx_trans_ongoing[port] = false;
+    udi_cdc_rx_start(port);
 }
-
 
 static void udi_cdc_data_sent(udd_ep_status_t status, iram_size_t n, udd_ep_id_t ep)
 {
-	uint8_t port;
-	UNUSED(n);
+    uint8_t port;
+    UNUSED(n);
 
-/*	switch (ep) {
+    /*
+    switch (ep) {
 #define UDI_CDC_DATA_EP_IN_TO_PORT(index, unused) \
-	case UDI_CDC_DATA_EP_IN_##index: \
-		port = index; \
-		break;
-	MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_DATA_EP_IN_TO_PORT, ~)
+    case UDI_CDC_DATA_EP_IN_##index: \
+        port = index; \
+        break;
+    MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_DATA_EP_IN_TO_PORT, ~)
 #undef UDI_CDC_DATA_EP_IN_TO_PORT
-	default:
-		port = 0;
-		break;
-	}*/
-  port = 0;
-	if (UDD_EP_TRANSFER_OK != status) {
-		// Abort transfer
-		return;
-	}
-	udi_cdc_tx_buf_nb[port][(udi_cdc_tx_buf_sel[port]==0)?1:0] = 0;
-	udi_cdc_tx_both_buf_to_send[port] = false;
-	udi_cdc_tx_trans_ongoing[port] = false;
+    default:
+        port = 0;
+        break;
+    }
+    */
+    port = 0;
 
-	if (n != 0) {
-		UDI_CDC_TX_EMPTY_NOTIFY(port);
-	}
-	udi_cdc_tx_send(port);
+    if (UDD_EP_TRANSFER_OK != status) {
+        // Abort transfer
+        return;
+    }
+
+    udi_cdc_tx_buf_nb[port][(udi_cdc_tx_buf_sel[port]==0)?1:0] = 0;
+    udi_cdc_tx_both_buf_to_send[port] = false;
+    udi_cdc_tx_trans_ongoing[port] = false;
+
+    if (n != 0) {
+        UDI_CDC_TX_EMPTY_NOTIFY(port);
+    }
+
+    udi_cdc_tx_send(port);
 }
-
 
 static void udi_cdc_tx_send(uint8_t port)
 {
-	uint32_t irqflags;  //irqflags_t
-	uint8_t buf_sel_trans;
-	bool b_short_packet;
-	udd_ep_id_t ep;
-	static uint16_t sof_zlp_counter = 0;
+    uint32_t irqflags;  //irqflags_t
+    uint8_t buf_sel_trans;
+    bool b_short_packet;
+    udd_ep_id_t ep;
+    static uint16_t sof_zlp_counter = 0;
 
 //#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
+    port = 0;
 //#endif
 
-	if (udi_cdc_tx_trans_ongoing[port]) {
-		return; // Already on going or wait next SOF to send next data
-	}
-	if (udd_is_high_speed()) {
-		if (udi_cdc_tx_sof_num[port] == udd_get_micro_frame_number()) {
-			return; // Wait next SOF to send next data
-		}
-	}else{
-		if (udi_cdc_tx_sof_num[port] == udd_get_frame_number()) {
-			return; // Wait next SOF to send next data
-		}
-	}
+    if (udi_cdc_tx_trans_ongoing[port]) {
+        return; // Already on going or wait next SOF to send next data
+    }
+    if (udd_is_high_speed()) {
+        if (udi_cdc_tx_sof_num[port] == udd_get_micro_frame_number()) {
+            return; // Wait next SOF to send next data
+        }
+    }else{
+        if (udi_cdc_tx_sof_num[port] == udd_get_frame_number()) {
+            return; // Wait next SOF to send next data
+        }
+    }
 
-	irqflags = __get_PRIMASK();
+    irqflags = __get_PRIMASK();
   __disable_irq();
   __DMB();
-	buf_sel_trans = udi_cdc_tx_buf_sel[port];
-	if (udi_cdc_tx_buf_nb[port][buf_sel_trans] == 0) {
-		sof_zlp_counter++;
-		if (((!udd_is_high_speed()) && (sof_zlp_counter < 100))
-				|| (udd_is_high_speed() && (sof_zlp_counter < 800))) {
-	  __DMB();
+    buf_sel_trans = udi_cdc_tx_buf_sel[port];
+    if (udi_cdc_tx_buf_nb[port][buf_sel_trans] == 0) {
+        sof_zlp_counter++;
+        if (((!udd_is_high_speed()) && (sof_zlp_counter < 100))
+                || (udd_is_high_speed() && (sof_zlp_counter < 800))) {
+      __DMB();
     __set_PRIMASK(irqflags);
-			return;
-		}
-	}
-	sof_zlp_counter = 0;
+            return;
+        }
+    }
+    sof_zlp_counter = 0;
 
-	if (!udi_cdc_tx_both_buf_to_send[port]) {
-		// Send current Buffer
-		// and switch the current buffer
-		udi_cdc_tx_buf_sel[port] = (buf_sel_trans==0)?1:0;
-	}else{
-		// Send the other Buffer
-		// and no switch the current buffer
-		buf_sel_trans = (buf_sel_trans==0)?1:0;
-	}
-	udi_cdc_tx_trans_ongoing[port] = true;
+    if (!udi_cdc_tx_both_buf_to_send[port]) {
+        // Send current Buffer
+        // and switch the current buffer
+        udi_cdc_tx_buf_sel[port] = (buf_sel_trans==0)?1:0;
+    }else{
+        // Send the other Buffer
+        // and no switch the current buffer
+        buf_sel_trans = (buf_sel_trans==0)?1:0;
+    }
+    udi_cdc_tx_trans_ongoing[port] = true;
   __DMB();
   __set_PRIMASK(irqflags);
 
-	b_short_packet = (udi_cdc_tx_buf_nb[port][buf_sel_trans] != UDI_CDC_TX_BUFFERS);
-	if (b_short_packet) {
-		if (udd_is_high_speed()) {
-			udi_cdc_tx_sof_num[port] = udd_get_micro_frame_number();
-		}else{
-			udi_cdc_tx_sof_num[port] = udd_get_frame_number();
-		}
-	}else{
-		udi_cdc_tx_sof_num[port] = 0; // Force next transfer without wait SOF
-	}
+    b_short_packet = (udi_cdc_tx_buf_nb[port][buf_sel_trans] != UDI_CDC_TX_BUFFERS);
+    if (b_short_packet) {
+        if (udd_is_high_speed()) {
+            udi_cdc_tx_sof_num[port] = udd_get_micro_frame_number();
+        }else{
+            udi_cdc_tx_sof_num[port] = udd_get_frame_number();
+        }
+    }else{
+        udi_cdc_tx_sof_num[port] = 0; // Force next transfer without wait SOF
+    }
 
-	// Send the buffer with enable of short packet
-/*	switch (port) {
+    /*
+    // Send the buffer with enable of short packet
+    switch (port) {
 #define UDI_CDC_PORT_TO_DATA_EP_IN(index, unused) \
-	case index: \
-		ep = UDI_CDC_DATA_EP_IN_##index; \
-		break;
-	MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_PORT_TO_DATA_EP_IN, ~)
+    case index: \
+        ep = UDI_CDC_DATA_EP_IN_##index; \
+        break;
+    MREPEAT(UDI_CDC_PORT_NB, UDI_CDC_PORT_TO_DATA_EP_IN, ~)
 #undef UDI_CDC_PORT_TO_DATA_EP_IN
-	default:
-		ep = UDI_CDC_DATA_EP_IN_0;
-		break;
-	}*/
-	ep = UDI_CDC_DATA_EP_IN_0;
+    default:
+        ep = UDI_CDC_DATA_EP_IN_0;
+        break;
+    }
+    */
+    ep = UDI_CDC_DATA_EP_IN_0;
 
-	udd_ep_run( ep,
-			b_short_packet,
-			udi_cdc_tx_buf[port][buf_sel_trans],
-			udi_cdc_tx_buf_nb[port][buf_sel_trans],
-			udi_cdc_data_sent);
+    udd_ep_run( ep,
+            b_short_packet,
+            udi_cdc_tx_buf[port][buf_sel_trans],
+            udi_cdc_tx_buf_nb[port][buf_sel_trans],
+            udi_cdc_data_sent);
 }
-
 
 //---------------------------------------------
 //------- Application interface
 
-
-//------- Application interface
-
 void udi_cdc_ctrl_signal_dcd(bool b_set)
 {
-	udi_cdc_ctrl_state_change(0, b_set, CDC_SERIAL_STATE_DCD);
+    udi_cdc_ctrl_state_change(0, b_set, CDC_SERIAL_STATE_DCD);
 }
 
 void udi_cdc_ctrl_signal_dsr(bool b_set)
 {
-	udi_cdc_ctrl_state_change(0, b_set, CDC_SERIAL_STATE_DSR);
+    udi_cdc_ctrl_state_change(0, b_set, CDC_SERIAL_STATE_DSR);
 }
 
 void udi_cdc_signal_framing_error(void)
 {
-	udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_FRAMING);
+    udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_FRAMING);
 }
 
 void udi_cdc_signal_parity_error(void)
 {
-	udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_PARITY);
+    udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_PARITY);
 }
 
 void udi_cdc_signal_overrun(void)
 {
-	udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_OVERRUN);
+    udi_cdc_ctrl_state_change(0, true, CDC_SERIAL_STATE_OVERRUN);
 }
 
 void udi_cdc_multi_ctrl_signal_dcd(uint8_t port, bool b_set)
 {
-	udi_cdc_ctrl_state_change(port, b_set, CDC_SERIAL_STATE_DCD);
+    udi_cdc_ctrl_state_change(port, b_set, CDC_SERIAL_STATE_DCD);
 }
 
 void udi_cdc_multi_ctrl_signal_dsr(uint8_t port, bool b_set)
 {
-	udi_cdc_ctrl_state_change(port, b_set, CDC_SERIAL_STATE_DSR);
+    udi_cdc_ctrl_state_change(port, b_set, CDC_SERIAL_STATE_DSR);
 }
 
 void udi_cdc_multi_signal_framing_error(uint8_t port)
 {
-	udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_FRAMING);
+    udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_FRAMING);
 }
 
 void udi_cdc_multi_signal_parity_error(uint8_t port)
 {
-	udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_PARITY);
+    udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_PARITY);
 }
 
 void udi_cdc_multi_signal_overrun(uint8_t port)
 {
-	udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_OVERRUN);
+    udi_cdc_ctrl_state_change(port, true, CDC_SERIAL_STATE_OVERRUN);
 }
 
 iram_size_t udi_cdc_multi_get_nb_received_data(uint8_t port)
 {
-	uint32_t irqflags;  //irqflags_t
-	uint16_t pos;
-	iram_size_t nb_received;
+    uint32_t irqflags;  //irqflags_t
+    uint16_t pos;
+    iram_size_t nb_received;
 
-#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
-#endif
-	irqflags = __get_PRIMASK();
+//#if UDI_CDC_PORT_NB == 1 // To optimize code
+    port = 0;
+//#endif
+
+    irqflags = __get_PRIMASK();
   __disable_irq();
   __DMB();
-	pos = udi_cdc_rx_pos[port];
-	nb_received = udi_cdc_rx_buf_nb[port][udi_cdc_rx_buf_sel[port]] - pos;
-	__DMB();
+    pos = udi_cdc_rx_pos[port];
+    nb_received = udi_cdc_rx_buf_nb[port][udi_cdc_rx_buf_sel[port]] - pos;
+    __DMB();
   __set_PRIMASK(irqflags);
-	return nb_received;
+    return nb_received;
 }
 
 iram_size_t udi_cdc_get_nb_received_data(void)
 {
-	return udi_cdc_multi_get_nb_received_data(0);
+    return udi_cdc_multi_get_nb_received_data(0);
 }
 
 bool udi_cdc_multi_is_rx_ready(uint8_t port)
 {
-	return (udi_cdc_multi_get_nb_received_data(port) > 0);
+    return (udi_cdc_multi_get_nb_received_data(port) > 0);
 }
 
 bool udi_cdc_is_rx_ready(void)
 {
-	return udi_cdc_multi_is_rx_ready(0);
+    return udi_cdc_multi_is_rx_ready(0);
 }
 
 int udi_cdc_multi_getc(uint8_t port)
 {
-	uint32_t irqflags;  //irqflags_t
-	int rx_data = 0;
-	bool b_databit_9;
-	uint16_t pos;
-	uint8_t buf_sel;
-	bool again;
+    uint32_t irqflags;  //irqflags_t
+    int rx_data = 0;
+    bool b_databit_9;
+    uint16_t pos;
+    uint8_t buf_sel;
+    bool again;
 
-#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
-#endif
+//#if UDI_CDC_PORT_NB == 1 // To optimize code
+    port = 0;
+//#endif
 
-	b_databit_9 = (9 == udi_cdc_line_coding[port].bDataBits);
+    b_databit_9 = (9 == udi_cdc_line_coding[port].bDataBits);
 
 udi_cdc_getc_process_one_byte:
-	// Check available data
-	irqflags = __get_PRIMASK();
+    // Check available data
+    irqflags = __get_PRIMASK();
   __disable_irq();
   __DMB();
-	pos = udi_cdc_rx_pos[port];
-	buf_sel = udi_cdc_rx_buf_sel[port];
-	again = pos >= udi_cdc_rx_buf_nb[port][buf_sel];
-	__DMB();
+    pos = udi_cdc_rx_pos[port];
+    buf_sel = udi_cdc_rx_buf_sel[port];
+    again = pos >= udi_cdc_rx_buf_nb[port][buf_sel];
+    __DMB();
   __set_PRIMASK(irqflags);
-	while (again) {
-		if (!udi_cdc_data_running) {
-			return 0;
-		}
-		goto udi_cdc_getc_process_one_byte;
-	}
+    while (again) {
+        if (!udi_cdc_data_running) {
+            return 0;
+        }
+        goto udi_cdc_getc_process_one_byte;
+    }
 
-	// Read data
-	rx_data |= udi_cdc_rx_buf[port][buf_sel][pos];
-	udi_cdc_rx_pos[port] = pos+1;
+    // Read data
+    rx_data |= udi_cdc_rx_buf[port][buf_sel][pos];
+    udi_cdc_rx_pos[port] = pos+1;
 
-	udi_cdc_rx_start(port);
+    udi_cdc_rx_start(port);
 
-	if (b_databit_9) {
-		// Receive MSB
-		b_databit_9 = false;
-		rx_data = rx_data << 8;
-		goto udi_cdc_getc_process_one_byte;
-	}
-	return rx_data;
+    if (b_databit_9) {
+        // Receive MSB
+        b_databit_9 = false;
+        rx_data = rx_data << 8;
+        goto udi_cdc_getc_process_one_byte;
+    }
+    return rx_data;
 }
 
 int udi_cdc_getc(void)
 {
-	return udi_cdc_multi_getc(0);
+    return udi_cdc_multi_getc(0);
 }
 
 iram_size_t udi_cdc_multi_read_buf(uint8_t port, void* buf, iram_size_t size)
 {
-	uint32_t irqflags;  //irqflags_t
-	uint8_t *ptr_buf = (uint8_t *)buf;
-	iram_size_t copy_nb;
-	uint16_t pos;
-	uint8_t buf_sel;
-	bool again;
+    uint32_t irqflags;  //irqflags_t
+    uint8_t *ptr_buf = (uint8_t *)buf;
+    iram_size_t copy_nb;
+    uint16_t pos;
+    uint8_t buf_sel;
+    bool again;
 
-#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
-#endif
+//#if UDI_CDC_PORT_NB == 1 // To optimize code
+    port = 0;
+//#endif
 
 udi_cdc_read_buf_loop_wait:
-	// Check available data
-	irqflags = __get_PRIMASK();
+    // Check available data
+    irqflags = __get_PRIMASK();
   __disable_irq();
-  __DMB();	pos = udi_cdc_rx_pos[port];
-	buf_sel = udi_cdc_rx_buf_sel[port];
-	again = pos >= udi_cdc_rx_buf_nb[port][buf_sel];
-	__DMB();
+  __DMB();  pos = udi_cdc_rx_pos[port];
+    buf_sel = udi_cdc_rx_buf_sel[port];
+    again = pos >= udi_cdc_rx_buf_nb[port][buf_sel];
+    __DMB();
   __set_PRIMASK(irqflags);
-	while (again) {
-		if (!udi_cdc_data_running) {
-			return size;
-		}
-		goto udi_cdc_read_buf_loop_wait;
-	}
+    while (again) {
+        if (!udi_cdc_data_running) {
+            return size;
+        }
+        goto udi_cdc_read_buf_loop_wait;
+    }
 
-	// Read data
-	copy_nb = udi_cdc_rx_buf_nb[port][buf_sel] - pos;
-	if (copy_nb>size) {
-		copy_nb = size;
-	}
-	memcpy(ptr_buf, &udi_cdc_rx_buf[port][buf_sel][pos], copy_nb);
-	udi_cdc_rx_pos[port] += copy_nb;
-	ptr_buf += copy_nb;
-	size -= copy_nb;
-	udi_cdc_rx_start(port);
+    // Read data
+    copy_nb = udi_cdc_rx_buf_nb[port][buf_sel] - pos;
+    if (copy_nb>size) {
+        copy_nb = size;
+    }
+    memcpy(ptr_buf, &udi_cdc_rx_buf[port][buf_sel][pos], copy_nb);
+    udi_cdc_rx_pos[port] += copy_nb;
+    ptr_buf += copy_nb;
+    size -= copy_nb;
+    udi_cdc_rx_start(port);
 
-	if (size) {
-		goto udi_cdc_read_buf_loop_wait;
-	}
-	return 0;
+    if (size) {
+        goto udi_cdc_read_buf_loop_wait;
+    }
+    return 0;
 }
 
 static iram_size_t udi_cdc_multi_read_no_polling(uint8_t port, void* buf, iram_size_t size)
 {
-	uint8_t *ptr_buf = (uint8_t *)buf;
-	iram_size_t nb_avail_data;
-	uint16_t pos;
-	uint8_t buf_sel;
-	uint32_t irqflags;  //irqflags_t
+    uint8_t *ptr_buf = (uint8_t *)buf;
+    iram_size_t nb_avail_data;
+    uint16_t pos;
+    uint8_t buf_sel;
+    uint32_t irqflags;  //irqflags_t
 
-#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
-#endif
+//#if UDI_CDC_PORT_NB == 1 // To optimize code
+    port = 0;
+//#endif
 
-	//Data interface not started... exit
-	if (!udi_cdc_data_running) {
-		return 0;
-	}
-	
-	//Get number of available data
-	// Check available data
-	irqflags = __get_PRIMASK();
+    //Data interface not started... exit
+    if (!udi_cdc_data_running) {
+        return 0;
+    }
+
+    //Get number of available data
+    // Check available data
+    irqflags = __get_PRIMASK();
   __disable_irq();
   __DMB();
-	pos = udi_cdc_rx_pos[port];
-	buf_sel = udi_cdc_rx_buf_sel[port];
-	nb_avail_data = udi_cdc_rx_buf_nb[port][buf_sel] - pos;
-	__DMB();
+    pos = udi_cdc_rx_pos[port];
+    buf_sel = udi_cdc_rx_buf_sel[port];
+    nb_avail_data = udi_cdc_rx_buf_nb[port][buf_sel] - pos;
+    __DMB();
   __set_PRIMASK(irqflags);
-	//If the buffer contains less than the requested number of data,
-	//adjust read size
-	if(nb_avail_data<size) {
-		size = nb_avail_data;
-	}
-	if(size>0) {
-		memcpy(ptr_buf, &udi_cdc_rx_buf[port][buf_sel][pos], size);
-  	irqflags = __get_PRIMASK();
+    //If the buffer contains less than the requested number of data,
+    //adjust read size
+    if(nb_avail_data<size) {
+        size = nb_avail_data;
+    }
+    if(size>0) {
+        memcpy(ptr_buf, &udi_cdc_rx_buf[port][buf_sel][pos], size);
+    irqflags = __get_PRIMASK();
     __disable_irq();
     __DMB();
-		udi_cdc_rx_pos[port] += size;
-  	__DMB();
-    __set_PRIMASK(irqflags);		
-		ptr_buf += size;
-		udi_cdc_rx_start(port);
-	}
-	return(nb_avail_data);
+        udi_cdc_rx_pos[port] += size;
+    __DMB();
+    __set_PRIMASK(irqflags);
+        ptr_buf += size;
+        udi_cdc_rx_start(port);
+    }
+    return(nb_avail_data);
 }
 
 iram_size_t udi_cdc_read_no_polling(void* buf, iram_size_t size)
 {
-	return udi_cdc_multi_read_no_polling(0, buf, size);
+    return udi_cdc_multi_read_no_polling(0, buf, size);
 }
 
 iram_size_t udi_cdc_read_buf(void* buf, iram_size_t size)
 {
-	return udi_cdc_multi_read_buf(0, buf, size);
+    return udi_cdc_multi_read_buf(0, buf, size);
 }
 
 iram_size_t udi_cdc_multi_get_free_tx_buffer(uint8_t port)
 {
-	uint32_t irqflags;  //irqflags_t
-	iram_size_t buf_sel_nb, retval;
-	uint8_t buf_sel;
+    uint32_t irqflags;  //irqflags_t
+    iram_size_t buf_sel_nb, retval;
+    uint8_t buf_sel;
 
-#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
-#endif
+//#if UDI_CDC_PORT_NB == 1 // To optimize code
+    port = 0;
+//#endif
 
-	irqflags = __get_PRIMASK();
+    irqflags = __get_PRIMASK();
   __disable_irq();
   __DMB();
-	buf_sel = udi_cdc_tx_buf_sel[port];
-	buf_sel_nb = udi_cdc_tx_buf_nb[port][buf_sel];
-	if (buf_sel_nb == UDI_CDC_TX_BUFFERS) {
-		if ((!udi_cdc_tx_trans_ongoing[port])
-			&& (!udi_cdc_tx_both_buf_to_send[port])) {
-			/* One buffer is full, but the other buffer is not used.
-			 * (not used = transfer on-going)
-			 * then move to the other buffer to store data */
-			udi_cdc_tx_both_buf_to_send[port] = true;
-			udi_cdc_tx_buf_sel[port] = (buf_sel == 0)? 1 : 0;
-			buf_sel_nb = 0;
-		}
-	}
-	retval = UDI_CDC_TX_BUFFERS - buf_sel_nb;  
-	__DMB();
+    buf_sel = udi_cdc_tx_buf_sel[port];
+    buf_sel_nb = udi_cdc_tx_buf_nb[port][buf_sel];
+    if (buf_sel_nb == UDI_CDC_TX_BUFFERS) {
+        if ((!udi_cdc_tx_trans_ongoing[port])
+            && (!udi_cdc_tx_both_buf_to_send[port])) {
+            /* One buffer is full, but the other buffer is not used.
+             * (not used = transfer on-going)
+             * then move to the other buffer to store data */
+            udi_cdc_tx_both_buf_to_send[port] = true;
+            udi_cdc_tx_buf_sel[port] = (buf_sel == 0)? 1 : 0;
+            buf_sel_nb = 0;
+        }
+    }
+    retval = UDI_CDC_TX_BUFFERS - buf_sel_nb;
+    __DMB();
   __set_PRIMASK(irqflags);
-	return retval;
+    return retval;
 }
 
 iram_size_t udi_cdc_get_free_tx_buffer(void)
 {
-	return udi_cdc_multi_get_free_tx_buffer(0);
+    return udi_cdc_multi_get_free_tx_buffer(0);
 }
 
 bool udi_cdc_multi_is_tx_ready(uint8_t port)
 {
-	return (udi_cdc_multi_get_free_tx_buffer(port) != 0);
+    return (udi_cdc_multi_get_free_tx_buffer(port) != 0);
 }
 
 bool udi_cdc_is_tx_ready(void)
 {
-	return udi_cdc_multi_is_tx_ready(0);
+    return udi_cdc_multi_is_tx_ready(0);
 }
 
 int udi_cdc_multi_putc(uint8_t port, int value)
 {
-	uint32_t irqflags;  //irqflags_t
-	bool b_databit_9;
-	uint8_t buf_sel;
+    uint32_t irqflags;  //irqflags_t
+    bool b_databit_9;
+    uint8_t buf_sel;
 
-#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
-#endif
+//#if UDI_CDC_PORT_NB == 1 // To optimize code
+    port = 0;
+//#endif
 
-	b_databit_9 = (9 == udi_cdc_line_coding[port].bDataBits);
+    b_databit_9 = (9 == udi_cdc_line_coding[port].bDataBits);
 
 udi_cdc_putc_process_one_byte:
-	// Check available space
-	if (!udi_cdc_multi_is_tx_ready(port)) {
-		if (!udi_cdc_data_running) {
-			return false;
-		}
-		goto udi_cdc_putc_process_one_byte;
-	}
+    // Check available space
+    if (!udi_cdc_multi_is_tx_ready(port)) {
+        if (!udi_cdc_data_running) {
+            return false;
+        }
+        goto udi_cdc_putc_process_one_byte;
+    }
 
-	// Write value
-	irqflags = __get_PRIMASK();
+    // Write value
+    irqflags = __get_PRIMASK();
   __disable_irq();
   __DMB();
-	buf_sel = udi_cdc_tx_buf_sel[port];
-	udi_cdc_tx_buf[port][buf_sel][udi_cdc_tx_buf_nb[port][buf_sel]++] = value;
+    buf_sel = udi_cdc_tx_buf_sel[port];
+    udi_cdc_tx_buf[port][buf_sel][udi_cdc_tx_buf_nb[port][buf_sel]++] = value;
   __DMB();
   __set_PRIMASK(irqflags);
 
-	if (b_databit_9) {
-		// Send MSB
-		b_databit_9 = false;
-		value = value >> 8;
-		goto udi_cdc_putc_process_one_byte;
-	}
-	return true;
+    if (b_databit_9) {
+        // Send MSB
+        b_databit_9 = false;
+        value = value >> 8;
+        goto udi_cdc_putc_process_one_byte;
+    }
+    return true;
 }
 
 int udi_cdc_putc(int value)
 {
-	return udi_cdc_multi_putc(0, value);
+    return udi_cdc_multi_putc(0, value);
 }
 
 iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t size)
 {
-	uint32_t irqflags;  //irqflags_t
-	uint8_t buf_sel;
-	uint16_t buf_nb;
-	iram_size_t copy_nb;
-	uint8_t *ptr_buf = (uint8_t *)buf;
+    uint32_t irqflags;  //irqflags_t
+    uint8_t buf_sel;
+    uint16_t buf_nb;
+    iram_size_t copy_nb;
+    uint8_t *ptr_buf = (uint8_t *)buf;
 
-#if UDI_CDC_PORT_NB == 1 // To optimize code
-	port = 0;
-#endif
+//#if UDI_CDC_PORT_NB == 1 // To optimize code
+    port = 0;
+//#endif
 
-	if (9 == udi_cdc_line_coding[port].bDataBits) {
-		size *=2;
-	}
+    if (9 == udi_cdc_line_coding[port].bDataBits) {
+        size *=2;
+    }
 
-udi_cdc_write_buf_loop_wait:
-	// Check available space
-	if (!udi_cdc_multi_is_tx_ready(port)) {
-		if (!udi_cdc_data_running) {
-			return size;
-		}
-		goto udi_cdc_write_buf_loop_wait;
-	}
+    udi_cdc_write_buf_loop_wait:
 
-	// Write values
-	irqflags = __get_PRIMASK();
-  __disable_irq();
-  __DMB();
-	buf_sel = udi_cdc_tx_buf_sel[port];
-	buf_nb = udi_cdc_tx_buf_nb[port][buf_sel];
-	copy_nb = UDI_CDC_TX_BUFFERS - buf_nb;
-	if (copy_nb > size) {
-		copy_nb = size;
-	}
-	memcpy(&udi_cdc_tx_buf[port][buf_sel][buf_nb], ptr_buf, copy_nb);
-	udi_cdc_tx_buf_nb[port][buf_sel] = buf_nb + copy_nb;
-	__DMB();
-  __set_PRIMASK(irqflags);
+    // Check available space
+    if (!udi_cdc_multi_is_tx_ready(port)) {
+        if (!udi_cdc_data_running) {
+            return size;
+        }
+        goto udi_cdc_write_buf_loop_wait;
+    }
 
-	// Update buffer pointer
-	ptr_buf = ptr_buf + copy_nb;
-	size -= copy_nb;
+    // Write values
+    irqflags = __get_PRIMASK();
+    __disable_irq();
+    __DMB();
+    buf_sel = udi_cdc_tx_buf_sel[port];
+    buf_nb = udi_cdc_tx_buf_nb[port][buf_sel];
+    copy_nb = UDI_CDC_TX_BUFFERS - buf_nb;
+    if (copy_nb > size) {
+        copy_nb = size;
+    }
+    memcpy(&udi_cdc_tx_buf[port][buf_sel][buf_nb], ptr_buf, copy_nb);
+    udi_cdc_tx_buf_nb[port][buf_sel] = buf_nb + copy_nb;
+    __DMB();
+    __set_PRIMASK(irqflags);
 
-	if (size) {
-		goto udi_cdc_write_buf_loop_wait;
-	}
+    // Update buffer pointer
+    ptr_buf = ptr_buf + copy_nb;
+    size -= copy_nb;
 
-	return 0;
+    if (size) {
+        goto udi_cdc_write_buf_loop_wait;
+    }
+
+    return 0;
 }
 
 iram_size_t udi_cdc_write_buf(const void* buf, iram_size_t size)
 {
-	return udi_cdc_multi_write_buf(0, buf, size);
+    return udi_cdc_multi_write_buf(0, buf, size);
 }
 
 #define MAX_PRINT 256
@@ -1216,35 +1229,35 @@ uint32_t cdc_tx_send_time_next;
 
 void CDC_send(void)
 {
-	while (CLK_get_ms() < cdc_tx_send_time_next);
+    while (CLK_get_ms() < cdc_tx_send_time_next);
     udi_cdc_tx_send(0);
-	cdc_tx_send_time_next = CLK_get_ms() + CDC_SEND_INTERVAL;
+    cdc_tx_send_time_next = CLK_get_ms() + CDC_SEND_INTERVAL;
 }
 
-uint32_t CDC_print(char * printbuf)
+uint32_t CDC_print(char *printbuf)
 {
-   uint32_t count=0;
-   char * buf = printbuf;
-   char c;
+    uint32_t count=0;
+    char *buf = printbuf;
+    char c;
 
-  if (CLK_get_ms() < 5000) return 0;    
-  
-  while ((c = *buf++) != 0 && !(count >= MAX_PRINT))
-  {
-    count++;
-    if (!udi_cdc_is_tx_ready()) return 0;
-    udi_cdc_putc(c);
-    if (count >= UDI_CDC_TX_BUFFERS)
+    if (CLK_get_ms() < 5000) return 0;
+
+    while ((c = *buf++) != 0 && !(count >= MAX_PRINT))
     {
-      count = 0;
-      CDC_send();
+        count++;
+        if (!udi_cdc_is_tx_ready()) return 0;
+        udi_cdc_putc(c);
+        if (count >= UDI_CDC_TX_BUFFERS)
+        {
+            count = 0;
+            CDC_send();
+        }
     }
-  }
-  if (count)
-  {
-    CDC_send();
-  }
-  return 1;
+    if (count)
+    {
+        CDC_send();
+    }
+    return 1;
 }
 
 
@@ -1252,206 +1265,121 @@ char printbuf[CDC_PRINTBUF_SIZE];
 
 int dpf(const char *_Format, ...)
 {
-  va_list va;                                                       //Variable argument list variable
-  int result;
+    va_list va; //Variable argument list variable
+    int result;
 
-  va_start(va,_Format);                                             //Initialize the variable argument list
-  result = vspf(printbuf, _Format, va);
-  va_end(va);
-  
-  CDC_print(printbuf);
-  
-  return result;
-}  
+    va_start(va,_Format); //Initialize the variable argument list
+    result = vspf(printbuf, _Format, va);
+    va_end(va);
+
+    CDC_print(printbuf);
+
+    return result;
+}
 
 //global "inbuf" if desired
 inbuf_t inbuf;
 
 uint32_t CDC_input_buf(inbuf_t inbuf, uint32_t inbuf_size)
 {
-  int RXChar;
-  int entered = 0;
+    int RXChar;
+    int entered = 0;
 
-  if (!udi_cdc_is_rx_ready()) return 0;
-  udi_cdc_get_nb_received_data();
-  RXChar =  udi_cdc_getc();
-//  RXChar = 0x41;
-  if (RXChar)
-  {
-/*
-    if (!uart_input_buf.in && RXChar > 0 && RXChar < 5)
+    if (!udi_cdc_is_rx_ready()) return 0;
+    udi_cdc_get_nb_received_data();
+    RXChar =  udi_cdc_getc();
+
+    if (RXChar)
     {
-      Q_INIT(&uart_input_buf);
-      switch (RXChar)
-      {
-        case 1:  //ctrl a adapter mode
-         UART_adapter_mode = 1;
-           break;
-        case 2:  //ctrl b not adapter mode
-          UART_adapter_mode = 0;
-          break;
-        case 3:  // ctrl c machine mode
-          UART_machine_mode = 1;
-          break;
-        case 4:  // ctrl d not machine mode
-          UART_machine_mode = 0;
-          break;
-      }
-    }
-    else
-    {
-      if (UART_machine_mode)
-      {
         switch (RXChar)
         {
-          case '\r':
-            //enter
-            savein = uart_input_buf.in;
-            saveout = uart_input_buf.out;
-            init = -1;
-            UART_cksm = 0;
-            UART_error = 0;
-            if (UART_adapter_mode)
-            {
-              UART_adapter_wait_01();
-              //uart_task.nextop = UART_input_01;
-              //TASK_when(&uart_task,(event *)&EVT_TRUE);
-              //UART_interpret();
-            }
-            else
-            {
-                                         // sumcheck will convert cksm to null character
-              UART_adapter_wait_02();
-              //uart_task.nextop = UART_input_02;
-              //TASK_when(&uart_task,(event *)&EVT_TRUE);
-              //uartnak = UART_interpret_NAK();
-
-              //UART_input_02();
-              //if(!UART_interpret_NAK())  // only OK if ACK
-              //{
-              //  if (!UART_error) UART_print(" ok\0");
-              //}
-              //else
-              //{
-              //  UART_print("ERROR_cksm\0");
-              //}
-            }
-            //UART_input_01();
-            //if (!UART_adapter_mode || UART_error)
-            //{
-            //  cksm = (unsigned char) (256-UART_cksm);
-            //  if (cksm == '\r') cksm++;
-            //  UART_putc(cksm);
-            //  UART_putc('\r');
-            //}
-            //Q_INIT(&uart_input_buf);
-            break;
-          default:
-            if (Q_CNT(&uart_input_buf) < fifo_8_space-1)
-            {
-              Q_ENQ(&uart_input_buf,RXChar);
-            }
-          break;
-        }
-      }
-      else // not machine mode
-      {
-*/
-        switch (RXChar)
-        {
-          case '\t':  //tab - repeat last
-		    inbuf.count=inbuf.lastcount;
-		    inbuf.buf[inbuf.count+1] = 0;
-		    CDC_print(inbuf.buf);
-            break;
-          case '\r':  //enter
-            inbuf.buf[inbuf.count]=0;
-            inbuf.lastcount = inbuf.count;
-            inbuf.count = 0;
-            entered = 1;
-            break;
-          case '\b': //backspace
-            if (inbuf.count > 0) {
-              inbuf.count -= 1;
-              CDC_print("\b \b\0");
-            }
-            else
-              CDC_print("\a\0");
-            break;
-          default:
+            case '\t':  //tab - repeat last
+                inbuf.count=inbuf.lastcount;
+                inbuf.buf[inbuf.count+1] = 0;
+                CDC_print(inbuf.buf);
+                break;
+            case '\r':  //enter
+                inbuf.buf[inbuf.count]=0;
+                inbuf.lastcount = inbuf.count;
+                inbuf.count = 0;
+                entered = 1;
+                break;
+            case '\b': //backspace
+                if (inbuf.count > 0) {
+                    inbuf.count -= 1;
+                    CDC_print("\b \b\0");
+                }
+                else
+                    CDC_print("\a\0");
+                break;
+        default:
             if ((RXChar >= 32) && (RXChar <= 126))
             {
-              if (inbuf.count < inbuf_size-1)
-              {
-                inbuf.buf[inbuf.count] = RXChar;
-                inbuf.buf[inbuf.count+1] = 0;
-                CDC_print(&inbuf.buf[inbuf.count]);
-                inbuf.count += 1;
-              }
-              else
-                CDC_print("\a\0");
+                if (inbuf.count < inbuf_size-1)
+                {
+                    inbuf.buf[inbuf.count] = RXChar;
+                    inbuf.buf[inbuf.count+1] = 0;
+                    CDC_print(&inbuf.buf[inbuf.count]);
+                    inbuf.count += 1;
+                }
+                else
+                    CDC_print("\a\0");
             }
             break;
-		}
-    RXChar = 0;
-   }
-   return entered;
+        }
+        RXChar = 0;
+    }
+    return entered;
 }
 
 uint32_t CDC_input()
 {
-  return CDC_input_buf(inbuf, CDC_INBUF_SIZE);
+    return CDC_input_buf(inbuf, CDC_INBUF_SIZE);
 }
 
 void CDC_init(void)
 {
-   inbuf.count = 0;
-   inbuf.lastcount = 0;
-   printbuf[0] = 0;
-   cdc_tx_send_time_next = CLK_get_ms() + CDC_SEND_INTERVAL;
+    inbuf.count = 0;
+    inbuf.lastcount = 0;
+    printbuf[0] = 0;
+    cdc_tx_send_time_next = CLK_get_ms() + CDC_SEND_INTERVAL;
 }
 
-#else
-char printbuf[CDC_PRINTBUF_SIZE];
+#else //CDC line 62
 
+char printbuf[CDC_PRINTBUF_SIZE];
 
 void CDC_send(void)
 {
- return;
+    return;
 }
 
-
-uint32_t CDC_print(char * printbuf)
-{ 
-  return 0;
+uint32_t CDC_print(char *printbuf)
+{
+    return 0;
 }
 
 int dpf(const char *_Format, ...)
 {
-  return 0;
-
+    return 0;
 }
 
 inbuf_t inbuf;
 
 uint32_t CDC_input(void)
 {
-  return 0;
+    return 0;
 }
 
 void CDC_init(void)
 {
-   inbuf.count = 0;
-   inbuf.lastcount = 0;
-   printbuf[0]=0;
+    inbuf.count = 0;
+    inbuf.lastcount = 0;
+    printbuf[0]=0;
 }
 
 char printbuf[CDC_PRINTBUF_SIZE];
 
-#endif
-
-
-
-
+#endif //CDC line 62
 
 //@}

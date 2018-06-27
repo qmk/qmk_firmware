@@ -47,25 +47,25 @@ void ADC0_init(void)
 
     //ADC
     ADC0->CTRLA.bit.SWRST = 1;
-    while (ADC0->SYNCBUSY.bit.SWRST);
-    while (ADC0->CTRLA.bit.SWRST);
+    while (ADC0->SYNCBUSY.bit.SWRST) {}
+    while (ADC0->CTRLA.bit.SWRST) {}
 
     //Clock divide
     ADC0->CTRLA.bit.PRESCALER = ADC_CTRLA_PRESCALER_DIV2_Val;
 
     //Averaging
     ADC0->AVGCTRL.bit.SAMPLENUM = ADC_AVGCTRL_SAMPLENUM_4_Val;
-    while (ADC0->SYNCBUSY.bit.AVGCTRL);
+    while (ADC0->SYNCBUSY.bit.AVGCTRL) {}
     if      (ADC0->AVGCTRL.bit.SAMPLENUM == ADC_AVGCTRL_SAMPLENUM_1_Val) ADC0->AVGCTRL.bit.ADJRES = 0;
     else if (ADC0->AVGCTRL.bit.SAMPLENUM == ADC_AVGCTRL_SAMPLENUM_2_Val) ADC0->AVGCTRL.bit.ADJRES = 1;
     else if (ADC0->AVGCTRL.bit.SAMPLENUM == ADC_AVGCTRL_SAMPLENUM_4_Val) ADC0->AVGCTRL.bit.ADJRES = 2;
     else if (ADC0->AVGCTRL.bit.SAMPLENUM == ADC_AVGCTRL_SAMPLENUM_8_Val) ADC0->AVGCTRL.bit.ADJRES = 3;
     else                                                                 ADC0->AVGCTRL.bit.ADJRES = 4;
-    while (ADC0->SYNCBUSY.bit.AVGCTRL);
+    while (ADC0->SYNCBUSY.bit.AVGCTRL) {}
 
     //Settling
     ADC0->SAMPCTRL.bit.SAMPLEN = 45;      //Sampling Time Length: 1-63, 1 ADC CLK per
-    while (ADC0->SYNCBUSY.bit.SAMPCTRL);
+    while (ADC0->SYNCBUSY.bit.SAMPCTRL) {}
 
     //Load factory calibration data
     ADC0->CALIB.bit.BIASCOMP = (ADC0_FUSES_BIASCOMP_ADDR >> ADC0_FUSES_BIASCOMP_Pos) & ADC0_FUSES_BIASCOMP_Msk;
@@ -74,13 +74,13 @@ void ADC0_init(void)
 
     //Enable
     ADC0->CTRLA.bit.ENABLE = 1;
-    while (ADC0->SYNCBUSY.bit.ENABLE);
+    while (ADC0->SYNCBUSY.bit.ENABLE) {}
 }
 
 uint16_t adc_get(uint8_t muxpos)
 {
     ADC0->INPUTCTRL.bit.MUXPOS = muxpos;
-    while (ADC0->SYNCBUSY.bit.INPUTCTRL);
+    while (ADC0->SYNCBUSY.bit.INPUTCTRL) {}
 
     ADC0->SWTRIG.bit.START = 1;
     while (ADC0->SYNCBUSY.bit.SWTRIG) {}

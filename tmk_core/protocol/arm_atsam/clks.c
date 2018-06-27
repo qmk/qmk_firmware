@@ -30,8 +30,8 @@ const uint8_t sercom_pchan[] = {7, 8, 23, 24, 34, 35};
 
 void CLK_oscctrl_init(void)
 {
-    Oscctrl * posctrl = OSCCTRL;
-    Gclk * pgclk = GCLK;
+    Oscctrl *posctrl = OSCCTRL;
+    Gclk *pgclk = GCLK;
 
     //default setup on por
     system_clks.freq_dfll = FREQ_DFLL_DEFAULT;
@@ -45,24 +45,24 @@ void CLK_oscctrl_init(void)
     posctrl->XOSCCTRL[0].bit.ONDEMAND = 0;
     posctrl->XOSCCTRL[0].bit.XTALEN = 1;
     posctrl->XOSCCTRL[0].bit.ENABLE = 1;
-    while(posctrl->STATUS.bit.XOSCRDY0==0);  //wait for xosc0 stable and ready
+    while(posctrl->STATUS.bit.XOSCRDY0==0) {}  //wait for xosc0 stable and ready
     system_clks.freq_xosc0 = FREQ_XOSC0;
 
     //configure and startup DPLL0
-    posctrl->Dpll[0].DPLLCTRLB.bit.REFCLK = 2;  //select XOSC0 (16MHz)
-    posctrl->Dpll[0].DPLLCTRLB.bit.DIV = 7;     //16 MHz -> 1 MHz
-    posctrl->Dpll[0].DPLLRATIO.bit.LDR = PLL_RATIO;    //48 MHz
-    while(posctrl->Dpll[0].DPLLSYNCBUSY.bit.DPLLRATIO);
+    posctrl->Dpll[0].DPLLCTRLB.bit.REFCLK = 2;              //select XOSC0 (16MHz)
+    posctrl->Dpll[0].DPLLCTRLB.bit.DIV = 7;                 //16 MHz -> 1 MHz
+    posctrl->Dpll[0].DPLLRATIO.bit.LDR = PLL_RATIO;         //48 MHz
+    while(posctrl->Dpll[0].DPLLSYNCBUSY.bit.DPLLRATIO) {}
     posctrl->Dpll[0].DPLLCTRLA.bit.ONDEMAND = 0;
     posctrl->Dpll[0].DPLLCTRLA.bit.ENABLE = 1;
-    while(posctrl->Dpll[0].DPLLSYNCBUSY.bit.ENABLE);
-    while(posctrl->Dpll[0].DPLLSTATUS.bit.CLKRDY==0);  //wait for CLKRDY
-    while(posctrl->Dpll[0].DPLLSTATUS.bit.LOCK==0);   // and LOCK
+    while(posctrl->Dpll[0].DPLLSYNCBUSY.bit.ENABLE) {}
+    while(posctrl->Dpll[0].DPLLSTATUS.bit.CLKRDY == 0) {}   //wait for CLKRDY
+    while(posctrl->Dpll[0].DPLLSTATUS.bit.LOCK == 0) {}     // and LOCK
     system_clks.freq_dpll[0] = (system_clks.freq_xosc0 / 2 / (posctrl->Dpll[0].DPLLCTRLB.bit.DIV + 1)) * (posctrl->Dpll[0].DPLLRATIO.bit.LDR + 1);
 
     //change gclk0 to DPLL0
     pgclk->GENCTRL[GEN_DPLL0].bit.SRC = GCLK_SOURCE_DPLL0;
-    while(pgclk->SYNCBUSY.bit.GENCTRL0);
+    while(pgclk->SYNCBUSY.bit.GENCTRL0) {}
     system_clks.freq_gclk[0] = system_clks.freq_dpll[0];
 }
 
@@ -70,17 +70,17 @@ void CLK_oscctrl_init(void)
 //call CLK_set_gclk_freq(GEN_TC45, FREQ_TC45_DEFAULT);
 uint32_t CLK_set_gclk_freq(uint8_t gclkn, uint32_t freq)
 {
-    Gclk * pgclk = GCLK;
+    Gclk *pgclk = GCLK;
 
-    while(pgclk->SYNCBUSY.vec.GENCTRL);
+    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.SRC = GCLK_SOURCE_DPLL0;
-    while(pgclk->SYNCBUSY.vec.GENCTRL);
-    pgclk->GENCTRL[gclkn].bit.DIV = (uint8_t) (system_clks.freq_dpll[0] / freq);
-    while(pgclk->SYNCBUSY.vec.GENCTRL);
+    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    pgclk->GENCTRL[gclkn].bit.DIV = (uint8_t)(system_clks.freq_dpll[0] / freq);
+    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.DIVSEL = 0;
-    while(pgclk->SYNCBUSY.vec.GENCTRL);
+    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.GENEN = 1;
-    while(pgclk->SYNCBUSY.vec.GENCTRL);
+    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
     system_clks.freq_gclk[gclkn] = system_clks.freq_dpll[0] / pgclk->GENCTRL[gclkn].bit.DIV;
     return system_clks.freq_gclk[gclkn];
 }
@@ -88,42 +88,42 @@ uint32_t CLK_set_gclk_freq(uint8_t gclkn, uint32_t freq)
 void CLK_init_osc(void)
 {
     uint8_t gclkn = GEN_OSC0;
-    Gclk * pgclk = GCLK;
+    Gclk *pgclk = GCLK;
 
-    while(pgclk->SYNCBUSY.vec.GENCTRL);
+    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.SRC = GCLK_SOURCE_XOSC0;
-    while(pgclk->SYNCBUSY.vec.GENCTRL);
+    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.DIV = 1;
-    while(pgclk->SYNCBUSY.vec.GENCTRL);
+    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.DIVSEL = 0;
-    while(pgclk->SYNCBUSY.vec.GENCTRL);
+    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.GENEN = 1;
-    while(pgclk->SYNCBUSY.vec.GENCTRL);
+    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
     system_clks.freq_gclk[gclkn] = system_clks.freq_xosc0;
 }
 
 void CLK_reset_time(void)
 {
-    Tc * ptc4 = TC4;
-    Tc * ptc0 = TC0;
+    Tc *ptc4 = TC4;
+    Tc *ptc0 = TC0;
 
     ms_clk = 0;
 
     //stop counters
     ptc4->COUNT16.CTRLA.bit.ENABLE = 0;
-    while(ptc4->COUNT16.SYNCBUSY.bit.ENABLE);
+    while(ptc4->COUNT16.SYNCBUSY.bit.ENABLE) {}
     ptc0->COUNT32.CTRLA.bit.ENABLE = 0;
-    while(ptc0->COUNT32.SYNCBUSY.bit.ENABLE);
+    while(ptc0->COUNT32.SYNCBUSY.bit.ENABLE) {}
     //zero counters
     ptc4->COUNT16.COUNT.reg = 0;
-    while (ptc4->COUNT16.SYNCBUSY.bit.COUNT);
+    while (ptc4->COUNT16.SYNCBUSY.bit.COUNT) {}
     ptc0->COUNT32.COUNT.reg = 0;
-    while (ptc0->COUNT32.SYNCBUSY.bit.COUNT);
+    while (ptc0->COUNT32.SYNCBUSY.bit.COUNT) {}
     //start counters
     ptc0->COUNT32.CTRLA.bit.ENABLE = 1;
-    while(ptc0->COUNT32.SYNCBUSY.bit.ENABLE);
+    while(ptc0->COUNT32.SYNCBUSY.bit.ENABLE) {}
     ptc4->COUNT16.CTRLA.bit.ENABLE = 1;
-    while(ptc4->COUNT16.SYNCBUSY.bit.ENABLE);
+    while(ptc4->COUNT16.SYNCBUSY.bit.ENABLE) {}
 }
 
 void TC4_Handler()
@@ -142,48 +142,46 @@ void TC5_Handler()
         TC5->COUNT16.INTFLAG.reg = TC_INTENCLR_MC0;
         us_delay_done = 1;
         TC5->COUNT16.CTRLA.bit.ENABLE = 0;
-        while (TC5->COUNT16.SYNCBUSY.bit.ENABLE);
+        while (TC5->COUNT16.SYNCBUSY.bit.ENABLE) {}
     }
 }
 
 uint32_t CLK_enable_timebase(void)
 {
-    Gclk * pgclk = GCLK;
-    Mclk * pmclk = MCLK;
-    Tc * ptc4 = TC4;
-    Tc * ptc5 = TC5;
-    Tc * ptc0 = TC0;
-    Evsys * pevsys = EVSYS;
+    Gclk *pgclk = GCLK;
+    Mclk *pmclk = MCLK;
+    Tc *ptc4 = TC4;
+    Tc *ptc5 = TC5;
+    Tc *ptc0 = TC0;
+    Evsys *pevsys = EVSYS;
 
     //gclk2  highspeed time base
     CLK_set_gclk_freq(GEN_TC45, FREQ_TC45_DEFAULT);
     CLK_init_osc();
 
     //unmask TC4, sourcegclk2 to TC4
-    pmclk->APBCMASK.bit.TC4_  = 1;
+    pmclk->APBCMASK.bit.TC4_ = 1;
     pgclk->PCHCTRL[TC4_GCLK_ID].bit.GEN = GEN_TC45;
     pgclk->PCHCTRL[TC4_GCLK_ID].bit.CHEN = 1;
 
     //unmask TC5 sourcegclk2 to TC5
-    pmclk->APBCMASK.bit.TC5_  = 1;
+    pmclk->APBCMASK.bit.TC5_ = 1;
     pgclk->PCHCTRL[TC5_GCLK_ID].bit.GEN = GEN_TC45;
     pgclk->PCHCTRL[TC5_GCLK_ID].bit.CHEN = 1;
 
     //configure TC4
     ptc4->COUNT16.CTRLA.bit.ENABLE = 0;
-    while(ptc4->COUNT16.SYNCBUSY.bit.ENABLE);
+    while(ptc4->COUNT16.SYNCBUSY.bit.ENABLE) {}
     ptc4->COUNT16.CTRLA.bit.SWRST = 1;
-    while(ptc4->COUNT16.SYNCBUSY.bit.SWRST);
-    while(ptc4->COUNT16.CTRLA.bit.SWRST);
+    while(ptc4->COUNT16.SYNCBUSY.bit.SWRST) {}
+    while(ptc4->COUNT16.CTRLA.bit.SWRST) {}
 
     //CTRLA defaults
     //CTRLB as default, counting up
     ptc4->COUNT16.CTRLBCLR.reg = 5;
-    while (ptc4->COUNT16.SYNCBUSY.bit.CTRLB);
-    //ptc4->COUNT16.CCBUF[0].reg = 999;  //1000 usec per overflow.  Count 0 to 999 then reset to 0 on next clock
+    while (ptc4->COUNT16.SYNCBUSY.bit.CTRLB) {}
     ptc4->COUNT16.CC[0].reg = 999;
-    while(ptc4->COUNT16.SYNCBUSY.bit.CC0);
-    //ptc4->COUNT16.CC[1].reg = 999;     //
+    while(ptc4->COUNT16.SYNCBUSY.bit.CC0) {}
     //ptc4->COUNT16.DBGCTRL.bit.DBGRUN = 1;
 
     //wave mode
@@ -196,19 +194,15 @@ uint32_t CLK_enable_timebase(void)
 
     //configure TC5
     ptc5->COUNT16.CTRLA.bit.ENABLE = 0;
-    while(ptc5->COUNT16.SYNCBUSY.bit.ENABLE);
+    while(ptc5->COUNT16.SYNCBUSY.bit.ENABLE) {}
     ptc5->COUNT16.CTRLA.bit.SWRST = 1;
-    while(ptc5->COUNT16.SYNCBUSY.bit.SWRST);
-    while(ptc5->COUNT16.CTRLA.bit.SWRST);
+    while(ptc5->COUNT16.SYNCBUSY.bit.SWRST) {}
+    while(ptc5->COUNT16.CTRLA.bit.SWRST) {}
 
     //CTRLA defaults
     //CTRLB as default, counting up
     ptc5->COUNT16.CTRLBCLR.reg = 5;
-    while (ptc5->COUNT16.SYNCBUSY.bit.CTRLB);
-    //ptc5->COUNT16.CCBUF[0].reg = 999;  //1000 usec per overflow.  Count 0 to 999 then reset to 0 on next clock
-    ptc5->COUNT16.CC[0].reg = 999;
-    while(ptc5->COUNT16.SYNCBUSY.bit.CC0);
-    //ptc5->COUNT16.CC[1].reg = 999;     //
+    while (ptc5->COUNT16.SYNCBUSY.bit.CTRLB) {}
     //ptc5->COUNT16.DBGCTRL.bit.DBGRUN = 1;
 
     //wave mode
@@ -220,20 +214,20 @@ uint32_t CLK_enable_timebase(void)
     ptc5->COUNT16.INTENSET.bit.MC0 = 1;
 
     //unmask TC0,1, sourcegclk2 to TC0,1
-    pmclk->APBAMASK.bit.TC0_  = 1;
+    pmclk->APBAMASK.bit.TC0_ = 1;
     pgclk->PCHCTRL[TC0_GCLK_ID].bit.GEN = GEN_TC45;
     pgclk->PCHCTRL[TC0_GCLK_ID].bit.CHEN = 1;
 
-    pmclk->APBAMASK.bit.TC1_  = 1;
+    pmclk->APBAMASK.bit.TC1_ = 1;
     pgclk->PCHCTRL[TC1_GCLK_ID].bit.GEN = GEN_TC45;
     pgclk->PCHCTRL[TC1_GCLK_ID].bit.CHEN = 1;
 
     //configure TC0
     ptc0->COUNT32.CTRLA.bit.ENABLE = 0;
-    while(ptc0->COUNT32.SYNCBUSY.bit.ENABLE);
+    while(ptc0->COUNT32.SYNCBUSY.bit.ENABLE) {}
     ptc0->COUNT32.CTRLA.bit.SWRST = 1;
-    while(ptc0->COUNT32.SYNCBUSY.bit.SWRST);
-    while(ptc0->COUNT32.CTRLA.bit.SWRST);
+    while(ptc0->COUNT32.SYNCBUSY.bit.SWRST) {}
+    while(ptc0->COUNT32.CTRLA.bit.SWRST) {}
     //CTRLA as default
     ptc0->COUNT32.CTRLA.bit.MODE = 2; //32 bit mode
     ptc0->COUNT32.EVCTRL.bit.TCEI = 1; //enable incoming events
@@ -267,43 +261,43 @@ void CLK_delay_us(uint16_t usec)
     if (TC5->COUNT16.CTRLA.bit.ENABLE)
     {
         TC5->COUNT16.CTRLA.bit.ENABLE = 0;
-        while (TC5->COUNT16.SYNCBUSY.bit.ENABLE);
+        while (TC5->COUNT16.SYNCBUSY.bit.ENABLE) {}
     }
 
     if (usec < 10) usec = 0;
     else usec -= 10;
 
     TC5->COUNT16.CC[0].reg = usec;
-    while(TC5->COUNT16.SYNCBUSY.bit.CC0);
+    while(TC5->COUNT16.SYNCBUSY.bit.CC0) {}
 
     TC5->COUNT16.CTRLA.bit.ENABLE = 1;
-    while(TC5->COUNT16.SYNCBUSY.bit.ENABLE);
+    while(TC5->COUNT16.SYNCBUSY.bit.ENABLE) {}
 
-    while (!us_delay_done);
+    while (!us_delay_done) {}
 }
 
 void CLK_delay_ms(uint64_t msec)
 {
     msec += CLK_get_ms();
-    while (msec > CLK_get_ms());
+    while (msec > CLK_get_ms()) {}
 }
 
 void clk_enable_sercom_apbmask(int sercomn)
 {
-    Mclk * pmclk = MCLK;
+    Mclk *pmclk = MCLK;
     switch (sercomn)
     {
         case 0:
-            pmclk->APBAMASK.bit.SERCOM0_  = 1;
+            pmclk->APBAMASK.bit.SERCOM0_ = 1;
             break;
         case 1:
-            pmclk->APBAMASK.bit.SERCOM1_  = 1;
+            pmclk->APBAMASK.bit.SERCOM1_ = 1;
             break;
         case 2:
-            pmclk->APBBMASK.bit.SERCOM2_  = 1;
+            pmclk->APBBMASK.bit.SERCOM2_ = 1;
             break;
         case 3:
-            pmclk->APBBMASK.bit.SERCOM3_  = 1;
+            pmclk->APBBMASK.bit.SERCOM3_ = 1;
             break;
         default:
             break;
@@ -314,21 +308,21 @@ void clk_enable_sercom_apbmask(int sercomn)
 //call CLK_set_spi_freq(CHAN_SERCOM_SPI, FREQ_SPI_DEFAULT);
 uint32_t CLK_set_spi_freq(uint8_t sercomn, uint32_t freq)
 {
-    Gclk * pgclk = GCLK;
-    Sercom * psercom = (Sercom *)sercom_apbbase[sercomn];
+    Gclk *pgclk = GCLK;
+    Sercom *psercom = (Sercom *)sercom_apbbase[sercomn];
     clk_enable_sercom_apbmask(sercomn);
 
     //all gclk0 for now
-    pgclk->PCHCTRL[sercom_pchan[sercomn]].bit.GEN=0;
+    pgclk->PCHCTRL[sercom_pchan[sercomn]].bit.GEN = 0;
     pgclk->PCHCTRL[sercom_pchan[sercomn]].bit.CHEN = 1;
 
     psercom->I2CM.CTRLA.bit.SWRST = 1;
-    while (psercom->I2CM.SYNCBUSY.bit.SWRST);
-    while (psercom->I2CM.CTRLA.bit.SWRST);
+    while (psercom->I2CM.SYNCBUSY.bit.SWRST) {}
+    while (psercom->I2CM.CTRLA.bit.SWRST) {}
 
     psercom->SPI.BAUD.reg = (uint8_t) (system_clks.freq_gclk[0]/2/freq-1);
     system_clks.freq_spi = system_clks.freq_dfll/2/(psercom->SPI.BAUD.reg+1);
-    system_clks.freq_sercom[sercomn]=system_clks.freq_spi;
+    system_clks.freq_sercom[sercomn] = system_clks.freq_spi;
 
     return system_clks.freq_spi;
 }
@@ -337,8 +331,8 @@ uint32_t CLK_set_spi_freq(uint8_t sercomn, uint32_t freq)
 //call CLK_set_i2c0_freq(CHAN_SERCOM_I2C0, FREQ_I2C0_DEFAULT);
 uint32_t CLK_set_i2c0_freq(uint8_t sercomn, uint32_t freq)
 {
-    Gclk * pgclk = GCLK;
-    Sercom * psercom = (Sercom *)sercom_apbbase[sercomn];
+    Gclk *pgclk = GCLK;
+    Sercom *psercom = (Sercom *)sercom_apbbase[sercomn];
     clk_enable_sercom_apbmask(sercomn);
 
     //all gclk0 for now
@@ -346,12 +340,12 @@ uint32_t CLK_set_i2c0_freq(uint8_t sercomn, uint32_t freq)
     pgclk->PCHCTRL[sercom_pchan[sercomn]].bit.CHEN = 1;
 
     psercom->I2CM.CTRLA.bit.SWRST = 1;
-    while (psercom->I2CM.SYNCBUSY.bit.SWRST);
-    while (psercom->I2CM.CTRLA.bit.SWRST);
+    while (psercom->I2CM.SYNCBUSY.bit.SWRST) {}
+    while (psercom->I2CM.CTRLA.bit.SWRST) {}
 
     psercom->I2CM.BAUD.bit.BAUD = (uint8_t) (system_clks.freq_gclk[0]/2/freq-1);
     system_clks.freq_i2c0 = system_clks.freq_dfll/2/(psercom->I2CM.BAUD.bit.BAUD+1);
-    system_clks.freq_sercom[sercomn]=system_clks.freq_i2c0;
+    system_clks.freq_sercom[sercomn] = system_clks.freq_i2c0;
 
     return system_clks.freq_i2c0;
 }
@@ -360,29 +354,28 @@ uint32_t CLK_set_i2c0_freq(uint8_t sercomn, uint32_t freq)
 //call CLK_set_i2c1_freq(CHAN_SERCOM_I2C1, FREQ_I2C1_DEFAULT);
 uint32_t CLK_set_i2c1_freq(uint8_t sercomn, uint32_t freq)
 {
-    Gclk * pgclk = GCLK;
-    Sercom * psercom = (Sercom *)sercom_apbbase[sercomn];
+    Gclk *pgclk = GCLK;
+    Sercom *psercom = (Sercom *)sercom_apbbase[sercomn];
     clk_enable_sercom_apbmask(sercomn);
 
     //all gclk0 for now
-    pgclk->PCHCTRL[sercom_pchan[sercomn]].bit.GEN=0;
+    pgclk->PCHCTRL[sercom_pchan[sercomn]].bit.GEN = 0;
     pgclk->PCHCTRL[sercom_pchan[sercomn]].bit.CHEN = 1;
 
     psercom->I2CM.CTRLA.bit.SWRST = 1;
-    while (psercom->I2CM.SYNCBUSY.bit.SWRST);
-    while (psercom->I2CM.CTRLA.bit.SWRST);
+    while (psercom->I2CM.SYNCBUSY.bit.SWRST) {}
+    while (psercom->I2CM.CTRLA.bit.SWRST) {}
 
-    //psercom->I2CM.BAUD.bit.BAUD = (uint8_t) (system_clks.freq_gclk[0]/2/freq-1);
     psercom->I2CM.BAUD.bit.BAUD = (uint8_t) (system_clks.freq_gclk[0]/2/freq-10);
     system_clks.freq_i2c1 = system_clks.freq_dfll/2/(psercom->I2CM.BAUD.bit.BAUD+1);
-    system_clks.freq_sercom[sercomn]=system_clks.freq_i2c1;
+    system_clks.freq_sercom[sercomn] = system_clks.freq_i2c1;
 
     return system_clks.freq_i2c1;
 }
 
 void CLK_init(void)
 {
-    memset((void *) &system_clks,0,sizeof(system_clks));
+    memset((void *)&system_clks,0,sizeof(system_clks));
 
     CLK_oscctrl_init();
     CLK_enable_timebase();

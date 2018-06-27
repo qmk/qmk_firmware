@@ -100,17 +100,17 @@ uint8_t i2c_led_q_request_room(uint8_t request_size);
 uint8_t i2c_led_q_run(void);
 void I2C3733_Control_Set(uint8_t state);
 
-void  i2c_led_send_onoff(uint8_t drvid);
+void i2c_led_send_onoff(uint8_t drvid);
 
 void sc1stop(void);
 
 void I2C1_init(void);
-uint32_t I2C1_write(int ic_addr, unsigned char * buf, uint32_t count);
+uint32_t I2C1_write(int ic_addr, unsigned char *buf, uint32_t count);
 
 #endif //MD_BOOTLOADER
 
 void I2C0_init(void);
-uint32_t I2C0_write(int ic_addr, unsigned char * buf, uint32_t count);
+uint32_t I2C0_write(int ic_addr, unsigned char *buf, uint32_t count);
 
 #endif // _I2C_H_
 

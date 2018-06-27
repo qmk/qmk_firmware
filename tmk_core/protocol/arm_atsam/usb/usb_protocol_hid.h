@@ -47,7 +47,6 @@
 #ifndef _USB_PROTOCOL_HID_H_
 #define _USB_PROTOCOL_HID_H_
 
-
 /**
  * \ingroup usb_protocol_group
  * \defgroup usb_hid_protocol USB Human Interface Device (HID)
@@ -83,54 +82,54 @@
 
 //! \brief Hid USB requests (bRequest)
 enum usb_reqid_hid {
-	USB_REQ_HID_GET_REPORT = 0x01,
-	USB_REQ_HID_GET_IDLE = 0x02,
-	USB_REQ_HID_GET_PROTOCOL = 0x03,
-	USB_REQ_HID_SET_REPORT = 0x09,
-	USB_REQ_HID_SET_IDLE = 0x0A,
-	USB_REQ_HID_SET_PROTOCOL = 0x0B,
+    USB_REQ_HID_GET_REPORT = 0x01,
+    USB_REQ_HID_GET_IDLE = 0x02,
+    USB_REQ_HID_GET_PROTOCOL = 0x03,
+    USB_REQ_HID_SET_REPORT = 0x09,
+    USB_REQ_HID_SET_IDLE = 0x0A,
+    USB_REQ_HID_SET_PROTOCOL = 0x0B,
 };
 
 //! \brief HID USB descriptor types
 enum usb_descriptor_type_hid {
-	USB_DT_HID = 0x21,
-	USB_DT_HID_REPORT = 0x22,
-	USB_DT_HID_PHYSICAL = 0x23,
+    USB_DT_HID = 0x21,
+    USB_DT_HID_REPORT = 0x22,
+    USB_DT_HID_PHYSICAL = 0x23,
 };
 
 //! \brief HID Type for report descriptor
 enum usb_hid_item_report_type {
-	USB_HID_ITEM_REPORT_TYPE_MAIN = 0,
-	USB_HID_ITEM_REPORT_TYPE_GLOBAL = 1,
-	USB_HID_ITEM_REPORT_TYPE_LOCAL = 2,
-	USB_HID_ITEM_REPORT_TYPE_LONG = 3,
+    USB_HID_ITEM_REPORT_TYPE_MAIN = 0,
+    USB_HID_ITEM_REPORT_TYPE_GLOBAL = 1,
+    USB_HID_ITEM_REPORT_TYPE_LOCAL = 2,
+    USB_HID_ITEM_REPORT_TYPE_LONG = 3,
 };
 
 //! \brief HID report type
 enum usb_hid_report_type {
-	USB_HID_REPORT_TYPE_INPUT = 1,
-	USB_HID_REPORT_TYPE_OUTPUT = 2,
-	USB_HID_REPORT_TYPE_FEATURE = 3,
+    USB_HID_REPORT_TYPE_INPUT = 1,
+    USB_HID_REPORT_TYPE_OUTPUT = 2,
+    USB_HID_REPORT_TYPE_FEATURE = 3,
 };
 
 
 //! \brief HID protocol
 enum usb_hid_protocol {
-	USB_HID_PROCOTOL_BOOT = 0,
-	USB_HID_PROCOTOL_REPORT = 1,
+    USB_HID_PROCOTOL_BOOT = 0,
+    USB_HID_PROCOTOL_REPORT = 1,
 };
 
 COMPILER_PACK_SET(1)
 
 //! \brief HID Descriptor
 typedef struct {
-	uint8_t bLength;          //!< Size of this descriptor in bytes
-	uint8_t bDescriptorType;  //!< HID descriptor type
-	le16_t bcdHID;            //!< Binary Coded Decimal Spec. release
-	uint8_t bCountryCode;     //!< Hardware target country
-	uint8_t bNumDescriptors;  //!< Number of HID class descriptors to follow
-	uint8_t bRDescriptorType; //!< Report descriptor type
-	le16_t wDescriptorLength; //!< Total length of Report descriptor
+    uint8_t bLength;          //!< Size of this descriptor in bytes
+    uint8_t bDescriptorType;  //!< HID descriptor type
+    le16_t bcdHID;            //!< Binary Coded Decimal Spec. release
+    uint8_t bCountryCode;     //!< Hardware target country
+    uint8_t bNumDescriptors;  //!< Number of HID class descriptors to follow
+    uint8_t bRDescriptorType; //!< Report descriptor type
+    le16_t wDescriptorLength; //!< Total length of Report descriptor
 } usb_hid_descriptor_t;
 
 COMPILER_PACK_RESET()

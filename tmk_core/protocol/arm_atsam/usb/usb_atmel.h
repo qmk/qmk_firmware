@@ -69,7 +69,6 @@
 //! \name Vendor Identifier assigned by USB org to ATMEL
 #define  USB_VID_ATMEL                             0x03EB
 
-
 //! \name Product Identifier assigned by ATMEL to AVR applications
 //! @{
 

@@ -74,31 +74,31 @@ void gcr_compute(void)
     uint8_t action = ACT_GCR_NONE;
 
     if (led_animation_breathing)
-      gcr_use = gcr_breathe;
+        gcr_use = gcr_breathe;
     else
-      gcr_use = gcr_desired;
+        gcr_use = gcr_desired;
 
     //If the 5v takes a catastrophic hit, disable the LED drivers briefly, assert auto gcr mode, min gcr and let the auto take over
     if (v_5v < V5_CAT)
     {
-      I2C3733_Control_Set(0);
-      //CDC_print("USB: WARNING: 5V catastrophic level reached! Disabling LED drivers!\r\n"); //Blocking print is bad here!
-      v_5v_cat_hit = 20; //~100ms recover
-      gcr_actual = 0; //Minimize GCR
-      usb_gcr_auto = 1; //Force auto mode enabled
-      return;
+        I2C3733_Control_Set(0);
+        //CDC_print("USB: WARNING: 5V catastrophic level reached! Disabling LED drivers!\r\n"); //Blocking print is bad here!
+        v_5v_cat_hit = 20; //~100ms recover
+        gcr_actual = 0; //Minimize GCR
+        usb_gcr_auto = 1; //Force auto mode enabled
+        return;
     }
     else if (v_5v_cat_hit > 1)
     {
-      v_5v_cat_hit--;
-      return;
+        v_5v_cat_hit--;
+        return;
     }
     else if (v_5v_cat_hit == 1)
     {
-      I2C3733_Control_Set(1);
-      CDC_print("USB: WARNING: Re-enabling LED drivers\r\n");
-      v_5v_cat_hit = 0;
-      return;
+        I2C3733_Control_Set(1);
+        CDC_print("USB: WARNING: Re-enabling LED drivers\r\n");
+        v_5v_cat_hit = 0;
+        return;
     }
 
     if (usb_gcr_auto)
@@ -320,64 +320,64 @@ void led_matrix_run(led_setup_t *f)
         }
         else
         {
-          //Act on LED
-          for (fcur = 0; fcur < fmax; fcur++)
-          {
-              px = led_cur->px;
-              float pxmod;
-              pxmod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+            //Act on LED
+            for (fcur = 0; fcur < fmax; fcur++)
+            {
+                px = led_cur->px;
+                float pxmod;
+                pxmod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
 
-              //Add in any moving effects
-              if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
-              {
-                  pxmod *= 100.0f;
-                  pxmod = (uint32_t)pxmod % 10000;
-                  pxmod /= 100.0f;
+                //Add in any moving effects
+                if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
+                {
+                    pxmod *= 100.0f;
+                    pxmod = (uint32_t)pxmod % 10000;
+                    pxmod /= 100.0f;
 
-                  px -= pxmod;
+                    px -= pxmod;
 
-                  if (px > 100) px -= 100;
-                  else if (px < 0) px += 100;
-              }
-              else if ((!led_animation_direction && f[fcur].ef & EF_SCR_L) || (led_animation_direction && (f[fcur].ef & EF_SCR_R)))
-              {
-                  pxmod *= 100.0f;
-                  pxmod = (uint32_t)pxmod % 10000;
-                  pxmod /= 100.0f;
-                  px += pxmod;
+                    if (px > 100) px -= 100;
+                    else if (px < 0) px += 100;
+                }
+                else if ((!led_animation_direction && f[fcur].ef & EF_SCR_L) || (led_animation_direction && (f[fcur].ef & EF_SCR_R)))
+                {
+                    pxmod *= 100.0f;
+                    pxmod = (uint32_t)pxmod % 10000;
+                    pxmod /= 100.0f;
+                    px += pxmod;
 
-                  if (px > 100) px -= 100;
-                  else if (px < 0) px += 100;
-              }
+                    if (px > 100) px -= 100;
+                    else if (px < 0) px += 100;
+                }
 
-              //Check if LED's px is in current frame
-              if (px < f[fcur].hs) continue;
-              if (px > f[fcur].he) continue;
-              //note: < 0 or > 100 continue
+                //Check if LED's px is in current frame
+                if (px < f[fcur].hs) continue;
+                if (px > f[fcur].he) continue;
+                //note: < 0 or > 100 continue
 
-              //Calculate the px within the start-stop percentage for color blending
-              px = (px - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
+                //Calculate the px within the start-stop percentage for color blending
+                px = (px - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
 
-              //Add in any color effects
-              if (f[fcur].ef & EF_OVER)
-              {
-                  ro = (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                  go = (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                  bo = (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-              }
-              else if (f[fcur].ef & EF_SUBTRACT)
-              {
-                  ro -= (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                  go -= (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                  bo -= (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-              }
-              else
-              {
-                  ro += (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                  go += (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                  bo += (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-              }
-          }
+                //Add in any color effects
+                if (f[fcur].ef & EF_OVER)
+                {
+                    ro = (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+                    go = (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+                    bo = (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+                }
+                else if (f[fcur].ef & EF_SUBTRACT)
+                {
+                    ro -= (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+                    go -= (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+                    bo -= (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+                }
+                else
+                {
+                    ro += (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+                    go += (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+                    bo += (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+                }
+            }
         }
 
         //Clamp values 0-255

@@ -212,7 +212,7 @@ static void udi_hid_kbd_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
 
 static void udi_hid_kbd_setreport_valid(void)
 {
-    UDI_HID_KBD_CHANGE_LED(udi_hid_kbd_report_set);
+    //UDI_HID_KBD_CHANGE_LED(udi_hid_kbd_report_set);
 }
 
 #endif //KBD
@@ -380,8 +380,7 @@ static void udi_hid_nkro_report_sent(udd_ep_status_t status, iram_size_t nb_sent
 
 static void udi_hid_nkro_setreport_valid(void)
 {
-    //UDI_HID_NKRO_CHANGE_LED(udi_hid_nkro_report_set.report_data);
-    //modify LEDs received from host here
+    //UDI_HID_NKRO_CHANGE_LED(udi_hid_nkro_report_set);
 }
 
 #endif //NKRO
@@ -817,8 +816,7 @@ static void udi_hid_raw_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
 
 static void udi_hid_raw_setreport_valid(void)
 {
-    //UDI_HID_RAW_CHANGE_LED(udi_hid_raw_report_set.report_data);
-    //modify LEDs received from host here
+
 }
 
 #endif //RAW

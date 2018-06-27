@@ -1130,17 +1130,20 @@ static inline uint16_t convert_byte_array_to_16_bit(uint8_t *data)
 /* Converts a 4 Byte array into a 32-Bit value */
 static inline uint32_t convert_byte_array_to_32_bit(uint8_t *data)
 {
-	union
-	{
-		uint32_t u32;
-		uint8_t u8[4];
-	}long_addr;
-	uint8_t index;
-	for (index = 0; index < 4; index++)
-	{
-		long_addr.u8[index] = *data++;
-	}
-	return long_addr.u32;
+    union
+    {
+        uint32_t u32;
+        uint8_t u8[4];
+    } long_addr;
+
+    uint8_t index;
+
+    for (index = 0; index < 4; index++)
+    {
+        long_addr.u8[index] = *data++;
+    }
+
+    return long_addr.u32;
 }
 
 /**

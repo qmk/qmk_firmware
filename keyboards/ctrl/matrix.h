@@ -37,23 +37,6 @@ typedef  uint32_t   matrix_row_t;
 extern "C" {
 #endif
 
-typedef struct {
-    keyevent_t key_event;
-    uint8_t    key_decode;
-} keydecode_t;
-
-extern matrix_row_t matrix_A[MATRIX_ROWS];
-extern matrix_row_t matrix_B[MATRIX_ROWS];
-extern matrix_row_t matrix_C[MATRIX_ROWS];
-extern matrix_row_t * m1;
-extern matrix_row_t * m2;
-extern matrix_row_t * m3;
-//extern keydecode_t keys_detected[MATRIX_COLS*MATRIX_ROWS];
-extern uint8_t keys_count;
-
-void matrix_init(void);
-uint8_t matrix_do_decode(void);
-
 /* number of matrix rows */
 uint8_t matrix_rows(void);
 /* number of matrix columns */
@@ -73,7 +56,6 @@ matrix_row_t matrix_get_row(uint8_t row);
 /* print matrix for debug */
 void matrix_print(void);
 
-
 /* power control */
 void matrix_power_up(void);
 void matrix_power_down(void);
@@ -87,11 +69,6 @@ void matrix_scan_kb(void);
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
-
-#ifdef I2C_SPLIT
-	void slave_matrix_init(void);
-	uint8_t slave_matrix_scan(void);
-#endif
 
 #ifdef __cplusplus
 }

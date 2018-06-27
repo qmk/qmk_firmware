@@ -60,24 +60,24 @@ void I2C0_init(void)
 
     sc0->I2CM.CTRLA.bit.ENABLE = 1;                         //Enable the device
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (sc0->I2CM.SYNCBUSY.bit.ENABLE && --timeout);     //Wait for SYNCBUSY.ENABLE to clear
+    while (sc0->I2CM.SYNCBUSY.bit.ENABLE && --timeout) {}   //Wait for SYNCBUSY.ENABLE to clear
     if (!timeout) sync_error |= SYNCERROR_I2C0;
 
     sc0->I2CM.STATUS.bit.BUSSTATE = 1;                      //Force into IDLE state
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (sc0->I2CM.SYNCBUSY.bit.SYSOP && --timeout);
+    while (sc0->I2CM.SYNCBUSY.bit.SYSOP && --timeout) {}
     if (!timeout) sync_error |= SYNCERROR_I2C0;
-    while (sc0->I2CM.STATUS.bit.BUSSTATE != 1);             //Wait while not idle
+    while (sc0->I2CM.STATUS.bit.BUSSTATE != 1) {}           //Wait while not idle
 }
 
 // ic_addr is b7..b1, function sets the R/W as needed
 // note, semaphore should be added for multitask environment
-uint32_t I2C0_write(int ic_addr, unsigned char * buf, uint32_t count)
+uint32_t I2C0_write(int ic_addr, unsigned char *buf, uint32_t count)
 {
     Sercom *sc0 = SERCOM0;
     uint32_t timeout;
     uint32_t tx_count;
-    unsigned char * cbuf;
+    unsigned char *cbuf;
 
     if (!count) return 0;
     //send ic_addr with b0 = 0 for write
@@ -86,23 +86,23 @@ uint32_t I2C0_write(int ic_addr, unsigned char * buf, uint32_t count)
 
     sc0->I2CM.ADDR.bit.ADDR = ic_addr & 0xFE;
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (sc0->I2CM.SYNCBUSY.bit.SYSOP && --timeout);
-    if (!timeout) { sync_error |= SYNCERROR_I2C0;  return 0; }
+    while (sc0->I2CM.SYNCBUSY.bit.SYSOP && --timeout) {}
+    if (!timeout) { sync_error |= SYNCERROR_I2C0; return 0; }
 
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (sc0->I2CM.INTFLAG.bit.MB == 0 && --timeout);
-    if (!timeout) { sync_error |= SYNCERROR_I2C0;  return 0; }
+    while (sc0->I2CM.INTFLAG.bit.MB == 0 && --timeout) {}
+    if (!timeout) { sync_error |= SYNCERROR_I2C0; return 0; }
 
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (sc0->I2CM.STATUS.bit.RXNACK && --timeout);
-    if (!timeout) { sync_error |= SYNCERROR_I2C0;  return 0; }
+    while (sc0->I2CM.STATUS.bit.RXNACK && --timeout) {}
+    if (!timeout) { sync_error |= SYNCERROR_I2C0; return 0; }
 
     while (count--)
     {
         sc0->I2CM.DATA.bit.DATA = *cbuf++;
         timeout = TIMEOUT_SYNC_DEFAULT;
-        while (sc0->I2CM.INTFLAG.bit.MB == 0 && --timeout);
-        if (!timeout) { sync_error |= SYNCERROR_I2C0;  return 0; }
+        while (sc0->I2CM.INTFLAG.bit.MB == 0 && --timeout) {}
+        if (!timeout) { sync_error |= SYNCERROR_I2C0; return 0; }
         tx_count += 1;
     }
 
@@ -117,10 +117,10 @@ void I2C1_init(void)
     uint32_t timeout;
 
     /* MCU */
-    PORT->Group[0].PMUX[8].bit.PMUXE=2;
-    PORT->Group[0].PMUX[8].bit.PMUXO=2;
-    PORT->Group[0].PINCFG[16].bit.PMUXEN=1;
-    PORT->Group[0].PINCFG[17].bit.PMUXEN=1;
+    PORT->Group[0].PMUX[8].bit.PMUXE = 2;
+    PORT->Group[0].PMUX[8].bit.PMUXO = 2;
+    PORT->Group[0].PINCFG[16].bit.PMUXEN = 1;
+    PORT->Group[0].PINCFG[17].bit.PMUXEN = 1;
 
     /* I2C */
     //Note: SW Reset handled in clks.c
@@ -136,24 +136,24 @@ void I2C1_init(void)
 
     sc1->I2CM.CTRLA.bit.ENABLE = 1;       //ENABLE: Enable the device (sync SYNCBUSY.ENABLE)
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (sc1->I2CM.SYNCBUSY.bit.ENABLE && --timeout);   //Wait for SYNCBUSY.ENABLE to clear
+    while (sc1->I2CM.SYNCBUSY.bit.ENABLE && --timeout) {}   //Wait for SYNCBUSY.ENABLE to clear
     if (!timeout) sync_error |= SYNCERROR_I2C1;
 
     sc1->I2CM.STATUS.bit.BUSSTATE = 1;    //BUSSTATE: Force into IDLE state (sync SYNCBUSY.SYSOP)
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (sc1->I2CM.SYNCBUSY.bit.SYSOP && --timeout);
+    while (sc1->I2CM.SYNCBUSY.bit.SYSOP && --timeout) {}
     if (!timeout) sync_error |= SYNCERROR_I2C1;
-    while (sc1->I2CM.STATUS.bit.BUSSTATE != 1); //Wait while not idle
+    while (sc1->I2CM.STATUS.bit.BUSSTATE != 1) {}   //Wait while not idle
 }
 
 // ic_addr is b7..b1, function sets the R/W as needed
 // note, semaphore should be added for multitask environment
-uint32_t I2C1_write(int ic_addr, unsigned char * buf, uint32_t count)
+uint32_t I2C1_write(int ic_addr, unsigned char *buf, uint32_t count)
 {
     Sercom *sc1 = SERCOM1;
     uint32_t timeout;
     uint32_t tx_count;
-    unsigned char * cbuf;
+    unsigned char *cbuf;
 
     if (!count) return 0;
     //send ic_addr with b0 = 0 for write
@@ -162,23 +162,23 @@ uint32_t I2C1_write(int ic_addr, unsigned char * buf, uint32_t count)
 
     sc1->I2CM.ADDR.bit.ADDR = ic_addr & 0xFE;
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (sc1->I2CM.SYNCBUSY.bit.SYSOP && --timeout);
-    if (!timeout) { sync_error |= SYNCERROR_I2C1;  return 0; }
+    while (sc1->I2CM.SYNCBUSY.bit.SYSOP && --timeout) {}
+    if (!timeout) { sync_error |= SYNCERROR_I2C1; return 0; }
 
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (sc1->I2CM.INTFLAG.bit.MB == 0 && --timeout);
-    if (!timeout) { sync_error |= SYNCERROR_I2C1;  return 0; }
+    while (sc1->I2CM.INTFLAG.bit.MB == 0 && --timeout) {}
+    if (!timeout) { sync_error |= SYNCERROR_I2C1; return 0; }
 
     timeout = TIMEOUT_SYNC_DEFAULT;
-    while (sc1->I2CM.STATUS.bit.RXNACK && --timeout);
-    if (!timeout) { sync_error |= SYNCERROR_I2C1;  return 0; }
+    while (sc1->I2CM.STATUS.bit.RXNACK && --timeout) {}
+    if (!timeout) { sync_error |= SYNCERROR_I2C1; return 0; }
 
     while (count--)
     {
         sc1->I2CM.DATA.bit.DATA = *cbuf++;
         timeout = TIMEOUT_SYNC_DEFAULT;
-        while (sc1->I2CM.INTFLAG.bit.MB == 0 && --timeout);
-        if (!timeout) { sync_error |= SYNCERROR_I2C1;  return 0; }
+        while (sc1->I2CM.INTFLAG.bit.MB == 0 && --timeout) {}
+        if (!timeout) { sync_error |= SYNCERROR_I2C1; return 0; }
         tx_count += 1;
     }
     return tx_count;
@@ -222,17 +222,17 @@ void I2C3733_Control_Set(uint8_t state)
 void i2c_led_send_CRWL(uint8_t drvid)
 {
     SCLED->I2CM.ADDR.bit.ADDR = issidrv[drvid].addr;
-    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP);
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP) {}
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = ISSI3733_CMDRWL;
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = ISSI3733_CMDRWL_WRITE_ENABLE_ONCE;
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     sc1stop();
 }
@@ -240,17 +240,17 @@ void i2c_led_send_CRWL(uint8_t drvid)
 void i2c_led_select_page(uint8_t drvid, uint8_t pageno)
 {
     SCLED->I2CM.ADDR.bit.ADDR = issidrv[drvid].addr;
-    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP);
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP) {}
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = ISSI3733_CMDR;
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = pageno;
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     sc1stop();
 }
@@ -261,19 +261,19 @@ void i2c_led_send_gcr(uint8_t drvid)
     i2c_led_select_page(drvid,3);
 
     SCLED->I2CM.ADDR.bit.ADDR = issidrv[drvid].addr;
-    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP);
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP) {}
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = ISSI3733_GCCR;
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     if (gcr_actual > LED_GCR_MAX) gcr_actual = LED_GCR_MAX;
 
     SCLED->I2CM.DATA.bit.DATA = gcr_actual;
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     sc1stop();
 }
@@ -286,17 +286,17 @@ void i2c_led_send_onoff(uint8_t drvid)
     i2c_led_select_page(drvid,0);
 
     SCLED->I2CM.ADDR.bit.ADDR = issidrv[drvid].addr;
-    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP);
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP) {}
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     *issidrv[drvid].onoff = 0; //Force start offset to zero
 
     for (curb=0;curb<ISSI3733_PG0_BYTES;curb++)
     {
         SCLED->I2CM.DATA.bit.DATA = *(issidrv[drvid].onoff + curb);
-        while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-        while (SCLED->I2CM.STATUS.bit.RXNACK);
+        while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+        while (SCLED->I2CM.STATUS.bit.RXNACK) {}
     }
 
     sc1stop();
@@ -305,21 +305,21 @@ void i2c_led_send_onoff(uint8_t drvid)
 void i2c_led_send_mode_op_gcr(uint8_t drvid, uint8_t mode, uint8_t operation)
 {
     SCLED->I2CM.ADDR.bit.ADDR = issidrv[drvid].addr; //Send address
-    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP);
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP) {}
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = ISSI3733_CR; //Send Configuration Register address
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = mode | operation; //Set as Master and Normal operation
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = gcr_actual; //Send data to Global current reg
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     sc1stop();
 }
@@ -327,21 +327,21 @@ void i2c_led_send_mode_op_gcr(uint8_t drvid, uint8_t mode, uint8_t operation)
 void i2c_led_send_pur_pdr(uint8_t drvid, uint8_t pur, uint8_t pdr)
 {
     SCLED->I2CM.ADDR.bit.ADDR = issidrv[drvid].addr; //Send address
-    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP);
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP) {}
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = ISSI3733_SWYR_PUR; //Send PUR offset
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = pur; //Set PUR
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     SCLED->I2CM.DATA.bit.DATA = pdr; //Set PDR using auto-increment
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     sc1stop();
 }
@@ -354,17 +354,17 @@ void i2c_led_send_pwm(uint8_t drvid)
     i2c_led_select_page(drvid,0);
 
     SCLED->I2CM.ADDR.bit.ADDR = issidrv[drvid].addr;
-    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP);
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP) {}
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     *issidrv[drvid].pwm = 0; //Force start offset to zero
 
     for (curb=0;curb<ISSI3733_PG1_BYTES;curb++)
     {
         SCLED->I2CM.DATA.bit.DATA = *(issidrv[drvid].pwm + curb);
-        while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-        while (SCLED->I2CM.STATUS.bit.RXNACK);
+        while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+        while (SCLED->I2CM.STATUS.bit.RXNACK) {}
     }
 
     sc1stop();
@@ -378,40 +378,41 @@ void i2c_led_send_page_data(uint8_t drvid, uint8_t *data, uint8_t len)
     i2c_led_select_page(drvid,0);
 
     SCLED->I2CM.ADDR.bit.ADDR = issidrv[drvid].addr;
-    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP);
-    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-    while (SCLED->I2CM.STATUS.bit.RXNACK);
+    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP) {}
+    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 
     *data = 0; //Force start offset to zero
 
     for (curb=0;curb<len;curb++)
     {
         SCLED->I2CM.DATA.bit.DATA = *(data + curb);
-        while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-        while (SCLED->I2CM.STATUS.bit.RXNACK);
+        while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+        while (SCLED->I2CM.STATUS.bit.RXNACK) {}
     }
 
     sc1stop();
 }
 
+//For pre-DMAC reference
 //void update_led_display_pwm_send_software(uint8_t drvid)
 //{
 //    uint8_t curb;
 //
 //    SCLED->I2CM.ADDR.bit.ADDR = issidrv[drvid].addr; //Send master address
-//    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP);
-//    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-//    while (SCLED->I2CM.STATUS.bit.RXNACK);
+//    while (SCLED->I2CM.SYNCBUSY.bit.SYSOP) {}
+//    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+//    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 //
 //    SCLED->I2CM.DATA.bit.DATA = 0x00; //Send data location start
-//    while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-//    while (SCLED->I2CM.STATUS.bit.RXNACK);
+//    while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+//    while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 //
 //    for (curb=0;curb<ISSI3733_PG1_BYTES;curb++)
 //    {
 //        SCLED->I2CM.DATA.bit.DATA = *(issidrv[drvid].pwm + curb); //Send data
-//        while (SCLED->I2CM.INTFLAG.bit.MB == 0);
-//        while (SCLED->I2CM.STATUS.bit.RXNACK);
+//        while (SCLED->I2CM.INTFLAG.bit.MB == 0) {}
+//        while (SCLED->I2CM.STATUS.bit.RXNACK) {}
 //    }
 //}
 
@@ -446,13 +447,13 @@ uint8_t I2C3733_Init_Drivers(void)
 
 void I2C_DMAC_LED_Init(void)
 {
-    Dmac *dmac=DMAC;
+    Dmac *dmac = DMAC;
 
     //Disable device
     dmac->CTRL.bit.DMAENABLE = 0;                   //Disable DMAC
-    while (dmac->CTRL.bit.DMAENABLE);               //Wait for disabled state in case of ongoing transfers
+    while (dmac->CTRL.bit.DMAENABLE) {}             //Wait for disabled state in case of ongoing transfers
     dmac->CTRL.bit.SWRST = 1;                       //Software Reset DMAC
-    while (dmac->CTRL.bit.SWRST);                   //Wait for software reset to complete
+    while (dmac->CTRL.bit.SWRST) {}                 //Wait for software reset to complete
 
     //Configure device
     dmac->BASEADDR.reg = (uint32_t)&dmac_desc;      //Set descriptor base address
@@ -461,9 +462,9 @@ void I2C_DMAC_LED_Init(void)
 
     //Disable channel
     dmac->Channel[0].CHCTRLA.bit.ENABLE = 0;        //Disable the channel
-    while (dmac->Channel[0].CHCTRLA.bit.ENABLE);    //Wait for disabled state in case of ongoing transfers
+    while (dmac->Channel[0].CHCTRLA.bit.ENABLE) {}  //Wait for disabled state in case of ongoing transfers
     dmac->Channel[0].CHCTRLA.bit.SWRST = 1;         //Software Reset the channel
-    while (dmac->Channel[0].CHCTRLA.bit.SWRST);     //Wait for software reset to complete
+    while (dmac->Channel[0].CHCTRLA.bit.SWRST) {}   //Wait for software reset to complete
 
     //Configure channel
     dmac->Channel[0].CHCTRLA.bit.THRESHOLD = 0;     //1BEAT
@@ -478,7 +479,7 @@ void I2C_DMAC_LED_Init(void)
 
     //Enable device
     dmac->CTRL.bit.DMAENABLE = 1;                   //Enable DMAC
-    while (dmac->CTRL.bit.DMAENABLE == 0);          //Wait for enable state
+    while (dmac->CTRL.bit.DMAENABLE == 0) {}        //Wait for enable state
 }
 
 void i2c_led_desc_defaults(void)

@@ -1031,10 +1031,10 @@ enum status_code usb_init(struct usb_module *module_inst, Usb *const hw,
     uint32_t i,j;
     uint32_t pad_transn, pad_transp, pad_trim;
 
-    Gclk * pgclk = GCLK;
-    Mclk * pmclk = MCLK;
-    Port * pport = PORT;
-    Oscctrl * posc = OSCCTRL;
+    Gclk *pgclk = GCLK;
+    Mclk *pmclk = MCLK;
+    Port *pport = PORT;
+    Oscctrl *posc = OSCCTRL;
 
     _usb_instances = module_inst;
 

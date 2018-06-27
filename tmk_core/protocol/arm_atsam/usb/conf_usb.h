@@ -49,13 +49,11 @@
 
 #include "compiler.h"
 #include "udi_device_conf.h"
-#include "config.h"
 
 #define  UDI_CDC_DEFAULT_RATE           115200
 #define  UDI_CDC_DEFAULT_STOPBITS       CDC_STOP_BITS_1
 #define  UDI_CDC_DEFAULT_PARITY         CDC_PAR_NONE
 #define  UDI_CDC_DEFAULT_DATABITS       8
-
 
 //! Device definition (mandatory)
 #define  USB_DEVICE_VENDOR_ID           VENDOR_ID
@@ -122,7 +120,7 @@
 #ifdef KBD
 #define  UDI_HID_KBD_ENABLE_EXT()       main_kbd_enable()
 #define  UDI_HID_KBD_DISABLE_EXT()      main_kbd_disable()
-#define  UDI_HID_KBD_CHANGE_LED(value)  ui_kbd_led(value)
+//#define  UDI_HID_KBD_CHANGE_LED(value)  ui_kbd_led(value)
 #endif
 
 #ifdef NKRO

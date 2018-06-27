@@ -78,10 +78,8 @@ extern UDC_DESC_STORAGE udi_api_t udi_api_cdc_comm;
 extern UDC_DESC_STORAGE udi_api_t udi_api_cdc_data;
 //@}
 
-
-
-//#define CDC_ACM_SIZE           64  see usb_protocol_cdc.h
-//#define CDC_RX_SIZE             64
+//#define CDC_ACM_SIZE  64  see usb_protocol_cdc.h
+//#define CDC_RX_SIZE   64
 
 //! CDC communication endpoints size for all speeds
 #define UDI_CDC_COMM_EP_SIZE        CDC_ACM_SIZE
@@ -89,8 +87,7 @@ extern UDC_DESC_STORAGE udi_api_t udi_api_cdc_data;
 #define UDI_CDC_DATA_EPS_FS_SIZE    CDC_RX_SIZE
 
 #define CDC_PRINT_BUF_SIZE  256
-extern char printbuf[CDC_PRINT_BUF_SIZE]; 
-
+extern char printbuf[CDC_PRINT_BUF_SIZE];
 
 //@}
 
@@ -342,7 +339,7 @@ iram_size_t udi_cdc_multi_write_buf(uint8_t port, const void* buf, iram_size_t s
 //@}
 
 #define CDC_PRINTBUF_SIZE  256
-extern char printbuf[CDC_PRINTBUF_SIZE]; 
+extern char printbuf[CDC_PRINTBUF_SIZE];
 
 #define CDC_INBUF_SIZE 256
 
@@ -356,7 +353,7 @@ typedef struct {
 
 // keep these to accommodate calls if remaining
 #define CDC_PRINTBUF_SIZE  1
-extern char printbuf[CDC_PRINTBUF_SIZE]; 
+extern char printbuf[CDC_PRINTBUF_SIZE];
 
 #define CDC_INBUF_SIZE 1
 
@@ -370,7 +367,7 @@ extern inbuf_t inbuf;
 
 #endif //CDC
 
-uint32_t CDC_print(char * printbuf);
+uint32_t CDC_print(char *printbuf);
 uint32_t CDC_input(void);
 void CDC_init(void);
 

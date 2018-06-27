@@ -101,6 +101,8 @@ void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 
 #elif defined(PROTOCOL_ARM_ATSAM) /* PROTOCOL_ARM_ATSAM */
 
+#  include "arm_atsam/printf.h"
+
 #  ifdef USER_PRINT /* USER_PRINT */
 
 // Remove normal print defines

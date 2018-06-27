@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "udi_device_epsize.h"
 #include "usb_protocol.h"
-#include "Compiler.h"
+#include "compiler.h"
 #include "usb_protocol_hid.h"
 
 #define DEVICE_CLASS 0

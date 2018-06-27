@@ -46,13 +46,10 @@
  */
 
 #include "conf_usb.h"
-//#include "udd.h"
 #include "usb_protocol.h"
 #include "udc_desc.h"
 #include "udi_device_conf.h"
-//#include "udi_hid.h"
 #include "udi_hid_kbd.h"
-//#include "usb_protocol_cdc.h"
 #include "udi_cdc.h"
 
 /**
@@ -69,32 +66,32 @@
 //! USB Device Descriptor
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE usb_dev_desc_t udc_device_desc = {
-	.bLength                   = sizeof(usb_dev_desc_t),
-	.bDescriptorType           = USB_DT_DEVICE,
-	.bcdUSB                    = LE16(USB_V2_0),
-	.bDeviceClass              = DEVICE_CLASS,
-	.bDeviceSubClass           = DEVICE_SUBCLASS,
-	.bDeviceProtocol           = DEVICE_PROTOCOL,
-	.bMaxPacketSize0           = USB_DEVICE_EP_CTRL_SIZE,
-	.idVendor                  = LE16(USB_DEVICE_VENDOR_ID),
-	.idProduct                 = LE16(USB_DEVICE_PRODUCT_ID),
-	.bcdDevice                 = LE16(USB_DEVICE_VERSION),
+    .bLength                   = sizeof(usb_dev_desc_t),
+    .bDescriptorType           = USB_DT_DEVICE,
+    .bcdUSB                    = LE16(USB_V2_0),
+    .bDeviceClass              = DEVICE_CLASS,
+    .bDeviceSubClass           = DEVICE_SUBCLASS,
+    .bDeviceProtocol           = DEVICE_PROTOCOL,
+    .bMaxPacketSize0           = USB_DEVICE_EP_CTRL_SIZE,
+    .idVendor                  = LE16(USB_DEVICE_VENDOR_ID),
+    .idProduct                 = LE16(USB_DEVICE_PRODUCT_ID),
+    .bcdDevice                 = LE16(USB_DEVICE_VERSION),
 #ifdef USB_DEVICE_MANUFACTURE_NAME
-	.iManufacturer             = 1,
+    .iManufacturer             = 1,
 #else
-	.iManufacturer             = 0,  // No manufacture string
+    .iManufacturer             = 0,  // No manufacture string
 #endif
 #ifdef USB_DEVICE_PRODUCT_NAME
-	.iProduct                  = 2,
+    .iProduct                  = 2,
 #else
-	.iProduct                  = 0,  // No product string
+    .iProduct                  = 0,  // No product string
 #endif
 #if (defined USB_DEVICE_SERIAL_NAME || defined USB_DEVICE_GET_SERIAL_NAME_POINTER)
-	.iSerialNumber             = 3,
+    .iSerialNumber             = 3,
 #else
-	.iSerialNumber             = 0,  // No serial string
+    .iSerialNumber             = 0,  // No serial string
 #endif
-	.bNumConfigurations        = 1
+    .bNumConfigurations        = 1
 };
 
 #if 0
@@ -102,38 +99,37 @@ UDC_DESC_STORAGE usb_dev_desc_t udc_device_desc = {
 //! USB Device Qualifier Descriptor for HS
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE usb_dev_qual_desc_t udc_device_qual = {
-	.bLength                   = sizeof(usb_dev_qual_desc_t),
-	.bDescriptorType           = USB_DT_DEVICE_QUALIFIER,
-	.bcdUSB                    = LE16(USB_V2_0),
-	.bDeviceClass              = 0,
-	.bDeviceSubClass           = 0,
-	.bDeviceProtocol           = 0,
-	.bMaxPacketSize0           = USB_DEVICE_EP_CTRL_SIZE,
-	.bNumConfigurations        = 1
+    .bLength                   = sizeof(usb_dev_qual_desc_t),
+    .bDescriptorType           = USB_DT_DEVICE_QUALIFIER,
+    .bcdUSB                    = LE16(USB_V2_0),
+    .bDeviceClass              = 0,
+    .bDeviceSubClass           = 0,
+    .bDeviceProtocol           = 0,
+    .bMaxPacketSize0           = USB_DEVICE_EP_CTRL_SIZE,
+    .bNumConfigurations        = 1
 };
 #endif
 #endif
 
-
 //! USB Device Configuration Descriptor filled for FS and HS
 COMPILER_WORD_ALIGNED
 UDC_DESC_STORAGE udc_desc_t udc_desc = {
-	.conf.bLength              = sizeof(usb_conf_desc_t),
-	.conf.bDescriptorType      = USB_DT_CONFIGURATION,
-	.conf.wTotalLength         = LE16(sizeof(udc_desc_t)),
-	.conf.bNumInterfaces       = USB_DEVICE_NB_INTERFACE,
-	.conf.bConfigurationValue  = 1,
-	.conf.iConfiguration       = 0,
-	.conf.bmAttributes         = /* USB_CONFIG_ATTR_MUST_SET | */ USB_DEVICE_ATTR,
-	.conf.bMaxPower            = USB_CONFIG_MAX_POWER(USB_DEVICE_POWER),
+    .conf.bLength              = sizeof(usb_conf_desc_t),
+    .conf.bDescriptorType      = USB_DT_CONFIGURATION,
+    .conf.wTotalLength         = LE16(sizeof(udc_desc_t)),
+    .conf.bNumInterfaces       = USB_DEVICE_NB_INTERFACE,
+    .conf.bConfigurationValue  = 1,
+    .conf.iConfiguration       = 0,
+    .conf.bmAttributes         = /* USB_CONFIG_ATTR_MUST_SET | */ USB_DEVICE_ATTR,
+    .conf.bMaxPower            = USB_CONFIG_MAX_POWER(USB_DEVICE_POWER),
 #ifdef KBD
-	.hid_kbd                   = UDI_HID_KBD_DESC,
+    .hid_kbd                   = UDI_HID_KBD_DESC,
 #endif
 #ifdef RAW
-	.hid_raw                   = UDI_HID_RAW_DESC,
+    .hid_raw                   = UDI_HID_RAW_DESC,
 #endif
 #ifdef MOU
-	.hid_mou                   = UDI_HID_MOU_DESC,
+    .hid_mou                   = UDI_HID_MOU_DESC,
 #endif
 #ifdef EXK
   .hid_exk                   = UDI_HID_EXK_DESC,
@@ -169,14 +165,14 @@ UDC_DESC_STORAGE udi_api_t *udi_apis[USB_DEVICE_NB_INTERFACE] = {
 
 //! Add UDI with USB Descriptors FS & HS
 UDC_DESC_STORAGE udc_config_speed_t   udc_config_fshs[1] = {{
-	.desc          = (usb_conf_desc_t UDC_DESC_STORAGE*)&udc_desc,
-	.udi_apis      = udi_apis,
+    .desc          = (usb_conf_desc_t UDC_DESC_STORAGE*)&udc_desc,
+    .udi_apis      = udi_apis,
 }};
 
 //! Add all information about USB Device in global structure for UDC
 UDC_DESC_STORAGE udc_config_t udc_config = {
-	.confdev_lsfs = &udc_device_desc,
-	.conf_lsfs = udc_config_fshs,
+    .confdev_lsfs = &udc_device_desc,
+    .conf_lsfs = udc_config_fshs,
 };
 
 //@}
