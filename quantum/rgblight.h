@@ -17,7 +17,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 34
+	#define RGBLIGHT_MODES 35
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -74,6 +74,7 @@
 #include "ws2812.h"
 #endif
 #include "rgblight_types.h"
+#include "rgblight_list.h"
 
 extern LED_TYPE led[RGBLED_NUM];
 
@@ -82,6 +83,7 @@ extern const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
+extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 
 typedef union {
   uint32_t raw;
@@ -91,6 +93,7 @@ typedef union {
     uint16_t hue     :9;
     uint8_t  sat     :8;
     uint8_t  val     :8;
+    uint8_t  speed   :8;//EECONFIG needs to be increased to support this
   };
 } rgblight_config_t;
 
@@ -99,6 +102,7 @@ void rgblight_increase(void);
 void rgblight_decrease(void);
 void rgblight_toggle(void);
 void rgblight_enable(void);
+void rgblight_disable(void);
 void rgblight_step(void);
 void rgblight_step_reverse(void);
 uint32_t rgblight_get_mode(void);
@@ -111,17 +115,36 @@ void rgblight_increase_sat(void);
 void rgblight_decrease_sat(void);
 void rgblight_increase_val(void);
 void rgblight_decrease_val(void);
+void rgblight_increase_speed(void);
+void rgblight_decrease_speed(void);
 void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
+uint16_t rgblight_get_hue(void);
+uint8_t rgblight_get_sat(void);
+uint8_t rgblight_get_val(void);
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
+void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index);
+void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index);
 
 uint32_t eeconfig_read_rgblight(void);
 void eeconfig_update_rgblight(uint32_t val);
 void eeconfig_update_rgblight_default(void);
 void eeconfig_debug_rgblight(void);
 
+void rgb_matrix_increase(void);
+void rgb_matrix_decrease(void);
+
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
+
 void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_mode_noeeprom(uint8_t mode);
+void rgblight_toggle_noeeprom(void);
+void rgblight_enable_noeeprom(void);
+void rgblight_disable_noeeprom(void);
+
+void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
+void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
+
 
 #define EZ_RGB(val) rgblight_show_solid_color((val >> 16) & 0xFF, (val >> 8) & 0xFF, val & 0xFF)
 void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b);
@@ -138,5 +161,6 @@ void rgblight_effect_rainbow_swirl(uint8_t interval);
 void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
 void rgblight_effect_christmas(void);
+void rgblight_effect_rgbtest(void);
 
 #endif

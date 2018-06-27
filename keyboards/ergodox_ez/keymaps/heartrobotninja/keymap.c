@@ -1,8 +1,8 @@
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "action_util.h"
 #include "debug.h"
 #include "eeconfig.h"
-#include "ergodox_ez.h"
 #include "version.h"
 #include "wait.h"
 
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /* Keymap 0: Colemak Layer
          *
          * ,-----------------------------------------------------.           ,-----------------------------------------------------.
-         * |    Find   | 1  ! | 2  @ | 3  # | 4  $ | 5  % | Undo |           | VOLUP| 6  ^ | 7  & | 8  * | 9  ( | 0  ) |    ----   |
+         * |    Find   | 1  ! | 2  @ | 3  # | 4  $ | 5  % | Undo |           | VOLUP| 6  ^ | 7  & | 8  * | 9  ( | 0  ) |    LOCK   |
          * |           |      |      |      |      |      |      |           |      |      |      |      |      |      |           |
          * |-----------+------+------+------+------+------+------|           |------+------+------+------+------+------+-----------|
          * |  '  "  `  |   Q   |   W  |   F  |   P  |  G  | CCopy|           | VOLDN|   J  |   L  | U Ü  |   Y  | = +  |  ~  :  ;  |
@@ -78,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * |-----------+------+------+------+------+------| Paste|           | MUTE |------+------+------+------+------+-----------|
          * |  -  ,  <  |  Z   |   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |  / ? | \ |  |   ^  |  _  .  >  |
          * `-----------+------+------+------+------+-------------'           `-------------+------+------+------+------+-----------'
-         *     |  AUX | RAISE | LOWER | LEAD | GUI  |                                      |  ESC | LOCK |   <  |   v  |   >   |
+         *     |  AUX | RAISE | LOWER | LEAD | GUI  |                                      |  ESC | RUN  |   <  |   v  |   >   |
          *     `-----------------------------------'                                       `-----------------------------------'
          *                                         ,-------------.           ,-------------.
          *                                         | ALT  | CTRL |           | HOME |  END |
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          *                                  `--------------------'           `--------------------'
          */
 
-        [COLE] = KEYMAP(
+        [COLE] = LAYOUT_ergodox(
             // Left Hand
             TD(TD_FIND), KC_1, KC_2, KC_3, KC_4, KC_5, TD(TD_UNDO),
             TD(TD_BTK), KC_Q, KC_W, KC_F, KC_P, KC_G, TD(TD_COPY),
@@ -101,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_SPC, KC_BSPC, KC_TAB,
 
             // Right Hand
-            KC_VOLU, KC_6, KC_7, KC_8, KC_9, KC_0, ____,
-            KC_VOLD, KC_J, KC_L, KC_U, KC_Y, KC_MINS, TD(TD_TDE),
+            KC_VOLU, KC_6, KC_7, KC_8, KC_9, KC_0, LGUI(KC_L),
+            KC_VOLD, KC_J, KC_L, KC_U, KC_Y, KC_EQL, TD(TD_TDE),
             KC_H, KC_N, KC_E, KC_I, KC_O, TD(TD_RPRN),
             KC_MUTE, KC_K, KC_M, KC_SLSH, KC_BSLS, KC_UP, TD(TD_USC),
-            KC_ESC, LGUI(KC_L), KC_LEFT, KC_DOWN, KC_RGHT,
+            KC_ESC, LGUI(KC_R), KC_LEFT, KC_DOWN, KC_RGHT,
             KC_HOME, KC_END,
             KC_PGUP,
             KC_PGDOWN, KC_ENT, OSM(MOD_LSFT)),
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          *                                  |      |      | ---- |           | ---- |      |      |
          *                                  `--------------------'           `--------------------'
          */
-        [LOWER] = KEYMAP(
+        [LOWER] = LAYOUT_ergodox(
             // Left Hand
             ____, ____, ____, ____, ____, ____, ____,
             ____, ____, ____, ____, ____, ____, ____,
@@ -175,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          *                                  |      |      | ---- |           | ---- |      |      |
          *                                  `--------------------'           `--------------------'
          */
-        [RAISE] = KEYMAP(
+        [RAISE] = LAYOUT_ergodox(
             // Left Hand
             KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, ____,
             KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, ____,
@@ -218,7 +218,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          *                                  |      |      | ---- |           | VAD |      |      |
          *                                  `--------------------'           `--------------------'
          */
-        [AUX] = KEYMAP(
+        [AUX] = LAYOUT_ergodox(
             // Left Hand
             M(CF_EPRM), ____, ____, ____, ____, ____, KC_PWR,
             ____, ____, ____, ____, ____, ____, KC_SLEP,

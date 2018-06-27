@@ -147,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----`-----`-----`-----'
  */
   [_NP] = /* Numpad */
-    SINGLES_KEYMAP(KC_7,        KC_8,          KC_9,              KC_SLASH,  \
+    LAYOUT_ortho_4x4(KC_7,        KC_8,          KC_9,              KC_SLASH,  \
                    KC_4,        KC_5,          KC_6,              KC_KP_ASTERISK, \
                    KC_1,        KC_2,          KC_3,              KC_MINUS, \
                    TD(TD_0_L3), TD(TD_DOT_L2), TD(TD_KP_PLUS_L1), TD(TD_EQUAL_NP)),
@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----`-----`-----`-----'
  */
   [_L1] = /* LAYER 1 */
-    SINGLES_KEYMAP(KC_ESCAPE, KC_BSPACE, KC_HOME,  KC_PGUP, \
+    LAYOUT_ortho_4x4(KC_ESCAPE, KC_BSPACE, KC_HOME,  KC_PGUP, \
                    KC_TAB,    KC_UP,     KC_END,   KC_PGDOWN, \
                    KC_LEFT,   KC_DOWN,   KC_RIGHT, KC_KP_ENTER, \
                    KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS),
@@ -181,7 +181,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----`-----`-----`-----'
  */				   
   [_L2] = /* LAYER 2 */
-    SINGLES_KEYMAP(KC_SYSTEM_SLEEP,     KC_MS_BTN1,          KC_MS_BTN2,          KC_AUDIO_VOL_UP, \
+    LAYOUT_ortho_4x4(KC_SYSTEM_SLEEP,     KC_MS_BTN1,          KC_MS_BTN2,          KC_AUDIO_VOL_UP, \
                    LALT(KC_F4),         KC_F11,              LGUI(KC_TAB),        KC_AUDIO_VOL_DOWN, \
                    KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE, \
                    KC_TRNS,             KC_TRNS,             KC_TRNS,             KC_TRNS),
@@ -199,7 +199,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----`-----`-----`-----'
  */	
   [_L3] = /* LAYER 3 */
-    SINGLES_KEYMAP(KC_WWW_BACK,   KC_WWW_HOME, KC_WWW_FORWARD, KC_F5, \
+    LAYOUT_ortho_4x4(KC_WWW_BACK,   KC_WWW_HOME, KC_WWW_FORWARD, KC_F5, \
                    KC_CALCULATOR, LCTL(KC_Z),  LCTL(KC_Y),     KC_WWW_SEARCH, \
                    LCTL(KC_X),    LCTL(KC_C),  LCTL(KC_V),     LCTL(KC_F), \
                    KC_TRNS,       KC_TRNS,     KC_TRNS,        KC_TRNS),

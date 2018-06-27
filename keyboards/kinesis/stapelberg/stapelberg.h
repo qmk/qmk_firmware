@@ -58,13 +58,13 @@ PD4 k4x Row: 4   R   F   V   --  --  DEL
 PD5 k5x Row: 5   T   G   B   RT  LAL LCT
 PD6 k6x Row: 6   Y   H   N   UP  SPC PGD
 PD7 k7x Row: 7   U   J   M   --  RET --
-PB0 k8x Row: 8   I   K   COM DWN RCT PGU
-PB1 k9x Row: 9   O   L   PER LBR --  RAL
-PB2 kAx Row: 0   P   SEM SLA RBR --  --
-PB3 kBx Row: MIN BSL APO RSH X1  --  --
-PB4 kCx Row: ESC F3  F6  F9  F12 PAU --
-PB5 kDx Row: F1  F4  F7  F10 PRT PRG --
-PB6 kEx Row: F2  F5  F8  F11 SLK KEY --
+PC0 k8x Row: 8   I   K   COM DWN RCT PGU
+PC1 k9x Row: 9   O   L   PER LBR --  RAL
+PC2 kAx Row: 0   P   SEM SLA RBR --  --
+PC3 kBx Row: MIN BSL APO RSH X1  --  --
+PC4 kCx Row: ESC F3  F6  F9  F12 PAU --
+PC5 kDx Row: F1  F4  F7  F10 PRT PRG --
+PC6 kEx Row: F2  F5  F8  F11 SLK KEY --
 */
 
 
