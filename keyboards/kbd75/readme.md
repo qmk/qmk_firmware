@@ -1,8 +1,8 @@
 KBD75
 ===
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: KBD75 PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: KBD75 PCB  
 Hardware Availability: https://kbdfans.myshopify.com/products/kbd75-keyboard-set?variant=35638534029
 
 Make example for this keyboard (after setting up your build environment):
