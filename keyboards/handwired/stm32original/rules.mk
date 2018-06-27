@@ -7,4 +7,4 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes 	# Custom matrix file
 MOUSEKEY_ENABLE = no
 
-DEFAULT_FOLDER = handwired/stm32/stm70
+DEFAULT_FOLDER = handwired/stm32original/stm32
