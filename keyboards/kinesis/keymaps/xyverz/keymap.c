@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -68,7 +66,7 @@ extern keymap_config_t keymap_config;
 	                      | BkSp |   /   |------||------|   /   | Space |
 	                      |      | Media | End  || PgDn | KeyPd |       |
 	                      `---------------------'`----------------------'
-	 
+
         Colemak layer:
 	,-------------------------------------------.,-------------------------------------------.
 	|   =    |   1  |   2  |   3  |   4  |   5  ||   6  |   7  |   8  |   9  |   0  |   -    |
