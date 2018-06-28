@@ -194,6 +194,7 @@ Windows and macOS use different keycodes for "next track" and "previous track". 
 |`KC_MEDIA_STOP`        |`KC_MSTP`|Stop Track                       |
 |`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`|Play/Pause Track                 |
 |`KC_MEDIA_SELECT`      |`KC_MSEL`|                                 |
+|`KC_MEDIA_EJECT`       |`KC_EJCT`|Eject (macOS)                    |
 
 ## Number Pad
 
