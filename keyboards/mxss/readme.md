@@ -22,7 +22,9 @@
 TODO: Add information about top RGBLED functions
 
 Keyboard Maintainer: [MxBlue](https://github.com/mxblu)  
+
 Hardware Supported: Custom PCB, ATMega32u4
+
 Hardware Availability: https://geekhack.org/index.php?topic=94986.0
 
 Make example for this keyboard (after setting up your build environment):
