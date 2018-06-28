@@ -99,8 +99,19 @@ brew rm avr-gcc
 brew rm dfu-programmer
 brew rm gcc-arm-none-eabi
 brew rm avrdude
-brew install avr-gcc
+brew install avr-gcc@7.3
+brew pin osx-cross/avr/avr-gcc
 brew install dfu-programmer
 brew install gcc-arm-none-eabi
 brew install avrdude
+```
+
+## AVR-GCC compiler issue on LUFA files in MacOS
+This is an issue with the 8.1 version of `avr-gcc`. Brew is updating to a newer version that our code isn't fully compatible with yet. 
+
+For now, the fix is to install the older version and "pin" it, so it doesn't get updated.
+
+```
+brew install avr-gcc@7.3
+brew pin osx-cross/avr/avr-gcc
 ```
