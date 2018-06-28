@@ -70,3 +70,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 
 CUSTOM_MATRIX = yes
 SRC += matrix.c
+
+LAYOUTS = fullsize_ansi
