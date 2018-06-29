@@ -1,6 +1,4 @@
-#include "kinesis.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -66,7 +64,7 @@ void dance_LAYER_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-[ADJ]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LAYER_finished, dance_LAYER_reset),  //  Double-tap to activate Adjust layer via oneshot layer 
+[ADJ]    = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_LAYER_finished, dance_LAYER_reset),  //  Double-tap to activate Adjust layer via oneshot layer
 [LBCB]   = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_LCBR),  // Left bracket on a single-tap, left brace on a double-tap
 [RBCB]   = ACTION_TAP_DANCE_DOUBLE(KC_RBRC, KC_RCBR),  // Right bracket on a single-tap, right brace on a double-tap
 [EQPL]   = ACTION_TAP_DANCE_DOUBLE(KC_EQL, KC_PLUS),   // Plus sign on a single-tap, equal sign on a double-tap
@@ -106,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                      | Space | Enter |App/Alt|   |  RGUI | Delete|  Bspc |
 *                      |   /   |   /   |-------|   |-------|   /   |   /   |
 *                      |  Fn   | Number|  Bspc |   | Enter |Number2|  Fn2  |
-*                      `-----------------------'   `-----------------------' 
+*                      `-----------------------'   `-----------------------'
 */
-[_COLEMAK] = KEYMAP(
+[_COLEMAK] = LAYOUT(
   // Left Hand
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,  KC_F8,
   KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -152,9 +150,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                      | Space | Enter |App/Alt|   |  RGUI | Delete|  Bspc |
 *                      |   /   |   /   |-------|   |-------|   /   |   /   |
 *                      |  Fn   | Number|  Bspc |   | Enter |Number2|  Fn2  |
-*                      `-----------------------'   `-----------------------' 
+*                      `-----------------------'   `-----------------------'
 */
-[_QWERTY] = KEYMAP(
+[_QWERTY] = LAYOUT(
   // Left Hand
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,  KC_F8,
   KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -162,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   CTLESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
   KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,
            KC_INS,  KC_GRV,  KC_LBRC, KC_RBRC,
-  //Left Thumb                         
+  //Left Thumb
                                       CTLESC,  ALL_T(KC_NO),
                                                ALTAPP,
                              SPCFN,   ENTNS,   KC_BSPC,
@@ -199,9 +197,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                      |       |       |       |   |       |       |       |
 *                      |       |       |-------|   |-------|       |       |
 *                      |       |       |       |   |       |       |       |
-*                      `-----------------------'   `-----------------------' 
+*                      `-----------------------'   `-----------------------'
 */
-[_NUMBERS] = KEYMAP(
+[_NUMBERS] = LAYOUT(
   // Left Hand
   _______,  _______,  _______,  _______,  _______,  _______, _______, _______, _______,
   KC_F12,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,
@@ -216,17 +214,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Right Hand
   _______,  _______,  _______,  _______,  _______,  _______, _______, _______, _______,
   KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
-  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  _______, 
-  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  _______, 
+  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  _______,
+  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  _______,
   TD(GVTL), TD(LBCB), TD(RBCB), _______,  _______,  _______,
-            _______,  _______,  _______,  _______, 
+            _______,  _______,  _______,  _______,
   // Right Thumb
   _______,  _______,
   _______,
   _______,  _______,  _______
 ),
 
-[_NUMBERS2] = KEYMAP(
+[_NUMBERS2] = LAYOUT(
   // Left Hand
   _______,  _______,  _______,  _______,  _______,  _______, _______, _______, _______,
   KC_F12,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,
@@ -241,10 +239,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Right Hand
   _______,  _______,  _______,  _______,  _______,  _______, _______, _______, _______,
   KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
-  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  _______, 
-  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  _______, 
+  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,  KC_RPRN,  _______,
+  KC_EXLM,  KC_AT,    KC_HASH,  KC_DLR,   KC_PERC,  _______,
   TD(GVTL), TD(LBCB), TD(RBCB), _______,  _______,  _______,
-            _______,  _______,  _______,  _______, 
+            _______,  _______,  _______,  _______,
   // Right Thumb
   _______,  _______,
   _______,
@@ -269,13 +267,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                      |       |       |       |   |       |       |       |
 *                      |       |       |-------|   |-------|       |       |
 *                      |       |       |       |   |       |       |       |
-*                      `-----------------------'   `-----------------------' 
+*                      `-----------------------'   `-----------------------'
 */
-[_FUNCTION] = KEYMAP(
+[_FUNCTION] = LAYOUT(
   // Left Hand
   _______, _______,    _______,    _______,    _______,    _______, _______, _______, _______,
   KC_F12,  KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,
-  _______, _______,    _______,    KC_UP,      _______,    _______, 
+  _______, _______,    _______,    KC_UP,      _______,    _______,
   _______, LCTL(KC_A), KC_LEFT,    KC_DOWN,    KC_RGHT,    LCA(KC_TAB),
   _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_BSPC,
            _______,    _______,    _______,    _______,
@@ -283,7 +281,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                _______,    _______,
                                                            _______,
                                    _______,    _______,    _______,
-  // Right Hand  
+  // Right Hand
   _______, _______,    _______,    _______,    _______,    _______, _______, _______, _______,
   KC_F6,   KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,
   _______, _______,    KC_UP,      LCTL(KC_Y), _______,    _______,
@@ -296,11 +294,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______
 ),
 
-[_FUNCTION2] = KEYMAP(
+[_FUNCTION2] = LAYOUT(
   // Left Hand
   _______, _______,    _______,    _______,    _______,    _______, _______, _______, _______,
   KC_F12,  KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,
-  _______, _______,    _______,    KC_UP,      _______,    _______, 
+  _______, _______,    _______,    KC_UP,      _______,    _______,
   _______, LCTL(KC_A), KC_LEFT,    KC_DOWN,    KC_RGHT,    LCA(KC_TAB),
   _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), KC_BSPC,
            _______,    _______,    _______,    _______,
@@ -308,7 +306,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                _______,    _______,
                                                            _______,
                                    _______,    _______,    _______,
-  // Right Hand  
+  // Right Hand
   _______, _______,    _______,    _______,    _______,    _______, _______, _______, _______,
   KC_F6,   KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,
   _______, _______,    KC_UP,      LCTL(KC_Y), _______,    _______,
@@ -340,9 +338,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                      |       |       |       |   |       |       |       |
 *                      |       |       |-------|   |-------|       |       |
 *                      |       |       |       |   | KP Ent|       |       |
-*                      `-----------------------'   `-----------------------' 
+*                      `-----------------------'   `-----------------------'
 */
-[_NUMPAD] = KEYMAP(
+[_NUMPAD] = LAYOUT(
   // Left Hand
   _______, _______, _______, _______,    _______,   _______, _______, _______, _______,
   _______, KC_NLCK, _______, _______,    _______,   _______,
@@ -386,9 +384,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                      |       |       |  LAlt |   |  RGUI |       |       |
 *                      | Space | Enter |-------|   |-------| Delete|  Bspc |
 *                      |       |       |  Bspc |   | Enter |       |       |
-*                      `-----------------------'   `-----------------------' 
+*                      `-----------------------'   `-----------------------'
 */
-[_COLEMAKGM] = KEYMAP(
+[_COLEMAKGM] = LAYOUT(
   // Left Hand
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,  KC_F8,
   KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -432,9 +430,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                      |       |       |  LAlt |   |  RGUI |       |       |
 *                      | Space | Enter |-------|   |-------| Delete|  Bspc |
 *                      |       |       |  Bspc |   | Enter |       |       |
-*                      `-----------------------'   `-----------------------' 
+*                      `-----------------------'   `-----------------------'
 */
-[_QWERTYGM] = KEYMAP(
+[_QWERTYGM] = LAYOUT(
   // Left Hand
   KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,  KC_F8,
   KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,
@@ -478,9 +476,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *                      |       |       |       |   |       |       |       |
 *                      |       |       |-------|   |-------|       |       |
 *                      |       |       |       |   |       |       |       |
-*                      `-----------------------'   `-----------------------' 
+*                      `-----------------------'   `-----------------------'
 */
-[_ADJUST] = KEYMAP(
+[_ADJUST] = LAYOUT(
   // Left Hand
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,
   _______, COLEMAK, QWERTY,  _______, COLEMAKGM, QWERTYGM,
@@ -498,14 +496,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______,
   _______, NKROTG,  _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, 
+           _______, _______, _______, _______,
   // Right Thumb
   _______, _______,
   _______,
   _______, _______, _______
 ),
 
-[_ADJUST2] = KEYMAP(
+[_ADJUST2] = LAYOUT(
   // Left Hand
   _______, _______, _______, _______, _______,   _______,  _______, _______, _______,
   _______, COLEMAK, QWERTY,  _______, COLEMAKGM, QWERTYGM,
@@ -523,7 +521,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______,
   _______, NKROTG,  _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, 
+           _______, _______, _______, _______,
   // Right Thumb
   _______, _______,
   _______,
