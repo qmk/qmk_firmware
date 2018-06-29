@@ -24,9 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    You
-#define PRODUCT         ibm122m2
-#define DESCRIPTION     A custom keyboard
+#define MANUFACTURER    IBM
+#define PRODUCT         IBM Model M 122 key 
+#define DESCRIPTION     Mapping by github.com/lukexorz
 
 /* key matrix size */
 #define MATRIX_ROWS 8
@@ -42,12 +42,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { E6, E7, B0, B1, B2, B3, B4, B5, B6 }
-#define MATRIX_COL_PINS { B7, D0, D1, D2, D3, D4, D5, D6, D7, E0, E1, C0, C1, C2, C3, C4, C5, C6, C7 }
+#define MATRIX_COL_PINS { E6, B7, D0, D1, D2, D3, D4, D5, D6, D7, E0, E1, C0, C1, C2, C3, C4, C5, C7, F1 }
+#define MATRIX_ROW_PINS { F0, B5, B4, B3, B2, B1, B0, E7 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION COL2ROW
+#define DIODE_DIRECTION ROW2COL
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -109,6 +109,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
+
+#define B6_AUDIO
+#define C6_AUDIO
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true

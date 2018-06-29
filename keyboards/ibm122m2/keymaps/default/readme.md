@@ -1,1 +1,0 @@
-# The default keymap for ibm122m2
