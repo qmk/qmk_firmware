@@ -220,37 +220,72 @@ void layer_debug(void)
 #endif
 
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS] = {{0}};
+uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS * MAX_LAYER_BITS + 7) / 8] = {0};
+static const uint8_t layer_cache_mask = (1u << MAX_LAYER_BITS) - 1;
 
 void update_source_layers_cache(keypos_t key, uint8_t layer)
 {
-    const uint8_t key_number = key.col + (key.row * MATRIX_COLS);
-    const uint8_t storage_row = key_number / 8;
-    const uint8_t storage_bit = key_number % 8;
+  const uint16_t key_number = key.col + (key.row * MATRIX_COLS);
+  const uint32_t bit_number = key_number * MAX_LAYER_BITS;
+  const uint16_t byte_number = bit_number / 8;
+  if (byte_number >= sizeof(source_layers_cache)) {
+    return;
+  }
+  const uint8_t bit_position = bit_number % 8;
+  int8_t shift = 16 - MAX_LAYER_BITS - bit_position;
 
-    for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
-        source_layers_cache[storage_row][bit_number] ^=
-            (-((layer & (1U << bit_number)) != 0)
-             ^ source_layers_cache[storage_row][bit_number])
-            & (1U << storage_bit);
+  if (shift > 8 ) {
+    // We need to write only one byte
+    shift -= 8;
+    const uint8_t mask = layer_cache_mask << shift;
+    const uint8_t shifted_layer = layer << shift;
+    source_layers_cache[byte_number] = (shifted_layer & mask) | (source_layers_cache[byte_number] & (~mask));
+  } else {
+    if (byte_number + 1 >= sizeof(source_layers_cache)) {
+      return;
     }
+    // We need to write two bytes
+    uint16_t value = layer;
+    uint16_t mask = layer_cache_mask;
+    value <<= shift;
+    mask <<= shift;
+
+    uint16_t masked_value = value & mask;
+    uint16_t inverse_mask = ~mask;
+
+    // This could potentially be done with a single write, but then we have to assume the endian
+    source_layers_cache[byte_number + 1] = masked_value | (source_layers_cache[byte_number + 1] & (inverse_mask));
+    masked_value >>= 8;
+    inverse_mask >>= 8;
+    source_layers_cache[byte_number] = masked_value | (source_layers_cache[byte_number] & (inverse_mask));
+  }
 }
 
 uint8_t read_source_layers_cache(keypos_t key)
 {
-    const uint8_t key_number = key.col + (key.row * MATRIX_COLS);
-    const uint8_t storage_row = key_number / 8;
-    const uint8_t storage_bit = key_number % 8;
-    uint8_t layer = 0;
+  const uint16_t key_number = key.col + (key.row * MATRIX_COLS);
+  const uint32_t bit_number = key_number * MAX_LAYER_BITS;
+  const uint16_t byte_number = bit_number / 8;
+  if (byte_number >= sizeof(source_layers_cache)) {
+    return 0;
+  }
+  const uint8_t bit_position = bit_number % 8;
 
-    for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
-        layer |=
-            ((source_layers_cache[storage_row][bit_number]
-              & (1U << storage_bit)) != 0)
-            << bit_number;
+  int8_t shift = 16 - MAX_LAYER_BITS - bit_position;
+
+  if (shift > 8 ) {
+    // We need to read only one byte
+    shift -= 8;
+    return (source_layers_cache[byte_number] >> shift) & layer_cache_mask;
+  } else {
+    if (byte_number + 1 >= sizeof(source_layers_cache)) {
+      return 0;
     }
-
-    return layer;
+    // Otherwise read two bytes
+    // This could potentially be done with a single read, but then we have to assume the endian
+    uint16_t value = source_layers_cache[byte_number] << 8 | source_layers_cache[byte_number + 1];
+    return (value >> shift) & layer_cache_mask;
+  }
 }
 #endif
 
