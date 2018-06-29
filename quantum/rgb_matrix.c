@@ -119,7 +119,8 @@ void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     if ( record->event.pressed ) {
         uint8_t led[8], led_count;
-        map_row_column_to_led(record->event.key.row, record->event.key.col, led, &led_count);
+        // TODO: Support multi-matrix keyboards
+        map_row_column_to_led(record->event.key.pos.row, record->event.key.pos.col, led, &led_count);
         if (led_count > 0) {
             for (uint8_t i = LED_HITS_TO_REMEMBER; i > 1; i--) {
                 g_last_led_hit[i - 1] = g_last_led_hit[i - 2];
