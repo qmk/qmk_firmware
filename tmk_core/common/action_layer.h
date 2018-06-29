@@ -93,6 +93,8 @@ uint32_t layer_state_set_kb(uint32_t state);
 #define MAX_LAYER_BITS 5
 void update_source_layers_cache(keymatrix_t key, uint8_t layer);
 uint8_t read_source_layers_cache(keymatrix_t key);
+
+uint8_t get_source_layers_cache_size(uint8_t num_cols, uint8_t num_rows);
 #endif
 action_t store_or_get_action(bool pressed, keymatrix_t key);
 

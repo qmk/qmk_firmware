@@ -145,6 +145,82 @@ bool is_keyboard_master(void) {
     return true;
 }
 
+__attribute__((weak))
+uint8_t multimatrix_get_num_matrices(void) {
+    return 0;
+}
+
+__attribute__((weak))
+uint8_t multimatrix_get_num_cols(uint8_t matrix) {
+    return 0;
+}
+
+__attribute__((weak))
+uint8_t multimatrix_get_num_rows(uint8_t matrix) {
+    return 0;
+}
+
+__attribute__((weak))
+uint32_t multimatrix_get_row(uint8_t matrix, uint8_t row) {
+    return 0;
+}
+
+__attribute__((weak))
+uint32_t multimatrix_get_row_cache(uint8_t matrix, uint8_t row) {
+    return 0;
+}
+
+__attribute__((weak))
+void multimatrix_set_row_cache(uint8_t matrix, uint8_t row, uint32_t value) {
+}
+
+static uint8_t get_num_matrices(void) {
+    return 1 + multimatrix_get_num_matrices();
+}
+
+uint8_t keyboard_get_num_cols(uint8_t matrix) {
+    if (matrix == 0) {
+      return MATRIX_COLS;
+    } else {
+      return multimatrix_get_num_cols(matrix - 1);
+    }
+}
+
+uint8_t keyboard_get_num_rows(uint8_t matrix) {
+    if (matrix == 0) {
+      return MATRIX_ROWS;
+    } else {
+      return multimatrix_get_num_rows(matrix - 1);
+    }
+}
+
+static uint32_t get_row(uint8_t matrix, uint8_t row) {
+    if (matrix == 0) {
+      return matrix_get_row(row);
+    } else {
+      return multimatrix_get_row(matrix - 1, row);
+    }
+}
+
+static matrix_row_t matrix_prev[MATRIX_ROWS];
+
+static uint32_t get_row_cache(uint8_t matrix, uint8_t row) {
+    if (matrix == 0) {
+      return matrix_prev[row];
+    } else {
+      return multimatrix_get_row_cache(matrix - 1, row);
+    }
+}
+
+static void set_row_cache(uint8_t matrix, uint8_t row, uint32_t value) {
+    if (matrix == 0) {
+      matrix_prev[row] = value;
+    } else {
+      return multimatrix_set_row_cache(matrix - 1, row, value);
+    }
+}
+
+
 /** \brief keyboard_init
  *
  * FIXME: needs doc
@@ -203,54 +279,57 @@ void keyboard_init(void) {
  */
 void keyboard_task(void)
 {
-    static matrix_row_t matrix_prev[MATRIX_ROWS];
-#ifdef MATRIX_HAS_GHOST
-  //  static matrix_row_t matrix_ghost[MATRIX_ROWS];
-#endif
     static uint8_t led_status = 0;
-    matrix_row_t matrix_row = 0;
-    matrix_row_t matrix_change = 0;
+    uint32_t matrix_row = 0;
+    uint32_t matrix_change = 0;
 #ifdef QMK_KEYS_PER_SCAN
     uint8_t keys_processed = 0;
 #endif
 
     matrix_scan();
     if (is_keyboard_master()) {
-        for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-            matrix_row = matrix_get_row(r);
-            matrix_change = matrix_row ^ matrix_prev[r];
-            if (matrix_change) {
+        for (uint8_t m = 0; m < get_num_matrices(); m++) {
+            uint8_t num_cols = keyboard_get_num_cols(m);
+            uint8_t num_rows = keyboard_get_num_rows(m);
+            for (uint8_t r = 0; r < num_rows; r++) {
+                matrix_row = get_row(m, r);
+                uint32_t row_cache = get_row_cache(m, r);
+                matrix_change = matrix_row ^ row_cache;
+                if (matrix_change) {
 #ifdef MATRIX_HAS_GHOST
-                if (has_ghost_in_row(r, matrix_row)) {
-                    /* Keep track of whether ghosted status has changed for
-                    * debugging. But don't update matrix_prev until un-ghosted, or
-                    * the last key would be lost.
-                    */
-                    //if (debug_matrix && matrix_ghost[r] != matrix_row) {
-                    //    matrix_print();
-                    //}
+                    //NOTE: The we support ghosting only for the main matrix, since it's only useful for old keyboards without diodes
+                    if (has_ghost_in_row(r, matrix_row)) {
+                        /* Keep track of whether ghosted status has changed for
+                        * debugging. But don't update matrix_prev until un-ghosted, or
+                        * the last key would be lost.
+                        */
+                        //if (debug_matrix && matrix_ghost[r] != matrix_row) {
+                        //    matrix_print();
+                        //}
+                        //matrix_ghost[r] = matrix_row;
+                        continue;
+                    }
                     //matrix_ghost[r] = matrix_row;
-                    continue;
-                }
-                //matrix_ghost[r] = matrix_row;
 #endif
-                if (debug_matrix) matrix_print();
-                for (uint8_t c = 0; c < MATRIX_COLS; c++) {
-                    if (matrix_change & ((matrix_row_t)1<<c)) {
-                        action_exec((keyevent_t){
-                            // The main matrix is always 0
-                            .key = (keymatrix_t){.pos = (keypos_t){ .row = r, .col = c }, .matrix = 0},
-                            .pressed = (matrix_row & ((matrix_row_t)1<<c)),
-                            .time = (timer_read() | 1) /* time should not be 0 */
-                        });
-                        // record a processed key
-                        matrix_prev[r] ^= ((matrix_row_t)1<<c);
+                    if (debug_matrix) matrix_print();
+                    for (uint8_t c = 0; c < num_cols; c++) {
+                        if (matrix_change & (uint32_t)(1u<<c)) {
+                            action_exec((keyevent_t){
+                                // The main matrix is always 0
+                                .key = (keymatrix_t){.pos = (keypos_t){ .row = r, .col = c }, .matrix = m},
+                                .pressed = (matrix_row & ((uint32_t)1u<<c)),
+                                .time = (timer_read() | 1) /* time should not be 0 */
+                            });
+                            // record a processed key
+                            row_cache ^= (uint32_t)(1u<<c);
+                            set_row_cache(m, r, row_cache);
 #ifdef QMK_KEYS_PER_SCAN
-                        // only jump out if we have processed "enough" keys.
-                        if (++keys_processed >= QMK_KEYS_PER_SCAN)
+                            // only jump out if we have processed "enough" keys.
+                            if (++keys_processed >= QMK_KEYS_PER_SCAN)
 #endif
-                        // process a key per task call
-                        goto MATRIX_LOOP_END;
+                            // process a key per task call
+                            goto MATRIX_LOOP_END;
+                        }
                     }
                 }
             }

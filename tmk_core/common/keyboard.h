@@ -72,6 +72,9 @@ void keyboard_task(void);
 /* it runs when host LED status is updated */
 void keyboard_set_leds(uint8_t leds);
 
+uint8_t keyboard_get_num_cols(uint8_t matrix);
+uint8_t keyboard_get_num_rows(uint8_t matrix);
+
 #ifdef __cplusplus
 }
 #endif
