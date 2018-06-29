@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F24,     KC_Y,   KC_U,     KC_I,         KC_O,       KC_P,       KC_BSLASH,
                 KC_H,   KC_J,     KC_K,         KC_L,       KC_SCOLON,  KC_QUOTE,
     KC_F17,     KC_N,   KC_M,     KC_COMMA,     KC_DOT,     KC_SLASH,   KC_RSHIFT,
-            KC_DELETE,  KC_F19,   KC_LGUI,       KC_F21,     KC_F22,
+            KC_DELETE,  KC_F19,   KC_F20,       KC_F21,     KC_F22,
 
       KC_F17,   KC_F18, KC_PGUP,  KC_PGDOWN,    KC_ENTER,   KC_BSPACE
   ),
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      TO(2),KC_TRANSPARENT,KC_TRANSPARENT,LALT(KC_F10),KC_ENTER,KC_BSPACE
   ),
   // Keypad, Lighting, and Mouse emulation layer
- /* 
+ ///* 
     [4] = KEYMAP(
     KC_ESCAPE,  KC_NO,      KC_NO,        KC_MS_BTN3, KC_NO,        KC_NO,          KC_NO,
     KC_TAB,     KC_NO,      KC_MS_BTN2,   KC_MS_UP,   KC_MS_BTN1,   KC_MS_WH_UP,    TO(0),
@@ -142,7 +142,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_F17, KC_F18, KC_PGUP,  KC_PGDOWN,  KC_ENTER, KC_BSPACE
   )
   //*/
-  ///*
+  /*
   // Keypad, Lighting, and Mouse emulation layer
   [4] = KEYMAP(
     KC_ESCAPE,  KC_NO,      KC_NO,        KC_MS_BTN3, KC_NO,        KC_NO,          KC_NO,
