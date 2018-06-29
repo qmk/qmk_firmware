@@ -35,27 +35,60 @@ void led_set(uint8_t usb_led)
 }
 
 
-/* New leds configuration, decided to put here */
-/*uint32_t layer_state_set_user(uint32_t state) {
-    switch (biton32(state)) {
-    case _RAISE:
-        rgblight_setrgb (0x00,  0x00, 0xFF);
-        break;
-    case _LOWER:
-        rgblight_setrgb (0xFF,  0x00, 0x00);
-        break;
-    case _PLOVER:
-        rgblight_setrgb (0x00,  0xFF, 0x00);
-        break;
-    case _ADJUST:
-        rgblight_setrgb (0x7A,  0x00, 0xFF);
-        break;
-    default: //  for any other layers, or the default layer
-        rgblight_setrgb (0x00,  0xFF, 0xFF);
-        break;
-    }
-  return state;
-}*/
+
+
+/* New awesome dual color leds functions, animations and more */
+/* Based on pwm_callback by fcayci: https://github.com/fcayci/STM32F4-ChibiOS/blob/master/pwm_callback/main.c */
+
+static void pwmcb(PWMDriver *pwmp);
+
+static PWMConfig pwmcfg = {
+    1000,        // Clock frecuency (seconds) = 1/value
+    100,         // PWM period (ticks = clockfrecuency * pwmperiod)
+    pwmcb,        // Callback, disable with NULL
+    {
+        {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* Enable Channel 0 */
+        {PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* Enable Channel 1 */
+        //{PWM_OUTPUT_ACTIVE_HIGH, NULL}, /* Enable Channel 2 */
+        //{PWM_OUTPUT_ACTIVE_HIGH, NULL}  /* Enable Channel 3 */
+    },
+    0, /* HW dependent part */
+    0
+};
+
+
+/*
+ * PWM callback.
+ * Each time calculate the next duty cycle.
+ */
+static void pwmcb(PWMDriver *pwmp) {
+    (void)pwmp;
+
+    static uint16_t dir = 0, width = 0;
+
+    if (dir == 0) {width = (width + 100);}
+    else {width = (width - 100);}
+
+    if (width >= 100) {dir = 1;}
+    else if (width == 0) {dir = 0;}
+
+    pwmEnableChannel(&PWMC15, 0, width);
+    pwmEnableChannel(&PWMC15, 1, 100-width);
+    //pwmEnableChannel(&PWMD4, 2, width);
+    //pwmEnableChannel(&PWMD4, 3, 100-width);
+}
+
+static void iniciarluces(void) {
+
+    palSetPadMode(GPIOC, 15, PAL_MODE_ALTERNATE(2));  /* Green */
+    palSetPadMode(GPIOC, 14, PAL_MODE_ALTERNATE(2));  /* Red */
+
+    pwmStart(&PWMC15, &pwmCFG);
+
+}
+
+
+
 
 
 // inline void gh60_caps_led_off(void)     { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }

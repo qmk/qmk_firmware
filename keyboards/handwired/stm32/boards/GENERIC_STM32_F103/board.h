@@ -50,7 +50,7 @@
 
 /* Backlighting */
 
-#define GPIOC_BACKLIGHT_PIN               12
+/*#define GPIOC_BACKLIGHT_PIN               15*/
 
 /* In case your board has a "USB enable" hardware
    controlled by a pin, define it here. (It could be just

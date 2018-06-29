@@ -8,7 +8,8 @@
 #define PRODUCT_ID      0x6464
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
-/*   at most 32 characters or the ugly hack in usb_main.c borks */
+/*   at most 32 characters or the ugly hack in usb_main.c works */
+
 //  Modified by Xydane
 #define MANUFACTURER "QMK"
 #define USBSTR_MANUFACTURER    'T', '\x00', 'M', '\x00', 'K', '\x00', ' ', '\x00', '\xc6', '\x00'
@@ -21,6 +22,9 @@
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
 #define DIODE_DIRECTION COL2ROW
+
+#define LSPO_KEY KC_8
+#define RSPC_KEY KC_9
 
 
 #endif /* STM70_CONFIG_H_ */
