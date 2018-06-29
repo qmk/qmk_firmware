@@ -32,27 +32,33 @@ typedef struct {
     uint8_t row;
 } keypos_t;
 
+/* the key and matrix position */
+typedef struct {
+  keypos_t pos;
+  uint8_t matrix;
+} keymatrix_t;
+
 /* key event */
 typedef struct {
-    keypos_t key;
+    keymatrix_t    key;
     bool     pressed;
     uint16_t time;
 } keyevent_t;
 
-/* equivalent test of keypos_t */
-#define KEYEQ(keya, keyb)       ((keya).row == (keyb).row && (keya).col == (keyb).col)
+/* equivalent test of keymatrix_t */
+#define KEYEQ(keya, keyb)       (keya.pos.row == keyb.pos.row && keya.pos.col == keyb.pos.col && keya.matrix == keyb.matrix)
 
 /* Rules for No Event:
  * 1) (time == 0) to handle (keyevent_t){} as empty event
  * 2) Matrix(255, 255) to make TICK event available
  */
-static inline bool IS_NOEVENT(keyevent_t event) { return event.time == 0 || (event.key.row == 255 && event.key.col == 255); }
+static inline bool IS_NOEVENT(keyevent_t event) { return event.time == 0 || (event.key.pos.row == 255 && event.key.pos.col == 255); }
 static inline bool IS_PRESSED(keyevent_t event) { return (!IS_NOEVENT(event) && event.pressed); }
 static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) && !event.pressed); }
 
 /* Tick event */
 #define TICK                    (keyevent_t){           \
-    .key = (keypos_t){ .row = 255, .col = 255 },           \
+    .key = (keymatrix_t){ .pos = (keypos_t){.row = 255, .col = 255}, .matrix = 0 },           \
     .pressed = false,                                   \
     .time = (timer_read() | 1)                          \
 }

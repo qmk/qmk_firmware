@@ -223,9 +223,9 @@ void layer_debug(void)
 uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS * MAX_LAYER_BITS + 7) / 8] = {0};
 static const uint8_t layer_cache_mask = (1u << MAX_LAYER_BITS) - 1;
 
-void update_source_layers_cache(keypos_t key, uint8_t layer)
+void update_source_layers_cache(keymatrix_t key, uint8_t layer)
 {
-  const uint16_t key_number = key.col + (key.row * MATRIX_COLS);
+  const uint16_t key_number = key.pos.col + (key.pos.row * MATRIX_COLS);
   const uint32_t bit_number = key_number * MAX_LAYER_BITS;
   const uint16_t byte_number = bit_number / 8;
   if (byte_number >= sizeof(source_layers_cache)) {
@@ -261,9 +261,9 @@ void update_source_layers_cache(keypos_t key, uint8_t layer)
   }
 }
 
-uint8_t read_source_layers_cache(keypos_t key)
+uint8_t read_source_layers_cache(keymatrix_t key)
 {
-  const uint16_t key_number = key.col + (key.row * MATRIX_COLS);
+  const uint16_t key_number = key.pos.col + (key.pos.row * MATRIX_COLS);
   const uint32_t bit_number = key_number * MAX_LAYER_BITS;
   const uint16_t byte_number = bit_number / 8;
   if (byte_number >= sizeof(source_layers_cache)) {
@@ -296,7 +296,7 @@ uint8_t read_source_layers_cache(keypos_t key)
  * when the layer is switched after the down event but before the up
  * event as they may get stuck otherwise.
  */
-action_t store_or_get_action(bool pressed, keypos_t key)
+action_t store_or_get_action(bool pressed, keymatrix_t key)
 {
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
     if (disable_action_cache) {
@@ -323,7 +323,7 @@ action_t store_or_get_action(bool pressed, keypos_t key)
  *
  * FIXME: Needs docs
  */
-int8_t layer_switch_get_layer(keypos_t key)
+int8_t layer_switch_get_layer(keymatrix_t key)
 {
 #ifndef NO_ACTION_LAYER
     action_t action;
@@ -350,7 +350,7 @@ int8_t layer_switch_get_layer(keypos_t key)
  *
  * FIXME: Needs docs
  */
-action_t layer_switch_get_action(keypos_t key)
+action_t layer_switch_get_action(keymatrix_t key)
 {
     return action_for_key(layer_switch_get_layer(key), key);
 }

@@ -190,7 +190,7 @@ static bool grave_esc_was_shifted = false;
 bool process_record_quantum(keyrecord_t *record) {
 
   /* This gets the keycode from the key pressed */
-  keypos_t key = record->event.key;
+  keymatrix_t key = record->event.key;
   uint16_t keycode;
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)

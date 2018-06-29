@@ -80,7 +80,6 @@ void qwiic_keyboard_task(void) {
         #ifdef QMK_KEYS_PER_SCAN
           uint8_t keys_processed = 0;
         #endif
-        qwiic_keyboard_processing_slave = true;
         for (uint8_t r = 0; r < QWIIC_KEYBOARD_ROWS; r++) {
           matrix_row = qwiic_keyboard_matrix_message[r];
           matrix_change = matrix_row ^ matrix_prev[r];
@@ -88,7 +87,8 @@ void qwiic_keyboard_task(void) {
             for (uint8_t c = 0; c < QWIIC_KEYBOARD_COLS; c++) {
               if (matrix_change & ((qwiic_matrix_t)1<<c)) {
                 action_exec((keyevent_t){
-                  .key = (keypos_t){ .row = r, .col = c },
+                  // Always use matrix 1 for remotes now
+                  .key = (keymatrix_t){.pos = (keypos_t){ .row = r, .col = c }, .matrix = 1},
                   .pressed = (matrix_row & ((qwiic_matrix_t)1<<c)),
                   .time = (timer_read() | 1) /* time should not be 0 */
                 });
@@ -190,13 +190,11 @@ bool is_keyboard_master(void) {
 }
 
 // overwrite the built-in function
-uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
-  if (qwiic_keyboard_processing_slave) {
-    // trick the built-in handling to accept our replacement keymap
-    return qwiic_keyboard_keymap[(layer)][(key.row)][(key.col)];
-    //return KC_A;
-  } else {
+uint16_t keymap_key_to_keycode(uint8_t layer, keymatrix_t key) {
+  if (key.matrix == 0) {
     // Read entire word (16bits)
-    return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+    return pgm_read_word(&keymaps[(layer)][(key.pos.row)][(key.pos.col)]);
+  } else {
+    return qwiic_keyboard_keymap[(layer)][(key.pos.row)][(key.pos.col)];
   }
 }

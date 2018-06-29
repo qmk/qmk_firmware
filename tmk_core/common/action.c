@@ -892,7 +892,7 @@ void clear_keyboard_but_mods(void)
  *
  * FIXME: Needs documentation.
  */
-bool is_tap_key(keypos_t key)
+bool is_tap_key(keymatrix_t key)
 {
     action_t action = layer_switch_get_action(key);
 

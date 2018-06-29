@@ -34,16 +34,18 @@ namespace
 
 
   uint8_t read_cache(uint8_t col, uint8_t row) {
-    keypos_t key;
-    key.col = col;
-    key.row =  row;
+    keymatrix_t key;
+    key.pos.col = col;
+    key.pos.row =  row;
+    key.matrix = 0;
     return read_source_layers_cache(key);
   }
 
   void write_cache(uint8_t col, uint8_t row, uint8_t value) {
-    keypos_t key;
-    key.col = col;
-    key.row =  row;
+    keymatrix_t key;
+    key.pos.col = col;
+    key.pos.row = row;
+    key.matrix = 0;
     return update_source_layers_cache(key, value);
   }
 
