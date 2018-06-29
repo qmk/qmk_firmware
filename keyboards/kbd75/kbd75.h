@@ -8,6 +8,7 @@
 #endif
 
 #ifdef KEYBOARD_kbd75_rev2
+    #include "../rev1/rev1.h"
     #include "rev2.h"
 #endif
 
