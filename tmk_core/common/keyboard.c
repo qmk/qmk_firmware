@@ -145,39 +145,79 @@ bool is_keyboard_master(void) {
     return true;
 }
 
+/** \brief Get the number of currently connected matrices
+ *
+ * Implement this if you support multiple matrices, see qwiic_keyboard.c for an example
+ * NOTE: It should return the number of additional matrices, the master is always implied.
+ */
 __attribute__((weak))
 uint8_t multimatrix_get_num_matrices(void) {
     return 0;
 }
 
+/** \brief Get the number of columns of a connected matrix
+ *
+ * Implement this if you support multiple matrices, see qwiic_keyboard.c for an example
+ * NOTE: The matrix index 0 is the first remote matrix, the function is not called for the master
+ */
 __attribute__((weak))
 uint8_t multimatrix_get_num_cols(uint8_t matrix) {
     return 0;
 }
 
+/** \brief Get the number of rows of a connected matrix
+ *
+ * Implement this if you support multiple matrices, see qwiic_keyboard.c for an example
+ * NOTE: The matrix index 0 is the first remote matrix, the function is not called for the master
+ */
 __attribute__((weak))
 uint8_t multimatrix_get_num_rows(uint8_t matrix) {
     return 0;
 }
 
+/** \brief Get the row status of a connected matrix
+ *
+ * Implement this if you support multiple matrices, see qwiic_keyboard.c for an example
+ * NOTE: The matrix index 0 is the first remote matrix, the function is not called for the master
+ */
 __attribute__((weak))
 uint32_t multimatrix_get_row(uint8_t matrix, uint8_t row) {
     return 0;
 }
 
+/** \brief Get the row cache of a connected matrix
+ *
+ * Implement this if you support multiple matrices, see qwiic_keyboard.c for an example
+ * NOTE: The matrix index 0 is the first remote matrix, the function is not called for the master
+ */
 __attribute__((weak))
 uint32_t multimatrix_get_row_cache(uint8_t matrix, uint8_t row) {
     return 0;
 }
 
+/** \brief Set the row cache of a connected matrix
+ *
+ * Implement this if you support multiple matrices, see qwiic_keyboard.c for an example
+ * NOTE: The matrix index 0 is the first remote matrix, the function is not called for the master
+ */
 __attribute__((weak))
 void multimatrix_set_row_cache(uint8_t matrix, uint8_t row, uint32_t value) {
 }
 
-static uint8_t get_num_matrices(void) {
+/** \brief Get the number of currently connected matrices
+ *
+ * For normal keyboards this usually returns 1, but for multi-matrix keyboards this will
+ * return the total number of connected keyboards/modules including the master
+ */
+uint8_t keyboard_get_num_matrices(void) {
     return 1 + multimatrix_get_num_matrices();
 }
 
+/** \brief Get the number of columns of a connected matrix
+ *
+ * Specify the matrix index to query connected multi-matrix keyboards/modules
+ * 0 is always the master
+ */
 uint8_t keyboard_get_num_cols(uint8_t matrix) {
     if (matrix == 0) {
       return MATRIX_COLS;
@@ -186,6 +226,11 @@ uint8_t keyboard_get_num_cols(uint8_t matrix) {
     }
 }
 
+/** \brief Get the number of rows of a connected matrix
+ *
+ * Specify the matrix index to query connected multi-matrix keyboards/modules
+ * 0 is always the master
+ */
 uint8_t keyboard_get_num_rows(uint8_t matrix) {
     if (matrix == 0) {
       return MATRIX_ROWS;
@@ -194,7 +239,12 @@ uint8_t keyboard_get_num_rows(uint8_t matrix) {
     }
 }
 
-static uint32_t get_row(uint8_t matrix, uint8_t row) {
+/** \brief Get the row status of a connected matrix
+ *
+ * Specify the matrix index to query connected multi-matrix keyboards/modules
+ * 0 is always the master
+ */
+uint32_t keyboard_get_row(uint8_t matrix, uint8_t row) {
     if (matrix == 0) {
       return matrix_get_row(row);
     } else {
@@ -288,11 +338,11 @@ void keyboard_task(void)
 
     matrix_scan();
     if (is_keyboard_master()) {
-        for (uint8_t m = 0; m < get_num_matrices(); m++) {
+        for (uint8_t m = 0; m < keyboard_get_num_matrices(); m++) {
             uint8_t num_cols = keyboard_get_num_cols(m);
             uint8_t num_rows = keyboard_get_num_rows(m);
             for (uint8_t r = 0; r < num_rows; r++) {
-                matrix_row = get_row(m, r);
+                matrix_row = keyboard_get_row(m, r);
                 uint32_t row_cache = get_row_cache(m, r);
                 matrix_change = matrix_row ^ row_cache;
                 if (matrix_change) {

@@ -222,6 +222,11 @@ void layer_debug(void)
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
 static const uint8_t layer_cache_mask = (1u << MAX_LAYER_BITS) - 1;
 
+/** \brief Get the pointer to the source layer cache for a connected matrix
+ *
+ * Implement this if you support multiple matrices, see qwiic_keyboard.c for an example
+ * NOTE: The matrix index 0 is the first remote matrix, the function is not called for the master
+ */
 __attribute__((weak))
 uint8_t* multimatrix_get_source_layers_cache(uint8_t matrix) {
     return 0;
