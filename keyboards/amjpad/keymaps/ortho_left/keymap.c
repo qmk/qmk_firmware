@@ -1,4 +1,4 @@
-#include "amjpad.h"
+#include QMK_KEYBOARD_H
 
 #ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
@@ -30,14 +30,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------'
    */
 
-[_BL] = MAXKEYMAP(
-
-  KC_T,   KC_G,   KC_B,      KC_SPACE,\
-  KC_R,   KC_F,   KC_V,      MO(1),    \
-  KC_E,   KC_D,   KC_C,      KC_LGUI, \
-  KC_W,   KC_S,   KC_X,      KC_LALT, \
-  KC_Q,   KC_A,   KC_Z,      KC_LCTL, \
-  KC_TAB, KC_ESC, KC_LSHIFT, MO(1)),
+  [_BL] = LAYOUT_ortho_6x4(
+    KC_T,   KC_G,   KC_B,      KC_SPACE,\
+    KC_R,   KC_F,   KC_V,      MO(1),    \
+    KC_E,   KC_D,   KC_C,      KC_LGUI, \
+    KC_W,   KC_S,   KC_X,      KC_LALT, \
+    KC_Q,   KC_A,   KC_Z,      KC_LCTL, \
+    KC_TAB, KC_ESC, KC_LSHIFT, MO(1)
+  ),
 
   /* Keymap _FL: Function Layer
    * ,-------------------.
@@ -54,12 +54,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | `  | Del|Shft|    |
    * `-------------------'
    */
-[_FL] = MAXKEYMAP(
-
-  KC_5,  KC_F5,  KC_F11,  _______, \
-  KC_4,  KC_F4,  KC_F10,  _______, \
-  KC_3,  KC_F3,  KC_F9,   _______, \
-  KC_2,  KC_F2,  KC_F8,   _______, \
-  KC_1,  KC_F1,  KC_F7,   _______, \
-  KC_GRV,KC_DEL, _______, _______),
+  [_FL] = LAYOUT_ortho_6x4(
+    KC_5,  KC_F5,  KC_F11,  _______, \
+    KC_4,  KC_F4,  KC_F10,  _______, \
+    KC_3,  KC_F3,  KC_F9,   _______, \
+    KC_2,  KC_F2,  KC_F8,   _______, \
+    KC_1,  KC_F1,  KC_F7,   _______, \
+    KC_GRV,KC_DEL, _______, _______
+  ),
 };

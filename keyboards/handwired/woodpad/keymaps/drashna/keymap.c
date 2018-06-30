@@ -24,21 +24,9 @@
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#ifdef TAP_DANCE_ENABLE
-#define KC_D3_1 TD(TD_D3_1)
-#define KC_D3_2 TD(TD_D3_2)
-#define KC_D3_3 TD(TD_D3_3)
-#define KC_D3_4 TD(TD_D3_4)
-#else
-#define KC_D3_1 KC_1
-#define KC_D3_2 KC_2
-#define KC_D3_3 KC_3
-#define KC_D3_4 KC_4
-#endif
 
 
-//define layer change stuff for underglow indicator
-bool skip_leds = false;
+
 
 
 
