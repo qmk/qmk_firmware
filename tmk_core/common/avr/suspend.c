@@ -19,7 +19,7 @@
     #include "audio.h"
 #endif /* AUDIO_ENABLE */
 
-#ifdef RGBLIGHT_SLEEP
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
   #include "rgblight.h"
 #endif
 
@@ -112,7 +112,7 @@ static void power_down(uint8_t wdto)
         // This sometimes disables the start-up noise, so it's been disabled
 		// stop_all_notes();
 	#endif /* AUDIO_ENABLE */
-#ifdef RGBLIGHT_SLEEP
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_disable();
 #endif
@@ -188,7 +188,7 @@ void suspend_wakeup_init(void)
     backlight_init();
 #endif
 	led_set(host_keyboard_leds());
-#ifdef RGBLIGHT_SLEEP
+#if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
   rgblight_enable_noeeprom();
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_enable();

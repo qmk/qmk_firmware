@@ -9,7 +9,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    qmkbuilder
 #define PRODUCT         KBD75
-#define DESCRIPTION     QMK keyboard firmware for KBD75 R3 or later
+#define DESCRIPTION     QMK keyboard firmware for KBD75
 
 /* key matrix size */
 #define MATRIX_ROWS 6
