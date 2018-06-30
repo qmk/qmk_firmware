@@ -70,8 +70,10 @@ On a Gherkin, B4/F7 corresponds to the top-left corner key.
 You can add `#define QMK_SPEAKER C6` if you have a speaker hooked up to pin C6. The Gherkin PCB already uses pin C6 in its switch layout, so you cannot use a speaker on a standard Gherkin.  
 4. Also, you should add `BOOTLOADER = qmk-dfu` to your `rules.mk` file, so it is flagged properly. Again, this is already set up in `qmk_firmware/keyboards/gherkin/wanleg`.  
 5. Once you've made the required edits, it's time to compile the firmware. If you use the `:production` target when compiling, it will produce the usual `.hex` file as well as `_bootloader.hex` and `_production.hex` files. The `_production.hex` will be what we want. This contains the bootloader and the firmware, so we only have to flash once (rather than flash the bootloader, and THEN flash the firmware).
-For example:  
-`make gherkin/qmkdfu:wanleg:production`
+For example  
+`make <keyboard>:<keymap>:production`  
+For my particular keymap, for reasons listed in the **Using QMK DFU** section, you should use the following to ensure the bootloader is set properly  
+`make gherkin:wanleg:production dfu=qmk`  
 
 ## Burn QMK DFU
 6. Navigate to the directory with your `_production.hex` file, and burn it with the following command  
