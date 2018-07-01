@@ -40,16 +40,3 @@ else
 	echo
 	echo "https://docs.qmk.fm/contributing.html"
 fi
-
-#gcc
-#unzip
-#wget
-#zip
-##avr-gcc
-##avr-binutils
-##avr-libc -- handled by sys-devel/crossdev
-##dev-embedded/avrdude???
-#dfu-util
-##arm-none-eabi-gcc
-##arm-none-eabi-binutils
-##arm-none-eabi-newlib
