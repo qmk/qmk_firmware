@@ -25,6 +25,7 @@ enum planck_layers {
   _RAISE,
   _MOVEMENT,
   _NUMPAD,
+  _HOMED_NUMPAD,
   _CODE,
   _ADJUST
 };
@@ -35,8 +36,11 @@ enum planck_keycodes {
   RAISE,
   MOVEMENT,
   NUMPAD,
+  HOMED_NUMPAD,
   CODE,
-  BACKLIT
+  BACKLIT,
+  IOS_BEGINNING_OF_LINE,
+  IOS_END_OF_LINE
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,27 +56,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Move |Numpad| Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
+
+// Movement modifier works well because of outer key palming technique 
+  
 [_QWERTY] = {
   {KC_TAB,          KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
   {KC_ESC,       KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT},
   {LSFT_T(KC_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_LSHIFT},
-  {MOVEMENT,        NUMPAD,  KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR}
+  {MOVEMENT,        NUMPAD,  KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LPRN, KC_RPRN, KC_LCBR, IOS_BEGINNING_OF_LINE}
+  //{MOVEMENT,        NUMPAD,  KC_LALT, KC_LGUI, LOWER,   LSFT_T(KC_SPC),  LSFT_T(KC_SPC),  RAISE,   KC_LPRN, KC_RPRN, KC_LCBR, IOS_BEGINNING_OF_LINE}
 },
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   "  |  '   |  |   |
+ * | Del  |  F1  | Cut  | Copy | Paste|  F5  |  F6  |   _  |   +  |   "  |  '   |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO ~ |ISO | | Home | End  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
+
+TODO: Replace F2, F3, and F4 with cut, copy, and paste.
+
  */
 [_LOWER] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC},
-  {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_DOUBLE_QUOTE, KC_QUOT, KC_PIPE},
+  {KC_DEL,  KC_F1,   LGUI(KC_X), LGUI(KC_C), LGUI(S(LALT(KC_V))), KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_DOUBLE_QUOTE, KC_QUOT, KC_PIPE},
   {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), KC_HOME, KC_END,  _______},
   {_______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY}
 },
@@ -140,6 +151,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_DOT}
 },
 
+[_HOMED_NUMPAD] = {
+  {_______, _______, _______, _______, _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, KC_KP_SLASH,    _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_ASTERISK, _______},
+  {_______, _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_MINUS,    _______},
+  {_______, _______, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_DOT,  KC_KP_PLUS,     _______}
+},
+
 /* Code
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -170,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
-  {_______, RESET,   DEBUG,    RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL },
+  {_______, RESET,   DEBUG,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_DEL },
   {_______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______, _______, _______},
   {_______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  TERM_ON, TERM_OFF, _______, _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, }
@@ -179,8 +197,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
+/* iOS shortcuts
+Command + Left: Jump to the end of the current line.
+Command + Right: Jump to the start of the current line.
+Command + Up: Jump to the top of the document.
+Command + Down: Jump to the bottom of the document.
+Shift + Left/Right: Start text selection on the left/right of the cursor, one character at a time.
+Shift + Command + Left/Right: Select the entire line, left/right of the cursor point.
+Shift + Command + Up/Down: Select all the text in the document up/down from the cursor point.
+*/
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    /* This is only here to test shortcuts in iOS, eventually we'll make these
+       things happen in an iOS layer.
+
+    case IOS_BEGINNING_OF_LINE:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI(SS_TAP(X_LEFT)));
+      }
+      return false;
+      break;
+    case IOS_END_OF_LINE:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI(SS_TAP(X_RIGHT)));
+      }
+      return false;
+      break;
+    */
     case QWERTY:
       if (record->event.pressed) {
         print("mode just switched to qwerty and this is a huge string\n");
@@ -191,9 +236,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
+	update_tri_layer(_LOWER, _MOVEMENT, _HOMED_NUMPAD);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
+	update_tri_layer(_LOWER, _MOVEMENT, _HOMED_NUMPAD);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
@@ -211,8 +258,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MOVEMENT:
       if (record->event.pressed) {
         layer_on(_MOVEMENT);
+	update_tri_layer(_LOWER, _MOVEMENT, _HOMED_NUMPAD);
       } else {
         layer_off(_MOVEMENT);
+	update_tri_layer(_LOWER, _MOVEMENT, _HOMED_NUMPAD);
       }
       return false;
       break;
