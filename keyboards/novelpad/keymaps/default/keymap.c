@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include QMK_KEYBOARD_H
 
-#include _______ KC_TRNS
+#define _______ KC_TRNS
 
 enum custom_keycodes {
   BL = SAFE_RANGE,
