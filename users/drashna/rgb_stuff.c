@@ -23,25 +23,49 @@ uint8_t current_osm;
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
   if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
     if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
-      rgblight_sethsv_at(0, 255, 255, SHFT_LED1);
-      rgblight_sethsv_at(0, 255, 255, SHFT_LED2);
+      #ifdef SHFT_LED1
+        rgblight_sethsv_at(0, 255, 255, SHFT_LED1);
+      #endif // SHFT_LED1
+      #ifdef SHFT_LED1
+        rgblight_sethsv_at(0, 255, 255, SHFT_LED2);
+      #endif // SHFT_LED2
     } else {
-      rgblight_sethsv_default_helper(SHFT_LED1);
-      rgblight_sethsv_default_helper(SHFT_LED2);
+      #ifdef SHFT_LED1
+        rgblight_sethsv_default_helper(SHFT_LED1);
+      #endif // SHFT_LED1
+      #ifdef SHFT_LED1
+        rgblight_sethsv_default_helper(SHFT_LED2);
+      #endif // SHFT_LED2
     }
     if (this_mod & MODS_CTRL_MASK || this_osm & MODS_CTRL_MASK) {
-      rgblight_sethsv_at(51, 255, 255, CTRL_LED1);
-      rgblight_sethsv_at(51, 255, 255, CTRL_LED2);
+      #ifdef SHFT_LED1
+        rgblight_sethsv_at(51, 255, 255, CTRL_LED1);
+      #endif // SHFT_LED2
+      #ifdef SHFT_LED1
+        rgblight_sethsv_at(51, 255, 255, CTRL_LED2);
+      #endif // SHFT_LED2
     } else {
-      rgblight_sethsv_default_helper(CTRL_LED1);
-      rgblight_sethsv_default_helper(CTRL_LED2);
+      #ifdef SHFT_LED1
+        rgblight_sethsv_default_helper(CTRL_LED1);
+      #endif // SHFT_LED2
+      #ifdef SHFT_LED1
+        rgblight_sethsv_default_helper(CTRL_LED2);
+      #endif // SHFT_LED2
     }
     if (this_mod & MODS_GUI_MASK || this_osm & MODS_GUI_MASK) {
-      rgblight_sethsv_at(120, 255, 255, GUI_LED1);
-      rgblight_sethsv_at(120, 255, 255, GUI_LED2);
+      #ifdef SHFT_LED1
+        rgblight_sethsv_at(120, 255, 255, GUI_LED1);
+      #endif // SHFT_LED2
+      #ifdef SHFT_LED1
+        rgblight_sethsv_at(120, 255, 255, GUI_LED2);
+      #endif // SHFT_LED2
     } else {
-      rgblight_sethsv_default_helper(GUI_LED1);
-      rgblight_sethsv_default_helper(GUI_LED2);
+      #ifdef SHFT_LED1
+        rgblight_sethsv_default_helper(GUI_LED1);
+      #endif // SHFT_LED2
+      #ifdef SHFT_LED1
+        rgblight_sethsv_default_helper(GUI_LED2);
+      #endif // SHFT_LED2
     }
   }
 }
