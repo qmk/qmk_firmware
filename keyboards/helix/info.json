@@ -1,7 +1,7 @@
 {
   "keyboard_name": "Helix",
-  "url": "",
-  "maintainer": "qmk",
+  "url": "https://github.com/MakotoKurauchi/helix",
+  "maintainer": "MakotoKurauchi",
   "width": 15,
   "height": 5,
   "layouts": {
