@@ -34,13 +34,13 @@ extern uint8_t is_master;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 enum layer_number {
-    _BASE = 0,
-    _BAS_E,
-    _LOWER,
-    _LOW_E,
-    _RAISE,
-    _RAI_E,
-    _ADJUST,
+  _BASE = 0,
+  _BAS_E,
+  _LOWER,
+  _LOW_E,
+  _RAISE,
+  _RAI_E,
+  _ADJUST,
 };
 
 enum custom_keycodes {
@@ -87,12 +87,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_BASE] = LAYOUT( \
-      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
-      EISU,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_ATBQ, \
-      KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_CLAS, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,  \
-      KC_LCTL, KC_LALT, KC_LGUI, ADJUST,  LOWER,   KC_SPC,  KC_BSPC, KC_SPC,  KC_SPC,  RAISE,   KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT  \
-      ),
+    KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, \
+    EISU,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_ATBQ, \
+    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_CLAS, \
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,  \
+    KC_LCTL, KC_LALT, KC_LGUI, ADJUST,  LOWER,   KC_SPC,  KC_BSPC, KC_SPC,  KC_SPC,  RAISE,   KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT  \
+    ),
 
   /* Qwerty JIS Exchange L and R
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -108,12 +108,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_BAS_E] = LAYOUT( \
-      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,                   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   \
-      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_ATBQ,                   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   \
-      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_CLAS,                   XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   \
-      KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_ENT,  EISU,    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   \
-      KC_SPC,  RAI_E,   JP_RBRC, KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT, ADJUST,  KC_LCTL, KC_LALT, KC_LGUI, JP_LBRC, LOW_E,   KC_BSPC \
-      ),
+    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,                   KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   \
+    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    JP_ATBQ,                   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   \
+    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, JP_CLAS,                   XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   \
+    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_UP,   KC_ENT,  EISU,    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   \
+    KC_SPC,  RAI_E,   JP_RBRC, KC_APP,  KC_LEFT, KC_DOWN, KC_RGHT, ADJUST,  KC_LCTL, KC_LALT, KC_LGUI, JP_LBRC, LOW_E,   KC_BSPC \
+    ),
 
   /* Lower JIS Normal
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -129,12 +129,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_LOWER] = LAYOUT( \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, JP_CFTD, JP_BSVL, \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_ATBQ, JP_LBRC, \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_SCLN, JP_CLAS, JP_RBRC, \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, JP_BSUS, \
-      _______, _______, _______, _______, XXXXXXX, XXXXXXX, KC_DEL,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
-      ),
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_MINS, JP_CFTD, JP_BSVL, \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, JP_ATBQ, JP_LBRC, \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, KC_SCLN, JP_CLAS, JP_RBRC, \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH, JP_BSUS, \
+    _______, _______, _______, _______, XXXXXXX, XXXXXXX, KC_DEL,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+    ),
 
   /* Lower JIS Exchange L and R
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -150,12 +150,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_LOW_E] = LAYOUT( \
-      _______, XXXXXXX, XXXXXXX, KC_MINS, JP_CFTD, JP_BSVL,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, JP_ATBQ, JP_LBRC,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      _______, XXXXXXX, XXXXXXX, KC_SCLN, JP_CLAS, JP_RBRC,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      _______, KC_COMM, KC_DOT,  KC_SLSH, JP_BSUS, KC_PGUP, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      _______, _______, XXXXXXX, _______, KC_HOME, KC_PGDN, KC_END,  _______, _______, _______, _______, XXXXXXX, _______, KC_DEL   \
-      ),
+    _______, XXXXXXX, XXXXXXX, KC_MINS, JP_CFTD, JP_BSVL,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, JP_ATBQ, JP_LBRC,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, XXXXXXX, XXXXXXX, KC_SCLN, JP_CLAS, JP_RBRC,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, KC_COMM, KC_DOT,  KC_SLSH, JP_BSUS, KC_PGUP, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, _______, XXXXXXX, _______, KC_HOME, KC_PGDN, KC_END,  _______, _______, _______, _______, XXXXXXX, _______, KC_DEL   \
+    ),
 
   /* Raise JIS Normal
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -171,12 +171,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_RAISE] = LAYOUT( \
-      KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP, \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_END,  KC_PGDN, \
-      _______, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, \
-      _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R  \
-      ),
+    KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_PGUP, \
+    _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_END,  KC_PGDN, \
+    _______, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, \
+    _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R  \
+    ),
 
   /* Raise JIS Exchange L and R
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -192,12 +192,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_RAI_E] = LAYOUT( \
-      KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,                    KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   \
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, _______, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, \
-      _______, _______, XXXXXXX, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, XXXXXXX, _______, XXXXXXX  \
-      ),
+    KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,                    KC_F1  , KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MS_U, XXXXXXX, XXXXXXX, _______, KC_BTN1, KC_BTN2, XXXXXXX, XXXXXXX, XXXXXXX, \
+    _______, _______, XXXXXXX, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, XXXXXXX, _______, XXXXXXX  \
+    ),
 
   /* Adjust (Lower + Raise) Common map for Normal and Exchange
    * ,-----------------------------------------.             ,-----------------------------------------.
@@ -213,12 +213,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_ADJUST] =  LAYOUT( \
-      XXXXXXX, RESET,   RGBRST,  AU_ON,   AU_OFF,  XXXXXXX,                   XXXXXXX, RESET,   RGBRST,  AU_ON,   AU_OFF,  XXXXXXX, \
-      XXXXXXX, BASE,    BAS_E,   AG_NORM, AG_SWAP, XXXXXXX,                   XXXXXXX, BASE,    BAS_E,   AG_NORM, AG_SWAP, XXXXXXX, \
-      XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,                   XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, \
-      XXXXXXX, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
-      ),
+    XXXXXXX, RESET,   RGBRST,  AU_ON,   AU_OFF,  XXXXXXX,                   XXXXXXX, RESET,   RGBRST,  AU_ON,   AU_OFF,  XXXXXXX, \
+    XXXXXXX, BASE,    BAS_E,   AG_NORM, AG_SWAP, XXXXXXX,                   XXXXXXX, BASE,    BAS_E,   AG_NORM, AG_SWAP, XXXXXXX, \
+    XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX,                   XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, XXXXXXX, \
+    XXXXXXX, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
+    ),
 };
 
 #elif HELIX_ROWS == 4
@@ -274,6 +274,7 @@ void toggle_lower_raise_layer(bool pressed, uint16_t dist_layer, uint16_t lower_
         }
       #endif
     }
+
     layer_on(dist_layer);
     #ifdef ADJUST_MACRO_ENABLE
       update_tri_layer_RGB(lower_layer, raise_layer, _ADJUST);
@@ -353,9 +354,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case EISU:
       if (record->event.pressed) {
-        if(keymap_config.swap_lalt_lgui==false){
+        if (keymap_config.swap_lalt_lgui==false) {
           register_code(KC_LANG2);
-        }else{
+        } else {
           SEND_STRING(SS_LALT("`"));
         }
       } else {
@@ -393,17 +394,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-        iota_gfx_init(!has_usb());   // turns on the display
-    #endif
+  #ifdef AUDIO_ENABLE
+    startup_user();
+  #endif
+  #ifdef RGBLIGHT_ENABLE
+    RGB_current_mode = rgblight_config.mode;
+  #endif
+  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
+  #ifdef SSD1306OLED
+    TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
+    iota_gfx_init(!has_usb());   // turns on the display
+  #endif
 }
 
 
@@ -411,23 +412,23 @@ void matrix_init_user(void) {
 
 void startup_user()
 {
-    _delay_ms(20); // gets rid of tick
+  _delay_ms(20); // gets rid of tick
 }
 
 void shutdown_user()
 {
-    _delay_ms(150);
-    stop_all_notes();
+  _delay_ms(150);
+  stop_all_notes();
 }
 
 void music_on_user(void)
 {
-    music_scale_user();
+  music_scale_user();
 }
 
 void music_scale_user(void)
 {
-    PLAY_SONG(music_scale);
+  PLAY_SONG(music_scale);
 }
 
 #endif
@@ -437,7 +438,7 @@ void music_scale_user(void)
 #ifdef SSD1306OLED
 
 void matrix_scan_user(void) {
-     iota_gfx_task();  // this is what updates the display continuously
+  iota_gfx_task();  // this is what updates the display continuously
 }
 
 void matrix_update(struct CharacterMatrix *dest,
@@ -479,43 +480,51 @@ void render_status(struct CharacterMatrix *matrix) {
     matrix_write(matrix, logo[0][0]);
     matrix_write_P(matrix, PSTR("\n"));
     matrix_write(matrix, logo[0][1]);
-  }else{
+  } else {
     matrix_write(matrix, logo[1][0]);
     matrix_write_P(matrix, PSTR("\n"));
     matrix_write(matrix, logo[1][1]);
   }
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-  char buf[20];
-  snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
+  char buf[16];
   matrix_write_P(matrix, PSTR("\nLayer: "));
     switch (layer_state) {
-        case L_BASE:
-           matrix_write_P(matrix, PSTR("Default"));
-           break;
-        case L_RAISE:
-        case L_RAI_E:
-           matrix_write_P(matrix, PSTR("Raise"));
-           break;
-        case L_LOWER:
-        case L_LOW_E:
-           matrix_write_P(matrix, PSTR("Lower"));
-           break;
-        case L_ADJUST:
-        case L_ADJUST_TRI:
-        case L_ADJUST_TRIE:
-           matrix_write_P(matrix, PSTR("Adjust"));
-           break;
-        default:
-           matrix_write(matrix, buf);
+      case L_BASE:
+        if (default_layer_state == (1UL<<_BAS_E)) {
+          matrix_write_P(matrix, PSTR("Base_Ex"));
+        } else {
+          matrix_write_P(matrix, PSTR("Base"));
+        }
+        break;
+      case L_RAISE:
+        matrix_write_P(matrix, PSTR("Raise"));
+        break;
+      case L_RAI_E:
+        matrix_write_P(matrix, PSTR("Raise_Ex"));
+        break;
+      case L_LOWER:
+        matrix_write_P(matrix, PSTR("Lower"));
+        break;
+      case L_LOW_E:
+        matrix_write_P(matrix, PSTR("Lower_Ex"));
+        break;
+      case L_ADJUST:
+      case L_ADJUST_TRI:
+      case L_ADJUST_TRIE:
+        matrix_write_P(matrix, PSTR("Adjust"));
+        break;
+      default:
+        snprintf(buf, sizeof(buf), "Undef-%d", (short)layer_state);
+        matrix_write(matrix, buf);
     }
 
   // Host Keyboard LED Status
-  char led[40];
-    snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
+  char led[32];
+  snprintf(led, sizeof(led), "\n%s  %s  %s",
+          (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
+          (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
+          (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
   matrix_write(matrix, led);
 }
 
@@ -530,11 +539,12 @@ void iota_gfx_task_user(void) {
 #endif
 
   matrix_clear(&matrix);
-  if(is_master){
+  if (is_master) {
     render_status(&matrix);
-  }else{
+  } else {
     render_logo(&matrix);
   }
+
   matrix_update(&display, &matrix);
 }
 
