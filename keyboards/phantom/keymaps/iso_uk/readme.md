@@ -1,6 +1,6 @@
-# Keymap for a standard winkey ANSI configuration of the Phantom
+# Keymap for a standard winkey ISO-UK configuration of the Phantom
 
-A basic keymap intended for a Phantom using the standard ANSI layout.
+A basic keymap intended for a Phantom using the standard ISO layout.
 
 See [keymap.c](keymap.c) for details.
 
@@ -13,15 +13,15 @@ The keymap have two layers. To access the functions on the second layer, hold do
      |Esc|   |F1 |F2 |F3 |F4 | |F5 |F6 |F7 |F8 | |F9 |F10|F11|F12| |PrS|ScL|Pau|
      `---'   `---------------' `---------------' `---------------' `-----------'
      ,-----------------------------------------------------------. ,-----------.
-     |~  |  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp | |Ins|Hom|PgU|
+     |¬  |  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp | |Ins|Hom|PgU|
      |-----------------------------------------------------------| |-----------|
-     |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \| |Del|End|PgD|
-     |-----------------------------------------------------------| '-----------'
-     |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |
+     |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|     | |Del|End|PgD|
+     |------------------------------------------------------.    | '-----------'
+     |Caps  |  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|  #|Ret |
      |-----------------------------------------------------------|     ,---.
-     |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |     |Up |
+     |Shft|  \|  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift     |     |Up |
      |-----------------------------------------------------------| ,-----------.
-     |Ctl|Gui|Alt|             Space             |Alt|Gui|Fn |Ctl| |Lef|Dow|Rig|
+     |Ctrl|GUI |Alt |          Space         |Alt |GUI |Fn  |Ctl | |Lef|Dow|Rig|
      `-----------------------------------------------------------' `-----------'
 
 ### Layer 2: Function Layer
@@ -32,14 +32,14 @@ The keymap have two layers. To access the functions on the second layer, hold do
      |   |   |   |   |   |   |   |   |   |   |   |   |   |       | |   |   |   |
      |-----------------------------------------------------------| |-----------|
      |     |   |   |   |   |   |   |   |   |   |   |   |   |     | |   |   |   |
-     |-----------------------------------------------------------| '-----------'
-     |      |   |   |   |   |   |   |   |   |   |   |   | Media  |
+     |------------------------------------------------------.    | '-----------'
+     |      |   |   |   |   |   |   |   |   |   |   |   |   |MSel|
      |-----------------------------------------------------------|     ,---.
      |        |   |   |Cal|   |   |   |   |   |   |   |          |     |   |
      |-----------------------------------------------------------| ,-----------.
-     |   |   |   |                               |   |   |   |   | |   |   |   |
+     |    |    |    |                        |    |    |    |    | |   |   |   |
      `-----------------------------------------------------------' `-----------'
 
 ## Building
 
-To build the firmware with the default keymap, run `make phantom:default`.
+To build the firmware with this keymap, run `make phantom:iso_uk`.
