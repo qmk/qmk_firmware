@@ -52,20 +52,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* custom
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-   * │ esc │  B  │  M  │  P  │  O  │  ;  │  ^  │  V  │  D  │  L  │  J  │ bsp │
+   * │ esc │  B  │  M  │  P  │  Q  │  ;  │  K  │  V  │  C  │  D  │  J  │ bsp │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   * │ tab │  A  │  U  │  I  │  E  │  ,  │  C  │  T  │  S  │  R  │  N  │ ent │
+   * │ tab │  A  │  U  │  I  │  E  │  O  │  L  │  T  │  S  │  R  │  N  │ ent │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   * │shift│  W  │  Y  │  X  │  .  │  K  │  Z  │  Q  │  G  │  H  │  F  │shift│
+   * │shift│  W  │  Y  │  G  │  ,  │  Z  │  X  │  .  │  F  │  H  │ up  │shift│
    * ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
    * │ctrl │ os  │media│ alt │lower│   raise   │sp/sh│ alt │left │down │right│
    * └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
    */
   [_CUSTOM] = {
-    {KC_ESC,  KC_B,    KC_M,    KC_P,    KC_O,   KC_SCLN, KC_CIRC, KC_V,    KC_D,    KC_L,    KC_J,    KC_BSPC},
-    {KC_TAB,  KC_A,    KC_U,    KC_I,    KC_E,   KC_COMM, KC_C,    KC_T,    KC_S,    KC_R,    KC_N,    KC_ENT},
-    {KC_LSFT, KC_W,    KC_Y,    KC_X,    KC_DOT, KC_K,    KC_Z,    KC_Q,    KC_G,    KC_H,    KC_F,    KC_RSFT},
-    {KC_LCTL, KC_LGUI, SP_MEDI, KC_LALT, LOWER,  RAISE,   RAISE,   SP_SHSP, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
+    {KC_ESC,  KC_B,    KC_M,    KC_P,    KC_Q,    KC_SCLN, KC_K,  KC_V,    KC_C,    KC_D,    KC_J,    KC_BSPC},
+    {KC_TAB,  KC_A,    KC_U,    KC_I,    KC_E,    KC_O,    KC_L,  KC_T,    KC_S,    KC_R,    KC_N,    KC_ENT},
+    {KC_LSFT, KC_W,    KC_Y,    KC_G,    KC_COMM, KC_Z,    KC_X,  KC_DOT,  KC_F,    KC_H,    KC_UP,   KC_RSFT},
+    {KC_LCTL, KC_LGUI, SP_MEDI, KC_LALT, LOWER,   RAISE,   RAISE, SP_SHSP, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
   },
 
   /* gaming
