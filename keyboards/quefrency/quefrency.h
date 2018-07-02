@@ -1,9 +1,9 @@
-#ifndef FOURIER_H
-#define FOURIER_H
+#ifndef QUEFRENCY_H
+#define QUEFRENCY_H
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_fourier_rev1
+#ifdef KEYBOARD_quefrency_rev1
     #include "rev1.h"
 #endif
 

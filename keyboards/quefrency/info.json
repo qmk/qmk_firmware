@@ -1,13 +1,13 @@
 {
-    "keyboard_name": "Fourier", 
-    "url": "https://keeb.io", 
-    "maintainer": "nooges", 
-    "width": 14, 
-    "height": 4, 
+    "keyboard_name": "Quefrency",
+    "url": "https://keeb.io",
+    "maintainer": "nooges",
+    "width": 16,
+    "height": 5,
     "layouts": {
         "LAYOUT": {
             "layout": [
-                {"label":"Tab", "x":0, "y":0},
+                {"label":"Tab", "x":0, "y":0, "w":1.25},
                 {"label":"Q", "x":1, "y":0},
                 {"label":"W", "x":2, "y":0},
                 {"label":"E", "x":3, "y":0},
