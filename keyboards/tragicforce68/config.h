@@ -24,13 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xCEEB
 #define PRODUCT_ID      0x0510
 #define DEVICE_VER      0x0101
-#define MANUFACTURER    di0ib
-#define PRODUCT         MF68
-#define DESCRIPTION     Magicforce 68 with programmable PCB replacement
+#define MANUFACTURER    Keebio
+#define PRODUCT         Tragicforce 68
+#define DESCRIPTION     Programmable PCB replacement for Magicforce 68
 
 /* key matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 9
+#define MATRIX_ROWS 9
+#define MATRIX_COLS 8
 
 /*
  * Keyboard Matrix Assignments
@@ -42,8 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { B6, B2, B3, B1, F7, F6, F5, F4 }
-#define MATRIX_COL_PINS { D3, D2, D1, D0, D4, C6, D7, E6, B4 }
+#define MATRIX_ROW_PINS { D3, D2, D1, D0, B4, E6, C6, D7, D4 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 7
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

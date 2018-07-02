@@ -1,4 +1,4 @@
-#include "mf68.h"
+#include "tragicforce68.h"
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
