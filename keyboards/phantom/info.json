@@ -5,7 +5,7 @@
   "width": 18.25,
   "height": 6.5,
   "layouts": {
-    "KEYMAP": {
+    "LAYOUT_tkl_ansi": {
       "key_count": 87,
       "layout": [
         {
@@ -459,7 +459,7 @@
         }
       ]
     },
-    "KEYMAP_WINKEYLESS": {
+    "LAYOUT_tkl_ansi_wkl": {
       "key_count": 86,
       "layout": [
         {
@@ -905,7 +905,7 @@
         }
       ]
     },
-    "KEYMAP_7BIT": {
+    "LAYOUT_7bit": {
       "key_count": 101,
       "layout": [
         {
@@ -1412,7 +1412,7 @@
         }
       ]
     },
-    "KEYMAP_ISO_WINKEYLESS": {
+    "LAYOUT_tkl_iso_wkl": {
       "key_count": 87,
       "layout": [
         {
@@ -1648,13 +1648,6 @@
           "y": 2.5
         },
         {
-          "label": "Enter",
-          "x": 13.75,
-          "y": 2.5,
-          "w": 1.25,
-          "h": 2
-        },
-        {
           "label": "Delete",
           "x": 15.25,
           "y": 2.5
@@ -1733,6 +1726,13 @@
         {
           "x": 12.75,
           "y": 3.5
+        },
+        {
+          "label": "Enter",
+          "x": 13.75,
+          "y": 2.5,
+          "w": 1.25,
+          "h": 2
         },
         {
           "label": "Shift",
@@ -1861,7 +1861,7 @@
         }
       ]
     },
-    "KEYMAP_ISO": {
+    "LAYOUT_tkl_iso": {
       "key_count": 88,
       "layout": [
         {
@@ -1945,7 +1945,7 @@
           "y": 0
         },
         {
-          "label": "~",
+          "label": "¬",
           "x": 0,
           "y": 1.5
         },
@@ -1955,12 +1955,12 @@
           "y": 1.5
         },
         {
-          "label": "@",
+          "label": "\"",
           "x": 2,
           "y": 1.5
         },
         {
-          "label": "#",
+          "label": "£",
           "x": 3,
           "y": 1.5
         },
@@ -2097,13 +2097,6 @@
           "y": 2.5
         },
         {
-          "label": "Enter",
-          "x": 13.75,
-          "y": 2.5,
-          "w": 1.25,
-          "h": 2
-        },
-        {
           "label": "Delete",
           "x": 15.25,
           "y": 2.5
@@ -2175,13 +2168,21 @@
           "y": 3.5
         },
         {
-          "label": "\"",
+          "label": "@",
           "x": 11.75,
           "y": 3.5
         },
         {
+          "label": "~",
           "x": 12.75,
           "y": 3.5
+        },
+        {
+          "label": "Enter",
+          "x": 13.75,
+          "y": 2.5,
+          "w": 1.25,
+          "h": 2
         },
         {
           "label": "Shift",
@@ -2190,6 +2191,7 @@
           "w": 1.25
         },
         {
+          "label": "|",
           "x": 1.25,
           "y": 4.5
         },
@@ -2278,7 +2280,7 @@
           "w": 6.25
         },
         {
-          "label": "Alt",
+          "label": "AltGr",
           "x": 10,
           "y": 5.5,
           "w": 1.25
@@ -2290,6 +2292,7 @@
           "w": 1.25
         },
         {
+          "label": "Menu",
           "x": 12.5,
           "y": 5.5,
           "w": 1.25
