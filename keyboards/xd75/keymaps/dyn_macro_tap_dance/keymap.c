@@ -16,8 +16,8 @@
 #include "xd75.h"
 
 enum planck_keycodes {
-    DUMMY = SAFE_RANGE,
-    DYNAMIC_MACRO_RANGE,
+  DUMMY = SAFE_RANGE,
+  DYNAMIC_MACRO_RANGE,
 };
 
 #include "dynamic_macro.h"
@@ -27,37 +27,37 @@ enum planck_keycodes {
 #define _FN 1
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if ( !process_record_dynamic_macro( keycode, record ) ) {
-        return false;
-    }
+  if ( !process_record_dynamic_macro( keycode, record ) ) {
+    return false;
+  }
 
-    return true;
+  return true;
 };
 
 void macro_tog_key( qk_tap_dance_state_t *state, void *user_data ) {
-    if ( state->count > 3 )
-        return;
+  if ( state->count > 3 )
+    return;
 
-    keyrecord_t kr;
-    kr.event.pressed = false;
-    uint16_t action = DYN_REC_STOP;
+  keyrecord_t kr;
+  kr.event.pressed = false;
+  uint16_t action = DYN_REC_STOP;
 
-    if ( state->count == 1 ) {
-        action = DYN_MACRO_PLAY1;
-    }
-    else if ( state->count == 2 ) {
-        action = DYN_REC_STOP;
-        kr.event.pressed = true;
-    }
-    else if ( state->count == 3 ) {
-        action = DYN_REC_START1;
-    }
+  if ( state->count == 1 ) {
+    action = DYN_MACRO_PLAY1;
+  }
+  else if ( state->count == 2 ) {
+    action = DYN_REC_STOP;
+    kr.event.pressed = true;
+  }
+  else if ( state->count == 3 ) {
+    action = DYN_REC_START1;
+  }
 
-    process_record_dynamic_macro( action, &kr );
+  process_record_dynamic_macro( action, &kr );
 }
 
 enum {
-    MCROTOG_ = 0
+  MCROTOG_ = 0
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
