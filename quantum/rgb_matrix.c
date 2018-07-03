@@ -41,6 +41,10 @@ rgb_config_t rgb_matrix_config;
     #define EECONFIG_RGB_MATRIX EECONFIG_RGBLIGHT
 #endif
 
+#if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > 255
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+#endif
+
 bool g_suspend_state = false;
 
 // Global tick at 20 Hz
@@ -68,7 +72,7 @@ void eeconfig_update_rgb_matrix_default(void) {
   rgb_matrix_config.mode = RGB_MATRIX_CYCLE_LEFT_RIGHT;
   rgb_matrix_config.hue = 0;
   rgb_matrix_config.sat = 255;
-  rgb_matrix_config.val = 255;
+  rgb_matrix_config.val = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
   rgb_matrix_config.speed = 0;
   eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
@@ -858,12 +862,12 @@ void rgblight_decrease_sat(void) {
 }
 
 void rgblight_increase_val(void) {
-    rgb_matrix_config.val = increment( rgb_matrix_config.val, 8, 0, 255 );
+    rgb_matrix_config.val = increment( rgb_matrix_config.val, 8, 0, RGB_MATRIX_MAXIMUM_BRIGHTNESS );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
 void rgblight_decrease_val(void) {
-    rgb_matrix_config.val = decrement( rgb_matrix_config.val, 8, 0, 255 );
+    rgb_matrix_config.val = decrement( rgb_matrix_config.val, 8, 0, RGB_MATRIX_MAXIMUM_BRIGHTNESS );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
