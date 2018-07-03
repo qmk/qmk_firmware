@@ -15,9 +15,57 @@
  */
 #include "xd75.h"
 
+enum planck_keycodes {
+    DUMMY = SAFE_RANGE,
+    DYNAMIC_MACRO_RANGE,
+};
+
+#include "dynamic_macro.h"
+
 // Layer shorthand
 #define _QW 0
 #define _FN 1
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if ( !process_record_dynamic_macro( keycode, record ) ) {
+        return false;
+    }
+
+    return true;
+};
+
+void macro_tog_key( qk_tap_dance_state_t *state, void *user_data ) {
+    if ( state->count > 3 )
+        return;
+
+    keyrecord_t kr;
+    kr.event.pressed = false;
+    uint16_t action = DYN_REC_STOP;
+
+    if ( state->count == 1 ) {
+        action = DYN_MACRO_PLAY1;
+    }
+    else if ( state->count == 2 ) {
+        action = DYN_REC_STOP;
+        kr.event.pressed = true;
+    }
+    else if ( state->count == 3 ) {
+        action = DYN_REC_START1;
+    }
+
+    process_record_dynamic_macro( action, &kr );
+}
+
+enum {
+    MCROTOG_ = 0
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [MCROTOG_]  = ACTION_TAP_DANCE_FN( macro_tog_key )
+};
+
+// Key shorthand
+#define MCROTOG TD( MCROTOG_ )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -31,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------------------------+--------|
  * | LSHIFT | Z      | X      | C      | V      | B      | END    | UP     | PG DN  | N      | M      | ,      | .      | /      | RSHIFT |
  * |--------+--------+--------+--------+--------+-----------------+--------+--------+--------+--------+-----------------+--------+--------|
- * | LCTRL  | LGUI   | LALT   | FN     | SPACE  | SPACE  | LEFT   | DOWN   | RIGHT  | SPACE  | SPACE  | FN     | RALT   | RGUI   | RCTRL  |
+ * | LCTRL  | LGUI   | LALT   | FN     | SPACE  | SPACE  | LEFT   | DOWN   | RIGHT  | MCRTOG | SPACE  | FN     | RALT   | RGUI   | RCTRL  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
@@ -40,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_BSLS, KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_QUOT  },
   { KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_HOME, KC_DEL,  KC_PGUP, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT   },
   { KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_END,  KC_UP,   KC_PGDN, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT  },
-  { KC_LCTL, KC_LGUI, KC_LALT, MO(_FN), KC_SPC,  KC_SPC,  KC_LEFT, KC_DOWN, KC_RGHT, KC_SPC,  KC_SPC,  MO(_FN), KC_RALT, KC_RGUI, KC_RCTL  },
+  { KC_LCTL, KC_LGUI, KC_LALT, MO(_FN), KC_SPC,  KC_SPC,  KC_LEFT, KC_DOWN, KC_RGHT, MCROTOG, KC_SPC,  MO(_FN), KC_RALT, KC_RGUI, KC_RCTL  },
  },
 
 /* FUNCTION
