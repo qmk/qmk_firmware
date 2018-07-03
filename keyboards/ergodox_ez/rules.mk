@@ -15,8 +15,8 @@
 #----------------------------------------------------------------------------
 
 # # project specific files
-SRC = twimaster.c \
-	  matrix.c
+SRC = matrix.c \
+  i2c_master.c
 
 # MCU name
 MCU = atmega32u4
@@ -82,6 +82,7 @@ UNICODE_ENABLE   = yes # Unicode
 SWAP_HANDS_ENABLE= yes # Allow swapping hands of keyboard
 SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
-RGBLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = no
+RGB_MATRIX_ENABLE = yes
 
 LAYOUTS = ergodox
