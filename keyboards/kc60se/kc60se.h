@@ -25,7 +25,7 @@ inline void kc60se_caps_led_off(void) { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
  * K2C, K31 and  K3C are keys for ISO
  * This is the row/column wiring, which different from the physical layout.
  */
-// All pads defined in logical layout. The KC_NO in this section are padless. 
+// All pads defined in logical layout. The KC_NO in this section are padless.
 #define LAYOUT( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
@@ -41,7 +41,7 @@ inline void kc60se_caps_led_off(void) { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
 }
 
 /* ANSI */
-#define LAYOUT_ansi( \
+#define LAYOUT_60_ansi( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D, \
@@ -60,7 +60,7 @@ inline void kc60se_caps_led_off(void) { DDRB &= ~(1<<2); PORTB &= ~(1<<2); }
  *  the best representation of the physical layout, (K49 on top right).
  *  The KC_NOs on the space row do not have pads
  */
-#define LAYOUT_hhkb( \
+#define LAYOUT_60_ansi_split_bs_rshift( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K49,\
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,      K2D, \
