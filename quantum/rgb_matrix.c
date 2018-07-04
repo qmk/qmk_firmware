@@ -41,6 +41,10 @@ rgb_config_t rgb_matrix_config;
     #define EECONFIG_RGB_MATRIX EECONFIG_RGBLIGHT
 #endif
 
+#if !defined(RGB_MATRIX_MAXIMUM_BRIGHTNESS) || RGB_MATRIX_MAXIMUM_BRIGHTNESS > 255
+    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
+#endif
+
 bool g_suspend_state = false;
 
 // Global tick at 20 Hz
@@ -68,7 +72,7 @@ void eeconfig_update_rgb_matrix_default(void) {
   rgb_matrix_config.mode = RGB_MATRIX_CYCLE_LEFT_RIGHT;
   rgb_matrix_config.hue = 0;
   rgb_matrix_config.sat = 255;
-  rgb_matrix_config.val = 255;
+  rgb_matrix_config.val = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
   rgb_matrix_config.speed = 0;
   eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
@@ -101,7 +105,6 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i, uint8_t
     }
 }
 
-
 void rgb_matrix_update_pwm_buffers(void) {
     IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
     IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
@@ -114,7 +117,6 @@ void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
 void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
     IS31FL3731_set_color_all( red, green, blue );
 }
-
 
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     if ( record->event.pressed ) {
@@ -218,7 +220,7 @@ void rgb_matrix_single_LED_test(void) {
 }
 
 // All LEDs off
-void rgb_matrix_all_off(void) { 
+void rgb_matrix_all_off(void) {
     rgb_matrix_set_color_all( 0, 0, 0 );
 }
 
@@ -244,7 +246,7 @@ void rgb_matrix_solid_reactive(void) {
 
 // alphas = color1, mods = color2
 void rgb_matrix_alphas_mods(void) {
- 
+
     RGB rgb1 = hsv_to_rgb( (HSV){ .h = rgb_matrix_config.hue, .s = rgb_matrix_config.sat, .v = rgb_matrix_config.val } );
     RGB rgb2 = hsv_to_rgb( (HSV){ .h = (rgb_matrix_config.hue + 180) % 360, .s = rgb_matrix_config.sat, .v = rgb_matrix_config.val } );
 
@@ -722,40 +724,44 @@ void rgb_matrix_indicators_user(void) {}
 //  }
 // }
 
-void rgb_matrix_init_drivers(void) {
-    // Initialize TWI
-    i2c_init();
-    IS31FL3731_init( DRIVER_ADDR_1 );
-    IS31FL3731_init( DRIVER_ADDR_2 );
+void rgb_matrix_init(void) {
+  rgb_matrix_setup_drivers();
 
-    for ( int index = 0; index < DRIVER_LED_TOTAL; index++ ) {
-        bool enabled = true;
-        // This only caches it for later
-        IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
-    }
-    // This actually updates the LED drivers
-    IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+  // TODO: put the 1 second startup delay here?
 
-    // TODO: put the 1 second startup delay here?
-
-    // clear the key hits
-    for ( int led=0; led<DRIVER_LED_TOTAL; led++ ) {
-        g_key_hit[led] = 255;
-    }
+  // clear the key hits
+  for ( int led=0; led<DRIVER_LED_TOTAL; led++ ) {
+      g_key_hit[led] = 255;
+  }
 
 
-    if (!eeconfig_is_enabled()) {
-        dprintf("rgb_matrix_init_drivers eeconfig is not enabled.\n");
-        eeconfig_init();
-        eeconfig_update_rgb_matrix_default();
-    }
-    rgb_matrix_config.raw = eeconfig_read_rgb_matrix();
-    if (!rgb_matrix_config.mode) {
-        dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");
-        eeconfig_update_rgb_matrix_default();
-        rgb_matrix_config.raw = eeconfig_read_rgb_matrix();
-    }
-    eeconfig_debug_rgb_matrix(); // display current eeprom values
+  if (!eeconfig_is_enabled()) {
+      dprintf("rgb_matrix_init_drivers eeconfig is not enabled.\n");
+      eeconfig_init();
+      eeconfig_update_rgb_matrix_default();
+  }
+  rgb_matrix_config.raw = eeconfig_read_rgb_matrix();
+  if (!rgb_matrix_config.mode) {
+      dprintf("rgb_matrix_init_drivers rgb_matrix_config.mode = 0. Write default values to EEPROM.\n");
+      eeconfig_update_rgb_matrix_default();
+      rgb_matrix_config.raw = eeconfig_read_rgb_matrix();
+  }
+  eeconfig_debug_rgb_matrix(); // display current eeprom values
+}
+
+void rgb_matrix_setup_drivers(void) {
+  // Initialize TWI
+  i2c_init();
+  IS31FL3731_init( DRIVER_ADDR_1 );
+  IS31FL3731_init( DRIVER_ADDR_2 );
+
+  for ( int index = 0; index < DRIVER_LED_TOTAL; index++ ) {
+    bool enabled = true;
+    // This only caches it for later
+    IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
+  }
+  // This actually updates the LED drivers
+  IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 }
 
 // Deals with the messy details of incrementing an integer
@@ -858,12 +864,12 @@ void rgblight_decrease_sat(void) {
 }
 
 void rgblight_increase_val(void) {
-    rgb_matrix_config.val = increment( rgb_matrix_config.val, 8, 0, 255 );
+    rgb_matrix_config.val = increment( rgb_matrix_config.val, 8, 0, RGB_MATRIX_MAXIMUM_BRIGHTNESS );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
 void rgblight_decrease_val(void) {
-    rgb_matrix_config.val = decrement( rgb_matrix_config.val, 8, 0, 255 );
+    rgb_matrix_config.val = decrement( rgb_matrix_config.val, 8, 0, RGB_MATRIX_MAXIMUM_BRIGHTNESS );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 

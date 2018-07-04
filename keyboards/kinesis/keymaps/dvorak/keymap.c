@@ -1,10 +1,10 @@
-#include "kinesis.h"
+#include QMK_KEYBOARD_H
 
 #define _DVORAK 0 // Base Dvorak layer
 #define _MEDIA 1  // Media layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_DVORAK] = KEYMAP(
+[_DVORAK] = LAYOUT(
         // left hand
         KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5, KC_F6, KC_F7, KC_F8,
         KC_GRV,   KC_1,    KC_2,    KC_3,    KC_4,   KC_5,
@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(_MEDIA), KC_ENT, KC_SPC
     ),
 
-[_MEDIA] = KEYMAP(
+[_MEDIA] = LAYOUT(
        // left hand
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO,
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
