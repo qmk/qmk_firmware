@@ -1,7 +1,3 @@
-ifeq ($(strip $(SECRETS)),yes)
-	OPT_DEF += -DSECRETS
-endif
-
 # Build Options
 #   comment out to disable the options.
 #
