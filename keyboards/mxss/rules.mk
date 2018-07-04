@@ -54,7 +54,7 @@ OPT_DEFS += -DBOOTLOADER_SIZE=4096
 BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
-CONSOLE_ENABLE = yes        # Console for debug(+400)
+CONSOLE_ENABLE = no        # Console for debug(+400)
 COMMAND_ENABLE = yes        # Commands for debug and configuration
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
@@ -66,4 +66,10 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-RGBLIGHT_ENABLE = yes		# Enable RGB LED support
+
+# Remove the common RGB light code and use my iteration instead
+OPT_DEFS += -DRGBLIGHT_ENABLE
+SRC += rgblight.c
+SRC += ws2812.c
+CIE1931_CURVE = yes
+LED_BREATHING_TABLE = yes

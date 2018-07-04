@@ -14,6 +14,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "rgblight.h"
+
+// Predefined colors for layers
+// Format: {red, green, blue}
+// Add additional rows to handle more layers
+LED_TYPE layer_colors[] = {
+    {0,   0,   0},  // Color for Layer 0
+    {255, 0,   0},  // Color for Layer 1
+    {0,   255, 0},  // Color for Layer 2
+    {0,   0, 255},  // Color for Layer 3
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT( /* Base */
@@ -27,11 +38,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT( /* L1 */
 	KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
     KC_TRNS, KC_MPLY, KC_MPRV, KC_MNXT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_PSCR, KC_TRNS, KC_TRNS, RGB_VAI,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAD,
+    RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_END, KC_TRNS, KC_TRNS, KC_TRNS, RGB_VAD,
     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS, RGB_MOD, RGB_SAI, RGB_TOG,
-    RESET, KC_TRNS, KC_TRNS,           KC_TRNS,           KC_TRNS, KC_TRNS, RGB_HUD, RGB_SAD, RGB_HUI
+    KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS,           KC_TRNS, KC_TRNS, RGB_HUD, RGB_SAD, RGB_HUI
 ),
 };
+
+const size_t array_size = sizeof(keymaps) / sizeof(uint16_t);
 
 const uint16_t PROGMEM fn_actions[] = {
 
