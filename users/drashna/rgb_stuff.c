@@ -103,7 +103,48 @@ void matrix_scan_indicator(void) {
 static rgblight_fadeout lights[RGBLED_NUM];
 
 __attribute__ ((weak))
-bool indicator_is_this_led_used(uint8_t index) { return false; }
+bool rgblight_twinkle_is_led_used_keymap(uint8_t index) { return false; }
+
+bool rgblight_twinkle_is_led_used(uint8_t index) {
+  switch (index) {
+#ifdef INDICATOR_LIGHTS
+#ifdef SHFT_LED1
+    case SHFT_LED1:
+      return true;
+#endif //SHFT_LED1
+#ifdef SHFT_LED2
+    case SHFT_LED2:
+      return true;
+#endif //SHFT_LED2
+#ifdef CTRL_LED1
+    case CTRL_LED1:
+      return true;
+#endif //CTRL_LED1
+#ifdef CTRL_LED2
+    case CTRL_LED2:
+      return true;
+#endif //CTRL_LED2
+#ifdef GUI_LED1
+    case GUI_LED1:
+      return true;
+#endif //GUI_LED1
+#ifdef GUI_LED2
+    case GUI_LED2:
+      return true;
+#endif //GUI_LED2
+#ifdef ALT_LED1
+    case ALT_LED1:
+      return true;
+#endif //ALT_LED1
+#ifdef ALT_LED2
+    case ALT_LED2:
+      return true;
+#endif //ALT_LED2
+#endif //INDICATOR_LIGHTS
+    default:
+    return rgblight_twinkle_is_led_used_keymap(index);
+  }
+}
 
 void scan_rgblight_fadeout(void) { // Don't effing change this function .... rgblight_sethsv is supppppper intensive
   bool litup = false;
