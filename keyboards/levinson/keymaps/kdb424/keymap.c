@@ -17,7 +17,8 @@ enum custom_keycodes {
   GAMING,
   RAISE1,
   RAISE2,
-  RAISE3
+  RAISE3,
+  REPROGRAM_MACRO
 };
 
 //Tap Dance Declarations
@@ -116,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise3
  * ,-----------------------------------------------------------------------------------.
- * |RESET |      |      |      |      |      |      |      | F10  | F11  | F12  |      |
+ * |RESET |PROGRA|     |      |      |      |      |      | F10  | F11  | F12  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |  F7  |  F8  |  F9  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -126,11 +127,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE3] =  LAYOUT_ortho_4x12( \
-  RESET,   _______, _______, _______, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
+  RESET,   REPROGRAM_MACRO, _______, _______, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
   _______, _______, _______, _______, _______, _______, _______, _______, KC_F7,  KC_F8,  KC_F9,  _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, KC_F4,  KC_F5,  KC_F6,  _______, \
   DF(0),   DF(1),   _______, _______, _______, _______, _______, _______, KC_F1,  KC_F2,  KC_F3,  KC_PSCR \
-)
+),
 
 
 };
@@ -180,16 +181,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 
-/*
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
+    case REPROGRAM_MACRO:
+      SEND_STRING(SS_LGUI(SS_TAP(X_ENTER)));
+      _delay_ms(500);
+      SEND_STRING("~/qmk_firmware" SS_TAP(X_ENTER));
+      _delay_ms(100);
+      SEND_STRING("make "QMK_KEYBOARD":"QMK_KEYMAP":dfu && exit" SS_TAP(X_ENTER));
       return false;
-      break;
-*/
 
   }
   return true;
