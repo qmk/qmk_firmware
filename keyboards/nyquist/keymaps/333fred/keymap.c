@@ -1,7 +1,4 @@
-#include "nyquist.h"
-#include "action_layer.h"
-#include "action_util.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 #include "333fred.h"
 
 extern keymap_config_t keymap_config;
