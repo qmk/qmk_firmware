@@ -7,7 +7,9 @@ This is a standard fixed layout 60% PCB. It comes in two varians, ISO and ANSI a
 
 Keyboard Maintainer: [Yiancar](http://yiancar-designs.com/) and on [github](https://github.com/yiancar)  
 Hardware Supported: HS60 ISO and ANSI PCBs with Atmega 32u4   
-Hardware Availability: https://mechboards.co.uk/shop/all/hs60-pcb/
+Hardware Availability: https://mechboards.co.uk/shop/all/hs60-pcb/   
+
+Due to the RGB implementation, the HS60 is currently not compatible with community layouts.
 
 Make example for this keyboard (after setting up your build environment):
 

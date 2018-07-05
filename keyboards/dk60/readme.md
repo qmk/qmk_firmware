@@ -5,8 +5,8 @@ DK60
 
 Another 60% keyboard with different HHKB layout made and sold by dbroqua. [More info on github/dbroqua](https://github.com/Dbroqua/DK60/)
 
-* Keyboard Maintainer: [Damien Broqua aka DarKou](https://github.com/Dbroqua)
-* Hardware Supported: DK60 PCB revA
+Keyboard Maintainer: [Damien Broqua aka DarKou](https://github.com/Dbroqua)  
+Hardware Supported: DK60 PCB revA
 
 Make example for this keyboard (after setting up your build environment):
 

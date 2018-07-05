@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -71,7 +69,7 @@ enum custom_keycodes {
 	                      | BkSp |   /   |------||------|   /   | Space |
 	                      |      | Media | End  || PgDn | KeyPd |       |
 	                      `---------------------'`----------------------'
-	 
+
         Colemak layer:
 	,-------------------------------------------.,-------------------------------------------.
 	|   =    |   1  |   2  |   3  |   4  |   5  ||   6  |   7  |   8  |   9  |   0  |   -    |
@@ -338,3 +336,21 @@ void led_set_user(uint8_t usb_led) {
 void matrix_init_user(void) {
 
 };
+
+void led_set_user(uint8_t usb_led) {
+    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+        PORTF |= (1<<2);
+    } else {
+        PORTF &= ~(1<<2);
+    }
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        PORTF |= (1<<3);
+    } else {
+        PORTF &= ~(1<<3);
+    }
+    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+        PORTF |= (1<<1);
+    } else {
+        PORTF &= ~(1<<1);
+    }
+}

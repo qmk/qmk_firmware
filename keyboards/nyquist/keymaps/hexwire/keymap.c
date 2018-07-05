@@ -1,6 +1,4 @@
-#include "nyquist.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -36,6 +34,7 @@ enum custom_keycodes {
 #define KC_X2 RAISE
 #define KC_X3 LT(_FN3, KC_GRV)
 #define KC_X4 MT(MOD_LSFT, KC_ENT)
+#define KC_BL_S BL_STEP
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -91,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
          ,CPYP,    ,    ,DOWN,LCBR,     RCBR, P1 , P2 , P3 ,MINS,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,     DEL ,    , P0 ,PDOT,    ,
+     BL_S,    ,    ,    ,    ,    ,     DEL ,    , P0 ,PDOT,    ,
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 

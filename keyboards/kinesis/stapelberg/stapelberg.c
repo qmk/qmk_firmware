@@ -63,6 +63,19 @@ void led_set_kb(uint8_t usb_led) {
         PORTF &= ~(1<<3);
     }
 
+	led_set_user(usb_led);
+
+inline void kinesis_keypad_led_on(void)    { DDRF |=  (1<<0); PORTF |=  (1<<0); }
+inline void kinesis_scroll_led_on(void)    { DDRF |=  (1<<1); PORTF |=  (1<<1); }
+inline void kinesis_num_led_on(void)    { DDRF |=  (1<<2); PORTF |=  (1<<2); }
+inline void kinesis_caps_led_on(void)    { DDRF |=  (1<<3); PORTF |=  (1<<3); }
+
+inline void kinesis_keypad_led_off(void)   { DDRF &= ~(1<<0); PORTF &= ~(1<<0); }
+inline void kinesis_scroll_led_off(void)   { DDRF &= ~(1<<1); PORTF &= ~(1<<1); }
+inline void kinesis_num_led_off(void)   { DDRF &= ~(1<<2); PORTF &= ~(1<<2); }
+inline void kinesis_caps_led_off(void)   { DDRF &= ~(1<<3); PORTF &= ~(1<<3); }
+
+
 }
 
 /* This is the old code that has the port information in it.
