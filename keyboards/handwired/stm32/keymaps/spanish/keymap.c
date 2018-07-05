@@ -14,16 +14,19 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "keymap_extras/keymap_spanish.h"
+//#include "keymap_extras/keymap_spanish.h" // For future unicode spanish keys
 #include "stm32.h"
 
-#define LSPO_KEY ES_LPRN
-#define RSPC_KEY ES_RPRN
+// Define layer names
+#define _NORMAL 0
+#define _FNUNO 1
+#define _FNDOS 2
+
 
 // Highly Modified by Xydane
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_NORMAL] = KEYMAP_SETENTA(
-        KC_ESC,	KC_F1,  KC_F2, 	KC_F3, 	KC_F4, 	KC_F5, 	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	KC_F11,	 KC_F12, KC_PSCREEN,KC_HOME, KC_END, \
+        KC_ESC,	KC_F1,  KC_F2, 	KC_F3, 	KC_F4, 	DEBUG, 	KC_F6,	KC_F7,	KC_F8,	KC_F9,	KC_F10,	KC_F11,	 KC_F12, KC_PSCREEN,KC_HOME, KC_END, \
 		  KC_GRAVE,	KC_1,	  KC_2,	  KC_3, 	KC_4, 	KC_5, 	KC_6,	  KC_7,	  KC_8,	  KC_9,	  KC_0,	  KC_MINS, KC_EQL,	KC_BSPC, KC_DELETE, \
 		    KC_TAB,	KC_Q,	  KC_W,	  KC_E, 	KC_R, 	KC_T, 	KC_Y,	  KC_U,	  KC_I,	  KC_O,	  KC_P,	  KC_LBRC, KC_RBRC,				 	 KC_PGUP, \
 		   KC_CAPS,	KC_A,	  KC_S,	  KC_D, 	KC_F, 	KC_G, 	KC_H,	  KC_J, 	KC_K,	  KC_L,	  KC_SCLN,KC_QUOT, KC_NUHS,	  KC_ENT,KC_PGDOWN, \

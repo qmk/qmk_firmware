@@ -23,8 +23,9 @@
 #define MATRIX_COLS 15
 #define DIODE_DIRECTION COL2ROW
 
-#define LSPO_KEY KC_8
-#define RSPC_KEY KC_9
+// Iso fix for Space Cadet
+#define LSPO_KEY KC_9
+#define RSPC_KEY KC_0
 
 
 #endif /* STM70_CONFIG_H_ */

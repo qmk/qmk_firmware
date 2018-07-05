@@ -27,6 +27,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "wait.h"
 
+
+//#include "pwm.c"
+
 #ifndef DEBOUNCE
 #   define DEBOUNCE 5
 #endif
@@ -80,7 +83,7 @@ void matrix_init(void)
     LED_OFF();
 
     // Start of PWM dual color leds
-    iniciarluces();
+    //iniciarluces();
 }
 
 uint8_t matrix_scan(void)
