@@ -62,7 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 #else
   #define MATRIX_ROWS 12
-  #define MATRIX_ROW_PINS { C6, B6, B5, B4, D7 }
+  #define MATRIX_ROW_PINS { C6, B6, B5, B4, D7, E6}
 #endif
 
 // wiring of each half
