@@ -10,3 +10,4 @@ BACKLIGHT_ENABLE = yes # Enable keyboard backlight functionality
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 AUDIO_ENABLE     = no
 API_SYSEX_ENABLE = no
+BOOTLOADER       = qmk-dfu
