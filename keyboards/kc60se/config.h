@@ -34,14 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /*
  * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
+ */
 
 #define UNUSED_PINS
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
@@ -50,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN F5
-#define BACKLIGHT_BREATHING
+// #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 6
 
 

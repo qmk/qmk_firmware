@@ -4,7 +4,7 @@
 
 A short description of the keyboard/project
 
-Keyboard Maintainer: [Blake C. Lewis](https://github.com/BlakeCLewis)    
+Keyboard Maintainer: [Blake C. Lewis](https://github.com/BlakeCLewis), [MechMerlin](https://www.github.com/mechmerlin)       
 Hardware Supported: KC60 SE
 Hardware Availability: [Aliexpress](https://www.aliexpress.com/store/product/Free-shipping-GH60-PCB-KC60-SE-Fully-Programmable-For-DIY-Mechanical-Keyboard-Poker-Faceu-HHKB-Support/429151_32799437588.html?spm=2114.12010608.0.0.2995e5c0hNRgMH)   
 
