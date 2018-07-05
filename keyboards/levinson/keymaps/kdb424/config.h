@@ -43,12 +43,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 
-#define AUTO_SHIFT_TIMEOUT 150
-#define NO_AUTO_SHIFT_NUMERIC
+// #define AUTO_SHIFT_TIMEOUT 150
+// #define NO_AUTO_SHIFT_NUMERIC
 
-#define QMK_ESC_OUTPUT F1 // usually COL
-#define QMK_ESC_INPUT D5 // usually ROW
+#define QMK_ESC_OUTPUT D4 // usually COL
+#define QMK_ESC_INPUT F6 // usually ROW
 #define QMK_LED B0
 #define QMK_SPEAKER C6
+
+#define NO_ACTION_FUNCTION
+
 
 #endif

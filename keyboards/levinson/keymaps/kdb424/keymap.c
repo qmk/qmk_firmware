@@ -25,14 +25,17 @@ enum custom_keycodes {
 enum {
   TD_EQUAL_ENTER= 0
   ,TD_DASH_SLASH
+  ,TD_L_SLASH
 };
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap for enter, double tap for equal
   [TD_EQUAL_ENTER]  = ACTION_TAP_DANCE_DOUBLE(KC_ENT, KC_EQUAL)
-  //Dash for dash, dauble tap for slash
+  //Tap for dash, dauble tap for slash
   ,[TD_DASH_SLASH]  = ACTION_TAP_DANCE_DOUBLE(KC_MINS, KC_SLASH)
+  //Tap for L, dauble tap for slash
+  ,[TD_L_SLASH]  = ACTION_TAP_DANCE_DOUBLE(KC_L, KC_SLASH)
 };
 
 
@@ -54,10 +57,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT_ortho_4x12( \
-  KC_GESC,       KC_QUOT, KC_COMM, KC_DOT,  KC_P,   KC_Y,    KC_F,      KC_G,    KC_C,     KC_R,    KC_L,    KC_BSPC, \
-  KC_TAB,        KC_A,    KC_O,    KC_E,    KC_U,   KC_I,    KC_D,      KC_H,    KC_T,     KC_N,    KC_S,    TD(TD_EQUAL_ENTER),  \
-  SFT_T(KC_DEL), KC_SCLN, KC_Q,    KC_J,    KC_K,   KC_X,    KC_B,      KC_M,    KC_W,     KC_V,    KC_Z,    TD(TD_DASH_SLASH),  \
-  KC_LCTL,       KC_LGUI, KC_LALT, MO(2),   MO(3),  KC_SPC,  KC_SPC,    MO(4),   KC_LEFT,  KC_DOWN, KC_UP,   KC_RGHT  \
+  KC_GESC,       KC_QUOT, KC_COMM, KC_DOT,  KC_P,   KC_Y,    KC_F,      KC_G,    KC_C,     KC_R,    TD(TD_L_SLASH),    KC_BSPC, \
+  KC_TAB,        KC_A,    KC_O,    KC_E,    KC_U,   KC_I,    KC_D,      KC_H,    KC_T,     KC_N,    KC_S,              TD(TD_EQUAL_ENTER),  \
+  SFT_T(KC_BSPC),KC_SCLN, KC_Q,    KC_J,    KC_K,   KC_X,    KC_B,      KC_M,    KC_W,     KC_V,    KC_Z,              KC_MINS,  \
+  KC_LCTL,       KC_LGUI, KC_LALT, MO(2),   MO(3),  KC_SPC,  KC_SPC,    MO(4),   KC_LEFT,  KC_DOWN, KC_UP,             CTL_T(KC_RGHT)  \
 ),
 
 /* Gaming
@@ -72,10 +75,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_GAMING] = LAYOUT_ortho_4x12( \
-  KC_GESC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,      KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC, \
-  KC_TAB,  KC_A,    KC_O,    KC_E,    KC_U,      KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_ENT, \
-  KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,      KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_MINS , \
-  KC_LCTL, KC_LBRC, KC_LALT, KC_SLSH, KC_RBRC,   KC_SPC,  KC_SPC,  MO(4),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+  KC_GESC,       KC_QUOT, KC_COMM, KC_DOT,  KC_P,   KC_Y,    KC_F,      KC_G,    KC_C,     KC_R,    TD(TD_L_SLASH),    KC_BSPC, \
+  KC_TAB,        KC_A,    KC_O,    KC_E,    KC_U,   KC_I,    KC_D,      KC_H,    KC_T,     KC_N,    KC_S,              TD(TD_EQUAL_ENTER),  \
+  SFT_T(KC_BSPC),KC_SCLN, KC_Q,    KC_J,    KC_K,   KC_X,    KC_B,      KC_M,    KC_W,     KC_V,    KC_Z,              KC_MINS,  \
+  KC_LCTL,       KC_LBRC, KC_LALT, KC_SLSH, KC_RBRC,KC_SPC,  KC_SPC,    MO(4),   KC_LEFT,  KC_DOWN, KC_UP,             CTL_T(KC_RGHT)  \
 ),
 
 /* Raise1
@@ -84,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |   _  |   +  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      | Ins  | PGDN | PGUP | Vol+ |
+ * |      |      |      |      |      |      |      |      | Ins  | PGDN | PGUP |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Home | Vol- | Vol+ | END  |
  * `-----------------------------------------------------------------------------------'
@@ -117,20 +120,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise3
  * ,-----------------------------------------------------------------------------------.
- * |RESET |PROGRA|     |      |      |      |      |      | F10  | F11  | F12  |      |
+ * |RESET |PROGRA|      |      |Static| BRI+ |SGRAD |      | F10  | F11  | F12  |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |  F7  |  F8  |  F9  |      |
+ * |      |      |      |      |Rainbo| BRI- |K RIDR|      |  F7  |  F8  |  F9  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |  F4  |  F5  |  F6  |      |
+ * |      |      |      |      |RMODE | RGB T|SWIRL |      |  F4  |  F5  |  F6  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |LayerD|LayerG|      |      |      |      |      |      |  F1  |  F2  |  F3  | PRSC |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE3] =  LAYOUT_ortho_4x12( \
-  RESET,   REPROGRAM_MACRO, _______, _______, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_F7,  KC_F8,  KC_F9,  _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_F4,  KC_F5,  KC_F6,  _______, \
-  DF(0),   DF(1),   _______, _______, _______, _______, _______, _______, KC_F1,  KC_F2,  KC_F3,  KC_PSCR \
+  RESET,   REPROGRAM_MACRO, _______, _______, RGB_M_P, RGB_VAI, RGB_M_G,  _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
+  _______, _______,         _______, _______, RGB_M_R, RGB_VAD, RGB_M_K,  _______, KC_F7,  KC_F8,  KC_F9,  _______, \
+  _______, _______,         _______, _______, RGB_MOD, RGB_TOG, RGB_M_SW, _______, KC_F4,  KC_F5,  KC_F6,  _______, \
+  DF(0),   DF(1),           _______, _______, _______, _______, _______,  _______, KC_F1,  KC_F2,  KC_F3,  KC_PSCR \
 ),
 
 
