@@ -110,16 +110,16 @@ void serial_master_init(void) {
 void serial_slave_init(void) {
   serial_input_with_pullup();
 
-#ifndef USE_SERIAL_PD2
+#ifndef USE_SERIAL_PD3
   // Enable INT0
-  EIMSK |= _BV(INT0);
+  EIMSK |= _BV(INT3);
   // Trigger on falling edge of INT0
-  EICRA &= ~(_BV(ISC00) | _BV(ISC01));
+  EICRA &= ~(_BV(ISC30) | _BV(ISC31));
 #else
   // Enable INT2
-  EIMSK |= _BV(INT2);
+  EIMSK |= _BV(INT3);
   // Trigger on falling edge of INT2
-  EICRA &= ~(_BV(ISC20) | _BV(ISC21));
+  EICRA &= ~(_BV(ISC30) | _BV(ISC31));
 #endif
 }
 
