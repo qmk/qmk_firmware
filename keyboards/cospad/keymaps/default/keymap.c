@@ -34,10 +34,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BL] = LAYOUT_numpad_6x4(
   KC_ESC,   KC_TAB,   MO(_FL),   KC_BSPC, \
   KC_NLCK,  KC_PSLS,  KC_PAST,   KC_PMNS, \
-  KC_P7,    KC_P8,    KC_P9,     KC_PPLS, \
-  KC_P4,    KC_P5,    KC_P6,              \
-  KC_P1,    KC_P2,    KC_P3,     KC_PENT, \
-  KC_P0,              KC_PDOT            ),
+  KC_P7,    KC_P8,    KC_P9,              \
+  KC_P4,    KC_P5,    KC_P6,     KC_PPLS, \
+  KC_P1,    KC_P2,    KC_P3,              \
+  KC_P0,              KC_PDOT,   KC_PENT),
 
   /* Keymap _FL: Function Layer
    * ,-------------------.
@@ -57,10 +57,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_FL] = LAYOUT_numpad_6x4(
   RGB_TOG,  KC_TAB,   KC_TRNS,   KC_BSPC, \
   RGB_MOD,  RGB_M_P,  BL_TOGG,   KC_PMNS, \
-  RGB_HUD,  RGB_HUI,  BL_ON,     KC_PPLS, \
-  RGB_SAD,  RGB_SAI,  BL_OFF,             \
-  RGB_VAD,  RGB_VAI,  KC_P3,     KC_PENT, \
-  KC_P0,              RESET              ),
+  RGB_HUD,  RGB_HUI,  BL_ON,              \
+  RGB_SAD,  RGB_SAI,  BL_OFF,    KC_PPLS, \
+  RGB_VAD,  RGB_VAI,  KC_P3,              \
+  KC_P0,              RESET,     KC_PENT),
 };
 
 
