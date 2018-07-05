@@ -56,3 +56,5 @@ AUDIO_ENABLE ?= yes
 RGBLIGHT_ENABLE ?= yes
 TAP_DANCE_ENABLE = yes
 EXTRAFLAGS += -flto # Make the hex smaller
+
+LAYOUTS = planck_mit
