@@ -1,4 +1,4 @@
-#include "tomato.h"
+#include QMK_KEYBOARD_H
 
 #define SPC_F1 LT(1,KC_SPC)
 #define BS_F2 LT(2,KC_BSPC)
@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |   Z   |   X   |   C   |   V   |  BSPC |  SPC  |   B   |   N   |   M   |  ENT  |
    * '-------------------------------------------------------------------------------'
    */
-  KEYMAP
+  LAYOUT_ortho_3x10
     ( KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P
     , KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_ESC
     , Z_CTL,  X_ALT,  C_F3,   V_F4,   BS_F2,  SPC_F1, B_F5,   N_ALT,  M_CTL,  ENT_SFT
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |       |       |       |       |  DEL  |       |       |       |       |       |
    * '-------------------------------------------------------------------------------'
    */
-  KEYMAP
+  LAYOUT_ortho_3x10
     ( KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0
     , KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10
     , KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_DEL, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |       |       |       |       |       |       |       |       |       |       |
    * '-------------------------------------------------------------------------------'
    */
-  KEYMAP
+  LAYOUT_ortho_3x10
     ( KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN
     , KC_F11,  KC_F12,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_GRAVE
     , KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |       |       |       |       |       |       | Left  | Down  |   Up  | Right |
    * '-------------------------------------------------------------------------------'
    */
-  KEYMAP
+  LAYOUT_ortho_3x10
     ( KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_MINS,KC_EQL, KC_LBRC,KC_RBRC,KC_BSLS
     , KC_TAB, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_COMM,KC_DOT, KC_SLSH,KC_SCLN,KC_QUOT
     , KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |       |       |       |       |       |       | Home  | PgDn  |  PgUp | End  |
    * '-------------------------------------------------------------------------------'
    */
-  KEYMAP
+  LAYOUT_ortho_3x10
     ( KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE
     , KC_TAB, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_LT,  KC_GT,  KC_QUES,KC_COLN,KC_DQUO
     , KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_HOME,KC_PGUP,KC_PGDN,KC_END
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |       |       |       |       | Flash |       |       |       |       |       |
    * '-------------------------------------------------------------------------------'
    */
-  KEYMAP
+  LAYOUT_ortho_3x10
     ( KC_CALC,KC_WSCH,KC_MAIL,KC_MYCM,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
     , RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,KC_NO,  KC_NO,  RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD
     , KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,RESET,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
