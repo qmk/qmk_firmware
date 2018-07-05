@@ -1,5 +1,5 @@
-#ifndef HELIX_H
-#define HELIX_H
+#ifndef SOL_H
+#define SOL_H
 
 #ifdef KEYBOARD_helix_rev1
     #include "rev1.h"

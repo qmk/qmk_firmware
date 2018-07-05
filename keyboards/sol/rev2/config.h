@@ -25,9 +25,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x3060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Yushakobo
-#define PRODUCT         Helix Beta
-#define DESCRIPTION     A split keyboard for the cheap makers
+#define MANUFACTURER    RGBKB
+#define PRODUCT         Sol
+#define DESCRIPTION     The brightest keyboard on earth
 
 
 #define PREVENT_STUCK_MODIFIERS
@@ -35,9 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 100
 
 /* Use I2C or Serial */
-#define USE_I2C
+//#define USE_I2C
 #define USE_SERIAL
-#define USE_SERIAL_PD2
+#define USE_SERIAL_PD3
 //#define USE_MATRIX_I2C
 
 /* Select hand configuration */
@@ -61,13 +61,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define MATRIX_ROWS 8
   #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 #else
-  #define MATRIX_ROWS 10
-  #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
+  #define MATRIX_ROWS 12
+  #define MATRIX_ROW_PINS { C6, B6, B5, B4, D7 }
 #endif
 
 // wiring of each half
 #define MATRIX_COLS 7
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
+#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7 }
 // #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
 
 /* define if matrix has ghost */
@@ -90,7 +90,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D3
+#define RGB_DI_PIN B3
 #define RGBLIGHT_TIMER
 //#define RGBLED_NUM 12    // Number of LEDs. see ./keymaps/default/config.h
 #define ws2812_PORTREG  PORTD
