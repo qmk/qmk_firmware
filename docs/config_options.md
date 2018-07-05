@@ -123,21 +123,23 @@ If you define these options you will enable the associated feature, which may in
 ## Behaviors That Can Be Configured
 
 * `#define TAPPING_TERM 200`
-  * how long before a tap becomes a hold
+  * how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
   * makes tap and hold keys work better for fast typers who don't want tapping term set above 500
+* `#define IGNORE_MOD_TAP_INTERRUPT`
+  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
+* `#define TAPPING_FORCE_HOLD`
+  * makes it possible to use a dual role key as modifier shortly after having been tapped
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
   * how many taps before oneshot toggle is triggered
-* `#define IGNORE_MOD_TAP_INTERRUPT`
-  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
 * `#define QMK_KEYS_PER_SCAN 4`
   * Allows sending more than one key per scan. By default, only one key event gets
     sent via `process_record()` per scan. This has little impact on most typing, but
