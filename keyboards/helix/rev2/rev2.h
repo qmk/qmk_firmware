@@ -62,7 +62,7 @@
 		{ R36, R30, R31, R32, R33, R34, R35 }, \
 	}
 #endif
-#elif HELIX_ROWS == 5
+#else
   #ifndef FLIP_HALF
   // Standard Keymap
   // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
@@ -108,8 +108,6 @@
       { R46, R40, R41, R42, R43, R44, R45 } \
     }
   #endif
-#else
-  #error "expected HELIX_ROWS 4 or 5"
 #endif
 
 #endif
