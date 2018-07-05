@@ -263,7 +263,7 @@ void matrix_init_rgb(void) {
 
   if (userspace_config.rgb_layer_change) {
     rgblight_enable_noeeprom();
-    switch (biton32(default_layer_state)) {
+    switch (biton32(eeconfig_read_default_layer())) {
       case _COLEMAK:
         rgblight_sethsv_noeeprom_magenta(); break;
       case _DVORAK:
