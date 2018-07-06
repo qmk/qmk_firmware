@@ -1,4 +1,4 @@
-# default TADA68 layout
+# FireBazooka's TADA68 layout
 
 This layout follows a layout very similiar to the default, but with added functionality settings.
 
