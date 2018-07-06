@@ -10,10 +10,10 @@
 #define _MOUSE 3
 
 #define _______ KC_TRNS
+#define MAC_TOG TG(_MAC)
 
 enum {
   FUN_LAY = SAFE_RANGE,
-  MAC_TOG,
   MOU_TOG,
   WIN_LCK,
   WIN_KEY,
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 [_FUNC] = LAYOUT_ansi(
   _______,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,KC_WHOM, \
-  _______,_______,_______,_______,_______,_______,_______,_______,MAC_TOG,_______,KC_PSCR,KC_SLCK,KC_PAUS,KC_CALC,KC_INS , \
+  _______,_______,_______,_______,_______,_______,_______,_______,MAC_TOG,_______,KC_PSCR,KC_SLCK,KC_PAUS,KC_CALC, KC_INS,  \
   _______,_______,_______,_______,_______,_______,_______,_______,KC_MSTP,KC_MPLY,KC_MPRV,KC_MNXT,        _______,KC_HOME, \
           _______,BL_TOGG, BL_DEC, BL_INC,_______,_______,_______,MOU_TOG,KC_MUTE,KC_VOLD,KC_VOLU,_______,KC_PGUP,KC_END , \
   _______,WIN_LCK,_______,                        _______,                _______,_______,_______,KC_HOME,KC_PGDN,KC_END),
@@ -134,13 +134,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_MOUSE);
         // turns off function layer status
         CLEAR_BIT(keyboard_state, 0);
-      }
-      break;
-
-    case MAC_TOG:
-      if(record->event.pressed) {
-        // toggles on/off Mac Layer modifiers over Base Layers modifiers 
-        layer_invert(_MAC);
       }
       break;
 
