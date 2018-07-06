@@ -6,6 +6,8 @@ Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [Olivia](https
 Hardware Supported: AL1 PCB  
 Hardware Availability: [GroupBuy](https://geekhack.org/index.php?topic=93258.0)  
 
+Ported from [TriangleLab](https://github.com/TriangleLab)'s repo: https://github.com/TriangleLab/AL1-Firmware/tree/master/keyboards/al1
+
 Make example for this keyboard (after setting up your build environment):
 
     make al1:default
