@@ -26,4 +26,4 @@ keyboard_state = B00000010
 + The mouse layer is turned on (bit 1)
 + The Windows Key Lock is turned off (bit 2)
 
-This means that certain bitwise functions like CHECK_BIT(...) and SET_BIT(...) are used on "keyboard_state" to manipulate itg
+This means that certain bitwise functions like CHECK_BIT(...) and SET_BIT(...) are used on "keyboard_state" to manipulate it.
