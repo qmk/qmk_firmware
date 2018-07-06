@@ -14,13 +14,13 @@ The ErgoDone is a modified version of the ErgoDox, made by K.T.E.C., with pre-so
 
 # Building the firmware
 
-[Install the build tools.](https://docs.qmk.fm/getting_started_build_tools.html)
+[Install the build tools.](https://docs.qmk.fm/#/getting_started_build_tools)
 
 In the root directory of the repository, build the firmware with a command like:
 
     make ergodone:default
 
-For more information on the layout option and other ones, see the [`make` guide](https://docs.qmk.fm/getting_started_make_guide.html).
+For more information on the layout option and other ones, see the [`make` guide](https://docs.qmk.fm/#/getting_started_make_guide).
 
 # Flashing the firmware onto the keyboard
 
