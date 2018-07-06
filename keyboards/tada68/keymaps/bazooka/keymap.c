@@ -12,9 +12,9 @@
 #define _______ KC_TRNS
 
 enum {
-	FUN_LAY = SAFE_RANGE,
-       	MAC_TOG,
-        MOU_TOG,
+  FUN_LAY = SAFE_RANGE,
+  MAC_TOG,
+  MOU_TOG,
 	WIN_LCK,
 	WIN_KEY,
 };
@@ -120,20 +120,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) { 
         layer_on(_FUNC);
         if (CHECK_BIT(keyboard_state, 1)) {
-	  layer_on(_MOUSE);
+	        layer_on(_MOUSE);
         } 
-	else {
+	      else {
           layer_off(_MOUSE);
-	}
-	// turns on function layer status
-	SET_BIT(keyboard_state, 0);
+	      }
+	      // turns on function layer status
+	      SET_BIT(keyboard_state, 0);
       }
       // key released
       else {
         layer_off(_FUNC);
-	layer_off(_MOUSE);
-	// turns off function layer status
-	CLEAR_BIT(keyboard_state, 0);
+	      layer_off(_MOUSE);
+	      // turns off function layer status
+        CLEAR_BIT(keyboard_state, 0);
       }
       break;
 
@@ -149,15 +149,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // toggles navigation layer state
         TOGGLE_BIT(keyboard_state, 1);
 
-	// if FN is pressed down while hitting this key, the correct layer will be updated,
-	// so that the FN key doesn't need to be pressed down again to start using the functionality
-	if (CHECK_BIT(keyboard_state, 0)) {
+	      // if FN is pressed down while hitting this key, the correct layer will be updated,
+	      // so that the FN key doesn't need to be pressed down again to start using the functionality
+	      if (CHECK_BIT(keyboard_state, 0)) {
           if (CHECK_BIT(keyboard_state, 1)) {
             layer_on(_MOUSE);
-	  }
-	  else {
+	        }
+	        else {
             layer_off(_MOUSE);
-	  } 
+	        } 
         }
       }
       break;
@@ -165,7 +165,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case WIN_LCK:
       if (record->event.pressed) {
         // toggles windows key lock state
-	TOGGLE_BIT(keyboard_state, 2);
+	      TOGGLE_BIT(keyboard_state, 2);
       }
       break;
 
@@ -175,13 +175,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (!CHECK_BIT(keyboard_state, 2)) {
         if (record->event.pressed) {
           SEND_STRING(SS_DOWN(X_LGUI));
-	  return false;
-	}
-	// key released
-	else { 
+	        return false;
+	      }
+	      // key released
+	      else { 
           SEND_STRING(SS_UP(X_LGUI));
-	  return false;
-	}
+	        return false;
+	      }
       }
       break;
     }
