@@ -1,17 +1,17 @@
-H87a
+h87a
 ===
 
-A QMK-powered replacement PCB for custom TKL keyboards. This PCB has the same size of the b.87 PCB, while using the USB port placement and spacebar stabilizer orientation as the A87 PCB.
+A QMK-powered replacement PCB for custom TKL keyboards. This PCB has the same size of the b.87 PCB, while using the USB port placement and spacebar stabilizer orientation as the a.87 PCB.
 
 Keyboard Maintainer: hineybush (Josh Hinnebusch)
-Hardware Supported: H87a Rev 1
+Hardware Supported: h87a Rev 1
 Hardware Availability: Currently prototyped, group buy TBD
 
 Make example for this keyboard (after setting up your build environment):
      
      make h87a default
    
-## H87a hardware information
+## h87a hardware information
 
 Controller: Atmega32u4
 
