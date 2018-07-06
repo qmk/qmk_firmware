@@ -2,11 +2,9 @@
 
 ![AL1](imgur.com image replace me!)
 
-TriangleLabs AL1
-
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [Olivia](https://github.com/olivia)  
 Hardware Supported: AL1 PCB  
-Hardware Availability: links to where you can find this hardware
+Hardware Availability: [GroupBuy](https://geekhack.org/index.php?topic=93258.0)  
 
 Make example for this keyboard (after setting up your build environment):
 
