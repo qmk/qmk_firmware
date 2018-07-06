@@ -57,13 +57,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 // Rows are doubled-up
-#if  HELIX_ROWS == 4
-  #define MATRIX_ROWS 8
-  #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
-#else
-  #define MATRIX_ROWS 12
-  #define MATRIX_ROW_PINS { C6, B6, B5, B4, D7, E6}
-#endif
+#define MATRIX_ROWS 12
+#define MATRIX_ROW_PINS { C6, B6, B5, B4, D7, E6}
 
 // wiring of each half
 #define MATRIX_COLS 7
@@ -100,13 +95,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
 #ifdef RGBLED_BACK
-  #if HELIX_ROWS == 4
-    #define RGBLED_NUM 25
-  #else
-    #define RGBLED_NUM 32
-  #endif
+  #define RGBLED_NUM 35
 #else
-  #define RGBLED_NUM 6
+  #define RGBLED_NUM 7
 #endif
 
 #ifndef IOS_DEVICE_ENABLE
@@ -142,7 +133,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //  330  RGB 6
 //  300  RGB 32
 //  310  OLED & RGB 32
-  #define USB_MAX_POWER_CONSUMPTION 400
+  #define USB_MAX_POWER_CONSUMPTION 510
 #else
   // fix iPhone and iPad power adapter issue
   // iOS device need lessthan 100

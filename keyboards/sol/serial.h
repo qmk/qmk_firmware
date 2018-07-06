@@ -8,21 +8,12 @@
 #define SERIAL_PIN_DDR DDRD
 #define SERIAL_PIN_PORT PORTD
 #define SERIAL_PIN_INPUT PIND
+#define SERIAL_PIN_MASK _BV(PD3) //SErial pin goes here, D0-D3
+#define SERIAL_PIN_INTERRUPT INT3_vect //"INT#" of your serial pin
 
-#ifndef USE_SERIAL_PD3
-#define SERIAL_PIN_MASK _BV(PD3)
-#define SERIAL_PIN_INTERRUPT INT3_vect
-#else
-#define SERIAL_PIN_MASK _BV(PD3)
-#define SERIAL_PIN_INTERRUPT INT3_vect
-#endif
 
 #define SERIAL_SLAVE_BUFFER_LENGTH MATRIX_ROWS/2
-#ifdef KEYBOARD_helix_rev1
-#define SERIAL_MASTER_BUFFER_LENGTH 1
-#else
 #define SERIAL_MASTER_BUFFER_LENGTH MATRIX_ROWS/2
-#endif
 
 // Buffers for master - slave communication
 extern volatile uint8_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
