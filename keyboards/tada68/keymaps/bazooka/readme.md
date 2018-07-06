@@ -27,3 +27,5 @@ keyboard_state = B00000010
 + The Windows Key Lock is turned off (bit 2)
 
 This means that certain bitwise functions like CHECK_BIT(...) and SET_BIT(...) are used on "keyboard_state" to manipulate it.
+Note: The Mac Layer toggle doesn't have a status field within "keyboard_state" because the "MAC_TOG" key uses layer_invert(\_MAC)
+to properly turn the Mac Layer on and off, meaning the state doesn't have to be known to other keys.
