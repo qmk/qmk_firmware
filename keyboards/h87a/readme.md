@@ -38,3 +38,5 @@ To connect the Caps Lock LED to the main backlight matrix, jump the middle pad a
 To connect the Scroll Lock LED to the main backlight matrix, jump the middle pad and the right pad on J2. To use the Scroll Lock LED as an indicator, jump the middle pad and the left pad on J2.
 
 Note: The different orientations of J1 and J2 will be fixed with Rev 2.
+
+The kbfirmware.com json is available in this repo: h87a.json
