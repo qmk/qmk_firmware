@@ -18,16 +18,26 @@
 #include "tmk_core/common/eeprom.h"
 #include "tmk_core/common/action_layer.h"
 #include "rgblight.h"
-#include "mxss_frontled.h"
 
 // Variables for controlling front LED application
 uint8_t fled_mode;  // Mode for front LEDs
 uint8_t fled_val;   // Brightness for front leds (0 - 255)
 LED_TYPE fleds[2];  // Front LED rgb values for indicator mode use
 
-// External values from keymap.c for front LED control
-extern hs_set layer_colors[];
-extern const size_t lc_size;
+// Predefined colors for layers
+// Format: {hue, saturation}
+// {0, 0} to turn off the LED
+// Add additional rows to handle more layers
+__attribute__ ((weak))
+const hs_set layer_colors[] = {
+    [0] = {0,     0},  // Color for Layer 0
+    [1] = {86,    255},  // Color for Layer 1
+    [2] = {36,    255},  // Color for Layer 2
+    [3] = {185,   255},  // Color for Layer 3
+};
+
+__attribute__ ((weak))
+const size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
 void matrix_init_kb(void) {
     // If EEPROM config exists, load it

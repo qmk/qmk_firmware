@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 Jumail Mundekkat / MxBlue
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +17,7 @@
 #define MXSS_H
 
 #include "quantum.h"
+#include "mxss_frontled.h"
 
 // This a shortcut to help you visually see your layout.
 // The following is an example using the Planck MIT layout
@@ -53,7 +54,7 @@
 	{ k40, k41, k42, KC_NO, KC_NO, KC_NO, k46, KC_NO, KC_NO, KC_NO, KC_NO, k4B, k4C, k4D, k4E }, \
 }
 //ANSI, normalBS, split space
-#define LAYOUT_splitSpace( \
+#define LAYOUT_splitspace( \
     	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C,     k0E, \
     	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B,    k2D,   k2E, \
@@ -68,7 +69,7 @@
 	{ k40, k41, k42, k43, KC_NO, KC_NO, k46, KC_NO, k48, KC_NO, k4A, k4B, k4C, k4D, k4E }, \
 }
 //ANSI, splitBS, 6.25u
-#define LAYOUT_splitBS( \
+#define LAYOUT_splitbs( \
     	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, \
     	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B,   k2D,    k2E, \
@@ -83,7 +84,7 @@
 	{ k40, k41, k42, KC_NO, KC_NO, KC_NO, k46, KC_NO, KC_NO, KC_NO, k4A, k4B, k4C, k4D, k4E }, \
 }
 //ANSI, splitBS, 7u
-#define LAYOUT_splitBS_7u( \
+#define LAYOUT_splitbs_7u( \
     	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, \
     	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B,   k2D,    k2E, \
@@ -98,7 +99,7 @@
 	{ k40, k41, k42, KC_NO, KC_NO, KC_NO, k46, KC_NO, KC_NO, KC_NO, KC_NO, k4B, k4C, k4D, k4E }, \
 }
 //ANSI, normalBS, split space
-#define LAYOUT_splitBS_splitSpace( \
+#define LAYOUT_splitbs_splitspace( \
     	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, \
     	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B,    k2D,   k2E, \
@@ -113,7 +114,7 @@
 	{ k40, k41, k42, k43, KC_NO, KC_NO, k46, KC_NO, k48, KC_NO, k4A, k4B, k4C, k4D, k4E }, \
 }
 //ISO, normalBS, 6.25u
-#define LAYOUT_ISO( \
+#define LAYOUT_iso( \
     	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C,   k0E, \
     	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
@@ -128,7 +129,7 @@
 	{ k40, k41, k42, KC_NO, KC_NO, KC_NO, k46, KC_NO, KC_NO, KC_NO, k4A, k4B, k4C, k4D, k4E }, \
 }
 //ISO, normalBS, 7u
-#define LAYOUT_ISO_7u( \
+#define LAYOUT_iso_7u( \
     	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C,   k0E, \
     	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
@@ -143,7 +144,7 @@
 	{ k40, k41, k42, KC_NO, KC_NO, KC_NO, k46, KC_NO, KC_NO, KC_NO, KC_NO, k4B, k4C, k4D, k4E }, \
 }
 //ISO, normalBS, split space
-#define LAYOUT_ISO_splitSpace( \
+#define LAYOUT_iso_splitspace( \
     	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C,   k0E, \
     	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
@@ -158,7 +159,7 @@
 	{ k40, k41, k42, k43, KC_NO, KC_NO, k46, KC_NO, k48, KC_NO, k4A, k4B, k4C, k4D, k4E }, \
 }
 //ISO, splitBS, 6.25u
-#define LAYOUT_ISO_splitBS( \
+#define LAYOUT_iso_splitbs( \
     	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, \
     	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
@@ -173,7 +174,7 @@
 	{ k40, k41, k42, KC_NO, KC_NO, KC_NO, k46, KC_NO, KC_NO, KC_NO, k4A, k4B, k4C, k4D, k4E }, \
 }
 //ISO, splitBS, 7u
-#define LAYOUT_ISO_splitBS_7u( \
+#define LAYOUT_iso_splitbs_7u( \
     	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, \
     	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \
@@ -188,7 +189,7 @@
 	{ k40, k41, k42, KC_NO, KC_NO, KC_NO, k46, KC_NO, KC_NO, KC_NO, KC_NO, k4B, k4C, k4D, k4E }, \
 }
 //ISO, splitBS, split space
-#define LAYOUT_ISO_splitBS_splitSpace( \
+#define LAYOUT_iso_splitbs_splitspace( \
     	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, \
     	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, \
 	k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, \

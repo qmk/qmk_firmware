@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 Jumail Mundekkat / MxBlue
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,13 +14,12 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "mxss_frontled.h"
 
-// Predefined colors for layers
+// Colors for layers
 // Format: {hue, saturation}
 // {0, 0} to turn off the LED
 // Add additional rows to handle more layers
-hs_set layer_colors[] = {
+const hs_set layer_colors[] = {
     [0] = {0,     0},  // Color for Layer 0
     [1] = {86,    255},  // Color for Layer 1
     [2] = {36,    255},  // Color for Layer 2
