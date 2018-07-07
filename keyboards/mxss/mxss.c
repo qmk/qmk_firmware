@@ -69,8 +69,26 @@ void matrix_scan_kb(void) {
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
+    // Handle custom keycodes for front LED operation
+    switch (keycode) {
+        case FLED_MOD: // Change between front LED operation modes (off, indicator, RGB)
+        if (record->event.pressed)
+            fled_mode_cycle();
+        break;
+        
+        case FLED_VAI: // Increase the brightness of the front LEDs by FLED_VAL_STEP
+        if (record->event.pressed)
+            fled_val_increase();
+        break;
+        
+        case FLED_VAD: // Decrease the brightness of the front LEDs by FLED_VAL_STEP
+        if (record->event.pressed)
+            fled_val_decrease();
+        break;
+        
+        default:
+        break; // Process all other keycodes normally
+      }
 
 	return process_record_user(keycode, record);
 }
@@ -87,7 +105,6 @@ void led_set_kb(uint8_t usb_led) {
 }
 
 uint32_t layer_state_set_kb(uint32_t state) {
-    
     // Determine and set colour of layer LED according to current layer
     // if hue = sat = 0, leave LED off
     uint8_t layer = biton32(state);
@@ -116,6 +133,59 @@ void eeprom_update_conf(void)
 {
     fled_config conf;
     conf.mode = fled_mode;
-    conf.val = fled_val / FLED_VAL_STEP;
+    
+    // Small hack to ensure max value is stored correctly
+    if (fled_val == 255)
+        conf.val = 256 / FLED_VAL_STEP;
+    else
+        conf.val = fled_val / FLED_VAL_STEP;
+    
 	eeprom_update_word(EEPROM_FRONTLED_ADDR, conf.raw);
+}
+
+// Custom keycode functions
+
+void fled_mode_cycle(void)
+{
+    // FLED -> FLED_RGB -> FLED_INDI
+    switch (fled_mode) {
+        case FLED_OFF:
+        fled_mode = FLED_RGB;
+        break;
+        
+        case FLED_RGB:
+        fled_mode = FLED_INDI;
+        break;
+        
+        case FLED_INDI:
+        fled_mode = FLED_OFF;
+        break;
+    }
+    
+    // Update stored config
+    // eeprom_update_conf();
+}
+
+void fled_val_increase(void)
+{
+    // Increase val by FLED_VAL_STEP, handling the upper edge case
+    if (fled_val + FLED_VAL_STEP > 255)
+        fled_val = 255;
+    else
+        fled_val += FLED_VAL_STEP;
+    
+    // Update stored config
+    // eeprom_update_conf();
+}
+
+void fled_val_decrease(void)
+{
+    // Decrease val by FLED_VAL_STEP, handling the lower edge case
+    if (fled_val - FLED_VAL_STEP > 255)
+        fled_val = 255;
+    else
+        fled_val -= FLED_VAL_STEP;
+    
+    // Update stored config
+    // eeprom_update_conf();
 }

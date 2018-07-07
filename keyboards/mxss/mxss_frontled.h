@@ -20,6 +20,8 @@
 #ifndef MXSS_FRONTLED_H
 #define MXSS_FRONTLED_H
 
+#include "quantum_keycodes.h"
+
 // RGBLED index for front LEDs
 #define RGBLIGHT_FLED1 14
 #define RGBLIGHT_FLED2 15
@@ -45,6 +47,7 @@
 #define FLED_CAPS_H 0
 #define FLED_CAPS_S 255
 
+// Config storage format for EEPROM
 typedef union {
   uint8_t raw;
   struct {
@@ -53,12 +56,24 @@ typedef union {
   };
 } fled_config;
 
+// Structure to store hue and saturation values
 typedef struct _hs_set {
     uint16_t hue; 
     uint8_t sat;
 } hs_set;
 
+// Custom keycodes for front LED control
+enum fled_keycodes {
+  FLED_MOD = SAFE_RANGE,
+  FLED_VAI,
+  FLED_VAD
+};
+
 bool eeprom_is_valid(void);         // Check if EEPROM has been set up
 void eeprom_set_valid(bool valid);  // Change validity state of EEPROM
+
+void fled_mode_cycle(void);         // Cycle between the 3 modes for the front LEDs
+void fled_val_increase(void);       // Increase the brightness of the front LEDs
+void fled_val_decrease(void);       // Decrease the brightness of the front LEDs
 
 #endif //MXSS_FRONTLED_H
