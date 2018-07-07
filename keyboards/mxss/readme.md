@@ -1,4 +1,4 @@
-# MxSS
+# MxSS - Polycarb 65% Kit for MX/SMK
 
 ![MxSS - Polycarb 65% Kit for MX/SMK](https://i.imgur.com/WDTWcmU.jpg)
 
@@ -18,8 +18,6 @@
  - Holtite support
  - RGB underglow
  - 1.5kg with plate and weight
- 
-TODO: Add information about top RGBLED functions
 
 Keyboard Maintainer: [MxBlue](https://github.com/mxblu)  
 
@@ -32,3 +30,21 @@ Make example for this keyboard (after setting up your build environment):
     make mxss:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+
+# Front LED Operation
+
+The MxSS PCB has 2 front RGB LEDs which has a separate brightness and mode of operation to the rest of the RGB LEDs. These are controlled through the supplied custom keycodes.
+
+There are 3 modes of operation:
+
+ - FLED_OFF - Front LEDs stay off
+ - FLED_RGB - Front LEDs are part of the standard RGB LED modes, only works correctly with rainbow modes (will fix on request)
+ - FLED_INDI - Top front LED represents Caps Lock status, bottom LED represents current layer
+ 
+Colors for FLED_INDI mode are hardcoded as hue/saturation values, the caps lock color can be found in mxss_frontled.h, the layer colors are defined in keymap.c (see default/keymap.c for example).
+
+## Custom Keycodes
+
+ - FLED_MOD - Cycle between the 3 modes (FLED_OFF -> FLED_RGB -> FLED_INDI)
+ - FLED_VAI - Increase front LED brightness
+ - FLED_VAD - Decrease front LED brightness

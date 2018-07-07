@@ -21,10 +21,10 @@
 // {0, 0} to turn off the LED
 // Add additional rows to handle more layers
 hs_set layer_colors[] = {
-    {0,     0},  // Color for Layer 0
-    {86,    255},  // Color for Layer 1
-    {36,   255},  // Color for Layer 2
-    {185,   255},  // Color for Layer 3
+    [0] = {0,     0},  // Color for Layer 0
+    [1] = {86,    255},  // Color for Layer 1
+    [2] = {36,    255},  // Color for Layer 2
+    [3] = {185,   255},  // Color for Layer 3
 };
 const size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
