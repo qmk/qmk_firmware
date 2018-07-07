@@ -3,18 +3,6 @@
 
 #include "config_common.h"
 
-// Mouse speed
-
-#define MOUSEKEY_INTERVAL           10
-#define MOUSEKEY_DELAY              0
-#define MOUSEKEY_TIME_TO_MAX        1
-#define MOUSEKEY_MAX_SPEED          10
-
-#define MOUSEKEY_WHEEL_DELAY        0
-#define MOUSEKEY_WHEEL_DELTA        1
-#define MOUSEKEY_WHEEL_MAX_SPEED    6
-#define MOUSEKEY_WHEEL_TIME_TO_MAX  1
-
 // USB Device descriptor parameters
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
@@ -50,9 +38,12 @@
 #define DEBOUNCING_DELAY 5
 
 // Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
-#define LOCKING_SUPPORT_ENABLE
+//#define LOCKING_SUPPORT_ENABLE
 // Locking resynchronize hack
-#define LOCKING_RESYNC_ENABLE
+//#define LOCKING_RESYNC_ENABLE
+
+#define ONESHOT_TAP_TOGGLE    2     // Tapping this number of times holds the key until tapped this number of times again
+#define ONESHOT_TIMEOUT       500   // Time (in ms) before the one shot key is released
 
 // Disable some options to reduce firmware size
 
@@ -61,7 +52,7 @@
 
 // Disable action features
 #define NO_ACTION_TAPPING
-#define NO_ACTION_ONESHOT
+//#define NO_ACTION_ONESHOT
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
