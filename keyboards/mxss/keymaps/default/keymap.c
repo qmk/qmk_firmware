@@ -14,17 +14,19 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "rgblight.h"
+#include "mxss_frontled.h"
 
 // Predefined colors for layers
-// Format: {red, green, blue}
+// Format: {hue, saturation}
+// {0, 0} to turn off the LED
 // Add additional rows to handle more layers
-LED_TYPE layer_colors[] = {
-    {0,   0,   0},  // Color for Layer 0
-    {255, 0,   0},  // Color for Layer 1
-    {0,   255, 0},  // Color for Layer 2
-    {0,   0, 255},  // Color for Layer 3
+hs_set layer_colors[] = {
+    {0,     0},  // Color for Layer 0
+    {86,    255},  // Color for Layer 1
+    {36,   255},  // Color for Layer 2
+    {185,   255},  // Color for Layer 3
 };
+const size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	LAYOUT( /* Base */
@@ -44,7 +46,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const size_t array_size = sizeof(keymaps) / sizeof(uint16_t);
 
 const uint16_t PROGMEM fn_actions[] = {
 

@@ -16,19 +16,19 @@
  
 #include QMK_KEYBOARD_H
 #include "tmk_core/common/eeprom.h"
+#include "tmk_core/common/action_layer.h"
 #include "rgblight.h"
 #include "mxss_frontled.h"
 
 // Variables for controlling front LED application
-uint8_t fled_mode;
-uint8_t fled_val;
+uint8_t fled_mode;  // Mode for front LEDs
+uint8_t fled_val;   // Brightness for front leds (0 - 255)
+LED_TYPE fleds[2];  // Front LED rgb values for indicator mode use
 
-LED_TYPE fleds[2];
+extern hs_set layer_colors[];
+extern const size_t lc_size;
 
 void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
-    
     // If EEPROM config exists, load it
     if (eeprom_is_valid()) {
         fled_config fled_conf;
@@ -38,16 +38,24 @@ void matrix_init_kb(void) {
     // Else, default config
     } else {
         fled_mode = FLED_INDI;
-        fled_val = 3;
+        fled_val = 10 * FLED_VAL_STEP;
     }
     
     // Set default values for leds
     setrgb(0, 0, 0, &fleds[0]);
     setrgb(0, 0, 0, &fleds[1]);
     
-    // Enable capslock led if enabled on host
-    if (fled_mode == FLED_INDI && (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))) {
-        setrgb(FLED_CAPS_R, FLED_CAPS_G, FLED_CAPS_B, &fleds[0]);
+    // Handle lighting for indicator mode
+    if (fled_mode == FLED_INDI) {
+        // Enable capslock led if enabled on host
+        if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK))
+            sethsv(FLED_CAPS_H, FLED_CAPS_S, fled_val, &fleds[0]);
+        
+        // Determine and set colour of layer LED according to current layer
+        // if hue = sat = 0, leave LED off
+        uint8_t layer = biton32(layer_state);
+        if (layer < lc_size && !(layer_colors[layer].hue == 0 && layer_colors[layer].hue == 0))
+            sethsv(layer_colors[layer].hue, layer_colors[layer].sat, fled_val, &fleds[1]);
     }
 
 	matrix_init_user();
@@ -70,12 +78,26 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void led_set_kb(uint8_t usb_led) {
     // Set indicator LED appropriately, whether it is used or not
     if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        setrgb(FLED_CAPS_R, FLED_CAPS_G, FLED_CAPS_B, &fleds[0]);
+        sethsv(FLED_CAPS_H, FLED_CAPS_S, fled_val, &fleds[0]);
     } else {
         setrgb(0, 0, 0, &fleds[0]);
     }
 
 	led_set_user(usb_led);
+}
+
+uint32_t layer_state_set_kb(uint32_t state) {
+    
+    // Determine and set colour of layer LED according to current layer
+    // if hue = sat = 0, leave LED off
+    uint8_t layer = biton32(state);
+    
+    if (layer < lc_size && !(layer_colors[layer].hue == 0 && layer_colors[layer].hue == 0))
+        sethsv(layer_colors[layer].hue, layer_colors[layer].sat, fled_val, &fleds[1]);
+    else
+        setrgb(0, 0, 0, &fleds[1]);
+    
+    return state;
 }
 
 // EEPROM Management

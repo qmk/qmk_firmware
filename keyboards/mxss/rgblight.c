@@ -545,8 +545,8 @@ void rgblight_set(void) {
       break;
       
       case FLED_RGB:
-      sethsv(fled_hs[0].hue, fled_hs[0].sat, fled_val * 32, &led[RGBLIGHT_FLED1]);
-      sethsv(fled_hs[1].hue, fled_hs[1].sat, fled_val * 32, &led[RGBLIGHT_FLED2]);
+      sethsv(fled_hs[0].hue, fled_hs[0].sat, fled_val, &led[RGBLIGHT_FLED1]);
+      sethsv(fled_hs[1].hue, fled_hs[1].sat, fled_val, &led[RGBLIGHT_FLED2]);
       break;
       
       default:

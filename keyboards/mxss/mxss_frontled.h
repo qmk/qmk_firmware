@@ -20,8 +20,12 @@
 #ifndef MXSS_FRONTLED_H
 #define MXSS_FRONTLED_H
 
+// RGBLED index for front LEDs
 #define RGBLIGHT_FLED1 14
 #define RGBLIGHT_FLED2 15
+
+// Brightness increase step for front LEDs
+#define FLED_VAL_STEP 8
 
 // QMK never uses more then 32bytes of EEPROM, so our region starts there
 // Magic value to verify the state of the EEPROM
@@ -37,10 +41,9 @@
 #define FLED_RGB    0b10
 #define FLED_UNDEF  0b11
 
-// Hard-coded color for capslock indicator in FLED_INDI mode
-#define FLED_CAPS_R 255
-#define FLED_CAPS_G 0
-#define FLED_CAPS_B 0
+// Hard-coded color for capslock indicator in FLED_INDI mode, H:0% S:100% = Red
+#define FLED_CAPS_H 0
+#define FLED_CAPS_S 255
 
 typedef union {
   uint8_t raw;
