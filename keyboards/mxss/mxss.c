@@ -34,7 +34,7 @@ void matrix_init_kb(void) {
         fled_config fled_conf;
         fled_conf.raw = eeprom_read_byte(EEPROM_FRONTLED_ADDR);
         fled_mode = fled_conf.mode;
-        fled_val = fled_conf.val;
+        fled_val = fled_conf.val * FLED_VAL_STEP;
     // Else, default config
     } else {
         fled_mode = FLED_INDI;
@@ -116,6 +116,6 @@ void eeprom_update_conf(void)
 {
     fled_config conf;
     conf.mode = fled_mode;
-    conf.val = fled_val;
+    conf.val = fled_val / FLED_VAL_STEP;
 	eeprom_update_word(EEPROM_FRONTLED_ADDR, conf.raw);
 }
