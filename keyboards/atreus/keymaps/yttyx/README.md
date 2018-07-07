@@ -9,13 +9,9 @@ for some background on the design of the layout.
 * The central column of punctuation keys has been moved elsewhere
 * Home positions for the left and right forefingers are *T* and *A* respectively
 
-## To build
+## To build/flash
 
-> make atreus:yttyx
-
-## To flash
-
-> avrdude -p atmega32u4 -c avr109 -U flash:w:atreus_yttyx.hex -P /dev/ttyACM0
+> make atreus:yttyx:avrdude
 
 ## Layers
 
