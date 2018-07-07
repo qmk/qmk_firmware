@@ -22,7 +22,7 @@
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define LAYOUT(\
+#define LAYOUT_all(\
 	K000,       K001, K011, K002, K012,    K003, K013, K004, K014,    K015, K006, K016, K007,    K017, K008, K018,  \
 	K020, K030, K021, K031, K022, K032, K023, K033, K024, K034, K025, K035, K026, K036, K027,    K037, K028, K038,  \
 	K040, K050, K041, K051, K042, K052, K043, K053, K044, K054, K045, K055, K046, K056,                K057, K048, K058,  \
