@@ -17,3 +17,5 @@
   { K30, K31,   K32, K33, K34, K35,   K36,   K37, K38,   K39, K3A, K3B, K3C, K3D, K3E   }, \
   { K40, KC_NO, K42, K43, K44, KC_NO, KC_NO, K47, KC_NO, K49, K4A, K4B, K4C, K4D, K4E   }, \
 }
+
+#endif
