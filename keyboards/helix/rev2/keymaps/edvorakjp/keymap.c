@@ -35,23 +35,25 @@ void matrix_scan_user(void) {
 
 #ifdef RGBLIGHT_ENABLE
 uint32_t layer_state_set_keymap(uint32_t state) {
+  rgblight_mode_noeeprom(1);
   switch (biton32(state)) {
     case _EDVORAKJ1:
     case _EDVORAKJ2:
       // _EDVORAKJ1 & J2 are same colored
-      rgblight_setrgb (0xFF, 0xFF, 0xFF);
+      rgblight_sethsv_noeeprom_white();
       break;
     case _LOWER:
-      rgblight_setrgb (0xFF, 0x00, 0x00);
+      rgblight_sethsv_noeeprom_red();
       break;
     case _RAISE:
-      rgblight_setrgb (0x00, 0x00, 0xFF);
+      rgblight_sethsv_noeeprom_blue();
       break;
     case _ADJUST:
-      rgblight_setrgb (0x00, 0xFF, 0x00);
+      rgblight_sethsv_noeeprom_green();
       break;
     default: //  for any other layers, or the default layer
-      rgblight_mode(28);
+      rgblight_mode_noeeprom(28);
+      rgblight_sethsv_noeeprom_red();
       break;
   }
   return state;
