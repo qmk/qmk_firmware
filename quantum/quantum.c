@@ -854,7 +854,7 @@ void matrix_init_quantum() {
     audio_init();
   #endif
   #ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_init_drivers();
+    rgb_matrix_init();
   #endif
   matrix_init_kb();
 }
