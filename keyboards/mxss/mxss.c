@@ -25,6 +25,7 @@ uint8_t fled_mode;  // Mode for front LEDs
 uint8_t fled_val;   // Brightness for front leds (0 - 255)
 LED_TYPE fleds[2];  // Front LED rgb values for indicator mode use
 
+// External values from keymap.c for front LED control
 extern hs_set layer_colors[];
 extern const size_t lc_size;
 
@@ -37,8 +38,9 @@ void matrix_init_kb(void) {
         fled_val = fled_conf.val * FLED_VAL_STEP;
     // Else, default config
     } else {
-        fled_mode = FLED_INDI;
+        fled_mode = FLED_RGB;
         fled_val = 10 * FLED_VAL_STEP;
+        eeprom_update_conf();   // Store default config to EEPROM
     }
     
     // Set default values for leds
@@ -119,18 +121,22 @@ uint32_t layer_state_set_kb(uint32_t state) {
 
 // EEPROM Management
 
+// Test if magic value is present at expected location
 bool eeprom_is_valid(void)
 {
 	return (eeprom_read_word(EEPROM_MAGIC_ADDR) == EEPROM_MAGIC);
 }
 
+// Set magic value at expected location
 void eeprom_set_valid(bool valid)
 {
 	eeprom_update_word(EEPROM_MAGIC_ADDR, valid ? EEPROM_MAGIC : 0xFFFF);
 }
 
+// Store current front led config in EEPROM
 void eeprom_update_conf(void)
 {
+    // Create storage struct and set values
     fled_config conf;
     conf.mode = fled_mode;
     
@@ -140,7 +146,9 @@ void eeprom_update_conf(void)
     else
         conf.val = fled_val / FLED_VAL_STEP;
     
-	eeprom_update_word(EEPROM_FRONTLED_ADDR, conf.raw);
+    // Set magic value and store config
+    eeprom_set_valid(true);
+	eeprom_update_byte(EEPROM_FRONTLED_ADDR, conf.raw);
 }
 
 // Custom keycode functions
@@ -163,7 +171,7 @@ void fled_mode_cycle(void)
     }
     
     // Update stored config
-    // eeprom_update_conf();
+    eeprom_update_conf();
 }
 
 void fled_val_increase(void)
@@ -175,7 +183,7 @@ void fled_val_increase(void)
         fled_val += FLED_VAL_STEP;
     
     // Update stored config
-    // eeprom_update_conf();
+    eeprom_update_conf();
 }
 
 void fled_val_decrease(void)
@@ -187,5 +195,5 @@ void fled_val_decrease(void)
         fled_val -= FLED_VAL_STEP;
     
     // Update stored config
-    // eeprom_update_conf();
+    eeprom_update_conf();
 }

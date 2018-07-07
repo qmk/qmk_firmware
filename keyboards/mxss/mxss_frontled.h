@@ -71,6 +71,7 @@ enum fled_keycodes {
 
 bool eeprom_is_valid(void);         // Check if EEPROM has been set up
 void eeprom_set_valid(bool valid);  // Change validity state of EEPROM
+void eeprom_update_conf(void);      // Store current front LED config to EEPROM
 
 void fled_mode_cycle(void);         // Cycle between the 3 modes for the front LEDs
 void fled_val_increase(void);       // Increase the brightness of the front LEDs
