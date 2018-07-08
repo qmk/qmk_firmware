@@ -31,6 +31,12 @@ hs_set layer_colors[] = {
 };
 const size_t lc_size = sizeof(layer_colors) / sizeof(uint16_t);
 
+// Use NEW_SAFE_RANGE to define new custom keycodes in order to not overwrite the ones used for front LED control
+enum custom_keycodes {
+  MY_KEYCODE = NEW_SAFE_RANGE, 
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 __KEYMAP_GOES_HERE__
 };

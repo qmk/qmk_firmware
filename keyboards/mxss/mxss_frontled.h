@@ -66,7 +66,8 @@ typedef struct _hs_set {
 enum fled_keycodes {
   FLED_MOD = SAFE_RANGE,
   FLED_VAI,
-  FLED_VAD
+  FLED_VAD,
+  NEW_SAFE_RANGE // define a new safe range
 };
 
 bool eeprom_is_valid(void);         // Check if EEPROM has been set up
