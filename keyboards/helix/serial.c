@@ -173,6 +173,24 @@ void serial_write_byte(uint8_t data) {
   serial_low(); // sync_send() / senc_recv() need raise edge
 }
 
+inline static
+void change_sender2reciver(void) {
+    sync_send();          //0
+    serial_delay_half1(); //1
+    serial_low();         //2
+    serial_input_with_pullup(); //2
+    serial_delay_half1(); //3
+}
+
+inline static
+void change_reciver2sender(void) {
+    sync_recv();     //0
+    serial_delay();  //1
+    serial_low();    //3
+    serial_output(); //3
+    serial_delay_half1(); //4
+}
+
 // interrupt handle to be used by the slave device
 ISR(SERIAL_PIN_INTERRUPT) {
   serial_output();
@@ -188,11 +206,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
   serial_write_byte(checksum);
 
   // slave switch to input
-  sync_send(); //0
-  serial_delay_half1(); //1
-  serial_low();         //2
-  serial_input_with_pullup(); //2
-  serial_delay_half1(); //3
+  change_sender2reciver();
 
   // slave recive phase
   uint8_t checksum_computed = 0;
@@ -268,11 +282,7 @@ int serial_update_buffers(void) {
   }
 
   // master switch to output
-  sync_recv(); //0
-  serial_delay();  //1
-  serial_low();    //3
-  serial_output(); // 3
-  serial_delay_half1(); //4
+  change_reciver2sender();
 
   // master send phase
   uint8_t checksum = 0;
