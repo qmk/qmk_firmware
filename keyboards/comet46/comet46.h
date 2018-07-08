@@ -70,10 +70,10 @@
                       k43, k44, k45,      k46, k47, k48     \
 ) \
 { \
-	{ KC_k13, KC_k01, KC_k26, KC_k12, KC_k00,      KC_k11, KC_k25, KC_k42, KC_k10, KC_k24}, \
-	{ KC_k03, KC_k28, KC_k14, KC_k02, KC_k27,      KC_k41, KC_k09, KC_k23, KC_k38, KC_k08}, \
-	{ KC_k31, KC_k16, KC_k04, KC_k29, KC_k15,      KC_k22, KC_k37, KC_k07, KC_k21, KC_k36}, \
-	{ KC_NO,  KC_k32, KC_k17, KC_k05, KC_k43,      KC_k48, KC_k06, KC_k20, KC_k35, KC_NO },  \
-	{ KC_NO,  KC_k45, KC_k33, KC_k18, KC_k44,      KC_k47, KC_k19, KC_k34, KC_k46, KC_NO }, \
+	{ k13,   k01, k26, k12, k00,      k11, k25, k42, k10, k24}, \
+	{ k03,   k28, k14, k02, k27,      k41, k09, k23, k38, k08}, \
+	{ k31,   k16, k04, k29, k15,      k22, k37, k07, k21, k36}, \
+	{ KC_NO, k32, k17, k05, k43,      k48, k06, k20, k35, KC_NO },  \
+	{ KC_NO, k45, k33, k18, k44,      k47, k19, k34, k46, KC_NO }, \
 }
 #endif
