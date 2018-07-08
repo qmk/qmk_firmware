@@ -69,12 +69,9 @@ CUSTOM_MATRIX    = yes # Custom matrix file for the ErgoDox EZ
 SLEEP_LED_ENABLE = yes # Breathing sleep LED during USB suspend
 NKRO_ENABLE      = yes # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 UNICODE_ENABLE   = yes # Unicode
-<<<<<<< HEAD
 SWAP_HANDS_ENABLE= yes # Allow swapping hands of keyboard
-=======
 ONEHAND_ENABLE   = yes # Allow swapping hands of keyboard
 TAP_DANCE_ENABLE = yes # Enable tap dance feature
->>>>>>> c491967c69cb0f4c5bb6a75d0885ca6ef42f10cd
 
 CUSTOM_MATRIX = yes # Custom matrix file
 SERIAL_LINK_ENABLE = yes
@@ -93,8 +90,4 @@ LED_DRIVER = is31fl3731c
 LED_WIDTH = 7
 LED_HEIGHT = 7
 
-<<<<<<< HEAD
 LAYOUTS = ergodox
-=======
-LAYOUTS = ergodox ergodox_80
->>>>>>> c491967c69cb0f4c5bb6a75d0885ca6ef42f10cd

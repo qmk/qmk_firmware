@@ -17,7 +17,6 @@ enum {
 };
 
 //Tap Dance Definitions
-<<<<<<< HEAD
 //qk_tap_dance_action_t tap_dance_actions[] = {
 //  //Tap once for Esc, twice for Caps Lock
 //  [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
@@ -175,7 +174,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MACROS
-<<<<<<< HEAD
 [MCRO] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS,
