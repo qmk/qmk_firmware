@@ -139,7 +139,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         if (edvorakjp_config.enable_kc_lang) {
           SEND_STRING( SS_LCTRL(SS_LSFT(SS_TAP(X_POWER))) );
         } else {
-          SEND_STRING( SS_LGUI("L") );
+          SEND_STRING( SS_LGUI("l") );
         }
       }
       return false;
