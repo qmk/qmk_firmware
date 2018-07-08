@@ -15,6 +15,7 @@ typedef union {
     bool enable_kc_lang        : 1;  // for macOS
   };
 } edvorakjp_config_t;
+extern edvorakjp_config_t edvorakjp_config;
 
 enum edvorakjp_layers {
   _EDVORAK = 0,

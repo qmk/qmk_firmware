@@ -4,8 +4,6 @@
 
 #include "edvorakjp.h"
 
-extern edvorakjp_config_t edvorakjp_config;
-
 enum custom_keycodes {
   KC_LOCK = NEW_SAFE_RANGE,
 };
