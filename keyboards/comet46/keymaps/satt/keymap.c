@@ -2,8 +2,6 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 #include "keymap_jis2us.h"
 #include "action_pseudo_lut.h"
 
