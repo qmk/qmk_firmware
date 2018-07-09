@@ -178,7 +178,7 @@ void start_rgb_light(void) {
     uint8_t min_life = 0xFF;
     uint8_t min_life_index = -1;
     for (uint8_t index = 0 ; index < RGBLED_NUM ; ++index ) {
-      if (indicator_is_this_led_used(index)) { continue; }
+      if (rgblight_twinkle_is_led_used(index)) { continue; }
       if (lights[index].enabled) {
         if (min_life_index == -1 ||
           lights[index].life < min_life)
