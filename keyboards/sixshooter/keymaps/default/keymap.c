@@ -15,6 +15,14 @@
  */
 #include QMK_KEYBOARD_H
 
+#define _BL 0
+#define _FN 1
+
+enum custom_keycode {
+  SS_LON = SAFE_RANGE,
+  SS_LOFF
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap 0: Media Keys
      * ,-----------.
@@ -23,26 +31,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |Prv|Ply|Nxt|
      * `-----------'
      */
-  [0] = LAYOUT( /* Base */
-    KC_MUTE, KC_VOLD, KC_VOLU, \
+  [_BL] = LAYOUT( /* Base */
+    MO(_FN), KC_VOLD, KC_VOLU, \
     KC_MPRV, KC_MPLY, KC_MNXT  \
+  ),
+  [_FN] = LAYOUT(
+    KC_TRNS, SS_LON, SS_LOFF, \
+    KC_TRNS, KC_TRNS, KC_TRNS
   ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    return MACRO_NONE;
-};
-
-
 void matrix_init_user(void) {
-
+  sixshooter_led_all_on();
 }
 
 void matrix_scan_user(void) {
 
+}
+
+bool process_record_user( uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+        switch(keycode) {
+            case SS_LON:
+                sixshooter_led_all_on();
+                return false;
+            case SS_LOFF:
+                sixshooter_led_all_off();
+                return false;
+        }
+    }
+    return true;
 }
