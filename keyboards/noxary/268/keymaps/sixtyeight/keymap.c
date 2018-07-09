@@ -1,4 +1,4 @@
-#include "noxary268.h"
+#include "268.h"
 
 // Helpful defines
 #define _______ KC_TRNS
