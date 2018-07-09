@@ -15,8 +15,8 @@ ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS
 endif
 
-ifdef RGBLIGHT_ENABLE
-SRC += rgb_stuff.c
+ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+  SRC += rgb_stuff.c
   ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
       OPT_DEFS += -DINDICATOR_LIGHTS
   endif

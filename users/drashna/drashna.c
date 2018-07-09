@@ -112,6 +112,7 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+
 __attribute__ ((weak))
 uint32_t layer_state_set_keymap (uint32_t state) {
   return state;
@@ -151,7 +152,9 @@ void matrix_init_user(void) {
 }
 
 void startup_user (void) {
-  matrix_init_rgb();
+  #ifdef RGBLIGHT_ENABLE
+    matrix_init_rgb();
+  #endif //RGBLIGHT_ENABLE
   startup_keymap();
 }
 
@@ -384,7 +387,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // UNICODE_ENABLE
 
   }
-  return process_record_keymap(keycode, record) && process_record_secrets(keycode, record) && process_record_user_rgb(keycode, record);
+  return process_record_keymap(keycode, record) &&
+#ifdef RGBLIGHT_ENABLE
+    process_record_user_rgb(keycode, record) &&
+#endif // RGBLIGHT_ENABLE
+    process_record_secrets(keycode, record);
 }
 
 
