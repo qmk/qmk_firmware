@@ -17,5 +17,11 @@ qmk_pok3r:
       - vortex_pok3r_default.bin
       - vortex_pok3r_rgb_default.bin
       - vortex_core_default.bin
+      - .build/vortex_pok3r_default.elf
+      - .build/vortex_pok3r_default.map
+      - .build/vortex_pok3r_rgb_default.elf
+      - .build/vortex_pok3r_rgb_default.map
+      - .build/vortex_core_default.elf
+      - .build/vortex_core_default.map
 
 

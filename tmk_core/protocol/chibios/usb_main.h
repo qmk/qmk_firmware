@@ -99,4 +99,12 @@ void console_flush_output(void);
 
 void sendchar_pf(void *p, char c);
 
+
+#ifdef RAW_ENABLE
+
+void raw_in_cb(USBDriver *usbp, usbep_t ep);
+void raw_out_cb(USBDriver *usbp, usbep_t ep);
+
+#endif /* RAW_ENABLE */
+
 #endif /* _USB_MAIN_H_ */

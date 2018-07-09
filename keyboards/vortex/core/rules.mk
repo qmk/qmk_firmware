@@ -21,7 +21,8 @@ MCU_STARTUP = ht32f165x
 
 BOARD = CYKB175_V03
 
-OPT_DEFS = -DCORTEX_VTOR_INIT=0x3400 -Wno-unused-function
+OPT_DEFS = -DCORTEX_VTOR_INIT=0x3400 -Wno-unused-function -fdump-rtl-dfinish -fstack-usage
+#EXTRALDFLAGS = -Wl,--print-memory-usage
 
 # Options
 
@@ -41,6 +42,8 @@ BOOTMAGIC_ENABLE = no
 CONSOLE_ENABLE = yes
 COMMAND_ENABLE = yes
 RAW_ENABLE = yes
+MIDI_ENABLE = no
+VIRTSER_ENABLE = no
 
 # EEPROM
 EEPROM_CUSTOM_DRIVER = yes

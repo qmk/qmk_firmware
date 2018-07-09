@@ -44,7 +44,7 @@ static uint8_t packet_buf[PKT_LEN];
 typedef void (*apiHandler)(const uint8_t *data_in, uint8_t *data_out);
 
 // Default keymaps
-extern const uint16_t keymaps_default[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
+extern const uint16_t keymaps_default[][MATRIX_ROWS][MATRIX_COLS];
 extern const uint16_t keymaps_default_size;
 
 extern const uint8_t keymap_layouts[NUM_LAYOUTS][MATRIX_ROWS][MATRIX_COLS];
@@ -61,9 +61,9 @@ void OVERRIDE bootloader_jump(void) {
 }
 
 static void keymap_load_default(void) {
-        printf("Load Default Keymaps\n");
-        memset(keymaps, 0, keymap_size);
-        memcpy(keymaps, keymaps_default, keymaps_default_size);
+    printf("Load Default Keymaps\n");
+    memset(keymaps, 0, keymap_size);
+    memcpy(keymaps, keymaps_default, keymaps_default_size);
 }
 
 static void keymap_load(void) {
@@ -100,7 +100,7 @@ bool OVERRIDE process_record_kb(uint16_t keycode, keyrecord_t *record) {
     return process_record_user(keycode, record);
 }
 
-static void cmd_compat_reset(const uint8_t *data_in, uint8_t *data_out){
+static void cmd_compat_reset(const uint8_t *data_in, uint8_t *data_out) {
 //    printf("compat reset\n");
     const uint8_t subcmd = data_in[1];
     switch (subcmd) {
@@ -116,7 +116,7 @@ static void cmd_compat_reset(const uint8_t *data_in, uint8_t *data_out){
 }
 
 #if defined(UPDATE_PROTO_POK3R)
-static void cmd_pok3r_flash(const uint8_t *data_in, uint8_t *data_out){
+static void cmd_pok3r_flash(const uint8_t *data_in, uint8_t *data_out) {
 //    printf("pok3r flash\n");
     const uint8_t subcmd = data_in[1];
     switch (subcmd) {
@@ -133,7 +133,7 @@ static void cmd_pok3r_flash(const uint8_t *data_in, uint8_t *data_out){
 #endif
 
 #if defined(UPDATE_PROTO_CYKB)
-static void cmd_cykb_read(const uint8_t *data_in, uint8_t *data_out){
+static void cmd_cykb_read(const uint8_t *data_in, uint8_t *data_out) {
 //    printf("cykb read\n");
     const uint8_t subcmd = data_in[1];
     switch (subcmd) {
@@ -174,7 +174,7 @@ static void cmd_cykb_read(const uint8_t *data_in, uint8_t *data_out){
 }
 #endif
 
-static void cmd_qmk_ctrl(const uint8_t *data_in, uint8_t *data_out){
+static void cmd_qmk_ctrl(const uint8_t *data_in, uint8_t *data_out) {
 //    printf("qmk ctrl\n");
     const uint8_t subcmd = data_in[1];
     switch (subcmd) {
@@ -194,7 +194,7 @@ static void cmd_qmk_ctrl(const uint8_t *data_in, uint8_t *data_out){
         }
     }
 }
-static void cmd_qmk_eeprom(const uint8_t *data_in, uint8_t *data_out){
+static void cmd_qmk_eeprom(const uint8_t *data_in, uint8_t *data_out) {
 //    printf("qmk eeprom\n");
     const uint8_t subcmd = data_in[1];
     uint32_t addr = from_leu32(data_in + 4);
@@ -221,7 +221,7 @@ static void cmd_qmk_eeprom(const uint8_t *data_in, uint8_t *data_out){
             break;
     }
 }
-static void cmd_qmk_keymap(const uint8_t *data_in, uint8_t *data_out){
+static void cmd_qmk_keymap(const uint8_t *data_in, uint8_t *data_out) {
 //    printf("qmk keymap\n");
     const uint8_t subcmd = data_in[1];
     const uint32_t keymap_size = MAX_LAYERS * MATRIX_ROWS * MATRIX_COLS;
@@ -302,11 +302,11 @@ static void cmd_qmk_keymap(const uint8_t *data_in, uint8_t *data_out){
         }
     }
 }
-static void cmd_qmk_backlight(const uint8_t *data_in, uint8_t *data_out){
+static void cmd_qmk_backlight(const uint8_t *data_in, uint8_t *data_out) {
 //    printf("qmk backlight\n");
 }
 
-static void cmd_qmk_flash(const uint8_t *data_in, uint8_t *data_out){
+static void cmd_qmk_flash(const uint8_t *data_in, uint8_t *data_out) {
 //    printf("qmk flash\n");
     const uint8_t subcmd = data_in[1];
     switch (subcmd) {
@@ -433,6 +433,11 @@ void OVERRIDE raw_hid_receive(uint8_t *data_in, uint8_t length) {
 
     // send response
     raw_hid_send(packet_buf, PKT_LEN);
+}
+
+
+void OVERRIDE console_receive(uint8_t *data, uint8_t length) {
+    //printf("Console recv %d\n", length);
 }
 
 void OVERRIDE led_set_kb(uint8_t usb_led) {

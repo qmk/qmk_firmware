@@ -72,8 +72,6 @@ CSTANDARD = -std=gnu99
 #CPPDEFS +=
 
 
-
-
 #---------------- Compiler Options C ----------------
 #  -g*:          generate debugging information
 #  -O*:          optimization level
@@ -183,6 +181,7 @@ ifeq ($(CREATE_MAP),yes)
 	LDFLAGS += -Wl,-Map=$(BUILD_DIR)/$(TARGET).map,--cref
 endif
 #LDFLAGS += -Wl,--relax
+LDFLAGS += --specs=nano.specs
 LDFLAGS += $(EXTMEMOPTS)
 LDFLAGS += $(patsubst %,-L%,$(EXTRALIBDIRS))
 LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
@@ -380,7 +379,7 @@ check-size:
 	fi
 else
 check-size:
-	echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+	wc --bytes $(TARGET).bin
 	md5sum $(TARGET).bin >> qmk_pok3r.md5
 endif
 

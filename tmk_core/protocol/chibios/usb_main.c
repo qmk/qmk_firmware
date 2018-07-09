@@ -167,6 +167,41 @@ static const USBEndpointConfig nkro_ep_config = {
 };
 #endif /* NKRO_ENABLE */
 
+#ifdef RAW_ENABLE
+/* raw endpoint state structure */
+static USBInEndpointState raw_ep_in_state;
+static USBOutEndpointState raw_ep_out_state;
+
+/* raw endpoint initialization structure (IN) */
+static const USBEndpointConfig raw_ep_in_config = {
+  USB_EP_MODE_TYPE_INTR,        /* Interrupt EP */
+  NULL,                         /* SETUP packet notification callback */
+  raw_in_cb,                    /* IN notification callback */
+  NULL,                         /* OUT notification callback */
+  RAW_EPSIZE,                   /* IN maximum packet size */
+  0,                            /* OUT maximum packet size */
+  &raw_ep_in_state,             /* IN Endpoint state */
+  NULL,                         /* OUT endpoint state */
+  2,                            /* IN multiplier */
+  NULL                          /* SETUP buffer (not a SETUP endpoint) */
+};
+
+/* raw endpoint initialization structure (IN) */
+static const USBEndpointConfig raw_ep_out_config = {
+  USB_EP_MODE_TYPE_INTR,        /* Interrupt EP */
+  NULL,                         /* SETUP packet notification callback */
+  NULL,                         /* IN notification callback */
+  raw_out_cb,                   /* OUT notification callback */
+  0,                            /* IN maximum packet size */
+  RAW_EPSIZE,                   /* OUT maximum packet size */
+  NULL,                         /* IN Endpoint state */
+  &raw_ep_out_state,            /* OUT endpoint state */
+  2,                            /* IN multiplier */
+  NULL                          /* SETUP buffer (not a SETUP endpoint) */
+};
+
+#endif /* RAW_ENABLE */
+
 typedef struct {
   size_t queue_capacity_in;
   size_t queue_capacity_out;
@@ -573,6 +608,9 @@ void init_usb_driver(USBDriver *usbp) {
     sduStart(driver, &drivers.array[i].config);
   }
 
+  (void)raw_ep_in_config;
+  (void)raw_ep_out_config;
+
   /*
    * Activates the USB driver and then the USB bus pull-up on D+.
    * Note, a delay is inserted in order to not have to disconnect the cable
@@ -831,6 +869,17 @@ void sendchar_pf(void *p, char c) {
 }
 
 #ifdef RAW_ENABLE
+
+void raw_in_cb(USBDriver *usbp, usbep_t ep) {
+  (void)usbp;
+  (void)ep;
+}
+
+void raw_out_cb(USBDriver *usbp, usbep_t ep) {
+  (void)usbp;
+  (void)ep;
+}
+
 void raw_hid_send( uint8_t *data, uint8_t length ) {
 	// TODO: implement variable size packet
 	if ( length != RAW_EPSIZE )

@@ -32,8 +32,11 @@
 // key matrix size
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 8
+// layer size: MATRIX_ROWS * MATRIX_COLS * sizeof(uint16_t) = 128 bytes
+
 // Max available layers
 #define MAX_LAYERS 8
+// keymaps size: layer size * MAX_LAYERS = 1024 bytes
 
 #define KEYMAP_VORTEX_CORE
 // Number of supported layouts
