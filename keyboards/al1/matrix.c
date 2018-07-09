@@ -28,6 +28,24 @@ inline uint8_t matrix_cols(void) {
   return MATRIX_COLS;
 }
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+	matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
+
 void matrix_init(void) {
   // initialize row and col
     unselect_cols();
