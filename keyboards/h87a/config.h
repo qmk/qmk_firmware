@@ -23,6 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         h87a
 #define DESCRIPTION     QMK-programmable TKL PCB for custom keyboards
 
+#define CONFIG_H
+
+#include "config_common.h"
+
 /* key matrix size */
 #define MATRIX_ROWS 12
 #define MATRIX_COLS 9
