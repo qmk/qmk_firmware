@@ -28,7 +28,6 @@ inline uint8_t matrix_cols(void) {
   return MATRIX_COLS;
 }
 
-
 void matrix_init(void) {
   // initialize row and col
     unselect_cols();
@@ -104,7 +103,7 @@ uint8_t matrix_key_count(void) {
 
 /* Row pin configuration
  *
- * row: 0    1    2    3    4    5 
+ * row: 0    1    2    3    4    5
  * pin: C7   B1   B2   C6   B4   B5
  *
  */
