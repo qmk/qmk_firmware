@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RGBKB
 #define PRODUCT         Sol
-#define DESCRIPTION     The brightest keyboard on earth
+#define DESCRIPTION     An RGB, split, ortho-esque keyboard
 
 
 #define PREVENT_STUCK_MODIFIERS
@@ -91,6 +91,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ws2812_PORTREG  PORTD
 #define ws2812_DDRREG   DDRD
 
+#define BACKLIGHT_PIN B7
+#define BACKLIGHT_LEVELS 5
+
 // Helix keyboard RGB LED support
 //#define RGBLIGHT_ANIMATIONS : see ./rules.mk: LED_ANIMATIONS = yes or no
 //    see ./rules.mk: LED_BACK_ENABLE or LED_UNDERGLOW_ENABLE set yes
@@ -133,7 +136,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //  330  RGB 6
 //  300  RGB 32
 //  310  OLED & RGB 32
-  #define USB_MAX_POWER_CONSUMPTION 510
+  #define USB_MAX_POWER_CONSUMPTION 511
 #else
   // fix iPhone and iPad power adapter issue
   // iOS device need lessthan 100
