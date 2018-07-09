@@ -28,14 +28,6 @@ inline uint8_t matrix_cols(void) {
   return MATRIX_COLS;
 }
 
-void matrix_init_kb(void) {
-	matrix_init_user();
-}
-
-void matrix_scan_kb(void) {
-    matrix_scan_user();
-}
-
 void matrix_init(void) {
   // initialize row and col
     unselect_cols();
