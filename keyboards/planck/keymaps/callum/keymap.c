@@ -142,19 +142,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_MOVE] = {
         {
-            XXXXXXX,      XXXXXXX,      G(KC_4),      G(KC_5),
-            G(KC_6),      XXXXXXX,      XXXXXXX,      KC_HOME,
+            XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+            XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_HOME,
             KC_UP,        KC_END,       XXXXXXX,      KC_ESC
         },
         {
-            XXXXXXX,      XXXXXXX,      G(KC_1),      G(KC_2),
-            G(KC_3),      XXXXXXX,      XXXXXXX,      KC_LEFT,
+            XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+            XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_LEFT,
             KC_DOWN,      KC_RGHT,      KC_CAPS,      KC_DEL
         },
         {
-            _______,      XXXXXXX,      G(KC_7),      G(KC_8),
-            G(KC_9),      XXXXXXX,      XXXXXXX,      KC_PGDN,
-            KC_PGUP,      C(KC_LEFT),   C(KC_RGHT),   _______
+            _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+            XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_PGDN,
+            KC_PGUP,      XXXXXXX,      XXXXXXX,      _______
         },
         {
             _______,      _______,      _______,      _______,
