@@ -6,9 +6,6 @@ extern keymap_config_t keymap_config;
 #define G(X) LGUI(X)
 #define A(X) LALT(X)
 #define C(X) LCTL(X)
-#define GC(X) G(C(X))
-#define GA(X) G(A(X))
-#define GAC(X) G(A(C(X)))
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
@@ -17,7 +14,7 @@ enum planck_layers {
     _QWERTY,
     _SYMB,
     _MOVE,
-    _FUNC
+    _FUNC,
 };
 
 enum planck_keycodes {
@@ -26,7 +23,6 @@ enum planck_keycodes {
     SYMB,
     MOVE,
     FUNC,
-    HANGUL,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -39,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |Shift|  Z  |  X  |  C  |  V  |  B  |  K  |  M  |  ,  |  .  |  /  |Shift|
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Func |Super| Alt |Ctrl |Symb |Enter|Space|Move |Ctrl | Alt |Super|Func |
+     * |Expl |Ctrl | Alt |Super|Symb |Enter|Space|Move |Super| Alt |Ctrl |Func |
      * `-----------------------------------------------------------------------'
      */
     [_COLEMAK] = {
@@ -59,9 +55,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_COMM,      KC_DOT,       KC_SLSH,      KC_RSFT
         },
         {
-            FUNC,         KC_LGUI,      KC_LALT,      KC_LCTL,
+            C(KC_UP),     KC_LCTL,      KC_LALT,      KC_LGUI,
             SYMB,         KC_ENT,       KC_SPC,       MOVE,
-            KC_RCTL,      KC_RALT,      KC_RGUI,      FUNC
+            KC_RGUI,      KC_RALT,      KC_RCTL,      FUNC
         }
     },
 
@@ -73,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |Shift|  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |Shift|
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Func |Super| Alt |Ctrl |Symb |Enter|Space|Move |Ctrl | Alt |Super|Func |
+     * |Expl |Ctrl | Alt |Super|Symb |Enter|Space|Move |Super| Alt |Ctrl |Func |
      * `-----------------------------------------------------------------------'
      */
     [_QWERTY] = {
@@ -93,9 +89,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_COMM,      KC_DOT,       KC_SLSH,      KC_RSFT
         },
         {
-            FUNC,         KC_LGUI,      KC_LALT,      KC_LCTL,
+            C(KC_UP),     KC_LCTL,      KC_LALT,      KC_LGUI,
             SYMB,         KC_ENT,       KC_SPC,       MOVE,
-            KC_RCTL,      KC_RALT,      KC_RGUI,      FUNC
+            KC_RGUI,      KC_RALT,      KC_RCTL,      FUNC
         }
     },
 
@@ -146,19 +142,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_MOVE] = {
         {
-            GA(KC_UP),    GAC(KC_1),    G(KC_6),      G(KC_5),
-            G(KC_4),      XXXXXXX,      XXXXXXX,      KC_HOME,
-            KC_UP,        KC_END,       HANGUL,       KC_ESC
+            XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+            XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_HOME,
+            KC_UP,        KC_END,       XXXXXXX,      KC_ESC
         },
         {
-            GA(KC_DOWN),  GAC(KC_2),    G(KC_3),      G(KC_2),
-            G(KC_1),      G(KC_F),      G(KC_C),      KC_LEFT,
+            XXXXXXX,      G(KC_1),      G(KC_2),      G(KC_3),
+            G(KC_4),      G(KC_5),      G(KC_6),      KC_LEFT,
             KC_DOWN,      KC_RGHT,      KC_CAPS,      KC_DEL
         },
         {
-            _______,      GAC(KC_3),    G(KC_9),      G(KC_8),
-            G(KC_7),      XXXXXXX,      XXXXXXX,      KC_PGDN,
-            KC_PGUP,      GA(KC_LEFT),  GA(KC_RGHT),  _______
+            _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+            XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_PGDN,
+            KC_PGUP,      C(KC_LEFT),   C(KC_RGHT),   _______
         },
         {
             _______,      _______,      _______,      _______,
@@ -206,8 +202,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float colemak_song[][2] = SONG(COLEMAK_SOUND);
 float qwerty_song[][2] = SONG(QWERTY_SOUND);
 #endif
-
-bool hangul = false;
 
 void set_colemak(void) {
 #ifdef AUDIO_ENABLE
@@ -260,18 +254,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_on(_FUNC);
             } else {
                 layer_off(_FUNC);
-            }
-            return false;
-            break;
-        case HANGUL:
-            if (record->event.pressed) {
-                if (hangul) {
-                    set_colemak();
-                } else {
-                    set_qwerty();
-                }
-                SEND_STRING(SS_LCTRL(" "));
-                hangul = !hangul;
             }
             return false;
             break;
