@@ -81,7 +81,7 @@ CSTANDARD = -std=gnu99
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-CFLAGS += -g$(DEBUG)
+#CFLAGS += -g$(DEBUG)
 CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
@@ -111,7 +111,7 @@ CFLAGS += $(CSTANDARD)
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-CPPFLAGS += -g$(DEBUG)
+#CPPFLAGS += -g$(DEBUG)
 CPPFLAGS += $(CPPDEFS)
 CPPFLAGS += -O$(OPT)
 # to supress "warning: only initialized variables can be placed into program memory area"
@@ -139,7 +139,8 @@ CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS) 
-ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
+#ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
+ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
 
 #---------------- Library Options ----------------
 # Minimalistic printf version
