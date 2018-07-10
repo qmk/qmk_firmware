@@ -15,7 +15,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "bocaj.h"
 #include "version.h"
 #include "action_layer.h"
-#include "secrets.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_HWRKMN] = LAYOUT_ergodox_pretty_wrapper(
@@ -35,11 +34,11 @@ TT(_NUMPAD),______________SWORKMAN_L2______________,                  __________
                                          _____________ERGODOX_THUMBS____________
   ),
   [_NUMPAD] = LAYOUT_ergodox_pretty_wrapper(
-    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, XXXXXXX,_______,  XXXXXXX,XXXXXXX,KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS,XXXXXXX,
-    XXXXXXX,XXXXXXX,XXXXXXX, KC_UP ,XXXXXXX, XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,KC_KP_7,KC_KP_8,KC_KP_9,KC_PPLS,XXXXXXX,
-    _______,XXXXXXX,KC_LEFT,KC_DOWN,KC_RGHT, XXXXXXX,                  XXXXXXX,KC_KP_4,KC_KP_5,KC_KP_6,KC_PEQL,XXXXXXX,
-    KC_LSFT,XXXXXXX,XXXXXXX,XXXXXXX,JJ_COPY,JJ_PASTE,XXXXXXX,  XXXXXXX,XXXXXXX,KC_KP_1,KC_KP_2,KC_KP_3,KC_PENT,XXXXXXX,
-    XXXXXXX,_______,XXXXXXX,KC_LALT,KC_LGUI,                                   KC_KP_0,KC_PDOT,KC_COMM,KC_PENT,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, XXXXXXX,_______,                XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_PSLS,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX, KC_UP ,XXXXXXX, XXXXXXX,XXXXXXX,                XXXXXXX,XXXXXXX,KC_KP_7,KC_KP_8,KC_KP_9,KC_PAST,XXXXXXX,
+    _______,XXXXXXX,SFT_T(KC_LEFT),GUI_T(KC_DOWN),ALT_T(KC_RGHT), XXXXXXX,           XXXXXXX,KC_KP_4,KC_KP_5,KC_KP_6,KC_PPLS,XXXXXXX,
+    KC_LSFT,KC_LCTL,XXXXXXX,XXXXXXX,JJ_COPY,JJ_PASTE,XXXXXXX,                XXXXXXX,XXXXXXX,KC_KP_1,KC_KP_2,KC_KP_3,KC_PMNS,XXXXXXX,
+    XXXXXXX,_______,XXXXXXX,KC_LALT,KC_LGUI,                                                 KC_KP_0,KC_PDOT,KC_COMM,KC_PEQL,XXXXXXX,
                                           _____________ERGODOX_THUMBS____________
   ),
   [_MOUSE] = LAYOUT_ergodox_pretty_wrapper(
@@ -51,12 +50,32 @@ TT(_NUMPAD),______________SWORKMAN_L2______________,                  __________
                                           _____________ERGODOX_THUMBS____________
   ),
   [_TOOLS] = LAYOUT_ergodox_pretty_wrapper(
-           XXXXXXX,KC_SEC1,KC_SEC2,KC_SEC3,KC_SEC4,KC_SEC5,KC_EPRM,  KC_EPRM,KC_SEC6,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-           XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
-    XXXXXXX,HYPR(KC_LEFT),HYPR(KC_RGHT),HYPR(KC_F),XXXXXXX,XXXXXXX,  XXXXXXX,MEH(KC_UP),MEH(KC_DOWN),MEH(KC_LEFT),MEH(KC_RGHT),_______,
-           XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,LCTL(LGUI(KC_Q)),
-           XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                                  XXXXXXX,XXXXXXX,KC_HWRK,KC_SWRK,_______,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_EPRM,  KC_EPRM,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,KC__MUTE,KC__VOLDOWN,KC__VOLUP,XXXXXXX,XXXXXXX,                  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,MC_LOCK,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                                  XXXXXXX,XXXXXXX,KC_HWRK,KC_SWRK,_______,
                                          _____________ERGODOX_THUMBS____________
+  ),
+  [_DIABLOII] = LAYOUT_ergodox_pretty_wrapper(
+     KC_R  ,  KC_1 ,  KC_2 ,  KC_3 ,  KC_4 ,KC_GRV ,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    KC_TAB , KC_F5 , KC_F6 , KC_F7 , KC_F8 ,KC_HOME,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+     KC_W  , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_Q  ,                  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    KC_LSFT,ALT_T(KC_C),KC_I,KC_T  ,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    KC_ESC ,XXXXXXX, KC_M  ,XXXXXXX,KC_SPACE,                                 XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+                                           XXXXXXX,XXXXXXX,    XXXXXXX,XXXXXXX,
+                                                   XXXXXXX,    XXXXXXX,
+                                   KC_MS_L,KC_MS_R,TO(_HWRKMN),    XXXXXXX,XXXXXXX,XXXXXXX
+  ),
+  [_DIABLOIII] = LAYOUT_ergodox_pretty_wrapper(
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    KC_TAB , KC_J  , KC_L  , KC_Q  ,XXXXXXX, KC_I  ,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX, KC_1  , KC_2  , KC_3  , KC_4  , KC_S  ,                  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    KC_LSFT, KC_Z  , KC_G  , KC_O  , KC_Y  , KC_F  ,XXXXXXX,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+    XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,                                  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,
+                                           XXXXXXX,XXXXXXX,    XXXXXXX,XXXXXXX,
+                                                   XXXXXXX,    XXXXXXX,
+                                   KC_MS_L,KC_MS_R,TO(_HWRKMN),    XXXXXXX,XXXXXXX,XXXXXXX
   )
 };
 
@@ -138,17 +157,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case KC_SECRET_1 ... KC_SECRET_6: // Secrets!  Externally defined strings, not stored in repo
-      if (!record->event.pressed) {
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-        send_string_P(secret[keycode - KC_SECRET_1]);
-      }
-      return false;
-      break;
     case MC_LOCK:
       if (!record->event.pressed) {
-        uint8_t default_layer = biton32(default_layer_state);
-        layer_move(default_layer);
+        layer_move(_HWRKMN);
         SEND_STRING(SS_LCTRL(SS_LGUI("q")));
       }
       return false;
@@ -177,6 +188,9 @@ void matrix_scan_user(void) {
       ergodox_right_led_2_set(10);
       ergodox_right_led_3_on();
       ergodox_right_led_3_set(10);
+    case _DIABLOII:
+      ergodox_right_led_1_on();
+      ergodox_right_led_1_set(10);
     default:
       // none
       break;
