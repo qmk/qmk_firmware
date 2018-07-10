@@ -1,5 +1,9 @@
 # Guido's Planck Keyboard Layout
 
+* Left palm to the `mov` key gets you the `Move` layer
+* Right thumb on the `raise` key gets you the various programming brackets and parens on your left hand
+* Left palm on `mov` key and left thumb on `lower` key gets you a numpad on your right hand
+
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │  ⇥  │  q  │  w  │  e  │  r  │  t  │  y  │  u  │  i  │  o  │  p  │  ⌫  │
