@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |Shift|  Z  |  X  |  C  |  V  |  B  |  K  |  M  |  ,  |  .  |  /  |Shift|
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Expl |Ctrl | Alt |Super|Symb |Enter|Space|Move |Super| Alt |Ctrl |Func |
+     * |Func |Ctrl | Alt |Super|Symb |Enter|Space|Move |Super| Alt |Ctrl |Func |
      * `-----------------------------------------------------------------------'
      */
     [_COLEMAK] = {
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_COMM,      KC_DOT,       KC_SLSH,      KC_RSFT
         },
         {
-            C(KC_UP),     KC_LCTL,      KC_LALT,      KC_LGUI,
+            FUNC,         KC_LCTL,      KC_LALT,      KC_LGUI,
             SYMB,         KC_ENT,       KC_SPC,       MOVE,
             KC_RGUI,      KC_RALT,      KC_RCTL,      FUNC
         }
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |Shift|  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  |Shift|
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |Expl |Ctrl | Alt |Super|Symb |Enter|Space|Move |Super| Alt |Ctrl |Func |
+     * |Func |Ctrl | Alt |Super|Symb |Enter|Space|Move |Super| Alt |Ctrl |Func |
      * `-----------------------------------------------------------------------'
      */
     [_QWERTY] = {
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_COMM,      KC_DOT,       KC_SLSH,      KC_RSFT
         },
         {
-            C(KC_UP),     KC_LCTL,      KC_LALT,      KC_LGUI,
+            FUNC,         KC_LCTL,      KC_LALT,      KC_LGUI,
             SYMB,         KC_ENT,       KC_SPC,       MOVE,
             KC_RGUI,      KC_RALT,      KC_RCTL,      FUNC
         }
