@@ -6,6 +6,7 @@ extern keymap_config_t keymap_config;
 #define G(X) LGUI(X)
 #define A(X) LALT(X)
 #define C(X) LCTL(X)
+#define AC(X) A(C(X))
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
@@ -142,18 +143,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_MOVE] = {
         {
-            XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
-            XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_HOME,
+            AC(KC_A),     AC(KC_B),     AC(KC_C),     AC(KC_D),
+            AC(KC_E),     AC(KC_F),     XXXXXXX,      KC_HOME,
             KC_UP,        KC_END,       XXXXXXX,      KC_ESC
         },
         {
-            XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
-            XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_LEFT,
+            AC(KC_G),     AC(KC_H),     AC(KC_I),     AC(KC_J),
+            AC(KC_K),     AC(KC_L),     XXXXXXX,      KC_LEFT,
             KC_DOWN,      KC_RGHT,      KC_CAPS,      KC_DEL
         },
         {
-            _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,
-            XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_PGDN,
+            _______,      AC(KC_M),     AC(KC_N),     AC(KC_O),
+            AC(KC_P),     AC(KC_Q),     XXXXXXX,      KC_PGDN,
             KC_PGUP,      XXXXXXX,      XXXXXXX,      _______
         },
         {
