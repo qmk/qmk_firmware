@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef REV2_CONFIG_H
 #define REV2_CONFIG_H
 
-#include "../config.h"
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x3060
@@ -37,7 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Use I2C or Serial */
 #define USE_I2C
 #define USE_SERIAL
-#define USE_SERIAL_PD2
 //#define USE_MATRIX_I2C
 
 /* Select hand configuration */
