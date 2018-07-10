@@ -97,9 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,---------------.
  *                                        |Format|Build |       | Copy | Paste  |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |Refact|       |Sort U|        |      |
+ *                                 |      |      |Refact|       |  Up  |        |      |
  *                                 |      |ACCESS|------|       |------|        |      |
- *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |      |       | Down |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -122,8 +122,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
                               KC_F12,  M(GO_TO_IMPL),M(FIND_ALL_REF),KC_TRNS, KC_TRNS,
              LCTL(KC_C), LCTL(KC_V),
-             M(REMOVE_SORT_USINGS),
-             KC_TRNS, KC_TRNS, KC_TRNS
+             KC_UP,
+             KC_DOWN, KC_TRNS, KC_TRNS
     ),
 /* Keymap 2: Symbol Layer
  *
