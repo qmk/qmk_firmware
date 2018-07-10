@@ -67,3 +67,7 @@
 │     │     │     │     │     │           │  ,  │  0  │  .  │  +  │     │
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
+
+Use the [QMK Configurator](https://config.qmk.fm/#/planck/rev4/LAYOUT_planck_mit) 
+to edit the guidoism.json file. Then update it and run `python3 layouts/community/ortho_4x12/guidoism/generate_c.py`
+to get the update C structs and Markdown for this file.
