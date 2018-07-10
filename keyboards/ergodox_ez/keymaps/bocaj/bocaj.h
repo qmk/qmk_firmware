@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "quantum.h"
-#include "sendstring_workman.h"
+// #include "sendstring_workman.h" // removed this because I think it messed with macros... then I removed the macros
 
 // Layers
 #define _HWRKMN    0
@@ -76,6 +76,7 @@ enum custom_keycodes {
                                     KC_SPACE,KC_BSPACE,JJ_COPY,    JJ_PASTE,KC_TAB,KC_ENTER
 
 // Software Driven Workman (basically HW QWERTY but I'm a purist)
+/*
 #define ______________SWORKMAN_L1______________       WK_Q,     WK_D,           WK_R,           WK_W,           WK_B
 #define ______________SWORKMAN_L2______________       WK_A,     SFT_T(WK_S),    GUI_T(WK_H),    ALT_T(WK_T),    WK_G
 #define ______________SWORKMAN_L3______________ CTL_T(WK_Z),    WK_X,           WK_M,           WK_C,           WK_V
@@ -83,6 +84,15 @@ enum custom_keycodes {
 #define ______________SWORKMAN_R1______________       WK_J,     WK_F,           WK_U,           WK_P,           WK_SCLN
 #define ______________SWORKMAN_R2______________       WK_Y,     ALT_T(WK_N),    GUI_T(WK_E),    SFT_T(WK_O),    WK_I
 #define ______________SWORKMAN_R3______________       WK_K,     WK_L,           KC_COMM,        KC_DOT,         CTL_T(KC_SLASH)
+*/
+
+#define ______________SWORKMAN_L1______________       KC_Q,     KC_W,           KC_E,           KC_R,           KC_T
+#define ______________SWORKMAN_L2______________       KC_A,     SFT_T(KC_S),    GUI_T(KC_D),    ALT_T(KC_F),    KC_G
+#define ______________SWORKMAN_L3______________ CTL_T(KC_Z),    KC_X,           KC_C,           KC_V,           KC_B
+
+#define ______________SWORKMAN_R1______________       KC_Y,     KC_U,           KC_I,           KC_O,           KC_P
+#define ______________SWORKMAN_R2______________       KC_H,     ALT_T(KC_J),    GUI_T(KC_K),    SFT_T(KC_L),    KC_SCLN
+#define ______________SWORKMAN_R3______________       KC_N,     KC_M,           KC_COMM,        KC_DOT,         CTL_T(KC_SLASH)
 
 // Hardware Driven Workman
 #define ______________HWORKMAN_L1______________       KC_Q,     KC_D,           KC_R,           KC_W,           KC_B

@@ -175,9 +175,15 @@ void matrix_scan_user(void) {
   ergodox_right_led_2_off();
   ergodox_right_led_3_off();
   switch (layer) {
+  /*
+    Lights are treated as binary here for easy identification.
+    LED1 = 4; LED2 = 2; LED1 = 1
+    This allows for up to 8 identified layers (default layers being no lights on)
+    Which is way more than I should ever need
+  */
     case _NUMPAD:
       ergodox_right_led_3_on();
-      ergodox_right_led_3_set(10);
+      ergodox_right_led_3_set(10); // Default brightness is deadly in a dark room
       break;
     case _MOUSE:
       ergodox_right_led_2_on();
@@ -191,6 +197,11 @@ void matrix_scan_user(void) {
     case _DIABLOII:
       ergodox_right_led_1_on();
       ergodox_right_led_1_set(10);
+    case _DIABLOIII:
+      ergodox_right_led_1_on();
+      ergodox_right_led_1_set(10);
+      ergodox_right_led_3_on();
+      ergodox_right_led_3_set(10);
     default:
       // none
       break;
