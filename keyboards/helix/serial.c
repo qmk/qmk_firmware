@@ -110,16 +110,18 @@ void serial_master_init(void) {
 void serial_slave_init(void) {
   serial_input_with_pullup();
 
-#ifndef USE_SERIAL_PD2
+#if SERIAL_PIN_MASK == _BV(PD0)
   // Enable INT0
   EIMSK |= _BV(INT0);
   // Trigger on falling edge of INT0
   EICRA &= ~(_BV(ISC00) | _BV(ISC01));
-#else
+#elif SERIAL_PIN_MASK == _BV(PD2)
   // Enable INT2
   EIMSK |= _BV(INT2);
   // Trigger on falling edge of INT2
   EICRA &= ~(_BV(ISC20) | _BV(ISC21));
+#else
+ #error unknown SERIAL_PIN_MASK value
 #endif
 }
 
