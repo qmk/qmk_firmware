@@ -12,3 +12,5 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 ifndef QUANTUM_DIR
 	include ../../Makefile
 endif
+
+LAYOUTS = numpad_6x4
