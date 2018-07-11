@@ -10,7 +10,6 @@ enum planck_layers {
   _RAISE,
   _MOVEMENT,
   _NUMPAD,
-  _ADJUST
 };
 
 enum planck_keycodes {
@@ -68,21 +67,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         layer_on(_LOWER);
 	update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_LOWER);
 	update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
     case RAISE:
       if (record->event.pressed) {
         layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       } else {
         layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
