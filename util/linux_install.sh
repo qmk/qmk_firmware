@@ -33,6 +33,8 @@ elif grep ID /etc/os-release | grep -q gentoo; then
     else
     echo "Quitting..."
 fi
+#  sudo echo "sys-devel/gcc multilib" >> /etc/portage/
+#  sudo emerge -auN
 else
 	echo "Sorry, we don't recognize your OS. Help us by contributing support!"
 	echo
