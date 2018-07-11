@@ -1,4 +1,4 @@
-﻿S65-X
+S65-X
 =====
 
 DIY 65% keyboard from Sentraq.
