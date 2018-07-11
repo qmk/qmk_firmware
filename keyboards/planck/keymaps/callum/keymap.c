@@ -155,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {
             _______,      AC(KC_M),     AC(KC_N),     AC(KC_O),
             AC(KC_P),     AC(KC_Q),     XXXXXXX,      KC_PGDN,
-            KC_PGUP,      XXXXXXX,      XXXXXXX,      _______
+            KC_PGUP,      C(KC_LEFT),   C(KC_RGHT),   _______
         },
         {
             _______,      _______,      _______,      _______,
