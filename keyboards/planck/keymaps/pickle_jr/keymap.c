@@ -1,7 +1,6 @@
 #include "planck.h" 
 
 //TODO
-//ADD Print Screen
 //Update mouse speeds
 
 #define _QWERTY 0
@@ -121,18 +120,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Special
  * ,------------------------------------------------------------------------------------.
- * |      |  M2  | MUP  |  M1  | WUP  |      |       |      |      |      |      |      |
+ * |      |  M2  | MUP  |  M1  | WUP  |      |CTRL_T |CTRL_A|      |      |      |      |
  * |------+------+------+------+------+--------------+------+------+------+------+------|
- * |      |MLEFT |MDOWN |MRIGHT|WDOWN |      |       |      |      |      |      |      |
+ * |      |MLEFT |MDOWN |MRIGHT|WDOWN |      |PRTSCRE|CTRL_F|      |      |      |      |
  * |------+------+------+------+------+------|-------+------+------+------+------+------|
- * |      |WLEFT |  M3  |WRIGHT|      |      |CTLALTD|      |      |      |      |      |
+ * |      |WLEFT |  M3  |WRIGHT|      |      |CTLALTD|CTRL_C|      |      |      |      |
  * |------+------+------+------+------+------+-------+------+------+------+------+------|
- * |      | PREV | PLAY | NEXT |      |      | LOCK  |      | MUTE | VOL- | VOL+ |      |
+ * |      | PREV | PLAY | NEXT |      |      | LOCK  |CTRL_V| MUTE | VOL- | VOL+ |      |
  * `------------------------------------------------------------------------------------'
  */
 [_SPECIAL] = {
   {_______,  KC_BTN2,  KC_MS_U, KC_BTN1, KC_WH_U, _______, CTRL_T,  CTRL_A,  _______, _______, _______, _______},
-  {_______,  KC_MS_L,  KC_MS_D, KC_MS_R, KC_WH_D, _______, _______, CTRL_F,  _______, _______, _______, _______},
+  {_______,  KC_MS_L,  KC_MS_D, KC_MS_R, KC_WH_D, _______, KC_PSCR, CTRL_F,  _______, _______, _______, _______},
   {_______,  KC_WH_L,  KC_BTN3, KC_WH_R, _______, _______, CTLALTD, CTRL_C,  _______, _______, _______, _______},
   {KC_TRNS,  KC_MPRV,  KC_MPLY, KC_MNXT, _______, _______, LOCK,    CTRL_V,  KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS}
 },
