@@ -22,9 +22,9 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6050
 #define DEVICE_VER      0x0104
-#define MANUFACTURER    KBDMania
-#define PRODUCT         KMAC
-#define DESCRIPTION     QMK keyboard firmware for KMAC
+#define MANUFACTURER    Revo
+#define PRODUCT         KMAC Kmini
+#define DESCRIPTION     QMK keyboard firmware for Revo KMAC Mini
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -32,11 +32,11 @@
 
 /*
  * Keyboard Matrix Assignments
- * The KMAC uses a demultiplexer for some of the cols, they are only included here as documentation.
+ * The KMAC uses a demultiplexer for some of the cols.
  * See matrix.c for more details.
 */
 #define MATRIX_ROW_PINS { D0, D1, D2, D3, D5 }
-#define MATRIX_COL_PINS { B5, B6, E6, B0, B7, D4, D6, D7, B4 }
+#define MATRIX_COL_PINS { }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
