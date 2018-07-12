@@ -14,6 +14,15 @@ There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JI
 <!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/9ce023dc6caadc0cf11c88c782350a8c -->
 ![Keyboard Layout Image](https://i.imgur.com/45m4mRf.png)
 
+## Some Of My Keys Are Swapped Or Not Working
+
+QMK has two features, Bootmagic and Command, which allow you to change the behavior of your keyboard on the fly. This includes, but is not limited to, swapping Ctrl/Caps, disabling Gui, swapping Alt/Gui, swapping Backspace/Backslash, disabling all keys, and other behavioral modifications. 
+
+As a quick fix try holding down `Space`+`Backspace` while you plug in your keyboard. This will reset the stored settings on your keyboard, returning those keys to normal operation. If that doesn't work look here:
+
+* [Bootmagic](feature_bootmagic.md)
+* [Command](feature_command.md) 
+
 ## The Menu Key Isn't Working
 
 The key found on most modern keyboards that is located between `KC_RGUI` and `KC_RCTL` is actually called `KC_APP`. This is because when that key was invented there was already a key named `MENU` in the relevant standards, so MS chose to call that the `APP` key.
@@ -22,13 +31,13 @@ The key found on most modern keyboards that is located between `KC_RGUI` and `KC
 Use keycode for Print Screen(`KC_PSCREEN` or `KC_PSCR`) instead of `KC_SYSREQ`. Key combination of 'Alt + Print Screen' is recognized as 'System request'.
 
 See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
-- http://en.wikipedia.org/wiki/Magic_SysRq_key
-- http://en.wikipedia.org/wiki/System_request
+* http://en.wikipedia.org/wiki/Magic_SysRq_key
+* http://en.wikipedia.org/wiki/System_request
 
 ## Power Key Doesn't Work
 Use `KC_PWR` instead of `KC_POWER` or vice versa.
-- `KC_PWR` works with Windows and Linux, not with OSX.
-- `KC_POWER` works with OSX and Linux, not with Windows.
+* `KC_PWR` works with Windows and Linux, not with OSX.
+* `KC_POWER` works with OSX and Linux, not with Windows.
 
 More info: http://geekhack.org/index.php?topic=14290.msg1327264#msg1327264
 
@@ -40,9 +49,9 @@ https://github.com/tmk/tmk_keyboard/issues/67
 Modifier keys or layers can be stuck unless layer switching is configured properly.
 For Modifier keys and layer actions you have to place `KC_TRANS` on same position of destination layer to  unregister the modifier key or return to previous layer on release event.
 
-- https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
-- http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
-- https://github.com/tmk/tmk_keyboard/issues/248
+* https://github.com/tmk/tmk_core/blob/master/doc/keymap.md#31-momentary-switching
+* http://geekhack.org/index.php?topic=57008.msg1492604#msg1492604
+* https://github.com/tmk/tmk_keyboard/issues/248
 
 
 ## Mechanical Lock Switch Support
@@ -66,17 +75,17 @@ See this post for example **MACRO** code.
 http://deskthority.net/workshop-f7/tmk-keyboard-firmware-collection-t4478-120.html#p195620
 
 On **Windows** you can use `AltGr` key or **Alt code**.
-- http://en.wikipedia.org/wiki/AltGr_key
-- http://en.wikipedia.org/wiki/Alt_code
+* http://en.wikipedia.org/wiki/AltGr_key
+* http://en.wikipedia.org/wiki/Alt_code
 
 On **Mac** OS defines `Option` key combinations.
-- http://en.wikipedia.org/wiki/Option_key#Alternative_keyboard_input
+* http://en.wikipedia.org/wiki/Option_key#Alternative_keyboard_input
 
 On **Xorg** you can use `compose` key, instead.
-- http://en.wikipedia.org/wiki/Compose_key
+* http://en.wikipedia.org/wiki/Compose_key
 
 And see this for **Unicode** input.
-- http://en.wikipedia.org/wiki/Unicode_input
+* http://en.wikipedia.org/wiki/Unicode_input
 
 
 ## Apple/Mac Keyboard `Fn`

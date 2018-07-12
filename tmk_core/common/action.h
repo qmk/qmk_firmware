@@ -67,7 +67,7 @@ extern bool disable_action_cache;
 #endif
 
 /* Code for handling one-handed key modifiers. */
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 extern bool swap_hands;
 extern const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
 #if (MATRIX_COLS <= 8)
@@ -95,6 +95,10 @@ void clear_keyboard(void);
 void clear_keyboard_but_mods(void);
 void layer_switch(uint8_t new_layer);
 bool is_tap_key(keypos_t key);
+
+#ifndef NO_ACTION_TAPPING
+void process_record_tap_hint(keyrecord_t *record);
+#endif
 
 /* debug */
 void debug_event(keyevent_t event);

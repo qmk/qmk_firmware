@@ -155,8 +155,8 @@ Datasheets
 - AD5258: http://www.analog.com/media/en/technical-documentation/data-sheets/AD5258.pdf
 - JST S5B-PH-SM4: http://www.jst-mfg.com/product/pdf/eng/ePH.pdf
 - Hirose UX60SC-MB-5S8: https://www.hirose.com/product/en/products/UX/UX60SC-MB-5S8%2880%29/
-- TYU TU1252WNR-05S: http://php2.twinner.com.tw/files/tyu/TU1252series.pdf
 - Tr(E42) for LED?: http://cj-elec.com/txUpfile/2013614923661845.pdf
+- TYU TU1252WNR-05S: http://php2.twinner.com.tw/files/goodjob/TY1252series.pdf
 
 
 3.3V power supply

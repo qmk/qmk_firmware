@@ -10,7 +10,7 @@ and add the relevant [keycodes](#mapping-mouse-actions-to-keyboard-keys) to your
 
 #### Enable Mousekeys
 
-To enable the mousekey functionality, add the following line to your keymap's `Makefile`:
+To enable the mousekey functionality, add the following line to your keymap's `rules.mk`:
 
 ```
 MOUSEKEY_ENABLE = yes
@@ -43,6 +43,7 @@ You can use these keycodes within your keymap to map button presses to mouse act
 ## Configuring the Behavior of Mousekeys with auto-accelerated movement
 
 This behavior is intended to emulate the X Window System MouseKeysAccel feature. You can read more about it [on Wikipedia](https://en.wikipedia.org/wiki/Mouse_keys).
+
 The default speed for controlling the mouse with the keyboard is intentionally slow. You can adjust these parameters by adding these settings to your keymap's `config.h` file. All times are specified in milliseconds (ms).
 
 ```

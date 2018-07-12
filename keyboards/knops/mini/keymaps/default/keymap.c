@@ -1,53 +1,53 @@
-#include "mini.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	KEYMAP(
+	LAYOUT(
 		LT(3, KC_MSTP), KC_VOLU, KC_MPLY, KC_MPRV, KC_VOLD, KC_MNXT),
 
-	KEYMAP(
+	LAYOUT(
 		LT(3, KC_ESC), M(3), M(4), M(5), M(6), M(7)),
 
-	KEYMAP(
+	LAYOUT(
 		LT(3, KC_1), KC_2, KC_3, KC_4, M(0), M(1)),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, RESET, TO(0), TO(1), TO(2)),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
-	KEYMAP(
+	LAYOUT(
 		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS)
 
 };
@@ -107,7 +107,11 @@ void set_switch_led(int ledId, bool state) {
 				PORTD |= (1<<7);
 				break;
 			case 2:
-				PORTC |= (1<<6);
+				if((PINB & (1 << 7)) != 0) {
+					PORTC |= (1<<6);
+				} else {
+					PORTC |= (1<<7);
+				}
 				break;
 			case 3:
 				PORTD |= (1<<4);
@@ -128,7 +132,11 @@ void set_switch_led(int ledId, bool state) {
 				PORTD &= ~(1<<7);
 				break;
 			case 2:
-				PORTC &= ~(1<<6);
+				if((PINB & (1 << 7)) != 0) {
+					PORTC &= ~(1<<6);
+				} else {
+					PORTC &= ~(1<<7);
+				}
 				break;
 			case 3:
 				PORTD &= ~(1<<4);
@@ -167,9 +175,12 @@ void set_layer_led(int layerId) {
 void matrix_init_user(void) {
 	led_init_ports();
 	
+	PORTB |= (1 << 7);
+	DDRB &= ~(1<<7);
 	
 	PORTD |= (1<<7);
 	PORTC |= (1<<6);
+	PORTC |= (1<<7);
 	PORTD |= (1<<4);
 	PORTE |= (1<<6);
 	PORTB |= (1<<4);
@@ -188,7 +199,9 @@ void led_init_ports() {
 	
   // led voor switch #2
 	DDRC |= (1<<6);
+	DDRC |= (1<<7);
 	PORTC &= ~(1<<6);
+	PORTC &= ~(1<<7);
 	
   // led voor switch #3
 	DDRD |= (1<<4);

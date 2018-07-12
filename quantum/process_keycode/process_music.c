@@ -28,7 +28,7 @@ bool music_activated = false;
 bool midi_activated = false;
 uint8_t music_starting_note = 0x0C;
 int music_offset = 7;
-uint8_t music_mode = MUSIC_MODE_CHROMATIC;
+uint8_t music_mode = MUSIC_MODE_MAJOR;
 
 // music sequencer
 static bool music_sequence_recording = false;
@@ -78,10 +78,6 @@ static uint16_t music_sequence_interval = 100;
   float midi_off_song[][2] = MIDI_OFF_SONG;
 #endif
 
-#ifndef MUSIC_MASK
-  #define MUSIC_MASK keycode < 0xFF
-#endif
-
 static void music_noteon(uint8_t note) {
     #ifdef AUDIO_ENABLE
     if (music_activated)
@@ -120,7 +116,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
     if (keycode == MU_ON && record->event.pressed) {
         music_on();
         return false;
-    }    
+    }
 
     if (keycode == MU_OFF && record->event.pressed) {
         music_off();
@@ -139,7 +135,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
     if (keycode == MI_ON && record->event.pressed) {
         midi_on();
         return false;
-    }    
+    }
 
     if (keycode == MI_OFF && record->event.pressed) {
         midi_off();
@@ -202,7 +198,7 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
       }
 
       uint8_t note;
-      if (music_mode == MUSIC_MODE_CHROMATIC) 
+      if (music_mode == MUSIC_MODE_CHROMATIC)
         note = (music_starting_note + record->event.key.col + music_offset - 3)+12*(MATRIX_ROWS - record->event.key.row);
       else if (music_mode == MUSIC_MODE_GUITAR)
         note = (music_starting_note + record->event.key.col + music_offset + 32)+5*(MATRIX_ROWS - record->event.key.row);
@@ -223,11 +219,29 @@ bool process_music(uint16_t keycode, keyrecord_t *record) {
         music_noteoff(note);
       }
 
-      if (MUSIC_MASK)
+      if (music_mask(keycode))
         return false;
     }
 
     return true;
+}
+
+bool music_mask(uint16_t keycode) {
+  #ifdef MUSIC_MASK
+    return MUSIC_MASK;
+  #else
+    return music_mask_kb(keycode);
+  #endif
+}
+
+__attribute__((weak))
+bool music_mask_kb(uint16_t keycode) {
+  return music_mask_user(keycode);
+}
+
+__attribute__((weak))
+bool music_mask_user(uint16_t keycode) {
+  return keycode < 0xFF;
 }
 
 bool is_music_on(void) {

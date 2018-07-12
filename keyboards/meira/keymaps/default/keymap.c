@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "meira.h"
-#include "issi.h"
 #include "lighting.h"
 
 #ifdef RGBLIGHT_ENABLE
@@ -37,6 +36,17 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
 };
+
+#ifdef AUDIO_ENABLE
+
+float tone_my_startup[][2] = SONG(ODE_TO_JOY);
+float tone_my_goodbye[][2] = SONG(ROCK_A_BYE_BABY);
+
+float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
+float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+
+#endif /* AUDIO_ENABLE */
 
 // define variables for reactive RGB
 bool TOG_STATUS = false;
@@ -277,10 +287,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
         break;
     case BL_TOGG:
-#ifdef ISSI_ENABLE
+#ifdef BACKLIGHT_ENABLE
         if (record->event.pressed) {
             print("Enabling backlight\n");
-            issi_init();
+            backlight_init_ports();
         }
 #endif
         return false;

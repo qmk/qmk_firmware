@@ -25,11 +25,14 @@ TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 
 ifeq ($(PLATFORM),AVR)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/xprintf.S
-endif 
+endif
 
 ifeq ($(PLATFORM),CHIBIOS)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+  ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
+    TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
+  endif
 endif
 
 ifeq ($(PLATFORM),TEST)
@@ -124,7 +127,10 @@ ifeq ($(strip $(BLUETOOTH)), RN42)
 endif
 
 ifeq ($(strip $(ONEHAND_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DONEHAND_ENABLE
+  SWAP_HANDS_ENABLE = yes # backwards compatibility
+endif
+ifeq ($(strip $(SWAP_HANDS_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DSWAP_HANDS_ENABLE
 endif
 
 ifeq ($(strip $(NO_USB_STARTUP_CHECK)), yes)

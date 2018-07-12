@@ -30,7 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 #include "timer.h"
-#include "backlight.h"
+
+#ifdef BACKLIGHT_ENABLE 
+    #include "backlight.h"
+    extern backlight_config_t backlight_config;
+#endif
 
 #ifdef USE_I2C
 #  include "i2c.h"
@@ -85,15 +89,6 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
     static void unselect_col(uint8_t col);
     static void select_col(uint8_t col);
 #endif
-__attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -158,7 +153,6 @@ uint8_t _matrix_scan(void)
             if (matrix_changed) {
                 debouncing = true;
                 debouncing_time = timer_read();
-                PORTD ^= (1 << 2);
             }
 
 #       else
@@ -208,6 +202,15 @@ int i2c_transaction(void) {
     err = i2c_master_write(0x00);
     if (err) goto i2c_error;
 
+#ifdef BACKLIGHT_ENABLE
+    // Write backlight level for slave to read
+    err = i2c_master_write(backlight_config.enable ? backlight_config.level : 0);
+#else
+    // Write zero, so our byte index is the same
+    err = i2c_master_write(0x00);
+#endif
+    if (err) goto i2c_error;
+
     // Start read
     err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_READ);
     if (err) goto i2c_error;
@@ -243,7 +246,7 @@ int serial_transaction(void) {
 
 #ifdef BACKLIGHT_ENABLE
     // Write backlight level for slave to read
-    serial_master_buffer[SERIAL_LED_ADDR] = get_backlight_level();
+    serial_master_buffer[SERIAL_LED_ADDR] = backlight_config.enable ? backlight_config.level : 0;
 #endif
     return 0;
 }
@@ -285,8 +288,12 @@ void matrix_slave_scan(void) {
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
 #ifdef USE_I2C
+#ifdef BACKLIGHT_ENABLE
+    // Read backlight level sent from master and update level on slave
+    backlight_set(i2c_slave_buffer[0]);
+#endif
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        i2c_slave_buffer[i] = matrix[offset+i];
+        i2c_slave_buffer[i+1] = matrix[offset+i];
     }
 #else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {

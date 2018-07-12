@@ -12,6 +12,8 @@ extern inline void ergodox_right_led_2_off(void);
 extern inline void ergodox_right_led_3_off(void);
 extern inline void ergodox_right_led_off(uint8_t led);
 
+extern inline void ergodox_led_all_off(void);
+
 void ergodox_led_init(void);
 void ergodox_blink_all_leds(void);
 
