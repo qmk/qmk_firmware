@@ -27,7 +27,7 @@
 
 #define LOCK RGUI(KC_L)
 
-enum custom_keycoedes {
+enum custom_keycodes {
   CTLALTD = SAFE_RANGE,
   CTRL_V,
   CTRL_C,
