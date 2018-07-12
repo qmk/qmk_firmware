@@ -1,8 +1,5 @@
 #include "planck.h" 
 
-//TODO
-//Update mouse speeds
-
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
@@ -27,35 +24,16 @@
 
 #define LOCK RGUI(KC_L)
 
-enum custom_keycodes {
-  CTLALTD = SAFE_RANGE,
-  CTRL_V,
-  CTRL_C,
-  CTRL_F,
-  CTRL_A,
-  CTRL_T
+enum custom_keycoedes {
+  CTLALTD = SAFE_RANGE
 };
 
-bool process_record_user(unit16_t keycode, keyrecord_t *record) {
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if(record->event.pressed) {
     switch(keycode) {
       case CTLALTD:
-        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LALT)SS_DOWN(SS_DEL)SS_UP(X_LCTRL)SS_UP(X_LALT)SS_UP(X_DEL));
-        return false;
-      case CTRL_V:
-        SEND_STRING(SS_LCTRL("v"));
-        return false;
-      case CTRL_C:
-        SEND_STRING(SS_LCTRL("c"));
-        return false;
-      case CTRL_F:
-        SEND_STRING(SS_LCTRL("f"));
-        return false;
-      case CTRL_A:
-        SEND_STRING(SS_LCTRL("a"));
-        return false;
-      case CTRL_T:
-        SEND_STRING(SS_LCTRL("t"));
+        SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LALT)SS_DOWN(X_DELETE)SS_UP(X_DELETE)SS_UP(X_LALT)SS_UP(X_LCTRL));
         return false;
     }
   }
@@ -104,36 +82,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |   !  |   @  |   #  |   $  |   %  |   ^  |  &   |  *   |  _   |  =   |  +   |      |
+ * |   !  |   @  |   #  |   $  |   %  |   ^  |  &   |  *   |  -   |  =   |  +   |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |  ~   |   `  | CTRL |      |  |   |      |  -   |      |      |      |
+ * |      |      |  ~   |   `  | CTRL |      |  |   |      |  _   |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
   {_______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______},
-  {KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_EQL,  KC_PLUS, _______},
-  {_______, _______, KC_TILD, KC_GRV,  KC_LCTRL, _______, KC_PIPE, _______, KC_MINS, KC_COLN, _______, _______},
+  {KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,  KC_CIRC, KC_AMPR, KC_ASTR, KC_MINS, KC_EQL,  KC_PLUS, _______},
+  {_______, _______, KC_TILD, KC_GRV,  KC_LCTRL, _______, KC_PIPE, _______, KC_UNDS, KC_COLN, _______, _______},
   {_______, _______, _______, _______, _______,  _______, KC_TRNS, _______, _______, _______, _______, _______}
 },
 
 /* Special
  * ,------------------------------------------------------------------------------------.
- * |      |  M2  | MUP  |  M1  | WUP  |      |CTRL_T |CTRL_A|      |      |      |      |
+ * |      |  M2  | MUP  |  M1  | WUP  |      |       |      |      |      |      |      |
  * |------+------+------+------+------+--------------+------+------+------+------+------|
- * |      |MLEFT |MDOWN |MRIGHT|WDOWN |      |PRTSCRE|CTRL_F|      |      |      |      |
+ * |      |MLEFT |MDOWN |MRIGHT|WDOWN |      |PRTSCRE|      |      |      |      |      |
  * |------+------+------+------+------+------|-------+------+------+------+------+------|
- * |      |WLEFT |  M3  |WRIGHT|      |      |CTLALTD|CTRL_C|      |      |      |      |
+ * |      |WLEFT |  M3  |WRIGHT|      |      |CTLALTD|      |      |      |      |      |
  * |------+------+------+------+------+------+-------+------+------+------+------+------|
- * |      | PREV | PLAY | NEXT |      |      | LOCK  |CTRL_V| MUTE | VOL- | VOL+ |      |
+ * |      | PREV | PLAY | NEXT |      |      | LOCK  |      | MUTE | VOL- | VOL+ |      |
  * `------------------------------------------------------------------------------------'
  */
 [_SPECIAL] = {
-  {_______,  KC_BTN2,  KC_MS_U, KC_BTN1, KC_WH_U, _______, CTRL_T,  CTRL_A,  _______, _______, _______, _______},
-  {_______,  KC_MS_L,  KC_MS_D, KC_MS_R, KC_WH_D, _______, KC_PSCR, CTRL_F,  _______, _______, _______, _______},
-  {_______,  KC_WH_L,  KC_BTN3, KC_WH_R, _______, _______, CTLALTD, CTRL_C,  _______, _______, _______, _______},
-  {KC_TRNS,  KC_MPRV,  KC_MPLY, KC_MNXT, _______, _______, LOCK,    CTRL_V,  KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS}
+  {_______,  KC_BTN2,  KC_MS_U, KC_BTN1, KC_WH_U, _______, _______, _______,  _______, _______, _______, _______},
+  {_______,  KC_MS_L,  KC_MS_D, KC_MS_R, KC_WH_D, _______, KC_PSCR, _______,  _______, _______, _______, _______},
+  {_______,  KC_WH_L,  KC_BTN3, KC_WH_R, _______, _______, CTLALTD, _______,  _______, _______, _______, _______},
+  {KC_TRNS,  KC_MPRV,  KC_MPLY, KC_MNXT, _______, _______, LOCK,    _______,  KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS}
 },
 
 /* Calc
