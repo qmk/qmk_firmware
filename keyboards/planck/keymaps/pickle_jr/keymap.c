@@ -25,7 +25,9 @@
 #define LOCK RGUI(KC_L)
 
 enum custom_keycoedes {
-  CTLALTD = SAFE_RANGE
+  CTLALTD = SAFE_RANGE,
+  VIMSAVE,
+  VIMWQ
 };
 
 
@@ -35,6 +37,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case CTLALTD:
         SEND_STRING(SS_DOWN(X_LCTRL)SS_DOWN(X_LALT)SS_DOWN(X_DELETE)SS_UP(X_DELETE)SS_UP(X_LALT)SS_UP(X_LCTRL));
         return false;
+      case VIMSAVE:
+        SEND_STRING(":w");
+        return false;
+      case VIMWQ:
+        SEND_STRING(":wq");
     }
   }
   return true;
@@ -43,21 +50,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
- * ,--------------------------------------------------------------------------------------------------.
- * | Tab/CALC |   Q      |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P      |  "/CALC |
- * |----------+----------+------+------+------+-------------+------+------+------+----------+---------|
- * | Esc      |   A      |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;/Nav  | Enter   |
- * |----------+----------+------+------+------+------|------+------+------+------+----------+---------|
- * |   (/SFT  |   Z      |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /      |  )/SFT  |
- * |----------+----------+------+------+------+------+------+------+------+------+----------+---------|
- * |   [/SPC  |   CTRL   |   <  | GUI  | Bksp |Lower |Raise |  SPC | ALT |   >   |  CTRL    |  ]/SPC  |
- * `--------------------------------------------------------------------------------------------------'
+ * ,-----------------------------------------------------------------------------------------------------.
+ * | Tab/CALC |   Q      |   W   |   E  |   R  |   T  |   Y  |   U  |   I  |   O    |   P      |  "/CALC |
+ * |----------+----------+-------+------+------+-------------+------+------+--------+----------+---------|
+ * | Esc      |   A      |   S   |   D  |   F  |   G  |   H  |   J  |   K  |   L    |   ;/Nav  | Enter   |
+ * |----------+----------+-------+------+------+------|------+------+------+--------+----------+---------|
+ * |   (/SFT  |   Z      |   X   |   C  |   V  |   B  |   N  |   M  |   ,  |   .    |   /      |  )/SFT  |
+ * |----------+----------+-------+------+------+------+------+------+------+--------+----------+---------|
+ * |   [/SPC  |   CTRL   |VIMSAVE| GUI  | Bksp |Lower |Raise |  SPC | ALT  | VIMWQ  |  CTRL    |  ]/SPC  |
+ * `-----------------------------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-  {TABCALC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,    KC_I,     KC_O,    KC_P,    QUOCALC},
-  {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_H,   KC_J,    KC_K,     KC_L,    SCOLNAV, KC_ENT },
-  {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,   KC_M,    KC_COMM,  KC_DOT,  KC_SLSH, KC_RSPC},
-  {LBRACK , KC_LCTL, KC_LABK, KC_LGUI, KC_BSPC, LOWER,  RAISE,  KC_SPC,  KC_RALT,  KC_RABK, KC_RCTL, RBRACK }
+  {TABCALC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   KC_Y,   KC_U,    KC_I,     KC_O,   KC_P,    QUOCALC},
+  {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   KC_H,   KC_J,    KC_K,     KC_L,   SCOLNAV, KC_ENT },
+  {KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_N,   KC_M,    KC_COMM,  KC_DOT, KC_SLSH, KC_RSPC},
+  {LBRACK , VIMSAVE, KC_LABK, KC_LGUI, KC_BSPC, LOWER,  RAISE,  KC_SPC,  KC_RALT,  VIMWQ,  KC_RCTL, RBRACK }
 },
 
 /* Lower
@@ -151,15 +158,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 /* Adjust (Lower + Raise)
- * ,-----------------------------------------------------------------------------------.
- * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
+ * ,-------------------------------------------------------------------------------------------.
+ * |      | Reset|      |RGB_TOG|RGB_MOD|RGB_HUI|RGB_HUD|RGB_SAI|RGB_SAD|RGB_VAI|RGB_VAD|  Del |
+ * |------+------+------+-------+-------+-------+-------+-------+-------+-------+-------+------|
+ * |      |      |MU_MOD|Aud on |Audoff |AGnorm |AGswap |       |       |       |       |      |
+ * |------+------+------+-------+-------+-------+-------+-------+-------+-------+-------+------|
+ * |      |Voice-|Voice+|Mus on |Musoff |MIDIon |MIDIof |TERMon |TERMof |       |       |      |
+ * |------+------+------+-------+-------+-------+-------+-------+-------+-------+-------+------|
+ * |      |      |      |       |       |               |       |       |       |       |      |
+ * `-------------------------------------------------------------------------------------------'
  */
 [_ADJUST] = {
   {_______, RESET,   _______, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD,  RGB_VAI, RGB_VAD, KC_DEL },
