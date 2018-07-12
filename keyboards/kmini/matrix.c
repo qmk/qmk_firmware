@@ -48,6 +48,22 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 static void unselect_cols(void);
 static void select_col(uint8_t col);
 
+__attribute__ ((weak))
+void matrix_init_user(void) {}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {}
+
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+  matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+  matrix_scan_user();
+}
+
 inline
 uint8_t matrix_rows(void) {
     return MATRIX_ROWS;
@@ -219,16 +235,16 @@ static void init_rows(void) {
 static void unselect_cols(void) {
     DDRB  |= (1<<5) | (1<<6) | (1<<0) | (1<<7) | (1<<4); // OUT
     PORTB &= ~((1<<5) | (1<<6) | (1<<0) |  (1<<7) | (1<<4)); // LO
-	
+
     DDRD  |= (1<<4) | (1<<6) | (1<<7); // OUT
     PORTD &= ~((1<<4) | (1<<6) | (1<<7)); // LO
-	
+
     DDRE  |= (1<<6); // OUT
     PORTE &= ~((1<<6)); // LO
-	
+
     DDRF  |= (1<<0) | (1<<1); // OUT
     PORTF &= ~((1<<0) | (1<<1)); // LO
-	
+
     DDRC  |= (1<<7) | (1<<6); // OUT
     PORTC &= ~((1<<7) | (1<<6)); // LO
 }
