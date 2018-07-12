@@ -436,13 +436,13 @@
     Q__NOTE(_C6), \
 
 #define ALL_STAR \
-    E__NOTE(_AS4), Q__NOTE(_FS4), S__NOTE(_FS4), S__NOTE(_DS4), E__NOTE(_FS4), Q__NOTE(_FS4), S__NOTE(_FS4), S__NOTE(_DS4), \
-    E__NOTE(_FS4), Q__NOTE(_FS4), Q__NOTE(_FS4), QD_NOTE(_AS4), \
-    E__NOTE(_AS4), Q__NOTE(_FS4), S__NOTE(_FS4), S__NOTE(_DS4), E__NOTE(_FS4), Q__NOTE(_FS4), S__NOTE(_FS4), S__NOTE(_DS4), \
-    E__NOTE(_FS4), Q__NOTE(_FS4), Q__NOTE(_FS4), Q__NOTE(_AS4), E__NOTE(_REST),\
-    Q__NOTE(_AS4), Q__NOTE(_CS5), E__NOTE(_B4), E__NOTE(_CS5), E__NOTE(_DS5), Q__NOTE(_FS5), \
-    E__NOTE(_GS5), Q__NOTE(_GS5), E__NOTE(_FS4), E__NOTE(_FS4), E__NOTE(_GS4), E__NOTE(_FS4), \
-    E__NOTE(_AS4), Q__NOTE(_GS4), Q__NOTE(_GS4), Q__NOTE(_FS4), Q__NOTE(_GS4), \
-    E__NOTE(_AS4), HD_NOTE(_DS4)
+    H__NOTE(_AS4), W__NOTE(_FS4), Q__NOTE(_FS4), Q__NOTE(_DS4), H__NOTE(_FS4), W__NOTE(_FS4), Q__NOTE(_FS4), Q__NOTE(_DS4), \
+    H__NOTE(_FS4), W__NOTE(_FS4), W__NOTE(_FS4), QD_NOTE(_AS4), \
+    H__NOTE(_AS4), W__NOTE(_FS4), Q__NOTE(_FS4), Q__NOTE(_DS4), H__NOTE(_FS4), W__NOTE(_FS4), Q__NOTE(_FS4), Q__NOTE(_DS4), \
+    H__NOTE(_FS4), W__NOTE(_FS4), W__NOTE(_FS4), W__NOTE(_AS4), H__NOTE(_REST),\
+    W__NOTE(_AS4), W__NOTE(_CS5), H__NOTE(_B4),  H__NOTE(_CS5), H__NOTE(_DS5), W__NOTE(_FS5), \
+    H__NOTE(_GS5), W__NOTE(_GS5), H__NOTE(_FS4), H__NOTE(_FS4), H__NOTE(_GS4), H__NOTE(_FS4), \
+    H__NOTE(_AS4), W__NOTE(_GS4), W__NOTE(_GS4), W__NOTE(_FS4), W__NOTE(_GS4), \
+    H__NOTE(_AS4), WD_NOTE(_DS4)
 
 #endif
