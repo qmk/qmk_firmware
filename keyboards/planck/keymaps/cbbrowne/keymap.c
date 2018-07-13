@@ -219,7 +219,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.pressed)
       {
 	layer_on(_RAISE);
-#ifdef BACKLIGHT_ENABLE
+#ifdef BACKLIGHT_BREATHING
 	breathing_period_set(2);
 	breathing_pulse();
 #endif
@@ -235,7 +235,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.pressed)
       {
 	layer_on(_LOWER);
-#ifdef BACKLIGHT_ENABLE
+#ifdef BACKLIGHT_BREATHING
 	breathing_period_set(2);
 	breathing_pulse();
 #endif

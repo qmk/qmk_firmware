@@ -88,3 +88,33 @@ Note that Teensy2.0++ bootloader size is 2048byte. Some Makefiles may have wrong
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=2048
 ```
+
+## `avr-gcc: internal compiler error: Abort trap: 6 (program cc1)` on MacOS
+This is an issue with updating on brew, causing symlinks that avr-gcc depend on getting mangled. 
+
+The solution is to remove and reinstall all affected modules. 
+
+```
+brew rm avr-gcc
+brew rm dfu-programmer
+brew rm gcc-arm-none-eabi
+brew rm avrdude
+brew install avr-gcc
+brew install dfu-programmer
+brew install gcc-arm-none-eabi
+brew install avrdude
+```
+
+### avr-gcc 8.1 and LUFA
+
+If you updated your avr-gcc to above 7 you may see errors involving LUFA. For example:
+
+`lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
+
+For now, you need to rollback avr-gcc to 7 in brew.
+
+```
+brew uninstall --force avr-gcc
+brew install avr-gcc@7
+brew link avr-gcc@7
+```

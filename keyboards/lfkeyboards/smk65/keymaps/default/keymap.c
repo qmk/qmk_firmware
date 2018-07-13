@@ -12,7 +12,7 @@ enum keymap_layout {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[VANILLA] = KEYMAP(
+[VANILLA] = LAYOUT(
   /* Keymap VANILLA: (Base Layer) Default Layer
    * ,------------------------------------------------------------.----.
    * |Esc~| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |  0| - | = |Backspa| Ins|
@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSFT,   KC_UP,  KC_PGDN,
     KC_LCTL, KC_LGUI, KC_LALT,         KC_SPC,       KC_RALT, KC_RCTL, MO(FUNC), KC_LEFT, KC_DOWN,  KC_RGHT),
 
-[FUNC] = KEYMAP(
+[FUNC] = LAYOUT(
   /* Keymap VANILLA: Function Layer
    * ,------------------------------------------------------------.----.
    * |Esc~| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |  0| - | = |Backspa| Ins|

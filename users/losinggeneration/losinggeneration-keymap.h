@@ -88,8 +88,19 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  * |Adjust| Ctrl | Alt  | GUI  |Lower | Del  ||Space |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------'`-----------------------------------------'
  */
-#define BOTTOM_40_ROW \
+#define BOTTOM_GRID_ROW \
   TD_ADJ  ,TD_CTL , TD_ALT , TD_GUI , LOWER  , KC_DEL , KC_SPC , RAISE  , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT
+
+/*
+ * ,-----------------------------------------..-----------------------------------------.
+ * |Adjust| Ctrl | Alt  | GUI  |Lower |Space ||Space |Raise | Left | Down |  Up  |Right |
+ * `-----------------------------------------'`-----------------------------------------'
+ */
+#define BOTTOM_MIT_ROW \
+  TD_ADJ  ,TD_CTL , TD_ALT , TD_GUI , LOWER  , KC_SPC , KC_SPC , RAISE  , KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT
+
+#ifdef USE_MIT_LAYOUT
+#define BOTTOM_ROW BOTTOM_MIT_ROW
 
 /*
  * ,-----------------------------------------..-----------------------------------------.
@@ -101,6 +112,22 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define BOTTOM_RAISE_LOWER_ROWS \
   _______, KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_PGUP, KC_PGDN, KC_HOME, KC_END , KC_MSTP, \
   _______, _______, _______, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY
+
+#else
+#define BOTTOM_ROW BOTTOM_GRID_ROW
+
+/*
+ * ,-----------------------------------------..-----------------------------------------.
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 ||  F12 | PgUp | PgDn | Home | End  |  ⏹   |
+ * |------+------+------+------+------+------||------+------+------+------+------+------|
+ * |      |      |      |      |      |      || Bksp |      | Mute | Vol- | Vol+ |  ⏯   |
+ * `-----------------------------------------'`-----------------------------------------'
+ */
+#define BOTTOM_RAISE_LOWER_ROWS \
+  _______, KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , KC_PGUP, KC_PGDN, KC_HOME, KC_END , KC_MSTP, \
+  _______, _______, _______, _______, _______, KC_BSPC, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY
+#endif
+
 
 /*
  * ,-----------------------------------------..-----------------------------------------.
@@ -115,7 +142,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  * `-----------------------------------------'`-----------------------------------------'
  */
 
-#define STD_ESC_ROW(...) KC_ESC, __VA_ARGS__
+#define STD_ESC_ROW(...) MT_ESC, __VA_ARGS__
 
 /*
  * ,-----------------------------------------..-----------------------------------------.
@@ -139,7 +166,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   STD_TAB_ROW( KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   ),           \
   STD_ESC_ROW( KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN , KC_QUOT), \
   STD_LSFT_ROW(KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH),           \
-  BOTTOM_40_ROW
+  BOTTOM_ROW
 
 /* Colemak
  * ,-----------------------------------------.,-----------------------------------------.
@@ -156,7 +183,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   STD_TAB_ROW( KC_Q   , KC_W   , KC_F   , KC_P   , KC_G   , KC_J   , KC_L   , KC_U   , KC_Y   , KC_SCLN),           \
   STD_ESC_ROW( KC_A   , KC_R   , KC_S   , KC_T   , KC_D   , KC_H   , KC_N   , KC_E   , KC_I   , KC_O    , KC_QUOT), \
   STD_LSFT_ROW(KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_K   , KC_M   , KC_COMM, KC_DOT , KC_SLSH),           \
-  BOTTOM_40_ROW
+  BOTTOM_ROW
 
 /* Workman
  * ,-----------------------------------------..-----------------------------------------.
@@ -173,7 +200,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   STD_TAB_ROW( KC_Q   , KC_D   , KC_R   , KC_W   , KC_B   , KC_J   , KC_F   , KC_U   , KC_P   , KC_SCLN),           \
   STD_ESC_ROW( KC_A   , KC_S   , KC_H   , KC_T   , KC_G   , KC_Y   , KC_N   , KC_E   , KC_O   , KC_I    , KC_QUOT), \
   STD_LSFT_ROW(KC_Z   , KC_X   , KC_M   , KC_C   , KC_V   , KC_K   , KC_L   , KC_COMM, KC_DOT , KC_SLSH),           \
-  BOTTOM_40_ROW
+  BOTTOM_ROW
 
 /* Dvorak
  * ,-----------------------------------------..-----------------------------------------.
@@ -190,7 +217,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   STD_TAB_ROW( KC_QUOT, KC_COMM, KC_DOT , KC_P   , KC_Y   , KC_F   , KC_G   , KC_C   , KC_R   , KC_L),           \
   STD_ESC_ROW( KC_A   , KC_O   , KC_E   , KC_U   , KC_I   , KC_D   , KC_H   , KC_T   , KC_N   , KC_S , KC_SLSH), \
   STD_LSFT_ROW(KC_SCLN, KC_Q   , KC_J   , KC_K   , KC_X   , KC_B   , KC_M   , KC_W   , KC_V   , KC_Z),           \
-  BOTTOM_40_ROW
+  BOTTOM_ROW
 
 /* Game (Qwerty without one shot modifiers & tap dancing)
  * ,-----------------------------------------..-----------------------------------------.

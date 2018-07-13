@@ -1,9 +1,7 @@
-#include "gherkin.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -44,30 +42,31 @@ enum gherkin_keycodes {
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = KEYMAP(
-		TD(TD_Q_ESC),   KC_W,              KC_E,           KC_R,  KC_T,               KC_Y,  KC_U,  KC_I,     KC_O,    KC_P,
-		TD(TD_A_TAB),   LT(_SYMBOLS,KC_S), KC_D,           KC_F,  KC_G,               KC_H,  KC_J,  KC_K,     KC_L,    LT(_ADJUST,KC_SPC),
-		TD(TD_Z_LCTL),  TD(TD_X_LGUI),    TD(TD_C_LALT),  KC_V,  KC_B,  LT(_NUMBERS, KC_N),  KC_M,  KC_COMM,  KC_DOT,  SFT_T(KC_ENT))
-  ,
-  [_NUMBERS] = KEYMAP(
-    KC_1,   KC_2,   KC_3,   KC_4,   KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-    KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,   KC_F6,   KC_HOME, KC_PGDN, KC_PGUP,  KC_END ,
-    KC_F7,  KC_F8,  KC_F9,  KC_F10, LT(_ADJUST,KC_F11),  _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT)
-  ,
-  [_SYMBOLS] = KEYMAP(
-    KC_EXLM,   KC_AT,   KC_HASH,   KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR, KC_LPRN,       KC_RPRN,
-    KC_GRV,  _______,  XXXXXXX,  KC_LBRC,   KC_RBRC,  KC_BSLS,  KC_MINS,  KC_EQL ,  KC_SCLN,      KC_QUOT,
-    KC_TILD,  MO(_ADJUST),  XXXXXXX,  KC_LCBR,   KC_RCBR,  KC_PIPE,  KC_UNDS,  KC_PLUS,  S(KC_SCLN), S(KC_QUOT))
-  ,
-  [_PLOVER] = KEYMAP(
-    KC_Q,    KC_W,    KC_E,    KC_R,    KC_1,       KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
-    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,       KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    EXT_PLV, XXXXXXX, KC_C,    KC_V,    XXXXXXX,    KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX)
-  ,
-  [_ADJUST] = KEYMAP(
-    RESET,    _______,  _______,  _______,    _______,  QWERTY,  NUMBERS,  SYMBOLS,     PLOVER,  SONGS,
-    MUV_DE,   MUV_IN,   MU_ON,    MU_OFF,     _______,  _______,  _______,  _______,     MACSLEEP,  _______,
-    BACKLIT,  _______,  _______,  _______,    _______,  _______,  _______,  _______,     _______,  _______)
+  [_QWERTY] = LAYOUT_ortho_3x10(
+    TD(TD_Q_ESC),   KC_W,               KC_E,           KC_R,  KC_T,               KC_Y,   KC_U,  KC_I,     KC_O,    KC_P,
+    TD(TD_A_TAB),   LT(_SYMBOLS,KC_S),  KC_D,           KC_F,  KC_G,               KC_H,   KC_J,  KC_K,     KC_L,    LT(_ADJUST,KC_SPC),
+    TD(TD_Z_LCTL),  TD(TD_X_LGUI),      TD(TD_C_LALT),  KC_V,  KC_B,  LT(_NUMBERS, KC_N),  KC_M,  KC_COMM,  KC_DOT,  SFT_T(KC_ENT)
+  ),
+  [_NUMBERS] = LAYOUT_ortho_3x10(
+    KC_1,   KC_2,   KC_3,   KC_4,    KC_5,                KC_6,     KC_7,     KC_8,     KC_9,     KC_0,
+    KC_F1,  KC_F2,  KC_F3,  KC_F4,   KC_F5,               KC_F6,    KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END ,
+    KC_F7,  KC_F8,  KC_F9,  KC_F10,  LT(_ADJUST,KC_F11),  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT
+  ),
+  [_SYMBOLS] = LAYOUT_ortho_3x10(
+    KC_EXLM,  KC_AT,        KC_HASH,  KC_DLR,   KC_PERC,  KC_CIRC,  KC_AMPR,  KC_ASTR,  KC_LPRN,     KC_RPRN,
+    KC_GRV,   _______,      XXXXXXX,  KC_LBRC,  KC_RBRC,  KC_BSLS,  KC_MINS,  KC_EQL ,  KC_SCLN,     KC_QUOT,
+    KC_TILD,  MO(_ADJUST),  XXXXXXX,  KC_LCBR,  KC_RCBR,  KC_PIPE,  KC_UNDS,  KC_PLUS,  S(KC_SCLN),  S(KC_QUOT)
+  ),
+  [_PLOVER] = LAYOUT_ortho_3x10(
+    KC_Q,     KC_W,     KC_E,  KC_R,  KC_1,     KC_U,  KC_I,  KC_O,     KC_P,     KC_LBRC,
+    KC_A,     KC_S,     KC_D,  KC_F,  KC_G,     KC_J,  KC_K,  KC_L,     KC_SCLN,  KC_QUOT,
+    EXT_PLV,  XXXXXXX,  KC_C,  KC_V,  XXXXXXX,  KC_N,  KC_M,  XXXXXXX,  XXXXXXX,  XXXXXXX
+  ),
+  [_ADJUST] = LAYOUT_ortho_3x10(
+    RESET,    _______,  _______,  _______,  _______,  QWERTY,   NUMBERS,  SYMBOLS,  PLOVER,    SONGS,
+    MUV_DE,   MUV_IN,   MU_ON,    MU_OFF,   _______,  _______,  _______,  _______,  MACSLEEP,  _______,
+    BACKLIT,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______
+  )
 };
 
 #ifdef AUDIO_ENABLE
@@ -175,9 +174,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 /*
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	keyevent_t event = record->event;
+  keyevent_t event = record->event;
 
-	switch (id) {
+  switch (id) {
         case 0: {
             if (record->event.pressed) {
                 key_timer = timer_read(); // if the key is being pressed, we start the timer.
@@ -193,7 +192,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
             break;
         }
       }
-	return MACRO_NONE;
+  return MACRO_NONE;
 }*/
 
 void matrix_init_user(void) {
@@ -246,35 +245,35 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 /*
 void led_set_user(uint8_t usb_led) {
 
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-		DDRD |= (1 << 5); PORTD &= ~(1 << 5);
-	} else {
-		DDRD &= ~(1 << 5); PORTD &= ~(1 << 5);
-	}
+  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
+    DDRD |= (1 << 5); PORTD &= ~(1 << 5);
+  } else {
+    DDRD &= ~(1 << 5); PORTD &= ~(1 << 5);
+  }
 
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		DDRB |= (1 << 0); PORTB &= ~(1 << 0);
-	} else {
-		DDRB &= ~(1 << 0); PORTB &= ~(1 << 0);
-	}
+  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+    DDRB |= (1 << 0); PORTB &= ~(1 << 0);
+  } else {
+    DDRB &= ~(1 << 0); PORTB &= ~(1 << 0);
+  }
 
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
 
-	} else {
+  } else {
 
-	}
+  }
 
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
+  if (usb_led & (1 << USB_LED_COMPOSE)) {
 
-	} else {
+  } else {
 
-	}
+  }
 
-	if (usb_led & (1 << USB_LED_KANA)) {
+  if (usb_led & (1 << USB_LED_KANA)) {
 
-	} else {
+  } else {
 
-	}
+  }
 
 }
 */

@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	//{ LT(1,KC_TAB), DE_C,    DE_T,    DE_I,  DE_E,  DE_O,   DE_B,   DE_N,  DE_R,    DE_S,    DE_G,    LT(1,KC_ENT) },
 	{ MO(1),        DE_C,    DE_T,    DE_I,  DE_E,  DE_O,   DE_B,   DE_N,  DE_R,    DE_S,    DE_G,    LT(1,KC_ENT) },
 	{ KC_LSFT,      DE_F,    DE_V,    DE_UE, DE_AE, DE_OE,  DE_Y,   DE_Z,  DE_COMM, DE_DOT,  DE_K,    KC_LSFT      },
-	{ KC_LCTL,      KC_RGUI, KC_LALT, MO(4), MO(2), KC_SPC, KC_SPC, MO(2), MO(4),   KC_RALT, KC_ESC,  KC_RCTL      }
+	{ KC_LCTL,      KC_LGUI, KC_LALT, MO(4), MO(2), KC_SPC, KC_SPC, MO(2), MO(4),   KC_RALT, KC_ESC,  KC_RCTL      }
 },
 
 /* M1 Special Characters

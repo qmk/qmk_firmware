@@ -63,6 +63,9 @@ else ifneq ("$(wildcard $(KEYBOARD_PATH_2)/boards/$(BOARD)/board.mk)","")
 else ifneq ("$(wildcard $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk)","")
     BOARD_PATH = $(KEYBOARD_PATH_1)
     BOARD_MK += $(KEYBOARD_PATH_1)/boards/$(BOARD)/board.mk
+else ifneq ("$(wildcard $(TOP_DIR)/drivers/boards/$(BOARD)/board.mk)","")
+    BOARD_PATH = $(TOP_DIR)/drivers
+    BOARD_MK += $(TOP_DIR)/drivers/boards/$(BOARD)/board.mk
 endif
 
 ifeq ("$(wildcard $(BOARD_MK))","")

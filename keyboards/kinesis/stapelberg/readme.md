@@ -1,7 +1,7 @@
 # kinesis_stapelberg keyboard firmware
 
 This folder contains the firmware customization required to run QMK on the custom controller for the Kinesis Advantage created by Michael Stapelberg.
-It differs from the `alvicstep keyboard in that the existing QMK Kinesis Advantage project uses the existing controller board provided by Kinesis.
+It differs from the `alvicstep` keyboard in that the existing QMK Kinesis Advantage project uses the existing controller board provided by Kinesis.
 
 The controller board hardware is described
 [here](http://michael.stapelberg.de/Artikel/kinesis_custom_controller)
@@ -44,11 +44,10 @@ The exterior cables can be seen here.
 
 ### Default
 
-To build with the default keymap, run `make default` while in the
-`kinesis_stapelberg` working directory.
+To build with the default keymap, run `make kinesis/stapelberg` while in the QMK directory.
 
 ### Dvorak
 
 This keymap contains a dvorak implementation as well as media and symbol layers.
 
-Run `make dvorak` while in the `kinesis_stapelberg` working directory.
+Run `make kinesis/stapelberg:dvorak` while in the QMK directory.
