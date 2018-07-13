@@ -29,11 +29,11 @@ enum mitosis_layers
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_xQ] = LAYOUT(
-      KC_Q, KC_W,       KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,     KC_P,
-      KC_A, KC_S,       KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,     KC_SCLN,
-      KC_Z, KC_X,       KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_QUOT,
-      /*,   */ KC_LGUI, KC_LCTL, MO(_xS), KC_TAB,  KC_SPC,  MO(_xS), KC_RCTL, KC_RGUI,
-      /*,   */ KC_HENK, KC_LALT, MO(_xN), KC_LSFT, KC_RSFT, MO(_xN), KC_RALT, KC_MHEN),
+      KC_Q, KC_W,       KC_E,    KC_R,    KC_T,    KC_Y,            KC_U,    KC_I,    KC_O,     KC_P,
+      KC_A, KC_S,       KC_D,    KC_F,    KC_G,    KC_H,            KC_J,    KC_K,    KC_L,     KC_SCLN,
+      KC_Z, KC_X,       KC_C,    KC_V,    KC_B,    KC_N,            KC_M,    KC_COMM, KC_DOT,   KC_QUOT,
+      /*,   */ KC_LGUI, KC_LCTL, MO(_xS), KC_TAB,  KC_SPC,          MO(_xS), KC_RCTL, KC_RGUI,
+      /*,   */ KC_HENK, KC_LALT, MO(_xN), KC_LSFT, RSFT_T(KC_UNDS), MO(_xN), KC_RALT, KC_MHEN),
   [_xW] = LAYOUT(
       KC_Q, KC_D,       KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,     KC_SCLN,
       KC_A, KC_S,       KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,     KC_I,
@@ -41,10 +41,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       /*,   */ _______, _______, _______, _______, _______, _______, _______, _______,
       /*,   */ _______, _______, _______, _______, _______, _______, _______, _______),
   [_xS] = LAYOUT(
-      KC_ESC,  _______,    KC_UP,   _______, KC_GRV,  KC_PLUS, KC_CIRC, KC_AMPR, KC_PERC,  KC_MINS,
-      KC_BSPC, KC_LEFT,    KC_DOWN, KC_RGHT, KC_TILD, KC_PIPE, KC_AT,   KC_DLR,  KC_HASH,  KC_ENT,
+      KC_ESC,  KC_GRV ,    KC_UP,   KC_EQL , KC_TILD, KC_PLUS, KC_CIRC, KC_AMPR, KC_PERC,  KC_MINS,
+      KC_BSPC, KC_LEFT,    KC_DOWN, KC_RGHT, _______, KC_PIPE, KC_AT,   KC_DLR,  KC_HASH,  KC_ENT,
       KC_BSLS, KC_LABK,    KC_LCBR, KC_LPRN, KC_LBRC, KC_RBRC, KC_RCBR, KC_RPRN, KC_RABK,  KC_SLSH,
-      /*,      */ _______, _______, _______, _______, KC_UNDS, _______, _______, _______,
+      /*,      */ _______, _______, _______, _______, _______, _______, _______, _______,
       /*,      */ _______, _______, MO(_xF), _______, _______, MO(_xF), _______, _______),
   [_xN] = LAYOUT(
       _______, KC_F7,      KC_F8,   KC_F9,   KC_F10,  KC_PPLS, KC_7,    KC_8,    KC_9,     KC_PMNS,

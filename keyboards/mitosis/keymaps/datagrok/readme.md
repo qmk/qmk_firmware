@@ -1,7 +1,3 @@
-![mitosis:datagrok layout image](https://i.imgur.com/IxSZcOQ.png)
-
-[Keyboard layout editor source](http://www.keyboard-layout-editor.com/#/gists/9cf33be8a8e773647cfa44a0dbc44b31)
-
 # a layout for the Mitosis
 
 - Emphasis on momentary modifiers, all usable from either hand, arranged symmetrically, but left/right distinguishable by the OS.
@@ -26,6 +22,22 @@
 
 - Key positions chosen for mnemonics.
   For example, you can distinguish between alphanumeric numerals and keypad numerals, but they occupy the same key positions.
+
+## Layout Images
+
+![mitosis:datagrok layout base layer](https://imgur.com/9LoLQUk.png)
+
+![mitosis:datagrok layout red layer](https://imgur.com/B5bnPGM.png)
+
+![mitosis:datagrok layout blue layer](https://imgur.com/HGJ4G1U.png)
+
+![mitosis:datagrok layout purple layer](https://imgur.com/lNsKDtA.png)
+
+Keyboard layout editor sources:
+[base](http://www.keyboard-layout-editor.com/#/gists/bc2d06a3203d1bc3a14ed2245cf39643)
+[red](http://www.keyboard-layout-editor.com/#/gists/dbbf65f726a5522824b75117a62a321e)
+[blue](http://www.keyboard-layout-editor.com/#/gists/240e807f3d7e1d3ddabe1b69ee675048)
+[purple](http://www.keyboard-layout-editor.com/#/gists/9559f0f8bb1ee47677c8f2b4d766829d)
 
 ## Design notes
 
@@ -86,10 +98,16 @@
   Backspace is one of the keys I most dislike on a QWERTY keyboard because it moves me away from homerow and I need to use it so often.
   Rather than make it easier to strike, I want to discourage myself from using it by learning to type more accurately.
 
+- Why do I dislike [snake\_case](https://en.wikipedia.org/wiki/Snake_case) (`__variable_names_that_use_underscores_`)?
+  Maybe because it's hard to type all those underscores requiring the shift key?
+  Hypothesis: I'll be less annoyed by snake case by placing `_` at an unmodded position, right near the `space` key.
+
+
 ## Changelog
 
 ### Current
 
+- Experiment: no-modifier underscore on right shift key.
 - New combined numbers + keypad arrangement.
   No more worrying about Num Lock key.
 - Move F-keys to left board to make room.
@@ -166,6 +184,7 @@
   Do any of my applications use it?
   Should I have the firmware ensure it is set how I want it?
   Maybe cause it to be momentary active with Blue?
+  See [@drashna's comment](https://github.com/qmk/qmk_firmware/pull/2366#issuecomment-404951953)
 - Store default base layer in eeprom?
 - See if the henkan/muhenkan placement is at all useful for Japanese speakers,
   or abuse different keysyms for Left/Right Hyper. (Original space cadet used
