@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Enable tap dance
 #define TAPPING_TERM 150
+#define TAPPING_TOGGLE 2
 
 /* RGB Underglow */
 #undef RGBLED_NUM
