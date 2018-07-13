@@ -38,6 +38,7 @@ enum custom_keycodes {
   SHELL_SCREEN_LIST,
   SHELL_MKE,
   SHELL_HTCSTATUS,
+  SHELL_DUMPTLOG,
   
   // Cloud9 macros
   CLOUD9_TAB_LEFT,
@@ -89,6 +90,7 @@ enum custom_keycodes {
 #define SCREEN_PASTEREG_3 30
 #define SHELL_EXP_LOGPATTERN 34
 #define SHELL_EXP_TRANPATTERN 35
+
 
 
 
@@ -224,7 +226,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    M(SHELL_EXP_TRANPATTERN),
        RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    M(SHELL_EXP_LOGPATTERN),
                    LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), RCTL(KC_W),
-       RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      MEH(KC_V),  RCTL(KC_K), KC_TRNS,
+       RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      MEH(KC_V),  RCTL(KC_K), SHELL_DUMPTLOG,
                    // bottom row (match functionality of base layer)
                    KC_BSPC,    RCTL(KC_W),          KC_DELETE,       LALT(KC_D), RCTL(KC_U),
        // thumb cluster
@@ -564,8 +566,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             SEND_STRING("htcStatus -j ");
             return true;
             break;               
-		// Cloud9 macros
-		case CLOUD9_TAB_LEFT:
+        case SHELL_DUMPTLOG:
+            SEND_STRING(" | dumptlog - ");
+            return true;
+            break;            
+	// Cloud9 macros
+	case CLOUD9_TAB_LEFT:
             SEND_STRING(SS_LCTRL("["));
             return true;		
 			break;
