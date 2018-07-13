@@ -6,10 +6,11 @@ extern keymap_config_t keymap_config;
 
 /* LAYER DEFINITIONS */
 
-#define BASE  0
-#define RAISE 1
-#define MOUSE 3
-#define WHEEL 4
+#define BASE     0
+#define RAISE    1
+#define MOUSE    3
+#define WHEEL    4
+#define FUNCTION 5
 
 /* KEYCODE DEFINITIONS */
 
@@ -22,6 +23,7 @@ extern keymap_config_t keymap_config;
 #define KC_R_L1 LT(RAISE, KC_LANG1)
 #define KC_A_L2 LALT_T(KC_LANG2)
 #define KC_WEEL MO(WHEEL)
+#define KC_FUNC MO(FUNCTION)
 
 /* KC_ aliases */
 #define KC_RST RESET
@@ -48,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
     ____ , EXLM , AT   , HASH , DLR  , PERC , XXXX , XXXX , CIRC , AMPR , ASTR , ____ , PIPE , BSLS , \
 //`---------------------------+------+------+------.--------------+-----+-----+---------------------'
-    XXXX , XXXX , XXXX , XXXX , ____ , ____ , ____ , RST  , ____ , ____ , XXXX , XXXX , XXXX , XXXX   \
+    XXXX , XXXX , XXXX , XXXX , FUNC , ____ , ____ , RST  , ____ , ____ , XXXX , XXXX , XXXX , XXXX   \
 //                            `--------------------'--------------------'
 ),
 
@@ -76,6 +78,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                            `--------------------'--------------------'
 ),
 
+[FUNCTION] = KC_KEYMAP( \
+//,------+----------------------------------.             ,-----------------------------------------.
+    ____ , ____ , ____ , PGUP , ____ , ____ , XXXX , XXXX , ____ , ____ , UP   , ____ , PSCR , ____ , \
+//|------+------+------+------+------+------|             |------+------+------+------+------+------|
+    ____ , ____ , HOME , PGDN , END  , LGUI , XXXX , XXXX , ____ , LEFT , DOWN , RGHT  , ____ , ____ , \
+//|------+------+------+------+------+------|             |------+------+------+------+------+------|
+    ____ , F1   , F2   , F3   , F4   , F5   , XXXX , XXXX , F6   , F7   , F8   , F9   , F10  , ____ , \
+//`---------------------------+------+------+------.--------------+-----+-----+---------------------'
+    XXXX , XXXX , XXXX , XXXX , ____ , ____ , ____ , ____ , ____ , ____ , XXXX , XXXX , XXXX , XXXX   \
+//                            `--------------------'--------------------'
 ),
 
 };
