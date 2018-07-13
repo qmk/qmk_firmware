@@ -90,6 +90,7 @@ enum custom_keycodes {
 #define SCREEN_PASTEREG_3 30
 #define SHELL_EXP_LOGPATTERN 34
 #define SHELL_EXP_TRANPATTERN 35
+#define DEL_TO_HOME 36
 
 
 
@@ -176,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,KC_TRNS,       KC_TRNS,    KC_TRNS,         KC_TRNS,    KC_TRNS,         MEH(KC_G),
     KC_TRNS,KC_NO,         KC_HOME,    KC_UP,           KC_END,     KC_PGUP,         MEH(KC_H),
             LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),  MEH(KC_I),
-    KC_TRNS,KC_NO,         RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,       MEH(KC_J),
+    KC_TRNS,M(DEL_TO_HOME),RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,       MEH(KC_J),
                            KC_BSPC,   RCTL(KC_BSPC),    KC_DELETE,  LCTL(KC_DELETE), MEH(KC_K),
     
     // right thumb cluster
@@ -468,6 +469,16 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 				// expand the pattern
 				D(LCTL), T(X), U(LCTL), D(LSFT), T(8), D(LSFT),							
 		                END); 
+            }				
+  	    break;		
+
+	case DEL_TO_HOME:
+            if (record->event.pressed) {
+                return MACRO( 
+				// delete to the beginning of the line
+ 				D(LSFT), T(HOME), U(LSFT),
+				T(DELETE),
+				END);
             }				
   	    break;		
 
