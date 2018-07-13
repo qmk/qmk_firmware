@@ -15,8 +15,6 @@
 // pushing dev branch
 // git push origin dev:dev
 
-static bool mouse_lock = false;
-
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
@@ -58,18 +56,14 @@ enum custom_keycodes {
 #define SHELL_NAV    3 // bash shortcuts
 #define SHELL_SCREEN 4 // linux screen shortcuts
 #define SCREEN_NAV   5 // navigate between linux screen tabs 
-#define MOUSE        6 // mouse layer (can be locked with lock key), unmapped for now
-#define BROWSER_CONTROL 7 // control browser and mouse
-#define COMBINED      	8 // combined numbers and symbols layer
+#define BROWSER_CONTROL 6 // control browser and mouse
+#define COMBINED      	7 // combined numbers and symbols layer
 
 
 // macros
-#define MOUSE_TOGGLE 1
-#define MOUSE_LOCK 2
 #define SCREEN_TAB_LEFT 4
 #define SCREEN_TAB_RIGHT 5
 #define SCREEN_NEW_TAB 6
-#define SWITCH_NDS 7
 #define SCREEN_COPY_MODE 8
 #define SCREEN_PASTE 9
 #define SCREEN_RENAME 10
@@ -93,9 +87,8 @@ enum custom_keycodes {
 #define SCREEN_PASTEREG_1 28
 #define SCREEN_PASTEREG_2 29
 #define SCREEN_PASTEREG_3 30
-#define SHELL_WRITE_LOGPATTERN 31
-#define SHELL_WRITE_TRANPATTERN 32
-#define SHELL_EXPAND_PATTERN 33
+#define SHELL_EXP_LOGPATTERN 34
+#define SHELL_EXP_TRANPATTERN 35
 
 
 
@@ -228,10 +221,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    M(SHELL_WRITE_TRANPATTERN),
-       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    M(SHELL_WRITE_LOGPATTERN),
+       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    M(SHELL_EXP_TRANPATTERN),
+       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    M(SHELL_EXP_LOGPATTERN),
                    LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), RCTL(KC_W),
-       RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      MEH(KC_V),  RCTL(KC_K), M(SHELL_EXPAND_PATTERN),
+       RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      MEH(KC_V),  RCTL(KC_K), KC_TRNS,
                    // bottom row (match functionality of base layer)
                    KC_BSPC,    RCTL(KC_W),          KC_DELETE,       LALT(KC_D), RCTL(KC_U),
        // thumb cluster
@@ -322,28 +315,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS,KC_TRNS,KC_TRNS),
   
   
-    [MOUSE] = KEYMAP(
-           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_PGUP,       KC_MS_WH_UP,   KC_UP,        KC_TRNS, KC_TRNS,
-           KC_TRNS, KC_MS_ACCEL0, KC_PGDN,       KC_MS_WH_DOWN, KC_DOWN,      KC_TRNS,
-           KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
-           KC_TRNS, KC_TRNS,      M(MOUSE_LOCK), KC_TRNS,       KC_MS_ACCEL0,
-           
-                                               KC_TRNS, KC_TRNS,
-                                                        KC_TRNS,
-                                      KC_TRNS, KC_BTN3, KC_TRNS,
-        // right hand
-           KC_TRNS,  KC_TRNS,   KC_TRNS,      KC_TRNS,      KC_TRNS,      KC_TRNS,       KC_TRNS,
-           KC_TRNS,  KC_UP,     KC_HOME,      KC_MS_U,      KC_END,       KC_MS_WH_UP,   KC_TRNS,
-                     KC_DOWN,   KC_MS_L,      KC_MS_D,      KC_MS_R,      KC_MS_WH_DOWN, KC_TRNS,
-           KC_TRNS,  MEH(KC_X), MEH(KC_Y),    MEH(KC_Z),    KC_F5,        RCTL(KC_W),    KC_TRNS,
-                                    // browser tab control
-                                    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT), KC_TRNS,
-           KC_TRNS, KC_TRNS,
-           KC_TRNS,
-           KC_TRNS, KC_BTN1, KC_BTN2
-    ),  
-	
     [BROWSER_CONTROL] = KEYMAP(
 		   // left hand
            KC_TRNS, KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS, KC_TRNS,
@@ -379,26 +350,6 @@ const uint16_t PROGMEM fn_actions[] = {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {
-        case MOUSE_TOGGLE:
-            if (record->event.pressed) {
-                layer_on(MOUSE);
-            } else {
-                if(!mouse_lock)
-                    layer_off(MOUSE);
-            }
-            break;
-        case MOUSE_LOCK:
-            if (record->event.pressed)
-            {
-                if(mouse_lock)
-                {
-                    mouse_lock = false;
-                    layer_off(MOUSE);
-                }
-                else
-                    mouse_lock = true;
-            }
-            break;
         case SCREEN_TAB_LEFT:
             if (record->event.pressed) {
                 return MACRO( D(LCTL), T(A), U(LCTL), T(P), END);
@@ -479,38 +430,45 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                 return MACRO( D(LCTL), T(A), U(LCTL), T(RBRC), END); 
             }
         break;        
-		
-		case SHELL_WRITE_LOGPATTERN:
+
+	case SHELL_EXP_LOGPATTERN:
             if (record->event.pressed) {
-                return MACRO( D(LSFT),
-							  T(8), 
-				              T(8), 
-							  U(LSFT),
-							  T(L),  
-							  T(O), 
-							  T(G), 
-							  T(LEFT), 
-							  T(LEFT), 
-							  T(LEFT), 
-							  T(LEFT), 
-							  END); 
-            }		
-		break;
-		
-		case SHELL_WRITE_TRANPATTERN:
+                return MACRO( 
+				// first, to the left of the word
+ 				D(LALT), T(B), U(LALT),
+				// write a star				
+				D(LSFT), T(8), U(LSFT),
+				// go to the right of the word
+				D(LALT), T(F), U(LALT),
+				// write a star
+				D(LSFT), T(8), U(LSFT),
+				// write "log"
+			        T(L), T(O), T(G),
+				// expand the pattern
+				D(LCTL), T(X), U(LCTL), D(LSFT), T(8), D(LSFT),							
+		                END); 
+            }				
+  	    break;		
+
+	case SHELL_EXP_TRANPATTERN:
             if (record->event.pressed) {
-                return MACRO( D(LSFT),
-							  T(8), 
-				              T(8), 
-							  U(LSFT), T(T), T(R), T(A), T(N), T(LEFT), T(LEFT), T(LEFT), T(LEFT), T(LEFT), END); 
-            }		
-		break;		
-		
-		case SHELL_EXPAND_PATTERN:
-            if (record->event.pressed) {
-                return MACRO( D(LALT), T(F), U(LALT), D(LCTL), T(X), U(LCTL), D(LSFT), T(8), D(LSFT), END); 
-            }		
-		break;				
+                return MACRO( 
+				// first, to the left of the word
+ 				D(LALT), T(B), U(LALT),
+				// write a star				
+				D(LSFT), T(8), U(LSFT),
+				// go to the right of the word
+				D(LALT), T(F), U(LALT),
+				// write a star
+				D(LSFT), T(8), U(LSFT),
+				// write "tran"
+			        T(T), T(R), T(A), T(N),
+				// expand the pattern
+				D(LCTL), T(X), U(LCTL), D(LSFT), T(8), D(LSFT),							
+		                END); 
+            }				
+  	    break;		
+
    
       }
     return MACRO_NONE;
@@ -664,8 +622,7 @@ void matrix_scan_user(void) {
 		case SCREEN_NAV:
             ergodox_right_led_3_on();
             break;
-        case MOUSE:
-		case BROWSER_CONTROL:
+	case BROWSER_CONTROL:
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
             break;
