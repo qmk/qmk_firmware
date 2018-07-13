@@ -1,4 +1,7 @@
 #include QMK_KEYBOARD_H
+#ifdef AUDIO_ENABLE
+#include "audio.h"
+#endif
 
 enum mitosis_layers
 {
@@ -98,6 +101,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
   }
 }
+
+#ifdef AUDIO_ENABLE
+float tone_qwerty[][2]         = SONG(QWERTY_SOUND);
+float tone_dyn_macro_rec[][2]  = SONG(DVORAK_SOUND);
+float tone_dyn_macro_play[][2] = SONG(COLEMAK_SOUND);
+float tone_fnpc[][2]           = SONG(PLOVER_SOUND);
+float tone_fnmac[][2]          = SONG(PLOVER_GOODBYE_SOUND);
+
+void startup_user()
+{
+  float tone_startup[][2]        = SONG(STARTUP_SOUND);
+  _delay_ms(20); // gets rid of tick
+  PLAY_SONG(tone_startup);
+}
+
+void shutdown_user()
+{
+  float tone_goodbye[][2]        = SONG(GOODBYE_SOUND);
+  PLAY_SONG(tone_goodbye);
+  _delay_ms(150);
+  stop_all_notes();
+}
+
+void music_on_user(void)
+{
+  music_scale_user();
+}
+
+void music_scale_user(void)
+{
+  float music_scale[][2]         = SONG(MUSIC_SCALE_SOUND);
+  PLAY_SONG(music_scale);
+}
+
+#endif
 
 // Set the bits of A selected by MASK to the corresponding bits of B
 #define setbits(A, B, MASK) A = (A & (B | ~MASK)) | (B & MASK)
