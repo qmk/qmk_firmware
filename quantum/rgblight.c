@@ -625,7 +625,7 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   }
   last_timer = timer_read();
   for (i = 0; i < RGBLED_NUM; i++) {
-    hue = (360 / RGBLED_NUM * i + current_hue) % 360;
+    hue = (1950 / RGBLED_NUM * i + current_hue) % 360;
     sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
   }
   rgblight_set();
