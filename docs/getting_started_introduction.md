@@ -35,15 +35,10 @@ There are 3 possible `config.h` locations:
 * userspace (`/users/<user>/config.h`)
 * keymap (`/keyboards/<keyboard>/keymaps/<keymap>/config.h`)
 
-The build system automatically picks up the config files in the above order. If you wish to override any setting set by a previous `config.h` you will need to first include some boilerplate code around the settings you wish to change.
+The build system automatically picks up the config files in the above order. If you wish to override any setting set by a previous `config.h` you will need to first include some boilerplate code for the settings you wish to change.
 
 ```
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-// overrides go here!
-
-#endif
+#pragma once
 ```
 
 Then to override a setting from the previous `config.h` file you must `#undef` and then `#define` the setting again.
@@ -51,12 +46,9 @@ Then to override a setting from the previous `config.h` file you must `#undef` a
 The boilerplate code and setting look like this together:
 
 ```
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 // overrides go here!
 #undef MY_SETTING
 #define MY_SETTING 4
-
-#endif
 ```
