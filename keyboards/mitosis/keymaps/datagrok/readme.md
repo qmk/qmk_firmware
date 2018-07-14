@@ -27,17 +27,36 @@
 
 ![mitosis:datagrok layout base layer](https://imgur.com/9LoLQUk.png)
 
+Base layer. Notes:
+- customized comma and period, which have exclamation point and question mark on their shift layer.
+- tap right-shift for underscore
+
 ![mitosis:datagrok layout red layer](https://imgur.com/B5bnPGM.png)
+
+Red layer. Intended for common navigation and programming symbols. Notes:
+- symmetric layout of paired braces/brackets/slashes for easier memorization
+- arrows placed directly on home position
 
 ![mitosis:datagrok layout blue layer](https://imgur.com/HGJ4G1U.png)
 
+Blue layer. Intended for "number pad." Notes:
+- Keycodes generated for numbers, enter key, and mathematical symbols are from the alphanumeric keys, not keypad. This way they are not influenced by the state of Num Lock. If you want to send the keypad equivalents, just use Red and Blue modifiers simultaneously.
+
 ![mitosis:datagrok layout purple layer](https://imgur.com/lNsKDtA.png)
+
+Purple (Red+Blue) layer. Intended for "true keypad" and various functions. Notes:
+- Numbers on this layer send Keypad codes, so the result will be affected by the state of Num Lock.
+- "Switch Layout" toggles the alphabet keys between QWERTY and Workman
+- Page Up / Page Down / Home / End are placed on similar arrows
+- To press Print Screen it is necessary to use the left-side Red and Blue modifiers.
 
 Keyboard layout editor sources:
 [base](http://www.keyboard-layout-editor.com/#/gists/bc2d06a3203d1bc3a14ed2245cf39643)
 [red](http://www.keyboard-layout-editor.com/#/gists/dbbf65f726a5522824b75117a62a321e)
 [blue](http://www.keyboard-layout-editor.com/#/gists/240e807f3d7e1d3ddabe1b69ee675048)
 [purple](http://www.keyboard-layout-editor.com/#/gists/9559f0f8bb1ee47677c8f2b4d766829d)
+
+[Imgur album](https://imgur.com/a/KSoVgPx)
 
 ## Design notes
 
