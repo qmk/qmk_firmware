@@ -6,6 +6,10 @@ This page attempts to explain the basic information you need to know to work wit
 
 QMK is a fork of [Jun Wako](https://github.com/tmk)'s [tmk_keyboard](https://github.com/tmk/tmk_keyboard) project. The original TMK code, with modifications, can be found in the `tmk` folder. The QMK additions to the project may be found in the `quantum` folder. Keyboard projects may be found in the `handwired` and `keyboard` folders.
 
+### Userspace Structure
+
+Within the folder `users` is a directory for each user. This is a place for users to put code that they might use between keyboards. See the docs for [Userspace feature](feature_userspace.md) for more information.
+
 ### Keyboard Project Structure
 
 Within the folder `keyboards` and its subfolder `handwired` is a directory for each keyboard project, for example `qmk_firmware/keyboards/clueboard`. Within it you'll find the following structure:
