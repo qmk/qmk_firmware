@@ -25,23 +25,34 @@ In every keymap folder, the following files may be found. Only `keymap.c` is req
 
 # The `config.h` File
 
-There are 2 `config.h` locations:
+There are 3 possible `config.h` locations:
 
 * keyboard (`/keyboards/<keyboard>/config.h`)
+* userspace (`/users/<user>/config.h`)
 * keymap (`/keyboards/<keyboard>/keymaps/<keymap>/config.h`)
 
-If the keymap `config.h` exists, that file is included by the build system and the keyboard `config.h` is not included. If you wish to override settings in your keymap's `config.h` you will need to include some glue code:
+The build system automatically picks up the config files in the above order. If you wish to override any setting set by a previous `config.h` you will need to first include some boilerplate code around the settings you wish to change.
 
 ```
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "config_common.h"
+// overrides go here!
+
+#endif
 ```
 
-If you want to override a setting from the parent `config.h` file, you need to `#undef` and then `#define` the setting again, like this:
+Then to override a setting from the previous `config.h` file you must `#undef` and then `#define` the setting again.
 
-```c
+The boilerplate code and setting look like this together:
+
+```
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
+// overrides go here!
 #undef MY_SETTING
 #define MY_SETTING 4
+
+#endif
 ```
