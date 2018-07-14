@@ -17,7 +17,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case UP_URL:
             if (record->event.pressed) {
-                SEND_STRING("http://1upkeyboads.com");
+                SEND_STRING("http://1upkeyboards.com");
             }
             return false;
             break;

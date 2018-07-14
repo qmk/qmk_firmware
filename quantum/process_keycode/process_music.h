@@ -49,6 +49,10 @@ void music_mode_cycle(void);
 
 void matrix_scan_music(void);
 
+bool music_mask(uint16_t keycode);
+bool music_mask_kb(uint16_t keycode);
+bool music_mask_user(uint16_t keycode);
+
 #ifndef SCALE
 #define SCALE (int8_t []){ 0 + (12*0), 2 + (12*0), 4 + (12*0), 5 + (12*0), 7 + (12*0), 9 + (12*0), 11 + (12*0), \
                            0 + (12*1), 2 + (12*1), 4 + (12*1), 5 + (12*1), 7 + (12*1), 9 + (12*1), 11 + (12*1), \

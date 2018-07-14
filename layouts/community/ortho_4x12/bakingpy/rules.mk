@@ -1,4 +1,5 @@
 # Enable RGB if not a Planck
-ifeq (,$(findstring planck,$(KEYBOARD)))
+ifeq ($(LAYOUTS_HAS_RGB),yes)
 	RGBLIGHT_ENABLE = yes
 endif
+AUDIO_ENABLE = yes

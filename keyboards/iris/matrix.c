@@ -30,7 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 #include "timer.h"
-#include "backlight.h"
+
+#ifdef BACKLIGHT_ENABLE 
+    #include "backlight.h"
+    extern backlight_config_t backlight_config;
+#endif
 
 #ifdef USE_I2C
 #  include "i2c.h"
@@ -85,7 +89,6 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
     static void unselect_col(uint8_t col);
     static void select_col(uint8_t col);
 #endif
-
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -150,7 +153,6 @@ uint8_t _matrix_scan(void)
             if (matrix_changed) {
                 debouncing = true;
                 debouncing_time = timer_read();
-                PORTD ^= (1 << 2);
             }
 
 #       else
@@ -202,7 +204,7 @@ int i2c_transaction(void) {
 
 #ifdef BACKLIGHT_ENABLE
     // Write backlight level for slave to read
-    err = i2c_master_write(get_backlight_level());
+    err = i2c_master_write(backlight_config.enable ? backlight_config.level : 0);
 #else
     // Write zero, so our byte index is the same
     err = i2c_master_write(0x00);
@@ -244,7 +246,7 @@ int serial_transaction(void) {
 
 #ifdef BACKLIGHT_ENABLE
     // Write backlight level for slave to read
-    serial_master_buffer[SERIAL_LED_ADDR] = get_backlight_level();
+    serial_master_buffer[SERIAL_LED_ADDR] = backlight_config.enable ? backlight_config.level : 0;
 #endif
     return 0;
 }

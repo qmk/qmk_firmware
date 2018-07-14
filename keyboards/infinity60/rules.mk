@@ -56,6 +56,9 @@ OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
 # Build Options
 #   comment out to disable the options.
 #
+
+DFU_ARGS = -d 1c11:b007
+
 BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = yes	# Mouse keys

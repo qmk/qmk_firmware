@@ -54,7 +54,7 @@ enum action_functions {
 void reset_keyboard_kb(void);
 void click(uint16_t freq, uint16_t duration);
 
-#define KEYMAP( \
+#define LAYOUT( \
     k00, k01, k02, k03,\
     k10, k11, k12, k13,\
     k20, k21, k22, k23,\
