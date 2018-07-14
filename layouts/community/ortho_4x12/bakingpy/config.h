@@ -23,4 +23,8 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 
+#ifdef AUDIO_ENABLE
+#define C6_AUDIO
+#endif
+
 #endif

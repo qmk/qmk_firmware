@@ -203,8 +203,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_ASTR:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          SEND_STRING("Hey now, you're an all-star, get your game on, go play. Hey now, you're a rock star, get the show on, get paid. All that glitters is gold. Only shooting stars break the mold.");
           PLAY_SONG(all_star_song);
+          SEND_STRING("Hey now, you're an all-star, get your game on, go play. Hey now, you're a rock star, get the show on, get paid. All that glitters is gold. Only shooting stars break the mold.");
         #endif
       }
       return false;
