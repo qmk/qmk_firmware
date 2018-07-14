@@ -7,6 +7,7 @@ extern keymap_config_t keymap_config;
 #define A(X) LALT(X)
 #define C(X) LCTL(X)
 #define AC(X) A(C(X))
+#define SC(X) S(C(X))
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
@@ -136,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |     |     |     |     |     |     |     |Left |Down |Right|Caps | Del |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |     |PgDn |PgUp |     |     |     |
+     * |     |     |     |     |     |     |     |PgDn |PgUp |TabL |TabR |     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |     |     |     |     |     |     |     |     |     |     |     |     |
      * `-----------------------------------------------------------------------'
@@ -155,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         {
             _______,      AC(KC_M),     AC(KC_N),     AC(KC_O),
             AC(KC_P),     AC(KC_Q),     XXXXXXX,      KC_PGDN,
-            KC_PGUP,      C(KC_LEFT),   C(KC_RGHT),   _______
+            KC_PGUP,      SC(KC_TAB),   C(KC_TAB),    _______
         },
         {
             _______,      _______,      _______,      _______,
