@@ -102,6 +102,8 @@ void matrix_init(void)
     init_cols();
 
     TX_RX_LED_INIT;
+    TXLED0;
+    RXLED0;
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
@@ -185,7 +187,7 @@ int serial_transaction(void) {
         if(ret==2)RXLED1;
         return 1;
     }
-RXLED0;
+    RXLED0;
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         matrix[slaveOffset+i] = serial_slave_buffer[i];
     }
