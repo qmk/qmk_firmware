@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define CATERINA_BOOTLOADER
-#define PREVENT_STUCK_MODIFIERS
+#define CATERINA_BOOTLOADER     /* Use caterina bootloader to make RESET keycode available */
+#define PREVENT_STUCK_MODIFIERS /* Auto-restore layer when the layer key is released */
 
 #define MOUSEKEY_DELAY             32
 #define MOUSEKEY_INTERVAL          16
@@ -36,7 +36,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_MAX_SPEED   1 /* times faster */
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 1
 
-#define IGNORE_MOD_TAP_INTERRUPT
+/* Make "down -> up -> down (hold)" be interpreted as "tap'n'hold" ("tap'n'tap" by default) */
 #define TAPPING_FORCE_HOLD
+
+/* Make "SandS Dn -> A Dn -> A Up -> SandS Up" within the TAPPING_TERM interpreted as Shift-A */
+#define PERMISSIVE_HOLD
+
+/* Make "SandS Dn -> A Dn -> Sands Up -> A Up" within the TAPPING_TERM interpreted as SPC A */
+#define IGNORE_MOD_TAP_INTERRUPT
 
 #endif
