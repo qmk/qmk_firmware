@@ -7,7 +7,7 @@ extern keymap_config_t keymap_config;
 /* LAYER DEFINITIONS */
 
 #define BASE     0
-#define RAISE    1
+#define SYMB     1
 #define MOUSE    3
 #define WHEEL    4
 #define FUNCTION 5
@@ -19,14 +19,22 @@ extern keymap_config_t keymap_config;
 #define KC_XXXX KC_NO
 
 /* layers */
-#define KC_MO_D LT(MOUSE, KC_D)
-#define KC_R_L1 LT(RAISE, KC_LANG1)
-#define KC_A_L2 LALT_T(KC_LANG2)
-#define KC_WEEL MO(WHEEL)
-#define KC_FUNC MO(FUNCTION)
+#define KC_D_MOUS LT(MOUSE, KC_D)
+#define KC_L1_SYM LT(SYMB, KC_LANG1)
+#define KC_L2_ALT LALT_T(KC_LANG2)
+#define KC_WEEL   MO(WHEEL)
+#define KC_FUNC   MO(FUNCTION)
 
-/* KC_ aliases */
-#define KC_RST RESET
+/* aliases */
+#define KC_RST  RESET
+#define KC_MUP  KC_MS_U
+#define KC_MDN  KC_MS_D
+#define KC_MLFT KC_MS_L
+#define KC_MRGT KC_MS_R
+#define KC_WUP  KC_WH_U
+#define KC_WDN  KC_WH_D
+#define KC_WLFT KC_WH_L
+#define KC_WRGT KC_WH_R
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -34,15 +42,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,------+----------------------------------.             ,-----------------------------------------.
     JYEN , Q    , W    , E    , R    , T    , XXXX , XXXX , Y    , U    , I    , O    , P    , MINS , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-    LCTL , A    , S    , MO_D , F    , G    , XXXX , XXXX , H    , J    , K    , L    , SCLN , QUOT , \
+    LCTL , A    , S    ,D_MOUS, F    , G    , XXXX , XXXX , H    , J    , K    , L    , SCLN , QUOT , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
     LSFT , Z    , X    , C    , V    , B    , XXXX , XXXX , B    , N    , M    , COMM , DOT  , SLSH , \
 //`---------------------------+------+------+------.-------------+------+------+--------------------'
-    XXXX , XXXX , XXXX , XXXX , A_L2 , SPC  , ESC  , TAB  , ENT  , R_L1 , XXXX , XXXX , XXXX , XXXX   \
+    XXXX , XXXX , XXXX , XXXX ,L2_ALT, SPC  , ESC  , TAB  , ENT  ,L1_SYM, XXXX , XXXX , XXXX , XXXX   \
 //                            `--------------------'--------------------'
 ),
 
-[RAISE] = KC_KEYMAP( \
+[SYMB] = KC_KEYMAP( \
 //,------+----------------------------------.             ,-----------------------------------------.
     BSPC , 1    , 2    , 3    , 4    , 5    , XXXX , XXXX , 6    , 7    , 8    , 9    , 0    , EQL  , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -58,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,------+----------------------------------.             ,-----------------------------------------.
     ____ , ____ , ____ , ____ , ____ , ____ , XXXX , XXXX , ____ , ____ , ____ , ____ , ____ , ____ , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-    ____ , ____ , WEEL , ____ , ACL0 , ____ , XXXX , XXXX , MS_L , MS_D , MS_U , MS_R , ____ , ____ , \
+    ____ , ____ , WEEL , ____ , ACL0 , ____ , XXXX , XXXX , MLFT , MDN  , MUP  , MRGT , ____ , ____ , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
     ____ , ____ , ____ , ____ , BTN1 , BTN2 , XXXX , XXXX , ____ , ____ , ____ , ____ , ____ , ____ , \
 //`---------------------------+------+------+------.--------------+-----+-----+---------------------'
@@ -70,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,------+----------------------------------.             ,-----------------------------------------.
     ____ , ____ , ____ , ____ , ____ , ____ , XXXX , XXXX , ____ , ____ , ____ , ____ , ____ , ____ , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-    ____ , ____ , ____ , ____ , ____ , ____ , XXXX , XXXX , WH_R , WH_U , WH_D , WH_L , ____ , ____ , \
+    ____ , ____ , ____ , ____ , ____ , ____ , XXXX , XXXX , WRGT , WUP  , WDN  , WLFT , ____ , ____ , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
     ____ , ____ , ____ , ____ , ____ , ____ , XXXX , XXXX , ____ , ____ , ____ , ____ , ____ , ____ , \
 //`---------------------------+------+------+------.--------------+-----+-----+---------------------'
