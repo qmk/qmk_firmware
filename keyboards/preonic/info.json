@@ -3,7 +3,6 @@
   "keyboard_folder": "preonic",
   "url": "https://olkb.com/preonic",
   "maintainer": "jackhumbert",
-  "bootloader": "atmel-dfu",
   "width": 12,
   "height": 5,
   "layouts": {

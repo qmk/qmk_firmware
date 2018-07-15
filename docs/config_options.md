@@ -61,10 +61,18 @@ This is a C header file that is one of the first things included, and will persi
   * COL2ROW or ROW2COL - how your matrix is configured. COL2ROW means the black mark on your diode is facing to the rows, and between the switch and the rows.
 * `#define AUDIO_VOICES`
   * turns on the alternate audio voices (to cycle through)
+* `#define C4_AUDIO`
+  * enables audio on pin C4
+* `#define C5_AUDIO`
+  * enables audio on pin C5
 * `#define C6_AUDIO`
   * enables audio on pin C6
 * `#define B5_AUDIO`
-  * enables audio on pin B5 (duophony is enable if both are enabled)
+  * enables audio on pin B5 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+* `#define B6_AUDIO`
+  * enables audio on pin B6 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+* `#define B7_AUDIO`
+  * enables audio on pin B7 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight - B5, B6, B7 use PWM, others use softPWM
 * `#define BACKLIGHT_LEVELS 3`
@@ -81,6 +89,8 @@ This is a C header file that is one of the first things included, and will persi
   * tries to keep switch state consistent with keyboard LED state
 * `#define IS_COMMAND() ( keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) )`
   * key combination that allows the use of magic commands (useful for debugging)
+* `#define USB_MAX_POWER_CONSUMPTION`
+  * sets the maximum power (in mA) over USB for the device (default: 500)
 
 ## Features That Can Be Disabled
 
@@ -108,26 +118,28 @@ If you define these options you will enable the associated feature, which may in
 * `#define FORCE_NKRO`
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
 * `#define PREVENT_STUCK_MODIFIERS`
-  * when switching layers, this will release all mods
+  * stores the layer a key press came from so the same layer is used when the key is released, regardless of which layers are enabled
 
 ## Behaviors That Can Be Configured
 
 * `#define TAPPING_TERM 200`
-  * how long before a tap becomes a hold
+  * how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
   * makes tap and hold keys work better for fast typers who don't want tapping term set above 500
+* `#define IGNORE_MOD_TAP_INTERRUPT`
+  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
+* `#define TAPPING_FORCE_HOLD`
+  * makes it possible to use a dual role key as modifier shortly after having been tapped
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
   * how many taps before oneshot toggle is triggered
-* `#define IGNORE_MOD_TAP_INTERRUPT`
-  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
 * `#define QMK_KEYS_PER_SCAN 4`
   * Allows sending more than one key per scan. By default, only one key event gets
     sent via `process_record()` per scan. This has little impact on most typing, but

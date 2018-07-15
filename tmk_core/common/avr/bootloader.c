@@ -72,7 +72,7 @@
 #define BOOTLOADER_RESET_KEY 0xB007B007
 uint32_t reset_key  __attribute__ ((section (".noinit")));
 
-/** \brief initialize MCU status by watchdog reset 
+/** \brief initialize MCU status by watchdog reset
  *
  * FIXME: needs doc
  */
@@ -81,7 +81,7 @@ void bootloader_jump(void) {
     #if !defined(BOOTLOADER_SIZE)
         uint8_t high_fuse = boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS);
 
-        if (high_fuse & BOOT_SIZE_256) { 
+        if (high_fuse & BOOT_SIZE_256) {
             bootloader_start = (FLASH_SIZE - 512) >> 1;
         } else if (high_fuse & BOOT_SIZE_512) {
             bootloader_start = (FLASH_SIZE - 1024) >> 1;
@@ -130,7 +130,7 @@ void bootloader_jump(void) {
             DDRA = 0; DDRB = 0; DDRC = 0; DDRD = 0; DDRE = 0; DDRF = 0;
             PORTA = 0; PORTB = 0; PORTC = 0; PORTD = 0; PORTE = 0; PORTF = 0;
             asm volatile("jmp 0x1FC00");
-        #endif 
+        #endif
 
     #elif defined(BOOTLOADER_CATERINA)
         // this block may be optional
@@ -151,7 +151,7 @@ void bootloader_jump(void) {
 
     #else // Assume remaining boards are DFU, even if the flag isn't set
 
-        #ifndef __AVR_ATmega32A__ // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
+        #if !(defined(__AVR_ATmega32A__) || defined(__AVR_ATmega328P__)) // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
             UDCON = 1;
             USBCON = (1<<FRZCLK);  // disable USB
             UCSR1B = 0;

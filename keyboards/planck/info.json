@@ -3,7 +3,6 @@
   "keyboard_folder": "planck",
   "url": "https://olkb.com/planck",
   "maintainer": "jackhumbert",
-  "bootloader": "atmel-dfu",
   "width": 12,
   "height": 4,
   "layouts": {

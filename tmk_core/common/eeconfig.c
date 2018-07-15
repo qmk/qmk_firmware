@@ -20,7 +20,7 @@ void eeconfig_init(void)
 #ifdef AUDIO_ENABLE
     eeprom_update_byte(EECONFIG_AUDIO,             0xFF); // On by default
 #endif
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     eeprom_update_dword(EECONFIG_RGBLIGHT,      0);
 #endif
 #ifdef STENO_ENABLE

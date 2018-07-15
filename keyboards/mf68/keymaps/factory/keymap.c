@@ -1,10 +1,10 @@
-#include "mf68.h"
+#include QMK_KEYBOARD_H
 
 #define _QWERTY 0
 #define _FN1 1
 #define _FN2 2
 #define KC_ KC_TRNS
-#define KC_X0 LT(_FN2, KC_GRV)
+#define KC_X0 LT(_FN2, KC_CAPS)
 #define KC_X1 MO(_FN1)
 #define KC_X2 BL_STEP
 #define KC_X3 BL_BRTG
@@ -15,7 +15,7 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = KC_KEYMAP(
+  [_QWERTY] = LAYOUT_kc(
  /*,----+----+----+----+----+----+----+----+----+----+----+----+----+--------.  ,----+----. */
     ESC , 1  , 2  , 3  , 4  , 5  , 6  , 7  , 8  , 9  , 0  ,MINS,EQL ,  BSPC  ,   INS ,PGUP,
  /*|----`----`----`----`----`----`----`----`----`----`----`----`----`--------|  |----`----| */
@@ -29,21 +29,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  /*`-----+-----+-----+------------------------------+------+-----+-----'   `----+----+----' */
   ),
 
-  [_FN1] = KC_KEYMAP(
+  [_FN1] = LAYOUT_kc(
  /*,----+----+----+----+----+----+----+----+----+----+----+----+----+--------.  ,----+----. */
     GRV , F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , F9 ,F10 ,F11 ,F12 ,   BSPC ,       ,HOME,
  /*|esc-`-1--`-2--`-3--`-4--`-5--`-6--`-7--`-8--`-9--`-0--`mnus`plus`--bksp--|  |ins-`pgup| */
           ,    , UP ,    ,    ,    ,    ,    ,    ,PSCR,SLCK,PAUS, X2 ,      ,       ,END,
  /*|tab---`-q--`-w--`-e--`-r--`-t--`-y--`-u--`-i--`-o--`-p--`-{--`-}--`--|---|  `del-`pgdn' */
-    CAPS   ,LEFT,DOWN,RGHT,    , X6 , X5 , X4 , X3 , X2 ,HOME,    ,          ,
+     X0    ,LEFT,DOWN,RGHT,    , X6 , X5 , X4 , X3 , X2 ,HOME,    ,          ,
  /*|caps---`-a--`-s--`-d--`-f--`-g--`-h--`-j--`-k--`-l--`-;--`-'--`----enter-|  ,----. */
-             ,    ,MPLY,MSTP,MPRV,MNXT,VOLD,VOLU,MUTE,    ,END ,             ,       ,
+             ,    ,MPLY,MSTP,MPRV,MNXT,VOLD,VOLU,MUTE,    ,END ,             ,    X5 ,
  /*|shift----`-z--`-x--`-c--`-v--`-b--`-n--`-m--`-,--`-.--`-/--`-------shift-.--|-up-|----. */
-         ,     ,     ,                              ,      ,     ,     ,        ,    ,    
+         ,     ,     ,                              ,      ,     ,     ,     X3 , X6 , X4
  /*`ctrl-+-gui-+-alt-+----------space---------------+-fn---+-alt-+ctrl-'   `left+down+rght' */
   ),
 
-  [_FN2] = KC_KEYMAP(
+  [_FN2] = LAYOUT_kc(
  /*,----+----+----+----+----+----+----+----+----+----+----+----+----+--------.  ,----+----. */
     GRV , F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , F9 ,F10 ,F11 ,F12 ,   BSPC ,   VOLU,HOME,
  /*|esc-`-1--`-2--`-3--`-4--`-5--`-6--`-7--`-8--`-9--`-0--`mnus`plus`--bksp--|  |ins-`pgup| */

@@ -2,7 +2,6 @@
   "keyboard_name": "clueboard/60",
   "maintainer": "skullydazed",
   "url": "",
-  "bootloader": "stm32-dfu-util",
   "width": 15,
   "height": 5,
   "layouts": {
