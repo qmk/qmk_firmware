@@ -3,6 +3,7 @@
 #include "action.h"
 #include "action_layer.h"
 #include "action_tapping.h"
+#include "action_code.h"
 #include "keycode.h"
 #include "timer.h"
 
@@ -88,6 +89,7 @@ bool process_tapping(keyrecord_t *keyp)
     if (IS_TAPPING_PRESSED()) {
         if (WITHIN_TAPPING_TERM(event)) {
             if (tapping_key.tap.count == 0) {
+                action_t action = layer_switch_get_action(event.key);
                 if (IS_TAPPING_KEY(event.key) && !event.pressed) {
                     // first tap!
                     debug("Tapping: First tap(0->1).\n");
@@ -105,7 +107,11 @@ bool process_tapping(keyrecord_t *keyp)
                  * This can register the key before settlement of tapping,
                  * useful for long TAPPING_TERM but may prevent fast typing.
                  */
-                else if (IS_RELEASED(event) && waiting_buffer_typed(event)) {
+                else if (IS_RELEASED(event) && waiting_buffer_typed(event)
+#ifdef PERMISSIVE_HOLD_SHIFT_ONLY
+                         && action.key.code == KC_LSHIFT
+#endif
+                ) {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
                     process_record(&tapping_key);
                     tapping_key = (keyrecord_t){};
@@ -120,7 +126,6 @@ bool process_tapping(keyrecord_t *keyp)
                  */
                 else if (IS_RELEASED(event) && !waiting_buffer_typed(event)) {
                     // Modifier should be retained till end of this tapping.
-                    action_t action = layer_switch_get_action(event.key);
                     switch (action.kind.id) {
                         case ACT_LMODS:
                         case ACT_RMODS:
