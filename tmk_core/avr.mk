@@ -179,12 +179,13 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	if $(GREP) -q -s Microsoft /proc/version; then \
 		printf "Detecting USB port, reset your controller now."; \
-		COMPORT1=`$(MODECMD)|grep -o 'COM[0-9]*'` ;\
+		$(MODECMD)|grep -o 'COM[0-9]*' > /tmp/1 ; \
 		WINAVRPATH=`echo $(WINAVRDIR)|perl -pne 's#/mnt/c/#C:/#'|perl -pne 's#\E/#\\\#g'`; \
 		while [ -z $$COMPORT ]; do \
 			sleep 0.5; \
 			printf "."; \
-			COMPORT2=`$(MODECMD)|$(GREP) -v $COMPORT1|$(GREP) -o 'COM[0-9]*'`;\
+			$(MODECMD)|$(GREP) -o 'COM[0-9]*' > /tmp/2; \
+			COMPORT=`comm -1 /tmp/1 /tmp/2 | $(GREP) -o 'COM[0-9]*'`; \
 		done; \
 		printf $$COMPORT;\
 		$(WINAVRDIR)/bin/avrdude.exe -C $$WINAVRPATH\etc\\avrdude.conf -p $(MCU) -c avr109 -P $$COMPORT -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
