@@ -18,7 +18,7 @@ Bottom cluster is the same on all levels and mostly symmetric. The 'ring fingers
 * back del/enter ctrl toggle-layer
 * alt N/caps shift space
 
-You can preview the layout by cloning [https://gitlab.com/Nzen/impatient-broth-nenem](this webpage). The page imitates qmk's fallthrough.
+You can preview the layout by cloning [this webpage](https://gitlab.com/Nzen/impatient-broth-nenem). The page imitates qmk's fallthrough.
 
 ['Q', 'W', 'E', 'R', 'T',// 'Y', 'U', 'I', 'O', 'P'  
 ['A', 'S', 'D', 'F', 'G',// 'H', 'J', 'K', 'L', '; :'  

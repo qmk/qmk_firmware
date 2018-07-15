@@ -167,6 +167,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MEDIA_STOP`        |`KC_MSTP`           |Stop Track                                     |
 |`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`           |Play/Pause Track                               |
 |`KC_MEDIA_SELECT`      |`KC_MSEL`           |                                               |
+|`KC_MEDIA_EJECT`       |`KC_EJCT`           |Eject (macOS)                                  |
 |`KC_NUMLOCK`           |`KC_NLCK`           |Keypad Num Lock and Clear                      |
 |`KC_KP_SLASH`          |`KC_PSLS`           |Keypad `/`                                     |
 |`KC_KP_ASTERISK`       |`KC_PAST`           |Keypad `*`                                     |
@@ -283,6 +284,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`RGB_MODE_KNIGHT`  |`RGB_M_K` |"Knight Rider" animation mode                                       |
 |`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
+|`RGB_MODE_RGBTEST` |`RGB_M_T` |Red,Green,Blue test animation mode                                  |
 
 ## [RGB Matrix Lighting](feature_rgb_matrix.md)
 

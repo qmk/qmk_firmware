@@ -17,7 +17,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 34
+	#define RGBLIGHT_MODES 35
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -83,6 +83,7 @@ extern const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
+extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 
 typedef union {
   uint32_t raw;
@@ -134,7 +135,16 @@ void rgb_matrix_decrease(void);
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
+
 void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_mode_noeeprom(uint8_t mode);
+void rgblight_toggle_noeeprom(void);
+void rgblight_enable_noeeprom(void);
+void rgblight_disable_noeeprom(void);
+
+void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
+void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
+
 
 #define EZ_RGB(val) rgblight_show_solid_color((val >> 16) & 0xFF, (val >> 8) & 0xFF, val & 0xFF)
 void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b);
@@ -151,5 +161,6 @@ void rgblight_effect_rainbow_swirl(uint8_t interval);
 void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
 void rgblight_effect_christmas(void);
+void rgblight_effect_rgbtest(void);
 
 #endif

@@ -101,6 +101,10 @@ __attribute__ ((weak))
 void matrix_scan_user(void) {
 }
 
+__attribute__ ((weak))
+void matrix_slave_scan_user(void) {
+}
+
 inline
 uint8_t matrix_rows(void)
 {
@@ -286,6 +290,7 @@ void matrix_slave_scan(void) {
         serial_slave_buffer[i] = matrix[offset+i];
     }
 #endif
+    matrix_slave_scan_user();
 }
 
 bool matrix_is_modified(void)
