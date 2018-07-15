@@ -174,6 +174,8 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
+#		COMPORT1=`$(MODECMD)|grep -o 'COM[0-9]*'` ;\
+
 avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	if $(GREP) -q -s Microsoft /proc/version; then \
 		printf "Detecting USB port, reset your controller now."; \

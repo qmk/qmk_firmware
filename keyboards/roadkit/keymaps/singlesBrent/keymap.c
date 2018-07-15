@@ -1,6 +1,4 @@
-#include "roadkit.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -132,77 +130,80 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Numberpad
- * ,-----------------------.
- * |  7  |  8  |  9  |  /  |
- * |-----`-----`-----`-----|
- * |  4  |  5  |  6  |  *  |
- * |-----`-----`-----`-----|
- * |  1  |  2  |  3  |  -  |
- * |-----`-----`-----`-----|
- * |  0  |  .  |  +  |  =  |
- * `-----`-----`-----`-----'
- * Tapdances:
- * | L3  | L2  | L1  | NP  |
- * `-----`-----`-----`-----'
- */
-  [_NP] = /* Numpad */
-    LAYOUT_ortho_4x4(KC_7,        KC_8,          KC_9,              KC_SLASH,  \
-                   KC_4,        KC_5,          KC_6,              KC_KP_ASTERISK, \
-                   KC_1,        KC_2,          KC_3,              KC_MINUS, \
-                   TD(TD_0_L3), TD(TD_DOT_L2), TD(TD_KP_PLUS_L1), TD(TD_EQUAL_NP)),
+  /* Numberpad
+   * ,-----------------------.
+   * |  7  |  8  |  9  |  /  |
+   * |-----`-----`-----`-----|
+   * |  4  |  5  |  6  |  *  |
+   * |-----`-----`-----`-----|
+   * |  1  |  2  |  3  |  -  |
+   * |-----`-----`-----`-----|
+   * |  0  |  .  |  +  |  =  |
+   * `-----`-----`-----`-----'
+   * Tapdances:
+   * | L3  | L2  | L1  | NP  |
+   * `-----`-----`-----`-----'
+   */
+  [_NP] = LAYOUT_ortho_4x4( /* Numpad */
+    KC_7,        KC_8,          KC_9,              KC_SLASH, \
+    KC_4,        KC_5,          KC_6,              KC_KP_ASTERISK, \
+    KC_1,        KC_2,          KC_3,              KC_MINUS, \
+    TD(TD_0_L3), TD(TD_DOT_L2), TD(TD_KP_PLUS_L1), TD(TD_EQUAL_NP)
+  ),
 
-/* L1
- * ,-----------------------.
- * | Esc |Bksp |Home |PgUp |
- * |-----`-----`-----`-----|
- * | Tab | Up  | End |PgDn |
- * |-----`-----`-----`-----|
- * |Left |Down |Right|Enter|
- * |-----`-----`-----`-----|
- * |  0  |  .  |  +  |  =  |
- * `-----`-----`-----`-----'
- */
-  [_L1] = /* LAYER 1 */
-    LAYOUT_ortho_4x4(KC_ESCAPE, KC_BSPACE, KC_HOME,  KC_PGUP, \
-                   KC_TAB,    KC_UP,     KC_END,   KC_PGDOWN, \
-                   KC_LEFT,   KC_DOWN,   KC_RIGHT, KC_KP_ENTER, \
-                   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS),
+  /* L1
+   * ,-----------------------.
+   * | Esc |Bksp |Home |PgUp |
+   * |-----`-----`-----`-----|
+   * | Tab | Up  | End |PgDn |
+   * |-----`-----`-----`-----|
+   * |Left |Down |Right|Enter|
+   * |-----`-----`-----`-----|
+   * |  0  |  .  |  +  |  =  |
+   * `-----`-----`-----`-----'
+   */
+  [_L1] = LAYOUT_ortho_4x4( /* LAYER 1 */
+    KC_ESCAPE, KC_BSPACE, KC_HOME,  KC_PGUP, \
+    KC_TAB,    KC_UP,     KC_END,   KC_PGDOWN, \
+    KC_LEFT,   KC_DOWN,   KC_RIGHT, KC_KP_ENTER, \
+    _______,   _______,   _______,  _______
+  ),
 
-/* L2
- * ,-----------------------.
- * |Sleep|LClik|RClik|VolUp|
- * |-----`-----`-----`-----|
- * |AltF4| F11 |WinTb|VolDn|
- * |-----`-----`-----`-----|
- * |PrvTk|Play |NxtTk|Mute |
- * |-----`-----`-----`-----|
- * |  0  |  .  |  +  |  =  |
- * `-----`-----`-----`-----'
- */				   
-  [_L2] = /* LAYER 2 */
-    LAYOUT_ortho_4x4(KC_SYSTEM_SLEEP,     KC_MS_BTN1,          KC_MS_BTN2,          KC_AUDIO_VOL_UP, \
-                   LALT(KC_F4),         KC_F11,              LGUI(KC_TAB),        KC_AUDIO_VOL_DOWN, \
-                   KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE, \
-                   KC_TRNS,             KC_TRNS,             KC_TRNS,             KC_TRNS),
+  /* L2
+   * ,-----------------------.
+   * |Sleep|LClik|RClik|VolUp|
+   * |-----`-----`-----`-----|
+   * |AltF4| F11 |WinTb|VolDn|
+   * |-----`-----`-----`-----|
+   * |PrvTk|Play |NxtTk|Mute |
+   * |-----`-----`-----`-----|
+   * |  0  |  .  |  +  |  =  |
+   * `-----`-----`-----`-----'
+   */
+  [_L2] = LAYOUT_ortho_4x4( /* LAYER 2 */
+    KC_SYSTEM_SLEEP,     KC_MS_BTN1,          KC_MS_BTN2,          KC_AUDIO_VOL_UP, \
+    LALT(KC_F4),         KC_F11,              LGUI(KC_TAB),        KC_AUDIO_VOL_DOWN, \
+    KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE, \
+    _______,             _______,             _______,             _______
+  ),
 
-				   
-/* L3 needs cut, copy, paste, undo, again (redo), find, calc, www back, www forward, F5
- * ,-----------------------.
- * |WBack|WHome|WFor | F5  |
- * |-----`-----`-----`-----|
- * |Calc |Undo |Redo |WSrch|
- * |-----`-----`-----`-----|
- * | Cut |Copy |Paste|Find |
- * |-----`-----`-----`-----|
- * |  0  |  .  |  +  |  =  |
- * `-----`-----`-----`-----'
- */	
-  [_L3] = /* LAYER 3 */
-    LAYOUT_ortho_4x4(KC_WWW_BACK,   KC_WWW_HOME, KC_WWW_FORWARD, KC_F5, \
-                   KC_CALCULATOR, LCTL(KC_Z),  LCTL(KC_Y),     KC_WWW_SEARCH, \
-                   LCTL(KC_X),    LCTL(KC_C),  LCTL(KC_V),     LCTL(KC_F), \
-                   KC_TRNS,       KC_TRNS,     KC_TRNS,        KC_TRNS),
+  /* L3 needs cut, copy, paste, undo, again (redo), find, calc, www back, www forward, F5
+   * ,-----------------------.
+   * |WBack|WHome|WFor | F5  |
+   * |-----`-----`-----`-----|
+   * |Calc |Undo |Redo |WSrch|
+   * |-----`-----`-----`-----|
+   * | Cut |Copy |Paste|Find |
+   * |-----`-----`-----`-----|
+   * |  0  |  .  |  +  |  =  |
+   * `-----`-----`-----`-----'
+   */
+  [_L3] = LAYOUT_ortho_4x4( /* LAYER 3 */
+    KC_SYSTEM_SLEEP,     KC_MS_BTN1,          KC_MS_BTN2,          KC_AUDIO_VOL_UP, \
+    LALT(KC_F4),         KC_F11,              LGUI(KC_TAB),        KC_AUDIO_VOL_DOWN, \
+    KC_MEDIA_PREV_TRACK, KC_MEDIA_PLAY_PAUSE, KC_MEDIA_NEXT_TRACK, KC_AUDIO_MUTE, \
+    _______,             _______,             _______,             _______
+  ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -214,29 +215,28 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case _L3:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_L3);
-          }
-          break;
-		case _L2:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_L2);
-          }
-          break;
-        case _L1:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_L1);
-          }
-          break;
-        case _NP:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_NP);
-          }
-          break;
-      }
-    return MACRO_NONE;
+const macro_t * action_get_macro(keyrecord_t * record, uint8_t id, uint8_t opt) {
+  switch (id) {
+  case _L3:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL<<_L3);
+    }
+    break;
+  case _L2:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL<<_L2);
+    }
+    break;
+  case _L1:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL<<_L1);
+    }
+    break;
+  case _NP:
+    if (record->event.pressed) {
+      persistent_default_layer_set(1UL<<_NP);
+    }
+    break;
+  }
+  return MACRO_NONE;
 };
