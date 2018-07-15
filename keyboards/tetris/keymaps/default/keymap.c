@@ -1,5 +1,4 @@
-#include "tetris.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 #ifdef AUDIO_ENABLE
   #include "audio.h"
@@ -101,11 +100,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* BASE - QWERTY
  *                       ,-----------------------------------------------------------------------------------.
- *                       | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  BS  |  
+ *                       | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  |  BS  |
  *                       |------+------+------+------+------+-------------+------+------+------+------+------|
  * shift + Esc = ~ -->   | Esc  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  | Enter|  <-- shift + Enter = "
  *                       |------+------+------+------+------+------|------+------+------+------+------+------|
- *                       | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Mute |  
+ *                       | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  | Mute |
  *                       |------+------+------+------+------+------+------+------+------+------+------+------|  <-- tap: 1.Mute 2.Next
  *                       | Ctrl | GUI  |  Alt |   [  |   -  |    Space    |   =  |   ]  |  Fx  |   \  |  Del |
  *                       `-----------------------------------------------------------------------------------'
@@ -203,9 +202,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_NUMB] = LAYOUT_planck_mit( /* 5 - Numpad */
-  _______, KC_PPLS, KC_PMNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_7, KC_8,  KC_9,   XXXXXXX, _______, 
-  _______, KC_PAST, KC_PSLS, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX, KC_4, KC_5,  KC_6,   XXXXXXX, _______, 
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_1, KC_2,  KC_3,   XXXXXXX, TO( 0 ), 
+  _______, KC_PPLS, KC_PMNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_7, KC_8,  KC_9,   XXXXXXX, _______,
+  _______, KC_PAST, KC_PSLS, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX, KC_4, KC_5,  KC_6,   XXXXXXX, _______,
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_1, KC_2,  KC_3,   XXXXXXX, TO( 0 ),
   _______, _______, _______, _______,    _______,       XXXXXXX, KC_0, KC_00, KC_DOT, XXXXXXX, _______ ),
 
 /* MARO Empty
@@ -279,11 +278,11 @@ static uint16_t TAP_RGB_timer;
 static uint16_t RGB_encoder_timer;
 
 /* Encoder state RGB_display */
-static uint8_t  RGB_encoder_count=6; 
+static uint8_t  RGB_encoder_count=6;
 static bool  RGB_encoder_bool  = false;
 
 /* RGB tap HUE */
-static uint16_t  Type_Hue=270; 
+static uint16_t  Type_Hue=270;
 
 void matrix_init_user( void )
 {
@@ -362,7 +361,7 @@ void matrix_scan_user( void )
         case 1:
           rgblight_setrgb_at(0, 255, 0,0);
           break;
-      } 
+      }
   /* End of Encoder state RGB_display */
 
   /* Start of Set Encoder Keycode */
@@ -435,7 +434,7 @@ void matrix_scan_user( void )
       case 10:
         rgblight_setrgb_at(0,  0,128,11);
         break;
-    } 
+    }
   /* End of Encoder state RGB_display */
 
   /* Start of Set Encoder Keycode */
@@ -465,11 +464,11 @@ void matrix_scan_user( void )
         unregister_code( KC_VOLU );
     }
   /* End of Set Encoder Keycode */
-  
+
 }
 
 /* End of Encoder anti-clockwise */
-  
+
   encoder_value %= 4;
 
 /* Start of RGB with Layer change */
@@ -512,7 +511,7 @@ void matrix_scan_user( void )
 
 /* set all the RGB color under the switch */
         rgblight_mode( 1 );
-        rgblight_setrgb(RGB_Layer_1_Base_Color); 
+        rgblight_setrgb(RGB_Layer_1_Base_Color);
 
         /* set each of the RGB led color under the switch */
         rgblight_setrgb_at(64, 64, 64,1);    // Q
@@ -672,7 +671,7 @@ void matrix_scan_user( void )
   }
 /* End of RGB with Layer change */
 
-}  // End of matrix_scan_user 
+}  // End of matrix_scan_user
 
 
 
@@ -768,7 +767,7 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ){
          }else{
        /* If disenable,the 'oFf' key will be red  */
            RGB_TAP_STATE=true;
-           rgblight_mode( 1 ); 
+           rgblight_mode( 1 );
            rgblight_setrgb( RGB_TAP_Base_Color );
            rgblight_setrgb_at(RGB_TAP_On_Color,9);   // F - off
          }
