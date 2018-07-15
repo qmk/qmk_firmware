@@ -1,9 +1,6 @@
 #include "lets_split_eh.h"
-#include "print.h"
 
 void matrix_init_kb(void) {
-    
-    print("test");
 
     // JTAG disable for PORT F. write JTD bit twice within four cycles.
     MCUCR |= (1<<JTD);
