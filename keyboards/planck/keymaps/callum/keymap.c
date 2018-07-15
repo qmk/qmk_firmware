@@ -171,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |Power| F11 | F12 | F13 | F14 | F15 | F16 | F17 | F18 | F19 | F20 |VolDn|
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     | F21 | F22 | F23 | F24 |     |     |     |     |Clmak|Qwrty|     |
+     * |     |     |     |TabL |TabR |     |     |     |     |Clmak|Qwrty|     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |     |     |     |     |Prev |Mute |Play |Next |     |     |     |     |
      * `-----------------------------------------------------------------------'
@@ -188,8 +188,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_F18,       KC_F19,       KC_F20,       KC_VOLD
         },
         {
-            _______,      KC_F21,       KC_F22,       KC_F23,
-            KC_F24,       XXXXXXX,      XXXXXXX,      XXXXXXX,
+            _______,      XXXXXXX,      XXXXXXX,      SC(KC_TAB),
+            C(KC_TAB),    XXXXXXX,      XXXXXXX,      XXXXXXX,
             XXXXXXX,      COLEMAK,      QWERTY,       _______
         },
         {
