@@ -312,7 +312,12 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
   #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   case RGB_TOG:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
     if (!record->event.pressed) {
+    #endif
       rgblight_toggle();
       #ifdef SPLIT_KEYBOARD
           RGB_DIRTY = true;
@@ -348,7 +353,12 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   case RGB_HUI:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
     if (!record->event.pressed) {
+    #endif
       rgblight_increase_hue();
       #ifdef SPLIT_KEYBOARD
           RGB_DIRTY = true;
@@ -356,7 +366,12 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   case RGB_HUD:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
     if (!record->event.pressed) {
+    #endif
       rgblight_decrease_hue();
       #ifdef SPLIT_KEYBOARD
           RGB_DIRTY = true;
@@ -364,7 +379,12 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   case RGB_SAI:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
     if (!record->event.pressed) {
+    #endif
       rgblight_increase_sat();
       #ifdef SPLIT_KEYBOARD
           RGB_DIRTY = true;
@@ -372,7 +392,12 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   case RGB_SAD:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
     if (!record->event.pressed) {
+    #endif
       rgblight_decrease_sat();
       #ifdef SPLIT_KEYBOARD
           RGB_DIRTY = true;
@@ -380,7 +405,12 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   case RGB_VAI:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
     if (!record->event.pressed) {
+    #endif
       rgblight_increase_val();
       #ifdef SPLIT_KEYBOARD
           RGB_DIRTY = true;
@@ -388,7 +418,12 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   case RGB_VAD:
+    // Split keyboards need to trigger on key-up for edge-case issue
+    #ifndef SPLIT_KEYBOARD
+    if (record->event.pressed) {
+    #else
     if (!record->event.pressed) {
+    #endif
       rgblight_decrease_val();
       #ifdef SPLIT_KEYBOARD
           RGB_DIRTY = true;

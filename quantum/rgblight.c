@@ -140,8 +140,6 @@ void eeconfig_debug_rgblight(void) {
 
 void rgblight_init(void) {
   debug_enable = 1; // Debug ON!
-  // Track if RGB has been inited
-  rgblight_inited = 1;
   dprintf("rgblight_init called.\n");
   dprintf("rgblight_init start!\n");
   if (!eeconfig_is_enabled()) {
