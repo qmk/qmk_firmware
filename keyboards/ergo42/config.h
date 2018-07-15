@@ -43,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PERMISSIVE_HOLD
 
 /* Prefer "tap" when "SandS Dn -> A Dn -> Sands Up -> A Up" within the TAPPING_TERM */
-#define IGNORE_MOD_TAP_INTERRUPT
+/* (Like IGNORE_MOD_TAP_INTERRUPT but only ignores SHIFT) */
+#define IGNORE_SHIFT_TAP_INTERRUPT
 
 #endif

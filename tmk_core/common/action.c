@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_macro.h"
 #include "action_util.h"
 #include "action.h"
+#include "action_code.h"
 #include "wait.h"
 
 #ifdef DEBUG_ACTION
@@ -309,7 +310,11 @@ void process_action(keyrecord_t *record, action_t action)
                         if (event.pressed) {
                             if (tap_count > 0) {
 #ifndef IGNORE_MOD_TAP_INTERRUPT
-                                if (record->tap.interrupted) {
+                                if (record->tap.interrupted
+#ifdef IGNORE_SHIFT_TAP_INTERRUPT
+                                    && mods != MOD_BIT(KC_LSHIFT)
+#endif
+                                ) {
                                     dprint("mods_tap: tap: cancel: add_mods\n");
                                     // ad hoc: set 0 to cancel tap
                                     record->tap.count = 0;
