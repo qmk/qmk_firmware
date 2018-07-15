@@ -1187,6 +1187,10 @@ void backlight_set(uint8_t level) {}
 
 #endif // backlight
 
+#ifdef HD44780_ENABLED
+#include "hd44780.h"
+#endif
+
 
 // Functions for spitting out values
 //
