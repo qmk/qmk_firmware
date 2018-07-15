@@ -20,10 +20,11 @@ extern keymap_config_t keymap_config;
 
 /* layers */
 #define KC_D_MOUS LT(MOUSE, KC_D)
-#define KC_L1_SYM LT(SYMB, KC_LANG1)
+#define KC_L1_FNC LT(FUNCTION, KC_LANG1)
 #define KC_L2_ALT LALT_T(KC_LANG2)
 #define KC_WEEL   MO(WHEEL)
-#define KC_FUNC   MO(FUNCTION)
+#define KC_SP_SFT LSFT_T(KC_SPC)
+#define KC_ENT_SB LT(SYMB, KC_ENT)
 
 /* aliases */
 #define KC_RST  RESET
@@ -46,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
     LSFT , Z    , X    , C    , V    , B    , XXXX , XXXX , B    , N    , M    , COMM , DOT  , SLSH , \
 //`---------------------------+------+------+------.-------------+------+------+--------------------'
-    XXXX , XXXX , XXXX , XXXX ,L2_ALT, SPC  , ESC  , TAB  , ENT  ,L1_SYM, XXXX , XXXX , XXXX , XXXX   \
+    XXXX , XXXX , XXXX , XXXX ,L2_ALT,SP_SFT, ESC  , TAB  ,ENT_SB,L1_FNC, XXXX , XXXX , XXXX , XXXX   \
 //                            `--------------------'--------------------'
 ),
 
@@ -58,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
     ____ , EXLM , AT   , HASH , DLR  , PERC , XXXX , XXXX , CIRC , AMPR , ASTR , ____ , PIPE , BSLS , \
 //`---------------------------+------+------+------.--------------+-----+-----+---------------------'
-    XXXX , XXXX , XXXX , XXXX , FUNC , ____ , ____ , RST  , ____ , ____ , XXXX , XXXX , XXXX , XXXX   \
+    XXXX , XXXX , XXXX , XXXX , ____ , ____ , ____ , RST  , ____ , ____ , XXXX , XXXX , XXXX , XXXX   \
 //                            `--------------------'--------------------'
 ),
 

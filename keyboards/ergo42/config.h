@@ -36,4 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_MAX_SPEED   1 /* times faster */
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 1
 
+#define IGNORE_MOD_TAP_INTERRUPT
+#define TAPPING_FORCE_HOLD
+
 #endif
