@@ -21,5 +21,7 @@
         { R20, R21, R22, R23, R24, R25 }, \
         { R30, R31, R32, R33, R34, R35 } \
 	}
+    
+#define LAYOUT_ortho_4x12 LAYOUT
 
 #endif
