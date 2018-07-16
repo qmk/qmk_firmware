@@ -16,6 +16,7 @@
 
 /* modified by Gun Pinyo */
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 
