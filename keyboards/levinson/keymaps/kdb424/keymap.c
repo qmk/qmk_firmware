@@ -10,6 +10,7 @@ extern keymap_config_t keymap_config;
 #define _RAISE1 1
 #define _RAISE2 2
 #define _RAISE3 3
+#define _ARROWS 4
 
 
 enum custom_keycodes {
@@ -18,6 +19,7 @@ enum custom_keycodes {
   RAISE1,
   RAISE2,
   RAISE3,
+  ARROWS,
   REPROGRAM_MACRO,
   SCROT
 };
@@ -44,6 +46,14 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+// Short codes to make reading easier
+#define TD_EE TD(TD_EQUAL_ENTER)
+#define LT2_SP LT(2, KC_SPC)
+#define LT3_SP LT(3, KC_SPC)
+#define TD_BLEQ TD(TD_BSLASH_EQUAL)
+#define REPROGR REPROGRAM_MACRO
+#define U_ARROW LT(4, KC_U)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Dvorak
@@ -52,20 +62,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Tab  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |  -   |
+ * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |  /   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  GUI | Alt  | TT(1)| MO(2)|Space |Space |MO(3) | Left | Down |  Up  |Right |
+ * | Ctrl |  GUI | Alt  |      | MO(1)|Space2|Space3| Ctrl | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT_ortho_4x12( \
-  KC_GESC,       KC_QUOT, KC_COMM, KC_DOT,  KC_P,   KC_Y,    KC_F,      KC_G,    KC_C,     KC_R,    KC_L,    KC_BSPC, \
-  KC_TAB,        KC_A,    KC_O,    KC_E,    KC_U,   KC_I,    KC_D,      KC_H,    KC_T,     KC_N,    KC_S,    TD(TD_EQUAL_ENTER),  \
-  SFT_T(KC_BSPC),KC_SCLN, KC_Q,    KC_J,    KC_K,   KC_X,    KC_B,      KC_M,    KC_W,     KC_V,    KC_Z,    KC_SLASH,  \
-  KC_LCTL,       KC_LGUI, KC_LALT, TT(1),   TT(2),  KC_SPC,  KC_SPC,    MO(3),   KC_LEFT,  KC_DOWN, KC_UP,   KC_RGHT  \
+  KC_GESC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,   KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC, \
+  KC_TAB,  KC_A,    KC_O,    KC_E,    U_ARROW, KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  TD_EE,  \
+  KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLASH),  \
+  KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, MO(1),   LT2_SP, LT3_SP, KC_LCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
 ),
 
 
-/* Raise1
+/* RAISE1
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -78,33 +88,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE1] = LAYOUT_ortho_4x12( \
 	KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, TD(TD_BSLASH_EQUAL), \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, TD_BLEQ, \
 	_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_PGDN, KC_PGUP, KC_MINS, \
 	_______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_VOLD, KC_VOLU, KC_END \
 ),
 
-/* Raise2
+/* RAISE2
  * ,-----------------------------------------------------------------------------------.
- * |Backsp|      |      |      |      |      |      |      |  7   |  8   |  9   |  P*  |
+ * |      |      |      |      |      |      |      |      |  7   |  8   |  9   | BKSP |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |  4   |  5   |  6   |  P-  |
+ * |      |      |      |      |      |      |      |      |  4   |  5   |  6   |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |  1   |  2   |  3   |  P+  |
+ * |      |      |      |      |      |      |      |      |  1   |  2   |  3   |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |  0   |  0   |  P.  |ENTER |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE2] = LAYOUT_ortho_4x12( \
-		KC_BSPC, _______, _______, _______, _______, _______, _______, _______, KC_7, KC_8, KC_9,    KC_PAST, \
-		_______, _______, _______, _______, _______, _______, _______, _______, KC_4, KC_5, KC_6,    KC_PMNS, \
-		_______, _______, _______, _______, _______, _______, _______, _______, KC_1, KC_2, KC_3,    KC_PPLS, \
+		_______, _______, _______, _______, _______, _______, _______, _______, KC_7, KC_8, KC_9,    KC_BSPC, \
+		_______, _______, _______, _______, _______, _______, _______, _______, KC_4, KC_5, KC_6,    XXXXXXX, \
+		_______, _______, _______, _______, _______, _______, _______, _______, KC_1, KC_2, KC_3,    XXXXXXX, \
 		_______, _______, _______, _______, _______, _______, _______, _______, KC_0, KC_0, KC_PDOT, KC_ENT \
 
 ),
 
-/* Raise3
+/* RAISE3
  * ,-----------------------------------------------------------------------------------.
- * |RESET |PROGRA|      |      |Static| BRI+ |SGRAD |      | F10  | F11  | F12  |      |
+ * |RESET |PROGRA|      |      |Static| BRI+ |SGRAD |      | F10  | F11  | F12  |Paste |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |Rainbo| BRI- |K RIDR|      |  F7  |  F8  |  F9  |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -114,12 +124,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE3] =  LAYOUT_ortho_4x12( \
-  RESET,   REPROGRAM_MACRO, _______, _______, RGB_M_P, RGB_VAI, RGB_M_G,  _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
-  _______, _______,         _______, _______, RGB_M_R, RGB_VAD, RGB_M_K,  _______, KC_F7,  KC_F8,  KC_F9,  _______, \
-  _______, _______,         _______, _______, RGB_MOD, RGB_TOG, RGB_M_SW, _______, KC_F4,  KC_F5,  KC_F6,  _______, \
-  _______, _______,         _______, _______, _______, _______, _______,  _______, KC_F1,  KC_F2,  KC_F3,  SCROT \
+  RESET,   REPROGR, _______, _______, RGB_M_P, RGB_VAI, RGB_M_G,  _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
+  _______, _______, _______, _______, RGB_M_R, RGB_VAD, RGB_M_K,  _______, KC_F7,  KC_F8,  KC_F9,  XXXXXXX, \
+  _______, _______, _______, _______, RGB_MOD, RGB_TOG, RGB_M_SW, _______, KC_F4,  KC_F5,  KC_F6,  XXXXXXX, \
+  _______, _______, _______, _______, _______, _______, _______,  _______, KC_F1,  KC_F2,  KC_F3,  SCROT \
 ),
 
+/* Arrows
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      | Left | Down |  Up  |Right |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_ARROWS] = LAYOUT_ortho_4x12( \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+),
 
 };
 
@@ -138,11 +165,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RAISE1:
       if (record->event.pressed) {
         layer_on(_RAISE1);
-        update_tri_layer(_RAISE1, _RAISE2, _RAISE3);
       }
       else {
         layer_off(_RAISE1);
-        update_tri_layer(_RAISE1, _RAISE2, _RAISE3);
       }
       return false;
       break;
@@ -150,11 +175,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RAISE2:
       if (record->event.pressed) {
         layer_on(_RAISE2);
-        update_tri_layer(_RAISE1, _RAISE2, _RAISE3);
       }
       else{
         layer_off(_RAISE2);
-        update_tri_layer(_RAISE1, _RAISE2, _RAISE3);
       }
       return false;
       break;
@@ -162,11 +185,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RAISE3:
       if (record->event.pressed) {
         layer_on(_RAISE3);
-        update_tri_layer(_RAISE1, _RAISE2, _RAISE3);
       }
       else {
         layer_off(_RAISE3);
-        update_tri_layer(_RAISE1, _RAISE2, _RAISE3);
+      }
+      return false;
+      break;
+
+    case ARROWS:
+      if (record->event.pressed) {
+        layer_on(_ARROWS);
+      }
+      else {
+        layer_off(_ARROWS);
       }
       return false;
       break;
