@@ -10,7 +10,7 @@
 
 void i2c_init(uint8_t address){
 	// load address into TWI address register
-	TWAR = (address << 1);
+	TWAR = (address << 0);
 	// set the TWCR to enable address matching and enable TWI, clear TWINT, enable TWI interrupt
 	TWCR = (1<<TWIE) | (1<<TWEA) | (1<<TWINT) | (1<<TWEN);
 }
@@ -26,12 +26,12 @@ ISR(TWI_vect){
 	uint8_t data;
 	
 	// own address has been acknowledged
-	if( (TWSR & 0xF8) == TW_SR_SLA_ACK ){  
+	if( (TW_STATUS) == TW_SR_SLA_ACK ){  
 		buffer_address = 0xFF;
 		// clear TWI interrupt flag, prepare to receive next byte and acknowledge
 		TWCR |= (1<<TWIE) | (1<<TWINT) | (1<<TWEA) | (1<<TWEN); 
 	}
-	else if( (TWSR & 0xF8) == TW_SR_DATA_ACK ){ // data has been received in slave receiver mode
+	else if( (TW_STATUS) == TW_SR_DATA_ACK ){ // data has been received in slave receiver mode
 		
 		// save the received byte inside data 
 		data = TWDR;
@@ -42,7 +42,7 @@ ISR(TWI_vect){
 			buffer_address = data; 
 			
 			// clear TWI interrupt flag, prepare to receive next byte and acknowledge
-			TWCR |= (1<<TWIE) | (1<<TWINT) | (1<<TWEA) | (1<<TWEN); 
+			//TWCR |= (1<<TWIE) | (1<<TWINT) | (1<<TWEA) | (1<<TWEN); 
 		}
 		else{ // if a databyte has already been received
 			
@@ -65,7 +65,7 @@ ISR(TWI_vect){
 			}
 		}
 	}
-	else if( (TWSR & 0xF8) == TW_ST_DATA_ACK ){ // device has been addressed to be a transmitter
+	else if( (TW_STATUS) == TW_ST_DATA_ACK ){ // device has been addressed to be a transmitter
 		
 		// copy data from TWDR to the temporary memory
 		data = TWDR;
