@@ -96,7 +96,7 @@ Then you can create this file and add your macro strings to it:
 
 ###### secrets.h
 ```c
-PROGMEM const char secret[][64] = {
+static const char * const secrets[] = {
   "secret1",
   "secret2",
   "secret3",
@@ -116,7 +116,7 @@ In the `<name>.c` file, you will want to add this to the top:
 #else
 // `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
 // And I'm not familiar enough to know which is better or why...
-PROGMEM const char secret[][64] = {
+static const char * const secrets[] = {
   "test1",
   "test2",
   "test3",

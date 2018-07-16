@@ -210,13 +210,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef BACKLIGHT_ENABLE
           backlight_step();
         #endif
-        #ifdef __AVR__
-        PORTE &= ~(1<<6);
+        #ifdef KEYBOARD_planck_rev5
+          PORTE &= ~(1<<6);
         #endif
       } else {
         unregister_code(KC_RSFT);
-        #ifdef __AVR__
-        PORTE |= (1<<6);
+        #ifdef KEYBOARD_planck_rev5
+          PORTE |= (1<<6);
         #endif
       }
       return false;

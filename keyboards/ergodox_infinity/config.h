@@ -72,7 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_LINK_THREAD_PRIORITY (NORMALPRIO - 1)
 
 #define VISUALIZER_USER_DATA_SIZE 16
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
