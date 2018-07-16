@@ -21,8 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
-
 /* Use I2C or Serial */
 
 #define USE_I2C
@@ -36,8 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 #define SSD1306OLED
-
-#define USE_SERIAL_PD2
 
 #define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD
