@@ -1,6 +1,5 @@
-#include "iris.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -21,29 +20,27 @@ enum custom_keycodes {
 #define KC_RASE RAISE
 #define KC_RST RESET
 #define KC_DBUG DEBUG
-#define LOWR MO(_LOWER)
-#define RASE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT_kc(
     /*
      * ,-----+-----+-----+-----+-----+-----+                ,-----+-----+-----+-----+-----+-----+
-     * | ESC |  1  |  2  |  3  |  4  |  5  |                |  6  |  7  |  8  |  9  |  0  | BSPC|
+     * | ESC |  1  |  2  |  3  |  4  |  5  |                |  6  |  7  |  8  |  9  |  0  |  `  |
      * |-----+-----+-----+-----+-----+-----+                +-----+-----+-----+-----+-----+-----+
-     * | TAB |  Q  |  W  |  E  |  R  |  T  |                |  Y  |  U  |  I  |  O  |  P  | DEL |
+     * | TAB |  Q  |  W  |  E  |  R  |  T  |                |  Y  |  U  |  I  |  O  |  P  | BSPC|
      * +-----+-----+-----+-----+-----+-----+                +-----+-----+-----+-----+-----+-----+
-     * | LSFT|  A  |  S  |  D  |  F  |  G  |                |  H  |  J  |  K  |  L  |  ;  |  '  |
+     * | LCTL|  A  |  S  |  D  |  F  |  G  |                |  H  |  J  |  K  |  L  |  ;  |  '  |
      * +-----+-----+-----+-----+-----+-----+-----.    ,-----+-----+-----+-----+-----+-----+-----+
-     * | LCTL|  Z  |  X  |  C  |  V  |  B  |     /    \     |  N  |  M  |  ,  |  .  |  /  | RSFT|
+     * | LSFT|  Z  |  X  |  C  |  V  |  B  |     /    \     |  N  |  M  |  ,  |  .  |  /  | RSFT|
      * +-----+-----+-----+--+--+-----+-----+ SPC/      \ ENT+-----+-----+--+--+-----+-----+-----+
      *                      \ LGUI| LOWR|      /        \      | RASE| LALT/
      *                      `-----+-----+-----'          `-----+-----+----'
      */
-     ESC , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,BSPC,
-     TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,DEL ,
-     LSFT, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,QUOT,
-     LCTL, Z  , X  , C  , V  , B  ,    ,         , N  , M  ,COMM,DOT ,SLSH,RSFT,
+     ESC , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  , GRV,
+     TAB , Q  , W  , E  , R  , T  ,                Y  , U  , I  , O  , P  ,BSPC,
+     LCTL, A  , S  , D  , F  , G  ,                H  , J  , K  , L  ,SCLN,QUOT,
+     LSFT, Z  , X  , C  , V  , B  ,    ,         , N  , M  ,COMM,DOT ,SLSH,RSFT,
                        LGUI,LOWR, SPC ,        ENT ,RASE,LALT
   ),
 
@@ -89,3 +86,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            ,    ,    ,             ,    ,
   )
 };
+
+void persistent_default_layer_set(uint16_t default_layer) {
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case QWERTY:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_QWERTY);
+      }
+      return false;
+      break;
+    case LOWER:
+      if (record->event.pressed) {
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _QWERTY);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _QWERTY);
+      }
+      return false;
+      break;
+    case RAISE:
+      if (record->event.pressed) {
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _QWERTY);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _QWERTY);
+      }
+      return false;
+      break;
+  }
+  return true;
+}
