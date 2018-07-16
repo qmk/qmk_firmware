@@ -14,9 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "rev6.h"
-#include "rgblight.h"
-
-  uint8_t *o_fb;
 
 void matrix_init_kb(void) {
 	matrix_init_user();
