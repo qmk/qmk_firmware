@@ -2,7 +2,7 @@
 
 ![DC01 Left Half](https://i.imgur.com/PTn0sp8.jpg)
 
-A hotpluggable four part keyboard which comes together with magnets and pogo pins!
+A hotpluggable four part keyboard which comes together with magnets and pogo pins! This is the left part that also acts as the master.
 
 Keyboard Maintainer: [You](https://github.com/yiancar)  
 Hardware Supported: Runs on an atmega32u4  
