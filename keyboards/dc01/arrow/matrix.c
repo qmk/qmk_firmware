@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "i2c_slave.h"
 #include "lufa.h"
 
-#define SLAVE_I2C_ADDRESS 0x05
+#define SLAVE_I2C_ADDRESS 0x36
 
 /* Set 0 if debouncing isn't needed */
 
