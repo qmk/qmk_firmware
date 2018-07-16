@@ -16,6 +16,7 @@
 #include QMK_KEYBOARD_H
 #ifdef LED_ENABLE
   #include "protocol/serial.h"
+
 #endif
 
 #include "keymap_nordic.h"
@@ -74,7 +75,6 @@
 #define NO_BSLS ALGR(KC_MINS)
 #define NO_MU   ALGR(KC_M)
 
-#endif
 
 #ifndef KEYMAP_NORWEGIAN_H
 #define KEYMAP_NORWEGIAN_H
@@ -118,7 +118,6 @@
 
 #endif
 
-#endif
 
 #define _______ KC_TRNS
 #define LT3_TAB LT(3, KC_TAB)
