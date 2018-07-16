@@ -54,7 +54,7 @@
 #endif
 
 #ifdef CFQ_USE_80_KEYS
-#  define LAYOUT_ergodox_76_or_80 KEYMAP_80
+#  define LAYOUT_ergodox_76_or_80 LAYOUT_ergodox_80
 #  define K80(a) CFQ_USER_K80_##a
 #else
 #  define LAYOUT_ergodox_76_or_80( \
@@ -281,8 +281,8 @@ enum custom_keycodes {
    /* avoid ifdef's in keymap */
 #  define DYN_REC_START1 KC_TRNS
 #  define DYN_REC_START2 KC_TRNS
-#  define DYN_REC_PLAY1 KC_TRNS
-#  define DYN_REC_PLAY2 KC_TRNS
+#  define DYN_MACRO_PLAY1 KC_TRNS
+#  define DYN_MACRO_PLAY2 KC_TRNS
 #  define DYN_REC_STOP KC_TRNS
 #endif
 
