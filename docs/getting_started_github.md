@@ -19,8 +19,7 @@ And be sure to select "HTTPS", and select the link and copy it:
 From here, enter `git clone ` into the command line, and then paste your link:
 
 ```
-**[terminal]
-**[prompt you@computer]**[path ~]**[delimiter  $ ]**[command git clone https://github.com/whoeveryouare/qmk_firmware.git]
+user@computer:~$ git clone https://github.com/whoeveryouare/qmk_firmware.git
 Cloning into 'qmk_firmware'...
 remote: Counting objects: 46625, done.
 remote: Compressing objects: 100% (2/2), done.
@@ -33,13 +32,12 @@ Checking out files: 100% (2799/2799), done.
 You now have your QMK fork on your local machine, and you can add your keymap, compile it and flash it to your board. Once you're happy with your changes, you can add, commit, and push them to your fork like this:
 
 ```
-**[terminal]
-**[prompt you@computer]**[path ~/qmk_firmware]**[delimiter  $ ]**[command git add .]
-**[prompt you@computer]**[path ~/qmk_firmware]**[delimiter  $ ]**[command git commit -m "adding my keymap"]
+user@computer:~$ git add .
+user@computer:~$ git commit -m "adding my keymap"
 [master cccb1608] adding my keymap
  1 file changed, 1 insertion(+)
  create mode 100644 keyboards/planck/keymaps/mine/keymap.c
-**[prompt you@computer]**[path ~/qmk_firmware]**[delimiter  $ ]**[command git push]
+user@computer:~$ git push
 Counting objects: 1, done.
 Delta compression using up to 4 threads.
 Compressing objects: 100% (1/1), done.
