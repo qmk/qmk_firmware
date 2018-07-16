@@ -126,14 +126,18 @@ If you define these options you will enable the associated feature, which may in
   * how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
+  * See [Retro Tapping](feature_advanced_keycodes.md#retro-tapping) for details
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
   * makes tap and hold keys work better for fast typers who don't want tapping term set above 500
+  * See [Permissive Hold](feature_advanced_keycodes.md#permissive-hold) for details
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
+  * See [Mod tap interrupt](feature_advanced_keycodes.md#mod-tap-interrupt) for details
 * `#define TAPPING_FORCE_HOLD`
   * makes it possible to use a dual role key as modifier shortly after having been tapped
+  * See [Hold after tap](feature_advanced_keycodes.md#hold-after-tap)
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
 * `#define ONESHOT_TIMEOUT 300`
