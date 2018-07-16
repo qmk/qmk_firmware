@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
-
-#include "config_common.h"
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -215,4 +212,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 */ 
 
-#endif
