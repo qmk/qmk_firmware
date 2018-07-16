@@ -19,17 +19,9 @@
   uint8_t *o_fb;
 
 void matrix_init_kb(void) {
-  // rgblight_enable();
-  // rgblight_mode(1);
-  // rgblight_setrgb(0xFF, 0xFF, 0xFF);
-
-  ledDriverInit(2, GPIOA, 0b00000010, &o_fb);
-  testPatternFB(o_fb);
-
 	matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
 	matrix_scan_user();
-  testPatternFB(o_fb);
 }
