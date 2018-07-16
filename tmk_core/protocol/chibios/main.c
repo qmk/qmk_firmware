@@ -48,6 +48,8 @@
 #include "wait.h"
 #include "quantum.h"
 
+#include "vortex.h"
+
 /* -------------------------
  *   TMK host driver defs
  * -------------------------
@@ -105,6 +107,9 @@ int main(void) {
     halInit();
     chSysInit();
     // Rest of main() is a ChibiOS thread with NORMALPRIO
+
+    // Check DIP switches / key combos before keyboard init
+    check_boot_keys();
 
     /* Init USB */
     init_usb_driver(&USB_DRIVER);

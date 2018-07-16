@@ -68,6 +68,21 @@
 #define LINE_SPI_MISO               PAL_LINE(IOPORTB, 9)
 #define LINE_SPI_CS                 PAL_LINE(IOPORTB, 10)
 
+// DIP switches
+#define LINE_DIP1_ROW               LINE_ROW9
+#define LINE_DIP1_COL               LINE_COL7
+#define LINE_DIP2_ROW               LINE_ROW9
+#define LINE_DIP2_COL               LINE_COL3
+#define LINE_DIP3_ROW               LINE_ROW9
+#define LINE_DIP3_COL               LINE_COL2
+#define LINE_DIP4_ROW               LINE_ROW9
+#define LINE_DIP4_COL               LINE_COL1
+
+// Wipe signal/switch
+#define HAS_WIPE_SWITCH             1
+#define WIPE_SWITCH_ROW             LINE_DIP4_ROW
+#define WIPE_SWITCH_COL             LINE_DIP4_COL
+
 #define LINE_TPPWR                  PAL_LINE(IOPORTA, 10)   // !
 #define LINE_BLPWM                  PAL_LINE(IOPORTA, 14)   // !
 #define LINE_BLEN                   PAL_LINE(IOPORTA, 15)   // !

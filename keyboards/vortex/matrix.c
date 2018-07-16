@@ -40,6 +40,32 @@ void matrix_init(void) {
     matrix_init_quantum();
 }
 
+uint8_t matrix_scan_key(uint32_t row_line, uint32_t col_line) {
+    uint8_t debouncing = 0;
+    uint8_t count = 0;
+    while (1) {
+        // pull row low
+        palClearLine(row_line);
+        wait_us(1);
+        // read column
+        uint8_t val = palReadLine(col_line);
+        // drive row high
+        palSetLine(row_line);
+
+        // debounce
+        if (val != debouncing) {
+            // restart debouncing
+            debouncing = val;
+            count = 0;
+        } else if (count >= DEBOUNCE) {
+            // finished debouncing
+            return (~debouncing) & 1;
+        }
+        wait_ms(1);
+        count++;
+    }
+}
+
 uint8_t matrix_scan(void) {
     // cache of input ports for columns
     static uint16_t port_cache[3];

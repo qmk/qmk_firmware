@@ -52,7 +52,7 @@
     K17, K18, K19, K20, K21, K22, K23, K24, K48, K49, K50, K51, K46, K52, /* 14 keys */ \
     K25, K63, K26, K27, K28, K29, K30, K31, K32, K54, K55, K56, K57, K58, /* 14 keys, 2 dnp */ \
     K33, K34, K35,                K53,                K59, K60, K61, K62, /* 8 keys */  \
-                                                      S01, S02, S03, S04  /* dip switches */ \
+                                                      S04, S03, S02, S01  /* dip switches */ \
 ) { \
     /*            COL1   COL2   COL3   COL4   COL5   COL6   COL7   COL8   */ \
     /* ROW1  */ { K01,   K02,   K03,   K04,   K05,   K06,   K07,   K08,   }, \
@@ -63,7 +63,7 @@
     /* ROW6  */ { KC_NO, KC_NO, K47,   K48,   K49,   K50,   K51,   K52,   }, \
     /* ROW7  */ { K25,   K26,   K27,   K28,   K29,   K30,   K31,   K32,   }, \
     /* ROW8  */ { KC_NO, KC_NO, K53,   K54,   K55,   K56,   K57,   K58,   }, \
-    /* ROW9  */ { S01,   S02,   S03,   K59,   K60,   K61,   S04,   K62,   }  \
+    /* ROW9  */ { S04,   S03,   S02,   K59,   K60,   K61,   S01,   K62,   }  \
 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

@@ -41,6 +41,11 @@ enum extra_keycodes {
     EX_RESET,
 };
 
+void check_boot_keys(void);
+
+// matrix
+uint8_t matrix_scan_key(uint32_t row_line, uint32_t col_line);
+
 // util
 uint16_t from_leu16(const uint8_t *bytes);
 uint32_t from_leu32(const uint8_t *bytes);

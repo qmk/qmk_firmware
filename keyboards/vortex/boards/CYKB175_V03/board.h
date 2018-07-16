@@ -81,6 +81,9 @@
 #define LINE_SPI_MISO               PAL_LINE(IOPORTB, 9)
 #define LINE_SPI_CS                 PAL_LINE(IOPORTB, 6)
 
+// Wipe signal/switch
+#define HAS_WIPE_SWITCH             0
+
 #define LINE_TPPWR                  PAL_LINE(IOPORTA, 10)   // !
 #define LINE_BLPWM                  PAL_LINE(IOPORTA, 14)   // !
 #define LINE_BLEN                   PAL_LINE(IOPORTA, 15)   // !

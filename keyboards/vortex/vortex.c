@@ -78,6 +78,16 @@ static void keymap_load(void) {
     }
 }
 
+
+void check_boot_keys(void) {
+#if HAS_WIPE_SWITCH
+    // check DIP switch and erase version page if set
+    if (matrix_scan_key(WIPE_SWITCH_ROW, WIPE_SWITCH_COL)) {
+        flash_erase_page(VERSION_ADDR);
+    }
+#endif
+}
+
 void OVERRIDE matrix_init_kb(void) {
     keymap_load();
     matrix_init_user();
