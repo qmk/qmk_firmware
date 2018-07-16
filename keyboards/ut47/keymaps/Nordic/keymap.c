@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,-------------------------------------------------------------------------.
    * | Esc |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |Bspace |
    * |-------------------------------------------------------------------------+
-   * |Tab/L3|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  '  | Enter|
+   * |Tab/L3|  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  '  |Ent/RS|
    * |-------------------------------------------------------------------------+
    * | Shift |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  Up |  L4 |
    * |-------------------------------------------------------------------------+
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 LAYOUT( /* Base - L0 */
   KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-  LT3_TAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NO_APOS, KC_ENT,
+  LT3_TAB, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    NO_APOS, MT_RSFT_ENT,
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,  MO(4),
   KC_LCTL, KC_LGUI, MO(4), KC_LALT,  MO(2),      KC_SPC,        MO(1),  KC_RCTL, KC_LEFT, KC_DOWN,   KC_RGHT
 ),
@@ -224,7 +224,7 @@ LAYOUT( /* Norsk - L4 */
   _______, _______,   NO_AT,  NO_PND,  NO_DLR, NO_TILD, _______, NO_QUOT, NO_ACUT,  NO_GRV,   NO_AA, _______,
   _______, _______, _______, NO_EURO, _______, _______, _______, _______, NO_CIRC, NO_OSLH,   NO_AE, _______,
   _______, NO_LESS, _______, _______, _______, _______, _______,   NO_MU, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______,     _______,      _______,   TG(5), _______, _______, _______
+  _______, _______, _______, _______, _______,     _______,      _______,   TO(5), _______, _______, _______
 ),
 
   /* GAMING Layer (toggle on and off)
@@ -242,7 +242,7 @@ LAYOUT( /* Norsk - L4 */
 LAYOUT( /* GAMING, toggled on and off - L5 */
   KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_F1,    KC_F2,    KC_F3,    KC_F4, KC_BSPC,
   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_F5,    KC_F6,    KC_F7,    KC_F8,  KC_ENT,
-  KC_LSFT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_F9,   KC_F10,   KC_F11,    KC_UP,   TG(5),
+  KC_LSFT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_F9,   KC_F10,   KC_F11,    KC_UP,   TO(0),
   KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_B,      KC_SPC,          KC_M,     KC_V,  KC_LEFT,  KC_DOWN, KC_RGHT
 ),
 };
