@@ -14,4 +14,4 @@ It is used on his
 - Arrow toggle switch is FN + Space
 
 ### Build
-To build this keymap, simply run `make your_keyboard:mechmerlin-ansi`.
+To build the firmware file associated with this keymap, simply run `make your_keyboard:mechmerlin-ansi`.
