@@ -1,3 +1,0 @@
-TARGET = adb_usb_teensy
-MCU = atmega32u4
-include Makefile

@@ -1,5 +1,0 @@
-TARGET = adb_usb_rev2_unimap
-UNIMAP_ENABLE = yes
-KEYMAP_SECTION_ENABLE = yes
-MCU = atmega32u2
-include Makefile
