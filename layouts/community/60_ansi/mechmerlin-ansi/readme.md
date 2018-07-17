@@ -11,8 +11,7 @@ It is used on his
 
 ## Keymap Notes
 - Highly influenced by the KBP V60 and WKL B.Face standard layouts
-- Does not support any form of inswitch or underglow lighting as Merlin hates them.
 - Arrow toggle switch is FN + Space
 
 ### Build
-To build this keymap, simply run `make your_keyboard:mechmerlin-ansi`.
+To build the firmware file associated with this keymap, simply run `make your_keyboard:mechmerlin-ansi`.

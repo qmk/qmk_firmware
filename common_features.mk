@@ -114,6 +114,15 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+    OPT_DEFS += -DRGB_MATRIX_ENABLE
+    SRC += is31fl3731.c
+    SRC += i2c_master.c
+    SRC += $(QUANTUM_DIR)/color.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix.c
+    CIE1931_CURVE = yes
+endif
+
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     OPT_DEFS += -DTAP_DANCE_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
@@ -186,6 +195,12 @@ endif
 
 ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
+endif
+
+
+ifeq ($(strip $(HD44780_ENABLE)), yes)
+    SRC += drivers/avr/hd44780.c
+	OPT_DEFS += -DHD44780_ENABLE
 endif
 
 QUANTUM_SRC:= \

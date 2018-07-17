@@ -27,9 +27,11 @@ define HELIX_CUSTOMISE_MSG
 endef
 
 # Helix keyboard customize
-# you can edit follows 5 Variables
-#  jp: 以下の5つの変数を必要に応じて編集します。
+# you can edit follows 7 Variables
+#  jp: 以下の7つの変数を必要に応じて編集します。
+HELIX_ROWS = 5              # Helix Rows is 4 or 5
 OLED_ENABLE = no            # OLED_ENABLE
+LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
 LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
@@ -72,6 +74,13 @@ endif
 # $(eval $(call HELIX_CUSTOMISE_MSG))
 # $(info )
 
+ifneq ($(strip $(HELIX_ROWS)), 4)
+ifneq ($(strip $(HELIX_ROWS)), 5)
+$(error HELIX_ROWS = $(strip $(HELIX_ROWS)) is unexpected value)
+endif
+endif
+OPT_DEFS += -DHELIX_ROWS=$(strip $(HELIX_ROWS))
+
 ifeq ($(strip $(LED_BACK_ENABLE)), yes)
   RGBLIGHT_ENABLE = yes
   OPT_DEFS += -DRGBLED_BACK
@@ -95,6 +104,10 @@ endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
     OPT_DEFS += -DOLED_ENABLE
+endif
+
+ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
+    OPT_DEFS += -DLOCAL_GLCDFONT
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE

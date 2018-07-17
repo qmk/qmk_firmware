@@ -3,6 +3,7 @@
 Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any AVR keyboard that allows access to certain PWM-capable pins, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
 Up to two simultaneous audio voices are supported, one driven by timer 1 and another driven by timer 3.  The following pins can be defined as audio outputs in config.h:
+
 Timer 1:
 `#define B5_AUDIO`
 `#define B6_AUDIO`
@@ -58,6 +59,13 @@ PLAY_LOOP(my_song);
 
 It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif` to avoid causing problems when audio isn't built into the keyboard.
 
+The available keycodes for audio are: 
+
+* `AU_ON` - Turn audio mode on
+* `AU_OFF` - Turn audio mode off
+* `AU_TOG` - Toggle audio mode
+
+
 ## Music Mode
 
 The music mode maps your columns to a chromatic scale, and your rows to octaves. This works best with ortholinear keyboards, but can be made to work with others. All keycodes less than `0xFF` get blocked, so you won't type while playing notes - if you have special keys/mods, those will still work. A work-around for this is to jump to a different layer with KC_NOs before (or after) enabling music mode.
@@ -88,6 +96,20 @@ By default, `MUSIC_MASK` is set to `keycode < 0xFF` which means keycodes less th
     #define MUSIC_MASK keycode != KC_NO
 
 Which will capture all keycodes - be careful, this will get you stuck in music mode until you restart your keyboard!
+
+For a more advanced way to control which keycodes should still be processed, you can use `music_mask_kb(keycode)` in `<keyboard>.c` and `music_mask_user(keycode)` in your `keymap.c`:
+
+    bool music_mask_user(uint16_t keycode) {
+      switch (keycode) {
+        case RAISE:
+        case LOWER:
+          return false;
+        default:
+          return true;
+      }
+    }
+
+Things that return false are not part of the mask, and are always processed.
 
 The pitch standard (`PITCH_STANDARD_A`) is 440.0f by default - to change this, add something like this to your `config.h`:
 
@@ -130,6 +152,23 @@ You can configure the default, min and max frequencies, the stepping and built i
 ## MIDI Functionality
 
 This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
+
+
+## Audio Keycodes
+
+|Key             |Aliases  |Description                       |
+|----------------|---------|----------------------------------|
+|`AU_ON`         |         |Audio mode on                     |
+|`AU_OFF`        |         |Audio mode off                    |
+|`AU_TOG`        |         |Toggles Audio mode                |
+|`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
+|`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
+|`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
+|`CLICKY_RESET`  |`CK_RST` |Resets frequency to default       |
+|`MU_ON`         |         |Turns on Music Mode               |
+|`MU_OFF`        |         |Turns off Music Mode              |
+|`MU_TOG`        |         |Toggles Music Mode                |
+|`MU_MOD`        |         |Cycles through the music modes    |
 
 <!-- FIXME: this formatting needs work
 

@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = KEYMAP(  // layer 0 : default
+[BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
         KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
         KC_DELT,        KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   TG(SYMB),
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[SYMB] = KEYMAP(
+[SYMB] = LAYOUT_ergodox(
        // left hand
        M(0),   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
        KC_TRNS,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[MDIA] = KEYMAP(
+[MDIA] = LAYOUT_ergodox(
        RESET,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
@@ -188,23 +188,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // TxBolt over Serial
-[TXBOLT] = KEYMAP(
-       KC_BSPC, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  
-       KC_NO,   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),  KC_NO,  
+[TXBOLT] = LAYOUT_ergodox(
+       KC_BSPC, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_NO,   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),  KC_NO,
        KC_NO,   M(Sl),   M(Tl),   M(Pl),   M(Hl),   M(X),
        KC_NO,   M(Sl),   M(Kl),   M(Wl),   M(Rl),   M(X),   KC_NO,
        KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-                                           KC_NO,   KC_NO,  
-                                                    KC_NO,  
-                                  M(Al),   M(Ol),   KC_NO,  
+                                           KC_NO,   KC_NO,
+                                                    KC_NO,
+                                  M(Al),   M(Ol),   KC_NO,
     // right hand
-       KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  
+       KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_TRNS,  M(NM),   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),
                  M(X),    M(Fr),   M(Pr),   M(Lr),   M(Tr),   M(Dr),
        KC_NO,    M(X),    M(Rr),   M(Br),   M(Gr),   M(Sr),   M(Zr),
-                          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  
-       KC_NO,   KC_NO,  
-       KC_NO,  
+                          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+       KC_NO,   KC_NO,
+       KC_NO,
        KC_NO,   M(Er),   M(Ur)
 ),
 /* Keymap 4: TxBolt (Serial) Alternative
@@ -229,23 +229,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // TxBolt over Serial
-[TXBOLT2] = KEYMAP(
-       KC_NO,   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),  KC_NO,  
-       KC_NO,   M(Sl),   M(Tl),   M(Pl),   M(Hl),   M(X),   KC_NO,  
+[TXBOLT2] = LAYOUT_ergodox(
+       KC_NO,   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),  KC_NO,
+       KC_NO,   M(Sl),   M(Tl),   M(Pl),   M(Hl),   M(X),   KC_NO,
        KC_NO,   M(Sl),   M(Kl),   M(Wl),   M(Rl),   M(X),
-       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  
+       KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
        KC_NO,   KC_NO,   KC_NO,   M(Al),   M(Ol),
-                                           KC_NO,   KC_NO,  
-                                                    KC_NO,  
-                                  KC_NO,   KC_NO,   KC_NO,  
+                                           KC_NO,   KC_NO,
+                                                    KC_NO,
+                                  KC_NO,   KC_NO,   KC_NO,
     // right hand
        KC_NO,    M(NM),   M(NM),   M(NM),   M(NM),   M(NM),   M(NM),
        KC_TRNS,  M(X),    M(Fr),   M(Pr),   M(Lr),   M(Tr),   M(Dr),
                  M(X),    M(Rr),   M(Br),   M(Gr),   M(Sr),   M(Zr),
-       KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,  
-                          M(Er),   M(Ur),   KC_NO,   KC_NO,   KC_NO,  
-       KC_NO,   KC_NO,  
-       KC_NO,  
+       KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                          M(Er),   M(Ur),   KC_NO,   KC_NO,   KC_NO,
+       KC_NO,   KC_NO,
+       KC_NO,
        KC_NO,   KC_NO,   KC_NO
 ),
 };

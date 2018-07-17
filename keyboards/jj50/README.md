@@ -2,7 +2,7 @@ JJ50
 ==========================
 
 This is a port of the QMK firmware for boards that are based on the
-ps2avrGB firmware, like the [ps2avrGB keyboard] (https://www.keyclack.com/product/gb-ps2avrgb/), for use on the JJ50, a preonic-like board.
+ps2avrGB firmware, like the [ps2avrGB keyboard](https://www.keyclack.com/product/gb-ps2avrgb/), for use on the JJ50, a preonic-like board.
 
 Most of the code was taken and amended from YMD96, which in itself was taken from ps2avrGB and amended by Andrew Novak.
 
@@ -10,8 +10,10 @@ Note that this is a complete replacement for the firmware, so you won't be
 using Bootmapper Client to change any keyboard settings, since not all the
 USB report options are supported.  
 
-Hardware Supported: JJ50 with the ATmega32a chip.
-Hardware Availability: The JJ50 PCB is available from kprepublic on AliExpress and suchlike.
+Hardware Supported: JJ50 with the ATmega32a chip.  
+Hardware Availability: [KPrepublic on AliExpress](https://www.aliexpress.com/item/jj50-v1-0-Custom-Mechanical-Keyboard-50-PCB-programmed-50-preonic-layouts-bface-firmware-with-rgb/32848915277.html)
+
+This version by [Wayne K. Jones](github.com/WarmCatUK).
 
 
 ## Installing and Building
@@ -70,8 +72,10 @@ And flash the compiled hex file with `HIDBootFlash`. Simply put the board in fla
 1. Try plugging the board in while pressing `Backspace` (`Key below the top right key`). This will force it to boot only the bootloader without loading the firmware. Once this is done, just reflash the board with the original firmware.
 2. Sometimes USB hubs can act weird, so try connecting the board directly to your computer or plugging/unplugging the USB hub.
 3. If you get an error such as "Resource Unavailable" when attemting to flash on Linux, you may want to compile and run `tools/usb_detach.c`. See `tools/README.md` for more info.
-4. I was occasionally finding that I wasn't flashing changes that I was making to my keymap. If that happens, simply force rebuild by making with:
+4. I was occasionally finding that I wasn't flashing changes that I was making to my keymap. If that happens, remove the previous build and simply force rebuild by making with:
 ```
+$ rm jj50_default.hex
+$ make -B jj50:default
 $ make -B jj50:default:program
 ```
 
