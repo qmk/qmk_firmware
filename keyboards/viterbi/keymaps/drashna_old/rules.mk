@@ -22,4 +22,7 @@ LAYOUTS = ortho_5x7
 # SRC := $(filter-out split_util.c,$(SRC))
 # SRC += quantum/matrix.c
 
-BOOTLOADER        = qmk-dfu
+USER_NAME := drashna
+SRC += ../drashna/keymap.c
+
+BOOTLOADER = qmk-dfu

@@ -6,12 +6,15 @@ COMMAND_ENABLE    = no        # Commands for debug and configuration
 TAP_DANCE_ENABLE  = no
 RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
+
+
+ifeq ($(strip $(PROTOCOL)), VUSB)
+NKRO_ENABLE       = no
+else
 NKRO_ENABLE       = yes
-BACKLIGHT_ENABLE  = no
-SWAP_HANDS_ENABLE = no
+endif
+
 
 INDICATOR_LIGHTS  = yes
 MACROS_ENABLED    = no
 RGBLIGHT_TWINKLE  = yes
-
-BOOTLOADER        = qmk-dfu
