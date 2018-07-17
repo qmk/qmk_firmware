@@ -44,22 +44,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K38,K0A,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,    K7B,     K3E,      K53,K54,K55,     \
     K36,K3A,K37,        K31,                    K42,K7C,K7D, K3B,K3D,K3C,  K52,    K41,K4C  \
 ) { \
-    { ##K00, ##K01, ##K02, ##K03, ##K04, ##K05, ##K06, ##K07 }, \
-    { ##K08, ##K09, ##K0A, ##K0B, ##K0C, ##K0D, ##K0E, ##K0F }, \
-    { ##K10, ##K11, ##K12, ##K13, ##K14, ##K15, ##K16, ##K17 }, \
-    { ##K18, ##K19, ##K1A, ##K1B, ##K1C, ##K1D, ##K1E, ##K1F }, \
-    { ##K20, ##K21, ##K22, ##K23, ##K24, ##K25, ##K26, ##K27 }, \
-    { ##K28, ##K29, ##K2A, ##K2B, ##K2C, ##K2D, ##K2E, ##K2F }, \
-    { ##K30, ##K31, ##K32, ##K33, PENT,  ##K35, ##K36, ##K37 }, \
-    { ##K38, ##K39, ##K3A, ##K3B, ##K3C, ##K3D, ##K3E, NO    }, \
-    { F17,   ##K41, ##K42, ##K43, F18,   ##K45, NO,    ##K47 }, \
-    { ##K48, ##K49, ##K4A, ##K4B, ##K4C, NO,    ##K4E, F18   }, \
-    { F19,   ##K51, ##K52, ##K53, ##K54, ##K55, ##K56, ##K57 }, \
-    { ##K58, ##K59, F20,   ##K5B, ##K5C, JYEN,  RO,    PCMM  }, \
-    { ##K60, ##K61, ##K62, ##K63, ##K64, ##K65, HANJ,  ##K67 }, \
-    { HAEN,  ##K69, F16,   ##K6B, NO,    ##K6D, APP,   ##K6F }, \
-    { NO,    ##K71, ##K72, ##K73, ##K74, ##K75, ##K76, ##K77 }, \
-    { ##K78, ##K79, ##K7A, ##K7B, ##K7C, ##K7D, NO,    ##K7F }  \
+    { K00, K01, K02, K03, K04, K05, K06, K07 }, \
+    { K08, K09, K0A, K0B, K0C, K0D, K0E, K0F }, \
+    { K10, K11, K12, K13, K14, K15, K16, K17 }, \
+    { K18, K19, K1A, K1B, K1C, K1D, K1E, K1F }, \
+    { K20, K21, K22, K23, K24, K25, K26, K27 }, \
+    { K28, K29, K2A, K2B, K2C, K2D, K2E, K2F }, \
+    { K30, K31, K32, K33, PENT,  K35, K36, K37 }, \
+    { K38, K39, K3A, K3B, K3C, K3D, K3E, KC_NO    }, \
+    { F17,   K41, K42, K43, F18,   K45, KC_NO,    K47 }, \
+    { K48, K49, K4A, K4B, K4C, KC_NO,    K4E, F18   }, \
+    { F19,   K51, K52, K53, K54, K55, K56, K57 }, \
+    { K58, K59, F20,   K5B, K5C, JYEN,  RO,    PCMM  }, \
+    { K60, K61, K62, K63, K64, K65, HANJ,  K67 }, \
+    { HAEN,  K69, F16,   K6B, KC_NO,    K6D, APP,   K6F }, \
+    { KC_NO,    K71, K72, K73, K74, K75, K76, K77 }, \
+    { K78, K79, K7A, K7B, K7C, K7D, KC_NO,    K7F }  \
 }
 
 
@@ -87,22 +87,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K38,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,        K7B,     K3E,      K53,K54,K55,     \
     K36,K3A,K37,        K31,                        K7C,K7D, K3B,K3D,K3C,  K52,    K41,K4C  \
 ) { \
-    { ##K00, ##K01, ##K02, ##K03, ##K04, ##K05, ##K06, ##K07 }, \
-    { ##K08, ##K09, NUBS,  ##K0B, ##K0C, ##K0D, ##K0E, ##K0F }, \
-    { ##K10, ##K11, ##K12, ##K13, ##K14, ##K15, ##K16, ##K17 }, \
-    { ##K18, ##K19, ##K1A, ##K1B, ##K1C, ##K1D, ##K1E, ##K1F }, \
-    { ##K20, ##K21, ##K22, ##K23, ##K24, ##K25, ##K26, ##K27 }, \
-    { ##K28, ##K29, ##K2A, ##K2B, ##K2C, ##K2D, ##K2E, ##K2F }, \
-    { ##K30, ##K31, ##K32, ##K33, PENT,  ##K35, ##K36, ##K37 }, \
-    { ##K38, ##K39, ##K3A, ##K3B, ##K3C, ##K3D, ##K3E, NO    }, \
-    { F17,   ##K41, NO,    ##K43, F18,   ##K45, NO,    ##K47 }, \
-    { NO,    NO,    NO,    ##K4B, ##K4C, NO,    ##K4E, F18   }, \
-    { F19,   ##K51, ##K52, ##K53, ##K54, ##K55, ##K56, ##K57 }, \
-    { ##K58, ##K59, F20,   ##K5B, ##K5C, INT3,  INT1,  PCMM  }, \
-    { ##K60, ##K61, ##K62, ##K63, ##K64, ##K65, LANG2, ##K67 }, \
-    { LANG1, ##K69, F16,   ##K6B, NO,    ##K6D, APP,   ##K6F }, \
-    { NO,    ##K71, ##K72, ##K73, ##K74, ##K75, ##K76, ##K77 }, \
-    { ##K78, ##K79, ##K7A, ##K7B, ##K7C, ##K7D, NO,    ##K7F }  \
+    { K00, K01, K02, K03, K04, K05, K06, K07 }, \
+    { K08, K09, NUBS,  K0B, K0C, K0D, K0E, K0F }, \
+    { K10, K11, K12, K13, K14, K15, K16, K17 }, \
+    { K18, K19, K1A, K1B, K1C, K1D, K1E, K1F }, \
+    { K20, K21, K22, K23, K24, K25, K26, K27 }, \
+    { K28, K29, K2A, K2B, K2C, K2D, K2E, K2F }, \
+    { K30, K31, K32, K33, PENT,  K35, K36, K37 }, \
+    { K38, K39, K3A, K3B, K3C, K3D, K3E, KC_NO    }, \
+    { F17,   K41, KC_NO,    K43, F18,   K45, KC_NO,    K47 }, \
+    { KC_NO,    KC_NO,    KC_NO,    K4B, K4C, KC_NO,    K4E, F18   }, \
+    { F19,   K51, K52, K53, K54, K55, K56, K57 }, \
+    { K58, K59, F20,   K5B, K5C, INT3,  INT1,  PCMM  }, \
+    { K60, K61, K62, K63, K64, K65, LANG2, K67 }, \
+    { LANG1, K69, F16,   K6B, KC_NO,    K6D, APP,   K6F }, \
+    { KC_NO,    K71, K72, K73, K74, K75, K76, K77 }, \
+    { K78, K79, K7A, K7B, K7C, K7D, KC_NO,    K7F }  \
 }
 
 /* M0115 Apple Extended Keyboard ISO
@@ -129,22 +129,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     K38,K0A,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,    K7B,     K3E,      K53,K54,K55,     \
     K36,K3A,K37,        K31,                        K7C,K7D, K3B,K3D,K3C,  K52,    K41,K4C  \
 ) { \
-    { ##K00, ##K01, ##K02, ##K03, ##K04, ##K05, ##K06, ##K07 }, \
-    { ##K08, ##K09, ##K0A, ##K0B, ##K0C, ##K0D, ##K0E, ##K0F }, \
-    { ##K10, ##K11, ##K12, ##K13, ##K14, ##K15, ##K16, ##K17 }, \
-    { ##K18, ##K19, ##K1A, ##K1B, ##K1C, ##K1D, ##K1E, ##K1F }, \
-    { ##K20, ##K21, ##K22, ##K23, ##K24, ##K25, ##K26, ##K27 }, \
-    { ##K28, ##K29, ##K2A, ##K2B, ##K2C, ##K2D, ##K2E, ##K2F }, \
-    { ##K30, ##K31, ##K32, ##K33, PENT,  ##K35, ##K36, ##K37 }, \
-    { ##K38, ##K39, ##K3A, ##K3B, ##K3C, ##K3D, ##K3E, NO    }, \
-    { F17,   ##K41, NO,    ##K43, F18,   ##K45, NO,    ##K47 }, \
-    { NO,    NO,    NO,    ##K4B, ##K4C, NO,    ##K4E, F18   }, \
-    { F19,   ##K51, ##K52, ##K53, ##K54, ##K55, ##K56, ##K57 }, \
-    { ##K58, ##K59, F20,   ##K5B, ##K5C, INT3,  INT1,  PCMM  }, \
-    { ##K60, ##K61, ##K62, ##K63, ##K64, ##K65, LANG2, ##K67 }, \
-    { LANG1, ##K69, F16,   ##K6B, NO,    ##K6D, APP,   ##K6F }, \
-    { NO,    ##K71, ##K72, ##K73, ##K74, ##K75, ##K76, ##K77 }, \
-    { ##K78, ##K79, ##K7A, ##K7B, ##K7C, ##K7D, NO,    ##K7F }  \
+    { K00, K01, K02, K03, K04, K05, K06, K07 }, \
+    { K08, K09, K0A, K0B, K0C, K0D, K0E, K0F }, \
+    { K10, K11, K12, K13, K14, K15, K16, K17 }, \
+    { K18, K19, K1A, K1B, K1C, K1D, K1E, K1F }, \
+    { K20, K21, K22, K23, K24, K25, K26, K27 }, \
+    { K28, K29, K2A, K2B, K2C, K2D, K2E, K2F }, \
+    { K30, K31, K32, K33, KC_NO,  K35, K36, K37 }, \
+    { K38, K39, K3A, K3B, K3C, K3D, K3E, KC_NO    }, \
+    { KC_NO,   K41, KC_NO,    K43, KC_NO,   K45, KC_NO,    K47 }, \
+    { KC_NO,    KC_NO,    KC_NO,    K4B, K4C, KC_NO,    K4E, KC_NO   }, \
+    { KC_NO,   K51, K52, K53, K54, K55, K56, K57 }, \
+    { K58, K59, KC_NO,   K5B, K5C, KC_NO,  KC_NO,  KC_NO  }, \
+    { K60, K61, K62, K63, K64, K65, KC_NO, K67 }, \
+    { KC_NO, K69, KC_NO,   K6B, KC_NO,    K6D, KC_NO,   K6F }, \
+    { KC_NO,    K71, K72, K73, K74, K75, K76, K77 }, \
+    { K78, K79, K7A, K7B, K7C, K7D, KC_NO,    K7F }  \
 }
 
 
@@ -174,22 +174,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    K38,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,        K7B, K53,K54,K55,     \
    K39,K3A,K37,K32,        K31,        K2A,K3B,K3C,K3D,K3E, K52,    K41,K4C  \
 ) { \
-  { ##K00, ##K01, ##K02, ##K03, ##K04, ##K05, ##K06, ##K07 }, \
-  { ##K08, ##K09, NO,    ##K0B, ##K0C, ##K0D, ##K0E, ##K0F }, \
-  { ##K10, ##K11, ##K12, ##K13, ##K14, ##K15, ##K16, ##K17 }, \
-  { ##K18, ##K19, ##K1A, ##K1B, ##K1C, ##K1D, ##K1E, ##K1F }, \
-  { ##K20, ##K21, ##K22, ##K23, ##K24, ##K25, ##K26, ##K27 }, \
-  { ##K28, ##K29, ##K2A, ##K2B, ##K2C, ##K2D, ##K2E, ##K2F }, \
-  { ##K30, ##K31, ##K32, ##K33, NO,    ##K35, ##K36, ##K37 }, \
-  { ##K38, ##K39, ##K3A, ##K3B, ##K3C, ##K3D, ##K3E, NO    }, \
-  { NO,    ##K41, NO,    ##K43, NO,    ##K45, NO,    ##K47 }, \
-  { NO,    NO,    NO,    ##K4B, ##K4C, NO,    ##K4E, NO    }, \
-  { NO,    ##K51, ##K52, ##K53, ##K54, ##K55, ##K56, ##K57 }, \
-  { ##K58, ##K59, NO,    ##K5B, ##K5C, NO,    NO,    NO    }, \
-  { NO,    NO,    NO,    NO   , NO,    NO,    NO,    NO    }, \
-  { NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO    }, \
-  { NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO    }, \
-  { NO   , NO,    NO   , ##K7B, NO,    NO,    NO,    ##K7F }  \
+  { K00, K01, K02, K03, K04, K05, K06, K07 }, \
+  { K08, K09, KC_NO,    K0B, K0C, K0D, K0E, K0F }, \
+  { K10, K11, K12, K13, K14, K15, K16, K17 }, \
+  { K18, K19, K1A, K1B, K1C, K1D, K1E, K1F }, \
+  { K20, K21, K22, K23, K24, K25, K26, K27 }, \
+  { K28, K29, K2A, K2B, K2C, K2D, K2E, K2F }, \
+  { K30, K31, K32, K33, KC_NO,    K35, K36, K37 }, \
+  { K38, K39, K3A, K3B, K3C, K3D, K3E, KC_NO    }, \
+  { KC_NO,    K41, KC_NO,    K43, KC_NO,    K45, KC_NO,    K47 }, \
+  { KC_NO,    KC_NO,    KC_NO,    K4B, K4C, KC_NO,    K4E, KC_NO    }, \
+  { KC_NO,    K51, K52, K53, K54, K55, K56, K57 }, \
+  { K58, K59, KC_NO,    K5B, K5C, KC_NO,    KC_NO,    KC_NO    }, \
+  { KC_NO,    KC_NO,    KC_NO,    KC_NO   , KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+  { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+  { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+  { KC_NO   , KC_NO,    KC_NO   , K7B, KC_NO,    KC_NO,    KC_NO,    K7F }  \
 }
 
 /* M0118 Apple Standard Keyboard ISO
@@ -216,22 +216,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
    K38,K0A,K06,K07,K08,K09,K0B,K2D,K2E,K2B,K2F,K2C,K7B,K3E, K53,K54,K55,     \
    K36,K3A,K37,            K31,                K3B,K3C,K3D, K52,    K41,K4C  \
 ) { \
-  { ##K00, ##K01, ##K02, ##K03, ##K04, ##K05, ##K06, ##K07 }, \
-  { ##K08, ##K09, ##K0A, ##K0B, ##K0C, ##K0D, ##K0E, ##K0F }, \
-  { ##K10, ##K11, ##K12, ##K13, ##K14, ##K15, ##K16, ##K17 }, \
-  { ##K18, ##K19, ##K1A, ##K1B, ##K1C, ##K1D, ##K1E, ##K1F }, \
-  { ##K20, ##K21, ##K22, ##K23, ##K24, ##K25, ##K26, ##K27 }, \
-  { ##K28, ##K29, ##K2A, ##K2B, ##K2C, ##K2D, ##K2E, ##K2F }, \
-  { ##K30, ##K31, NO,    ##K33, NO,    ##K35, ##K36, ##K37 }, \
-  { ##K38, ##K39, ##K3A, ##K3B, ##K3C, ##K3D, ##K3E, NO    }, \
-  { NO,    ##K41, NO,    ##K43, NO,    ##K45, NO,    ##K47 }, \
-  { NO,    NO,    NO,    ##K4B, ##K4C, NO,    ##K4E, NO    }, \
-  { NO,    ##K51, ##K52, ##K53, ##K54, ##K55, ##K56, ##K57 }, \
-  { ##K58, ##K59, NO,    ##K5B, ##K5C, NO,    NO,    NO    }, \
-  { NO,    NO,    NO,    NO   , NO,    NO,    NO,    NO    }, \
-  { NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO    }, \
-  { NO,    NO,    NO,    NO,    NO,    NO,    NO,    NO    }, \
-  { NO   , NO,    NO   , ##K7B, NO,    NO,    NO,    ##K7F }  \
+  { K00, K01, K02, K03, K04, K05, K06, K07 }, \
+  { K08, K09, K0A, K0B, K0C, K0D, K0E, K0F }, \
+  { K10, K11, K12, K13, K14, K15, K16, K17 }, \
+  { K18, K19, K1A, K1B, K1C, K1D, K1E, K1F }, \
+  { K20, K21, K22, K23, K24, K25, K26, K27 }, \
+  { K28, K29, K2A, K2B, K2C, K2D, K2E, K2F }, \
+  { K30, K31, KC_NO,    K33, KC_NO,    K35, K36, K37 }, \
+  { K38, K39, K3A, K3B, K3C, K3D, K3E, KC_NO    }, \
+  { KC_NO,    K41, KC_NO,    K43, KC_NO,    K45, KC_NO,    K47 }, \
+  { KC_NO,    KC_NO,    KC_NO,    K4B, K4C, KC_NO,    K4E, KC_NO    }, \
+  { KC_NO,    K51, K52, K53, K54, K55, K56, K57 }, \
+  { K58, K59, KC_NO,    K5B, K5C, KC_NO,    KC_NO,    KC_NO    }, \
+  { KC_NO,    KC_NO,    KC_NO,    KC_NO   , KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+  { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+  { KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO    }, \
+  { KC_NO   , KC_NO,    KC_NO   , K7B, KC_NO,    KC_NO,    KC_NO,    K7F }  \
 }
 
 #endif
