@@ -6,6 +6,38 @@
 // readability
 #define ____ KC_NO
 
+/*
+ * LAYOUT OPTIONS
+ *
+ * Not all of these options are supported by the plates offered during the
+ * October 2017 group buy, but all of them are supported by the PCB.
+ *
+ * See the pull request for more information:
+ *   https://github.com/qmk/qmk_firmware/pull/3426
+ *
+ *
+ * Backspace
+ *   - Split Backspace = K013 and K014
+ *   - 2u Backspace = K014, delete K013
+ *
+ * Enter
+ *   - ANSI Enter = K214, delete K212 (KC_NUHS)
+ *   - ISO Enter = K214, delete K114 (ANSI Backslash)
+ *
+ * Left Shift
+ *   - ANSI 2.25u: K300, delete K301 (KC_NUBS)
+ *   - ISO 1.25u: K300, K301 is KC_NUBS
+ *
+ * Right Shift:
+ *   - Full 2.75u = K313, delete K312 and K314
+ *   - Split 1.75u + 1u = K312 and K314, delete K313
+ *
+ * Right Ctrl
+ *   - K412 in the default keymap, but not supported with the plates offered
+ *     during the October 2017 group buy.
+ *
+ */
+
 #define LAYOUT_all( \
     K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, \
     K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112,       K114, K115, \
