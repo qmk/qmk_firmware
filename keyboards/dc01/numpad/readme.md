@@ -1,15 +1,15 @@
-# numpad
+# DC01 Numpad
 
-![numpad](imgur.com image replace me!)
+![DC01 Numpad](https://i.imgur.com/PTn0sp8.jpg)
 
-A short description of the keyboard/project
+A hotpluggable four part keyboard which comes together with magnets and pogo pins! This is the numpad
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [You](https://github.com/yiancar)  
+Hardware Supported: Runs on an atmega32u4  
+Hardware Availability: [Mechboards](https://mechboards.co.uk/)  
 
 Make example for this keyboard (after setting up your build environment):
 
-    make numpad:default
+    make dc01/numpad:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
