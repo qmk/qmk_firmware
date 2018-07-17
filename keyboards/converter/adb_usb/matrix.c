@@ -337,3 +337,6 @@ static void register_key(uint8_t key)
         matrix[row] |=  (1<<col);
     }
 }
+void matrix_print(void){//yes, this seems to be needed. No, I do not know why exactly.
+
+}
