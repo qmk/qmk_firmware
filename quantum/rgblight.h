@@ -76,6 +76,10 @@
 #include "rgblight_types.h"
 #include "rgblight_list.h"
 
+#if defined(__AVR__)
+    #include <avr/pgmspace.h>
+#endif
+
 extern LED_TYPE led[RGBLED_NUM];
 
 extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
