@@ -184,7 +184,7 @@ If you define these options you will enable the associated feature, which may in
 Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk
 
 * `#define SPLIT_HAND_PIN B7`
-  * For using high/low pin to determine handedness, low = right hand, high = left hand
+  * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace 'B7' with the pin you are using. This is optional and you can still use the EEHANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
   
 * `#define USE_I2C`
   * For using I2C instead of Serial (defaults to serial)
