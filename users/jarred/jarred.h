@@ -37,14 +37,14 @@
 
 /* Qwerty Layer */
 #define QWERTY_1   KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, KC_BSPC
-#define QWERTY_2   MO(_NV),    MS_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT
+#define QWERTY_2   MO(_NV),    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT
 #define QWERTY_3   KC_LSFT,    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, KC_RSFT
 #define QWERTY_4   KC_LCTL, KC_LGUI, MO(_NP), KC_LALT, MO(_LW),  KC_SPC,  KC_ENT, MO(_LW), KC_RALT, MO(_MS),  KC_APP, KC_RCTL
 
 /* Lower / Upper Layer */
 #define LOWER_1    KC_ESC ,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______
 #define LOWER_2    _______,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5, KC_F11,  KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS
-#define LOWER_3    _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, KC_F12,  KC_GRV,  _______, _______, _______, _______
+#define LOWER_3    _______,   KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, 							KC_F12,  KC_GRV,  _______, _______, _______, _______
 #define LOWER_4    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 
 /* Navigation Layer */
@@ -59,6 +59,7 @@
 #define NUMPAD_3   _______, _______, _______, _______, RGB_VAD, RGB_VAI, _______, KC_P1,   KC_P2,   KC_P3,   KC_PAST, KC_ENT 
 #define NUMPAD_4     RESET, _______, _______, _______, _______, _______, _______, KC_P0,   XXXXXXX, KC_PDOT, KC_PSLS, KC_ENT 
 
+/* Mouse Layer */
 #define MOUSE_1    _______, _______, _______, _______, _______, _______, _______, KC_WH_U, KC_MS_U, KC_WH_D, _______, _______
 #define MOUSE_2    _______, _______, KC_ACL1, KC_ACL0, KC_BTN1, KC_BTN2, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______
 #define MOUSE_3    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
