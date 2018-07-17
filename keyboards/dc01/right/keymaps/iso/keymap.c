@@ -15,25 +15,14 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT_numpad_5x4(
-    TG(1),   KC_PSLS, KC_PAST, KC_PMNS, \
-    KC_P7,   KC_P8,   KC_P9,            \
-    KC_P4,   KC_P5,   KC_P6,   KC_PPLS, \
-    KC_P1,   KC_P2,   KC_P3,            \
-      KC_P0,          KC_PDOT, KC_PENT  \
-  ),
-
-  [1] = LAYOUT_numpad_5x4(
-    _______, _______, _______, _______, \
-    KC_HOME, KC_UP,   KC_PGUP,          \
-    KC_LEFT, XXXXXXX, KC_RGHT, _______, \
-    KC_END,  KC_DOWN, KC_PGDN,          \
-      KC_INS,         KC_DEL,  _______  \
-  ),
+[0] = LAYOUT_ISO( /* Base */
+            KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS, KC_EQL, KC_BSPC, \
+    KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC, KC_RBRC,         \
+    KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT, KC_NUHS,KC_ENT,  \
+    KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,                 KC_RSFT, \
+    KC_SPC,    KC_SPC,     KC_RALT, KC_RGUI,     KC_RGUI,    KC_RCTL  \
+),
 };
 
 void matrix_init_user(void) {
@@ -46,8 +35,4 @@ void matrix_scan_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
 }
