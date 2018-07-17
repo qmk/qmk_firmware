@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "i2c_slave.h"
 #include "lufa.h"
 
-#define SLAVE_I2C_ADDRESS 0x32
+#define SLAVE_I2C_ADDRESS 0x19
 
 /* Set 0 if debouncing isn't needed */
 
@@ -202,9 +202,10 @@ uint8_t matrix_scan(void)
         }
 #   endif
 		
-		if (USB_DeviceState != DEVICE_STATE_Configured){	
+		if (USB_DeviceState != DEVICE_STATE_Configured){
+            txbuffer[1] = 0x55;
 			for (uint8_t i = 0; i < MATRIX_ROWS; i++){
-				txbuffer[i] = matrix[i]; //send matrix over i2c
+				txbuffer[i+2] = matrix[i]; //send matrix over i2c
 			}
 		}
 	

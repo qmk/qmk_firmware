@@ -1,5 +1,5 @@
 SRC += matrix.c \
-      i2c.c
+      ../../../drivers/avr/i2c_master.c
 
 # MCU name
 #MCU = at90usb1286
