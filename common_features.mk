@@ -210,5 +210,17 @@ QUANTUM_SRC:= \
     $(QUANTUM_DIR)/process_keycode/process_leader.c
 
 ifndef CUSTOM_MATRIX
-    QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
+    ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
+    else
+        QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
+    endif
+endif
+
+ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    OPT_DEFS += -DSPLIT_KEYBOARD
+    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
+                $(QUANTUM_DIR)/split_common/split_util.c \
+                $(QUANTUM_DIR)/split_common/i2c.c \
+                $(QUANTUM_DIR)/split_common/serial.c  
 endif
