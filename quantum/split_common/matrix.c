@@ -287,7 +287,7 @@ int serial_transaction(void) {
         matrix[slaveOffset+i] = serial_slave_buffer[i];
     }
     
-    #ifdeb RGBLIGHT_ENABLE
+    #ifdef RGBLIGHT_ENABLE
         // Code to send RGB over serial goes here (not implemented yet)
     #endif
     
@@ -295,7 +295,7 @@ int serial_transaction(void) {
         // Write backlight level for slave to read
         serial_master_buffer[SERIAL_BACKLIT_START] = backlight_config.enable ? backlight_config.level : 0;
     #endif
-    
+
     return 0;
 }
 #endif
