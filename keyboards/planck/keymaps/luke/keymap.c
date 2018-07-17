@@ -1,18 +1,18 @@
 /*
  * A keyboard layout for the gridded planck.
- * 
+ *
  * Copyright (C) 2017 Luke Silva
- * 
+ *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * as published by the Free Software Foundation; either version 2
  * of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
@@ -31,7 +31,7 @@
  * through either double purpose modifiers or colemak style rolling for commonly used symbol clusters
  * Eg: compare colemak 'this' to '(){\n}' on the symbol layer.
  *
- * The layout also supports a range of multilingual characters, covering those 
+ * The layout also supports a range of multilingual characters, covering those
  * needed for French, German, Swedish and likely some other European Languages.
  * In the future full support for Colemak's multilingual deadkeys may be introduced.
  *
@@ -41,6 +41,7 @@
  */
 
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 
 #define _______ KC_TRNS
@@ -61,10 +62,10 @@
 // Macro ID numbers
 #define M_ALT_HASH 1
 #define M_GR_DASH  2
-#define M_SYM_LPRN 3 
-#define M_NAV_UNDS 4 
-#define M_NUM_RPRN 5 
-#define M_CTRL_DLR 6 
+#define M_SYM_LPRN 3
+#define M_NAV_UNDS 4
+#define M_NUM_RPRN 5
+#define M_CTRL_DLR 6
 #define M_LCBR_ENT 7
 #define M_PLOVER   8
 #define M_EXT_PLV  9
@@ -76,7 +77,7 @@
 #define M_CATCH    15
 
 // Macro keys
-#define ALT_HASH MACROTAP(M_ALT_HASH)   // tap for #, hold for Alt 
+#define ALT_HASH MACROTAP(M_ALT_HASH)   // tap for #, hold for Alt
 #define GR_DASH  MACROTAP(M_GR_DASH)    // tap for -, hold for GR layer            a-class-name
 #define SYM_LPRN MACROTAP(M_SYM_LPRN)   // tap for (, hold for symbols layer       if()
 #define NAV_UNDS MACROTAP(M_NAV_UNDS)   // tap for _, hold for navigation layer    snake_case_variable
@@ -123,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 
 
- 
+
 /* QWERTY
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
@@ -155,7 +156,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      | Sym  |  _   |Space | NUM  |  X2  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
- 
+
 [_SYM] = {
   {KC_TAB,  KC_GRV,  KC_AT,   KC_SLSH, KC_ASTR, KC_CIRC, KC_PERC, KC_COLN, KC_PLUS, KC_MINS, KC_DEL,  KC_BSPC},
   {FUNCTION,KC_LBRC, KC_SCLN, KC_RCBR, KC_LPRN, KC_DQT,  KC_QUOT, KC_RPRN, LCBR_ENT,KC_EXLM, KC_RBRC, KC_BSLS},
@@ -175,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |  GR  | SYM  |  _   |Space | NUM  |  0   |  .   |  f   |      |
  * `-----------------------------------------------------------------------------------'
  */
- 
+
 [_NUM] = {
   {KC_TAB,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
   {KC_BSPC, KC_X,    S(KC_D), S(KC_E), S(KC_F), KC_PLUS, KC_MINS, KC_4,    KC_5,    KC_6,    KC_0,    KC_ENT },
@@ -195,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
- 
+
 [_GR] = {
   {_______,  UC(0xE4),UC(0xE5), _______,UC(0xA2), UC(0x20AC),_______,UC(0xEB),UC(0xEA),UC(0xFC),UC(0xF9), _______},
   {_______,  UC(0xE2),UC(0xE0),UC(0xDF), _______, _______,   _______,UC(0xE8),UC(0xE9),UC(0xEF),UC(0xF6), _______},
@@ -223,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
- 
+
 [_ADJ] = {
   {KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12 },
   {XXXXXXX, XXXXXXX, KC_PSCR, KC_ESC,  KC_VOLU, KC_MPLY, KC_MPRV, QWERTY,  COLEMAK, PLOVER,  XXXXXXX, XXXXXXX},
@@ -243,7 +244,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |  _   |Space | ACL0 | ACL1 | ACL2 |      |TGLNAV|
  * `-----------------------------------------------------------------------------------'
  */
- 
+
 [_NAV] = {
   {XXXXXXX, XXXXXXX, KC_BTN3, KC_BTN2, KC_BTN1, XXXXXXX, KC_ACL0, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_BSPC},
   {XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, XXXXXXX, KC_ACL1, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT,KC_ENT },
@@ -312,16 +313,16 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
         layer_and(0);
         layer_on(_PLOVER);
         default_layer_set(_PLOVER);
-        
+
         // Starts plover
         return MACRO(I(10), D(E), D(R), D(F), D(V), D(I), D(K), U(E), U(R), U(F), U(V), U(I), U(K), END);
       }
-      break;    
+      break;
     case M_EXT_PLV:
       if (!record->event.pressed) {
         layer_off(_PLOVER);
         default_layer_set(_COLEMAK);
-        
+
         //Pauses plover
         return MACRO(I(10), D(E), D(R), D(F), D(V), D(Y), D(U), U(E), U(R), U(F), U(V), U(Y), U(U), END);
       }

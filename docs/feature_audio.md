@@ -3,6 +3,7 @@
 Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any AVR keyboard that allows access to certain PWM-capable pins, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
 Up to two simultaneous audio voices are supported, one driven by timer 1 and another driven by timer 3.  The following pins can be defined as audio outputs in config.h:
+
 Timer 1:
 `#define B5_AUDIO`
 `#define B6_AUDIO`
@@ -57,6 +58,13 @@ PLAY_LOOP(my_song);
 ```
 
 It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif` to avoid causing problems when audio isn't built into the keyboard.
+
+The available keycodes for audio are: 
+
+* `AU_ON` - Turn audio mode on
+* `AU_OFF` - Turn audio mode off
+* `AU_TOG` - Toggle audio mode
+
 
 ## Music Mode
 
@@ -144,6 +152,23 @@ You can configure the default, min and max frequencies, the stepping and built i
 ## MIDI Functionality
 
 This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
+
+
+## Audio Keycodes
+
+|Key             |Aliases  |Description                       |
+|----------------|---------|----------------------------------|
+|`AU_ON`         |         |Audio mode on                     |
+|`AU_OFF`        |         |Audio mode off                    |
+|`AU_TOG`        |         |Toggles Audio mode                |
+|`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
+|`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
+|`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
+|`CLICKY_RESET`  |`CK_RST` |Resets frequency to default       |
+|`MU_ON`         |         |Turns on Music Mode               |
+|`MU_OFF`        |         |Turns off Music Mode              |
+|`MU_TOG`        |         |Toggles Music Mode                |
+|`MU_MOD`        |         |Cycles through the music modes    |
 
 <!-- FIXME: this formatting needs work
 
