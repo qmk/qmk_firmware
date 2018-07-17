@@ -114,6 +114,7 @@ void keyboard_slave_loop(void) {
         #else // USE_SERIAL
             if (BACKLIT_DIRTY) {
                 backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
+                BACKLIT_DIRTY = false;
             }
         #endif
     #endif
