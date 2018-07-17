@@ -31,6 +31,20 @@ The reason for this, is that `<name>.h` won't be added in time to add settings (
 
 So you should use the `config.h` for QMK settings, and the `<name>.h` file for user or keymap specific settings.
 
+`/users/<name>/rules.mk` will be included in the build _after_ the `rules.mk` from your keymap. This allows you to have features in your userspace `rules.mk` that depend on individual QMK features that may or may not be available on a specific keyboard. For example, if you have RGB control features shared between all your keyboards that support RGB lighting, you can `define RGB_ENABLE` in your keymap `rules.mk` and then check for the variable in your userspace `rules.mk` like this:
+```make
+ifdef RGB_ENABLE
+    # Include my fancy rgb functions source here
+endif
+```
+Because of this, any time you turn on QMK features in your `users/<name>/rules.mk`, you should conditionally enable them only if the flag isn't already defined, like this:
+```make
+ifndef TAP_DANCE_ENABLE
+    TAP_DANCE_ENABLE = yes
+endif
+```
+This will ensure that you can explicitly turn off features for an individual keymap.
+
 ## Readme
 
 Please include authorship (your name, github username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
