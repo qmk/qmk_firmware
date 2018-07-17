@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define ONESHOT_TAP_TOGGLE 2
-
 #define MY_ESC LT(1, KC_ESC)
 #define MY_ENT LT(1, KC_ENT)
 #define MY_APP LT(2, KC_APP)
