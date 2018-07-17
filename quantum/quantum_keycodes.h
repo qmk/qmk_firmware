@@ -590,7 +590,7 @@ enum quantum_keycodes {
 #define RGB_M_T RGB_MODE_RGBTEST
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
-#define LT(layer, kc) (kc | QK_LAYER_TAP | ((layer & 0xF) << 8))
+#define LT(layer, kc) (QK_LAYER_TAP | ((layer & 0xF) << 8) | (kc & 0xFF))
 
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
@@ -602,32 +602,32 @@ enum quantum_keycodes {
 // Unless you have a good reason not to do so, prefer  ON_PRESS (1) as your default.
 // In fact, we changed it to assume ON_PRESS for sanity/simplicity. If needed, you can add your own
 // keycode modeled after the old version, kept below for this.
-/* #define TO(layer, when) (layer | QK_TO | (when << 0x4)) */
-#define TO(layer) (layer | QK_TO | (ON_PRESS << 0x4))
+/* #define TO(layer, when) (QK_TO | (when << 0x4) | (layer & 0xFF)) */
+#define TO(layer) (QK_TO | (ON_PRESS << 0x4) | (layer & 0xFF))
 
 // Momentary switch layer - 256 layer max
-#define MO(layer) (layer | QK_MOMENTARY)
+#define MO(layer) (QK_MOMENTARY | (layer & 0xFF))
 
 // Set default layer - 256 layer max
-#define DF(layer) (layer | QK_DEF_LAYER)
+#define DF(layer) (QK_DEF_LAYER | (layer & 0xFF))
 
 // Toggle to layer - 256 layer max
-#define TG(layer) (layer | QK_TOGGLE_LAYER)
+#define TG(layer) (QK_TOGGLE_LAYER | (layer & 0xFF))
 
 // One-shot layer - 256 layer max
-#define OSL(layer) (layer | QK_ONE_SHOT_LAYER)
+#define OSL(layer) (QK_ONE_SHOT_LAYER | (layer & 0xFF))
 
 // L-ayer M-od: Momentary switch layer with modifiers active - 16 layer max, left mods only
 #define LM(layer, mod) (QK_LAYER_MOD | (((layer) & 0xF) << 4) | ((mod) & 0xF))
 
 // One-shot mod
-#define OSM(mod) ((mod) | QK_ONE_SHOT_MOD)
+#define OSM(mod) (QK_ONE_SHOT_MOD | (mod & 0xFF))
 
 // Layer tap-toggle
-#define TT(layer) (layer | QK_LAYER_TAP_TOGGLE)
+#define TT(layer) (QK_LAYER_TAP_TOGGLE | (layer & 0xFF))
 
 // M-od, T-ap - 256 keycode max
-#define MT(mod, kc) (kc | QK_MOD_TAP | (((mod) & 0x1F) << 8))
+#define MT(mod, kc) (QK_MOD_TAP | (((mod) & 0x1F) << 8) | (kc & 0xFF))
 
 #define CTL_T(kc) MT(MOD_LCTL, kc)
 #define LCTL_T(kc) MT(MOD_LCTL, kc)
