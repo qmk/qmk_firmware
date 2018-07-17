@@ -60,7 +60,6 @@ static inline void place_bit1(void);
 static inline void send_byte(uint8_t data);
 static inline uint16_t wait_data_lo(uint16_t us);
 static inline uint16_t wait_data_hi(uint16_t us);
-static inline uint16_t adb_host_dev_recv(uint8_t device);
 
 
 void adb_host_init(void)
@@ -87,49 +86,9 @@ bool adb_host_psw(void)
  * <http://geekhack.org/index.php?topic=14290.msg1068919#msg1068919>
  * <http://geekhack.org/index.php?topic=14290.msg1070139#msg1070139>
  */
-
-// ADB Bit Cells
-//
-// bit cell time: 70-130us
-// low part of bit0: 60-70% of bit cell
-// low part of bit1: 30-40% of bit cell
-//
-//    bit cell time         70us        130us
-//    --------------------------------------------
-//    low  part of bit0     42-49       78-91
-//    high part of bit0     21-28       39-52
-//    low  part of bit1     21-28       39-52
-//    high part of bit1     42-49       78-91
-//
-//
-// bit0:
-//    70us bit cell:
-//      ____________~~~~~~
-//      42-49        21-28  
-//
-//    130us bit cell:
-//      ____________~~~~~~
-//      78-91        39-52  
-//
-// bit1:
-//    70us bit cell:
-//      ______~~~~~~~~~~~~
-//      21-28        42-49
-//
-//    130us bit cell:
-//      ______~~~~~~~~~~~~
-//      39-52        78-91
-//
-// [from Apple IIgs Hardware Reference Second Edition]
-
-enum {
-    ADDR_KEYB  = 0x20,
-    ADDR_MOUSE = 0x30
-};
-
-uint16_t adb_host_kbd_recv(void)
+uint16_t adb_host_kbd_recv(uint8_t addr)
 {
-    return adb_host_dev_recv(ADDR_KEYB);
+    return adb_host_talk(addr, ADB_REG_0);
 }
 
 #ifdef ADB_MOUSE_ENABLE
@@ -139,16 +98,16 @@ void adb_mouse_init(void) {
 
 uint16_t adb_host_mouse_recv(void)
 {
-    return adb_host_dev_recv(ADDR_MOUSE);
+    return adb_host_talk(ADB_ADDR_MOUSE, ADB_REG_0);
 }
 #endif
 
-static inline uint16_t adb_host_dev_recv(uint8_t device)
+uint16_t adb_host_talk(uint8_t addr, uint8_t reg)
 {
     uint16_t data = 0;
     cli();
     attention();
-    send_byte(device|0x0C);     // Addr:Keyboard(0010)/Mouse(0011), Cmd:Talk(11), Register0(00)
+    send_byte((addr<<4) | (ADB_CMD_TALK<<2) | reg);
     place_bit0();               // Stopbit(0)
     if (!wait_data_hi(500)) {    // Service Request(310us Adjustable Keyboard): just ignored
         sei();
@@ -158,20 +117,20 @@ static inline uint16_t adb_host_dev_recv(uint8_t device)
         sei();
         return 0;               // No data to send
     }
-    
+
     uint8_t n = 17; // start bit + 16 data bits
     do {
         uint8_t lo = (uint8_t) wait_data_hi(130);
         if (!lo)
             goto error;
-        
+
         uint8_t hi = (uint8_t) wait_data_lo(lo);
         if (!hi)
             goto error;
-        
+
         hi = lo - hi;
         lo = 130 - lo;
-        
+
         data <<= 1;
         if (lo < hi) {
             data |= 1;
@@ -197,27 +156,27 @@ error:
     return -n;
 }
 
-void adb_host_listen(uint8_t cmd, uint8_t data_h, uint8_t data_l)
+void adb_host_listen(uint8_t addr, uint8_t reg, uint8_t data_h, uint8_t data_l)
 {
     cli();
     attention();
-    send_byte(cmd);
+    send_byte((addr<<4) | (ADB_CMD_LISTEN<<2) | reg);
     place_bit0();               // Stopbit(0)
     _delay_us(200);             // Tlt/Stop to Start
     place_bit1();               // Startbit(1)
-    send_byte(data_h); 
+    send_byte(data_h);
     send_byte(data_l);
     place_bit0();               // Stopbit(0);
     sei();
 }
 
 // send state of LEDs
-void adb_host_kbd_led(uint8_t led)
+void adb_host_kbd_led(uint8_t addr, uint8_t led)
 {
-    // Addr:Keyboard(0010), Cmd:Listen(10), Register2(10)
-    // send upper byte (not used)
-    // send lower byte (bit2: ScrollLock, bit1: CapsLock, bit0:
-    adb_host_listen(0x2A,0,led&0x07);
+    // Listen Register2
+    //  upper byte: not used
+    //  lower byte: bit2=ScrollLock, bit1=CapsLock, bit0=NumLock
+    adb_host_listen(addr, 2, 0, led & 0x07);
 }
 
 
@@ -366,7 +325,7 @@ Commands
 
     bits                commands
     ------------------------------------------------------
-    - - - - 0 0 0 0     Send Request(reset all devices)
+    - - - - 0 0 0 0     Send Reset(reset all devices)
     A A A A 0 0 0 1     Flush(reset a device)
     - - - - 0 0 1 0     Reserved
     - - - - 0 0 1 1     Reserved
@@ -375,7 +334,7 @@ Commands
     A A A A 1 1 R R     Talk(read from a device)
 
     The command to read keycodes from keyboard is 0x2C which
-    consist of keyboard address 2 and Talk against register 0. 
+    consist of keyboard address 2 and Talk against register 0.
 
     Address:
     2:  keyboard
@@ -457,7 +416,7 @@ Keyboard Data(Register0)
 Keyboard LEDs & state of keys(Register2)
     This register hold current state of three LEDs and nine keys.
     The state of LEDs can be changed by sending Listen command.
-    
+
     1514 . . . . . . 7 6 5 . 3 2 1 0
      | | | | | | | | | | | | | | | +-   LED1(NumLock)
      | | | | | | | | | | | | | | +---   LED2(CapsLock)
@@ -473,6 +432,57 @@ Keyboard LEDs & state of keys(Register2)
      | | +---------------------------   CapsLock
      | +-----------------------------   Delete
      +-------------------------------   Reserved
+
+Address, Handler ID and bits(Register3)
+    1514131211 . . 8 7 . . . . . . 0
+     | | | | | | | | | | | | | | | |
+     | | | | | | | | +-+-+-+-+-+-+-+-   Handler ID
+     | | | | +-+-+-+-----------------   Address
+     | | | +-------------------------   0
+     | | +---------------------------   Service request enable(1 = enabled)
+     | +-----------------------------   Exceptional event(alwyas 1 if not used)
+     +-------------------------------   0
+
+ADB Bit Cells
+    bit cell time: 70-130us
+    low part of bit0: 60-70% of bit cell
+    low part of bit1: 30-40% of bit cell
+
+       bit cell time         70us        130us
+       --------------------------------------------
+       low  part of bit0     42-49       78-91
+       high part of bit0     21-28       39-52
+       low  part of bit1     21-28       39-52
+       high part of bit1     42-49       78-91
+
+
+    bit0:
+       70us bit cell:
+         ____________~~~~~~
+         42-49        21-28
+
+       130us bit cell:
+         ____________~~~~~~
+         78-91        39-52
+
+    bit1:
+       70us bit cell:
+         ______~~~~~~~~~~~~
+         21-28        42-49
+
+       130us bit cell:
+         ______~~~~~~~~~~~~
+         39-52        78-91
+
+    [from Apple IIgs Hardware Reference Second Edition]
+
+Keyboard Handle ID
+    Apple Standard Keyboard M0116:      0x01
+    Apple Extended Keyboard M0115:      0x02
+    Apple Extended Keyboard II M3501:   0x02
+    Apple Adjustable Keybaord:          0x10
+
+    http://lxr.free-electrons.com/source/drivers/macintosh/adbhid.c?v=4.4#L802
 
 END_OF_ADB
 */

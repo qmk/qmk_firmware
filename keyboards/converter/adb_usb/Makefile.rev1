@@ -1,0 +1,3 @@
+TARGET = adb_usb_rev1
+MCU = atmega32u4
+include Makefile
