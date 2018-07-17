@@ -15,12 +15,16 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
+#include QMK_KEYBOARD_CONFIG_H
+
 
 #ifdef RGBLIGHT_ENABLE
 #undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 16
+#define RGBLED_NUM 12
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
@@ -73,6 +77,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         L30, L31, L32, L33, L34, L35, L36, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, \
         L40, L41, L42, L43, L44, L45, L46, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO \
     )
+
+#endif
 
 #define QMK_ESC_OUTPUT F5 // usually COL
 #define QMK_ESC_INPUT D4 // usually ROW
