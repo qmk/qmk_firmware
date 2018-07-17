@@ -101,35 +101,44 @@ void keyboard_slave_loop(void) {
    #endif
 
    while (1) {
-      matrix_slave_scan();
-      
-      // read backlight info
+    // Matrix Slave Scan
+    matrix_slave_scan();
+    
+    // Read Backlight Info
     #ifdef BACKLIGHT_ENABLE
         if (BACKLIT_DIRTY) {
-            backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
+            #ifdef USE_I2C
+                backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
+            #else // USE_SERIAL
+                backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
+            #endif
             BACKLIT_DIRTY = false;
         }
     #endif
+    // Read RGB Info
     #ifdef RGBLIGHT_ENABLE
-        if (RGB_DIRTY) {
-            cli();
-            uint32_t dword;
-            
-            /*dword = i2c_slave_buffer[I2C_RGB_START + 3];
-            dword = (dword << 8) + i2c_slave_buffer[I2C_RGB_START + 2];
-            dword = (dword << 8) + i2c_slave_buffer[I2C_RGB_START + 1];
-            dword = (dword << 8) + i2c_slave_buffer[I2C_RGB_START];*/
-            
-            
-            uint8_t *dword_dat = (uint8_t *)(&dword);
-            for (int i = 0; i < 4; i++) {
-                dword_dat[i] = i2c_slave_buffer[I2C_RGB_START+i];
+        #ifdef USE_I2C
+            if (RGB_DIRTY) {
+                // Disable interupts (RGB data is big)
+                cli();
+                // Create new DWORD for RGB data
+                uint32_t dword; 
+                
+                // Fill the new DWORD with the data that was sent over
+                uint8_t *dword_dat = (uint8_t *)(&dword);
+                for (int i = 0; i < 4; i++) {
+                    dword_dat[i] = i2c_slave_buffer[I2C_RGB_START+i];
+                }
+                
+                // Update the RGB now with the new data and set RGB_DIRTY to false
+                rgblight_update_dword(dword);
+                RGB_DIRTY = false;
+                // Re-enable interupts now that RGB is set
+                sei();
             }
-
-            rgblight_update_dword(dword);
-            RGB_DIRTY = false;
-            sei();
-        }
+        #else // USE_SERIAL
+            // Add serial implementation for RGB here
+        #endif
     #endif
    }
 }

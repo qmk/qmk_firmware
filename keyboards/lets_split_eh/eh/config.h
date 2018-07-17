@@ -21,6 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // To let configuration know this is of type EH, which will force I2C irregardless of user config
 #define EH
+// The 'EH' only uses I2C
+#define USE_I2C
 
 #include "config_common.h"
 
