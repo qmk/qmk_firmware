@@ -6,6 +6,7 @@ For this purpose, I collected them here.
 I have the following keymaps:
 
 * Gherkin (Does not use the user space)
+* XD75RE (Uses different keymap)
 * Let's Split
 * Let's Split It Up
 * Planck

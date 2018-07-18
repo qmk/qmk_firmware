@@ -14,6 +14,12 @@
 #include "rgblight.h"
 #endif
 
+/*-------------*\
+|*---UNICODE---*|
+\*-------------*/
+#ifdef UNICODE_ENABLE
+#endif
+
 /*-----------------*\
 |*-----SECRETS-----*|
 \*-----------------*/
@@ -179,7 +185,9 @@ void matrix_init_user (void) {
     matrix_init_keymap();
 
     // Correct unicode
+#ifdef UNICODE_ENABLE
     set_unicode_input_mode(UC_LNX);
+#endif
 
     // Make beginning layer DVORAK
     set_single_persistent_default_layer(_DV);
@@ -207,7 +215,6 @@ void matrix_init_user (void) {
 void matrix_scan_user (void) {
     // Keymap specific, do it first
     matrix_scan_keymap();
-    // Moved RGB check to layer_state_set_user
 }
 
 /*------------------*\
@@ -241,7 +248,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-#endif
+#endif 
+
         // If these keys are pressed, load base layer config, and mark saving
 #ifdef RGBLIGHT_ENABLE
         case RGB_TOG:
@@ -268,7 +276,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
         case K_MOUSE:
-#ifdef MOUSEKEY_ENABLE
             if (record->event.pressed) {
                 layer_on(_MO);
                 lock_flag = false;
@@ -279,7 +286,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     layer_off(_MO);
                 }
             }
-#endif
             return false;
             break;
         case K_NUMBR:
@@ -321,7 +327,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
         case MU_TOG:
-#ifdef AUDIO_ENABLE
             if (record->event.pressed) {
                 // On press, turn off layer if active
                 if ( layer == _SE ) {
@@ -331,14 +336,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     layer_off(_MU);
                 }
             }
-#endif
             return true;
             break;
 
 //------UNICODE
         // Unicode switches with sound
-        case UNI_LI:
 #ifdef UNICODE_ENABLE
+        case UNI_LI:
             if (record->event.pressed) {
 #ifdef AUDIO_ENABLE
                 stop_all_notes();
@@ -346,11 +350,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
                 set_unicode_input_mode(UC_LNX);
             }
-#endif
             return false;
             break;
         case UNI_WN:
-#ifdef UNICODE_ENABLE
             if (record->event.pressed) {
 #ifdef AUDIO_ENABLE
                 stop_all_notes();
@@ -358,12 +360,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
                 set_unicode_input_mode(UC_WIN);
             }
-#endif
             return false;
             break;
 
         // Turkish letters, with capital functionality
-#ifdef UNICODE_ENABLE
         case TUR_A:
             if (record->event.pressed) {
                 if ( is_capital ) {

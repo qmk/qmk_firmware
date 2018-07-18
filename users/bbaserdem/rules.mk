@@ -2,11 +2,13 @@ SRC += bbaserdem.c
 EXTRAFLAGS += -flto			# Used to make code smaller
 
 # ENABLE
-UNICODE_ENABLE = yes		# Used for unicode character emulation
-EXTRAKEY_ENABLE = yes		# OS signals like volume control
+UNICODE_ENABLE = yes	# Used for unicode character emulation
+EXTRAKEY_ENABLE = yes 	# OS signals like volume control
 
 # DISABLE
-BLUETOOTH_ENABLE = no 		# No bluetooth
+ifndef BLUETOOTH_ENABLE 
+	BLUETOOTH_ENABLE = no 	# No bluetooth
+endif
 COMMAND_ENABLE = no			# Some bootmagic thing i dont use
 BOOTMAGIC_ENABLE = no 		# Access to EEPROM settings, not needed
 CONSOLE_ENABLE = no			# Allows console output with a command

@@ -20,18 +20,17 @@ uint32_t layer_state_set_keymap(uint32_t state) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Main Dvorak layer
-    [_DV] = DVORAK,
+    [_DV] = LAYOUT_letssplit_wrapper(DVORAK),
     // Turkish and special character overlay
-    [_AL] = ALTCHAR,
+    [_AL] = LAYOUT_letssplit_wrapper(ALTCHAR),
     // Gaming layer
-    [_GA] = GAME,
+    [_GA] = LAYOUT_letssplit_wrapper(GAME),
     // Numbers layer
-    [_NU] = NUMBERS,
+    [_NU] = LAYOUT_letssplit_wrapper(NUMBERS),
     // Settings layer
-    [_SE] = SETTINGS,
+    [_SE] = LAYOUT_letssplit_wrapper(SETTINGS),
     // Mouse emulation layer
-    [_MO] = MOUSE,
-#ifdef AUDIO_ENABLE
-    [_MU] = MUSIC,
-#endif
+    [_MO] = LAYOUT_letssplit_wrapper(MOUSE),
+    // Music layer
+    [_MU] = LAYOUT_letssplit_wrapper(MUSIC),
 };
