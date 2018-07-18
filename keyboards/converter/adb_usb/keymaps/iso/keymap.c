@@ -13,7 +13,3 @@ LAYOUT_ext_iso(
 
 const uint16_t PROGMEM fn_actions[] = {
 };
-void led_set_user(uint8_t usb_led)
-{
-    adb_host_kbd_led(ADB_ADDR_KEYBOARD, ~usb_led);
-}
