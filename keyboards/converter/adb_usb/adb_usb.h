@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LAYOUT_COMMON_H
 
 #include "quantum.h"
+#include "adb.h"
+#include "matrix.h"
 
 
 /* Common layout: ANSI+ISO
@@ -79,7 +81,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |Ctrl |Opt |Cmd |         Space           |     |Opt |Ctrl  | |Lef|Dow|Rig| |      0|  .|   |
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
-#define LAYOUT_EXT_ANSI( \
+#define LAYOUT_ext_ansi( \
     K35,  K7A,K78,K63,K76, K60,K61,K62,K64, K65,K6D,K67,K6F, K69,K6B,K71,              K7F, \
     K32,K12,K13,K14,K15,K17,K16,K1A,K1C,K19,K1D,K1B,K18,K33, K72,K73,K74,  K47,K51,K4B,K43, \
     K30,K0C,K0D,K0E,K0F,K11,K10,K20,K22,K1F,K23,K21,K1E,K2A, K75,K77,K79,  K59,K5B,K5C,K4E, \
@@ -121,7 +123,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |Ctrl |Opt |Cmd |         Space           |     |Opt |Ctrl  | |Lef|Dow|Rig| |      0|  .|   |
  * `-----------------------------------------------------------' `-----------' `---------------'
  */
-#define LAYOUT_EXT_ISO( \
+#define LAYOUT_ext_iso( \
     K35,  K7A,K78,K63,K76, K60,K61,K62,K64, K65,K6D,K67,K6F, K69,K6B,K71,              K7F, \
     K0A,K12,K13,K14,K15,K17,K16,K1A,K1C,K19,K1D,K1B,K18,K33, K72,K73,K74,  K47,K51,K4B,K43, \
     K30,K0C,K0D,K0E,K0F,K11,K10,K20,K22,K1F,K23,K21,K1E,K24, K75,K77,K79,  K59,K5B,K5C,K4E, \
@@ -166,7 +168,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |cap|opt|comnd| ` |                   | \ |lef|rig|dwn|up | |   0   | . |   |
  * +---------------------------------------------------------+ +-------+---+---+
  */
-#define LAYOUT_M0116_ANSI( \
+#define LAYOUT_m0116_ansi( \
                            K7F,                                              \
    K35,K12,K13,K14,K15,K17,K16,K1A,K1C,K19,K1D,K1B,K18,K33, K47,K51,K4B,K43, \
    K30,K0C,K0D,K0E,K0F,K11,K10,K20,K22,K1F,K23,K21,K1E,     K59,K5B,K5C,K45, \
@@ -208,7 +210,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * |ctrl|opt  |comnd|                     |comnd |lef|rig|dwn| |   0   | . |   |
  * +---------------------------------------------------------+ +-------+---+---+
  */
-#define LAYOUT_M0118_ISO( \
+#define LAYOUT_m0118_iso( \
                            K7F,                                              \
    K35,K12,K13,K14,K15,K17,K16,K1A,K1C,K19,K1D,K1B,K18,K33, K47,K51,K4B,K43, \
    K30,K0C,K0D,K0E,K0F,K11,K10,K20,K22,K1F,K23,K21,K1E,     K59,K5B,K5C,K45, \

@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
-
-//#include "config_common.h"
+#pragma once
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0ADB
@@ -33,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW(code)    ((code)>>3&0x0F)
 #define MATRIX_COL(code)    ((code)&0x07)
+#define MATRIX_COL_PINS {}
+#define MATRIX_ROW_PINS {}
 
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
@@ -50,11 +49,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #ifndef __ASSEMBLER__
-#include "adb.h"
-#include "matrix.h"
 #define IS_COMMAND() ( \
     matrix_is_on(MATRIX_ROW(ADB_POWER), MATRIX_COL(ADB_POWER)) \
 )
 #endif
 
-#endif

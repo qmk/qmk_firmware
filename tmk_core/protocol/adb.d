@@ -1,12 +1,8 @@
-.build/obj_converter_adb_usb_ansi/../../tmk_core/protocol/adb.o: \
- tmk_core/common/../../tmk_core/protocol/adb.c \
- keyboards/converter/adb_usb/config.h tmk_core/protocol/adb.h \
- tmk_core/common/matrix.h tmk_core/common/../../tmk_core/protocol/adb.h
+.build/obj_converter_adb_usb_iso/../../tmk_core/protocol/adb.o: \
+ quantum/keymap_extras/../../tmk_core/protocol/adb.c \
+ keyboards/converter/adb_usb/config.h \
+ quantum/keymap_extras/../../tmk_core/protocol/adb.h
 
 keyboards/converter/adb_usb/config.h:
 
-tmk_core/protocol/adb.h:
-
-tmk_core/common/matrix.h:
-
-tmk_core/common/../../tmk_core/protocol/adb.h:
+quantum/keymap_extras/../../tmk_core/protocol/adb.h:
