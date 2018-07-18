@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
   [_COLEMAK] = LAYOUT_ergodox_pretty_wrapper(
         // left hand                                                                       // right hand
-             KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                 _______, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_MINS,
+             KC_EQL,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, KC_MINS,
              KC_TAB,  _________________COLEMAK_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________COLEMAK_R1________________, KC_BSLS,
              KC_C1R3, _________________COLEMAK_L2________________,                                   _________________COLEMAK_R2________________, KC_QUOT,
              KC_MLSF, _________________COLEMAK_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________COLEMAK_R3________________, KC_MRSF,
@@ -121,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
   [_DVORAK] = LAYOUT_ergodox_pretty_wrapper(
         // left hand        // right hand
-             KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                 _______, KC_6,    KC_7,    KC_8,    KC_9,     KC_0,   KC_BSLS,
+             KC_EQL,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, KC_BSLS,
              KC_TAB,  _________________DVORAK_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________DVORAK_R1_________________, KC_SLSH,
              KC_C1R3, _________________DVORAK_L2_________________,                                   _________________DVORAK_R2_________________, KC_MINS,
              KC_MLSF, _________________DVORAK_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________DVORAK_R3_________________, KC_MRSF,
@@ -153,7 +153,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
   [_WORKMAN] = LAYOUT_ergodox_pretty_wrapper(
         // left hand
-             KC_EQL,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______,                 _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS,
+             KC_EQL,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, KC_MINS,
              KC_TAB,  _________________WORKMAN_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________WORKMAN_R1________________, KC_BSLS,
              KC_C1R3, _________________WORKMAN_L2________________,                                   _________________WORKMAN_R2________________, KC_QUOT,
              KC_MLSF, _________________WORKMAN_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________WORKMAN_R3________________, KC_MRSF,
@@ -196,11 +196,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
   [_GAMEPAD] = LAYOUT_ergodox_pretty_wrapper(
-             KC_ESC,  KC_TRNS, KC_TRNS, KC_TRNS, HYPR(KC_D), HYPR(KC_Q), HYPR(KC_GRV),      KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
+             KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3, HYPR(KC_Q), HYPR(KC_GRV),            KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
              KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                                      KC_I,    KC_O,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_TRNS,            TG(_GAMEPAD), KC_N,    KC_M,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-             KC_GRV,   KC_U,    KC_I,    KC_Y,    KC_T,                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
+             KC_GRV,  KC_U,    KC_I,    KC_Y,    KC_T,                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
                                                           KC_O,    KC_P,                    KC_HYPR, MAGIC_TOGGLE_NKRO,
                                                                    KC_LGUI,                 KC_NO,
                                                  KC_V,    KC_SPC,  KC_H,                    KC_PGDN, KC_DEL,  KC_ENTER
@@ -239,32 +239,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             ),
 
   [_LOWER] = LAYOUT_ergodox_pretty_wrapper(
-             _______, _________________FUNC_LEFT_________________, _______,                 _______, _________________FUNC_RIGHT________________, KC_F11,
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
-             _______, _______, _______, _______, _______, _______,                                   _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
-             _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
+             KC_F12,  _________________FUNC_LEFT_________________, _______,                 _______, _________________FUNC_RIGHT________________, KC_F11,
+             KC_TILD, _________________LOWER_L1__________________, _______,                 _______, _________________LOWER_R1__________________, _______,
+             _______, ___________________BLANK___________________,                                   _________________LOWER_R2__________________, KC_PIPE,
+             _______, ___________________BLANK___________________, _______,                 _______, _________________LOWER_R3__________________, KC_PSCR,
+             _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, KC_PAUS,
                                                           _______, _______,                 _______, _______,
                                                                    _______,                 _______,
                                                  _______, _______, _______,                 _______, _______, _______
             ),
 
   [_RAISE] = LAYOUT_ergodox_pretty_wrapper(
-             _______, _________________FUNC_LEFT_________________, _______,                 _______, _________________FUNC_RIGHT________________, KC_F11,
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
-             _______, _______, _______, _______, _______, _______,                                   _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-             _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, KC_RSFT,
-             _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
+             KC_F12,  _________________FUNC_LEFT_________________, _______,                 _______, _________________FUNC_RIGHT________________, KC_F11,
+             KC_GRV,  _________________RAISE_L1__________________, _______,                 _______, _________________RAISE_R1__________________, _______,
+             _______, _________________RAISE_L2__________________,                                   _________________RAISE_R2__________________, KC_BSLS,
+             _______, _________________RAISE_L3__________________, _______,                 _______, _________________RAISE_R3__________________, KC_PSCR,
+             _______, _______, _______, _______, _______,                                                     KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_SLCK,
                                                           _______, _______,                 _______, _______,
                                                                    _______,                 _______,
                                                  _______, _______, _______,                 _______, _______, _______
             ),
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
-             KC_MAKE, _______, _______, _______, _______, _______, _______,                 _______, KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5, KC_RST,
-             VRSN,    RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG, _______,                 _______, _______, _______, _______, _______, _______, EPRM,
-             RGB_SMOD,RGB_HUI, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM,                                   AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, TG(_MODS),
-             TG(_MODS),RGB_SMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T,_______,                 _______, MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY,
+             KC_MAKE, _______, _______, _______, _______, _______, _______,                 KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
+             VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _______, _______, _______, _______, _______, EPRM,
+             _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, TG(_MODS),
+             _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, KC_MPLY,
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
                                                           _______, _______,                 _______, _______,
                                                                    _______,                 _______,
@@ -323,4 +323,15 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
   }
 
 };
+
+
+bool indicator_is_this_led_used_keyboard(uint8_t index) {
+  switch (index) {
+    case 13 ... 14:
+      return true;
+      break;
+    default:
+    return false;
+  }
+}
 

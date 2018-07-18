@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 //**************************FIRST LAYER - LAYER ZERO **************************************
-  [_QWERTY] = KEYMAP(
+  [_QWERTY] = LAYOUT_ergodox(
 
     SHF6_AF7, F1_F13  ,    F2_F14,   TD(F3D), F4_ALTF4,    F5_F15,   KC_F11,
     SPRK_TCK  , Q_ESC   ,  CTR_SH_W,     NAV_E, ALT_SH_R,      KC_T, PRINTSCR,
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   //**************************SYMBOLS LAYER**************************
-  [_SYMBOLS] = KEYMAP(
+  [_SYMBOLS] = LAYOUT_ergodox(
     ________, ________, ________, ________, ________, ________,  ________,
     ________, DEREF   ,    KC_AT,  KC_LCBR,  KC_RCBR,  KC_CIRC,  ________,
     ________,  KC_EXLM,  KC_HASH,  KC_LPRN,  KC_RPRN,  ________,
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                      ________,________,_XXXXXX_),
 
   //**************************MOUSE MOVEMENT LAYER**************************
-  [_MOUSE] = KEYMAP(UP_ENTER_RESET,________,________,________,________,________,MODRESET,
+  [_MOUSE] = LAYOUT_ergodox(UP_ENTER_RESET,________,________,________,________,________,MODRESET,
                     RESET,KC_SECRET_5,________,KC_MS_UP,KC_SECRET_4,KC_MS_WH_UP,________,
                     ________,________,KC_MS_LEFT,KC_MS_DOWN,KC_MS_RIGHT,KC_MS_WH_DOWN,
                     KC_SECRET_5,KC_SECRET_4,KC_SECRET_3,_XXXXXX_,KC_SECRET_2,KC_SECRET_1,_XXXXXX_,
@@ -111,7 +111,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   //**************************WINDOWS NAVIGATION LAYER**************************
 
-  [_NAV] = KEYMAP(________,________,________,________,________,________,________,
+  [_NAV] = LAYOUT_ergodox(________,________,________,________,________,________,________,
                   ________,________,SNAPLEFT,_XXXXXX_,SNAPRGHT,________,________,
                   ________,KC_WWW_BACK,PREVTAB,________,NEXTTAB,SNAPUP,
                   ________,________,WORKLEFT,________,WORKRIGHT,SNAPDOWN,________,
@@ -134,7 +134,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ________,________,________),
 
   //****************************NUMPAD LAYER****************************
-  [_NUMPAD] = KEYMAP(________,________,________,________,________,________,________,
+  [_NUMPAD] = LAYOUT_ergodox(________,________,________,________,________,________,________,
                      ________,________,________,________,________,________,________,
                      ________,KC_DOT  ,KC_SPACE,_XXXXXX_, KC_ESC ,________,
                      ________,DBMS_OUT,________,________,________,________,________,
@@ -155,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        ________,________,KC_0),
 
   //****************************APP SWITCH LAYER****************************
-  [_APPSWITCH] = KEYMAP(________,________,________,________,________,________,________,
+  [_APPSWITCH] = LAYOUT_ergodox(________,________,________,________,________,________,________,
                         ________,________   ,  ________ , ________  ,________   ,________,________,
                         ________,APP_5,APP_6,APP_7,APP_8,________,
                         ________,DBMS_OUT,________,________,________,________,________,
@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     ________,________,________),
 
 
-  [_ONESHOT] = KEYMAP(  UP_ENTER_RESET , ________, ________, ________, ________, ________, ________,
+  [_ONESHOT] = LAYOUT_ergodox(  UP_ENTER_RESET , ________, ________, ________, ________, ________, ________,
                         ________, ________, ________, KC_UP   , ________, ________, ________,
                         ________, ________, KC_LEFT , KC_DOWN , KC_RIGHT, ________,
                         MAGIC_TOGGLE_NKRO, ________, ________, ________, ________, ________, ________,
@@ -196,7 +196,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                         ________,
                         ________, ________, ________),
   //****************************TEXT/INTELLIJ NAVIGATION LAYER****************************
-  [_TEXTNAV] = KEYMAP(________,________,________,________,________,________,________,
+  [_TEXTNAV] = LAYOUT_ergodox(________,________,________,________,________,________,________,
                       ________,MEH(KC_Q),LSFT(KC_ESCAPE),MEH(KC_D),MEH(KC_2),LALT(LSFT(KC_UP)),________,
                       ________,________,LCTL(KC_LEFT),LCTL(KC_B),LCTL(KC_RIGHT),LALT(LSFT(KC_DOWN)),
                       ________,________,________,LCTL(LSFT(KC_COMMA)),MEH(KC_DOT),LALT(KC_MS_WH_UP),________,
@@ -208,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       ________,LALT(KC_Z),________,________,________,LCTL(LSFT(KC_LEFT)),LALT(LCTL(KC_S)),LCTL(LSFT(KC_RIGHT)),
                       LCTL(LSFT(KC_COMMA)),________,________,________,________,________,________,________,________,________,
                       ________,________,________,________,________,________,________,________,________,_XXXXXX_),
-  [_QWERTY_KIDS] = KEYMAP(
+  [_QWERTY_KIDS] = LAYOUT_ergodox(
 
       KC_NO ,   KC_NO  , KC_NO ,     KC_NO ,   KC_NO ,      KC_NO ,     KC_NO ,
       KC_NO ,   KC_Q   , KC_W,     KC_E, KC_R,      KC_T,   KC_NO ,
@@ -230,7 +230,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_NO,
   KC_NO, KC_ENTER, KC_SPACE),
 
-  [_STREET_FIGHTER] = KEYMAP(
+  [_STREET_FIGHTER] = LAYOUT_ergodox(
 
       KC_NO ,   KC_NO  , KC_NO ,     KC_NO ,   KC_NO ,      KC_NO ,     KC_NO ,
       KC_NO ,   KC_NO   , DIE_1000X_LEFT,     KC_UP, DIE_1000X_RIGHT,      KC_NO,   KC_NO ,
@@ -254,7 +254,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
   //************************Windows navigation to directories*************************
-  [_DIRNAV] = KEYMAP(
+  [_DIRNAV] = LAYOUT_ergodox(
          ________,________,________,________,________,________,________,
          ________,________,________,________,________,________,________,
          ________,________,KC_A,________,________,________,
@@ -278,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          ________,________,________),
 
 
-  [_TEXT_MACROS] = KEYMAP(
+  [_TEXT_MACROS] = LAYOUT_ergodox(
          ________,________,________,________,________,________,________,
          ________,________,________,________,________,________,________,
          ________,________,KC_A,________,________,________,
@@ -305,7 +305,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* FOR FORMATTING FUTURE LAYERS
    NO KEY CODES SHOULD BE MORE THAN 8 CHARACTERS
    GOES LEFT HAND THEN RIGHT HAND
-  [_DIRNAV] = KEYMAP(
+  [_DIRNAV] = LAYOUT_ergodox(
          ________,________,________,________,________,________,________,
          ________,________,________,________,________,________,________,
          ________,________,________,________,________,________,

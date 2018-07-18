@@ -1,5 +1,4 @@
-#ifndef USERSPACE_CONFIG_H
-#define USERSPACE_CONFIG_H
+#pragma once
 
 
 #ifdef AUDIO_ENABLE
@@ -11,12 +10,13 @@
                                   SONG(DVORAK_SOUND), \
                                   SONG(OVERWATCH_THEME) \
                                 }
+
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
+
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-  #ifndef KEYBOARD_ergodox_ez
-    #define RGBLIGHT_SLEEP
-  #endif // !KEYBOARD_ergodox_ez
+#define RGBLIGHT_SLEEP
 #endif // RGBLIGHT_ENABLE
 
 
@@ -42,7 +42,7 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
 #undef PREVENT_STUCK_MODIFIERS
-#define TAPPING_FORCE_HOLD
+// #define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 
 #define FORCE_NKRO
@@ -54,7 +54,7 @@
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif // TAPPING_TERM
-#define TAPPING_TERM 200
+#define TAPPING_TERM 175
 
 
 // Disable action_get_macro and fn_actions, since we don't use these
@@ -70,5 +70,6 @@
 
 #define DISABLE_LEADER
 
-#endif // !USERSPACE_CONFIG_H
+#define MACRO_TIMER 5
+
 

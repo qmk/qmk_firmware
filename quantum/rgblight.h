@@ -17,7 +17,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 34
+	#define RGBLIGHT_MODES 35
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -76,6 +76,10 @@
 #include "rgblight_types.h"
 #include "rgblight_list.h"
 
+#if defined(__AVR__)
+    #include <avr/pgmspace.h>
+#endif
+
 extern LED_TYPE led[RGBLED_NUM];
 
 extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
@@ -83,6 +87,7 @@ extern const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
+extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 
 typedef union {
   uint32_t raw;
@@ -160,5 +165,6 @@ void rgblight_effect_rainbow_swirl(uint8_t interval);
 void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
 void rgblight_effect_christmas(void);
+void rgblight_effect_rgbtest(void);
 
 #endif
