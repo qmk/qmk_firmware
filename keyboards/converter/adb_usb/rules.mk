@@ -1,10 +1,7 @@
 
 # project specific files
-SRC ?=	matrix.c \
-	led.c \
+SRC =	matrix.c \
 	adb.c
-
-CONFIG_H = config.h
 
 
 # MCU name
@@ -61,21 +58,15 @@ BOOTLOADER = caterina
 #   Atmel DFU loader 4096	for TMK Converter rev.1/rev.2
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+#OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Build Options
 #   comment out to disable the options.
 #
-# BOOTMAGIC_ENABLE	= yes	# Virtual DIP switch configuration(+1000)
-# MOUSEKEY_ENABLE		= yes	# Mouse keys(+4700)
-EXTRAKEY_ENABLE		= yes	# Audio control and System control(+450)
-# CONSOLE_ENABLE		= yes	# Console for debug(+400)
-# COMMAND_ENABLE		= yes  # Commands for debug and configuration
-# SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
-# NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
-# BACKLIGHT_ENABLE = yes
-USB_HID_ENABLE = yes
-
-CUSTOM_MATRIX = yes
-SRC = matrix.c
-SRC += ../../tmk_core/protocol/adb.c
+BOOTMAGIC_ENABLE	= no	# Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE		= no	# Mouse keys(+4700)
+CONSOLE_ENABLE		= yes	# Console for debug(+400)
+COMMAND_ENABLE		= no  # Commands for debug and configuration
+SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
+NKRO_ENABLE = no	# USB Nkey Rollover - not yet supported in LUFA
+BACKLIGHT_ENABLE = no

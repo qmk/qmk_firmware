@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#include "config_common.h"
-
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0ADB
 #define DEVICE_VER      0x0101
@@ -32,6 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW(code)    ((code)>>3&0x0F)
 #define MATRIX_COL(code)    ((code)&0x07)
+#define MATRIX_COL_PINS {}
+#define MATRIX_ROW_PINS {}
 
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
