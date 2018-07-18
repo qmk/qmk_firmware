@@ -61,8 +61,6 @@ __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
 /* ----------------------- *\
  * -----RGB Functions----- *
 \* ----------------------- */
-
-
 #ifdef RGBLIGHT_ENABLE
 // Storage variables
 extern  rgblight_config_t rgblight_config;
@@ -106,7 +104,7 @@ void rgblight_colorStatic( int hu, int sa, int va ) {
     rgblight_mode(1);
     rgblight_sethsv(hu,sa,va);
 }
-/* HSV values, thank you @drashna!
+/* HSV values
  * white        (  0,   0, 255)
  * red          (  0, 255, 255)
  * coral        ( 16, 176, 255)
@@ -126,16 +124,15 @@ void rgblight_colorStatic( int hu, int sa, int va ) {
  * magenta      (300, 255, 255)
  * pink         (330, 128, 255)
  */
+
 // Set RGBLIGHT state depending on layer
-void rgblight_change( uint8_t last_layer ) {
+void rgblight_change( uint8_t this_layer ) {
     // Save state, if saving is requested
-    /*
     if ( base_sta ) {
         rgblight_saveBase();
     }
-    */
     // Change RGB light
-    switch ( last_layer ) {
+    switch ( this_layer ) {
         case _DV:
             // Load base layer
             rgblight_loadBase();
@@ -160,12 +157,10 @@ void rgblight_change( uint8_t last_layer ) {
             // Do green for mouse
             rgblight_colorStatic(120,255,255);
             break;
-#ifdef AUDIO_ENABLE
         case _MU:
             // Do orange for music
             rgblight_colorStatic( 39,255,255);
             break;
-#endif
         default:
             // Something went wrong
             rgblight_colorStatic(  0,255,255);
@@ -227,15 +222,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     switch (keycode) {
         // Secrets implementation
-        case SECRET1 ... SECRET3:
 #if (__has_include("secrets.h"))
+        case SECRET1:
             if( !record->event.pressed ) {
                 send_string_P( secret[ keycode - SECRET1 ] );
             }
-#endif
             return false;
             break;
+        case SECRET2:
+            if( !record->event.pressed ) {
+                send_string_P( secret[ keycode - SECRET2 ] );
+            }
+            return false;
+            break;
+        case SECRET3:
+            if( !record->event.pressed ) {
+                send_string_P( secret[ keycode - SECRET3 ] );
+            }
+            return false;
+            break;
+#endif
         // If these keys are pressed, load base layer config, and mark saving
+#ifdef RGBLIGHT_ENABLE
         case RGB_TOG:
         case RGB_MOD:
         case RGB_VAI:
@@ -244,13 +252,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RGB_SAD:
         case RGB_HUI:
         case RGB_HUD:
-#ifdef RGBLIGHT_ENABLE
             if ( !base_sta ) {
                 rgblight_loadBase(); 
             }
-#endif
             return true;
             break;
+#endif
 
         // Lock functionality: These layers are locked if the LOCKED buttons are
         // pressed. Otherwise, they are momentary toggles
@@ -356,8 +363,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             break;
 
         // Turkish letters, with capital functionality
-        case TUR_A:
 #ifdef UNICODE_ENABLE
+        case TUR_A:
             if (record->event.pressed) {
                 if ( is_capital ) {
                     unicode_input_start();
@@ -369,11 +376,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unicode_input_finish();
                 }
             }
-#endif
             return false;
             break;
         case TUR_O:
-#ifdef UNICODE_ENABLE
             if (record->event.pressed) {
                 if ( is_capital ) {
                     unicode_input_start();
@@ -385,11 +390,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unicode_input_finish();
                 }
             }
-#endif
             return false;
             break;
         case TUR_U:
-#ifdef UNICODE_ENABLE
             if (record->event.pressed) {
                 if ( is_capital ) {
                     unicode_input_start();
@@ -401,11 +404,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unicode_input_finish();
                 }
             }
-#endif
             return false;
             break;
         case TUR_I:
-#ifdef UNICODE_ENABLE
             if (record->event.pressed) {
                 if ( is_capital ) {
                     unicode_input_start();
@@ -417,11 +418,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unicode_input_finish();
                 }
             }
-#endif
             return false;
             break;
         case TUR_G:
-#ifdef UNICODE_ENABLE
             if (record->event.pressed) {
                 if ( is_capital ) {
                     unicode_input_start();
@@ -433,11 +432,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unicode_input_finish();
                 }
             }
-#endif
             return false;
             break;
         case TUR_C:
-#ifdef UNICODE_ENABLE
             if (record->event.pressed) {
                 if ( is_capital ) {
                     unicode_input_start();
@@ -449,11 +446,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unicode_input_finish();
                 }
             }
-#endif
             return false;
             break;
         case TUR_S:
-#ifdef UNICODE_ENABLE
             if (record->event.pressed) {
                 if ( is_capital ) {
                     unicode_input_start();
@@ -465,13 +460,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     unicode_input_finish();
                 }
             }
-#endif
             return false;
             break;
+#endif
 
 //-------Diagonal mouse movements
-        case MO_NE:
 #ifdef MOUSEKEY_ENABLE
+        case MO_NE:
             if( record->event.pressed ) {
                 mousekey_on(MO_N);
                 mousekey_on(MO_E);
@@ -481,11 +476,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 mousekey_off(MO_E);
                 mousekey_send();
             }
-#endif
             return false;
             break;
         case MO_NW:
-#ifdef MOUSEKEY_ENABLE
             if( record->event.pressed ) {
                 mousekey_on(MO_N);
                 mousekey_on(MO_W);
@@ -495,11 +488,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 mousekey_off(MO_W);
                 mousekey_send();
             }
-#endif
             return false;
             break;
         case MO_SE:
-#ifdef MOUSEKEY_ENABLE
             if( record->event.pressed ) {
                 mousekey_on(MO_S);
                 mousekey_on(MO_E);
@@ -509,11 +500,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 mousekey_off(MO_E);
                 mousekey_send();
             }
-#endif
             return false;
             break;
         case MO_SW:
-#ifdef MOUSEKEY_ENABLE
             if( record->event.pressed ) {
                 mousekey_on(MO_S);
                 mousekey_on(MO_W);
@@ -523,11 +512,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 mousekey_off(MO_W);
                 mousekey_send();
             }
-#endif
             return false;
             break;
         case MO_S_NE:
-#ifdef MOUSEKEY_ENABLE
             if( record->event.pressed ) {
                 mousekey_on(MO_S_N);
                 mousekey_on(MO_S_E);
@@ -537,11 +524,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 mousekey_off(MO_S_E);
                 mousekey_send();
             }
-#endif
             return false;
             break;
         case MO_S_NW:
-#ifdef MOUSEKEY_ENABLE
             if( record->event.pressed ) {
                 mousekey_on(MO_S_N);
                 mousekey_on(MO_S_W);
@@ -551,11 +536,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 mousekey_off(MO_S_W);
                 mousekey_send();
             }
-#endif
             return false;
             break;
         case MO_S_SE:
-#ifdef MOUSEKEY_ENABLE
             if( record->event.pressed ) {
                 mousekey_on(MO_S_S);
                 mousekey_on(MO_S_E);
@@ -565,11 +548,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 mousekey_off(MO_S_E);
                 mousekey_send();
             }
-#endif
             return false;
             break;
         case MO_S_SW:
-#ifdef MOUSEKEY_ENABLE
             if( record->event.pressed ) {
                 mousekey_on(MO_S_S);
                 mousekey_on(MO_S_W);
@@ -579,9 +560,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 mousekey_off(MO_S_W);
                 mousekey_send();
             }
-#endif
             return false;
             break;
+#endif
+
 //------DOUBLE PRESS, with added left navigation
         case DBL_SPC:
             if( record->event.pressed ) {

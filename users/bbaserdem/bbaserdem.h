@@ -23,7 +23,7 @@
 #define CUT     LCTL(KC_X)
 #define PASTE   LCTL(KC_V)
 
-// Rename mouse keys
+// Rename mouse keys with 7 letters
 #ifdef MOUSEKEY_ENABLE
 #define MO_S_N  KC_MS_WH_UP
 #define MO_S_S  KC_MS_WH_DOWN
@@ -58,6 +58,25 @@
 #define MO_AC_0 KC_NO
 #define MO_AC_1 KC_NO
 #define MO_AC_2 KC_NO
+#endif
+
+// Rename music keys with <8 letters
+#ifdef MOUSEKEY_ENABLE
+#define MU_REC  KC_LCTL
+#define MU_STOP KC_LALT
+#define MU_PLAY KC_LGUI
+#define MU_PLAY KC_LGUI
+#define MU_FAST KC_UP
+#define MU_SLOW KC_DOWN
+#define MU_MASK KC_A
+#else
+#define MU_REC  KC_NO
+#define MU_STOP KC_NO
+#define MU_PLAY KC_NO
+#define MU_PLAY KC_NO
+#define MU_FAST KC_NO
+#define MU_SLOW KC_NO
+#define MU_MASK KC_NO
 #endif
 
 // Define non-capitalized UTF shortcuts here
@@ -272,8 +291,14 @@ enum {
  * | togg| rec | stop| play| slow| fast||modes|.....|.....|.....|.....|.....|
  * `------------------------------------------------------------------------'
  */
-#define MASK XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX, XXX
-#define MUSIC_4 MU_TOG, KC_LCTL, KC_LALT, KC_LGUI, KC_DOWN, KC_UP, MU_MOD, XXX, XXX, XXX, XXX, XXX
-#define MUSIC KM(MASK,MASK,MASK,MUSIC_4)
+#define MUSIC_1 \
+    MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK
+#define MUSIC_2 \
+    MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK
+#define MUSIC_3 \
+    MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK
+#define MUSIC_4 \
+    MU_TOG, MU_REC, MU_STOP,MU_PLAY,MU_SLOW,MU_FAST,MU_MOD, MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK
+#define MUSIC KM(MUSIC_1,MUSIC_2,MUSIC_3,MUSIC_4)
 
 #endif
