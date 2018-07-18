@@ -1,9 +1,3 @@
-
-# project specific files
-SRC =	matrix.c \
-	adb.c
-
-
 # MCU name
 # atmega32u4 	Teensy2.0
 # atemga32u4	TMK Converter rev.1
@@ -68,5 +62,9 @@ MOUSEKEY_ENABLE		= no	# Mouse keys(+4700)
 CONSOLE_ENABLE		= yes	# Console for debug(+400)
 COMMAND_ENABLE		= no  # Commands for debug and configuration
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
-NKRO_ENABLE = no	# USB Nkey Rollover - not yet supported in LUFA
+NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
 BACKLIGHT_ENABLE = no
+
+CUSTOM_MATRIX = yes
+SRC = matrix.c
+SRC += adb.c
