@@ -3,8 +3,8 @@ LFK65-HS
 
 65% layout based with hotswap support.
 
-Keyboard Maintainer: [LFKeyboards](https://github.com/lfkeyboards)
-Hardware Supported: LFK65-HS
+Keyboard Maintainer: [LFKeyboards](https://github.com/lfkeyboards)  
+Hardware Supported: LFK65-HS  
 Hardware Availability: [LFKeyboards.com](https://www.lfkeyboards.com/)
 
 Make example for this keyboard (after setting up your build environment):
