@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 #include "adb.h"
+#include "matrix.h"
 
 
 /* Common layout: ANSI+ISO
