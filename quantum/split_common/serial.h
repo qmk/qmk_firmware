@@ -14,6 +14,9 @@
 #define SERIAL_SLAVE_BUFFER_LENGTH MATRIX_ROWS/2
 #define SERIAL_MASTER_BUFFER_LENGTH 1
 
+// Address location defines 
+#define SERIAL_BACKLIT_START   0x00
+
 // Buffers for master - slave communication
 extern volatile uint8_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
 extern volatile uint8_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
