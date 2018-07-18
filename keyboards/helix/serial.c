@@ -173,6 +173,32 @@ void serial_write_byte(uint8_t data) {
   serial_low(); // sync_send() / senc_recv() need raise edge
 }
 
+static
+void serial_send_packet(uint8_t *buffer, uint8_t size) {
+  uint8_t checksum = 0;
+  for (uint8_t i = 0; i < size; ++i) {
+    sync_send();
+    serial_write_byte(buffer[i]);
+    checksum += buffer[i];
+  }
+  sync_send();
+  serial_write_byte(checksum);
+}
+
+static
+uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) {
+  uint8_t checksum_computed = 0;
+  for (uint8_t i = 0; i < size; ++i) {
+    sync_recv();
+    buffer[i] = serial_read_byte();
+    checksum_computed += buffer[i];
+  }
+  sync_recv();
+  uint8_t checksum_received = serial_read_byte();
+
+  return checksum_computed != checksum_received;
+}
+
 inline static
 void change_sender2reciver(void) {
     sync_send();          //0
@@ -196,29 +222,13 @@ ISR(SERIAL_PIN_INTERRUPT) {
   serial_output();
 
   // slave send phase
-  uint8_t checksum = 0;
-  for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
-    sync_send();
-    serial_write_byte(serial_slave_buffer[i]);
-    checksum += serial_slave_buffer[i];
-  }
-  sync_send();
-  serial_write_byte(checksum);
+  serial_send_packet((uint8_t *)serial_slave_buffer, SERIAL_SLAVE_BUFFER_LENGTH);
 
   // slave switch to input
   change_sender2reciver();
 
   // slave recive phase
-  uint8_t checksum_computed = 0;
-  for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
-    sync_recv();
-    serial_master_buffer[i] = serial_read_byte();
-    checksum_computed += serial_master_buffer[i];
-  }
-  sync_recv();
-  uint8_t checksum_received = serial_read_byte();
-
-  if ( checksum_computed != checksum_received ) {
+  if (serial_recive_packet((uint8_t *)serial_master_buffer,SERIAL_MASTER_BUFFER_LENGTH) ) {
     status |= SLAVE_DATA_CORRUPT;
   } else {
     status &= ~SLAVE_DATA_CORRUPT;
@@ -263,18 +273,7 @@ int serial_update_buffers(void) {
 
   // master recive phase
   // if the slave is present syncronize with it
-
-  uint8_t checksum_computed = 0;
-  // receive data from the slave
-  for (int i = 0; i < SERIAL_SLAVE_BUFFER_LENGTH; ++i) {
-    sync_recv();
-    serial_slave_buffer[i] = serial_read_byte();
-    checksum_computed += serial_slave_buffer[i];
-  }
-  sync_recv();
-  uint8_t checksum_received = serial_read_byte();
-
-  if (checksum_computed != checksum_received) {
+  if (serial_recive_packet((uint8_t *)serial_slave_buffer, SERIAL_SLAVE_BUFFER_LENGTH) ) {
     serial_output();
     serial_high();
     sei();
@@ -285,15 +284,7 @@ int serial_update_buffers(void) {
   change_reciver2sender();
 
   // master send phase
-  uint8_t checksum = 0;
-
-  for (int i = 0; i < SERIAL_MASTER_BUFFER_LENGTH; ++i) {
-    sync_send();
-    serial_write_byte(serial_master_buffer[i]);
-    checksum += serial_master_buffer[i];
-  }
-  sync_send();
-  serial_write_byte(checksum);
+  serial_send_packet((uint8_t *)serial_master_buffer, SERIAL_MASTER_BUFFER_LENGTH);
 
   // always, release the line when not in use
   sync_send();
