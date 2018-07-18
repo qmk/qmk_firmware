@@ -128,7 +128,7 @@ void serial_slave_init(void) {
 // Used by the sender to synchronize timing with the reciver.
 static
 void sync_recv(void) {
-  for (int i = 0; i < SERIAL_DELAY*5 && serial_read_pin(); i++ ) {
+  for (uint8_t i = 0; i < SERIAL_DELAY*5 && serial_read_pin(); i++ ) {
   }
   // This shouldn't hang if the slave disconnects because the
   // serial line will float to high if the slave does disconnect.
@@ -219,6 +219,7 @@ void change_reciver2sender(void) {
 
 // interrupt handle to be used by the slave device
 ISR(SERIAL_PIN_INTERRUPT) {
+  serial_low();
   serial_output();
 
   // slave send phase
