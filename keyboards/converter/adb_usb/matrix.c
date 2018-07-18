@@ -42,6 +42,23 @@ static matrix_row_t matrix[MATRIX_ROWS];
 
 static void register_key(uint8_t key);
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
 
 void matrix_init(void)
 {
@@ -105,10 +122,8 @@ void matrix_init(void)
     debug_enable = true;
     //debug_matrix = true;
     //debug_keyboard = true;
-    //debug_mouse = true;
     print("debug enabled.\n");
-
-    // LED off
+    matrix_init_quantum();
     return;
 }
 
@@ -197,14 +212,14 @@ uint8_t matrix_scan(void)
     } else if (key0 == 0xFF) {      // error
         xprintf("adb_host_kbd_recv: ERROR(%d)\n", codes);
         // something wrong or plug-in
-        matrix_init();
+        //matrix_init();
         return key1;
     } else {
         register_key(key0);
         if (key1 != 0xFF)       // key1 is 0xFF when no second key.
             extra_key = key1<<8 | 0xFF; // process in a separate call
     }
-
+    matrix_scan_quantum();
     return 1;
 }
 

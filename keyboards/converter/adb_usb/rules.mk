@@ -63,6 +63,8 @@ CONSOLE_ENABLE		= yes	# Console for debug(+400)
 COMMAND_ENABLE		= no  # Commands for debug and configuration
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	# USB Nkey Rollover - not yet supported in LUFA
+EXTRAKEY_ENABLE		= yes	
+USB_HID_ENABLE = yes
 BACKLIGHT_ENABLE = no
 
 CUSTOM_MATRIX = yes
