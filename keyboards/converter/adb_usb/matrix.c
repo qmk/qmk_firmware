@@ -29,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "report.h"
 #include "host.h"
-#include "led.h"
 #include "timer.h"
 
 
@@ -103,8 +102,6 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
-    led_set(host_keyboard_leds());
-
     debug_enable = true;
     //debug_matrix = true;
     //debug_keyboard = true;
@@ -112,7 +109,6 @@ void matrix_init(void)
     print("debug enabled.\n");
 
     // LED off
-    DDRD |= (1<<6); PORTD &= ~(1<<6);
     return;
 }
 
@@ -271,46 +267,6 @@ uint8_t matrix_scan(void)
         matrix_init();
         return key1;
     } else {
-        /* Swap codes for ISO keyboard
-         * https://github.com/tmk/tmk_keyboard/issues/35
-         *
-         * ANSI
-         * ,-----------    ----------.
-         * | *a|  1|  2     =|Backspa|
-         * |-----------    ----------|
-         * |Tab  |  Q|     |  ]|   *c|
-         * |-----------    ----------|
-         * |CapsLo|  A|    '|Return  |
-         * |-----------    ----------|
-         * |Shift   |      Shift     |
-         * `-----------    ----------'
-         *
-         * ISO
-         * ,-----------    ----------.
-         * | *a|  1|  2     =|Backspa|
-         * |-----------    ----------|
-         * |Tab  |  Q|     |  ]|Retur|
-         * |-----------    -----`    |
-         * |CapsLo|  A|    '| *c|    |
-         * |-----------    ----------|
-         * |Shif| *b|      Shift     |
-         * `-----------    ----------'
-         *
-         *         ADB scan code   USB usage
-         *         -------------   ---------
-         * Key     ANSI    ISO     ANSI    ISO
-         * ---------------------------------------------
-         * *a      0x32    0x0A    0x35    0x35
-         * *b      ----    0x32    ----    0x64
-         * *c      0x2A    0x2A    0x31    0x31(or 0x32)
-         */
-        if (is_iso_layout) {
-            if ((key0 & 0x7F) == 0x32) {
-                key0 = (key0 & 0x80) | 0x0A;
-            } else if ((key0 & 0x7F) == 0x0A) {
-                key0 = (key0 & 0x80) | 0x32;
-            }
-        }
         register_key(key0);
         if (key1 != 0xFF)       // key1 is 0xFF when no second key.
             extra_key = key1<<8 | 0xFF; // process in a separate call
@@ -337,6 +293,6 @@ static void register_key(uint8_t key)
         matrix[row] |=  (1<<col);
     }
 }
-void matrix_print(void){//yes, this seems to be needed. No, I do not know why exactly.
+void matrix_print(void){
 
 }
