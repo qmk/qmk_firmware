@@ -14,6 +14,7 @@
 
 #ifdef USE_SERIAL
 
+#define ALWAYS_INLINE __attribute__((always_inline))
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
 // Serial pulse period in microseconds.
@@ -75,12 +76,14 @@ void serial_delay_half2(void) {
   _delay_us(SERIAL_DELAY_HALF2);
 }
 
+inline static void serial_output(void) ALWAYS_INLINE;
 inline static
 void serial_output(void) {
   SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
 }
 
 // make the serial pin an input with pull-up resistor
+inline static void serial_input_with_pullup(void) ALWAYS_INLINE;
 inline static
 void serial_input_with_pullup(void) {
   SERIAL_PIN_DDR  &= ~SERIAL_PIN_MASK;
@@ -92,11 +95,13 @@ uint8_t serial_read_pin(void) {
   return !!(SERIAL_PIN_INPUT & SERIAL_PIN_MASK);
 }
 
+inline static void serial_low(void) ALWAYS_INLINE;
 inline static
 void serial_low(void) {
   SERIAL_PIN_PORT &= ~SERIAL_PIN_MASK;
 }
 
+inline static void serial_high(void) ALWAYS_INLINE;
 inline static
 void serial_high(void) {
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
