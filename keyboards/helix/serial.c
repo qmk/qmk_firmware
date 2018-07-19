@@ -182,9 +182,11 @@ static
 void serial_send_packet(uint8_t *buffer, uint8_t size) {
   uint8_t checksum = 0;
   for (uint8_t i = 0; i < size; ++i) {
+    uint8_t data;
+    data = buffer[i];
     sync_send();
-    serial_write_byte(buffer[i]);
-    checksum += buffer[i];
+    serial_write_byte(data);
+    checksum += data;
   }
   sync_send();
   serial_write_byte(checksum);
@@ -194,9 +196,11 @@ static
 uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) {
   uint8_t checksum_computed = 0;
   for (uint8_t i = 0; i < size; ++i) {
+    uint8_t data;
     sync_recv();
-    buffer[i] = serial_read_byte();
-    checksum_computed += buffer[i];
+    data = serial_read_byte();
+    buffer[i] = data;
+    checksum_computed += data;
   }
   sync_recv();
   uint8_t checksum_received = serial_read_byte();
