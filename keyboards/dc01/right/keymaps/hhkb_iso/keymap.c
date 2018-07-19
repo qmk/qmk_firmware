@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,KC_TRNS,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_UP,    KC_TRNS,                    \
     KC_PAST,KC_PSLS,  KC_HOME,  KC_PGUP,  KC_LEFT,  KC_RGHT,  KC_TRNS,  KC_PENT,          \
     KC_PPLS,KC_PMNS,  KC_END,   KC_PGDN,  KC_DOWN,            KC_TRNS,  KC_TRNS,          \
-    KC_TRNS,    KC_TRNS,     KC_TRNS, KC_TRNS,     KC_TRNS,             KC_TRNS,          \
+    KC_TRNS,    KC_TRNS,     KC_TRNS, KC_TRNS,     KC_TRNS,             KC_TRNS           \
 ),
 };
 
