@@ -373,7 +373,8 @@ typedef struct {
     .ep.bInterval              = EXTRAKEY_POLLING_INTERVAL,\
 }
 
-//no set report
+//set report buffer (from host)
+extern uint8_t udi_hid_exk_report_set;
 
 //report buffer
 #define UDI_HID_EXK_REPORT_SIZE 3

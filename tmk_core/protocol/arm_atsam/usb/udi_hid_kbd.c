@@ -409,8 +409,8 @@ static uint8_t udi_hid_exk_rate;
 COMPILER_WORD_ALIGNED
 static uint8_t udi_hid_exk_protocol;
 
-//COMPILER_WORD_ALIGNED
-//udi_hid_exk_report_set_t udi_hid_exk_report_set; //No set report
+COMPILER_WORD_ALIGNED
+uint8_t udi_hid_exk_report_set;
 
 bool udi_hid_exk_b_report_valid;
 
@@ -457,7 +457,11 @@ UDC_DESC_STORAGE udi_hid_exk_report_desc_t udi_hid_exk_report_desc = {
     }
 };
 
+static bool udi_hid_exk_setreport(void);
+
 static void udi_hid_exk_report_sent(udd_ep_status_t status, iram_size_t nb_sent, udd_ep_id_t ep);
+
+static void udi_hid_exk_setreport_valid(void);
 
 bool udi_hid_exk_enable(void)
 {
@@ -480,12 +484,26 @@ bool udi_hid_exk_setup(void)
     return udi_hid_setup(&udi_hid_exk_rate,
                             &udi_hid_exk_protocol,
                             (uint8_t *) &udi_hid_exk_report_desc,
-                            NULL); // no set_report for EXK
+                            udi_hid_exk_setreport);
 }
 
 uint8_t udi_hid_exk_getsetting(void)
 {
     return 0;
+}
+
+static bool udi_hid_exk_setreport(void)
+{
+    if ((USB_HID_REPORT_TYPE_OUTPUT == (udd_g_ctrlreq.req.wValue >> 8))
+            && (0 == (0xFF & udd_g_ctrlreq.req.wValue))
+            && (1 == udd_g_ctrlreq.req.wLength)) {
+        // Report OUT type on report ID 0 from USB Host
+        udd_g_ctrlreq.payload = &udi_hid_exk_report_set;
+        udd_g_ctrlreq.callback = udi_hid_exk_setreport_valid;
+        udd_g_ctrlreq.payload_size = 1;
+        return true;
+    }
+    return false;
 }
 
 bool udi_hid_exk_send_report(void)
@@ -519,6 +537,11 @@ static void udi_hid_exk_report_sent(udd_ep_status_t status, iram_size_t nb_sent,
     if (udi_hid_exk_b_report_valid) {
         udi_hid_exk_send_report();
     }
+}
+
+static void udi_hid_exk_setreport_valid(void)
+{
+
 }
 
 #endif //EXK
