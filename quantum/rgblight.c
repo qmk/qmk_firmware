@@ -29,6 +29,10 @@
 #define RGBLIGHT_LIMIT_VAL 255
 #endif
 
+#ifndef RGBLIGHT_RAINBOW_SWIRL_RANGE
+#define RGBLIGHT_RAINBOW_SWIRL_RANGE 360
+#endif
+
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
@@ -636,7 +640,7 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   }
   last_timer = timer_read();
   for (i = 0; i < RGBLED_NUM; i++) {
-    hue = (1950 / RGBLED_NUM * i + current_hue) % 360;
+    hue = (RGBLIGHT_RAINBOW_SWIRL_RANGE / RGBLED_NUM * i + current_hue) % 360;
     sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
   }
   rgblight_set();
