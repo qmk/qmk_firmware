@@ -1,4 +1,5 @@
 #include "bbaserdem.h"
+#include "action_layer.h"
 
 /*---------------*\
 |*-----MOUSE-----*|
@@ -95,6 +96,7 @@ void rgblight_loadBase(void) {
             rgblight_enable();
             rgblight_mode( base_mod );
             rgblight_sethsv( base_hue, base_sat, base_val );
+            rgblight_enable();
         } else {
             rgblight_disable();
         }
@@ -109,6 +111,7 @@ void rgblight_colorStatic( int hu, int sa, int va ) {
     rgblight_enable();
     rgblight_mode(1);
     rgblight_sethsv(hu,sa,va);
+    rgblight_enable();
 }
 /* HSV values
  * white        (  0,   0, 255)
@@ -215,6 +218,16 @@ void matrix_init_user (void) {
 void matrix_scan_user (void) {
     // Keymap specific, do it first
     matrix_scan_keymap();
+    //*
+    uint8_t static prev_layer;
+    uint8_t current_layer = biton32( layer_state );
+    if ( prev_layer != current_layer ) {
+        prev_layer = current_layer;
+#ifdef RGBLIGHT_ENABLE
+        rgblight_change( current_layer );
+#endif
+    }
+    //*/
 }
 
 /*------------------*\
@@ -623,11 +636,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 \*----------------------*/
 
 uint32_t layer_state_set_user(uint32_t state) {
-
     state = layer_state_set_keymap (state);
+    /*
 #ifdef RGBLIGHT_ENABLE
-    // Change RGB lighting depending on the last layer activated
-    rgblight_change( biton32(state) );
+    rgblight_change( biton32(layer_state) );
 #endif
+    //*/
     return state;
 }
