@@ -103,6 +103,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLED_NUM 7
 #endif
 
+#define RGBLIGHT_RAINBOW_SWIRL_RANGE 1950
+
 #ifndef IOS_DEVICE_ENABLE
   #if RGBLED_NUM <= 6
     #define RGBLIGHT_LIMIT_VAL 255
