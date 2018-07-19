@@ -22,28 +22,28 @@
 #if SELECT_SERIAL_SPEED == 0
   // Very High speed
   #define SERIAL_DELAY 4             // micro sec
-  #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 10 // cycles
+  #define READ_WRITE_START_ADJUST 5 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 2 // cycles
 #elif SELECT_SERIAL_SPEED == 1
   // High speed
   #define SERIAL_DELAY 6             // micro sec
-  #define READ_WRITE_START_ADJUST 23 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 10 // cycles
+  #define READ_WRITE_START_ADJUST 5 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 2 // cycles
 #elif SELECT_SERIAL_SPEED == 2
   // Middle speed
   #define SERIAL_DELAY 12            // micro sec
-  #define READ_WRITE_START_ADJUST 25 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 10 // cycles
+  #define READ_WRITE_START_ADJUST 5 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 2 // cycles
 #elif SELECT_SERIAL_SPEED == 3
   // Low speed
   #define SERIAL_DELAY 24            // micro sec
-  #define READ_WRITE_START_ADJUST 25 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 10 // cycles
+  #define READ_WRITE_START_ADJUST 5 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 2 // cycles
 #elif SELECT_SERIAL_SPEED == 4
   // Very Low speed
   #define SERIAL_DELAY 50            // micro sec
-  #define READ_WRITE_START_ADJUST 25 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 10 // cycles
+  #define READ_WRITE_START_ADJUST 5 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 2 // cycles
 #else
 #error Illegal Serial Speed
 #endif
