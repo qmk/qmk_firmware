@@ -218,7 +218,7 @@ void matrix_init_user (void) {
 void matrix_scan_user (void) {
     // Keymap specific, do it first
     matrix_scan_keymap();
-    //*
+    // Hook on to layer change events
     uint8_t static prev_layer;
     uint8_t current_layer = biton32( layer_state );
     if ( prev_layer != current_layer ) {
@@ -227,7 +227,6 @@ void matrix_scan_user (void) {
         rgblight_change( current_layer );
 #endif
     }
-    //*/
 }
 
 /*------------------*\
@@ -631,16 +630,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return process_record_keymap(keycode, record);
 }
 
-/*----------------------*\
-|*-----LAYER CHANGE-----*|
-\*----------------------*/
-
 uint32_t layer_state_set_user(uint32_t state) {
     state = layer_state_set_keymap (state);
-    /*
-#ifdef RGBLIGHT_ENABLE
-    rgblight_change( biton32(layer_state) );
-#endif
-    //*/
     return state;
 }
