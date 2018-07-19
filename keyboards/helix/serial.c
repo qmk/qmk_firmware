@@ -79,6 +79,7 @@ void serial_delay_half2(void) {
 inline static void serial_output(void) ALWAYS_INLINE;
 inline static
 void serial_output(void) {
+  debug_output_mode();
   SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
 }
 
@@ -86,6 +87,7 @@ void serial_output(void) {
 inline static void serial_input_with_pullup(void) ALWAYS_INLINE;
 inline static
 void serial_input_with_pullup(void) {
+  debug_input_mode();
   SERIAL_PIN_DDR  &= ~SERIAL_PIN_MASK;
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
@@ -108,11 +110,13 @@ void serial_high(void) {
 }
 
 void serial_master_init(void) {
+  serial_debug_init();
   serial_output();
   serial_high();
 }
 
 void serial_slave_init(void) {
+  serial_debug_init();
   serial_input_with_pullup();
 
 #if SERIAL_PIN_MASK == _BV(PD0)
@@ -133,19 +137,24 @@ void serial_slave_init(void) {
 // Used by the sender to synchronize timing with the reciver.
 static
 void sync_recv(void) {
+  debug_sync_start();
   for (uint8_t i = 0; i < SERIAL_DELAY*5 && serial_read_pin(); i++ ) {
+      debug_sync_end(); debug_sync_start();
   }
   // This shouldn't hang if the slave disconnects because the
   // serial line will float to high if the slave does disconnect.
   while (!serial_read_pin());
+  debug_sync_end();
 }
 
 // Used by the reciver to send a synchronization signal to the sender.
 static
 void sync_send(void) {
+  debug_sync_start();
   serial_low();
   serial_delay();
   serial_high();
+  debug_sync_end();
 }
 
 // Reads a byte from the serial line
@@ -155,9 +164,12 @@ uint8_t serial_read_byte(void) {
   _delay_sub_us(READ_WRITE_START_ADJUST);
   for ( uint8_t i = 0; i < 8; ++i) {
     serial_delay_half1();   // read the middle of pulses
+    debug_recvsample();
     byte = (byte << 1) | serial_read_pin();
+    debug_recvsample();
     _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
     serial_delay_half2();
+    debug_dummy_delay_recv();
   }
   return byte;
 }
@@ -173,7 +185,10 @@ void serial_write_byte(uint8_t data) {
       serial_low();
     }
     b >>= 1;
+    debug_recvsample();
     serial_delay();
+    debug_recvsample();
+    debug_dummy_delay_send();
   }
   serial_low(); // sync_send() / senc_recv() need raise edge
 }
@@ -185,11 +200,15 @@ void serial_send_packet(uint8_t *buffer, uint8_t size) {
     uint8_t data;
     data = buffer[i];
     sync_send();
+    debug_bytewidth_start();
     serial_write_byte(data);
+    debug_bytewidth_end();
     checksum += data;
   }
   sync_send();
+  debug_bytewidth_start();
   serial_write_byte(checksum);
+  debug_bytewidth_end();
 }
 
 static
@@ -198,12 +217,16 @@ uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) {
   for (uint8_t i = 0; i < size; ++i) {
     uint8_t data;
     sync_recv();
+    debug_bytewidth_start();
     data = serial_read_byte();
+    debug_bytewidth_end();
     buffer[i] = data;
     checksum_computed += data;
   }
   sync_recv();
+  debug_bytewidth_start();
   uint8_t checksum_received = serial_read_byte();
+  debug_bytewidth_end();
 
   return checksum_computed != checksum_received;
 }
@@ -228,6 +251,8 @@ void change_reciver2sender(void) {
 
 // interrupt handle to be used by the slave device
 ISR(SERIAL_PIN_INTERRUPT) {
+  debug_output_mode(); debug_input_mode(); // indicate intterupt entry
+
   serial_low();
   serial_output();
 
@@ -245,6 +270,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
   }
 
   sync_recv(); //weit master output to high
+  debug_output_mode(); debug_input_mode(); // indicate intterupt exit
 }
 
 inline
@@ -298,6 +324,7 @@ int serial_update_buffers(void) {
 
   // always, release the line when not in use
   sync_send();
+  debug_input_mode(); debug_output_mode(); // indicate intterupt exit
 
   sei();
   return 0;
