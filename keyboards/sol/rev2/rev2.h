@@ -9,6 +9,7 @@
 #ifdef RGBLIGHT_ENABLE
 //rgb led driver
 #include "ws2812.h"
+#define RGBLIGHT_RAINBOW_SWIRL_RANGE 360
 #endif
 
 #ifdef USE_I2C
