@@ -46,7 +46,7 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   return false;
 }
 
-void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
+inline void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed) {
   static uint16_t this_timer;
