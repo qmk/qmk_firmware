@@ -20,6 +20,9 @@
 #else
   #define RGBLED_NUM 1
 #endif
+#ifdef KEYBOARD_jj40
+  #define RGBLED_NUM 5
+#endif
 
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 8
