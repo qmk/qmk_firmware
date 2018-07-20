@@ -14,6 +14,10 @@
 #ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
 #endif
+// Let's split eh slave refresh
+#ifdef SPLIT_KEYBOARD
+#include "split_flags.h"
+#endif
 
 /*-------------*\
 |*---UNICODE---*|
@@ -175,6 +179,10 @@ void rgblight_change( uint8_t this_layer ) {
             rgblight_colorStatic(  0,255,255);
             break;
     }
+    // For lets split it up
+#ifdef SPLIT_KEYBOARD
+    RGB_DIRTY = true;
+#endif
 }
 
 #endif
@@ -222,10 +230,20 @@ void matrix_scan_user (void) {
     uint8_t static prev_layer;
     uint8_t current_layer = biton32( layer_state );
     if ( prev_layer != current_layer ) {
-        prev_layer = current_layer;
+        // Indicator lights
 #ifdef RGBLIGHT_ENABLE
         rgblight_change( current_layer );
 #endif
+        // Layer sound effects
+#ifdef AUDIO_ENABLE
+        stop_all_notes();
+        if ( prev_layer == _GA ) {
+            PLAY_SONG(tone_return);
+        } else if ( current_layer == _GA ) {
+            PLAY_SONG(tone_game);
+        }
+#endif
+        prev_layer = current_layer;
     }
 }
 
@@ -319,19 +337,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 // On press, turn off layer if active
                 if ( layer == _GA ) {
-#ifdef AUDIO_ENABLE
-                    stop_all_notes();
-                    PLAY_SONG(tone_return);
-#endif
                     layer_off(_GA);
                 }
             } else {
                 // After click, turn on layer if accessed from setting
                 if ( layer == _SE ) {
-#ifdef AUDIO_ENABLE
-                    stop_all_notes();
-                    PLAY_SONG(tone_game);
-#endif
                     layer_on(_GA);
                     layer_off(_SE);
                 }
