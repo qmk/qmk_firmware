@@ -4,7 +4,7 @@
 #include "quantum.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "i2cmaster.h"
+#include "i2c_master.h"
 #include <util/delay.h>
 
 #define CPU_PRESCALE(n) (CLKPR = 0x80, CLKPR = (n))
@@ -23,7 +23,8 @@
 #define OLATA           0x14            // output latch register
 #define OLATB           0x15
 
-extern uint8_t mcp23018_status;
+extern i2c_status_t mcp23018_status;
+#define ERGODOX_EZ_I2C_TIMEOUT 100
 
 void init_ergodox(void);
 void ergodox_blink_all_leds(void);
@@ -33,7 +34,7 @@ uint8_t ergodox_left_leds_update(void);
 #ifndef LED_BRIGHTNESS_LO
 #define LED_BRIGHTNESS_LO       15
 #endif
-#ifndef LED_BRIGHTNESS_LO
+#ifndef LED_BRIGHTNESS_HI
 #define LED_BRIGHTNESS_HI       255
 #endif
 

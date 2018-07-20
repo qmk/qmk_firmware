@@ -1,4 +1,5 @@
 // Zach Nielsen     Custom Planck Keyboard layout
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #define PLANCK_YES                  // This is the Planck
 #include "zach_common_functions.c"

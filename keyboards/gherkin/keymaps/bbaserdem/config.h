@@ -1,5 +1,5 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#ifndef CONFIG_KEYMAP_H
+#define CONFIG_KEYMAP_H
 
 #include "../../config.h"
 #define RGB_DI_PIN F6

@@ -1,4 +1,5 @@
 #include "backlight.h"
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

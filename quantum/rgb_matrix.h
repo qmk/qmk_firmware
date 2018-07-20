@@ -95,7 +95,8 @@ void rgb_matrix_indicators_user(void);
 
 void rgb_matrix_single_LED_test(void);
 
-void rgb_matrix_init_drivers(void);
+void rgb_matrix_init(void);
+void rgb_matrix_setup_drivers(void);
 
 void rgb_matrix_set_suspend_state(bool state);
 void rgb_matrix_set_indicator_state(uint8_t state);
