@@ -10,7 +10,7 @@ case $(uname) in
 	Linux)
 		exec "${util_dir}/linux_install.sh"
 	;;
-	MINGW64_NT*)
+	M*_NT*)
 		exec "${util_dir}/msys2_install.sh"
 	;;
 esac
