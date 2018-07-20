@@ -167,6 +167,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MEDIA_STOP`        |`KC_MSTP`           |Stop Track                                     |
 |`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`           |Play/Pause Track                               |
 |`KC_MEDIA_SELECT`      |`KC_MSEL`           |                                               |
+|`KC_MEDIA_EJECT`       |`KC_EJCT`           |Eject (macOS)                                  |
 |`KC_NUMLOCK`           |`KC_NLCK`           |Keypad Num Lock and Clear                      |
 |`KC_KP_SLASH`          |`KC_PSLS`           |Keypad `/`                                     |
 |`KC_KP_ASTERISK`       |`KC_PAST`           |Keypad `*`                                     |
@@ -190,27 +191,6 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_NO`                |                    |Ignore this key (NOOP)                         |
 |`KC_TRANSPARENT`       |`KC_TRNS`           |Use the next lowest non-transparent key        |
 
-## [Mouse Keys](feature_mouse_keys.md)
-
-|Key             |Aliases  |Description                |
-|----------------|---------|---------------------------|
-|`KC_MS_UP`      |`KC_MS_U`|Mouse Cursor Up            |
-|`KC_MS_DOWN`    |`KC_MS_D`|Mouse Cursor Down          |
-|`KC_MS_LEFT`    |`KC_MS_L`|Mouse Cursor Left          |
-|`KC_MS_RIGHT`   |`KC_MS_R`|Mouse Cursor Right         |
-|`KC_MS_BTN1`    |`KC_BTN1`|Mouse Button 1             |
-|`KC_MS_BTN2`    |`KC_BTN2`|Mouse Button 2             |
-|`KC_MS_BTN3`    |`KC_BTN3`|Mouse Button 3             |
-|`KC_MS_BTN4`    |`KC_BTN4`|Mouse Button 4             |
-|`KC_MS_BTN5`    |`KC_BTN5`|Mouse Button 5             |
-|`KC_MS_WH_UP`   |`KC_WH_U`|Mouse Wheel Up             |
-|`KC_MS_WH_DOWN` |`KC_WH_D`|Mouse Wheel Down           |
-|`KC_MS_WH_LEFT` |`KC_WH_L`|Mouse Wheel Left           |
-|`KC_MS_WH_RIGHT`|`KC_WH_R`|Mouse Wheel Right          |
-|`KC_MS_ACCEL0`  |`KC_ACL0`|Set mouse acceleration to 0|
-|`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
-|`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
-
 ## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
 |Key          |Aliases    |Description                                                          |
@@ -225,6 +205,36 @@ This is a reference only. Each group of keys links to the page documenting their
 |`FUNC(n)`    |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
 |`M(n)`       |           |Call macro `n`                                                       |
 |`MACROTAP(n)`|           |Macro-tap `n` idk FIXME                                              |
+
+## [Audio Keys](feature_audio.md)
+
+|Key             |Aliases  |Description                       |
+|----------------|---------|----------------------------------|
+|`AU_ON`         |         |Audio mode on                     |
+|`AU_OFF`        |         |Audio mode off                    |
+|`AU_TOG`        |         |Toggles Audio mode                |
+|`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
+|`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
+|`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
+|`CLICKY_RESET`  |`CK_RST` |Resets frequency to default       |
+|`MU_ON`         |         |Turns on Music Mode               |
+|`MU_OFF`        |         |Turns off Music Mode              |
+|`MU_TOG`        |         |Toggles Music Mode                |
+|`MU_MOD`        |         |Cycles through the music modes    |
+
+
+
+## [Backlighting](feature_backlight.md)
+
+|Key      |Description                               |
+|---------|------------------------------------------|
+|`BL_TOGG`|Turn the backlight on or off              |
+|`BL_STEP`|Cycle through backlight levels            |
+|`BL_ON`  |Set the backlight to max brightness       |
+|`BL_OFF` |Turn the backlight off                    |
+|`BL_INC` |Increase the backlight level              |
+|`BL_DEC` |Decrease the backlight level              |
+|`BL_BRTG`|Toggle backlight breathing                |
 
 ## [Bootmagic](feature_bootmagic.md)
 
@@ -250,17 +260,88 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides    |
 |`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                 |
 
-## [Backlighting](feature_backlight.md)
+## [Bluetooth](feature_bluetooth.md)
 
-|Key      |Description                               |
-|---------|------------------------------------------|
-|`BL_TOGG`|Turn the backlight on or off              |
-|`BL_STEP`|Cycle through backlight levels            |
-|`BL_ON`  |Set the backlight to max brightness       |
-|`BL_OFF` |Turn the backlight off                    |
-|`BL_INC` |Increase the backlight level              |
-|`BL_DEC` |Decrease the backlight level              |
-|`BL_BRTG`|Toggle backlight breathing                |
+|Key       |Description                                   |
+|----------|----------------------------------------------|
+|`OUT_AUTO`|Automatically switch between USB and Bluetooth|
+|`OUT_USB` |USB only                                      |
+|`OUT_BT`  |Bluetooth only                                |
+
+
+## [Layer Switching](feature_advanced_keycodes.md# Switching and Toggling Layers)
+
+|Key         |Description                                                               |
+|-----------------|---------------------------------------------------------------------|
+|`DF(layer)`      |Switches the default layer                                           |
+|`MO(layer)`      |Momentarily activates layer, switches off when you let go            |
+|`LM(layer, mod)` |As `MO(layer)` but with `mod` active                                 |
+|`LT(layer, kc)`  |Momentarily activates layer if held, sends kc if tapped              |
+|`TG(layer)`      |Toggles the layer (enables it if no active, and vise versa)          |
+|`TO(layer)`      |Activates layer and deactivates all other layers                     |
+|`TT(layer)`      |Momentarily activates layer if held, toggles it if tapped repeatedly |
+
+## [Mouse Keys](feature_mouse_keys.md)
+
+|Key             |Aliases  |Description                |
+|----------------|---------|---------------------------|
+|`KC_MS_UP`      |`KC_MS_U`|Mouse Cursor Up            |
+|`KC_MS_DOWN`    |`KC_MS_D`|Mouse Cursor Down          |
+|`KC_MS_LEFT`    |`KC_MS_L`|Mouse Cursor Left          |
+|`KC_MS_RIGHT`   |`KC_MS_R`|Mouse Cursor Right         |
+|`KC_MS_BTN1`    |`KC_BTN1`|Mouse Button 1             |
+|`KC_MS_BTN2`    |`KC_BTN2`|Mouse Button 2             |
+|`KC_MS_BTN3`    |`KC_BTN3`|Mouse Button 3             |
+|`KC_MS_BTN4`    |`KC_BTN4`|Mouse Button 4             |
+|`KC_MS_BTN5`    |`KC_BTN5`|Mouse Button 5             |
+|`KC_MS_WH_UP`   |`KC_WH_U`|Mouse Wheel Up             |
+|`KC_MS_WH_DOWN` |`KC_WH_D`|Mouse Wheel Down           |
+|`KC_MS_WH_LEFT` |`KC_WH_L`|Mouse Wheel Left           |
+|`KC_MS_WH_RIGHT`|`KC_WH_R`|Mouse Wheel Right          |
+|`KC_MS_ACCEL0`  |`KC_ACL0`|Set mouse acceleration to 0|
+|`KC_MS_ACCEL1`  |`KC_ACL1`|Set mouse acceleration to 1|
+|`KC_MS_ACCEL2`  |`KC_ACL2`|Set mouse acceleration to 2|
+
+## [Modifiers](feature_advanced_keycodes.md#modifier-keys)
+
+|Key       |Aliases               |Description                                         |
+|----------|----------            |----------------------------------------------------|
+|`KC_HYPR` |                      |Hold Left Control, Shift, Alt and GUI               |
+|`KC_MEH`  |                      |Hold Left Control, Shift and Alt                    |
+|`LCTL(kc)`|                      |Hold Left Control and press `kc`                    |
+|`LSFT(kc)`|`S(kc)`               |Hold Left Shift and press `kc`                      |
+|`LALT(kc)`|                      |Hold Left Alt and press `kc`                        |
+|`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
+|`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
+|`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
+|`RALT(kc)`|                      |Hold Right Alt and press `kc`                       |
+|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
+|`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
+|`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
+|`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
+|`ALTG(kc)`|                      |Hold Right Control and Alt and press `kc`           |
+|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
+|`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
+
+## [Mod-Tap Keys](feature_advanced_keycodes.md#mod-tap)
+
+|Key         |Aliases                                |Description                                            |
+|------------|---------------------------------------|-------------------------------------------------------|
+|`LCTL_T(kc)`|`CTL_T(kc)`                            |Left Control when held, `kc` when tapped               |
+|`RCTL_T(kc)`|                                       |Right Control when held, `kc` when tapped              |
+|`LSFT_T(kc)`|`SFT_T(kc)`                            |Left Shift when held, `kc` when tapped                 |
+|`RSFT_T(kc)`|                                       |Right Shift when held, `kc` when tapped                |
+|`LALT_T(kc)`|`ALT_T(kc)`                            |Left Alt when held, `kc` when tapped                   |
+|`RALT_T(kc)`|`ALGR_T(kc)`                           |Right Alt when held, `kc` when tapped                  |
+|`LGUI_T(kc)`|`LCMD_T(kc)`, `RWIN_T(kc)`, `GUI_T(kc)`|Left GUI when held, `kc` when tapped                   |
+|`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`             |Right GUI when held, `kc` when tapped                  |
+|`C_S_T(kc)` |                                       |Left Control and Shift when held, `kc` when tapped     |
+|`MEH_T(kc)` |                                       |Left Control, Shift and Alt when held, `kc` when tapped|
+|`LCAG_T(kc)`|                                       |Left Control, Alt and GUI when held, `kc` when tapped  |
+|`RCAG_T(kc)`|                                       |Right Control, Alt and GUI when held, `kc` when tapped |
+|`ALL_T(kc)` |                                       |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+|`SCMD_T(kc)`|`SWIN_T(kc)`                           |Left Shift and GUI when held, `kc` when tapped         |
+|`LCA_T(kc)` |                                       |Left Control and Alt when held, `kc` when tapped       |
 
 ## [RGB Lighting](feature_rgblight.md)
 
@@ -308,55 +389,6 @@ This is a reference only. Each group of keys links to the page documenting their
 |`PRINT_ON` |Start printing everything the user types|
 |`PRINT_OFF`|Stop printing everything the user types |
 
-## [Bluetooth](feature_bluetooth.md)
-
-|Key       |Description                                   |
-|----------|----------------------------------------------|
-|`OUT_AUTO`|Automatically switch between USB and Bluetooth|
-|`OUT_USB` |USB only                                      |
-|`OUT_BT`  |Bluetooth only                                |
-
-## [Modifiers](quantum_keycodes.md#modifiers)
-
-|Key       |Aliases               |Description                                         |
-|----------|----------            |----------------------------------------------------|
-|`KC_HYPR` |                      |Hold Left Control, Shift, Alt and GUI               |
-|`KC_MEH`  |                      |Hold Left Control, Shift and Alt                    |
-|`LCTL(kc)`|                      |Hold Left Control and press `kc`                    |
-|`LSFT(kc)`|`S(kc)`               |Hold Left Shift and press `kc`                      |
-|`LALT(kc)`|                      |Hold Left Alt and press `kc`                        |
-|`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
-|`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
-|`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|                      |Hold Right Alt and press `kc`                       |
-|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
-|`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
-|`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
-|`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
-|`ALTG(kc)`|                      |Hold Right Control and Alt and press `kc`           |
-|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
-|`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
-
-## [Mod-Tap Keys](quantum_keycodes.md#mod-tap-keys)
-
-|Key         |Aliases                                |Description                                            |
-|------------|---------------------------------------|-------------------------------------------------------|
-|`LCTL_T(kc)`|`CTL_T(kc)`                            |Left Control when held, `kc` when tapped               |
-|`RCTL_T(kc)`|                                       |Right Control when held, `kc` when tapped              |
-|`LSFT_T(kc)`|`SFT_T(kc)`                            |Left Shift when held, `kc` when tapped                 |
-|`RSFT_T(kc)`|                                       |Right Shift when held, `kc` when tapped                |
-|`LALT_T(kc)`|`ALT_T(kc)`                            |Left Alt when held, `kc` when tapped                   |
-|`RALT_T(kc)`|`ALGR_T(kc)`                           |Right Alt when held, `kc` when tapped                  |
-|`LGUI_T(kc)`|`LCMD_T(kc)`, `RWIN_T(kc)`, `GUI_T(kc)`|Left GUI when held, `kc` when tapped                   |
-|`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`             |Right GUI when held, `kc` when tapped                  |
-|`C_S_T(kc)` |                                       |Left Control and Shift when held, `kc` when tapped     |
-|`MEH_T(kc)` |                                       |Left Control, Shift and Alt when held, `kc` when tapped|
-|`LCAG_T(kc)`|                                       |Left Control, Alt and GUI when held, `kc` when tapped  |
-|`RCAG_T(kc)`|                                       |Right Control, Alt and GUI when held, `kc` when tapped |
-|`ALL_T(kc)` |                                       |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
-|`SCMD_T(kc)`|`SWIN_T(kc)`                           |Left Shift and GUI when held, `kc` when tapped         |
-|`LCA_T(kc)` |                                       |Left Control and Alt when held, `kc` when tapped       |
-
 ## [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
 |Key                     |Aliases           |Description        |
@@ -395,19 +427,13 @@ This is a reference only. Each group of keys links to the page documenting their
 |`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
 |`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.                  |
 
-## [One Shot Keys](quantum_keycodes.md#one-shot-keys)
+## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
 
 |Key         |Description                       |
 |------------|----------------------------------|
 |`OSM(mod)`  |Hold `mod` for one keypress       |
 |`OSL(layer)`|Switch to `layer` for one keypress|
 
-## [Unicode Support](feature_unicode.md)
-
-|Key         |Aliases|                                                 |
-|------------|-------|-------------------------------------------------|
-|`UNICODE(n)`|`UC(n)`|Send Unicode character `n`                       |
-|`X(n)`      |       |Send Unicode character `n` via a different method|
 
 ## [Swap Hands](feature_swap_hands.md)
 
@@ -420,3 +446,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`SH_MOFF`  |Momentarily turns off swap.                                              |
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
 |`SH_TT`    |Toggles with a tap; momentary when held.                                 |
+## [Unicode Support](feature_unicode.md)
+
+|Key         |Aliases|                                                 |
+|------------|-------|-------------------------------------------------|
+|`UNICODE(n)`|`UC(n)`|Send Unicode character `n`                       |
+|`X(n)`      |       |Send Unicode character `n` via a different method|
