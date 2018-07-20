@@ -1,4 +1,4 @@
-/* Copyright 2017 Valentin Brosseau
+/* Copyright 2017 Quentin Lebastard
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "xd75.h"
 #include "keymap_bepo.h"
 
@@ -23,7 +24,7 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
- * .--------------------------------------------------------------------------------------------------------------------------------------.
+ * .----------------------------------------------------------------------------------------------------------------------------------------.
  * | $      | "      | {      | }      | (      | )      | VOL-     | MUTE   | VOL+   | +      | -      | /      | *      | =      | %      |
  * |--------+--------+--------+--------+--------+--------+----------+--------+--------+--------+--------+--------+--------+-----------------|
  * | TAB    | B      | E_ACUT | P      | O      | E_GRAV |          |        |        | ^      | V      | D      | L      | J      | Z      |
@@ -37,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_BP] = { /* BepoDev */
-  { BP_DOLLAR,  BP_DQOT, BP_LCBR,    BP_RCBR, BP_LPRN, BP_RPRN,    KC_VOLD, KC_MUTE, KC_VOLU, BP_PLUS, BP_MINUS,BP_SLASH,BP_ASTR,  BP_EQL, BP_PERC },
-  { KC_TAB,  BP_B,       BP_E_ACUTE, BP_P,    BP_O,    BP_E_GRAVE, KC_KP_7, KC_KP_8, KC_KP_9, BP_DCRC, BP_V,    BP_D,    BP_L,     BP_J,   BP_Z },
-  { KC_ESC,  BP_A,       BP_U,       BP_I,    BP_E,    BP_COMMA,   KC_HOME, KC_KP_5, KC_END, BP_C,    BP_T,    BP_S,    BP_R,     BP_N,   BP_M    },
-  { KC_LSFT, BP_W      , BP_Y,       BP_X,    BP_DOT,  BP_K,       KC_PGUP, KC_END, KC_PGDOWN,BP_APOS, BP_Q,    BP_G,    BP_H,     BP_F,   KC_RSFT  },
-  { KC_LCTL, KC_LGUI,    KC_RALT,    KC_LGUI, BP_UNDS, LT(_FN,KC_ENT),     KC_DEL,  KC_KP_0, KC_BSPC, LT(_FN,KC_SPC),  BP_UNDS, KC_RALT, KC_RALT,  KC_RGUI,KC_LCTL  },
+  { BP_DOLLAR, BP_DQOT,  BP_LCBR,    BP_RCBR, BP_LPRN, BP_RPRN,        KC_VOLD, KC_MUTE, KC_VOLU,   BP_PLUS,         BP_MINUS,BP_SLASH,BP_ASTR,  BP_EQL,  BP_PERC },
+  { KC_TAB,    BP_B,     BP_E_ACUTE, BP_P,    BP_O,    BP_E_GRAVE,     KC_KP_7, KC_KP_8, KC_KP_9,   BP_DCRC,         BP_V,    BP_D,    BP_L,     BP_J,    BP_Z    },
+  { KC_ESC,    BP_A,     BP_U,       BP_I,    BP_E,    BP_COMMA,       KC_HOME, KC_KP_5, KC_END,    BP_C,            BP_T,    BP_S,    BP_R,     BP_N,    BP_M    },
+  { KC_LSFT,   BP_W,     BP_Y,       BP_X,    BP_DOT,  BP_K,           KC_PGUP, KC_END,  KC_PGDOWN, BP_APOS,         BP_Q,    BP_G,    BP_H,     BP_F,    KC_RSFT },
+  { KC_LCTL,   KC_L GUI, KC_RALT,    KC_LGUI, BP_UNDS, LT(_FN,KC_ENT), KC_DEL,  KC_KP_0, KC_BSPC,   LT(_FN,KC_SPC),  BP_UNDS, KC_RALT, KC_RALT,  KC_RGUI, KC_LCTL },
  },
 
 
@@ -55,17 +56,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |        |        |        |        | <      | >      | @      |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        |        |        | _      | MO(_FN)|        |        |        |        | MO(_FN)| _      |        |        | RESET  |
+ * |        |        |        | _      | MO(_FN)|        |        |        |        | MO(_FN)| _      |        |        | RESET  |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
 
 
  [_FN] = { /* FUNCTION */
-  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MPRV, KC_MPLY, KC_MNXT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12  },
-  { _______, S(BP_DQOT), S(BP_LGIL),    S(BP_RGIL), S(BP_LPRN), S(BP_RPRN),    _______, _______,   _______, S(BP_AT), S(BP_PLUS), S(BP_MINUS), S(BP_SLASH),S(BP_ASTR),  S(BP_EQL) },
-  { _______, RALT(BP_B), BP_BSLS, BP_LBRC, BP_RBRC, RALT(BP_P), _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______ },
-  { _______, BP_BSLS, _______, _______, _______, _______, _______, _______, _______, _______, BP_LESS, BP_GRTR, BP_AT  , _______, _______ },
-  { _______, _______, _______, _______, _______, LT(_FN,KC_ENT), _______, _______, _______, LT(_FN,KC_SPC), _______, _______, _______, _______, RESET   },
+  { KC_F1,   KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,          KC_MPRV, KC_MPLY, KC_MNXT, KC_F7,          KC_F8,      KC_F9,       KC_F10,      KC_F11,     KC_F12    },
+  { _______, S(BP_DQOT), S(BP_LGIL), S(BP_RGIL), S(BP_LPRN), S(BP_RPRN),     _______, _______, _______, S(BP_AT),       S(BP_PLUS), S(BP_MINUS), S(BP_SLASH), S(BP_ASTR), S(BP_EQL) },
+  { _______, RALT(BP_B), BP_BSLS,    BP_LBRC,    BP_RBRC,    RALT(BP_P),     _______, _______, _______, _______,        KC_LEFT,    KC_DOWN,     KC_UP  ,     KC_RGHT,    _______   },
+  { _______, BP_BSLS,    _______,    _______,    _______,    _______,        _______, _______, _______, _______,        BP_LESS,    BP_GRTR,     BP_AT  ,     _______,    _______   },
+  { _______, _______,    _______,    _______,    _______,    LT(_FN,KC_ENT), _______, _______, _______, LT(_FN,KC_SPC), _______,    _______,     _______,     _______,    RESET     },
  }
 
 };
