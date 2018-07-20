@@ -74,6 +74,10 @@ QMK comes with a script to help you setup the rest of what you'll need. You shou
 
     ./util/qmk_install.sh
 
+Alteratively, if you're on windows and this command didn't run for you, you can try this command:
+
+    ./util/mysys2_install.sh
+
 ## Test Your Build Environment
 
 Now that your QMK build environment is setup you can build a firmware for your keyboard. Start by trying to build the default layout for your keyboard. You should be able to do that with a command in this format:
