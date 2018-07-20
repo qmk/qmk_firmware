@@ -44,6 +44,7 @@ extern backlight_config_t backlight_config;
 
 // @Override
 // turn LEDs on and off depending on USB caps/num/scroll lock states.
+__attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {
     /*
     if (usb_led & (1 << USB_LED_NUM_LOCK)) {

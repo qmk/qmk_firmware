@@ -25,6 +25,7 @@
 
 // @Override
 // turn LEDs on and off depending on USB caps/num/scroll lock states.
+__attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {
 /* It appears that these cause the v1 JJ40 PCB to hang.
  * I haven't looked into why, but I don't have any LEDs on my board anyway. */
