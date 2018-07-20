@@ -76,10 +76,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   //switch (keycode) {
   //case KC_P00:
   //  if (!record->event.pressed) {
-  //    register_code(KC_KP_0);
-  //    unregister_code(KC_KP_0);
-  //    register_code(KC_KP_0);
-  //    unregister_code(KC_KP_0);
+  //    tap(KC_KP_0);
+  //    tap(KC_KP_0);
   //  }
   //  return false;
   //  break;
@@ -89,5 +87,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 
 
+void matrix_init_keymap(void) {
+  DDRD &= ~(1<<5);
+  PORTD &= ~(1<<5);
+
+  DDRB &= ~(1<<0);
+  PORTB &= ~(1<<0);
+}
 
 
