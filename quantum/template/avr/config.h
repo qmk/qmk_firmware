@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -204,15 +203,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
 #define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
 #define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
-#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2 
+#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
 #define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
-#define LCD_RS_PORT      LCD_PORT     //< port for RS line        
-#define LCD_RS_PIN       3            //< pin  for RS line        
-#define LCD_RW_PORT      LCD_PORT     //< port for RW line        
-#define LCD_RW_PIN       2            //< pin  for RW line        
-#define LCD_E_PORT       LCD_PORT     //< port for Enable line     
-#define LCD_E_PIN        1            //< pin  for Enable line    
+#define LCD_RS_PORT      LCD_PORT     //< port for RS line
+#define LCD_RS_PIN       3            //< pin  for RS line
+#define LCD_RW_PORT      LCD_PORT     //< port for RW line
+#define LCD_RW_PIN       2            //< pin  for RW line
+#define LCD_E_PORT       LCD_PORT     //< port for Enable line
+#define LCD_E_PIN        1            //< pin  for Enable line
 #endif
-*/ 
+*/
 
-#endif
