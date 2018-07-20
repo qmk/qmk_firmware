@@ -20,8 +20,8 @@
 // Port D: digital pins of the AVR chipset
 //#define NUMLOCK_PORT    (1 << 2)  // 2nd pin of Port D (digital)
 #define CAPSLOCK_PORT   (1 << 1)  // 1st pin
-#define BACKLIGHT_PORT  (1 << 4)  // 4th pin
-//#define SCROLLLOCK_PORT (1 << 6)  // 6th pin
+#define BACKLIGHT_PORT  (1 << 4)  // D4
+//#define SCROLLLOCK_PORT (1 << 6)  // D6
 
 #define TIMER_CLK_DIV64			  0x03	///< Timer clocked at F_CPU/64
 #define TIMER1PRESCALE	TIMER_CLK_DIV64 ///< timer 1 prescaler default
