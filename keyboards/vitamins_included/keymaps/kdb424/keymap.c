@@ -1,0 +1,1 @@
+/home/kdb424/qmk_firmware/keyboards/levinson/keymaps/kdb424/keymap.c
