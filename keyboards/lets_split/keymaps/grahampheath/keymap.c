@@ -1,5 +1,4 @@
 #include "lets_split.h"
-#include "flip_keymap.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 
