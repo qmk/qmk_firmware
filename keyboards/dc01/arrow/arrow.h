@@ -23,7 +23,7 @@
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define LAYOUT_ALL( \
+#define LAYOUT_all( \
     K00, K01, K02, \
     K10, K11, K12, \
                    \
