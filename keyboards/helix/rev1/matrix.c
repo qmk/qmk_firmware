@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef USE_MATRIX_I2C
 #  include "i2c.h"
 #else // USE_SERIAL
-#  include "serial.h"
+#  include "split_scomm.h"
 #endif
 
 #ifndef DEBOUNCE
@@ -178,7 +178,7 @@ i2c_error: // the cable is disconnceted, or something else went wrong
 int serial_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 
-    if (serial_update_buffers()) {
+    if (serial_update_buffers(1)) {
         return 1;
     }
 
