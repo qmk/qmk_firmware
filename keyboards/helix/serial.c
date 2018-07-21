@@ -199,7 +199,6 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
 void serial_write_chunk(uint8_t data, uint8_t bit) NO_INLINE;
 void serial_write_chunk(uint8_t data, uint8_t bit) {
     uint8_t b, p;
-    int perr = 0; if( data & 0x10 ) perr = 1;    /// test parity check!!!
     for( p = 0, b = 1<<(bit-1); b ; b >>= 1) {
 	if(data & b) {
 	    serial_high(); p ^= 1;
@@ -211,7 +210,6 @@ void serial_write_chunk(uint8_t data, uint8_t bit) {
 	debug_recvsample();
 	debug_dummy_delay_send();
     }
-     p ^= perr;/// test parity check!!!
     /* send parity bit */
     if(p & 1) { serial_high(); }
     else      { serial_low(); }
