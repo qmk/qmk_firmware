@@ -23,7 +23,7 @@
 #define _GAME  9
 
 /* RGB colors */
-#define RGB_Layer_1_Base_Color 0, 128, 0
+#define RGB_Layer_1_Base_Color 0,0,0
 #define RGB_Layer_2_Base_Color 0,0,0
 #define RGB_Layer_3_Base_Color 0,0,0
 #define RGB_Layer_4_Base_Color 0,0,0
@@ -36,6 +36,12 @@
 #define RGB_TAP_On_Color 0,128,0
 #define RGB_TAP_Off_Color 128,0,0
 #define RGB_TAP_Base_Color 0,0,0
+
+// How long (in ms) to wait between animation steps for the rainbow mode
+const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {30, 5, -5};
+
+// How long (in ms) to wait between animation steps for the swirl mode
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {30, 5, -5};
 
 extern rgblight_config_t	rgblight_config;
 bool				NUMLAY_STATUS		= false;
@@ -167,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_FUNC] = LAYOUT_planck_mit(
   _______ , KC_F1,   KC_F2 ,   KC_F3,   KC_F4,   KC_F5,   KC_F6 ,   KC_F7,   KC_F8,   KC_F9,   KC_F10, _______,
-  _______ , KC_F12,  KC_F12 ,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+  _______ , KC_F11,  KC_F12 ,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   _______ , XXXXXXX, XXXXXXX , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
   _______ , _______, _______ , _______, _______,      _______, _______ , _______, _______, _______, _______ ),
 
@@ -634,10 +640,13 @@ void matrix_scan_user( void )
       rgblight_mode( 1 );
       rgblight_setrgb(RGB_Layer_7_Base_Color);
 
-      rgblight_setrgb_at(1,143,225,0);
-      rgblight_setrgb_at(39,21,107,1);
-      rgblight_setrgb_at(208,0,0,2);
-      rgblight_setrgb_at(64,64,64,21);
+      rgblight_setrgb_at(128,0,0,5);
+      rgblight_setrgb_at(128,128,128,12);
+      rgblight_setrgb_at(128,0,0,13);
+      rgblight_setrgb_at(64,64,0,14);
+      rgblight_setrgb_at(0,128,0,15);
+      rgblight_setrgb_at(0,64,64,16);
+      rgblight_setrgb_at(0,0,128,17);
       break;
     case _ADJUST: //8
       RGB_LAYER0_mode = rgblight_config.mode;
@@ -733,6 +742,11 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ){
       break;
     case RGB_MODE_KNIGHT:
       save_rgbmode = true;
+      break;
+    case RGB_MOD:
+      rgblight_step();
+      save_rgbmode = true;
+      return false;
       break;
 
 /* Define a New Keycode: double zero  */
