@@ -14,9 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <math.h>
-#include <avr/eeprom.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
+#ifdef __AVR__
+  #include <avr/eeprom.h>
+  #include <avr/interrupt.h>
+#endif
+#include "wait.h"
 #include "progmem.h"
 #include "timer.h"
 #include "rgblight.h"
@@ -42,11 +44,12 @@ __attribute__ ((weak))
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 __attribute__ ((weak))
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
+__attribute__ ((weak))
+const uint16_t RGBLED_RGBTEST_INTERVALS[] PROGMEM = {1024};
 
 rgblight_config_t rgblight_config;
 
 LED_TYPE led[RGBLED_NUM];
-uint8_t rgblight_inited = 0;
 bool rgblight_timer_enabled = false;
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
@@ -112,13 +115,19 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
 
 
 uint32_t eeconfig_read_rgblight(void) {
-  return eeprom_read_dword(EECONFIG_RGBLIGHT);
+  #ifdef __AVR__
+    return eeprom_read_dword(EECONFIG_RGBLIGHT);
+  #else
+    return 0;
+  #endif
 }
 void eeconfig_update_rgblight(uint32_t val) {
-  eeprom_update_dword(EECONFIG_RGBLIGHT, val);
+  #ifdef __AVR__
+    eeprom_update_dword(EECONFIG_RGBLIGHT, val);
+  #endif
 }
 void eeconfig_update_rgblight_default(void) {
-  dprintf("eeconfig_update_rgblight_default\n");
+  //dprintf("eeconfig_update_rgblight_default\n");
   rgblight_config.enable = 1;
   rgblight_config.mode = 1;
   rgblight_config.hue = 0;
@@ -140,7 +149,6 @@ void eeconfig_debug_rgblight(void) {
 void rgblight_init(void) {
   debug_enable = 1; // Debug ON!
   dprintf("rgblight_init called.\n");
-  rgblight_inited = 1;
   dprintf("rgblight_init start!\n");
   if (!eeconfig_is_enabled()) {
     dprintf("rgblight_init eeconfig is not enabled.\n");
@@ -238,14 +246,15 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_disable();
     #endif
-  } else if (rgblight_config.mode >= 2 && rgblight_config.mode <= 24) {
+  } else if ((rgblight_config.mode >= 2 && rgblight_config.mode <= 24) ||
+	     rgblight_config.mode == 35 ) {
     // MODE 2-5, breathing
     // MODE 6-8, rainbow mood
     // MODE 9-14, rainbow swirl
     // MODE 15-20, snake
     // MODE 21-23, knight
     // MODE 24, xmas
-    // MODE 25-34, static rainbow
+    // MODE 35  RGB test
 
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
@@ -310,7 +319,7 @@ void rgblight_disable(void) {
   #ifdef RGBLIGHT_ANIMATIONS
     rgblight_timer_disable();
   #endif
-  _delay_ms(50);
+  wait_ms(50);
   rgblight_set();
 }
 
@@ -579,6 +588,9 @@ void rgblight_task(void) {
     } else if (rgblight_config.mode == 24) {
       // mode = 24, christmas mode
       rgblight_effect_christmas();
+    } else if (rgblight_config.mode == 35) {
+      // mode = 35, RGB test
+      rgblight_effect_rgbtest();
     }
   }
 }
@@ -734,4 +746,30 @@ void rgblight_effect_christmas(void) {
   rgblight_set();
 }
 
-#endif
+void rgblight_effect_rgbtest(void) {
+  static uint8_t pos = 0;
+  static uint16_t last_timer = 0;
+  static uint8_t maxval = 0;
+  uint8_t g; uint8_t r; uint8_t b;
+
+  if (timer_elapsed(last_timer) < pgm_read_word(&RGBLED_RGBTEST_INTERVALS[0])) {
+    return;
+  }
+
+  if( maxval == 0 ) {
+      LED_TYPE tmp_led;
+      sethsv(0, 255, RGBLIGHT_LIMIT_VAL, &tmp_led);
+      maxval = tmp_led.r;
+  }
+  last_timer = timer_read();
+  g = r = b = 0;
+  switch( pos ) {
+    case 0: r = maxval; break;
+    case 1: g = maxval; break;
+    case 2: b = maxval; break;
+  }
+  rgblight_setrgb(r, g, b);
+  pos = (pos + 1) % 3;
+}
+
+#endif /* RGBLIGHT_ANIMATIONS */
