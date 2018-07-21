@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="23"
+   height="23"
+   viewBox="0 0 23 23"
+   version="1.1"
+   id="svg40"
+   sodipodi:docname="command.svg"
+   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   inkscape:export-filename="C:\Users\James Young\GitHub\qmk_firmware\keyboards\kc60\keymaps\noroadsleft\command.png"
+   inkscape:export-xdpi="17.719999"
+   inkscape:export-ydpi="17.719999">
+  <metadata
+     id="metadata44">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="975"
+     id="namedview42"
+     showgrid="false"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0"
+     inkscape:zoom="22.627417"
+     inkscape:cx="16.198764"
+     inkscape:cy="6.6390828"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg40" />
+  <style
+     type="text/css"
+     id="style2">
+    .keycap .border { stroke: black; stroke-width: 2; }
+    .keycap .inner.border { stroke: rgba(0,0,0,.1); }
+    </style>
+  <defs
+     id="defs30">
+    <linearGradient
+       id="DCS">
+      <stop
+         offset="0%"
+         stop-color="black"
+         stop-opacity="0"
+         id="stop4" />
+      <stop
+         offset="40%"
+         stop-color="black"
+         stop-opacity="0.1"
+         id="stop6" />
+      <stop
+         offset="60%"
+         stop-color="black"
+         stop-opacity="0.1"
+         id="stop8" />
+      <stop
+         offset="100%"
+         stop-color="black"
+         stop-opacity="0"
+         id="stop10" />
+    </linearGradient>
+    <linearGradient
+       id="SPACE"
+       x1="0"
+       x2="0"
+       y1="0"
+       y2="1">
+      <stop
+         offset="0%"
+         stop-color="black"
+         stop-opacity="0.1"
+         id="stop13" />
+      <stop
+         offset="20%"
+         stop-color="black"
+         stop-opacity="0.0"
+         id="stop15" />
+      <stop
+         offset="40%"
+         stop-color="black"
+         stop-opacity="0.0"
+         id="stop17" />
+      <stop
+         offset="100%"
+         stop-color="black"
+         stop-opacity="0.1"
+         id="stop19" />
+    </linearGradient>
+    <radialGradient
+       id="DSA">
+      <stop
+         offset="0%"
+         stop-color="black"
+         stop-opacity="0.1"
+         id="stop22" />
+      <stop
+         offset="10%"
+         stop-color="black"
+         stop-opacity="0.1"
+         id="stop24" />
+      <stop
+         offset="100%"
+         stop-color="black"
+         stop-opacity="0"
+         id="stop26" />
+    </radialGradient>
+    <radialGradient
+       id="SA"
+       xlink:href="#DSA" />
+  </defs>
+  <rect
+     style="display:inline;fill:#eeeeee;stroke:#dddddd;stroke-width:0.215;stroke-miterlimit:4;stroke-dasharray:none"
+     y="0.1075"
+     x="0.1075"
+     id="rect32"
+     rx="2.1360936"
+     height="22.785"
+     width="22.785" />
+  <path
+     inkscape:connector-curvature="0"
+     id="path859"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:1.25;font-family:DIN;-inkscape-font-specification:DIN;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:0.215;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:fill markers stroke"
+     d="M 9.4984984,13.501502 H 13.501503 V 9.498498 H 9.4984984 Z m 0,2.001502 v 2.299023 q 0,1.731029 -1.2577006,2.975205 -1.2441767,1.230653 -3.0022527,1.230653 -1.7580762,0 -3.0022531,-1.244176 -1.24417682,-1.244177 -1.24417682,-3.015776 0,-1.731029 1.24417682,-2.988731 1.2441769,-1.2577 2.961682,-1.2577 H 7.4969967 V 9.498498 H 5.197974 q -1.7175051,0 -2.961682,-1.2577005 Q 0.99211518,6.983097 0.99211518,5.2385448 q 0,-1.7580762 1.24417682,-3.0022531 1.2441769,-1.24417677 3.0022531,-1.24417677 1.758076,0 3.0022527,1.24417677 1.2577006,1.2306533 1.2577006,2.961682 V 7.4969964 H 13.501503 V 5.1979737 q 0,-1.7310287 1.244177,-2.961682 1.2577,-1.24417677 3.015776,-1.24417677 1.771601,0 3.002254,1.24417677 1.244175,1.2441769 1.244175,3.0022531 0,1.7445522 -1.244175,3.0022527 -1.230653,1.2577005 -2.961682,1.2577005 h -2.299023 v 4.003004 h 2.299023 q 1.731029,0 2.961682,1.2577 1.244175,1.257702 1.244175,2.988731 0,1.771599 -1.244175,3.015776 -1.230653,1.244176 -3.002254,1.244176 -1.758076,0 -3.015776,-1.230653 -1.244177,-1.244176 -1.244177,-2.975205 V 15.503004 Z M 7.4969967,7.4969964 V 5.2385448 q 0,-0.9331326 -0.6626597,-1.5822684 -0.6626593,-0.6626597 -1.5957919,-0.6626597 -0.9196091,0 -1.5822684,0.6626597 -0.6626595,0.6491358 -0.6626595,1.5822684 0,0.9331326 0.6626595,1.5957919 0.6626593,0.6626597 1.5957919,0.6626597 z m 0,8.0060076 H 5.2520686 q -0.9331326,0 -1.5957919,0.662659 -0.6626595,0.66266 -0.6626595,1.58227 0,0.933132 0.6626595,1.59579 0.6626593,0.66266 1.5957919,0.66266 0.9196091,0 1.5822684,-0.66266 0.6626597,-0.662658 0.6626597,-1.582267 z M 15.503005,7.4969964 h 2.258451 q 0.91961,0 1.582268,-0.6626597 0.66266,-0.6626593 0.66266,-1.5957919 0,-0.9331326 -0.66266,-1.5822684 -0.649135,-0.6626597 -1.582268,-0.6626597 -0.933132,0 -1.595792,0.6626597 -0.662659,0.6491358 -0.662659,1.5822684 z m 0,8.0060076 v 2.258452 q 0,0.919609 0.662659,1.582267 0.66266,0.66266 1.595792,0.66266 0.933133,0 1.582268,-0.66266 0.66266,-0.662658 0.66266,-1.59579 0,-0.91961 -0.66266,-1.58227 -0.662658,-0.662659 -1.582268,-0.662659 z" />
+</svg>

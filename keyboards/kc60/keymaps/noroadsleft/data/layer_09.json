@@ -1,0 +1,198 @@
+[
+  {
+    "css": ".custom:after {\r\n  background-repeat: no-repeat;\r\n  background-position: center;\r\n\r\n  /* Content is required for it to appear; this is a non-breaking-space */\r\n  content:'\\00a0'; \r\n  display:inline-block; \r\n\r\n  /* Sizing in EMs allows the glyph to scale with the font-size */\r\n  width: 1.4em; \r\n  height: 1.4em; \r\n  background-size: cover; \r\n}\r\n.twitch:after {\r\n    background-image: url('https://seeklogo.com/images/T/twitch-logo-4931D91F85-seeklogo.com.png');\r\n    width: 0.7em;\r\n    height: 2.2em;\r\n    background-size: contain;\r\n}\r\n.lavak3DED:after { \r\n  /* Set the background for this glyph to your image */\r\n  background-image: url('https://static-cdn.jtvnw.net/emoticons/v1/821796/2.0'); \r\n}"
+  },
+  [
+    {
+      "p": "OEM",
+      "a": 6,
+      "f": 2
+    },
+    "Toggle layer _MA",
+    {
+      "a": 7
+    },
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    {
+      "a": 6
+    },
+    "RESET",
+    {
+      "a": 7
+    },
+    "",
+    {
+      "a": 6
+    },
+    "DEBUG",
+    {
+      "a": 7
+    },
+    "",
+    "",
+    {
+      "w": 2
+    },
+    ""
+  ],
+  [
+    {
+      "w": 1.5
+    },
+    "",
+    "",
+    "",
+    {
+      "a": 4,
+      "fa": [
+        3
+      ]
+    },
+    "<i class='fa fa-git'></i>\n\n\n\n\n\nPUSH",
+    {
+      "a": 7
+    },
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    {
+      "f": 6
+    },
+    "",
+    "",
+    "",
+    {
+      "f": 2,
+      "w": 1.5
+    },
+    ""
+  ],
+  [
+    {
+      "w": 1.75
+    },
+    "",
+    "",
+    {
+      "a": 4,
+      "fa": [
+        3
+      ]
+    },
+    "<i class='fa fa-git'></i>\n\n\n\n\n\nRST",
+    "<i class='fa fa-git'></i>\n\n\n\n\n\nFTCH",
+    {
+      "n": true
+    },
+    "<i class='fa fa-git'></i>\n\n\n\n\n\nCOMM",
+    {
+      "a": 7
+    },
+    "",
+    "",
+    {
+      "n": true
+    },
+    "",
+    "",
+    {
+      "a": 4,
+      "f": 6
+    },
+    "<i class='fa fa-twitch'></i>\n\n\n<i class='custom lavak3DED'></i>",
+    {
+      "a": 7
+    },
+    "",
+    "",
+    {
+      "f": 2,
+      "w": 2.25
+    },
+    ""
+  ],
+  [
+    {
+      "w": 2.25
+    },
+    "",
+    "",
+    "",
+    {
+      "a": 4,
+      "fa": [
+        3
+      ]
+    },
+    "<i class='fa fa-git'></i>\n\n\n\n\n\nC10R",
+    {
+      "a": 7
+    },
+    "",
+    {
+      "a": 4
+    },
+    "<i class='fa fa-git'></i>\n\n\n\n\n\nBRCH",
+    {
+      "a": 6,
+      "f": 2
+    },
+    "SIGNA",
+    {
+      "a": 7
+    },
+    "",
+    "",
+    "",
+    "",
+    {
+      "w": 2.75
+    },
+    ""
+  ],
+  [
+    {
+      "w": 1.25
+    },
+    "",
+    {
+      "w": 1.25
+    },
+    "",
+    {
+      "w": 1.25
+    },
+    "",
+    {
+      "p": "OEM SPACE",
+      "w": 6.25
+    },
+    "",
+    {
+      "p": "OEM",
+      "w": 1.25
+    },
+    "",
+    {
+      "w": 1.25
+    },
+    "",
+    {
+      "w": 1.25
+    },
+    "",
+    {
+      "w": 1.25
+    },
+    ""
+  ]
+]

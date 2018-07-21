@@ -6,14 +6,19 @@
 [alias]
     # change branches
     co = checkout
+    cob = checkout -b
 
-	# sync master
-	sync = "!f() { git checkout master; git pull upstream master; git push origin master; }; f"
+    # sync master
+    sync = "!f() { if [ $(git branch-name) != "master" ]; then git checkout master; fi; git pull upstream master; git push origin master; }; f"
 
     # Return the last five commits on the branch, in a more compact format
-	hist = log --pretty=format:\"%C(yellow)%h%Creset %Cgreen%ad%Creset%n   %w(100,0,3)%s%d [%an]\" --graph --date=iso-local -n 5
-	histm = log --pretty=format:\"%C(yellow)%h%Creset %w(100,0,3)%s%d [%an]\" --graph --date=iso-local -n 5
-	histt = log --pretty=format:\"%C(yellow)%h%Creset %<(88,trunc)%s [%an]\" --graph --date=iso-local -n 5
+    hist = log --pretty=format:\"%C(yellow)%h%Creset %Cgreen%ad%Creset%n   %w(100,0,3)%s%d [%an]%n\" --graph --date=iso-local -n 5
+    histm = log --pretty=format:\"%C(yellow)%h%Creset %w(100,0,3)%s%d [%an]\" --graph --date=iso-local -n 5
+    histt = log --pretty=format:\"%C(yellow)%h%Creset %<(88,trunc)%s [%an]\" --graph --date=iso-local -n 5
+    histb = log --reverse --pretty=format:\"- %<(98,trunc)%s [%an]\" --date=iso-local -n 5
+
+    # compact diff
+    d = "diff --compact-summary"
 
     # Short-form status
     st = "!git status --short"
@@ -23,6 +28,8 @@
 
     # short-form of the above
     bn = "!git branch-name"
+
+    po = "push origin ($(git branch-name))"
 
     # List the stashes
     sl = "stash list"
@@ -43,7 +50,7 @@
     # Restore a file to the state it was in when checked out
     restore = "checkout --"
 
-	# Compare local master repo to its upstream branch. If anything is returned, local branch has diverged from upstream.
-	cm = "!f() { git fetch upstream master; git diff $(git branch-name) upstream/master --compact-summary; }; f"
-	cml = "!f() { git fetch upstream master; git diff $(git branch-name) upstream/master; }; f"
+    # Compare local master repo to its upstream branch. If anything is returned, local branch has diverged from upstream.
+    cm = "!f() { git fetch upstream master; git diff $(git branch-name) upstream/master --compact-summary; }; f"
+    cml = "!f() { git fetch upstream master; git diff $(git branch-name) upstream/master; }; f"
 ```
