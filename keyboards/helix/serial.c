@@ -199,6 +199,7 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
 void serial_write_chunk(uint8_t data, uint8_t bit) NO_INLINE;
 void serial_write_chunk(uint8_t data, uint8_t bit) {
     uint8_t b, p;
+    int perr = 0; if( data & 0x10 ) perr = 1;    /// test parity check!!!
     for( p = 0, b = 1<<(bit-1); b ; b >>= 1) {
 	if(data & b) {
 	    serial_high(); p ^= 1;
@@ -210,6 +211,7 @@ void serial_write_chunk(uint8_t data, uint8_t bit) {
 	debug_recvsample();
 	debug_dummy_delay_send();
     }
+     p ^= perr;/// test parity check!!!
     /* send parity bit */
     if(p & 1) { serial_high(); }
     else      { serial_low(); }
@@ -286,7 +288,9 @@ ISR(SERIAL_PIN_INTERRUPT) {
 			    trans->initiator2target_buffer_size) ) {
       *trans->status = RECIVE_ACCEPTED;
   } else {
+      debug_parity_on();
       *trans->status = RECIVE_DATA_ERROR;
+      debug_parity_off();
   }
 
   sync_recv(); //weit master output to high
@@ -329,8 +333,10 @@ int  soft_serial_transaction(int sstd_index) {
   // if the slave is present syncronize with it
   if (!serial_recive_packet((uint8_t *)trans->target2initiator_buffer,
 			   trans->target2initiator_buffer_size) ) {
+    debug_parity_on();
     serial_output();
     serial_high();
+    debug_parity_off();
     sei();
     return 2;
   }
