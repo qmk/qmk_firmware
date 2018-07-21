@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h>
 #include <avr/io.h>
 #include <avr/wdt.h>
 #include <avr/interrupt.h>
@@ -188,9 +189,8 @@ int serial_transaction(void) {
         return 1;
     }
     RXLED0;
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        matrix[slaveOffset+i] = serial_slave_buffer[i];
-    }
+    memcpy(&matrix[slaveOffset],
+        (void *)serial_slave_buffer, sizeof(serial_slave_buffer));
     return 0;
 }
 #endif
@@ -201,19 +201,9 @@ uint8_t matrix_scan(void)
         matrix_master_scan();
     }else{
         matrix_slave_scan();
-
-//        if(serial_slave_DATA_CORRUPT()){
-//          TXLED0;
-          int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
-
-          for (int i = 0; i < ROWS_PER_HAND; ++i) {
-              matrix[offset+i] = serial_master_buffer[i];
-          }
-
-//        }else{
-//          TXLED1;
-//        }
-
+        int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
+        memcpy(&matrix[offset],
+               (void *)serial_master_buffer, sizeof(serial_master_buffer));
         matrix_scan_quantum();
     }
     return 1;
@@ -233,9 +223,8 @@ uint8_t matrix_master_scan(void) {
 //        i2c_slave_buffer[i] = matrix[offset+i];
 //    }
 #else // USE_SERIAL
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        serial_master_buffer[i] = matrix[offset+i];
-    }
+    memcpy((void *)serial_master_buffer,
+	   &matrix[offset], sizeof(serial_master_buffer));
 #endif
 #endif
 
