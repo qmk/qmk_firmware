@@ -17,6 +17,7 @@
 #ifdef USE_SERIAL
 
 #define ALWAYS_INLINE __attribute__((always_inline))
+#define NO_INLINE __attribute__((noinline))
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
 // Serial pulse period in microseconds.
@@ -24,28 +25,28 @@
 #if SELECT_SERIAL_SPEED == 0
   // Very High speed
   #define SERIAL_DELAY 4             // micro sec
-  #define READ_WRITE_START_ADJUST 5 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 2 // cycles
+  #define READ_WRITE_START_ADJUST 33 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
 #elif SELECT_SERIAL_SPEED == 1
   // High speed
   #define SERIAL_DELAY 6             // micro sec
-  #define READ_WRITE_START_ADJUST 5 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 2 // cycles
+  #define READ_WRITE_START_ADJUST 30 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
 #elif SELECT_SERIAL_SPEED == 2
   // Middle speed
   #define SERIAL_DELAY 12            // micro sec
-  #define READ_WRITE_START_ADJUST 5 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 2 // cycles
+  #define READ_WRITE_START_ADJUST 30 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
 #elif SELECT_SERIAL_SPEED == 3
   // Low speed
   #define SERIAL_DELAY 24            // micro sec
-  #define READ_WRITE_START_ADJUST 5 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 2 // cycles
+  #define READ_WRITE_START_ADJUST 30 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
 #elif SELECT_SERIAL_SPEED == 4
   // Very Low speed
   #define SERIAL_DELAY 50            // micro sec
-  #define READ_WRITE_START_ADJUST 5 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 2 // cycles
+  #define READ_WRITE_START_ADJUST 30 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
 #else
 #error Illegal Serial Speed
 #endif
@@ -160,77 +161,92 @@ void sync_send(void) {
 }
 
 // Reads a byte from the serial line
-static
-uint8_t serial_read_byte(void) {
-  uint8_t byte = 0;
+static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) NO_INLINE;
+static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
+    uint8_t byte, i, p, pb;
+
   _delay_sub_us(READ_WRITE_START_ADJUST);
-  for ( uint8_t i = 0; i < 8; ++i) {
-    serial_delay_half1();   // read the middle of pulses
-    debug_recvsample();
-    byte = (byte << 1) | serial_read_pin();
-    debug_recvsample();
-    _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
-    serial_delay_half2();
-    debug_dummy_delay_recv();
+  for( i = 0, byte = 0, p = 0; i < bit; i++ ) {
+      serial_delay_half1();   // read the middle of pulses
+      debug_recvsample();
+      if( serial_read_pin() ) {
+	  byte = (byte << 1) | 1; p ^= 1;
+      } else {
+	  byte = (byte << 1) | 0; p ^= 0;
+      }
+      debug_recvsample();
+      _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
+      serial_delay_half2();
+      debug_dummy_delay_recv();
   }
+  /* recive parity bit */
+  serial_delay_half1();   // read the middle of pulses
+  debug_recvsample();
+  pb = serial_read_pin();
+  debug_recvsample();
+  _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
+  serial_delay_half2();
+  debug_dummy_delay_recv();
+
+  if( p == pb ) debug_parity_on();
+  *pterrcount += (p != pb)? 1 : 0;
+  debug_parity_off();
+
   return byte;
 }
 
 // Sends a byte with MSB ordering
-static
-void serial_write_byte(uint8_t data) {
-  uint8_t b = 1<<7;
-  while( b ) {
-    if(data & b) {
-      serial_high();
-    } else {
-      serial_low();
+void serial_write_chunk(uint8_t data, uint8_t bit) NO_INLINE;
+void serial_write_chunk(uint8_t data, uint8_t bit) {
+    uint8_t b, p;
+    for( p = 0, b = 1<<(bit-1); b ; b >>= 1) {
+	if(data & b) {
+	    serial_high(); p ^= 1;
+	} else {
+	    serial_low();  p ^= 0;
+	}
+	debug_recvsample();
+	serial_delay();
+	debug_recvsample();
+	debug_dummy_delay_send();
     }
-    b >>= 1;
+    /* send parity bit */
+    if(p & 1) { serial_high(); }
+    else      { serial_low(); }
     debug_recvsample();
     serial_delay();
     debug_recvsample();
     debug_dummy_delay_send();
-  }
-  serial_low(); // sync_send() / senc_recv() need raise edge
+
+    serial_low(); // sync_send() / senc_recv() need raise edge
 }
 
+static void serial_send_packet(uint8_t *buffer, uint8_t size) NO_INLINE;
 static
 void serial_send_packet(uint8_t *buffer, uint8_t size) {
-  uint8_t checksum = 0;
   for (uint8_t i = 0; i < size; ++i) {
     uint8_t data;
     data = buffer[i];
     sync_send();
     debug_bytewidth_start();
-    serial_write_byte(data);
+    serial_write_chunk(data,8);
     debug_bytewidth_end();
-    checksum += data;
   }
-  sync_send();
-  debug_bytewidth_start();
-  serial_write_byte(checksum);
-  debug_bytewidth_end();
 }
 
+static uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) NO_INLINE;
 static
 uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) {
-  uint8_t checksum_computed = 0;
+  uint8_t pecount = 0;
   for (uint8_t i = 0; i < size; ++i) {
     uint8_t data;
     sync_recv();
     debug_bytewidth_start();
-    data = serial_read_byte();
+    data = serial_read_chunk(&pecount, 8);
     debug_bytewidth_end();
     buffer[i] = data;
-    checksum_computed += data;
   }
-  sync_recv();
-  debug_bytewidth_start();
-  uint8_t checksum_received = serial_read_byte();
-  debug_bytewidth_end();
-
-  return checksum_computed == checksum_received;
+  return pecount == 0;
 }
 
 inline static
