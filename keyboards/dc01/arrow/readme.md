@@ -2,7 +2,7 @@
 
 ![DC01 Arrow Cluster](https://i.imgur.com/PTn0sp8.jpg)
 
-A hotpluggable four part keyboard which comes together with magnets and pogo pins! This is the arrow cluster
+A hotpluggable four part keyboard which comes together with magnets and pogo pins! This is the arrow cluster.
 
 Keyboard Maintainer: [Yiancar](https://github.com/yiancar)  
 Hardware Supported: Runs on an atmega32u4  
