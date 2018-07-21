@@ -12,11 +12,11 @@ Changes to the thumb clusters include:
 
 I've largely left the function keys untouched, with the intension of not using them.  They are neither easy to use nor reach due to their locations and size, and, prior to Advantage2, particularly terrible rubber domes were used.  They have since updated the keys with Cherry ML switches on Advantage2, but did not resolve the issues of size or location.  Additionally, leaving the function keys unused here makes it easier for me to adapt the keymaps to my other keyboards, most of which do not have physical function keys.
 
-I use Colemak Mod-DH Matrix as my default layout.  There are QWERTY and regular Colemak layouts as well.
+I use Colemak as my default layout.  I've included QWERTY here as well.
 
-Additionally, I've added gaming/vanilla version of Colemak Mod-DH Matrix and QWERTY layouts.  These layouts have no access to the Function or Numbers layers, thus no dual-role keys with layer access, and are mainly used for gaming.
+Additionally, I've added gaming/vanilla version of Colemak and QWERTY layouts.  These layouts have no access to the Function or Numbers layers, thus no dual-role keys with layer access, and are mainly used for gaming.
 
-Persistent default layer has been enabled for Colemak Mod-DH Matrix, QWERTY, and Colemak.  The gaming/vanilla Colemak Mod-DH Matrix and QWERTY can be set as default layer, but will not be persistent.
+Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/vanilla Colemak and QWERTY can be set as default layer, but will not be persistent.
 
 ## Future plans
 
@@ -25,7 +25,7 @@ Persistent default layer has been enabled for Colemak Mod-DH Matrix, QWERTY, and
 * Utilize the leftover spots on the key matrix, as well as unused pins on Teensy to run macropad and/or foot pedals.
 
 
-### Colemak Mod-DH Matrix
+### Colemak
 	(Default layer, keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
 	,-----------------------------------------------------------------------------------------------------------.
 	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
@@ -33,11 +33,11 @@ Persistent default layer has been enabled for Colemak Mod-DH Matrix, QWERTY, and
 	,-------------------------------------------.                   ,-------------------------------------------.
 	|    =   |   1  |   2  |   3  |   4  |   5  |                   |   6  |   7  |   8  |   9  |   0  |   -    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|   Tab  |   Q  |   W  |   F  |   P  |   B  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
+	|   Tab  |   Q  |   W  |   F  |   P  |   G  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|Esc/Ctrl|   A  |   R  |   S  |   T  |   G  |                   |   M  |   N  |   E  |   I  |   O  |   '    |
+	|Esc/Ctrl|   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|SC Shift|   Z  |   X  |   C  |   D  |   V  |                   |   K  |   H  |   ,  |   .  |   /  |SC Shift|
+	|SC Shift|   Z  |   X  |   C  |   V  |   B  |                   |   K  |   M  |   ,  |   .  |   /  |SC Shift|
 	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
 	         |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
 	         `---------------------------'                                 `---------------------------'
@@ -49,7 +49,7 @@ Persistent default layer has been enabled for Colemak Mod-DH Matrix, QWERTY, and
 	                    |  Fn   | Number|  Bspc |                   |  Tab  |Number2|  Fn2  |
 	                    `-----------------------'                   `-----------------------' 
 	
-
+	
 ### QWERTY
 	(Keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
 	,-----------------------------------------------------------------------------------------------------------.
@@ -75,31 +75,6 @@ Persistent default layer has been enabled for Colemak Mod-DH Matrix, QWERTY, and
 	                    `-----------------------'                   `-----------------------' 
 	
 
-### Colemak
-	(Keys separated by /: tap for first, hold for second; uses Space Cadet Shifts)
-	,-----------------------------------------------------------------------------------------------------------.
-	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
-	`-----------------------------------------------------------------------------------------------------------'
-	,-------------------------------------------.                   ,-------------------------------------------.
-	|    =   |   1  |   2  |   3  |   4  |   5  |                   |   6  |   7  |   8  |   9  |   0  |   -    |
-	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|   Tab  |   Q  |   W  |   F  |   P  |   G  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
-	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|Esc/Ctrl|   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
-	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|SC Shift|   Z  |   X  |   C  |   V  |   B  |                   |   K  |   M  |   ,  |   .  |   /  |SC Shift|
-	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
-	         |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
-	         `---------------------------'                                 `---------------------------'
-	                            ,---------------.                   ,---------------.
-	                            |Esc/Ctl| Hyper |                   |  RAlt |  RCtl |
-	                    ,-------|-------|-------|                   |-------+-------+-------.
-	                    | Space | Enter |App/Alt|                   |  RGUI | Delete|  Bspc |
-	                    |   /   |   /   |-------|                   |-------|   /   |   /   |
-	                    |  Fn   | Number|  Bspc |                   |  Tab  |Number2|  Fn2  |
-	                    `-----------------------'                   `-----------------------' 
-	
-	
 ### Numbers & Symbols layer
 	(Multiple characters: single-tap for first, double-tap for second)
 	,-----------------------------------------------------------------------------------------------------------.
@@ -155,7 +130,7 @@ Persistent default layer has been enabled for Colemak Mod-DH Matrix, QWERTY, and
 	|     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
 	`-----------------------------------------------------------------------------------------------------------'
 	,-------------------------------------------.                   ,-------------------------------------------.
-	|        | NumLk|      |      |      |      |                   |  Tab | NumLk| KP / |  kP *| KP - |        |
+	|        | NumLk|      |      |      |      |                   |  Tab | NumLk| KP / | KP * | KP - |        |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|        | KP 6 | KP 7 | KP 8 | KP 9 | KP 0 |                   |      | KP 7 | KP 8 | KP 9 | KP + |        |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
@@ -174,7 +149,7 @@ Persistent default layer has been enabled for Colemak Mod-DH Matrix, QWERTY, and
 	                    `-----------------------'                   `-----------------------' 
 	
 
-### Colemak Mod-DH Matrix gaming/vanilla
+### Colemak gaming/vanilla
 	(No access to Function or Numbers layers; mainly used for gaming; double-tap TD(ADJ) for one shot access to Adjust layer)
 	,-----------------------------------------------------------------------------------------------------------.
 	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
@@ -182,11 +157,11 @@ Persistent default layer has been enabled for Colemak Mod-DH Matrix, QWERTY, and
 	,-------------------------------------------.                   ,-------------------------------------------.
 	|    =   |   1  |   2  |   3  |   4  |   5  |                   |   6  |   7  |   8  |   9  |   0  |   -    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|   Tab  |   Q  |   W  |   F  |   P  |   B  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
+	|   Tab  |   Q  |   W  |   F  |   P  |   G  |                   |   J  |   L  |   U  |   Y  |   ;  |   \    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|  Ctrl  |   A  |   R  |   S  |   T  |   G  |                   |   M  |   N  |   E  |   I  |   O  |   '    |
+	|  Ctrl  |   A  |   R  |   S  |   T  |   D  |                   |   H  |   N  |   E  |   I  |   O  |   '    |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|  Shift |   Z  |   X  |   C  |   D  |   V  |                   |   K  |   H  |   ,  |   .  |   /  |  Shift |
+	|  Shift |   Z  |   X  |   C  |   V  |   B  |                   |   K  |   M  |   ,  |   .  |   /  |  Shift |
 	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
 	         |  Ins |   `  |   [  |   ]  |                                 | Left | Down |  Up  | Right|
 	         `---------------------------'                                 `---------------------------'
@@ -228,8 +203,8 @@ Persistent default layer has been enabled for Colemak Mod-DH Matrix, QWERTY, and
 	,-----------------------------------------------------------------------------------------------------------.
 	|     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
 	`-----------------------------------------------------------------------------------------------------------'
-	,-------------------------------------------.                   ,------------------------------------------
-	|        |CModDH|Qwerty|Colmak|CMoDGM| QWGM |                   |Numpad|      |      |      |      | RESET  |
+	,-------------------------------------------.                   ,-------------------------------------------.
+	|        |Colmak|Qwerty|      |ClmkGM| QWGM |                   |Numpad|      |      |      |      | RESET  |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|        |      |      |      |      |      |                   |      |      |      |      |      |        |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|

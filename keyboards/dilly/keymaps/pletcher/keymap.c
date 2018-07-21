@@ -1,5 +1,4 @@
-#include "dilly.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -34,7 +33,7 @@ extern keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_BASE] = KC_KEYMAP(
+  [_BASE] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----.
       Q  , W  , E  , R  , T  , Y  , U  , I  , O  , P  ,
   //|----+----+----+----+----+----+----+----+----+----|
@@ -44,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
-  [_FN1] = KC_KEYMAP(
+  [_FN1] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----.
       1  , 2  , 3  , 4  , 5  , 6  , 7  , 8  , 9  , 0  ,
   //|----+----+----+----+----+----+----+----+----+----|
@@ -54,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
-  [_FN2] = KC_KEYMAP(
+  [_FN2] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----.
      EXLM, AT ,HASH,DLR ,PERC,CIRC,AMPR,ASTR,LPRN,RPRN,
   //|----+----+----+----+----+----+----+----+----+----|
@@ -64,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
-  [_FN3] = KC_KEYMAP(
+  [_FN3] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----.
          ,    ,    ,    ,    ,MINS,EQL ,LBRC,RBRC,BSLS,
   //|----+----+----+----+----+----+----+----+----+----|
@@ -74,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
-  [_FN4] = KC_KEYMAP(
+  [_FN4] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----.
          ,    ,    ,    ,    ,UNDS,PLUS,LCBR,RCBR,PIPE,
   //|----+----+----+----+----+----+----+----+----+----|
@@ -84,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----+----+----+----+----'
   ),
 
-  [_FN5] = KC_KEYMAP(
+  [_FN5] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----.
          ,    ,    ,RST ,    ,    ,MSTP,VOLD,VOLU,MPLY,
   //|----+----+----+----+----+----+----+----+----+----|

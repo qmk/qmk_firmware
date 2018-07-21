@@ -1,4 +1,4 @@
-#include "kitten_paw.h"
+#include QMK_KEYBOARD_H
 #include "mousekey.h"
 
 #define _______ KC_TRNS
@@ -38,7 +38,7 @@ enum macro_id {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [DEFAULT] = KEYMAP(\
+  [DEFAULT] = LAYOUT(\
           KC_ESC,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,           KC_PSCR,KC_SLCK,KC_PAUS,                                   \
           KC_GRV,   KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_MINS, KC_EQL,KC_BSPC,    KC_INS,KC_HOME,KC_PGUP,  KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS, \
           KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,KC_LBRC,KC_RBRC,KC_BSLS,    KC_DEL, KC_END,KC_PGDN,    KC_P7,  KC_P8,  KC_P9,KC_PPLS, \
@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             F(8),KC_NUBS,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,KC_COMM, KC_DOT,KC_SLSH,           F(9),             KC_UP,            KC_P1,  KC_P2,  KC_P3,KC_PENT, \
             F(1),KC_LGUI,   F(3),              LT(MISC,  KC_SPC),                           F(4),   F(5), MEDAPP,   F(2),   KC_LEFT,KC_DOWN,KC_RGHT,    KC_P0,KC_PDOT),
   /* Layer 1: Programming Layer 1, emulating US l ayout */
-  [PROG1] = KEYMAP(\
+  [PROG1] = LAYOUT(\
           KC_ESC,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,                                   \
           M(GRV),_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_SLSH,   S(0),_______,   _______,_______,_______,  _______,_______,_______,_______, \
          _______,_______,_______,_______,_______,_______,   KC_Z,_______,_______,_______,_______,  RA(8),  RA(9),RA(MINS),  _______,_______,_______,  _______,_______,_______,_______, \
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 2: programming layer 2
        all keys that are not FN keys are sent as LSFT+key on this layer
     */
-  [PROG2] = KEYMAP(\
+  [PROG2] = LAYOUT(\
          _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,                                   \
         RA(RBRC),_______,  RA(Q),KC_BSLS,_______,_______,M(CFLEX),  S(6),S(RBRC),   S(8),   S(9),S(SLSH),KC_RBRC,_______,   _______,_______,_______,  _______,_______,_______,_______, \
          _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,  RA(7),  RA(0),RA(NUBS),  _______,_______,_______,  _______,_______,_______,_______, \
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______,S(NUBS),_______,_______,_______,_______,_______,_______,_______,KC_NUBS,S(NUBS),S(MINS),        _______,           _______,          _______,_______,_______,_______, \
          _______,_______,_______,                        _______,                        _______,_______,_______,_______,   _______,_______,_______,  _______,_______),
     /* Layer 3: media layer */
-  [MEDIA] = KEYMAP(\
+  [MEDIA] = LAYOUT(\
           KC_PWR,KC_SLEP,KC_WAKE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,           XXXXXXX,XXXXXXX,XXXXXXX,                                   \
          XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,   KC_MPRV,KC_MPLY,KC_MNXT,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
          XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,   KC_VOLD,KC_MUTE,KC_VOLU,  XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,        XXXXXXX,           KC_EJCT,          XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX, \
          XXXXXXX,XXXXXXX,XXXXXXX,                        XXXXXXX,                        XXXXXXX,XXXXXXX,_______,XXXXXXX,   KC_MRWD,KC_MSTP,KC_MFFD,  XXXXXXX,XXXXXXX),
     /* Layer 4: Mouse layer */
-  [MOUSE1] = KEYMAP(\
+  [MOUSE1] = LAYOUT(\
             F(6),_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,                                   \
          _______,KC_ACL0,KC_ACL1,KC_ACL2,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
          _______,KC_BTN4,KC_WH_D,KC_MS_U,KC_WH_U,_______,   C(Z),_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MO(MOUSE2),_______,   C(Y),   C(X),   C(C),   C(V),_______,KC_BTN2,KC_BTN3,C(PGUP),C(PGDN),_______,        KC_RSFT,           _______,          _______,_______,_______,_______, \
          KC_LCTL,_______,KC_LALT,                        KC_BTN1,                        KC_RALT,KC_RGUI, KC_APP,KC_RCTL,   _______,_______,_______,  _______,_______),
     /* Layer 5: Mouse layer 2*/
-  [MOUSE2] = KEYMAP(\
+  [MOUSE2] = LAYOUT(\
          _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,           _______,_______,_______,                                   \
          _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
          _______,_______,KC_BTN2,KC_WH_U,KC_BTN3,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,           _______,          _______,_______,_______,_______, \
          _______,_______,_______,                        _______,                        _______,_______,_______,_______,   _______,_______,_______,  _______,_______),
     /* Layer 6: Misc layer */
-  [MISC] = KEYMAP(\
+  [MISC] = LAYOUT(\
          _______, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22, KC_F23, KC_F24,           _______,_______,_______,                                   \
          _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \
          _______,KC_SLCT,   C(W),  KC_UP,_______,_______,_______,_______,KC_BSPC, KC_DEL,_______,_______,_______,_______,   _______,_______,_______,  _______,_______,_______,_______, \

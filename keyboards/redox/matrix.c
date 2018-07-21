@@ -119,8 +119,13 @@ void matrix_init(void)
     debug_matrix = true;
     debug_mouse = true;
     // initialize row and col
+#if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
     init_cols();
+#elif (DIODE_DIRECTION == ROW2COL)
+    unselect_cols();
+    init_rows();
+#endif
 
     TX_RX_LED_INIT;
 
@@ -146,7 +151,6 @@ uint8_t _matrix_scan(void)
             if (matrix_changed) {
                 debouncing = true;
                 debouncing_time = timer_read();
-                PORTD ^= (1 << 2);
             }
 
 #       else

@@ -2,15 +2,6 @@
 #include QMK_KEYBOARD_H
 #include "drashna.h"
 
-#ifdef INDICATOR_LIGHTS
-extern userspace_config_t userspace_config;
-
-uint8_t last_mod;
-uint8_t last_led;
-uint8_t last_osm;
-bool has_mods_changed = false;
-#endif
-
 #define KC_ALAP ALT_T(KC_APP)
 #define KC_OSLG OSM(MOD_LGUI)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -52,28 +43,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                        _______, _______, _______,         _______, _______, _______
   ),
 
+  [_GAMEPAD] = LAYOUT_wrapper(
+     KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3,    KC_P,                          _______, _______, _______, _______, _______, _______,
+     KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,                          _______, _______, _______, _______, _______, _______,
+     KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                          _______, _______, _______, _______, _______, _______,
+     KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_H,    TG_GAME,     _______, _______, _______, _______, _______, _______, _______,
+                                       LOWER,   KC_V,    KC_SPC,          _______, _______, _______
+  ),
+
 
   [_LOWER] = LAYOUT_wrapper(
      _______, _________________FUNC_LEFT_________________,                       _________________FUNC_RIGHT________________, _______,
-     _______, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, _______,
-     _______, _______, _______, _______, _______, _______,                       _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-     _______, _______, _______, _______, _______, _______, _______,     _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______,
+     KC_TILD, _________________LOWER_L1__________________,                       _________________LOWER_R1__________________, _______,
+     _______, ___________________BLANK___________________,                       _________________LOWER_R2__________________, KC_PIPE,
+     _______, ___________________BLANK___________________, _______,     _______, _________________LOWER_R3__________________, _______,
                                        _______, _______, _______,         _______, _______, _______
   ),
 
   [_RAISE] = LAYOUT_wrapper(
       _______, _________________FUNC_LEFT_________________,                      _________________FUNC_RIGHT________________, _______,
-      _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______,                      _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-      _______, _______, _______, _______, _______, _______, _______,    _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  _______,
+      KC_GRV,  _________________RAISE_L1__________________,                      _________________RAISE_R1__________________, _______,
+      _______, _________________RAISE_L2__________________,                      _________________RAISE_R2__________________, KC_BSLS,
+      _______, _________________RAISE_L3__________________, _______,    _______, _________________RAISE_R3__________________, _______,
                                         _______, _______, _______,        _______, _______, _______
    ),
 
   [_ADJUST] = LAYOUT_wrapper(
-      KC_MAKE, _______, _______, _______, _______, _______,                      KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5, KC_RST,
-      VRSN,    RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG,                      _______, _______, _______, _______, _______, EPRM,
-      _______, _______, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM,                      AG_SWAP, KC_QWERTY, KC_COLEMAK, KC_DVORAK, KC_WORKMAN, _______,
-      TG(_MODS),RGB_SMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T,_______,    _______, MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY,
+      KC_MAKE, _______, _______, _______, _______, _______,                      _________________ADJUST_R1_________________, KC_RST,
+      VRSN,    _________________ADJUST_L1_________________,                      KC_NUKE, _______, _______, _______, _______, EPRM,
+      _______, _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
+      _______, _________________ADJUST_L3_________________, TG_GAME,    _______, _________________ADJUST_R3_________________, KC_MPLY,
                                         _______, _______, _______,        _______, _______, _______
    )
 
@@ -81,83 +80,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 void matrix_init_keymap(void) {
-#ifdef INDICATOR_LIGHTS
-  last_mod = get_mods();
-  last_led = host_keyboard_leds();
-  last_osm =get_oneshot_mods();
-#endif
+  DDRD &= ~(1<<5);
+  PORTD &= ~(1<<5);
+
+  DDRB &= ~(1<<0);
+  PORTB &= ~(1<<0);
 }
 
-uint32_t layer_state_set_keymap (uint32_t state) {
-#ifdef INDICATOR_LIGHTS
-  uint8_t modifiders = get_mods();
-  uint8_t led_usb_state = host_keyboard_leds();
-  uint8_t one_shot = get_oneshot_mods();
-
-
-  if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
-    rgblight_sethsv_at(0, 255, 255, 5);
-    rgblight_sethsv_at(0, 255, 255, 10);
-  }
-  if (modifiders & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
-    rgblight_sethsv_at(51, 255, 255, 6);
-    rgblight_sethsv_at(51, 255, 255, 9);
-  }
-  if (modifiders & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
-    rgblight_sethsv_at(120, 255, 255, 7);
-    rgblight_sethsv_at(120, 255, 255, 8);
-  }
-#endif
-
-  return state;
-}
-
-
-void matrix_scan_keymap (void) {
-
-#ifdef INDICATOR_LIGHTS
-  uint8_t current_mod = get_mods();
-  uint8_t current_led = host_keyboard_leds();
-  uint8_t current_osm =get_oneshot_mods();
-
-  if (last_mod == current_mod) {
-    last_mod = current_mod;
-    has_mods_changed = true;
-  }
-  if (last_led == current_led) {
-    last_led = current_led;
-    has_mods_changed = true;
-  }
-  if (last_osm == current_osm) {
-    last_osm = current_osm;
-    has_mods_changed = true;
-  }
-
-
-  if (userspace_config.rgb_layer_change && has_mods_changed && biton32(layer_state) == 0) {
-    if (current_mod & MODS_SHIFT_MASK || current_led & (1<<USB_LED_CAPS_LOCK) || current_osm & MODS_SHIFT_MASK) {
-      rgblight_sethsv_at(0, 255, 255, 5);
-      rgblight_sethsv_at(0, 255, 255, 10);
-    } else {
-      rgblight_sethsv_default_helper(5);
-      rgblight_sethsv_default_helper(10);
-    }
-    if (current_mod & MODS_CTRL_MASK || current_osm & MODS_CTRL_MASK) {
-      rgblight_sethsv_at(51, 255, 255, 6);
-      rgblight_sethsv_at(51, 255, 255, 9);
-    } else {
-      rgblight_sethsv_default_helper(6);
-      rgblight_sethsv_default_helper(9);
-    }
-    if (current_mod & MODS_GUI_MASK || current_osm & MODS_GUI_MASK) {
-      rgblight_sethsv_at(120, 255, 255, 7);
-      rgblight_sethsv_at(120, 255, 255, 8);
-    } else {
-      rgblight_sethsv_default_helper(7);
-      rgblight_sethsv_default_helper(8);
-
-    }
-  }
-#endif
-
-}
