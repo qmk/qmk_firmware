@@ -9,8 +9,10 @@
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include <util/delay.h>
+#include <stddef.h>
 #include <stdbool.h>
 #include "serial.h"
+//#include <pro_micro.h>
 
 #ifdef USE_SERIAL
 
@@ -55,11 +57,7 @@
 #define SLAVE_INT_WIDTH 1
 #define SLAVE_INT_RESPONSE_TIME SERIAL_DELAY
 
-uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
-uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
-
-#define SLAVE_DATA_CORRUPT (1<<0)
-volatile uint8_t status = 0;
+static SSTD_t *Transaction_table = NULL;
 
 inline static
 void serial_delay(void) {
@@ -109,26 +107,30 @@ void serial_high(void) {
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
 
-void serial_master_init(void) {
-  serial_debug_init();
-  serial_output();
-  serial_high();
+void soft_serial_initiator_init(SSTD_t *sstd_table)
+{
+    serial_debug_init();
+    Transaction_table = sstd_table;
+    serial_output();
+    serial_high();
 }
 
-void serial_slave_init(void) {
-  serial_debug_init();
-  serial_input_with_pullup();
+void soft_serial_target_init(SSTD_t *sstd_table)
+{
+    serial_debug_init();
+    Transaction_table = sstd_table;
+    serial_input_with_pullup();
 
 #if SERIAL_PIN_MASK == _BV(PD0)
-  // Enable INT0
-  EIMSK |= _BV(INT0);
-  // Trigger on falling edge of INT0
-  EICRA &= ~(_BV(ISC00) | _BV(ISC01));
+    // Enable INT0
+    EIMSK |= _BV(INT0);
+    // Trigger on falling edge of INT0
+    EICRA &= ~(_BV(ISC00) | _BV(ISC01));
 #elif SERIAL_PIN_MASK == _BV(PD2)
-  // Enable INT2
-  EIMSK |= _BV(INT2);
-  // Trigger on falling edge of INT2
-  EICRA &= ~(_BV(ISC20) | _BV(ISC21));
+    // Enable INT2
+    EIMSK |= _BV(INT2);
+    // Trigger on falling edge of INT2
+    EICRA &= ~(_BV(ISC20) | _BV(ISC21));
 #else
  #error unknown SERIAL_PIN_MASK value
 #endif
@@ -228,7 +230,7 @@ uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) {
   uint8_t checksum_received = serial_read_byte();
   debug_bytewidth_end();
 
-  return checksum_computed != checksum_received;
+  return checksum_computed == checksum_received;
 }
 
 inline static
@@ -255,38 +257,38 @@ ISR(SERIAL_PIN_INTERRUPT) {
 
   serial_low();
   serial_output();
+  SSTD_t *trans = Transaction_table;
 
   // slave send phase
-  serial_send_packet((uint8_t *)serial_slave_buffer, SERIAL_SLAVE_BUFFER_LENGTH);
-
+  serial_send_packet((uint8_t *)trans->target2initiator_buffer,
+		     trans->target2initiator_buffer_size);
   // slave switch to input
   change_sender2reciver();
 
   // slave recive phase
-  if (serial_recive_packet((uint8_t *)serial_master_buffer,SERIAL_MASTER_BUFFER_LENGTH) ) {
-    status |= SLAVE_DATA_CORRUPT;
+  if (serial_recive_packet((uint8_t *)trans->initiator2target_buffer,
+			    trans->initiator2target_buffer_size) ) {
+      *trans->status = RECIVE_ACCEPTED;
   } else {
-    status &= ~SLAVE_DATA_CORRUPT;
+      *trans->status = RECIVE_DATA_ERROR;
   }
 
   sync_recv(); //weit master output to high
   debug_output_mode(); debug_input_mode(); // indicate intterupt exit
 }
 
-inline
-bool serial_slave_DATA_CORRUPT(void) {
-  return status & SLAVE_DATA_CORRUPT;
-}
-
-// Copies the serial_slave_buffer to the master and sends the
-// serial_master_buffer to the slave.
+/////////
+//  start transaction by initiator
+//
+// int  soft_serial_transaction(int sstd_index)
 //
 // Returns:
-// 0 => no error
-// 1 => slave did not respond
-// 2 => checksum error
-int serial_update_buffers(void) {
+//    TRANSACTION_END
+//    TRANSACTION_NO_RESPONSE
+//    TRANSACTION_DATA_ERROR
+int  soft_serial_transaction(int sstd_index) {
   // this code is very time dependent, so we need to disable interrupts
+  SSTD_t *trans = &Transaction_table[sstd_index];
   cli();
 
   // signal to the slave that we want to start a transaction
@@ -309,7 +311,8 @@ int serial_update_buffers(void) {
 
   // master recive phase
   // if the slave is present syncronize with it
-  if (serial_recive_packet((uint8_t *)serial_slave_buffer, SERIAL_SLAVE_BUFFER_LENGTH) ) {
+  if (!serial_recive_packet((uint8_t *)trans->target2initiator_buffer,
+			   trans->target2initiator_buffer_size) ) {
     serial_output();
     serial_high();
     sei();
@@ -320,7 +323,8 @@ int serial_update_buffers(void) {
   change_reciver2sender();
 
   // master send phase
-  serial_send_packet((uint8_t *)serial_master_buffer, SERIAL_MASTER_BUFFER_LENGTH);
+  serial_send_packet((uint8_t *)trans->initiator2target_buffer,
+		     trans->initiator2target_buffer_size);
 
   // always, release the line when not in use
   sync_send();
