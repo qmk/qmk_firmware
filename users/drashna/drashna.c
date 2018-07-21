@@ -21,11 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tap_dances.h"
 #include "rgb_stuff.h"
 
-
-float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
-float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
-
-static uint16_t copy_paste_timer;
 userspace_config_t userspace_config;
 
 //  Helper Functions
@@ -333,28 +328,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false; break;
 
 
-  case KC_CCCV:                                    // One key copy/paste
-    if(record->event.pressed){
-      copy_paste_timer = timer_read();
-    } else {
-      if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {   // Hold, copy
-        register_code(KC_LCTL);
-        tap(KC_C);
-        unregister_code(KC_LCTL);
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(tone_copy);
-#endif
-      } else {                                // Tap, paste
-        register_code(KC_LCTL);
-        tap(KC_V);
-        unregister_code(KC_LCTL);
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(tone_paste);
-#endif
-      }
-    }
-    return false;
-    break;
   case CLICKY_TOGGLE:
 #ifdef AUDIO_CLICKY
     userspace_config.clicky_enable = clicky_enable;

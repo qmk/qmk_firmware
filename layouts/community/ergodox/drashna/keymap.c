@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TAB,  _________________QWERTY_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________QWERTY_R1_________________, KC_BSLS,
              KC_C1R3, _________________QWERTY_L2_________________,                                   _________________QWERTY_R2_________________, KC_QUOT,
              KC_MLSF, _________________QWERTY_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________QWERTY_R3_________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_CCCV,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 /* Keymap 0: COLEMAK layer
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TAB,  _________________COLEMAK_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________COLEMAK_R1________________, KC_BSLS,
              KC_C1R3, _________________COLEMAK_L2________________,                                   _________________COLEMAK_R2________________, KC_QUOT,
              KC_MLSF, _________________COLEMAK_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________COLEMAK_R3________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_CCCV,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 /* Keymap 0: DVORAK Layout
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TAB,  _________________DVORAK_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________DVORAK_R1_________________, KC_SLSH,
              KC_C1R3, _________________DVORAK_L2_________________,                                   _________________DVORAK_R2_________________, KC_MINS,
              KC_MLSF, _________________DVORAK_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________DVORAK_R3_________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_CCCV,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 /* Keymap 0: WORKMAN layer
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TAB,  _________________WORKMAN_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________WORKMAN_R1________________, KC_BSLS,
              KC_C1R3, _________________WORKMAN_L2________________,                                   _________________WORKMAN_R2________________, KC_QUOT,
              KC_MLSF, _________________WORKMAN_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________WORKMAN_R3________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_CCCV,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 
