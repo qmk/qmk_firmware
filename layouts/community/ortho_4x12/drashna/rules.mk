@@ -4,9 +4,10 @@ EXTRAKEY_ENABLE   = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE    = no         # Console for debug(+400)
 COMMAND_ENABLE    = no        # Commands for debug and configuration
 TAP_DANCE_ENABLE  = no
-RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
-
+ifeq (,$(findstring planck/rev6,$(KEYBOARD)))
+  RGBLIGHT_ENABLE   = yes
+endif
 
 ifeq ($(strip $(PROTOCOL)), VUSB)
 NKRO_ENABLE       = no
@@ -15,6 +16,9 @@ NKRO_ENABLE       = yes
 endif
 
 
-INDICATOR_LIGHTS  = yes
 MACROS_ENABLED    = no
-RGBLIGHT_TWINKLE  = yes
+
+ifdef RGBLIGHT_ENABLE
+  INDICATOR_LIGHTS  = yes
+  RGBLIGHT_TWINKLE  = yes
+endif
