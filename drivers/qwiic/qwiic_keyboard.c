@@ -37,15 +37,15 @@
 void qwiic_keyboard_write_keymap(uint8_t * pointer);
 void qwiic_keyboard_read_keymap(uint8_t * pointer);
 
-bool qwiic_keyboard_master = false;
-bool qwiic_keyboard_connected = false;
-uint8_t qwiic_keyboard_handshake_message[QWIIC_KEYBOARD_HANDSHAKE_MESSAGE_SIZE] = {0};
-uint8_t qwiic_keyboard_matrix_message[QWIIC_KEYBOARD_ROWS] = {0};
-twi2c_message_received qwiic_keyboard_message_received_ptr = qwiic_keyboard_message_received;
+static bool qwiic_keyboard_master = false;
+static bool qwiic_keyboard_connected = false;
+static uint8_t qwiic_keyboard_handshake_message[QWIIC_KEYBOARD_HANDSHAKE_MESSAGE_SIZE] = {0};
+static uint8_t qwiic_keyboard_matrix_message[QWIIC_KEYBOARD_ROWS] = {0};
+static qwiic_matrix_t matrix_prev[QWIIC_KEYBOARD_ROWS] = {0};
+static twi2c_message_received qwiic_keyboard_message_received_ptr = qwiic_keyboard_message_received;
 
-uint16_t qwiic_keyboard_keymap[QWIIC_KEYBOARD_LAYERS][QWIIC_KEYBOARD_ROWS][QWIIC_KEYBOARD_COLS] = {0};
-uint8_t qwiic_keyboard_listening_address = QWIIC_KEYBOARD_LISTENING_ADDRESS_START;
-uint8_t qwiic_keyboard_processing_slave = false;
+static uint16_t qwiic_keyboard_keymap[QWIIC_KEYBOARD_LAYERS][QWIIC_KEYBOARD_ROWS][QWIIC_KEYBOARD_COLS] = {{{0}}};
+static uint8_t qwiic_keyboard_listening_address = QWIIC_KEYBOARD_LISTENING_ADDRESS_START;
 
 void qwiic_keyboard_init(void) {
   twi2c_init();
@@ -69,50 +69,10 @@ void qwiic_keyboard_task(void) {
   if (qwiic_keyboard_master) {
     if (qwiic_keyboard_connected) {
       // send empty message, expecting matrix info
-      if (MSG_OK == twi2c_transmit_receive(qwiic_keyboard_listening_address,
+      if (MSG_OK != twi2c_transmit_receive(qwiic_keyboard_listening_address,
         command, 1,
         qwiic_keyboard_matrix_message, QWIIC_KEYBOARD_MATRIX_MESSAGE_SIZE
       )) {
-        // majority of this is pulled from keyboard.c:keyboard_task()
-        static qwiic_matrix_t matrix_prev[QWIIC_KEYBOARD_ROWS];
-        qwiic_matrix_t matrix_row = 0;
-        qwiic_matrix_t matrix_change = 0;
-        #ifdef QMK_KEYS_PER_SCAN
-          uint8_t keys_processed = 0;
-        #endif
-        qwiic_keyboard_processing_slave = true;
-        for (uint8_t r = 0; r < QWIIC_KEYBOARD_ROWS; r++) {
-          matrix_row = qwiic_keyboard_matrix_message[r];
-          matrix_change = matrix_row ^ matrix_prev[r];
-          if (matrix_change) {
-            for (uint8_t c = 0; c < QWIIC_KEYBOARD_COLS; c++) {
-              if (matrix_change & ((qwiic_matrix_t)1<<c)) {
-                action_exec((keyevent_t){
-                  .key = (keypos_t){ .row = r, .col = c },
-                  .pressed = (matrix_row & ((qwiic_matrix_t)1<<c)),
-                  .time = (timer_read() | 1) /* time should not be 0 */
-                });
-                // record a processed key
-                matrix_prev[r] ^= ((qwiic_matrix_t)1<<c);
-                #ifdef QMK_KEYS_PER_SCAN
-                  // only jump out if we have processed "enough" keys.
-                  if (++keys_processed >= QMK_KEYS_PER_SCAN)
-                #endif
-                // process a key per task call
-                goto QWIIC_MATRIX_LOOP_END;
-              }
-            }
-          }
-        }
-        // call with pseudo tick event when no real key event.
-        #ifdef QMK_KEYS_PER_SCAN
-          // we can get here with some keys processed now.
-          if (!keys_processed)
-        #endif
-        action_exec(TICK);
-        QWIIC_MATRIX_LOOP_END:
-        qwiic_keyboard_processing_slave = false;
-      } else {
         // disconnect
         // qwiic_keyboard_connected = false;
       }
@@ -190,13 +150,40 @@ bool is_keyboard_master(void) {
 }
 
 // overwrite the built-in function
-uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key) {
-  if (qwiic_keyboard_processing_slave) {
-    // trick the built-in handling to accept our replacement keymap
-    return qwiic_keyboard_keymap[(layer)][(key.row)][(key.col)];
-    //return KC_A;
-  } else {
+uint16_t keymap_key_to_keycode(uint8_t layer, keymatrix_t key) {
+  if (key.matrix == 0) {
     // Read entire word (16bits)
-    return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+    return pgm_read_word(&keymaps[(layer)][(key.pos.row)][(key.pos.col)]);
+  } else {
+    return qwiic_keyboard_keymap[(layer)][(key.pos.row)][(key.pos.col)];
   }
+}
+
+uint8_t multimatrix_get_num_matrices(void) {
+  return qwiic_keyboard_connected ? 1 : 0;
+}
+
+uint8_t multimatrix_get_num_cols(uint8_t matrix) {
+  return QWIIC_KEYBOARD_COLS;
+}
+
+uint8_t multimatrix_get_num_rows(uint8_t matrix) {
+  return QWIIC_KEYBOARD_ROWS;
+}
+
+uint32_t multimatrix_get_row(uint8_t matrix, uint8_t row) {
+return qwiic_keyboard_matrix_message[row];
+}
+
+uint32_t multimatrix_get_row_cache(uint8_t matrix, uint8_t row) {
+  return matrix_prev[row];
+}
+
+void multimatrix_set_row_cache(uint8_t matrix, uint8_t row, uint32_t value) {
+  matrix_prev[row] = value;
+}
+
+uint8_t* multimatrix_get_source_layers_cache(uint8_t matrix) {
+    static uint8_t source_layers_cache[(QWIIC_KEYBOARD_ROWS * QWIIC_KEYBOARD_COLS * MAX_LAYER_BITS + 7) / 8] = {0};
+    return source_layers_cache;
 }

@@ -91,15 +91,17 @@ uint32_t layer_state_set_kb(uint32_t state);
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
 /* The number of bits needed to represent the layer number: log2(32). */
 #define MAX_LAYER_BITS 5
-void update_source_layers_cache(keypos_t key, uint8_t layer);
-uint8_t read_source_layers_cache(keypos_t key);
+void update_source_layers_cache(keymatrix_t key, uint8_t layer);
+uint8_t read_source_layers_cache(keymatrix_t key);
+
+uint8_t get_source_layers_cache_size(uint8_t num_cols, uint8_t num_rows);
 #endif
-action_t store_or_get_action(bool pressed, keypos_t key);
+action_t store_or_get_action(bool pressed, keymatrix_t key);
 
 /* return the topmost non-transparent layer currently associated with key */
-int8_t layer_switch_get_layer(keypos_t key);
+int8_t layer_switch_get_layer(keymatrix_t key);
 
 /* return action depending on current layer status */
-action_t layer_switch_get_action(keypos_t key);
+action_t layer_switch_get_action(keymatrix_t key);
 
 #endif

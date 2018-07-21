@@ -38,7 +38,7 @@ extern keymap_config_t keymap_config;
 #include <inttypes.h>
 
 /* converts key to action */
-action_t action_for_key(uint8_t layer, keypos_t key)
+action_t action_for_key(uint8_t layer, keymatrix_t key)
 {
     // 16bit keycodes - important
     uint16_t keycode = keymap_key_to_keycode(layer, key);
@@ -184,10 +184,12 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 // translates key to keycode
 __attribute__ ((weak))
-uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
+uint16_t keymap_key_to_keycode(uint8_t layer, keymatrix_t key)
 {
     // Read entire word (16bits)
-    return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+    // The default implmention does not have multiple matrix support
+    // and therfore it ignores the matrix field of the key
+    return pgm_read_word(&keymaps[(layer)][(key.pos.row)][(key.pos.col)]);
 }
 
 // translates function id to action

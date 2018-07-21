@@ -220,37 +220,102 @@ void layer_debug(void)
 #endif
 
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
-uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS] = {{0}};
+static const uint8_t layer_cache_mask = (1u << MAX_LAYER_BITS) - 1;
 
-void update_source_layers_cache(keypos_t key, uint8_t layer)
-{
-    const uint8_t key_number = key.col + (key.row * MATRIX_COLS);
-    const uint8_t storage_row = key_number / 8;
-    const uint8_t storage_bit = key_number % 8;
-
-    for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
-        source_layers_cache[storage_row][bit_number] ^=
-            (-((layer & (1U << bit_number)) != 0)
-             ^ source_layers_cache[storage_row][bit_number])
-            & (1U << storage_bit);
-    }
+/** \brief Get the pointer to the source layer cache for a connected matrix
+ *
+ * Implement this if you support multiple matrices, see qwiic_keyboard.c for an example
+ * NOTE: The matrix index 0 is the first remote matrix, the function is not called for the master
+ */
+__attribute__((weak))
+uint8_t* multimatrix_get_source_layers_cache(uint8_t matrix) {
+    return 0;
 }
 
-uint8_t read_source_layers_cache(keypos_t key)
+static uint8_t* get_source_layers_cache(keymatrix_t key) {
+  if (key.matrix == 0) {
+    static uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS * MAX_LAYER_BITS + 7) / 8] = {0};
+    return source_layers_cache;
+  } else {
+    return multimatrix_get_source_layers_cache(key.matrix - 1);
+  }
+}
+
+void update_source_layers_cache(keymatrix_t key, uint8_t layer)
 {
-    const uint8_t key_number = key.col + (key.row * MATRIX_COLS);
-    const uint8_t storage_row = key_number / 8;
-    const uint8_t storage_bit = key_number % 8;
-    uint8_t layer = 0;
+  const uint8_t num_cols = keyboard_get_num_cols(key.matrix);
+  const uint8_t num_rows = keyboard_get_num_rows(key.matrix);
+  const uint16_t num_cache_bytes = get_source_layers_cache_size(num_cols, num_rows);
+  uint8_t* cache = get_source_layers_cache(key);
+  const uint16_t key_number = key.pos.col + (key.pos.row * num_cols);
+  const uint32_t bit_number = key_number * MAX_LAYER_BITS;
+  const uint16_t byte_number = bit_number / 8;
+  if (byte_number >= num_cache_bytes) {
+    return;
+  }
+  const uint8_t bit_position = bit_number % 8;
+  int8_t shift = 16 - MAX_LAYER_BITS - bit_position;
 
-    for (uint8_t bit_number = 0; bit_number < MAX_LAYER_BITS; bit_number++) {
-        layer |=
-            ((source_layers_cache[storage_row][bit_number]
-              & (1U << storage_bit)) != 0)
-            << bit_number;
+  if (shift > 8 ) {
+    // We need to write only one byte
+    shift -= 8;
+    const uint8_t mask = layer_cache_mask << shift;
+    const uint8_t shifted_layer = layer << shift;
+    cache[byte_number] = (shifted_layer & mask) | (cache[byte_number] & (~mask));
+  } else {
+    if (byte_number + 1 >= num_cache_bytes) {
+      return;
     }
+    // We need to write two bytes
+    uint16_t value = layer;
+    uint16_t mask = layer_cache_mask;
+    value <<= shift;
+    mask <<= shift;
 
-    return layer;
+    uint16_t masked_value = value & mask;
+    uint16_t inverse_mask = ~mask;
+
+    // This could potentially be done with a single write, but then we have to assume the endian
+    cache[byte_number + 1] = masked_value | (cache[byte_number + 1] & (inverse_mask));
+    masked_value >>= 8;
+    inverse_mask >>= 8;
+    cache[byte_number] = masked_value | (cache[byte_number] & (inverse_mask));
+  }
+}
+
+uint8_t read_source_layers_cache(keymatrix_t key)
+{
+  const uint8_t num_cols = keyboard_get_num_cols(key.matrix);
+  const uint8_t num_rows = keyboard_get_num_rows(key.matrix);
+  const uint16_t num_cache_bytes = get_source_layers_cache_size(num_cols, num_rows);
+  uint8_t* cache = get_source_layers_cache(key);
+  const uint16_t key_number = key.pos.col + (key.pos.row * num_cols);
+  const uint32_t bit_number = key_number * MAX_LAYER_BITS;
+  const uint16_t byte_number = bit_number / 8;
+  if (byte_number >= num_cache_bytes) {
+    return 0;
+  }
+  const uint8_t bit_position = bit_number % 8;
+
+  int8_t shift = 16 - MAX_LAYER_BITS - bit_position;
+
+  if (shift > 8 ) {
+    // We need to read only one byte
+    shift -= 8;
+    return (cache[byte_number] >> shift) & layer_cache_mask;
+  } else {
+    if (byte_number + 1 >= num_cache_bytes) {
+      return 0;
+    }
+    // Otherwise read two bytes
+    // This could potentially be done with a single read, but then we have to assume the endian
+    uint16_t value = cache[byte_number] << 8 | cache[byte_number + 1];
+    return (value >> shift) & layer_cache_mask;
+  }
+}
+
+uint8_t get_source_layers_cache_size(uint8_t num_cols, uint8_t num_rows) {
+  return (num_rows * num_cols * MAX_LAYER_BITS + 7) / 8;
 }
 #endif
 
@@ -261,7 +326,7 @@ uint8_t read_source_layers_cache(keypos_t key)
  * when the layer is switched after the down event but before the up
  * event as they may get stuck otherwise.
  */
-action_t store_or_get_action(bool pressed, keypos_t key)
+action_t store_or_get_action(bool pressed, keymatrix_t key)
 {
 #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
     if (disable_action_cache) {
@@ -288,7 +353,7 @@ action_t store_or_get_action(bool pressed, keypos_t key)
  *
  * FIXME: Needs docs
  */
-int8_t layer_switch_get_layer(keypos_t key)
+int8_t layer_switch_get_layer(keymatrix_t key)
 {
 #ifndef NO_ACTION_LAYER
     action_t action;
@@ -315,7 +380,7 @@ int8_t layer_switch_get_layer(keypos_t key)
  *
  * FIXME: Needs docs
  */
-action_t layer_switch_get_action(keypos_t key)
+action_t layer_switch_get_action(keymatrix_t key)
 {
     return action_for_key(layer_switch_get_layer(key), key);
 }

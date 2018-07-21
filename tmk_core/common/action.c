@@ -106,13 +106,14 @@ bool swap_held = false;
 void process_hand_swap(keyevent_t *event) {
     static swap_state_row_t swap_state[MATRIX_ROWS];
 
-    keypos_t pos = event->key;
+    // TODO: Properly support multimatrices, currenty this only works for single-matrix keyboards
+    keypos_t pos = event->key.pos;
     swap_state_row_t col_bit = (swap_state_row_t)1<<pos.col;
     bool do_swap = event->pressed ? swap_hands :
                                     swap_state[pos.row] & (col_bit);
 
     if (do_swap) {
-        event->key = hand_swap_config[pos.row][pos.col];
+        event->key.pos = hand_swap_config[pos.row][pos.col];
         swap_state[pos.row] |= col_bit;
     } else {
         swap_state[pos.row] &= ~(col_bit);
@@ -892,7 +893,7 @@ void clear_keyboard_but_mods(void)
  *
  * FIXME: Needs documentation.
  */
-bool is_tap_key(keypos_t key)
+bool is_tap_key(keymatrix_t key)
 {
     action_t action = layer_switch_get_action(key);
 

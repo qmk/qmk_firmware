@@ -50,7 +50,7 @@ typedef struct {
 void action_exec(keyevent_t event);
 
 /* action for key */
-action_t action_for_key(uint8_t layer, keypos_t key);
+action_t action_for_key(uint8_t layer, keymatrix_t key);
 
 /* macro */
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt);
@@ -94,7 +94,7 @@ void unregister_mods(uint8_t mods);
 void clear_keyboard(void);
 void clear_keyboard_but_mods(void);
 void layer_switch(uint8_t new_layer);
-bool is_tap_key(keypos_t key);
+bool is_tap_key(keymatrix_t key);
 
 #ifndef NO_ACTION_TAPPING
 void process_record_tap_hint(keyrecord_t *record);
