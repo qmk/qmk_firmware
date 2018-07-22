@@ -15,8 +15,6 @@
   #define RGBLED_NUM 12
 #elif defined(KEYBOARD_lets_split_rev2)
   #define RGBLED_NUM 8
-#elif defined(KEYBOARD_jj40)
-  #define RGBLED_NUM 5
 #else
   #define RGBLED_NUM 1
 #endif
