@@ -138,19 +138,21 @@ void soft_serial_target_init(SSTD_t *sstd_table)
 }
 
 // Used by the sender to synchronize timing with the reciver.
+static void sync_recv(void) NO_INLINE;
 static
 void sync_recv(void) {
   debug_sync_start();
   for (uint8_t i = 0; i < SERIAL_DELAY*5 && serial_read_pin(); i++ ) {
       debug_sync_end(); debug_sync_start();
   }
-  // This shouldn't hang if the slave disconnects because the
-  // serial line will float to high if the slave does disconnect.
+  // This shouldn't hang if the target disconnects because the
+  // serial line will float to high if the target does disconnect.
   while (!serial_read_pin());
   debug_sync_end();
 }
 
 // Used by the reciver to send a synchronization signal to the sender.
+static void sync_send(void)NO_INLINE;
 static
 void sync_send(void) {
   debug_sync_start();
@@ -267,7 +269,7 @@ void change_reciver2sender(void) {
     serial_delay_half1(); //4
 }
 
-// interrupt handle to be used by the slave device
+// interrupt handle to be used by the target device
 ISR(SERIAL_PIN_INTERRUPT) {
   debug_output_mode(); debug_input_mode(); // indicate intterupt entry
 
@@ -275,23 +277,26 @@ ISR(SERIAL_PIN_INTERRUPT) {
   serial_output();
   SSTD_t *trans = Transaction_table;
 
-  // slave send phase
-  serial_send_packet((uint8_t *)trans->target2initiator_buffer,
-		     trans->target2initiator_buffer_size);
-  // slave switch to input
+  // target send phase
+  if( trans->target2initiator_buffer_size > 0 )
+      serial_send_packet((uint8_t *)trans->target2initiator_buffer,
+			 trans->target2initiator_buffer_size);
+  // target switch to input
   change_sender2reciver();
 
-  // slave recive phase
-  if (serial_recive_packet((uint8_t *)trans->initiator2target_buffer,
-			    trans->initiator2target_buffer_size) ) {
-      *trans->status = RECIVE_ACCEPTED;
-  } else {
-      debug_parity_on();
-      *trans->status = RECIVE_DATA_ERROR;
-      debug_parity_off();
+  // target recive phase
+  if( trans->initiator2target_buffer_size > 0 ) {
+      if (serial_recive_packet((uint8_t *)trans->initiator2target_buffer,
+			       trans->initiator2target_buffer_size) ) {
+	  *trans->status = RECIVE_ACCEPTED;
+      } else {
+	  debug_parity_on();
+	  *trans->status = RECIVE_DATA_ERROR;
+	  debug_parity_off();
+      }
   }
 
-  sync_recv(); //weit master output to high
+  sync_recv(); //weit initiator output to high
   debug_output_mode(); debug_input_mode(); // indicate intterupt exit
 }
 
@@ -309,49 +314,53 @@ int  soft_serial_transaction(int sstd_index) {
   SSTD_t *trans = &Transaction_table[sstd_index];
   cli();
 
-  // signal to the slave that we want to start a transaction
+  // signal to the target that we want to start a transaction
   serial_output();
   serial_low();
   _delay_us(SLAVE_INT_WIDTH);
 
-  // wait for the slaves response
+  // wait for the target response
   serial_input_with_pullup();
   _delay_us(SLAVE_INT_RESPONSE_TIME);
 
-  // check if the slave is present
+  // check if the target is present
   if (serial_read_pin()) {
-    // slave failed to pull the line low, assume not present
+    // target failed to pull the line low, assume not present
     serial_output();
     serial_high();
     sei();
-    return 1;
+    return TRANSACTION_NO_RESPONSE;
   }
 
-  // master recive phase
-  // if the slave is present syncronize with it
-  if (!serial_recive_packet((uint8_t *)trans->target2initiator_buffer,
-			   trans->target2initiator_buffer_size) ) {
-    debug_parity_on();
-    serial_output();
-    serial_high();
-    debug_parity_off();
-    sei();
-    return 2;
-  }
+  // initiator recive phase
+  // if the target is present syncronize with it
+  if( trans->target2initiator_buffer_size > 0 ) {
+      if (!serial_recive_packet((uint8_t *)trans->target2initiator_buffer,
+				trans->target2initiator_buffer_size) ) {
+	  debug_parity_on();
+	  serial_output();
+	  serial_high();
+	  debug_parity_off();
+	  sei();
+	  return TRANSACTION_DATA_ERROR;
+      }
+   }
 
-  // master switch to output
+  // initiator switch to output
   change_reciver2sender();
 
-  // master send phase
-  serial_send_packet((uint8_t *)trans->initiator2target_buffer,
-		     trans->initiator2target_buffer_size);
+  // initiator send phase
+  if( trans->initiator2target_buffer_size > 0 ) {
+      serial_send_packet((uint8_t *)trans->initiator2target_buffer,
+			 trans->initiator2target_buffer_size);
+  }
 
   // always, release the line when not in use
   sync_send();
   debug_input_mode(); debug_output_mode(); // indicate intterupt exit
 
   sei();
-  return 0;
+  return TRANSACTION_END;
 }
 
 #endif
