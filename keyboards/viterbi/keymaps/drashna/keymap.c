@@ -17,7 +17,6 @@ extern keymap_config_t keymap_config;
 #define DIABLO   TG(_DIABLO)
 #define GAMEPAD  TG(_GAMEPAD)
 #define MEDIA    TT(_MEDIA)
-#define COVECUBE TG(_COVECUBE)
 
 
 //enum more_custom_keycodes {
@@ -28,7 +27,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_NUMLOCK] = LAYOUT_ortho_5x7(
       LMACRO,  DIABLO,  GAMEPAD, KC_NLCK, KC_SLCK, KC_COLN, KC_PSLS,
-      MEDIA,   KC_CALC, COVECUBE,KC_P7,   KC_P8,   KC_P9,   KC_PAST,
+      MEDIA,   KC_CALC, XXXXXXX, KC_P7,   KC_P8,   KC_P9,   KC_PAST,
       KC_HOME, KC_DEL,  KC_PGUP, KC_P4,   KC_P5,   KC_P6,   KC_PMNS,
       KC_END,  KC_UP,   KC_PGDN, KC_P1,   KC_P2,   KC_P3,   KC_PPLS,
       KC_LEFT, KC_DOWN, KC_RGHT, KC_P0,   KC_PDOT, KC_COLN, KC_PENT
@@ -58,13 +57,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_SALT,     KC_MORESALT, KC_SALTHARD, KC_JUSTGAME, KC_AIM,      XXXXXXX,     KC_PENT
   ),
 
-  [_COVECUBE] = LAYOUT_ortho_5x7(
-      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      XXXXXXX,     XXXXXXX,     COVECUBE,    XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,
-      XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX,     XXXXXXX
-  ),
 
   [_MEDIA] = LAYOUT_ortho_5x7(
       KC_MAKE, KC_RESET,MU_TOG,  AU_ON,   AU_OFF,  CK_TOGG, RGB_SAD,
@@ -77,23 +69,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void matrix_init_keymap(void) {
-  DDRD &= ~(1<<5);
-  PORTD &= ~(1<<5);
 
-  DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);
-}
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
   //switch (keycode) {
   //case KC_P00:
   //  if (!record->event.pressed) {
-  //    register_code(KC_KP_0);
-  //    unregister_code(KC_KP_0);
-  //    register_code(KC_KP_0);
-  //    unregister_code(KC_KP_0);
+  //    tap(KC_KP_0);
+  //    tap(KC_KP_0);
   //  }
   //  return false;
   //  break;
@@ -103,5 +87,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 
 
+void matrix_init_keymap(void) {
+  DDRD &= ~(1<<5);
+  PORTD &= ~(1<<5);
+
+  DDRB &= ~(1<<0);
+  PORTB &= ~(1<<0);
+}
 
 

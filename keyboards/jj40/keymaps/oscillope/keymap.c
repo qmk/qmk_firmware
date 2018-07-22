@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Ins  |      |      |  ()  |  []  |  {}  | Left | Down |  Up  |Right |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |PrScr | Back | Fwd  |      |      |      |      |      | Mute | Vol- | Vol+ |      |
+ * |RESET | Back | Fwd  |      |      |      |      |      | Mute | Vol- | Vol+ |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      | Lock |      |             | Prev | Stop | Play | Next |
  * `-----------------------------------------------------------------------------------'
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = KEYMAP( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
   KC_INS,  _______, _______, CC_PRN,  CC_BRC,  CC_CBR,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
-  KC_PSCR, KC_WBAK, KC_WFWD, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, \
+  RESET,   KC_WBAK, KC_WFWD, _______, _______, _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, \
   _______, _______, _______, _______, KC_LOCK, _______, _______,          KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT \
 ),
 

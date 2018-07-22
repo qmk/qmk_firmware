@@ -1,5 +1,6 @@
 //Author: tong92 <tong92power@gmail.com>
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
@@ -101,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 {XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,GO_DEFT,GO_DEFT,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX}
 }
 
-}; 
+};
 //Layout END
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
