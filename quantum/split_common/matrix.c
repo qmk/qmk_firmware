@@ -37,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #ifdef BACKLIGHT_ENABLE
 #   include "backlight.h"
+    extern backlight_config_t backlight_config;
 #endif
 
 #if defined(USE_I2C) || defined(EH)
