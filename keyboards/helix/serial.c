@@ -58,7 +58,7 @@
 #define SERIAL_DELAY_HALF2 (SERIAL_DELAY - SERIAL_DELAY/2)
 
 #define SLAVE_INT_WIDTH_US 1
-#ifdef SERIAL_USE_SIMPLE_TRANSACTION
+#ifndef SERIAL_USE_MULTI_TRANSACTION
   #define SLAVE_INT_RESPONSE_TIME SERIAL_DELAY
 #else
   #define SLAVE_INT_ACK_WIDTH_UNIT 2
@@ -282,7 +282,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
   debug_recvsample();  debug_recvsample(); // indicate intterupt entry
   debug_sync_start();  debug_sync_end(); // indicate intterupt entry
 
-#ifdef SERIAL_USE_SIMPLE_TRANSACTION
+#ifndef SERIAL_USE_MULTI_TRANSACTION
   serial_low();
   serial_output();
   SSTD_t *trans = Transaction_table;
@@ -338,7 +338,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
 //    TRANSACTION_NO_RESPONSE
 //    TRANSACTION_DATA_ERROR
 // this code is very time dependent, so we need to disable interrupts
-#ifdef SERIAL_USE_SIMPLE_TRANSACTION
+#ifndef SERIAL_USE_MULTI_TRANSACTION
 int  soft_serial_transaction(void) {
   SSTD_t *trans = Transaction_table;
 #else
@@ -352,7 +352,7 @@ int  soft_serial_transaction(int sstd_index) {
   serial_low();
   _delay_us(SLAVE_INT_WIDTH_US);
 
-#ifdef SERIAL_USE_SIMPLE_TRANSACTION
+#ifndef SERIAL_USE_MULTI_TRANSACTION
   // wait for the target response
   serial_input_with_pullup();
   _delay_us(SLAVE_INT_RESPONSE_TIME);
@@ -433,7 +433,7 @@ int  soft_serial_transaction(int sstd_index) {
   return TRANSACTION_END;
 }
 
-#ifndef SERIAL_USE_SIMPLE_TRANSACTION
+#ifdef SERIAL_USE_MULTI_TRANSACTION
 int soft_serial_get_and_clean_status(int sstd_index) {
     SSTD_t *trans = &Transaction_table[sstd_index];
     cli();

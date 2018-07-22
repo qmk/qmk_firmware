@@ -8,8 +8,6 @@
 #define SERIAL_PIN_MASK _BV(PD2)
 #define SERIAL_PIN_INTERRUPT INT2_vect
 
-#define SERIAL_USE_SIMPLE_TRANSACTION
-
 //// #error rev1/keymaps/OLED_sample serial config
 
 #endif /* SOFT_SERIAL_CONFIG_H */

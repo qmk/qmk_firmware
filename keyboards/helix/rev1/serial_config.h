@@ -8,8 +8,6 @@
 #define SERIAL_PIN_MASK _BV(PD0)
 #define SERIAL_PIN_INTERRUPT INT0_vect
 
-#define SERIAL_USE_SIMPLE_TRANSACTION
-
 /// #error rev1 serial config
 
 #endif /* SOFT_SERIAL_CONFIG_H */

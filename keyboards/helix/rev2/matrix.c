@@ -181,11 +181,11 @@ i2c_error: // the cable is disconnceted, or something else went wrong
 
 #else // USE_SERIAL
 
-int serial_transaction(void) {
+int serial_transaction(int master_changed) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
-    int ret=serial_update_buffers(1);
+    int ret=serial_update_buffers(master_changed);
     if (ret ) {
-        if(ret==2)RXLED1;
+        if(ret==2) RXLED1;
         return 1;
     }
     RXLED0;
@@ -213,6 +213,7 @@ uint8_t matrix_scan(void)
 uint8_t matrix_master_scan(void) {
 
     int ret = _matrix_scan();
+    int mchanged = 1;
 
 #ifndef KEYBOARD_helix_rev1
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
@@ -223,6 +224,10 @@ uint8_t matrix_master_scan(void) {
 //        i2c_slave_buffer[i] = matrix[offset+i];
 //    }
 #else // USE_SERIAL
+  #ifdef SERIAL_USE_MULTI_TRANSACTION
+    mchanged = memcmp((void *)serial_master_buffer,
+		      &matrix[offset], sizeof(serial_master_buffer));
+  #endif
     memcpy((void *)serial_master_buffer,
 	   &matrix[offset], sizeof(serial_master_buffer));
 #endif
@@ -231,7 +236,7 @@ uint8_t matrix_master_scan(void) {
 #ifdef USE_MATRIX_I2C
     if( i2c_transaction() ) {
 #else // USE_SERIAL
-    if( serial_transaction() ) {
+    if( serial_transaction(mchanged) ) {
 #endif
         // turn on the indicator led when halves are disconnected
         TXLED1;
@@ -265,9 +270,19 @@ void matrix_slave_scan(void) {
         i2c_slave_buffer[i] = matrix[offset+i];
     }
 #else // USE_SERIAL
+  #ifdef SERIAL_USE_MULTI_TRANSACTION
+    int change = 0;
+  #endif
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
+  #ifdef SERIAL_USE_MULTI_TRANSACTION
+        if( serial_slave_buffer[i] != matrix[offset+i] )
+	    change = 1;
+  #endif
         serial_slave_buffer[i] = matrix[offset+i];
     }
+  #ifdef SERIAL_USE_MULTI_TRANSACTION
+    slave_buffer_change_count += change;
+  #endif
 #endif
 }
 

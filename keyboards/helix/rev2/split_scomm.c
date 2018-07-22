@@ -8,8 +8,12 @@
 uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
 uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
 uint8_t volatile status0 = 0;
+#ifdef SERIAL_USE_MULTI_TRANSACTION
+uint8_t slave_buffer_change_count = 0;
+uint8_t s_change_old = 0xff;
+#endif
 
-#ifdef SERIAL_USE_SIMPLE_TRANSACTION
+#ifndef SERIAL_USE_MULTI_TRANSACTION
 SSTD_t transactions[] = {
     { (uint8_t *)&status0,
       sizeof(serial_master_buffer), (uint8_t *)serial_master_buffer,
@@ -17,10 +21,24 @@ SSTD_t transactions[] = {
     }
 };
 #else
+
 SSTD_t transactions[] = {
-#define WHOLE_MATRIX_EXCHANGE 0
+#define GET_SLAVE_STATUS 0
+    /* master buffer not changed, only recive slave_buffer_change_count */
+    { (uint8_t *)&status0,
+      0, NULL,
+      sizeof(slave_buffer_change_count), &slave_buffer_change_count,
+    },
+#define PUT_MASTER_GET_SLAVE_STATUS 1
+    /* master buffer changed need send, and recive slave_buffer_change_count  */
     { (uint8_t *)&status0,
       sizeof(serial_master_buffer), (uint8_t *)serial_master_buffer,
+      sizeof(slave_buffer_change_count), &slave_buffer_change_count,
+    },
+#define GET_SLAVE_BUFFER 2
+    /* recive serial_slave_buffer */
+    { (uint8_t *)&status0,
+      0, NULL,
       sizeof(serial_slave_buffer), (uint8_t *)serial_slave_buffer
     }
 };
@@ -41,10 +59,22 @@ void serial_slave_init(void)
 // 2 => checksum error
 int serial_update_buffers(int master_update)
 {
-#ifdef SERIAL_USE_SIMPLE_TRANSACTION
-    return soft_serial_transaction();
+#ifdef SERIAL_USE_MULTI_TRANSACTION
+    int status;
+    static int need_retry = 0;
+    if( s_change_old != slave_buffer_change_count ) {
+	status = soft_serial_transaction(GET_SLAVE_BUFFER);
+	if( status == TRANSACTION_END )
+	    s_change_old = slave_buffer_change_count;
+    }
+    if( !master_update && !need_retry)
+	status = soft_serial_transaction(GET_SLAVE_STATUS);
+    else
+	status = soft_serial_transaction(PUT_MASTER_GET_SLAVE_STATUS);
+    need_retry = ( status == TRANSACTION_END ) ? 0 : 1;
+    return status;
 #else
-    return soft_serial_transaction(WHOLE_MATRIX_EXCHANGE);
+    return soft_serial_transaction();
 #endif
 }
 #endif /* USE_SERIAL */

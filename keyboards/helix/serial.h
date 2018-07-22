@@ -31,7 +31,7 @@ void soft_serial_target_init(SSTD_t *sstd_table);
 #define TRANSACTION_END 0
 #define TRANSACTION_NO_RESPONSE 0x1
 #define TRANSACTION_DATA_ERROR  0x2
-#ifdef SERIAL_USE_SIMPLE_TRANSACTION
+#ifndef SERIAL_USE_MULTI_TRANSACTION
 int  soft_serial_transaction(void);
 #else
 int  soft_serial_transaction(int sstd_index);
@@ -47,7 +47,7 @@ int  soft_serial_transaction(int sstd_index);
 //       TRANSACTION_DATA_ERROR
 //    or TRANSACTION_ACCEPTED
 #define TRANSACTION_ACCEPTED 0x4
-#ifndef SERIAL_USE_SIMPLE_TRANSACTION
+#ifdef SERIAL_USE_MULTI_TRANSACTION
 int  soft_serial_get_and_clean_status(int sstd_index);
 #endif
 
