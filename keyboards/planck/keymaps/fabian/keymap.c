@@ -219,12 +219,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef BACKLIGHT_ENABLE
           backlight_step();
         #endif
-        #ifdef KEYBOARD_planck_rev5
+        #ifndef KEYBOARD_planck_rev6
           PORTE &= ~(1<<6);
         #endif
       } else {
         unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
+        #ifndef KEYBOARD_planck_rev6
           PORTE |= (1<<6);
         #endif
       }
@@ -234,8 +234,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           stop_all_notes();
-          PLAY_SONG(plover_song);
-        #endif
+  PLAY_SONG(plover_song);
+#endif
         layer_off(_RAISE);
         layer_off(_LOWER);
         layer_off(_ADJUST);
