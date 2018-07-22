@@ -35,12 +35,12 @@ enum custom_keycodes {
 #define KC_RECP DYN_MACRO_PLAY1
 #define KC_RSET RESET
 
-#define KC_CTLE CTL_T(KC_ESC)   // Tap for Escape, hold for Control
-#define KC_HTAB ALL_T(KC_TAB)   // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift)
-#define KC_SBSP SFT_T(KC_BSPC)  // Tap for Backspace, hold for Shift
-#define KC_SENT KC_SFTENT       // Tap for Enter, hold for Shift
-#define KC_SPMC F(0)            // Tap for Space, hold for MOUSECURSOR layer
-#define KC_TGMC TG(_MOUSECURSOR) // Toggle MOUSECURSOR layer
+#define KC_CTLE CTL_T(KC_ESC)             // Tap for Escape, hold for Control
+#define KC_HTAB ALL_T(KC_TAB)             // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift)
+#define KC_SBSP SFT_T(KC_BSPC)            // Tap for Backspace, hold for Shift
+#define KC_SENT KC_SFTENT                 // Tap for Enter, hold for Shift
+#define KC_TGMC TG(_MOUSECURSOR)          // Toggle MOUSECURSOR layer
+#define KC_SPMC LT(_MOUSECURSOR, KC_SPC)  // Tap for Space, hold for MOUSECURSOR layer
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -127,10 +127,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            ,    ,    ,             ,    ,
   //                  `----+----+----'        `----+----+----'
   )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0]  = ACTION_LAYER_TAP_KEY(_MOUSECURSOR, KC_SPC),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
