@@ -1,17 +1,16 @@
+# turning off backlighting and audio for the split keebs
 ifneq (,$(findstring lets_split,$(KEYBOARD)))
   BACKLIGHT_ENABLE = no
   BACKLIGHT_BREATHING = no
   AUDIO_ENABLE = no
-  USE_I2C = yes
 endif
-
 ifneq (,$(findstring vitamins_included,$(KEYBOARD)))
   BACKLIGHT_ENABLE = no
   BACKLIGHT_BREATHING = no
   AUDIO_ENABLE = no
-  USE_I2C = no
 endif
 
+# both my plancks use audio but only the rev4 has backlighting
 ifneq (,$(findstring planck,$(KEYBOARD)))
   ifneq (,$(findstring rev4,$(KEYBOARD)))
     BACKLIGHT_ENABLE = yes

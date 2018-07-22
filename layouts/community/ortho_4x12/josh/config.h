@@ -16,6 +16,11 @@
   #define STARTUP_SONG SONG(ADVENTURE_TIME)
 #endif
 
+// for some reason the LSvi rev1 disables action tapping...
+#ifdef NO_ACTION_TAPPING
+  #undef NO_ACTION_TAPPING
+#endif
+
 #undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 15
 #define BACKLIGHT_BREATHING
