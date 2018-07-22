@@ -50,5 +50,9 @@ ifdef ADB_MOUSE_ENABLE
 	 OPT_DEFS += -DADB_MOUSE_ENABLE -DMOUSE_ENABLE
 endif
 
+ifdef XT_ENABLE
+  SRC += $(PROTOCOL_DIR)/xt_interrupt.c
+endif
+
 # Search Path
 VPATH += $(TMK_DIR)/protocol

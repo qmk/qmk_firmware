@@ -194,6 +194,33 @@ void matrix_clear(void)
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 }
 
+bool matrix_is_on(uint8_t row, uint8_t col)
+{
+    return (matrix_get_row(row) & (1<<col));
+}
+
+#if (MATRIX_COLS <= 8)
+#    define print_matrix_header()  print("\nr/c 01234567\n")
+#    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
+#elif (MATRIX_COLS <= 16)
+#    define print_matrix_header()  print("\nr/c 0123456789ABCDEF\n")
+#    define print_matrix_row(row)  print_bin_reverse16(matrix_get_row(row))
+#elif (MATRIX_COLS <= 32)
+#    define print_matrix_header()  print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
+#    define print_matrix_row(row)  print_bin_reverse32(matrix_get_row(row))
+#endif
+
+void matrix_print(void)
+{
+    print_matrix_header();
+
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        phex(row); print(": ");
+        print_matrix_row(row);
+        print("\n");
+    }
+}
+
 /*
 XT Scancodes
 ============
