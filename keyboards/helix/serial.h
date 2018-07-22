@@ -29,15 +29,27 @@ void soft_serial_target_init(SSTD_t *sstd_table);
 
 // initiator resullt
 #define TRANSACTION_END 0
-#define TRANSACTION_NO_RESPONSE 1
-#define TRANSACTION_DATA_ERROR 2
+#define TRANSACTION_NO_RESPONSE 0x1
+#define TRANSACTION_DATA_ERROR  0x2
+#ifdef SERIAL_USE_SIMPLE_TRANSACTION
+int  soft_serial_transaction(void);
+#else
 int  soft_serial_transaction(int sstd_index);
+#endif
 
 // target status
-#define RECIVE_ACCEPTED 1
-#define RECIVE_DATA_ERROR 2
-int  soft_serial_get_and_clean_target_status(int sstd_index);
-
+// *SSTD_t.status has
+//   initiator:
+//       TRANSACTION_END
+//    or TRANSACTION_NO_RESPONSE
+//    or TRANSACTION_DATA_ERROR
+//   target:
+//       TRANSACTION_DATA_ERROR
+//    or TRANSACTION_ACCEPTED
+#define TRANSACTION_ACCEPTED 0x4
+#ifndef SERIAL_USE_SIMPLE_TRANSACTION
+int  soft_serial_get_and_clean_status(int sstd_index);
+#endif
 
 
 // debug flags

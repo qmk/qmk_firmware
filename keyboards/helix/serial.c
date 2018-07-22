@@ -21,6 +21,8 @@
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
 // Serial pulse period in microseconds.
+#define TID_SEND_ADJUST 14
+
 #define SELECT_SERIAL_SPEED 1
 #if SELECT_SERIAL_SPEED == 0
   // Very High speed
@@ -55,8 +57,13 @@
 #define SERIAL_DELAY_HALF1 (SERIAL_DELAY/2)
 #define SERIAL_DELAY_HALF2 (SERIAL_DELAY - SERIAL_DELAY/2)
 
-#define SLAVE_INT_WIDTH 1
-#define SLAVE_INT_RESPONSE_TIME SERIAL_DELAY
+#define SLAVE_INT_WIDTH_US 1
+#ifdef SERIAL_USE_SIMPLE_TRANSACTION
+  #define SLAVE_INT_RESPONSE_TIME SERIAL_DELAY
+#else
+  #define SLAVE_INT_ACK_WIDTH_UNIT 2
+  #define SLAVE_INT_ACK_WIDTH 4
+#endif
 
 static SSTD_t *Transaction_table = NULL;
 
@@ -272,10 +279,31 @@ void change_reciver2sender(void) {
 // interrupt handle to be used by the target device
 ISR(SERIAL_PIN_INTERRUPT) {
   debug_output_mode(); debug_input_mode(); // indicate intterupt entry
+  debug_recvsample();  debug_recvsample(); // indicate intterupt entry
+  debug_sync_start();  debug_sync_end(); // indicate intterupt entry
 
+#ifdef SERIAL_USE_SIMPLE_TRANSACTION
   serial_low();
   serial_output();
   SSTD_t *trans = Transaction_table;
+#else
+  // recive transaction table index
+  uint8_t tid;
+  uint8_t pecount = 0;
+  sync_recv();
+  debug_bytewidth_start();
+  tid = serial_read_chunk(&pecount,4);
+  debug_bytewidth_end();
+  if(pecount> 0)
+      return;
+  serial_delay_half1();
+
+  serial_high(); // response step1 low->high
+  serial_output();
+  _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT*SLAVE_INT_ACK_WIDTH);
+  SSTD_t *trans = &Transaction_table[tid];
+  serial_low(); // response step2 ack high->low
+#endif
 
   // target send phase
   if( trans->target2initiator_buffer_size > 0 )
@@ -288,10 +316,10 @@ ISR(SERIAL_PIN_INTERRUPT) {
   if( trans->initiator2target_buffer_size > 0 ) {
       if (serial_recive_packet((uint8_t *)trans->initiator2target_buffer,
 			       trans->initiator2target_buffer_size) ) {
-	  *trans->status = RECIVE_ACCEPTED;
+	  *trans->status = TRANSACTION_ACCEPTED;
       } else {
 	  debug_parity_on();
-	  *trans->status = RECIVE_DATA_ERROR;
+	  *trans->status = TRANSACTION_DATA_ERROR;
 	  debug_parity_off();
       }
   }
@@ -309,16 +337,22 @@ ISR(SERIAL_PIN_INTERRUPT) {
 //    TRANSACTION_END
 //    TRANSACTION_NO_RESPONSE
 //    TRANSACTION_DATA_ERROR
+// this code is very time dependent, so we need to disable interrupts
+#ifdef SERIAL_USE_SIMPLE_TRANSACTION
+int  soft_serial_transaction(void) {
+  SSTD_t *trans = Transaction_table;
+#else
 int  soft_serial_transaction(int sstd_index) {
-  // this code is very time dependent, so we need to disable interrupts
   SSTD_t *trans = &Transaction_table[sstd_index];
+#endif
   cli();
 
   // signal to the target that we want to start a transaction
   serial_output();
   serial_low();
-  _delay_us(SLAVE_INT_WIDTH);
+  _delay_us(SLAVE_INT_WIDTH_US);
 
+#ifdef SERIAL_USE_SIMPLE_TRANSACTION
   // wait for the target response
   serial_input_with_pullup();
   _delay_us(SLAVE_INT_RESPONSE_TIME);
@@ -328,9 +362,43 @@ int  soft_serial_transaction(int sstd_index) {
     // target failed to pull the line low, assume not present
     serial_output();
     serial_high();
+    *trans->status = TRANSACTION_NO_RESPONSE;
     sei();
     return TRANSACTION_NO_RESPONSE;
   }
+
+#else
+  // send transaction table index
+  sync_send();
+  debug_bytewidth_start();
+  _delay_sub_us(TID_SEND_ADJUST);
+  serial_write_chunk(sstd_index, 4);
+  debug_bytewidth_end();
+  serial_delay_half1();
+
+  // wait for the target response (step1 low->high)
+  serial_input_with_pullup();
+  while( !serial_read_pin() ) {
+      _delay_sub_us(2);
+      debug_output_mode(); debug_input_mode(); // indicate check pin timeing
+  }
+
+  // check if the target is present (step2 high->low)
+  debug_output_mode(); _delay_sub_us(1); debug_input_mode(); // indicate check pin timeing
+  for( int i = 0; serial_read_pin(); i++ ) {
+      if (i > SLAVE_INT_ACK_WIDTH + 1) {
+	  // slave failed to pull the line low, assume not present
+	  serial_output();
+	  serial_high();
+	  *trans->status = TRANSACTION_NO_RESPONSE;
+	  sei();
+	  return TRANSACTION_NO_RESPONSE;
+      }
+      debug_output_mode();
+      _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT);
+      debug_input_mode(); // indicate check pin timeing
+  }
+#endif
 
   // initiator recive phase
   // if the target is present syncronize with it
@@ -341,6 +409,7 @@ int  soft_serial_transaction(int sstd_index) {
 	  serial_output();
 	  serial_high();
 	  debug_parity_off();
+	  *trans->status = TRANSACTION_DATA_ERROR;
 	  sei();
 	  return TRANSACTION_DATA_ERROR;
       }
@@ -359,8 +428,20 @@ int  soft_serial_transaction(int sstd_index) {
   sync_send();
   debug_input_mode(); debug_output_mode(); // indicate intterupt exit
 
+  *trans->status = TRANSACTION_END;
   sei();
   return TRANSACTION_END;
 }
+
+#ifndef SERIAL_USE_SIMPLE_TRANSACTION
+int soft_serial_get_and_clean_status(int sstd_index) {
+    SSTD_t *trans = &Transaction_table[sstd_index];
+    cli();
+    int retval = *trans->status;
+    *trans->status = 0;;
+    sei();
+    return retval;
+}
+#endif
 
 #endif
