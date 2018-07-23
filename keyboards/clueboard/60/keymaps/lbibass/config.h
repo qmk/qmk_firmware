@@ -50,7 +50,7 @@
 #define DEBOUNCE 6
 
 /* Prevent modifiers from being stuck on after layer changes. */
-#define PREVENT_STUCK_MODIFIERS
+//#define PREVENT_STUCK_MODIFIERS
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
