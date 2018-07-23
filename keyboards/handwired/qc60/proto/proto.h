@@ -57,7 +57,7 @@
     {R47, R46, R45, R44, R43, R42, XXX, XXX}, \
 }
 
-#define LAYOUT_ANSI_DEFAULT( \
+#define LAYOUT_ansi_default( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05,      R07, \
     L10, L11, L12, L13, L14, L15,      R10, R11, R12, R13, R14, R15, R16, R17, \
     L20, L21, L22, L23, L24, L25,           R21, R22, R23, R24, R25, R26, R27, \
@@ -77,7 +77,7 @@
     {R47, R46, R45, R44, R43, R42, XXX, XXX}, \
 }
 
-#define LAYOUT_ANSI_ALT( \
+#define LAYOUT_ansi_alt( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05,      R07, \
     L10, L11, L12, L13, L14, L15,      R10, R11, R12, R13, R14, R15, R16, R17, \
     L20, L21, L22, L23, L24, L25,           R21, R22, R23, R24, R25, R26, R27, \
@@ -97,7 +97,7 @@
     {R47, R46, R45, R44, R43, XXX, XXX, XXX}, \
 }
 
-#define LAYOUT_ISO_DEFAULT( \
+#define LAYOUT_iso_default( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05,           R07, \
     L10, L11, L12, L13, L14, L15,      R10, R11, R12, R13, R14, R15, R16,           \
     L20, L21, L22, L23, L24, L25,           R21, R22, R23, R24, R25, R26, R17, R27, \
@@ -117,7 +117,7 @@
     {R47, R46, R45, R44, R43, R42, XXX, XXX}, \
 }
 
-#define LAYOUT_ISO_ALT( \
+#define LAYOUT_iso_alt( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05,      R07, \
     L10, L11, L12, L13, L14, L15,      R10, R11, R12, R13, R14, R15, R16, R17, \
     L20, L21, L22, L23, L24, L25,           R21, R22, R23, R24, R25, R26, R27, \
@@ -137,7 +137,7 @@
     {R47, R46, R45, R44, R43, XXX, XXX, XXX}, \
 }
 
-#define LAYOUT_HHKB_DEFAULT( \
+#define LAYOUT_hhkb_default( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05, R06, R07, \
     L10, L11, L12, L13, L14, L15,      R10, R11, R12, R13, R14, R15, R16, R17, \
     L20, L21, L22, L23, L24, L25,           R21, R22, R23, R24, R25, R26, R27, \
@@ -157,7 +157,7 @@
     {XXX, R46, R45, R44, R43, XXX, XXX, XXX}, \
 }
 
-#define LAYOUT_HHKB_SPLIT_LSHIFT( \
+#define LAYOUT_hhkb_split_lshift( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05, R06, R07, \
     L10, L11, L12, L13, L14, L15,      R10, R11, R12, R13, R14, R15, R16, R17, \
     L20, L21, L22, L23, L24, L25,           R21, R22, R23, R24, R25, R26, R27, \
@@ -177,7 +177,7 @@
     {XXX, R46, R45, R44, R43, XXX, XXX, XXX}, \
 }
 
-#define LAYOUT_WKL_DEFAULT( \
+#define LAYOUT_wkl_default( \
     L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05,      R07, \
     L10, L11, L12, L13, L14, L15,      R10, R11, R12, R13, R14, R15, R16, R17, \
     L20, L21, L22, L23, L24, L25,           R21, R22, R23, R24, R25, R26, R27, \
