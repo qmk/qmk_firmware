@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "xd75.h"
+#include QMK_KEYBOARD_H
 #include "keymap_bepo.h"
 
 // Layer shorthand
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_TAB,    BP_B,     BP_E_ACUTE, BP_P,    BP_O,    BP_E_GRAVE,     KC_KP_7, KC_KP_8, KC_KP_9,   BP_DCRC,         BP_V,    BP_D,    BP_L,     BP_J,    BP_Z    },
   { KC_ESC,    BP_A,     BP_U,       BP_I,    BP_E,    BP_COMMA,       KC_HOME, KC_KP_5, KC_END,    BP_C,            BP_T,    BP_S,    BP_R,     BP_N,    BP_M    },
   { KC_LSFT,   BP_W,     BP_Y,       BP_X,    BP_DOT,  BP_K,           KC_PGUP, KC_END,  KC_PGDOWN, BP_APOS,         BP_Q,    BP_G,    BP_H,     BP_F,    KC_RSFT },
-  { KC_LCTL,   KC_L GUI, KC_RALT,    KC_LGUI, BP_UNDS, LT(_FN,KC_ENT), KC_DEL,  KC_KP_0, KC_BSPC,   LT(_FN,KC_SPC),  BP_UNDS, KC_RALT, KC_RALT,  KC_RGUI, KC_LCTL },
+  { KC_LCTL,   KC_LGUI, KC_RALT,     KC_LGUI, BP_UNDS, LT(_FN,KC_ENT), KC_DEL,  KC_KP_0, KC_BSPC,   LT(_FN,KC_SPC),  BP_UNDS, KC_RALT, KC_RALT,  KC_RGUI, KC_LCTL },
  },
 
 
