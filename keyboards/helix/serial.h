@@ -59,6 +59,7 @@ int  soft_serial_get_and_clean_status(int sstd_index);
 #define SERIAL_DEBUG_MODE_WATCH_SYNC 0x8
 #define SERIAL_DEBUG_MODE_WATCH_IOCHG 0x10
 #define SERIAL_DEBUG_MODE_WATCH_PARITY 0x20
+#define SERIAL_DEBUG_MODE_WATCH_RETRY 0x40
 
 //#define SERIAL_DEBUG_MODE SERIAL_DEBUG_MODE_WATCH_OUTMODE
 //#define SERIAL_DEBUG_MODE SERIAL_DEBUG_MODE_WATCH_RCVSAMPLE
@@ -69,6 +70,7 @@ int  soft_serial_get_and_clean_status(int sstd_index);
 //#define SERIAL_DEBUG_MODE SERIAL_DEBUG_MODE_WATCH_IOCHG
 //#define SERIAL_DEBUG_MODE (SERIAL_DEBUG_MODE_WATCH_IOCHG|SERIAL_DEBUG_MODE_WATCH_SYNC)
 //#define SERIAL_DEBUG_MODE SERIAL_DEBUG_MODE_WATCH_PARITY
+//#define SERIAL_DEBUG_MODE SERIAL_DEBUG_MODE_WATCH_RETRY
 
 // Helix keyboard unused port (for Logic analyzer or oscilloscope)
 #ifdef SERIAL_DEBUG_MODE
@@ -127,6 +129,14 @@ int  soft_serial_get_and_clean_status(int sstd_index);
 #else
   #define debug_parity_on()
   #define debug_parity_off()
+#endif
+
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_RETRY
+  #define debug_retry_on() SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK
+  #define debug_retry_off() SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK
+#else
+  #define debug_retry_on()
+  #define debug_retry_off()
 #endif
 
 #define SYNC_DEBUG_MODE 0

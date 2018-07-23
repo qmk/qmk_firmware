@@ -4,10 +4,14 @@
 #include <stddef.h>
 #include <split_scomm.h>
 #include "serial.h"
+#ifdef SERIAL_DEBUG_MODE
+#include <avr/io.h>
+#endif
 
 uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
 uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
-uint8_t volatile status0 = 0;
+uint8_t volatile status_com = 0;
+uint8_t volatile status1 = 0;
 #ifdef SERIAL_USE_MULTI_TRANSACTION
 uint8_t slave_buffer_change_count = 0;
 uint8_t s_change_old = 0xff;
@@ -15,7 +19,7 @@ uint8_t s_change_old = 0xff;
 
 #ifndef SERIAL_USE_MULTI_TRANSACTION
 SSTD_t transactions[] = {
-    { (uint8_t *)&status0,
+    { (uint8_t *)&status_com,
       sizeof(serial_master_buffer), (uint8_t *)serial_master_buffer,
       sizeof(serial_slave_buffer), (uint8_t *)serial_slave_buffer
     }
@@ -25,19 +29,19 @@ SSTD_t transactions[] = {
 SSTD_t transactions[] = {
 #define GET_SLAVE_STATUS 0
     /* master buffer not changed, only recive slave_buffer_change_count */
-    { (uint8_t *)&status0,
+    { (uint8_t *)&status_com,
       0, NULL,
       sizeof(slave_buffer_change_count), &slave_buffer_change_count,
     },
 #define PUT_MASTER_GET_SLAVE_STATUS 1
     /* master buffer changed need send, and recive slave_buffer_change_count  */
-    { (uint8_t *)&status0,
+    { (uint8_t *)&status_com,
       sizeof(serial_master_buffer), (uint8_t *)serial_master_buffer,
       sizeof(slave_buffer_change_count), &slave_buffer_change_count,
     },
 #define GET_SLAVE_BUFFER 2
     /* recive serial_slave_buffer */
-    { (uint8_t *)&status0,
+    { (uint8_t *)&status1,
       0, NULL,
       sizeof(serial_slave_buffer), (uint8_t *)serial_slave_buffer
     }
@@ -72,9 +76,13 @@ int serial_update_buffers(int master_update)
     else
 	status = soft_serial_transaction(PUT_MASTER_GET_SLAVE_STATUS);
     need_retry = ( status == TRANSACTION_END ) ? 0 : 1;
+    if( need_retry ) debug_retry_on(); else debug_retry_off();
     return status;
 #else
-    return soft_serial_transaction();
+    int status;
+    status = soft_serial_transaction();
+    if( status != TRANSACTION_END ) debug_retry_on(); else debug_retry_off();
+    return status;
 #endif
 }
 #endif /* USE_SERIAL */
