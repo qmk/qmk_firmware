@@ -45,6 +45,94 @@
 #  define CFQ_USER_KEY8 KC_DEL
 #endif
 
+<<<<<<< HEAD
+=======
+#ifdef CFQ_USE_80_KEYS
+#  define LAYOUT_ergodox_76_or_80 LAYOUT_ergodox_80
+#  define K80(a) CFQ_USER_K80_##a
+#else
+#  define LAYOUT_ergodox_76_or_80( \
+        k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, \
+        k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, \
+        k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, \
+        k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, \
+         \
+        k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, \
+        k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, \
+        k60, k61, k62, k63, k64, k65, k66, k67, k68, k69, \
+        k70, k71, k72, k73, k74, k75, k76, k77, k78, k79) \
+  LAYOUT_ergodox( \
+          k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, \
+          k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, \
+          k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, \
+          k30, k31, k32, k33,           k36, k37, k38, k39, \
+           \
+          k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, \
+          k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, \
+          k60, k61, k62, k63, k64, k65, k66, k67, k68, k69, \
+          k70, k71, k72, k73, k74,           k77, k78, k79)
+#  define K80(a) KC_TRNS
+#endif
+
+/**
+ * Used to generate lines below:
+ * \code{.py}
+ * text = '#  ifndef CFQ_USER_K80_L0K0\n#    define CFQ_USER_K80_L0K0 KC_TRNS\n#  endif'
+ * print('\n'.join([text.replace('L0', f'L{l}').replace('K0', f'K{k}') for l in range(3) for k in range(4)]))
+ * \endcode
+ */
+#ifdef CFQ_USE_80_KEYS
+#  ifndef CFQ_USER_K80_L0K0
+#    define CFQ_USER_K80_L0K0 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L0K1
+#    define CFQ_USER_K80_L0K1 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L0K2
+#    define CFQ_USER_K80_L0K2 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L0K3
+#    define CFQ_USER_K80_L0K3 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L1K0
+#    define CFQ_USER_K80_L1K0 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L1K1
+#    define CFQ_USER_K80_L1K1 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L1K2
+#    define CFQ_USER_K80_L1K2 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L1K3
+#    define CFQ_USER_K80_L1K3 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L2K0
+#    define CFQ_USER_K80_L2K0 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L2K1
+#    define CFQ_USER_K80_L2K1 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L2K2
+#    define CFQ_USER_K80_L2K2 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L2K3
+#    define CFQ_USER_K80_L2K3 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L3K0
+#    define CFQ_USER_K80_L3K0 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L3K1
+#    define CFQ_USER_K80_L3K1 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L3K2
+#    define CFQ_USER_K80_L3K2 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L3K3
+#    define CFQ_USER_K80_L3K3 KC_TRNS
+#  endif
+#endif
+
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #ifndef CFQ_WORD_A
 #define CFQ_WORD_A ""
 #endif
@@ -190,7 +278,18 @@ enum custom_keycodes {
 };
 
 #ifdef CFQ_USE_DYNAMIC_MACRO
+<<<<<<< HEAD
 #include "dynamic_macro.h"
+=======
+#  include "dynamic_macro.h"
+#else
+   /* avoid ifdef's in keymap */
+#  define DYN_REC_START1 KC_TRNS
+#  define DYN_REC_START2 KC_TRNS
+#  define DYN_MACRO_PLAY1 KC_TRNS
+#  define DYN_MACRO_PLAY2 KC_TRNS
+#  define DYN_REC_STOP KC_TRNS
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #endif
 
 #ifdef CFQ_USE_MOMENTARY_LAYER_KEYS
@@ -320,7 +419,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Keymap 2: F-Keys, media and mouse keys
+/* Keymap 2: Numbers, media and mouse keys
  *
 <<<<<<< HEAD
  * ,--------------------------------------------------.           ,--------------------------------------------------.
@@ -346,7 +445,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [MDIA] = LAYOUT_ergodox(
 =======
  * .--------------------------------------------------.  .--------------------------------------------------.
- * |        |      |      |      |      |      |      |  |Mute  |      |      |      |      |      |        |
+ * |        |   1  |   2  |   3  |   4  |   5  |      |  | Mute |   6  |   7  |   8  |   9  |   0  |        |
  * |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
  * |        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
@@ -364,11 +463,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                               |      |      |      |  | MNxt |      |      |
  *                               '--------------------'  '--------------------'
  */
-/* MEDIA & MOUSE */
+/* MEDIA, MOUSE & NUMBERS */
 [LAYER_MDIA] = LAYOUT_ergodox_76_or_80(
 >>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
   /* left hand */
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_WH_U,
   KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_BTN2, KC_BTN3, KC_BTN1, KC_TRNS, KC_WH_D,
@@ -383,7 +482,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            KC_TRNS,   KC_TRNS,   KC_TRNS,
 >>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
   /* right hand */
-  KC_MUTE, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+  KC_MUTE,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TRNS,
   KC_VOLU,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
             KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS,
   KC_VOLD,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -450,7 +549,7 @@ const uint16_t PROGMEM fn_actions[] = {
   [3] = ACTION_LAYER_TAP_TOGGLE(WORD),               /* FN3 - Momentary Layer 3 (Words) */
 =======
   [1] = ACTION_LAYER_TAP_TOGGLE(LAYER_KPAD),               /* FN1 - Momentary Layer 1 (KeyPad) */
-  [2] = ACTION_LAYER_TAP_TOGGLE(LAYER_MDIA),               /* FN2 - Momentary Layer 2 (Media) */
+  [2] = ACTION_LAYER_TAP_TOGGLE(LAYER_MDIA),               /* FN2 - Momentary Layer 2 (Media, Mouse) */
   [3] = ACTION_LAYER_TAP_TOGGLE(LAYER_FKEY),               /* FN3 - Momentary Layer 3 (FKey's & Words) */
 >>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 };

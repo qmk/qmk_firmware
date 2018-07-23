@@ -8,5 +8,23 @@ RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
 
+<<<<<<< HEAD
 CUSTOM_MATRIX = no
 LAYOUTS = ortho_5x7
+=======
+NO_SECRETS        = yes
+MACROS_ENABLED    = yes
+INDICATOR_LIGHTS  = no
+RGBLIGHT_TWINKLE  = no
+
+LAYOUTS = ortho_5x7
+
+# SRC := $(filter-out serial.c matrix.c i2c.c split_util.c,$(SRC))
+# SRC := $(filter-out serial.c,$(SRC))
+# SRC := $(filter-out matrix.c,$(SRC))
+# SRC := $(filter-out i2c.c,$(SRC))
+# SRC := $(filter-out split_util.c,$(SRC))
+# SRC += quantum/matrix.c
+
+BOOTLOADER        = qmk-dfu
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc

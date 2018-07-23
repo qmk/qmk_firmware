@@ -24,6 +24,29 @@ For example,
 
 Will include the `/users/jack/` folder in the path, along with `/users/jack/rules.mk`.
 
+<<<<<<< HEAD
+=======
+Additionally, `config.h` here will be processed like the same file in your keymap folder.  This is handled separately from the `<name>.h` file.
+
+The reason for this, is that `<name>.h` won't be added in time to add settings (such as `#define TAPPING_TERM 100`), and including the `<name.h>` file in any `config.h` files will result in compile issues.
+
+So you should use the `config.h` for QMK settings, and the `<name>.h` file for user or keymap specific settings.
+
+`/users/<name>/rules.mk` will be included in the build _after_ the `rules.mk` from your keymap. This allows you to have features in your userspace `rules.mk` that depend on individual QMK features that may or may not be available on a specific keyboard. For example, if you have RGB control features shared between all your keyboards that support RGB lighting, you can `define RGB_ENABLE` in your keymap `rules.mk` and then check for the variable in your userspace `rules.mk` like this:
+```make
+ifdef RGB_ENABLE
+    # Include my fancy rgb functions source here
+endif
+```
+Because of this, any time you turn on QMK features in your `users/<name>/rules.mk`, you should conditionally enable them only if the flag isn't already defined, like this:
+```make
+ifndef TAP_DANCE_ENABLE
+    TAP_DANCE_ENABLE = yes
+endif
+```
+This will ensure that you can explicitly turn off features for an individual keymap.
+
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 ## Readme
 
 Please include authorship (your name, github username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
@@ -93,3 +116,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 This will add a new `KC_MAKE`  keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap">`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
 
 Additionally, this should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely (and will dump the HEX in the ".build" folder instead).
+<<<<<<< HEAD
+=======
+
+## Override default userspace
+
+By default the userspace used will be the same as the keymap name. In some situations this isn't desirable. For instance, if you use the [layout](feature_layouts.md) feature you can't use the same name for different keymaps (e.g. ANSI and ISO). You can name your layouts `mylayout-ansi` and `mylayout-iso` and add the following line to your layout's `rules.mk`:
+
+```
+USER_NAME := mylayout
+```
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc

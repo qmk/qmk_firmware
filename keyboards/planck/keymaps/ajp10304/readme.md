@@ -1,4 +1,8 @@
 # AJP10304 Custom Planck Layout
+<<<<<<< HEAD
+=======
+# Also available for the Atreus50 and JJ40
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 **Note:** In the tables below where there are two characters on a key, 
 the second is the output when shift is applied.

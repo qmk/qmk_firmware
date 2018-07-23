@@ -30,7 +30,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* |Fn1 |Gui |Alt |        SpaceFn         |Alt |Gui |App |Ctrl|
 	* `-----------------------------------------------------------'
 	*/
+<<<<<<< HEAD
     LEGACY_KEYMAP(
+=======
+    LAYOUT_kc(
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 		GRV,  1,    2,    3,    4,    5,    6,    7,    8,    9,    0,    MINS,  EQL, BSPC, BSPC, \
 		TAB,  Q,    W,    E,    R,    T,    Y,    U,    I,    O,    P,    LBRC, RBRC, BSLS, \
 		LCTL, A,    S,    D,    F,    G,    H,    J,    K,    L, SCLN,    QUOT, NUHS, ENT,  \
@@ -50,7 +54,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	* |    |    |    |                        |    |    |    |    |
 	* `-----------------------------------------------------------'
 	*/
+<<<<<<< HEAD
     LEGACY_KEYMAP(
+=======
+    LAYOUT_kc(
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 		ESC,  F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,   F10,  F11,  F12,  TRNS, DEL,  \
 		TRNS, MPRV, MPLY, MNXT, MSTP, TRNS, TRNS, PGUP, UP,   PGDN, TRNS, SLCK, PAUS, INS,  \
 		TRNS, VOLD, MUTE, VOLU, TRNS, TRNS, HOME, LEFT, DOWN, RGHT, END,  TRNS, TRNS, PENT, \

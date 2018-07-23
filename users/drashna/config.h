@@ -1,5 +1,4 @@
-#ifndef USERSPACE_CONFIG_H
-#define USERSPACE_CONFIG_H
+#pragma once
 
 
 #ifdef AUDIO_ENABLE
@@ -15,6 +14,9 @@
                                   SONG(DVORAK_SOUND), \
                                   SONG(PLOVER_SOUND) \
                                 }
+
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
+
 #endif
 
 #ifdef RGBLIGHT_ENABLE
@@ -44,7 +46,7 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
 #undef PREVENT_STUCK_MODIFIERS
-#define TAPPING_FORCE_HOLD
+// #define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 
 #ifndef TAPPING_TOGGLE
@@ -58,8 +60,12 @@
 #define TAPPING_TERM 150
 =======
 #endif // TAPPING_TERM
+<<<<<<< HEAD
 #define TAPPING_TERM 200
 >>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
+=======
+#define TAPPING_TERM 175
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 
 // Disable action_get_macro and fn_actions, since we don't use these
@@ -78,5 +84,6 @@
 
 
 
-#endif // !USERSPACE_CONFIG_H
+#define MACRO_TIMER 5
+
 

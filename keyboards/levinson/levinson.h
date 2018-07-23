@@ -24,9 +24,12 @@
     )
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define KC_LAYOUT_ortho_4x12 KC_KEYMAP
 =======
 #define KC_LAYOUT_ortho_4x12 LAYOUT_kc
+=======
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #define LAYOUT_kc_ortho_4x12 LAYOUT_kc
 >>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 

@@ -26,8 +26,14 @@ define HELIX_CUSTOMISE_MSG
 endef
 
 # Helix keyboard customize
+<<<<<<< HEAD
 # you can edit follows 4 Variables
 #  jp: 以下の4つの変数を必要に応じて編集します。
+=======
+# you can edit follows 7 Variables
+#  jp: 以下の7つの変数を必要に応じて編集します。
+HELIX_ROWS = 5              # Helix Rows is 4 or 5
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 OLED_ENABLE = no            # OLED_ENABLE
 LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
@@ -40,6 +46,13 @@ LED_ANIMATIONS = yes        # LED animations
 #   jp: コンパイル時にカスタマイズの状態を表示したい時はコメントをはずします。
 # $(eval $(call HELIX_CUSTOMISE_MSG))
 # $(info )
+
+ifneq ($(strip $(HELIX_ROWS)), 4)
+ifneq ($(strip $(HELIX_ROWS)), 5)
+$(error HELIX_ROWS = $(strip $(HELIX_ROWS)) is unexpected value)
+endif
+endif
+OPT_DEFS += -DHELIX_ROWS=$(strip $(HELIX_ROWS))
 
 ifeq ($(strip $(LED_BACK_ENABLE)), yes)
   RGBLIGHT_ENABLE = yes

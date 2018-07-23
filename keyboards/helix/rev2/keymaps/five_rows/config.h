@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
+<<<<<<< HEAD
 #include "../../config.h"
 
 /* Use I2C or Serial */
@@ -105,3 +106,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   // iOS device need lessthan 100
   #define USB_MAX_POWER_CONSUMPTION 100
 #endif
+=======
+// place overrides here
+
+#endif /* CONFIG_USER_H */
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc

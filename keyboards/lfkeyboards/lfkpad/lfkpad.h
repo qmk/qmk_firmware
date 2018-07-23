@@ -54,6 +54,7 @@ enum action_functions {
 void reset_keyboard_kb(void);
 void click(uint16_t freq, uint16_t duration);
 
+<<<<<<< HEAD
 #define KEYMAP( \
     k00, k01, k02, k03,\
     k10, k11, k12, k13,\
@@ -61,13 +62,26 @@ void click(uint16_t freq, uint16_t duration);
     k30, k31, k32,\
     k40, k41, k42, k43,\
     k50,      k52\
+=======
+// readability
+#define ___ KC_NO
+
+
+#define LAYOUT_numpad_6x4( \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22,      \
+    k30, k31, k32, k23, \
+    k40, k41, k42,      \
+    k50,      k52, k43  \
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 ) { \
-    { k00, k01,   k02, k03 }, \
-    { k10, k11,   k12, k13 }, \
-    { k20, k21,   k22, k23 }, \
-    { k30, k31,   k32, KC_NO }, \
-    { k40, k41,   k42, k43 }, \
-    { k50, KC_NO, k52, KC_NO } \
+    { k00, k01, k02, k03 }, \
+    { k10, k11, k12, k13 }, \
+    { k20, k21, k22, k23 }, \
+    { k30, k31, k32, ___ }, \
+    { k40, k41, k42, k43 }, \
+    { k50, ___, k52, ___ } \
 }
 
 #endif //LFKPAD_H

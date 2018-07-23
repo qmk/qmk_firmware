@@ -16,7 +16,11 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: qwerty */
+<<<<<<< HEAD
     LEGACY_KEYMAP(ESC,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS, EQL,    NO, BSPC, \
+=======
+    LAYOUT_kc(ESC,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS, EQL,    NO, BSPC, \
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
            TAB,    Q,    W,   E,   R,   T,   Y,   U,   I,    O,    P, LBRC, RBRC, BSLS,       \
           CAPS,    A,    S,   D,   F,   G,   H,   J,   K,    L, SCLN, QUOT, NO,   ENT,        \
           LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT, SLSH, NO,   RSFT,   NO, \

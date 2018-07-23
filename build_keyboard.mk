@@ -21,7 +21,7 @@ KEYBOARD_FOLDER_5 := $(notdir $(KEYBOARD_FOLDER_PATH_5))
 KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
 
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
-KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
+KEYBOARD_OUTPUT := $(_DIR)/obj_$(KEYBOARD_FILESAFE)
 
 # Force expansion
 TARGET := $(TARGET)
@@ -195,7 +195,7 @@ else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
     KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
     KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
 else ifneq ($(LAYOUTS),)
-    include build_layout.mk
+    include _layout.mk
 else
     $(error Could not find keymap)
     # this state should never be reached
@@ -215,7 +215,7 @@ endif
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
 #     this an empty or blank macro!
-KEYMAP_OUTPUT := $(BUILD_DIR)/obj_$(TARGET)
+KEYMAP_OUTPUT := $(_DIR)/obj_$(TARGET)
 
 ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
     CONFIG_H += $(KEYMAP_PATH)/config.h
@@ -279,12 +279,12 @@ $(KEYBOARD_OUTPUT)_INC := $(PROJECT_INC) $(GFXINC)
 $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
-all: build check-size
+all:  check-size
 
-# Change the build target to build a HEX file or a library.
-build: elf cpfirmware
-#build: elf hex eep lss sym
-#build: lib
+# Change the  target to  a HEX file or a library.
+: elf cpfirmware
+#: elf hex eep lss sym
+#: lib
 
 
 include $(TMK_PATH)/rules.mk

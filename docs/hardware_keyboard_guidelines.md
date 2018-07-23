@@ -53,6 +53,7 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
   * Example: `c1ed:2370:0001`
 * `url`
   * A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.
+<<<<<<< HEAD
 * `processor`
   * The MCU or CPU this keyboard uses.
   * Example: `atmega32u4` or `stm32f303`
@@ -66,6 +67,8 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
     * `caterina`
     * `halfkay`
     * `bootloadHID`
+=======
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 * `maintainer`
   * GitHub username of the maintainer, or `qmk` for community maintained boards
 * `width`

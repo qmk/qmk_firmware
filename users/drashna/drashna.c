@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "drashna.h"
 #include "version.h"
+<<<<<<< HEAD
 
 #if (__has_include("secrets.h"))
 #include "secrets.h"
@@ -31,6 +32,11 @@ PROGMEM const char secret[][64] = {
   "test5"
 };
 #endif
+=======
+#include "eeprom.h"
+#include "tap_dances.h"
+#include "rgb_stuff.h"
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 
 #ifdef FAUXCLICKY_ENABLE
@@ -42,6 +48,7 @@ float fauxclicky_released[][2]             = SONG(S__NOTE(_A6)); // change to yo
 #endif
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 bool faux_click_enabled = false;
 bool is_overwatch = false;
 #ifdef RGBLIGHT_ENABLE
@@ -49,35 +56,15 @@ bool rgb_layer_change = true;
 #endif
 
 =======
+=======
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 static uint16_t copy_paste_timer;
 userspace_config_t userspace_config;
 
 //  Helper Functions
-void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
-
-#ifdef RGBLIGHT_ENABLE
-void rgblight_sethsv_default_helper(uint8_t index) {
-  uint8_t default_layer = eeconfig_read_default_layer();
-  if (default_layer & (1UL << _COLEMAK)) {
-    rgblight_sethsv_at(300, 255, 255, index);
-    rgblight_sethsv_at(300, 255, 255, index);
-  }
-  else if (default_layer & (1UL << _DVORAK)) {
-    rgblight_sethsv_at(120, 255, 255, index);
-    rgblight_sethsv_at(120, 255, 255, index);
-  }
-  else if (default_layer & (1UL << _WORKMAN)) {
-    rgblight_sethsv_at(43, 255, 255, index);
-    rgblight_sethsv_at(43, 255, 255, index);
-  }
-  else {
-    rgblight_sethsv_at(180, 255, 255, index);
-    rgblight_sethsv_at(180, 255, 255, index);
-  }
-}
-#endif // RGBLIGHT_ENABLE
 
 
+<<<<<<< HEAD
 // =========================================  TAP DANCE  =========================================
 >>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 #ifdef TAP_DANCE_ENABLE
@@ -100,9 +87,24 @@ void diablo_tapdance_master(qk_tap_dance_state_t *state, void *user_data, uint8_
   }
   else {
     diablo_key_time[diablo_key] = diablo_times[state->count - 1];
+=======
+// This block is for all of the gaming macros, as they were all doing
+// the same thing, but with differring text sent.
+bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
+  if (!record->event.pressed || override) {
+    clear_keyboard();
+    tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
+    wait_ms(50);
+    send_string_with_delay(str, MACRO_TIMER);
+    wait_ms(50);
+    tap(KC_ENTER);
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
   }
+  if (override) wait_ms(3000);
+  return false;
 }
 
+<<<<<<< HEAD
 // Would rather have one function for all of this, but no idea how to do that...
 void diablo_tapdance1(qk_tap_dance_state_t *state, void *user_data) {
   diablo_tapdance_master(state, user_data, 0);
@@ -144,9 +146,29 @@ void send_diablo_keystroke(uint8_t diablo_key) {
         SEND_STRING("4");
         break;
     }
+=======
+void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
+
+bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed) {
+  static uint16_t this_timer;
+  if(pressed) {
+      this_timer= timer_read();
+  } else {
+      if (timer_elapsed(this_timer) < TAPPING_TERM){
+          register_code(code);
+          unregister_code(code);
+      } else {
+          register_code(mod_code);
+          register_code(code);
+          unregister_code(code);
+          unregister_code(mod_code);
+      }
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
   }
+  return false;
 }
 
+<<<<<<< HEAD
 // Checks each of the 4 timers/keys to see if enough time has elapsed
 // Runs the "send string" command if enough time has passed, and resets the timer.
 void run_diablo_macro_check(void) {
@@ -157,11 +179,30 @@ void run_diablo_macro_check(void) {
       diablo_timer[dtime] = timer_read();
       send_diablo_keystroke(dtime);
     }
+=======
+bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer) {
+  if(pressed) {
+      this_timer= timer_read();
+  } else {
+      if (timer_elapsed(this_timer) < TAPPING_TERM){
+          register_code(code);
+          unregister_code(code);
+      } else {
+          register_code(mod_code);
+          register_code(code);
+          unregister_code(code);
+          unregister_code(mod_code);
+      }
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
   }
+  return false;
 }
+<<<<<<< HEAD
 
 #endif
 
+=======
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 // Add reconfigurable functions here, for keymap customization
 // This allows for a global, userspace functions, and continued
@@ -169,6 +210,15 @@ void run_diablo_macro_check(void) {
 // functions in the keymaps
 __attribute__ ((weak))
 void matrix_init_keymap(void) {}
+
+__attribute__ ((weak))
+void startup_keymap(void) {}
+
+__attribute__ ((weak))
+void suspend_power_down_keymap(void) {}
+
+__attribute__ ((weak))
+void suspend_wakeup_init_keymap(void) {}
 
 __attribute__ ((weak))
 void matrix_scan_keymap(void) {}
@@ -179,7 +229,18 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 __attribute__ ((weak))
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
+
+__attribute__ ((weak))
 uint32_t layer_state_set_keymap (uint32_t state) {
+  return state;
+}
+
+__attribute__ ((weak))
+uint32_t default_layer_state_set_keymap (uint32_t state) {
   return state;
 }
 
@@ -190,6 +251,7 @@ void led_set_keymap(uint8_t usb_led) {}
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
+<<<<<<< HEAD
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
   userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
@@ -218,6 +280,14 @@ void matrix_init_user(void) {
   }
 #endif
 =======
+=======
+  userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
+
+#ifdef AUDIO_CLICKY
+  clicky_enable = userspace_config.clicky_enable;
+#endif
+
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #ifdef BOOTLOADER_CATERINA
   DDRD &= ~(1<<5);
   PORTD &= ~(1<<5);
@@ -226,43 +296,43 @@ void matrix_init_user(void) {
   PORTB &= ~(1<<0);
 #endif
 
-  if (userspace_config.rgb_layer_change) {
-#ifdef RGBLIGHT_ENABLE
-    rgblight_enable();
-#endif // RGBLIGHT_ENABLE
-    if (default_layer & (1UL << _COLEMAK)) {
-  #ifdef RGBLIGHT_ENABLE
-      rgblight_sethsv_magenta();
-  #endif // RGBLIGHT_ENABLE
-    } else if (default_layer & (1UL << _DVORAK)) {
-  #ifdef RGBLIGHT_ENABLE
-      rgblight_sethsv_green();
-  #endif // RGBLIGHT_ENABLE
-    } else if (default_layer & (1UL << _WORKMAN)) {
-  #ifdef RGBLIGHT_ENABLE
-      rgblight_sethsv_goldenrod();
-  #endif // RGBLIGHT_ENABLE
-    } else {
-  #ifdef RGBLIGHT_ENABLE
-      rgblight_sethsv_teal();
-  #endif // RGBLIGHT_ENABLE
-    }
-  }
 
-#ifdef AUDIO_CLICKY
-  clicky_enable = userspace_config.clicky_enable;
-#endif
-
-#if ( defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE) )
+#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
 	set_unicode_input_mode(UC_WINC);
 #endif //UNICODE_ENABLE
+<<<<<<< HEAD
 
 >>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
+=======
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
   matrix_init_keymap();
 }
+
+void startup_user (void) {
+  #ifdef RGBLIGHT_ENABLE
+    matrix_init_rgb();
+  #endif //RGBLIGHT_ENABLE
+  startup_keymap();
+}
+
+void suspend_power_down_user(void)
+{
+    suspend_power_down_keymap();
+}
+
+void suspend_wakeup_init_user(void)
+{
+  suspend_wakeup_init_keymap();
+  #ifdef KEYBOARD_ergodox_ez
+  wait_ms(10);
+  #endif
+}
+
+
 // No global matrix scan code, so just run keymap's matrix
 // scan function
 void matrix_scan_user(void) {
+<<<<<<< HEAD
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
   run_diablo_macro_check();
 #endif
@@ -284,6 +354,26 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (override) wait_ms(3000);
   return false;
 }
+=======
+  static bool has_ran_yet;
+  if (!has_ran_yet) {
+    has_ran_yet = true;
+    startup_user();
+  }
+
+#ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
+  run_diablo_macro_check();
+#endif // TAP_DANCE_ENABLE
+
+#ifdef RGBLIGHT_ENABLE
+  matrix_scan_rgb();
+#endif // RGBLIGHT_ENABLE
+
+  matrix_scan_keymap();
+}
+
+
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 // Sent the default layer
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -296,6 +386,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
+<<<<<<< HEAD
 // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef CONSOLE_ENABLE
   xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
@@ -313,6 +404,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 #endif //AUDIO_ENABLE
 
+=======
+  // If console is enabled, it will print the matrix position and status of each key pressed
+#ifdef KEYLOGGER_ENABLE
+  xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+#endif //KEYLOGGER_ENABLE
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
   switch (keycode) {
   case KC_QWERTY:
@@ -376,15 +473,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
+      send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP
 #if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
                    ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
                    ":teensy"
 #elif defined(BOOTLOADER_CATERINA)
                    ":avrdude"
+<<<<<<< HEAD
 #endif
                    SS_TAP(X_ENTER));
+=======
+#endif // bootloader options
+                   SS_TAP(X_ENTER)), 10);
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
     }
     return false;
     break;
@@ -393,10 +495,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_RESET: // Custom RESET code that sets RGBLights to RED
     if (!record->event.pressed) {
 #ifdef RGBLIGHT_ENABLE
+<<<<<<< HEAD
       rgblight_enable();
       rgblight_mode(1);
       rgblight_setrgb(0xff, 0x00, 0x00);
 #endif
+=======
+      rgblight_enable_noeeprom();
+      rgblight_mode_noeeprom(1);
+      rgblight_setrgb_red();
+#endif // RGBLIGHT_ENABLE
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
       reset_keyboard();
     }
     return false;
@@ -406,34 +515,44 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case EPRM: // Resets EEPROM
     if (record->event.pressed) {
       eeconfig_init();
+      default_layer_set(1UL<<eeconfig_read_default_layer());
+      layer_state_set(layer_state);
     }
     return false;
     break;
   case VRSN: // Prints firmware version
     if (record->event.pressed) {
-      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+      send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), MACRO_TIMER);
     }
     return false;
     break;
 
-
-  case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
-    if (!record->event.pressed) {
-      clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-      send_string_P(secret[keycode - KC_SECRET_1]);
-    }
-    return false;
-    break;
-
+/*  Code has been depreciated
+    case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
+      if (!record->event.pressed) {
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        send_string(decoy_secret[keycode - KC_SECRET_1]);
+      }
+      return false;
+      break;
+*/
 
 // These are a serious of gaming macros.
 // Only enables for the viterbi, basically,
 // to save on firmware space, since it's limited.
+<<<<<<< HEAD
 #if !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez))
+=======
+#ifdef MACROS_ENABLED
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
     if (record->event.pressed) { is_overwatch = !is_overwatch; }
 #ifdef RGBLIGHT_ENABLE
+<<<<<<< HEAD
     is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
+=======
+    userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #endif //RGBLIGHT_ENABLE
     return false; break;
   case KC_SALT:
@@ -459,19 +578,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return send_game_macro("OMG!!!  C9!!!", record, false);
   case KC_GGEZ:
     return send_game_macro("That was a fantastic game, though it was a bit easy. Try harder next time!", record, false);
-#endif // !(defined(KEYBOARD_orthodox_rev1) || defined(KEYBOARD_orthodox_rev3) || defined(KEYBOARD_ergodox_ez))
+#endif // MACROS_ENABLED
 
 
-#ifdef TAP_DANCE_ENABLE
   case KC_DIABLO_CLEAR:  // reset all Diablo timers, disabling them
+#ifdef TAP_DANCE_ENABLE
     if (record->event.pressed) {
       uint8_t dtime;
       for (dtime = 0; dtime < 4; dtime++) {
         diablo_key_time[dtime] = diablo_times[0];
       }
     }
-    return false; break;
 #endif // TAP_DANCE_ENABLE
+<<<<<<< HEAD
 
 
   case KC_FXCL:
@@ -500,6 +619,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // RGBLIGHT_ENABLE
 <<<<<<< HEAD
 =======
+=======
+    return false; break;
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 
   case KC_CCCV:                                    // One key copy/paste
@@ -557,7 +679,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 >>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
   }
-  return process_record_keymap(keycode, record);
+  return process_record_keymap(keycode, record) &&
+#ifdef RGBLIGHT_ENABLE
+    process_record_user_rgb(keycode, record) &&
+#endif // RGBLIGHT_ENABLE
+    process_record_secrets(keycode, record);
 }
 
 
@@ -565,6 +691,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // on layer change, no matter where the change was initiated
 // Then runs keymap's layer change check
 uint32_t layer_state_set_user(uint32_t state) {
+<<<<<<< HEAD
 <<<<<<< HEAD
 #ifdef RGBLIGHT_ENABLE
   uint8_t default_layer = eeconfig_read_default_layer();
@@ -636,113 +763,27 @@ uint32_t layer_state_set_user(uint32_t state) {
     }
 =======
   uint8_t default_layer = eeconfig_read_default_layer();
+=======
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
   state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
-
-  switch (biton32(state)) {
-  case _MACROS:
 #ifdef RGBLIGHT_ENABLE
-    if (userspace_config.rgb_layer_change) {
-      rgblight_sethsv_orange();
-      userspace_config.is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-    }
+  state = layer_state_set_rgb(state);
 #endif // RGBLIGHT_ENABLE
+  return layer_state_set_keymap (state);
+}
 
-    break;
-  case _MEDIA:
-#ifdef RGBLIGHT_ENABLE
-    if (userspace_config.rgb_layer_change) {
-      rgblight_sethsv_chartreuse();
-      rgblight_mode(22);
-    }
-#endif // RGBLIGHT_ENABLE
 
-    break;
-  case _GAMEPAD:
-#ifdef RGBLIGHT_ENABLE
-    if (userspace_config.rgb_layer_change) {
-      rgblight_sethsv_orange();
-      rgblight_mode(17);
-    }
-#endif // RGBLIGHT_ENABLE
-
-    break;
-  case _DIABLO:
-#ifdef RGBLIGHT_ENABLE
-    if (userspace_config.rgb_layer_change) {
-      rgblight_sethsv_red();
-      rgblight_mode(5);
-    }
-#endif // RGBLIGHT_ENABLE
-
-    break;
-  case _RAISE:
-#ifdef RGBLIGHT_ENABLE
-    if (userspace_config.rgb_layer_change) {
-      rgblight_sethsv_yellow();
-      rgblight_mode(5);
-    }
-#endif // RGBLIGHT_ENABLE
-
-    break;
-  case _LOWER:
-#ifdef RGBLIGHT_ENABLE
-    if (userspace_config.rgb_layer_change) {
-      rgblight_sethsv_orange();
-      rgblight_mode(5);
-    }
-#endif // RGBLIGHT_ENABLE
-
-    break;
-  case _ADJUST:
-#ifdef RGBLIGHT_ENABLE
-    if (userspace_config.rgb_layer_change) {
-      rgblight_sethsv_red();
-      rgblight_mode(23);
-    }
-#endif // RGBLIGHT_ENABLE
-
-    break;
-  default: //  for any other layers, or the default layer
-    if (default_layer & (1UL << _COLEMAK)) {
-#ifdef RGBLIGHT_ENABLE
-      if (userspace_config.rgb_layer_change) { rgblight_sethsv_magenta(); }
-#endif // RGBLIGHT_ENABLE
-
-    }
-    else if (default_layer & (1UL << _DVORAK)) {
-#ifdef RGBLIGHT_ENABLE
-      if (userspace_config.rgb_layer_change) { rgblight_sethsv_green(); }
-#endif // RGBLIGHT_ENABLE
-
-    }
-    else if (default_layer & (1UL << _WORKMAN)) {
-#ifdef RGBLIGHT_ENABLE
-      if (userspace_config.rgb_layer_change) { rgblight_sethsv_goldenrod(); }
-#endif // RGBLIGHT_ENABLE
-
-    }
-    else {
-#ifdef RGBLIGHT_ENABLE
-      if (userspace_config.rgb_layer_change) { rgblight_sethsv_teal(); }
-#endif // RGBLIGHT_ENABLE
-
-    }
-    if (biton32(state) == _MODS) { // If the non-OSM layer is enabled, then breathe
-#ifdef RGBLIGHT_ENABLE
-      if (userspace_config.rgb_layer_change) { rgblight_mode(2); }
-#endif // RGBLIGHT_ENABLE
-
-    } else {                       // otherwise, stay solid
-#ifdef RGBLIGHT_ENABLE
-      if (userspace_config.rgb_layer_change) { rgblight_mode(1); }
-#endif // RGBLIGHT_ENABLE
-
+<<<<<<< HEAD
     }
     break;
 >>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
   }
 #endif
   return layer_state_set_keymap (state);
+=======
+uint32_t default_layer_state_set_kb(uint32_t state) {
+  return default_layer_state_set_keymap (state);
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 }
 
 
