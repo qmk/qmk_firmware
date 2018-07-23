@@ -17,7 +17,7 @@ the second is the output when shift is applied.
 | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
 | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |  ;:  | Enter|
 | Shft |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |  ,<  |  .>  |  /?  | Shft |
-| Fn   | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Raise | Shift| MENU | Ctrl | Fn2  |
+| Fn   | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Raise | Shift| MENU | Ctrl | Fn   |
 
 ##### Function Layer
 Activated when `fn` held in the above `qwerty` layer.
@@ -27,7 +27,7 @@ Activated when `fn` held in the above `qwerty` layer.
 |  F1   |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
 |  1!   |  2"  |  3£  |  4$  |  5%  |  6^  |  7&  |  8*  |  9(  |  0)  |  ~   |INSERT|
 | Shift |  \|  |  `¬  |  #~  |   *  |  -_  |  =+  |  \|  |  [{  |  ]}  |  '@  |Shift |
-| Fn    | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Mouse | MENU | Alt  | Ctrl | Fn2  |
+| Fn    | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Raise | MENU | Alt  | Ctrl | Fn   |
 
 ##### Lower Layer
 Activated when `Lower` is held in the above `qwerty` layer.
@@ -56,53 +56,38 @@ Activated when `Lower` is held in the above `qwerty` layer.
 |   `   |      |WRDSEL|  [   |   ]  |      |       | PGUP | HOME |PGDOWN|       |PRNTSC|
 |   `   |      |      |  (   |   )  |      |       | HOME |  UP  | END  |       |ZOOM +|
 |       |      |      |  {   |   }  |      |&#124;<| LEFT | DOWN |RIGHT |>&#124;|ZOOM -|
-| Mouse |      |      |      |      |  Alt | Enter |Raise |      |      |       |      |
+|       |      |      |      |      |  Alt | Enter |Raise |      |      |       |      |
 
 ##### Lower + Raise
-Activated when `Lower` and `Raise` are held together in the above `qwerty` layer.
+Activated when `Lower` and `Raise` are held together the above `qwerty` layer.
 
 * Audio controls in the same position as cursor keys from the `Raise` layer.
 * ????: Runs a macro for outputting a text string.  Do not use this store passwords.
 * Reset: Enter bootloader for flashing firmware to the keyboard.
 * CAPS: Toggle caps lock.
-* Macro functions: Allows recording of macros.  To start recording the macro, press either REC1 or REC2. 
-To finish the recording, press STOP. To replay the macro, press either PLAY1 or PLAY2.
+* DYN: Enter `DYN` layer.
 * MAC: Toggle MAC OS extensions to layers. This allows MLWR to be enabled with LOWER,
-MRSE with RAISE, MFNC with FUNC and MFNC2 with FUNC2 respectively.
+MRSE with RAISE and MFNC with FUNC respectively.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
 | :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ????  | Reset|Qwerty|      |      | REC1 | REC2 |      |      |      |      |  Del |
-| CAPS  |      |      |      |      | PLAY1|PLAY2 | Mute | Vol+ | Play |      |      |
-| MAC   |      |      |      |      | STOP1|STOP2 | Prev | Vol- | Next |      |      |
+| ????  | Reset|Qwerty|      |      |      |      |      |      |      |      |  Del |
+| CAPS  |      |      |      |      |      |      | Mute | Vol+ | Play |      |      |
+| MAC   |      |      |      |      |      |      | Prev | Vol- | Next |      |      |
 |       |      |      |      |      |      |      |      | DYN  |      |      |      |
 
-##### Function 2 Layer
-Activated when `fn` held in the above `qwerty` layer.
-* WRDSEL: Select the word where the cursor is.
-* LNDEL: Delete the line where the cursor is.
-* LNSEL: Select the line where the cursor is.
-* DUP: Duplicate the selected text.
-* LNJOIN: Join the line where the cursor is with the following line.
-* MODE: Print either `PC` or `OSX` depending on what layer mode is active.
+##### DYN
+Activated when `DYN` held along with `Lower` and `Raise`
+Allows recording of macros.  To start recording the macro, press either REC1 or REC2.
+To finish the recording, press STOP. To replay the macro, press either PLAY1 or PLAY2.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
 | :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-|       |      |WRDSEL|      |      |      | LNDEL|      |      |      |      |      |
-|       |      | LNSEL| DUP  |      |      |      |      |LNJOIN|      |      |      |
-|       | UNDO | CUT  | COPY | PASTE|      |      |      |      |      |      | MODE |
+|       |      |      |      |      | REC1 | REC2 |      |      |      |      |      |
+|       |      |      |      |      | PLAY1| PLAY2|      |      |      |      |      |
+|       |      |      |      |      | STOP | STOP |      |      |      |      |      |
 |       |      |      |      |      |      |      |      |      |      |      |      |
 
-##### Mouse Layer
-Activated when `fn` and `raise` held together.
-
-|       |      |      |      |      |      |      |      |      |      |      |      |
-| :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
-| ESC   |      |      |      |      |      |      |      |      |      |      |      |
-| ACC0  | ACC1 | ACC2 |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
-| ACC0  | ACC1 | ACC2 |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
-|       |      |      |      |      |      |      |      |      |      |      |      |
 
 ####Manual Flashing of hex file
-Use sleep to get a chance to get into boot mode.
-`sleep 5; bootloadHID -r .build/jj40_ajp10304.hex`
+`bootloadHID -r .build/jj40_ajp10304.hex`

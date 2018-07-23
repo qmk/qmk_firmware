@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include QMK_KEYBOARD_H
+#include "%KEYBOARD%.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = LAYOUT( /* Base */
+[0] = KEYMAP( /* Base */
   KC_A,  KC_1,  KC_H, \
     KC_TAB,  KC_SPC   \
 ),

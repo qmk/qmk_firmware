@@ -58,6 +58,16 @@ void click(uint16_t freq, uint16_t duration);
 #define ___ KC_NO
 
 #ifdef LFK_TKL_REV_A
+<<<<<<< HEAD
+    #ifndef KEYMAP
+        #define KEYMAP( \
+            k11,       k13, k14, k15, k16,    k17, k18, k19, k1a,     k1b, k1c, k1d, k1e,   k1f, k1g, k1h, \
+            k21,  k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,        k2e,   k2f, k2g, k2h, \
+            k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,      k3e,   k3f, k3g, k3h, \
+            k41,     k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c,          k4d, \
+            k51,      k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c,              k5d,        k5g, \
+            k61,   k62,   k63,                 k67,             k6b,   k6c,   k6d,   k6e,   k6f, k6g, k6h  \
+=======
     #ifndef LAYOUT_tkl_ansi
         #define LAYOUT_tkl_ansi( \
             k11,       k13, k14, k15, k16,    k17, k18, k19, k1a,    k1b, k1c, k1d, k1e,   k1f, k1g, k1h, \
@@ -66,6 +76,7 @@ void click(uint16_t freq, uint16_t duration);
             k41,     k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c,         k4d, \
             k51,      k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c,             k5d,        k5g, \
             k61,   k62,   k63,                 k67,            k6b,   k6c,   k6d,   k6e,   k6f, k6g, k6h  \
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
         ) \
         { \
             { k11, ___, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k1e, k1f, k1g, k1h }, \
@@ -76,6 +87,17 @@ void click(uint16_t freq, uint16_t duration);
             { k61, k62, k63, ___, ___, ___, k67, ___, ___, ___, k6b, k6c, k6d, k6e, k6f, k6g, k6h }, \
         }
 
+<<<<<<< HEAD
+    #endif //!KEYMAP#endif
+    #ifndef ISO_KEYMAP
+        #define ISO_KEYMAP( \
+            k11,       k13, k14, k15, k16,    k17, k18, k19, k1a,     k1b, k1c, k1d, k1e,   k1f, k1g, k1h, \
+            k21,  k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,        k2e,   k2f, k2g, k2h, \
+            k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, k3d,      k3e,   k3f, k3g, k3h, \
+            k41,     k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c,          k4d, \
+            k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c,              k5d,        k5g, \
+            k61,   k62,   k63,                 k67,             k6b,   k6c,   k6d,   k6e,   k6f, k6g, k6h  \
+=======
     #endif // !LAYOUT_tkl_ansi
     #ifndef LAYOUT_tkl_iso
         #define LAYOUT_tkl_iso( \
@@ -85,6 +107,7 @@ void click(uint16_t freq, uint16_t duration);
             k41,     k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d,    k3e, \
             k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c,             k5d,        k5g, \
             k61,   k62,   k63,                 k67,            k6b,   k6c,   k6d,   k6e,   k6f, k6g, k6h  \
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
         ) \
         { \
             { k11, ___, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d, k1e, k1f, k1g, k1h }, \
@@ -97,6 +120,16 @@ void click(uint16_t freq, uint16_t duration);
 
     #endif // !LAYOUT_tkl_iso
 #else  // RevC+ keymaps
+<<<<<<< HEAD
+    #ifndef KEYMAP
+        #define KEYMAP( \
+            k71,      k11, k12, k13, k14,      k15, k16, k17, k18,      k19, k1a, k1b, k1c,   k1e, k1f, k1g, \
+            k72, k73, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,           k2c,   k2e, k2f, k2g, \
+            k74,  k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c,          k3d,   k3e, k3f, k3g, \
+            k61,   k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b,              k4c, \
+            k62,    k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b,                  k5c,        k5f, \
+            k63,   k64,   k65,                 k67,               k6a,   k6b,   k6c,   k6d,   k6e, k6f, k6g  \
+=======
     #ifndef LAYOUT_tkl_ansi
         #define LAYOUT_tkl_ansi( \
             k71,       k11, k12, k13, k14,    k15, k16, k17, k18,    k19, k1a, k1b, k1c,   k1e, k1f, k1g, \
@@ -105,6 +138,7 @@ void click(uint16_t freq, uint16_t duration);
             k61,     k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b,         k4c, \
             k62,      k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b,             k5c,        k5f, \
             k63,   k64,   k65,                 k67,            k6a,   k6b,   k6c,   k6d,   k6e, k6f, k6g  \
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
         ) \
         { \
             { k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, ___, k1e, k1f, k1g }, \
@@ -116,6 +150,17 @@ void click(uint16_t freq, uint16_t duration);
             { k71, k72, k73, k74, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ }, \
         }
 
+<<<<<<< HEAD
+    #endif //!KEYMAP#endif
+    #ifndef ISO_KEYMAP
+        #define ISO_KEYMAP( \
+            k71,      k11, k12, k13, k14,      k15, k16, k17, k18,      k19, k1a, k1b, k1c,   k1e, k1f, k1g, \
+            k72, k73, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b,           k2c,   k2e, k2f, k2g, \
+            k74,  k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c,          k3d,   k3e, k3f, k3g, \
+            k61,   k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b,              k4c, \
+            k62,  k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b,               k5c,        k5f, \
+            k63,   k64,   k65,                 k67,               k6a,   k6b,   k6c,   k6d,   k6e, k6f, k6g  \
+=======
     #endif // !LAYOUT_tkl_ansi
     #ifndef LAYOUT_tkl_iso
         #define LAYOUT_tkl_iso( \
@@ -125,6 +170,7 @@ void click(uint16_t freq, uint16_t duration);
             k61,     k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c,    k3d, \
             k62, k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b,             k5c,        k5f, \
             k63,   k64,   k65,                 k67,            k6a,   k6b,   k6c,   k6d,   k6e, k6f, k6g  \
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
         ) \
         { \
             { k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, ___, k1e, k1f, k1g }, \
@@ -135,8 +181,12 @@ void click(uint16_t freq, uint16_t duration);
             { k61, k62, k63, k64, k65, ___, k67, ___, ___, k6a, k6b, k6c, k6d, k6e, k6f, k6g }, \
             { k71, k72, k73, k74, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___, ___ }, \
         }
+<<<<<<< HEAD
+    #endif //!ISO_KEYMAP
+=======
 
     #endif // !LAYOUT_tkl_iso
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #endif //Rev
 
 #endif //LFK87_H

@@ -3,7 +3,7 @@
 #define KC_ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT(
+  [0] = COMPACT_KEYMAP(
     LEFT,RGHT, UP ,DOWN, \
      P7 , P8 , P9 ,PLUS, \
      P4 , P5 , P6 ,MINS, \

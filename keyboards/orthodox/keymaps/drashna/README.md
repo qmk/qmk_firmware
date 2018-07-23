@@ -21,4 +21,6 @@ All layers have RGB specific indicators, so you can see what layer you're on by 
 Orthodox Specific Code
 ----------------------
 
-Shift, Control and Alt all light up a specific RGB LED for a certain color, based on it's status, adding a visual indicator of OSMs or regular mods are held down.
+Left side is designed to have RGB underglow and Faux Clicking enabled, while the right has Audio enabled.  
+
+The make commend ensures that the correct settings are retained. 

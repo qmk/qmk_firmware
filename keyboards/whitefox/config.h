@@ -21,11 +21,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PREVENT_STUCK_MODIFIERS
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0x1c11
-#define PRODUCT_ID      0xb04d
+#define VENDOR_ID       0xFEED
+#define PRODUCT_ID      0x0F0F
 #define DEVICE_VER      0x0001
+<<<<<<< HEAD
+/* in python2: list(u"whatever".encode('utf-16-le')) */
+/*   at most 32 characters or the ugly hack in usb_main.c borks */
+#define MANUFACTURER Input Club
+#define PRODUCT WhiteFox (QMK)
+=======
 #define MANUFACTURER    Input Club
 #define PRODUCT         WhiteFox/QMK
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 /* key matrix size */
 #define MATRIX_ROWS 9

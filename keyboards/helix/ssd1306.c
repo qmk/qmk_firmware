@@ -4,11 +4,7 @@
 #include "i2c.h"
 #include <string.h>
 #include "print.h"
-#ifndef LOCAL_GLCDFONT
 #include "common/glcdfont.c"
-#else
-#include <helixfont.h>
-#endif
 #ifdef ADAFRUIT_BLE_ENABLE
 #include "adafruit_ble.h"
 #endif

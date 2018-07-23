@@ -123,6 +123,9 @@ inline void ergodox_led_all_set(uint8_t n) {
     { B80,   B81,   B82,   B83,   B84 }  \
 }
 
+<<<<<<< HEAD
+#define LAYOUT_ergodox KEYMAP
+=======
 /*  -------------- LEFT HAND --------------     -------------- RIGHT HAND -------------- */
 #define LAYOUT_ergodox_pretty(                                                              \
                                                                                             \
@@ -156,5 +159,6 @@ inline void ergodox_led_all_set(uint8_t n) {
     { B70,   B71,   B72,   B73,   B74 }, \
     { B80,   B81,   B82,   B83,   B84 }  \
 }
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 #endif /* KEYBOARDS_ERGODOX_INFINITY_INFINITY_H_ */

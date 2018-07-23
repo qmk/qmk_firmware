@@ -23,6 +23,10 @@ const Layer_Info layer_info[] = {
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+<<<<<<< HEAD
+[VANILLA] = SPLIT_BS_KEYMAP(
+=======
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
   /* Keymap VANILLA: (Base Layer) Default Layer
    * ,---------.  ,------------------------------------------------------------.  ,---------.
    * | F1 | F2 |  |Esc~| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 |  0| - | = | / | ` |  | Ins|PgUp|
@@ -57,6 +61,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |    |  |Ctrl|Alt |Cmd |        Enter         |Alt |Func |CTRL |     |Lft| Dn |Rig |
    * `---------'  `------------------------------------------------------'     `-------------'
    */
+<<<<<<< HEAD
+[FUNC] = SPLIT_BS_KEYMAP(
+  KC_TR,   KC_TR,    KC_GRV,  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_INS, KC_DEL,  KC_TR, KC_HOME,
+  KC_TR,   KC_TR,    KC_NO,KC_HOME, KC_UP, KC_END, KC_PGUP, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,         KC_NO,  KC_TR, KC_END,
+  KC_TR,   KC_TR,    KC_TR,   KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO, KC_NO,    KC_NO,
+  KC_TR,   KC_TR,    KC_TR,    KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,           TG(SETTINGS),  KC_TR,
+  KC_TR,   KC_TR,    KC_TR,  KC_TR, KC_TR,                  KC_ENT,                            KC_TR, KC_TR, KC_TR,         KC_TR,  KC_TR, KC_TR),
+=======
   [FUNC] = LAYOUT_split_bs(
     _______, _______,   KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_INS,       KC_DEL,          _______, KC_HOME, \
     _______, _______,   XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                       _______, KC_END,  \
@@ -64,6 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______,   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,                   TG(SETTINGS),                  _______,          \
     _______, _______,   _______, _______, _______,                            KC_ENT,                             _______, _______, _______,                       _______, _______, _______  \
   ),
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
   /* Keymap SETTINGS: Settings Layer
    * ,---------.  ,-------------------------------------------------------------.  ,-------------.
@@ -78,6 +91,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |    |  |    |    |    |                         |    |    |     |  |Sat-|Hue-|Sat+|
    * `---------'  `--------------------------------------------------------'  `--------------'
    */
+<<<<<<< HEAD
+[SETTINGS] = SPLIT_BS_KEYMAP(
+  KC_NO,   KC_NO,    KC_FN0,KC_NO,KC_NO,KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, BL_DEC, BL_INC,  KC_NO, KC_NO,    RGB_TOG, RGB_VAI,
+  KC_NO,   KC_NO,    MU_MOD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   BL_TOGG,    RGB_MOD, RGB_VAD,
+  KC_NO,   KC_NO,    AU_TOG,  KC_FN1,KC_FN3, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,        RESET,
+  KC_NO,   KC_NO,    KC_FN5,    KC_FN2,KC_FN4, KC_NO, KC_NO, KC_NO, KC_NO, MU_TOG, KC_NO, KC_NO, KC_NO,             KC_NO,    RGB_HUI,
+  KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,                  KC_NO,                           KC_NO, KC_NO, KC_NO,    RGB_SAD, RGB_HUD, RGB_SAI),
+=======
   [SETTINGS] = LAYOUT_split_bs(
     XXXXXXX, XXXXXXX,   KC_FN0,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,  XXXXXXX, XXXXXXX,          RGB_TOG, RGB_VAI, \
     XXXXXXX, XXXXXXX,   MU_MOD,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_TOGG,                   RGB_MOD, RGB_VAD, \
@@ -85,6 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXXX, XXXXXXX,   KC_FN5,  KC_FN2,  KC_FN4,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_TOG,  XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX,                   RGB_HUI,          \
     XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,                            XXXXXXX,                            XXXXXXX, XXXXXXX, XXXXXXX,                   RGB_SAD, RGB_HUD, RGB_SAI  \
   ),
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 };
 
 const uint16_t PROGMEM fn_actions[] = {

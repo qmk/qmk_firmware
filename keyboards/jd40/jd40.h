@@ -30,7 +30,11 @@ inline void gh60_wasd_leds_off(void)   	{ DDRF &= ~(1<<7); PORTF &= ~(1<<7); }
 
 /* JD40 MKII keymap definition macro
  */
+<<<<<<< HEAD
+#define KEYMAP( \
+=======
 #define LAYOUT_kc( \
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K10, K11, K12, \
 	K13, K14, K15, K16, K17, K18, K19, K20, K21, K22, K23, \
 	K24, K25, K26, K27, K28, K29, K30, K31, K32, K33, K34, \

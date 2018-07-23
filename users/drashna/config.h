@@ -2,13 +2,17 @@
 
 
 #ifdef AUDIO_ENABLE
+<<<<<<< HEAD
+#define STARTUP_SONG SONG(IMPERIAL_MARCH)
+=======
 #define AUDIO_CLICKY
 #define STARTUP_SONG SONG(E1M1_DOOM)
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 #define GOODBYE_SONG  SONG(SONIC_RING)
 #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND), \
-                                  SONG(OVERWATCH_THEME) \
+                                  SONG(PLOVER_SOUND) \
                                 }
 
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
@@ -45,30 +49,40 @@
 // #define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 
-#define FORCE_NKRO
-
 #ifndef TAPPING_TOGGLE
 #define TAPPING_TOGGLE  1
 #endif
 
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
+<<<<<<< HEAD
+#endif
+#define TAPPING_TERM 150
+=======
 #endif // TAPPING_TERM
+<<<<<<< HEAD
+#define TAPPING_TERM 200
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
+=======
 #define TAPPING_TERM 175
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
+<<<<<<< HEAD
+=======
 #ifndef NO_DEBUG
 #define NO_DEBUG
 #endif // !NO_DEBUG
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
 #define NO_PRINT
 #endif // !NO_PRINT
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define DISABLE_LEADER
+
 
 #define MACRO_TIMER 5
 

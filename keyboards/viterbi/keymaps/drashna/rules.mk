@@ -8,6 +8,10 @@ RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
 
+<<<<<<< HEAD
+CUSTOM_MATRIX = no
+LAYOUTS = ortho_5x7
+=======
 NO_SECRETS        = yes
 MACROS_ENABLED    = yes
 INDICATOR_LIGHTS  = no
@@ -23,3 +27,4 @@ LAYOUTS = ortho_5x7
 # SRC += quantum/matrix.c
 
 BOOTLOADER        = qmk-dfu
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc

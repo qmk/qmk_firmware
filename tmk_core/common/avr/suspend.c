@@ -19,7 +19,11 @@
     #include "audio.h"
 #endif /* AUDIO_ENABLE */
 
+<<<<<<< HEAD
+#ifdef RGBLIGHT_ANIMATIONS
+=======
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
   #include "rgblight.h"
 #endif
 

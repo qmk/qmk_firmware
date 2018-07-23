@@ -88,9 +88,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* NUMPAD
  * ,-----------------------------------------------------------------------------------.
- * |QWERTY| NULL |  Up  | NULL | NULL | NULL | NULL |   /  |   7  |   8  |   9  |   -  |
+ * |QWERTY| NULL | NULL | NULL | NULL | NULL | NULL |   /  |   7  |   8  |   9  |   -  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Left | Down | Right| NULL | NULL | NULL |   *  |   4  |   5  |   6  |   +  |
+ * |      | NULL | NULL | NULL | NULL | NULL | NULL |   *  |   4  |   5  |   6  |   +  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |NumLck| NULL | NULL | NULL | NULL | NULL |BckSp |   1  |   2  |   3  |  Ent |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -98,8 +98,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_NUMPAD] = {
-  {QWERTY,  XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSLS,  KC_P7,  KC_P8,   KC_P9,   KC_PMNS},
-  {_______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX, KC_PAST,  KC_P4,  KC_P5,   KC_P6,   KC_PPLS},
+  {QWERTY,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSLS,  KC_P7,  KC_P8,   KC_P9,   KC_PMNS},
+  {_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PAST,  KC_P4,  KC_P5,   KC_P6,   KC_PPLS},
   {_______, KC_NLCK, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,  KC_P1,  KC_P2,   KC_P3,   KC_PENT},
   {_______, _______, _______, _______, _______, _______, _______, _______,  KC_P0,  KC_PDOT, KC_PCMM, KC_PEQL}
 },
@@ -124,56 +124,63 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* RAISE
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
+ * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | BKSP |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |      |   -  |   =  |   [  |   ]  |  \   |
+ * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |LShift|  F6  |  F7  |  F8  |  F9  |  F10 |      |ISO # |ISO / | NULL | PgUp | Enter|
+ * |LShift|  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / | NULL | PgUp | Enter|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |  F11 |      |      F12    |      |      | Home | PgDn |  End |
+ * |      |      |      | Vol+ |      |     NULL    |      |      | Home | PgDn |  End |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
-  {KC_GRV ,  KC_1,    KC_2,   KC_3,     KC_4,  KC_5,      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL},
-  {KC_DEL ,  KC_F1,   KC_F2,  KC_F3,    KC_F4, KC_F5,  _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {KC_LSFT,  KC_F6,   KC_F7,  KC_F8,    KC_F9, KC_F10, _______, KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT },
-  {_______, _______, _______, KC_F11, _______, KC_F12,  KC_F12, _______, _______, KC_HOME, KC_PGDN, KC_END }
+  {KC_GRV ,  KC_1,    KC_2,   KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC},
+  {KC_DEL ,  KC_F1,   KC_F2,  KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
+  {KC_LSFT,  KC_F7,   KC_F8,  KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT },
+  {_______, _______, _______, KC_VOLU, _______, XXXXXXX, XXXXXXX, _______, _______, KC_HOME, KC_PGDN, KC_END }
 },
 
 /* LOWER
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |      |   _  |   +  |   {  |   }  |  |   |
+ * | Del  |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |LShift|  F6  |  F7  |  F8  |  F9  |  F10 |      |ISO ~ |ISO | | NULL | PgUp | Enter|
+ * |LShift|  F19 |  F20 |  F21 |  F22 |  F23 |  F24 |ISO ~ |ISO | | NULL | PgUp | Enter|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |  F11 |      |      F12    |      |      | Home | PgDn |  End |
+ * |      |      |      | Vol- |      |     NULL    |      |      | Home | PgDn |  End |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = {
-  {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL },
-  {KC_DEL , KC_F1,   KC_F2,   KC_F3,    KC_F4, KC_F5,   _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-  {KC_LSFT, KC_F6,   KC_F7,   KC_F8,    KC_F9, KC_F10,  _______, S(KC_NUHS), S(KC_NUBS), XXXXXXX, KC_PGUP, KC_ENT },
-  {_______, _______, _______, KC_F11, _______, KC_F12,   KC_F12, _______, _______, KC_HOME, KC_PGDN, KC_END }
+	{KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL },
+	{KC_DEL,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
+	{KC_LSFT, KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24,  S(KC_NUHS), S(KC_NUBS), XXXXXXX, KC_PGUP, KC_ENT },
+	{_______, _______, _______, KC_VOLD, _______, XXXXXXX, XXXXXXX, _______, _______, KC_HOME, KC_PGDN, KC_END }
 },
 
 /* MEDIA AND COMMANDS
  * ,-----------------------------------------------------------------------------------.
- * | NULL | NULL |WbHome| NULL | NULL | NULL |Again | NULL |Insert| NULL |PrntSc| NULL |
+ * |Sleep | NULL |WbHome| NULL | NULL | NULL |Again | NULL |Insert| NULL |PrntSc|Power |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | NULL | NULL |WbSrch| NULL | Find | NULL | NULL | NULL | NULL | NULL |PlyMc1|PlyMc2|
+ * | Wake | NULL |WbSrch| NULL | Find | NULL | NULL | NULL | Calc | NULL |PlyMc1|PlyMc2|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |LShift| NULL | NULL | Calc | NULL | NULL | NULL | NULL |ZoomOu|ZoomIn| Prev |RecStp|
+ * |LShift| Undo |  Cut | Copy | Paste| NULL | NULL | NULL |ZoomOu|ZoomIn| Prev | NULL |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |ONESHT| NULL | NULL |      | Vol- |     Mute    | Vol+ |Zoom 0| Stop | Next | Play |
+ * | NULL | NULL | NULL |      | Vol- |     Mute    | Vol+ | NULL | Stop | Next | Play |
  * `-----------------------------------------------------------------------------------'
  */
 [_MEDIA] = {
+<<<<<<< HEAD
+	{KC_SLEP, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,   XXXXXXX, KC_PSCR, KC_PWR},
+	{KC_WAKE, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, KC_CALC,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2 },
+	{KC_LSFT, KC_UNDO, KC_CUT,  KC_COPY, KC_PSTE, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP },
+	{ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY }
+=======
     {XXXXXXX, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,   XXXXXXX, KC_PSCR, XXXXXXX},
     {XXXXXXX, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2 },
     {KC_LSFT, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP },
     {ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY }
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 },
 
 /* ONESHOT
@@ -196,20 +203,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* FUNCTIONS
  * ,-----------------------------------------------------------------------------------.
- * | SLEEP| NULL | NULL | NULL | NULL | NULL | NULL | NULL | NULL | NULL | NULL | POWER|
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | WAKE | NULL | NULL | NULL | NULL | NULL | NULL | NULL | NULL | NULL | NULL | NULL |
+ * |  F13 |  F14 |  F15 |  F16 |  F17 |  F18 |  F19 |  F20 |  F21 |  F22 |  F23 |  F24 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | NULL | NULL | NULL |AudOff|MusOff|QWERTY|NUMPAD|Mus On|Aud On| NULL |Voice+|SysReq|
+ * | NULL | Reset| NULL |AudOff|MusOff|QWERTY|NUMPAD|Mus On|Aud On| NULL |Voice+|SysReq|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Reset| NULL | LOCK | NULL |      |     NULL    |      | NULL |AGNorm|Voice-|AGSwap|
+ * | NULL | NULL | Lock | NULL |      |     NULL    |      | NULL |AGNorm|Voice-|AGSwap|
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNCTN] = {
+<<<<<<< HEAD
+	{KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12 },
+	{KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24 },
+	{XXXXXXX, XXXXXXX, XXXXXXX, AU_OFF,  MU_OFF,  QWERTY,  NUMPAD,  MU_ON,   AU_ON,   XXXXXXX, MUV_IN,  KC_SYSREQ},
+	{RESET,   XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, AG_NORM, MUV_DE,  AG_SWAP}
+=======
     {KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PWR },
     {KC_WAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
     {XXXXXXX, XXXXXXX, XXXXXXX, AU_OFF,  MU_OFF,  QWERTY,  NUMPAD,  MU_ON,   AU_ON,   XXXXXXX, MUV_IN,  KC_SYSREQ},
     {RESET,   XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, AG_NORM, MUV_DE,  AG_SWAP}
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 }
 
 };

@@ -101,11 +101,17 @@ inline void ergodox_led_all_set(uint8_t n)              {}
     { KC_NO, k51, k52, k53, k54, k55,   k56,      k57,   k58,   k59, k5A, k5B, k5C, KC_NO  }  \
    }
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+#define LAYOUT_ergodox_80(                                                 \
+=======
 /*
  *   LEFT HAND: LINES 110-117
  *  RIGHT HAND: LINES 119-126
  */
 #define LAYOUT_ergodox_80(                                      \
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
                                                                 \
     k00,k01,k02,k03,k04,k05,k06,                                \
     k10,k11,k12,k13,k14,k15,k16,                                \
@@ -179,4 +185,10 @@ inline void ergodox_led_all_set(uint8_t n)              {}
     { KC_NO,L51,L52,L53,L54,L55,L56,          R50,R51,R52,R53,R54,R55,KC_NO }  \
    }
 
+<<<<<<< HEAD
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
+#define LAYOUT_ergodox KEYMAP
+
+=======
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #endif

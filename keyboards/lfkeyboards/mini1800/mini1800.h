@@ -68,8 +68,13 @@ void click(uint16_t freq, uint16_t duration);
         // i = 18
         // j = 19
 
+<<<<<<< HEAD
+#ifndef KEYMAP
+    #define KEYMAP( \
+=======
 #ifndef LAYOUT
     #define LAYOUT( \
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
         k11,  k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d,        k1f,        k1g, k1h, k1i, k1j,\
         k21,    k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k2d,      k2e,        k2g, k2h, k2i, k2j,\
         k31,     k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c,          k2f,        k3g, k3h, k3i, k3j,\

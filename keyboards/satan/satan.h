@@ -149,6 +149,15 @@
     { k40, k41, k42, XXX, XXX, k45, XXX, XXX, XXX, XXX, k4a, k4b, k4c, k4d }, \
 }
 
+<<<<<<< HEAD
+void matrix_init_user(void);
+void matrix_scan_user(void);
+
+#define LAYOUT_60_ansi KEYMAP_ANSI
+#define LAYOUT_60_iso KEYMAP_ISO
+#define LAYOUT_60_ansi_split_bs_rshift KEYMAP_HHKB
+
+=======
 /* ISO w/ split right shift key matrix layout
  * ,-----------------------------------------------------------.
  * | 00| 01| 02| 03| 04| 05| 06| 07| 08| 09| 0a| 0b| 0c| 0d| 49|
@@ -180,4 +189,5 @@
 void matrix_init_user(void);
 void matrix_scan_user(void);
 
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #endif

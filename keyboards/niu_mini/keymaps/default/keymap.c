@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include "niu_mini.h"
 
 // readability
 #define _______ KC_TRNS

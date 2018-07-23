@@ -1,1 +1,10 @@
-This is the default keymap as found on the Vortex Core, with some added buttons for RGB and backlight control.
+To be updated...
+
+
+// This layer is just a blank template to be copied for easy layer creation. please don not edit it.
+
+ [_LX] = KEYMAP_ANSI(
+   _______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	\
+   _______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,				_______,	\
+   _______,		_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,	_______,				_______,	\
+   _______,		_______,	_______,	_______,	    _______, 			_______,			               	_______,	_______,	_______,	RESET),

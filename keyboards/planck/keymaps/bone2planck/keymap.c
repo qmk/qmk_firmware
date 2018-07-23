@@ -37,11 +37,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * `-----------------------------------------------------------------------------------'
 */
 [0] = {
+<<<<<<< HEAD
+	{ DE_SS,        DE_J,    DE_D,    DE_U,  DE_A,  DE_X,   DE_P,   DE_H,  DE_L,    DE_M,    DE_W,    DE_Q         },
+	//{ LT(1,KC_TAB), DE_C,    DE_T,    DE_I,  DE_E,  DE_O,   DE_B,   DE_N,  DE_R,    DE_S,    DE_G,    LT(1,KC_ENT) },
+	{ MO(1),        DE_C,    DE_T,    DE_I,  DE_E,  DE_O,   DE_B,   DE_N,  DE_R,    DE_S,    DE_G,    LT(1,KC_ENT) },
+	{ KC_LSFT,      DE_F,    DE_V,    DE_UE, DE_AE, DE_OE,  DE_Y,   DE_Z,  DE_COMM, DE_DOT,  DE_K,    KC_LSFT      },
+	{ KC_LCTL,      KC_RGUI, KC_LALT, MO(4), MO(2), KC_SPC, KC_SPC, MO(2), MO(4),   KC_RALT, KC_ESC,  KC_RCTL      }
+=======
     { DE_SS,        DE_J,    DE_D,    DE_U,  DE_A,  DE_X,   DE_P,   DE_H,  DE_L,    DE_M,    DE_W,    DE_Q         },
     //{ LT(1,KC_TAB), DE_C,    DE_T,    DE_I,  DE_E,  DE_O,   DE_B,   DE_N,  DE_R,    DE_S,    DE_G,    LT(1,KC_ENT) },
     { MO(1),        DE_C,    DE_T,    DE_I,  DE_E,  DE_O,   DE_B,   DE_N,  DE_R,    DE_S,    DE_G,    LT(1,KC_ENT) },
     { KC_LSFT,      DE_F,    DE_V,    DE_UE, DE_AE, DE_OE,  DE_Y,   DE_Z,  DE_COMM, DE_DOT,  DE_K,    KC_LSFT      },
     { KC_LCTL,      KC_LGUI, KC_LALT, MO(4), MO(2), KC_SPC, KC_SPC, MO(2), MO(4),   KC_RALT, KC_ESC,  KC_RCTL      }
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 },
 
 /* M1 Special Characters

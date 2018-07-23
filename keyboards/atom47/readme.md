@@ -1,8 +1,24 @@
-# Atom47
+# ATOM47
 
-![Atom47](https://i.imgur.com/Wwflqvt.png)
+![ATOM47](https://i.imgur.com/rjrFTKT.png)
 
 ## Support
+<<<<<<< HEAD
+Keyboard Maintainer: [Matthew Kerfoot(https://github.com/mkerfoot)  
+Hardware Supported: ATOM47  
+Hardware Availability: [GeekHack.com Group Buy](https://geekhack.org/index.php?topic=93447.msg2545221)  
+
+
+## Features
+QMK Firmware
+6 Underglow RGB leds
+In-switch leds
+Through-hole micro usb connector (less likely to break off!)
+South facing leds for the QMX/Zealencio users
+Multiple layouts
+Easily reachable reset button under the spacebar
+CapsLock indicator
+=======
 Keyboard Maintainer: [Maarten Dekkers](https://github.com/maartenwut)  
 Hardware Supported: Atom47 rev2/rev3
 Hardware Availability: [GeekHack.com Group Buy](https://geekhack.org/index.php?topic=93447.msg2545221)  
@@ -17,10 +33,13 @@ Hardware Availability: [GeekHack.com Group Buy](https://geekhack.org/index.php?t
 - Multiple layouts  
 - Easily reachable reset button under the spacebar  
 - CapsLock indicator  
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 
 ## Build
 To build the default keymap for the latest revision, simply run `make atom47:default`. Specifiy the revision like so: `make atom47/rev3:default`.
 
+For an alternative, heavily modified layout you would just need to run `make atom47:LEdiodes`.
+
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
-![Atom47](https://i.imgur.com/JfYnOba.jpg)
+![ATOM47](https://i.imgur.com/WebeUOF.png)

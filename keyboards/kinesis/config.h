@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define MANUFACTURER    You
-#define PRODUCT         Kinesis Advantage/Contoured
+#define PRODUCT         kinesis-advantage
 #define DESCRIPTION     A custom keyboard
 
 // Mouse

@@ -3,11 +3,10 @@
 If you use more than one keyboard with a similar keymap, you might see the benefit in being able to share code between them. Create your own folder in `users/` named the same as your keymap (ideally your github username, `<name>`) with the following structure:
 
 * `/users/<name>/` (added to the path automatically)
-  * `readme.md` (optional, recommended)
+  * `readme.md`
   * `rules.mk` (included automatically)
   * `<name>.h` (optional)
   * `<name>.c` (optional)
-  * `config.h` (optional)
 
 `<name>.c` will need to be added to the SRC in `rules.mk` like this:
 
@@ -25,6 +24,8 @@ For example,
 
 Will include the `/users/jack/` folder in the path, along with `/users/jack/rules.mk`.
 
+<<<<<<< HEAD
+=======
 Additionally, `config.h` here will be processed like the same file in your keymap folder.  This is handled separately from the `<name>.h` file.
 
 The reason for this, is that `<name>.h` won't be added in time to add settings (such as `#define TAPPING_TERM 100`), and including the `<name.h>` file in any `config.h` files will result in compile issues.
@@ -45,24 +46,10 @@ endif
 ```
 This will ensure that you can explicitly turn off features for an individual keymap.
 
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 ## Readme
 
 Please include authorship (your name, github username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
-
-## `Config.h`
-
-If you do add a `config,h` file, you want to make sure that it only gets processed once.  So you may want to start off with something like this:
-
-```c
-#ifndef USERSPACE_CONFIG_H
-#define USERSPACE_CONFIG_H
-
-// Put normal config.h settings here:
-
-#endif // !USERSPACE_CONFIG_H
-```
-
-You can use any option hre that you could use in your keymap's `config.h` file. You can find a list of vales [here](config_options.md).
 
 ## Example
 
@@ -129,6 +116,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 This will add a new `KC_MAKE`  keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap">`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
 
 Additionally, this should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely (and will dump the HEX in the ".build" folder instead).
+<<<<<<< HEAD
+=======
 
 ## Override default userspace
 
@@ -137,3 +126,4 @@ By default the userspace used will be the same as the keymap name. In some situa
 ```
 USER_NAME := mylayout
 ```
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc

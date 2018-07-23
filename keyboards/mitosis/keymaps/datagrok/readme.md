@@ -1,16 +1,35 @@
+<<<<<<< HEAD
+![mitosis:datagrok layout image](https://i.imgur.com/Lt0t0nq.png)
+
+[Keyboard layout editor source](http://www.keyboard-layout-editor.com/#/gists/e1a6a7a480fd4984c0bed38ee35f6c4f)
+
+# a layout for the Mitosis
+
+- Emphasis on momentary modifiers, all usable from either hand, arranged
+  symmetrically, but distinguishable left/right by the OS. Shift, Fn1
+  ("Lower"), Fn2 ("Raise"), Super ("Windows"), Meta ("Alt"), Hyper.
+=======
 # a layout for the Mitosis
 
 - Emphasis on momentary modifiers, all usable from either hand, arranged symmetrically, but left/right distinguishable by the OS.
   Shift, Red ("Lower"), Blue ("Raise"), Super ("Windows"), Meta ("Alt"), Hyper (actually Henkan/Muhenkan).
   I'm going for a [Space Cadet](https://en.wikipedia.org/wiki/Space-cadet_keyboard) aesthetic;
   I want a keyboard that can (even just in theory) make use of all the bucky bits my operating system can support.
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
-- Red and Blue are used to momentary-enable (like a shift key) one of three layers:
+- Fn1 and Fn2 are used to momentary-enable (like a shift key) one of three layers:
 
-    - Red: Symbols layer
-    - Blue: Numbers layer
-    - "Purple" (both Red and Blue): Functions layer
+    - Fn1 (Red): Symbols layer
+    - Fn2 (Blue): Numbers layer
+    - Both: Functions layer
 
+<<<<<<< HEAD
+- The base layer is a slight variant of [Workman][]. QWERTY may be toggled-on.
+
+- Paired programming symbols (braces, brackets, parentheses) are arranged
+  symmetrically in the symbols layer. `?` and `!` are moved to take the place
+  of `<` and `>`.
+=======
 - The base layer is QWERTY.
   A slight variant of [Workman][] may be toggled using `Red`+`Blue`+`Z`.
 
@@ -19,6 +38,7 @@
 - `?` and `!` are moved to take the place of `<` and `>`. Rationale: unmodded
   and shifted keys should be for prose, while symbols useful for programming
   should be colocated on their own layer.
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 - Key positions chosen for mnemonics.
   For example, you can distinguish between alphanumeric numerals and keypad numerals, but they occupy the same key positions.
@@ -78,6 +98,15 @@ Keyboard layout editor sources:
   The next fastest baudrate that works without errors is 250k baud.
   So if you want to do the same:
 
+<<<<<<< HEAD
+- I'm learning a new key placement, so might as well go all out and use an
+  optimal non-QWERTY layout.
+
+- I like the way Workman feels and some of its advantages over Colemak.
+  Unfortunately, it was designed using a weighting system based on a standard
+  column-staggered keyboard so is probably not as optimal as one could achieve
+  on an ergonomic board like the Mitosis.
+=======
     - Set the Pro Micro clock rate correctly in `rules.mk`:
       ```
       F_CPU = 800000
@@ -96,9 +125,12 @@ Keyboard layout editor sources:
 ### Layout mnemonics
 
 - Paired programming symbols (braces, brackets, parentheses) are arranged symmetrically in the Red layer.
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 - Arrow keys are in the home position on the Red layer.
 
+<<<<<<< HEAD
+=======
   - Blue+Arrows = PgUp/PgDn/Home/End, which is intuitive for me.
 
 - The number pad: I placed the ten-key number pad on the Blue layer.
@@ -166,6 +198,7 @@ Keyboard layout editor sources:
 - Arrows in home position, modifier + Arrow = PgUp/PgDn/Home/End
 - Load all paired symbols onto angle-bracket keys.
 
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 ### Abandoned ideas
 
 - "Since QWERTY and Workman keep angle brackets together, place other
@@ -176,6 +209,10 @@ Keyboard layout editor sources:
       modifier to get the right flavor of bracket. Instead, now, one modifier
       activates a symbols layer where all brackets are easily accessible.
 
+<<<<<<< HEAD
+- Space/Enter to the left of layer select for Enter doesn't work well; I always
+  trigger space first.
+=======
 - Space/Enter to the left of layer select for Enter
 
     - Doesn't work well; I always trigger space first when mashing the keys
@@ -183,12 +220,24 @@ Keyboard layout editor sources:
       at which I strike the keys e.g. with a neoprene base or a wrist support.~~
       Even with a wrist rest or low-profile, this is hard to do with one hand.
       Need to adjust the firmware to understand chorded thumb keys.
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
-- I used to have Blue on ring finger, but that was too hard to use in
+- I used to have Blue layer on ring finger, but that was too hard to use in
   conjunction with shift.
 
 ## To do
 
+<<<<<<< HEAD
+- Improve LED indications (may require modding bluetooth firmware):
+    - Is any board nonresponsive (which one?)
+    - Does either board have a low battery?
+- Add Insert, PrintScr, Pause/Break
+- Make QWERTY base layer for people who customize layout in software? Store
+  default base layer in eeprom?
+- See if the henkans placement is at all useful for Japanese speakers, or abuse
+  different keysyms
+- Mod a speaker onto my receiver and enable tones
+=======
 - **Shared Layouts.**
   Figure out how to make use of QMK's common `layouts/`
 - **Chorded Combos.**
@@ -208,6 +257,7 @@ Keyboard layout editor sources:
 - See if the henkan/muhenkan placement is at all useful for Japanese speakers,
   or abuse different keysyms for Left/Right Hyper. (Original space cadet used
   scancodes 145/175. 145 is LANG2, 175 is "reserved" in USB HID spec.)
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 - Implement "layer lock" key
 - Improve tri-layer behavior
 - Find a better location for PrintScr/SysRq, Scroll Lock, Pause/Break, Caps Lock.

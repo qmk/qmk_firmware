@@ -9,6 +9,8 @@ elif grep ID /etc/os-release | grep -q debian; then
 	sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc \
 	    dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi \
 	    libnewlib-arm-none-eabi
+<<<<<<< HEAD
+=======
 elif grep ID /etc/os-release | grep -q arch; then
 	sudo pacman -S gcc unzip wget zip avr-gcc avr-binutils avr-libc \
 	    dfu-util arm-none-eabi-gcc arm-none-eabi-binutils \
@@ -33,6 +35,7 @@ elif grep ID /etc/os-release | grep -q gentoo; then
     else
     echo "Quitting..."
 fi
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 else
 	echo "Sorry, we don't recognize your OS. Help us by contributing support!"
 	echo

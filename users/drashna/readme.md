@@ -3,6 +3,33 @@ Overview
 
 This is my personal userspace file.  Most of my code exists here, as it's heavily shared. 
 
+Userspace Config.h
+------------------
+
+By default, the userspace feature doesn't include a `config.h` file the way that that keyboards, revisions, keymaps and layouts handle them.  This means that if you want global configurations via userspace, it's very difficult to implement.  
+
+The reason for using seperate files here is that the `drashna.h` file doesn't get called in such a way that will actually define QMK settings.  Additionally, attempting to add it to the `config.h` files has issues. Namely, the `drashna.h` file requires the `quantum.h` file... but including this to the `config.h` attemps to redefines a bunch of settings and breaks the firmare.  Removing the `quantum.h` include means that a number of data structures no longer get added, and the `SAFE_RANGE` value is no longer defined, as well.  So we need both a `config.h` for global config, and we need a seperate h file for local settings. 
+
+However, the `rules.mk` file is included when building the firmware.  So we can hijack that process to "manually" add a `config.h`. To do so, you would need to add the following to the `rules.mk` in your userspace:
+
+```
+ifneq ("$(wildcard users/$(KEYMAP)/config.h)","")
+    CONFIG_H += users/$(KEYMAP)/config.h
+endif
+```
+
+You can replace `$(KEYMAP)` with your name, but it's not necessary. This checks for the existence of `/users/<name>/config.h`, and if it exists, includes it like every other `config.h` file, allowing you to make global `config.h` settings. 
+
+As for the `config.h` file, you want to make sure that it has an "ifdef" in it to make sure it's only used once.  So you want something like this: 
+
+```
+#ifndef USERSPACE_CONFIG_H
+#define USERSPACE_CONFIG_H
+
+// put stuff here 
+
+#endif
+```
 
 Custom userspace handlers
 -------------------------
@@ -94,6 +121,32 @@ And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined in your `<na
 /users/drashna/secrets.h
 ```
 
+<<<<<<< HEAD
+Then you can create this file and add your macro strings to it:
+
+###### secrets.h
+```
+PROGMEM const char secret[][64] = {
+  "secret1",
+  "secret2",
+  "secret3",
+  "secret4",
+  "secret5"
+};
+```
+
+Replacing the strings with the codes that you need. 
+
+
+These are called in the `process_record_user` function, using this block:
+```
+  case KC_SECRET_1 ... KC_SECRET_5:
+    if (!record->event.pressed) {
+      send_string_P(secret[keycode - KC_SECRET_1]);
+    }
+    return false;
+    break;
+=======
 Then you can create these files:
 
 ###### secrets.c
@@ -151,9 +204,16 @@ __attribute__ ((weak))
 bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 ```
 This is so that the function can be called here, and replaced in the `secrets.c` file, and so it won't error out if it doesn't exist. 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined, as well. 
+=======
+And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined in your `<name>.h` file fo the new macros, as well.
+=======
 
 And then, in the `process_record_user` function, assuming you have `return process_record_keymap(keycode, record)` here,  you'll want to replace the "final" return with the following. Otherwise, you want to replace the `return true;` with `return process_record_secrets(keycode, record);`
 ```c
@@ -169,6 +229,7 @@ ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
   SRC += secrets.c
 endif
 ```
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 Additionally, if you want to make sure that you can disable the function without messing with the file, you need to add this to your `/users/<name>/rules.mk`, so that it catches the flag:
 ```c
@@ -226,3 +287,4 @@ And for reference, if you want to go back to caterina, the default fuse settings
 ```
 Low: 0xFF High: 0xD8 Extended: 0xC3 Lock: 0x3F
 ```
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36

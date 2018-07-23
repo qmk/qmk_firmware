@@ -111,7 +111,7 @@ void click(uint16_t freq, uint16_t duration);
     */
     // The first section contains all of the arguements
     // The second converts the arguments into a two-dimensional array
-    #define LAYOUT( \
+    #define KEYMAP( \
         k11, k12,   k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, k1G,   k1H, k1I, \
         k21, k22,   k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, k2F, k2G,   k2H, k2I, \
         k31, k32,   k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E,      k3F, \
@@ -125,7 +125,7 @@ void click(uint16_t freq, uint16_t duration);
         { k51, k52,   k53, k54, k55, ___, ___, ___, k59, ___, ___, ___, k5D, k5E, k5F, k5G, k5H, k5I } \
     }
 
-    #define LAYOUT_split_bs( \
+    #define SPLIT_BS_KEYMAP( \
         k11, k12,   k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, k1G, k3G,   k1H, k1I, \
         k21, k22,   k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, k2F, k2G,        k2H, k2I, \
         k31, k32,   k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E,      k3F, \
@@ -139,7 +139,11 @@ void click(uint16_t freq, uint16_t duration);
         { k51, k52,   k53, k54, k55, ___, ___, ___, k59, ___, ___, ___, k5D, k5E, k5F, k5G, k5H, k5I } \
     }
 
+<<<<<<< HEAD
+    #define SPLIT_SHIFT_KEYMAP( \
+=======
     #define LAYOUT_split_rshift( \
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
         k11, k12,   k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, k1G,   k1H, k1I, \
         k21, k22,   k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, k2F, k2G,   k2H, k2I, \
         k31, k32,   k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E,      k3F, \
@@ -153,7 +157,7 @@ void click(uint16_t freq, uint16_t duration);
         { k51, k52,   k53, k54, k55, ___, ___, ___, k59, ___, ___, ___, k5D, k5E, k5F, k5G, k5H, k5I } \
     }
 
-    #define LAYOUT_iso( \
+    #define ISO_KEYMAP( \
         k11, k12,   k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F, k1G,   k1H, k1I, \
         k21, k22,   k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2E, k2F, k2G,   k2H, k2I, \
         k31, k32,   k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, k3D, k3E, k3F,     \

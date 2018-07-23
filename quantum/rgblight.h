@@ -74,7 +74,6 @@
 #include "ws2812.h"
 #endif
 #include "rgblight_types.h"
-#include "rgblight_list.h"
 
 #if defined(__AVR__)
     #include <avr/pgmspace.h>

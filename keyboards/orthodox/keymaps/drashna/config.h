@@ -56,10 +56,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef AUDIO_ENABLE
 #define C6_AUDIO
-#ifdef RGBLIGHT_ENABLE
 #define NO_MUSIC_MODE
-#endif //RGBLIGHT_ENABLE
-#endif //AUDIO_ENABLE
+#endif
 
 #undef PRODUCT
 #ifdef KEYBOARD_orthodox_rev1
@@ -68,6 +66,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         Drashna Hacked Orthodox Rev.3
 #endif
 
+<<<<<<< HEAD
+#endif
+=======
 #define QMK_ESC_OUTPUT D7 // usually COL
 #ifdef KEYBOARD_orthodox_rev1
 #define QMK_ESC_INPUT D4 // usually ROW
@@ -87,3 +88,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define GUI_LED1 8
 #define ALT_LED1 7
 
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc

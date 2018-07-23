@@ -21,6 +21,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 // Define layer names
+<<<<<<< HEAD
+#define _QWERTY 0
+#define _NUMLOCK 0
+#define _COLEMAK 1
+#define _DVORAK 2
+#define _WORKMAN 3
+#define _MODS 4
+//#define _MISC 5
+#define _NAV 6
+#define _COVECUBE 7
+#define _SYMB 8
+#define _GAMEPAD 9
+#define _DIABLO 10
+#define _MOUS 11
+#define _MACROS 12
+#define _MEDIA 13
+#define _LOWER 14
+#define _RAISE 15
+#define _ADJUST 16
+
+=======
 enum userspace_layers {
   _QWERTY = 0,
   _NUMLOCK = 0,
@@ -36,6 +57,7 @@ enum userspace_layers {
   _RAISE,
   _ADJUST,
 };
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 
 //define modifiers
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -43,7 +65,47 @@ enum userspace_layers {
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+#ifndef RGBLIGHT_ANIMATIONS // add "EXTRA_FLADS=-DDRASHNA_SETRGB" to enable this ... but don't
+#define rgblight_set_blue        rgblight_setrgb (0x00,  0x00, 0xFF);
+#define rgblight_set_red         rgblight_setrgb (0xFF,  0x00, 0x00);
+#define rgblight_set_green       rgblight_setrgb (0x00,  0xFF, 0x00);
+#define rgblight_set_orange      rgblight_setrgb (0xFF,  0x80, 0x00);
+#define rgblight_set_teal        rgblight_setrgb (0x00,  0xFF, 0xFF);
+#define rgblight_set_magenta     rgblight_setrgb (0xFF,  0x00, 0xFF);
+#define rgblight_set_yellow      rgblight_setrgb (0xFF,  0xFF, 0x00);
+#define rgblight_set_purple      rgblight_setrgb (0x7A,  0x00, 0xFF);
+#define rgblight_set_white       rgblight_setrgb (0xFF,  0xFF, 0xFF);
+#else
+#define rgblight_set_white       rgblight_sethsv (0,  0x00, 255);
+#define rgblight_set_red         rgblight_sethsv (0,  255, 255);
+#define rgblight_set_coral       rgblight_sethsv (16, 176, 255);
+#define rgblight_set_orange      rgblight_sethsv (39,  255, 255);
+#define rgblight_set_goldenrod   rgblight_sethsv (43,  218, 218);
+#define rgblight_set_gold        rgblight_sethsv (51,  255, 255);
+#define rgblight_set_yellow      rgblight_sethsv (60,  255, 255);
+#define rgblight_set_chartreuse  rgblight_sethsv (90, 255, 255);
+#define rgblight_set_green       rgblight_sethsv (120,  255, 255);
+#define rgblight_set_springgreen rgblight_sethsv (150,  255, 255);
+#define rgblight_set_turquoise   rgblight_sethsv (174,  90, 112);
+#define rgblight_set_teal        rgblight_sethsv (180,  255, 128);
+#define rgblight_set_cyan        rgblight_sethsv (180,  255, 255);
+#define rgblight_set_azure       rgblight_sethsv (186,  102, 255);
+#define rgblight_set_blue        rgblight_sethsv (240,  255, 255);
+#define rgblight_set_purple      rgblight_sethsv (270, 255, 255);
+#define rgblight_set_magenta     rgblight_sethsv (300, 255, 255);
+#define rgblight_set_pink        rgblight_sethsv (330, 128, 255);
 
+//#define rgblight_set_        rgblight_sethsv (0, 255, 255);
+#endif // DRASHNA_SETRGB
+
+extern bool is_overwatch;
+extern bool rgb_layer_change;
+=======
+=======
+
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
@@ -68,8 +130,23 @@ typedef union {
     bool     nuke_switch      :1;
   };
 } userspace_config_t;
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 
 enum userspace_custom_keycodes {
+<<<<<<< HEAD
+  EPRM = SAFE_RANGE, // can always be here
+  VRSN,
+  KC_QWERTY,
+  KC_COLEMAK,
+  KC_DVORAK,
+  KC_WORKMAN,
+  LOWER,
+  RAISE,
+  ADJUST,
+  KC_DIABLO_CLEAR,
+  KC_OVERWATCH,
+  KC_SALT,
+=======
   EPRM = SAFE_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
   VRSN,              // Prints QMK Firmware and board info
   KC_QWERTY,         // Sets default layer to QWERTY
@@ -79,6 +156,7 @@ enum userspace_custom_keycodes {
   KC_DIABLO_CLEAR,   // Clears all Diablo Timers
   KC_OVERWATCH,      // Toggles game macro input mode (so in OW, it defaults to game chat)
   KC_SALT,           // See drashna.c for details
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
   KC_MORESALT,
   KC_SALTHARD,
   KC_GOODGAME,
@@ -89,6 +167,20 @@ enum userspace_custom_keycodes {
   KC_AIM,
   KC_C9,
   KC_GGEZ,
+<<<<<<< HEAD
+  KC_MAKE,
+  KC_RESET,
+  KC_RGB_T,
+  KC_SECRET_1,
+  KC_SECRET_2,
+  KC_SECRET_3,
+  KC_SECRET_4,
+  KC_SECRET_5,
+  KC_FXCL,
+  NEW_SAFE_RANGE //use "NEWPLACEHOLDER for keymap specific codes
+};
+
+=======
   KC_MAKE,           // Run keyboard's customized make command
   KC_RESET,          // Resets keyboard, with red underglow
   KC_RGB_T,          // Toggles RGB Layer Indication mode
@@ -112,12 +204,15 @@ enum userspace_custom_keycodes {
 #define TG_MODS TG(_MODS)
 #define TG_GAME TG(_GAMEPAD)
 
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #define KC_SEC1 KC_SECRET_1
 #define KC_SEC2 KC_SECRET_2
 #define KC_SEC3 KC_SECRET_3
 #define KC_SEC4 KC_SECRET_4
 #define KC_SEC5 KC_SECRET_5
 
+<<<<<<< HEAD
+=======
 #define QWERTY KC_QWERTY
 #define DVORAK KC_DVORAK
 #define COLEMAK KC_COLEMAK
@@ -148,6 +243,7 @@ enum userspace_custom_keycodes {
 #define MG_NKRO MAGIC_TOGGLE_NKRO
 
 
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #ifdef TAP_DANCE_ENABLE
 enum {
   TD_D3_1 = 0,
@@ -173,6 +269,22 @@ enum {
 #define KC_D3_4 KC_4
 #endif // TAP_DANCE_ENABLE
 
+// OSM keycodes, to keep things clean and easy to change
+#define KC_MLSF OSM(MOD_LSFT)
+#define KC_MRSF OSM(MOD_RSFT)
+
+
+
+// If we're still using the official Faux Clicky feature, substitute codes
+// so that we don't have any unused/blank keys.
+#ifdef FAUXCLICKY_ENABLE
+#define AUD_ON  FC_ON
+#define AUD_OFF FC_OFF
+#else // FAUXCLICKY_ENABLE
+#define AUD_ON  AU_ON
+#define AUD_OFF AU_OFF
+#endif // FAUXCLICKY_ENABLE
+
 
 
 // Since our quirky block definitions are basically a list of comma separated
@@ -184,9 +296,17 @@ enum {
 
 #define LAYOUT_ergodox_wrapper(...)          LAYOUT_ergodox(__VA_ARGS__)
 #define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
+<<<<<<< HEAD
+#define KEYMAP_wrapper(...)           LAYOUT(__VA_ARGS__)
+=======
 #define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
+<<<<<<< HEAD
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
+
+=======
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 // Blocks for each of the four major keyboard layouts
 // Organized so we can quickly adapt and modify all of them
@@ -233,13 +353,19 @@ enum {
 #define _________________DVORAK_R3_________________        KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
 
 
-#define _________________WORKMAN_L1________________       KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
-#define _________________WORKMAN_L2________________       KC_A,    KC_S,    KC_H,   KC_T,     KC_G
-#define _________________WORKMAN_L3________________ CTL_T(KC_Z),   KC_X,    KC_M,   KC_C,     KC_V
+#define _________________WORKMAN_L1________________       KC_QUOT, KC_COMM, KC_DOT, KC_P,     KC_Y
+#define _________________WORKMAN_L2________________       KC_A,    KC_O,    KC_E,   KC_U,     KC_I
+#define _________________WORKMAN_L3________________ CTL_T(KC_SCLN),KC_Q,    KC_J,   KC_K,     KC_X
 
+<<<<<<< HEAD
+#define _________________WORKMAN_R1________________       KC_F,    KC_G,    KC_C,    KC_R,    KC_L
+#define _________________WORKMAN_R2________________       KC_D,    KC_H,    KC_T,    KC_N,    KC_S
+#define _________________WORKMAN_R3________________       KC_B,    KC_M,    KC_W,    KC_V,    CTL_T(KC_Z)
+=======
 #define _________________WORKMAN_R1________________       KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN
 #define _________________WORKMAN_R2________________       KC_Y,    KC_N,    KC_E,    KC_O,    KC_I
 #define _________________WORKMAN_R3________________       KC_K,    KC_L,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 
 
 #define _________________NORMAN_L1_________________       KC_Q,    KC_W,    KC_D,    KC_F,    KC_K
@@ -250,6 +376,11 @@ enum {
 #define _________________NORMAN_R2_________________       KC_Y,    KC_N,    KC_I,    KC_O,    KC_U
 #define _________________NORMAN_R3_________________       KC_P,    KC_M,    KC_COMM, KC_DOT,  CTL_T(KC_SLASH)
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
+=======
 
 #define _________________MALTRON_L1________________       KC_Q,    KC_P,    KC_Y,    KC_C,    KC_B
 #define _________________MALTRON_L2________________       KC_A,    KC_N,    KC_I,    KC_S,    KC_F
@@ -296,10 +427,12 @@ enum {
 #define _____________CARPLAX_QGMLWY_R3_____________       KC_K,    KC_P,    KC_COMM, KC_DOT,  CTL_T(KC_SLSH)
 
 
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
 #define ________________NUMBER_LEFT________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define ________________NUMBER_RIGHT_______________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 #define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
 #define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36
 
 #define ___________________BLANK___________________        _______, _______, _______, _______, _______
 
@@ -337,17 +470,25 @@ enum {
 // this allows us to quickly modify the bottom row for all of the layouts
 // so we don't have to alter it 4 times and hope that we haven't missed
 // anything
-#define ___________ERGODOX_BOTTOM_LEFT_____________       OSM(MOD_MEH), OSM(MOD_LGUI), KC_LBRC, KC_RBRC
+#define ___________ERGODOX_BOTTOM_LEFT_____________       KC_MEH,  KC_LGUI, KC_LBRC, KC_RBRC
 #define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+#endif
+=======
+#define __________________ERGODOX_THUMB_CLUSTER_____________________           ALT_T(KC_APP), KC_LGUI,                 KC_RGUI, CTL_T(KC_ESCAPE), \
+=======
 #define ___________ORTHODOX_THUMP_TOP_____________           ALT_APP, OS_LGUI,         KC_LALT, OS_RGUI
 #define ___________________ORTHODOX_THUMB_BOTTOM____________________ LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
 
 
 #define __________________ERGODOX_THUMB_CLUSTER_____________________           ALT_T(KC_APP), OSM(MOD_LGUI),           OSM(MOD_RGUI), CTL_T(KC_ESCAPE), \
+>>>>>>> 1225120b92411f4fa1a9dc79af2fd85bd5aa6dcc
                                                                                               KC_HOME,                 KC_PGUP, \
                                                                 LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)
 
 
 #endif // !USERSPACE
+>>>>>>> 73ddb764ccbe47662ba4604a18818f003abd8d36

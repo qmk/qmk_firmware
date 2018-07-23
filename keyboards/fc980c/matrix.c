@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 #include "matrix.h"
 #include "led.h"
-// #include QMK_KEYBOARD_H
+// #include "fc980c.h"
 
 
 // Timer resolution check

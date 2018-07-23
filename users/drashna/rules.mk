@@ -11,8 +11,8 @@ endif
 
 EXTRAFLAGS        += -flto
 
-ifeq ($(strip $(NO_SECRETS)), yes)
-    OPT_DEFS += -DNO_SECRETS
+ifneq ("$(wildcard users/$(KEYMAP)/config.h)","")
+    CONFIG_H += users/$(KEYMAP)/config.h
 endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
