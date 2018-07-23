@@ -8,7 +8,6 @@
 #define SERIAL_PIN_MASK _BV(PD2)
 #define SERIAL_PIN_INTERRUPT INT2_vect
 
-// if you need more program area, comment out this macro
 #define SERIAL_USE_MULTI_TRANSACTION
 
 //// #error rev2 serial config
