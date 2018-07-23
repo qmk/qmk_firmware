@@ -26,7 +26,7 @@
 
 // i2c SCL clock frequency
 #ifndef SCL_CLOCK
-#define SCL_CLOCK  400000L
+#define SCL_CLOCK  100000L
 #endif
 
 // Support 8bits right now (8 cols) will need to edit to take higher (code exists in delta split?)
