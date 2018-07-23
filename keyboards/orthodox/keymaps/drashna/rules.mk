@@ -11,3 +11,5 @@ NKRO_ENABLE       = yes
 INDICATOR_LIGHTS  = yes
 MACROS_ENABLED    = no
 RGBLIGHT_TWINKLE  = yes
+
+BOOTLOADER        = qmk-dfu
