@@ -18,6 +18,9 @@
 #ifdef KEYBOARD_lets_split_rev2
   #define RGBLED_NUM 8
 #endif
+#ifdef KEYBOARD_jj40
+  #define RGBLED_NUM 5
+#endif
 
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 8
