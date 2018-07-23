@@ -5,11 +5,11 @@
 
 Custom handwired nicekey, a one key keyboard that writes random compliments.
 
-Keyboard Maintainer:  spydon
-Hardware Supported: Custom handwired one key
-Hardware Availability: 
+Keyboard Maintainer:  spydon  
+Hardware Supported: Custom handwired one key  
+Hardware Availability:
 
-Switch must be connected to pins C6 and B6.
+Switch must be connected to pins C6 and B6. 
 
 Make example for this keyboard (after setting up your build environment):
 

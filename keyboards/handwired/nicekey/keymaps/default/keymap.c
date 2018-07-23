@@ -1,4 +1,4 @@
-#include "nicekey.h"
+#include QMK_KEYBOARD_H
 
 enum custom_keycodes {
   RANDOM_STRING_MACRO = SAFE_RANGE
