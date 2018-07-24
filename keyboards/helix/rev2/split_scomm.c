@@ -76,12 +76,10 @@ int serial_update_buffers(int master_update)
     else
 	status = soft_serial_transaction(PUT_MASTER_GET_SLAVE_STATUS);
     need_retry = ( status == TRANSACTION_END ) ? 0 : 1;
-    if( need_retry ) debug_retry_on(); else debug_retry_off();
     return status;
 #else
     int status;
     status = soft_serial_transaction();
-    if( status != TRANSACTION_END ) debug_retry_on(); else debug_retry_off();
     return status;
 #endif
 }
