@@ -24,6 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // if you need more program area, try uncomment follow line
 //#undef SERIAL_USE_MULTI_TRANSACTION
 
+#undef TAPPING_TERM
+#define TAPPING_TERM 140
+
 // place overrides here
 
 #endif /* CONFIG_USER_H */
