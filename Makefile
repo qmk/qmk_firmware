@@ -19,9 +19,11 @@ endif
 # Otherwise the [OK], [ERROR] and [WARN] messages won't be displayed correctly
 override SILENT := false
 
+ifndef SUB_IS_SILENT
 QMK_VERSION := $(shell git describe --abbrev=0 --tags 2>/dev/null)
 ifneq ($(QMK_VERSION),)
 $(info QMK Firmware $(QMK_VERSION))
+endif
 endif
 
 ON_ERROR := error_occurred=1
@@ -65,7 +67,7 @@ $(eval $(call NEXT_PATH_ELEMENT))
 # It's really a very simple if else chain, if you squint enough,
 # but the makefile syntax makes it very verbose.
 # If we are in a subfolder of keyboards
-# 
+#
 # *** No longer needed **
 #
 # ifeq ($(CURRENT_PATH_ELEMENT),keyboards)
@@ -112,6 +114,20 @@ $(eval $(call GET_KEYBOARDS))
 
 list-keyboards:
 	echo $(KEYBOARDS)
+	exit 0
+
+define PRINT_KEYBOARD
+	$(info $(PRINTING_KEYBOARD))
+endef
+
+generate-keyboards-file:
+	$(foreach PRINTING_KEYBOARD,$(KEYBOARDS),$(eval $(call PRINT_KEYBOARD)))
+	exit 0
+
+clean:
+	echo -n 'Deleting .build ... '
+	rm -rf $(BUILD_DIR)
+	echo 'done'
 	exit 0
 
 #Compatibility with the old make variables, anything you specify directly on the command line
@@ -291,11 +307,6 @@ define PARSE_KEYBOARD
     KEYBOARD_FOLDER_PATH_3 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_2)))
     KEYBOARD_FOLDER_PATH_4 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_3)))
     KEYBOARD_FOLDER_PATH_5 := $$(patsubst %/,%,$$(dir $$(KEYBOARD_FOLDER_PATH_4)))
-    KEYBOARD_FOLDER_1 := $$(notdir $$(KEYBOARD_FOLDER_PATH_1))
-    KEYBOARD_FOLDER_2 := $$(notdir $$(KEYBOARD_FOLDER_PATH_2))
-    KEYBOARD_FOLDER_3 := $$(notdir $$(KEYBOARD_FOLDER_PATH_3))
-    KEYBOARD_FOLDER_4 := $$(notdir $$(KEYBOARD_FOLDER_PATH_4))
-    KEYBOARD_FOLDER_5 := $$(notdir $$(KEYBOARD_FOLDER_PATH_5))
 
     KEYMAPS :=
     # get a list of all keymaps
@@ -309,35 +320,35 @@ define PARSE_KEYBOARD
         $$(KEYBOARD_FOLDER_3) $$(KEYBOARD_FOLDER_4) $$(KEYBOARD_FOLDER_5), $$(KEYMAPS)))
 
     KEYBOARD_LAYOUTS :=
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_5)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_5)/rules.mk)
+      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_4)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_4)/rules.mk)
+      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_3)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_3)/rules.mk)
+      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_2)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_2)/rules.mk)
+      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
-    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_1)/rules.mk)","")
+    ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_1)/rules.mk)
+      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
 
     LAYOUT_KEYMAPS :=
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
-    
+
     KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
 
     # if the rule after removing the start of it is empty (we haven't specified a kemap or target)

@@ -1,4 +1,4 @@
-#include "s60_x.h"
+#include QMK_KEYBOARD_H
 
 // Keyboard Layers
 
@@ -65,14 +65,14 @@ enum morse_macros {
 enum custom_keys {
 
   // Miscellaneous Keycodes
-  
-  TFS = LCTL(LALT(KC_DEL)), // Three Finger Salute - Sends Ctl-Alt-Del  
+
+  TFS = LCTL(LALT(KC_DEL)), // Three Finger Salute - Sends Ctl-Alt-Del
   MAGSYS = SAFE_RANGE, // Magic SysRq key - Sends Alt-PSCR
   MC_LSFT, // Morse Code Left Shift
   MC_RSFT, // Morse Code Right Shift
 
   // MIDI Chord Keycodes - Major
-  
+
   MI_CH_C,
   MI_CH_Cs,
   MI_CH_Db = MI_CH_Cs,
@@ -154,11 +154,11 @@ enum custom_keys {
 };
 
 //Keymaps
-  
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* 0: Custom Dvorak/HHKBish Base Layer
-	 
+
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 	 │ ESC │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  [  │  ]  │  \  │  `  │
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -171,12 +171,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 │MO(2)│L_GUI│L_ALT│█████│█████│█████│SPFN1│█████│█████│█████│AG/AP│R_GUI│CT|S │CT|AL│█████│
 	 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
   */
-  
-  [BASE] = KEYMAP(
+
+  [BASE] = LAYOUT(
 				  KC_ESC,  KC_1,  KC_2,  KC_3,  KC_4,  KC_5,  KC_6,  KC_7,  KC_8,  KC_9,  KC_0,  KC_LBRC,  KC_RBRC,  KC_BSLS,  KC_GRV, \
 				  KC_TAB,  KC_QUOT, KC_COMM,  KC_DOT,  KC_P,  KC_Y,  KC_F,  KC_G,  KC_C,  KC_R,  KC_L,  KC_SLSH,  KC_EQL,  KC_BSPC,	\
 				  CTL_T(KC_ESC),  KC_A,  KC_O,  KC_E,  KC_U,  KC_I,  KC_D,  KC_H,  KC_T,  KC_N,  KC_S,  KC_MINS,  KC_NO,  MT(MOD_RCTL, KC_ENT),	\
-				  KC_LSPO,  KC_NO,  KC_SCLN,  KC_Q,  KC_J,  KC_K,  KC_X,  KC_B,  KC_M,  KC_W,  KC_V,  KC_Z,  KC_NO,  KC_RSPC,  KC_NO, \
+				  KC_LSPO,  KC_NO,  KC_SCLN,  KC_Q,  KC_J,  KC_K,  KC_X,  KC_B,  KC_M,  KC_W,  KC_V,  KC_Z,          KC_RSPC,  KC_NO, \
 				  MO(2), KC_LGUI, KC_LALT,  LT(1, KC_SPACE),  ALGR_T(KC_APP),  KC_RGUI,  OSM(MOD_LCTL | MOD_LSFT),  OSM(MOD_LCTL | MOD_LALT)
 				  ),
 
@@ -195,10 +195,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
   */
 
-  [ARROWFN] = KEYMAP(
+  [ARROWFN] = LAYOUT(
 					 KC_TRNS,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10,  KC_F11,  KC_F12,  TO(3),  TO(5), \
 					 KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_PGUP,  KC_UP,  KC_NO,  KC_NO,  KC_NO,  KC_INS,  KC_DEL, \
-					 KC_CAPS,  KC_HOME,  KC_NO,  KC_END,  KC_NO,  KC_NO,  KC_NO,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  \
+					 KC_CAPS,  KC_HOME,  KC_NO,  KC_END,  KC_NO,  KC_NO,  KC_NO,  KC_LEFT,  KC_DOWN,  KC_RIGHT,  KC_NO,          KC_NO,  KC_TRNS,  \
 					 KC_TRNS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_SPACE,  KC_PGDN,  KC_PSCR,  KC_SLCK,  KC_PAUS,  KC_NO,  KC_TRNS,  KC_NO, \
 					 KC_NO,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS
 					 ),
@@ -218,12 +218,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
   */
 
-  [MOUSE] = KEYMAP(
-					 
+  [MOUSE] = LAYOUT(
+
 				   RESET,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21, KC_F22,  KC_F23,  KC_F24,  KC_NO,  KC_NO,  \
 				   DEBUG,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_BTN1,  KC_MS_UP,  KC_BTN2,  KC_WH_U,  KC_NO,  KC_NO,  KC_NO, \
 				   TFS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_MS_LEFT,  KC_MS_DOWN,  KC_MS_RIGHT,  KC_WH_D,  KC_BTN3,  KC_NO,  KC_TRNS,  \
-				   MAGSYS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  KC_NO, \
+				   MAGSYS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,          KC_TRNS,  KC_NO, \
 				   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_POWER,  KC_TRNS, KC_TRNS,  KC_NO,  KC_NO
 				   ),
 
@@ -241,12 +241,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 │     │     │     │█████│█████│█████│A-OFF│█████│█████│█████│     │     │     │     │█████│
 	 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
   */
-	
-  [MIDI_BASE] = KEYMAP(
+
+  [MIDI_BASE] = LAYOUT(
 					   TO(0),  MI_CH_C,  MI_CH_G,  MI_CH_D,  MI_CH_A,  MI_CH_E,  MI_CH_B,  MI_CH_Gb,  MI_CH_Db,  MI_CH_Ab, MI_CH_Eb,  MI_CH_Bb,  MI_CH_F,  KC_NO,  TO(4), \
 					   MI_OCTU,  KC_NO,  MI_Cs,  MI_Ds,  KC_NO,  MI_Fs,  MI_Gs,  MI_As,  KC_NO,  MI_Cs_1,  MI_Ds_1,  KC_NO,  KC_NO,  KC_NO, \
 					   MI_OCTD,  MI_C,  MI_D,  MI_E,  MI_F,  MI_G,  MI_A,  MI_B,  MI_C_1,  MI_D_1,  MI_E_1,  MI_F_1,  KC_NO,  KC_NO,  \
-					   MI_CH_Cm,  KC_NO,  MI_CH_Gm,  MI_CH_Dm,  MI_CH_Am,  MI_CH_Em,  MI_CH_Bm,  MI_CH_Gbm,  MI_CH_Dbm,  MI_CH_Abm,  MI_CH_Ebm,  MI_CH_Bbm,  KC_NO,  MI_CH_Fm,  KC_NO, \
+					   MI_CH_Cm,  KC_NO,  MI_CH_Gm,  MI_CH_Dm,  MI_CH_Am,  MI_CH_Em,  MI_CH_Bm,  MI_CH_Gbm,  MI_CH_Dbm,  MI_CH_Abm,  MI_CH_Ebm,  MI_CH_Bbm,          MI_CH_Fm,  KC_NO, \
 					   KC_NO,  KC_NO,  KC_NO,  MI_ALLOFF,  KC_NO, KC_NO,  KC_NO,  KC_NO
 					   ),
 
@@ -264,17 +264,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 │     │     │     │█████│█████│█████│A-OFF│█████│█████│█████│     │     │     │     │█████│
 	 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
   */
-	
-  [MIDI_CHORDS] = KEYMAP(
+
+  [MIDI_CHORDS] = LAYOUT(
 						 TO(0),  MI_CH_C,  MI_CH_G,  MI_CH_D,  MI_CH_A,  MI_CH_E,  MI_CH_B,  MI_CH_Gb,  MI_CH_Db,  MI_CH_Ab, MI_CH_Eb,  MI_CH_Bb,  MI_CH_F,  TO(3),  KC_NO, \
 						 MI_OCTU,  MI_CH_Cm,  MI_CH_Gm,  MI_CH_Dm,  MI_CH_Am,  MI_CH_Em,  MI_CH_Bm,  MI_CH_Gbm,  MI_CH_Dbm,  MI_CH_Abm,  MI_CH_Ebm,  MI_CH_Bbm,  MI_CH_Fm,  KC_NO, \
 						 MI_OCTD,  MI_CH_CDom7,  MI_CH_GDom7,  MI_CH_DDom7,  MI_CH_ADom7,  MI_CH_EDom7,  MI_CH_BDom7,  MI_CH_GbDom7,  MI_CH_DbDom7,  MI_CH_AbDom7,  MI_CH_EbDom7,  MI_CH_BbDom7,  KC_NO,  MI_CH_FDom7, \
-						 MI_CH_CDim7,  KC_NO,  MI_CH_GDim7,  MI_CH_DDim7,  MI_CH_ADim7,  MI_CH_EDim7,  MI_CH_BDim7,  MI_CH_GbDim7,  MI_CH_DbDim7,  MI_CH_AbDim7,  MI_CH_EbDim7,  MI_CH_BbDim7,  KC_NO,  MI_CH_FDim7,  KC_NO, \
+						 MI_CH_CDim7,  KC_NO,  MI_CH_GDim7,  MI_CH_DDim7,  MI_CH_ADim7,  MI_CH_EDim7,  MI_CH_BDim7,  MI_CH_GbDim7,  MI_CH_DbDim7,  MI_CH_AbDim7,  MI_CH_EbDim7,  MI_CH_BbDim7,          MI_CH_FDim7,  KC_NO, \
 						 KC_NO,  KC_NO,  KC_NO,  MI_ALLOFF,  KC_NO, KC_NO,  KC_NO,  KC_NO
 						 ),
 
   /* 5: Morse Code Layer
-	 
+
 	 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 	 │TO(0)│  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │     │     │     │     │
 	 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -287,12 +287,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 │     │     │     │█████│█████│█████│SPACE│█████│█████│█████│     │     │     │     │█████│
 	 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
   */
-  
-  [MORSE] = KEYMAP(
+
+  [MORSE] = LAYOUT(
 				   TO(0),  MC_1,  MC_2,  MC_3,  MC_4,  MC_5,  MC_6,  MC_7,  MC_8,  MC_9,  MC_0,  KC_NO,  KC_NO,  KC_NO,  KC_NO, \
 				   KC_TAB,  MC_APOS,  MC_COMM, MC_DOT,  MC_P,  MC_Y,  MC_F,  MC_G,  MC_C,  MC_R,  MC_L,  MC_SLSH,  MC_EQL,  KC_BSPC, \
 				   KC_NO,  MC_A,  MC_O,  MC_E,  MC_U,  MC_I,  MC_D,  MC_H,  MC_T,  MC_N,  MC_S,  MC_MINS,  KC_NO,  KC_ENT, \
-				   MC_LSFT,  KC_NO,  MC_SCLN,  MC_Q,  MC_J,  MC_K,  MC_X,  MC_B,  MC_M,  MC_W,  MC_V,  MC_Z,  KC_NO,  MC_RSFT,  KC_NO, \
+				   MC_LSFT,  KC_NO,  MC_SCLN,  MC_Q,  MC_J,  MC_K,  MC_X,  MC_B,  MC_M,  MC_W,  MC_V,  MC_Z,          MC_RSFT,  KC_NO, \
 				   KC_NO, KC_NO, KC_NO,   MC_SPACE,  KC_NO,  KC_NO,  KC_NO, KC_NO
 				   ),
 
@@ -347,7 +347,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   case 4: //Number 4-$
 	if (record->event.pressed) {
-	  if (mc_shift_on == true) {		
+	  if (mc_shift_on == true) {
 		return MACRO(T(DOT), T(DOT), T(DOT), T(MINS), T(DOT), T(DOT), T(MINS), T(SPACE), END); //...-..-
 	  }
 	  else {
@@ -370,7 +370,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   case 7: //Number 7-&
 	if (record->event.pressed) {
-	  if (mc_shift_on == true) {		
+	  if (mc_shift_on == true) {
 		return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //.-...
 	  }
 	  else {
@@ -387,7 +387,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   case 9: //Number 9-(
 	if (record->event.pressed) {
-	  if (mc_shift_on == true) {		
+	  if (mc_shift_on == true) {
 		return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(DOT), T(SPACE), END); //-.--.
 	  }
 	  else {
@@ -442,7 +442,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	if (record->event.pressed) {
 	  return MACRO(T(DOT), T(DOT), T(DOT), T(DOT), T(SPACE), END); //....
 	}
-	break; 
+	break;
 
   case 18: //Letter I
 	if (record->event.pressed) {
@@ -542,7 +542,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   case 34: //Letter Y
 	if (record->event.pressed) {
-	  if (mc_shift_on == true) {		
+	  if (mc_shift_on == true) {
 	  }
 	  return MACRO(T(MINS), T(DOT), T(MINS), T(MINS), T(SPACE), END); //-.--
 	}
@@ -568,7 +568,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   case 38: //Punctuation '-"
 	if (record->event.pressed) {
-	  if (mc_shift_on == true) {		
+	  if (mc_shift_on == true) {
 		return MACRO(T(DOT), T(MINS), T(DOT), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-..-.
 	  }
 	  else {
@@ -579,7 +579,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   case 39: //Punctuation /-?
 	if (record->event.pressed) {
-	  if (mc_shift_on == true) {		
+	  if (mc_shift_on == true) {
 		return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(DOT), T(DOT), T(SPACE), END); //..--..
 	  }
 	  else {
@@ -590,7 +590,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   case 40: //Punctuation ;-:
 	if (record->event.pressed) {
-	  if (mc_shift_on == true) {		
+	  if (mc_shift_on == true) {
 		return MACRO(T(MINS), T(MINS), T(MINS), T(DOT), T(DOT), T(DOT), T(SPACE), END); //---...
 	  }
 	  else {
@@ -601,7 +601,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   case 41: //Punctuation =-+
 	if (record->event.pressed) {
-	  if (mc_shift_on == true) {		
+	  if (mc_shift_on == true) {
 		return MACRO(T(DOT), T(MINS), T(DOT), T(MINS), T(DOT), T(SPACE), END); //.-.-.
 	  }
 	  else {
@@ -612,7 +612,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
   case 42: //Punctuation --_
 	if (record->event.pressed) {
-	  if (mc_shift_on == true) {		
+	  if (mc_shift_on == true) {
 		return MACRO(T(DOT), T(DOT), T(MINS), T(MINS), T(DOT), T(MINS), T(SPACE), END); //..--.-
 	  }
 	  else {
@@ -635,7 +635,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 
   uint16_t root_note = MIDI_INVALID_NOTE; // Starting value for the root note of each chord
-  
+
   switch(keycode) {
 
 	// Miscellaneous Keycodes
@@ -662,7 +662,7 @@ bool process_record_user (uint16_t keycode, keyrecord_t *record) {
 	break;
 
 	// MIDI Chord Keycodes
-	
+
   case MI_CH_C ... MI_CH_B: // Major Chords
 	root_note = keycode - MI_CH_C + MI_C;
 	process_midi(root_note, record);

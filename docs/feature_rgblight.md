@@ -41,6 +41,9 @@ You can change the behavior of the RGB Lighting by setting these configuration v
 | `RGBLIGHT_HUE_STEP` | 10 | How many hues you want to have available. |
 | `RGBLIGHT_SAT_STEP` | 17 | How many steps of saturation you'd like. |
 | `RGBLIGHT_VAL_STEP` | 17 | The number of levels of brightness you want. |
+| `RGBLIGHT_LIMIT_VAL` | 255 | Limit the val of HSV to limit the maximum brightness simply. |
+| `RGBLIGHT_SLEEP`     |    |  `#define` this will shut off the lights when the host goes to sleep | 
+
 
 ### Animations
 
@@ -80,33 +83,76 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 ```
 
+### LED Control
+
+Look in `rgblights.h` for all available functions, but if you want to control all or some LEDs your goto functions are:
+
+```c
+// turn all lights off (stored in EEPROM)
+rgblight_disable();
+// turn lights on, based on their previous state (stored in EEPROM)
+rgblight_enable(); 
+
+// turn all lights off (not stored in EEPROM)
+rgblight_disable_noeeprom();
+// turn lights on, based on their previous state (not stored in EEPROM)
+rgblight_enable_noeeprom();
+
+// where r/g/b is a number from 0..255.  Turns all the LEDs to this color (ignores mode, not stored in EEPROM). 
+rgblight_setrgb(r, g, b); 
+// HSV color control - h is a value from 0..360 and s/v is a value from 0..255 (stored in EEPROM)
+rgblight_sethsv(h, s, v);  
+// HSV color control - h is a value from 0..360 and s/v is a value from 0..255 (not stored in EEPROM)
+rgblight_sethsv_noeeprom(h, s, v);  
+
+// Sets the mode, if rgb animations are enabled (stored in eeprom)
+rgblight_mode(x);
+// Sets the mode, if rgb animations are enabled (not stored in eeprom)
+rgblight_mode_noeeprom(x);
+// MODE 1, solid color
+// MODE 2-5, breathing
+// MODE 6-8, rainbow mood
+// MODE 9-14, rainbow swirl
+// MODE 15-20, snake
+// MODE 21-23, knight
+// MODE 24, xmas
+// MODE 25-34, static rainbow
+
+rgblight_setrgb_at(r,g,b, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
+rgblight_sethsv_at(h,s,v, LED);  // control a single LED.  0 <= LED < RGBLED_NUM
+```
+You can find a list of predefined colors at [`quantum/rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Free to add to this list!
+
 ## RGB Lighting Keycodes
 
 These control the RGB Lighting functionality.
 
-| Long Name | Short Name | Description |
-|-----------|------------|-------------|
-||`RGB_TOG`|toggle on/off|
-||`RGB_MOD`|cycle through modes|
-||`RGB_SMOD`|cycle through modes, use reverse direction when shift is hold|
-||`RGB_HUI`|hue increase|
-||`RGB_HUD`|hue decrease|
-||`RGB_SAI`|saturation increase|
-||`RGB_SAD`|saturation decrease|
-||`RGB_VAI`|value (brightness) increase|
-||`RGB_VAD`|value (brightness) decrease|
-|`RGB_MODE_PLAIN`|`RGB_M_P `| Switch to the static no animation mode |
-|`RGB_MODE_BREATHE`|`RGB_M_B`| Switch to the breathing mode |
-|`RGB_MODE_RAINBOW`|`RGB_M_R`| Switch to the rainbow mode ||
-|`RGB_MODE_SWIRL`|`RGB_M_SW`| Switch to the swirl mode |
-|`RGB_MODE_SNAKE`|`RGB_M_SN`| Switch to the snake mode |
-|`RGB_MODE_KNIGHT`|`RGB_M_K`| Switch to the knight animation |
-|`RGB_MODE_XMAS`|`RGB_M_X`| Switch to the Christmas animation |
-|`RGB_MODE_GRADIENT`|`RGB_M_G`| Switch to the static gradient mode |
+|Key                |Aliases   |Description                                                         |
+|-------------------|----------|--------------------------------------------------------------------|
+|`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
+|`RGB_MODE_FORWARD` |`RGB_MOD` |Cycle through modes, reverse direction when Shift is held           |
+|`RGB_MODE_REVERSE` |`RGB_RMOD`|Cycle through modes in reverse, forward direction when Shift is held|
+|`RGB_HUI`          |          |Increase hue                                                        |
+|`RGB_HUD`          |          |Decrease hue                                                        |
+|`RGB_SAI`          |          |Increase saturation                                                 |
+|`RGB_SAD`          |          |Decrease saturation                                                 |
+|`RGB_VAI`          |          |Increase value (brightness)                                         |
+|`RGB_VAD`          |          |Decrease value (brightness)                                         |
+|`RGB_MODE_PLAIN`   |`RGB_M_P `|Static (no animation) mode                                          |
+|`RGB_MODE_BREATHE` |`RGB_M_B` |Breathing animation mode                                            |
+|`RGB_MODE_RAINBOW` |`RGB_M_R` |Rainbow animation mode                                              |
+|`RGB_MODE_SWIRL`   |`RGB_M_SW`|Swirl animation mode                                                |
+|`RGB_MODE_SNAKE`   |`RGB_M_SN`|Snake animation mode                                                |
+|`RGB_MODE_KNIGHT`  |`RGB_M_K` |"Knight Rider" animation mode                                       |
+|`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
+|`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
+|`RGB_MODE_RGBTEST `|`RGB_M_T` |Red,Green,Blue test animation mode                                  |
+
+note: for backwards compatibility, `RGB_SMOD` is an alias for `RGB_MOD`.
 
 ## Hardware Modification
 
-![Planck with RGB Underglow](https://raw.githubusercontent.com/qmk/qmk_firmware/master/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg)
+![Planck with RGB Underglow](https://raw.githubusercontent.com/qmk/qmk_firmware/3774a7fcdab5544fc787f4c200be05fcd417e31f/keyboards/planck/keymaps/yang/planck-with-rgb-underglow.jpg)
 
 Here is a quick demo on Youtube (with NPKC KC60) (https://www.youtube.com/watch?v=VKrpPAHlisY).
 

@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include QMK_KEYBOARD_H
-#include "i2cmaster.h"
 #ifdef DEBUG_MATRIX_SCAN_RATE
 #include  "timer.h"
 #endif
@@ -47,7 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * Now it's only 317 scans/second, or about 3.15 msec/scan.
  * According to Cherry specs, debouncing time is 5 msec.
  *
- * And so, there is no sense to have DEBOUNCE higher than 2.
+ * However, some switches seem to have higher debouncing requirements, or
+ * something else might be wrong. (Also, the scan speed has improved since
+ * that comment was written.)
  */
 
 #ifndef DEBOUNCE
@@ -68,6 +69,7 @@ static void unselect_rows(void);
 static void select_row(uint8_t row);
 
 static uint8_t mcp23018_reset_loop;
+// static uint16_t mcp23018_reset_loop;
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
 uint32_t matrix_timer;
@@ -175,6 +177,7 @@ uint8_t matrix_scan(void)
 {
     if (mcp23018_status) { // if there was an error
         if (++mcp23018_reset_loop == 0) {
+        // if (++mcp23018_reset_loop >= 1300) {
             // since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
             // this will be approx bit more frequent than once per second
             print("trying to reset mcp23018\n");
@@ -203,16 +206,23 @@ uint8_t matrix_scan(void)
 #endif
 
 #ifdef LEFT_LEDS
-     mcp23018_status = ergodox_left_leds_update();
+    mcp23018_status = ergodox_left_leds_update();
 #endif // LEFT_LEDS
-    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+    for (uint8_t i = 0; i < MATRIX_ROWS_PER_SIDE; i++) {
         select_row(i);
-        wait_us(30);  // without this wait read unstable value.
+        // and select on left hand
+        select_row(i + MATRIX_ROWS_PER_SIDE);
+        // we don't need a 30us delay anymore, because selecting a
+        // left-hand row requires more than 30us for i2c.
         matrix_row_t mask = debounce_mask(i);
         matrix_row_t cols = (read_cols(i) & mask) | (matrix[i] & ~mask);
         debounce_report(cols ^ matrix[i], i);
         matrix[i] = cols;
-
+        // grab cols from right hand
+        mask = debounce_mask(i + MATRIX_ROWS_PER_SIDE);
+        cols = (read_cols(i + MATRIX_ROWS_PER_SIDE) & mask) | (matrix[i + MATRIX_ROWS_PER_SIDE] & ~mask);
+        debounce_report(cols ^ matrix[i + MATRIX_ROWS_PER_SIDE], i + MATRIX_ROWS_PER_SIDE);
+        matrix[i + MATRIX_ROWS_PER_SIDE] = cols;
         unselect_rows();
     }
 
@@ -285,24 +295,24 @@ static matrix_row_t read_cols(uint8_t row)
             return 0;
         } else {
             uint8_t data = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOB);             if (mcp23018_status) goto out;
-            mcp23018_status = i2c_start(I2C_ADDR_READ);     if (mcp23018_status) goto out;
-            data = i2c_readNak();
-            data = ~data;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOB, ERGODOX_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_READ, ERGODOX_EZ_I2C_TIMEOUT);     if (mcp23018_status) goto out;
+            mcp23018_status = i2c_read_nack(ERGODOX_EZ_I2C_TIMEOUT);                if (mcp23018_status < 0) goto out;
+            data = ~((uint8_t)mcp23018_status);
+            mcp23018_status = I2C_STATUS_SUCCESS;
         out:
-            i2c_stop();
+            i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
             return data;
         }
     } else {
-        // read from teensy
-        return
-            (PINF&(1<<0) ? 0 : (1<<0)) |
-            (PINF&(1<<1) ? 0 : (1<<1)) |
-            (PINF&(1<<4) ? 0 : (1<<2)) |
-            (PINF&(1<<5) ? 0 : (1<<3)) |
-            (PINF&(1<<6) ? 0 : (1<<4)) |
-            (PINF&(1<<7) ? 0 : (1<<5)) ;
+        /* read from teensy
+	 * bitmask is 0b11110011, but we want those all
+	 * in the lower six bits.
+	 * we'll return 1s for the top two, but that's harmless.
+	 */
+
+        return ~((PINF & 0x03) | ((PINF & 0xF0) >> 2));
     }
 }
 
@@ -318,19 +328,9 @@ static matrix_row_t read_cols(uint8_t row)
  */
 static void unselect_rows(void)
 {
-    // unselect on mcp23018
-    if (mcp23018_status) { // if there was an error
-        // do nothing
-    } else {
-        // set all rows hi-Z : 1
-        mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write(GPIOA);             if (mcp23018_status) goto out;
-        mcp23018_status = i2c_write( 0xFF
-                              & ~(0<<7)
-                          );                            if (mcp23018_status) goto out;
-    out:
-        i2c_stop();
-    }
+    // no need to unselect on mcp23018, because the select step sets all
+    // the other row bits high, and it's not changing to a different
+    // direction
 
     // unselect on teensy
     // Hi-Z(DDR:0, PORT:0) to unselect
@@ -351,13 +351,11 @@ static void select_row(uint8_t row)
         } else {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write( 0xFF & ~(1<<row)
-                                  & ~(0<<7)
-                              );                                if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOA, ERGODOX_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(0xFF & ~(1<<row), ERGODOX_EZ_I2C_TIMEOUT);      if (mcp23018_status) goto out;
         out:
-            i2c_stop();
+            i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
         }
     } else {
         // select on teensy
