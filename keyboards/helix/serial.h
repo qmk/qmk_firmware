@@ -134,9 +134,11 @@ int  soft_serial_get_and_clean_status(int sstd_index);
 #if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_RETRY
   #define debug_retry_on() SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK
   #define debug_retry_off() SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK
+  #define debug_retry_chg() SERIAL_DBGPIN_PORT ^= SERIAL_DBGPIN_MASK
 #else
   #define debug_retry_on()
   #define debug_retry_off()
+  #define debug_retry_chg()
 #endif
 
 #define SYNC_DEBUG_MODE 0
