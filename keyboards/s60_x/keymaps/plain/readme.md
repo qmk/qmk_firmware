@@ -1,6 +1,6 @@
 ﻿### 4. Plain
 Without any Fn layer this will be useful if you want to use key remapping tool like AHK on host.
-See [keymap_plain.c](keymap_plain.c) for detail.
+See [keymap.c](keymap.c) for detail.
 
 #### 4.0 Plain Default layer
     ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐

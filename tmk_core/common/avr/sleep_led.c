@@ -18,6 +18,10 @@
  */
 #define SLEEP_LED_TIMER_TOP F_CPU/(256*64)
 
+/** \brief Sleep LED initialization
+ *
+ * FIXME: needs doc
+ */
 void sleep_led_init(void)
 {
     /* Timer1 setup */
@@ -33,18 +37,30 @@ void sleep_led_init(void)
     SREG = sreg;
 }
 
+/** \brief Sleep LED enable
+ *
+ * FIXME: needs doc
+ */
 void sleep_led_enable(void)
 {
     /* Enable Compare Match Interrupt */
     TIMSK1 |= _BV(OCIE1A);
 }
 
+/** \brief Sleep LED disable
+ *
+ * FIXME: needs doc
+ */
 void sleep_led_disable(void)
 {
     /* Disable Compare Match Interrupt */
     TIMSK1 &= ~_BV(OCIE1A);
 }
 
+/** \brief Sleep LED toggle
+ *
+ * FIXME: needs doc
+ */
 void sleep_led_toggle(void)
 {
     /* Disable Compare Match Interrupt */
@@ -52,7 +68,8 @@ void sleep_led_toggle(void)
 }
 
 
-/* Breathing Sleep LED brighness(PWM On period) table
+/** \brief Breathing Sleep LED brighness(PWM On period) table
+ *
  * (64[steps] * 4[duration]) / 64[PWM periods/s] = 4 second breath cycle
  *
  * http://www.wolframalpha.com/input/?i=%28sin%28+x%2F64*pi%29**8+*+255%2C+x%3D0+to+63

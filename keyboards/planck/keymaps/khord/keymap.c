@@ -1,3 +1,4 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 
@@ -16,7 +17,8 @@ enum planck_keycodes {
   RAISE,
   BACKLIT,
   ADMIN,
-  SMSPC1
+  SMSPC1,
+  W10SLP
 };
 
 // LED backlight breathing
@@ -64,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |      |      | End  | Home |      |
+ * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |  SLP |      | End  | Home |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
  * `-----------------------------------------------------------------------------------'
@@ -72,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = {
   {KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC},
   {KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE},
-  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, KC_END,  KC_HOME, _______},
+  {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  W10SLP,  _______, KC_END,  KC_HOME, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 
@@ -122,22 +124,30 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch(id) {
     case MACRO_BREATH_TOGGLE:
       if (record->event.pressed) {
-        breathing_toggle();
+        #ifdef BACKLIGHT_BREATHING
+          breathing_toggle();
+        #endif
       }
       break;
     case MACRO_BREATH_SPEED_INC:
       if (record->event.pressed) {
-        breathing_speed_inc(1);
+        #ifdef BACKLIGHT_BREATHING
+          breathing_period_inc();
+        #endif
       }
       break;
     case MACRO_BREATH_SPEED_DEC:
       if (record->event.pressed) {
-        breathing_speed_dec(1);
+        #ifdef BACKLIGHT_BREATHING
+          breathing_period_dec();
+        #endif
       }
       break;
     case MACRO_BREATH_DEFAULT:
       if (record->event.pressed) {
-        breathing_defaults();
+        #ifdef BACKLIGHT_BREATHING
+          breathing_period_default();
+        #endif
       }
       break;
   }
@@ -193,6 +203,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SMSPC1:
       if (record->event.pressed) {
         SEND_STRING("Simspace1!");
+      }
+      return false;
+      break;
+    case W10SLP:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI("x")"us");
       }
       return false;
       break;

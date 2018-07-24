@@ -1,4 +1,4 @@
-#include "clueboard_60.h"
+#include "60.h"
 
 #define _______ KC_TRNS
 

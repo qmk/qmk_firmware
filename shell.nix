@@ -1,5 +1,6 @@
-{ pkgs ? import <nixpkgs> {}
-, avr ? true, arm ? true }:
+# dfu-programmer doesn't have darwin on it's list of supported platforms
+{ pkgs ? import <nixpkgs> { config = { allowUnsupportedSystem = true; }; }
+, avr ? true, arm ? true, teensy ? true }:
 
 with pkgs;
 let
@@ -18,8 +19,9 @@ stdenv.mkDerivation {
   name = "qmk-firmware";
 
   buildInputs = [ dfu-programmer dfu-util diffutils git ]
-    ++ lib.optional avr [ avrbinutils avrgcc avrlibc ]
-    ++ lib.optional arm [ gcc-arm-embedded ];
+    ++ lib.optional avr [ avrbinutils avrgcc avrlibc avrdude ]
+    ++ lib.optional arm [ gcc-arm-embedded ]
+    ++ lib.optional teensy [ teensy-loader-cli ];
 
   CFLAGS = lib.optional avr avr_incflags;
   ASFLAGS = lib.optional avr avr_incflags;

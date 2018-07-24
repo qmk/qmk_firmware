@@ -103,10 +103,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         #define A6 0x06
         #define A7 0x07
 
-        #define QMK_ESC_COL F1
-        #define QMK_ESC_ROW D5
-        #define QMK_LED     E6
-        #define QMK_SPEAKER C6
+        #include "Keyboard.h"
+
+        #ifndef QMK_ESC_INPUT
+            #define QMK_ESC_INPUT F1
+        #endif
+        #ifndef QMK_ESC_OUTPUT
+            #define QMK_ESC_OUTPUT D5
+        #endif
+        #ifndef QMK_LED
+            #define QMK_LED     E6
+        #endif
+        #ifndef QMK_SPEAKER
+            #define QMK_SPEAKER C6
+        #endif
 
         #define DDR(pin) _SFR_IO8(((pin) >> 4) + 1)
         #define PORT(pin) _SFR_IO8(((pin) >> 4) + 2)
