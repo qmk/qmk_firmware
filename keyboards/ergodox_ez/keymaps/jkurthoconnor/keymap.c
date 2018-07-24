@@ -27,10 +27,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|  /   |           |  \   |------+------+------+------+------+--------|
  * | MO3    |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | PSCR | Applic |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | MO1  |  MO2 | LAlt | LCtl | LSPO |                                       | RSPC | RCtl | RAlt | MO2  | MO1    |
+ *   | MO1  |  MO2 | LGui | LCtl | LSPO |                                       | RSPC | RCtl | LGui | MO2  | MO1    |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        | LGui | F1   |       | F10  | LGui |
+ *                                        | LAlt | F1   |       | F10  | RAlt |
  *                                 ,------|------|------|       |------+--------+------.
  *                                 |      |      | F2   |       | F11  |        |      |
  *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
@@ -45,8 +45,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(1),          KC_Q,         KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRACKET,
         TG(2),          KC_A,         KC_S,   KC_D,   KC_F,   KC_G,
         MO(3),          KC_Z,         KC_X,   KC_C,   KC_V,   KC_B,   KC_SLASH,
-        MO(1),          MO(2),        KC_LALT,KC_LCTL,KC_LSPO,
-                                                              KC_LGUI,  KC_F1,
+        MO(1),          MO(2),        KC_LGUI,KC_LCTL,KC_LSPO,
+                                                              KC_LALT,  KC_F1,
                                                                         KC_F2,
                                                               KC_SPC,KC_BSPC,KC_F7,
         // right hand
@@ -54,8 +54,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_RBRACKET, KC_Y,   KC_U,     KC_I,      KC_O,   KC_P,             KC_DELETE,
                     KC_H,   KC_J,     KC_K,      KC_L,   KC_SCLN,          KC_QUOTE,
        KC_BSLASH,   KC_N,   KC_M,     KC_COMM,   KC_DOT, KC_PSCREEN,       KC_APP,
-                            KC_RSPC,  KC_RCTRL,  KC_RALT,MO(2),            MO(1),
-       KC_F10,  KC_LGUI,
+                            KC_RSPC,  KC_RCTRL,  KC_LGUI,MO(2),            MO(1),
+       KC_F10,  KC_RALT,
        KC_F11,
        KC_F12,  KC_TAB, KC_ENT
 ),
