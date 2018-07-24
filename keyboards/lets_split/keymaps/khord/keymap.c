@@ -99,13 +99,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      | CADel|
  * `-----------------------------------------------------------------------------------'
  */
-<<<<<<< HEAD
-[_ADJUST] =  KEYMAP( \
-  _______, RESET,   _______, _______, AG_NORM, AG_SWAP, KC_SYSREQ, _______, _______, ADMIN,    SMSPC1,  KC_DEL, \
-=======
 [_ADJUST] =  LAYOUT( \
   _______, RESET,   _______, _______, AG_NORM, AG_SWAP, _______, _______, _______, ADMIN,    SMSPC1,  KC_DEL, \
->>>>>>> 9ce35e823b945aca427f11e1a4ae26d6ea672ff4
   _______, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, _______, _______, \
   _______, RGB_TOG, RGB_HUD, RGB_SAD, RGB_VAD, _______, RGB_M_G, RGB_M_X, RGB_M_K, RGB_M_SN, _______, C_A_INS, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, C_A_DEL \
