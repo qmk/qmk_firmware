@@ -16,16 +16,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "quantum.h"
-// #include "sendstring_workman.h" // removed this because I think it messed with macros... then I removed the macros
 
 // Layers
-#define _HWRKMN    0
-#define _SWRKMN    1
-#define _NUMPAD    2
-#define _MOUSE     3
-#define _TOOLS     4
-#define _DIABLOII  5
-#define _DIABLOIII 6
+enum layers {
+  _SWRKMN = 0,
+  _HWRKMN,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+  _DIABLO
+};
+
+
 
 enum custom_keycodes {
   KC_EPRM = SAFE_RANGE,
@@ -36,13 +38,54 @@ enum custom_keycodes {
   JJ_PASTE,
   JJ_ARRW,
   MC_LOCK,
+  KC_DIABLO_CLEAR,
+  KC_NMPD
+//  UC_FLIP
 };
 
 // Space Cadet Hyper/Meh and [/]
 #define HYP_LBK ALL_T(KC_LBRACKET)
 #define MEH_RBK MEH_T(KC_RBRACKET)
 
+#define KC_LWSP LT(_LOWER, KC_SPACE)
+#define KC_RSEN LT(_RAISE, KC_ENTER)
+#define KC_ADJS TT(_ADJUST)
+
 #define XXXXXXX KC_NO
+#define _______ KC_TRNS
+
+#ifdef TAP_DANCE_ENABLE
+enum {
+  TD_D3_1 = 0,
+  TD_D3_2,
+  TD_D3_3,
+  TD_D3_4
+};
+#endif // TAP_DANCE_ENABLE
+
+// Custom Keycodes for Diablo 3 layer
+// But since TD() doesn't work when tap dance is disabled
+// We use custom codes here, so we can substitute the right stuff
+#ifdef TAP_DANCE_ENABLE
+#define KC_D3_1 TD(TD_D3_1)
+#define KC_D3_2 TD(TD_D3_2)
+#define KC_D3_3 TD(TD_D3_3)
+#define KC_D3_4 TD(TD_D3_4)
+#else // TAP_DANCE_ENABLE
+#define KC_D3_1 KC_1
+#define KC_D3_2 KC_2
+#define KC_D3_3 KC_3
+#define KC_D3_4 KC_4
+#endif // TAP_DANCE_ENABLE
+
+//define diablo macro timer variables
+extern uint16_t diablo_timer[4];
+extern uint8_t diablo_times[];
+extern uint8_t diablo_key_time[4];
+
+
+void run_diablo_macro_check(void);
+
 
 #define LAYOUT_ergodox_pretty_wrapper(...) LAYOUT_ergodox_pretty(__VA_ARGS__)
 
@@ -65,40 +108,39 @@ enum custom_keycodes {
                           '-----------------------' '-----------------------'
 */
 
-#define _____________________ERGODOX_TOP_LEFT__________________ KC_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, JJ_ARRW
-#define _____________________ERGODOX_TOP_RIGHT_________________ KC_MINUS, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQUAL
-#define _____________________ERGODOX_BOTTOM_LEFT_______________ TG(_MOUSE), TG(_NUMPAD), SH_MON, KC_UP,   KC_LEFT
-#define _____________________ERGODOX_BOTTOM_RIGHT______________ KC_RIGHT,   KC_DOWN,     TO(_DIABLOII),    TO(_DIABLOIII), TT(_TOOLS)
+#define ______________________NUMBER_LEFT________________________       KC_1,     KC_2,           KC_3,           KC_4,           KC_5
+#define ______________________NUMBER_RIGHT_______________________       KC_6,     KC_7,           KC_8,           KC_9,           KC_0
 
-//                                                  LEFT        |       RIGHT
-#define _____________ERGODOX_THUMBS____________ KC_APP,KC_HOME,    KC_PGUP,KC_ESC,           \
-                                                        KC_END,    KC_PGDOWN,                \
-                                    KC_SPACE,KC_BSPACE,JJ_COPY,    JJ_PASTE,KC_TAB,KC_ENTER
+#define ______________________SPECIAL_LEFT_______________________       KC_EXLM,  KC_AT,          KC_HASH,        KC_DLR,         KC_PERC
+#define ______________________SPECIAL_RIGHT______________________       KC_CIRC,  KC_AMPR,        KC_ASTR,        KC_LPRN,        KC_RPRN
 
-// Software Driven Workman (basically HW QWERTY but I'm a purist)
-/*
-#define ______________SWORKMAN_L1______________       WK_Q,     WK_D,           WK_R,           WK_W,           WK_B
-#define ______________SWORKMAN_L2______________       WK_A,     SFT_T(WK_S),    GUI_T(WK_H),    ALT_T(WK_T),    WK_G
-#define ______________SWORKMAN_L3______________ CTL_T(WK_Z),    WK_X,           WK_M,           WK_C,           WK_V
+#define _______________________FUNC_LEFT_________________________       KC_F1,    KC_F2,          KC_F3,          KC_F4,          KC_F5
+#define _______________________FUNC_RIGHT________________________       KC_F6,    KC_F7,          KC_F8,          KC_F9,          KC_F10
 
-#define ______________SWORKMAN_R1______________       WK_J,     WK_F,           WK_U,           WK_P,           WK_SCLN
-#define ______________SWORKMAN_R2______________       WK_Y,     ALT_T(WK_N),    GUI_T(WK_E),    SFT_T(WK_O),    WK_I
-#define ______________SWORKMAN_R3______________       WK_K,     WK_L,           KC_COMM,        KC_DOT,         CTL_T(KC_SLASH)
-*/
+#define _________________________________________________________       KC_TRNS,  KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS
+#define XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       KC_NO,    KC_NO,          KC_NO,          KC_NO,          KC_NO
 
-#define ______________SWORKMAN_L1______________       KC_Q,     KC_W,           KC_E,           KC_R,           KC_T
-#define ______________SWORKMAN_L2______________       KC_A,     SFT_T(KC_S),    GUI_T(KC_D),    ALT_T(KC_F),    KC_G
-#define ______________SWORKMAN_L3______________ CTL_T(KC_Z),    KC_X,           KC_C,           KC_V,           KC_B
+#define _______________________SWORKMAN_L1_______________________       KC_Q,     KC_W,           KC_E,           KC_R,           KC_T
+#define _______________________SWORKMAN_L2_______________________       KC_A,     SFT_T(KC_S),    GUI_T(KC_D),    ALT_T(KC_F),    KC_G
+#define _______________________SWORKMAN_L3_______________________ CTL_T(KC_Z),    KC_X,           KC_C,           KC_V,           KC_B
 
-#define ______________SWORKMAN_R1______________       KC_Y,     KC_U,           KC_I,           KC_O,           KC_P
-#define ______________SWORKMAN_R2______________       KC_H,     ALT_T(KC_J),    GUI_T(KC_K),    SFT_T(KC_L),    KC_SCLN
-#define ______________SWORKMAN_R3______________       KC_N,     KC_M,           KC_COMM,        KC_DOT,         CTL_T(KC_SLASH)
+#define _______________________SWORKMAN_R1_______________________       KC_Y,     KC_U,           KC_I,           KC_O,           KC_P
+#define _______________________SWORKMAN_R2_______________________       KC_H,     ALT_T(KC_J),    GUI_T(KC_K),    SFT_T(KC_L),    KC_SCLN
+#define _______________________SWORKMAN_R3_______________________       KC_N,     KC_M,           KC_COMM,        KC_DOT,         CTL_T(KC_SLASH)
 
 // Hardware Driven Workman
-#define ______________HWORKMAN_L1______________       KC_Q,     KC_D,           KC_R,           KC_W,           KC_B
-#define ______________HWORKMAN_L2______________       KC_A,     SFT_T(KC_S),    GUI_T(KC_H),    ALT_T(KC_T),    KC_G
-#define ______________HWORKMAN_L3______________ CTL_T(KC_Z),    KC_X,           KC_M,           KC_C,           KC_V
+#define _______________________HWORKMAN_L1_______________________       KC_Q,     KC_D,           KC_R,           KC_W,           KC_B
+#define _______________________HWORKMAN_L2_______________________       KC_A,     SFT_T(KC_S),    GUI_T(KC_H),    ALT_T(KC_T),    KC_G
+#define _______________________HWORKMAN_L3_______________________ CTL_T(KC_Z),    KC_X,           KC_M,           KC_C,           KC_V
 
-#define ______________HWORKMAN_R1______________       KC_J,     KC_F,           KC_U,           KC_P,           KC_SCLN
-#define ______________HWORKMAN_R2______________       KC_Y,     ALT_T(KC_N),    GUI_T(KC_E),    SFT_T(KC_O),    KC_I
-#define ______________HWORKMAN_R3______________       KC_K,     KC_L,           KC_COMM,        KC_DOT,         CTL_T(KC_SLASH)
+#define _______________________HWORKMAN_R1_______________________       KC_J,     KC_F,           KC_U,           KC_P,           KC_SCLN
+#define _______________________HWORKMAN_R2_______________________       KC_Y,     ALT_T(KC_N),    GUI_T(KC_E),    SFT_T(KC_O),    KC_I
+#define _______________________HWORKMAN_R3_______________________       KC_K,     KC_L,           KC_COMM,        KC_DOT,         CTL_T(KC_SLASH)
+
+#define ___________________ERGODOX_BOTTOM_LEFT___________________    TT(_DIABLO), TT(_ADJUST),    XXXXXXX,        KC_UP,          KC_LEFT
+#define ___________________ERGODOX_BOTTOM_RIGHT__________________    KC_RIGHT,    KC_DOWN,        TT(_RAISE),     TT(_LOWER),     TT(_ADJUST)
+
+//                                                                    LEFT        |       RIGHT
+#define ______________________ERGODOX_THUMBS_____________________ KC_APP,KC_HOME,    KC_PGUP,KC_ESC,           \
+                                                                          KC_END,    KC_PGDOWN,                \
+                                                       KC_LWSP,KC_BSPACE,JJ_COPY,    JJ_PASTE,KC_TAB,KC_RSEN
