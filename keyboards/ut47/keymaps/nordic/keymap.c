@@ -20,7 +20,6 @@
 #endif
 
 #include "keymap_norwegian.h"
-#include "keymap.h"
 
 #define _______ KC_TRNS
 #define LT3_TAB LT(3, KC_TAB)
