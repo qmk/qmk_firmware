@@ -322,6 +322,8 @@ ISR(SERIAL_PIN_INTERRUPT) {
 	  *trans->status = TRANSACTION_DATA_ERROR;
 	  debug_parity_off();
       }
+  } else {
+      *trans->status = TRANSACTION_ACCEPTED;
   }
 
   sync_recv(); //weit initiator output to high
