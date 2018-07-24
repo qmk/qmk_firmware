@@ -11,7 +11,7 @@
                                   SONG(OVERWATCH_THEME) \
                                 }
 
-#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 
 #endif
 
@@ -59,7 +59,7 @@
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
-#ifndef NO_DEBUG
+#if !defined(NO_DEBUG) && !defined(CONSOLE_ENABLE)
 #define NO_DEBUG
 #endif // !NO_DEBUG
 #if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
