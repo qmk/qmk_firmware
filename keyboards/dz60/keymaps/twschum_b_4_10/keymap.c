@@ -13,8 +13,7 @@
  * Use a as CTRL+A+(kc) when held, a when tapped for ultimate integration with tmux
  *  - need to make inter-operable
  * Unicode leader commands??? (symbolic unicode)
- * Mac mode vs not: -probably bootmagic or use default with dynamic swap out here
- *    KC_MFFD(KC_MEDIA_FAST_FORWARD) and KC_MRWD(KC_MEDIA_REWIND) instead of KC_MNXT and KC_MPRV
+ * Mac mode vs not: -probably bootmagic or use default with dynamic swap out here *    KC_MFFD(KC_MEDIA_FAST_FORWARD) and KC_MRWD(KC_MEDIA_REWIND) instead of KC_MNXT and KC_MPRV
  */
 
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -61,7 +60,8 @@ enum DZ60_B_4_10_Layers {
     L_Fn,
     L_Nav,
     L_Num,
-    L_RGB
+    L_RGB,
+    L_None
 };
 
 enum function_id {
@@ -72,6 +72,7 @@ enum extra_keycodes {
     CTRL_A = SAFE_RANGE,
     CTRL_B,
     EN_CTRL_SHORTCUTS,
+    TG_LAYER_RGB,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -129,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KEYMAP(
             KC_TRNS,            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      TO(5),
             KC_NO,              KC_NO,  KC_NO,  KC_NO,  RESET,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      RGB_HUD,
-            EN_CTRL_SHORTCUTS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    RGB_MODE_PLAIN,  RGB_MODE_FORWARD,  KC_RSHIFT,
+            EN_CTRL_SHORTCUTS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    TG_LAYER_RGB, RGB_MODE_PLAIN,  RGB_MODE_FORWARD,  KC_RSHIFT,
             KC_NO,              KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    RGB_TOG,         RGB_VAI,           RGB_HUI,
             KC_NO,              KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_TRNS,  RGB_SAD,  RGB_VAD,  RGB_SAI
           ),
@@ -202,6 +203,7 @@ static inline void start_idle_timer(void) {
     timeout_is_active = true;
 }
 static inline void clear_state_after_idle_timeout(void) {
+    rgblight_sethsv_noeeprom(0x0, 0x00, 0x00);
     idle_timer = 0;
     timeout_is_active = false;
     // clear state here
@@ -221,6 +223,9 @@ inline void matrix_scan_user(void) {
 /* Return True to continue processing keycode, false to stop further processing */
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case TG_LAYER_RGB:
+
+            return false;
         case EN_CTRL_SHORTCUTS:
             if (record->event.pressed) {
                 shortcuts_enabled = !shortcuts_enabled;
@@ -339,14 +344,56 @@ void led_set_user(uint8_t usb_led) {
         DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
     }
 }
+#define _rgblight_sethsv_white()       rgblight_sethsv_noeeprom (  0,   0, 127)
+#define _rgblight_sethsv_red()         rgblight_sethsv_noeeprom (  0, 255, 127)
+#define _rgblight_sethsv_coral()       rgblight_sethsv_noeeprom ( 16, 176, 127)
+#define _rgblight_sethsv_orange()      rgblight_sethsv_noeeprom ( 39, 255, 127)
+#define _rgblight_sethsv_goldenrod()   rgblight_sethsv_noeeprom ( 43, 218, 218)
+#define _rgblight_sethsv_gold()        rgblight_sethsv_noeeprom ( 51, 255, 127)
+#define _rgblight_sethsv_yellow()      rgblight_sethsv_noeeprom ( 60, 255, 127)
+#define _rgblight_sethsv_chartreuse()  rgblight_sethsv_noeeprom ( 90, 255, 127)
+#define _rgblight_sethsv_green()       rgblight_sethsv_noeeprom (120, 255, 127)
+#define _rgblight_sethsv_springgreen() rgblight_sethsv_noeeprom (150, 255, 127)
+#define _rgblight_sethsv_turquoise()   rgblight_sethsv_noeeprom (174,  90, 112)
+#define _rgblight_sethsv_teal()        rgblight_sethsv_noeeprom (180, 255, 127)
+#define _rgblight_sethsv_cyan()        rgblight_sethsv_noeeprom (180, 255, 127)
+#define _rgblight_sethsv_azure()       rgblight_sethsv_noeeprom (186, 102, 127)
+#define _rgblight_sethsv_blue()        rgblight_sethsv_noeeprom (240, 255, 127)
+#define _rgblight_sethsv_purple()      rgblight_sethsv_noeeprom (270, 255, 127)
+#define _rgblight_sethsv_magenta()     rgblight_sethsv_noeeprom (300, 255, 127)
+#define _rgblight_sethsv_pink()        rgblight_sethsv_noeeprom (330, 128, 127)
+
+// TODO make this work with the other way of doing colors, but leave
+// the layer indicators (probably have to use macros to wrap all the keypresses)
+bool rgb_enabled = false;
 
 /* Use RGB underglow to indicate layer
  * https://docs.qmk.fm/reference/customizing-functionality
  */
-/*
 uint32_t layer_state_set_user(uint32_t state) {
-    switch (biton32(state)) {
-case:
+    if (!rgb_enabled) {
+        rgb_enabled = true;
+        rgblight_enable();
     }
+    switch (biton32(state)) {
+    case L_Base:
+        rgblight_sethsv_noeeprom(0,0,0);
+        break;
+    case L_Fn:
+        _rgblight_sethsv_green();
+        break;
+    case L_Nav:
+        _rgblight_sethsv_azure();
+        break;
+    case L_Num:
+        _rgblight_sethsv_gold();
+        break;
+    case L_RGB:
+        _rgblight_sethsv_red();
+        break;
+    case L_None:
+        _rgblight_sethsv_white();
+        break;
+    }
+    return state;
 }
-*/
