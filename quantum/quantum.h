@@ -56,6 +56,8 @@
 #include "suspend.h"
 
 extern uint32_t default_layer_state;
+//Used in rgblight.c to match RGB animation to typing speed
+extern uint8_t typing_speed;
 
 #ifndef NO_ACTION_LAYER
 	extern uint32_t layer_state;

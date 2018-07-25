@@ -190,11 +190,14 @@ static uint16_t scs_timer[2] = {0, 0};
  */
 static bool grave_esc_was_shifted = false;
 
+uint8_t typing_speed = 0;
 bool process_record_quantum(keyrecord_t *record) {
 
   /* This gets the keycode from the key pressed */
   keypos_t key = record->event.key;
   uint16_t keycode;
+
+  if (typing_speed < 100) typing_speed += 1;
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
     /* TODO: Use store_or_get_action() or a similar function. */
