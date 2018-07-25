@@ -203,3 +203,9 @@ With default settings, `a` will be sent on the first release, then `a` will be s
 With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allowing to use it as a modifier shortly after having used it as a tap.
 
 !> `TAPPING_FORCE_HOLD` will break anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tapping Toggle).
+
+# Retro Tapping
+
+When you hold a dual function key, and haven't pressed anything when you release the key, normally nothing happens.  However, if you enable this, if you release the key without pressing another key, it will send the original key, even if it is outside of the tapping term. 
+
+For instance, if you're using `LT(2, KC_SPACE)`, if you hold the key, don't hit anything else and then release it, normally, nothing happens. But with `RETRO_TAPPING` defined in your `config.h`, it will send `KC_SPACE`. 
