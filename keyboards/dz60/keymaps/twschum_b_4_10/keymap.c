@@ -228,10 +228,14 @@ inline void matrix_scan_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TG_LAYER_RGB:
-            rgb_layers_enabled ^= 1;
+            if (record->event.pressed) {
+                rgb_layers_enabled = (rgb_layers_enabled)? false : true;
+            }
             return false;
         case TG_L0_RGB:
-            rgb_L0_enabled ^= 1;
+            if (record->event.pressed) {
+                rgb_L0_enabled = (rgb_L0_enabled)? false : true;
+            }
             return false;
         case EN_CTRL_SHORTCUTS:
             if (record->event.pressed) {
