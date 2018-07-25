@@ -67,28 +67,32 @@ def uni(k):
     k = keys.get(k, k)
     return unicodes.get(k, k).center(5)
 
-def c_layout(i):
-    pretty_name = layer_names[i].strip('_').capitalize()
+def c_layout(i, definition):
+    c_name = layer_names[i]
+    pretty_name = c_name.strip('_').capitalize()
+    layout = d['layout']
+    
     surround = lambda s: ''.join(interleave_longest(['│']*(len(s)+1), s))
-    layer = list(map(uni, d['layers'][i]))
+    layer = list(map(uni, definition))
     layer[41] = layer[41].center(11)
     layer = chunked(layer, 12)
     rows = intersperse(mid, map(surround, layer))
     pretty = '\n'.join(itertools.chain([top], rows, [bottom]))
     
     surround = lambda s: ', '.join(s)
-    layer = list(map(lambda k: layer_name.get(k, k), d['layers'][i]))
+    layer = list(map(lambda k: layer_name.get(k, k), definition))
     layer = chunked(layer, 12)
     rows = map(surround, layer)
+    c_layer = ',\n    '.join(itertools.chain([], rows, []))
     
     return """/* {0}
 {1}
 */
 [{2}] = {3}(
     {4})
-""".format(pretty_name, pretty, layer_names[i], d['layout'], ',\n    '.join(itertools.chain([], rows, [])))
+""".format(pretty_name, pretty, c_name, layout, c_layer)
 
-print(c_layout(0))
+print(c_layout(0, d['layers'][0]))
 
 # What I really want I think is a state machine that knows whether it's on the top,
 # beginning of line, end of line, middle or bottom.
