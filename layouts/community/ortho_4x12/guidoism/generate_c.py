@@ -1,6 +1,5 @@
 import itertools
 import json
-from pprint import pprint as pp
 
 layer_names = dict(enumerate(['_QWERTY', '_LOWER', '_RAISE', '_MOVEMENT', '_NUMPAD']))
 layer_name = {('MO(%d)' % i): layer_names.get(i).strip('_') for i in layer_names.keys()}
