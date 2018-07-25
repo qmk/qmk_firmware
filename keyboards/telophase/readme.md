@@ -1,15 +1,13 @@
-Mitosis
-=======
+Telophase
+=========
 
 A wireless split compact keyboard.
 
-Keyboard Maintainer: [@reversebias](https://github.com/reversebias]
-Hardware Supported: Mitosis PCB
-Hardware Availability: https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/
+Hardware Supported: Telophase PCB
 
 Make example for this keyboard (after setting up your build environment):
 
-    make mitosis:default
+    make telophase:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
