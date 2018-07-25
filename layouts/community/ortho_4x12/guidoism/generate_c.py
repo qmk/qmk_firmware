@@ -68,6 +68,7 @@ def uni(k):
     return unicodes.get(k, k).center(5)
 
 def c_layout(i):
+    pretty_name = layer_names[i].strip('_').capitalize()
     surround = lambda s: ''.join(interleave_longest(['│']*(len(s)+1), s))
     layer = list(map(uni, d['layers'][i]))
     layer[41] = layer[41].center(11)
@@ -85,7 +86,7 @@ def c_layout(i):
 */
 [{2}] = {3}(
     {4})
-""".format(layer_names[i].strip('_').capitalize(), pretty, layer_names[i], d['layout'], ',\n    '.join(itertools.chain([], rows, [])))
+""".format(pretty_name, pretty, layer_names[i], d['layout'], ',\n    '.join(itertools.chain([], rows, [])))
 
 print(c_layout(0))
 
