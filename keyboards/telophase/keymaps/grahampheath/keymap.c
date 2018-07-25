@@ -8,7 +8,6 @@ enum telophase_layers
   _QWERTY,
   _LOWER,
   _RAISE,
-  _ADJUST,
   _EMOJI,
 };
 
@@ -16,7 +15,6 @@ enum telophase_keycodes
 {
   LOWER = SAFE_RANGE,
   RAISE,
-  ADJUST,
   EMOJI,
   ABOVE,
   BUG,
@@ -73,10 +71,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------------------------------------------------'
    */
   [_QWERTY] = KEYMAP(
-    KC_TAB,  KC_Q,      KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,    KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC,
-    KC_X0,   KC_A,      KC_S,    KC_D,    KC_F,  KC_G,   KC_H,    KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT,
-    KC_LSFT, KC_Z,      KC_X,    KC_C,    KC_V,  KC_B,   KC_N,    KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_X1,
-    KC_EMOJ, KC_LCTL,   KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_SPC,  RAISE, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
+    KC_TAB,  KC_Q,      KC_W,    KC_E,    KC_R,       KC_T,   KC_Y,    KC_U,       KC_I,    KC_O,    KC_P,    KC_BSPC,
+    KC_X0,   KC_A,      KC_S,    KC_D,    KC_F,       KC_G,   KC_H,    KC_J,       KC_K,    KC_L,    KC_SCLN, KC_QUOT,
+    KC_LSFT, KC_Z,      KC_X,    KC_C,    KC_V,       KC_B,   KC_N,    KC_M,       KC_COMM, KC_DOT,  KC_SLSH, KC_X1,
+    KC_EMOJ, KC_LCTL,   KC_LALT, KC_LGUI, MO(_LOWER), KC_SPC, KC_SPC,  MO(_RAISE), KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
   ),
 
   /* Lower
@@ -132,45 +130,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     HYPR_1,  ABOVE,   SHRUG,   _______,  FROWN,    _______, HEART,   JOY,     _______, LLAP,    _______, _______,
     HYPR_2,  _______, _______, CONFUSED, _______,  BUG,     _______, GRIN,    SHIT,    _______, _______, _______,
     _______, _______, _______, _______,  KC_SLCK,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT
-  ),
-
-  [_ADJUST] = KEYMAP(
-    _______, RESET,   _______, _______, KC_PSCR, _______, _______, _______, _______, _______, _______, KC_DEL,
-    _______, _______, _______, _______, _______, AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-      } else {
-        layer_off(_LOWER);
-      }
-      return false;
-      break;
-
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-      } else {
-        layer_off(_RAISE);
-      }
-      return false;
-      break;
-
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-
     case ABOVE:
       if (record->event.pressed) {
         SEND_STRING("&above; ");
