@@ -37,20 +37,59 @@ def surround(s, a, b, c):
 def pattern(cell, table):
     return ['─'*cell for i in range(table)]
 
-def layer5(i, l, rename):
+def layer(i, l, rename):
     return [just(list(map(rename, row))) for row in grouper(l, 12)]
 
-for i, l in enumerate(d['layers']):
-    print('/*')
-    print(surround(pattern(5, 12), '┌', '┬', '┐'))
-    for n, row in enumerate(layer5(i, l, unicode)):
-        print(surround(row, '│', '│', '│'))
-        if n < 3:
-            print(surround(pattern(5, 12), '├', '┼', '┤'))
-        else:
-            print(surround(pattern(5, 12), '└', '┴', '┘'))
-    print('*/')
-    print('  [%s] = %s(' % (layer_names[i], d['layout']))
-    for n, row in enumerate(layer5(i, l, lambda k: layer_name.get(k, k))):
-        print(surround(row, '    ', ', ', ','))
-    print('  ),\n')
+top    = surround(pattern(5, 12), '┌', '┬', '┐')
+mid    = surround(pattern(5, 12), '├', '┼', '┤')
+bottom = surround(pattern(5, 12), '└', '┴', '┘')
+
+if True:
+    for i, l in enumerate(d['layers']):
+        print('/*')
+        print(top)
+        for n, row in enumerate(layer(i, l, unicode)):
+            print(surround(row, '│', '│', '│'))
+            if n < 3:
+                print(surround(pattern(5, 12), '├', '┼', '┤'))
+            else:
+                print(bottom)
+        print('*/')
+        print('  [%s] = %s(' % (layer_names[i], d['layout']))
+        for n, row in enumerate(layer(i, l, lambda k: layer_name.get(k, k))):
+            print(surround(row, '    ', ', ', ','))
+        print('  ),\n')
+    quit()
+
+from more_itertools import chunked, intersperse, interleave_longest
+
+def uni(k):
+    k = keys.get(k, k)
+    return unicodes.get(k, k).center(5)
+
+surround = lambda s: ''.join(interleave_longest(['│']*(len(s)+1), s))
+layer = list(map(uni, d['layers'][0]))
+layer[41] = layer[41].center(11)
+layer = chunked(layer, 12)
+rows = intersperse(mid, map(surround, layer))
+print('\n'.join(itertools.chain([top], rows, [bottom])))
+
+surround = lambda s: ''.join(interleave_longest(s, [', ']*(len(s))))
+layer = list(map(lambda k: layer_name.get(k, k), d['layers'][0]))
+#layer[41] = layer[41].center(22)
+layer = chunked(layer, 12)
+#rows = intersperse('', map(surround, layer))
+rows = map(surround, layer)
+print('\n'.join(itertools.chain([], rows, [])))
+
+
+
+# What I really want I think is a state machine that knows whether it's on the top,
+# beginning of line, end of line, middle or bottom.
+# 
+# - If it's on the top then it's 1-12               [k for k in keys if k <= 12]
+# - If it's on the left end then it's 1, 13, etc    [k for k in keys if k % 12 == 1]
+# - If it's on the right end then it's 12, 24, etc  [k for k in keys if k % 12 == 0]
+# - If it's on the bottom then it's the last eight  [k for k in keys if k > 48-12]
+# 
+
