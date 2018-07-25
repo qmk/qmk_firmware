@@ -337,62 +337,71 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     }
 }
 
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        DDRB |= (1 << 2); PORTB &= ~(1 << 2);
-    } else {
-        DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
-    }
-}
-#define _rgblight_sethsv_white()       rgblight_sethsv_noeeprom (  0,   0, 127)
-#define _rgblight_sethsv_red()         rgblight_sethsv_noeeprom (  0, 255, 127)
-#define _rgblight_sethsv_coral()       rgblight_sethsv_noeeprom ( 16, 176, 127)
-#define _rgblight_sethsv_orange()      rgblight_sethsv_noeeprom ( 39, 255, 127)
-#define _rgblight_sethsv_goldenrod()   rgblight_sethsv_noeeprom ( 43, 218, 218)
-#define _rgblight_sethsv_gold()        rgblight_sethsv_noeeprom ( 51, 255, 127)
-#define _rgblight_sethsv_yellow()      rgblight_sethsv_noeeprom ( 60, 255, 127)
-#define _rgblight_sethsv_chartreuse()  rgblight_sethsv_noeeprom ( 90, 255, 127)
-#define _rgblight_sethsv_green()       rgblight_sethsv_noeeprom (120, 255, 127)
-#define _rgblight_sethsv_springgreen() rgblight_sethsv_noeeprom (150, 255, 127)
-#define _rgblight_sethsv_turquoise()   rgblight_sethsv_noeeprom (174,  90, 112)
-#define _rgblight_sethsv_teal()        rgblight_sethsv_noeeprom (180, 255, 127)
-#define _rgblight_sethsv_cyan()        rgblight_sethsv_noeeprom (180, 255, 127)
-#define _rgblight_sethsv_azure()       rgblight_sethsv_noeeprom (186, 102, 127)
-#define _rgblight_sethsv_blue()        rgblight_sethsv_noeeprom (240, 255, 127)
-#define _rgblight_sethsv_purple()      rgblight_sethsv_noeeprom (270, 255, 127)
-#define _rgblight_sethsv_magenta()     rgblight_sethsv_noeeprom (300, 255, 127)
-#define _rgblight_sethsv_pink()        rgblight_sethsv_noeeprom (330, 128, 127)
+#define  MAXBRIGHT    180
+#define  OFF          0,    0,    0
+#define  WHITE        0,    0,    MAXBRIGHT
+#define  RED          0,    255,  MAXBRIGHT
+#define  CORAL        16,   176,  MAXBRIGHT
+#define  ORANGE       39,   255,  MAXBRIGHT
+#define  GOLDENROD    43,   218,  218
+#define  GOLD         51,   255,  MAXBRIGHT
+#define  YELLOW       60,   255,  MAXBRIGHT
+#define  CHARTREUSE   90,   255,  MAXBRIGHT
+#define  GREEN        120,  255,  MAXBRIGHT
+#define  SPRINGGREEN  150,  255,  MAXBRIGHT
+#define  TURQUOISE    174,  90,   112
+#define  TEAL         180,  255,  MAXBRIGHT
+#define  CYAN         180,  255,  MAXBRIGHT
+#define  AZURE        186,  102,  MAXBRIGHT
+#define  BLUE         240,  255,  MAXBRIGHT
+#define  PURPLE       270,  255,  MAXBRIGHT
+#define  MAGENTA      300,  255,  MAXBRIGHT
+#define  PINK         330,  128,  MAXBRIGHT
 
-// TODO make this work with the other way of doing colors, but leave
-// the layer indicators (probably have to use macros to wrap all the keypresses)
-bool rgb_enabled = false;
+void matrix_init_user(void) {
+    // called once on board init
+    rgblight_enable();
+}
+
+void suspend_power_down_user(void) {
+    // TODO shut off backlighting
+}
+
+void suspend_wakeup_init_user(void) {
+    // TODO turn on backlighting
+}
+
 
 /* Use RGB underglow to indicate layer
  * https://docs.qmk.fm/reference/customizing-functionality
  */
 uint32_t layer_state_set_user(uint32_t state) {
-    if (!rgb_enabled) {
-        rgb_enabled = true;
-        rgblight_enable();
+    if (!rgb_layers_enabled) {
+        return state;
     }
     switch (biton32(state)) {
     case L_Base:
-        rgblight_sethsv_noeeprom(0,0,0);
+        if (rgb_L0_enabled) {
+            rgblight_sethsv_noeeprom(PINK);
+        }
+        else {
+            rgblight_sethsv_noeeprom(OFF);
+        }
         break;
     case L_Fn:
-        _rgblight_sethsv_green();
+        rgblight_sethsv_noeeprom(GREEN);
         break;
     case L_Nav:
-        _rgblight_sethsv_azure();
+        rgblight_sethsv_noeeprom(AZURE);
         break;
     case L_Num:
-        _rgblight_sethsv_gold();
+        rgblight_sethsv_noeeprom(GOLD);
         break;
     case L_RGB:
-        _rgblight_sethsv_red();
+        rgblight_sethsv_noeeprom(RED);
         break;
     case L_None:
-        _rgblight_sethsv_white();
+        rgblight_sethsv_noeeprom(WHITE);
         break;
     }
     return state;
