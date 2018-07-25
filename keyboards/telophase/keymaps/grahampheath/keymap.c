@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#include "telophase.h"
+// #include "telophase.h"
 extern keymap_config_t keymap_config;
 
 enum telophase_layers
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Emoji | Ctrl | Alt  |Lower | Cmd  |Space |Space |Raise | Left | Down |  Up  |Right |
    * `-----------------------------------------------------------------------------------'
    */
-  [_QWERTY] = LAYOUT_ortho_4x12(
+  [_QWERTY] = KEYMAP(
     KC_TAB,  KC_Q,      KC_W,    KC_E,    KC_R,  KC_T,   KC_Y,    KC_U,  KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_X0,   KC_A,      KC_S,    KC_D,    KC_F,  KC_G,   KC_H,    KC_J,  KC_K,    KC_L,    KC_SCLN, KC_QUOT,
     KC_LSFT, KC_Z,      KC_X,    KC_C,    KC_V,  KC_B,   KC_N,    KC_M,  KC_COMM, KC_DOT,  KC_SLSH, KC_X1,
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |             |      | Tab- | Vol- | Vol+ | Tab+ |
    * `-----------------------------------------------------------------------------------'
    */
-  [_LOWER] = LAYOUT_ortho_4x12(
+  [_LOWER] = KEYMAP(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,     KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC,
     KC_WTAB, KC_TABL, KC_TABR, KC_BACK, KC_FORWARD, KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE,
     KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,     KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), _______, _______, _______,
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |             |      | Home | PgUp | PgDn | End  |
    * `-----------------------------------------------------------------------------------'
    */
-  [_RAISE] = LAYOUT_ortho_4x12(
+  [_RAISE] = KEYMAP(
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC,
     KC_WTAB, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
     KC_LSFT, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, _______, _______, KC_X2,
@@ -127,14 +127,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * │     │     │     │     │Brig-│   Sleep   │Brig+│ 👈  │ 👎  |  👍 │ 👉 │
    * └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
    */
-  [_EMOJI] = LAYOUT_ortho_4x12(
+  [_EMOJI] = KEYMAP(
     HYPR_0,  _______, WINK,    _______,  _______,  TOUNGE,  _______, _______, CRY,     FLIP,    _______, _______,
     HYPR_1,  ABOVE,   SHRUG,   _______,  FROWN,    _______, HEART,   JOY,     _______, LLAP,    _______, _______,
     HYPR_2,  _______, _______, CONFUSED, _______,  BUG,     _______, GRIN,    SHIT,    _______, _______, _______,
     _______, _______, _______, _______,  KC_SLCK,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT
   ),
 
-  [_ADJUST] = LAYOUT_ortho_4x12(
+  [_ADJUST] = KEYMAP(
     _______, RESET,   _______, _______, KC_PSCR, _______, _______, _______, _______, _______, _______, KC_DEL,
     _______, _______, _______, _______, _______, AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
