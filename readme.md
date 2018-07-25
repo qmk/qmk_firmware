@@ -8,11 +8,11 @@ Regardless, I'm happy to share the code and discuss improvements with anyone who
 
 ## Getting Started
 
-My entire change amounts to several lines in `quantum.h`, `quantum.c` and `rgblight.c`. To see the details it's probably easiest if you look at my first commit to this fork which contains all the changes.
+My entire change amounts to several lines in `quantum.h`, `quantum.c` and `rgblight.c`. To see the details it's probably easiest if you look at [this commit](https://github.com/chrislewisdev/qmk_firmware/commit/2d3fbc5d0ad70309ede5cdeb9cf84380fd69baae) which contains all the changes.
 
 I've left a couple of "Improvement:" comments around the code to indicate what I think would make it better or more "production"-ready. These could be good places to start for anyone interested in contributing.
 
-To test it, I've just been using my DZ60 keyboard, building the firmware with `make dz60:default` and flashing with qmk_toolbox.
+To test it, I've just been using my DZ60 keyboard, building the firmware with `make dz60:default` and flashing with qmk_toolbox. If you're not familiar with how to do that, it's probably best you consult the [QMK documentation](https://docs.qmk.fm/#/).
 
 Below is the original QMK readme:
 
