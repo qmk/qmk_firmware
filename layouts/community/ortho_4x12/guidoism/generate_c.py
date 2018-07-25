@@ -44,7 +44,7 @@ top    = surround(pattern(5, 12), '┌', '┬', '┐')
 mid    = surround(pattern(5, 12), '├', '┼', '┤')
 bottom = surround(pattern(5, 12), '└', '┴', '┘')
 
-if True:
+if False:
     for i, l in enumerate(d['layers']):
         print('/*')
         print(top)
@@ -67,22 +67,27 @@ def uni(k):
     k = keys.get(k, k)
     return unicodes.get(k, k).center(5)
 
-surround = lambda s: ''.join(interleave_longest(['│']*(len(s)+1), s))
-layer = list(map(uni, d['layers'][0]))
-layer[41] = layer[41].center(11)
-layer = chunked(layer, 12)
-rows = intersperse(mid, map(surround, layer))
-print('\n'.join(itertools.chain([top], rows, [bottom])))
+def c_layout(i):
+    surround = lambda s: ''.join(interleave_longest(['│']*(len(s)+1), s))
+    layer = list(map(uni, d['layers'][i]))
+    layer[41] = layer[41].center(11)
+    layer = chunked(layer, 12)
+    rows = intersperse(mid, map(surround, layer))
+    pretty = '\n'.join(itertools.chain([top], rows, [bottom]))
+    
+    surround = lambda s: ', '.join(s)
+    layer = list(map(lambda k: layer_name.get(k, k), d['layers'][i]))
+    layer = chunked(layer, 12)
+    rows = map(surround, layer)
+    
+    return """/* {0}
+{1}
+*/
+[{2}] = {3}(
+    {4})
+""".format(layer_names[i].strip('_').capitalize(), pretty, layer_names[i], d['layout'], ',\n    '.join(itertools.chain([], rows, [])))
 
-surround = lambda s: ''.join(interleave_longest(s, [', ']*(len(s))))
-layer = list(map(lambda k: layer_name.get(k, k), d['layers'][0]))
-#layer[41] = layer[41].center(22)
-layer = chunked(layer, 12)
-#rows = intersperse('', map(surround, layer))
-rows = map(surround, layer)
-print('\n'.join(itertools.chain([], rows, [])))
-
-
+print(c_layout(0))
 
 # What I really want I think is a state machine that knows whether it's on the top,
 # beginning of line, end of line, middle or bottom.
