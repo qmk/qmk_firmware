@@ -24,13 +24,15 @@
 #include "rgblight.h"
 #include "debug.h"
 #include "led_tables.h"
+#include "quantum.h"
 
 #ifndef RGBLIGHT_LIMIT_VAL
 #define RGBLIGHT_LIMIT_VAL 255
 #endif
 
-#define MIN(a,b) (((a)<(b))?(a):(b))
-#define MAX(a,b) (((a)>(b))?(a):(b))
+//These conflict with a chained include that comes from including quantum.h
+// #define MIN(a,b) (((a)<(b))?(a):(b))
+// #define MAX(a,b) (((a)>(b))?(a):(b))
 
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
@@ -628,7 +630,17 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2])) {
+
+  //Improvement: move this code into rgblight_task() so that the typing_speed can be used across all RGB effects, not just swirl
+  static uint16_t decay_timer = 0;
+  if (timer_elapsed(decay_timer) > 250 || decay_timer == 0) {
+    if (typing_speed > 0) typing_speed -= 1;
+    //Improvement(?): decay by a greater rate depending on how big typing_speed is, so you can't reach max speed just by outpacing the regular decay
+    decay_timer = timer_read();
+  }
+
+  //Improvement: make the usage of typing speed more easily configurable, either with a pre-processor toggle or with real-time key toggles
+  if (timer_elapsed(last_timer) < MAX(1, 100 - typing_speed)) {
     return;
   }
   last_timer = timer_read();
