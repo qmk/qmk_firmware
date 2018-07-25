@@ -1,10 +1,14 @@
 import itertools
 import json
+import os.path
+import re
+
+base = os.path.dirname(__file__)
 
 layer_names = dict(enumerate(['_QWERTY', '_LOWER', '_RAISE', '_MOVEMENT', '_NUMPAD']))
 layer_name = {('MO(%d)' % i): layer_names.get(i).strip('_') for i in layer_names.keys()}
 
-keys = json.load(open('layouts/community/ortho_4x12/guidoism/keys.json'))
+keys = json.load(open(os.path.join(base, 'keys.json')))
 
 unicodes = {
     "<i class='fa fa-fast-forward'></i>": "next",
@@ -18,7 +22,7 @@ def unicode(k, only_unicode=True):
     if only_unicode:
         return unicodes.get(k, k)
 
-d = json.load(open('layouts/community/ortho_4x12/guidoism/guidoism.json'))
+d = json.load(open(os.path.join(base, 'guidoism.json')))
 
 def surround(s, a, b, c):
     return a + b.join(s) + c
@@ -61,6 +65,13 @@ def c_layout(i, definition):
     {4})
 """.format(pretty_name, pretty, c_name, layout, c_layer)
 
-print(',\n\n'.join(c_layout(i, l) for i, l in enumerate(d['layers'])))
+start = '// START_REPLACEMENT\n'
+end = '// END_REPLACEMENT\n'
+replacement = start + ',\n\n'.join(c_layout(i, l) for i, l in enumerate(d['layers'])) + end
+
+keymap = os.path.join(base, 'keymap.c')
+existing = open(keymap).read()
+r = re.compile(r'// START_REPLACEMENT.*// END_REPLACEMENT', re.DOTALL)
+open(keymap, 'w').write(r.sub(replacement, existing))
 
 
