@@ -1,4 +1,3 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 #include QMK_KEYBOARD_H
 
 #include "telophase.h"
@@ -140,7 +139,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
-}
+};
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOWER:
