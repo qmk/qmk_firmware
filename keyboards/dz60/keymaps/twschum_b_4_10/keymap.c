@@ -72,7 +72,9 @@ enum extra_keycodes {
     CTRL_A = SAFE_RANGE,
     CTRL_B,
     EN_CTRL_SHORTCUTS,
-    TG_LAYER_RGB,
+    TG_LAYER_RGB, // Toggle between standard RGB underglow, and RGB underglow to do layer indication
+    TG_L0_RGB, // Toggle color on or off of layer0
+
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -96,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
        //
        // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
-             KC_MEH,    KC_LALT,    KC_LGUI,         KC_SPC,             TT(2),       MO(1),          TG(3),   TT(4),  KC_LEFT, KC_DOWN, KC_RGHT
+             KC_MEH,    KC_LALT,    KC_LGUI,         KC_SPC,             TT(2),       MO(1),          TG(3),   MO(4),  KC_LEFT, KC_DOWN, KC_RGHT
        // |----------|----------||----------||----------------------||----------|------------------||--------|--------|--------|--------|--------|
           ),
 
@@ -128,7 +130,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           ),
     /* Layer 4: RGB lighting controls and keyboard config, reset */
     KEYMAP(
-            KC_TRNS,            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      TO(5),
+            KC_TRNS,            KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    TG_L0_RGB,       KC_NO,             KC_NO,      TO(5),
             KC_NO,              KC_NO,  KC_NO,  KC_NO,  RESET,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    KC_NO,           KC_NO,             KC_NO,      RGB_HUD,
             EN_CTRL_SHORTCUTS,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    TG_LAYER_RGB, RGB_MODE_PLAIN,  RGB_MODE_FORWARD,  KC_RSHIFT,
             KC_NO,              KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,    KC_NO,    KC_NO,    RGB_TOG,         RGB_VAI,           RGB_HUI,
@@ -194,6 +196,8 @@ static bool A_down = false;
 static bool A_other_key = false;
 static bool B_down = 0; // TODO just use top bit from count
 static int8_t B_count = 0;
+static bool rgb_layers_enabled = true;
+static bool rgb_L0_enabled = false;
 
 static inline void start_idle_timer(void);
 static inline void clear_state_after_idle_timeout(void);
@@ -224,7 +228,10 @@ inline void matrix_scan_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TG_LAYER_RGB:
-
+            rgb_layers_enabled ^= 1;
+            return false;
+        case TG_L0_RGB:
+            rgb_L0_enabled ^= 1;
             return false;
         case EN_CTRL_SHORTCUTS:
             if (record->event.pressed) {
