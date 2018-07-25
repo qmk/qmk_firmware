@@ -1,4 +1,4 @@
-/* Copyright 2017 Colin T.A. Gray
+/* Copyright 2017 Benjamin Kesselring
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -19,10 +19,6 @@
 
 #include "../../config.h"
 
-// QMK customization:
-// - after 1.5s, turn off one-shot keys
-#define ONESHOT_TIMEOUT 1500
-// - TT(layer) only needs one press
-#define TAPPING_TOGGLE 1
+// place overrides here
 
 #endif
