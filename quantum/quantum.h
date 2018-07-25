@@ -27,7 +27,7 @@
 #ifdef BACKLIGHT_ENABLE
     #include "backlight.h"
 #endif
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE) 
+#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
 	#include "rgb.h"
 #endif
 #ifdef RGBLIGHT_ENABLE
