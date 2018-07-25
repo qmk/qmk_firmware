@@ -92,7 +92,7 @@ def c_layout(i, definition):
     {4})
 """.format(pretty_name, pretty, c_name, layout, c_layer)
 
-print(c_layout(0, d['layers'][0]))
+print(',\n'.join(c_layout(i, l) for i, l in enumerate(d['layers'])))
 
 # What I really want I think is a state machine that knows whether it's on the top,
 # beginning of line, end of line, middle or bottom.
