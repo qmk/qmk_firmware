@@ -27,7 +27,7 @@
 #define DESCRIPTION     "Handwire protoboard"
 
 /* key matrix size */
-#define MATRIX_ROWS 12
+#define MATRIX_ROWS 6
 #define MATRIX_COLS 7
 
 /*
@@ -40,11 +40,9 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-/* Note: These are not used for arm boards. They're here purely as documentation.
- * #define MATRIX_ROW_PINS { PB0, PB1, PB2, PA15, PA10 }
- * #define MATRIX_COL_PINS { PA2, PA3, PA6, PB14, PB15, PA8, PA9, PA7, PB3, PB4, PC14, PC15, PC13, PB5, PB6 }
- * #define UNUSED_PINS
- */
+
+#define MATRIX_ROW_PINS { B11, B10, B12, B13, B14, B15 }
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 6
@@ -129,6 +127,21 @@
 #define BACKLIGHT_LEVELS 1
 
 #define NO_USB_STARTUP_CHECK
+
+// This is a 7-bit address, that gets left-shifted and bit 0
+// set to 0 for write, 1 for read (as per I2C protocol)
+// The address will vary depending on your wiring:
+// 0b1110100 AD <-> GND
+// 0b1110111 AD <-> VCC
+// 0b1110101 AD <-> SCL
+// 0b1110110 AD <-> SDA
+#define DRIVER_ADDR_1 0b1110100
+#define DRIVER_ADDR_2 0b1110110
+
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 35
+#define DRIVER_2_LED_TOTAL 35
+#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
 
 #endif
 

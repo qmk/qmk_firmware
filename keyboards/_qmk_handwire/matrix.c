@@ -7,27 +7,23 @@
 #include "printf.h"
 #include "backlight.h"
 #include "matrix.h"
+#include "action.h"
+#include "keycode.h"
+#include <string.h>
+#include "quantum.h"
 
-#include "usb_main.h"
-#include "twi2c.h"
-
-/* QMK Handwire
- *
- * Column pins are input with internal pull-down.
- * Row pins are output and strobe with high.
- * Key is high or 1 when it turns on.
- *
- *     col: { A13, A14, A15, B3, B4, B5, B6 }
- *     row: { B10, B2, B1, B0, A7, A6 }
+/*
+ *     col: { A10, B2, A15, A0, A1, A2, B0, B1, C13, A6, A7, A3 }
+ *     row: { B5, B10, A9, A8 }
  */
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
+static matrix_row_t matrix_debouncing[MATRIX_COLS];
 static bool debouncing = false;
 static uint16_t debouncing_time = 0;
 
-static bool master = false;
-static bool right_hand = false;
+static LINE_TYPE matrix_col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static LINE_TYPE matrix_row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -47,126 +43,43 @@ void matrix_scan_kb(void) {
 
 void matrix_init(void) {
     printf("matrix init\n");
-    // debug_matrix = true;
+    //debug_matrix = true;
 
-    // C13 is connected to VCC on the right hand
-    palSetPadMode(GPIOC, 13, PAL_MODE_INPUT);
-    wait_us(20);
-    right_hand = palReadPad(GPIOC, 13);
-
-    // if USB is active, this is the master
-    // master = usbGetDriverStateI(&USB_DRIVER) == USB_ACTIVE;
-    master = right_hand;
-
-    if (master) {
-      twi2c_init();
-    } else {
-      twi2c_slave_init();
+    // actual matrix setup
+    for (int i = 0; i < MATRIX_COLS; i++) {
+      setPadMode(matrix_col_pins[i], PAL_MODE_OUTPUT_PUSHPULL);
     }
 
-    /* Column(sense) */
-    palSetPadMode(GPIOA, 13, PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOA, 14, PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOA, 15, PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOB, 3,  PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOB, 4,  PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOB, 5,  PAL_MODE_INPUT_PULLDOWN);
-    palSetPadMode(GPIOB, 6,  PAL_MODE_INPUT_PULLDOWN);
-
-    /* Row(strobe) */
-    palSetPadMode(GPIOB, 10, PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB, 2,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB, 1,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOB, 0,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOA, 7,  PAL_MODE_OUTPUT_PUSHPULL);
-    palSetPadMode(GPIOA, 6,  PAL_MODE_OUTPUT_PUSHPULL);
+    for (int i = 0; i < MATRIX_ROWS; i++) {
+      setPadMode(matrix_row_pins[i], PAL_MODE_INPUT_PULLDOWN);
+    }
 
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
-    memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
+    memset(matrix_debouncing, 0, MATRIX_COLS * sizeof(matrix_row_t));
 
-    // palClearPad(GPIOB, 7);  // Turn off capslock
     matrix_init_quantum();
-}
-
-matrix_row_t matrix_scan_common(uint8_t row) {
-  matrix_row_t data;
-
-  // strobe row { A6, A7, B0, B1, B2, B10 }
-  switch (row) {
-      case 5: palSetPad(GPIOA, 6); break;
-      case 4: palSetPad(GPIOA, 7); break;
-      case 3: palSetPad(GPIOB, 0); break;
-      case 2: palSetPad(GPIOB, 1); break;
-      case 1: palSetPad(GPIOB, 2); break;
-      case 0: palSetPad(GPIOB, 10); break;
-  }
-
-  // need wait to settle pin state
-  wait_us(20);
-
-  // read col data {  B6, B5, B4, B3, A15, A14, A13 }
-  data = (
-      (palReadPad(GPIOB, 6)  << 6 ) |
-      (palReadPad(GPIOB, 5)  << 5 ) |
-      (palReadPad(GPIOB, 4)  << 4 ) |
-      (palReadPad(GPIOB, 3)  << 3 ) |
-      (palReadPad(GPIOA, 15) << 2 ) |
-      (palReadPad(GPIOA, 14) << 1 ) |
-      (palReadPad(GPIOA, 13) << 0 )
-  );
-
-  // unstrobe row { A6, A7, B0, B1, B2, B10 }
-  switch (row) {
-      case 5: palClearPad(GPIOA, 6); break;
-      case 4: palClearPad(GPIOA, 7); break;
-      case 3: palClearPad(GPIOB, 0); break;
-      case 2: palClearPad(GPIOB, 1); break;
-      case 1: palClearPad(GPIOB, 2); break;
-      case 0: palClearPad(GPIOB, 10); break;
-  }
-
-  return data;
-}
-
-const uint8_t command[2] = { 0x01, 0x00 };
-uint8_t other_matrix[MATRIX_ROWS] = { 0 };
-
-void matrix_scan_master(void) {
-
-  msg_t resp;
-  // resp = twi2c_master_send(slaveI2Caddress/2, command, 2, other_matrix, US2ST(100));
-  resp = i2cMasterTransmitTimeout(&I2C_DRIVER, slaveI2Caddress/2, command, 2, other_matrix, MATRIX_ROWS / 2, MS2ST(100));
-  // resp = i2cMasterReceiveTimeout(&I2C_DRIVER, slaveI2Caddress/2, other_matrix, MATRIX_ROWS / 2, US2ST(100));
-  // printf("%x\n", resp);
-  // if (resp != MSG_OK) {
-  //   for (i = 0; i < MATRIX_ROWS / 2; i++) {
-  //     resp = i2cMasterReceiveTimeout(&I2C_DRIVER, slaveI2Caddress/2, other_matrix, MATRIX_ROWS / 2, US2ST(100));
-  //   }
-  // }
-
-  if (resp == MSG_OK) {
-    uint8_t * matrix_pointer;
-    if (right_hand) {
-      matrix_pointer = matrix;
-    } else {
-      matrix_pointer = matrix + (MATRIX_ROWS / 2);
-    }
-
-    memcpy(matrix_pointer, other_matrix, MATRIX_ROWS / 2);
-  }
 }
 
 uint8_t matrix_scan(void) {
 
-    for (int row = 0; row < MATRIX_ROWS; row++) {
+
+    // actual matrix
+    for (int col = 0; col < MATRIX_COLS; col++) {
         matrix_row_t data = 0;
 
-        if ((right_hand && row >= 6) || (!right_hand && row < 6)) {
-          data = matrix_scan_common(row % 6);
+        setPad(matrix_col_pins[col]);
+
+        // need wait to settle pin state
+        wait_us(20);
+
+        for (int row = 0; row < MATRIX_ROWS; row++) {
+          data |= (readPad(matrix_row_pins[row]) << row);
         }
 
-        if (matrix_debouncing[row] != data) {
-            matrix_debouncing[row] = data;
+        clearPad(matrix_col_pins[col]);
+
+        if (matrix_debouncing[col] != data) {
+            matrix_debouncing[col] = data;
             debouncing = true;
             debouncing_time = timer_read();
         }
@@ -174,13 +87,12 @@ uint8_t matrix_scan(void) {
 
     if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
         for (int row = 0; row < MATRIX_ROWS; row++) {
-            matrix[row] = matrix_debouncing[row];
+            matrix[row] = 0;
+            for (int col = 0; col < MATRIX_COLS; col++) {
+                matrix[row] |= ((matrix_debouncing[col] & (1 << row) ? 1 : 0) << col);
+            }
         }
         debouncing = false;
-    }
-
-    if (master) {
-      matrix_scan_master();
     }
 
     matrix_scan_quantum();
@@ -194,16 +106,6 @@ bool matrix_is_on(uint8_t row, uint8_t col) {
 
 matrix_row_t matrix_get_row(uint8_t row) {
     return matrix[row];
-}
-
-void matrix_copy(matrix_row_t * copy) {
-  uint8_t * matrix_pointer;
-  if (right_hand) {
-    matrix_pointer = matrix + (MATRIX_ROWS / 2);
-  } else {
-    matrix_pointer = matrix;
-  }
-  memcpy(copy, matrix_pointer, MATRIX_ROWS / 2);
 }
 
 void matrix_print(void) {
