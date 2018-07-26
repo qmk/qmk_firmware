@@ -5,7 +5,7 @@ Group buy was run November 2016 via [geekhack](https://geekhack.org/index.php?to
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: Duck Eagle/Viper PCB Ver 2.0, Atmega32u4  
-Hardware Availability: Wait until GB of the next revision
+Hardware Availability: Wait until GB of the next revision  
 
 Make example for this keyboard (after setting up your build environment):
 

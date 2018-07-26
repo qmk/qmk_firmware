@@ -16,7 +16,7 @@
 #ifndef V2_H
 #define V2_H
 
-#include "../eagle_viper.h"
+#include "quantum.h"
 
 #define LAYOUT_all( \
     K4A, K4B, K4C, K4D, K4E, K4F, K4G, K4H, K4I, K4J, K4K, K4L, K4M, K4N, K4O, \
