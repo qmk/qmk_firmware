@@ -16,7 +16,7 @@
 #ifndef V1_H
 #define V1_H
 
-#include "../octagon.h"
+#include "quantum.h"
 
 #define LAYOUT( \
     K5A, K5B, K5C, K5D, K5E, K5F, K5G, K5H, K5I, K5J, K5K, K5L, K5M, K5N, K5P, \
