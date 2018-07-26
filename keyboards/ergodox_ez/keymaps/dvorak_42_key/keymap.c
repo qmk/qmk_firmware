@@ -38,7 +38,11 @@ enum custom_keycodes {
   SHELL_SCREEN_LIST,
   SHELL_MKE,
   SHELL_HTCSTATUS,
+  SHELL_HTCBOUNCE,
   SHELL_DUMPTLOG,
+
+  SHELL_EXPAND_OE_LOGPATTERN,
+  SHELL_EXPAND_OE_TRANPATTERN,
   
   // Cloud9 macros
   CLOUD9_TAB_LEFT,
@@ -88,8 +92,6 @@ enum custom_keycodes {
 #define SCREEN_PASTEREG_1 28
 #define SCREEN_PASTEREG_2 29
 #define SCREEN_PASTEREG_3 30
-#define SHELL_EXP_LOGPATTERN 34
-#define SHELL_EXP_TRANPATTERN 35
 #define DEL_TO_HOME 36
 
 
@@ -215,7 +217,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SHELL_NAV] = LAYOUT_ergodox(
        // left hand
        KC_NO,  KC_TRNS,           KC_TRNS,        KC_TRNS,          KC_TRNS,     KC_TRNS,         KC_TRNS,
-       KC_TRNS,KC_TRNS,           SHELL_PGREP,    SHELL_PLESS,      SHELL_LESS,  KC_TRNS,         SHELL_H3,
+       KC_TRNS,KC_TRNS,           SHELL_PGREP,    SHELL_PLESS,      SHELL_LESS,  SHELL_HTCBOUNCE, SHELL_H3,
        KC_TRNS,SHELL_MKE,         SHELL_CDPRE,    SHELL_LSLTR,      SHELL_LS,    SHELL_LSLA,
        KC_TRNS,SHELL_SCREEN_LIST, SHELL_SCREENRD, SHELL_SCREEN_NEW, SHELL_TAILF, SHELL_HTCSTATUS, SHELL_AMMCOLO,
                // bottom row
@@ -225,8 +227,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    M(SHELL_EXP_TRANPATTERN),
-       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    M(SHELL_EXP_LOGPATTERN),
+       KC_TRNS,    KC_TRNS,    KC_TRNS,             KC_TRNS,         KC_TRNS,    KC_TRNS,    SHELL_EXPAND_OE_TRANPATTERN,
+       RCTL(KC_L), RCTL(KC_W), KC_HOME,             KC_UP,           KC_END,     KC_TRNS,    SHELL_EXPAND_OE_LOGPATTERN,
                    LALT(KC_B), KC_LEFT,             KC_DOWN,         KC_RIGHT,   LALT(KC_F), RCTL(KC_W),
        RCTL(KC_C), RCTL(KC_U), LALT(KC_DOT),        RCTL(KC_R),      MEH(KC_V),  RCTL(KC_K), SHELL_DUMPTLOG,
                    // bottom row (match functionality of base layer)
@@ -435,44 +437,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
             }
         break;        
 
-	case SHELL_EXP_LOGPATTERN:
-            if (record->event.pressed) {
-                return MACRO( 
-				// first, to the left of the word
- 				D(LALT), T(B), U(LALT),
-				// write a star				
-				D(LSFT), T(8), U(LSFT),
-				// go to the right of the word
-				D(LALT), T(F), U(LALT),
-				// write a star
-				D(LSFT), T(8), U(LSFT),
-				// write "log"
-			        T(L), T(O), T(G),
-				// expand the pattern
-				D(LCTL), T(X), U(LCTL), D(LSFT), T(8), D(LSFT),							
-		                END); 
-            }				
-  	    break;		
-
-	case SHELL_EXP_TRANPATTERN:
-            if (record->event.pressed) {
-                return MACRO( 
-				// first, to the left of the word
- 				D(LALT), T(B), U(LALT),
-				// write a star				
-				D(LSFT), T(8), U(LSFT),
-				// go to the right of the word
-				D(LALT), T(F), U(LALT),
-				// write a star
-				D(LSFT), T(8), U(LSFT),
-				// write "tran"
-			        T(T), T(R), T(A), T(N),
-				// expand the pattern
-				D(LCTL), T(X), U(LCTL), D(LSFT), T(8), D(LSFT),							
-		                END); 
-            }				
-  	    break;		
-
 	case DEL_TO_HOME:
             if (record->event.pressed) {
                 return MACRO( 
@@ -571,13 +535,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
             break;
         case SHELL_MKE:
-            SEND_STRING("mke\n");
+            SEND_STRING("mki -j8\n");
             return true;
             break;
         case SHELL_HTCSTATUS:
             SEND_STRING("htcStatus -j ");
             return true;
             break;               
+        case SHELL_HTCBOUNCE:
+            SEND_STRING("htcBounce -j ");
+            return true;
+            break;               
+	case SHELL_EXPAND_OE_LOGPATTERN:
+            SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.log"SS_LCTRL("x")SS_LSFT("8"));
+	    break;	
+	case SHELL_EXPAND_OE_TRANPATTERN:
+            SEND_STRING(SS_TAP(X_LEFT)"*CQW_HKEX"SS_TAP(X_END)"*.tran"SS_LCTRL("x")SS_LSFT("8"));
+	    break;	
         case SHELL_DUMPTLOG:
             SEND_STRING(" | dumptlog - ");
             return true;
