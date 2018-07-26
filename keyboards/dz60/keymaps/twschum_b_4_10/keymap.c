@@ -33,18 +33,7 @@
     { K400,  K401,  KC_NO, K403,  K404,  KC_NO, K406,  KC_NO, K408,  KC_NO, K410,  K411,  K412,  K413,  K414 }  \
 }
 
-#define _______ KC_TRNS
-
-// https://docs.qmk.fm/features/mouse-keys#configuring-the-behavior-of-mousekeys
-#define MOUSEKEY_DELAY        0
-#define MOUSEKEY_INTERVAL     10
-#define MOUSEKEY_MAX_SPEED    7
-#define MOUSEKEY_TIME_TO_MAX  10
-#define MOUSEKEY_WHEEL_DELAY  0
-
-// TODO make this work because it doesn't seem to be redefining the symbol
-#define TAPPING_TOGGLE  2
-
+// Mac vs Linux/windows behaviour for media next/prev keys
 #define IS_MAC 1
 #ifdef IS_MAC
 #define MEDIA_FWD KC_MFFD
@@ -74,7 +63,6 @@ enum extra_keycodes {
     EN_CTRL_SHORTCUTS,
     TG_LAYER_RGB, // Toggle between standard RGB underglow, and RGB underglow to do layer indication
     TG_L0_RGB, // Toggle color on or off of layer0
-
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -98,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        // |------------------|--------|--------|--------|--------|--------|--------|--------|--------|--------||--------------|--------|--------||
        //
        // |---1.25---|---1.25---||---1.25---||--------2.75----------||---1.25---|------2.25--------||--------|--------|--------|--------|--------|
-             KC_MEH,    KC_LALT,    KC_LGUI,         KC_SPC,             TT(2),       MO(1),          TG(3),   MO(4),  KC_LEFT, KC_DOWN, KC_RGHT
+             KC_MEH,    KC_LALT,    KC_LGUI,         KC_SPC,             TT(2),       MO(1),          TG(3),   TT(4),  KC_LEFT, KC_DOWN, KC_RGHT
        // |----------|----------||----------||----------------------||----------|------------------||--------|--------|--------|--------|--------|
           ),
 
