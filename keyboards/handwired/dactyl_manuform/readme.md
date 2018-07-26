@@ -1,7 +1,8 @@
-Dactyl manuform
+Dactyl Manuform
 ======
-
 the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
+![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
+
 
 ## First Time Setup
 
@@ -30,6 +31,19 @@ dactyl_manuform_YOUR_KEYMAP_NAME.hex
 ```
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
+
+## Keymaps
+Currently there are only two keymaps: Qwerty and Dvorak, feel free to make changes and contribute your keymap.
+### Qwerty and Dvorak
+Qwerty base layer:
+![Imgur](https://i.imgur.com/Yb5e7dS.png)
+Dvorak base layer:
+![Imgur](https://i.imgur.com/CpuZptB.png)
+Both keymaps have the same Raise and Lower layers:
+Raise Layer
+![Imgur](https://i.imgur.com/nOqePK5.png)
+Lower Layer
+![Imgur](https://i.imgur.com/WSshkYc.png)
 
 Required Hardware
 -----------------

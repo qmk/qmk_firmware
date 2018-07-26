@@ -34,6 +34,7 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     OPT_DEFS += -DAUDIO_ENABLE
     MUSIC_ENABLE := 1
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
     ifeq ($(PLATFORM),AVR)
         SRC += $(QUANTUM_DIR)/audio/audio.c
     else
@@ -113,6 +114,15 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+    OPT_DEFS += -DRGB_MATRIX_ENABLE
+    SRC += is31fl3731.c
+    SRC += i2c_master.c
+    SRC += $(QUANTUM_DIR)/color.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix.c
+    CIE1931_CURVE = yes
+endif
+
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     OPT_DEFS += -DTAP_DANCE_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
@@ -187,6 +197,12 @@ ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
+
+ifeq ($(strip $(HD44780_ENABLE)), yes)
+    SRC += drivers/avr/hd44780.c
+	OPT_DEFS += -DHD44780_ENABLE
+endif
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
@@ -194,5 +210,17 @@ QUANTUM_SRC:= \
     $(QUANTUM_DIR)/process_keycode/process_leader.c
 
 ifndef CUSTOM_MATRIX
-    QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
+    ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
+    else
+        QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
+    endif
+endif
+
+ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    OPT_DEFS += -DSPLIT_KEYBOARD
+    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
+                $(QUANTUM_DIR)/split_common/split_util.c \
+                $(QUANTUM_DIR)/split_common/i2c.c \
+                $(QUANTUM_DIR)/split_common/serial.c  
 endif

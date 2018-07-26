@@ -126,7 +126,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        | Tab    | Left   | Down   | Right  |        |        |        |        |        | Insert | Home   | PgUp   |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | ShTab  | Alt L  |        | Alt R  |        |        |        |        |        | ScLk   | End    | PgDn   |        |        |
+ * |        | ShTab  | Alt L  | Shift  | Alt R  |        |        |        |        |        | ScLk   | End    | PgDn   |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        | RESET  |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { _______, UK_ESC,  _C_LEFT, UK_UP  , _C_RGHT, _______, _______, _______, _______, _______, UK_PSCR, UK_SLCK, UK_PAUS, _______, _______ },
   { _______, UK_TAB,  UK_LEFT, UK_DOWN, UK_RGHT, _______, _______, _______, _______, _______, UK_INS,  UK_HOME, UK_PGUP, _______, _______ },
-  { _______, _S_TAB,  _A_LEFT, _______, _A_RGHT, _B_NAV,  _______, _______, _______, _K_NAV,  UK_SLCK, UK_END,  UK_PGDN, _______, _______ },
+  { _______, _S_TAB,  _A_LEFT, UK_LSFT, _A_RGHT, _B_NAV,  _______, _______, _______, _K_NAV,  UK_SLCK, UK_END,  UK_PGDN, _______, _______ },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET   },
  },
 };
@@ -161,3 +161,51 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       }
     return MACRO_NONE;
 };
+
+bool CTRLDOWN = false;
+bool ALTDOWN = false;
+bool WINDOWN = false;
+bool SHIFTDOWN = false;
+bool TERMINALOPEN = false;
+
+void matrix_scan_user(void) {
+  if (TERMINALOPEN) {
+    rgblight_effect_rainbow_swirl(128);
+  } else if (SHIFTDOWN) {
+    rgblight_effect_breathing(3);
+  } else if (CTRLDOWN) {
+    rgblight_effect_knight(3);
+  } else if (WINDOWN) {
+    rgblight_effect_snake(3);
+  } else {
+    rgblight_setrgb(0, 0, 0);
+  }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case UK_LGUI:
+    case UK_RGUI:
+      WINDOWN = record->event.pressed;
+      TERMINALOPEN = false;
+      break;
+    case UK_LCTL:
+    case UK_RCTL:
+      CTRLDOWN = record->event.pressed;
+      break;
+    case UK_LSFT:
+    case UK_RSFT:
+      SHIFTDOWN = record->event.pressed;
+      break;
+    case UK_LALT:
+    case UK_RALT:
+      ALTDOWN = record-> event.pressed;
+      break;
+    case _TERM:
+      if (record->event.pressed) {
+        TERMINALOPEN = !TERMINALOPEN;
+      }
+      break;
+  }
+  return true;
+}

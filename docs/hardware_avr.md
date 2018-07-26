@@ -66,9 +66,7 @@ Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately r
 #define DESCRIPTION     A custom keyboard
 ```
 
-{% hint style='info' %}
-Note: On Windows and macOS the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` fields will be displayed in the list of USB devices. On Linux these values will not be visible in `lsusb`, since Linux takes that information from the list published by the USB-IF.
-{% endhint %}
+?> Note: On Windows and macOS the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` fields will be displayed in the list of USB devices. On Linux these values will not be visible in `lsusb`, since Linux takes that information from the list published by the USB-IF.
 
 ### Keyboard Matrix Configuration
 

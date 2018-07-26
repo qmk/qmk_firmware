@@ -67,7 +67,7 @@ if [ ! -d "$armtools" ]; then
     while true; do
         echo
         echo "The ARM toolchain is not installed."
-        echo "This is needed for building ARM based keboards."
+        echo "This is needed for building ARM based keyboards."
         read -p "Do you want to install it? (Y/N) " res
         case $res in
             [Yy]* ) install_arm; break;;

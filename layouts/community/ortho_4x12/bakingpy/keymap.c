@@ -34,10 +34,11 @@ enum custom_keycodes {
 #define KC_GRVF LT(_FKEYS, KC_GRV)
 #define KC_ENTS MT(MOD_LSFT, KC_ENT)
 #define KC_BL_S BL_STEP
+#define KC_BL_T BL_TOGG
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_LAYOUT_ortho_4x12(
+  [_QWERTY] = LAYOUT_kc_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -49,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_COLEMAK] = KC_LAYOUT_ortho_4x12(
+  [_COLEMAK] = LAYOUT_kc_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      TAB , Q  , W  , F  , P  , G  ,      J  , L  , U  , Y  ,SCLN,MINS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -61,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_DVORAK] = KC_LAYOUT_ortho_4x12(
+  [_DVORAK] = LAYOUT_kc_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      TAB ,QUOT,COMM,DOT , P  , Y  ,      F  , G  , C  , R  , L  ,MINS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -73,19 +74,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_LOWER] = KC_LAYOUT_ortho_4x12(
+  [_LOWER] = LAYOUT_kc_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-         , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,    ,
+     ASTR, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
      DEL ,CAPP,LEFT,RGHT, UP ,LBRC,     RBRC, P4 , P5 , P6 ,PLUS,PIPE,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
          ,CPYP,    ,    ,DOWN,LCBR,     RCBR, P1 , P2 , P3 ,MINS,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     BL_S,    ,    ,    ,    ,DEL ,     DEL ,    , P0 ,PDOT,    ,
+     BL_S,BL_T,    ,    ,    ,DEL ,     DEL ,    , P0 ,PDOT,    ,
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_RAISE] = KC_LAYOUT_ortho_4x12(
+  [_RAISE] = LAYOUT_kc_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
          ,EXLM, AT ,HASH,DLR ,PERC,     CIRC,AMPR,ASTR,LPRN,RPRN,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -97,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_FKEYS] = KC_LAYOUT_ortho_4x12(
+  [_FKEYS] = LAYOUT_kc_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
      F12 , F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 ,F10 ,F11 ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -134,6 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+float all_star_song[][2]   = SONG(ALL_STAR);
 #endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -195,6 +197,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_ADJUST);
       } else {
         layer_off(_ADJUST);
+      }
+      return false;
+      break;
+    case KC_ASTR:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(all_star_song);
+          SEND_STRING("Hey now, you're an all-star, get your game on, go play. Hey now, you're a rock star, get the show on, get paid. All that glitters is gold. Only shooting stars break the mold.");
+        #endif
       }
       return false;
       break;

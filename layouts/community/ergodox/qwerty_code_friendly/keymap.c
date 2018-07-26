@@ -9,13 +9,21 @@
  * See `readme.md` for notes on each define.
  */
 
-/* Personal preference (enable by passing EXTRAFLAGS=... to make). */
+/**
+ * Optionally support 80 key layout.
+ *
+ * No default keys defined: use 'CFQ_USER_K80_L0K0' .. etc.
+ */
+/* #define CFQ_USE_80_KEYS */
+
+/** Personal preference (enable by passing 'EXTRAFLAGS=...' to make). */
 /* #define CFQ_USE_MOMENTARY_LAYER_KEYS */
 
-/* Holding right/left or left/right shift for single or double quote pair */
+/** Holding right/left or left/right shift for single or double quote pair */
 /* #define CFQ_USE_SHIFT_QUOTES */
 
 #define CFQ_USE_DYNAMIC_MACRO
+
 
 #if !defined(CFQ_USER_KEY0)
 #  define CFQ_USER_KEY0 KC_BSPC
@@ -43,6 +51,91 @@
 #endif
 #if !defined(CFQ_USER_KEY8)
 #  define CFQ_USER_KEY8 KC_DEL
+#endif
+
+#ifdef CFQ_USE_80_KEYS
+#  define LAYOUT_ergodox_76_or_80 LAYOUT_ergodox_80
+#  define K80(a) CFQ_USER_K80_##a
+#else
+#  define LAYOUT_ergodox_76_or_80( \
+        k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, \
+        k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, \
+        k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, \
+        k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, \
+         \
+        k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, \
+        k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, \
+        k60, k61, k62, k63, k64, k65, k66, k67, k68, k69, \
+        k70, k71, k72, k73, k74, k75, k76, k77, k78, k79) \
+  LAYOUT_ergodox( \
+          k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, \
+          k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, \
+          k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, \
+          k30, k31, k32, k33,           k36, k37, k38, k39, \
+           \
+          k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, \
+          k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, \
+          k60, k61, k62, k63, k64, k65, k66, k67, k68, k69, \
+          k70, k71, k72, k73, k74,           k77, k78, k79)
+#  define K80(a) KC_TRNS
+#endif
+
+/**
+ * Used to generate lines below:
+ * \code{.py}
+ * text = '#  ifndef CFQ_USER_K80_L0K0\n#    define CFQ_USER_K80_L0K0 KC_TRNS\n#  endif'
+ * print('\n'.join([text.replace('L0', f'L{l}').replace('K0', f'K{k}') for l in range(3) for k in range(4)]))
+ * \endcode
+ */
+#ifdef CFQ_USE_80_KEYS
+#  ifndef CFQ_USER_K80_L0K0
+#    define CFQ_USER_K80_L0K0 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L0K1
+#    define CFQ_USER_K80_L0K1 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L0K2
+#    define CFQ_USER_K80_L0K2 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L0K3
+#    define CFQ_USER_K80_L0K3 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L1K0
+#    define CFQ_USER_K80_L1K0 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L1K1
+#    define CFQ_USER_K80_L1K1 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L1K2
+#    define CFQ_USER_K80_L1K2 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L1K3
+#    define CFQ_USER_K80_L1K3 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L2K0
+#    define CFQ_USER_K80_L2K0 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L2K1
+#    define CFQ_USER_K80_L2K1 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L2K2
+#    define CFQ_USER_K80_L2K2 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L2K3
+#    define CFQ_USER_K80_L2K3 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L3K0
+#    define CFQ_USER_K80_L3K0 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L3K1
+#    define CFQ_USER_K80_L3K1 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L3K2
+#    define CFQ_USER_K80_L3K2 KC_TRNS
+#  endif
+#  ifndef CFQ_USER_K80_L3K3
+#    define CFQ_USER_K80_L3K3 KC_TRNS
+#  endif
 #endif
 
 #ifndef CFQ_WORD_A
@@ -147,10 +240,10 @@ static char cfq_word_lut_title_caps[
     sizeof(CFQ_WORD_Y) + sizeof(CFQ_WORD_Z)
 ];
 
-#define BASE 0 /* default layer */
-#define SYMB 1 /* symbols */
-#define MDIA 2 /* media keys */
-#define WORD 3 /* experimental keys */
+#define LAYER_BASE 0 /* default layer */
+#define LAYER_KPAD 1 /* keypad */
+#define LAYER_MDIA 2 /* media keys */
+#define LAYER_FKEY 3 /* F-Keys & Words */
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, /* can always be here */
@@ -183,7 +276,14 @@ enum custom_keycodes {
 };
 
 #ifdef CFQ_USE_DYNAMIC_MACRO
-#include "dynamic_macro.h"
+#  include "dynamic_macro.h"
+#else
+   /* avoid ifdef's in keymap */
+#  define DYN_REC_START1 KC_TRNS
+#  define DYN_REC_START2 KC_TRNS
+#  define DYN_MACRO_PLAY1 KC_TRNS
+#  define DYN_MACRO_PLAY2 KC_TRNS
+#  define DYN_REC_STOP KC_TRNS
 #endif
 
 #ifdef CFQ_USE_MOMENTARY_LAYER_KEYS
@@ -198,50 +298,50 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Grave  |   !  |   @  |   #  |   $  |   %  |   {  |           |  }   |   ^  |   &  |   *  |   -  |   =  | BSpace |
- * |--------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |   (  |           |  )   |   Y  |   U  |   I  |   O  |   P  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Esc    |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
- * |--------+------+------+------+------+------|   [  |           |  ]   |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   | LCtl |Super | Alt  | ~L1  |Space |                                       | Left | Down | Up   |Right | Del  |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | Ins  |NumClk|       | Home | End  |
- *                                 ,------+------+------|       |------+------+------.
- *                                 |      |      |CapsLk|       | PgUp |      |      |
- *                                 |BSpace| Del  |------|       |------| ~L2  |Enter |
- *                                 |      |      | ~L3  |       | PgDn |      |      |
- *                                 `--------------------'       `--------------------'
+ * .--------------------------------------------------.  .--------------------------------------------------.
+ * | Grave  |   !  |   @  |   #  |   $  |   %  |   {  |  |  }   |   ^  |   &  |   *  |   -  |   =  | BSpace |
+ * |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
+ * | Tab    |   Q  |   W  |   E  |   R  |   T  |   (  |  |  )   |   Y  |   U  |   I  |   O  |   P  |   \    |
+ * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
+ * | Esc    |   A  |   S  |   D  |   F  |   G  |------|  |------|   H  |   J  |   K  |   L  |   ;  |   '    |
+ * |--------+------+------+------+------+------|   [  |  |  ]   |------+------+------+------+------+--------|
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |  |      |   N  |   M  |   ,  |   .  |   /  | RShift |
+ * '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
+ *   | LCtl |Super | Alt  | ~L1  |Space |                              | Left | Down | Up   |Right | Del  |
+ *   '----------------------------------'                              '----------------------------------'
+ *                                      .-------------.  .-------------.
+ *                                      | Ins  |NumClk|  | Home | End  |
+ *                               .------+------+------|  |------+------+------.
+ *                               |      |      |CapsLk|  | PgUp |      |      |
+ *                               |BSpace| Del  |------|  |------| ~L2  |Enter |
+ *                               |      |      | ~L3  |  | PgDn |      |      |
+ *                               '--------------------'  '--------------------'
  *
  * Optional overrides: see CFQ_USER_KEY# defines.
  *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      | USR0   |
- * |--------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      | USR1 |      |                                       |      |      |      |      | USR8 |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | USR2 | USR3 |       |      |      |
- *                                 ,------+------+------|       |------+------+------.
- *                                 |      |      | USR6 |       |      |      |      |
- *                                 | USR4 | USR5 |------|       |------|      |      |
- *                                 |      |      | USR7 |       |      |      |      |
- *                                 `--------------------'       `--------------------'
+ * .--------------------------------------------------.  .--------------------------------------------------.
+ * |        |      |      |      |      |      |      |  |      |      |      |      |      |      | USR0   |
+ * |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |  |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |------|  |------|      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |  |      |      |      |      |      |      |        |
+ * '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
+ *   |      |      |      | USR1 |      |                              |      |      |      |      | USR8 |
+ *   '----------------------------------'                              '----------------------------------'
+ *                                      .-------------.  .-------------.
+ *                                      | USR2 | USR3 |  |      |      |
+ *                               .------+------+------|  |------+------+------.
+ *                               |      |      | USR6 |  |      |      |      |
+ *                               | USR4 | USR5 |------|  |------|      |      |
+ *                               |      |      | USR7 |  |      |      |      |
+ *                               '--------------------'  '--------------------'
  */
 
 /* If it accepts an argument (i.e, is a function), it doesn't need KC_.
  * Otherwise, it needs KC_* */
-[BASE] = LAYOUT_ergodox(  /* layer 0 : default */
+[LAYER_BASE] = LAYOUT_ergodox_76_or_80(  /* layer 0 : default */
   /* left hand */
   KC_GRV,  KC_EXLM, KC_AT,   KC_HASH,       KC_DLR, KC_PERC, KC_LCBR,
   KC_TAB,  KC_Q,    KC_W,    KC_E,          KC_R,   KC_T,    KC_LPRN,
@@ -249,7 +349,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT, KC_Z,    KC_X,    KC_C,          KC_V,   KC_B,    KC_LBRC,
   KC_LCTL, KC_LGUI, KC_LALT, CFQ_USER_KEY1, KC_SPC,
                                                     CFQ_USER_KEY2, CFQ_USER_KEY3,
-                                                                   CFQ_USER_KEY6,
+                                     K80(L0K0),     K80(L0K1),     CFQ_USER_KEY6,
                                      CFQ_USER_KEY4, CFQ_USER_KEY5, CFQ_USER_KEY7,
   /* right hand */
   KC_RCBR,     KC_CIRC, KC_AMPR, KC_ASTR,KC_MINS, KC_EQL,    CFQ_USER_KEY0,
@@ -258,46 +358,41 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_RBRC,     KC_N,    KC_M,    KC_COMM,KC_DOT,  KC_SLSH,   KC_RSFT,
                         KC_LEFT, KC_DOWN,KC_UP,   KC_RGHT,   CFQ_USER_KEY8,
   KC_HOME, KC_END,
-  KC_PGUP,
+  KC_PGUP, K80(L0K2),  K80(L0K3),
   KC_PGDN, CFQ_KC_FN2, KC_ENT
-),/* Keymap 1: KeyPad, Macro Record
+),
+/* Keymap 1: KeyPad, Macro Record
  *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |  {}  |           |  }{  |      |NumLck|   /  |   *  |   -  |        |
- * |--------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |  =>  |  ()  |           |  )(  |  <=  |   7  |   8  |   9  |   +  |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |  ->  |------|           |------|  <-  |   4  |   5  |   6  |   +  |        |
- * |--------+------+------+------+------+------|  []  |           |  ][  |------+------+------+------+------+--------|
- * |        |      |      |      |      |  <>  |      |           |      |  ><  |   1  |   2  |   3  | Enter|        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |   0  |      |   .  | Enter|      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,--------------.
- *                                        |Start1|Start2|       |      |       |
- *                                 ,------+------+------|       |------+-------+------.
- *                                 |      |      | Stop |       |      |       |      |
- *                                 |Play1 |Play2 |------|       |------|       |      |
- *                                 |      |      |      |       |      |       |      |
- *                                 `--------------------'       `---------------------'
+ * .--------------------------------------------------.  .--------------------------------------------------.
+ * |        |      |      |      |      |      |  {}  |  |  }{  |      |NumLck|   /  |   *  |   -  |        |
+ * |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |  =>  |  ()  |  |  )(  |  <=  |   7  |   8  |   9  |   +  |        |
+ * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
+ * |        |      |      |      |      |  ->  |------|  |------|  <-  |   4  |   5  |   6  |   +  |        |
+ * |--------+------+------+------+------+------|  []  |  |  ][  |------+------+------+------+------+--------|
+ * |        |      |      |      |      |  <>  |      |  |      |  ><  |   1  |   2  |   3  | Enter|        |
+ * '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                              |   0  |      |   .  | Enter|      |
+ *   '----------------------------------'                              '----------------------------------'
+ *                                      .-------------.  .-------------.
+ *                                      |Start1|Start2|  |      |      |
+ *                               .------+------+------|  |------+------+------.
+ *                               |      |      | Stop |  |      |      |      |
+ *                               |Play1 |Play2 |------|  |------|      |      |
+ *                               |      |      |      |  |      |      |      |
+ *                               '--------------------'  '--------------------'
  */
-/* SYMBOLS */
-[SYMB] = LAYOUT_ergodox(
+/* KEYPAD & MACRO */
+[LAYER_KPAD] = LAYOUT_ergodox_76_or_80(
   /* left hand */
-  KC_TRNS, KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,            M_BRACKET_IN_CBR,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          M_BRACKET_IN_CBR,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M_ARROW_REQL,     M_BRACKET_IN_PRN,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M_ARROW_RMINUS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M_BRACKET_IN_ANG, M_BRACKET_IN_BRC,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-#ifdef CFQ_USE_DYNAMIC_MACRO
-                               DYN_REC_START1, DYN_REC_START2,
-                                               DYN_REC_STOP,
-                              DYN_MACRO_PLAY1, DYN_MACRO_PLAY2, KC_TRNS,
-#else
-                                      KC_TRNS, KC_TRNS,
-                                               KC_TRNS,
-                             KC_TRNS, KC_TRNS, KC_TRNS,
-#endif
+                                               DYN_REC_START1,   DYN_REC_START2,
+                              K80(L1K0),       K80(L1K1),        DYN_REC_STOP,
+                              DYN_MACRO_PLAY1, DYN_MACRO_PLAY2,  KC_TRNS,
   /* right hand */
   M_BRACKET_OUT_CBR, KC_TRNS,           KC_NLCK, KC_KP_SLASH, KC_KP_ASTERISK, KC_KP_MINUS,  KC_TRNS,
   M_BRACKET_OUT_PRN, M_ARROW_LEQL,      KC_KP_7, KC_KP_8,     KC_KP_9,        KC_KP_PLUS,  KC_TRNS,
@@ -305,84 +400,84 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   M_BRACKET_OUT_BRC, M_BRACKET_OUT_ANG, KC_KP_1, KC_KP_2,     KC_KP_3,        KC_KP_ENTER, KC_TRNS,
                                         KC_KP_0, KC_TRNS,     KC_KP_DOT,      KC_KP_ENTER, KC_TRNS,
   KC_TRNS, KC_TRNS,
-  KC_TRNS,
+  KC_TRNS, K80(L1K2), K80(L1K3),
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Keymap 2: F-Keys, media and mouse keys
+/* Keymap 2: Numbers, media and mouse keys
  *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |      |MWhlUp|           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |MsLeft|MsDown|MsRght|      |------|           |------| Left | Down | Up   |Right |      |        |
- * |--------+------+------+------+------+------|MWhlDn|           |      |------+------+------+------+------+--------|
- * |        |      | Rclk | Mclk | Lclk |      |      |           |      |      |      |      |      |      |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        | MRwd | MFwd |       | MPrv | MNxt |
- *                                 ,------+------+------|       |------+------+------.
- *                                 |      |      |      |       |VolUp |      |      |
- *                                 | Mute |      |------|       |------|      | Play |
- *                                 |      |      |      |       |VolDn |      |      |
- *                                 `--------------------'       `--------------------'
+ * .--------------------------------------------------.  .--------------------------------------------------.
+ * |        |   1  |   2  |   3  |   4  |   5  |      |  | Mute |   6  |   7  |   8  |   9  |   0  |        |
+ * |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
+ * |        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
+ * |        |      |MsLeft|MsDown|MsRght|      |------|  |------| Left | Down | Up   |Right |      |        |
+ * |--------+------+------+------+------+------|MWhlDn|  |VolDn |------+------+------+------+------+--------|
+ * |        |      | Rclk | Mclk | Lclk |      |      |  |      |      |      |      |      |      |        |
+ * '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                              |      |      |      |      |      |
+ *   '----------------------------------'                              '----------------------------------'
+ *                                      .-------------.  .-------------.
+ *                                      |      |      |  | MRwd | MFwd |
+ *                               .------+------+------|  |------+------+------.
+ *                               |      |      |      |  | MPrv |      |      |
+ *                               |      |      |------|  |------|      | Play |
+ *                               |      |      |      |  | MNxt |      |      |
+ *                               '--------------------'  '--------------------'
  */
-/* MEDIA AND MOUSE */
-[MDIA] = LAYOUT_ergodox(
+/* MEDIA, MOUSE & NUMBERS */
+[LAYER_MDIA] = LAYOUT_ergodox_76_or_80(
   /* left hand */
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_WH_U,
   KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_BTN2, KC_BTN3, KC_BTN1, KC_TRNS, KC_WH_D,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-                                      KC_MRWD, KC_MFFD,
-                                               KC_TRNS,
-                             KC_MUTE, KC_TRNS, KC_TRNS,
+                                      KC_TRNS,   KC_TRNS,
+                           K80(L2K0), K80(L2K1), KC_TRNS,
+                           KC_TRNS,   KC_TRNS,   KC_TRNS,
   /* right hand */
-  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_MUTE,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TRNS,
+  KC_VOLU,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
             KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS,
-  KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_VOLD,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-  KC_MPRV, KC_MNXT,
-  KC_VOLU,
-  KC_VOLD, KC_TRNS, KC_MPLY
+  KC_MRWD, KC_MFFD,
+  KC_MPRV, K80(L2K2), K80(L2K3),
+  KC_MNXT, KC_TRNS, KC_MPLY
 ),
 /* Keymap 3: Entire Words (one for each key)
  *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |  F11 |           | F12  |  F6  |  F7  |  F8  |  F9  |  F10 |        |
- * |--------+------+------+------+------+------+------|           |------+------+------+------+------+------+--------|
- * |        |   Q  |   W  |   E  |   R  |   T  |      |           |      |   Y  |   U  |   I  |   O  |   P  |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |      |        |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |      |      |      |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |      |      |      |      |
- *   `----------------------------------'                                       `----------------------------------'
- *                                        ,-------------.       ,-------------.
- *                                        |      |      |       |      |      |
- *                                 ,------+------+------|       |------+------+------.
- *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
- *                                 `--------------------'       `--------------------'
+ * .--------------------------------------------------.  .--------------------------------------------------.
+ * |        |  F1  |  F2  |  F3  |  F4  |  F5  |  F11 |  | F12  |  F6  |  F7  |  F8  |  F9  |  F10 |        |
+ * |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
+ * |        |   Q  |   W  |   E  |   R  |   T  |      |  |      |   Y  |   U  |   I  |   O  |   P  |        |
+ * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
+ * |        |   A  |   S  |   D  |   F  |   G  |------|  |------|   H  |   J  |   K  |   L  |      |        |
+ * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
+ * |        |   Z  |   X  |   C  |   V  |   B  |      |  |      |   N  |   M  |      |      |      |        |
+ * '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
+ *   |      |      |      |      |      |                              |      |      |      |      |      |
+ *   '----------------------------------'                              '----------------------------------'
+ *                                      .-------------.  .-------------.
+ *                                      |      |      |  |      |      |
+ *                               .------+------+------|  |------+------+------.
+ *                               |      |      |      |  |      |      |      |
+ *                               |      |      |------|  |------|      |      |
+ *                               |      |      |      |  |      |      |      |
+ *                               '--------------------'  '--------------------'
  */
 
-/* WORDS */
-[WORD] = LAYOUT_ergodox(
+/* FKEY & WORDS */
+[LAYER_FKEY] = LAYOUT_ergodox_76_or_80(
   /* left hand */
   KC_TRNS, KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F11,
   KC_TRNS, M_WORD_Q, M_WORD_W, M_WORD_E, M_WORD_R, M_WORD_T, KC_TRNS,
   KC_TRNS, M_WORD_A, M_WORD_S, M_WORD_D, M_WORD_F, M_WORD_G,
   KC_TRNS, M_WORD_Z, M_WORD_X, M_WORD_C, M_WORD_V, M_WORD_B, KC_TRNS,
   KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
-                                                   KC_TRNS,  KC_TRNS,
-                                                             KC_TRNS,
-                                         KC_TRNS,  KC_TRNS,  KC_TRNS,
+                                                    KC_TRNS,   KC_TRNS,
+                                         K80(L3K0), K80(L3K1), KC_TRNS,
+                                         KC_TRNS,   KC_TRNS,   KC_TRNS,
   /* right hand */
   KC_F12,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_TRNS,
   KC_TRNS, M_WORD_Y, M_WORD_U, M_WORD_I, M_WORD_O, M_WORD_P, KC_TRNS,
@@ -390,25 +485,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, M_WORD_N, M_WORD_M, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
                      KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
   KC_TRNS, KC_TRNS,
-  KC_TRNS,
+  KC_TRNS, K80(L3K2), K80(L3K3),
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),               /* FN1 - Momentary Layer 1 (Symbols) */
-  [2] = ACTION_LAYER_TAP_TOGGLE(MDIA),               /* FN2 - Momentary Layer 2 (Media) */
-  [3] = ACTION_LAYER_TAP_TOGGLE(WORD),               /* FN3 - Momentary Layer 3 (Words) */
+  [1] = ACTION_LAYER_TAP_TOGGLE(LAYER_KPAD),               /* FN1 - Momentary Layer 1 (KeyPad) */
+  [2] = ACTION_LAYER_TAP_TOGGLE(LAYER_MDIA),               /* FN2 - Momentary Layer 2 (Media, Mouse) */
+  [3] = ACTION_LAYER_TAP_TOGGLE(LAYER_FKEY),               /* FN3 - Momentary Layer 3 (FKey's & Words) */
 };
 
-
-    #define WITHOUT_MODS(...) \
-      do { \
-        uint8_t _real_mods = get_mods(); \
-        clear_mods(); \
-        { __VA_ARGS__ } \
-        set_mods(_real_mods); \
-      } while (0)
+#define WITHOUT_MODS(...) \
+  do { \
+    uint8_t _real_mods = get_mods(); \
+    clear_mods(); \
+    { __VA_ARGS__ } \
+    set_mods(_real_mods); \
+  } while (0)
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CFQ_USE_DYNAMIC_MACRO
