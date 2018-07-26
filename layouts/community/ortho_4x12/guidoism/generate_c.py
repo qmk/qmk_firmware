@@ -5,7 +5,7 @@ import re
 
 base = os.path.dirname(__file__)
 
-layer_names = dict(enumerate(['_QWERTY', '_LOWER', '_RAISE', '_MOVEMENT', '_NUMPAD']))
+layer_names = dict(enumerate(['_QWERTY', '_LOWER', '_RAISE', '_MOVEMENT', '_NUMPAD', '_FUNCTION']))
 layer_name = {('MO(%d)' % i): layer_names.get(i).strip('_') for i in layer_names.keys()}
 
 keys = json.load(open(os.path.join(base, 'keys.json')))
