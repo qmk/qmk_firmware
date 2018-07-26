@@ -785,19 +785,10 @@ void rgblight_effect_alternating(void){
 
   for(int i = 0; i<RGBLED_NUM; i++){
 		  if(i<RGBLED_NUM/2 && pos){
-			  //led[i].r = 255;
-			  //led[i].g = 0;
-			  //led[i].b = 0;
 			  rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, i);
 		  }else if (i>=RGBLED_NUM/2 && !pos){
-			  //led[i].r = 255;
-			  //led[i].g = 0;
-			  //led[i].b = 0;
 			  rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, i);
 		  }else{
-			  //led[i].r = 0;
-			  //led[i].g = 0;
-			  //led[i].b = 0;
 			  rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, 0, i);
 		  }
   }
