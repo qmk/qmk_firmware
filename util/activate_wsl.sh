@@ -8,6 +8,7 @@ function export_variables {
     export DFU_UTIL=$download_dir/dfu-util-0.9-win64/dfu-util.exe
     export TEENSY_LOADER_CLI=$download_dir/teensy_loader_cli.exe
     export BATCHISP=batchisp.exe
+    export QMK_DFUSE=$download_dir/qmk-dfuse.exe
 }
 
 export_variables
