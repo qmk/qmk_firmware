@@ -13,7 +13,7 @@ Note that the pretty forms of the keys are defined in another json
 file and are made for my specific board. You made need to update this
 file to get the pretty forms to look right.
 
-TODO: generate_c.py shoudl update this file too 
+TODO: generate_c.py should update this file too 
 
 * Left palm to the `mov` key gets you the `Move` layer
 * Right thumb on the `raise` key gets you the various programming brackets and parens on your left hand
