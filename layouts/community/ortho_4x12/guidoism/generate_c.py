@@ -3,24 +3,25 @@ import json
 import os.path
 import re
 
+KEYMAP_C = """/* {0}
+{1}
+*/
+[{2}] = {3}(
+    {4})
+"""
+
+README_MD = """## {0}
+```
+{1}
+```
+"""
+
 base = os.path.dirname(__file__)
 
 layer_names = dict(enumerate(['_QWERTY', '_LOWER', '_RAISE', '_MOVEMENT', '_NUMPAD', '_FUNCTION']))
 layer_name = {('MO(%d)' % i): layer_names.get(i).strip('_') for i in layer_names.keys()}
 
 keys = json.load(open(os.path.join(base, 'keys.json')))
-
-unicodes = {
-    "<i class='fa fa-fast-forward'></i>": "next",
-    "<i class='fa fa-volume-down'></i>": "vol-",
-    "<i class='fa fa-volume-up'></i>": "vol+",
-    "<i class='fa fa-play'></i>": "play",
-}
-
-def unicode(k, only_unicode=True):
-    k = keys.get(k, k)
-    if only_unicode:
-        return unicodes.get(k, k)
 
 d = json.load(open(os.path.join(base, 'guidoism.json')))
 
@@ -37,10 +38,9 @@ bottom = surround(pattern(5, 12), '└', '┴', '┘')
 from more_itertools import chunked, intersperse, interleave_longest
 
 def uni(k):
-    k = keys.get(k, k)
-    return unicodes.get(k, k).center(5)
+    return keys.get(k, k).lower().center(5)
 
-def c_layout(i, definition):
+def c_layout(i, definition, template):
     c_name = layer_names[i]
     pretty_name = c_name.strip('_').capitalize()
     layout = d['layout']
@@ -58,20 +58,18 @@ def c_layout(i, definition):
     rows = map(surround, layer)
     c_layer = ',\n    '.join(itertools.chain([], rows, []))
     
-    return """/* {0}
-{1}
-*/
-[{2}] = {3}(
-    {4})
-""".format(pretty_name, pretty, c_name, layout, c_layer)
+    return template.format(pretty_name, pretty, c_name, layout, c_layer)
 
 start = '// START_REPLACEMENT\n'
 end = '// END_REPLACEMENT\n'
-replacement = start + ',\n\n'.join(c_layout(i, l) for i, l in enumerate(d['layers'])) + end
-
+replacement = start + ',\n\n'.join(c_layout(i, l, KEYMAP_C) for i, l in enumerate(d['layers'])) + end
 keymap = os.path.join(base, 'keymap.c')
 existing = open(keymap).read()
 r = re.compile(r'// START_REPLACEMENT.*// END_REPLACEMENT', re.DOTALL)
 open(keymap, 'w').write(r.sub(replacement, existing))
 
-
+replacement = '## Current Configuration\n\n' + ',\n\n'.join(c_layout(i, l, README_MD) for i, l in enumerate(d['layers']))
+keymap = os.path.join(base, 'readme.md')
+existing = open(keymap).read()
+r = re.compile(r'## Current Configuration.*', re.DOTALL)
+open(keymap, 'w').write(r.sub(replacement, existing))
