@@ -198,10 +198,14 @@ ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
 
+DFUSE_ARGS ?=
+
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
+
+QMK_DFUSE ?= qmk-dfuse
 
 # Generate a .qmk for the QMK-FF
 qmk: $(BUILD_DIR)/$(TARGET).bin
@@ -229,6 +233,9 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
+qmk-dfuse: $(BUILD_DIR)/$(TARGET).hex cpfirmware sizeafter
+	$(QMK_DFUSE) $(DFUSE_ARGS) --download $(BUILD_DIR)/$(TARGET).hex --verify --restart
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
