@@ -194,7 +194,7 @@ bool process_record_quantum(keyrecord_t *record) {
   keypos_t key = record->event.key;
   uint16_t keycode;
 
-  if (typing_speed < 100) typing_speed += 1;
+  if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += 1;
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
     /* TODO: Use store_or_get_action() or a similar function. */
