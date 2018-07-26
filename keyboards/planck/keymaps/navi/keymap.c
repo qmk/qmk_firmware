@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -170,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 
-[_FUNCTION] = { 
+[_FUNCTION] = {
   {KC_ESC , _______, KC_MPRV, KC_MPLY, KC_MNXT, _______,_______,_______, KC_KP_7, KC_KP_8, KC_KP_9,KC_BSPC},
   {_______, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______, KC_PPLS, KC_KP_4, KC_KP_5, KC_KP_6, KC_PMNS},
   {KC_CALC, _______, _______, _______, _______, _______, _______, KC_DLR, KC_KP_1, KC_KP_2, KC_KP_3, KC_ENT},
