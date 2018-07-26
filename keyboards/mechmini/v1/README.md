@@ -5,7 +5,7 @@ A 40% ortholinear/staggered keyboard, that was originally bootmapper and can be 
 
 Keyboard Maintainer: QMK Community 
 Hardware Supported: Mechmini 1 PCB  
-Hardware Availability: Version 1 (Bootmapper) no longer in production [MECHKEYS](https://mechkeys.ca)
+Hardware Availability: Version 1 (Bootmapper) no longer in production [MECHKEYS](https://mechkeys.ca)  
 
 Make example for this keyboard (after setting up your build environment):
 

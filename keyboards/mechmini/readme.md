@@ -9,15 +9,16 @@ Version 1 was originally bootmapper (ps2avrGB) and can be ported to QMK followin
 
 Version 2 (Mechmini 2.0) was shipped powered by QMK [More info on MECHKEYS](https://mechkeys.ca).
 
-Keyboard Maintainer: QMK Community (version 1) & [TurboMech](https://github.com/TurboMech) (version 2 - aka Mechmini 2.0)
+Keyboard Maintainer: QMK Community (version 1) & [TurboMech](https://github.com/TurboMech) (version 2 - aka Mechmini 2.0)   
 
-Hardware Supported: Mechmini keyboard
+Hardware Supported: Mechmini keyboard   
 
-Hardware Availability: [MECHKEYS](https://mechkeys.ca/collections/keyboards/products/mechmini-2-0)
+Hardware Availability: [MECHKEYS](https://mechkeys.ca/collections/keyboards/products/mechmini-2-0)   
 
 Make example for this keyboard (after setting up your build environment), this will make the Mechmini 2.0 default keymap (split space) - please see v1 readme for v1 make instructions:
 
-    make mechmini:default
+    make mechmini/v1:default
+    make mechmini/v2:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
