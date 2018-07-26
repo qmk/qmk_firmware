@@ -21,12 +21,16 @@ function install_utils {
     # This URL has changed and I can't find the new location. Commenting out until we figure out the new URL or determine this isn't needed. -skullY
     echo "Installing Atmel Flip"
     wget 'http://ww1.microchip.com/downloads/en/DeviceDoc/Flip%20Installer%20-%203.4.7.112.exe'
-    # This is the JRE-less installer, if we need the larger bundled with JRE installer, use this: 
+    # This is the JRE-less installer, if we need the larger bundled with JRE installer, use this:
     #wget 'http://ww1.microchip.com/downloads/en/DeviceDoc/JRE%20-%20Flip%20Installer%20-%203.4.7.112.exe'
     mv Flip\ Installer\ \-\ 3.4.7.112.exe FlipInstaller.exe
 
     echo "Downloading the QMK driver installer"
     wget -qO- https://api.github.com/repos/qmk/qmk_driver_installer/releases | grep browser_download_url | head -n 1 | cut -d '"' -f 4 | wget -i -
+
+    echo "Downloading qmk-dfuse"
+    wget -qO- https://api.github.com/repos/qmk/qmk_dfuse/releases | grep browser_download_url | head -n 2 | cut -d '"' -f 4 | wget -i -
+    unzip -d dfuse_driver Driver.zip
 
     rm -f *.zip
 
@@ -36,8 +40,15 @@ function install_utils {
 function install_drivers {
     pushd "$download_dir"
     cp -f "$dir/drivers.txt" .
-    echo 
+    echo
     cmd.exe /c "qmk_driver_installer.exe $1 $2 drivers.txt"
+    popd > /dev/null
+}
+
+function install_dfuse {
+    pushd "$download_dir/dfuse_driver"
+    echo
+    cmd.exe /c install.bat
     popd > /dev/null
 }
 
@@ -78,6 +89,15 @@ while true; do
     esac
 done
 
+while true; do
+    echo
+    read -p "Do you want install the STM32 dfuse drivers (Y/N)" res
+    case $res in
+        [Yy]* ) install_dfuse; break;;
+        [Nn]* ) break;;
+        * ) echo "Invalid answer";;
+    esac
+done
 
 popd > /dev/null
 
