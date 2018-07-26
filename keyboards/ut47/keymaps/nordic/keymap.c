@@ -24,6 +24,8 @@
 #define _______ KC_TRNS
 #define LT3_TAB LT(3, KC_TAB)
 #define MT_RSFT_ENT MT(MOD_RSFT, KC_ENT)
+#define CTRADEL LALT(LCTL(KC_DEL))
+#define ALTTAB  LALT(KC_TAB)
 
 enum custom_keycodes {
     LED_TOG = SAFE_RANGE,
@@ -91,7 +93,7 @@ LAYOUT( /* Left modifier - L2 */
 
   /* FN Layer 3
    * ,-------------------------------------------------------------------------.
-   * | Esc | Calc|Webhm| Comp|Webrf|     |     |     |     |     |PrtSc|       |
+   * | Esc | Calc|Webhm| Comp|Webrf|     |     |     |     |     |PrtSc|CtrAlDl|
    * |-------------------------------------------------------------------------+
    * |      |     |     |     |     |     |     |VolDn|VolUp|     |     |      |
    * |-------------------------------------------------------------------------+
@@ -102,7 +104,7 @@ LAYOUT( /* Left modifier - L2 */
    */
 
 LAYOUT( /* Hold Tab down - L3 */
-  KC_ESC,  KC_CALC, KC_WHOM, KC_MYCM, KC_WREF, _______, _______, _______, _______, _______, KC_PSCR, _______,
+  KC_ESC,  KC_CALC, KC_WHOM, KC_MYCM, KC_WREF, _______, _______, _______, _______, _______, KC_PSCR, CTRADEL,
   _______, _______, _______, _______, _______, _______, _______, KC_VOLD, KC_VOLU, _______, _______, _______,
   _______, LED_TOG, LED_CHG, _______, _______,   RESET, _______, KC_MUTE, _______, KC_MS_BTN1, KC_MS_U, KC_MS_BTN2,
   _______, _______, _______, _______, _______,     _______,      _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
@@ -129,7 +131,7 @@ LAYOUT( /* Norsk - L4 */
 
   /* GAMING Layer (toggle on and off)
    * ,-------------------------------------------------------------------------.
-   * | Esc |  Q  |  W  |  E  |  R  |  T  |  Y  |  F1 |  F2 |  F3 |  F4 |Bspace |
+   * | Esc |  Q  |  W  |  E  |  R  |  T  |  Y  |  F1 |  F2 |  F3 |  F4 |Alt+Tab|
    * |-------------------------------------------------------------------------+
    * | Tab  |  A  |  S  |  D  |  F  |  G  |  H  |  F5 |  F6 |  F7 |  F8 | Enter|
    * |-------------------------------------------------------------------------+
@@ -140,7 +142,7 @@ LAYOUT( /* Norsk - L4 */
    */
 
 LAYOUT( /* GAMING, toggled on and off - L5 */
-  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_F1,    KC_F2,    KC_F3,    KC_F4, KC_BSPC,
+  KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_F1,    KC_F2,    KC_F3,    KC_F4, ALTTAB,
   KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_F5,    KC_F6,    KC_F7,    KC_F8,  KC_ENT,
   KC_LSFT, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_F9,   KC_F10,   KC_F11,    KC_UP,   TO(0),
   KC_LCTL, KC_Z,    KC_X,    KC_C,    KC_B,      KC_SPC,          KC_M,     KC_V,  KC_LEFT,  KC_DOWN, KC_RGHT
