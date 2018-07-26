@@ -13,8 +13,6 @@ Note that the pretty forms of the keys are defined in another json
 file and are made for my specific board. You made need to update this
 file to get the pretty forms to look right.
 
-TODO: generate_c.py should update this file too 
-
 * Left palm to the `mov` key gets you the `Move` layer
 * Right thumb on the `raise` key gets you the various programming brackets and parens on your left hand
 * Left palm on `mov` key and left thumb on `lower` key gets you a numpad on your right hand
@@ -35,7 +33,7 @@ TODO: generate_c.py should update this file too
 │ mov │  ⎋  │  ⌥  │  ⌘  │lower│   sp/sh   │raise│  ⌘  │  ⌥  │  ;  │  fn │
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
-,
+
 
 ## Lower
 ```
@@ -49,7 +47,7 @@ TODO: generate_c.py should update this file too
 │     │     │     │     │     │           │     │ next│ vol-│ vol+│ play│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
-,
+
 
 ## Raise
 ```
@@ -63,7 +61,7 @@ TODO: generate_c.py should update this file too
 │     │     │     │     │     │           │     │     │     │     │     │
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
-,
+
 
 ## Movement
 ```
@@ -77,7 +75,7 @@ TODO: generate_c.py should update this file too
 │     │     │     │     │     │           │     │     │     │     │     │
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
-,
+
 
 ## Numpad
 ```
@@ -91,7 +89,7 @@ TODO: generate_c.py should update this file too
 │     │     │     │     │     │           │     │  0  │     │     │     │
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
-,
+
 
 ## Function
 ```

@@ -68,7 +68,7 @@ existing = open(keymap).read()
 r = re.compile(r'// START_REPLACEMENT.*// END_REPLACEMENT', re.DOTALL)
 open(keymap, 'w').write(r.sub(replacement, existing))
 
-replacement = '## Current Configuration\n\n' + ',\n\n'.join(c_layout(i, l, README_MD) for i, l in enumerate(d['layers']))
+replacement = '## Current Configuration\n\n' + '\n\n'.join(c_layout(i, l, README_MD) for i, l in enumerate(d['layers']))
 keymap = os.path.join(base, 'readme.md')
 existing = open(keymap).read()
 r = re.compile(r'## Current Configuration.*', re.DOTALL)
