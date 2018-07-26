@@ -1,0 +1,434 @@
+[
+  {
+    "name": "teckinesis (Base Layer)",
+    "author": "Will Wolff-Myren",
+    "notes": "# teckinesis Layout # \r\n\r\n*A blend of TECK and Kinesis layouts, based on [\"The Ordinary Layout\" by Nicholas Keene](http://qmk.fm/keyboards/ergodox_ez/keymaps/ordinary/#the-ordinary-layout-a-familiar-and-powerful-layout)*\r\n\r\n## The Base Layout ##\r\n\r\n![teckinesis base layout](teckinesis-base.png)\r\n\r\n## The Symbols Layer ##\r\n\r\n![teckinesis symbols layout](teckinesis-symbol.png)\r\n\r\n## The Media Layer ##\r\n\r\n(placeholder)\r\n",
+    "switchMount": "cherry",
+    "switchBrand": "gateron",
+    "switchType": "KS-3-Tea"
+  },
+  [
+    {
+      "x": 3.5
+    },
+    "#\n3",
+    {
+      "x": 10.5
+    },
+    "*\n8"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 2.5
+    },
+    "@\n2",
+    {
+      "x": 1
+    },
+    "$\n4",
+    {
+      "x": 8.5
+    },
+    "&\n7",
+    {
+      "x": 1
+    },
+    "(\n9"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 5.5
+    },
+    "%\n5",
+    {
+      "c": "#ff4444"
+    },
+    "Esc",
+    {
+      "x": 4.5,
+      "c": "#cccccc"
+    },
+    "~\n`",
+    "^\n6"
+  ],
+  [
+    {
+      "y": -0.875,
+      "c": "#2277ff",
+      "w": 1.5
+    },
+    "Special\n\n+\n\n\n\nShift\n=",
+    {
+      "c": "#cccccc"
+    },
+    "!\n1",
+    {
+      "x": 14.5
+    },
+    ")\n0",
+    {
+      "c": "#2277ff",
+      "w": 1.5
+    },
+    "_\n\nSpecial\n\n\n\n-\nShift"
+  ],
+  [
+    {
+      "y": -0.375,
+      "x": 3.5,
+      "c": "#cccccc"
+    },
+    "E",
+    {
+      "x": 10.5
+    },
+    "I"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 2.5
+    },
+    "W",
+    {
+      "x": 1
+    },
+    "R",
+    {
+      "x": 8.5
+    },
+    "U",
+    {
+      "x": 1
+    },
+    "O"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 5.5
+    },
+    "T",
+    {
+      "h": 1.5
+    },
+    "{\n\n\n\n\n\n[",
+    {
+      "x": 4.5,
+      "h": 1.5
+    },
+    "}\n\n\n\n\n\n]",
+    "Y"
+  ],
+  [
+    {
+      "y": -0.875,
+      "c": "#2277ff",
+      "fa": [
+        0,
+        0,
+        4
+      ],
+      "w": 1.5
+    },
+    "Media\n\n<i class='kb kb-Line-Start-End'></i>\n\n\n\nShift",
+    {
+      "c": "#cccccc"
+    },
+    "Q",
+    {
+      "x": 14.5
+    },
+    "P",
+    {
+      "c": "#2277ff",
+      "f": 3,
+      "w": 1.5
+    },
+    "|\n\\\nMedia\n\n\n\n\nShift"
+  ],
+  [
+    {
+      "y": -0.375,
+      "x": 3.5,
+      "c": "#cccccc"
+    },
+    "D",
+    {
+      "x": 10.5
+    },
+    "K"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 2.5
+    },
+    "S",
+    {
+      "x": 1
+    },
+    "F",
+    {
+      "x": 8.5
+    },
+    "J",
+    {
+      "x": 1
+    },
+    "L"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 5.5
+    },
+    "G",
+    {
+      "x": 6.5
+    },
+    "H"
+  ],
+  [
+    {
+      "y": -0.875,
+      "c": "#2277ff",
+      "w": 1.5
+    },
+    "Symbols\n\n\n\n\n\nShift",
+    {
+      "c": "#cccccc"
+    },
+    "A",
+    {
+      "x": 14.5
+    },
+    ":\n;",
+    {
+      "c": "#2277ff",
+      "f": 3,
+      "w": 1.5
+    },
+    "\"\n'\nSymbols\n\n\n\n\nShift"
+  ],
+  [
+    {
+      "y": -0.625,
+      "x": 6.5,
+      "c": "#54d6de",
+      "fa": [
+        0,
+        0,
+        4,
+        1
+      ],
+      "h": 1.5
+    },
+    "< Tab\n\n\nShift Tab",
+    {
+      "x": 4.5,
+      "h": 1.5
+    },
+    "Tab >\n\n\nTab"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 3.5,
+      "c": "#cccccc"
+    },
+    "C",
+    {
+      "x": 10.5
+    },
+    "<\n,"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 2.5
+    },
+    "X",
+    {
+      "x": 1
+    },
+    "V",
+    {
+      "x": 8.5
+    },
+    "M",
+    {
+      "x": 1
+    },
+    ">\n."
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 5.5
+    },
+    "B",
+    {
+      "x": 6.5
+    },
+    "N"
+  ],
+  [
+    {
+      "y": -0.875,
+      "c": "#2277ff",
+      "w": 1.5
+    },
+    "Capitals\n\n\n\n\n\nShift",
+    {
+      "c": "#cccccc"
+    },
+    "Z",
+    {
+      "x": 14.5
+    },
+    "?\n/",
+    {
+      "c": "#2277ff",
+      "f": 3,
+      "w": 1.5
+    },
+    "\n\nCapitals\n\n\n\n\nShift"
+  ],
+  [
+    {
+      "y": -0.375,
+      "x": 3.5,
+      "c": "#77aaff",
+      "fa": [
+        5,
+        0,
+        4,
+        1
+      ]
+    },
+    "<i class='mss mss-Unicode-Option-3'></i>\n\n\nLAlt",
+    {
+      "x": 10.5
+    },
+    "<i class='mss mss-Unicode-Option-3'></i>\n\n\nRAlt"
+  ],
+  [
+    {
+      "y": -0.875,
+      "x": 2.5,
+      "fa": [
+        5,
+        1
+      ]
+    },
+    "\nHyper\n?\n/",
+    {
+      "x": 1,
+      "fa": [
+        5,
+        1,
+        0,
+        1
+      ]
+    },
+    "<i class='mss mss-Unicode-Command-3'></i>\n\n\nSuper",
+    {
+      "x": 8.5
+    },
+    "<i class='mss mss-Unicode-Command-3'></i>\n\n\nSuper",
+    {
+      "x": 1,
+      "fa": [
+        0,
+        0,
+        0,
+        1
+      ]
+    },
+    "{\n[\n\nHyper"
+  ],
+  [
+    {
+      "y": -0.75,
+      "x": 0.5
+    },
+    "Ctrl\n\n\nLCtrl",
+    {
+      "f2": 1
+    },
+    "\nMeh\n|\n\\",
+    {
+      "x": 14.5,
+      "fa": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    "}\n]\n\nMeh",
+    "Ctrl\n\n\nRCtrl"
+  ],
+  [
+    {
+      "r": 30,
+      "rx": 6.5,
+      "ry": 4.25,
+      "y": -1,
+      "x": 1,
+      "c": "#54d6de"
+    },
+    "Home",
+    "End"
+  ],
+  [
+    {
+      "h": 2
+    },
+    "< Del\n\n\nBackspace",
+    {
+      "h": 2
+    },
+    "Del >\n\n\nDelete",
+    "Page\n\n\n\n\n\nUp"
+  ],
+  [
+    {
+      "x": 2
+    },
+    "Page\n\n\n\n\n\nDown"
+  ],
+  [
+    {
+      "r": -30,
+      "rx": 13,
+      "y": -1,
+      "x": -3
+    },
+    "Left",
+    "Right"
+  ],
+  [
+    {
+      "x": -3
+    },
+    "Up",
+    {
+      "h": 2
+    },
+    "Enter",
+    {
+      "h": 2
+    },
+    "Space"
+  ],
+  [
+    {
+      "x": -3
+    },
+    "Down"
+  ]
+]

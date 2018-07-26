@@ -14,6 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #include <stdint.h>
 #include "keyboard.h"
 #include "matrix.h"
@@ -29,6 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "sendchar.h"
 #include "eeconfig.h"
 #include "backlight.h"
+#include "action_layer.h"
 #ifdef BOOTMAGIC_ENABLE
 #   include "bootmagic.h"
 #else
@@ -49,31 +51,111 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #   include "rgblight.h"
 #endif
+#ifdef STENO_ENABLE
+#   include "process_steno.h"
+#endif
+#ifdef FAUXCLICKY_ENABLE
+#   include "fauxclicky.h"
+#endif
+#ifdef SERIAL_LINK_ENABLE
+#   include "serial_link/system/serial_link.h"
+#endif
+#ifdef VISUALIZER_ENABLE
+#   include "visualizer/visualizer.h"
+#endif
+#ifdef POINTING_DEVICE_ENABLE
+#   include "pointing_device.h"
+#endif
+#ifdef MIDI_ENABLE
+#   include "process_midi.h"
+#endif
+#ifdef HD44780_ENABLE
+#   include "hd44780.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
-static bool is_row_ghosting(uint8_t row){
-    matrix_row_t state = matrix_get_row(row);
-    /* no ghosting happens when only one key in the row is pressed */
-    if (!(state - 1 & state)) return false;
-    /* ghosting occurs when two keys in the same column are pressed */
-    for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-        if (r != row && matrix_get_row(r) & state) return true;
+extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
+static matrix_row_t get_real_keys(uint8_t row, matrix_row_t rowdata){
+    matrix_row_t out = 0;
+    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+        //read each key in the row data and check if the keymap defines it as a real key
+        if (pgm_read_byte(&keymaps[0][row][col]) && (rowdata & (1<<col))){
+            //this creates new row data, if a key is defined in the keymap, it will be set here
+            out |= 1<<col;
+        }
+    }
+    return out;
+}
+
+static inline bool popcount_more_than_one(matrix_row_t rowdata)
+{
+    rowdata &= rowdata-1; //if there are less than two bits (keys) set, rowdata will become zero
+    return rowdata;
+}
+
+static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
+{
+    /* No ghost exists when less than 2 keys are down on the row.
+    If there are "active" blanks in the matrix, the key can't be pressed by the user,
+    there is no doubt as to which keys are really being pressed.
+    The ghosts will be ignored, they are KC_NO.   */
+    rowdata = get_real_keys(row, rowdata);
+    if ((popcount_more_than_one(rowdata)) == 0){
+        return false;
+    }
+    /* Ghost occurs when the row shares a column line with other row,
+    and two columns are read on each row. Blanks in the matrix don't matter,
+    so they are filtered out.
+    If there are two or more real keys pressed and they match columns with
+    at least two of another row's real keys, the row will be ignored. Keep in mind,
+    we are checking one row at a time, not all of them at once.
+    */
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        if (i != row && popcount_more_than_one(get_real_keys(i, matrix_get_row(i)) & rowdata)){
+            return true;
+        }
     }
     return false;
 }
 
 #endif
 
+/** \brief matrix_setup
+ *
+ * FIXME: needs doc
+ */
 __attribute__ ((weak))
 void matrix_setup(void) {
 }
 
+/** \brief keyboard_setup
+ *
+ * FIXME: needs doc
+ */
 void keyboard_setup(void) {
     matrix_setup();
 }
 
+/** \brief is_keyboard_master
+ *
+ * FIXME: needs doc
+ */
+__attribute__((weak))
+bool is_keyboard_master(void) {
+    return true;
+}
+
+/** \brief keyboard_init
+ *
+ * FIXME: needs doc
+ */
 void keyboard_init(void) {
     timer_init();
+// To use PORTF disable JTAG with writing JTD bit twice within four cycles.
+#if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
+  MCUCR |= _BV(JTD);
+  MCUCR |= _BV(JTD);
+#endif
     matrix_init();
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
@@ -95,77 +177,141 @@ void keyboard_init(void) {
 #ifdef RGBLIGHT_ENABLE
     rgblight_init();
 #endif
+#ifdef STENO_ENABLE
+    steno_init();
+#endif
+#ifdef FAUXCLICKY_ENABLE
+    fauxclicky_init();
+#endif
+#ifdef POINTING_DEVICE_ENABLE
+    pointing_device_init();
+#endif
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
-	keyboard_nkro = true;
+    keymap_config.nkro = 1;
 #endif
 }
 
-/* does routine keyboard jobs */
-void keyboard_task(void) {
-    static uint8_t led_status;
-    matrix_scan();
-    for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-        static matrix_row_t previous_matrix[MATRIX_ROWS];
-        matrix_row_t state = matrix_get_row(r);
-        matrix_row_t changes = state ^ previous_matrix[r];
-        if (changes) {
+/** \brief Keyboard task: Do keyboard routine jobs
+ *
+ * Do routine keyboard jobs:
+ *
+ * * scan matrix
+ * * handle mouse movements
+ * * run visualizer code
+ * * handle midi commands
+ * * light LEDs
+ *
+ * This is repeatedly called as fast as possible.
+ */
+void keyboard_task(void)
+{
+    static matrix_row_t matrix_prev[MATRIX_ROWS];
 #ifdef MATRIX_HAS_GHOST
-            static matrix_row_t deghosting_matrix[MATRIX_ROWS];
-            if (is_row_ghosting(r)) {
-                /* debugs the deghosting mechanism */
-                /* doesn't update previous_matrix until the ghosting has stopped
-                 * in order to prevent the last key from being lost
-                 */
-                if (debug_matrix && deghosting_matrix[r] != state) {
-                    matrix_print();
-                }
-                deghosting_matrix[r] = state;
-                continue;
-            }
-            deghosting_matrix[r] = state;
+  //  static matrix_row_t matrix_ghost[MATRIX_ROWS];
 #endif
-            if (debug_matrix) matrix_print();
-            for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
-                matrix_row_t mask = (matrix_row_t)1 << c;
-                if (changes & mask) {
-                    keyevent_t event;
-                    event.key = (keypos_t){ .row = r, .col = c };
-                    event.pressed = state & mask;
-                    /* the time should not be 0 */
-                    event.time = timer_read() | 1;
-                    action_exec(event);
-                    /* records the processed key event */
-                    previous_matrix[r] ^= mask;
-                    /* processes one key event per call */
-                    goto event_processed;
+    static uint8_t led_status = 0;
+    matrix_row_t matrix_row = 0;
+    matrix_row_t matrix_change = 0;
+#ifdef QMK_KEYS_PER_SCAN
+    uint8_t keys_processed = 0;
+#endif
+
+    matrix_scan();
+    if (is_keyboard_master()) {
+        for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+            matrix_row = matrix_get_row(r);
+            matrix_change = matrix_row ^ matrix_prev[r];
+            if (matrix_change) {
+#ifdef MATRIX_HAS_GHOST
+                if (has_ghost_in_row(r, matrix_row)) {
+                    /* Keep track of whether ghosted status has changed for
+                    * debugging. But don't update matrix_prev until un-ghosted, or
+                    * the last key would be lost.
+                    */
+                    //if (debug_matrix && matrix_ghost[r] != matrix_row) {
+                    //    matrix_print();
+                    //}
+                    //matrix_ghost[r] = matrix_row;
+                    continue;
+                }
+                //matrix_ghost[r] = matrix_row;
+#endif
+                if (debug_matrix) matrix_print();
+                for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+                    if (matrix_change & ((matrix_row_t)1<<c)) {
+                        action_exec((keyevent_t){
+                            .key = (keypos_t){ .row = r, .col = c },
+                            .pressed = (matrix_row & ((matrix_row_t)1<<c)),
+                            .time = (timer_read() | 1) /* time should not be 0 */
+                        });
+                        // record a processed key
+                        matrix_prev[r] ^= ((matrix_row_t)1<<c);
+#ifdef QMK_KEYS_PER_SCAN
+                        // only jump out if we have processed "enough" keys.
+                        if (++keys_processed >= QMK_KEYS_PER_SCAN)
+#endif
+                        // process a key per task call
+                        goto MATRIX_LOOP_END;
+                    }
                 }
             }
         }
     }
-    /* sends tick events when the keyboard is idle */
+    // call with pseudo tick event when no real key event.
+#ifdef QMK_KEYS_PER_SCAN
+    // we can get here with some keys processed now.
+    if (!keys_processed)
+#endif
     action_exec(TICK);
-event_processed:
+
+MATRIX_LOOP_END:
+
 #ifdef MOUSEKEY_ENABLE
-    /* repeats and accelerates the mouse keys */
+    // mousekey repeat & acceleration
     mousekey_task();
 #endif
+
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_task();
 #endif
+
 #ifdef SERIAL_MOUSE_ENABLE
     serial_mouse_task();
 #endif
+
 #ifdef ADB_MOUSE_ENABLE
     adb_mouse_task();
 #endif
-    /* updates the LEDs */
+
+#ifdef SERIAL_LINK_ENABLE
+	serial_link_update();
+#endif
+
+#ifdef VISUALIZER_ENABLE
+    visualizer_update(default_layer_state, layer_state, visualizer_get_mods(), host_keyboard_leds());
+#endif
+
+#ifdef POINTING_DEVICE_ENABLE
+    pointing_device_task();
+#endif
+
+#ifdef MIDI_ENABLE
+    midi_task();
+#endif
+
+    // update LED
     if (led_status != host_keyboard_leds()) {
         led_status = host_keyboard_leds();
         keyboard_set_leds(led_status);
     }
 }
 
-void keyboard_set_leds(uint8_t leds) {
-    if (debug_keyboard) dprintf("Keyboard LEDs state: %x\n", leds);
+/** \brief keyboard set leds
+ *
+ * FIXME: needs doc
+ */
+void keyboard_set_leds(uint8_t leds)
+{
+    if (debug_keyboard) { debug("keyboard_set_led: "); debug_hex8(leds); debug("\n"); }
     led_set(leds);
 }

@@ -1,0 +1,99 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2017.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf>
+		<select-by-config id="lufa.drivers.usb.class.ms" name="lufa.drivers.usb.class.ms.mode" default="host_device" caption="LUFA USB Class Driver - Mass Storage">
+			<build type="doxygen-entry-point" value="Group_USBClassMS"/>
+
+			<info type="gui-flag" value="hidden"/>
+
+			<module type="service" id="lufa.drivers.usb.class.ms#host_device" caption="LUFA USB Class Driver - Mass Storage (Host/Device)">
+				<info type="description" value="summary">
+					Common definitions and Host/Device mode implementations of the Mass Storage USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassMS"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/MassStorageClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/MassStorageClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/MassStorageClassDevice.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Device/MassStorageClassDevice.c"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/MassStorageClassHost.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Host/MassStorageClassHost.c"/>
+			</module>
+
+			<module type="service" id="lufa.drivers.usb.class.ms#host" caption="LUFA USB Class Driver - Mass Storage (Host)">
+				<info type="description" value="summary">
+					Common definitions and Host mode implementation of the Mass Storage USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassMS"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/MassStorageClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/MassStorageClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/MassStorageClassDevice.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/MassStorageClassHost.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Host/MassStorageClassHost.c"/>
+			</module>
+
+			<module type="service" id="lufa.drivers.usb.class.ms#device" caption="LUFA USB Class Driver - Mass Storage (Device)">
+				<info type="description" value="summary">
+					Common definitions and Device mode implementation of the Mass Storage USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassMS"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/MassStorageClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/MassStorageClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/MassStorageClassDevice.h"/>
+				<build type="c-source"    value="Drivers/USB/Class/Device/MassStorageClassDevice.c"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/MassStorageClassHost.h"/>
+			</module>
+
+			<module type="service" id="lufa.drivers.usb.class.ms#definitions_only" caption="LUFA USB Class Driver - Mass Storage (Definitions Only)">
+				<info type="description" value="summary">
+					Common definitions only (no implementations) of the Mass Storage USB class.
+				</info>
+
+				<build type="doxygen-entry-point" value="Group_USBClassMS"/>
+
+				<info type="gui-flag" value="hidden"/>
+
+				<device-support-alias value="lufa_avr8"/>
+				<device-support-alias value="lufa_xmega"/>
+				<device-support-alias value="lufa_uc3"/>
+
+				<build type="header-file" value="Drivers/USB/Class/MassStorageClass.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Common/MassStorageClassCommon.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Device/MassStorageClassDevice.h"/>
+				<build type="header-file" value="Drivers/USB/Class/Host/MassStorageClassHost.h"/>
+			</module>
+		</select-by-config>
+	</asf>
+</lufa>

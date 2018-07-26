@@ -1,10 +1,25 @@
+/* Copyright 2015-2016 Jack Humbert
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef KEYMAP_SPANISH_H
 #define KEYMAP_SPANISH_H
 
 #include "keymap.h"
 
 // Alt gr
-#define ALGR(kc) kc | 0x1400
+#define ALGR(kc) RALT(kc)
 #define NO_ALGR KC_RALT
 
 // Normal characters
@@ -40,8 +55,8 @@
 #define ES_UMLT	LSFT(ES_GRV)
 
 #define ES_GRTR	LSFT(ES_LESS)
-#define ES_SCLN	LSFT(ES_COMM)
-#define ES_COLN	LSFT(ES_DOT)
+#define ES_SCLN	LSFT(KC_COMM)
+#define ES_COLN	LSFT(KC_DOT)
 #define ES_UNDS	LSFT(ES_MINS)
 
 // Alt Gr-ed characters
@@ -49,7 +64,7 @@
 #define ES_PIPE	ALGR(KC_1)
 #define ES_AT 	ALGR(KC_2)
 #define ES_HASH	ALGR(KC_3)
-#define ES_TILD	ALGR(KC_4)
+#define ES_TILD	ALGR(ES_NTIL)
 #define ES_EURO	ALGR(KC_5)
 #define ES_NOT	ALGR(KC_6)
 
@@ -57,6 +72,6 @@
 #define ES_RBRC ALGR(ES_PLUS)
 
 #define ES_LCBR	ALGR(ES_ACUT)
-#define ES_RCRB	ALGR(ES_CCED)
+#define ES_RCBR	ALGR(ES_CCED)
 
 #endif

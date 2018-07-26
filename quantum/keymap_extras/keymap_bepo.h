@@ -1,3 +1,18 @@
+/* Copyright 2016 Didier Loiseau
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 /* Keymap macros for the French BÉPO layout - http://bepo.fr */
 #ifndef KEYMAP_BEPO_H
 #define KEYMAP_BEPO_H
@@ -118,7 +133,7 @@
 // Fourth row
 #define BP_COLON    LSFT(BP_DOT)    // :
 #define BP_COLN     BP_COLON
-#define BP_QUESTION LSFT(BP_QUOTE)  // ?
+#define BP_QUESTION LSFT(BP_APOS)  // ?
 #define BP_QEST     BP_QUESTION
 
 // Space bar
@@ -183,12 +198,12 @@
 // Third row
 #define BP_AE_LIGATURE              ALTGR(BP_A)         // æ
 #define BP_AE                       BP_AE_LIGATURE
-#define BP_U_GRAVE                  AGR(BP_U)           // ù
+#define BP_U_GRAVE                  ALTGR(BP_U)           // ù
 #define BP_UGRV                     BP_U_GRAVE
 #define BP_DEAD_TREMA               ALTGR(BP_I)         // dead ¨ (trema/umlaut/diaresis)
 #define BP_DTRM                     BP_DEAD_TREMA
 #define BP_EURO                     ALTGR(BP_E)         // €
-#define BP_TYPOGRAPHICAL_APOSTROPHE ALTGR(BP_COMMMA)    // ’
+#define BP_TYPOGRAPHICAL_APOSTROPHE ALTGR(BP_COMMA)     // ’
 #define BP_TAPO                     BP_TYPOGRAPHICAL_APOSTROPHE
 #define BP_COPYRIGHT                ALTGR(BP_C)         // ©
 #define BP_CPRT                     BP_COPYRIGHT

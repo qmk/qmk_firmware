@@ -35,8 +35,17 @@
 #ifdef SLEEP_LED_ENABLE
 #include "sleep_led.h"
 #endif
+#ifdef SERIAL_LINK_ENABLE
+#include "serial_link/system/serial_link.h"
+#endif
+#ifdef VISUALIZER_ENABLE
+#include "visualizer/visualizer.h"
+#endif
+#ifdef MIDI_ENABLE
+#include "qmk_midi.h"
+#endif
 #include "suspend.h"
-
+#include "wait.h"
 
 /* -------------------------
  *   TMK host driver defs
@@ -59,24 +68,35 @@ host_driver_t chibios_driver = {
   send_consumer
 };
 
+#ifdef VIRTSER_ENABLE
+void virtser_task(void);
+#endif
+
+#ifdef RAW_HID_ENABLE
+void raw_hid_task(void);
+#endif
+
+#ifdef CONSOLE_ENABLE
+void console_task(void);
+#endif
 
 /* TESTING
  * Amber LED blinker thread, times are in milliseconds.
  */
 /* set this variable to non-zero anywhere to blink once */
-// uint8_t blinkLed = 0;
-// static THD_WORKING_AREA(waBlinkerThread, 128);
-// static THD_FUNCTION(blinkerThread, arg) {
+// static THD_WORKING_AREA(waThread1, 128);
+// static THD_FUNCTION(Thread1, arg) {
+
 //   (void)arg;
-//   chRegSetThreadName("blinkOrange");
-//   while(true) {
-//     if(blinkLed) {
-//       blinkLed = 0;
-//       palSetPad(TEENSY_PIN13_IOPORT, TEENSY_PIN13);
-//       chThdSleepMilliseconds(100);
-//       palClearPad(TEENSY_PIN13_IOPORT, TEENSY_PIN13);
-//     }
-//     chThdSleepMilliseconds(100);
+//   chRegSetThreadName("blinker");
+//   while (true) {
+//     systime_t time;
+
+//     time = USB_DRIVER.state == USB_ACTIVE ? 250 : 500;
+//     palClearLine(LINE_CAPS_LOCK);
+//     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
+//     palSetLine(LINE_CAPS_LOCK);
+//     chSysPolledDelayX(MS2RTC(STM32_HCLK, time));
 //   }
 // }
 
@@ -90,7 +110,7 @@ int main(void) {
   chSysInit();
 
   // TESTING
-  // chThdCreateStatic(waBlinkerThread, sizeof(waBlinkerThread), NORMALPRIO, blinkerThread, NULL);
+  // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
   /* Init USB */
   init_usb_driver(&USB_DRIVER);
@@ -98,22 +118,49 @@ int main(void) {
   /* init printf */
   init_printf(NULL,sendchar_pf);
 
-  /* Wait until the USB is active */
-  while(USB_DRIVER.state != USB_ACTIVE)
-    chThdSleepMilliseconds(50);
+#ifdef MIDI_ENABLE
+  setup_midi();
+#endif
+
+#ifdef SERIAL_LINK_ENABLE
+  init_serial_link();
+#endif
+
+#ifdef VISUALIZER_ENABLE
+  visualizer_init();
+#endif
+
+
+  host_driver_t* driver = NULL;
+
+  /* Wait until the USB or serial link is active */
+  while (true) {
+    if(USB_DRIVER.state == USB_ACTIVE) {
+      driver = &chibios_driver;
+      break;
+    }
+#ifdef SERIAL_LINK_ENABLE
+    if(is_serial_link_connected()) {
+      driver = get_serial_link_driver();
+      break;
+    }
+    serial_link_update();
+#endif
+    wait_ms(50);
+  }
 
   /* Do need to wait here!
    * Otherwise the next print might start a transfer on console EP
    * before the USB is completely ready, which sometimes causes
    * HardFaults.
    */
-  chThdSleepMilliseconds(50);
+  wait_ms(50);
 
   print("USB configured.\n");
 
   /* init TMK modules */
   keyboard_init();
-  host_set_driver(&chibios_driver);
+  host_set_driver(driver);
 
 #ifdef SLEEP_LED_ENABLE
   sleep_led_init();
@@ -126,12 +173,18 @@ int main(void) {
 
     if(USB_DRIVER.state == USB_SUSPENDED) {
       print("[s]");
+#ifdef VISUALIZER_ENABLE
+      visualizer_suspend();
+#endif
       while(USB_DRIVER.state == USB_SUSPENDED) {
         /* Do this in the suspended state */
+#ifdef SERIAL_LINK_ENABLE
+        serial_link_update();
+#endif
         suspend_power_down(); // on AVR this deep sleeps for 15ms
         /* Remote wakeup */
-        if((USB_DRIVER.status & 2) && suspend_wakeup_condition()) {
-          send_remote_wakeup(&USB_DRIVER);
+        if(suspend_wakeup_condition()) {
+          usbWakeupHost(&USB_DRIVER);
         }
       }
       /* Woken up */
@@ -140,8 +193,21 @@ int main(void) {
 #ifdef MOUSEKEY_ENABLE
       mousekey_send();
 #endif /* MOUSEKEY_ENABLE */
+
+#ifdef VISUALIZER_ENABLE
+      visualizer_resume();
+#endif
     }
 
     keyboard_task();
+#ifdef CONSOLE_ENABLE
+    console_task();
+#endif
+#ifdef VIRTSER_ENABLE
+    virtser_task();
+#endif
+#ifdef RAW_HID_ENABLE
+    raw_hid_task();
+#endif
   }
 }

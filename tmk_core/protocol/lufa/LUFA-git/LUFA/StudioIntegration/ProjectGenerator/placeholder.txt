@@ -1,1 +1,0 @@
-Copy the ASF Project Generator into this directory (i.e. with the Python scripts in the current folder). The project generator can be extracted from the release versions of Atmel Studio's ASF extension.

@@ -20,7 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <stdint.h>
 #include "report.h"
-
+#ifdef MIDI_ENABLE
+	#include "midi.h"
+#endif
 
 typedef struct {
     uint8_t (*keyboard_leds)(void);

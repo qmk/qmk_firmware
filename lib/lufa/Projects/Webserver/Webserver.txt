@@ -1,0 +1,126 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage uIP Powered Webserver Project
+ *
+ *  \section Sec_Compat Project Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this project.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this project.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Dual Mode Host/Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Communications Device Class (CDC) \n
+ *        Mass Storage Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Remote NDIS (Microsoft Proprietary CDC Class Networking Standard) \n
+ *        Bulk-Only Transport</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>Microsoft RNDIS Specification \n
+ *        USBIF Mass Storage Standard \n
+ *        USB Bulk-Only Transport Standard \n
+ *        SCSI Primary Commands Specification \n
+ *        SCSI Block Commands Specification</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  Simple HTTP webserver project. This project combines the LUFA library with the uIP TCP/IP full network stack and FatFS
+ *  library to create a RNDIS host capable of serving out HTTP web pages to multiple hosts simultaneously. This project
+ *  demonstrates how the libraries can be combined into a robust network enabled application, with the addition of a RNDIS
+ *  network device.
+ *
+ *  To use this project, plug the USB AVR into a computer, so that it enumerates as a standard Mass Storage and RNDIS composite
+ *  device. Load HTML files onto the disk, so that they can be served out to clients -- the default file to serve should be called
+ *  <i>index.htm</i>. Filenames must be in 8.3 format for them to be retrieved correctly by the webserver, and the total
+ *  requested file path must be equal to or less than the maximum URI length (\see \ref Sec_Options). Supply the included INF
+ *  file when requested on Windows machines to enable the RNDIS interface, and allow the files to be viewed on a standard web-browser
+ *  using the IP address 10.0.0.2.
+ *
+ *  When attached to a RNDIS class device, such as a USB (desktop) modem, the system will enumerate the device, set the
+ *  appropriate parameters needed for connectivity and begin listening for new HTTP connections on port 80 and TELNET
+ *  connections on port 23. The device IP, netmask and default gateway IP must be set to values appropriate for the RNDIS
+ *  device being used for this project to work if the DHCP client is disabled (see \ref Sec_Options) - otherwise, the device
+ *  will query the network's DHCP server for these parameters automatically.
+ *
+ *  When properly configured, the webserver can be accessed from any HTTP web browser by typing in the device's statically or
+ *  dynamically allocated IP address. The TELNET client can be accessed via any network socket app by connecting to the device
+ *  on port 23 on the device's statically or dynamically allocated IP address.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <th><b>Define Name:</b></th>
+ *    <th><b>Location:</b></th>
+ *    <th><b>Description:</b></th>
+ *   </tr>
+ *   <tr>
+ *    <td>ENABLE_TELNET_SERVER</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, this enables the TELNET server in addition to the HTTP webserver, which listens for incoming connections
+ *        and processes user commands.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ENABLE_DHCP_CLIENT</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, this enables the DHCP client for dynamic IP allocation of the network settings from a DHCP server.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>ENABLE_DHCP_SERVER</td>
+ *    <td>AppConfig.h</td>
+ *    <td>When defined, this enables the DHCP server for dynamic IP allocation of the network settings to a DHCP client.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>DEVICE_IP_ADDRESS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>IP address that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT is not defined).</td>
+ *   </tr>
+ *   <tr>
+ *    <td>DEVICE_NETMASK</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Netmask that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT is not defined).</td>
+ *   </tr>
+ *   <tr>
+ *    <td>DEVICE_GATEWAY</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Default routing gateway that the webserver should use when connected to a RNDIS device (when ENABLE_DHCP_CLIENT
+ *        is not defined).</td>
+ *   </tr>
+ *   <tr>
+ *    <td>MAX_URI_LENGTH</td>
+ *    <td>AppConfig.h</td>
+ *    <td>Maximum length of a URI for the Webserver. This is the maximum file path, including subdirectories and separators.</td>
+ *   </tr>
+ *   <tr>
+ *    <td>SERVER_MAC_ADDRESS</td>
+ *    <td>AppConfig.h</td>
+ *    <td>MAC address of the server used when sending Ethernet packets onto the bus.</td>
+ *   </tr>
+ *  </table>
+ */
+

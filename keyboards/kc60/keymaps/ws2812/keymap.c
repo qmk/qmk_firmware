@@ -1,7 +1,5 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
 
-#include "kc60.h"
+#include QMK_KEYBOARD_H
 
 // Used for SHIFT_ESC
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -27,12 +25,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Ctrl|Gui |Alt |      Space            |Alt |Gui |FN  |Ctrl |
    * `-----------------------------------------------------------'
    */
-[_BL] = KEYMAP(
+[_BL] = LAYOUT(
   F(0),    KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,  KC_EQL,  KC_BSPC, \
   KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,  KC_RBRC, KC_BSLS, \
   KC_CAPS, KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,  KC_NO,   KC_ENT,  \
   KC_LSFT, KC_NO,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_NO,   KC_RSFT, \
-  KC_LCTL, KC_LGUI, KC_LALT,                KC_SPC,                                 KC_RALT,KC_RGUI, MO(_FL), KC_RCTL),
+  KC_LCTL, KC_LGUI, KC_LALT,                KC_SPC,                         KC_NO,  KC_RALT,KC_RGUI, MO(_FL), KC_RCTL),
 
   /* Keymap _FL: Function Layer
    * ,-----------------------------------------------------------.
@@ -47,48 +45,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |    |    |                        |    |    |    |RSET|
    * `-----------------------------------------------------------'
    */
-[_FL] = KEYMAP(
+[_FL] = LAYOUT(
   #ifdef RGBLIGHT_ENABLE
   KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
   KC_TRNS, KC_TRNS, KC_UP,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, BL_DEC,  BL_INC,  BL_TOGG, \
   KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, F(1),    F(2),    F(3),    F(4),    F(5),    F(6),    F(7),    F(8),    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, RESET),
+  KC_TRNS, KC_TRNS, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
+  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                            KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, RESET),
   #else
   KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  \
   KC_TRNS, KC_TRNS, KC_UP,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, BL_DEC,  BL_INC,  BL_TOGG, \
   KC_TRNS, KC_LEFT, KC_DOWN, KC_RGHT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, RESET),
+  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                            KC_NO,   KC_TRNS, KC_TRNS, KC_TRNS, RESET),
   #endif
 };
 
 enum function_id {
     SHIFT_ESC,
-    #ifdef RGBLIGHT_ENABLE
-    RGBLED_TOGGLE,
-    RGBLED_STEP_MODE,
-    RGBLED_INCREASE_HUE,
-    RGBLED_DECREASE_HUE,
-    RGBLED_INCREASE_SAT,
-    RGBLED_DECREASE_SAT,
-    RGBLED_INCREASE_VAL,
-    RGBLED_DECREASE_VAL
-    #endif
 };
 
 const uint16_t PROGMEM fn_actions[] = {
   [0]  = ACTION_FUNCTION(SHIFT_ESC),
-  #ifdef RGBLIGHT_ENABLE
-  [1]  = ACTION_FUNCTION(RGBLED_TOGGLE),
-  [2]  = ACTION_FUNCTION(RGBLED_STEP_MODE),
-  [3]  = ACTION_FUNCTION(RGBLED_INCREASE_HUE),
-  [4]  = ACTION_FUNCTION(RGBLED_DECREASE_HUE),
-  [5]  = ACTION_FUNCTION(RGBLED_INCREASE_SAT),
-  [6]  = ACTION_FUNCTION(RGBLED_DECREASE_SAT),
-  [7]  = ACTION_FUNCTION(RGBLED_INCREASE_VAL),
-  [8]  = ACTION_FUNCTION(RGBLED_DECREASE_VAL),
-  #endif
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -114,48 +92,5 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         }
       }
       break;
-    //led operations
-    #ifdef RGBLIGHT_ENABLE
-    case RGBLED_TOGGLE:
-      if (record->event.pressed) {
-        rgblight_toggle();
-      }
-      break;
-    case RGBLED_INCREASE_HUE:
-      if (record->event.pressed) {
-        rgblight_increase_hue();
-      }
-      break;
-    case RGBLED_DECREASE_HUE:
-      if (record->event.pressed) {
-        rgblight_decrease_hue();
-      }
-      break;
-    case RGBLED_INCREASE_SAT:
-      if (record->event.pressed) {
-        rgblight_increase_sat();
-      }
-      break;
-    case RGBLED_DECREASE_SAT:
-      if (record->event.pressed) {
-        rgblight_decrease_sat();
-      }
-      break;
-    case RGBLED_INCREASE_VAL:
-      if (record->event.pressed) {
-        rgblight_increase_val();
-      }
-      break;
-    case RGBLED_DECREASE_VAL:
-      if (record->event.pressed) {
-        rgblight_decrease_val();
-      }
-      break;
-    case RGBLED_STEP_MODE:
-      if (record->event.pressed) {
-        rgblight_step();
-      }
-      break;
-    #endif
   }
 }

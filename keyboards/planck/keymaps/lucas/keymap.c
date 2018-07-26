@@ -153,9 +153,9 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     case 1: // M(1)
         if (record->event.pressed) {
             unregister_code(KC_LSFT);
-            register_code(DE_MORE);
+            register_code(DE_LESS);
         } else {
-            unregister_code(DE_MORE);
+            unregister_code(DE_LESS);
         }
         break;    
   }

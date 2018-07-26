@@ -1,0 +1,202 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage Printer Class USB AVR Bootloader
+ *
+ *  \section Sec_Compat Demo Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this demo.
+ *
+ *  \li Series 7 USB AVRs (AT90USBxxx7)
+ *  \li Series 6 USB AVRs (AT90USBxxx6)
+ *  \li Series 4 USB AVRs (ATMEGAxxU4)
+ *  \li Series 2 USB AVRs (AT90USBxx2, ATMEGAxxU2)
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this demo.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Printer Class</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Printer Subclass</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF Printer Class Standard</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  This bootloader enumerates to the host as a Generic Text Only Printer device, capable of reading and parsing
+ *  "printed" plain-text Intel HEX files to load firmware onto the AVR.
+ *
+ *  Out of the box this bootloader builds for the AT90USB1287 with an 8KB bootloader section size, and will fit
+ *  into 4KB of bootloader space. If you wish to alter this size and/or change the AVR model, you will need to
+ *  edit the MCU, FLASH_SIZE_KB and BOOT_SECTION_SIZE_KB values in the accompanying makefile.
+ *
+ *  When the bootloader is running, the board's LED(s) will flash at regular intervals to distinguish the
+ *  bootloader from the normal user application.
+ *
+ *  \section Sec_Running Running the Bootloader
+ *
+ *  On the USB AVR8 devices, setting the \c HWBE device fuse will cause the bootloader to run if the \c HWB pin of
+ *  the AVR is grounded when the device is reset.
+ *
+ *  The are two behaviours of this bootloader, depending on the device's fuses:
+ *
+ *  <b>If the device's BOOTRST fuse is set</b>, the bootloader will run any time the system is reset from
+ *  the external reset pin, unless no valid user application has been loaded. To initiate the bootloader, the
+ *  device's external reset pin should be grounded momentarily.
+ *
+ *  <b>If the device's BOOTRST fuse is not set</b>, the bootloader will run only if initiated via a software
+ *  jump, or if the \c HWB pin was low during the last device reset (if the \c HWBE fuse is set).
+ *
+ *  For board specific exceptions to the above, see below.
+ *
+ *  \subsection SSec_XPLAIN Atmel Xplain Board
+ *  Ground the USB AVR JTAG's \c TCK pin to ground when powering on the board to start the bootloader. This assumes the
+ *  \c HWBE fuse is cleared and the \c BOOTRST fuse is set as the HWBE pin is not user accessible on this board.
+ *
+ *  \subsection SSec_Leonardo Arduino Leonardo Board
+ *  Ground \c IO13 when powering the board to start the bootloader. This assumes the \c HWBE fuse is cleared and the
+ *  \c BOOTRST fuse is set as the HWBE pin is not user accessible on this board.
+ *
+ *  \section Sec_Installation Driver Installation
+ *
+ *  This bootloader uses the Generic Text-Only printer drivers inbuilt into all modern operating systems, thus no
+ *  additional drivers need to be supplied for correct operation.
+ *
+ *  \section Sec_HostApp Host Controller Application
+ *
+ *  This bootloader is compatible with Notepad under Windows, and the command line \c lpr utility under Linux.
+ *
+ *  \subsection SSec_Notepad Notepad (Windows)
+ *
+ *  While most text applications under Windows will be compatible with the bootloader, the inbuilt Notepad utility
+ *  is recommended as it will introduce minimal formatting changes to the output stream. To program with Notepad,
+ *  open the target HEX file and print it to the Generic Text Only printer device the bootloader creates.
+ *
+ *  \subsection SSec_LPR LPR (Linux)
+ *
+ *  While the CUPS framework under Linux will enumerate the bootloader as a Generic Text-Only printer, many
+ *  applications will refuse to print to the device due to the lack of rich formatting options available. As a result,
+ *  under Linux HEX files must be printed via the low level \c lpr utility instead.
+ *
+ *  \code
+ *  cat Mouse.hex | lpr
+ *  \endcode
+ *
+ *  \section Sec_API User Application API
+ *
+ *  Several user application functions for FLASH and other special memory area manipulations are exposed by the bootloader,
+ *  allowing the user application to call into the bootloader at runtime to read and write FLASH data.
+ *
+ *  By default, the bootloader API jump table is located 32 bytes from the end of the device's FLASH memory, and follows the
+ *  following layout:
+ *
+ *  \code
+ *  #define BOOTLOADER_API_TABLE_SIZE          32
+ *  #define BOOTLOADER_API_TABLE_START         ((FLASHEND + 1UL) - BOOTLOADER_API_TABLE_SIZE)
+ *  #define BOOTLOADER_API_CALL(Index)         (void*)((BOOTLOADER_API_TABLE_START + (Index * 2)) / 2)
+ *
+ *  void    (*BootloaderAPI_ErasePage)(uint32_t Address)               = BOOTLOADER_API_CALL(0);
+ *  void    (*BootloaderAPI_WritePage)(uint32_t Address)               = BOOTLOADER_API_CALL(1);
+ *  void    (*BootloaderAPI_FillWord)(uint32_t Address, uint16_t Word) = BOOTLOADER_API_CALL(2);
+ *  uint8_t (*BootloaderAPI_ReadSignature)(uint16_t Address)           = BOOTLOADER_API_CALL(3);
+ *  uint8_t (*BootloaderAPI_ReadFuse)(uint16_t Address)                = BOOTLOADER_API_CALL(4);
+ *  uint8_t (*BootloaderAPI_ReadLock)(void)                            = BOOTLOADER_API_CALL(5);
+ *  void    (*BootloaderAPI_WriteLock)(uint8_t LockBits)               = BOOTLOADER_API_CALL(6);
+ *
+ *  #define BOOTLOADER_MAGIC_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 2))
+ *  #define BOOTLOADER_MAGIC_SIGNATURE         0xDCFB
+ *
+ *  #define BOOTLOADER_CLASS_SIGNATURE_START   (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 4))
+ *  #define BOOTLOADER_PRINTER_SIGNATURE       0xDF20
+ *
+ *  #define BOOTLOADER_ADDRESS_START           (BOOTLOADER_API_TABLE_START + (BOOTLOADER_API_TABLE_SIZE - 8))
+ *  #define BOOTLOADER_ADDRESS_LENGTH          4
+ *  \endcode
+ *
+ *  From the application the API support of the bootloader can be detected by reading the FLASH memory bytes located at address
+ *  \c BOOTLOADER_MAGIC_SIGNATURE_START and comparing them to the value \c BOOTLOADER_MAGIC_SIGNATURE. The class of bootloader
+ *  can be determined by reading the FLASH memory bytes located at address \c BOOTLOADER_CLASS_SIGNATURE_START and comparing them
+ *  to the value \c BOOTLOADER_PRINTER_SIGNATURE. The start address of the bootloader can be retrieved by reading the bytes of FLASH
+ *  memory starting from address \c BOOTLOADER_ADDRESS_START.
+ *
+ *  \subsection SSec_API_MemLayout Device Memory Map
+ *  The following illustration indicates the final memory map of the device when loaded with the bootloader.
+ *
+ *  \verbatim
+ *  +----------------------------+ 0x0000
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |      User Application      |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - BOOT_SECTION_SIZE
+ *  |                            |
+ *  |   Bootloader Application   |
+ *  | (Not User App. Accessible) |
+ *  |                            |
+ *  +----------------------------+ FLASHEND - 96
+ *  |   API Table Trampolines    |
+ *  | (Not User App. Accessible) |
+ *  +----------------------------+ FLASHEND - 32
+ *  |    Bootloader API Table    |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND - 8
+ *  |   Bootloader ID Constants  |
+ *  |   (User App. Accessible)   |
+ *  +----------------------------+ FLASHEND
+ *  \endverbatim
+ *
+ *
+ *  \section Sec_KnownIssues Known Issues:
+ *
+ *  \par On Linux machines, new firmware fails to be sent to the device via CUPS.
+ *  Only a limited subset of normal printer functionality is exposed via the
+ *  bootloader, causing CUPS to reject print requests from applications that
+ *  are unable to handle true plain-text printing. For best results, the low
+ *  level \c lpr command should be used to print new firmware to the bootloader.
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this demo, which can control the demo behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */
+

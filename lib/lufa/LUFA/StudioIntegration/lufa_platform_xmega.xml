@@ -1,0 +1,23 @@
+<!--
+             LUFA Library
+     Copyright (C) Dean Camera, 2017.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+-->
+
+<!-- Atmel Studio framework integration file -->
+
+<lufa>
+	<asf xmlversion="1.0">
+		<module type="driver" id="lufa.platform.xmega" caption="LUFA XMEGA Platform Drivers">
+			<device-support-alias value="lufa_xmega"/>
+
+			<info type="gui-flag" value="hidden"/>
+
+			<build type="doxygen-entry-point" value="Group_PlatformDrivers_XMEGA"/>
+
+			<build type="header-file" value="Platform/XMEGA/ClockManagement.h"/>
+		</module>
+	</asf>
+</lufa>

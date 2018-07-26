@@ -1,0 +1,156 @@
+<asf xmlversion="1.0">
+	<project caption="DFU Bootloader - 128KB FLASH / 4KB Boot - AVR8 Architecture" id="lufa.bootloaders.dfu.avr8.128_4" force-caption="true" workspace-name="lufa_dfu_128kb_4kb_">
+		<require idref="lufa.bootloaders.dfu"/>
+		<require idref="lufa.boards.dummy.avr8"/>
+		<generator value="as5_8"/>
+
+		<device-support value="at90usb1287"/>
+		<config name="lufa.drivers.board.name" value="none"/>
+
+		<config name="config.compiler.optimization.level" value="size"/>
+
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
+
+		<build type="define" name="BOOT_START_ADDR" value="0x1F000"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.text=0x1F000"/>
+
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_trampolines=0x1FFA0"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_Trampolines"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_jumptable=0x1FFE0"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_JumpTable"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_signatures=0x1FFF8"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_Signatures"/>
+	</project>
+
+	<project caption="DFU Bootloader - 64KB FLASH / 4KB Boot - AVR8 Architecture" id="lufa.bootloaders.dfu.avr8.64_4" force-caption="true" workspace-name="lufa_dfu_64kb_4kb_">
+		<require idref="lufa.bootloaders.dfu"/>
+		<require idref="lufa.boards.dummy.avr8"/>
+		<generator value="as5_8"/>
+
+		<device-support value="at90usb647"/>
+		<config name="lufa.drivers.board.name" value="none"/>
+
+		<config name="config.compiler.optimization.level" value="size"/>
+
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
+
+		<build type="define" name="BOOT_START_ADDR" value="0xF000"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.text=0xF000"/>
+
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_trampolines=0xFFA0"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_Trampolines"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_jumptable=0xFFE0"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_JumpTable"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_signatures=0xFFF8"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_Signatures"/>
+	</project>
+
+	<project caption="DFU Bootloader - 32KB FLASH / 4KB Boot - AVR8 Architecture" id="lufa.bootloaders.dfu.avr8.32_4" force-caption="true" workspace-name="lufa_dfu_32kb_4kb_">
+		<require idref="lufa.bootloaders.dfu"/>
+		<require idref="lufa.boards.dummy.avr8"/>
+		<generator value="as5_8"/>
+
+		<device-support value="atmega32u4"/>
+		<config name="lufa.drivers.board.name" value="none"/>
+
+		<config name="config.compiler.optimization.level" value="size"/>
+
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
+
+		<build type="define" name="BOOT_START_ADDR" value="0x7000"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.text=0x7000"/>
+
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_trampolines=0x7FA0"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_Trampolines"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_jumptable=0x7FE0"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_JumpTable"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_signatures=0x7FF8"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_Signatures"/>
+	</project>
+
+	<project caption="DFU Bootloader - 16KB FLASH / 4KB Boot - AVR8 Architecture" id="lufa.bootloaders.dfu.avr8.16_4" force-caption="true" workspace-name="lufa_dfu_16kb_4kb_">
+		<require idref="lufa.bootloaders.dfu"/>
+		<require idref="lufa.boards.dummy.avr8"/>
+		<generator value="as5_8"/>
+
+		<device-support value="atmega16u2"/>
+		<config name="lufa.drivers.board.name" value="none"/>
+
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
+
+		<build type="define" name="BOOT_START_ADDR" value="0x3000"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.text=0x3000"/>
+
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_trampolines=0x3FA0"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_Trampolines"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_jumptable=0x3FE0"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_JumpTable"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_signatures=0x3FF8"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_Signatures"/>
+	</project>
+
+	<project caption="DFU Bootloader - 8KB FLASH / 4KB Boot - AVR8 Architecture" id="lufa.bootloaders.dfu.avr8.8_4" force-caption="true" workspace-name="lufa_dfu_8kb_4kb_">
+		<require idref="lufa.bootloaders.dfu"/>
+		<require idref="lufa.boards.dummy.avr8"/>
+		<generator value="as5_8"/>
+
+		<device-support value="atmega8u2"/>
+		<config name="lufa.drivers.board.name" value="none"/>
+
+		<build type="define" name="F_CPU" value="16000000UL"/>
+		<build type="define" name="F_USB" value="16000000UL"/>
+
+		<build type="define" name="BOOT_START_ADDR" value="0x1000"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.text=0x1000"/>
+
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_trampolines=0x1FA0"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_Trampolines"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_jumptable=0x1FE0"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_JumpTable"/>
+		<build type="linker-config" subtype="flags" value="--section-start=.apitable_signatures=0x1FF8"/>
+		<build type="linker-config" subtype="flags" value="--undefined=BootloaderAPI_Signatures"/>
+	</project>
+
+	<module type="application" id="lufa.bootloaders.dfu" caption="DFU Bootloader">
+		<info type="description" value="summary">
+		DFU Class Bootloader, capable of reprogramming a device using the Atmel FLIP or other AVR DFU programming software when plugged into a host.
+		</info>
+
+ 		<info type="gui-flag" value="move-to-root"/>
+
+		<info type="keyword" value="Technology">
+			<keyword value="Bootloaders"/>
+			<keyword value="USB Device"/>
+		</info>
+
+ 		<device-support-alias value="lufa_avr8"/>
+		<device-support-alias value="lufa_xmega"/>
+		<device-support-alias value="lufa_uc3"/>
+
+		<build type="include-path" value="."/>
+		<build type="c-source" value="BootloaderDFU.c"/>
+		<build type="header-file" value="BootloaderDFU.h"/>
+		<build type="c-source" value="Descriptors.c"/>
+		<build type="header-file" value="Descriptors.h"/>
+		<build type="c-source" value="BootloaderAPI.c"/>
+		<build type="header-file" value="BootloaderAPI.h"/>
+		<build type="asm-source" value="BootloaderAPITable.S"/>
+
+		<build type="module-config" subtype="path" value="Config"/>
+		<build type="header-file" value="Config/LUFAConfig.h"/>
+		<build type="header-file" value="Config/AppConfig.h"/>
+
+		<build type="distribute" subtype="user-file" value="doxyfile"/>
+		<build type="distribute" subtype="user-file" value="BootloaderDFU.txt"/>
+
+		<require idref="lufa.common"/>
+		<require idref="lufa.platform"/>
+		<require idref="lufa.drivers.usb"/>
+		<require idref="lufa.drivers.board"/>
+		<require idref="lufa.drivers.board.leds"/>
+	</module>
+</asf>
