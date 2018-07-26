@@ -168,4 +168,7 @@ void rgblight_effect_christmas(void);
 void rgblight_effect_rgbtest(void);
 void rgblight_effect_alternating(void);
 
+void typing_speed_decay_task(void);
+uint8_t typing_speed_matched_interval(uint8_t minValue, uint8_t maxValue);
+
 #endif
