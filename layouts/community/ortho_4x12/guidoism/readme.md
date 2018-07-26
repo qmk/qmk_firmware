@@ -9,6 +9,8 @@ make any changes, export the file and then run this:
 
     mv ~/Downloads/guidoism.json layouts/community/ortho_4x12/guidoism/ && python3 layouts/community/ortho_4x12/guidoism/generate_c.py && make planck:guidoism:dfu
 
+TODO: Move running of generate_c.py to makefile so I just need to run `make planck:guidoism:dfu`
+
 Note that the pretty forms of the keys are defined in another json
 file and are made for my specific board. You made need to update this
 file to get the pretty forms to look right.
