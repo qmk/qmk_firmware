@@ -784,27 +784,22 @@ void rgblight_effect_alternating(void){
   last_timer = timer_read();
 
   for(int i = 0; i<RGBLED_NUM; i++){
-	  if(pos){
-		  if(i<RGBLED_NUM/2){
-			  led[i].r = 255;
-			  led[i].g = 0;
-			  led[i].b = 0;
+		  if(i<RGBLED_NUM/2 && pos){
+			  //led[i].r = 255;
+			  //led[i].g = 0;
+			  //led[i].b = 0;
+			  rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, i);
+		  }else if (i>=RGBLED_NUM/2 && !pos){
+			  //led[i].r = 255;
+			  //led[i].g = 0;
+			  //led[i].b = 0;
+			  rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, i);
 		  }else{
-			  led[i].r = 0;
-			  led[i].g = 0;
-			  led[i].b = 0;
+			  //led[i].r = 0;
+			  //led[i].g = 0;
+			  //led[i].b = 0;
+			  rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, 0, i);
 		  }
-	  }else{
-		  if(i>=RGBLED_NUM/2){
-			  led[i].r = 255;
-			  led[i].g = 0;
-			  led[i].b = 0;
-		  }else{
-			  led[i].r = 0;
-			  led[i].g = 0;
-			  led[i].b = 0;
-		  }
-	  }
   }
   rgblight_set();
   pos = (pos + 1) % 2;
