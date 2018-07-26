@@ -8,7 +8,7 @@ There are three separate but related features that allow you to change the behav
 
 **Command**, formerly known as **Magic**, is another feature that allows you to control different aspects of your keyboard. While it shares some functionality with Bootmagic, it also allows you to do things that Bootmagic does not, such as printing version information to the console. For more information, see [Command](feature_command.md).
 
-Bootmagic is disabled by default. It must be explicitly enabled in your `rules.mk` with:
+On some keyboards Bootmagic is disabled by default. If this is the case, it must be explicitly enabled in your `rules.mk` with:
 
 ```make
 BOOTMAGIC_ENABLE = yes

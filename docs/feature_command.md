@@ -2,7 +2,7 @@
 
 Command, formerly known as Magic, is a way to change your keyboard's behavior without having to flash or unplug it to use [Bootmagic](feature_bootmagic.md). There is a lot of overlap between this functionality and the [Bootmagic Keycodes](feature_bootmagic.md#keycodes). Wherever possible we encourage you to use that feature instead of Command.
 
-Command is disabled by default. It must be explicitly enabled in your `rules.mk`:
+On some keyboards Command is disabled by default. If this is the case, it must be explicitly enabled in your `rules.mk`:
 
 ```make
 COMMAND_ENABLE = yes
