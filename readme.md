@@ -8,7 +8,7 @@ Regardless, I'm happy to share the code and discuss improvements with anyone who
 
 ## Getting Started
 
-My entire change amounts to several lines in `quantum.h`, `quantum.c` and `rgblight.c`. To see the details it's probably easiest if you look at [this commit](https://github.com/chrislewisdev/qmk_firmware/commit/2d3fbc5d0ad70309ede5cdeb9cf84380fd69baae) which contains all the changes.
+My original change amounts to several lines in `quantum.h`, `quantum.c` and `rgblight.c`. To see the details it's probably easiest if you look at [this commit](https://github.com/chrislewisdev/qmk_firmware/commit/2d3fbc5d0ad70309ede5cdeb9cf84380fd69baae) which contains all the changes.
 
 I've created GitHub Issues for the most pressing things that need to be addressed before this could be merged into QMK - if you're interested in helping out, please do take a look!
 
