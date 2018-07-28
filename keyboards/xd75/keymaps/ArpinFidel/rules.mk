@@ -15,4 +15,5 @@
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
+	BOOTMAGIC_ENABLE = no
 endif
