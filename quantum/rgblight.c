@@ -24,15 +24,13 @@
 #include "rgblight.h"
 #include "debug.h"
 #include "led_tables.h"
-#include "quantum.h"
 
 #ifndef RGBLIGHT_LIMIT_VAL
 #define RGBLIGHT_LIMIT_VAL 255
 #endif
 
-//These conflict with a chained include that comes from including quantum.h
-// #define MIN(a,b) (((a)<(b))?(a):(b))
-// #define MAX(a,b) (((a)>(b))?(a):(b))
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#define MAX(a,b) (((a)>(b))?(a):(b))
 
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
@@ -570,6 +568,7 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_setrgb(r, g, b);
 }
 
+uint8_t typing_speed = 0;
 void typing_speed_decay_task() {
   static uint16_t decay_timer = 0;
 

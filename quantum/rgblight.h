@@ -89,6 +89,10 @@ extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
 extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
 
+//Used in rgblight.c and quantum.c to match RGB animation to typing speed
+extern uint8_t typing_speed;
+#define TYPING_SPEED_MAX_VALUE 100
+
 typedef union {
   uint32_t raw;
   struct {
