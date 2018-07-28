@@ -574,6 +574,10 @@ void typing_speed_decay_task() {
 
   if (timer_elapsed(decay_timer) > 500 || decay_timer == 0) {
     if (typing_speed > 0) typing_speed -= 1;
+    //Decay a little faster at half of max speed
+    if (typing_speed > TYPING_SPEED_MAX_VALUE / 2) typing_speed -= 1;
+    //Decay even faster at 3/4 of max speed
+    if (typing_speed > TYPING_SPEED_MAX_VALUE / 4 * 3) typing_speed -= 3;
     decay_timer = timer_read();
   }
 }
@@ -679,7 +683,7 @@ void rgblight_effect_snake(uint8_t interval) {
   if (interval % 2) {
     increment = -1;
   }
-  if (timer_elapsed(last_timer) < typing_speed_matched_interval(5, 100)) {
+  if (timer_elapsed(last_timer) < typing_speed_matched_interval(1, 200)) {
     return;
   }
   last_timer = timer_read();
