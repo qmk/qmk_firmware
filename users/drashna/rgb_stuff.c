@@ -1,5 +1,6 @@
 #include "drashna.h"
 #include "rgb_stuff.h"
+#include "eeprom.h"
 
 extern rgblight_config_t rgblight_config;
 extern userspace_config_t userspace_config;
@@ -22,25 +23,64 @@ uint8_t current_osm;
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
   if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
     if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
-      rgblight_sethsv_at(0, 255, 255, SHFT_LED1);
-      rgblight_sethsv_at(0, 255, 255, SHFT_LED2);
+      #ifdef SHFT_LED1
+        rgblight_sethsv_at(120, 255, 255, SHFT_LED1);
+      #endif // SHFT_LED1
+      #ifdef SHFT_LED2
+        rgblight_sethsv_at(120, 255, 255, SHFT_LED2);
+      #endif // SHFT_LED2
     } else {
-      rgblight_sethsv_default_helper(SHFT_LED1);
-      rgblight_sethsv_default_helper(SHFT_LED2);
+      #ifdef SHFT_LED1
+        rgblight_sethsv_default_helper(SHFT_LED1);
+      #endif // SHFT_LED1
+      #ifdef SHFT_LED2
+        rgblight_sethsv_default_helper(SHFT_LED2);
+      #endif // SHFT_LED2
     }
     if (this_mod & MODS_CTRL_MASK || this_osm & MODS_CTRL_MASK) {
-      rgblight_sethsv_at(51, 255, 255, CTRL_LED1);
-      rgblight_sethsv_at(51, 255, 255, CTRL_LED2);
+      #ifdef CTRL_LED1
+        rgblight_sethsv_at(0, 255, 255, CTRL_LED1);
+      #endif // CTRL_LED1
+      #ifdef CTRL_LED2
+        rgblight_sethsv_at(0, 255, 255, CTRL_LED2);
+      #endif // CTRL_LED2
     } else {
-      rgblight_sethsv_default_helper(CTRL_LED1);
-      rgblight_sethsv_default_helper(CTRL_LED2);
+      #ifdef CTRL_LED1
+        rgblight_sethsv_default_helper(CTRL_LED1);
+      #endif // CTRL_LED1
+      #ifdef CTRL_LED2
+        rgblight_sethsv_default_helper(CTRL_LED2);
+      #endif // CTRL_LED2
     }
     if (this_mod & MODS_GUI_MASK || this_osm & MODS_GUI_MASK) {
-      rgblight_sethsv_at(120, 255, 255, GUI_LED1);
-      rgblight_sethsv_at(120, 255, 255, GUI_LED2);
+      #ifdef GUI_LED1
+        rgblight_sethsv_at(51, 255, 255, GUI_LED1);
+      #endif // GUI_LED1
+      #ifdef GUI_LED2
+        rgblight_sethsv_at(51, 255, 255, GUI_LED2);
+      #endif // GUI_LED2
     } else {
-      rgblight_sethsv_default_helper(GUI_LED1);
-      rgblight_sethsv_default_helper(GUI_LED2);
+      #ifdef GUI_LED1
+        rgblight_sethsv_default_helper(GUI_LED1);
+      #endif // GUI_LED1
+      #ifdef GUI_LED2
+        rgblight_sethsv_default_helper(GUI_LED2);
+      #endif // GUI_LED2
+    }
+    if (this_mod & MODS_ALT_MASK || this_osm & MODS_ALT_MASK) {
+      #ifdef ALT_LED1
+        rgblight_sethsv_at(240, 255, 255, ALT_LED1);
+      #endif // ALT_LED1
+      #ifdef GUI_LED2
+        rgblight_sethsv_at(240, 255, 255, ALT_LED2);
+      #endif // GUI_LED2
+    } else {
+      #ifdef GUI_LED1
+        rgblight_sethsv_default_helper(ALT_LED1);
+      #endif // GUI_LED1
+      #ifdef GUI_LED2
+        rgblight_sethsv_default_helper(ALT_LED2);
+      #endif // GUI_LED2
     }
   }
 }
@@ -63,7 +103,48 @@ void matrix_scan_indicator(void) {
 static rgblight_fadeout lights[RGBLED_NUM];
 
 __attribute__ ((weak))
-bool indicator_is_this_led_used(uint8_t index) { return false; }
+bool rgblight_twinkle_is_led_used_keymap(uint8_t index) { return false; }
+
+bool rgblight_twinkle_is_led_used(uint8_t index) {
+  switch (index) {
+#ifdef INDICATOR_LIGHTS
+#ifdef SHFT_LED1
+    case SHFT_LED1:
+      return true;
+#endif //SHFT_LED1
+#ifdef SHFT_LED2
+    case SHFT_LED2:
+      return true;
+#endif //SHFT_LED2
+#ifdef CTRL_LED1
+    case CTRL_LED1:
+      return true;
+#endif //CTRL_LED1
+#ifdef CTRL_LED2
+    case CTRL_LED2:
+      return true;
+#endif //CTRL_LED2
+#ifdef GUI_LED1
+    case GUI_LED1:
+      return true;
+#endif //GUI_LED1
+#ifdef GUI_LED2
+    case GUI_LED2:
+      return true;
+#endif //GUI_LED2
+#ifdef ALT_LED1
+    case ALT_LED1:
+      return true;
+#endif //ALT_LED1
+#ifdef ALT_LED2
+    case ALT_LED2:
+      return true;
+#endif //ALT_LED2
+#endif //INDICATOR_LIGHTS
+    default:
+    return rgblight_twinkle_is_led_used_keymap(index);
+  }
+}
 
 void scan_rgblight_fadeout(void) { // Don't effing change this function .... rgblight_sethsv is supppppper intensive
   bool litup = false;
@@ -97,7 +178,7 @@ void start_rgb_light(void) {
     uint8_t min_life = 0xFF;
     uint8_t min_life_index = -1;
     for (uint8_t index = 0 ; index < RGBLED_NUM ; ++index ) {
-      if (indicator_is_this_led_used(index)) { continue; }
+      if (rgblight_twinkle_is_led_used(index)) { continue; }
       if (lights[index].enabled) {
         if (min_life_index == -1 ||
           lights[index].life < min_life)
@@ -181,16 +262,16 @@ void matrix_init_rgb(void) {
 #endif
 
   if (userspace_config.rgb_layer_change) {
-    uint8_t default_layer = eeconfig_read_default_layer();
     rgblight_enable_noeeprom();
-    if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_sethsv_magenta();
-    } else if (default_layer & (1UL << _DVORAK)) {
-      rgblight_sethsv_green();
-    } else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_sethsv_goldenrod();
-    } else {
-      rgblight_sethsv_cyan();
+    switch (biton32(eeconfig_read_default_layer())) {
+      case _COLEMAK:
+        rgblight_sethsv_noeeprom_magenta(); break;
+      case _DVORAK:
+        rgblight_sethsv_noeeprom_green(); break;
+      case _WORKMAN:
+        rgblight_sethsv_noeeprom_goldenrod(); break;
+      default:
+        rgblight_sethsv_noeeprom_cyan(); break;
     }
   }
 }
@@ -209,7 +290,6 @@ void matrix_scan_rgb(void) {
 
 uint32_t layer_state_set_rgb(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
-  uint8_t default_layer = eeconfig_read_default_layer();
   if (userspace_config.rgb_layer_change) {
     switch (biton32(state)) {
     case _MACROS:
@@ -241,14 +321,15 @@ uint32_t layer_state_set_rgb(uint32_t state) {
       rgblight_mode_noeeprom(23);
       break;
     default: //  for any other layers, or the default layer
-      if (default_layer & (1UL << _COLEMAK)) {
-        rgblight_sethsv_noeeprom_magenta();
-      } else if (default_layer & (1UL << _DVORAK)) {
-        rgblight_sethsv_noeeprom_green();
-      } else if (default_layer & (1UL << _WORKMAN)) {
-        rgblight_sethsv_noeeprom_goldenrod();
-      } else {
-        rgblight_sethsv_noeeprom_cyan();
+      switch (biton32(default_layer_state)) {
+        case _COLEMAK:
+          rgblight_sethsv_noeeprom_magenta(); break;
+        case _DVORAK:
+          rgblight_sethsv_noeeprom_green(); break;
+        case _WORKMAN:
+          rgblight_sethsv_noeeprom_goldenrod(); break;
+        default:
+          rgblight_sethsv_noeeprom_cyan(); break;
       }
       biton32(state) == _MODS ? rgblight_mode_noeeprom(2) : rgblight_mode_noeeprom(1); // if _MODS layer is on, then breath to denote it
       break;
@@ -259,3 +340,5 @@ uint32_t layer_state_set_rgb(uint32_t state) {
 
   return state;
 }
+
+
