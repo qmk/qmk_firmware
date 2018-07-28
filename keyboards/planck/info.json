@@ -1,12 +1,8 @@
 {
   "keyboard_name": "Planck",
   "keyboard_folder": "planck",
-  "manufacturer": "OLKB",
-  "identifier": "FEED:6060:0001",
   "url": "https://olkb.com/planck",
   "maintainer": "jackhumbert",
-  "processor": "atmega32u4",
-  "bootloader": "atmel-dfu",
   "width": 12,
   "height": 4,
   "layouts": {

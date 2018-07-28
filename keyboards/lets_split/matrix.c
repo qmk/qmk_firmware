@@ -82,15 +82,6 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
     static void unselect_col(uint8_t col);
     static void select_col(uint8_t col);
 #endif
-__attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -110,6 +101,10 @@ __attribute__ ((weak))
 void matrix_scan_user(void) {
 }
 
+__attribute__ ((weak))
+void matrix_slave_scan_user(void) {
+}
+
 inline
 uint8_t matrix_rows(void)
 {
@@ -124,6 +119,12 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
+#ifdef DISABLE_JTAG
+  // JTAG disable for PORT F. write JTD bit twice within four cycles.
+  MCUCR |= (1<<JTD);
+  MCUCR |= (1<<JTD);
+#endif
+
     debug_enable = true;
     debug_matrix = true;
     debug_mouse = true;
@@ -160,7 +161,6 @@ uint8_t _matrix_scan(void)
             if (matrix_changed) {
                 debouncing = true;
                 debouncing_time = timer_read();
-                PORTD ^= (1 << 2);
             }
 
 #       else
@@ -290,6 +290,7 @@ void matrix_slave_scan(void) {
         serial_slave_buffer[i] = matrix[offset+i];
     }
 #endif
+    matrix_slave_scan_user();
 }
 
 bool matrix_is_modified(void)

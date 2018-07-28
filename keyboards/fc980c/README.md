@@ -32,6 +32,16 @@ The keyboard is very similar electronically to its sibling model FC660C you can 
 FC660C Alt Controller: https://geekhack.org/index.php?topic=88439.0
 
 
+Actuation Point adjustment
+--------------------------
+You can adjust the actuation point of the keys by setting `ACTUATION_DEPTH_ADJUSTMENT` in `config.h`.
+A value above 0 will result in a deeper, less sensitive actuation whereas a value above 1 will result in a more shallow, more sensitive actuation.
+Be careful with this setting and use small values (+/-5).
+See the `actuation-point-example` keymap for an example.
+For more information, inspect the `fc660c_i2c` branch of TMK [here](https://github.com/tmk/tmk_keyboard/tree/fc660c_i2c).
+Functionality for writing to the EEPROM has deliberately not been included to reduce the chance of people messing up their boards.
+
+
 Hardware
 --------
 This project uses common and familiar ATmega32u4 but any microcontroller with 5V I/O will work.
@@ -145,8 +155,8 @@ Datasheets
 - AD5258: http://www.analog.com/media/en/technical-documentation/data-sheets/AD5258.pdf
 - JST S5B-PH-SM4: http://www.jst-mfg.com/product/pdf/eng/ePH.pdf
 - Hirose UX60SC-MB-5S8: https://www.hirose.com/product/en/products/UX/UX60SC-MB-5S8%2880%29/
-- TYU TU1252WNR-05S: http://php2.twinner.com.tw/files/tyu/TU1252series.pdf
 - Tr(E42) for LED?: http://cj-elec.com/txUpfile/2013614923661845.pdf
+- TYU TU1252WNR-05S: http://php2.twinner.com.tw/files/goodjob/TY1252series.pdf
 
 
 3.3V power supply

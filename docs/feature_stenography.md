@@ -14,7 +14,7 @@ To use Plover with QMK just enable NKRO and optionally adjust your layout if you
 
 Plover also understands the language of several steno machines. QMK can speak a couple of these languages, TX Bolt and GeminiPR. An example layout can be found in `planck/keymaps/steno`.
 
-When QMK speaks to Plover over a steno protocol Plover will not use the keyboard as input. This means that you can switch back and forth between a standard keyboard and your steno keyboard, or even switch layers from Plover to standard and back without needing to activate/deactive Plover.
+When QMK speaks to Plover over a steno protocol Plover will not use the keyboard as input. This means that you can switch back and forth between a standard keyboard and your steno keyboard, or even switch layers from Plover to standard and back without needing to activate/deactivate Plover.
 
 In this mode Plover expects to speak with a steno machine over a serial port so QMK will present itself to the operating system as a virtual serial port in addition to a keyboard. By default QMK will speak the TX Bolt protocol but can be switched to GeminiPR; the last protocol used is stored in non-volatile memory so QMK will use the same protocol on restart.
 
@@ -55,6 +55,29 @@ On the display tab click 'Open stroke display'. With Plover disabled you should 
 * [QWERTY Steno](http://qwertysteno.com/Home/)
 * [Steno Jig](https://joshuagrams.github.io/steno-jig/)
 * More resources at the Plover [Learning Stenography](https://github.com/openstenoproject/plover/wiki/Learning-Stenography) wiki
+
+## Interfacing with the code
+
+The steno code has three interceptible hooks. If you define these functions, they will be called at certain points in processing; if they return true, processing continues, otherwise it's assumed you handled things.
+
+```C
+bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]);
+```
+
+This function is called when a chord is about to be sent. Mode will be one of `STENO_MODE_BOLT` or `STENO_MODE_GEMINI`. This represents the actual chord that would be sent via whichever protocol. You can modify the chord provided to alter what gets sent. Remember to return true if you want the regular sending process to happen.
+
+```C
+bool process_steno_user(uint16_t keycode, keyrecord_t *record) { return true; }
+```
+
+This function is called when a keypress has come in, before it is processed. The keycode should be one of `QK_STENO_BOLT`, `QK_STENO_GEMINI`, or one of the `STN_*` key values.
+
+```C
+bool postprocess_steno_user(uint16_t keycode, keyrecord_t *record, steno_mode_t mode, uint8_t chord[6], int8_t pressed);
+```
+
+This function is called after a key has been processed, but before any decision about whether or not to send a chord. If `IS_PRESSED(record->event)` is false, and `pressed` is 0 or 1, the chord will be sent shortly, but has not yet been sent. This is where to put hooks for things like, say, live displays of steno chords or keys.
+
 
 ## Keycode Reference
 
@@ -106,3 +129,4 @@ As defined in `keymap_steno.h`.
 |`STN_RES1`||(GeminiPR only)|
 |`STN_RES2`||(GeminiPR only)|
 |`STN_PWR`||(GeminiPR only)|
+

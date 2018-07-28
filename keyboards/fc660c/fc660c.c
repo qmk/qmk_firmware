@@ -16,9 +16,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "fc660c.h"
 
+#ifdef ACTUATION_DEPTH_ADJUSTMENT
+#include "actuation_point.h"
+#endif
+
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
+
+#ifdef ACTUATION_DEPTH_ADJUSTMENT
+    adjust_actuation_point(ACTUATION_DEPTH_ADJUSTMENT);
+#endif
 
 	matrix_init_user();
 }

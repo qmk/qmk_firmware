@@ -1,6 +1,7 @@
 //
 //Dropped the Dvorak layer and added two my layer buttons.  Both Raise and lower can be accessed from either side now.
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
@@ -43,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  |Func  |Lower |    Space    |Raise | Left | Down |  Up  |Right 
+ * | Ctrl | Alt  | GUI  |Func  |Lower |    Space    |Raise | Left | Down |  Up  |Right
  * `-----------------------------------------------------------------------------------'
  */
 [_CM] = {
@@ -54,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 /* Raise
  * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp 
+ * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|

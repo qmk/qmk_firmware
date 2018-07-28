@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -63,3 +62,5 @@ BACKLIGHT_ENABLE = yes
 
 # Optimize size but this may cause error "relocation truncated to fit"
 #EXTRALDFLAGS = -Wl,--relax
+
+LAYOUTS = 60_ansi 60_iso
