@@ -43,7 +43,7 @@ char *get_layer_name(void) {
         return "Function";
       case L_MOUSE:
         return "Mouse";
-      case L_WHEEL:
+      case L_WHEEL | L_MOUSE:
         return "Wheel";
       default:
         return "(Undefined)";
