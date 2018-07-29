@@ -14,9 +14,9 @@ extern keymap_config_t keymap_config;
 
 #define BASE     0
 #define SYMB     1
+#define FUNCTION 2
 #define MOUSE    3
 #define WHEEL    4
-#define FUNCTION 5
 
 /* KEYCODE DEFINITIONS */
 
