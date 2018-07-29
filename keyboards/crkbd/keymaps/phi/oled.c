@@ -2,8 +2,6 @@
 
 #include "crkbd.h"
 #include "ssd1306.h"
-/* #include "action_util.h" */
-/* #include "keycode.h" */
 
 #define L_BASE     0
 #define L_SYMB     (2 << (1 - 1))
