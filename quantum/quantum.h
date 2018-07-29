@@ -27,15 +27,21 @@
 #ifdef BACKLIGHT_ENABLE
     #include "backlight.h"
 #endif
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE) 
+#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
 	#include "rgb.h"
 #endif
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
 #endif
+
+#ifdef SPLIT_KEYBOARD
+    #include "split_flags.h"
+#endif
+
 #ifdef RGB_MATRIX_ENABLE
 	#include "rgb_matrix.h"
 #endif
+
 #include "action_layer.h"
 #include "eeconfig.h"
 #include <stddef.h>
