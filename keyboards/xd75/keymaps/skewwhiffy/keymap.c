@@ -23,9 +23,8 @@
 #define _DV 1 // Dvorak
 #define _QW 2 // QWERTY
 #define _NB 3 // Numbers
-#define _SYL 4 // Symbols left
-#define _SYR 5 // Symbols right
-#define _NAV 6 // Navigation
+#define _SY 4 // Symbols
+#define _NAV 5 // Navigation
 
 // Layer buttons
 #define _Z_SFT SFT_T(UK_Z)
@@ -35,10 +34,11 @@
 #define _Q_NB LT(_NB, UK_Q)
 #define _DOT_NB LT(_NB, UK_DOT)
 #define _V_NB LT(_NB, UK_V)
-#define _C_SY LT(_SYL, UK_C)
-#define _J_SY LT(_SYL, UK_J)
-#define _W_SY LT(_SYL, UK_W)
-#define _COM_SY LT(_SYR, UK_COMM)
+#define _C_SY LT(_SY, UK_C)
+#define _J_SY LT(_SY, UK_J)
+#define _W_SY LT(_SY, UK_W)
+#define _COM_SY LT(_SY, UK_COMM)
+#define _AST_SY LT(_SY, UK_PAST)
 #define _B_NAV LT(_NAV, UK_B)
 #define _X_NAV LT(_NAV, UK_X)
 #define _K_NAV LT(_NAV, UK_K)
@@ -150,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
 
-/* Symbols _SYL and _SYR - For some reason, combining this into the same layer causes problems. See issue 3265 for more details
+/* Symbols _SY
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -163,18 +163,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- [_SYL] = {
+ [_SY] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH },
   { UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT   },
-  { UK_CIRC, UK_AMPR, _C_SY,   UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, UK_RBRC, UK_RABK, UK_GRV  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
- },
- [_SYR] = {
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-  { UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH },
-  { UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT   },
-  { UK_CIRC, UK_AMPR, UK_ASTR, UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, _COM_SY, UK_RABK, UK_GRV  },
+  { UK_CIRC, UK_AMPR, _AST_SY, UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, _COM_SY, UK_RABK, UK_GRV  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
 /*
@@ -269,27 +262,6 @@ void matrix_scan_user(void) {
     default:
       effect = 0;
       break;
-  }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!record->event.pressed) return true;
-  if (keycode == L_SB) {
-    lightsOn = !lightsOn;
-    if (!lightsOn) {
-      keyPresses = 0;
-    } else {
-      resetCounts();
-    }
-    return true;
-  }
-  if (keycode == L_NEXT) {
-    resetCounts();
-    return true;
-  }
-  keyPresses++;
-  if (keyPresses > 100) {
-    resetCounts();
   }
 }
 
