@@ -102,6 +102,17 @@ ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
     OPT_DEFS += -DLOCAL_GLCDFONT
 endif
 
+# if firmware size over limit, try this option
+# CFLAGS += -flto
+ifeq ($(strip $(AUDIO_ENABLE)),yes)
+  ifeq ($(strip $(RGBLIGHT_ENABLE)),yes)
+    CFLAGS += -flto
+  endif
+  ifeq ($(strip $(OLED_ENABLE)),yes)
+    CFLAGS += -flto
+  endif
+endif
+
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
