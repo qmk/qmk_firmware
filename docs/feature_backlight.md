@@ -6,7 +6,7 @@ The MCU can only supply so much current to its GPIO pins. Instead of powering th
 
 ## Caveats
 
-This feature is distinct from both the RGB underglow and RGB matrix features as it usually allows for only a single colour per switch, though you can obviously use multiple different coloured LEDs on a keyboard.
+This feature is distinct from both the [RGB underglow](feature_rgblight.md) and [RGB matrix](feature_rgb_matrix.md) features as it usually allows for only a single colour per switch, though you can obviously use multiple different coloured LEDs on a keyboard.
 
 Hardware PWM is only supported on certain pins of the MCU, so if the backlighting is not connected to one of them, a software implementation will be used, and backlight breathing will not be available. Currently the supported pins are `B5`, `B6`, `B7`, and `C6`.
 
