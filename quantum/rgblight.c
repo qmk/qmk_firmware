@@ -814,7 +814,8 @@ void rgblight_effect_doubleknight(uint8_t interval) {
 
   //turn on led if it is 'offset' away from the beginning or end of strip
   for(int i = 0; i<RGBLED_NUM; i++){
-    if(i == offset || offset == (RGBLED_NUM - 1 - i)){
+    if(i == offset || i == offset-increment || offset == (RGBLED_NUM - 1 - i) ||
+		    offset == (RGBLED_NUM - 1 - i + increment)){
       rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, i);
     }else{
       rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, 0, i);
