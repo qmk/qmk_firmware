@@ -38,3 +38,5 @@
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 #endif
+
+#define PREVENT_STUCK_MODIFIERS
