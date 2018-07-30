@@ -247,7 +247,8 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
       rgblight_timer_disable();
     #endif
   } else if ((rgblight_config.mode >= 2 && rgblight_config.mode <= 24) ||
-	     rgblight_config.mode == 35 || rgblight_config.mode == 36) {
+	     rgblight_config.mode == 35 || rgblight_config.mode == 36 || 
+	     (rgblight_config.mode >= 37 && rgblight_config.mode <= 39)) {
     // MODE 2-5, breathing
     // MODE 6-8, rainbow mood
     // MODE 9-14, rainbow swirl
@@ -256,6 +257,7 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     // MODE 24, xmas
     // MODE 35  RGB test
     // MODE 36, alterating
+    // MODE 37-39, double knight rider
 
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
@@ -594,6 +596,9 @@ void rgblight_task(void) {
       rgblight_effect_rgbtest();
     } else if (rgblight_config.mode == 36){
       rgblight_effect_alternating();
+    }else if (rgblight_config.mode >= 37 && rgblight_config.mode <= 39){
+      // mode = 37 to 39, double knight mode
+      rgblight_effect_doubleknight(rgblight_config.mode - 37);
     }
   }
 }
@@ -794,6 +799,36 @@ void rgblight_effect_alternating(void){
   }
   rgblight_set();
   pos = (pos + 1) % 2;
+}
+
+void rgblight_effect_doubleknight(uint8_t interval) {
+  static uint16_t last_timer = 0;
+  static int8_t increment = 1;
+  static uint8_t offset = 0;
+  static int8_t middle = RGBLED_NUM/2;
+  
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval])) {
+   return;
+  }
+  last_timer = timer_read();
+
+  //turn on led if it is 'offset' away from the beginning or end of strip
+  for(int i = 0; i<RGBLED_NUM; i++){
+    if(i == offset || offset == (RGBLED_NUM - 1 - i)){
+      rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, i);
+    }else{
+      rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, 0, i);
+    }
+  }
+
+  rgblight_set();
+
+  offset+=increment;
+
+  //reverse direction if offset is at the edge
+  if(offset == 0 || offset == (middle-1)){
+    increment*=-1;;
+  }
 }
 
 #endif /* RGBLIGHT_ANIMATIONS */
