@@ -4,9 +4,10 @@ COMET46_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                          avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 
 # # project specific files
-SRC = matrix.c
-
-
+SRC += matrix.c \
+       i2c.c \
+       ssd1306.c 
+       
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
