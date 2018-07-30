@@ -38,6 +38,6 @@
 /* for QMK DFU bootloader */
 /* not required if using default ProMicro bootloader */
 /* set top left key as bootloader mode escape key */
-#define QMK_ESC_OUTPUT B4 // usually COL
-#define QMK_ESC_INPUT F7 // usually ROW
+#define QMK_ESC_OUTPUT C6 // usually COL
+#define QMK_ESC_INPUT B2 // usually ROW
 #define QMK_LED B0
