@@ -41,7 +41,7 @@
  * |Ctl|Gui|Alt|          Space                |Alt|Gui|App|Ctl| |Lef|Dow|Rig|
  * `-----------------------------------------------------------' `-----------'
  */
-#define KEYMAP( \
+#define LAYOUT( \
     KG1,      KH7, KJ7, KJ6, KJ1, KO5, KL1, KA6, KA7, KD7, KD5, KD1, KD2,      KB5, KB3, KO3, \
     KG7, KG5, KH5, KJ5, KI5, KI7, KK7, KK5, KL5, KA5, KC5, KC7, KL7, KD6,      KQ7, KN7, KM7, \
     KG6, KG3, KH3, KJ3, KI3, KI6, KK6, KK3, KL3, KA3, KC3, KC6, KL6, KD4,      KP7, KN5, KM5, \

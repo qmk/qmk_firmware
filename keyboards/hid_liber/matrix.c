@@ -111,6 +111,24 @@ const uint8_t mask = 0x0E;
 static
 const uint8_t   col_bit[MATRIX_COLS] = {  0x00,   0x02,   0x04,   0x06,   0x08,   0x0A,   0x0C,   0x0E};
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
+
 static
 inline void pull_column(int col) {
   PORTB = col_bit[col] | (PORTB & ~mask);
