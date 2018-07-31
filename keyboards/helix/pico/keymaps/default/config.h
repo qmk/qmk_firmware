@@ -1,4 +1,6 @@
 /*
+This is the c configuration file for the keymap
+
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
 
@@ -16,20 +18,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
-#include "config_common.h"
+// place overrides here
 
-#if !defined(NO_DEBUG) && !defined(CONSOLE_ENABLE)
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-#define DISABLE_LEADER
-
+#ifdef AUDIO_ENABLE
+  #define STARTUP_SONG SONG(STARTUP_SOUND)
+  #define AUDIO_CLICKY
 #endif
+
+#endif /* CONFIG_USER_H */
