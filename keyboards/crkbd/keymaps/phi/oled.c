@@ -47,10 +47,9 @@ char *get_layer_name(void) {
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
-    uint8_t mods;
     if (is_master) {
+        uint8_t mods = get_mods();
         matrix_write_ln(matrix, "crkbd phi >");
-        mods = get_mods();
         if (mods & MOD_CTL) matrix_write(matrix, "C-");
         if (mods & MOD_ALT) matrix_write(matrix, "M-");
         if (mods & MOD_SFT) matrix_write(matrix, "S-");
