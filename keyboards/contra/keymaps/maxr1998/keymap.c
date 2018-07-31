@@ -25,7 +25,7 @@ enum contra_layers {
 
 #define KC_I3 LM(_NUMROW, MOD_LALT)
 #define KC_NR MO(_NUMROW)
-#define NR_L3 LM(_NUMROW, MOD_RALT)
+#define NR_L3 SAFE_RANGE
 #define FUN MO(_FUNC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -86,6 +86,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (keycode == NR_L3) {
+    if (record->event.pressed) {
+      register_code(DE_ALGR);
+      layer_on(_NUMROW);
+    } else {
+      layer_off(_NUMROW);
+      unregister_code(DE_ALGR);
+    }
+    return false;
+  }
   return true;
 }
 
