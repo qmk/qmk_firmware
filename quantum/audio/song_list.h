@@ -51,7 +51,6 @@
 	Q__NOTE(_E4), Q__NOTE(_C4), \
 	Q__NOTE(_E4),
 
-/* Requires: PLAY_NOTE_ARRAY(..., ..., STACCATO); */
 #define IN_LIKE_FLINT \
     E__NOTE(_AS4), E__NOTE(_AS4), QD_NOTE(_B4),  \
     E__NOTE(_AS4), E__NOTE(_B4),  QD_NOTE(_CS4), \
@@ -501,5 +500,17 @@
     H__NOTE(_F4),      \
     H__NOTE(_F4),      \
     W__NOTE(_C5),      \
-    W__NOTE(_BF4), 
+    W__NOTE(_BF4),
+
+#define KATAMARI_ROLLING_STAR \
+    ED_NOTE(_G4),             \
+    ED_NOTE(_AS5),            \
+    E__NOTE(_B5),             \
+    E__NOTE(_B5),             \
+    ED_NOTE(_AS5),            \
+    ED_NOTE(_G4),             \
+    ED_NOTE(_E4),             \
+    E__NOTE(_C4),             \
+    Q__NOTE(_C4),             \
+
 #endif
