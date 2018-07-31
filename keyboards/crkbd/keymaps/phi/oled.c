@@ -29,8 +29,6 @@ void matrix_scan_user(void) {
 }
 
 char *get_layer_name(void) {
-    static char layer_name_str[40];
-
     switch (layer_state)
     {
       case L_BASE:
@@ -46,8 +44,6 @@ char *get_layer_name(void) {
       default:
         return "(Undefined)";
     }
-
-    return layer_name_str;
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
