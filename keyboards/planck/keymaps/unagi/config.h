@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "config_common.h"
+#pragma
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(SONIC_RING)
@@ -42,5 +39,3 @@
 
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
-
-#endif
