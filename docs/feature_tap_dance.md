@@ -201,9 +201,7 @@ Pretty simple. It is a nice way to keep some rules common on all your keymaps.
 You will need a few things in this file:
 
 ```c
-#ifndef YOUR_NAME
-#define YOUR_NAME
-#endif
+#pragma once
 
 #include "quantum.h"
 #include "process_keycode/process_tap_dance.h"
