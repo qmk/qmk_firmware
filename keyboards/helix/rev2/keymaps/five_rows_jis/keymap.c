@@ -1,24 +1,15 @@
-#include "helix.h"
+#include QMK_KEYBOARD_H
 #include "bootloader.h"
-#include "action_layer.h"
-#include "eeconfig.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
 #endif
-#include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
-
-// * If you want to recognize that you pressed the Adjust key with the Lower / Raise key you can enable this comment out. However, the binary size may be over. *
-// #define ADJUST_MACRO_ENABLE
-
-// * If you want to use the Kana key you can enable this comment out. However, the binary size may be over. *
-// #define KANA_ENABLE
 
 extern keymap_config_t keymap_config;
 
@@ -441,7 +432,6 @@ void matrix_init_user(void) {
   #endif
   //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
   #ifdef SSD1306OLED
-    TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
     iota_gfx_init(!has_usb());   // turns on the display
   #endif
 }
