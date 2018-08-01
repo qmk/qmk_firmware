@@ -48,40 +48,61 @@ char *get_layer_name(void) {
 
 int keyfreq_count = 0;
 
-char keyfreq_log_grid[21] = {   /* 21th byte for a null character */
-  0x20, 0x20, 0x20, 0x20, 0x9c,
-  0x20, 0x20, 0x20, 0x20, 0x9c,
-  0x20, 0x20, 0x20, 0x20, 0x9c,
-  0x20, 0x20, 0x20, 0x20, 0x9c
-};
+/* char keyfreq_log_grid[21] = {   /\* 21th byte for a null character *\/ */
+/*   0x20, 0x20, 0x20, 0x20, 0x9c, */
+/*   0x20, 0x20, 0x20, 0x20, 0x9c, */
+/*   0x20, 0x20, 0x20, 0x20, 0x9c, */
+/*   0x20, 0x20, 0x20, 0x20, 0x9c */
+/* }; */
 
-char *get_keyfreq_log(void) {
-   static char log[21] = {
-     0x9b, 0x9b, 0x9b, 0x9b, 0x9b,
-     0x9b, 0x9b, 0x9b, 0x9b, 0x9b,
-     0x9b, 0x9b, 0x9b, 0x9b, 0x9b,
-     0x9b, 0x9b, 0x9b, 0x9b, 0x9b
-   };
-   static int last_time = 0;
+void matrix_write_keyfreq_log(struct CharacterMatrix *matrix) {
+    static char log1[21] = {
+      0x9c, 0x9c, 0x9c, 0x9c, 0x9c,
+      0x9c, 0x9c, 0x9c, 0x9c, 0x9c,
+      0x9c, 0x9c, 0x9c, 0x9c, 0x9c,
+      0x9c, 0x9c, 0x9c, 0x9c, 0x9c,
+    };
+    static char log2[21] = {
+      0xbb, 0xbb, 0xbb, 0xbb, 0xbb,
+      0xbb, 0xbb, 0xbb, 0xbb, 0xbb,
+      0xbb, 0xbb, 0xbb, 0xbb, 0xbb,
+      0xbb, 0xbb, 0xbb, 0xbb, 0xbb,
+    };
+    static int last_time = 0;
 
-   log[0] =
-     keyfreq_count == 0 ? 0x9b :
-     keyfreq_count < 100 ? 0x9a :
-     keyfreq_count < 200 ? 0x99 :
-     keyfreq_count < 300 ? 0x98 :
-     keyfreq_count < 400 ? 0x97 :
-     keyfreq_count < 500 ? 0x96 :
-     keyfreq_count < 600 ? 0x95 : 0x94;
+    log2[0] =
+        keyfreq_count == 0  ? 0xbb :
+        keyfreq_count < 50  ? 0xba :
+        keyfreq_count < 100 ? 0xb9 :
+        keyfreq_count < 150 ? 0xb8 :
+        keyfreq_count < 200 ? 0xb7 :
+        keyfreq_count < 250 ? 0xb6 :
+        keyfreq_count < 300 ? 0xb5 : 0xb4;
 
-   /* shift the log every 60 seconds */
-   if (timer_elapsed(last_time) > 60000) {
-       last_time = timer_read();
-       keyfreq_count = 0;
-       for (int i = 19; i > 0; i--) log[i] = log[i - 1];
-       log[0] = 0x9b;
-   }
+    log1[0] =
+        keyfreq_count < 300 ? 0x9c :
+        keyfreq_count < 350 ? 0x9b :
+        keyfreq_count < 400 ? 0x9a :
+        keyfreq_count < 450 ? 0x99 :
+        keyfreq_count < 500 ? 0x98 :
+        keyfreq_count < 550 ? 0x97 :
+        keyfreq_count < 600 ? 0x96 :
+        keyfreq_count < 650 ? 0x95 : 0x94;
 
-   return log;
+    /* shift the log every 60 seconds */
+    if (timer_elapsed(last_time) > 60000) {
+        last_time = timer_read();
+        keyfreq_count = 0;
+        for (int i = 19; i > 0; i--) {
+          log1[i] = log1[i - 1];
+          log2[i] = log2[i - 1];
+        }
+        log1[0] = 0x9c;
+        log2[0] = 0xbb;
+    }
+
+    matrix_write_ln(matrix, log1);
+    matrix_write(matrix, log2);
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
@@ -93,8 +114,8 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
         if (mods & MOD_SFT) matrix_write(matrix, "S-");
         if (mods & MOD_GUI) matrix_write(matrix, "A-");
         matrix_write_ln(matrix, get_layer_name());
-        matrix_write_ln(matrix, get_keyfreq_log());
-        matrix_write(matrix, keyfreq_log_grid);
+        matrix_write_keyfreq_log(matrix);
+        /* matrix_write(matrix, keyfreq_log_grid); */
     } else {
         matrix_write(matrix, read_logo());
     }
