@@ -4,11 +4,15 @@ Many keyboards support backlit keys by way of individual LEDs placed through or 
 
 The MCU can only supply so much current to its GPIO pins. Instead of powering the backlight directly from the MCU, the backlight pin is connected to a transistor or MOSFET that switches the power to the LEDs.
 
-## Caveats
+## Usage
 
-This feature is distinct from both the [RGB underglow](feature_rgblight.md) and [RGB matrix](feature_rgb_matrix.md) features as it usually allows for only a single colour per switch, though you can obviously use multiple different coloured LEDs on a keyboard.
+Most keyboards have backlighting enabled by default if they support it, but if it is not working for you, check that your `rules.mk` includes the following:
 
-Hardware PWM is only supported on certain pins of the MCU, so if the backlighting is not connected to one of them, a software implementation will be used, and backlight breathing will not be available. Currently the supported pins are `B5`, `B6`, `B7`, and `C6`.
+```make
+BACKLIGHT_ENABLE = yes
+```
+
+You should then be able to use the keycodes below to change the backlight level.
 
 ## Keycodes
 
@@ -21,6 +25,12 @@ Hardware PWM is only supported on certain pins of the MCU, so if the backlightin
 |`BL_INC` |Increase the backlight level              |
 |`BL_DEC` |Decrease the backlight level              |
 |`BL_BRTG`|Toggle backlight breathing                |
+
+## Caveats
+
+This feature is distinct from both the [RGB underglow](feature_rgblight.md) and [RGB matrix](feature_rgb_matrix.md) features as it usually allows for only a single colour per switch, though you can obviously use multiple different coloured LEDs on a keyboard.
+
+Hardware PWM is only supported on certain pins of the MCU, so if the backlighting is not connected to one of them, a software implementation will be used, and backlight breathing will not be available. Currently the supported pins are `B5`, `B6`, `B7`, and `C6`.
 
 ## Configuration
 
