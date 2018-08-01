@@ -1,9 +1,8 @@
 # Atack25 Split
-======
 
-![atack25 Split](imgur.com image replace me!)
+![atack25split](https://user-images.githubusercontent.com/16618674/43504074-e81e2382-959c-11e8-84d2-61bbb98eb972.jpg)
 
-A short description of the keyboard/project
+Split version of atack25.
 
 Keyboard Maintainer: [monksoffunk](https://github.com/monksoffunk)  
 Hardware Supported: Atack25 PCB 
@@ -13,4 +12,6 @@ Make example for this keyboard (after setting up your build environment):
 
     make atack25_split:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+
+I know atack is typo, anyway I named it atack25.
+See [build environment setup](https://docs.qmk.fm/) 
