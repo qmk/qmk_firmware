@@ -1,6 +1,6 @@
 # Atack25 Split
 
-![atack25split](https://user-images.githubusercontent.com/16618674/43504074-e81e2382-959c-11e8-84d2-61bbb98eb972.jpg)
+<img src="https://user-images.githubusercontent.com/16618674/43504074-e81e2382-959c-11e8-84d2-61bbb98eb972.jpg" width="600">
 
 Split version of atack25.
 
