@@ -1,6 +1,6 @@
 # atack25
 
-![atack25](https://user-images.githubusercontent.com/16618674/43503737-7c9b156c-959b-11e8-9026-4cf4fa4ca473.JPG)
+<img src="https://user-images.githubusercontent.com/16618674/43503737-7c9b156c-959b-11e8-9026-4cf4fa4ca473.JPG" width="600px">
 
 A 5x5 key pad project.
 
@@ -16,4 +16,4 @@ Dafault keymap is Hex Pad.
 
 Though atack is typo of attack, this project's name is atack.
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/).
