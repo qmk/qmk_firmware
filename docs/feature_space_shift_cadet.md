@@ -1,26 +1,31 @@
-## Space Cadet Shift Enter: The future, built in
+# Space Cadet Shift Enter
 
-Based on the Space Cadet Shift by Steve Losh [described](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) 
-Essentially, you hit the Shift on its own, and it acts as the enter key. When hit with other keys, the Shift key keeps working as it always does. Yes, it's as cool as it sounds. This solution works better than using a macro since the timers defined in quantum allow us to tell when another key is pressed, rather than just having a janky timer than results in accidental endlines. 
+Based on the [Space Cadet Shift](feature_space_cadet.md) feature. Tap the Shift key on its own, and it behaves like Enter. When held, the Shift functions as normal.
 
-To use it, use `KC_SFTENT` (Shift, Enter) for any Shift on your keymap.
+## Usage
 
-It's defaulted to work on US keyboards, but if you'd like to use a different key for Enter, you can define those in your `config.h` like this:
+Replace any Shift key in your keymap with `KC_SFTENT` (Shift, Enter), and you're done.
 
-    #define SFTENT_KEY KC_ENT
+## Keycodes
 
+|Keycode    |Description                             |
+|-----------|----------------------------------------|
+|`KC_SFTENT`|Right Shift when held, Enter when tapped|
 
-The only other thing you're going to want to do is create a `rules.mk` in your keymap directory and set the following:
+## Configuration
 
+By default Space Cadet assumes a US ANSI layout, but if you'd like to use a different key for Enter, you can redefine it in your `config.h`:
+
+|Define      |Default |Description                                     |
+|------------|--------|------------------------------------------------|
+|`SFTENT_KEY`|`KC_ENT`|The keycode to send when the Shift key is tapped|
+
+## Caveats
+
+As with Space Cadet Shift, this feature may conflict with Command, so it should be disabled in your `rules.mk` with:
+
+```make
+COMMAND_ENABLE = no
 ```
-COMMAND_ENABLE   = no  # Commands for debug and configuration
-```
 
-This is just to keep the keyboard from going into command mode when you hold both Shift keys at the same time.
-
-
-
-
-
-PLEASE NOTE: this feature uses the same timers as the Space Cadet Shift feature, so using them in tandem may produce unwanted results. 
-
+This feature also uses the same timers as Space Cadet Shift, so using them in tandem may produce strange results.
