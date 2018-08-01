@@ -15,7 +15,6 @@ MCU = atmega32u4
 #     software delays.
 F_CPU = 16000000
 
-#
 # LUFA specific
 #
 # Target architecture (see library "Board Types" documentation).
