@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 #define FORCE_NKRO
 
@@ -15,5 +12,3 @@
 #define MOUSEKEY_TIME_TO_MAX 50
 #define MOUSEKEY_WHEEL_MAX_SPEED 1
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 50
-
-#endif
