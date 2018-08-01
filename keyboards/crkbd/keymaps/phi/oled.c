@@ -122,6 +122,9 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
 }
 
 void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
+    if (memcmp(dest->bg_display, source->bg_display, sizeof(dest->bg_display))) {
+        memcpy(dest->bg_display, source->bg_display, sizeof(dest->bg_display));
+    }
     if (memcmp(dest->display, source->display, sizeof(dest->display))) {
         memcpy(dest->display, source->display, sizeof(dest->display));
         dest->dirty = true;

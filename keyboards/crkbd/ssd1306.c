@@ -223,6 +223,10 @@ void iota_gfx_write_char(uint8_t c) {
   matrix_write_char(&display, c);
 }
 
+void matrix_set_bg(struct CharacterMatrix *matrix, const uint8_t data[MatrixRows][MatrixCols]) {
+  memcpy(matrix->bg_display, data, MatrixRows * MatrixCols);
+}
+
 void matrix_write(struct CharacterMatrix *matrix, const char *data) {
   const char *end = data + strlen(data);
   while (data < end) {
@@ -258,6 +262,7 @@ void iota_gfx_write_P(const char *data) {
 
 void matrix_clear(struct CharacterMatrix *matrix) {
   memset(matrix->display, ' ', sizeof(matrix->display));
+  memset(matrix->bg_display, ' ', sizeof(matrix->bg_display));
   matrix->cursor = &matrix->display[0][0];
   matrix->dirty = true;
 }
@@ -288,10 +293,12 @@ void matrix_render(struct CharacterMatrix *matrix) {
   for (uint8_t row = 0; row < MatrixRows; ++row) {
     for (uint8_t col = 0; col < MatrixCols; ++col) {
       const uint8_t *glyph = font + (matrix->display[row][col] * FontWidth);
+      const uint8_t *bg_glyph = font + (matrix->bg_display[row][col] * FontWidth);
 
       for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
         uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-        i2c_master_write(colBits);
+        uint8_t bg_colBits = pgm_read_byte(bg_glyph + glyphCol);
+        i2c_master_write(colBits | bg_colBits);
       }
 
       // 1 column of space between chars (it's not included in the glyph)
