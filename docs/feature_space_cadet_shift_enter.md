@@ -1,6 +1,6 @@
 # Space Cadet Shift Enter
 
-Based on the [Space Cadet Shift](feature_space_cadet.md) feature. Tap the Shift key on its own, and it behaves like Enter. When held, the Shift functions as normal.
+Based on the [Space Cadet Shift](feature_space_cadet_shift.md) feature. Tap the Shift key on its own, and it behaves like Enter. When held, the Shift functions as normal.
 
 ## Usage
 
