@@ -46,6 +46,44 @@ char *get_layer_name(void) {
     }
 }
 
+int keyfreq_count = 0;
+
+char keyfreq_log_grid[21] = {   /* 21th byte for a null character */
+  0x20, 0x20, 0x20, 0x20, 0x9c,
+  0x20, 0x20, 0x20, 0x20, 0x9c,
+  0x20, 0x20, 0x20, 0x20, 0x9c,
+  0x20, 0x20, 0x20, 0x20, 0x9c
+};
+
+char *get_keyfreq_log(void) {
+   static char log[21] = {
+     0x9b, 0x9b, 0x9b, 0x9b, 0x9b,
+     0x9b, 0x9b, 0x9b, 0x9b, 0x9b,
+     0x9b, 0x9b, 0x9b, 0x9b, 0x9b,
+     0x9b, 0x9b, 0x9b, 0x9b, 0x9b
+   };
+   static int last_time = 0;
+
+   log[0] =
+     keyfreq_count == 0 ? 0x9b :
+     keyfreq_count < 100 ? 0x9a :
+     keyfreq_count < 200 ? 0x99 :
+     keyfreq_count < 300 ? 0x98 :
+     keyfreq_count < 400 ? 0x97 :
+     keyfreq_count < 500 ? 0x96 :
+     keyfreq_count < 600 ? 0x95 : 0x94;
+
+   /* shift the log every 60 seconds */
+   if (timer_elapsed(last_time) > 60000) {
+       last_time = timer_read();
+       keyfreq_count = 0;
+       for (int i = 19; i > 0; i--) log[i] = log[i - 1];
+       log[0] = 0x9b;
+   }
+
+   return log;
+}
+
 void matrix_render_user(struct CharacterMatrix *matrix) {
     if (is_master) {
         uint8_t mods = get_mods();
@@ -55,6 +93,8 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
         if (mods & MOD_SFT) matrix_write(matrix, "S-");
         if (mods & MOD_GUI) matrix_write(matrix, "A-");
         matrix_write_ln(matrix, get_layer_name());
+        matrix_write_ln(matrix, get_keyfreq_log());
+        matrix_write(matrix, keyfreq_log_grid);
     } else {
         matrix_write(matrix, read_logo());
     }
@@ -72,6 +112,13 @@ void iota_gfx_task_user(void) {
     matrix_clear(&matrix);
     matrix_render_user(&matrix);
     matrix_update(&display, &matrix);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+        keyfreq_count++;
+    }
+    return true;
 }
 
 #endif
