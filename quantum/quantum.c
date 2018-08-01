@@ -158,6 +158,7 @@ void reset_keyboard(void) {
     wait_ms(1);
   stop_all_notes();
 #else
+  shutdown_user();
   wait_ms(250);
 #endif
 // this is also done later in bootloader.c - not sure if it's neccesary here
