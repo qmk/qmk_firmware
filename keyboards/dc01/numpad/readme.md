@@ -2,7 +2,7 @@
 
 ![DC01 Numpad](https://i.imgur.com/PTn0sp8.jpg)
 
-A hotpluggable four part keyboard which comes together with magnets and pogo pins! This is the numpad
+A hotpluggable four part keyboard which comes together with magnets and pogo pins! This is the numpad.
 
 Keyboard Maintainer: [Yiancar](https://github.com/yiancar)  
 Hardware Supported: Runs on an atmega32u4  

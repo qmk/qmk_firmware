@@ -19,7 +19,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [PS2 Mouse](feature_ps2_mouse.md) - Driver for connecting a PS/2 mouse directly to your keyboard.
 * [RGB Light](feature_rgblight.md) - RGB lighting for your keyboard.
 * [RGB Matrix](feature_rgb_matrix.md) - RGB Matrix lights for per key lighting.
-* [Space Cadet](feature_space_cadet.md) - Use your left/right shift keys to type parenthesis and brackets.
+* [Space Cadet](feature_space_cadet_shift.md) - Use your left/right shift keys to type parenthesis and brackets.
 * [Stenography](feature_stenography.md) - Put your keyboard into Plover mode for stenography use.
 * [Swap Hands](feature_swap_hands.md) - Mirror your keyboard for one handed usage.
 * [Tap Dance](feature_tap_dance.md) - Make a single key do as many things as you want.
