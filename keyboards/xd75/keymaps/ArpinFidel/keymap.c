@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   RGB_HUD, _______, RGB_HUI, KC_F7,   KC_F8,   KC_F9,   KC_F10  , KC_F11 , KC_F12   },
   { KC_WH_U, _______, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, RGB_SAD, _______, RGB_SAI, KC_LBRC, KC_RBRC, KC_UP  , _______ , KC_EQL , KC_BSLS  },
   { KC_WH_D, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, RGB_VAD, _______, RGB_VAI, KC_MINS, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______  },
-  { _______, _______, _______, _______, _______, _______, RGB_RMOD,_______, RGB_MOD, _______, _______, _______, _______ , _______, _______  },
-  { _______, TT(_FN), RGB_TOG, _______, KC_WH_L, KC_WH_R, _______, RESET  , _______, KC_BTN1, KC_BTN2, _______, _______ , TT(_FN), _______  },
+  { _______, _______, _______, _______, _______, _______, RGB_RMOD,BL_TOGG, RGB_MOD, _______, _______, _______, _______ , _______, _______  },
+  { _______, TT(_FN), RGB_TOG, _______, KC_WH_L, KC_WH_R, TT(_FN), RESET  , TT(_FN), KC_BTN1, KC_BTN2, _______, _______ , TT(_FN), _______  },
  }
 };
 
