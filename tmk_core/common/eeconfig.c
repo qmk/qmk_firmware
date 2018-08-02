@@ -47,18 +47,10 @@ void eeconfig_init_quantum(void) {
   default_layer_state = 0;
   eeprom_update_byte(EECONFIG_KEYMAP,         0);
   eeprom_update_byte(EECONFIG_MOUSEKEY_ACCEL, 0);
-#ifdef BACKLIGHT_ENABLE
   eeprom_update_byte(EECONFIG_BACKLIGHT,      0);
-#endif
-#ifdef AUDIO_ENABLE
   eeprom_update_byte(EECONFIG_AUDIO,             0xFF); // On by default
-#endif
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   eeprom_update_dword(EECONFIG_RGBLIGHT,      0);
-#endif
-#ifdef STENO_ENABLE
   eeprom_update_byte(EECONFIG_STENOMODE,      0);
-#endif
 
   eeconfig_init_kb();
 }
@@ -145,7 +137,6 @@ uint8_t eeconfig_read_keymap(void)      { return eeprom_read_byte(EECONFIG_KEYMA
  */
 void eeconfig_update_keymap(uint8_t val) { eeprom_update_byte(EECONFIG_KEYMAP, val); }
 
-#ifdef BACKLIGHT_ENABLE
 /** \brief eeconfig read backlight
  *
  * FIXME: needs doc
@@ -156,9 +147,8 @@ uint8_t eeconfig_read_backlight(void)      { return eeprom_read_byte(EECONFIG_BA
  * FIXME: needs doc
  */
 void eeconfig_update_backlight(uint8_t val) { eeprom_update_byte(EECONFIG_BACKLIGHT, val); }
-#endif
 
-#ifdef AUDIO_ENABLE
+
 /** \brief eeconfig read audio
  *
  * FIXME: needs doc
@@ -169,7 +159,7 @@ uint8_t eeconfig_read_audio(void)      { return eeprom_read_byte(EECONFIG_AUDIO)
  * FIXME: needs doc
  */
 void eeconfig_update_audio(uint8_t val) { eeprom_update_byte(EECONFIG_AUDIO, val); }
-#endif
+
 
 /** \brief eeconfig read kb
  *
