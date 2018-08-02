@@ -1,0 +1,17 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    // Unofficially, QMK uses spaces for indentation
+    "editor.insertSpaces": true,
+    // Configure glob patterns for excluding files and folders.
+    "files.exclude": {
+        "**/.build": true,
+        "**/*.hex": true
+    },
+    "files.associations": {
+        "*.h": "c",
+        "*.c": "c",
+        "*.cpp": "cpp",
+        "*.hpp": "cpp",
+        "xstddef": "c"
+    }
+}
