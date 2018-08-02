@@ -113,7 +113,7 @@ ifeq ($(strip $(AUDIO_ENABLE)),yes)
 endif
 
 ifeq ($(strip $(Link_Time_Optimization)),yes)
-    CFLAGS += -flto
+    EXTRAFLAGS += -flto
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
