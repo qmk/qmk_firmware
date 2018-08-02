@@ -112,7 +112,7 @@ ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
 endif
 
 ifeq ($(strip $(Link_Time_Optimization)),yes)
-    EXTRAFLAGS += -flto
+    EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
 endif
 
 SRC += led_test_init.c

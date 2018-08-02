@@ -112,7 +112,7 @@ ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
 endif
 
 ifeq ($(strip $(Link_Time_Optimization)),yes)
-    EXTRAFLAGS += -flto
+    EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
