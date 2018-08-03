@@ -71,14 +71,14 @@ void matrix_write_keyfreq_log(struct CharacterMatrix *matrix) {
         keyfreq_count < 280 ? 0x95 : 0x94;
 
     log1[0] =
-        keyfreq_count < 320 ? 0x9c :
-        keyfreq_count < 360 ? 0x9b :
-        keyfreq_count < 400 ? 0x9a :
-        keyfreq_count < 440 ? 0x99 :
-        keyfreq_count < 480 ? 0x98 :
-        keyfreq_count < 520 ? 0x97 :
-        keyfreq_count < 560 ? 0x96 :
-        keyfreq_count < 600 ? 0x95 : 0x94;
+        keyfreq_count < 320 ? 0xdc :
+        keyfreq_count < 360 ? 0xdb :
+        keyfreq_count < 400 ? 0xda :
+        keyfreq_count < 440 ? 0xd9 :
+        keyfreq_count < 480 ? 0xd8 :
+        keyfreq_count < 520 ? 0xd7 :
+        keyfreq_count < 560 ? 0xd6 :
+        keyfreq_count < 600 ? 0xd5 : 0xd4;
 
     /* shift the log every 60 seconds */
     if (timer_elapsed(last_time) > 60000) {
