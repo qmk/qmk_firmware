@@ -105,29 +105,32 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_RAINBOW_SWIRL_RANGE 1950
 
-#ifndef IOS_DEVICE_ENABLE
-  #if RGBLED_NUM <= 6
-    #define RGBLIGHT_LIMIT_VAL 255
-  #else
-    #if HELIX_ROWS == 4
-      #define RGBLIGHT_LIMIT_VAL 255
-    #else
-      #define RGBLIGHT_LIMIT_VAL 255
-    #endif
-  #endif
-  #define RGBLIGHT_VAL_STEP 17
-#else
-  #if RGBLED_NUM <= 6
-    #define RGBLIGHT_LIMIT_VAL 255
-  #else
-    #if HELIX_ROWS == 4
-      #define RGBLIGHT_LIMIT_VAL 255
-    #else
-      #define RGBLIGHT_LIMIT_VAL 255
-    #endif
-  #endif
-  #define RGBLIGHT_VAL_STEP 4
-#endif
+// #ifndef IOS_DEVICE_ENABLE
+//   #if RGBLED_NUM <= 6
+//     #define RGBLIGHT_LIMIT_VAL 255
+//   #else
+//     #if HELIX_ROWS == 4
+//       #define RGBLIGHT_LIMIT_VAL 255
+//     #else
+//       #define RGBLIGHT_LIMIT_VAL 255
+//     #endif
+//   #endif
+//   #define RGBLIGHT_VAL_STEP 17
+// #else
+//   #if RGBLED_NUM <= 6
+//     #define RGBLIGHT_LIMIT_VAL 255
+//   #else
+//     #if HELIX_ROWS == 4
+//       #define RGBLIGHT_LIMIT_VAL 255
+//     #else
+//       #define RGBLIGHT_LIMIT_VAL 255
+//     #endif
+//   #endif
+//   #define RGBLIGHT_VAL_STEP 4
+// #endif
+
+#define RGBLIGHT_LIMIT_VAL 255
+#define RGBLIGHT_VAL_STEP 16
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 
