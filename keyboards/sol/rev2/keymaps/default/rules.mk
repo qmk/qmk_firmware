@@ -15,7 +15,7 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
-
+ENCODER_ENABLE = yes        # Enable rotary encoder
 define HELIX_CUSTOMISE_MSG
   $(info Helix customize)
   $(info -  OLED_ENABLE=$(OLED_ENABLE))
@@ -107,6 +107,11 @@ endif
 
 ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
     OPT_DEFS += -DLOCAL_GLCDFONT
+endif
+
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    OPT_DEFS += -DENCODER_ENABLE
+    SRC += rev2/knob_v2.c
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
