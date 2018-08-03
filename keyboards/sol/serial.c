@@ -116,7 +116,7 @@ void serial_slave_init(void) {
   // Trigger on falling edge of INT0
   EICRA &= ~(_BV(ISC30) | _BV(ISC31));
 #else
-  // Enable INT2
+  // Enable INT3
   EIMSK |= _BV(INT3);
   // Trigger on falling edge of INT2
   EICRA &= ~(_BV(ISC30) | _BV(ISC31));
