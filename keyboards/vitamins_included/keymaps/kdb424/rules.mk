@@ -4,6 +4,8 @@ RGBLIGHT_ENABLE   = no   # Enable WS2812 RGB underlight.  Do not enable this wit
 TAP_DANCE_ENABLE  = yes   # Enable tap dance.
 AUTO_SHIFT_ENABLE = no    # Auto hold shift on longer keypress
 
+EXTRAFLAGS        += -flto
+
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif

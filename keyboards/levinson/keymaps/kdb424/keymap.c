@@ -7,10 +7,11 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _DVORAK 0
-#define _RAISE1 1
-#define _RAISE2 2
-#define _RAISE3 3
-#define _ARROWS 4
+#define _WORKMAN 1
+#define _RAISE1 2
+#define _RAISE2 3
+#define _RAISE3 4
+#define _ARROWS 5
 
 
 enum custom_keycodes {
@@ -48,11 +49,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // Short codes to make reading easier
 #define TD_EE TD(TD_EQUAL_ENTER)
-#define LT2_SP LT(2, KC_SPC)
-#define LT3_SP LT(3, KC_SPC)
+#define LT2_SP LT(3, KC_SPC)
+#define LT3_SP LT(4, KC_SPC)
 #define TD_BLEQ TD(TD_BSLASH_EQUAL)
 #define REPROGR REPROGRAM_MACRO
-#define U_ARROW LT(4, KC_U)
+#define U_ARROW LT(5, KC_U)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -69,9 +70,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_DVORAK] = LAYOUT_ortho_4x12( \
   KC_GESC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,   KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC, \
-  KC_TAB,  KC_A,    KC_O,    KC_E,    U_ARROW, KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  TD_EE,  \
+  KC_TAB,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  TD_EE,  \
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLASH),  \
-  KC_LCTL, KC_LGUI, KC_LALT, XXXXXXX, MO(1),   LT2_SP, LT3_SP, KC_LCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
+  KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_LCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
+),
+
+/* Workman
+ * ,-----------------------------------------------------------------------------------.
+ * | Esc  |   '  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Tab  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |Enter |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |  /   |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Ctrl |  GUI | Alt  |      | MO(1)|Space2|Space3| Ctrl | Left | Down |  Up  |Right |
+ * `-----------------------------------------------------------------------------------'
+ */
+[_WORKMAN] = LAYOUT_ortho_4x12( \
+  KC_GESC, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,   KC_J,   KC_F,    KC_U,    KC_P,    KC_SCLN,  KC_BSPC, \
+  KC_TAB,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,   KC_Y,   KC_N,    KC_E,    KC_O,    KC_I,     TD_EE,  \
+  KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,   KC_K,   KC_L,    KC_COMM, KC_DOT,  KC_SLASH, SFT_T(KC_QUOT),  \
+  KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_LCTL, KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT  \
 ),
 
 
@@ -120,32 +139,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |RMODE | RGB T|SWIRL |      |  F4  |  F5  |  F6  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |  F1  |  F2  |  F3  |SCROT |
+ * |DVORAK|WORKMA|      |      |      |      |      |      |  F1  |  F2  |  F3  |SCROT |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE3] =  LAYOUT_ortho_4x12( \
   RESET,   REPROGR, _______, _______, RGB_M_P, RGB_VAI, RGB_M_G,  _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
   _______, _______, _______, _______, RGB_M_R, RGB_VAD, RGB_M_K,  _______, KC_F7,  KC_F8,  KC_F9,  XXXXXXX, \
   _______, _______, _______, _______, RGB_MOD, RGB_TOG, RGB_M_SW, _______, KC_F4,  KC_F5,  KC_F6,  XXXXXXX, \
-  _______, _______, _______, _______, _______, _______, _______,  _______, KC_F1,  KC_F2,  KC_F3,  SCROT \
-),
+  DF(0),   DF(1),   _______, _______, _______, _______, _______,  _______, KC_F1,  KC_F2,  KC_F3,  SCROT \
+  ),
 
 /* Arrows
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      | Left | Down |  Up  |Right |      |      |
+ * |      |      |      |      |      |      |      | Left | Down |  Up  | Right|      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      | MOD4 |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 [_ARROWS] = LAYOUT_ortho_4x12( \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, \
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
 ),
 
 };
