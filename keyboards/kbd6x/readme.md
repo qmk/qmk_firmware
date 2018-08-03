@@ -1,13 +1,10 @@
 # KBD6x
 
-![kbd6x](imgur.com image replace me!)
-
-A short description of the keyboard/project
+A WKL Hot Swap Double USB C 60%
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
-
+Hardware Supported: KBD6x PCB  
+Hardware Availability: [KBDFans](https://kbdfans.cn/products/kbd6x-wkl-hot-swap-60-double-type-c-pcb)
 Make example for this keyboard (after setting up your build environment):
 
     make kbd6x:default
