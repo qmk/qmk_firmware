@@ -7,13 +7,12 @@
  * http://www.keyboard-layout-editor.com/#/gists/225f0f4dcf6671405f744fabe314627c
  */
 
-/* Features TODO:
+/* Features Wishlist:
  * Dynamic macros
  * Leader functions
- * Use a as CTRL+A+(kc) when held, a when tapped for ultimate integration with tmux
- *  - need to make inter-operable
  * Unicode leader commands??? (symbolic unicode)
- * Mac mode vs not: -probably bootmagic or use default with dynamic swap out here *    KC_MFFD(KC_MEDIA_FAST_FORWARD) and KC_MRWD(KC_MEDIA_REWIND) instead of KC_MNXT and KC_MPRV
+ * Mac mode vs not: -probably bootmagic or use default with dynamic swap out here
+ *    KC_MFFD(KC_MEDIA_FAST_FORWARD) and KC_MRWD(KC_MEDIA_REWIND) instead of KC_MNXT and KC_MPRV
  */
 
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
@@ -51,10 +50,6 @@ enum DZ60_B_4_10_Layers {
     L_Num,
     L_RGB,
     L_None
-};
-
-enum function_id {
-    SHIFT_ESC,
 };
 
 enum extra_keycodes {
@@ -174,18 +169,30 @@ static void send_n_keys(int n, ...) {
 }
 #define repeat_send_keys(n, ...) {for (int i=0; i < n; ++i) {send_keys(__VA_ARGS__);}}
 
-#define _TIMEOUT_DELAY 150 // ms
+static bool rgb_layers_enabled = true;
+static bool rgb_L0_enabled = false;
+
+#define TIMEOUT_DELAY 150 // ms
 static uint16_t idle_timer;
 static bool timeout_is_active = false;
 
 // state for the great state machine of custom actions!
-static bool shortcuts_enabled = false;
+static bool ctrl_shortcuts_enabled_g = false;
 static bool A_down = false;
 static bool A_other_key = false;
 static bool B_down = 0; // TODO just use top bit from count
 static int8_t B_count = 0;
-static bool rgb_layers_enabled = true;
-static bool rgb_L0_enabled = false;
+
+struct Tapping_ctrl_key_t {
+    bool down;
+    int8_t count;
+    uint16_t keycode;
+};
+
+static struct Tapping_ctrl_key_t special_keys[] = {
+    {false, 0, KC_B}, {false, 0, KC_A}
+};
+
 
 static inline void start_idle_timer(void);
 static inline void clear_state_after_idle_timeout(void);
@@ -207,9 +214,33 @@ static inline void clear_state_after_idle_timeout(void) {
 }
 
 inline void matrix_scan_user(void) {
-    if (timeout_is_active && timer_elapsed(idle_timer) > _TIMEOUT_DELAY) {
+    if (timeout_is_active && timer_elapsed(idle_timer) > TIMEOUT_DELAY) {
         clear_state_after_idle_timeout();
     }
+}
+
+
+static inline bool tap_ctrl_event(struct Tapping_ctrl_key_t* key, keyrecord_t* record) {
+    if (!ctrl_shortcuts_enabled_g) {
+        if (record->event.pressed) {
+            register_code(key->keycode);
+        }
+        else {
+            unregister_code(key->keycode);
+        }
+        return false;
+    }
+    key->down = record->event.pressed;
+    if (key->down) {
+        ++key->count;
+        timeout_is_active = false;
+    }
+    else {
+        if (key->count) {
+            start_idle_timer();
+        }
+    }
+    return false;
 }
 
 /* Return True to continue processing keycode, false to stop further processing */
@@ -217,22 +248,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case TG_LAYER_RGB:
             if (record->event.pressed) {
-                rgb_layers_enabled = (rgb_layers_enabled)? false : true;
+                rgb_layers_enabled = !rgb_layers_enabled;
             }
             return false;
         case TG_L0_RGB:
             if (record->event.pressed) {
-                rgb_L0_enabled = (rgb_L0_enabled)? false : true;
+                rgb_L0_enabled = !rgb_L0_enabled;
             }
             return false;
         case EN_CTRL_SHORTCUTS:
             if (record->event.pressed) {
-                shortcuts_enabled = !shortcuts_enabled;
+                ctrl_shortcuts_enabled_g = !ctrl_shortcuts_enabled_g;
                 start_idle_timer();
             }
             return false;
         case CTRL_A:
-            if (!shortcuts_enabled) {
+            if (!ctrl_shortcuts_enabled_g) {
                 if (record->event.pressed) {
                     register_code(KC_A);
                 }
@@ -258,26 +289,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         case CTRL_B:
-            if (!shortcuts_enabled) {
-                if (record->event.pressed) {
-                    register_code(KC_B);
-                }
-                else {
-                    unregister_code(KC_B);
-                }
-                return false;
-            }
-            B_down = record->event.pressed;
-            if (B_down) {
-                ++B_count;
-                timeout_is_active = false;
-            }
-            else {
-                if (B_count) {
-                    start_idle_timer();
-                }
-            }
-            return false;
+            return tap_ctrl_event(&special_keys[0], record);
         default:
             if (record->event.pressed) {
                 if (A_down) {
@@ -304,36 +316,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
     }
     return true;
-}
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0]  = ACTION_FUNCTION(SHIFT_ESC),
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    static uint8_t shift_esc_shift_mask;
-    switch (id) {
-        case SHIFT_ESC:
-            shift_esc_shift_mask = get_mods()&MODS_CTRL_MASK;
-            if (record->event.pressed) {
-                if (shift_esc_shift_mask) {
-                    add_key(KC_GRV);
-                    send_keyboard_report();
-                } else {
-                    add_key(KC_ESC);
-                    send_keyboard_report();
-                }
-            } else {
-                if (shift_esc_shift_mask) {
-                    del_key(KC_GRV);
-                    send_keyboard_report();
-                } else {
-                    del_key(KC_ESC);
-                    send_keyboard_report();
-                }
-            }
-            break;
-    }
 }
 
 #define  MAXBRIGHT    180
