@@ -1,6 +1,5 @@
 // Rotary knob implementation - Version 2.
-// Uses 2 digital pins - D1 (via interrupt) & C6.
-//#include "../../../lets_split/lets_split.h"
+// Uses 2 digital pins - D2 (via interrupt) & D6.
 #include "rev2.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
