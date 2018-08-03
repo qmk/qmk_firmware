@@ -17,18 +17,18 @@ void knob_init(void) {
     // For more info on the below flags see this awesome section 11.1 (pages 89-90) here:
     // https://cdn-shop.adafruit.com/datasheets/atmel-7766-8-bit-avr-atmega16u4-32u4_datasheet.pdf
     // Set pin mode & pull-up.
-    DDRD &= ~(0UL << PD4);
-    PORTD |= (1UL << PD4);
+    DDRD &= ~(0UL << PD2);
+    PORTD |= (1UL << PD2);
 
     // INT:    33221100
-    EICRA |= 0b00000100;  // 0b01 - any edge
+    EICRA |= 0b00010000;  // 0b01 - any edge
     // INT:     6  3210
-    EIMSK |= 0b00000010;
+    EIMSK |= 0b00000100;
 }
 
-ISR(INT1_vect) {
-    // Port PD4 (Pin 2)
-    bool a = PIND & (1 << PD4);
+ISR(INT2_vect) {
+    // Port PD2 (Pin 2)
+    bool a = PIND & (1 << PD2);
 
     if (knob_prev_a != a) {
         // "A" channel has REALLY changed.
