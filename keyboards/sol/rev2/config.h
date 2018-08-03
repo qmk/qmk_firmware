@@ -110,20 +110,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGBLIGHT_LIMIT_VAL 255
   #else
     #if HELIX_ROWS == 4
-      #define RGBLIGHT_LIMIT_VAL 130
+      #define RGBLIGHT_LIMIT_VAL 255
     #else
-      #define RGBLIGHT_LIMIT_VAL 120
+      #define RGBLIGHT_LIMIT_VAL 255
     #endif
   #endif
   #define RGBLIGHT_VAL_STEP 17
 #else
   #if RGBLED_NUM <= 6
-    #define RGBLIGHT_LIMIT_VAL 90
+    #define RGBLIGHT_LIMIT_VAL 255
   #else
     #if HELIX_ROWS == 4
-      #define RGBLIGHT_LIMIT_VAL 45
+      #define RGBLIGHT_LIMIT_VAL 255
     #else
-      #define RGBLIGHT_LIMIT_VAL 35
+      #define RGBLIGHT_LIMIT_VAL 255
     #endif
   #endif
   #define RGBLIGHT_VAL_STEP 4

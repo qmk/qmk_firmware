@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "bootloader.h"
 #include "rev2.h"
+#include "knob_v2.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
@@ -366,6 +367,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
+
+    knob_init();  //FOR ENCODER
+
     #ifdef AUDIO_ENABLE
         startup_user();
     #endif
@@ -415,6 +419,19 @@ __attribute__ ((weak))
 void led_test_init(void) {}
 
 void matrix_scan_user(void) {
+  knob_report_t knob_report = knob_report_read();
+  knob_report_reset();
+  if (knob_report.phase) { // I check for phase to avoid handling the rotation twice (on 90 and 270 degrees).
+    while (knob_report.dir > 0) {
+      register_code(KC_VOLU);
+      unregister_code(KC_VOLU);
+      knob_report.dir--;
+    }
+    while (knob_report.dir < 0) {
+      register_code(KC_VOLD);
+      unregister_code(KC_VOLD);
+      knob_report.dir++;
+    }
      led_test_init();
      iota_gfx_task();  // this is what updates the display continuously
 }
