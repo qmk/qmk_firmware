@@ -3,22 +3,26 @@
 
 void matrix_init_rgb(void) {
   rgblight_enable_noeeprom();
-  rgblight_sethsv_noeeprom_purple();
+  rgblight_sethsv_noeeprom(270, 255, 20);
 }
 
 void layer_state_set_rgb(uint32_t state) {
   switch (biton32(state)) {
     case BASE:
-      rgblight_sethsv_noeeprom_purple();
+      // purple
+      rgblight_sethsv_noeeprom(270, 255, 20);
       break;
     case SYMB:
-      rgblight_sethsv_noeeprom_blue();
+      // blue
+      rgblight_sethsv_noeeprom(240, 255, 20);
       break;
     case VIM:
-      rgblight_sethsv_noeeprom_green();
+      // green
+      rgblight_sethsv_noeeprom(120, 255, 20);
       break;
     case GAME:
-      rgblight_sethsv_noeeprom_red();
+      // red
+      rgblight_sethsv_noeeprom(0, 255, 20);
       break;
   }
 }
