@@ -69,12 +69,16 @@ void matrix_init_rgb(void) {}
 __attribute__ ((weak))
 void layer_state_set_rgb(uint32_t state) {}
 
+__attribute__ ((weak))
+void matrix_scan_user_keyboard(void) {}
+
 void matrix_scan_user() {
   static bool first_run = true;
   if (first_run) {
     first_run = false;
     matrix_init_rgb();
   }
+  matrix_scan_user_keyboard();
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
