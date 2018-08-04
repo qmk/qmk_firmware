@@ -10,9 +10,11 @@ The QWERTY layout shown here is based entirely on the Kinesis Advantage layout. 
 
 I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck layouts.
 
+As of August 4 2018, I've got the LEDs working ... mostly. Caps Lock and Num Lock LEDs work for me. The Scroll Lock LED does work on my keyboard, but I can't get it to work when I use the Scroll Lock key on my keyboard. I also have no idea how to get the Num Pad LED working when I switch to the Numpad layer.
+
 ## Still to do:
 
- * Implement the CapsLock, NumLock, and ScrLck LEDs on the off-chance that I decide to actually solder some to the keyboard.
+ * Figure out how to make the Numpad and ScrLck LEDs work properly.
 
 ### Function Keys on All Layers (keypad toggles):
 	,-----------------------------------------------------------------.
