@@ -68,3 +68,7 @@ util/Win_Check_Output.txt
 secrets.tar
 id_rsa_*
 /.vs
+lib/lufa/Projects/LEDNotifier/CPUUsageApp/obj/Debug/CPUMonitor.csproj.CoreCompileInputs.cache
+lib/lufa/Projects/LEDNotifier/CPUUsageApp/obj/Debug/CPUMonitor.csprojResolveAssemblyReference.cache
+lib/lufa/Projects/LEDNotifier/LEDMixerApp/obj/Debug/LEDMixer.csproj.CoreCompileInputs.cache
+lib/lufa/Projects/TempDataLogger/TempLogHostApp/obj/Debug/TempLoggerHostApp.csproj.CoreCompileInputs.cache
