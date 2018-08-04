@@ -9,10 +9,6 @@ enum custom_macros {
     PSCREEN_APP
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -25,15 +21,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|             |------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |             |   N  |   M  |   ,  |   .  |   /  |SHIFT |
  * |------+------+------+------+------+------+------..-----+------+------+------+------+------+------|
- * | Ctrl |  Alt |  F4  |  GUI | NAV  |Lwr/VM| Bksp ||Enter|Space |  NAV |   -  |   =  |  Alt | Del  |
+ * | Ctrl |  F4  |  F5  |  GUI | Alt  | Bksp |Lwr/VM||Enter|Space |  NAV |   -  |   =  |  Alt | Del  |
  * `------------------------------------------------''-----------------------------------------------'
  */
 [BASE] = KEYMAP( \
-  KC_GRV,        KC_1,         KC_2,  KC_3,    KC_4,     KC_5,                             KC_6,     KC_7,     KC_8,    KC_9,    KC_0,    KC_MINUS, \
-  KC_TAB,        KC_Q,         KC_W,  KC_E,    KC_R,     KC_T,                             KC_Y,     KC_U,     KC_I,    KC_O,    KC_P,    KC_BSLS, \
-  KC_ESC,        KC_A,         KC_S,  KC_D,    KC_F,     KC_G,                             KC_H,     KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  OSM(MOD_LSFT), LCTL_T(KC_Z), KC_X,  KC_C,    KC_V,     KC_B,                             KC_N,     KC_M,     KC_COMM, KC_DOT,  KC_SLSH, OSM(MOD_RSFT) , \
-  KC_LCTL,       KC_F4,        KC_F5, KC_LGUI, KC_LALT,  TD(TD_SYM_VIM), KC_BSPC,  KC_ENT, KC_SPACE, OSL(VIM), KC_MINS, KC_EQL,  KC_RALT, KC_DEL \
+  KC_GRV,        KC_1,         KC_2,  KC_3,    KC_4,    KC_5,                            KC_6,     KC_7,     KC_8,    KC_9,    KC_0,    KC_MINUS, \
+  KC_TAB,        KC_Q,         KC_W,  KC_E,    KC_R,    KC_T,                            KC_Y,     KC_U,     KC_I,    KC_O,    KC_P,    KC_BSLS, \
+  KC_ESC,        KC_A,         KC_S,  KC_D,    KC_F,    KC_G,                            KC_H,     KC_J,     KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  OSM(MOD_LSFT), LCTL_T(KC_Z), KC_X,  KC_C,    KC_V,    KC_B,                            KC_N,     KC_M,     KC_COMM, KC_DOT,  KC_SLSH, OSM(MOD_RSFT) , \
+  KC_LCTL,       KC_F4,        KC_F5, KC_LGUI, KC_LALT, KC_BSPC, TD(TD_SYM_VIM), KC_ENT, KC_SPACE, OSL(VIM), KC_MINS, KC_EQL,  KC_RALT, KC_DEL \
 ),
 
 /* Symbols
@@ -46,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|              |------+------+------+------+------+------|
  * | APscr|   %  |   ^  |   [  |   ]  |   ~  |              |   1  |   2  |   3  |   \  | Vol- | Vol+ |
  * |------+------+------+------+------+------+------..------+------+------+------+------+------+------|
- * | Pscr |      |      |      |      |      | GAME ||      |   0  |   .  |   =  | Prev | Next | Play |
+ * | Pscr |      | RESET|      |      | GAME |      ||      |   0  |   .  |   =  | Prev | Next | Play |
  * `------------------------------------------------- -------------------------------------------------'
  */
 [SYMB] = KEYMAP( \
@@ -54,29 +50,51 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,        KC_EXLM, KC_AT,   KC_LPRN, KC_RPRN, KC_PIPE,                    KC_7,  KC_8,   KC_9,   KC_ASTR, KC_RPRN, KC_F12, \
     _______,        KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_GRV,                     KC_4,  KC_5,   KC_6,   KC_PLUS, KC_RCBR, KC_PIPE, \
     M(PSCREEN_APP), KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,                    KC_1,  KC_2,   KC_3,   KC_BSLS, KC_VOLD, KC_VOLU, \
-    KC_PSCR,        _______, _______, _______, _______, _______, TG(GAME), _______, KC_0,  KC_DOT, KC_EQL, KC_MPRV, KC_MNXT, KC_MPLY \
+    KC_PSCR,        _______, RESET,   _______, _______, TO(GAME), _______, _______, KC_0,  KC_DOT, KC_EQL, KC_MPRV, KC_MNXT, KC_MPLY \
 ),
 
 /* Vim Movement
- * ,------------------------------------------              .-----------------------------------------.
- * |      |      |      |      |      |      |              |      |      |      |      |      |      |
- * |------+------+------+------+------+------+              |------+------+------+------+------+------|
+ * ,-----------------------------------------.              .-----------------------------------------.
+ * |      |      |      |      |      |      |              |      |      |      |      | RESET|      |
+ * |------+------+------+------+------+------|              |------+------+------+------+------+------|
  * |      |RGBSAI|RGBVAI|RGBSAD| LSFT |      |              |      |      |      |      |      |      |
- * |------+------+------+------+------+------+              |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|              |------+------+------+------+------+------|
  * |      | DLeft|DRight| LCTRL| LGUI |      |              | Left | Down |  Up  | Right|      |      |
- * |------+------+------+------+------+------+              |------+------+------+------+------+------|
+ * |------+------+------+------+------+------|              |------+------+------+------+------+------|
  * |      |RGBHUD|RGBVAD|RGBHUI|      |      |              |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------..------+------+------+------+------+------+------|
- * |      |      |      |      |      |      | RESET|| RESET|      |      |      |      |      |      |
+ * |      |      |      |      |      |      |      ||      |      |      |      |      |      |      |
  * `------------------------------------------------..------------------------------------------------'
  */
 [VIM] =  KEYMAP( \
-    _______, _______,  _______,   _______, _______, _______,               _______, _______, _______, _______, _______, _______, \
-    _______, RGB_SAI,  RGB_VAI,   RGB_SAD, KC_LSFT, _______,               _______, _______, _______, _______, _______, _______, \
-    _______, M(DLEFT), M(DRIGHT), KC_LCTL, KC_LGUI, _______,               KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
-    _______, RGB_HUD,  RGB_VAD,   RGB_HUI, _______, _______,               _______, _______, _______, _______, _______, _______, \
-    _______, _______,  _______,   _______, _______, _______, RESET, RESET, _______, _______, _______, _______, _______, _______  \
+    _______, _______,  _______,   _______, _______, _______,                   _______, _______, _______, _______, RESET,   _______, \
+    _______, RGB_SAI,  RGB_VAI,   RGB_SAD, KC_LSFT, _______,                   _______, _______, _______, _______, _______, _______, \
+    _______, M(DLEFT), M(DRIGHT), KC_LCTL, KC_LGUI, _______,                   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
+    _______, RGB_HUD,  RGB_VAD,   RGB_HUI, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+    _______, _______,  _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 ),
+
+/* Gaming mode (Raise)
+ * All one-shot mods are disabled on this layer
+ * ,-----------------------------------------.              .-----------------------------------------.
+ * | ESC  |      |      |      |      |      |              |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|              |------+------+------+------+------+------|
+ * |      |      |      |      |      |      |              |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|              |------+------+------+------+------+------|
+ * | CTRL |      |      |      |   F  |      |              |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|              |------+------+------+------+------+------|
+ * | Shift|   Z  |      |      |      |      |              |      |      |      |      |      |  GUI |
+ * |------+------+------+------+------+------+------..------+------+------+------+------+------+------|
+ * | Enter|      | Lock | Bksp |  Alt |  Spc | RESET||      | Lower| Left |  Up  | Down | Right|QWERTY|
+ * `------------------------------------------------..-----------------------------------------------'
+ */
+[GAME] =  KEYMAP( \
+    KC_ESC,  _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______, \
+    KC_LCTL, _______, _______, _______, _______, _______,                    _______, _______, _______, _______, _______, _______, \
+    KC_LSFT, KC_Z,    _______, _______, _______, _______,                    _______, _______, _______, _______, _______, KC_LGUI, \
+    KC_ENT,  _______, KC_LOCK, KC_BSPC, KC_F5,   KC_LALT, KC_SPC, OSL(SYMB), KC_F6,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TO(BASE) \
+)
 };
 
 void persistant_default_layer_set(uint16_t default_layer) {
@@ -106,6 +124,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  tap_dance_process_record(keycode);
-  return true;
+    tap_dance_process_record(keycode);
+    return true;
 }
