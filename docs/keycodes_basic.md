@@ -47,30 +47,30 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 |Key     |Description|
 |--------|-----------|
-|`KC_F1` |           |
-|`KC_F2` |           |
-|`KC_F3` |           |
-|`KC_F4` |           |
-|`KC_F5` |           |
-|`KC_F6` |           |
-|`KC_F7` |           |
-|`KC_F8` |           |
-|`KC_F9` |           |
-|`KC_F10`|           |
-|`KC_F11`|           |
-|`KC_F12`|           |
-|`KC_F13`|           |
-|`KC_F14`|           |
-|`KC_F15`|           |
-|`KC_F16`|           |
-|`KC_F17`|           |
-|`KC_F18`|           |
-|`KC_F19`|           |
-|`KC_F20`|           |
-|`KC_F21`|           |
-|`KC_F22`|           |
-|`KC_F23`|           |
-|`KC_F24`|           |
+|`KC_F1` |F1         |
+|`KC_F2` |F2         |
+|`KC_F3` |F3         |
+|`KC_F4` |F4         |
+|`KC_F5` |F5         |
+|`KC_F6` |F6         |
+|`KC_F7` |F7         |
+|`KC_F8` |F8         |
+|`KC_F9` |F9         |
+|`KC_F10`|F10        |
+|`KC_F11`|F11        |
+|`KC_F12`|F12        |
+|`KC_F13`|F13        |
+|`KC_F14`|F14        |
+|`KC_F15`|F15        |
+|`KC_F16`|F16        |
+|`KC_F17`|F17        |
+|`KC_F18`|F18        |
+|`KC_F19`|F19        |
+|`KC_F20`|F20        |
+|`KC_F21`|F21        |
+|`KC_F22`|F22        |
+|`KC_F23`|F23        |
+|`KC_F24`|F24        |
 
 ## Punctuation
 
@@ -87,42 +87,53 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 |`KC_RBRACKET`    |`KC_RBRC`|`]` and `}`                       |
 |`KC_BSLASH`      |`KC_BSLS`|`\` and <code>&#124;</code>       |
 |`KC_NONUS_HASH`  |`KC_NUHS`|Non-US `#` and `~`                |
-|`KC_NONUS_BSLASH`|`KC_NUBS`|Non-US `\` and <code>&#124;</code>|
-|`KC_INT1`        |`KC_RO`  |JIS `\` and <code>&#124;</code>   |
-|`KC_INT2`        |`KC_KANA`|JIS Katakana/Hiragana             |
-|`KC_INT3`        |`KC_JYEN`|JIS `¥`                           |
 |`KC_SCOLON`      |`KC_SCLN`|`;` and `:`                       |
 |`KC_QUOTE`       |`KC_QUOT`|`'` and `"`                       |
 |`KC_GRAVE`       |`KC_GRV` |<code>&#96;</code> and `~`        |
 |`KC_COMMA`       |`KC_COMM`|`,` and `<`                       |
 |`KC_DOT`         |         |`.` and `>`                       |
 |`KC_SLASH`       |`KC_SLSH`|`/` and `?`                       |
-|`KC_CAPSLOCK`    |`KC_CAPS`|Caps Lock                         |
+|`KC_NONUS_BSLASH`|`KC_NUBS`|Non-US `\` and <code>&#124;</code>|
+
+## Lock Keys
+
+|Key                |Aliases  |Description              |
+|-------------------|---------|-------------------------|
+|`KC_CAPSLOCK`      |`KC_CAPS`|Caps Lock                |
+|`KC_SCROLLLOCK`    |`KC_SLCK`|Scroll Lock              |
+|`KC_NUMLOCK`       |`KC_NLCK`|Keypad Num Lock and Clear|
+|`KC_LOCKING_CAPS`  |`KC_LCAP`|Locking Caps Lock        |
+|`KC_LOCKING_NUM`   |`KC_LNUM`|Locking Num Lock         |
+|`KC_LOCKING_SCROLL`|`KC_LSCR`|Locking Scroll Lock      |
 
 ## Modifiers
 
-|Key                |Aliases             |Description                         |
-|-------------------|--------------------|------------------------------------|
-|`KC_LCTRL`         |`KC_LCTL`           |Left Control                        |
-|`KC_LSHIFT`        |`KC_LSFT`           |Left Shift                          |
-|`KC_LALT`          |                    |Left Alt                            |
-|`KC_LGUI`          |`KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key) |
-|`KC_RCTRL`         |`KC_RCTL`           |Right Control                       |
-|`KC_RSHIFT`        |`KC_RSFT`           |Right Shift                         |
-|`KC_RALT`          |                    |Right Alt                           |
-|`KC_RGUI`          |`KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)|
-|`KC_LOCKING_CAPS`  |`KC_LCAP`           |Locking Caps Lock                   |
-|`KC_LOCKING_NUM`   |`KC_LNUM`           |Locking Num Lock                    |
-|`KC_LOCKING_SCROLL`|`KC_LSCR`           |Locking Scroll Lock                 |
-|`KC_INT4`          |`KC_HENK`           |JIS Henkan                          |
-|`KC_INT5`          |`KC_MHEN`           |JIS Muhenkan                        |
+|Key        |Aliases             |Description                         |
+|-----------|--------------------|------------------------------------|
+|`KC_LCTRL` |`KC_LCTL`           |Left Control                        |
+|`KC_LSHIFT`|`KC_LSFT`           |Left Shift                          |
+|`KC_LALT`  |                    |Left Alt                            |
+|`KC_LGUI`  |`KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key) |
+|`KC_RCTRL` |`KC_RCTL`           |Right Control                       |
+|`KC_RSHIFT`|`KC_RSFT`           |Right Shift                         |
+|`KC_RALT`  |                    |Right Alt                           |
+|`KC_RGUI`  |`KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)|
+
+## International
+
+|Key      |Aliases  |Description                    |
+|---------|---------|-------------------------------|
+|`KC_INT1`|`KC_RO`  |JIS `\` and <code>&#124;</code>|
+|`KC_INT2`|`KC_KANA`|JIS Katakana/Hiragana          |
+|`KC_INT3`|`KC_JYEN`|JIS `¥`                        |
+|`KC_INT4`|`KC_HENK`|JIS Henkan                     |
+|`KC_INT5`|`KC_MHEN`|JIS Muhenkan                   |
 
 ## Commands
 
 |Key               |Aliases  |Description                   |
 |------------------|---------|------------------------------|
 |`KC_PSCREEN`      |`KC_PSCR`|Print Screen                  |
-|`KC_SCROLLLOCK`   |`KC_SLCK`|Scroll Lock                   |
 |`KC_PAUSE`        |`KC_PAUS`|Pause                         |
 |`KC_INSERT`       |`KC_INS` |Insert                        |
 |`KC_HOME`         |         |Home                          |
@@ -140,12 +151,16 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 |`KC_HELP`         |         |Help                          |
 |`KC_MENU`         |         |Menu                          |
 |`KC_SELECT`       |         |Select                        |
+|`KC_STOP`         |         |Stop                          |
 |`KC_AGAIN`        |         |Again                         |
 |`KC_UNDO`         |         |Undo                          |
 |`KC_CUT`          |         |Cut                           |
 |`KC_COPY`         |         |Copy                          |
 |`KC_PASTE`        |         |Paste                         |
 |`KC_FIND`         |         |Find                          |
+|`KC__MUTE`        |         |Mute (macOS)                  |
+|`KC__VOLUP`       |         |Volume Up (macOS)             |
+|`KC__VOLDOWN`     |         |Volume Down (macOS)           |
 |`KC_ALT_ERASE`    |         |Alternate Erase               |
 |`KC_SYSREQ`       |         |SysReq/Attention              |
 |`KC_CANCEL`       |         |Cancel                        |
@@ -170,6 +185,15 @@ Windows and macOS use different keycodes for "next track" and "previous track". 
 |`KC_SYSTEM_POWER`      |`KC_PWR` |System Power Down                |
 |`KC_SYSTEM_SLEEP`      |`KC_SLEP`|System Sleep                     |
 |`KC_SYSTEM_WAKE`       |`KC_WAKE`|System Wake                      |
+|`KC_AUDIO_MUTE`        |`KC_MUTE`|Mute (Windows/macOS/Linux)       |
+|`KC_AUDIO_VOL_UP`      |`KC_VOLU`|Volume Up (Windows/macOS/Linux)  |
+|`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`|Volume Down (Windows/macOS/Linux)|
+|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`|Next Track (Windows)             |
+|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`|Previous Track (Windows)         |
+|`KC_MEDIA_STOP`        |`KC_MSTP`|Stop Track                       |
+|`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`|Play/Pause Track                 |
+|`KC_MEDIA_SELECT`      |`KC_MSEL`|                                 |
+|`KC_MEDIA_EJECT`       |`KC_EJCT`|Eject (macOS)                    |
 |`KC_MAIL`              |`KC_MAIL`|                                 |
 |`KC_CALCULATOR`        |`KC_CALC`|                                 |
 |`KC_MY_COMPUTER`       |`KC_MYCM`|                                 |
@@ -179,28 +203,14 @@ Windows and macOS use different keycodes for "next track" and "previous track". 
 |`KC_WWW_FORWARD`       |`KC_WFWD`|                                 |
 |`KC_WWW_STOP`          |`KC_WSTP`|                                 |
 |`KC_WWW_REFRESH`       |`KC_WREF`|                                 |
-|`KC_STOP`              |         |Stop                             |
 |`KC_WWW_FAVORITES`     |`KC_WFAV`|                                 |
-|`KC__MUTE`             |         |Mute (macOS)                     |
-|`KC__VOLUP`            |         |Volume Up (macOS)                |
-|`KC__VOLDOWN`          |         |Volume Down (macOS)              |
-|`KC_AUDIO_MUTE`        |`KC_MUTE`|Mute (Windows/macOS/Linux)       |
-|`KC_AUDIO_VOL_UP`      |`KC_VOLU`|Volume Up (Windows/macOS/Linux)  |
-|`KC_AUDIO_VOL_DOWN`    |`KC_VOLD`|Volume Down (Windows/macOS/Linux)|
-|`KC_MEDIA_NEXT_TRACK`  |`KC_MNXT`|Next Track (Windows)             |
-|`KC_MEDIA_PREV_TRACK`  |`KC_MPRV`|Previous Track (Windows)         |
 |`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`|Next Track (macOS)               |
 |`KC_MEDIA_REWIND`      |`KC_MRWD`|Previous Track (macOS)           |
-|`KC_MEDIA_STOP`        |`KC_MSTP`|Stop Track                       |
-|`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`|Play/Pause Track                 |
-|`KC_MEDIA_SELECT`      |`KC_MSEL`|                                 |
-|`KC_MEDIA_EJECT`       |`KC_EJCT`|Eject (macOS)                    |
 
 ## Number Pad
 
 |Key                |Aliases  |Description                   |
 |-------------------|---------|------------------------------|
-|`KC_NUMLOCK`       |`KC_NLCK`|Keypad Num Lock and Clear     |
 |`KC_KP_SLASH`      |`KC_PSLS`|Keypad `/`                    |
 |`KC_KP_ASTERISK`   |`KC_PAST`|Keypad `*`                    |
 |`KC_KP_MINUS`      |`KC_PMNS`|Keypad `-`                    |
