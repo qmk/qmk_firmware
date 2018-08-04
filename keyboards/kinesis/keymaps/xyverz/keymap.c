@@ -299,58 +299,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-// getting the LEDs working...
-void led_set_user(uint8_t usb_led) {
-
-    DDRF |= (1<<0); // Keypad LED
-    if (usb_led & (1<<USB_LED_COMPOSE)) {
-        PORTF |= (1<<0);
-    } else {
-        PORTF &= ~(1<<0);
-    }
-
-    DDRF |= (1<<1); // ScrLock LED
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        PORTF |= (1<<1);
-    } else {
-        PORTF &= ~(1<<1);
-    }
-
-    DDRF |= (1<<2); // NumLock LED
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        PORTF |= (1<<2);
-    } else {
-        PORTF &= ~(1<<2);
-    }
-
-    DDRF |= (1<<3); // CapsLock LED
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        PORTF |= (1<<3);
-    } else {
-        PORTF &= ~(1<<3);
-    }
-
-}
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-
 };
-
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        PORTF |= (1<<2);
-    } else {
-        PORTF &= ~(1<<2);
-    }
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        PORTF |= (1<<3);
-    } else {
-        PORTF &= ~(1<<3);
-    }
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        PORTF |= (1<<1);
-    } else {
-        PORTF &= ~(1<<1);
-    }
-}
