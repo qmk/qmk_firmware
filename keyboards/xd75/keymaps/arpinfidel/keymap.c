@@ -79,6 +79,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         // toggle keycaps leds (f5 pin)
         PORTF ^= (1 << 5);
       }
+      return false;
         
     // case A_BL_Y:
     //   if (record->event.pressed) {
