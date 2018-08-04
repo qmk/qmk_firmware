@@ -131,6 +131,11 @@ enum userspace_custom_keycodes {
 #define KC_C1R3 KC_BSPC
 #endif // SWAP_HANDS_ENABLE
 
+#define BK_LWER LT(_LOWER, KC_BSPC)
+#define SP_LWER LT(_LOWER, KC_SPC)
+#define DL_RAIS LT(_RAISE, KC_DEL)
+#define ET_RAIS LT(_RAISE, KC_ENTER)
+
 // OSM keycodes, to keep things clean and easy to change
 #define KC_MLSF OSM(MOD_LSFT)
 #define KC_MRSF OSM(MOD_RSFT)

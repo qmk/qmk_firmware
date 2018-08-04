@@ -22,10 +22,6 @@ enum planck_keycodes {
   BACKLIT = NEW_SAFE_RANGE,
 };
 
-#define BK_LWER LT(_LOWER, KC_BSPC)
-#define SP_LWER LT(_LOWER, KC_SPC)
-#define DL_RAIS LT(_RAISE, KC_DEL)
-#define ET_RAIS LT(_RAISE, KC_ENTER)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -33,28 +29,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_ESC,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSPC,
   KC_TAB,  _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT,
   KC_MLSF, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_ENT,
-  BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 [_COLEMAK] = LAYOUT_ortho_4x12_wrapper(
   KC_ESC,  _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, KC_BSPC,
   KC_TAB,  _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, KC_QUOT,
   KC_MLSF, _________________COLEMAK_L3________________, _________________COLEMAK_R3________________, KC_ENT,
-  BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 [_DVORAK] = LAYOUT_ortho_4x12_wrapper(
   KC_ESC,  _________________DVORAK_L1_________________, _________________DVORAK_R1_________________, KC_BSPC,
   KC_TAB,  _________________DVORAK_L2_________________, _________________DVORAK_R2_________________, KC_SLSH,
   KC_MLSF, _________________DVORAK_L3_________________, _________________DVORAK_R3_________________, KC_ENT,
-  BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 [_WORKMAN] = LAYOUT_ortho_4x12_wrapper(
   KC_TAB,  _________________WORKMAN_L1________________, _________________WORKMAN_R1________________, KC_BSPC,
   KC_ESC,  _________________WORKMAN_L2________________, _________________WORKMAN_R2________________, KC_QUOT,
   KC_MLSF, _________________WORKMAN_L3________________, _________________WORKMAN_R3________________, KC_ENT,
-  BACKLIT, KC_LCTL, KC_LALT, KC_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+  BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
 ),
 
 [_MODS] = LAYOUT_ortho_4x12_wrapper(

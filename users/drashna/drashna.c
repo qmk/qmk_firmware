@@ -251,6 +251,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // RGBLIGHT_ENABLE
 #ifdef RGB_MATRIX_ENABLE
       rgblight_mode(1);
+      rgb_matrix_set_color_all(0xFF,0x0,0x0);
 #endif //RGB_MATRIX_ENABLE
       reset_keyboard();
     }
