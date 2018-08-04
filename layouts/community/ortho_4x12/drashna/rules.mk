@@ -8,6 +8,10 @@ AUDIO_ENABLE      = yes
 ifeq (,$(findstring planck/rev6,$(KEYBOARD)))
   RGBLIGHT_ENABLE   = yes
 endif
+ifneq (,$(findstring planck/light,$(KEYBOARD)))
+  RGB_MATRIX_ENABLE   = yes
+  RGBLIGHT_ENABLE     = no
+endif
 
 ifeq ($(strip $(PROTOCOL)), VUSB)
 NKRO_ENABLE       = no

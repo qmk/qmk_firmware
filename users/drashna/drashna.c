@@ -249,6 +249,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       rgblight_mode_noeeprom(1);
       rgblight_setrgb_red();
 #endif // RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+      rgblight_mode(1);
+#endif //RGB_MATRIX_ENABLE
       reset_keyboard();
     }
     return false;

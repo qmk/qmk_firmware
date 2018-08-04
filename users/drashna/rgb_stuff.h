@@ -14,3 +14,4 @@ void matrix_scan_rgb(void);
 uint32_t layer_state_set_rgb(uint32_t state);
 
 
+void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue );
