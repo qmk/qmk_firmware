@@ -38,7 +38,7 @@ enum custom_keycodes {
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_QWERTY] = KEYMAP(
+[_QWERTY] = LAYOUT_ortho_6x16(
   /* Qwerty
    * ,---------------------------------------------------------------------------------------------------------------.
    * |  Esc |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  |  F12 | Home | PgUp | Bksp |
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_MOD, KC_LCTL, KC_LALT, KC_LGUI, LOWER,  KC_SPC,  KC_SPC,   RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_P0,  DZ,       KC_PDOT, KC_PENT \
 ),
 
-[_LOWER] = KEYMAP(
+[_LOWER] = LAYOUT_ortho_6x16(
   /* Lower
    * ,---------------------------------------------------------------------------------------------------------------.
    * |RESET |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_TOG,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,  _______,  _______,  _______ \
 ),
 
-[_RAISE] = KEYMAP(
+[_RAISE] = LAYOUT_ortho_6x16(
   /* Raise
    * ,---------------------------------------------------------------------------------------------------------------.
    * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
