@@ -169,155 +169,6 @@ static void send_n_keys(int n, ...) {
 }
 #define repeat_send_keys(n, ...) {for (int i=0; i < n; ++i) {send_keys(__VA_ARGS__);}}
 
-static bool rgb_layers_enabled = true;
-static bool rgb_L0_enabled = false;
-
-#define TIMEOUT_DELAY 150 // ms
-static uint16_t idle_timer;
-static bool timeout_is_active = false;
-
-// state for the great state machine of custom actions!
-static bool ctrl_shortcuts_enabled_g = false;
-static bool A_down = false;
-static bool A_other_key = false;
-static bool B_down = 0; // TODO just use top bit from count
-static int8_t B_count = 0;
-
-struct Tapping_ctrl_key_t {
-    bool down;
-    int8_t count;
-    uint16_t keycode;
-};
-
-static struct Tapping_ctrl_key_t special_keys[] = {
-    {false, 0, KC_B}, {false, 0, KC_A}
-};
-
-
-static inline void start_idle_timer(void);
-static inline void clear_state_after_idle_timeout(void);
-
-static inline void start_idle_timer(void) {
-    idle_timer = timer_read();
-    timeout_is_active = true;
-}
-static inline void clear_state_after_idle_timeout(void) {
-    rgblight_sethsv_noeeprom(0x0, 0x00, 0x00);
-    idle_timer = 0;
-    timeout_is_active = false;
-    // clear state here
-    A_down = false;
-    B_down = false; // TODO wait no??
-    // send B
-    repeat_send_keys(B_count, KC_B);
-    B_count = 0;
-}
-
-inline void matrix_scan_user(void) {
-    if (timeout_is_active && timer_elapsed(idle_timer) > TIMEOUT_DELAY) {
-        clear_state_after_idle_timeout();
-    }
-}
-
-
-static inline bool tap_ctrl_event(struct Tapping_ctrl_key_t* key, keyrecord_t* record) {
-    if (!ctrl_shortcuts_enabled_g) {
-        if (record->event.pressed) {
-            register_code(key->keycode);
-        }
-        else {
-            unregister_code(key->keycode);
-        }
-        return false;
-    }
-    key->down = record->event.pressed;
-    if (key->down) {
-        ++key->count;
-        timeout_is_active = false;
-    }
-    else {
-        if (key->count) {
-            start_idle_timer();
-        }
-    }
-    return false;
-}
-
-/* Return True to continue processing keycode, false to stop further processing */
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case TG_LAYER_RGB:
-            if (record->event.pressed) {
-                rgb_layers_enabled = !rgb_layers_enabled;
-            }
-            return false;
-        case TG_L0_RGB:
-            if (record->event.pressed) {
-                rgb_L0_enabled = !rgb_L0_enabled;
-            }
-            return false;
-        case EN_CTRL_SHORTCUTS:
-            if (record->event.pressed) {
-                ctrl_shortcuts_enabled_g = !ctrl_shortcuts_enabled_g;
-                start_idle_timer();
-            }
-            return false;
-        case CTRL_A:
-            if (!ctrl_shortcuts_enabled_g) {
-                if (record->event.pressed) {
-                    register_code(KC_A);
-                }
-                else {
-                    unregister_code(KC_A);
-                }
-                return false;
-            }
-            if (record->event.pressed) {
-                A_down = true;
-            }
-            else {
-                if (! A_other_key) {
-                    if (get_mods() & MODS_CTRL_MASK) {
-                        send_keys(KC_RSHIFT, KC_A);
-                    }
-                    else {
-                        send_keys(KC_A);
-                    }
-                }
-                A_down = false;
-                A_other_key = false;
-            }
-            return false;
-        case CTRL_B:
-            return tap_ctrl_event(&special_keys[0], record);
-        default:
-            if (record->event.pressed) {
-                if (A_down) {
-                    send_keys(KC_LCTL, KC_A);
-                    register_code(keycode);
-                    A_other_key = true;
-                    return false;
-                }
-                if (B_count) {
-                    if (B_down) {
-                        repeat_send_keys(B_count, KC_LCTL, KC_B);
-                        B_count = 0;
-                    }
-                    else {
-                        if (get_mods() & MODS_CTRL_MASK) {
-                            repeat_send_keys(B_count, KC_RSHIFT, KC_B);
-                        }
-                        else {
-                            repeat_send_keys(B_count, KC_B);
-                        }
-                        B_count = 0;
-                    }
-                }
-            }
-    }
-    return true;
-}
-
 #define  MAXBRIGHT    180
 #define  OFF          0,    0,    0
 #define  WHITE        0,    0,    MAXBRIGHT
@@ -338,6 +189,143 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define  PURPLE       270,  255,  MAXBRIGHT
 #define  MAGENTA      300,  255,  MAXBRIGHT
 #define  PINK         330,  128,  MAXBRIGHT
+
+static bool rgb_layers_enabled = true;
+static bool rgb_L0_enabled = false;
+
+// state for the great state machine of custom actions!
+#define TIMEOUT_DELAY 150 // ms
+static uint16_t idle_timer;
+static bool timeout_is_active = false;
+
+static bool ctrl_shortcuts_enabled_g = false;
+//static bool B_down = 0; // TODO just use top bit from count
+//static int8_t B_count = 0;
+
+struct Tapping_ctrl_key_t {
+    bool down;
+    int8_t count;
+    const uint16_t keycode;
+};
+
+#define N_TAPPING_CTRL_KEYS 2
+static struct Tapping_ctrl_key_t special_keys_g[N_TAPPING_CTRL_KEYS] = {
+    {false, 0, KC_B}, {false, 0, KC_A}
+};
+
+
+static inline void start_idle_timer(void);
+static inline void clear_state_after_idle_timeout(void);
+
+static inline void start_idle_timer(void) {
+    rgblight_sethsv_noeeprom(BLUE);
+    idle_timer = timer_read();
+    timeout_is_active = true;
+}
+static inline void clear_state_after_idle_timeout(void) {
+    rgblight_sethsv_noeeprom(OFF);
+    idle_timer = 0;
+    timeout_is_active = false;
+
+    // send timed out plain keys from tapping ctrl mod
+    for (int i = 0; i < N_TAPPING_CTRL_KEYS; ++i) {
+        struct Tapping_ctrl_key_t* key = special_keys_g + i;
+        repeat_send_keys(key->count, key->keycode);
+        key->count = 0;
+    }
+}
+
+inline void matrix_scan_user(void) {
+    if (timeout_is_active && timer_elapsed(idle_timer) > TIMEOUT_DELAY) {
+        clear_state_after_idle_timeout();
+    }
+}
+
+static inline bool tap_ctrl_event(struct Tapping_ctrl_key_t* key, keyrecord_t* record) {
+    if (!ctrl_shortcuts_enabled_g) {
+        // normal operation, just send the plain keycode
+        if (record->event.pressed) {
+            register_code(key->keycode);
+        }
+        else {
+            unregister_code(key->keycode);
+        }
+        return false;
+    }
+    key->down = record->event.pressed;
+    // increment count and reset timer when key pressed
+    // start the timeout when released
+    if (key->down) {
+        ++(key->count);
+        timeout_is_active = false;
+        idle_timer = 0;
+    }
+    else {
+        if (key->count) {
+            start_idle_timer();
+        }
+    }
+    return false;
+}
+
+static inline bool tap_ctrl_other_pressed(void) {
+    for (int i = 0; i < N_TAPPING_CTRL_KEYS; ++i) {
+        struct Tapping_ctrl_key_t* key = special_keys_g + i;
+        if (key->count) {
+            if (key->down) {
+                // another key has been pressed while the leader key is down,
+                // so send number of ctrl-KEY combos before the other key
+                repeat_send_keys(key->count, KC_LCTL, key->keycode);
+                key->count = 0;
+            }
+            else {
+                // another key pressed after leader key released,
+                // need to send the plain keycode plus potential mods
+                if (get_mods() & MODS_CTRL_MASK) {
+                    // make sure to send a shift if prssed
+                    repeat_send_keys(key->count, KC_RSHIFT, key->keycode);
+                }
+                else {
+                    repeat_send_keys(key->count, key->keycode);
+                }
+                key->count = 0;
+            }
+            return true; // will send the other keycode
+        }
+    }
+    return true; // safe default
+}
+
+/* Return True to continue processing keycode, false to stop further processing */
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case TG_LAYER_RGB:
+            if (record->event.pressed) {
+                rgb_layers_enabled = !rgb_layers_enabled;
+            }
+            return false;
+        case TG_L0_RGB:
+            if (record->event.pressed) {
+                rgb_L0_enabled = !rgb_L0_enabled;
+            }
+            return false;
+        case EN_CTRL_SHORTCUTS:
+            if (record->event.pressed) {
+                ctrl_shortcuts_enabled_g = !ctrl_shortcuts_enabled_g;
+                start_idle_timer(); // need to clear out state in some cases
+            }
+            return false;
+        case CTRL_A:
+            return tap_ctrl_event(&special_keys_g[1], record);
+        case CTRL_B:
+            return tap_ctrl_event(&special_keys_g[0], record);
+        default:
+            if (record->event.pressed) {
+                return tap_ctrl_other_pressed();
+            }
+    }
+    return true;
+}
 
 void matrix_init_user(void) {
     // called once on board init
