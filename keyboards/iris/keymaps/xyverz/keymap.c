@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_DVORAK] = LAYOUT_kc (
-     LBRC, 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,RBRC,
+     GRV , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,BSLS,
      TAB ,QUOT,COMM,DOT , P  , Y  ,                F  , G  , C  , R  , L  ,SLSH,
      ESC , A  , O  , E  , U  , I  ,                D  , H  , T  , N  , S  ,MINS,
      LSFT,SCLN, Q  , J  , K  , X  ,LOWR,     RASE, B  , M  , W  , V  , Z  ,RSFT,
