@@ -13,12 +13,13 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "ergo60.h"
+#include "action_layer.h"
 
 // Layer shorthand
 #define _QW 0
 #define LOWER F(1)
 #define RAISE F(2)
-#define _FN 3
+
 #define CTRLESC CTL_T(KC_ESC)
 #define XXXXXXX KC_NO
 
@@ -29,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______, _______, KC_Y,   KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
   CTRLESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    _______, _______, KC_H,   KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______, _______, KC_N,   KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-           KC_A,    KC_S,    KC_D,    KC_F,          RAISE,         LOWER,        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT           \
+           MO(3),   KC_LCTL, KC_LALT, KC_LGUI,       RAISE,         LOWER,        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT           \
   ),
 
   /* Keymap LOWER: Lower Layer */
@@ -51,18 +52,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   /* Keymap _FL: Function Layer */
-  [_FN] = LAYOUT_ortho_hhkb(
+  [3] = LAYOUT_ortho_hhkb(
   RESET,   _______, _______, _______, _______, _______, RGB_TOG, RGB_MOD, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, KC_X,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
            _______, _______, _______, _______,       _______,       _______,       _______, _______, _______, _______
   )
 };
-
-uint32_t layer_state_set_user(uint32_t state) {
-  return update_tri_layer_state(state, 1, 2, _FN);
-}
 
 const uint16_t PROGMEM fn_actions[] = {
  [1] = ACTION_LAYER_TAP_KEY(1, KC_SPC),
