@@ -98,3 +98,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+// Runs whenever there is a layer state change.
+uint32_t layer_state_set_user(uint32_t state) {
+  uint8_t layer = biton32(state);
+    
+  gp100_led_off();
+  gp103_led_off();
+  
+  // turns on gp100 (top left led) for odd layers
+  if (layer & (1<<0)) gp100_led_on();
+  // turns on gp103 (top mid led) for layers 2, 6, ...
+  if (layer & (1<<1)) gp103_led_on();
+  
+  return state;
+}
