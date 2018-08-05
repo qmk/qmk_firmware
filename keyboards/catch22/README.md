@@ -14,4 +14,4 @@ Designed to be a budget project board to enjoy hotswapping/switch testing/macro 
  * 10 m2 screws
  * Genuine Cherry pcb mount 2u stabilizer
  * 4 rubber bumpons
- * Pro Micro is included in kit (I forgot to list it earlier, sorry!)
+ * Pro Micro is included in kit
