@@ -6,7 +6,7 @@
 
 // my own keycodes
 enum userspace_custom_keycodes {
-  PV__ = SAFE_RANGE,
+  PV_ = SAFE_RANGE,
 
   PV_VERSION, // prints firmware version
   PV_KATAMARI, // play katamari music
@@ -14,17 +14,12 @@ enum userspace_custom_keycodes {
   PV_SAFE_RANGE, // used for extra keycodes in the individual keymaps
 };
 
-// shorter
-//#define QWERTY KC_QWERTY
-
 
 // layouts
 enum {
-  QWERTY = 0,
-
-  SYSCTL, // system control (music, volume, keyboard flash, etc)
+  LR_QWERTY = 0,
+  LR_SYSCTL, // system control (music, volume, keyboard flash, etc)
 };
-
 
 // layout parts for easy reuse between keyboard keymaps
 
@@ -72,5 +67,10 @@ enum {
 #define _________SYSCTL_R1__________ KC_MUTE , KC_HOME , KC_UP   , KC_END  ,
 #define _________SYSCTL_R2__________ KC_VOLU , KC_LEFT , KC_DOWN , KC_RGHT , // < arrows
 #define _________SYSCTL_R3__________ KC_VOLD , KC_MPRV , KC_MPLY , KC_MNXT , // < music
+
+
+// we need wrappers in order for these definitions, because they need to be expanded before being used as arguments to the LAYOUT_xxx macro
+#define LAYOUT_ergodox_pretty_wrapper(...)   LAYOUT_ergodox_pretty(__VA_ARGS__)
+
 
 #endif // !USERSPACE_PVINIS_PVINIS_H
