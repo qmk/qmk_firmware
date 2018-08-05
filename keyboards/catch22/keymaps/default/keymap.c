@@ -1,7 +1,9 @@
-#include "catch22.h"
+#include QMK_KEYBOARD_H
 
 #define _BASE 0
 #define _FN   1
+
+#define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BASE] = LAYOUT( /* Base */
@@ -13,10 +15,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 [_FN] = LAYOUT(
            RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUI, \
-           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-  KC_2,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS  \
+           _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, \
+  KC_2,    _______, _______, _______, _______, \
+           _______, _______, _______, _______  \
 ),
 };
 
