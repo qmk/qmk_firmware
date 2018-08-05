@@ -90,7 +90,6 @@ enum userspace_custom_keycodes {
   KC_C9,
   KC_GGEZ,
   KC_MAKE,           // Run keyboard's customized make command
-  KC_RESET,          // Resets keyboard, with red underglow
   KC_RGB_T,          // Toggles RGB Layer Indication mode
   KC_SECRET_1,       // test1
   KC_SECRET_2,       // test2
@@ -123,6 +122,7 @@ enum userspace_custom_keycodes {
 #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
 
+#define KC_RESET RESET
 #define KC_RST KC_RESET
 
 #ifdef SWAP_HANDS_ENABLE

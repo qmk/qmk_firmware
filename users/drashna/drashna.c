@@ -121,6 +121,11 @@ uint32_t default_layer_state_set_keymap (uint32_t state) {
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
 
+__attribute__ ((weak))
+void shutdown_keymap(void) {}
+
+__attribute__ ((weak))
+void startup_keymap(void) {}
 
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
@@ -151,6 +156,23 @@ void startup_user (void) {
     matrix_init_rgb();
   #endif //RGBLIGHT_ENABLE
   startup_keymap();
+}
+
+void shutdown_user (void) {
+#ifdef RGBLIGHT_ENABLE
+      rgblight_enable_noeeprom();
+      rgblight_mode_noeeprom(1);
+      rgblight_setrgb_red();
+#endif // RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+      rgblight_mode(1);
+      rgb_matrix_set_color_all(0xFF,0x0,0x0);
+#endif //RGB_MATRIX_ENABLE
+      reset_keyboard();
+    }
+    return false;
+    break;
+  shutdown_keymap();
 }
 
 void suspend_power_down_user(void)
@@ -240,24 +262,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
-
-
-  case KC_RESET: // Custom RESET code that sets RGBLights to RED
-    if (!record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable_noeeprom();
-      rgblight_mode_noeeprom(1);
-      rgblight_setrgb_red();
-#endif // RGBLIGHT_ENABLE
-#ifdef RGB_MATRIX_ENABLE
-      rgblight_mode(1);
-      rgb_matrix_set_color_all(0xFF,0x0,0x0);
-#endif //RGB_MATRIX_ENABLE
-      reset_keyboard();
-    }
-    return false;
-    break;
-
 
   case EPRM: // Resets EEPROM
     if (record->event.pressed) {
