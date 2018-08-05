@@ -218,12 +218,10 @@ static inline void start_idle_timer(void);
 static inline void clear_state_after_idle_timeout(void);
 
 static inline void start_idle_timer(void) {
-    rgblight_sethsv_noeeprom(BLUE);
     idle_timer = timer_read();
     timeout_is_active = true;
 }
 static inline void clear_state_after_idle_timeout(void) {
-    rgblight_sethsv_noeeprom(OFF);
     idle_timer = 0;
     timeout_is_active = false;
 
