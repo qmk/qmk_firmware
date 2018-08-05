@@ -14,8 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef CATCH22_H
-#define CATCH22_H
+#pragma once
 
 #include "quantum.h"
 
@@ -32,5 +31,3 @@ K30, K31, K32, K33, K34, \
   { K30,   K31, K32, K33, K34 },  \
   { KC_NO, K41, K42, K43, K44 },  \
 }
-
-#endif
