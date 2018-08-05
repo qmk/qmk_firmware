@@ -43,9 +43,57 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
+  return true;
+}
+
+void disable_leds(void) {
+  uint8_t i = 0;
+  for ( ; i < RGBLED_NUM; i++) {
+    rgblight_sethsv_at(0, 0, 0, i);
+  }
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
+  static uint32_t last_state = 0;
+  rgblight_config_t eeprom_config;
+  eeprom_config.raw = eeconfig_read_rgblight();
+
+  if (state != last_state) {
+    switch(biton32(state)) {
+      case _BL:
+        if (!eeprom_config.enable) {
+          rgblight_disable_noeeprom();
+        }
+        rgblight_mode_noeeprom(eeprom_config.mode);
+        rgblight_sethsv_noeeprom(eeprom_config.hue, eeprom_config.sat, eeprom_config.val);
+        break;
+
+      case _FN1:
+        if (!eeprom_config.enable) {
+          rgblight_enable_noeeprom();
+          disable_leds();
+        }
+        //rgblight_mode_noeeprom(1);
+        rgblight_sethsv_at(255, 255, 255, 8);
+        rgblight_sethsv_at(255, 255, 255, 15);
+        break;
+
+      case _FN2:
+        if (!eeprom_config.enable) {
+          rgblight_enable_noeeprom();
+          disable_leds();
+        }
+        //rgblight_mode(1);
+        rgblight_sethsv_at(0, 255, 255, 8);
+        rgblight_sethsv_at(0, 255, 255, 15);
+        break;
+
+      default:
+        break;
+    }
+
+    last_state = state;
+  }
+
   return state;
 }
