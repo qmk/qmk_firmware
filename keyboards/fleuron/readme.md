@@ -1,15 +1,16 @@
-# %KEYBOARD%
+# Fleuron
 
-![%KEYBOARD%](imgur.com image replace me!)
+![Fleuron](https://i.imgur.com/ejXBFRP.jpg "the fleuron keyboard")
 
-A short description of the keyboard/project
+The Fleuron keyboard is a 6x16 ortho keyboard supporting right, left, or center numpad placement and rgb backlighting.
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [James Underwood](https://github.com/ju0)  
+Hardware Supported: The Fleuron pcb, ATmega32u4 based controller
+Hardware Availability: limited production run, contact maintainer for details
 
 Make example for this keyboard (after setting up your build environment):
 
-    make %KEYBOARD%:default
+    make fleuron:default to build firmware
+    make fleuron:default:dfu to make and flash with dfu
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.

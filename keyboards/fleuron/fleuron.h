@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 James Underwood
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,7 +38,5 @@
     { k40, k41, k42, k43, k44, k45, k46, k47, k48, k49, k4a, k4b, k4c, k4d, k4e, k4f }, \
     { k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c, k5d, k5e, k5f } \
 }
-
-#define LAYOUT_ortho_6x16 LAYOUT_fleuron_grid
 
 #endif
