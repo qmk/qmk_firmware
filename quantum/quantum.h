@@ -27,7 +27,7 @@
 #ifdef BACKLIGHT_ENABLE
     #include "backlight.h"
 #endif
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE) 
+#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
 	#include "rgb.h"
 #endif
 #ifdef RGBLIGHT_ENABLE
@@ -53,6 +53,7 @@
 #include <stdlib.h>
 #include "print.h"
 #include "send_string_keycodes.h"
+#include "suspend.h"
 
 extern uint32_t default_layer_state;
 

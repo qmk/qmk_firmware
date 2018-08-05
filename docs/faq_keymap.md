@@ -87,14 +87,14 @@ On **Xorg** you can use `compose` key, instead.
 And see this for **Unicode** input.
 * http://en.wikipedia.org/wiki/Unicode_input
 
+## `Fn` Key on macOS
 
-## Apple/Mac Keyboard `Fn`
-Not supported.
+Unlike most Fn keys, the one on Apple keyboards actually has its own keycode... sort of. It takes the place of the sixth keycode in a basic 6KRO HID report -- so an Apple keyboard is in fact only 5KRO.
 
-Apple/Mac keyboard sends keycode for Fn unlike most of other keyboards.
-I think you can send Apple Fn key using Apple venter specific Page 0xff01 and usage 0x0003. But you have to change HID Report Descriptor for this, of course.
+It is technically possible to get QMK to send this key. However, doing so requires modification of the report format to add the state of the Fn key.
+Even worse, it is not recognized unless the keyboard's VID and PID match that of a real Apple keyboard. The legal issues that official QMK support for this feature may create mean it is unlikely to happen.
 
-https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/AppleHIDUsageTables.h
+See [this issue](https://github.com/qmk/qmk_firmware/issues/2179) for detailed information.
 
 
 ## Media Control Keys in Mac OSX

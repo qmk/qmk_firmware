@@ -17,7 +17,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 35
+	#define RGBLIGHT_MODES 36
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -166,5 +166,6 @@ void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
 void rgblight_effect_christmas(void);
 void rgblight_effect_rgbtest(void);
+void rgblight_effect_alternating(void);
 
 #endif
