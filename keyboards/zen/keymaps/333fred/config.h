@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Danny Nguyen <danny@hexwire.com>
+Copyright 2018 Fredric Silberberg
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,17 +15,24 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
-#endif  // CONFIG_H
+/* Use I2C or Serial, not both */
 
-#undef  RGBLED_NUM
+#define USE_SERIAL
+
+/* Select hand configuration */
+//#define MASTER_LEFT
+#define EE_HANDS
+
+#undef RGBLED_NUM
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
 
-#ifndef TAPPING_TERM
-#define TAPPING_TERM 100
-#endif
+#undef  TAPPING_TERM
+#define TAPPING_TERM 150
