@@ -1,13 +1,9 @@
-#include "crkbd.h"
+#include QMK_KEYBOARD_H
 #include "bootloader.h"
-#include "action_layer.h"
-#include "action_util.h"
-#include "eeconfig.h"
 #ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
+  #include "lufa.h"
+  #include "split_util.h"
 #endif
-#include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
@@ -134,7 +130,6 @@ void matrix_init_user(void) {
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
-        TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
