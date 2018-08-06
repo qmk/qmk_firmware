@@ -402,7 +402,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`PRINT_ON` |Start printing everything the user types|
 |`PRINT_OFF`|Stop printing everything the user types |
 
-## [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
+## [US ANSI Shifted Symbols](keycodes_us_ansi_shifted.md)
 
 |Key                     |Aliases            |Description        |
 |------------------------|-------------------|-------------------|
