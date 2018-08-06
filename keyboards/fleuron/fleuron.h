@@ -39,4 +39,6 @@
     { k50, k51, k52, k53, k54, k55, k56, k57, k58, k59, k5a, k5b, k5c, k5d, k5e, k5f } \
 }
 
+#define LAYOUT_fleuron_grid LAYOUT_ortho_6x16
+
 #endif

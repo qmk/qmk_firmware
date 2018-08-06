@@ -5,7 +5,7 @@
 The Fleuron keyboard is a 6x16 ortho keyboard supporting right, left, or center numpad placement and rgb backlighting.
 
 Keyboard Maintainer: [James Underwood](https://github.com/ju0)  
-Hardware Supported: The Fleuron pcb, ATmega32u4 based controller
+Hardware Supported: The Fleuron pcb, ATmega32u4 based controller  
 Hardware Availability: limited production run, contact maintainer for details
 
 Make example for this keyboard (after setting up your build environment):

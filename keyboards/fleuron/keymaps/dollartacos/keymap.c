@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "fleuron.h"
+#include QMK_KEYBOARD_H
 
 enum custom_layers {
   _QWERTY,
@@ -38,7 +38,7 @@ enum custom_keycodes {
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_QWERTY] = LAYOUT_ortho_6x16(
+[_QWERTY] = LAYOUT_fleuron_grid(
   /* Qwerty
    * ,---------------------------------------------------------------------------------------------------------------.
    * |  Esc |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  | F10  | F11  |  F12 | Mute | Play | Next |
@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_MOD, KC_LCTL, KC_LALT, LOWER,   KC_LGUI, KC_ENT, KC_BSPC, KC_SPC, RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_P0,    KC_PDOT, KC_PENT \
 ),
 
-[_LOWER] = LAYOUT_ortho_6x16(
+[_LOWER] = LAYOUT_fleuron_grid(
   /* Lower
    * ,---------------------------------------------------------------------------------------------------------------.
    * |RESET |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RGB_TOG,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,  _______,  _______ \
 ),
 
-[_RAISE] = LAYOUT_ortho_6x16(
+[_RAISE] = LAYOUT_fleuron_grid(
   /* Raise
    * ,---------------------------------------------------------------------------------------------------------------.
    * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
