@@ -10,6 +10,9 @@
 #define _FN2 2
 #define _FN3 3
 
+void change_leds_to(uint16_t, rgblight_config_t);
+bool state_changed = false;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT(
 		KC_GESC,   KC_1,     KC_2,     KC_3,    KC_4,     KC_5,    KC_6,     KC_7,     KC_8,   KC_9,     KC_0,       KC_MINS,  KC_EQL,   KC_BSLS,   KC_GRV,
@@ -49,6 +52,27 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
+  uint16_t hue = 1;
+
+  switch(biton32(layer_state)) {
+    case _FN1:
+      hue = 255;
+      break;
+
+    case _FN2:
+      hue = 0;
+      break;
+
+    case _FN3:
+      hue = 120;
+      break;
+  }
+
+  if (hue != 1) {
+    rgblight_config_t eeprom_config;
+    eeprom_config.raw = eeconfig_read_rgblight();
+    change_leds_to(hue, eeprom_config);
+  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -56,11 +80,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void change_leds_to(uint16_t hue, rgblight_config_t eeprom_config) {
-  if (!eeprom_config.enable) {
-    rgblight_enable_noeeprom();
-    for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-      rgblight_sethsv_at(0, 0, 0, i);
+  if (state_changed) {
+    if (!eeprom_config.enable) {
+      rgblight_enable_noeeprom();
+      rgblight_mode_noeeprom(1);
+      for (uint8_t i = RGBLED_NUM ; i-- > 0 ; ) {
+        if (i == 8 || i == 15) {
+          continue;
+        }
+
+        rgblight_sethsv_at(0, 0, 0, i);
+      }
     }
+
+    state_changed = false;
   }
 
   rgblight_sethsv_at(hue, 255, eeprom_config.val, 8);
@@ -80,18 +113,13 @@ uint32_t layer_state_set_user(uint32_t state) {
         }
         rgblight_mode_noeeprom(eeprom_config.mode);
         rgblight_sethsv_noeeprom(eeprom_config.hue, eeprom_config.sat, eeprom_config.val);
+        state_changed = false;
         break;
 
       case _FN1:
-        change_leds_to(255, eeprom_config);
-        break;
-
       case _FN2:
-        change_leds_to(0, eeprom_config);
-        break;
-
       case _FN3:
-        change_leds_to(120, eeprom_config);
+        state_changed = true;
         break;
 
       default:
