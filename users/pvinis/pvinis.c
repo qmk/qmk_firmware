@@ -21,12 +21,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 // handle my own keycodes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case PV_VERSION:
+    case PV_VRSN:
       if (record->event.pressed) {
         SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
       }
       return false;
-    case PV_KATAMARI:
+    case PV_KTMR:
       if (record->event.pressed) {
 #ifdef AUDIO_ENABLE
         PLAY_SONG(tone_katamari_rolling_star);
