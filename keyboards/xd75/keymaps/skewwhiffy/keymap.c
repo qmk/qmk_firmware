@@ -173,7 +173,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
  * Navigation
  * .--------------------------------------------------------------------------------------------------------------------------------------.
- * | RESET  | COLEMA | DVORAK | QWERTY |        |        |        |        |        |        |        |        |        |        |        |
+ * | RESET  | COLEMA | DVORAK | QWERTY |        | RGB_TG |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | Esc    | Ctrl L | Up     | Ctrl R |        | RGB HD | RGB HI |        |        |        |        | PtSn   | ScLk   | Pause  |        |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -185,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
  [_NAV] = {
-  { RESET,   DF(_CM), DF(_DV), DF(_QW), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
+  { RESET,   DF(_CM), DF(_DV), DF(_QW), _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_ESC,  _C_LEFT, UK_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, UK_PSCR, UK_SLCK, UK_PAUS, _______ },
   { UK_TAB,  UK_LEFT, UK_DOWN, UK_RGHT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, UK_INS,  UK_HOME, UK_PGUP, _TERM   },
   { _S_TAB,  _A_LEFT, UK_LSFT, _A_RGHT, _B_NAV,  RGB_VAD, RGB_VAI, _______, _______, _______, _K_NAV,  UK_SLCK, UK_END,  UK_PGDN, _______ },
@@ -231,9 +231,10 @@ void matrix_scan_user(void) {
     rgblight_setrgb(0, 0, 0);
     return;
   }
-  if (timer_elapsed32(key_timer) > 60000) {
-    resetCounts();
+  if (timer_elapsed32(key_timer) < 60000) {
+    return;
   }
+  resetCounts();
   switch (effect) {
     case 0:
       rgblight_effect_breathing(3);
