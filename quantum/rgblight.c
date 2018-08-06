@@ -129,7 +129,7 @@ void eeconfig_update_rgblight(uint32_t val) {
 void eeconfig_update_rgblight_default(void) {
   //dprintf("eeconfig_update_rgblight_default\n");
   rgblight_config.enable = 1;
-  rgblight_config.mode = 1;
+  rgblight_config.mode = RGBLIGHT_MODE_STATIC_LIGHT;
   rgblight_config.hue = 0;
   rgblight_config.sat = 255;
   rgblight_config.val = RGBLIGHT_LIMIT_VAL;
@@ -195,7 +195,7 @@ void rgblight_increase(void) {
 void rgblight_decrease(void) {
   uint8_t mode = 0;
   // Mode will never be < 1. If it ever is, eeprom needs to be initialized.
-  if (rgblight_config.mode > 1) {
+  if (rgblight_config.mode > RGBLIGHT_MODE_STATIC_LIGHT) {
     mode = rgblight_config.mode - 1;
   }
   rgblight_mode(mode);
@@ -229,8 +229,8 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
   if (!rgblight_config.enable) {
     return;
   }
-  if (mode < 1) {
-    rgblight_config.mode = 1;
+  if (mode < RGBLIGHT_MODE_STATIC_LIGHT) {
+    rgblight_config.mode = RGBLIGHT_MODE_STATIC_LIGHT;
   } else if (mode > RGBLIGHT_MODES) {
     rgblight_config.mode = RGBLIGHT_MODES;
   } else {
@@ -242,12 +242,14 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
   } else {
     xprintf("rgblight mode [NOEEPROM]: %u\n", rgblight_config.mode);
   }
-  if (rgblight_config.mode == 1) {
+  if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_disable();
     #endif
-  } else if ((rgblight_config.mode >= 2 && rgblight_config.mode <= 24) ||
-	     rgblight_config.mode == 35 || rgblight_config.mode == 36) {
+  } else if ((rgblight_config.mode >= RGBLIGHT_MODE_BREATHING &&
+              rgblight_config.mode <= RGBLIGHT_MODE_CHRISTMAS) ||
+             rgblight_config.mode == RGBLIGHT_MODE_RGB_TEST ||
+             rgblight_config.mode == RGBLIGHT_MODE_ALTERNATING) {
     // MODE 2-5, breathing
     // MODE 6-8, rainbow mood
     // MODE 9-14, rainbow swirl
@@ -255,12 +257,13 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     // MODE 21-23, knight
     // MODE 24, xmas
     // MODE 35  RGB test
-    // MODE 36, alterating
+    // MODE 36, alternating
 
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
     #endif
-  } else if (rgblight_config.mode >= 25 && rgblight_config.mode <= 34) {
+  } else if (rgblight_config.mode >= RGBLIGHT_MODE_STATIC_GRADIENT &&
+             rgblight_config.mode <= RGBLIGHT_MODE_STATIC_GRADIENT_end) {
     // MODE 25-34, static gradient
 
     #ifdef RGBLIGHT_ANIMATIONS
@@ -419,24 +422,27 @@ void rgblight_sethsv_noeeprom_old(uint16_t hue, uint8_t sat, uint8_t val) {
 
 void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom) {
   if (rgblight_config.enable) {
-    if (rgblight_config.mode == 1) {
+    if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
       // same static color
       LED_TYPE tmp_led;
       sethsv(hue, sat, val, &tmp_led);
       rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
     } else {
       // all LEDs in same color
-      if (rgblight_config.mode >= 2 && rgblight_config.mode <= 5) {
+      if (rgblight_config.mode >= RGBLIGHT_MODE_BREATHING &&
+          rgblight_config.mode <= RGBLIGHT_MODE_BREATHING_end) {
         // breathing mode, ignore the change of val, use in memory value instead
         val = rgblight_config.val;
-      } else if (rgblight_config.mode >= 6 && rgblight_config.mode <= 14) {
+      } else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_MOOD &&
+                  rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SWIRL_end) {
         // rainbow mood and rainbow swirl, ignore the change of hue
         hue = rgblight_config.hue;
-      } else if (rgblight_config.mode >= 25 && rgblight_config.mode <= 34) {
+      } else if (rgblight_config.mode >= RGBLIGHT_MODE_STATIC_GRADIENT &&
+                 rgblight_config.mode <= RGBLIGHT_MODE_STATIC_GRADIENT_end) {
         // static gradient
         uint16_t _hue;
-        int8_t direction = ((rgblight_config.mode - 25) % 2) ? -1 : 1;
-        uint16_t range = pgm_read_word(&RGBLED_GRADIENT_RANGES[(rgblight_config.mode - 25) / 2]);
+        int8_t direction = ((rgblight_config.mode - RGBLIGHT_MODE_STATIC_GRADIENT) % 2) ? -1 : 1;
+        uint16_t range = pgm_read_word(&RGBLED_GRADIENT_RANGES[(rgblight_config.mode - RGBLIGHT_MODE_STATIC_GRADIENT) / 2]);
         for (uint8_t i = 0; i < RGBLED_NUM; i++) {
           _hue = (range / RGBLED_NUM * i * direction + hue + 360) % 360;
           dprintf("rgblight rainbow set hsv: %u,%u,%d,%u\n", i, _hue, direction, range);
@@ -571,28 +577,33 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
 void rgblight_task(void) {
   if (rgblight_timer_enabled) {
     // mode = 1, static light, do nothing here
-    if (rgblight_config.mode >= 2 && rgblight_config.mode <= 5) {
+    if (rgblight_config.mode >= RGBLIGHT_MODE_BREATHING  &&
+        rgblight_config.mode <= RGBLIGHT_MODE_BREATHING_end) {
       // mode = 2 to 5, breathing mode
-      rgblight_effect_breathing(rgblight_config.mode - 2);
-    } else if (rgblight_config.mode >= 6 && rgblight_config.mode <= 8) {
+      rgblight_effect_breathing(rgblight_config.mode - RGBLIGHT_MODE_BREATHING );
+    } else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_MOOD &&
+               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_MOOD_end) {
       // mode = 6 to 8, rainbow mood mod
-      rgblight_effect_rainbow_mood(rgblight_config.mode - 6);
-    } else if (rgblight_config.mode >= 9 && rgblight_config.mode <= 14) {
+      rgblight_effect_rainbow_mood(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_MOOD);
+    } else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SWIRL &&
+               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SWIRL_end) {
       // mode = 9 to 14, rainbow swirl mode
-      rgblight_effect_rainbow_swirl(rgblight_config.mode - 9);
-    } else if (rgblight_config.mode >= 15 && rgblight_config.mode <= 20) {
+      rgblight_effect_rainbow_swirl(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_SWIRL);
+    } else if (rgblight_config.mode >= RGBLIGHT_MODE_SNAKE &&
+               rgblight_config.mode <= RGBLIGHT_MODE_SNAKE_end) {
       // mode = 15 to 20, snake mode
-      rgblight_effect_snake(rgblight_config.mode - 15);
-    } else if (rgblight_config.mode >= 21 && rgblight_config.mode <= 23) {
+      rgblight_effect_snake(rgblight_config.mode - RGBLIGHT_MODE_SNAKE);
+    } else if (rgblight_config.mode >= RGBLIGHT_MODE_KNIGHT &&
+               rgblight_config.mode <= RGBLIGHT_MODE_KNIGHT_end) {
       // mode = 21 to 23, knight mode
-      rgblight_effect_knight(rgblight_config.mode - 21);
-    } else if (rgblight_config.mode == 24) {
+      rgblight_effect_knight(rgblight_config.mode - RGBLIGHT_MODE_KNIGHT);
+    } else if (rgblight_config.mode == RGBLIGHT_MODE_CHRISTMAS) {
       // mode = 24, christmas mode
       rgblight_effect_christmas();
-    } else if (rgblight_config.mode == 35) {
+    } else if (rgblight_config.mode == RGBLIGHT_MODE_RGB_TEST) {
       // mode = 35, RGB test
       rgblight_effect_rgbtest();
-    } else if (rgblight_config.mode == 36){
+    } else if (rgblight_config.mode == RGBLIGHT_MODE_ALTERNATING){
       rgblight_effect_alternating();
     }
   }
