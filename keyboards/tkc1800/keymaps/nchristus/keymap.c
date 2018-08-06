@@ -17,18 +17,13 @@
 #include "LUFA/Drivers/Peripheral/TWI.h"
 #include "i2c.h"
 #include "ssd1306.h"
-
-
-#define MODS_SHFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
-#define MODS_GUI_MASK   (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
-
+#include "print.h"
 
 // Helpful defines
 #define ______ KC_TRNS
 #define XXXXXX KC_NO
 
 //Layers
-
 enum {
   BASE = 0,
   FUNCTION,
@@ -60,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                                    KC_DEL, KC_END,  KC_PGDN, KC_SLCK, \
     KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSLS, KC_PMNS, KC_NLCK, KC_PSLS, KC_PAST, KC_PAUS, \
     KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSPC, KC_P7, KC_P8, KC_P9, KC_PMNS, \
-    KC_LCAP, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, XXXXXX, KC_ENT, KC_P4, KC_P5, KC_P6, KC_PPLS, \
+    KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, XXXXXX, KC_ENT, KC_P4, KC_P5, KC_P6, KC_PPLS, \
     KC_LSFT, XXXXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,KC_SLSH, KC_RSFT, KC_UP, KC_P1, KC_P2, KC_P3, XXXXXX, \
     KC_LCTL, KC_LALT, KC_LGUI, KC_SPC, KC_RALT, XXXXXX, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_P0, KC_PDOT, KC_PENT
   ),
@@ -82,7 +77,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_set_user(uint8_t usb_led) {
-
+  if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+    PORTD &= ~(1<<2);
+  } else {
+    PORTD |= (1<<2);
+  }
+  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    PORTD &= ~(1<<3);
+  } else {
+    PORTD |= (1<<3);
+  }
+  if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+    PORTD &= ~(1<<4);
+  } else {
+    PORTD |= (1<<4);
+  }
 }
 
 void matrix_init_user(void) {
