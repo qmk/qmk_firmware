@@ -89,6 +89,9 @@ __attribute__ ((weak))
 void startup_keymap(void) {}
 
 __attribute__ ((weak))
+void shutdown_keymap(void) {}
+
+__attribute__ ((weak))
 void suspend_power_down_keymap(void) {}
 
 __attribute__ ((weak))
@@ -121,11 +124,7 @@ uint32_t default_layer_state_set_keymap (uint32_t state) {
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
 
-__attribute__ ((weak))
-void shutdown_keymap(void) {}
 
-__attribute__ ((weak))
-void startup_keymap(void) {}
 
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
@@ -168,10 +167,6 @@ void shutdown_user (void) {
       rgblight_mode(1);
       rgb_matrix_set_color_all(0xFF,0x0,0x0);
 #endif //RGB_MATRIX_ENABLE
-      reset_keyboard();
-    }
-    return false;
-    break;
   shutdown_keymap();
 }
 
