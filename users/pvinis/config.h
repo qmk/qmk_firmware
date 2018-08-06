@@ -1,8 +1,5 @@
-#ifndef USERSPACE_PVINIS_CONFIG_H
-#define USERSPACE_PVINIS_CONFIG_H
+#pragma once
 
 #ifdef AUDIO_ENABLE
 // #define STARTUP_SONG SONG(SONIC_RING)
 #endif
-
-#endif // !USERSPACE_PVINIS_CONFIG_H

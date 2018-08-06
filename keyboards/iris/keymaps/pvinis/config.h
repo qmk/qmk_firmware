@@ -1,5 +1,4 @@
-#ifndef KEYMAP_IRIS_PVINIS_CONFIG_H
-#define KEYMAP_IRIS_PVINIS_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -33,6 +32,3 @@
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-
-
-#endif // !KEYMAP_IRIS_PVINIS_CONFIG_H
