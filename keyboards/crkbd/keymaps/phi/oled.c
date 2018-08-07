@@ -14,6 +14,7 @@
 #define MOD_ALT (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))
 #define MOD_GUI (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 
+#define SCREEN_UPDATE_INTERVAL 50 /* 20fps */
 /* #define ANIMATION_FRAME_RATE 200 */
 
 extern uint8_t is_master;
@@ -139,7 +140,12 @@ void copy_matrix(struct CharacterMatrix *dest, const struct CharacterMatrix *sou
 }
 
 void prepare_next_frame(void) {
-    struct CharacterMatrix matrix;
+    static int last_update = 0;
+    static struct CharacterMatrix matrix;
+
+    if (timer_elapsed(last_update) < SCREEN_UPDATE_INTERVAL) return;
+    last_update = timer_read();
+
     matrix_clear(&matrix);
 
     shift_frame();
