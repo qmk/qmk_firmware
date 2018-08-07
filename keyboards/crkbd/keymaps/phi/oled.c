@@ -95,25 +95,25 @@ void matrix_write_keyfreq_log_ln(struct CharacterMatrix *matrix) {
     };
     static int last_time = 0;
 
-    log2[19] =
-        keyfreq_count ==  0 ? 0x9c :
-        keyfreq_count <  40 ? 0x9b :
-        keyfreq_count <  80 ? 0x9a :
-        keyfreq_count < 120 ? 0x99 :
-        keyfreq_count < 160 ? 0x98 :
-        keyfreq_count < 200 ? 0x97 :
-        keyfreq_count < 240 ? 0x96 :
-        keyfreq_count < 280 ? 0x95 : 0x94;
-
-    log1[19] =
-        keyfreq_count < 320 ? 0xdc :
-        keyfreq_count < 360 ? 0xdb :
-        keyfreq_count < 400 ? 0xda :
-        keyfreq_count < 440 ? 0xd9 :
-        keyfreq_count < 480 ? 0xd8 :
-        keyfreq_count < 520 ? 0xd7 :
-        keyfreq_count < 560 ? 0xd6 :
-        keyfreq_count < 600 ? 0xd5 : 0xd4;
+    if (keyfreq_count)
+      switch (keyfreq_count / 40) {
+       case 0: log2[19] = 0x9b; break;
+       case 1: log2[19] = 0x9a; break;
+       case 2: log2[19] = 0x99; break;
+       case 3: log2[19] = 0x98; break;
+       case 4: log2[19] = 0x97; break;
+       case 5: log2[19] = 0x96; break;
+       case 6: log2[19] = 0x95; break;
+       case 7: log1[19] = 0xdc, log2[19] = 0x94; break;
+       case 8: log1[19] = 0xdb, log2[19] = 0x94; break;
+       case 9: log1[19] = 0xda, log2[19] = 0x94; break;
+       case 10: log1[19] = 0xd9, log2[19] = 0x94; break;
+       case 11: log1[19] = 0xd8, log2[19] = 0x94; break;
+       case 12: log1[19] = 0xd7, log2[19] = 0x94; break;
+       case 13: log1[19] = 0xd6, log2[19] = 0x94; break;
+       case 14: log1[19] = 0xd5, log2[19] = 0x94; break;
+       default: log1[19] = 0xd4, log2[19] = 0x94; break;
+      }
 
     /* shift the log every 60 seconds */
     if (timer_elapsed(last_time) > 60000) {
