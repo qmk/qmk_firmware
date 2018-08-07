@@ -132,9 +132,6 @@ void matrix_write_keyfreq_log_ln(struct CharacterMatrix *matrix) {
 }
 
 void copy_matrix(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  if (memcmp(dest->bg_display, source->bg_display, sizeof(dest->bg_display))) {
-    memcpy(dest->bg_display, source->bg_display, sizeof(dest->bg_display));
-  }
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
     memcpy(dest->display, source->display, sizeof(dest->display));
     dest->dirty = true;
@@ -155,7 +152,6 @@ void prepare_next_frame(void) {
         matrix_write_ln(&matrix, get_layer_name());
         matrix_write_keyfreq_log_ln(&matrix);
         matrix_write(&matrix, saku[shift]);
-        matrix_set_bg(&matrix, left_background_image);
     } else {
         matrix_write_ln(&matrix, right_image[0]);
         matrix_write_ln(&matrix, right_image[1]);

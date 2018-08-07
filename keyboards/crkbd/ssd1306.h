@@ -62,8 +62,7 @@ enum ssd1306_cmds {
 #define MatrixCols (DisplayWidth / FontWidth)
 
 struct CharacterMatrix {
-  uint8_t display[MatrixRows][MatrixCols];
-  uint8_t bg_display[MatrixRows][MatrixCols];
+  uint8_t display[MatrixRows][DisplayWidth];
   uint8_t *cursor;
   bool dirty;
 };
@@ -77,18 +76,15 @@ bool iota_gfx_on(void);
 void iota_gfx_flush(void);
 void iota_gfx_write_char(uint8_t c);
 void iota_gfx_write(const char *data);
-void iota_gfx_write_P(const char *data);
 void iota_gfx_clear_screen(void);
 
 void iota_gfx_task_user(void);
 
 void matrix_clear(struct CharacterMatrix *matrix);
-void matrix_set_bg(struct CharacterMatrix *matrix, const uint8_t data[MatrixRows][MatrixCols]);
-void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c);
+void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte);
 void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c);
 void matrix_write(struct CharacterMatrix *matrix, const char *data);
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data);
-void matrix_write_P(struct CharacterMatrix *matrix, const char *data);
 void matrix_render(struct CharacterMatrix *matrix);
 
 
