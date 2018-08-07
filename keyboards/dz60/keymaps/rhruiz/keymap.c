@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define X___X KC_TRNS
 #define MISCTRL LCTL(KC_UP)
 #define CTRLESC LCTL_T(KC_ESC)
 #define FN2BSPC LT(_FN2, KC_BSPC)
@@ -13,6 +12,10 @@
 void change_leds_to(uint16_t, rgblight_config_t);
 bool state_changed = false;
 
+enum custom_keycodes {
+  KC_K8s = SAFE_RANGE
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT(
 		KC_GESC,   KC_1,     KC_2,     KC_3,    KC_4,     KC_5,    KC_6,     KC_7,     KC_8,   KC_9,     KC_0,       KC_MINS,  KC_EQL,   KC_BSLS,   KC_GRV,
@@ -22,25 +25,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		MO(_FN1),  KC_LALT,  KC_LGUI,  KC_SPC,  FN2BSPC,  KC_ENT,  KC_LGUI,  KC_LALT,  KC_NO,  KC_APP,   TO(_FN1)),
 
   [_FN1] = LAYOUT(
-		KC_GRV,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,    KC_F11,   KC_F12,   X___X,   KC_EJCT,
-		X___X,   RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_HUD,  RGB_SAI,  RGB_SAD,  RGB_VAI,  RGB_VAD,  X___X,     KC_UP,     KC_MRWD,  KC_MFFD,  KC_DEL,
-		X___X,   X___X,    X___X,    X___X,    X___X,    X___X,    KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  X___X,     X___X,    KC_PENT,
-		X___X,   X___X,    X___X,    X___X,    X___X,    X___X,    KC_LEFT,  KC_DOWN,  KC_ENT,   X___X,     X___X,     X___X,    X___X,    X___X,
-		X___X,   X___X,    X___X,    X___X,    X___X,    X___X,    X___X,    X___X,    X___X,    X___X,     TO(_BL)),
+		KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,    KC_F11,   KC_F12,   _______,  KC_EJCT,
+		_______,  RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_HUD,  RGB_SAI,  RGB_SAD,  RGB_VAI,  RGB_VAD,  _______,   KC_UP,     KC_MRWD,  KC_MFFD,  KC_DEL,
+		_______,  _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  _______,   _______,  KC_PENT,
+		_______,  _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,   _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   TO(_BL)),
 
   [_FN2] = LAYOUT(
-		KC_GRV,  X___X,    X___X,    MISCTRL,  X___X,     RGB_VAD,  RGB_VAI,  KC_MRWD,  KC_MPLY,  KC_MFFD,   KC_MUTE,  KC__VOLDOWN,  KC__VOLUP,  X___X,   KC_EJCT,
-		X___X,   KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_ACL0,   KC_ACL1,  KC_ACL2,  X___X,    X___X,    X___X,     KC_UP,    X___X,        X___X,      KC_DEL,
-		X___X,   KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_RIGHT,  X___X,    KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  X___X,    X___X,        KC_PENT,
-		X___X,   X___X,    X___X,    X___X,    X___X,     X___X,    KC_LEFT,  KC_DOWN,  KC_ENT,   X___X,     X___X,    X___X,        X___X,      X___X,
-		X___X,   X___X,    X___X,    X___X,    X___X,     X___X,    X___X,    X___X,    X___X,    X___X,     RESET),
+		KC_GRV,   _______,  _______,  MISCTRL,  _______,   RGB_VAD,  RGB_VAI,  KC_MRWD,  KC_MPLY,  KC_MFFD,   KC_MUTE,  KC__VOLDOWN,  KC__VOLUP,  _______,  KC_EJCT,
+		_______,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_ACL0,   KC_ACL1,  KC_ACL2,  _______,  _______,  _______,   KC_UP,    _______,      _______,    KC_DEL,
+		_______,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_RIGHT,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  _______,  _______,      KC_PENT,
+		_______,  _______,  _______,  _______,  _______,   _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,  _______,      _______,    _______,
+		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,   RESET),
 
   [_FN3] = LAYOUT(
-		X___X,  X___X,  X___X,  X___X,  X___X,  X___X,  X___X,  X___X,    X___X,  X___X,    X___X,     X___X,  X___X,  X___X,     X___X,
-		X___X,  X___X,  X___X,  X___X,  X___X,  X___X,  X___X,  X___X,    X___X,  X___X,    X___X,     X___X,  X___X,  X___X,
-		X___X,  X___X,  X___X,  X___X,  X___X,  X___X,  X___X,  X___X,    X___X,  X___X,    X___X,     X___X,  X___X,
-		X___X,  X___X,  X___X,  X___X,  X___X,  X___X,  X___X,  X___X,    X___X,  X___X,    X___X,     X___X,  KC_UP,  TG(_FN3),
-		X___X,  X___X,  X___X,  X___X,  X___X,  X___X,  X___X,  KC_LEFT,  X___X,  KC_DOWN,  KC_RIGHT)
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,   KC_K8s,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  _______,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   _______,  KC_UP,    TG(_FN3),
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_LEFT,  _______,  KC_DOWN,  KC_RIGHT)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -76,6 +79,13 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    switch(keycode) {
+      case KC_K8s:
+        SEND_STRING("kubectl ");
+        return false;
+    }
+  }
   return true;
 }
 
