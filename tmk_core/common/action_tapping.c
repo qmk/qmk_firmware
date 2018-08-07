@@ -89,7 +89,7 @@ bool process_tapping(keyrecord_t *keyp)
     if (IS_TAPPING_PRESSED()) {
         if (WITHIN_TAPPING_TERM(event)) {
             if (tapping_key.tap.count == 0) {
-                action_t action = layer_switch_get_action(event.key);
+                action_t action;
                 if (IS_TAPPING_KEY(event.key) && !event.pressed) {
                     // first tap!
                     debug("Tapping: First tap(0->1).\n");
@@ -109,7 +109,7 @@ bool process_tapping(keyrecord_t *keyp)
                  */
                 else if (IS_RELEASED(event) && waiting_buffer_typed(event)
 #ifdef PERMISSIVE_HOLD_SHIFT_ONLY
-                         && action.key.code == KC_LSHIFT
+                         && (action = layer_switch_get_action(event.key)).key.code == KC_LSHIFT
 #endif
                 ) {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
@@ -126,6 +126,7 @@ bool process_tapping(keyrecord_t *keyp)
                  */
                 else if (IS_RELEASED(event) && !waiting_buffer_typed(event)) {
                     // Modifier should be retained till end of this tapping.
+                    action = layer_switch_get_action(event.key);
                     switch (action.kind.id) {
                         case ACT_LMODS:
                         case ACT_RMODS:
