@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [LR_LOWER] = LAYOUT_wrapper(
     KC_TILD, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,                        KC_CIRC, KC_AMPR, _______, _______, _______, _______,
-    _______, _______, _______, _______, KC_LBRK, KC_RBRK,                        KC_SLSH, KC_7   , KC_8   , KC_9   , _______, _______,
+    _______, _______, _______, _______, KC_LCBR, KC_RCBR,                        KC_SLSH, KC_7   , KC_8   , KC_9   , _______, _______,
     _______, _______, _______, KC_PLUS, KC_LPRN, KC_RPRN,                        KC_EQL , KC_4   , KC_5   , KC_6   , _______, KC_PIPE,
     _______, _______, _______, KC_MINS, KC_LBRC, KC_RBRC, _______,      _______, KC_ASTR, KC_1   , KC_2   , KC_3   , _______, _______,
                                         _______, _______, _______,      _______, _______, KC_0
@@ -112,91 +112,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______, _______, _______,      _______, _______, _______
   ),
 
-  [LR_ADJUST] = LAYOUT_wrapper(
-    _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______,                        _______, _______, _______, _______, _______, _______,
-    _______, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
-                                        _______, _______, _______,      _______, _______, _______
+  [LR_KBCTL] = LAYOUT_wrapper(
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                        XXXXXXX, PV_VRSN, PV_MAKE, PV_FLSH, XXXXXXX, XXXXXXX,
+    BASE   , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                                        XXXXXXX, _______, XXXXXXX,      XXXXXXX, _______, XXXXXXX
   )
 };
-
-// void persistent_default_layer_set(uint16_t default_layer) {
-//   eeconfig_update_default_layer(default_layer);
-//   default_layer_set(default_layer);
-// }
-
-// bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-//   switch (keycode) {
-//     case QWERTY:
-//       if (record->event.pressed) {
-//         persistent_default_layer_set(1UL<<_QWERTY);
-//       }
-//       return false;
-//       break;
-//     case LOWER:
-//       if (record->event.pressed) {
-//         layer_on(_LOWER);
-//         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-//       } else {
-//         layer_off(_LOWER);
-//         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-//       }
-//       return false;
-//       break;
-//     case RAISE:
-//       if (record->event.pressed) {
-//         layer_on(_RAISE);
-//         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-//       } else {
-//         layer_off(_RAISE);
-//         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-//       }
-//       return false;
-//       break;
-//     case ADJUST:
-//       if (record->event.pressed) {
-//         layer_on(_ADJUST);
-//       } else {
-//         layer_off(_ADJUST);
-//       }
-//       return false;
-//       break;
-//     case SSP:
-//       #ifdef AUDIO_ENABLE
-//       if (record->event.pressed) {
-//         PLAY_SONG(tone_sonic);
-//       }
-//       #endif
-//       return false;
-//     case SSP1:
-//       #ifdef AUDIO_ENABLE
-//       if (record->event.pressed) {
-//         PLAY_SONG(tone_1);
-//       }
-//       #endif
-//       return false;
-//     case SSP2:
-//       #ifdef AUDIO_ENABLE
-//       if (record->event.pressed) {
-//         PLAY_SONG(tone_2);
-//       }
-//       #endif
-//       return false;
-//     case SSP3:
-//       #ifdef AUDIO_ENABLE
-//       if (record->event.pressed) {
-//         PLAY_SONG(tone_3);
-//       }
-//       #endif
-//       return false;
-//     case SSP4:
-//       #ifdef AUDIO_ENABLE
-//       if (record->event.pressed) {
-//         PLAY_SONG(tone_4);
-//       }
-//       #endif
-//       return false;
-//   }
-//   return true;
-// }

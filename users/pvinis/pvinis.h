@@ -8,6 +8,8 @@ enum userspace_custom_keycodes {
   PV_ = SAFE_RANGE,
 
   PV_VRSN, // prints firmware version
+  PV_MAKE, // prints the make command of the keyboard
+  PV_FLSH, // resets keyboard
   PV_KTMR, // play katamari music
 
   // tap dance
@@ -16,12 +18,10 @@ enum userspace_custom_keycodes {
   PV_SAFE_RANGE, // used for extra keycodes in the individual keymaps
 };
 
-#define KC_LBRK  LSFT(KC_LBRC)       // [
-#define KC_RBRK  LSFT(KC_RBRC)       // ]
 #define ALLM(kc) LCAG(kc)           // easier name for left ctrl-alt-gui
 #define PV_ESCC  CTL_T(KC_ESC)      // esc on tap, ctrl on hold
 #define PV_LOCK  LCTL(LSFT(KC_PWR)) // lock computer
-#define TD_4FLS  TD(TD_FLSH)        // tap dance 4 times for flash
+#define TD_3FLS  TD(TD_FLSH)        // tap dance 3 times for flash
 
 
 // layers
@@ -35,17 +35,19 @@ enum {
   // testing
   LR_LOWER,
   LR_RAISE,
-  LR_ADJUST,
+  LR_KBCTL,
 };
 
 
 // layer switchers
+#define BASE    TO(LR_BASE)
 #define QWERTY  TO(LR_QWERTY)
 #define CARPALX TO(LR_CARPALX)
 
 #define SYSCTL  MO(SYSCTL)
 #define LOWER   MO(LR_LOWER)
 #define RAISE   MO(LR_RAISE)
+#define KBCTL   MO(LR_KBCTL)
 
 
 // layout parts for easy reuse between keyboard keymaps
