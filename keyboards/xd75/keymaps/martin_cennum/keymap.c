@@ -18,7 +18,7 @@
  * switching between my xd75 and contra
  */
 
-#include "xd75.h"
+#include QMK_KEYBOARD_H
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
