@@ -26,4 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16
 
+#ifndef TAPPING_TERM
 #define TAPPING_TERM 100
+#endif

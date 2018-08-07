@@ -17,10 +17,10 @@
 #include <stdio.h>
 
 // Port D: digital pins of the AVR chipset
-#define NUMLOCK_PORT    (1 << 1)  // 1st pin of Port D (digital)
-#define CAPSLOCK_PORT   (1 << 2)  // 2nd pin
-#define BACKLIGHT_PORT  (1 << 4)  // 4th pin
-#define SCROLLLOCK_PORT (1 << 6)  // 6th pin
+#define NUMLOCK_PORT    (1 << 0)  // D0
+#define CAPSLOCK_PORT   (1 << 1)  // D1
+#define BACKLIGHT_PORT  (1 << 4)  // D4
+#define SCROLLLOCK_PORT (1 << 6)  // D6
 
 #define TIMER_CLK_DIV64			  0x03	///< Timer clocked at F_CPU/64
 #define TIMER1PRESCALE	TIMER_CLK_DIV64 ///< timer 1 prescaler default
@@ -43,6 +43,7 @@ extern backlight_config_t backlight_config;
 
 // @Override
 // turn LEDs on and off depending on USB caps/num/scroll lock states.
+__attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {
     if (usb_led & (1 << USB_LED_NUM_LOCK)) {
       // turn on

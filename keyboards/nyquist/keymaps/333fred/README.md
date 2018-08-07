@@ -1,6 +1,6 @@
 # 333fred's Nyquist Layout
 
-This nyquist layout is based on my Ergodox Infinity Layout, which is [here](../../../ergodox/keymaps/333fred/README.md). It doesn't have all of my VS extensions, as I have my nyquist at home, not at work.
+This nyquist layout is based on my Ergodox Infinity Layout, which is [here](../../../../layouts/community/ergodox/333fred/README.md). It doesn't have all of my VS extensions, as I have my nyquist at home, not at work.
 
 ## Layers
 

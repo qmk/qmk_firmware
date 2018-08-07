@@ -1,67 +1,65 @@
-#include "mitosis.h"
+#include QMK_KEYBOARD_H
+#ifdef AUDIO_ENABLE
+#include "audio.h"
+#endif
 
 enum mitosis_layers
 {
-    _xW, // workman
     _xQ, // qwerty
+    _xW, // workman
     _xS, // symbols
     _xN, // numbers
     _xF  // functions
 };
 
 // Fillers to make layering more clear
-#define XXXXXXX KC_NO   // No-op (no key in this location on Mitosis' fake matrix)
-#define _______ KC_TRNS // Transparent, because I haven't decided a mapping yet
-#define ___M___ KC_TRNS // Transparent, as required by modifier key on another layer
-#define KC_LMTA KC_LALT // For fun, name the mods like the space cadet keyboard does
-#define KC_RMTA KC_RALT // META
-#define KC_LSUP KC_LGUI // SUPER
-#define KC_RSUP KC_RGUI //
-#define KC_RHYP KC_INT4 // HYPER (actually muhenkan 無変換 and henkan 変換)
-#define KC_LHYP KC_INT5 // or NFER/XFER.
+#define _______ KC_TRNS // Transparent
+
+// I don't use Japanese myself, but I've placed henkan 変換 and muhenkan 無変換
+// in my layout to act as left and right HYPER
 
 // Momentary tri-state layers. Mitosis default keymap does this too but employs
 // new keymappings and a bunch of conditional code. This simpler keymap
-// accomplishes it, but with a small quirk: triggering both layers then
-// releasing one out-of-order will leave the tri-state triggered until the
-// other is released. Which doesn't bother me.
+// accomplishes it but with a small quirk: triggering both layers then releasing
+// one out-of-order will leave the tri-state triggered until the other is
+// released. Which doesn't bother me.
+
+// The weird /*,*/ comments are a hack to get slightly better automatic
+// tabulation in my editor.
+
+// We use Space Cadet KC_RSPC to get _ on right shift. See config.h for details.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_xW] = {
-    {KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,    KC_SCLN},
-    {KC_A,    KC_S,    KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,    KC_I},
-    {KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,  KC_QUOT},
-    {XXXXXXX, KC_LSUP, KC_LCTL, MO(_xN), KC_LSFT, KC_RSFT, MO(_xN), KC_RCTL, KC_RSUP, XXXXXXX},
-    {XXXXXXX, KC_LHYP, KC_LMTA, MO(_xS), KC_BSPC, KC_SPC,  MO(_xS), KC_RMTA, KC_RHYP, XXXXXXX}
-  },
-  [_xQ] = {
-    {KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P},
-    {KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN},
-    {KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_QUOT},
-    {XXXXXXX, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX},
-    {XXXXXXX, _______, _______, _______, _______, _______, _______, _______, _______, XXXXXXX}
-  },
-  [_xS] = {
-    {KC_ESC,  _______, KC_UP,   _______, _______, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_TILD},
-    {KC_TAB,  KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_CIRC, KC_AMPR, KC_PIPE, KC_GRV,  KC_UNDS},
-    {KC_BSLS, KC_RPRN, KC_RCBR, KC_RBRC, KC_RABK, KC_LABK, KC_LBRC, KC_LCBR, KC_LPRN, KC_SLSH},
-    {XXXXXXX, _______, _______, MO(_xF), _______, _______, MO(_xF), _______, _______, XXXXXXX},
-    {XXXXXXX, _______, _______, ___M___, KC_DEL,  KC_ENT,  ___M___, _______, _______, XXXXXXX},
-  },
-  [_xN] = {
-    {_______, _______, _______, _______, _______, KC_PSLS, KC_P7,   KC_P8,   KC_P9,   KC_P0},
-    {_______, _______, _______, _______, _______, KC_PAST, KC_P4,   KC_P5,   KC_P6,   KC_PPLS},
-    {_______, _______, _______, _______, _______, KC_PMNS, KC_P1,   KC_P2,   KC_P3,   KC_PEQL},
-    {XXXXXXX, _______, _______, ___M___, _______, _______, ___M___, _______, _______, XXXXXXX},
-    {XXXXXXX, _______, _______, MO(_xF), _______, KC_PENT, MO(_xF), _______, _______, XXXXXXX},
-  },
-  [_xF] = {
-    {_______, _______, KC_PGUP, _______, KC_VOLU, KC_F13,  KC_F7,   KC_F8,   KC_F9,   KC_F10},
-    {_______, KC_HOME, KC_PGDN, KC_END,  KC_VOLD, KC_F14,  KC_F4,   KC_F5,   KC_F6,   KC_F11},
-    {TG(_xQ), KC_MPRV, KC_MPLY, KC_MNXT, KC_MUTE, KC_F15,  KC_F1,   KC_F2,   KC_F3,   KC_F12},
-    {XXXXXXX, _______, _______, ___M___, _______, _______, ___M___, _______, _______, XXXXXXX},
-    {XXXXXXX, _______, _______, _______, ___M___, ___M___, _______, _______, _______, XXXXXXX},
-  },
+  [_xQ] = LAYOUT(
+      KC_Q, KC_W,       KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,     KC_P,
+      KC_A, KC_S,       KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,     KC_SCLN,
+      KC_Z, KC_X,       KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_QUOT,
+      /*,   */ KC_LGUI, KC_LCTL, MO(_xS), KC_TAB,  KC_SPC,  MO(_xS), KC_RCTL, KC_RGUI,
+      /*,   */ KC_HENK, KC_LALT, MO(_xN), KC_LSFT, KC_RSPC, MO(_xN), KC_RALT, KC_MHEN),
+  [_xW] = LAYOUT(
+      KC_Q, KC_D,       KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,     KC_SCLN,
+      KC_A, KC_S,       KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,     KC_I,
+      KC_Z, KC_X,       KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,   KC_QUOT,
+      /*,   */ _______, _______, _______, _______, _______, _______, _______, _______,
+      /*,   */ _______, _______, _______, _______, _______, _______, _______, _______),
+  [_xS] = LAYOUT(
+      KC_ESC,  KC_GRV ,    KC_UP,   KC_EQL , KC_TILD, KC_PLUS, KC_CIRC, KC_AMPR, KC_PERC,  KC_MINS,
+      KC_BSPC, KC_LEFT,    KC_DOWN, KC_RGHT, _______, KC_PIPE, KC_AT,   KC_DLR,  KC_HASH,  KC_ENT,
+      KC_BSLS, KC_LABK,    KC_LCBR, KC_LPRN, KC_LBRC, KC_RBRC, KC_RCBR, KC_RPRN, KC_RABK,  KC_SLSH,
+      /*,      */ _______, _______, _______, _______, _______, _______, _______, _______,
+      /*,      */ _______, _______, MO(_xF), _______, _______, MO(_xF), _______, _______),
+  [_xN] = LAYOUT(
+      _______, KC_F7,      KC_F8,   KC_F9,   KC_F10,  KC_PPLS, KC_7,    KC_8,    KC_9,     KC_PMNS,
+      _______, KC_F4,      KC_F5,   KC_F6,   KC_F11,  KC_NLCK, KC_4,    KC_5,    KC_6,     KC_PENT,
+      _______, KC_F1,      KC_F2,   KC_F3,   KC_F12,  KC_PAST, KC_1,    KC_2,    KC_3,     KC_PSLS,
+      /*,      */ _______, _______, MO(_xF), _______, _______, MO(_xF), KC_0,    KC_PDOT,
+      /*,      */ _______, _______, _______, _______, _______, _______, _______, _______),
+  [_xF] = LAYOUT(
+      RESET,   KC_INS,     KC_PGUP, KC_DEL,  KC_VOLU, KC_PPLS, KC_P7,   KC_P8,   KC_P9,    KC_PMNS,
+      CK_TOGG, KC_HOME,    KC_PGDN, KC_END,  KC_VOLD, KC_NLCK, KC_P4,   KC_P5,   KC_P6,    KC_PENT,
+      TG(_xW), KC_MPRV,    KC_MPLY, KC_MNXT, KC_MUTE, KC_PAST, KC_P1,   KC_P2,   KC_P3,    KC_PSLS,
+      /*,      */ CK_UP,   MU_TOG,  _______, _______, _______, _______, KC_P0,   KC_PDOT,
+      /*,      */ CK_DOWN, MU_MOD,  _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS),
 };
 
 // This is a hack to place <question mark> on <shift-comma> and <exclaimation
@@ -105,6 +103,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
   }
 }
+
+#ifdef AUDIO_ENABLE
+float tone_qwerty[][2]         = SONG(QWERTY_SOUND);
+float tone_dyn_macro_rec[][2]  = SONG(DVORAK_SOUND);
+float tone_dyn_macro_play[][2] = SONG(COLEMAK_SOUND);
+float tone_fnpc[][2]           = SONG(PLOVER_SOUND);
+float tone_fnmac[][2]          = SONG(PLOVER_GOODBYE_SOUND);
+
+void startup_user()
+{
+  float tone_startup[][2]        = SONG(STARTUP_SOUND);
+  _delay_ms(20); // gets rid of tick
+  PLAY_SONG(tone_startup);
+}
+
+void shutdown_user()
+{
+  float tone_goodbye[][2]        = SONG(GOODBYE_SOUND);
+  PLAY_SONG(tone_goodbye);
+  _delay_ms(150);
+  stop_all_notes();
+}
+
+void music_on_user(void)
+{
+  music_scale_user();
+}
+
+void music_scale_user(void)
+{
+  float music_scale[][2]         = SONG(MUSIC_SCALE_SOUND);
+  PLAY_SONG(music_scale);
+}
+
+#endif
 
 // Set the bits of A selected by MASK to the corresponding bits of B
 #define setbits(A, B, MASK) A = (A & (B | ~MASK)) | (B & MASK)
