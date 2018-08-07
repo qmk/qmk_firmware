@@ -14,7 +14,7 @@
 #define MOD_ALT (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))
 #define MOD_GUI (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 
-/* #define ENABLE_ANIMATION */
+/* #define ANIMATION_FRAME_RATE 200 */
 
 extern uint8_t is_master;
 
@@ -77,13 +77,13 @@ char saku[2][21] = {
 };
 
 void shift_frame (void) {
- #ifdef ENABLE_ANIMATION
+  #ifdef ANIMATION_FRAME_RATE
   static int last_time = 0;
-  if (timer_elapsed(last_time) > 200) {
+  if (timer_elapsed(last_time) > ANIMATION_FRAME_RATE) {
     last_time = timer_read();
     shift = shift ? 0 : 1;
   }
- #endif
+  #endif
 }
 
 void matrix_write_keyfreq_log_ln(struct CharacterMatrix *matrix) {
