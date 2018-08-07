@@ -141,7 +141,7 @@ void prepare_next_frame(void) {
     if (timer_elapsed(last_update) < SCREEN_UPDATE_INTERVAL) return;
     last_update = timer_read();
 
-    matrix_clear(&matrix);
+    matrix_reset_cursor(&matrix);
 
     shift_frame();
     if (is_master) {
