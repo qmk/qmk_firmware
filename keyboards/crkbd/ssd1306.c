@@ -189,6 +189,10 @@ done:
   return success;
 }
 
+void matrix_reset_cursor(struct CharacterMatrix *matrix) {
+  matrix->cursor = &matrix->display[0][0];
+}
+
 void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte) {
   matrix->dirty = true;
 
@@ -204,7 +208,20 @@ void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte) {
   }
 }
 
+void matrix_overwrite_byte(struct CharacterMatrix *matrix, uint8_t byte) {
+  matrix->dirty = true;
 
+  *matrix->cursor |= byte;
+  ++matrix->cursor;
+
+  if (matrix->cursor - &matrix->display[0][0] == sizeof(matrix->display)) {
+    // We went off the end; scroll the display upwards by one line
+    memmove(&matrix->display[0], &matrix->display[1],
+            DisplayWidth * (MatrixRows - 1));
+    matrix->cursor = &matrix->display[MatrixRows - 1][0];
+    memset(matrix->cursor, 0, DisplayWidth);
+  }
+}
 
 void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
   if (c == '\n') {
@@ -221,6 +238,21 @@ void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
   }
 }
 
+void matrix_overwrite_char(struct CharacterMatrix *matrix, uint8_t c) {
+  if (c == '\n') {
+    uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % DisplayWidth;
+    while (cursor_col++ < DisplayWidth) {
+      matrix_overwrite_byte(matrix, 0);
+    }
+  } else {
+    const uint8_t *glyph = font + c * FontWidth;
+    for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
+      uint8_t colBits = pgm_read_byte(glyph + glyphCol);
+      matrix_overwrite_byte(matrix, colBits);
+    }
+  }
+}
+
 void iota_gfx_write_char(uint8_t c) {
   matrix_write_char(&display, c);
 }
@@ -233,10 +265,24 @@ void matrix_write(struct CharacterMatrix *matrix, const char *data) {
   }
 }
 
+void matrix_overwrite(struct CharacterMatrix *matrix, const char *data) {
+  const char *end = data + strlen(data);
+  while (data < end) {
+    matrix_overwrite_char(matrix, *data);
+    ++data;
+  }
+}
+
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data) {
   char data_ln[strlen(data)+2];
   snprintf(data_ln, sizeof(data_ln), "%s\n", data);
   matrix_write(matrix, data_ln);
+}
+
+void matrix_overwrite_ln(struct CharacterMatrix *matrix, const char *data) {
+  char data_ln[strlen(data)+2];
+  snprintf(data_ln, sizeof(data_ln), "%s\n", data);
+  matrix_overwrite(matrix, data_ln);
 }
 
 void iota_gfx_write(const char *data) {
