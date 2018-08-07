@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak _CM
  * .--------------------------------------------------------------------------------------------------------------------------------------.
- * |        |        |        |        |        |        |        |        |        |        |        |        |        | L_NEXT | L_SB   |
+ * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | Q      | W      | F      | P      | G      |        |        |        |        |        | J      | L      | U      | Y      | ;      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  */
  [_CM] = {
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, L_NEXT,  L_SB    },
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_Q,    UK_W,    UK_F,    UK_P,    UK_G,    _______, _______, _______, _______, _______, UK_J,    UK_L,    UK_U,    UK_Y,    UK_SCLN },
   { UK_A,    UK_R,    UK_S,    UK_T,    UK_D,    _______, _______, _______, _______, _______, UK_H,    UK_N,    UK_E,    UK_I,    UK_O    },
   { _Z_SFT,  _X_NB,   _C_SY,   UK_V,    _B_NAV,  _______, _______, _______, _______, _______, _K_NAV,  UK_M,    _COM_SY, _DOT_NB, _SLSH   },
@@ -214,76 +214,3 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       }
     return MACRO_NONE;
 };
-
-bool lightsOn = true;
-int keyPresses = 0;
-int effect = 0;
-uint32_t key_timer;
-
-void resetCounts(void) {
-  effect++;
-  keyPresses = 0;
-  key_timer = timer_read32();
-}
-
-void matrix_scan_user(void) {
-  if (!lightsOn) {
-    rgblight_setrgb(0, 0, 0);
-    return;
-  }
-  if (timer_elapsed32(key_timer) < 60000) {
-    return;
-  }
-  resetCounts();
-  switch (effect) {
-    case 0:
-      rgblight_effect_breathing(3);
-      break;
-    case 1:
-      rgblight_effect_knight(3);
-      break;
-    case 2:
-      rgblight_effect_rainbow_swirl(128);
-      break;
-    case 3:
-      rgblight_effect_snake(30);
-      break;
-    case 4:
-      rgblight_effect_rainbow_swirl(128);
-      break;
-    case 5:
-      rgblight_effect_rainbow_mood(128);
-      break;
-    case 6:
-      rgblight_effect_christmas();
-      break;
-    case 7:
-      rgblight_effect_rgbtest();
-      break;
-    default:
-      effect = 0;
-      break;
-  }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!record->event.pressed) return true;
-  if (keycode == L_SB) {
-    lightsOn = !lightsOn;
-    if (!lightsOn) {
-      keyPresses = 0;
-    } else {
-      resetCounts();
-    }
-    return true;
-  }
-  if (keycode == L_NEXT) {
-    resetCounts();
-    return true;
-  }
-  keyPresses++;
-  if (keyPresses > 100) {
-    resetCounts();
-  }
-  return true;
-}
