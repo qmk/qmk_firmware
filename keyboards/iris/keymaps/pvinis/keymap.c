@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB , _______, _______, _______, _______, CARPALX,                       _______, _______, _______, _______, _______, KC_DEL ,
     PV_ESCC, _______, _______, _______, _______, _______,                       _______, _______, _______, _______, _______, KC_ENT ,
     KC_LSFT, _______, _______, _______, _______, _______, KC_HOME,      KC_END, _______, _______, _______, _______, _______, KC_RSFT,
-                                        KC_LGUI, LOWER  , KC_BSPC,      KC_SPC, RAISE  , KC_RALT
+                                        KC_LGUI, SYMBOL , KC_BSPC,      KC_SPC, SYSCTL , KC_RALT
   ),
 
   // ,-----------------------------.              ,-----------------------------.
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______, _______, _______,      _______, _______, _______
   ),
 
-  [LR_LOWER] = LAYOUT_wrapper(
+  [LR_SYMBOL] = LAYOUT_wrapper(
     KC_TILD, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,                        KC_CIRC, KC_AMPR, _______, _______, _______, _______,
     _______, _______, _______, _______, KC_LCBR, KC_RCBR,                        KC_SLSH, KC_7   , KC_8   , KC_9   , _______, _______,
     _______, _______, _______, KC_PLUS, KC_LPRN, KC_RPRN,                        KC_EQL , KC_4   , KC_5   , KC_6   , _______, KC_PIPE,
@@ -104,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                         _______, _______, _______,      _______, _______, KC_0
   ),
 
-  [LR_RAISE] = LAYOUT_wrapper(
+  [LR_SYSCTL] = LAYOUT_wrapper(
     KC_F12 , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                        KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 ,
     KC_AMPR, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,                        KC_MUTE, KC_HOME, KC_UP  , KC_END , KC_RPRN, _______,
     KC_LPRN, KC_MPRV, KC_MNXT, KC_CIRC, KC_PGUP, KC_UNDS,                        KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT, KC_ASTR, KC_BSLS,

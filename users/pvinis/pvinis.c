@@ -11,9 +11,9 @@ float tone_katamari_rolling_star[][2] = SONG(KATAMARI_ROLLING_STAR);
 #endif // AUDIO_ENABLE
 
 
-// LOWER + RAISE = KBCTL
+// SYMBOL + SYSCTL = KBCTL
 uint32_t layer_state_set_user(uint32_t state) {
-  return update_tri_layer_state(state, LR_LOWER, LR_RAISE, LR_KBCTL);
+  return update_tri_layer_state(state, LR_SYMBOL, LR_SYSCTL, LR_KBCTL);
 }
 
 

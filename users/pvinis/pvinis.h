@@ -31,11 +31,9 @@ enum {
   LR_QWERTY,
   LR_CARPALX,
 
+  LR_SYMBOL, // symbol input (!, @, #, etc)
   LR_SYSCTL, // system control (music, volume, keyboard flash, etc)
-  // testing
-  LR_LOWER,
-  LR_RAISE,
-  LR_KBCTL,
+  LR_KBCTL,  // keyboard control (version, make, flash, etc)
 };
 
 
@@ -44,9 +42,8 @@ enum {
 #define QWERTY  TO(LR_QWERTY)
 #define CARPALX TO(LR_CARPALX)
 
-#define SYSCTL  MO(SYSCTL)
-#define LOWER   MO(LR_LOWER)
-#define RAISE   MO(LR_RAISE)
+#define SYMBOL  MO(LR_SYMBOL)
+#define SYSCTL  MO(LR_SYSCTL)
 #define KBCTL   MO(LR_KBCTL)
 
 
