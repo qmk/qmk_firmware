@@ -31,5 +31,4 @@ FUNCTION
 special keys in the middle. hold fn for momentary switch, double tap for toggle. mouse control, arrow keys, led control, and special keys on fn layer.
 
 TODO :
-- backlight brightness
 - dynamic macros
