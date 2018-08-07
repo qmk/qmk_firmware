@@ -212,14 +212,7 @@ void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte) {
 void matrix_overwrite_byte(struct CharacterMatrix *matrix, uint8_t byte) {
   *matrix->cursor |= byte;
   ++matrix->cursor;
-
-  if (matrix->cursor - &matrix->display[0][0] == sizeof(matrix->display)) {
-    // We went off the end; scroll the display upwards by one line
-    memmove(&matrix->display[0], &matrix->display[1],
-            DisplayWidth * (MatrixRows - 1));
-    matrix->cursor = &matrix->display[MatrixRows - 1][0];
-    memset(matrix->cursor, 0, DisplayWidth);
-  }
+  _matrix_maybe_scroll(matrix);
 }
 
 void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
