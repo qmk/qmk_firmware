@@ -24,14 +24,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../../config.h"
 
 /* split keyboard setup */
-#define USE_I2C
 #define USE_SERIAL
 #define USE_SERIAL_PD2
-#define MASTER_LEFT             /* RIGHT or LEFT (or EE_HANDS) */
+#define MASTER_LEFT
 
-#define SSD1306OLED             /* Use SSD1306 OLED Display */
+/* OLED setup */
+#define USE_I2C
+#define SSD1306OLED
 
-#define CATERINA_BOOTLOADER     /* Use caterina bootloader to make RESET keycode available */
+// #define CATERINA_BOOTLOADER     /* Use caterina bootloader to make RESET keycode available */
 #define PREVENT_STUCK_MODIFIERS /* Auto-restore layer when the layer key is released */
 
 #define MOUSEKEY_DELAY             32
