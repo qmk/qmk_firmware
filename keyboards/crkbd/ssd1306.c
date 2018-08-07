@@ -216,31 +216,18 @@ static inline void matrix_overwrite_byte(struct CharacterMatrix *matrix, uint8_t
 }
 
 static inline void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
-  if (c == '\n') {
-    uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % DisplayWidth;
-    while (cursor_col++ < DisplayWidth) {
-      matrix_write_byte(matrix, 0);
-    }
-  } else {
-    const uint8_t *glyph = font + c * FontWidth;
-    for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
-      uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-      matrix_write_byte(matrix, colBits);
-    }
+  const uint8_t *glyph = font + c * FontWidth;
+  for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
+    uint8_t colBits = pgm_read_byte(glyph + glyphCol);
+    matrix_write_byte(matrix, colBits);
   }
 }
 
 static inline void matrix_overwrite_char(struct CharacterMatrix *matrix, uint8_t c) {
-  if (c == '\n') {
-    uint8_t cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
-    matrix->cursor = &matrix->display[cursor_row + 1][0];
-    _matrix_maybe_scroll(matrix);
-  } else {
-    const uint8_t *glyph = font + c * FontWidth;
-    for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
-      uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-      matrix_overwrite_byte(matrix, colBits);
-    }
+  const uint8_t *glyph = font + c * FontWidth;
+  for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
+    uint8_t colBits = pgm_read_byte(glyph + glyphCol);
+    matrix_overwrite_byte(matrix, colBits);
   }
 }
 
@@ -265,15 +252,20 @@ void matrix_overwrite(struct CharacterMatrix *matrix, const char *data) {
 }
 
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data) {
-  char data_ln[strlen(data)+2];
-  snprintf(data_ln, sizeof(data_ln), "%s\n", data);
-  matrix_write(matrix, data_ln);
+  uint8_t cursor_col;
+  matrix_write(matrix, data);
+  cursor_col = (matrix->cursor - &matrix->display[0][0]) % DisplayWidth;
+  while (cursor_col++ < DisplayWidth) {
+    matrix_write_byte(matrix, 0);
+  }
 }
 
 void matrix_overwrite_ln(struct CharacterMatrix *matrix, const char *data) {
-  char data_ln[strlen(data)+2];
-  snprintf(data_ln, sizeof(data_ln), "%s\n", data);
-  matrix_overwrite(matrix, data_ln);
+  uint8_t cursor_row;
+  matrix_overwrite(matrix, data);
+  cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
+  matrix->cursor = &matrix->display[cursor_row + 1][0];
+  _matrix_maybe_scroll(matrix);
 }
 
 void iota_gfx_write(const char *data) {
