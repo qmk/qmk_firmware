@@ -1,16 +1,7 @@
 #include "crkbd.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
-#endif
-#include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef SSD1306OLED
 #include "./oled.c"
 #endif
-
-extern keymap_config_t keymap_config;
 
 /* LAYER DEFINITIONS */
 

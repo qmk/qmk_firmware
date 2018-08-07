@@ -1,7 +1,10 @@
 #ifdef SSD1306OLED
 
+#include <string.h>
 #include "crkbd.h"
 #include "ssd1306.h"
+#include "split_util.h"
+#include "LUFA/Drivers/Peripheral/TWI.h"
 
 #define L_BASE     0
 #define L_SYMB     (2 << (1 - 1))
