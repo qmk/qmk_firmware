@@ -1,5 +1,3 @@
-#ifdef SSD1306OLED
-
 #include <string.h>
 #include "crkbd.h"
 #include "ssd1306.h"
@@ -179,5 +177,3 @@ void oled_record_event(uint16_t keycode, keyrecord_t *record) {
         keyfreq_count++;
     }
 }
-
-#endif
