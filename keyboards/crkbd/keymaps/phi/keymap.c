@@ -100,6 +100,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+#ifdef SSD1306OLED
+
 void matrix_init_user(void) {
     oled_init();
 }
@@ -112,3 +114,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     oled_record_event(keycode, record);
     return true;
 }
+
+#endif
