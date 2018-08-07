@@ -16,7 +16,7 @@
 #define MOD_GUI (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 
 #define KEYFREQ_LOG_UPDATE_INTERVAL 60000 /* 60sec */
-#define SCREEN_UPDATE_INTERVAL 50 /* 20fps */
+#define SCREEN_UPDATE_INTERVAL 55 /* 18fps */
 /* #define ANIMATION_FRAME_RATE 200 */
 
 extern uint8_t is_master;
