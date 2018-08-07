@@ -19,12 +19,6 @@
 #define _QW 0
 #define _FN 1
 
-enum my_kc {
-  A_BL_TG = SAFE_RANGE
-  // , A_BL_Y
-  // , A_BL_N
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
@@ -64,39 +58,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
  
  [_FN] = { /* FUNCTION */
-  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   RGB_HUD, _______, RGB_HUI, KC_F7,   KC_F8,   KC_F9,   KC_F10  , KC_F11 , KC_F12   },
+  { KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   RGB_HUD, RESET  , RGB_HUI, KC_F7,   KC_F8,   KC_F9,   KC_F10  , KC_F11 , KC_F12   },
   { KC_WH_U, _______, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, RGB_SAD, _______, RGB_SAI, KC_LBRC, KC_RBRC, KC_UP  , _______ , KC_EQL , KC_BSLS  },
-  { KC_WH_D, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, RGB_VAD, _______, RGB_VAI, KC_MINS, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______  },
-  { _______, _______, _______, _______, _______, _______, RGB_RMOD,A_BL_TG, RGB_MOD, _______, _______, _______, _______ , _______, _______  },
-  { _______, TT(_FN), RGB_TOG, _______, KC_WH_L, KC_WH_R, TT(_FN), RESET  , TT(_FN), KC_BTN1, KC_BTN2, _______, _______ , TT(_FN), _______  },
+  { KC_WH_D, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, RGB_VAD, BL_INC , RGB_VAI, KC_MINS, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______  },
+  { _______, _______, _______, _______, _______, _______, RGB_RMOD,BL_DEC , RGB_MOD, _______, _______, _______, _______ , _______, _______  },
+  { _______, TT(_FN), RGB_TOG, _______, KC_WH_L, KC_WH_R, TT(_FN), BL_TOGG, TT(_FN), KC_BTN1, KC_BTN2, _______, _______ , TT(_FN), _______  },
  }
 };
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case A_BL_TG:
-      if (record->event.pressed) {
-        // toggle keycaps leds (f5 pin)
-        PORTF ^= (1 << 5);
-      }
-      return false;
-        
-    // case A_BL_Y:
-    //   if (record->event.pressed) {
-    //     keycaps_led_on();
-    //   }
-    //   return false;
-      
-    // case A_BL_N:
-    //   if (record->event.pressed) {
-    //     keycaps_led_off();
-    //   }
-    //   return false;
-      
-    default:
-      return true;
-  }
-}
 
 // Runs whenever there is a layer state change.
 uint32_t layer_state_set_user(uint32_t state) {
