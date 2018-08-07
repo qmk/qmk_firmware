@@ -105,7 +105,7 @@ void matrix_write_keyfreq_log_ln(struct CharacterMatrix *matrix) {
        case 4: log2[19] = 0x97; break;
        case 5: log2[19] = 0x96; break;
        case 6: log2[19] = 0x95; break;
-       case 7: log1[19] = 0xdc, log2[19] = 0x94; break;
+       case 7: log2[19] = 0x94; break;
        case 8: log1[19] = 0xdb, log2[19] = 0x94; break;
        case 9: log1[19] = 0xda, log2[19] = 0x94; break;
        case 10: log1[19] = 0xd9, log2[19] = 0x94; break;
@@ -125,7 +125,7 @@ void matrix_write_keyfreq_log_ln(struct CharacterMatrix *matrix) {
           log2[i] = log2[i + 1];
         }
         log1[19] = 0x9c;
-        log2[19] = 0xbb;
+        log2[19] = 0xdc;
     }
 
     matrix_write_ln(matrix, log1);
