@@ -107,6 +107,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+void matrix_init_user(void) {
+    oled_init();
+}
+
+void matrix_scan_user(void) {
+    oled_update();
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    oled_record_event(keycode, record);
+    return true;
+}
+
 /* void persistent_default_layer_set(uint16_t default_layer) { */
 /*   eeconfig_update_default_layer(default_layer); */
 /*   default_layer_set(default_layer); */

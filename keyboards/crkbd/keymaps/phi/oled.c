@@ -18,13 +18,13 @@
 
 extern uint8_t is_master;
 
-void matrix_init_user(void) {
+void oled_init(void) {
     // SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
     iota_gfx_init(!has_usb());   // turns on the display
 }
 
-void matrix_scan_user(void) {
+void oled_update(void) {
     iota_gfx_task();
 }
 
@@ -131,48 +131,49 @@ void matrix_write_keyfreq_log_ln(struct CharacterMatrix *matrix) {
     matrix_write_ln(matrix, log2);
 }
 
-void matrix_render_user(struct CharacterMatrix *matrix) {
-    if (is_master) {
-        uint8_t mods = get_mods();
-        if (mods & MOD_CTL) matrix_write(matrix, "C-");
-        if (mods & MOD_ALT) matrix_write(matrix, "M-");
-        if (mods & MOD_SFT) matrix_write(matrix, "S-");
-        if (mods & MOD_GUI) matrix_write(matrix, "A-");
-        matrix_write_ln(matrix, get_layer_name());
-        matrix_write_keyfreq_log_ln(matrix);
-        matrix_write(matrix, saku[shift]);
-        matrix_set_bg(matrix, left_background_image);
-    } else {
-        matrix_write_ln(matrix, right_image[0]);
-        matrix_write_ln(matrix, right_image[1]);
-        matrix_write_ln(matrix, palm[0][shift]);
-        matrix_write(matrix, palm[1][shift]);
-    }
+void copy_matrix(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
+  if (memcmp(dest->bg_display, source->bg_display, sizeof(dest->bg_display))) {
+    memcpy(dest->bg_display, source->bg_display, sizeof(dest->bg_display));
+  }
+  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
+    memcpy(dest->display, source->display, sizeof(dest->display));
+    dest->dirty = true;
+  }
 }
 
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-    if (memcmp(dest->bg_display, source->bg_display, sizeof(dest->bg_display))) {
-        memcpy(dest->bg_display, source->bg_display, sizeof(dest->bg_display));
+void prepare_next_frame(void) {
+    struct CharacterMatrix matrix;
+    matrix_clear(&matrix);
+
+    shift_frame();
+    if (is_master) {
+        uint8_t mods = get_mods();
+        if (mods & MOD_CTL) matrix_write(&matrix, "C-");
+        if (mods & MOD_ALT) matrix_write(&matrix, "M-");
+        if (mods & MOD_SFT) matrix_write(&matrix, "S-");
+        if (mods & MOD_GUI) matrix_write(&matrix, "A-");
+        matrix_write_ln(&matrix, get_layer_name());
+        matrix_write_keyfreq_log_ln(&matrix);
+        matrix_write(&matrix, saku[shift]);
+        matrix_set_bg(&matrix, left_background_image);
+    } else {
+        matrix_write_ln(&matrix, right_image[0]);
+        matrix_write_ln(&matrix, right_image[1]);
+        matrix_write_ln(&matrix, palm[0][shift]);
+        matrix_write(&matrix, palm[1][shift]);
     }
-    if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-        memcpy(dest->display, source->display, sizeof(dest->display));
-        dest->dirty = true;
-    }
+
+    copy_matrix(&display, &matrix); /* push to the ssd1306 driver */
 }
 
 void iota_gfx_task_user(void) {
-    struct CharacterMatrix matrix;
-    shift_frame();
-    matrix_clear(&matrix);
-    matrix_render_user(&matrix);
-    matrix_update(&display, &matrix);
+  prepare_next_frame();
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+void oled_record_event(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         keyfreq_count++;
     }
-    return true;
 }
 
 #endif
