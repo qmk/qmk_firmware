@@ -295,9 +295,6 @@ void iota_gfx_clear_screen(void) {
 }
 
 void matrix_push(const struct CharacterMatrix *matrix) {
-  /* NOTE: Which is faster to store both the current matrix (&display)
-   * and the next frame (&matrix) and copy iff changed, or control
-   * refresh rate with SCREEN_UPDATE_INTERVAL and always refresh. */
   if (memcmp(display.display, matrix->display, sizeof(display.display))) {
     memcpy(display.display, matrix->display, sizeof(display.display));
     display.dirty = true;
