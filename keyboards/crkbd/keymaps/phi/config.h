@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "../../config.h"
 
 /* split keyboard setup */
-#define USE_SERIAL
+#define USE_SERIAL              /* SERIAL or MATRIX_I2C */
 #define USE_SERIAL_PD2
 #define MASTER_LEFT
 
