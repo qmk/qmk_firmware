@@ -82,10 +82,6 @@ void iota_gfx_task_user(void);
 
 void matrix_clear(struct CharacterMatrix *matrix);
 void matrix_reset_cursor(struct CharacterMatrix *matrix);
-void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte);
-void matrix_overwrite_byte(struct CharacterMatrix *matrix, uint8_t byte);
-void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c);
-void matrix_overwrite_char(struct CharacterMatrix *matrix, uint8_t c);
 void matrix_write(struct CharacterMatrix *matrix, const char *data);
 void matrix_overwrite(struct CharacterMatrix *matrix, const char *data);
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data);

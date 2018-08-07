@@ -193,7 +193,7 @@ void matrix_reset_cursor(struct CharacterMatrix *matrix) {
   matrix->cursor = &matrix->display[0][0];
 }
 
-void _matrix_maybe_scroll(struct CharacterMatrix *matrix) {
+static inline void _matrix_maybe_scroll(struct CharacterMatrix *matrix) {
   if (matrix->cursor - &matrix->display[0][0] == sizeof(matrix->display)) {
     // We went off the end; scroll the display upwards by one line
     memmove(&matrix->display[0], &matrix->display[1],
@@ -203,19 +203,19 @@ void _matrix_maybe_scroll(struct CharacterMatrix *matrix) {
   }
 }
 
-void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte) {
+static inline void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte) {
   *matrix->cursor = byte;
   ++matrix->cursor;
   _matrix_maybe_scroll(matrix);
 }
 
-void matrix_overwrite_byte(struct CharacterMatrix *matrix, uint8_t byte) {
+static inline void matrix_overwrite_byte(struct CharacterMatrix *matrix, uint8_t byte) {
   *matrix->cursor |= byte;
   ++matrix->cursor;
   _matrix_maybe_scroll(matrix);
 }
 
-void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
+static inline void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
   if (c == '\n') {
     uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % DisplayWidth;
     while (cursor_col++ < DisplayWidth) {
@@ -230,7 +230,7 @@ void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
   }
 }
 
-void matrix_overwrite_char(struct CharacterMatrix *matrix, uint8_t c) {
+static inline void matrix_overwrite_char(struct CharacterMatrix *matrix, uint8_t c) {
   if (c == '\n') {
     uint8_t cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
     matrix->cursor = &matrix->display[cursor_row + 1][0];
