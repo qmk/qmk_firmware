@@ -60,6 +60,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* (Like IGNORE_MOD_TAP_INTERRUPT but only ignores SHIFT) */
 #define IGNORE_SHIFT_TAP_INTERRUPT
 
-#undef RGBLIGHT_ENABLE
-
 #endif
