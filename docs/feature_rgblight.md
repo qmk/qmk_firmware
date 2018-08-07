@@ -79,6 +79,7 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 
 ## Animations
 
+
 Not only can this lighting be whatever color you want,
 if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a number of animation modes at your disposal:
 
@@ -94,6 +95,7 @@ if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a n
 |`RGBLIGHT_MODE_STATIC_GRADIENT + 0-9`  |Static gradient      |
 |`RGBLIGHT_MODE_RGB_TEST`               |RGB Test             |
 |`RGBLIGHT_MODE_ALTERNATING`            |Alternating          |
+
 
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
 
