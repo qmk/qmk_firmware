@@ -194,8 +194,6 @@ void matrix_reset_cursor(struct CharacterMatrix *matrix) {
 }
 
 void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte) {
-  matrix->dirty = true;
-
   *matrix->cursor = byte;
   ++matrix->cursor;
 
@@ -209,8 +207,6 @@ void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte) {
 }
 
 void matrix_overwrite_byte(struct CharacterMatrix *matrix, uint8_t byte) {
-  matrix->dirty = true;
-
   *matrix->cursor |= byte;
   ++matrix->cursor;
 
@@ -292,7 +288,6 @@ void iota_gfx_write(const char *data) {
 void matrix_clear(struct CharacterMatrix *matrix) {
   memset(matrix->display, 0, sizeof(matrix->display));
   matrix->cursor = &matrix->display[0][0];
-  matrix->dirty = true;
 }
 
 void iota_gfx_clear_screen(void) {
