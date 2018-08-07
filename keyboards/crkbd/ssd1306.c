@@ -233,7 +233,7 @@ void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
 void matrix_overwrite_char(struct CharacterMatrix *matrix, uint8_t c) {
   if (c == '\n') {
     uint8_t cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
-    matrix->cursor = &matrix->display[row + 1][0];
+    matrix->cursor = &matrix->display[cursor_row + 1][0];
     _matrix_maybe_scroll(matrix);
   } else {
     const uint8_t *glyph = font + c * FontWidth;
