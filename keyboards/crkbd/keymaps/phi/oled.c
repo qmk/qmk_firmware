@@ -135,16 +135,6 @@ void matrix_write_keyfreq_log_ln(struct CharacterMatrix *matrix) {
     matrix_write_ln(matrix, log2);
 }
 
-void copy_matrix(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  /* NOTE: Which is faster to store both the current matrix (&display)
-   * and the next frame (&matrix) and copy iff changed, or control
-   * refresh rate with SCREEN_UPDATE_INTERVAL and always refresh. */
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
 void prepare_next_frame(void) {
     static int last_update = 0;
     static struct CharacterMatrix matrix;
@@ -177,7 +167,7 @@ void prepare_next_frame(void) {
         matrix_write(&matrix, palm[1][shift]);
     }
 
-    copy_matrix(&display, &matrix); /* push to the ssd1306 driver */
+    matrix_push(&matrix); /* push to the ssd1306 driver */
 }
 
 void iota_gfx_task_user(void) {

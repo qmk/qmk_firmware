@@ -91,6 +91,7 @@ void matrix_overwrite(struct CharacterMatrix *matrix, const char *data);
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data);
 void matrix_overwrite_ln(struct CharacterMatrix *matrix, const char *data);
 void matrix_render(struct CharacterMatrix *matrix);
+void matrix_push(const struct CharacterMatrix *matrix);
 
 
 
