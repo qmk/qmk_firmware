@@ -15,6 +15,7 @@
 #define MOD_ALT (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))
 #define MOD_GUI (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 
+#define KEYFREQ_LOG_UPDATE_INTERVAL 60000 /* 60sec */
 #define SCREEN_UPDATE_INTERVAL 50 /* 20fps */
 /* #define ANIMATION_FRAME_RATE 200 */
 
@@ -118,7 +119,7 @@ void matrix_write_keyfreq_log_ln(struct CharacterMatrix *matrix) {
       }
 
     /* shift the log every 60 seconds */
-    if (timer_elapsed(last_time) > 60000) {
+    if (timer_elapsed(last_time) > KEYFREQ_LOG_UPDATE_INTERVAL) {
         last_time = timer_read();
         keyfreq_count = 0;
         for (int i = 0; i < 19; i++) {
