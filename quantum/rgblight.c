@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include <math.h>
+#include <string.h>
 #ifdef __AVR__
   #include <avr/eeprom.h>
   #include <avr/interrupt.h>
@@ -29,23 +30,27 @@
 #define RGBLIGHT_LIMIT_VAL 255
 #endif
 
+#define _RGBM_SINGLE_STATIC(sym)   RGBLIGHT_MODE_ ## sym,
+#define _RGBM_SINGLE_DYNAMIC(sym)
+#define _RGBM_MULTI_STATIC(sym)    RGBLIGHT_MODE_ ## sym,
+#define _RGBM_MULTI_DYNAMIC(sym)
+#define _RGBM_TMP_STATIC(sym)      RGBLIGHT_MODE_ ## sym,
+#define _RGBM_TMP_DYNAMIC(sym)
+static uint8_t static_effect_table [] = {
+#include "rgblight.h"
+};
+
+static inline int is_static_effect(uint8_t mode) {
+    return memchr(static_effect_table, mode, sizeof(static_effect_table)) != NULL;
+}
+
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
-__attribute__ ((weak))
-const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
-__attribute__ ((weak))
-const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
-__attribute__ ((weak))
-const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
-__attribute__ ((weak))
-const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
-__attribute__ ((weak))
-const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
+#ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
 __attribute__ ((weak))
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
-__attribute__ ((weak))
-const uint16_t RGBLED_RGBTEST_INTERVALS[] PROGMEM = {1024};
+#endif
 
 rgblight_config_t rgblight_config;
 
@@ -163,9 +168,9 @@ void rgblight_init(void) {
   }
   eeconfig_debug_rgblight(); // display current eeprom values
 
-  #ifdef RGBLIGHT_ANIMATIONS
+#ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_init(); // setup the timer
-  #endif
+#endif
 
   if (rgblight_config.enable) {
     rgblight_mode_noeeprom(rgblight_config.mode);
@@ -178,9 +183,9 @@ void rgblight_update_dword(uint32_t dword) {
   if (rgblight_config.enable)
     rgblight_mode(rgblight_config.mode);
   else {
-    #ifdef RGBLIGHT_ANIMATIONS
+#ifdef RGBLIGHT_USE_TIMER
       rgblight_timer_disable();
-    #endif
+#endif
       rgblight_set();
   }
 }
@@ -242,33 +247,14 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
   } else {
     xprintf("rgblight mode [NOEEPROM]: %u\n", rgblight_config.mode);
   }
-  if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
-    #ifdef RGBLIGHT_ANIMATIONS
+  if( is_static_effect(rgblight_config.mode) ) {
+#ifdef RGBLIGHT_USE_TIMER
       rgblight_timer_disable();
-    #endif
-  } else if ((rgblight_config.mode >= RGBLIGHT_MODE_BREATHING &&
-              rgblight_config.mode <= RGBLIGHT_MODE_CHRISTMAS) ||
-             rgblight_config.mode == RGBLIGHT_MODE_RGB_TEST ||
-             rgblight_config.mode == RGBLIGHT_MODE_ALTERNATING) {
-    // MODE 2-5, breathing
-    // MODE 6-8, rainbow mood
-    // MODE 9-14, rainbow swirl
-    // MODE 15-20, snake
-    // MODE 21-23, knight
-    // MODE 24, xmas
-    // MODE 35  RGB test
-    // MODE 36, alternating
-
-    #ifdef RGBLIGHT_ANIMATIONS
+#endif
+  } else {
+#ifdef RGBLIGHT_USE_TIMER
       rgblight_timer_enable();
-    #endif
-  } else if (rgblight_config.mode >= RGBLIGHT_MODE_STATIC_GRADIENT &&
-             rgblight_config.mode <= RGBLIGHT_MODE_STATIC_GRADIENT_end) {
-    // MODE 25-34, static gradient
-
-    #ifdef RGBLIGHT_ANIMATIONS
-      rgblight_timer_disable();
-    #endif
+#endif
   }
   rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
 }
@@ -320,9 +306,9 @@ void rgblight_disable(void) {
   rgblight_config.enable = 0;
   eeconfig_update_rgblight(rgblight_config.raw);
   xprintf("rgblight disable [EEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
-  #ifdef RGBLIGHT_ANIMATIONS
-    rgblight_timer_disable();
-  #endif
+#ifdef RGBLIGHT_USE_TIMER
+      rgblight_timer_disable();
+#endif
   wait_ms(50);
   rgblight_set();
 }
@@ -330,9 +316,9 @@ void rgblight_disable(void) {
 void rgblight_disable_noeeprom(void) {
   rgblight_config.enable = 0;
   xprintf("rgblight disable [noEEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
-  #ifdef RGBLIGHT_ANIMATIONS
+#ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_disable();
-  #endif
+#endif
   _delay_ms(50);
   rgblight_set();
 }
@@ -429,16 +415,32 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
       rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
     } else {
       // all LEDs in same color
-      if (rgblight_config.mode >= RGBLIGHT_MODE_BREATHING &&
+      if ( 1 == 0 ) { //dummy
+      }
+#ifdef RGBLIGHT_EFFECT_BREATHING
+      else if (rgblight_config.mode >= RGBLIGHT_MODE_BREATHING &&
           rgblight_config.mode <= RGBLIGHT_MODE_BREATHING_end) {
         // breathing mode, ignore the change of val, use in memory value instead
         val = rgblight_config.val;
-      } else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_MOOD &&
-                  rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SWIRL_end) {
-        // rainbow mood and rainbow swirl, ignore the change of hue
+      }
+#endif
+#ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
+      else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_MOOD &&
+                  rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_MOOD_end) {
+        // rainbow mood, ignore the change of hue
         hue = rgblight_config.hue;
-      } else if (rgblight_config.mode >= RGBLIGHT_MODE_STATIC_GRADIENT &&
-                 rgblight_config.mode <= RGBLIGHT_MODE_STATIC_GRADIENT_end) {
+      }
+#endif
+#ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+      else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SWIRL &&
+               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SWIRL_end) {
+        // rainbow swirl, ignore the change of hue
+        hue = rgblight_config.hue;
+      }
+#endif
+#ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
+      else if (rgblight_config.mode >= RGBLIGHT_MODE_STATIC_GRADIENT &&
+               rgblight_config.mode <= RGBLIGHT_MODE_STATIC_GRADIENT_end) {
         // static gradient
         uint16_t _hue;
         int8_t direction = ((rgblight_config.mode - RGBLIGHT_MODE_STATIC_GRADIENT) % 2) ? -1 : 1;
@@ -450,6 +452,7 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
         }
         rgblight_set();
       }
+#endif
     }
     rgblight_config.hue = hue;
     rgblight_config.sat = sat;
@@ -534,7 +537,7 @@ void rgblight_set(void) {
 }
 #endif
 
-#ifdef RGBLIGHT_ANIMATIONS
+#ifdef RGBLIGHT_USE_TIMER
 
 // Animation timer -- AVR Timer3
 void rgblight_timer_init(void) {
@@ -570,7 +573,7 @@ void rgblight_timer_toggle(void) {
 
 void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_enable();
-  rgblight_mode(1);
+  rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
   rgblight_setrgb(r, g, b);
 }
 
@@ -609,7 +612,13 @@ void rgblight_task(void) {
   }
 }
 
+#endif /* RGBLIGHT_USE_TIMER */
+
 // Effects
+#ifdef RGBLIGHT_EFFECT_BREATHING
+__attribute__ ((weak))
+const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
+
 void rgblight_effect_breathing(uint8_t interval) {
   static uint8_t pos = 0;
   static uint16_t last_timer = 0;
@@ -620,12 +629,17 @@ void rgblight_effect_breathing(uint8_t interval) {
   }
   last_timer = timer_read();
 
-
   // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
   val = (exp(sin((pos/255.0)*M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER/M_E)*(RGBLIGHT_EFFECT_BREATHE_MAX/(M_E-1/M_E));
   rgblight_sethsv_noeeprom_old(rgblight_config.hue, rgblight_config.sat, val);
   pos = (pos + 1) % 256;
 }
+#endif
+
+#ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
+__attribute__ ((weak))
+const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
+
 void rgblight_effect_rainbow_mood(uint8_t interval) {
   static uint16_t current_hue = 0;
   static uint16_t last_timer = 0;
@@ -637,6 +651,12 @@ void rgblight_effect_rainbow_mood(uint8_t interval) {
   rgblight_sethsv_noeeprom_old(current_hue, rgblight_config.sat, rgblight_config.val);
   current_hue = (current_hue + 1) % 360;
 }
+#endif
+
+#ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+__attribute__ ((weak))
+const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
+
 void rgblight_effect_rainbow_swirl(uint8_t interval) {
   static uint16_t current_hue = 0;
   static uint16_t last_timer = 0;
@@ -662,6 +682,12 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
     }
   }
 }
+#endif
+
+#ifdef RGBLIGHT_EFFECT_SNAKE
+__attribute__ ((weak))
+const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
+
 void rgblight_effect_snake(uint8_t interval) {
   static uint8_t pos = 0;
   static uint16_t last_timer = 0;
@@ -700,6 +726,12 @@ void rgblight_effect_snake(uint8_t interval) {
     pos = (pos + 1) % RGBLED_NUM;
   }
 }
+#endif
+
+#ifdef RGBLIGHT_EFFECT_KNIGHT
+__attribute__ ((weak))
+const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
+
 void rgblight_effect_knight(uint8_t interval) {
   static uint16_t last_timer = 0;
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval])) {
@@ -741,8 +773,9 @@ void rgblight_effect_knight(uint8_t interval) {
     increment = -increment;
   }
 }
+#endif
 
-
+#ifdef RGBLIGHT_EFFECT_CHRISTMAS
 void rgblight_effect_christmas(void) {
   static uint16_t current_offset = 0;
   static uint16_t last_timer = 0;
@@ -759,6 +792,11 @@ void rgblight_effect_christmas(void) {
   }
   rgblight_set();
 }
+#endif
+
+#ifdef RGBLIGHT_EFFECT_RGB_TEST
+__attribute__ ((weak))
+const uint16_t RGBLED_RGBTEST_INTERVALS[] PROGMEM = {1024};
 
 void rgblight_effect_rgbtest(void) {
   static uint8_t pos = 0;
@@ -785,7 +823,9 @@ void rgblight_effect_rgbtest(void) {
   rgblight_setrgb(r, g, b);
   pos = (pos + 1) % 3;
 }
+#endif
 
+#ifdef RGBLIGHT_EFFECT_ALTERNATING
 void rgblight_effect_alternating(void){
   static uint16_t last_timer = 0;
   static uint16_t pos = 0;
@@ -806,5 +846,4 @@ void rgblight_effect_alternating(void){
   rgblight_set();
   pos = (pos + 1) % 2;
 }
-
-#endif /* RGBLIGHT_ANIMATIONS */
+#endif

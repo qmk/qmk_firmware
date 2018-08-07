@@ -449,6 +449,7 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   case RGB_MODE_BREATHE:
+  #ifdef RGBLIGHT_EFFECT_BREATHING
     if (record->event.pressed) {
       if ((RGBLIGHT_MODE_BREATHING <= rgblight_get_mode()) &&
           (rgblight_get_mode() < RGBLIGHT_MODE_BREATHING_end)) {
@@ -457,8 +458,10 @@ bool process_record_quantum(keyrecord_t *record) {
         rgblight_mode(RGBLIGHT_MODE_BREATHING);
       }
     }
+  #endif
     return false;
   case RGB_MODE_RAINBOW:
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
     if (record->event.pressed) {
       if ((RGBLIGHT_MODE_RAINBOW_MOOD <= rgblight_get_mode()) &&
           (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_MOOD_end)) {
@@ -467,8 +470,10 @@ bool process_record_quantum(keyrecord_t *record) {
         rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
       }
     }
+  #endif
     return false;
   case RGB_MODE_SWIRL:
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
     if (record->event.pressed) {
       if ((RGBLIGHT_MODE_RAINBOW_SWIRL <= rgblight_get_mode()) &&
           (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_SWIRL_end)) {
@@ -477,8 +482,10 @@ bool process_record_quantum(keyrecord_t *record) {
         rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
       }
     }
+  #endif
     return false;
   case RGB_MODE_SNAKE:
+  #ifdef RGBLIGHT_EFFECT_SNAKE
     if (record->event.pressed) {
       if ((RGBLIGHT_MODE_SNAKE <= rgblight_get_mode()) &&
           (rgblight_get_mode() < RGBLIGHT_MODE_SNAKE_end)) {
@@ -487,8 +494,10 @@ bool process_record_quantum(keyrecord_t *record) {
         rgblight_mode(RGBLIGHT_MODE_SNAKE);
       }
     }
+  #endif
     return false;
   case RGB_MODE_KNIGHT:
+  #ifdef RGBLIGHT_EFFECT_KNIGHT
     if (record->event.pressed) {
       if ((RGBLIGHT_MODE_KNIGHT <= rgblight_get_mode()) &&
           (rgblight_get_mode() < RGBLIGHT_MODE_KNIGHT_end)) {
@@ -497,13 +506,17 @@ bool process_record_quantum(keyrecord_t *record) {
         rgblight_mode(RGBLIGHT_MODE_KNIGHT);
       }
     }
+  #endif
     return false;
   case RGB_MODE_XMAS:
+  #ifdef RGBLIGHT_EFFECT_CHRISTMAS
     if (record->event.pressed) {
       rgblight_mode(RGBLIGHT_MODE_CHRISTMAS);
     }
+  #endif
     return false;
   case RGB_MODE_GRADIENT:
+  #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
     if (record->event.pressed) {
       if ((RGBLIGHT_MODE_STATIC_GRADIENT <= rgblight_get_mode()) &&
           (rgblight_get_mode() < RGBLIGHT_MODE_STATIC_GRADIENT_end)) {
@@ -512,11 +525,14 @@ bool process_record_quantum(keyrecord_t *record) {
         rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT);
       }
     }
+  #endif
     return false;
   case RGB_MODE_RGBTEST:
+  #ifdef RGBLIGHT_EFFECT_RGB_TEST
     if (record->event.pressed) {
       rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
     }
+  #endif
     return false;
   #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     #ifdef PROTOCOL_LUFA
