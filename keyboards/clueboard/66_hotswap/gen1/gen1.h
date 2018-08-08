@@ -1,6 +1,4 @@
-#ifndef gen1_H
-#define gen1_H
-
+#pragma once
 #include "66_hotswap.h"
 
 /* Clueboard matrix layout
@@ -67,5 +65,3 @@
     { k80, k81, k82, k83, KC_NO, k85, k86, KC_NO }, \
     { KC_NO, KC_NO, k92, k93, k94, k95, k96, k97 }  \
 }
-
-#endif
