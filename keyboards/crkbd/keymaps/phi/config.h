@@ -54,7 +54,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Prefer "hold" when "Alt Dn -> A Dn -> A Up -> Alt Up" within the TAPPING_TERM */
 // #define PERMISSIVE_HOLD
-// #define PERMISSIVE_HOLD_SHIFT_ONLY /* Enable PERMISSIVE_HOLD except for SHIFT */
+// #define PERMISSIVE_HOLD_EXCEPT_FOR_SHIFT /* Enable PERMISSIVE_HOLD except for SHIFT */
 
 /* Prefer "tap" when "SandS Dn -> A Dn -> Sands Up -> A Up" within the TAPPING_TERM */
 /* (Like IGNORE_MOD_TAP_INTERRUPT but only ignores SHIFT) */
