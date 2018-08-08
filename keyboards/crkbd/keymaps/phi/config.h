@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_MAX_SPEED   1 /* times faster */
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 1
 
-#define TAPPING_TERM 120
+#define TAPPING_TERM 130
 
 /* Prefer "hold" when "down -> up -> down" (recognized immediately as "tap twice" by default) */
 #define TAPPING_FORCE_HOLD
