@@ -52,9 +52,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Prefer "hold" when "down -> up -> down" (recognized immediately as "tap twice" by default) */
 #define TAPPING_FORCE_HOLD
 
-/* Prefer "hold" when "SandS Dn -> A Dn -> A Up -> SandS Up" within the TAPPING_TERM */
-#define PERMISSIVE_HOLD
-#define PERMISSIVE_HOLD_SHIFT_ONLY /* Enable PERMISSIVE_HOLD except for SHIFT */
+/* Prefer "hold" when "Alt Dn -> A Dn -> A Up -> Alt Up" within the TAPPING_TERM */
+// #define PERMISSIVE_HOLD
+// #define PERMISSIVE_HOLD_SHIFT_ONLY /* Enable PERMISSIVE_HOLD except for SHIFT */
 
 /* Prefer "tap" when "SandS Dn -> A Dn -> Sands Up -> A Up" within the TAPPING_TERM */
 /* (Like IGNORE_MOD_TAP_INTERRUPT but only ignores SHIFT) */
