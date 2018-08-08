@@ -26,7 +26,9 @@
 
 /* Speaker configuration
  */
-//#define SPEAKER_PIN B7 // FIXME: find the correct name for this define
+#define B7_AUDIO
+#define NO_MUSIC_MODE
+#define AUDIO_CLICKY
 
 /* Backlight configuration
  */
