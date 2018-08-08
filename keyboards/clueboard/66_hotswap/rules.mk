@@ -1,4 +1,3 @@
-DEFAULT_FOLDER = clueboard/66_hotswap/gen1
 EXTRAFLAGS += -flto
 LAYOUTS = 66_ansi
 MCU = atmega32u4
