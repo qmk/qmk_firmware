@@ -1,6 +1,9 @@
 # MCU name
 MCU = atmega32u4
 
+SRC += i2c.c \
+	   ssd1306.c 
+
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
 #     processor frequency in Hz. You can then use this symbol in your source code to
@@ -43,7 +46,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
 # OPT_DEFS += -DBOOTLOADER_SIZE=4096
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+OPT_DEFS += -DBOOTLOADER_SIZE=512
 
 
 # Build Options
@@ -57,5 +60,6 @@ COMMAND_ENABLE ?= no    # Commands for debug and configuration
 SLEEP_LED_ENABLE ?= no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE ?= yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE ?= no  # Enable keyboard backlight functionality
+ADAFRUIT_BLE_ENABLE ?= no   # Enable Bluetooth with the Adafruit BLE boards
 AUDIO_ENABLE ?= no
 RGBLIGHT_ENABLE ?= no

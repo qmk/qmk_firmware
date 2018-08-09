@@ -2,6 +2,15 @@
 #define ABNT2_83_H
 
 #include "quantum.h"
+extern bool iota_gfx_init(void);
+extern void iota_gfx_task(void);
+extern bool iota_gfx_off(void);
+extern bool iota_gfx_on(void);
+extern void iota_gfx_flush(void);
+extern void iota_gfx_write_char(uint8_t c);
+extern void iota_gfx_write(const char *data);
+extern void iota_gfx_write_P(const char *data);
+extern void iota_gfx_clear_screen(void);
 
 #define LAYOUT( \
 	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, K014, K015, K016, K017, \

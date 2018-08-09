@@ -23,7 +23,7 @@
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define LAYOUT_ANSI( \
+#define LAYOUT_ansi( \
     K00, K01, K02, K03, K04, K05, K45,        K07, K08, K09, K0A, K0B, K0C, K0D,   K0E, K0F, K0G,   K0H, K0J, K0K, K0L, \
     K10, K11, K12, K13, K14, K15,        K16, K17, K18, K19, K1A, K1B, K1C, K1D,   K1E, K1F, K1G,   K1H, K1J, K1K, K1L, \
     K20, K21, K22, K23, K24, K25,        K26, K27, K28, K29, K2A, K2B,      K2D,                    K2H, K2J, K2K, K2L, \

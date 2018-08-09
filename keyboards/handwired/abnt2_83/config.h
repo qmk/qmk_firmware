@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 */
-
 #ifndef CONFIG_H
 #define CONFIG_H
 
@@ -28,9 +27,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Futurista
-#define PRODUCT         ABNT2-87
-#define DESCRIPTION     Handwired Keyboard By Whalid
+#define MANUFACTURER    futurista.com.br
+#define PRODUCT         ABNT2-83
+#define DESCRIPTION     Just another handwired keyboard
+#define USBSTR_MANUFACTURER 'Q', 0, 'M', 0, 'K', 0
+#define USBSTR_PRODUCT 'a', 0, 'b', 0, 'n', 0, 't', 0
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -39,7 +40,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix pins */
 #define MATRIX_ROW_PINS { B0, B1, B2, B3, E6 }
 #define MATRIX_COL_PINS { B7, D2, D3, C6, C7, D5, D4, D6, D7, B4, B5, B6, F7, F6, F5, F4, F1, F0 }
-#define UNUSED_PINS
+
+/* Use I2C or Serial, not both */
+#define USE_I2C
+#define SSD1306OLED
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW

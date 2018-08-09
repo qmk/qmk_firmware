@@ -52,7 +52,7 @@ enum ssd1306_cmds {
 #define SSD1306_ADDRESS 0x3C
 #endif
 
-#define DisplayHeight 32
+#define DisplayHeight 64
 #define DisplayWidth 128
 
 #define FontHeight 8
