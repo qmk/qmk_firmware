@@ -261,7 +261,7 @@ i2c_error: // the cable is disconnceted, or something else went wrong
             err = i2c_master_write(I2C_RGB_START);
             if (err) goto i2c_error;
             
-            uint32_t dword = eeconfig_read_rgblight();
+            uint32_t dword = rgblight_get_raw();
             
             // Write RGB
             err = i2c_master_write_data(&dword, 4);
