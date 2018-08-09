@@ -9,7 +9,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    bpiphany
 #define PRODUCT         sixshooter
-#define DESCRIPTION     6 key macro pad pcb using a teensy for the CM Storm switch tester
+#define DESCRIPTION     A PCB for the CM Storm switch tester utilizing a Teensy 2.0.
 
 /* key matrix size */
 #define MATRIX_ROWS 1
@@ -31,10 +31,6 @@
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
-
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

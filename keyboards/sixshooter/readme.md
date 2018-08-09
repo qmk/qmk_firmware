@@ -1,8 +1,8 @@
 # The Six Shooter
 
-A PCB for the CM Storm switch tester utilizing a Teensy 2.0.
+A PCB for the CM Storm switch tester utilizing a Teensy 2.0 designed by Bpiphany.
 
-Keyboard Maintainer: [Nicholas Shaff](https://github.com/ShadeDream)
+Keyboard Maintainer: QMK Community
 Hardware Supported: Six Shooter PCB, Teensy 2.0
 Hardware Availability: [GeekHack.org](https://geekhack.org/index.php?topic=70033.0)
 
