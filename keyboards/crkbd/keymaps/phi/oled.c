@@ -16,7 +16,7 @@
 #define MOD_GUI (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 
 #define KEYFREQ_LOG_UPDATE_INTERVAL 60000 /* 60sec */
-#define SCREEN_UPDATE_INTERVAL 55 /* 18fps */
+#define SCREEN_FRAME_RATE 55 /* 18fps */
 /* #define ANIMATION_FRAME_RATE 200 */
 
 extern uint8_t is_master;
@@ -138,7 +138,7 @@ void prepare_next_frame(void) {
     static int last_update = 0;
     static struct CharacterMatrix matrix;
 
-    if (timer_elapsed(last_update) < SCREEN_UPDATE_INTERVAL) return;
+    if (timer_elapsed(last_update) < SCREEN_FRAME_RATE) return;
     last_update = timer_read();
 
     matrix_reset_cursor(&matrix);
