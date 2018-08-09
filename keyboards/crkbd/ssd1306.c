@@ -287,7 +287,7 @@ void matrix_write_ln(struct CharacterMatrix *matrix, const char *data) {
 }
 
 void matrix_write_range_ln(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width) {
-  matrix_write_range(*matrix, *data, from, width);
+  matrix_write_range(matrix, data, from, width);
   matrix_newline(matrix);
 }
 
