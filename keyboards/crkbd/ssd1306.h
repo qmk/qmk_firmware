@@ -80,12 +80,11 @@ void iota_gfx_clear_screen(void);
 
 void iota_gfx_task_user(void);
 
+void set_overwrite_mode(bool value);
 void matrix_clear(struct CharacterMatrix *matrix);
 void matrix_reset_cursor(struct CharacterMatrix *matrix);
 void matrix_write(struct CharacterMatrix *matrix, const char *data);
-void matrix_overwrite(struct CharacterMatrix *matrix, const char *data);
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data);
-void matrix_overwrite_ln(struct CharacterMatrix *matrix, const char *data);
 void matrix_render(struct CharacterMatrix *matrix);
 void matrix_push(const struct CharacterMatrix *matrix);
 

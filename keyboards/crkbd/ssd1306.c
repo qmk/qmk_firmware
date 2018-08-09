@@ -28,6 +28,7 @@
 static uint8_t displaying;
 #endif
 static uint16_t last_flush;
+static bool overwrite_mode = false;
 
 // Write command sequence.
 // Returns true on success.
@@ -120,6 +121,10 @@ static int8_t capture_sendchar(uint8_t c) {
 }
 #endif
 
+void set_overwrite_mode (bool value) {
+  overwrite_mode = value;
+}
+
 bool iota_gfx_init(bool rotate) {
   bool success = false;
 
@@ -204,13 +209,7 @@ static inline void _matrix_maybe_scroll(struct CharacterMatrix *matrix) {
 }
 
 static inline void matrix_write_byte(struct CharacterMatrix *matrix, uint8_t byte) {
-  *matrix->cursor = byte;
-  ++matrix->cursor;
-  _matrix_maybe_scroll(matrix);
-}
-
-static inline void matrix_overwrite_byte(struct CharacterMatrix *matrix, uint8_t byte) {
-  *matrix->cursor |= byte;
+  *matrix->cursor = overwrite_mode ? *matrix->cursor | byte : byte;
   ++matrix->cursor;
   _matrix_maybe_scroll(matrix);
 }
@@ -220,14 +219,6 @@ static inline void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) 
   for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
     uint8_t colBits = pgm_read_byte(glyph + glyphCol);
     matrix_write_byte(matrix, colBits);
-  }
-}
-
-static inline void matrix_overwrite_char(struct CharacterMatrix *matrix, uint8_t c) {
-  const uint8_t *glyph = font + c * FontWidth;
-  for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
-    uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-    matrix_overwrite_byte(matrix, colBits);
   }
 }
 
@@ -243,29 +234,18 @@ void matrix_write(struct CharacterMatrix *matrix, const char *data) {
   }
 }
 
-void matrix_overwrite(struct CharacterMatrix *matrix, const char *data) {
-  const char *end = data + strlen(data);
-  while (data < end) {
-    matrix_overwrite_char(matrix, *data);
-    ++data;
-  }
-}
-
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data) {
-  uint8_t cursor_col;
   matrix_write(matrix, data);
-  cursor_col = (matrix->cursor - &matrix->display[0][0]) % DisplayWidth;
-  while (cursor_col++ < DisplayWidth) {
-    matrix_write_byte(matrix, 0);
+  if (overwrite_mode) {
+    uint8_t cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
+    matrix->cursor = &matrix->display[cursor_row + 1][0];
+    _matrix_maybe_scroll(matrix);
+  } else {
+    uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % DisplayWidth;
+    while (cursor_col++ < DisplayWidth) {
+      matrix_write_byte(matrix, 0);
+    }
   }
-}
-
-void matrix_overwrite_ln(struct CharacterMatrix *matrix, const char *data) {
-  uint8_t cursor_row;
-  matrix_overwrite(matrix, data);
-  cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
-  matrix->cursor = &matrix->display[cursor_row + 1][0];
-  _matrix_maybe_scroll(matrix);
 }
 
 void iota_gfx_write(const char *data) {

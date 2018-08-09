@@ -155,10 +155,12 @@ void prepare_next_frame(void) {
         matrix_write(&matrix, saku[shift]);
         /* render BG */
         matrix_reset_cursor(&matrix);
-        matrix_overwrite_ln(&matrix, left_background_image[0]);
-        matrix_overwrite_ln(&matrix, left_background_image[1]);
-        matrix_overwrite_ln(&matrix, left_background_image[2]);
-        matrix_overwrite(&matrix, left_background_image[3]);
+        set_overwrite_mode(true);
+        matrix_write_ln(&matrix, left_background_image[0]);
+        matrix_write_ln(&matrix, left_background_image[1]);
+        matrix_write_ln(&matrix, left_background_image[2]);
+        matrix_write(&matrix, left_background_image[3]);
+        set_overwrite_mode(false);
     } else {
         matrix_write_ln(&matrix, right_image[0]);
         matrix_write_ln(&matrix, right_image[1]);
