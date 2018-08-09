@@ -230,7 +230,7 @@ static inline void matrix_write_char_delimited(struct CharacterMatrix *matrix, u
   }
 }
 
-static inline void matrix_newline(struct CharacterMatrix *matrix) {
+void matrix_newline(struct CharacterMatrix *matrix) {
   if (overwrite_mode) {
     uint8_t cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
     matrix->cursor = &matrix->display[cursor_row + 1][0];
@@ -241,6 +241,11 @@ static inline void matrix_newline(struct CharacterMatrix *matrix) {
       matrix_write_byte(matrix, 0);
     }
   }
+}
+
+void matrix_return(struct CharacterMatrix *matrix) {
+  uint8_t cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
+  matrix->cursor = &matrix->display[cursor_row][0];
 }
 
 void iota_gfx_write_char(uint8_t c) {
