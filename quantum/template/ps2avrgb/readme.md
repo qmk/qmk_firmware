@@ -24,9 +24,21 @@ Windows:
 5. Press the `Flash Device` button and wait for the process to complete. 
 
 macOS:
-1. `brew install` the `python` package.
-2. `brew install` the `pyusb` package. 
-3. Place your keyboard into reset. 
-4. Flash the board by typing `bootloadHID -r`, followed by the path to your `.hex` file. 
+1. Install homebrew by typing the following:   
+    ```
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    ```
+2. Install `crosspack-avr`.  
+    ```
+    brew cask install crosspack-avr
+    ```
+3. Install the following packages:
+    ```
+    brew install python
+    brew install pyusb
+    brew install --HEAD`https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
+
+4. Place your keyboard into reset. 
+5. Flash the board by typing `bootloadHID -r` followed by the path to your `.hex` file. 
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
