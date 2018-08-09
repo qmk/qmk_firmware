@@ -183,7 +183,11 @@ i2c_error: // the cable is disconnceted, or something else went wrong
 
 int serial_transaction(int master_changed) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+#ifdef SERIAL_USE_MULTI_TRANSACTION
     int ret=serial_update_buffers(master_changed);
+#else
+    int ret=serial_update_buffers();
+#endif
     if (ret ) {
         if(ret==2) RXLED1;
         return 1;

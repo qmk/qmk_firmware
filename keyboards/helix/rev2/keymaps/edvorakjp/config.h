@@ -2,7 +2,7 @@
 #define CONFIG_USER_H
 
 // if you need more program area, try uncomment follow line
-//#undef SERIAL_USE_MULTI_TRANSACTION
+//#include "serial_config_simpleapi.h"
 
 #undef TAPPING_FORCE_HOLD
 #undef TAPPING_TERM

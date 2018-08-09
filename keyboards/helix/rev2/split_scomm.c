@@ -1,4 +1,7 @@
 #ifdef USE_SERIAL
+#ifdef SERIAL_USE_MULTI_TRANSACTION
+/* --- USE flexible API (using multi-type transaction function) --- */
+
 #include <stdbool.h>
 #include <stdint.h>
 #include <stddef.h>
@@ -12,19 +15,8 @@ uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
 uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
 uint8_t volatile status_com = 0;
 uint8_t volatile status1 = 0;
-#ifdef SERIAL_USE_MULTI_TRANSACTION
 uint8_t slave_buffer_change_count = 0;
 uint8_t s_change_old = 0xff;
-#endif
-
-#ifndef SERIAL_USE_MULTI_TRANSACTION
-SSTD_t transactions[] = {
-    { (uint8_t *)&status_com,
-      sizeof(serial_master_buffer), (uint8_t *)serial_master_buffer,
-      sizeof(serial_slave_buffer), (uint8_t *)serial_slave_buffer
-    }
-};
-#else
 
 SSTD_t transactions[] = {
 #define GET_SLAVE_STATUS 0
@@ -46,7 +38,6 @@ SSTD_t transactions[] = {
       sizeof(serial_slave_buffer), (uint8_t *)serial_slave_buffer
     }
 };
-#endif
 
 void serial_master_init(void)
 {
@@ -63,7 +54,6 @@ void serial_slave_init(void)
 // 2 => checksum error
 int serial_update_buffers(int master_update)
 {
-#ifdef SERIAL_USE_MULTI_TRANSACTION
     int status;
     static int need_retry = 0;
     if( s_change_old != slave_buffer_change_count ) {
@@ -77,10 +67,7 @@ int serial_update_buffers(int master_update)
 	status = soft_serial_transaction(PUT_MASTER_GET_SLAVE_STATUS);
     need_retry = ( status == TRANSACTION_END ) ? 0 : 1;
     return status;
-#else
-    int status;
-    status = soft_serial_transaction();
-    return status;
-#endif
 }
+
+#endif // SERIAL_USE_MULTI_TRANSACTION
 #endif /* USE_SERIAL */

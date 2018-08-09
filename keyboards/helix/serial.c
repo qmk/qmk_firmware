@@ -16,6 +16,45 @@
 
 #ifdef USE_SERIAL
 
+#ifndef SERIAL_USE_MULTI_TRANSACTION
+/* --- USE Simple API (OLD API, compatible with let's split serial.c) */
+  #if SERIAL_SLAVE_BUFFER_LENGTH > 0
+  uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
+  #endif
+  #if SERIAL_MASTER_BUFFER_LENGTH > 0
+  uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
+  #endif
+  uint8_t volatile status0 = 0;
+
+SSTD_t transactions[] = {
+    { (uint8_t *)&status0,
+  #if SERIAL_MASTER_BUFFER_LENGTH > 0
+      sizeof(serial_master_buffer), (uint8_t *)serial_master_buffer,
+  #else
+      0, (uint8_t *)NULL,
+  #endif
+  #if SERIAL_SLAVE_BUFFER_LENGTH > 0
+      sizeof(serial_slave_buffer), (uint8_t *)serial_slave_buffer
+  #else
+      0, (uint8_t *)NULL,
+  #endif
+  }
+};
+
+void serial_master_init(void)
+{ soft_serial_initiator_init(transactions); }
+
+void serial_slave_init(void)
+{ soft_serial_target_init(transactions); }
+
+// 0 => no error
+// 1 => slave did not respond
+// 2 => checksum error
+int serial_update_buffers()
+{ return soft_serial_transaction(); }
+
+#endif // Simple API (OLD API, compatible with let's split serial.c)
+
 #define ALWAYS_INLINE __attribute__((always_inline))
 #define NO_INLINE __attribute__((noinline))
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)

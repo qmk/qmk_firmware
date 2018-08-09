@@ -3,9 +3,9 @@
 
 #include <stdbool.h>
 
-// ////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////
 // Need Soft Serial defines in serial_config.h
-// ////////////////////////////////////////////
+// /////////////////////////////////////////////////////////////////
 // ex.
 //  #define SERIAL_PIN_DDR DDRD
 //  #define SERIAL_PIN_PORT PORTD
@@ -13,8 +13,31 @@
 //  #define SERIAL_PIN_MASK _BV(PD?)   ?=0,2
 //  #define SERIAL_PIN_INTERRUPT INT?_vect  ?=0,2
 //
-//  When using multi-type transaction function, define the following macro.
-//   #define SERIAL_USE_MULTI_TRANSACTION
+// //// USE Simple API (OLD API, compatible with let's split serial.c)
+// ex.
+//  #define SERIAL_SLAVE_BUFFER_LENGTH MATRIX_ROWS/2
+//  #define SERIAL_MASTER_BUFFER_LENGTH 1
+//
+// //// USE flexible API (using multi-type transaction function)
+//  #define SERIAL_USE_MULTI_TRANSACTION
+//
+// /////////////////////////////////////////////////////////////////
+
+
+#ifndef SERIAL_USE_MULTI_TRANSACTION
+/* --- USE Simple API (OLD API, compatible with let's split serial.c) */
+#if SERIAL_SLAVE_BUFFER_LENGTH > 0
+extern volatile uint8_t serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH];
+#endif
+#if SERIAL_MASTER_BUFFER_LENGTH > 0
+extern volatile uint8_t serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH];
+#endif
+
+void serial_master_init(void);
+void serial_slave_init(void);
+int serial_update_buffers(void);
+
+#endif // USE Simple API
 
 // Soft Serial Transaction Descriptor
 typedef struct _SSTD_t  {

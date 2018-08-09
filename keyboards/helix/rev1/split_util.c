@@ -12,7 +12,7 @@
 #ifdef USE_MATRIX_I2C
 #  include "i2c.h"
 #else
-#  include "split_scomm.h"
+#  include "serial.h"
 #endif
 
 volatile bool isLeftHand = true;
