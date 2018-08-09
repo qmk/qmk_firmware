@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GESC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,   KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC, \
   KC_TAB,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  TD_EE,  \
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLASH),  \
-  KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_LCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
+  KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
 ),
 
 /* Workman
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GESC, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,   KC_J,   KC_F,    KC_U,    KC_P,    KC_SCLN,  KC_BSPC, \
   KC_TAB,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,   KC_Y,   KC_N,    KC_E,    KC_O,    KC_I,     TD_EE,  \
   KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,   KC_K,   KC_L,    KC_COMM, KC_DOT,  KC_SLASH, SFT_T(KC_QUOT),  \
-  KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_LCTL, KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT  \
+  KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT  \
 ),
 
 
@@ -102,14 +102,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Ins  | PGDN | PGUP |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      | Home | Vol- | Vol+ | END  |
+ * |RESET |      |      |      |      |      |      |      | Home | Vol- | Vol+ | END  |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE1] = LAYOUT_ortho_4x12( \
 	KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, TD_BLEQ, \
 	_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_PGDN, KC_PGUP, KC_MINS, \
-	_______, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_HOME, KC_VOLD, KC_VOLU, KC_END \
+	RESET,   _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_HOME, KC_VOLD, KC_VOLU, KC_END \
 ),
 
 /* RAISE2
