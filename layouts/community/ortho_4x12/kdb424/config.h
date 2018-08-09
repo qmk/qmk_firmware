@@ -4,35 +4,33 @@
 #include QMK_KEYBOARD_CONFIG_H
 
 /* Use I2C or Serial, not both */
-
 #define USE_SERIAL
-// #define USE_I2C
+//#define USE_I2C
 
 /* Select hand configuration */
-
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
+// Enable tap dance
 #define TAPPING_TERM 150
 #define TAPPING_TOGGLE 2
 
-#undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 8
-#define RGBLIGHT_HUE_STEP 8
-#define RGBLIGHT_SAT_STEP 8
-#define RGBLIGHT_VAL_STEP 8
-
-#define QMK_ESC_OUTPUT D4 // usually COL
-#define QMK_ESC_INPUT F6 // usually ROW
-#define QMK_LED B0
-#define QMK_SPEAKER C6
-
+// Fix the screw up of the main author
+#undef NO_ACTION_TAPPING
+// Enable Tapdance
 #define NO_ACTION_FUNCTION
 
-#ifdef AUDIO_ENABLE
-#define C6_AUDIO
-#endif
+// Reduce size
+#if !defined(NO_DEBUG) && !defined(CONSOLE_ENABLE)
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+
+#define DISABLE_LEADER
 
 #endif
