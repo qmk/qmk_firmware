@@ -7,7 +7,7 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _DVORAK 0
-#define _WORKMAN 1
+#define _COLEMAK 1
 #define _RAISE1 2
 #define _RAISE2 3
 #define _RAISE3 4
@@ -75,21 +75,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
 ),
 
-/* Workman
+/* Colemak Mod-DH
  * ,-----------------------------------------------------------------------------------.
- * | Esc  |   '  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
+ * | Esc  |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Tab  |   A  |   O  |   E  |   U  |   I  |   D  |   H  |   T  |   N  |   S  |Enter |
+ * | Tab  |   A  |   R  |   S  |   T  |   G  |   K  |   N  |   E  |   I  |   O  |Enter |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |  /   |
+ * | Shift|   Z  |   X  |   C  |   D  |   V  |   M  |   H  |   ,  |   .  |   /  |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Ctrl |  GUI | Alt  |      | MO(1)|Space2|Space3| Ctrl | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_WORKMAN] = LAYOUT_ortho_4x12( \
-  KC_GESC, KC_Q,    KC_D,    KC_R,    KC_W,    KC_B,   KC_J,   KC_F,    KC_U,    KC_P,    KC_SCLN,  KC_BSPC, \
-  KC_TAB,  KC_A,    KC_S,    KC_H,    KC_T,    KC_G,   KC_Y,   KC_N,    KC_E,    KC_O,    KC_I,     TD_EE,  \
-  KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,    KC_V,   KC_K,   KC_L,    KC_COMM, KC_DOT,  KC_SLASH, SFT_T(KC_QUOT),  \
+[_COLEMAK] = LAYOUT_ortho_4x12( \
+  KC_GESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,   KC_J,   KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_BSPC, \
+  KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,   KC_K,   KC_N,    KC_E,    KC_I,    KC_O,     TD_EE,  \
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_M,   KC_H,    KC_COMM, KC_DOT,  KC_SLASH, SFT_T(KC_QUOT),  \
   KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT  \
 ),
 
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |RMODE | RGB T|SWIRL |      |  F4  |  F5  |  F6  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |DVORAK|WORKMA|      |      |      |      |      |      |  F1  |  F2  |  F3  |SCROT |
+ * |DVORAK|COLEMA|      |      |      |      |      |      |  F1  |  F2  |  F3  |SCROT |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE3] =  LAYOUT_ortho_4x12( \
