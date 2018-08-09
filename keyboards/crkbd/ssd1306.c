@@ -222,6 +222,27 @@ static inline void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) 
   }
 }
 
+static inline void matrix_write_char_delimited(struct CharacterMatrix *matrix, uint8_t c, uint8_t from, uint8_t width) {
+  const uint8_t *glyph = font + c * FontWidth;
+  for (; width--; ++from) {
+    uint8_t colBits = pgm_read_byte(glyph + from);
+    matrix_write_byte(matrix, colBits);
+  }
+}
+
+static inline void matrix_newline(struct CharacterMatrix *matrix) {
+  if (overwrite_mode) {
+    uint8_t cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
+    matrix->cursor = &matrix->display[cursor_row + 1][0];
+    _matrix_maybe_scroll(matrix);
+  } else {
+    uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % DisplayWidth;
+    while (cursor_col++ < DisplayWidth) {
+      matrix_write_byte(matrix, 0);
+    }
+  }
+}
+
 void iota_gfx_write_char(uint8_t c) {
   matrix_write_char(&display, c);
 }
@@ -234,18 +255,40 @@ void matrix_write(struct CharacterMatrix *matrix, const char *data) {
   }
 }
 
-void matrix_write_ln(struct CharacterMatrix *matrix, const char *data) {
-  matrix_write(matrix, data);
-  if (overwrite_mode) {
-    uint8_t cursor_row = (matrix->cursor - &matrix->display[0][0]) / DisplayWidth;
-    matrix->cursor = &matrix->display[cursor_row + 1][0];
-    _matrix_maybe_scroll(matrix);
-  } else {
-    uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % DisplayWidth;
-    while (cursor_col++ < DisplayWidth) {
-      matrix_write_byte(matrix, 0);
+void matrix_write_range(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width) {
+  data += from / FontWidth;
+  from %= FontWidth;
+
+  if (from) {
+    if (width <= FontWidth) {
+      matrix_write_char_delimited(matrix, *data, from, width);
+      return;
+    } else {
+      matrix_write_char_delimited(matrix, *data, from, FontWidth - from);
+      width -= FontWidth - from;
+      data++;
     }
   }
+
+  while (width >= FontWidth) {
+    matrix_write_char(matrix, *data);
+    width -= FontWidth;
+    data++;
+  }
+
+  if (width) {
+    matrix_write_char_delimited(matrix, *data, 0, width);
+  }
+}
+
+void matrix_write_ln(struct CharacterMatrix *matrix, const char *data) {
+  matrix_write(matrix, data);
+  matrix_newline(matrix);
+}
+
+void matrix_write_range_ln(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width) {
+  matrix_write_range(*matrix, *data, from, width);
+  matrix_newline(matrix);
 }
 
 void iota_gfx_write(const char *data) {

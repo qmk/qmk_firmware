@@ -84,7 +84,9 @@ void set_overwrite_mode(bool value);
 void matrix_clear(struct CharacterMatrix *matrix);
 void matrix_reset_cursor(struct CharacterMatrix *matrix);
 void matrix_write(struct CharacterMatrix *matrix, const char *data);
+void matrix_write_range(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width);
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data);
+void matrix_write_range_ln(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width);
 void matrix_render(struct CharacterMatrix *matrix);
 void matrix_push(const struct CharacterMatrix *matrix);
 
