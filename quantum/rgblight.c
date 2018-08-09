@@ -225,6 +225,10 @@ uint32_t rgblight_get_mode(void) {
   return rgblight_config.mode;
 }
 
+uint32_t rgblight_get_raw(void) {
+  return rgblight_config.raw;
+}
+
 void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
   if (!rgblight_config.enable) {
     return;
