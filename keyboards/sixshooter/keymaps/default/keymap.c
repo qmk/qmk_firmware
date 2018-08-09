@@ -1,4 +1,4 @@
-/* Copyright 2018 Nicholas Shaff
+/* Copyright 2018 QMK Community
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,11 +17,6 @@
 
 #define _BL 0
 #define _FN 1
-
-enum custom_keycode {
-  SS_LON = SAFE_RANGE,
-  SS_LOFF
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap 0: Media Keys
@@ -42,23 +37,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_user(void) {
+  /* Default all LEDs to on */
   sixshooter_led_all_on();
-}
-
-void matrix_scan_user(void) {
-
-}
-
-bool process_record_user( uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-        switch(keycode) {
-            case SS_LON:
-                sixshooter_led_all_on();
-                return false;
-            case SS_LOFF:
-                sixshooter_led_all_off();
-                return false;
-        }
-    }
-    return true;
 }
