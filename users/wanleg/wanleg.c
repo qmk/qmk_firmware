@@ -22,6 +22,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case gGHERKIN:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(gGK);
+      }
+      return false;
+      break;
     case SUBTER:
       if (record->event.pressed) {
         layer_on(SUB);
@@ -41,7 +47,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	case NUMBER:
       if (record->event.pressed) {
         layer_on(NUM);
-
       } else {
         layer_off(NUM);
       }
@@ -50,7 +55,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	case DIRECTION:
       if (record->event.pressed) {
         layer_on(DIR);
-
       } else {
         layer_off(DIR);
       }
@@ -59,12 +63,36 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	case ETCETERA:
       if (record->event.pressed) {
         layer_on(ETC);
-
       } else {
         layer_off(ETC);
       }
       return false;
       break;
+  case gNUMBER:
+      if (record->event.pressed) {
+        layer_on(gNUM);
+      } else {
+        layer_off(gNUM);
+      }
+      return false;
+      break;
+  case gDIRECTION:
+      if (record->event.pressed) {
+        layer_on(gDIR);
+      } else {
+        layer_off(gDIR);
+      }
+      return false;
+      break;
+	case gETCETERA:
+      if (record->event.pressed) {
+        layer_on(gETC);
+      } else {
+        layer_off(gETC);
+      }
+      return false;
+      break;
+
   }
   return true;
 }

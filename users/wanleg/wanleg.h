@@ -3,25 +3,33 @@
 
 #include "quantum.h"
 
-// Define layer names 
+// Define layer names
 enum userspace_layers {
-  _GK = 0,
+  gGK = 0,
+  _GK,
   _QW,
   SUB,
   SUP,
   NUM,
   DIR,
-  ETC
+  ETC,
+  gNUM,
+  gDIR,
+  gETC
 };
 
 enum userspace_custom_keycodes {
-  GHERKIN = SAFE_RANGE,
+  gGHERKIN = SAFE_RANGE,
+  GHERKIN,
   QWERTY,
   SUBTER,
   SUPRA,
   NUMBER,
   DIRECTION,
   ETCETERA,
+  gNUMBER,
+  gDIRECTION,
+  gETCETERA,
 };
 
 //Tap Dance Declarations (list of my tap dance configurations)
@@ -56,7 +64,7 @@ enum {
 //       lengths consistent.
 
 
-  /* GHERKIN
+  /* PURE GHERKIN
    * .-----------------------------------------------------------------------------------------.
    * | Q//ESC | W      | E      | R      | T      | Y      | U      | I      | O      | P      |
    * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -110,6 +118,28 @@ enum {
 #define _______________Gherkin_ETC_0_______________			KC_GRV,  		KC_MS_U, 	_______,_______, 		RESET,   		KC_RSFT,				KC_WH_U, 		KC_WH_D, 		_______, 		KC_BSLS
 #define _______________Gherkin_ETC_1_______________			KC_MS_L, 		KC_MS_D, 	KC_MS_R,_______, 		KC_LSFT, 		KC_BTN3,				KC_BTN1, 		KC_BTN2, 		KC_SCLN, 		KC_QUOT
 #define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),_______, 	_______,_______, 		_______, 		LALT(LCTL(KC_DEL)), 	KC_WH_L, 		KC_WH_R, 		KC_LALT, 		KC_DEL
+
+#define _______________GherkinLike_0_______________
+#define _______________GherkinLike_1_______________
+#define _______________GherkinLike_2_______________
+#define _______________Qwerty_Row__0_______________
+#define _______________Qwerty_Row__1_______________
+#define _______________Qwerty_Row__2_______________
+#define ________________SUPRA_Row_0________________
+#define ________________SUPRA_Row_1________________
+#define ________________SUPRA_Row_2________________
+#define _______________SUBTER_Row__0_______________
+#define _______________SUBTER_Row__1_______________
+#define _______________SUBTER_Row__2_______________
+#define _______________NUMBERS_Row_0_______________
+#define _______________NUMBERS_Row_1_______________
+#define _______________NUMBERS_Row_2_______________
+#define _____________DIRECTIONS_Row__0_____________
+#define _____________DIRECTIONS_Row__1_____________
+#define _____________DIRECTIONS_Row__2_____________
+#define ______________ETCETERA_Row__0______________
+#define ______________ETCETERA_Row__1______________
+#define ______________ETCETERA_Row__2______________
 
 
 #endif // !USERSPACE

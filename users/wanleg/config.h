@@ -5,37 +5,17 @@
 
 // TAPPING_TERM
 #ifdef TAP_DANCE_ENABLE
-#ifdef TAPPING_TERM
-#undef TAPPING_TERM
-#endif 
 #define TAPPING_TERM 200
 #endif
 
 //Mousekey Settings
-#ifdef MOUSEKEY_INTERVAL
-#undef MOUSEKEY_INTERVAL
-#endif
+#ifdef MOUSEKEY_ENABLE
 #define MOUSEKEY_INTERVAL 16
-
-#ifdef MOUSEKEY_DELAY
-#undef MOUSEKEY_DELAY
-#endif
 #define MOUSEKEY_DELAY 0
-
-#ifdef MOUSEKEY_TIME_TO_MAX
-#undef MOUSEKEY_TIME_TO_MAX
-#endif
 #define MOUSEKEY_TIME_TO_MAX 60
-
-#ifdef MOUSEKEY_MAX_SPEED
-#undef MOUSEKEY_MAX_SPEED
-#endif
 #define MOUSEKEY_MAX_SPEED 7
-
-#ifdef MOUSEKEY_WHEEL_DELAY
-#undef MOUSEKEY_WHEEL_DELAY
-#endif
 #define MOUSEKEY_WHEEL_DELAY 0
+#endif
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
