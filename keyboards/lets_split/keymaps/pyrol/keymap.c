@@ -202,9 +202,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case GAME:
-        if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_GAME);
-    	;
+	if (record->event.pressed) {
+		persistent_default_layer_set(1UL<<_GAME);
+	;
 	return false;
 	break;
     case LOWER:
