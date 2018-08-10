@@ -97,7 +97,7 @@ void update_keyfreq_log(void) {
        case 12: keyfreq_log[0][20] = 0xd7, keyfreq_log[1][20] = 0x94; break;
        case 13: keyfreq_log[0][20] = 0xd6, keyfreq_log[1][20] = 0x94; break;
        case 14: keyfreq_log[0][20] = 0xd5, keyfreq_log[1][20] = 0x94; break;
-       default: keyfreq_log[0][20] = 0xd4, keyfreq_log[1][20] = 0x94; break;
+       default: keyfreq_log[0][20] = 0xd4, keyfreq_log[1][20] = 0x94; break; /* > 10 keys per sec */
       }
 
     if (timer_elapsed(last_keyfreq_update) < KEYFREQ_LOG_UPDATE_INTERVAL) return;
