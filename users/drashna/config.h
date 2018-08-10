@@ -12,9 +12,9 @@
                                 }
 
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
-#ifdef RGBLIGHT_ENABLE
-#define NO_MUSIC_MODE
-#endif //RGBLIGHT_ENABLE
+// #ifdef RGBLIGHT_ENABLE
+// #define NO_MUSIC_MODE
+// #endif //RGBLIGHT_ENABLE
 #endif
 
 #ifdef RGBLIGHT_ENABLE
