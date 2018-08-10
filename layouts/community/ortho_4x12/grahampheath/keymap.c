@@ -18,6 +18,7 @@ enum custom_keycodes {
   BUG,
   CONFUSED,
   CRY,
+  CLAP,
   FLIP,
   FNGLEFT,
   FNGRIGHT,
@@ -115,17 +116,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
  * │HYPR0│  Q  │ ;-) │  E  │  🤣 │ :-P │  Y  │  U  │:'-( │FLIP │  P  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- * │HYPR1│  👆 │SHRUG│  D  │ :-( │  G  │ <3  │ :-) │  k  │LLAP │  ;  │     │
+ * │HYPR1│  👆 │SHRUG│ GRIN│ :-( │  G  │ <3  │ :-) │  k  │LLAP │  ;  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- * │HYPR2│🎶x🎶│💭x💭│  C | :-\ │ 🐛  │  n  │ :-D │ SHIT│  .  │  /  │     │
+ * │HYPR2│🎶^🎶│💭^💭│ 👏 | :-\ │ 🐛  │  n  │ :-D │ SHIT│  .  │  /  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
  * │     │     │     │     │Brig-│   Sleep   │Brig+│ 👈  │ 👎  |  👍 │ 👉 │
  * └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
  */
 [_EMOJI] = LAYOUT_ortho_4x12(
   HYPR_0,  _______, WINK,    _______, ROFL,     TOUNGE,  _______, _______, CRY,     FLIP,    _______, _______ ,
-  HYPR_1,  ABOVE,   SHRUG,   _______, FROWN,    _______, HEART,   JOY,     _______, LLAP,    _______, _______ ,
-  HYPR_2,  SING,    THINK,   _______, CONFUSED, BUG, _______, GRIN,    SHIT,    _______, _______, _______ ,
+  HYPR_1,  ABOVE,   SHRUG,   GRIN,    FROWN,    _______, HEART,   JOY,     _______, LLAP,    _______, _______ ,
+  HYPR_2,  SING,    THINK,   CLAP,    CONFUSED, BUG,     _______, _______, SHIT,    _______, _______, _______ ,
   _______, _______, _______, _______, KC_SLCK,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT
 ),
 };
@@ -164,6 +165,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CRY:
       if (record->event.pressed) {
         SEND_STRING(":'-( ");
+      }
+      return false;
+      break;
+    case CLAP:
+      if (record->event.pressed) {
+        SEND_STRING("&clap; ");
       }
       return false;
       break;
