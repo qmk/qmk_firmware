@@ -2,7 +2,6 @@
 #include "crkbd.h"
 #include "ssd1306.h"
 #include "split_util.h"
-#include "LUFA/Drivers/Peripheral/TWI.h"
 
 #define L_BASE     0
 #define L_SYMB     (2 << (1 - 1))
@@ -22,8 +21,6 @@
 extern uint8_t is_master;
 
 void oled_init(void) {
-    // SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
     iota_gfx_init(!has_usb());   // turns on the display
 }
 
