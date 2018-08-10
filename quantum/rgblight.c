@@ -247,7 +247,7 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
       rgblight_timer_disable();
     #endif
   } else if ((rgblight_config.mode >= 2 && rgblight_config.mode <= 24) ||
-	     rgblight_config.mode == 35 ) {
+	     rgblight_config.mode == 35 || rgblight_config.mode == 36) {
     // MODE 2-5, breathing
     // MODE 6-8, rainbow mood
     // MODE 9-14, rainbow swirl
@@ -255,6 +255,7 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
     // MODE 21-23, knight
     // MODE 24, xmas
     // MODE 35  RGB test
+    // MODE 36, alterating
 
     #ifdef RGBLIGHT_ANIMATIONS
       rgblight_timer_enable();
@@ -591,6 +592,8 @@ void rgblight_task(void) {
     } else if (rgblight_config.mode == 35) {
       // mode = 35, RGB test
       rgblight_effect_rgbtest();
+    } else if (rgblight_config.mode == 36){
+      rgblight_effect_alternating();
     }
   }
 }
@@ -770,6 +773,27 @@ void rgblight_effect_rgbtest(void) {
   }
   rgblight_setrgb(r, g, b);
   pos = (pos + 1) % 3;
+}
+
+void rgblight_effect_alternating(void){
+  static uint16_t last_timer = 0;
+  static uint16_t pos = 0;
+  if (timer_elapsed(last_timer) < 500) {
+    return;
+  }
+  last_timer = timer_read();
+
+  for(int i = 0; i<RGBLED_NUM; i++){
+		  if(i<RGBLED_NUM/2 && pos){
+			  rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, i);
+		  }else if (i>=RGBLED_NUM/2 && !pos){
+			  rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, i);
+		  }else{
+			  rgblight_sethsv_at(rgblight_config.hue, rgblight_config.sat, 0, i);
+		  }
+  }
+  rgblight_set();
+  pos = (pos + 1) % 2;
 }
 
 #endif /* RGBLIGHT_ANIMATIONS */
