@@ -39,6 +39,7 @@
 #define _W_SY LT(_SY, UK_W)
 #define _COM_SY LT(_SY, UK_COMM)
 #define _AST_SY LT(_SY, UK_PAST)
+#define _RBR_SY LT(_SY, UK_RBRC)
 #define _B_NAV LT(_NAV, UK_B)
 #define _X_NAV LT(_NAV, UK_X)
 #define _K_NAV LT(_NAV, UK_K)
@@ -167,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH },
   { UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT   },
-  { UK_CIRC, UK_AMPR, _AST_SY, UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, _COM_SY, UK_RABK, UK_GRV  },
+  { UK_CIRC, UK_AMPR, _AST_SY, UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, _RBR_SY, UK_RABK, UK_GRV  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
 /*
