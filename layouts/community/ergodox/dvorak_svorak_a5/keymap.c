@@ -6,12 +6,13 @@
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MOUS 2 // mouse keys
+#define QWRT 3 // qwerty layout
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |   1  |   2  |   3  |   4  |   5  | ~MOUS|           |      |   6  |   7  |   8  |   9  |   0  |    +   |
+ * |        |   1  |   2  |   3  |   4  |   5  | ~MOUS|           | QWRT |   6  |   7  |   8  |   9  |   0  |    +   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |   Å  |   Ä  |   Ö  |   P  |   Y  |      |           |      |   F  |   G  |   C  |   R  |   L  |   ,    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -40,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                  KC_NO,
                                              KC_BSPC, KC_TAB,    KC_NO,
         // right hand
-        KC_NO,    KC_6,   KC_7,     KC_8,    KC_9,    KC_0,      NO_PLUS,
+        TG(QWRT), KC_6,   KC_7,     KC_8,    KC_9,    KC_0,      NO_PLUS,
         KC_NO,    KC_F,   KC_G,     KC_C,    KC_R,    KC_L,      KC_COMM,
                   KC_D,   KC_H,     KC_T,    KC_N,    KC_S,      NO_MINS,
         KC_NO,    KC_B,   KC_M,     KC_W,    KC_V,    KC_Z,      KC_RSFT,
@@ -54,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   {  |   }  |   [  |   ]  |   $  |      |           |      |   "  |   &  |   <  |   >  |      |        |
+ * |        |   {  |   }  |   [  |   ]  |   $  |      |           |      |   "  |   ?  |   &  |   <  |   >  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |   ;  |   /  |   (  |   )  |   |  |------|           |------|   #  |   ^  |   #  |   "  |   ~  |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
@@ -83,9 +84,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              KC_TRNS, KC_NO,   KC_NO,
        // right hand
        KC_NO, KC_NO,         KC_NO,       KC_NO,       KC_NO,       KC_NO,   KC_NO,
-       KC_NO, LSFT(KC_2),    LSFT(KC_6),  NO_LESS,     NO_GRTR,     KC_NO,   KC_NO,
+       KC_NO, LSFT(KC_2),    NO_QUES,     LSFT(KC_6),  NO_LESS,     NO_GRTR, KC_NO,
               KC_HASH,       NO_CIRC,     KC_HASH,     LSFT(KC_2),  NO_TILD, KC_NO,
-       KC_NO, KC_PERC,       NO_ACUT,     NO_APOS,     NO_ASTR,     KC_NO,   KC_NO,
+       KC_NO, KC_PERC,       NO_ACUT,     NO_APOS,     NO_ASTR,     NO_GRV,  KC_NO,
                              KC_NO,       KC_NO,       KC_NO,       KC_NO,   KC_NO,
        KC_NO, KC_NO,
        KC_NO,
@@ -132,6 +133,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_NO,
        KC_NO, KC_NO, KC_NO
 ),
+/* Keymap 3: QWERTY Layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * | Print  |   !  |  "   |  #   |  #   |  %   |      |           |Middle|   &  |  /   |  (   |  )   |  =   |  ?     |
+ * | Screen |   1  |  2 @ |  3 £ |  4 $ |  5   | F11  |           |Mouse |   6  |  7 { |  8 [ |  9 ] |  0 } |  + \   |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Tab    | Q    | W    | E    | R    | T    |      |           |      | Y    | U    | I    | O    | P    | Å      |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | CapsLk | A    | S    | D    | F    | G    |------|           |------| H    | J    | K    | L    | Ö    | Ä      |
+ * |--------+------+------+------+------+------| `    |           | Del  |------+------+------+------+------+--------|
+ * | LShft  | Z    | X    | C    | V    | B    |  '   |           |      | N    | M    | ,    | .    | -    | RShift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   | LCtl |  ^   | *    | LAlt | LGui |                                       | AltGr| Down |  Up  | Left | Right|
+ *   | (')  |  " ~ | '  ´ |      |      |                                       |      |      |      |      |      |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,--------------.
+ *                                        | LCtl | LAlt |       | Home |   End  |
+ *                                 ,------|------|------|       |------+-------+------.
+ *                                 |      |      |  ~   |       | PgUp |       |      |
+ *                                 | BSP  |  TAB |------|       |------| Enter | Space|
+ *                                 |      |      | Esc  |       | PgDn |       |      |
+ *                                 `--------------------'       `---------------------'
+ */
+[QWRT] = LAYOUT_ergodox(
+    // left hand
+    KC_PSCR,        KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     KC_TRNS,
+    KC_TAB,         KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,     KC_TRNS,
+    KC_CAPS,        KC_A,    KC_S,    KC_D,    KC_F,    KC_G,
+    KC_LSFT,        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,     NO_ACUT,
+    CTL_T(NO_APOS), NO_CIRC, NO_ASTR, KC_LALT, KC_LGUI,
+                                                        KC_LCTRL, KC_LALT,
+                                                                  NO_TILD,
+                                               KC_BSPC, KC_TAB,   KC_ESC,
+    // right hand
+    KC_TRNS,        KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     NO_PLUS,
+    KC_TRNS,        KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     NO_AA,
+                    KC_H,    KC_J,    KC_K,    KC_L,    NO_OSLH,  NO_AE,
+    KC_DELT,        KC_N,    KC_M,    KC_COMM, KC_DOT,  NO_MINS,  KC_RSFT,
+                             NO_ALGR, KC_DOWN, KC_UP,   KC_LEFT,  KC_RGHT,
+    KC_HOME,        KC_END,
+    KC_PGUP,
+    KC_PGDN,        KC_ENT, KC_SPACE
+),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -154,15 +198,16 @@ void matrix_scan_user(void) {
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
     switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
         case 1:
             ergodox_right_led_1_on();
             break;
         case 2:
             ergodox_right_led_2_on();
             break;
+        case 3:
+            ergodox_right_led_3_on();
+            break;
         default:
-            // none
             break;
     }
 
