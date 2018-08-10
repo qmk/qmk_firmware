@@ -159,12 +159,12 @@ void prepare_next_frame(void) {
 }
 
 void iota_gfx_task_user(void) {
-  update_keyfreq_log();
+  if (is_master) update_keyfreq_log();
   prepare_next_frame();
 }
 
 void oled_record_event(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
+    if (is_master && record->event.pressed) {
         keyfreq_count++;
     }
 }
