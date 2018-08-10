@@ -35,13 +35,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define CATERINA_BOOTLOADER     /* Use caterina bootloader to make RESET keycode available */
 #define PREVENT_STUCK_MODIFIERS /* Auto-restore layer when the layer key is released */
 
-#define MOUSEKEY_DELAY             32
+#define MOUSEKEY_DELAY             48
 #define MOUSEKEY_INTERVAL          24
 #define MOUSEKEY_MOVE_DELTA        3
 #define MOUSEKEY_MAX_SPEED         11 /* times faster than MOVE_DELTA */
 #define MOUSEKEY_TIME_TO_MAX       10
 
-#define MOUSEKEY_WHEEL_DELAY       48
+#define MOUSEKEY_WHEEL_DELAY       72
 #define MOUSEKEY_WHEEL_INTERVAL    72
 #define MOUSEKEY_WHEEL_DELTA       1
 #define MOUSEKEY_WHEEL_MAX_SPEED   1 /* times faster */
