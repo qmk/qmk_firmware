@@ -5,10 +5,10 @@
 
 // Define layer names
 enum userspace_layers {
-  gGK = 0,
-  _GK,
+  _GK = 0,
+  gGK,
   _QW,
-  ONE
+  ONE,
   SUB,
   SUP,
   NUM,
@@ -249,6 +249,6 @@ enum {
  * | LCTRL | LGUI | ALT  |gherkn| SUB  | SP/SH| SPACE| SUP  | RGUI | RALT | RGUI | CTRL  |
  * `-------------------------------------------------------------------------------------'
  */
- #define _______________One_Handed__3_______________
+ #define _______________One_Handed__3_______________	KC_LCTL, KC_LGUI, KC_LALT, GHERKIN, SUBTER,  SH_T(KC_SPC), KC_SPC,  SUPRA,   KC_RGUI, KC_RALT, KC_RGUI,  KC_RCTL
 
 #endif // !USERSPACE
