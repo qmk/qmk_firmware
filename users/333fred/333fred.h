@@ -1,5 +1,4 @@
-#ifndef FRED_333
-#define FRED_333
+#pragma once
 
 #include "quantum.h"
 
@@ -18,5 +17,3 @@ enum tap_dance_declarations {
 void tap_dance_layer_finished(qk_tap_dance_state_t*, void*);
 void tap_dance_layer_reset(qk_tap_dance_state_t*, void*);
 void tap_dance_process_record(uint16_t);
-
-#endif
