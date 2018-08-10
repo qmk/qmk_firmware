@@ -22,12 +22,16 @@ enum userspace_layer_codes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+#define MY_FESC  LT(_FUNCTN,  KC_ESC)
 #define MY_SSPC  MT(MOD_RSFT, KC_SPC)
 #define MY_SESC  MT(MOD_LSFT, KC_ESC)
+#define MY_SBSL  MT(MOD_LSFT, KC_NUBS)
 #define MY_CBSL  MT(MOD_LCTL, KC_NUBS)
 #define MY_SSCL  MT(MOD_RSFT, KC_SCLN)
+#define MY_ASCL  MT(MOD_LALT, KC_SCLN)
 #define MY_SQUO  MT(MOD_RSFT, KC_QUOT)
 #define MY_CENT  MT(MOD_RCTL, KC_ENT)
+#define MY_SENT  MT(MOD_RSFT, KC_ENT)
 #define MY_AMNU  MT(MOD_RALT, KC_APP)
 
 #define MY_TILD  S(KC_NUHS)
