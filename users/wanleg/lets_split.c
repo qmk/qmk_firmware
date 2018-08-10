@@ -1,6 +1,7 @@
 #include "lets_split.h"
 
 #ifdef SWAP_HANDS_ENABLE
+#ifndef KEYBOARD_gherkin
 __attribute__ ((weak))
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -13,4 +14,5 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
   {{0, 2}, {1, 2}, {2, 2}, {3, 2}, {4, 2}, {5, 2}},
   {{0, 3}, {1, 3}, {2, 3}, {3, 3}, {4, 3}, {5, 3}},
 };
+#endif
 #endif

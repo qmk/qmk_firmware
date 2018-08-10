@@ -3,8 +3,24 @@
 
 #include "quantum.h"
 
-// Define layer names
+// Define layer names and order
+#ifdef KEYBOARD_gherkin
 enum userspace_layers {
+  gGK = 0,
+  _GK,
+  _QW,
+  ONE,
+  SUB,
+  SUP,
+  NUM,
+  DIR,
+  ETC,
+  gNUM,
+  gDIR,
+  gETC
+};
+#else
+  enum userspace_layers {
   _GK = 0,
   gGK,
   _QW,
@@ -18,6 +34,7 @@ enum userspace_layers {
   gDIR,
   gETC
 };
+#endif
 
 enum userspace_custom_keycodes {
   gGHERKIN = SAFE_RANGE,

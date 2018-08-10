@@ -28,11 +28,4 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-//********** TESTING ****************//
-//when trying to type the rolling combo "zx" and z is configured to send Ctrl when hold,
-//z rapidly followed by x actually sends Ctrl-x. That's bad.
-//You can disable this behavior by defining IGNORE_MOD_TAP_INTERRUPT in config.h.
-#define IGNORE_MOD_TAP_INTERRUPT
-//********** TESTING ****************//
-
 #endif // !USERSPACE_CONFIG_H

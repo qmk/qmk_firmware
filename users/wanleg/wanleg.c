@@ -5,7 +5,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-// Defines actions tor my global custom keycodes. Defined in wanleg.h file
+// Defines actions for my global custom keycodes. Defined in wanleg.h file
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
