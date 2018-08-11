@@ -1,4 +1,4 @@
-Buswerks's 4x12 Ortholinear Layout
+Buswerks' 4x12 Ortholinear Layout
 ============================
 For use on Planck, Let's Split, and similar keyboards
 
