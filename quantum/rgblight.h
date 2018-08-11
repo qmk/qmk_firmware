@@ -114,6 +114,7 @@ uint32_t rgblight_get_raw(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
 void rgblight_update_dword(uint32_t dword);
+void rgblight_update_dword_noeeprom(uint32_t dword);
 void rgblight_increase_hue(void);
 void rgblight_decrease_hue(void);
 void rgblight_increase_sat(void);

@@ -185,6 +185,18 @@ void rgblight_update_dword(uint32_t dword) {
   }
 }
 
+void rgblight_update_dword_noeeprom(uint32_t dword) {
+  rgblight_config.raw = dword;
+  if (rgblight_config.enable)
+    rgblight_mode_noeeprom(rgblight_config.mode);
+  else {
+    #ifdef RGBLIGHT_ANIMATIONS
+      rgblight_timer_disable();
+    #endif
+      rgblight_set();
+  }
+}
+
 void rgblight_increase(void) {
   uint8_t mode = 0;
   if (rgblight_config.mode < RGBLIGHT_MODES) {
