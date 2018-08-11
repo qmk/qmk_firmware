@@ -131,7 +131,7 @@ void keyboard_slave_loop(void) {
                 }
                 
                 // Update the RGB now with the new data and set RGB_DIRTY to false
-                rgblight_update_dword(dword);
+                rgblight_update_dword_noeeprom(dword);
                 RGB_DIRTY = false;
                 // Re-enable interupts now that RGB is set
                 sei();
