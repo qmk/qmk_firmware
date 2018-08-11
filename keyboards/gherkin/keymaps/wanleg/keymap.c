@@ -206,13 +206,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
    * | mLeft  | mDown  | mRight |        | SHIFT  | mBtn3  | mBtn1  | mBtn2  |  ;     |  '     |
    * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
-   * | Sft//Cp|        |        |        |        | C-A-D  |        |        | ALT    |  DEL   |
+   * | Sft//Cp|        |        |        |        | C-A-D  | mLeft  | mRight | ALT    |  DEL   |
    * '-----------------------------------------------------------------------------------------'
    */
   [ETC] = LAYOUT_ortho_3x10( /* ETC */
     KC_GRV,  KC_MS_U, _______, _______, RESET,   KC_RSFT, KC_WH_U, KC_WH_D, _______, KC_BSLS,
     KC_MS_L, KC_MS_D, KC_MS_R, _______, KC_LSFT, KC_BTN3, KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT,
-    TD(TD_SFT_CAPS), _______, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, KC_LALT, KC_DEL
+    TD(TD_SFT_CAPS), _______, _______, _______, _______, LALT(LCTL(KC_DEL)), KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
   ),
 
 };
