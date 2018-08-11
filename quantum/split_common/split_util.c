@@ -61,9 +61,10 @@ static void keyboard_master_setup(void) {
   serial_master_init();
 #endif
 
-    // For master the Backlight info needs to be sent on startup
-    // Otherwise the salve won't start with the proper info until an update
-    BACKLIT_DIRTY = true;
+  // For master the backlight and rgblight info needs to be sent on startup
+  // Otherwise the slave won't start with the proper info until an update
+  BACKLIT_DIRTY = true;
+  RGB_DIRTY = true;
 }
 
 static void keyboard_slave_setup(void) {
