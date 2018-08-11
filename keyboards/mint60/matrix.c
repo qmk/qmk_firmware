@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "split_util.h"
 #include "pro_micro.h"
 
-#ifdef USE_MATRIX_I2C
+#ifdef USE_I2C
 #  include "i2c.h"
 #else // USE_SERIAL
 #  include "serial.h"
@@ -143,7 +143,7 @@ uint8_t _matrix_scan(void)
     return 1;
 }
 
-#ifdef USE_MATRIX_I2C
+#ifdef USE_I2C
 
 // Get rows from other half over i2c
 int i2c_transaction(void) {
@@ -225,7 +225,7 @@ uint8_t matrix_master_scan(void) {
 #ifndef KEYBOARD_helix_rev1
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
-#ifdef USE_MATRIX_I2C
+#ifdef USE_I2C
 //    for (int i = 0; i < ROWS_PER_HAND; ++i) {
         /* i2c_slave_buffer[i] = matrix[offset+i]; */
 //        i2c_slave_buffer[i] = matrix[offset+i];
@@ -237,7 +237,7 @@ uint8_t matrix_master_scan(void) {
 #endif
 #endif
 
-#ifdef USE_MATRIX_I2C
+#ifdef USE_I2C
     if( i2c_transaction() ) {
 #else // USE_SERIAL
     if( serial_transaction() ) {
@@ -268,7 +268,7 @@ void matrix_slave_scan(void) {
 
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
-#ifdef USE_MATRIX_I2C
+#ifdef USE_I2C
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         /* i2c_slave_buffer[i] = matrix[offset+i]; */
         i2c_slave_buffer[i] = matrix[offset+i];

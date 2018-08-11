@@ -1,5 +1,5 @@
 /*
-Copyright 2018 REPLACE_WITH_YOUR_NAME
+Copyright 2018 Eucalyn
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,16 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
-
-/* Use I2C or Serial */
-#define USE_I2C
-#define USE_SERIAL
-//#define USE_MATRIX_I2C
-
-/* Select hand configuration */
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
 
 /* key matrix size */
 #define MATRIX_ROWS 10

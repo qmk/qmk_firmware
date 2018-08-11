@@ -2,7 +2,6 @@ SRC += i2c.c \
 	   serial.c \
 		 matrix.c \
  	   split_util.c \
- 	   ws2812.c
 
 # MCU name
 #MCU = at90usb1286
