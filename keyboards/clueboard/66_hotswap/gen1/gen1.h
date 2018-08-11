@@ -1,4 +1,5 @@
 #pragma once
+#include "quantum.h"
 
 /* Clueboard matrix layout
  * ,-----------------------------------------------------------.  ,---.
