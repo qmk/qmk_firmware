@@ -47,24 +47,35 @@ KEYBOARD_PATH_3 := keyboards/$(KEYBOARD_FOLDER_PATH_3)
 KEYBOARD_PATH_4 := keyboards/$(KEYBOARD_FOLDER_PATH_4)
 KEYBOARD_PATH_5 := keyboards/$(KEYBOARD_FOLDER_PATH_5)
 
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/rules.mk)","")
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/)","")
     KEYBOARD_PATHS += $(KEYBOARD_PATH_5)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/)","")
+    KEYBOARD_PATHS += $(KEYBOARD_PATH_4)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/)","")
+    KEYBOARD_PATHS += $(KEYBOARD_PATH_3)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/)","")
+    KEYBOARD_PATHS += $(KEYBOARD_PATH_2)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/)","")
+    KEYBOARD_PATHS += $(KEYBOARD_PATH_1)
+endif
+
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/rules.mk)","")
     include $(KEYBOARD_PATH_5)/rules.mk
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_4)/rules.mk)","")
-    KEYBOARD_PATHS += $(KEYBOARD_PATH_4)
     include $(KEYBOARD_PATH_4)/rules.mk
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_3)/rules.mk)","")
-    KEYBOARD_PATHS += $(KEYBOARD_PATH_3)
     include $(KEYBOARD_PATH_3)/rules.mk
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_2)/rules.mk)","")
-    KEYBOARD_PATHS += $(KEYBOARD_PATH_2)
     include $(KEYBOARD_PATH_2)/rules.mk
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
-    KEYBOARD_PATHS += $(KEYBOARD_PATH_1)
     include $(KEYBOARD_PATH_1)/rules.mk
 endif
 
