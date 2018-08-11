@@ -282,17 +282,17 @@ This is a reference only. Each group of keys links to the page documenting their
 |`OUT_BT`  |Bluetooth only                                |
 
 
-## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
+## [Switching and Toggling Layers](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
-|Key         |Description                                                               |
-|-----------------|---------------------------------------------------------------------|
-|`DF(layer)`      |Switches the default layer                                           |
-|`MO(layer)`      |Momentarily activates layer, switches off when you let go            |
-|`LM(layer, mod)` |Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action_code.h#L204).  Example Implementation: `LM(LAYER_1, 0x04)`                                   |
-|`LT(layer, kc)`  |Momentarily activates layer if held, sends kc if tapped              |
-|`TG(layer)`      |Toggles the layer (enables it if no active, and vise versa)          |
-|`TO(layer)`      |Activates layer and deactivates all other layers                     |
-|`TT(layer)`      |Momentarily activates layer if held, toggles it if tapped repeatedly |
+|Key             |Description                                                                       |
+|----------------|----------------------------------------------------------------------------------|
+|`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
+|`TO(layer)`     |Turn on `layer` when pressed                                                      |
+|`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
+|`DF(layer)`     |Set the base (default) layer                                                      |
+|`TG(layer)`     |Toggle `layer` on or off                                                          |
+|`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](https://docs.qmk.fm/#/feature_advanced_keycodes?id=mod-tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 
 ## [Mouse Keys](feature_mouse_keys.md)
 
@@ -428,17 +428,6 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`                |
 |`KC_QUESTION`           |`KC_QUES`          |`?`                |
 
-## [Switching and Toggling Layers](feature_advanced_keycodes.md#switching-and-toggling-layers)
-
-|Key             |Description                                                                       |
-|----------------|----------------------------------------------------------------------------------|
-|`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
-|`TO(layer)`     |Turn on `layer` when pressed                                                      |
-|`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`DF(layer)`     |Set the base (default) layer                                                      |
-|`TG(layer)`     |Toggle `layer` on or off                                                          |
-|`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action_code.h#L204).  Example Implementation: `LM(LAYER_1, 0x04)`                 |
 
 ## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
 
