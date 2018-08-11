@@ -42,6 +42,8 @@ Changing the **Value** sets the overall brightness.
 
 ## Keycodes
 
+All these keycodes will write the config to EEPROM:
+
 |Key                |Aliases   |Description                                                         |
 |-------------------|----------|--------------------------------------------------------------------|
 |`RGB_TOG`          |          |Toggle RGB lighting on or off                                       |
@@ -144,13 +146,15 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 |`rgblight_disable_noeeprom()`      |Turn LEDs off (not written to EEPROM)                                                                                                                                  |
 |`rgblight_mode(x)`                 |Set the mode, if RGB animations are enabled                                                                                                                            |
 |`rgblight_mode_noeeprom(x)`        |Set the mode, if RGB animations are enabled (not written to EEPROM)                                                                                                    |
-|`rgblight_setrgb(r, g, b)`         |Set all LEDs to the given RGB value where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM)                                                                    |
-|`rgblight_setrgb_at(r, g, b, led)` |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `led` is between 0 and `RGBLED_NUM` (not written to EEPROM)                       |
 |`rgblight_sethsv(h, s, v)`         |Set all LEDs to the given HSV value where `h` is between 0 and 360 and `s`/`v` are between 0 and 255                                                                   |
 |`rgblight_sethsv_noeeprom(h, s, v)`|Set all LEDs to the given HSV value where `h` is between 0 and 360 and `s`/`v` are between 0 and 255 (not written to EEPROM)                                           |
 |`rgblight_sethsv_at(h, s, v, led)` |Set a single LED to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255, and `led` is between 0 and `RGBLED_NUM` (not written to EEPROM)|
+|`rgblight_setrgb(r, g, b)`         |Set all LEDs to the given RGB value where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM)                                                                    |
+|`rgblight_setrgb_at(r, g, b, led)` |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `led` is between 0 and `RGBLED_NUM` (not written to EEPROM)                       |
 
 Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h) defines several predefined shortcuts for various colors. Feel free to add to this list!
+
+?> The `rgblight_setrgb` functions are an exception, as they neither write to memory nor to EEPROM, but _only_ to the RGB LEDs. They are called by the `rgblight_sethsv` functions after the conversion from HSV to RGB (and writing to EEPROM, if any). All other functions write to memory.
 
 ## Hardware Modification
 
