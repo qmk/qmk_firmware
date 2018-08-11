@@ -13,4 +13,6 @@ case $(uname) in
 	MSYS_NT*|MINGW64_NT*|MINGW32_NT*)
 		exec "${util_dir}/msys2_install.sh"
 	;;
+  *)
+    echo "Environment not support. Pleas see https://docs.qmk.fm for details on how to configure the QMK Firmware build tools"
 esac
