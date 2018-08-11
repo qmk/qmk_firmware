@@ -1,5 +1,4 @@
 #pragma once
-#include "66_hotswap.h"
 
 /* Clueboard matrix layout
  * ,-----------------------------------------------------------.  ,---.
