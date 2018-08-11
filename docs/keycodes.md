@@ -282,7 +282,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`OUT_BT`  |Bluetooth only                                |
 
 
-## [Switching and Toggling Layers](feature_advanced_keycodes.md#switching-and-toggling-layers)
+## [Changing Layers](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
 |Key             |Description                                                                       |
 |----------------|----------------------------------------------------------------------------------|
