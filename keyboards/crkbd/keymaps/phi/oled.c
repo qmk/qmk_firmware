@@ -13,7 +13,7 @@
 #define MOD_ALT (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))
 #define MOD_GUI (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 
-#define KEYFREQ_LOG_UPDATE_INTERVAL 15000 /* 15sec - 5min */
+#define KEYFREQ_LOG_UPDATE_INTERVAL 9000 /* 9sec x 20 = 180sec (3min) */
 #define SCREEN_FRAME_INTERVAL 55 /* 18fps */
 #define ANIMATION_ENABLE
 
@@ -78,7 +78,7 @@ static char keyfreq_log[2][21] = {
 
 void update_keyfreq_log(void) {
     if (keyfreq_count)
-      switch (keyfreq_count / 10) {
+      switch (keyfreq_count / ((KEYFREQ_LOG_UPDATE_INTERVAL / 1000) * 10 / 15)) {
        case 0: keyfreq_log[1][20] = 0x9b; break;
        case 1: keyfreq_log[1][20] = 0x9a; break;
        case 2: keyfreq_log[1][20] = 0x99; break;
