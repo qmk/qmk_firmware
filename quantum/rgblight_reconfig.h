@@ -2,7 +2,7 @@
 #define RGBLIGHT_RECONFIG_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-   // for backword compatibility
+   // for backward compatibility
    #define RGBLIGHT_EFFECT_BREATHING
    #define RGBLIGHT_EFFECT_RAINBOW_MOOD
    #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
@@ -29,7 +29,7 @@
     defined(RGBLIGHT_EFFECT_ALTERNATING)
   #define RGBLIGHT_USE_TIMER
   #ifndef RGBLIGHT_ANIMATIONS
-    #define RGBLIGHT_ANIMATIONS  // for backword compatibility
+    #define RGBLIGHT_ANIMATIONS  // for backward compatibility
   #endif
 #endif
 
