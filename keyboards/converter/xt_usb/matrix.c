@@ -33,6 +33,23 @@ static uint8_t matrix[MATRIX_ROWS];
 #define ROW(code)      (code>>3)
 #define COL(code)      (code&0x07)
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
 
 void matrix_init(void)
 {
@@ -42,7 +59,7 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
-    return;
+    matrix_init_quantum();
 }
 
 // convert E0-escaped codes into unused area
@@ -164,6 +181,7 @@ uint8_t matrix_scan(void)
         default:
             state = INIT;
     }
+    matrix_scan_quantum();
     return 1;
 }
 

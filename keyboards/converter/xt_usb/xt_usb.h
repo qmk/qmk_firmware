@@ -14,12 +14,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef XT_USB_H
-#define XT_USB_H
+#pragma once
 
 #include "quantum.h"
-
-void matrix_init_user(void);
 
 /* IBM XT keyboard layout
  * ,-------.  ,--------------------------------------------------------------------------.
@@ -46,7 +43,7 @@ void matrix_init_user(void);
  * | 43| 44|  |  38   |              39                      |  3A   |  52   |  53   |   |
  * `-------'  `--------------------------------------------------------------------------'
  */
-#define KEYMAP_XT( \
+#define LAYOUT_xt( \
     K3B,K3C,  K01,K02,K03,K04,K05,K06,K07,K08,K09,K0A,K0B,K0C,K0D,K0E,    K45,    K46, \
     K3D,K3E,  K0F,K10,K11,K12,K13,K14,K15,K16,K17,K18,K19,K1A,K1B,    K47,K48,K49,K4A, \
     K3F,K40,  K1D,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K28,K29,K1C,K4B,K4C,K4D,     \
@@ -107,7 +104,7 @@ void matrix_init_user(void);
  * e: E0-escaped codes
  * *: special handling codes
  */
-#define KEYMAP( \
+#define LAYOUT( \
             K64,K65,K66,K67,K68,K69,K6A,K6B,K6C,K6D,K6E,K76,                                     \
     K01,    K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K57,K58,      K54,K46,K55,      K5D,K5E,K5F, \
     K29,K02,K03,K04,K05,K06,K07,K08,K09,K0A,K0B,K0C,K0D,K7D,K0E,  K71,K74,K77,  K45,K7F,K37,K4A, \
@@ -133,5 +130,3 @@ void matrix_init_user(void);
     { K70, K71, K72, K73, K74, K75, K76, K77 }, \
     { K78, K79, K7A, K7B, K7C, K7D, K7E, K7F }  \
 }
-
-#endif
