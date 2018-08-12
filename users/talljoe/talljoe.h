@@ -66,7 +66,7 @@ enum tap_dancers {
 #define CTL_ESC   CTL_T(KC_ESC)
 #define US_ENT    RCTL_T(KC_ENT)
 #define US_MINS   RCTL_T(KC_QUOT)
-#define US_BSLS   LT(_NUM, KC_BSLS)
+#define US_BSLS   LCA_T(KC_BSLS)
 #define US_SCLN   TD(TD_SEMICOLON)
 #define US_GRV    TD(TD_GRAVE)
 #define US_QUOT   TD(TD_QUOTE)

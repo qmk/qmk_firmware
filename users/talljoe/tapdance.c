@@ -8,11 +8,13 @@ enum {
   DOUBLE_HOLD = 4,
   DOUBLE_SINGLE_TAP = 5, //send two single taps
   TRIPLE_TAP = 6,
-  TRIPLE_HOLD = 7
+  TRIPLE_HOLD = 7,
+  SPECIAL = 8
 };
 
 static struct {
   int quote;
+  int semicolon;
 } tap_state = {0};
 
 int cur_dance (qk_tap_dance_state_t *state) {
@@ -21,7 +23,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
     if (state->interrupted) {
       //     if (!state->pressed) return SINGLE_TAP;
       //need "permissive hold" here.
-      //     else return SINsGLE_HOLD;
+      //     else return SINGLE_HOLD;
       //If the interrupting key is released before the tap-dance key, then it is a single HOLD
       //However, if the tap-dance key is released first, then it is a single TAP
       //But how to get access to the state of the interrupting key????
@@ -41,7 +43,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
   }
   else if ((state->count == 3) && ((state->interrupted) || (!state->pressed))) return TRIPLE_TAP;
   else if (state->count == 3) return TRIPLE_HOLD;
-  else return 8; //magic number. At some point this method will expand to work for more presses
+  else return SPECIAL;
 }
 
 int hold_cur_dance (qk_tap_dance_state_t *state) {
@@ -65,30 +67,34 @@ int hold_cur_dance (qk_tap_dance_state_t *state) {
     if (!state->pressed) return TRIPLE_TAP;
     else return TRIPLE_HOLD;
   }
-  else return 8; //magic number. At some point this method will expand to work for more presses
+  else return SPECIAL;
 }
 
 // Send semi-colon + enter on two taps
-void tap_dance_semicolon_each(qk_tap_dance_state_t *state, void *user_data) {
-    switch(state->count) {
-    case 1:
-      SEND_STRING(";");
-      break;
-    default: // two or more taps
-    {
-      uint8_t mods = get_mods();
-      if (mods) {
-        clear_mods();
+void tap_dance_semicolon_finished(qk_tap_dance_state_t *state, void *user_data) {
+  tap_state.semicolon = hold_cur_dance(state);
+  switch (tap_state.semicolon) {
+    case SINGLE_TAP: case DOUBLE_HOLD: register_code(KC_SCLN); break;
+    case SINGLE_HOLD: layer_on(_NUM); break;
+  }
+}
+
+void tap_dance_semicolon_reset(qk_tap_dance_state_t *state, void *user_data) {
+  switch (tap_state.semicolon) {
+    case SINGLE_TAP: case DOUBLE_HOLD: unregister_code(KC_SCLN); break;
+    case DOUBLE_TAP: {
+      if (get_mods()) {
+        SEND_STRING(";;"); // send normal when mods are pressed
       }
-
-      SEND_STRING("\n");
-
-      if (mods) {
-        set_mods(mods);
+      else {
+        SEND_STRING(";\n");
       }
       break;
     }
+    case TRIPLE_TAP: layer_invert(_NUM); break;
+    case SINGLE_HOLD: layer_off(_NUM); break;
   }
+  tap_state.semicolon = 0;
 }
 
 // Send `. ~. ```
@@ -131,7 +137,7 @@ void tap_dance_quote_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_SEMICOLON] = ACTION_TAP_DANCE_FN_ADVANCED(tap_dance_semicolon_each, NULL, NULL),
+  [TD_SEMICOLON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_semicolon_finished, tap_dance_semicolon_reset),
   [TD_GRAVE]     = ACTION_TAP_DANCE_FN_ADVANCED(tap_dance_grave_each, tap_dance_grave_finished, NULL),
   [TD_QUOTE]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_quote_finished, tap_dance_quote_reset),
 };

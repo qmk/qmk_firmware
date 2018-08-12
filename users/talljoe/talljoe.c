@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NUM] = TEMPLATE_NUM(
       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
       KC_GRV , KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_PMNS, XXXXXXX, KC_DEL ,
-      CTL_ESC, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_LBRC, KC_RBRC, KC_4,    KC_5,    KC_6,    KC_PPLS, KC_PENT,          KC_ENT ,
+      CTL_ESC, KC_LBRC, KC_RBRC, KC_LPRN, KC_RPRN, KC_LCBR, KC_RCBR, KC_4,    KC_5,    KC_6,    KC_PPLS, KC_PENT,          KC_ENT ,
       KC_LSFT, KC_EQL,  KC_PLUS, KC_MINS, KC_UNDS, KC_SCLN, TG_NUM , KC_1,    KC_2,    KC_3,    KC_PAST,          KC_PSLS, XXXXXXX,
       KC_LCTL, KC_LGUI, KC_LALT,                   NM_SPC2, NM_SPC1, NM_SPC3,                   KC_PDOT, KC_PCMM, KC_RCTL, KC_PTT ),
  // Adjust layer is on the split-shift key; or NAV+Enter (for non-split keyboards)
