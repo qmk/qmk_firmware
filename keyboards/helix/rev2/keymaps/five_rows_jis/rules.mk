@@ -41,79 +41,17 @@ Link_Time_Optimization = no # if firmware size over limit, try this option
 ####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
 ####    Do not enable these with audio at the same time.
 
-### Helix keyboard 'default' keymap: convenient command line option
-##    make HELIX=<options> helix:defualt
+### Helix keyboard 'five_rows_jis' keymap: convenient command line option
+##    make HELIX=<options> helix:five_rows
 ##    option= oled | back | under | na | ios
 ##    ex.
-##      make HELIX=oled          helix:defualt
-##      make HELIX=oled,back     helix:defualt
-##      make HELIX=oled,under    helix:defualt
-##      make HELIX=oled,back,na  helix:defualt
-##      make HELIX=oled,back,ios helix:defualt
+##      make HELIX=oled          helix:five_rows_jis
+##      make HELIX=oled,back     helix:five_rows_jis
+##      make HELIX=oled,under    helix:five_rows_jis
+##      make HELIX=oled,back,na  helix:five_rows_jis
+##      make HELIX=oled,back,ios helix:five_rows_jis
 ##
-ifneq ($(strip $(HELIX)),)
-  ifeq ($(findstring oled,$(HELIX)), oled)
-    OLED_ENABLE = yes
-  endif
-  ifeq ($(findstring back,$(HELIX)), back)
-    LED_BACK_ENABLE = yes
-  else ifeq ($(findstring under,$(HELIX)), under)
-    LED_UNDERGLOW_ENABLE = yes
-  endif
-  ifeq ($(findstring na,$(HELIX)), na)
-    LED_ANIMATIONS = no
-  endif
-  ifeq ($(findstring ios,$(HELIX)), ios)
-    IOS_DEVICE_ENABLE = yes
-  endif
-  $(eval $(call HELIX_CUSTOMISE_MSG))
-  $(info )
-endif
-
-# Uncomment these for checking
-#   jp: コンパイル時にカスタマイズの状態を表示したい時はコメントをはずします。
-# $(eval $(call HELIX_CUSTOMISE_MSG))
-# $(info )
-
-ifneq ($(strip $(HELIX_ROWS)), 4)
-  ifneq ($(strip $(HELIX_ROWS)), 5)
-    $(error HELIX_ROWS = $(strip $(HELIX_ROWS)) is unexpected value)
-  endif
-endif
-OPT_DEFS += -DHELIX_ROWS=$(strip $(HELIX_ROWS))
-
-ifeq ($(strip $(LED_BACK_ENABLE)), yes)
-  RGBLIGHT_ENABLE = yes
-  OPT_DEFS += -DRGBLED_BACK
-  ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
-    $(eval $(call HELIX_CUSTOMISE_MSG))
-    $(error LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE both 'yes')
-  endif
-else ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
-  RGBLIGHT_ENABLE = yes
-else
-  RGBLIGHT_ENABLE = no
-endif
-
-ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
-    OPT_DEFS += -DIOS_DEVICE_ENABLE
-endif
-
-ifeq ($(strip $(LED_ANIMATIONS)), yes)
-    OPT_DEFS += -DRGBLIGHT_ANIMATIONS
-endif
-
-ifeq ($(strip $(OLED_ENABLE)), yes)
-    OPT_DEFS += -DOLED_ENABLE
-endif
-
-ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
-    OPT_DEFS += -DLOCAL_GLCDFONT
-endif
-
-ifeq ($(strip $(Link_Time_Optimization)),yes)
-    EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
-endif
+include $(dir $(lastword $(MAKEFILE_LIST)))../../keymaps_common.mk
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
