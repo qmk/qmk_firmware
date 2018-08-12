@@ -22,22 +22,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x3060
+#define VENDOR_ID       0x4131
+#define PRODUCT_ID      0x5141
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Wootpatoot
-#define PRODUCT         Lets Split v1
-#define DESCRIPTION     A split keyboard for the cheap makers
+#define MANUFACTURER    XeaLouS
+#define PRODUCT         XeaL60
+#define DESCRIPTION     A split keyboard 
 
 /* key matrix size */
 // Rows are doubled-up
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 10
+#define MATRIX_COLS 8
 
 // wiring of each half
-#define MATRIX_ROW_PINS { B5, B4, E6, D7 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3 }
-// #define MATRIX_COL_PINS { B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
+//ascii art of pro micro
+//        PORT          
+//PD3 TX0        RAW    
+//PD2 RX1        GND
+//    GND        RESET
+//    GND        VCC
+//PD1 2          A3  PF4
+//PD0 3          A2  PF5
+//PD4 4          A1  PF6
+//PC6 5          A0  PF7
+//PD7 6          15  PB1
+//PE6 7          14  PB3
+//PB4 8          13  PB2
+//PB5 9          10  PB6
+
+#define MATRIX_ROW_PINS { B5, B4, E6, D7, C6 }
+#define MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5 }
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -57,13 +71,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
-
-/* ws2812 RGB LED */
-#define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
-#define RGBLED_NUM 16    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 /*
  * Feature disable options
