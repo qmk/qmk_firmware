@@ -13,7 +13,7 @@
 #define MOD_ALT (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))
 #define MOD_GUI (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 
-#define KEYFREQ_LOG_UPDATE_INTERVAL 9000 /* 9sec x 20 = 180sec (3min) */
+#define KEYFREQ_LOG_UPDATE_INTERVAL 12000 /* 12sec x 20 = 240sec (4min) */
 #define SCREEN_FRAME_INTERVAL 55 /* 18fps */
 #define ANIMATION_ENABLE
 
