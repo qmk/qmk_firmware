@@ -56,6 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef AUDIO_ENABLE
 #define C6_AUDIO
+#ifdef RGBLIGHT_ENABLE
+#define NO_MUSIC_MODE
+#endif
 #endif //AUDIO_ENABLE
 
 #undef PRODUCT
