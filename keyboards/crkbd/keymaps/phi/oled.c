@@ -161,7 +161,7 @@ void prepare_next_frame(void) {
         matrix_return(&matrix);
         matrix_write(&matrix, saku_nami[0]);
         matrix_return(&matrix);
-        matrix_write_range(&matrix, saku_nami[1], animation_frame / 4, 120);
+        matrix_write_range(&matrix, saku_nami[1], 6 - animation_frame / 4, 120);
         set_overwrite_mode(false);
     }
 
