@@ -49,6 +49,10 @@ float clicky_song[][2]  = {{440.0f, 3}, {440.0f, 1}}; // 3 and 1 --> durations
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
+// mod tap definitions:
+#define CTRL_ESC MT(MOD_LCTL, KC_ESC)
+#define HYPR_SPC MT(MOD_HYPR, KC_SPC)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -63,10 +67,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_ortho_4x12(
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,                 KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
-  KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,  KC_G,                 KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,                 KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
-  KC_ESC,  KC_DEL,  KC_LGUI, KC_LALT, LOWER, MT(MOD_HYPR, KC_SPC), KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+  KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
+  CTRL_ESC, KC_A,    KC_S,    KC_D,    KC_F,  KC_G,     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+  KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
+  KC_MPLY,  KC_DEL,  KC_LGUI, KC_LALT, LOWER, HYPR_SPC, KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
 ),
 
 
@@ -200,6 +204,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+void encoder_update(bool clockwise) {
+  if (clockwise) {
+    register_code(KC_PGDN);
+    unregister_code(KC_PGDN);
+  } else {
+    register_code(KC_PGUP);
+    unregister_code(KC_PGUP);
+  }
+}
 
 // clicky implementation:
 #ifdef AUDIO_ENABLE
