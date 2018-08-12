@@ -143,7 +143,7 @@ void prepare_next_frame(void) {
         matrix_write_ln(&matrix, taiyo_and_grid[1]);
         matrix_write_ln(&matrix, taiyo_and_grid[2]);
         matrix_write(&matrix, saku_nami[0]);
-        matrix_reset_cursor(&matrix);
+        matrix_return(&matrix);
         matrix_write_range(&matrix, saku_nami[1], animation_frame / 4, 120);
         set_overwrite_mode(false);
     } else {
@@ -158,9 +158,9 @@ void prepare_next_frame(void) {
         matrix_write_range_ln(&matrix, palm[0], 12 - animation_frame / 2, 120);
         matrix_write_range_ln(&matrix, palm[1], 12 - animation_frame / 2, 120);
         matrix_write_range(&matrix, palm[2], 12 - animation_frame / 2, 120);
-        matrix_reset_cursor(&matrix);
+        matrix_return(&matrix);
         matrix_write(&matrix, saku_nami[0]);
-        matrix_reset_cursor(&matrix);
+        matrix_return(&matrix);
         matrix_write_range(&matrix, saku_nami[1], animation_frame / 4, 120);
         set_overwrite_mode(false);
     }
