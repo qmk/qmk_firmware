@@ -19,8 +19,6 @@ enum custom_keycodes {
 // Fillers to make layering more clear
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define NP_STAR KC_KP_ASTERISK
-#define NP_SLSH KC_KP_SLASH
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*
@@ -61,11 +59,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Layer 1: Numpad */
   [_NUMPAD] = LAYOUT_split60( \
-    _______,  _______,  _______, _______,  _______,  _______,  _______,  _______,    NP_SLSH,  NP_STAR,    KC_MINUS,  _______, _______,  KC_BSPC, \
-    _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_7,    KC_8,       KC_9,    KC_PLUS,  _______, _______,   KC_BSLS, \
-    _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_4,    KC_5,       KC_6,    KC_BSPC, _______,          _______,  \
-    _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_1,    KC_2,       KC_3,    KC_DOT,                   _______,   \
-    _______,  _______,  _______,  QWERTY,           KC_SPC,                 KC_0,  KC_DOT,      RAISE,    _______, _______  \
+    _______,  _______,  _______, _______,  _______,  _______,  _______,  _______,    KC_PSLS,  KC_PAST,    KC_MINUS,  _______, _______,  KC_BSPC, \
+    _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_7,    KC_8,        KC_9,    KC_PLUS,  _______, _______,   KC_BSLS, \
+    _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_4,    KC_5,        KC_6,    KC_BSPC, _______,          _______,  \
+    _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_1,    KC_2,        KC_3,    KC_DOT,                   _______,   \
+    _______,  _______,  _______,  QWERTY,           KC_SPC,                 KC_0,  KC_DOT,       RAISE,    _______, _______  \
   ),
 
 /*
