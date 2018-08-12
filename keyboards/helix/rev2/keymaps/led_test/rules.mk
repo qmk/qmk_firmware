@@ -41,6 +41,8 @@ Link_Time_Optimization = no # if firmware size over limit, try this option
 ####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
 ####    Do not enable these with audio at the same time.
 
+SRC += led_test_init.c
+
 ### Helix keyboard 'default' keymap: convenient command line option
 ##    make HELIX=<options> helix:defualt
 ##    option= oled | back | under | na | ios
@@ -114,8 +116,6 @@ endif
 ifeq ($(strip $(Link_Time_Optimization)),yes)
     EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
 endif
-
-SRC += led_test_init.c
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
