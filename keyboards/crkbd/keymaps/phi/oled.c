@@ -81,29 +81,29 @@ char saku_nami_r[2][21] = {
 };
 
 char keyfreq_log[2][21] = {
-  { 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc, 0xdc },
-  { 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c, 0x9c }
+  { 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6, 0xa6 },
+  { 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6, 0xc6 }
 };
 
 void update_keyfreq_log(void) {
     if (keyfreq_count)
       switch (keyfreq_count / ((KEYFREQ_LOG_UPDATE_INTERVAL / 1000) * 10 / 15)) {
-       case 0: keyfreq_log[1][20] = 0x9b; break;
-       case 1: keyfreq_log[1][20] = 0x9a; break;
-       case 2: keyfreq_log[1][20] = 0x99; break;
-       case 3: keyfreq_log[1][20] = 0x98; break;
-       case 4: keyfreq_log[1][20] = 0x97; break;
-       case 5: keyfreq_log[1][20] = 0x96; break;
-       case 6: keyfreq_log[1][20] = 0x95; break;
-       case 7: keyfreq_log[1][20] = 0x94; break;
-       case 8: keyfreq_log[0][20] = 0xdb, keyfreq_log[1][20] = 0x94; break;
-       case 9: keyfreq_log[0][20] = 0xda, keyfreq_log[1][20] = 0x94; break;
-       case 10: keyfreq_log[0][20] = 0xd9, keyfreq_log[1][20] = 0x94; break;
-       case 11: keyfreq_log[0][20] = 0xd8, keyfreq_log[1][20] = 0x94; break;
-       case 12: keyfreq_log[0][20] = 0xd7, keyfreq_log[1][20] = 0x94; break;
-       case 13: keyfreq_log[0][20] = 0xd6, keyfreq_log[1][20] = 0x94; break;
-       case 14: keyfreq_log[0][20] = 0xd5, keyfreq_log[1][20] = 0x94; break;
-       default: keyfreq_log[0][20] = 0xd4, keyfreq_log[1][20] = 0x94; break; /* > 10 keys per sec */
+       case 0: keyfreq_log[1][20] = 0xc7; break;
+       case 1: keyfreq_log[1][20] = 0xc8; break;
+       case 2: keyfreq_log[1][20] = 0xc9; break;
+       case 3: keyfreq_log[1][20] = 0xca; break;
+       case 4: keyfreq_log[1][20] = 0xcb; break;
+       case 5: keyfreq_log[1][20] = 0xcc; break;
+       case 6: keyfreq_log[1][20] = 0xcd; break;
+       case 7: keyfreq_log[1][20] = 0xce; break;
+       case 8: keyfreq_log[0][20] = 0xa7, keyfreq_log[1][20] = 0xce; break;
+       case 9: keyfreq_log[0][20] = 0xa8, keyfreq_log[1][20] = 0xce; break;
+       case 10: keyfreq_log[0][20] = 0xa9, keyfreq_log[1][20] = 0xce; break;
+       case 11: keyfreq_log[0][20] = 0xaa, keyfreq_log[1][20] = 0xce; break;
+       case 12: keyfreq_log[0][20] = 0xab, keyfreq_log[1][20] = 0xce; break;
+       case 13: keyfreq_log[0][20] = 0xac, keyfreq_log[1][20] = 0xce; break;
+       case 14: keyfreq_log[0][20] = 0xad, keyfreq_log[1][20] = 0xce; break;
+       default: keyfreq_log[0][20] = 0xae, keyfreq_log[1][20] = 0xce; break; /* > 10 keys per sec */
       }
 
     if (timer_elapsed(last_keyfreq_update) < KEYFREQ_LOG_UPDATE_INTERVAL) return;
@@ -115,8 +115,8 @@ void update_keyfreq_log(void) {
       keyfreq_log[0][i] = keyfreq_log[0][i + 1];
       keyfreq_log[1][i] = keyfreq_log[1][i + 1];
     }
-    keyfreq_log[0][20] = 0xdc;
-    keyfreq_log[1][20] = 0x9c;
+    keyfreq_log[0][20] = 0xa6;
+    keyfreq_log[1][20] = 0xc6;
 }
 
 void prepare_next_frame(void) {
