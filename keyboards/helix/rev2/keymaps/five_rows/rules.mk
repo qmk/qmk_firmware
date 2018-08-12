@@ -26,10 +26,11 @@ define HELIX_CUSTOMISE_MSG
   $(info -  IOS_DEVICE_ENABLE=$(IOS_DEVICE_ENABLE))
 endef
 
+HELIX_ROWS = 5              # Helix keymap five_rows's Rows only 5
+
 # Helix keyboard customize
-# you can edit follows 7 Variables
-#  jp: 以下の7つの変数を必要に応じて編集します。
-HELIX_ROWS = 5              # Helix Rows is 4 or 5
+# you can edit follows 6 Variables
+#  jp: 以下の6つの変数を必要に応じて編集します。
 OLED_ENABLE = no            # OLED_ENABLE
 LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" instead of "common/glcdfont.c"
 LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
@@ -40,6 +41,10 @@ Link_Time_Optimization = no # if firmware size over limit, try this option
 
 ####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
 ####    Do not enable these with audio at the same time.
+
+ifneq ($(strip $(HELIX_ROWS)), 5)
+  $(error HELIX_ROWS = $(strip $(HELIX_ROWS)) is unexpected value)
+endif
 
 ### Helix keyboard 'five_rows' keymap: convenient command line option
 ##    make HELIX=<options> helix:five_rows
@@ -76,9 +81,9 @@ endif
 # $(info )
 
 ifneq ($(strip $(HELIX_ROWS)), 4)
-ifneq ($(strip $(HELIX_ROWS)), 5)
-$(error HELIX_ROWS = $(strip $(HELIX_ROWS)) is unexpected value)
-endif
+  ifneq ($(strip $(HELIX_ROWS)), 5)
+    $(error HELIX_ROWS = $(strip $(HELIX_ROWS)) is unexpected value)
+  endif
 endif
 OPT_DEFS += -DHELIX_ROWS=$(strip $(HELIX_ROWS))
 
