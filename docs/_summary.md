@@ -44,8 +44,8 @@
   * [PS/2 Mouse](feature_ps2_mouse.md)
   * [RGB Lighting](feature_rgblight.md)
   * [RGB Matrix](feature_rgb_matrix.md)
-  * [Space Cadet Shift](feature_space_cadet.md)
-  * [Space Cadet Shift Enter](feature_space_shift_cadet.md)
+  * [Space Cadet Shift](feature_space_cadet_shift.md)
+  * [Space Cadet Shift Enter](feature_space_cadet_shift_enter.md)
   * [Stenography](feature_stenography.md)
   * [Swap Hands](feature_swap_hands.md)
   * [Tap Dance](feature_tap_dance.md)
@@ -68,11 +68,10 @@
   * [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
   * [RGB Light](feature_rgblight.md#rgblight-keycodes)
   * [RGB Matrix](feature_rgb_matrix.md#keycodes)
-  * [Shifted Keys](feature_advanced_keycodes.md#shifted-keycodes)
+  * [Shifted Keys](keycodes_us_ansi_shifted.md)
   * [Stenography](feature_stenography.md#keycode-reference)
   * [Swap Hands](feature_swap_hands.md#swap-keycodes)
   * [Thermal Printer](feature_thermal_printer.md#thermal-printer-keycodes)
-  * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
 * Reference
   * [Config Options](config_options.md)

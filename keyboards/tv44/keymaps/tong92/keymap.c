@@ -7,18 +7,37 @@
   #include "backlight.h"
 #endif
 
+extern keymap_config_t keymap_config;
+
+enum tv44_layers {
+  _WINDOW,
+  _MAC,
+  _LOWER,
+  _RAISE,
+  _WINDOW_SHORTCUT,
+  _MAC_SHORTCUT,
+  _MOUSE
+};
+
+enum tv44_keycodes {
+  WINDOW = SAFE_RANGE,
+  MAC,
+  MOUSE,
+  BACKLIT,
+  EXT_MOUSE
+};
+
 // Fillers to make layering more clear
 #define _______ KC_TRNS
-#define LOWER F(1)
-#define RAISE F(2)
-#define FTN MO(4)
-#define MOUSE M(10)
-#define GO_DEFT M(99)
+#define LOWER F(_LOWER)
+#define RAISE F(_RAISE)
 #define XXXXXXX KC_NO
+#define WINDOW_SHORTCUT MO(_WINDOW_SHORTCUT)
+#define MAC_SHORTCUT MO(_MAC_SHORTCUT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Qwerty
+/* Window - Qwerty
  * ,--------------------------------------------------------------------------.
  * | Tab  |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  Bksp |
  * |------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-------|
@@ -26,14 +45,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`------|
  * | Shift  |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  | /   |Shift|
  * |--------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----|
- * | Ftn1 |  GUI  | Alt  | Space/LOWER | Space/RAISE |  '   |  [  |  ]  | Alt |
+ * | Ft   |  GUI  | Alt  | Space/LOWER | Space/RAISE |  '   |  [  |  ]  | Alt |
  * `--------------------------------------------------------------------------'
  */
-[0] = LAYOUT_arrow(
+[_WINDOW] = LAYOUT_arrow(
 KC_TAB, KC_Q,   KC_W,   KC_E, KC_R,   KC_T,   KC_Y,   KC_U, KC_I,   KC_O,   KC_P,   KC_BSPC,
 KC_LCTL,KC_A,   KC_S,   KC_D, KC_F,   KC_G,   KC_H,   KC_J, KC_K,   KC_L,   KC_SCLN,KC_ENT,
 KC_LSFT,KC_Z,   KC_X,   KC_C, KC_V,   KC_B,   KC_N,   KC_M, KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,
-FTN,    KC_LGUI,KC_LALT,              LOWER,  RAISE,        KC_QUOT,KC_LBRC,KC_RBRC,KC_RALT
+WINDOW_SHORTCUT,    KC_LGUI,KC_LALT,              LOWER,  RAISE,        KC_QUOT,KC_LBRC,KC_RBRC,KC_RALT
+),
+/* Mac - Qwerty
+ * ,--------------------------------------------------------------------------.
+ * | Tab  |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I  |  O  |  P  |  Bksp |
+ * |------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-------|
+ * | Cmd   |  A  |  S  |  D  |  F  |  G  |  H  |  J  |  K  |  L  |  ;  | Enter|
+ * |-------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`------|
+ * | Shift  |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  | /   |Shift|
+ * |--------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----|
+ * | Ft   |  Alt | Ctrl  | Space/LOWER | Space/RAISE |  '   |  [  |  ]  | Alt |
+ * `--------------------------------------------------------------------------'
+ */
+[_MAC] = LAYOUT_arrow(
+KC_TAB, KC_Q,   KC_W,   KC_E, KC_R,   KC_T,   KC_Y,   KC_U, KC_I,   KC_O,   KC_P,   KC_BSPC,
+KC_LGUI,KC_A,   KC_S,   KC_D, KC_F,   KC_G,   KC_H,   KC_J, KC_K,   KC_L,   KC_SCLN,KC_ENT,
+KC_LSFT,KC_Z,   KC_X,   KC_C, KC_V,   KC_B,   KC_N,   KC_M, KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,
+MAC_SHORTCUT,    KC_LALT, KC_LCTRL,              LOWER,  RAISE,        KC_QUOT,KC_LBRC,KC_RBRC,KC_RALT
 ),
 /* LOWER
  * ,--------------------------------------------------------------------------.
@@ -46,7 +82,7 @@ FTN,    KC_LGUI,KC_LALT,              LOWER,  RAISE,        KC_QUOT,KC_LBRC,KC_R
  * |      |       |      |             |             |  END | LEFT| Down|RIGHT|
  * `--------------------------------------------------------------------------'
  */
-[1] = LAYOUT_arrow(
+[_LOWER] = LAYOUT_arrow(
 KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   _______,
 _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_MINS,KC_PLUS,KC_LBRC,KC_RBRC,KC_BSLS,
 _______,KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, XXXXXXX,KC_HOME,KC_PGUP,KC_UP  ,KC_PGDN,
@@ -63,13 +99,13 @@ XXXXXXX,_______,_______,                _______,XXXXXXX,        KC_END, KC_LEFT,
  * |      |       |      |             |             |  END | LEFT| Down|RIGHT|
  * `--------------------------------------------------------------------------'
  */
-[2] = LAYOUT_arrow(
+[_RAISE] = LAYOUT_arrow(
 KC_TILD,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,_______,
 _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_UNDS,KC_EQL, KC_LCBR,KC_RCBR,KC_PIPE,
 _______,KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, _______,KC_HOME,KC_PGUP,KC_UP  ,KC_PGDN,
 XXXXXXX,_______,_______,                _______,_______,        KC_END, KC_LEFT,KC_DOWN,KC_RIGHT
 ),
-/* FTN
+/* Window Shortcut
  * ,--------------------------------------------------------------------------.
  * |  ESC |WinOf|WinUp|     |     |Sh+Ca|     | PgUp| UP  | PgDo|PrtSc| DELET |
  * |------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-------|
@@ -80,11 +116,28 @@ XXXXXXX,_______,_______,                _______,_______,        KC_END, KC_LEFT,
  * |      | DeskL | DeskR| Task Manager|    DeskX    | MOUSE|     |     | LED |
  * `--------------------------------------------------------------------------'
  */
-[4] = LAYOUT_arrow(
+[_WINDOW_SHORTCUT] = LAYOUT_arrow(
 KC_ESC ,LALT(KC_F4)        ,LGUI(KC_UP)         ,XXXXXXX       ,XXXXXXX,S(KC_CAPS)         ,XXXXXXX          ,KC_PGUP,KC_UP  ,KC_PGDN ,KC_PSCR,KC_DELT,
 _______,LGUI(KC_LEFT)      ,LGUI(KC_DOWN)       ,LGUI(KC_RIGHT),XXXXXXX,LALT(KC_CAPS)      ,KC_CAPS          ,KC_LEFT,KC_DOWN,KC_RIGHT,XXXXXXX,XXXXXXX,
 _______,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),XXXXXXX       ,XXXXXXX,LCTL(KC_CAPS)      ,KC_SLCK          ,KC_HOME,XXXXXXX,KC_END  ,XXXXXXX,KC_RCTL,
-_______,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),                       LCTL(LALT(KC_DELT)),LGUI(LCTL(KC_F4)),        MOUSE  ,XXXXXXX ,XXXXXXX,M(0)
+_______,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),                       LCTL(LALT(KC_DELT)),LGUI(LCTL(KC_F4)),        MOUSE  ,XXXXXXX ,XXXXXXX,BACKLIT
+),
+/* Mac Shortcut
+ * ,--------------------------------------------------------------------------.
+ * |  ESC |CmdUp|CmdDo|     |     |     |     | PgUp| UP  | PgDo|PrtSc| DELET |
+ * |------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-------|
+ * |       |WBlkL|WBlkR|     |ScrFu|     |CapsL| LEFT| DOWN|RIGHT|     |      |
+ * |-------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`------|
+ * |        |BlckL|BlckR|     |     |     |     | HOME|     | END |     | Ctrl|
+ * |--------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----|
+ * |      |       |      |             |             | MOUSE|     |     | LED |
+ * `--------------------------------------------------------------------------'
+ */
+[_MAC_SHORTCUT] = LAYOUT_arrow(
+KC_ESC ,LGUI(KC_UP)        ,LGUI(KC_DOWN)         ,XXXXXXX       ,XXXXXXX,XXXXXXX         ,XXXXXXX          ,KC_PGUP,KC_UP  ,KC_PGDN ,KC_PSCR,KC_DELT,
+_______,LALT(LSFT(KC_LEFT))      ,LALT(LSFT(KC_RIGHT))       ,XXXXXXX,LGUI(LCTL(KC_F)),XXXXXXX      ,KC_CAPS          ,KC_LEFT,KC_DOWN,KC_RIGHT,XXXXXXX,XXXXXXX,
+_______,LGUI(LSFT(KC_LEFT)),LGUI(LSFT(KC_RIGHT)),XXXXXXX       ,XXXXXXX,XXXXXXX     ,XXXXXXX          ,KC_HOME,XXXXXXX,KC_END  ,XXXXXXX,KC_RCTL,
+_______,_______,_______, _______,_______,        MOUSE  ,XXXXXXX ,XXXXXXX,BACKLIT
 ),
 /* MOUSE
  * ,--------------------------------------------------------------------------.
@@ -92,45 +145,61 @@ _______,LGUI(LCTL(KC_LEFT)),LGUI(LCTL(KC_RIGHT)),                       LCTL(LAL
  * |------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-------|
  * |       |     |Mo_Le|Mo_Do|Mo_Ri|     |     |M_Bt1|M_WhD|M_Bt2|     |      |
  * |-------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`------|
- * |        |     |     |     |     |     |     |M_AC0|M_AC1|M_AC2|     |     |
+ * |        |     |     |     |     |     |     |M_AC0|M_AC1|M_AC2|     |WINDO|
  * |--------`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----`-----|
- * |      |      |      | GO_DEFAULT  |  GO_DEFAULT |       |     |     |     |
+ * |      |      |      | GO_DEFAULT  |  GO_DEFAULT |       |     |     | MAC |
  * `--------------------------------------------------------------------------'
  */
-[10] = LAYOUT_arrow(
+[_MOUSE] = LAYOUT_arrow(
 XXXXXXX,XXXXXXX,XXXXXXX,KC_MS_U,XXXXXXX,XXXXXXX,XXXXXXX,KC_WH_L,KC_WH_U,KC_WH_R,XXXXXXX,RESET,
 XXXXXXX,XXXXXXX,KC_MS_L,KC_MS_D,KC_MS_R,XXXXXXX,XXXXXXX,KC_BTN1,KC_WH_D,KC_BTN2,XXXXXXX,XXXXXXX,
-XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,XXXXXXX,
-XXXXXXX,XXXXXXX,XXXXXXX,                GO_DEFT,GO_DEFT,        XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX
+XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,KC_ACL0,KC_ACL1,KC_ACL2,XXXXXXX,WINDOW,
+XXXXXXX,XXXXXXX,XXXXXXX,                EXT_MOUSE,EXT_MOUSE,        XXXXXXX,XXXXXXX,XXXXXXX,MAC
 )
 };
 
 const uint16_t PROGMEM fn_actions[] = {
- [1] = ACTION_LAYER_TAP_KEY(1, KC_SPC),
- [2] = ACTION_LAYER_TAP_KEY(2, KC_SPC)
+ [_LOWER] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),
+ [_RAISE] = ACTION_LAYER_TAP_KEY(_RAISE, KC_SPC)
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case 0:
-            if (record->event.pressed) {
-                #ifdef BACKLIGHT_ENABLE
-                    backlight_step();
-                #endif
-            }
-        break;
-        case 10:
-            if (record->event.pressed) {
-                layer_on(10);
-            }
-        break;
-        case 99:
-            if (record->event.pressed) {
-                layer_off(10);
-                layer_off(4);
-            }
-        break;
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch(keycode) {
+    case WINDOW:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_WINDOW);
       }
-    return MACRO_NONE;
+      return false;
+      break;
+    case MAC:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_MAC);
+      }
+      return false;
+      break;
+    case BACKLIT:
+      if (record->event.pressed) {
+        #ifdef BACKLIGHT_ENABLE
+          backlight_step();
+        #endif
+      }
+      return false;
+      break;
+    case MOUSE:
+      if (record->event.pressed) {
+        layer_on(_MOUSE);
+      }
+      return false;
+      break;
+    case EXT_MOUSE:
+      if (record->event.pressed) {
+        layer_off(_MOUSE);
+        layer_off(_WINDOW_SHORTCUT);
+        layer_off(_MAC_SHORTCUT);
+      }
+      return false;
+      break;
+  }
+  return true;
 };
+
