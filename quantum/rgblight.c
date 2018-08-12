@@ -579,53 +579,53 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
 
 void rgblight_task(void) {
   if (rgblight_timer_enabled) {
-    // mode = 1, static light, do nothing here
+    // static light mode, do nothing here
     if ( 1 == 0 ) { //dummy
     }
 #ifdef RGBLIGHT_EFFECT_BREATHING
     else if (rgblight_config.mode >= RGBLIGHT_MODE_BREATHING  &&
         rgblight_config.mode <= RGBLIGHT_MODE_BREATHING_end) {
-      // mode = 2 to 5, breathing mode
+      // breathing mode
       rgblight_effect_breathing(rgblight_config.mode - RGBLIGHT_MODE_BREATHING );
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
     else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_MOOD &&
                rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_MOOD_end) {
-      // mode = 6 to 8, rainbow mood mod
+      // rainbow mood mode
       rgblight_effect_rainbow_mood(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_MOOD);
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
     else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SWIRL &&
                rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SWIRL_end) {
-      // mode = 9 to 14, rainbow swirl mode
+      // rainbow swirl mode
       rgblight_effect_rainbow_swirl(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_SWIRL);
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_SNAKE
     else if (rgblight_config.mode >= RGBLIGHT_MODE_SNAKE &&
                rgblight_config.mode <= RGBLIGHT_MODE_SNAKE_end) {
-      // mode = 15 to 20, snake mode
+      // snake mode
       rgblight_effect_snake(rgblight_config.mode - RGBLIGHT_MODE_SNAKE);
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_KNIGHT
     else if (rgblight_config.mode >= RGBLIGHT_MODE_KNIGHT &&
                rgblight_config.mode <= RGBLIGHT_MODE_KNIGHT_end) {
-      // mode = 21 to 23, knight mode
+      // knight mode
       rgblight_effect_knight(rgblight_config.mode - RGBLIGHT_MODE_KNIGHT);
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_CHRISTMAS
     else if (rgblight_config.mode == RGBLIGHT_MODE_CHRISTMAS) {
-      // mode = 24, christmas mode
+      // christmas mode
       rgblight_effect_christmas();
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RGB_TEST
     else if (rgblight_config.mode == RGBLIGHT_MODE_RGB_TEST) {
-      // mode = 35, RGB test
+      // RGB test mode
       rgblight_effect_rgbtest();
     }
 #endif
