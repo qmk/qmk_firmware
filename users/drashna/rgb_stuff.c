@@ -313,7 +313,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
       rgblight_mode_noeeprom(5);
       break;
     case _LOWER:
-      rgblight_sethsv_noeeprom_orange();
+      rgblight_sethsv_noeeprom_green();
       rgblight_mode_noeeprom(5);
       break;
     case _ADJUST:

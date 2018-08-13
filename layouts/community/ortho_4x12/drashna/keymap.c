@@ -154,7 +154,7 @@ void rgb_matrix_indicators_user(void) {
     case _RAISE:
       rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
     case _LOWER:
-      rgb_matrix_layer_helper(0xFF, 0x80, 0x00, false); break;
+      rgb_matrix_layer_helper(0x00, 0xFF, 0x00, false); break;
     case _ADJUST:
       rgb_matrix_layer_helper(0xFF, 0x00, 0x00, false); break;
     default:
