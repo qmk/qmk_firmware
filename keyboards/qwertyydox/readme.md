@@ -1,7 +1,7 @@
 QWERTYYdox
 ====
 
-![QWERTYYdox](https://imgur.com/gallery/Pwwb0Q0)
+![QWERTYYdox](https://imgur.com/OBLNjzO)
 
 
 A split ergo 4x7 keyboard with 3 thumb keys and 2 Y keys.
