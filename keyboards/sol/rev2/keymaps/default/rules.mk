@@ -9,6 +9,7 @@ CONSOLE_ENABLE = yes        # Console for debug(+400)
 COMMAND_ENABLE = no         # Commands for debug and configuration
 NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+RGBLIGHT_FULL_POWER = no    # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
@@ -24,6 +25,7 @@ define HELIX_CUSTOMISE_MSG
   $(info -  LED_ANIMATION=$(LED_ANIMATIONS))
   $(info -  IOS_DEVICE_ENABLE=$(IOS_DEVICE_ENABLE))
 endef
+
 
 # Helix keyboard customize
 # you can edit follows 7 Variables
@@ -112,6 +114,12 @@ endif
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
     SRC += rev2/knob_v2.c
+endif
+
+ifeq ($(strip $(RGBLIGHT_FULL_POWER)), yes)
+    OPT_DEFS += -DRGBLIGHT_FULL_POWER
+else ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
+    OPT_DEFS += -DIOS_DEVICE_ENABLE
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
