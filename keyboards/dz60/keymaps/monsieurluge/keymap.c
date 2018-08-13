@@ -30,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
      * │   shift   │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │shift│XXXXX│ up  │ fn2 │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     * │ ctrl │  os  │ alt  │     fn1      │ fn3  │     space      │ alt │ctrl │left │down │right│
+     * │ ctrl │  os  │ alt  │     fn1      │ fn3  │  space/shift   │ alt │ctrl │left │down │right│
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
     */
     LAYOUT(
@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
      * │   shift   │  W  │  Y  │  G  │  ,  │  Z  │  X  │  .  │  F  │  H  │shift│XXXXX│ up  │ fn2 │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     * │ ctrl │  os  │ alt  │     fn1      │ fn3  │     space      │ alt │ctrl │left │down │right│
+     * │ ctrl │  os  │ alt  │     fn1      │ fn3  │  space/shift   │ alt │ctrl │left │down │right│
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
     */
     LAYOUT(
