@@ -13,14 +13,14 @@
 
 /** \brief Default Layer State
  */
-uint32_t default_layer_state = 0;
+layer_state_t default_layer_state = 0;
 
 /** \brief Default Layer State Set At Keyboard Level
  *
  * FIXME: Needs docs
  */
 __attribute__((weak))
-uint32_t default_layer_state_set_kb(uint32_t state) {
+layer_state_t default_layer_state_set_kb(layer_state_t state) {
     return state;
 }
 
@@ -28,7 +28,7 @@ uint32_t default_layer_state_set_kb(uint32_t state) {
  *
  * FIXME: Needs docs
  */
-static void default_layer_state_set(uint32_t state)
+static void default_layer_state_set(layer_state_t state)
 {
     state = default_layer_state_set_kb(state);
     debug("default_layer_state: ");
@@ -51,7 +51,7 @@ void default_layer_debug(void)
  *
  * FIXME: Needs docs
  */
-void default_layer_set(uint32_t state)
+void default_layer_set(layer_state_t state)
 {
     default_layer_state_set(state);
 }
@@ -61,7 +61,7 @@ void default_layer_set(uint32_t state)
  *
  * FIXME: Needs docs
  */
-void default_layer_or(uint32_t state)
+void default_layer_or(layer_state_t state)
 {
     default_layer_state_set(default_layer_state | state);
 }
@@ -69,7 +69,7 @@ void default_layer_or(uint32_t state)
  *
  * FIXME: Needs docs
  */
-void default_layer_and(uint32_t state)
+void default_layer_and(layer_state_t state)
 {
     default_layer_state_set(default_layer_state & state);
 }
@@ -77,7 +77,7 @@ void default_layer_and(uint32_t state)
  *
  * FIXME: Needs docs
  */
-void default_layer_xor(uint32_t state)
+void default_layer_xor(layer_state_t state)
 {
     default_layer_state_set(default_layer_state ^ state);
 }
@@ -87,14 +87,14 @@ void default_layer_xor(uint32_t state)
 #ifndef NO_ACTION_LAYER
 /** \brief Keymap Layer State
  */
-uint32_t layer_state = 0;
+layer_state_t layer_state = 0;
 
 /** \brief Layer state set user
  *
  * FIXME: Needs docs
  */
 __attribute__((weak))
-uint32_t layer_state_set_user(uint32_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     return state;
 }
 
@@ -103,7 +103,7 @@ uint32_t layer_state_set_user(uint32_t state) {
  * FIXME: Needs docs
  */
 __attribute__((weak))
-uint32_t layer_state_set_kb(uint32_t state) {
+layer_state_t layer_state_set_kb(layer_state_t state) {
     return layer_state_set_user(state);
 }
 
@@ -111,7 +111,7 @@ uint32_t layer_state_set_kb(uint32_t state) {
  *
  * FIXME: Needs docs
  */
-void layer_state_set(uint32_t state)
+void layer_state_set(layer_state_t state)
 {
     state = layer_state_set_kb(state);
     dprint("layer_state: ");
@@ -143,7 +143,7 @@ bool layer_state_is(uint8_t layer)
  *
  * FIXME: Needs docs
  */
-bool layer_state_cmp(uint32_t cmp_layer_state, uint8_t layer) {
+bool layer_state_cmp(layer_state_t cmp_layer_state, uint8_t layer) {
     if (!cmp_layer_state) { return layer == 0; }
     return (cmp_layer_state & (1UL<<layer)) != 0;
 }
@@ -188,7 +188,7 @@ void layer_invert(uint8_t layer)
  *
  * FIXME: Needs docs
  */
-void layer_or(uint32_t state)
+void layer_or(layer_state_t state)
 {
     layer_state_set(layer_state | state);
 }
@@ -196,7 +196,7 @@ void layer_or(uint32_t state)
  *
  * FIXME: Needs docs
  */
-void layer_and(uint32_t state)
+void layer_and(layer_state_t state)
 {
     layer_state_set(layer_state & state);
 }
@@ -204,7 +204,7 @@ void layer_and(uint32_t state)
  *
  * FIXME: Needs docs
  */
-void layer_xor(uint32_t state)
+void layer_xor(layer_state_t state)
 {
     layer_state_set(layer_state ^ state);
 }
@@ -294,7 +294,7 @@ int8_t layer_switch_get_layer(keypos_t key)
     action_t action;
     action.code = ACTION_TRANSPARENT;
 
-    uint32_t layers = layer_state | default_layer_state;
+    layer_state_t layers = layer_state | default_layer_state;
     /* check top layer first */
     for (int8_t i = 31; i >= 0; i--) {
         if (layers & (1UL<<i)) {
