@@ -1,0 +1,11 @@
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
+
+#define MIDI_BASIC
+
+#define USE_SERIAL
+
+#define EE_HANDS
+
+#undef BACKLIGHT_LEVELS
+#define BACKLIGHT_LEVELS 8
