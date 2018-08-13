@@ -1,4 +1,6 @@
 /*
+This is the c configuration file for the keymap
+
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
 
@@ -16,9 +18,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
-#include "config_common.h"
+#include "../../config.h"
 
-#endif
+// place overrides here
+
+#endif /* CONFIG_USER_H */

@@ -16,8 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV2_CONFIG_H
-#define REV2_CONFIG_H
+#ifndef REV1_CONFIG_H
+#define REV1_CONFIG_H
 
 #include "../config.h"
 

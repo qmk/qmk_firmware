@@ -1,5 +1,5 @@
-#ifndef REV2_H
-#define REV2_CONFIG_H
+#ifndef REV1_H
+#define REV1_CONFIG_H
 
 #include "../sol.h"
 
