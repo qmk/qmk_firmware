@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "split_util.h"
-#include "pro_micro.h"
+#include <drivers/avr/pro_micro.h>
 #include "config.h"
 
 #ifdef USE_MATRIX_I2C

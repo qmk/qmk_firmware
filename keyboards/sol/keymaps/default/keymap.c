@@ -1,15 +1,14 @@
 #include QMK_KEYBOARD_H
 #include "bootloader.h"
-#include "rev2.h"
 #ifdef ENCODER_ENABLE
-#include "knob_v2.h"
+#include "common/knob_v2.h"
 #endif
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
 #endif
 #ifdef SSD1306OLED
-  #include "ssd1306.h"
+  #include "common/ssd1306.h"
 #endif
 
 extern keymap_config_t keymap_config;

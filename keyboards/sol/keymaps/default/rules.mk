@@ -7,8 +7,9 @@ MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
 EXTRAKEY_ENABLE = no        # Audio control and System control(+450)
 CONSOLE_ENABLE = yes        # Console for debug(+400)
 COMMAND_ENABLE = no         # Commands for debug and configuration
-NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
-BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality
+NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
+RGBLIGHT_FULL_POWER = no    # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
 MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
@@ -114,7 +115,7 @@ endif
 
 ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
-    SRC += rev2/knob_v2.c
+    SRC += common/knob_v2.c
 endif
 
 ifeq ($(strip $(RGBLIGHT_FULL_POWER)), yes)
@@ -133,4 +134,3 @@ endif
 # Uncomment these for debugging
 # $(info -- RGBLIGHT_ENABLE=$(RGBLIGHT_ENABLE))
 # $(info -- OPT_DEFS=$(OPT_DEFS))
-# $(info )
