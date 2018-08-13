@@ -110,17 +110,12 @@ void serial_master_init(void) {
 void serial_slave_init(void) {
   serial_input_with_pullup();
 
-#ifndef USE_SERIAL_PD3
-  // Enable INT0
-  EIMSK |= _BV(INT3);
-  // Trigger on falling edge of INT0
-  EICRA &= ~(_BV(ISC30) | _BV(ISC31));
-#else
-  // Enable INT3
-  EIMSK |= _BV(INT3);
-  // Trigger on falling edge of INT2
-  EICRA &= ~(_BV(ISC30) | _BV(ISC31));
-#endif
+
+// Enable INT3
+EIMSK |= _BV(INT3);
+// Trigger on falling edge of INT3
+EICRA &= ~(_BV(ISC30) | _BV(ISC31));
+
 }
 
 // Used by the sender to synchronize timing with the reciver.
