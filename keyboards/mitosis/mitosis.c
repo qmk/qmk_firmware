@@ -30,7 +30,7 @@ void led_set_kb(uint8_t usb_led) {
 
 }
 
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 {{9, 0}, {8, 0}, {7, 0}, {6, 0}, {5, 0}, {4, 0}, {3, 0}, {2, 0}, {1, 0}, {0, 0}},

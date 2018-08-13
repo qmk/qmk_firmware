@@ -1,6 +1,6 @@
 # Setting up Eclipse for QMK Development
 
-[Eclipse](https://en.wikipedia.org/wiki/Eclipse_(software)) is an open-source [Integrated Development Environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE) widely used for Java development, but with an extensible plugin system that allows to customize it for other languages and usages.
+[Eclipse][1] is an open-source [Integrated Development Environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE) widely used for Java development, but with an extensible plugin system that allows to customize it for other languages and usages.
 
 Using an IDE such as Eclipse provides many advantages over a plain text editor, such as:
 * intelligent code completion
@@ -17,7 +17,7 @@ Note that this set-up has been tested on Ubuntu 16.04 only for the moment.
 
 # Prerequisites
 ## Build Environment
-Before starting, you must have followed the [Getting Started](home.md#getting-started) section corresponding to your system. In particular, you must have been able to build the firmware with [the `make` command](../#the-make-command).
+Before starting, you must have followed the [Getting Started](README.md#getting-started) section corresponding to your system. In particular, you must have been able to build the firmware with [the `make` command](../#the-make-command).
 
 ## Java
 Eclipse is a Java application, so you will need to install Java 8 or more recent to be able to run it. You may choose between the JRE or the JDK, the latter being useful if you intend to do Java development.
@@ -84,3 +84,5 @@ We will now configure a make target that cleans the project and builds the keyma
 7. (Optional) Toggle the <kbd>Hide Empty Folders</kbd> icon button above the targets tree to only show your build target.
 8. Double-click the build target you created to trigger a build.
 9. Select the <kbd>Console</kbd> view at the bottom to view the running build.
+
+  [1]: https://en.wikipedia.org/wiki/Eclipse_(software)

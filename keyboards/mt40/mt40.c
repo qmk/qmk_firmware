@@ -38,6 +38,7 @@ void rgblight_set(void) {
 }
 
 __attribute__ ((weak))
-void matrix_scan_user(void) {
+void matrix_scan_kb(void) {
     rgblight_task();
+    matrix_init_user();
 }

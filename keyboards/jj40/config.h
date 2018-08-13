@@ -34,8 +34,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B6
-#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 12
+// #define BACKLIGHT_BREATHING  // works, but BL_TOGG might not work
 
 #define TAPPING_TOGGLE 3
 
@@ -45,7 +45,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
 // The same pin is used on the JJ40, at least.
 #define RGBLED_NUM 5
-#define RGB_DI_PIN E2
+#define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
 #define RGBLIGHT_ANIMATIONS
 
 /* key combination for command */
