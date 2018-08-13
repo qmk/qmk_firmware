@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RGBKB
 #define PRODUCT         Sol
-#define DESCRIPTION     An RGB, split, ortho-esque keyboard
+#define DESCRIPTION     "An RGB, split, ortho-esque keyboard"
 
 
 #define PREVENT_STUCK_MODIFIERS
@@ -105,32 +105,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLIGHT_RAINBOW_SWIRL_RANGE 1950
 
-// #ifndef IOS_DEVICE_ENABLE
-//   #if RGBLED_NUM <= 6
-//     #define RGBLIGHT_LIMIT_VAL 255
-//   #else
-//     #if HELIX_ROWS == 4
-//       #define RGBLIGHT_LIMIT_VAL 255
-//     #else
-//       #define RGBLIGHT_LIMIT_VAL 255
-//     #endif
-//   #endif
-//   #define RGBLIGHT_VAL_STEP 17
-// #else
-//   #if RGBLED_NUM <= 6
-//     #define RGBLIGHT_LIMIT_VAL 255
-//   #else
-//     #if HELIX_ROWS == 4
-//       #define RGBLIGHT_LIMIT_VAL 255
-//     #else
-//       #define RGBLIGHT_LIMIT_VAL 255
-//     #endif
-//   #endif
-//   #define RGBLIGHT_VAL_STEP 4
-// #endif
+#ifdef IOS_DEVICE_ENABLE
+  #define RGBLIGHT_LIMIT_VAL 40
+#elif defined(RGBLIGHT_FULL_POWER)
+  #define RGBLIGHT_LIMIT_VAL 255
+#else
+  #define RGBLIGHT_LIMIT_VAL 120
+#endif
 
-#define RGBLIGHT_LIMIT_VAL 255
-#define RGBLIGHT_VAL_STEP 16
+#define RGBLIGHT_VAL_STEP (RGBLIGHT_LIMIT_VAL / 10)
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 
