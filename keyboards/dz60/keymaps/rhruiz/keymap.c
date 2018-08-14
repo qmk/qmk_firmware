@@ -32,10 +32,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   TO(_BL)),
 
   [_FN2] = LAYOUT(
-		KC_GRV,   _______,  _______,  MISCTRL,  _______,   RGB_VAD,  RGB_VAI,  KC_MRWD,  KC_MPLY,  KC_MFFD,   KC_MUTE,  KC__VOLDOWN,  KC__VOLUP,  _______,  KC_EJCT,
+		KC_GRV,   _______,  _______,  MISCTRL,  _______,   RGB_VAD,  RGB_VAI,  KC_MRWD,  KC_MPLY,  KC_MFFD,   KC_MUTE,  KC__VOLDOWN,  KC__VOLUP,  KC_K8s,  KC_EJCT,
 		_______,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_ACL0,   KC_ACL1,  KC_ACL2,  _______,  _______,  _______,   KC_UP,    _______,      _______,    KC_DEL,
 		_______,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_RIGHT,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  _______,  _______,      KC_PENT,
-		_______,  _______,  _______,  _______,  _______,   _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,  _______,      _______,    _______,
+		_______,  _______,  _______,  _______,  _______,   _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,  _______,      _______,    TG(_FN2),
 		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,   RESET)
 };
 
