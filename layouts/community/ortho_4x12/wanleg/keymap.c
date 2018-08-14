@@ -16,11 +16,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________Qwerty_Row__3_______________
 ),
 
+
 [ONE] = LAYOUT_ortho_4x12_wrapper(
   _______________Qwerty_Row__0_______________,
   _______________Qwerty_Row__1_______________,
   _______________Qwerty_Row__2_______________,
-  _______________One_Handed__3_______________
+  KC_LCTL, KC_LGUI, KC_LALT, GHERKIN, SUBTER, SH_T(KC_SPC), KC_SPC, SUPRA, KC_RGUI, KC_RALT, KC_RGUI, KC_RCTL
 ),
 
 [SUP] = LAYOUT_ortho_4x12_wrapper(
