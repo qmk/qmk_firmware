@@ -28,14 +28,14 @@ For more information on customizing keymaps, take a look at the primary document
 
 To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
 
-## Keymaps 4x5
+## [Keymaps 4x5](/keyboards/handwired/dactyl_manuform/4x5/keymaps/)
 Currently there are only two keymaps: Qwerty and Dvorak, feel free to make changes and contribute your keymap.
 ### Default
 
 ### Dvorak
 
 
-## Keymaps 5x6
+## [Keymaps 5x6](/keyboards/handwired/dactyl_manuform/5x6/keymaps/)
 Currently there is only one keymap: Qwerty, feel free to make changes and contribute your keymap.
 ### Default
 Just a copy of the Impstyle keymap. Feel free to adjust it.
