@@ -1,4 +1,4 @@
-Dactyl Manuform 5x6
+Dactyl Manuform 4x5
 ======
 the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
 ![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
@@ -9,22 +9,41 @@ the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curv
 Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to generate the default .hex using:
 
 ```
-$ make handwired/dactyl_manuform/5x6:YOUR_KEYMAP_NAME
+$ make handwired/dactyl_manuform/4x5:dvorak
+```
+
+You will see a lot of output and if everything worked correctly you will see the built hex file:
+
+```
+dactyl_manuform_4x5_dvorak.hex
+```
+
+If you would like to use one of the alternative keymaps, or create your own, copy one of the existing [keymaps](keymaps/) and run make like so:
+
+```
+$ make handwired/dactyl_manuform/4x5:YOUR_KEYMAP_NAME
 ```
 
 If everything worked correctly you will see a file:
 
 ```
-dactyl_manuform_5x6_YOUR_KEYMAP_NAME.hex
+dactyl_manuform_4x5_YOUR_KEYMAP_NAME.hex
 ```
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
 
 ## Keymaps
 Currently there are only two keymaps: Qwerty and Dvorak, feel free to make changes and contribute your keymap.
-### Impstyle
-
-
+### Qwerty and Dvorak
+Qwerty base layer:
+![Imgur](https://i.imgur.com/Yb5e7dS.png)
+Dvorak base layer:
+![Imgur](https://i.imgur.com/CpuZptB.png)
+Both keymaps have the same Raise and Lower layers:
+Raise Layer
+![Imgur](https://i.imgur.com/nOqePK5.png)
+Lower Layer
+![Imgur](https://i.imgur.com/WSshkYc.png)
 
 Required Hardware
 -----------------

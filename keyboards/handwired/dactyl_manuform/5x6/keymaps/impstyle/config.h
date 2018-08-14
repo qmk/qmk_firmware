@@ -1,7 +1,5 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
-Copyright 2018 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,9 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
-#include "config_common.h"
+#define USE_SERIAL
 
-#endif
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+//#define EE_HANDS
+// Rows are doubled-up
