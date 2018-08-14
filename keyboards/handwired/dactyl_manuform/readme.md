@@ -1,4 +1,4 @@
-Dactyl Manuform (4x5 & 5x6)
+Dactyl Manuform (4x5, 5x6, 6x6)
 ======
 the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
 ![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
@@ -11,38 +11,44 @@ Download or clone the `qmk_firmware` repo and navigate to its top level director
 Depending on your Layout chose one of the follwing commands:
 
 ```
-$ make handwired/dactyl_manuform/5x6:YOUR_KEYMAP_NAME
+$ make handwired/dactyl_manuform/YOUR_LAYOUT:YOUR_KEYMAP_NAME
 ```
-or
+
+example:
 ```
-$ make handwired/dactyl_manuform/4x5:YOUR_KEYMAP_NAME
+$ make handwired/dactyl_manuform/4x5:default
 ```
 
 If everything worked correctly you will see a file:
 
 ```
-dactyl_manuform_XxY_YOUR_KEYMAP_NAME.hex
+dactyl_manuform_YOUR_LAYOUT_YOUR_KEYMAP_NAME.hex
 ```
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
 
 To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
 
-## [Keymaps 4x5](/keyboards/handwired/dactyl_manuform/4x5/keymaps/)
-Currently there are only two keymaps: Qwerty and Dvorak, feel free to make changes and contribute your keymap.
-### Default
+## Keymaps
 
-### Dvorak
+### [Keymaps 4x5](/keyboards/handwired/dactyl_manuform/4x5/keymaps/)
 
+#### Default
+Simple QWERTY layout with 3 Layers.
+#### Dvorak
 
-## [Keymaps 5x6](/keyboards/handwired/dactyl_manuform/5x6/keymaps/)
-Currently there is only one keymap: Qwerty, feel free to make changes and contribute your keymap.
-### Default
+### [Keymaps 5x6](/keyboards/handwired/dactyl_manuform/5x6/keymaps/)
+
+#### Default
 Just a copy of the Impstyle keymap. Feel free to adjust it.
 
-### Impstyle
+#### Impstyle
 A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and the Left ist the master.
 
+### [Keymaps 6x6](/keyboards/handwired/dactyl_manuform/6x6/keymaps/)
+
+#### Default
+Simple QWERTY layout with 3 Layers.
 
 Required Hardware
 -----------------
