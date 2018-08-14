@@ -1,5 +1,3 @@
-#include "replicaJunction.h"
-#include QMK_KEYBOARD_H
 #include "version.h"
 
 #ifdef TAP_DANCE_ENABLE

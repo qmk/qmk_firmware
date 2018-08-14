@@ -1,8 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include QMK_KEYBOARD_CONFIG_H
-#include "replicaJunction_config.h"
+#pragma one
 
 // Layer definitions
 
@@ -13,5 +9,3 @@
 #define L_LL_R    4
 #define L_LL_E    5
 #define L_LL_I    6
-
-#endif

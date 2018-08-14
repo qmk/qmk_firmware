@@ -1,6 +1,4 @@
-#ifndef USERSPACE_CONFIG_H
-#define USERSPACE_CONFIG_H
-
+#pragma one
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -71,5 +69,3 @@
 // #define MOUSEKEY_WHEEL_DELAY    0
 
 #endif // MOUSEKEY_ENABLE
-
-#endif // USERSPACE_CONFIG_H

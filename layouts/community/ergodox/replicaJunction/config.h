@@ -1,9 +1,3 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include QMK_KEYBOARD_CONFIG_H
-#include "replicaJunction_config.h"
-
 // Layer definitions
 
 #define L_COLEMAK 0
@@ -15,5 +9,3 @@
 #define L_LL_R    6
 #define L_LL_E    7
 #define L_LL_I    8
-
-#endif

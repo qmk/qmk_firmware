@@ -1,5 +1,4 @@
-#ifndef USERSPACE
-#define USERSPACE
+#pragma one
 
 #include "quantum.h"
 
@@ -114,5 +113,3 @@ enum userspace_custom_keycodes {
 extern void dance_layer(qk_tap_dance_state_t *state, void *user_data);
 #define TD_LAYR TD(TD_LAYER_TOGGLE)
 #endif // TAP_DANCE_ENABLE
-
-#endif // USERSPACE
