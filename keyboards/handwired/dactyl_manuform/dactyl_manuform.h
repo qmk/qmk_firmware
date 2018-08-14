@@ -1,13 +1,10 @@
 #pragma once
 
 
-<<<<<<< HEAD
+
 #ifdef KEYBOARD_handwired_dactyl_manuform_6x6
     #include "6x6.h"
 #elif KEYBOARD_handwired_dactyl_manuform_5x6
-=======
-#ifdef KEYBOARD_handwired_dactyl_manuform_5x6
->>>>>>> upstream/master
     #include "5x6.h"
 #elif KEYBOARD_handwired_dactyl_manuform_4x5
     #include "4x5.h"

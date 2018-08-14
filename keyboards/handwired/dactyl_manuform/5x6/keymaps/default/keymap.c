@@ -13,10 +13,6 @@ extern keymap_config_t keymap_config;
 
 #define _______ KC_TRNS
 
-<<<<<<< HEAD
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-=======
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
