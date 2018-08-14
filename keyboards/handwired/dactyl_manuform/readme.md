@@ -1,4 +1,4 @@
-Dactyl Manuform 5x6
+Dactyl Manuform (4x5 & 5x6)
 ======
 the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
 ![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
@@ -8,22 +8,40 @@ the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curv
 
 Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to generate the default .hex using:
 
+Depending on your Layout chose one of the follwing commands:
+
 ```
 $ make handwired/dactyl_manuform/5x6:YOUR_KEYMAP_NAME
+```
+or
+```
+$ make handwired/dactyl_manuform/4x5:YOUR_KEYMAP_NAME
 ```
 
 If everything worked correctly you will see a file:
 
 ```
-dactyl_manuform_5x6_YOUR_KEYMAP_NAME.hex
+dactyl_manuform_XxY_YOUR_KEYMAP_NAME.hex
 ```
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
 
-## Keymaps
-Currently there are only two keymaps: Qwerty and Dvorak, feel free to make changes and contribute your keymap.
-### Impstyle
+To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
 
+## Keymaps 4x5
+Currently there are only two keymaps: Qwerty and Dvorak, feel free to make changes and contribute your keymap.
+### Default
+
+### Dvorak
+
+
+## Keymaps 5x6
+Currently there is only one keymap: Qwerty, feel free to make changes and contribute your keymap.
+### Default
+Just a copy of the Impstyle keymap. Feel free to adjust it.
+
+### Impstyle
+A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and the Left ist the master.
 
 
 Required Hardware

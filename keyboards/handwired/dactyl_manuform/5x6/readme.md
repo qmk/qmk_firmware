@@ -21,9 +21,9 @@ dactyl_manuform_5x6_YOUR_KEYMAP_NAME.hex
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
 
 ## Keymaps
-Currently there are only two keymaps: Qwerty and Dvorak, feel free to make changes and contribute your keymap.
+Currently there is only one keymap: Qwerty, feel free to make changes and contribute your keymap.
 ### Impstyle
-
+A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and the Left ist the master.
 
 
 Required Hardware
