@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 8
 
 // wiring of each half
-//Ascii art of pro micro. Pin names PD3, PD2, etc.
+// Ascii art of pro micro. Pin names PD3, PD2, etc.
 //Usage| Name | Label      Label| Name | Usage
 //                   PORT          
 //     | PD3    TX0        RAW       |

@@ -21,4 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
+#define FORCE_NKRO //No boot-magic, so we'll force it on here.
+
+#ifdef AUDIO_ENABLE
+#define C6_AUDIO
+#define STARTUP_SONG SONG(STARTUP_SOUND)
+#define NO_MUSIC_MODE
+#endif
+
 #endif
