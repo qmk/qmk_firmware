@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 #define FORCE_NKRO //No boot-magic, so we'll force it on here.
-
+#define QMK_KEYS_PER_SCAN 4 //if we press four keys simultaneously, lets process them simultaneously...
 #ifdef AUDIO_ENABLE
 #define C6_AUDIO
 #define STARTUP_SONG SONG(STARTUP_SOUND)
