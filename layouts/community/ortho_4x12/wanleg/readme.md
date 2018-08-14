@@ -1,5 +1,8 @@
 # Let's Split Flashing  
-(More information at `qmk_firmware/layouts/community/ortho_3x10/wanleg/readme.md`)  
+(More information at `qmk_firmware/layouts/community/ortho_3x10/wanleg/readme.md`)
+## Make the QMK DFU .hex
+`make lets_split/rev2:wanleg:production dfu=qmk` 
+
 ## Burning EEPROM settings with Firmware
 Navigate to the directory with your .hex file and the `eeprom-lefthand.eep` and `eeprom-righthand.eep` files in it.  
 **Burn Left Side With QMK DFU and Firmware**  
