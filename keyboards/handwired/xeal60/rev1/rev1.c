@@ -1,4 +1,5 @@
-#include "lets_split.h"
+#include "quantum.h"
+#include "rev1.h"
 
 void force_num_lock(void)
 {
