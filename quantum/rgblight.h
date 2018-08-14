@@ -17,7 +17,7 @@
 #define RGBLIGHT_H
 
 #ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 35
+	#define RGBLIGHT_MODES 36
 #else
 	#define RGBLIGHT_MODES 1
 #endif
@@ -75,6 +75,10 @@
 #endif
 #include "rgblight_types.h"
 #include "rgblight_list.h"
+
+#if defined(__AVR__)
+    #include <avr/pgmspace.h>
+#endif
 
 extern LED_TYPE led[RGBLED_NUM];
 
@@ -162,5 +166,6 @@ void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
 void rgblight_effect_christmas(void);
 void rgblight_effect_rgbtest(void);
+void rgblight_effect_alternating(void);
 
 #endif

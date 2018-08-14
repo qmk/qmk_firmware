@@ -1,5 +1,4 @@
-#ifndef USERSPACE_CONFIG_H
-#define USERSPACE_CONFIG_H
+#pragma once
 
 
 #ifdef AUDIO_ENABLE
@@ -71,5 +70,6 @@
 
 #define DISABLE_LEADER
 
-#endif // !USERSPACE_CONFIG_H
+#define MACRO_TIMER 5
+
 

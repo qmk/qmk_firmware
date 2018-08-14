@@ -5,10 +5,7 @@
 A split wireless 40% ergonomic keyboard 
 
 Keyboard Maintainer: [William Wilson](https://github.com/GlenPickle)  
-
-
-Hardware Supported: Chimera Ergo PCB, WaveShare core nRF51822
-
+Hardware Supported: Chimera Ergo PCB, WaveShare core nRF51822  
 Hardware Availability: [Gerbers](https://github.com/GlenPickle/Chimera/tree/master/ergo/gerbers)
 
 Make example for this keyboard (after setting up your build environment):

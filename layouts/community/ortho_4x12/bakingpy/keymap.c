@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_kc_ortho_4x12(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-         , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,    ,
+     ASTR, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
      DEL ,CAPP,LEFT,RGHT, UP ,LBRC,     RBRC, P4 , P5 , P6 ,PLUS,PIPE,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -135,6 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
+float all_star_song[][2]   = SONG(ALL_STAR);
 #endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -196,6 +197,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_ADJUST);
       } else {
         layer_off(_ADJUST);
+      }
+      return false;
+      break;
+    case KC_ASTR:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(all_star_song);
+          SEND_STRING("Hey now, you're an all-star, get your game on, go play. Hey now, you're a rock star, get the show on, get paid. All that glitters is gold. Only shooting stars break the mold.");
+        #endif
       }
       return false;
       break;
