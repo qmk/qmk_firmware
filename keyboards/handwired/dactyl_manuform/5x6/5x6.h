@@ -1,5 +1,4 @@
-#ifndef REV2_H
-#define REV2_H
+#pragma once
 
 #include "dactyl_manuform.h"
 
@@ -44,4 +43,4 @@
 		{ R50, R51, R52, R53, KC_NO, KC_NO }, \
    }
 
-#endif
+
