@@ -120,7 +120,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
             break;
         case QK_ONE_SHOT_MOD ... QK_ONE_SHOT_MOD_MAX: ;
             // OSM(mod) - One-shot mod
-            mod = keycode & 0xFF;
+            mod = mod_config(keycode & 0xFF);
             action.code = ACTION_MODS_ONESHOT(mod);
             break;
         case QK_LAYER_TAP_TOGGLE ... QK_LAYER_TAP_TOGGLE_MAX:
