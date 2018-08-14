@@ -5,7 +5,7 @@ the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curv
 
 
 ## First Time Setup
-
+-----------------
 Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to generate the default .hex using:
 
 Depending on your Layout chose one of the follwing commands:
@@ -27,10 +27,9 @@ dactyl_manuform_YOUR_LAYOUT_YOUR_KEYMAP_NAME.hex
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
 
-To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
 
 ## Keymaps
-
+-----------------
 ### [Keymaps 4x5](/keyboards/handwired/dactyl_manuform/4x5/keymaps/)
 
 #### Default
@@ -50,7 +49,7 @@ A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and th
 #### Default
 Simple QWERTY layout with 3 Layers.
 
-Required Hardware
+##Required Hardware
 -----------------
 
 Apart from diodes and key switches for the keyboard matrix in each half, you
@@ -63,11 +62,11 @@ Alternatively, you can use any sort of cable and socket that has at least 3
 wires. If you want to use I2C to communicate between halves, you will need a
 cable with at least 4 wires and 2x 4.7kΩ pull-up resistors
 
-Optional Hardware
+##Optional Hardware
 -----------------
 A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and turned on via `AUDIO_ENABLE`.
 
-Wiring
+##Wiring
 ------
 
 The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and digital pin 3 (i.e.
@@ -90,18 +89,18 @@ unnecessary in simple use cases.
 
 You can change your configuration between serial and i2c by modifying your `config.h` file.
 
-Notes on Software Configuration
+##Notes on Software Configuration
 -------------------------------
 
 the keymaps in here are for the 4x5 layout of the keyboard only.
 
-Flashing
+##Flashing
 -------
-From the top level `qmk_firmware` directory run `make KEYBOARD:KEYMAP:avrdude` for automatic serial port resolution and flashing.
-Example: `make lets_split/rev2:default:avrdude`
+
+To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
 
 
-Choosing which board to plug the USB cable into (choosing Master)
+##Choosing which board to plug the USB cable into (choosing Master)
 --------
 Because the two boards are identical, the firmware has logic to differentiate the left and right board.
 
