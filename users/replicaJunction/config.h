@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // MS the button needs to be held before a tap becomes a hold (default: 200)
-#define TAPPING_TERM    200
+#define TAPPING_TERM    250
 
 // Makes it easier for fast typists to use dual-role keys. See additional details here:
 // https://docs.qmk.fm/features/advanced-keycodes#permissive-hold
