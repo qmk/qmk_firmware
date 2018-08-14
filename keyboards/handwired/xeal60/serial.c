@@ -158,7 +158,7 @@ ISR(SERIAL_PIN_INTERRUPT) {
 }
 
 inline
-bool serial_slave_DATA_CORRUPT(void) {
+bool serial_slave_data_corrupt(void) {
   return status & SLAVE_DATA_CORRUPT;
 }
 
