@@ -1,7 +1,7 @@
 ![Gherkin Wanleg Layout Image](https://i.imgur.com/nCPog2W.png)  
 # Gherkin Wanleg Layout
-This is the layout I came up with to preserve a standard QWERTY 104 key ANSI layout as much as possible, in as few layers as possible for a 30 key board.
-I originally set up a few Tap Dance keys, but dropped half of them in favor of chorded versions since in actual use, they tended to impede typing speed more than their current two-key versions.
+This is the layout I came up with to preserve a standard QWERTY 104 key ANSI layout as much as possible, in as few layers as possible for a 30 key board.  
+I originally set up a few Tap Dance keys, but dropped half of them in favor of chorded versions since in actual use, they tended to impede typing speed more than their current two-key versions.  
 I've left them in my `keymap.c` ready for use if anyone wants to try them out:
 
 Legend Name | Single Tap | Double Tap | Hold
@@ -83,4 +83,4 @@ Change `comPORT` to whatever port is used by the Arduino (e.g. `com11` in Window
 ## Using QMK DFU
 7. Once QMK DFU is burned to your ProMicro, you can then flash subsequent hex files with
 `make gherkin:<keymap>:dfu dfu=qmk`  
-The `dfu=qmk` conditional will set `BOOTLOADER = qmk-dfu` instead of `BOOTLOADER = caterina`
+The `dfu=qmk` conditional will set `BOOTLOADER = qmk-dfu` instead of `BOOTLOADER = caterina`  
