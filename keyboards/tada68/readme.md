@@ -9,9 +9,13 @@ Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/products/tada68-m
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tada68:default:bin
+    make tada68:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+
+## Firmware Format
+
+Out of the box the tada68 uses a .bin firmware file instead of a .hex like other custom keyboards. By default QMK will build and copy the correct .bin file for you. If for some reason you need a hex file instead, you can add `:hex` to your make command, or look inside `qmk_firmware/.build` to find the hex file.
 
 ## Flashing Instructions (Win)
 

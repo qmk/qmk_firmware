@@ -68,11 +68,10 @@
   * [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
   * [RGB Light](feature_rgblight.md#rgblight-keycodes)
   * [RGB Matrix](feature_rgb_matrix.md#keycodes)
-  * [Shifted Keys](feature_advanced_keycodes.md#shifted-keycodes)
+  * [Shifted Keys](keycodes_us_ansi_shifted.md)
   * [Stenography](feature_stenography.md#keycode-reference)
   * [Swap Hands](feature_swap_hands.md#swap-keycodes)
   * [Thermal Printer](feature_thermal_printer.md#thermal-printer-keycodes)
-  * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
 * Reference
   * [Config Options](config_options.md)

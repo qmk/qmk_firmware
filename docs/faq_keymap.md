@@ -34,12 +34,11 @@ See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
 * http://en.wikipedia.org/wiki/Magic_SysRq_key
 * http://en.wikipedia.org/wiki/System_request
 
-## Power Key Doesn't Work
-Use `KC_PWR` instead of `KC_POWER` or vice versa.
-* `KC_PWR` works with Windows and Linux, not with OSX.
-* `KC_POWER` works with OSX and Linux, not with Windows.
+## Power Keys Aren't Working
 
-More info: http://geekhack.org/index.php?topic=14290.msg1327264#msg1327264
+Somewhat confusingly, there are two "Power" keycodes in QMK: `KC_POWER` in the Keyboard/Keypad HID usage page, and `KC_SYSTEM_POWER` (or `KC_PWR`) in the Consumer page.
+
+The former is only recognized on macOS, while the latter, `KC_SLEP` and `KC_WAKE` are supported by all three major operating systems, so it is recommended to use those instead. Under Windows, these keys take effect immediately, however on macOS they must be held down until a dialog appears.
 
 ## One Shot Modifier
 Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  One Shot Shift mitigates this for me.

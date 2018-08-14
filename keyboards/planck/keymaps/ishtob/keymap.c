@@ -1,7 +1,6 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 
-#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 // #include "dynamic_macro.h"
@@ -9,64 +8,9 @@
   #include "audio.h"
 #endif
 #include "eeconfig.h"
-
-//Macro definition
-#if (__has_include("macros_private.h") && !defined(SECRETS))
-#include "macros_private.h"
-#else
-#include "macros_public.h"
-#endif
+#include "ishtob.h"
 
 extern keymap_config_t keymap_config;
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _PLOVER 5
-#define _FNLAYER 6
-#define _NUMLAY 7
-#define _MOUSECURSOR 8
-#define _ADJUST 16
-
-enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  PLOVER,
-  LOWER,
-  RAISE,
-  BACKLIT,
-  EXT_PLV,
-  DFU,
-};
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-// Custom macros
-#define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
-#define CTL_TTAB    CTL_T(KC_TAB)               // Tap for Esc, hold for Ctrl
-#define CTL_ENT     CTL_T(KC_ENT)               // Tap for Enter, hold for Ctrl
-#define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
-// Requires KC_TRNS/_______ for the trigger key in the destination layer
-#define LT_FN(kc)   LT(_FNLAYER, kc)            // L-ayer T-ap Function Layer
-#define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
-#define LT_RAI(kc)  LT(_RAISE, kc)              // L-ayer T-ap to Raise
-#define TG_NUMLAY   TG(_NUMLAY)                 //Toggle for layer _NUMLAY
-#define P_CITRIX    M(KC_CITRIX)                // My login macros
-#define P_MPASS     M(KC_MPASS)
-#define P_META      M(KC_META)
-#define O_DAYRN     M(KC_DAYRN)                 // My work macros
-#define O_AUTODC    M(KC_AUTODC)
-#define O_RTQ6H     M(KC_RTQ6H)
-#define M_EMAIL     M(KC_EMAIL)                 // My personal email
-#define M_EMAIL2    M(KC_EMAIL2)                // My work email
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -86,7 +30,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, LT_RAI(KC_MINS),
   KC_ESC,        KC_CAPS, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE, KC_RALT, TG_NUMLAY, KC_APP,  KC_DEL
 ),
-
+ 
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
@@ -104,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, LT_RAI(KC_MINS),
   KC_ESC,    KC_CAPS, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE, KC_RALT, TG_NUMLAY, KC_APP,  KC_DEL
 ),
-
+ 
 /* Dvorak
  * ,-----------------------------------------------------------------------------------.
  * | Tab  |   "  |   ,  |   .  |   P  |   Y  |   F  |   G  |   C  |   R  |   L  | Bksp |
@@ -122,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z, LT_RAI(KC_MINS),
   KC_ESC,  KC_CAPS, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE, KC_RALT, TG_NUMLAY, KC_APP,  KC_DEL
 ),
-
+ 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
  * |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   ~  |  \   |
@@ -140,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),KC_LCBR, KC_RCBR, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
-
+ 
 /* Raise
  * ,-----------------------------------------------------------------------------------.
  * |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   *  |  \   |
@@ -158,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_LEFT, KC_DOWN, KC_RIGHT,KC__MUTE, KC_VOLD, KC_1,    KC_2,    KC_3,    KC_UP, KC_SLSH,   _______,
   _______, _______, _______, _______, _______, KC_SPC,  KC_0,   _______,  KC_LEFT, KC_DOWN, KC_RIGHT,   KC_NLCK
 ),
-
+ 
 /* Plover layer (http://opensteno.org)
  * ,-----------------------------------------------------------------------------------.
  * |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |   #  |
@@ -170,14 +114,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Exit |      |      |   A  |   O  |             |   E  |   U  |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-
+ 
 [_PLOVER] = LAYOUT_planck_grid(
   KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1,    KC_1   ,
   XXXXXXX, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
   XXXXXXX, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   EXT_PLV, XXXXXXX, XXXXXXX, KC_C,    KC_V,    XXXXXXX, XXXXXXX, KC_N,    KC_M,    XXXXXXX, XXXXXXX, XXXXXXX
 ),
-
+ 
 /* FN layer on Esc key
  * ,-----------------------------------------------------------------------------------.
  * |      |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  |   +  |
@@ -195,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,S(KC_NUHS),S(KC_NUBS),KC_LCBR, KC_RCBR, _______,
   _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY
 ),
-
+ 
 /* Num Layer
  * ,-----------------------------------------------------------------------------------.
  * |      |   Q  |  Up  |   4  |      |      |   7  |   8  |   9  |   -  |   +  | Bksp |
@@ -213,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, KC_Z,    KC_X,    KC_C,     KC_V,    XXXXXXX,  KC_P1,  KC_P2,  KC_P3,   KC_PDOT, KC_PSLS,  _______,
   _______, _______, _______, _______, _______, _______,   KC_P0,  KC_PDOT, _______, _______, KC_NLCK, KC_MPLY
 ),
-
+ 
 /* Mouse Layer (semi-col)
  * ,-----------------------------------------------------------------------------------.
  * | ACCL0| ACCL1| ACCL2|Email |Email2| Home | Wh_Up| WHL_L| M_Up | WHL_R|PASS| Meta |
@@ -225,14 +169,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |     BTN1    |      |      |      | Citx |      |
  * `-----------------------------------------------------------------------------------'
  */
-
+ 
 [_MOUSECURSOR] = LAYOUT_planck_grid(
   KC_ACL0, KC_ACL1, KC_ACL2, M_EMAIL,M_EMAIL2, KC_HOME, KC_PGUP, KC_WH_L, KC_MS_U, KC_WH_R, P_MPASS, P_META,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, O_RTQ6H, KC_END , KC_PGDN, KC_MS_L, KC_MS_D, KC_MS_R, _______, O_DAYRN,
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, _______, _______,
   _______, _______, _______, _______, _______, KC_BTN1, KC_BTN1, _______, _______, _______, P_CITRIX, O_AUTODC
 ),
-
+ 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
  * | Reset|RGB TG|RGB ST|RGBH -|RGBH +|RGBS -|RGBS +|RGBV -|RGBV +|      |      |  Del |
@@ -250,7 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, BL_DEC, BL_INC, BL_STEP, BL_TOGG,
   _______, _______, _______, _______, _______, _______, _______, _______, CK_RST, CK_DOWN, CK_UP, CK_TOGG
 )
-
+ 
 
 };
 
@@ -281,7 +225,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
 void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -369,36 +313,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case DFU:
-      if (record->event.pressed) {
-        clear_keyboard();
-      #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
-        process_midi_all_notes_off();
-      #endif
-      #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
-       music_all_notes_off();
-        uint16_t timer_start = timer_read();
-        PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
-        shutdown_user();
-      while(timer_elapsed(timer_start) < 250)
-        wait_ms(1);
-        stop_all_notes();
-      #else
-        wait_ms(250);
-      #endif
-      // this is also done later in bootloader.c - not sure if it's neccesary here
-      #ifdef BOOTLOADER_CATERINA
-        *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
-      #endif
-        bootloader_jump();
-      }
-      return false;
-      break;
   }
   return true;
 }
 
-void matrix_init_user(void) {
+void matrix_init_keymap(void) {
     #ifdef AUDIO_ENABLE
         startup_user();
     #endif
@@ -431,5 +350,4 @@ void music_scale_user(void)
 }
 
 #endif
-
 
