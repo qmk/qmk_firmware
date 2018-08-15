@@ -1,26 +1,14 @@
+
+/* A QWERTY 3 Layer layout for the Dactyl Manuform 5x6 Keyboard */ 
+
 #include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
 
-#define SFT_ESC  SFT_T(KC_ESC)
-#define CTL_BSPC CTL_T(KC_BSPC)
-#define ALT_SPC  ALT_T(KC_SPC)
-#define SFT_ENT  SFT_T(KC_ENT)
-
-#define KC_ML KC_MS_LEFT
-#define KC_MR KC_MS_RIGHT
-#define KC_MU KC_MS_UP
-#define KC_MD KC_MS_DOWN
-#define KC_MB1 KC_MS_BTN1
-#define KC_MB2 KC_MS_BTN1
 #define RAISE MO(_RAISE)
 #define LOWER MO(_LOWER)
 
@@ -37,10 +25,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LSFT, KC_A  , KC_S  , KC_D  , KC_F  , KC_G  ,                         KC_H  , KC_J  , KC_K  , KC_L  ,KC_SCLN,KC_QUOT,
      KC_LCTL, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,                         KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLASH,
                       KC_LBRC,KC_RBRC,                                                       KC_PLUS, KC_EQL,
-                                      RAISE,KC_SPC,                        KC_ENT, LOWER,
+                                      RAISE,KC_SPC,                           KC_ENT, LOWER,
                                       KC_TAB,KC_HOME,                         KC_END,  KC_DEL,
-                                      KC_BSPC, KC_GRV,                        KC_LGUI, KC_LALT
+                                      KC_BSPC,KC_GRV,                         KC_LGUI, KC_LALT
   ),
+
 
   [_LOWER] = LAYOUT_5x6(
      KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,                        KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_DEL,
@@ -51,23 +40,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              _______,_______,            _______,_______,
                                              _______,_______,            _______,_______,
                                              _______,_______,            _______,_______
+
 ),
 
   [_RAISE] = LAYOUT_5x6(
-       KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                        KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
-       _______,_______,_______,_______,_______,KC_LBRC,                        KC_RBRC,_______,KC_NLCK,KC_INS ,KC_SLCK,KC_MUTE,
-       _______,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT,KC_LPRN,                        KC_RPRN,KC_MPRV,KC_MPLY,KC_MNXT,_______,KC_VOLU,
-       _______,_______,_______,_______,_______,_______,                        _______,_______,_______,_______,_______,KC_VOLD,
-                                               _______,_______,            KC_EQL ,_______,
-                                               _______,_______,            _______,_______,
-                                               _______,_______,            _______,_______,
-                                               _______,_______,            _______,_______
+     KC_F12 , KC_F1 , KC_F2 , KC_F3 , KC_F4 , KC_F5 ,                         KC_F6  , KC_F7 , KC_F8 , KC_F9 ,KC_F10 ,KC_F11 ,
+     _______,_______,_______,_______,_______,KC_LBRC,                         KC_RBRC,_______,KC_NLCK,KC_INS ,KC_SLCK,KC_MUTE,
+     _______,KC_LEFT,KC_UP  ,KC_DOWN,KC_RGHT,KC_LPRN,                         KC_RPRN,KC_MPRV,KC_MPLY,KC_MNXT,_______,KC_VOLU,
+     _______,_______,_______,_______,_______,_______,                         _______,_______,_______,_______,_______,KC_VOLD,
+                                     _______,_______,                         KC_EQL ,_______,
+                                     _______,_______,                         _______,_______,
+                                     _______,_______,                         _______,_______,
+                                     _______,_______,                         _______,_______
   ),
 
   };
-
-
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
