@@ -1,5 +1,4 @@
-#ifndef SOFT_SERIAL_CONFIG_H
-#define SOFT_SERIAL_CONFIG_H
+#pragma once
 
 /* Soft Serial defines */
 #define SERIAL_PIN_DDR DDRD
@@ -10,5 +9,3 @@
 
 #define SERIAL_SLAVE_BUFFER_LENGTH MATRIX_ROWS/2
 #define SERIAL_MASTER_BUFFER_LENGTH MATRIX_ROWS/2
-
-#endif /* SOFT_SERIAL_CONFIG_H */

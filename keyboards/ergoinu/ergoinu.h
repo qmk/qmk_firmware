@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef ERGOINU_H
-#define ERGOINU_H
+#pragma once
 
 #include "quantum.h"
 
@@ -43,4 +42,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_NO, KC_NO, R32, R31, R30, R29, R28 } \
   }
 
-#endif

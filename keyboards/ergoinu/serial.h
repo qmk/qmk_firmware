@@ -1,5 +1,4 @@
-#ifndef SOFT_SERIAL_H
-#define SOFT_SERIAL_H
+#pragma once
 
 #include <stdbool.h>
 
@@ -23,5 +22,3 @@ void serial_master_init(void);
 void serial_slave_init(void);
 int serial_update_buffers(void);
 bool serial_slave_data_corrupt(void);
-
-#endif /* SOFT_SERIAL_H */

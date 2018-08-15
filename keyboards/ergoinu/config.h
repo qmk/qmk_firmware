@@ -17,8 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 #include <serial_config.h>
@@ -83,23 +82,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef IOS_DEVICE_ENABLE
   #if RGBLED_NUM <= 7
-  #define RGBLIGHT_LIMIT_VAL 255
-  #define RGBLIGHT_VAL_STEP 17
+    #define RGBLIGHT_LIMIT_VAL 255
+    #define RGBLIGHT_VAL_STEP 17
+  #endif
 #else
   #define RGBLIGHT_LIMIT_VAL 90
   #define RGBLIGHT_VAL_STEP 4
 #endif
+
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
-// USB_MAX_POWER_CONSUMPTION value for Helix keyboard
-//  120  RGBoff, OLEDoff
-//  120  OLED
-//  330  RGB 6
-//  300  RGB 32
-//  310  OLED & RGB 32
-  #define USB_MAX_POWER_CONSUMPTION 400
+  #define USB_MAX_POWER_CONSUMPTION 500
 #else
   // fix iPhone and iPad power adapter issue
   // iOS device need lessthan 100
@@ -123,7 +118,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-
-#endif
-#endif
