@@ -1,3 +1,5 @@
+#pragma once
+
 // Layer definitions
 
 #define L_COLEMAK 0
