@@ -93,8 +93,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_numpad[][2]     = SONG(DVORAK_SOUND);
+float tone_qwerty[][2]     = SONG(Q__NOTE(_E4));
+float tone_numpad[][2]     = SONG(Q__NOTE(_D4));
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
