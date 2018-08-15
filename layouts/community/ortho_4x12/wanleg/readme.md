@@ -3,7 +3,7 @@
 ## Make the QMK DFU .hex
 `make lets_split/rev2:wanleg:production dfu=qmk` 
 
-## Burning EEPROM settings with Firmware
+## Burning EEPROM settings and Firmware
 Navigate to the directory with your .hex file and the `eeprom-lefthand.eep` and `eeprom-righthand.eep` files in it.  
 **Burn Left Side With QMK DFU and Firmware**  
 `avrdude -b 19200 -c avrisp -p m32u4 -v -e -U lock:w:0x3F:m -U efuse:w:0xC3:m -U hfuse:w:0xD9:m -U lfuse:w:0x5E:m -U eeprom:w:eeprom-lefthand.eep -P comPORT -U flash:w:YOUR_production.hex:a`  
