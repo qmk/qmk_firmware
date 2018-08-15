@@ -1,11 +1,7 @@
+#include "replicaJunction.h"
 #include "version.h"
 
 #ifdef TAP_DANCE_ENABLE
-// enum tap_dance_defs
-// {
-//     TD_LAYER_TOGGLE = 0
-// };
-
 void dance_layer(qk_tap_dance_state_t *state, void *user_data)
 {
     uint8_t layer = biton32(layer_state);
