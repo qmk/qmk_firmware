@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_MOUSEKEY_WHEEL(code)  (KC_MS_WH_UP  <= (code) && (code) <= KC_MS_WH_RIGHT)
 #define IS_MOUSEKEY_ACCEL(code)  (KC_MS_ACCEL0 <= (code) && (code) <= KC_MS_ACCEL2)
 
-#define MOD_BIT(code)            ( 1<< MOD_INDEX(code))
+#define MOD_BIT(code)            (1 << MOD_INDEX(code))
 #define MOD_INDEX(code)          ((code) & 0x07)
 
 #define FN_BIT(code)             (1 << FN_INDEX(code))
