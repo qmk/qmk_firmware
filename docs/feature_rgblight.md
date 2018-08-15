@@ -83,18 +83,18 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 Not only can this lighting be whatever color you want,
 if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a number of animation modes at your disposal:
 
-|Mode                                   |Description          |
-|---------------------------------------|---------------------|
-|`RGBLIGHT_MODE_STATIC_LIGHT`           |Solid color          |
-|`RGBLIGHT_MODE_BREATHING + 0-3`        |Solid color breathing|
-|`RGBLIGHT_MODE_RAINBOW_MOOD + 0-2`     |Cycling rainbow      |
-|`RGBLIGHT_MODE_RAINBOW_SWIRL + 0-5`    |Swirling rainbow     |
-|`RGBLIGHT_MODE_SNAKE + 0-5`            |Snake                |
-|`RGBLIGHT_MODE_KNIGHT + 0-2`           |Knight               |
-|`RGBLIGHT_MODE_CHRISTMAS`              |Christmas            |
-|`RGBLIGHT_MODE_STATIC_GRADIENT + 0-9`  |Static gradient      |
-|`RGBLIGHT_MODE_RGB_TEST`               |RGB Test             |
-|`RGBLIGHT_MODE_ALTERNATING`            |Alternating          |
+|Mode                                   |Description                            |
+|---------------------------------------|---------------------------------------|
+|`RGBLIGHT_MODE_STATIC_LIGHT`           |Solid color (this mode allways enable) |
+|`RGBLIGHT_MODE_BREATHING + 0-3`        |Solid color breathing                  |
+|`RGBLIGHT_MODE_RAINBOW_MOOD + 0-2`     |Cycling rainbow                        |
+|`RGBLIGHT_MODE_RAINBOW_SWIRL + 0-5`    |Swirling rainbow                       |
+|`RGBLIGHT_MODE_SNAKE + 0-5`            |Snake                                  |
+|`RGBLIGHT_MODE_KNIGHT + 0-2`           |Knight                                 |
+|`RGBLIGHT_MODE_CHRISTMAS`              |Christmas                              |
+|`RGBLIGHT_MODE_STATIC_GRADIENT + 0-9`  |Static gradient                        |
+|`RGBLIGHT_MODE_RGB_TEST`               |RGB Test                               |
+|`RGBLIGHT_MODE_ALTERNATING`            |Alternating                            |
 
 
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
