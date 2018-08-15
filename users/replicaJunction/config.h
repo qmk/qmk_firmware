@@ -18,6 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 // MS the button needs to be held before a tap becomes a hold (default: 200)
+#undef TAPPING_TERM
 #define TAPPING_TERM    250
 
 // Makes it easier for fast typists to use dual-role keys. See additional details here:
