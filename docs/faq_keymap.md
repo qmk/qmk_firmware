@@ -11,8 +11,8 @@ Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_f
 
 There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
 
-<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/9ce023dc6caadc0cf11c88c782350a8c -->
-![Keyboard Layout Image](https://i.imgur.com/45m4mRf.png)
+<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/070a530eedaed36a2d77f3f6fd455677 -->
+![Keyboard Layout Image](https://i.imgur.com/gvlNUpQ.png)
 
 ## Some Of My Keys Are Swapped Or Not Working
 
