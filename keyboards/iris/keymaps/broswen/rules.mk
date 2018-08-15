@@ -1,0 +1,13 @@
+RGBLIGHT_ENABLE = yes
+BACKLIGHT_ENABLE = no
+MOUSEKEY_ENABLE = no
+MIDI_ENABLE = no
+BLUETOOTH_ENABLE = no
+COMMAND_ENABLE = no
+TERMINAL_ENABLE = no
+AUDIO_ENABLE = yes
+
+
+ifndef QUANTUM_DIR
+	include ../../../../Makefile
+endif
