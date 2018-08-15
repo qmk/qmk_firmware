@@ -64,14 +64,14 @@
     { k20, k21, k22, k23, k24, k25, k26, k27 }, \
     { k30, KC_NO, k32, k33, k34, k35, k36, k37 }, \
     { k40, k41, k42, KC_NO, KC_NO, KC_NO, k46, KC_NO }, \
-    { k50, k51, k52, k53, k54, KC_NO, KC_NO, k57 }, \
+    { k50, k51, k52, k53, k54, KC_NO, k56, k57 }, \
     { k60, k61, k62, k63, k64, k65, KC_NO, k67 }, \
     { k70, k71, k72, k73, KC_NO, k75, KC_NO, KC_NO }, \
     { k80, k81, k82, k83, KC_NO, k85, k86, KC_NO }, \
     { KC_NO, KC_NO, k92, k93, k94, k95, k96, k97 }  \
 }
 
-/* LAYOUT_66_iso, standard 67 key ISO layout 
+/* LAYOUT_66_iso, standard 67 key ISO layout
  */
 #define LAYOUT_66_iso( \
     k00, k01, k02, k03, k04, k05, k06, k07, k50, k51, k52, k53, k54,    k56,   k57, \
