@@ -81,12 +81,12 @@ error "Only support Row2Col"
 
 __attribute__((weak))
 void matrix_init_kb(void) {
-  matrix_init_user();
+    matrix_init_user();
 }
 
 __attribute__((weak))
 void matrix_scan_kb(void) {
-  matrix_scan_user();
+    matrix_scan_user();
 }
 
 __attribute__((weak))
@@ -104,237 +104,235 @@ void matrix_slave_scan_user(void) {
 inline
 uint8_t matrix_rows(void)
 {
-  return MATRIX_ROWS;
+    return MATRIX_ROWS;
 }
 
 inline
 uint8_t matrix_cols(void)
 {
-  return MATRIX_COLS;
+    return MATRIX_COLS;
 }
 
 //Returns first row for the *other* hand, so 0 for left, Rows_PER_HAND for right hand
 inline
 uint8_t other_hand_row_offset(void)
 {
-  return (isLeftHand) ? (ROWS_PER_HAND) : 0;
+    return (isLeftHand) ? (ROWS_PER_HAND) : 0;
 }
 
 inline
 uint8_t my_hand_row_offset(void)
 {
-  return (isLeftHand) ? 0 : ROWS_PER_HAND;
+    return (isLeftHand) ? 0 : ROWS_PER_HAND;
 }
 
 void matrix_init(void)
 {
 #ifdef DISABLE_JTAG
-  // JTAG disable for PORT F. write JTD bit twice within four cycles.
-  MCUCR |= (1 << JTD);
-  MCUCR |= (1 << JTD);
+    // JTAG disable for PORT F. write JTD bit twice within four cycles.
+    MCUCR |= (1 << JTD);
+    MCUCR |= (1 << JTD);
 #endif
 
-  debug_enable = true;
-  debug_matrix = true;
-  debug_mouse = true;
-  // initialize row and col
+    debug_enable = true;
+    debug_matrix = true;
+    debug_mouse = true;
+    // initialize row and col
 
-  unselect_rows();
-  init_cols();
+    unselect_rows();
+    init_cols();
 
-  TX_RX_LED_INIT;
+    TX_RX_LED_INIT;
 
-  // initialize matrix state: all keys off
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    matrix[i] = 0;
-    matrix_debouncing[i] = 0;
-  }
+    // initialize matrix state: all keys off
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        matrix[i] = 0;
+        matrix_debouncing[i] = 0;
+    }
 
-  matrix_init_quantum();
+    matrix_init_quantum();
 
 }
 
-uint8_t _matrix_scan(void)
+uint8_t matrix_scan_my_half(void)
 {
-  uint8_t offset = my_hand_row_offset();
+    uint8_t offset = my_hand_row_offset();
 
-  // Set row, read cols
-  for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
+    // Set row, read cols
+    for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
 #   if (DEBOUNCING_DELAY > 0)
-    bool matrix_changed = read_cols_on_row(matrix_debouncing + offset, current_row);
+        bool matrix_changed = read_cols_on_row(matrix_debouncing + offset, current_row);
 
-    if (matrix_changed) {
-      debouncing = true;
-      debouncing_time = timer_read();
-    }
+        if (matrix_changed) {
+            debouncing = true;
+            debouncing_time = timer_read();
+        }
 #   else
-    read_cols_on_row(matrix + offset, current_row);
+        read_cols_on_row(matrix + offset, current_row);
 #   endif
 
-  }
+    }
 
 #   if (DEBOUNCING_DELAY > 0)
-  if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
-    for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
-      matrix[i + offset] = matrix_debouncing[i + offset];
+    if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
+        for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
+            matrix[i + offset] = matrix_debouncing[i + offset];
+        }
+        debouncing = false;
     }
-    debouncing = false;
-  }
 #   endif
 
-  return 1;
+    return 1;
 }
 
 
 
 int serial_transaction(void) {
-  int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+    int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 
-  if (serial_update_buffers()) {
-    return 1;
-  }
+    if (serial_update_buffers()) {
+        return 1;
+    }
 
-  for (uint8_t i = 0; i < ROWS_PER_HAND; ++i) {
-    matrix[slaveOffset + i] = serial_slave_buffer[i];
-  }
-  return 0;
+    for (uint8_t i = 0; i < ROWS_PER_HAND; ++i) {
+        matrix[slaveOffset + i] = serial_slave_buffer[i];
+    }
+    return 0;
 }
-
-
 
 uint8_t matrix_scan(void)
 {
-  uint8_t ret = _matrix_scan();
+    uint8_t ret = matrix_scan_my_half();
 
-  if (serial_transaction()) {
-    // turn on the indicator led when halves are disconnected
-    TXLED1;
+    if (serial_transaction()) {
+        // turn on the indicator led when halves are disconnected
+        TXLED1;
 
-    error_count++;
+        error_count++;
 
-    if (error_count > ERROR_DISCONNECT_COUNT) {
-      // reset other half if disconnected
-      int offset = other_hand_row_offset();
-      for (uint8_t i = 0; i < ROWS_PER_HAND; ++i) {
-        matrix[offset + i] = 0;
-      }
+        // reset other half if disconnected
+        if (error_count > ERROR_DISCONNECT_COUNT) {
+            int offset = other_hand_row_offset();
+            for (uint8_t i = 0; i < ROWS_PER_HAND; ++i) {
+                matrix[offset + i] = 0;
+            }
+        }
     }
-  }
-  else {
-    // turn off the indicator led on no error
-    TXLED0;
-    error_count = 0;
-  }
-  matrix_scan_quantum();
-  return ret;
+    else {
+        // turn off the indicator led on no error
+        TXLED0;
+        error_count = 0;
+    }
+    matrix_scan_quantum();
+    return ret;
 }
 
 void matrix_slave_scan(void) {
-  _matrix_scan();
+    matrix_scan_my_half();
 
-  int offset = my_hand_row_offset();
+    int offset = my_hand_row_offset();
 
-  for (uint8_t i = 0; i < ROWS_PER_HAND; ++i) {
-    serial_slave_buffer[i] = matrix[offset + i];
-  }
+    for (uint8_t i = 0; i < ROWS_PER_HAND; ++i) {
+        serial_slave_buffer[i] = matrix[offset + i];
+    }
 
-  matrix_slave_scan_user();
+    matrix_slave_scan_user();
 }
 
 bool matrix_is_modified(void)
 {
-  if (debouncing) return false;
-  return true;
+    if (debouncing) return false;
+    return true;
 }
 
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-  return (matrix[row] & ((matrix_row_t)1 << col));
+    return (matrix[row] & ((matrix_row_t)1 << col));
 }
 
 inline
 matrix_row_t matrix_get_row(uint8_t row)
 {
-  return matrix[row];
+    return matrix[row];
 }
 
 void matrix_print(void)
 {
-  print("\nr/c 0123456789ABCDEF\n");
-  for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-    phex(row); print(": ");
-    pbin_reverse16(matrix_get_row(row));
-    print("\n");
-  }
+    print("\nr/c 0123456789ABCDEF\n");
+    for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+        phex(row); print(": ");
+        pbin_reverse16(matrix_get_row(row));
+        print("\n");
+    }
 }
 
 uint8_t matrix_key_count(void)
 {
-  uint8_t count = 0;
-  for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-    count += bitpop16(matrix[i]);
-  }
-  return count;
+    uint8_t count = 0;
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
+        count += bitpop16(matrix[i]);
+    }
+    return count;
 }
 
 static void init_cols(void)
 {
-  for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-    uint8_t pin = col_pins[x];
-    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-    _SFR_IO8((pin >> 4) + 2) |= _BV(pin & 0xF); // HI
-  }
+    for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+        uint8_t pin = col_pins[x];
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+        _SFR_IO8((pin >> 4) + 2) |= _BV(pin & 0xF); // HI
+    }
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 {
-  // Store last value of row prior to reading
-  matrix_row_t last_row_value = current_matrix[current_row];
+    // Store last value of row prior to reading
+    matrix_row_t last_row_value = current_matrix[current_row];
 
-  // Clear data in matrix row
-  current_matrix[current_row] = 0;
+    // Clear data in matrix row
+    current_matrix[current_row] = 0;
 
-  // Select row and wait for row selecton to stabilize
-  select_row(current_row);
-  wait_us(30);
+    // Select row and wait for row selecton to stabilize
+    select_row(current_row);
+    wait_us(30);
 
-  // For each col...
-  for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+    // For each col...
+    for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
 
-    // Select the col pin to read (active low)
-    uint8_t pin = col_pins[col_index];
-    uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
+        // Select the col pin to read (active low)
+        uint8_t pin = col_pins[col_index];
+        uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
 
-    // Populate the matrix row with the state of the col pin
-    current_matrix[current_row] |= pin_state ? 0 : (ROW_SHIFTER << col_index);
-  }
+        // Populate the matrix row with the state of the col pin
+        current_matrix[current_row] |= pin_state ? 0 : (ROW_SHIFTER << col_index);
+    }
 
-  // Unselect row
-  unselect_row(current_row);
+    // Unselect row
+    unselect_row(current_row);
 
-  return (last_row_value != current_matrix[current_row]);
+    return (last_row_value != current_matrix[current_row]);
 }
 
 static void select_row(uint8_t row)
 {
-  uint8_t pin = row_pins[row];
-  _SFR_IO8((pin >> 4) + 1) |= _BV(pin & 0xF); // OUT
-  _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+    uint8_t pin = row_pins[row];
+    _SFR_IO8((pin >> 4) + 1) |= _BV(pin & 0xF); // OUT
+    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
 }
 
 static void unselect_row(uint8_t row)
 {
-  uint8_t pin = row_pins[row];
-  _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-  _SFR_IO8((pin >> 4) + 2) |= _BV(pin & 0xF); // HI
+    uint8_t pin = row_pins[row];
+    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+    _SFR_IO8((pin >> 4) + 2) |= _BV(pin & 0xF); // HI
 }
 
 static void unselect_rows(void)
 {
-  for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-    uint8_t pin = row_pins[x];
-    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-    _SFR_IO8((pin >> 4) + 2) |= _BV(pin & 0xF); // HI
-  }
+    for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
+        uint8_t pin = row_pins[x];
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+        _SFR_IO8((pin >> 4) + 2) |= _BV(pin & 0xF); // HI
+    }
 }
