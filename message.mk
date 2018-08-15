@@ -55,7 +55,7 @@ MSG_ASSEMBLING = Assembling:
 MSG_CLEANING = Cleaning project:
 MSG_CREATING_LIBRARY = Creating library:
 MSG_SUBMODULE_DIRTY = $(WARN_COLOR)WARNING:$(NO_COLOR)\n \
-	Some git sub-modules are out of date or modified, please consider runnning:$(BOLD)\n\
+	Some git sub-modules are out of date or modified, please consider running:$(BOLD)\n\
         make git-submodule\n\
 	You can ignore this warning if you are not compiling any ChibiOS keyboards,\n\
 	or if you have modified the ChibiOS libraries yourself. \n\n$(NO_COLOR)
