@@ -27,7 +27,3 @@ DISABLE_PROMICRO_LEDs = yes
 # $(info -- RGBLIGHT_ENABLE=$(RGBLIGHT_ENABLE))
 # $(info -- OPT_DEFS=$(OPT_DEFS))
 # $(info )
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
