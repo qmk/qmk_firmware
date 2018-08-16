@@ -1,4 +1,12 @@
-SRC += wanleg.c tapdances.c lets_split.c
+ifeq ($(strip $(KEYBOARD)), lets_split_rev2)
+SRC += lets_split.c
+endif
+
+ifeq ($(strip $(KEYBOARD)), jj40)
+#SRC += lets_split.c
+endif
+
+SRC += wanleg.c tapdances.c 
 
 ifndef TAP_DANCE_ENABLE
 TAP_DANCE_ENABLE = yes

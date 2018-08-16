@@ -2,26 +2,32 @@
 #include "wanleg.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#if defined(KEYBOARD_lets_split_rev2)
+[_GK] = LAYOUT_ortho_4x12_wrapper(
+  _______________GherkinLike_0_______________,
+  _______________GherkinLike_1_______________,
+  _______________GherkinLike_2_______________,
+  _______________GherkinLike_3_OneHand_______
+),
+[ONE] = LAYOUT_ortho_4x12_wrapper(
+  _______________Qwerty_Row__0_______________,
+  _______________Qwerty_Row__1_______________,
+  _______________Qwerty_Row__2_______________,
+  KC_LCTL, KC_LGUI, KC_LALT, GHERKIN, SUBTER, SH_T(KC_SPC), KC_SPC, SUPRA, KC_RGUI, KC_RALT, KC_RGUI, KC_RCTL
+),
+#else
 [_GK] = LAYOUT_ortho_4x12_wrapper(
   _______________GherkinLike_0_______________,
   _______________GherkinLike_1_______________,
   _______________GherkinLike_2_______________,
   _______________GherkinLike_3_______________
 ),
-
+#endif
 [_QW] = LAYOUT_ortho_4x12_wrapper(
   _______________Qwerty_Row__0_______________,
   _______________Qwerty_Row__1_______________,
   _______________Qwerty_Row__2_______________,
   _______________Qwerty_Row__3_______________
-),
-
-
-[ONE] = LAYOUT_ortho_4x12_wrapper(
-  _______________Qwerty_Row__0_______________,
-  _______________Qwerty_Row__1_______________,
-  _______________Qwerty_Row__2_______________,
-  KC_LCTL, KC_LGUI, KC_LALT, GHERKIN, SUBTER, SH_T(KC_SPC), KC_SPC, SUPRA, KC_RGUI, KC_RALT, KC_RGUI, KC_RCTL
 ),
 
 [SUP] = LAYOUT_ortho_4x12_wrapper(

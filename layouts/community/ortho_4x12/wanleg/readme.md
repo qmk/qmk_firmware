@@ -17,3 +17,8 @@ Change `comPORT` to whatever port is used by the Arduino (e.g. `com11` in Window
 Once QMK DFU is burned to your ProMicro, you can then flash subsequent hex files with
 `make lets_split/rev2:<keymap>:dfu dfu=qmk`  
 The `dfu=qmk` conditional will set `BOOTLOADER = qmk-dfu` instead of `BOOTLOADER = caterina` 
+
+---
+# JJ40 
+## To Do
+- [ ] Mousekeys not working with Userspace for some reason (jj40 only)

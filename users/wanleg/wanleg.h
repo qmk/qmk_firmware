@@ -7,6 +7,9 @@
 #ifdef KEYBOARD_gherkin
 enum userspace_layers {
   gGK = 0,
+  gNUM,
+  gDIR,
+  gETC,
   _GK,
   _QW,
   QW75,
@@ -17,9 +20,9 @@ enum userspace_layers {
   NUM,
   DIR,
   ETC,
-  gNUM,
-  gDIR,
-  gETC,
+	   
+	   
+	   
   SUB75,
   SUP75,
   NUM75,
@@ -203,7 +206,8 @@ enum {
 #define _______________GherkinLike_0_______________     KC_ESC, _______________Gherkin_Row_0_______________, KC_BSPC
 #define _______________GherkinLike_1_______________     KC_TAB, _______________Gherkin_Row_1_______________, KC_QUOT
 #define _______________GherkinLike_2_______________     TD(TD_SFT_CAPS), SFT_T(KC_Z), KC_X, KC_C, LT(NUM, KC_V),LT(ETC, KC_B),KC_N, LT(DIR, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT)
-#define _______________GherkinLike_3_______________     KC_LCTL, KC_LGUI, KC_LALT, ONEHAND, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
+#define _______________GherkinLike_3_______________     KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
+#define _______________GherkinLike_3_OneHand_______     KC_LCTL, KC_LGUI, KC_LALT, ONEHAND, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
 
 /* Qwerty
  * .-------------------------------------------------------------------------------------.

@@ -110,7 +110,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-//////////////////////////////////////////////////////////////////
 	case SUBTER75:
       if (record->event.pressed) {
         layer_on(SUB75);
