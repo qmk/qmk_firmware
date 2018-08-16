@@ -31,6 +31,12 @@ enum userspace_layers {
 enum userspace_layers {
   GK75 = 0,
   QW75,
+  SUB75,
+  SUP75,
+  NUM75,
+  DIR75,
+  ETC75,
+  FN75,
   gGK,
   _GK,
   _QW,
@@ -43,20 +49,14 @@ enum userspace_layers {
   gNUM,
   gDIR,
   gETC,
-  SUB75,
-  SUP75,
-  NUM75,
-  DIR75,
-  ETC75,
-  FN75
 };
 #else
   enum userspace_layers {
   _GK = 0,
+  _QW,
   QW75,
   GK75,
   gGK,
-  _QW,
   ONE,
   SUB,
   SUP,
