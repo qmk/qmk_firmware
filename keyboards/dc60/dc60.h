@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,8 +22,8 @@
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguments representing the physical
 // layout of the board and position of the keys
-// The second converts the arguments into a two-dimensional array which 
-// represents the switch matrix. 
+// The second converts the arguments into a two-dimensional array which
+// represents the switch matrix.
 #define LAYOUT( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, KOD, KOE, \
     K10,      K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D, K1E, \

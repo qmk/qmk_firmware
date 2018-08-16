@@ -2,11 +2,11 @@
 
 ![dc60](imgur.com image replace me!)
 
-A short description of the keyboard/project
+A 60% PCB sold with the Alf DC60.
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: DC60 PCB  
-Hardware Availability: links to where you can find this hardware
+Hardware Availability: [zFrontier](https://en.zfrontier.com/products/group-buy-alf-x2-60)   
 
 Make example for this keyboard (after setting up your build environment):
 

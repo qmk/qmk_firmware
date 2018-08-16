@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -38,12 +38,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 void led_set_kb(uint8_t usb_led) {
 	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-		DDRB |= (1 << 7); 
+		DDRB |= (1 << 7);
 		PORTB &= ~(1 << 7);
 	} else {
-		DDRB &= ~(1 << 7); 
+		DDRB &= ~(1 << 7);
 		PORTB &= ~(1 << 7);
 	}
-	
+
 	led_set_user(usb_led);
 }
