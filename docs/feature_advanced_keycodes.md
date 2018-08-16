@@ -1,6 +1,6 @@
 # Advanced Keycodes
 
-Your keymap can include keycodes that are more advanced than normal, for example shifted keys. This page documents the functions that are available to you.
+Your keymap can include keycodes that are more advanced than normal, for example keys that switch layers or send modifiers when held, but send regular keycodes when tapped. This page documents the functions that are available to you.
 
 ### Assigning Custom Names
 
@@ -73,34 +73,6 @@ You can also chain these, like this:
 
     LALT(LCTL(KC_DEL)) -- this makes a key that sends Alt, Control, and Delete in a single keypress.
 
-# Shifted Keycodes
-
-The following shortcuts automatically add `LSFT()` to keycodes to get commonly used symbols.
-
-|Key                     |Aliases           |Description        |
-|------------------------|------------------|-------------------|
-|`KC_TILDE`              |`KC_TILD`         |`~`                |
-|`KC_EXCLAIM`            |`KC_EXLM`         |`!`                |
-|`KC_AT`                 |                  |`@`                |
-|`KC_HASH`               |                  |`#`                |
-|`KC_DOLLAR`             |`KC_DLR`          |`$`                |
-|`KC_PERCENT`            |`KC_PERC`         |`%`                |
-|`KC_CIRCUMFLEX`         |`KC_CIRC`         |`^`                |
-|`KC_AMPERSAND`          |`KC_AMPR`         |`&`                |
-|`KC_ASTERISK`           |`KC_ASTR`         |`*`                |
-|`KC_LEFT_PAREN`         |`KC_LPRN`         |`(`                |
-|`KC_RIGHT_PAREN`        |`KC_RPRN`         |`)`                |
-|`KC_UNDERSCORE`         |`KC_UNDS`         |`_`                |
-|`KC_PLUS`               |                  |`+`                |
-|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`         |`{`                |
-|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`         |`}`                |
-|`KC_PIPE`               |                  |<code>&#124;</code>|
-|`KC_COLON`              |`KC_COLN`         |`:`                |
-|`KC_DOUBLE_QUOTE`       |`KC_DQT`/`KC_DQUO`|`"`                |
-|`KC_LEFT_ANGLE_BRACKET` |`KC_LT`/`KC_LABK` |`<`                |
-|`KC_RIGHT_ANGLE_BRACKET`|`KC_GT`/`KC_RABK` |`>`                |
-|`KC_QUESTION`           |`KC_QUES`         |`?`                |
-
 # Mod Tap
 
 `MT(mod, kc)` - is *mod* (modifier key - MOD_LCTL, MOD_LSFT) when held, and *kc* when tapped. In other words, you can have a key that sends Esc (or the letter O or whatever) when you tap it, but works as a Control key or a Shift key when you hold it down.
@@ -133,7 +105,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
 
 ?> Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
 
-?> Additionally, if there is at least one right modifier, any other modifiers will turn into their right equivalents, so it is not possible to "mix and match" the two.
+?> Additionally, if there is at least one right-handed modifier, any other modifiers in a chain of functions will turn into their right-handed equivalents, so it is not possible to "mix and match" the two.
 
 # One Shot Keys
 
@@ -175,3 +147,37 @@ Example: (Tapping Term = 200ms)
 - SHFT_T(KC_A) Up
 
 With defaults, if above is typed within tapping term, this will emit `ax`. With permissive hold, if above is typed within tapping term, this will emit `X` (so, Shift+X).
+
+# Mod tap interrupt
+
+When a dual role key used for a modifier is quickly followed by another keys, it is interpreted as held even before the tapping term elapsed.  This is a problem if a key is used for example inside a rolling combo because the second key will be pressed before the first key is released.
+
+For example, when trying to type the rolling combo "zx" and z being configured to send Ctrl when hold, z rapidly followed by x actually sends Ctrl-x. That's bad.
+
+You can disable this behavior by defining `IGNORE_MOD_TAP_INTERRUPT` in `config.h`.
+
+Note that this only concerns modifiers and not layer switching keys.
+
+# Hold after tap
+
+When the user holds a key after tap, this repeats the tapped key rather to hold a modifier key.  This allows to use auto repeat for the tapped key.  If you prefer to hold a modifier instead, define `TAPPING_FORCE_HOLD` in `config.h`.
+
+Example:
+
+- SHFT_T(KC_A) Down
+- SHFT_T(KC_A) Up
+- SHFT_T(KC_A) Down
+- wait more than tapping term...
+- SHFT_T(KC_A) Up
+
+With default settings, `a` will be sent on the first release, then `a` will be sent on the second press allowing the computer to trigger its auto repeat function.
+
+With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allowing to use it as a modifier shortly after having used it as a tap.
+
+!> `TAPPING_FORCE_HOLD` will break anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tapping Toggle).
+
+# Retro Tapping
+
+When you hold a dual function key, and haven't pressed anything when you release the key, normally nothing happens.  However, if you enable this, if you release the key without pressing another key, it will send the original key, even if it is outside of the tapping term. 
+
+For instance, if you're using `LT(2, KC_SPACE)`, if you hold the key, don't hit anything else and then release it, normally, nothing happens. But with `RETRO_TAPPING` defined in your `config.h`, it will send `KC_SPACE`. 
