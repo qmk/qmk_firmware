@@ -1,5 +1,4 @@
-#ifndef REV2_H
-#define REV2_H
+#pragma once
 
 #include "dactyl_manuform.h"
 
@@ -68,4 +67,4 @@
 \
 	}
 #endif
-#endif
+

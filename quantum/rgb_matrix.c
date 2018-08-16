@@ -106,16 +106,16 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i, uint8_t
 }
 
 void rgb_matrix_update_pwm_buffers(void) {
-    IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-    IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+    IS31_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+    IS31_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 }
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
-    IS31FL3731_set_color( index, red, green, blue );
+    IS31_set_color( index, red, green, blue );
 }
 
 void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
-    IS31FL3731_set_color_all( red, green, blue );
+    IS31_set_color_all( red, green, blue );
 }
 
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
@@ -752,16 +752,16 @@ void rgb_matrix_init(void) {
 void rgb_matrix_setup_drivers(void) {
   // Initialize TWI
   i2c_init();
-  IS31FL3731_init( DRIVER_ADDR_1 );
-  IS31FL3731_init( DRIVER_ADDR_2 );
+  IS31_init( DRIVER_ADDR_1 );
+  IS31_init( DRIVER_ADDR_2 );
 
   for ( int index = 0; index < DRIVER_LED_TOTAL; index++ ) {
     bool enabled = true;
     // This only caches it for later
-    IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
+    IS31_set_led_control_register( index, enabled, enabled, enabled );
   }
   // This actually updates the LED drivers
-  IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+  IS31_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 }
 
 // Deals with the messy details of incrementing an integer
@@ -811,11 +811,11 @@ void rgb_matrix_test_led( uint8_t index, bool red, bool green, bool blue ) {
     {
         if ( i == index )
         {
-            IS31FL3731_set_led_control_register( i, red, green, blue );
+            IS31_set_led_control_register( i, red, green, blue );
         }
         else
         {
-            IS31FL3731_set_led_control_register( i, false, false, false );
+            IS31_set_led_control_register( i, false, false, false );
         }
     }
 }
