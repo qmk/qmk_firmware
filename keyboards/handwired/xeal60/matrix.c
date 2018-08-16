@@ -78,19 +78,15 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 #endif
 
 
-#if (DIODE_DIRECTION == COL2ROW)
-    static void init_cols(void);
-    static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
-    static void unselect_rows(void);
-    static void select_row(uint8_t row);
-    static void unselect_row(uint8_t row);
-#elif (DIODE_DIRECTION == ROW2COL)
-    static void init_rows(void);
-    static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
-    static void unselect_cols(void);
-    static void unselect_col(uint8_t col);
-    static void select_col(uint8_t col);
+#if (DIODE_DIRECTION == ROW2COL)
+    error "Only Col2Row supported";
 #endif
+static void init_cols(void);
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
+static void unselect_rows(void);
+static void select_row(uint8_t row);
+static void unselect_row(uint8_t row);
+
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -138,13 +134,8 @@ void matrix_init(void)
     debug_matrix = true;
     debug_mouse = true;
     // initialize row and col
-#if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
     init_cols();
-#elif (DIODE_DIRECTION == ROW2COL)
-    unselect_cols();
-    init_rows();
-#endif
 
     TX_RX_LED_INIT;
 
@@ -166,7 +157,7 @@ void matrix_init(void)
 uint8_t _matrix_scan(void)
 {
     int offset = isLeftHand ? 0 : (ROWS_PER_HAND);
-#if (DIODE_DIRECTION == COL2ROW)
+
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
 #       if (DEBOUNCING_DELAY > 0)
@@ -182,22 +173,6 @@ uint8_t _matrix_scan(void)
 #       endif
 
     }
-
-#elif (DIODE_DIRECTION == ROW2COL)
-    // Set col, read rows
-    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-#       if (DEBOUNCING_DELAY > 0)
-            bool matrix_changed = read_rows_on_col(matrix_debouncing+offset, current_col);
-            if (matrix_changed) {
-                debouncing = true;
-                debouncing_time = timer_read();
-            }
-#       else
-             read_rows_on_col(matrix+offset, current_col);
-#       endif
-
-    }
-#endif
 
 #   if (DEBOUNCING_DELAY > 0)
         if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
@@ -362,8 +337,6 @@ uint8_t matrix_key_count(void)
     return count;
 }
 
-#if (DIODE_DIRECTION == COL2ROW)
-
 static void init_cols(void)
 {
     for(uint8_t x = 0; x < MATRIX_COLS; x++) {
@@ -425,78 +398,3 @@ static void unselect_rows(void)
     }
 }
 
-#elif (DIODE_DIRECTION == ROW2COL)
-
-static void init_rows(void)
-{
-    for(uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-        uint8_t pin = row_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
-    }
-}
-
-static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
-{
-    bool matrix_changed = false;
-
-    // Select col and wait for col selecton to stabilize
-    select_col(current_col);
-    wait_us(30);
-
-    // For each row...
-    for(uint8_t row_index = 0; row_index < ROWS_PER_HAND; row_index++)
-    {
-
-        // Store last value of row prior to reading
-        matrix_row_t last_row_value = current_matrix[row_index];
-
-        // Check row pin state
-        if ((_SFR_IO8(row_pins[row_index] >> 4) & _BV(row_pins[row_index] & 0xF)) == 0)
-        {
-            // Pin LO, set col bit
-            current_matrix[row_index] |= (ROW_SHIFTER << current_col);
-        }
-        else
-        {
-            // Pin HI, clear col bit
-            current_matrix[row_index] &= ~(ROW_SHIFTER << current_col);
-        }
-
-        // Determine if the matrix changed state
-        if ((last_row_value != current_matrix[row_index]) && !(matrix_changed))
-        {
-            matrix_changed = true;
-        }
-    }
-
-    // Unselect col
-    unselect_col(current_col);
-
-    return matrix_changed;
-}
-
-static void select_col(uint8_t col)
-{
-    uint8_t pin = col_pins[col];
-    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
-    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
-}
-
-static void unselect_col(uint8_t col)
-{
-    uint8_t pin = col_pins[col];
-    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
-}
-
-static void unselect_cols(void)
-{
-    for(uint8_t x = 0; x < MATRIX_COLS; x++) {
-        uint8_t pin = col_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
-    }
-}
-
-#endif
