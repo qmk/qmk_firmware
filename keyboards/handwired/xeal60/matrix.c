@@ -44,10 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #   define DEBOUNCING_DELAY 5
 #endif
 
-#if (DEBOUNCING_DELAY > 0)
-    static uint16_t debouncing_time;
-    static bool debouncing = false;
-#endif
 
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
@@ -57,7 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #else
 #    error "Currently only supports 8 COLS"
 #endif
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 #define ERROR_DISCONNECT_COUNT 5
 
@@ -71,8 +66,14 @@ static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
-static matrix_row_t* debouncing_matrix_hand_offsetted;
-static matrix_row_t* matrix_hand_offsetted;
+static matrix_row_t* debouncing_matrix_hand_offsetted; //pointer to matrix_debouncing for our hand
+static matrix_row_t* matrix_hand_offsetted; // pointer to matrix for our hand
+
+//Debouncing counters
+typedef uint8_t debounce_counter_t;
+#define DEBOUNCE_COUNTER_MODULO 100
+#define DEBOUNCE_COUNTER_INACTIVE 101
+static debounce_counter_t debounce_counters[MATRIX_ROWS * MATRIX_COLS];
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     uint32_t matrix_timer;
@@ -84,11 +85,10 @@ static matrix_row_t* matrix_hand_offsetted;
     error "Only Col2Row supported";
 #endif
 static void init_cols(void);
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
 static void unselect_rows(void);
 static void select_row(uint8_t row);
 static void unselect_row(uint8_t row);
-
+static matrix_row_t optimized_col_reader(void);
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -150,6 +150,11 @@ void matrix_init(void)
     debouncing_matrix_hand_offsetted = matrix_debouncing + my_hand_offset;
     matrix_hand_offsetted = matrix + my_hand_offset;
 
+    for (uint8_t i = 0; i < MATRIX_ROWS * MATRIX_COLS; i++) {
+        debounce_counters[i] = DEBOUNCE_COUNTER_INACTIVE;
+    }
+    
+
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_timer = timer_read32();
     matrix_scan_count = 0;
@@ -159,35 +164,66 @@ void matrix_init(void)
 
 }
 
+//#define TIMER_DIFF(a, b, max)   ((a) >= (b) ?  (a) - (b) : (max) - (b) + (a))
+void update_debounce_counters(uint8_t current_time)
+{
+    debounce_counter_t *debounce_pointer = debounce_counters;
+    for (uint8_t row = 0; row < ROWS_PER_HAND; row++)
+    {
+        for (uint8_t col = 0; col < MATRIX_COLS; col++)
+        {
+            if (*debounce_pointer != DEBOUNCE_COUNTER_INACTIVE)
+            {
+                if (TIMER_DIFF(*debounce_pointer, current_time, DEBOUNCE_COUNTER_MODULO) >=
+                    DEBOUNCING_DELAY) {
+                        *debounce_pointer = DEBOUNCE_COUNTER_INACTIVE;
+                    }
+            }
+            debounce_pointer++;
+        }
+    }
+}
+
+void transfer_matrix_values(uint8_t current_time)
+{
+    //upload from debounce_matrix to final matrix;
+    debounce_counter_t *debounce_pointer = debounce_counters;
+    for (uint8_t row = 0; row < ROWS_PER_HAND; row++)
+    {
+        matrix_row_t row_value = matrix[row];
+        matrix_row_t debounce_value = matrix_debouncing[row];
+
+        for (uint8_t col = 0; col < MATRIX_COLS; col++)
+        {
+            bool final_value = debounce_value & (1 << col);
+            if (*debounce_pointer == DEBOUNCE_COUNTER_INACTIVE
+                && ((row_value & (1<<col)) != final_value))
+            {
+                *debounce_pointer = current_time;
+                row_value ^= (-final_value ^ row_value) & (1 << col);
+            }
+            debounce_pointer++;
+        }
+        matrix[row] = row_value;
+    }
+}
 
 uint8_t _matrix_scan(void)
 {
-    int offset = isLeftHand ? 0 : (ROWS_PER_HAND);
-
+    uint8_t current_time = timer_read() % DEBOUNCE_COUNTER_MODULO;
+    
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
-#       if (DEBOUNCING_DELAY > 0)
-            bool matrix_changed = read_cols_on_row(debouncing_matrix_hand_offsetted, current_row);
+        select_row(current_row);
+        asm volatile ("nop"); asm volatile("nop");
 
-            if (matrix_changed) {
-                debouncing = true;
-                debouncing_time = timer_read();
-            }
-
-#       else
-            read_cols_on_row(matrix_hand_offsetted, current_row);
-#       endif
-
+        matrix_debouncing[current_row] = optimized_col_reader();
+        // Unselect row
+        unselect_row(current_row);
     }
 
-#   if (DEBOUNCING_DELAY > 0)
-        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
-            for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
-                matrix[i+offset] = matrix_debouncing[i+offset];
-            }
-            debouncing = false;
-        }
-#   endif
+    update_debounce_counters(current_time);
+    transfer_matrix_values(current_time);
 
     return 1;
 }
@@ -241,10 +277,19 @@ int serial_transaction(void) {
 }
 #endif
 
+static uint16_t debug_timer;
 uint8_t matrix_scan(void)
-{
+{    
+    if (timer_elapsed(debug_timer) > 1)
+    {
+        print("uh oh: ");
+        pdec(timer_elapsed(debug_timer));
+        print("\n");        
+    }
+    debug_timer = timer_read();
+    
     uint8_t ret = _matrix_scan();
-
+    
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_count++;
 
@@ -303,8 +348,7 @@ void matrix_slave_scan(void) {
 }
 
 bool matrix_is_modified(void)
-{
-    if (debouncing) return false;
+{    
     return true;
 }
 
@@ -313,6 +357,7 @@ bool matrix_is_on(uint8_t row, uint8_t col)
 {
     return (matrix[row] & ((matrix_row_t)1<<col));
 }
+
 
 inline
 matrix_row_t matrix_get_row(uint8_t row)
@@ -361,24 +406,6 @@ static matrix_row_t optimized_col_reader(void) {
           (PINF & (1 << 4) ? 0 : (ROW_SHIFTER << 7));
 }
 
-static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
-{
-    // Store last value of row prior to reading
-    matrix_row_t last_row_value = current_matrix[current_row];
-
-    // Select row and wait for row selecton to stabilize
-    // Nop is faster than waiting 30ms. Removes huge bottleneck on scanning.
-    // Nop isn't even required but we'll use it for safety.
-    select_row(current_row);
-    asm volatile ("nop"); asm volatile("nop");
-
-
-    current_matrix[current_row] = optimized_col_reader();
-    // Unselect row
-    unselect_row(current_row);
-
-    return (last_row_value != current_matrix[current_row]);
-}
 
 static void select_row(uint8_t row)
 {
