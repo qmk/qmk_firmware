@@ -6,7 +6,7 @@ A 60% PCB sold with the Alf DC60.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: DC60 PCB  
-Hardware Availability: [zFrontier](https://en.zfrontier.com/products/group-buy-alf-x2-60)   
+Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=96616.0)   
 
 Make example for this keyboard (after setting up your build environment):
 
