@@ -84,11 +84,3 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
       break;
   }
 }
-
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-        DDRB |= (1 << 2); PORTB &= ~(1 << 2);
-    } else {
-        DDRB &= ~(1 << 2); PORTB &= ~(1 << 2);
-    }
-}

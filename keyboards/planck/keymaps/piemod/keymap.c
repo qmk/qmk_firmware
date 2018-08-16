@@ -1,3 +1,4 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -98,13 +99,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [2] =  ACTION_LAYER_TAP_KEY(2, KC_O),     // FN2 = Momentary symbOl layer on O.
     [3] =  ACTION_LAYER_TAP_KEY(3, KC_E),     // FN3 = Momentary numbEr layer on E.
     [4] =  ACTION_LAYER_TAP_KEY(4, KC_U),     // FN4 = Momentary fUnction layer on U.
-    [5] =  ACTION_LAYER_TAP_KEY(5, KC_Q),     // FN5 = Momentary emaQs layer on Q. 
+    [5] =  ACTION_LAYER_TAP_KEY(5, KC_Q),     // FN5 = Momentary emaQs layer on Q.
     [6] =  ACTION_LAYER_TAP_KEY(6, KC_LCTRL), // FN6 = Momentary MACROS on ??? key.
     [7] =  ACTION_LAYER_TAP_KEY(7, KC_COMMA), // FN7 = Momentary MOUSE on , key.
 
     // Special Keys
     [10] =  ACTION_MODS_KEY(KC_LCTRL, KC_LALT), // FN10 = Ctrl + Alt.
-    
+
     // Symbols
     [21] =  ACTION_MODS_KEY(MOD_LSFT, KC_SLASH), // FN21 = Question mark.
 
