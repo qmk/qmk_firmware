@@ -20,9 +20,6 @@ enum userspace_layers {
   NUM,
   DIR,
   ETC,
-	   
-	   
-	   
   SUB75,
   SUP75,
   NUM75,
