@@ -11,6 +11,7 @@
 
 void change_leds_to(uint16_t, rgblight_config_t);
 bool state_changed = false;
+static bool grave_esc_was_shifted = false;
 
 enum custom_keycodes {
   KC_K8s = SAFE_RANGE
@@ -68,13 +69,33 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch(keycode) {
-      case KC_K8s:
+  switch(keycode) {
+    case KC_K8s: {
+      if (record->event.pressed) {
         SEND_STRING("kubectl ");
         return false;
+      }
+      break;
+    }
+
+    case GRAVE_ESC: {
+      uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
+                                      |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)
+                                      |MOD_BIT(KC_LALT)));
+
+      if (record->event.pressed) {
+        grave_esc_was_shifted = shifted;
+        add_key(shifted ? KC_GRAVE : KC_ESCAPE);
+      }
+      else {
+        del_key(grave_esc_was_shifted ? KC_GRAVE : KC_ESCAPE);
+      }
+
+      send_keyboard_report();
+      return false;
     }
   }
+
   return true;
 }
 
