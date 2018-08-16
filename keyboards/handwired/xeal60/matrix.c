@@ -71,6 +71,8 @@ static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
+static matrix_row_t* debouncing_matrix_hand_offsetted;
+static matrix_row_t* matrix_hand_offsetted;
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     uint32_t matrix_timer;
@@ -131,8 +133,8 @@ void matrix_init(void)
 #endif
 
     debug_enable = true;
-    debug_matrix = true;
-    debug_mouse = true;
+    debug_matrix = false;
+    debug_mouse = false;
     // initialize row and col
     unselect_rows();
     init_cols();
@@ -144,6 +146,9 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
+    int my_hand_offset = isLeftHand ? 0 : (ROWS_PER_HAND);
+    debouncing_matrix_hand_offsetted = matrix_debouncing + my_hand_offset;
+    matrix_hand_offsetted = matrix + my_hand_offset;
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_timer = timer_read32();
@@ -154,6 +159,7 @@ void matrix_init(void)
 
 }
 
+
 uint8_t _matrix_scan(void)
 {
     int offset = isLeftHand ? 0 : (ROWS_PER_HAND);
@@ -161,7 +167,7 @@ uint8_t _matrix_scan(void)
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
 #       if (DEBOUNCING_DELAY > 0)
-            bool matrix_changed = read_cols_on_row(matrix_debouncing+offset, current_row);
+            bool matrix_changed = read_cols_on_row(debouncing_matrix_hand_offsetted, current_row);
 
             if (matrix_changed) {
                 debouncing = true;
@@ -169,7 +175,7 @@ uint8_t _matrix_scan(void)
             }
 
 #       else
-            read_cols_on_row(matrix+offset, current_row);
+            read_cols_on_row(matrix_hand_offsetted, current_row);
 #       endif
 
     }
@@ -242,21 +248,18 @@ uint8_t matrix_scan(void)
 #ifdef DEBUG_MATRIX_SCAN_RATE
     matrix_scan_count++;
 
-    uint32_t timer_now = timer_read32();
-    if (TIMER_DIFF_32(timer_now, matrix_timer)>1000) {
-        print("matrix scan frequency: ");
-        pdec(matrix_scan_count);
+    if (matrix_scan_count > 1000) {
+        uint32_t timer_now = timer_read32();
+        uint16_t ms_per_thousand = TIMER_DIFF_32(timer_now, matrix_timer);
+        uint16_t rate_per_second = 1000000UL / ms_per_thousand;
+        print("scan_rate: ");
+        pdec(rate_per_second);
         print("\n");
-        matrix_print();
-
         matrix_timer = timer_now;
         matrix_scan_count = 0;
     }
 #endif
-
-
-
-
+    
 #ifdef USE_I2C
     if( i2c_transaction() ) {
 #else // USE_SERIAL
@@ -356,15 +359,17 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
     // Select row and wait for row selecton to stabilize
     select_row(current_row);
-    wait_us(30);
+
+    // Nop is faster than waiting 30ms. Removes huge bottleneck on scanning.
+    // Nop isn't even required but we'll use it for safety.
+    asm volatile ("nop"); asm volatile("nop");
 
     // For each col...
     for(uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-
         // Select the col pin to read (active low)
         uint8_t pin = col_pins[col_index];
         uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
-
+        
         // Populate the matrix row with the state of the col pin
         current_matrix[current_row] |=  pin_state ? 0 : (ROW_SHIFTER << col_index);
     }
