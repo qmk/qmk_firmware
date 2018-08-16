@@ -1,8 +1,7 @@
 AUDIO_ENABLE = no
+SWAP_HANDS_ENABLE = yes
 
 ###this if sequence below is not working####
-ifeq ($(strip $(KEYBOARD)), lets_split_rev2)
-	SWAP_HANDS_ENABLE = yes
-elif ($(strip $(KEYBOARD)), jj40)
+ifeq ($(strip $(KEYBOARD)), jj40)
 	SWAP_HANDS_ENABLE = no
 endif
