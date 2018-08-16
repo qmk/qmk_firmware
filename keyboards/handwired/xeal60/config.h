@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // #define USE_SERIAL
 #define USE_I2C
+#define SCL_CLOCK  400000L
 
 /* Select hand configuration */
 
