@@ -31,6 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "timer.h"
 
+
+
+
 #ifdef USE_I2C
 #  include "i2c.h"
 #else // USE_SERIAL
@@ -68,6 +71,12 @@ static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
+
+#ifdef DEBUG_MATRIX_SCAN_RATE
+    uint32_t matrix_timer;
+    uint32_t matrix_scan_count;
+#endif
+
 
 #if (DIODE_DIRECTION == COL2ROW)
     static void init_cols(void);
@@ -144,6 +153,11 @@ void matrix_init(void)
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
+
+#ifdef DEBUG_MATRIX_SCAN_RATE
+    matrix_timer = timer_read32();
+    matrix_scan_count = 0;
+#endif
 
     matrix_init_quantum();
 
@@ -249,6 +263,24 @@ int serial_transaction(void) {
 uint8_t matrix_scan(void)
 {
     uint8_t ret = _matrix_scan();
+
+#ifdef DEBUG_MATRIX_SCAN_RATE
+    matrix_scan_count++;
+
+    uint32_t timer_now = timer_read32();
+    if (TIMER_DIFF_32(timer_now, matrix_timer)>1000) {
+        print("matrix scan frequency: ");
+        pdec(matrix_scan_count);
+        print("\n");
+        matrix_print();
+
+        matrix_timer = timer_now;
+        matrix_scan_count = 0;
+    }
+#endif
+
+
+
 
 #ifdef USE_I2C
     if( i2c_transaction() ) {
