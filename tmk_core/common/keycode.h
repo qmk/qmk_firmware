@@ -475,7 +475,7 @@ enum internal_special_keycodes {
   KC_FN13,
   KC_FN14,
   KC_FN15,
-  KC_FN16                 //0xD0
+  KC_FN16,                //0xD0
   KC_FN17,
   KC_FN18,
   KC_FN19,
