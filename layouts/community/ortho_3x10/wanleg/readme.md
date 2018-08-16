@@ -57,7 +57,7 @@ The instructions below have been adapted from https://www.reddit.com/r/olkb/comm
 | 5V | VCC |
 
 ## Make the QMK DFU .hex
-3. In `config.h` add the following. This is already set up in ``qmk_firmware/layouts/community/ortho_3x10/wanleg`. You only need to do this on other keymaps.
+3. In `config.h` add the following. This is already set up in `qmk_firmware/layouts/community/ortho_3x10/wanleg`. You only need to do this on other keymaps.
 ```
 #define QMK_ESC_OUTPUT B4
 #define QMK_ESC_INPUT F7
