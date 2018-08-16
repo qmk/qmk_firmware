@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 
 #define LAYOUT( \
-  K00  \
+  K00, K01, K02  \
 ) { \
-  { K00 }  \
+  { K00, K01, K02 }  \
 }
 
 #endif
