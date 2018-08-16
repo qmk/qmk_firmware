@@ -259,7 +259,6 @@ uint8_t matrix_scan(void)
         matrix_scan_count = 0;
     }
 #endif
-    
 #ifdef USE_I2C
     if( i2c_transaction() ) {
 #else // USE_SERIAL
@@ -349,31 +348,32 @@ static void init_cols(void)
     }
 }
 
+inline 
+static matrix_row_t optimized_col_reader(void) {
+    //MATRIX_COL_PINS { B6, B2, B3, B1, F7, F6, F5, F4 }
+    return (PINB & (1 << 6) ? 0 : (ROW_SHIFTER << 0)) |
+          (PINB & (1 << 2) ? 0 : (ROW_SHIFTER << 1)) |
+          (PINB & (1 << 3) ? 0 : (ROW_SHIFTER << 2)) |
+          (PINB & (1 << 1) ? 0 : (ROW_SHIFTER << 3)) |
+          (PINF & (1 << 7) ? 0 : (ROW_SHIFTER << 4)) |
+          (PINF & (1 << 6) ? 0 : (ROW_SHIFTER << 5)) |
+          (PINF & (1 << 5) ? 0 : (ROW_SHIFTER << 6)) |
+          (PINF & (1 << 4) ? 0 : (ROW_SHIFTER << 7));
+}
+
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 {
     // Store last value of row prior to reading
     matrix_row_t last_row_value = current_matrix[current_row];
 
-    // Clear data in matrix row
-    current_matrix[current_row] = 0;
-
     // Select row and wait for row selecton to stabilize
-    select_row(current_row);
-
     // Nop is faster than waiting 30ms. Removes huge bottleneck on scanning.
     // Nop isn't even required but we'll use it for safety.
+    select_row(current_row);
     asm volatile ("nop"); asm volatile("nop");
 
-    // For each col...
-    for(uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
-        // Select the col pin to read (active low)
-        uint8_t pin = col_pins[col_index];
-        uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
-        
-        // Populate the matrix row with the state of the col pin
-        current_matrix[current_row] |=  pin_state ? 0 : (ROW_SHIFTER << col_index);
-    }
 
+    current_matrix[current_row] = optimized_col_reader();
     // Unselect row
     unselect_row(current_row);
 
