@@ -85,7 +85,7 @@ if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a n
 
 |Mode                                   |Description                            |
 |---------------------------------------|---------------------------------------|
-|`RGBLIGHT_MODE_STATIC_LIGHT`           |Solid color (this mode allways enable) |
+|`RGBLIGHT_MODE_STATIC_LIGHT`           |Solid color (this mode is always enabled) |
 |`RGBLIGHT_MODE_BREATHING + 0-3`        |Solid color breathing                  |
 |`RGBLIGHT_MODE_RAINBOW_MOOD + 0-2`     |Cycling rainbow                        |
 |`RGBLIGHT_MODE_RAINBOW_SWIRL + 0-5`    |Swirling rainbow                       |
