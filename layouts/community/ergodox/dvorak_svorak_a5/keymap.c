@@ -14,20 +14,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,--------------------------------------------------.           ,--------------------------------------------------.
  * |        |   1  |   2  |   3  |   4  |   5  | ~MOUS|           | QWRT |   6  |   7  |   8  |   9  |   0  |    +   |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |   Å  |   Ä  |   Ö  |   P  |   Y  |      |           |      |   F  |   G  |   C  |   R  |   L  |   ,    |
+ * |        |   Å  |   Ä  |   Ö  |   P  |   Y  |      |           |  Del |   F  |   G  |   C  |   R  |   L  |   ,    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Escape |   A  |   O  |   E  |   U  |   I  |------|           |------|   D  |   H  |   T  |   N  |   S  |  -/_   |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|      |           | RCTRL|------+------+------+------+------+--------|
  * | LShift |   .  |   Q  |   J  |   K  |   X  |      |           |      |   B  |   M  |   W  |   V  |   Z  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *  | LCTRL |      |      | LAlt | Super|                                       | ~SYMB| Left | Down |  Up  | Right |
  *  `-----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
- *                                        |  Ins |  Del |       |      |      |
+ *                                        |  Ins |  Del |       | HOME |  END |
  *                                 ,------|------|------|       |------+--------+-------.
- *                                 |      |      |      |       |      |        |       |
+ *                                 |      |      |      |       | PgUp |        |       |
  *                                 | BSP  | Tab  |------|       |------|  Enter | Space |
- *                                 |      |      |      |       |      |        |       |
+ *                                 |      |      |      |       | PgDn |        |       |
  *                                 `--------------------'       `-----------------------'
  */
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
@@ -42,13 +42,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              KC_BSPC, KC_TAB,    KC_NO,
         // right hand
         TG(QWRT), KC_6,   KC_7,     KC_8,    KC_9,    KC_0,      NO_PLUS,
-        KC_NO,    KC_F,   KC_G,     KC_C,    KC_R,    KC_L,      KC_COMM,
+        KC_DEL,   KC_F,   KC_G,     KC_C,    KC_R,    KC_L,      KC_COMM,
                   KC_D,   KC_H,     KC_T,    KC_N,    KC_S,      NO_MINS,
-        KC_NO,    KC_B,   KC_M,     KC_W,    KC_V,    KC_Z,      KC_RSFT,
+        KC_RCTRL, KC_B,   KC_M,     KC_W,    KC_V,    KC_Z,      KC_RSFT,
                           MO(SYMB), KC_LEFT, KC_DOWN, KC_UP,     KC_RGHT,
-        KC_NO,    KC_NO,
-        KC_NO,
-        KC_NO,    KC_ENT, KC_SPACE
+        KC_HOME,  KC_END,
+        KC_PGUP,
+        KC_PGDN,  KC_ENT, KC_SPACE
     ),
 /* Keymap 1: Symbol Layer
  *
@@ -95,13 +95,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 2: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |  F1  |  F2  |  F3  |  F4  |  F5  |      |           |      |  F6  |  F7  |  F8  |  F9  | F10  |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        | F11  | F12  |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |------|           |------|      |      |      |      |      |        |
+ * |        |      |      |      |      |      |------|           |------|      |      |      |      |      | Vol Up |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |  B1  |  B2  |        |
+ * |        |      |      |      |      |      |      |           |      |      |      |      |  B1  |  B2  |Vol Down|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                                       |      |  M_L |  M_D |  M_U |  M_R  |
  *   `----------------------------------'                                       `----------------------------------'
@@ -109,29 +109,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        |      |      |       |      |      |
  *                                 ,------|------|------|       |------+------+------.
  *                                 |      |      |      |       |      |      |      |
- *                                 |      |      |------|       |------|      |      |
- *                                 |      |      |      |       |      |      |      |
+ *                                 |      |      |------|       |------|      | Play |
+ *                                 |      |      |      |       |      |      | Pause|
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
 [MOUS] = LAYOUT_ergodox(
-       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+       KC_NO, KC_F1,  KC_F2, KC_F3,  KC_F4, KC_F5, KC_NO,
+       KC_NO, KC_F11, KC_NO, KC_F12, KC_NO, KC_NO, KC_NO,
+       KC_NO, KC_NO,  KC_NO, KC_NO,  KC_NO, KC_NO,
+       KC_NO, KC_NO,  KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO,
+       KC_NO, KC_NO,  KC_NO, KC_NO,  KC_NO,
                                                 KC_NO, KC_NO,
                                                        KC_NO,
                                        KC_NO,   KC_NO, KC_NO,
     // right hand
+       KC_NO,  KC_F6, KC_F7, KC_F8,   KC_F9,   KC_F10,  KC_NO,
        KC_NO,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_NO,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,
-       KC_NO,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,
-       KC_NO,  KC_NO, KC_NO, KC_NO,   KC_BTN1, KC_BTN2, KC_NO,
+               KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_VOLU,
+       KC_NO,  KC_NO, KC_NO, KC_NO,   KC_BTN1, KC_BTN2, KC_VOLD,
                       KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
        KC_NO, KC_NO,
        KC_NO,
-       KC_NO, KC_NO, KC_NO
+       KC_NO, KC_NO, KC_MPLY
 ),
 /* Keymap 3: QWERTY Layer
  *
