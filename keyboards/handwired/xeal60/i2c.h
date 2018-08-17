@@ -2,6 +2,7 @@
 #define I2C_H
 
 #include <stdint.h>
+#include "config.h"
 
 #ifndef F_CPU
 #define F_CPU 16000000UL
@@ -14,19 +15,35 @@
 #define I2C_NACK 0
 
 // Address location defines (Keymap should be last, as it's size is dynamic)
-#define I2C_BACKLIT_START   0x00
+#ifdef BACKLIGHT_ENABLE
+    #define I2C_BACKLIT_START   0x00
+#endif
+
 // Need 4 bytes for RGB (32 bit)
-#define I2C_RGB_START       0x01
-#define I2C_KEYMAP_START    0x06
+#ifdef RGBLIGHT_ENABLE 
+    #ifdef BACKLIGHT_ENABLE        
+        #define I2C_RGB_START   0x01
+    #else
+        #define I2C_RGB_START   0x00
+    #endif  
+#endif
+
+// Figure out where keymap starts
+#if defined(RGBLIGHT_ENABLE)
+    #define I2C_KEYMAP_START    (I2C_RGB_START+4)
+#elif defined(BACKLIGHT_ENABLE)
+    #define I2C_KEYMAP_START    (I2C_BACKLIT_START+1)
+#else
+    #define I2C_KEYMAP_START    0x00
+#endif
 
 // Slave buffer (8bit per)
-// Rows per hand + backlit space + rgb space
-// TODO : Make this dynamically sized
-#define SLAVE_BUFFER_SIZE 0x20
+// backlit space + rgb space + rows per hand. Rows are doubled up.
+#define SLAVE_BUFFER_SIZE (I2C_KEYMAP_START + MATRIX_ROWS / 2)
 
 // i2c SCL clock frequency
 #ifndef SCL_CLOCK
-#define SCL_CLOCK  100000L
+  #define SCL_CLOCK  100000L
 #endif
 
 // Support 8bits right now (8 cols) will need to edit to take higher (code exists in delta split?)

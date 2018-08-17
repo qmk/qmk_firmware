@@ -7,6 +7,7 @@
 #include "i2c.h"
 #include "split_flags.h"
 
+
 #if defined(USE_I2C) || defined(EH)
 
 // Limits the amount of we wait for any one i2c transaction.
@@ -157,13 +158,17 @@ ISR(TWI_vect) {
         slave_has_register_set = true;
       } else {      
         i2c_slave_buffer[slave_buffer_pos] = TWDR;
-        
+
+        #ifdef BACKLIGHT_ENABLE
         if ( slave_buffer_pos == I2C_BACKLIT_START) {
             BACKLIT_DIRTY = true;
-        } else if ( slave_buffer_pos == (I2C_RGB_START+3)) {
+        }
+        #endif
+        #ifdef RGB_ENABLE
+        if ( slave_buffer_pos == (I2C_RGB_START+3)) {
             RGB_DIRTY = true;
         }
-        
+        #endif
         BUFFER_POS_INC();
       }
       break;

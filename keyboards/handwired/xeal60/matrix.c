@@ -219,38 +219,93 @@ uint8_t _matrix_scan(void)
     return 1;
 }
 
+
+
 #ifdef USE_I2C
 
-//Read values from slave.
-int i2c_transaction(void) {
-    int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
-
-    int err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-    if (err) goto i2c_error;
-
-    // start of matrix stored at I2C_KEYMAP_START
-    err = i2c_master_write(I2C_KEYMAP_START);
-    if (err) goto i2c_error;
-
-    // Start read
-    err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_READ);
-    if (err) goto i2c_error;
-
-    if (!err) {
-        int i;
-        for (i = 0; i < ROWS_PER_HAND-1; ++i) {
-            matrix[slaveOffset+i] = i2c_master_read(I2C_ACK);
-        }
-        matrix[slaveOffset+i] = i2c_master_read(I2C_NACK);
-        i2c_master_stop();
-    } else {
-i2c_error: // the cable is disconnceted, or something else went wrong
+    inline int i2c_error(int err) {
         i2c_reset_state();
         return err;
     }
 
-    return 0;
-}
+    #ifdef BACKLIGHT_ENABLE
+    int i2c_backlight(void)
+    {    // write backlight info
+        if (BACKLIT_DIRTY) {
+            err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
+            if (err) return err;
+
+            // Backlight location
+            err = i2c_master_write(I2C_BACKLIT_START);
+            if (err) return err;
+
+            // Write backlight 
+            i2c_master_write(get_backlight_level());
+
+            BACKLIT_DIRTY = false;
+        }
+        return 0;
+    }
+    #endif
+
+    #ifdef RGBLIGHT_ENABLE
+    int i2c_rgblight(void)
+        if (RGB_DIRTY) {
+            err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
+            if (err) return err;
+
+            // RGB Location
+            err = i2c_master_write(I2C_RGB_START);
+            if (err) return err;
+
+            uint32_t dword = eeconfig_read_rgblight();
+
+            // Write RGB
+            err = i2c_master_write_data(&dword, 4);
+            if (err) return err;
+
+            RGB_DIRTY = false;
+            i2c_master_stop();
+        }
+    }
+    #endif
+
+
+    // Get rows from other half over i2c
+    int i2c_transaction(void) {
+        int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+        int err = 0;
+        #ifdef BACKLIGHT_ENABLE
+            err = i2c_backlight();
+            if (err) return i2c_error(err);
+        #endif
+
+        err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
+        if (err) return i2c_error(err);
+
+        // start of matrix stored at I2C_KEYMAP_START
+        err = i2c_master_write(I2C_KEYMAP_START);
+        if (err) return i2c_error(err);
+
+        // Start read
+        err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_READ);
+        if (err) return i2c_error(err);
+
+        int i = 0;
+        for (i = 0; i < ROWS_PER_HAND - 1; ++i) {
+            matrix[slaveOffset + i] = i2c_master_read(I2C_ACK);
+        }
+        matrix[slaveOffset + i] = i2c_master_read(I2C_NACK);
+
+        i2c_master_stop();
+
+        #ifdef RGBLIGHT_ENABLE
+            err = i2c_rgblight()
+            if (err) return i2c_error(err);
+        #endif
+
+        return 0;
+    }
 
 #else // USE_SERIAL
 
@@ -309,7 +364,7 @@ void matrix_slave_scan(void) {
 
 #ifdef USE_I2C
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        i2c_slave_buffer[i] = matrix[offset+i];
+        i2c_slave_buffer[I2C_KEYMAP_START + i] = matrix[offset+i];
     }
 #else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
