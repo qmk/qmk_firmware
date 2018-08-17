@@ -2,7 +2,7 @@
 
 A split 5x7 keyboard with 3 thumb keys. Made by [Unikeyboard](https://unikeyboard.io).
 
-Keyboard Maintainer: [IslandMan93](https://github.com/islandman93), [LeoTheLocust](https://github.com/leothelocust)
+Keyboard Maintainer: [IslandMan93](https://github.com/islandman93)
 Hardware Supported: Pro Micro
 Hardware Availability: [Diverge 3](https://unikeyboard.io/product/diverge/)
 
