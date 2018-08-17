@@ -221,15 +221,15 @@ uint8_t _matrix_scan(void)
 
 #ifdef USE_I2C
 
-// Get rows from other half over i2c
+//Read values from slave.
 int i2c_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 
     int err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
     if (err) goto i2c_error;
 
-    // start of matrix stored at 0x00
-    err = i2c_master_write(0x00);
+    // start of matrix stored at I2C_KEYMAP_START
+    err = i2c_master_write(I2C_KEYMAP_START);
     if (err) goto i2c_error;
 
     // Start read
