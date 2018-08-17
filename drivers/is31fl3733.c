@@ -24,7 +24,7 @@
 #include "wait.h"
 #endif
 
-#include "is31fl3731.h"
+#include "is31fl3733.h"
 #include <string.h>
 #include "i2c_master.h"
 #include "progmem.h"
@@ -72,7 +72,7 @@ uint8_t g_twi_transfer_buffer[20];
 // The control buffers match the PG0 LED On/Off registers.
 // Storing them like this is optimal for I2C transfers to the registers.
 // We could optimize this and take out the unused registers from these
-// buffers and the transfers in IS31FL3731_write_pwm_buffer() but it's
+// buffers and the transfers in IS31FL3733_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
 uint8_t g_pwm_buffer[DRIVER_COUNT][192];
 bool g_pwm_buffer_update_required = false;
@@ -131,10 +131,10 @@ void IS31_init( uint8_t addr )
     // then disable software shutdown.
 
     // Unlock the command register.
-    IS31_write_register( addr, COMMANDREGISTER_WRITELOCK, 0xC5 );
+    IS31_write_register( addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5 );
 
     // Select PG0
-    IS31_write_register( addr, COMMANDREGISTER, ISSI_PAGE_LEDCONTROL );
+    IS31_write_register( addr, ISSI_COMMANDREGISTER, ISSI_PAGE_LEDCONTROL );
     // Turn off all LEDs.
     for ( int i = 0x00; i <= 0x17; i++ )
     {
@@ -142,10 +142,10 @@ void IS31_init( uint8_t addr )
     }
 
     // Unlock the command register.
-    IS31_write_register( addr, COMMANDREGISTER_WRITELOCK, 0xC5 );
+    IS31_write_register( addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5 );
 
     // Select PG1
-    IS31_write_register( addr, COMMANDREGISTER, ISSI_PAGE_PWM );
+    IS31_write_register( addr, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM );
     // Set PWM on all LEDs to 0
     // No need to setup Breath registers to PWM as that is the default.
     for ( int i = 0x00; i <= 0xBF; i++ )
@@ -154,10 +154,10 @@ void IS31_init( uint8_t addr )
     }
 
     // Unlock the command register.
-    IS31_write_register( addr, COMMANDREGISTER_WRITELOCK, 0xC5 );
+    IS31_write_register( addr, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5 );
 
     // Select PG3
-    IS31_write_register( addr, COMMANDREGISTER, ISSI_PAGE_FUNCTION );
+    IS31_write_register( addr, ISSI_COMMANDREGISTER, ISSI_PAGE_FUNCTION );
     // Set global current to maximum.
     IS31_write_register( addr, ISSI_REG_GLOBALCURRENT, 0xFF );
     // Disable software shutdown.
@@ -227,8 +227,8 @@ void IS31_update_pwm_buffers( uint8_t addr1, uint8_t addr2 )
     if ( g_pwm_buffer_update_required )
     {
         // Firstly we need to unlock the command register and select PG1
-        IS31_write_register( addr, COMMANDREGISTER_WRITELOCK, 0xC5 );
-        IS31_write_register( addr, COMMANDREGISTER, ISSI_PAGE_PWM );
+        IS31_write_register( addr1, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5 );
+        IS31_write_register( addr1, ISSI_COMMANDREGISTER, ISSI_PAGE_PWM );
 
         IS31_write_pwm_buffer( addr1, g_pwm_buffer[0] );
         //IS31_write_pwm_buffer( addr2, g_pwm_buffer[1] );
@@ -241,8 +241,8 @@ void IS31_update_led_control_registers( uint8_t addr1, uint8_t addr2 )
     if ( g_led_control_registers_update_required )
     {
         // Firstly we need to unlock the command register and select PG0
-        IS31_write_register( addr, COMMANDREGISTER_WRITELOCK, 0xC5 );
-        IS31_write_register( addr, COMMANDREGISTER, ISSI_PAGE_LEDCONTROL );
+        IS31_write_register( addr1, ISSI_COMMANDREGISTER_WRITELOCK, 0xC5 );
+        IS31_write_register( addr1, ISSI_COMMANDREGISTER, ISSI_PAGE_LEDCONTROL );
         for ( int i=0; i<24; i++ )
         {
             IS31_write_register(addr1, i, g_led_control_registers[0][i] );

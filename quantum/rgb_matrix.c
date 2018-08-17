@@ -1,5 +1,6 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2017 Jack Humbert
+ * Copyright 2018 Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,17 +18,21 @@
 
 
 #include "rgb_matrix.h"
-#include <avr/io.h>
 #include "i2c_master.h"
-#include <util/delay.h>
-#include <avr/interrupt.h>
 #include "progmem.h"
 #include "config.h"
 #include "eeprom.h"
-#include "lufa.h"
 #include <math.h>
 
 rgb_config_t rgb_matrix_config;
+
+#ifndef MAX
+    #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
+#endif
+
+#ifndef MIN
+    #define MIN(a,b) ((a) < (b)? (a): (b))
+#endif
 
 #ifndef RGB_DISABLE_AFTER_TIMEOUT
     #define RGB_DISABLE_AFTER_TIMEOUT 0
@@ -460,7 +465,7 @@ void rgb_matrix_rainbow_moving_chevron(void) {
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         led = g_rgb_leds[i];
         // uint8_t r = g_tick;
-        uint8_t r = 32;
+        uint8_t r = 128;
         hsv.h = (1.5 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed)) * abs(led.point.y - 32.0)* sin(r * PI / 128) + (1.5 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed)) * (led.point.x - (g_tick / 256.0 * 224)) * cos(r * PI / 128) + rgb_matrix_config.hue;
         rgb = hsv_to_rgb( hsv );
         rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );

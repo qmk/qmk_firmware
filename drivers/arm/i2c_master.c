@@ -82,12 +82,12 @@ uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t l
   {
     complete_packet[i+1] = data[i];
   }
-  complete_packet[0] = regaddr
+  complete_packet[0] = regaddr;
 
   return i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), complete_packet, length + 1, 0, 0, MS2ST(timeout));
 }
 
-uint8_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)
+uint8_t i2c_readReg(uint8_t devaddr, uint8_t* regaddr, uint8_t* data, uint16_t length, uint16_t timeout)
 {
   i2c_address = devaddr;
   i2cStart(&I2C_DRIVER, &i2cconfig);
@@ -97,7 +97,6 @@ uint8_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t le
 // This is usually not needed. It releases the driver to allow pins to become GPIO again.
 uint8_t i2c_stop(uint16_t timeout)
 {
-  i2c_address = address;
   i2cStop(&I2C_DRIVER);
   return 0;
 }
