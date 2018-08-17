@@ -4,12 +4,12 @@ Basic example of the [Workman Programming Layout](https://github.com/ojbucao/wor
 
 ## Layer 1 - Default (Workman)
 
-![Workman Layout Picture](Layer_WORKMAN.png)
+![Workman Layout Picture](https://i.imgur.com/IOOmRfI.png)
 
 ## Layer 2 - Gaming Layer
 
-![Gaming Layer Picture](Layer_GAME.png)
+![Gaming Layer Picture](https://i.imgur.com/E0vmEAa.png)
 
 ## Layer 3 - Raise Layer
 
-![Raise Layer Misc Buttons Picture](Layer_RAISE.png)
+![Raise Layer Misc Buttons Picture](https://i.imgur.com/50L3O62.png)
