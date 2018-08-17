@@ -2,9 +2,9 @@
 
 ![1up60hse](imgur.com image replace me!)
 
-A short description of the keyboard/project
+A 60% PCB with USB C, RGB underglow, backlighting, and hotswappable switches.
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: The PCBs, controllers supported  
 Hardware Availability: links to where you can find this hardware
 
