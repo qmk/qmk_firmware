@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef 1UP60HSE_H
-#define 1UP60HSE_H
+#ifndef KB_H
+#define KB_H
 
 #include "quantum.h"
 
