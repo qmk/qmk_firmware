@@ -6,7 +6,7 @@ A 60% PCB with USB C, RGB underglow, backlighting, and hotswappable switches.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Availability: [1upkeyboards.com](https://www.1upkeyboards.com/shop/controllers/1up-rgb-pcb-hse/)
 
 Make example for this keyboard (after setting up your build environment):
 
