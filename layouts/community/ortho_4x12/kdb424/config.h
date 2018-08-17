@@ -31,6 +31,8 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define DISABLE_LEADER
+//#define DISABLE_LEADER
+
+#define RGBLIGHT_ANIMATIONS
 
 #endif

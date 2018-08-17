@@ -70,9 +70,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_DVORAK] = LAYOUT_ortho_4x12( \
   KC_GESC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,   KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC, \
-  KC_TAB,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  TD_EE,  \
-  KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLASH),  \
-  KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
+  KC_TAB,  KC_A,    KC_O,    KC_E,    U_ARROW, KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  KC_ENT,  \
+  KC_RSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLASH),  \
+  KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG,  MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
 ),
 
 /* Colemak Mod-DH
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_COLEMAK] = LAYOUT_ortho_4x12( \
   KC_GESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,   KC_J,   KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_BSPC, \
-  KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,   KC_K,   KC_N,    KC_E,    KC_I,    KC_O,     TD_EE,  \
+  KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,   KC_K,   KC_N,    KC_E,    KC_I,    KC_O,     KC_ENT,  \
   KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_M,   KC_H,    KC_COMM, KC_DOT,  KC_SLASH, SFT_T(KC_QUOT),  \
   KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT  \
 ),
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |   [  |   ]  |  \   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |------+------+------+------+------+------|------+------+------+------+------+------|;
  * |      |      |      |      |      |      |      |      | Ins  | PGDN | PGUP |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |RESET |      |      |      |      |      |      |      | Home | Vol- | Vol+ | END  |
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, TD_BLEQ, \
 	_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_PGDN, KC_PGUP, KC_MINS, \
-	RESET,   _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_HOME, KC_VOLD, KC_VOLU, KC_END \
+	REPROG,  _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_HOME, KC_VOLD, KC_VOLU, KC_END \
 ),
 
 /* RAISE2
@@ -124,10 +124,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE2] = LAYOUT_ortho_4x12( \
-		_______, _______, _______, _______, _______, _______, _______, _______, KC_7, KC_8, KC_9,    KC_BSPC, \
-		_______, _______, _______, _______, _______, _______, _______, _______, KC_4, KC_5, KC_6,    XXXXXXX, \
+		RGB_TOG, RGB_VAI, RGB_SAI, RGB_HUI, _______, _______, _______, _______, KC_7, KC_8, KC_9,    KC_BSPC, \
+		_______, RGB_VAD, RGB_SAD, RGB_HUD, _______, _______, _______, _______, KC_4, KC_5, KC_6,    XXXXXXX, \
 		_______, _______, _______, _______, _______, _______, _______, _______, KC_1, KC_2, KC_3,    XXXXXXX, \
-		_______, _______, _______, _______, _______, _______, _______, _______, KC_0, KC_0, KC_PDOT, KC_ENT \
+		RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_K, RGB_M_G, _______, _______, _______, KC_0, KC_0, KC_PDOT, KC_ENT \
 
 ),
 
@@ -223,21 +223,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case REPROGRAM_MACRO:
       if (record->event.pressed) {
+      rgblight_enable();
+      rgblight_setrgb(255, 255, 255);
       SEND_STRING(SS_LGUI(SS_TAP(X_ENTER)));
-      _delay_ms(500);
+      wait_ms(500);
       SEND_STRING("~/qmk_firmware" SS_TAP(X_ENTER));
-      _delay_ms(100);
+      wait_ms(100);
       SEND_STRING("make "QMK_KEYBOARD":"QMK_KEYMAP":dfu && exit" SS_TAP(X_ENTER));
+      wait_ms(100);
+      reset_keyboard();
       return false;
      }
 
     case SCROT:
       if (record->event.pressed) {
-      _delay_ms(100);
+      wait_ms(100);
       SEND_STRING(SS_LGUI(SS_TAP(X_R)));
-      _delay_ms(100);
+      wait_ms(100);
       SEND_STRING("scrot");
-      _delay_ms(10);
+      wait_ms(10);
       SEND_STRING(SS_TAP(X_ENTER));
       return false;
      }
