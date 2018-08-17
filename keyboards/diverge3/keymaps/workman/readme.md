@@ -1,4 +1,4 @@
-# The default keymap for diverge3
+# The Workman keymap for diverge3
 
 Basic example of the [Workman Programming Layout](https://github.com/ojbucao/workman) which uses the `SHIFT`ed variants of the number row, by default.
 
