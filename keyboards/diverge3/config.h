@@ -31,7 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
-#define USE_SERIAL // Only SERIAL is currently supported
+// Only SERIAL is currently supported
+// By converting this to use I2C, backlight
+// would/should be fully functional as well
+#define USE_SERIAL
 
 /*
  * Keyboard Matrix Assignments
