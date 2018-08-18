@@ -572,7 +572,7 @@ void rgblight_task(void) {
 
   if (rgblight_timer_enabled) {
 
-    momentum_decay_task();    
+    if (momentum_enabled()) momentum_decay_task();    
 
     // mode = 1, static light, do nothing here
     if (rgblight_config.mode >= 2 && rgblight_config.mode <= 5) {
@@ -608,7 +608,11 @@ void rgblight_effect_breathing(uint8_t interval) {
   static uint16_t last_timer = 0;
   float val;
 
-  if (timer_elapsed(last_timer) < match_momentum(1, 100)) {
+  uint8_t interval_time = momentum_enabled()
+    ? match_momentum(1, 100) 
+    : pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2]);
+  
+  if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
   last_timer = timer_read();
@@ -623,7 +627,11 @@ void rgblight_effect_rainbow_mood(uint8_t interval) {
   static uint16_t current_hue = 0;
   static uint16_t last_timer = 0;
 
-  if (timer_elapsed(last_timer) < match_momentum(5, 100)) {
+  uint8_t interval_time = momentum_enabled()
+    ? match_momentum(5, 100)
+    : pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[interval]);
+
+  if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
   last_timer = timer_read();
@@ -636,7 +644,11 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   uint16_t hue;
   uint8_t i;
 
-  if (timer_elapsed(last_timer) < match_momentum(1, 100)) {
+  uint8_t interval_time = momentum_enabled()
+    ? match_momentum(1, 100)
+    : pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2]);
+
+  if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
   last_timer = timer_read();
@@ -665,7 +677,12 @@ void rgblight_effect_snake(uint8_t interval) {
   if (interval % 2) {
     increment = -1;
   }
-  if (timer_elapsed(last_timer) < match_momentum(1, 200)) {
+
+  uint8_t interval_time = momentum_enabled()
+    ? match_momentum(1, 200)
+    : pgm_read_byte(&RGBLED_SNAKE_INTERVALS[interval / 2]);
+
+  if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
   last_timer = timer_read();
@@ -696,7 +713,12 @@ void rgblight_effect_snake(uint8_t interval) {
 }
 void rgblight_effect_knight(uint8_t interval) {
   static uint16_t last_timer = 0;
-  if (timer_elapsed(last_timer) < match_momentum(5, 100)) {
+
+  uint8_t interval_time = momentum_enabled()
+    ? match_momentum(5, 100)
+    : pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval]);
+
+  if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
   last_timer = timer_read();
