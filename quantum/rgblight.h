@@ -80,8 +80,6 @@
     #include <avr/pgmspace.h>
 #endif
 
-#include "momentum.h"
-
 extern LED_TYPE led[RGBLED_NUM];
 
 extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
