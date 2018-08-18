@@ -54,6 +54,7 @@
 #include "quantum.h"
 #include <util/atomic.h>
 #include "outputselect.h"
+#include "momentum.h"
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
