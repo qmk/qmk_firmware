@@ -1,5 +1,7 @@
 #include "momentum.h"
 #include "timer.h"
+#include "eeconfig.h"
+#include "eeprom.h"
 
 #ifndef MIN
 #define MIN(a,b) (((a)<(b))?(a):(b))
@@ -12,7 +14,14 @@
 uint8_t typing_speed = 0;
 
 bool momentum_enabled() {
-    return true;
+    return eeprom_read_byte(EECONFIG_MOMENTUM) == 1;
+}
+
+void momentum_toggle() {
+    if (momentum_enabled()) 
+        eeprom_update_byte(EECONFIG_MOMENTUM, 0);
+    else 
+        eeprom_update_byte(EECONFIG_MOMENTUM, 1);
 }
 
 void momentum_accelerate() {
