@@ -1,6 +1,4 @@
-#ifndef CLUEBOARD_66_REV3_CONFIG_H
-#define CLUEBOARD_66_REV3_CONFIG_H
-
+#pragma once
 #include "config_common.h"
 
 #define PRODUCT_ID      0x2390
@@ -26,7 +24,9 @@
 
 /* Speaker configuration
  */
-//#define SPEAKER_PIN B7 // FIXME: find the correct name for this define
+#define B7_AUDIO
+#define NO_MUSIC_MODE
+#define AUDIO_CLICKY
 
 /* Backlight configuration
  */
@@ -49,5 +49,3 @@
 #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 16   // The led to start at
 #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM 8  // How many LEDs to travel
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 4    // How many LEDs wide to light up
-
-#endif
