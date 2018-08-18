@@ -14,10 +14,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "bigseries4.h"
+#include "1key.h"
 
 void matrix_scan_kb(void) {
   // Looping keyboard code goes here
   // This runs every cycle (a lot)
   matrix_scan_user();
+#ifdef BACKLIGHT_ENABLE
+  backlight_task();
+#endif
 };
