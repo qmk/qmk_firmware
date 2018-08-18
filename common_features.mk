@@ -105,6 +105,7 @@ endif
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     OPT_DEFS += -DRGBLIGHT_ENABLE
     SRC += $(QUANTUM_DIR)/rgblight.c
+    SRC += $(QUANTUM_DIR)/momentum.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)

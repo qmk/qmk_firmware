@@ -197,7 +197,7 @@ bool process_record_quantum(keyrecord_t *record) {
   uint16_t keycode;
 
   #ifdef RGBLIGHT_ENABLE
-    if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += (TYPING_SPEED_MAX_VALUE / 100);
+    momentum_accelerate();
   #endif
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)

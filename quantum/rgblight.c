@@ -568,29 +568,11 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_setrgb(r, g, b);
 }
 
-uint8_t typing_speed = 0;
-void typing_speed_decay_task() {
-  static uint16_t decay_timer = 0;
-
-  if (timer_elapsed(decay_timer) > 500 || decay_timer == 0) {
-    if (typing_speed > 0) typing_speed -= 1;
-    //Decay a little faster at half of max speed
-    if (typing_speed > TYPING_SPEED_MAX_VALUE / 2) typing_speed -= 1;
-    //Decay even faster at 3/4 of max speed
-    if (typing_speed > TYPING_SPEED_MAX_VALUE / 4 * 3) typing_speed -= 3;
-    decay_timer = timer_read();
-  }
-}
-
-uint8_t typing_speed_matched_interval(uint8_t minValue, uint8_t maxValue) {
-  return MAX(minValue, maxValue - (maxValue - minValue) * ((float)typing_speed / TYPING_SPEED_MAX_VALUE));
-}
-
 void rgblight_task(void) {
 
   if (rgblight_timer_enabled) {
 
-    typing_speed_decay_task();    
+    momentum_decay_task();    
 
     // mode = 1, static light, do nothing here
     if (rgblight_config.mode >= 2 && rgblight_config.mode <= 5) {
@@ -626,7 +608,7 @@ void rgblight_effect_breathing(uint8_t interval) {
   static uint16_t last_timer = 0;
   float val;
 
-  if (timer_elapsed(last_timer) < typing_speed_matched_interval(1, 100)) {
+  if (timer_elapsed(last_timer) < match_momentum(1, 100)) {
     return;
   }
   last_timer = timer_read();
@@ -641,7 +623,7 @@ void rgblight_effect_rainbow_mood(uint8_t interval) {
   static uint16_t current_hue = 0;
   static uint16_t last_timer = 0;
 
-  if (timer_elapsed(last_timer) < typing_speed_matched_interval(5, 100)) {
+  if (timer_elapsed(last_timer) < match_momentum(5, 100)) {
     return;
   }
   last_timer = timer_read();
@@ -654,7 +636,7 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   uint16_t hue;
   uint8_t i;
 
-  if (timer_elapsed(last_timer) < typing_speed_matched_interval(1, 100)) {
+  if (timer_elapsed(last_timer) < match_momentum(1, 100)) {
     return;
   }
   last_timer = timer_read();
@@ -683,7 +665,7 @@ void rgblight_effect_snake(uint8_t interval) {
   if (interval % 2) {
     increment = -1;
   }
-  if (timer_elapsed(last_timer) < typing_speed_matched_interval(1, 200)) {
+  if (timer_elapsed(last_timer) < match_momentum(1, 200)) {
     return;
   }
   last_timer = timer_read();
@@ -714,7 +696,7 @@ void rgblight_effect_snake(uint8_t interval) {
 }
 void rgblight_effect_knight(uint8_t interval) {
   static uint16_t last_timer = 0;
-  if (timer_elapsed(last_timer) < typing_speed_matched_interval(5, 100)) {
+  if (timer_elapsed(last_timer) < match_momentum(5, 100)) {
     return;
   }
   last_timer = timer_read();
