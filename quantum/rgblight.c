@@ -572,9 +572,6 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
 void rgblight_task(void) {
 
   if (rgblight_timer_enabled) {
-
-    if (momentum_enabled()) momentum_decay_task();    
-
     // mode = 1, static light, do nothing here
     if (rgblight_config.mode >= 2 && rgblight_config.mode <= 5) {
       // mode = 2 to 5, breathing mode
