@@ -55,4 +55,4 @@ BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 
-LAYOUTS = ortho_4x12
+LAYOUTS = ortho_4x12 planck_mit
