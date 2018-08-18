@@ -516,6 +516,11 @@ bool process_record_quantum(keyrecord_t *record) {
       rgblight_mode(35);
     }
     return false;
+  case MOM_TOG:
+    if (record->event.pressed) {
+      momentum_toggle();
+    }
+    return false;
   #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     #ifdef PROTOCOL_LUFA
     case OUT_AUTO:

@@ -22,6 +22,7 @@ void eeconfig_init(void)
 #endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     eeprom_update_dword(EECONFIG_RGBLIGHT,      0);
+    eeprom_update_byte(EECONFIG_MOMENTUM,       0);
 #endif
 #ifdef STENO_ENABLE
     eeprom_update_byte(EECONFIG_STENOMODE,      0);
