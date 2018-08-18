@@ -1,4 +1,4 @@
-Dactyl Manuform (4x5, 5x6, 6x6)
+Dactyl Manuform (4x5, 5x6,5x7, 6x6)
 ======
 the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
 ![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
@@ -43,6 +43,10 @@ Just a copy of the Impstyle keymap. Feel free to adjust it.
 
 #### Impstyle
 A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and the Left ist the master.
+
+### [Keymaps 5x7 aka Ergodox](/keyboards/handwired/dactyl_manuform/5x7/keymaps/)
+#### Default
+Keymap of Loligagger from geekhack.
 
 ### [Keymaps 6x6](/keyboards/handwired/dactyl_manuform/6x6/keymaps/)
 
