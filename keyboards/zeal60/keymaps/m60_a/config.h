@@ -3,10 +3,6 @@
 
 #include "../../config.h"
 
-// This fixes the diodes mounted reversed (fab fail) on M60-A prototype
-#undef DIODE_DIRECTION
-#define DIODE_DIRECTION ROW2COL
-
 // This conditionally compiles the backlight code for M60-A specifics
 #define CONFIG_M60_A
 

@@ -996,7 +996,7 @@ void backlight_init_drivers(void)
 						  ( index == 36+6 ) || // LC6
 						  ( index == 54+13 ) ); // LD13
 #else
-#ifdef M60_A_PROTO
+#ifdef CONFIG_M60_A
 		bool enabled = !(
 		// LB6 LB7 LB8 LB15 LB16 LB17 not present on M60-A
 						  ( index == 18+6 ) || // LB6
@@ -1010,7 +1010,7 @@ void backlight_init_drivers(void)
 						  ( index == 54+17 ) || // LD17
 						  ( index == 36+15 ) || // LC15
 						  ( index == 54+13 ) ); // LD13
-#else
+#else // Zeal60
 		// LB6 LB7 LB8 LB15 LB16 LB17 not present on Zeal60
 		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
 						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
