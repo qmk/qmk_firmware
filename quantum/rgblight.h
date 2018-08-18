@@ -80,6 +80,8 @@
     #include <avr/pgmspace.h>
 #endif
 
+#include "momentum.h"
+
 extern LED_TYPE led[RGBLED_NUM];
 
 extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
@@ -88,10 +90,6 @@ extern const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
 extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
-
-//Used in rgblight.c and quantum.c to match RGB animation to typing speed
-extern uint8_t typing_speed;
-#define TYPING_SPEED_MAX_VALUE 200
 
 typedef union {
   uint32_t raw;
@@ -170,8 +168,5 @@ void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
 void rgblight_effect_christmas(void);
 void rgblight_effect_rgbtest(void);
-
-void typing_speed_decay_task(void);
-uint8_t typing_speed_matched_interval(uint8_t minValue, uint8_t maxValue);
 
 #endif
