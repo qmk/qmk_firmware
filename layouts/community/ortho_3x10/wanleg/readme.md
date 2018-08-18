@@ -1,7 +1,7 @@
 ![Gherkin Wanleg Layout Image](https://i.imgur.com/nCPog2W.png)  
 # Gherkin Wanleg Layout
-This is the layout I came up with to preserve a standard QWERTY 104 key ANSI layout as much as possible, in as few layers as possible for a 30 key board. 
-I originally set up a few Tap Dance keys, but dropped half of them in favor of chorded versions since in actual use, they tended to impede typing speed more than their current two-key versions. 
+This is the layout I came up with to preserve a standard QWERTY 104 key ANSI layout as much as possible, in as few layers as possible for a 30 key board.  
+I originally set up a few Tap Dance keys, but dropped half of them in favor of chorded versions since in actual use, they tended to impede typing speed more than their current two-key versions.  
 I've left them in my `keymap.c` ready for use if anyone wants to try them out:
 
 Legend Name | Single Tap | Double Tap | Hold
@@ -57,7 +57,7 @@ The instructions below have been adapted from https://www.reddit.com/r/olkb/comm
 | 5V | VCC |
 
 ## Make the QMK DFU .hex
-3. In `config.h` add the following. This is already set up in `qmk_firmware/keyboards/gherkin/wanleg`. You only need to do this on other keymaps.
+3. In `config.h` add the following. This is already set up in `qmk_firmware/layouts/community/ortho_3x10/wanleg`. You only need to do this on other keymaps.
 ```
 #define QMK_ESC_OUTPUT B4
 #define QMK_ESC_INPUT F7
@@ -68,12 +68,10 @@ You hit the bootloader escape key to exit bootloader mode after you've hit the R
 On a Gherkin, B4/F7 corresponds to the top-left corner key.  
 `B0` is an indicator light on one of the ProMicro's onboard LEDs. With QMK DFU, it will flash to indicate the ProMicro is in bootloader mode.  
 You can add `#define QMK_SPEAKER C6` if you have a speaker hooked up to pin C6. The Gherkin PCB already uses pin C6 in its switch layout, so you cannot use a speaker on a standard Gherkin.  
-4. Also, you should add `BOOTLOADER = qmk-dfu` to your `rules.mk` file, so it is flagged properly. Again, this is already set up in `qmk_firmware/keyboards/gherkin/wanleg`.  
+4. Also, you should add `BOOTLOADER = qmk-dfu` to your `rules.mk` file, so it is flagged properly. Again, this is already set up in `qmk_firmware/layouts/community/ortho_3x10/wanleg`.  
 5. Once you've made the required edits, it's time to compile the firmware. If you use the `:production` target when compiling, it will produce the usual `.hex` file as well as `_bootloader.hex` and `_production.hex` files. The `_production.hex` will be what we want. This contains the bootloader and the firmware, so we only have to flash once (rather than flash the bootloader, and THEN flash the firmware).
 For example  
 `make <keyboard>:<keymap>:production`  
-For my particular keymap, for reasons listed in the **Using QMK DFU** section, you should use the following to ensure the bootloader is set properly  
-`make gherkin:wanleg:production dfu=qmk`  
 
 ## Burn QMK DFU
 6. Navigate to the directory with your `_production.hex` file, and burn it with the following command  
@@ -82,5 +80,4 @@ Change `comPORT` to whatever port is used by the Arduino (e.g. `com11` in Window
 
 ## Using QMK DFU
 7. Once QMK DFU is burned to your ProMicro, you can then flash subsequent hex files with
-`make gherkin:<keymap>:dfu dfu=qmk`  
-The `dfu=qmk` conditional will set `BOOTLOADER = qmk-dfu` instead of `BOOTLOADER = caterina` 
+`make gherkin:<keymap>:dfu`  
