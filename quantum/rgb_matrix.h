@@ -24,10 +24,10 @@
 #include "color.h"
 #include "quantum.h"
 
-#ifdef ISSI3733
-    #include "is31fl3733.h"
-#else
+#ifdef IS31FL3731
     #include "is31fl3731.h"
+#elif defined (IS31FL3733)
+    #include "is31fl3733.h"
 #endif
 
 typedef struct Point {

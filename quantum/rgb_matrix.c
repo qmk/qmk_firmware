@@ -111,16 +111,29 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i, uint8_t
 }
 
 void rgb_matrix_update_pwm_buffers(void) {
-    IS31_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-    IS31_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#ifdef IS31FL3731
+    IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+    IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#elif defined(IS31FL3733)
+    IS31FL3733_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+    IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#endif
 }
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
-    IS31_set_color( index, red, green, blue );
+#ifdef IS31FL3731
+    IS31FL3731_set_color( index, red, green, blue );
+#elif defined(IS31FL3733)
+    IS31FL3733_set_color( index, red, green, blue );
+#endif
 }
 
 void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
-    IS31_set_color_all( red, green, blue );
+#ifdef IS31FL3731
+    IS31FL3731_set_color_all( red, green, blue );
+#elif defined(IS31FL3733)
+    IS31FL3733_set_color_all( red, green, blue );
+#endif
 }
 
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
@@ -757,16 +770,28 @@ void rgb_matrix_init(void) {
 void rgb_matrix_setup_drivers(void) {
   // Initialize TWI
   i2c_init();
-  IS31_init( DRIVER_ADDR_1 );
-  IS31_init( DRIVER_ADDR_2 );
+#ifdef IS31FL3731
+  IS31FL3731_init( DRIVER_ADDR_1 );
+  IS31FL3731_init( DRIVER_ADDR_2 );
+#elif defined (IS31FL3733)
+  IS31FL3733_init( DRIVER_ADDR_1 );
+#endif
 
   for ( int index = 0; index < DRIVER_LED_TOTAL; index++ ) {
     bool enabled = true;
     // This only caches it for later
-    IS31_set_led_control_register( index, enabled, enabled, enabled );
+#ifdef IS31FL3731
+    IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
+#elif defined (IS31FL3733)
+    IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
+#endif
   }
   // This actually updates the LED drivers
-  IS31_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#ifdef IS31FL3731
+  IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#elif defined (IS31FL3733)
+  IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#endif
 }
 
 // Deals with the messy details of incrementing an integer
@@ -816,11 +841,19 @@ void rgb_matrix_test_led( uint8_t index, bool red, bool green, bool blue ) {
     {
         if ( i == index )
         {
-            IS31_set_led_control_register( i, red, green, blue );
+#ifdef IS31FL3731
+            IS31FL3731_set_led_control_register( i, red, green, blue );
+#elif defined (IS31FL3733)
+            IS31FL3733_set_led_control_register( i, red, green, blue );
+#endif
         }
         else
         {
-            IS31_set_led_control_register( i, false, false, false );
+#ifdef IS31FL3731
+            IS31FL3731_set_led_control_register( i, false, false, false );
+#elif defined (IS31FL3733)
+            IS31FL3733_set_led_control_register( i, false, false, false );
+#endif
         }
     }
 }

@@ -116,6 +116,7 @@ endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     OPT_DEFS += -DRGB_MATRIX_ENABLE
+    OPT_DEFS += -DIS31FL3731
     SRC += is31fl3731.c
     SRC += i2c_master.c
     SRC += $(QUANTUM_DIR)/color.c
@@ -123,9 +124,19 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     CIE1931_CURVE = yes
 endif
 
-ifeq ($(strip $(RGB_3733_MATRIX_ENABLE)), yes)
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
     OPT_DEFS += -DRGB_MATRIX_ENABLE
-    OPT_DEFS += -DISSI3733
+    OPT_DEFS += -DIS31FL3731
+    SRC += is31fl3731.c
+    SRC += i2c_master.c
+    SRC += $(QUANTUM_DIR)/color.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix.c
+    CIE1931_CURVE = yes
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
+    OPT_DEFS += -DRGB_MATRIX_ENABLE
+    OPT_DEFS += -DIS31FL3733
     SRC += is31fl3733.c
     SRC += i2c_master.c
     SRC += $(QUANTUM_DIR)/color.c

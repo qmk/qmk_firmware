@@ -6,7 +6,7 @@
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
-    RGB_MATRIX_ENABLE = yes
+    RGB_MATRIX_ENABLE = IS31FL3731
 
 Configure the hardware via your `config.h`:
 
@@ -46,7 +46,7 @@ Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet]
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
-    RGB_3733_MATRIX_ENABLE = yes
+    RGB_3733_MATRIX_ENABLE = IS31FL3733
 
 Configure the hardware via your `config.h`:
 
