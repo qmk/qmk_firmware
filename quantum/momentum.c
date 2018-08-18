@@ -1,4 +1,5 @@
 #include "momentum.h"
+#include "timer.h"
 
 #ifndef MIN
 #define MIN(a,b) (((a)<(b))?(a):(b))
@@ -9,6 +10,10 @@
 
 #define TYPING_SPEED_MAX_VALUE 200
 uint8_t typing_speed = 0;
+
+bool momentum_enabled() {
+    return true;
+}
 
 void momentum_accelerate() {
     if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += (TYPING_SPEED_MAX_VALUE / 100);
