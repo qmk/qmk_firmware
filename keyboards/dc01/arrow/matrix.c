@@ -140,6 +140,8 @@ void matrix_init(void) {
     init_rows();
 #endif
 
+    TX_RX_LED_INIT;
+
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
