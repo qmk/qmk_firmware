@@ -18,10 +18,13 @@
 #include "drashna.h"
 #include "rgb_matrix.h"
 
+#ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
   BACKLIT = NEW_SAFE_RANGE,
 };
-
+#else
+  #define BACKLIT OSM(MOD_LSFT)
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -88,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 
-#ifdef KEYBOARD_planck
+#ifdef BACKLIGHT_ENABLE
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
