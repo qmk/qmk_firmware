@@ -42,6 +42,8 @@ extern backlight_config_t backlight_config;
 #include "process_midi.h"
 #endif
 
+#include "momentum.h"
+
 #ifdef AUDIO_ENABLE
   #ifndef GOODBYE_SONG
     #define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -196,9 +198,7 @@ bool process_record_quantum(keyrecord_t *record) {
   keypos_t key = record->event.key;
   uint16_t keycode;
 
-  #ifdef RGBLIGHT_ENABLE
-    if (momentum_enabled()) momentum_accelerate();
-  #endif
+  if (momentum_enabled()) momentum_accelerate();
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
     /* TODO: Use store_or_get_action() or a similar function. */
@@ -519,13 +519,13 @@ bool process_record_quantum(keyrecord_t *record) {
       rgblight_mode(35);
     }
     return false;
+  #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
   case MOM_TOG:
     if (record->event.pressed) {
       momentum_toggle();
     }
     return false;
-  #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    #ifdef PROTOCOL_LUFA
+  #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {
         set_output(OUTPUT_AUTO);

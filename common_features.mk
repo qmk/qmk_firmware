@@ -105,7 +105,6 @@ endif
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     OPT_DEFS += -DRGBLIGHT_ENABLE
     SRC += $(QUANTUM_DIR)/rgblight.c
-    SRC += $(QUANTUM_DIR)/momentum.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
@@ -208,7 +207,8 @@ QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/process_keycode/process_leader.c
+    $(QUANTUM_DIR)/process_keycode/process_leader.c \
+    $(QUANTUM_DIR)/momentum.c
 
 ifndef CUSTOM_MATRIX
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
