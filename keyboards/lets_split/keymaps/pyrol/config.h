@@ -18,11 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
-
+#pragma once
 /* Use I2C or Serial, not both */
 
 #define USE_SERIAL
@@ -37,4 +33,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 8
 
-#endif
