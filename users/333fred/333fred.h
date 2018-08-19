@@ -8,6 +8,7 @@
 #define MDIA 3 // media keys
 #define VIM  4
 #define GAME 5
+#define GAME_ARROW 6
 
 // Tap dance config shared between my keyboards
 enum tap_dance_declarations {
