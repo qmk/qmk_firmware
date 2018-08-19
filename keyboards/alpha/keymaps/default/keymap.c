@@ -12,7 +12,7 @@ enum custom_keycodes {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if (record->event.pressed) {
 		switch (keycode) {
-			case SORRY:
+			case MACRO1:
 				SEND_STRING("I'm so sorry... -PyroL");
 				return false;
 		}
