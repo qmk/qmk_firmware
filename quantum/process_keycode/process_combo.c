@@ -18,9 +18,6 @@
 #include "print.h"
 
 
-#define COMBO_TIMER_ELAPSED -1
-
-
 __attribute__ ((weak))
 combo_t key_combos[COMBO_COUNT] = {
 
@@ -65,7 +62,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     if (-1 == (int8_t)index) return false;
 
     /* The combos timer is used to signal whether the combo is active */
-    bool is_combo_active = COMBO_TIMER_ELAPSED == combo->timer ? false : true;
+    bool is_combo_active = combo->is_active;
 
     if (record->event.pressed) {
         KEY_STATE_DOWN(index);
@@ -73,9 +70,10 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
         if (is_combo_active) {
             if (ALL_COMBO_KEYS_ARE_DOWN) { /* Combo was pressed */
                 send_combo(combo->keycode, true);
-                combo->timer = COMBO_TIMER_ELAPSED;
+                combo->is_active = false;
             } else { /* Combo key was pressed */
                 combo->timer = timer_read();
+                combo->is_active = true;
 #ifdef COMBO_ALLOW_ACTION_KEYS
                 combo->prev_record = *record;
 #else
@@ -99,6 +97,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
             send_keyboard_report();
             unregister_code16(keycode);
 #endif
+            combo->is_active = false;
             combo->timer = 0;            
         }
 
@@ -106,6 +105,7 @@ static bool process_single_combo(combo_t *combo, uint16_t keycode, keyrecord_t *
     }
 
     if (NO_COMBO_KEYS_ARE_DOWN) {
+        combo->is_active = true;
         combo->timer = 0;
     }
 
@@ -132,14 +132,14 @@ void matrix_scan_combo(void)
         #pragma GCC diagnostic ignored "-Warray-bounds"
         combo_t *combo = &key_combos[i];
         #pragma GCC diagnostic pop
-        if (combo->timer &&
-            combo->timer != COMBO_TIMER_ELAPSED && 
+        if (combo->is_active &&
+            combo->timer &&
             timer_elapsed(combo->timer) > COMBO_TERM) {
-            
+
             /* This disables the combo, meaning key events for this
              * combo will be handled by the next processors in the chain 
              */
-            combo->timer = COMBO_TIMER_ELAPSED;
+            combo->is_active = false;
 
 #ifdef COMBO_ALLOW_ACTION_KEYS
             process_action(&combo->prev_record, 
