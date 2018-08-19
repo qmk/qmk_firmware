@@ -40,13 +40,13 @@ Define these arrays listing all the LEDs in your `<keyboard>.c`:
 	    ....
 	}
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
 
 ###  IS31FL3733
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
 
-    RGB_3733_MATRIX_ENABLE = IS31FL3733
+    RGB_MATRIX_ENABLE = IS31FL3733
 
 Configure the hardware via your `config.h`:
 
@@ -82,7 +82,7 @@ Define these arrays listing all the LEDs in your `<keyboard>.c`:
 	    ....
 	}
 
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
 
 From this point forward the configuration is the same for all the drivers. 
 

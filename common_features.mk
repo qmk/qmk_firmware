@@ -117,6 +117,7 @@ endif
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     OPT_DEFS += -DRGB_MATRIX_ENABLE
     OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
     SRC += i2c_master.c
     SRC += $(QUANTUM_DIR)/color.c
@@ -127,6 +128,7 @@ endif
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
     OPT_DEFS += -DRGB_MATRIX_ENABLE
     OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
     SRC += i2c_master.c
     SRC += $(QUANTUM_DIR)/color.c
@@ -137,6 +139,7 @@ endif
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
     OPT_DEFS += -DRGB_MATRIX_ENABLE
     OPT_DEFS += -DIS31FL3733
+    COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3733.c
     SRC += i2c_master.c
     SRC += $(QUANTUM_DIR)/color.c
