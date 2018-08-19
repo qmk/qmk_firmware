@@ -21,19 +21,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6071
+#define PRODUCT_ID      0x6074
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    WoodKeys.click
-#define PRODUCT         BigSeries Single Keyboard
-#define DESCRIPTION     Single key board for Novelkeys Big Series Switch
+#define PRODUCT         BigSeries Quad Keyboard
+#define DESCRIPTION     4-key board for Novelkeys Big Series Switch
 
 /* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 1
+#define MATRIX_ROWS 2
+#define MATRIX_COLS 2
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { B0 }
-#define MATRIX_COL_PINS { B4 }
+#define MATRIX_ROW_PINS { B0, B5 }
+#define MATRIX_COL_PINS { B4, B3 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
@@ -53,7 +53,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 5
+#define RGBLED_NUM 12
+#ifdef RGBLIGHT_LIMIT_VAL
+#undef RGBLIGHT_LIMIT_VAL
+#endif
+#define RGBLIGHT_LIMIT_VAL 128
 #endif
 
 #endif
