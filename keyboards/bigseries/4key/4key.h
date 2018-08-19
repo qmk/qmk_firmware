@@ -14,13 +14,17 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "bigseries.h"
+#ifndef BIGSWITCH_H
+#define BIGSWITCH_H
 
-void matrix_scan_kb(void) {
-  // Looping keyboard code goes here
-  // This runs every cycle (a lot)
-  matrix_scan_user();
-#ifdef BACKLIGHT_ENABLE
-  backlight_task();
+#include "quantum.h"
+
+#define LAYOUT( \
+  K00, K01, \
+  K10, K11 \
+) { \
+  { K00, K01 },  \
+  { K10, K11 }  \
+}
+
 #endif
-};
