@@ -1,8 +1,6 @@
 # 5x5
 
-![5x5](https://3.bp.blogspot.com/-bKOfUyMtdrE/WqGA_03kGZI/AAAAAAACPtY/DsHDTQS0IlMD3ie8HHlf1ATRUAwpZdcSgCLcBGAs/s640/c.jpg)  
-
-![bigger](https://3.bp.blogspot.com/-bKOfUyMtdrE/WqGA_03kGZI/AAAAAAACPtY/DsHDTQS0IlMD3ie8HHlf1ATRUAwpZdcSgCLcBGAs/s1600/c.jpg)  
+![5x5](https://3.bp.blogspot.com/-bKOfUyMtdrE/WqGA_03kGZI/AAAAAAACPtY/DsHDTQS0IlMD3ie8HHlf1ATRUAwpZdcSgCLcBGAs/s1600/c.jpg)  
 ===  
 
 **Modular Keypad/Keyboard**  
