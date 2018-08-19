@@ -1,2 +1,3 @@
-# The Default Planck Layout
+# Nordic Planck
 
+TODO: Add layout image
