@@ -1,7 +1,4 @@
-#include "tv44.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-#include "timer.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -19,6 +16,7 @@ extern keymap_config_t keymap_config;
 #define NM_SP   LT(_NM, KC_SPC)
 #define NV_SP   LT(_NV, KC_SPC)
 #define MN_EN   LT(_MN, KC_ENT)
+#define FN_EX   LT(_FN, KC_ESC)
 
 // Curly braces have their own keys. These are defined to make them not mess up
 // the grid in layer 2.
@@ -103,14 +101,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |----------`------`------`------`------`------`------`------`------`------`------`-----------|
  * |  LSHFT    |   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z   |   RSHFT |
  * |-----------`------`------`------`------`------`-------`------`------`------`------`---------|
- * |  MO FN   |   GUI    |    ALT   |  NM / SPACE  | NV / SPACE |  RALT |   /   |   \   |  ESC  |
+ * |  FN EX   |   GUI    |    ALT   |  NM / SPACE  | NV / SPACE |  RALT |   -   |   =   |  ESC  |
  *  `---------+----------+----------+-----^^^------+----^^^-----+-------+-------+-------+-------'
  */
   [_DV] = LAYOUT_arrow(
     KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSPC,
     KC_LCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    MN_EN,
     KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT,
-    MO(_FN), KC_LGUI, KC_LALT,                   NM_SP,   NV_SP,            KC_RALT, KC_SLSH, KC_BSLS, KC_ESC
+    FN_EX,   KC_LGUI, KC_LALT,                   NM_SP,   NV_SP,            KC_RALT, KC_MINS, KC_EQL,  KC_ESC
    ),
 
 
@@ -122,15 +120,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   LCTL   |   !  |   @  |   [  |   {  |  (   |  )   |   }  |   ]  |   | |   ?  |     ENTER  |
  * |----------`------`------`------`------`------`------`------`------`------`------`-----------|
  * |   LSFT    |   `  |  ~   |  #   |   $  |   %  |   ^  |   &  |   *  |   _  |   +   |     =   |
+ * |   LSFT    |   `  |  ~   |  #   |   $  |   %  |   ^  |   &  |   *  |   _  |   +   |     /   |
  * |-----------`------`------`------`------`------`-------`------`------`------`------`---------|
- * |          |    GUI   |   LALT   |-----TRNS-----|   SPACE    |  RALT |   /   |   \   |   -   |
- *  `---------+----------+----------+-----^^^------+----^^^-----+-------+-------+-------+-------'
+ * |          |    GUI   |   LALT   |-----TRNS-----|   SPACE    |  RALT |   -   |   =   |   \   |
+ * |-----------`------`------`------`------`------`-------`------`------`------`------`---------|
  */
   [_NM] = LAYOUT_arrow(
     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,
     _______, KC_EXLM, KC_AT,   KC_LBRC, L_CURB,  KC_LPRN, KC_RPRN, R_CURB,  KC_RBRC, KC_PIPE, KC_QUES, _______,
-    _______, KC_GRV,  KC_TILD, KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_PLUS, KC_EQL,
-    _______, _______, _______,                   _______, KC_SPC,           _______, KC_SLSH, KC_BSLS, KC_MINS
+    _______, KC_GRV,  KC_TILD, KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_UNDS, KC_PLUS, KC_SLSH,
+    _______, _______, _______,                   _______, KC_SPC,           _______, KC_MINS, KC_EQL,  KC_BSLS
   ),
 
 

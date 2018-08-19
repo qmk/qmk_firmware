@@ -7,6 +7,10 @@
 
 ASCII graphics shamelessly stolen from tong92's layout :)
 
+Updates August 2018:
+- Escape both ways
+- Only include QMK_KEYBOARD_H
+
 Updates July 2018:
 - I guess I don't play games that much anymore
 - SUGDW modifiers
