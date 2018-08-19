@@ -69,7 +69,6 @@ cable with at least 4 wires and 2x 4.7kΩ pull-up resistors
 A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and turned on via `AUDIO_ENABLE`.
 
 ## Wiring
-------
 
 The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and digital pin 3 (i.e.
 PD0 on the ATmega32u4) between the two Pro Micros.
