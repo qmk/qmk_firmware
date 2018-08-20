@@ -100,10 +100,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        | F11  | F12  |      |      |      |      |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |        |      |      |      |      |      |------|           |------|      |      |      |      |      | Vol Up |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|      |           | RCTRL|------+------+------+------+------+--------|
  * |        |      |      |      |      |      |      |           |      |      |      |      |  B1  |  B2  |Vol Down|
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *   |      |      |      |      |      |                                       |      |  M_L |  M_D |  M_U |  M_R  |
+ *   | LCTRL|      |      | LALT |      |                                       |      |  M_L |  M_D |  M_U |  M_R  |
  *   `----------------------------------'                                       `----------------------------------'
  *                                        ,-------------.       ,-------------.
  *                                        |      |      |       |      |      |
@@ -115,23 +115,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // MEDIA AND MOUSE
 [MOUS] = LAYOUT_ergodox(
-       KC_NO, KC_F1,  KC_F2, KC_F3,  KC_F4, KC_F5, KC_NO,
-       KC_NO, KC_F11, KC_NO, KC_F12, KC_NO, KC_NO, KC_NO,
-       KC_NO, KC_NO,  KC_NO, KC_NO,  KC_NO, KC_NO,
-       KC_NO, KC_NO,  KC_NO, KC_NO,  KC_NO, KC_NO, KC_NO,
-       KC_NO, KC_NO,  KC_NO, KC_NO,  KC_NO,
+       KC_NO,   KC_F1,  KC_F2, KC_F3,   KC_F4, KC_F5, KC_NO,
+       KC_NO,   KC_F11, KC_F12, KC_NO,  KC_NO, KC_NO, KC_NO,
+       KC_NO,   KC_NO,  KC_NO, KC_NO,   KC_NO, KC_NO,
+       KC_NO,   KC_NO,  KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO,
+       KC_TRNS, KC_NO,  KC_NO, KC_TRNS, KC_NO,
                                                 KC_NO, KC_NO,
                                                        KC_NO,
                                        KC_NO,   KC_NO, KC_NO,
     // right hand
-       KC_NO,  KC_F6, KC_F7, KC_F8,   KC_F9,   KC_F10,  KC_NO,
-       KC_NO,  KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,
-               KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_VOLU,
-       KC_NO,  KC_NO, KC_NO, KC_NO,   KC_BTN1, KC_BTN2, KC_VOLD,
+       KC_NO,    KC_F6, KC_F7, KC_F8,   KC_F9,   KC_F10,  KC_NO,
+       KC_NO,   KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,
+                KC_NO, KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_VOLU,
+       KC_TRNS, KC_NO, KC_NO, KC_NO,   KC_BTN1, KC_BTN2, KC_VOLD,
                       KC_NO, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,
-       KC_NO, KC_NO,
+       KC_NO,   KC_NO,
        KC_NO,
-       KC_NO, KC_NO, KC_MPLY
+       KC_NO,   KC_NO, KC_MPLY
 ),
 /* Keymap 3: QWERTY Layer
  *
