@@ -14,9 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "debug.h"
-#include "version.h"
 
 // KEYMAP
 extern keymap_config_t keymap_config;
