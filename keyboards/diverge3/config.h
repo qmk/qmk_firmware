@@ -74,7 +74,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */
 // #define GRAVE_ESC_CTRL_OVERRIDE
- /*
+
+/*
  * Force NKRO
  *
  * Force NKRO (nKey Rollover) to be enabled by default, regardless of the saved
