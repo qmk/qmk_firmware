@@ -1,23 +1,13 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "config_common.h"
-
-// Override SpaceCadet Settings
-#undef LSPO_KEY
-#undef RSPC_KEY
-#define LSPO_KEY KC_8 // Nordic Left SpaceCadet
-#define RSPC_KEY KC_9 // Nordic Right SpaceCadet
+#pragma once
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(COIN_SOUND)
+    #define STARTUP_SONG SONG(PLANCK_SOUND)
     // #define STARTUP_SONG SONG(NO_SOUND)
 
     #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND) \
                                 }
-#endif
 
 /*
  * MIDI options
