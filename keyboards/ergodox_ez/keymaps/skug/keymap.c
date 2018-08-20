@@ -19,11 +19,8 @@
 
 
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
 #include "version.h"
 #include "keymap_swedish.h"
-#include "song_list.h"
 
 #define _______ KC_TRNS
 
@@ -69,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_
 // Otherwise, it needs KC_*
-[BASE] = KEYMAP_80(  // layer 0 : default
+[BASE] = LAYOUT_ergodox_80(  // layer 0 : default
     // left hand
     NO_HALF,          KC_1,           KC_2,          KC_3,    KC_4,    KC_5,   KC_INS,
     KC_TAB,           KC_Q,           KC_W,          KC_E,    KC_R,    KC_T,   TG(SYMB),
@@ -112,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[SYMB] = KEYMAP_80(
+[SYMB] = LAYOUT_ergodox_80(
        // left hand
        VRSN,   KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  _______,
        _______,KC_EXLM,NO_AT,  NO_LCBR,NO_RCBR,NO_PIPE,_______,
@@ -155,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[MDIA] = KEYMAP_80(
+[MDIA] = LAYOUT_ergodox_80(
         _______, _______, _______, _______, _______, _______, _______,
         _______, _______, KC_MS_U, _______, _______, _______, _______,
         _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______,
@@ -175,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_WBAK
 ),
  // Keymap: Ducky Style arrows
-[ARRW] = KEYMAP_80(
+[ARRW] = LAYOUT_ergodox_80(
         _______, _______, _______, _______, _______, _______, _______,
         _______, _______, KC_UP  , _______, _______, _______, _______,
         _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
