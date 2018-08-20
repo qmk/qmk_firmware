@@ -51,7 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B1
-#define RGBLIGHT_TIMER
 #define RGBLED_NUM 4
 #define ws2812_PORTREG  PORTB
 #define ws2812_DDRREG   DDRB
