@@ -1,6 +1,6 @@
 # Advanced Keycodes
 
-Your keymap can include keycodes that are more advanced than normal, for example shifted keys. This page documents the functions that are available to you.
+Your keymap can include keycodes that are more advanced than normal, for example keys that switch layers or send modifiers when held, but send regular keycodes when tapped. This page documents the functions that are available to you.
 
 ### Assigning Custom Names
 
@@ -73,34 +73,6 @@ You can also chain these, like this:
 
     LALT(LCTL(KC_DEL)) -- this makes a key that sends Alt, Control, and Delete in a single keypress.
 
-# Shifted Keycodes
-
-The following shortcuts automatically add `LSFT()` to keycodes to get commonly used symbols.
-
-|Key                     |Aliases           |Description        |
-|------------------------|------------------|-------------------|
-|`KC_TILDE`              |`KC_TILD`         |`~`                |
-|`KC_EXCLAIM`            |`KC_EXLM`         |`!`                |
-|`KC_AT`                 |                  |`@`                |
-|`KC_HASH`               |                  |`#`                |
-|`KC_DOLLAR`             |`KC_DLR`          |`$`                |
-|`KC_PERCENT`            |`KC_PERC`         |`%`                |
-|`KC_CIRCUMFLEX`         |`KC_CIRC`         |`^`                |
-|`KC_AMPERSAND`          |`KC_AMPR`         |`&`                |
-|`KC_ASTERISK`           |`KC_ASTR`         |`*`                |
-|`KC_LEFT_PAREN`         |`KC_LPRN`         |`(`                |
-|`KC_RIGHT_PAREN`        |`KC_RPRN`         |`)`                |
-|`KC_UNDERSCORE`         |`KC_UNDS`         |`_`                |
-|`KC_PLUS`               |                  |`+`                |
-|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`         |`{`                |
-|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`         |`}`                |
-|`KC_PIPE`               |                  |<code>&#124;</code>|
-|`KC_COLON`              |`KC_COLN`         |`:`                |
-|`KC_DOUBLE_QUOTE`       |`KC_DQT`/`KC_DQUO`|`"`                |
-|`KC_LEFT_ANGLE_BRACKET` |`KC_LT`/`KC_LABK` |`<`                |
-|`KC_RIGHT_ANGLE_BRACKET`|`KC_GT`/`KC_RABK` |`>`                |
-|`KC_QUESTION`           |`KC_QUES`         |`?`                |
-
 # Mod Tap
 
 `MT(mod, kc)` - is *mod* (modifier key - MOD_LCTL, MOD_LSFT) when held, and *kc* when tapped. In other words, you can have a key that sends Esc (or the letter O or whatever) when you tap it, but works as a Control key or a Shift key when you hold it down.
@@ -133,7 +105,7 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
 
 ?> Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
 
-?> Additionally, if there is at least one right modifier, any other modifiers will turn into their right equivalents, so it is not possible to "mix and match" the two.
+?> Additionally, if there is at least one right-handed modifier, any other modifiers in a chain of functions will turn into their right-handed equivalents, so it is not possible to "mix and match" the two.
 
 # One Shot Keys
 
