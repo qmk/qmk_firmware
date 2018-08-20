@@ -109,10 +109,8 @@ void update_keyfreq_log(void) {
 
     /* shift the log every 60 seconds */
     keyfreq_count = 0;
-    for (int i = 0; i < 20; i++) {
-      keyfreq_log[0][i] = keyfreq_log[0][i + 1];
-      keyfreq_log[1][i] = keyfreq_log[1][i + 1];
-    }
+    memmove(keyfreq_log[0], keyfreq_log[0] + 1, 20);
+    memmove(keyfreq_log[1], keyfreq_log[1] + 1, 20);
     keyfreq_log[0][20] = 0xa6;
     keyfreq_log[1][20] = 0xc6;
 }
