@@ -1,6 +1,6 @@
 # B.face
 
-A 60% keyboard with RGB. Please note that the B.face and B.fake have different switch matrices. Firmware on one, will not work on the other. 
+A 60% keyboard with RGB that runs ps2avrgb natively. Please note that the B.face and B.fake have different switch matrices. Firmware on one, will not work on the other. 
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: B.face PCB   
