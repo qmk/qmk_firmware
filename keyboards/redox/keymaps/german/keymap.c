@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|                                                         |----+----+----+----+----+----+----|
      KC_ESC , DE_A  , DE_S  , DE_D  , DE_F  , DE_G  , LT(_ADJUST, KC_PGUP),                         LT( _ADJUST, KC_END) , DE_H  , DE_J  , DE_K  , DE_L  , DE_OE , DE_AE,
   //|----+----+----+----+----+----+----|                                                         |----+----+----+----+----+----+----|
-     KC_LSFT, DE_Z  , DE_X  , DE_C  , DE_V  , DE_B  ,KC_PGDN,                                      KC_HOME , DE_N  , DE_M  , DE_COMM, DE_DOT , DE_MINS , KC_RSFT,
+     KC_LSFT, DE_Y  , DE_X  , DE_C  , DE_V  , DE_B  ,KC_PGDN,                                      KC_HOME , DE_N  , DE_M  , DE_COMM, DE_DOT , DE_MINS , KC_RSFT,
   //|----+----+----+----+----+----+----|                                                         |----+----+----+----+----+----+----|
      KC_LGUI , DE_LESS , DE_HASH , LALT_T(KC_KP_PLUS),LCTL_T(KC_KP_ASTERISK),KC_BSPC,KC_DEL ,                     KC_ENT , KC_SPC, DE_ALGR , KC_LEFT, KC_DOWN, KC_UP , KC_RGHT
   //`----+----+----+----+----+----+----'                                                         `----+----+----+----+----+----+----'
