@@ -105,9 +105,9 @@ enum {
 #define _________________SYMBOL_L2_________________  KC_HASH, KC_DLR , KC_LPRN, KC_RPRN, KC_MINS
 #define _________________SYMBOL_L3_________________  KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_PLUS
 
-#define _________________SYMBOL_R1_________________  KC_BSLS,        ,        ,        ,
+#define _________________SYMBOL_R1_________________  KC_BSLS, _______, _______, _______, _______
 #define _________________SYMBOL_R2_________________  KC_EQL , KC_AMPR, KC_QUOT, KC_DQUO, KC_PIPE
-#define _________________SYMBOL_R3_________________  KC_ASTR, KC_TILD, KC_GRAV, KC_SLSH,
+#define _________________SYMBOL_R3_________________  KC_ASTR, KC_TILD, KC_GRV , KC_SLSH, _______
 
 #define _________________SYSCTL_L1_________________
 #define _________________SYSCTL_L2_________________
