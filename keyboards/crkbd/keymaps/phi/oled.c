@@ -19,14 +19,6 @@
 
 extern uint8_t is_master;
 
-void oled_init(void) {
-    iota_gfx_init(!has_usb());   // turns on the display
-}
-
-void oled_update(void) {
-    iota_gfx_task();
-}
-
 char *get_layer_name(void) {
     switch (layer_state)
     {
@@ -167,6 +159,14 @@ void prepare_next_frame(void) {
     }
 
     matrix_push(&matrix); /* push to the ssd1306 driver */
+}
+
+void oled_init(void) {
+  iota_gfx_init(!has_usb());   // turns on the display
+}
+
+void oled_update(void) {
+  iota_gfx_task();
 }
 
 void iota_gfx_task_user(void) {
