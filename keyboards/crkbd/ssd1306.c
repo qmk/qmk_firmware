@@ -14,19 +14,10 @@
 #include "sendchar.h"
 #include "timer.h"
 
-// Set this to 1 to help diagnose early startup problems
-// when testing power-on with ble.  Turn it off otherwise,
-// as the latency of printing most of the debug info messes
-// with the matrix scan, causing keys to drop.
-#define DEBUG_TO_SCREEN 0
-
 //static uint16_t last_battery_update;
 //static uint32_t vbat;
 //#define BatteryUpdateInterval 10000 /* milliseconds */
 #define ScreenOffInterval 300000 /* milliseconds */
-#if DEBUG_TO_SCREEN
-static uint8_t displaying;
-#endif
 static uint16_t last_flush;
 static bool overwrite_mode = false;
 
@@ -108,19 +99,6 @@ done:
   i2c_master_stop();
 }
 
-#if DEBUG_TO_SCREEN
-#undef sendchar
-static int8_t capture_sendchar(uint8_t c) {
-  sendchar(c);
-  iota_gfx_write_char(c);
-
-  if (!displaying) {
-    iota_gfx_flush();
-  }
-  return 0;
-}
-#endif
-
 void set_overwrite_mode (bool value) {
   overwrite_mode = value;
 }
@@ -166,10 +144,6 @@ bool iota_gfx_init(bool rotate) {
   success = true;
 
   iota_gfx_flush();
-
-#if DEBUG_TO_SCREEN
-  print_set_sendchar(capture_sendchar);
-#endif
 
 done:
   return success;
@@ -249,10 +223,6 @@ void matrix_return(struct CharacterMatrix *matrix) {
   matrix->cursor = &matrix->display[cursor_row][0];
 }
 
-void iota_gfx_write_char(uint8_t c) {
-  matrix_write_char(&display, c);
-}
-
 void matrix_write(struct CharacterMatrix *matrix, const char *data) {
   const char *end = data + strlen(data);
   while (data < end) {
@@ -297,10 +267,6 @@ void matrix_write_range_ln(struct CharacterMatrix *matrix, const char *data, uin
   matrix_newline(matrix);
 }
 
-void iota_gfx_write(const char *data) {
-  matrix_write(&display, data);
-}
-
 void matrix_clear(struct CharacterMatrix *matrix) {
   memset(matrix->display, 0, sizeof(matrix->display));
   matrix->cursor = &matrix->display[0][0];
@@ -320,9 +286,6 @@ void matrix_push(const struct CharacterMatrix *matrix) {
 void matrix_render(struct CharacterMatrix *matrix) {
   last_flush = timer_read();
   iota_gfx_on();
-#if DEBUG_TO_SCREEN
-  ++displaying;
-#endif
 
   // Move to the home position
   send_cmd3(PageAddr, 0, MatrixRows - 1);
@@ -346,9 +309,6 @@ void matrix_render(struct CharacterMatrix *matrix) {
 
 done:
   i2c_master_stop();
-#if DEBUG_TO_SCREEN
-  --displaying;
-#endif
 }
 
 void iota_gfx_flush(void) {
