@@ -175,12 +175,9 @@ void oled_init(void) {
 }
 
 void oled_update(void) {
-  iota_gfx_task();
-}
-
-void iota_gfx_task_user(void) {
   if (is_master) update_keyfreq_log();
   prepare_next_frame();
+  iota_gfx_task();             // trigger redisplay
 }
 
 void oled_record_event(uint16_t keycode, keyrecord_t *record) {
