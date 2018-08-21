@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "keycode.h"
 #include "action.h"
 
-#define KEYMAP( \
+#define LAYOUT_60_ansi( \
   K04, K14, K24, K34, K44, K54, K16, KB6, KB7, K17, KA4, KB4, KC4, KE4, \
   K03, K13, K23, K33, K43, K53, K26, KC6, KC7, K27, KA3, KB3, KC3, KD3, \
   K02, K12, K22, K32, K42, K52, K36, KD6, KD7, K37, KA2, KB2,      KD2, \
