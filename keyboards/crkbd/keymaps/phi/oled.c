@@ -107,6 +107,25 @@ void update_keyfreq_log(void) {
     keyfreq_log[1][20] = 0xc6;
 }
 
+void prepare_background(void) {
+  struct CharacterMatrix matrix;
+
+  matrix_clear(&matrix);
+  if (is_master) {
+    matrix_write_ln(&matrix, taiyo_and_grid[0]);
+    matrix_write_ln(&matrix, taiyo_and_grid[1]);
+    matrix_write_ln(&matrix, taiyo_and_grid[2]);
+    matrix_write(&matrix, saku_nami_l[1]);
+  } else {
+    matrix_write_ln(&matrix, hoshi[0]);
+    matrix_write_ln(&matrix, hoshi[1]);
+    matrix_write_ln(&matrix, "");
+    matrix_write(&matrix, saku_nami_r[1]);
+  }
+
+  matrix_push_background(&matrix);
+}
+
 void prepare_next_frame(void) {
     static int last_update = 0;
     static struct CharacterMatrix matrix;
@@ -129,30 +148,19 @@ void prepare_next_frame(void) {
         matrix_write_range_ln(&matrix, keyfreq_log[0], timer_elapsed(last_keyfreq_update) / (KEYFREQ_LOG_UPDATE_INTERVAL / 6), 120);
         matrix_write_range_ln(&matrix, keyfreq_log[1], timer_elapsed(last_keyfreq_update) / (KEYFREQ_LOG_UPDATE_INTERVAL / 6), 120);
         matrix_write_range(&matrix, saku_nami_l[0], animation_frame % 6, 120);
-        /* render BG */
-        matrix_reset_cursor(&matrix);
         set_overwrite_mode(true);
-        matrix_write_ln(&matrix, taiyo_and_grid[0]);
-        matrix_write_ln(&matrix, taiyo_and_grid[1]);
-        matrix_write_ln(&matrix, taiyo_and_grid[2]);
-        matrix_write(&matrix, saku_nami_l[1]);
         matrix_return(&matrix);
         matrix_write_range(&matrix, saku_nami_l[2], animation_frame / 4, 120);
         set_overwrite_mode(false);
     } else {
-        matrix_write_ln(&matrix, hoshi[0]);
-        matrix_write_ln(&matrix, hoshi[1]);
-        matrix_write_ln(&matrix, "");
-        matrix_write_range(&matrix, saku_nami_r[0], 6 - animation_frame % 6, 120);
-        /* render BG */
-        matrix_reset_cursor(&matrix);
-        set_overwrite_mode(true);
         matrix_write_ln(&matrix, "");
         matrix_write_range_ln(&matrix, palm[0], 12 - animation_frame / 2, 120);
         matrix_write_range_ln(&matrix, palm[1], 12 - animation_frame / 2, 120);
         matrix_write_range(&matrix, palm[2], 12 - animation_frame / 2, 120);
+        set_overwrite_mode(true);
         matrix_return(&matrix);
-        matrix_write(&matrix, saku_nami_r[1]);
+        matrix_write_range(&matrix, saku_nami_r[0], 6 - animation_frame % 6, 120);
+        matrix_return(&matrix);
         matrix_return(&matrix);
         matrix_write_range(&matrix, saku_nami_r[2], 6 - animation_frame / 4, 120);
         set_overwrite_mode(false);
@@ -163,6 +171,7 @@ void prepare_next_frame(void) {
 
 void oled_init(void) {
   iota_gfx_init(!has_usb());   // turns on the display
+  prepare_background();
 }
 
 void oled_update(void) {
