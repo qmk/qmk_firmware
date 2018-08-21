@@ -59,7 +59,7 @@ void USB_write2422_block(void)
         dest[0] = src - base;
         dest[1] = 32;
         memcpy(&dest[2], src, 32);
-        I2C0_write(USB2422_ADDR,dest,34);
+        i2c0_transmit(USB2422_ADDR, dest, 34, 50000);
         SERCOM0->I2CM.CTRLB.bit.CMD = 0x03;
         while (SERCOM0->I2CM.SYNCBUSY.bit.SYSOP);
         CLK_delay_us(100);
@@ -92,23 +92,23 @@ void USB2422_init(void)
 
     //configure and enable DFLL for USB clock recovery mode at 48MHz
     posc->DFLLCTRLA.bit.ENABLE = 0;
-    while(posc->DFLLSYNC.bit.ENABLE) {}
-    while(posc->DFLLSYNC.bit.DFLLCTRLB) {}
+    while (posc->DFLLSYNC.bit.ENABLE) {}
+    while (posc->DFLLSYNC.bit.DFLLCTRLB) {}
     posc->DFLLCTRLB.bit.USBCRM = 1;
-    while(posc->DFLLSYNC.bit.DFLLCTRLB) {}
+    while (posc->DFLLSYNC.bit.DFLLCTRLB) {}
     posc->DFLLCTRLB.bit.MODE = 1;
-    while(posc->DFLLSYNC.bit.DFLLCTRLB) {}
+    while (posc->DFLLSYNC.bit.DFLLCTRLB) {}
     posc->DFLLCTRLB.bit.QLDIS = 0;
-    while(posc->DFLLSYNC.bit.DFLLCTRLB) {}
+    while (posc->DFLLSYNC.bit.DFLLCTRLB) {}
     posc->DFLLCTRLB.bit.CCDIS = 1;
     posc->DFLLMUL.bit.MUL = 0xBB80; //4800 x 1KHz
-    while(posc->DFLLSYNC.bit.DFLLMUL) {}
+    while (posc->DFLLSYNC.bit.DFLLMUL) {}
     posc->DFLLCTRLA.bit.ENABLE = 1;
-    while(posc->DFLLSYNC.bit.ENABLE) {}
+    while (posc->DFLLSYNC.bit.ENABLE) {}
 
     pusb->DEVICE.CTRLA.bit.SWRST = 1;
-    while(pusb->DEVICE.SYNCBUSY.bit.SWRST) {}
-    while(pusb->DEVICE.CTRLA.bit.SWRST) {}
+    while (pusb->DEVICE.SYNCBUSY.bit.SWRST) {}
+    while (pusb->DEVICE.CTRLA.bit.SWRST) {}
     //calibration from factory presets
     pusb->DEVICE.PADCAL.bit.TRANSN = (USB_FUSES_TRANSN_ADDR >> USB_FUSES_TRANSN_Pos) & USB_FUSES_TRANSN_Msk;
     pusb->DEVICE.PADCAL.bit.TRANSP = (USB_FUSES_TRANSP_ADDR >> USB_FUSES_TRANSP_Pos) & USB_FUSES_TRANSP_Msk;
@@ -117,14 +117,14 @@ void USB2422_init(void)
     pusb->DEVICE.CTRLB.bit.SPDCONF = 0; //full speed
     pusb->DEVICE.CTRLA.bit.MODE = 0;
     pusb->DEVICE.CTRLA.bit.ENABLE = 1;
-    while(pusb->DEVICE.SYNCBUSY.bit.ENABLE) {}
+    while (pusb->DEVICE.SYNCBUSY.bit.ENABLE) {}
 
     pusb->DEVICE.QOSCTRL.bit.DQOS = 2;
     pusb->DEVICE.QOSCTRL.bit.CQOS = 2;
 
     pport->Group[USB2422_HUB_ACTIVE_GROUP].PINCFG[USB2422_HUB_ACTIVE_PIN].bit.INEN = 1;
 
-    I2C0_init(); //IC2 clk must be high at USB2422 reset release time to signal SMB configuration
+    i2c0_init(); //IC2 clk must be high at USB2422 reset release time to signal SMB configuration
 
     pspi->bit.HUB_CONNECT = 1; //connect signal
     pspi->bit.HUB_RESET_N = 1; //reset high

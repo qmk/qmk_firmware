@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _I2C_H_
-#define _I2C_H_
+#ifndef _I2C_MASTER_H_
+#define _I2C_MASTER_H_
 
 #ifndef MD_BOOTLOADER
 
@@ -30,6 +30,8 @@ DmacDescriptor dmac_desc_wb;
 
 uint8_t I2C3733_Init_Control(void);
 uint8_t I2C3733_Init_Drivers(void);
+void I2C3733_Control_Set(uint8_t state);
+void I2C_DMAC_LED_Init(void);
 
 #define I2C_Q_SIZE              100
 
@@ -83,34 +85,23 @@ extern volatile uint8_t i2c_led_q_running;
                                 } \
                             }
 
-void I2C_DMAC_LED_Init(void);
-void i2c_led_desc_defaults(void);
-void dma_prepare_send(uint8_t *data, uint8_t len);
-void i2c_led_begin(uint8_t drvid);
-void i2c_led_send_CRWL_dma(uint8_t drvid);
-void i2c_led_select_page_dma(uint8_t drvid, uint8_t pageno);
-void i2c_led_send_GCR_dma(uint8_t drvid);
-void i2c_led_send_pwm_dma(uint8_t drvid);
-void i2c_led_send_onoff_dma(uint8_t drvid);
+
 void i2c_led_q_init(void);
 void i2c_led_q_add(uint8_t cmd);
 void i2c_led_q_s_advance(void);
 uint8_t i2c_led_q_size(void);
 uint8_t i2c_led_q_request_room(uint8_t request_size);
 uint8_t i2c_led_q_run(void);
-void I2C3733_Control_Set(uint8_t state);
 
-void i2c_led_send_onoff(uint8_t drvid);
-
-void sc1stop(void);
-
-void I2C1_init(void);
-uint32_t I2C1_write(int ic_addr, unsigned char *buf, uint32_t count);
+void i2c1_init(void);
+uint8_t i2c1_transmit(uint8_t address, uint8_t *data, uint16_t length, uint16_t timeout);
+void i2c1_stop(void);
 
 #endif //MD_BOOTLOADER
 
-void I2C0_init(void);
-uint32_t I2C0_write(int ic_addr, unsigned char *buf, uint32_t count);
+void i2c0_init(void);
+uint8_t i2c0_transmit(uint8_t address, uint8_t *data, uint16_t length, uint16_t timeout);
+void i2c0_stop(void);
 
-#endif // _I2C_H_
+#endif // _I2C_MASTER_H_
 

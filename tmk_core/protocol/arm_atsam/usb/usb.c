@@ -1054,19 +1054,19 @@ enum status_code usb_init(struct usb_module *module_inst, Usb *const hw,
 
     //configure and enable DFLL for USB clock recovery mode at 48MHz
     posc->DFLLCTRLA.bit.ENABLE=0;
-    while(posc->DFLLSYNC.bit.ENABLE);
-    while(posc->DFLLSYNC.bit.DFLLCTRLB);
+    while (posc->DFLLSYNC.bit.ENABLE);
+    while (posc->DFLLSYNC.bit.DFLLCTRLB);
     posc->DFLLCTRLB.bit.USBCRM = 1;
-    while(posc->DFLLSYNC.bit.DFLLCTRLB);
+    while (posc->DFLLSYNC.bit.DFLLCTRLB);
     posc->DFLLCTRLB.bit.MODE = 1;
-    while(posc->DFLLSYNC.bit.DFLLCTRLB);
+    while (posc->DFLLSYNC.bit.DFLLCTRLB);
     posc->DFLLCTRLB.bit.QLDIS = 0;
-    while(posc->DFLLSYNC.bit.DFLLCTRLB);
+    while (posc->DFLLSYNC.bit.DFLLCTRLB);
     posc->DFLLCTRLB.bit.CCDIS = 1;
     posc->DFLLMUL.bit.MUL = 0xbb80;   //4800 x 1KHz
-    while(posc->DFLLSYNC.bit.DFLLMUL);
+    while (posc->DFLLSYNC.bit.DFLLMUL);
     posc->DFLLCTRLA.bit.ENABLE=1;
-    while(posc->DFLLSYNC.bit.ENABLE);
+    while (posc->DFLLSYNC.bit.ENABLE);
 
     /* Setup clock for module */
     pgclk->PCHCTRL[GCLK_USB].bit.GEN = 0;

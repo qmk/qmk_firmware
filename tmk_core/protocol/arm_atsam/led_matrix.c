@@ -33,7 +33,7 @@ void DMAC_0_Handler( void )
     {
         DMAC->Channel[0].CHINTFLAG.reg = DMAC_CHINTENCLR_TCMPL;
 
-        sc1stop();
+        i2c1_stop();
 
         i2c_led_q_running = 0;
 

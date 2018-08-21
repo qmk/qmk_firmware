@@ -1,7 +1,7 @@
 #include "ctrl.h"
 
 #include "samd51j18a.h"
-#include "i2c.h"
+#include "i2c_master.h"
 #include "usb/udc.h"
 #include "usb/udi_cdc.h"
 #include "led_matrix.h"

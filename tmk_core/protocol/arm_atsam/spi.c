@@ -21,23 +21,20 @@ Srdata_t srdata;
 
 void SPI_WriteSRData(void)
 {
-    uint32_t timeout;
+    uint16_t timeout;
 
     SC2_RCLCK_LO;
 
-    timeout = TIMEOUT_SYNC_DEFAULT * 1000;
+    timeout = 50000;
     while (!(SCSPI->SPI.INTFLAG.bit.DRE) && --timeout) {}
-    if (!timeout) sync_error |= SYNCERROR_SPI;
 
     SCSPI->SPI.DATA.bit.DATA = srdata.reg & 0xFF; //Shift in bits 7-0
-    timeout = TIMEOUT_SYNC_DEFAULT;
+    timeout = 50000;
     while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout) {}
-    if (!timeout) sync_error |= SYNCERROR_SPI;
 
-    SCSPI->SPI.DATA.bit.DATA = (srdata.reg>>8) & 0xFF; //Shift in bits 15-8
-    timeout = TIMEOUT_SYNC_DEFAULT;
+    SCSPI->SPI.DATA.bit.DATA = (srdata.reg >> 8) & 0xFF; //Shift in bits 15-8
+    timeout = 50000;
     while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout) {}
-    if (!timeout) sync_error |= SYNCERROR_SPI;
 
     SC2_RCLCK_HI;
 }
@@ -65,9 +62,8 @@ void SPI_Init(void)
     SCSPI->SPI.CTRLA.bit.MODE = 3; //master
 
     SCSPI->SPI.CTRLA.bit.ENABLE = 1;
-    timeout = TIMEOUT_SYNC_DEFAULT;
-    while(SCSPI->SPI.SYNCBUSY.bit.ENABLE && timeout--) {}
-    if (!timeout) sync_error |= SYNCERROR_SPI;
+    timeout = 50000;
+    while (SCSPI->SPI.SYNCBUSY.bit.ENABLE && timeout--) {}
 
     srdata.reg = 0;
     srdata.bit.HUB_CONNECT = 0;

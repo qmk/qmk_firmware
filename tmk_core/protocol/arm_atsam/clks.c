@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 
 volatile clk_t system_clks;
-volatile uint32_t sync_error = 0;
 volatile uint64_t ms_clk;
 
 volatile uint8_t us_delay_done;
@@ -38,31 +37,31 @@ void CLK_oscctrl_init(void)
     system_clks.freq_gclk[0] = system_clks.freq_dfll;
 
     //configure and startup 16MHz xosc0
-    posctrl->XOSCCTRL[0].bit.STARTUP = 3;
+    posctrl->XOSCCTRL[0].bit.STARTUP = 7;
     posctrl->XOSCCTRL[0].bit.ENALC = 1;
     posctrl->XOSCCTRL[0].bit.IMULT = 5;
     posctrl->XOSCCTRL[0].bit.IPTAT = 3;
     posctrl->XOSCCTRL[0].bit.ONDEMAND = 0;
     posctrl->XOSCCTRL[0].bit.XTALEN = 1;
     posctrl->XOSCCTRL[0].bit.ENABLE = 1;
-    while(posctrl->STATUS.bit.XOSCRDY0==0) {}  //wait for xosc0 stable and ready
+    while (posctrl->STATUS.bit.XOSCRDY0==0) {}  //wait for xosc0 stable and ready
     system_clks.freq_xosc0 = FREQ_XOSC0;
 
     //configure and startup DPLL0
     posctrl->Dpll[0].DPLLCTRLB.bit.REFCLK = 2;              //select XOSC0 (16MHz)
     posctrl->Dpll[0].DPLLCTRLB.bit.DIV = 7;                 //16 MHz -> 1 MHz
     posctrl->Dpll[0].DPLLRATIO.bit.LDR = PLL_RATIO;         //48 MHz
-    while(posctrl->Dpll[0].DPLLSYNCBUSY.bit.DPLLRATIO) {}
+    while (posctrl->Dpll[0].DPLLSYNCBUSY.bit.DPLLRATIO) {}
     posctrl->Dpll[0].DPLLCTRLA.bit.ONDEMAND = 0;
     posctrl->Dpll[0].DPLLCTRLA.bit.ENABLE = 1;
-    while(posctrl->Dpll[0].DPLLSYNCBUSY.bit.ENABLE) {}
-    while(posctrl->Dpll[0].DPLLSTATUS.bit.CLKRDY == 0) {}   //wait for CLKRDY
-    while(posctrl->Dpll[0].DPLLSTATUS.bit.LOCK == 0) {}     // and LOCK
+    while (posctrl->Dpll[0].DPLLSYNCBUSY.bit.ENABLE) {}
+    while (posctrl->Dpll[0].DPLLSTATUS.bit.CLKRDY == 0) {}   //wait for CLKRDY
+    while (posctrl->Dpll[0].DPLLSTATUS.bit.LOCK == 0) {}     // and LOCK
     system_clks.freq_dpll[0] = (system_clks.freq_xosc0 / 2 / (posctrl->Dpll[0].DPLLCTRLB.bit.DIV + 1)) * (posctrl->Dpll[0].DPLLRATIO.bit.LDR + 1);
 
     //change gclk0 to DPLL0
     pgclk->GENCTRL[GEN_DPLL0].bit.SRC = GCLK_SOURCE_DPLL0;
-    while(pgclk->SYNCBUSY.bit.GENCTRL0) {}
+    while (pgclk->SYNCBUSY.bit.GENCTRL0) {}
     system_clks.freq_gclk[0] = system_clks.freq_dpll[0];
 }
 
@@ -72,15 +71,15 @@ uint32_t CLK_set_gclk_freq(uint8_t gclkn, uint32_t freq)
 {
     Gclk *pgclk = GCLK;
 
-    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    while (pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.SRC = GCLK_SOURCE_DPLL0;
-    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    while (pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.DIV = (uint8_t)(system_clks.freq_dpll[0] / freq);
-    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    while (pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.DIVSEL = 0;
-    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    while (pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.GENEN = 1;
-    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    while (pgclk->SYNCBUSY.vec.GENCTRL) {}
     system_clks.freq_gclk[gclkn] = system_clks.freq_dpll[0] / pgclk->GENCTRL[gclkn].bit.DIV;
     return system_clks.freq_gclk[gclkn];
 }
@@ -90,15 +89,15 @@ void CLK_init_osc(void)
     uint8_t gclkn = GEN_OSC0;
     Gclk *pgclk = GCLK;
 
-    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    while (pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.SRC = GCLK_SOURCE_XOSC0;
-    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    while (pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.DIV = 1;
-    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    while (pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.DIVSEL = 0;
-    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    while (pgclk->SYNCBUSY.vec.GENCTRL) {}
     pgclk->GENCTRL[gclkn].bit.GENEN = 1;
-    while(pgclk->SYNCBUSY.vec.GENCTRL) {}
+    while (pgclk->SYNCBUSY.vec.GENCTRL) {}
     system_clks.freq_gclk[gclkn] = system_clks.freq_xosc0;
 }
 
@@ -111,9 +110,9 @@ void CLK_reset_time(void)
 
     //stop counters
     ptc4->COUNT16.CTRLA.bit.ENABLE = 0;
-    while(ptc4->COUNT16.SYNCBUSY.bit.ENABLE) {}
+    while (ptc4->COUNT16.SYNCBUSY.bit.ENABLE) {}
     ptc0->COUNT32.CTRLA.bit.ENABLE = 0;
-    while(ptc0->COUNT32.SYNCBUSY.bit.ENABLE) {}
+    while (ptc0->COUNT32.SYNCBUSY.bit.ENABLE) {}
     //zero counters
     ptc4->COUNT16.COUNT.reg = 0;
     while (ptc4->COUNT16.SYNCBUSY.bit.COUNT) {}
@@ -121,9 +120,9 @@ void CLK_reset_time(void)
     while (ptc0->COUNT32.SYNCBUSY.bit.COUNT) {}
     //start counters
     ptc0->COUNT32.CTRLA.bit.ENABLE = 1;
-    while(ptc0->COUNT32.SYNCBUSY.bit.ENABLE) {}
+    while (ptc0->COUNT32.SYNCBUSY.bit.ENABLE) {}
     ptc4->COUNT16.CTRLA.bit.ENABLE = 1;
-    while(ptc4->COUNT16.SYNCBUSY.bit.ENABLE) {}
+    while (ptc4->COUNT16.SYNCBUSY.bit.ENABLE) {}
 }
 
 void TC4_Handler()
@@ -171,17 +170,17 @@ uint32_t CLK_enable_timebase(void)
 
     //configure TC4
     ptc4->COUNT16.CTRLA.bit.ENABLE = 0;
-    while(ptc4->COUNT16.SYNCBUSY.bit.ENABLE) {}
+    while (ptc4->COUNT16.SYNCBUSY.bit.ENABLE) {}
     ptc4->COUNT16.CTRLA.bit.SWRST = 1;
-    while(ptc4->COUNT16.SYNCBUSY.bit.SWRST) {}
-    while(ptc4->COUNT16.CTRLA.bit.SWRST) {}
+    while (ptc4->COUNT16.SYNCBUSY.bit.SWRST) {}
+    while (ptc4->COUNT16.CTRLA.bit.SWRST) {}
 
     //CTRLA defaults
     //CTRLB as default, counting up
     ptc4->COUNT16.CTRLBCLR.reg = 5;
     while (ptc4->COUNT16.SYNCBUSY.bit.CTRLB) {}
     ptc4->COUNT16.CC[0].reg = 999;
-    while(ptc4->COUNT16.SYNCBUSY.bit.CC0) {}
+    while (ptc4->COUNT16.SYNCBUSY.bit.CC0) {}
     //ptc4->COUNT16.DBGCTRL.bit.DBGRUN = 1;
 
     //wave mode
@@ -194,10 +193,10 @@ uint32_t CLK_enable_timebase(void)
 
     //configure TC5
     ptc5->COUNT16.CTRLA.bit.ENABLE = 0;
-    while(ptc5->COUNT16.SYNCBUSY.bit.ENABLE) {}
+    while (ptc5->COUNT16.SYNCBUSY.bit.ENABLE) {}
     ptc5->COUNT16.CTRLA.bit.SWRST = 1;
-    while(ptc5->COUNT16.SYNCBUSY.bit.SWRST) {}
-    while(ptc5->COUNT16.CTRLA.bit.SWRST) {}
+    while (ptc5->COUNT16.SYNCBUSY.bit.SWRST) {}
+    while (ptc5->COUNT16.CTRLA.bit.SWRST) {}
 
     //CTRLA defaults
     //CTRLB as default, counting up
@@ -224,10 +223,10 @@ uint32_t CLK_enable_timebase(void)
 
     //configure TC0
     ptc0->COUNT32.CTRLA.bit.ENABLE = 0;
-    while(ptc0->COUNT32.SYNCBUSY.bit.ENABLE) {}
+    while (ptc0->COUNT32.SYNCBUSY.bit.ENABLE) {}
     ptc0->COUNT32.CTRLA.bit.SWRST = 1;
-    while(ptc0->COUNT32.SYNCBUSY.bit.SWRST) {}
-    while(ptc0->COUNT32.CTRLA.bit.SWRST) {}
+    while (ptc0->COUNT32.SYNCBUSY.bit.SWRST) {}
+    while (ptc0->COUNT32.CTRLA.bit.SWRST) {}
     //CTRLA as default
     ptc0->COUNT32.CTRLA.bit.MODE = 2; //32 bit mode
     ptc0->COUNT32.EVCTRL.bit.TCEI = 1; //enable incoming events
@@ -268,10 +267,10 @@ void CLK_delay_us(uint16_t usec)
     else usec -= 10;
 
     TC5->COUNT16.CC[0].reg = usec;
-    while(TC5->COUNT16.SYNCBUSY.bit.CC0) {}
+    while (TC5->COUNT16.SYNCBUSY.bit.CC0) {}
 
     TC5->COUNT16.CTRLA.bit.ENABLE = 1;
-    while(TC5->COUNT16.SYNCBUSY.bit.ENABLE) {}
+    while (TC5->COUNT16.SYNCBUSY.bit.ENABLE) {}
 
     while (!us_delay_done) {}
 }

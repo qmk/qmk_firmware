@@ -171,7 +171,7 @@ int main(void)
 
     SPI_Init();
 
-    I2C1_init();
+    i2c1_init();
 
     matrix_init();
 

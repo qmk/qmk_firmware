@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "d51_util.h"
 #include "clks.h"
 #include "adc.h"
-#include "i2c.h"
+#include "i2c_master.h"
 #include "spi.h"
 
 #include "./usb/usb2422.h"

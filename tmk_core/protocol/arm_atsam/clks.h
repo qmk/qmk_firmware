@@ -26,13 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif //MD_BOOTLOADER
 
-#define TIMEOUT_SYNC_DEFAULT 100000
-#define SYNCERROR_I2C0 0x1
-#define SYNCERROR_I2C1 0x2
-#define SYNCERROR_SPI 0x4
-#define SYNCERROR_TC4 0x8
-#define SYNCERROR_TC0 0x10
-
 #define PLL_RATIO                   47
 #define FREQ_DFLL_DEFAULT       MCU_HZ  //mcu frequency
 #define FREQ_SPI_DEFAULT       1000000  //spi to 595 shift regs
@@ -78,7 +71,6 @@ typedef struct clk_s {
 } clk_t;
 
 extern volatile clk_t system_clks;
-extern volatile uint32_t sync_error;
 extern volatile uint64_t ms_clk;
 
 void CLK_oscctrl_init(void);
