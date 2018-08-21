@@ -23,6 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // place overrides here
 
+// if you need more program area, try uncomment follow line
+//#include "serial_config_simpleapi.h"
+
 #ifdef MOUSEKEY_ENABLE
   #undef MOUSEKEY_INTERVAL
   #define MOUSEKEY_INTERVAL 0

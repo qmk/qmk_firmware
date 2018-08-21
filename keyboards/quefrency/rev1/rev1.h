@@ -1,7 +1,6 @@
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
-#include "../quefrency.h"
+#include "quefrency.h"
 
 #include "quantum.h"
 
@@ -33,5 +32,3 @@
     { RD1, RD2, RD3, RD4, KC_NO, RD6, RD7, RD8 }, \
     { RE1, KC_NO, KC_NO, RE4, RE5, RE6, RE7, RE8 } \
   }
-
-#endif

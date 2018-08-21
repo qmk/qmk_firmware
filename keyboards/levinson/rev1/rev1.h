@@ -1,7 +1,6 @@
-#ifndef REV2_H
-#define REV2_H
+#pragma once
 
-#include "../levinson.h"
+#include "levinson.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
@@ -58,5 +57,3 @@
 #endif
 
 #define LAYOUT_ortho_4x12 LAYOUT
-
-#endif

@@ -80,7 +80,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 These are the effects that are currently available:
 
 	enum rgb_matrix_effects {
-		RGB_MATRIX_SOLID_COLOR = 1,
+	    RGB_MATRIX_SOLID_COLOR = 1,
 	    RGB_MATRIX_ALPHAS_MODS,
 	    RGB_MATRIX_DUAL_BEACON,
 	    RGB_MATRIX_GRADIENT_UP_DOWN,
@@ -93,7 +93,7 @@ These are the effects that are currently available:
 	    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
 	    RGB_MATRIX_JELLYBEAN_RAINDROPS,
 	#ifdef RGB_MATRIX_KEYPRESSES
-		RGB_MATRIX_SOLID_REACTIVE,
+	    RGB_MATRIX_SOLID_REACTIVE,
 	    RGB_MATRIX_SPLASH,
 	    RGB_MATRIX_MULTISPLASH,
 	    RGB_MATRIX_SOLID_SPLASH,
@@ -107,7 +107,7 @@ These are the effects that are currently available:
 Custom layer effects can be done by defining this in your `<keyboard>.c`:
 
     void rgb_matrix_indicators_kb(void) {
-    	// rgb_matrix_set_color(index, red, green, blue);
+        rgb_matrix_set_color(index, red, green, blue);
     }
 
 A similar function works in the keymap as `rgb_matrix_indicators_user`.
