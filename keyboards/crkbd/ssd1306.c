@@ -74,6 +74,7 @@ static inline bool _send_cmd3(uint8_t cmd, uint8_t opr1, uint8_t opr2) {
 
 static void clear_display(void) {
   matrix_clear(&display);
+  matrix_clear(&background);
 
   // Clear all of the display bits (there can be random noise
   // in the RAM on startup)
@@ -94,6 +95,7 @@ static void clear_display(void) {
   }
 
   display.dirty = false;
+  background.dirty = false;
 
 done:
   i2c_master_stop();
@@ -283,7 +285,14 @@ void matrix_push(const struct CharacterMatrix *matrix) {
   }
 }
 
-void matrix_render(struct CharacterMatrix *matrix) {
+void matrix_push_background(const struct CharacterMatrix *matrix) {
+  if (memcmp(background.display, matrix->display, sizeof(background.display))) {
+    memcpy(background.display, matrix->display, sizeof(background.display));
+    background.dirty = true;
+  }
+}
+
+void matrix_render(struct CharacterMatrix *fg, struct CharacterMatrix *bg) {
   last_flush = timer_read();
   iota_gfx_on();
 
@@ -301,18 +310,19 @@ void matrix_render(struct CharacterMatrix *matrix) {
 
   for (uint8_t row = 0; row < MatrixRows; ++row) {
     for (uint8_t col = 0; col < DisplayWidth; ++col) {
-      i2c_master_write(matrix->display[row][col]);
+      i2c_master_write(fg->display[row][col] | bg->display[row][col]);
     }
   }
 
-  matrix->dirty = false;
+  fg->dirty = false;
+  bg->dirty = false;
 
 done:
   i2c_master_stop();
 }
 
 void iota_gfx_flush(void) {
-  matrix_render(&display);
+  matrix_render(&display, &background);
 }
 
 __attribute__ ((weak))
@@ -322,7 +332,7 @@ void iota_gfx_task_user(void) {
 void iota_gfx_task(void) {
   iota_gfx_task_user();
 
-  if (display.dirty) {
+  if (display.dirty || background.dirty) {
     iota_gfx_flush();
   }
 

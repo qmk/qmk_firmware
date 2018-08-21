@@ -67,6 +67,7 @@ struct CharacterMatrix {
 };
 
 struct CharacterMatrix display;
+struct CharacterMatrix background;
 
 bool iota_gfx_init(bool rotate);
 void iota_gfx_task(void);
@@ -86,8 +87,9 @@ void matrix_write(struct CharacterMatrix *matrix, const char *data);
 void matrix_write_range(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width);
 void matrix_write_ln(struct CharacterMatrix *matrix, const char *data);
 void matrix_write_range_ln(struct CharacterMatrix *matrix, const char *data, uint8_t from, uint8_t width);
-void matrix_render(struct CharacterMatrix *matrix);
+void matrix_render(struct CharacterMatrix *fg, struct CharacterMatrix *bg);
 void matrix_push(const struct CharacterMatrix *matrix);
+void matrix_push_background(const struct CharacterMatrix *matrix);
 
 
 
