@@ -9,7 +9,7 @@
 #define _FN1 1
 #define _FN2 2
 
-void change_leds_to(uint16_t, rgblight_config_t);
+void change_leds_to(uint16_t, uint8_t, rgblight_config_t);
 bool state_changed = false;
 static bool grave_esc_was_shifted = false;
 
@@ -50,21 +50,24 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
   uint16_t hue = 1;
+  uint8_t sat = 0;
 
   switch(biton32(layer_state)) {
     case _FN1:
-      hue = 255;
+      hue = 185;
+      sat = 255;
       break;
 
     case _FN2:
-      hue = 0;
+      hue = 254;
+      sat = 120;
       break;
   }
 
   if (hue != 1) {
     rgblight_config_t eeprom_config;
     eeprom_config.raw = eeconfig_read_rgblight();
-    change_leds_to(hue, eeprom_config);
+    change_leds_to(hue, sat, eeprom_config);
   }
 }
 
@@ -99,7 +102,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void change_leds_to(uint16_t hue, rgblight_config_t eeprom_config) {
+void change_leds_to(uint16_t hue, uint8_t sat, rgblight_config_t eeprom_config) {
   if (state_changed) {
     if (!eeprom_config.enable) {
       rgblight_enable_noeeprom();
@@ -116,8 +119,8 @@ void change_leds_to(uint16_t hue, rgblight_config_t eeprom_config) {
     state_changed = false;
   }
 
-  rgblight_sethsv_at(hue, 255, eeprom_config.val, 8);
-  rgblight_sethsv_at(hue, 255, eeprom_config.val, 15);
+  rgblight_sethsv_at(hue, sat, eeprom_config.val, 8);
+  rgblight_sethsv_at(hue, sat, eeprom_config.val, 15);
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
