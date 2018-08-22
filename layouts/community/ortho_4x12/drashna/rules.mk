@@ -7,6 +7,8 @@ TAP_DANCE_ENABLE  = no
 AUDIO_ENABLE      = yes
 ifeq (,$(findstring planck/rev6,$(KEYBOARD)))
   RGBLIGHT_ENABLE   = yes
+  INDICATOR_LIGHTS  = yes
+  RGBLIGHT_TWINKLE  = yes
 endif
 ifneq (,$(findstring planck/light,$(KEYBOARD)))
   RGB_MATRIX_ENABLE   = yes
@@ -22,7 +24,3 @@ endif
 
 MACROS_ENABLED    = no
 
-ifdef RGBLIGHT_ENABLE
-  INDICATOR_LIGHTS  = yes
-  RGBLIGHT_TWINKLE  = yes
-endif
