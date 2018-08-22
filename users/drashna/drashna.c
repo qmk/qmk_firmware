@@ -159,13 +159,18 @@ void startup_user (void) {
 
 void shutdown_user (void) {
 #ifdef RGBLIGHT_ENABLE
-      rgblight_enable_noeeprom();
-      rgblight_mode_noeeprom(1);
-      rgblight_setrgb_red();
+  rgblight_enable_noeeprom();
+  rgblight_mode_noeeprom(1);
+  rgblight_setrgb_red();
 #endif // RGBLIGHT_ENABLE
 #ifdef RGB_MATRIX_ENABLE
-      rgblight_mode(1);
-      rgb_matrix_set_color_all(0xFF,0x0,0x0);
+  rgb_led led;
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    led = g_rgb_leds[i];
+    if (led.matrix_co.raw < 0xFF) {
+      rgb_matrix_set_color( i, 0xFF, 0x00, 0x00 );
+    }
+  }
 #endif //RGB_MATRIX_ENABLE
   shutdown_keymap();
 }

@@ -125,27 +125,18 @@ bool music_mask_user(uint16_t keycode) {
 }
 
 #ifdef RGB_MATRIX_ENABLE
-void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
-   rgb_matrix_set_color(0, red, green, blue);
-   rgb_matrix_set_color(11, red, green, blue);
-   rgb_matrix_set_color(12, red, green, blue);
-   rgb_matrix_set_color(23, red, green, blue);
-   rgb_matrix_set_color(24, red, green, blue);
-   rgb_matrix_set_color(35, red, green, blue);
-   rgb_matrix_set_color(36, red, green, blue);
-   rgb_matrix_set_color(37, red, green, blue);
-   rgb_matrix_set_color(38, red, green, blue);
-   rgb_matrix_set_color(39, red, green, blue);
-   rgb_matrix_set_color(40, red, green, blue);
-  //  rgb_matrix_set_color(41, red, green, blue);
-  if (default_layer) { rgb_matrix_set_color(42, red, green, blue); }
-  //  rgb_matrix_set_color(43, red, green, blue);
-   rgb_matrix_set_color(44, red, green, blue);
-   rgb_matrix_set_color(45, red, green, blue);
-   rgb_matrix_set_color(46, red, green, blue);
-   rgb_matrix_set_color(47, red, green, blue);
-   rgb_matrix_set_color(48, red, green, blue);
 
+
+void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
+  rgb_led led;
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    led = g_rgb_leds[i];
+    if (led.matrix_co.raw < 0xFF) {
+      if (led.modifier) {
+          rgb_matrix_set_color( i, red, green, blue );
+      }
+    }
+  }
 }
 
 void rgb_matrix_indicators_user(void) {
