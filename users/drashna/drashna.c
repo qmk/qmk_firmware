@@ -31,17 +31,16 @@ userspace_config_t userspace_config;
 bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (!record->event.pressed || override) {
     clear_keyboard();
-    tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
+    tap_key(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
     wait_ms(50);
     send_string_with_delay(str, MACRO_TIMER);
     wait_ms(50);
-    tap(KC_ENTER);
+    tap_key(KC_ENTER);
   }
   if (override) wait_ms(3000);
   return false;
 }
 
-inline void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed) {
   static uint16_t this_timer;
@@ -345,20 +344,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef UNICODE_ENABLE
   case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻
     if (record->event.pressed) {
-      register_code(KC_RSFT);
-      tap(KC_9);
-      unregister_code(KC_RSFT);
+      shift_key(KC_9);
       process_unicode((0x256F | QK_UNICODE), record); // Arm
       process_unicode((0x00B0 | QK_UNICODE), record); // Eye
       process_unicode((0x25A1 | QK_UNICODE), record); // Mouth
       process_unicode((0x00B0 | QK_UNICODE), record); // Eye
-      register_code(KC_RSFT);
-      tap(KC_0);
-      unregister_code(KC_RSFT);
+      shift_key(KC_0);
       process_unicode((0x256F | QK_UNICODE), record); // Arm
-      tap(KC_SPC);
+      tap_key(KC_SPC);
       process_unicode((0x0361 | QK_UNICODE), record); // Flippy
-      tap(KC_SPC);
+      tap_key(KC_SPC);
       process_unicode((0x253B | QK_UNICODE), record); // Table
       process_unicode((0x2501 | QK_UNICODE), record); // Table
       process_unicode((0x253B | QK_UNICODE), record); // Table
