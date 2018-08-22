@@ -141,9 +141,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_LOCKING_SCROLL`    |`KC_LSCR`           |Locking Scroll Lock                            |
 |`KC_KP_COMMA`          |`KC_PCMM`           |Keypad `,`                                     |
 |`KC_KP_EQUAL_AS400`    |                    |Keypad `=` on AS/400 keyboards                 |
-|`KC_INT1`              |`KC_RO`             |JIS `\` and <code>&#124;</code>                |
+|`KC_INT1`              |`KC_RO`             |JIS `\` and `_`                                |
 |`KC_INT2`              |`KC_KANA`           |JIS Katakana/Hiragana                          |
-|`KC_INT3`              |`KC_JYEN`           |JIS `¥`                                        |
+|`KC_INT3`              |`KC_JYEN`           |JIS `¥` and <code>&#124;</code>                |
 |`KC_INT4`              |`KC_HENK`           |JIS Henkan                                     |
 |`KC_INT5`              |`KC_MHEN`           |JIS Muhenkan                                   |
 |`KC_INT6`              |                    |JIS Numpad `,`                                 |

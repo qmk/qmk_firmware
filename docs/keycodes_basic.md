@@ -123,9 +123,9 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 |Key       |Aliases  |Description                    |
 |----------|---------|-------------------------------|
-|`KC_INT1` |`KC_RO`  |JIS `\` and <code>&#124;</code>|
+|`KC_INT1` |`KC_RO`  |JIS `\` and `_`                |
 |`KC_INT2` |`KC_KANA`|JIS Katakana/Hiragana          |
-|`KC_INT3` |`KC_JYEN`|JIS `¥`                        |
+|`KC_INT3` |`KC_JYEN`|JIS `¥` and <code>&#124;</code>|
 |`KC_INT4` |`KC_HENK`|JIS Henkan                     |
 |`KC_INT5` |`KC_MHEN`|JIS Muhenkan                   |
 |`KC_INT6` |         |JIS Numpad `,`                 |
