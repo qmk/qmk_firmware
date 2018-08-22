@@ -12,6 +12,6 @@ Features:
 
 Notes:
 - adnw is a layout optimised for usage with german and english language
-- PUQ is a variant of adnw: http://www.adnw.de/index.php?n=Main.SeitlicheNachbaranschl%C3%A4ge
+- PUQ is a variant of adnw: http://www.adnw.de/index.php?n=Main.OptimierungF%C3%BCrDieGeradeTastaturMitDaumen-Shift 
 - This implementation is optimised for my workflow with vim/tmux/xmonad and ergodox
 - The OS must use the de_DE layout
