@@ -18,7 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef USERSPACE
 #define USERSPACE
 #include "quantum.h"
-
+#include "version.h"
+#include "eeprom.h"
 
 // Define layer names
 enum userspace_layers {
