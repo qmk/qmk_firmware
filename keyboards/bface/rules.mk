@@ -45,3 +45,5 @@ SRC = matrix.c i2c.c backlight_ps2avrGB.c
 
 # programming options
 PROGRAM_CMD = ./keyboards/bface/program .build/$(TARGET).hex
+
+LAYOUTS = 60_ansi
