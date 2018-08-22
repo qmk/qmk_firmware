@@ -1,3 +1,9 @@
+# Determine what keyboard we are building and setup the build environment.
+#
+# We support folders up to 5 levels deep below `keyboards/`. This file is
+# responsible for determining which folder is being used and doing the
+# corresponding environment setup.
+
 ifndef VERBOSE
 .SILENT:
 endif
@@ -6,26 +12,15 @@ endif
 
 include common.mk
 
-# 5/4/3/2/1
-KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
-KEYBOARD_FOLDER_PATH_2 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_1)))
-KEYBOARD_FOLDER_PATH_3 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_2)))
-KEYBOARD_FOLDER_PATH_4 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_3)))
-KEYBOARD_FOLDER_PATH_5 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_4)))
-KEYBOARD_FOLDER_1 := $(notdir $(KEYBOARD_FOLDER_PATH_1))
-KEYBOARD_FOLDER_2 := $(notdir $(KEYBOARD_FOLDER_PATH_2))
-KEYBOARD_FOLDER_3 := $(notdir $(KEYBOARD_FOLDER_PATH_3))
-KEYBOARD_FOLDER_4 := $(notdir $(KEYBOARD_FOLDER_PATH_4))
-KEYBOARD_FOLDER_5 := $(notdir $(KEYBOARD_FOLDER_PATH_5))
-
+# Set the filename for the final firmware binary
 KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
-
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
 KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
 
 # Force expansion
 TARGET := $(TARGET)
 
+# For split boards we need to set a master half.
 MASTER ?= left
 ifdef master
     MASTER = $(master)
@@ -39,35 +34,58 @@ $(error MASTER does not have a valid value(left/right))
     endif
 endif
 
+# Determine which subfolders exist.
+KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
+KEYBOARD_FOLDER_PATH_2 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_1)))
+KEYBOARD_FOLDER_PATH_3 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_2)))
+KEYBOARD_FOLDER_PATH_4 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_3)))
+KEYBOARD_FOLDER_PATH_5 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_4)))
+KEYBOARD_FOLDER_1 := $(notdir $(KEYBOARD_FOLDER_PATH_1))
+KEYBOARD_FOLDER_2 := $(notdir $(KEYBOARD_FOLDER_PATH_2))
+KEYBOARD_FOLDER_3 := $(notdir $(KEYBOARD_FOLDER_PATH_3))
+KEYBOARD_FOLDER_4 := $(notdir $(KEYBOARD_FOLDER_PATH_4))
+KEYBOARD_FOLDER_5 := $(notdir $(KEYBOARD_FOLDER_PATH_5))
 KEYBOARD_PATHS :=
-
 KEYBOARD_PATH_1 := keyboards/$(KEYBOARD_FOLDER_PATH_1)
 KEYBOARD_PATH_2 := keyboards/$(KEYBOARD_FOLDER_PATH_2)
 KEYBOARD_PATH_3 := keyboards/$(KEYBOARD_FOLDER_PATH_3)
 KEYBOARD_PATH_4 := keyboards/$(KEYBOARD_FOLDER_PATH_4)
 KEYBOARD_PATH_5 := keyboards/$(KEYBOARD_FOLDER_PATH_5)
 
-ifneq ("$(wildcard $(KEYBOARD_PATH_5)/rules.mk)","")
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/)","")
     KEYBOARD_PATHS += $(KEYBOARD_PATH_5)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/)","")
+    KEYBOARD_PATHS += $(KEYBOARD_PATH_4)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/)","")
+    KEYBOARD_PATHS += $(KEYBOARD_PATH_3)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/)","")
+    KEYBOARD_PATHS += $(KEYBOARD_PATH_2)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/)","")
+    KEYBOARD_PATHS += $(KEYBOARD_PATH_1)
+endif
+
+# Pull in rules.mk files from all our subfolders
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/rules.mk)","")
     include $(KEYBOARD_PATH_5)/rules.mk
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_4)/rules.mk)","")
-    KEYBOARD_PATHS += $(KEYBOARD_PATH_4)
     include $(KEYBOARD_PATH_4)/rules.mk
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_3)/rules.mk)","")
-    KEYBOARD_PATHS += $(KEYBOARD_PATH_3)
     include $(KEYBOARD_PATH_3)/rules.mk
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_2)/rules.mk)","")
-    KEYBOARD_PATHS += $(KEYBOARD_PATH_2)
     include $(KEYBOARD_PATH_2)/rules.mk
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
-    KEYBOARD_PATHS += $(KEYBOARD_PATH_1)
     include $(KEYBOARD_PATH_1)/rules.mk
 endif
 
+# Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
 
 KEYBOARD_C_1 := $(KEYBOARD_PATH_1)/$(KEYBOARD_FOLDER_1).c
@@ -95,6 +113,15 @@ endif
 OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE)
 
 
+# Setup the define for QMK_KEYBOARD_H. This is used inside of keymaps so
+# that the same keymap may be used on multiple keyboards.
+#
+# We grab the most top-level include file that we can. That file should
+# use #ifdef statements to include all the neccesary subfolder includes,
+# as described here:
+#
+#    https://docs.qmk.fm/#/feature_layouts?id=tips-for-making-layouts-keyboard-agnostic
+#
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/$(KEYBOARD_FOLDER_1).h)","")
     QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_1).h
 endif
@@ -111,13 +138,15 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_5)/$(KEYBOARD_FOLDER_5).h)","")
     QMK_KEYBOARD_H = $(KEYBOARD_FOLDER_5).h
 endif
 
-# We can assume a ChibiOS target When MCU_FAMILY is defined , since it's not used for LUFA
+# Determine and set parameters based on the keyboard's processor family.
+# We can assume a ChibiOS target When MCU_FAMILY is defined since it's
+# not used for LUFA
 ifdef MCU_FAMILY
-    FIRMWARE_FORMAT=bin
+    FIRMWARE_FORMAT?=bin
     PLATFORM=CHIBIOS
 else
     PLATFORM=AVR
-    FIRMWARE_FORMAT=hex
+    FIRMWARE_FORMAT?=hex
 endif
 
 ifeq ($(PLATFORM),CHIBIOS)
@@ -148,6 +177,7 @@ ifeq ($(PLATFORM),CHIBIOS)
     endif
 endif
 
+# Find all of the config.h files and add them to our CONFIG_H define.
 CONFIG_H :=
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/config.h)","")
     CONFIG_H += $(KEYBOARD_PATH_5)/config.h
@@ -203,7 +233,7 @@ else
     # this state should never be reached
 endif
 
-# User space stuff
+# Userspace setup and definitions
 ifeq ("$(USER_NAME)","")
     USER_NAME := $(KEYMAP)
 endif
@@ -283,11 +313,6 @@ $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 
 # Default target.
 all: build check-size
-
-# Change the build target to build a HEX file or a library.
 build: elf cpfirmware
-#build: elf hex eep lss sym
-#build: lib
-
 
 include $(TMK_PATH)/rules.mk

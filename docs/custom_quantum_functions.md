@@ -167,7 +167,7 @@ Whenever possible you should customize your keyboard by using `process_record_*(
 
 ### Example `matrix_scan_*` Implementation
 
-This example has been deliberately omitted. You should understand enough about QMK internals to write this without an example before hooking into such a performance sensitive area. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on gitter](https://gitter.im/qmk/qmk_firmware).
+This example has been deliberately omitted. You should understand enough about QMK internals to write this without an example before hooking into such a performance sensitive area. If you need help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) or [chat with us on Discord](https://discord.gg/Uq7gcHh).
 
 ### `matrix_scan_*` Function Documentation
 
