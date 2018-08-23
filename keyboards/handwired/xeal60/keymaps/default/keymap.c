@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
    * ,-----------------------------------------------------------.
-   * |    |  |   |   |   |   |   |   |  /|  *|  -|   |   |       |
+   * |    |  |   |   |   |   |   |Nlck|  /|  *|  -|   |   |      |
    * |-----------------------------------------------------------|
    * |     |   |   |   |   |   |   |  7|  8|  9|  +|   |   |     |
    * |-----------------------------------------------------------|
@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Layer 1: Numpad */
   [_NUMPAD] = LAYOUT_split60( \
-    _______,  _______,  _______, _______,  _______,  _______,  _______,  _______,  KC_PSLS,  KC_PAST,    KC_MINUS,  _______, _______,  KC_BSPC, \
+    _______,  _______,  _______, _______,  _______,  _______,  _______,   KC_NLCK,  KC_PSLS,  KC_PAST,    KC_MINUS,  _______, _______,  KC_BSPC, \
     _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_P7,  KC_P8,        KC_P9,    KC_PLUS,  _______, _______,   KC_BSLS, \
     _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_P4,  KC_P5,        KC_P6,    KC_BSPC, _______,          _______,  \
     _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_P1,  KC_P2,        KC_P3,    KC_DOT,                   _______,   \
@@ -122,9 +122,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 // forces numlock to be on whenever it is detected as off.
-void led_set_keymap(uint8_t usb_led) {
-  if (!(usb_led & (1 << USB_LED_NUM_LOCK))) {
-    register_code(KC_NUMLOCK);
-    unregister_code(KC_NUMLOCK);
-  }
+void led_set_keymap(uint8_t usb_led) {  
 }
