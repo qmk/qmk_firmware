@@ -208,7 +208,7 @@ QUANTUM_SRC:= \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
     $(QUANTUM_DIR)/process_keycode/process_leader.c \
-    $(QUANTUM_DIR)/momentum.c
+    $(QUANTUM_DIR)/velocikey.c
 
 ifndef CUSTOM_MATRIX
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)

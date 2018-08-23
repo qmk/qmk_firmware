@@ -42,7 +42,7 @@ extern backlight_config_t backlight_config;
 #include "process_midi.h"
 #endif
 
-#include "momentum.h"
+#include "velocikey.h"
 
 #ifdef AUDIO_ENABLE
   #ifndef GOODBYE_SONG
@@ -198,7 +198,7 @@ bool process_record_quantum(keyrecord_t *record) {
   keypos_t key = record->event.key;
   uint16_t keycode;
 
-  if (momentum_enabled()) momentum_accelerate();
+  if (velocikey_enabled()) velocikey_accelerate();
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
     /* TODO: Use store_or_get_action() or a similar function. */
@@ -520,9 +520,9 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-  case MOM_TOG:
+  case VLK_TOG:
     if (record->event.pressed) {
-      momentum_toggle();
+      velocikey_toggle();
     }
     return false;
   #ifdef PROTOCOL_LUFA

@@ -426,7 +426,7 @@ enum quantum_keycodes {
     RGB_MODE_RGBTEST,
 
     //Momentum matching toggle
-    MOM_TOG,
+    VLK_TOG,
 
     // Left shift, open paren
     KC_LSPO,

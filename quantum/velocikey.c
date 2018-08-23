@@ -1,4 +1,4 @@
-#include "momentum.h"
+#include "velocikey.h"
 #include "timer.h"
 #include "eeconfig.h"
 #include "eeprom.h"
@@ -13,22 +13,22 @@
 #define TYPING_SPEED_MAX_VALUE 200
 uint8_t typing_speed = 0;
 
-bool momentum_enabled() {
+bool velocikey_enabled() {
     return eeprom_read_byte(EECONFIG_MOMENTUM) == 1;
 }
 
-void momentum_toggle() {
-    if (momentum_enabled()) 
+void velocikey_toggle() {
+    if (velocikey_enabled()) 
         eeprom_update_byte(EECONFIG_MOMENTUM, 0);
     else 
         eeprom_update_byte(EECONFIG_MOMENTUM, 1);
 }
 
-void momentum_accelerate() {
+void velocikey_accelerate() {
     if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += (TYPING_SPEED_MAX_VALUE / 100);
 }
 
-void momentum_decay_task() {
+void velocikey_decay_task() {
   static uint16_t decay_timer = 0;
 
   if (timer_elapsed(decay_timer) > 500 || decay_timer == 0) {
@@ -41,6 +41,6 @@ void momentum_decay_task() {
   }
 }
 
-uint8_t match_momentum(uint8_t minValue, uint8_t maxValue) {
+uint8_t velocikey_match_speed(uint8_t minValue, uint8_t maxValue) {
   return MAX(minValue, maxValue - (maxValue - minValue) * ((float)typing_speed / TYPING_SPEED_MAX_VALUE));
 }

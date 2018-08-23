@@ -54,7 +54,7 @@
 #include "quantum.h"
 #include <util/atomic.h>
 #include "outputselect.h"
-#include "momentum.h"
+#include "velocikey.h"
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
@@ -1075,7 +1075,7 @@ int main(void)
         MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
-    if (momentum_enabled()) momentum_decay_task();    
+    if (velocikey_enabled()) velocikey_decay_task();    
 
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
         rgblight_task();

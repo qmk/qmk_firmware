@@ -3,7 +3,7 @@
 Momentum is a feature that lets you control the speed of lighting effects (like the Rainbow Swirl effect) with the speed of your typing. The faster you type, the faster the lights will go!
 
 ## Usage
-For Momentum to take effect, you need to enable it with the MOM_TOG keycode, which toggles it on and off.
+For Momentum to take effect, you need to enable it with the VLK_TOG keycode, which toggles it on and off.
 
 The following light effects will all be controlled by Momentum when it is enabled:
  - RGB Breathing
