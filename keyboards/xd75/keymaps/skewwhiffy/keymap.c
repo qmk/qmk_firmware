@@ -59,6 +59,10 @@
 #define _A_LEFT LALT(UK_LEFT)
 #define _A_RGHT LALT(UK_RGHT)
 
+enum custom_keycodes {
+  IJ_OMN = SAFE_RANGE // IntelliJ Omnibox
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak _CM
@@ -202,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { RESET,   DF(_CM), DF(_DV), DF(_QW), _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_ESC,  _C_LEFT, UK_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, UK_PSCR, UK_SLCK, UK_PAUS, _______ },
   { UK_TAB,  UK_LEFT, UK_DOWN, UK_RGHT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, UK_INS,  UK_HOME, UK_PGUP, _TERM   },
-  { _S_TAB,  _A_LEFT, UK_LSFT, _A_RGHT, __NAV,   RGB_VAD, RGB_VAI, _______, _______, _______, __NAV,   UK_SLCK, UK_END,  UK_PGDN, _______ },
+  { _S_TAB,  _A_LEFT, IJ_OMN,  _A_RGHT, __NAV,   RGB_VAD, RGB_VAI, _______, _______, _______, __NAV,   UK_SLCK, UK_END,  UK_PGDN, _______ },
   { _______, _______, _______, _______, _______, RGB_RMOD,RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
 };
@@ -210,6 +214,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM fn_actions[] = {
 
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    switch(keycode) {
+      case IJ_OMN:
+        SEND_STRING(SS_TAP(X_LSHIFT)SS_TAP(X_LSHIFT));
+        return false;
+    }
+  }
+  return true;
+}
+
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
