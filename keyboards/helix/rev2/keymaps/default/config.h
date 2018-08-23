@@ -21,34 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
+// if you need more program area, try uncomment follow line
+//#include "serial_config_simpleapi.h"
 
-/* Use I2C or Serial */
+// place overrides here
 
-#define USE_I2C
-#define USE_SERIAL
-//#define USE_MATRIX_I2C
-
-/* Select hand configuration */
-
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
-//#define SSD1306OLED
-
-#define USE_SERIAL_PD2
-
-#define PREVENT_STUCK_MODIFIERS
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
-
-
-#undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 6
-#define RGBLIGHT_LIMIT_VAL 255
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
-#endif
+#endif /* CONFIG_USER_H */

@@ -44,7 +44,7 @@ If everything worked correctly you will see a file:
 lets_split_rev2_YOUR_KEYMAP_NAME.hex
 ```
 
-For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/readme.md##customizing-your-keymap) in the main readme.md.
+For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
 
 ### Let's split 1.0
 If you have a first generation Let's Split you will need to use the revision 1 code. To do so, use `rev1` in all your commands instead.

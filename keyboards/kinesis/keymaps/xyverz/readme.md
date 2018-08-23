@@ -4,13 +4,17 @@
 
 The Dvorak layout shown here stems from my early Kinesis years, using the Contour PS/2 with a Dvorak software layout. Because of this, the RBRC and LBRC were on opposite sides of the board in the corner keys. I've decided to continue using this layout with my QMK Kinesis.
 
+~~After a year of using a planck, I've become accustomed to my / and ? being above the - key, so I've decided to move my [, ], and = to the normal Advantage location and set the two keys above the - to new locations. I'll play with it for a while and see how I like it.~~ I didn't like it, so I've switched back.
+
 The QWERTY layout shown here is based entirely on the Kinesis Advantage layout. The Colemak layout is merely an adaptation of that.
 
 I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck layouts.
 
+As of August 4 2018, I've got the LEDs working ... mostly. Caps Lock and Num Lock LEDs work for me. The Scroll Lock LED does work on my keyboard, but I can't get it to work when I use the Scroll Lock key on my keyboard. I also have no idea how to get the Num Pad LED working when I switch to the Numpad layer.
+
 ## Still to do:
 
- * Implement the CapsLock, NumLock, and ScrLck LEDs on the off-chance that I decide to actually solder some to the keyboard.
+ * Figure out how to make the Numpad and ScrLck LEDs work properly.
 
 ### Function Keys on All Layers (keypad toggles):
 	,-----------------------------------------------------------------.
@@ -31,7 +35,7 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| LShift |   Z  |   X  |   C  |   V  |   X  ||   B  |   M  |   W  |   V  |   Z  | RShift |
 	`--------+------+------+------+------+------'`------+------+------+------+------+--------'
-	         |   `  |  Ins | Left | Rght |              |  Up  |  Dn  |   /  |   =  |
+	         |   `  |  INS | Left | Rght |              |  Up  |  Dn  |   /  |   =  |
 	         `---------------------------'              `---------------------------'
 	                             ,--------------.,--------------.
 	                             | LCtl  | LAlt || RGUI | RCtl  |
