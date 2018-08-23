@@ -156,14 +156,7 @@ ISR(TWI_vect) {
         
         slave_has_register_set = true;
       } else {      
-        i2c_slave_buffer[slave_buffer_pos] = TWDR;
-        
-        if ( slave_buffer_pos == I2C_BACKLIT_START) {
-            BACKLIT_DIRTY = true;
-        } else if ( slave_buffer_pos == (I2C_RGB_START+3)) {
-            RGB_DIRTY = true;
-        }
-        
+        i2c_slave_buffer[slave_buffer_pos] = TWDR;        
         BUFFER_POS_INC();
       }
       break;

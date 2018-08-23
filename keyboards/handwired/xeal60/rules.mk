@@ -1,4 +1,4 @@
-SRC += matrix_scanrate.c matrix.c split_util.c split_flags.c i2c.c 
+SRC += matrix_scanrate.c matrix.c split_util.c i2c.c 
 
 # MCU name
 MCU = atmega32u4

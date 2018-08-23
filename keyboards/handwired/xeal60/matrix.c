@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef USE_I2C
 #  include "i2c.h"
 #else // USE_SERIAL
-#  include "serial.h"
+#  error "only i2c supported"
 #endif
 
 #ifndef DEBOUNCING_DELAY
@@ -222,7 +222,6 @@ uint8_t _matrix_scan(void)
     return 1;
 }
 
-#ifdef USE_I2C
 
 // Get rows from other half over i2c
 int i2c_transaction(void) {
@@ -255,22 +254,6 @@ i2c_error: // the cable is disconnceted, or something else went wrong
     return 0;
 }
 
-#else // USE_SERIAL
-
-int serial_transaction(void) {
-    int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
-
-    if (serial_update_buffers()) {
-        return 1;
-    }
-
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        matrix[slaveOffset+i] = serial_slave_buffer[i];
-    }
-    return 0;
-}
-#endif
-
 uint8_t matrix_scan(void)
 {    
 #ifdef DEBUG_MATRIX_SCAN_RATE
@@ -279,11 +262,8 @@ uint8_t matrix_scan(void)
 #endif        
     uint8_t ret = _matrix_scan();
 
-#ifdef USE_I2C
+
     if( i2c_transaction() ) {
-#else // USE_SERIAL
-    if( serial_transaction() ) {
-#endif
         // turn on the indicator led when halves are disconnected
         TXLED1;
 
@@ -310,15 +290,10 @@ void matrix_slave_scan(void) {
 
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
-#ifdef USE_I2C
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         i2c_slave_buffer[I2C_KEYMAP_START+i] = matrix[offset+i];
     }
-#else // USE_SERIAL
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        serial_slave_buffer[i] = matrix[offset+i];
-    }
-#endif
+
     matrix_slave_scan_user();
 }
 

@@ -9,23 +9,12 @@
 #include "keyboard.h"
 #include "config.h"
 #include "timer.h"
-#include "split_flags.h"
 
-#ifdef RGBLIGHT_ENABLE
-#   include "rgblight.h"
-#endif
-#ifdef BACKLIGHT_ENABLE
-#   include "backlight.h"
-#endif
-
-#ifdef SPLIT_HAND_PIN
-#   include "pincontrol.h"
-#endif
 
 #if defined(USE_I2C) || defined(EH)
 #  include "i2c.h"
 #else
-#  include "serial.h"
+#  error "serial not supported"
 #endif
 
 volatile bool isLeftHand = true;
@@ -52,27 +41,12 @@ static void setup_handedness(void) {
 }
 
 static void keyboard_master_setup(void) {
-#if defined(USE_I2C) || defined(EH)
-  i2c_master_init();
-  #ifdef SSD1306OLED
-    matrix_master_OLED_init ();
-  #endif
-#else
-  serial_master_init();
-#endif
-
-    // For master the Backlight info needs to be sent on startup
-    // Otherwise the salve won't start with the proper info until an update
-    BACKLIT_DIRTY = true;
+  i2c_master_init();  
 }
 
 static void keyboard_slave_setup(void) {
   timer_init();
-#if defined(USE_I2C) || defined(EH)
-    i2c_slave_init(SLAVE_I2C_ADDRESS);
-#else
-    serial_slave_init();
-#endif
+  i2c_slave_init(SLAVE_I2C_ADDRESS);
 }
 
 bool has_usb(void) {
@@ -95,51 +69,9 @@ void split_keyboard_setup(void) {
 void keyboard_slave_loop(void) {
    matrix_init();
    
-   //Init RGB
-   #ifdef RGBLIGHT_ENABLE
-      rgblight_init();
-   #endif
-
    while (1) {
     // Matrix Slave Scan
-    matrix_slave_scan();
-    
-    // Read Backlight Info
-    #ifdef BACKLIGHT_ENABLE
-        if (BACKLIT_DIRTY) {
-            #ifdef USE_I2C
-                backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
-            #else // USE_SERIAL
-                backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
-            #endif
-            BACKLIT_DIRTY = false;
-        }
-    #endif
-    // Read RGB Info
-    #ifdef RGBLIGHT_ENABLE
-        #ifdef USE_I2C
-            if (RGB_DIRTY) {
-                // Disable interupts (RGB data is big)
-                cli();
-                // Create new DWORD for RGB data
-                uint32_t dword; 
-                
-                // Fill the new DWORD with the data that was sent over
-                uint8_t *dword_dat = (uint8_t *)(&dword);
-                for (int i = 0; i < 4; i++) {
-                    dword_dat[i] = i2c_slave_buffer[I2C_RGB_START+i];
-                }
-                
-                // Update the RGB now with the new data and set RGB_DIRTY to false
-                rgblight_update_dword(dword);
-                RGB_DIRTY = false;
-                // Re-enable interupts now that RGB is set
-                sei();
-            }
-        #else // USE_SERIAL
-            // Add serial implementation for RGB here
-        #endif
-    #endif
+     matrix_slave_scan();
    }
 }
 
@@ -148,7 +80,6 @@ void matrix_setup(void) {
     split_keyboard_setup();
 
     if (!has_usb()) {
-        //rgblight_init();
         keyboard_slave_loop();
     }
 }
