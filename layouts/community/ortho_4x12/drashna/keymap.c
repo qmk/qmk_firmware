@@ -16,7 +16,6 @@
 
 #include QMK_KEYBOARD_H
 #include "drashna.h"
-#include "rgb_matrix.h"
 
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {

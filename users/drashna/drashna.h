@@ -20,7 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "version.h"
 #include "eeprom.h"
-
+#ifdef RGB_MATRIX_ENABLE
+#include "rgb_matrix.h"
+#endif
 // Define layer names
 enum userspace_layers {
   _QWERTY = 0,
