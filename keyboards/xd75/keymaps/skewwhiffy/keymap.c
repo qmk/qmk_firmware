@@ -15,37 +15,41 @@
  */
 #include "xd75.h"
 #include "keymap_uk.h"
-// Fillers to make layering more clear
+
 #define _______ KC_TRNS
 
 // Layer shorthand
 #define _CM 0 // Colemak
 #define _DV 1 // Dvorak
 #define _QW 2 // QWERTY
-#define _NB 3 // Numbers
-#define _SY 4 // Symbols
-#define _NAV 5 // Navigation
+#define _NBL 3 // Numbers left
+#define _NBR 4 // Numbers right
+#define _SYL 5 // Symbols left
+#define _SYR 6 // Symbols right
+#define _NAV 7 // Navigation
 
 // Layer buttons
 #define _Z_SFT SFT_T(UK_Z)
 #define _SCLSH SFT_T(UK_SCLN)
 #define _SLSH SFT_T(UK_SLSH)
-#define _X_NB LT(_NB, UK_X)
-#define _Q_NB LT(_NB, UK_Q)
-#define _DOT_NB LT(_NB, UK_DOT)
-#define _V_NB LT(_NB, UK_V)
-#define _C_SY LT(_SY, UK_C)
-#define _J_SY LT(_SY, UK_J)
-#define _W_SY LT(_SY, UK_W)
-#define _COM_SY LT(_SY, UK_COMM)
-#define _AST_SY LT(_SY, UK_PAST)
-#define _RBR_SY LT(_SY, UK_RBRC)
+#define _X_NB LT(_NBL, UK_X)
+#define _Q_NB LT(_NBL, UK_Q)
+#define _DOT_NB LT(_NBR, UK_DOT)
+#define _V_NB LT(_NBR, UK_V)
+#define __NBL LT(_NBL, _______)
+#define __NBR LT(_NBR, _______)
+#define _C_SY LT(_SYL, UK_C)
+#define _J_SY LT(_SYL, UK_J)
+#define _W_SY LT(_SYR, UK_W)
+#define _COM_SY LT(_SYR, UK_COMM)
+#define __SYL LT(_SYL, _______)
+#define __SYR LT(_SYR, _______)
 #define _B_NAV LT(_NAV, UK_B)
 #define _X_NAV LT(_NAV, UK_X)
 #define _K_NAV LT(_NAV, UK_K)
 #define _N_NAV LT(_NAV, UK_N)
-#define _F1_NB LT(_NB, UK_F1)
-#define _3_NB LT(_NB, UK_3)
+#define __NAV LT(_NAV, _______)
+#define __NAV LT(_NAV, _______)
 
 // Custom hotkeys
 #define _TERM LCTL(UK_QUOT) // Hotkey for Cmder or iTerm
@@ -54,11 +58,6 @@
 #define _C_RGHT LCTL(UK_RGHT)
 #define _A_LEFT LALT(UK_LEFT)
 #define _A_RGHT LALT(UK_RGHT)
-
-enum custom_keycodes {
-  L_NEXT = SAFE_RANGE,
-  L_SB
-};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -143,11 +142,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- [_NB] = {
+ [_NBL] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { _______, UK_F7,   UK_F8,   UK_F9,   UK_F10,  _______, _______, _______, _______, _______, _______, UK_7,    UK_8,    UK_9,    _______ },
   { _______, UK_F4,   UK_F5,   UK_F6,   UK_F11,  _______, _______, _______, _______, _______, _______, UK_4,    UK_5,    UK_6,    _______ },
-  { _______, _F1_NB,  UK_F2,   UK_F3,   UK_F12,  _______, _______, _______, _______, _______, UK_0,    UK_1,    UK_2,    _3_NB,   UK_DOT  },
+  { _______, __NBL,   UK_F2,   UK_F3,   UK_F12,  _______, _______, _______, _______, _______, UK_0,    UK_1,    UK_2,    UK_3,    UK_DOT  },
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
+ },
+ [_NBR] = {
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
+  { _______, UK_F7,   UK_F8,   UK_F9,   UK_F10,  _______, _______, _______, _______, _______, _______, UK_7,    UK_8,    UK_9,    _______ },
+  { _______, UK_F4,   UK_F5,   UK_F6,   UK_F11,  _______, _______, _______, _______, _______, _______, UK_4,    UK_5,    UK_6,    _______ },
+  { _______, UK_F1,   UK_F2,   UK_F3,   UK_F12,  _______, _______, _______, _______, _______, UK_0,    UK_1,    UK_2,    __NBR,   UK_DOT  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
 
@@ -164,11 +170,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- [_SY] = {
+ [_SYL] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH },
   { UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT   },
-  { UK_CIRC, UK_AMPR, _AST_SY, UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, _RBR_SY, UK_RABK, UK_GRV  },
+  { UK_CIRC, UK_AMPR, __SYL,   UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, UK_RBRC, UK_RABK, UK_GRV  },
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
+ },
+ [_SYR] = {
+  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
+  { UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH },
+  { UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT   },
+  { UK_CIRC, UK_AMPR, UK_ASTR, UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, __SYR,   UK_RABK, UK_GRV  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
 /*
@@ -189,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { RESET,   DF(_CM), DF(_DV), DF(_QW), _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_ESC,  _C_LEFT, UK_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, UK_PSCR, UK_SLCK, UK_PAUS, _______ },
   { UK_TAB,  UK_LEFT, UK_DOWN, UK_RGHT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, UK_INS,  UK_HOME, UK_PGUP, _TERM   },
-  { _S_TAB,  _A_LEFT, UK_LSFT, _A_RGHT, _B_NAV,  RGB_VAD, RGB_VAI, _______, _______, _______, _K_NAV,  UK_SLCK, UK_END,  UK_PGDN, _______ },
+  { _S_TAB,  _A_LEFT, UK_LSFT, _A_RGHT, __NAV,   RGB_VAD, RGB_VAI, _______, _______, _______, __NAV,   UK_SLCK, UK_END,  UK_PGDN, _______ },
   { _______, _______, _______, _______, _______, RGB_RMOD,RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
 };
