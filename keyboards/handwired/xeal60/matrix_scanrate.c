@@ -8,9 +8,10 @@
 #include "matrix.h"
 #include "timer.h"
 
+#ifdef CONSOLE_ENABLE
 static uint16_t matrix_scan_count = 0;
 static uint32_t matrix_timer = 0;
-void matrix_check_scan_rate(void) {
+void matrix_check_scan_rate(void) {    
     matrix_scan_count++;
     if (matrix_scan_count > 1000) {
         uint32_t timer_now = timer_read32();
@@ -21,10 +22,10 @@ void matrix_check_scan_rate(void) {
         print("\n");
         matrix_timer = timer_now;
         matrix_scan_count = 0;
-    }
+    }    
 }
 static uint32_t last_scan_time = 0;
-void matrix_time_between_scans(void) {
+void matrix_time_between_scans(void) {    
     if (timer_elapsed(last_scan_time) > 1)
     {
         print(">1ms elapsed since last scan: ");
@@ -32,4 +33,6 @@ void matrix_time_between_scans(void) {
         print("\n");
     }
     last_scan_time = timer_read();
+    
 }
+#endif
