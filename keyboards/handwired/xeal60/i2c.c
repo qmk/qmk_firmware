@@ -5,7 +5,6 @@
 #include <util/twi.h>
 #include <stdbool.h>
 #include "i2c.h"
-#include "split_flags.h"
 
 #if defined(USE_I2C) || defined(EH)
 

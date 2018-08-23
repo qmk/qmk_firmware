@@ -13,7 +13,7 @@
 #define I2C_ACK 1
 #define I2C_NACK 0
 
-#define I2C_KEYMAP_START    0x06
+#define I2C_KEYMAP_START    0x00
 
 // Slave buffer (8bit per)
 // Rows per hand + backlit space + rgb space
@@ -22,7 +22,7 @@
 
 // i2c SCL clock frequency
 #ifndef SCL_CLOCK
-#define SCL_CLOCK  400000L
+#define SCL_CLOCK  100000UL
 #endif
 
 // Support 8bits right now (8 cols) will need to edit to take higher (code exists in delta split?)

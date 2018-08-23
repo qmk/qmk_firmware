@@ -261,8 +261,7 @@ uint8_t matrix_scan(void)
     matrix_time_between_scans();
 #endif        
     uint8_t ret = _matrix_scan();
-
-
+   
     if( i2c_transaction() ) {
         // turn on the indicator led when halves are disconnected
         TXLED1;
