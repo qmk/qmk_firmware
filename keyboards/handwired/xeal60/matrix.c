@@ -74,6 +74,7 @@ typedef uint8_t debounce_counter_t;
 #define DEBOUNCE_COUNTER_MODULO 100
 #define DEBOUNCE_COUNTER_INACTIVE 101
 static debounce_counter_t debounce_counters[MATRIX_ROWS * MATRIX_COLS];
+static debounce_counter_t *debounce_counters_hand_offsetted;
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
     uint32_t matrix_timer;
@@ -149,6 +150,7 @@ void matrix_init(void)
     int my_hand_offset = isLeftHand ? 0 : (ROWS_PER_HAND);
     debouncing_matrix_hand_offsetted = matrix_debouncing + my_hand_offset;
     matrix_hand_offsetted = matrix + my_hand_offset;
+    debounce_counters_hand_offsetted = debounce_counters + my_hand_offset;
 
     for (uint8_t i = 0; i < MATRIX_ROWS * MATRIX_COLS; i++) {
         debounce_counters[i] = DEBOUNCE_COUNTER_INACTIVE;
@@ -167,7 +169,7 @@ void matrix_init(void)
 //#define TIMER_DIFF(a, b, max)   ((a) >= (b) ?  (a) - (b) : (max) - (b) + (a))
 void update_debounce_counters(uint8_t current_time)
 {
-    debounce_counter_t *debounce_pointer = debounce_counters;
+    debounce_counter_t *debounce_pointer = debounce_counters_hand_offsetted;
     for (uint8_t row = 0; row < ROWS_PER_HAND; row++)
     {
         for (uint8_t col = 0; col < MATRIX_COLS; col++)
@@ -187,24 +189,25 @@ void update_debounce_counters(uint8_t current_time)
 void transfer_matrix_values(uint8_t current_time)
 {
     //upload from debounce_matrix to final matrix;
-    debounce_counter_t *debounce_pointer = debounce_counters;
+    debounce_counter_t *debounce_pointer = debounce_counters_hand_offsetted;
     for (uint8_t row = 0; row < ROWS_PER_HAND; row++)
     {
-        matrix_row_t row_value = matrix[row];
-        matrix_row_t debounce_value = matrix_debouncing[row];
+        matrix_row_t row_value = matrix_hand_offsetted[row];
+        matrix_row_t debounce_value = debouncing_matrix_hand_offsetted[row];
 
         for (uint8_t col = 0; col < MATRIX_COLS; col++)
         {
             bool final_value = debounce_value & (1 << col);
+            bool current_value = row_value & (1 << col);
             if (*debounce_pointer == DEBOUNCE_COUNTER_INACTIVE
-                && ((row_value & (1<<col)) != final_value))
+                && (current_value != final_value))
             {
                 *debounce_pointer = current_time;
-                row_value ^= (-final_value ^ row_value) & (1 << col);
+                row_value ^= (1 << col);
             }
             debounce_pointer++;
         }
-        matrix[row] = row_value;
+        matrix_hand_offsetted[row] = row_value;
     }
 }
 
@@ -217,7 +220,7 @@ uint8_t _matrix_scan(void)
         select_row(current_row);
         asm volatile ("nop"); asm volatile("nop");
 
-        matrix_debouncing[current_row] = optimized_col_reader();
+        debouncing_matrix_hand_offsetted[current_row] = optimized_col_reader();
         // Unselect row
         unselect_row(current_row);
     }
