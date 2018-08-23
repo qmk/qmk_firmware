@@ -30,7 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "pro_micro.h"
 #include "config.h"
 #include "timer.h"
-
+#ifdef DEBUG_MATRIX_SCAN_RATE
+    #include "matrix_scanrate.h"
+#endif
 
 
 
@@ -75,11 +77,6 @@ typedef uint8_t debounce_counter_t;
 #define DEBOUNCE_COUNTER_INACTIVE 101
 static debounce_counter_t debounce_counters[MATRIX_ROWS * MATRIX_COLS];
 static debounce_counter_t *debounce_counters_hand_offsetted;
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    uint32_t matrix_timer;
-    uint32_t matrix_scan_count;
-#endif
 
 
 #if (DIODE_DIRECTION == ROW2COL)
@@ -156,12 +153,6 @@ void matrix_init(void)
         debounce_counters[i] = DEBOUNCE_COUNTER_INACTIVE;
     }
     
-
-#ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_timer = timer_read32();
-    matrix_scan_count = 0;
-#endif
-
     matrix_init_quantum();
 
 }
@@ -280,33 +271,14 @@ int serial_transaction(void) {
 }
 #endif
 
-static uint16_t debug_timer;
 uint8_t matrix_scan(void)
 {    
-    if (timer_elapsed(debug_timer) > 1)
-    {
-        print("uh oh: ");
-        pdec(timer_elapsed(debug_timer));
-        print("\n");        
-    }
-    debug_timer = timer_read();
-    
-    uint8_t ret = _matrix_scan();
-    
 #ifdef DEBUG_MATRIX_SCAN_RATE
-    matrix_scan_count++;
+    matrix_check_scan_rate();
+    matrix_time_between_scans();
+#endif        
+    uint8_t ret = _matrix_scan();
 
-    if (matrix_scan_count > 1000) {
-        uint32_t timer_now = timer_read32();
-        uint16_t ms_per_thousand = TIMER_DIFF_32(timer_now, matrix_timer);
-        uint16_t rate_per_second = 1000000UL / ms_per_thousand;
-        print("scan_rate: ");
-        pdec(rate_per_second);
-        print("\n");
-        matrix_timer = timer_now;
-        matrix_scan_count = 0;
-    }
-#endif
 #ifdef USE_I2C
     if( i2c_transaction() ) {
 #else // USE_SERIAL
@@ -348,11 +320,6 @@ void matrix_slave_scan(void) {
     }
 #endif
     matrix_slave_scan_user();
-}
-
-bool matrix_is_modified(void)
-{    
-    return true;
 }
 
 inline
