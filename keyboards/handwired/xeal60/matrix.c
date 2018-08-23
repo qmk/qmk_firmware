@@ -232,7 +232,7 @@ int i2c_transaction(void) {
     if (err) goto i2c_error;
 
     // start of matrix stored at 0x00
-    err = i2c_master_write(0x00);
+    err = i2c_master_write(I2C_KEYMAP_START);
     if (err) goto i2c_error;
 
     // Start read
@@ -312,7 +312,7 @@ void matrix_slave_scan(void) {
 
 #ifdef USE_I2C
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        i2c_slave_buffer[i] = matrix[offset+i];
+        i2c_slave_buffer[I2C_KEYMAP_START+i] = matrix[offset+i];
     }
 #else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
