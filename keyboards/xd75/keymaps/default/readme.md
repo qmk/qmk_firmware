@@ -4,8 +4,5 @@
 - NOTE: WORK IN PROGRESS
 # THINGS TO DO
 - make better use of bottom row
-	- remove duplicate function keys
-	- add vim style arrows to the bottom row instead of modifier keys
-	- or add brakets/parenthesis to the bottom row (still undecided)
 - add numpad toggle layer
 - explore rgb underglow options
