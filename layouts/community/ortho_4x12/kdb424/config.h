@@ -16,7 +16,7 @@
 #define TAPPING_TERM 150
 #define TAPPING_TOGGLE 2
 
-// Fix the screw up of the main author
+// Fix the screw up of the main author for let's split V-included
 #undef NO_ACTION_TAPPING
 // Enable Tapdance
 #define NO_ACTION_FUNCTION
