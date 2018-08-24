@@ -33,6 +33,12 @@ void leader_end(void);
 #define SEQ_FIVE_KEYS(key1, key2, key3, key4, key5) if (leader_sequence[0] == (key1) && leader_sequence[1] == (key2) && leader_sequence[2] == (key3) && leader_sequence[3] == (key4) && leader_sequence[4] == (key5))
 
 #define LEADER_EXTERNS() extern bool leading; extern uint16_t leader_time; extern uint16_t leader_sequence[5]; extern uint8_t leader_sequence_size
+
+#ifndef LEADER_MODE
 #define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
+
+#else
+#define LEADER_DICTIONARY() if (leading && leader_time == -1)
+#endif
 
 #endif
