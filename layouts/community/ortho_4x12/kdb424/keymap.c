@@ -26,6 +26,10 @@ enum custom_keycodes {
   SCROT
 };
 
+// Enable and configure leader key
+#define LEADER_TIMEOUT 300
+LEADER_EXTERNS();
+
 //Tap Dance Declarations
 enum {
   TD_EQUAL_ENTER= 0
@@ -76,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GESC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,   KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC, \
   KC_TAB,  KC_A,    KC_O,    KC_E,    U_ARROW, KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  KC_ENT,  \
   KC_RSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLASH),  \
-  KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG, MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
+  KC_LCTL, KC_LGUI, KC_LALT, KC_LEAD, MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
 ),
 
 /* Gaming - Only changes to left half to add more keys for mapping
@@ -127,10 +131,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE2] = LAYOUT_ortho_4x12( \
-		RGB_TOG, RGB_VAI, RGB_SAI, RGB_HUI, _______, _______, _______, _______, KC_7, KC_8, KC_9,    KC_BSPC, \
-		_______, RGB_VAD, RGB_SAD, RGB_HUD, _______, _______, _______, _______, KC_4, KC_5, KC_6,    XXXXXXX, \
+		_______, _______, _______, _______, _______, _______, _______, _______, KC_7, KC_8, KC_9,    KC_BSPC, \
+		_______, _______, _______, _______, _______, _______, _______, _______, KC_4, KC_5, KC_6,    XXXXXXX, \
 		_______, _______, _______, _______, _______, _______, _______, _______, KC_1, KC_2, KC_3,    XXXXXXX, \
-		RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_K, RGB_M_G, _______, _______, _______, KC_0, KC_0, KC_PDOT, KC_ENT \
+		_______, _______, _______, _______, _______, _______, _______, _______, KC_0, KC_0, KC_PDOT, KC_ENT \
 
 ),
 
@@ -146,10 +150,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE3] =  LAYOUT_ortho_4x12( \
-  REPROGR, RESET,   _______, _______, RGB_M_P, RGB_VAI, RGB_M_G,  _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
-  _______, _______, _______, _______, RGB_M_R, RGB_VAD, RGB_M_K,  _______, KC_F7,  KC_F8,  KC_F9,  XXXXXXX, \
-  _______, _______, _______, _______, RGB_MOD, RGB_TOG, RGB_M_SW, _______, KC_F4,  KC_F5,  KC_F6,  XXXXXXX, \
-  DF(0),   DF(1),   _______, _______, _______, _______, _______,  _______, KC_F1,  KC_F2,  KC_F3,  SCROT \
+  REPROGR, RESET,   _______, _______, _______, _______, _______, _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_F7,  KC_F8,  KC_F9,  XXXXXXX, \
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_F4,  KC_F5,  KC_F6,  XXXXXXX, \
+  DF(0),   DF(1),   _______, _______, _______, _______, _______, _______, KC_F1,  KC_F2,  KC_F3,  SCROT \
   ),
 
 /* Arrows
@@ -175,8 +179,54 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
-}
+};
 
+void matrix_scan_user(void) {
+  // Leader key definitions
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    // Vim put
+    SEQ_ONE_KEY(KC_P) {
+      SEND_STRING(SS_LCTRL(SS_TAP(X_V)));
+    }
+    // Vim yank
+    SEQ_ONE_KEY(KC_Y) {
+      SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
+    }
+    // Vim yank yank
+    SEQ_TWO_KEYS(KC_Y, KC_Y) {
+      SEND_STRING(SS_TAP(X_HOME));
+      SEND_STRING(SS_LSFT(SS_TAP(X_END)));
+      SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
+    }
+    SEQ_ONE_KEY(KC_E) {
+      SEND_STRING("kdb424@gmail.com"SS_TAP(X_TAB));
+    }
+    SEQ_TWO_KEYS(KC_S, KC_S) {
+      wait_ms(100);
+      SEND_STRING(SS_LGUI(SS_TAP(X_R)));
+      wait_ms(100);
+      SEND_STRING("scrot");
+      wait_ms(10);
+      SEND_STRING(SS_TAP(X_ENTER));
+    }
+    SEQ_TWO_KEYS(KC_F, KC_L) {
+        SEND_STRING("(");
+        IBUS_MACRO("30ce")
+        IBUS_MACRO("0ca0")
+        IBUS_MACRO("75ca")
+        IBUS_MACRO("0ca0")
+        SEND_STRING(")");
+        IBUS_MACRO("30ce")
+        IBUS_MACRO("5f61")
+        IBUS_MACRO("253b")
+        IBUS_MACRO("2501")
+        IBUS_MACRO("253b")
+    }
+  }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -242,6 +292,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
      }
 
     case FLIP:
+      // (ノಠ痊ಠ)ノ彡┻━┻
       if (record->event.pressed) {
         SEND_STRING("(");
         IBUS_MACRO("30ce")
