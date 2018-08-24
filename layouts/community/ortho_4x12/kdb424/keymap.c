@@ -22,6 +22,7 @@ enum custom_keycodes {
   RAISE3,
   ARROWS,
   REPROGRAM_MACRO,
+  FLIP,
   SCROT
 };
 
@@ -42,15 +43,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   ,[TD_BSLASH_EQUAL]  = ACTION_TAP_DANCE_DOUBLE(KC_BSLS, KC_EQUAL)
 };
 
-const uint32_t PROGMEM unicode_map[] = {
-  [0] = 0xe3838e,
-  [1] = 0xe0b2a0,
-  [2] = 0xe79b8a,
-  [3] = 0xe3838e,
-  [4] = 0xe5bda1,
-  [5] = 0xe294bb,
-  [6] = 0xe29481
-};
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -63,6 +55,9 @@ const uint32_t PROGMEM unicode_map[] = {
 #define TD_BLEQ TD(TD_BSLASH_EQUAL)
 #define REPROGR REPROGRAM_MACRO
 #define U_ARROW LT(5, KC_U)
+
+// Ibus is fun
+#define IBUS_MACRO(z) SEND_STRING(SS_LCTRL("U")); SEND_STRING(z"\n");
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -81,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GESC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,   KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC, \
   KC_TAB,  KC_A,    KC_O,    KC_E,    U_ARROW, KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  KC_ENT,  \
   KC_RSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLASH),  \
-  KC_LCTL, KC_LGUI, KC_LALT, X(0),    MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
+  KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG, MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
 ),
 
 /* Gaming - Only changes to left half to add more keys for mapping
@@ -106,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |   [  |   ]  |  \   |
+ * | FLIP |      |      |      |      |      |      |      |      |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Ins  | PGDN | PGUP |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -115,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE1] = LAYOUT_ortho_4x12( \
 	KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
-  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, TD_BLEQ, \
+  FLIP,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, TD_BLEQ, \
 	_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_PGDN, KC_PGUP, KC_MINS, \
 	REPROGR, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_HOME, KC_VOLD, KC_VOLU, KC_END \
 ),
@@ -231,22 +226,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case REPROGRAM_MACRO:
       if (record->event.pressed) {
-      //rgblight_enable();
-      //rgblight_setrgb(255, 255, 255);
-      SEND_STRING(SS_LGUI(SS_TAP(X_ENTER)));
-      wait_ms(500);
-      SEND_STRING("~/qmk_firmware" SS_TAP(X_ENTER));
-      wait_ms(100);
-      SEND_STRING("make "QMK_KEYBOARD":"QMK_KEYMAP":dfu && exit" SS_TAP(X_ENTER));
-      wait_ms(100);
-      reset_keyboard();
-      return false;
+        #ifdef RGBLIGHT_ENABLE
+          rgblight_enable();
+          rgblight_setrgb(255, 255, 255);
+        #endif
+        SEND_STRING(SS_LGUI(SS_TAP(X_ENTER)));
+        wait_ms(500);
+        SEND_STRING("~/qmk_firmware" SS_TAP(X_ENTER));
+        wait_ms(100);
+        SEND_STRING("make "QMK_KEYBOARD":"QMK_KEYMAP":dfu && exit" SS_TAP(X_ENTER));
+        wait_ms(100);
+        reset_keyboard();
+        return false;
       break;
+     }
+
+    case FLIP:
+      if (record->event.pressed) {
+        SEND_STRING("(");
+        IBUS_MACRO("30ce")
+        IBUS_MACRO("0ca0")
+        IBUS_MACRO("75ca")
+        IBUS_MACRO("0ca0")
+        SEND_STRING(")");
+        IBUS_MACRO("30ce")
+        IBUS_MACRO("5f61")
+        IBUS_MACRO("253b")
+        IBUS_MACRO("2501")
+        IBUS_MACRO("253b")
+        return false;
+        break;
      }
 
     case SCROT:
       if (record->event.pressed) {
-      wait_ms(100);
+      wait_ms(10);
       SEND_STRING(SS_LGUI(SS_TAP(X_R)));
       wait_ms(100);
       SEND_STRING("scrot");
