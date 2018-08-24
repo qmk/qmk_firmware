@@ -70,3 +70,5 @@ RGBLIGHT_ENABLE = yes
 CUSTOM_MATRIX = yes
 SRC += indicator_leds.c \
 			 matrix.c
+
+LAYOUTS = 75_ansi
