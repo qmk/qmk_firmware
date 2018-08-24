@@ -2,9 +2,9 @@
 #include <stdbool.h>
 #include "eeprom.h"
 #include "eeconfig.h"
-#include "hal.h"
 
 #ifdef STM32F303xC
+#include "hal.h"
 #include "eeprom_stm32.h"
 #endif
 
