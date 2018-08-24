@@ -3,7 +3,7 @@
 
 Keyboards using a BluePill controller (generic Chinese STM32F103C8T6) and based on the [KC64 of Xydane](https://github.com/Xydane/qmk_firmware).
 
-Keyboard Maintainer: [FPazos](https://github.com/fpazos), but I hope to leave the project in better hands
+Keyboard Maintainer: [FPazos](https://github.com/fpazos), but I hope to leave the project in better hands.
 Hardware Supported: Bluepill STM32F103C8T6 
 Hardware Availability: Everywhere
 
