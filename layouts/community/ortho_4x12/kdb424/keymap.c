@@ -7,7 +7,7 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _DVORAK 0
-#define _COLEMAK 1
+#define _GAMING 1
 #define _RAISE1 2
 #define _RAISE2 3
 #define _RAISE3 4
@@ -42,6 +42,15 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   ,[TD_BSLASH_EQUAL]  = ACTION_TAP_DANCE_DOUBLE(KC_BSLS, KC_EQUAL)
 };
 
+const uint32_t PROGMEM unicode_map[] = {
+  [0] = 0xe3838e,
+  [1] = 0xe0b2a0,
+  [2] = 0xe79b8a,
+  [3] = 0xe3838e,
+  [4] = 0xe5bda1,
+  [5] = 0xe294bb,
+  [6] = 0xe29481
+};
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -72,10 +81,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_GESC, KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,   KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC, \
   KC_TAB,  KC_A,    KC_O,    KC_E,    U_ARROW, KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  KC_ENT,  \
   KC_RSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLASH),  \
-  KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG,  MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
+  KC_LCTL, KC_LGUI, KC_LALT, X(0),    MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
 ),
 
-/* Colemak Mod-DH
+/* Gaming - Only changes to left half to add more keys for mapping
  * ,-----------------------------------------------------------------------------------.
  * | Esc  |   Q  |   W  |   F  |   P  |   B  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
@@ -83,23 +92,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   D  |   V  |   M  |   H  |   ,  |   .  |   /  |  '   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl |  GUI | Alt  |      | MO(1)|Space2|Space3| Ctrl | Left | Down |  Up  |Right |
+ * | Ctrl |  GUI | Alt  |  F1  |  F2  |Space |Space3| Ctrl | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-[_COLEMAK] = LAYOUT_ortho_4x12( \
-  KC_GESC, KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,   KC_J,   KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_BSPC, \
-  KC_TAB,  KC_A,    KC_R,    KC_S,    KC_T,    KC_G,   KC_K,   KC_N,    KC_E,    KC_I,    KC_O,     KC_ENT,  \
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_M,   KC_H,    KC_COMM, KC_DOT,  KC_SLASH, SFT_T(KC_QUOT),  \
-  KC_LCTL, KC_LGUI, KC_LALT, KC_APP,  MO(2),   LT2_SP, LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT  \
+[_GAMING] = LAYOUT_ortho_4x12( \
+  KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,   KC_F,   KC_G,    KC_C,    KC_R,    KC_L,  KC_BSPC, \
+  KC_ESC,  KC_A,    KC_O,    KC_E,    KC_U,    KC_I,   KC_D,   KC_H,    KC_T,    KC_N,    KC_S,  KC_ENT,  \
+  KC_RSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,   KC_B,   KC_M,    KC_W,    KC_V,    KC_Z,  SFT_T(KC_SLASH),  \
+  KC_LCTL, KC_LGUI, KC_LALT, KC_F1,   KC_F2,   KC_SPC,  LT3_SP, KC_RCTL, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT  \
 ),
-
 
 /* RAISE1
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |   [  |   ]  |  \   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|;
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Ins  | PGDN | PGUP |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |RESET |      |      |      |      |      |      |      | Home | Vol- | Vol+ | END  |
@@ -109,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
   _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, TD_BLEQ, \
 	_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_PGDN, KC_PGUP, KC_MINS, \
-	REPROG,  _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_HOME, KC_VOLD, KC_VOLU, KC_END \
+	REPROGR, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_HOME, KC_VOLD, KC_VOLU, KC_END \
 ),
 
 /* RAISE2
@@ -139,11 +147,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |RMODE | RGB T|SWIRL |      |  F4  |  F5  |  F6  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |DVORAK|COLEMA|      |      |      |      |      |      |  F1  |  F2  |  F3  |SCROT |
+ * |DVORAK|GAMING|      |      |      |      |      |      |  F1  |  F2  |  F3  |SCROT |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE3] =  LAYOUT_ortho_4x12( \
-  RESET,   REPROGR, _______, _______, RGB_M_P, RGB_VAI, RGB_M_G,  _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
+  REPROGR, RESET,   _______, _______, RGB_M_P, RGB_VAI, RGB_M_G,  _______, KC_F10, KC_F11, KC_F12, LSFT(KC_INSERT), \
   _______, _______, _______, _______, RGB_M_R, RGB_VAD, RGB_M_K,  _______, KC_F7,  KC_F8,  KC_F9,  XXXXXXX, \
   _______, _______, _______, _______, RGB_MOD, RGB_TOG, RGB_M_SW, _______, KC_F4,  KC_F5,  KC_F6,  XXXXXXX, \
   DF(0),   DF(1),   _______, _______, _______, _______, _______,  _______, KC_F1,  KC_F2,  KC_F3,  SCROT \
@@ -223,8 +231,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case REPROGRAM_MACRO:
       if (record->event.pressed) {
-      rgblight_enable();
-      rgblight_setrgb(255, 255, 255);
+      //rgblight_enable();
+      //rgblight_setrgb(255, 255, 255);
       SEND_STRING(SS_LGUI(SS_TAP(X_ENTER)));
       wait_ms(500);
       SEND_STRING("~/qmk_firmware" SS_TAP(X_ENTER));
@@ -233,6 +241,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       wait_ms(100);
       reset_keyboard();
       return false;
+      break;
      }
 
     case SCROT:
@@ -244,6 +253,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       wait_ms(10);
       SEND_STRING(SS_TAP(X_ENTER));
       return false;
+      break;
      }
   }  return true;
 }
