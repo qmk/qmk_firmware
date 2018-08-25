@@ -4,9 +4,9 @@
 ​
 Minimal hacker style mechanical keyboard designed in Tokyo. Full aluminum hi-pro construction with integrated top-plate. Cherry MX compatible. More Info at [Tokyo Keyboard](http://tokyokeyboard.com).  
 ​
-Keyboard Maintainer: [tokyo keyboard](http://tokyokeyboard.com)  
+Keyboard Maintainer: [Tokyo Keyboard](http://tokyokeyboard.com)  
 Hardware Supported: tokyo60 rev1  
-Hardware Availability: [tokyo keyboard](http://tokyokeyboard.com), [Massdrop](https://www.massdrop.com/buy/massdrop-x-tokyo-keyboard-tokyo60-keyboard-kit?mode=guest_open)   
+Hardware Availability: [Tokyo Keyboard](http://tokyokeyboard.com), [Massdrop](https://www.massdrop.com/buy/massdrop-x-tokyo-keyboard-tokyo60-keyboard-kit?mode=guest_open)   
 ​
 Make example for this keyboard (after setting up your build environment):
 ​
