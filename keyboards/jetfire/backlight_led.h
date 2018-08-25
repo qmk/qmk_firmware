@@ -1,3 +1,6 @@
+#ifndef BACKLIGHT_LED_H
+#define BACKLIGHT_LED_H
+
 enum Device {
   Device_PCBRGB,
   Device_STATELED
@@ -11,3 +14,5 @@ void backlight_set_rgb(uint8_t cfg[17][3]);
 void backlight_set(uint8_t level);
 void send_color(uint8_t r, uint8_t g, uint8_t b, enum Device device);
 void show(void);
+
+#endif

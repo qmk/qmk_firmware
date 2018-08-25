@@ -17,7 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <util/delay.h>
 #include <stdint.h>
-#include "backlight.h"
+#include "backlight_led.h"
+#include "quantum.h"
 // #include "led.h"
 
 

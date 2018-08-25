@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "jetfire.h"
-#include "backlight.h"
+#include "backlight_led.h"
 
 enum backlight_level {
     BACKLIGHT_ALPHA    = 0b0000001,
