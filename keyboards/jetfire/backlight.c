@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <util/delay.h>
 #include <stdint.h>
 #include "backlight.h"
-#include "led.h"
+// #include "led.h"
 
 
 #define T1H  900
@@ -138,16 +138,6 @@ void send_color(uint8_t r, uint8_t g, uint8_t b, enum Device device)
   send_value(g, device);
   send_value(r, device);
   send_value(b, device);
-}
-
-void backlight_init_ports(void)
-{
-  DDRD  |=  0b01010000;
-  PORTD &=  0b10101111;
-  DDRB  |=  0b00001110;
-  PORTB &=  0b11110001;
-  DDRE  |=  0b01000000;
-  PORTE &=  0b10111111;
 }
 
 void backlight_update_state()

@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "backlight.h"
 
 static uint8_t debouncing = DEBOUNCING_DELAY;
 
@@ -43,6 +42,16 @@ inline
 uint8_t matrix_cols(void)
 {
     return MATRIX_COLS;
+}
+
+void backlight_init_ports(void)
+{
+  DDRD  |=  0b01010000;
+  PORTD &=  0b10101111;
+  DDRB  |=  0b00001110;
+  PORTB &=  0b11110001;
+  DDRE  |=  0b01000000;
+  PORTE &=  0b10111111;
 }
 
 void matrix_init(void)
