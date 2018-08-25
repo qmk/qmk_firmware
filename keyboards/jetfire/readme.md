@@ -9,6 +9,8 @@ Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)
 Hardware Supported: Duck Jetfire PCB    
 Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=92708.0)
 
+To get into bootloader mode, hold the top right key while connecting the USB cable. 
+
 Make example for this keyboard (after setting up your build environment):
 
     make jetfire:default
