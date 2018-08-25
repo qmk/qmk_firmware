@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
-
+#include "config.h"
 extern keymap_config_t keymap_config;
+
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -41,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
         FN,    KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,  \
     KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,                   KC_RSFT,   \
-    KC_LCTL,  KC_LGUI, KC_LALT, NUMPAD,           KC_SPC,                             KC_SPC,  KC_RALT,     FN,   KC_APP,  KC_RCTL  \
+    KC_LCTL,  KC_LGUI, KC_LALT, DF(NUMPAD),           KC_SPC,                             KC_SPC,  KC_RALT,     FN,   KC_APP,  KC_RCTL  \
   ),
 
 /*
@@ -64,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_P7,  KC_P8,        KC_P9,    KC_PLUS,  _______, _______,   KC_BSLS, \
     _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_P4,  KC_P5,        KC_P6,    KC_BSPC, _______,          _______,  \
     _______,  _______,  _______, _______,  _______,  _______,  _______,     KC_P1,  KC_P2,        KC_P3,    KC_DOT,                   _______,   \
-    _______,  _______,  _______,  QWERTY,          _______,                 KC_P0,  KC_PDOT,      AU_ON,    AU_OFF, _______  \
+    _______,  _______,  _______,  DF(QWERTY),          _______,                 KC_P0,  KC_PDOT,      AU_ON,    AU_OFF, _______  \
   ),
 
 /*
@@ -93,34 +94,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 #ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(Q__NOTE(_E4));
-float tone_numpad[][2]     = SONG(Q__NOTE(_D4));
+float tone_qwerty[][2]     = TONE_QWERTY;
+float tone_numpad[][2]     = TONE_NUMPAD;
+
+uint32_t default_layer_state_set_kb(uint32_t state) {
+    if (state == 1UL<<_QWERTY) {
+      PLAY_SONG(tone_qwerty);
+    } else if (state == 1UL<<_NUMPAD) {
+      PLAY_SONG(tone_numpad);
+    }    
+    return state;
+}
 #endif
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    case NUMPAD:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_numpad);
-        #endif
-        default_layer_set(1UL<<_NUMPAD);
-      }
-      return false;
-      break;
-  }
-  return true;
-}
-
-// forces numlock to be on whenever it is detected as off.
 void led_set_keymap(uint8_t usb_led) {  
 }

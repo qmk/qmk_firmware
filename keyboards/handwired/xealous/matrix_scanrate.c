@@ -24,6 +24,7 @@ void matrix_check_scan_rate(void) {
         matrix_scan_count = 0;
     }    
 }
+
 static uint32_t last_scan_time = 0;
 void matrix_time_between_scans(void) {    
     if (timer_elapsed(last_scan_time) > 1)

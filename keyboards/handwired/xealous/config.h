@@ -16,9 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
-
+#pragma once
 #include "config_common.h"
 
 /* Use I2C or Serial, not both */
@@ -41,9 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #ifdef AUDIO_ENABLE
-#define C6_AUDIO
-#define STARTUP_SONG SONG(STARTUP_SOUND)
-#define NO_MUSIC_MODE
+  #define C6_AUDIO
+  #define STARTUP_SONG SONG(STARTUP_SOUND)
+  #define NO_MUSIC_MODE
 #endif
 
-#endif
