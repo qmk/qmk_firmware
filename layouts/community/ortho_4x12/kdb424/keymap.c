@@ -201,9 +201,11 @@ void matrix_scan_user(void) {
       SEND_STRING(SS_LSFT(SS_TAP(X_END)));
       SEND_STRING(SS_LCTRL(SS_TAP(X_C)));
     }
+    // Email
     SEQ_ONE_KEY(KC_E) {
       SEND_STRING("kdb424@gmail.com"SS_TAP(X_TAB));
     }
+    // Screenshot
     SEQ_TWO_KEYS(KC_S, KC_S) {
       wait_ms(100);
       SEND_STRING(SS_LGUI(SS_TAP(X_R)));
@@ -212,7 +214,8 @@ void matrix_scan_user(void) {
       wait_ms(10);
       SEND_STRING(SS_TAP(X_ENTER));
     }
-    SEQ_TWO_KEYS(KC_F, KC_L) {
+    // (ノಠ痊ಠ)ノ彡┻━┻
+    SEQ_FOUR_KEYS(KC_F, KC_L, KC_I, KC_P) {
         SEND_STRING("(");
         IBUS_MACRO("30ce")
         IBUS_MACRO("0ca0")
