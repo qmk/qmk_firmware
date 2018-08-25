@@ -15,9 +15,9 @@
  */
 #include QMK_KEYBOARD_H
 
-const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // layer 0: qwerty
-  KEYMAP(\
+  [0] = KEYMAP(\
     ESC,      F1,  F2,  F3,  F4,       F5,  F6,  F7,  F8,  F9,  F10, F11, F12, HOME,PSCR,SLCK,PAUS,PGUP,
     GRV, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL,      BSPC,INS, NLCK,PSLS,PAST,PMNS,
     TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,     BSLS,DEL, P7,  P8,  P9,  PPLS,
