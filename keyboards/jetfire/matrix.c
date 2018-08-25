@@ -32,6 +32,24 @@ static void init_ports(void);
 static void unselect_cols(void);
 static void select_col(uint8_t col);
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
+
 inline
 uint8_t matrix_rows(void)
 {
