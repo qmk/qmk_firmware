@@ -1,12 +1,13 @@
-# jetfire
+# Jetfire
 
 ![jetfire](imgur.com image replace me!)
 
-A short description of the keyboard/project
+The Duck Jetfire is a hybrid full size and 1800 layout keyboard that went on 
+Group Buy in November 2017. 
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+Hardware Supported: Duck Jetfire PCB    
+Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=92708.0)
 
 Make example for this keyboard (after setting up your build environment):
 
