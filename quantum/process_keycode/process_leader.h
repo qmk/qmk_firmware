@@ -34,7 +34,7 @@ void leader_end(void);
 
 #define LEADER_EXTERNS() extern bool leading; extern uint16_t leader_time; extern uint16_t leader_sequence[5]; extern uint8_t leader_sequence_size
 
-#ifndef LEADER_MODE
+#ifndef LEADER_MODE_ENTER
 #define LEADER_DICTIONARY() if (leading && timer_elapsed(leader_time) > LEADER_TIMEOUT)
 
 #else
