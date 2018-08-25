@@ -35,4 +35,7 @@
 
 #define RGBLIGHT_ANIMATIONS
 
+// Not mainline
+#define LEADER_MODE
+
 #endif
