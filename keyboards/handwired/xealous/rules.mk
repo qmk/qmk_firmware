@@ -70,4 +70,4 @@ CUSTOM_MATRIX = yes
 
 LAYOUTS = split60
 
-DEFAULT_FOLDER = handwired/xeal60/rev1
+DEFAULT_FOLDER = handwired/xealous/rev1
