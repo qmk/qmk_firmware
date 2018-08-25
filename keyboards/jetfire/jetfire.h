@@ -33,12 +33,12 @@
     K1A,      K1C, K1D, K1E, K1F, K1G, K1H, K1I, K1J, K1K,      K1M, K1N,      K1P, K1Q, K1R, K1S, K1T,\
     K0A, K0B, K0C,                          K0I,                K0M, K0N, K0O, K0P, K0Q, K0R, K0S \
 ) { \
-  { KC_##K5A, KC_NO,    KC_##K5C, KC_##K5D, KC_##K5E, KC_##K5F, KC_NO,    KC_##K5H, KC_##K5I, KC_##K5J, KC_##K5K, KC_##K5L, KC_##K5M, KC_##K5N, KC_##K5O, KC_##K5P, KC_##K5Q, KC_##K5R, KC_##K5S, KC_##K5T }, \
-  { KC_##K4A, KC_##K4B, KC_##K4C, KC_##K4D, KC_##K4E, KC_##K4F, KC_##K4G, KC_##K4H, KC_##K4I, KC_##K4J, KC_##K4K, KC_##K4L, KC_##K4M, KC_NO,    KC_##K4O, KC_##K4P, KC_##K4Q, KC_##K4R, KC_##K4S, KC_##K4T }, \
-  { KC_##K3A, KC_##K3B, KC_##K3C, KC_##K3D, KC_##K3E, KC_##K3F, KC_##K3G, KC_##K3H, KC_##K3I, KC_##K3J, KC_##K3K, KC_##K3L, KC_##K3M, KC_NO,    KC_##K3O, KC_##K3P, KC_##K3Q, KC_##K3R, KC_##K3S, KC_##K3T }, \
-  { KC_##K2A, KC_##K2B, KC_##K2C, KC_##K2D, KC_##K2E, KC_##K2F, KC_##K2G, KC_##K2H, KC_##K2I, KC_##K2J, KC_##K2K, KC_##K2L, KC_NO,    KC_NO,    KC_##K2O, KC_NO,    KC_##K2Q, KC_##K2R, KC_##K2S, KC_NO    }, \
-  { KC_##K1A, KC_NO,    KC_##K1C, KC_##K1D, KC_##K1E, KC_##K1F, KC_##K1G, KC_##K1H, KC_##K1I, KC_##K1J, KC_##K1K, KC_NO,    KC_##K1M, KC_##K1N, KC_NO,    KC_##K1P, KC_##K1Q, KC_##K1R, KC_##K1S, KC_##K1T }, \
-  { KC_##K0A, KC_##K0B, KC_##K0C, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_##K0I, KC_NO,    KC_NO,    KC_NO,    KC_##K0M, KC_##K0N, KC_##K0O, KC_##K0P, KC_##K0Q, KC_##K0R, KC_##K0S, KC_NO    }  \
+  { KC_K5A, KC_NO,    KC_K5C, KC_K5D, KC_K5E, KC_K5F, KC_NO,    KC_K5H, KC_K5I, KC_K5J, KC_K5K, KC_K5L, KC_K5M, KC_K5N, KC_K5O, KC_K5P, KC_K5Q, KC_K5R, KC_K5S, KC_K5T }, \
+  { KC_K4A, KC_K4B, KC_K4C, KC_K4D, KC_K4E, KC_K4F, KC_K4G, KC_K4H, KC_K4I, KC_K4J, KC_K4K, KC_K4L, KC_K4M, KC_NO,    KC_K4O, KC_K4P, KC_K4Q, KC_K4R, KC_K4S, KC_K4T }, \
+  { KC_K3A, KC_K3B, KC_K3C, KC_K3D, KC_K3E, KC_K3F, KC_K3G, KC_K3H, KC_K3I, KC_K3J, KC_K3K, KC_K3L, KC_K3M, KC_NO,    KC_K3O, KC_K3P, KC_K3Q, KC_K3R, KC_K3S, KC_K3T }, \
+  { KC_K2A, KC_K2B, KC_K2C, KC_K2D, KC_K2E, KC_K2F, KC_K2G, KC_K2H, KC_K2I, KC_K2J, KC_K2K, KC_K2L, KC_NO,    KC_NO,    KC_K2O, KC_NO,    KC_K2Q, KC_K2R, KC_K2S, KC_NO    }, \
+  { KC_K1A, KC_NO,    KC_K1C, KC_K1D, KC_K1E, KC_K1F, KC_K1G, KC_K1H, KC_K1I, KC_K1J, KC_K1K, KC_NO,    KC_K1M, KC_K1N, KC_NO,    KC_K1P, KC_K1Q, KC_K1R, KC_K1S, KC_K1T }, \
+  { KC_K0A, KC_K0B, KC_K0C, KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_NO,    KC_K0I, KC_NO,    KC_NO,    KC_NO,    KC_K0M, KC_K0N, KC_K0O, KC_K0P, KC_K0Q, KC_K0R, KC_K0S, KC_NO    }  \
 }
 
 #endif
