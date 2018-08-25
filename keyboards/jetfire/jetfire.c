@@ -28,12 +28,12 @@ enum backlight_level {
 uint8_t backlight_rgb_r = 255;
 uint8_t backlight_rgb_g = 0;
 uint8_t backlight_rgb_b = 0;
-uint8_t backlight_state_led = 1<<STATE_LED_LAYER_0;
+
 
 void backlight_toggle_rgb(bool enabled)
 {
   if(enabled) {
-    uint8_t rgb[RGB_LED_COUNT][3] = {
+    uint8_t rgb[RGBLED_NUM][3] = {
       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
       {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
@@ -60,7 +60,7 @@ void backlight_toggle_rgb(bool enabled)
     };
     backlight_set_rgb(rgb);
   } else {
-    uint8_t rgb[RGB_LED_COUNT][3] = {
+    uint8_t rgb[RGBLED_NUM][3] = {
       {0, 0, 0},
       {0, 0, 0},
       {0, 0, 0},
@@ -89,10 +89,10 @@ void backlight_toggle_rgb(bool enabled)
   }
 }
 
-void backlight_set_rgb(uint8_t cfg[RGB_LED_COUNT][3])
+void backlight_set_rgb(uint8_t cfg[RGBLED_NUM][3])
 {
   cli();
-  for(uint8_t i = 0; i < RGB_LED_COUNT; ++i) {
+  for(uint8_t i = 0; i < RGBLED_NUM; ++i) {
     send_color(cfg[i][0], cfg[i][1], cfg[i][2], Device_PCBRGB);
   }
   sei();
@@ -108,6 +108,8 @@ void backlight_set(uint8_t level)
   level & BACKLIGHT_NUMBLOCK ? (PORTE |= 0b01000000) : (PORTE &= ~0b01000000);
   backlight_toggle_rgb(level & BACKLIGHT_RGB);
 }
+
+
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	// put your per-action keyboard code here

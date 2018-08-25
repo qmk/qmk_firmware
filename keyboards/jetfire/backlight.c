@@ -43,6 +43,8 @@ enum StateLed {
     STATE_LED_LAYER_4
 };
 
+uint8_t backlight_state_led = 1<<STATE_LED_LAYER_0;
+
 void send_bit_d4(bool bitVal)
 {
   if(bitVal) {
@@ -113,7 +115,7 @@ void send_bit_d6(bool bitVal)
   }
 }
 
-void show()
+void show(void)
 {
   _delay_us((RES / 1000UL) + 1);
 }

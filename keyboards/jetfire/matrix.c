@@ -20,8 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
+#include "backlight.h"
 
-static uint8_t debouncing = DEBOUNCE;
+static uint8_t debouncing = DEBOUNCING_DELAY;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -69,7 +70,7 @@ uint8_t matrix_scan(void)
                 if (debouncing) {
                     dprint("bounce!: "); dprintf("%02X", debouncing); dprintln();
                 }
-                debouncing = DEBOUNCE;
+                debouncing = DEBOUNCING_DELAY;
             }
         }
         unselect_cols();
