@@ -1,4 +1,4 @@
-SRC += matrix_scanrate.c matrix.c split_util.c i2c.c 
+SRC += matrix_scanrate.c matrix.c 
 
 # MCU name
 MCU = atmega32u4
@@ -60,7 +60,7 @@ AUDIO_ENABLE = yes          # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-
+SPLIT_KEYBOARD = yes        # Use shared split_common code
 SUBPROJECT_rev1 = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
