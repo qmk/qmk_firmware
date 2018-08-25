@@ -44,14 +44,14 @@ enum custom_keycodes {
   DVORAK = SAFE_RANGE,
   RAISE,
   REPROGRAM_MACRO,
-  PORTAL_BACKLIGHT
+  PORTAL_BL
 };
 
 // Short codes to make reading easier
 #define REPROGR REPROGRAM_MACRO
 #define U_ARROW LT(1, KC_U)
-#define LSHIFT LSFT(KC_HOME)
-#define RSHIFT RSFT(KC_END)
+#define LSHIFT MT(MOD_LSFT, KC_HOME)
+#define RSHIFT MT(MOD_RSFT, KC_END)
 
 // Ibus is fun
 #define IBUS_MACRO(z) SEND_STRING(SS_LCTRL("U")); SEND_STRING(z"\n");
@@ -61,8 +61,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC,  KC_BSPC, \
 		KC_LEAD,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, KC_EQL,  KC_BSLS, \
 		KC_TAB,    KC_A,    KC_O,    KC_E,    U_ARROW, KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS,         KC_ENT,  \
-		KC_LSFT,    KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,                    KC_RSFT, \
-		KC_LCTL, KC_LGUI, KC_LALT,                 KC_SPC,                                 KC_RALT,    KC_RGUI,    MO(1),     KC_LCTL  \
+		LSHIFT,     KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,                    RSHIFT,  \
+		KC_LCTL, KC_LGUI, MO(1),                   KC_SPC,                                 KC_LEFT,    KC_DOWN,    KC_UP,     KC_RGHT  \
     ),
 
 	[_RAISE] = LAYOUT_60_ansi( \
@@ -70,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, KC_VOLU, KC_PGUP, \
 		_______,   _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_VOLD,          KC_PGDN, \
 		_______,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                  RGB_TOG, \
-		_______, _______, _______,                 _______,                                _______,    _______,  _______,      PORTAL_BACKLIGHT  \
+		_______, _______, _______,                 _______,                                KC_RALT,   KC_RGUI, PORTAL_BL,      KC_LCTL \
   )
 };
 
@@ -156,7 +156,7 @@ void matrix_scan_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case PORTAL_BACKLIGHT:
+    case PORTAL_BL:
       if (record->event.pressed) {
       rgblight_enable();
       rgblight_setrgb_cyan_at(0);

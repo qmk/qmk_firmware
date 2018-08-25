@@ -38,4 +38,7 @@
 // Not mainline
 #define LEADER_MODE
 
+// Hopefully mainline soon
+#define LEADER_MODE_ENTER
+
 #endif
