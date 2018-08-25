@@ -22,11 +22,10 @@
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguments representing the physical
 // layout of the board and position of the keys
-// The second converts the arguments into a two-dimensional array which 
-// represents the switch matrix. 
+// The second converts the arguments into a two-dimensional array which
+// represents the switch matrix.
 
-
-#define KEYMAP( \
+#define LAYOUT( \
     K5A,      K5C, K5D, K5E, K5F,      K5H, K5I, K5J, K5K, K5L, K5M, K5N, K5O, K5P, K5Q, K5R, K5S, K5T,\
     K4A, K4B, K4C, K4D, K4E, K4F, K4G, K4H, K4I, K4J, K4K, K4L, K4M,      K4O, K4P, K4Q, K4R, K4S, K4T,\
     K3A, K3B, K3C, K3D, K3E, K3F, K3G, K3H, K3I, K3J, K3K, K3L, K3M,      K3O, K3P, K3Q, K3R, K3S, K3T,\
