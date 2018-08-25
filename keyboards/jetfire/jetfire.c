@@ -14,19 +14,99 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "jetfire.h"
+#include "backlight.h"
 
-void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+enum backlight_level {
+    BACKLIGHT_ALPHA    = 0b0000001,
+    BACKLIGHT_MOD      = 0b0000010,
+    BACKLIGHT_FROW     = 0b0000100,
+    BACKLIGHT_NUMBLOCK = 0b0001000,
+    BACKLIGHT_RGB      = 0b0010000,
+    BACKLIGHT_SWITCH   = 0b0001111
+};
 
-	matrix_init_user();
+uint8_t backlight_rgb_r = 255;
+uint8_t backlight_rgb_g = 0;
+uint8_t backlight_rgb_b = 0;
+uint8_t backlight_state_led = 1<<STATE_LED_LAYER_0;
+
+void backlight_toggle_rgb(bool enabled)
+{
+  if(enabled) {
+    uint8_t rgb[RGB_LED_COUNT][3] = {
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
+      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b}
+    };
+    backlight_set_rgb(rgb);
+  } else {
+    uint8_t rgb[RGB_LED_COUNT][3] = {
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0},
+      {0, 0, 0}
+    };
+    backlight_set_rgb(rgb);
+  }
 }
 
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
+void backlight_set_rgb(uint8_t cfg[RGB_LED_COUNT][3])
+{
+  cli();
+  for(uint8_t i = 0; i < RGB_LED_COUNT; ++i) {
+    send_color(cfg[i][0], cfg[i][1], cfg[i][2], Device_PCBRGB);
+  }
+  sei();
+  show();
+}
 
-	matrix_scan_user();
+
+void backlight_set(uint8_t level)
+{
+  level & BACKLIGHT_ALPHA    ? (PORTB |= 0b00000010) : (PORTB &= ~0b00000010);
+  level & BACKLIGHT_MOD      ? (PORTB |= 0b00000100) : (PORTB &= ~0b00000100);
+  level & BACKLIGHT_FROW     ? (PORTB |= 0b00001000) : (PORTB &= ~0b00001000);
+  level & BACKLIGHT_NUMBLOCK ? (PORTE |= 0b01000000) : (PORTE &= ~0b01000000);
+  backlight_toggle_rgb(level & BACKLIGHT_RGB);
 }
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {

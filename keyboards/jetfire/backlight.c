@@ -12,11 +12,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "backlight.h"
-#include <avr/io.h>
-#include <util/delay.h>
 #include <avr/interrupt.h>
+#include <avr/io.h>
+#include <stdbool.h>
+#include <util/delay.h>
+#include <stdint.h>
+#include "backlight.h"
 #include "led.h"
+
 
 #define T1H  900
 #define T1L  600
@@ -29,11 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
 #define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
 
-enum Device {
-  Device_PCBRGB,
-  Device_STATELED
-};
-
 enum StateLed {
     STATE_LED_SCROLL_LOCK,
     STATE_LED_CAPS_LOCK,
@@ -44,11 +42,6 @@ enum StateLed {
     STATE_LED_LAYER_3,
     STATE_LED_LAYER_4
 };
-
-uint8_t backlight_rgb_r = 255;
-uint8_t backlight_rgb_g = 0;
-uint8_t backlight_rgb_b = 0;
-uint8_t backlight_state_led = 1<<STATE_LED_LAYER_0;
 
 void send_bit_d4(bool bitVal)
 {
@@ -120,7 +113,12 @@ void send_bit_d6(bool bitVal)
   }
 }
 
-void send_byte(uint8_t byte, enum Device device)
+void show()
+{
+  _delay_us((RES / 1000UL) + 1);
+}
+
+void send_value(uint8_t byte, enum Device device)
 {
   for(uint8_t b = 0; b < 8; b++) {
     if(device == Device_STATELED) {
@@ -135,14 +133,9 @@ void send_byte(uint8_t byte, enum Device device)
 
 void send_color(uint8_t r, uint8_t g, uint8_t b, enum Device device)
 {
-  send_byte(g, device);
-  send_byte(r, device);
-  send_byte(b, device);
-}
-
-void show()
-{
-  _delay_us((RES / 1000UL) + 1);
+  send_value(g, device);
+  send_value(r, device);
+  send_value(b, device);
 }
 
 void backlight_init_ports(void)
@@ -172,84 +165,6 @@ void backlight_update_state()
              Device_STATELED);
   sei();
   show();
-}
-
-void backlight_toggle_rgb(bool enabled)
-{
-  if(enabled) {
-    uint8_t rgb[RGB_LED_COUNT][3] = {
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b},
-      {backlight_rgb_r, backlight_rgb_g, backlight_rgb_b}
-    };
-    backlight_set_rgb(rgb);
-  } else {
-    uint8_t rgb[RGB_LED_COUNT][3] = {
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0},
-      {0, 0, 0}
-    };
-    backlight_set_rgb(rgb);
-  }
-}
-
-void backlight_set_rgb(uint8_t cfg[RGB_LED_COUNT][3])
-{
-  cli();
-  for(uint8_t i = 0; i < RGB_LED_COUNT; ++i) {
-    send_color(cfg[i][0], cfg[i][1], cfg[i][2], Device_PCBRGB);
-  }
-  sei();
-  show();
-}
-
-void backlight_set(uint8_t level)
-{
-  level & BACKLIGHT_ALPHA    ? (PORTB |= 0b00000010) : (PORTB &= ~0b00000010);
-  level & BACKLIGHT_MOD      ? (PORTB |= 0b00000100) : (PORTB &= ~0b00000100);
-  level & BACKLIGHT_FROW     ? (PORTB |= 0b00001000) : (PORTB &= ~0b00001000);
-  level & BACKLIGHT_NUMBLOCK ? (PORTE |= 0b01000000) : (PORTE &= ~0b01000000);
-  backlight_toggle_rgb(level & BACKLIGHT_RGB);
 }
 
 void led_set(uint8_t led_state)
