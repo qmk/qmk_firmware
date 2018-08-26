@@ -3,8 +3,8 @@ Vision Division
 
 Full Size / Split Linear Keyboard PCB
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: Vision Division PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: Vision Division PCB  
 Hardware Availability: https://geekhack.org/index.php?topic=83692.msg2227856#msg2227856
 
 Make example for this keyboard (after setting up your build environment):
