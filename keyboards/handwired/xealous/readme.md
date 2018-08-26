@@ -4,12 +4,10 @@ XeaL60
 Split keyboard firmware for Arduino Pro Micro or other ATmega32u4
 based boards.
 
-**Hardware files for the Let's Split are now stored at http://qmk.fm/lets_split/**
-**Hardware files for the sockets version can be found at https://github.com/alex-ong/Split60**
 
 ## Build Guide
 
-A build guide for putting together the XeaL60 can be found here: https://github.com/alex-ong/Split60
+A build guide for putting together the Xealous can be found here: https://github.com/alex-ong/Split60
 
 
 ## First Time Setup
@@ -51,9 +49,7 @@ Some features supported by the firmware:
 
 * Either half can connect to the computer via USB, or both halves can be used
   independently.
-* You only need 3 wires to connect the two halves. Two for VCC and GND and one
-  for serial communication.
-* Optional support for I2C connection between the two halves if for some
+* I2C connection between the two halves if for some
   reason you require a faster connection between the two halves. Note this
   requires an extra wire between halves and pull-up resistors on the data lines.
 
@@ -66,9 +62,8 @@ will need:
 * 2 Arduino Pro Micros. You can find these on AliExpress for ≈3.50USD each.
 * 2 TRRS sockets and 1 TRRS cable, or 2 TRS sockets and 1 TRS cable
 
-Alternatively, you can use any sort of cable and socket that has at least 3
-wires. If you want to use I2C to communicate between halves, you will need a
-cable with at least 4 wires and 2x 4.7kΩ pull-up resistors
+Alternatively, you can use any sort of cable and socket that has at least 4
+wires. You will need a cable with at least 4 wires and 2x 4.7kΩ pull-up resistors
 
 Optional Hardware
 -----------------
