@@ -25,9 +25,21 @@ enum backlight_level {
     BACKLIGHT_SWITCH   = 0b0001111
 };
 
+enum StateLed {
+    STATE_LED_SCROLL_LOCK,
+    STATE_LED_CAPS_LOCK,
+    STATE_LED_NUM_LOCK,
+    STATE_LED_LAYER_0,
+    STATE_LED_LAYER_1,
+    STATE_LED_LAYER_2,
+    STATE_LED_LAYER_3,
+    STATE_LED_LAYER_4
+};
+
 uint8_t backlight_rgb_r = 255;
 uint8_t backlight_rgb_g = 0;
 uint8_t backlight_rgb_b = 0;
+uint8_t backlight_state_led = 1<<STATE_LED_LAYER_0;
 
 
 void backlight_toggle_rgb(bool enabled)
@@ -118,8 +130,42 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 	return process_record_user(keycode, record);
 }
 
-void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 
-	led_set_user(usb_led);
+void backlight_update_state()
+{
+  cli();
+  send_color(backlight_state_led & (1<<STATE_LED_SCROLL_LOCK) ? 255 : 0,
+             backlight_state_led & (1<<STATE_LED_CAPS_LOCK) ? 255 : 0,
+             backlight_state_led & (1<<STATE_LED_NUM_LOCK) ? 255 : 0,
+             Device_STATELED);
+  send_color(backlight_state_led & (1<<STATE_LED_LAYER_1) ? 255 : 0,
+             backlight_state_led & (1<<STATE_LED_LAYER_2) ? 255 : 0,
+             backlight_state_led & (1<<STATE_LED_LAYER_0) ? 255 : 0,
+             Device_STATELED);
+  send_color(backlight_state_led & (1<<STATE_LED_LAYER_4) ? 255 : 0,
+             backlight_state_led & (1<<STATE_LED_LAYER_3) ? 255 : 0,
+             0,
+             Device_STATELED);
+  sei();
+  show();
+}
+
+void led_set_kb(uint8_t usb_led)
+{
+  if(usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    backlight_state_led |=   1<<STATE_LED_CAPS_LOCK;
+  } else {
+    backlight_state_led &= ~(1<<STATE_LED_CAPS_LOCK);
+  }
+  if(usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+    backlight_state_led |=   1<<STATE_LED_SCROLL_LOCK;
+  } else {
+    backlight_state_led &= ~(1<<STATE_LED_SCROLL_LOCK);
+  }
+  if(usb_led & (1<<USB_LED_NUM_LOCK)) {
+    backlight_state_led |=   1<<STATE_LED_NUM_LOCK;
+  } else {
+    backlight_state_led &= ~(1<<STATE_LED_NUM_LOCK);
+  }
+  backlight_update_state();
 }
