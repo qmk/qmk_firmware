@@ -150,7 +150,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	
 
 ### Colemak gaming/vanilla
-	(No access to Function or Numbers layers; mainly used for gaming; double-tap TD(ADJ) for one shot access to Adjust layer)
+	(Limited access to Function or Numbers layers; mainly used for gaming; double-tap TD(ADJ) for one shot access to Adjust layer)
 	,-----------------------------------------------------------------------------------------------------------.
 	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
 	`-----------------------------------------------------------------------------------------------------------'
@@ -170,12 +170,12 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	                    ,-------|-------|-------|                   |-------+-------+-------.
 	                    |       |       |  LAlt |                   |  RGUI |       |       |
 	                    | Space | Enter |-------|                   |-------| Delete|  Bspc |
-	                    |       |       |  Bspc |                   |  Tab  |       |       |
+	                    |       |       |Bspc/FN|                   | Ent/NS|       |       |
 	                    `-----------------------'                   `-----------------------' 
 	
 
 ### QWERTY gaming/vanilla
-	(No access to Function or Numbers layers; mainly used for gaming; double-tap TD(ADJ) for one shot access to Adjust layer)
+	(Limited access to Function or Numbers layers; mainly used for gaming; double-tap TD(ADJ) for one shot access to Adjust layer)
 	,-----------------------------------------------------------------------------------------------------------.
 	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
 	`-----------------------------------------------------------------------------------------------------------'
@@ -195,7 +195,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	                    ,-------|-------|-------|                   |-------+-------+-------.
 	                    |       |       |  LAlt |                   |  RGUI |       |       |
 	                    | Space | Enter |-------|                   |-------| Delete|  Bspc |
-	                    |       |       |  Bspc |                   |  Tab  |       |       |
+	                    |       |       |Bspc/FN|                   | Ent/NS|       |       |
 	                    `-----------------------'                   `-----------------------' 
 	
 ### Adjust layer
