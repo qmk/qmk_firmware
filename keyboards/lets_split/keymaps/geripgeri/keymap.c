@@ -149,6 +149,15 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+void led_set_user(uint8_t usb_led) {
+  // Set arduino pro micro's built in RX LED as Numlock
+  if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+    PORTB |= (1<<0);
+  } else {
+    PORTB |= (1<<0);
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
