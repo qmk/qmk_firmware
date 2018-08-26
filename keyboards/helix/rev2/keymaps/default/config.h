@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 // Helix keyboard OLED support
-//#define SSD1306OLED
+#define SSD1306OLED
 
 /* Select rows configuration */
 // Rows are 4 or 5
@@ -67,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_ANIMATIONS
 // Helix keyboard : see ./rules.mk: RGBLIGHT_ENABLE = yes or no
 // Helix keyboard : RGBLED_NUM 6 or 32
-#define RGBLED_NUM 6
+#define RGBLED_NUM 32
 #if RGBLED_NUM <= 6
   #define RGBLIGHT_LIMIT_VAL 255
 #else
@@ -89,7 +89,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //  330  RGB 6
 //  300  RGB 32
 //  310  OLED & RGB 32
-  #define USB_MAX_POWER_CONSUMPTION 330
+  #define USB_MAX_POWER_CONSUMPTION 310
 #else
   // fix iPhone and iPad power adapter issue
   // iOS device need lessthan 100
