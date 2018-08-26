@@ -206,11 +206,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void encoder_update(bool clockwise) {
   if (clockwise) {
-    register_code(KC_PGDN);
-    unregister_code(KC_PGDN);
+    register_code(KC_VOLU);
+    unregister_code(KC_VOLU);
   } else {
-    register_code(KC_PGUP);
-    unregister_code(KC_PGUP);
+    register_code(KC_VOLD);
+    unregister_code(KC_VOLD);
   }
 }
 
