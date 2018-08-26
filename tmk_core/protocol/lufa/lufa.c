@@ -1075,7 +1075,9 @@ int main(void)
         MIDI_Device_USBTask(&USB_MIDI_Interface);
 #endif
 
+#ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled()) velocikey_decay_task();    
+#endif
 
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)
         rgblight_task();

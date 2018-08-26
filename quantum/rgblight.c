@@ -606,9 +606,11 @@ void rgblight_effect_breathing(uint8_t interval) {
   static uint16_t last_timer = 0;
   float val;
 
-  uint8_t interval_time = velocikey_enabled()
-    ? velocikey_match_speed(1, 100) 
-    : pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2]);
+  uint8_t interval_time = 
+#ifdef VELOCIKEY_ENABLE
+    velocikey_enabled() ? velocikey_match_speed(1, 100) :
+#endif
+    pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2]);
   
   if (timer_elapsed(last_timer) < interval_time) {
     return;
@@ -625,9 +627,11 @@ void rgblight_effect_rainbow_mood(uint8_t interval) {
   static uint16_t current_hue = 0;
   static uint16_t last_timer = 0;
 
-  uint8_t interval_time = velocikey_enabled()
-    ? velocikey_match_speed(5, 100)
-    : pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[interval]);
+  uint8_t interval_time = 
+#ifdef VELOCIKEY_ENABLE
+    velocikey_enabled() ? velocikey_match_speed(5, 100) :
+#endif
+    pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[interval]);
 
   if (timer_elapsed(last_timer) < interval_time) {
     return;
@@ -642,9 +646,11 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   uint16_t hue;
   uint8_t i;
 
-  uint8_t interval_time = velocikey_enabled()
-    ? velocikey_match_speed(1, 100)
-    : pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2]);
+  uint8_t interval_time = 
+#ifdef VELOCIKEY_ENABLE
+    velocikey_enabled() ? velocikey_match_speed(1, 100) : 
+#endif
+    pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2]);
 
   if (timer_elapsed(last_timer) < interval_time) {
     return;
@@ -676,9 +682,11 @@ void rgblight_effect_snake(uint8_t interval) {
     increment = -1;
   }
 
-  uint8_t interval_time = velocikey_enabled()
-    ? velocikey_match_speed(1, 200)
-    : pgm_read_byte(&RGBLED_SNAKE_INTERVALS[interval / 2]);
+  uint8_t interval_time = 
+#ifdef VELOCIKEY_ENABLE
+    velocikey_enabled() ? velocikey_match_speed(1, 200) :
+#endif
+    pgm_read_byte(&RGBLED_SNAKE_INTERVALS[interval / 2]);
 
   if (timer_elapsed(last_timer) < interval_time) {
     return;
@@ -712,9 +720,11 @@ void rgblight_effect_snake(uint8_t interval) {
 void rgblight_effect_knight(uint8_t interval) {
   static uint16_t last_timer = 0;
 
-  uint8_t interval_time = velocikey_enabled()
-    ? velocikey_match_speed(5, 100)
-    : pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval]);
+  uint8_t interval_time = 
+#ifdef VELOCIKEY_ENABLE
+    velocikey_enabled() ? velocikey_match_speed(5, 100) :
+#endif
+    pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval]);
 
   if (timer_elapsed(last_timer) < interval_time) {
     return;

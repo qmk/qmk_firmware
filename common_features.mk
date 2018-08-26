@@ -203,12 +203,16 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
 	OPT_DEFS += -DHD44780_ENABLE
 endif
 
+ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
+    OPT_DEFS += -DVELOCIKEY_ENABLE
+    SRC += $(QUANTUM_DIR)/velocikey.c
+endif
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/process_keycode/process_leader.c \
-    $(QUANTUM_DIR)/velocikey.c
+    $(QUANTUM_DIR)/process_keycode/process_leader.c
 
 ifndef CUSTOM_MATRIX
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)

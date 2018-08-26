@@ -198,7 +198,9 @@ bool process_record_quantum(keyrecord_t *record) {
   keypos_t key = record->event.key;
   uint16_t keycode;
 
+#ifdef VELOCIKEY_ENABLE
   if (velocikey_enabled()) velocikey_accelerate();
+#endif
 
   #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
     /* TODO: Use store_or_get_action() or a similar function. */
@@ -520,11 +522,13 @@ bool process_record_quantum(keyrecord_t *record) {
     }
     return false;
   #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-  case VLK_TOG:
-    if (record->event.pressed) {
-      velocikey_toggle();
-    }
-    return false;
+  #ifdef VELOCIKEY_ENABLE
+    case VLK_TOG:
+      if (record->event.pressed) {
+        velocikey_toggle();
+      }
+      return false;
+  #endif
   #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {
