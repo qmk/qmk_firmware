@@ -74,4 +74,4 @@ LAYOUTS = ortho_4x12
 
 DEFAULT_FOLDER = vitamins_included/rev1
 
-EXTRAFLAGS        += -flto
+#EXTRAFLAGS        += -flto
