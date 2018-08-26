@@ -5,7 +5,7 @@
 //****************************************************************************//
 
 //************************ dependencies + definitions ************************//
-#include "1up60rgb.h"
+#include QMK_KEYBOARD_H
 
 // create names for layers
 enum layers {
