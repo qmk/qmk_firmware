@@ -14,14 +14,14 @@
 uint8_t typing_speed = 0;
 
 bool velocikey_enabled() {
-    return eeprom_read_byte(EECONFIG_MOMENTUM) == 1;
+    return eeprom_read_byte(EECONFIG_VELOCIKEY) == 1;
 }
 
 void velocikey_toggle() {
     if (velocikey_enabled()) 
-        eeprom_update_byte(EECONFIG_MOMENTUM, 0);
+        eeprom_update_byte(EECONFIG_VELOCIKEY, 0);
     else 
-        eeprom_update_byte(EECONFIG_MOMENTUM, 1);
+        eeprom_update_byte(EECONFIG_VELOCIKEY, 1);
 }
 
 void velocikey_accelerate() {
