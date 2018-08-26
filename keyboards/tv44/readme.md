@@ -3,8 +3,8 @@ The Van 44
 
 A compact 44% keyboard.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: The Van PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: The Van PCB  
 Hardware Availability: https://thevankeyboards.com/collections/catalog/products/minivan-diy?variant=609138376718
 
 Make example for this keyboard (after setting up your build environment):
