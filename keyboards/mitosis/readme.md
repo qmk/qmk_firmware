@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
-## Mitosis Notes
+## Notes
 
 Some circuit board manufacturers including [DirtyPCBs](https://dirtypcbs.com/) and [PCBWay](https://www.pcbway.com/) offer a steeply discounted "prototyping" rate for a small quantity of identical circuit boards less than 100x100mm in size. The Mitosis was designed to take advantage of this, so that individuals might affordably manufacture their own without waiting for a group-buy.
 
