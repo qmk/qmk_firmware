@@ -11,6 +11,10 @@
 #include "clicky.h"
 #endif
 
+#ifdef BACKLIGHT_ENABLE
+#include "flicker.h"
+#endif
+
 extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -27,7 +31,8 @@ enum planck_layers {
 
 // keycodes custom to this keymap:
 enum planck_keycodes {
-  QWERTY = SAFE_RANGE
+  QWERTY = SAFE_RANGE,
+  BL_FLICKER
 };
 
 // clicky state:
@@ -40,6 +45,15 @@ const float clicky_freq_factor = 1.18921f; // 2^(4/12), a major third
 const float clicky_freq_randomness = 0.2f; // arbitrary
 float clicky_freq = 110.0f;
 float clicky_song[][2]  = {{440.0f, 3}, {440.0f, 1}}; // 3 and 1 --> durations
+#endif
+
+// flicker state:
+#ifdef BACKLIGHT_ENABLE
+bool flicker_enable = true;
+bool flicker_isdown = false;
+const uint8_t flicker_min_levels = 3;
+const uint8_t flicker_max_levels = 7;
+uint8_t flicker_restore_level = 0;
 #endif
 
 // Fillers to make layering more clear
@@ -126,16 +140,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_ADJUST] = LAYOUT_ortho_4x12(
   _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,                  \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, _______, _______, _______, _______, _______,                 \
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, BL_TOGG, BL_DEC,  BL_INC,  BL_BRTG,                 \
+  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, BL_TOGG, BL_DEC,  BL_INC,  BL_FLICKER,                 \
   _______, _______, _______, _______, _______, _______, _______, _______, CLICKY_TOGGLE, CLICKY_DOWN, CLICKY_UP, CLICKY_RESET \
 ),
 
 }; // end keymaps
 
-// if backlighting is enabled, turn it on and set it to max on boot
+// if backlighting is enabled, configure it on boot
 #ifdef BACKLIGHT_ENABLE
 void matrix_init_user(void) {
-  backlight_level(15);
+  // set to max
+  backlight_level(BACKLIGHT_LEVELS);
+  flicker_restore_level = get_backlight_level();
+
+  // if breathing happens to be compiled in, turn it off
 #ifdef BACKLIGHT_BREATHING
   breathing_disable();
 #endif
@@ -203,11 +221,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
 #endif
+#ifdef BACKLIGHT_ENABLE
+    case BL_FLICKER:
+      if (record->event.pressed) {
+        flicker_toggle();
+      }
+      return false;
+      break;
+#endif
   } // end switch case over custom keycodes
 
 #ifdef AUDIO_ENABLE
   if (record->event.pressed) {
     clicky_play();
+  }
+#endif
+
+#ifdef BACKLIGHT_ENABLE
+  if (flicker_enable) {
+    if (record->event.pressed) {
+      flicker_keydown();
+    } else {
+      flicker_keyup();
+    }
   }
 #endif
 
@@ -262,5 +298,30 @@ void clicky_down(void) {
     clicky_freq = new_freq;
   }
   clicky_play();
+}
+#endif
+
+// flicker implementation:
+#ifdef BACKLIGHT_ENABLE
+void flicker_toggle(void) {
+  flicker_enable = !flicker_enable;
+}
+
+void flicker_keydown(void) {
+  // guard condition: only set the level to restore if the flicker is NOT already down
+  if (!flicker_isdown) {
+    flicker_restore_level = get_backlight_level();
+    flicker_isdown = true;
+  }
+
+  // calculate a random flicker level between min and max
+  uint8_t flicker_level = (rand() % (flicker_max_levels - flicker_min_levels)) + flicker_min_levels;
+  uint8_t level_to_set = flicker_level <= flicker_restore_level ? flicker_restore_level - flicker_level : 0;
+  backlight_level(level_to_set);
+}
+
+void flicker_keyup(void) {
+  backlight_level(flicker_restore_level);
+  flicker_isdown = false;
 }
 #endif

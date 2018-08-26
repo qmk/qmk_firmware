@@ -14,7 +14,7 @@ endif
 ifneq (,$(findstring planck,$(KEYBOARD)))
   ifneq (,$(findstring rev4,$(KEYBOARD)))
     BACKLIGHT_ENABLE = yes
-    BACKLIGHT_BREATHING = yes
+    BACKLIGHT_BREATHING = no
   else
     BACKLIGHT_ENABLE = no
     BACKLIGHT_BREATHING = no

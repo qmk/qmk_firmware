@@ -23,8 +23,6 @@
 
 #undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 15
-#define BACKLIGHT_BREATHING
-#define BREATHING_PERIOD 10
 
 // let's split configuration:
 #define USE_I2C
