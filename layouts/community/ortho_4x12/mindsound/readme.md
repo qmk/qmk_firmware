@@ -2,8 +2,10 @@
 
 Notable features:
 
-* Esc and Del are in the lower left
+* Esc is Ctrl on hold
 * Left space is `MOD_HYPER` on hold
 * Backspace is still backspace on `RAISE` and `LOWER`
 * Faux clicky controls are on the arrow keys on the `ADJUST` layer, and the backlight controls are directly above that
+* Backlight breathing is disabled; backlight flickering is implemented instead
 * Colemak and other layouts are thoroughly disabled
+* Rotary encoder controls media volume on base layer
