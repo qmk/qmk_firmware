@@ -49,22 +49,6 @@ void start_firey_return(void) {
  *  [___]
  **/
 
-// #define FIRE_GRADIENT
-#ifdef FIRE_GRADIENT
-static LED_TYPE firey_gradient[] = {
-  { .r = 0x00, .g = 0x00, .b = 0x00 },
-  { .r = 0x66, .g = 0x00, .b = 0x02 },
-  { .r = 0xc5, .g = 0x2f, .b = 0x0a },
-  { .r = 0xff, .g = 0x5d, .b = 0x13 },
-  { .r = 0xff, .g = 0x7d, .b = 0x13 },
-  { .r = 0xff, .g = 0x9e, .b = 0x13 },
-  { .r = 0xff, .g = 0xd0, .b = 0x8c },
-  { .r = 0xff, .g = 0xe9, .b = 0x67 },
-  { .r = 0xff, .g = 0xe9, .b = 0x67 },
-  { .r = 0xff, .g = 0xe9, .b = 0x67 }
-};
-#endif
-
 void set_color_for_offsets(uint16_t time_offset, uint16_t space_offset, uint8_t idx) {
   float time_progress = (float)time_offset / BREATH_FIRE_TIME;
   float space_progress = (float)space_offset / SPACE_OFFSET_MAX;
@@ -80,23 +64,11 @@ void set_color_for_offsets(uint16_t time_offset, uint16_t space_offset, uint8_t 
   float alpha = (time_progress + 0.1) * 7.0 - space_progress;
   alpha = MIN(1.0, alpha*alpha);
 
-#ifdef FIRE_GRADIENT
-
-  float flidx = progress * (sizeof(firey_gradient)/sizeof(*firey_gradient) - 1);
-  LED_TYPE lower = firey_gradient[(uint8_t)floor(flidx)];
-  float mix = 1.0 - (flidx - floor(flidx));
-  LED_TYPE higher = firey_gradient[(uint8_t)ceil(flidx)];
-
-  led[idx].r = alpha * (mix * lower.r + (1.0 - mix) * higher.r) + ( 1.0 - alpha) * shadowed_led[idx].r;
-  led[idx].g = alpha * (mix * lower.g + (1.0 - mix) * higher.g) + ( 1.0 - alpha) * shadowed_led[idx].g;
-  led[idx].b = alpha * (mix * lower.b + (1.0 - mix) * higher.b) + ( 1.0 - alpha) * shadowed_led[idx].b;
-#else
   LED_TYPE px[1] = {0};
   sethsv((uint16_t)(fmod(time_progress * 1.5 + space_progress,1.0)*360), 255, (uint8_t)(progress*255),&px[0]);
   led[idx].r = alpha * px[0].r + ( 1.0 - alpha) * shadowed_led[idx].r;
   led[idx].g = alpha * px[0].g + ( 1.0 - alpha) * shadowed_led[idx].g;
   led[idx].b = alpha * px[0].b + ( 1.0 - alpha) * shadowed_led[idx].b;
-#endif
 }
 
 void rgb_mode_breath_fire(void) {
@@ -172,30 +144,10 @@ void matrix_scan_user(void) {
       break;
   }
   matrix_scan_keymap();
-  keyboard_has_heat();
 }
 
-float keyboard_heat = 0;
-float decay_fraction = 0.9;
-float decay_step = 0.01; // to make sure we hit zero eventually
-
-
-void keyboard_has_heat(void) {
-  static uint16_t last_timer = 0;
-  uint16_t this_timer = timer_read();
-  // too soon. don't spam updates
-  if(this_timer - last_timer < ANIMATION_STEP_INTERVAL) return;
-  last_timer = this_timer;
-
-  keyboard_heat *= decay_fraction;
-  keyboard_heat -= decay_step;
-
-  if(keyboard_heat > 0.0) xprintf("heat: %u\n", (uint16_t)(1000*keyboard_heat));
-}
 #else
 
-//noop
-float keyboard_heat = 0;
 void start_firey_return(void) {}
 
 #endif

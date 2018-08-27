@@ -130,8 +130,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if(record->event.pressed) keyboard_heat += 0.5;
-
   /* keymap gets first whack */
   if(!process_record_keymap(keycode, record)) return false;
 

@@ -6,9 +6,7 @@
 
 extern uint8_t user_rgb_mode;
 extern LED_TYPE shadowed_led[];
-void keyboard_has_heat(void);
 
-extern float keyboard_heat;
 void start_firey_return(void);
 
 #endif //_fancy_lighting_h
