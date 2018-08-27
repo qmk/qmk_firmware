@@ -1,6 +1,8 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 // this is the style you want to emulate.
 
+// Layout is available here:
+// http://www.keyboard-layout-editor.com/#/gists/86c6c319c8e7ca76c121cdbc5a183e4e
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -68,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,     KC_0,    _______},
   {_______, _______, KC_BTN1, KC_BTN3, KC_BTN2, KC_HOME, KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_WH_U, KC_PGUP},
   {_______, _______, _______, _______, _______, KC_END,  KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R,  KC_WH_D, KC_PGDOWN},
-  {BACKLIT, _______, _______, _______, _______, _______, _______, _______, _______, KC_SLCK,  KC_PAUS, KC_MNXT }
+  {_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_SLCK,  KC_PAUS, KC_MNXT }
 },
 
 /* Lower
@@ -164,12 +166,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           break;
     case BACKLIT:
       if (record->event.pressed) {
-        register_code(KC_RSFT);
+        // register_code(KC_RSFT);
         #ifdef BACKLIGHT_ENABLE
           backlight_step();
         #endif
       } else {
-        unregister_code(KC_RSFT);
+        // unregister_code(KC_RSFT);
       }
       return false;
       break;
