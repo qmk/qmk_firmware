@@ -19,7 +19,7 @@ Otherwise, you can either download it directly ([zip](https://github.com/qmk/qmk
 
 ## How to Compile
 
-Before you are able to compile, you'll need to [install an environment](01_Getting_Started/01_Install_Build_Tools.md) for AVR or/and ARM development. Once that is complete, you'll use the `make` command to build a keyboard and keymap with the following notation:
+Before you are able to compile, you'll need to [install an environment](getting_started_build_tools.md) for AVR or/and ARM development. Once that is complete, you'll use the `make` command to build a keyboard and keymap with the following notation:
 
     make planck/rev4:default
 
@@ -29,4 +29,4 @@ This would build the `rev4` revision of the `planck` with the `default` keymap. 
 
 ## How to Customize
 
-QMK has lots of [features](05_Features/index.md) to explore, and a good deal of [reference documentation](http://docs.qmk.fm) to dig through. Most features are taken advantage of by modifying your [keymap](07_Reference/Keymap_Overview.md), and changing the [keycodes](06_Keycodes/index.md).
+QMK has lots of [features](features.md) to explore, and a good deal of [reference documentation](http://docs.qmk.fm) to dig through. Most features are taken advantage of by modifying your [keymap](keymap.md), and changing the [keycodes](keycodes.md).
