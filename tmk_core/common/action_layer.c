@@ -15,13 +15,22 @@
  */
 uint32_t default_layer_state = 0;
 
+/** \brief Default Layer State Set At user Level
+ *
+ * FIXME: Needs docs
+ */
+__attribute__((weak))
+uint32_t default_layer_state_set_user(uint32_t state) {
+    return state;
+}
+
 /** \brief Default Layer State Set At Keyboard Level
  *
  * FIXME: Needs docs
  */
 __attribute__((weak))
 uint32_t default_layer_state_set_kb(uint32_t state) {
-    return state;
+    return default_layer_state_set_user(state);
 }
 
 /** \brief Default Layer State Set
