@@ -1,3 +1,7 @@
+# project specific files
+SRC =	is31fl3736.c \
+		i2c_master.c
+		
 # MCU name
 #MCU = at90usb1286
 MCU = atmega32u4
