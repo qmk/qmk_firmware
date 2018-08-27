@@ -270,7 +270,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     PLAY_SONG(tone_ctrl_mod);
                 #endif
                 #ifdef BACKLIGHT_BREATHING
-                    breathing_speed_set(2);
+                    breathing_period_set(2);
                     breathing_pulse();
                 #endif
             }

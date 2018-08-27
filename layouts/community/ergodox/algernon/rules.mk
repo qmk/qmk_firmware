@@ -1,15 +1,15 @@
 BOOTMAGIC_ENABLE=no
 COMMAND_ENABLE=no
 SLEEP_LED_ENABLE=no
-FORCE_NKRO = yes
+FORCE_NKRO ?= yes
 DEBUG_ENABLE = no
 CONSOLE_ENABLE = no
 TAP_DANCE_ENABLE = yes
-KEYLOGGER_ENABLE = yes
+KEYLOGGER_ENABLE ?= yes
 UCIS_ENABLE = yes
 MOUSEKEY_ENABLE = no
 
-AUTOLOG_ENABLE = no
+AUTOLOG_ENABLE ?= no
 
 ifeq (${FORCE_NKRO},yes)
 OPT_DEFS += -DFORCE_NKRO
@@ -39,5 +39,3 @@ LAYOUT_ergodox_BRANCH = $(shell \
  git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
 OPT_DEFS += -DLAYOUT_ergodox_VERSION=\"$(LAYOUT_ergodox_VERSION)\\\#$(LAYOUT_ergodox_BRANCH)\"
-
-

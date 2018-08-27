@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_H
 #include "stdint.h"
 
+/* FIXME: Add doxygen comments here. */
 
 /* keyboard LEDs */
 #define USB_LED_NUM_LOCK                0

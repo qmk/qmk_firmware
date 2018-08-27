@@ -76,7 +76,7 @@ This is the code for the KC_FN1 button. Notice how we check against what key is 
 
 ## Quantum MK Firmware
 
-For the full Quantum feature list, see [the parent readme.md](/doc/readme.md).
+For the full Quantum feature list, see [the parent readme.md](/docs/README.md).
 
 ## Building
 

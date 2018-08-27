@@ -1,1 +1,0 @@
-SUBPROJECT_DEFAULT = default

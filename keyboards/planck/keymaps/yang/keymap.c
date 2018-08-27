@@ -1,6 +1,5 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
@@ -58,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 /*enum function_id {
-  
+
 };*/
 
 const uint16_t PROGMEM fn_actions[] = {
@@ -85,6 +84,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
-  
+
   }
 }

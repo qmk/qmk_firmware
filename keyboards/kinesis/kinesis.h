@@ -1,10 +1,10 @@
 #ifndef KINESIS_H
 #define KINESIS_H
 
-#ifdef SUBPROJECT_alvicstep
+#ifdef KEYBOARD_kinesis_alvicstep
 	#include "alvicstep.h"
 #endif
-#ifdef SUBPROJECT_stapelberg
+#ifdef KEYBOARD_kinesis_stapelberg
 	#include "stapelberg.h"
 #endif
 

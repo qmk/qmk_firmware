@@ -2,29 +2,42 @@
 # Script to make a new quantum project
 # Jack Humbert 2015
 
-if [ -z "$1" ]; then
-	echo "Usage: $0 <keyboard_name>"
+KEYBOARD=$1
+KEYBOARD_TYPE=$2
+
+if [ -z "$KEYBOARD" ]; then
+    echo "Usage:   $0 <keyboard_name> <keyboard_type>"
+    echo "Example: $0 gh60 avr"
+    echo "Example: $0 bfake ps2avrgb"
+    exit 1
+elif [ -z "$KEYBOARD_TYPE" ]; then
+  KEYBOARD_TYPE=avr
+fi
+
+if [ $KEYBOARD_TYPE != "avr" -a $KEYBOARD_TYPE != "ps2avrgb" ]; then
+  echo "Invalid keyboard type target"
+  exit 1
+fi
+
+if [ -e "keyboards/$1" ]; then
+	echo "Error! keyboards/$1 already exists!"
 	exit 1
 fi
 
 cd "$(dirname "$0")/.."
 
-KEYBOARD=$1
 KEYBOARD_UPPERCASE=$(echo $1 | awk '{print toupper($0)}')
+KEYBOARD_NAME=$(basename $1)
+KEYBOARD_NAME_UPPERCASE=$(echo $KEYBOARD_NAME | awk '{print toupper($0)}')
 
-mkdir keyboards/$1
-mkdir keyboards/$1/keymaps
-mkdir keyboards/$1/keymaps/default
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" -e "s;%KEYBOARD_UPPERCASE%;$KEYBOARD_UPPERCASE;g" quantum/template/template.h > keyboards/$KEYBOARD/$KEYBOARD.h
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/template.c > keyboards/$KEYBOARD/$KEYBOARD.c
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/config.h > keyboards/$KEYBOARD/config.h
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/readme.md > keyboards/$KEYBOARD/readme.md
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/Makefile > keyboards/$KEYBOARD/Makefile
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/rules.mk > keyboards/$KEYBOARD/rules.mk
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/config.h > keyboards/$KEYBOARD/keymaps/default/config.h
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/keymap.c > keyboards/$KEYBOARD/keymaps/default/keymap.c
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/Makefile > keyboards/$KEYBOARD/keymaps/default/Makefile
-sed -e "s;%KEYBOARD%;$KEYBOARD;g" quantum/template/keymaps/default/readme.md > keyboards/$KEYBOARD/keymaps/default/readme.md
+
+cp -r quantum/template/base keyboards/$KEYBOARD
+cp -r quantum/template/$KEYBOARD_TYPE/. keyboards/$KEYBOARD
+
+mv keyboards/${KEYBOARD}/template.c keyboards/${KEYBOARD}/${KEYBOARD_NAME}.c
+mv keyboards/${KEYBOARD}/template.h keyboards/${KEYBOARD}/${KEYBOARD_NAME}.h
+find keyboards/${KEYBOARD} -type f -exec sed -i '' -e "s;%KEYBOARD%;${KEYBOARD_NAME};g" {} \;
+find keyboards/${KEYBOARD} -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g" {} \;
 
 echo "######################################################"
 echo "# /keyboards/$KEYBOARD project created. To start"
