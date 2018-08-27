@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 #include "quantum.h"
 #include "version.h"
 #include "eeprom.h"
@@ -358,4 +357,3 @@ enum {
                                                                 LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)
 
 
-#endif // !USERSPACE
