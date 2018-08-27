@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
+#   define DEBOUNCING_DELAY 6
 #endif
 
 
