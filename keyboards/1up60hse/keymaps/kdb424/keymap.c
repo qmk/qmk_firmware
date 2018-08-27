@@ -54,9 +54,6 @@ enum custom_keycodes {
 #define RSHIFT MT(MOD_RSFT, KC_END)
 #define SFT_INS LSFT(KC_INSERT)
 
-// Ibus is fun
-#define IBUS_MACRO(z) SEND_STRING(SS_LCTRL("U")); SEND_STRING(z"\n");
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DVORAK] = LAYOUT_60_ansi( \
 		KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC,  KC_BSPC, \
@@ -76,20 +73,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_user(void) {
+  wait_ms(500);
+  set_unicode_input_mode(UC_LNX);
 }
 
-void multi_macro(string)
-  char *array[10];
-  int i=0;
+void send_unicode_hex_string(char *istr){
+  // Needs to make copy as strtok modifies the string
+  char str[strlen(istr)];
+  strcpy(str, istr);
 
-  array[i] = strtok(string," ");
+  // Replacement for tolower function to avoid unneeded library
+  for(char *p = str;*p;++p) *p=*p>0x40&&*p<0x5b?*p|0x60:*p;
 
-  while(array[i]!=NULL)
-  {
-     array[++i] = tolower(strtok(NULL,"/"));
-     IBUS_MACRO(array[i]);
-  }
-
+	char *ptr = strtok(str, " ");
+	while(ptr != NULL){
+    unicode_input_start();
+    send_string_with_delay(ptr, 0);
+	  ptr = strtok(NULL, " ");
+    unicode_input_finish();
+	}
+}
 
 void matrix_scan_user(void) {
   // Leader key definitions
@@ -126,76 +129,31 @@ void matrix_scan_user(void) {
     }
     // (ノಠ痊ಠ)ノ彡┻━┻
     SEQ_FOUR_KEYS(KC_F, KC_L, KC_I, KC_P) {
-        SEND_STRING("(");
-        IBUS_MACRO("30ce");
-        IBUS_MACRO("0ca0");
-        IBUS_MACRO("75ca");
-        IBUS_MACRO("0ca0");
-        SEND_STRING(")");
-        IBUS_MACRO("30ce");
-        IBUS_MACRO("5f61");
-        IBUS_MACRO("253b");
-        IBUS_MACRO("2501");
-        IBUS_MACRO("253b");
+      send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B")
     }
     // ⊙.☉
     SEQ_THREE_KEYS(KC_W, KC_A, KC_T) {
-        IBUS_MACRO("2299")
-        IBUS_MACRO("002e")
-        IBUS_MACRO("2609")
+      send_unicode_hex_string("2299 002E 2609")
     }
     // 凸(ﾟДﾟ#)
     SEQ_THREE_KEYS(KC_F, KC_F, KC_F) {
-        IBUS_MACRO("51f8")
-        IBUS_MACRO("0028")
-        IBUS_MACRO("ff9f")
-        IBUS_MACRO("0414")
-        IBUS_MACRO("ff9f")
-        IBUS_MACRO("0023")
-        IBUS_MACRO("0029")
+      send_unicode_hex_string("51F8 0028 FF9F 0414 FF9F 0023 0029")
     }
     // （￣^￣）凸
     SEQ_TWO_KEYS(KC_F, KC_F) {
-        IBUS_MACRO("ff08")
-        IBUS_MACRO("ffe3")
-        IBUS_MACRO("005e")
-        IBUS_MACRO("ffe3")
-        IBUS_MACRO("ff09")
-        IBUS_MACRO("51f8")
+      sund_unicode_hex_string("FF08 FFE3 005E FFE3 FF09 51F8")
     }
     // ╮(￣_￣)╭
     SEQ_THREE_KEYS(KC_M, KC_E, KC_H) {
-        IBUS_MACRO("256e")
-        IBUS_MACRO("0028")
-        IBUS_MACRO("ffe3")
-        IBUS_MACRO("005f")
-        IBUS_MACRO("ffe3")
-        IBUS_MACRO("0029")
-        IBUS_MACRO("256d")
+      send_unicode_hex_string("256E 0028 FFE3 005F FFE3 0029 256D")
     }
     // ( ° ∀ ° )ﾉﾞ
     SEQ_FOUR_KEYS(KC_W, KC_A, KC_V, KC_E) {
-        IBUS_MACRO("0028")
-        IBUS_MACRO("0020")
-        IBUS_MACRO("00b0")
-        IBUS_MACRO("0020")
-        IBUS_MACRO("2200")
-        IBUS_MACRO("0020")
-        IBUS_MACRO("00b0")
-        IBUS_MACRO("0020")
-        IBUS_MACRO("0029")
-        IBUS_MACRO("ff89")
-        IBUS_MACRO("ff9e")
+      send_unicode_hex_string("0028 0020 00B0 0020 2200 0020 00B0 0020 0029 FF89 FF9E")
     }
     // o(^▽^)o
     SEQ_THREE_KEYS(KC_Y, KC_A, KC_Y) {
-        IBUS_MACRO("006f")
-        IBUS_MACRO("0028")
-        IBUS_MACRO("005e")
-        IBUS_MACRO("25bd")
-        IBUS_MACRO("005e")
-        IBUS_MACRO("0029")
-        IBUS_MACRO("006f")
+      send_unicode_hex_string("006F 0028 005E 25BD 005E 0029 006F")
     }
   }
 }
