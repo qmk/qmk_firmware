@@ -17,7 +17,7 @@
 
 //void promicro_bootloader_jmp(bool program);
 
-#define KEYMAP( \
+#define LAYOUT( \
     k00, k01, k02, k03, k04, k05,               k55, k54, k53, k52, k51, k50, \
     k10, k11, k12, k13, k14, k15,               k65, k64, k63, k62, k61, k60, \
     k20, k21, k22, k23, k24, k25,               k75, k74, k73, k72, k71, k70, \
