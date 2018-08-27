@@ -1,5 +1,5 @@
 #!/bin/sh
-if grep ID /etc/os-release | grep -q rhel; then
+if grep ID /etc/os-release | grep -qE "rhel|fedora"; then
 	# RPM based OS
 	sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc \
 	    avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs \
