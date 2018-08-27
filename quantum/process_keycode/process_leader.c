@@ -56,10 +56,12 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
       if (leading) {
         if (keycode == KC_ENT) {
           leader_time = -1;
+          record->event.pressed = false;
           return true;
         }
-        else if (keycode == KC_LEAD || keycode == KC_ESC || keycode == KC_GESC){
-          leader_time = -1;
+        else if (keycode == KC_LEAD || keycode == KC_ESC || keycode == KC_GESC) {
+          leading = false;
+          record->event.pressed = false;
           return false;
         }
 #endif
