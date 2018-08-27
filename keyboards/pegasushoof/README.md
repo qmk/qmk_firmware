@@ -1,8 +1,8 @@
 Pegasus Hoof Controller
 ===
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: Pegasus Hoof
+Keyboard Maintainer: QMK Community  
+Hardware Supported: Pegasus Hoof  
 Hardware Availability: https://1upkeyboards.com/filco-pegasus-hoof-controller.html
 
 Make example for this keyboard (after setting up your build environment):

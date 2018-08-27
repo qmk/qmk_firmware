@@ -36,6 +36,7 @@
   * [Documentation Templates](documentation_templates.md)
   * [Glossary](reference_glossary.md)
   * [Unit Testing](unit_testing.md)
+  * [Useful Functions](ref_functions.md)
 
 * [Features](features.md)
   * [Basic Keycodes](keycodes_basic.md)
