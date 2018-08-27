@@ -15,6 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include <string.h>
 
 #define _DVORAK 0
 #define _RAISE 1
@@ -54,6 +55,11 @@ enum custom_keycodes {
 #define RSHIFT MT(MOD_RSFT, KC_END)
 #define SFT_INS LSFT(KC_INSERT)
 
+const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
+(
+ UCIS_SYM("tm", 0x2122)
+);
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DVORAK] = LAYOUT_60_ansi( \
 		KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_LBRC, KC_RBRC,  KC_BSPC, \
@@ -78,8 +84,8 @@ void matrix_init_user(void) {
 }
 
 void send_unicode_hex_string(char *istr){
-  // Needs to make copy as strtok modifies the string
   char str[strlen(istr)];
+  // Needs to make copy as strtok modifies the string
   strcpy(str, istr);
 
   // Replacement for tolower function to avoid unneeded library
@@ -129,31 +135,34 @@ void matrix_scan_user(void) {
     }
     // (ノಠ痊ಠ)ノ彡┻━┻
     SEQ_FOUR_KEYS(KC_F, KC_L, KC_I, KC_P) {
-      send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B")
+      send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
     }
     // ⊙.☉
     SEQ_THREE_KEYS(KC_W, KC_A, KC_T) {
-      send_unicode_hex_string("2299 002E 2609")
+      send_unicode_hex_string("2299 002E 2609");
     }
     // 凸(ﾟДﾟ#)
     SEQ_THREE_KEYS(KC_F, KC_F, KC_F) {
-      send_unicode_hex_string("51F8 0028 FF9F 0414 FF9F 0023 0029")
+      send_unicode_hex_string("51F8 0028 FF9F 0414 FF9F 0023 0029");
     }
     // （￣^￣）凸
     SEQ_TWO_KEYS(KC_F, KC_F) {
-      sund_unicode_hex_string("FF08 FFE3 005E FFE3 FF09 51F8")
+      send_unicode_hex_string("FF08 FFE3 005E FFE3 FF09 51F8");
     }
     // ╮(￣_￣)╭
     SEQ_THREE_KEYS(KC_M, KC_E, KC_H) {
-      send_unicode_hex_string("256E 0028 FFE3 005F FFE3 0029 256D")
+      send_unicode_hex_string("256E 0028 FFE3 005F FFE3 0029 256D");
     }
     // ( ° ∀ ° )ﾉﾞ
     SEQ_FOUR_KEYS(KC_W, KC_A, KC_V, KC_E) {
-      send_unicode_hex_string("0028 0020 00B0 0020 2200 0020 00B0 0020 0029 FF89 FF9E")
+      send_unicode_hex_string("0028 0020 00B0 0020 2200 0020 00B0 0020 0029 FF89 FF9E");
     }
     // o(^▽^)o
     SEQ_THREE_KEYS(KC_Y, KC_A, KC_Y) {
-      send_unicode_hex_string("006F 0028 005E 25BD 005E 0029 006F")
+      send_unicode_hex_string("006F 0028 005E 25BD 005E 0029 006F");
+    }
+    SEQ_FIVE_KEYS(KC_C, KC_H, KC_E, KC_E, KC_R) {
+      send_unicode_hex_string("002B FF61 003A 002E FF9F 30FD 0028 00B4 2200 FF61 0029 FF89 FF9F 002E 003A FF61 002B FF9F FF9F 002B FF61 003A 002E FF9F 30FD 0028 002A 00B4 2200 0029 FF89 FF9F 002E 003A FF61 002B FF9F");
     }
   }
 }

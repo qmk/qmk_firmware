@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include <string.h>
 
 extern keymap_config_t keymap_config;
 
@@ -184,8 +185,8 @@ void persistent_default_layer_set(uint16_t default_layer) {
 };
 
 void send_unicode_hex_string(char *istr){
-  // Needs to make copy as strtok modifies the string
   char str[strlen(istr)];
+  // Needs to make copy as strtok modifies the string
   strcpy(str, istr);
 
   // Replacement for tolower function to avoid unneeded library
@@ -199,6 +200,7 @@ void send_unicode_hex_string(char *istr){
     unicode_input_finish();
 	}
 }
+
 
 void matrix_init_user(void) {
   wait_ms(500);
@@ -306,7 +308,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         wait_ms(100);
         reset_keyboard();
         return false;
-      break;
+        break;
+      }
 
     case SCROT:
       if (record->event.pressed) {

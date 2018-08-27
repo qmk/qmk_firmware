@@ -20,5 +20,7 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 	    	# Enable support for HD44780 based LCDs (+400)
 TAP_DANCE_ENABLE  = yes     # Enable tap dance.
 USE_IC2 = yes               # Apparently reduces lag?
+UNICODEMAP_ENABLE = yes
+UCIS_ENABLE = yes
 
 EXTRAFLAGS        += -flto
