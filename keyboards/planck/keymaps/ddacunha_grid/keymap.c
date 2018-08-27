@@ -25,7 +25,8 @@ enum planck_keycodes {
   RAISE,
   BACKLIT,
   MACRO,
-  DBLQ
+  DBLQ,
+  ITERML, ITERMD, ITERMU, ITERMR
 };
 
 // Fillers to make layering more clear
@@ -92,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |      |      |      |      |      |      |      |      |swift"|
+ * |      |      |      |      |      |      |iTermL|iTermD|iTermU|iTermR|      |swift"|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -102,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MACRO] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, DBLQ   },
+  {_______, _______, _______, _______, _______, _______, ITERML ,  ITERMD,  ITERMU,  ITERMR,  _______, DBLQ   },
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______},
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, _______}
 }
@@ -172,12 +173,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case DBLQ:
+    case DBLQ: // Swift quotes
       if (record->event.pressed) {
           SEND_STRING("\\()");
+          SEND_STRING(SS_TAP(X_LEFT));
           return false;
           break;
         }
+      return false;
+      break;
+    case ITERML:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_LEFT))));
+      }
+      return false;
+      break;
+    case ITERMD:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_DOWN))));
+      }
+      return false;
+      break;
+    case ITERMU:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_UP))));
+      }
+      return false;
+      break;
+    case ITERMR:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LGUI(SS_LALT(SS_TAP(X_RIGHT))));
+      }
+      return false;
+      break;
   }
   return true;
 }
