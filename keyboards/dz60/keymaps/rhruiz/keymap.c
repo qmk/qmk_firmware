@@ -26,11 +26,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		MO(_FN1),  KC_LALT,  KC_LGUI,  KC_SPC,  FN2BSPC,  CMDENT,  MT(MOD_LGUI,  KC_LEFT),  MT(MOD_LALT,  KC_DOWN),  KC_NO,    MT(MOD_RCTL,  KC_UP),   LT(_FN1,   KC_RIGHT)),
 
   [_FN1] = LAYOUT(
-		KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,    KC_F11,   KC_F12,   _______,  KC_EJCT,
-		_______,  RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_HUD,  RGB_SAI,  RGB_SAD,  RGB_VAI,  RGB_VAD,  _______,   KC_UP,     KC_MRWD,  KC_MFFD,  KC_DEL,
-		_______,  _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  _______,   _______,  KC_PENT,
-		_______,  _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,   _______,  _______,  _______,
-		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,   TO(_BL)),
+		KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,    KC_F11,   KC_F12,   _______,  KC_EJCT,
+		_______,  RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_HUD,   RGB_SAI,  RGB_SAD,  RGB_VAI,  RGB_VAD,  _______,   KC_UP,     KC_MRWD,  KC_MFFD,  KC_DEL,
+		_______,  _______,  _______,  _______,  KC_RIGHT,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  _______,   _______,  KC_PENT,
+		_______,  _______,  _______,  _______,  _______,   _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,   _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,   TO(_BL)),
 
   [_FN2] = LAYOUT(
 		KC_GRV,   _______,  _______,  MISCTRL,  _______,   RGB_VAD,  RGB_VAI,  KC_MRWD,  KC_MPLY,  KC_MFFD,   KC_MUTE,  KC__VOLDOWN,  KC__VOLUP,  KC_K8s,  KC_EJCT,
