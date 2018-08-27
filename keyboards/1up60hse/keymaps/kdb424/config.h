@@ -19,8 +19,14 @@
 #define TAPPING_TERM 150
 #define TAPPING_TOGGLE 2
 
+// Cleanup unused features
 #undef RGBLIGHT_ANIMATIONS
+#undef LOCKING_SUPPORT_ENABLE
+#undef LOCKING_RESYNC_ENABLE
 
 // Not mainline
+#define LEADER_MODE
+
+// Hope to soon be mainline
 #define LEADER_MODE
 

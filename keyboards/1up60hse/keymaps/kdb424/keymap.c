@@ -52,6 +52,7 @@ enum custom_keycodes {
 #define U_ARROW LT(1, KC_U)
 #define LSHIFT MT(MOD_LSFT, KC_HOME)
 #define RSHIFT MT(MOD_RSFT, KC_END)
+#define SFT_INS LSFT(KC_INSERT)
 
 // Ibus is fun
 #define IBUS_MACRO(z) SEND_STRING(SS_LCTRL("U")); SEND_STRING(z"\n");
@@ -69,13 +70,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		REPROGR, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, KC_F12,     KC_DEL,  \
 		_______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______, KC_VOLU, KC_PGUP, \
 		_______,   _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_VOLD,          KC_PGDN, \
-		_______,    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                  RGB_TOG, \
-		_______, _______, _______,                 _______,                                KC_RALT,   KC_RGUI, PORTAL_BL,      KC_LCTL \
+		_______,    _______, _______, _______, _______, _______, _______, _______, _______, SFT_INS, _______,                  RGB_TOG, \
+		_______, _______, _______,                 _______,                                KC_RALT,   KC_RGUI, PORTAL_BL,      KC_RCTL \
   )
 };
 
 void matrix_init_user(void) {
 }
+
+void multi_macro(string)
+  char *array[10];
+  int i=0;
+
+  array[i] = strtok(string," ");
+
+  while(array[i]!=NULL)
+  {
+     array[++i] = tolower(strtok(NULL,"/"));
+     IBUS_MACRO(array[i]);
+  }
 
 
 void matrix_scan_user(void) {
@@ -114,16 +127,16 @@ void matrix_scan_user(void) {
     // (ノಠ痊ಠ)ノ彡┻━┻
     SEQ_FOUR_KEYS(KC_F, KC_L, KC_I, KC_P) {
         SEND_STRING("(");
-        IBUS_MACRO("30ce")
-        IBUS_MACRO("0ca0")
-        IBUS_MACRO("75ca")
-        IBUS_MACRO("0ca0")
+        IBUS_MACRO("30ce");
+        IBUS_MACRO("0ca0");
+        IBUS_MACRO("75ca");
+        IBUS_MACRO("0ca0");
         SEND_STRING(")");
-        IBUS_MACRO("30ce")
-        IBUS_MACRO("5f61")
-        IBUS_MACRO("253b")
-        IBUS_MACRO("2501")
-        IBUS_MACRO("253b")
+        IBUS_MACRO("30ce");
+        IBUS_MACRO("5f61");
+        IBUS_MACRO("253b");
+        IBUS_MACRO("2501");
+        IBUS_MACRO("253b");
     }
     // ⊙.☉
     SEQ_THREE_KEYS(KC_W, KC_A, KC_T) {
@@ -141,7 +154,7 @@ void matrix_scan_user(void) {
         IBUS_MACRO("0023")
         IBUS_MACRO("0029")
     }
-      // （￣^￣）凸
+    // （￣^￣）凸
     SEQ_TWO_KEYS(KC_F, KC_F) {
         IBUS_MACRO("ff08")
         IBUS_MACRO("ffe3")
@@ -149,6 +162,40 @@ void matrix_scan_user(void) {
         IBUS_MACRO("ffe3")
         IBUS_MACRO("ff09")
         IBUS_MACRO("51f8")
+    }
+    // ╮(￣_￣)╭
+    SEQ_THREE_KEYS(KC_M, KC_E, KC_H) {
+        IBUS_MACRO("256e")
+        IBUS_MACRO("0028")
+        IBUS_MACRO("ffe3")
+        IBUS_MACRO("005f")
+        IBUS_MACRO("ffe3")
+        IBUS_MACRO("0029")
+        IBUS_MACRO("256d")
+    }
+    // ( ° ∀ ° )ﾉﾞ
+    SEQ_FOUR_KEYS(KC_W, KC_A, KC_V, KC_E) {
+        IBUS_MACRO("0028")
+        IBUS_MACRO("0020")
+        IBUS_MACRO("00b0")
+        IBUS_MACRO("0020")
+        IBUS_MACRO("2200")
+        IBUS_MACRO("0020")
+        IBUS_MACRO("00b0")
+        IBUS_MACRO("0020")
+        IBUS_MACRO("0029")
+        IBUS_MACRO("ff89")
+        IBUS_MACRO("ff9e")
+    }
+    // o(^▽^)o
+    SEQ_THREE_KEYS(KC_Y, KC_A, KC_Y) {
+        IBUS_MACRO("006f")
+        IBUS_MACRO("0028")
+        IBUS_MACRO("005e")
+        IBUS_MACRO("25bd")
+        IBUS_MACRO("005e")
+        IBUS_MACRO("0029")
+        IBUS_MACRO("006f")
     }
   }
 }
@@ -159,20 +206,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case PORTAL_BL:
       if (record->event.pressed) {
       rgblight_enable();
-      rgblight_setrgb_cyan_at(0);
-      rgblight_setrgb_cyan_at(1);
-      rgblight_setrgb_cyan_at(2);
-      rgblight_setrgb_cyan_at(3);
-      rgblight_setrgb_cyan_at(4);
-      rgblight_setrgb_cyan_at(5);
-      rgblight_setrgb_cyan_at(6);
-      rgblight_setrgb_orange_at(7);
-      rgblight_setrgb_orange_at(8);
-      rgblight_setrgb_orange_at(9);
-      rgblight_setrgb_orange_at(10);
-      rgblight_setrgb_orange_at(11);
-      rgblight_setrgb_orange_at(12);
-      rgblight_setrgb_orange_at(13);
+      rgblight_setrgb_at (0x00, 0xB9, 0xB9, 0);
+      rgblight_setrgb_at (0x00, 0xB9, 0xB9, 1);
+      rgblight_setrgb_at (0x00, 0xB9, 0xB9, 2);
+      rgblight_setrgb_at (0x00, 0xB9, 0xB9, 3);
+      rgblight_setrgb_at (0x00, 0xB9, 0xB9, 4);
+      rgblight_setrgb_at (0x00, 0xB9, 0xB9, 5);
+      rgblight_setrgb_at (0x00, 0xB9, 0xB9, 6);
+      rgblight_setrgb_at (0xFF, 0x80, 0x00, 7);
+      rgblight_setrgb_at (0xFF, 0x80, 0x00, 8);
+      rgblight_setrgb_at (0xFF, 0x80, 0x00, 9);
+      rgblight_setrgb_at (0xFF, 0x80, 0x00, 10);
+      rgblight_setrgb_at (0xFF, 0x80, 0x00, 11);
+      rgblight_setrgb_at (0xFF, 0x80, 0x00, 12);
+      rgblight_setrgb_at (0xFF, 0x80, 0x00, 13);
+      rgblight_setrgb_at (0xFF, 0x80, 0x00, 14);
+      rgblight_setrgb_at (0xFF, 0x80, 0x00, 15);
       return false;
       break;
 

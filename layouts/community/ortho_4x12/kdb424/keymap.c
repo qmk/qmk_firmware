@@ -22,7 +22,6 @@ enum custom_keycodes {
   RAISE3,
   ARROWS,
   REPROGRAM_MACRO,
-  FLIP,
   SCROT
 };
 
@@ -60,8 +59,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define REPROGR REPROGRAM_MACRO
 #define U_ARROW LT(5, KC_U)
 
-// Ibus is fun
-#define IBUS_MACRO(z) SEND_STRING(SS_LCTRL("U")); SEND_STRING(z"\n");
+const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
+(
+ UCIS_SYM("tm", 0x2122)
+);
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -105,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Del  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | FLIP |      |      |      |      |      |      |      |      |   [  |   ]  |  \   |
+ * |      |      |      |      |      |      |      |      |      |   [  |   ]  |  \   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |      |      |      |      | Ins  | PGDN | PGUP |  -   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -114,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE1] = LAYOUT_ortho_4x12( \
 	KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL, \
-  FLIP,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, TD_BLEQ, \
+  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LBRC, KC_RBRC, TD_BLEQ, \
 	_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_PGDN, KC_PGUP, KC_MINS, \
 	REPROGR, _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, KC_HOME, KC_VOLD, KC_VOLU, KC_END \
 ),
@@ -176,9 +177,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
+};
+
+void send_unicode_hex_string(char *istr){
+  // Needs to make copy as strtok modifies the string
+  char str[strlen(istr)];
+  strcpy(str, istr);
+
+  // Replacement for tolower function to avoid unneeded library
+  for(char *p = str;*p;++p) *p=*p>0x40&&*p<0x5b?*p|0x60:*p;
+
+	char *ptr = strtok(str, " ");
+	while(ptr != NULL){
+    unicode_input_start();
+    send_string_with_delay(ptr, 0);
+	  ptr = strtok(NULL, " ");
+    unicode_input_finish();
+	}
+}
+
+void matrix_init_user(void) {
+  wait_ms(500);
+  set_unicode_input_mode(UC_LNX);
 };
 
 void matrix_scan_user(void) {
@@ -216,20 +240,11 @@ void matrix_scan_user(void) {
     }
     // (ノಠ痊ಠ)ノ彡┻━┻
     SEQ_FOUR_KEYS(KC_F, KC_L, KC_I, KC_P) {
-        SEND_STRING("(");
-        IBUS_MACRO("30ce")
-        IBUS_MACRO("0ca0")
-        IBUS_MACRO("75ca")
-        IBUS_MACRO("0ca0")
-        SEND_STRING(")");
-        IBUS_MACRO("30ce")
-        IBUS_MACRO("5f61")
-        IBUS_MACRO("253b")
-        IBUS_MACRO("2501")
-        IBUS_MACRO("253b")
+      send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
     }
   }
 }
+
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
@@ -292,25 +307,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         reset_keyboard();
         return false;
       break;
-     }
-
-    case FLIP:
-      // (ノಠ痊ಠ)ノ彡┻━┻
-      if (record->event.pressed) {
-        SEND_STRING("(");
-        IBUS_MACRO("30ce")
-        IBUS_MACRO("0ca0")
-        IBUS_MACRO("75ca")
-        IBUS_MACRO("0ca0")
-        SEND_STRING(")");
-        IBUS_MACRO("30ce")
-        IBUS_MACRO("5f61")
-        IBUS_MACRO("253b")
-        IBUS_MACRO("2501")
-        IBUS_MACRO("253b")
-        return false;
-        break;
-     }
 
     case SCROT:
       if (record->event.pressed) {
