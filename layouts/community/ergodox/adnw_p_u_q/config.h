@@ -3,10 +3,8 @@
 #include "action_layer.h"
 #include "keymap_german.h"
 
-// Note:
-// You need to set a Tapping-Value:
-// TAPPING_TERM-Variable in keyboards/ergodox_infinity/config.h 
-// My ideal value is 145 but find your own
+// This is the ideal value for me but find your own
+#define TAPPING_TERM   145 
 
 // more options here: https://docs.qmk.fm/config_options.html
 #define FORCE_NKRO
