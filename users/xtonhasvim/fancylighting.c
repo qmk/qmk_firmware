@@ -1,5 +1,7 @@
 #ifdef RGBLIGHT_ENABLE
 
+#include <math.h>
+
 #include "rgblight.h"
 #include "color.h"
 #include "fancylighting.h"
@@ -12,14 +14,6 @@ void matrix_scan_keymap(void) {
 }
 
 #define ABSDIFF(a,b) ((a)>(b)?(a)-(b):(b)-(a))
-#ifdef MAX
-#undef MAX
-#endif
-#ifdef MIN
-#undef MIN
-#endif
-#define MIN(a,b) ((a)>(b)?(b):(a))
-#define MAX(a,b) ((a)<(b)?(b):(a))
 
 #define FADE_BACK_TIME 500
 #define BREATH_FIRE_TIME 1000
@@ -58,11 +52,11 @@ void set_color_for_offsets(uint16_t time_offset, uint16_t space_offset, uint8_t 
     progress /= 4.0;
     progress = 1.0 - progress;
   }
-  progress = MAX(0.0,progress);
+  progress = fmax(0.0,progress);
   progress *= progress; // squared!
 
   float alpha = (time_progress + 0.1) * 7.0 - space_progress;
-  alpha = MIN(1.0, alpha*alpha);
+  alpha = fmin(1.0, alpha*alpha);
 
   LED_TYPE px[1] = {0};
   sethsv((uint16_t)(fmod(time_progress * 1.5 + space_progress,1.0)*360), 255, (uint8_t)(progress*255),&px[0]);
@@ -71,6 +65,10 @@ void set_color_for_offsets(uint16_t time_offset, uint16_t space_offset, uint8_t 
   led[idx].b = alpha * px[0].b + ( 1.0 - alpha) * shadowed_led[idx].b;
 }
 
+/**
+ * It's actually a rainbow: a fire curve didn't really look right.
+ * it's still cool, though!
+ */
 void rgb_mode_breath_fire(void) {
   static uint16_t last_timer = 0;
   if(!last_timer) last_timer = timer_read();
@@ -110,7 +108,7 @@ void rgb_mode_fade_back(void) {
 
   last_timer = this_timer;
   float progress = (float)elapsed / FADE_BACK_TIME;
-  progress = MIN(1.0,progress);
+  progress = fmin(1.0,progress);
 
   for(uint8_t i = 0; i < RGBLED_NUM; i++) {
     led[i].r = shadowed_led[i].r * progress;

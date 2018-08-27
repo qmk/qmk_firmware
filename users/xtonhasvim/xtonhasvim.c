@@ -15,7 +15,6 @@
  */
 
 #include "xtonhasvim.h"
-#include "math.h"
 #include "fancylighting.h"
 
 /************************************
