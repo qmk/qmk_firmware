@@ -1,7 +1,3 @@
-ifeq ($(strip $(SECRETS)),yes)
-	OPT_DEF += -DSECRETS
-endif
-
 # Build Options
 #   comment out to disable the options.
 #
@@ -16,7 +12,6 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 AUDIO_ENABLE = yes
-RGB_MATRIX_ENABLE = yes
 ENCODER_ENABLE = yes
 # SERIAL_LINK_ENABLE = yes
 
