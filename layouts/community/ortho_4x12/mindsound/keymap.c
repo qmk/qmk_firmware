@@ -51,7 +51,7 @@ float clicky_song[][2]  = {{440.0f, 3}, {440.0f, 1}}; // 3 and 1 --> durations
 #ifdef BACKLIGHT_ENABLE
 bool flicker_enable = true;
 bool flicker_isdown = false;
-const uint8_t flicker_min_levels = 3;
+const uint8_t flicker_min_levels = 2;
 const uint8_t flicker_max_levels = 7;
 uint8_t flicker_restore_level = 0;
 #endif
