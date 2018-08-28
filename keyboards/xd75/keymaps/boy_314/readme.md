@@ -1,8 +1,8 @@
 # Boy_314's XD75RE Layout
-- NOTE: ONLY SUPPORTS DVORAK AT THE MOMENT, WILL UPDATE WITH QWERTY WHEN I GET THE TIME TO DO SO.
+- Default is DVORAK, FN+N to switch to QWERTY, FN+H to switch to DVORAK (N and H on QWERTY layout)
 - Features many symbols and function keys in secondary layers.
+- Dedicated bracket and braces keys on bottom right 4 keys, very useful for programming
+- RGB underglow changes to a fast cycle mode when CAPS LOCK is activated
 - NOTE: WORK IN PROGRESS
 # THINGS TO DO
-- make better use of bottom row
 - add numpad toggle layer
-- explore rgb underglow options
