@@ -228,6 +228,10 @@ This sends the `<kc>` keydown event to the computer. Some examples would be `KC_
 
 Parallel to `register_code` function, this sends the `<kc>` keyup event to the computer. If you don't use this, the key will be held down until it's sent.
 
+### `tap_code(<kc>);`
+
+This will sent `register_code(<kc>)` and then `unregister_code(<kc>)`.
+
 ### `clear_keyboard();`
 
 This will clear all mods and keys currently pressed.

@@ -88,6 +88,7 @@ void process_record(keyrecord_t *record);
 void process_action(keyrecord_t *record, action_t action);
 void register_code(uint8_t code);
 void unregister_code(uint8_t code);
+inline void tap_code(uint8_t keycode){ register_code(keycode); unregister_code(keycode); };
 void register_mods(uint8_t mods);
 void unregister_mods(uint8_t mods);
 //void set_mods(uint8_t mods);
