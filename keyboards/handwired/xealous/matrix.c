@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 6
+#   define DEBOUNCING_DELAY 5
 #endif
 
 
@@ -73,8 +73,8 @@ static matrix_row_t* matrix_hand_offsetted; // pointer to matrix for our hand
 
 //Debouncing counters
 typedef uint8_t debounce_counter_t;
-#define DEBOUNCE_COUNTER_MODULO 100
-#define DEBOUNCE_COUNTER_INACTIVE 101
+#define DEBOUNCE_COUNTER_MODULO 250
+#define DEBOUNCE_COUNTER_INACTIVE 251
 static debounce_counter_t debounce_counters[MATRIX_ROWS * MATRIX_COLS];
 static debounce_counter_t *debounce_counters_hand_offsetted;
 
@@ -167,7 +167,7 @@ void update_debounce_counters(uint8_t current_time)
         {
             if (*debounce_pointer != DEBOUNCE_COUNTER_INACTIVE)
             {
-                if (TIMER_DIFF(*debounce_pointer, current_time, DEBOUNCE_COUNTER_MODULO) >=
+                if (TIMER_DIFF(current_time, *debounce_pointer, DEBOUNCE_COUNTER_MODULO) >=
                     DEBOUNCING_DELAY) {
                         *debounce_pointer = DEBOUNCE_COUNTER_INACTIVE;
                     }
