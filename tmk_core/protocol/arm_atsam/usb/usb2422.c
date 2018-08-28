@@ -54,6 +54,8 @@ void USB_write2422_block(void)
     unsigned char *src;
     unsigned char *base = (unsigned char *)&USB2422_shadow;
 
+    DBGC(DC_USB_WRITE2422_BLOCK_BEGIN);
+
     for (src =  base; src < base + 256; src += 32)
     {
         dest[0] = src - base;
@@ -61,9 +63,11 @@ void USB_write2422_block(void)
         memcpy(&dest[2], src, 32);
         i2c0_transmit(USB2422_ADDR, dest, 34, 50000);
         SERCOM0->I2CM.CTRLB.bit.CMD = 0x03;
-        while (SERCOM0->I2CM.SYNCBUSY.bit.SYSOP);
+        while (SERCOM0->I2CM.SYNCBUSY.bit.SYSOP) { DBGC(DC_USB_WRITE2422_BLOCK_SYNC_SYSOP); }
         CLK_delay_us(100);
     }
+
+    DBGC(DC_USB_WRITE2422_BLOCK_COMPLETE);
 }
 
 void USB2422_init(void)
@@ -75,7 +79,9 @@ void USB2422_init(void)
     Usb *pusb = USB;
     Srdata_t *pspi = &srdata;
 
-    while ((v_5v = adc_get(ADC_5V)) < ADC_5V_START_LEVEL) {}
+    DBGC(DC_USB2422_INIT_BEGIN);
+
+    while ((v_5v = adc_get(ADC_5V)) < ADC_5V_START_LEVEL) { DBGC(DC_USB2422_INIT_WAIT_5V_LOW); }
 
     //setup peripheral and synchronous bus clocks to USB
     pgclk->PCHCTRL[10].bit.GEN = 0;
@@ -92,23 +98,23 @@ void USB2422_init(void)
 
     //configure and enable DFLL for USB clock recovery mode at 48MHz
     posc->DFLLCTRLA.bit.ENABLE = 0;
-    while (posc->DFLLSYNC.bit.ENABLE) {}
-    while (posc->DFLLSYNC.bit.DFLLCTRLB) {}
+    while (posc->DFLLSYNC.bit.ENABLE) { DBGC(DC_USB2422_INIT_OSC_SYNC_DISABLING); }
+    while (posc->DFLLSYNC.bit.DFLLCTRLB) { DBGC(DC_USB2422_INIT_OSC_SYNC_DFLLCTRLB_1); }
     posc->DFLLCTRLB.bit.USBCRM = 1;
-    while (posc->DFLLSYNC.bit.DFLLCTRLB) {}
+    while (posc->DFLLSYNC.bit.DFLLCTRLB) { DBGC(DC_USB2422_INIT_OSC_SYNC_DFLLCTRLB_2); }
     posc->DFLLCTRLB.bit.MODE = 1;
-    while (posc->DFLLSYNC.bit.DFLLCTRLB) {}
+    while (posc->DFLLSYNC.bit.DFLLCTRLB) { DBGC(DC_USB2422_INIT_OSC_SYNC_DFLLCTRLB_3); }
     posc->DFLLCTRLB.bit.QLDIS = 0;
-    while (posc->DFLLSYNC.bit.DFLLCTRLB) {}
+    while (posc->DFLLSYNC.bit.DFLLCTRLB) { DBGC(DC_USB2422_INIT_OSC_SYNC_DFLLCTRLB_4); }
     posc->DFLLCTRLB.bit.CCDIS = 1;
     posc->DFLLMUL.bit.MUL = 0xBB80; //4800 x 1KHz
-    while (posc->DFLLSYNC.bit.DFLLMUL) {}
+    while (posc->DFLLSYNC.bit.DFLLMUL) { DBGC(DC_USB2422_INIT_OSC_SYNC_DFLLMUL); }
     posc->DFLLCTRLA.bit.ENABLE = 1;
-    while (posc->DFLLSYNC.bit.ENABLE) {}
+    while (posc->DFLLSYNC.bit.ENABLE) { DBGC(DC_USB2422_INIT_OSC_SYNC_ENABLING); }
 
     pusb->DEVICE.CTRLA.bit.SWRST = 1;
-    while (pusb->DEVICE.SYNCBUSY.bit.SWRST) {}
-    while (pusb->DEVICE.CTRLA.bit.SWRST) {}
+    while (pusb->DEVICE.SYNCBUSY.bit.SWRST) { DBGC(DC_USB2422_INIT_USB_SYNC_SWRST); }
+    while (pusb->DEVICE.CTRLA.bit.SWRST) { DBGC(DC_USB2422_INIT_USB_WAIT_SWRST); }
     //calibration from factory presets
     pusb->DEVICE.PADCAL.bit.TRANSN = (USB_FUSES_TRANSN_ADDR >> USB_FUSES_TRANSN_Pos) & USB_FUSES_TRANSN_Msk;
     pusb->DEVICE.PADCAL.bit.TRANSP = (USB_FUSES_TRANSP_ADDR >> USB_FUSES_TRANSP_Pos) & USB_FUSES_TRANSP_Msk;
@@ -117,7 +123,7 @@ void USB2422_init(void)
     pusb->DEVICE.CTRLB.bit.SPDCONF = 0; //full speed
     pusb->DEVICE.CTRLA.bit.MODE = 0;
     pusb->DEVICE.CTRLA.bit.ENABLE = 1;
-    while (pusb->DEVICE.SYNCBUSY.bit.ENABLE) {}
+    while (pusb->DEVICE.SYNCBUSY.bit.ENABLE) { DBGC(DC_USB2422_INIT_USB_SYNC_ENABLING); }
 
     pusb->DEVICE.QOSCTRL.bit.DQOS = 2;
     pusb->DEVICE.QOSCTRL.bit.CQOS = 2;
@@ -138,11 +144,15 @@ void USB2422_init(void)
     usb_gcr_auto = 1;
 
 #endif //MD_BOOTLOADER
+
+    DBGC(DC_USB2422_INIT_COMPLETE);
 }
 
 void USB_reset(void)
 {
     Srdata_t *pspi = &srdata;
+
+    DBGC(DC_USB_RESET_BEGIN);
 
     //pulse reset for at least 1 usec
     pspi->bit.HUB_RESET_N = 0; //reset low
@@ -151,6 +161,8 @@ void USB_reset(void)
     pspi->bit.HUB_RESET_N = 1; //reset high to run
     SPI_WriteSRData();
     CLK_delay_us(1);
+
+    DBGC(DC_USB_RESET_COMPLETE);
 }
 
 void USB_configure(void)
@@ -167,6 +179,8 @@ void USB_configure(void)
 #endif //MD_BOOTLOADER
     uint32_t serial_address = *(uint32_t *)serial_ptrloc; //Address of bootloader's serial number if available
 
+    DBGC(DC_USB_CONFIGURE_BEGIN);
+
     if (serial_address != 0xFFFFFFFF && serial_address < serial_ptrloc) //Check for factory programmed serial address
     {
         if ((serial_address & 0xFF) % 4 == 0) //Check alignment
@@ -177,6 +191,7 @@ void USB_configure(void)
                    serial_length < BOOTLOADER_SERIAL_MAX_SIZE)
             {
                 serial_length++;
+                DBGC(DC_USB_CONFIGURE_GET_SERIAL);
             }
         }
     }
@@ -205,6 +220,8 @@ void USB_configure(void)
     USB_write2422_block();
 
     adc_extra = 0;
+
+    DBGC(DC_USB_CONFIGURE_COMPLETE);
 }
 
 uint16_t USB_active(void)
@@ -217,6 +234,8 @@ void USB_set_host_by_voltage(void)
     //UP is upstream device (HOST)
     //DN1 is downstream device (EXTRA)
     //DN2 is keyboard (KEYB)
+
+    DBGC(DC_USB_SET_HOST_BY_VOLTAGE_BEGIN);
 
     usb_host_port = USB_HOST_PORT_UNKNOWN;
 #ifndef MD_BOOTLOADER
@@ -233,7 +252,7 @@ void USB_set_host_by_voltage(void)
 
     CLK_delay_ms(250);
 
-    while ((v_5v = adc_get(ADC_5V)) < ADC_5V_START_LEVEL) {}
+    while ((v_5v = adc_get(ADC_5V)) < ADC_5V_START_LEVEL) { DBGC(DC_USB_SET_HOST_5V_LOW_WAITING); }
 
     v_con_1 = adc_get(ADC_CON1);
     v_con_2 = adc_get(ADC_CON2);
@@ -284,12 +303,16 @@ void USB_set_host_by_voltage(void)
 
     USB_reset();
     USB_configure();
+
+    DBGC(DC_USB_SET_HOST_BY_VOLTAGE_COMPLETE);
 }
 
 uint8_t USB2422_Port_Detect_Init(void)
 {
     uint32_t port_detect_retry_ms;
     uint32_t tmod;
+
+    DBGC(DC_PORT_DETECT_INIT_BEGIN);
 
     USB_set_host_by_voltage();
 
@@ -315,9 +338,12 @@ uint8_t USB2422_Port_Detect_Init(void)
 
         if (CLK_get_ms() > port_detect_retry_ms)
         {
+            DBGC(DC_PORT_DETECT_INIT_FAILED);
             return 0;
         }
     }
+
+    DBGC(DC_PORT_DETECT_INIT_COMPLETE);
 
     return 1;
 }

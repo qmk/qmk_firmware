@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #endif //MD_BOOTLOADER
 
-#define PLL_RATIO                   47
-#define FREQ_DFLL_DEFAULT       MCU_HZ  //mcu frequency
+#define PLL_RATIO                   47  //mcu frequency ((X+1)MHz)
+#define FREQ_DFLL_DEFAULT     48000000  //DFLL frequency / usb clock
 #define FREQ_SPI_DEFAULT       1000000  //spi to 595 shift regs
 #define FREQ_I2C0_DEFAULT       100000  //i2c to hub
 #define FREQ_I2C1_DEFAULT       I2C_HZ  //i2c to LED drivers

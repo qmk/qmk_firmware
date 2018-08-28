@@ -435,6 +435,8 @@ void led_matrix_run(led_setup_t *f)
 
 uint8_t led_matrix_init(void)
 {
+    DBGC(DC_LED_MATRIX_INIT_BEGIN);
+
     issi3733_prepare_arrays();
 
     led_matrix_prepare();
@@ -458,6 +460,8 @@ uint8_t led_matrix_init(void)
     //Run led matrix code once for initial LED coloring
     led_cur = 0;
     led_matrix_run((led_setup_t*)led_setups[led_animation_id]);
+
+    DBGC(DC_LED_MATRIX_INIT_COMPLETE);
 
     return 0;
 }

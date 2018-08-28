@@ -40,8 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PORTS PA, PA, PA, PA, PA, PA, PA, PA
 #define MATRIX_COL_PINS   0,  1,  2,  3,  4,  5,  6,  7
 
-/* Processor frequency */
-#define MCU_HZ 48000000
+/* Print boot debug codes using debug LED when M28 and M30 shorted */
+#define DEBUG_BOOT_TRACING
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5

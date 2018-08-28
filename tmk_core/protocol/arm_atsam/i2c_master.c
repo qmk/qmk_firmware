@@ -41,6 +41,8 @@ volatile uint8_t i2c_led_q_running;
 
 void i2c0_init(void)
 {
+    DBGC(DC_I2C0_INIT_BEGIN);
+
     CLK_set_i2c0_freq(CHAN_SERCOM_I2C0, FREQ_I2C0_DEFAULT);
 
     //MCU
@@ -58,11 +60,13 @@ void i2c0_init(void)
     SERCOM0->I2CM.CTRLA.bit.RUNSTDBY = 1;                       //Enabled
 
     SERCOM0->I2CM.CTRLA.bit.ENABLE = 1;                         //Enable the device
-    while (SERCOM0->I2CM.SYNCBUSY.bit.ENABLE) {}                //Wait for SYNCBUSY.ENABLE to clear
+    while (SERCOM0->I2CM.SYNCBUSY.bit.ENABLE) { DBGC(DC_I2C0_INIT_SYNC_ENABLING); }                //Wait for SYNCBUSY.ENABLE to clear
 
     SERCOM0->I2CM.STATUS.bit.BUSSTATE = 1;                      //Force into IDLE state
-    while (SERCOM0->I2CM.SYNCBUSY.bit.SYSOP) {}
-    while (SERCOM0->I2CM.STATUS.bit.BUSSTATE != 1) {}           //Wait while not idle
+    while (SERCOM0->I2CM.SYNCBUSY.bit.SYSOP) { DBGC(DC_I2C0_INIT_SYNC_SYSOP); }
+    while (SERCOM0->I2CM.STATUS.bit.BUSSTATE != 1) { DBGC(DC_I2C0_INIT_WAIT_IDLE); }           //Wait while not idle
+
+    DBGC(DC_I2C0_INIT_COMPLETE);
 }
 
 uint8_t i2c0_start(uint8_t address)
@@ -111,6 +115,8 @@ void i2c0_stop(void)
 #ifndef MD_BOOTLOADER
 void i2c1_init(void)
 {
+    DBGC(DC_I2C1_INIT_BEGIN);
+
     CLK_set_i2c1_freq(CHAN_SERCOM_I2C1, FREQ_I2C1_DEFAULT);
 
     /* MCU */
@@ -132,11 +138,13 @@ void i2c1_init(void)
     SERCOM1->I2CM.INTENSET.bit.ERROR = 1;
 
     SERCOM1->I2CM.CTRLA.bit.ENABLE = 1;                 //ENABLE: Enable the device (sync SYNCBUSY.ENABLE)
-    while (SERCOM1->I2CM.SYNCBUSY.bit.ENABLE) {}        //Wait for SYNCBUSY.ENABLE to clear
+    while (SERCOM1->I2CM.SYNCBUSY.bit.ENABLE) { DBGC(DC_I2C1_INIT_SYNC_ENABLING); }        //Wait for SYNCBUSY.ENABLE to clear
 
     SERCOM1->I2CM.STATUS.bit.BUSSTATE = 1;              //BUSSTATE: Force into IDLE state (sync SYNCBUSY.SYSOP)
-    while (SERCOM1->I2CM.SYNCBUSY.bit.SYSOP) {}
-    while (SERCOM1->I2CM.STATUS.bit.BUSSTATE != 1) {}   //Wait while not idle
+    while (SERCOM1->I2CM.SYNCBUSY.bit.SYSOP) { DBGC(DC_I2C1_INIT_SYNC_SYSOP); }
+    while (SERCOM1->I2CM.STATUS.bit.BUSSTATE != 1) { DBGC(DC_I2C1_INIT_WAIT_IDLE); }  //Wait while not idle
+
+    DBGC(DC_I2C1_INIT_COMPLETE);
 }
 
 uint8_t i2c1_start(uint8_t address)
@@ -251,6 +259,8 @@ void i2c_led_send_pwm(uint8_t drvid)
 
 uint8_t I2C3733_Init_Control(void)
 {
+    DBGC(DC_I2C3733_INIT_CONTROL_BEGIN);
+
     srdata.bit.SDB_N = 1;
     SPI_WriteSRData();
 
@@ -261,11 +271,15 @@ uint8_t I2C3733_Init_Control(void)
 
     CLK_delay_ms(1);
 
+    DBGC(DC_I2C3733_INIT_CONTROL_COMPLETE);
+
     return 1;
 }
 
 uint8_t I2C3733_Init_Drivers(void)
 {
+    DBGC(DC_I2C3733_INIT_DRIVERS_BEGIN);
+
     gcr_actual = ISSI3733_GCR_DEFAULT;
     gcr_actual_last = gcr_actual;
 
@@ -290,12 +304,16 @@ uint8_t I2C3733_Init_Drivers(void)
     i2c_led_select_page(1, 3);
     i2c_led_send_pur_pdr(1, ISSI3733_SWYR_PUR_8000, ISSI3733_CSXR_PDR_8000);
 
+    DBGC(DC_I2C3733_INIT_DRIVERS_COMPLETE);
+
     return 1;
 }
 
 void I2C_DMAC_LED_Init(void)
 {
     Dmac *dmac = DMAC;
+
+    DBGC(DC_I2C_DMAC_LED_INIT_BEGIN);
 
     //Disable device
     dmac->CTRL.bit.DMAENABLE = 0;                   //Disable DMAC
@@ -328,14 +346,20 @@ void I2C_DMAC_LED_Init(void)
     //Enable device
     dmac->CTRL.bit.DMAENABLE = 1;                   //Enable DMAC
     while (dmac->CTRL.bit.DMAENABLE == 0) {}        //Wait for enable state
+
+    DBGC(DC_I2C_DMAC_LED_INIT_COMPLETE);
 }
 
 //state = 1 enable
 //state = 0 disable
 void I2C3733_Control_Set(uint8_t state)
 {
+    DBGC(DC_I2C3733_CONTROL_SET_BEGIN);
+
     srdata.bit.SDB_N = (state == 1 ? 1 : 0);
     SPI_WriteSRData();
+
+    DBGC(DC_I2C3733_CONTROL_SET_COMPLETE);
 }
 
 void i2c_led_desc_defaults(void)

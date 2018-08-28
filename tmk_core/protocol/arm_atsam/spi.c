@@ -26,15 +26,15 @@ void SPI_WriteSRData(void)
     SC2_RCLCK_LO;
 
     timeout = 50000;
-    while (!(SCSPI->SPI.INTFLAG.bit.DRE) && --timeout) {}
+    while (!(SCSPI->SPI.INTFLAG.bit.DRE) && --timeout) { DBGC(DC_SPI_WRITE_DRE); }
 
     SCSPI->SPI.DATA.bit.DATA = srdata.reg & 0xFF; //Shift in bits 7-0
     timeout = 50000;
-    while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout) {}
+    while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout) { DBGC(DC_SPI_WRITE_TXC_1); }
 
     SCSPI->SPI.DATA.bit.DATA = (srdata.reg >> 8) & 0xFF; //Shift in bits 15-8
     timeout = 50000;
-    while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout) {}
+    while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout) { DBGC(DC_SPI_WRITE_TXC_2); }
 
     SC2_RCLCK_HI;
 }
@@ -42,6 +42,8 @@ void SPI_WriteSRData(void)
 void SPI_Init(void)
 {
     uint32_t timeout;
+
+    DBGC(DC_SPI_INIT_BEGIN);
 
     CLK_set_spi_freq(CHAN_SERCOM_SPI, FREQ_SPI_DEFAULT);
 
@@ -63,7 +65,7 @@ void SPI_Init(void)
 
     SCSPI->SPI.CTRLA.bit.ENABLE = 1;
     timeout = 50000;
-    while (SCSPI->SPI.SYNCBUSY.bit.ENABLE && timeout--) {}
+    while (SCSPI->SPI.SYNCBUSY.bit.ENABLE && timeout--) { DBGC(DC_SPI_SYNC_ENABLING); }
 
     srdata.reg = 0;
     srdata.bit.HUB_CONNECT = 0;
@@ -82,5 +84,7 @@ void SPI_Init(void)
 
     //Enable register output
     SC2_OE_ENA;
+
+    DBGC(DC_SPI_INIT_COMPLETE);
 }
 

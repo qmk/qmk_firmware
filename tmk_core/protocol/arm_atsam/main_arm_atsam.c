@@ -165,6 +165,8 @@ int main(void)
     led_ena;
     m15_ena;
 
+    debug_code_init();
+
     CLK_init();
 
     ADC0_init();
@@ -176,9 +178,14 @@ int main(void)
     matrix_init();
 
     USB2422_init();
-    udc_start();
 
+    DBGC(DC_MAIN_UDC_START_BEGIN);
+    udc_start();
+    DBGC(DC_MAIN_UDC_START_COMPLETE);
+
+    DBGC(DC_MAIN_CDC_INIT_BEGIN);
     CDC_init();
+    DBGC(DC_MAIN_CDC_INIT_COMPLETE);
 
     while (USB2422_Port_Detect_Init() == 0) {}
 
@@ -211,6 +218,8 @@ int main(void)
     uint64_t next_5v_checkup = 0;
 
     v_5v_avg = adc_get(ADC_5V);
+
+    debug_code_disable();
 
     while (1)
     {
