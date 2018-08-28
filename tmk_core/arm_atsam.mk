@@ -19,16 +19,15 @@ COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
 COMPILEFLAGS += -ffunction-sections
 COMPILEFLAGS += -fshort-enums
+COMPILEFLAGS += -fno-inline-small-functions
+COMPILEFLAGS += -fno-strict-aliasing
+COMPILEFLAGS += -mfloat-abi=hard
+COMPILEFLAGS += -mfpu=fpv4-sp-d16
+COMPILEFLAGS += -mthumb
 
 #ALLOW_WARNINGS = yes
 
 CFLAGS += $(COMPILEFLAGS)
-CFLAGS += -fno-inline-small-functions
-CFLAGS += -fno-strict-aliasing
-CFLAGS += -mfloat-abi=hard
-CFLAGS += -mfpu=fpv4-sp-d16
-#CFLAGS += -v
-#CFLAGS += -S
 
 CPPFLAGS += $(COMPILEFLAGS)
 CPPFLAGS += -fno-exceptions -std=c++11
