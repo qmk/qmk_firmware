@@ -70,7 +70,7 @@ $ make tada68:default:flashbin
 $ make tada68:default:flashbin
 ```
 
-2) Connect your keyboard to Windows computer, hit the reset button on the TADA, the lights will start flashing.
+2) Connect your keyboard to the computer, hit the reset button on the TADA, the lights will start flashing.
 
 3) A new entry should appear at `/dev/sd*`. Mount the board using this command:
 
