@@ -16,7 +16,7 @@
 #ifndef V2_H
 #define V2_H
 
-#include "../eagle_viper.h"
+#include "quantum.h"
 
 #define ___ KC_NO
 
