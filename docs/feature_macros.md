@@ -230,7 +230,7 @@ Parallel to `register_code` function, this sends the `<kc>` keyup event to the c
 
 ### `tap_code(<kc>);`
 
-This will sent `register_code(<kc>)` and then `unregister_code(<kc>)`.
+This will send `register_code(<kc>)` and then `unregister_code(<kc>)`. This is useful if you want to send both the press and release events ("tap" the key, rather than hold it).
 
 ### `clear_keyboard();`
 
