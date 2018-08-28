@@ -12,8 +12,8 @@ HEX = $(OBJCOPY) -O $(FORMAT) -R .eeprom -R .fuse -R .lock -R .signature
 EEP = $(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" --change-section-lma .eeprom=0 --no-change-warnings -O $(FORMAT)
 BIN =
 
-COMMON_VPATH += $(DRIVER_PATH)/arm_atsam/packs/atmel/SAMD51_DFP/1.0.70/include
-COMMON_VPATH += $(DRIVER_PATH)/arm_atsam/packs/arm/cmsis/5.0.1/CMSIS/Include
+COMMON_VPATH += $(LIB_PATH)/arm_atsam/packs/atmel/SAMD51_DFP/1.0.70/include
+COMMON_VPATH += $(LIB_PATH)/arm_atsam/packs/arm/cmsis/5.0.1/CMSIS/Include
 
 COMPILEFLAGS += -funsigned-char
 COMPILEFLAGS += -funsigned-bitfields
@@ -38,7 +38,7 @@ LDFLAGS += -Wl,-Map="%OUT%%PROJ_NAME%.map"
 LDFLAGS += -Wl,--start-group
 LDFLAGS += -Wl,--end-group
 LDFLAGS += -Wl,--gc-sections
-LDFLAGS += -T$(DRIVER_PATH)/arm_atsam/packs/atmel/SAMD51_DFP/1.0.70/gcc/gcc/samd51j18a_flash.ld
+LDFLAGS += -T$(LIB_PATH)/arm_atsam/packs/atmel/SAMD51_DFP/1.0.70/gcc/gcc/samd51j18a_flash.ld
 
 OPT_DEFS += -DPROTOCOL_ARM_ATSAM
 
