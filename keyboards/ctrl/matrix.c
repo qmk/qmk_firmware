@@ -32,6 +32,24 @@ uint8_t col_ports[] = { MATRIX_COL_PORTS };
 uint8_t col_pins[] = { MATRIX_COL_PINS };
 uint32_t row_masks[2]; //NOTE: If more than PA PB used in the future, adjust code to accomodate
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
+
 void matrix_init(void)
 {
     memset(mlatest, 0, MATRIX_ROWS * sizeof(matrix_row_t));
@@ -57,6 +75,8 @@ void matrix_init(void)
         PORT->Group[col_ports[col]].DIRSET.reg = 1 << col_pins[col]; //Output
         PORT->Group[col_ports[col]].OUTCLR.reg = 1 << col_pins[col]; //Low
     }
+    
+    matrix_init_quantum();
 }
 
 #define MATRIX_SCAN_DELAY 10   //Delay after setting a col to output (in us)
@@ -116,6 +136,8 @@ uint8_t matrix_scan(void)
     }
 
     //m15_on; //Profiling scans
+
+    matrix_scan_quantum();
 
     return 1;
 }

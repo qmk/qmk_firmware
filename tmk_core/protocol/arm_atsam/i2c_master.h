@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef MD_BOOTLOADER
 
+#include "samd51j18a.h"
 #include "issi3733_driver.h"
 #include "config.h"
 
