@@ -50,7 +50,9 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
       leader_sequence[4] = 0;
       return false;
     }
+
 #ifndef LEADER_MODE_ENTER
+
       if (leading && timer_elapsed(leader_time) < LEADER_TIMEOUT) {
 #else
       if (leading) {
@@ -62,6 +64,7 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
         else if (keycode == KC_LEAD || keycode == KC_ESC || keycode == KC_GESC) {
           leading = false;
           record->event.pressed = false;
+
           return false;
         }
 #endif
