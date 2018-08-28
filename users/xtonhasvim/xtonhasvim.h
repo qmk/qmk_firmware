@@ -26,6 +26,7 @@ bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record);
 
 enum xtonhasvim_keycodes {
   DUMMY = SAFE_RANGE,
+  FIREY_RETURN, // kick off special effects
   VIM_START, // bookend for vim states
   VIM_A,
   VIM_B,
@@ -57,10 +58,10 @@ enum xtonhasvim_keycodes {
   VIM_SAFE_RANGE // start other keycodes here.
 };
 
-enum xtonhasvim_layers {
-  _EDIT = 12,
-  _CMD
-};
+// NOTE: YOU MUST DEFINE THIS
+extern uint8_t vim_cmd_layer(void);
+
+extern uint16_t vstate;
 
 
 #endif
