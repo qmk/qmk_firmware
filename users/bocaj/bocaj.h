@@ -1,94 +1,89 @@
-/*
-Copyright 2018 Jacob Jerrell <jacob.jerrell@gmail.com>
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 2 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+#ifndef USERSPACE
+#define USERSPACE
 
 #include "quantum.h"
 
-// Layers
-enum layers {
-  _SWRKMN = 0,
-  _HWRKMN,
+/* *** *** *** *** *** *
+ * Define layer names  *
+ * *** *** *** *** *** */
+enum userspace_layers {
+  _HWRKMN = 0,
+  _SWRKMN,
   _LOWER,
-  _RAISE,
   _ADJUST,
+  _NUMS,
+  _NMOD,
   _DIABLO
 };
 
+#define EECONFIG_USERSPACE (uint8_t *)19
+typedef union {
+  uint8_t raw;
+} userspace_config_t;
 
-
-enum custom_keycodes {
-  KC_EPRM = SAFE_RANGE,
+/* *** *** *** *** *** *** *
+ *  Define Custom Keycodes *
+ * *** *** *** *** *** *** */
+enum userspace_custom_keycodes {
+  KC_EPRM = SAFE_RANGE, // can always be here
   KC_SWRK,
   KC_HWRK,
   KC_VRSN,
   JJ_COPY,
-  JJ_PASTE,
+  JJ_PSTE,
   JJ_ARRW,
+  KC_CCCV,
   MC_LOCK,
-  KC_DIABLO_CLEAR,
-  KC_NMPD
-//  UC_FLIP
+  KC_DCLR,
+  NEW_SAFE_RANGE  //use "NEWPLACEHOLDER for keymap specific codes
 };
 
 // Space Cadet Hyper/Meh and [/]
 #define HYP_LBK ALL_T(KC_LBRACKET)
 #define MEH_RBK MEH_T(KC_RBRACKET)
 
-#define KC_LWSP LT(_LOWER, KC_SPACE)
-#define KC_RSEN LT(_RAISE, KC_ENTER)
+// Layout beauti-/simpli-fication
+#define KC_LWEN LT(_LOWER, KC_ENTER)
 #define KC_ADJS TT(_ADJUST)
-
+#define KC_NUMS TT(_NUMS)
+#define LM_SHFT LM(_NMOD, MOD_LSFT)
 #define XXXXXXX KC_NO
 #define _______ KC_TRNS
 
+void tap(uint16_t keycode);
+
+/* *** *** *** *** *** *** *
+ * Diablo 3 Macro Handling *
+ * *** *** *** *** *** *** */
+
+// If Tap Dancing is enabled, we manage that here.
+// If it is not, then we define the KC_D3_# codes gracefully
 #ifdef TAP_DANCE_ENABLE
 enum {
   TD_D3_1 = 0,
   TD_D3_2,
   TD_D3_3,
-  TD_D3_4
+  TD_D3_4,
 };
-#endif // TAP_DANCE_ENABLE
 
-// Custom Keycodes for Diablo 3 layer
-// But since TD() doesn't work when tap dance is disabled
-// We use custom codes here, so we can substitute the right stuff
-#ifdef TAP_DANCE_ENABLE
 #define KC_D3_1 TD(TD_D3_1)
 #define KC_D3_2 TD(TD_D3_2)
 #define KC_D3_3 TD(TD_D3_3)
 #define KC_D3_4 TD(TD_D3_4)
-#else // TAP_DANCE_ENABLE
+#else // !TAP_DANCE_ENABLE
 #define KC_D3_1 KC_1
 #define KC_D3_2 KC_2
 #define KC_D3_3 KC_3
 #define KC_D3_4 KC_4
 #endif // TAP_DANCE_ENABLE
 
-//define diablo macro timer variables
-extern uint16_t diablo_timer[4];
-extern uint8_t diablo_times[];
-extern uint8_t diablo_key_time[4];
-
-
-void run_diablo_macro_check(void);
-
+// Wrapper for handling of keymap 'blocks'
+// not 100% sure what this first part does. Credit to Drashna
+#if (!defined(LAYOUT) && defined(KEYMAP))
+#define LAYOUT KEYMAP
+#endif
 
 #define LAYOUT_ergodox_pretty_wrapper(...) LAYOUT_ergodox_pretty(__VA_ARGS__)
-
 /* Pretty Layout
 .---------------------------------------------.         .---------------------------------------------.
 |   1   |  2  |  3  |  4  |  5  |  6  |   7   |         !   8   |  9  |  10 |  11 |  12 |  13 |   14  |
@@ -108,18 +103,6 @@ void run_diablo_macro_check(void);
                           '-----------------------' '-----------------------'
 */
 
-#define ______________________NUMBER_LEFT________________________       KC_1,     KC_2,           KC_3,           KC_4,           KC_5
-#define ______________________NUMBER_RIGHT_______________________       KC_6,     KC_7,           KC_8,           KC_9,           KC_0
-
-#define ______________________SPECIAL_LEFT_______________________       KC_EXLM,  KC_AT,          KC_HASH,        KC_DLR,         KC_PERC
-#define ______________________SPECIAL_RIGHT______________________       KC_CIRC,  KC_AMPR,        KC_ASTR,        KC_LPRN,        KC_RPRN
-
-#define _______________________FUNC_LEFT_________________________       KC_F1,    KC_F2,          KC_F3,          KC_F4,          KC_F5
-#define _______________________FUNC_RIGHT________________________       KC_F6,    KC_F7,          KC_F8,          KC_F9,          KC_F10
-
-#define _________________________________________________________       KC_TRNS,  KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS
-#define XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       KC_NO,    KC_NO,          KC_NO,          KC_NO,          KC_NO
-
 #define _______________________SWORKMAN_L1_______________________       KC_Q,     KC_W,           KC_E,           KC_R,           KC_T
 #define _______________________SWORKMAN_L2_______________________       KC_A,     SFT_T(KC_S),    GUI_T(KC_D),    ALT_T(KC_F),    KC_G
 #define _______________________SWORKMAN_L3_______________________ CTL_T(KC_Z),    KC_X,           KC_C,           KC_V,           KC_B
@@ -137,10 +120,22 @@ void run_diablo_macro_check(void);
 #define _______________________HWORKMAN_R2_______________________       KC_Y,     ALT_T(KC_N),    GUI_T(KC_E),    SFT_T(KC_O),    KC_I
 #define _______________________HWORKMAN_R3_______________________       KC_K,     KC_L,           KC_COMM,        KC_DOT,         CTL_T(KC_SLASH)
 
-#define ___________________ERGODOX_BOTTOM_LEFT___________________    TT(_DIABLO), TT(_ADJUST),    XXXXXXX,        KC_UP,          KC_LEFT
-#define ___________________ERGODOX_BOTTOM_RIGHT__________________    KC_RIGHT,    KC_DOWN,        TT(_RAISE),     TT(_LOWER),     TT(_ADJUST)
+#define ___________________ERGODOX_BOTTOM_LEFT___________________    TT(_DIABLO), KC_NUMS,        TT(_LOWER),     KC_UP,          KC_LEFT
+#define ___________________ERGODOX_BOTTOM_RIGHT__________________    KC_RIGHT,    KC_DOWN,        XXXXXXX,        XXXXXXX,        TT(_ADJUST)
+
+#define _______________________NUMBER_LEFT_______________________       KC_1,     KC_2,           KC_3,           KC_4,           KC_5
+#define _______________________NUMBER_RIGHT______________________       KC_6,     KC_7,           KC_8,           KC_9,           KC_0
+
+#define _______________________SPECIAL_LEFT______________________       KC_EXLM,  KC_AT,          KC_HASH,        KC_DLR,         KC_PERC
+#define _______________________SPECIAL_RIGHT_____________________       KC_CIRC,  KC_AMPR,        KC_ASTR,        KC_LPRN,        KC_RPRN
+
+#define _________________________________________________________       KC_TRNS,  KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS
+#define XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       KC_NO,    KC_NO,          KC_NO,          KC_NO,          KC_NO
 
 //                                                                    LEFT        |       RIGHT
 #define ______________________ERGODOX_THUMBS_____________________ KC_APP,KC_HOME,    KC_PGUP,KC_ESC,           \
                                                                           KC_END,    KC_PGDOWN,                \
-                                                       KC_LWSP,KC_BSPACE,JJ_COPY,    JJ_PASTE,KC_TAB,KC_RSEN
+                                                      KC_SPACE,KC_BSPACE,JJ_COPY,    JJ_PSTE,KC_TAB,KC_LWEN
+
+
+#endif // !USERSPACE
