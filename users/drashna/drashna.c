@@ -28,8 +28,14 @@ userspace_config_t userspace_config;
 // the same thing, but with differring text sent.
 bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (!record->event.pressed || override) {
+    uint16_t keycode;
+    if (userspace_config.is_overwatch) {
+      keycode = KC_BSPC;
+    } else {
+      keycode = KC_ENTER;
+    }
     clear_keyboard();
-    tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
+    tap(keycode);
     wait_ms(50);
     send_string_with_delay(str, MACRO_TIMER);
     wait_ms(50);
@@ -38,8 +44,6 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (override) wait_ms(3000);
   return false;
 }
-
-inline void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed) {
   static uint16_t this_timer;

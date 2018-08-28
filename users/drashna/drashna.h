@@ -55,7 +55,7 @@ extern bool clicky_enable;
 void rgblight_sethsv_default_helper(uint8_t index);
 #endif // RGBLIGHT_ENABLE
 
-void tap(uint16_t keycode);
+inline void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
 bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 
