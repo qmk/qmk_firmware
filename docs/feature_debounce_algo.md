@@ -23,6 +23,7 @@ endif
 ```
 # Debounce selection
 The following is for keyboards where ```SPLIT_KEYBOARD``` is not defined as ```YES```
+
 | DEBOUNCE_ALGO    | CUSTOM_MATRIX | Description                                                 | What to do                    |
 | -------------    |  -------------| ---------------------------------------------------         | ----------------------------- |
 | Not defined      | Not defined   | You are using the included matrix.c and debounce.c          | Nothing. Debounce_sym_g used. |
