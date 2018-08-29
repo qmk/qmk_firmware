@@ -1,5 +1,5 @@
-#ifndef z-150_blackheart_H
-#define z-150_blackheart_H
+#ifndef z150_blackheart_H
+#define z150_blackheart_H
 
 #include "quantum.h"
 
