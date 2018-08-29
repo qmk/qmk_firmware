@@ -21,8 +21,9 @@ else # default algorithm
     TMK_COMMON_SRC += $(DEBOUNCE)/debounce_sym_g.c
 endif
 ```
+
 # Debounce selection
-The following is for keyboards where ```SPLIT_KEYBOARD``` is not defined as ```YES```
+The following is for keyboards where ```SPLIT_KEYBOARD``` is **not** defined as ```YES```
 
 | DEBOUNCE_ALGO    | CUSTOM_MATRIX | Description                                                 | What to do                    |
 | -------------    |  -------------| ---------------------------------------------------         | ----------------------------- |
@@ -33,7 +34,7 @@ The following is for keyboards where ```SPLIT_KEYBOARD``` is not defined as ```Y
 | manual           | YES           | Same as above                                               | same as above                                           |
 | sym_g/ eager_pk  | YES           | You are using your own matrix.c, but included debounce      | Write the raw matrix values into matrix.c's matrix      |
 
-Note: 
+**Note**: 
 If ```SPLIT_KEYBOARD = YES``` is defined, the algorithm inside split_common will be used.
 A future pull request will fix this to use the debounce.c code.
 
