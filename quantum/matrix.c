@@ -27,17 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "timer.h"
 
 
-/* Set 0 if debouncing isn't needed */
-
-#ifndef DEBOUNCING_DELAY
-#   define DEBOUNCING_DELAY 5
-#endif
-
-#if (DEBOUNCING_DELAY > 0)
-    static uint16_t debouncing_time;
-    static bool debouncing = false;
-#endif
-
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
 #    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
@@ -66,8 +55,6 @@ static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
-
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 
 #if (DIODE_DIRECTION == COL2ROW)
@@ -122,30 +109,6 @@ uint8_t matrix_cols(void) {
     return MATRIX_COLS;
 }
 
-// void matrix_power_up(void) {
-// #if (DIODE_DIRECTION == COL2ROW)
-//     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-//         /* DDRxn */
-//         _SFR_IO8((row_pins[r] >> 4) + 1) |= _BV(row_pins[r] & 0xF);
-//         toggle_row(r);
-//     }
-//     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
-//         /* PORTxn */
-//         _SFR_IO8((col_pins[c] >> 4) + 2) |= _BV(col_pins[c] & 0xF);
-//     }
-// #elif (DIODE_DIRECTION == ROW2COL)
-//     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
-//         /* DDRxn */
-//         _SFR_IO8((col_pins[c] >> 4) + 1) |= _BV(col_pins[c] & 0xF);
-//         toggle_col(c);
-//     }
-//     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-//         /* PORTxn */
-//         _SFR_IO8((row_pins[r] >> 4) + 2) |= _BV(row_pins[r] & 0xF);
-//     }
-// #endif
-// }
-
 void matrix_init(void) {
 
     // initialize row and col
@@ -160,7 +123,6 @@ void matrix_init(void) {
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
-        matrix_debouncing[i] = 0;
     }
 
     matrix_init_quantum();
@@ -170,59 +132,24 @@ uint8_t matrix_scan(void)
 {
 
 #if (DIODE_DIRECTION == COL2ROW)
-
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-#       if (DEBOUNCING_DELAY > 0)
-            bool matrix_changed = read_cols_on_row(matrix_debouncing, current_row);
-
-            if (matrix_changed) {
-                debouncing = true;
-                debouncing_time = timer_read();
-            }
-
-#       else
-            read_cols_on_row(matrix, current_row);
-#       endif
-
+        read_cols_on_row(matrix, current_row);
     }
-
 #elif (DIODE_DIRECTION == ROW2COL)
-
     // Set col, read rows
     for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-#       if (DEBOUNCING_DELAY > 0)
-            bool matrix_changed = read_rows_on_col(matrix_debouncing, current_col);
-            if (matrix_changed) {
-                debouncing = true;
-                debouncing_time = timer_read();
-            }
-#       else
-             read_rows_on_col(matrix, current_col);
-#       endif
-
+        read_rows_on_col(matrix, current_col);
     }
-
 #endif
-
-#   if (DEBOUNCING_DELAY > 0)
-        if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
-            for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-                matrix[i] = matrix_debouncing[i];
-            }
-            debouncing = false;
-        }
-#   endif
 
     matrix_scan_quantum();
     return 1;
 }
 
+//Deprecated.
 bool matrix_is_modified(void)
 {
-#if (DEBOUNCING_DELAY > 0)
-    if (debouncing) return false;
-#endif
     return true;
 }
 
