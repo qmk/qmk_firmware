@@ -31,7 +31,12 @@ endif
 
 ifeq ($(PLATFORM),CHIBIOS)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+  ifeq ($(MCU_SERIES), STM32F3xx)
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+  else
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
+endif
   ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
   endif
