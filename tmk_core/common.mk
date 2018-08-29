@@ -42,9 +42,7 @@ ifeq ($(PLATFORM),TEST)
 endif
 
 # Debounce Modules. If implemented in matrix.c, don't use these.
-ifeq ($(strip $(CUSTOM_MATRIX)), yes)
-    # Do nothing. Custom matrix code.
-else ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     # Do nothing, debouncing is inside matrix.c inside split_common
 else ifeq ($(strip $(DEBOUNCE_ALGO)), manual)
     # Do nothing. do your debouncing in matrix.c
@@ -52,6 +50,8 @@ else ifeq ($(strip $(DEBOUNCE_ALGO)), sym_g)
     TMK_COMMON_SRC += $(DEBOUNCE)/debounce_sym_g.c
 else ifeq ($(strip $(DEBOUNCE_ALGO)), eager_pk)
     TMK_COMMON_SRC += $(DEBOUNCE)/debounce_eager_pk.c
+else ifeq ($(strip $(CUSTOM_MATRIX)), yes)
+    # Do nothing. Custom matrix code.
 else # default algorithm
     TMK_COMMON_SRC += $(DEBOUNCE)/debounce_sym_g.c
 endif
