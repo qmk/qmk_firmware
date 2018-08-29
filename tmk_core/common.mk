@@ -1,4 +1,5 @@
 COMMON_DIR = common
+DEBOUNCE = $(COMMON_DIR)/debounce
 ifeq ($(PLATFORM),AVR)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
 else ifeq ($(PLATFORM),CHIBIOS)
@@ -9,6 +10,7 @@ endif
 
 TMK_COMMON_SRC +=	$(COMMON_DIR)/host.c \
 	$(COMMON_DIR)/keyboard.c \
+	$(COMMON_DIR)/debounce.c \
 	$(COMMON_DIR)/action.c \
 	$(COMMON_DIR)/action_tapping.c \
 	$(COMMON_DIR)/action_macro.c \
@@ -39,7 +41,20 @@ ifeq ($(PLATFORM),TEST)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
 endif
 
-
+# Debounce Modules. If implemented in matrix.c, don't use these.
+ifeq ($(strip $(CUSTOM_MATRIX)), yes)
+    # Do nothing. Custom matrix code.
+else ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    # Do nothing, debouncing is inside matrix.c inside split_common
+else ifeq ($(strip $(DEBOUNCE_ALGO)), manual)
+    # Do nothing. do your debouncing in matrix.c
+else ifeq ($(strip $(DEBOUNCE_ALGO)), sym_g)
+    TMK_COMMON_SRC += $(DEBOUNCE)/debounce_sym_g.c
+else ifeq ($(strip $(DEBOUNCE_ALGO)), eager_pk)
+    TMK_COMMON_SRC += $(DEBOUNCE)/debounce_eager_pk.c
+else # default algorithm
+    TMK_COMMON_SRC += $(DEBOUNCE)/debounce_sym_g.c
+endif
 
 # Option modules
 ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
