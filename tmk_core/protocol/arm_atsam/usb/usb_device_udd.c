@@ -51,7 +51,7 @@
 #include "conf_usb.h"
 #include "udd.h"
 #include "usb.h"
-#include "Status_codes.h"
+#include "status_codes.h"
 
 /**
  * \ingroup usb_device_group

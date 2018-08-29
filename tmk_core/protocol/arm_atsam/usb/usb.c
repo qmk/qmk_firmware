@@ -51,13 +51,13 @@
   #define ARM_MATH_CM4
 #endif
 
-#include "Compiler.h"
+#include "compiler.h"
 #undef LITTLE_ENDIAN  //redefined in samd51j18a.h
 #include "samd51j18a.h"
 #include <stdbool.h>
 #include <string.h>
-#include "Arm_math.h"
-#include "Status_codes.h"
+#include "arm_math.h"
+#include "status_codes.h"
 #include "usb.h"
 
 /** Fields definition from a LPM TOKEN  */
