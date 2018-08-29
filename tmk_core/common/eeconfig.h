@@ -45,17 +45,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #else
 /* STM32F3 uses 16byte block. Reconfigure memory map */
 #define EECONFIG_MAGIC                              (uint16_t *)0
-#define EECONFIG_DEBUG                              (uint8_t *)1
-#define EECONFIG_DEFAULT_LAYER                      (uint8_t *)2
-#define EECONFIG_KEYMAP                             (uint8_t *)3
-#define EECONFIG_MOUSEKEY_ACCEL                     (uint8_t *)4
-#define EECONFIG_BACKLIGHT                          (uint8_t *)5
-#define EECONFIG_AUDIO                              (uint8_t *)6
+#define EECONFIG_DEBUG                               (uint8_t *)1
+#define EECONFIG_DEFAULT_LAYER                       (uint8_t *)2
+#define EECONFIG_KEYMAP                              (uint8_t *)3
+#define EECONFIG_MOUSEKEY_ACCEL                      (uint8_t *)4
+#define EECONFIG_BACKLIGHT                           (uint8_t *)5
+#define EECONFIG_AUDIO                               (uint8_t *)6
 #define EECONFIG_RGBLIGHT                           (uint32_t *)7
-#define EECONFIG_UNICODEMODE                        (uint8_t *)9
+#define EECONFIG_UNICODEMODE                         (uint8_t *)9
 #define EECONFIG_STENOMODE                          (uint8_t *)10
 // EEHANDS for two handed boards
-#define EECONFIG_HANDEDNESS         				(uint8_t *)11
+#define EECONFIG_HANDEDNESS                     		(uint8_t *)11
+#define EECONFIG_KEYBOARD                          (uint32_t *)12
+#define EECONFIG_USER                              (uint32_t *)14
 #endif
 
 /* debug bit */
