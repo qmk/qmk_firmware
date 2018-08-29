@@ -39,20 +39,24 @@ F_USB = $(F_CPU)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
-
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded
-#     automatically (+60). See bootloader.mk for all options.
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   atmega32a    bootloadHID
 BOOTLOADER = atmel-dfu
+
+
+# If you don't know the bootloader type, then you can specify the
+# Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
+#   Teensy halfKay      512
+#   Teensy++ halfKay    1024
+#   Atmel DFU loader    4096
+#   LUFA bootloader     4096
+#   USBaspLoader        2048
+# OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
