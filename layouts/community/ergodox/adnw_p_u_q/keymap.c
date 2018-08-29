@@ -1,11 +1,15 @@
-#define PERMISSIVE_HOLD // tab/hold-Keys should work better with that
+#include QMK_KEYBOARD_H
+#include "keymap_german.h"
+#include "debug.h"
+#include "action_layer.h"
+
 
 #define BASE 0 // default layer / VIM
 #define ARW 1 // arrow layer / Terminal
 #define DIAK 2 // diakritika layer
 #define BRACK 3 // brackets layer
 #define SYMBOLS 4 // symbols
-#define MEDIA 5 // media keys
+#define MEDIA 5 // media keys / Mouse-Navigation
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -326,34 +330,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {};
-
-void matrix_scan_user(void) {
-
-    uint8_t layer = biton32(layer_state);
-
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-    switch (layer) {
-      // TODO: Make this relevant to the ErgoDox EZ.
-        case 1:
-            ergodox_right_led_1_on();
-            break;
-        case 2:
-            ergodox_right_led_1_on();
-            break;
-	case 3:
-            ergodox_right_led_2_on();
-	    break;
-	case 4:
-            ergodox_right_led_3_on();
-	    break;
-        default:
-            // none
-            break;
-    }
-
-};
+// Runs constantly in the background, in a loop.
+void matrix_scan_user_keyboard(void) {
+    ergodox_board_led_on();
+    ergodox_led_all_on();
+}
