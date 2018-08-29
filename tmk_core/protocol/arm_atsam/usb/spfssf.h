@@ -1,6 +1,8 @@
 #ifndef ____spfssf_h
 #define ____spfssf_h
 
+#include <stdarg.h>
+
 #define sprintf spf
 #define sscanf  ssf
 
