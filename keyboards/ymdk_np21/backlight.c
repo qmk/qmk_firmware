@@ -70,7 +70,6 @@ void led_set_user(uint8_t usb_led) {
       DDRD  &= ~SCROLLLOCK_PORT;
       PORTD &= ~SCROLLLOCK_PORT;
     }
-    led_set_user(usb_led);
 }
 
 #ifdef BACKLIGHT_ENABLE
