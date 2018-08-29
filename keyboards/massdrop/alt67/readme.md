@@ -10,7 +10,7 @@ Hardware Availability: [Massdrop ALT Mechanical Keyboard](https://www.massdrop.c
 
 Make example for this keyboard (after setting up your build environment):
 
-    make alt67:default
+    make massdrop/alt67:default
 
 For information on flashing this keyboard, visit the following links:
 
