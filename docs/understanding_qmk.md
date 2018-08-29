@@ -12,7 +12,7 @@ You can think of QMK as no different from any other computer program. It is star
 
 The reason for this is the different platforms that QMK supports. The most common platform is `lufa`, which runs on AVR processors such at the atmega32u4. We also support `chibios` and `vusb`.
 
-We'll focus on AVR processors for the moment, which use the `lufa` platform. You can find the `main()` function in [tmk_core/protocol/lufa/lufa.c](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/protocol/lufa/lufa.c#L1019). If you browse through that function you'll find that it initializes any hardware that has been configured (including USB to the host) and then it starts the core part of the program with a [`while(1)`](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/protocol/lufa/lufa.c#L1060). This is [The Main Loop](#the-main-loop).
+We'll focus on AVR processors for the moment, which use the `lufa` platform. You can find the `main()` function in [tmk_core/protocol/lufa/lufa.c](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/tmk_core/protocol/lufa/lufa.c#L1019). If you browse through that function you'll find that it initializes any hardware that has been configured (including USB to the host) and then it starts the core part of the program with a [`while(1)`](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/tmk_core/protocol/lufa/lufa.c#L1060). This is [The Main Loop](#the-main-loop).
 
 ## The Main Loop
 
@@ -22,7 +22,7 @@ This section of code is called "The Main Loop" because it's responsible for loop
     keyboard_task();
 ```
 
-This is where all the keyboard specific functionality is dispatched. The source code for `keyboard_task()` can be found in [tmk_core/common/keyboard.c](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/keyboard.c#L206), and it is responsible for detecting changes in the matrix and turning status LED's on and off.
+This is where all the keyboard specific functionality is dispatched. The source code for `keyboard_task()` can be found in [tmk_core/common/keyboard.c](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/tmk_core/common/keyboard.c#L206), and it is responsible for detecting changes in the matrix and turning status LED's on and off.
 
 Within `keyboard_task()` you'll find code to handle:
 
@@ -77,7 +77,7 @@ At the keyboard level we define a C macro (typically named `KEYMAP()`) which map
 
 Notice how the second block of our `KEYMAP()` macro matches the Matrix Scanning array above? This macro is what will map the matrix scanning array to keycodes. However, if you look at a 17 key numpad you'll notice that it has 3 places where the matrix could have a switch but doesn't, due to larger keys. We have populated those spaces with `KC_NO` so that our keymap definition doesn't have to.
 
-You can also use this macro to handle unusual matrix layouts, for example the [Clueboard rev 2](https://github.com/qmk/qmk_firmware/blob/master/keyboards/clueboard/66/rev2/rev2.h). Explaining that is outside the scope of this document.
+You can also use this macro to handle unusual matrix layouts, for example the [Clueboard rev 2](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/keyboards/clueboard/66/rev2/rev2.h). Explaining that is outside the scope of this document.
 
 ##### Keycode Assignment
 
