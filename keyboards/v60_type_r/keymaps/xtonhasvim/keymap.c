@@ -28,6 +28,11 @@ enum layers {
   _CMD
 };
 
+enum layout_key_codes {
+  IND_BRI = VIM_SAFE_RANGE,
+  IND_DIM
+};
+
 extern uint8_t vim_cmd_layer(void) { return _CMD; }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -49,8 +54,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FUN] = LAYOUT_all(
 	       KC_GRV,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  X_____X, KC_DEL, \
-	       X_____X,   RGB_M_P,  KC_UP,    RGB_TOG,  RGB_HUI,  RGB_SAI,  RGB_VAI,   X_____X, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,    X_____X,          KC_INS, \
-	       X_____X,   KC_LEFT,  KC_DOWN,  KC_RIGHT, RGB_HUD,  RGB_SAD,  RGB_VAD,   X_____X, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,          FIREY_RETURN,          \
+	       X_____X,   X_____X,  KC_UP,    RGB_TOG,  IND_BRI,  X_____X,  X_____X,   X_____X, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,    X_____X,          KC_INS, \
+	       X_____X,   KC_LEFT,  KC_DOWN,  KC_RIGHT, IND_DIM,  X_____X,  X_____X,   X_____X, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,          FIREY_RETURN,          \
 	       X_____X,   X_____X,  BL_DEC,   BL_STEP,  BL_INC,   X_____X,  KC_VOLD,   KC_VOLU, KC_MUTE, KC_END,  KC_PGDN,  KC_DOWN,X_____X, X_____X,  \
 	       X_____X,   X_____X,  X_____X,            X_____X,                                                           X_____X,  X_____X, X_____X, _______
     ),
@@ -86,47 +91,68 @@ void led_set_user(uint8_t usb_led) {
 #define C_PRP 0x7A, 0x00, 0xFF
 #define C_ORG 0xFF, 0x93, 0x00
 
+float rgb_brightness = 1.0;
+
 /** the underglow LEDs aren't individually addressable, sadly */
 void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
   LED_TYPE *target_led = user_rgb_mode ? shadowed_led : led;
-  target_led[0].r = r;
-  target_led[0].g = g;
-  target_led[0].b = b;
+  target_led[0].r = (uint8_t)(r*rgb_brightness);
+  target_led[0].g = (uint8_t)(g*rgb_brightness);
+  target_led[0].b = (uint8_t)(b*rgb_brightness);
   rgblight_set();
 }
 
 void set_state_leds(void) {
-  if (rgblight_get_mode() == 1) {
-    switch (biton32(layer_state)) {
-    case _MOVE:
-      rgbflag(C_BLU);
+  switch (biton32(layer_state)) {
+  case _MOVE:
+    rgbflag(C_BLU);
+    break;
+  case _FUN:
+    rgbflag(C_PRP);
+    break;
+  case _CMD:
+    switch(vstate) {
+      case VIM_V:
+      case VIM_VI:
+      case VIM_VS:
+      case VIM_C:
+      case VIM_CI:
+      case VIM_D:
+      case VIM_DI:
+        rgbflag(C_RED);
+        break;
+      case VIM_G:
+        rgbflag(C_PRP);
+        break;
+      case VIM_Y:
+        rgbflag(C_ORG);
+        break;
+      case VIM_START:
+      default:
+        rgbflag(C_GRN);
+        break;
+    }
+    break;
+  default: //  for any other layers, or the default layer
+    rgbflag(C_YAN);
+    break;
+  }
+}
+
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    switch(keycode) {
+      case IND_BRI:
+        rgb_brightness += 0.2;
+        if(rgb_brightness > 1.0) rgb_brightness = 1.0;
+        set_state_leds();
       break;
-    case _CMD:
-      switch(vstate) {
-        case VIM_V:
-        case VIM_VI:
-        case VIM_VS:
-        case VIM_C:
-        case VIM_CI:
-        case VIM_D:
-        case VIM_DI:
-          rgbflag(C_RED);
-          break;
-        case VIM_G:
-          rgbflag(C_PRP);
-          break;
-        case VIM_Y:
-          rgbflag(C_ORG);
-          break;
-        case VIM_START:
-        default:
-          rgbflag(C_GRN);
-          break;
-      }
-      break;
-    default: //  for any other layers, or the default layer
-      rgbflag(C_YAN);
+      case IND_DIM:
+        rgb_brightness -= 0.2;
+        if(rgb_brightness < 0.1) rgb_brightness = 0.1;
+        set_state_leds();
       break;
     }
   }
+  return true;
 }
