@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	       KC_GRV,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  X_____X, KC_DEL, \
 	       X_____X,   X_____X,  KC_UP,    RGB_TOG,  IND_BRI,  X_____X,  X_____X,   X_____X, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,    X_____X,          KC_INS, \
 	       X_____X,   KC_LEFT,  KC_DOWN,  KC_RIGHT, IND_DIM,  X_____X,  X_____X,   X_____X, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,          FIREY_RETURN,          \
-	       X_____X,   X_____X,  BL_DEC,   BL_STEP,  BL_INC,   X_____X,  KC_VOLD,   KC_VOLU, KC_MUTE, KC_END,  KC_PGDN,  KC_DOWN,X_____X, X_____X,  \
+	       X_____X,   X_____X,  BL_INC,   BL_STEP,  BL_DEC,   X_____X,  KC_VOLD,   KC_VOLU, KC_MUTE, KC_END,  KC_PGDN,  KC_DOWN,X_____X, X_____X,  \
 	       X_____X,   X_____X,  X_____X,            X_____X,                                                           X_____X,  X_____X, X_____X, _______
     ),
 
@@ -95,11 +95,12 @@ float rgb_brightness = 1.0;
 
 /** the underglow LEDs aren't individually addressable, sadly */
 void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
+  float rgb_brightness = ((float)rgblight_get_val())/256;
+  if(rgb_brightness == 0) rgb_brightness = 0.05;
   LED_TYPE *target_led = user_rgb_mode ? shadowed_led : led;
   target_led[0].r = (uint8_t)(r*rgb_brightness);
   target_led[0].g = (uint8_t)(g*rgb_brightness);
   target_led[0].b = (uint8_t)(b*rgb_brightness);
-  rgblight_set();
 }
 
 void set_state_leds(void) {
@@ -139,17 +140,29 @@ void set_state_leds(void) {
   }
 }
 
+#define RGBLIGHT_LIMIT_VAL 255
+#define RGBLIGHT_BASE_VAL 3
+extern rgblight_config_t rgblight_config;
+
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch(keycode) {
       case IND_BRI:
-        rgb_brightness += 0.2;
-        if(rgb_brightness > 1.0) rgb_brightness = 1.0;
+        if (rgblight_config.val + RGBLIGHT_VAL_STEP > RGBLIGHT_LIMIT_VAL) {
+          rgblight_config.val = RGBLIGHT_LIMIT_VAL;
+        } else {
+          rgblight_config.val = rgblight_config.val + RGBLIGHT_VAL_STEP;
+        }
+        eeconfig_update_rgblight(rgblight_config.raw);
         set_state_leds();
       break;
       case IND_DIM:
-        rgb_brightness -= 0.2;
-        if(rgb_brightness < 0.1) rgb_brightness = 0.1;
+        if (rgblight_config.val - RGBLIGHT_VAL_STEP < RGBLIGHT_BASE_VAL) {
+          rgblight_config.val = RGBLIGHT_BASE_VAL;
+        } else {
+          rgblight_config.val = rgblight_config.val - RGBLIGHT_VAL_STEP;
+        }
+        eeconfig_update_rgblight(rgblight_config.raw);
         set_state_leds();
       break;
     }
