@@ -13,9 +13,11 @@ People often define custom names using `#define`. For example:
 
 This will allow you to use `FN_CAPS` and `ALT_TAB` in your `KEYMAP()`, keeping it more readable.
 
-### Limits of These Aliases
+### Caveats
 
-Currently, the keycodes able to used with these functions are limited to the [Basic Keycodes](keycodes_basic.md), meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used see [Basic Keycodes](keycodes_basic.md).
+Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Modifiers specified as part of a Layer Tap or Mod Tap's keycode will be ignored.
+
+Additionally, if at least one right-handed modifier is specified in a Mod Tap or Layer Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
 
 # Switching and Toggling Layers
 
@@ -102,10 +104,6 @@ We've added shortcuts to make common modifier/tap (mod-tap) mappings more compac
   * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
   * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
   * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
-
-?> Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
-
-?> Additionally, if there is at least one right-handed modifier, any other modifiers in a chain of functions will turn into their right-handed equivalents, so it is not possible to "mix and match" the two.
 
 # One Shot Keys
 
