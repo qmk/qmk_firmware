@@ -10,7 +10,12 @@ Hardware Availability: [Massdrop CTRL Mechanical Keyboard](https://www.massdrop.
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ctrl:default
+    make massdrop/ctrl:default
+
+For information on flashing this keyboard, visit the following links:
+
+[Massdrop Loader Releases](https://github.com/Massdrop/mdloader/releases/tag/0.0.1)  
+[Massdrop Loader Repository and Instructions](https://github.com/Massdrop/mdloader)
 
 For information on flashing this keyboard, visit the following links:
 
