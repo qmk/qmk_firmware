@@ -143,7 +143,7 @@ void matrix_init_user(void) {
 #endif
 
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-	set_unicode_input_mode(UC_WINC);
+	set_unicode_input_mode(UC_WIN);
 #endif //UNICODE_ENABLE
   matrix_init_keymap();
 }
@@ -356,31 +356,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
     break;
+  case UC_FLIP: // (ノಠ痊ಠ)ノ彡┻━┻
 #ifdef UNICODE_ENABLE
-  case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻
     if (record->event.pressed) {
-      register_code(KC_RSFT);
-      tap(KC_9);
-      unregister_code(KC_RSFT);
-      process_unicode((0x256F | QK_UNICODE), record); // Arm
-      process_unicode((0x00B0 | QK_UNICODE), record); // Eye
-      process_unicode((0x25A1 | QK_UNICODE), record); // Mouth
-      process_unicode((0x00B0 | QK_UNICODE), record); // Eye
-      register_code(KC_RSFT);
-      tap(KC_0);
-      unregister_code(KC_RSFT);
-      process_unicode((0x256F | QK_UNICODE), record); // Arm
-      tap(KC_SPC);
-      process_unicode((0x0361 | QK_UNICODE), record); // Flippy
-      tap(KC_SPC);
-      process_unicode((0x253B | QK_UNICODE), record); // Table
-      process_unicode((0x2501 | QK_UNICODE), record); // Table
-      process_unicode((0x253B | QK_UNICODE), record); // Table
+      send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
     }
+#endif
     return false;
     break;
-#endif // UNICODE_ENABLE
-
   }
   return process_record_keymap(keycode, record) &&
 #ifdef RGBLIGHT_ENABLE

@@ -19,9 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "version.h"
 #include "eeprom.h"
+#include "send_unicode.h"
+
 #ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix.h"
 #endif
+
+
 // Define layer names
 enum userspace_layers {
   _QWERTY = 0,
@@ -99,10 +103,7 @@ enum userspace_custom_keycodes {
   KC_SECRET_5,       // test5
   KC_CCCV,           // Hold to copy, tap to paste
   KC_NUKE,           // NUCLEAR LAUNCH DETECTED!!!
-
-#ifdef UNICODE_ENABLE
   UC_FLIP,           // Table flip (not working?)
-#endif //UNICODE_ENABLE
   NEW_SAFE_RANGE     //use "NEWPLACEHOLDER for keymap specific codes
 };
 
