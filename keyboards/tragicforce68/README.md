@@ -1,11 +1,11 @@
-Tracgicforce 68
-====
+Tragicforce 68
+===============
 
-Magicforce 68 with [replacement PCB](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/mf68) designed by [di0ib](https://github.com/di0ib).
+Magicforce 68 with [Tragicforce 68 replacement PCB](https://keeb.io/products/mf68-magicforce-68-pcb-replacement-kit) from Keebio.
 
-Keyboard Maintainer: [di0ib](http://www.40percent.club)  
+Keyboard Maintainer: [Keebio](https://keeb.io)  
 Hardware Supported: Pro Micro  
-Hardware Availability: [PCB files](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/mf68/pcb)  
+Hardware Availability: [Keebio](https://keeb.io) 
 
 Make example for this keyboard (after setting up your build environment):
 

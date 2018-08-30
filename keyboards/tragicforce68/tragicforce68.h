@@ -1,5 +1,4 @@
-#ifndef TRAGICFORCE68_H
-#define TRAGICFORCE68_H
+#pragma once
 
 #include "quantum.h"
 
@@ -55,5 +54,3 @@
     KC_##K60, KC_##K61, KC_##K62, KC_##K63, KC_##K64, KC_##K65, KC_##K66, KC_##K67, KC_##K68, \
     KC_##K70, KC_##K71, KC_##K72, KC_##K73, KC_##K74 \
 )
-
-#endif
