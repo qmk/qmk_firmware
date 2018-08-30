@@ -32,7 +32,6 @@ void eeconfig_init_kb(void) {
  * FIXME: needs doc
  */
 void eeconfig_init_quantum(void) {
-{
 #ifdef STM32F303xC
     EEPROM_format();
 #endif
