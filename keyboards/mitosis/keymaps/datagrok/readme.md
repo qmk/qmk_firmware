@@ -67,7 +67,7 @@ Keyboard layout editor sources:
 
 - I like the way Workman feels and some of its advantages over Colemak.
   Unfortunately, it was designed using a weighting system based on a standard
-  column-staggered keyboard so is probably not as optimal as one could achieve
+  row-staggered keyboard so is probably not as optimal as one could achieve
   on an ergonomic board like the Mitosis. Maybe run an optimizer routine after I
   determine good values for key difficulty on the Mitosis.
 
