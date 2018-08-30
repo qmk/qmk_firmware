@@ -4,7 +4,7 @@
 #include QMK_KEYBOARD_CONFIG_H
 
 #define PREVENT_STUCK_MODIFIERS
-#define SPACE_COUNT 3
+#define SPACE_COUNT 2
 
 #define TEMPLATE(                                                                     \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K2D,      \
