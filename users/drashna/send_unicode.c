@@ -54,3 +54,6 @@ void send_unicode_hex_string(const char* str) {
       process_unicode((0x2501 | QK_UNICODE), record); // Table
       process_unicode((0x253B | QK_UNICODE), record); // Table
       #endif
+
+
+// If you need a good converter: https://r12a.github.io/app-conversion/

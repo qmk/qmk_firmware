@@ -103,7 +103,11 @@ enum userspace_custom_keycodes {
   KC_SECRET_5,       // test5
   KC_CCCV,           // Hold to copy, tap to paste
   KC_NUKE,           // NUCLEAR LAUNCH DETECTED!!!
-  UC_FLIP,           // Table flip (not working?)
+  UC_FLIP,           // (ಠ痊ಠ)┻━┻
+  UC_TABL,           // ┬─┬ノ( º _ ºノ)
+  UC_SHRG,           // ¯\_(ツ)_/¯
+  UC_DISA,           // ಠ_ಠ
+  UC_IRNY,           // ⸮()
   NEW_SAFE_RANGE     //use "NEWPLACEHOLDER for keymap specific codes
 };
 
