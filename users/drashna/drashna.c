@@ -131,7 +131,7 @@ void led_set_keymap(uint8_t usb_led) {}
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
-  userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
+  userspace_config.raw = eeprom_read_dword(EECONFIG_USERSPACE);
 
 
 #ifdef BOOTLOADER_CATERINA
@@ -293,7 +293,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // to save on firmware space, since it's limited.
 #ifdef MACROS_ENABLED
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw); }
+    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_dword(EECONFIG_USERSPACE, userspace_config.raw); }
 #ifdef RGBLIGHT_ENABLE
     userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
 #endif //RGBLIGHT_ENABLE

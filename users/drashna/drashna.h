@@ -63,14 +63,15 @@ inline void tap(uint16_t keycode){ register_code(keycode); unregister_code(keyco
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
 bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 
-#define EECONFIG_USERSPACE (uint8_t *)19
+#define EECONFIG_USERSPACE (uint32_t *)19
 
 typedef union {
-  uint8_t raw;
+  uint32_t raw;
   struct {
     bool     rgb_layer_change :1;
     bool     is_overwatch     :1;
     bool     nuke_switch      :1;
+    uint8_t  unicode_mod      :4;
   };
 } userspace_config_t;
 
