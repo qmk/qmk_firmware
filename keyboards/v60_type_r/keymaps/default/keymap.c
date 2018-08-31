@@ -19,6 +19,10 @@
 */
 #include QMK_KEYBOARD_H
 
+// Existing custom keycodes exist, use `KEYMAP_SAFE_RANGE` to prevent overlap
+enum custom_keycodes {
+  NEW = KEYMAP_SAFE_RANGE
+}
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap 0: Default Layer (Qwerty)

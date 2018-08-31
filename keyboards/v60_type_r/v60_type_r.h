@@ -31,7 +31,8 @@ enum my_keycodes {
   RGB_GI,
   RGB_GD,
   RGB_BI,
-  RGB_BD
+  RGB_BD,
+  KEYMAP_SAFE_RANGE
 };
 #endif
 
