@@ -1,16 +1,17 @@
 #include QMK_KEYBOARD_H
+#include "mechmerlin.h"
 
-#define _BL   0 // Base Layer
-#define _FN   1 // Function Layer
-#define _AR   2 // Arrow Layer
+// #define _BL   0 // Base Layer
+// #define _FN   1 // Function Layer
+// #define _AR   2 // Arrow Layer
 
-// Custom #defined keycodes
-#define KC_CTCP MT(KC_LCTL, KC_CAPS)
+// // Custom #defined keycodes
+// #define KC_CTCP MT(KC_LCTL, KC_CAPS)
 
-// Enum of custom keycodes defined in process_record_user
-enum keycodes {
-    KC_FNX, // Hold for FN layer, tap to toggle ARROWS layer. 
-};
+// // Enum of custom keycodes defined in process_record_user
+// enum keycodes {
+//     KC_FNX, // Hold for FN layer, tap to toggle ARROWS layer. 
+// };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BL] = LAYOUT_60_ansi(
@@ -43,11 +44,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_FNX:                                    
             if(record->event.pressed){
                 fnx_layer_timer = timer_read();
-                layer_on(FN);
+                layer_on(_FL);
             } else {
-                layer_off(FN);
+                layer_off(_FL);
                 if (timer_elapsed(fnx_layer_timer) < 150) {  
-                    layer_invert(ARROWS);
+                    layer_invert(_AL);
                 }
             }
         return false;
