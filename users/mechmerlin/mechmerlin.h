@@ -1,5 +1,4 @@
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 
 #include "quantum.h"
 
@@ -16,5 +15,3 @@ enum keycodes {
 
 // Custom #defined keycodes
 #define KC_CTCP MT(KC_LCTL, KC_CAPS)
-
-#endif
