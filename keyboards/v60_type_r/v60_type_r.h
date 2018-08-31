@@ -34,6 +34,8 @@ enum my_keycodes {
   RGB_BD,
   KEYMAP_SAFE_RANGE
 };
+#else
+#define KEYMAP_SAFE_RANGE SAFE_RANGE
 #endif
 
 // This a shortcut to help you visually see your layout.
