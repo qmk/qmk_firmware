@@ -75,8 +75,14 @@ typedef union {
   };
 } userspace_config_t;
 
+#if defined(KEYMAP_SAFE_RANGE)
+  #define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
+#else
+  #define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
+#endif
+
 enum userspace_custom_keycodes {
-  EPRM = SAFE_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
+  EPRM = PLACEHOLDER_SAFE_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
   VRSN,              // Prints QMK Firmware and board info
   KC_QWERTY,         // Sets default layer to QWERTY
   KC_COLEMAK,        // Sets default layer to COLEMAK
