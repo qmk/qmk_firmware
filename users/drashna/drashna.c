@@ -249,7 +249,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
       send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP
-#if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
+#if defined(__ARM__)
+                   ":dfu-util"
+#elif defined(BOOTLOADER_DFU)
                    ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
                    ":teensy"
@@ -378,12 +380,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case UC_DISA: // ಠ_ಠ
     if (record->event.pressed) {
       send_unicode_hex_string("0CA0 005F 0CA0");
-    }
-    return false;
-    break;
-  case UC_IRNY: //
-    if (record->event.pressed) {
-      send_unicode_hex_string("2E2E");
     }
     return false;
     break;

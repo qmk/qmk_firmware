@@ -107,9 +107,9 @@ enum userspace_custom_keycodes {
   UC_TABL,           // ┬─┬ノ( º _ ºノ)
   UC_SHRG,           // ¯\_(ツ)_/¯
   UC_DISA,           // ಠ_ಠ
-  UC_IRNY,           // ⸮()
   NEW_SAFE_RANGE     //use "NEWPLACEHOLDER for keymap specific codes
 };
+
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -158,6 +158,8 @@ enum userspace_custom_keycodes {
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
 
+#define UC_IRNY UC(0x2E2E)
+#define UC_CLUE UC(0x203D)
 
 #ifdef TAP_DANCE_ENABLE
 enum {
