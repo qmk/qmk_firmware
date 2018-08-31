@@ -172,20 +172,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-
-static rgblight_config_t old_rgb = {0};
-static backlight_config_t old_backlight = {0};
-
 void suspend_power_down_user(void)
 {
   // rgb
-  old_rgb.raw = rgblight_config.raw;
-
   rgblight_config.enable = false;
   rgblight_set();
 
   // backlight
-  old_backlight.raw = backlight_config.raw;
   /** I don't know why, but 3 means "off" and down is up */
   backlight_config.level = 3;
   backlight_config.enable = false;
@@ -194,23 +187,10 @@ void suspend_power_down_user(void)
 
 void suspend_wakeup_init_user(void)
 {
+  rgblight_config.raw = eeconfig_read_rgblight();
+  backlight_config.raw = eeconfig_read_backlight();
 
-  // rgb come back
-  // rgblight_config.enable = rgb_was_enabled;
-  rgblight_config.raw = old_rgb.raw;
-
-  rgblight_config.enable = false;
-
+  backlight_set(backlight_config.level);
   rgblight_set();
-
-  // backlight come back
-  backlight_config.raw = old_backlight.raw;
-
-
-  backlight_config.level = 0;
-  backlight_config.enable = false;
-  backlight_set(3);
-
-  backlight_set(old_backlight.level);
 }
 
