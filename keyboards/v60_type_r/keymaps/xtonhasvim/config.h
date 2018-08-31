@@ -21,4 +21,6 @@
 
 #define V60_POLESTAR
 
+#define PERMISSIVE_HOLD
+
 #endif

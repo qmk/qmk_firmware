@@ -101,6 +101,7 @@ void rgbflag(uint8_t r, uint8_t g, uint8_t b) {
   target_led[0].r = (uint8_t)(r*rgb_brightness);
   target_led[0].g = (uint8_t)(g*rgb_brightness);
   target_led[0].b = (uint8_t)(b*rgb_brightness);
+  rgblight_set(); // just to handle turning off if that's required
 }
 
 void set_state_leds(void) {
@@ -143,6 +144,7 @@ void set_state_leds(void) {
 #define RGBLIGHT_LIMIT_VAL 255
 #define RGBLIGHT_BASE_VAL 3
 extern rgblight_config_t rgblight_config;
+extern backlight_config_t backlight_config;
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
@@ -169,3 +171,46 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
+
+
+static rgblight_config_t old_rgb = {0};
+static backlight_config_t old_backlight = {0};
+
+void suspend_power_down_user(void)
+{
+  // rgb
+  old_rgb.raw = rgblight_config.raw;
+
+  rgblight_config.enable = false;
+  rgblight_set();
+
+  // backlight
+  old_backlight.raw = backlight_config.raw;
+  /** I don't know why, but 3 means "off" and down is up */
+  backlight_config.level = 3;
+  backlight_config.enable = false;
+  backlight_set(3);
+}
+
+void suspend_wakeup_init_user(void)
+{
+
+  // rgb come back
+  // rgblight_config.enable = rgb_was_enabled;
+  rgblight_config.raw = old_rgb.raw;
+
+  rgblight_config.enable = false;
+
+  rgblight_set();
+
+  // backlight come back
+  backlight_config.raw = old_backlight.raw;
+
+
+  backlight_config.level = 0;
+  backlight_config.enable = false;
+  backlight_set(3);
+
+  backlight_set(old_backlight.level);
+}
+
