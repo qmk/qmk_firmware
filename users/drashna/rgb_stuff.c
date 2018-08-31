@@ -265,13 +265,13 @@ void matrix_init_rgb(void) {
     rgblight_enable_noeeprom();
     switch (biton32(eeconfig_read_default_layer())) {
       case _COLEMAK:
-        rgblight_sethsv_magenta(); break;
+        rgblight_sethsv_noeeprom_magenta(); break;
       case _DVORAK:
-        rgblight_sethsv_springgreen(); break;
+        rgblight_sethsv_noeeprom_springgreen(); break;
       case _WORKMAN:
-        rgblight_sethsv_goldenrod(); break;
+        rgblight_sethsv_noeeprom_goldenrod(); break;
       default:
-        rgblight_sethsv_cyan(); break;
+        rgblight_sethsv_noeeprom_cyan(); break;
     }
     rgblight_mode(1);
   }
