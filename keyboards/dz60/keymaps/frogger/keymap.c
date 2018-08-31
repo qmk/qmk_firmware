@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |-----------------------------------------------------------------------------------------+
    * | Shift     |  Z  |  X  |  C  |  V  |  B  |  N  |  M  |  ,  |  .  |  /  | RSh |  U  | LAY2|
    * |-----------------------------------------------------------------------------------------+
-   * | Ctrl |  Cmd  |  Alt  |   LAY1    | LAY2 |      SPACE     | RAlt | LAY1 |  L  |  D  |  R |
+   * | Ctrl |  Cmd  |  Alt  |   LAY1    | ALT+Lay1 |     SPACE  | RAlt | LAY1 |  L  |  D  |  R |
    * `-----------------------------------------------------------------------------------------'
    */
   LAYOUT_2_shifts(
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       KC_LSFT, ______, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, MO(LAYER_1), KC_UP, MO(LAYER_2),
 
-      KC_LCTL, KC_LGUI, KC_LALT, MO(LAYER_1), LM(LAYER_1, 0x04), KC_SPC, KC_RALT, MO(LAYER_1), KC_LEFT, KC_DOWN, KC_RIGHT
+      KC_LCTL, KC_LGUI, KC_LALT, MO(LAYER_1), LM(LAYER_1, MOD_LALT), KC_SPC, KC_RALT, MO(LAYER_1), KC_LEFT, KC_DOWN, KC_RIGHT
       ),
 
 
