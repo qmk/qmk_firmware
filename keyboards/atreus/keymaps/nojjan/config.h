@@ -1,5 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 #include "../../config.h"
 
@@ -11,5 +10,3 @@
 #define MATRIX_ROW_PINS { D0, D1, D3, D2 }
 #define MATRIX_COL_PINS { D7, C6, B5, B4, E6, D4, B6, F6, F7, D6, B7 }
 #define UNUSED_PINS
-
-#endif
