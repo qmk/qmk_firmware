@@ -1,4 +1,4 @@
-/* Copyright 2015-2017 Christon DeWan
+/* Copyright 2018 Christon DeWan (Xton)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,23 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef _fancy_lighting_h
-#define _fancy_lighting_h
-#ifdef RGBLIGHT_ENABLE
 
-#include "xtonhasvim.h"
+#pragma once
 
+#define V60_POLESTAR
 
-extern uint8_t user_rgb_mode;
-extern LED_TYPE shadowed_led[];
+#define PERMISSIVE_HOLD
 
 
-#endif //RGBLIGHT_ENABLE
-void start_firey_return(void);
-
-enum xtonhasvim_rgbmodes {
-  BREATH_FIRE = 1,
-  FADE_BACK
-};
-
-#endif //_fancy_lighting_h

@@ -34,9 +34,14 @@ void matrix_scan_keymap(void) {
 #define FADE_BACK_TIME 500
 #define BREATH_FIRE_TIME 1000
 #define ANIMATION_STEP_INTERVAL 20
+
+#if RGBLED_NUM >= 2
 #define POWER_KEY_OFFSET (RGBLED_NUM / 2)
 #define SPACE_OFFSET_MAX (RGBLED_NUM / 2)
-
+#else
+#define POWER_KEY_OFFSET 1
+#define SPACE_OFFSET_MAX 1
+#endif
 
 uint16_t effect_start_timer = 0;
 uint8_t user_rgb_mode = 0;
