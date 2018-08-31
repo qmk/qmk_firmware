@@ -15,11 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 #include "quantum.h"
-
-
+#include "version.h"
+#include "eeprom.h"
+#ifdef RGB_MATRIX_ENABLE
+#include "rgb_matrix.h"
+#endif
 // Define layer names
 enum userspace_layers {
   _QWERTY = 0,
@@ -53,7 +55,7 @@ extern bool clicky_enable;
 void rgblight_sethsv_default_helper(uint8_t index);
 #endif // RGBLIGHT_ENABLE
 
-void tap(uint16_t keycode);
+inline void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
 bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 
@@ -90,7 +92,6 @@ enum userspace_custom_keycodes {
   KC_C9,
   KC_GGEZ,
   KC_MAKE,           // Run keyboard's customized make command
-  KC_RESET,          // Resets keyboard, with red underglow
   KC_RGB_T,          // Toggles RGB Layer Indication mode
   KC_SECRET_1,       // test1
   KC_SECRET_2,       // test2
@@ -123,6 +124,7 @@ enum userspace_custom_keycodes {
 #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
 
+#define KC_RESET RESET
 #define KC_RST KC_RESET
 
 #ifdef SWAP_HANDS_ENABLE
@@ -130,6 +132,11 @@ enum userspace_custom_keycodes {
 #else // SWAP_HANDS_ENABLE
 #define KC_C1R3 KC_BSPC
 #endif // SWAP_HANDS_ENABLE
+
+#define BK_LWER LT(_LOWER, KC_BSPC)
+#define SP_LWER LT(_LOWER, KC_SPC)
+#define DL_RAIS LT(_RAISE, KC_DEL)
+#define ET_RAIS LT(_RAISE, KC_ENTER)
 
 // OSM keycodes, to keep things clean and easy to change
 #define KC_MLSF OSM(MOD_LSFT)
@@ -325,7 +332,7 @@ enum {
 
 
 #define _________________ADJUST_L1_________________        RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
-#define _________________ADJUST_L2_________________        _______, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
+#define _________________ADJUST_L2_________________        MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
 #define _________________ADJUST_L3_________________        RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T
 
 #define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
@@ -350,4 +357,3 @@ enum {
                                                                 LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)
 
 
-#endif // !USERSPACE
