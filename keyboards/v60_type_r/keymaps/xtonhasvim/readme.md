@@ -16,4 +16,5 @@ The key differences:
 - Alternate underglow modes are not supported. Instead the underglow is used to indicate state. It can be turned off and dimmed. Polestar underglow LEDs are not individually addressable, sadly.
 
 ### Build
+
 To build this keymap, simply run `make v60_type_r:xtonhasvim` from the root project directory. Flash using QMK Toolbox
