@@ -114,31 +114,10 @@ For instance, lets looks at the `layer_state_set_user` function.  Lets enable th
 
 In your `<name.c>` file, you'd want to add this: 
 ```c
-__attribute__ ((weak))
-uint32_t layer_state_set_keymap (uint32_t state) {
-  return state;
-}
-
-uint32_t layer_state_set_user (uint32_t state) {
-  state = update_tri_layer_state(state, 2, 3, 5);
-  return layer_state_set_keymap (state);
-}
-```
-The `__attribute__ ((weak))` part tells the compiler that this is a placeholder function that can then be replaced by a version in your `keymap.c`.  That way, you don't need to add it to your `keymap.c`, but if you do, you won't get any conflicts because the function is the same name. 
+#pragma once
 
 The `_keymap` part here doesn't matter, it just needs to be something other than `_quantum`, `_kb`, or `_user`, since those are already in use. So you could use `layer_state_set_mine`, `layer_state_set_fn`, or anything else.
 
-You can see a list of this and other common functions in [`template.c`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in [`users/drashna`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).
-
-## Custom Features
-
-Since the Userspace feature can support a staggering number of boards, you may have boards that you want to enable certain functionality for, but not for others. And you can actually create "features" that you can enable or disable in your own userspace.  
-
-For instance, if you wanted to have a bunch of macros available, but only on certain boards (to save space), you could "hide" them being a `#ifdef MACROS_ENABLED`, and then enable it per board.  To do this, add this to your rules.mk
-```make
-ifeq ($(strip $(MACROS_ENABLED)), yes)
-    OPT_DEFS += -DMACROS_ENABLED
-endif
 ```
 The `OPT_DEFS` setting causes `MACROS_ENABLED` to be defined for your keyboards (note the `-D` in front of the name), and you could use `#ifdef MACROS_ENABLED` to check the status in your c/h files, and handle that code based on that. 
 
@@ -175,19 +154,41 @@ First, you'd want to go through all of your `keymap.c` files and replace `proces
 Then add `#include <name.h>` to all of your keymap.c files.  This allows you to use these new keycodes without having to redefine them in each keymap.
 
 Once you've done that, you'll want to set the keycode definitions that you need to the `<name>.h`  file. For instance:
-```c
+```
 #pragma once
 
 #include "quantum.h"
 #include "action.h"
 #include "version.h"
 
+#if defined(KEYMAP_SAFE_RANGE)
+  #define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
+#else
+  #define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
+#endif
+
 // Define all of
 enum custom_keycodes {
-  KC_MAKE = SAFE_RANGE,
+  KC_MAKE = PLACEHOLDER_SAFE_RANGE,
   NEW_SAFE_RANGE  //use "NEW_SAFE_RANGE" for keymap specific codes
 };
+
 ```
+
+If your keyboard uses custom macros, you want to replace `KEYMAP_SAFE_RANGE` with the new "safe range" variable, or add something like this: 
+,
+```c
+#if defined(KEYMAP_SAFE_RANGE)
+  #define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
+#elif defined(PLANCK_SAFE_RANGE)
+    #define PLACEHOLDER_SAFE_RANGE PLANCK_SAFE_RANGE
+#else
+  #define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
+#endif
+```
+This way, you will hopefully never overlap macros. 
+
+
 
 Now you want to create the `<name>.c` file, and add this content to it:
 
@@ -204,7 +205,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_MAKE:
     if (!record->event.pressed) {
       SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
-#if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
+#if defined(__ARM__)
+       ":dfu-util"
+#elif defined(BOOTLOADER_DFU)
        ":dfu "
 #elif defined(BOOTLOADER_HALFKAY)
       ":teensy "
@@ -223,5 +226,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 This will add a new `KC_MAKE` keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap>`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
 
 Additionally, this should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely (and will dump the HEX in the ".build" folder instead).
-
-

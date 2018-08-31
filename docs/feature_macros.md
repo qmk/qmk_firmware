@@ -70,6 +70,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 ```
 
+!> If you're setting up macros for a keyboard, you should use include something like `KEYMAP_SAFE_RANGE` at the end of the enum for the keyboard's custom codes.  And include a sample enum block in the default keymap, so that users know they need to use this new safe range so they don't overlap with the custom keyboard keycodes. 
+
 ### TAP, DOWN and UP
 
 You may want to use keys in your macros that you can't write down, such as `Ctrl` or `Home`.

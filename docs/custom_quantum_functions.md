@@ -34,6 +34,8 @@ enum my_keycodes {
 };
 ```
 
+!> If you're setting up macros for a keyboard, you should use include something like `KEYMAP_SAFE_RANGE` at the end of the enum for the keyboard's custom codes.  And include a sample enum block in the default keymap, so that users know they need to use this new safe range so they don't overlap with the custom keyboard keycodes. 
+
 ## Programming the Behavior of Any Keycode
 
 When you want to override the behavior of an existing key, or define the behavior for a new key, you should use the `process_record_kb()` and `process_record_user()` functions. These are called by QMK during key processing before the actual key event is handled. If these functions return `true` QMK will process the keycodes as usual. That can be handy for extending the functionality of a key rather than replacing it. If these functions return `false` QMK will skip the normal key handling, and it will be up to you to send any key up or down events that are required.
