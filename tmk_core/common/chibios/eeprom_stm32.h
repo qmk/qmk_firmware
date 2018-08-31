@@ -48,7 +48,7 @@
     #elif defined (MCU_STM32F103RD)
         #define EEPROM_START_ADDRESS    ((uint32_t)(0x8000000 + 384 * 1024 - 2 * EEPROM_PAGE_SIZE))
     #elif defined (MCU_STM32F303CC)
-        #define EEPROM_START_ADDRESS    ((uint32_t)(0x8000000 + 250 * 1024 - 2 * EEPROM_PAGE_SIZE))
+        #define EEPROM_START_ADDRESS    ((uint32_t)(0x8000000 + 256 * 1024 - 2 * EEPROM_PAGE_SIZE))
     #else
         #error  "No MCU type specified. Add something like -DMCU_STM32F103RB to your compiler arguments (probably in a Makefile)."
     #endif
