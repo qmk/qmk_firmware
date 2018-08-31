@@ -1,18 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "mechmerlin.h"
 
-// #define _BL   0 // Base Layer
-// #define _FN   1 // Function Layer
-// #define _AR   2 // Arrow Layer
-
-// // Custom #defined keycodes
-// #define KC_CTCP MT(KC_LCTL, KC_CAPS)
-
-// // Enum of custom keycodes defined in process_record_user
-// enum keycodes {
-//     KC_FNX, // Hold for FN layer, tap to toggle ARROWS layer. 
-// };
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_BL] = LAYOUT_60_ansi(
     KC_GESC, KC_1,    KC_2, KC_3, KC_4, KC_5, KC_6, KC_7,  KC_8,    KC_9,    KC_0,    KC_MINS,  KC_EQL,  KC_BSPC, \
