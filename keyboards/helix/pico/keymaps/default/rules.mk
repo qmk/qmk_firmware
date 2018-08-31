@@ -35,6 +35,7 @@ LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
 IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
+Link_Time_Optimization = no # if firmware size over limit, try this option
 
 ####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
 ####    Do not enable these with audio at the same time.
@@ -100,6 +101,19 @@ endif
 
 ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
     OPT_DEFS += -DLOCAL_GLCDFONT
+endif
+
+ifeq ($(strip $(AUDIO_ENABLE)),yes)
+  ifeq ($(strip $(RGBLIGHT_ENABLE)),yes)
+    Link_Time_Optimization = yes
+  endif
+  ifeq ($(strip $(OLED_ENABLE)),yes)
+    Link_Time_Optimization = yes
+  endif
+endif
+
+ifeq ($(strip $(Link_Time_Optimization)),yes)
+    EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE

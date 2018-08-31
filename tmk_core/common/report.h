@@ -84,6 +84,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define KEYBOARD_REPORT_SIZE NKRO_EPSIZE
     #define KEYBOARD_REPORT_KEYS (NKRO_EPSIZE - 2)
     #define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
+  #elif defined(PROTOCOL_ARM_ATSAM)
+    #include "protocol/arm_atsam/usb/udi_device_epsize.h"
+    #define KEYBOARD_REPORT_SIZE NKRO_EPSIZE
+    #define KEYBOARD_REPORT_KEYS (NKRO_EPSIZE - 2)
+    #define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
   #else
     #error "NKRO not supported with this protocol"
 #endif

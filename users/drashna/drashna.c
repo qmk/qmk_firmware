@@ -16,16 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "drashna.h"
-#include "version.h"
-#include "eeprom.h"
 #include "tap_dances.h"
 #include "rgb_stuff.h"
 
-
-float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
-float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
-
-static uint16_t copy_paste_timer;
 userspace_config_t userspace_config;
 
 //  Helper Functions
@@ -35,8 +28,14 @@ userspace_config_t userspace_config;
 // the same thing, but with differring text sent.
 bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (!record->event.pressed || override) {
+    uint16_t keycode;
+    if (userspace_config.is_overwatch) {
+      keycode = KC_BSPC;
+    } else {
+      keycode = KC_ENTER;
+    }
     clear_keyboard();
-    tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
+    tap(keycode);
     wait_ms(50);
     send_string_with_delay(str, MACRO_TIMER);
     wait_ms(50);
@@ -45,8 +44,6 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (override) wait_ms(3000);
   return false;
 }
-
-void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed) {
   static uint16_t this_timer;
@@ -94,6 +91,9 @@ __attribute__ ((weak))
 void startup_keymap(void) {}
 
 __attribute__ ((weak))
+void shutdown_keymap(void) {}
+
+__attribute__ ((weak))
 void suspend_power_down_keymap(void) {}
 
 __attribute__ ((weak))
@@ -127,6 +127,7 @@ __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
 
 
+
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
@@ -156,6 +157,24 @@ void startup_user (void) {
     matrix_init_rgb();
   #endif //RGBLIGHT_ENABLE
   startup_keymap();
+}
+
+void shutdown_user (void) {
+#ifdef RGBLIGHT_ENABLE
+  rgblight_enable_noeeprom();
+  rgblight_mode_noeeprom(1);
+  rgblight_setrgb_red();
+#endif // RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+  rgb_led led;
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    led = g_rgb_leds[i];
+    if (led.matrix_co.raw < 0xFF) {
+      rgb_matrix_set_color( i, 0xFF, 0x00, 0x00 );
+    }
+  }
+#endif //RGB_MATRIX_ENABLE
+  shutdown_keymap();
 }
 
 void suspend_power_down_user(void)
@@ -246,20 +265,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
     break;
 
-
-  case KC_RESET: // Custom RESET code that sets RGBLights to RED
-    if (!record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable_noeeprom();
-      rgblight_mode_noeeprom(1);
-      rgblight_setrgb_red();
-#endif // RGBLIGHT_ENABLE
-      reset_keyboard();
-    }
-    return false;
-    break;
-
-
   case EPRM: // Resets EEPROM
     if (record->event.pressed) {
       eeconfig_init();
@@ -333,28 +338,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false; break;
 
 
-  case KC_CCCV:                                    // One key copy/paste
-    if(record->event.pressed){
-      copy_paste_timer = timer_read();
-    } else {
-      if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {   // Hold, copy
-        register_code(KC_LCTL);
-        tap(KC_C);
-        unregister_code(KC_LCTL);
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(tone_copy);
-#endif
-      } else {                                // Tap, paste
-        register_code(KC_LCTL);
-        tap(KC_V);
-        unregister_code(KC_LCTL);
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(tone_paste);
-#endif
-      }
-    }
-    return false;
-    break;
   case CLICKY_TOGGLE:
 #ifdef AUDIO_CLICKY
     userspace_config.clicky_enable = clicky_enable;

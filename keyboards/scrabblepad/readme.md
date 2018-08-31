@@ -6,7 +6,7 @@ the XDA Scrabble Board sold by [Novelkeys](https://novelkeys.xyz).
 It uses a [Teensy++ 2.0](https://www.pjrc.com/store/teensypp.html) 
 featuring an at90usb1286 8 bit microcontroller. Usage requires modifying the Teensy by removing the LED on pin D6.
 
-Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [Donut Cables](https://donutcables.com/)
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [Donut Cables](https://donutcables.com/)  
 Hardware Supported: Teensy++ 2.0 and ScrabblePad PCB  
 Hardware Availability: [Donut Cables](https://donutcables.com/)
 
