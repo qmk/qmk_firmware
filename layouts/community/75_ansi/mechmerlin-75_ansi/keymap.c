@@ -1,10 +1,5 @@
 #include QMK_KEYBOARD_H
-
-#define _BL   0 // Base Layer
-#define _FL   1 // Function Layer
-
-// Custom #defined keycodes
-#define KC_CTCP MT(KC_LCTL, KC_CAPS)
+#include "mechmerlin.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
