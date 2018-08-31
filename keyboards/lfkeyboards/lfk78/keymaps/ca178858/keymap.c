@@ -1,11 +1,8 @@
-#include "lfk78.h"
-#include "issi.h"
-#include "lighting.h"
-#include "action_layer.h"
-#include "process_tap_dance.h"
+#include QMK_KEYBOARD_H
 
-//Define a shorter 'transparent' key code to make the keymaps more compact
-#define KC_TR KC_TRNS
+// readability
+#define _______ KC_TRNS
+#define XXXXXXX KC_NO
 
 enum keymap_layout {
     VANILLA = 0,  // matches MF68 layout
@@ -55,19 +52,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | F9 | F10|  |Func|Alt |Cmd |      Space            |Cmd |Alt |Func |    |Lft| Dn |Rig |
    * `---------'  `------------------------------------------------------'    `-------------'
    */
-[VANILLA] = LAYOUT_split_shift(
-  KC_VOLD, KC_VOLU,   KC_GESC,KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL,        KC_BSPC,  LALT(KC_F5), KC_PGUP,
-  KC_F3, KC_F4,       KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC,      KC_BSLS,  KC_DEL, KC_PGDN,
-  KC_F5, KC_F6,       TD(TD_ESC_FUNC), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT,    KC_ENT,
-  KC_F7, KC_F8,       KC_LSFT, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH,        KC_RSFT, MO(CS_GO),   KC_UP,
-  KC_F9, KC_F10,      KC_LCTL, KC_LALT, KC_LGUI,            KC_SPC,            KC_RGUI, KC_RCTL, MO(FUNC),       KC_LEFT, KC_DOWN, KC_RGHT),
+  [VANILLA] = LAYOUT_split_rshift(
+    KC_VOLD, KC_VOLU, KC_GESC,         KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,       KC_BSPC,            LALT(KC_F5), KC_PGUP, \
+    KC_F3,   KC_F4,   KC_TAB,          KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC,      KC_BSLS,            KC_DEL,      KC_PGDN, \
+    KC_F5,   KC_F6,   TD(TD_ESC_FUNC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,               KC_ENT,                                   \
+    KC_F7,   KC_F8,   KC_LSFT,         KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,      MO(CS_GO),          KC_UP,                \
+    KC_F9,   KC_F10,  KC_LCTL,         KC_LALT, KC_LGUI,                            KC_SPC,                             KC_RGUI, KC_RCTL, MO(FUNC),                KC_LEFT, KC_DOWN, KC_RGHT      \
+  ),
 
-[CS_GO] = LAYOUT_split_shift(
-  KC_TR, KC_TR,   KC_GESC, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR,       KC_TR,  KC_FN0, KC_TR,
-  KC_TR, KC_TR,   KC_TR,  KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR,      KC_TR,  KC_TR, KC_TR,
-  KC_TR, KC_TR,   KC_LCTL, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR,    KC_TR,
-  KC_TR, KC_TR,   KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR, KC_TR,        KC_TR, KC_TR,   KC_TR,
-  KC_TR, KC_TR,   KC_TR, KC_TR, KC_TR,                      KC_TR,                  KC_TR, KC_TR, KC_TR,       KC_TR, KC_TR, KC_TR),
+  [CS_GO] = LAYOUT_split_rshift(
+    _______, _______, KC_GESC,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            KC_FN0,      _______, \
+    _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,      _______,            _______,     _______, \
+    _______, _______, KC_LCTL,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,               _______,                                  \
+    _______, _______, _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,                          _______,              \
+    _______, _______, _______,         _______, _______,                            _______,                            _______, _______, _______,                 _______, _______, _______      \
+  ),
 
   /* Keymap FUNCTION: Function Layer
    * ,---------.  ,-------------------------------------------------------------.  ,---------.
@@ -82,12 +81,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    | F10|  |Func|Win |Alt |        PgD           |Alt |Ctrl |Func |     |Lft| Dn |Rig |
    * `---------'  `------------------------------------------------------'     `-------------'
    */
-[FUNC] = LAYOUT_split_shift(
-  KC_TR,   KC_TR,    KC_GRV,  KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,          KC_DEL,  TO(CS_GO), KC_HOME,
-  KC_TR,   KC_TR,    KC_NO,KC_PGUP, KC_UP, KC_PGDN, KC_HOME, KC_NO, KC_NO, KC_NO, KC_UP, KC_NO, KC_NO, KC_NO, KC_NO,               KC_NO,  KC_TR, KC_END,
-  KC_TR,   KC_TR,    KC_TR, KC_LEFT, KC_DOWN, KC_RGHT, KC_END, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_RGHT, KC_NO, KC_NO,            KC_NO,
-  KC_TR,   KC_TR,    KC_TR,    KC_NO,  KC_DEL,  KC_NO,  KC_NO, KC_NO, KC_NO, KC_MUTE, KC_VOLD, KC_VOLU, KC_NO,   TG(SETTINGS), KC_NO,  KC_TR,
-  KC_TR,   KC_TR,    KC_TR,  KC_TR, KC_TR,                  KC_PGDN,                           KC_TR, KC_TR, KC_TR,            KC_TR,  KC_TR, KC_TR),
+  [FUNC] = LAYOUT_split_rshift(
+    _______, _______, KC_GRV,          KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,       KC_DEL,             TO(CS_GO),   KC_HOME, \
+    _______, _______, XXXXXXX,         KC_PGUP, KC_UP,   KC_PGDN, KC_HOME, XXXXXXX, XXXXXXX, XXXXXXX, KC_UP,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,            _______,     KC_END,  \
+    _______, _______, _______,         KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,               XXXXXXX,                                  \
+    _______, _______, _______,         XXXXXXX, KC_DEL,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX,          TG(SETTINGS), XXXXXXX,            _______,              \
+    _______, _______, _______,         _______, _______,                            KC_PGDN,                            _______, _______, _______,                 _______, _______, _______      \
+  ),
 
   /* Keymap SETTINGS: Settings Layer
    * ,---------.  ,-----------------------------------------------------------.  ,-------------.
@@ -102,12 +102,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |    |  |    |    |    |      Print Debug      |    |    |     |  |Sat-|Hue-|Sat+|
    * `---------'  `------------------------------------------------------'  `--------------'
    */
-[SETTINGS] = LAYOUT_split_shift(
-  KC_NO,   KC_NO,    KC_FN0,KC_FN3,KC_FN4,KC_FN5, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, BL_DEC, BL_INC, BL_TOGG,    RGB_TOG, RGB_VAI,
-  KC_NO,   KC_NO,    DEBUG,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,     KC_NO,    RGB_MOD, RGB_VAD,
-  KC_NO,   KC_NO,    KC_FN0, KC_FN6,KC_FN8, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,            RESET,
-  KC_NO,   KC_NO,    KC_FN10, KC_FN7,KC_FN9, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,          KC_FN0, KC_NO,    RGB_HUI,
-  KC_NO,   KC_NO,    KC_NO, KC_NO, KC_NO,                  KC_FN12,                        KC_NO, KC_NO, KC_FN0,     RGB_SAD, RGB_HUD, RGB_SAI),
+  [SETTINGS] = LAYOUT_split_rshift(
+    XXXXXXX, XXXXXXX, KC_FN0,          KC_FN3,  KC_FN4,  KC_FN5,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_INC,       BL_TOGG,            RGB_TOG,     RGB_VAI, \
+    XXXXXXX, XXXXXXX, DEBUG,           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX,            RGB_MOD,     RGB_VAD, \
+    XXXXXXX, XXXXXXX, KC_FN0,          KC_FN6,  KC_FN8,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,               RESET,                                    \
+    XXXXXXX, XXXXXXX, KC_FN10,         KC_FN7,  KC_FN9,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_FN0,       XXXXXXX,            RGB_HUI,              \
+    XXXXXXX, XXXXXXX, XXXXXXX,         XXXXXXX, XXXXXXX,                            KC_FN12,                            XXXXXXX, XXXXXXX, KC_FN0,                  RGB_SAD, RGB_HUD, RGB_SAI      \
+  ),
 };
 
 
