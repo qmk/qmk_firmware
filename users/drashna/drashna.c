@@ -216,7 +216,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
-  xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+  #if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_iris_rev2)
+    xprintf("KL: col: %u, row: %u, pressed: %u\n", record->event.key.row, record->event.key.col, record->event.pressed);
+  #else
+    xprintf("KL: col: %u, row: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+  #endif
 #endif //KEYLOGGER_ENABLE
 
   switch (keycode) {
