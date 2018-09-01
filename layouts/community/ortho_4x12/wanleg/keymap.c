@@ -13,7 +13,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________Qwerty_Row__0_______________,
   _______________Qwerty_Row__1_______________,
   _______________Qwerty_Row__2_______________,
-  KC_LCTL, KC_LGUI, KC_LALT, GHERKIN, SUBTER, SH_T(KC_SPC), KC_SPC, SUPRA, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
+  KC_LCTL, KC_LGUI, KC_LALT, GHERKIN, SUBTER, SH_T(KC_SPC), SH_T(KC_SPC), SUPRA, KC_RGUI, KC_RALT, GHERKIN, KC_RCTL
 ),
 #else
 [_GK] = LAYOUT_ortho_4x12_wrapper(
