@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../../config.h"
-
 #undef MATRIX_ROW_PINS
 #undef MATRIX_COL_PINS
 #undef UNUSED_PINS
