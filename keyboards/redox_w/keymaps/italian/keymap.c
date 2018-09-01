@@ -114,3 +114,25 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+void matrix_scan_user(void) {
+    uint8_t layer = biton32(layer_state);
+
+    switch (layer) {
+    	case _QWERTY:
+    		set_led_off;
+    		break;
+    	case _SYMB:
+    		set_led_green;
+    		break;
+        case _NAV:
+            set_led_blue;
+            break;
+        case _ADJUST:
+            set_led_red;
+            break;
+        default:
+            break;
+    }
+};
+
+
