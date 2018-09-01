@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-enum alt67_keycodes {
+enum alt_keycodes {
     L_BRI = SAFE_RANGE, //LED Brightness Increase
     L_BRD,              //LED Brightness Decrease
     L_PTN,              //LED Pattern Select Next

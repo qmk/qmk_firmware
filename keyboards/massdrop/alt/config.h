@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER          0x0101
 
 #define MANUFACTURER        "Massdrop Inc."
-#define PRODUCT             "ALT67 Keyboard"
+#define PRODUCT             "ALT Keyboard"
 #define SERIAL_NUM          "Unavailable"
 
 /* key matrix size */
