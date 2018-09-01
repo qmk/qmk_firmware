@@ -118,12 +118,12 @@ void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
     switch (layer) {
-    	case _QWERTY:
-    		set_led_off;
-    		break;
-    	case _SYMB:
-    		set_led_green;
-    		break;
+        case _QWERTY:
+            set_led_off;
+            break;
+        case _SYMB:
+            set_led_green;
+            break;
         case _NAV:
             set_led_blue;
             break;
