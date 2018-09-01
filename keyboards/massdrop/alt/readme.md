@@ -5,12 +5,12 @@
 The Massdrop ALT is a 65% mechanical keyboard featuring dual USB-C connectors, an integrated Hi-Speed USB 2.0 hub, and fully customizable RGB backlighting and underlighting.
 
 Keyboard Maintainer: [Massdrop](https://github.com/massdrop)  
-Hardware Supported: Massdrop, Inc. ALT67 PCBs utilizing Microchip's ATSAMD51J18A MCU and USB2422 2-Port USB 2.0 Hi-Speed Hub Controller, and ISSI's IS31FL3733 LED Drivers.  
+Hardware Supported: Massdrop, Inc. ALT PCBs utilizing Microchip's ATSAMD51J18A MCU and USB2422 2-Port USB 2.0 Hi-Speed Hub Controller, and ISSI's IS31FL3733 LED Drivers.  
 Hardware Availability: [Massdrop ALT Mechanical Keyboard](https://www.massdrop.com/buy/massdrop-alt-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make massdrop/alt67:default
+    make massdrop/alt:default
 
 For information on flashing this keyboard, visit the following links:
 
