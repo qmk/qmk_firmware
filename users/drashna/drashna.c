@@ -367,7 +367,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case UC_TABL: // ┬─┬ノ( º _ ºノ)
     if (record->event.pressed) {
-      send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 30CE 0029 000A");
+      send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 30CE 0029");
     }
     return false;
     break;

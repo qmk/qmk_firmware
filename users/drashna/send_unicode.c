@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+__attribute__((weak))
 void send_unicode_hex_string(const char* str) {
   if (!str) {
     return;
