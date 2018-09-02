@@ -12,4 +12,11 @@
 #define EE_HANDS
 #endif
 
+// set top left key as bootloader mode escape key on 4x4 48key layout
+#if defined(KEYBOARD_4x4)
+#define QMK_LED B0
+#define QMK_ESC_OUTPUT C6 // usually COL
+#define QMK_ESC_INPUT B2 // usually ROW
+#endif
+
 #endif

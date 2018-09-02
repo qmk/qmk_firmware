@@ -144,6 +144,9 @@ endif
 ifdef MCU_FAMILY
     FIRMWARE_FORMAT?=bin
     PLATFORM=CHIBIOS
+else ifdef ARM_ATSAM
+    PLATFORM=ARM_ATSAM
+    FIRMWARE_FORMAT=bin
 else
     PLATFORM=AVR
     FIRMWARE_FORMAT?=hex
@@ -284,6 +287,11 @@ else
     include $(TMK_PATH)/protocol/lufa.mk
 endif
     include $(TMK_PATH)/avr.mk
+endif
+
+ifeq ($(PLATFORM),ARM_ATSAM)
+    include $(TMK_PATH)/arm_atsam.mk
+    include $(TMK_PATH)/protocol/arm_atsam.mk
 endif
 
 ifeq ($(PLATFORM),CHIBIOS)

@@ -44,6 +44,9 @@
 #ifdef MIDI_ENABLE
 #include "qmk_midi.h"
 #endif
+#ifdef STM32F303xC
+#include "eeprom_stm32.h"
+#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -108,6 +111,10 @@ int main(void) {
   /* ChibiOS/RT init */
   halInit();
   chSysInit();
+
+#ifdef STM32F303xC
+  EEPROM_init();
+#endif
 
   // TESTING
   // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
