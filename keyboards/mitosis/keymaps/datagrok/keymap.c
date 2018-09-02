@@ -185,10 +185,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Set the bits of A selected by MASK to the corresponding bits of B
 #define setbits(A, B, MASK) A = (A & (B | ~MASK)) | (B & MASK)
-void matrix_scan_user(void) {
+
+void led_set_user(uint8_t usb_leds) {
   //
   // Bit #            7     6     5     4     3     2     1     0
-  // layer_state: [     | _xF | _xN | _xS | _xD | _xC | _xQ | _xW ]
+  // layer_state: [     | _xF | _xN | _xS | _xW | _xD | _xC | _xQ ]
   // usb_led      [     |     |     |kana |cmps |scrl |caps | num ]
   // PORTB:       [  NC |  10 |   9 |   8 |  14 |  16 |  15 |rxled]
   // PORTC:       [  NC |   5 |     |     |     |     |     |     ]
@@ -208,10 +209,16 @@ void matrix_scan_user(void) {
   // Both keys make _xF active; indicator = purple
   // Toggling QWERTY mode makes indicator include green, so (red/blue/purple becomes yellow/cyan/white)
 
+  uint32_t portf_bits = \
+    ((layer_state|default_layer_state)&0b01100000)>>1 | \
+    ((layer_state|default_layer_state)&0b00010000)<<1 | \
+    ((layer_state|default_layer_state)&0b01000000)>>2;
+  uint32_t portd_bits = \
+    (usb_leds&0b1)<<5 | \
+    ((layer_state|default_layer_state)&0b1000)>>2;
   // negated because for ports 0=LED on.
-  uint32_t portf_bits = ~(layer_state|layer_state<<1|(layer_state&0b100)<<3);
-  setbits(PORTF, portf_bits, 0b00110000);
-  setbits(PORTD, ~layer_state, 0b00000010);
+  setbits(PORTF, ~portf_bits, 0b00110000);
+  setbits(PORTD, ~portd_bits, 0b00100010);
 }
 
 // vim: set sw=2 et:
