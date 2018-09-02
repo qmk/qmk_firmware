@@ -4,13 +4,14 @@
 #endif
 
 enum mitosis_layers
-{
+  {
     _xQ, // qwerty
     _xW, // workman
     _xS, // symbols
     _xN, // numbers
     _xF  // functions
-};
+  };
+
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS // Transparent
@@ -31,35 +32,35 @@ enum mitosis_layers
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_xQ] = LAYOUT(
-      KC_Q, KC_W,       KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,     KC_P,
-      KC_A, KC_S,       KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,     KC_SCLN,
-      KC_Z, KC_X,       KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_QUOT,
-      /*,   */ KC_LGUI, KC_LCTL, MO(_xS), KC_TAB,  KC_SPC,  MO(_xS), KC_RCTL, KC_RGUI,
-      /*,   */ KC_HENK, KC_LALT, MO(_xN), KC_LSFT, KC_RSPC, MO(_xN), KC_RALT, KC_MHEN),
+      KC_Q,    KC_W,       KC_E,    KC_R,    KC_T,           KC_Y,    KC_U,    KC_I,    KC_O,     KC_P,
+      KC_A,    KC_S,       KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,     KC_SCLN,
+      KC_Z,    KC_X,       KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_QUOT,
+      /*,      */ KC_LGUI, KC_LCTL, TT(_xS), KC_BSPC,        KC_SPC,  TT(_xS), KC_RCTL, KC_RGUI,
+      /*,      */ KC_HENK, KC_LALT, TT(_xN), LSFT_T(KC_TAB), KC_RSPC, TT(_xN), KC_RALT, KC_MHEN),
   [_xW] = LAYOUT(
-      KC_Q, KC_D,       KC_R,    KC_W,    KC_B,    KC_J,    KC_F,    KC_U,    KC_P,     KC_SCLN,
-      KC_A, KC_S,       KC_H,    KC_T,    KC_G,    KC_Y,    KC_N,    KC_E,    KC_O,     KC_I,
-      KC_Z, KC_X,       KC_M,    KC_C,    KC_V,    KC_K,    KC_L,    KC_COMM, KC_DOT,   KC_QUOT,
-      /*,   */ _______, _______, _______, _______, _______, _______, _______, _______,
-      /*,   */ _______, _______, _______, _______, _______, _______, _______, _______),
+      KC_Q,    KC_D,       KC_R,    KC_W,    KC_B,           KC_J,    KC_F,    KC_U,    KC_P,     KC_SCLN,
+      KC_A,    KC_S,       KC_H,    KC_T,    KC_G,           KC_Y,    KC_N,    KC_E,    KC_O,     KC_I,
+      KC_Z,    KC_X,       KC_M,    KC_C,    KC_V,           KC_K,    KC_L,    KC_COMM, KC_DOT,   KC_QUOT,
+      /*,      */ _______, _______, _______, _______,        _______, _______, _______, _______,
+      /*,      */ _______, _______, _______, _______,        _______, _______, _______, _______),
   [_xS] = LAYOUT(
-      KC_ESC,  KC_GRV ,    KC_UP,   KC_EQL , KC_TILD, KC_PLUS, KC_CIRC, KC_AMPR, KC_PERC,  KC_MINS,
-      KC_BSPC, KC_LEFT,    KC_DOWN, KC_RGHT, _______, KC_PIPE, KC_AT,   KC_DLR,  KC_HASH,  KC_ENT,
-      KC_BSLS, KC_LABK,    KC_LCBR, KC_LPRN, KC_LBRC, KC_RBRC, KC_RPRN, KC_RCBR, KC_RABK,  KC_SLSH,
-      /*,      */ _______, _______, _______, _______, _______, _______, _______, _______,
-      /*,      */ _______, _______, MO(_xF), _______, _______, MO(_xF), _______, _______),
+      KC_ESC,  KC_GRV ,    KC_UP,   KC_EQL , KC_TILD,        KC_PLUS, KC_CIRC, KC_AMPR, KC_PERC,  KC_MINS,
+      _______, KC_LEFT,    KC_DOWN, KC_RGHT, _______,        KC_PIPE, KC_AT,   KC_DLR,  KC_HASH,  KC_ENT,
+      KC_BSLS, KC_LABK,    KC_LCBR, KC_LPRN, KC_LBRC,        KC_RBRC, KC_RPRN, KC_RCBR, KC_RABK,  KC_SLSH,
+      /*,      */ _______, _______, _______, KC_DEL,         _______, _______, _______, _______,
+      /*,      */ _______, _______, TT(_xF), _______,        _______, TT(_xF), _______, _______),
   [_xN] = LAYOUT(
-      _______, KC_F7,      KC_F8,   KC_F9,   KC_F10,  KC_PPLS, KC_7,    KC_8,    KC_9,     KC_PMNS,
-      _______, KC_F4,      KC_F5,   KC_F6,   KC_F11,  KC_NLCK, KC_4,    KC_5,    KC_6,     KC_PENT,
-      _______, KC_F1,      KC_F2,   KC_F3,   KC_F12,  KC_PAST, KC_1,    KC_2,    KC_3,     KC_PSLS,
-      /*,      */ _______, _______, MO(_xF), _______, _______, MO(_xF), KC_0,    KC_PDOT,
-      /*,      */ _______, _______, _______, _______, _______, _______, _______, _______),
+      KC_PSCR, KC_F7,      KC_F8,   KC_F9,   KC_F10,         KC_PPLS, KC_7,    KC_8,    KC_9,     KC_PMNS,
+      KC_SLCK, KC_F4,      KC_F5,   KC_F6,   KC_F11,         KC_NLCK, KC_4,    KC_5,    KC_6,     KC_PENT,
+      KC_PAUS, KC_F1,      KC_F2,   KC_F3,   KC_F12,         KC_PAST, KC_1,    KC_2,    KC_3,     KC_PSLS,
+      /*,      */ _______, _______, TT(_xF), _______,        _______, TT(_xF), KC_0,    KC_PDOT,
+      /*,      */ _______, _______, _______, _______,        _______, _______, _______, _______),
   [_xF] = LAYOUT(
-      RESET,   KC_INS,     KC_PGUP, KC_DEL,  KC_VOLU, KC_PPLS, KC_P7,   KC_P8,   KC_P9,    KC_PMNS,
-      CK_TOGG, KC_HOME,    KC_PGDN, KC_END,  KC_VOLD, KC_NLCK, KC_P4,   KC_P5,   KC_P6,    KC_PENT,
+      RESET,   KC_INS,     KC_PGUP, DEBUG,   KC_VOLU,        KC_PPLS, KC_P7,   KC_P8,   KC_P9,    KC_PMNS,
+      CK_TOGG, KC_HOME,    KC_PGDN, KC_END,  KC_VOLD,        KC_NLCK, KC_P4,   KC_P5,   KC_P6,    KC_PENT,
       TG(_xW), KC_MPRV,    KC_MPLY, KC_MNXT, KC_MUTE, KC_PAST, KC_P1,   KC_P2,   KC_P3,    KC_PSLS,
-      /*,      */ CK_UP,   MU_TOG,  _______, _______, _______, _______, KC_P0,   KC_PDOT,
-      /*,      */ CK_DOWN, MU_MOD,  _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS),
+      /*,      */ CK_UP,   MU_TOG,  _______, _______,        _______, _______, KC_P0,   KC_PDOT,
+      /*,      */ CK_DOWN, MU_MOD,  _______, _______,        _______, _______, _______, _______),
 };
 
 // This is a hack to place <question mark> on <shift-comma> and <exclaimation
