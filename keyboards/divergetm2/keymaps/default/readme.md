@@ -1,6 +1,5 @@
-# The default keymap for diverge3
+# A default-ish keymap for diverge tm2
 
-Just a keymap that I use for programming.
+Actually it's a Planck layout, but I needed something for the default. :-D
 
-The focus is to have the thumbs do all the work for spacing/backspacing, shifting, and symbols.
-Also there is some duplicated functionality on the left hand for when editing with a mouse.
+The 2u spacebars are space when tapped, raise/lower when held.
