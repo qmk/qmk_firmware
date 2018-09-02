@@ -119,6 +119,13 @@ extern uint8_t gcr_breathe;
 extern uint8_t gcr_actual;
 extern uint8_t gcr_actual_last;
 
+extern uint8_t write_buffer;
+extern uint8_t read_buffer;
+extern float desired_interpolation[][157];
+extern uint8_t led_anim_mode;
+
+extern issi3733_led_t led_map[];
+
 extern uint8_t led_animation_id;
 extern uint8_t led_enabled;
 extern float led_animation_speed;

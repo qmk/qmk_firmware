@@ -13,6 +13,7 @@ enum alt67_keycodes {
     L_OFF,              //LED Off
     L_T_BR,             //LED Toggle Breath Effect
     L_T_PTD,            //LED Toggle Scrolling Pattern Direction
+    L_MODE,             //LED change mode
     U_T_AUTO,           //USB Extra Port Toggle Auto Detect / Always Active
     U_T_AGCR,           //USB Toggle Automatic GCR control
     DBG_TOG,            //DEBUG Toggle On / Off
@@ -35,11 +36,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                  KC_SPC,                              KC_RALT, MO(1),   KC_APP,  KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT \
     ),
     [1] = LAYOUT(
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_MUTE, KC_TRNS, KC_TRNS, \
+        DBG_TOG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_MUTE, KC_TRNS, KC_TRNS, \
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_MPLY, KC_MSTP, KC_VOLU, \
         L_T_BR,  L_PSD,   L_BRI,   L_PSI,   KC_TRNS, KC_TRNS, KC_TRNS, U_T_AUTO,U_T_AGCR,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_MPRV, KC_MNXT, KC_VOLD, \
         L_T_PTD, L_PTP,   L_BRD,   L_PTN,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
-        KC_TRNS, L_T_MD,  L_T_ONF, KC_TRNS, KC_TRNS, KC_TRNS, TG_NKRO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                              KC_TRNS, \
+        KC_TRNS, L_T_MD,  L_T_ONF, KC_TRNS, KC_TRNS, KC_TRNS, TG_NKRO, L_MODE,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                              KC_TRNS, \
         KC_TRNS, KC_TRNS, KC_TRNS,                  KC_TRNS,                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS \
     ),
     /*
@@ -71,6 +72,16 @@ void matrix_scan_user(void) {
 #define MODS_ALT  (keyboard_report->mods & MOD_BIT(KC_LALT) || keyboard_report->mods & MOD_BIT(KC_RALT))
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if(record->event.pressed) {
+        uint16_t scan_code = record->event.key.row * 15 + record->event.key.col;
+        // we can just modify the read_buffer, since the LEDs are set
+        // from read buffer and the led job then fills the write buffer.
+        desired_interpolation[read_buffer][scan_code] = 1.0f;
+        desired_interpolation[write_buffer][scan_code] = 1.0f;
+        if(debug_enable) {
+            dpf("kc=%d | sc=%d\r\n", keycode, scan_code);
+        }
+    }
     switch (keycode) {
         case L_BRI:
             if (record->event.pressed) {
@@ -142,6 +153,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     led_animation_breathe_cur = BREATHE_MIN_STEP;
                     breathe_dir = 1;
                 }
+            }
+            return false;
+        case L_MODE:
+            if(record->event.pressed) {
+               led_anim_mode = led_anim_mode ? 0 : 1;
             }
             return false;
         case L_T_PTD:
