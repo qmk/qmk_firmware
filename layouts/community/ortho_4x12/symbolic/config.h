@@ -18,10 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_SYMBOLIC_LAYOUT_H
-#define CONFIG_SYMBOLIC_LAYOUT_H
-
-#include QMK_KEYBOARD_CONFIG_H 
+#pragma once
 
 // prevent stuck modifiers
 #define PREVENT_STUCK_MODIFIERS
@@ -48,4 +45,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
                               }
 #endif
 
-#endif
