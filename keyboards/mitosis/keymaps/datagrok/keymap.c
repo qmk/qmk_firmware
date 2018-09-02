@@ -12,6 +12,10 @@ enum mitosis_layers
     _xF  // functions
   };
 
+enum mitosis_keycodes
+  {
+    KC_LAYO = SAFE_RANGE
+  };
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS // Transparent
@@ -58,32 +62,100 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_xF] = LAYOUT(
       RESET,   KC_INS,     KC_PGUP, DEBUG,   KC_VOLU,        KC_PPLS, KC_P7,   KC_P8,   KC_P9,    KC_PMNS,
       CK_TOGG, KC_HOME,    KC_PGDN, KC_END,  KC_VOLD,        KC_NLCK, KC_P4,   KC_P5,   KC_P6,    KC_PENT,
-      TG(_xW), KC_MPRV,    KC_MPLY, KC_MNXT, KC_MUTE, KC_PAST, KC_P1,   KC_P2,   KC_P3,    KC_PSLS,
+      KC_LAYO, KC_MPRV,    KC_MPLY, KC_MNXT, KC_MUTE,        KC_PAST, KC_P1,   KC_P2,   KC_P3,    KC_PSLS,
       /*,      */ CK_UP,   MU_TOG,  _______, _______,        _______, _______, KC_P0,   KC_PDOT,
       /*,      */ CK_DOWN, MU_MOD,  _______, _______,        _______, _______, _______, _______),
 };
+const bool defaultlayers[] = {
+  [_xQ] = true,
+  [_xW] = true,
+  [_xS] = false,
+  [_xN] = false,
+  [_xF] = false,
+};
+const size_t defaultlayers_n = sizeof(defaultlayers) / sizeof(defaultlayers[0]);
 
-// This is a hack to place <question mark> on <shift-comma> and <exclaimation
+#ifdef AUDIO_ENABLE
+void startup_user()
+{
+  float tone_startup[][2]        = SONG(STARTUP_SOUND);
+  _delay_ms(20); // gets rid of tick
+  PLAY_SONG(tone_startup);
+}
+
+void music_on_user(void)
+{
+  music_scale_user();
+}
+
+void music_scale_user(void)
+{
+  float music_scale[][2]         = SONG(MUSIC_SCALE_SOUND);
+  PLAY_SONG(music_scale);
+}
+
+#endif
+
+
+// New keycode KC_LAYO rotates between available default layers (for e.g.,
+// selecting a base layout). Shift+KC_LAYO makes the current one persistent.
+bool process_record_layout(uint16_t keycode, keyrecord_t *record) {
+  uint32_t default_layer;
+  uint8_t i;
+
+  if (keycode != KC_LAYO || !record->event.pressed) {
+    return true;
+  }
+
+  if (get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))) { // shift pressed
+    // save default layer. whatever the current default layer is, store that
+    eeconfig_update_default_layer(default_layer_state);
+  } else {
+    // rotate default layer.
+    // find the current default layer
+    default_layer = biton32(default_layer_state);
+    // find next valid default layer
+    for (i = 1; i < defaultlayers_n; i++) {
+      if (defaultlayers[(default_layer + i) % defaultlayers_n]) {
+        break;
+      }
+    }
+    if (i == defaultlayers_n) {
+      // we fell out of the loop without finding another default layer to switch
+      // to.
+      return false;
+    }
+    default_layer = (default_layer + i) % defaultlayers_n;
+    default_layer_set(1U<<default_layer);
+    #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
+      PLAY_SONG(default_layer_songs[default_layer]);
+    #endif
+  }
+  return false;
+}
+
+// This is a hack to place <question mark> on <shift-comma> and <exclamation
 // mark> on <shift-period>, when using an operating system configured for a
 // US/qwerty layout.
+// cdeq = "comma dot exclamation question"
 bool comm_shifted = false;
 bool ques_shifted = false;
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_cdeq(uint16_t keycode, keyrecord_t *record) {
   uint8_t shifted;
   uint16_t s_keycode;
   bool *k_shifted;
 
   switch (keycode) {
-    case KC_COMM:
-      s_keycode = KC_SLSH;
-      k_shifted = &comm_shifted;
-      break;
-    case KC_DOT:
-      s_keycode = KC_1;
-      k_shifted = &ques_shifted;
-      break;
-    default:
-      return true;
+  case KC_COMM:
+    s_keycode = KC_SLSH;
+    k_shifted = &comm_shifted;
+    break;
+  case KC_DOT:
+    s_keycode = KC_1;
+    k_shifted = &ques_shifted;
+    break;
+  default:
+    return true;
   }
 
   shifted = get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT));
@@ -105,40 +177,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]         = SONG(QWERTY_SOUND);
-float tone_dyn_macro_rec[][2]  = SONG(DVORAK_SOUND);
-float tone_dyn_macro_play[][2] = SONG(COLEMAK_SOUND);
-float tone_fnpc[][2]           = SONG(PLOVER_SOUND);
-float tone_fnmac[][2]          = SONG(PLOVER_GOODBYE_SOUND);
-
-void startup_user()
-{
-  float tone_startup[][2]        = SONG(STARTUP_SOUND);
-  _delay_ms(20); // gets rid of tick
-  PLAY_SONG(tone_startup);
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  return \
+    process_record_cdeq(keycode, record) && \
+    process_record_layout(keycode, record);
 }
-
-void shutdown_user()
-{
-  float tone_goodbye[][2]        = SONG(GOODBYE_SOUND);
-  PLAY_SONG(tone_goodbye);
-  _delay_ms(150);
-  stop_all_notes();
-}
-
-void music_on_user(void)
-{
-  music_scale_user();
-}
-
-void music_scale_user(void)
-{
-  float music_scale[][2]         = SONG(MUSIC_SCALE_SOUND);
-  PLAY_SONG(music_scale);
-}
-
-#endif
 
 // Set the bits of A selected by MASK to the corresponding bits of B
 #define setbits(A, B, MASK) A = (A & (B | ~MASK)) | (B & MASK)

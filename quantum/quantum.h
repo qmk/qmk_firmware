@@ -73,6 +73,9 @@ extern uint32_t default_layer_state;
   #ifdef AUDIO_CLICKY
     #include "process_clicky.h"
   #endif // AUDIO_CLICKY
+  #ifdef DEFAULT_LAYER_SONGS
+    extern float default_layer_songs[][16][2];
+  #endif
 #endif
 
 #ifdef STENO_ENABLE
