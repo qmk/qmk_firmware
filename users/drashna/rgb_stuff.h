@@ -13,4 +13,3 @@ void matrix_init_rgb(void);
 void matrix_scan_rgb(void);
 uint32_t layer_state_set_rgb(uint32_t state);
 
-

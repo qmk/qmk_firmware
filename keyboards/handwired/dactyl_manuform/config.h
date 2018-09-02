@@ -16,8 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -26,24 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x3060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    tshort
-#define PRODUCT         Dactyl-Manuform
+// defined in subfolder
 #define DESCRIPTION     A split keyboard for the cheap makers
-
-/* key matrix size */
-// Rows are doubled-up
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 5
-
-// wiring of each half
-#define MATRIX_ROW_PINS { F7, B1, B3, B2, B6 }
-// #define MATRIX_COL_PINS { B5, B4, E6, D7, C6 }
-#define MATRIX_COL_PINS { C6, D7, E6, B4, B5 }
-
-/* define if matrix has ghost */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
 
 /* mouse config */
 #define MOUSEKEY_INTERVAL       20
@@ -72,8 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLIGHT_TIMER
 #define RGBLED_NUM 12    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
+
 
 /*
  * Feature disable options
@@ -94,4 +76,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 
-#endif
