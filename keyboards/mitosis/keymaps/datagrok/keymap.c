@@ -75,28 +75,6 @@ const bool defaultlayers[] = {
 };
 const size_t defaultlayers_n = sizeof(defaultlayers) / sizeof(defaultlayers[0]);
 
-#ifdef AUDIO_ENABLE
-void startup_user()
-{
-  float tone_startup[][2]        = SONG(STARTUP_SOUND);
-  _delay_ms(20); // gets rid of tick
-  PLAY_SONG(tone_startup);
-}
-
-void music_on_user(void)
-{
-  music_scale_user();
-}
-
-void music_scale_user(void)
-{
-  float music_scale[][2]         = SONG(MUSIC_SCALE_SOUND);
-  PLAY_SONG(music_scale);
-}
-
-#endif
-
-
 // New keycode KC_LAYO rotates between available default layers (for e.g.,
 // selecting a base layout). Shift+KC_LAYO makes the current one persistent.
 bool process_record_layout(uint16_t keycode, keyrecord_t *record) {
