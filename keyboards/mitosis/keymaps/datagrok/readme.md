@@ -28,26 +28,26 @@
 
 ## Layout Images
 
-![mitosis:datagrok layout base layer](https://imgur.com/tap5Pj.png)
+![mitosis:datagrok layout base layer](https://i.imgur.com/tap5Pjf.png)
 
 Base layer. Notes:
 - customized comma and period, which have exclamation point and question mark on their shift layer.
 - tap right-shift for underscore, tap left-shift for tab.
 
-![mitosis:datagrok layout red layer](https://imgur.com/sMGr34T.png)
+![mitosis:datagrok layout red layer](https://i.imgur.com/sMGr34T.png)
 
 Red layer. Intended for common navigation and programming symbols. Notes:
 - symmetric layout of paired braces/brackets/slashes for easier memorization
 - arrows placed directly on home position
 
-![mitosis:datagrok layout blue layer](https://imgur.com/dDb2563.png)
+![mitosis:datagrok layout blue layer](https://i.imgur.com/dDb2563.png)
 
 Blue layer. Intended for "number pad." Notes:
 - Keycodes generated for numbers, enter key, and mathematical symbols are from the alphanumeric keys, not keypad.
   This way they are not influenced by the state of Num Lock.
   If you want to send the keypad equivalents, just press Blue as well to access keypad numbers in the same positions in the Purple layer.
 
-![mitosis:datagrok layout purple layer](https://imgur.com/pESzy2u.png)
+![mitosis:datagrok layout purple layer](https://i.imgur.com/pESzy2u.png)
 
 Purple (Red+Blue) layer. Intended for "true keypad" and various functions. Notes:
 - Numbers on this layer send Keypad codes, so the result will be affected by the state of Num Lock.
