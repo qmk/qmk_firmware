@@ -127,6 +127,7 @@ bool process_record_layout(uint16_t keycode, keyrecord_t *record) {
     }
     default_layer = (default_layer + i) % defaultlayers_n;
     default_layer_set(1U<<default_layer);
+    led_set(host_keyboard_leds());
     #if defined(AUDIO_ENABLE) && defined(DEFAULT_LAYER_SONGS)
       PLAY_SONG(default_layer_songs[default_layer]);
     #endif
