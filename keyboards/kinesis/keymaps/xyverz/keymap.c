@@ -20,6 +20,11 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+// Aliases to make the keymap more uniform
+#define GUI_END GUI_T(KC_END)
+#define MED_DEL LT(_MEDIA, KC_DEL)
+#define KPD_ENT LT(_KEYPAD, KC_ENT)
+
 /*
 
         Function Keys on All Layers (Keypad toggles):
@@ -144,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Left Thumb
                     KC_LCTL, KC_LALT,
                              KC_HOME,
-           KC_BSPC, LT(_MEDIA, KC_DEL),  KC_END,
+           KC_BSPC, MED_DEL, GUI_END,
 
            // Right Hand
            KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, TG(_KEYPAD),  RESET,
@@ -156,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Right Thumb
            KC_RGUI, KC_RCTL,
            KC_PGUP,
-           KC_PGDN, LT(_KEYPAD, KC_ENT),  KC_SPC
+           KC_PGDN, KPD_ENT, KC_SPC
     ),
 
 [_QWERTY] = LAYOUT (
@@ -170,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Left Thumb
                     KC_LCTL, KC_LALT,
                              KC_HOME,
-           KC_BSPC, LT(_MEDIA, KC_DEL),  KC_END,
+           KC_BSPC, MED_DEL, KC_END,
 
            // Right Hand
            KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, TG(_KEYPAD),  RESET,
@@ -182,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Right Thumb
            KC_RGUI, KC_RCTL,
            KC_PGUP,
-           KC_PGDN, LT(_KEYPAD, KC_ENT),  KC_SPC
+           KC_PGDN, KPD_ENT, KC_SPC
     ),
 
 [_COLEMAK] = LAYOUT (
@@ -196,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Left Thumb
                     KC_LCTL, KC_LALT,
                              KC_HOME,
-           KC_BSPC, LT(_MEDIA, KC_DEL),  KC_END,
+           KC_BSPC, MED_DEL, KC_END,
 
            // Right Hand
            KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, TG(_KEYPAD),  RESET,
@@ -208,7 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Right Thumb
            KC_RGUI, KC_RCTL,
            KC_PGUP,
-           KC_PGDN, LT(_KEYPAD, KC_ENT),  KC_SPC
+           KC_PGDN, KPD_ENT, KC_SPC
     ),
 
 [_MEDIA] = LAYOUT (
