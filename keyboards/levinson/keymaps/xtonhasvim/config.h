@@ -1,8 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-// #include "../../config.h"
-#include "config_common.h"
+#pragma once
 
 #define USE_SERIAL
 
@@ -37,6 +33,3 @@
 
 // where is the cord plugged in?
 #define MASTER_LEFT
-
-
-#endif
