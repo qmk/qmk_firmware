@@ -58,10 +58,10 @@
 
 ### Goals
 
-* release right little fingers from symbols
-* entrust more symbols for left hands
+* release a right little finger from symbols
+* entrust more symbols for a left hand
 * simple, minimal, easy learn
-* as soon as possible, don't disable shortcuts
+* as soon as possible, don't disable any shortcuts
 
 
 ###  suggestions or find issues
