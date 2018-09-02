@@ -1,24 +1,26 @@
 # a layout for the Mitosis
 
 - Emphasis on momentary modifiers, all usable from either hand, arranged symmetrically, but left/right distinguishable by the OS.
-  Shift, Red ("Lower"), Blue ("Raise"), Super ("Windows"), Meta ("Alt"), Hyper (actually Henkan/Muhenkan).
+  I place left- and right-versions of Shift, GUI ("Super"), and Alt ("Meta"), and Henkan/Muhenkan (which I plan to overload for "Hyper").
+
   I'm going for a [Space Cadet](https://en.wikipedia.org/wiki/Space-cadet_keyboard) aesthetic;
   I want a keyboard that can (even just in theory) make use of all the bucky bits my operating system can support.
 
-- Red and Blue are used to momentary-enable (like a shift key) one of three layers:
+- Red key and Blue key momentary-enable (like a shift key) one of three layers:
 
     - Red: Symbols layer
     - Blue: Numbers layer
     - "Purple" (both Red and Blue): Functions layer
+    
+  This tri-state layer mechanism is a bit similar to Planck and Preonic's "Raise," "Lower," and "Adjust."
 
 - The base layer is QWERTY.
   A slight variant of [Workman][] may be toggled using `Red`+`Blue`+`Z`.
 
 - Minimize hand travel, so as not to lose orientation with home row.
 
-- `?` and `!` are moved to take the place of `<` and `>`. Rationale: unmodded
-  and shifted keys should be for prose, while symbols useful for programming
-  should be colocated on their own layer.
+- `?` and `!` are moved to take the place of `<` and `>`.
+  Rationale: unmodded and shifted keys should be for prose, while symbols useful for programming should be colocated on their own layer.
 
 - Key positions chosen for mnemonics.
   For example, you can distinguish between alphanumeric numerals and keypad numerals, but they occupy the same key positions.
@@ -40,7 +42,9 @@ Red layer. Intended for common navigation and programming symbols. Notes:
 ![mitosis:datagrok layout blue layer](https://imgur.com/HGJ4G1U.png)
 
 Blue layer. Intended for "number pad." Notes:
-- Keycodes generated for numbers, enter key, and mathematical symbols are from the alphanumeric keys, not keypad. This way they are not influenced by the state of Num Lock. If you want to send the keypad equivalents, just use Red and Blue modifiers simultaneously.
+- Keycodes generated for numbers, enter key, and mathematical symbols are from the alphanumeric keys, not keypad.
+  This way they are not influenced by the state of Num Lock.
+  If you want to send the keypad equivalents, just press Blue as well to access keypad numbers in the same positions in the Purple layer.
 
 ![mitosis:datagrok layout purple layer](https://imgur.com/lNsKDtA.png)
 
@@ -58,12 +62,29 @@ Keyboard layout editor sources:
 
 [Imgur album](https://imgur.com/a/KSoVgPx)
 
+## Variants
+
+You may select among some options for this layout by editing rules.mk or compiling like so:
+
+Normal compilation:
+
+```make mitosis:datagrok```
+
+High-profile mode (swap rows for center four thumb keys):
+
+```make mitosis:datagrok MITOSIS_DATAGROK_BOTTOMSPACE=yes```
+
+Slow UART:
+
+```make mitosis:datagrok MITOSIS_DATAGROK_SLOWUART=yes```
+
 ## Design notes
 
 ### Workman layout
 
-- I'm learning a new physical key placement, so I might as well go all-out and
-  use an optimal non-QWERTY layout.
+- I'm learning a new physical key placement, so I might as well go all-out and use an optimal non-QWERTY layout.
+  Bonus: it's easy to switch back to QWERTY on a traditional row-staggered keyboard.
+  The designer of the Mitosis had [a similar experience](https://www.reddit.com/r/MechanicalKeyboards/comments/66588f/wireless_split_qmk_mitosis/dgfr22q/).
 
 - I like the way Workman feels and some of its advantages over Colemak.
   Unfortunately, it was designed using a weighting system based on a standard
@@ -99,7 +120,7 @@ Keyboard layout editor sources:
 
 - Arrow keys are in the home position on the Red layer.
 
-  - Blue+Arrows = PgUp/PgDn/Home/End, which is intuitive for me.
+  - Blue+Arrows = PgUp/PgDn/Home/End, which is intuitive for me and similar to what is done on Apple and some Dell keyboards.
 
 - The number pad: I placed the ten-key number pad on the Blue layer.
   However, this would do the wrong thing when Num Lock was not enabled.
@@ -113,10 +134,6 @@ Keyboard layout editor sources:
 - Enter is now in a more qwerty-familiar location, and may be activated with one hand.
   Numpad Enter is in the same position.
 
-- Rather than place Backspace opposite Space, I intentionally place it on a layer where it takes some effort to activate.
-  Backspace is one of the keys I most dislike on a QWERTY keyboard because it moves me away from homerow and I need to use it so often.
-  Rather than make it easier to strike, I want to discourage myself from using it by learning to type more accurately.
-
 - Why do I dislike [snake\_case](https://en.wikipedia.org/wiki/Snake_case) (`__variable_names_that_use_underscores_`)?
   Maybe because it's hard to type all those underscores requiring the shift key?
   Hypothesis: I'll be less annoyed by snake case by placing `_` at an unmodded position, right near the `space` key.
@@ -125,6 +142,18 @@ Keyboard layout editor sources:
 ## Changelog
 
 ### Current
+
+- Discard "intentionally difficult backspace" idea.
+  Tab returns to left-shift.
+  Del returns to Red+Backspace
+- "High Profile mode:" Swap Red/Backspace/Space/Red with Blue/Shift/Shift/Blue (placing space on lower thumb keys) using `MITOSIS_DATAGROK_BOTTOMSPACE=yes` when compiling.
+- Move Print Screen / Scroll Lock / Pause to pinky column on Blue layer.
+- Let's try using TT instead of MO so we can e.g. lock-on the keypad.
+- One key `KC_LAYO` to cycle through available base layers instead of a dedicated key for each;
+  Shift + `KC_LAYO` stores current base layer selection in eeprom so it comes back after disconnecting or a reset.
+- Set UART to 250kbaud with make argument `MITOSIS_DATAGROK_SLOWUART=yes`, for use with 8Mhz Pro Micros.
+
+### 0.6.60
 
 - Experiment: no-modifier underscore on right shift key.
 - New combined numbers + keypad arrangement.
@@ -168,24 +197,29 @@ Keyboard layout editor sources:
 
 ### Abandoned ideas
 
-- "Since QWERTY and Workman keep angle brackets together, place other
-  enclosing symbols on the same keys. This informs the numbers placement,
-  which informs the function-key placement."
+- Abandoned: intentionally-difficult backspace.
+  "Backspace is one of the keys I most dislike on a QWERTY keyboard because it moves me away from homerow and I need to use it so often.
+  Rather than make it easier to strike, I want to discourage myself from using it and train myself to type more accurately."
+  
+    - Many other people like an easy-to-reach backspace.
+    - Many other split-spacebar ergo boards place backspace at the thumbs.
+    - I can still train myself to type well with it in an easy location.
+    - I couldn't think of anything really better to put opposite space.
 
-    - I tried this and it was bad. I don't like having to pick the right
-      modifier to get the right flavor of bracket. Instead, now, one modifier
-      activates a symbols layer where all brackets are easily accessible.
+- Abandoned: pile all brackets onto one pair of keys.
+  "Since QWERTY and Workman keep angle brackets together, place other enclosing symbols on the same keys."
 
-- Space/Enter to the left of layer select for Enter
+    - I didn't like having to pick the right modifier to get the right flavor of bracket.
+      Instead, now, one modifier activates a symbols layer where all brackets are easily accessible.
 
-    - Doesn't work well; I always trigger space first when mashing the keys
+- Abandoned: chorded Enter without proper chording detection
+
+    - I tried to make Red+Space = Enter with the intention that I could hit both with my thumb.
+      That didn't work well; I always trigger space first when mashing the keys
       simultaneously. ~~This might not continue to be true if I change the angle
       at which I strike the keys e.g. with a neoprene base or a wrist support.~~
       Even with a wrist rest or low-profile, this is hard to do with one hand.
       Need to adjust the firmware to understand chorded thumb keys.
-
-- I used to have Blue on ring finger, but that was too hard to use in
-  conjunction with shift.
 
 ## To do
 
@@ -203,16 +237,23 @@ Keyboard layout editor sources:
   Do any of my applications use it?
   Should I have the firmware ensure it is set how I want it?
   Maybe cause it to be momentary active with Blue?
-  See [@drashna's comment](https://github.com/qmk/qmk_firmware/pull/2366#issuecomment-404951953)
-- Store default base layer in eeprom?
+  See [@drashna's comment](https://github.com/qmk/qmk_firmware/pull/2366#issuecomment-404951953) for code to force it always-on, which I don't know if I want.
+- ~~Store default layer in eeprom?~~
+- Allow "!? on ,." to be easily toggled-off.
+- Modularize "!? on ,." so it can be easily used on any QMK keyboard. (about half done)
 - See if the henkan/muhenkan placement is at all useful for Japanese speakers,
   or abuse different keysyms for Left/Right Hyper. (Original space cadet used
   scancodes 145/175. 145 is LANG2, 175 is "reserved" in USB HID spec.)
 - Implement "layer lock" key
+- Feature parity with popular boards e.g. Planck?
+  - Layers for Dvorak, Coleman, Plover
+  - More music and midi stuff
+  - Macros?
 - Improve tri-layer behavior
-- Find a better location for PrintScr/SysRq, Scroll Lock, Pause/Break, Caps Lock.
-- ~~Figure out where to place non-numpad numbers so we don't need num lock turned
-  on to type them?~~
+- Find out what `update_tri_layer_state` offers that my simple layers arrangement lacks.
+- ~~Find a better location for Caps Lock, PrintScr/SysRq, Scroll Lock, Pause/Break,~~.
+  Placed on Blue layer. Caps will be Shift+"Layer Lock," once I get that working.
+- ~~Figure out where to place non-numpad numbers so we don't need num lock turned on to type them?~~
 - ~~Add Insert, PrintScr, Pause/Break~~
 - ~~Make QWERTY base layer for people who customize layout in software?~~
   I default to QWERTY now.
