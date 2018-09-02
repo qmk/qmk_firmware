@@ -16,16 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "drashna.h"
-#include "version.h"
-#include "eeprom.h"
 #include "tap_dances.h"
 #include "rgb_stuff.h"
 
-
-float tone_copy[][2]            = SONG(SCROLL_LOCK_ON_SOUND);
-float tone_paste[][2]           = SONG(SCROLL_LOCK_OFF_SOUND);
-
-static uint16_t copy_paste_timer;
 userspace_config_t userspace_config;
 
 //  Helper Functions
@@ -35,10 +28,16 @@ userspace_config_t userspace_config;
 // the same thing, but with differring text sent.
 bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   if (!record->event.pressed || override) {
+    uint16_t keycode;
+    if (userspace_config.is_overwatch) {
+      keycode = KC_BSPC;
+    } else {
+      keycode = KC_ENTER;
+    }
     clear_keyboard();
-    tap(userspace_config.is_overwatch ? KC_BSPC : KC_ENTER);
+    tap(keycode);
     wait_ms(50);
-    send_string(str);
+    send_string_with_delay(str, MACRO_TIMER);
     wait_ms(50);
     tap(KC_ENTER);
   }
@@ -46,8 +45,40 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
   return false;
 }
 
-void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
+bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed) {
+  static uint16_t this_timer;
+  if(pressed) {
+      this_timer= timer_read();
+  } else {
+      if (timer_elapsed(this_timer) < TAPPING_TERM){
+          register_code(code);
+          unregister_code(code);
+      } else {
+          register_code(mod_code);
+          register_code(code);
+          unregister_code(code);
+          unregister_code(mod_code);
+      }
+  }
+  return false;
+}
 
+bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer) {
+  if(pressed) {
+      this_timer= timer_read();
+  } else {
+      if (timer_elapsed(this_timer) < TAPPING_TERM){
+          register_code(code);
+          unregister_code(code);
+      } else {
+          register_code(mod_code);
+          register_code(code);
+          unregister_code(code);
+          unregister_code(mod_code);
+      }
+  }
+  return false;
+}
 
 // Add reconfigurable functions here, for keymap customization
 // This allows for a global, userspace functions, and continued
@@ -55,6 +86,18 @@ void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 // functions in the keymaps
 __attribute__ ((weak))
 void matrix_init_keymap(void) {}
+
+__attribute__ ((weak))
+void startup_keymap(void) {}
+
+__attribute__ ((weak))
+void shutdown_keymap(void) {}
+
+__attribute__ ((weak))
+void suspend_power_down_keymap(void) {}
+
+__attribute__ ((weak))
+void suspend_wakeup_init_keymap(void) {}
 
 __attribute__ ((weak))
 void matrix_scan_keymap(void) {}
@@ -69,13 +112,20 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+
 __attribute__ ((weak))
 uint32_t layer_state_set_keymap (uint32_t state) {
   return state;
 }
 
 __attribute__ ((weak))
+uint32_t default_layer_state_set_keymap (uint32_t state) {
+  return state;
+}
+
+__attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
+
 
 
 // Call user matrix init, set default RGB colors and then
@@ -99,14 +149,56 @@ void matrix_init_user(void) {
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
 	set_unicode_input_mode(UC_WINC);
 #endif //UNICODE_ENABLE
-  matrix_init_rgb();
   matrix_init_keymap();
+}
+
+void startup_user (void) {
+  #ifdef RGBLIGHT_ENABLE
+    matrix_init_rgb();
+  #endif //RGBLIGHT_ENABLE
+  startup_keymap();
+}
+
+void shutdown_user (void) {
+#ifdef RGBLIGHT_ENABLE
+  rgblight_enable_noeeprom();
+  rgblight_mode_noeeprom(1);
+  rgblight_setrgb_red();
+#endif // RGBLIGHT_ENABLE
+#ifdef RGB_MATRIX_ENABLE
+  rgb_led led;
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    led = g_rgb_leds[i];
+    if (led.matrix_co.raw < 0xFF) {
+      rgb_matrix_set_color( i, 0xFF, 0x00, 0x00 );
+    }
+  }
+#endif //RGB_MATRIX_ENABLE
+  shutdown_keymap();
+}
+
+void suspend_power_down_user(void)
+{
+    suspend_power_down_keymap();
+}
+
+void suspend_wakeup_init_user(void)
+{
+  suspend_wakeup_init_keymap();
+  #ifdef KEYBOARD_ergodox_ez
+  wait_ms(10);
+  #endif
 }
 
 
 // No global matrix scan code, so just run keymap's matrix
 // scan function
 void matrix_scan_user(void) {
+  static bool has_ran_yet;
+  if (!has_ran_yet) {
+    has_ran_yet = true;
+    startup_user();
+  }
 
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
   run_diablo_macro_check();
@@ -160,7 +252,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP
+      send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP
 #if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
                    ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
@@ -168,24 +260,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #elif defined(BOOTLOADER_CATERINA)
                    ":avrdude"
 #endif // bootloader options
-                   SS_TAP(X_ENTER));
+                   SS_TAP(X_ENTER)), 10);
     }
     return false;
     break;
-
-
-  case KC_RESET: // Custom RESET code that sets RGBLights to RED
-    if (!record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable_noeeprom();
-      rgblight_mode_noeeprom(1);
-      rgblight_setrgb_red();
-#endif // RGBLIGHT_ENABLE
-      reset_keyboard();
-    }
-    return false;
-    break;
-
 
   case EPRM: // Resets EEPROM
     if (record->event.pressed) {
@@ -197,7 +275,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
   case VRSN: // Prints firmware version
     if (record->event.pressed) {
-      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE);
+      send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), MACRO_TIMER);
     }
     return false;
     break;
@@ -256,32 +334,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         diablo_key_time[dtime] = diablo_times[0];
       }
     }
-#endif // TAP_DANCE_ENABLE#endif
+#endif // TAP_DANCE_ENABLE
     return false; break;
 
 
-  case KC_CCCV:                                    // One key copy/paste
-    if(record->event.pressed){
-      copy_paste_timer = timer_read();
-    } else {
-      if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {   // Hold, copy
-        register_code(KC_LCTL);
-        tap(KC_C);
-        unregister_code(KC_LCTL);
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(tone_copy);
-#endif
-      } else {                                // Tap, paste
-        register_code(KC_LCTL);
-        tap(KC_V);
-        unregister_code(KC_LCTL);
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(tone_paste);
-#endif
-      }
-    }
-    return false;
-    break;
   case CLICKY_TOGGLE:
 #ifdef AUDIO_CLICKY
     userspace_config.clicky_enable = clicky_enable;
@@ -314,7 +370,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // UNICODE_ENABLE
 
   }
-  return process_record_keymap(keycode, record) && process_record_secrets(keycode, record) && process_record_user_rgb(keycode, record);
+  return process_record_keymap(keycode, record) &&
+#ifdef RGBLIGHT_ENABLE
+    process_record_user_rgb(keycode, record) &&
+#endif // RGBLIGHT_ENABLE
+    process_record_secrets(keycode, record);
 }
 
 
@@ -328,6 +388,11 @@ uint32_t layer_state_set_user(uint32_t state) {
   state = layer_state_set_rgb(state);
 #endif // RGBLIGHT_ENABLE
   return layer_state_set_keymap (state);
+}
+
+
+uint32_t default_layer_state_set_kb(uint32_t state) {
+  return default_layer_state_set_keymap (state);
 }
 
 

@@ -3,12 +3,20 @@
 #include "eeprom.h"
 #include "eeconfig.h"
 
+#ifdef STM32F303xC
+#include "hal.h"
+#include "eeprom_stm32.h"
+#endif
+
 /** \brief eeconfig initialization
  *
  * FIXME: needs doc
  */
 void eeconfig_init(void)
 {
+#ifdef STM32F303xC
+    EEPROM_format();
+#endif
     eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
     eeprom_update_byte(EECONFIG_DEBUG,          0);
     eeprom_update_byte(EECONFIG_DEFAULT_LAYER,  0);
@@ -43,6 +51,9 @@ void eeconfig_enable(void)
  */
 void eeconfig_disable(void)
 {
+#ifdef STM32F303xC
+    EEPROM_format();
+#endif
     eeprom_update_word(EECONFIG_MAGIC, 0xFFFF);
 }
 
