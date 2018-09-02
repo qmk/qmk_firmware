@@ -15,7 +15,8 @@
   This tri-state layer mechanism is a bit similar to Planck and Preonic's "Raise," "Lower," and "Adjust."
 
 - The base layer is QWERTY.
-  A slight variant of [Workman][] may be toggled using `Red`+`Blue`+`Z`.
+  [Colemak][], [Dvorak][], and [Workman][] may be toggled using `Red`+`Blue`+`Z`.
+  When you find the one you like, save it with `Shift`+`Red`+`Blue`+`Z`.
 
 - Minimize hand travel, so as not to lose orientation with home row.
 
@@ -149,8 +150,11 @@ Slow UART:
 - "High Profile mode:" Swap Red/Backspace/Space/Red with Blue/Shift/Shift/Blue (placing space on lower thumb keys) using `MITOSIS_DATAGROK_BOTTOMSPACE=yes` when compiling.
 - Move Print Screen / Scroll Lock / Pause to pinky column on Blue layer.
 - Let's try using TT instead of MO so we can e.g. lock-on the keypad.
+  - We still use MO for first modifier, so e.g. Red + tapping Blue will lock purple.
+    So far it feels a bit janky, we'll see.
 - One key `KC_LAYO` to cycle through available base layers instead of a dedicated key for each;
   Shift + `KC_LAYO` stores current base layer selection in eeprom so it comes back after disconnecting or a reset.
+- Added Colemak and Dvorak to default layers that may be selected.
 - Set UART to 250kbaud with make argument `MITOSIS_DATAGROK_SLOWUART=yes`, for use with 8Mhz Pro Micros.
 
 ### 0.6.60
@@ -246,7 +250,7 @@ Slow UART:
   scancodes 145/175. 145 is LANG2, 175 is "reserved" in USB HID spec.)
 - Implement "layer lock" key
 - Feature parity with popular boards e.g. Planck?
-  - Layers for Dvorak, Coleman, Plover
+  - Layers for ~~Dvorak, Coleman,~~ Plover
   - More music and midi stuff
   - Macros?
 - Improve tri-layer behavior
