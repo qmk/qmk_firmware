@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 // help for fast typist+dual function keys?
 #define PERMISSIVE_HOLD
@@ -22,5 +19,3 @@
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 3
-
-#endif

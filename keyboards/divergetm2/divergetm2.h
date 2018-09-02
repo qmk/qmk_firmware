@@ -15,8 +15,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DIVERGETM2_H
-#define DIVERGETM2_H
+#pragma once
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
@@ -73,5 +72,3 @@
 #endif
 
 #define LAYOUT_ortho_4x12_2x2u LAYOUT
-
-#endif
