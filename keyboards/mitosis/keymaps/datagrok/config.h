@@ -34,10 +34,7 @@
     SONG(QWERTY_SOUND),                         \
     SONG(COLEMAK_SOUND),                        \
     SONG(DVORAK_SOUND),                         \
-    {},                                         \
-    {},                                         \
-    {},                                         \
-    {},                                         \
+    SONG(ZELDA_TREASURE),                       \
   }
 #define AUDIO_VOICES
 #define AUDIO_CLICKY

@@ -6,6 +6,8 @@
 enum mitosis_layers
   {
     _xQ, // qwerty
+    _xC, // colemak
+    _xD, // dvorak
     _xW, // workman
     _xS, // symbols
     _xN, // numbers
@@ -41,6 +43,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_Z,    KC_X,       KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,   KC_QUOT,
       /*,      */ KC_LGUI, KC_LCTL, MO(_xS), KC_BSPC,        KC_SPC,  MO(_xS), KC_RCTL, KC_RGUI,
       /*,      */ KC_HENK, KC_LALT, MO(_xN), LSFT_T(KC_TAB), KC_RSPC, MO(_xN), KC_RALT, KC_MHEN),
+  [_xC] = LAYOUT(
+      KC_Q,    KC_W,       KC_F,    KC_P,    KC_G,           KC_J,    KC_L,    KC_U,    KC_Y,     KC_SCLN,
+      KC_A,    KC_R,       KC_S,    KC_T,    KC_D,           KC_H,    KC_N,    KC_E,    KC_I,     KC_O,
+      KC_Z,    KC_X,       KC_C,    KC_V,    KC_B,           KC_K,    KC_M,    KC_COMM, KC_DOT,   KC_QUOT,
+      /*,      */ _______, _______, _______, _______,        _______, _______, _______, _______,
+      /*,      */ _______, _______, _______, _______,        _______, _______, _______, _______),
+  [_xD] = LAYOUT(
+      KC_QUOT, KC_COMM,    KC_DOT,  KC_P,    KC_Y,           KC_F,    KC_G,    KC_C,    KC_R,     KC_L,
+      KC_A,    KC_O,       KC_E,    KC_U,    KC_I,           KC_D,    KC_H,    KC_T,    KC_N,     KC_S,
+      KC_SCLN, KC_Q,       KC_J,    KC_K,    KC_X,           KC_B,    KC_M,    KC_W,    KC_V,     KC_Z,
+      /*,      */ _______, _______, _______, _______,        _______, _______, _______, _______,
+      /*,      */ _______, _______, _______, _______,        _______, _______, _______, _______),
   [_xW] = LAYOUT(
       KC_Q,    KC_D,       KC_R,    KC_W,    KC_B,           KC_J,    KC_F,    KC_U,    KC_P,     KC_SCLN,
       KC_A,    KC_S,       KC_H,    KC_T,    KC_G,           KC_Y,    KC_N,    KC_E,    KC_O,     KC_I,
@@ -68,6 +82,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 const bool defaultlayers[] = {
   [_xQ] = true,
+  [_xC] = true,
+  [_xD] = true,
   [_xW] = true,
   [_xS] = false,
   [_xN] = false,
@@ -80,6 +96,9 @@ const size_t defaultlayers_n = sizeof(defaultlayers) / sizeof(defaultlayers[0]);
 bool process_record_layout(uint16_t keycode, keyrecord_t *record) {
   uint32_t default_layer;
   uint8_t i;
+  #if defined(AUDIO_ENABLE)
+  float saved_song[][2] = SONG(COIN_SOUND);
+  #endif
 
   if (keycode != KC_LAYO || !record->event.pressed) {
     return true;
@@ -88,6 +107,9 @@ bool process_record_layout(uint16_t keycode, keyrecord_t *record) {
   if (get_mods() & (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))) { // shift pressed
     // save default layer. whatever the current default layer is, store that
     eeconfig_update_default_layer(default_layer_state);
+    #if defined(AUDIO_ENABLE)
+        PLAY_SONG(saved_song);
+    #endif
   } else {
     // rotate default layer.
     // find the current default layer
@@ -166,7 +188,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
   //
   // Bit #            7     6     5     4     3     2     1     0
-  // layer_state: [     |     |     | _xF | _xN | _xS | _xQ | _xW ]
+  // layer_state: [     | _xF | _xN | _xS | _xD | _xC | _xQ | _xW ]
   // usb_led      [     |     |     |kana |cmps |scrl |caps | num ]
   // PORTB:       [  NC |  10 |   9 |   8 |  14 |  16 |  15 |rxled]
   // PORTC:       [  NC |   5 |     |     |     |     |     |     ]
