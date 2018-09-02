@@ -28,32 +28,32 @@
 
 ## Layout Images
 
-![mitosis:datagrok layout base layer](https://imgur.com/9LoLQUk.png)
+![mitosis:datagrok layout base layer](https://imgur.com/tap5Pj.png)
 
 Base layer. Notes:
 - customized comma and period, which have exclamation point and question mark on their shift layer.
-- tap right-shift for underscore
+- tap right-shift for underscore, tap left-shift for tab.
 
-![mitosis:datagrok layout red layer](https://imgur.com/B5bnPGM.png)
+![mitosis:datagrok layout red layer](https://imgur.com/sMGr34T.png)
 
 Red layer. Intended for common navigation and programming symbols. Notes:
 - symmetric layout of paired braces/brackets/slashes for easier memorization
 - arrows placed directly on home position
 
-![mitosis:datagrok layout blue layer](https://imgur.com/HGJ4G1U.png)
+![mitosis:datagrok layout blue layer](https://imgur.com/dDb2563.png)
 
 Blue layer. Intended for "number pad." Notes:
 - Keycodes generated for numbers, enter key, and mathematical symbols are from the alphanumeric keys, not keypad.
   This way they are not influenced by the state of Num Lock.
   If you want to send the keypad equivalents, just press Blue as well to access keypad numbers in the same positions in the Purple layer.
 
-![mitosis:datagrok layout purple layer](https://imgur.com/lNsKDtA.png)
+![mitosis:datagrok layout purple layer](https://imgur.com/pESzy2u.png)
 
 Purple (Red+Blue) layer. Intended for "true keypad" and various functions. Notes:
 - Numbers on this layer send Keypad codes, so the result will be affected by the state of Num Lock.
-- "Switch Layout" toggles the alphabet keys between QWERTY and Workman
-- Page Up / Page Down / Home / End are placed on similar arrows
-- To press Print Screen it is necessary to use the left-side Red and Blue modifiers.
+- "Switch Layout" toggles the alphabet keys between QWERTY, Colemak, Dvorak, and Workman.
+  Shift + "Switch Layout" stores the currently selected alphabet layout in eeprom, so the selection persists across reboots and computers.
+- Page Up / Page Down / Home / End are placed on corresponding arrow keys.
 
 Keyboard layout editor sources:
 [base](http://www.keyboard-layout-editor.com/#/gists/bc2d06a3203d1bc3a14ed2245cf39643)
@@ -61,21 +61,21 @@ Keyboard layout editor sources:
 [blue](http://www.keyboard-layout-editor.com/#/gists/240e807f3d7e1d3ddabe1b69ee675048)
 [purple](http://www.keyboard-layout-editor.com/#/gists/9559f0f8bb1ee47677c8f2b4d766829d)
 
-[Imgur album](https://imgur.com/a/KSoVgPx)
+[Imgur album](https://imgur.com/a/hm4bbdM)
 
 ## Variants
 
-You may select among some options for this layout by editing rules.mk or compiling like so:
+Some additional compile-time options for this layout are available by editing rules.mk or compiling like so:
 
 Normal compilation:
 
 ```make mitosis:datagrok```
 
-High-profile mode (swap rows for center four thumb keys):
+Swap Space onto bottom thumb row: swaps Red/Backspace/Space/Red with Blue/Shift/Shift/Blue:
 
 ```make mitosis:datagrok MITOSIS_DATAGROK_BOTTOMSPACE=yes```
 
-Slow UART:
+Lower baud UART. Useful when using an 8Mhz pro micro; corresponding changes required in wireless firmware. See rules.mk for details.
 
 ```make mitosis:datagrok MITOSIS_DATAGROK_SLOWUART=yes```
 
@@ -100,14 +100,10 @@ Slow UART:
   The next fastest baudrate that works without errors is 250k baud.
   So if you want to do the same:
 
-    - Set the Pro Micro clock rate correctly in `rules.mk`:
+    - Set the Pro Micro clock and baud rate correctly in `rules.mk`:
       ```
       F_CPU = 800000
-      ```
-    - Configure it to communicate at 250k baud in `config.h`:
-      ```
-      #undef SERIAL_UART_BAUD // avoids redefinition warning
-      #define SERIAL_UART_BAUD 250000
+      MITOSIS_DATAGROK_SLOWUART = yes
       ```
     - Configure the receiver's wireless module to communicate at 250k baud in `main.c`. See https://github.com/reversebias/mitosis/pull/10
       ```
@@ -133,7 +129,7 @@ Slow UART:
 - The Function-keys are arranged to mimic the order of the ten-key pad.
 
 - Enter is now in a more qwerty-familiar location, and may be activated with one hand.
-  Numpad Enter is in the same position.
+  Numpad Enter is in the same position for mnemonics.
 
 - Why do I dislike [snake\_case](https://en.wikipedia.org/wiki/Snake_case) (`__variable_names_that_use_underscores_`)?
   Maybe because it's hard to type all those underscores requiring the shift key?
@@ -154,7 +150,7 @@ Slow UART:
     So far it feels a bit janky, we'll see.
 - One key `KC_LAYO` to cycle through available base layers instead of a dedicated key for each;
   Shift + `KC_LAYO` stores current base layer selection in eeprom so it comes back after disconnecting or a reset.
-- Added Colemak and Dvorak to default layers that may be selected.
+- Added Colemak and Dvorak as default layers that may be selected.
 - Set UART to 250kbaud with make argument `MITOSIS_DATAGROK_SLOWUART=yes`, for use with 8Mhz Pro Micros.
 
 ### 0.6.60
