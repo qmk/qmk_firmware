@@ -510,6 +510,69 @@ void rgb_matrix_jellybean_raindrops( bool initialize ) {
     }
 }
 
+void rgb_matrix_digital_rain( const bool initialize ) {
+    // algorithm ported from https://github.com/tremby/Kaleidoscope-LEDEffect-DigitalRain
+    const uint8_t drop_ticks           = 28;
+    const uint8_t new_drop_probability = 24;
+    const uint8_t pure_green_intensity = 0xd0;
+    const uint8_t max_brightness_boost = 0xc0;
+    const uint8_t max_intensity        = 0xff;
+
+    static uint8_t map[MATRIX_COLS][MATRIX_ROWS] = {{0}};
+    static uint8_t drop = 0;
+
+    if (initialize) {
+        rgb_matrix_set_color_all(0, 0, 0);
+        memset(map, 0, sizeof map);
+        drop = 0;
+    }
+    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+        for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
+            if (row == 0 && drop == 0 && rand() < RAND_MAX / new_drop_probability) {
+                // top row, pixels have just fallen and we're
+                // making a new rain drop in this column
+                map[col][row] = max_intensity;
+            }
+            else if (map[col][row] > 0 && map[col][row] < max_intensity) {
+                // neither fully bright nor dark, decay it
+                map[col][row]--;
+            }
+            // set the pixel colour
+            uint8_t led, led_count;
+            map_row_column_to_led(row, col, &led, &led_count);
+
+            if (map[col][row] > pure_green_intensity) {
+                const uint8_t boost = (uint8_t) ((uint16_t) max_brightness_boost 
+                        * (map[col][row] - pure_green_intensity) / (max_intensity - pure_green_intensity));
+                rgb_matrix_set_color(led, boost, max_intensity, boost);
+            }
+            else {
+                const uint8_t green = (uint8_t) ((uint16_t) max_intensity * map[col][row] / pure_green_intensity);
+                rgb_matrix_set_color(led, 0, green, 0);
+            }
+        }
+    }
+    if (++drop > drop_ticks) {
+        // reset drop timer
+        drop = 0;
+        for (uint8_t row = MATRIX_ROWS - 1; row > 0; row--) {
+            for (uint8_t col = 0; col < MATRIX_COLS; col++) {
+                // if ths is on the bottom row and bright allow decay
+                if (row == MATRIX_ROWS - 1 && map[col][row] == max_intensity) {
+                    map[col][row]--;
+                }
+                // check if the pixel above is bright
+                if (map[col][row - 1] == max_intensity) {
+                    // allow old bright pixel to decay
+                    map[col][row - 1]--;
+                    // make this pixel bright
+                    map[col][row] = max_intensity;
+                }
+            }
+        }
+    }
+}
+
 void rgb_matrix_multisplash(void) {
     // if (g_any_key_hit < 0xFF) {
         HSV hsv = { .h = rgb_matrix_config.hue, .s = rgb_matrix_config.sat, .v = rgb_matrix_config.val };
@@ -684,6 +747,9 @@ void rgb_matrix_task(void) {
             break;
         case RGB_MATRIX_JELLYBEAN_RAINDROPS:
             rgb_matrix_jellybean_raindrops( initialize );
+            break;
+        case RGB_MATRIX_DIGITAL_RAIN:
+            rgb_matrix_digital_rain( initialize );
             break;
         #ifdef RGB_MATRIX_KEYPRESSES
             case RGB_MATRIX_SOLID_REACTIVE:
