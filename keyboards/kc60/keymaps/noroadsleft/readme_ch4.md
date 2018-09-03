@@ -2,82 +2,64 @@
 
 - [Table of Contents](./readme.md)
   1. [Base Layers](./readme_ch1.md)
-  2. [Overlays](./readme_ch2.md)
-  3. [Function Layers](./readme_ch3.md)
-  4. **Other Layers**
+  2. [OS Overlays](./readme_ch2.md)
+  3. [Quake 2 Overlays](./readme_ch3.md)
+  4. **Function Layers**
+  5. [Other Layers](./readme_ch5.md)
 
-### Last updated: July 20, 2018, 3:48 PM UTC-0700
-
-
-----
-
-## Layer 8: Numpad layer - `_NP`
-
-### Accessed by holding either `Fn` key and tapping `Space`, from either of the Base Layers
-
-Puts a Numpad on the right-hand side of the keyboard. A through F included for hexadecimal input. Tapping `Space` returns to the previous Base Layer.
-
-![Layer 8](./images/layer_08.png)
+### Last updated: September 2, 2018, 1:03 PM UTC-0700
 
 
 ----
 
-## Layer 9: Macro layer - `_MA`
+## Layer 7: Windows Fn layer - `_FW`
 
-### Accessed by holding the `Fn` key and tapping the right-side `Win` key
+### Accessed by holding either `Fn` key in Layer 0
 
-Has some macros that I use in Git, and some frequently-typed strings.
+Arrows, Navigation keys (Insert, Home, Page Up, etc.), and Function keys are here. Also has keys for Calculator, Menu, Volume Control, and shortcuts for Select All, Undo, Cut, Copy, and Paste. Numpad Enter for when I'm working in Adobe Photoshop, because it treats Numpad Enter differently from the regular Enter key.
 
-Tapping `Esc` exits the Macro layer, if the macro used doesn't do it automatically.
-
-![Layer 9](./images/layer_09.png)
-
-
-### Macros
-
-[![](https://static-cdn.jtvnw.net/emoticons/v1/821796/1.0)](./keymap.c#L82-L84)  
-Inputs: `lavak3DED `  
-Twitch emote for [a streamer I watch a lot](https://www.twitch.tv/lavak3_).
-
-[G_PUSH](./keymap.c#L85-L87)  
-Inputs: `git push origin`  
-Everything from here down is related to Git or GitHub.
-
-[G_FTCH](./keymap.c#L88-L90)  
-Inputs: `git fetch upstream`
-
-[G_COMM](./keymap.c#L91-L94)  
-Inputs: `git commit -m ""` `[Left]`  
-Readies a `git commit` command, moves the cursor between the quotation marks, then disables the Macro layer.
-
-[G_RST](./keymap.c#L95-L98)  
-Inputs: `git reset --soft `  
-Runs a git alias that shows my last ten commits, then readies a `git reset --soft`. For when I commit something too soon. Disables the Macro layer when complete.
-
-[G_C10R](./keymap.c#L99-L102)  
-Inputs: `cf/`  
-A branch prefix I use for my current work in QMK. Disables the Macro layer when finished.
-
-[G_BRCH](./keymap.c#L103-L106)  
-Inputs: `$(git branch-name)`  
-A [git alias](./readme_git.md) that returns the name of the current branch. Disables the Macro layer when finished.
-
-[SIGNA](./keymap.c#L107-L110)  
-Inputs: `\- @noroadsleft` `[Enter]`  
-Sometimes on GitHub, I sign my comments. Types my GitHub name in Markdown syntax, and then taps the `Enter` key. Disables the Macro layer when finished.
+![Windows Fn layer](https://i.imgur.com/XwCshcz.png)
 
 
 ----
 
-### Layer 10: System layer - `_SY`
+## Layer 8: MacOS-oriented Fn layer - `_FM`
 
-#### Accessed by holding either `Fn` key and tapping the `/?` key
+### Accessed by holding either `Fn` key in Layer 1
 
-This is where I change my keyboard function. Base layer select on `1` through `3`, Backlight controls on `C` through `N`, Reset on `8`.
+Based on my Windows Fn layer, but swaps a few functions for a MacOS environment. Arrow, Navigation, and Function keys are basically unchanged from Layer 2. This layer enables using either `Fn` key as a sort of simulated `Command` key, which I find easier to reach and use.
 
-![Layer 10](./images/layer_10.png)
+![MacOS-oriented Fn layer](https://i.imgur.com/Z11kRu2.png)
+
+Function      | Keycode(s) Sent          | Notes
+:-----------: | :----------------------- | :------------------------------
+Print Screen  | `Command`+`Shift`+`3`    | Saves a screen capture as a PNG image on the Desktop.
+Home          | `Command`+`Left Arrow`   | Moves to the beginning of a line.
+End           | `Command`+`Right Arrow`  | Moves to the end of a line.
+Select All    | `Command`+`A`            |
+Undo          | `Command`+`Z`            |
+Cut           | `Command`+`X`            |
+Copy          | `Command`+`C`            |
+Paste         | `Command`+`V`            |
 
 
 ----
 
-[Back to the index.](./)
+## Layer 9: Quake 2 Fn layer - `_FQ`
+
+### Accessed by holding either `Fn` key while either Quake 2 overlay is active.
+
+Based on the Windows function layer, but removes some functions that are pointless to have while in the game.
+
+![Quake 2 Fn layer](https://i.imgur.com/9PG7yWb.png)
+
+Keycode(s) Sent                                                    | Notes
+:----------------------------------------------------------------- | :----
+[`Q2_GRV`](../../../../users/noroadsleft/noroadsleft.h#L162-L170)  | Sends `KC_GRV`, then enables the Dvorak, Quake 2 Dvorak, and Quake 2 Console layers.
+
+
+
+
+----
+
+Next Chapter: [Other Layers](./readme_ch5.md)

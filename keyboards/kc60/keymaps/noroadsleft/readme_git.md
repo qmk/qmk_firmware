@@ -18,7 +18,7 @@
     histb = log --reverse --pretty=format:\"- %<(98,trunc)%s [%an]\" --date=iso-local -n 5
 
     # compact diff
-    d = "diff --compact-summary"
+    df = "diff --compact-summary"
 
     # Short-form status
     st = "!git status --short"

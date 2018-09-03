@@ -12,7 +12,6 @@ enum layers_keymap {
   _QWERTY = 0,
   _DVORAK,
   _COLEMAK,
-  _WIN,
   _MAC,
   _QUAKE2,
   _QUAKE2_DVORAK,
@@ -49,8 +48,7 @@ enum layers_keymap {
 #define BASE _DVORAK
 //layer_on(_WIN);
 
-// include userspace
-// ../../../../users/noroadsleft/
+// include userspace: ~/qmk_firmware/users/noroadsleft/
 #include "noroadsleft.h"
 
 // KEYMAPS

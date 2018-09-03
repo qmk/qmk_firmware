@@ -24,8 +24,6 @@
 // MACRO DEFINITIONS
 enum custom_keycodes {
   F_CAPS = SAFE_RANGE,
-  M_WIN,
-  M_MAC,
   T_L3DED,
   G_PUSH,
   G_FTCH,
@@ -66,71 +64,68 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         } else {
           layer_off(_FUNCMAC);
         }
-      } else if ( biton32(layer_state) == _WIN ) {
+      } else {
         if (record->event.pressed) {
           layer_on(_FUNCWIN);
         } else {
           layer_off(_FUNCWIN);
         }
       };
-      return false; break;
-    case M_WIN:
-      if (record->event.pressed) {
-        layer_move(BASE); // TO(_DVORAK);
-        layer_on(_WIN);
-      };
-      return false; break;
-    case M_MAC:
-      if (record->event.pressed) {
-        layer_move(BASE); // TO(_DVORAK);
-        layer_on(_MAC);
-      };
-      return false; break;
+      return false;
+      break;
     case T_L3DED:
       if (record->event.pressed) {
         SEND_STRING("lavak3DED ");
       };
-      return false; break;
+      return false;
+      break;
     case G_PUSH:
       if (record->event.pressed) {
         SEND_STRING("git push origin ");
       };
-      return false; break;
+      return false;
+      break;
     case G_FTCH:
       if (record->event.pressed) {
         SEND_STRING("git fetch upstream");
       };
-      return false; break;
+      return false;
+      break;
     case G_COMM:
       if (record->event.pressed) {
         SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
         layer_off(_MACROS);
       };
-      return false; break;
+      return false;
+      break;
     case G_RST:
       if (record->event.pressed) {
         SEND_STRING("git histt -n 10" SS_TAP(X_ENTER) "git reset --soft ");
         layer_off(_MACROS);
       };
-      return false; break;
+      return false;
+      break;
     case G_C10R:
       if (record->event.pressed) {
         SEND_STRING("cf/");
         layer_off(_MACROS);
       };
-      return false; break;
+      return false;
+      break;
     case G_BRCH:
       if (record->event.pressed) {
         SEND_STRING("$(git branch-name)");
         layer_off(_MACROS);
       };
-      return false; break;
+      return false;
+      break;
     case SIGNA:
       if (record->event.pressed) {
         SEND_STRING("\\- @noroadsleft" SS_TAP(X_ENTER));
         layer_off(_MACROS);
       };
-      return false; break;
+      return false;
+      break;
     case GO_Q2:
       if (record->event.pressed) {
         //default_layer_set(_QWERTY);
@@ -138,28 +133,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_QUAKE2);
         //layer_off(_SYSTEM);
       };
-      return false; break;
+      return false;
+      break;
     case Q2_ON:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ENTER));
         layer_on(_DVORAK);
         layer_on(_QUAKE2_DVORAK);
       };
-      return false; break;
+      return false;
+      break;
     case Q2_OFF:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ENTER));
         layer_move(_QWERTY); // TO(_QWERTY);
         layer_on(_QUAKE2);
       };
-      return false; break;
+      return false;
+      break;
     case Q2_ESC:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESCAPE));
         layer_move(_QWERTY); // TO(_QWERTY);
         layer_on(_QUAKE2);
       };
-      return false; break;
+      return false;
+      break;
     case Q2_GRV:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_GRAVE));
@@ -167,7 +166,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_QUAKE2_DVORAK);
         layer_on(_QUAKE2_CONSOLE);
       };
-      return false; break;
+      return false;
+      break;
     case MC_UNDO:
       if (record->event.pressed) {
         if ( modifiers & MODS_SHIFT_MASK ) {
@@ -182,7 +182,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_LGUI);
         }
       };
-      return false; break;
+      return false;
+      break;
     case MC_PSTE:
       if (record->event.pressed) {
         if ( modifiers & MODS_SHIFT_MASK ) {
@@ -199,7 +200,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           unregister_code(KC_LGUI);
         }
       };
-      return false; break;
+      return false;
+      break;
   } // switch()
   return true;
 };
