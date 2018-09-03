@@ -5,9 +5,7 @@
 #define _FN2 2
 
 #define MISCTRL LCTL(KC_UP)
-#define CMDENT LGUI_T(KC_ENT)
 #define CTRLESC LCTL_T(KC_ESC)
-#define FN2BSPC LT(_FN2, KC_BSPC)
 
 // arrow cluster
 #define CLLEFT MT(MOD_LGUI, KC_LEFT)
@@ -29,21 +27,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_TAB,    KC_Q,     KC_W,     KC_E,    KC_R,     KC_T,    KC_Y,    KC_U,    KC_I,   KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSPC,
 		CTRLESC ,  KC_A,     KC_S,     KC_D,    KC_F,     KC_G,    KC_H,    KC_J,    KC_K,   KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,
 		KC_LSFT,   KC_NO,    KC_Z,     KC_X,    KC_C,     KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  MO(_FN2),
-		MO(_FN1),  KC_LALT,  KC_LGUI,  KC_SPC,  FN2BSPC,  CMDENT,  CLLEFT,  CLDOWN,  KC_NO,  CLUP,     CLRIGHT),
+		MO(_FN1),  KC_LALT,  KC_LGUI,  KC_SPC,  MO(_FN2), KC_BSPC, CLLEFT,  CLDOWN,  KC_NO,  CLUP,     CLRIGHT),
 
   [_FN1] = LAYOUT(
 		KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,    KC_F11,   KC_F12,   _______,  KC_EJCT,
-		_______,  RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_HUD,   RGB_SAI,  RGB_SAD,  RGB_VAI,  RGB_VAD,  _______,   KC_UP,     KC_MRWD,  KC_MFFD,  KC_DEL,
+		_______,  RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_HUD,   RGB_SAI,  RGB_SAD,  RGB_VAI,  RGB_VAD,  _______,   KC_UP,     KC_MRWD,  KC_MFFD,  _______,
 		_______,  _______,  _______,  _______,  KC_RIGHT,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  _______,   _______,  KC_PENT,
 		_______,  _______,  _______,  _______,  _______,   _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,   _______,  _______,  _______,
-		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,   TO(_BL)),
+		_______,  _______,  _______,  _______,  _______,   KC_DEL,   _______,  _______,  _______,  _______,   TO(_BL)),
 
   [_FN2] = LAYOUT(
 		KC_GRV,   _______,  _______,  MISCTRL,  _______,   RGB_VAD,  RGB_VAI,  KC_MRWD,  KC_MPLY,  KC_MFFD,   KC_MUTE,  KC__VOLDOWN,  KC__VOLUP,  KC_K8s,  KC_EJCT,
-		_______,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_ACL0,   KC_ACL1,  KC_ACL2,  _______,  _______,  _______,   KC_UP,    _______,      _______,    KC_DEL,
+		_______,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_ACL0,   KC_ACL1,  KC_ACL2,  _______,  _______,  _______,   KC_UP,    _______,      _______,    _______,
 		_______,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_RIGHT,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  _______,  _______,      KC_PENT,
 		_______,  _______,  _______,  _______,  _______,   _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,  _______,      _______,    _______,
-		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,   RESET)
+		_______,  _______,  _______,  _______,  _______,   KC_DEL,   _______,  _______,  _______,  _______,   RESET)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
