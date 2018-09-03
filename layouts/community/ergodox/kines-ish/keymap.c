@@ -213,10 +213,10 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                     register_code(KC_RSFT);
                 break;
                 case 1:
-                    return MACRO(D(LGUI), U(LGUI), T(C), D(LSFT), T(SCLN), U(LSFT), T(BSLS), T(T), T(O), T(O), T(L), T(S), T(BSLS), T(C), T(M), T(D), T(E), T(R), T(BSLS), T(C), T(M), T(D), T(E), T(R), T(DOT), T(E), T(X), T(E), D(ENT), U(ENT), END);
+                    SEND_STRING(SS_TAP(X_LGUI) "C:\\tools\\cmder\\cmder.exe" SS_TAP(X_ENTER));
                     break;
             case 2:
-                    return MACRO(D(LSFT), T(V), U(LSFT), T(3), T(R), T(T), D(LSFT), T(2), U(LSFT), T(F), T(0), T(R), T(3), END); 
+                    SEND_STRING("V3rt@f0r3");
               break;
             case 3:
               //breathing_speed_set(1);
