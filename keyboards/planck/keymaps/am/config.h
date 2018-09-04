@@ -1,7 +1,5 @@
-#ifndef CONFIG_USER_H
+#pragma once
 #define CONFIG_USER_H
-
-#include "config_common.h"
 
 /* Prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
@@ -41,5 +39,3 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
-
-#endif
