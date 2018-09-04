@@ -1,6 +1,10 @@
 #include QMK_KEYBOARD_H
+
 #ifdef AUDIO_ENABLE
 #include "audio.h"
+#ifdef DEFAULT_LAYER_SONGS
+extern float default_layer_songs[][][];
+#endif
 #endif
 
 enum mitosis_layers
