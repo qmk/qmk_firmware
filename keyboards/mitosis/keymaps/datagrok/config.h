@@ -1,8 +1,6 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
-
 #ifdef MITOSIS_DATAGROK_SLOWUART
 // This is the highest possible baud rate that a pro micro clocked at 8Mhz can
 // support without errors. I don't notice any difference in behavior at this
