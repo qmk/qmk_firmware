@@ -199,7 +199,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #define setbits(A, B, MASK) A = (A & (B | ~MASK)) | (B & MASK)
 
 void led_set_user(uint8_t usb_leds) {
+  // A simple (but technically inaccurate) model of the momentary layer state:
+  // Red layer active -> indicator = red
+  // Blue layer active -> indicator = blue
+  // Purple layer active -> indicator = purple
+  // the Pro Micro tx LED displays Num Lock status.
   //
+  // Workman layout active -> indicator = green
+  // Workman red layer -> indicator = yellow (red + green)
+  // Workman blue layer -> indicator = cyan (blue + green)
+  // Workman purple layer -> indicator = white (red + blue + green)
+
   // Bit #            7     6     5     4     3     2     1     0
   // layer_state: [     | _xF | _xN | _xS | _xW | _xD | _xC | _xQ ]
   // usb_led      [     |     |     |kana |cmps |scrl |caps | num ]
@@ -214,12 +224,6 @@ void led_set_user(uint8_t usb_leds) {
   // PB1-PB6,PD4,PD5,PD6,PF6,PF7 are not connected to the Mitosis receiver
   // board. Each may be connected to an LED by way of a resistor (4.7k to
   // match the others) for a total of 14 additional indicators.
-
-  // A simple (but technically inaccurate) model of the momentary layer state:
-  // Fn1 key makes _xS active; indicator = red
-  // Fn2 key makes _xN active; indicator = blue
-  // Both keys make _xF active; indicator = purple
-  // Toggling QWERTY mode makes indicator include green, so (red/blue/purple becomes yellow/cyan/white)
 
   uint32_t portf_bits = \
     ((layer_state|default_layer_state)&0b01100000)>>1 | \
