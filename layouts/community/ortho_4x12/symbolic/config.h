@@ -1,4 +1,6 @@
 /*
+This is the c configuration file for the keymap
+
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
 
@@ -18,14 +20,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include "config_common.h"
-#include <serial_config.h>
+// prevent stuck modifiers
+#define PREVENT_STUCK_MODIFIERS
 
-#ifdef USE_Link_Time_Optimization
-  // LTO has issues with macros (action_get_macro) and "functions" (fn_actions),
-  //  so just disable them
-  #define NO_ACTION_MACRO
-  #define NO_ACTION_FUNCTION
 
-  #define DISABLE_LEADER
-#endif // USE_Link_Time_Optimization
+// hold & tapping delay setting
+#define TAPPING_TERM 100
+
+/* Use I2C or Serial, not both */
+
+#define USE_SERIAL
+// #define USE_I2C
+
+/* Select hand configuration */
+
+//#define MASTER_LEFT
+// #define MASTER_RIGHT
+#define EE_HANDS
+
+#ifdef AUDIO_ENABLE
+  #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+                                SONG(DVORAK_SOUND), \
+                                SONG(COLEMAK_SOUND) \
+                              }
+#endif
+
