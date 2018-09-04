@@ -63,6 +63,16 @@ Keyboard layout editor sources:
 
 [Imgur album](https://imgur.com/a/hm4bbdM)
 
+## Indicators
+
+- When Red layer is active, the RGB indicator turns red.
+- When Blue layer is active, the RGB indicator turns blue.
+- When Purple layer is active, the RGB indicator turns purple.
+- When the Workman layer is active, the RGB indicator turns green.
+  Currently, this means that activating the Red layer while using the Workman layout will make the indicator show yellow. (red + green.)
+- The Num Lock status is shown on the Pro Micro tx LED.
+- If you attach a speaker to PC6 (pin 5) and compile with AUDIO_ENABLE=yes, music will be played at startup, when switching default layers, and when saving the default layer.
+
 ## Variants
 
 Some additional compile-time options for this layout are available by editing rules.mk or compiling like so:
@@ -152,6 +162,7 @@ Lower baud UART. Useful when using an 8Mhz pro micro; corresponding changes requ
   Shift + `KC_LAYO` stores current base layer selection in eeprom so it comes back after disconnecting or a reset.
 - Added Colemak and Dvorak as default layers that may be selected.
 - Set UART to 250kbaud with make argument `MITOSIS_DATAGROK_SLOWUART=yes`, for use with 8Mhz Pro Micros.
+- Display Num Lock status on tx LED
 
 ### 0.6.60
 
@@ -223,6 +234,7 @@ Lower baud UART. Useful when using an 8Mhz pro micro; corresponding changes requ
 
 ## To do
 
+- Ctrl+'+' doesn't seem to work; fix.
 - **Shared Layouts.**
   Figure out how to make use of QMK's common `layouts/`
 - **Chorded Combos.**
