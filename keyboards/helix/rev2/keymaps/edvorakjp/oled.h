@@ -1,5 +1,4 @@
-#ifndef OLED_USER_H
-#define OLED_USER_H
+#pragma once
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #include "ssd1306.h"
@@ -15,5 +14,3 @@ void matrix_update(struct CharacterMatrix *dest,
                    const struct CharacterMatrix *source);
 void render_status(struct CharacterMatrix *matrix);
 void iota_gfx_task_user(void);
-
-#endif // OLED_CONFIG_USER_H

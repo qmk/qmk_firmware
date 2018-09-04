@@ -1,5 +1,4 @@
-#ifndef SOFT_SERIAL_CONFIG_H
-#define SOFT_SERIAL_CONFIG_H
+#pragma once
 
 /* Soft Serial defines */
 #define SERIAL_PIN_DDR DDRD
@@ -11,5 +10,3 @@
 #define SERIAL_USE_MULTI_TRANSACTION
 
 //// #error rev2 serial config
-
-#endif /* SOFT_SERIAL_CONFIG_H */
