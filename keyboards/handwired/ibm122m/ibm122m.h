@@ -13,9 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef IBM122M_H
-#define IBM122M_H
-
+#pragma once
 #include "quantum.h"
 
 // This a shortcut to help you visually see your layout.
@@ -42,4 +40,3 @@ k02, k01,   k00,    k70,                k71,             k03,      k72,         
     {   k60,   k61,   k62,   k63,   k64,   k65,   k66,   k67,   k68,   k69,   k6A,   k6B,   k6C,   k6D,   k6E,   k6F,   KC_NO, k6H,   k6I,   KC_NO }, \
     {   k70,   k71,   k72,   k73,   k74,   KC_NO, KC_NO, k77,   k78,   k79,   k7A,   k7B,   KC_NO, KC_NO, k7E,   KC_NO, KC_NO, k7H,   k7I,   k7J   }, \
 }
-#endif

@@ -1,7 +1,5 @@
-#ifndef CONFIG_USER_H
+#pragma once
 #define CONFIG_USER_H
-#include "../../config.h"
-
 
 #define TAPPING_TERM 200
 
@@ -16,5 +14,3 @@
 #define FORCE_NKRO
 
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
-
-#endif

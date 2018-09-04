@@ -1,6 +1,4 @@
-#include "ergodox_ez.h"
-#include "debug.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #include "version.h"
 
 #include "keymap_german.h"
@@ -9,8 +7,6 @@
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
-  VRSN,
 
   // Programmer's Dvorak "macros" : 
   //  To be paired with get_mods to enable both
@@ -52,7 +48,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Programmer's Dvorak layer
-  [0] = KEYMAP(
+  [0] = LAYOUT_ergodox(
     DVP_ESC,      DVP_AMPR,         DVP_LBRACKET, DVP_LCBR,         DVP_RCBR,     DVP_LPRN,   DVP_AT,
     KC_TAB,       KC_SCOLON,        KC_COMMA,     KC_DOT,           KC_P,         KC_Y,       MO(4), 
     MO(3),        KC_A,             KC_O,         KC_E,             KC_U,         KC_I,     
@@ -70,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_F17,     KC_F18,   KC_PGUP,  KC_PGDOWN,  KC_ENTER,   KC_BSPACE
   ),
   // Gaming QWERTY layer
-  [1] = KEYMAP(
+  [1] = LAYOUT_ergodox(
     KC_ESCAPE,  KC_1,   KC_2,     KC_3,         KC_4,       KC_5,         KC_F14,
     KC_TAB,     KC_Q,   KC_W,     KC_E,         KC_R,       KC_T,         KC_F23,
     MO(3),      KC_A,   KC_S,     KC_D,         KC_F,       KC_G,
@@ -87,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
       KC_F17,   KC_F18, KC_PGUP,  KC_PGDOWN,    KC_ENTER,   KC_BSPACE
   ),
-  [2] = KEYMAP(
+  [2] = LAYOUT_ergodox(
     KC_ESCAPE,  KC_F1,     KC_F2,     KC_F3,     KC_F4,     KC_F5,     KC_C,
     KC_TAB,     KC_Q,      KC_W,      KC_E,      KC_R,      KC_T,      TO(0),
     MO(3),      KC_1,      KC_2,      KC_3,      KC_4,      KC_5,
@@ -105,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       TO(0), KC_F18, KC_PGUP,  KC_PGDOWN,  KC_ENTER, KC_BSPACE
   ),
   // Function Layer
-  [3] = KEYMAP(
+  [3] = LAYOUT_ergodox(
     KC_DLR,         KC_F1,            KC_F2,              KC_F3,              KC_F4,              KC_F5,          KC_TRANSPARENT,
     KC_TRANSPARENT, KC_TRANSPARENT,   KC_MEDIA_PREV_TRACK,KC_MEDIA_PLAY_PAUSE,KC_MEDIA_NEXT_TRACK,KC_NO,          TT(4),
     KC_TRANSPARENT, KC_TRANSPARENT,   KC_AUDIO_VOL_DOWN,  KC_AUDIO_VOL_UP,    KC_AUDIO_MUTE,      KC_TRANSPARENT,
@@ -124,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   // Keypad, Lighting, and Mouse emulation layer
  ///* 
-    [4] = KEYMAP(
+    [4] = LAYOUT_ergodox(
     KC_ESCAPE,  KC_NO,      KC_NO,        KC_MS_BTN3, KC_NO,        KC_NO,          KC_NO,
     KC_TAB,     KC_NO,      KC_MS_BTN2,   KC_MS_UP,   KC_MS_BTN1,   KC_MS_WH_UP,    TO(0),
     KC_NO,      KC_NO,      KC_MS_LEFT,   KC_MS_DOWN, KC_MS_RIGHT,  KC_MS_WH_DOWN,
@@ -163,23 +159,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
   */
 
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(1)
-};
-
-// leaving this in place for compatibilty with old keymaps cloned and re-compiled.
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-        case 0:
-        if (record->event.pressed) {
-          SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-        }
-        break;
-      }
-    return MACRO_NONE;
 };
 
 void led_set_keymap(uint8_t usb_led) {
@@ -231,20 +210,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         numlock = !numlock;
     }
     break;
-    
-    // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
-        eeconfig_init();
-      }
-      return false;
-      break;
-    case VRSN:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
 
     case DVP_ESC:
     if (left_shift_down || right_shift_down)
