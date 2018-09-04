@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "alt67.h"
+#include "alt.h"
 #include "led_matrix.h"
 
 //Teal <-> Salmon
