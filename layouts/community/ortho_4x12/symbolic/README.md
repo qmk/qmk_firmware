@@ -4,7 +4,7 @@
 
 ### QWERTY based 
 
-![QWERTY layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/4597497ecd00790312f1a3928b2e2c5cf17a6ac1/QWERTY.png)
+![QWERTY layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/14b9063e9bed21063b03025521557d433539adcc/QWERTY.png)
 
 * Default keymap
 * QWERTY layout
@@ -20,7 +20,7 @@
 
 ### symbol charactor layer
 
-![Raise layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/4597497ecd00790312f1a3928b2e2c5cf17a6ac1/Raise.png)
+![Raise layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/14b9063e9bed21063b03025521557d433539adcc/Raise.png)
 
 * Raise Layer
 * assigned symbolic(punctuation) characters
@@ -37,17 +37,24 @@
 
 ### numbers and allows layer
 
-![Lower layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/4597497ecd00790312f1a3928b2e2c5cf17a6ac1/Lower.png)
+![Lower layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/14b9063e9bed21063b03025521557d433539adcc/Lower.png)
 
 * Lower Layer
 * entrust vim style arrows
 * also numkeys
 * additional, computer volume keys
 * transparent all modifiers
+* **changed 2018/09/04**
+    * assign keys
+        * Home
+        * Page Down
+        * Page Up
+        * End
+        * Print Screen
 
 ### Numpads and F key layer
 
-![Neutral layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/4597497ecd00790312f1a3928b2e2c5cf17a6ac1/Neutral.png)
+![Neutral layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/14b9063e9bed21063b03025521557d433539adcc/Neutral.png)
 
 * visibled when Raise and Lower layer visibled
 * F keys assigned left hand side

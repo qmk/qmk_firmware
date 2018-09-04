@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Tab  |      |VolDn |VolUp | Mute |      || Left | Down |  Up  |Right |      |Enter |
  * |------+------+------+------+------+------++------+------+------+------+------+------|
  * |      |      |      |      |      |      ||      |      |      |      |      |      |
- * |      |      |      |      |      |      ||      |      |      |      |      |      |
+ * |      |      |      |      |      | PrSc || Home | PgDn | PgUp | End  |      |      |
  * |------+------+------+------+------+------++------+------+------+------+------+------|
  * |      |      |      |      |      |LSFT_T||RSFT_T|      |      |      |      |      |
  * |Reset | Alt  | GUI  |LLower|LRaise|Space ||Space |RRaise|RLower| GUI  | Del  |Reset |
@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_LOWER] = LAYOUT_ortho_4x12( \
   _______,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     _______, \
   _______,  XXXXXXX,  KC_VOLD,  KC_VOLU,  KC_MUTE,  XXXXXXX,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RGHT,  XXXXXXX,  _______, \
-  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______, \
+  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_PSCR,  KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   XXXXXXX,  _______, \
   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______  \
 ),
 
