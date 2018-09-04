@@ -23,6 +23,13 @@ enum mitosis_keycodes
     KC_LAYO = SAFE_RANGE
   };
 
+// Setting MITOSIS_DATAGROK_BOTTOMSPACE in rules.mk will swap the upper and
+// lower center four thumb-keys. See keymaps/datagrok/rules.mk.
+#ifdef MITOSIS_DATAGROK_BOTTOMSPACE
+#undef LAYOUT
+#define LAYOUT LAYOUT_bottomspace
+#endif
+
 // Fillers to make layering more clear
 #define _______ KC_TRNS // Transparent
 
