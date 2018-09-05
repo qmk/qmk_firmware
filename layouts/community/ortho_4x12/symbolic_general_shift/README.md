@@ -1,15 +1,15 @@
-# Symbolic ortho 4x12 layout 
+# Symbolic general shift ortho 4x12 layout 
 
 ## Features
 
 ### QWERTY based 
 
-![QWERTY layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/14b9063e9bed21063b03025521557d433539adcc/QWERTY.png)
+![QWERTY layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/92d4d5857f4b64e1c529f69e752b25207fae2cd5/QWERTY.png)
 
 * Default keymap
 * QWERTY layout
 * Hold and tap 
-    * `Shift` and `Space`
+    * `Raise Layer` and `Space`
     * `Left Ctrl` and `Tab`
 * Symmetric Modifiers
     * `Shift`
@@ -20,7 +20,7 @@
 
 ### symbol charactor layer
 
-![Raise layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/14b9063e9bed21063b03025521557d433539adcc/Raise.png)
+![Raise layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/92d4d5857f4b64e1c529f69e752b25207fae2cd5/Raise.png)
 
 * Raise Layer
 * assigned symbolic(punctuation) characters
@@ -37,7 +37,7 @@
 
 ### numbers and allows layer
 
-![Lower layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/14b9063e9bed21063b03025521557d433539adcc/Lower.png)
+![Lower layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/92d4d5857f4b64e1c529f69e752b25207fae2cd5/Lower.png)
 
 * Lower Layer
 * entrust vim style arrows
@@ -54,7 +54,7 @@
 
 ### Numpads and F key layer
 
-![Neutral layout](https://gist.githubusercontent.com/leico/cb50ecd12eb8ad906a69678f265cd52c/raw/14b9063e9bed21063b03025521557d433539adcc/Neutral.png)
+![Neutral layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/92d4d5857f4b64e1c529f69e752b25207fae2cd5/Neutral.png)
 
 * visibled when Raise and Lower layer visibled
 * F keys assigned left hand side
