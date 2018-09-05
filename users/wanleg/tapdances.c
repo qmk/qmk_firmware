@@ -94,6 +94,23 @@ void DEL_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   DELtap_state.state = 0;
 }
+
+//instanalize an instance of 'tap' for the 'RST' tap dance.
+void RST_finished (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    register_code (KC_LCTL);
+  } else {
+    reset_keyboard();
+  }
+}
+
+void RST_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    unregister_code (KC_LCTL);
+  } else {
+    reset_keyboard();
+  }
+}
 ///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION END /////
 
 //Tap Dance Definitions
@@ -104,6 +121,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  ,[TD_Q_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC)
  ,[ENT_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ENT_finished, ENT_reset)
  ,[DEL_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, DEL_finished, DEL_reset)
+ ,[RST_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RST_finished, RST_reset)
 };
 
 //In Layer declaration, add tap dance item in place of a key code

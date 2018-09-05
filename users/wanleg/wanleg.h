@@ -106,6 +106,7 @@ enum {
   ,TD_Q_ESC
   ,ENT_TAP_DANCE
   ,DEL_TAP_DANCE
+  ,RST_TAP_DANCE
 };
 #endif
 
@@ -305,5 +306,5 @@ enum {
 #define ______________ETCETERA_Row__1______________   _______, _______________Gherkin_ETC_1_______________, _______
 #define ______________ETCETERA_Row__2______________   _______, _______________Gherkin_ETC_2_______________, _______
 #define ______________ETCETERA_Row__3______________   _______, _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______, _______
- 
+
 #endif // !USERSPACE
