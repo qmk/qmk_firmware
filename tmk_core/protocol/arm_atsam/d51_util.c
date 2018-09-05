@@ -41,8 +41,8 @@ void m15_print(uint32_t x)
 
 //Display unsigned 32-bit number through debug led
 //Read as follows: 1230 = [*]  [* *]  [* * *]  [**]  (note zero is fast double flash)
-#define DLED_ONTIME 600000
-#define DLED_PAUSE 1000000
+#define DLED_ONTIME 1000000
+#define DLED_PAUSE 1500000
 volatile uint32_t w;
 void dled_print(uint32_t x, uint8_t long_pause)
 {
