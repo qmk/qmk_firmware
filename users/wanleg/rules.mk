@@ -1,6 +1,6 @@
-ifeq ($(strip $(KEYBOARD)), lets_split_rev2)
-SRC += ../../keyboards/lets_split/lets_split.c
-endif
+#ifeq ($(strip $(KEYBOARD)), lets_split_rev2)
+#SRC += ../../keyboards/lets_split/lets_split.c
+#endif
 
 SRC += wanleg.c tapdances.c 
 
