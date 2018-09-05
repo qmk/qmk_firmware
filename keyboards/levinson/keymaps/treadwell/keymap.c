@@ -6,7 +6,7 @@ extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
 #define _COLEMAK 1
-#define _DVORAK 2
+#define _GAME 2
 #define _NUMB 3
 #define _CODE 4
 #define _SYS 5
@@ -16,7 +16,7 @@ extern keymap_config_t keymap_config;
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
-  DVORAK,
+  GAME,
   NUMB,
   CODE,
   SYS,
@@ -62,25 +62,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-  [_DVORAK] = LAYOUT_kc(
+  [_GAME] = LAYOUT_kc(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-     TAB ,QUOT,COMM,DOT , P  , Y  ,      F  , G  , C  , R  , L  ,MINS,
+     TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     BSPC, A  , O  , E  , U  , I  ,      D  , H  , T  , N  , S  ,SLSH,
+     ESC , A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     LSFT,SCLN, Q  , J  , K  , X  ,      B  , M  , W  , V  , Z  , X4 ,
+     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH, X4 ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-      X3 ,LCTL,LALT,LGUI, X1 ,LALT,     SPC , X2 ,LEFT,DOWN, UP ,RGHT
+      X3 ,LCTL,LALT,LGUI, X2 , SPC,     SPC , X1 ,LEFT,DOWN, UP ,RGHT
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
   [_NUMB] = LAYOUT_kc(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-     TILD,EXLM, AT ,HASH,DLR ,PERC,     CIRC,AMPR,ASTR,LPRN,RPRN,PMNS,
+     TILD,EXLM, AT ,HASH,DLR ,PERC,     CIRC,AMPR,ASTR,LPRN,RPRN, DEL,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
      GRV , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,UNDS,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-         ,    ,MPRV,MPLY,MNXT,    ,         ,VOLD,VOLU,MUTE,    ,    ,
+         ,    ,MPRV,MNXT,MPLY,    ,         ,VOLD,VOLU,MUTE,    ,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
          ,    ,    ,    ,    ,LALT,         ,    ,    ,    ,    ,
   //`----+----+----+----+----+----'    `----+----+----+----+----+----'
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+------+----+----+----+----|    |----+----+----+----+----+----|
      CAPS,SELECT,LEFT,DOWN,RGHT,DEL ,     PGDN, END,LBRC,RBRC,MINS,UNDS,
   //|----+------+----+----+----+----|    |----+----+----+----+----+----|
-         , UNDO ,CUT ,COPY,PASTE,   ,     LEFT,RGHT,LCBR,RCBR,PLUS,PEQL,
+     LSFT, UNDO ,CUT ,COPY,PASTE,   ,     LEFT,RGHT,LCBR,RCBR,PLUS,PEQL,
   //|----+------+----+----+----+----|    |----+----+----+----+----+----|
          ,      ,    ,    ,    ,LALT,         ,    ,    ,    ,    ,
   //`----+------+----+----+----+----'    `----+----+----+----+----+----'
@@ -100,9 +100,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYS] = LAYOUT_kc(
   //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-     F12 , F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 ,F10 ,F11 ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,
+  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+     F12 , F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 ,F10 ,F11 ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -123,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_ADJUST] = LAYOUT( \
     _______, RESET  , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, \
-    _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
+    _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, GAME  ,  _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
   )
@@ -133,7 +133,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef AUDIO_ENABLE
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_dvorak[][2]     = SONG(GAME_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 #endif
 
@@ -162,12 +162,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case DVORAK:
+    case GAME:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
         #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
+        persistent_default_layer_set(1UL<<_GAME);
       }
       return false;
       break;
@@ -188,6 +188,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_CODE);
         update_tri_layer(_NUMB, _CODE, _ADJUST);
+      }
+      return false;
+      break;
+    case SYS:
+      if(record->event.pressed) {
+	layer_on(_SYS);
+      } else{
+	layer_off(_SYS);
       }
       return false;
       break;
