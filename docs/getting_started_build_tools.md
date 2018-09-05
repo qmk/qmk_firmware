@@ -4,6 +4,8 @@ This page describes setting up the build environment for QMK. These instructions
 
 <!-- FIXME: We should have ARM instructions somewhere. -->
 
+Note: If it is your first time here, Check out the "Complete Newbs guide" instead
+
 ## Linux
 
 To ensure you are always up to date, you can just run `sudo util/install_dependencies.sh`. That should always install all the dependencies needed. **This will run `apt-get upgrade`.**
@@ -54,7 +56,7 @@ If you're using [homebrew,](http://brew.sh/) you can use the following commands:
     brew tap osx-cross/avr
     brew tap PX4/homebrew-px4
     brew update
-    brew install avr-gcc
+    brew install avr-gcc@7
     brew install dfu-programmer
     brew install gcc-arm-none-eabi
     brew install avrdude

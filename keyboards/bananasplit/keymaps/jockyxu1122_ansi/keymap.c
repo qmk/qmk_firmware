@@ -7,7 +7,7 @@
   Note that "Previous track" and "next track" might only work with Windows.
 */
 
-#include "bananasplit.h"
+#include QMK_KEYBOARD_H
 
 #define DEFAULT_LAYER 0
 #define LAYER_1 1
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   Hm: Home
   MoL1: Mo(L1)
   */
-  [DEFAULT_LAYER] = KEYMAP_HHKB_ARROW(
+  [DEFAULT_LAYER] = LAYOUT_hhkb_arrow(
     // row 1
     KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_GRV, \
       KC_DEL, \
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   VUp: Volume up
   www: Browser home page
   */
-  [LAYER_1] = KEYMAP_HHKB_ARROW(
+  [LAYER_1] = LAYOUT_hhkb_arrow(
     // row 1
     BL_TOGG, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, \
       KC_F12, KC_TRNS, KC_INS, \

@@ -1,5 +1,4 @@
-#include "dz60.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 // My layout is practically the default HHKB layout.
 #define _DEFAULT 0
