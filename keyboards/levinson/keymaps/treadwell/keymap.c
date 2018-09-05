@@ -25,13 +25,9 @@ enum custom_keycodes {
 #define KC_ KC_TRNS
 #define _______ KC_TRNS
 
-#define KC_CAPW LGUI(LSFT(KC_3))        // Capture whole screen
-#define KC_CPYW LGUI(LSFT(LCTL(KC_3)))  // Copy whole screen
-#define KC_CAPP LGUI(LSFT(KC_4))        // Capture portion of screen
-#define KC_CPYP LGUI(LSFT(LCTL(KC_4)))  // Copy portion of screen
 #define KC_X1 CODE
 #define KC_X2 NUMB
-#define KC_X3 SYS
+#define KC_X3 MO(_SYS)
 #define KC_X4 MT(MOD_LSFT, KC_ENT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -129,43 +125,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(GAME_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-#endif
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
     case GAME:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
-        persistent_default_layer_set(1UL<<_GAME);
+        set_single_persistent_default_layer(_GAME);
       }
       return false;
       break;
@@ -186,14 +162,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_CODE);
         update_tri_layer(_NUMB, _CODE, _ADJUST);
-      }
-      return false;
-      break;
-    case SYS:
-      if(record->event.pressed) {
-	layer_on(_SYS);
-      } else{
-	layer_off(_SYS);
       }
       return false;
       break;
