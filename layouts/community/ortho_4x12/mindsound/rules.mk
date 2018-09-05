@@ -1,5 +1,5 @@
 # none of my keyboards need LTO and it screws up I2C on my LSVI:
-LINK_TIME_OPTIMIZATION = no
+EXTRAFLAGS:=$(filter-out -flto,$(EXTRAFLAGS))
 
 # turning off backlighting and audio for the split keebs
 ifneq (,$(findstring lets_split,$(KEYBOARD)))

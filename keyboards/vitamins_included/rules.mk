@@ -74,7 +74,4 @@ LAYOUTS = ortho_4x12
 
 DEFAULT_FOLDER = vitamins_included/rev1
 
-LINK_TIME_OPTIMIZATION = yes
-ifeq ($(strip $(LINK_TIME_OPTIMIZATION)),yes)
-    EXTRAFLAGS += -flto
-endif
+EXTRAFLAGS        += -flto
