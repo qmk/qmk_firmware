@@ -5,6 +5,3 @@ BOOTMAGIC_ENABLE = yes
 AUTO_SHIFT_ENABLE = no
 AUDIO_ENABLE = yes
 CONSOLE_ENABLE = no
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
