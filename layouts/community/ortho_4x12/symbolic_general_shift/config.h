@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // hold & tapping delay setting
 #define TAPPING_TERM 100
+#define PERMISSIVE_HOLD
 
 /* Use I2C or Serial, not both */
 

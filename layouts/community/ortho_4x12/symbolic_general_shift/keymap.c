@@ -142,8 +142,10 @@ void matrix_scan_Raise ( void ){
 
   if( layer_state_is( _RAISE ) ) return;                    // already enable Raise Layer, exit function
 
-  if( timer_elapsed( Raise_event.time ) > TAPPING_TERM )    // Elapsed TAPPING_TERM, enable Raise Layer
+  if( timer_elapsed( Raise_event.time ) > TAPPING_TERM ){   // Elapsed TAPPING_TERM, enable Raise Layer
     layer_on( _RAISE );
+    update_tri_layer( _LOWER, _RAISE, _NEUTRAL );
+  }
 
 }
 
@@ -164,9 +166,10 @@ void RaiseReleased ( bool brother_state ){
   
   if( brother_state ) return;
 
-  if( layer_state_is( _RAISE ) )        // enable Raise layer -> Holded Raise key, and released
-    layer_off( _RAISE );                // Raise layer disabled
-
+  if( layer_state_is( _RAISE ) ){                 // enable Raise layer -> Holded Raise key, and released
+    layer_off( _RAISE );                          // Raise layer disabled
+    update_tri_layer( _LOWER, _RAISE, _NEUTRAL );
+  }
   else {                                // othewise tap, send space key
       register_code( KC_SPC );
     unregister_code( KC_SPC );
@@ -208,6 +211,7 @@ void LowerPressed ( bool brother_state ){
   if( brother_state ) return;
 
   layer_on( _LOWER );
+  update_tri_layer(_LOWER, _RAISE, _NEUTRAL );
   return;
 }
 
@@ -218,6 +222,7 @@ void LowerReleased ( bool brother_state ){
   if( brother_state ) return ;
 
   layer_off( _LOWER );
+  update_tri_layer(_LOWER, _RAISE, _NEUTRAL );
   return ;
 }
 
@@ -233,7 +238,6 @@ bool LowerSwitch ( keyrecord_t *record, bool *key_state, bool brother ){
     LowerReleased( brother );
   }
 
-  update_tri_layer(_LOWER, _RAISE, _NEUTRAL );
   return false;
 
 }
@@ -264,6 +268,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case R_LOWER : return LowerSwitch( record, &r_lower, l_lower ); break;
     case L_RAISE : return RaiseSwitch( record, &l_raise, r_raise ); break;
     case R_RAISE : return RaiseSwitch( record, &r_raise, l_raise ); break;
+
+    default:
+#     if defined PERMISSIVE_HOLD
+        if( IS_NOEVENT( Raise_event ) ) return true;    // no raise event, process normally
+
+        if( layer_state_is( _RAISE ) ) return true;     // raise already enabled also process normally
+
+        layer_on( _RAISE );                             // Raise layer off, Raise is holded, and pushed other key, 
+        update_tri_layer( _LOWER, _RAISE, _NEUTRAL );   // Raise layer enabled
+
+        process_record( record );                       // call process_record to process keycode ones more
+        return false;
+#     endif
+    break;
 
   }
   return true;
