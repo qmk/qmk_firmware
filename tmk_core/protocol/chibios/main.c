@@ -142,10 +142,15 @@ int main(void) {
 
   /* Wait until the USB or serial link is active */
   while (true) {
+#if defined(WAIT_FOR_USB) || defined(SERIAL_LINK_ENABLE)
     if(USB_DRIVER.state == USB_ACTIVE) {
       driver = &chibios_driver;
       break;
     }
+#else
+    driver = &chibios_driver;
+    break;
+#endif
 #ifdef SERIAL_LINK_ENABLE
     if(is_serial_link_connected()) {
       driver = get_serial_link_driver();
@@ -178,6 +183,7 @@ int main(void) {
   /* Main loop */
   while(true) {
 
+#if !defined(NO_USB_STARTUP_CHECK)
     if(USB_DRIVER.state == USB_SUSPENDED) {
       print("[s]");
 #ifdef VISUALIZER_ENABLE
@@ -205,6 +211,7 @@ int main(void) {
       visualizer_resume();
 #endif
     }
+#endif
 
     keyboard_task();
 #ifdef CONSOLE_ENABLE
