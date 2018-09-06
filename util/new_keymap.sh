@@ -33,7 +33,7 @@ fi
 # Recursively copy the chosen keyboard's default keymap
 cp -r keyboards/"$KB_PATH"/keymaps/default keyboards/"$KB_PATH"/keymaps/"$USERNAME"
 
-printf "keymap directory created in: qmk_firmware/keyboards/%s\n\n" "$KB_PATH"
+printf "%s keymap directory created in: qmk_firmware/keyboards/%s/keymaps/\n\n" "$USERNAME" "$KB_PATH"
 
 printf "Compile a firmware file with your new keymap by typing: \n"
 printf "   make %s:%s\n" "$KB_PATH" "$USERNAME"
