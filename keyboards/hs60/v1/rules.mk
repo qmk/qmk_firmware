@@ -69,6 +69,12 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 RGB_MATRIX_ENABLE = yes     # Use RGB matrix
 
+LAYOUTS = 60_ansi 60_iso
+
+ifeq ($(strip $(LAYOUT)), ansi)
+    OPT_DEFS += -DHS60_ANSI
+endif
+
 # Experimental features for zealcmd please do no enable
 #RAW_ENABLE = yes
 #USE_KEYMAPS_IN_EEPROM = yes
