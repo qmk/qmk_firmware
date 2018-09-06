@@ -58,8 +58,8 @@ void matrix_scan_user(void) {
 
   switch(biton32(layer_state)) {
     case _FN1:
-      hue = 185;
-      sat = 255;
+      hue = 2;
+      sat = 178;
       break;
 
     case _FN2:
