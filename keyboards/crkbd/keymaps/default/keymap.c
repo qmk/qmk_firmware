@@ -1,23 +1,12 @@
-#include "crkbd.h"
+#include QMK_KEYBOARD_H
 #include "bootloader.h"
-#include "action_layer.h"
-#include "action_util.h"
-#include "eeconfig.h"
 #ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#include "split_util.h"
+  #include "lufa.h"
+  #include "split_util.h"
 #endif
-#include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
-
-#include "../lib/mode_icon_reader.c"
-#include "../lib/layer_state_reader.c"
-#include "../lib/host_led_state_reader.c"
-#include "../lib/logo_reader.c"
-#include "../lib/keylogger.c"
-#include "../lib/timelogger.c"
 
 extern keymap_config_t keymap_config;
 
@@ -140,7 +129,6 @@ void matrix_init_user(void) {
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
-        TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
@@ -148,12 +136,25 @@ void matrix_init_user(void) {
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
 
+// When add source files to SRC in rules.mk, you can use functions.
+const char *read_layer_state(void);
+const char *read_logo(void);
+void set_keylog(uint16_t keycode, keyrecord_t *record);
+const char *read_keylog(void);
+const char *read_keylogs(void);
+
+// const char *read_mode_icon(bool swap);
+// const char *read_host_led_state(void);
+// void set_timelog(void);
+// const char *read_timelog(void);
+
 void matrix_scan_user(void) {
    iota_gfx_task();
 }
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
+    // If you want to change the display of OLED, you need to change here
     matrix_write_ln(matrix, read_layer_state());
     matrix_write_ln(matrix, read_keylog());
     matrix_write_ln(matrix, read_keylogs());
@@ -182,7 +183,7 @@ void iota_gfx_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
-    set_timelog();
+    // set_timelog();
   }
 
   switch (keycode) {

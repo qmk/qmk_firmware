@@ -91,6 +91,8 @@ This is a C header file that is one of the first things included, and will persi
   * key combination that allows the use of magic commands (useful for debugging)
 * `#define USB_MAX_POWER_CONSUMPTION`
   * sets the maximum power (in mA) over USB for the device (default: 500)
+* `#define SCL_CLOCK 100000L`
+  * sets the SCL_CLOCK speed for split keyboards. The default is `100000L` but some boards can be set to `400000L`.
 
 ## Features That Can Be Disabled
 
@@ -197,6 +199,8 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 
 * `DEFAULT_FOLDER`
   * Used to specify a default folder when a keyboard has more than one sub-folder.
+* `FIRMWARE_FORMAT`
+  * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
   * Used to add files to the compilation/linking list.
 * `LAYOUTS`
@@ -244,3 +248,7 @@ Use these to enable or disable building certain features. The more you have enab
   * Enable Bluetooth with the Adafruit EZ-Key HID
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
+* `WAIT_FOR_USB`
+  * Forces the keyboard to wait for a USB connection to be established before it starts up
+* `NO_USB_STARTUP_CHECK`
+  * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.

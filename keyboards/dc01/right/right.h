@@ -23,7 +23,7 @@
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define LAYOUT_ANSI( \
+#define LAYOUT_ansi( \
          K01, K02, K03, K04, K05, K06, K07, \
     K10, K11, K12, K13, K14, K15, K16, K17, \
     K20, K21, K22, K23, K24, K25,      K27, \
@@ -38,7 +38,7 @@
     { K40, K41, K42, K43, K44, K45, XXX, XXX }  \
 }
 
-#define LAYOUT_ISO( \
+#define LAYOUT_iso( \
          K01, K02, K03, K04, K05, K06, K07, \
     K10, K11, K12, K13, K14, K15, K16,      \
     K20, K21, K22, K23, K24, K25, K26, K27, \
@@ -53,7 +53,7 @@
     { K40, K41, K42, K43, K44, K45, XXX, XXX }  \
 }
 
-#define LAYOUT_HHKB_ANSI( \
+#define LAYOUT_hhkb_ansi( \
          K01, K02, K03, K04, K05, K06, K07, K00, \
     K10, K11, K12, K13, K14, K15, K16, K17,      \
     K20, K21, K22, K23, K24, K25,      K27,      \
@@ -68,7 +68,7 @@
     { K40, K41, K42, K43, K44, K45, XXX, XXX }  \
 }
 
-#define LAYOUT_HHKB_ISO( \
+#define LAYOUT_hhkb_iso( \
          K01, K02, K03, K04, K05, K06, K07, K00, \
     K10, K11, K12, K13, K14, K15, K16,           \
     K20, K21, K22, K23, K24, K25, K26, K27,      \
