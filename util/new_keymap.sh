@@ -7,14 +7,14 @@ KB_PATH=$1
 USERNAME=$2
 
 if [ -z "$KB_PATH" ]; then
-    printf "Usage:   %s <keyboard_name> <username>\n" "$0"
-    printf "Example: %s gh60 yourname\n" "$0"
+    printf "Usage:   %s <keyboard_path> <username>\n" "$0"
+    printf "Example: %s 1upkeyboards/1up60hse yourname\n" "$0"
     exit 1
 fi
 
 if [ -z "$USERNAME" ]; then
-    printf "Usage:   %s <keyboard_name> <username>\n" "$0"
-    printf "Example: %s gh60 yourname\n" "$0"
+    printf "Usage:   %s <keyboard_path> <username>\n" "$0"
+    printf "Example: %s 1upkeyboards/1up60hse yourname\n" "$0"
     exit 1
 fi
 
