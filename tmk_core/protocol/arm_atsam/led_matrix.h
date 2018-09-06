@@ -99,19 +99,6 @@ uint8_t led_matrix_init(void);
 #define EF_SCR_R        0x00000004  //Scroll right
 #define EF_SUBTRACT     0x00000008  //Subtract color values
 
-typedef struct led_setup_s {
-  float hs;         //Band begin at percent
-  float he;         //Band end at percent
-  uint8_t rs;       //Red start value
-  uint8_t re;       //Red end value
-  uint8_t gs;       //Green start value
-  uint8_t ge;       //Green end value
-  uint8_t bs;       //Blue start value
-  uint8_t be;       //Blue end value
-  uint32_t ef;      //Animation and color effects
-  uint8_t end;      //Set to signal end of the setup
-} led_setup_t;
-
 extern issi3733_driver_t issidrv[ISSI3733_DRIVER_COUNT];
 
 extern uint8_t gcr_desired;
@@ -119,24 +106,19 @@ extern uint8_t gcr_breathe;
 extern uint8_t gcr_actual;
 extern uint8_t gcr_actual_last;
 
-extern uint8_t led_animation_id;
 extern uint8_t led_enabled;
-extern float led_animation_speed;
-extern uint8_t led_lighting_mode;
-extern uint8_t led_animation_direction;
 extern uint8_t led_animation_breathing;
-extern uint8_t led_animation_breathe_cur;
-extern uint8_t breathe_dir;
-extern const uint8_t led_setups_count;
-
-extern void *led_setups[];
 
 extern issi3733_led_t *led_cur;
 extern issi3733_led_t *lede;
 
-void led_matrix_run(led_setup_t *f);
+void led_matrix_run(void);
 void led_matrix_task(void);
 
 void gcr_compute(void);
+
+void led_matrix_init_user(void);
+void led_matrix_run_user(void);
+void led_run_user(led_disp_t disp, uint8_t led_index, issi3733_led_t *led, uint8_t kbled);
 
 #endif //_LED_MATRIX_H_
