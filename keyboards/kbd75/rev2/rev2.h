@@ -2,7 +2,7 @@
 #define REV2_H
 
 #include "quantum.h"
-#include "../kbd75.h"
+#include "../rev1/rev1.h"
 
 
 // LAYOUT for all possible switch positions on a KBD75 rev 2
