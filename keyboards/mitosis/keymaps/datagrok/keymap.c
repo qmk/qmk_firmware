@@ -3,7 +3,7 @@
 #ifdef AUDIO_ENABLE
 #include "audio.h"
 #ifdef DEFAULT_LAYER_SONGS
-extern float default_layer_songs[][][];
+extern float default_layer_songs[][16][2];
 #endif
 #endif
 
