@@ -30,3 +30,27 @@
     {   K59, K60, K61, K62, K63, K76, K50, K33   }, \
     {   K72, K73, K74, K75, K85, K86, K87,       }, \
 }
+
+typedef struct led_setup_s {
+  float hs;         //Band begin at percent
+  float he;         //Band end at percent
+  uint8_t rs;       //Red start value
+  uint8_t re;       //Red end value
+  uint8_t gs;       //Green start value
+  uint8_t ge;       //Green end value
+  uint8_t bs;       //Blue start value
+  uint8_t be;       //Blue end value
+  uint32_t ef;      //Animation and color effects
+  uint8_t end;      //Set to signal end of the setup
+} led_setup_t;
+
+const uint8_t led_setups_count;
+
+extern void *led_setups[];
+
+float led_animation_speed;
+uint8_t led_animation_id;
+uint8_t led_animation_breathe_cur;
+uint8_t breathe_dir;
+uint8_t led_animation_direction;
+uint8_t led_lighting_mode;

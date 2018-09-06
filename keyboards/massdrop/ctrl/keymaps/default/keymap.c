@@ -58,6 +58,18 @@ const uint16_t PROGMEM fn_actions[] = {
 
 };
 
+// void led_run_user(led_disp_t disp, uint8_t led_index, issi3733_led_t *led, uint8_t kbled) {
+//     if (led_index == 15) {
+//         *led->rgb.r = (uint8_t) 0;
+//         *led->rgb.g = (uint8_t) 50;
+//         *led->rgb.b = (uint8_t) 0;
+//     } else {
+//         *led->rgb.r = (uint8_t) 100;
+//         *led->rgb.g = (uint8_t) 0;
+//         *led->rgb.b = (uint8_t) 0;
+//     }
+// }
+
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 };
