@@ -127,8 +127,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
+void matrix_init_user(void) {
+#ifdef BOOTLOADER_CATERINA
+   // This will disable the red LEDs on the ProMicros
+   DDRD &= ~(1<<5);
+   PORTD &= ~(1<<5);
+   DDRB &= ~(1<<0);
+   PORTB &= ~(1<<0);
+#endif
+};
 
+const uint16_t PROGMEM fn_actions[] = {
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {

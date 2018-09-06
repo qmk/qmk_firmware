@@ -459,27 +459,27 @@ enum quantum_keycodes {
 };
 
 // Ability to use mods in layouts
-#define LCTL(kc) (kc | QK_LCTL)
-#define LSFT(kc) (kc | QK_LSFT)
-#define LALT(kc) (kc | QK_LALT)
-#define LGUI(kc) (kc | QK_LGUI)
+#define LCTL(kc) (QK_LCTL | (kc))
+#define LSFT(kc) (QK_LSFT | (kc))
+#define LALT(kc) (QK_LALT | (kc))
+#define LGUI(kc) (QK_LGUI | (kc))
 #define LCMD(kc) LGUI(kc)
 #define LWIN(kc) LGUI(kc)
-#define RCTL(kc) (kc | QK_RCTL)
-#define RSFT(kc) (kc | QK_RSFT)
-#define RALT(kc) (kc | QK_RALT)
-#define RGUI(kc) (kc | QK_RGUI)
+#define RCTL(kc) (QK_RCTL | (kc))
+#define RSFT(kc) (QK_RSFT | (kc))
+#define RALT(kc) (QK_RALT | (kc))
+#define RGUI(kc) (QK_RGUI | (kc))
 #define RCMD(kc) RGUI(kc)
 #define RWIN(kc) RGUI(kc)
 
-#define HYPR(kc) (kc | QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI)
-#define MEH(kc)  (kc | QK_LCTL | QK_LSFT | QK_LALT)
-#define LCAG(kc) (kc | QK_LCTL | QK_LALT | QK_LGUI)
-#define ALTG(kc) (kc | QK_RCTL | QK_RALT)
-#define SGUI(kc) (kc | QK_LGUI | QK_LSFT)
+#define HYPR(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
+#define MEH(kc)  (QK_LCTL | QK_LSFT | QK_LALT | (kc))
+#define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
+#define ALTG(kc) (QK_RCTL | QK_RALT | (kc))
+#define SGUI(kc) (QK_LGUI | QK_LSFT | (kc))
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
-#define LCA(kc) (kc | QK_LCTL | QK_LALT)
+#define LCA(kc) (QK_LCTL | QK_LALT | (kc))
 
 #define MOD_HYPR 0xf
 #define MOD_MEH 0x7
@@ -557,15 +557,15 @@ enum quantum_keycodes {
 #define KC_DELT KC_DELETE // Del key (four letter code)
 
 // Alias for function layers than expand past FN31
-#define FUNC(kc) (kc | QK_FUNCTION)
+#define FUNC(kc) (QK_FUNCTION | (kc))
 
 // Aliases
 #define S(kc) LSFT(kc)
 #define F(kc) FUNC(kc)
 
-#define M(kc) (kc | QK_MACRO)
+#define M(kc) (QK_MACRO | (kc))
 
-#define MACROTAP(kc) (kc | QK_MACRO | FUNC_TAP<<8)
+#define MACROTAP(kc) (QK_MACRO | (FUNC_TAP << 8) | (kc))
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
 #define KC_GESC GRAVE_ESC
@@ -590,7 +590,7 @@ enum quantum_keycodes {
 #define RGB_M_T RGB_MODE_RGBTEST
 
 // L-ayer, T-ap - 256 keycode max, 16 layer max
-#define LT(layer, kc) (kc | QK_LAYER_TAP | ((layer & 0xF) << 8))
+#define LT(layer, kc) (QK_LAYER_TAP | ((layer & 0xF) << 8) | ((kc) & 0xFF))
 
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
@@ -602,32 +602,32 @@ enum quantum_keycodes {
 // Unless you have a good reason not to do so, prefer  ON_PRESS (1) as your default.
 // In fact, we changed it to assume ON_PRESS for sanity/simplicity. If needed, you can add your own
 // keycode modeled after the old version, kept below for this.
-/* #define TO(layer, when) (layer | QK_TO | (when << 0x4)) */
-#define TO(layer) (layer | QK_TO | (ON_PRESS << 0x4))
+/* #define TO(layer, when) (QK_TO | (when << 0x4) | (layer & 0xFF)) */
+#define TO(layer) (QK_TO | (ON_PRESS << 0x4) | (layer & 0xFF))
 
 // Momentary switch layer - 256 layer max
-#define MO(layer) (layer | QK_MOMENTARY)
+#define MO(layer) (QK_MOMENTARY | (layer & 0xFF))
 
 // Set default layer - 256 layer max
-#define DF(layer) (layer | QK_DEF_LAYER)
+#define DF(layer) (QK_DEF_LAYER | (layer & 0xFF))
 
 // Toggle to layer - 256 layer max
-#define TG(layer) (layer | QK_TOGGLE_LAYER)
+#define TG(layer) (QK_TOGGLE_LAYER | (layer & 0xFF))
 
 // One-shot layer - 256 layer max
-#define OSL(layer) (layer | QK_ONE_SHOT_LAYER)
+#define OSL(layer) (QK_ONE_SHOT_LAYER | (layer & 0xFF))
 
 // L-ayer M-od: Momentary switch layer with modifiers active - 16 layer max, left mods only
-#define LM(layer, mod) (QK_LAYER_MOD | (((layer) & 0xF) << 4) | ((mod) & 0xF))
+#define LM(layer, mod) (QK_LAYER_MOD | ((layer & 0xF) << 4) | ((mod) & 0xF))
 
 // One-shot mod
-#define OSM(mod) ((mod) | QK_ONE_SHOT_MOD)
+#define OSM(mod) (QK_ONE_SHOT_MOD | ((mod) & 0xFF))
 
 // Layer tap-toggle
-#define TT(layer) (layer | QK_LAYER_TAP_TOGGLE)
+#define TT(layer) (QK_LAYER_TAP_TOGGLE | (layer & 0xFF))
 
 // M-od, T-ap - 256 keycode max
-#define MT(mod, kc) (kc | QK_MOD_TAP | (((mod) & 0x1F) << 8))
+#define MT(mod, kc) (QK_MOD_TAP | (((mod) & 0x1F) << 8) | ((kc) & 0xFF))
 
 #define CTL_T(kc) MT(MOD_LCTL, kc)
 #define LCTL_T(kc) MT(MOD_LCTL, kc)
@@ -652,15 +652,15 @@ enum quantum_keycodes {
 #define RCMD_T(kc) RGUI_T(kc)
 #define RWIN_T(kc) RGUI_T(kc)
 
-#define C_S_T(kc) MT((MOD_LCTL | MOD_LSFT), kc) // Control + Shift e.g. for gnome-terminal
-#define MEH_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT), kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
-#define LCAG_T(kc) MT((MOD_LCTL | MOD_LALT | MOD_LGUI), kc) // Left control alt and gui
-#define RCAG_T(kc) MT((MOD_RCTL | MOD_RALT | MOD_RGUI), kc) // Right control alt and gui
-#define ALL_T(kc) MT((MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI), kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
-#define SGUI_T(kc) MT((MOD_LGUI | MOD_LSFT), kc)
+#define C_S_T(kc)  MT(MOD_LCTL | MOD_LSFT, kc) // Control + Shift e.g. for gnome-terminal
+#define MEH_T(kc)  MT(MOD_LCTL | MOD_LSFT | MOD_LALT, kc) // Meh is a less hyper version of the Hyper key -- doesn't include Win or Cmd, so just alt+shift+ctrl
+#define LCAG_T(kc) MT(MOD_LCTL | MOD_LALT | MOD_LGUI, kc) // Left control alt and gui
+#define RCAG_T(kc) MT(MOD_RCTL | MOD_RALT | MOD_RGUI, kc) // Right control alt and gui
+#define ALL_T(kc)  MT(MOD_LCTL | MOD_LSFT | MOD_LALT | MOD_LGUI, kc) // see http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/
+#define SGUI_T(kc) MT(MOD_LGUI | MOD_LSFT, kc)
 #define SCMD_T(kc) SGUI_T(kc)
 #define SWIN_T(kc) SGUI_T(kc)
-#define LCA_T(kc) MT((MOD_LCTL | MOD_LALT), kc) // Left control and left alt
+#define LCA_T(kc)  MT(MOD_LCTL | MOD_LALT, kc) // Left control and left alt
 
 // Dedicated keycode versions for Hyper and Meh, if you want to use them as standalone keys rather than mod-tap
 #define KC_HYPR HYPR(KC_NO)
@@ -670,22 +670,22 @@ enum quantum_keycodes {
     // For sending unicode codes.
     // You may not send codes over 7FFF -- this supports most of UTF8.
     // To have a key that sends out Œ, go UC(0x0152)
-    #define UNICODE(n) (n | QK_UNICODE)
+    #define UNICODE(n) (QK_UNICODE | (n))
     #define UC(n) UNICODE(n)
 #endif
 
 #ifdef UNICODEMAP_ENABLE
-    #define X(n) (n | QK_UNICODE_MAP)
+    #define X(n) (QK_UNICODE_MAP | (n))
 #endif
 
 #ifdef SWAP_HANDS_ENABLE
-  #define SH_T(key)  (QK_SWAP_HANDS | key)
-  #define SH_TG      (QK_SWAP_HANDS | OP_SH_TOGGLE)
-  #define SH_TT      (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
-  #define SH_MON     (QK_SWAP_HANDS | OP_SH_ON_OFF)
-  #define SH_MOFF    (QK_SWAP_HANDS | OP_SH_OFF_ON)
-  #define SH_ON      (QK_SWAP_HANDS | OP_SH_ON)
-  #define SH_OFF     (QK_SWAP_HANDS | OP_SH_OFF)
+  #define SH_T(kc) (QK_SWAP_HANDS | (kc))
+  #define SH_TG    (QK_SWAP_HANDS | OP_SH_TOGGLE)
+  #define SH_TT    (QK_SWAP_HANDS | OP_SH_TAP_TOGGLE)
+  #define SH_MON   (QK_SWAP_HANDS | OP_SH_ON_OFF)
+  #define SH_MOFF  (QK_SWAP_HANDS | OP_SH_OFF_ON)
+  #define SH_ON    (QK_SWAP_HANDS | OP_SH_ON)
+  #define SH_OFF   (QK_SWAP_HANDS | OP_SH_OFF)
 #endif
 
 #endif // QUANTUM_KEYCODES_H
