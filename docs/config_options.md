@@ -248,3 +248,7 @@ Use these to enable or disable building certain features. The more you have enab
   * Enable Bluetooth with the Adafruit EZ-Key HID
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
+* `WAIT_FOR_USB`
+  * Forces the keyboard to wait for a USB connection to be established before it starts up
+* `NO_USB_STARTUP_CHECK`
+  * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
