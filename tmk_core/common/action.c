@@ -773,6 +773,12 @@ void register_code(uint8_t code)
     else if IS_CONSUMER(code) {
         host_consumer_send(KEYCODE2CONSUMER(code));
     }
+
+    #ifdef MOUSEKEY_ENABLE
+      else if IS_MOUSEKEY(code) {
+        mousekey_on(code);
+      }
+    #endif
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
@@ -832,6 +838,11 @@ void unregister_code(uint8_t code)
     else if IS_CONSUMER(code) {
         host_consumer_send(0);
     }
+    #ifdef MOUSEKEY_ENABLE
+      else if IS_MOUSEKEY(code) {
+        mousekey_off(code);
+      }
+    #endif
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
