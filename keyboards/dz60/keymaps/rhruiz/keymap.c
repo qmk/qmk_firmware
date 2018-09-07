@@ -1,10 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _BL 0
-#define _FN1 1
-#define _FN2 2
-#define _CFG 3
-
 #define MISCTRL LCTL(KC_UP)
 #define CTRLESC LCTL_T(KC_ESC)
 
@@ -18,38 +13,72 @@ void change_leds_to(uint16_t, uint8_t, rgblight_config_t);
 bool state_changed = false;
 static bool grave_esc_was_shifted = false;
 
-enum custom_keycodes {
-  KC_K8s = SAFE_RANGE
+enum rhruiz_layers {
+  _BL,
+  _VIM_EMACS,
+  _MOUSE,
+  _KEY_OVERRIDE,
+  _FN1,
+  _FN2,
+  _CFG
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BL] = LAYOUT(
-		KC_GRV,    KC_1,     KC_2,     KC_3,    KC_4,     KC_5,    KC_6,    KC_7,    KC_8,   KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSLS,   KC_GRV,
-		KC_TAB,    KC_Q,     KC_W,     KC_E,    KC_R,     KC_T,    KC_Y,    KC_U,    KC_I,   KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSPC,
-		CTRLESC,   KC_A,     KC_S,     KC_D,    KC_F,     KC_G,    KC_H,    KC_J,    KC_K,   KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,
-		KC_LSFT,   KC_NO,    KC_Z,     KC_X,    KC_C,     KC_V,    KC_B,    KC_N,    KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  MO(_FN2),
-		MO(_FN1),  KC_LALT,  KC_LGUI,  KC_SPC,  MO(_FN2), KC_BSPC, CLLEFT,  CLDOWN,  KC_NO,  CLUP,     CLRIGHT),
+		KC_GRV,   KC_1,     KC_2,     KC_3,    KC_4,    KC_5,     KC_6,    KC_7,    KC_8,   KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSLS,  KC_GRV,
+		KC_TAB,   KC_Q,     KC_W,     KC_E,    KC_R,    KC_T,     KC_Y,    KC_U,    KC_I,   KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSPC,
+		CTRLESC,  KC_A,     KC_S,     KC_D,    KC_F,    KC_G,     KC_H,    KC_J,    KC_K,   KC_L,     KC_SCLN,  KC_QUOT,  KC_ENT,
+		KC_LSFT,  KC_NO,    KC_Z,     KC_X,    KC_C,    KC_V,     KC_B,    KC_N,    KC_M,   KC_COMM,  KC_DOT,   KC_SLSH,  KC_RSFT,  KC_FN2,
+		KC_FN1,   KC_LALT,  KC_LGUI,  KC_SPC,  KC_FN2,  KC_BSPC,  CLLEFT,  CLDOWN,  KC_NO,  CLUP,     CLRIGHT
+  ),
+
+  [_VIM_EMACS] = LAYOUT(
+		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,   KC_UP,    _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  KC_RIGHT,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  _______,  _______,  KC_PENT,
+		_______,  _______,  _______,  _______,  _______,   _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,  _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,   _______
+  ),
+
+  [_MOUSE] = LAYOUT(
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+		_______,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_ACL0,  KC_ACL1,  KC_ACL2,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+		_______,  KC_MS_L,  KC_MS_D,  KC_MS_R,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
+  ),
+
+  [_KEY_OVERRIDE] = LAYOUT(
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_EJCT,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_DEL,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PENT,
+		_______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  _______,  KC_DEL,   _______,  _______,  _______,  _______,  _______
+  ),
 
   [_FN1] = LAYOUT(
-		KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,   _______,  KC_EJCT,
-		_______,  KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_ACL0,   KC_ACL1,  KC_ACL2,  _______,  _______,  _______,   KC_UP,    _______,  _______,   _______,
-		_______,  KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_RIGHT,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  _______,  _______,  KC_PENT,
-		_______,  _______,  _______,  _______,  _______,   _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,  _______,  _______,  MO(_CFG),
-		_______,  _______,  _______,  _______,  MO(_CFG),  KC_DEL,   _______,  _______,  _______,  _______,   RESET),
+		KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,     KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,   _______,
+		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+		_______,  _______,  _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  MO(_CFG),
+		_______,  _______,  _______,  _______,  MO(_CFG),  _______,  _______,  _______,  _______,  _______,  _______
+  ),
 
   [_FN2] = LAYOUT(
-		KC_GRV,    _______,  _______,  MISCTRL,  _______,   RGB_VAD,  RGB_VAI,  KC_MRWD,  KC_MPLY,  KC_MFFD,   KC_MUTE,  KC__VOLDOWN,  KC__VOLUP,  _______,  KC_EJCT,
-		_______,   KC_BTN1,  KC_MS_U,  KC_BTN2,  KC_ACL0,   KC_ACL1,  KC_ACL2,  _______,  _______,  _______,   KC_UP,    _______,      _______,    _______,
-		_______,   KC_MS_L,  KC_MS_D,  KC_MS_R,  KC_RIGHT,  _______,  KC_LEFT,  KC_DOWN,  KC_UP,    KC_RIGHT,  _______,  _______,      KC_PENT,
-		_______,   _______,  _______,  _______,  _______,   _______,  KC_LEFT,  KC_DOWN,  KC_ENT,   _______,   _______,  _______,      _______,    _______,
-		MO(_CFG),  _______,  _______,  _______,  _______,   KC_DEL,   _______,  _______,  _______,  _______,   MO(_CFG)),
+		KC_GRV,    _______,  _______,  MISCTRL,  _______,  RGB_VAD,  RGB_VAI,  KC_MRWD,  KC_MPLY,  KC_MFFD,  KC_MUTE,  KC__VOLDOWN,  KC__VOLUP,  _______,  _______,
+		_______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,      _______,    _______,
+		_______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,      _______,
+		_______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,      _______,    _______,
+		MO(_CFG),  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  MO(_CFG)
+  ),
 
   [_CFG] = LAYOUT(
-		_______,  RGB_M_P,  RGB_M_B,  RGB_M_R,  RGB_M_SW,  RGB_M_SN,  RGB_M_K,  RGB_M_X,  RGB_M_G,  RGB_M_T,  _______,  _______,  _______,  _______,  RESET,
+		_______,  RGB_M_P,  RGB_M_B,  RGB_M_R,  RGB_M_SW,  RGB_M_SN,  RGB_M_K,  RGB_M_X,  RGB_M_G,  RGB_M_T,  RGB_SPI,  RGB_SPD,  _______,  _______,  RESET,
 		_______,  RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_HUD,   RGB_SAI,   RGB_SAD,  RGB_VAI,  RGB_VAD,  _______,  _______,  _______,  _______,  RESET,
 		_______,  _______,  _______,  _______,  _______,   _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,
 		_______,  _______,  _______,  _______,  _______,   _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
-		_______,  _______,  _______,  _______,  _______,   _______,   _______,  _______,  _______,  _______,  _______),
+		_______,  _______,  _______,  _______,  _______,   _______,   _______,  _______,  _______,  _______,  _______
+  ),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -88,8 +117,42 @@ void matrix_scan_user(void) {
   }
 }
 
+void rhruiz_layer_on(uint8_t layer) {
+  layer_on(_VIM_EMACS);
+  layer_on(_MOUSE);
+  layer_on(_KEY_OVERRIDE);
+  layer_on(layer);
+}
+
+void rhruiz_layer_off(uint8_t layer) {
+  layer_off(_VIM_EMACS);
+  layer_off(_MOUSE);
+  layer_off(_KEY_OVERRIDE);
+  layer_off(layer);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
+    case KC_FN1: {
+      if (record->event.pressed) {
+        rhruiz_layer_on(_FN1);
+      } else {
+        rhruiz_layer_off(_FN1);
+      }
+
+      return false;
+    }
+
+    case KC_FN2: {
+      if (record->event.pressed) {
+        rhruiz_layer_on(_FN2);
+      } else {
+        rhruiz_layer_off(_FN2);
+      }
+
+      return false;
+    }
+
     case GRAVE_ESC: {
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
                                       |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)
