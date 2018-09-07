@@ -331,7 +331,7 @@
 	#if !defined(__DOXYGEN__)
 		/* Function Prototypes: */
 			#if defined(__INCLUDE_FROM_EVENTS_C)
-				void USB_Event_Stub(void) ATTR_CONST;
+				void USB_Event_Stub(void);
 
 				#if defined(USB_CAN_BE_BOTH)
 					void EVENT_USB_UIDChange(void) ATTR_WEAK ATTR_ALIAS(USB_Event_Stub);

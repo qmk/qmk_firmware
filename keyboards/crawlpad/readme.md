@@ -14,4 +14,4 @@ Make example for this keyboard (after setting up your build environment):
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
-For those that prefer a GUI tool, the crawlpad.json file in this repo can be used on [kbfirmware.com](http://kbfirmware.com].
+For those that prefer a GUI tool, the crawlpad.json file in this repo can be used on [kbfirmware.com](http://kbfirmware.com).

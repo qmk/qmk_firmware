@@ -16,7 +16,9 @@
 
 extern rgblight_config_t rgblight_config; // Declared in rgblight.c
 
-const uint8_t backlight_pwm_map[BACKLIGHT_LEVELS] = BACKLIGHT_PWM_MAP;
+#ifdef BACKLIGHT_ENABLE
+    const uint8_t backlight_pwm_map[BACKLIGHT_LEVELS] = BACKLIGHT_PWM_MAP;
+#endif
 
 // RGB# to ISSI matrix, this is the same across all revisions
 const uint8_t rgb_leds[][3][2] = {

@@ -3,8 +3,14 @@
 
 #include "../../config.h"
 
+#define QMK_ESC_OUTPUT F1
+#define QMK_ESC_INPUT  D5
+#define QMK_LED        E6
+#define QMK_SPEAKER    C6
+
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
+#define PREVENT_STUCK_MODIFIERS
 
 #define USB_MAX_POWER_CONSUMPTION 100
 #define ONESHOT_TAP_TOGGLE        2
@@ -31,24 +37,8 @@
 #define OSM_ALT OSM(MOD_LALT)
 #define OSM_SFT OSM(MOD_LSFT)
 
-// tap dance keys
-#define TD_SCLN TD(TDK_SCLN)
-#define TD_COMM TD(TDK_COMM)
-#define TD_DOT  TD(TDK_DOT)
-#define TD_SLSH TD(TDK_SLSH)
-
-// macros
-#define ACTION_TAP_DANCE_FN_KEYCODE(user_fn, kc) {  \
-    .fn = { NULL, user_fn, NULL }, \
-    .user_data = (void *)&((qk_tap_dance_pair_t) { kc, 0 }) \
-}
-
-#define ACTION_TAP_DANCE_FN_KEYCODE2(user_fn, kc1, kc2) {  \
-    .fn = { NULL, user_fn, NULL }, \
-    .user_data = (void *)&((qk_tap_dance_pair_t) { kc1, kc2 }) \
-}
-
-#define TAP(keycode) register_code16(keycode); unregister_code16(keycode)
+// mod-tap keys
+#define MT_SPC  SFT_T(KC_SPC)
 
 #endif
 
