@@ -16,6 +16,8 @@ Flashing
 
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
+To put the panc60 into reset, hold left control while plugging in. 
+
 Windows: 
 1. Download [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
 2. Place your keyboard into reset. 
