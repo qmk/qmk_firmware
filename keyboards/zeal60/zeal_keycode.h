@@ -1,8 +1,6 @@
 #ifndef ZEAL_KEYCODE_H
 #define ZEAL_KEYCODE_H
 
-#define KC_EENULL 0xFFFF // TODO: move to enum quantum_keycodes
-
 // Can't use SAFE_RANGE here, it might change if someone adds
 // new values to enum quantum_keycodes.
 // Need to keep checking 0x5F00 is still in the safe range.

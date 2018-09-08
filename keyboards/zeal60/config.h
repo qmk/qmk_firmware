@@ -101,6 +101,8 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_ALPHAS_MODS_ROW_3 0b0011000000000001
 #define BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011110000000111
 
-#define USE_KEYMAPS_IN_EEPROM 1
+#define DYNAMIC_KEYMAP_BASE_ADDR 288
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+
 
 #endif

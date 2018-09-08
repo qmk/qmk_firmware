@@ -3,12 +3,11 @@
 #if BACKLIGHT_ENABLED
 #include "zeal_backlight.h"
 #endif // BACKLIGHT_ENABLED
-#include "zeal_keymap.h"
 #include "zeal_eeprom.h"
 #include "zeal_rpc.h"
 
 #include "raw_hid.h"
-#include "config.h"
+#include "dynamic_keymap.h"
 
 #ifdef RAW_ENABLE
 
@@ -27,18 +26,18 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 		case id_keymap_keycode_load:
 		{
 			msg_keymap_keycode_load *msg = (msg_keymap_keycode_load*)&data[1];
-			msg->keycode = keymap_keycode_load( msg->layer, msg->row, msg->column );
+			msg->keycode = dynamic_keymap_keycode_load( msg->layer, msg->row, msg->column );
 			break;
 		}
 		case id_keymap_keycode_save:
 		{
 			msg_keymap_keycode_save *msg = (msg_keymap_keycode_save*)&data[1];
-			keymap_keycode_save( msg->layer, msg->row, msg->column, msg->keycode);
+			dynamic_keymap_keycode_save( msg->layer, msg->row, msg->column, msg->keycode);
 			break;
 		}
 		case id_keymap_default_save:
 		{
-			keymap_default_save();
+			dynamic_keymap_default_save();
 			break;
 		}
 #endif // USE_KEYMAPS_IN_EEPROM
@@ -155,7 +154,7 @@ void matrix_init_kb(void)
 
 		// This saves "empty" keymaps so it falls back to the keymaps
 		// in the firmware (aka. progmem/flash)
-		keymap_default_save();
+		dynamic_keymap_default_save();
 
 		// Save the magic number last, in case saving was interrupted
 		eeprom_set_valid(true);

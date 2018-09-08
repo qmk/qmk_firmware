@@ -23,8 +23,9 @@
 // key colors use 72*3=216
 // 72+216=288
 
-#define EEPROM_KEYMAP_ADDR ((void*)288)
-#define EEPROM_KEYMAP_MAX 4
+// Reconcile with config.h
+//#define EEPROM_KEYMAP_ADDR ((void*)288)
+//#define EEPROM_KEYMAP_MAX 4
 
 // Each keymap is MATRIX_ROWS*MATRIX_COLS*2 bytes
 // For Zeal60 this is 5*14*2=140 bytes

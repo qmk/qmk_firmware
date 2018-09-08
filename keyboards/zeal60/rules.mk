@@ -4,7 +4,6 @@
 SRC =	zeal_backlight.c \
 		zeal_color.c \
 		zeal_eeprom.c \
-		zeal_keymap.c \
 		is31fl3731.c \
 		i2c_master.c
 
@@ -81,3 +80,4 @@ RGBLIGHT_ENABLE ?= no        # Enable WS2812 RGB underlight.  Do not enable this
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 
 RAW_ENABLE = yes
+DYNAMIC_KEYMAP_ENABLE = yes

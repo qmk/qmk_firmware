@@ -123,6 +123,11 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     CIE1931_CURVE = yes
 endif
 
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
+    SRC += $(QUANTUM_DIR)/dynamic_keymap.c
+endif
+
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     OPT_DEFS += -DTAP_DANCE_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
