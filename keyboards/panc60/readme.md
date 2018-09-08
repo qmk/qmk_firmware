@@ -1,12 +1,12 @@
 # panc60
 
-![panc60](imgur.com image replace me!)
+![panc60](https://imgix.ttcdn.co/i/product/original/0/670893-eca4599c4aad489dbe62609ac2fed86e.jpeg?q=100&auto=format%2Ccompress&w=500)
 
-A short description of the keyboard/project
+The panc60 is a 60% PCB with backlight and rgb underglow.   
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+Hardware Supported: panc60 PCB  
+Hardware Availability: [PANC Interactive](https://store.panc.co/product/panc60-60-pcb)   
 
 Make example for this keyboard (after setting up your build environment):
 
