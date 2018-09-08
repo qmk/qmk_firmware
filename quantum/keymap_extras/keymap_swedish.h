@@ -42,7 +42,7 @@
 #define NO_GRV_MAC ALGR(NO_BSLS) // `
 #define NO_GRTR_MAC LSFT(KC_GRV)  // >
 #define NO_LCBR_MAC ALGR(LSFT(KC_8))  // }
-#define NO_LESS_MAC KC_GRV  // >
+#define NO_LESS_MAC KC_GRV  // <
 #define NO_PIPE_MAC ALGR(KC_7)  // |
 #define NO_RCBR_MAC ALGR(LSFT(KC_9))  // }
 
