@@ -1,15 +1,5 @@
-// This is the canonical layout file for the Quantum project. If you want to add another keyboard,
-// this is the style you want to emulate.
-
 #include QMK_KEYBOARD_H
-
-#include "action_layer.h"
-#include "eeconfig.h"
-
-#ifdef AUDIO_ENABLE
 #include "audio.h"
-#include "clicky.h"
-#endif
 
 #ifdef BACKLIGHT_ENABLE
 #include "flicker.h"
@@ -34,18 +24,6 @@ enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   BL_FLICKER
 };
-
-// clicky state:
-#ifdef AUDIO_ENABLE
-bool clicky_enable = true;
-const float clicky_freq_default = 440.0f; // standard A tuning
-const float clicky_freq_min = 65.0f; // freqs below 60 are buggy?
-const float clicky_freq_max = 2500.0f; // arbitrary
-const float clicky_freq_factor = 1.18921f; // 2^(4/12), a major third
-const float clicky_freq_randomness = 0.2f; // arbitrary
-float clicky_freq = 110.0f;
-float clicky_song[][2]  = {{440.0f, 3}, {440.0f, 1}}; // 3 and 1 --> durations
-#endif
 
 // flicker state:
 #ifdef BACKLIGHT_ENABLE
@@ -194,33 +172,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-
-#ifdef AUDIO_ENABLE
-    case CLICKY_TOGGLE:
-      if (record->event.pressed) {
-        clicky_toggle();
-      }
-      return false;
-      break;
-    case CLICKY_DOWN:
-      if (record->event.pressed) {
-        clicky_down();
-      }
-      return false;
-      break;
-    case CLICKY_UP:
-      if (record->event.pressed) {
-        clicky_up();
-      }
-      return false;
-      break;
-    case CLICKY_RESET:
-      if (record->event.pressed) {
-        clicky_reset();
-      }
-      return false;
-      break;
-#endif
 #ifdef BACKLIGHT_ENABLE
     case BL_FLICKER:
       if (record->event.pressed) {
@@ -230,12 +181,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
 #endif
   } // end switch case over custom keycodes
-
-#ifdef AUDIO_ENABLE
-  if (record->event.pressed) {
-    clicky_play();
-  }
-#endif
 
 #ifdef BACKLIGHT_ENABLE
   if (flicker_enable) {
@@ -259,47 +204,6 @@ void encoder_update(bool clockwise) {
     unregister_code(KC_VOLD);
   }
 }
-
-// clicky implementation:
-#ifdef AUDIO_ENABLE
-void clicky_play(void) {
-  if (!clicky_enable) {
-    return;
-  }
-
-  clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + clicky_freq_randomness * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
-  clicky_song[1][0] = clicky_freq * (1.0f + clicky_freq_randomness * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
-  #ifdef AUDIO_ENABLE
-    PLAY_SONG(clicky_song);
-  #endif
-}
-
-void clicky_toggle(void) {
-  clicky_enable = !clicky_enable;
-  clicky_play();
-}
-
-void clicky_reset(void) {
-  clicky_freq = clicky_freq_default;
-  clicky_play();
-}
-
-void clicky_up(void) {
-  float new_freq = clicky_freq * clicky_freq_factor;
-  if (new_freq < clicky_freq_max) {
-    clicky_freq = new_freq;
-  }
-  clicky_play();
-}
-
-void clicky_down(void) {
-  float new_freq = clicky_freq / clicky_freq_factor;
-  if (new_freq > clicky_freq_min) {
-    clicky_freq = new_freq;
-  }
-  clicky_play();
-}
-#endif
 
 // flicker implementation:
 #ifdef BACKLIGHT_ENABLE

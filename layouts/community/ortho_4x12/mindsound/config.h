@@ -1,5 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 #define ADVENTURE_TIME \
     H__NOTE(_F5),    \
@@ -14,6 +13,11 @@
 
 #ifdef AUDIO_ENABLE
   #define STARTUP_SONG SONG(ADVENTURE_TIME)
+  #define AUDIO_CLICKY
+  #define AUDIO_CLICKY_ON
+  #define AUDIO_CLICKY_FREQ_MAX 2500.0f
+  #define AUDIO_CLICKY_FREQ_RANDOMNESS 0.2f
+  #define AUDIO_CLICKY_FREQ_DEFAULT 110.0f
 #endif
 
 // for some reason the LSvi rev1 disables action tapping...
@@ -27,5 +31,3 @@
 // let's split configuration:
 #define USE_I2C
 #define EE_HANDS
-
-#endif
