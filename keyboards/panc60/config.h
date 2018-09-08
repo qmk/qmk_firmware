@@ -24,12 +24,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    You
 #define PRODUCT         panc60
 
-#define RGBLED_NUM 16
+#define RGBLED_NUM 12
 
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
-#define MATRIX_ROW_PINS { D0, D5 }
+#define MATRIX_ROW_PINS { D0, D1, D2, D3, D4 }
 #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, D7 }
 #define UNUSED_PINS
 
