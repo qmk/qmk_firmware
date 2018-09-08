@@ -1,9 +1,0 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
-
-#undef RGB_BACKLIGHT_BACKLIGHT_ENABLED
-#define RGB_BACKLIGHT_BACKLIGHT_ENABLED 0
-
-#endif //CONFIG_USER_H 

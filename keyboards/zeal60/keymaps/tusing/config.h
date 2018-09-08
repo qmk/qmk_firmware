@@ -32,7 +32,7 @@
 #define RGBLIGHT_VAL_STEP 10   // How much each press of rgb_val changes val
 
 // Enable current limiting for RGB underglow.
-#define USB_MAX_POWER_CONSUMPTION 900
+//#define USB_MAX_POWER_CONSUMPTION 900
 #define RGBSTRIP_CURRENT_LIMIT 800        // Strip current limit in mA.
 #define RGBSTRIP_MAX_CURRENT_PER_LIGHT 40 // mA per light when at max brightness.
 
