@@ -4,8 +4,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "zeal_keycode.h"
-
 void *dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t column);
 uint16_t dynamic_keymap_keycode_load(uint8_t layer, uint8_t row, uint8_t column);
 void dynamic_keymap_keycode_save(uint8_t layer, uint8_t row, uint8_t column, uint16_t keycode);
