@@ -4,8 +4,8 @@
 SRC =	zeal_backlight.c \
 		zeal_color.c \
 		zeal_eeprom.c \
-		is31fl3731.c \
-		i2c_master.c
+		drivers/issi/is31fl3731.c \
+		drivers/avr/i2c_master.c
 
 # MCU name
 MCU = atmega32u4

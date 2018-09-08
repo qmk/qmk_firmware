@@ -5,13 +5,13 @@
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
-#include "i2c_master.h"
 #include "progmem.h"
 #include "config.h"
 #include "zeal_eeprom.h"
 #include "zeal_color.h"
 
-#include "is31fl3731.h"
+#include "drivers/avr/i2c_master.h"
+#include "drivers/issi/is31fl3731.h"
 
 #define BACKLIGHT_EFFECT_MAX 11
 
