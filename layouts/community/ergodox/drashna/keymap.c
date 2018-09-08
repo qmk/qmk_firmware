@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TAB,  _________________QWERTY_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________QWERTY_R1_________________, KC_BSLS,
              KC_C1R3, _________________QWERTY_L2_________________,                                   _________________QWERTY_R2_________________, KC_QUOT,
              KC_MLSF, _________________QWERTY_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________QWERTY_R3_________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_CCCV,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 /* Keymap 0: COLEMAK layer
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TAB,  _________________COLEMAK_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________COLEMAK_R1________________, KC_BSLS,
              KC_C1R3, _________________COLEMAK_L2________________,                                   _________________COLEMAK_R2________________, KC_QUOT,
              KC_MLSF, _________________COLEMAK_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________COLEMAK_R3________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_CCCV,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 /* Keymap 0: DVORAK Layout
@@ -125,7 +125,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TAB,  _________________DVORAK_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________DVORAK_R1_________________, KC_SLSH,
              KC_C1R3, _________________DVORAK_L2_________________,                                   _________________DVORAK_R2_________________, KC_MINS,
              KC_MLSF, _________________DVORAK_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________DVORAK_R3_________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_CCCV,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 /* Keymap 0: WORKMAN layer
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_TAB,  _________________WORKMAN_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________WORKMAN_R1________________, KC_BSLS,
              KC_C1R3, _________________WORKMAN_L2________________,                                   _________________WORKMAN_R2________________, KC_QUOT,
              KC_MLSF, _________________WORKMAN_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________WORKMAN_R3________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_CCCV,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 
@@ -294,7 +294,7 @@ void matrix_init_keymap(void) { // Runs boot tasks for keyboard
 
 
 void matrix_scan_keymap(void) {  // runs frequently to update info
-  uint8_t modifiders = get_mods();
+  uint8_t modifiers = get_mods();
   uint8_t led_usb_state = host_keyboard_leds();
   uint8_t one_shot = get_oneshot_mods();
 
@@ -307,15 +307,15 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
     // Since we're not using the LEDs here for layer indication anymore,
     // then lets use them for modifier indicators.  Shame we don't have 4...
     // Also, no "else", since we want to know each, independently.
-    if (modifiders & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
+    if (modifiers & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
       ergodox_right_led_2_on();
       ergodox_right_led_2_set( 50 );
     }
-    if (modifiders & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
+    if (modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
       ergodox_right_led_1_on();
       ergodox_right_led_1_set( 10 );
     }
-    if (modifiders & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
+    if (modifiers & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
       ergodox_right_led_3_on();
       ergodox_right_led_3_set( 10 );
     }
