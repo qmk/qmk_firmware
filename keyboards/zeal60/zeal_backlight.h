@@ -9,7 +9,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "zeal_color.h"
+#include "quantum/color.h"
 #include "zeal_rpc.h"
 
 typedef struct

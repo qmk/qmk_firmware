@@ -1,7 +1,7 @@
 #ifndef ZEAL_RPC_H
 #define ZEAL_RPC_H
 
-#include "zeal_color.h"
+#include "quantum/color.h"
 
 #define PROTOCOL_VERSION 0x0006
 

@@ -8,8 +8,8 @@
 #include "progmem.h"
 #include "config.h"
 #include "zeal_eeprom.h"
-#include "zeal_color.h"
 
+#include "quantum/color.h"
 #include "drivers/avr/i2c_master.h"
 #include "drivers/issi/is31fl3731.h"
 
