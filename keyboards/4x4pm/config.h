@@ -26,8 +26,14 @@
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
+//ORIGINAL
+/*
 #define MATRIX_ROW_PINS { B2, D1, D0, D4 }
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5, B6, B3, B1, F7, F6, F5, F4 }
+*/
+//NEW
+#define MATRIX_ROW_PINS { D1, D0, D4, C6 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, B5, B4, E6, D7 }
 #define UNUSED_PINS
 
 
@@ -39,8 +45,8 @@
 // #define BACKLIGHT_LEVELS 3
 
 #define QMK_LED B0
-#define QMK_ESC_OUTPUT C6 // usually COL
-#define QMK_ESC_INPUT B2 // usually ROW
+#define QMK_ESC_OUTPUT F4 // usually COL
+#define QMK_ESC_INPUT D1 // usually ROW
 
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */

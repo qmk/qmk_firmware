@@ -12,19 +12,25 @@
 #define EE_HANDS
 #endif
 
+/*
 // set top left key as bootloader mode escape key on 4x4 48key layout
 #if defined(KEYBOARD_4x4)
 #define QMK_LED B0
 #define QMK_ESC_OUTPUT C6 // usually COL
 #define QMK_ESC_INPUT B2 // usually ROW
+#endif
+*/
 
 // use alternate settings for 4x4 board using ProMicro instead of Micro
 // usage: make 4x4:wanleg PM=yes
+// PROBLEM: "KEYBOARD_4x4" is evaluated properly, but not "PRO_MICRO_yes"
 #if defined(PRO_MICRO_yes)
-#define MATRIX_COLS 12
-#define MATRIX_COL_PINS { C6, D7, E6, B4, B5, B6, B3, B1, F7, F6, F5, F4 }
-#endif
-
+#define QMK_ESC_OUTPUT F4 // usually COL
+#define QMK_ESC_INPUT D1 // usually ROW
+#undef MATRIX_COL_PINS
+#undef MATRIX_ROW_PINS
+#define MATRIX_ROW_PINS { D1, D0, D4, C6 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, B5, B4, E6, D7, F0, B7, D6, F1 }
 #endif
 
 #endif

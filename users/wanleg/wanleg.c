@@ -177,11 +177,3 @@ void matrix_init_user(void) {
 #endif
   matrix_init_keymap();
 }
-
-// use alternate settings for 4x4 board using ProMicro instead of Micro
-// usage: make 4x4:wanleg PM=yes
-#if defined(KEYBOARD_4x4)
-#if defined(PRO_MICRO_yes)
-#include "4x4pm.h"
-#endif
-#endif

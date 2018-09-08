@@ -28,7 +28,9 @@
 */
 #define MATRIX_ROW_PINS { B2, D1, D0, D4 }
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5, B6, B7, D6, F7, F6, F5, F4, F1, F0, B3, B1 }
-#define UNUSED_PINS
+//promicro config (last 4 entries in COL are null)
+//#define MATRIX_ROW_PINS { D1, D0, D4, C6 }
+//#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, B5, B4, E6, D7, F0, B7, D6, F1 }
 
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
