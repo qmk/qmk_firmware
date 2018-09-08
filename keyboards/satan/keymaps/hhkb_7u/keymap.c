@@ -1,4 +1,4 @@
-#include "satan.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 
 #define _DEFAULT 0
