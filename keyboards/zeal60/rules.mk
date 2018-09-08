@@ -1,8 +1,7 @@
 
 
 # project specific files
-SRC =	zeal_backlight.c \
-		zeal_eeprom.c \
+SRC =	rgb_backlight.c \
 		quantum/color.c \
 		drivers/issi/is31fl3731.c \
 		drivers/avr/i2c_master.c

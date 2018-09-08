@@ -2,7 +2,7 @@
 #define ZEAL60_H
 
 #include "quantum.h"
+#include "rgb_backlight_keycodes.h"
+#include "zeal60_keycodes.h"
 
-#include "zeal_keycode.h"
-
-#endif //ZEAL60_H
+#endif // ZEAL60_H

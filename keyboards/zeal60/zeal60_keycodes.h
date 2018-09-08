@@ -1,25 +1,13 @@
-#ifndef ZEAL_KEYCODE_H
-#define ZEAL_KEYCODE_H
+#ifndef ZEAL60_KEYCODE_H
+#define ZEAL60_KEYCODE_H
 
 // Can't use SAFE_RANGE here, it might change if someone adds
 // new values to enum quantum_keycodes.
-// Need to keep checking 0x5F00 is still in the safe range.
+// Need to keep checking 0x5F10 is still in the safe range.
+// TODO: merge this into quantum_keycodes
+// Backlight keycodes are in range 0x5F00-0x5F0F
 enum zeal60_keycodes {
-	BR_INC = 0x5F00,	// backlight brightness increase
-	BR_DEC, 			// backlight brightness decrease
-	EF_INC, 			// backlight effect increase
-	EF_DEC,  			// backlight effect decrease
-	ES_INC,
-	ES_DEC,
-	H1_INC,
-	H1_DEC,
-	S1_INC,
-	S1_DEC,
-	H2_INC,
-	H2_DEC,
-	S2_INC,
-	S2_DEC,
-	FN_MO13,
+	FN_MO13 = 0x5F10,
 	FN_MO23
 };
 

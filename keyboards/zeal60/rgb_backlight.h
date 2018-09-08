@@ -1,22 +1,21 @@
-#ifndef ZEAL_BACKLIGHT_H
-#define ZEAL_BACKLIGHT_H
+#ifndef RGB_BACKLIGHT_H
+#define RGB_BACKLIGHT_H
 
 #if BACKLIGHT_ENABLED
 #else
-#error zeal_backlight.h included when BACKLIGHT_ENABLED == 0
+#error rgb_backlight.h included when BACKLIGHT_ENABLED == 0
 #endif // BACKLIGHT_ENABLED
 
 #include <stdint.h>
 #include <stdbool.h>
 
 #include "quantum/color.h"
-#include "zeal_rpc.h"
 
 typedef struct
 {
 	HSV color;
 	uint8_t index;
-} zeal_indicator;
+} backlight_config_indicator;
 
 typedef struct
 {
@@ -34,17 +33,18 @@ typedef struct
 	uint8_t effect_speed;				// 1 byte
 	HSV color_1;                        // 3 bytes
 	HSV color_2;                        // 3 bytes
-	zeal_indicator caps_lock_indicator;	// 4 bytes
-	zeal_indicator layer_1_indicator;	// 4 bytes
-	zeal_indicator layer_2_indicator;	// 4 bytes
-	zeal_indicator layer_3_indicator;	// 4 bytes
+	backlight_config_indicator caps_lock_indicator;	// 4 bytes
+	backlight_config_indicator layer_1_indicator;	// 4 bytes
+	backlight_config_indicator layer_2_indicator;	// 4 bytes
+	backlight_config_indicator layer_3_indicator;	// 4 bytes
 	uint16_t alphas_mods[5];            // 10 bytes
-} zeal_backlight_config;                // = 37 bytes
+} backlight_config;                // = 37 bytes
 
-void backlight_config_set_values(msg_backlight_config_set_values *values);
 void backlight_config_set_alphas_mods( uint16_t *value );
 void backlight_config_load(void);
 void backlight_config_save(void);
+void backlight_config_set_value( uint8_t *data );
+void backlight_config_get_value( uint8_t *data );
 
 void backlight_init_drivers(void);
 
@@ -60,6 +60,9 @@ void backlight_set_indicator_state(uint8_t state);
 // Call this while idle (in between matrix scans).
 // If the buffer is dirty, it will update the driver with the buffer.
 void backlight_update_pwm_buffers(void);
+
+// Handle backlight specific keycodes
+bool process_record_backlight(uint16_t keycode, keyrecord_t *record);
 
 void backlight_set_key_hit(uint8_t row, uint8_t col);
 
@@ -80,14 +83,8 @@ void backlight_color_2_hue_decrease(void);
 void backlight_color_2_sat_increase(void);
 void backlight_color_2_sat_decrease(void);
 
-
-
-void *backlight_get_key_color_eeprom_address(uint8_t led);
-void backlight_get_key_color( uint8_t led, HSV *hsv );
-void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv );
-
 void backlight_test_led( uint8_t index, bool red, bool green, bool blue );
 uint32_t backlight_get_tick(void);
 void backlight_debug_led(bool state);
 
-#endif //ZEAL_BACKLIGHT_H
+#endif //RGB_BACKLIGHT_H

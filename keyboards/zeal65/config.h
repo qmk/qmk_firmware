@@ -93,6 +93,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 // disable backlight after timeout in minutes, 0 = no timeout
 #define BACKLIGHT_DISABLE_AFTER_TIMEOUT 0
 
+// the default effect (RGB test)
+#define BACKLIGHT_EFFECT 255
+
 // These define which keys in the matrix are alphas/mods
 // Used for backlight effects so colors are different for
 // alphas vs. mods
@@ -104,8 +107,23 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 #define BACKLIGHT_ALPHAS_MODS_ROW_3 0b0111000000000001
 #define BACKLIGHT_ALPHAS_MODS_ROW_4 0b0111110000000011
 
-#define DYNAMIC_KEYMAP_BASE_ADDR 288
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
+
+// EEPROM usage
+
+// TODO: refactor with new user EEPROM code (coming soon)
+#define EEPROM_MAGIC 0x451F
+#define EEPROM_MAGIC_ADDR 32
+// Bump this every time we change what we store
+// This will automatically reset the EEPROM with defaults
+// and avoid loading invalid data from the EEPROM
+#define EEPROM_VERSION 0x07
+#define EEPROM_VERSION_ADDR 34
+
+// Backlight config starts after EEPROM version
+#define BACKLIGHT_CONFIG_EEPROM_ADDR 35
+// Dynamic keymap starts after backlight config (35+37)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 72
 
 
 #endif

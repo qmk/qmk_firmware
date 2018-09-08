@@ -1,21 +1,24 @@
+
 #if BACKLIGHT_ENABLED
 
 #include "zeal60.h"
-#include "zeal_backlight.h"
+#include "rgb_backlight.h"
+#include "rgb_backlight_api.h"
+#include "rgb_backlight_keycodes.h"
+
 #include <avr/io.h>
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "progmem.h"
 #include "config.h"
-#include "zeal_eeprom.h"
 
 #include "quantum/color.h"
 #include "drivers/avr/i2c_master.h"
 #include "drivers/issi/is31fl3731.h"
 
-#define BACKLIGHT_EFFECT_MAX 11
+#define BACKLIGHT_EFFECT_MAX 10
 
-zeal_backlight_config g_config = {
+backlight_config g_config = {
 	.use_split_backspace = BACKLIGHT_USE_SPLIT_BACKSPACE,
 	.use_split_left_shift = BACKLIGHT_USE_SPLIT_LEFT_SHIFT,
 	.use_split_right_shift = BACKLIGHT_USE_SPLIT_RIGHT_SHIFT,
@@ -25,7 +28,7 @@ zeal_backlight_config g_config = {
 	.disable_when_usb_suspended = BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
 	.disable_after_timeout = BACKLIGHT_DISABLE_AFTER_TIMEOUT,
 	.brightness = 255,
-	.effect = 255, // Default to RGB test, so Zeal can flash and test in one pass!
+	.effect = BACKLIGHT_EFFECT,
 	.effect_speed = 0,
 	.color_1 = { .h = 0, .s = 255, .v = 255 },
 	.color_2 = { .h = 127, .s = 255, .v = 255 },
@@ -724,20 +727,6 @@ void backlight_effect_cycle_radial2(void)
 	}
 }
 
-void backlight_effect_custom(void)
-{
-	HSV hsv;
-	RGB rgb;
-	for ( int i=0; i<72; i++ )
-	{
-		backlight_get_key_color(i, &hsv);
-		// Override brightness with global brightness control
-		hsv.v = g_config.brightness;
-		rgb = hsv_to_rgb( hsv );
-		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-	}
-}
-
 void backlight_effect_indicators_set_colors( uint8_t index, HSV hsv )
 {
 	RGB rgb = hsv_to_rgb( hsv );
@@ -895,7 +884,7 @@ ISR(TIMER3_COMPA_vect)
 			backlight_effect_cycle_radial2();
 			break;
 		default:
-			backlight_effect_custom();
+			backlight_effect_all_off();
 			break;
 	}
 
@@ -918,43 +907,272 @@ void backlight_set_indicator_index( uint8_t *index, uint8_t row, uint8_t column 
 	}
 }
 
-void backlight_config_set_values(msg_backlight_config_set_values *values)
+// Some helpers for setting/getting HSV
+void _set_color( HSV *color, uint8_t *data )
 {
-	bool needs_init = (
-			g_config.use_split_backspace != values->use_split_backspace ||
-			g_config.use_split_left_shift != values->use_split_left_shift ||
-			g_config.use_split_right_shift != values->use_split_right_shift ||
-			g_config.use_7u_spacebar != values->use_7u_spacebar ||
-			g_config.use_iso_enter != values->use_iso_enter ||
-			g_config.disable_hhkb_blocker_leds != values->disable_hhkb_blocker_leds );
+	color->h = data[0];
+	color->s = data[1];
+	color->v = data[2];
+}
 
-	g_config.use_split_backspace = values->use_split_backspace;
-	g_config.use_split_left_shift = values->use_split_left_shift;
-	g_config.use_split_right_shift = values->use_split_right_shift;
-	g_config.use_7u_spacebar = values->use_7u_spacebar;
-	g_config.use_iso_enter = values->use_iso_enter;
-	g_config.disable_hhkb_blocker_leds = values->disable_hhkb_blocker_leds;
+void _get_color( HSV *color, uint8_t *data )
+{
+	data[0] = color->h;
+	data[1] = color->s;
+	data[2] = color->v;
+}
 
-	g_config.disable_when_usb_suspended = values->disable_when_usb_suspended;
-	g_config.disable_after_timeout = values->disable_after_timeout;
+void backlight_config_set_value( uint8_t *data )
+{
+	bool reinitialize = false;
+	uint8_t *value_id = &(data[0]);
+	uint8_t *value_data = &(data[1]);
+	switch ( *value_id )
+	{
+		case id_use_split_backspace:
+		{
+			g_config.use_split_backspace = (bool)*value_data;
+			reinitialize = true;
+			break;
+		}
+		case id_use_split_left_shift:
+		{
+			g_config.use_split_left_shift = (bool)*value_data;
+			reinitialize = true;
+			break;
+		}
+		case id_use_split_right_shift:
+		{
+			g_config.use_split_right_shift = (bool)*value_data;
+			reinitialize = true;
+			break;
+		}
+		case id_use_7u_spacebar:
+		{
+			g_config.use_7u_spacebar = (bool)*value_data;
+			reinitialize = true;
+			break;
+		}
+		case id_use_iso_enter:
+		{
+			g_config.use_iso_enter = (bool)*value_data;
+			reinitialize = true;
+			break;
+		}
+		case id_disable_when_usb_suspended:
+		{
+			g_config.disable_when_usb_suspended = (bool)*value_data;
+			break;
+		}
+		case id_disable_hhkb_blocker_leds:
+		{
+			g_config.disable_hhkb_blocker_leds = (bool)*value_data;
+			break;
+		}
+		case id_disable_after_timeout:
+		{
+			g_config.disable_after_timeout = *value_data;
+			break;
+		}
+		case id_brightness:
+		{
+			g_config.brightness = *value_data;
+			break;
+		}
+		case id_effect:
+		{
+			g_config.effect = *value_data;
+			break;
+		}
+		case id_effect_speed:
+		{
+			g_config.effect_speed = *value_data;
+			break;
+		}
+		case id_color_1:
+		{
+			_set_color( &(g_config.color_1), value_data );
+			break;
+		}
+		case id_color_2:
+		{
+			_set_color( &(g_config.color_2), value_data );
+			break;
+		}
+		case id_caps_lock_indicator_color:
+		{
+			_set_color( &(g_config.caps_lock_indicator.color), value_data );
+			break;
+		}
+		case id_caps_lock_indicator_row_col:
+		{
+			backlight_set_indicator_index( &(g_config.caps_lock_indicator.index), value_data[0], value_data[1] );
+			break;
+		}
+		case id_layer_1_indicator_color:
+		{
+			_set_color( &(g_config.layer_1_indicator.color), value_data );
+			break;
+		}
+		case id_layer_1_indicator_row_col:
+		{
+			backlight_set_indicator_index( &(g_config.layer_1_indicator.index), value_data[0], value_data[1] );
+			break;
+		}
+		case id_layer_2_indicator_color:
+		{
+			_set_color( &(g_config.layer_2_indicator.color), value_data );
+			break;
+		}
+		case id_layer_2_indicator_row_col:
+		{
+			backlight_set_indicator_index( &(g_config.layer_2_indicator.index), value_data[0], value_data[1] );
+			break;
+		}
+		case id_layer_3_indicator_color:
+		{
+			_set_color( &(g_config.layer_3_indicator.color), value_data );
+			break;
+		}
+		case id_layer_3_indicator_row_col:
+		{
+			backlight_set_indicator_index( &(g_config.layer_3_indicator.index), value_data[0], value_data[1] );
+			break;
+		}
+		case id_alphas_mods:
+		{
+			for ( int i=0; i<5; i++ )
+			{
+				g_config.alphas_mods[i] = ( *(value_data+i*2) << 8 ) | ( *(value_data+i*2+1) );
+			}
+		}
+	}
 
-	g_config.brightness = values->brightness;
-	g_config.effect = values->effect;
-	g_config.effect_speed = values->effect_speed;
-	g_config.color_1 = values->color_1;
-	g_config.color_2 = values->color_2;
-	g_config.caps_lock_indicator.color = values->caps_lock_indicator_color;
-	backlight_set_indicator_index( &g_config.caps_lock_indicator.index, values->caps_lock_indicator_row, values->caps_lock_indicator_column );
-	g_config.layer_1_indicator.color = values->layer_1_indicator_color;
-	backlight_set_indicator_index( &g_config.layer_1_indicator.index, values->layer_1_indicator_row, values->layer_1_indicator_column );
-	g_config.layer_2_indicator.color = values->layer_2_indicator_color;
-	backlight_set_indicator_index( &g_config.layer_2_indicator.index, values->layer_2_indicator_row, values->layer_2_indicator_column );
-	g_config.layer_3_indicator.color = values->layer_3_indicator_color;
-	backlight_set_indicator_index( &g_config.layer_3_indicator.index, values->layer_3_indicator_row, values->layer_3_indicator_column );
-
-	if ( needs_init )
+	if ( reinitialize )
 	{
 		backlight_init_drivers();
+	}
+}
+
+void backlight_config_get_value( uint8_t *data )
+{
+	uint8_t *value_id = &(data[0]);
+	uint8_t *value_data = &(data[1]);
+	switch ( *value_id )
+	{
+		case id_use_split_backspace:
+		{
+			*value_data = ( g_config.use_split_backspace ? 1 : 0 );
+			break;
+		}
+		case id_use_split_left_shift:
+		{
+			*value_data = ( g_config.use_split_left_shift ? 1 : 0 );
+			break;
+		}
+		case id_use_split_right_shift:
+		{
+			*value_data = ( g_config.use_split_right_shift ? 1 : 0 );
+			break;
+		}
+		case id_use_7u_spacebar:
+		{
+			*value_data = ( g_config.use_7u_spacebar ? 1 : 0 );
+			break;
+		}
+		case id_use_iso_enter:
+		{
+			*value_data = ( g_config.use_iso_enter ? 1 : 0 );
+			break;
+		}
+		case id_disable_when_usb_suspended:
+		{
+			*value_data = ( g_config.disable_when_usb_suspended ? 1 : 0 );
+			break;
+		}
+		case id_disable_hhkb_blocker_leds:
+		{
+			*value_data = ( g_config.disable_hhkb_blocker_leds ? 1 : 0 );
+			break;
+		}
+		case id_disable_after_timeout:
+		{
+			*value_data = g_config.disable_after_timeout;
+			break;
+		}
+		case id_brightness:
+		{
+			*value_data = g_config.brightness;
+			break;
+		}
+		case id_effect:
+		{
+			*value_data = g_config.effect;
+			break;
+		}
+		case id_effect_speed:
+		{
+			*value_data = g_config.effect_speed;
+			break;
+		}
+		case id_color_1:
+		{
+			_get_color( &(g_config.color_1), value_data );
+			break;
+		}
+		case id_color_2:
+		{
+			_get_color( &(g_config.color_2), value_data );
+			break;
+		}
+		case id_caps_lock_indicator_color:
+		{
+			_get_color( &(g_config.caps_lock_indicator.color), value_data );
+			break;
+		}
+		case id_caps_lock_indicator_row_col:
+		{
+			//*value_data = g_config.caps_lock_indicator.index;
+			break;
+		}
+		case id_layer_1_indicator_color:
+		{
+			_get_color( &(g_config.layer_1_indicator.color), value_data );
+			break;
+		}
+		case id_layer_1_indicator_row_col:
+		{
+			//*value_data = g_config.layer_1_indicator.index;
+			break;
+		}
+		case id_layer_2_indicator_color:
+		{
+			_get_color( &(g_config.layer_2_indicator.color), value_data );
+			break;
+		}
+		case id_layer_2_indicator_row_col:
+		{
+			//*value_data = g_config.layer_2_indicator.index;
+			break;
+		}
+		case id_layer_3_indicator_color:
+		{
+			_get_color( &(g_config.layer_3_indicator.color), value_data );
+			break;
+		}
+		case id_layer_3_indicator_row_col:
+		{
+			//*value_data = g_config.layer_3_indicator.index;
+			break;
+		}
+		case id_alphas_mods:
+		{
+			for ( int i=0; i<5; i++ )
+			{
+				*(value_data+i*2) = g_config.alphas_mods[i] >> 8;
+				*(value_data+i*2+1)	= g_config.alphas_mods[i] & 0xFF;
+			}
+		}
 	}
 }
 
@@ -970,12 +1188,12 @@ void backlight_config_set_alphas_mods( uint16_t *alphas_mods )
 
 void backlight_config_load(void)
 {
-	eeprom_read_block( &g_config, EEPROM_BACKLIGHT_CONFIG_ADDR, sizeof(zeal_backlight_config) );
+	eeprom_read_block( &g_config, ((void*)BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
 }
 
 void backlight_config_save(void)
 {
-	eeprom_update_block( &g_config, EEPROM_BACKLIGHT_CONFIG_ADDR, sizeof(zeal_backlight_config) );
+	eeprom_update_block( &g_config, ((void*)BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
 }
 
 void backlight_init_drivers(void)
@@ -1039,6 +1257,121 @@ void backlight_init_drivers(void)
 	{
 		g_key_hit[led] = 255;
 	}
+}
+
+bool process_record_backlight(uint16_t keycode, keyrecord_t *record)
+{
+	// Record keypresses for backlight effects
+	if ( record->event.pressed )
+	{
+		backlight_set_key_hit( record->event.key.row, record->event.key.col );
+	}
+
+	switch(keycode)
+	{
+		case BR_INC:
+			if (record->event.pressed)
+			{
+				backlight_brightness_increase();
+			}
+			return false;
+			break;
+		case BR_DEC:
+			if (record->event.pressed)
+			{
+				backlight_brightness_decrease();
+			}
+			return false;
+			break;
+		case EF_INC:
+			if (record->event.pressed)
+			{
+				backlight_effect_increase();
+			}
+			return false;
+			break;
+		case EF_DEC:
+			if (record->event.pressed)
+			{
+				backlight_effect_decrease();
+			}
+			return false;
+			break;
+		case ES_INC:
+			if (record->event.pressed)
+			{
+				backlight_effect_speed_increase();
+			}
+			return false;
+			break;
+		case ES_DEC:
+			if (record->event.pressed)
+			{
+				backlight_effect_speed_decrease();
+			}
+			return false;
+			break;
+		case H1_INC:
+			if (record->event.pressed)
+			{
+				backlight_color_1_hue_increase();
+			}
+			return false;
+			break;
+		case H1_DEC:
+			if (record->event.pressed)
+			{
+				backlight_color_1_hue_decrease();
+			}
+			return false;
+			break;
+		case S1_INC:
+			if (record->event.pressed)
+			{
+				backlight_color_1_sat_increase();
+			}
+			return false;
+			break;
+		case S1_DEC:
+			if (record->event.pressed)
+			{
+				backlight_color_1_sat_decrease();
+				break;
+			}
+			return false;
+			break;
+		case H2_INC:
+			if (record->event.pressed)
+			{
+				backlight_color_2_hue_increase();
+			}
+			return false;
+			break;
+		case H2_DEC:
+			if (record->event.pressed)
+			{
+				backlight_color_2_hue_decrease();
+			}
+			return false;
+			break;
+		case S2_INC:
+			if (record->event.pressed)
+			{
+				backlight_color_2_sat_increase();
+			}
+			return false;
+			break;
+		case S2_DEC:
+			if (record->event.pressed)
+			{
+				backlight_color_2_sat_decrease();
+				break;
+			}
+			return false;
+			break;
+	}
+
+	return true;
 }
 
 // Deals with the messy details of incrementing an integer
@@ -1138,33 +1471,6 @@ void backlight_color_2_sat_decrease(void)
 {
 	g_config.color_2.s = decrement( g_config.color_2.s, 8, 0, 255 );
 	backlight_config_save();
-}
-
-void *backlight_get_custom_key_color_eeprom_address( uint8_t led )
-{
-	// 3 bytes per color
-	return EEPROM_BACKLIGHT_KEY_COLOR_ADDR + ( led * 3 );
-}
-
-void backlight_get_key_color( uint8_t led, HSV *hsv )
-{
-	void *address = backlight_get_custom_key_color_eeprom_address( led );
-	hsv->h = eeprom_read_byte(address);
-	hsv->s = eeprom_read_byte(address+1);
-	hsv->v = eeprom_read_byte(address+2);
-}
-
-void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv )
-{
-	uint8_t led;
-	map_row_column_to_led( row, column, &led );
-	if ( led < 72 )
-	{
-		void *address = backlight_get_custom_key_color_eeprom_address(led);
-		eeprom_update_byte(address, hsv.h);
-		eeprom_update_byte(address+1, hsv.s);
-		eeprom_update_byte(address+2, hsv.v);
-	}
 }
 
 void backlight_test_led( uint8_t index, bool red, bool green, bool blue )
