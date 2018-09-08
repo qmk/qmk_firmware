@@ -1,3 +1,5 @@
+#pragma once
+
 #define PREVENT_STUCK_MODIFIERS
 #define PERMISSIVE_HOLD // https://docs.qmk.fm/#/feature_advanced_keycodes?id=permissive-hold
 
