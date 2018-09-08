@@ -24,12 +24,13 @@
 // use alternate settings for 4x4 board using ProMicro instead of Micro
 // usage: make 4x4:wanleg PM=yes
 // PROBLEM: "KEYBOARD_4x4" is evaluated properly, but not "PRO_MICRO_yes"
+//#if defined(KEYBOARD_4x4) && defined(PRO_MICRO_yes) 
 #if defined(PRO_MICRO_yes)
 #define QMK_ESC_OUTPUT F4 // usually COL
 #define QMK_ESC_INPUT D1 // usually ROW
-#undef MATRIX_COL_PINS
-#undef MATRIX_ROW_PINS
+#define QMK_LED B0
 #define MATRIX_ROW_PINS { D1, D0, D4, C6 }
+//last 4 elements of the column array are are not broken out on a ProMicro
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, B5, B4, E6, D7, F0, B7, D6, F1 }
 #endif
 

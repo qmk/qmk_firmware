@@ -1,4 +1,4 @@
-SRC += wanleg.c tapdances.c 
+SRC += wanleg.c tapdances.c
 
 TAP_DANCE_ENABLE = yes
 MOUSEKEY_ENABLE = yes
@@ -12,5 +12,5 @@ endif
 #use alternate settings for 4x4 board using ProMicro instead of Micro
 #usage: make 4x4:wanleg PM=yes
 ifeq ($(strip $(PM)), yes)
-	PRO_MICRO = yes
+	OPT_DEFS += -PRO_MICRO
 endif
