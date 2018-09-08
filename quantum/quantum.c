@@ -643,17 +643,17 @@ bool process_record_quantum(keyrecord_t *record) {
           #ifdef DISABLE_SPACE_CADET_MODIFIER
             unregister_mods(MOD_BIT(KC_LSFT));
           #else
-            #if LSPO_MOD != KC_LSFT
+            if( LSPO_MOD != KC_LSFT ){
               unregister_mods(MOD_BIT(KC_LSFT));
               register_mods(MOD_BIT(LSPO_MOD));
-            #endif
+            }
           #endif
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
           #ifndef DISABLE_SPACE_CADET_MODIFIER
-            #if LSPO_MOD != KC_LSFT
+            if( LSPO_MOD != KC_LSFT ){
               unregister_mods(MOD_BIT(LSPO_MOD));
-            #endif
+            }
           #endif
         }
         unregister_mods(MOD_BIT(KC_LSFT));
@@ -678,17 +678,17 @@ bool process_record_quantum(keyrecord_t *record) {
           #ifdef DISABLE_SPACE_CADET_MODIFIER
             unregister_mods(MOD_BIT(KC_RSFT));
           #else
-            #if RSPC_MOD != KC_RSFT
+            if( RSPC_MOD != KC_RSFT ){
               unregister_mods(MOD_BIT(KC_RSFT));
               register_mods(MOD_BIT(RSPC_MOD));
-            #endif
+            }
           #endif
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
           #ifndef DISABLE_SPACE_CADET_MODIFIER
-            #if RSPC_MOD != KC_RSFT
+            if ( RSPC_MOD != KC_RSFT ){
               unregister_mods(MOD_BIT(RSPC_MOD));
-            #endif
+            }
           #endif
         }
         unregister_mods(MOD_BIT(KC_RSFT));
