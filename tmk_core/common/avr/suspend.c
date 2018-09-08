@@ -185,9 +185,6 @@ void suspend_wakeup_init_kb(void) {
  *
  * FIXME: needs doc
  */
-
-__attribute__ ((weak)) void suspend_wakeup_init_kb(void) {}
-
 void suspend_wakeup_init(void)
 {
 	suspend_wakeup_init_kb();
