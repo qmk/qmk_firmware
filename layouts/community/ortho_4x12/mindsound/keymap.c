@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "audio.h"
 
 #ifdef BACKLIGHT_ENABLE
 #include "flicker.h"
