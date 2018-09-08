@@ -53,9 +53,9 @@ Based on the Windows function layer, but removes some functions that are pointle
 
 ![Quake 2 Fn layer](https://i.imgur.com/9PG7yWb.png)
 
-Keycode(s) Sent                                                    | Notes
-:----------------------------------------------------------------- | :----
-[`Q2_GRV`](../../../../users/noroadsleft/noroadsleft.h#L162-L170)  | Sends `KC_GRV`, then enables the Dvorak, Quake 2 Dvorak, and Quake 2 Console layers.
+Keycode(s) Sent                   | Notes
+:-------------------------------- | :----
+[`Q2_GRV`](./keymap.c#L208-L216)  | Sends `KC_GRV`, then enables the Dvorak, Quake 2 Dvorak, and Quake 2 Console layers.
 
 
 
