@@ -1,8 +1,23 @@
+/* Copyright 2017 Jason Williams (Wilba)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include "zeal60.h"
 #include "zeal60_api.h"
 
 // Check that no backlight functions are called
-#if BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED
 #include "rgb_backlight.h"
 #endif // BACKLIGHT_ENABLED
 
@@ -72,7 +87,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			break;
 		}
 #endif // DYNAMIC_KEYMAP_ENABLE
-#if BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED
 		case id_backlight_config_set_value:
 		{
 			backlight_config_set_value(command_data);
@@ -88,7 +103,7 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			backlight_config_save();
 			break;
 		}
-#endif // BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED
 		default:
 		{
 			// Unhandled message.
@@ -141,19 +156,19 @@ void matrix_init_kb(void)
 	// OK to load from EEPROM.
 	if (eeprom_is_valid())
 	{
-#if BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED
 		backlight_config_load();
-#endif // BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED
 		// TODO: do something to "turn on" keymaps in EEPROM?
 	}
 	else
 	{
-#if BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED
 		// If the EEPROM has not been saved before, or is out of date,
 		// save the default values to the EEPROM. Default values
 		// come from construction of the zeal_backlight_config instance.
 		backlight_config_save();
-#endif // BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
 		// This saves "empty" keymaps so it falls back to the keymaps
@@ -165,20 +180,20 @@ void matrix_init_kb(void)
 		eeprom_set_valid(true);
 	}
 
-#if BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED
 	// Initialize LED drivers for backlight.
 	backlight_init_drivers();
 	
 	backlight_timer_init();
 	backlight_timer_enable();
-#endif // BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED
 
 	matrix_init_user();
 }
 
 void matrix_scan_kb(void)
 {
-#if BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED
 	// This only updates the LED driver buffers if something has changed.
 	backlight_update_pwm_buffers();
 #endif // BACKLIGHT_ENABLED
@@ -187,7 +202,9 @@ void matrix_scan_kb(void)
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 {
+#if RGB_BACKLIGHT_ENABLED
 	process_record_backlight(keycode, record);
+#endif // BACKLIGHT_ENABLED
 
 	switch(keycode)
 	{
@@ -303,22 +320,22 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 void led_set_kb(uint8_t usb_led)
 {
-#if BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED
 	backlight_set_indicator_state(usb_led);
-#endif // BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED
 }
 
 void suspend_power_down_kb(void)
 {
-#if BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED
 	backlight_set_suspend_state(true);
-#endif // BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED
 }
 
 void suspend_wakeup_init_kb(void)
 {
-#if BACKLIGHT_ENABLED
+#if RGB_BACKLIGHT_ENABLED
 	backlight_set_suspend_state(false);
-#endif // BACKLIGHT_ENABLED
+#endif // RGB_BACKLIGHT_ENABLED
 }
 

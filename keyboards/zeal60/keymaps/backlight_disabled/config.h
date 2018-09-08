@@ -3,7 +3,7 @@
 
 #include "../../config.h"
 
-#undef BACKLIGHT_ENABLED
-#define BACKLIGHT_ENABLED 0
+#undef RGB_BACKLIGHT_BACKLIGHT_ENABLED
+#define RGB_BACKLIGHT_BACKLIGHT_ENABLED 0
 
 #endif //CONFIG_USER_H 

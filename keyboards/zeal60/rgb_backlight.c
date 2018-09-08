@@ -1,5 +1,24 @@
+/* Copyright 2017 Jason Williams (Wilba)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+#if RGB_BACKLIGHT_ENABLED
 
-#if BACKLIGHT_ENABLED
+#if defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_ZEAL65) || defined (RGB_BACKLIGHT_M60_A)
+#else
+#error None of the following was defined: RGB_BACKLIGHT_ZEAL60, RGB_BACKLIGHT_ZEAL65, RGB_BACKLIGHT_M60_A
+#endif
 
 #include "zeal60.h"
 #include "rgb_backlight.h"
@@ -19,16 +38,16 @@
 #define BACKLIGHT_EFFECT_MAX 10
 
 backlight_config g_config = {
-	.use_split_backspace = BACKLIGHT_USE_SPLIT_BACKSPACE,
-	.use_split_left_shift = BACKLIGHT_USE_SPLIT_LEFT_SHIFT,
-	.use_split_right_shift = BACKLIGHT_USE_SPLIT_RIGHT_SHIFT,
-	.use_7u_spacebar = BACKLIGHT_USE_7U_SPACEBAR,
-	.use_iso_enter = BACKLIGHT_USE_ISO_ENTER,
-	.disable_hhkb_blocker_leds = BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS,
-	.disable_when_usb_suspended = BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
-	.disable_after_timeout = BACKLIGHT_DISABLE_AFTER_TIMEOUT,
+	.use_split_backspace = RGB_BACKLIGHT_USE_SPLIT_BACKSPACE,
+	.use_split_left_shift = RGB_BACKLIGHT_USE_SPLIT_LEFT_SHIFT,
+	.use_split_right_shift = RGB_BACKLIGHT_USE_SPLIT_RIGHT_SHIFT,
+	.use_7u_spacebar = RGB_BACKLIGHT_USE_7U_SPACEBAR,
+	.use_iso_enter = RGB_BACKLIGHT_USE_ISO_ENTER,
+	.disable_hhkb_blocker_leds = RGB_BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS,
+	.disable_when_usb_suspended = RGB_BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED,
+	.disable_after_timeout = RGB_BACKLIGHT_DISABLE_AFTER_TIMEOUT,
 	.brightness = 255,
-	.effect = BACKLIGHT_EFFECT,
+	.effect = RGB_BACKLIGHT_EFFECT,
 	.effect_speed = 0,
 	.color_1 = { .h = 0, .s = 255, .v = 255 },
 	.color_2 = { .h = 127, .s = 255, .v = 255 },
@@ -37,11 +56,11 @@ backlight_config g_config = {
 	.layer_2_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
 	.layer_3_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
 	.alphas_mods = {
-		BACKLIGHT_ALPHAS_MODS_ROW_0,
-		BACKLIGHT_ALPHAS_MODS_ROW_1,
-		BACKLIGHT_ALPHAS_MODS_ROW_2,
-		BACKLIGHT_ALPHAS_MODS_ROW_3,
-		BACKLIGHT_ALPHAS_MODS_ROW_4 }
+		RGB_BACKLIGHT_ALPHAS_MODS_ROW_0,
+		RGB_BACKLIGHT_ALPHAS_MODS_ROW_1,
+		RGB_BACKLIGHT_ALPHAS_MODS_ROW_2,
+		RGB_BACKLIGHT_ALPHAS_MODS_ROW_3,
+		RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 }
 };
 
 bool g_suspend_state = false;
@@ -60,9 +79,6 @@ uint32_t g_any_key_hit = 0;
 // set to 0 for write, 1 for read (as per I2C protocol)
 #define ISSI_ADDR_1 0x74
 #define ISSI_ADDR_2 0x76
-
-
-
 
 const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 /* Refer to IS31 manual for these locations
@@ -159,7 +175,7 @@ typedef struct Point {
 // index in range 0..71 (LA0..LA17, LB0..LB17, LC0..LC17, LD0..LD17)
 // point values in range x=0..224 y=0..64
 // origin is center of top-left key (i.e Esc)
-#ifdef CONFIG_ZEAL65
+#if defined (RGB_BACKLIGHT_ZEAL65)
 const Point g_map_led_to_point[72] PROGMEM = {
 	// LA0..LA17
 	{120,16}, {104,16}, {88,16}, {72,16}, {56,16}, {40,16}, {24,16}, {4,16}, {4,32},
@@ -188,7 +204,7 @@ const Point g_map_led_to_point_polar[72] PROGMEM = {
 	{0,9}, {0,43}, {0,77}, {0,111}, {0,145}, {255,201}, {224,181}, {230,217}, {235,255},
 	{189,128}, {200,131}, {210,141}, {218,159}, {201,228}, {201,228}, {206,255}, {213,255}, {218,255}
 };
-#else
+#elif defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
 const Point g_map_led_to_point[72] PROGMEM = {
 	// LA0..LA17
 	{120,16}, {104,16}, {88,16}, {72,16}, {56,16}, {40,16}, {24,16}, {4,16}, {4,32},
@@ -217,13 +233,7 @@ const Point g_map_led_to_point_polar[72] PROGMEM = {
 	{0,27}, {0,64}, {0,101}, {0,137}, {0,174}, {255,233}, {228,201}, {235,255}, {237,255},
 	{195,128}, {206,136}, {215,152}, {222,175}, {205,234}, {209,255}, {214,255}, {219,255}, {223,255}
 };
-#endif // ZEAL65_PROTO
-
-
-
-
-
-
+#endif
 
 // This may seem counter-intuitive, but it's quite flexible.
 // For each LED, get it's position to decide what color to make it.
@@ -246,7 +256,7 @@ void map_led_to_point( uint8_t index, Point *point )
 			if ( g_config.use_iso_enter )
 				point->y += 8; // extremely pedantic
 			break;
-#ifndef ZEAL65_PROTO
+#if defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
 		case 36+0: // LC0A
 			if ( g_config.use_7u_spacebar )
 				point->x += 10;
@@ -284,7 +294,7 @@ void map_led_to_point_polar( uint8_t index, Point *point )
 //
 
 
-#ifdef CONFIG_ZEAL65
+#if defined (RGB_BACKLIGHT_ZEAL65)
 // Note: Left spacebar stab is at 4,3 (LC7)
 // Right spacebar stab is at 4,9 (D14)
 //
@@ -300,7 +310,7 @@ const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 	{ 36+16, 36+15,  36+5,  36+4,  36+3,  36+2,  36+1,  54+9, 54+10, 54+11, 54+12,  54+6,  54+7,  54+8, 18+15 },
 	{ 36+17,  36+8,  36+7,   255,   255,   255,   255,  36+0,  255,  54+14, 54+15, 54+16, 54+17, 18+17, 18+16 }
 };
-#else
+#elif defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
 // Note: Left spacebar stab is at 4,3 (LC6)
 // Right spacebar stab is at 4,9 (LD13) or 4,10 (LD14)
 //
@@ -742,10 +752,10 @@ void backlight_effect_indicators_set_colors( uint8_t index, HSV hsv )
 		// do the same for the spacebar stabilizers
 		if ( index == 36+0 ) // LC0
 		{
-#ifdef CONFIG_ZEAL65
+#if defined (RGB_BACKLIGHT_ZEAL65)
 			backlight_set_color( 36+7, rgb.r, rgb.g, rgb.b ); // LC7
 			backlight_set_color( 54+14, rgb.r, rgb.g, rgb.b ); // LD14
-#else
+#elif defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
 			backlight_set_color( 36+6, rgb.r, rgb.g, rgb.b ); // LC6
 			backlight_set_color( 54+13, rgb.r, rgb.g, rgb.b ); // LD13
 			if ( g_config.use_7u_spacebar )
@@ -929,12 +939,15 @@ void backlight_config_set_value( uint8_t *data )
 	uint8_t *value_data = &(data[1]);
 	switch ( *value_id )
 	{
+#if defined (RGB_BACKLIGHT_ZEAL60) || defined(RGB_BACKLIGHT_ZEAL65)
 		case id_use_split_backspace:
 		{
 			g_config.use_split_backspace = (bool)*value_data;
 			reinitialize = true;
 			break;
 		}
+#endif
+#if defined (RGB_BACKLIGHT_ZEAL60)
 		case id_use_split_left_shift:
 		{
 			g_config.use_split_left_shift = (bool)*value_data;
@@ -959,14 +972,16 @@ void backlight_config_set_value( uint8_t *data )
 			reinitialize = true;
 			break;
 		}
-		case id_disable_when_usb_suspended:
-		{
-			g_config.disable_when_usb_suspended = (bool)*value_data;
-			break;
-		}
 		case id_disable_hhkb_blocker_leds:
 		{
 			g_config.disable_hhkb_blocker_leds = (bool)*value_data;
+			reinitialize = true;
+			break;
+		}
+#endif
+		case id_disable_when_usb_suspended:
+		{
+			g_config.disable_when_usb_suspended = (bool)*value_data;
 			break;
 		}
 		case id_disable_after_timeout:
@@ -1188,12 +1203,12 @@ void backlight_config_set_alphas_mods( uint16_t *alphas_mods )
 
 void backlight_config_load(void)
 {
-	eeprom_read_block( &g_config, ((void*)BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
+	eeprom_read_block( &g_config, ((void*)RGB_BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
 }
 
 void backlight_config_save(void)
 {
-	eeprom_update_block( &g_config, ((void*)BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
+	eeprom_update_block( &g_config, ((void*)RGB_BACKLIGHT_CONFIG_EEPROM_ADDR), sizeof(backlight_config) );
 }
 
 void backlight_init_drivers(void)
@@ -1207,14 +1222,13 @@ void backlight_init_drivers(void)
 	{
 		// OR the possible "disabled" cases together, then NOT the result to get the enabled state
 		// LC6 LD13 not present on Zeal65
-#ifdef CONFIG_ZEAL65
+#if defined (RGB_BACKLIGHT_ZEAL65)
 		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
 						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
 						  ( index == 54+8 && !g_config.use_split_right_shift ) || // LD8
 						  ( index == 36+6 ) || // LC6
 						  ( index == 54+13 ) ); // LD13
-#else
-#ifdef CONFIG_M60_A
+#elif defined (RGB_BACKLIGHT_M60_A)
 		bool enabled = !(
 		// LB6 LB7 LB8 LB15 LB16 LB17 not present on M60-A
 						  ( index == 18+6 ) || // LB6
@@ -1228,7 +1242,7 @@ void backlight_init_drivers(void)
 						  ( index == 54+17 ) || // LD17
 						  ( index == 36+15 ) || // LC15
 						  ( index == 54+13 ) ); // LD13
-#else // Zeal60
+#elif defined (RGB_BACKLIGHT_ZEAL60)
 		// LB6 LB7 LB8 LB15 LB16 LB17 not present on Zeal60
 		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
 						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
@@ -1242,7 +1256,6 @@ void backlight_init_drivers(void)
 						  ( index == 18+15 ) || // LB15
 						  ( index == 18+16 ) || // LB16
 						  ( index == 18+17 ) ); // LB17
-#endif
 #endif
 		// This only caches it for later
 		IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
@@ -1486,11 +1499,6 @@ void backlight_test_led( uint8_t index, bool red, bool green, bool blue )
 			IS31FL3731_set_led_control_register( i, false, false, false );
 		}
 	}
-}
-
-uint32_t backlight_get_tick(void)
-{
-	return g_tick;
 }
 
 void backlight_debug_led( bool state )
