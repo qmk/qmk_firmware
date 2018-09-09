@@ -21,5 +21,6 @@ enum custom_keycodes {
 #define _DL 2 // The down layer
 #define _VL 3 // The shifted up layer
 #define _AL 4 // The assorted layer
+#define _GM 5
 
 #endif
