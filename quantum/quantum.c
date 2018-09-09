@@ -750,6 +750,64 @@ bool process_record_quantum(keyrecord_t *record) {
       }
 #endif
 
+      if( record -> event.pressed ){
+        grave_esc_was_shifted = shifted;
+
+        if( ! grave_esc_was_shifted ) {
+          register_code( KC_ESC );
+          return false;
+        }
+        /* -------- ↓ only any shift pressed --------- */
+        unregister_mods(
+#if   defined GESC_GR_IGNORED_MOD
+            MOD_BIT( GESC_GR_IGNORED_MOD )    // unregist ignored mod
+#elif defined GESC_GR_IGNORED_MOD_BIT
+            GESC_GR_IGNORED_MOD_BIT           // unregist ignored mods
+#else
+            0                                 // none defined, nothing happen
+#endif
+        );
+        register_code( KC_GRAVE );
+
+        register_mods( 
+#if   defined GESC_GR_IGNORED_MOD
+            MOD_BIT( GESC_GR_IGNORED_MOD )    // unregist ignored mod
+#elif defined GESC_GR_IGNORED_MOD_BIT
+            GESC_GR_IGNORED_MOD_BIT           // unregist ignored mods
+#else
+            0                                 // none defined, nothing happen
+#endif
+        );
+      }
+      else { 
+
+        if( ! grave_esc_was_shifted ) {
+          unregister_code( KC_ESC );
+          return false;
+        }
+        /* -------- ↓ only any shift pressed --------- */
+        unregister_mods(
+#if   defined GESC_GR_IGNORED_MOD
+            MOD_BIT( GESC_GR_IGNORED_MOD )    // unregist ignored mod
+#elif defined GESC_GR_IGNORED_MOD_BIT
+            GESC_GR_IGNORED_MOD_BIT           // unregist ignored mods
+#else
+            0                                 // none defined, nothing happen
+#endif
+        );
+        unregister_code( KC_GRAVE );
+
+        register_mods( 
+#if   defined GESC_GR_IGNORED_MOD
+            MOD_BIT( GESC_GR_IGNORED_MOD )    // unregist ignored mod
+#elif defined GESC_GR_IGNORED_MOD_BIT
+            GESC_GR_IGNORED_MOD_BIT           // unregist ignored mods
+#else
+            0                                 // none defined, nothing happen
+#endif
+        );
+      }
+/*
       if (record->event.pressed) {
         grave_esc_was_shifted = shifted;
         add_key(shifted ? KC_GRAVE : KC_ESCAPE);
@@ -759,6 +817,7 @@ bool process_record_quantum(keyrecord_t *record) {
       }
 
       send_keyboard_report();
+*/
       return false;
     }
 
