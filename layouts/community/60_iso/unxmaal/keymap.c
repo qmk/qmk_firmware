@@ -8,25 +8,25 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    /*
-   *  ANSI Base, Mac style
+   *  ISO Base, Mac style
    * ,-----------------------------------------------------------------------------.
    * |Esc   |  1|   2|   3|   4|   5|   6|   7|   8|   9|   0|   -|   = |   Backsp |
    * |-----------------------------------------------------------------------------|
-   * |Tab    |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I|   O|  P|  [|  ]|     \|
+   * |Tab    |  Q  |  W  |  E  |  R  |  T  |  Y  |  U  |  I|   O|  P|  [|  ]|      |
+   * |-----------------------------------------------------------------------      |
+   * |Caps/Fn      |    A|    S|    D|    F|   G|  H|  J|  K|  L|  ;|  '|   #|Enter|
    * |-----------------------------------------------------------------------------|
-   * |Caps/Fn      |    A|    S|    D|    F|   G|  H|  J|  K|  L|  ;|  '|   Enter  |
-   * |-----------------------------------------------------------------------------|
-   * |Shift      |    Z|     X|    C|     V|  B|  N|  M|  ,|  .|  /|     Shift     |
+   * |Shift|    \|    Z|     X|    C|     V|  B|  N|  M|  ,|  .|  /|     Shift     |
    * |-----------------------------------------------------------------------------|
    * |Fn|Alt |Gui | Space(tapped), Fn(held) |Gui |Alt  |Menu(tapped, Fn2(held)|Ctrl|
    * `-----------------------------------------------------------------------------'
    */
 	[_BL] = LAYOUT_60_iso(
         KC_ESC,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_MINS,KC_EQL,KC_BSPC, \
-	      KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_LBRC,KC_RBRC,KC_BSLS, \
-        KC_LCTL,KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_QUOT,KC_NO,KC_ENT,  \
-        KC_LSFT,KC_NO,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMM,KC_DOT,KC_SLSH,KC_NO,KC_RSFT, \
-        MO(1),KC_LALT,KC_LGUI,        LT(1,KC_SPACE),      KC_NO, KC_RGUI, KC_RALT, LT(2,KC_MENU), KC_RCTL),
+	      KC_TAB,KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_LBRC,KC_RBRC, \
+        KC_LCTL,KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_QUOT,KC_NUHS,KC_ENT,  \
+        KC_LSFT,KC_NUBS,KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMM,KC_DOT,KC_SLSH,KC_RSFT, \
+        MO(1),KC_LALT,KC_LGUI,        LT(1,KC_SPACE),      KC_RGUI, KC_RALT, LT(2,KC_MENU), KC_RCTL),
 
    /*
    * Pok3r style arrow cluster
@@ -34,7 +34,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |`~ | F1| F2| F3| F4| F5| F6| F7| F8| F9| F10| F11| F12|DEL |
    * |-----------------------------------------------------------|
    * |     |   |    |   |   |   |   |   |Up|   |   |   |   |     |
-   * |-----------------------------------------------------------|
+   * |-------------------------------------------------------    |
    * |       |   |   |   |   |   |   |Left|Down|Right|   |   |   |
    * |-----------------------------------------------------------|
    * |        |   |   |   |   |   |   |   |   |   |   |          |
@@ -44,10 +44,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 	[_AL] = LAYOUT_60_iso(
         KC_GRV,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12,KC_DELETE, \
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_UP,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
+        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_UP,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_LEFT,KC_DOWN,KC_RGHT,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,   \
-        KC_TRNS,KC_TRNS,KC_TRNS,          KC_TRNS,               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
+        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,   \
+        KC_TRNS,KC_TRNS,KC_TRNS,          KC_TRNS,               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
 
 
    /*
@@ -56,8 +56,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * | | |  |  |  | | | RW|Play|FF| Mute| Vol Down | Vol up |Reset |
    * |-------------------------------------------------------------|
    * |    |   |   |   |  |  |  |   |    |PgUp|    |    |   |       |
-   * |-------------------------------------------------------------|
-   * |      |   |   |   |   |   |  |Home|PgDown|End|  |   |        |
+   * |--------------------------------------------------------     |
+   * |      |   |   |   |   |   |  |Home|PgDown|End|  |   |   |    |
    * |-------------------------------------------------------------|
    * |        |   |   |   |   |   |   |    |    |    |   |         |
    * |-------------------------------------------------------------|
@@ -66,10 +66,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 	[_FL] = LAYOUT_60_iso(
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_MPRV,KC_MPLY,KC_MNXT,KC_MUTE,KC_VOLD,KC_VOLU,RESET, \
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_PGUP,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
+        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_PGUP,KC_TRNS,KC_TRNS,KC_TRNS, \
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_HOME,KC_TRNS,KC_HOME,KC_PGDN,KC_END,KC_TRNS,KC_TRNS,KC_TRNS, \
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
-        KC_TRNS,KC_TRNS,KC_TRNS,          KC_TRNS,               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
+        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
+        KC_TRNS,KC_TRNS,KC_TRNS,          KC_TRNS,               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
 
    /*
    * Locking layer for controlling the underglow.
@@ -79,8 +79,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |  |   |   |   |   |   |   |   |   |   |   |   |       |
    * |-----------------------------------------------------------|
    * |     |   |   |   |   |   |   |   |   |   |   |   |   |     |
-   * |-----------------------------------------------------------|
-   * |       |On|Mode|   |   |   |   |   |   |   |   |   |       |
+   * |-------------------------------------------------------    |
+   * |       |On|Mode|   |   |   |   |   |   |   |   |   |   |   |
    * |-----------------------------------------------------------|
    * |        |   |Hue+|Hue-|Sat+|Sat-|Val+|Val-|  |  |   |      |
    * |-----------------------------------------------------------|
@@ -89,10 +89,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 	[_UL] = LAYOUT_60_iso(
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
-        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
+        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
         KC_TRNS,F(4),F(5),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, \
-        KC_TRNS,KC_TRNS,KC_TRNS,F(6),F(7),F(8),F(9),F(10),F(11),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,   \
-        KC_TRNS,KC_TRNS,KC_TRNS,          KC_TRNS,               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
+        KC_TRNS,KC_TRNS,KC_TRNS,F(6),F(7),F(8),F(9),F(10),F(11),KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,   \
+        KC_TRNS,KC_TRNS,KC_TRNS,          KC_TRNS,               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
 };
 
 enum function_id {
@@ -163,6 +163,7 @@ void matrix_scan_user(void) {
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
+#ifdef RGBLIGHT_ENABLE
     case RGBLED_TOGGLE:
       //led operations
       if (record->event.pressed) {
@@ -204,6 +205,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
           rgblight_step();
         }
         break;
+#endif
     static uint8_t shift_esc_shift_mask;
     // Shift + ESC = ~
     case SHIFT_ESC:

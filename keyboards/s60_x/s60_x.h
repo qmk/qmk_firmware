@@ -1,10 +1,10 @@
 #ifndef S60X_H
 #define S60X_H
 
-#ifdef SUBPROJECT_default
+#ifdef KEYBOARD_s60_x_default
     #include "default.h"
 #endif
-#ifdef SUBPROJECT_rgb
+#ifdef KEYBOARD_s60_x_rgb
     #include "rgb.h"
 #endif
 

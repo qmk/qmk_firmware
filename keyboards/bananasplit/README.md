@@ -1,29 +1,15 @@
-# BananaSplit60 keyboard firmware
+BananaSplit60
+===
 
-Ported from evangs/tmk_keyboard
+A 60% PCB featuring a split spacebar.
 
-## Quantum MK Firmware
+Keyboard Maintainer: QMK Community  
+Hardware Supported: BananaSplit60 PCB  
+Hardware Availability: https://thevankeyboards.com/products/gb-bananasplit-60-keyboard-kit?variant=42149104910
 
-For the full Quantum feature list, see [the parent readme](/).
+Make example for this keyboard (after setting up your build environment):
 
-## Building
+    make bananasplit:default
 
-Download or clone the whole firmware and navigate to the keyboards/bananasplit folder. Once your dev env is setup, you'll be able to type `make` to generate your .hex - you can then use the Teensy Loader to program your .hex file.
+See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
-Depending on which keymap you would like to use, you will have to compile slightly differently.
-
-### Default
-
-To build with the default keymap, simply run `make default`.
-
-### Other Keymaps
-
-Several version of keymap are available in advance but you are recommended to define your favorite layout yourself. To define your own keymap create a folder with the name of your keymap in the keymaps folder, and see keymap documentation (you can find in top readme.md) and existant keymap files.
-
-To build the firmware binary hex file with a keymap just do `make` with a keymap like this:
-
-```
-$ make [default|jack|<name>]
-```
-
-Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.

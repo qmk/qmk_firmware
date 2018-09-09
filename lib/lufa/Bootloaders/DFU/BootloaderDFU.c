@@ -196,7 +196,7 @@ int main(void)
 	while (RunBootloader || WaitForExit) {
 	  USB_USBTask();
 	  #if (BOARD == BOARD_QMK)
-	  	bool pressed = (PIN(QMK_ESC_ROW) & NUM(QMK_ESC_ROW));
+	  	bool pressed = (PIN(QMK_ESC_INPUT) & NUM(QMK_ESC_INPUT));
 		if ((DFU_State == dfuIDLE) && (keypress > 5000) && pressed) {
 			break;
 		}
@@ -231,12 +231,12 @@ static void SetupHardware(void)
 	MCUCR = (1 << IVSEL);
 
 	#if (BOARD == BOARD_QMK)
-		// column setup
-		DDR(QMK_ESC_COL) |= NUM(QMK_ESC_COL);
-		PORT(QMK_ESC_COL) |= NUM(QMK_ESC_COL);
+		// output setup
+		DDR(QMK_ESC_OUTPUT) |= NUM(QMK_ESC_OUTPUT);
+		PORT(QMK_ESC_OUTPUT) |= NUM(QMK_ESC_OUTPUT);
 
-		// row setup
-		DDR(QMK_ESC_ROW) |= NUM(QMK_ESC_ROW);
+		// input setup
+		DDR(QMK_ESC_INPUT) |= NUM(QMK_ESC_INPUT);
 	#endif
 
 	/* Initialize the USB and other board hardware drivers */
@@ -265,7 +265,7 @@ static void ResetHardware(void)
 	MCUCR = 0;
 
 	#if (BOARD == BOARD_QMK)
-		DDR(QMK_ESC_COL) = PORT(QMK_ESC_COL) = DDR(QMK_ESC_ROW) = PORT(QMK_ESC_ROW) = 0;
+		DDR(QMK_ESC_OUTPUT) = PORT(QMK_ESC_OUTPUT) = DDR(QMK_ESC_INPUT) = PORT(QMK_ESC_INPUT) = 0;
 	#endif
 }
 

@@ -2,12 +2,10 @@
 
 # project specific files
 SRC =	../zeal60/zeal60.c \
-		../zeal60/zeal_backlight.c \
-		../zeal60/zeal_color.c \
-		../zeal60/zeal_eeprom.c \
-		../zeal60/zeal_keymap.c \
-		../zeal60/IS31FL3731_driver.c \
-		../zeal60/TWIlib.c
+		../zeal60/rgb_backlight.c \
+		quantum/color.c \
+		drivers/issi/is31fl3731.c \
+		drivers/avr/i2c_master.c
 
 # MCU name
 MCU = atmega32u4
@@ -82,3 +80,6 @@ RGBLIGHT_ENABLE ?= no        # Enable WS2812 RGB underlight.  Do not enable this
 SLEEP_LED_ENABLE ?= no    # Breathing sleep LED during USB suspend
 
 RAW_ENABLE = yes
+DYNAMIC_KEYMAP_ENABLE = yes
+CIE1931_CURVE = yes
+

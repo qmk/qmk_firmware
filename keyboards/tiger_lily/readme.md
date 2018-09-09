@@ -5,12 +5,12 @@ This is the firmware for Rev. 20161114 of the Tiger Lily controller by [Bathroom
 
 The code was adapted from the [BathroomEpiphanies TMK Firmware](https://github.com/BathroomEpiphanies/epiphanies_tmk_keyboard/tree/master/be_controllers).
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: Tiger Lily
+Keyboard Maintainer: QMK Community  
+Hardware Supported: Tiger Lily  
 Hardware Availability: https://geekhack.org/index.php?topic=46700.0
 
 Make example for this keyboard (after setting up your build environment):
 
-    make tiger_lily-default
+    make tiger_lily:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.

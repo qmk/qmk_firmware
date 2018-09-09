@@ -126,6 +126,10 @@ void matrix_scan_kb(void) {
 	matrix_scan_user();
 }
 
+bool is_keyboard_master(void) {
+    return is_serial_link_master();
+}
+
 __attribute__ ((weak))
 void ergodox_board_led_on(void){
 }
@@ -170,7 +174,7 @@ __attribute__ ((weak))
 void ergodox_right_led_3_set(uint8_t n) {
 }
 
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0, 9}, {1, 9}, {2, 9}, {3, 9}, {4, 9}},

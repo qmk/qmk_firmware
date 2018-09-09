@@ -1,10 +1,10 @@
-# How keys are registered, and interpreted by computers
+# How Keys Are Registered, and Interpreted by Computers
 
 In this file, you can will learn the concepts of how keyboards work over USB,
 and you'll be able to better understand what you can expect from changing your
 firmware directly.
 
-## Schematic view
+## Schematic View
 
 Whenever you type on 1 particular key, here is the chain of actions taking
 place:
@@ -49,7 +49,7 @@ layout is set to QWERTY, a sample of the matching table is as follow:
 | 0x1D | z/Z |
 | ... | ... |
 
-## Back to the firmware
+## Back to the Firmware
 
 As the layout is generally fixed (unless you create your own), the firmware can actually call a keycode by its layout name directly to ease things for you. This is exactly what is done here with `KC_A` actually representing `0x04` in QWERTY. The full list can be found in [keycodes](keycodes.md).
 

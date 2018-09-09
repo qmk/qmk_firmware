@@ -25,19 +25,19 @@ Make example for this keyboard (after setting up your build environment):
 104 key default layout:
 
 ```
-make frosty_flake-default
+make frosty_flake:default
 ```
 
 To directly flash the frosty_flake after compiling use
 
 ```
-make frosty_flake-default-dfu
+make frosty_flake:default:dfu
 ```
 
 87 key tkl layout:
 
 ```
-make frosty_flake-tkl-dfu
+make frosty_flake:tkl:dfu
 ```
 
 See [build environment
