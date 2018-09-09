@@ -1,6 +1,6 @@
-// M60-A layout for Zeal60
+// M60-A layout
 
-#include "zeal60.h"
+#include "m60_a.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
