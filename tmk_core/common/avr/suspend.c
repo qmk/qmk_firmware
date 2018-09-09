@@ -141,9 +141,6 @@ static void power_down(uint8_t wdto)
  *
  * FIXME: needs doc
  */
-
-__attribute__ ((weak)) void suspend_power_down_kb(void) {}
-
 void suspend_power_down(void)
 {
 	suspend_power_down_kb();
