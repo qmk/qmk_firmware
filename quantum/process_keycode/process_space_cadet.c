@@ -17,6 +17,10 @@
 #include "quantum.h"
 
 
+#ifndef TAPPING_TERM
+  #define TAPPING_TERM 200
+#endif
+
 // Shift / paren setup
 #ifndef LSPO_KEY
   #define LSPO_KEY KC_9
