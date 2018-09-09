@@ -19,20 +19,22 @@
 #include "config_common.h"
 
 // USB Device descriptor parameter
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6065
+#define VENDOR_ID       0xFEED // This is same as Zeal60 for now
+#define PRODUCT_ID      0x6060 // This is same as Zeal60 for now
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    ZealPC
-#define PRODUCT         Zeal65
-#define DESCRIPTION     Zeal65 (QMK Firmware)
+#define MANUFACTURER    RAMA.WORKS
+#define PRODUCT         RAMA M60-A
+#define DESCRIPTION     RAMA M60-A Keyboard
+
+
 
 // key matrix size
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define MATRIX_COLS 14
 
 // Zeal60 PCB default pin-out
 #define MATRIX_ROW_PINS { F0, F1, F4, F6, F7 }
-#define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6, D4 }
+#define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6 }
 #define UNUSED_PINS
 
 // IS31FL3731 driver
@@ -75,16 +77,17 @@
 
 #define RGB_BACKLIGHT_ENABLED 1
 
-// This conditionally compiles the backlight code for Zeal65 specifics
-#define RGB_BACKLIGHT_ZEAL65
+// This conditionally compiles the backlight code for M60-A specifics
+#define RGB_BACKLIGHT_M60_A
 
 // enable/disable LEDs based on layout
-#define RGB_BACKLIGHT_USE_SPLIT_BACKSPACE 0
+// they aren't really used if RGB_BACKLIGHT_M60_A defined
+#define RGB_BACKLIGHT_USE_SPLIT_BACKSPACE 1
 #define RGB_BACKLIGHT_USE_SPLIT_LEFT_SHIFT 0
 #define RGB_BACKLIGHT_USE_SPLIT_RIGHT_SHIFT 1
-#define RGB_BACKLIGHT_USE_7U_SPACEBAR 0
+#define RGB_BACKLIGHT_USE_7U_SPACEBAR 1
 #define RGB_BACKLIGHT_USE_ISO_ENTER 0
-#define RGB_BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS 0
+#define RGB_BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS 1
 
 // disable backlight when USB suspended (PC sleep/hibernate/shutdown)
 #define RGB_BACKLIGHT_DISABLE_WHEN_USB_SUSPENDED 0
@@ -100,11 +103,11 @@
 // alphas vs. mods
 // Each value is for a row, bit 0 is column 0
 // Alpha=0 Mod=1
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_0 0b0110000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_1 0b0100000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0101000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0111000000000001
-#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0111110000000011
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_0 0b0000000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_1 0b0010000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0011000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0011000000000001
+#define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011100000000111
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
