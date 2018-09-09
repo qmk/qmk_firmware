@@ -757,56 +757,46 @@ bool process_record_quantum(keyrecord_t *record) {
           register_code( KC_ESC );
           return false;
         }
-        /* -------- ↓ only any shift pressed --------- */
-        unregister_mods(
-#if   defined GESC_GR_IGNORED_MOD
-            MOD_BIT( GESC_GR_IGNORED_MOD )    // unregist ignored mod
-#elif defined GESC_GR_IGNORED_MOD_BIT
-            GESC_GR_IGNORED_MOD_BIT           // unregist ignored mods
-#else
-            0                                 // none defined, nothing happen
-#endif
-        );
+          /* -------- ↓ only shift/gui pressed --------- */
+
+#       if defined GESC_GR_IGNORED_MOD
+          bool enabled = false;
+          if( get_mods() & MOD_BIT( GESC_GR_IGNORED_MOD ) ) {
+            unregister_mods( MOD_BIT( GESC_GR_IGNORED_MOD ) );
+            enabled = true;
+          }
+#       elif defined GESC_GR_IGNORED_MOD_BIT
+          uint8_t mods = get_mods() & GESC_GR_IGNORED_MOD_BIT;
+          if( mods ) {
+            unregister_mods( mods );
+          }
+#       endif
+
         register_code( KC_GRAVE );
 
-        register_mods( 
-#if   defined GESC_GR_IGNORED_MOD
-            MOD_BIT( GESC_GR_IGNORED_MOD )    // unregist ignored mod
-#elif defined GESC_GR_IGNORED_MOD_BIT
-            GESC_GR_IGNORED_MOD_BIT           // unregist ignored mods
-#else
-            0                                 // none defined, nothing happen
-#endif
-        );
-      }
-      else { 
+#       if defined GESC_GR_IGNORED_MOD
+          if( enabled ) {
+            register_mods( MOD_BIT( GESC_GR_IGNORED_MOD ) );
+          }
+#       elif defined GESC_GR_IGNORED_MOD_BIT
+          if( mods ) {
+            register_mods( mods );
+          }
+#       endif
 
-        if( ! grave_esc_was_shifted ) {
-          unregister_code( KC_ESC );
-          return false;
-        }
+        return false;
+
+      }
+      /* -------- ↓ only key released --------- */
+      if( ! grave_esc_was_shifted ) {
+        unregister_code( KC_ESC );
+        return false;
+      }
         /* -------- ↓ only any shift pressed --------- */
-        unregister_mods(
-#if   defined GESC_GR_IGNORED_MOD
-            MOD_BIT( GESC_GR_IGNORED_MOD )    // unregist ignored mod
-#elif defined GESC_GR_IGNORED_MOD_BIT
-            GESC_GR_IGNORED_MOD_BIT           // unregist ignored mods
-#else
-            0                                 // none defined, nothing happen
-#endif
-        );
-        unregister_code( KC_GRAVE );
+      unregister_code( KC_GRAVE );
 
-        register_mods( 
-#if   defined GESC_GR_IGNORED_MOD
-            MOD_BIT( GESC_GR_IGNORED_MOD )    // unregist ignored mod
-#elif defined GESC_GR_IGNORED_MOD_BIT
-            GESC_GR_IGNORED_MOD_BIT           // unregist ignored mods
-#else
-            0                                 // none defined, nothing happen
-#endif
-        );
-      }
+      return false;
+    }
 /*
       if (record->event.pressed) {
         grave_esc_was_shifted = shifted;
@@ -818,8 +808,6 @@ bool process_record_quantum(keyrecord_t *record) {
 
       send_keyboard_report();
 */
-      return false;
-    }
 
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_BREATHING)
     case BL_BRTG: {
