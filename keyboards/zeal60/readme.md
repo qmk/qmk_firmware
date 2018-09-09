@@ -1,7 +1,7 @@
 Zeal60
 ====
 
-[Zeal60](https://cdn.shopify.com/s/files/1/0490/7329/products/Zeal60.jpg)
+![Zeal60](https://cdn.shopify.com/s/files/1/0490/7329/products/Zeal60.jpg)
 
 This is a 60% PCB with per-key RGB LEDs and supports ANSI, ISO, winkey/winkeyless bottom row, HHKB-layout (split right shift and backspace).
 

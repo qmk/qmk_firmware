@@ -1,7 +1,7 @@
 Zeal65
 ====
 
-[Zeal65](https://cdn.shopify.com/s/files/1/0490/7329/products/Zeal65_PCB2.jpg)
+![Zeal65](https://cdn.shopify.com/s/files/1/0490/7329/products/Zeal65_PCB2.jpg)
 
 This is a 65% PCB with per-key RGB LEDs and supports fixed, 1800-like bottom row and split backspace. It was designed for the Zephyr custom keyboard.
 
