@@ -55,6 +55,24 @@ void suspend_idle(uint8_t time)
     sleep_disable();
 }
 
+
+// TODO: This needs some cleanup
+
+/** \brief Run keyboard level Power down
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void suspend_power_down_user (void) { }
+/** \brief Run keyboard level Power down
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void suspend_power_down_kb(void) {
+  suspend_power_down_user();
+}
+
 #ifndef NO_SUSPEND_POWER_DOWN
 /** \brief Power down MCU with watchdog timer
  *
@@ -71,21 +89,6 @@ void suspend_idle(uint8_t time)
  *          WDTO_8S
  */
 static uint8_t wdt_timeout = 0;
-
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_power_down_user (void) { }
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_power_down_kb(void) {
-  suspend_power_down_user();
-}
 
 /** \brief Power down
  *
@@ -184,8 +187,6 @@ void suspend_wakeup_init_kb(void) {
  */
 void suspend_wakeup_init(void)
 {
-	suspend_wakeup_init_kb();
-
     // clear keyboard state
     clear_keyboard();
 #ifdef BACKLIGHT_ENABLE
@@ -198,7 +199,7 @@ void suspend_wakeup_init(void)
   rgblight_timer_enable();
 #endif
 #endif
-  suspend_wakeup_init_kb();
+    suspend_wakeup_init_kb();
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN
