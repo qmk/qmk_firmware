@@ -14,8 +14,7 @@ extern keymap_config_t keymap_config;
 #define _NUMSYM 4
 #define _SYMBOL 5
 #define _MOUSE 6
-#define _EDIT 7
-#define _ADJUST 8
+#define _ADJUST 7
 
 static uint8_t _LSHIFT = _LCOLEMAK;
 static uint8_t _RSHIFT = _RCOLEMAK;
@@ -30,7 +29,6 @@ enum custom_keycodes {
   ,BACKLIT
   ,LT_0    = LT (_ADJUST, KC_0)
   ,LT_BSLS = LT (_ADJUST, KC_BSLS)
-  ,LT_BSPC = LT (_EDIT,   KC_BSPC)
   ,LT_ESC  = LT (_NUMBER, KC_ESC)
   ,LT_LEFT = LT (_SYMBOL, KC_LEFT)           // see process_record_user() for extended handling
   ,OS_ALT  = OSM(MOD_LALT)
@@ -49,14 +47,16 @@ enum custom_keycodes {
 #define CT_RGHT CTL_T(KC_RGHT)
 #define GT_UP   GUI_T(KC_UP)
 
-#define HOME_A  SFT_T(KC_A)
+#define HOME_A  CTL_T(KC_A)
 #define HOME_R  GUI_T(KC_R)
 #define HOME_S  ALT_T(KC_S)
-#define HOME_T  CTL_T(KC_T)
-#define HOME_O  SFT_T(KC_O)
+#define HOME_T  SFT_T(KC_T)
+#define HOME_O  CTL_T(KC_O)
 #define HOME_I  GUI_T(KC_I)
 #define HOME_E  ALT_T(KC_E)
-#define HOME_N  CTL_T(KC_N)
+#define HOME_N  SFT_T(KC_N)
+#define CTL_TAB CTL_T(KC_TAB)
+#define CTL_BSPC CTL_T(KC_BSPC)
 
 #define S_DOWN  S    (KC_DOWN)
 #define S_RGHT  S    (KC_RGHT)
@@ -102,15 +102,6 @@ enum tap_dance {
 #undef _______
 #endif
 #define _______ KC_NO
-#define COPY    LCTL(KC_C)
-#define CUT     LCTL(KC_X)
-#define EOT     LCTL(KC_D)
-#define NAK     LCTL(KC_U)
-#define PASTE   LCTL(KC_V)
-#define UNDO    LCTL(KC_Z)
-#define TMCOPY  LALT(LCTL(KC_C))
-#define TMPASTE LALT(LCTL(KC_V))
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -131,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    OS_CALT, OS_CGUI,  KC_J,    KC_L,    KC_U,    KC_Y,   KC_SCLN, \
     HOME_A,  HOME_R,  HOME_S,  HOME_T,  KC_G,    OS_SALT, OS_SGUI,  KC_M,    HOME_N,  HOME_E,  HOME_I, HOME_O, \
     KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    TD_CAPS, OS_CSFT,  KC_K,    KC_H,    KC_COMM, KC_DOT, TD_QUOT, \
-    OS_CTL,  OS_GUI,  OS_ALT,  LT_ESC,  TD_SPC,  KC_TAB,  LT_BSPC,  TD_ENT,  LT_LEFT, AT_DOWN, GT_UP,  CT_RGHT \
+    OS_CTL,  OS_GUI,  OS_ALT,  LT_ESC,  TD_SPC,  CTL_TAB, CTL_BSPC, TD_ENT,  LT_LEFT, AT_DOWN, GT_UP,  CT_RGHT \
   ),
 
 // ............................................................... Shift Colemak
@@ -148,10 +139,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // `-----------------------------------------------------------------------------------'
 
   [_LCOLEMAK] = LAYOUT_ortho_4x12( \
-    S(KC_Q), S(KC_W), S(KC_F), S(KC_P), S(KC_B), OS_CALT, OS_CGUI, S(KC_J), S(KC_L), S(KC_U), S(KC_Y), TD_COLN, \
-    S(KC_A), S(KC_R), S(KC_S), S(KC_T), S(KC_G), OS_SALT, OS_SGUI, S(KC_M), S(KC_N), S(KC_E), S(KC_I), S(KC_O), \
-    S(KC_Z), S(KC_X), S(KC_C), S(KC_D), S(KC_V), TD_CAPS, OS_CSFT, S(KC_K), S(KC_H), KC_SLSH, KC_QUES, TD_DQOT, \
-    OS_CTL,  OS_GUI,  OS_ALT,  LT_ESC,  ___x___, KC_TAB,  KC_DEL,  KC_MINS, PS_LEFT, S_DOWN,  S_UP,    S_RGHT  \
+    S(KC_Q), S(KC_W), S(KC_F), S(KC_P), S(KC_B), OS_CALT, OS_CGUI,  S(KC_J), S(KC_L), S(KC_U), S(KC_Y), TD_COLN, \
+    S(KC_A), S(KC_R), S(KC_S), S(KC_T), S(KC_G), OS_SALT, OS_SGUI,  S(KC_M), S(KC_N), S(KC_E), S(KC_I), S(KC_O), \
+    S(KC_Z), S(KC_X), S(KC_C), S(KC_D), S(KC_V), TD_CAPS, OS_CSFT,  S(KC_K), S(KC_H), KC_SLSH, KC_QUES, TD_DQOT, \
+    OS_CTL,  OS_GUI,  OS_ALT,  LT_ESC,  ___x___, CTL_TAB, CTL_BSPC, KC_MINS, PS_LEFT, S_DOWN,  S_UP,    S_RGHT  \
   ),
 
   // ,-----------------------------------------------------------------------------------.
@@ -168,7 +159,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     S(KC_Q), S(KC_W), S(KC_F), S(KC_P), S(KC_B), OS_CALT, OS_CGUI, S(KC_J), S(KC_L), S(KC_U), S(KC_Y), TD_COLN, \
     S(HOME_A), S(HOME_R), S(HOME_S), S(HOME_T), S(KC_G), OS_SALT, OS_SGUI, S(KC_M), S(HOME_N), S(HOME_E), S(HOME_I), S(HOME_O), \
     S(KC_Z), S(KC_X), S(KC_C), S(KC_D), S(KC_V), TD_CAPS, OS_CSFT, S(KC_K), S(KC_H), TD_TILD, TD_GRV,  TD_DQOT, \
-    OS_CTL,  OS_GUI,  OS_ALT,  LT_ESC,  KC_UNDS, KC_TAB,  LT_BSPC, ___x___, PS_LEFT, S_DOWN,  S_UP,    S_RGHT  \
+    OS_CTL,  OS_GUI,  OS_ALT,  LT_ESC,  KC_UNDS, CTL_TAB, CTL_BSPC, ___x___, PS_LEFT, S_DOWN,  S_UP,    S_RGHT  \
   ),
 
 // ......................................................... Number Keypad Layer
@@ -251,27 +242,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, ___x___, _______, _______, _______, ___x___, _______, _______, _______ \
   ),
 
-
-// .................................................................. Short Cuts
-//
-// http://www.keyboard-layout-editor.com/#/gists/aeb9c497167a17c3bc8efb2f1d88be48
-
-  // .-----------------------------------------------------------------------------------.
-  // |      |      | Copy | Paste|      |      |      |      |      |      |      |      |
-  // |--------------------------------------------------------------+------+------+------|
-  // | Undo |  Cut | Copy | Paste|      |      |      |      |      |      |      |      |
-  // |-----------------------------------------------------------------------------------|
-  // |      |      |  Nak |  Eot |      |      |      |      |      |      |      |      |
-  // |-----------------------------------------------------------------------------------|
-  // |      |      |      |      |  f() |      |      |      |  f() |      |      |      |
-  // '-----------------------------------------------------------------------------------'
-
-  [_EDIT] = LAYOUT_ortho_4x12( \
-    _______, _______, TMCOPY,  TMPASTE, _______, _______, _______, _______, _______, _______, _______, _______, \
-    UNDO,    CUT,     COPY,    PASTE,   _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, NAK,     EOT,     _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, ___x___, _______, _______, _______, _______, _______ \
-  ),
 
 // ................................................................ Adjust Layer
 //
