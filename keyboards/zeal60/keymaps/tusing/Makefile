@@ -4,7 +4,3 @@
 #
 RGBLIGHT_ENABLE = yes
 AUDIO_ENABLE = no  # Underglow cannot be used with audio.
-
-ifndef QUANTUM_DIR
-    include ../../../../Makefile
-endif

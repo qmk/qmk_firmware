@@ -1,6 +1,5 @@
 // Split-backspace layout for Zeal65
-
-#include "zeal65.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

@@ -1,6 +1,5 @@
 // Default layout for Zeal60
-#include "zeal60.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 // For readability.
 #define _______ KC_TRNS

@@ -2,8 +2,7 @@
 // Note that LGUI and RGUI are swapped with LALT and RALT respectively, for use with Macs
 // Also note that Control has replaced Caps Lock, and that pressing left or right shift once
 // will output left parenthese and right parenthese respectively. 
-
-#include "zeal60.h"
+#include QMK_KEYBOARD_H
 
 // [0,13] is either left key of split backspace (e.g. HHKB \| key) or 2U backspace
 // [1,13] is either backslash or ISO Enter
