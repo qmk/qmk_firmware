@@ -22,6 +22,7 @@ enum custom_keycodes {
 	M_BRACKET_LEFT,
 	M_BRACKET_RIGHT,
 	SHRUG,
+	WAVE,
 	YOSHI,
 	THUMB_UP,
 	NBSP
