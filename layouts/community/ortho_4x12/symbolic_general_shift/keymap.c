@@ -121,15 +121,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /****  Raise Layer value/functions *****/
 
+/****  Raise Layer value/functions *****/
+/*  
   //no key event constant
 const static keyevent_t No_event = {
   .key     = { .col = 255, .row = 255 },
   .pressed = false,
   .time    = 0
 };
+*/
 
-  // raise key event value
-static keyevent_t Raise_event = No_event;
+#define NO_EVENT ( keyevent_t ) { \
+  .key     = { .col = 255, .row = 255 }, \
+  .pressed = false, \
+  .time    = 0 \
+}
+
+// raise key event value
+static keyevent_t Raise_event = NO_EVENT;
 
 
 
@@ -175,7 +184,7 @@ void RaiseReleased ( bool brother_state ){
     unregister_code( KC_SPC );
   }
 
-  Raise_event = No_event;               // released keyevent
+  Raise_event = NO_EVENT;               // released keyevent
 
   return;
 }
