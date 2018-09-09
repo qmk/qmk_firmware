@@ -106,6 +106,8 @@ extern uint32_t default_layer_state;
 
 #include "process_tap_dance.h"
 
+#include "process_space_cadet.h"
+
 #ifdef PRINTING_ENABLE
     #include "process_printer.h"
 #endif

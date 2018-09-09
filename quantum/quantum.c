@@ -169,7 +169,7 @@ void reset_keyboard(void) {
 }
 
 // Shift / paren setup
-
+/*
 #ifndef LSPO_KEY
   #define LSPO_KEY KC_9
 #endif
@@ -191,6 +191,7 @@ void reset_keyboard(void) {
 
 static bool shift_interrupted[2] = {0, 0};
 static uint16_t scs_timer[2] = {0, 0};
+*/
 
 /* true if the last press of GRAVE_ESC was shifted (i.e. GUI or SHIFT were pressed), false otherwise.
  * Used to ensure that the correct keycode is released if the key is released.
@@ -258,6 +259,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
   #endif
+    process_space_cadet( keycode, record ) &&
   #ifndef DISABLE_LEADER
     process_leader(keycode, record) &&
   #endif
@@ -626,6 +628,7 @@ bool process_record_quantum(keyrecord_t *record) {
         return false;
       }
       break;
+/*
     case KC_LSPO: {
       if (record->event.pressed) {
         shift_interrupted[0] = false;
@@ -712,7 +715,7 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       return false;
     }
-
+*/
     case GRAVE_ESC: {
       uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
                                       |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)));
