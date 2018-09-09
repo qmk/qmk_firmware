@@ -7,10 +7,13 @@
 #define MDIA 2 // media keys
 #define MCRO 3 // macros
 
-#define M_START_CMDER M(1)
 #define M_START_BREATHING M(5)
-#define M_VERT_PASS M(2)
 #define M_STOP_BREATHING M(3)
+
+enum custom_macros {
+    CMDER = SAFE_RANGE,
+    VERT_PASS
+};
 
 //Tap Dance Declarations
 enum {
@@ -179,14 +182,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, M_START_CMDER,  KC_TRNS, M_START_BREATHING, KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS, CMDER,          KC_TRNS, M_START_BREATHING, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        M_STOP_BREATHING,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, M_VERT_PASS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, VERT_PASS, KC_TRNS,
                  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                           KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -203,30 +206,20 @@ const uint16_t PROGMEM fn_actions[] = {
     [3] = ACTION_LAYER_TAP_TOGGLE(MCRO)                // FN3 - Momentary Layer 3 (Macro)
 };
 
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-        if (record->event.pressed) {
-            switch(id) {
-                case 0:
-                    register_code(KC_RSFT);
+bool process_record_user(uint16_t keycode, keyrecord_t *  record) {
+    if ( record->event.pressed) {
+        switch(keycode) {
+            case CMDER:
+                SEND_STRING(SS_TAP(X_LGUI) "C:\\tools\\cmder\\cmder.exe" SS_TAP(X_ENTER));
+                return false;
                 break;
-                case 1:
-                    SEND_STRING(SS_TAP(X_LGUI) "C:\\tools\\cmder\\cmder.exe" SS_TAP(X_ENTER));
-                    break;
-            case 2:
-                    SEND_STRING("V3rt@f0r3");
-              break;
-            case 3:
-              //breathing_speed_set(1);
-              //breathing_self_disable();
-              break;
-           }
-        } else {
-            unregister_code(KC_RSFT);
-       }
-    return MACRO_NONE;
+            case VERT_PASS:
+                SEND_STRING("V3rt@f0r3");
+                return false;
+                break;
+        }
+    }
+    return true;
 };
 
 // Runs just one time when the keyboard initializes.
