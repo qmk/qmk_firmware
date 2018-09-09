@@ -2,6 +2,12 @@
 
 <img src="https://i.imgur.com/UuUdOCb.jpg" width="800">
 
+## Requirements
+
+- WS2812B RGB strip, preferably 60 LEDs/meter
+- Wire, solder
+- Tape, hot glue, or some sort of adhesive
+
 ## A. Connecting the strip
 You might find the [**full PCB image**](https://cdn.shopify.com/s/files/1/0490/7329/files/zeal60jumpers.png) helpful. Ignore the red boxes!
 
@@ -12,10 +18,12 @@ You might find the [**full PCB image**](https://cdn.shopify.com/s/files/1/0490/7
 2. Connect DI to PB0.
 
     <img src="https://i.imgur.com/BiMyMLv.jpg" width="300">
-    
+
 3. Should look something like this when finished:
 
     <img src="https://i.imgur.com/ngxYMuA.jpg" width="600">
+
+*Optional:* To allow considerably more light to escape, consider angling the strip outwards by using some sort of fulcrum under the strip. (I used a thick wire.)
 
 ## B. Enabling the strip
 1. If it is not present already, add the following to your ***keymap's*** ```Makefile```:
@@ -24,31 +32,32 @@ You might find the [**full PCB image**](https://cdn.shopify.com/s/files/1/0490/7
     RGBLIGHT_ENABLE = yes
     AUDIO_ENABLE = no     #Underglow animations cannot be used with audio.
     ```
-2. If it is not present already, add the following to your *keymap's* ```config.h```:
+2. If it is not present already, add the following to your *keymap's* ```config.h```, and edit the values as necessary:
 
     ```c
-    #define RGBLIGHT_ANIMATIONS    // Underglow animations. 
+    // Set up RGB underglow.
     #define RGB_DI_PIN B0          // The pin your RGB strip is wired to
+    #define RGBLIGHT_ANIMATIONS    // Require for fancier stuff (not compatible with audio)
     #define RGBLED_NUM 35          // Number of LEDs
     #define RGBLIGHT_HUE_STEP 5    // How much each press of rgb_hue changes hue
     #define RGBLIGHT_SAT_STEP 10   // How much each press of rgb_sat changes sat
     #define RGBLIGHT_VAL_STEP 10   // How much each press of rgb_val changes val
     ```
-3. If they are not present already, add the following keycodes to your keymap to control the RGB strip: ```RGB_TOG``` (on/off), ```RGB_MOD``` (step through modes), ```RGB_HUI```, ```RGB_HUD```, ```RGB_SAI```, ```RGB_SAD```, ```RGB_VAI```, ```RGB_VAD``` (HSV increase/decrease). Add these to your keymap. 
+3. If they are not present already, add the following keycodes to your keymap to control the RGB strip: ```RGB_TOG``` (on/off), ```RGB_MOD``` (step through modes), ```RGB_HUI```, ```RGB_HUD```, ```RGB_SAI```, ```RGB_SAD```, ```RGB_VAI```, ```RGB_VAD``` (HSV increase/decrease). Add these to your keymap.
 
 ## C. Dealing with current limits
 USB 2.0 ports on laptops provide up to 500mA max, but USB 3.0 ports can provide up to 900mA; USB 3.1 up to 1.5A; and powered USB hubs even more. We can run our keyboard at a higher brightness if we draw more power. **The Zeal60 uses 500mA at max brightness.** This means that **you have about 400mA remaining for the strip to use on a USB 3.0 port**; 1000mA free on a USB 3.1 port, so on and so forth.
 
 ***Warning:*** **This means you will need to turn *off* your RGB strip before connecting to a USB 2.0 port**, as USB 2.0 cannot sustain the current necessary!
 
-1. If not present already, add the following to your keymap's ```config.h```. Change variable definitions based on your needs.
+1. If not present already, add the following to your keymap's ```config.h```. Change the numbers based on your needs. The ones below are safe underestimates.
 
     ```c
-    // Current limiting.
-    #define USB_MAX_POWER_CONSUMPTION 900     // Limit device max power consumption.
-    #define RGBSTRIP_CURRENT_LIMIT 400        // Strip current limit in mA.
-    #define RGBSTRIP_MAX_CURRENT_PER_LIGHT 60 // mA per light when at max brightness.
+    // Enable current limiting for RGB underglow.
+    #define RGBSTRIP_CURRENT_LIMIT 400    // Strip current limit in mA. (USB amperage - 500mA for keyboard)
+    #define RGBSTRIP_MAX_CURRENT_PER_LIGHT 50 // mA per light when at max brightness.
     ```
+    *Example:* I use a USB port capable of providing 1800 mA. The keyboard uses 500mA, so my personal value (in the `tusing` keymap) for `RGBSTRIP_CURRENT_LIMIT` is 1300. The particular WS2812B RGB strip I have uses a maximum of 60 mA per LED, so that is my personal value for `RGBSTRIP_MAX_CURRENT_PER_LIGHT`.
 2. Toggle on the LED strip (```RGB_TOG```) and step through animations (```RGB_MOD```) to test it out!
 
 ## D. Sources and resources
