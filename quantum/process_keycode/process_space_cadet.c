@@ -131,6 +131,13 @@ bool process_space_cadet( uint16_t keycode, keyrecord_t *record ){
       return false;
     }
 
+    default: {
+      shift_interrupted[0] = true;
+      shift_interrupted[1] = true;
+      break;
+    }
+
+
   }
 
 

@@ -769,12 +769,13 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
 #endif
-
+/*
     default: {
       shift_interrupted[0] = true;
       shift_interrupted[1] = true;
       break;
     }
+*/
   }
 
   return process_action_kb(record);
