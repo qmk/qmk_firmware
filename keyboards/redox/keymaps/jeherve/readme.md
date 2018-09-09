@@ -5,9 +5,9 @@
 
 ----
 
-This keymap is **a work in progress**, and is meant to be used on Mac OS, with the "Unicode Hex Input" keyboard input.
+This keymap is **a work in progress**, and is meant to be used on macOS, with the "Unicode Hex Input" keyboard input.
 
-![Mac OS keyboard input setting](https://user-images.githubusercontent.com/426388/43962498-1ee9e3fc-9cb8-11e8-88e3-dbb068ec5c67.png)
+![macOS keyboard input setting](https://user-images.githubusercontent.com/426388/43962498-1ee9e3fc-9cb8-11e8-88e3-dbb068ec5c67.png)
 
 I may change a lot of the keys over the next few months, and will update this repo when I do so.
 
@@ -35,7 +35,3 @@ My keymap uses 5 layers:
 - This layout uses [QMK keyboard controller firmware](https://github.com/qmk/qmk_firmware/).
 
 I've also read posts by [Gergely Nagy](https://asylum.madhouse-project.org/blog/2016/10/15/multi-purpose-keys/), [Rebecca Le](https://sevenseacat.net/posts/2018/unicode-in-qmk-on-osx/), and [Justin Rogers](https://implementsblog.com/2016/10/16/my-ergodox-ezs-custom-layout/#comments) for inspiration.
-
-## License
-
-This keymap is licensed under GNU General Public License v2 (or later).
