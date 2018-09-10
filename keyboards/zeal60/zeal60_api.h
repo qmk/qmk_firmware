@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef ZEAL60_API_H
-#define ZEAL60_API_H
+#pragma once
 
 #define PROTOCOL_VERSION 0x0007
 
@@ -32,5 +31,3 @@ enum zeal60_command_id
 
 	id_unhandled = 0xFF,
 };
-
-#endif // ZEAL60_API_H

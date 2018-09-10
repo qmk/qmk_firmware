@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef ZEAL60_KEYCODE_H
-#define ZEAL60_KEYCODE_H
+#pragma once
 
 // Can't use SAFE_RANGE here, it might change if someone adds
 // new values to enum quantum_keycodes.
@@ -41,5 +40,3 @@ enum zeal60_action_functions {
 #define FN_TT23 F((0x0F00|TRIPLE_TAP_2_3))
 
 #define TG_NKRO             MAGIC_TOGGLE_NKRO
-
-#endif // ZEAL60_KEYCODE_H

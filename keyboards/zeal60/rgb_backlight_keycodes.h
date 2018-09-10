@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef RGB_BACKLIGHT_KEYCODES_H
-#define RGB_BACKLIGHT_KEYCODES_H
+#pragma once
 
 // This is hardcoded at 0x5F00 so it's well after keycode value SAFE_RANGE
 enum backlight_keycodes {
@@ -33,5 +32,3 @@ enum backlight_keycodes {
 	S2_INC,
 	S2_DEC
 };
-
-#endif // RGB_BACKLIGHT_KEYCODES_H

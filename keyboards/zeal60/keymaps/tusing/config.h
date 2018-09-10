@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 /* Enable/disable LEDs based on layout. */
 #undef RGB_BACKLIGHT_USE_SPLIT_BACKSPACE
@@ -41,4 +38,3 @@
 // Prevent modifiers on layer 1 from persisting after we let go
 #define PREVENT_STUCK_MODIFIERS
 
-#endif

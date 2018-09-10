@@ -29,7 +29,6 @@
 #include <util/delay.h>
 #include <avr/interrupt.h>
 #include "progmem.h"
-#include "config.h"
 
 #include "quantum/color.h"
 #include "drivers/avr/i2c_master.h"

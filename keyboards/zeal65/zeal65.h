@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef ZEAL65_H
-#define ZEAL65_H
+#pragma once
 
 #include "quantum.h"
 #include "../zeal60/rgb_backlight_keycodes.h"
@@ -49,5 +48,3 @@
     { K30, XXX, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D, K3E }, \
     { K40, K41, XXX, XXX, XXX, XXX, XXX, K47, XXX, XXX, K4A, K4B, K4C, K4D, K4E }  \
 }
-
-#endif // ZEAL65_H

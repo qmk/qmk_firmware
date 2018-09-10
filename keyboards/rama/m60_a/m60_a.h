@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef M60_A_H
-#define M60_A_H
+#pragma once
 
 #include "quantum.h"
 #include "../../zeal60/rgb_backlight_keycodes.h"
@@ -36,4 +35,3 @@
     { XXX, K41, K42, XXX, XXX, XXX, XXX, K47, XXX, XXX, XXX, K4B, K4C, XXX }  \
 }
 
-#endif // M60_A_H

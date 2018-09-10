@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef RGB_BACKLIGHT_H
-#define RGB_BACKLIGHT_H
+#pragma once
 
 #if RGB_BACKLIGHT_ENABLED
 #else
@@ -100,4 +99,3 @@ void backlight_color_2_sat_decrease(void);
 void backlight_test_led( uint8_t index, bool red, bool green, bool blue );
 void backlight_debug_led(bool state);
 
-#endif //RGB_BACKLIGHT_H

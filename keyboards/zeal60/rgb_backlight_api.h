@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef RGB_BACKLIGHT_API_H
-#define RGB_BACKLIGHT_API_H
+#pragma once
 
 enum backlight_config_value
 {
@@ -41,5 +40,3 @@ enum backlight_config_value
 	id_layer_3_indicator_row_col = 0x15,
 	id_alphas_mods = 0x16
 };
-
-#endif // RGB_BACKLIGHT_API_H
