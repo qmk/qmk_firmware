@@ -259,7 +259,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
   #endif
+  #ifdef SPACE_CADET_ENABLE
     process_space_cadet( keycode, record ) &&
+  #endif
   #ifndef DISABLE_LEADER
     process_leader(keycode, record) &&
   #endif
