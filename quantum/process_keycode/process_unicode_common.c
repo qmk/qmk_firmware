@@ -16,7 +16,8 @@
 
 #include "process_unicode_common.h"
 #include "eeprom.h"
-
+#include <string.h>
+#include <ctype.h>
 
 static uint8_t input_mode;
 uint8_t mods;
