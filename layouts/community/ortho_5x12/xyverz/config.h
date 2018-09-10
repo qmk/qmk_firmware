@@ -18,7 +18,6 @@
   #define RGBLIGHT_SAT_STEP 8
   #undef RGBLIGHT_VAL_STEP
   #define RGBLIGHT_VAL_STEP 8
-#else
 #endif
 
 // for the split boards //
