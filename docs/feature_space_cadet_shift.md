@@ -10,12 +10,6 @@ First, you need to enable Space Cadet Shift feature. Add a flag in your `(keymap
 SPACE_CADET_ENABLE = yes
 ```
 
-or add `#define` in your `(keymap|keyboard)/config.h` like this:
-
-```c
-#define SPACE_CADET_ENABLE
-```
-
 Then, replace the Left Shift key in your keymap with `KC_LSPO` (Left Shift, Parenthesis Open), and Right Shift with `KC_RSPC` (Right Shift, Parenthesis Close).
 
 ## Keycodes

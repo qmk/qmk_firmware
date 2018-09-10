@@ -10,12 +10,6 @@ First, you need to enable Space Cadet Shift feature. Add a flag in your `(keymap
 SPACE_CADET_ENABLE = yes
 ```
 
-or add `#define` in your `(keymap|keyboard)/config.h` like this:
-
-```c
-#define SPACE_CADET_ENABLE
-```
-
 Then, replace any Shift key in your keymap with `KC_SFTENT` (Shift, Enter), and you're done.
 
 ## Keycodes
