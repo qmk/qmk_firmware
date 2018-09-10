@@ -16,9 +16,7 @@
 
 #include "process_unicode_common.h"
 #include "eeprom.h"
-#include <string.h>
-#include <ctype.h>
-#include <stdlib.h>
+
 
 static uint8_t input_mode;
 uint8_t mods;
@@ -126,7 +124,8 @@ void register_hex(uint16_t hex) {
 
 void send_unicode_hex_string(const char *str)
 {
-  if (!str) { return; } // Saftey net
+  if (!str) { return; } // Safety net
+
   while (*str) {
     // Find the next code point (token) in the string
     for (; *str == ' '; str++);
@@ -137,13 +136,14 @@ void send_unicode_hex_string(const char *str)
 
     // Normalize the code point: make all hex digits lowercase
     for (char *p = code_point; *p; p++) {
-      *p = tolower(*p);
+      *p = tolower((unsigned char)*p);
     }
 
     // Send the code point as a Unicode input string
     unicode_input_start();
     send_string(code_point);
     unicode_input_finish();
+
     str += n; // Move to the first ' ' (or '\0') after the current token
   }
 }
