@@ -49,7 +49,10 @@ static uint16_t scs_timer        [2] = {0, 0};
 static bool     shift_pressed[ 2 ] = { false, false };
 static uint16_t scs_time     [ 2 ] = { 0, 0 };
 
-
+enum SpaceCadetShiftPos {
+    SCS_LEFT  = 0
+  , SCS_RIGHT = 1
+};
 
 
 
@@ -116,27 +119,27 @@ static void pressed_SCS ( uint16_t time, uint8_t pos, uint8_t brother, uint8_t s
 
 static void released_SCS ( uint8_t pos, uint8_t shift, uint8_t mod, uint16_t key, bool is_sftent ){
 
-    if( ! is_pressed( pos ) ) {
+  if( ! is_pressed( pos ) ) {
+    unregister_mods( MOD_BIT( shift ) );
+    return;
+  }
+
+  bool mod_changed = false;
+
+    if( is_sftent ){                          // is this shift enter ?
       unregister_mods( MOD_BIT( shift ) );
-      return;
     }
-
-    bool mod_changed = false;
-
-      if( is_sftent ){                          // is this shift enter ?
-        unregister_mods( MOD_BIT( shift ) );
-      }
-    /* -------------------- ↑ Shift Enter ↓ Shift Parenthesis -------------- */
+  /* -------------------- ↑ Shift Enter ↓ Shift Parenthesis -------------- */
 #   ifdef DISABLE_SPACE_CADET_MODIFIER
-      else {
-        unregister_mods( MOD_BIT( shift ) );
+    else {
+      unregister_mods( MOD_BIT( shift ) );
 #   else
-      else if( mod != shift ) {
-        unregister_mods( MOD_BIT( shift ) );
-          register_mods( MOD_BIT( mod   ) );
-        mod_changed = true;
+    else if( mod != shift ) {
+      unregister_mods( MOD_BIT( shift ) );
+        register_mods( MOD_BIT( mod   ) );
+      mod_changed = true;
 #   endif
-      }
+    }
 
 
   if( is_while_tap( pos ) ) {
@@ -165,36 +168,36 @@ bool process_space_cadet( uint16_t keycode, keyrecord_t *record ){
 
     case KC_LSPO : {
       if( record -> event.pressed ) { 
-        pressed_SCS( record -> event.time, 0, 1, KC_LSFT );
-      }
-      else{
-        released_SCS( 0, KC_LSFT, LSPO_MOD, LSPO_KEY, false );
+        pressed_SCS( record -> event.time, SCS_LEFT, SCS_RIGHT, KC_LSFT );
+        return false;
       }
 
+      // key released process
+      released_SCS( SCS_LEFT, KC_LSFT, LSPO_MOD, LSPO_KEY, false );
       return false;
     } 
     break;
 
     case KC_RSPC : {
       if( record -> event.pressed ) {
-        pressed_SCS( record -> event.time, 1, 0, KC_RSFT );
-      }
-      else {
-        released_SCS( 1, KC_RSFT, RSPC_MOD, RSPC_KEY, false );
+        pressed_SCS( record -> event.time, SCS_RIGHT, SCS_LEFT, KC_RSFT );
+        return false; 
       }
 
+      // key released process
+      released_SCS( SCS_RIGHT, KC_RSFT, RSPC_MOD, RSPC_KEY, false );
       return false;
     }
     break;
 
     case KC_SFTENT : {
       if( record -> event.pressed ) {
-        pressed_SCS( record -> event.time, 1, 0, KC_RSFT );
-      }
-      else {
-        released_SCS( 1, KC_RSFT, RSPC_MOD, SFTENT_KEY, true );
+        pressed_SCS( record -> event.time, SCS_RIGHT, SCS_LEFT, KC_RSFT );
+        return false;
       }
 
+      // key released process
+      released_SCS( SCS_RIGHT, KC_RSFT, RSPC_MOD, SFTENT_KEY, true );
       return false;
     }
     break;
@@ -204,8 +207,8 @@ bool process_space_cadet( uint16_t keycode, keyrecord_t *record ){
       shift_interrupted[0] = true;
       shift_interrupted[1] = true;
 */
-      stop_SCS( 0 );
-      stop_SCS( 1 );
+      stop_SCS( SCS_LEFT );
+      stop_SCS( SCS_RIGHT );
 
     }
     break;
