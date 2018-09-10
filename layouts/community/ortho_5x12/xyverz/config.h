@@ -7,7 +7,7 @@
 
 /* ws2812 RGB LED */
 #undef RGB_DI_PIN
-#if defined(KEYBOARD_preonic)
+#if defined(KEYBOARD_preonic_rev2)
   #define RGB_DI_PIN B3
   #undef RGBLED_NUM
   #define RGBLIGHT_ANIMATIONS
