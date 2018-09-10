@@ -61,7 +61,7 @@ void ENT_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP: unregister_code(KC_SPC); break;
     case SINGLE_HOLD: unregister_code(KC_LSFT); break;
     case DOUBLE_TAP: unregister_code(KC_ENT); break;
-    case DOUBLE_HOLD: unregister_code(KC_NO);
+    case DOUBLE_HOLD: unregister_code(KC_NO); 
     case DOUBLE_SINGLE_TAP: unregister_code(KC_SPC);
   }
   ENTtap_state.state = 0;
@@ -89,28 +89,40 @@ void DEL_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP: unregister_code(KC_BSPC); break;
     case SINGLE_HOLD: unregister_code(KC_LCTL); break;
     case DOUBLE_TAP: unregister_code(KC_DEL); break;
-    case DOUBLE_HOLD: unregister_code(KC_NO);
+    case DOUBLE_HOLD: unregister_code(KC_NO); 
     case DOUBLE_SINGLE_TAP: unregister_code(KC_BSPC);
   }
   DELtap_state.state = 0;
 }
 
 //instanalize an instance of 'tap' for the 'RST' tap dance.
+static tap RSTtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
 void RST_finished (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    register_code (KC_LCTL);
-  } else {
-    reset_keyboard();
+	RSTtap_state.state = cur_dance(state);
+	switch (RSTtap_state.state) {
+		case SINGLE_TAP: register_code(KC_LCTL); break;
+		case SINGLE_HOLD: register_code(KC_LCTL); break;
+		case DOUBLE_TAP: reset_keyboard(); break;
+		case DOUBLE_HOLD: register_code(KC_NO); break;
+        case DOUBLE_SINGLE_TAP: register_code(KC_LCTL); unregister_code(KC_LCTL); register_code(KC_LCTL);
   }
-}
+}		
 
 void RST_reset (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    unregister_code (KC_LCTL);
-  } else {
-    reset_keyboard();
+  switch (RSTtap_state.state) {
+    case SINGLE_TAP: unregister_code(KC_LCTL); break;
+    case SINGLE_HOLD: unregister_code(KC_LCTL); break;
+    case DOUBLE_TAP: unregister_code(KC_NO); break;
+    case DOUBLE_HOLD: unregister_code(KC_NO);
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_LCTL);
   }
-}
+  RSTtap_state.state = 0;
+}	
+
 ///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION END /////
 
 //Tap Dance Definitions

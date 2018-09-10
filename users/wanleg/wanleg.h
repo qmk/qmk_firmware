@@ -53,6 +53,7 @@ enum userspace_layers {
 #else
   enum userspace_layers {
   _GK = 0,
+  PAD,
   _QW,
   QW75,
   GK75,
@@ -71,7 +72,7 @@ enum userspace_layers {
   NUM75,
   DIR75,
   ETC75,
-  FN75
+  FN75,
 };
 #endif
 
@@ -95,7 +96,8 @@ enum userspace_custom_keycodes {
   NUMBER75,
   DIRECTION75,
   ETCETERA75,
-  FUNCTION75
+  FUNCTION75,
+  NUMPAD
 
 };
 
@@ -123,6 +125,7 @@ enum {
 #define LAYOUT_ortho_5x10_wrapper(...)       LAYOUT_ortho_5x10(__VA_ARGS__)
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
+#define LAYOUT_ortho_4x4_wrapper(...)        LAYOUT_ortho_4x4(__VA_ARGS__)
 
 // Blocks for each of the major keyboard layouts
 // Organized so we can quickly adapt and modify all of them
@@ -306,5 +309,22 @@ enum {
 #define ______________ETCETERA_Row__1______________   _______, _______________Gherkin_ETC_1_______________, _______
 #define ______________ETCETERA_Row__2______________   _______, _______________Gherkin_ETC_2_______________, _______
 #define ______________ETCETERA_Row__3______________   _______, _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______, _______
+
+/* Single 4x4 board only
+ * .-----------------------------------.
+ * |   7    |   8    |   9    |   /    |
+ * |--------+--------+--------+--------|
+ * |   4    |   5    |   6    |   *    |
+ * |--------+--------+--------+--------|
+ * |   1    |   2    |   3    |   -    |
+ * |--------+--------+--------+--------|
+ * |   0    | QWERTY |   .    |   +    |
+ * '-----------------------------------'
+ */
+
+#define _______________NUMPAD_Row__0_______________  KC_KP_7, KC_KP_8, KC_KP_9,   KC_PSLS
+#define _______________NUMPAD_Row__1_______________  KC_KP_4, KC_KP_5, KC_KP_6,   KC_PAST
+#define _______________NUMPAD_Row__2_______________  KC_KP_1, KC_KP_2, KC_KP_3,   KC_PMNS
+#define _______________NUMPAD_Row__3_______________  KC_KP_0, DF(_GK), KC_KP_DOT, KC_PPLS
 
 #endif // !USERSPACE
