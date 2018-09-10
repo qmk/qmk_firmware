@@ -254,12 +254,9 @@ void persistent_default_layer_set(uint16_t default_layer) {
 	default_layer_set(default_layer);
 }
 
-// Enable the LED and set a default color.
+// Set unicode in Mac OS.
 void matrix_init_user(void) {
-	// Set unicode in Mac OS.
 	set_unicode_input_mode(UC_OSX);
-	rgblight_enable();
-	rgblight_setrgb_yellow();
 };
 
 // Change LED colors depending on the layer.
