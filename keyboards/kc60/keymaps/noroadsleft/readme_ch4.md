@@ -31,17 +31,6 @@ Based on my Windows Fn layer, but swaps a few functions for a MacOS environment.
 
 ![MacOS-oriented Fn layer](https://i.imgur.com/Z11kRu2.png)
 
-Function      | Keycode(s) Sent          | Notes
-:-----------: | :----------------------- | :------------------------------
-Print Screen  | `Command`+`Shift`+`3`    | Saves a screen capture as a PNG image on the Desktop.
-Home          | `Command`+`Left Arrow`   | Moves to the beginning of a line.
-End           | `Command`+`Right Arrow`  | Moves to the end of a line.
-Select All    | `Command`+`A`            |
-Undo          | `Command`+`Z`            |
-Cut           | `Command`+`X`            |
-Copy          | `Command`+`C`            |
-Paste         | `Command`+`V`            |
-
 
 ----
 
