@@ -133,6 +133,28 @@ void set_color(Color new, bool update) {
         rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
 }
 
+void fade_color(Color current_color, Color new_color) {
+        bool fade_by_adding = current_color.h < new_color.h;
+        uint16_t difference = 0, temp_hue = current_color.h;
+        if (fade_by_adding) {
+                difference = new_color.h - current_color.h;
+                for (int i = 0; i <= difference; i++) {
+                        temp_hue = (temp_hue + 1)%359;
+                        rgblight_sethsv_eeprom_helper(temp_hue, 255, 255, false);
+                }
+        } else {
+                difference = current_color.h - new_color.h;
+                for (int i = 0; i <= difference; i++) {
+                        if (temp_hue == 0){
+                                temp_hue = 359;
+                        } else {
+                                temp_hue = (temp_hue - 1);
+                        }
+                        rgblight_sethsv_eeprom_helper(temp_hue, 255, 255, false);
+                }
+        }
+}
+
 void set_os (uint8_t os, bool update) {
         current_os = os;
         if (update) {
@@ -316,7 +338,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 void matrix_init_user(void) {
         current_os = eeprom_read_byte(EECONFIG_USERSPACE);
         set_os(current_os, false);
-        // steno_set_mode(STENO_MODE_GEMINI);
 }
 
 void matrix_scan_user(void) {
@@ -442,7 +463,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case M_REPO:
                 if (record->event.pressed) {
-                        SEND_STRING("https://github.com/arkag/qmk_firmware/tree/arkag/keyboards/mechmini/v2/keymaps/ark");
+                        SEND_STRING("https://github.com/arkag/qmk_firmware/tree/master/keyboards/mechmini/v2/keymaps/arkag");
                 }
                 return false;
 
