@@ -4,7 +4,19 @@ Based on the [Space Cadet Shift](feature_space_cadet_shift.md) feature. Tap the 
 
 ## Usage
 
-Replace any Shift key in your keymap with `KC_SFTENT` (Shift, Enter), and you're done.
+First, you need to enable Space Cadet Shift feature. Add a flag in your `(keymap|keyboard)/rules.mk` like this:
+
+```make
+SPACE_CADET_ENABLE = yes
+```
+
+or add `#define` in your `(keymap|keyboard)/config.h` like this:
+
+```c
+#define SPACE_CADET_ENABLE
+```
+
+Then, replace any Shift key in your keymap with `KC_SFTENT` (Shift, Enter), and you're done.
 
 ## Keycodes
 
