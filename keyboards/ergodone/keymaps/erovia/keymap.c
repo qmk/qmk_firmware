@@ -189,7 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Set LED according to the default layer
 void default_layer_led_set(void) {
-    switch (biton32(default_layer_state)) {
+    switch (biton32(eeconfig_read_default_layer())) {
       case COLEMAK:
         // LED2 for COLEMAK
         ergodox_right_led_2_on();
@@ -203,10 +203,6 @@ void default_layer_led_set(void) {
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-    // This function takes care about reading the default layer from EEPROM
-    // and setting the default_layer_state variable.
-    bootmagic();
-
     default_layer_led_set();
 };
 
@@ -218,6 +214,10 @@ uint32_t layer_state_set_user(uint32_t state) {
           ergodox_board_led_on();
           break;
     };
+
+    if (CAPS_LED) {
+      ergodox_right_led_1_on();
+    }
 
     default_layer_led_set();
 
