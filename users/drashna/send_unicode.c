@@ -1,32 +1,30 @@
 // Written by konstantin: vomindoraan
 #include "send_unicode.h"
 #include <ctype.h>
-#include <stdlib.h>
 #include <string.h>
 
 __attribute__((weak))
 void send_unicode_hex_string(const char* str) {
-  if (!str) {
-    return;
-  } // Saftey net
+  if (!str) { return; } // Safety net
+
   while (*str) {
     // Find the next code point (token) in the string
-    for (; *str == ' '; str++)
-        ;
+    for (; *str == ' '; str++);
     size_t n = strcspn(str, " "); // Length of the current token
-    char code_point[n + 1];
+    char code_point[n+1];
     strncpy(code_point, str, n);
     code_point[n] = '\0'; // Make sure it's null-terminated
 
     // Normalize the code point: make all hex digits lowercase
-    for (char* p = code_point; *p; p++) {
-        *p = tolower(*p);
+    for (char *p = code_point; *p; p++) {
+      *p = tolower((unsigned char)*p);
     }
 
     // Send the code point as a Unicode input string
     unicode_input_start();
-    send_string_with_delay(code_point, MACRO_TIMER);
+    send_string(code_point);
     unicode_input_finish();
+
     str += n; // Move to the first ' ' (or '\0') after the current token
   }
 }
