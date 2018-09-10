@@ -71,4 +71,4 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
-LAYOUT = ortho_4x4  ortho_4x8  ortho_4x12  ortho_4x16 
+LAYOUTS = ortho_4x4  ortho_4x8  ortho_4x12  ortho_4x16 
