@@ -1,8 +1,12 @@
 # RGB Matrix Lighting
 
+## Driver configuration
+
+### IS31FL3731
+
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
-    RGB_MATRIX_ENABLE = yes
+    RGB_MATRIX_ENABLE = IS31FL3731
 
 Configure the hardware via your `config.h`:
 
@@ -36,7 +40,51 @@ Define these arrays listing all the LEDs in your `<keyboard>.c`:
 	    ....
 	}
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf). The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
+
+###  IS31FL3733
+
+There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
+
+    RGB_MATRIX_ENABLE = IS31FL3733
+
+Configure the hardware via your `config.h`:
+
+	// This is a 7-bit address, that gets left-shifted and bit 0
+	// set to 0 for write, 1 for read (as per I2C protocol)
+	// The address will vary depending on your wiring:
+	// 00 <-> GND
+	// 01 <-> SCL
+	// 10 <-> SDA
+	// 11 <-> VCC
+	// ADDR1 represents A1:A0 of the 7-bit address.
+	// ADDR2 represents A3:A2 of the 7-bit address.
+	// The result is: 0b101(ADDR2)(ADDR1)
+	#define DRIVER_ADDR_1 0b1010000
+	#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
+
+	#define DRIVER_COUNT 1
+	#define DRIVER_1_LED_TOTAL 64
+	#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+
+Currently only a single drivers is supported, but it would be trivial to support all 4 combinations. For now define `DRIVER_ADDR_2` as `DRIVER_ADDR_1`
+
+Define these arrays listing all the LEDs in your `<keyboard>.c`:
+
+	const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
+	/* Refer to IS31 manual for these locations
+	 *   driver
+	 *   |  R location
+	 *   |  |       G location
+	 *   |  |       |       B location
+	 *   |  |       |       | */
+	    {0, B_1,    A_1,    C_1},
+	    ....
+	}
+
+Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
+
+From this point forward the configuration is the same for all the drivers. 
 
 	const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 	/* {row | col << 4}
@@ -80,7 +128,7 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 These are the effects that are currently available:
 
 	enum rgb_matrix_effects {
-		RGB_MATRIX_SOLID_COLOR = 1,
+	    RGB_MATRIX_SOLID_COLOR = 1,
 	    RGB_MATRIX_ALPHAS_MODS,
 	    RGB_MATRIX_DUAL_BEACON,
 	    RGB_MATRIX_GRADIENT_UP_DOWN,
@@ -93,7 +141,7 @@ These are the effects that are currently available:
 	    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
 	    RGB_MATRIX_JELLYBEAN_RAINDROPS,
 	#ifdef RGB_MATRIX_KEYPRESSES
-		RGB_MATRIX_SOLID_REACTIVE,
+	    RGB_MATRIX_SOLID_REACTIVE,
 	    RGB_MATRIX_SPLASH,
 	    RGB_MATRIX_MULTISPLASH,
 	    RGB_MATRIX_SOLID_SPLASH,
@@ -107,7 +155,7 @@ These are the effects that are currently available:
 Custom layer effects can be done by defining this in your `<keyboard>.c`:
 
     void rgb_matrix_indicators_kb(void) {
-    	// rgb_matrix_set_color(index, red, green, blue);
+        rgb_matrix_set_color(index, red, green, blue);
     }
 
 A similar function works in the keymap as `rgb_matrix_indicators_user`.
