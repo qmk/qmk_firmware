@@ -49,18 +49,14 @@ static uint16_t scs_timer        [2] = {0, 0};
 static bool     shift_pressed[ 2 ] = { false, false };
 static uint16_t scs_time     [ 2 ] = { 0, 0 };
 
-enum SpaceCadetShiftPos {
-    SCS_LEFT  = 0
-  , SCS_RIGHT = 1
-};
+static const uint8_t SCS_LEFT  = 0, SCS_RIGHT = 1;
 
 
 
 
 
 
-
-static void stop_SCS( uint8_t pos ){ 
+static void stop_SCS( const uint8_t pos ){ 
 
   shift_pressed[ pos ] = false;
 //  scs_time     [ pos ] = UINT16_C( 0 ); // + 120 bytes
@@ -69,7 +65,7 @@ static void stop_SCS( uint8_t pos ){
 }
 
 
-static void start_SCS( uint8_t pos, uint16_t time ){
+static void start_SCS( const uint8_t pos, const uint16_t time ){
 
   shift_pressed[ pos ] = true;
   scs_time     [ pos ] = time;
@@ -82,16 +78,16 @@ static void start_SCS( uint8_t pos, uint16_t time ){
 
 
 
-static bool is_while_tap( uint8_t pos ){ 
+static bool is_while_tap( const uint8_t pos ){ 
   return timer_elapsed( scs_time[ pos ] ) < TAPPING_TERM;
 }
 
-static bool is_pressed( uint8_t pos ){ 
+static bool is_pressed( const uint8_t pos ){ 
   return shift_pressed[ pos ];
 }
 
 # ifdef DISABLE_SPACE_CADET_ROLLOVER
-static bool is_tap_enable( uint8_t pos ){
+static bool is_tap_enable( const uint8_t pos ){
   return is_pressed( pos ) && is_while_tap( pos );
 }
 
@@ -100,7 +96,7 @@ static bool is_tap_enable( uint8_t pos ){
 
 
 
-static void pressed_SCS ( uint16_t time, uint8_t pos, uint8_t brother, uint8_t shift ){
+static void pressed_SCS ( const uint16_t time, const uint8_t pos, const uint8_t brother, const uint8_t shift ){
 
   register_mods( MOD_BIT( shift ) );
  
@@ -117,7 +113,7 @@ static void pressed_SCS ( uint16_t time, uint8_t pos, uint8_t brother, uint8_t s
 }
 
 
-static void released_SCS ( uint8_t pos, uint8_t shift, uint8_t mod, uint16_t key, bool is_sftent ){
+static void released_SCS ( const uint8_t pos, const uint8_t shift, const uint8_t mod, const uint16_t key, const bool is_sftent ){
 
   if( ! is_pressed( pos ) ) {
     unregister_mods( MOD_BIT( shift ) );
@@ -162,7 +158,7 @@ static void released_SCS ( uint8_t pos, uint8_t shift, uint8_t mod, uint16_t key
 
 
 
-bool process_space_cadet( uint16_t keycode, keyrecord_t *record ){ 
+bool process_space_cadet( const uint16_t keycode, keyrecord_t *record ){ 
 
   switch( keycode ) {
 
