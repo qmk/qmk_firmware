@@ -227,12 +227,17 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     OPT_DEFS += -DHD44780_ENABLE
 endif
 
+# space cadet shift process enable
+ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
+    OPT_DEFS += -DSPACE_CADET_ENABLE
+endif
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/process_keycode/process_leader.c \
-		$(QUANTUM_DIR)/process_keycode/process_space_cadet.c
+    $(QUANTUM_DIR)/process_keycode/process_leader.c
 
 ifndef CUSTOM_MATRIX
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
@@ -247,5 +252,5 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
                 $(QUANTUM_DIR)/split_common/split_util.c \
                 $(QUANTUM_DIR)/split_common/i2c.c \
-                $(QUANTUM_DIR)/split_common/serial.c  
+                $(QUANTUM_DIR)/split_common/serial.c
 endif
