@@ -6,5 +6,5 @@ ifeq ($(strip $(KEYBOARD)), jj40)
 endif
 
 ifeq ($(strip $(KEYBOARD)), 4x4)
-	SWAP_HANDS_ENABLE = no	
+	SWAP_HANDS_ENABLE = no
 endif
