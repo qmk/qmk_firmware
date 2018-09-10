@@ -3,8 +3,8 @@
 # This script automates the copying of the default keymap into
 # your own keymap
 
-KB_PATH=$1
-USERNAME=$2
+KB_PATH=$(echo "$1" | tr 'A-Z' 'a-z')
+USERNAME=$(echo "$2" | tr 'A-Z' 'a-z')
 
 if [ -z "$KB_PATH" ]; then
     printf "Usage:   %s <keyboard_path> <username>\n" "$0"
