@@ -12,5 +12,5 @@ endif
 #use alternate settings for 4x4 board using ProMicro instead of Micro
 #usage: make 4x4:wanleg PM=yes
 ifeq ($(strip $(PM)), yes)
-	OPT_DEFS += -PRO_MICRO
+	OPT_DEFS += -DPRO_MICRO
 endif
