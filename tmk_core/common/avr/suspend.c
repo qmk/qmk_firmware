@@ -189,6 +189,9 @@ void suspend_wakeup_init(void)
 #endif
 	led_set(host_keyboard_leds());
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+#ifdef BOOTLOADER_TEENSY
+  wait_ms(10);
+#endif
   rgblight_enable_noeeprom();
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_enable();
