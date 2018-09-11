@@ -39,7 +39,8 @@ void send_unicode_hex_string(const char *str) {
 #define MOD_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 #define MOD_SFT_MASK (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))
 
-#define LED_FLASH_DELAY 150
+#define LED_FLASH_DELAY       150
+#define LED_FADE_DELAY        10
 
 #define EECONFIG_USERSPACE (uint8_t *)20
 
@@ -78,13 +79,21 @@ typedef enum {
         flash_off,
         flash_on,
         reset_underglow,
-} RGBState;
+} flashState;
 
-uint8_t   current_os, mod_primary_mask, num_extra_flashes_off = 0;
-uint16_t  timer_one, timer_two, elapsed;
-bool      loop = false, paste_ready = false;
-Color     underglow, hsv_none = {0,0,0}, hsv_white = {0,0,127}, flash_color;
-RGBState  current_state = always_on;
+typedef enum {
+        start = 0,
+        fade,
+        stop,
+} fadeState;
+
+uint8_t     current_os, mod_primary_mask, num_extra_flashes_off = 0;
+uint16_t    flash_timer_one, flash_timer_two, fade_timer_one, fade_timer_two, elapsed, fade_buffer = 0;
+bool        loop = false, paste_ready = false;
+Color       underglow, hsv_none = {0,0,0}, hsv_white = {0,0,127}, flash_color;
+flashState  flash_state = always_on;
+fadeState   fade_state = stop;
+
 
 enum custom_keycodes {
         M_PMOD = SAFE_RANGE,
@@ -146,45 +155,76 @@ void set_color (Color new, bool update) {
         rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
 }
 
+void fade_rgb (void) {
+        if (flash_state != always_on) {return;}
+        switch(fade_state){
+        case start:
+                fade_timer_one = timer_read();
+                fade_state = fade;
+
+        case fade:
+                fade_timer_two = timer_read();
+                elapsed = fade_timer_two - fade_timer_one;
+                if (elapsed < LED_FADE_DELAY) {return;}
+                if (fade_buffer > 0) {
+                        underglow.h = (underglow.h + 1)%359;
+                        set_color(underglow, false);
+                        fade_timer_one = fade_timer_two;
+                        fade_buffer--;
+                } else {
+                        fade_state = stop;
+                }
+                return;
+
+        case stop:
+                return;
+        }
+
+}
+
 void flash_rgb (void) {
-        switch(current_state) {
+        switch(flash_state) {
         case always_on:
                 return;
 
         case flash_begin:
-                timer_one = timer_read();
-                current_state = flash_off;
+                flash_timer_one = timer_read();
+                flash_state = flash_off;
+                if (fade_state != stop) {
+                        fade_state = stop;
+                }
+                return;
 
         case flash_off:
-                timer_two = timer_read();
-                elapsed = timer_two - timer_one;
+                flash_timer_two = timer_read();
+                elapsed = flash_timer_two - flash_timer_one;
                 if (elapsed >= LED_FLASH_DELAY) {
                         set_color(hsv_none, false);
-                        timer_one = timer_read();
-                        current_state = flash_on;
+                        flash_timer_one = timer_read();
+                        flash_state = flash_on;
                 }
                 return;
 
         case flash_on:
-                timer_two = timer_read();
-                elapsed = timer_two - timer_one;
+                flash_timer_two = timer_read();
+                elapsed = flash_timer_two - flash_timer_one;
                 if (elapsed >= LED_FLASH_DELAY) {
                         set_color(flash_color, false);
-                        timer_one = timer_read();
+                        flash_timer_one = timer_read();
                         if (loop) {
-                                current_state = flash_off;
+                                flash_state = flash_off;
                         } else if (num_extra_flashes_off > 0) {
-                                current_state = flash_off;
+                                flash_state = flash_off;
                                 num_extra_flashes_off--;
                         } else {
-                                current_state = reset_underglow;
+                                flash_state = reset_underglow;
                         }
                 }
                 return;
 
         case reset_underglow:
                 set_color(underglow, false);
-                current_state = always_on;
+                flash_state = always_on;
                 return;
         }
 }
@@ -216,7 +256,7 @@ void set_os (uint8_t os, bool update) {
         }
         set_color(underglow, update);
         flash_color = underglow;
-        current_state = flash_begin;
+        flash_state = flash_begin;
         num_extra_flashes_off = 0;
 }
 
@@ -224,8 +264,8 @@ void set_paste_ready(void) {
         paste_ready = true;
         set_color(hsv_white, false);
         flash_color = hsv_white;
-        current_state = flash_begin;
-        num_extra_flashes_off = 2;
+        flash_state = flash_begin;
+        loop = true;
 }
 
 void tap_key(uint8_t keycode) {
@@ -320,7 +360,10 @@ void dance_strk (qk_tap_dance_state_t *state, void *user_data) {
                         long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_4});
                 } else if (current_os == OS_WIN) {
                         long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_S});
+                } else {
+                        return;
                 }
+                set_paste_ready();
         }
 }
 
@@ -347,7 +390,6 @@ void send_copy_paste (void) {
         if (!paste_ready) {
                 SEND_STRING(SS_TAP(X_C));
                 set_paste_ready();
-                loop = true;
         }
         else {
                 SEND_STRING(SS_TAP(X_V));
@@ -378,6 +420,8 @@ void send_lod(void) {
 
 void dance_special (qk_tap_dance_state_t *state, void *user_data) {
         if (state->count == 1) {
+                paste_ready = false;
+                loop = false;
         } else if (state->count == 2) {
                 send_copy_paste();
         } else if (state->count == 3) {
@@ -427,6 +471,7 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
         flash_rgb();
+        fade_rgb();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -570,20 +615,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return true;
                 break;
 
-        case KC_BSPC:
-                if (record->event.pressed) {
-                        underglow = mod_color(underglow, false, 10);
-                        set_color(underglow, false);
-                        SEND_STRING(SS_DOWN(X_BSPACE));
-                } else {
-                        SEND_STRING(SS_UP(X_BSPACE));
-                }
-                return false;
-
         default:
                 if (record->event.pressed) {
-                        underglow = mod_color(underglow, true, 10);
-                        set_color(underglow, false);
+                        fade_buffer+=50;
+                        if (fade_buffer >= 100){fade_buffer = 100;}
+                        if (fade_state == stop) {
+                                fade_state = start;
+                        }
                 }
                 return true;
         }
