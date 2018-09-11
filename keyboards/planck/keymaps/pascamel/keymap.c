@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "planck.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #include "muse.h"
 
 extern keymap_config_t keymap_config;
