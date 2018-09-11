@@ -194,7 +194,7 @@ int serial_transaction(int master_changed) {
     }
     RXLED0;
     memcpy(&matrix[slaveOffset],
-        (void *)serial_slave_buffer, sizeof(serial_slave_buffer));
+        (void *)serial_slave_buffer, SERIAL_SLAVE_BUFFER_LENGTH);
     return 0;
 }
 #endif
@@ -207,7 +207,7 @@ uint8_t matrix_scan(void)
         matrix_slave_scan();
         int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
         memcpy(&matrix[offset],
-               (void *)serial_master_buffer, sizeof(serial_master_buffer));
+               (void *)serial_master_buffer, SERIAL_MASTER_BUFFER_LENGTH);
         matrix_scan_quantum();
     }
     return 1;
@@ -230,10 +230,10 @@ uint8_t matrix_master_scan(void) {
 #else // USE_SERIAL
   #ifdef SERIAL_USE_MULTI_TRANSACTION
     mchanged = memcmp((void *)serial_master_buffer,
-		      &matrix[offset], sizeof(serial_master_buffer));
+		      &matrix[offset], SERIAL_MASTER_BUFFER_LENGTH);
   #endif
     memcpy((void *)serial_master_buffer,
-	   &matrix[offset], sizeof(serial_master_buffer));
+	   &matrix[offset], SERIAL_MASTER_BUFFER_LENGTH);
 #endif
 #endif
 

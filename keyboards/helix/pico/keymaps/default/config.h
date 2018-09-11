@@ -18,8 +18,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 // place overrides here
 
@@ -27,5 +26,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define STARTUP_SONG SONG(STARTUP_SOUND)
   #define AUDIO_CLICKY
 #endif
-
-#endif /* CONFIG_USER_H */
