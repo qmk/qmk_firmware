@@ -10,6 +10,6 @@ Hardware Availability: [zFrontier](https://en.zfrontier.com/products/group-buy-a
 
 Make example for this keyboard (after setting up your build environment):
 
-    make x2:default
+    make alf/x2:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
