@@ -4,6 +4,9 @@
 #include "config_common.h"
 #define PREVENT_STUCK_MODIFIERS
 #define PERMISSIVE_HOLD
+#define IGNORE_MOD_TAP_INTERRUPT
+
+#define NO_DEBUG
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(ONE_UP_SOUND)
@@ -11,10 +14,7 @@
     // #define STARTUP_SONG SONG(NO_SOUND)
     #define GOODBYE_SONG SONG(COIN_SOUND)
 
-    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
-                                  SONG(COLEMAK_SOUND), \
-                                  SONG(DVORAK_SOUND) \
-                                }
+    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND) }
 #endif
 
 /*
