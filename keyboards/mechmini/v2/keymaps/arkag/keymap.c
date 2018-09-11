@@ -101,6 +101,10 @@ enum tapdances {
         TD_SLSH_HTTP,
         TD_SING_DOUB,
         TD_HYPH_UNDR,
+        TD_NOOP_BOLD,
+        TD_NOOP_ITAL,
+        TD_NOOP_UNDR,
+        TD_NOOP_STRK,
         TD_SPECIAL,
         TD_BRCK_PARN_O,
         TD_BRCK_PARN_C,
@@ -230,10 +234,6 @@ void short_snippet(void) {
         SEND_STRING("``" SS_TAP(X_LEFT));
 }
 
-void single_quot(void) {
-        SEND_STRING("\'\'");
-}
-
 void dance_grv (qk_tap_dance_state_t *state, void *user_data) {
         if (state->count == 1) {
                 tap_key(KC_GRV);
@@ -242,6 +242,30 @@ void dance_grv (qk_tap_dance_state_t *state, void *user_data) {
         } else {
                 code_snippet();
         }
+}
+
+// void surround_type(uint8_t num_of_char, uint8_t keycode) {
+//         char str[2*(num_of_char + (num_of_char / 2))];
+//         for (int i = 0; i < num_of_char; i++) {
+//
+//         }
+//         for (int i = 0; i < (num_of_char/2); i++) {
+//                 SEND_STRING(X_LEFT);
+//         }
+// }
+//
+// void dance_grv (qk_tap_dance_state_t *state, void *user_data) {
+//         if (state->count == 1) {
+//                 tap_key(KC_GRV);
+//         } else if (state->count == 2) {
+//                 surround_type(1, "``");
+//         } else {
+//                 surround_type(3, "``````");
+//         }
+// }
+
+void single_quot(void) {
+        SEND_STRING("\'\'");
 }
 
 void dance_quot (qk_tap_dance_state_t *state, void *user_data) {
@@ -475,6 +499,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case M_SNIPENT:
                 if (record->event.pressed) {
+                        // surround_type(3, "``````");
                         code_snippet();
                         pri_mod(true);
                         register_code(KC_V);
@@ -489,6 +514,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if (record->event.pressed) {
                         Color shift_color = underglow;
                         shift_color = mod_color(shift_color, true, 25);
+                        // fade_color(underglow, shift_color);
                         set_color(shift_color, false);
                         SEND_STRING(SS_DOWN(X_LSHIFT));
                 } else {
