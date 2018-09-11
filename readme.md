@@ -1,22 +1,4 @@
-# Quantum Mechanical Keyboard Firmware - chrislewisdev fork
-
-## Typing Speed -> RGB Animation Control
-
-This fork of qmk_firmware contains the code I whipped up to make your keyboard's RGB animation speed match your typing speed. As of writing, this is a "first draft" version, aka the simplest implementation I could think of with the quickest/hackiest code. Beware hard-coding :)
-
-Regardless, I'm happy to share the code and discuss improvements with anyone who'd like to contribute. I'll do my best to facilitate it in my spare time.
-
-## Getting Started
-
-My original change amounts to several lines in `quantum.h`, `quantum.c` and `rgblight.c`. To see the details it's probably easiest if you look at [this commit](https://github.com/chrislewisdev/qmk_firmware/commit/2d3fbc5d0ad70309ede5cdeb9cf84380fd69baae) which contains all the changes.
-
-I've created GitHub Issues for the most pressing things that need to be addressed before this could be merged into QMK - if you're interested in helping out, please do take a look!
-
-To test it, I've just been using my DZ60 keyboard, building the firmware with `make dz60:default` and flashing with qmk_toolbox. If you're not familiar with how to do that, it's probably best you consult the [QMK documentation](https://docs.qmk.fm/#/).
-
-Below is the original QMK readme:
-
-# QMK
+# Quantum Mechanical Keyboard Firmware
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
 [![Build Status](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
