@@ -226,43 +226,24 @@ void sec_mod(bool press) {
         }
 }
 
-void code_snippet(void) {
-        SEND_STRING("``````" SS_TAP(X_LEFT) SS_TAP(X_LEFT) SS_TAP(X_LEFT));
-}
-
-void short_snippet(void) {
-        SEND_STRING("``" SS_TAP(X_LEFT));
+void surround_type(uint8_t num_of_char, uint8_t keycode) {
+        for (int i = 0; i < num_of_char; i++) {
+                tap_key(keycode);
+        }
+        for (int i = 0; i < (num_of_char/2); i++) {
+                tap_key(KC_LEFT);
+        }
 }
 
 void dance_grv (qk_tap_dance_state_t *state, void *user_data) {
         if (state->count == 1) {
                 tap_key(KC_GRV);
         } else if (state->count == 2) {
-                short_snippet();
+                surround_type(2, KC_GRAVE);
         } else {
-                code_snippet();
+                surround_type(6, KC_GRAVE);
         }
 }
-
-// void surround_type(uint8_t num_of_char, uint8_t keycode) {
-//         char str[2*(num_of_char + (num_of_char / 2))];
-//         for (int i = 0; i < num_of_char; i++) {
-//
-//         }
-//         for (int i = 0; i < (num_of_char/2); i++) {
-//                 SEND_STRING(X_LEFT);
-//         }
-// }
-//
-// void dance_grv (qk_tap_dance_state_t *state, void *user_data) {
-//         if (state->count == 1) {
-//                 tap_key(KC_GRV);
-//         } else if (state->count == 2) {
-//                 surround_type(1, "``");
-//         } else {
-//                 surround_type(3, "``````");
-//         }
-// }
 
 void single_quot(void) {
         SEND_STRING("\'\'");
@@ -272,9 +253,9 @@ void dance_quot (qk_tap_dance_state_t *state, void *user_data) {
         if (state->count == 1) {
                 tap_key(KC_QUOT);
         } else if (state->count == 2) {
-                single_quot();
-                tap_key(KC_LSFT);
-                tap_key(KC_LEFT);
+                surround_type(2, KC_QUOTE);
+        } else if (state->count == 3) {
+                surround_type(2, KC_DOUBLE_QUOTE);
         }
 }
 
@@ -499,8 +480,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case M_SNIPENT:
                 if (record->event.pressed) {
-                        // surround_type(3, "``````");
-                        code_snippet();
+                        surround_type(6, KC_GRAVE);
+                        // code_snippet();
                         pri_mod(true);
                         register_code(KC_V);
                         unregister_code(KC_V);
