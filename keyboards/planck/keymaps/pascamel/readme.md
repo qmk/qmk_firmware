@@ -2,7 +2,7 @@
 
 A regular QWERTY layer, with Ctrl/alt/cmd on the bottom right corner
 
-[Qwerty](https://i.imgur.com/FpRNJZH.png)
+![Qwerty](https://i.imgur.com/FpRNJZH.png)
 
 
 
@@ -10,7 +10,7 @@ A regular QWERTY layer, with Ctrl/alt/cmd on the bottom right corner
 
 Focused on numbers and calculations
 
-[Lower](https://i.imgur.com/PyXSGba.png)
+![Lower](https://i.imgur.com/PyXSGba.png)
 
 
 
@@ -18,7 +18,7 @@ Focused on numbers and calculations
 
 Symbols
 
-[Raise](https://i.imgur.com/pYhqcnI.png)
+![Raise](https://i.imgur.com/pYhqcnI.png)
 
 
 
@@ -26,4 +26,4 @@ Symbols
 
 Settings and configurations
 
-[Adjust](https://i.imgur.com/JN7a0Ku.png)
+![Adjust](https://i.imgur.com/JN7a0Ku.png)
