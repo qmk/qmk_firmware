@@ -56,7 +56,7 @@ If you're using [homebrew,](http://brew.sh/) you can use the following commands:
     brew tap osx-cross/avr
     brew tap PX4/homebrew-px4
     brew update
-    brew install avr-gcc@7
+    brew install avr-gcc
     brew install dfu-programmer
     brew install gcc-arm-none-eabi
     brew install avrdude
