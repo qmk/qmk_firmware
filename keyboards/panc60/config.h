@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
-#define MANUFACTURER    You
+#define MANUFACTURER    Panc Interactive
 #define PRODUCT         panc60
 
 #define RGBLED_NUM 12
