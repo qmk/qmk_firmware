@@ -29,11 +29,29 @@ void send_unicode_hex_string(const char *str) {
 }
 // End: Written by konstantin: vomindoraan
 
+// Start: Written by drashna
+
+extern rgblight_config_t rgblight_config;
+uint8_t last_rgb_mode;
+
+void suspend_power_down_user(void) {
+        last_rgb_mode = rgblight_config.mode;
+        rgblight_enable_noeeprom();
+        rgblight_timer_enable();
+        rgblight_mode_noeeprom(3);
+}
+
+void suspend_wakeup_init_user(void) {
+        rgblight_mode_noeeprom(1);
+}
+// End: Written by drashna
+
 #define _BASE    0
 #define _RAISE   1
 #define _LOWER   2
 #define _KEEB    3
 #define _MEDIA   4
+#define _HALMAK  5
 
 #define MOD_CTL_MASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))
 #define MOD_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
@@ -59,6 +77,7 @@ void send_unicode_hex_string(const char *str) {
 #define LOWER       MO(2)
 #define RAISE       MO(1)
 #define MEDIA       MO(4)
+#define HALMAK      TG(4)
 
 typedef enum {
         OS_MAC, // Don't assign values
@@ -74,7 +93,7 @@ typedef struct {
 } Color;
 
 typedef enum {
-        always_on = 0,
+        no_flash = 0,
         flash_begin,
         flash_off,
         flash_on,
@@ -82,17 +101,25 @@ typedef enum {
 } flashState;
 
 typedef enum {
-        start = 0,
-        fade,
-        stop,
+        fade = 0,
+        add_fade,
+        sub_fade,
 } fadeState;
 
-uint8_t     current_os, mod_primary_mask, num_extra_flashes_off = 0;
-uint16_t    flash_timer_one, flash_timer_two, fade_timer_one, fade_timer_two, elapsed, fade_buffer = 0;
-bool        loop = false, paste_ready = false;
-Color       underglow, hsv_none = {0,0,0}, hsv_white = {0,0,127}, flash_color;
-flashState  flash_state = always_on;
-fadeState   fade_state = stop;
+uint8_t     current_os, mod_primary_mask;
+uint16_t    flash_timer_one, flash_timer_two, fade_timer_one, fade_timer_two, elapsed,
+            fade_buffer           = 0,
+            real_fade_delay       = LED_FADE_DELAY,
+            num_extra_flashes_off = 0;
+int16_t     ug_fade_buffer        = 0;
+bool        loop        = false,
+            paste_ready = false;
+Color       underglow,
+            flash_color,
+            hsv_none      = {0,0,0},
+            hsv_white     = {0,0,127};
+flashState  flash_state   = no_flash;
+fadeState   fade_state    = fade;
 
 
 enum custom_keycodes {
@@ -130,9 +157,9 @@ enum tapdances {
 };
 
 Color mod_color(Color current_color, bool should_add, uint16_t change_amount) {
-        uint16_t addlim = 359 - change_amount;
-        uint16_t sublim = change_amount;
-        uint16_t leftovers;
+        int addlim = 359 - change_amount;
+        int sublim = change_amount;
+        int leftovers;
         if (should_add) {
                 if (current_color.h <= addlim) {
                         current_color.h += change_amount;
@@ -156,43 +183,63 @@ void set_color (Color new, bool update) {
 }
 
 void fade_rgb (void) {
-        if (flash_state != always_on) {return;}
+        if (flash_state != no_flash) {return;}
+        if (fade_buffer >= 50) {fade_buffer = 50;}
         switch(fade_state){
-        case start:
-                fade_timer_one = timer_read();
-                fade_state = fade;
-
         case fade:
+                if (fade_buffer <= 0) {return;}
+                if (flash_state != no_flash) {return;}
+                real_fade_delay = LED_FADE_DELAY;
+                fade_timer_one = timer_read();
+                fade_state = add_fade;
+                return;
+
+        case add_fade:
                 fade_timer_two = timer_read();
                 elapsed = fade_timer_two - fade_timer_one;
-                if (elapsed < LED_FADE_DELAY) {return;}
+                if (elapsed < real_fade_delay) {return;}
                 if (fade_buffer > 0) {
-                        underglow.h = (underglow.h + 1)%359;
+                        if (underglow.h == 359) {
+                                  fade_state = sub_fade;
+                                  return;
+                        }
+                        underglow.h = underglow.h + 1;
                         set_color(underglow, false);
                         fade_timer_one = fade_timer_two;
                         fade_buffer--;
                 } else {
-                        fade_state = stop;
+                        fade_state = fade;
                 }
                 return;
 
-        case stop:
+        case sub_fade:
+                fade_timer_two = timer_read();
+                elapsed = fade_timer_two - fade_timer_one;
+                if (elapsed < real_fade_delay) {return;}
+                if (fade_buffer > 0) {
+                        if (underglow.h == 0) {
+                                  fade_state = add_fade;
+                                  return;
+                        }
+                        underglow.h = underglow.h - 1;
+                        set_color(underglow, false);
+                        fade_timer_one = fade_timer_two;
+                        fade_buffer--;
+                } else {
+                        fade_state = fade;
+                }
                 return;
         }
-
 }
 
 void flash_rgb (void) {
         switch(flash_state) {
-        case always_on:
+        case no_flash:
                 return;
 
         case flash_begin:
                 flash_timer_one = timer_read();
                 flash_state = flash_off;
-                if (fade_state != stop) {
-                        fade_state = stop;
-                }
                 return;
 
         case flash_off:
@@ -224,7 +271,7 @@ void flash_rgb (void) {
 
         case reset_underglow:
                 set_color(underglow, false);
-                flash_state = always_on;
+                flash_state = no_flash;
                 return;
         }
 }
@@ -615,37 +662,41 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return true;
                 break;
 
+        case HALMAK:
+                flash_color = underglow;
+                flash_state = flash_begin;
+                num_extra_flashes_off = 5;
+                return true;
+                break;
+
         default:
                 if (record->event.pressed) {
                         fade_buffer+=50;
-                        if (fade_buffer >= 100){fade_buffer = 100;}
-                        if (fade_state == stop) {
-                                fade_state = start;
-                        }
                 }
                 return true;
         }
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
-        Color layer = underglow;
         switch (biton32(state)) {
         case _MEDIA:
-                layer = mod_color(layer, true, 150);
+                set_color(mod_color(underglow, true, 150), false);
                 break;
         case _KEEB:
-                layer = mod_color(layer, false, 150);
+                set_color(mod_color(underglow, false, 150), false);
                 break;
         case _LOWER:
-                layer = mod_color(layer, false, 100 );
+                set_color(mod_color(underglow, false, 100), false);
                 break;
         case _RAISE:
-                layer = mod_color(layer, true, 100);
+                set_color(mod_color(underglow, true, 100), false);
                 break;
+        case _HALMAK:
+
         default:
+                set_color(underglow, false);
                 break;
         }
-        set_color(layer, false);
         return state;
 }
 
@@ -656,6 +707,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_TAB,   KC_A,       KC_S,       KC_D,     KC_F,          KC_G, KC_H,          KC_J,     KC_K,     KC_L,       KC_SCLN,    QUOTE,
                 KC_LSFT,  KC_Z,       KC_X,       KC_C,     KC_V,          KC_B, KC_N,          KC_M,     KC_COMM,  KC_DOT,     KC_UP,      KC_ENT,
                 M_PMOD,   LRALT,      M_SMOD,     LOWER,    RAISE,           KC_SPC,            KC_SLSH,  SPECIAL,  KC_LEFT,    KC_DOWN,    KC_RGHT),
+
+        [_HALMAK] = LAYOUT_2u_space_ortho(
+                KC_ESC,   KC_W,       KC_L,       KC_R,     KC_B,        KC_Z,    KC_SCLN,      KC_Q,     KC_U,     KC_D,       KC_J,       KC_BSPC,
+                KC_TAB,   KC_S,       KC_H,       KC_N,     KC_T,        KC_COMM, KC_DOT,       KC_A,     KC_E,     KC_O,       KC_I,       QUOTE,
+                KC_LSFT,  KC_F,       KC_M,       KC_V,     KC_C,        KC_SLSH, KC_G,         KC_P,     KC_X,     KC_K,       KC_Y,       KC_ENT,
+                M_PMOD,   LRALT,      M_SMOD,     LOWER,    RAISE,           KC_SPC,            SPECIAL,  KC_LEFT,  KC_DOWN,    KC_UP,      KC_RGHT),
 
         [_RAISE] = LAYOUT_2u_space_ortho(
                 GRAVE,    KC_1,       KC_2,       THREE,    KC_4,       KC_5,     KC_6,         KC_7,     KC_8,     KC_9,       KC_0,       _______,
@@ -679,5 +736,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  _______,    _______,    _______,
                 _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  _______,    _______,    _______,
                 _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  KC_MPLY,    KC_VOLU,    KC_MUTE,
-                _______,  _______,    _______,    _______,  _______,         _______,           _______,  _______,  KC_MPRV,    KC_VOLD,    KC_MNXT),
+                HALMAK,   _______,    _______,    _______,  _______,         _______,           _______,  _______,  KC_MPRV,    KC_VOLD,    KC_MNXT),
 };
