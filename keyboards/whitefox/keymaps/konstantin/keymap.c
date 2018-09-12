@@ -7,6 +7,7 @@
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
 
+#define UC_COMM UC(0x002C)
 #define UC_LPRN UC(0x0028)
 #define UC_RPRN UC(0x0029)
 #define UC_EQLS UC(0x003D)
@@ -43,7 +44,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     layer_invert(L_NUMPAD);
     bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
     if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
-      register_code(KC_NLCK);  // Force Num Lock to match layer state.
+      register_code(KC_NLCK);  // Toggle Num Lock to match layer state.
       unregister_code(KC_NLCK);
     }
     return false;
@@ -127,7 +128,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |      |   |   |   |   |   |   |P1 |P2 |P3 |P* | × | PEnter |   |
    * |---------------------------------------------------------------|
-   * |        |   |   |   |   |   |P0 |P0 |P, |P. |P/ |  ÷   |   |   |
+   * |        |   |   |   |   |   |P0 |P0 | , |P. |P/ |  ÷   |   |   |
    * |---------------------------------------------------------------|
    * |    |    |    |                        |    |    | |   |   |   |
    * `---------------------------------------------------------------'
@@ -136,7 +137,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     NUMPAD, _______,_______,_______,_______,_______,_______,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,UC_MINS,UC_EQLS,NUMPAD, _______,_______, \
     _______,_______,_______,_______,_______,_______,_______,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,UC_LPRN,UC_RPRN,_______,        _______, \
     _______,_______,_______,_______,_______,_______,_______,KC_P1,  KC_P2,  KC_P3,  KC_PAST,UC_MULS,        KC_PENT,        _______, \
-    _______,        _______,_______,_______,_______,_______,KC_P0,  KC_P0,  KC_PCMM,KC_PDOT,KC_PSLS,UC_DIVS,        _______,_______, \
+    _______,        _______,_______,_______,_______,_______,KC_P0,  KC_P0,  UC_COMM,KC_PDOT,KC_PSLS,UC_DIVS,        _______,_______, \
     _______,_______,_______,                        _______,                _______,_______,                _______,_______,_______  \
   ),
 };
