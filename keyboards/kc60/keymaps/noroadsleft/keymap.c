@@ -51,11 +51,11 @@ enum layers_keymap {
 #define FM_CAPS LT(_FUNCMAC, KC_CAPS) // _FUNCMAC when held, Caps Lock when tapped
 #define Q2_CAPS LT(_FUNCQ2, KC_CAPS)  // _FUNCQ2 when held, Caps Lock when tapped
 
-#define WN_SALL LCTL(KC_A)       // Windows/Linux Select All
-#define WN_UNDO LCTL(KC_Z)       // Windows/Linux Undo
-#define WN_CUT  LCTL(KC_X)       // Windows/Linux Cut
-#define WN_COPY LCTL(KC_C)       // Windows/Linux Copy
-#define WN_PSTE LCTL(KC_V)       // Windows/Linux Paste
+#define WN_SALL LCTL(DV_A)       // Windows/Linux Select All
+#define WN_UNDO LCTL(DV_Z)       // Windows/Linux Undo
+#define WN_CUT  LCTL(DV_X)       // Windows/Linux Cut
+#define WN_COPY LCTL(DV_C)       // Windows/Linux Copy
+#define WN_PSTE LCTL(DV_V)       // Windows/Linux Paste
 
 #define MC_PSCR LGUI(LSFT(KC_3)) // MacOS Print Screen (Command + Shift + 3)
 #define MC_HOME LGUI(KC_LEFT)    // MacOS Home (Command + Left Arrow)
