@@ -425,7 +425,6 @@ enum quantum_keycodes {
     RGB_MODE_GRADIENT,
     RGB_MODE_RGBTEST,
 
-#ifdef SPACE_CADET_ENABLE
     // Left shift, open paren
     KC_LSPO,
 
@@ -434,7 +433,7 @@ enum quantum_keycodes {
 
     // Shift, Enter
     KC_SFTENT,
-#endif
+
     // Printing
     PRINT_ON,
     PRINT_OFF,
