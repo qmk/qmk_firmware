@@ -29,29 +29,12 @@ void send_unicode_hex_string(const char *str) {
 }
 // End: Written by konstantin: vomindoraan
 
-// Start: Written by drashna
-
-extern rgblight_config_t rgblight_config;
-uint8_t last_rgb_mode;
-
-void suspend_power_down_user(void) {
-        last_rgb_mode = rgblight_config.mode;
-        rgblight_enable_noeeprom();
-        rgblight_timer_enable();
-        rgblight_mode_noeeprom(3);
-}
-
-void suspend_wakeup_init_user(void) {
-        rgblight_mode_noeeprom(1);
-}
-// End: Written by drashna
-
-#define _BASE    0
+//#define _HALMAK  0
+#define _QWERTY  0
 #define _RAISE   1
 #define _LOWER   2
 #define _KEEB    3
 #define _MEDIA   4
-#define _HALMAK  5
 
 #define MOD_CTL_MASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))
 #define MOD_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
@@ -59,6 +42,8 @@ void suspend_wakeup_init_user(void) {
 
 #define LED_FLASH_DELAY       150
 #define LED_FADE_DELAY        10
+
+#define DEF_RGB_MODE          1 // static
 
 #define EECONFIG_USERSPACE (uint8_t *)20
 
@@ -73,11 +58,11 @@ void suspend_wakeup_init_user(void) {
 #define CEDILLA     TD(TD_C_CED)
 #define HTTPS       TD(TD_SLSH_HTTP)
 #define SPECIAL     TD(TD_SPECIAL)
-#define KEEB        MO(3)
-#define LOWER       MO(2)
+
 #define RAISE       MO(1)
+#define LOWER       MO(2)
+#define KEEB        MO(3)
 #define MEDIA       MO(4)
-#define HALMAK      TG(4)
 
 typedef enum {
         OS_MAC, // Don't assign values
@@ -156,6 +141,27 @@ enum tapdances {
         TD_LALT_RALT,
 };
 
+// Start: Written by drashna
+uint8_t last_rgb_mode;
+
+void suspend_power_down_user(void) {
+        last_rgb_mode = rgblight_get_mode();
+        rgblight_enable_noeeprom();
+        rgblight_timer_enable();
+        rgblight_mode_noeeprom(4);
+}
+
+void suspend_wakeup_init_user(void) {
+        static bool ran_once;
+        if (!ran_once) {
+          ran_once = true;
+          rgblight_mode_noeeprom(DEF_RGB_MODE);
+          return;
+        }
+        rgblight_mode_noeeprom(last_rgb_mode);
+}
+// End: Written by drashna
+
 Color mod_color(Color current_color, bool should_add, uint16_t change_amount) {
         int addlim = 359 - change_amount;
         int sublim = change_amount;
@@ -187,8 +193,8 @@ void fade_rgb (void) {
         if (fade_buffer >= 50) {fade_buffer = 50;}
         switch(fade_state){
         case fade:
-                if (fade_buffer <= 0) {return;}
-                if (flash_state != no_flash) {return;}
+                if (fade_buffer <= 0)         {return;}
+                if (flash_state != no_flash)  {return;}
                 real_fade_delay = LED_FADE_DELAY;
                 fade_timer_one = timer_read();
                 fade_state = add_fade;
@@ -514,6 +520,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 void matrix_init_user(void) {
         current_os = eeprom_read_byte(EECONFIG_USERSPACE);
         set_os(current_os, false);
+        last_rgb_mode = rgblight_get_mode();
 }
 
 void matrix_scan_user(void) {
@@ -660,14 +667,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case RAISE:
         case LOWER:
                 return true;
-                break;
-
-        case HALMAK:
-                flash_color = underglow;
-                flash_state = flash_begin;
-                num_extra_flashes_off = 5;
-                return true;
-                break;
 
         default:
                 if (record->event.pressed) {
@@ -691,8 +690,6 @@ uint32_t layer_state_set_user(uint32_t state) {
         case _RAISE:
                 set_color(mod_color(underglow, true, 100), false);
                 break;
-        case _HALMAK:
-
         default:
                 set_color(underglow, false);
                 break;
@@ -702,17 +699,17 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-        [_BASE] = LAYOUT_2u_space_ortho(
+        [_QWERTY] = LAYOUT_2u_space_ortho(
                 KC_ESC,   KC_Q,       KC_W,       KC_E,     KC_R,          KC_T, KC_Y,          KC_U,     KC_I,     KC_O,       KC_P,       KC_BSPC,
                 KC_TAB,   KC_A,       KC_S,       KC_D,     KC_F,          KC_G, KC_H,          KC_J,     KC_K,     KC_L,       KC_SCLN,    QUOTE,
                 KC_LSFT,  KC_Z,       KC_X,       KC_C,     KC_V,          KC_B, KC_N,          KC_M,     KC_COMM,  KC_DOT,     KC_UP,      KC_ENT,
                 M_PMOD,   LRALT,      M_SMOD,     LOWER,    RAISE,           KC_SPC,            KC_SLSH,  SPECIAL,  KC_LEFT,    KC_DOWN,    KC_RGHT),
 
-        [_HALMAK] = LAYOUT_2u_space_ortho(
-                KC_ESC,   KC_W,       KC_L,       KC_R,     KC_B,        KC_Z,    KC_SCLN,      KC_Q,     KC_U,     KC_D,       KC_J,       KC_BSPC,
-                KC_TAB,   KC_S,       KC_H,       KC_N,     KC_T,        KC_COMM, KC_DOT,       KC_A,     KC_E,     KC_O,       KC_I,       QUOTE,
-                KC_LSFT,  KC_F,       KC_M,       KC_V,     KC_C,        KC_SLSH, KC_G,         KC_P,     KC_X,     KC_K,       KC_Y,       KC_ENT,
-                M_PMOD,   LRALT,      M_SMOD,     LOWER,    RAISE,           KC_SPC,            SPECIAL,  KC_LEFT,  KC_DOWN,    KC_UP,      KC_RGHT),
+        // [_HALMAK] = LAYOUT_2u_space_ortho(
+        //         KC_ESC,   KC_W,       KC_L,       KC_R,     KC_B,        KC_Z,    KC_SCLN,      KC_Q,     KC_U,     KC_D,       KC_J,       KC_BSPC,
+        //         KC_TAB,   KC_S,       KC_H,       KC_N,     KC_T,        KC_COMM, KC_DOT,       KC_A,     KC_E,     KC_O,       KC_I,       QUOTE,
+        //         KC_LSFT,  KC_F,       KC_M,       KC_V,     KC_C,        KC_SLSH, KC_G,         KC_P,     KC_X,     KC_K,       KC_Y,       KC_ENT,
+        //         M_PMOD,   LRALT,      M_SMOD,     LOWER,    RAISE,           KC_SPC,            SPECIAL,  KC_LEFT,  KC_DOWN,    KC_UP,      KC_RGHT),
 
         [_RAISE] = LAYOUT_2u_space_ortho(
                 GRAVE,    KC_1,       KC_2,       THREE,    KC_4,       KC_5,     KC_6,         KC_7,     KC_8,     KC_9,       KC_0,       _______,
@@ -729,12 +726,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_KEEB] = LAYOUT_2u_space_ortho(
                 KC_F1,    KC_F2,      KC_F3,      KC_F4,    KC_F5,      KC_F6,    KC_F7,        KC_F8,    KC_F9,    KC_F10,     KC_F11,     KC_F12,
                 _______,  BL_TOGG,    BL_STEP,    BL_INC,   BL_DEC,     BL_BRTG,  _______,      _______,  _______,  _______,    _______,    _______,
-                _______,  RGB_TOG,    RGB_MOD,    RGB_VAI,  RGB_VAD,    RGB_HUI,  RGB_HUD,      RGB_SAI,  RGB_SAD,  _______,    _______,    _______,
+                RGB_M_P,  RGB_TOG,    RGB_MOD,    RGB_VAI,  RGB_VAD,    RGB_HUI,  RGB_HUD,      RGB_SAI,  RGB_SAD,  _______,    _______,    _______,
                 RESET,    _______,    _______,    _______,  _______,         _______,           _______,  _______,  _______,    _______,    _______),
 
         [_MEDIA] = LAYOUT_2u_space_ortho(
                 _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  _______,    _______,    _______,
                 _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  _______,    _______,    _______,
                 _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  KC_MPLY,    KC_VOLU,    KC_MUTE,
-                HALMAK,   _______,    _______,    _______,  _______,         _______,           _______,  _______,  KC_MPRV,    KC_VOLD,    KC_MNXT),
+                _______,  _______,    _______,    _______,  _______,         _______,           _______,  _______,  KC_MPRV,    KC_VOLD,    KC_MNXT),
 };
