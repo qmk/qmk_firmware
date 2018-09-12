@@ -887,9 +887,14 @@ void clear_keyboard(void)
  */
 void clear_keyboard_but_mods(void)
 {
+    clear_keys();
+    clear_keyboard_but_mods_and_keys();
+}
+
+void clear_keyboard_but_mods_and_keys()
+{
     clear_weak_mods();
     clear_macro_mods();
-    clear_keys();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
     mousekey_clear();

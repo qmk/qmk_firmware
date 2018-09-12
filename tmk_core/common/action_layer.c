@@ -44,7 +44,7 @@ static void default_layer_state_set(uint32_t state)
     default_layer_debug(); debug(" to ");
     default_layer_state = state;
     default_layer_debug(); debug("\n");
-    clear_keyboard_but_mods(); // To avoid stuck keys
+    clear_keyboard_but_mods_and_keys(); // To avoid stuck keys
 }
 
 /** \brief Default Layer Print
@@ -127,7 +127,7 @@ void layer_state_set(uint32_t state)
     layer_debug(); dprint(" to ");
     layer_state = state;
     layer_debug(); dprintln();
-    clear_keyboard_but_mods(); // To avoid stuck keys
+    clear_keyboard_but_mods_and_keys(); // To avoid stuck keys
 }
 
 /** \brief Layer clear

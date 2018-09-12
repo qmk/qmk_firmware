@@ -94,6 +94,7 @@ void unregister_mods(uint8_t mods);
 //void set_mods(uint8_t mods);
 void clear_keyboard(void);
 void clear_keyboard_but_mods(void);
+void clear_keyboard_but_mods_and_keys(void);
 void layer_switch(uint8_t new_layer);
 bool is_tap_key(keypos_t key);
 
