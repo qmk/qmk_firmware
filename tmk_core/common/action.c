@@ -891,6 +891,10 @@ void clear_keyboard_but_mods(void)
     clear_keyboard_but_mods_and_keys();
 }
 
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
 void clear_keyboard_but_mods_and_keys()
 {
     clear_weak_mods();
