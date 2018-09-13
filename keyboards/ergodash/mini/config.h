@@ -16,8 +16,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV2_CONFIG_H
-#define REV2_CONFIG_H
+#ifndef MINI_CONFIG_H
+#define MINI_CONFIG_H
 
 #include "config_common.h"
 
@@ -26,16 +26,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Omkbd
-#define PRODUCT         ErgoDash
+#define PRODUCT         ErgoDashmini
 #define DESCRIPTION     Power
 
 /* key matrix size */
 // Rows are doubled-up
-#define MATRIX_ROWS 10
+#define MATRIX_ROWS 8
 #define MATRIX_COLS 7
 
 // wiring of each half
-#define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
+#define MATRIX_ROW_PINS { D7, E6, B4, B5 }
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
 // #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
 
@@ -71,7 +71,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #define RGBLIGHT_TIMER
-#define RGBLED_NUM 24    // Number of LEDs
+#define RGBLED_NUM 20    // Number of LEDs
 #define ws2812_PORTREG  PORTD
 #define ws2812_DDRREG   DDRD
 
