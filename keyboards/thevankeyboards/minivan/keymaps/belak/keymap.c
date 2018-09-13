@@ -1,7 +1,4 @@
-#include "tv44.h"
-#include "action_layer.h"
-#include "debug.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 // Layer names. We stick to 3 letters if possible so MO(NAME) fits in 7
 // characters and doesn't mess with the grid.

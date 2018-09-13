@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x8844
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Evan Sailer
-#define PRODUCT         TheVan 44
-#define DESCRIPTION     keyboard firmware for TV44
+#define PRODUCT         Minivan
+#define DESCRIPTION     keyboard firmware for Minivan
 
 /* key matrix size */
 #define MATRIX_ROWS 4
@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
- 
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
