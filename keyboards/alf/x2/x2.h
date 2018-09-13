@@ -1,5 +1,5 @@
-#ifndef ALF_X2_H
-#define ALF_X2_H
+#ifndef X2_H
+#define X2_H
 
 #include "quantum.h"
 
