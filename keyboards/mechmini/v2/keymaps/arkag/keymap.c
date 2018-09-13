@@ -28,9 +28,12 @@ void send_unicode_hex_string(const char *str) {
         }
 }
 // End: Written by konstantin: vomindoraan
-
-//#define _HALMAK  0
+#ifdef HALMAK_LAYOUT
+#define _HALMAK  0
+#endif
+#ifdef QWERTY_LAYOUT
 #define _QWERTY  0
+#endif
 #define _RAISE   1
 #define _LOWER   2
 #define _KEEB    3
@@ -697,19 +700,46 @@ uint32_t layer_state_set_user(uint32_t state) {
         return state;
 }
 
+#ifdef HALMAK_LAYOUT
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+        [_HALMAK] = LAYOUT_2u_space_ortho(
+                KC_ESC,   KC_W,       KC_L,       KC_R,     KC_B,        KC_Z,    KC_SCLN,      KC_Q,     KC_U,     KC_D,       KC_J,       KC_BSPC,
+                KC_TAB,   KC_S,       KC_H,       KC_N,     KC_T,        KC_COMM, KC_DOT,       KC_A,     KC_E,     KC_O,       KC_I,       QUOTE,
+                KC_LSFT,  KC_F,       KC_M,       KC_V,     KC_C,        KC_SLSH, KC_G,         KC_P,     KC_X,     KC_K,       KC_Y,       KC_ENT,
+                M_PMOD,   LRALT,      M_SMOD,     LOWER,    RAISE,           KC_SPC,            SPECIAL,  KC_LEFT,  KC_DOWN,    KC_UP,      KC_RGHT),
 
+        [_RAISE] = LAYOUT_2u_space_ortho(
+                GRAVE,    KC_1,       KC_2,       THREE,    KC_4,        KC_5,     KC_6,         KC_7,     KC_8,     KC_9,       KC_0,       _______,
+                _______,  OPENBRACK,  CLOSEBRACK, KC_EQL,   HYPHEN,      _______,  _______,      KC_4,     KC_5,     KC_6,       _______,    KC_NLCK,
+                _______,  _______,    _______,    _______,  CEDILLA,     KC_BSLS,  _______,      KC_1,     KC_2,     KC_3,       _______,    KC_PENT,
+                _______,  _______,    _______,    KEEB,     _______,         _______,            M_OS,     KC_PSLS,  KC_PMNS,    KC_PPLS,    KC_PAST),
+
+        [_LOWER] = LAYOUT_2u_space_ortho(
+                _______,  _______,    _______,    _______,  _______,    M_BOLD,  _______,       _______,  M_ULIN,   _______,    M_P_B,      M_C_A_D,
+                _______,  STRIKE,     _______,    _______,  M_TM,       _______, _______,       M_UF,     M_REPO,   M_SNIPENT,  M_ITAL,     _______,
+                _______,  KC_DEL,     _______,    _______,  _______,    _______, M_GGT,         M_TF,     M_SHRUG,  M_LOD,      _______,    _______,
+                _______,  _______,    _______,    _______,  _______,          MEDIA,            M_CALC,   KC_HOME,  KC_PGDOWN,  KC_PGUP,    KC_END),
+
+        [_KEEB] = LAYOUT_2u_space_ortho(
+                KC_F1,    KC_F2,      KC_F3,      KC_F4,    KC_F5,      KC_F6,    KC_F7,        KC_F8,    KC_F9,    KC_F10,     KC_F11,     KC_F12,
+                _______,  BL_TOGG,    BL_STEP,    BL_INC,   BL_DEC,     BL_BRTG,  _______,      _______,  _______,  _______,    _______,    _______,
+                RGB_M_P,  RGB_TOG,    RGB_MOD,    RGB_VAI,  RGB_VAD,    RGB_HUI,  RGB_HUD,      RGB_SAI,  RGB_SAD,  _______,    _______,    _______,
+                RESET,    _______,    _______,    _______,  _______,         _______,           _______,  _______,  _______,    _______,    _______),
+
+        [_MEDIA] = LAYOUT_2u_space_ortho(
+                _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  _______,    _______,    _______,
+                _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  _______,    _______,    _______,
+                _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  KC_MUTE,  _______,    _______,    KC_MPLY,
+                _______,  _______,    _______,    _______,  _______,         _______,           _______,  KC_MPRV,  KC_VOLD,    KC_VOLU,    KC_MNXT),
+};
+#endif
+#ifdef QWERTY_LAYOUT
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_QWERTY] = LAYOUT_2u_space_ortho(
                 KC_ESC,   KC_Q,       KC_W,       KC_E,     KC_R,          KC_T, KC_Y,          KC_U,     KC_I,     KC_O,       KC_P,       KC_BSPC,
                 KC_TAB,   KC_A,       KC_S,       KC_D,     KC_F,          KC_G, KC_H,          KC_J,     KC_K,     KC_L,       KC_SCLN,    QUOTE,
                 KC_LSFT,  KC_Z,       KC_X,       KC_C,     KC_V,          KC_B, KC_N,          KC_M,     KC_COMM,  KC_DOT,     KC_UP,      KC_ENT,
                 M_PMOD,   LRALT,      M_SMOD,     LOWER,    RAISE,           KC_SPC,            KC_SLSH,  SPECIAL,  KC_LEFT,    KC_DOWN,    KC_RGHT),
-
-        // [_HALMAK] = LAYOUT_2u_space_ortho(
-        //         KC_ESC,   KC_W,       KC_L,       KC_R,     KC_B,        KC_Z,    KC_SCLN,      KC_Q,     KC_U,     KC_D,       KC_J,       KC_BSPC,
-        //         KC_TAB,   KC_S,       KC_H,       KC_N,     KC_T,        KC_COMM, KC_DOT,       KC_A,     KC_E,     KC_O,       KC_I,       QUOTE,
-        //         KC_LSFT,  KC_F,       KC_M,       KC_V,     KC_C,        KC_SLSH, KC_G,         KC_P,     KC_X,     KC_K,       KC_Y,       KC_ENT,
-        //         M_PMOD,   LRALT,      M_SMOD,     LOWER,    RAISE,           KC_SPC,            SPECIAL,  KC_LEFT,  KC_DOWN,    KC_UP,      KC_RGHT),
 
         [_RAISE] = LAYOUT_2u_space_ortho(
                 GRAVE,    KC_1,       KC_2,       THREE,    KC_4,       KC_5,     KC_6,         KC_7,     KC_8,     KC_9,       KC_0,       _______,
@@ -735,3 +765,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  KC_MPLY,    KC_VOLU,    KC_MUTE,
                 _______,  _______,    _______,    _______,  _______,         _______,           _______,  _______,  KC_MPRV,    KC_VOLD,    KC_MNXT),
 };
+#endif
