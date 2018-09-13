@@ -1,7 +1,9 @@
-SRC += i2c.c \
-	   serial.c \
-	   split_util.c \
-	   ssd1306.c
+SRC += i2c.c
+SRC += serial.c
+SRC += ssd1306.c
+
+# if firmware size over limit, try this option
+# CFLAGS += -flto
 
 # MCU name
 #MCU = at90usb1287

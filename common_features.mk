@@ -61,8 +61,8 @@ endif
 
 ifeq ($(strip $(STENO_ENABLE)), yes)
     OPT_DEFS += -DSTENO_ENABLE
-	VIRTSER_ENABLE := yes
-	SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+    VIRTSER_ENABLE := yes
+    SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
 endif
 
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
@@ -75,9 +75,9 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-	OPT_DEFS += -DPOINTING_DEVICE_ENABLE
-	OPT_DEFS += -DMOUSE_ENABLE
-	SRC += $(QUANTUM_DIR)/pointing_device.c
+    OPT_DEFS += -DPOINTING_DEVICE_ENABLE
+    OPT_DEFS += -DMOUSE_ENABLE
+    SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
@@ -110,13 +110,37 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     else
-	    SRC += ws2812.c
+        SRC += ws2812.c
     endif
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
     OPT_DEFS += -DRGB_MATRIX_ENABLE
+    OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
+    SRC += i2c_master.c
+    SRC += $(QUANTUM_DIR)/color.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix.c
+    CIE1931_CURVE = yes
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
+    OPT_DEFS += -DRGB_MATRIX_ENABLE
+    OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3731.c
+    SRC += i2c_master.c
+    SRC += $(QUANTUM_DIR)/color.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix.c
+    CIE1931_CURVE = yes
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
+    OPT_DEFS += -DRGB_MATRIX_ENABLE
+    OPT_DEFS += -DIS31FL3733
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3733.c
     SRC += i2c_master.c
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
@@ -169,7 +193,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-		ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+        ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 endif
@@ -200,7 +224,12 @@ endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
-	OPT_DEFS += -DHD44780_ENABLE
+    OPT_DEFS += -DHD44780_ENABLE
+endif
+
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
+    SRC += $(QUANTUM_DIR)/dynamic_keymap.c
 endif
 
 QUANTUM_SRC:= \
