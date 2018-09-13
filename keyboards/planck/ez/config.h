@@ -135,4 +135,11 @@
 //#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
 //#define WS2812_EXTERNAL_PULLUP
 
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
+
+#define DRIVER_COUNT 1
+#define DRIVER_1_LED_TOTAL 47
+#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
+
 #endif
