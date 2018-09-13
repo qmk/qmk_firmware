@@ -1,6 +1,4 @@
-#include "tv44.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 #define _QW 0
 #define _L1 1
