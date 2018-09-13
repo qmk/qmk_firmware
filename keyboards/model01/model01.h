@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef MODEL01_H
-#define MODEL01_H
+#pragma once
 
 #include <quantum.h>
 
@@ -43,5 +42,4 @@
 int set_all_leds_to_raw(uint8_t r, uint8_t g, uint8_t b);
 int set_led_to_raw(uint8_t led, uint8_t r, uint8_t g, uint8_t b);
 
-#endif
 /* vim: set ts=2 sw=2 et: */
