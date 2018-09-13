@@ -62,7 +62,6 @@
 	{ k36, k37, k38, k39, k40, k41,      k42, k43, k44, k45, k46, k47 }, \
 }
 
-#define FLIP_HALF
 #define LAYOUT_ortho_4x12 LAYOUT
 
 #endif
