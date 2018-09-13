@@ -32,14 +32,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 1
 
 /* key matrix pins */
+#undef MATRIX_ROW_PINS
 #define MATRIX_ROW_PINS { B5 }
+#undef MATRIX_COL_PINS
 #define MATRIX_COL_PINS { B6 }
-#define UNUSED_PINS { }
+//#define UNUSED_PINS { }
 
 /* COL2ROW or ROW2COL */
+#undef DIODE_DIRECTION
 #define DIODE_DIRECTION ROW2COL
 
 /* Set 0 if debouncing isn't needed */
+#undef DEBOUNCING_DELAY
 #define DEBOUNCING_DELAY 50
 
 /* key combination for command */
@@ -48,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 /* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
+//#define PREVENT_STUCK_MODIFIERS
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
