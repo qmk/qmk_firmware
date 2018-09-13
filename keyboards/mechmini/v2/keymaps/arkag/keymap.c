@@ -28,16 +28,12 @@ void send_unicode_hex_string(const char *str) {
         }
 }
 // End: Written by konstantin: vomindoraan
-#ifdef HALMAK_LAYOUT
-#define _HALMAK  0
-#endif
-#ifdef QWERTY_LAYOUT
 #define _QWERTY  0
-#endif
 #define _RAISE   1
 #define _LOWER   2
 #define _KEEB    3
 #define _MEDIA   4
+#define _LAZY    5
 
 #define MOD_CTL_MASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))
 #define MOD_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
@@ -46,6 +42,9 @@ void send_unicode_hex_string(const char *str) {
 #define LED_FLASH_DELAY       150
 #define LED_FADE_DELAY        10
 
+#define INACTIVE_DELAY        200
+#define SLEEP_DELAY           60000
+
 #define DEF_RGB_MODE          1 // static
 
 #define EECONFIG_USERSPACE (uint8_t *)20
@@ -53,19 +52,18 @@ void send_unicode_hex_string(const char *str) {
 #define LRALT       TD(TD_LALT_RALT)
 #define QUOTE       TD(TD_SING_DOUB)
 #define GRAVE       TD(TD_GRV_3GRV)
-#define OPENBRACK   TD(TD_BRCK_PARN_O)
-#define CLOSEBRACK  TD(TD_BRCK_PARN_C)
+#define OBRACK      TD(TD_BRCK_PARN_O)
+#define CBRACK      TD(TD_BRCK_PARN_C)
 #define THREE       TD(TD_3_GRV_ACT)
 #define STRIKE      TD(TD_STRK_SHOT)
 #define HYPHEN      TD(TD_HYPH_UNDR)
 #define CEDILLA     TD(TD_C_CED)
-#define HTTPS       TD(TD_SLSH_HTTP)
-#define SPECIAL     TD(TD_SPECIAL)
 
 #define RAISE       MO(1)
 #define LOWER       MO(2)
 #define KEEB        MO(3)
 #define MEDIA       MO(4)
+#define LAZY        MO(5)
 
 typedef enum {
         OS_MAC, // Don't assign values
@@ -82,33 +80,34 @@ typedef struct {
 
 typedef enum {
         no_flash = 0,
-        flash_begin,
         flash_off,
         flash_on,
-        reset_underglow,
 } flashState;
 
 typedef enum {
-        fade = 0,
-        add_fade,
+        add_fade = 0,
         sub_fade,
 } fadeState;
 
-uint8_t     current_os, mod_primary_mask;
-uint16_t    flash_timer_one, flash_timer_two, fade_timer_one, fade_timer_two, elapsed,
-            fade_buffer           = 0,
-            real_fade_delay       = LED_FADE_DELAY,
-            num_extra_flashes_off = 0;
-int16_t     ug_fade_buffer        = 0;
-bool        loop        = false,
-            paste_ready = false;
-Color       underglow,
-            flash_color,
-            hsv_none      = {0,0,0},
-            hsv_white     = {0,0,127};
-flashState  flash_state   = no_flash;
-fadeState   fade_state    = fade;
+typedef enum {
+        active = 0,
+        inactive,
+        sleeping,
+} activityState;
 
+uint8_t       current_os, mod_primary_mask;
+uint16_t      flash_timer_one, flash_timer_two,
+              fade_timer_one, fade_timer_two,
+              active_timer_one, active_timer_two,
+              elapsed               = 0,
+              num_extra_flashes_off = 0;
+Color         underglow,
+              flash_color,
+              hsv_none      = {0,0,0},
+              hsv_white     = {0,0,127};
+flashState    flash_state   = no_flash;
+fadeState     fade_state    = add_fade;
+activityState state         = inactive;
 
 enum custom_keycodes {
         M_PMOD = SAFE_RANGE,
@@ -121,10 +120,11 @@ enum custom_keycodes {
         M_TM,
         M_GGT,
         M_LOD,
+        M_LENNY,
         M_BOLD,
         M_ITAL,
         M_ULIN,
-        M_SNIPENT,
+        M_SNIPT,
         M_REPO,
         M_SHRUG,
         M_UF,
@@ -143,27 +143,6 @@ enum tapdances {
         TD_BRCK_PARN_C,
         TD_LALT_RALT,
 };
-
-// Start: Written by drashna
-uint8_t last_rgb_mode;
-
-void suspend_power_down_user(void) {
-        last_rgb_mode = rgblight_get_mode();
-        rgblight_enable_noeeprom();
-        rgblight_timer_enable();
-        rgblight_mode_noeeprom(4);
-}
-
-void suspend_wakeup_init_user(void) {
-        static bool ran_once;
-        if (!ran_once) {
-          ran_once = true;
-          rgblight_mode_noeeprom(DEF_RGB_MODE);
-          return;
-        }
-        rgblight_mode_noeeprom(last_rgb_mode);
-}
-// End: Written by drashna
 
 Color mod_color(Color current_color, bool should_add, uint16_t change_amount) {
         int addlim = 359 - change_amount;
@@ -191,67 +170,81 @@ void set_color (Color new, bool update) {
         rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
 }
 
-void fade_rgb (void) {
-        if (flash_state != no_flash) {return;}
-        if (fade_buffer >= 50) {fade_buffer = 50;}
-        switch(fade_state){
-        case fade:
-                if (fade_buffer <= 0)         {return;}
-                if (flash_state != no_flash)  {return;}
-                real_fade_delay = LED_FADE_DELAY;
-                fade_timer_one = timer_read();
-                fade_state = add_fade;
+void check_state (void) {
+        switch (state) {
+        case active:
+                rgblight_mode_noeeprom(DEF_RGB_MODE);
+                active_timer_two = timer_read();
+                elapsed = active_timer_two - active_timer_one;
+                if (elapsed < INACTIVE_DELAY) {state = active; return;}
+                state = inactive;
                 return;
 
+        case inactive:
+                active_timer_two = timer_read();
+                elapsed = active_timer_two - active_timer_one;
+                if (elapsed < SLEEP_DELAY) {return;}
+                state = sleeping;
+                return;
+
+        case sleeping:
+                rgblight_mode_noeeprom(3);
+                return;
+        }
+
+}
+
+void fade_rgb (void) {
+        static bool ran_once;
+        if (flash_state != no_flash) {return;}
+        if (state != active) {ran_once = false; return;}
+        switch (fade_state) {
         case add_fade:
+                if (!ran_once) {
+                          fade_timer_one = timer_read();
+                          ran_once = true;
+                }
                 fade_timer_two = timer_read();
                 elapsed = fade_timer_two - fade_timer_one;
-                if (elapsed < real_fade_delay) {return;}
-                if (fade_buffer > 0) {
-                        if (underglow.h == 359) {
-                                  fade_state = sub_fade;
-                                  return;
-                        }
-                        underglow.h = underglow.h + 1;
-                        set_color(underglow, false);
-                        fade_timer_one = fade_timer_two;
-                        fade_buffer--;
-                } else {
-                        fade_state = fade;
+                if (elapsed < LED_FADE_DELAY) {return;}
+                if (underglow.h == 359) {
+                          fade_state = sub_fade;
+                          return;
                 }
+                underglow.h = underglow.h + 1;
+                set_color(underglow, false);
+                fade_timer_one = fade_timer_two;
                 return;
 
         case sub_fade:
                 fade_timer_two = timer_read();
                 elapsed = fade_timer_two - fade_timer_one;
-                if (elapsed < real_fade_delay) {return;}
-                if (fade_buffer > 0) {
-                        if (underglow.h == 0) {
-                                  fade_state = add_fade;
-                                  return;
-                        }
-                        underglow.h = underglow.h - 1;
-                        set_color(underglow, false);
-                        fade_timer_one = fade_timer_two;
-                        fade_buffer--;
-                } else {
-                        fade_state = fade;
+                if (elapsed < LED_FADE_DELAY) {return;}
+                if (underglow.h == 0) {
+                          fade_state = add_fade;
+                          return;
                 }
+                underglow.h = underglow.h - 1;
+                set_color(underglow, false);
+                fade_timer_one = fade_timer_two;
                 return;
         }
 }
 
 void flash_rgb (void) {
+        static bool ran_once;
         switch(flash_state) {
         case no_flash:
                 return;
 
-        case flash_begin:
-                flash_timer_one = timer_read();
-                flash_state = flash_off;
-                return;
-
         case flash_off:
+                if (!ran_once) {
+                        set_color(hsv_none, false);
+                        flash_timer_one = timer_read();
+                        ran_once = true;
+                        flash_state = flash_on;
+                        return;
+                }
                 flash_timer_two = timer_read();
                 elapsed = flash_timer_two - flash_timer_one;
                 if (elapsed >= LED_FLASH_DELAY) {
@@ -267,20 +260,15 @@ void flash_rgb (void) {
                 if (elapsed >= LED_FLASH_DELAY) {
                         set_color(flash_color, false);
                         flash_timer_one = timer_read();
-                        if (loop) {
-                                flash_state = flash_off;
-                        } else if (num_extra_flashes_off > 0) {
+                        if (num_extra_flashes_off > 0) {
                                 flash_state = flash_off;
                                 num_extra_flashes_off--;
                         } else {
-                                flash_state = reset_underglow;
+                                set_color(underglow, false);
+                                flash_state = no_flash;
+                                ran_once = false;
                         }
                 }
-                return;
-
-        case reset_underglow:
-                set_color(underglow, false);
-                flash_state = no_flash;
                 return;
         }
 }
@@ -312,16 +300,8 @@ void set_os (uint8_t os, bool update) {
         }
         set_color(underglow, update);
         flash_color = underglow;
-        flash_state = flash_begin;
-        num_extra_flashes_off = 0;
-}
-
-void set_paste_ready(void) {
-        paste_ready = true;
-        set_color(hsv_white, false);
-        flash_color = hsv_white;
-        flash_state = flash_begin;
-        loop = true;
+        flash_state = flash_off;
+        num_extra_flashes_off = 1;
 }
 
 void tap_key(uint8_t keycode) {
@@ -419,71 +399,6 @@ void dance_strk (qk_tap_dance_state_t *state, void *user_data) {
                 } else {
                         return;
                 }
-                set_paste_ready();
-        }
-}
-
-void send_https(void) {
-        SEND_STRING("https://");
-}
-
-void send_http(void) {
-        SEND_STRING("http://");
-}
-
-void dance_http (qk_tap_dance_state_t *state, void *user_data) {
-        if (state->count == 1) {
-                tap_key(KC_SLSH);
-        } else if (state->count == 2) {
-                send_https();
-        } else {
-                send_http();
-        }
-}
-
-void send_copy_paste (void) {
-        pri_mod(true);
-        if (!paste_ready) {
-                SEND_STRING(SS_TAP(X_C));
-                set_paste_ready();
-        }
-        else {
-                SEND_STRING(SS_TAP(X_V));
-                paste_ready = false;
-                loop = false;
-        }
-        pri_mod(false);
-}
-
-void send_cut_paste (void) {
-        pri_mod(true);
-        if (!paste_ready) {
-                SEND_STRING(SS_TAP(X_X));
-                set_paste_ready();
-                loop = true;
-        }
-        else {
-                SEND_STRING(SS_TAP(X_V));
-                paste_ready = false;
-                loop = false;
-        }
-        pri_mod(false);
-}
-
-void send_lod(void) {
-        send_unicode_hex_string("0CA0 005F 005F 0CA0");
-}
-
-void dance_special (qk_tap_dance_state_t *state, void *user_data) {
-        if (state->count == 1) {
-                paste_ready = false;
-                loop = false;
-        } else if (state->count == 2) {
-                send_copy_paste();
-        } else if (state->count == 3) {
-                send_cut_paste();
-        } else {
-                send_lod();
         }
 }
 
@@ -510,10 +425,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
         [TD_3_GRV_ACT]      = ACTION_TAP_DANCE_FN (dance_3),
         [TD_C_CED]          = ACTION_TAP_DANCE_FN (dance_c),
         [TD_GRV_3GRV]       = ACTION_TAP_DANCE_FN (dance_grv),
-        [TD_SLSH_HTTP]      = ACTION_TAP_DANCE_FN (dance_http),
         [TD_SING_DOUB]      = ACTION_TAP_DANCE_FN (dance_quot),
         [TD_STRK_SHOT]      = ACTION_TAP_DANCE_FN (dance_strk),
-        [TD_SPECIAL]        = ACTION_TAP_DANCE_FN (dance_special),
         [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_DOUBLE (KC_MINS, LSFT(KC_MINS)),
         [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, LSFT(KC_9)),
         [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, LSFT(KC_0)),
@@ -523,15 +436,19 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 void matrix_init_user(void) {
         current_os = eeprom_read_byte(EECONFIG_USERSPACE);
         set_os(current_os, false);
-        last_rgb_mode = rgblight_get_mode();
 }
 
 void matrix_scan_user(void) {
+        check_state();
         flash_rgb();
         fade_rgb();
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+        if (record->event.pressed) {
+                active_timer_one = timer_read();
+                state = active;
+        }
         switch (keycode) {
         case M_PMOD:
                 if (record->event.pressed) {
@@ -586,9 +503,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case M_LOD:
                 if (record->event.pressed) {
-                        send_lod();
+                        send_unicode_hex_string("0CA0 005F 005F 0CA0");
                 }
                 return false;
+
+        case M_LENNY:
+                if (record->event.pressed) {
+                        send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
+                }
+                return false;
+
 
         case M_TF:
                 if (record->event.pressed) {
@@ -626,15 +550,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
 
-        case M_SNIPENT:
+        case M_SNIPT:
                 if (record->event.pressed) {
                         surround_type(6, KC_GRAVE, false);
                         pri_mod(true);
-                        register_code(KC_V);
-                        unregister_code(KC_V);
+                        tap_key(KC_V);
                         pri_mod(false);
-                        SEND_STRING(SS_TAP(X_RIGHT) SS_TAP(X_RIGHT) SS_TAP(X_RIGHT) SS_TAP(X_ENTER));
-                        paste_ready = false;
+                        tap_key(KC_RGHT);
+                        tap_key(KC_RGHT);
+                        tap_key(KC_RGHT);
+                        tap_key(KC_ENTER);
                 }
                 return false;
 
@@ -672,15 +597,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 return true;
 
         default:
-                if (record->event.pressed) {
-                        fade_buffer+=50;
-                }
                 return true;
         }
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
         switch (biton32(state)) {
+        case _LAZY:
+                rgblight_mode_noeeprom(14);
+                break;
         case _MEDIA:
                 set_color(mod_color(underglow, true, 150), false);
                 break;
@@ -695,74 +620,46 @@ uint32_t layer_state_set_user(uint32_t state) {
                 break;
         default:
                 set_color(underglow, false);
+                rgblight_mode_noeeprom(DEF_RGB_MODE);
                 break;
         }
         return state;
 }
 
-#ifdef HALMAK_LAYOUT
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-        [_HALMAK] = LAYOUT_2u_space_ortho(
-                KC_ESC,   KC_W,       KC_L,       KC_R,     KC_B,        KC_Z,    KC_SCLN,      KC_Q,     KC_U,     KC_D,       KC_J,       KC_BSPC,
-                KC_TAB,   KC_S,       KC_H,       KC_N,     KC_T,        KC_COMM, KC_DOT,       KC_A,     KC_E,     KC_O,       KC_I,       QUOTE,
-                KC_LSFT,  KC_F,       KC_M,       KC_V,     KC_C,        KC_SLSH, KC_G,         KC_P,     KC_X,     KC_K,       KC_Y,       KC_ENT,
-                M_PMOD,   LRALT,      M_SMOD,     LOWER,    RAISE,           KC_SPC,            SPECIAL,  KC_LEFT,  KC_DOWN,    KC_UP,      KC_RGHT),
-
-        [_RAISE] = LAYOUT_2u_space_ortho(
-                GRAVE,    KC_1,       KC_2,       THREE,    KC_4,        KC_5,     KC_6,         KC_7,     KC_8,     KC_9,       KC_0,       _______,
-                _______,  OPENBRACK,  CLOSEBRACK, KC_EQL,   HYPHEN,      _______,  _______,      KC_4,     KC_5,     KC_6,       _______,    KC_NLCK,
-                _______,  _______,    _______,    _______,  CEDILLA,     KC_BSLS,  _______,      KC_1,     KC_2,     KC_3,       _______,    KC_PENT,
-                _______,  _______,    _______,    KEEB,     _______,         _______,            M_OS,     KC_PSLS,  KC_PMNS,    KC_PPLS,    KC_PAST),
-
-        [_LOWER] = LAYOUT_2u_space_ortho(
-                _______,  _______,    _______,    _______,  _______,    M_BOLD,  _______,       _______,  M_ULIN,   _______,    M_P_B,      M_C_A_D,
-                _______,  STRIKE,     _______,    _______,  M_TM,       _______, _______,       M_UF,     M_REPO,   M_SNIPENT,  M_ITAL,     _______,
-                _______,  KC_DEL,     _______,    _______,  _______,    _______, M_GGT,         M_TF,     M_SHRUG,  M_LOD,      _______,    _______,
-                _______,  _______,    _______,    _______,  _______,          MEDIA,            M_CALC,   KC_HOME,  KC_PGDOWN,  KC_PGUP,    KC_END),
-
-        [_KEEB] = LAYOUT_2u_space_ortho(
-                KC_F1,    KC_F2,      KC_F3,      KC_F4,    KC_F5,      KC_F6,    KC_F7,        KC_F8,    KC_F9,    KC_F10,     KC_F11,     KC_F12,
-                _______,  BL_TOGG,    BL_STEP,    BL_INC,   BL_DEC,     BL_BRTG,  _______,      _______,  _______,  _______,    _______,    _______,
-                RGB_M_P,  RGB_TOG,    RGB_MOD,    RGB_VAI,  RGB_VAD,    RGB_HUI,  RGB_HUD,      RGB_SAI,  RGB_SAD,  _______,    _______,    _______,
-                RESET,    _______,    _______,    _______,  _______,         _______,           _______,  _______,  _______,    _______,    _______),
-
-        [_MEDIA] = LAYOUT_2u_space_ortho(
-                _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  _______,    _______,    _______,
-                _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  _______,    _______,    _______,
-                _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  KC_MUTE,  _______,    _______,    KC_MPLY,
-                _______,  _______,    _______,    _______,  _______,         _______,           _______,  KC_MPRV,  KC_VOLD,    KC_VOLU,    KC_MNXT),
-};
-#endif
-#ifdef QWERTY_LAYOUT
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         [_QWERTY] = LAYOUT_2u_space_ortho(
-                KC_ESC,   KC_Q,       KC_W,       KC_E,     KC_R,          KC_T, KC_Y,          KC_U,     KC_I,     KC_O,       KC_P,       KC_BSPC,
-                KC_TAB,   KC_A,       KC_S,       KC_D,     KC_F,          KC_G, KC_H,          KC_J,     KC_K,     KC_L,       KC_SCLN,    QUOTE,
-                KC_LSFT,  KC_Z,       KC_X,       KC_C,     KC_V,          KC_B, KC_N,          KC_M,     KC_COMM,  KC_DOT,     KC_UP,      KC_ENT,
-                M_PMOD,   LRALT,      M_SMOD,     LOWER,    RAISE,           KC_SPC,            KC_SLSH,  SPECIAL,  KC_LEFT,    KC_DOWN,    KC_RGHT),
+                KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
+                KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, QUOTE,
+                KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,
+                M_PMOD,  LRALT,   M_SMOD,  LOWER,   RAISE,        KC_SPC,      KC_SLSH, LAZY,    KC_LEFT, KC_DOWN, KC_RGHT),
 
         [_RAISE] = LAYOUT_2u_space_ortho(
-                GRAVE,    KC_1,       KC_2,       THREE,    KC_4,       KC_5,     KC_6,         KC_7,     KC_8,     KC_9,       KC_0,       _______,
-                _______,  OPENBRACK,  CLOSEBRACK, KC_BSLS,  HYPHEN,     KC_EQL,   _______,      KC_4,     KC_5,     KC_6,       _______,    KC_NLCK,
-                _______,  _______,    _______,    CEDILLA,  _______,    KC_COMM,  KC_PDOT,      KC_1,     KC_2,     KC_3,       KC_PPLS,    KC_PENT,
-                _______,  _______,    _______,    KEEB,     _______,         _______,           HTTPS,    M_OS,     KC_PSLS,    KC_PMNS,    KC_PAST),
+                GRAVE,   KC_1,    KC_2,    THREE,   KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+                _______, OBRACK,  CBRACK,  KC_EQL,  HYPHEN,  _______, _______, KC_4,    KC_5,    KC_6,    _______, KC_NLCK,
+                _______, _______, _______, CEDILLA, _______, KC_COMM, KC_PDOT, KC_1,    KC_2,    KC_3,    KC_PPLS, KC_PENT,
+                _______, _______, _______, KEEB,    _______,      _______,     KC_BSLS, M_OS,    KC_PSLS, KC_PMNS, KC_PAST),
 
         [_LOWER] = LAYOUT_2u_space_ortho(
-                _______,  _______,    _______,    _______,  _______,    M_TM,    _______,       M_ULIN,   M_ITAL,   _______,    M_P_B,      M_C_A_D,
-                _______,  _______,    STRIKE,     _______,  _______,    M_GGT,   _______,       M_UF,     M_REPO,   M_SNIPENT,  _______,    _______,
-                _______,  KC_DEL,     _______,    _______,  _______,    M_BOLD,  _______,       M_TF,     M_SHRUG,  M_LOD,      KC_PGUP,    _______,
-                _______,  _______,    _______,    _______,  _______,          MEDIA,            _______,  M_CALC,   KC_HOME,    KC_PGDOWN,  KC_END),
+                _______, _______, _______, _______, _______, _______, _______, M_ULIN,  M_ITAL,  _______, M_P_B,   M_C_A_D,
+                _______, _______, STRIKE,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                _______, KC_DEL,  _______, _______, _______, M_BOLD,  _______, _______, _______, _______, KC_PGUP, _______,
+                _______, _______, _______, _______, _______,       MEDIA,      _______, M_CALC,  KC_HOME, KC_PGDN, KC_END),
 
         [_KEEB] = LAYOUT_2u_space_ortho(
-                KC_F1,    KC_F2,      KC_F3,      KC_F4,    KC_F5,      KC_F6,    KC_F7,        KC_F8,    KC_F9,    KC_F10,     KC_F11,     KC_F12,
-                _______,  BL_TOGG,    BL_STEP,    BL_INC,   BL_DEC,     BL_BRTG,  _______,      _______,  _______,  _______,    _______,    _______,
-                RGB_M_P,  RGB_TOG,    RGB_MOD,    RGB_VAI,  RGB_VAD,    RGB_HUI,  RGB_HUD,      RGB_SAI,  RGB_SAD,  _______,    _______,    _______,
-                RESET,    _______,    _______,    _______,  _______,         _______,           _______,  _______,  _______,    _______,    _______),
+                KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,
+                _______, BL_TOGG, BL_STEP, BL_INC,  BL_DEC,  BL_BRTG, _______, _______, _______, _______, _______, _______,
+                RGB_M_P, RGB_TOG, RGB_MOD, RGB_VAI, RGB_VAD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, _______, _______, _______,
+                RESET,   _______, _______, _______, _______,      _______,     _______, _______, _______, _______, _______),
 
         [_MEDIA] = LAYOUT_2u_space_ortho(
-                _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  _______,    _______,    _______,
-                _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  _______,    _______,    _______,
-                _______,  _______,    _______,    _______,  _______,    _______,    _______,    _______,  _______,  KC_MPLY,    KC_VOLU,    KC_MUTE,
-                _______,  _______,    _______,    _______,  _______,         _______,           _______,  _______,  KC_MPRV,    KC_VOLD,    KC_MNXT),
+                _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+                _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_VOLU, KC_MUTE,
+                _______, _______, _______, _______, _______,      _______,     _______, _______, KC_MPRV, KC_VOLD, KC_MNXT),
+
+        [_LAZY] = LAYOUT_2u_space_ortho(
+                _______, _______, _______, _______, _______, M_TM,    _______, M_SNIPT, M_SHRUG, _______, _______, _______,
+                _______, _______, _______, _______, _______, M_GGT,   _______, M_UF,    M_LOD,   M_REPO,  _______, _______,
+                _______, _______, _______, _______, _______, _______, _______, M_TF,    M_LENNY, _______, _______, _______,
+                _______, _______, _______, _______, _______,      _______,     _______, _______, _______, _______, _______),
 };
-#endif

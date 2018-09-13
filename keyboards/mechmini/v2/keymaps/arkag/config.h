@@ -2,10 +2,6 @@
 
 #define TAPPING_TERM                200
 
-#define NO_SUSPEND_POWER_DOWN
-
-#define HALMAK_LAYOUT
-
 // save me space!
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
