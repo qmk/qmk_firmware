@@ -1,8 +1,6 @@
 //Author: tong92 <tong92power@gmail.com>
+#include QMK_KEYBOARD_H
 
-#include "tv44.h"
-#include "action_layer.h"
-#include "eeconfig.h"
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
 #endif
