@@ -45,8 +45,6 @@ void send_unicode_hex_string(const char *str) {
 #define INACTIVE_DELAY        200
 #define SLEEP_DELAY           60000
 
-#define DEF_RGB_MODE          1 // static
-
 #define EECONFIG_USERSPACE (uint8_t *)20
 
 #define LRALT       TD(TD_LALT_RALT)
@@ -95,7 +93,7 @@ typedef enum {
         sleeping,
 } activityState;
 
-uint8_t       current_os, mod_primary_mask;
+uint8_t       current_os, mod_primary_mask, fade_delay;
 uint16_t      flash_timer_one, flash_timer_two,
               fade_timer_one, fade_timer_two,
               active_timer_one, active_timer_two,
@@ -103,6 +101,7 @@ uint16_t      flash_timer_one, flash_timer_two,
               num_extra_flashes_off = 0;
 Color         underglow,
               flash_color,
+              saved_color,
               hsv_none      = {0,0,0},
               hsv_white     = {0,0,127};
 flashState    flash_state   = no_flash;
@@ -144,7 +143,24 @@ enum tapdances {
         TD_LALT_RALT,
 };
 
-Color mod_color(Color current_color, bool should_add, uint16_t change_amount) {
+void set_color (Color new, bool update) {
+        rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
+}
+
+void set_color_at (Color new, uint8_t led) {
+        rgblight_sethsv_at(new.h, new.s, new.v, led);
+}
+
+void save_color(Color to_save){
+        saved_color = to_save;
+}
+
+void reset_color(void){
+        underglow = saved_color;
+}
+
+Color mod_color(Color current_color, bool should_add, uint8_t change_amount) {
+        save_color(underglow);
         int addlim = 359 - change_amount;
         int sublim = change_amount;
         int leftovers;
@@ -166,21 +182,30 @@ Color mod_color(Color current_color, bool should_add, uint16_t change_amount) {
         return current_color;
 }
 
-void set_color (Color new, bool update) {
-        rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
+void reverse_fade (void) {
+        if (fade_state == add_fade){
+                fade_state = sub_fade;
+        } else {
+                fade_state = add_fade;
+        }
 }
 
 void check_state (void) {
+        static bool activated, deactivated, slept;
         switch (state) {
         case active:
-                rgblight_mode_noeeprom(DEF_RGB_MODE);
+                fade_delay = LED_FADE_DELAY;
+                if (!activated) {reverse_fade(); activated = true; deactivated = false;}
                 active_timer_two = timer_read();
                 elapsed = active_timer_two - active_timer_one;
-                if (elapsed < INACTIVE_DELAY) {state = active; return;}
+                if (elapsed < INACTIVE_DELAY) {return;}
                 state = inactive;
                 return;
 
         case inactive:
+                fade_delay = LED_FADE_DELAY * 2;
+                if (!deactivated) {reverse_fade(); deactivated = true; slept = false; activated = false;}
+                activated = false;
                 active_timer_two = timer_read();
                 elapsed = active_timer_two - active_timer_one;
                 if (elapsed < SLEEP_DELAY) {return;}
@@ -188,7 +213,8 @@ void check_state (void) {
                 return;
 
         case sleeping:
-                rgblight_mode_noeeprom(3);
+                fade_delay = LED_FADE_DELAY * 6;
+                if (!slept) {reverse_fade(); slept = true; deactivated = false; activated = false;}
                 return;
         }
 
@@ -197,7 +223,6 @@ void check_state (void) {
 void fade_rgb (void) {
         static bool ran_once;
         if (flash_state != no_flash) {return;}
-        if (state != active) {ran_once = false; return;}
         switch (fade_state) {
         case add_fade:
                 if (!ran_once) {
@@ -206,26 +231,28 @@ void fade_rgb (void) {
                 }
                 fade_timer_two = timer_read();
                 elapsed = fade_timer_two - fade_timer_one;
-                if (elapsed < LED_FADE_DELAY) {return;}
+                if (elapsed < fade_delay) {return;}
                 if (underglow.h == 359) {
                           fade_state = sub_fade;
                           return;
                 }
                 underglow.h = underglow.h + 1;
                 set_color(underglow, false);
+                // set_color_at(underglow, 0);
                 fade_timer_one = fade_timer_two;
                 return;
 
         case sub_fade:
                 fade_timer_two = timer_read();
                 elapsed = fade_timer_two - fade_timer_one;
-                if (elapsed < LED_FADE_DELAY) {return;}
+                if (elapsed < fade_delay) {return;}
                 if (underglow.h == 0) {
                           fade_state = add_fade;
                           return;
                 }
                 underglow.h = underglow.h - 1;
                 set_color(underglow, false);
+                // set_color_at(underglow, 0);
                 fade_timer_one = fade_timer_two;
                 return;
         }
@@ -404,7 +431,7 @@ void dance_strk (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_3 (qk_tap_dance_state_t *state, void *user_data) {
         if (state->count == 1) {
-                register_code (KC_3);
+                tap_key(KC_3);
         } else if (state->count == 2) {
                 send_unicode_hex_string("00E8");
         } else if (state->count == 3) {
@@ -414,7 +441,7 @@ void dance_3 (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_c (qk_tap_dance_state_t *state, void *user_data) {
         if (state->count == 1) {
-                register_code (KC_C);
+                tap_key(KC_C);
         } else if (state->count == 2) {
                 send_unicode_hex_string("00E7");
         }
@@ -445,10 +472,6 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-        if (record->event.pressed) {
-                active_timer_one = timer_read();
-                state = active;
-        }
         switch (keycode) {
         case M_PMOD:
                 if (record->event.pressed) {
@@ -591,12 +614,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
 
+        case MEDIA:
+        case LAZY:
         case KEEB:
         case RAISE:
         case LOWER:
                 return true;
 
         default:
+                if (record->event.pressed) {
+                        active_timer_one = timer_read();
+                        state = active;
+                }
                 return true;
         }
 }
@@ -604,25 +633,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 uint32_t layer_state_set_user(uint32_t state) {
         switch (biton32(state)) {
         case _LAZY:
-                rgblight_mode_noeeprom(14);
+                save_color(underglow);
+                underglow = mod_color(underglow, true, 50);
                 break;
         case _MEDIA:
-                set_color(mod_color(underglow, true, 150), false);
+                save_color(underglow);
+                underglow = mod_color(underglow, true, 150);
                 break;
         case _KEEB:
-                set_color(mod_color(underglow, false, 150), false);
+                save_color(underglow);
+                underglow = mod_color(underglow, false, 150);
                 break;
         case _LOWER:
-                set_color(mod_color(underglow, false, 100), false);
+                save_color(underglow);
+                underglow = mod_color(underglow, false, 100);
                 break;
         case _RAISE:
-                set_color(mod_color(underglow, true, 100), false);
+                save_color(underglow);
+                underglow = mod_color(underglow, true, 100);
                 break;
         default:
-                set_color(underglow, false);
-                rgblight_mode_noeeprom(DEF_RGB_MODE);
+                reset_color();
                 break;
         }
+        set_color(underglow, false);
         return state;
 }
 
