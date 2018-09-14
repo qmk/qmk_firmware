@@ -32,6 +32,12 @@
 #endif
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
+#else
+  #ifdef RGB_MATRIX_ENABLE
+    /* dummy define RGBLIGHT_MODE_xxxx */
+    #define RGBLIGHT_H_DUMMY_DEFINE
+    #include "rgblight.h"
+  #endif
 #endif
 
 #ifdef SPLIT_KEYBOARD

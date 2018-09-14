@@ -227,6 +227,13 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     OPT_DEFS += -DHD44780_ENABLE
 endif
 
+
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
+    SRC += $(QUANTUM_DIR)/dynamic_keymap.c
+endif
+
+
 # space cadet shift process enable
 ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
