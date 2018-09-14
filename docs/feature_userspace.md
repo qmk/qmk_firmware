@@ -71,7 +71,7 @@ The reason for this, is that `<name>.h` won't be added in time to add settings (
 !>You should use the `config.h` for [configuration options](config_options.md), and the `<name>.h` file for user or keymap specific settings (such as the enum for layer or keycodes)
 
 
-## Readme
+## Readme (`readme.md`)
 
 Please include authorship (your name, github username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
 
