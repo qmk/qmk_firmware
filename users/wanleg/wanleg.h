@@ -109,6 +109,7 @@ enum {
   ,ENT_TAP_DANCE
   ,DEL_TAP_DANCE
   ,RST_TAP_DANCE
+  ,LYR_TAP_DANCE
 };
 #endif
 
@@ -318,13 +319,13 @@ enum {
  * |--------+--------+--------+--------|
  * |   1    |   2    |   3    | ENTER  |
  * |--------+--------+--------+--------|
- * |   0    | QWERTY |   .    |   -    |
+ * |   0    | QWERTY |   .    |testing |
  * '-----------------------------------'
  */
 
 #define _______________NUMPAD_Row__0_______________  KC_KP_7, KC_KP_8, KC_KP_9,   KC_BSPC
 #define _______________NUMPAD_Row__1_______________  KC_KP_4, KC_KP_5, KC_KP_6,   KC_SPC
 #define _______________NUMPAD_Row__2_______________  KC_KP_1, KC_KP_2, KC_KP_3,   KC_PENT
-#define _______________NUMPAD_Row__3_______________  KC_KP_0, DF(_GK), KC_KP_DOT, KC_PMNS
+#define _______________NUMPAD_Row__3_______________  KC_KP_0, DF(_GK), KC_KP_DOT, TD(LYR_TAP_DANCE)
 
 #endif // !USERSPACE
