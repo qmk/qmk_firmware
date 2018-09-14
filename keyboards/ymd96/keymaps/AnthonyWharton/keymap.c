@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#define ______ KC_TRNS
 #define _DEFLT 0
 #define _RAISE 1
 
@@ -39,11 +38,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	/* Layer 1, raise layer */ 
 	[_RAISE] = KEYMAP(
-		______,   KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,   KC_F24,  ______,  KC_PAUS, KC_SLCK, ______,  ______,  ______,   \
-		______,   RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_M_X, RGB_M_G, BL_OFF,  BL_ON,   BL_DEC,   BL_INC,       ______,      ______,  ______,  ______,  ______,   \
-		______,   ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  RGB_VAD,  RGB_VAI,      KC_MUTE,     ______,  KC_VOLU, ______,  ______,   \
-		______,   ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  RGB_TOG,  BL_TOGG,                   KC_MPRV, KC_MPLY, KC_MNXT, ______,   \
-		______,   ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,  ______,        ______,      KC_PGUP, ______,  KC_VOLD, ______,  KC_LOCK,  \
-		______,   ______,  KC_RALT,                               ______,                            ______,       ______,     KC_HOME, KC_PGDN, KC_END,  ______,  ______             \
+		_______,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,   KC_F24,  _______, KC_PAUS, KC_SLCK, _______, _______, _______,  \
+		_______,  RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_M_X, RGB_M_G, BL_OFF,  BL_ON,   BL_DEC,   BL_INC,       _______,     _______, _______, _______, _______,  \
+		_______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_VAD,  RGB_VAI,      KC_MUTE,     _______, KC_VOLU, _______, _______,  \
+		_______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG,  BL_TOGG,                   KC_MPRV, KC_MPLY, KC_MNXT, _______,  \
+		_______,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,       _______,     KC_PGUP, _______, KC_VOLD, _______, KC_LOCK,  \
+		_______,  _______, KC_RALT,                               _______,                           _______,      _______,    KC_HOME, KC_PGDN, KC_END,  _______, _______            \
 	)
 };
