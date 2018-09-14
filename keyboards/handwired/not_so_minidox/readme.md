@@ -5,7 +5,7 @@ not_so_minidox
 
 A slightly larger version of the MiniDox
 
-Keyboard Maintainer: mtdjr
+Keyboard Maintainer: mtdjr  
 Hardware Supported: None yet/ProMicro
 
 Make example for this keyboard (after setting up your build environment):
