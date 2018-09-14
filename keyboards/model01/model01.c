@@ -20,7 +20,7 @@
 
 void matrix_init_kb(void) {
   /* the bootloader can leave LEDs on, so */
-  set_all_leds_to_raw(0, 0, 0);
+  set_all_leds_to(0, 0, 0);
 }
 
 void matrix_scan_kb(void) {

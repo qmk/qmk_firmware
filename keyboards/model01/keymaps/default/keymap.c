@@ -76,15 +76,14 @@ LAYOUT(
 uint32_t layer_state_set_user(uint32_t state) {
   switch (biton32(state)) {
     case DEF:
-      set_all_leds_to_raw(0,0,0);
+      set_all_leds_to(0,0,0);
       break;
     case NUM:
       /* highlight the numpad keys when numlock is on */
       for (int i=44; i<=60; i++) {
-        set_led_to_raw(i, 128,0,0);
-        _delay_ms(1);
+        set_led_to(i, 128,0,0);
       }
-      set_led_to_raw(63, 128, 0, 0);
+      set_led_to(63, 128, 0, 0);
       break;
   }
 

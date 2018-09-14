@@ -17,6 +17,9 @@
 
 #include <quantum.h>
 
-/* Raw LED control - no gamma correction curve is applied */
+int set_all_leds_to(uint8_t r, uint8_t g, uint8_t b);
+int set_led_to(uint8_t led, uint8_t r, uint8_t g, uint8_t b);
+
+/* Raw (gamma uncorrected) LED values */
 int set_all_leds_to_raw(uint8_t r, uint8_t g, uint8_t b);
 int set_led_to_raw(uint8_t led, uint8_t r, uint8_t g, uint8_t b);
