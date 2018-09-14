@@ -17,6 +17,8 @@
 #include <i2c_master.h>
 #include "model01.h"
 
+#define I2C_TIMEOUT     100
+
 int set_all_leds_to_raw(uint8_t r, uint8_t g, uint8_t b) {
   uint8_t buf[] = {TWI_CMD_LED_SET_ALL_TO, b, g, r};
   int ret = 0;

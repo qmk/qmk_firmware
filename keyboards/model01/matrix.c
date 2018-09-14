@@ -18,6 +18,10 @@
 #include <string.h>
 #include "model01.h"
 
+/* If no key events have occurred, the scanners will time out on reads.
+ * So we don't want to be too permissive here. */
+#define I2C_TIMEOUT     10
+
 static matrix_row_t rows[MATRIX_ROWS];
 #define ROWS_PER_HAND (MATRIX_ROWS / 2)
 

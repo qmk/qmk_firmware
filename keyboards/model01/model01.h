@@ -41,7 +41,6 @@
 #include "wire-protocol-constants.h"
 #define I2C_ADDR_LEFT   (0x58 << 1)
 #define I2C_ADDR_RIGHT  (I2C_ADDR_LEFT + 6)
-#define I2C_TIMEOUT     100
 #define I2C_ADDR(hand)  ((hand) ? I2C_ADDR_RIGHT : I2C_ADDR_LEFT)
 #define LEFT            0
 #define RIGHT           1
