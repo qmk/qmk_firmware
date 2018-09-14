@@ -1,6 +1,7 @@
 /*
 Base Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
 Modified 2017 Andrew Novak <ndrw.nvk@gmail.com>
+Modified 2018 Anthony Wharton <th3ant@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -59,9 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM RGBLED_NUM
 #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
 #define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 500
-
-// #define NO_UART 1
-// #define BOOTLOADHID_BOOTLOADER 1
 
 /* key combination for command */
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
