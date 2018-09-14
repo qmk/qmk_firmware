@@ -91,7 +91,7 @@ However, you can actually add support for keymap version, so that you can use it
 
 For instance, lets looks at the `layer_state_set_user` function.  Lets enable the [Tri Layer State](ref_functions.md#olkb-tri-layers) functionalitly to all of our boards, and then still have your `keymap.c` still able to use this functionality. 
 
-In your `name.c` file, you'd want to add this: 
+In your `<name.c>` file, you'd want to add this: 
 ```c
 __attribute__ ((weak))
 uint32_t layer_state_set_keymap (uint32_t state) {
@@ -107,7 +107,7 @@ The `__attribute__ ((weak))` part tells the compiler that this is a placce holde
 
 The `_keymap` part here doesn't matter, it just needs to be something other than `_quantum`, `_kb`, or `_user`, since those are already in use. So you could use `layer_state_set_mine`, `layer_state_set_fn`, or anything else.
 
-You can see a list of this and other common functions in [`template.c`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in [/users/drashna/](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).
+You can see a list of this and other common functions in [`template.c`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in [`users/drashna`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).
 
 ## Custom Features
 
