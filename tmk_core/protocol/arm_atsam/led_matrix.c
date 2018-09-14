@@ -257,12 +257,87 @@ issi3733_led_t *led_cur;
 uint8_t led_per_run = 15;
 float breathe_mult;
 
+void led_run_pattern(led_setup_t *f, float* ro, float* go, float* bo) {
+    float px;
+
+    uint8_t fcur = 0;
+    uint8_t fmax = 0;
+
+    //Frames setup
+    while (f[fcur].end != 1)
+    {
+        fcur++; //Count frames
+    }
+
+    fmax = fcur; //Store total frames count
+
+    for (fcur = 0; fcur < fmax; fcur++)
+    {
+        px = led_cur->px;
+        float pxmod;
+        pxmod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+
+        //Add in any moving effects
+        if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
+        {
+            pxmod *= 100.0f;
+            pxmod = (uint32_t)pxmod % 10000;
+            pxmod /= 100.0f;
+
+            px -= pxmod;
+
+            if (px > 100) px -= 100;
+            else if (px < 0) px += 100;
+        }
+        else if ((!led_animation_direction && f[fcur].ef & EF_SCR_L) || (led_animation_direction && (f[fcur].ef & EF_SCR_R)))
+        {
+            pxmod *= 100.0f;
+            pxmod = (uint32_t)pxmod % 10000;
+            pxmod /= 100.0f;
+            px += pxmod;
+
+            if (px > 100) px -= 100;
+            else if (px < 0) px += 100;
+        }
+
+        //Check if LED's px is in current frame
+        if (px < f[fcur].hs) continue;
+        if (px > f[fcur].he) continue;
+        //note: < 0 or > 100 continue
+
+        //Calculate the px within the start-stop percentage for color blending
+        px = (px - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
+
+        //Add in any color effects
+        if (f[fcur].ef & EF_OVER)
+        {
+            *ro = (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+            *go = (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+            *bo = (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+        }
+        else if (f[fcur].ef & EF_SUBTRACT)
+        {
+            *ro -= (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+            *go -= (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+            *bo -= (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+        }
+        else
+        {
+            *ro += (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+            *go += (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+            *bo += (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+        }
+    }
+}
+
+__attribute__((weak))
+led_instruction_t led_instructions[] = { { .end = 1 } };
+
 void led_matrix_run(led_setup_t *f)
 {
     float ro;
     float go;
     float bo;
-    float px;
     uint8_t led_this_run = 0;
 
     if (led_cur == 0) //Denotes start of new processing cycle in the case of chunked processing
@@ -289,17 +364,6 @@ void led_matrix_run(led_setup_t *f)
         }
     }
 
-    uint8_t fcur = 0;
-    uint8_t fmax = 0;
-
-    //Frames setup
-    while (f[fcur].end != 1)
-    {
-        fcur++; //Count frames
-    }
-
-    fmax = fcur; //Store total frames count
-
     while (led_cur < lede && led_this_run < led_per_run)
     {
         ro = 0;
@@ -320,62 +384,72 @@ void led_matrix_run(led_setup_t *f)
         }
         else
         {
+            led_instruction_t *led_cur_instruction;
+            led_cur_instruction = led_instructions;
+
             //Act on LED
-            for (fcur = 0; fcur < fmax; fcur++)
-            {
-                px = led_cur->px;
-                float pxmod;
-                pxmod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+            if (led_cur_instruction->end) {
+                // If no instructions, use normal pattern
+                led_run_pattern(f, &ro, &go, &bo);
+            } else {
+                uint8_t skip;
 
-                //Add in any moving effects
-                if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
-                {
-                    pxmod *= 100.0f;
-                    pxmod = (uint32_t)pxmod % 10000;
-                    pxmod /= 100.0f;
+                while (!led_cur_instruction->end) {
+                    skip = 0;
 
-                    px -= pxmod;
+                    if (led_cur_instruction->flags & LED_FLAG_MATCH_ID) {
+                        if (
+                            led_cur_instruction->id0 == 0 &&
+                            led_cur_instruction->id1 == 0 &&
+                            led_cur_instruction->id2 == 0 &&
+                            led_cur_instruction->id3 == 0 &&
+                            led_cur->id == 0
+                        ) {
+                            //
+                        } else if (
+                            (0 <= led_cur->id && led_cur->id <= 31) &&
+                            (~led_cur_instruction->id0 & ((uint32_t) 1UL << led_cur->id))
+                        ) {
+                            skip = 1;
+                        } else if (
+                            (32 <= led_cur->id && led_cur->id <= 63) &&
+                            (~led_cur_instruction->id1 & ((uint32_t) 1UL << (led_cur->id - 32)))
+                        ) {
+                            skip = 1;
+                        } else if (
+                            (64 <= led_cur->id && led_cur->id <= 95) &&
+                            (~led_cur_instruction->id2 & ((uint32_t) 1UL << (led_cur->id - 64)))
+                        ) {
+                            skip = 1;
+                        } else if (
+                            (96 <= led_cur->id && led_cur->id <= 127) &&
+                            (~led_cur_instruction->id3 & ((uint32_t) 1UL << (led_cur->id - 96)))
+                        ) {
+                            skip = 1;
+                        }
+                    }
 
-                    if (px > 100) px -= 100;
-                    else if (px < 0) px += 100;
-                }
-                else if ((!led_animation_direction && f[fcur].ef & EF_SCR_L) || (led_animation_direction && (f[fcur].ef & EF_SCR_R)))
-                {
-                    pxmod *= 100.0f;
-                    pxmod = (uint32_t)pxmod % 10000;
-                    pxmod /= 100.0f;
-                    px += pxmod;
+                    if (led_cur_instruction->flags & LED_FLAG_MATCH_LAYER) {
+                        if (layer_state == 0 && led_cur_instruction->layer == 0) {
+                            //
+                        } else if (~layer_state & (1UL << led_cur_instruction->layer)) {
+                            skip = 1;
+                        }
+                    }
 
-                    if (px > 100) px -= 100;
-                    else if (px < 0) px += 100;
-                }
+                    if (!skip) {
+                        if (led_cur_instruction->flags & LED_FLAG_USE_RGB) {
+                            ro = led_cur_instruction->r;
+                            go = led_cur_instruction->g;
+                            bo = led_cur_instruction->b;
+                        } else if (led_cur_instruction->flags & LED_FLAG_USE_PATTERN) {
+                            led_run_pattern(led_setups[led_cur_instruction->pattern_id], &ro, &go, &bo);
+                        } else if (led_cur_instruction->flags & LED_FLAG_USE_ROTATE_PATTERN) {
+                            led_run_pattern(f, &ro, &go, &bo);
+                        }
+                    }
 
-                //Check if LED's px is in current frame
-                if (px < f[fcur].hs) continue;
-                if (px > f[fcur].he) continue;
-                //note: < 0 or > 100 continue
-
-                //Calculate the px within the start-stop percentage for color blending
-                px = (px - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
-
-                //Add in any color effects
-                if (f[fcur].ef & EF_OVER)
-                {
-                    ro = (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                    go = (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                    bo = (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                }
-                else if (f[fcur].ef & EF_SUBTRACT)
-                {
-                    ro -= (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                    go -= (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                    bo -= (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                }
-                else
-                {
-                    ro += (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                    go += (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                    bo += (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+                    led_cur_instruction++;
                 }
             }
         }
