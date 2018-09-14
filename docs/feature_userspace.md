@@ -75,6 +75,27 @@ The reason for this, is that `<name>.h` won't be added in time to add settings (
 
 Please include authorship (your name, github username, email), and optionally [a license that's GPL compatible](https://www.gnu.org/licenses/license-list.html#GPLCompatibleLicenses).
 
+You can use this as a template: 
+```
+Copyright <year> <name> <email> @<github_username>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+```
+
+You'd want to replace the year, name, email and github username with your info. 
+
+Additionally, this is a good place to document your code, if you wish to share it with others. 
 
 # Examples
 
