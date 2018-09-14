@@ -119,6 +119,7 @@ enum {
 #define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_ortho_3x10_wrapper(...)       LAYOUT_ortho_3x10(__VA_ARGS__)
+#define LAYOUT_ortho_5x10_wrapper(...)       LAYOUT_ortho_5x10(__VA_ARGS__)
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
 
@@ -204,7 +205,7 @@ enum {
 #define _______________GherkinLike_1_______________     KC_TAB, _______________Gherkin_Row_1_______________, KC_QUOT
 #define _______________GherkinLike_2_______________     TD(TD_SFT_CAPS), SFT_T(KC_Z), KC_X, KC_C, LT(NUM, KC_V),LT(ETC, KC_B),KC_N, LT(DIR, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT)
 #define _______________GherkinLike_3_______________     KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
-#define _______________GherkinLike_3_OneHand_______     KC_LCTL, KC_LGUI, KC_LALT, ONEHAND, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
+#define _______________GherkinLike_3_OneHand_______     KC_LCTL, KC_LGUI, KC_LALT, ONEHAND, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, ONEHAND, KC_RCTL
 
 /* Qwerty
  * .-------------------------------------------------------------------------------------.
@@ -257,7 +258,7 @@ enum {
 
 /* Gherkin Numbers
  * .-----------------------------------------------------------------------------------------------------------.
- * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    |  DEL   |
+ * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | BACKSP |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -267,7 +268,7 @@ enum {
  * |        |        |        |        |        |        | ENTER  | SHIFT  | RGUI   |        |        |        |
  * '-----------------------------------------------------------------------------------------------------------'
  */
-#define _______________NUMBERS_Row_0_______________   _______, _______________Gherkin_NUM_0_______________,  KC_DEL
+#define _______________NUMBERS_Row_0_______________   _______, _______________Gherkin_NUM_0_______________,  KC_BSPC
 #define _______________NUMBERS_Row_1_______________   _______, _______________Gherkin_NUM_1_______________,  _______
 #define _______________NUMBERS_Row_2_______________   _______, _______________Gherkin_NUM_2_______________,  _______
 #define _______________NUMBERS_Row_3_______________   _______, _______, _______, _______, _______, _______, KC_ENT, KC_RSFT, KC_RGUI, _______, _______, _______
