@@ -99,7 +99,7 @@ Additionally, this is a good place to document your code, if you wish to share i
 
 # Examples
 
-For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna). 
+For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).  
 For a more complicaed example, checkout [`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna)'s userspace.
 
 
