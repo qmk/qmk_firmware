@@ -364,6 +364,14 @@ void led_matrix_run(led_setup_t *f)
         }
     }
 
+    uint8_t highest_active_layer = 0;
+    uint32_t temp_layer_state = layer_state;
+
+    while (temp_layer_state >> 1 != 0) {
+        highest_active_layer++;
+        temp_layer_state = temp_layer_state >> 1;
+    }
+
     while (led_cur < lede && led_this_run < led_per_run)
     {
         ro = 0;
@@ -430,9 +438,7 @@ void led_matrix_run(led_setup_t *f)
                     }
 
                     if (led_cur_instruction->flags & LED_FLAG_MATCH_LAYER) {
-                        if (layer_state == 0 && led_cur_instruction->layer == 0) {
-                            //
-                        } else if (~layer_state & (1UL << led_cur_instruction->layer)) {
+                        if (led_cur_instruction->layer != highest_active_layer) {
                             skip = 1;
                         }
                     }
