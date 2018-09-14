@@ -17,11 +17,9 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#pragma once
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#include "config.h"
 
 /* Use I2C or Serial, not both */
 
@@ -35,9 +33,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 // Underglow
+/*
 #undef RGBLED_NUM
 #define RGBLED_NUM 14    // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP
-
-#endif
+*/

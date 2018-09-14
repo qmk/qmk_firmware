@@ -1,7 +1,6 @@
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
-#include "../lily58.h"
+#include "lily58.h"
 
 //void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
@@ -59,5 +58,4 @@
 		{ R30, R31, R32, R33, R34, R35 }, \
         { KC_NO, R41, R42, R43, R44, R45 } \
 	}
-#endif
 #endif
