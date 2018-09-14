@@ -38,8 +38,14 @@
       {R30, R31, R32, R33, R34, R35, R36, R37} \
   }
 
-/* Raw LED control - no gamma correction curve is applied */
-int set_all_leds_to_raw(uint8_t r, uint8_t g, uint8_t b);
-int set_led_to_raw(uint8_t led, uint8_t r, uint8_t g, uint8_t b);
+#include "wire-protocol-constants.h"
+#define I2C_ADDR_LEFT   (0x58 << 1)
+#define I2C_ADDR_RIGHT  (I2C_ADDR_LEFT + 6)
+#define I2C_TIMEOUT     100
+#define I2C_ADDR(hand)  ((hand) ? I2C_ADDR_RIGHT : I2C_ADDR_LEFT)
+#define LEFT            0
+#define RIGHT           1
+
+#include "leds.h"
 
 /* vim: set ts=2 sw=2 et: */

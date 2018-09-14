@@ -1,4 +1,6 @@
-SRC += i2c_master.c
+SRC += i2c_master.c \
+	   leds.c \
+	   matrix.c
 
 # MCU name
 MCU = atmega32u4

@@ -13,25 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
+
 #include <quantum.h>
-#include <i2c_master.h>
-#include <string.h>
-#include "model01.h"
 
-void matrix_init_kb(void) {
-  /* the bootloader can leave LEDs on, so */
-  set_all_leds_to_raw(0, 0, 0);
-}
-
-void matrix_scan_kb(void) {
-  matrix_scan_user();
-}
-
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-}
-
-__attribute__ ((weak))
-void matrix_init_user(void) {
-}
-
+/* Raw LED control - no gamma correction curve is applied */
+int set_all_leds_to_raw(uint8_t r, uint8_t g, uint8_t b);
+int set_led_to_raw(uint8_t led, uint8_t r, uint8_t g, uint8_t b);
