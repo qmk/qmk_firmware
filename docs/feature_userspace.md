@@ -147,14 +147,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 ## Consolidated Macros
 
-If you wanted to consolidate macros and other functions into your userspace for all of your keymaps, you can do that.  This builds upon the [Customized Functions](#Customized Functions) example above. This lets you maintain a bunch of macros that are shared between the different keyboards, and allow for keyboard specific macros, too. 
+If you wanted to consolidate macros and other functions into your userspace for all of your keymaps, you can do that.  This builds upon the [Customized Functions](#customized-functions) example above. This lets you maintain a bunch of macros that are shared between the different keyboards, and allow for keyboard specific macros, too. 
 
 First, you'd want to go through all of your `keymap.c` files and replace `process_record_user` with `process_record_keymap` instead.   This way, you can still use keyboard specific codes on those boards, and use your custom "global" keycodes as well.   You'll also want to replace `SAFE_RANGE` with `NEW_SAFE_RANGE` so that you wont have any overlapping keycodes
 
 Then add `#include <name.h>` to all of your keymap.c files.  This allows you to use these new keycodes without having to redefine them in each keymap.
 
 Once you've done that, you'll want to set the keycode definitions that you need to the `<name>.h`  file. For instance:
-```
+```c
 #pragma once
 
 #include "quantum.h"
@@ -170,7 +170,7 @@ enum custom_keycodes {
 
 Now you want to create the `<name>.c` file, and add this content to it:
 
-```
+```c
 #include "<name>.h"
 
 __attribute__ ((weak))
