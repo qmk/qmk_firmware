@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#define MINI_CONFIG_H
 
 #include "config_common.h"
 
@@ -46,6 +45,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MATRIX_HAS_GHOST
 
 #define C6_AUDIO
+#ifdef AUDIO_ENABLE
+  #define STARTUP_SONG SONG(STARTUP_SOUND)
+  #define GOODBYE_SONG SONG(GOODBYE_SOUND)
+#endif
 
 /* number of backlight levels */
 #ifdef BACKLIGHT_ENABLE
