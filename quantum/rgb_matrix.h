@@ -143,4 +143,14 @@ void rgblight_decrease_speed(void);
 void rgblight_mode(uint8_t mode);
 uint32_t rgblight_get_mode(void);
 
+typedef struct {
+    void (*init)(void);
+    void (*flush)(void);
+    void (*set_color)(int index, uint8_t r, uint8_t g, uint8_t b);
+    void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
+    void (*test_led)(int index, bool r, bool g, bool b);
+} rgb_matrix_driver_t;
+
+extern const rgb_matrix_driver_t rgb_matrix_driver;
+
 #endif
