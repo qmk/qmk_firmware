@@ -133,8 +133,8 @@ void LYR_finished (qk_tap_dance_state_t *state, void *user_data) {
 	LYRtap_state.state = cur_dance(state);
 	switch (LYRtap_state.state) {
 		case SINGLE_TAP: register_code(KC_PSLS); break;
-		case SINGLE_HOLD: set_single_persistent_default_layer(_GK); break;
-		case DOUBLE_TAP: register_code(KC_PPLS); break;
+		case SINGLE_HOLD: register_code(KC_NO); break;
+		case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
 		case DOUBLE_HOLD: register_code(KC_NO); break;
         case DOUBLE_SINGLE_TAP: register_code(KC_PSLS); unregister_code(KC_PSLS); register_code(KC_PSLS);
   }
@@ -143,8 +143,8 @@ void LYR_finished (qk_tap_dance_state_t *state, void *user_data) {
 void LYR_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (LYRtap_state.state) {
     case SINGLE_TAP: unregister_code(KC_PSLS); break;
-    case SINGLE_HOLD: set_single_persistent_default_layer(_GK); break;
-    case DOUBLE_TAP: unregister_code(KC_PPLS); break;
+    case SINGLE_HOLD: unregister_code(KC_NO); break;
+    case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
     case DOUBLE_HOLD: unregister_code(KC_NO);
     case DOUBLE_SINGLE_TAP: unregister_code(KC_PSLS);
   }
