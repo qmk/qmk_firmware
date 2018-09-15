@@ -18,18 +18,24 @@
 
   uint8_t *o_fb;
 
+uint16_t counterst = 0;
+
 void matrix_init_kb(void) {
   // rgblight_enable();
   // rgblight_mode(1);
   // rgblight_setrgb(0xFF, 0xFF, 0xFF);
 
-  ledDriverInit(2, GPIOA, 0b00000010, &o_fb);
-  testPatternFB(o_fb);
+  ledDriverInit(9, GPIOA, 0b00000010, &o_fb);
+  //testPatternFB(o_fb);
 
 	matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
 	matrix_scan_user();
-  testPatternFB(o_fb);
+  if (counterst == 0) {
+    //testPatternFB(o_fb);
+  }
+  counterst = (counterst + 1) % 1024;
+  rgblight_task();
 }

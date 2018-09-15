@@ -21,7 +21,7 @@ void setColor(uint8_t color, uint8_t *buf,uint32_t mask){
   }
 }
 
-void setColorRGB(Color c, uint8_t *buf, uint32_t mask){
+void setColorRGB(Color c, uint8_t *buf, uint32_t mask) {
   setColor(c.G,buf, mask);
   setColor(c.R,buf+8, mask);
   setColor(c.B,buf+16, mask);
@@ -48,6 +48,10 @@ void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint8_t **o_fb) 
   sPort=port;
   sMask=mask;
   palSetGroupMode(port, sMask, 0, PAL_MODE_OUTPUT_PUSHPULL|PAL_STM32_OSPEED_HIGHEST|PAL_STM32_PUPDR_FLOATING);
+
+  // maybe don't do whole port?
+  // palSetPadMode(port, 8, PAL_MODE_OUTPUT_PUSHPULL|PAL_STM32_OSPEED_HIGHEST|PAL_STM32_PUPDR_FLOATING);
+
 
   // configure pwm timers -
   // timer 2 as master, active for data transmission and inactive to disable transmission during reset period (50uS)
@@ -151,8 +155,14 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
 //     ws2812_write_led(i, ledarray[i].r, ledarray[i].g, ledarray[i].b);
 //     i++;
 //   }
+  uint8_t i = 0;
+  while (i < number_of_leds) {
+    setColor(ledarray[i].g, (fb+24*i), sMask);
+    setColor(ledarray[i].r, (fb+24*i)+8, sMask);
+    setColor(ledarray[i].b, (fb+24*i)+16, sMask);
+    i++;
+  }
 }
-
 
 void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds) {
 

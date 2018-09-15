@@ -125,7 +125,9 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-#define WS2812_LED_N 2
+#define RGBLIGHT_ANIMATIONS
+
+#define WS2812_LED_N 9
 #define RGBLED_NUM WS2812_LED_N
 #define WS2812_TIM_N 2
 #define WS2812_TIM_CH 2
