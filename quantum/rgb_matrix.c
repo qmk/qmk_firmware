@@ -182,47 +182,6 @@ void rgb_matrix_test(void) {
     }
 }
 
-// This tests the LEDs
-// Note that it will change the LED control registers
-// in the LED drivers, and leave them in an invalid
-// state for other backlight effects.
-// ONLY USE THIS FOR TESTING LEDS!
-void rgb_matrix_single_LED_test(void) {
-    static uint8_t color = 0; // 0,1,2 for R,G,B
-    static uint8_t row = 0;
-    static uint8_t column = 0;
-
-    static uint8_t tick = 0;
-    tick++;
-
-    if ( tick > 2 )
-    {
-        tick = 0;
-        column++;
-    }
-    if ( column > MATRIX_COLS )
-    {
-        column = 0;
-        row++;
-    }
-    if ( row > MATRIX_ROWS )
-    {
-        row = 0;
-        color++;
-    }
-    if ( color > 2 )
-    {
-        color = 0;
-    }
-
-    uint8_t led[8], led_count;
-    map_row_column_to_led(row,column,led,&led_count);
-    for(uint8_t i = 0; i < led_count; i++) {
-        rgb_matrix_set_color_all( 40, 40, 40 );
-        rgb_matrix_driver.test_led( led[i], color==0, color==1, color==2 );
-    }
-}
-
 // All LEDs off
 void rgb_matrix_all_off(void) {
     rgb_matrix_set_color_all( 0, 0, 0 );

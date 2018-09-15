@@ -290,25 +290,9 @@ static void flush( void )
     IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 }
 
-static void test_led( int index, bool red, bool green, bool blue )
-{
-    for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
-    {
-        if ( i == index )
-        {
-            IS31FL3731_set_led_control_register( i, red, green, blue );
-        }
-        else
-        {
-            IS31FL3731_set_led_control_register( i, false, false, false );
-        }
-    }
-}
-
 const rgb_matrix_driver_t rgb_matrix_driver = {
     .init = init,
     .flush = flush,
     .set_color = IS31FL3731_set_color,
     .set_color_all = IS31FL3731_set_color_all,
-    .test_led = test_led,
 };

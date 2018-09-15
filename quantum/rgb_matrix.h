@@ -100,8 +100,6 @@ void rgb_matrix_indicators(void);
 void rgb_matrix_indicators_kb(void);
 void rgb_matrix_indicators_user(void);
 
-void rgb_matrix_single_LED_test(void);
-
 void rgb_matrix_init(void);
 void rgb_matrix_setup_drivers(void);
 
@@ -126,7 +124,6 @@ void rgb_matrix_decrease(void);
 // void backlight_get_key_color( uint8_t led, HSV *hsv );
 // void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv );
 
-void rgb_matrix_test_led( uint8_t index, bool red, bool green, bool blue );
 uint32_t rgb_matrix_get_tick(void);
 
 void rgblight_toggle(void);
@@ -153,9 +150,6 @@ typedef struct {
     void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
     /* Flush any buffered changes to the hardware. */
     void (*flush)(void);
-
-    /* Turn on a single LED at full brightness. */
-    void (*test_led)(int index, bool r, bool g, bool b);
 } rgb_matrix_driver_t;
 
 extern const rgb_matrix_driver_t rgb_matrix_driver;
