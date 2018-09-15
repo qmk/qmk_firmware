@@ -147,8 +147,10 @@ void reset_keyboard(void) {
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
   process_midi_all_notes_off();
 #endif
-#if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
-  music_all_notes_off();
+#ifdef AUDIO_ENABLE
+  #ifndef NO_MUSIC_MODE
+    music_all_notes_off();
+  #endif
   uint16_t timer_start = timer_read();
   PLAY_SONG(goodbye_song);
   shutdown_user();
@@ -156,6 +158,7 @@ void reset_keyboard(void) {
     wait_ms(1);
   stop_all_notes();
 #else
+  shutdown_user();
   wait_ms(250);
 #endif
 // this is also done later in bootloader.c - not sure if it's neccesary here
@@ -931,7 +934,7 @@ uint8_t rgb_matrix_task_counter = 0;
 #endif
 
 void matrix_scan_quantum() {
-  #if defined(AUDIO_ENABLE)
+  #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
     matrix_scan_music();
   #endif
 

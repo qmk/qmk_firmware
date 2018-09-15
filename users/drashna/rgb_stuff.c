@@ -267,7 +267,7 @@ void matrix_init_rgb(void) {
       case _COLEMAK:
         rgblight_sethsv_noeeprom_magenta(); break;
       case _DVORAK:
-        rgblight_sethsv_noeeprom_green(); break;
+        rgblight_sethsv_noeeprom_springgreen(); break;
       case _WORKMAN:
         rgblight_sethsv_noeeprom_goldenrod(); break;
       default:
@@ -313,7 +313,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
       rgblight_mode_noeeprom(5);
       break;
     case _LOWER:
-      rgblight_sethsv_noeeprom_orange();
+      rgblight_sethsv_noeeprom_green();
       rgblight_mode_noeeprom(5);
       break;
     case _ADJUST:
@@ -325,7 +325,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
         case _COLEMAK:
           rgblight_sethsv_noeeprom_magenta(); break;
         case _DVORAK:
-          rgblight_sethsv_noeeprom_green(); break;
+          rgblight_sethsv_noeeprom_springgreen(); break;
         case _WORKMAN:
           rgblight_sethsv_noeeprom_goldenrod(); break;
         default:

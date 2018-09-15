@@ -48,6 +48,8 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   USBaspLoader     2048
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
+# Mass storage bootloader on the tada68 uses bin files
+FIRMWARE_FORMAT=bin
 
 # Build Options
 #   comment out to disable the options.

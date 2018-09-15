@@ -1,5 +1,6 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2017 Jack Humbert
+ * Copyright 2018 Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,17 +18,21 @@
 
 
 #include "rgb_matrix.h"
-#include <avr/io.h>
 #include "i2c_master.h"
-#include <util/delay.h>
-#include <avr/interrupt.h>
 #include "progmem.h"
 #include "config.h"
 #include "eeprom.h"
-#include "lufa.h"
 #include <math.h>
 
 rgb_config_t rgb_matrix_config;
+
+#ifndef MAX
+    #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
+#endif
+
+#ifndef MIN
+    #define MIN(a,b) ((a) < (b)? (a): (b))
+#endif
 
 #ifndef RGB_DISABLE_AFTER_TIMEOUT
     #define RGB_DISABLE_AFTER_TIMEOUT 0
@@ -106,16 +111,29 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i, uint8_t
 }
 
 void rgb_matrix_update_pwm_buffers(void) {
+#ifdef IS31FL3731
     IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
     IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#elif defined(IS31FL3733)
+    IS31FL3733_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+    IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#endif
 }
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
+#ifdef IS31FL3731
     IS31FL3731_set_color( index, red, green, blue );
+#elif defined(IS31FL3733)
+    IS31FL3733_set_color( index, red, green, blue );
+#endif
 }
 
 void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
+#ifdef IS31FL3731
     IS31FL3731_set_color_all( red, green, blue );
+#elif defined(IS31FL3733)
+    IS31FL3733_set_color_all( red, green, blue );
+#endif
 }
 
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
@@ -460,7 +478,7 @@ void rgb_matrix_rainbow_moving_chevron(void) {
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         led = g_rgb_leds[i];
         // uint8_t r = g_tick;
-        uint8_t r = 32;
+        uint8_t r = 128;
         hsv.h = (1.5 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed)) * abs(led.point.y - 32.0)* sin(r * PI / 128) + (1.5 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed)) * (led.point.x - (g_tick / 256.0 * 224)) * cos(r * PI / 128) + rgb_matrix_config.hue;
         rgb = hsv_to_rgb( hsv );
         rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
@@ -752,16 +770,28 @@ void rgb_matrix_init(void) {
 void rgb_matrix_setup_drivers(void) {
   // Initialize TWI
   i2c_init();
+#ifdef IS31FL3731
   IS31FL3731_init( DRIVER_ADDR_1 );
   IS31FL3731_init( DRIVER_ADDR_2 );
+#elif defined (IS31FL3733)
+  IS31FL3733_init( DRIVER_ADDR_1 );
+#endif
 
   for ( int index = 0; index < DRIVER_LED_TOTAL; index++ ) {
     bool enabled = true;
     // This only caches it for later
+#ifdef IS31FL3731
     IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
+#elif defined (IS31FL3733)
+    IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
+#endif
   }
   // This actually updates the LED drivers
+#ifdef IS31FL3731
   IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#elif defined (IS31FL3733)
+  IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
+#endif
 }
 
 // Deals with the messy details of incrementing an integer
@@ -811,11 +841,19 @@ void rgb_matrix_test_led( uint8_t index, bool red, bool green, bool blue ) {
     {
         if ( i == index )
         {
+#ifdef IS31FL3731
             IS31FL3731_set_led_control_register( i, red, green, blue );
+#elif defined (IS31FL3733)
+            IS31FL3733_set_led_control_register( i, red, green, blue );
+#endif
         }
         else
         {
+#ifdef IS31FL3731
             IS31FL3731_set_led_control_register( i, false, false, false );
+#elif defined (IS31FL3733)
+            IS31FL3733_set_led_control_register( i, false, false, false );
+#endif
         }
     }
 }
