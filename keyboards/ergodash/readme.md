@@ -1,6 +1,6 @@
 # ErgoDash
 
-![ErgoDash](https://github.com/omkbd/picture/blob/master/IMG_20180630_1702141.jpg)
+![ErgoDash](https://github.com/omkbd/picture/blob/master/Ergodash.jpg)
 
 Keyboard Maintainer: [omkbd](https://github.com/omkbd) [@omkbd](https://twitter.com/omkbd)  
 Hardware Supported: ErgoDash PCB, Pro Micro ATmega32u4  
@@ -15,4 +15,4 @@ See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
 
 # Layout
 ![layout](https://github.com/omkbd/picture/blob/master/ergodash-layout.png)
-![PCB](https://github.com/omkbd/picture/blob/master/IMG_20180630_2022231.jpg)
+![PCB](https://github.com/omkbd/picture/blob/master/Ergodash_PCB.jpg)
