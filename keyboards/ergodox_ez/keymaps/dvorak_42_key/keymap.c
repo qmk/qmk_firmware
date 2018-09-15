@@ -63,6 +63,7 @@ enum custom_keycodes {
 #define SCREEN_NAV   5 // navigate between linux screen tabs 
 #define BROWSER_CONTROL 6 // control browser and mouse
 #define COMBINED      	7 // combined numbers and symbols layer
+#define ANDROID_STUDIO 8
 
 
 // macros
@@ -145,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
       OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
-      OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
+      OSL(ANDROID_STUDIO), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
       MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
 
       // left thumb cluster
@@ -294,7 +295,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-
+    // android studio shortcuts
+  [ANDROID_STUDIO] = LAYOUT_ergodox(
+       // left hand
+       KC_NO,  KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       KC_TRNS,KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+                KC_TRNS, LALT(KC_LEFT), LALT(KC_RIGHT),   LCTL(LALT(KC_N)),          LCTL(KC_N),        KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       LCTL(LALT(KC_B)), KC_TRNS,                   KC_TRNS,             KC_TRNS,
+                         // bottom row
+                         KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),
 
   [COMBINED] = LAYOUT_ergodox(
 
