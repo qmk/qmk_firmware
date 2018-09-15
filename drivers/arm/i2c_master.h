@@ -24,7 +24,7 @@
  */
 
 #include "ch.h"
-#include <hal.h>
+#include "hal.h"
 
 #ifndef I2C_DRIVER
   #define I2C_DRIVER I2CD1
