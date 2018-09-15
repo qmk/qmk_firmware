@@ -2,10 +2,10 @@
 
 A layout based on raylas' layout with some updates on the fn layer especially around media keys.
 
-### Layer 0
+### Main layer
 
 ![Imgur](https://i.imgur.com/UColvfc.png)
 
-### Layer 1
+### Fn layer
 
 ![Imgur](https://i.imgur.com/pDQFoCQ.png)
