@@ -60,3 +60,8 @@ UNICODE_ENABLE = no         # Unicode
 
 CUSTOM_MATRIX = yes
 CIE1931_CURVE = yes
+
+SRC += $(QUANTUM_DIR)/rgb_matrix.c \
+	   $(QUANTUM_DIR)/color.c
+RGB_MATRIX_ENABLE = model01
+OPT_DEFS += -DRGB_MATRIX_ENABLE
