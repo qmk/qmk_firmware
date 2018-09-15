@@ -59,9 +59,6 @@ MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 
 CUSTOM_MATRIX = yes
-CIE1931_CURVE = yes
 
-SRC += $(QUANTUM_DIR)/rgb_matrix.c \
-	   $(QUANTUM_DIR)/color.c
-RGB_MATRIX_ENABLE = model01
-OPT_DEFS += -DRGB_MATRIX_ENABLE
+# You can set RGB_MATRIX_ENABLE = no in your rules.mk to disable this and save the Flash
+RGB_MATRIX_ENABLE = custom	# Enable RGB matrix effects (+10000).
