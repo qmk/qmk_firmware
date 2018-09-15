@@ -144,10 +144,17 @@ void rgblight_mode(uint8_t mode);
 uint32_t rgblight_get_mode(void);
 
 typedef struct {
+    /* Perform any initialisation required for the other driver functions to work. */
     void (*init)(void);
-    void (*flush)(void);
+
+    /* Set the colour of a single LED in the buffer. */
     void (*set_color)(int index, uint8_t r, uint8_t g, uint8_t b);
+    /* Set the colour of all LEDS on the keyboard in the buffer. */
     void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
+    /* Flush any buffered changes to the hardware. */
+    void (*flush)(void);
+
+    /* Turn on a single LED at full brightness. */
     void (*test_led)(int index, bool r, bool g, bool b);
 } rgb_matrix_driver_t;
 
