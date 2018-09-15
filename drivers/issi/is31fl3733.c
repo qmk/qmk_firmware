@@ -252,6 +252,8 @@ void IS31FL3733_update_led_control_registers( uint8_t addr1, uint8_t addr2 )
     }
 }
 
+#ifdef RGB_MATRIX_ENABLE
+
 static void init( void )
 {
     i2c_init();
@@ -277,3 +279,5 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
     .set_color = IS31FL3733_set_color,
     .set_color_all = IS31FL3733_set_color_all,
 };
+
+#endif
