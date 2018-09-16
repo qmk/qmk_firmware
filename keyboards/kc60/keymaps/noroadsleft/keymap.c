@@ -217,9 +217,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MC_UNDO:
       if (record->event.pressed) {
         if ( modifiers & MODS_SHIFT_MASK ) {
-          SEND_STRING( SS_DOWN(X_LSHIFT) SS_DOWN(X_LGUI) "Z" SS_UP(X_LGUI) SS_UP(X_LSHIFT) );
+          SEND_STRING( SS_DOWN(X_LSHIFT) SS_DOWN(X_LGUI) SS_TAP(X_Z) SS_UP(X_LGUI) SS_UP(X_LSHIFT) );
         } else {
-          SEND_STRING( SS_DOWN(X_LGUI) "Z" SS_UP(X_LGUI) );
+          SEND_STRING( SS_DOWN(X_LGUI) SS_TAP(X_Z) SS_UP(X_LGUI) );
         }
       };
       return false;
@@ -227,9 +227,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MC_PSTE:
       if (record->event.pressed) {
         if ( modifiers & MODS_SHIFT_MASK ) {
-          SEND_STRING( SS_DOWN(X_LSHIFT) SS_DOWN(X_LGUI) SS_DOWN(X_LALT) "V" SS_UP(X_LALT) SS_UP(X_LGUI) SS_UP(X_LSHIFT) );
+          SEND_STRING( SS_DOWN(X_LSHIFT) SS_DOWN(X_LGUI) SS_DOWN(X_LALT) SS_TAP(X_V) SS_UP(X_LALT) SS_UP(X_LGUI) SS_UP(X_LSHIFT) );
         } else {
-          SEND_STRING( SS_DOWN(X_LGUI) "V" SS_UP(X_LGUI) );
+          SEND_STRING( SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI) );
         }
       };
       return false;
