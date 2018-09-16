@@ -14,10 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "config_common.h"
+#pragma once
 
 // place overrides here
 #undef MATRIX_ROW_PINS
@@ -46,5 +43,3 @@
 
 // set flashing LED with QMK DFU
 #define QMK_LED B0
-
-#endif
