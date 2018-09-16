@@ -225,6 +225,8 @@ int main(void)
     {
         if (usb_state == USB_STATE_POWERDOWN)
         {
+            uint32_t timer_led = timer_read32();
+
             led_on;
             if (led_enabled)
             {
@@ -233,7 +235,10 @@ int main(void)
                     I2C3733_Control_Set(0);
                 }
             }
-            while (usb_state == USB_STATE_POWERDOWN) {}
+            while (usb_state == USB_STATE_POWERDOWN)
+            {
+                if (timer_read32() - timer_led > 1000) led_off; //Good to indicate went to sleep, but only for a second
+            }
             if (led_enabled)
             {
                 for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
