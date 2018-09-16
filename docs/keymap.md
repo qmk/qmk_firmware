@@ -93,7 +93,6 @@ At the top of the file you'll find this:
 
     // Helpful defines
     #define GRAVE_MODS  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
-    #define _______ KC_TRNS
 
     // Each layer gets a name for readability.
     // The underscores don't mean anything - you can
@@ -105,7 +104,7 @@ At the top of the file you'll find this:
     #define _FL 1
     #define _CL 2
 
-These are some handy definitions we can use when building our keymap and our custom function. The `GRAVE_MODS` definition will be used later in our custom function. The `_______` define makes it easier to see what keys a layer is overriding, while the `_BL`, `_FL`, and `_CL` defines make it easier to refer to each of our layers.
+These are some handy definitions we can use when building our keymap and our custom function. The `GRAVE_MODS` definition will be used later in our custom function, and the following `_BL`, `_FL`, and `_CL` defines make it easier to refer to each of our layers.
 
 ### Layers and Keymaps
 
