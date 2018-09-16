@@ -1,4 +1,4 @@
-/* Copyright 2018 Wilba
+/* Copyright 2018 Jason Williams (Wilba)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,9 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "u80_a.h"
-#include "i2c_master.h"
-#include "is31fl3736.h"
+#include "drivers/avr/i2c_master.h"
+#include "drivers/issi/is31fl3736.h"
 
 #define ISSI_ADDR_DEFAULT 0x50
 
@@ -39,7 +40,7 @@ void backlight_set_brightness_all( uint8_t value )
 // This is (F_CPU/1024) / 20 Hz
 // = 15625 Hz / 20 Hz
 // = 781
-#define TIMER3_TOP 260
+#define TIMER3_TOP 781
 
 void backlight_timer_init(void)
 {

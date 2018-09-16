@@ -1,4 +1,4 @@
-/* Copyright 2018 Wilba
+/* Copyright 2018 Jason Williams (Wilba)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
 
-#ifndef RAMA_U80_A_H
-#define RAMA_U80_A_H
+#pragma once
+
+#include "quantum.h"
 
 #define ____ KC_NO
 
@@ -41,4 +41,3 @@
     { K500, K501, K502, ____, ____, ____, K506, ____, ____, ____, K510, K511, K512, K513, K514, K515, K516 }  \
 }
 
-#endif // RAMA_U80_A

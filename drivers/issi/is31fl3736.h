@@ -1,6 +1,4 @@
-/* Copyright 2017 Jason Williams
- * Copyright 2018 Jack Humbert
- * Copyright 2018 Yiancar
+/* Copyright 2018 Jason Williams (Wilba)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,9 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-#ifndef IS31FL3736_DRIVER_H
-#define IS31FL3736_DRIVER_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -174,4 +170,3 @@ void IS31FL3736_update_led_control_registers( uint8_t addr1, uint8_t addr2 );
 #define L_7  0xBC
 #define L_8  0xBE
 
-#endif // IS31FL3736_DRIVER_H
