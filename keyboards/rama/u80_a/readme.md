@@ -2,7 +2,7 @@
 
 ![RAMA U80-A](https://something.com/something.jpg)
 
-A TKL keyboard. [More info at RAMA WORKS](https://rama.works/u80a)
+A TKL keyboard. [More info at RAMA WORKS](https://rama.works/#/tkl-a/)
 
 Keyboard Maintainer: [Wilba6582](https://github.com/Wilba6582)  
 Hardware Supported: RAMA U80-A PCB  
