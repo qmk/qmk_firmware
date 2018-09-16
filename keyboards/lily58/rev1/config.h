@@ -1,6 +1,7 @@
 /*
 Copyright 2012 Jun Wako <wakojun@gmail.com>
 Copyright 2015 Jack Humbert
+Copyright 2017 F_YUUCHI
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,44 +17,35 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV2_CONFIG_H
-#define REV2_CONFIG_H
+#pragma once
 
+//#include QMK_KEYBOARD_CONFIG_H
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0xFC51
+#define PRODUCT_ID      0x0058 
 #define DEVICE_VER      0x0100
-#define MANUFACTURER    Omkbd
-#define PRODUCT         ErgoDash
-#define DESCRIPTION     Power
+#define MANUFACTURER    F_YUUCHI
+#define PRODUCT         Lily58
+#define DESCRIPTION     Lily58 is 6×4+5keys column-staggered split keyboard.
 
 /* key matrix size */
 // Rows are doubled-up
 #define MATRIX_ROWS 10
-#define MATRIX_COLS 7
+#define MATRIX_COLS 6
 
 // wiring of each half
-#define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
-// #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
+#define MATRIX_ROW_PINS { C6, D7, E6, B4, B5 }
+#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
+
+#define CATERINA_BOOTLOADER
 
 /* define tapping term */
-#define TAPPING_TERM 120
+#define TAPPING_TERM 100
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
-
-#define C6_AUDIO
-
-/* number of backlight levels */
-#ifdef BACKLIGHT_ENABLE
-  #define BACKLIGHT_PIN B6
-  #define BACKLIGHT_LEVELS 7
-//  #define BACKLIGHT_BREATHING
-//  #define BREATHING_PERIOD 4
-#endif
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -71,7 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #define RGBLIGHT_TIMER
-#define RGBLED_NUM 24    // Number of LEDs
+#define RGBLED_NUM 14    // Number of LEDs
 #define ws2812_PORTREG  PORTD
 #define ws2812_DDRREG   DDRD
 
@@ -92,6 +84,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-
-#endif
