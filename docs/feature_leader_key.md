@@ -5,7 +5,7 @@ If you've ever used Vim, you know what a Leader key is. If not, you're about to 
 That's what `KC_LEAD` does. Here's an example:
 
 1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `KC_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
-2. Include the line `#define LEADER_TIMEOUT 300` somewhere in your keymap.c file, probably near the top. The 300 there is 300ms -- that's how long you have for the sequence of keys following the leader. You can tweak this value for comfort, of course.
+2. Include the line `#define LEADER_TIMEOUT 300` in your config.h. The 300 there is 300ms -- that's how long you have for the sequence of keys following the leader. You can tweak this value for comfort, of course.
 3. Within your `matrix_scan_user` function, do something like this:
 
 ```
