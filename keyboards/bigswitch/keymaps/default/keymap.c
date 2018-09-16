@@ -25,19 +25,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 LAYOUT(SLEEP_OSX),
 
 };
-
-volatile uint8_t runonce = true;
-static uint16_t my_timer;
-
-void matrix_init_user(void) {
-  my_timer = timer_read();
-}
-
-void matrix_scan_user(void) {
-  if (runonce && timer_elapsed(my_timer) > 1000) {
-    runonce = false;
-    rgblight_sethsv_noeeprom(0x0, 0xff, 0x80);
-    rgblight_mode_noeeprom(9);
-    rgblight_enable_noeeprom();
-  }
-}
