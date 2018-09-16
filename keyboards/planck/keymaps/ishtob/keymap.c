@@ -8,64 +8,9 @@
   #include "audio.h"
 #endif
 #include "eeconfig.h"
-
-//Macro definition
-#if (__has_include("macros_private.h") && !defined(SECRETS))
-#include "macros_private.h"
-#else
-#include "macros_public.h"
-#endif
+#include "ishtob.h"
 
 extern keymap_config_t keymap_config;
-
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
-#define _PLOVER 5
-#define _FNLAYER 6
-#define _NUMLAY 7
-#define _MOUSECURSOR 8
-#define _ADJUST 16
-
-enum planck_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
-  PLOVER,
-  LOWER,
-  RAISE,
-  BACKLIT,
-  EXT_PLV,
-  DFU,
-};
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-// Custom macros
-#define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
-#define CTL_TTAB    CTL_T(KC_TAB)               // Tap for Esc, hold for Ctrl
-#define CTL_ENT     CTL_T(KC_ENT)               // Tap for Enter, hold for Ctrl
-#define SFT_ENT     SFT_T(KC_ENT)               // Tap for Enter, hold for Shift
-// Requires KC_TRNS/_______ for the trigger key in the destination layer
-#define LT_FN(kc)   LT(_FNLAYER, kc)            // L-ayer T-ap Function Layer
-#define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
-#define LT_RAI(kc)  LT(_RAISE, kc)              // L-ayer T-ap to Raise
-#define TG_NUMLAY   TG(_NUMLAY)                 //Toggle for layer _NUMLAY
-#define P_CITRIX    M(KC_CITRIX)                // My login macros
-#define P_MPASS     M(KC_MPASS)
-#define P_META      M(KC_META)
-#define O_DAYRN     M(KC_DAYRN)                 // My work macros
-#define O_AUTODC    M(KC_AUTODC)
-#define O_RTQ6H     M(KC_RTQ6H)
-#define M_EMAIL     M(KC_EMAIL)                 // My personal email
-#define M_EMAIL2    M(KC_EMAIL2)                // My work email
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
@@ -280,7 +225,7 @@ void persistant_default_layer_set(uint16_t default_layer) {
 void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -368,36 +313,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case DFU:
-      if (record->event.pressed) {
-        clear_keyboard();
-      #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
-        process_midi_all_notes_off();
-      #endif
-      #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
-       music_all_notes_off();
-        uint16_t timer_start = timer_read();
-        PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
-        shutdown_user();
-      while(timer_elapsed(timer_start) < 250)
-        wait_ms(1);
-        stop_all_notes();
-      #else
-        wait_ms(250);
-      #endif
-      // this is also done later in bootloader.c - not sure if it's neccesary here
-      #ifdef BOOTLOADER_CATERINA
-        *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
-      #endif
-        bootloader_jump();
-      }
-      return false;
-      break;      
   }
   return true;
 }
 
-void matrix_init_user(void) {
+void matrix_init_keymap(void) {
     #ifdef AUDIO_ENABLE
         startup_user();
     #endif
@@ -407,7 +327,9 @@ void matrix_init_user(void) {
 
 void startup_user()
 {
+    #ifdef RGB_MATRIX_ENABLE
     rgblight_mode(RGB_MATRIX_CYCLE_ALL);
+    #endif //RGB_matrix
     wait_ms(20); // gets rid of tick
     PLAY_NOTE_ARRAY(tone_startup, false, 0);
 }
@@ -430,5 +352,4 @@ void music_scale_user(void)
 }
 
 #endif
-
 

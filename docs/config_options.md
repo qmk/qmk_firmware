@@ -91,6 +91,8 @@ This is a C header file that is one of the first things included, and will persi
   * key combination that allows the use of magic commands (useful for debugging)
 * `#define USB_MAX_POWER_CONSUMPTION`
   * sets the maximum power (in mA) over USB for the device (default: 500)
+* `#define SCL_CLOCK 100000L`
+  * sets the SCL_CLOCK speed for split keyboards. The default is `100000L` but some boards can be set to `400000L`.
 
 ## Features That Can Be Disabled
 
@@ -126,14 +128,18 @@ If you define these options you will enable the associated feature, which may in
   * how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
+  * See [Retro Tapping](feature_advanced_keycodes.md#retro-tapping) for details
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
   * makes tap and hold keys work better for fast typers who don't want tapping term set above 500
+  * See [Permissive Hold](feature_advanced_keycodes.md#permissive-hold) for details
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
+  * See [Mod tap interrupt](feature_advanced_keycodes.md#mod-tap-interrupt) for details
 * `#define TAPPING_FORCE_HOLD`
   * makes it possible to use a dual role key as modifier shortly after having been tapped
+  * See [Hold after tap](feature_advanced_keycodes.md#hold-after-tap)
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
 * `#define ONESHOT_TIMEOUT 300`
@@ -175,6 +181,16 @@ If you define these options you will enable the associated feature, which may in
 * `#define MOUSEKEY_MAX_SPEED 7`
 * `#define MOUSEKEY_WHEEL_DELAY 0`
 
+## Split Keyboard Options
+
+Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk
+
+* `#define SPLIT_HAND_PIN B7`
+  * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace 'B7' with the pin you are using. This is optional and you can still use the EEHANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
+  
+* `#define USE_I2C`
+  * For using I2C instead of Serial (defaults to serial)
+
 # The `rules.mk` File
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.
@@ -183,6 +199,8 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 
 * `DEFAULT_FOLDER`
   * Used to specify a default folder when a keyboard has more than one sub-folder.
+* `FIRMWARE_FORMAT`
+  * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
   * Used to add files to the compilation/linking list.
 * `LAYOUTS`
@@ -228,3 +246,9 @@ Use these to enable or disable building certain features. The more you have enab
   * Unicode
 * `BLUETOOTH_ENABLE`
   * Enable Bluetooth with the Adafruit EZ-Key HID
+* `SPLIT_KEYBOARD`
+  * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
+* `WAIT_FOR_USB`
+  * Forces the keyboard to wait for a USB connection to be established before it starts up
+* `NO_USB_STARTUP_CHECK`
+  * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.

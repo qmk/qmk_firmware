@@ -20,6 +20,11 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+// Aliases to make the keymap more uniform
+#define GUI_END GUI_T(KC_END)
+#define MED_DEL LT(_MEDIA, KC_DEL)
+#define KPD_ENT LT(_KEYPAD, KC_ENT)
+
 /*
 
         Function Keys on All Layers (Keypad toggles):
@@ -96,9 +101,9 @@ enum custom_keycodes {
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	|        |      |      |      |      |      ||      |      |      |      |      |        |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	|        |      |      |      |      |      ||      | Mute | Vol- | Vol+ |      |        |
+	|        |      | Mute | Vol- | Vol+ |      ||      |      |      |      |      |        |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	|        |      |      |      |      |      || Stop | Prev | Play | Next | Sel  |        |
+	|        | Stop | Prev | Play | Next | Sel  ||      |      |      |      |      |        |
 	`--------+------+------+------+------+------'`------+------+------+------+------+--------'
 	         |      |      |      |      |              |      |      |      |      |
 	         `---------------------------'              `---------------------------'
@@ -116,12 +121,12 @@ enum custom_keycodes {
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| Sleep  |      |      |      |      |      ||      | KP 7 | KP 8 | KP 9 | KP - |        |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	| Wake   |      |QWERTY|Colemk|Dvorak|      ||      | KP 4 | KP 5 | KP 6 | KP + |        |
+	| Wake   |      | Mute | Vol- | Vol+ |      ||      | KP 4 | KP 5 | KP 6 | KP + |        |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	|        |      |      |      |      |      ||      | KP 1 | KP 2 | KP 3 |KP Ent|        |
+	|        | Stop | Prev | Play | Next | Sel  ||      | KP 1 | KP 2 | KP 3 |KP Ent|        |
 	`--------+------+------+------+------+------'`------+------+------+------+------+--------'
-	         |      |      |      |      |              |      |      | KP . |KP Ent|      |
-	         `---------------------------'              `----------------------------------'
+	         |      |QWERTY|Colemk|Dvorak|              |      |      | KP . |KP Ent|
+	         `---------------------------'              `---------------------------'
 	                              ,-------------.,-------------.
 	                              |      |      ||      |      |
 	                       ,------|------|------||------+------+------.
@@ -144,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Left Thumb
                     KC_LCTL, KC_LALT,
                              KC_HOME,
-           KC_BSPC, LT(_MEDIA, KC_DEL),  KC_END,
+           KC_BSPC, MED_DEL, GUI_END,
 
            // Right Hand
            KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, TG(_KEYPAD),  RESET,
@@ -156,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Right Thumb
            KC_RGUI, KC_RCTL,
            KC_PGUP,
-           KC_PGDN, LT(_KEYPAD, KC_ENT),  KC_SPC
+           KC_PGDN, KPD_ENT, KC_SPC
     ),
 
 [_QWERTY] = LAYOUT (
@@ -170,7 +175,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Left Thumb
                     KC_LCTL, KC_LALT,
                              KC_HOME,
-           KC_BSPC, LT(_MEDIA, KC_DEL),  KC_END,
+           KC_BSPC, MED_DEL, KC_END,
 
            // Right Hand
            KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, TG(_KEYPAD),  RESET,
@@ -182,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Right Thumb
            KC_RGUI, KC_RCTL,
            KC_PGUP,
-           KC_PGDN, LT(_KEYPAD, KC_ENT),  KC_SPC
+           KC_PGDN, KPD_ENT, KC_SPC
     ),
 
 [_COLEMAK] = LAYOUT (
@@ -196,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Left Thumb
                     KC_LCTL, KC_LALT,
                              KC_HOME,
-           KC_BSPC, LT(_MEDIA, KC_DEL),  KC_END,
+           KC_BSPC, MED_DEL, KC_END,
 
            // Right Hand
            KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_PSCR, KC_SLCK, KC_PAUS, TG(_KEYPAD),  RESET,
@@ -208,7 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            // Right Thumb
            KC_RGUI, KC_RCTL,
            KC_PGUP,
-           KC_PGDN, LT(_KEYPAD, KC_ENT),  KC_SPC
+           KC_PGDN, KPD_ENT, KC_SPC
     ),
 
 [_MEDIA] = LAYOUT (
@@ -216,8 +221,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
            KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,
            _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
-           _______, _______, _______, _______, _______, _______,
+           _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,
+           _______, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL,
                     _______, _______, _______, _______,
            // Left Thumb
                     _______, _______,
@@ -228,8 +233,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
            KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12,
            _______, _______, _______, _______, _______, _______,
-           _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______,
-           KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL, _______,
+           _______, _______, _______, _______, _______, _______,
+           _______, _______, _______, _______, _______, _______,
                     _______, _______, _______, _______,
            // Right Thumb
            _______, _______,
@@ -242,9 +247,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______, _______, _______, _______, _______, _______, _______, _______, _______,
            KC_PWR,  _______, _______, _______, _______, _______,
            KC_SLEP, _______, _______, _______, _______, _______,
-           KC_WAKE, _______, QWERTY,  COLEMAK, DVORAK,  _______,
-           _______, _______, _______, _______, _______, _______,
-                    _______, _______, _______, _______,
+           KC_WAKE, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______,
+           _______, KC_MSTP, KC_MPRV, KC_MPLY, KC_MNXT, KC_MSEL,
+                    _______, QWERTY,  COLEMAK, DVORAK,
            // Left Thumb
                     _______, _______,
                              _______,
@@ -299,58 +304,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-// getting the LEDs working...
-void led_set_user(uint8_t usb_led) {
-
-    DDRF |= (1<<0); // Keypad LED
-    if (usb_led & (1<<USB_LED_COMPOSE)) {
-        PORTF |= (1<<0);
-    } else {
-        PORTF &= ~(1<<0);
-    }
-
-    DDRF |= (1<<1); // ScrLock LED
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        PORTF |= (1<<1);
-    } else {
-        PORTF &= ~(1<<1);
-    }
-
-    DDRF |= (1<<2); // NumLock LED
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        PORTF |= (1<<2);
-    } else {
-        PORTF &= ~(1<<2);
-    }
-
-    DDRF |= (1<<3); // CapsLock LED
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        PORTF |= (1<<3);
-    } else {
-        PORTF &= ~(1<<3);
-    }
-
-}
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-
 };
-
-void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        PORTF |= (1<<2);
-    } else {
-        PORTF &= ~(1<<2);
-    }
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        PORTF |= (1<<3);
-    } else {
-        PORTF &= ~(1<<3);
-    }
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        PORTF |= (1<<1);
-    } else {
-        PORTF &= ~(1<<1);
-    }
-}
