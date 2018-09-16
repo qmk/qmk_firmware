@@ -36,8 +36,27 @@ cp -r quantum/template/$KEYBOARD_TYPE/. keyboards/$KEYBOARD
 
 mv keyboards/${KEYBOARD}/template.c keyboards/${KEYBOARD}/${KEYBOARD_NAME}.c
 mv keyboards/${KEYBOARD}/template.h keyboards/${KEYBOARD}/${KEYBOARD_NAME}.h
-find keyboards/${KEYBOARD} -type f -exec sed -i '' -e "s;%KEYBOARD%;${KEYBOARD_NAME};g" {} \;
-find keyboards/${KEYBOARD} -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g" {} \;
+
+
+
+
+# absorb difference command between GNU sed and BSD sed
+ARGS_NORMAL="s;%KEYBOARD%;${KEYBOARD_NAME};g"
+ARGS_UPPER="s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g"
+
+for file in $(find keyboards/${KEYBOARD} -type f); do 
+
+  if sed --version 2>/dev/null | grep -q GNU; then
+    sed -i -e ${ARGS_NORMAL} ${file}     # GNU sed
+    sed -i -e ${ARGS_UPPER} ${file}
+  else
+    sed -i '' -e ${ARGS_NORMAL} ${file}  # BSD sed, doesn't have '--version' option thus false
+    sed -i '' -e ${ARGS_UPPER} ${file}
+  fi
+done
+
+# find keyboards/${KEYBOARD} -type f -exec sed -i '' -e "s;%KEYBOARD%;${KEYBOARD_NAME};g" {} \;
+# find keyboards/${KEYBOARD} -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g" {} \;
 
 echo "######################################################"
 echo "# /keyboards/$KEYBOARD project created. To start"
