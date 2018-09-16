@@ -55,6 +55,7 @@
 #include <util/atomic.h>
 #include "outputselect.h"
 #include "velocikey.h"
+#include "rgblight_reconfig.h"
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
