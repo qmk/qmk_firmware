@@ -147,8 +147,10 @@ void reset_keyboard(void) {
 #if defined(MIDI_ENABLE) && defined(MIDI_BASIC)
   process_midi_all_notes_off();
 #endif
-#if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
-  music_all_notes_off();
+#ifdef AUDIO_ENABLE
+  #ifndef NO_MUSIC_MODE
+    music_all_notes_off();
+  #endif
   uint16_t timer_start = timer_read();
   PLAY_SONG(goodbye_song);
   shutdown_user();
@@ -156,6 +158,7 @@ void reset_keyboard(void) {
     wait_ms(1);
   stop_all_notes();
 #else
+  shutdown_user();
   wait_ms(250);
 #endif
 // this is also done later in bootloader.c - not sure if it's neccesary here
@@ -442,75 +445,97 @@ bool process_record_quantum(keyrecord_t *record) {
     return false;
   case RGB_MODE_PLAIN:
     if (record->event.pressed) {
-      rgblight_mode(1);
+      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
       #ifdef SPLIT_KEYBOARD
           RGB_DIRTY = true;
       #endif
     }
     return false;
   case RGB_MODE_BREATHE:
+  #ifdef RGBLIGHT_EFFECT_BREATHING
     if (record->event.pressed) {
-      if ((2 <= rgblight_get_mode()) && (rgblight_get_mode() < 5)) {
+      if ((RGBLIGHT_MODE_BREATHING <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_BREATHING_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(2);
+        rgblight_mode(RGBLIGHT_MODE_BREATHING);
       }
     }
+  #endif
     return false;
   case RGB_MODE_RAINBOW:
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
     if (record->event.pressed) {
-      if ((6 <= rgblight_get_mode()) && (rgblight_get_mode() < 8)) {
+      if ((RGBLIGHT_MODE_RAINBOW_MOOD <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_MOOD_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(6);
+        rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
       }
     }
+  #endif
     return false;
   case RGB_MODE_SWIRL:
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
     if (record->event.pressed) {
-      if ((9 <= rgblight_get_mode()) && (rgblight_get_mode() < 14)) {
+      if ((RGBLIGHT_MODE_RAINBOW_SWIRL <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_SWIRL_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(9);
+        rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
       }
     }
+  #endif
     return false;
   case RGB_MODE_SNAKE:
+  #ifdef RGBLIGHT_EFFECT_SNAKE
     if (record->event.pressed) {
-      if ((15 <= rgblight_get_mode()) && (rgblight_get_mode() < 20)) {
+      if ((RGBLIGHT_MODE_SNAKE <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_SNAKE_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(15);
+        rgblight_mode(RGBLIGHT_MODE_SNAKE);
       }
     }
+  #endif
     return false;
   case RGB_MODE_KNIGHT:
+  #ifdef RGBLIGHT_EFFECT_KNIGHT
     if (record->event.pressed) {
-      if ((21 <= rgblight_get_mode()) && (rgblight_get_mode() < 23)) {
+      if ((RGBLIGHT_MODE_KNIGHT <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_KNIGHT_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(21);
+        rgblight_mode(RGBLIGHT_MODE_KNIGHT);
       }
     }
+  #endif
     return false;
   case RGB_MODE_XMAS:
+  #ifdef RGBLIGHT_EFFECT_CHRISTMAS
     if (record->event.pressed) {
-      rgblight_mode(24);
+      rgblight_mode(RGBLIGHT_MODE_CHRISTMAS);
     }
+  #endif
     return false;
   case RGB_MODE_GRADIENT:
+  #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
     if (record->event.pressed) {
-      if ((25 <= rgblight_get_mode()) && (rgblight_get_mode() < 34)) {
+      if ((RGBLIGHT_MODE_STATIC_GRADIENT <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_STATIC_GRADIENT_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(25);
+        rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT);
       }
     }
+  #endif
     return false;
   case RGB_MODE_RGBTEST:
+  #ifdef RGBLIGHT_EFFECT_RGB_TEST
     if (record->event.pressed) {
-      rgblight_mode(35);
+      rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
     }
+  #endif
     return false;
   #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     #ifdef PROTOCOL_LUFA
@@ -931,7 +956,7 @@ uint8_t rgb_matrix_task_counter = 0;
 #endif
 
 void matrix_scan_quantum() {
-  #if defined(AUDIO_ENABLE)
+  #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
     matrix_scan_music();
   #endif
 

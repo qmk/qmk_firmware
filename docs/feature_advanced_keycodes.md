@@ -1,6 +1,6 @@
 # Advanced Keycodes
 
-Your keymap can include keycodes that are more advanced than normal, for example shifted keys. This page documents the functions that are available to you.
+Your keymap can include keycodes that are more advanced than normal, for example keys that switch layers or send modifiers when held, but send regular keycodes when tapped. This page documents the functions that are available to you.
 
 ### Assigning Custom Names
 
@@ -13,9 +13,11 @@ People often define custom names using `#define`. For example:
 
 This will allow you to use `FN_CAPS` and `ALT_TAB` in your `KEYMAP()`, keeping it more readable.
 
-### Limits of These Aliases
+### Caveats
 
-Currently, the keycodes able to used with these functions are limited to the [Basic Keycodes](keycodes_basic.md), meaning you can't use keycodes like `KC_TILD`, or anything greater than 0xFF. For a full list of the keycodes able to be used see [Basic Keycodes](keycodes_basic.md).
+Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Modifiers specified as part of a Layer Tap or Mod Tap's keycode will be ignored.
+
+Additionally, if at least one right-handed modifier is specified in a Mod Tap or Layer Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
 
 # Switching and Toggling Layers
 
@@ -55,85 +57,73 @@ Sometimes, you might want to switch between layers in a macro or as part of a ta
 
 # Modifier Keys
 
-These functions allow you to combine a mod with a keycode. When pressed the keydown for the mod will be sent first, and then *kc* will be sent. When released the keyup for *kc* will be sent and then the mod will be sent.
+These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
-* `LSFT(kc)` or `S(kc)` - applies left Shift to *kc* (keycode)
-* `RSFT(kc)` - applies right Shift to *kc*
-* `LCTL(kc)` - applies left Control to *kc*
-* `RCTL(kc)` - applies right Control to *kc*
-* `LALT(kc)` - applies left Alt to *kc*
-* `RALT(kc)` - applies right Alt to *kc*
-* `LGUI(kc)` - applies left GUI (command/win) to *kc*
-* `RGUI(kc)` - applies right GUI (command/win) to *kc*
-* `HYPR(kc)` - applies Hyper (all modifiers) to *kc*
-* `MEH(kc)`  - applies Meh (all modifiers except Win/Cmd) to *kc*
-* `LCAG(kc)` - applies CtrlAltGui to *kc*
+|Key       |Aliases               |Description                                         |
+|----------|----------------------|----------------------------------------------------|
+|`LCTL(kc)`|                      |Hold Left Control and press `kc`                    |
+|`LSFT(kc)`|`S(kc)`               |Hold Left Shift and press `kc`                      |
+|`LALT(kc)`|                      |Hold Left Alt and press `kc`                        |
+|`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
+|`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
+|`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
+|`RALT(kc)`|                      |Hold Right Alt and press `kc`                       |
+|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
+|`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
+|`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
+|`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
+|`ALTG(kc)`|                      |Hold Right Control and Alt and press `kc`           |
+|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
+|`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
 
-You can also chain these, like this:
+You can also chain them, for example `LCTL(LALT(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
 
-    LALT(LCTL(KC_DEL)) -- this makes a key that sends Alt, Control, and Delete in a single keypress.
+# Mod-Tap
 
-# Shifted Keycodes
+The Mod-Tap key `MT(mod, kc)` acts like a modifier when held, and a regular keycode when tapped. In other words, you can have a key that sends Escape when you tap it, but functions as a Control or Shift key when you hold it down.
 
-The following shortcuts automatically add `LSFT()` to keycodes to get commonly used symbols.
+The modifiers this keycode and `OSM()` accept are prefixed with `MOD_`, not `KC_`:
 
-|Key                     |Aliases           |Description        |
-|------------------------|------------------|-------------------|
-|`KC_TILDE`              |`KC_TILD`         |`~`                |
-|`KC_EXCLAIM`            |`KC_EXLM`         |`!`                |
-|`KC_AT`                 |                  |`@`                |
-|`KC_HASH`               |                  |`#`                |
-|`KC_DOLLAR`             |`KC_DLR`          |`$`                |
-|`KC_PERCENT`            |`KC_PERC`         |`%`                |
-|`KC_CIRCUMFLEX`         |`KC_CIRC`         |`^`                |
-|`KC_AMPERSAND`          |`KC_AMPR`         |`&`                |
-|`KC_ASTERISK`           |`KC_ASTR`         |`*`                |
-|`KC_LEFT_PAREN`         |`KC_LPRN`         |`(`                |
-|`KC_RIGHT_PAREN`        |`KC_RPRN`         |`)`                |
-|`KC_UNDERSCORE`         |`KC_UNDS`         |`_`                |
-|`KC_PLUS`               |                  |`+`                |
-|`KC_LEFT_CURLY_BRACE`   |`KC_LCBR`         |`{`                |
-|`KC_RIGHT_CURLY_BRACE`  |`KC_RCBR`         |`}`                |
-|`KC_PIPE`               |                  |<code>&#124;</code>|
-|`KC_COLON`              |`KC_COLN`         |`:`                |
-|`KC_DOUBLE_QUOTE`       |`KC_DQT`/`KC_DQUO`|`"`                |
-|`KC_LEFT_ANGLE_BRACKET` |`KC_LT`/`KC_LABK` |`<`                |
-|`KC_RIGHT_ANGLE_BRACKET`|`KC_GT`/`KC_RABK` |`>`                |
-|`KC_QUESTION`           |`KC_QUES`         |`?`                |
+|Modifier  |Description                             |
+|----------|----------------------------------------|
+|`MOD_LCTL`|Left Control                            |
+|`MOD_LSFT`|Left Shift                              |
+|`MOD_LALT`|Left Alt                                |
+|`MOD_LGUI`|Left GUI (Windows/Command/Meta key)     |
+|`MOD_RCTL`|Right Control                           |
+|`MOD_RSFT`|Right Shift                             |
+|`MOD_RALT`|Right Alt                               |
+|`MOD_RGUI`|Right GUI (Windows/Command/Meta key)    |
+|`MOD_HYPR`|Hyper (Left Control, Shift, Alt and GUI)|
+|`MOD_MEH` |Meh (Left Control, Shift, and Alt)      |
 
-# Mod Tap
+You can combine these by ORing them together like so:
 
-`MT(mod, kc)` - is *mod* (modifier key - MOD_LCTL, MOD_LSFT) when held, and *kc* when tapped. In other words, you can have a key that sends Esc (or the letter O or whatever) when you tap it, but works as a Control key or a Shift key when you hold it down.
+```c
+MT(MOD_LCTL | MOD_LSFT, KC_ESC)
+```
 
-These are the values you can use for the `mod` in `MT()` and `OSM()`:
+This key would activate Left Control and Left Shift when held, and send Escape when tapped.
 
-  * MOD_LCTL
-  * MOD_LSFT
-  * MOD_LALT
-  * MOD_LGUI
-  * MOD_RCTL
-  * MOD_RSFT
-  * MOD_RALT
-  * MOD_RGUI
-  * MOD_HYPR
-  * MOD_MEH
+For convenience, QMK includes some Mod-Tap shortcuts to make common combinations more compact in your keymap:
 
-These can also be combined like `MOD_LCTL | MOD_LSFT` e.g. `MT(MOD_LCTL | MOD_LSFT, KC_ESC)` which would activate Control and Shift when held, and send Escape when tapped.
-
-We've added shortcuts to make common modifier/tap (mod-tap) mappings more compact:
-
-  * `CTL_T(kc)` - is LCTL when held and *kc* when tapped
-  * `SFT_T(kc)` - is LSFT when held and *kc* when tapped
-  * `ALT_T(kc)` - is LALT when held and *kc* when tapped
-  * `ALGR_T(kc)` - is AltGr when held and *kc* when tapped
-  * `GUI_T(kc)` - is LGUI when held and *kc* when tapped
-  * `ALL_T(kc)` - is Hyper (all mods) when held and *kc* when tapped. To read more about what you can do with a Hyper key, see [this blog post by Brett Terpstra](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)
-  * `LCAG_T(kc)` - is CtrlAltGui when held and *kc* when tapped
-  * `MEH_T(kc)` - is like Hyper, but not as cool -- does not include the Cmd/Win key, so just sends Alt+Ctrl+Shift.
-
-?> Due to the way that keycodes are structured, any modifiers specified as part of `kc`, such as `LCTL()` or `KC_LPRN`, will only activate when held instead of tapped.
-
-?> Additionally, if there is at least one right modifier, any other modifiers will turn into their right equivalents, so it is not possible to "mix and match" the two.
+|Key         |Aliases                                |Description                                            |
+|------------|---------------------------------------|-------------------------------------------------------|
+|`LCTL_T(kc)`|`CTL_T(kc)`                            |Left Control when held, `kc` when tapped               |
+|`RCTL_T(kc)`|                                       |Right Control when held, `kc` when tapped              |
+|`LSFT_T(kc)`|`SFT_T(kc)`                            |Left Shift when held, `kc` when tapped                 |
+|`RSFT_T(kc)`|                                       |Right Shift when held, `kc` when tapped                |
+|`LALT_T(kc)`|`ALT_T(kc)`                            |Left Alt when held, `kc` when tapped                   |
+|`RALT_T(kc)`|`ALGR_T(kc)`                           |Right Alt when held, `kc` when tapped                  |
+|`LGUI_T(kc)`|`LCMD_T(kc)`, `RWIN_T(kc)`, `GUI_T(kc)`|Left GUI when held, `kc` when tapped                   |
+|`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`             |Right GUI when held, `kc` when tapped                  |
+|`C_S_T(kc)` |                                       |Left Control and Shift when held, `kc` when tapped     |
+|`MEH_T(kc)` |                                       |Left Control, Shift and Alt when held, `kc` when tapped|
+|`LCAG_T(kc)`|                                       |Left Control, Alt and GUI when held, `kc` when tapped  |
+|`RCAG_T(kc)`|                                       |Right Control, Alt and GUI when held, `kc` when tapped |
+|`ALL_T(kc)` |                                       |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+|`SGUI_T(kc)`|`SCMD_T(kc)`, `SWIN_T(kc)`             |Left Shift and GUI when held, `kc` when tapped         |
+|`LCA_T(kc)` |                                       |Left Control and Alt when held, `kc` when tapped       |
 
 # One Shot Keys
 

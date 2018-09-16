@@ -1,5 +1,4 @@
-#ifndef I2C_H
-#define I2C_H
+#pragma once
 
 #include <stdint.h>
 
@@ -15,7 +14,7 @@
 
 #define SLAVE_BUFFER_SIZE 0x10
 
-// i2c SCL clock frequency
+// i2c SCL clock frequency 400kHz
 #define SCL_CLOCK  400000L
 
 extern volatile uint8_t i2c_slave_buffer[SLAVE_BUFFER_SIZE];
@@ -45,5 +44,3 @@ extern unsigned char i2c_readNak(void);
 extern unsigned char i2c_read(unsigned char ack);
 
 #define i2c_read(ack)  (ack) ? i2c_readAck() : i2c_readNak();
-
-#endif

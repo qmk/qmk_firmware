@@ -8,7 +8,7 @@ Fitted with all stock GH60 cases, with WS2812 RGB underglow.
 
 Keyboard Maintainer: [Barry Huang](https://github.com/yj7272098)  
 Hardware Supported: Play Keyboard60  
-Hardware Availability: [Play Keyboard](http://playkeyboard.qdm.com.tw/)
+Hardware Availability: [Play Keyboard](http://play-keyboard.store/)
 
 Make example for this keyboard (after setting up your build environment):
 

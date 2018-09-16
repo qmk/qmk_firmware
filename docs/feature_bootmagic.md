@@ -1,89 +1,100 @@
-# Bootmagic and Magic Keycodes
+# Bootmagic
 
-There are 3 separate but related features that allow you to change the behavior of your keyboard without reflashing. While each of them have similar functionality you access that functionality in different ways depending on how your keyboard is configured.
+There are three separate but related features that allow you to change the behavior of your keyboard without reflashing. While each of them have similar functionality, it is accessed in different ways depending on how your keyboard is configured.
 
-Bootmagic is a system for configuring your keyboard while it initializes. To trigger a Bootmagic command you hold down the bootmagic key (`KC_SPACE` on most keyboards) and one or more command keys.
+**Bootmagic** is a system for configuring your keyboard while it initializes. To trigger a Bootmagic command, hold down the Bootmagic key and one or more command keys.
 
-Bootmagic Keycodes allow you to access the Bootmagic functionality after your keyboard has initialized. To use Bootmagic Keycodes you assign keycodes starting with `MAGIC_`, much in the same way you define any other key.
+**Bootmagic Keycodes** are prefixed with `MAGIC_`, and allow you to access the Bootmagic functionality *after* your keyboard has initialized. To use the keycodes, assign them to your keymap as you would any other keycode.
 
-Command is a feature that allows you to control different aspects of your keyboard. Command used to be called Magic. Command is typically accessed by holding Left and Right Shift at the same time, although that can be customized. While it shares some functionality with Bootmagic it also allows you to access functionality that Bootmagic does not. For more information see the [Command](feature_command.md) documentation page.
+**Command**, formerly known as **Magic**, is another feature that allows you to control different aspects of your keyboard. While it shares some functionality with Bootmagic, it also allows you to do things that Bootmagic does not, such as printing version information to the console. For more information, see [Command](feature_command.md).
 
-## Enabling Bootmagic
+On some keyboards Bootmagic is disabled by default. If this is the case, it must be explicitly enabled in your `rules.mk` with:
 
-Bootmagic is disabled by default. To use Bootmagic you need to enable it in your `rules.mk` file:
+```make
+BOOTMAGIC_ENABLE = yes
+```
 
-    BOOTMAGIC_ENABLE = yes
+## Hotkeys
 
-## Bootmagic Hotkeys and Keycodes
+Hold down the Bootmagic key (Space by default) and the desired hotkey while plugging in your keyboard. For example, holding Space+`B` should cause it to enter the bootloader.
 
-This table describes the default Hotkeys for Bootmagic and the Keycodes for Magic. These may be overriden at the Keyboard or Keymap level. Some functionality is not available in both methods.
+|Hotkey            |Description                                  |
+|------------------|---------------------------------------------|
+|Escape            |Ignore Bootmagic configuration in EEPROM     |
+|`B`               |Enter the bootloader                         |
+|`D`               |Toggle debugging over serial                 |
+|`X`               |Toggle key matrix debugging                  |
+|`K`               |Toggle keyboard debugging                    |
+|`M`               |Toggle mouse debugging                       |
+|Backspace         |Clear the EEPROM                             |
+|Caps Lock         |Toggle treating Caps Lock as Left Control    |
+|Left Control      |Toggle swapping Caps Lock and Left Control   |
+|Left Alt          |Toggle swapping Left Alt and Left GUI        |
+|Right Alt         |Toggle swapping Right Alt and Right GUI      |
+|Left GUI          |Toggle the GUI keys (useful when gaming)     |
+|<code>&#96;</code>|Toggle swapping <code>&#96;</code> and Escape|
+|`\`               |Toggle swapping `\` and Backspace            |
+|`N`               |Toggle N-Key Rollover (NKRO)                 |
+|`0`               |Make layer 0 the default layer               |
+|`1`               |Make layer 1 the default layer               |
+|`2`               |Make layer 2 the default layer               |
+|`3`               |Make layer 3 the default layer               |
+|`4`               |Make layer 4 the default layer               |
+|`5`               |Make layer 5 the default layer               |
+|`6`               |Make layer 6 the default layer               |
+|`7`               |Make layer 7 the default layer               |
 
-To use the Hotkey hold down `BOOTMAGIC_KEY_SALT` (`KC_SPACE` by default) and the Hotkey while plugging in your keyboard. To use the Keycode assign that keycode to a layer. For example, if you hold down Space+B while plugging in most keyboards, you will enter bootloader mode.
+## Keycodes
 
-|Hotkey     |Keycode                           |Description                                             |
-|-----------|----------------------------------|--------------------------------------------------------|
-|`ESC`      |                                  |Skip bootmagic and saved eeprom configuration           |
-|`B`        |`RESET`                           |Enter bootloader instead of firmware                    |
-|`D`        |`DEBUG`                           |Enable debugging (writes messages to serial)            |
-|`X`        |                                  |Enable matrix debugging                                 |
-|`K`        |                                  |Enable keyboard debugging                               |
-|`M`        |                                  |Enable mouse debugging                                  |
-|`BACKSPACE`|                                  |Clear the saved settings from flash                     |
-|`CAPSLOCK` |`MAGIC_CAPSLOCK_TO_CONTROL`       |Treat `Capslock` as `Control`                           |
-|           |`MAGIC_UNCAPSLOCK_TO_CONTROL`     |Stop treating CapsLock as Control                       |
-|`LCTRL`    |`MAGIC_SWAP_CONTROL_CAPSLOCK`     |Swap `Control` and `Capslock`                           |
-|           |`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |Unswap Left Control and Caps Lock                       |
-|           |`MAGIC_SWAP_ALT_GUI`              |Swap Alt and GUI on both sides                          |
-|           |`MAGIC_UNSWAP_ALT_GUI`            |Unswap Left Alt and GUI                                 |
-|`LALT`     |`MAGIC_SWAP_LALT_LGUI`            |Swap Left `Alt` and `GUI`, e.g. for OSX Opt and Cmd     |
-|           |`MAGIC_UNSWAP_LALT_LGUI`          |Unswap Left Alt and GUI                                 |
-|`RALT`     |`MAGIC_SWAP_RALT_RGUI`            |Swap Right `Alt` and `GUI`                              |
-|           |`MAGIC_UNSWAP_RALT_RGUI`          |Unswap Right Alt and GUI                                |
-|`LGUI`     |`MAGIC_NO_GUI`                    |Disable GUI key - e.g. disable Windows key during gaming|
-|           |`MAGIC_UNNO_GUI`                  |Enable the GUI key                                      |
-|`GRAVE`    |`MAGIC_SWAP_GRAVE_ESC`            |Swap `\`~` and `ESC`                                    |
-|           |`MAGIC_UNSWAP_GRAVE_ESC`          |Unswap `\`~` and Escape                                 |
-|`BACKSLASH`|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |Swap Blackslash and Backspace                           |
-|           |`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|Unswap Backslash and Backspace                          |
-|`N`        |`MAGIC_HOST_NKRO`                 |Force N-Key Rollover (NKRO) on                          |
-|           |`MAGIC_UNHOST_NKRO`               |Force NKRO off                                          |
-|           |`MAGIC_TOGGLE_NKRO`               |Toggle NKRO on or off                                   |
-|`0`        |`DF(0)`                           |Make Layer 0 the default layer at bootup                |
-|`1`        |`DF(1)`                           |Make Layer 1 the default layer at bootup                |
-|`2`        |`DF(2)`                           |Make Layer 2 the default layer at bootup                |
-|`3`        |`DF(3)`                           |Make Layer 3 the default layer at bootup                |
-|`4`        |`DF(4)`                           |Make Layer 4 the default layer at bootup                |
-|`5`        |`DF(5)`                           |Make Layer 5 the default layer at bootup                |
-|`6`        |`DF(6)`                           |Make Layer 6 the default layer at bootup                |
-|`7`        |`DF(7)`                           |Make Layer 7 the default layer at bootup                |
+|Keycode                           |Aliases  |Description                               |
+|----------------------------------|---------|------------------------------------------|
+|`MAGIC_CAPSLOCK_TO_CONTROL`       |         |Treat Caps Lock as Left Control           |
+|`MAGIC_UNCAPSLOCK_TO_CONTROL`     |         |Stop treating Caps Lock as Left Control   |
+|`MAGIC_HOST_NKRO`                 |         |Force N-Key Rollover (NKRO) on            |
+|`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                            |
+|`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                       |
+|`MAGIC_NO_GUI`                    |         |Disable the GUI keys (useful when gaming) |
+|`MAGIC_UNNO_GUI`                  |         |Enable the GUI keys                       |
+|`MAGIC_SWAP_ALT_GUI`              |`AG_SWAP`|Swap Alt and GUI on both sides (for macOS)|
+|`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Left Alt and Left GUI              |
+|`MAGIC_SWAP_BACKSLASH_BACKSPACE`  |         |Swap `\` and Backspace                    |
+|`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace                  |
+|`MAGIC_SWAP_CONTROL_CAPSLOCK`     |         |Swap Left Control and Caps Lock           |
+|`MAGIC_UNSWAP_CONTROL_CAPSLOCK`   |         |Unswap Left Control and Caps Lock         |
+|`MAGIC_SWAP_GRAVE_ESC`            |         |Swap <code>&#96;</code> and Escape        |
+|`MAGIC_UNSWAP_GRAVE_ESC`          |         |Unswap <code>&#96;</code> and Escape      |
+|`MAGIC_SWAP_LALT_LGUI`            |         |Swap Left Alt and Left GUI                |
+|`MAGIC_UNSWAP_LALT_LGUI`          |         |Unswap Left Alt and Left GUI              |
+|`MAGIC_SWAP_RALT_RGUI`            |         |Swap Right Alt and Right GUI              |
+|`MAGIC_UNSWAP_RALT_RGUI`          |         |Unswap Right Alt and Right GUI            |
 
-## Bootmagic Configuration
+## Configuration
 
-When setting up your keyboard and/or keymap there are a number of `#define`s that control the behavior of Bootmagic. To use these put them in your `config.h`, either at the keyboard or keymap level.
+If you would like to change the hotkey assignments for Bootmagic, `#define` these in your `config.h` at either the keyboard or keymap level.
 
-|Define |Default|Description |
-|-------|-------|------------|
-|`BOOTMAGIC_KEY_SALT`|`KC_SPACE`|The key to hold down to trigger Bootmagic during initialization.|
-|`BOOTMAGIC_KEY_SKIP`|`KC_ESC`|The Hotkey to ignore saved eeprom configuration.|
-|`BOOTMAGIC_KEY_EEPROM_CLEAR`|`KC_BSPACE`|The hotkey to clear the saved eeprom configuration.|
-|`BOOTMAGIC_KEY_BOOTLOADER`|`KC_B`|The hotkey to enter the bootloader.|
-|`BOOTMAGIC_KEY_DEBUG_ENABLE`|`KC_D`|The hotkey to enable debug mode.|
-|`BOOTMAGIC_KEY_DEBUG_MATRIX`|`KC_X`|The hotkey to enable matrix debugging mode.|
-|`BOOTMAGIC_KEY_DEBUG_KEYBOARD`|`KC_K`|The hotkey to enable keyboard debugging mode.|
-|`BOOTMAGIC_KEY_DEBUG_MOUSE`|`KC_M`|The hotkey to enable mouse debugging mode.|
-|`BOOTMAGIC_KEY_SWAP_CONTROL_CAPSLOCK`|`KC_LCTRL`||
-|`BOOTMAGIC_KEY_CAPSLOCK_TO_CONTROL`|`KC_CAPSLOCK`||
-|`BOOTMAGIC_KEY_SWAP_LALT_LGUI`|`KC_LALT`||
-|`BOOTMAGIC_KEY_SWAP_RALT_RGUI`|`KC_RALT`||
-|`BOOTMAGIC_KEY_NO_GUI`|`KC_LGUI`||
-|`BOOTMAGIC_KEY_SWAP_GRAVE_ESC`|`KC_GRAVE`||
-|`BOOTMAGIC_KEY_SWAP_BACKSLASH_BACKSPACE`|`KC_BSLASH`||
-|`BOOTMAGIC_HOST_NKRO`|`KC_N`||
-|`BOOTMAGIC_KEY_DEFAULT_LAYER_0`|`KC_0`|Hotkey to set Layer 0 as the default layer|
-|`BOOTMAGIC_KEY_DEFAULT_LAYER_1`|`KC_1`|Hotkey to set Layer 1 as the default layer|
-|`BOOTMAGIC_KEY_DEFAULT_LAYER_2`|`KC_2`|Hotkey to set Layer 2 as the default layer|
-|`BOOTMAGIC_KEY_DEFAULT_LAYER_3`|`KC_3`|Hotkey to set Layer 3 as the default layer|
-|`BOOTMAGIC_KEY_DEFAULT_LAYER_4`|`KC_4`|Hotkey to set Layer 4 as the default layer|
-|`BOOTMAGIC_KEY_DEFAULT_LAYER_5`|`KC_5`|Hotkey to set Layer 5 as the default layer|
-|`BOOTMAGIC_KEY_DEFAULT_LAYER_6`|`KC_6`|Hotkey to set Layer 6 as the default layer|
-|`BOOTMAGIC_KEY_DEFAULT_LAYER_7`|`KC_7`|Hotkey to set Layer 7 as the default layer|
+|Define                                  |Default      |Description                                        |
+|----------------------------------------|-------------|---------------------------------------------------|
+|`BOOTMAGIC_KEY_SALT`                    |`KC_SPACE`   |The Bootmagic key                                  |
+|`BOOTMAGIC_KEY_SKIP`                    |`KC_ESC`     |Ignore Bootmagic configuration in EEPROM           |
+|`BOOTMAGIC_KEY_EEPROM_CLEAR`            |`KC_BSPACE`  |Clear the EEPROM configuration                     |
+|`BOOTMAGIC_KEY_BOOTLOADER`              |`KC_B`       |Enter the bootloader                               |
+|`BOOTMAGIC_KEY_DEBUG_ENABLE`            |`KC_D`       |Toggle debugging over serial                       |
+|`BOOTMAGIC_KEY_DEBUG_MATRIX`            |`KC_X`       |Toggle matrix debugging                            |
+|`BOOTMAGIC_KEY_DEBUG_KEYBOARD`          |`KC_K`       |Toggle keyboard debugging                          |
+|`BOOTMAGIC_KEY_DEBUG_MOUSE`             |`KC_M`       |Toggle mouse debugging                             |
+|`BOOTMAGIC_KEY_SWAP_CONTROL_CAPSLOCK`   |`KC_LCTRL`   |Swap Left Control and Caps Lock                    |
+|`BOOTMAGIC_KEY_CAPSLOCK_TO_CONTROL`     |`KC_CAPSLOCK`|Toggle treating Caps Lock as Left Control          |
+|`BOOTMAGIC_KEY_SWAP_LALT_LGUI`          |`KC_LALT`    |Toggle swapping Left Alt and Left GUI (for macOS)  |
+|`BOOTMAGIC_KEY_SWAP_RALT_RGUI`          |`KC_RALT`    |Toggle swapping Right Alt and Right GUI (for macOS)|
+|`BOOTMAGIC_KEY_NO_GUI`                  |`KC_LGUI`    |Toggle the GUI keys (useful when gaming)           |
+|`BOOTMAGIC_KEY_SWAP_GRAVE_ESC`          |`KC_GRAVE`   |Toggle swapping <code>&#96;</code> and Escape      |
+|`BOOTMAGIC_KEY_SWAP_BACKSLASH_BACKSPACE`|`KC_BSLASH`  |Toggle swapping `\` and Backspace                  |
+|`BOOTMAGIC_HOST_NKRO`                   |`KC_N`       |Toggle N-Key Rollover (NKRO)                       |
+|`BOOTMAGIC_KEY_DEFAULT_LAYER_0`         |`KC_0`       |Make layer 0 the default layer                     |
+|`BOOTMAGIC_KEY_DEFAULT_LAYER_1`         |`KC_1`       |Make layer 1 the default layer                     |
+|`BOOTMAGIC_KEY_DEFAULT_LAYER_2`         |`KC_2`       |Make layer 2 the default layer                     |
+|`BOOTMAGIC_KEY_DEFAULT_LAYER_3`         |`KC_3`       |Make layer 3 the default layer                     |
+|`BOOTMAGIC_KEY_DEFAULT_LAYER_4`         |`KC_4`       |Make layer 4 the default layer                     |
+|`BOOTMAGIC_KEY_DEFAULT_LAYER_5`         |`KC_5`       |Make layer 5 the default layer                     |
+|`BOOTMAGIC_KEY_DEFAULT_LAYER_6`         |`KC_6`       |Make layer 6 the default layer                     |
+|`BOOTMAGIC_KEY_DEFAULT_LAYER_7`         |`KC_7`       |Make layer 7 the default layer                     |
