@@ -1,5 +1,5 @@
 #!/bin/sh
-if grep ID /etc/os-release | grep -q rhel; then
+if grep ID /etc/os-release | grep -qE "rhel|fedora"; then
 	# RPM based OS
 	sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc \
 	    avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs \
@@ -9,7 +9,7 @@ elif grep ID /etc/os-release | grep -q debian; then
 	sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc \
 	    dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi \
 	    libnewlib-arm-none-eabi
-elif grep ID /etc/os-release | grep -q arch; then
+elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 	sudo pacman -S gcc unzip wget zip avr-gcc avr-binutils avr-libc \
 	    dfu-util arm-none-eabi-gcc arm-none-eabi-binutils \
 	    arm-none-eabi-newlib
