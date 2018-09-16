@@ -13,6 +13,7 @@ static int sLeds;
 static stm32_gpio_t *sPort;
 static uint32_t sMask;
 uint8_t* dma_source;
+static LED_TYPE led_array[RGBLED_NUM];
 
 void setColor(uint8_t color, uint8_t *buf,uint32_t mask){
   int i;
@@ -43,6 +44,14 @@ void setColorRGB(Color c, uint8_t *buf, uint32_t mask) {
  * @param[out] o_fb     initialized frame buffer
  *
  */
+
+void WS2812_init(void) {
+  static uint8_t * p;
+  //uint32_t port = RGBLED_PORT;
+  //ledDriverInit(RGBLED_NUM, (stm32_gpio_t *)(port & 0xFFF0), 1 << (port & 0xF), &p);
+  ledDriverInit(RGBLED_NUM, GPIOA, 0b00000010, &p);
+}
+
 void ledDriverInit(int leds, stm32_gpio_t *port, uint32_t mask, uint8_t **o_fb) {
   sLeds=leds;
   sPort=port;
@@ -166,4 +175,28 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
 
 void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds) {
 
+}
+
+void WS2812_send_color( uint8_t index ) {
+  setColor(led_array[index].g, (fb+24*index), sMask);
+  setColor(led_array[index].r, (fb+24*index)+8, sMask);
+  setColor(led_array[index].b, (fb+24*index)+16, sMask);
+}
+
+void WS2812_set_color( uint8_t index, uint8_t red, uint8_t green, uint8_t blue ) {
+  led_array[index].r = red;
+  led_array[index].g = green;
+  led_array[index].b = blue;
+}
+
+void WS2812_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
+  for (int i = 0; i < RGBLED_NUM; i++) {
+    WS2812_set_color( i, red, green, blue );
+  }
+}
+
+void WS2812_send_colors(void) {
+  for (int i = 0; i < RGBLED_NUM; i++) {
+    WS2812_send_color( i );
+  }
 }

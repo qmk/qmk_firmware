@@ -3,6 +3,18 @@
 #define BL_GREEN OCR1A
 #define BL_BLUE OCR1C
 
+const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
+
+    /*{row | col << 4}
+      |             {x=0..224, y=0..64}
+      |              |                 modifier
+      |              |                 | */
+    {{0|(0<<4)},   {0, 32}, 0},
+    {{0|(1<<4)},   {75, 32}, 0},
+    {{0|(2<<4)},   {150, 32}, 0},
+    {{0|(2<<4)},   {224, 23},  0},
+};
+
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up

@@ -1,5 +1,6 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2017 Jack Humbert
+ * Copyright 2018 Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +22,17 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "color.h"
-#include "is31fl3731.h"
 #include "quantum.h"
+
+#ifdef IS31FL3731
+    #include "i2c_master.h"
+    #include "is31fl3731.h"
+#elif defined (IS31FL3733)
+    #include "i2c_master.h"
+    #include "is31fl3733.h"
+#elif defined (WS2812)
+    #include "ws2812.h"
+#endif
 
 typedef struct Point {
 	uint8_t x;
