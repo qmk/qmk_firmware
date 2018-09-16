@@ -1,4 +1,4 @@
-/* Copyright 2018 Wilba
+/* Copyright 2018 Jason Williams (Wilba)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,10 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "quantum.h"
+#pragma once
 
-#ifndef RAMA_M6_A_H
-#define RAMA_M6_A_H
+#include "quantum.h"
 
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
@@ -26,4 +25,4 @@
     {                                   \
         {K00, K01, K02, K03, K04, K05}, \
     }
-#endif // RAMA_M6_A
+

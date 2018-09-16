@@ -1,4 +1,4 @@
-/* Copyright 2018 Wilba
+/* Copyright 2018 Jason Williams (Wilba)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  */
 #include "m6_b.h"
 #include "i2c_master.h"
-#include "is31fl3218.h"
+#include "drivers/issi/is31fl3218.h"
 #include "color.h"
 
 bool g_suspend_state = false;
@@ -84,12 +84,12 @@ void backlight_set_suspend_state(bool state)
 
 void backlight_effect_cycle_all(void)
 {
-	uint8_t offset = ( g_tick << g_config_effect_speed ) & 0xFF;
-
+	uint8_t hueOffset = ( g_tick << g_config_effect_speed ) & 0xFF;
+	uint8_t satOffset = 127;
 	// Relies on hue being 8-bit and wrapping
 	for ( int i=0; i<6; i++ )
 	{
-		HSV hsv = { .h = offset, .s = 255, .v = g_config_brightness };
+		HSV hsv = { .h = hueOffset, .s = satOffset, .v = g_config_brightness };
 		RGB rgb = hsv_to_rgb( hsv );
 		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
 	}
