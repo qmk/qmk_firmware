@@ -120,7 +120,7 @@ void process_hand_swap(keyevent_t *event) {
 }
 #endif
 
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
 bool disable_action_cache = false;
 
 void process_record_nocache(keyrecord_t *record)

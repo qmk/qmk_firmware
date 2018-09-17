@@ -63,10 +63,6 @@ enum quantum_keycodes {
     QK_ONE_SHOT_LAYER_MAX = 0x54FF,
     QK_ONE_SHOT_MOD       = 0x5500,
     QK_ONE_SHOT_MOD_MAX   = 0x55FF,
-#ifndef DISABLE_CHORDING
-    QK_CHORDING           = 0x5600,
-    QK_CHORDING_MAX       = 0x56FF,
-#endif
     QK_TAP_DANCE          = 0x5700,
     QK_TAP_DANCE_MAX      = 0x57FF,
     QK_LAYER_TAP_TOGGLE   = 0x5800,
@@ -123,7 +119,7 @@ enum quantum_keycodes {
     GRAVE_ESC,
 
     // Leader key
-#ifndef DISABLE_LEADER
+#ifdef LEADER_ENABLE
     KC_LEAD,
 #endif
 
