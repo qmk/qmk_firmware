@@ -194,8 +194,12 @@ void check_state (void) {
         static bool activated, deactivated, slept;
         switch (state) {
         case active:
-                fade_delay = LED_FADE_DELAY;
-                if (!activated) {reverse_fade(); activated = true; deactivated = false;}
+                if (!activated) {
+                        fade_delay = LED_FADE_DELAY;
+                        reverse_fade();
+                        activated = true;
+                        deactivated = false;
+                }
                 active_timer_two = timer_read();
                 elapsed = active_timer_two - active_timer_one;
                 if (elapsed < INACTIVE_DELAY) {return;}
@@ -203,9 +207,13 @@ void check_state (void) {
                 return;
 
         case inactive:
-                fade_delay = LED_FADE_DELAY * 2;
-                if (!deactivated) {reverse_fade(); deactivated = true; slept = false; activated = false;}
-                activated = false;
+                if (!deactivated) {
+                        fade_delay = LED_FADE_DELAY * 2;
+                        reverse_fade();
+                        deactivated = true;
+                        slept = false;
+                        activated = false;
+                }
                 active_timer_two = timer_read();
                 elapsed = active_timer_two - active_timer_one;
                 if (elapsed < SLEEP_DELAY) {return;}
@@ -213,8 +221,13 @@ void check_state (void) {
                 return;
 
         case sleeping:
-                fade_delay = LED_FADE_DELAY * 6;
-                if (!slept) {reverse_fade(); slept = true; deactivated = false; activated = false;}
+                if (!slept) {
+                        fade_delay = LED_FADE_DELAY * 6;
+                        reverse_fade();
+                        slept = true;
+                        deactivated = false;
+                        activated = false;
+                }
                 return;
         }
 
