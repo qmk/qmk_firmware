@@ -196,7 +196,7 @@ bool process_record_quantum(keyrecord_t *record) {
   keypos_t key = record->event.key;
   uint16_t keycode;
 
-  #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+  #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
       uint8_t layer;
@@ -251,11 +251,8 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
   #endif
-  #ifndef DISABLE_LEADER
+  #ifdef LEADER_ENABLE
     process_leader(keycode, record) &&
-  #endif
-  #ifndef DISABLE_CHORDING
-    process_chording(keycode, record) &&
   #endif
   #ifdef COMBO_ENABLE
     process_combo(keycode, record) &&
