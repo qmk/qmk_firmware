@@ -116,6 +116,7 @@ enum quantum_keycodes {
     MAGIC_UNHOST_NKRO,
     MAGIC_UNSWAP_ALT_GUI,
     MAGIC_TOGGLE_NKRO,
+    MAGIC_TOGGLE_ALT_GUI,
     GRAVE_ESC,
 
     // Leader key
@@ -590,6 +591,7 @@ enum quantum_keycodes {
 
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
+#define AG_TOGG MAGIC_TOGGLE_ALT_GUI
 
 // GOTO layer - 16 layers max
 // when:

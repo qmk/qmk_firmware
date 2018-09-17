@@ -626,6 +626,17 @@ bool process_record_quantum(keyrecord_t *record) {
               PLAY_SONG(ag_norm_song);
             #endif
             break;
+          case MAGIC_TOGGLE_ALT_GUI:
+            keymap_config.swap_lalt_lgui = !keymap_config.swap_lalt_lgui;
+            keymap_config.swap_ralt_rgui = !keymap_config.swap_ralt_rgui;
+            #ifdef AUDIO_ENABLE
+              if (keymap_config.swap_ralt_rgui) {
+                PLAY_SONG(ag_swap_song);
+              } else {
+                PLAY_SONG(ag_norm_song);
+              }
+            #endif
+            break;
           case MAGIC_TOGGLE_NKRO:
             keymap_config.nkro = !keymap_config.nkro;
             break;
