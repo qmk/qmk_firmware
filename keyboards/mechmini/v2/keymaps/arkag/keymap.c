@@ -91,6 +91,7 @@ typedef enum {
         active = 0,
         inactive,
         sleeping,
+        boot,
 } activityState;
 
 uint8_t       current_os, mod_primary_mask, fade_delay;
@@ -106,7 +107,7 @@ Color         underglow,
               hsv_white     = {0,0,127};
 flashState    flash_state   = no_flash;
 fadeState     fade_state    = add_fade;
-activityState state         = inactive;
+activityState state         = boot;
 
 enum custom_keycodes {
         M_PMOD = SAFE_RANGE,
@@ -229,6 +230,10 @@ void check_state (void) {
                         activated = false;
                 }
                 return;
+
+        case boot:
+                return;
+
         }
 
 }
@@ -236,6 +241,7 @@ void check_state (void) {
 void fade_rgb (void) {
         static bool ran_once;
         if (flash_state != no_flash) {return;}
+        if (state == boot) {return;}
         switch (fade_state) {
         case add_fade:
                 if (!ran_once) {
