@@ -1,13 +1,17 @@
 KB Paradise V60 Type R Customised Layout by FollowingGhosts
 ======================
 
-This is my custom layout for the Polestar Type R
+This is my custom keymap for the Polestar Type R
 
 ## Keymap Notes
 Supports Underglow lighting with RGB modifier keys and normal backlight
 Selectable swap between Alt and OS keys which is stored in EEPROM
-CAPSLOCK acts as FN when held
+CAPSLOCK acts as FN when held/equivalent to MO1
 TAB acts as FN2 when held to provide a mouse layer with WASD and Q and E as left and right click respectively
+LShift and RShift have Space Cadet Shift enabled
+
+Note:
+RGB colour setting is not persistent
 ```
  Keymap 0: Default/Windows Layer (Qwerty)
  * ,-----------------------------------------------------------.

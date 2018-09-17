@@ -21,7 +21,5 @@
 
 #define V60_POLESTAR
 #define RGBLIGHT_EFFECT_BREATHING
-#define RGBLIGHT_EFFECT_MOOD
-
 
 #endif
