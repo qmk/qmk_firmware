@@ -283,13 +283,12 @@ static void init( void )
         IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
     }
     // This actually updates the LED drivers
-    rgb_matrix_driver.flush();
+    IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 }
 
 static void flush( void )
 {
     IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-    IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
 }
 
 const rgb_matrix_driver_t rgb_matrix_driver = {
