@@ -44,11 +44,10 @@ static void default_layer_state_set(uint32_t state)
     default_layer_debug(); debug(" to ");
     default_layer_state = state;
     default_layer_debug(); debug("\n");
-    // Clear keyboard to avoid stuck keys
-#ifdef PREVENT_STUCK_MODIFIERS
-    clear_keyboard_but_mods_and_keys(); // Prevent held keys from being reset
+#ifdef STRICT_LAYER_RELEASE
+    clear_keyboard_but_mods(); // To avoid stuck keys
 #else
-    clear_keyboard_but_mods();
+    clear_keyboard_but_mods_and_keys(); // Don't reset held keys
 #endif
 }
 
@@ -132,11 +131,10 @@ void layer_state_set(uint32_t state)
     layer_debug(); dprint(" to ");
     layer_state = state;
     layer_debug(); dprintln();
-    // Clear keyboard to avoid stuck keys
-#ifdef PREVENT_STUCK_MODIFIERS
-    clear_keyboard_but_mods_and_keys(); // Prevent held keys from being reset
+#ifdef STRICT_LAYER_RELEASE
+    clear_keyboard_but_mods(); // To avoid stuck keys
 #else
-    clear_keyboard_but_mods();
+    clear_keyboard_but_mods_and_keys(); // Don't reset held keys
 #endif
 }
 
