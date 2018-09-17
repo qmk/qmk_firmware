@@ -161,6 +161,7 @@ void led_set_user(uint8_t usb_led) {
   */
 }
 
+//function for layer indicator LED
 uint32_t layer_state_set_user(uint32_t state)
 {
     if (biton32(state) == 2) {
