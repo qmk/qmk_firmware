@@ -1,4 +1,4 @@
-/* Copyright 2016 Jack Humbert
+/* Copyright 2018 wanleg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,20 +13,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#include QMK_KEYBOARD_H
+#include "wanleg.h"
 
-#ifndef PROCESS_CHORDING_H
-#define PROCESS_CHORDING_H
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+[0] = LAYOUT( /* Base */
+TD(CAD_TD) \
+),
+};
 
-#include "quantum.h"
+void led_set_user(uint8_t usb_led) {
 
-// Chording stuff
-#define CHORDING_MAX 4
-bool chording = false;
-
-uint8_t chord_keys[CHORDING_MAX] = {0};
-uint8_t chord_key_count = 0;
-uint8_t chord_key_down = 0;
-
-bool process_chording(uint16_t keycode, keyrecord_t *record);
-
-#endif
+}

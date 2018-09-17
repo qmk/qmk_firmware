@@ -19,8 +19,6 @@
 
 #include "config_common.h"
 
-#define PREVENT_STUCK_MODIFIERS
-
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
 #endif
@@ -34,6 +32,6 @@
 
 #define MOUSEKEY_WHEEL_DELAY 0
 #define MOUSEKEY_WHEEL_MAX_SPEED   4
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 255	
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 255
 
 #endif
