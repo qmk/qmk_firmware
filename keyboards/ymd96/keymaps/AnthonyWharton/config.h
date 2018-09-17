@@ -1,7 +1,8 @@
 /*
 Base Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
 Modified 2017 Andrew Novak <ndrw.nvk@gmail.com>
-Modified 2018 Harshit Goel <Harshitgoel96@yahoo.com>
+Modified 2018 Anthony Wharton <th3ant@gmail.com>
+
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
 the Free Software Foundation, either version 2 of the License, or
@@ -16,10 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "config_common.h"
-
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
@@ -27,34 +25,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MANUFACTURER    ymdkey
 #define PRODUCT         ymd96
 
-/* matrix size */
+/* Matrix Size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 15
-//#define DIODE_DIRECTION ROW2COL
-
-//#define RGB_DI_PIN C4
-/* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_LEVELS 12
-// #define BACKLIGHT_BREATHING  // works, but BL_TOGG might not work
+/* Required for MX Locks installed */
+#define LOCKING_SUPPORT_ENABLE
+#define LOCKING_RESYNC_ENABLE
 
+#define PREVENT_STUCK_MODIFIERS
 #define TAPPING_TOGGLE 3
-
 #define NO_UART 1
 
-/* RGB underglow */
-// The RGB_DI_PIN value seems to be shared between all PS2AVRGB boards.
+#define BACKLIGHT_LEVELS 12
+
+/* RGB Underglow  */
+// The RGB_DI_PING value seems to be shared between all PS2AVRGB boards.
 // The same pin is used on the JJ40, at least.
 #define RGBLED_NUM 18
-#define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are sent via I2C to 0xB0.
-#define RGBLIGHT_ANIMATIONS
-/*#define RGBLIGHT_VAL_STEP 20
+#define RGB_DI_PIN E2 // NOTE: for PS2AVRGB boards, underglow commands are send
+                      //       via I2C to 0xB0
 
-#define NO_UART 1
-#define BOOTLOADHID_BOOTLOADER 1*/
+#define RGBLIGHT_ANIMATIONS
+
+#define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85 // 1.0-2.7
+#define RGBLIGHT_EFFECT_BREATHE_MAX 255     // 1-255
+#define RGBLIGHT_EFFECT_SNAKE_LENGTH 7
+#define RGBLIGHT_EFFECT_KNIGHT_LENGTH 3
+#define RGBLIGHT_EFFECT_KNIGHT_OFFSET 0
+#define RGBLIGHT_EFFECT_KNIGHT_LED_NUM RGBLED_NUM
+#define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
+#define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 500
 
 /* key combination for command */
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
-#endif
