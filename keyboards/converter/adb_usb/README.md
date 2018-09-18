@@ -44,15 +44,15 @@ Define following macros for ADB connection in config.h if you use other than por
 
 Building the Firmware
 ------------------------------------------
-To build the firmware run this command:
-
-    $ make converter/adb_usb:default
-
-See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 
 Keymap
 ------
+To build the default keymap run this command:
+
+    $ make converter/adb_usb:default
+
 You may add your own keymap to the converter/adb_usb/keymaps directory, as you would with any other QMK-powered keyboard.
 
 To build your custom keymap, change the build command to:

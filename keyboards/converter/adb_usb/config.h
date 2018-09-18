@@ -17,8 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Ported to QMK by Peter Roe <pete@13bit.me>
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0ADB
@@ -42,5 +41,3 @@ Ported to QMK by Peter Roe <pete@13bit.me>
 #define ADB_DDR         DDRD
 #define ADB_DATA_BIT    0
 //#define ADB_PSW_BIT     1       // optional
-
-#endif

@@ -38,6 +38,23 @@ static matrix_row_t matrix[MATRIX_ROWS];
 
 static void register_key(uint8_t key);
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
 
 void matrix_init(void)
 {
@@ -61,7 +78,7 @@ void matrix_init(void)
 
     // LED off
     DDRD |= (1<<6); PORTD &= ~(1<<6);
-    return;
+    matrix_init_quantum();
 }
 
 #ifdef ADB_MOUSE_ENABLE
@@ -222,6 +239,7 @@ uint8_t matrix_scan(void)
             extra_key = key1<<8 | 0xFF; // process in a separate call
     }
 
+    matrix_init_quantum();
     return 1;
 }
 

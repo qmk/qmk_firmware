@@ -1,4 +1,4 @@
-#include "adb_usb.h"
+#include QMK_KEYBOARD_H
 
 #define MCTL LCTL(KC_UP)
 #define SCST LSFT(LGUI(KC_4))
@@ -14,11 +14,8 @@
 #define APP8 LSFT(LALT(LCTL(LGUI(KC_8))))
 
 
-
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    KEYMAP_EXT_ANSI(
+    LAYOUT_ext_ansi(
     KC_ESC,  APP1,    APP2,   APP3,   APP4,   APP5,   APP6,   APP7,   APP8,    MCTL,   KC_MUTE, KC_VOLD, KC_VOLU,                SCST,   KC_SLCK, KC_PAUS,                               SLP,
     KC_GRV,  KC_1,    KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL,  KC_BSPC,       KC_INS, KC_HOME, KC_PGUP,     KC_NLCK, KC_EQL, KC_PSLS, KC_PAST,
     KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,   KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,       KC_DEL, KC_END,  KC_PGDN,     KC_P7,   KC_P8,  KC_P9,   KC_PMNS,
