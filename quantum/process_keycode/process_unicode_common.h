@@ -62,7 +62,7 @@ enum unicode_input_modes {
 
 // Bitmask selecting which Unicode modes can be cycled through
 // Example usage: #define UC_CYCLE_MODES UC_MODES(UC_OSX, UC_LNX, UC_WINC)
-#ifndef UC_CYCLE_MODES
+#if !defined(UC_CYCLE_MODES) || UC_CYCLE_MODES == 0
 #define UC_CYCLE_MODES ((1<<UC__COUNT) - 1) // Default: all modes
 #endif
 
