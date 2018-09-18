@@ -25,7 +25,8 @@ enum userspace_layers {
   NUM75,
   DIR75,
   ETC75,
-  FN75
+  FN75,
+  PAD,
 };
 #elif KEYBOARD_xd75
 enum userspace_layers {
@@ -49,6 +50,7 @@ enum userspace_layers {
   gNUM,
   gDIR,
   gETC,
+  PAD,
 };
 #else
   enum userspace_layers {
@@ -97,7 +99,7 @@ enum userspace_custom_keycodes {
   DIRECTION75,
   ETCETERA75,
   FUNCTION75,
-  NUMPAD
+  NUMPAD,
 
 };
 

@@ -107,7 +107,9 @@ void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP: 
 		//register_code(KC_SPC); 
 		SEND_STRING(SS_LGUI("l"));
+		#ifdef BACKLIGHT_ENABLE
 		backlight_set(3);
+		#endif
 		break;
     case SINGLE_HOLD: 
 		//register_code(KC_NO);
@@ -121,7 +123,9 @@ void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_TAP: 
 		//register_code(KC_ENT); 
 		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
+		#ifdef BACKLIGHT_ENABLE
 		backlight_set(0);
+		#endif
 		break;
     //case DOUBLE_HOLD: register_code(KC_NO); break; //register this keycode when button is tapped and then held
 	case DOUBLE_HOLD: 
@@ -136,7 +140,9 @@ void CAD_reset (qk_tap_dance_state_t *state, void *user_data) {
     case SINGLE_TAP: 
 		//unregister_code(KC_SPC); 
 		SEND_STRING(SS_LGUI("l"));
+		#ifdef BACKLIGHT_ENABLE
 		backlight_set(3);
+		#endif
 		break;
     case SINGLE_HOLD: 
 		register_code(KC_NO); //(un)register this keycode when button is held and then released
@@ -145,12 +151,16 @@ void CAD_reset (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_TAP: 
 		//register_code(KC_ENT); 
 		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
+		#ifdef BACKLIGHT_ENABLE
 		backlight_set(0);
+		#endif
 		break;
     case DOUBLE_HOLD: register_code(KC_NO); //(un)register this keycode when button is tapped and then held, and then released
     case DOUBLE_SINGLE_TAP: unregister_code(KC_NO);
   }
   CADtap_state.state = 0;
+}  
+  
 //instantialize an instance of 'tap' for the 'RST' tap dance.
 static tap RSTtap_state = {
   .is_press_action = true,
@@ -219,6 +229,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  ,[RST_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RST_finished, RST_reset)
  ,[CAD_TD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CAD_finished, CAD_reset)
  ,[LYR_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LYR_finished, LYR_reset)
+
 };
 
 //In Layer declaration, add tap dance item in place of a key code
