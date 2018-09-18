@@ -1,9 +1,11 @@
 #include QMK_KEYBOARD_H
 
-#define _BL 0 // Base layer
-#define _FL 1 // Function layer
-#define _ML 2 // Media layer
-#define _NL 2 // Numpad layer
+enum dz60_layers {
+  _BL, // Base layer
+  _FL, // Function layer
+  _ML, // Media layer
+  _NL  // Numpad layer
+};
 
 enum my_keycodes {
   BR_UP = SAFE_RANGE,
