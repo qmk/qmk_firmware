@@ -106,6 +106,7 @@ enum {
   ,TD_Q_ESC
   ,ENT_TAP_DANCE
   ,DEL_TAP_DANCE
+  ,CAD_TD
 };
 #endif
 

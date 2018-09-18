@@ -1,4 +1,4 @@
-/* Copyright 2016 Jack Humbert
+/* Copyright 2018 James Laird-Wah
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,20 +13,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
 
-#ifndef PROCESS_CHORDING_H
-#define PROCESS_CHORDING_H
+#include <quantum.h>
 
-#include "quantum.h"
+int set_all_leds_to(uint8_t r, uint8_t g, uint8_t b);
+int set_led_to(uint8_t led, uint8_t r, uint8_t g, uint8_t b);
 
-// Chording stuff
-#define CHORDING_MAX 4
-bool chording = false;
-
-uint8_t chord_keys[CHORDING_MAX] = {0};
-uint8_t chord_key_count = 0;
-uint8_t chord_key_down = 0;
-
-bool process_chording(uint16_t keycode, keyrecord_t *record);
-
-#endif
+/* Raw (gamma uncorrected) LED values */
+int set_all_leds_to_raw(uint8_t r, uint8_t g, uint8_t b);
+int set_led_to_raw(uint8_t led, uint8_t r, uint8_t g, uint8_t b);
