@@ -10,6 +10,7 @@
 #define _SYM 2 // symbols
 #define _MED 3 // media
 #define _NUM 4 // numpad
+#define _ARR 5 // arrows
 
 #define SP_NOPE LALT(KC_F4) // alt + f4
 #define SP_LESS LSFT(KC_COMMA)
@@ -28,17 +29,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├────────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴────────┤
      * │   tab   │  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │  ;  │  '  │    enter    │
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
-     * │   shift   │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │shift│XXXXX│ up  │ fn2 │
+     * │   ctrl    │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │shift│XXXXX│ up  │ fn2 │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     * │ ctrl │  os  │ alt  │     fn1      │ fn3  │  space/shift   │ alt │ctrl │left │down │right│
+     * │ fn3  │  os  │ alt  │     fn1      │ fn4  │  space/shift   │ alt │ctrl │left │down │right│
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
     */
     LAYOUT(
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_SLSH, KC_DEL, KC_BSPC,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
         KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
-        KC_LSFT, XXXXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSFT, KC_UP, MO(_MED),
-        KC_LCTL, KC_LGUI, KC_LALT, MO(_SYM), MO(_NUM), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, XXXXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSFT, KC_UP, MO(_MED),
+        MO(_NUM), KC_LGUI, KC_LALT, MO(_SYM), MO(_ARR), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     /* custom layout
@@ -49,17 +50,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├────────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴────────┤
      * │   tab   │  A  │  U  │  I  │  E  │  O  │  L  │  T  │  S  │  R  │  N  │  '  │    enter    │
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
-     * │   shift   │  W  │  Y  │  G  │  ,  │  Z  │  X  │  .  │  F  │  H  │shift│XXXXX│ up  │ fn2 │
+     * │   ctrl    │  W  │  Y  │  G  │  ,  │  Z  │  X  │  .  │  F  │  H  │shift│XXXXX│ up  │ fn2 │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     * │ ctrl │  os  │ alt  │     fn1      │ fn3  │  space/shift   │ alt │ctrl │left │down │right│
+     * │ fn3  │  os  │ alt  │     fn1      │ fn4  │  space/shift   │ alt │ctrl │left │down │right│
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
     */
     LAYOUT(
         KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_SLSH, KC_DEL, KC_BSPC,
         KC_TAB, KC_B, KC_M, KC_P, KC_Q, KC_SCLN, KC_K, KC_V, KC_C, KC_D, KC_J, KC_LBRC, KC_RBRC, KC_BSLS,
         KC_TAB, KC_A, KC_U, KC_I, KC_E, KC_O, KC_L, KC_T, KC_S, KC_R, KC_N, KC_QUOT, KC_ENT,
-        KC_LSFT, XXXXXX, KC_W, KC_Y, KC_G, KC_COMM, KC_Z, KC_X, KC_DOT, KC_F, KC_H, KC_RSFT, KC_UP, MO(_MED),
-        KC_LCTL, KC_LGUI, KC_LALT, MO(_SYM), MO(_NUM), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, XXXXXX, KC_W, KC_Y, KC_G, KC_COMM, KC_Z, KC_X, KC_DOT, KC_F, KC_H, KC_RSFT, KC_UP, MO(_MED),
+        MO(_NUM), KC_LGUI, KC_LALT, MO(_SYM), MO(_ARR), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     /* symbols (fn1)
@@ -114,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
      * │           │     │     │     │     │     │  0  │  1  │  2  │  3  │     │XXXXX│     │     │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     * │      │      │      │              │▒▒▒▒▒▒│                │     │     │     │     │     │
+     * │▒▒▒▒▒▒│      │      │              │      │                │     │     │     │     │     │
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
     */
     LAYOUT(
@@ -122,6 +123,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ______, ______, ______, ______, ______, ______, KC_SLSH, KC_7, KC_8, KC_9, KC_PLUS, ______, ______, ______,
         ______, ______, ______, ______, ______, ______, KC_MINS, KC_4, KC_5, KC_6, KC_EQUAL, ______, ______,
         ______, XXXXXX, ______, ______, ______, ______, ______, KC_0, KC_1, KC_2, KC_3, ______, ______, ______,
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
+    ),
+
+    /* arrows (fn4)
+     * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+     * │     │     │     │     │     │     │     │     │     │     │     │     │     │     │     │
+     * ├─────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴─────┤
+     * │        │     │     │     │     │     │  /  │  7  │  8  │  9  │  +  │     │     │        │
+     * ├────────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴────────┤
+     * │         │     │     │     │     │     │  -  │  4  │  5  │  6  │  =  │     │             │
+     * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
+     * │           │     │     │     │     │     │  0  │  1  │  2  │  3  │     │XXXXX│     │     │
+     * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
+     * │      │      │      │              │▒▒▒▒▒▒│                │     │     │     │     │     │
+     * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
+    */
+    LAYOUT(
+        ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, KC_PGUP, ______, ______, ______, ______, KC_UP, ______, ______, ______, ______, ______,
+        ______, ______, KC_HOME, KC_PGDN, KC_END, ______, ______, KC_LEFT, KC_DOWN, KC_RIGHT, ______, ______, ______,
+        ______, XXXXXX, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______,
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______
     ),
 };
