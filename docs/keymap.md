@@ -89,7 +89,7 @@ There are 3 main sections of a `keymap.c` file you'll want to concern yourself w
 
 At the top of the file you'll find this:
 
-    #include "clueboard.h"
+    #include QMK_KEYBOARD_H
 
     // Helpful defines
     #define GRAVE_MODS  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)|MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
