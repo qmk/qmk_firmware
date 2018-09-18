@@ -67,7 +67,7 @@ void ENT_reset (qk_tap_dance_state_t *state, void *user_data) {
   ENTtap_state.state = 0;
 }
 
-//instanalize an instance of 'tap' for the 'DEL' tap dance.
+//instantialize an instance of 'tap' for the 'DEL' tap dance.
 static tap DELtap_state = {
   .is_press_action = true,
   .state = 0
@@ -151,7 +151,61 @@ void CAD_reset (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_SINGLE_TAP: unregister_code(KC_NO);
   }
   CADtap_state.state = 0;
-}
+//instantialize an instance of 'tap' for the 'RST' tap dance.
+static tap RSTtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void RST_finished (qk_tap_dance_state_t *state, void *user_data) {
+  RSTtap_state.state = cur_dance(state);
+  switch (RSTtap_state.state) {
+	case SINGLE_TAP: register_code(KC_LCTL); break;
+	case SINGLE_HOLD: register_code(KC_LCTL); break;
+	case DOUBLE_TAP: reset_keyboard(); break;
+	case DOUBLE_HOLD: register_code(KC_NO); break;
+	case DOUBLE_SINGLE_TAP: register_code(KC_LCTL); unregister_code(KC_LCTL); register_code(KC_LCTL);
+  }
+}		
+
+void RST_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (RSTtap_state.state) {
+	case SINGLE_TAP: unregister_code(KC_LCTL); break;
+	case SINGLE_HOLD: unregister_code(KC_LCTL); break;
+	case DOUBLE_TAP: unregister_code(KC_NO); break;
+	case DOUBLE_HOLD: unregister_code(KC_NO);
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_LCTL);
+  }
+  RSTtap_state.state = 0;
+}	
+
+//instantialize an instance of 'tap' for the 'LYR' tap dance.
+static tap LYRtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void LYR_finished (qk_tap_dance_state_t *state, void *user_data) {
+  LYRtap_state.state = cur_dance(state);
+  switch (LYRtap_state.state) {
+	case SINGLE_TAP: register_code(KC_PSLS); break;
+	case SINGLE_HOLD: register_code(KC_NO); break;
+	case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
+	case DOUBLE_HOLD: register_code(KC_NO); break;
+    case DOUBLE_SINGLE_TAP: register_code(KC_PSLS); unregister_code(KC_PSLS); register_code(KC_PSLS);
+  }
+}		
+
+void LYR_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (LYRtap_state.state) {
+    case SINGLE_TAP: unregister_code(KC_PSLS); break;
+    case SINGLE_HOLD: unregister_code(KC_NO); break;
+    case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
+    case DOUBLE_HOLD: unregister_code(KC_NO);
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_PSLS);
+  }
+  LYRtap_state.state = 0;
+}	
 ///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION END /////
 
 //Tap Dance Definitions
@@ -162,7 +216,9 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  ,[TD_Q_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC)
  ,[ENT_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ENT_finished, ENT_reset)
  ,[DEL_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, DEL_finished, DEL_reset)
+ ,[RST_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RST_finished, RST_reset)
  ,[CAD_TD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CAD_finished, CAD_reset)
+ ,[LYR_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LYR_finished, LYR_reset)
 };
 
 //In Layer declaration, add tap dance item in place of a key code
