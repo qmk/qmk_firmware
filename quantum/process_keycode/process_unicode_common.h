@@ -26,6 +26,7 @@
 void unicode_input_mode_init(void);
 uint8_t get_unicode_input_mode(void);
 void set_unicode_input_mode(uint8_t mode);
+void cycle_unicode_input_mode(void)
 void unicode_input_start(void);
 void unicode_input_finish(void);
 void register_hex(uint16_t hex);
@@ -37,6 +38,31 @@ void send_unicode_hex_string(const char *str);
 #define UC_BSD 3  // BSD (not implemented)
 #define UC_WINC 4 // WinCompose https://github.com/samhocevar/wincompose
 #define UC_OSX_RALT 5 // Mac OS X using Right Alt key for Unicode Compose
+#define UC__COUNT 6 // Number of available input modes
+
+// Helper macros for UC_MODES
+#define UC_M_1(m)      1<<(m)
+#define UC_M_2(m, ...) 1<<(m) | UC_M_1(__VA_ARGS__)
+#define UC_M_3(m, ...) 1<<(m) | UC_M_2(__VA_ARGS__)
+#define UC_M_4(m, ...) 1<<(m) | UC_M_3(__VA_ARGS__)
+#define UC_M_5(m, ...) 1<<(m) | UC_M_4(__VA_ARGS__)
+#define UC_M_6(m, ...) 1<<(m) | UC_M_5(__VA_ARGS__)
+#define UC_M_7(m, ...) 1<<(m) | UC_M_6(__VA_ARGS__)
+#define UC_M_8(m, ...) 1<<(m) | UC_M_7(__VA_ARGS__)
+#define _NUM_ARGS(_8, _7, _6, _5, _4, _3, _2, _1, n, ...) n
+#define NUM_ARGS(...) _NUM_ARGS(__VA_ARGS__, 8, 7, 6, 5, 4, 3, 2, 1, 0)
+#define _UC_M_HELPER(n, ...) UC_M_ ## n(__VA_ARGS__)
+#define UC_M_HELPER(n, ...) (_UC_M_HELPER(n, __VA_ARGS__))
+
+// Turns a list of Unicode input modes into a bitmask
+// Example: UC_MODES(UC_OSX, UC_LNX, UC_WINC) → 00010011 (0x13)
+#define UC_MODES(...) UC_M_HELPER(NUM_ARGS(__VA_ARGS__), __VA_ARGS__)
+
+// Bitmask selecting which Unicode modes can be cycled through
+// Example usage: #define UC_CYCLE_MODES UC_MODES(UC_OSX, UC_LNX, UC_WINC)
+#ifndef UC_CYCLE_MODES
+#define UC_CYCLE_MODES ((1<<UC__COUNT) - 1) // Default: all modes
+#endif
 
 #define UC_BSPC	UC(0x0008)
 
