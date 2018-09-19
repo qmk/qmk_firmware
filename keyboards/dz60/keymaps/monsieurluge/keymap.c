@@ -5,23 +5,46 @@
 #define ______ KC_TRNS
 #define XXXXXX KC_TRNS // dead key, TODO: fix this
 
-#define _DEF 0 // default (qwerty)
-#define _CST 1 // custom (bépo variant)
-#define _SYM 2 // symbols
-#define _MED 3 // media
-#define _NUM 4 // numpad
-#define _ARR 5 // arrows
+#define _DEF 0 // default qwerty
+#define _QAR 1 // custom qwerty (with new arrow keys)
+#define _CST 2 // custom colemak
+#define _SYM 3 // symbols
+#define _MED 4 // media
+#define _NUM 5 // numpad
+#define _ARR 6 // arrows
 
 #define SP_NOPE LALT(KC_F4) // alt + f4
 #define SP_LESS LSFT(KC_COMMA)
 #define SP_MORE LSFT(KC_DOT)
 #define SP_SHSP MT(MOD_LSFT, KC_SPC) // space or left shift when held
 #define SP_QWER TO(_DEF)
+#define SP_QWAR TO(_QAR)
 #define SP_CUST TO(_CST)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* default qwerty
+     * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+     * │ esc │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  -  │  /  │ del │ bsp │
+     * ├─────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴─────┤
+     * │  tab   │  Q  │  W  │  E  │  R  │  T  │  Y  │  U  │  I  │  O  │  P  │  [  │  ]  │   \    │
+     * ├────────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴────────┤
+     * │   tab   │  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │  ;  │  '  │    enter    │
+     * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
+     * │   shift   │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │shift│XXXXX│ up  │ fn2 │
+     * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
+     * │ ctrl │  os  │ alt  │     fn1      │ fn3  │  space/shift   │ alt │ctrl │left │down │right│
+     * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
+    */
+    LAYOUT(
+        KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_SLSH, KC_DEL, KC_BSPC,
+        KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
+        KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
+        KC_LSFT, XXXXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSFT, KC_UP, MO(_MED),
+        KC_LCTL, KC_LGUI, KC_LALT, MO(_SYM), MO(_NUM), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+    ),
+
+    /* custom qwerty
      * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
      * │ esc │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  -  │  /  │ del │ bsp │
      * ├─────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴─────┤
@@ -90,7 +113,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴──┬──┴─────┤
      * │        │     │     │     │     │     │     │     │     │     │ptscr│     │     │        │
      * ├────────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴┬────┴────────┤
-     * │         │     │     │     │     │QWERT│CUSTM│     │     │     │     │     │             │
+     * │         │     │     │     │     │QWERT│QWARR│CUSTM│     │     │     │     │             │
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
      * │           │     │     │     │     │     │     │     │     │     │     │XXXXX│vol+ │▒▒▒▒▒│
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
@@ -100,7 +123,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT(
         RGB_TOG, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, ______, ______, ______, ______, ______, ______, ______, RGB_MOD,
         ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, KC_PSCREEN, ______, ______, ______,
-        ______, ______, ______, ______, ______, SP_QWER, SP_CUST, ______, ______, ______, ______, ______, ______,
+        ______, ______, ______, ______, ______, SP_QWER, SP_QWAR, SP_CUST, ______, ______, ______, ______, ______,
         ______, XXXXXX, ______, ______, ______, ______, ______, ______, ______, ______, ______, ______, KC_VOLU, ______,
         ______, ______, ______, ______, ______, ______, ______, ______, KC_MPRV, KC_VOLD, KC_MNXT
     ),
