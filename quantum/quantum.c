@@ -191,7 +191,6 @@ static uint16_t scs_timer[2] = {0, 0};
 static bool grave_esc_was_shifted = false;
 
 bool process_record_quantum(keyrecord_t *record) {
-
   /* This gets the keycode from the key pressed */
   keypos_t key = record->event.key;
   uint16_t keycode;
@@ -223,7 +222,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     preprocess_tap_dance(keycode, record);
   #endif
-
+  #ifdef STICKY_KEYS_ENABLE
+    process_sticky_keys(keycode, record);
+  #endif
   if (!(
   #if defined(KEY_LOCK_ENABLE)
     // Must run first to be able to mask key_up events.

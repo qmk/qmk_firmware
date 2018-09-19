@@ -157,6 +157,11 @@ ifeq ($(strip $(KEY_LOCK_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_key_lock.c
 endif
 
+ifeq ($(strip $(STICKY_KEYS_ENABLE)), yes)
+    OPT_DEFS += -DSTICKY_KEYS_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_sticky_keys.c
+endif
+
 ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c

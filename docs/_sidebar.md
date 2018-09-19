@@ -63,6 +63,7 @@
   * [Space Cadet Shift](feature_space_cadet_shift.md)
   * [Space Cadet Shift Enter](feature_space_cadet_shift_enter.md)
   * [Stenography](feature_stenography.md)
+  * [Sticky Keys](feature_sticky_keys.md)
   * [Swap Hands](feature_swap_hands.md)
   * [Tap Dance](feature_tap_dance.md)
   * [Terminal](feature_terminal.md)
