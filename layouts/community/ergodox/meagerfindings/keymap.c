@@ -1,7 +1,4 @@
-  #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
-#include "timer.h"
+#include QMK_KEYBOARD_H
 #include "version.h"
 
 enum {
@@ -376,11 +373,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,
       _______,      KC_PENT,      _______),
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(1)
-};
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
