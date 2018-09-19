@@ -18,7 +18,6 @@
 
 
 #include "rgb_matrix.h"
-#include "i2c_master.h"
 #include "progmem.h"
 #include "config.h"
 #include "eeprom.h"

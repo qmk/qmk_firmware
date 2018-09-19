@@ -123,6 +123,7 @@ endif
     OPT_DEFS += -DRGB_MATRIX_ENABLE
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
     CIE1931_CURVE = yes
 endif
 

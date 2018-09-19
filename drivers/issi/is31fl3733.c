@@ -24,7 +24,6 @@
 #include "wait.h"
 #endif
 
-#include "is31fl3733.h"
 #include <string.h>
 #include "i2c_master.h"
 #include "progmem.h"
@@ -251,32 +250,3 @@ void IS31FL3733_update_led_control_registers( uint8_t addr1, uint8_t addr2 )
         }
     }
 }
-
-#ifdef RGB_MATRIX_ENABLE
-
-static void init( void )
-{
-    i2c_init();
-    IS31FL3733_init( DRIVER_ADDR_1 );
-    for ( int index = 0; index < DRIVER_LED_TOTAL; index++ ) {
-        bool enabled = true;
-        // This only caches it for later
-        IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
-    }
-    // This actually updates the LED drivers
-    IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-}
-
-static void flush( void )
-{
-    IS31FL3733_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-}
-
-const rgb_matrix_driver_t rgb_matrix_driver = {
-    .init = init,
-    .flush = flush,
-    .set_color = IS31FL3733_set_color,
-    .set_color_all = IS31FL3733_set_color_all,
-};
-
-#endif
