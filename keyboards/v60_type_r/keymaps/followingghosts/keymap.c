@@ -51,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          * ,-----------------------------------------------------------.
          * |`  | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|  Del  |
          * |-----------------------------------------------------------|
-         * |     |   |Up |RGB|RUp|BUp|GUp|   |Prt|Scl|Pau|Up|   | Ins  |
+         * |     |   |Up |RGB|HUI|SAI|VAI|   |Prt|Scl|Pau|Up|   | Ins  |
          * |-----------------------------------------------------------|
-         * |      |Lft|Dwn|Rig|RdD|BlD|GrD|   |Hme|PgU|Lef|Rig|        |
+         * |      |Lft|Dwn|Rig|HUD|SAD|VAD|   |Hme|PgU|Lef|Rig|        |
          * |-----------------------------------------------------------|
          * |        |BLD|BLT|BLI|   |VolD|VolU|Mut|End|PgD|Dwn|  RESET |
          * |-----------------------------------------------------------|
@@ -63,8 +63,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [1] = LAYOUT_60_ansi(
 	       KC_GRV,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,     KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_DEL, \
-	       KC_TRNS,   KC_TRNS,  KC_UP,    RGB_TOG,  RGB_RI,  RGB_GI,  RGB_BI,   KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,    KC_TRNS,          KC_INS, \
-	       KC_TRNS,   KC_LEFT,  KC_DOWN,  KC_RIGHT, RGB_RD,  RGB_GD,  RGB_BD,   KC_TRNS, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,          KC_TRNS,          \
+	       KC_TRNS,   KC_TRNS,  KC_UP,    RGB_TOG,  RGB_HUI, RGB_SAI, RGB_VAI,   KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_UP,    KC_TRNS,          KC_INS, \
+	       KC_TRNS,   KC_LEFT,  KC_DOWN,  KC_RIGHT, RGB_HUD, RGB_SAD, RGB_VAD,   KC_TRNS, KC_HOME, KC_PGUP, KC_LEFT, KC_RIGHT,          KC_TRNS,          \
 	       KC_TRNS,   BL_INC,  BL_STEP,  BL_DEC,  KC_TRNS,  KC_VOLD,   KC_VOLU, KC_MUTE, KC_END,  KC_PGDN,  KC_DOWN,           RESET,  \
 	       KC_TRNS,   KC_TRNS,  KC_TRNS,            KC_TRNS,                                                           KC_TRNS,  AG_SWAP, KC_TRNS, KC_TRNS),
 
@@ -78,7 +78,7 @@ WASD are Up Left Right Down respectively
 * |-----------------------------------------------------------|
 * |     | M1|MUP|M2 |   |   |   |   |   |   |   |    |   |    |
 * |-----------------------------------------------------------|
-* |       |ML |MDN|MR |   |   |   |   |   |   |    |   |      |
+* |       |ML |MDN|MR |   |   |   |   |   |   |MPRV|MNXT|     |
 * |-----------------------------------------------------------|
 * |        |   |   |   |   |   |   |   |   |   |   |          |
 * |-----------------------------------------------------------|
@@ -88,38 +88,12 @@ WASD are Up Left Right Down respectively
          [2] = LAYOUT_60_ansi(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS, \
                 KC_TRNS,   KC_BTN1,  KC_MS_U,    KC_BTN2,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,          KC_TRNS, \
-                KC_TRNS,   KC_MS_L,  KC_MS_D,  KC_MS_R, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS,          \
+                KC_TRNS,   KC_MS_L,  KC_MS_D,  KC_MS_R, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT,          KC_TRNS,          \
                 KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,           RESET,  \
                 KC_TRNS,   KC_TRNS,  KC_TRNS,            KC_TRNS,                                                           KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
 
 
 };
-
-
-
-
-
-
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
-};
-
 
 void led_set_user(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {

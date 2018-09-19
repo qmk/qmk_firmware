@@ -10,8 +10,9 @@ CAPSLOCK acts as FN when held/equivalent to MO1
 TAB acts as FN2 when held to provide a mouse layer with WASD and Q and E as left and right click respectively
 LShift and RShift have Space Cadet Shift enabled
 
-Note:
-RGB colour setting is not persistent
+RGB colour setting is set to HSV to bring it in line with (QMK docs)([https://beta.docs.qmk.fm/features/feature_rgblight])
+R+/R- are hue, G+/G- are saturation and B+/B- are value
+
 ```
  Keymap 0: Default/Windows Layer (Qwerty)
  * ,-----------------------------------------------------------.
@@ -31,9 +32,9 @@ Keymap 1: FN Layer
    *  -----------------------------------------------------------.
    * |  | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|  Del  |
    * |-----------------------------------------------------------|
-   * |     |   |Up |RGB|RUp|BUp|GUp|   |Prt|Scl|Pau|Up|   | Ins  |
+   * |     |   |Up |RGB|HUI|SAI|VAI|   |Prt|Scl|Pau|Up|   | Ins  |
    * |-----------------------------------------------------------|
-   * |      |Lft|Dwn|Rig|RdD|BlD|GrD|   |Hme|PgU|Lef|Rig|        |
+   * |      |Lft|Dwn|Rig|HUD|SAD|VAD|   |Hme|PgU|Lef|Rig|        |
    * |-----------------------------------------------------------|
    * |        |BLD|BLT|BLI|   |VolD|VolU|Mut|End|PgD|Dwn|        |
    * |-----------------------------------------------------------|
@@ -49,7 +50,7 @@ Mouse Layer
    * |-----------------------------------------------------------|
    * |     | M1|MUP|M2 |   |   |   |   |   |   |   |    |   |    |
    * |-----------------------------------------------------------|
-   * |       |ML |MDN|MR |   |   |   |   |   |   |    |   |      |
+   * |       |ML |MDN|MR |   |   |   |   |   |   |MNXT|MPRV|     |
    * |-----------------------------------------------------------|
    * |        |   |   |   |   |   |   |   |   |   |   |          |
    * |-----------------------------------------------------------|
@@ -57,4 +58,4 @@ Mouse Layer
    *  -----------------------------------------------------------'
 ```
 ### Build
-To build this keymap, simply run `make KEYMAP=FollowingGhosts`.
+To build this keymap, simply run `make v60_type_r:followingghosts`.
