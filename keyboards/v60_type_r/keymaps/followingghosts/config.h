@@ -14,10 +14,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
+#pragma once
 #define CONFIG_USER_H
+
+
 
 #define V60_POLESTAR
 #define RGBLIGHT_EFFECT_BREATHING
-
-#endif
