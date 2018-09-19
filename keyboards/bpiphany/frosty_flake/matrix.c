@@ -32,6 +32,24 @@ static uint8_t debouncing = DEBOUNCING_DELAY;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
+
 static matrix_row_t scan_col(void) {
     return (
         (PINC&(1<<7) ? 0 : ((matrix_row_t)1<<0)) |

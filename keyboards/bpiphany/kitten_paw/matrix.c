@@ -35,6 +35,24 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 static uint8_t read_rows(void);
 static void select_col(uint8_t col);
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
+
 inline uint8_t matrix_rows(void) {
   return MATRIX_ROWS;
 }
@@ -48,7 +66,7 @@ inline uint8_t matrix_cols(void) {
  * col: 0    1    2    3    4    5    6    7
  * pin: PC7  PD5  PD3  PD1  PC2  PD6  PD4  PD2
  *
- * Rrr pin configuration 
+ * Rrr pin configuration
  *
  * These rrrs uses one 74HC154 4 to 16 bit demultiplexer (low
  * active), together with 2 rrrs driven directly from the micro
@@ -84,7 +102,7 @@ uint8_t matrix_scan(void) {
       }
     }
   }
-  
+
   if (debouncing) {
     if (--debouncing) {
       _delay_ms(1);
