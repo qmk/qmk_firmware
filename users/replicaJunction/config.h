@@ -6,12 +6,6 @@
 // https://docs.qmk.fm/reference/config-options#features-that-can-be-enabled
 ////////////////////////////////////////////////////////////////////////////////
 
-// Prevent modifiers from sticking when switching layers
-// Uses 5 bytes of memory per 8 keys, but makes sure modifiers don't get "stuck" switching layers
-#define PREVENT_STUCK_MODIFIERS
-
-
-
 ////////////////////////////////////////////////////////////////////////////////
 // Behaviors That Can Be Configured
 // https://docs.qmk.fm/reference/config-options#behaviors-that-can-be-configured

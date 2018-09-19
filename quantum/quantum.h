@@ -89,13 +89,8 @@ extern uint32_t default_layer_state;
     #include "process_music.h"
 #endif
 
-#ifndef DISABLE_LEADER
+#ifdef LEADER_ENABLE
     #include "process_leader.h"
-#endif
-
-#define DISABLE_CHORDING
-#ifndef DISABLE_CHORDING
-    #include "process_chording.h"
 #endif
 
 #ifdef UNICODE_ENABLE
