@@ -139,7 +139,7 @@ uint16_t rgblight_get_hue(void);
 uint8_t rgblight_get_sat(void);
 uint8_t rgblight_get_val(void);
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
-void rgblight_setrgb_many(LED_TYPE *ledarray, uint8_t *indexes, uint8_t led_count);
+void rgblight_setrgb_many(LED_TYPE *ledarray, uint8_t *indices, uint8_t led_count);
 void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index);
 void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index);
 
