@@ -31,6 +31,8 @@
 
 #if defined(PROTOCOL_CHIBIOS)
 #define PSTR(x) x
+#elif defined(PROTOCOL_ARM_ATSAM)
+#define PSTR(x) x
 #endif
 
 
