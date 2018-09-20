@@ -17,7 +17,6 @@
 #define SP_LESS LSFT(KC_COMMA)
 #define SP_MORE LSFT(KC_DOT)
 #define SP_SHSP MT(MOD_LSFT, KC_SPC) // space or left shift when held
-#define SP_SMBS LT(_SYM, KC_BSPC) // backspace or symbols layer when held
 #define SP_QWER TO(_DEF)
 #define SP_QWAR TO(_QAR)
 #define SP_CUST TO(_CST)
@@ -34,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
      * │   shift   │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │shift│XXXXX│ up  │ fn2 │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     * │ ctrl │  os  │ alt  │backspace/fn1 │ fn3  │  space/shift   │ alt │ctrl │left │down │right│
+     * │ ctrl │  os  │ alt  │     fn1      │ fn3  │  space/shift   │ alt │ctrl │left │down │right│
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
     */
     LAYOUT(
@@ -42,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
         KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         KC_LSFT, XXXXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSFT, KC_UP, MO(_MED),
-        KC_LCTL, KC_LGUI, KC_LALT, SP_SMBS, MO(_NUM), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI, KC_LALT, MO(_SYM), MO(_NUM), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     /* custom qwerty
@@ -55,7 +54,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
      * │    fn3    │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │shift│XXXXX│ up  │ fn2 │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     * │ ctrl │  os  │ alt  │backspace/fn1 │ fn4  │  space/shift   │ alt │ctrl │left │down │right│
+     * │ ctrl │  os  │ alt  │     fn1      │ fn4  │  space/shift   │ alt │ctrl │left │down │right│
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
     */
     LAYOUT(
@@ -63,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
         KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
         MO(_NUM), XXXXXX, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_RSFT, KC_UP, MO(_MED),
-        KC_LCTL, KC_LGUI, KC_LALT, SP_SMBS, MO(_ARR), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI, KC_LALT, MO(_SYM), MO(_ARR), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     /* custom layout
@@ -76,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * ├─────────┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬───┴─┬─────┬─────┤
      * │    fn3    │  W  │  Y  │  G  │  ,  │  Z  │  X  │  .  │  F  │  H  │shift│XXXXX│ up  │ fn2 │
      * ├──────┬────┴─┬───┴──┬──┴─────┴─────┼─────┴┬────┴─────┴─────┼─────┼─────┼─────┼─────┼─────┤
-     * │ ctrl │  os  │ alt  │backspace/fn1 │ fn4  │  space/shift   │ alt │ctrl │left │down │right│
+     * │ ctrl │  os  │ alt  │     fn1      │ fn4  │  space/shift   │ alt │ctrl │left │down │right│
      * └──────┴──────┴──────┴──────────────┴──────┴────────────────┴─────┴─────┴─────┴─────┴─────┘
     */
     LAYOUT(
@@ -84,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB, KC_B, KC_M, KC_P, KC_Q, KC_SCLN, KC_K, KC_V, KC_C, KC_D, KC_J, KC_LBRC, KC_RBRC, KC_BSLS,
         KC_TAB, KC_A, KC_U, KC_I, KC_E, KC_O, KC_L, KC_T, KC_S, KC_R, KC_N, KC_QUOT, KC_ENT,
         MO(_NUM), XXXXXX, KC_W, KC_Y, KC_G, KC_COMM, KC_Z, KC_X, KC_DOT, KC_F, KC_H, KC_RSFT, KC_UP, MO(_MED),
-        KC_LCTL, KC_LGUI, KC_LALT, SP_SMBS, MO(_ARR), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LGUI, KC_LALT, MO(_SYM), MO(_ARR), SP_SHSP, KC_RALT, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     /* symbols (fn1)
