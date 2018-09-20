@@ -12,6 +12,6 @@ First, enable Sticky Keys by setting `STICKY_KEYS_ENABLE = yes` in your `rules.m
 
 Tap (either) `SHIFT` five times to toggle it on or off.
 
-Once toggled on, tap modifiers to have them apply to your next key, i.e. `SHIFT`, `CTRL`, `ALT`, `C` will send `SHIFT` + `CTRL` + `ALT` + `X`.
+Once toggled on, tap modifiers to have them apply to your next key, i.e. the sequence `SHIFT`, `CTRL`, `ALT`, `X` will send `SHIFT` + `CTRL` + `ALT` + `X`.
 
 Tapping a modifier twice will lock it, such that this sequence `SHIFT`, `CTRL`, `CTRL`, `ALT`, `X`, `Y` will send  `SHIFT` + `CTRL` + `ALT` + `X`, `CTRL` + `Y`
