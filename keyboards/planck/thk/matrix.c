@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <avr/io.h>
 #include <util/delay.h>
-
+#include <string.h>
 #include "matrix.h"
 
 #ifndef DEBOUNCE
@@ -33,12 +33,54 @@ static uint8_t debouncing = DEBOUNCE;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
+static uint8_t encoder_state[2] = {0};
+static int8_t encoder_value[2] = {0};
+static int8_t encoder_LUT[] = { 0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0 };
+
+static bool dip_switch[4] = {0, 0, 0, 0};
+
+__attribute__ ((weak))
+void dip_update(uint8_t index, bool active) { }
+
+__attribute__ ((weak))
+void encoder_update(uint8_t index, bool clockwise) { }
+
+bool last_dip_switch[4] = {0};
+
+#ifndef ENCODER_RESOLUTION
+  #define ENCODER_RESOLUTION 4
+#endif
+
+#define NUMBER_OF_ENCODERS 2
+
+uint8_t read_encoder_state(uint8_t index) {
+  switch (index) {
+    case 0:
+      return (((PINB & (1 << 4)) << 0) ? 1 : 0) | ((((PINB & (1 << 3)) << 0) ? 1 : 0) << 1);
+      break;
+    case 1:
+      return (((PINB & (1 << 2)) << 0) ? 1 : 0) | ((((PINB & (1 << 1)) << 0) ? 1 : 0) << 1);
+      break;
+  }
+  return 0;
+}
+
 void matrix_init(void) {
 
+    // disables JTAG so we can use them as columns
     MCUCSR = (1<<JTD);
     MCUCSR = (1<<JTD);
 
-    //ADCSRA = 0;
+    // dip switch (input, pull-up)
+    DDRD &= ~((1 << 0) | (1 << 1) | (1 << 4) | (1 << 6));
+    PORTD |= ((1 << 0) | (1 << 1) | (1 << 4) | (1 << 6));
+
+    // encoder setup (input, pull-up)
+    DDRB &= ~((1 << 1) | (1 << 2) | (1 << 3) | (1 << 4));
+    PORTB |= ((1 << 1) | (1 << 2) | (1 << 3) | (1 << 4));
+
+    encoder_state[0] = read_encoder_state(0);
+    encoder_state[1] = read_encoder_state(1);
 
     // rows (output)
     DDRA |= ((1 << 7) | (1 << 6) | (1 << 5) | (1 << 4));
@@ -67,6 +109,35 @@ void matrix_init(void) {
 
 uint8_t matrix_scan(void) {
 
+    // dip switch
+    dip_switch[0] = !(PIND & (1 << 0));
+    dip_switch[1] = !(PIND & (1 << 1));
+    dip_switch[2] = !(PIND & (1 << 4));
+    dip_switch[3] = !(PIND & (1 << 5));
+    for (uint8_t i = 0; i < 4; i++) {
+      if (last_dip_switch[i] ^ dip_switch[i])
+        dip_update(i, dip_switch[i]);
+    }
+    memcpy(last_dip_switch, dip_switch, sizeof(&dip_switch));
+
+
+    // encoders
+    for (uint8_t i = 0; i < NUMBER_OF_ENCODERS; i++) {
+      encoder_state[i] <<= 2;
+
+      encoder_state[i] |= read_encoder_state(i);
+
+      encoder_value[i] += encoder_LUT[encoder_state[i] & 0xF];
+      if (encoder_value[i] >= ENCODER_RESOLUTION) {
+          encoder_update(i, 0);
+      }
+      if (encoder_value[i] <= -ENCODER_RESOLUTION) { // direction is arbitrary here, but this clockwise
+          encoder_update(i, 1);
+      }
+      encoder_value[i] %= ENCODER_RESOLUTION;
+    }
+
+    // actual matrix scan
     for (uint8_t c = 0; c < MATRIX_ROWS; c++) {
         switch (c) {
           case 0:  PORTA &= ~(1 << 7); break;
