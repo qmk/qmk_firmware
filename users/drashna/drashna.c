@@ -143,7 +143,7 @@ void matrix_init_user(void) {
 #endif
 
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-  if (eeprom_read_byte(EECONFIG_UNICODEMODE)) != UC_WIN) {
+  if (eeprom_read_byte(EECONFIG_UNICODEMODE) != UC_WIN) {
     set_unicode_input_mode(UC_WIN);
   }
 #endif //UNICODE_ENABLE
