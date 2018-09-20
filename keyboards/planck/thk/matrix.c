@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static uint8_t debouncing = DEBOUNCE;
 
 static matrix_row_t matrix[MATRIX_ROWS];
-static uint8_t matrix_debouncing[MATRIX_COLS];
+static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 void matrix_init(void) {
 
@@ -40,27 +40,26 @@ void matrix_init(void) {
 
     //ADCSRA = 0;
 
-    // rows (input)
-    DDRA &= ~((1 << 7) | (1 << 6) | (1 << 5) | (1 << 4));
-    PORTA &= ~((1 << 7) | (1 << 6) | (1 << 5) | (1 << 4));
+    // rows (output)
+    DDRA |= ((1 << 7) | (1 << 6) | (1 << 5) | (1 << 4));
+    PORTA |= ((1 << 7) | (1 << 6) | (1 << 5) | (1 << 4));
 
-    // cols (output)
-    DDRD |= ((1 << 7));
-    DDRC |= ((1 << 2) | (1 << 3) | (1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
-    DDRA |= ((1 << 3) | (1 << 2) | (1 << 1) | (1 << 0));
-    DDRB |= ((1 << 0));
+    // cols (input)
+    DDRD &= ~((1 << 7));
+    DDRC &= ~((1 << 2) | (1 << 3) | (1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
+    DDRA &= ~((1 << 3) | (1 << 2) | (1 << 1) | (1 << 0));
+    DDRB &= ~((1 << 0));
 
-    PORTD &= ~((1 << 7));
-    PORTC &= ~((1 << 2) | (1 << 3) | (1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
-    PORTA &= ~((1 << 3) | (1 << 2) | (1 << 1) | (1 << 0));
-    PORTB &= ~((1 << 0));
+    // pull-up cols
+    PORTD |= ((1 << 7));
+    PORTC |= ((1 << 2) | (1 << 3) | (1 << 4) | (1 << 5) | (1 << 6) | (1 << 7));
+    PORTA |= ((1 << 3) | (1 << 2) | (1 << 1) | (1 << 0));
+    PORTB |= ((1 << 0));
 
     // initialize matrix state: all keys off
     for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
         matrix[row] = 0x00;
-    }
-    for (uint8_t col = 0; col < MATRIX_COLS; col++) {
-        matrix_debouncing[col] = 0x00;
+        matrix_debouncing[row] = 0x00;
     }
 
     matrix_init_quantum();
@@ -68,47 +67,39 @@ void matrix_init(void) {
 
 uint8_t matrix_scan(void) {
 
-    for (uint8_t c = 0; c < MATRIX_COLS; c++) {
+    for (uint8_t c = 0; c < MATRIX_ROWS; c++) {
         switch (c) {
-          case 0:  PORTD |= (1 << 7); break;
-          case 1:  PORTC |= (1 << 2); break;
-          case 2:  PORTC |= (1 << 3); break;
-          case 3:  PORTC |= (1 << 4); break;
-          case 4:  PORTC |= (1 << 5); break;
-          case 5:  PORTC |= (1 << 6); break;
-          case 6:  PORTC |= (1 << 7); break;
-          case 7:  PORTA |= (1 << 3); break;
-          case 8:  PORTA |= (1 << 2); break;
-          case 9:  PORTA |= (1 << 1); break;
-          case 10: PORTA |= (1 << 0); break;
-          case 11: PORTB |= (1 << 0); break;
+          case 0:  PORTA &= ~(1 << 7); break;
+          case 1:  PORTA &= ~(1 << 6); break;
+          case 2:  PORTA &= ~(1 << 5); break;
+          case 3:  PORTA &= ~(1 << 4); break;
         }
         _delay_us(5);
 
-        uint8_t current_col = (
-           ((PINA & (1 << 7)) ? 1 : 0 ) |
-          (((PINA & (1 << 6)) ? 1 : 0 ) << 1) |
-          (((PINA & (1 << 5)) ? 1 : 0 ) << 2) |
-          (((PINA & (1 << 4)) ? 1 : 0 ) << 3)
+        matrix_row_t current_row = (
+          (((PIND & (1 << 7)) ? 0 : 1 ) << 0) |
+          (((PINC & (1 << 2)) ? 0 : 1 ) << 1) |
+          (((PINC & (1 << 3)) ? 0 : 1 ) << 2) |
+          (((PINC & (1 << 4)) ? 0 : 1 ) << 3) |
+          (((PINC & (1 << 5)) ? 0 : 1 ) << 4) |
+          (((PINC & (1 << 6)) ? 0 : 1 ) << 5) |
+          (((PINC & (1 << 7)) ? 0 : 1 ) << 6) |
+          (((PINA & (1 << 3)) ? 0 : 1 ) << 7) |
+          (((PINA & (1 << 2)) ? 0 : 1 ) << 8) |
+          (((PINA & (1 << 1)) ? 0 : 1 ) << 9) |
+          (((PINA & (1 << 0)) ? 0 : 1 ) << 10) |
+          (((PINB & (1 << 0)) ? 0 : 1 ) << 11)
         );
 
         switch (c) {
-          case 0:  PORTD &= ~(1 << 7); break;
-          case 1:  PORTC &= ~(1 << 2); break;
-          case 2:  PORTC &= ~(1 << 3); break;
-          case 3:  PORTC &= ~(1 << 4); break;
-          case 4:  PORTC &= ~(1 << 5); break;
-          case 5:  PORTC &= ~(1 << 6); break;
-          case 6:  PORTC &= ~(1 << 7); break;
-          case 7:  PORTA &= ~(1 << 3); break;
-          case 8:  PORTA &= ~(1 << 2); break;
-          case 9:  PORTA &= ~(1 << 1); break;
-          case 10: PORTA &= ~(1 << 0); break;
-          case 11: PORTB &= ~(1 << 0); break;
+          case 0:  PORTA |= (1 << 7); break;
+          case 1:  PORTA |= (1 << 6); break;
+          case 2:  PORTA |= (1 << 5); break;
+          case 3:  PORTA |= (1 << 4); break;
         }
 
-        if (matrix_debouncing[c] != current_col) {
-            matrix_debouncing[c] = current_col;
+        if (matrix_debouncing[c] != current_row) {
+            matrix_debouncing[c] = current_row;
             debouncing = DEBOUNCE;
         }
     }
@@ -118,10 +109,7 @@ uint8_t matrix_scan(void) {
             _delay_ms(1);
         } else {
             for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
-                matrix[i] = 0;
-                for (uint8_t j = 0; j < MATRIX_COLS; j++) {
-                    matrix[i] |= (((matrix_debouncing[j] & (1 << i)) ? 1L : 0 ) << j);
-                }
+                matrix[i] = matrix_debouncing[i];
             }
         }
     }
