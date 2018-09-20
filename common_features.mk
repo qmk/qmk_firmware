@@ -221,7 +221,6 @@ ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
-
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
@@ -232,11 +231,15 @@ ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/dynamic_keymap.c
 endif
 
+ifeq ($(strip $(LEADER_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
+  OPT_DEFS += -DLEADER_ENABLE
+endif
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
-    $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/process_keycode/process_leader.c
+    $(QUANTUM_DIR)/keycode_config.c
 
 ifndef CUSTOM_MATRIX
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
@@ -251,5 +254,5 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
                 $(QUANTUM_DIR)/split_common/split_util.c \
                 $(QUANTUM_DIR)/split_common/i2c.c \
-                $(QUANTUM_DIR)/split_common/serial.c  
+                $(QUANTUM_DIR)/split_common/serial.c
 endif
