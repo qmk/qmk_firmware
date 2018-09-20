@@ -9,6 +9,7 @@
 #define _KEEB    3
 #define _MEDIA   4
 #define _LAZY    5
+#define _NSHFT   6
 
 #define EECONFIG_USERSPACE (uint8_t *)20
 
@@ -21,6 +22,7 @@
 #define STRIKE      TD(TD_STRK_SHOT)
 #define HYPHEN      TD(TD_HYPH_UNDR)
 #define CEDILLA     TD(TD_C_CED)
+#define SPACE       TD(SPC_SFT_NSFT)
 
 #define RAISE       MO(1)
 #define LOWER       MO(2)
@@ -117,20 +119,32 @@ enum tapdances {
         TD_BRCK_PARN_O,
         TD_BRCK_PARN_C,
         TD_LALT_RALT,
+        SPC_SFT_NSFT,
 };
 
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-        [TD_3_GRV_ACT]      = ACTION_TAP_DANCE_FN (dance_3),
-        [TD_C_CED]          = ACTION_TAP_DANCE_FN (dance_c),
-        [TD_GRV_3GRV]       = ACTION_TAP_DANCE_FN (dance_grv),
-        [TD_SING_DOUB]      = ACTION_TAP_DANCE_FN (dance_quot),
-        [TD_STRK_SHOT]      = ACTION_TAP_DANCE_FN (dance_strk),
-        [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_DOUBLE (KC_MINS, LSFT(KC_MINS)),
-        [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, LSFT(KC_9)),
-        [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, LSFT(KC_0)),
-        [TD_LALT_RALT]      = ACTION_TAP_DANCE_DOUBLE (KC_LALT, KC_RALT),
+
+// start fancy tap dancing
+typedef struct {
+  bool is_press_action;
+  int state;
+} tap;
+
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3,
+  DOUBLE_HOLD = 4,
+  DOUBLE_SINGLE_TAP = 5, //send two single taps
+  TRIPLE_TAP = 6,
+  TRIPLE_HOLD = 7
 };
+
+//Tap dance enums
+enum {
+  X_CTL = 0,
+  SOME_OTHER_DANCE
+};
+// end fancy tap dancing
 
 void send_unicode_hex_string(const char *str);
 
@@ -160,8 +174,26 @@ void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift);
 
 void long_keystroke(size_t num_of_keys, uint16_t keys[]);
 
-void dance_grv (qk_tap_dance_state_t *state, void *user_data)
-void dance_quot (qk_tap_dance_state_t *state, void *user_data)
-void dance_strk (qk_tap_dance_state_t *state, void *user_data)
-void dance_3 (qk_tap_dance_state_t *state, void *user_data)
-void dance_c (qk_tap_dance_state_t *state, void *user_data)
+void dance_grv (qk_tap_dance_state_t *state, void *user_data);
+void dance_quot (qk_tap_dance_state_t *state, void *user_data);
+void dance_strk (qk_tap_dance_state_t *state, void *user_data);
+void dance_3 (qk_tap_dance_state_t *state, void *user_data);
+void dance_c (qk_tap_dance_state_t *state, void *user_data);
+
+int cur_dance (qk_tap_dance_state_t *state);
+void spc_finished (qk_tap_dance_state_t *state, void *user_data);
+void spc_reset (qk_tap_dance_state_t *state, void *user_data);
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+        [TD_3_GRV_ACT]      = ACTION_TAP_DANCE_FN (dance_3),
+        [TD_C_CED]          = ACTION_TAP_DANCE_FN (dance_c),
+        [TD_GRV_3GRV]       = ACTION_TAP_DANCE_FN (dance_grv),
+        [TD_SING_DOUB]      = ACTION_TAP_DANCE_FN (dance_quot),
+        [TD_STRK_SHOT]      = ACTION_TAP_DANCE_FN (dance_strk),
+        [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_DOUBLE (KC_MINS, LSFT(KC_MINS)),
+        [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, LSFT(KC_9)),
+        [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, LSFT(KC_0)),
+        [TD_LALT_RALT]      = ACTION_TAP_DANCE_DOUBLE (KC_LALT, KC_RALT),
+        [SPC_SFT_NSFT]      = ACTION_TAP_DANCE_FN_ADVANCED (NULL, spc_finished, spc_reset),
+};
