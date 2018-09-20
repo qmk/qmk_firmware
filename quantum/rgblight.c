@@ -503,13 +503,13 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_set();
 }
 
-void rgblight_setrgb_many(LED_TYPE *ledarray, uint8_t *indexes, uint8_t led_count) {
+void rgblight_setrgb_many(LED_TYPE *ledarray, uint8_t *indices, uint8_t led_count) {
   if (!rgblight_config.enable) { return; }
 
   for (uint8_t i = 0; i < led_count; i++) {
-    led[indexes[i]].r = ledarray[i].r;
-    led[indexes[i]].g = ledarray[i].g;
-    led[indexes[i]].b = ledarray[i].b;
+    led[indices[i]].r = ledarray[i].r;
+    led[indices[i]].g = ledarray[i].g;
+    led[indices[i]].b = ledarray[i].b;
   }
   rgblight_set();
 }
