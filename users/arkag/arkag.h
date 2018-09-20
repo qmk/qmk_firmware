@@ -9,7 +9,6 @@
 #define _KEEB    3
 #define _MEDIA   4
 #define _LAZY    5
-#define _NSHFT   6
 
 #define EECONFIG_USERSPACE (uint8_t *)20
 
@@ -22,7 +21,8 @@
 #define STRIKE      TD(TD_STRK_SHOT)
 #define HYPHEN      TD(TD_HYPH_UNDR)
 #define CEDILLA     TD(TD_C_CED)
-#define SPACE       TD(SPC_SFT_NSFT)
+
+#define SPACE       MT(MOD_LSFT, KC_SPC)
 
 #define RAISE       MO(1)
 #define LOWER       MO(2)
@@ -71,21 +71,6 @@ typedef enum {
         boot,
 } activityState;
 
-uint8_t       current_os, mod_primary_mask, fade_delay;
-uint16_t      flash_timer_one, flash_timer_two,
-              fade_timer_one, fade_timer_two,
-              active_timer_one, active_timer_two,
-              elapsed               = 0,
-              num_extra_flashes_off = 0;
-Color         underglow,
-              flash_color,
-              saved_color,
-              hsv_none      = {0,0,0},
-              hsv_white     = {0,0,127};
-flashState    flash_state   = no_flash;
-fadeState     fade_state    = add_fade;
-activityState state         = boot;
-
 enum custom_keycodes {
         M_PMOD = SAFE_RANGE,
         M_SMOD,
@@ -121,30 +106,6 @@ enum tapdances {
         TD_LALT_RALT,
         SPC_SFT_NSFT,
 };
-
-
-// start fancy tap dancing
-typedef struct {
-  bool is_press_action;
-  int state;
-} tap;
-
-enum {
-  SINGLE_TAP = 1,
-  SINGLE_HOLD = 2,
-  DOUBLE_TAP = 3,
-  DOUBLE_HOLD = 4,
-  DOUBLE_SINGLE_TAP = 5, //send two single taps
-  TRIPLE_TAP = 6,
-  TRIPLE_HOLD = 7
-};
-
-//Tap dance enums
-enum {
-  X_CTL = 0,
-  SOME_OTHER_DANCE
-};
-// end fancy tap dancing
 
 void send_unicode_hex_string(const char *str);
 
@@ -183,17 +144,3 @@ void dance_c (qk_tap_dance_state_t *state, void *user_data);
 int cur_dance (qk_tap_dance_state_t *state);
 void spc_finished (qk_tap_dance_state_t *state, void *user_data);
 void spc_reset (qk_tap_dance_state_t *state, void *user_data);
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-        [TD_3_GRV_ACT]      = ACTION_TAP_DANCE_FN (dance_3),
-        [TD_C_CED]          = ACTION_TAP_DANCE_FN (dance_c),
-        [TD_GRV_3GRV]       = ACTION_TAP_DANCE_FN (dance_grv),
-        [TD_SING_DOUB]      = ACTION_TAP_DANCE_FN (dance_quot),
-        [TD_STRK_SHOT]      = ACTION_TAP_DANCE_FN (dance_strk),
-        [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_DOUBLE (KC_MINS, LSFT(KC_MINS)),
-        [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, LSFT(KC_9)),
-        [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, LSFT(KC_0)),
-        [TD_LALT_RALT]      = ACTION_TAP_DANCE_DOUBLE (KC_LALT, KC_RALT),
-        [SPC_SFT_NSFT]      = ACTION_TAP_DANCE_FN_ADVANCED (NULL, spc_finished, spc_reset),
-};

@@ -32,6 +32,21 @@ void send_unicode_hex_string(const char *str) {
 }
 // End: Written by konstantin: vomindoraan
 
+uint8_t       current_os, mod_primary_mask, fade_delay;
+uint16_t      flash_timer_one, flash_timer_two,
+              fade_timer_one, fade_timer_two,
+              active_timer_one, active_timer_two,
+              elapsed               = 0,
+              num_extra_flashes_off = 0;
+Color         underglow,
+              flash_color,
+              saved_color,
+              hsv_none      = {0,0,0},
+              hsv_white     = {0,0,127};
+flashState    flash_state   = no_flash;
+fadeState     fade_state    = add_fade;
+activityState state         = boot;
+
 void set_color (Color new, bool update) {
         rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
 }
@@ -350,71 +365,18 @@ void dance_c (qk_tap_dance_state_t *state, void *user_data) {
         }
 }
 
-int cur_dance (qk_tap_dance_state_t *state) {
-  if (state->count == 1) {
-    if (state->interrupted || !state->pressed)  return SINGLE_TAP;
-    //key has not been interrupted, but they key is still held. Means you want to send a 'HOLD'.
-    else return SINGLE_HOLD;
-  }
-  else if (state->count == 2) {
-    /*
-     * DOUBLE_SINGLE_TAP is to distinguish between typing "pepper", and actually wanting a double tap
-     * action when hitting 'pp'. Suggested use case for this return value is when you want to send two
-     * keystrokes of the key, and not the 'double tap' action/macro.
-    */
-    if (state->interrupted) return DOUBLE_SINGLE_TAP;
-    else if (state->pressed) return DOUBLE_HOLD;
-    else return DOUBLE_TAP;
-  }
-  //Assumes no one is trying to type the same letter three times (at least not quickly).
-  //If your tap dance key is 'KC_W', and you want to type "www." quickly - then you will need to add
-  //an exception here to return a 'TRIPLE_SINGLE_TAP', and define that enum just like 'DOUBLE_SINGLE_TAP'
-  if (state->count == 3) {
-    if (state->interrupted || !state->pressed)  return TRIPLE_TAP;
-    else return TRIPLE_HOLD;
-  }
-  else return 8; //magic number. At some point this method will expand to work for more presses
-}
-
-static tap spc_tap_state = {
-  .is_press_action = true,
-  .state = 0
-};
-
-void x_finished (qk_tap_dance_state_t *state, void *user_data) {
-  spc_tap_state.state = cur_dance(state);
-  switch (spc_tap_state.state) {
-    case SINGLE_TAP: register_code(KC_SPC); break;
-    case SINGLE_HOLD: register_code(KC_LSFT); break;
-    case DOUBLE_TAP: break;
-    case DOUBLE_HOLD: layer_on(_NSHFT); break;
-    case DOUBLE_SINGLE_TAP: tap_key(KC_SPC); register_code(KC_SPC);
-  }
-}
-
-void x_reset (qk_tap_dance_state_t *state, void *user_data) {
-  switch (spc_tap_state.state) {
-    case SINGLE_TAP: unregister_code(KC_SPC); break;
-    case SINGLE_HOLD: unregister_code(KC_LSFT); break;
-    case DOUBLE_TAP: break;
-    case DOUBLE_HOLD: layer_off(_NSHFT); break;
-    case DOUBLE_SINGLE_TAP: unregister_code(KC_SPC);
-  }
-  spc_tap_state.state = 0;
-}
-
-void matrix_init_keymap(void) {
+void matrix_init_user(void) {
         current_os = eeprom_read_byte(EECONFIG_USERSPACE);
         set_os(current_os, false);
 }
 
-void matrix_scan_keymap(void) {
+void matrix_scan_user(void) {
         check_state();
         flash_rgb();
         fade_rgb();
 }
 
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch (keycode) {
         case M_PMOD:
                 if (record->event.pressed) {
@@ -602,3 +564,16 @@ uint32_t layer_state_set_user(uint32_t state) {
         set_color(underglow, false);
         return state;
 }
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+        [TD_3_GRV_ACT]      = ACTION_TAP_DANCE_FN (dance_3),
+        [TD_C_CED]          = ACTION_TAP_DANCE_FN (dance_c),
+        [TD_GRV_3GRV]       = ACTION_TAP_DANCE_FN (dance_grv),
+        [TD_SING_DOUB]      = ACTION_TAP_DANCE_FN (dance_quot),
+        [TD_STRK_SHOT]      = ACTION_TAP_DANCE_FN (dance_strk),
+        [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_DOUBLE (KC_MINS, LSFT(KC_MINS)),
+        [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, LSFT(KC_9)),
+        [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, LSFT(KC_0)),
+        [TD_LALT_RALT]      = ACTION_TAP_DANCE_DOUBLE (KC_LALT, KC_RALT),
+};
