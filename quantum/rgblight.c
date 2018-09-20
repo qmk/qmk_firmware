@@ -174,8 +174,15 @@ void rgblight_init(void) {
 
   if (rgblight_config.enable) {
     rgblight_mode_noeeprom(rgblight_config.mode);
+    rgblight_init_leds();
   }
 }
+
+#ifndef RGBLIGHT_CUSTOM_LED_INIT
+void rgblight_init_leds(void) {
+  rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
+}
+#endif
 
 void rgblight_update_dword(uint32_t dword) {
   rgblight_config.raw = dword;
@@ -256,7 +263,6 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
       rgblight_timer_enable();
 #endif
   }
-  rgblight_sethsv_noeeprom(rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
 }
 
 void rgblight_mode(uint8_t mode) {
@@ -493,6 +499,17 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
     led[i].r = r;
     led[i].g = g;
     led[i].b = b;
+  }
+  rgblight_set();
+}
+
+void rgblight_setrgb_many(LED_TYPE *ledarray, uint8_t *indexes, uint8_t led_count) {
+  if (!rgblight_config.enable) { return; }
+
+  for (uint8_t i = 0; i < led_count; i++) {
+    led[indexes[i]].r = ledarray[i].r;
+    led[indexes[i]].g = ledarray[i].g;
+    led[indexes[i]].b = ledarray[i].b;
   }
   rgblight_set();
 }
