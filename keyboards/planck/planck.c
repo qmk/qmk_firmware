@@ -13,7 +13,7 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 __attribute__ ((weak))
 void matrix_init_kb(void) {
 	// Turn status LED on
-	#ifdef __AVR__
+	#if defined(__AVR__) && defined(DDRE)
 	DDRE |= (1<<6);
 	PORTE |= (1<<6);
 	#endif
