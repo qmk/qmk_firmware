@@ -76,7 +76,7 @@ WASD are Up Left Right Down respectively
 * ,-----------------------------------------------------------.
 * |   |   |    |   |   |   |   |   |   |   |   |    |    |    |
 * |-----------------------------------------------------------|
-* |     | M1|MUP|M2 |   |   |   |   |   |   |   |    |   |    |
+* |     | M1|MUP|M2 |   |   |   |   |   |   |   |MPLY|   |    |
 * |-----------------------------------------------------------|
 * |       |ML |MDN|MR |   |   |   |   |   |   |MPRV|MNXT|     |
 * |-----------------------------------------------------------|
@@ -87,7 +87,7 @@ WASD are Up Left Right Down respectively
 */
          [2] = LAYOUT_60_ansi(
                 KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,     KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS, \
-                KC_TRNS,   KC_BTN1,  KC_MS_U,    KC_BTN2,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,    KC_TRNS,          KC_TRNS, \
+                KC_TRNS,   KC_BTN1,  KC_MS_U,    KC_BTN2,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MPLY,    KC_TRNS,          KC_TRNS, \
                 KC_TRNS,   KC_MS_L,  KC_MS_D,  KC_MS_R, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT,          KC_TRNS,          \
                 KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,           RESET,  \
                 KC_TRNS,   KC_TRNS,  KC_TRNS,            KC_TRNS,                                                           KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
