@@ -17,9 +17,6 @@
 
 #define PERMISSIVE_HOLD
 
-#define PREVENT_STUCK_MODIFIERS
-
-
 /*
  * MIDI options
  */

@@ -88,7 +88,7 @@ uint32_t layer_state_set_kb(uint32_t state);
 #endif
 
 /* pressed actions cache */
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
 /* The number of bits needed to represent the layer number: log2(32). */
 #define MAX_LAYER_BITS 5
 void update_source_layers_cache(keypos_t key, uint8_t layer);
