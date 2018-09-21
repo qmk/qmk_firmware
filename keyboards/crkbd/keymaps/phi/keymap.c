@@ -6,7 +6,7 @@
 /* LAYER DEFINITIONS */
 
 #define BASE     0
-#define SYMB     1
+#define RAISE    1
 #define FUNCTION 2
 #define MOUSE    3
 #define WHEEL    4
@@ -19,11 +19,10 @@
 
 /* layers */
 #define KC_D_MOUS LT(MOUSE, KC_D)
-#define KC_L1_FNC LT(FUNCTION, KC_LANG1)
+#define KC_L1_RAI LT(RAISE, KC_LANG1)
 #define KC_L2_ALT LALT_T(KC_LANG2)
 #define KC_WEEL   MO(WHEEL)
-#define KC_SP_SFT LSFT_T(KC_SPC)
-#define KC_ENT_SB LT(SYMB, KC_ENT)
+#define KC_ESC_FN LT(FUNCTION, KC_ESC)
 
 /* aliases */
 #define KC_RST  RESET
@@ -46,19 +45,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     LSFT , Z    , X    , C    , V    , B    ,                  B    , N    , M    , COMM , DOT  , SLSH , \
 //`------+------+------+------+------+------+------.  |------+------+------+------+------+------+------|
-                               L2_ALT,SP_SFT, ESC  ,    TAB  ,ENT_SB,L1_FNC \
+                               L2_ALT, SPC  ,ESC_FN,    TAB  , ENT  ,L1_RAI \
 //                            `--------------------'  `--------------------'
 ),
 
-[SYMB] = LAYOUT_kc( \
+[RAISE] = LAYOUT_kc( \
 //,-----------------------------------------.                ,-----------------------------------------.
-    ____ , 1    , 2    , 3    , 4    , 5    ,                  6    , 7    , 8    , 9    , 0    , EQL  , \
+    BSPC , 1    , 2    , 3    , 4    , 5    ,                  6    , 7    , 8    , 9    , 0    , EQL  , \
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    ____ , ____ , ____ , LCBR , LPRN , LBRC ,                  RBRC , RPRN , RCBR , PIPE , ____ , PLUS , \
+    ____ , ____ , BSLS , LCBR , LPRN , LBRC ,                  RBRC , RPRN , RCBR , PIPE , UP   , PLUS , \
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    ____ , EXLM , AT   , HASH , DLR  , PERC ,                  CIRC , AMPR , ASTR , ____ , ____ , BSLS , \
+    ____ , EXLM , AT   , HASH , DLR  , PERC ,                  CIRC , AMPR , ASTR , LEFT , DOWN , RGHT , \
 //`------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------'
-                                ____ , ____ , ____ ,    ____ , ____ , ____  \
+                                ____ , ____ , ____ ,    RST  , ____ , XXXX  \
 //                            `--------------------'  `--------------------'
 ),
 

@@ -3,7 +3,7 @@
 #include "split_util.h"
 
 #define L_BASE     0
-#define L_SYMB     (2 << (1 - 1))
+#define L_RAISE    (2 << (1 - 1))
 #define L_FUNCTION (2 << (2 - 1))
 #define L_MOUSE    (2 << (3 - 1))
 #define L_WHEEL    (2 << (4 - 1))
@@ -24,8 +24,8 @@ char *get_layer_name(void) {
     {
       case L_BASE:
         return "Base";
-      case L_SYMB:
-        return "Symbol";
+      case L_RAISE:
+        return "Raise";
       case L_FUNCTION:
         return "Function";
       case L_MOUSE:
