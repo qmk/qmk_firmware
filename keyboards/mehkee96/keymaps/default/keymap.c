@@ -1,4 +1,4 @@
-#include "mehkee96.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -68,10 +68,6 @@ BL_TOGG, BL_DEC, BL_INC changes the in-switch LEDs
     _______         , _______, _______, BL_DEC,  BL_TOGG, BL_INC,  _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______,
     _______, _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______, _______, _______, _______),
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	return MACRO_NONE;
-}
 
 void matrix_init_user(void) {
 }
