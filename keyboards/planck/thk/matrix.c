@@ -43,6 +43,9 @@ __attribute__ ((weak))
 void dip_update(uint8_t index, bool active) { }
 
 __attribute__ ((weak))
+void dip_update_kb(uint8_t index, bool active) { }
+
+__attribute__ ((weak))
 void encoder_update(uint8_t index, bool clockwise) { }
 
 bool last_dip_switch[4] = {0};
@@ -117,6 +120,7 @@ uint8_t matrix_scan(void) {
     for (uint8_t i = 0; i < 4; i++) {
       if (last_dip_switch[i] ^ dip_switch[i])
         dip_update(i, dip_switch[i]);
+        dip_update_kb(i, dip_switch[i]);
     }
     memcpy(last_dip_switch, dip_switch, sizeof(&dip_switch));
 

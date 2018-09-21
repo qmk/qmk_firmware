@@ -285,11 +285,11 @@ void encoder_update(uint8_t index, bool clockwise) {
       }
     } else {
       if (clockwise) {
-        register_code(KC_MS_WH_DOWN);
-        unregister_code(KC_MS_WH_DOWN);
+        register_code(KC_MS_DOWN);
+        unregister_code(KC_MS_DOWN);
       } else {
-        register_code(KC_MS_WH_UP);
-        unregister_code(KC_MS_WH_UP);
+        register_code(KC_MS_UP);
+        unregister_code(KC_MS_UP);
       }
     }
   }

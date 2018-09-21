@@ -16,6 +16,8 @@
 
 #include "thk.h"
 
+extern bool dip_switch[4];
+
 void matrix_init_kb(void) {
 
   DDRD |= (1<<5);
@@ -29,6 +31,13 @@ void matrix_scan_kb(void) {
 
 static uint8_t keys_pressed = 0;
 
+bool react_to_keys = false;
+
+void dip_update_kb(uint8_t index, bool active) {
+  if (index == 0)
+    react_to_keys = active;
+}
+
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     keys_pressed++;
@@ -36,10 +45,12 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
     keys_pressed--;
   }
 
-  if (keys_pressed) {
-    PORTD |= (1<<5);
-  } else {
-    PORTD &= ~(1<<5);
+  if (react_to_keys){
+    if (keys_pressed) {
+      PORTD |= (1<<5);
+    } else {
+      PORTD &= ~(1<<5);
+    }
   }
   return process_record_user(keycode, record);
 }
