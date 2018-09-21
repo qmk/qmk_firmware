@@ -58,7 +58,10 @@ void matrix_scan_kb(void) {
     rgb_init = true;
   }
 
+#ifdef RGBLIGHT_ANIMATION
   rgblight_task();
+#endif
+
 #else
 void matrix_scan_kb(void) {
 #endif
