@@ -1,0 +1,47 @@
+#define TD_SHIFT_CAPS 1
+
+typedef enum { NONE, INTERRUPTED, SINGLE_TAP, SINGLE_HOLD, DOUBLE_TAP, DOUBLE_HOLD } dance_action_t;
+
+dance_action_t dance_state_to_action (qk_tap_dance_state_t *state) {
+    if (state->count == 1) {
+        if (!state->pressed) return SINGLE_TAP;
+        else if (state->interrupted) return INTERRUPTED;
+        else return SINGLE_HOLD;
+    }
+    else if (state->count == 2) {
+        if (state->pressed) return DOUBLE_HOLD;
+        else return DOUBLE_TAP;
+    }
+    else return NONE; //magic number. At some point this method will expand to work for more presses
+}
+
+/* ---- */
+
+dance_action_t shift_action;
+
+void shift_finished (qk_tap_dance_state_t *state, void *user_data) {
+    if (shift_action == DOUBLE_TAP) {
+        unregister_code(KC_LSFT);
+        shift_action = NONE;
+        return;
+    }
+    switch (shift_action = dance_state_to_action(state)) {
+      case SINGLE_HOLD: case INTERRUPTED: register_code(KC_LSFT); break;
+      case SINGLE_TAP: unregister_code(KC_LSFT); set_oneshot_mods(MOD_LSFT); break;
+      case DOUBLE_TAP: register_code(KC_LSFT); break;
+      default: break;
+    }
+}
+
+void shift_reset (qk_tap_dance_state_t *state, void *user_data) {
+    switch (shift_action) {
+      case SINGLE_HOLD: case INTERRUPTED: unregister_code(KC_LSFT); break;
+      default: break;
+    }
+}
+
+/* ---- */
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+    [TD_SHIFT_CAPS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, shift_finished,  shift_reset)
+};

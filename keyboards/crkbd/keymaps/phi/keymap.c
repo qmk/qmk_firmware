@@ -1,4 +1,5 @@
 #include "crkbd.h"
+#include "dance.c"
 #ifdef SSD1306OLED
 #include "./oled.c"
 #endif
@@ -13,18 +14,17 @@
 
 /* KEYCODE DEFINITIONS */
 
-/* invalid / blank keys */
 #define KC_____ KC_TRNS
 #define KC_XXXX KC_NO
 
-/* layers */
 #define KC_D_MOUS LT(MOUSE, KC_D)
 #define KC_L1_RAI LT(RAISE, KC_LANG1)
 #define KC_L2_ALT LALT_T(KC_LANG2)
 #define KC_WEEL   MO(WHEEL)
 #define KC_ESC_FN LT(FUNCTION, KC_ESC)
 
-/* aliases */
+#define KC_SFCL TD(TD_SHIFT_CAPS)
+
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
 #define KC_MDN  KC_MS_D
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     LCTL , A    , S    ,D_MOUS, F    , G    ,                  H    , J    , K    , L    , SCLN , QUOT , \
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-    LSFT , Z    , X    , C    , V    , B    ,                  B    , N    , M    , COMM , DOT  , SLSH , \
+    SFCL , Z    , X    , C    , V    , B    ,                  B    , N    , M    , COMM , DOT  , SLSH , \
 //`------+------+------+------+------+------+------.  |------+------+------+------+------+------+------|
                                L2_ALT, SPC  ,ESC_FN,    TAB  , ENT  ,L1_RAI \
 //                            `--------------------'  `--------------------'
