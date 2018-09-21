@@ -22,8 +22,6 @@
 #define HYPHEN      TD(TD_HYPH_UNDR)
 #define CEDILLA     TD(TD_C_CED)
 
-#define SPACE       MT(MOD_LSFT, KC_SPC)
-
 #define RAISE       MO(1)
 #define LOWER       MO(2)
 #define KEEB        MO(3)
@@ -34,17 +32,11 @@
 #define MOD_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 #define MOD_SFT_MASK (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))
 
-#define TAP_A    LALT_T(KC_A)
-#define TAP_SCN  RALT_T(KC_SCOLON)
+#define TAP_F   LSFT_T(KC_F)
+#define TAP_J   RSFT_T(KC_J)
 
-#define TAP_S    LCTL_T(KC_S)
-#define TAP_L    RCTL_T(KC_L)
-
-#define TAP_D    LSFT_T(KC_D)
-#define TAP_K    RSFT_T(KC_K)
-
-#define TAP_F    LGUI_T(KC_F)
-#define TAP_J    RGUI_T(KC_J)
+#define TAP_MIN LSFT_T(KC_MINUS)
+#define TAP_4   RSFT_T(KC_4)
 
 #define LED_FLASH_DELAY       150
 #define LED_FADE_DELAY        10
@@ -53,70 +45,70 @@
 #define SLEEP_DELAY           60000
 
 typedef enum {
-        OS_MAC, // Don't assign values
-        OS_WIN,
-        OS_NIX,
-        _OS_COUNT,
+  OS_MAC, // Don't assign values
+  OS_WIN,
+  OS_NIX,
+  _OS_COUNT,
 } OS;
 
 typedef struct {
-        uint16_t  h;
-        uint8_t   s;
-        uint8_t   v;
+  uint16_t  h;
+  uint8_t   s;
+  uint8_t   v;
 } Color;
 
 typedef enum {
-        no_flash = 0,
-        flash_off,
-        flash_on,
+  no_flash = 0,
+  flash_off,
+  flash_on,
 } flashState;
 
 typedef enum {
-        add_fade = 0,
-        sub_fade,
+  add_fade = 0,
+  sub_fade,
 } fadeState;
 
 typedef enum {
-        active = 0,
-        inactive,
-        sleeping,
-        boot,
+  active = 0,
+  inactive,
+  sleeping,
+  boot,
 } activityState;
 
 enum custom_keycodes {
-        M_PMOD = SAFE_RANGE,
-        M_SMOD,
-        M_P_B,
-        M_C_A_D,
-        M_CALC,
-        M_OS,
-        M_TF,
-        M_TM,
-        M_GGT,
-        M_LOD,
-        M_LENNY,
-        M_BOLD,
-        M_ITAL,
-        M_ULIN,
-        M_SNIPT,
-        M_REPO,
-        M_SHRUG,
-        M_UF,
+  M_PMOD = SAFE_RANGE,
+  M_SMOD,
+  M_P_B,
+  M_C_A_D,
+  M_CALC,
+  M_OS,
+  M_TF,
+  M_TM,
+  M_GGT,
+  M_LOD,
+  M_LENNY,
+  M_BOLD,
+  M_ITAL,
+  M_ULIN,
+  M_SNIPT,
+  M_REPO,
+  M_SHRUG,
+  M_UF,
 };
 
 enum tapdances {
-        TD_3_GRV_ACT = 0,
-        TD_C_CED,
-        TD_GRV_3GRV,
-        TD_SLSH_HTTP,
-        TD_SING_DOUB,
-        TD_HYPH_UNDR,
-        TD_STRK_SHOT,
-        TD_SPECIAL,
-        TD_BRCK_PARN_O,
-        TD_BRCK_PARN_C,
-        TD_LALT_RALT,
-        SPC_SFT_NSFT,
+  TD_3_GRV_ACT = 0,
+  TD_C_CED,
+  TD_GRV_3GRV,
+  TD_SLSH_HTTP,
+  TD_SING_DOUB,
+  TD_HYPH_UNDR,
+  TD_STRK_SHOT,
+  TD_SPECIAL,
+  TD_BRCK_PARN_O,
+  TD_BRCK_PARN_C,
+  TD_LALT_RALT,
+  SPC_SFT_NSFT,
 };
 
 void send_unicode_hex_string(const char *str);
