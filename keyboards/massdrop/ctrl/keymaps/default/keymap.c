@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,   KC_DEL,  KC_END,  KC_PGDN, \
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT, \
         KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                              KC_UP, \
-        KC_LCTL, KC_LGUI, KC_LALT,                  KC_SPC,                              KC_RALT, MO(1),   KC_APP,  KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT \
+        KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                             KC_RALT, MO(1),   KC_APP,  KC_RCTL,            KC_LEFT, KC_DOWN, KC_RGHT \
     ),
     [1] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_MUTE, KC_TRNS, KC_TRNS, \
@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         L_T_BR,  L_PSD,   L_BRI,   L_PSI,   KC_TRNS, KC_TRNS, KC_TRNS, U_T_AUTO,U_T_AGCR,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_MPRV, KC_MNXT, KC_VOLD, \
         L_T_PTD, L_PTP,   L_BRD,   L_PTN,   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
         KC_TRNS, L_T_MD,  L_T_ONF, KC_TRNS, KC_TRNS, MD_BOOT, TG_NKRO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                              KC_TRNS, \
-        KC_TRNS, KC_TRNS, KC_TRNS,                  KC_TRNS,                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS \
+        KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS \
     ),
     /*
     [X] = LAYOUT(
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, \
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG_NKRO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                              KC_TRNS, \
-        KC_TRNS, KC_TRNS, KC_TRNS,                  KC_TRNS,                             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS \
+        KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,            KC_TRNS, KC_TRNS, KC_TRNS \
     ),
     */
 };
@@ -154,50 +154,86 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case U_T_AUTO:
             if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-                usb_extra_manual = !usb_extra_manual;
-                CDC_print("USB extra port manual mode ");
-                CDC_print(usb_extra_manual ? "enabled" : "disabled");
-                CDC_print("\r\n");
+                if (usb_extra_manual)
+                {
+                    dprintf("USB extra port manual mode disabled\r\n");
+                    usb_extra_manual = 0;
+                }
+                else
+                {
+                    usb_extra_manual = 1;
+                    dprintf("USB extra port manual mode enabled\r\n");
+                }
             }
             return false;
         case U_T_AGCR:
             if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-                usb_gcr_auto = !usb_gcr_auto;
-                CDC_print("USB GCR auto mode ");
-                CDC_print(usb_gcr_auto ? "enabled" : "disabled");
-                CDC_print("\r\n");
+                if (usb_gcr_auto)
+                {
+                    dprintf("USB GCR auto mode disabled\r\n");
+                    usb_gcr_auto = 0;
+                }
+                else
+                {
+                    usb_gcr_auto = 1;
+                    dprintf("USB GCR auto mode enabled\r\n");
+                }
             }
             return false;
         case DBG_TOG:
             if (record->event.pressed) {
-                debug_enable = !debug_enable;
-                CDC_print("Debug mode ");
-                CDC_print(debug_enable ? "enabled" : "disabled");
-                CDC_print("\r\n");
+                if (debug_enable)
+                {
+                    dprintf("Debug mode disabled\r\n");
+                    debug_enable = 0;
+                }
+                else
+                {
+                    debug_enable = 1;
+                    dprintf("Debug mode enabled\r\n");
+                }
             }
             return false;
         case DBG_MTRX:
             if (record->event.pressed) {
-                debug_matrix = !debug_matrix;
-                CDC_print("Debug matrix ");
-                CDC_print(debug_matrix ? "enabled" : "disabled");
-                CDC_print("\r\n");
+                if (debug_matrix)
+                {
+                    dprintf("Debug matrix disabled\r\n");
+                    debug_matrix = 0;
+                }
+                else
+                {
+                    debug_matrix = 1;
+                    dprintf("Debug matrix enabled\r\n");
+                }
             }
             return false;
         case DBG_KBD:
             if (record->event.pressed) {
-                debug_keyboard = !debug_keyboard;
-                CDC_print("Debug keyboard ");
-                CDC_print(debug_keyboard ? "enabled" : "disabled");
-                CDC_print("\r\n");
+                if (debug_keyboard)
+                {
+                    dprintf("Debug keyboard disabled\r\n");
+                    debug_keyboard = 0;
+                }
+                else
+                {
+                    debug_keyboard = 1;
+                    dprintf("Debug keyboard enabled\r\n");
+                }
             }
             return false;
         case DBG_MOU:
             if (record->event.pressed) {
-                debug_mouse = !debug_mouse;
-                CDC_print("Debug mouse ");
-                CDC_print(debug_mouse ? "enabled" : "disabled");
-                CDC_print("\r\n");
+                if (debug_mouse)
+                {
+                    dprintf("Debug mouse disabled\r\n");
+                    debug_mouse = 0;
+                }
+                else
+                {
+                    debug_mouse = 1;
+                    dprintf("Debug mouse enabled\r\n");
+                }
             }
             return false;
         case MD_BOOT:

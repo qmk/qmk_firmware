@@ -58,11 +58,6 @@ uint8_t keyboard_leds(void)
         return udi_hid_kbd_report_set;
 }
 
-volatile uint64_t kbd_wait = 0;
-#ifdef NKRO_ENABLE
-volatile uint64_t nkro_wait = 0;
-#endif
-
 void send_keyboard(report_keyboard_t *report)
 {
     uint32_t irqflags;
@@ -71,7 +66,7 @@ void send_keyboard(report_keyboard_t *report)
     if (!keymap_config.nkro)
     {
 #endif //NKRO_ENABLE
-        while (CLK_get_ms() < kbd_wait) main_subtasks(); //Run critical tasks while waiting for a USB poll to be availble
+        while (udi_hid_kbd_b_report_trans_ongoing) { main_subtasks(); } //Run other tasks while waiting for USB to be free
 
         irqflags = __get_PRIMASK();
         __disable_irq();
@@ -83,13 +78,11 @@ void send_keyboard(report_keyboard_t *report)
 
         __DMB();
         __set_PRIMASK(irqflags);
-
-        kbd_wait = CLK_get_ms() + KBD_POLLING_INTERVAL; //Mark next available poll time
 #ifdef NKRO_ENABLE
     }
     else
     {
-        while (CLK_get_ms() < nkro_wait) main_subtasks(); //Run critical tasks while waiting for a USB poll to be availble
+        while (udi_hid_nkro_b_report_trans_ongoing) { main_subtasks(); } //Run other tasks while waiting for USB to be free
 
         irqflags = __get_PRIMASK();
         __disable_irq();
@@ -101,8 +94,6 @@ void send_keyboard(report_keyboard_t *report)
 
         __DMB();
         __set_PRIMASK(irqflags);
-
-        nkro_wait = CLK_get_ms() + NKRO_POLLING_INTERVAL; //Mark next available poll time
     }
 #endif //NKRO_ENABLE
 }
@@ -171,7 +162,7 @@ void main_subtask_usb_state(void)
     if (usb_state == USB_STATE_POWERDOWN)
     {
         uint32_t timer_led = timer_read32();
-    
+
         led_on;
         if (led_enabled)
         {
@@ -206,10 +197,10 @@ void main_subtask_power_check(void)
     if (CLK_get_ms() > g_next_5v_checkup)
     {
         g_next_5v_checkup = CLK_get_ms() + 5;
-    
+
         v_5v = adc_get(ADC_5V);
         v_5v_avg = 0.9 * v_5v_avg + 0.1 * v_5v;
-    
+
         gcr_compute();
     }
 }
@@ -220,7 +211,7 @@ void main_subtask_usb_extra_device(void)
     if (CLK_get_ms() > g_next_usb_checkup)
     {
         g_next_usb_checkup = CLK_get_ms() + 10;
-    
+
         USB_HandleExtraDevice();
     }
 }
@@ -301,7 +292,7 @@ int main(void)
         if (CLK_get_ms() > next_print)
         {
             next_print = CLK_get_ms() + 250;
-            //dpf("5v=%i 5vu=%i dlow=%i dhi=%i gca=%i gcd=%i\r\n",v_5v,v_5v_avg,v_5v_avg-V5_LOW,v_5v_avg-V5_HIGH,gcr_actual,gcr_desired);
+            dprintf("5v=%u 5vu=%u dlow=%u dhi=%u gca=%u gcd=%u\r\n",v_5v,v_5v_avg,v_5v_avg-V5_LOW,v_5v_avg-V5_HIGH,gcr_actual,gcr_desired);
         }
 #endif //VIRTSER_ENABLE
     }
