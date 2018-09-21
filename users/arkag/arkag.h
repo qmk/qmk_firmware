@@ -32,11 +32,20 @@
 #define MOD_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 #define MOD_SFT_MASK (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))
 
-#define TAP_F   LSFT_T(KC_F)
-#define TAP_J   RSFT_T(KC_J)
+#define TAP_A    LALT_T(KC_A)
+#define TAP_SCN  RALT_T(KC_SCOLON)
 
-#define TAP_MIN LSFT_T(KC_MINUS)
-#define TAP_4   RSFT_T(KC_4)
+#define TAP_S    LCTL_T(KC_S)
+#define TAP_L    RCTL_T(KC_L)
+
+#define TAP_D    LSFT_T(KC_D)
+#define TAP_K    RSFT_T(KC_K)
+
+#define TAP_F    LGUI_T(KC_F)
+#define TAP_J    RGUI_T(KC_J)
+
+#define TAP_EQ   LSFT_T(KC_MINUS)
+#define TAP_5    RSFT_T(KC_5)
 
 #define LED_FLASH_DELAY       150
 #define LED_FADE_DELAY        10
