@@ -1,11 +1,5 @@
-#include "../../../MS_sculpt_mobile/babblePaste.h"
-#include "../../MS_sculpt_mobile.h"
-#include "action_layer.h"
-#include "action_util.h"
-
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
+#include "babblePaste.h"
+#include QMK_KEYBOARD_H
 
 #define _QWR 0
 #define _CDH 2
@@ -59,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ---------------------------------------------------------------------------------
 */
 
-[_QWR] = KEYMAP( \
+[_QWR] = LAYOUT( \
    KC_ESC,   KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8,   KC_F9, KC_F10,    KC_F11,   KC_F12, KC_VOLD, KC_VOLU, CDH,\
    KC_ESC,   KC_1, KC_2, KC_3 ,KC_4, KC_5, KC_6, KC_7, KC_8,   KC_9, KC_0,    KC_MINUS, KC_EQL, KC_BSPC, KC_DEL,\
    KC_TAB,   KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,   KC_O, KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,\
@@ -68,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    KC_LCTL,  KC_LGUI, KC_LALT, KC_FN1, KC_RGUI,TT_SYM,KC_RCTL, KC_LEFT, KC_DOWN, KC_RIGHT
 ),
 
-[_CDH] = KEYMAP (\
+[_CDH] = LAYOUT(\
    ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     QWR,  \
    KC_ESC,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
    KC_TAB,  KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U,    KC_Y,   KC_SCLN, ____,    ____,   ____,\
@@ -95,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ---------------------------------------------------------------------------------
 */
 
-[_SYM] = KEYMAP (\
+[_SYM] = LAYOUT(\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
   M(VIBRK),  KC_CIRC, KC_LCBR, KC_RCBR,KC_AT, KC_PERC,         ____,   KC_LBRC,KC_LPRN,KC_RPRN,KC_UNDS,   ____,   ____,   ____,\
@@ -118,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 * ---------------------------------------------------------------------------------
 */
 
-[_MOV] = KEYMAP (\
+[_MOV] = LAYOUT(\
   ____,    B_MAC,B_WIN,B_READ, B_VI, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
   ____,      ____, B_PAPP, B_NAPP, ____, ____,      ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,   \
   ____,     B_UNDO, ____, B_BFND, ____, B_PTAB,     B_DSOL, B_DLW, B_UP,   B_DRW, B_DEOL,  ____,  ____,   ____, \
@@ -127,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____
 ),
 
-[_TRAN] = KEYMAP (\
+[_TRAN] = LAYOUT(\
   ____,     ____, ____, ____, ____, ____, ____, ____, ____,   ____, ____,    ____,     ____,   ____,    ____,     ____,  \
   ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, ____,   \
   ____,     ____, ____, ____, ____, ____,      ____, ____, ____, ____, ____,    ____, ____,   ____, \
