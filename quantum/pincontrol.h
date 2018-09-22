@@ -21,13 +21,13 @@
 #if defined(PROTOCOL_CHIBIOS)
   #include "hal.h"
 
-  #define PIN_VALUE(p)  palReadPad(p & 0xFFFFFFF0, p & 0xF)
+  #define PIN_VALUE(p)  palReadPad(PAL_PORT(p), PAL_PAD(p))
 
-  #define DDR_OUTPUT(p) palSetPadMode(p & 0xFFFFFFF0, p & 0xF, PAL_MODE_OUTPUT_PUSHPULL)
-  #define DDR_INPUT(p)  palSetPadMode(p & 0xFFFFFFF0, p & 0xF, PAL_MODE_INPUT_PULLDOWN)
+  #define DDR_OUTPUT(p) palSetPadMode(PAL_PORT(p), PAL_PAD(p), PAL_MODE_OUTPUT_PUSHPULL)
+  #define DDR_INPUT(p)  palSetPadMode(PAL_PORT(p), PAL_PAD(p), PAL_MODE_INPUT_PULLDOWN)
 
-  #define PORT_HIGH(p) palSetPad(p & 0xFFFFFFF0, p & 0xF)
-  #define PORT_LOW(p) palClearPad(p & 0xFFFFFFF0, p & 0xF)
+  #define PORT_HIGH(p) palSetPad(PAL_PORT(p), PAL_PAD(p))
+  #define PORT_LOW(p) palClearPad(PAL_PORT(p), PAL_PAD(p))
 
 #endif
 
