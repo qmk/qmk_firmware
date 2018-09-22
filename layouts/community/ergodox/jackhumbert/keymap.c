@@ -19,7 +19,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               KC_HOME,
                                                KC_SPC,KC_SPC,KC_END,
         // right hand
-             KC_NO,     M(1),   KC_7,   KC_8,   KC_9,   KC_0,             KC_NO,
+             KC_NO,     M(1),   RESET,   KC_8,   KC_9,   KC_0,             KC_NO,
              KC_NO,     RGB_TOG,   RGB_MOD,   RGB_HUI,   RGB_HUD,   KC_P,             KC_BSPC,
                         RGB_SAI,   RGB_SAD,   RGB_VAI,   RGB_VAD,   KC_SCLN,          KC_QUOT,
              KC_NO,     KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,          KC_ENT,

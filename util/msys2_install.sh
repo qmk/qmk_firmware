@@ -13,9 +13,10 @@ source "$dir/win_shared_install.sh"
 
 function install_avr {
     rm -f -r "$avrtools"
-    wget "http://www.atmel.com/images/avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe"
+    wget "http://ww1.microchip.com/downloads/en/DeviceDoc/avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe"
     7z x avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe
     rm avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe
+    pacman --needed -S mingw-w64-x86_64-avrdude
 }
 
 function install_arm {
@@ -66,7 +67,7 @@ if [ ! -d "$armtools" ]; then
     while true; do
         echo
         echo "The ARM toolchain is not installed."
-        echo "This is needed for building ARM based keboards."
+        echo "This is needed for building ARM based keyboards."
         read -p "Do you want to install it? (Y/N) " res
         case $res in
             [Yy]* ) install_arm; break;;
