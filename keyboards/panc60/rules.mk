@@ -49,4 +49,4 @@ SRC = matrix.c i2c.c
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
 
-LAYOUTS = 60_hhkb
+LAYOUTS = 60_ansi 60_hhkb
