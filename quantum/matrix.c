@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
-
+#include "quantum.h"
 
 /* Set 0 if debouncing isn't needed */
 
@@ -60,8 +60,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #if (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
-static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -214,7 +214,10 @@ uint8_t matrix_scan(void)
         }
 #   endif
 
+    
+    dprintf("%x\n", B0);
     matrix_scan_quantum();
+
     return 1;
 }
 
@@ -265,15 +268,14 @@ uint8_t matrix_key_count(void)
 }
 
 
-
 #if (DIODE_DIRECTION == COL2ROW)
 
 static void init_cols(void)
 {
     for(uint8_t x = 0; x < MATRIX_COLS; x++) {
         uint8_t pin = col_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        DDR_INPUT(pin); // IN
+        PORT_HIGH(pin); // HI
     }
 }
 
@@ -294,7 +296,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
         // Select the col pin to read (active low)
         uint8_t pin = col_pins[col_index];
-        uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
+        uint8_t pin_state = PIN_VALUE(pin);
 
         // Populate the matrix row with the state of the col pin
         current_matrix[current_row] |=  pin_state ? 0 : (ROW_SHIFTER << col_index);
@@ -309,23 +311,23 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 static void select_row(uint8_t row)
 {
     uint8_t pin = row_pins[row];
-    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
-    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+    DDR_OUTPUT(pin); // OUT
+    PORT_LOW(pin); // LOW
 }
 
 static void unselect_row(uint8_t row)
 {
     uint8_t pin = row_pins[row];
-    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    DDR_INPUT(pin); // IN
+    PORT_HIGH(pin); // HI
 }
 
 static void unselect_rows(void)
 {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
         uint8_t pin = row_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        DDR_INPUT(pin); // IN
+        PORT_HIGH(pin); // HI
     }
 }
 
@@ -335,8 +337,8 @@ static void init_rows(void)
 {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
         uint8_t pin = row_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        DDR_INPUT(pin); // IN
+        PORT_HIGH(pin); // HI
     }
 }
 
@@ -356,7 +358,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         matrix_row_t last_row_value = current_matrix[row_index];
 
         // Check row pin state
-        if ((_SFR_IO8(row_pins[row_index] >> 4) & _BV(row_pins[row_index] & 0xF)) == 0)
+        if (PIN_VALUE(row_pins[row_index]) == 0)
         {
             // Pin LO, set col bit
             current_matrix[row_index] |= (ROW_SHIFTER << current_col);
@@ -383,23 +385,23 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 static void select_col(uint8_t col)
 {
     uint8_t pin = col_pins[col];
-    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
-    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+    DDR_OUTPUT(pin); // OUT
+    PORT_LOW(pin); // LOW
 }
 
 static void unselect_col(uint8_t col)
 {
     uint8_t pin = col_pins[col];
-    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    DDR_INPUT(pin); // IN
+    PORT_HIGH(pin); // HI
 }
 
 static void unselect_cols(void)
 {
     for(uint8_t x = 0; x < MATRIX_COLS; x++) {
         uint8_t pin = col_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        DDR_INPUT(pin); // IN
+        PORT_HIGH(pin); // HI
     }
 }
 
