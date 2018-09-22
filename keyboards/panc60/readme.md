@@ -4,7 +4,7 @@
 
 The panc60 is a 60% PCB with backlight and rgb underglow.   
 
-Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin), [Jack Humbert](https://github.com/jackhumbert)   
 Hardware Supported: panc60 PCB  
 Hardware Availability: [PANC Interactive](https://store.panc.co/product/panc60-60-pcb)   
 
