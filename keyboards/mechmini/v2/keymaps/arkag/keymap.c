@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LOWER] = LAYOUT_2u_space_ortho(
     _______, _______, _______, _______, _______, _______, _______, M_ULIN,  M_ITAL,  _______, M_P_B,   M_C_A_D,
     _______, _______, STRIKE,  _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, KC_DEL,  _______, _______, _______, M_BOLD,  _______, _______, _______, _______, KC_PGUP, _______,
+    KC_CAPS, KC_DEL,  _______, _______, _______, M_BOLD,  _______, _______, _______, _______, KC_PGUP, _______,
     _______, _______, _______, _______, _______,       MEDIA,      KC_BSLS, M_CALC,  KC_HOME, KC_PGDN, KC_END),
 
   [_KEEB] = LAYOUT_2u_space_ortho(

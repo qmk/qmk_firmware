@@ -1,7 +1,4 @@
 #include "arkag.h"
-#include "quantum.h"
-#include "action.h"
-#include "process_keycode/process_tap_dance.h"
 
 // Start: Written by konstantin: vomindoraan
 #include <ctype.h>

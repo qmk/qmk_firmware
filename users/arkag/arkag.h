@@ -3,13 +3,6 @@
 #include "quantum.h"
 #include "process_keycode/process_tap_dance.h"
 
-#define _QWERTY  0
-#define _RAISE   1
-#define _LOWER   2
-#define _KEEB    3
-#define _MEDIA   4
-#define _LAZY    5
-
 #define EECONFIG_USERSPACE (uint8_t *)20
 
 #define LRALT       TD(TD_LALT_RALT)
@@ -44,7 +37,7 @@
 #define TAP_F    LGUI_T(KC_F)
 #define TAP_J    RGUI_T(KC_J)
 
-#define TAP_EQ   LSFT_T(KC_MINUS)
+#define TAP_EQ   LSFT_T(KC_EQUAL)
 #define TAP_5    RSFT_T(KC_5)
 
 #define LED_FLASH_DELAY       150
@@ -52,6 +45,15 @@
 
 #define INACTIVE_DELAY        200
 #define SLEEP_DELAY           60000
+
+enum {
+  _QWERTY = 0,
+  _RAISE,
+  _LOWER,
+  _KEEB,
+  _MEDIA,
+  _LAZY,
+};
 
 typedef enum {
   OS_MAC, // Don't assign values
