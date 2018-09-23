@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 included in this directory is a arduino program for teensy 2.0 (only one tested, might work on others) to grab a copy of the keyboard matrix.
 also included is a csv containing the matrix as an ordered by clock #, byte array
     
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 to build the actual converter, you are going to need to either splice into the a connector or, use a multi-meter to buzz/ohm out which wires go where.
 from the bottom of the pcb the pins are arraged as follows:

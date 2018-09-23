@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef HP_46010A
-#define HP_46010A
+#pragma once
 
 #include "quantum.h"
 
@@ -62,5 +61,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define KEYMAP LAYOUT_HP_46010A
 #define KC_LAYOUT_HP_46010A LAYOUT_HP_46010A
-
-#endif //HP_46010A

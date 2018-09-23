@@ -1,3 +1,3 @@
-#include "HP_46010A.h"
+#include "hp_46010a.h"
 #include <avr/io.h>
 #include "quantum.h"

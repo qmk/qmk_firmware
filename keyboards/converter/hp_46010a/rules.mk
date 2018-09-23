@@ -41,7 +41,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded 
 #     automatically (+60). See bootloader.mk for all options.
-#BOOTLOADER = halfkay
+BOOTLOADER = halfkay
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
@@ -66,7 +66,6 @@ WAIT_FOR_USB = yes
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-LAYOUTS = HP_46010A
 LAYOUTS_HAS_RGB = NO
 
 CUSTOM_MATRIX = yes
