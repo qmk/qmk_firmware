@@ -13,11 +13,10 @@
 #endif
 
 
-/* Bootloader Size in *bytes*
+/** \brief Bootloader Size in *bytes*
  *
  * AVR Boot section size are defined by setting BOOTSZ fuse in fact. Consult with your MCU datasheet.
  * Note that 'Word'(2 bytes) size and address are used in datasheet while TMK uses 'Byte'.
- *
  *
  * Size of Bootloaders in bytes:
  *   Atmel DFU loader(ATmega32U4)   4096
@@ -28,9 +27,7 @@
  *   Teensy   halfKay(ATmega32U4)   512
  *   Teensy++ halfKay(AT90USB128)   1024
  *
- *
  * AVR Boot section is located at the end of Flash memory like the followings.
- *
  *
  * byte     Atmel/LUFA(ATMega32u4)          byte     Atmel(AT90SUB128)
  * 0x0000   +---------------+               0x00000  +---------------+
@@ -57,7 +54,6 @@
  *          |  Bootloader   | 512B                   |  Bootloader   | 1KB
  * 0x7FFF   +---------------+               0x1FFFF  +---------------+
  */
-
 #define FLASH_SIZE (FLASHEND + 1L)
 
 #if !defined(BOOTLOADER_SIZE)
@@ -69,20 +65,23 @@
 #define BOOT_SIZE_1024 0b010
 #define BOOT_SIZE_2048 0b000
 
-/*
- * Entering the Bootloader via Software
+/** \brief Entering the Bootloader via Software
+ *
  * http://www.fourwalledcubicle.com/files/LUFA/Doc/120730/html/_page__software_bootloader_start.html
  */
 #define BOOTLOADER_RESET_KEY 0xB007B007
 uint32_t reset_key  __attribute__ ((section (".noinit")));
 
-/* initialize MCU status by watchdog reset */
+/** \brief initialize MCU status by watchdog reset
+ *
+ * FIXME: needs doc
+ */
 void bootloader_jump(void) {
 
     #if !defined(BOOTLOADER_SIZE)
         uint8_t high_fuse = boot_lock_fuse_bits_get(GET_HIGH_FUSE_BITS);
 
-        if (high_fuse & BOOT_SIZE_256) { 
+        if (high_fuse & BOOT_SIZE_256) {
             bootloader_start = (FLASH_SIZE - 512) >> 1;
         } else if (high_fuse & BOOT_SIZE_512) {
             bootloader_start = (FLASH_SIZE - 1024) >> 1;
@@ -131,7 +130,7 @@ void bootloader_jump(void) {
             DDRA = 0; DDRB = 0; DDRC = 0; DDRD = 0; DDRE = 0; DDRF = 0;
             PORTA = 0; PORTB = 0; PORTC = 0; PORTD = 0; PORTE = 0; PORTF = 0;
             asm volatile("jmp 0x1FC00");
-        #endif 
+        #endif
 
     #elif defined(BOOTLOADER_CATERINA)
         // this block may be optional
@@ -152,7 +151,7 @@ void bootloader_jump(void) {
 
     #else // Assume remaining boards are DFU, even if the flag isn't set
 
-        #ifndef __AVR_ATmega32A__ // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
+        #if !(defined(__AVR_ATmega32A__) || defined(__AVR_ATmega328P__)) // no USB - maybe BOOTLOADER_BOOTLOADHID instead though?
             UDCON = 1;
             USBCON = (1<<FRZCLK);  // disable USB
             UCSR1B = 0;

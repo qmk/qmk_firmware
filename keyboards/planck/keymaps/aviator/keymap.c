@@ -4,7 +4,8 @@
  * Designed for aeronautical data entry on the OLKB Planck.
  */
 
- #include "planck.h"
+ #pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
+#include "planck.h"
  #include "action_layer.h"
 
  extern keymap_config_t keymap_config;
@@ -126,14 +127,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
-        breathing_self_disable();
+        #ifdef BACKLIGHT_BREATHING
+          breathing_self_disable();
+        #endif
       }
       return false;
       break;
     case DATA:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DATA);
-        #ifdef BACKLIGHT_ENABLE
+        #ifdef BACKLIGHT_BREATHING
           breathing_enable();
         #endif
       }
@@ -144,7 +147,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_LOWER);
         uint8_t default_layer = biton32(default_layer_state);
         if (default_layer == _QWERTY) {
-          #ifdef BACKLIGHT_ENABLE
+          #ifdef BACKLIGHT_BREATHING
             breathing_enable();
           #endif
         }
@@ -153,7 +156,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_LOWER);
         uint8_t default_layer = biton32(default_layer_state);
         if (default_layer == _QWERTY) {
-          breathing_self_disable();
+          #ifdef BACKLIGHT_BREATHING
+            breathing_self_disable();
+          #endif
         }
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
@@ -164,7 +169,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_RAISE);
         uint8_t default_layer = biton32(default_layer_state);
         if (default_layer == _QWERTY) {
-          #ifdef BACKLIGHT_ENABLE
+          #ifdef BACKLIGHT_BREATHING
             breathing_enable();
           #endif
         }
@@ -173,7 +178,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_RAISE);
         uint8_t default_layer = biton32(default_layer_state);
         if (default_layer == _QWERTY) {
-          breathing_self_disable();
+          #ifdef BACKLIGHT_BREATHING
+            breathing_self_disable();
+          #endif
         }
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
@@ -182,7 +189,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
+        #ifdef BACKLIGHT_BREATHING
           backlight_step();
         #endif
       } else {

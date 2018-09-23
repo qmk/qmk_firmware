@@ -117,17 +117,17 @@ typedef struct
 #ifdef VIRTSER_ENABLE
   USB_Descriptor_Interface_Association_t   CDC_Interface_Association;
 
-	// CDC Control Interface
-	USB_Descriptor_Interface_t               CDC_CCI_Interface;
-	USB_CDC_Descriptor_FunctionalHeader_t    CDC_Functional_Header;
-	USB_CDC_Descriptor_FunctionalACM_t       CDC_Functional_ACM;
-	USB_CDC_Descriptor_FunctionalUnion_t     CDC_Functional_Union;
-	USB_Descriptor_Endpoint_t                CDC_NotificationEndpoint;
+  // CDC Control Interface
+  USB_Descriptor_Interface_t               CDC_CCI_Interface;
+  USB_CDC_Descriptor_FunctionalHeader_t    CDC_Functional_Header;
+  USB_CDC_Descriptor_FunctionalACM_t       CDC_Functional_ACM;
+  USB_CDC_Descriptor_FunctionalUnion_t     CDC_Functional_Union;
+  USB_Descriptor_Endpoint_t                CDC_NotificationEndpoint;
 
-	// CDC Data Interface
-	USB_Descriptor_Interface_t               CDC_DCI_Interface;
-	USB_Descriptor_Endpoint_t                CDC_DataOutEndpoint;
-	USB_Descriptor_Endpoint_t                CDC_DataInEndpoint;
+  // CDC Data Interface
+  USB_Descriptor_Interface_t               CDC_DCI_Interface;
+  USB_Descriptor_Endpoint_t                CDC_DataOutEndpoint;
+  USB_Descriptor_Endpoint_t                CDC_DataInEndpoint;
 #endif
 } USB_Descriptor_Configuration_t;
 
@@ -139,9 +139,9 @@ typedef struct
 // interface number, to support Linux/OSX platforms and chrome.hid
 // If Raw HID is enabled, let it be always 1.
 #ifdef RAW_ENABLE
-#   define RAW_INTERFACE        	(KEYBOARD_INTERFACE + 1)
+#   define RAW_INTERFACE          (KEYBOARD_INTERFACE + 1)
 #else
-#   define RAW_INTERFACE        	KEYBOARD_INTERFACE
+#   define RAW_INTERFACE          KEYBOARD_INTERFACE
 #endif
 
 #ifdef MOUSE_ENABLE
@@ -240,13 +240,13 @@ typedef struct
 
 #ifdef VIRTSER_ENABLE
 #   define CDC_NOTIFICATION_EPNUM   (MIDI_STREAM_OUT_EPNUM + 1)
-#   define CDC_IN_EPNUM		    (MIDI_STREAM_OUT_EPNUM + 2)
-#   define CDC_OUT_EPNUM		    (MIDI_STREAM_OUT_EPNUM + 3)
+#   define CDC_IN_EPNUM       (MIDI_STREAM_OUT_EPNUM + 2)
+#   define CDC_OUT_EPNUM        (MIDI_STREAM_OUT_EPNUM + 3)
 #   define CDC_NOTIFICATION_EPADDR        (ENDPOINT_DIR_IN | CDC_NOTIFICATION_EPNUM)
 #   define CDC_IN_EPADDR                  (ENDPOINT_DIR_IN | CDC_IN_EPNUM)
 #   define CDC_OUT_EPADDR                  (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
 #else
-#   define CDC_OUT_EPNUM	MIDI_STREAM_OUT_EPNUM
+#   define CDC_OUT_EPNUM  MIDI_STREAM_OUT_EPNUM
 #endif
 
 #if (defined(PROTOCOL_LUFA) && CDC_OUT_EPNUM > (ENDPOINT_TOTAL_ENDPOINTS - 1)) || \
@@ -257,7 +257,7 @@ typedef struct
 #define KEYBOARD_EPSIZE             8
 #define MOUSE_EPSIZE                8
 #define EXTRAKEY_EPSIZE             8
-#define RAW_EPSIZE              	  32
+#define RAW_EPSIZE                  32
 #define CONSOLE_EPSIZE              32
 #define NKRO_EPSIZE                 32
 #define MIDI_STREAM_EPSIZE          64

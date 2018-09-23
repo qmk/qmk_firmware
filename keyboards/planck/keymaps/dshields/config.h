@@ -3,9 +3,13 @@
 
 #include "../../config.h"
 
+#define QMK_ESC_OUTPUT F1
+#define QMK_ESC_INPUT  D5
+#define QMK_LED        E6
+#define QMK_SPEAKER    C6
+
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define PREVENT_STUCK_MODIFIERS
 
 #define USB_MAX_POWER_CONSUMPTION 100
 #define ONESHOT_TAP_TOGGLE        2
