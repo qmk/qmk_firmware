@@ -1,6 +1,4 @@
-#include "iris.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -25,9 +23,6 @@ enum {
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SPC_ENT] = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)
 };
-
-#define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_LOWR LT(_LOWER, KC_LEFT) //LOWER
 #define KC_RASE LT(_RAISE, KC_RIGHT) //RAISE
