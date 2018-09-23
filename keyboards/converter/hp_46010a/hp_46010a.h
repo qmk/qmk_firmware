@@ -60,4 +60,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 }
 
 #define LAYOUT LAYOUT_HP_46010A
-#define KC_LAYOUT_HP_46010A LAYOUT_HP_46010A
