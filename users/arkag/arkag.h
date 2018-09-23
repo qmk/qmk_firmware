@@ -29,10 +29,10 @@
 #define LED_FADE_DELAY        10
 
 #define ACCEL_DELAY           500
-#define DEACCEL_DELAY         1000
+#define DEACCEL_DELAY         750
 
-#define INACTIVE_DELAY        1000
-#define SLEEP_DELAY           60000
+#define INACTIVE_DELAY        750
+#define SLEEP_DELAY           180000
 
 enum {
   _QWERTY = 0,
