@@ -33,6 +33,7 @@ uint8_t       current_os, mod_primary_mask, fade_delay;
 uint16_t      flash_timer_one, flash_timer_two,
               fade_timer_one, fade_timer_two,
               active_timer_one, active_timer_two,
+              accel_timer_one, accel_timer_two,
               elapsed               = 0,
               num_extra_flashes_off = 0;
 Color         underglow,
@@ -92,12 +93,19 @@ void check_state (void) {
         switch (state) {
         case active:
           if (!activated) {
+            accel_timer_one = timer_read();
             fade_delay = LED_FADE_DELAY;
             reverse_fade();
             activated = true;
             deactivated = false;
           }
           active_timer_two = timer_read();
+          accel_timer_two = timer_read();
+          elapsed = accel_timer_two - accel_timer_one;
+          if (elapsed > ACCEL_DELAY && fade_delay >= 1) {
+            fade_delay--;
+            accel_timer_one = timer_read();
+          }
           elapsed = active_timer_two - active_timer_one;
           if (elapsed < INACTIVE_DELAY) {return;}
           state = inactive;
@@ -105,13 +113,19 @@ void check_state (void) {
 
         case inactive:
           if (!deactivated) {
-            fade_delay = LED_FADE_DELAY * 2;
+            accel_timer_one = timer_read();
             reverse_fade();
             deactivated = true;
             slept = false;
             activated = false;
           }
           active_timer_two = timer_read();
+          accel_timer_two = timer_read();
+          elapsed = accel_timer_two - accel_timer_one;
+          if (elapsed > DEACCEL_DELAY && fade_delay <= LED_FADE_DELAY * 2) {
+            fade_delay++;
+            accel_timer_one = timer_read();
+          }
           elapsed = active_timer_two - active_timer_one;
           if (elapsed < SLEEP_DELAY) {return;}
           state = sleeping;
@@ -119,11 +133,17 @@ void check_state (void) {
 
         case sleeping:
           if (!slept) {
-            fade_delay = LED_FADE_DELAY * 6;
+            accel_timer_one = timer_read();
             reverse_fade();
             slept = true;
             deactivated = false;
             activated = false;
+          }
+          accel_timer_two = timer_read();
+          elapsed = accel_timer_two - accel_timer_one;
+          if (elapsed > DEACCEL_DELAY && fade_delay <= LED_FADE_DELAY * 6) {
+            fade_delay++;
+            accel_timer_one = timer_read();
           }
           return;
 
@@ -134,7 +154,6 @@ void check_state (void) {
 
 void fade_rgb (void) {
   static bool ran_once;
-  if (flash_state != no_flash) {return;}
   if (state == boot) {return;}
   switch (fade_state) {
   case add_fade:
@@ -150,10 +169,8 @@ void fade_rgb (void) {
       return;
     }
     underglow.h = underglow.h + 1;
-    set_color(underglow, false);
-    // set_color_at(underglow, 0);
     fade_timer_one = fade_timer_two;
-    return;
+    break;
 
   case sub_fade:
     fade_timer_two = timer_read();
@@ -164,10 +181,11 @@ void fade_rgb (void) {
       return;
     }
     underglow.h = underglow.h - 1;
-    set_color(underglow, false);
-    // set_color_at(underglow, 0);
     fade_timer_one = fade_timer_two;
-    return;
+    break;
+  }
+  if (flash_state == no_flash) {
+    set_color(underglow, false);
   }
 }
 
@@ -505,10 +523,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case KC_LSFT:
     if (record->event.pressed) {
-      set_color(mod_color(underglow, true, 50), false);
+      save_color(underglow);
+      underglow = mod_color(underglow, true, 75);
       SEND_STRING(SS_DOWN(X_LSHIFT));
     } else {
-      set_color(underglow, false);
+      reset_color();
       SEND_STRING(SS_UP(X_LSHIFT));
     }
     return false;

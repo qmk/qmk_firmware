@@ -4,13 +4,13 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_2u_space_ortho(
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    KC_TAB,  TAP_A,   TAP_S,   TAP_D,   TAP_F,   KC_G,    KC_H,    TAP_J,   TAP_K,   TAP_L,   TAP_SCN, QUOTE,
-    XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,
+    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, QUOTE,
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_ENT,
     M_PMOD,  LRALT,   M_SMOD,  LOWER,   RAISE,        KC_SPC,      KC_SLSH, LAZY,    KC_LEFT, KC_DOWN, KC_RGHT),
 
   [_RAISE] = LAYOUT_2u_space_ortho(
     GRAVE,   KC_1,    KC_2,    THREE,   KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______, OBRACK,  CBRACK,  TAP_EQ,  HYPHEN,  _______, _______, KC_4,    TAP_5,   KC_6,    _______, KC_NLCK,
+    _______, OBRACK,  CBRACK,  KC_EQL,  HYPHEN,  _______, _______, KC_4,    KC_5,    KC_6,    _______, KC_NLCK,
     _______, _______, _______, CEDILLA, _______, KC_COMM, KC_PDOT, KC_1,    KC_2,    KC_3,    KC_PPLS, KC_PENT,
     _______, _______, _______, KEEB,    _______,      _______,     _______, M_OS,    KC_PSLS, KC_PMNS, KC_PAST),
 
