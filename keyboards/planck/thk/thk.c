@@ -20,7 +20,7 @@ extern bool dip_switch[4];
 
 void matrix_init_kb(void) {
 
-  DDRD |= (1<<5);
+  //DDRD |= (1<<5);
     //PORTD |= (1<<5);
   matrix_init_user();
 }
