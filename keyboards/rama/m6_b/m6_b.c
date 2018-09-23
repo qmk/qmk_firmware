@@ -14,111 +14,105 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "m6_b.h"
-#include "i2c_master.h"
-#include "drivers/issi/is31fl3218.h"
-#include "color.h"
+#include "m6_b_api.h"
+#include "rgb_backlight.h"
+#include "raw_hid.h"
+#include "dynamic_keymap.h"
+#include "timer.h"
+#include "tmk_core/common/eeprom.h"
 
-bool g_suspend_state = false;
-
-// Global tick at 20 Hz
-uint32_t g_tick = 0;
-uint8_t g_config_effect_speed = 0;
-uint8_t g_config_brightness = 255;
-
-void backlight_update_pwm_buffers(void)
+bool eeprom_is_valid(void)
 {
-	IS31FL3218_update_pwm_buffers();
+	return (eeprom_read_word(((void*)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
+			eeprom_read_byte(((void*)EEPROM_VERSION_ADDR)) == EEPROM_VERSION);
 }
 
-void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
+void eeprom_set_valid(bool valid)
 {
-	IS31FL3218_set_color( index, red, green, blue );
+	eeprom_update_word(((void*)EEPROM_MAGIC_ADDR), valid ? EEPROM_MAGIC : 0xFFFF);
+	eeprom_update_byte(((void*)EEPROM_VERSION_ADDR), valid ? EEPROM_VERSION : 0xFF);
 }
 
-void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
+#ifdef RAW_ENABLE
+
+void raw_hid_receive( uint8_t *data, uint8_t length )
 {
-	IS31FL3218_set_color_all( red, green, blue );
-}
-
-
-// This is (F_CPU/1024) / 20 Hz
-// = 15625 Hz / 20 Hz
-// = 781
-#define TIMER3_TOP 260
-
-void backlight_timer_init(void)
-{
-	static uint8_t backlight_timer_is_init = 0;
-	if ( backlight_timer_is_init )
+	uint8_t *command_id = &(data[0]);
+	uint8_t *command_data = &(data[1]);
+	switch ( *command_id )
 	{
-		return;
+		case id_get_protocol_version:
+		{
+			command_data[0] = PROTOCOL_VERSION >> 8;
+			command_data[1] = PROTOCOL_VERSION & 0xFF;
+			break;
+		}
+		case id_get_keyboard_value:
+		{
+			if ( command_data[0] == 0x01 )
+			{
+				uint32_t value = timer_read32();
+				command_data[1] = (value >> 24 ) & 0xFF;
+				command_data[2] = (value >> 16 ) & 0xFF;
+				command_data[3] = (value >> 8 ) & 0xFF;
+				command_data[4] = value & 0xFF;
+			}
+			else
+			{
+				*command_id = id_unhandled;
+			}
+			break;
+		}
+#ifdef DYNAMIC_KEYMAP_ENABLE
+		case id_dynamic_keymap_get_keycode:
+		{
+			uint16_t keycode = dynamic_keymap_get_keycode( command_data[0], command_data[1], command_data[2] );
+			command_data[3] = keycode >> 8;
+			command_data[4] = keycode & 0xFF;
+			break;
+		}
+		case id_dynamic_keymap_set_keycode:
+		{
+			dynamic_keymap_set_keycode( command_data[0], command_data[1], command_data[2], ( command_data[3] << 8 ) | command_data[4] );
+			break;
+		}
+		case id_dynamic_keymap_clear_all:
+		{
+			dynamic_keymap_clear_all();
+			break;
+		}
+#endif // DYNAMIC_KEYMAP_ENABLE
+#if RGB_BACKLIGHT_ENABLED
+		case id_backlight_config_set_value:
+		{
+			backlight_config_set_value(command_data);
+			break;
+		}
+		case id_backlight_config_get_value:
+		{
+			backlight_config_get_value(command_data);
+			break;
+		}
+		case id_backlight_config_save:
+		{
+			backlight_config_save();
+			break;
+		}
+#endif // RGB_BACKLIGHT_ENABLED
+		default:
+		{
+			// Unhandled message.
+			*command_id = id_unhandled;
+			break;
+		}
 	}
-	backlight_timer_is_init = 1;
 
-	// Timer 3 setup
-	TCCR3B = _BV(WGM32) | 			// CTC mode OCR3A as TOP
-			 _BV(CS32) | _BV(CS30); // prescale by /1024
-	// Set TOP value
-	uint8_t sreg = SREG;
-	cli();
+	// Return same buffer with values changed
+	raw_hid_send( data, length );
 
-	OCR3AH = (TIMER3_TOP >> 8) & 0xff;
-	OCR3AL = TIMER3_TOP & 0xff;
-	SREG = sreg;
 }
 
-void backlight_timer_enable(void)
-{
-	TIMSK3 |= _BV(OCIE3A);
-}
-
-void backlight_timer_disable(void)
-{
-	TIMSK3 &= ~_BV(OCIE3A);
-}
-
-void backlight_set_suspend_state(bool state)
-{
-	g_suspend_state = state;
-}
-
-void backlight_effect_cycle_all(void)
-{
-	uint8_t hueOffset = ( g_tick << g_config_effect_speed ) & 0xFF;
-	uint8_t satOffset = 127;
-	// Relies on hue being 8-bit and wrapping
-	for ( int i=0; i<6; i++ )
-	{
-		HSV hsv = { .h = hueOffset, .s = satOffset, .v = g_config_brightness };
-		RGB rgb = hsv_to_rgb( hsv );
-		backlight_set_color( i, rgb.r, rgb.g, rgb.b );
-	}
-}
-
-ISR(TIMER3_COMPA_vect)
-{
-	// delay 1 second before driving LEDs or doing anything else
-	static uint8_t startup_tick = 0;
-	if ( startup_tick < 20 )
-	{
-		startup_tick++;
-		return;
-	}
-
-	g_tick++;
-
-	//HSV hsv = { .h = 240, .s = 255, .v = g_config_brightness };
-	//RGB rgb = hsv_to_rgb( hsv );
-	//backlight_set_color_all( rgb.r, rgb.g, rgb.b );
-	backlight_effect_cycle_all();
-}
-
-void backlight_init_drivers(void)
-{
-	// Initialize I2C
-	i2c_init();
-	IS31FL3218_init();
-}
+#endif
 
 void bootmagic_lite(void)
 {
@@ -144,9 +138,31 @@ void bootmagic_lite(void)
 
 void matrix_init_kb(void) {
 	bootmagic_lite();
+
+	// If the EEPROM has the magic, the data is good.
+	// OK to load from EEPROM.
+	if (eeprom_is_valid())
+	{
+		// backlight_config_load();
+	}
+	else
+	{
+		// backlight_config_save();
+
+#ifdef DYNAMIC_KEYMAP_ENABLE
+		// This saves "empty" keymaps so it falls back to the keymaps
+		// in the firmware (aka. progmem/flash)
+		dynamic_keymap_clear_all();
+#endif
+
+		// Save the magic number last, in case saving was interrupted
+		eeprom_set_valid(true);
+	}
+
 	backlight_init_drivers();
 	backlight_timer_init();
 	backlight_timer_enable();
+
 	matrix_init_user();
 }
 
@@ -163,3 +179,12 @@ void led_set_kb(uint8_t usb_led) {
 	led_set_user(usb_led);
 }
 
+void suspend_power_down_kb(void)
+{
+	backlight_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_kb(void)
+{
+	backlight_set_suspend_state(false);
+}

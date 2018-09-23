@@ -16,6 +16,8 @@
 
 #include "config.h"
 #include "keymap.h" // to get keymaps[][][]
+#include "tmk_core/common/eeprom.h"
+#include "progmem.h"
 
 #include "dynamic_keymap.h"
 
