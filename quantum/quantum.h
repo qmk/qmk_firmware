@@ -21,7 +21,7 @@
     #include <avr/io.h>
     #include <avr/interrupt.h>
 #endif
-#if defined (__arm__)
+#if defined(PROTOCOL_CHIBIOS)
     #include "hal.h"
 #endif
 #include "wait.h"
