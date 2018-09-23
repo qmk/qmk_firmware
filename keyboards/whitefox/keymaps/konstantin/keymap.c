@@ -34,19 +34,21 @@ enum custom_keycodes {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
-  if (!record->event.pressed) { return true; }
-
   switch (keycode) {
   case CLEAR:
-    SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
+    }
     return false;
 
   case NUMPAD:
-    layer_invert(L_NUMPAD);
-    bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
-    if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
-      register_code(KC_NLCK);  // Toggle Num Lock to match layer state.
-      unregister_code(KC_NLCK);
+    if (record->event.pressed) {
+      layer_invert(L_NUMPAD);
+      bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
+      if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
+        register_code(KC_NLCK); // Toggle Num Lock to match layer state.
+        unregister_code(KC_NLCK);
+      }
     }
     return false;
 
