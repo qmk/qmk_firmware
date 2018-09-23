@@ -59,5 +59,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {KEY_B,     KEY_V,    KEY_C,    KEY_X,    KEY_Z,    KEY_PRNT, KEY_DELE, KEY_N    }, \
 }
 
-#define KEYMAP LAYOUT_HP_46010A
+#define LAYOUT LAYOUT_HP_46010A
 #define KC_LAYOUT_HP_46010A LAYOUT_HP_46010A
