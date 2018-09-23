@@ -1,8 +1,9 @@
 #include QMK_KEYBOARD_H
 
+#define FN      MO(L_FN)       // Unused
 #define FN_CAPS LT(L_FN, KC_CAPS)
-#define FN_CTRL TD(TD_FN_CTRL)
-#define RL_ALT  TD(TD_RL_ALT)  // Unused
+#define FN_RCTL TD(TD_FN_RCTL)
+#define RLALT   TD(TD_RLALT)   // Unused
 
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
@@ -55,8 +56,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 }
 
 enum tap_dance {
-  TD_FN_CTRL,
-  TD_RL_ALT,  // Unused
+  TD_FN_RCTL,
+  TD_RLALT,
 };
 
 void td_fn_ctrl_finished(qk_tap_dance_state_t *state, void *user_data)
@@ -73,8 +74,8 @@ void td_fn_ctrl_reset(qk_tap_dance_state_t *state, void *user_data)
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_FN_CTRL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fn_ctrl_finished, td_fn_ctrl_reset),
-  [TD_RL_ALT]  = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),  // Unused
+  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fn_ctrl_finished, td_fn_ctrl_reset),
+  [TD_RLALT]   = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),
 };
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -96,7 +97,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSPC,        KC_DEL,  \
     FN_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,        KC_ENT,         KC_PGUP, \
     KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,        KC_UP,  KC_PGDN, \
-    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 KC_RALT,FN_CTRL,                KC_LEFT,KC_DOWN,KC_RGHT  \
+    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 KC_RALT,FN_RCTL,                KC_LEFT,KC_DOWN,KC_RGHT  \
   ),
 
   /* Function layer
@@ -107,7 +108,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |      |M← |M↓ |M→ |MW↑|   |   |   |   |   |   |   |        |Top|
    * |---------------------------------------------------------------|
-   * |        |MA0|MA2|MW←|MW→|   |   |   |Vo-|Vo+|Mut|      |PgU|Btm|
+   * |        |MA0|MA2|MW←|MW→|   |   |   |VoD|VoU|Mut|      |PgU|Btm|
    * |---------------------------------------------------------------|
    * |    |    |    |          MW↓           |App |    | |Hom|PgD|End|
    * `---------------------------------------------------------------'
