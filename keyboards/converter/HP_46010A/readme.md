@@ -19,10 +19,10 @@ See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) 
 to build the actual converter, you are going to need to either splice into the a connector or, use a multi-meter to buzz/ohm out which wires go where.
 from the bottom of the pcb the pins are arraged as follows:
 
-`
+
       4 5 6
      3 2 1  
-`
+
 
 connect a six pin modular connector of the 6p6c variaty.
 then lop off the other end of the cable, striping the wires inside.
@@ -40,12 +40,12 @@ wire the ground and power pins to ground and 5v power on the teensy (or other av
 connect
 on the teensy the connection is as follows
 
-`
-teensy - hp 46010A
-gnd    - gnd (6)
-vcc    - vcc (3)
-PB0    - reset (1)
-PB1    - clock (5)
-PB3    - data out (4)
-gnd    - no connection (2) -- optional
-`
+
+teensy | HP 46010A
+----|-----
+gnd | gnd (6)
+vcc | vcc (3)
+PB0 | reset (1)
+PB1 | clock (5)
+PB3 | data out (4)
+gnd | no connection (2) -- optional
