@@ -159,56 +159,66 @@ enum usb_interfaces {
     TOTAL_INTERFACES
 };
 
+#define NEXT_EPNUM __COUNTER__
+
 enum usb_endpoints {
-    __unused_epnum__ = 0,   /* EP numbering starts at 1 */
+    __unused_epnum__ = NEXT_EPNUM,   /* EP numbering starts at 1 */
 #if !defined(KEYBOARD_SHARED_EP)
-    KEYBOARD_IN_EPNUM,
+    KEYBOARD_IN_EPNUM = NEXT_EPNUM,
 #else
 #   define KEYBOARD_IN_EPNUM    SHARED_IN_EPNUM
 #endif
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
-    MOUSE_IN_EPNUM,
+    MOUSE_IN_EPNUM = NEXT_EPNUM,
 #else
 #   define MOUSE_IN_EPNUM   SHARED_IN_EPNUM
 #endif
 #if defined(RAW_ENABLE)
-    RAW_IN_EPNUM,
-    RAW_OUT_EPNUM,
+    RAW_IN_EPNUM = NEXT_EPNUM,
+    RAW_OUT_EPNUM = NEXT_EPNUM,
 #endif
 #if defined(SHARED_EP_ENABLE)
-    SHARED_IN_EPNUM,
+    SHARED_IN_EPNUM = NEXT_EPNUM,
 #endif
 #if defined(CONSOLE_ENABLE)
-    CONSOLE_IN_EPNUM,
+    CONSOLE_IN_EPNUM = NEXT_EPNUM,
 #ifdef PROTOCOL_CHIBIOS
 // ChibiOS has enough memory and descriptor to actually enable the endpoint
 // It could use the same endpoint numbers, as that's supported by ChibiOS
 // But the QMK code currently assumes that the endpoint numbers are different
-    CONSOLE_OUT_EPNUM,
+    CONSOLE_OUT_EPNUM = NEXT_EPNUM,
 #else
 #define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
 #endif
 #endif
 #ifdef MIDI_ENABLE
-    MIDI_STREAM_IN_EPNUM,
-    MIDI_STREAM_OUT_EPNUM,
+    MIDI_STREAM_IN_EPNUM = NEXT_EPNUM,
+    MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
 #   define MIDI_STREAM_IN_EPADDR    (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM)
 #   define MIDI_STREAM_OUT_EPADDR   (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
 #endif
 #ifdef VIRTSER_ENABLE
-    CDC_NOTIFICATION_EPNUM,
-    CDC_IN_EPNUM,
-    CDC_OUT_EPNUM,
+    CDC_NOTIFICATION_EPNUM = NEXT_EPNUM,
+    CDC_IN_EPNUM = NEXT_EPNUM,
+    CDC_OUT_EPNUM = NEXT_EPNUM,
 #   define CDC_NOTIFICATION_EPADDR        (ENDPOINT_DIR_IN | CDC_NOTIFICATION_EPNUM)
 #   define CDC_IN_EPADDR                  (ENDPOINT_DIR_IN | CDC_IN_EPNUM)
 #   define CDC_OUT_EPADDR                  (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
 #endif
-    TOTAL_ENDPOINTS
 };
 
-#if (defined(PROTOCOL_LUFA) && CDC_OUT_EPNUM > (ENDPOINT_TOTAL_ENDPOINTS - 1)) || \
-  (defined(PROTOCOL_CHIBIOS) && CDC_OUT_EPNUM > USB_MAX_ENDPOINTS)
-# error "There are not enough available endpoints to support all functions. Remove some in the rules.mk file.(MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL, STENO)"
+#if defined(PROTOCOL_LUFA)
+/* LUFA tells us total endpoints including control */
+#define MAX_ENDPOINTS (ENDPOINT_TOTAL_ENDPOINTS - 1)
+#elif defined(PROTOCOL_CHIBIOS)
+/* ChibiOS gives us number of available user endpoints, not control */
+#define MAX_ENDPOINTS USB_MAX_ENDPOINTS
+#endif
+/* TODO - ARM_ATSAM */
+
+
+#if (NEXT_EPNUM - 1) > MAX_ENDPOINTS
+# error There are not enough available endpoints to support all functions. Remove some in the rules.mk file. (MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL, STENO)
 #endif
 
 #define KEYBOARD_EPSIZE             8
