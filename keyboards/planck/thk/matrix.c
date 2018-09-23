@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2018 Jack Humbert <jack.humb@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -206,3 +206,13 @@ void matrix_init_user(void) { }
 
 __attribute__ ((weak))
 void matrix_scan_user(void) { }
+
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+  matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+  matrix_scan_user();
+}
