@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
+#include "quantum.h"
 
 
 /* Set 0 if debouncing isn't needed */
@@ -60,8 +61,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #if (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
-static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static const LINE_TYPE row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static const LINE_TYPE col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -271,9 +272,7 @@ uint8_t matrix_key_count(void)
 static void init_cols(void)
 {
     for(uint8_t x = 0; x < MATRIX_COLS; x++) {
-        uint8_t pin = col_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        setPadInputHigh(col_pins[x]);
     }
 }
 
@@ -293,8 +292,7 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     for(uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
 
         // Select the col pin to read (active low)
-        uint8_t pin = col_pins[col_index];
-        uint8_t pin_state = (_SFR_IO8(pin >> 4) & _BV(pin & 0xF));
+        uint8_t pin_state = readPad(col_pins[col_index]);
 
         // Populate the matrix row with the state of the col pin
         current_matrix[current_row] |=  pin_state ? 0 : (ROW_SHIFTER << col_index);
@@ -308,24 +306,19 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 static void select_row(uint8_t row)
 {
-    uint8_t pin = row_pins[row];
-    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
-    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+    setPadOutput(row_pins[row]);
+    clearPad(row_pins[row]);
 }
 
 static void unselect_row(uint8_t row)
 {
-    uint8_t pin = row_pins[row];
-    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    setPadInputHigh(row_pins[row]);
 }
 
 static void unselect_rows(void)
 {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        uint8_t pin = row_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        setPadInputHigh(row_pins[x]);
     }
 }
 
@@ -334,9 +327,7 @@ static void unselect_rows(void)
 static void init_rows(void)
 {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        uint8_t pin = row_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        setPadInputHigh(row_pins[x]);
     }
 }
 
@@ -356,7 +347,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
         matrix_row_t last_row_value = current_matrix[row_index];
 
         // Check row pin state
-        if ((_SFR_IO8(row_pins[row_index] >> 4) & _BV(row_pins[row_index] & 0xF)) == 0)
+        if (readPad(row_pins[row_index]) == 0)
         {
             // Pin LO, set col bit
             current_matrix[row_index] |= (ROW_SHIFTER << current_col);
@@ -382,24 +373,19 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
 static void select_col(uint8_t col)
 {
-    uint8_t pin = col_pins[col];
-    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
-    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+    setPadOutput(col_pins[col]);
+    clearPad(col_pins[col]);
 }
 
 static void unselect_col(uint8_t col)
 {
-    uint8_t pin = col_pins[col];
-    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    setPadInputHigh(col_pins[col]);
 }
 
 static void unselect_cols(void)
 {
     for(uint8_t x = 0; x < MATRIX_COLS; x++) {
-        uint8_t pin = col_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        setPadInputHigh(col_pins[x]);
     }
 }
 

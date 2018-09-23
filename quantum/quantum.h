@@ -17,9 +17,12 @@
 #define QUANTUM_H
 
 #if defined(__AVR__)
-#include <avr/pgmspace.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
+    #include <avr/pgmspace.h>
+    #include <avr/io.h>
+    #include <avr/interrupt.h>
+#endif
+#if defined (__arm__)
+    #include "hal.h"
 #endif
 #include "wait.h"
 #include "matrix.h"
@@ -131,6 +134,25 @@ extern uint32_t default_layer_state;
 
 #ifdef HD44780_ENABLE
     #include "hd44780.h"
+#endif
+
+#ifdef __AVR__
+    #define LINE_TYPE uint8_t
+    #define setPadInputHigh(line) ({\
+            _SFR_IO8((line >> 4) + 1) &= ~ _BV(line & 0xF);\
+            _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF);\
+            })
+    #define setPadOutput(line) _SFR_IO8((line >> 4) + 1) |= _BV(line & 0xF)
+    #define setPad(line) _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF)
+    #define clearPad(line) _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF)
+    #define readPad(line) (_SFR_IO8(line >> 4) & _BV(line & 0xF))
+#elif defined(PROTOCOL_CHIBIOS)
+    #define LINE_TYPE ioline_t
+    #define setPadInputHigh(line) palSetLineMode(line, PAL_MODE_INPUT_PULLUP)
+    #define setPadOutput(line) palSetLineMode(line, PAL_MODE_OUTPUT_PUSHPULL)
+    #define setPad(line) palSetLine(line)
+    #define clearPad(line) palClearLine(line)
+    #define readPad(line) palReadLine(line)
 #endif
 
 #define STRINGIZE(z) #z
