@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
+#include "LUFA/Drivers/Peripheral/SPI.h"
 
 #include "config.h"
 
@@ -42,18 +43,11 @@ static uint16_t debouncing_time         ;
 static bool     debouncing      = false ;
 #endif
 
-static uint8_t matrix [MATRIX_ROWS] = {
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
+static uint8_t matrix [MATRIX_ROWS] = {0};
 
 #if ( DEBOUNCING_DELAY > 0 )
-static uint8_t matrix_debounce_old [MATRIX_ROWS] = {
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
-
-static uint8_t matrix_debounce_new [MATRIX_ROWS] = {
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-};
+static uint8_t matrix_debounce_old [MATRIX_ROWS] = {0};
+static uint8_t matrix_debounce_new [MATRIX_ROWS] = {0};
 #endif 
 
 __attribute__ ((weak))
@@ -98,57 +92,104 @@ void matrix_scan_user(void) {
 // switch, and then into the diode, then into one of the columns into the 
 // matrix. the reset pin can be used to reset the entire counter.
 
-uint8_t matrix_ReceiveByte (void) ;
+#define RESET _BV(PB0)
+#define SCLK  _BV(PB1)
+#define SDATA _BV(PB3)
+#define LED   _BV(PD6) 
 
-void matrix_init () {
-    //debug_enable=true ;     
-    // PB0 (SS) and PB1 (SCLK) set to outputs
-    DDRB  |= ((1 << 0) | (1 << 1)) ;
-    // PB2, is unused, and PB3 is our serial input
-    DDRB &= ~(1 << 3) ;
-  
-    // SS is reset for this board, and is active High
-    // SCLK is the serial clock and is active High
-    PORTB &= ~((1 << 0) | (1 << 1)) ;
+inline
+static
+void SCLK_increment(void) {
+    PORTB &= ~SCLK ;
+    _delay_us( 4 ) ; // make sure the line is stable
+    PORTB |= SCLK ;
+    _delay_us( 4 ) ;
+    
+    return ;
+}    
 
-    matrix_init_quantum();
+inline
+static
+void Matrix_Reset(void) {
+    PORTB |= RESET ;
+    _delay_us( 4 ) ; // make sure the line is stable
+    PORTB &= ~RESET ;
+    
+    return ;
 }
 
-uint8_t matrix_scan(void) {
-#if ( DEBOUNCING_DELAY > 0 )
+inline
+static
+uint8_t Matrix_ReceiveByte (void) {
+    uint8_t received = 0 ;
+    uint8_t temp     = 0 ;
+    for ( uint8_t bit = 0; bit < MATRIX_COLS; ++bit ) {
+        // toggle the clock
+        SCLK_increment();
+        temp      = (PINB & SDATA) << 4 ;
+        received |= temp >> bit ;
+    }
 
-    //toggle reset, to put the keyboard logic into a known state
-    PORTB ^= 1 ;
-    _delay_us( 30 ) ; // make sure the line is stable
-    PORTB ^= 1 ;
-    
-    for ( uint8_t current_row = 0 ; current_row < MATRIX_ROWS ; ++current_row ) {
-        // the first byte of the keyboard's output data can be ignored
-        if ( current_row == 0 ) {
-            // we dont really care about this first byte, but we need to do something to shut up gcc
-            matrix_debounce_old[0] = matrix_ReceiveByte() ;
-            // so we just overwrite them later on...
-        } else {
-            //transfer old debouncing values
-            matrix_debounce_old[current_row - 8] = matrix_debounce_new[current_row - 8] ;
-            // read new key-states in
-            matrix_debounce_new[current_row - 8] = matrix_ReceiveByte() ;
-        }
+    return received ;
+}
+
+inline
+static
+void Matrix_ThrowByte(void) {
+    // we use MATRIX_COLS - 1 here because that would put us at 7 clocks
+    for ( uint8_t bit = 0; bit < MATRIX_COLS - 1; ++bit ) {
+        // toggle the clock
+        SCLK_increment();
     }
     
-    // detect matrix changes (exit on first change)
-    for ( uint8_t i = 0 ; i < MATRIX_ROWS ; ++i ) {
-        if ( !( matrix_debounce_new[i] ^ matrix_debounce_old[i] ) ) {
-            debouncing      = true         ;
+    return ;
+}
+
+void matrix_init () {
+    // debug_matrix = 1;
+    // PB0 (SS) and PB1 (SCLK) set to outputs
+    DDRB |= RESET | SCLK ;
+    // PB2, is unused, and PB3 is our serial input
+    DDRB &= ~SDATA ;
+    
+    // SS is reset for this board, and is active High
+    // SCLK is the serial clock and is active High
+    PORTB &= ~RESET ;
+    PORTB |= SCLK   ;
+
+    // led pin
+    DDRD  |= LED ;
+    PORTD &= ~LED ;
+
+    matrix_init_quantum();
+
+    //toggle reset, to put the keyboard logic into a known state
+    Matrix_Reset() ;
+}
+
+uint8_t matrix_scan(void)  {
+
+    // the first byte of the keyboard's output data can be ignored
+    Matrix_ThrowByte();
+    
+#if ( DEBOUNCING_DELAY > 0 )
+
+    for ( uint8_t row = 0 ; row < MATRIX_ROWS ; ++row ) {
+        //transfer old debouncing values
+        matrix_debounce_old[row] = matrix_debounce_new[row] ;
+        // read new key-states in
+        matrix_debounce_new[row] = Matrix_ReceiveByte() ;
+            
+        if ( matrix_debounce_new[row] != matrix_debounce_old[row] ) {
+            debouncing      = true ;
             debouncing_time = timer_read() ;
-            break ;
         }
     }
     
 #else
     // without debouncing we simply just read in the raw matrix
-    for ( uint8_t current_row = 0 ; current_row < MATRIX_ROWS ; ++current_row ) {
-        matrix[current_row] = matrix_ReceiveByte() ;
+    for ( uint8_t row = 0 ; row < MATRIX_ROWS ; ++row ) {
+        matrix[row] = Matrix_ReceiveByte ;
     }
 #endif 
 
@@ -156,13 +197,15 @@ uint8_t matrix_scan(void) {
 #if ( DEBOUNCING_DELAY > 0 )
     if ( debouncing && ( timer_elapsed( debouncing_time ) > DEBOUNCING_DELAY ) ) {
         
-        for ( uint8_t i = 0 ; i < MATRIX_ROWS ; ++i ) {
-            matrix[i] = matrix_debounce_new[i] ;
+        for ( uint8_t row = 0 ; row < MATRIX_ROWS ; ++row ) {
+            matrix[row] = matrix_debounce_new[row] ;
         }
+
         debouncing = false ;
     }
 #endif
-
+    Matrix_Reset() ;
+    
     matrix_scan_quantum() ;
     return 1;
 }
@@ -181,21 +224,6 @@ void matrix_print(void)
         print_bin_reverse8(matrix_get_row(row));
         print("\n");
     }
-}
-
-uint8_t matrix_ReceiveByte (void) {
-    uint8_t received = 0;
-    for ( uint8_t bit = 0; bit < MATRIX_COLS; ++bit ) {
-        // toggle the clock
-        PORTB ^= (1 << 1) ;
-        _delay_us( 30 ) ; // make sure the line is stable
-        PORTB ^= (1 << 1) ;
-        
-        // read bit using PB3, and cram it into a byte
-        received |= (PINB & (1 << 3) << bit) ;
-    }
-    
-    return received ;
 }
 
 inline

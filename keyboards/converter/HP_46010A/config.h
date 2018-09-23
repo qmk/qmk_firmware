@@ -30,15 +30,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS       14
 #define MATRIX_COLS       8
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION CUSTOM_MATRIX
-#undef MATRIX_HAS_GHOST
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
-
-//#define QMK_KEYS_PER_SCAN 107
-
 
 
 #endif // CONFIG_H
