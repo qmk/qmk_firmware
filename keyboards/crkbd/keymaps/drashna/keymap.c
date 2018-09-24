@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "drashna.h"
-
-#include "bootloader.h"
 #ifdef PROTOCOL_LUFA
   #include "lufa.h"
   #include "split_util.h"
@@ -20,43 +18,43 @@ extern rgblight_config_t rgblight_config;
 
 enum crkbd_keycodes {
   RGBRST = NEW_SAFE_RANGE
-}
+};
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_QWERTY] = LAYOUT_wrapper( \
+  [_QWERTY] = LAYOUT_wrapper(
     KC_ESC,  _________________QWERTY_L1_________________,                    _________________QWERTY_R1_________________, KC_BSPC,
     KC_TAB,  _________________QWERTY_L2_________________,                    _________________QWERTY_R2_________________, KC_QUOT,
     KC_MLSF, _________________QWERTY_L3_________________,                    _________________QWERTY_R3_________________, KC_MRSF,
                            LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
-  [_COLEMAK] = LAYOUT_wrapper( \
+  [_COLEMAK] = LAYOUT_wrapper(
     KC_ESC,  _________________QWERTY_L1_________________,                    _________________QWERTY_R1_________________, KC_BSPC,
     KC_TAB,  _________________QWERTY_L2_________________,                    _________________QWERTY_R2_________________, KC_QUOT,
     KC_MLSF, _________________QWERTY_L3_________________,                    _________________QWERTY_R3_________________, KC_MRSF,
                            LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
-  [_DVORAK] = LAYOUT_wrapper( \
+  [_DVORAK] = LAYOUT_wrapper(
     KC_ESC,  _________________QWERTY_L1_________________,                    _________________QWERTY_R1_________________, KC_BSPC,
     KC_TAB,  _________________QWERTY_L2_________________,                    _________________QWERTY_R2_________________, KC_QUOT,
     KC_MLSF, _________________QWERTY_L3_________________,                    _________________QWERTY_R3_________________, KC_MRSF,
                            LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
-  [_WORKMAN] = LAYOUT_wrapper( \
+  [_WORKMAN] = LAYOUT_wrapper(
     KC_ESC,  _________________QWERTY_L1_________________,                    _________________QWERTY_R1_________________, KC_BSPC,
     KC_TAB,  _________________QWERTY_L2_________________,                    _________________QWERTY_R2_________________, KC_QUOT,
     KC_MLSF, _________________QWERTY_L3_________________,                    _________________QWERTY_R3_________________, KC_MRSF,
                            LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
   ),
 
-  [_MODS] = LAYOUT_wrapper( \  //,-----------------------------------------.                ,-----------------------------------------.
+  [_MODS] = LAYOUT_wrapper(
       _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______,
       _______, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, _______,
       KC_LSFT, _______, _______, _______, _______, _______,                  _______, _______, _______, _______, _______, KC_RSFT,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
-  [_LOWER] = LAYOUT_wrapper( \
+  [_LOWER] = LAYOUT_wrapper(
     KC_TILD, _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, KC_BSPC,
     KC_F11,  _________________LOWER_L2__________________,                    _________________LOWER_R2__________________, KC_PIPE,
     KC_F12,  _________________LOWER_L3__________________,                    _________________LOWER_R3__________________, _______,
