@@ -1,6 +1,6 @@
 # Learning Resources
 
-These resources are aimed at giving new members in the QMK community more understanding to the information provided in the newbs docs.
+These resources are aimed at giving new members in the QMK community more understanding to the information provided in the Newbs docs.
 
 Git resources:
 
