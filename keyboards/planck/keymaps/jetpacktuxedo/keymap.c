@@ -14,8 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "planck.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
+//#include "planck.h"
 #include "muse.h"
 
 extern keymap_config_t keymap_config;
@@ -31,7 +31,6 @@ enum planck_layers {
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
   PLOVER,
-  BACKLIT,
   EXT_PLV
 };
 
@@ -48,14 +47,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |  Up  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Alt  | GUI  |Brite |Lower |    Space    |Raise |   /  | Left | Down |Right |
+ * |Brite | Ctrl | Alt  | GUI  |Lower |    Space    |Raise |   /  | Left | Down |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
     KC_GESC, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   KC_RSFT,
-    KC_LCTL, KC_LGUI, KC_LALT, BACKLIT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
+    RGB_TOG, KC_LCTL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT
 ),
 
 /* Lower
@@ -152,23 +151,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        #ifdef KEYBOARD_planck_rev5
-          PORTE &= ~(1<<6);
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
-          PORTE |= (1<<6);
-        #endif
-      }
-      return false;
-      break;
     case PLOVER:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
@@ -205,7 +187,7 @@ bool muse_mode = false;
 uint8_t last_muse_note = 0;
 uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
-uint16_t muse_tempo = 50;
+uint16_t muse_tempo = 20;
 
 void encoder_update(bool clockwise) {
   if (muse_mode) {
@@ -223,12 +205,22 @@ void encoder_update(bool clockwise) {
       }
     }
   } else {
-    if (clockwise) {
-      register_code(KC_PGDN);
-      unregister_code(KC_PGDN);
+    if (IS_LAYER_ON(_RAISE)) {
+      if (clockwise) {
+        register_code(KC_RGHT);
+        unregister_code(KC_RGHT);
+      } else {
+        register_code(KC_LEFT);
+        unregister_code(KC_LEFT);
+      }
     } else {
-      register_code(KC_PGUP);
-      unregister_code(KC_PGUP);
+      if (clockwise) {
+        register_code(KC_DOWN);
+        unregister_code(KC_DOWN);
+      } else {
+        register_code(KC_UP);
+        unregister_code(KC_UP);
+      }
     }
   }
 }
