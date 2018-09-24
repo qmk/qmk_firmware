@@ -3,7 +3,6 @@
 
 #include QMK_KEYBOARD_CONFIG_H
 
-#define PREVENT_STUCK_MODIFIERS
 #define SPACE_COUNT 3
 
 #define TEMPLATE(                                                                     \
