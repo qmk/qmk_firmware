@@ -25,8 +25,6 @@ enum {
   _FUNC
 };
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define KC_KNA  KC_LANG1
 #define KC_EISU KC_LANG2
 #define LOWER   MO(_LOWER)
