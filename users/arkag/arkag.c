@@ -1,13 +1,10 @@
 #include "arkag.h"
 
-<<<<<<< HEAD
 /*
  Current Layout and Keeb:
  https://github.com/arkag/qmk_firmware/blob/master/keyboards/mechmini/v2/keymaps/arkag/keymap.c
 */
 
-=======
->>>>>>> 9012f4c2e005253574f2af2887c2317d51c70405
 // Start: Written by konstantin: vomindoraan
 #include <ctype.h>
 #include <stdlib.h>
@@ -141,7 +138,7 @@ void check_state (void) {
       activated = false;
       slept = false;
     }
-    velocikey_deaccelerate();
+    velocikey_decelerate();
     fade_interval = velocikey_match_speed(1, 25);
     if (timer_elapsed(active_timer) < SLEEP_DELAY) {return;}
     state = sleeping;

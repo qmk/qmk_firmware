@@ -112,7 +112,7 @@ enum tapdances {
 void send_unicode_hex_string(const char *str);
 
 void velocikey_accelerate(void);
-void velocikey_decay_task(void);
+void velocikey_decelerate(void);
 uint8_t velocikey_match_speed(uint8_t minValue, uint8_t maxValue);
 
 void set_color (Color new, bool update);
