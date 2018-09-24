@@ -17,13 +17,13 @@ To reduce the chances of merge conflicts &mdash; instances where two or more use
 
 ### Updating your master branch
 
-To keep your `master` branch updated, it is recommended to add the QMK Firmware repository ("repo") as a remote repository in git. To do this, enter
+To keep your `master` branch updated, it is recommended to add the QMK Firmware repository ("repo") as a remote repository in git. To do this, open your Git command line interface and enter:
 
 ```
 git remote add upstream https://github.com/qmk/qmk_firmware.git
-````
+```
 
-in your Git command line interface. To verify that the repository has been added, run `git remote -v`, which should return the following:
+To verify that the repository has been added, run `git remote -v`, which should return the following:
 
 ```
 $ git remote -v
@@ -45,6 +45,7 @@ git push origin master
 ```
 
 This switches you to your `master` branch, retrieves the refs from the QMK repo, downloads the current QMK `master` branch to your computer, and then uploads it to your fork.
+
 
 ## Making Changes
 
