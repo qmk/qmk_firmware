@@ -10,11 +10,12 @@ Hardware Supported: HP 46010A, Teensy 2.0
 Make example for this keyboard (after setting up your build environment):
 
     make converter/HP_46010A:default
-
-included in this directory is a arduino program for teensy 2.0 (only one tested, might work on others) to grab a copy of the keyboard matrix.
-also included is a csv containing the matrix as an ordered by clock #, byte array
     
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+to get a matrix created if your board uses a different one (i used the US layout) please see the following gists:
+for the matrix itself: https://gist.github.com/listofoptions/cdf70d94767e9c6c027741850a24c568
+for the program to generate the matrix: https://gist.github.com/listofoptions/d245e370678024edbe5bed8c8ab17999
 
 to build the actual converter, you are going to need to either splice into the a connector or, use a multi-meter to buzz/ohm out which wires go where.
 from the bottom of the pcb the pins are arraged as follows:
