@@ -1,8 +1,5 @@
 /*
-This is the c configuration file for the keymap
-
-Copyright 2012 Jun Wako <wakojun@gmail.com>
-Copyright 2015 Jack Humbert
+Copyright 2018 listofoptions <listofoptions@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,26 +17,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#define USE_MATRIX_I2C
+#include "config_common.h"
 
-/* Select hand configuration */
+#define VENDOR_ID         0xFEED
+#define PRODUCT_ID        0x6060
+#define DEVICE_VER        1
+#define MANUFACTURER      QMK
+#define PRODUCT           46010A keyboard converter
+#define DESCRIPTION       46010A keyboard converter
+                          
+#define MATRIX_ROWS       14
+#define MATRIX_COLS       8
 
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
+/* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
+#define DEBOUNCING_DELAY 5
 
-#define SSD1306OLED
 
-#define USE_SERIAL_PD2
-
-#define PREVENT_STUCK_MODIFIERS
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 150
-
-#undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 27
-#define RGBLIGHT_LIMIT_VAL 120
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
