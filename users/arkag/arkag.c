@@ -46,13 +46,13 @@ void send_unicode_hex_string(const char *str) {
 uint8_t typing_speed = 0;
 
 void velocikey_accelerate() {
-    if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += (TYPING_SPEED_MAX_VALUE / 100);
+    if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += (TYPING_SPEED_MAX_VALUE / 50);
 }
 
-void velocikey_decay_task() {
+void velocikey_deaccelerate() {
   static uint16_t decay_timer = 0;
 
-  if (timer_elapsed(decay_timer) > 250 || decay_timer == 0) {
+  if (timer_elapsed(decay_timer) > 500 || decay_timer == 0) {
     if (typing_speed > 0) typing_speed -= 1;
     //Decay a little faster at half of max speed
     if (typing_speed > TYPING_SPEED_MAX_VALUE / 2) typing_speed -= 1;
@@ -121,11 +121,12 @@ void check_state (void) {
   switch (state) {
   case active:
     if (!activated) {
-      rgblight_mode_noeeprom(1);
+      if (slept) {rgblight_mode_noeeprom(1);}
       activated = true;
+      deactivated = false;
       slept = false;
     }
-    fade_interval = velocikey_match_speed(1, 100);
+    fade_interval = velocikey_match_speed(1, 25);
     if (timer_elapsed(active_timer) < INACTIVE_DELAY) {return;}
     active_timer = timer_read();
     state = inactive;
@@ -137,7 +138,8 @@ void check_state (void) {
       activated = false;
       slept = false;
     }
-    velocikey_decay_task();
+    velocikey_deaccelerate();
+    fade_interval = velocikey_match_speed(1, 25);
     if (timer_elapsed(active_timer) < SLEEP_DELAY) {return;}
     state = sleeping;
     return;
