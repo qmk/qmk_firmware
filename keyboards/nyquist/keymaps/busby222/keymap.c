@@ -89,17 +89,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 /* Adjust (Lower + Raise)
- * ,-----------------------------------------------------------------------------------.
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Reset|RGB Tg|RGB Md|Hue Up|Hue Dn|Sat Up|  7   |  8   |  9   |      |  Del |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|  6   |  5   |  4   |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |      |      |      |      |   [  |   ]  |  1   |  2   |  3   |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |   {  |   }  |  0   |  .   |      |      |      |
- * `-----------------------------------------------------------------------------------'
+ * ,-----------------------------------------| |-----------------------------------------.
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  | |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * |      | Reset|RGB Tg|RGB Md|Hue Up|Hue Dn| |Sat Up|  7   |  8   |  9   |      |  Del |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * |      |      |      |Aud on|Audoff|AGnorm| |AGswap|  6   |  5   |  4   |      |      |
+ * |------+------+------+------+------+------| |------+------+------+------+------+------|
+ * |      |      |      |      |      |   [  | |   ]  |  1   |  2   |  3   |      |      |
+ * |------+------+------+------+------+------+ |------+------+------+------+------+------|
+ * |      |      |      |      |      |   {  | |   }  |  0   |  .   |      |      |      |
+ * `-----------------------------------------| |-----------------------------------------'
  */
 [_ADJUST] =  LAYOUT( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
@@ -114,8 +114,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #ifdef AUDIO_ENABLE
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-// float tone_dvorak[][2]  = SONG(DVORAK_SOUND);
-// float tone_colemak[][2] = SONG(COLEMAK_SOUND);
 #endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
@@ -134,24 +132,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    // case COLEMAK:
-    //   if (record->event.pressed) {
-    //     #ifdef AUDIO_ENABLE
-    //       PLAY_SONG(tone_colemak);
-    //     #endif
-    //     persistent_default_layer_set(1UL<<_COLEMAK);
-    //   }
-    //   return false;
-    //   break;
-    // case DVORAK:
-    //   if (record->event.pressed) {
-    //     #ifdef AUDIO_ENABLE
-    //       PLAY_SONG(tone_dvorak);
-    //     #endif
-    //     persistent_default_layer_set(1UL<<_DVORAK);
-    //   }
-    //   return false;
-    //   break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
