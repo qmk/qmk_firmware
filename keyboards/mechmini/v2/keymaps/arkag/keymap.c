@@ -1,6 +1,11 @@
 #include QMK_KEYBOARD_H
 #include "arkag.h"
 
+/*
+ Userspace:
+ https://github.com/arkag/qmk_firmware/blob/master/users/arkag/arkag.c
+*/
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_2u_space_ortho(
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,

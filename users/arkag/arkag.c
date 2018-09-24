@@ -1,5 +1,10 @@
 #include "arkag.h"
 
+/*
+ Current Layout and Keeb:
+ https://github.com/arkag/qmk_firmware/blob/master/keyboards/mechmini/v2/keymaps/arkag/keymap.c
+*/
+
 // Start: Written by konstantin: vomindoraan
 #include <ctype.h>
 #include <stdlib.h>
