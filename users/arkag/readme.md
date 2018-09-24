@@ -17,7 +17,9 @@ Here's a list of some things I have working with my currently [keyboard](mm2_hom
 * Flashing RGB LED on OS change
 * Hex Unicode Macros dependent on OS(half works on Windows due to [WinCompose](https://github.com/SamHocevar/wincompose) not functioning properly just yet).
 * "Sleep" function activates after 3 minutes (breathing).
-* Markdown style macros for surround type __eve__~~ryw~~*her***eee**
+* Markdown style macros for surround type __eve__ ~~ryw~~ *her* **eee** (note apparently only certain places support underline and strikethrough ಠ__ಠ)
+
+# License Stuff
 
 Copyright 2018 arkag arkag@pm.me
 
