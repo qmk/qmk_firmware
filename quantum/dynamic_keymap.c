@@ -60,12 +60,9 @@ void dynamic_keymap_reset(void)
 	// Reset the keymaps in EEPROM to what is in flash.
 	// All keyboards using dynamic keymaps should define a layout
 	// for the same number of layers as DYNAMIC_KEYMAP_LAYER_COUNT.
-	for ( int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++ )
-	{
-		for ( int row = 0; row < MATRIX_ROWS; row++ )
-		{
-			for ( int column = 0; column < MATRIX_COLS; column++ )
-			{
+	for ( int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++ )	{
+		for ( int row = 0; row < MATRIX_ROWS; row++ ) {
+			for ( int column = 0; column < MATRIX_COLS; column++ )	{
 				dynamic_keymap_set_keycode(layer, row, column, pgm_read_word(&keymaps[layer][row][column]));
 			}
 		}
@@ -76,13 +73,10 @@ void dynamic_keymap_reset(void)
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
 	if ( layer < DYNAMIC_KEYMAP_LAYER_COUNT &&
-		 key.row < MATRIX_ROWS && // possibly redundant
-		 key.col < MATRIX_COLS ) // possibly redundant
-	{
+			key.row < MATRIX_ROWS &&
+			key.col < MATRIX_COLS ) {
 		return dynamic_keymap_get_keycode(layer, key.row, key.col);
-	}
-	else
-	{
+	} else {
 		return KC_NO;
 	}
 }
