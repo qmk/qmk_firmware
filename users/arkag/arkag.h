@@ -26,12 +26,11 @@
 #define MOD_SFT_MASK (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))
 
 #define LED_FLASH_DELAY       150
-#define LED_FADE_DELAY        10
 
 #define ACCEL_DELAY           500
-#define DEACCEL_DELAY         750
+#define DEACCEL_DELAY         500
 
-#define INACTIVE_DELAY        750
+#define INACTIVE_DELAY        250
 #define SLEEP_DELAY           180000
 
 enum {
@@ -111,6 +110,10 @@ enum tapdances {
 };
 
 void send_unicode_hex_string(const char *str);
+
+void velocikey_accelerate(void);
+void velocikey_decay_task(void);
+uint8_t velocikey_match_speed(uint8_t minValue, uint8_t maxValue);
 
 void set_color (Color new, bool update);
 void save_color(Color to_save);
