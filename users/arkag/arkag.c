@@ -470,7 +470,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case M_REPO:
     if (record->event.pressed) {
-      SEND_STRING("https://github.com/arkag/qmk_firmware/tree/master/keyboards/mechmini/v2/keymaps/arkag");
+      SEND_STRING("https://github.com/qmk/qmk_firmware/tree/master/users/arkag");
     }
     return false;
 

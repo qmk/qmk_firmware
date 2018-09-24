@@ -17,7 +17,7 @@ Here's a list of some things I have working with my currently [keyboard](mm2_hom
 * Flashing RGB LED on OS change
 * Hex Unicode Macros dependent on OS(half works on Windows due to [WinCompose](https://github.com/SamHocevar/wincompose) not functioning properly just yet).
 * "Sleep" function activates after 3 minutes (breathing).
-* Markdown style macros for surround type __eve__ ~~ryw~~ *her* **eee** (note apparently only certain places support underline and strikethrough ಠ__ಠ)
+* Markdown style macros for surround type __eve__ ~~ryw~~ *her* **eee** (apparently only certain places support underline and strikethrough ಠ__ಠ)
 
 # License Stuff
 
@@ -35,11 +35,8 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-<<<<<<< HEAD
 
 [arkag_c]:    /users/arkag/arkag.c
 [arkag_h]:    /users/arkag/arkag.h
 [layout_mm2]: /keyboards/mechmini/v2/keymaps/arkag/keymap.c
 [mm2_home]:   https://cartel.ltd/projects/mechmini2/
-=======
->>>>>>> 9012f4c2e005253574f2af2887c2317d51c70405
