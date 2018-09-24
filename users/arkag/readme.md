@@ -1,3 +1,7 @@
+# Shot on Pixel 2 XL with Cheap Lamp at Work
+
+![mmm, tasty](mechmini2.jpg)
+
 # I don't know what I'm doing
 
 Some links:
