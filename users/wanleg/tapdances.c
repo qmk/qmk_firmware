@@ -94,6 +94,64 @@ void DEL_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   DELtap_state.state = 0;
 }
+
+//instantialize an instance of 'tap' for the 'CAD' tap dance.
+static tap CADtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
+  CADtap_state.state = cur_dance(state);
+  switch (CADtap_state.state) {
+    case SINGLE_TAP: 
+		//register_code(KC_SPC); 
+		SEND_STRING(SS_LGUI("l"));
+		backlight_set(3);
+		break;
+    case SINGLE_HOLD: 
+		//register_code(KC_NO);
+		//take a screenshot of a single window, open Paint and paste
+		SEND_STRING(SS_LALT(SS_TAP(X_PSCREEN)) SS_LGUI("r"));
+        _delay_ms(500);
+        SEND_STRING("mspaint" SS_TAP(X_ENTER));
+        _delay_ms(700);
+        SEND_STRING(SS_LCTRL("v"));
+		break; //register this keycode when button is held
+    case DOUBLE_TAP: 
+		//register_code(KC_ENT); 
+		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
+		backlight_set(0);
+		break;
+    //case DOUBLE_HOLD: register_code(KC_NO); break; //register this keycode when button is tapped and then held
+	case DOUBLE_HOLD: 
+		reset_keyboard(); 
+		break; //register this keycode when button is tapped and then held
+    case DOUBLE_SINGLE_TAP: register_code(KC_NO); unregister_code(KC_NO); register_code(KC_NO);
+  }
+}
+
+void CAD_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (CADtap_state.state) {
+    case SINGLE_TAP: 
+		//unregister_code(KC_SPC); 
+		SEND_STRING(SS_LGUI("l"));
+		backlight_set(3);
+		break;
+    case SINGLE_HOLD: 
+		register_code(KC_NO); //(un)register this keycode when button is held and then released
+		//SEND_STRING(SS_LCTRL("v"));
+		break; 
+    case DOUBLE_TAP: 
+		//register_code(KC_ENT); 
+		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
+		backlight_set(0);
+		break;
+    case DOUBLE_HOLD: register_code(KC_NO); //(un)register this keycode when button is tapped and then held, and then released
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_NO);
+  }
+  CADtap_state.state = 0;
+}
 ///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION END /////
 
 //Tap Dance Definitions
@@ -104,6 +162,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  ,[TD_Q_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_Q, KC_ESC)
  ,[ENT_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ENT_finished, ENT_reset)
  ,[DEL_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, DEL_finished, DEL_reset)
+ ,[CAD_TD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CAD_finished, CAD_reset)
 };
 
 //In Layer declaration, add tap dance item in place of a key code
