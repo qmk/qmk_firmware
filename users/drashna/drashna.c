@@ -175,17 +175,12 @@ void shutdown_user (void) {
   shutdown_keymap();
 }
 
-void suspend_power_down_user(void)
-{
+void suspend_power_down_user(void) {
     suspend_power_down_keymap();
 }
 
-void suspend_wakeup_init_user(void)
-{
+void suspend_wakeup_init_user(void) {
   suspend_wakeup_init_keymap();
-  #ifdef KEYBOARD_ergodox_ez
-  wait_ms(10);
-  #endif
 }
 
 
