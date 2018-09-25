@@ -36,7 +36,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
 }
 ///// QUAD FUNCTION TAP DANCE GENERAL SETUP SECTION END /////
 ///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION START /////
-//instantialize an instance of 'tap' for the 'ENT' tap dance.
+//instantiate 'tap' for the 'ENT' tap dance.
 static tap ENTtap_state = {
   .is_press_action = true,
   .state = 0
@@ -67,7 +67,7 @@ void ENT_reset (qk_tap_dance_state_t *state, void *user_data) {
   ENTtap_state.state = 0;
 }
 
-//instantialize an instance of 'tap' for the 'DEL' tap dance.
+//instantiate 'tap' for the 'DEL' tap dance.
 static tap DELtap_state = {
   .is_press_action = true,
   .state = 0
@@ -95,7 +95,7 @@ void DEL_reset (qk_tap_dance_state_t *state, void *user_data) {
   DELtap_state.state = 0;
 }
 
-//instantialize an instance of 'tap' for the 'CAD' tap dance.
+//instantiate 'tap' for the 'CAD' tap dance.
 static tap CADtap_state = {
   .is_press_action = true,
   .state = 0
@@ -161,7 +161,7 @@ void CAD_reset (qk_tap_dance_state_t *state, void *user_data) {
   CADtap_state.state = 0;
 }  
   
-//instantialize an instance of 'tap' for the 'RST' tap dance.
+//instantiate 'tap' for the 'RST' tap dance.
 static tap RSTtap_state = {
   .is_press_action = true,
   .state = 0
@@ -189,7 +189,7 @@ void RST_reset (qk_tap_dance_state_t *state, void *user_data) {
   RSTtap_state.state = 0;
 }	
 
-//instantialize an instance of 'tap' for the 'LYR' tap dance.
+//instantiate 'tap' for the 'LYR' tap dance.
 static tap LYRtap_state = {
   .is_press_action = true,
   .state = 0
