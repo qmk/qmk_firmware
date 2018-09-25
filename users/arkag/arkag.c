@@ -1,5 +1,10 @@
 #include "arkag.h"
 
+/*
+ Current Layout and Keeb:
+ https://github.com/arkag/qmk_firmware/blob/master/keyboards/mechmini/v2/keymaps/arkag/keymap.c
+*/
+
 // Start: Written by konstantin: vomindoraan
 #include <ctype.h>
 #include <stdlib.h>
@@ -8,38 +13,68 @@
 void send_unicode_hex_string(const char *str) {
   if (!str) { return; } // Saftey net
   while (*str) {
-          // Find the next code point (token) in the string
-          for (; *str == ' '; str++);
-          size_t n = strcspn(str, " "); // Length of the current token
-          char code_point[n+1];
-          strncpy(code_point, str, n);
-          code_point[n] = '\0'; // Make sure it's null-terminated
+    // Find the next code point (token) in the string
+    for (; *str == ' '; str++);
+    size_t n = strcspn(str, " "); // Length of the current token
+    char code_point[n+1];
+    strncpy(code_point, str, n);
+    code_point[n] = '\0'; // Make sure it's null-terminated
 
-          // Normalize the code point: make all hex digits lowercase
-          for (char *p = code_point; *p; p++) {
-                  *p = tolower(*p);
-          }
+    // Normalize the code point: make all hex digits lowercase
+    for (char *p = code_point; *p; p++) {
+            *p = tolower(*p);
+    }
 
-          // Send the code point as a Unicode input string
-          unicode_input_start();
-          send_string(code_point);
-          unicode_input_finish();
-          str += n; // Move to the first ' ' (or '\0') after the current token
+    // Send the code point as a Unicode input string
+    unicode_input_start();
+    send_string(code_point);
+    unicode_input_finish();
+    str += n; // Move to the first ' ' (or '\0') after the current token
   }
 }
 // End: Written by konstantin: vomindoraan
 
-uint8_t       current_os, mod_primary_mask, fade_delay;
-uint16_t      flash_timer_one, flash_timer_two,
-              fade_timer_one, fade_timer_two,
-              active_timer_one, active_timer_two,
-              elapsed               = 0,
+// Start: Written by Chris Lewis
+#ifndef MIN
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#endif
+#ifndef MAX
+#define MAX(a,b) (((a)>(b))?(a):(b))
+#endif
+
+#define TYPING_SPEED_MAX_VALUE 200
+uint8_t typing_speed = 0;
+
+void velocikey_accelerate() {
+    if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += (TYPING_SPEED_MAX_VALUE / 50);
+}
+
+void velocikey_decelerate() {
+  static uint16_t decay_timer = 0;
+
+  if (timer_elapsed(decay_timer) > 500 || decay_timer == 0) {
+    if (typing_speed > 0) typing_speed -= 1;
+    //Decay a little faster at half of max speed
+    if (typing_speed > TYPING_SPEED_MAX_VALUE / 2) typing_speed -= 1;
+    //Decay even faster at 3/4 of max speed
+    if (typing_speed > TYPING_SPEED_MAX_VALUE / 4 * 3) typing_speed -= 3;
+    decay_timer = timer_read();
+  }
+}
+
+uint8_t velocikey_match_speed(uint8_t minValue, uint8_t maxValue) {
+  return MAX(minValue, maxValue - (maxValue - minValue) * ((float)typing_speed / TYPING_SPEED_MAX_VALUE));
+}
+// End: Written by Chris Lewis
+
+uint8_t       current_os,
+              mod_primary_mask,
+              fade_interval,
               num_extra_flashes_off = 0;
 Color         underglow,
               flash_color,
               saved_color,
-              hsv_none      = {0,0,0},
-              hsv_white     = {0,0,127};
+              hsv_none      = {0,0,0};
 flashState    flash_state   = no_flash;
 fadeState     fade_state    = add_fade;
 activityState state         = boot;
@@ -79,134 +114,103 @@ Color mod_color(Color current_color, bool should_add, uint8_t change_amount) {
   return current_color;
 }
 
-void reverse_fade (void) {
-  if (fade_state == add_fade){
-    fade_state = sub_fade;
-  } else {
-    fade_state = add_fade;
+void check_state (void) {
+  static uint16_t active_timer;
+  if (!active_timer) {active_timer = timer_read();}
+  static bool activated, deactivated, slept;
+  switch (state) {
+  case active:
+    if (!activated) {
+      if (slept) {rgblight_mode_noeeprom(1);}
+      activated = true;
+      deactivated = false;
+      slept = false;
+    }
+    fade_interval = velocikey_match_speed(1, 25);
+    if (timer_elapsed(active_timer) < INACTIVE_DELAY) {return;}
+    active_timer = timer_read();
+    state = inactive;
+    return;
+
+  case inactive:
+    if (!deactivated) {
+      deactivated = true;
+      activated = false;
+      slept = false;
+    }
+    velocikey_decelerate();
+    fade_interval = velocikey_match_speed(1, 25);
+    if (timer_elapsed(active_timer) < SLEEP_DELAY) {return;}
+    state = sleeping;
+    return;
+
+  case sleeping:
+    if (!slept) {
+      rgblight_mode_noeeprom(4);
+      slept = true;
+      activated = false;
+      deactivated = false;
+    }
+    return;
+
+  case boot:
+    return;
   }
 }
 
-void check_state (void) {
-        static bool activated, deactivated, slept;
-        switch (state) {
-        case active:
-          if (!activated) {
-            fade_delay = LED_FADE_DELAY;
-            reverse_fade();
-            activated = true;
-            deactivated = false;
-          }
-          active_timer_two = timer_read();
-          elapsed = active_timer_two - active_timer_one;
-          if (elapsed < INACTIVE_DELAY) {return;}
-          state = inactive;
-          return;
-
-        case inactive:
-          if (!deactivated) {
-            fade_delay = LED_FADE_DELAY * 2;
-            reverse_fade();
-            deactivated = true;
-            slept = false;
-            activated = false;
-          }
-          active_timer_two = timer_read();
-          elapsed = active_timer_two - active_timer_one;
-          if (elapsed < SLEEP_DELAY) {return;}
-          state = sleeping;
-          return;
-
-        case sleeping:
-          if (!slept) {
-            fade_delay = LED_FADE_DELAY * 6;
-            reverse_fade();
-            slept = true;
-            deactivated = false;
-            activated = false;
-          }
-          return;
-
-        case boot:
-          return;
-        }
-}
-
 void fade_rgb (void) {
-  static bool ran_once;
-  if (flash_state != no_flash) {return;}
+  static uint16_t fade_timer;
   if (state == boot) {return;}
+  if (!fade_timer) {fade_timer = timer_read();}
+  if (timer_elapsed(fade_timer) < fade_interval) {return;}
   switch (fade_state) {
   case add_fade:
-    if (!ran_once) {
-      fade_timer_one = timer_read();
-      ran_once = true;
-    }
-    fade_timer_two = timer_read();
-    elapsed = fade_timer_two - fade_timer_one;
-    if (elapsed < fade_delay) {return;}
     if (underglow.h == 359) {
       fade_state = sub_fade;
       return;
     }
     underglow.h = underglow.h + 1;
-    set_color(underglow, false);
-    // set_color_at(underglow, 0);
-    fade_timer_one = fade_timer_two;
-    return;
+    break;
 
   case sub_fade:
-    fade_timer_two = timer_read();
-    elapsed = fade_timer_two - fade_timer_one;
-    if (elapsed < fade_delay) {return;}
     if (underglow.h == 0) {
       fade_state = add_fade;
       return;
     }
     underglow.h = underglow.h - 1;
+    break;
+  }
+  fade_timer = timer_read();
+  if (flash_state == no_flash) {
     set_color(underglow, false);
-    // set_color_at(underglow, 0);
-    fade_timer_one = fade_timer_two;
-    return;
   }
 }
 
 void flash_rgb (void) {
-  static bool ran_once;
+  static uint16_t flash_timer;
   switch(flash_state) {
   case no_flash:
     return;
 
   case flash_off:
-    if (!ran_once) {
+    if (!flash_timer) {flash_timer = timer_read();}
+    if (timer_elapsed(flash_timer) >= LED_FLASH_DELAY) {
       set_color(hsv_none, false);
-      flash_timer_one = timer_read();
-      ran_once = true;
-      flash_state = flash_on;
-      return;
-    }
-    flash_timer_two = timer_read();
-    elapsed = flash_timer_two - flash_timer_one;
-    if (elapsed >= LED_FLASH_DELAY) {
-      set_color(hsv_none, false);
-      flash_timer_one = timer_read();
+      flash_timer = timer_read();
       flash_state = flash_on;
     }
     return;
 
   case flash_on:
-    flash_timer_two = timer_read();
-    elapsed = flash_timer_two - flash_timer_one;
-    if (elapsed >= LED_FLASH_DELAY) {
+    if (timer_elapsed(flash_timer) >= LED_FLASH_DELAY) {
       set_color(flash_color, false);
-      flash_timer_one = timer_read();
+      flash_timer = timer_read();
       if (num_extra_flashes_off > 0) {
         flash_state = flash_off;
         num_extra_flashes_off--;
       } else {
         set_color(underglow, false);
         flash_state = no_flash;
-        ran_once = false;
       }
     }
     return;
@@ -239,8 +243,9 @@ void set_os (uint8_t os, bool update) {
     mod_primary_mask = MOD_CTL_MASK;
   }
   set_color(underglow, update);
-  flash_color = underglow;
-  flash_state = flash_off;
+  flash_color           = underglow;
+  flash_state           = flash_off;
+  state                 = boot;
   num_extra_flashes_off = 1;
 }
 
@@ -462,7 +467,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case M_REPO:
     if (record->event.pressed) {
-      SEND_STRING("https://github.com/arkag/qmk_firmware/tree/master/keyboards/mechmini/v2/keymaps/arkag");
+      SEND_STRING("https://github.com/qmk/qmk_firmware/tree/master/users/arkag");
     }
     return false;
 
@@ -505,10 +510,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case KC_LSFT:
     if (record->event.pressed) {
-      set_color(mod_color(underglow, true, 50), false);
+      save_color(underglow);
+      underglow = mod_color(underglow, true, 75);
       SEND_STRING(SS_DOWN(X_LSHIFT));
     } else {
-      set_color(underglow, false);
+      reset_color();
       SEND_STRING(SS_UP(X_LSHIFT));
     }
     return false;
@@ -522,8 +528,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   default:
     if (record->event.pressed) {
-      active_timer_one = timer_read();
       state = active;
+      velocikey_accelerate();
     }
     return true;
   }
