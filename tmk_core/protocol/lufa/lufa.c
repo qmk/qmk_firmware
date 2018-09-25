@@ -651,8 +651,8 @@ static void send_keyboard(report_keyboard_t *report)
     }
 #endif
     Endpoint_SelectEndpoint(ep);
-    /* Check if write ready for a polling interval around 1ms */
-    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(4);
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
     if (!Endpoint_IsReadWriteAllowed()) return;
 
     /* If we're in Boot Protocol, don't send any report ID or other funky fields */
