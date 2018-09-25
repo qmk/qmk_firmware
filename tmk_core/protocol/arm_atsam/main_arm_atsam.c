@@ -166,7 +166,7 @@ void main_subtask_usb_state(void)
         led_on;
         if (led_enabled)
         {
-            for (g_drvid=0;g_drvid<ISSI3733_DRIVER_COUNT;g_drvid++)
+            for (g_drvid = 0; g_drvid < ISSI3733_DRIVER_COUNT; g_drvid++)
             {
                 I2C3733_Control_Set(0);
             }
@@ -177,7 +177,7 @@ void main_subtask_usb_state(void)
         }
         if (led_enabled)
         {
-            for (g_drvid=0;g_drvid<ISSI3733_DRIVER_COUNT;g_drvid++)
+            for (g_drvid = 0; g_drvid < ISSI3733_DRIVER_COUNT; g_drvid++)
             {
                 I2C3733_Control_Set(1);
             }
@@ -191,12 +191,13 @@ void main_subtask_led(void)
     led_matrix_task();
 }
 
-uint64_t g_next_5v_checkup = 0;
 void main_subtask_power_check(void)
 {
-    if (CLK_get_ms() > g_next_5v_checkup)
+    static uint64_t next_5v_checkup = 0;
+
+    if (CLK_get_ms() > next_5v_checkup)
     {
-        g_next_5v_checkup = CLK_get_ms() + 5;
+        next_5v_checkup = CLK_get_ms() + 5;
 
         v_5v = adc_get(ADC_5V);
         v_5v_avg = 0.9 * v_5v_avg + 0.1 * v_5v;
@@ -205,12 +206,13 @@ void main_subtask_power_check(void)
     }
 }
 
-uint64_t g_next_usb_checkup = 0;
 void main_subtask_usb_extra_device(void)
 {
-    if (CLK_get_ms() > g_next_usb_checkup)
+    static uint64_t next_usb_checkup = 0;
+
+    if (CLK_get_ms() > next_usb_checkup)
     {
-        g_next_usb_checkup = CLK_get_ms() + 10;
+        next_usb_checkup = CLK_get_ms() + 10;
 
         USB_HandleExtraDevice();
     }
@@ -265,7 +267,7 @@ int main(void)
 
     i2c_led_q_init();
 
-    for (g_drvid=0;g_drvid<ISSI3733_DRIVER_COUNT;g_drvid++)
+    for (g_drvid = 0; g_drvid < ISSI3733_DRIVER_COUNT; g_drvid++)
         I2C_LED_Q_ONOFF(g_drvid); //Queue data
 
     keyboard_setup();

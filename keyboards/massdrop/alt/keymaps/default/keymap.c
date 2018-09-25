@@ -136,8 +136,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case L_T_BR:
             if (record->event.pressed) {
                 led_animation_breathing = !led_animation_breathing;
-                if (led_animation_breathing)
-                {
+                if (led_animation_breathing) {
                     gcr_breathe = gcr_desired;
                     led_animation_breathe_cur = BREATHE_MIN_STEP;
                     breathe_dir = 1;
@@ -151,86 +150,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case U_T_AUTO:
             if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-                if (usb_extra_manual)
-                {
-                    dprintf("USB extra port manual mode disabled\r\n");
-                    usb_extra_manual = 0;
-                }
-                else
-                {
-                    usb_extra_manual = 1;
-                    dprintf("USB extra port manual mode enabled\r\n");
-                }
+                TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
             }
             return false;
         case U_T_AGCR:
             if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
-                if (usb_gcr_auto)
-                {
-                    dprintf("USB GCR auto mode disabled\r\n");
-                    usb_gcr_auto = 0;
-                }
-                else
-                {
-                    usb_gcr_auto = 1;
-                    dprintf("USB GCR auto mode enabled\r\n");
-                }
+                TOGGLE_FLAG_AND_PRINT(usb_gcr_auto, "USB GCR auto mode");
             }
             return false;
         case DBG_TOG:
             if (record->event.pressed) {
-                if (debug_enable)
-                {
-                    dprintf("Debug mode disabled\r\n");
-                    debug_enable = 0;
-                }
-                else
-                {
-                    debug_enable = 1;
-                    dprintf("Debug mode enabled\r\n");
-                }
+                TOGGLE_FLAG_AND_PRINT(debug_enable, "Debug mode");
             }
             return false;
         case DBG_MTRX:
             if (record->event.pressed) {
-                if (debug_matrix)
-                {
-                    dprintf("Debug matrix disabled\r\n");
-                    debug_matrix = 0;
-                }
-                else
-                {
-                    debug_matrix = 1;
-                    dprintf("Debug matrix enabled\r\n");
-                }
+                TOGGLE_FLAG_AND_PRINT(debug_matrix, "Debug matrix");
             }
             return false;
         case DBG_KBD:
             if (record->event.pressed) {
-                if (debug_keyboard)
-                {
-                    dprintf("Debug keyboard disabled\r\n");
-                    debug_keyboard = 0;
-                }
-                else
-                {
-                    debug_keyboard = 1;
-                    dprintf("Debug keyboard enabled\r\n");
-                }
+                TOGGLE_FLAG_AND_PRINT(debug_keyboard, "Debug keyboard");
             }
             return false;
         case DBG_MOU:
             if (record->event.pressed) {
-                if (debug_mouse)
-                {
-                    dprintf("Debug mouse disabled\r\n");
-                    debug_mouse = 0;
-                }
-                else
-                {
-                    debug_mouse = 1;
-                    dprintf("Debug mouse enabled\r\n");
-                }
+                TOGGLE_FLAG_AND_PRINT(debug_mouse, "Debug mouse");
             }
             return false;
         case MD_BOOT:
