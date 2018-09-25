@@ -74,6 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SYSTEM_WAKE_UP          0x0083
 
 
+#define NKRO_SHARED_EP
 /* key report size(NKRO or boot mode) */
 #if defined(NKRO_ENABLE)
   #if defined(PROTOCOL_LUFA) || defined(PROTOCOL_CHIBIOS)
@@ -81,7 +82,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define KEYBOARD_REPORT_BITS (SHARED_EPSIZE - 2)
   #elif defined(PROTOCOL_ARM_ATSAM)
     #include "protocol/arm_atsam/usb/udi_device_epsize.h"
-    #define KEYBOARD_REPORT_BITS (SHARED_EPSIZE - 2)
+    #define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
+    #undef NKRO_SHARED_EP
   #else
     #error "NKRO not supported with this protocol"
 #endif
@@ -133,7 +135,9 @@ typedef union {
     };
 #ifdef NKRO_ENABLE
     struct nkro_report {
+#ifdef NKRO_SHARED_EP
         uint8_t report_id;
+#endif
         uint8_t mods;
         uint8_t bits[KEYBOARD_REPORT_BITS];
     } nkro;

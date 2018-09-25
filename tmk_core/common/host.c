@@ -51,7 +51,7 @@ uint8_t host_keyboard_leds(void)
 void host_keyboard_send(report_keyboard_t *report)
 {
     if (!driver) return;
-#ifdef NKRO_ENABLE
+#if defined(NKRO_ENABLE) && defined(NKRO_SHARED_EP)
     if (keyboard_protocol && keymap_config.nkro) {
         report->nkro.report_id = REPORT_ID_NKRO;
     } else
