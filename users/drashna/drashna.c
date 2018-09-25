@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 userspace_config_t userspace_config;
 
+uint16_t copy_paste_timer;
 //  Helper Functions
 
 
@@ -345,16 +346,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_LCTL);
         tap(KC_C);
         unregister_code(KC_LCTL);
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(tone_copy);
-#endif
       } else {                                // Tap, paste
         register_code(KC_LCTL);
         tap(KC_V);
         unregister_code(KC_LCTL);
-#ifdef AUDIO_ENABLE
-        PLAY_SONG(tone_paste);
-#endif
       }
     }
     return false;
