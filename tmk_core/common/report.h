@@ -87,9 +87,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #undef MOUSE_SHARED_EP
   #else
     #error "NKRO not supported with this protocol"
-#endif
-
-#else
+  #endif
 #endif
 
 #ifdef KEYBOARD_SHARED_EP
@@ -99,6 +97,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define KEYBOARD_REPORT_KEYS 6
+
+/* VUSB hardcodes keyboard and mouse+extrakey only */
+#if defined(PROTOCOL_VUSB)
+  #undef KEYBOARD_SHARED_EP
+  #undef MOUSE_SHARED_EP
+#endif
 
 #ifdef __cplusplus
 extern "C" {
