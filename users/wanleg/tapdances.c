@@ -267,6 +267,7 @@ void BSW_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   BSWtap_state.state = 0;
 }  
+
 ///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION END /////
 
 //Tap Dance Definitions
@@ -281,7 +282,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  ,[CAD_TD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CAD_finished, CAD_reset)
  ,[LYR_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LYR_finished, LYR_reset)
  ,[BSW_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, BSW_finished, BSW_reset)
-
 };
 
 //In Layer declaration, add tap dance item in place of a key code

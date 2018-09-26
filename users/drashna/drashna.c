@@ -133,9 +133,6 @@ void led_set_keymap(uint8_t usb_led) {}
 void matrix_init_user(void) {
   userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
 
-#ifdef AUDIO_CLICKY
-  clicky_enable = userspace_config.clicky_enable;
-#endif
 
 #ifdef BOOTLOADER_CATERINA
   DDRD &= ~(1<<5);
@@ -144,7 +141,6 @@ void matrix_init_user(void) {
   DDRB &= ~(1<<0);
   PORTB &= ~(1<<0);
 #endif
-
 
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
 	set_unicode_input_mode(UC_WINC);
@@ -338,11 +334,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false; break;
 
 
-  case CLICKY_TOGGLE:
-#ifdef AUDIO_CLICKY
-    userspace_config.clicky_enable = clicky_enable;
-    eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+  case KC_CCCV:                                    // One key copy/paste
+    if(record->event.pressed){
+      copy_paste_timer = timer_read();
+    } else {
+      if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {   // Hold, copy
+        register_code(KC_LCTL);
+        tap(KC_C);
+        unregister_code(KC_LCTL);
+#ifdef AUDIO_ENABLE
+        PLAY_SONG(tone_copy);
 #endif
+      } else {                                // Tap, paste
+        register_code(KC_LCTL);
+        tap(KC_V);
+        unregister_code(KC_LCTL);
+#ifdef AUDIO_ENABLE
+        PLAY_SONG(tone_paste);
+#endif
+      }
+    }
+    return false;
     break;
 #ifdef UNICODE_ENABLE
   case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻

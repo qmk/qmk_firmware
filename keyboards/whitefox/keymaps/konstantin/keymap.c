@@ -1,12 +1,14 @@
 #include QMK_KEYBOARD_H
 
+#define FN      MO(L_FN)
 #define FN_CAPS LT(L_FN, KC_CAPS)
-#define FN_CTRL TD(TD_FN_CTRL)
-#define RL_ALT  TD(TD_RL_ALT)  // Unused
+#define FN_RCTL TD(TD_FN_RCTL) // Unused
+#define RLALT   TD(TD_RLALT)   // Unused
 
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
 
+#define UC_COMM UC(0x002C)
 #define UC_LPRN UC(0x0028)
 #define UC_RPRN UC(0x0029)
 #define UC_EQLS UC(0x003D)
@@ -32,19 +34,21 @@ enum custom_keycodes {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
-  if (!record->event.pressed) { return true; }
-
   switch (keycode) {
   case CLEAR:
-    SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
+    }
     return false;
 
   case NUMPAD:
-    layer_invert(L_NUMPAD);
-    bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
-    if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
-      register_code(KC_NLCK);  // Force Num Lock to match layer state.
-      unregister_code(KC_NLCK);
+    if (record->event.pressed) {
+      layer_invert(L_NUMPAD);
+      bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
+      if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
+        register_code(KC_NLCK); // Toggle Num Lock to match layer state.
+        unregister_code(KC_NLCK);
+      }
     }
     return false;
 
@@ -54,8 +58,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 }
 
 enum tap_dance {
-  TD_FN_CTRL,
-  TD_RL_ALT,  // Unused
+  TD_FN_RCTL,
+  TD_RLALT,
 };
 
 void td_fn_ctrl_finished(qk_tap_dance_state_t *state, void *user_data)
@@ -72,8 +76,8 @@ void td_fn_ctrl_reset(qk_tap_dance_state_t *state, void *user_data)
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_FN_CTRL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fn_ctrl_finished, td_fn_ctrl_reset),
-  [TD_RL_ALT]  = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),  // Unused
+  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fn_ctrl_finished, td_fn_ctrl_reset),
+  [TD_RLALT]   = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),
 };
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -85,17 +89,17 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |FnCaps| A | S | D | F | G | H | J | K | L | ; | ' | Enter  |PgU|
    * |---------------------------------------------------------------|
-   * | LShift | Z | X | C | V | B | N | M | , | . | / |RShift| ↑ |PgD|
+   * | LShift | Z | X | C | V | B | N | M | , | . | / |  Fn  | ↑ |PgD|
    * |---------------------------------------------------------------|
-   * |LCtl|LGui|LAlt|         Space          |RAlt|FnCt| | ← | ↓ | → |
+   * |LCtl|LGui|LAlt|         Space          |RAlt|RCtl| | ← | ↓ | → |
    * `---------------------------------------------------------------'
    */
   [L_BASE] = LAYOUT_truefox( \
     KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV, KC_PSCR, \
     KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSPC,        KC_DEL,  \
     FN_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,        KC_ENT,         KC_PGUP, \
-    KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RSFT,        KC_UP,  KC_PGDN, \
-    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 KC_RALT,FN_CTRL,                KC_LEFT,KC_DOWN,KC_RGHT  \
+    KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,FN,             KC_UP,  KC_PGDN, \
+    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 KC_RALT,KC_RCTL,                KC_LEFT,KC_DOWN,KC_RGHT  \
   ),
 
   /* Function layer
@@ -106,9 +110,9 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |      |M← |M↓ |M→ |MW↑|   |   |   |   |   |   |   |        |Top|
    * |---------------------------------------------------------------|
-   * |        |MA0|MA2|MW←|MW→|   |   |   |Vo-|Vo+|Mut|      |PgU|Btm|
+   * |        |MA0|MA2|MW←|MW→|   |   |   |VoD|VoU|Mut|      |PgU|Btm|
    * |---------------------------------------------------------------|
-   * |    |    |    |          MW↓           |App |    | |Hom|PgD|End|
+   * |    |    |    |          MW↓           |    |Menu| |Hom|PgD|End|
    * `---------------------------------------------------------------'
    */
   [L_FN] = LAYOUT_truefox( \
@@ -116,7 +120,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BTN4,KC_BTN2,KC_MS_U,KC_BTN1,KC_BTN3,KC_BTN5,_______,_______,_______,KC_MSTP,KC_MPLY,KC_MPRV,KC_MNXT,CLEAR,          KC_INS,  \
     _______,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_U,_______,_______,_______,_______,_______,_______,_______,        _______,        TOP,     \
     _______,        KC_ACL0,KC_ACL2,KC_WH_L,KC_WH_R,_______,_______,_______,KC_VOLD,KC_VOLU,KC_MUTE,_______,        KC_PGUP,BOTTOM,  \
-    _______,_______,_______,                        KC_WH_D,                KC_APP, _______,                KC_HOME,KC_PGDN,KC_END   \
+    _______,_______,_______,                        KC_WH_D,                _______,KC_APP,                 KC_HOME,KC_PGDN,KC_END   \
   ),
 
   /* Numpad layer
@@ -127,7 +131,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |      |   |   |   |   |   |   |P1 |P2 |P3 |P* | × | PEnter |   |
    * |---------------------------------------------------------------|
-   * |        |   |   |   |   |   |P0 |P0 |P, |P. |P/ |  ÷   |   |   |
+   * |        |   |   |   |   |   |P0 |P0 | , |P. |P/ |  ÷   |   |   |
    * |---------------------------------------------------------------|
    * |    |    |    |                        |    |    | |   |   |   |
    * `---------------------------------------------------------------'
@@ -136,7 +140,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     NUMPAD, _______,_______,_______,_______,_______,_______,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,UC_MINS,UC_EQLS,NUMPAD, _______,_______, \
     _______,_______,_______,_______,_______,_______,_______,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,UC_LPRN,UC_RPRN,_______,        _______, \
     _______,_______,_______,_______,_______,_______,_______,KC_P1,  KC_P2,  KC_P3,  KC_PAST,UC_MULS,        KC_PENT,        _______, \
-    _______,        _______,_______,_______,_______,_______,KC_P0,  KC_P0,  KC_PCMM,KC_PDOT,KC_PSLS,UC_DIVS,        _______,_______, \
+    _______,        _______,_______,_______,_______,_______,KC_P0,  KC_P0,  UC_COMM,KC_PDOT,KC_PSLS,UC_DIVS,        _______,_______, \
     _______,_______,_______,                        _______,                _______,_______,                _______,_______,_______  \
   ),
 };
