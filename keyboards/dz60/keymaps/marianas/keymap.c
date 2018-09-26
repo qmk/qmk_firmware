@@ -46,16 +46,16 @@ uint32_t layer_state_set_user(uint32_t state)
   switch (biton32(state))
   {
     case QWERTY:
-      rgblight_mode(34);
+      rgblight_mode(9);
       break;
     case COLEMAK:
-      rgblight_mode(28);
+      rgblight_mode(27);
       break;
     case DVORAK:
-      rgblight_mode(29);
+      rgblight_mode(28);
       break;
     case NAV_CLUSTER:
-      rgblight_mode(32);
+      rgblight_mode(29);
       break;
     /*
     case RGB:
@@ -66,23 +66,23 @@ uint32_t layer_state_set_user(uint32_t state)
       rgblight_mode(30);
       break;
     case GAMING:
-      rgblight_mode(31);
+      rgblight_mode(26);
       break;
     case SQLMACROS:
+      rgblight_mode(1);
       rgblight_setrgb(0x00, 0xFF, 0x80);
-      rgblight_mode(5);
       break;
     case SQLNAMES:
+      rgblight_mode(1);
       rgblight_setrgb(0x80, 0xFF, 0x00);
-      rgblight_mode(5);
       break;
     case FN_LAYER:
+      rgblight_mode(1);
       rgblight_setrgb(0x00, 0x80, 0xFF);
-      rgblight_mode(2+3);
       break;
     case LAYER_SEL:
+      rgblight_mode(1);
       rgblight_setrgb(0xFF, 0x00, 0xFF);
-      rgblight_mode(2+3);
       break;
   }
   return state;
@@ -136,16 +136,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_NO, KC_BSPC,
       KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_G, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LBRC, KC_RBRC, KC_BSLS,
       MO(FN_LAYER), KC_A, KC_R, KC_S, KC_T, KC_D, KC_H, KC_N, KC_E, KC_I, KC_O, KC_QUOT, KC_ENT,
-      KC_LSPO, KC_NO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC, KC_NO,
-      KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_SPC, KC_SPC, KC_RALT, KC_LGUI, KC_NO, KC_APP, KC_RCTL),
+      KC_TRNS, KC_NO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_K, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_TRNS, KC_NO,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
   [DVORAK]=
     LAYOUT(
       KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_LBRC, KC_RBRC, KC_NO, KC_BSPC,
       KC_TAB, KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_SLSH, KC_EQL, KC_BSLS,
       MO(FN_LAYER), KC_A, KC_O, KC_E, KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_MINS, KC_ENT,
-      KC_LSPO, KC_NO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_RSPC, KC_NO,
-      KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_SPC, KC_SPC, KC_RALT, KC_LGUI, KC_NO, KC_APP, KC_RCTL),
+      KC_TRNS, KC_NO, KC_SCLN, KC_Q, KC_J, KC_K, KC_X, KC_B, KC_M, KC_W, KC_V, KC_Z, KC_TRNS, KC_NO,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
   [NAV_CLUSTER]=
     LAYOUT(
@@ -177,7 +177,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
       KC_TRNS, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, KC_ENT,
       KC_LSHIFT, KC_NO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSHIFT, KC_NO,
-      KC_LCTL, KC_NO, KC_LALT, KC_SPC, KC_SPC, KC_SPC, KC_RALT, KC_RCTL, KC_NO, KC_NO, TO(QWERTY)),
+      KC_LCTL, KC_NO, KC_LALT, KC_SPC, KC_SPC, KC_SPC, KC_RALT, KC_RCTL, KC_NO, KC_NO, KC_TRNS),
 
   [SQLMACROS]=
     LAYOUT(
@@ -213,9 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 /*
-dfu-programmer atmega32u4 erase
-dfu-programmer atmega32u4 flash dz60_marianas.hex
-dfu-programmer atmega32u4 reset
+
 
 
 */
