@@ -8,9 +8,23 @@ enum iris_layers {
   _RAISE
 };
 
-#define LOWER OSL(_LOWER)
-#define RAISE OSL(_RAISE)
-#define CANCEL reset_oneshot_layer()
+// Momentary Hold
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+#define CANCEL_LOWER XXXXXXX
+#define CANCEL_RAISE XXXXXXX
+
+// One Shot
+//#define LOWER OSL(_LOWER)
+//#define RAISE OSL(_RAISE)
+//#define CANCEL_LOWER XXXXXXX
+//#define CANCEL_RAISE XXXXXXX
+
+// Toggle
+//#define LOWER TG(_LOWER)
+//#define RAISE TG(_RAISE)
+//#define CANCEL_LOWER KC_TRNS
+//#define CANCEL_RAISE KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -45,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX,  KC_HASH, KC_DLR, KC_LPRN, KC_RPRN,   KC_GRV,                            XXXXXXX, KC_LEFT,KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //|    &   |    %   |    ^   |   [    |   ]    |    ~   |                          |        |  MUTE  | VOLUP  | VOLDOWN|        |        |    
-     KC_AMPR, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD,  CANCEL,          XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP, KC__VOLDOWN, XXXXXXX, XXXXXXX,
+     KC_AMPR, KC_PERC, KC_CIRC, KC_LBRC, KC_RBRC, KC_TILD, CANCEL_LOWER,          XXXXXXX, XXXXXXX, KC__MUTE, KC__VOLUP, KC__VOLDOWN, XXXXXXX, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               |  CTRL  | COMMAND| SPACE                    | BKSPACE|  ENTER |   ALT 
                                     KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,  KC_TRNS, KC_TRNS
@@ -64,7 +78,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX,  KC_P1,   KC_P2,   KC_P3,  XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //|        |        |        |        |        |        |                          |        |   0    |    .   | ENTER  |   =    |        | 
-     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          CANCEL, XXXXXXX, KC_P0,   KC_PDOT, KC_PENT, KC_PEQL, XXXXXXX,
+     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          CANCEL_RAISE, XXXXXXX, KC_P0,   KC_PDOT, KC_PENT, KC_PEQL, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               |  CTRL  | COMMAND| SPACE                    | BKSPACE|  ENTER |   ALT 
                                     KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
