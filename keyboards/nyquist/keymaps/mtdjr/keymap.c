@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_LOWER] = LAYOUT_kc(
 // ,-----------------------------.  .-----------------------------.
-    TILD,xxxx,xxxx,xxxx,xxxx,xxxx,   xxxx,xxxx,xxxx,MINS, EQL, DEL,
+    TILD,xxxx,xxxx,xxxx,xxxx,xxxx,   xxxx,xxxx,xxxx,UNDS,PLUS, DEL,
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
     xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,   xxxx,xxxx,xxxx,LBRC,RBRC,BSLS,
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
@@ -35,7 +35,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_RAISE] = LAYOUT_kc(
 // ,-----------------------------.  .-----------------------------.
-    xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,   xxxx,xxxx,xxxx,UNDS,PLUS,    ,
+    xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,   xxxx,xxxx,xxxx,MINS, EQL,    ,
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
     xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,   xxxx,xxxx,xxxx,LCBR,RCBR,PIPE,
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
@@ -53,11 +53,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
     xxxx,xxxx,xxxx,xxxx, RST,xxxx,    F7 , F8 , F9 , F10, F11, F12,
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
-        ,xxxx,xxxx,xxxx,xxxx,xxxx,   xxxx,xxxx,xxxx,xxxx,xxxx,    ,
+        , RGB,RHUI,RSAI,RVAI, MOD,   xxxx,xxxx,xxxx,xxxx,xxxx,    ,
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
-    xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,   xxxx,xxxx,xxxx,xxxx,xxxx,xxxx,
+    xxxx,RBTH,RHUD,RSAD,RVAD,RMOD,   xxxx,xxxx,xxxx,xxxx,xxxx, BLB,
 // |----+----+----+----+----+----|  |----+----+----+----+----+----|
-        ,xxxx,xxxx,xxxx,    ,    ,       ,    ,BLON, BLI, BLD,BLOF
+        ,xxxx,xxxx,xxxx,    ,    ,       ,    ,BLOF, BLD, BLI,BLON
 // '-----------------------------'  '-----------------------------'
 )
 
