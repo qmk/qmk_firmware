@@ -24,6 +24,8 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_SPC_ENT] = ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)
 };
 
+#define KC_ KC_TRNS
+
 #define KC_LOWR LT(_LOWER, KC_LEFT) //LOWER
 #define KC_RASE LT(_RAISE, KC_RIGHT) //RAISE
 #define KC_ADJT LT(_ADJ, KC_LGUI) //RAISE
@@ -103,8 +105,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 
 };
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
