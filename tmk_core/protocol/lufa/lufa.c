@@ -1077,7 +1077,7 @@ int main(void)
 #endif
 
 #ifdef VELOCIKEY_ENABLE
-    if (velocikey_enabled()) velocikey_decay_task();    
+    if (velocikey_enabled()) velocikey_decelerate();    
 #endif
 
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)

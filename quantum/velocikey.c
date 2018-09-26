@@ -28,7 +28,7 @@ void velocikey_accelerate() {
     if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += (TYPING_SPEED_MAX_VALUE / 100);
 }
 
-void velocikey_decay_task() {
+void velocikey_decelerate() {
   static uint16_t decay_timer = 0;
 
   if (timer_elapsed(decay_timer) > 500 || decay_timer == 0) {
