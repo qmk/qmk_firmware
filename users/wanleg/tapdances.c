@@ -9,7 +9,10 @@ enum {
   SINGLE_HOLD = 2,
   DOUBLE_TAP = 3,
   DOUBLE_HOLD = 4,
-  DOUBLE_SINGLE_TAP = 5 //send SINGLE_TAP twice - NOT DOUBLE_TAP
+  DOUBLE_SINGLE_TAP = 5, //send SINGLE_TAP twice - NOT DOUBLE_TAP
+  TRIPLE_TAP = 6,
+  TRIPLE_HOLD = 7,
+  TRIPLE_SINGLE_TAP = 8
   // Add more enums here if you want for triple, quadruple, etc.
 };
 
@@ -32,7 +35,15 @@ int cur_dance (qk_tap_dance_state_t *state) {
     else if (state->pressed) return DOUBLE_HOLD;
     else return DOUBLE_TAP;
   }
-  else return 6; //magic number. At some point this method will expand to work for more presses
+  
+  //If count = 3, and it has been interrupted - assume that user is trying to type the letter associated
+  //with double tap.
+  else if (state->count == 3) {
+    if (state->interrupted) return TRIPLE_SINGLE_TAP;
+    else if (state->pressed) return TRIPLE_HOLD;
+    else return TRIPLE_TAP;
+  }
+  else return 9; //magic number. At some point this method will expand to work for more presses
 }
 ///// QUAD FUNCTION TAP DANCE GENERAL SETUP SECTION END /////
 ///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION START /////
@@ -132,6 +143,12 @@ void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
 		reset_keyboard(); 
 		break; //register this keycode when button is tapped and then held
     case DOUBLE_SINGLE_TAP: register_code(KC_NO); unregister_code(KC_NO); register_code(KC_NO);
+	    break;
+	case TRIPLE_TAP:
+		SEND_STRING("bfong@central1.com");
+		break;
+	case TRIPLE_HOLD: set_single_persistent_default_layer(1); break;
+	case TRIPLE_SINGLE_TAP: register_code(KC_NO); unregister_code(KC_NO); register_code(KC_NO);
   }
 }
 
@@ -216,6 +233,40 @@ void LYR_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
   LYRtap_state.state = 0;
 }	
+
+//instantiate 'tap' for the 'BSW' tap dance.
+static tap BSWtap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void BSW_finished (qk_tap_dance_state_t *state, void *user_data) {
+  BSWtap_state.state = cur_dance(state);
+  switch (BSWtap_state.state) {
+    case SINGLE_TAP: register_code(KC_A); break;
+    case SINGLE_HOLD: set_single_persistent_default_layer(0); break;
+    case DOUBLE_TAP: register_code(KC_B); break;
+	case DOUBLE_HOLD: 
+		reset_keyboard(); 
+		break; //register this keycode when button is tapped and then held
+    case DOUBLE_SINGLE_TAP: register_code(KC_NO); unregister_code(KC_NO); register_code(KC_NO);
+	    break;
+	case TRIPLE_TAP: register_code(KC_NO); break;
+	case TRIPLE_HOLD: register_code(KC_NO); break;
+	case TRIPLE_SINGLE_TAP: register_code(KC_NO); unregister_code(KC_NO); register_code(KC_NO);
+  }
+}
+
+void BSW_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (BSWtap_state.state) {
+    case SINGLE_TAP: unregister_code(KC_A); break;
+    case SINGLE_HOLD: unregister_code(KC_NO); break; 
+    case DOUBLE_TAP: unregister_code(KC_B); break; 
+    case DOUBLE_HOLD: unregister_code(KC_NO); break;
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_NO);
+  }
+  BSWtap_state.state = 0;
+}  
 ///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION END /////
 
 //Tap Dance Definitions
@@ -229,6 +280,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  ,[RST_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RST_finished, RST_reset)
  ,[CAD_TD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CAD_finished, CAD_reset)
  ,[LYR_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LYR_finished, LYR_reset)
+ ,[BSW_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, BSW_finished, BSW_reset)
 
 };
 

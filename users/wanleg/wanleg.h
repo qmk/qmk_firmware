@@ -113,6 +113,7 @@ enum {
   ,CAD_TD
   ,RST_TAP_DANCE
   ,LYR_TAP_DANCE
+  ,BSW_TAP_DANCE
 };
 #endif
 

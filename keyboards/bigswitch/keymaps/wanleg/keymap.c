@@ -16,9 +16,14 @@
 #include QMK_KEYBOARD_H
 #include "wanleg.h"
 
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT( /* Base */
 TD(CAD_TD) \
+),
+[1] = LAYOUT( /*Secondary*/
+TD(BSW_TAP_DANCE) \
 ),
 };
 
