@@ -10,7 +10,9 @@ elif grep ID /etc/os-release | grep -q debian; then
 	    dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi \
 	    libnewlib-arm-none-eabi
 elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
-	sudo pacman -S gcc unzip wget zip avr-gcc avr-binutils avr-libc \
+  # install avr-gcc 8.1 until 8.3 is available. See #3657 for details of the bug.
+  sudo pacman -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.1.0-1-x86_64.pkg.tar.xz
+	sudo pacman -S gcc unzip wget zip avr-binutils avr-libc \
 	    dfu-util arm-none-eabi-gcc arm-none-eabi-binutils \
 	    arm-none-eabi-newlib
 	git clone https://aur.archlinux.org/dfu-programmer.git /tmp/dfu-programmer

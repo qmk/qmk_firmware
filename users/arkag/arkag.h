@@ -25,26 +25,13 @@
 #define MOD_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
 #define MOD_SFT_MASK (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))
 
-#define TAP_A    LALT_T(KC_A)
-#define TAP_SCN  RALT_T(KC_SCOLON)
-
-#define TAP_S    LCTL_T(KC_S)
-#define TAP_L    RCTL_T(KC_L)
-
-#define TAP_D    LSFT_T(KC_D)
-#define TAP_K    RSFT_T(KC_K)
-
-#define TAP_F    LGUI_T(KC_F)
-#define TAP_J    RGUI_T(KC_J)
-
-#define TAP_EQ   LSFT_T(KC_EQUAL)
-#define TAP_5    RSFT_T(KC_5)
-
 #define LED_FLASH_DELAY       150
-#define LED_FADE_DELAY        10
 
-#define INACTIVE_DELAY        200
-#define SLEEP_DELAY           60000
+#define ACCEL_DELAY           500
+#define DEACCEL_DELAY         500
+
+#define INACTIVE_DELAY        250
+#define SLEEP_DELAY           180000
 
 enum {
   _QWERTY = 0,
@@ -123,6 +110,10 @@ enum tapdances {
 };
 
 void send_unicode_hex_string(const char *str);
+
+void velocikey_accelerate(void);
+void velocikey_decelerate(void);
+uint8_t velocikey_match_speed(uint8_t minValue, uint8_t maxValue);
 
 void set_color (Color new, bool update);
 void save_color(Color to_save);
