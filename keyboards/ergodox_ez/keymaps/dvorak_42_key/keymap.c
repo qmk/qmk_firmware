@@ -55,15 +55,16 @@ enum custom_keycodes {
 };
 
 
-#define BASE         0 // base dvorak layer
-#define KEYNAV       1 // arrow navigation (right hand)
-#define KEYSEL       2 // arrow navigation + shift (allow text selection)
-#define SHELL_NAV    3 // bash shortcuts
-#define SHELL_SCREEN 4 // linux screen shortcuts
-#define SCREEN_NAV   5 // navigate between linux screen tabs 
-#define BROWSER_CONTROL 6 // control browser and mouse
-#define COMBINED      	7 // combined numbers and symbols layer
-#define ANDROID_STUDIO 8
+#define BASE             0 // base dvorak layer
+#define BASE_ALTERNATE   1 // base dvorak layer, with different layer toggling
+#define KEYNAV           2 // arrow navigation (right hand)
+#define KEYSEL           3 // arrow navigation + shift (allow text selection)
+#define SHELL_NAV        4 // bash shortcuts
+#define SHELL_SCREEN     5 // linux screen shortcuts
+#define SCREEN_NAV       6 // navigate between linux screen tabs 
+#define BROWSER_CONTROL  7 // control browser and mouse
+#define COMBINED         8 // combined numbers and symbols layer
+#define ANDROID_STUDIO   9
 
 
 // macros
@@ -146,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_ESC,            KC_F1,         KC_F2,      KC_F3,        KC_F4,   KC_F5,   KC_F6,
       OSL(SCREEN_NAV),   KC_QUOTE,      KC_COMMA,   KC_DOT,       KC_P,    KC_Y,    MEH(KC_2),
       OSL(SHELL_NAV),    KC_A,          KC_O,       KC_E,         KC_U,    KC_I,
-      OSL(ANDROID_STUDIO), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
+      OSL(SHELL_SCREEN), KC_SCOLON,     KC_Q,       KC_J,         KC_K,    KC_X,    MEH(KC_3),
       MEH(KC_1),         OSM(MOD_LSFT), OSM(MOD_LCTL), MO(KEYSEL), MO(BROWSER_CONTROL),
 
       // left thumb cluster
@@ -165,6 +166,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MEH(KC_F5),MEH(KC_F6),MEH(KC_F7),MEH(KC_F8),KC_ENTER,KC_SPACE
 
   ),
+  
+    // alternate base layout
+  [BASE_ALTERNATE] = LAYOUT_ergodox(
+       // left hand
+       KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+       KC_TRNS,            KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,
+       OSL(ANDROID_STUDIO),KC_TRNS,    KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,   KC_TRNS,
+               // bottom row
+               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                                       // thumb cluster
+                                       KC_TRNS,KC_TRNS,
+                                               KC_TRNS,
+                               KC_TRNS,KC_TRNS,KC_TRNS,
+       // right hand
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+                KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
+                         // bottom row
+                         KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
+       // thumb cluster
+       KC_TRNS, KC_TRNS,
+       KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS
+  ),  
 
   [KEYNAV] = LAYOUT_ergodox(
     // left hand
@@ -196,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_TRNS,MEH(KC_L), MEH(KC_M),MEH(KC_N), MEH(KC_O), MEH(KC_P),
            KC_TRNS,MEH(KC_Q), MEH(KC_R),MEH(KC_S), MEH(KC_T), MEH(KC_U), KC_TRNS,
                    // bottom row
-                   RESET,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+                   RESET,DF(BASE),DF(BASE_ALTERNATE),KC_TRNS,KC_TRNS,
                                            // thumb cluster
                                            KC_TRNS,KC_TRNS,
                                                    KC_TRNS,
