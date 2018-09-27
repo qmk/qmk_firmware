@@ -197,7 +197,7 @@ endef
 avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	$(call EXEC_AVRDUDE)
 
-mavrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+avrdude-loop: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	while true; do \
 	    $(call EXEC_AVRDUDE) ; \
 	done
