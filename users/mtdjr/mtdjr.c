@@ -5,7 +5,7 @@
 #endif
 
 #ifndef RGB_MODE
-  #define RGB_MODE 16
+  #define RGB_MODE 2
 #endif
 #ifndef RGB_HUE
   #define RGB_HUE 285
