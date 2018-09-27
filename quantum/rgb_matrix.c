@@ -18,7 +18,6 @@
 
 
 #include "rgb_matrix.h"
-#include "i2c_master.h"
 #include "progmem.h"
 #include "config.h"
 #include "eeprom.h"
@@ -111,29 +110,15 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i, uint8_t
 }
 
 void rgb_matrix_update_pwm_buffers(void) {
-#ifdef IS31FL3731
-    IS31FL3731_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-    IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-#elif defined(IS31FL3733)
-    IS31FL3733_update_pwm_buffers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-    IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-#endif
+    rgb_matrix_driver.flush();
 }
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
-#ifdef IS31FL3731
-    IS31FL3731_set_color( index, red, green, blue );
-#elif defined(IS31FL3733)
-    IS31FL3733_set_color( index, red, green, blue );
-#endif
+    rgb_matrix_driver.set_color(index, red, green, blue);
 }
 
 void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
-#ifdef IS31FL3731
-    IS31FL3731_set_color_all( red, green, blue );
-#elif defined(IS31FL3733)
-    IS31FL3733_set_color_all( red, green, blue );
-#endif
+    rgb_matrix_driver.set_color_all(red, green, blue);
 }
 
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
@@ -193,47 +178,6 @@ void rgb_matrix_test(void) {
             rgb_matrix_set_color_all( 20, 20, 20 );
             break;
         }
-    }
-}
-
-// This tests the LEDs
-// Note that it will change the LED control registers
-// in the LED drivers, and leave them in an invalid
-// state for other backlight effects.
-// ONLY USE THIS FOR TESTING LEDS!
-void rgb_matrix_single_LED_test(void) {
-    static uint8_t color = 0; // 0,1,2 for R,G,B
-    static uint8_t row = 0;
-    static uint8_t column = 0;
-
-    static uint8_t tick = 0;
-    tick++;
-
-    if ( tick > 2 )
-    {
-        tick = 0;
-        column++;
-    }
-    if ( column > MATRIX_COLS )
-    {
-        column = 0;
-        row++;
-    }
-    if ( row > MATRIX_ROWS )
-    {
-        row = 0;
-        color++;
-    }
-    if ( color > 2 )
-    {
-        color = 0;
-    }
-
-    uint8_t led[8], led_count;
-    map_row_column_to_led(row,column,led,&led_count);
-    for(uint8_t i = 0; i < led_count; i++) {
-        rgb_matrix_set_color_all( 40, 40, 40 );
-        rgb_matrix_test_led( led[i], color==0, color==1, color==2 );
     }
 }
 
@@ -817,7 +761,7 @@ void rgb_matrix_indicators_user(void) {}
 // }
 
 void rgb_matrix_init(void) {
-  rgb_matrix_setup_drivers();
+  rgb_matrix_driver.init();
 
   // TODO: put the 1 second startup delay here?
 
@@ -839,33 +783,6 @@ void rgb_matrix_init(void) {
       rgb_matrix_config.raw = eeconfig_read_rgb_matrix();
   }
   eeconfig_debug_rgb_matrix(); // display current eeprom values
-}
-
-void rgb_matrix_setup_drivers(void) {
-  // Initialize TWI
-  i2c_init();
-#ifdef IS31FL3731
-  IS31FL3731_init( DRIVER_ADDR_1 );
-  IS31FL3731_init( DRIVER_ADDR_2 );
-#elif defined (IS31FL3733)
-  IS31FL3733_init( DRIVER_ADDR_1 );
-#endif
-
-  for ( int index = 0; index < DRIVER_LED_TOTAL; index++ ) {
-    bool enabled = true;
-    // This only caches it for later
-#ifdef IS31FL3731
-    IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
-#elif defined (IS31FL3733)
-    IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
-#endif
-  }
-  // This actually updates the LED drivers
-#ifdef IS31FL3731
-  IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-#elif defined (IS31FL3733)
-  IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-#endif
 }
 
 // Deals with the messy details of incrementing an integer
@@ -909,28 +826,6 @@ uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
 //         }
 //     }
 // }
-
-void rgb_matrix_test_led( uint8_t index, bool red, bool green, bool blue ) {
-    for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
-    {
-        if ( i == index )
-        {
-#ifdef IS31FL3731
-            IS31FL3731_set_led_control_register( i, red, green, blue );
-#elif defined (IS31FL3733)
-            IS31FL3733_set_led_control_register( i, red, green, blue );
-#endif
-        }
-        else
-        {
-#ifdef IS31FL3731
-            IS31FL3731_set_led_control_register( i, false, false, false );
-#elif defined (IS31FL3733)
-            IS31FL3733_set_led_control_register( i, false, false, false );
-#endif
-        }
-    }
-}
 
 uint32_t rgb_matrix_get_tick(void) {
     return g_tick;
