@@ -1,4 +1,4 @@
-/* Copyright 2016-2017 Erez Zukerman, Jack Humbert
+/* Copyright 2016-2018 Erez Zukerman, Jack Humbert, Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,11 +36,11 @@
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
 #else
-  #ifdef RGB_MATRIX_ENABLE
-    /* dummy define RGBLIGHT_MODE_xxxx */
-    #define RGBLIGHT_H_DUMMY_DEFINE
-    #include "rgblight.h"
-  #endif
+    #ifdef RGB_MATRIX_ENABLE
+        /* dummy define RGBLIGHT_MODE_xxxx */
+        #define RGBLIGHT_H_DUMMY_DEFINE
+        #include "rgblight.h"
+    #endif
 #endif
 
 #ifdef SPLIT_KEYBOARD
@@ -79,9 +79,9 @@ extern uint32_t default_layer_state;
 #ifdef AUDIO_ENABLE
     #include "audio.h"
     #include "process_audio.h"
-  #ifdef AUDIO_CLICKY
-    #include "process_clicky.h"
-  #endif // AUDIO_CLICKY
+    #ifdef AUDIO_CLICKY
+        #include "process_clicky.h"
+    #endif // AUDIO_CLICKY
 #endif
 
 #ifdef STENO_ENABLE
@@ -136,24 +136,41 @@ extern uint32_t default_layer_state;
     #include "hd44780.h"
 #endif
 
+//Function substitutions to ease GPIO manipulation
 #ifdef __AVR__
     #define LINE_TYPE uint8_t
-    #define setPadInputHigh(line) ({\
+    #define setPinInput(line) _SFR_IO8((line >> 4) + 1) &= ~ _BV(line & 0xF)
+    #define setPinInputHigh(line) ({\
             _SFR_IO8((line >> 4) + 1) &= ~ _BV(line & 0xF);\
             _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF);\
             })
-    #define setPadOutput(line) _SFR_IO8((line >> 4) + 1) |= _BV(line & 0xF)
-    #define setPad(line) _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF)
-    #define clearPad(line) _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF)
-    #define readPad(line) (_SFR_IO8(line >> 4) & _BV(line & 0xF))
+    #define setPinInputLow(line) _Static_assert(0, "AVR Processors cannot impliment an input as pull low")
+    #define setPinOutput(line) _SFR_IO8((line >> 4) + 1) |= _BV(line & 0xF)
+
+    #define writePinHigh(line) _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF)
+    #define writePinLow(line) _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF)
+
+    #define readPin(line) (_SFR_IO8(line >> 4) & _BV(line & 0xF))
 #elif defined(PROTOCOL_CHIBIOS)
     #define LINE_TYPE ioline_t
-    #define setPadInputHigh(line) palSetLineMode(line, PAL_MODE_INPUT_PULLUP)
-    #define setPadOutput(line) palSetLineMode(line, PAL_MODE_OUTPUT_PUSHPULL)
-    #define setPad(line) palSetLine(line)
-    #define clearPad(line) palClearLine(line)
-    #define readPad(line) palReadLine(line)
+    #define setPinInput(line) palSetLineMode(line, PAL_MODE_INPUT)
+    #define setPinInputHigh(line) palSetLineMode(line, PAL_MODE_INPUT_PULLUP)
+    #define setPinInputLow(line) palSetLineMode(line, PAL_MODE_INPUT_PULLDOWN)
+    #define setPinOutput(line) palSetLineMode(line, PAL_MODE_OUTPUT_PUSHPULL)
+
+    #define writePinHigh(line) palSetLine(line)
+    #define writePinLow(line) palClearLine(line)
+
+    #define readPin(line) palReadLine(line)
 #endif
+
+static inline void writePin(LINE_TYPE line, uint8_t level){
+    if (level){
+        writePinHigh(line);
+    } else {
+        writePinLow(line);
+    }
+}
 
 #define STRINGIZE(z) #z
 #define ADD_SLASH_X(y) STRINGIZE(\x ## y)
