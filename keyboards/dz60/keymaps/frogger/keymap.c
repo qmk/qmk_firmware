@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-
 #define ______ KC_TRNS
 
 #define LAYER_1 1
