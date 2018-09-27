@@ -14,4 +14,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// Nothing to see here, move along... ;-)
+#pragma once
+
+#include <stdint.h>
+#include <stdbool.h>
+
+void backlight_init_drivers(void);
+
+void backlight_timer_init(void);
+void backlight_timer_enable(void);
+void backlight_timer_disable(void);
+
+void backlight_set_suspend_state(bool state);
+
+void backlight_update_pwm_buffers(void);
+
+void backlight_set_brightness_all( uint8_t value );
+
