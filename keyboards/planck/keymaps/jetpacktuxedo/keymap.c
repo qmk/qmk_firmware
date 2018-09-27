@@ -189,6 +189,13 @@ uint8_t muse_offset = 70;
 uint16_t muse_tempo = 20;
 
 void encoder_update(bool clockwise) {
+  if (is_clicky_on()) {
+    if (clockwise) {
+      clicky_freq_up();
+    } else {
+      clicky_freq_down();
+    }
+  } else 
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -247,6 +254,12 @@ void dip_update(uint8_t index, bool active) {
         #ifdef AUDIO_ENABLE
           stop_all_notes();
         #endif
+      }
+    case 2:
+      if (active) {
+        clicky_on();
+      } else {
+        clicky_off();
       }
    }
 }
