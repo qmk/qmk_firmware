@@ -78,7 +78,7 @@ or
 
     make <keyboard>:<keymap>:avrdude
 
-or if you want to flash multiple boards, please do as follows.
+or if you want to flash multiple boards, use the following command
 
     make <keyboard>:<keymap>:avrdude-loop
 
