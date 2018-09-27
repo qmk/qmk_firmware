@@ -56,7 +56,7 @@ BOOTLOADER = atmel-dfu
 #   Atmel DFU loader    4096
 #   LUFA bootloader     4096
 #   USBaspLoader        2048
-# OPT_DEFS += -DBOOTLOADER_SIZE=4096
+OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 
 # Build Options
