@@ -78,6 +78,10 @@ or
 
     make <keyboard>:<keymap>:avrdude
 
+or if you want to flash multiple boards, please do as follows.
+
+    make <keyboard>:<keymap>:avrdude-loop
+
 ## Halfkay
 
 Halfkay is a super-slim protocol developed by PJRC that uses HID, and come on all Teensys (namely the 2.0).
