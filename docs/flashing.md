@@ -82,6 +82,8 @@ or if you want to flash multiple boards, please do as follows.
 
     make <keyboard>:<keymap>:avrdude-loop
 
+When you're done flashing boards, you'll need to hit Ctrl + C or whatever the correct keystroke is for your operating system to break the loop.
+
 ## Halfkay
 
 Halfkay is a super-slim protocol developed by PJRC that uses HID, and come on all Teensys (namely the 2.0).
