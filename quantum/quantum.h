@@ -133,6 +133,10 @@ extern uint32_t default_layer_state;
     #include "hd44780.h"
 #endif
 
+#ifdef STICKY_KEYS_ENABLE
+    #include "process_sticky_keys.h"
+#endif
+
 #define STRINGIZE(z) #z
 #define ADD_SLASH_X(y) STRINGIZE(\x ## y)
 #define SYMBOL_STR(x) ADD_SLASH_X(x)
