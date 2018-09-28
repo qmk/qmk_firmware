@@ -81,9 +81,9 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			dynamic_keymap_set_keycode( command_data[0], command_data[1], command_data[2], ( command_data[3] << 8 ) | command_data[4] );
 			break;
 		}
-		case id_dynamic_keymap_clear_all:
+		case id_dynamic_keymap_reset:
 		{
-			dynamic_keymap_clear_all();
+			dynamic_keymap_reset();
 			break;
 		}
 #endif // DYNAMIC_KEYMAP_ENABLE
@@ -171,9 +171,8 @@ void matrix_init_kb(void)
 #endif // RGB_BACKLIGHT_ENABLED
 
 #ifdef DYNAMIC_KEYMAP_ENABLE
-		// This saves "empty" keymaps so it falls back to the keymaps
-		// in the firmware (aka. progmem/flash)
-		dynamic_keymap_clear_all();
+		// This resets the keymaps in EEPROM to what is in flash.
+		dynamic_keymap_reset();
 #endif
 
 		// Save the magic number last, in case saving was interrupted
