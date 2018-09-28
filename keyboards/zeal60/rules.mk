@@ -76,4 +76,6 @@ RAW_ENABLE = yes
 DYNAMIC_KEYMAP_ENABLE = yes
 CIE1931_CURVE = yes
 
-LAYOUTS = 60_ansi 60_iso 60_hhkb 60_ansi_split_bs_rshift
+# DO NOT turn on community layouts unless you actually make them all compile
+# and then @Wilba6582 in the PR, or I will find you and I will cut you.
+# LAYOUTS = 60_ansi 60_iso 60_hhkb 60_ansi_split_bs_rshift
