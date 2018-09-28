@@ -71,3 +71,5 @@ SRC = i2c.c \
 	  ssd1306.c
 
 DEFAULT_FOLDER = hadron/ver2
+
+EXTRAFLAGS += -flto
