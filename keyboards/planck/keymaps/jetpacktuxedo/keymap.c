@@ -188,8 +188,24 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 20;
 
+extern float clicky_rand;
+
 void encoder_update(bool clockwise) {
-  if (muse_mode) {
+  if (is_clicky_on()) {
+    if (IS_LAYER_ON(_RAISE)) {
+      if (clockwise) {
+        clicky_rand += 0.5f;
+      } else {
+        clicky_rand -= 0.5f;
+      }
+    } else {
+      if (clockwise) {
+        clicky_freq_up();
+      } else {
+        clicky_freq_down();
+      }
+    }
+  } else if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
         muse_offset++;
@@ -247,6 +263,13 @@ void dip_update(uint8_t index, bool active) {
         #ifdef AUDIO_ENABLE
           stop_all_notes();
         #endif
+      }
+      break;
+    case 3:
+      if (active) {
+        clicky_on();
+      } else {
+        clicky_off();
       }
    }
 }
