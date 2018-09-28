@@ -36,12 +36,6 @@ enum preonic_keycodes {
   END_OF_LINE,
 };
 
-enum kuatsure_keycodes {
-  FTARW = END_OF_LINE + 1,
-  SEQS,
-  NSEQS,
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -215,27 +209,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-
-    case FTARW:
-      if (record->event.pressed) {
-        SEND_STRING("=>");
-      }
-      return false;
-      break;
-
-    case SEQS:
-      if (record->event.pressed) {
-        SEND_STRING("===");
-      }
-      return false;
-      break;
-
-    case NSEQS:
-      if (record->event.pressed) {
-        SEND_STRING("!==");
       }
       return false;
       break;
