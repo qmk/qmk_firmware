@@ -115,7 +115,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 endif
 
 RGB_MATRIX_ENABLE ?= no
-VALID_MATRIX_TYPES := yes IS31FL3731L IS31FL3733L custom
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
