@@ -21,6 +21,7 @@
 #include "progmem.h"
 #include "config.h"
 #include "eeprom.h"
+#include <string.h>
 #include <math.h>
 
 rgb_config_t rgb_matrix_config;
