@@ -145,7 +145,7 @@ void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_SINGLE_TAP: register_code(KC_NO); unregister_code(KC_NO); register_code(KC_NO);
 	    break;
 	case TRIPLE_TAP:
-		SEND_STRING("bfong@central1.com");
+		SEND_STRING("wanleg@github.com");
 		break;
 	case TRIPLE_HOLD: set_single_persistent_default_layer(1); break;
 	case TRIPLE_SINGLE_TAP: register_code(KC_NO); unregister_code(KC_NO); register_code(KC_NO);
