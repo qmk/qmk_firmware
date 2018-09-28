@@ -20,7 +20,3 @@ rest of the symbols, mostly mapped with the ten key numbers.
 
 The normal right shift key uses the `MT` macro to trigger Enter on tap and right
 shift when held.
-
-This keymap sets the `PREVENT_STUCK_MODIFIERS` flag to avoid the occasional WTF
-moments when using a modifier keys and accidentally releasing them after moving
-to a new layer.

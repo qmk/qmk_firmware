@@ -362,7 +362,8 @@
 				static int CDC_Device_getchar_Blocking(FILE* Stream) ATTR_NON_NULL_PTR_ARG(1);
 				#endif
 
-				void CDC_Device_Event_Stub(void) ATTR_CONST;
+				void CDC_Device_Event_Stub(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo);
+				void CDC_Device_Event_Stub_2(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo, const uint8_t _1);
 
 				void EVENT_CDC_Device_LineEncodingChanged(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo)
 				                                          ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Device_Event_Stub);
@@ -370,7 +371,7 @@
 				                                             ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1) ATTR_ALIAS(CDC_Device_Event_Stub);
 				void EVENT_CDC_Device_BreakSent(USB_ClassInfo_CDC_Device_t* const CDCInterfaceInfo,
 				                                const uint8_t Duration) ATTR_WEAK ATTR_NON_NULL_PTR_ARG(1)
-				                                ATTR_ALIAS(CDC_Device_Event_Stub);
+				                                ATTR_ALIAS(CDC_Device_Event_Stub_2);
 			#endif
 
 	#endif
