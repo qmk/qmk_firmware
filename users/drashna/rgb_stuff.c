@@ -273,7 +273,7 @@ void matrix_init_rgb(void) {
       default:
         rgblight_sethsv_noeeprom_cyan(); break;
     }
-    rgblight_mode(1);
+    rgblight_mode_noeeprom(1);
   }
 }
 
