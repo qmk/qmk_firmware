@@ -149,7 +149,7 @@ extern uint32_t default_layer_state;
 
     #define writePinHigh(line) _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF)
     #define writePinLow(line) _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF)
-    static inline void writePin(LINE_TYPE line, uint8_t level){
+    static inline void writePin(pin_t line, uint8_t level){
         if (level){
             _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF);
         } else {
