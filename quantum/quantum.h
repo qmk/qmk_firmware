@@ -139,43 +139,43 @@ extern uint32_t default_layer_state;
 //Function substitutions to ease GPIO manipulation
 #ifdef __AVR__
     #define pin_t uint8_t
-    #define setPinInput(line) _SFR_IO8((line >> 4) + 1) &= ~ _BV(line & 0xF)
-    #define setPinInputHigh(line) ({\
-            _SFR_IO8((line >> 4) + 1) &= ~ _BV(line & 0xF);\
-            _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF);\
+    #define setPinInput(pin) _SFR_IO8((pin >> 4) + 1) &= ~ _BV(pin & 0xF)
+    #define setPinInputHigh(pin) ({\
+            _SFR_IO8((pin >> 4) + 1) &= ~ _BV(pin & 0xF);\
+            _SFR_IO8((pin >> 4) + 2) |=   _BV(pin & 0xF);\
             })
-    #define setPinInputLow(line) _Static_assert(0, "AVR Processors cannot impliment an input as pull low")
-    #define setPinOutput(line) _SFR_IO8((line >> 4) + 1) |= _BV(line & 0xF)
+    #define setPinInputLow(pin) _Static_assert(0, "AVR Processors cannot impliment an input as pull low")
+    #define setPinOutput(pin) _SFR_IO8((pin >> 4) + 1) |= _BV(pin & 0xF)
 
-    #define writePinHigh(line) _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF)
-    #define writePinLow(line) _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF)
-    static inline void writePin(pin_t line, uint8_t level){
+    #define writePinHigh(pin) _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF)
+    #define writePinLow(pin) _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF)
+    static inline void writePin(pin_t pin, uint8_t level){
         if (level){
-            _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF);
+            _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF);
         } else {
-            _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF);
+            _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF);
         }
     }
 
-    #define readPin(line) (_SFR_IO8(line >> 4) & _BV(line & 0xF))
+    #define readPin(pin) (_SFR_IO8(pin >> 4) & _BV(pin & 0xF))
 #elif defined(PROTOCOL_CHIBIOS)
     #define pin_t ioline_t
-    #define setPinInput(line) palSetLineMode(line, PAL_MODE_INPUT)
-    #define setPinInputHigh(line) palSetLineMode(line, PAL_MODE_INPUT_PULLUP)
-    #define setPinInputLow(line) palSetLineMode(line, PAL_MODE_INPUT_PULLDOWN)
-    #define setPinOutput(line) palSetLineMode(line, PAL_MODE_OUTPUT_PUSHPULL)
+    #define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
+    #define setPinInputHigh(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
+    #define setPinInputLow(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
+    #define setPinOutput(pin) palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
 
-    #define writePinHigh(line) palSetLine(line)
-    #define writePinLow(line) palClearLine(line)
-    static inline void writePin(pin_t line, uint8_t level){
+    #define writePinHigh(pin) palSetLine(pin)
+    #define writePinLow(pin) palClearLine(pin)
+    static inline void writePin(pin_t pin, uint8_t level){
         if (level){
-            palSetLine(line);
+            palSetLine(pin);
         } else {
-            palClearLine(line);
+            palClearLine(pin);
         }
     }
 
-    #define readPin(line) palReadLine(line)
+    #define readPin(pin) palReadLine(pin)
 #endif
 
 #define STRINGIZE(z) #z
