@@ -45,6 +45,7 @@ void set_led_to(int led, uint8_t r, uint8_t g, uint8_t b) {
 
 #ifdef RGB_MATRIX_ENABLE
 
+__attribute__ ((weak))
 const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
   {{0x73}, {  3, 35}, 0},
   {{0x72}, {  0, 26}, 0},
