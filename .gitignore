@@ -68,4 +68,3 @@ util/Win_Check_Output.txt
 secrets.tar
 id_rsa_*
 /.vs
-*.gch
