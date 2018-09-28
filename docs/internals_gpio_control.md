@@ -6,16 +6,16 @@ QMK has a GPIO control abstraction layer which is micro-controller agnostic. Thi
 
 The following functions can provide basic control of GPIOs and are found in `quantum/quantum.h`.
 
-|Function               |Description                                                       |
-|-----------------------|------------------------------------------------------------------|
-|`setPinInput(line)`    |Set pin as input with high impedance (High-Z)                     |
-|`setPinInputHigh(line)`|Set pin as input with build in pull-up                            |
-|`setPinInputLow(line)` |Set pin as input with build in pull-down (Supported only on STM32)|
-|`setPinOutput(line)`   |Set pin as output                                                 |
-|`writePinHige(line)`   |Set pin level as high, assuming it is an output                   |
-|`writePinLow(line)`    |Set pin level as low, assuming it is an output                    |
-|`writePin(line, level)`|Set pin level, assuming it is an output                           |
-|`readPin(line)`        |Returns the level of the pin                                      |
+|Function              |Description                                                       |
+|----------------------|------------------------------------------------------------------|
+|`setPinInput(pin)`    |Set pin as input with high impedance (High-Z)                     |
+|`setPinInputHigh(pin)`|Set pin as input with build in pull-up                            |
+|`setPinInputLow(pin)` |Set pin as input with build in pull-down (Supported only on STM32)|
+|`setPinOutput(pin)`   |Set pin as output                                                 |
+|`writePinHige(pin)`   |Set pin level as high, assuming it is an output                   |
+|`writePinLow(pin)`    |Set pin level as low, assuming it is an output                    |
+|`writePin(pin, level)`|Set pin level, assuming it is an output                           |
+|`readPin(pin)`        |Returns the level of the pin                                      |
 
 ## Advance settings
 
