@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_MUSIC_MODE
 #endif
 
-#undef PREVENT_STUCK_MODIFIERS
+#define STRICT_LAYER_RELEASE
 
 #define LAYOUT_ortho_5x7( \
     L00, L01, L02, L03, L04, L05, L06, \
