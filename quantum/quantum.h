@@ -149,6 +149,13 @@ extern uint32_t default_layer_state;
 
     #define writePinHigh(line) _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF)
     #define writePinLow(line) _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF)
+    static inline void writePin(LINE_TYPE line, uint8_t level){
+        if (level){
+            _SFR_IO8((line >> 4) + 2) |=  _BV(line & 0xF);
+        } else {
+            _SFR_IO8((line >> 4) + 2) &= ~_BV(line & 0xF);
+        }
+    }
 
     #define readPin(line) (_SFR_IO8(line >> 4) & _BV(line & 0xF))
 #elif defined(PROTOCOL_CHIBIOS)
@@ -160,17 +167,16 @@ extern uint32_t default_layer_state;
 
     #define writePinHigh(line) palSetLine(line)
     #define writePinLow(line) palClearLine(line)
+    static inline void writePin(LINE_TYPE line, uint8_t level){
+        if (level){
+            palSetLine(line);
+        } else {
+            palClearLine(line);
+        }
+    }
 
     #define readPin(line) palReadLine(line)
 #endif
-
-static inline void writePin(LINE_TYPE line, uint8_t level){
-    if (level){
-        writePinHigh(line);
-    } else {
-        writePinLow(line);
-    }
-}
 
 #define STRINGIZE(z) #z
 #define ADD_SLASH_X(y) STRINGIZE(\x ## y)
