@@ -138,7 +138,7 @@ extern uint32_t default_layer_state;
 
 //Function substitutions to ease GPIO manipulation
 #ifdef __AVR__
-    #define LINE_TYPE uint8_t
+    #define pin_t uint8_t
     #define setPinInput(line) _SFR_IO8((line >> 4) + 1) &= ~ _BV(line & 0xF)
     #define setPinInputHigh(line) ({\
             _SFR_IO8((line >> 4) + 1) &= ~ _BV(line & 0xF);\
@@ -159,7 +159,7 @@ extern uint32_t default_layer_state;
 
     #define readPin(line) (_SFR_IO8(line >> 4) & _BV(line & 0xF))
 #elif defined(PROTOCOL_CHIBIOS)
-    #define LINE_TYPE ioline_t
+    #define pin_t ioline_t
     #define setPinInput(line) palSetLineMode(line, PAL_MODE_INPUT)
     #define setPinInputHigh(line) palSetLineMode(line, PAL_MODE_INPUT_PULLUP)
     #define setPinInputLow(line) palSetLineMode(line, PAL_MODE_INPUT_PULLDOWN)
@@ -167,7 +167,7 @@ extern uint32_t default_layer_state;
 
     #define writePinHigh(line) palSetLine(line)
     #define writePinLow(line) palClearLine(line)
-    static inline void writePin(LINE_TYPE line, uint8_t level){
+    static inline void writePin(pin_t line, uint8_t level){
         if (level){
             palSetLine(line);
         } else {
