@@ -15,6 +15,11 @@
  */
 #pragma once
 
+#if RGB_BACKLIGHT_ENABLED
+#else
+#error rgb_backlight.h included when RGB_BACKLIGHT_ENABLED == 0
+#endif // RGB_BACKLIGHT_ENABLED
+
 #include <stdint.h>
 #include <stdbool.h>
 

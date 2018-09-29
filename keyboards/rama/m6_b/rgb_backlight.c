@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#if RGB_BACKLIGHT_ENABLED
 
 #include "rgb_backlight.h"
 //#include "rgb_backlight_api.h"
@@ -134,3 +135,5 @@ void backlight_init_drivers(void)
 	i2c_init();
 	IS31FL3218_init();
 }
+
+#endif // RGB_BACKLIGHT_ENABLED

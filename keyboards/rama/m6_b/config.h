@@ -107,6 +107,7 @@
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+#define RGB_BACKLIGHT_ENABLED 1
 
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
