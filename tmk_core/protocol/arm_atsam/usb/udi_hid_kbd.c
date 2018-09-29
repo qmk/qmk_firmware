@@ -45,6 +45,7 @@
  */
 
 #include "samd51j18a.h"
+#include "d51_util.h"
 #include "conf_usb.h"
 #include "usb_protocol.h"
 #include "udd.h"
@@ -86,7 +87,7 @@ bool udi_hid_kbd_b_report_valid;
 COMPILER_WORD_ALIGNED
 uint8_t udi_hid_kbd_report[UDI_HID_KBD_REPORT_SIZE];
 
-static bool udi_hid_kbd_b_report_trans_ongoing;
+volatile bool udi_hid_kbd_b_report_trans_ongoing;
 
 COMPILER_WORD_ALIGNED
 static uint8_t udi_hid_kbd_report_trans[UDI_HID_KBD_REPORT_SIZE];
@@ -186,8 +187,7 @@ bool udi_hid_kbd_send_report(void)
         return false;
     }
 
-    memcpy(udi_hid_kbd_report_trans, udi_hid_kbd_report,
-            UDI_HID_KBD_REPORT_SIZE);
+    memcpy(udi_hid_kbd_report_trans, udi_hid_kbd_report, UDI_HID_KBD_REPORT_SIZE);
     udi_hid_kbd_b_report_valid = false;
     udi_hid_kbd_b_report_trans_ongoing =
             udd_ep_run(UDI_HID_KBD_EP_IN | USB_EP_DIR_IN,
@@ -249,7 +249,7 @@ bool udi_hid_nkro_b_report_valid;
 COMPILER_WORD_ALIGNED
 uint8_t udi_hid_nkro_report[UDI_HID_NKRO_REPORT_SIZE];
 
-static bool udi_hid_nkro_b_report_trans_ongoing;
+volatile bool udi_hid_nkro_b_report_trans_ongoing;
 
 COMPILER_WORD_ALIGNED
 static uint8_t udi_hid_nkro_report_trans[UDI_HID_NKRO_REPORT_SIZE];
@@ -355,7 +355,7 @@ bool udi_hid_nkro_send_report(void)
         return false;
     }
 
-    memcpy(udi_hid_nkro_report_trans, udi_hid_nkro_report,UDI_HID_NKRO_REPORT_SIZE);
+    memcpy(udi_hid_nkro_report_trans, udi_hid_nkro_report, UDI_HID_NKRO_REPORT_SIZE);
     udi_hid_nkro_b_report_valid = false;
     udi_hid_nkro_b_report_trans_ongoing =
             udd_ep_run(UDI_HID_NKRO_EP_IN | USB_EP_DIR_IN,
