@@ -46,15 +46,14 @@
         #define PIND_ADDRESS 0x9
         #define PINE_ADDRESS 0xC
         #define PINF_ADDRESS 0xF
-    #elif defined(__AVR_ATmega32a__)
+    #elif defined(__AVR_ATmega32A__)
         #define ADDRESS_BASE 0x10
         #define PIND_ADDRESS 0x0
         #define PINC_ADDRESS 0x3
         #define PINB_ADDRESS 0x6
         #define PINA_ADDRESS 0x9
     #else
-        #define pin_t uint16_t
-        #define ADDRESS_BASE 0x0
+        #error "Pins are not defined"
     #endif
 
     /* I/O pins */
