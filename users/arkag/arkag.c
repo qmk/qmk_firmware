@@ -380,6 +380,29 @@ void matrix_scan_user(void) {
     leading = false;
     leader_end();
 
+    // begin OS functions
+    SEQ_TWO_KEYS(KC_P, KC_B) {
+      if (current_os == OS_WIN) {
+              SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_PAUSE) SS_UP(X_LGUI));
+      } else {
+      }
+    }
+    SEQ_THREE_KEYS(KC_C, KC_A, KC_D) {
+      if (current_os == OS_WIN) {
+              SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LALT) SS_TAP(X_DELETE) SS_UP(X_LALT) SS_UP(X_LCTRL));
+      } else {
+      }
+    }
+    SEQ_FOUR_KEYS(KC_C, KC_A, KC_L, KC_C) {
+      if (current_os == OS_WIN) {
+        SEND_STRING(SS_TAP(X_CALCULATOR));
+      } else if (current_os == OS_MAC) {
+        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI) "calculator" SS_TAP(X_ENTER));
+      }
+    }
+    // end OS functions
+
+    // begin format functions
     SEQ_ONE_KEY(KC_B) {
       surround_type(4, KC_8, true);
     }
@@ -407,6 +430,9 @@ void matrix_scan_user(void) {
     SEQ_TWO_KEYS(KC_C, KC_C) {
       surround_type(6, KC_GRAVE, false);
     }
+    // end format functions
+
+    // start fancy functions
     SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
       surround_type(6, KC_GRAVE, false);
       pri_mod(true);
@@ -417,6 +443,40 @@ void matrix_scan_user(void) {
       tap_key(KC_RGHT);
       tap_key(KC_ENTER);
     }
+    // end fancy functions
+
+    // start typing functions
+    SEQ_TWO_KEYS(KC_T, KC_M) {
+      // ™
+      send_unicode_hex_string("2122");
+    }
+    SEQ_THREE_KEYS(KC_G, KC_G, KC_T) {
+      SEND_STRING("@GrahamGoldenTech.com");
+    }
+    SEQ_THREE_KEYS(KC_L, KC_O, KC_D) {
+      // ಠ__ಠ
+      send_unicode_hex_string("0CA0 005F 005F 0CA0");
+    }
+    SEQ_FOUR_KEYS(KC_R, KC_E, KC_P, KC_O) {
+      SEND_STRING("https://github.com/qmk/qmk_firmware/tree/master/users/arkag");
+    }
+    SEQ_FOUR_KEYS(KC_F, KC_L, KC_I, KC_P) {
+      // (╯‵Д′)╯彡┻━┻
+      send_unicode_hex_string("0028 256F 2035 0414 2032 0029 256F 5F61 253B 2501 253B");
+    }
+    SEQ_FIVE_KEYS(KC_U, KC_F, KC_L, KC_I, KC_P) {
+      // ┬─┬ノ( º _ º ノ)
+      send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 0020 30CE 0029");
+    }
+    SEQ_FIVE_KEYS(KC_L, KC_E, KC_N, KC_N, KC_Y) {
+      // ( ͡° ͜ʖ ͡°)
+      send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
+    }
+    SEQ_FIVE_KEYS(KC_S, KC_H, KC_R, KC_U, KC_G) {
+      // ¯\_(ツ)_/¯
+      send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+    }
+    // end typing functions
 
   }
 }
@@ -439,116 +499,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
-  case M_P_B:
-    if (record->event.pressed) {
-      if (current_os == OS_WIN) {
-              SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_PAUSE) SS_UP(X_LGUI));
-      } else {
-      }
-    }
-    return false;
-
-  case M_C_A_D:
-    if (record->event.pressed) {
-      if (current_os == OS_WIN) {
-              SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LALT) SS_TAP(X_DELETE) SS_UP(X_LALT) SS_UP(X_LCTRL));
-      } else {
-      }
-    }
-    return false;
-
-  case M_CALC:
-    if (record->event.pressed) {
-      if (current_os == OS_WIN) {
-        SEND_STRING(SS_TAP(X_CALCULATOR));
-      } else if (current_os == OS_MAC) {
-        SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI) "calculator" SS_TAP(X_ENTER));
-      }
-    }
-    return false;
-
   case M_OS:
     if (record->event.pressed) {
       set_os((current_os+1) % _OS_COUNT, true);
-    }
-    return false;
-
-  case M_LOD:
-    if (record->event.pressed) {
-      send_unicode_hex_string("0CA0 005F 005F 0CA0");
-    }
-    return false;
-
-  case M_LENNY:
-    if (record->event.pressed) {
-      send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
-    }
-    return false;
-
-  case M_BOLD:
-    if (record->event.pressed) {
-      surround_type(4, KC_8, true);
-    }
-    return false;
-
-  case M_ITAL:
-    if (record->event.pressed) {
-      surround_type(2, KC_8, true);
-    }
-    return false;
-
-  case M_ULIN:
-    if (record->event.pressed) {
-      surround_type(4, KC_MINS, true);
-    }
-    return false;
-
-  case M_TF:
-    if (record->event.pressed) {
-      send_unicode_hex_string("0028 256F 2035 0414 2032 0029 256F 5F61 253B 2501 253B");
-    }
-    return false;
-
-  case M_UF:
-    if (record->event.pressed) {
-      send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 0020 30CE 0029");
-    }
-    return false;
-
-  case M_SHRUG:
-    if (record->event.pressed) {
-      send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
-    }
-    return false;
-
-  case M_TM:
-    if (record->event.pressed) {
-      send_unicode_hex_string("2122");
-    }
-    return false;
-
-  case M_REPO:
-    if (record->event.pressed) {
-      SEND_STRING("https://github.com/qmk/qmk_firmware/tree/master/users/arkag");
-    }
-    return false;
-
-  case M_GGT:
-    if (record->event.pressed) {
-      SEND_STRING("@GrahamGoldenTech.com");
-    }
-    return false;
-
-  case M_SNIPT:
-    if (record->event.pressed) {
-      surround_type(6, KC_GRAVE, false);
-      pri_mod(true);
-      tap_key(KC_V);
-      pri_mod(false);
-      tap_key(KC_RGHT);
-      tap_key(KC_RGHT);
-      tap_key(KC_RGHT);
-      tap_key(KC_ENTER);
     }
     return false;
 
