@@ -1,19 +1,13 @@
 # Overview
 
-I have mostly ortholinear keyboards, which share a lot of functions.
-For this purpose, I collected them here.
+ This is a modified version of Let's Split keyboard from bbaserdem. I don't like standard Dvorak overuses right pinky
+ so I shifted the columns out. I'm not sure if this is any good, time will tell.
 
-I have the following keymaps:
-
-* Gherkin (Does not use the user space)
-* XD75RE (Uses different keymap)
-* Let's Split
-* Let's Split It Up
-* Planck
+ I have ortholinear Let's Split Eh, which share a lot of functions with other ortholinear keyboards.
 
 # Layout
 
-I use DVORAK with an unorthodox Turkish layout.
+I use DVORAK with an unorthodox off layout.
 If you wanna grab my code, and you used a layout with a persistent base
 layer change, change it to layer 0 before proceeding.
 
@@ -48,4 +42,4 @@ Offenders are audio and rgb lights; it comes down to one or the other.
 
 # Credits
 
-I have previously written my keymap by myself before, but I rewrote it here,
+This is a modified version of Let's Split keyboard from bbaserdem who has previously written his keymap by himself before, but rewrote it here.

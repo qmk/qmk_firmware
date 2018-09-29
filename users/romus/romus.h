@@ -1,3 +1,5 @@
+// This is a modified version of Let's Split keyboard from bbaserdem
+
 #ifndef USERSPACE
 #define USERSPACE
 
@@ -22,6 +24,8 @@
 #define COPY    LCTL(KC_C)
 #define CUT     LCTL(KC_X)
 #define PASTE   LCTL(KC_V)
+#define EXIT    LALT(KC_F4)
+#define	CAPS	SFT_T(KC_CAPS)	
 
 // Rename mouse keys with 7 letters
 #ifdef MOUSEKEY_ENABLE
@@ -100,14 +104,6 @@
 
 // Custom keycodes
 enum userspace_custom_keycodes {
-    // Turkish letters, with shifting
-    TUR_A = SAFE_RANGE,
-    TUR_C,
-    TUR_G,
-    TUR_I,
-    TUR_O,
-    TUR_S,
-    TUR_U,
     // Unicode mode switch
     UNI_LI,
     UNI_WN,
@@ -156,35 +152,35 @@ enum {
 
 /* Dvorak
  * ,------------------------------------------------------------------------.
- * | ' " |  ,  |  .  |  P  |  Y  | Esc || SET |  F  |  G  |  C  |  R  |  L  |
+ * | ' " |  ,  |  .  |  P  |  Y  | Esc || Del |  F  |  G  |  C  |  R  |  L  |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |  A  |  O  |  E  |  U  |  I  | Tab || Ent |  D  |  H  |  T  |  N  |  S  |
+ * |  A  |  O  |  E  |  U  |  I  | Bkp || Ent |  D  |  H  |  T  |  N  |  S  |
+ * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|	
+ * | ; : |  Q  |  J  |  K  |  X  | Tab || SET |  B  |  M  |  W  |  V  |  Z  |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * | ; : |  Q  |  J  |  K  |  X  | Del || SYM |  B  |  M  |  W  |  V  |  Z  |
- * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * | TUR | OS  | Ctrl| Alt | Shf | Bkp || Spc | Lft | Dwn |  Up | Rght| MSE |
+ * | Ctrl|  OS | Alt | Shf | Spc | ACH || SYM | Spc | Lft |  Up | Dwn | Rght| 
  * `------------------------------------------------------------------------' */
 #define DVORAK \
-    KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y,	KC_ESC, MO(_SE),KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    \
-    KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_TAB,	KC_ENT, KC_D,   KC_H,   KC_T,   KC_N,   KC_S,    \
-    MY_SCL, KC_Q,   KC_J,   KC_K,   KC_X,  	KC_DEL,	K_NUMBR,KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    \
-    MO(_AL),KC_LGUI,KC_LCTL,KC_LALT,KC_LSFT,KC_BSPC,KC_SPC, KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,K_MOUSE
+    KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y,	KC_ESC,	KC_DEL,	KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    \
+    KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_BSPC,KC_ENT, KC_D,   KC_H,   KC_T,   KC_N,   KC_S,    \
+    MY_SCL, KC_Q,   KC_J,   KC_K,   KC_X,  	KC_TAB,	MO(_SE),KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,    \
+    KC_LCTL,KC_LGUI,KC_LALT,CAPS,	KC_SPC, MO(_AL),K_NUMBR,KC_SPC, KC_LEFT,KC_UP,	KC_DOWN,KC_RGHT
 
 /* Alternative character overlay
  * ,------------------------------------------------------------------------.
- * |     | ' ' | Undo| Redo|Pound| Yen ||     |  G  |  C  |TLira| Del |     |
+ * | ` ~ | ' ' | " " | Euro|Pound|     || Del | Home| PgUp| Prn | Scl | / ?	|
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |  A  |  O  | Euro|  U  |  I  ||Degre|Plank|     |  S  | Ins | / ? |
+ * | Redo| < > | ( ) | [ ] | { } | Alt || Ins | End |PgDwn| Yen | BTC | - _ |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     | " " | Cut | Copy|Paste|     || BTC | < > | ( ) | [ ] | { } |     |
+ * | Undo| Cut | Copy|Paste| EXIT| Shf ||     |     |     |     | \ | | = + |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |     |     |     |     |     ||     | Home|PgDwn| PgUp| End |     |
+ * |     |     |     |     |     |     ||     |     |     |     |     |     |
  * `------------------------------------------------------------------------' */
 #define ALTCHAR \
-    _______,DBL_QUO,DBL_DQT,REDO,   CUR_BPN,CUR_YEN,_______,TUR_G,  TUR_C,  CUR_LIR,KC_DEL,_______, \
-    _______,TUR_A,  TUR_O,  CUR_EUR,TUR_U,  TUR_I,  PHY_DEG,PHY_HBR,_______,TUR_S,	KC_INS,KC_SLSH, \
-    _______,UNDO,	CUT,    COPY,   PASTE,  DBL_GRV,CUR_BIT,DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,_______, \
-    _______,_______,_______,_______,_______,DBL_SPC,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END, _______
+    KC_GRV,	DBL_QUO,DBL_DQT,CUR_EUR,CUR_BPN,_______,_______,KC_HOME,KC_PGUP,KC_PSCREEN,	KC_SCROLLLOCK,	KC_SLSH, \
+    REDO,	DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,KC_LALT,KC_INS,	KC_END, KC_PGDN,CUR_YEN,	CUR_BIT,		KC_MINUS, \
+    UNDO,	CUT,    COPY,   PASTE,	EXIT,	KC_LSFT,_______,_______,_______,_______,	KC_BSLASH,		KC_EQUAL,   \
+    _______,_______,_______,_______,DBL_SPC,_______,_______,_______,_______,_______,	_______,		_______
 
 /* Game layer
  * ,------------------------------------------------------------------------.
@@ -192,39 +188,39 @@ enum {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * | Tab |  A  |  S  |  D  |  F  |  G  ||  F1 |  4  |  5  |  6  |  \  | Ent |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * | Shf |  Z  |  X  |  C  |  V  |  B  ||  F2 |  1  |  2  |  3  |  ^  |     |
+ * | Shf |  Z  |  X  |  C  |  V  |  B  ||  F2 |  1  |  2  |  3  |  ^  | MSE |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * | Ctrl| Alt |  /  |  `  | SYM | Spc ||  F5 | Ent |  0  |  <  |  v  |  >  |
  * `------------------------------------------------------------------------' */
 #define GAME \
     K_GAMES,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_ESC, KC_P7,  KC_P8,  KC_P9,  KC_NLCK,KC_BSPC, \
     KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_F1,  KC_P4,  KC_P5,  KC_P6,  KC_BSLS,KC_ENT , \
-    KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_F2,  KC_P1,  KC_P2,  KC_P3,  KC_UP,  _______, \
+    KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_F2,  KC_P1,  KC_P2,  KC_P3,  KC_UP,K_MOUSE, \
     KC_LCTL,KC_LALT,KC_SLSH,KC_GRV,	K_NUMBR,KC_SPC, KC_F5, 	KC_ENT, KC_P0,  KC_LEFT,KC_DOWN,KC_RGHT
 
 /* Symbols layer
  * ,------------------------------------------------------------------------.
- * | OFF |  `  |  ~  |  [  |  ]  |  {  ||  }  |  -  |  _  |  =  |  +  |     |
+ * | OFF |  `  |  ~  |  \  |  [  |  {  ||  }  |  ]  |  -  |  _  |  =  |  +  |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |  1  |  2  |  3  |  4  |  5  ||  6  |  7  |  8  |  9  |  0  |  \  |
+ * |  1  |  2  |  3  |  4  |  5  |     || LCK |  6  |  7  |  8  |  9  |  0  |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |  !  |  @  |  #  |  $  |  %  ||  ^  |  &  |  *  |  (  |  )  | LCK |
+ * |  !  |  @  |  #  |  $  |  %  |     ||     |  ^  |  &  |  *  |  (  |  )  |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |  |  |     |     |     |     |     ||     |     |     |     |     |     |
  * `------------------------------------------------------------------------' */
 #define NUMBERS \
-    K_NUMBR,KC_GRV, KC_TILD,KC_LBRC,KC_RBRC,KC_LCBR,KC_RCBR,KC_MINS,KC_UNDS,KC_EQL, KC_PLUS,_______, \
-    _______,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSLS, \
-    _______,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,K_LOCK , \
+    K_NUMBR,KC_GRV, KC_TILD,KC_BSLS,KC_LBRC,KC_LCBR,KC_RCBR,KC_RBRC,KC_MINS,KC_UNDS,KC_EQL, KC_PLUS, \
+    KC_1,   KC_2,   KC_3,   KC_4,   KC_5,	_______,K_LOCK,  KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    \
+    KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,_______,_______,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN, \
     KC_PIPE,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
-
+	
 /* Settings layer
  * ,------------------------------------------------------------------------.
  * |BLLed|  F1 |  F2 |  F3 |  F4 | Lin || Win | Wake|     |Hue -|Hue +|Reset|
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |  F5 |  F6 |  F7 |  F8 |     ||     |     |RGBto|Sat -|Sat +|     |
+ * |     |  F5 |  F6 |  F7 |  F8 |     ||PrtSc|     |RGBto|Sat -|Sat +|     |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * | Game|  F9 | F10 | F11 | F12 |Vol 0||PrtSc|     |RGBan|Bri -|Bri +|     |
+ * | Game|  F9 | F10 | F11 | F12 |Vol 0||     |     |RGBan|Bri -|Bri +|     |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |Musir|     |     |     |     |Vol -||Vol +| Prev| Stop|TogMu| Next|     |
  * `------------------------------------------------------------------------' */
