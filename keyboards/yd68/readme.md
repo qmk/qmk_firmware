@@ -2,10 +2,10 @@
 
 [yd68](https://imgur.com/gallery/Ygo668L)
 
-A short description of the keyboard/project
+A 68-key board with RGB underlighting and bluetooth.
 
 Keyboard Maintainer: [Izzy84075](https://github.com/izzy84075)  
-Hardware Supported: YD68/YD68v2
+Hardware Supported: YD68/YD68v2  
 Hardware Availability: [KBDFans](https://kbdfans.cn/collections/diy-kit/products/yd68-65-bluetooth-custom-keyboard-pcb)
 
 Make example for this keyboard (after setting up your build environment):
