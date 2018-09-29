@@ -26,6 +26,9 @@
 
     #define PORT_SHIFTER 4 // this may be 4 for all AVR chips
 
+    // If you want to add more to this list, reference the PINx definitions in these header
+    // files: https://github.com/vancegroup-mirrors/avr-libc/tree/master/avr-libc/include/avr
+
     #if defined(__AVR_ATmega32U4__)
         #define ADDRESS_BASE 0x00
         #define PINB_ADDRESS 0x3
@@ -52,6 +55,18 @@
         #define PINC_ADDRESS 0x3
         #define PINB_ADDRESS 0x6
         #define PINA_ADDRESS 0x9
+    #elif defined(__AVR_ATmega16U2__)
+        #define ADDRESS_BASE 0x00
+        #define PINB_ADDRESS 0x3
+        #define PINC_ADDRESS 0x6
+        #define PIND_ADDRESS 0x9
+    #elif defined(__AVR_ATmega16U4__)
+        #define ADDRESS_BASE 0x00
+        #define PINB_ADDRESS 0x3
+        #define PINC_ADDRESS 0x6
+        #define PIND_ADDRESS 0x9
+        #define PINE_ADDRESS 0xC
+        #define PINF_ADDRESS 0xF
     #else
         #error "Pins are not defined"
     #endif
