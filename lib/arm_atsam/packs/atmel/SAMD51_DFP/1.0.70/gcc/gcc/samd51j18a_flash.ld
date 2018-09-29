@@ -51,6 +51,9 @@ HEAP_SIZE = DEFINED(HEAP_SIZE) ? HEAP_SIZE : DEFINED(__heap_size__) ? __heap_siz
 _srom = ORIGIN(rom);
 _lrom = LENGTH(rom);
 _erom = ORIGIN(rom) + LENGTH(rom);
+_sram = ORIGIN(ram);
+_lram = LENGTH(ram);
+_eram = ORIGIN(ram) + LENGTH(ram);
 
 /* Section Definitions */
 SECTIONS
