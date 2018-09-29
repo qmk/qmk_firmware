@@ -47,3 +47,26 @@ To add support for Leader Key you simply need to add a single line to your keyma
 ```
 LEADER_ENABLE = yes
 ```
+
+## Per Key Timing on Leader keys
+
+Rather than relying on an incredibly high timeout for long leader key strings or those of us without 200wpm typing skills, we can enable per key timing to ensure that each key pressed provides us with more time to finish our stroke. This is incredibly helpful with leader key emulation of tap dance (read: multiple taps of the same key like C, C, C).
+
+In order to enable this, place this in your `config.h`:
+```
+#define LEADER_PER_KEY_TIMING
+```
+
+After this, it's recommended that you lower your `LEADER_TIMEOUT` to something less that 300ms.
+
+```
+#define LEADER_TIMEOUT 250
+```
+
+Now, something like this won't seem impossible to do without a 1000MS leader key timeout:
+
+```
+SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
+  SEND_STRING("Per key timing is great!!!");
+}
+```
