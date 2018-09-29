@@ -552,39 +552,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
-<<<<<<< HEAD
-=======
-  case M_BOLD:
-    if (record->event.pressed) {
-      surround_type(4, KC_8, true);
-    }
-    return false;
-
-  case M_ITAL:
-    if (record->event.pressed) {
-      surround_type(2, KC_8, true);
-    }
-    return false;
-
-  case M_ULIN:
-    if (record->event.pressed) {
-      surround_type(4, KC_MINS, true);
-    }
-    return false;
-
-  case KC_LSFT:
-    if (record->event.pressed) {
-      save_color(underglow);
-      underglow = mod_color(underglow, true, 75);
-      SEND_STRING(SS_DOWN(X_LSHIFT));
-    } else {
-      reset_color();
-      SEND_STRING(SS_UP(X_LSHIFT));
-    }
-    return false;
->>>>>>> 92d95ba1e1223538f8c16fe2d17a23fa0dd67725
-
-
   default:
     if (record->event.pressed) {
       state = active;
