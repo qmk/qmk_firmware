@@ -394,8 +394,8 @@ void led_matrix_run(led_setup_t *f)
                 led_run_pattern(f, &ro, &go, &bo, led_cur->px);
             } else {
                 uint8_t skip;
-                uint8_t modid = led_cur->id / 32;                         //PS: Calculate which id# contains the led bit
-                uint32_t modidbit = 1 << (led_cur->id % 32);              //PS: Calculate the bit within the id#
+                uint8_t modid = (led_cur->id - 1) / 32;                         //PS: Calculate which id# contains the led bit
+                uint32_t modidbit = 1 << ((led_cur->id - 1) % 32);              //PS: Calculate the bit within the id#
                 uint32_t *bitfield;                                             //PS: Will point to the id# within the current instruction
 
                 while (!led_cur_instruction->end) {
