@@ -1,5 +1,7 @@
 #pragma once
 
-#define TAPPING_TERM                200
+#define TAPPING_TERM    200
+#define LEADER_TIMEOUT  250
 
-#define IGNORE_MOD_TAP_INTERRUPT
+#define ENABLE_LEADER
+#define LEADER_PER_KEY_TIMING

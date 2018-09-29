@@ -370,10 +370,55 @@ void matrix_init_user(void) {
   set_os(current_os, false);
 }
 
+LEADER_EXTERNS();
+
 void matrix_scan_user(void) {
   check_state();
   flash_rgb();
   fade_rgb();
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
+
+    SEQ_ONE_KEY(KC_B) {
+      surround_type(4, KC_8, true);
+    }
+    SEQ_ONE_KEY(KC_I) {
+      surround_type(2, KC_8, true);
+    }
+    SEQ_ONE_KEY(KC_U) {
+      surround_type(4, KC_MINS, true);
+    }
+    SEQ_ONE_KEY(KC_S) {
+      surround_type(4, KC_GRAVE, true);
+    }
+    SEQ_TWO_KEYS(KC_S, KC_S) {
+      if (current_os == OS_MAC) {
+        long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_4});
+      } else if (current_os == OS_WIN) {
+        long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_S});
+      } else {
+        return;
+      }
+    }
+    SEQ_ONE_KEY(KC_C) {
+      surround_type(2, KC_GRAVE, false);
+    }
+    SEQ_TWO_KEYS(KC_C, KC_C) {
+      surround_type(6, KC_GRAVE, false);
+    }
+    SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
+      surround_type(6, KC_GRAVE, false);
+      pri_mod(true);
+      tap_key(KC_V);
+      pri_mod(false);
+      tap_key(KC_RGHT);
+      tap_key(KC_RGHT);
+      tap_key(KC_RGHT);
+      tap_key(KC_ENTER);
+    }
+
+  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -440,6 +485,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
+  case M_BOLD:
+    if (record->event.pressed) {
+      surround_type(4, KC_8, true);
+    }
+    return false;
+
+  case M_ITAL:
+    if (record->event.pressed) {
+      surround_type(2, KC_8, true);
+    }
+    return false;
+
+  case M_ULIN:
+    if (record->event.pressed) {
+      surround_type(4, KC_MINS, true);
+    }
+    return false;
 
   case M_TF:
     if (record->event.pressed) {
@@ -490,41 +552,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
-  case M_BOLD:
-    if (record->event.pressed) {
-      surround_type(4, KC_8, true);
-    }
-    return false;
 
-  case M_ITAL:
-    if (record->event.pressed) {
-      surround_type(2, KC_8, true);
-    }
-    return false;
-
-  case M_ULIN:
-    if (record->event.pressed) {
-      surround_type(4, KC_MINS, true);
-    }
-    return false;
-
-  case KC_LSFT:
-    if (record->event.pressed) {
-      save_color(underglow);
-      underglow = mod_color(underglow, true, 75);
-      SEND_STRING(SS_DOWN(X_LSHIFT));
-    } else {
-      reset_color();
-      SEND_STRING(SS_UP(X_LSHIFT));
-    }
-    return false;
-
-  case MEDIA:
-  case LAZY:
-  case KEEB:
-  case RAISE:
-  case LOWER:
-    return true;
 
   default:
     if (record->event.pressed) {
@@ -533,36 +561,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
   }
-}
-
-uint32_t layer_state_set_user(uint32_t state) {
-  switch (biton32(state)) {
-  case _LAZY:
-    save_color(underglow);
-    underglow = mod_color(underglow, true, 50);
-    break;
-  case _MEDIA:
-    save_color(underglow);
-    underglow = mod_color(underglow, true, 150);
-    break;
-  case _KEEB:
-    save_color(underglow);
-    underglow = mod_color(underglow, false, 150);
-    break;
-  case _LOWER:
-    save_color(underglow);
-    underglow = mod_color(underglow, false, 100);
-    break;
-  case _RAISE:
-    save_color(underglow);
-    underglow = mod_color(underglow, true, 100);
-    break;
-  default:
-    reset_color();
-    break;
-  }
-  set_color(underglow, false);
-  return state;
 }
 
 //Tap Dance Definitions
