@@ -22,8 +22,6 @@
 #define CUSTOM_MATRIX 2 /* Disables built-in matrix scanning code */
 
 #ifdef __AVR__
-    #include <avr/io.h>
-
     #define PORT_SHIFTER 4 // this may be 4 for all AVR chips
 
     // If you want to add more to this list, reference the PINx definitions in these header
