@@ -1,6 +1,6 @@
 # yd68
 
-![yd68](https://imgur.com/gallery/Ygo668L)
+[yd68](https://imgur.com/gallery/Ygo668L)
 
 A short description of the keyboard/project
 
