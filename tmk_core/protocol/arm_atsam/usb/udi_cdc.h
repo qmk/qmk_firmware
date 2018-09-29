@@ -57,8 +57,8 @@
 #include "udi.h"
 
 // Check the number of port
-#ifndef  UDI_CDC_PORT_NB
-# define  UDI_CDC_PORT_NB 1
+#ifndef UDI_CDC_PORT_NB
+# define UDI_CDC_PORT_NB 1
 #endif
 #if (UDI_CDC_PORT_NB > 1)
 # error UDI_CDC_PORT_NB must be at most 1
@@ -85,9 +85,6 @@ extern UDC_DESC_STORAGE udi_api_t udi_api_cdc_data;
 #define UDI_CDC_COMM_EP_SIZE        CDC_ACM_SIZE
 //! CDC data endpoints size for FS speed (8B, 16B, 32B, 64B)
 #define UDI_CDC_DATA_EPS_FS_SIZE    CDC_RX_SIZE
-
-#define CDC_PRINT_BUF_SIZE  256
-extern char printbuf[CDC_PRINT_BUF_SIZE];
 
 //@}
 
@@ -370,9 +367,6 @@ extern inbuf_t inbuf;
 uint32_t CDC_print(char *printbuf);
 uint32_t CDC_input(void);
 void CDC_init(void);
-
-#define __xprintf dpf
-int dpf(const char *_Format, ...);
 
 #ifdef __cplusplus
 }
