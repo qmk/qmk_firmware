@@ -12,7 +12,7 @@ The following functions can provide basic control of GPIOs and are found in `qua
 |`setPinInputHigh(pin)`|Set pin as input with build in pull-up                            |
 |`setPinInputLow(pin)` |Set pin as input with build in pull-down (Supported only on STM32)|
 |`setPinOutput(pin)`   |Set pin as output                                                 |
-|`writePinHige(pin)`   |Set pin level as high, assuming it is an output                   |
+|`writePinHigh(pin)`   |Set pin level as high, assuming it is an output                   |
 |`writePinLow(pin)`    |Set pin level as low, assuming it is an output                    |
 |`writePin(pin, level)`|Set pin level, assuming it is an output                           |
 |`readPin(pin)`        |Returns the level of the pin                                      |
