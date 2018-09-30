@@ -44,6 +44,8 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+# Boot Section
+BOOTLOADER = atmel-dfu
 
 # Do not put the microcontroller into power saving mode
 # when we get USB suspend event. We want it to keep updating
