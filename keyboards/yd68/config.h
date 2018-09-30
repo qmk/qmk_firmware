@@ -222,3 +222,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 */
 
+#ifdef YD68_XM04_ENABLE
+// rn42 support -- acquired from the tmk repo. This is almost certainly not
+// integrated with qmk in the correct way.
+
+#define SUART_OUT_PORT  PORTB
+#define SUART_OUT_BIT   1
+#define SUART_IN_PIN    PINF
+#define SUART_IN_BIT    7
+
+#endif

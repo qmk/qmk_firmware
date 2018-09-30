@@ -27,17 +27,27 @@ void matrix_init_kb(void) {
 	DDRD |= (1<<6);
     PORTD &= ~(1<<6);
 	
-	//RGB power output low
+	//RGB power output low(on)
 	DDRE |= (1<<2);
     PORTE &= ~(1<<2);
-	
-	//Bluetooth power output high
+
+#ifndef YD68_XM04_ENABLE
+	//Bluetooth power output high(off)
 	DDRB |= (1<<2);
     PORTB |= (1<<2);
-	
+#else
+	//Bluetooth power output low(on)
+	DDRB |= (1<<2);
+	PORTB &= ~(1<<2);
+#endif
+
 	//RGB data output low
 	DDRB |= (1<<3);
 	PORTB &= ~(1<<3);
+
+	//BT UART TX output low
+	DDRB |= (1<<1);
+	PORTB &= ~(1<<1);
 	
 	matrix_init_user();
 }
