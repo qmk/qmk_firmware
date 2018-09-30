@@ -1,5 +1,4 @@
-#ifndef LUDDITE_H
-#define LUDDITE_H
+#pragma once
 
 #include "quantum.h"
 
@@ -20,4 +19,3 @@
 	{ K70,   K71,   K72,   K73,   K74 }, \
 }
 
-#endif
