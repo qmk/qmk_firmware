@@ -1,22 +1,9 @@
-#include "satan.h"
+#include QMK_KEYBOARD_H
 
 #define BASE    0    // Default layer
 #define MOUSE   1    // Space layer
 #define NUMPAD  2    // Alt layer
 #define CAPS    3    // Caps layer
-
-#define MAC0 M(0) //
-#define MAC1 M(1) //
-#define MAC2 M(2) //
-#define MAC3 M(3) //
-#define MAC4 M(4) //
-#define MAC5 M(5) //
-#define MAC6 M(6) //
-#define MAC7 M(7) //
-#define MAC8 M(8) //
-#define MAC9 M(9) //
-#define GRAV KC_GRV //
-#define MEDI F(FNO1)//
 
 // General shortenings
 #define ESCA KC_ESC

@@ -1,7 +1,5 @@
-#include "iris.h"
+#include QMK_KEYBOARD_H
 #include "keymap_swedish.h"
-#include "action_layer.h"
-//#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
@@ -18,7 +16,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_LOWER LOWER
 #define KC_RAISE RAISE

@@ -1,5 +1,3 @@
-#include "../../config.h"
-
 // Backlight configuration
 #undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 10
