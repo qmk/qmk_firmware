@@ -1,5 +1,9 @@
 # project specific files
-SRC =	keyboards/rama/m6_b/m6_b.c
+SRC =	rgb_backlight.c \
+		quantum/color.c \
+		drivers/issi/is31fl3218.c \
+		drivers/avr/i2c_master.c
+
 
 # MCU name
 MCU = atmega32u4
@@ -43,6 +47,12 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 # Boot Section
 BOOTLOADER = atmel-dfu
 
+# Do not put the microcontroller into power saving mode
+# when we get USB suspend event. We want it to keep updating
+# backlight effects.
+OPT_DEFS += -DNO_SUSPEND_POWER_DOWN
+
+
 # Build Options
 #   change yes to no to disable
 #
@@ -64,3 +74,4 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 
 RAW_ENABLE = yes
 DYNAMIC_KEYMAP_ENABLE = yes
+CIE1931_CURVE = yes

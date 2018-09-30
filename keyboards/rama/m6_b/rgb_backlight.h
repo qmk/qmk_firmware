@@ -13,3 +13,22 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
+
+#if RGB_BACKLIGHT_ENABLED
+#else
+#error rgb_backlight.h included when RGB_BACKLIGHT_ENABLED == 0
+#endif // RGB_BACKLIGHT_ENABLED
+
+#include <stdint.h>
+#include <stdbool.h>
+
+#include "quantum/color.h"
+
+void backlight_init_drivers(void);
+void backlight_update_pwm_buffers(void);
+void backlight_timer_init(void);
+void backlight_timer_enable(void);
+void backlight_timer_disable(void);
+void backlight_set_suspend_state(bool state);
+

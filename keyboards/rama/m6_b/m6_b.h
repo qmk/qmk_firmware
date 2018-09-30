@@ -13,3 +13,16 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
+
+#include "quantum.h"
+
+// This a shortcut to help you visually see your layout.
+// The first section contains all of the arguments
+// The second converts the arguments into a two-dimensional array
+#define LAYOUT(                         \
+    K00, K01, K02, K03, K04, K05)       \
+    {                                   \
+        {K00, K01, K02, K03, K04, K05}, \
+    }
+

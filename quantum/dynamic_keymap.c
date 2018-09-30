@@ -17,7 +17,7 @@
 #include "config.h"
 #include "keymap.h" // to get keymaps[][][]
 #include "tmk_core/common/eeprom.h"
-#include "progmem.h"// to read default from flash
+#include "progmem.h" // to read default from flash
 
 #include "dynamic_keymap.h"
 
