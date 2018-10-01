@@ -128,6 +128,7 @@ uint32_t rgb_matrix_get_tick(void);
 
 void rgblight_toggle(void);
 void rgblight_step(void);
+void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
 void rgblight_step_reverse(void);
 void rgblight_increase_hue(void);
 void rgblight_decrease_hue(void);
