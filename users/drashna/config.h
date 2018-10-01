@@ -43,7 +43,6 @@
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef  PERMISSIVE_HOLD
-#define PREVENT_STUCK_MODIFIERS
 // #define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 
@@ -64,8 +63,4 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define DISABLE_LEADER
-
 #define MACRO_TIMER 5
-
-

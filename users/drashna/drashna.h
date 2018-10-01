@@ -49,7 +49,7 @@ enum userspace_layers {
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
-extern bool clicky_enable;
+extern bool rgb_layer_change;
 
 #ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index);
@@ -64,7 +64,6 @@ bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t thi
 typedef union {
   uint8_t raw;
   struct {
-    bool     clicky_enable    :1;
     bool     rgb_layer_change :1;
     bool     is_overwatch     :1;
     bool     nuke_switch      :1;
