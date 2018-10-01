@@ -60,10 +60,9 @@ enum unicode_input_modes {
 // Example: UC_MODES(UC_OSX, UC_LNX, UC_WINC) → 00010011 (0x13)
 #define UC_MODES(...) UC_M_HELPER(NUM_ARGS(__VA_ARGS__), __VA_ARGS__)
 
-// Bitmask selecting which Unicode modes can be cycled through
-// Example usage: #define UC_CYCLE_MODES UC_MODES(UC_OSX, UC_LNX, UC_WINC)
+// Bitmask that selects which Unicode modes can be cycled through
 #if !defined(UC_CYCLE_MODES) || UC_CYCLE_MODES == 0
-#define UC_CYCLE_MODES ((1<<UC__COUNT) - 1) // Default: all modes
+#define UC_CYCLE_MODES UC_MODES(UC_OSX, UC_LNX, UC_WINC) // Default: OS X, Linux, WinCompose
 #endif
 
 #define UC_BSPC	UC(0x0008)
