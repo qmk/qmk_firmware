@@ -139,9 +139,12 @@ enum quantum_keycodes {
 
     // Faux clicky as part of main audio feature
     CLICKY_TOGGLE,
+    CLICKY_ENABLE,
+    CLICKY_DISABLE,
     CLICKY_UP,
     CLICKY_DOWN,
     CLICKY_RESET,
+
 
 #ifdef FAUXCLICKY_ENABLE
     // Faux clicky
@@ -571,6 +574,8 @@ enum quantum_keycodes {
 #define CK_RST CLICKY_RESET
 #define CK_UP CLICKY_UP
 #define CK_DOWN CLICKY_DOWN
+#define CK_ON CLICKY_ENABLE
+#define CK_OFF CLICKY_DISABLE
 
 #define RGB_MOD RGB_MODE_FORWARD
 #define RGB_SMOD RGB_MODE_FORWARD
