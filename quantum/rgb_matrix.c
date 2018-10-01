@@ -903,3 +903,10 @@ void rgblight_mode(uint8_t mode) {
 uint32_t rgblight_get_mode(void) {
     return rgb_matrix_config.mode;
 }
+
+void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
+  rgb_matrix_config.hue = hue;
+  rgb_matrix_config.sat = sat;
+  rgb_matrix_config.val = val;
+  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+}
