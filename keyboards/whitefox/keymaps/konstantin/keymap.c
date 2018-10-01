@@ -5,6 +5,9 @@
 #define FN_RCTL TD(TD_FN_RCTL)    // Unused
 #define RLALT   TD(TD_RLALT)      // Unused
 
+#define DESKT_A LCTL(LGUI(KC_D))
+#define DESKT_L LCTL(LGUI(KC_LEFT))
+#define DESKT_R LCTL(LGUI(KC_RGHT))
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
 
@@ -111,7 +114,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |        |MA0|MA2|MW←|MW→|   |   |   |VoD|VoU|Mut| App  |PgU|Btm|
    * |---------------------------------------------------------------|
-   * |    |    |    |          MW↓           |    |    | |Hom|PgD|End|
+   * |    |DstA|Dst←|          MW↓           |Dst→|    | |Hom|PgD|End|
    * `---------------------------------------------------------------'
    */
   [L_FN] = LAYOUT_truefox( \
@@ -119,7 +122,7 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BTN4,KC_BTN2,KC_MS_U,KC_BTN1,KC_BTN3,KC_BTN5,_______,_______,_______,KC_MSTP,KC_MPLY,KC_MPRV,KC_MNXT,CLEAR,          KC_INS,  \
     _______,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_U,_______,_______,_______,_______,_______,_______,_______,        _______,        TOP,     \
     _______,        KC_ACL0,KC_ACL2,KC_WH_L,KC_WH_R,_______,_______,_______,KC_VOLD,KC_VOLU,KC_MUTE,KC_APP,         KC_PGUP,BOTTOM,  \
-    _______,_______,_______,                        KC_WH_D,                _______,_______,                KC_HOME,KC_PGDN,KC_END   \
+    _______,DESKT_A,DESKT_L,                        KC_WH_D,                DESKT_R,_______,                KC_HOME,KC_PGDN,KC_END   \
   ),
 
   /* Numpad layer
