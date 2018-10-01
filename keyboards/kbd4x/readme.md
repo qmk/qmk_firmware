@@ -1,12 +1,12 @@
-# kbd4x
+# KBD4x
 
-![kbd4x](imgur.com image replace me!)
+![KBD4x](https://cdn.shopify.com/s/files/1/1473/3902/products/1_ef8d3ad0-fc70-4d4f-9e36-8438c781a581_1800x1800.jpg)
 
-A short description of the keyboard/project
+A compact 40% (12x4) ortholinear keyboard kit sold by KBDFans.
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: ![sevenseacat](https://github.com/sevenseacat)
+Hardware Supported: KBD4x PCB
+Hardware Availability: https://kbdfans.cn/collections/diy-kit/products/kbd4x-custom-mechanical-keyboard-hot-swap-diy-kit
 
 Make example for this keyboard (after setting up your build environment):
 
