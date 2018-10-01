@@ -10,8 +10,6 @@ enum rorschach_layers {
   _FUNCTION,  // Function
   _FUNCTION2, // Function 2 (identical as _FUNCTION; used to allow for easier use of space and backspace while using function layer arrows)
   _NUMPAD,    // Numpad
-//  _COLEMAKGM,  // Colemak gaming/vanilla (no dual-role keys with layer access)
-//  _QWERTYGM,  // QWERTY gaming/vanilla (no dual-role keys with layer access)
   _ADJUST,    // Adjust layer, accessed via tri-layer feature)
   _ADJUST2    // Second Adjust layer, accessed outside of tri-layer feature)
 };
@@ -19,8 +17,6 @@ enum rorschach_layers {
 enum rorschach_keycodes {
   COLEMAK = SAFE_RANGE,
   QWERTY,
-//  COLEMAKGM,
-//  QWERTYGM,
   NUMPAD = TG(_NUMPAD),
   ADJUST = MO(_ADJUST2),
   SPCFN  = LT(_FUNCTION, KC_SPC),
@@ -269,8 +265,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off ( _FUNCTION);
         layer_off ( _FUNCTION2);
         layer_off ( _NUMPAD);
-//        layer_off ( _COLEMAKGM);
-//        layer_off ( _QWERTYGM);
         layer_off ( _ADJUST);
 		layer_off ( _ADJUST2);
       }
@@ -285,46 +279,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off ( _FUNCTION);
         layer_off ( _FUNCTION2);
         layer_off ( _NUMPAD);
-//        layer_off ( _COLEMAKGM);
-//        layer_off ( _QWERTYGM);
         layer_off ( _ADJUST);
 		layer_off ( _ADJUST2);
       }
       return false;
       break;
-/*    case COLEMAKGM:
-      if (record->event.pressed) {
-        default_layer_set(1UL << _COLEMAKGM);
-        layer_off ( _QWERTY);
-        layer_off ( _COLEMAK);
-        layer_off ( _NUMBERS);
-        layer_off ( _NUMBERS2);
-        layer_off ( _FUNCTION);
-        layer_off ( _FUNCTION2);
-        layer_off ( _NUMPAD);
-        layer_off ( _QWERTYGM);
-        layer_off ( _ADJUST);
-		layer_off ( _ADJUST2);
-      }
-      return false;
-      break;
-    case QWERTYGM:
-      if (record->event.pressed) {
-        default_layer_set(1UL << _QWERTYGM);
-        layer_off ( _QWERTY);
-        layer_off ( _COLEMAK);
-        layer_off ( _NUMBERS);
-        layer_off ( _NUMBERS2);
-        layer_off ( _FUNCTION);
-        layer_off ( _FUNCTION2);
-        layer_off ( _NUMPAD);
-        layer_off ( _COLEMAKGM);
-        layer_off ( _ADJUST);
-		layer_off ( _ADJUST2);
-      }
-      return false;
-      break;
-*/
   }
   return true;
 }

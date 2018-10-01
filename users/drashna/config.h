@@ -11,8 +11,10 @@
                                   SONG(OVERWATCH_THEME) \
                                 }
 
-#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
-
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
+// #ifdef RGBLIGHT_ENABLE
+// #define NO_MUSIC_MODE
+// #endif //RGBLIGHT_ENABLE
 #endif
 
 #ifdef RGBLIGHT_ENABLE
@@ -40,8 +42,7 @@
 // and when this option isn't enabled, z rapidly followed by x
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
-#undef PERMISSIVE_HOLD
-#undef PREVENT_STUCK_MODIFIERS
+#undef  PERMISSIVE_HOLD
 // #define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 
@@ -59,17 +60,7 @@
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
-#define DISABLE_LEADER
-
 #define MACRO_TIMER 5
-
-

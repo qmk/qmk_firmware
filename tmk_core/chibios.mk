@@ -198,10 +198,13 @@ ifneq ("$(SERIAL)","")
 	DFU_ARGS += -S $(SERIAL)
 endif
 
+ST_LINK_ARGS ?=
+
 # List any extra directories to look for libraries here.
 EXTRALIBDIRS = $(RULESPATH)/ld
 
 DFU_UTIL ?= dfu-util
+ST_LINK_CLI ?= st-link_cli
 
 # Generate a .qmk for the QMK-FF
 qmk: $(BUILD_DIR)/$(TARGET).bin
@@ -229,6 +232,9 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
+st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
+	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;

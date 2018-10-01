@@ -512,7 +512,7 @@ void music_scale_user(void)
 
 // hook point for 'led_test' keymap
 //   'default' keymap's led_test_init() is empty function, do nothing
-//   'led_test' keymap's led_test_init() force rgblight_mode_noeeprom(35);
+//   'led_test' keymap's led_test_init() force rgblight_mode_noeeprom(RGBLIGHT_MODE_RGB_TEST);
 __attribute__ ((weak))
 void led_test_init(void) {}
 
