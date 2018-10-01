@@ -2,7 +2,7 @@
 
 There are quite a few different types of bootloaders that keyboards use, and just about all of the use a different flashing method. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to be compatible with all the different types without having to think about it much, but this article will describe the different types of bootloaders, and available methods for flashing them.
 
-If you have a bootloader selected with the `BOOTLOADER` variable in your `rules.mk`, QMK will automatically calculate if your .hex file is the right size to be flashed to the device, and output the total size it bytes (along with the max). To run this process manually, compile with the target `check-size`, eg `make planck/rev4:default:check-size`.
+If you have a bootloader selected with the `BOOTLOADER` variable in your `rules.mk`, QMK will automatically calculate if your .hex file is the right size to be flashed to the device, and output the total size in bytes (along with the max). To run this process manually, compile with the target `check-size`, eg `make planck/rev4:default:check-size`.
 
 ## DFU
 

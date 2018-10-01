@@ -1,4 +1,4 @@
-/* Copyright 2018 Wilba
+/* Copyright 2018 Jason Williams (Wilba)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,12 +13,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#include <stdint.h>
+#include <stdbool.h>
 
-#include "../../config.h"
-
-// place overrides here
-
-#endif
+void IS31FL3218_init(void);
+void IS31FL3218_set_color( int index, uint8_t red, uint8_t green, uint8_t blue );
+void IS31FL3218_set_color_all( uint8_t red, uint8_t green, uint8_t blue );
+void IS31FL3218_update_pwm_buffers(void);

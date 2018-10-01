@@ -1,5 +1,5 @@
 /*
-Copyright 2018 MechMerlin
+Copyright 2018 Ryan "Izzy" Bales
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,15 +21,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    Treasure
-#define PRODUCT         Macropad Type 9
-#define DESCRIPTION     A custom macropad
+#define PRODUCT_ID      0x6060
+#define DEVICE_VER      0x0002
+#define MANUFACTURER    YANG
+#define PRODUCT         YD68v2
+#define DESCRIPTION     65% board with Bluetooth
 
 /* key matrix size */
-#define MATRIX_ROWS 3
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -41,25 +41,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { E6, D7, C6 }
-#define MATRIX_COL_PINS { D1, D0, D4 }
+#define MATRIX_ROW_PINS { B5, C6, C7, D7, B4 }
+#define MATRIX_COL_PINS { B6, F7, F6, F5, F4, F1, F0, E6, B0, B7, D0, D1, D2, D3, D5 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN B5
+// #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 10
+// #define BACKLIGHT_LEVELS 3
 
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-// #define RGBLIGHT_ANIMATIONS
-// #define RGBLED_NUM 16
-// #define RGBLIGHT_HUE_STEP 8
-// #define RGBLIGHT_SAT_STEP 8
-// #define RGBLIGHT_VAL_STEP 8
-// #endif
+#define RGB_DI_PIN B3
+#ifdef RGB_DI_PIN
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 10
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
@@ -70,9 +70,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+//#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+//#define LOCKING_RESYNC_ENABLE
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).

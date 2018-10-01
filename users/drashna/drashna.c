@@ -403,8 +403,8 @@ uint32_t layer_state_set_user(uint32_t state) {
 }
 
 
-uint32_t default_layer_state_set_kb(uint32_t state) {
-  return default_layer_state_set_keymap (state);
+uint32_t default_layer_state_set_user(uint32_t state) {
+  return default_layer_state_set_keymap(state);
 }
 
 
