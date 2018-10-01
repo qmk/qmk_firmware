@@ -13,7 +13,7 @@
 //  Modified by Xydane
 #define MANUFACTURER "QMK"
 #define USBSTR_MANUFACTURER    'T', '\x00', 'M', '\x00', 'K', '\x00', ' ', '\x00', '\xc6', '\x00'
-#define PRODUCT "Stm32 70"
+#define PRODUCT "BluePill70"
 #define USBSTR_PRODUCT         'C', '\x00', 'h', '\x00', 'i', '\x00', 'b', '\x00', 'i', '\x00', 'O', '\x00', 'S', '\x00', ' ', '\x00', 'Q', '\x00', 'M', '\x00', 'K', '\x00', ' ', '\x00', 't', '\x00', 'e', '\x00', 's', '\x00', 't', '\x00'
 #define DESCRIPTION "QMK keyboard firmware test for ChibiOS"
 

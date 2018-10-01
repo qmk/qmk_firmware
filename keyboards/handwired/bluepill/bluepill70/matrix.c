@@ -81,9 +81,6 @@ void matrix_init(void)
     LED_ON();
     wait_ms(500);
     LED_OFF();
-
-    // Start of PWM dual color leds
-    //iniciarluces();
 }
 
 uint8_t matrix_scan(void)
