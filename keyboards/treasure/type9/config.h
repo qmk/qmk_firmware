@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Treasure
-#define PRODUCT         Macropad Type 9
+#define PRODUCT         Type 9
 #define DESCRIPTION     A custom macropad
 
 /* key matrix size */

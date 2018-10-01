@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef MACROPAD_H
-#define MACROPAD_H
+#ifndef TYPE9_H
+#define TYPE9_H
 
 #include "quantum.h"
 

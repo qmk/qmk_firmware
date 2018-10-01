@@ -1,1 +1,1 @@
-# The default keymap for macropad
+# The default keymap for Type-9
