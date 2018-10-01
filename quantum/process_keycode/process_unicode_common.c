@@ -35,6 +35,7 @@ uint8_t get_unicode_input_mode(void) {
 }
 
 void set_unicode_input_mode(uint8_t mode) {
+  dprintf("Unicode input mode: %u\n", mode);
   input_mode = mode;
   eeprom_update_byte(EECONFIG_UNICODEMODE, mode);
 }
