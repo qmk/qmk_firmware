@@ -33,7 +33,7 @@ Neither Xydane or I used the bootloader. Just use a serial programmer (FTDI, ST-
 
 ## Adding layouts and revisions
 
-If you want to create new layouts just add it to the keymaps folder. If you prefer to develop a more complex revision just copy the bluepill70 folder, rename it and create a new keymap in /keymap.c (I tried to divide the project even more but it didn't worked).
+If you want to create new layouts just add them to the keymaps folder. If you prefer to develop a more complex revision just copy the bluepill70 folder, rename it and create a new keymap in /keymap.c (I tried to divide the project even more but it didn't worked).
 
 ## Pinout
 
@@ -45,7 +45,10 @@ That's the pinout;
 	B7	TAB| Q  | W  | E  | R  | T  | Y  | U  | I  | O  | P  | `  | +  |         | HOM
 	B6	CAP| A  | S  | D  | F  | G  | H  | J  | K  | L  | Ñ  | ´  | Ç  |   ENTER | END
 	B5	LSI| <  | Z  | X  | C  | V  | B  | N  | M  | ,  | .  | -  |   RSHIF | UP | FNT
-	B4	LCT| WIN| ALT|               ESPACE             | ALG| FN | RCT| LEF| DOW| RIG
+	A4	LCT| WIN| ALT|               ESPACE             | ALG| FN | RCT| LEF| DOW| RIG
+
+And the wiring:
+(https://i.imgur.com/ZCaxVzs.jpg)
 
 It also uses: 
 PC13: Caps Lock led.
