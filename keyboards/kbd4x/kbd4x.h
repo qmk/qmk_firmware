@@ -45,6 +45,4 @@
 	{ k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b } \
 }
 
-#define LAYOUT LAYOUT_planck_mit
-
 #endif
