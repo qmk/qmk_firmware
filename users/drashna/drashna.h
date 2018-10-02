@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "version.h"
 #include "eeprom.h"
-#include "send_unicode.h"
 
 #ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix.h"
@@ -53,17 +52,12 @@ enum userspace_layers {
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
-extern bool rgb_layer_change;
-
 #ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index);
 #endif // RGBLIGHT_ENABLE
 
-inline void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
 bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
-
-#define EECONFIG_USERSPACE (uint32_t *)19
 
 typedef union {
   uint32_t raw;

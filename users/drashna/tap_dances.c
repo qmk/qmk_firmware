@@ -41,13 +41,13 @@ void send_diablo_keystroke(uint8_t diablo_key) {
   if (biton32(layer_state) == _DIABLO) {
     switch (diablo_key) {
       case 0:
-        tap(KC_1); break;
+        tap_code(KC_1); break;
       case 1:
-        tap(KC_2); break;
+        tap_code(KC_2); break;
       case 2:
-        tap(KC_3); break;
+        tap_code(KC_3); break;
       case 3:
-        tap(KC_4); break;
+        tap_code(KC_4); break;
     }
   }
 }
