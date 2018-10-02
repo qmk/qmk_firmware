@@ -1,8 +1,6 @@
 #pragma once
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
+#define RGB_DIGITAL_RAIN_DROPS    18
 #define USB_MAX_POWER_CONSUMPTION 100
 #define ONESHOT_TAP_TOGGLE        2
 #define ONESHOT_TIMEOUT           3000
