@@ -3,7 +3,9 @@
 
 //TAPPING_TERM
 #ifdef TAP_DANCE_ENABLE
-#define TAPPING_TERM 100
+//tapping term short (<100): lingering taps may not register, but modifiers register easier
+//tapping term long (>200): lingering taps register easily, modifiers don't register as easily (e.g. shift doesn't want to engage.)
+#define TAPPING_TERM 107
 #endif
 
 //Mousekey Settings
