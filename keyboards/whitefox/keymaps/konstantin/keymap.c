@@ -46,8 +46,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       layer_invert(L_NUMPAD);
       bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
       if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
-        register_code(KC_NLCK); // Toggle Num Lock to match layer state.
-        unregister_code(KC_NLCK);
+        tap_code(KC_NLCK); // Toggle Num Lock to match layer state.
       }
     }
     return false;
