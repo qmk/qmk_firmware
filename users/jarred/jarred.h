@@ -23,10 +23,6 @@ enum userspace_custom_keycodes {
   VRSN = SAFE_RANGE               // Prints QMK Firmware and board info
 };
 
-// Use 7 wide characters for keymaps
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Layers
 #define _QW 0
 #define _LW 1
