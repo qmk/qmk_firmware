@@ -108,8 +108,6 @@ enum userspace_custom_keycodes {
 enum {
   TD_SFT_CAPS = 0
   ,TD_Q_ESC
-  ,ENT_TAP_DANCE
-  ,DEL_TAP_DANCE
   ,CAD_TD
   ,RST_TAP_DANCE
   ,LYR_TAP_DANCE
