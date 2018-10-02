@@ -5,9 +5,6 @@
 #define _NV 2
 #define _NM 3
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  [_QW] = {
   { KC_ESC , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_MUTE, KC_VOLD, KC_VOLU, KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_BSPC },

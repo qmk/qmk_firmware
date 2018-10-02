@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define _QW 0
 #define _NV 1
 

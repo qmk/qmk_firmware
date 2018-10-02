@@ -14,10 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef USERSPACE_CONFIG_H
-#define USERSPACE_CONFIG_H
-
-#define PREVENT_STUCK_MODIFIERS
+#pragma once
 
 // Sets good default for the speed of the mouse.
 #undef MOUSEKEY_INTERVAL
@@ -51,5 +48,3 @@
 #endif
 
 #define MACRO_TIMER 5
-
-#endif
