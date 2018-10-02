@@ -43,7 +43,12 @@ static const I2CConfig i2cconfig = {
 
 void i2c_init(void)
 {
-  palSetGroupMode(GPIOB, GPIOB_PIN6 | GPIOB_PIN7, 0, PAL_MODE_INPUT); // Try releasing special pins for a short time
+  //palSetGroupMode(GPIOB, GPIOB_PIN6 | GPIOB_PIN7, 0, PAL_MODE_INPUT);
+
+  // Try releasing special pins for a short time
+  palSetPadMode(GPIOB, 6, PAL_MODE_INPUT);
+  palSetPadMode(GPIOB, 7, PAL_MODE_INPUT);
+
   chThdSleepMilliseconds(10);
 
   palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
@@ -72,6 +77,10 @@ uint8_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t ti
   i2c_address = address;
   i2cStart(&I2C_DRIVER, &i2cconfig);
   return i2cMasterReceiveTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, MS2ST(timeout));
+}
+
+uint8_t i2c_transmit_receive(uint8_t address, uint8_t * tx_body, uint16_t tx_length, uint8_t * rx_body, uint16_t rx_length) {
+  return i2cMasterTransmitTimeout(&I2C_DRIVER, address/2, tx_body, tx_length, rx_body, rx_length, MS2ST(100));
 }
 
 uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)

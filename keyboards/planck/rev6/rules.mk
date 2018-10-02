@@ -1,5 +1,5 @@
 # project specific files
-SRC =	matrix.c
+SRC =	matrix.c qwiic/joystiic.c i2c_master.c
 LAYOUTS += ortho_4x12
 
 ## chip/board settings

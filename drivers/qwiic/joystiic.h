@@ -13,15 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev6.h"
-#include "qwiic/joystiic.h"
+#pragma once
 
-void matrix_init_kb(void) {
-	matrix_init_user();
-  joystiic_init();
-}
+#include "i2c_master.h"
 
-void matrix_scan_kb(void) {
-	matrix_scan_user();
-  joystiic_task();
-}
+void joystiic_update_kb(uint16_t horizontal, uint16_t vertical, bool button);
+void joystiic_update_user(uint16_t horizontal, uint16_t vertical, bool button);
+void joystiic_trigger_kb(uint8_t trigger, bool active);
+void joystiic_trigger_user(uint8_t trigger, bool active);
+
+void joystiic_init(void);
+void joystiic_task(void);
