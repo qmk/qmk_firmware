@@ -3,7 +3,7 @@
 
 //TAPPING_TERM
 #ifdef TAP_DANCE_ENABLE
-#define TAPPING_TERM 200
+#define TAPPING_TERM 100
 #endif
 
 //Mousekey Settings
