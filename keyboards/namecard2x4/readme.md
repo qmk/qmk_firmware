@@ -1,12 +1,18 @@
 # name_card2x4
 
-![name_card2x4](imgur.com image replace me!)
+日本式名刺サイズのキーボードです（55x91mm）。
+Kailh PCB SocketとWS2812/SK6812に対応しています。
 
-A short description of the keyboard/project
+This keyboard size is Japanese namecard size(55x91mm).
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+![name_card2x4](https://i.imgur.com/Bi9SV9A.jpg)
+
+![name_card2x4 with case](https://i.imgur.com/yTv1vSz.jpg)
+
+
+
+Keyboard Maintainer: [takashiski](https://github.com/takashiski)  
+
 
 Make example for this keyboard (after setting up your build environment):
 
