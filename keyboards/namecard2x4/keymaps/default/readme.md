@@ -1,0 +1,1 @@
+# The default keymap for name_card2x4
