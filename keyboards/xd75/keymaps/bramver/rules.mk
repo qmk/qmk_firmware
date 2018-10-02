@@ -4,9 +4,4 @@ MOUSEKEY_ENABLE = yes			# Emulates mouse key using keypresses
 RGBLIGHT_ENABLE = yes 		# LED strips
 EXTRAKEY_ENABLE = yes 		# Use system and audio control key codes
 TAP_DANCE_ENABLE = no 		# Use multi-tap features
-AUDIO_ENABLE = no  				# Audio stuff
 UNICODEMAP_ENABLE = yes  	# Emojify me pls
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

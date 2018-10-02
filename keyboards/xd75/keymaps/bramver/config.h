@@ -14,10 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 #define MOUSEKEY_DELAY             0
 #define MOUSEKEY_INTERVAL          16
@@ -26,5 +23,3 @@
 #define MOUSEKEY_WHEEL_MAX_SPEED   8
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 #define MOUSEKEY_WHEEL_DELAY 0
-
-#endif
