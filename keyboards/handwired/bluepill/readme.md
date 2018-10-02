@@ -33,11 +33,7 @@ Neither Xydane or I used the bootloader, the code for it is commented and you ca
 
 ## Adding layouts and revisions
 
-<<<<<<< HEAD
 If you want to create new layouts just add them to the keymaps folder. If you prefer to develop a more complex revision just copy the bluepill70 folder, rename it and create a new keymap in /keymap.c (I tried to divide the project even more but it didn't worked).
-=======
-If you want to create new layouts just add it to the keymaps folder. If you prefer to develop a more complex revision just copy the bluepill70 folder, rename it and create a new keymap in /keymap.c
->>>>>>> a6d2ed31a14369e4157cce6ea3437dae27ec6bd4
 
 ## Pinout
 
@@ -52,7 +48,7 @@ That's the pinout;
 	A4	LCT| WIN| ALT|               ESPACE             | ALG| FN | RCT| LEF| DOW| RIG
 
 And the wiring:
-(https://i.imgur.com/ZCaxVzs.jpg)
+![Wiring](https://i.imgur.com/ZCaxVzs.jpg)
 
 It also uses: 
 PC13: Caps Lock led.
