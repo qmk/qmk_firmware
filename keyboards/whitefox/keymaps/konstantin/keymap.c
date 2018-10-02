@@ -62,21 +62,21 @@ enum tap_dance {
   TD_RLALT,
 };
 
-void td_fn_ctrl_finished(qk_tap_dance_state_t *state, void *user_data)
+void td_fn_rctl_finished(qk_tap_dance_state_t *state, void *user_data)
 {
   // Single tap → Fn, double tap → RCtrl, triple tap → Fn+RCtrl etc.
   if (state->count & 1) { layer_on(L_FN); }
   if (state->count & 2) { register_code(KC_RCTL); }
 }
 
-void td_fn_ctrl_reset(qk_tap_dance_state_t *state, void *user_data)
+void td_fn_rctl_reset(qk_tap_dance_state_t *state, void *user_data)
 {
   if (state->count & 1) { layer_off(L_FN); }
   if (state->count & 2) { unregister_code(KC_RCTL); }
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fn_ctrl_finished, td_fn_ctrl_reset),
+  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fn_rctl_finished, td_fn_rctl_reset),
   [TD_RLALT]   = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),
 };
 
