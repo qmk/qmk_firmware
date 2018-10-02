@@ -54,7 +54,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_MOMENTARY(1),  // to Fn overlay
     [1] = ACTION_LAYER_TOGGLE(2),  // to Fn overlay
     [2] = ACTION_FUNCTION(2),
-    [3] = ACTION_FUNCTION(3),
 };
 
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
@@ -64,13 +63,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
       palTogglePad(GPIOA, 1);
     }     
     break;
-
-  // Continuar para incluir funciones propias
-  /*case 3:
-    if (record->event.pressed) {
-      function_led(algo);
-    }     
-    break;*/
     
   }
 }
@@ -79,16 +71,16 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
 /*uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _FNONE:
-        custom_function1(min1, min2;)
-        rgblight_setrgb (0xFF,  0x00, 0x00);
+      palClearPad(GPIOA, 0); //ON
+      palSetPad(GPIOA, 1);  //OFF
         break;
     case _FNTWO:
-        custom_function2(min1, min2;)
-        rgblight_setrgb (0x00,  0xFF, 0x00);
+      palClearPad(GPIOA, 1); //ON
+      palSetPad(GPIOA, 1);  //OFF
         break;
     default: //  for any other layers, or the default layer
-        custom_function3(min1, min2;)
-        rgblight_setrgb (0x00,  0xFF, 0xFF);
+      palClearPad(GPIOA, 1); //ON
+      palSetPad(GPIOA, 0);  //OFF
         break;
     }
   return state;
