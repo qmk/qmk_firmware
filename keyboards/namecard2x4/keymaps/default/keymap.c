@@ -20,24 +20,25 @@ enum Layer
 	DF=0,
 	LW,
 	RS
-}
+};
+
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [DF] = 
 	{
-		{X(0),X(1),X(2),X(3)},
-		{X(4),X(5),X(6),X(8)}
+		{KC_1,KC_2,KC_3,LT(LT,KC_4)},
+		{KC_5,KC_6,KC_7,LT(RS,KC_8)}
 	},
 [LW]=
 	{
 		{RGB_VAD,RGB_VAI,RGB_HUI,RGB_HUD},
-		{KC_TRNS,RGB_MOD,RGB_RMOD,RGB_TOG}
+		{KC_TRNS,RGB_MOD,RGB_RMOD,KC_TRNS}
 	},
 [RS]=
 	{
-		{},
-		{}
+		{KC_MYCM,KC_MAIL,KC_VOLU,KC_MUTE},
+		{KC_WSCH,KC_CALC,KC_VOLD,KC_TRNS}
 	}
 
 };
