@@ -25,15 +25,19 @@ As I'm mainly a web developer I didn't even get to debug the controller, not to 
 
 ## Resistor fix
 
-If you want to use the Bluepill USB port, it's very likely that you need to solder a 1.8 kΩ between PA12 and 3.3V. That depends on the PC's motherboard but I needed it, more info [here](https://wiki.stm32duino.com/index.php?title=Blue_Pill).
+If you want to use the Bluepill USB port, it's very likely that you need to solder a 1.8 kΩ between PA12 and 3.3V. That depends on the PC's motherboard but I needed, more info [here](https://wiki.stm32duino.com/index.php?title=Blue_Pill).
 
 ## No bootloader
 
-Neither Xydane or I used the bootloader. Just use a serial programmer (FTDI, ST-LINK).
+Neither Xydane or I used the bootloader, the code for it is commented and you can use it if you want. I didn't achieve to run it and just used a serial programmer (FTDI, ST-LINK).
 
 ## Adding layouts and revisions
 
+<<<<<<< HEAD
 If you want to create new layouts just add them to the keymaps folder. If you prefer to develop a more complex revision just copy the bluepill70 folder, rename it and create a new keymap in /keymap.c (I tried to divide the project even more but it didn't worked).
+=======
+If you want to create new layouts just add it to the keymaps folder. If you prefer to develop a more complex revision just copy the bluepill70 folder, rename it and create a new keymap in /keymap.c
+>>>>>>> a6d2ed31a14369e4157cce6ea3437dae27ec6bd4
 
 ## Pinout
 
@@ -52,5 +56,4 @@ And the wiring:
 
 It also uses: 
 PC13: Caps Lock led.
-PA0: Backlight.
 PA1: Backlight.
