@@ -38,5 +38,5 @@ fi
 else
 	echo "Sorry, we don't recognize your OS. Help us by contributing support!"
 	echo
-	echo "https://docs.qmk.fm"
+	echo "https://docs.qmk.fm/#/contributing"
 fi
