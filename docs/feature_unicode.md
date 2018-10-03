@@ -12,9 +12,9 @@ Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping table
 
 ## UCIS_ENABLE
 
-Supports Unicode up to 0xFFFFFFFF. As with `UNICODE_MAP`, this requires that you maintain a separate mapping table in your keymap file.  However, there is no keycodes for this feature, as it monitors what you are typing, and if it matches an entry in your table, it will automatically "backspace" the trigger word (from your table) and then will input the unicode sequence. 
+As with `UNICODE_MAP`, this requires that you maintain a separate mapping table in your keymap file.  However, there is no keycodes for this feature, you will have to add a keycode or function to call `qk_ucis_start()`. Once you've run that, you can just type the text for your unicode, and then hit space or enter to complete it, or ESC to cancel it. And if it matches an entry in your table, it will automatically "backspace" the trigger word (from your table) and then will input the unicode sequence.
 
-For instance, you would need to have a table like this in your keymap: 
+For instance, you would need to have a table like this in your keymap:
 
 ```c
 const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
@@ -25,9 +25,34 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
 );
 ```
 
-And if you type "rofl", it should backspace 4 times to remove "rofl" and input the `0x1f923` unicode.
+You run the function, and then type "rofl" and hit enter, it should backspace remove "rofl" and input the `0x1f923` unicode.
 
-!> This method is not as well supported, and may be more prone to issues and weird behavior.  It's recommended to use either the `UNICODE_ENABLE`, or better, the `UNICODEMAP_ENABLE` options.
+### Customization
+
+There are several functions that you can add to your keymap to customize the functionality of this feature.
+
+* `void qk_ucis_start_user(void)` - This runs when you run the "start" function, and can be used to provide feedback. By default, it types out a keyboard emoji.
+* `void qk_ucis_symbol_fallback (void)` - This runs if the input text doesn't match anything.  The default function falls back to trying that input as a unicode code.
+
+The default code for these are: 
+
+```c
+
+void qk_ucis_start_user(void) {
+  unicode_input_start();
+  register_hex(0x2328);
+  unicode_input_finish();
+}
+
+void qk_ucis_symbol_fallback (void) {
+  for (uint8_t i = 0; i < qk_ucis_state.count - 1; i++) {
+    uint8_t code = qk_ucis_state.codes[i];
+    register_code(code);
+    unregister_code(code);
+    wait_ms(UNICODE_TYPE_DELAY);
+  }
+}
+```
 
 ## Unicode Input methods
 
