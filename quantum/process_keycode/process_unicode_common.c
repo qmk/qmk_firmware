@@ -20,6 +20,7 @@
 #include <ctype.h>
 
 static uint8_t input_mode;
+static uint8_t first_flag = 0;
 uint8_t mods;
 
 void set_unicode_input_mode(uint8_t os_target)
@@ -29,6 +30,10 @@ void set_unicode_input_mode(uint8_t os_target)
 }
 
 uint8_t get_unicode_input_mode(void) {
+  if (first_flag == 0) {
+    input_mode = eeprom_read_byte(EECONFIG_UNICODEMODE);
+    first_flag = 1;
+  }
   return input_mode;
 }
 
