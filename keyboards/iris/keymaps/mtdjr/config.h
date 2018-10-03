@@ -20,8 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define SOLENOID_ENABLE
-#define SOLENOID_PIN C6
+//#define SOLENOID_ENABLE
+//#define SOLENOID_PIN C6
 
 /* Use I2C or Serial, not both */
 
@@ -31,6 +31,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 #define MASTER_LEFT
+
+// #define AUDIO_CLICKY
+// #define AUDIO_CLICKY_ON
+// #define C6_AUDIO
+// #define AUDIO_CLICKY_FREQ_RANDOMNESS 0.1f
+// #define AUDIO_CLICKY_FREQ_MAX 100.0f
 
 // #define MASTER_RIGHT
 // #define EE_HANDS

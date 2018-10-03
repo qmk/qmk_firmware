@@ -133,7 +133,7 @@ A 1 byte number that is sent as part of a HID report over USB that represents a 
 ## Space Cadet Shift
 A special set of shift keys which allow you to type various types of braces by tapping the left or right shift one or more times.
 
-* [Space Cadet Shift Documentation](feature_space_cadet.md)
+* [Space Cadet Shift Documentation](feature_space_cadet_shift.md)
 
 ## Tap
 Pressing and releasing a key. In some situations you will need to distinguish between a key down and a key up event, and Tap always refers to both at once.
