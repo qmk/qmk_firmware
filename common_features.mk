@@ -234,6 +234,8 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
   OPT_DEFS += -DLEADER_ENABLE
 endif
 
+include $(DRIVER_PATH)/qwiic/qwiic.mk
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \

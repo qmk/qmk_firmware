@@ -1,5 +1,5 @@
 # project specific files
-SRC =	matrix.c qwiic/joystiic.c i2c_master.c
+SRC =	matrix.c
 LAYOUTS += ortho_4x12
 
 ## chip/board settings
@@ -53,4 +53,5 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 AUDIO_ENABLE = yes
 RGBLIGHT_ENABLE = no
+QWIIC_ENABLE += JOYSTIIC
 # SERIAL_LINK_ENABLE = yes

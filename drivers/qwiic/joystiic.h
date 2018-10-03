@@ -15,7 +15,15 @@
  */
 #pragma once
 
-#include "i2c_master.h"
+#include "qwiic.h"
+
+enum {
+  JOYSTIIC_LEFT,
+  JOYSTIIC_RIGHT,
+  JOYSTIIC_UP,
+  JOYSTIIC_DOWN,
+  JOYSTIIC_PRESS
+};
 
 void joystiic_update_kb(uint16_t horizontal, uint16_t vertical, bool button);
 void joystiic_update_user(uint16_t horizontal, uint16_t vertical, bool button);

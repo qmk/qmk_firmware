@@ -34,14 +34,6 @@ uint8_t joystiic_rx_horizontal[2];
 uint8_t joystiic_rx_vertical[2];
 uint8_t joystiic_rx_button[1];
 
-enum {
-  JOYSTIIC_LEFT,
-  JOYSTIIC_RIGHT,
-  JOYSTIIC_UP,
-  JOYSTIIC_DOWN,
-  JOYSTIIC_PRESS
-};
-
 bool joystiic_triggered[5] = {0};
 
 void joystiic_init(void) {
@@ -54,27 +46,28 @@ void joystiic_update(uint16_t horizontal, uint16_t vertical, bool button) {
   joystiic_update_user(horizontal, vertical, button);
 }
 
-void joystiic_update_kb(uint16_t horizontal, uint16_t vertical, bool button) {
+__attribute__ ((weak))
+void joystiic_update_kb(uint16_t horizontal, uint16_t vertical, bool button) { }
 
-}
-
-void joystiic_update_user(uint16_t horizontal, uint16_t vertical, bool button) {
-
-}
+__attribute__ ((weak))
+void joystiic_update_user(uint16_t horizontal, uint16_t vertical, bool button) { }
 
 void joystiic_trigger(uint8_t trigger, bool active) {
   joystiic_trigger_kb(trigger, active);
   joystiic_trigger_user(trigger, active);
 }
 
-void joystiic_trigger_kb(uint8_t trigger, bool active) {
-  switch (trigger) {
-    case JOYSTIIC_LEFT: active ? register_code(KC_L) : unregister_code(KC_L); break;
+__attribute__ ((weak))
+void joystiic_trigger_kb(uint8_t trigger, bool active) { }
+
+__attribute__ ((weak))
+void joystiic_trigger_user(uint8_t trigger, bool active) { }
+
+void joystiic_trigger_if_not(uint8_t trigger, bool active) {
+  if (joystiic_triggered[trigger] != active) {
+    joystiic_triggered[trigger] = active;
+    joystiic_trigger(trigger, active);
   }
-}
-
-void joystiic_trigger_user(uint8_t trigger, bool active) {
-
 }
 
 void joystiic_task(void) {
@@ -90,29 +83,8 @@ void joystiic_task(void) {
 
   joystiic_horizontal = ((uint16_t)joystiic_rx_horizontal[0] << 8) | joystiic_rx_horizontal[1];
 
-  if (joystiic_horizontal > (JOYSTIIC_CENTER + JOYSTIIC_DEADZONE)) {
-    if (!joystiic_triggered[JOYSTIIC_LEFT]) {
-      joystiic_triggered[JOYSTIIC_LEFT] = true;
-      joystiic_trigger(JOYSTIIC_LEFT, true);
-    }
-  } else {
-    if (joystiic_triggered[JOYSTIIC_LEFT]) {
-      joystiic_triggered[JOYSTIIC_LEFT] = false;
-      joystiic_trigger(JOYSTIIC_LEFT, false);
-    }
-  }
-
-  if (joystiic_horizontal < (JOYSTIIC_CENTER - JOYSTIIC_DEADZONE)) {
-    if (!joystiic_triggered[JOYSTIIC_RIGHT]) {
-      joystiic_triggered[JOYSTIIC_RIGHT] = true;
-      joystiic_trigger(JOYSTIIC_RIGHT, true);
-    }
-  } else {
-    if (joystiic_triggered[JOYSTIIC_RIGHT]) {
-      joystiic_triggered[JOYSTIIC_RIGHT] = false;
-      joystiic_trigger(JOYSTIIC_RIGHT, false);
-    }
-  }
+  joystiic_trigger_if_not(JOYSTIIC_LEFT, joystiic_horizontal > (JOYSTIIC_CENTER + JOYSTIIC_DEADZONE));
+  joystiic_trigger_if_not(JOYSTIIC_RIGHT, joystiic_horizontal < (JOYSTIIC_CENTER - JOYSTIIC_DEADZONE));
 
   // get vertical axis
   joystiic_tx[0] = JOYSTIIC_COMMAND_VERTICAL;
@@ -125,29 +97,8 @@ void joystiic_task(void) {
 
   joystiic_vertical = ((uint16_t)joystiic_rx_vertical[0] << 8) | joystiic_rx_vertical[1];
 
-  if (joystiic_vertical > (JOYSTIIC_CENTER + JOYSTIIC_DEADZONE)) {
-    if (!joystiic_triggered[JOYSTIIC_UP]) {
-      joystiic_triggered[JOYSTIIC_UP] = true;
-      joystiic_trigger(JOYSTIIC_UP, true);
-    }
-  } else {
-    if (joystiic_triggered[JOYSTIIC_UP]) {
-      joystiic_triggered[JOYSTIIC_UP] = false;
-      joystiic_trigger(JOYSTIIC_UP, false);
-    }
-  }
-
-  if (joystiic_vertical < (JOYSTIIC_CENTER - JOYSTIIC_DEADZONE)) {
-    if (!joystiic_triggered[JOYSTIIC_DOWN]) {
-      joystiic_triggered[JOYSTIIC_DOWN] = true;
-      joystiic_trigger(JOYSTIIC_DOWN, true);
-    }
-  } else {
-    if (joystiic_triggered[JOYSTIIC_DOWN]) {
-      joystiic_triggered[JOYSTIIC_DOWN] = false;
-      joystiic_trigger(JOYSTIIC_DOWN, false);
-    }
-  }
+  joystiic_trigger_if_not(JOYSTIIC_UP, joystiic_vertical > (JOYSTIIC_CENTER + JOYSTIIC_DEADZONE));
+  joystiic_trigger_if_not(JOYSTIIC_DOWN, joystiic_vertical < (JOYSTIIC_CENTER - JOYSTIIC_DEADZONE));
 
   // get button press
   joystiic_tx[0] = JOYSTIIC_COMMAND_BUTTON;
@@ -158,19 +109,9 @@ void joystiic_task(void) {
     printf("error vert\n");
   }
 
-  joystiic_button = joystiic_rx_button[0];
+  joystiic_button = !joystiic_rx_button[0];
 
-  if (joystiic_button) {
-    if (!joystiic_triggered[JOYSTIIC_PRESS]) {
-      joystiic_triggered[JOYSTIIC_PRESS] = true;
-      joystiic_trigger(JOYSTIIC_PRESS, true);
-    }
-  } else {
-    if (joystiic_triggered[JOYSTIIC_PRESS]) {
-      joystiic_triggered[JOYSTIIC_PRESS] = false;
-      joystiic_trigger(JOYSTIIC_PRESS, false);
-    }
-  }
+  joystiic_trigger_if_not(JOYSTIIC_PRESS, joystiic_button);
 
   joystiic_update(joystiic_horizontal, joystiic_vertical, joystiic_button);
 
