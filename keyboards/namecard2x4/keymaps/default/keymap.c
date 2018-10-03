@@ -17,7 +17,7 @@
 
 enum Layer
 {
-	DF=0,
+	DF,
 	LW,
 	RS
 };
