@@ -19,7 +19,7 @@ table.
 TBD
 
 Unicode input in QMK works by inputing a sequence of characters to the OS,
-sort of like macro. Unfortunately, each OS has different ideas on how Unicode is inputted.
+sort of like macro. Unfortunately, each OS has different ideas on how Unicode is input.
 
 This is the current list of Unicode input method in QMK:
 
@@ -28,6 +28,11 @@ This is the current list of Unicode input method in QMK:
 * UC_LNX: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
 * UC_WIN: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
 * UC_WINC: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
+
+To type multiple characters for things like (ノಠ痊ಠ)ノ彡┻━┻, you can use `send_unicode_hex_string()` much like `SEND_STRING()` except you would use hex values seperated by spaces.
+For example, the table flip seen above would be `send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B")`
+
+There are many ways to get a hex code, but an easy one is [this site](https://r12a.github.io/app-conversion/). Just make sure to convert to hexadecimal, and that is your string.
 
 # Additional Language Support
 
