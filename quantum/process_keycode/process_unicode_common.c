@@ -20,7 +20,7 @@
 #include <ctype.h>
 
 static uint8_t input_mode;
-static bool first_flag = false;
+
 uint8_t mods;
 
 void set_unicode_input_mode(uint8_t os_target)
@@ -30,11 +30,15 @@ void set_unicode_input_mode(uint8_t os_target)
 }
 
 uint8_t get_unicode_input_mode(void) {
+  return input_mode;
+}
+
+void initialize_unicode_input_mode(void) {
+  static bool first_flag = false;
   if (!first_flag) {
     input_mode = eeprom_read_byte(EECONFIG_UNICODEMODE);
     first_flag = true;
   }
-  return input_mode;
 }
 
 __attribute__((weak))
