@@ -9,6 +9,7 @@ extern keymap_config_t keymap_config;
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
+#define _MIDI 3
 #define _ADJUST 16
 
 enum custom_keycodes {
@@ -87,6 +88,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,        KC_P0,         KC_MS_BTN1,   KC_MS_BTN1,   KC_MS_BTN2, _______, _______, KC_0,    KC_DOT,  KC_EQL,  KC_SLSH, _______, \
   _______,        _______,       _______,      _______,      _______,    _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY \
 ),
+  
+/*
+ *
+ * MIDI LAYER
+ *
+ */
+[_MIDI] = LAYOUT( \
+  MI_As, MI_B,  MI_C_1, MI_Cs_1, MI_D_1, MI_Ds_1,   MI_E_1,    MI_F_1,  MI_Fs_1,  MI_G_1,
+  MI_F,  MI_Fs, MI_G,   MI_Gs,   MI_A,   MI_As,     MI_B,      MI_C_1,  MI_Cs_1,  MI_D_1,
+  MI_C,  MI_Cs, MI_D,   MI_Ds,   MI_E,   MI_F,      MI_Fs,     MI_G,    MI_Gs,    MI_A
+)
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------| |-----------------------------------------.
