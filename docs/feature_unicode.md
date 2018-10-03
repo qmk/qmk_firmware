@@ -103,9 +103,9 @@ In `quantum/keymap_extras/`, you'll see various language files - these work the 
 
 ## International Characters on Windows
 
-### [AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys among others.
+### AutoHotkey allows Windows users to create custom hotkeys among others.
 
-The method does not require Unicode support in the keyboard itself but depends instead of AutoHotkey running in the background.
+The method does not require Unicode support in the keyboard itself but depends instead of [AutoHotkey](https://autohotkey.com) running in the background.
 
 First you need to select a modifier combination that is not in use by any of your programs.
 CtrlAltWin is not used very widely and should therefore be perfect for this.
