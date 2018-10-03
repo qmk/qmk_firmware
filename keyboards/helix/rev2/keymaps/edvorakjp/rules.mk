@@ -50,72 +50,20 @@ Link_Time_Optimization = no # if firmware size over limit, try this option
 ##      make HELIX=oled,back,na  helix:edvorakjp
 ##      make HELIX=oled,back,ios helix:edvorakjp
 ##
-ifneq ($(strip $(HELIX)),)
-  ifeq ($(findstring oled,$(HELIX)), oled)
-    OLED_ENABLE = yes
-  endif
-  ifeq ($(findstring back,$(HELIX)), back)
-    LED_BACK_ENABLE = yes
-  else ifeq ($(findstring under,$(HELIX)), under)
-    LED_UNDERGLOW_ENABLE = yes
-  endif
-  ifeq ($(findstring na,$(HELIX)), na)
-    LED_ANIMATIONS = no
-  endif
-  ifeq ($(findstring ios,$(HELIX)), ios)
-    IOS_DEVICE_ENABLE = yes
-  endif
-  $(eval $(call HELIX_CUSTOMISE_MSG))
-  $(info )
-endif
-
-# Uncomment these for checking
-#   jp: コンパイル時にカスタマイズの状態を表示したい時はコメントをはずします。
-# $(eval $(call HELIX_CUSTOMISE_MSG))
-# $(info )
+include $(dir $(lastword $(MAKEFILE_LIST)))../../keymaps_common.mk
 
 ifeq ($(strip $(HELIX_ROWS)), 4)
   SRC += keymap_4rows.c
 else ifeq ($(strip $(HELIX_ROWS)), 5)
   SRC += keymap_5rows.c
-else
-  $(error HELIX_ROWS = $(strip $(HELIX_ROWS)) is unexpected value)
 endif
-OPT_DEFS += -DHELIX_ROWS=$(strip $(HELIX_ROWS))
 
-ifeq ($(strip $(LED_BACK_ENABLE)), yes)
-  RGBLIGHT_ENABLE = yes
+ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
   OPT_DEFS += -DRGBLED_BACK
-  ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
-    $(eval $(call HELIX_CUSTOMISE_MSG))
-    $(error LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE both 'yes')
-  endif
-else ifeq ($(strip $(LED_UNDERGLOW_ENABLE)), yes)
-  RGBLIGHT_ENABLE = yes
-  OPT_DEFS += -DRGBLED_BACK
-else
-  RGBLIGHT_ENABLE = no
-endif
-
-ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
-  OPT_DEFS += -DIOS_DEVICE_ENABLE
-endif
-
-ifeq ($(strip $(LED_ANIMATIONS)), yes)
-  OPT_DEFS += -DRGBLIGHT_ANIMATIONS
 endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
-  OPT_DEFS += -DOLED_ENABLE
   SRC += oled.c
-endif
-
-ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
-  OPT_DEFS += -DLOCAL_GLCDFONT
-endif
-
-ifeq ($(strip $(Link_Time_Optimization)),yes)
-    EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
