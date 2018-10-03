@@ -17,7 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _QWERTY 0
 #define _NMBR 1
 #define _NAV 2
-#define _FUNCT 3
+#define _MOUSE 3
+#define _FUNCT 4
 
 #define _____ KC_TRNS
 
@@ -29,9 +30,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LCTL,    KC_LGUI,    KC_LALT,         LT(_NAV, KC_SPC),         KC_BSPC,    KC_RALT,             TT(_MOUSE),   TT(_NMBR)
    ),
    [_NAV] = SPLITSPACE_KEYMAP(
-     _____,      _____,        KC_UP,        _____,        KC_LPRN,    KC_RPRN,    _____,     KC_7,     KC_8,     KC_9,         KC_KP_SLASH,    KC_DEL,
-     _____,      KC_LEFT,      KC_DOWN,      KC_RIGHT,     KC_LCBR,    KC_RCBR,    _____,     KC_4,     KC_5,     KC_6,         KC_KP_ASTERISK,
-     _____,      LSFT(KC_DEL), LCTL(KC_INS), LSFT(KC_INS), KC_LABK,    KC_RABK,    KC_GRV,    KC_1,     KC_2,     KC_3,         KC_KP_MINUS,
+     _____,      _____,      KC_UP,      _____,    KC_LPRN,    KC_RPRN,    _____,     KC_7,     KC_8,     KC_9,         KC_KP_SLASH,    KC_DEL,
+     _____,      KC_LEFT,    KC_DOWN,    KC_RIGHT, KC_LCBR,    KC_RCBR,    _____,     KC_4,     KC_5,     KC_6,         KC_KP_ASTERISK,
+     _____,      _____,      _____,      _____,    KC_LABK,    KC_RABK,    KC_GRV,    KC_1,     KC_2,     KC_3,         KC_KP_MINUS,
      _____,      _____,      _____,            _____,        _____,         _____,                   KC_KP_DOT,  KC_KP_PLUS
    ),
    [_NMBR] = SPLITSPACE_KEYMAP(
@@ -53,25 +54,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _____,      _____,      _____,            RGB_TOG,        RGB_MOD,         _____,                   _____,    RESET
    )
 };
-
-uint32_t layer_state_set_user(uint32_t state) {
-    switch (biton32(state)) {
-    case _NAV:
-        rgblight_setrgb (0x00,  0x00, 0xFF);
-        break;
-    case _NMBR:
-        rgblight_setrgb (0xFF,  0x00, 0x00);
-        break;
-    case _MOUSE:
-        rgblight_setrgb (0x00,  0xFF, 0x00);
-        break;
-    case _FUNCT:
-        rgblight_setrgb (0x7A,  0x00, 0xFF);
-        break;
-    default: //  for any other layers, or the default layer
-        rgblight_setrgb (0x00,  0xFF, 0xFF);
-		rgblight_mode(8)
-        break;
-    }
-  return state;
-}
