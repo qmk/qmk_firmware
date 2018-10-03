@@ -1,16 +1,24 @@
-# name_card2x4
+# namecard2x4
 
-![name_card2x4](imgur.com image replace me!)
+日本式名刺サイズのキーボードです（55x91mm）。
+Kailh PCB SocketとWS2812/SK6812に対応しています。
 
-A short description of the keyboard/project
+This keyboard is Japanese namecard size(55x91mm) keyboard.
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+namecard2x4 has 8 switch and kailh PCB socket.
+
+![namecard2x4](https://i.imgur.com/Bi9SV9A.jpg)
+
+![namecard2x4 with case](https://i.imgur.com/yTv1vSz.jpg)
+
+
+
+Keyboard Maintainer: [takashiski](https://github.com/takashiski)  
+
 
 Make example for this keyboard (after setting up your build environment):
 
-    make name_card2x4:default
+    make namecard2x4:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
