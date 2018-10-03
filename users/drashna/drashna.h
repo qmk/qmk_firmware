@@ -165,13 +165,8 @@ enum userspace_custom_keycodes {
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
 
-#ifdef UNICODE_ENABLE
 #define UC_IRNY UC(0x2E2E)
 #define UC_CLUE UC(0x203D)
-#else
-#define UC_IRNY KC_NO
-#define UC_CLUE KC_NO
-#endif
 
 #ifdef TAP_DANCE_ENABLE
 enum {
