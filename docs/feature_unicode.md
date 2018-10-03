@@ -38,8 +38,7 @@ There are several functions that you can add to your keymap to customize the fun
 The default code for these are:
 
 ```c
-
-void qk_ucis_start_user(void) {
+void qk_ucis_start_user(void) { // outputs keyboard emoji
   unicode_input_start();
   register_hex(0x2328);
   unicode_input_finish();
@@ -48,7 +47,7 @@ void qk_ucis_start_user(void) {
 void qk_ucis_success(uint8_t symbol_index) {
 }
 
-void qk_ucis_symbol_fallback (void) {
+void qk_ucis_symbol_fallback (void) { // falls back to manual unicode entry
   for (uint8_t i = 0; i < qk_ucis_state.count - 1; i++) {
     uint8_t code = qk_ucis_state.codes[i];
     register_code(code);
