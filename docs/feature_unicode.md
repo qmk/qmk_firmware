@@ -12,7 +12,7 @@ Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping table
 
 ## UCIS_ENABLE
 
-As with `UNICODE_MAP`, this requires that you maintain a separate mapping table in your keymap file.  However, there is no keycodes for this feature, you will have to add a keycode or function to call `qk_ucis_start()`. Once you've run that, you can just type the text for your unicode, and then hit space or enter to complete it, or ESC to cancel it. And if it matches an entry in your table, it will automatically "backspace" the trigger word (from your table) and then will input the unicode sequence.
+Supports Unicode up to 0xFFFFFFFF. As with `UNICODE_MAP`, you may want to main a mapping table in your keymap file.  However, there is no keycodes for this feature, you will have to add a keycode or function to call `qk_ucis_start()`. Once you've run that, you can just type the text for your unicode, and then hit space or enter to complete it, or ESC to cancel it. And if it matches an entry in your table, it will automatically "backspace" the trigger word (from your table) and then will input the unicode sequence.
 
 For instance, you would need to have a table like this in your keymap:
 
@@ -32,9 +32,10 @@ You run the function, and then type "rofl" and hit enter, it should backspace re
 There are several functions that you can add to your keymap to customize the functionality of this feature.
 
 * `void qk_ucis_start_user(void)` - This runs when you run the "start" function, and can be used to provide feedback. By default, it types out a keyboard emoji.
+* `void qk_ucis_success(uint8_t symbol_index)` - This runs when the unicode input has matched something, and has completed. Default doesn't do anything.
 * `void qk_ucis_symbol_fallback (void)` - This runs if the input text doesn't match anything.  The default function falls back to trying that input as a unicode code.
 
-The default code for these are: 
+The default code for these are:
 
 ```c
 
@@ -42,6 +43,9 @@ void qk_ucis_start_user(void) {
   unicode_input_start();
   register_hex(0x2328);
   unicode_input_finish();
+}
+
+void qk_ucis_success(uint8_t symbol_index) {
 }
 
 void qk_ucis_symbol_fallback (void) {
@@ -61,11 +65,11 @@ sort of like macro. Unfortunately, each OS has different ideas on how Unicode is
 
 This is the current list of Unicode input method in QMK:
 
-* UC_OSX: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
-* UC_OSX_RALT: Same as UC_OSX, but sends the Right Alt key for unicode input
-* UC_LNX: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
-* UC_WIN: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
-* UC_WINC: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
+* _UC_OSX_: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
+* _UC_OSX_RALT_: Same as UC_OSX, but sends the Right Alt key for unicode input
+* _UC_LNX_: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
+* _UC_WIN_: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
+* _UC_WINC_: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
 
 At some point, you need to call `set_unicode_input_mode(x)` to set the correct unicode method.  This sets the method that is used to send the unicode, and stores it in EEPROM, so you only need to call this once.
 
