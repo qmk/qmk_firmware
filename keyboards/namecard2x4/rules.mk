@@ -45,7 +45,16 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# OPT_DEFS += -DBOOTLOADER_SIZE=4096
+
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   atmega32a    bootloadHID
+BOOTLOADER = atmel-dfu
 
 
 # Build Options
@@ -68,5 +77,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
-UNICODEMAP_ENABLE = yes
-//RGBLIGHT_ENABLE = yes
+#UNICODEMAP_ENABLE = yes # for emoji user
+#RGBLIGHT_ENABLE = yes # uncomment if you want addressable led strips
