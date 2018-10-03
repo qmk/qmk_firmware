@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -7,7 +6,7 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-// #define MANUFACTURER    qmkbuilder
+#define MANUFACTURER    QMK Community
 #define PRODUCT         Pteron Keyboard
 #define DESCRIPTION     Pteron Keyboard
 
@@ -33,5 +32,3 @@
 
 /* prevent stuck modifiers */
 #define PREVENT_STUCK_MODIFIERS
-
-#endif

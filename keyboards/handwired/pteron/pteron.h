@@ -1,5 +1,4 @@
-#ifndef PTERON_H
-#define PTERON_H
+#pragma once
 
 #include "quantum.h"
 
@@ -16,5 +15,3 @@
 	{ K300,  K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311 }, \
 	{ KC_NO, KC_NO, K402,  K403,  K404,  K405,  K406,  K407,  K408,  K409,  KC_NO, KC_NO }  \
 }
-
-#endif
