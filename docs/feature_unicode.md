@@ -10,6 +10,24 @@ Supports Unicode input up to 0xFFFF. The keycode function is `UC(n)` in keymap f
 
 Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(n)` where *n* is the array index of the mapping table.
 
+And you may want to have an enum to make reference easier.  So you'd want to add something like this to your keymap:
+
+```c
+enum unicode_name {
+  BANG, // ‽
+  IRONY, // ⸮
+  SNEK // snke 🐍
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+  [BANG]      = 0x0203D, // ‽
+  [IRONY]     = 0x02E2E, // ⸮
+  [SNEK]      = 0x1F40D // snke 🐍
+}:
+```
+
+Make sure that the order for both matches.
+
 ## UCIS_ENABLE
 
 Supports Unicode up to 0xFFFFFFFF. As with `UNICODE_MAP`, you may want to main a mapping table in your keymap file.  However, there is no keycodes for this feature, you will have to add a keycode or function to call `qk_ucis_start()`. Once you've run that, you can just type the text for your unicode, and then hit space or enter to complete it, or ESC to cancel it. And if it matches an entry in your table, it will automatically "backspace" the trigger word (from your table) and then will input the unicode sequence.
