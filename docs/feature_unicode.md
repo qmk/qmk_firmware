@@ -4,21 +4,34 @@ There are three Unicode keymap definition method available in QMK:
 
 ## UNICODE_ENABLE
 
-Supports Unicode input up to 0xFFFF. The keycode function is `UC(n)` in
-keymap file, where *n* is a 4 digit hexadecimal.
+Supports Unicode input up to 0xFFFF. The keycode function is `UC(n)` in keymap file, where *n* is a 4 digit hexadecimal.
 
 ## UNICODEMAP_ENABLE
 
-Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping
-table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file.
-The keycode function is `X(n)` where *n* is the array index of the mapping
-table.
+Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(n)` where *n* is the array index of the mapping table.
 
 ## UCIS_ENABLE
 
-TBD
+Supports Unicode up to 0xFFFFFFFF. As with `UNICODE_MAP`, this requires that you maintain a separate mapping table in your keymap file.  However, there is no keycodes for this feature, as it monitors what you are typing, and if it matches an entry in your table, it will automatically "backspace" the trigger word (from your table) and then will input the unicode sequence. 
 
-Unicode input in QMK works by inputing a sequence of characters to the OS,
+For instance, you would need to have a table like this in your keymap: 
+
+```c
+const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
+(
+ UCIS_SYM("poop", 0x1f4a9),
+ UCIS_SYM("rofl", 0x1f923),
+ UCIS_SYM("kiss", 0x1f619)
+);
+```
+
+And if you type "rofl", it should backspace 4 times to remove "rofl" and input the `0x1f923` unicode.
+
+!> This method is not as well supported, and may be more prone to issues and weird behavior.  It's recommended to use either the `UNICODE_ENABLE`, or better, the `UNICODEMAP_ENABLE` options.
+
+## Unicode Input methods
+
+Unicode input in QMK works by inputting a sequence of characters to the OS,
 sort of like macro. Unfortunately, each OS has different ideas on how Unicode is input.
 
 This is the current list of Unicode input method in QMK:
@@ -29,18 +42,22 @@ This is the current list of Unicode input method in QMK:
 * UC_WIN: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
 * UC_WINC: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
 
-To type multiple characters for things like (ノಠ痊ಠ)ノ彡┻━┻, you can use `send_unicode_hex_string()` much like `SEND_STRING()` except you would use hex values seperated by spaces.
+At some point, you need to call `set_unicode_input_mode(x)` to set the correct unicode method.  This sets the method that is used to send the unicode, and stores it in EEPROM, so you only need to call this once.
+
+## `send_unicode_hex_string`
+
+To type multiple characters for things like (ノಠ痊ಠ)ノ彡┻━┻, you can use `send_unicode_hex_string()` much like `SEND_STRING()` except you would use hex values separate by spaces.
 For example, the table flip seen above would be `send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B")`
 
 There are many ways to get a hex code, but an easy one is [this site](https://r12a.github.io/app-conversion/). Just make sure to convert to hexadecimal, and that is your string.
 
-# Additional Language Support
+## Additional Language Support
 
 In `quantum/keymap_extras/`, you'll see various language files - these work the same way as the alternative layout ones do. Most are defined by their two letter country/language code followed by an underscore and a 4-letter abbreviation of its name. `FR_UGRV` which will result in a `ù` when using a software-implemented AZERTY layout. It's currently difficult to send such characters in just the firmware.
 
-# International Characters on Windows
+## International Characters on Windows
 
-[AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys among others.
+### [AutoHotkey](https://autohotkey.com) allows Windows users to create custom hotkeys among others.
 
 The method does not require Unicode support in the keyboard itself but depends instead of AutoHotkey running in the background.
 
@@ -57,3 +74,11 @@ In the default script of AutoHotkey you can define custom hotkeys.
 
 The hotkeys above are for the combination CtrlAltGui and CtrlAltGuiShift plus the letter a.
 AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
+
+### US International
+
+If you enable the US International layout on the system, it will use punctuation to accent the characters. 
+
+For instance, typing "`a" will result in à.
+
+You can find details on how to enable this [here](https://support.microsoft.com/en-us/help/17424/windows-change-keyboard-layout).
