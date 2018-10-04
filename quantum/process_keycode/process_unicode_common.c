@@ -31,7 +31,7 @@ uint8_t get_unicode_input_mode(void) {
   return input_mode;
 }
 
-void initialize_unicode_input_mode(void) {
+void unicode_input_mode_init(void) {
   static bool first_flag = false;
   if (!first_flag) {
     input_mode = eeprom_read_byte(EECONFIG_UNICODEMODE);

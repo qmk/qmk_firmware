@@ -20,7 +20,7 @@
 bool process_unicode(uint16_t keycode, keyrecord_t *record) {
   if (keycode > QK_UNICODE && record->event.pressed) {
     uint16_t unicode = keycode & 0x7FFF;
-    initialize_unicode_input_mode();
+    unicode_input_mode_init();
     unicode_input_start();
     register_hex(unicode);
     unicode_input_finish();
