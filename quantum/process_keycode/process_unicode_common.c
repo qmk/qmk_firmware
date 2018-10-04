@@ -32,7 +32,7 @@ uint8_t get_unicode_input_mode(void) {
 }
 
 void initialize_unicode_input_mode(void) {
-  static bool first_flag;
+  static bool first_flag = false;
   if (!first_flag) {
     input_mode = eeprom_read_byte(EECONFIG_UNICODEMODE);
     first_flag = true;
