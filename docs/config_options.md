@@ -83,6 +83,8 @@ This is a C header file that is one of the first things included, and will persi
   * the length of one backlight "breath" in seconds
 * `#define DEBOUNCING_DELAY 5`
   * the delay when reading the value of the pin (5 is default)
+* `#define LEADER_PER_KEY_TIMING`
+  * sets the timer for leader key chords to run on each key press rather than overall
 * `#define LOCKING_SUPPORT_ENABLE`
   * mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 * `#define LOCKING_RESYNC_ENABLE`
@@ -187,7 +189,7 @@ Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in yo
 
 * `#define SPLIT_HAND_PIN B7`
   * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace 'B7' with the pin you are using. This is optional and you can still use the EEHANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
-  
+
 * `#define USE_I2C`
   * For using I2C instead of Serial (defaults to serial)
 
