@@ -126,10 +126,12 @@ if (record->event.pressed) { \
     register_code(KC_LSFT); \
     unregister_code(kc1); \
     register_code(kc1); \
+    add_to_prev(kc1); \
   } \
 } else { \
   unregister_code(kc1); \
   unregister_code(kc2); \
+  unreg_prev(); \
   if (lshift || rshift) \
     register_code(KC_LSFT); \
   else \
@@ -149,10 +151,12 @@ if (record->event.pressed) { \
   } else { \
     unregister_code(kc1); \
     register_code(kc1); \
+    add_to_prev(kc1); \
   } \
 } else { \
   unregister_code(kc1); \
   unregister_code(kc2); \
+  unreg_prev(); \
   if (lshift || rshift) \
     register_code(KC_LSFT); \
   else \
@@ -176,6 +180,7 @@ if (record->event.pressed) { \
 } else { \
   unregister_code(kc1); \
   unregister_code(kc2); \
+  unreg_prev(); \
   if (lshift || rshift) \
     register_code(KC_LSFT); \
   else \

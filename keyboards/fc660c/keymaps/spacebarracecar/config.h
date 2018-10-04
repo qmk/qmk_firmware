@@ -1,5 +1,4 @@
 #pragma once
-#include "config_common.h"
 
 // higher value means deeper actuation point, less sensitive
 // be careful and only make small adjustments (steps of 1 or 2).

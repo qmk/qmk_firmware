@@ -218,9 +218,11 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
       } else {
         unregister_code(DE_HASH);
         register_code(DE_HASH);
+        add_to_prev(DE_HASH);
       }
     } else {
       unregister_code(DE_HASH);
+      unreg_prev();
       if (lshift || rshift)
         register_code(KC_LSFT);
       else
@@ -277,6 +279,13 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
     CTRL(DE_Z, KC_Z)
   case CU_Y:
     CTRL(DE_Y, KC_Y)
+  case KC_LCTL:
+  case KC_RCTL:
+    if(!record->event.pressed) {
+      unregister_code(KC_Z);
+      unregister_code(KC_Y);
+    }
+    return true;
   #endif
 
   default:
