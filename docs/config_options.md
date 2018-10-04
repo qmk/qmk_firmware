@@ -83,8 +83,6 @@ This is a C header file that is one of the first things included, and will persi
   * the length of one backlight "breath" in seconds
 * `#define DEBOUNCING_DELAY 5`
   * the delay when reading the value of the pin (5 is default)
-* `#define LEADER_PER_KEY_TIMING`
-  * sets the timer for leader key chords to run on each key press rather than overall
 * `#define LOCKING_SUPPORT_ENABLE`
   * mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 * `#define LOCKING_RESYNC_ENABLE`
@@ -144,6 +142,8 @@ If you define these options you will enable the associated feature, which may in
   * See [Hold after tap](feature_advanced_keycodes.md#hold-after-tap)
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
+* `#define LEADER_PER_KEY_TIMING`
+  * sets the timer for leader key chords to run on each key press rather than overall
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
@@ -242,6 +242,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Enable the audio subsystem.
 * `RGBLIGHT_ENABLE`
   * Enable keyboard underlight functionality
+* `LEADER_ENABLE`
+  * Enable leader key chording
 * `MIDI_ENABLE`
   * MIDI controls
 * `UNICODE_ENABLE`
