@@ -57,7 +57,7 @@ Never made an open source contribution before? Wondering how contributions work 
 Most of our style is pretty easy to pick up on, but right now it's not entirely consistent. You should match the style of the code surrounding your change, but if that code is inconsistent or unclear use the following guidelines:
 
 * We indent using two spaces (soft tabs)
-* We use [One True Brace Style](http://google.github.io/styleguide/javaguide.html) (java specific things should be ignored)
+* We use a modified One True Brace Style
   * Opening Brace: At the end of the same line as the statement that opens the block
   * Closing Brace: Lined up with the first character of the statement that opens the block
   * Else If: Place the closing brace at the beginning of the line and the next opening brace at the end of the same line.
