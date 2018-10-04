@@ -64,7 +64,7 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * Optional Braces: Always include optional braces.
     * Good: if (condition) { return false; }
     * Bad: if (condition) return false;
-* We use C style comments: `/* */`
+* We encourage use of C style comments: `/* */`
   * Think of them as a story describing the feature
   * Use them liberally to explain why particular decisions were made.
   * Do not write obvious comments
@@ -81,7 +81,7 @@ enum foo_state {
   FOO_BAZ,
 };
 
-/* returns a value */
+/* Returns a value */
 int foo(void) {
   if (some_condition) {
     return FOO_BAR;
