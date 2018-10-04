@@ -2,12 +2,13 @@
 #define USERSPACE_CONFIG_H
 
 //TAPPING_TERM
-#if (defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_gherkin))
-//tapping term short (<100): lingering taps may not register, but modifiers register easier
-//tapping term long (>200): lingering taps register easily, modifiers don't register as easily (e.g. shift doesn't want to engage.)
-#define TAPPING_TERM 180
+//tapping term short (<100): on multi-purpose keys, slow taps may not register, but "holds" register easier. multi-tap keys may be difficult to activate.
+//tapping term long (>200): holds don't register as easily - noticeable when typing quickly (e.g. shift doesn't want to engage.)
+#if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_lets_split_rev2)
+//Kailh Coppers activate quickly and don't need a long tapping term
+#define TAPPING_TERM 100
 #else
-#define TAPPING_TERM 110
+#define TAPPING_TERM 145
 #endif
 
 //Mousekey Settings
