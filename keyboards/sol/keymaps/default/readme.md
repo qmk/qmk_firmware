@@ -1,4 +1,4 @@
-# The Default Helix Layout
+# The Default Sol Layout
 ## Layout
 
 ### Qwerty
@@ -105,19 +105,16 @@
 
 ## Customize
 
-see `qmk_firmware/keyboards/helix/rev2/keymaps/default/rules.mk`
+see `qmk_firmware/keyboards/sol/rev1/keymaps/default/rules.mk`
 
 ```
-# Helix keyboard customize
-# you can edit follows 7 Variables
-#  jp: 以下の7つの変数を必要に応じて編集します。
-HELIX_ROWS = 5              # Helix Rows is 4 or 5
+# Viariables you can set for SOL
+
 OLED_ENABLE = no            # OLED_ENABLE
 LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
 LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
-IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
 ```
 ## Compile
@@ -129,15 +126,10 @@ $ cd qmk_firmware
 
 build
 ```
-$ make helix:default
+$ make sol:default
 ```
 
-flash to keyboard
+After the initial flash with AVRdudess, you should be able to flash using this:
 ```
-$ make helix:default:avrdude
+$ make sol:default:dfu
 ```
-
-## Link
-* more detail wrote in Japanese [helix/Doc/firmware_jp.md](https://github.com/MakotoKurauchi/helix/blob/master/Doc/firmware_jp.md)
-* [Helix top](https://github.com/MakotoKurauchi/helix)
-
