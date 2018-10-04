@@ -72,16 +72,18 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
 * In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
 * We use `#pragma once` at the start of header files rather than old-style include guards (`#ifndef THIS_FILE_H`, `#define THIS_FILE_H`, ..., `#endif`)
 
-Here is an example for easy reference: 
+Here is an example for easy reference:
 
 ```c
+/* Enums for foo */
 enum foo_state {
   FOO_BAR,
   FOO_BAZ,
 };
 
+/* returns a value */
 int foo(void) {
-  if (cond1) {
+  if (some_condition) {
     return FOO_BAR;
   } else {
     return -1;
