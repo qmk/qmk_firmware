@@ -2,10 +2,12 @@
 #define USERSPACE_CONFIG_H
 
 //TAPPING_TERM
-#ifdef TAP_DANCE_ENABLE
+#if (defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_gherkin))
 //tapping term short (<100): lingering taps may not register, but modifiers register easier
 //tapping term long (>200): lingering taps register easily, modifiers don't register as easily (e.g. shift doesn't want to engage.)
-#define TAPPING_TERM 120
+#define TAPPING_TERM 180
+#else
+#define TAPPING_TERM 110
 #endif
 
 //Mousekey Settings
