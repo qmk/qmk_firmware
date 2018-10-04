@@ -16,7 +16,8 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
   RAISE,
-  ADJUST,
+  MIDI,
+  ADJUST
 };
 
 // Fillers to make layering more clear
@@ -78,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
  * |      |   0  |  mB1 |  mB1 |  mB2 |      | |      |   0  |   .  |   =  |   /  |Enter |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
- * |      |      |      |      |      |      | |      |      | Mute | Vol- | Vol+ | Play |
+ * | MIDI |      |      |      |      |      | |      |      | Mute | Vol- | Vol+ | Play |
  * `-----------------------------------------| |-----------------------------------------'
  */
 [_RAISE] = LAYOUT( \
@@ -86,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LALT(KC_RIGHT), KC_MS_WH_DOWN, KC_MS_UP,     KC_MS_WH_UP,  _______,    _______, _______, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_DEL, \
   KC_DEL,         KC_MS_LEFT,    KC_MS_DOWN,   KC_MS_RIGHT,  _______,    _______, _______, KC_1,    KC_2,    KC_3,    KC_ASTR, KC_BSLS, \
   _______,        KC_P0,         KC_MS_BTN1,   KC_MS_BTN1,   KC_MS_BTN2, _______, _______, KC_0,    KC_DOT,  KC_EQL,  KC_SLSH, _______, \
-  _______,        _______,       _______,      _______,      _______,    _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY \
+  MIDI,           _______,       _______,      _______,      _______,    _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY \
 ),
   
 /* ||||||||||||||||||||||
@@ -96,9 +97,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |||||||||||||||||||||||||||
  */
 [_MIDI] = LAYOUT( \
-  MI_As, MI_B,  MI_C_1, MI_Cs_1, MI_D_1, MI_Ds_1,   MI_E_1,    MI_F_1,  MI_Fs_1,  MI_G_1,
-  MI_F,  MI_Fs, MI_G,   MI_Gs,   MI_A,   MI_As,     MI_B,      MI_C_1,  MI_Cs_1,  MI_D_1,
-  MI_C,  MI_Cs, MI_D,   MI_Ds,   MI_E,   MI_F,      MI_Fs,     MI_G,    MI_Gs,    MI_A
+  QWERTY,   MI_C,    MI_D,    MI_E,    MI_F,    MI_G,    MI_A,    MI_B,    MI_C_1,  MI_C_2,  MI_C_3,  QWERTY, \               
+  MI_A_3,   MI_As_3, MI_B_3,  MI_C_3,  MI_Cs_3, MI_D_3,  MI_Ds_3, MI_E_3,  MI_F_3,  MI_Fs_3, MI_G_3,  MI_Gs_3, \
+  MI_A_2,   MI_As_2, MI_B_2,  MI_C_2,  MI_Cs_2, MI_D_2,  MI_Ds_2, MI_E_2,  MI_F_2,  MI_Fs_2, MI_G_2,  MI_Gs_2, \
+  MI_A_1,   MI_As_1, MI_B_1,  MI_C_1,  MI_Cs_1, MI_D_1,  MI_Ds_1, MI_E_1,  MI_F_1,  MI_Fs_1, MI_G_1,  MI_Gs_1, \
+  MI_A,     MI_As,   MI_B,    MI_C,    MI_Cs,   MI_D,    MI_Ds,   MI_E,    MI_F,    MI_Fs,   MI_G,    MI_Gs, \
 )
 
 /* Adjust (Lower + Raise)
@@ -162,6 +165,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RAISE);
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      }
+      return false;
+      break;
+    case MIDI:
+      if (record->event.pressed) {
+        layer_on(_MIDI);
+      } else {
+        layer_off(_MIDI);
       }
       return false;
       break;
