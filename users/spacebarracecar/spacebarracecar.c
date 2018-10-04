@@ -1,18 +1,29 @@
 #include "spacebarracecar.h"
 
 #ifdef GERMAN_ENABLE
+// These indicate if left and right shift are physically pressed
 bool lshift = false;
 bool rshift = false;
+
+// Interrupt and times for space cadet shift
 bool lshiftp = false;
 bool rshiftp = false;
 uint16_t lshift_timer = 0;
 uint16_t rshift_timer = 0;
 
+// Number of items that are saved in prev_kcs
 uint8_t prev_indx = 0;
+// Used to save the last 6 actual keycodes activated by frankenkeycodes
 uint16_t prev_kcs[6] = {0, 0, 0, 0, 0, 0};
 
+// If true the deadkey characters grave and circonflexe are not automatically escaped
 bool esct = false;
 
+/*
+Used to add a keycode to a prev_kcs to remember it.
+When full the last code gets discarded and replaced by
+the new one.
+*/
 void add_to_prev(uint16_t kc){
   for (int i=0; i<prev_indx; i++){
     if (kc == prev_kcs[i])
@@ -29,6 +40,13 @@ void add_to_prev(uint16_t kc){
   }
 }
 
+/*
+Unregisters all codes saved in prev_kcs and resets prev_indx.
+gets called on multiple occasions mainly when shift is released
+and when frankenkeycodes are pressed. Prevents output of
+wrong characters when really specific key combinations
+that would never occur during normal usage are pressed.
+*/
 void unreg_prev(void){
   if (prev_indx == 0)
     return;
@@ -39,11 +57,14 @@ void unreg_prev(void){
 }
 #endif
 
-// stuff for nav esc
+// Interrupt and times for Nav/Esc
 bool navesc = false;
 uint16_t navesc_timer = 0;
+
+// If true Gui keys and Space Cadet Shift get disabled
 bool game = false;
 
+// Interrupts all timers
 void timer_timeout(void){
   #ifdef GERMAN_ENABLE
   lshiftp = false;
