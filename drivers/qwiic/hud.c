@@ -45,173 +45,88 @@ void AdjustIconLevel(uint16_t IconNo, uint16_t IconLevel) {
   case 0: //Location in R
     if (BumpNoTemp == 1) {
       IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = ChangeRedValue(IconRamMap[IconData[IconNo].DriverNo][StartBytePos], IconLevel);
-      //Set the position setting to write
-      SendDataBuffer[0] = 0x0A;
-      SendDataBuffer[1] = StartBytePos >> 4; //X Start
-      SendDataBuffer[2] = StartBytePos & 0x0F;
-      SendDataBuffer[3] = 0x07; //X End
-      SendDataBuffer[4] = 0x0F;
-      SendDataBuffer[5] = 0; //Y Start
-      SendDataBuffer[6] = 0;
-      SendDataBuffer[7] = 0; //Y End
-      SendDataBuffer[8] = 0;
-      IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
-      //Only 1 RGB data, go directly to the Data Send
-      SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8;
-      SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
-      IIC_Write_Data1(IIC_Addr[IconData[IconNo].DriverNo], 2, SendDataBuffer);
-      return;
     } else if (BumpNoTemp == 2) {
       IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = ChangeRG_Value(IconRamMap[IconData[IconNo].DriverNo][StartBytePos], IconLevel);
-      //Set the position setting to write
-      SendDataBuffer[0] = 0x0A;
-      SendDataBuffer[1] = StartBytePos >> 4; //X Start
-      SendDataBuffer[2] = StartBytePos & 0x0F;
-      SendDataBuffer[3] = 0x07; //X End
-      SendDataBuffer[4] = 0x0F;
-      SendDataBuffer[5] = 0; //Y Start
-      SendDataBuffer[6] = 0;
-      SendDataBuffer[7] = 0; //Y End
-      SendDataBuffer[8] = 0;
-      IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
-      //Only 1 RGB data, go directly to the Data Send
-      SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8;
-      SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
+    } else if (BumpNoTemp >= 3) {
+      IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = SetRGB_Value(IconLevel);
+    }
+    SendDataBuffer[0] = 0x0A;
+    SendDataBuffer[1] = StartBytePos >> 4; //X Start
+    SendDataBuffer[2] = StartBytePos & 0x0F;
+    SendDataBuffer[3] = 0x07; //X End
+    SendDataBuffer[4] = 0x0F;
+    SendDataBuffer[5] = 0; //Y Start
+    SendDataBuffer[6] = 0;
+    SendDataBuffer[7] = 0; //Y End
+    SendDataBuffer[8] = 0;
+    IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
+
+    SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8;
+    SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
+
+    if (BumpNoTemp <= 3) {
       IIC_Write_Data1(IIC_Addr[IconData[IconNo].DriverNo], 2, SendDataBuffer);
       return;
-    } else if (BumpNoTemp == 3) {
-      IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = SetRGB_Value(IconLevel);
-      //Set the position setting to write
-      SendDataBuffer[0] = 0x0A;
-      SendDataBuffer[1] = StartBytePos >> 4; //X Start
-      SendDataBuffer[2] = StartBytePos & 0x0F;
-      SendDataBuffer[3] = 0x07; //X End
-      SendDataBuffer[4] = 0x0F;
-      SendDataBuffer[5] = 0; //Y Start
-      SendDataBuffer[6] = 0;
-      SendDataBuffer[7] = 0; //Y End
-      SendDataBuffer[8] = 0;
-      IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
-      //Only 1 RGB data, go directly to the Data Send
-      SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8;
-      SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
-      IIC_Write_Data1(IIC_Addr[IconData[IconNo].DriverNo], 2, SendDataBuffer);
-      return;
-    } else if (BumpNoTemp > 3) //Said that Bump is greater than 3 (more than 1 RGB16bit data)
-    {
-      IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = SetRGB_Value(IconLevel);
-      //Set the position setting to write
-      SendDataBuffer[0] = 0x0A;
-      SendDataBuffer[1] = StartBytePos >> 4; //X Start
-      SendDataBuffer[2] = StartBytePos & 0x0F;
-      SendDataBuffer[3] = 0x07; //X End
-      SendDataBuffer[4] = 0x0F;
-      SendDataBuffer[5] = 0; //Y Start
-      SendDataBuffer[6] = 0;
-      SendDataBuffer[7] = 0; //Y End
-      SendDataBuffer[8] = 0;
-      IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
-      //Store the first SEG data in Buffer
-      SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8; //Store the first data in Buffer 0 & 1
-      SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
+    } else {
       BumpNoTemp = BumpNoTemp - 3;
     }
+
     break;
   case 1: //Location in G
     if (BumpNoTemp == 1) {
       IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = ChangeGreenValue(IconRamMap[IconData[IconNo].DriverNo][StartBytePos], IconLevel);
-      //Set the position setting to write
-      SendDataBuffer[0] = 0x0A;
-      SendDataBuffer[1] = StartBytePos >> 4; //X Start
-      SendDataBuffer[2] = StartBytePos & 0x0F;
-      SendDataBuffer[3] = 0x07; //X End
-      SendDataBuffer[4] = 0x0F;
-      SendDataBuffer[5] = 0; //Y Start
-      SendDataBuffer[6] = 0;
-      SendDataBuffer[7] = 0; //Y End
-      SendDataBuffer[8] = 0;
-      IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
-      //Only 1 RGB data, go directly to the Data Send
-      SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8;
-      SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
-      IIC_Write_Data1(IIC_Addr[IconData[IconNo].DriverNo], 2, SendDataBuffer);
-      return;
+    } else if (BumpNoTemp >= 2) {
+      IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = ChangeGB_Value(IconRamMap[IconData[IconNo].DriverNo][StartBytePos], IconLevel);
+    }
 
-    } else if (BumpNoTemp == 2) {
-      IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = ChangeGB_Value(IconRamMap[IconData[IconNo].DriverNo][StartBytePos], IconLevel);
-      //Set the position setting to write
-      SendDataBuffer[0] = 0x0A;
-      SendDataBuffer[1] = StartBytePos >> 4; //X Start
-      SendDataBuffer[2] = StartBytePos & 0x0F;
-      SendDataBuffer[3] = 0x07; //X End
-      SendDataBuffer[4] = 0x0F;
-      SendDataBuffer[5] = 0; //Y Start
-      SendDataBuffer[6] = 0;
-      SendDataBuffer[7] = 0; //Y End
-      SendDataBuffer[8] = 0;
-      IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
-      //Only 1 RGB data, go directly to the Data Send
-      SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8;
-      SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
+    //Set the position setting to write
+    SendDataBuffer[0] = 0x0A;
+    SendDataBuffer[1] = StartBytePos >> 4; //X Start
+    SendDataBuffer[2] = StartBytePos & 0x0F;
+    SendDataBuffer[3] = 0x07; //X End
+    SendDataBuffer[4] = 0x0F;
+    SendDataBuffer[5] = 0; //Y Start
+    SendDataBuffer[6] = 0;
+    SendDataBuffer[7] = 0; //Y End
+    SendDataBuffer[8] = 0;
+    IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
+
+    SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8;
+    SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
+    IIC_Write_Data1(IIC_Addr[IconData[IconNo].DriverNo], 2, SendDataBuffer);
+
+    SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8; //Store the first data in Buffer 0 & 1
+    SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
+
+    if (BumpNoTemp <= 2) {
       IIC_Write_Data1(IIC_Addr[IconData[IconNo].DriverNo], 2, SendDataBuffer);
       return;
-    } else if (BumpNoTemp > 2) //Said that Bump is greater than 3 (more than 1 RGB16bit data)
-    {
-      IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = ChangeGB_Value(IconRamMap[IconData[IconNo].DriverNo][StartBytePos], IconLevel);
-      //Set the position setting to write
-      SendDataBuffer[0] = 0x0A;
-      SendDataBuffer[1] = StartBytePos >> 4; //X Start
-      SendDataBuffer[2] = StartBytePos & 0x0F;
-      SendDataBuffer[3] = 0x07; //X End
-      SendDataBuffer[4] = 0x0F;
-      SendDataBuffer[5] = 0; //Y Start
-      SendDataBuffer[6] = 0;
-      SendDataBuffer[7] = 0; //Y End
-      SendDataBuffer[8] = 0;
-      IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
-      //Store the first SEG data in Buffer
-      SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8; //Store the first data in Buffer 0 & 1
-      SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
+    } else {
       BumpNoTemp = BumpNoTemp - 2;
     }
     break;
 
   case 2: //Location in B
+    IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = ChangeBlueValue(IconRamMap[IconData[IconNo].DriverNo][StartBytePos], IconLevel);
+    //Set the position setting to write
+    SendDataBuffer[0] = 0x0A;
+    SendDataBuffer[1] = StartBytePos >> 4; //X Start
+    SendDataBuffer[2] = StartBytePos & 0x0F;
+    SendDataBuffer[3] = 0x07; //X End
+    SendDataBuffer[4] = 0x0F;
+    SendDataBuffer[5] = 0; //Y Start
+    SendDataBuffer[6] = 0;
+    SendDataBuffer[7] = 0; //Y End
+    SendDataBuffer[8] = 0;
+    IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
+
+    SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8;
+    SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
+
     if (BumpNoTemp == 1) {
-      IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = ChangeBlueValue(IconRamMap[IconData[IconNo].DriverNo][StartBytePos], IconLevel);
-      //Set the position setting to write
-      SendDataBuffer[0] = 0x0A;
-      SendDataBuffer[1] = StartBytePos >> 4; //X Start
-      SendDataBuffer[2] = StartBytePos & 0x0F;
-      SendDataBuffer[3] = 0x07; //X End
-      SendDataBuffer[4] = 0x0F;
-      SendDataBuffer[5] = 0; //Y Start
-      SendDataBuffer[6] = 0;
-      SendDataBuffer[7] = 0; //Y End
-      SendDataBuffer[8] = 0;
-      IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
-      //Only 1 RGB data, go directly to the Data Send
-      SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8;
-      SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
       IIC_Write_Data1(IIC_Addr[IconData[IconNo].DriverNo], 2, SendDataBuffer);
       return;
-    } else //Said that Bump is greater than 3 (more than 1 RGB16bit data)
-    {
-      IconRamMap[IconData[IconNo].DriverNo][StartBytePos] = ChangeBlueValue(IconRamMap[IconData[IconNo].DriverNo][StartBytePos], IconLevel);
-      //Set the position setting to write
-      SendDataBuffer[0] = 0x0A;
-      SendDataBuffer[1] = StartBytePos >> 4; //X Start
-      SendDataBuffer[2] = StartBytePos & 0x0F;
-      SendDataBuffer[3] = 0x07; //X End
-      SendDataBuffer[4] = 0x0F;
-      SendDataBuffer[5] = 0; //Y Start
-      SendDataBuffer[6] = 0;
-      SendDataBuffer[7] = 0; //Y End
-      SendDataBuffer[8] = 0;
-      IIC_Write_Command1(IIC_Addr[IconData[IconNo].DriverNo], 9, SendDataBuffer);
-      //Store the first SEG data in Buffer
-      SendDataBuffer[0] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF00) >> 8; //Store the first data in Buffer 0 & 1
-      SendDataBuffer[1] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos] & 0xFF;
+    } else {
       BumpNoTemp = BumpNoTemp - 1;
     }
     break;
@@ -222,8 +137,7 @@ void AdjustIconLevel(uint16_t IconNo, uint16_t IconLevel) {
   EndBytePos = BumpNoTemp / 3;
   EndRGBPos = BumpNoTemp % 3;
   Counter = 1; //Previous [0], [1] store the data of the first SEG
-  if (EndBytePos >= 1) //Process complete
-  {
+  if (EndBytePos >= 1) { // Process complete
     //So far there are several complete RGB (16bit) data
     for (Temp_I = 1; Temp_I <= EndBytePos; Temp_I++) {
       IconRamMap[IconData[IconNo].DriverNo][StartBytePos + Temp_I] = SetRGB_Value(IconLevel);
@@ -244,23 +158,17 @@ void AdjustIconLevel(uint16_t IconNo, uint16_t IconLevel) {
   switch (EndRGBPos) {
   case 1: //Location in R
     IconRamMap[IconData[IconNo].DriverNo][StartBytePos + EndBytePos + 1] = ChangeRedValue(IconRamMap[IconData[IconNo].DriverNo][StartBytePos + EndBytePos + 1], IconLevel);
-    Counter = Counter + 1;
-    //With this last data send out
-    SendDataBuffer[Counter] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos + EndBytePos + 1] & 0xFF00) >> 8;
-    Counter = Counter + 1;
-    SendDataBuffer[Counter] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos + EndBytePos + 1] & 0xFF;
-    IIC_Write_Data1(IIC_Addr[IconData[IconNo].DriverNo], Counter + 1, SendDataBuffer);
     break;
   case 2: //Location in G
     IconRamMap[IconData[IconNo].DriverNo][StartBytePos + EndBytePos + 1] = ChangeRG_Value(IconRamMap[IconData[IconNo].DriverNo][StartBytePos + EndBytePos + 1], IconLevel);
-    Counter = Counter + 1;
-    //Together with this last data send out
-    SendDataBuffer[Counter] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos + EndBytePos + 1] & 0xFF00) >> 8;
-    Counter = Counter + 1;
-    SendDataBuffer[Counter] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos + EndBytePos + 1] & 0xFF;
-    IIC_Write_Data1(IIC_Addr[IconData[IconNo].DriverNo], Counter + 1, SendDataBuffer);
     break;
   }
+  Counter = Counter + 1;
+  //With this last data send out
+  SendDataBuffer[Counter] = (IconRamMap[IconData[IconNo].DriverNo][StartBytePos + EndBytePos + 1] & 0xFF00) >> 8;
+  Counter = Counter + 1;
+  SendDataBuffer[Counter] = IconRamMap[IconData[IconNo].DriverNo][StartBytePos + EndBytePos + 1] & 0xFF;
+  IIC_Write_Data1(IIC_Addr[IconData[IconNo].DriverNo], Counter + 1, SendDataBuffer);
 
 }
 
@@ -357,11 +265,46 @@ void NumericalTo4BCD(uint16_t S_Number, uint8_t * BCD_Ptr) {
 //=======================================================================================================
 //The following for HUD231 standard products
 //=======================================================================================================
+
+#define GET_MACRO(_1,_2,_3,_4,_5,_6,_7,_8,_9,_A,_B,NAME,...) NAME
+#define AdjustIconsOn(...) GET_MACRO(__VA_ARGS__,AIOnB,AIOnA,AIOn9,AIOn8,AIOn7,AIOn6,AIOn5,AIOn4,AIOn3,AIOn2)(__VA_ARGS__)
+#define AdjustIconsOfff(...) GET_MACRO(__VA_ARGS__,AIOffB,AIOffA,AIOff9,AIOff8,AIOff7,AIOff6,AIOff5,AIOff4,AIOff3,AIOff2)(__VA_ARGS__)
+
+#define AIOn2(a, b) AIOn(a); AIOn(b)
+#define AIOn3(a, b, c) AIOn(a); AIOn(b); AIOn(c)
+#define AIOn4(a, b, c, d) AIOn(a); AIOn(b); AIOn(c); AIOn(d)
+#define AIOn5(a, b, c, d, e) AIOn(a); AIOn(b); AIOn(c); AIOn(d); AIOn(e)
+#define AIOn6(a, b, c, d, e, f) AIOn(a); AIOn(b); AIOn(c); AIOn(d); AIOn(e); AIOn(f)
+#define AIOn7(a, b, c, d, e, f, g) AIOn(a); AIOn(b); AIOn(c); AIOn(d); AIOn(e); AIOn(f); AIOn(g)
+#define AIOn8(a, b, c, d, e, f, g, h) AIOn(a); AIOn(b); AIOn(c); AIOn(d); AIOn(e); AIOn(f); AIOn(g); AIOn(h)
+#define AIOn9(a, b, c, d, e, f, g, h, i) AIOn(a); AIOn(b); AIOn(c); AIOn(d); AIOn(e); AIOn(f); AIOn(g); AIOn(h); AIOn(i)
+#define AIOnA(a, b, c, d, e, f, g, h, i, j) AIOn(a); AIOn(b); AIOn(c); AIOn(d); AIOn(e); AIOn(f); AIOn(g); AIOn(h); AIOn(i); AIOn(j)
+#define AIOnB(a, b, c, d, e, f, g, h, i, j, k) AIOn(a); AIOn(b); AIOn(c); AIOn(d); AIOn(e); AIOn(f); AIOn(g); AIOn(h); AIOn(i); AIOn(j); AIOn(k)
+
+#define AIOff2(a, b) AIoff(a); AIoff(b)
+#define AIOff3(a, b, c) AIoff(a); AIoff(b); AIoff(c)
+#define AIOff4(a, b, c, d) AIoff(a); AIoff(b); AIoff(c); AIoff(d)
+#define AIOff5(a, b, c, d, e) AIoff(a); AIoff(b); AIoff(c); AIoff(d); AIoff(e)
+#define AIOff6(a, b, c, d, e, f) AIoff(a); AIoff(b); AIoff(c); AIoff(d); AIoff(e); AIoff(f)
+#define AIOff7(a, b, c, d, e, f, g) AIoff(a); AIoff(b); AIoff(c); AIoff(d); AIoff(e); AIoff(f); AIoff(g)
+#define AIOff8(a, b, c, d, e, f, g, h) AIoff(a); AIoff(b); AIoff(c); AIoff(d); AIoff(e); AIoff(f); AIoff(g); AIoff(h)
+#define AIOff9(a, b, c, d, e, f, g, h, i) AIoff(a); AIoff(b); AIoff(c); AIoff(d); AIoff(e); AIoff(f); AIoff(g); \AIoff(h); AIoff(i)
+#define AIOffA(a, b, c, d, e, f, g, h, i, j) AIoff(a); AIoff(b); AIoff(c); AIoff(d); AIoff(e); AIoff(f); AIoff(g); AIoff(h); AIoff(i); AIoff(j)
+#define AIOffB(a, b, c, d, e, f, g, h, i, j, k) AIoff(a); AIoff(b); AIoff(c); AIoff(d); AIoff(e); AIoff(f); AIoff(g); AIoff(h); AIoff(i); AIoff(j); AIoff(k)
+
+void AIOn(uint16_t IconNo) {
+  AdjustIconLevel(IconNo, IconData[IconNo].Level);
+}
+
+void AIoff(uint16_t IconNo) {
+  AdjustIconLevel(IconNo, 0x00);
+}
+
 void AdjustIconAction(uint16_t IconNo, bool Action) {
   if (Action) {
-    AdjustIconLevel(IconNo, IconData[IconNo].Level);
+    AIOn(IconNo);
   } else {
-    AdjustIconLevel(IconNo, 0x00);
+    AIoff(IconNo);
   }
 }
 
@@ -374,6 +317,8 @@ void AdjustIconAction(uint16_t IconNo, bool Action) {
 #define D07(Action) AdjustIconAction(29, Action)
 #define D08(Action) AdjustIconAction(31, Action)
 
+#define D0A(a, b, c, d, e, f, g, h) D01(a); D02(b); D03(c); D04(d); D05(e); D06(f); D07(g); D08(h)
+
 #define CC1(Action) AdjustIconAction(1,  Action)
 #define CC2(Action) AdjustIconAction(3,  Action)
 #define CC3(Action) AdjustIconAction(5,  Action)
@@ -383,27 +328,29 @@ void AdjustIconAction(uint16_t IconNo, bool Action) {
 #define CC7(Action) AdjustIconAction(28, Action)
 #define CC8(Action) AdjustIconAction(30, Action)
 
+#define CCA(a, b, c, d, e, f, g, h) CC1(a); CC2(b); CC3(c); CC4(d); CC5(e); CC6(f); CC7(g); CC8(h)
+
 //0-9 00-full off 1-8 => specify which CCx goes off 9-all bright 10-17=> specifies which CCx is on (inverse with 1-8)
 void compassCircle(uint8_t Select) {
   switch (Select) {
-    case 0:  CC1(0); CC2(0); CC3(0); CC4(0); CC5(0); CC6(0); CC7(0); CC8(0); break;
-    case 1:  CC1(1); CC2(0); CC3(0); CC4(0); CC5(0); CC6(0); CC7(0); CC8(0); break;
-    case 2:  CC1(0); CC2(1); CC3(0); CC4(0); CC5(0); CC6(0); CC7(0); CC8(0); break;
-    case 3:  CC1(0); CC2(0); CC3(1); CC4(0); CC5(0); CC6(0); CC7(0); CC8(0); break;
-    case 4:  CC1(0); CC2(0); CC3(0); CC4(1); CC5(0); CC6(0); CC7(0); CC8(0); break;
-    case 5:  CC1(0); CC2(0); CC3(0); CC4(0); CC5(1); CC6(0); CC7(0); CC8(0); break;
-    case 6:  CC1(0); CC2(0); CC3(0); CC4(0); CC5(0); CC6(1); CC7(0); CC8(0); break;
-    case 7:  CC1(0); CC2(0); CC3(0); CC4(0); CC5(0); CC6(0); CC7(1); CC8(0); break;
-    case 8:  CC1(0); CC2(0); CC3(0); CC4(0); CC5(0); CC6(0); CC7(0); CC8(1); break;
-    case 9:  CC1(1); CC2(1); CC3(1); CC4(1); CC5(1); CC6(1); CC7(1); CC8(1); break;
-    case 10: CC1(0); CC2(1); CC3(1); CC4(1); CC5(1); CC6(1); CC7(1); CC8(1); break;
-    case 11: CC1(1); CC2(0); CC3(1); CC4(1); CC5(1); CC6(1); CC7(1); CC8(1); break;
-    case 12: CC1(1); CC2(1); CC3(0); CC4(1); CC5(1); CC6(1); CC7(1); CC8(1); break;
-    case 13: CC1(1); CC2(1); CC3(1); CC4(0); CC5(1); CC6(1); CC7(1); CC8(1); break;
-    case 14: CC1(1); CC2(1); CC3(1); CC4(1); CC5(0); CC6(1); CC7(1); CC8(1); break;
-    case 15: CC1(1); CC2(1); CC3(1); CC4(1); CC5(1); CC6(0); CC7(1); CC8(1); break;
-    case 16: CC1(1); CC2(1); CC3(1); CC4(1); CC5(1); CC6(1); CC7(0); CC8(1); break;
-    case 17: CC1(1); CC2(1); CC3(1); CC4(1); CC5(1); CC6(1); CC7(1); CC8(0); break;
+    case 0:  CCA(0, 0, 0, 0, 0, 0, 0, 0); break;
+    case 1:  CCA(1, 0, 0, 0, 0, 0, 0, 0); break;
+    case 2:  CCA(0, 1, 0, 0, 0, 0, 0, 0); break;
+    case 3:  CCA(0, 0, 1, 0, 0, 0, 0, 0); break;
+    case 4:  CCA(0, 0, 0, 1, 0, 0, 0, 0); break;
+    case 5:  CCA(0, 0, 0, 0, 1, 0, 0, 0); break;
+    case 6:  CCA(0, 0, 0, 0, 0, 1, 0, 0); break;
+    case 7:  CCA(0, 0, 0, 0, 0, 0, 1, 0); break;
+    case 8:  CCA(0, 0, 0, 0, 0, 0, 0, 1); break;
+    case 9:  CCA(1, 1, 1, 1, 1, 1, 1, 1); break;
+    case 10: CCA(0, 1, 1, 1, 1, 1, 1, 1); break;
+    case 11: CCA(1, 0, 1, 1, 1, 1, 1, 1); break;
+    case 12: CCA(1, 1, 0, 1, 1, 1, 1, 1); break;
+    case 13: CCA(1, 1, 1, 0, 1, 1, 1, 1); break;
+    case 14: CCA(1, 1, 1, 1, 0, 1, 1, 1); break;
+    case 15: CCA(1, 1, 1, 1, 1, 0, 1, 1); break;
+    case 16: CCA(1, 1, 1, 1, 1, 1, 0, 1); break;
+    case 17: CCA(1, 1, 1, 1, 1, 1, 1, 0); break;
   }
 }
 
@@ -418,24 +365,24 @@ void D0x(uint8_t Action) {
 //0-9 00-full off 1-8 => specify which one is off D0x 9-all bright 10-17=> specify which one D0x is on (inverse with 1-8)
 void compassArrows(uint8_t Select) {
   switch (Select) {
-    case 0:  D01(0); D02(0); D03(0); D04(0); D05(0); D06(0); D07(0); D08(0); break;
-    case 1:  D01(1); D02(0); D03(0); D04(0); D05(0); D06(0); D07(0); D08(0); break;
-    case 2:  D01(0); D02(1); D03(0); D04(0); D05(0); D06(0); D07(0); D08(0); break;
-    case 3:  D01(0); D02(0); D03(1); D04(0); D05(0); D06(0); D07(0); D08(0); break;
-    case 4:  D01(0); D02(0); D03(0); D04(1); D05(0); D06(0); D07(0); D08(0); break;
-    case 5:  D01(0); D02(0); D03(0); D04(0); D05(1); D06(0); D07(0); D08(0); break;
-    case 6:  D01(0); D02(0); D03(0); D04(0); D05(0); D06(1); D07(0); D08(0); break;
-    case 7:  D01(0); D02(0); D03(0); D04(0); D05(0); D06(0); D07(1); D08(0); break;
-    case 8:  D01(0); D02(0); D03(0); D04(0); D05(0); D06(0); D07(0); D08(1); break;
-    case 9:  D01(1); D02(1); D03(1); D04(1); D05(1); D06(1); D07(1); D08(1); break;
-    case 10: D01(0); D02(1); D03(1); D04(1); D05(1); D06(1); D07(1); D08(1); break;
-    case 11: D01(1); D02(0); D03(1); D04(1); D05(1); D06(1); D07(1); D08(1); break;
-    case 12: D01(1); D02(1); D03(0); D04(1); D05(1); D06(1); D07(1); D08(1); break;
-    case 13: D01(1); D02(1); D03(1); D04(0); D05(1); D06(1); D07(1); D08(1); break;
-    case 14: D01(1); D02(1); D03(1); D04(1); D05(0); D06(1); D07(1); D08(1); break;
-    case 15: D01(1); D02(1); D03(1); D04(1); D05(1); D06(0); D07(1); D08(1); break;
-    case 16: D01(1); D02(1); D03(1); D04(1); D05(1); D06(1); D07(0); D08(1); break;
-    case 17: D01(1); D02(1); D03(1); D04(1); D05(1); D06(1); D07(1); D08(0); break;
+    case 0:  D0A(0, 0, 0, 0, 0, 0, 0, 0); break;
+    case 1:  D0A(1, 0, 0, 0, 0, 0, 0, 0); break;
+    case 2:  D0A(0, 1, 0, 0, 0, 0, 0, 0); break;
+    case 3:  D0A(0, 0, 1, 0, 0, 0, 0, 0); break;
+    case 4:  D0A(0, 0, 0, 1, 0, 0, 0, 0); break;
+    case 5:  D0A(0, 0, 0, 0, 1, 0, 0, 0); break;
+    case 6:  D0A(0, 0, 0, 0, 0, 1, 0, 0); break;
+    case 7:  D0A(0, 0, 0, 0, 0, 0, 1, 0); break;
+    case 8:  D0A(0, 0, 0, 0, 0, 0, 0, 1); break;
+    case 9:  D0A(1, 1, 1, 1, 1, 1, 1, 1); break;
+    case 10: D0A(0, 1, 1, 1, 1, 1, 1, 1); break;
+    case 11: D0A(1, 0, 1, 1, 1, 1, 1, 1); break;
+    case 12: D0A(1, 1, 0, 1, 1, 1, 1, 1); break;
+    case 13: D0A(1, 1, 1, 0, 1, 1, 1, 1); break;
+    case 14: D0A(1, 1, 1, 1, 0, 1, 1, 1); break;
+    case 15: D0A(1, 1, 1, 1, 1, 0, 1, 1); break;
+    case 16: D0A(1, 1, 1, 1, 1, 1, 0, 1); break;
+    case 17: D0A(1, 1, 1, 1, 1, 1, 1, 0); break;
   }
 }
 
@@ -532,115 +479,49 @@ void turnDistanceUnits(uint8_t iconUnits) {
 
 void leftTunnel(uint8_t Action) {
   if (Action) {
-    AdjustIconLevel(91, IconData[91].Level);
-    AdjustIconLevel(92, IconData[92].Level);
-    AdjustIconLevel(93, IconData[93].Level);
-    AdjustIconLevel(94, IconData[94].Level);
-    AdjustIconLevel(95, IconData[95].Level);
-    AdjustIconLevel(96, IconData[96].Level);
-    AdjustIconLevel(97, IconData[97].Level);
-    AdjustIconLevel(98, IconData[98].Level);
-    AdjustIconLevel(99, IconData[99].Level);
+    AdjustIconsOn(91, 92, 93, 94, 95, 96, 97, 98, 99);
   } else {
-    AdjustIconLevel(91, 0x00);
-    AdjustIconLevel(92, 0x00);
-    AdjustIconLevel(93, 0x00);
-    AdjustIconLevel(94, 0x00);
-    AdjustIconLevel(95, 0x00);
-    AdjustIconLevel(96, 0x00);
-    AdjustIconLevel(97, 0x00);
-    AdjustIconLevel(98, 0x00);
-    AdjustIconLevel(99, 0x00);
+    AdjustIconsOff(91, 92, 93, 94, 95, 96, 97, 98, 99);
   }
 }
 
 void middleTunnel(uint8_t Action) {
   if (Action) {
-    AdjustIconLevel(89, IconData[89].Level);
-    AdjustIconLevel(90, IconData[90].Level);
-    AdjustIconLevel(100, IconData[100].Level);
-    AdjustIconLevel(101, IconData[101].Level);
-    AdjustIconLevel(102, IconData[102].Level);
-    AdjustIconLevel(198, IconData[198].Level);
-    AdjustIconLevel(199, IconData[199].Level);
-    AdjustIconLevel(209, IconData[209].Level);
-    AdjustIconLevel(210, IconData[210].Level);
+    AdjustIconsOn(89, 90, 100, 101, 102, 198, 199, 209, 210);
   } else {
-    AdjustIconLevel(89, 0x00);
-    AdjustIconLevel(90, 0x00);
-    AdjustIconLevel(100, 0x00);
-    AdjustIconLevel(101, 0x00);
-    AdjustIconLevel(102, 0x00);
-    AdjustIconLevel(198, 0x00);
-    AdjustIconLevel(199, 0x00);
-    AdjustIconLevel(209, 0x00);
-    AdjustIconLevel(210, 0x00);
+    AdjustIconsOff(89, 90, 100, 101, 102, 198, 199, 209, 210);
   }
 }
 
 void rightTunnel(uint8_t Action) {
   if (Action) {
-    AdjustIconLevel(200, IconData[200].Level);
-    AdjustIconLevel(201, IconData[201].Level);
-    AdjustIconLevel(202, IconData[202].Level);
-    AdjustIconLevel(203, IconData[203].Level);
-    AdjustIconLevel(204, IconData[204].Level);
-    AdjustIconLevel(205, IconData[205].Level);
-    AdjustIconLevel(206, IconData[206].Level);
-    AdjustIconLevel(207, IconData[207].Level);
-    AdjustIconLevel(208, IconData[208].Level);
+    AdjustIconsOn(200, 201, 202, 203, 204, 205, 206, 207, 208);
   } else {
-    AdjustIconLevel(200, 0x00);
-    AdjustIconLevel(201, 0x00);
-    AdjustIconLevel(202, 0x00);
-    AdjustIconLevel(203, 0x00);
-    AdjustIconLevel(204, 0x00);
-    AdjustIconLevel(205, 0x00);
-    AdjustIconLevel(206, 0x00);
-    AdjustIconLevel(207, 0x00);
-    AdjustIconLevel(208, 0x00);
+    AdjustIconsOff(200, 201, 202, 203, 204, 205, 206, 207, 208);
   }
 }
 
 void leftRoad(uint8_t Action) {
   if (Action) {
-    AdjustIconLevel(91, IconData[91].Level);
-    AdjustIconLevel(94, IconData[94].Level);
-    AdjustIconLevel(95, IconData[95].Level);
-    AdjustIconLevel(99, IconData[99].Level);
+    AdjustIconsOn(91, 94, 95, 99);
   } else {
-    AdjustIconLevel(91, 0x00);
-    AdjustIconLevel(94, 0x00);
-    AdjustIconLevel(95, 0x00);
-    AdjustIconLevel(99, 0x00);
+    AdjustIconsOff(91, 94, 95, 99);
   }
 }
 
 void middleRoad(uint8_t Action) {
   if (Action) {
-    AdjustIconLevel(90, IconData[90].Level);
-    AdjustIconLevel(100, IconData[100].Level);
-    AdjustIconLevel(199, IconData[199].Level);
-    AdjustIconLevel(209, IconData[209].Level);
+    AdjustIconsOn(90, 100, 199, 209);
   } else {
-    AdjustIconLevel(90, 0x00);
-    AdjustIconLevel(100, 0x00);
-    AdjustIconLevel(199, 0x00);
-    AdjustIconLevel(209, 0x00);
+    AdjustIconsOff(90, 100, 199, 209);
   }
 }
 
 void rightRoad(uint8_t Action) {
   if (Action) {
-    AdjustIconLevel(200, IconData[200].Level);
-    AdjustIconLevel(204, IconData[204].Level);
-    AdjustIconLevel(205, IconData[205].Level);
-    AdjustIconLevel(208, IconData[208].Level);
+    AdjustIconsOn(200, 204, 205, 208);
   } else {
-    AdjustIconLevel(200, 0x00);
-    AdjustIconLevel(204, 0x00);
-    AdjustIconLevel(205, 0x00);
-    AdjustIconLevel(208, 0x00);
+    AdjustIconsOff(200, 204, 205, 208);
   }
 }
 
@@ -665,139 +546,42 @@ void nav_Group(uint8_t Action) {
 }
 
 void nav_KeepLeft(uint8_t Action) {
-
   if (Action) {
-    AdjustIconLevel(107, IconData[107].Level);
-    AdjustIconLevel(108, IconData[108].Level);
-    AdjustIconLevel(109, IconData[109].Level);
-    AdjustIconLevel(106, IconData[106].Level);
-    AdjustIconLevel(111, IconData[111].Level);
-    AdjustIconLevel(112, IconData[112].Level);
-    AdjustIconLevel(105, IconData[105].Level);
-    AdjustIconLevel(128, IconData[128].Level);
-    AdjustIconLevel(129, IconData[129].Level);
-    AdjustIconLevel(155, IconData[155].Level);
-    AdjustIconLevel(130, IconData[130].Level);
+    AdjustIconsOn(107, 108, 109, 106, 111, 112, 105, 128, 129, 155, 130);
   } else {
-    AdjustIconLevel(107, 0x00);
-    AdjustIconLevel(108, 0x00);
-    AdjustIconLevel(109, 0x00);
-    AdjustIconLevel(106, 0x00);
-    AdjustIconLevel(111, 0x00);
-    AdjustIconLevel(112, 0x00);
-    AdjustIconLevel(105, 0x00);
-    AdjustIconLevel(128, 0x00);
-    AdjustIconLevel(129, 0x00);
-    AdjustIconLevel(155, 0x00);
-    AdjustIconLevel(130, 0x00);
+    AdjustIconsOff(107, 108, 109, 106, 111, 112, 105, 128, 129, 155, 130);
   }
 }
 
 void nav_TurnLeft(uint8_t Action) {
-
   if (Action) {
-    AdjustIconLevel(113, IconData[113].Level);
-    AdjustIconLevel(114, IconData[114].Level);
-    AdjustIconLevel(121, IconData[121].Level);
-    AdjustIconLevel(111, IconData[111].Level);
-    AdjustIconLevel(112, IconData[112].Level);
-    AdjustIconLevel(115, IconData[116].Level);
-    AdjustIconLevel(128, IconData[128].Level);
-    AdjustIconLevel(129, IconData[129].Level);
-    AdjustIconLevel(155, IconData[155].Level);
-    AdjustIconLevel(130, IconData[130].Level);
+    AdjustIconsOn(113, 114, 121, 111, 112, 115, 128, 129, 155, 130);
   } else {
-    AdjustIconLevel(113, 0x00);
-    AdjustIconLevel(114, 0x00);
-    AdjustIconLevel(121, 0x00);
-    AdjustIconLevel(111, 0x00);
-    AdjustIconLevel(112, 0x00);
-    AdjustIconLevel(115, 0x00);
-    AdjustIconLevel(128, 0x00);
-    AdjustIconLevel(129, 0x00);
-    AdjustIconLevel(155, 0x00);
-    AdjustIconLevel(130, 0x00);
+    AdjustIconsOff(113, 114, 121, 111, 112, 115, 128, 129, 155, 130);
   }
 }
 
 void nav_TurnRight(uint8_t Action) {
-
   if (Action) {
-    AdjustIconLevel(171, IconData[171].Level);
-    AdjustIconLevel(170, IconData[170].Level);
-    AdjustIconLevel(163, IconData[163].Level);
-    AdjustIconLevel(173, IconData[173].Level);
-    AdjustIconLevel(172, IconData[172].Level);
-    AdjustIconLevel(169, IconData[169].Level);
-    AdjustIconLevel(156, IconData[156].Level);
-    AdjustIconLevel(129, IconData[129].Level);
-    AdjustIconLevel(155, IconData[155].Level);
-    AdjustIconLevel(130, IconData[130].Level);
+    AdjustIconsOn(171, 170, 163, 173, 172, 169, 156, 129, 155, 130);
   } else {
-    AdjustIconLevel(171, 0x00);
-    AdjustIconLevel(170, 0x00);
-    AdjustIconLevel(163, 0x00);
-    AdjustIconLevel(173, 0x00);
-    AdjustIconLevel(172, 0x00);
-    AdjustIconLevel(169, 0x00);
-    AdjustIconLevel(156, 0x00);
-    AdjustIconLevel(129, 0x00);
-    AdjustIconLevel(155, 0x00);
-    AdjustIconLevel(130, 0x00);
+    AdjustIconsOff(171, 170, 163, 173, 172, 169, 156, 129, 155, 130);
   }
 }
 
 void nav_HardRight(uint8_t Action) {
-
   if (Action) {
-    AdjustIconLevel(165, IconData[165].Level);
-    AdjustIconLevel(159, IconData[159].Level);
-    AdjustIconLevel(163, IconData[163].Level);
-    AdjustIconLevel(160, IconData[160].Level);
-    AdjustIconLevel(158, IconData[158].Level);
-    AdjustIconLevel(166, IconData[166].Level);
-    AdjustIconLevel(156, IconData[156].Level);
-    AdjustIconLevel(129, IconData[129].Level);
-    AdjustIconLevel(155, IconData[155].Level);
-    AdjustIconLevel(130, IconData[130].Level);
+    AdjustIconsOn(165, 159, 163, 160, 158, 166, 156, 129, 155, 130);
   } else {
-    AdjustIconLevel(165, 0x00);
-    AdjustIconLevel(159, 0x00);
-    AdjustIconLevel(163, 0x00);
-    AdjustIconLevel(160, 0x00);
-    AdjustIconLevel(158, 0x00);
-    AdjustIconLevel(166, 0x00);
-    AdjustIconLevel(156, 0x00);
-    AdjustIconLevel(129, 0x00);
-    AdjustIconLevel(155, 0x00);
-    AdjustIconLevel(130, 0x00);
+    AdjustIconsOff(165, 159, 163, 160, 158, 166, 156, 129, 155, 130);
   }
 }
 
 void nav_HardLeft(uint8_t Action) {
-
   if (Action) {
-    AdjustIconLevel(119, IconData[119].Level);
-    AdjustIconLevel(125, IconData[125].Level);
-    AdjustIconLevel(121, IconData[121].Level);
-    AdjustIconLevel(124, IconData[124].Level);
-    AdjustIconLevel(126, IconData[126].Level);
-    AdjustIconLevel(118, IconData[118].Level);
-    AdjustIconLevel(128, IconData[128].Level);
-    AdjustIconLevel(129, IconData[129].Level);
-    AdjustIconLevel(155, IconData[155].Level);
-    AdjustIconLevel(130, IconData[130].Level);
+    AdjustIconsOn(119, 125, 121, 124, 126, 118, 128, 129, 155, 130);
   } else {
-    AdjustIconLevel(119, 0x00);
-    AdjustIconLevel(125, 0x00);
-    AdjustIconLevel(121, 0x00);
-    AdjustIconLevel(124, 0x00);
-    AdjustIconLevel(126, 0x00);
-    AdjustIconLevel(118, 0x00);
-    AdjustIconLevel(128, 0x00);
-    AdjustIconLevel(129, 0x00);
-    AdjustIconLevel(155, 0x00);
-    AdjustIconLevel(130, 0x00);
+    AdjustIconsOff(119, 125, 121, 124, 126, 118, 128, 129, 155, 130);
   }
 }
 
@@ -1086,156 +870,6 @@ void setSegmentedDisplay(uint8_t Display, uint8_t SpeedNo, bool Mode) {
   }
   DispNumber(SegIconTable[Display][2], BCDcode[0]);
 
-}
-
-void setHeading(uint8_t SpeedNo) {
-  uint8_t BCDcode[4];
-
-  if (SpeedNo > S1_2_3_Limit) SpeedNo = S1_2_3_Limit;
-
-  NumericalTo4BCD(SpeedNo, BCDcode);
-
-  if (BCDcode[2] == 0 && BCDcode[1] == 0) {
-    S01_BAR(0); //Number 1 Icon Clear
-    DispNumber(S02SegIconTable, 10); //Clear
-    DispNumber(S03SegIconTable, BCDcode[0]);
-    return;
-  }
-  if (BCDcode[2] == 0) {
-    S01_BAR(0); //Number 1 Icon Clear
-    DispNumber(S02SegIconTable, BCDcode[1]);
-    DispNumber(S03SegIconTable, BCDcode[0]);
-    return;
-  }
-
-  S01_BAR(1); //Number 1 Icon Clear
-  DispNumber(S02SegIconTable, BCDcode[1]);
-  DispNumber(S03SegIconTable, BCDcode[0]);
-}
-
-void setDestinationDistance(uint16_t SpeedNo, uint8_t Mode) {
-  uint8_t BCDcode[4];
-
-  if (SpeedNo > S4_5_6_Limit) SpeedNo = S4_5_6_Limit;
-
-  NumericalTo4BCD(SpeedNo, BCDcode);
-
-  if (Mode) //1
-  {
-    if (BCDcode[2] == 0 && BCDcode[1] == 0) {
-      DispNumber(S04SegIconTable, 10); //Clear
-      DispNumber(S05SegIconTable, 10); //Clear
-      DispNumber(S06SegIconTable, BCDcode[0]);
-      return;
-    }
-    if (BCDcode[2] == 0) {
-      DispNumber(S04SegIconTable, 10); //Clear
-      DispNumber(S05SegIconTable, BCDcode[1]);
-      DispNumber(S06SegIconTable, BCDcode[0]);
-      return;
-    }
-  } //0
-  DispNumber(S04SegIconTable, BCDcode[2]);
-  DispNumber(S05SegIconTable, BCDcode[1]);
-  DispNumber(S06SegIconTable, BCDcode[0]);
-}
-
-void setRadarDistance(uint16_t SpeedNo, uint8_t Mode) {
-  uint8_t BCDcode[4];
-
-  if (SpeedNo > S7_8_9_Limit) SpeedNo = S7_8_9_Limit;
-
-  NumericalTo4BCD(SpeedNo, BCDcode);
-
-  if (Mode) //1
-  {
-    if (BCDcode[2] == 0 && BCDcode[1] == 0) {
-      DispNumber(S07SegIconTable, 10); //Clear
-      DispNumber(S08SegIconTable, 10); //Clear
-      DispNumber(S09SegIconTable, BCDcode[0]);
-      return;
-    }
-    if (BCDcode[2] == 0) {
-      DispNumber(S07SegIconTable, 10); //Clear
-      DispNumber(S08SegIconTable, BCDcode[1]);
-      DispNumber(S09SegIconTable, BCDcode[0]);
-      return;
-    }
-  } //0
-  DispNumber(S07SegIconTable, BCDcode[2]);
-  DispNumber(S08SegIconTable, BCDcode[1]);
-  DispNumber(S09SegIconTable, BCDcode[0]);
-}
-
-void setTurnDistance(uint16_t SpeedNo, uint8_t Mode) {
-  uint8_t BCDcode[4];
-
-  if (SpeedNo > S10_11_12_Limit) SpeedNo = S10_11_12_Limit;
-
-  NumericalTo4BCD(SpeedNo, BCDcode);
-
-  if (Mode) //1
-  {
-    if (BCDcode[2] == 0 && BCDcode[1] == 0) {
-      DispNumber(S10SegIconTable, 10); //Clear
-      DispNumber(S11SegIconTable, 10); //Clear
-      DispNumber(S12SegIconTable, BCDcode[0]);
-      return;
-    }
-    if (BCDcode[2] == 0) {
-      DispNumber(S10SegIconTable, 10); //Clear
-      DispNumber(S11SegIconTable, BCDcode[1]);
-      DispNumber(S12SegIconTable, BCDcode[0]);
-      return;
-    }
-  } //0
-  DispNumber(S10SegIconTable, BCDcode[2]);
-  DispNumber(S11SegIconTable, BCDcode[1]);
-  DispNumber(S12SegIconTable, BCDcode[0]);
-}
-
-void setTirePressure(uint8_t SpeedNo, uint8_t Mode) {
-  uint8_t BCDcode[4];
-
-  if (SpeedNo > S13_14_Limit) SpeedNo = S13_14_Limit;
-
-  NumericalTo4BCD(SpeedNo, BCDcode);
-
-  if (Mode) //1
-  {
-    if (BCDcode[1] == 0) {
-      DispNumber(S13SegIconTable, 10); //Clear
-      DispNumber(S14SegIconTable, BCDcode[0]);
-      return;
-    }
-  } //0
-  DispNumber(S13SegIconTable, BCDcode[1]);
-  DispNumber(S14SegIconTable, BCDcode[0]);
-}
-
-void setSpeedometer(uint8_t SpeedNo) {
-  uint8_t BCDcode[4];
-
-  if (SpeedNo > S15_16_17_Limit) SpeedNo = S15_16_17_Limit;
-
-  NumericalTo4BCD(SpeedNo, BCDcode);
-
-  if (BCDcode[2] == 0 && BCDcode[1] == 0) {
-    S15_BAR(0); //Number 1 Icon Clear
-    DispNumber(S16SegIconTable, 10); //Clear
-    DispNumber(S17SegIconTable, BCDcode[0]);
-    return;
-  }
-  if (BCDcode[2] == 0) {
-    S15_BAR(0); //Number 1 Icon Clear
-    DispNumber(S16SegIconTable, BCDcode[1]);
-    DispNumber(S17SegIconTable, BCDcode[0]);
-    return;
-  }
-
-  S15_BAR(1); //Number 1 Icon Clear
-  DispNumber(S16SegIconTable, BCDcode[1]);
-  DispNumber(S17SegIconTable, BCDcode[0]);
 }
 
 void setCallIcon(uint8_t iconStatus) {

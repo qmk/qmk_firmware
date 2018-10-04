@@ -72,13 +72,16 @@ void nav_UTurnRight(uint8_t Action);
 void nav_ContinueStraight(uint8_t Action);
 void nav_KeepRight(uint8_t Action);
 
+void setSegmentedDisplay(uint8_t Display, uint8_t SpeedNo, bool Mode);
+
+#define setHeading(SpeedNo)                   setSegmentedDisplay(0, SpeedNo, false)
+#define setDestinationDistance(SpeedNo, Mode) setSegmentedDisplay(1, SpeedNo, Mode)
+#define setRadarDistance(SpeedNo, Mode)       setSegmentedDisplay(2, SpeedNo, Mode)
+#define setTurnDistance(SpeedNo, Mode)        setSegmentedDisplay(3, SpeedNo, Mode)
+#define setTirePressure(SpeedNo, Mode)        setSegmentedDisplay(4, SpeedNo, Mode)
+#define setSpeedometer(SpeedNo)               setSegmentedDisplay(5, SpeedNo, false)
+
 void radarDetector(uint8_t Level);
-void setHeading(uint8_t SpeedNo);
-void setDestinationDistance(uint16_t SpeedNo, uint8_t Mode);
-void setRadarDistance(uint16_t SpeedNo, uint8_t Mode);
-void setTurnDistance(uint16_t SpeedNo, uint8_t Mode);
-void setTirePressure(uint8_t SpeedNo, uint8_t Mode);
-void setSpeedometer(uint8_t SpeedNo);
 void setCallIcon(uint8_t iconStatus);
 
 void clearAll(void);
