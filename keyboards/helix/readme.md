@@ -9,8 +9,9 @@ Keyboard Maintainer: [Makoto Kurauchi](https://github.com/MakotoKurauchi/) [@plu
 Hardware Supported: Helix PCB Alpha, Beta, Pro Micro  
 Hardware Availability: [PCB & Case Data](https://github.com/MakotoKurauchi/helix), [Yushakobo Shop](https://yushakobo.jp/shop/)
 
-Make example for this keyboard (after setting up your build environment):
+Make examples for this keyboard (after setting up your build environment):
 
-    make helix:default
+    make helix/rev1:default
+    make helix/rev2:default
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
