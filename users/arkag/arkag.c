@@ -333,38 +333,6 @@ void dance_quot (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_strk (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    surround_type(4, KC_TILDE, true);
-  } else if (state->count == 2) {
-    if (current_os == OS_MAC) {
-      long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_4});
-    } else if (current_os == OS_WIN) {
-      long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_S});
-    } else {
-      return;
-    }
-  }
-}
-
-void dance_3 (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    tap_key(KC_3);
-  } else if (state->count == 2) {
-    send_unicode_hex_string("00E8");
-  } else if (state->count == 3) {
-    send_unicode_hex_string("00E9");
-  }
-}
-
-void dance_c (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    tap_key(KC_C);
-  } else if (state->count == 2) {
-    send_unicode_hex_string("00E7");
-  }
-}
-
 void matrix_init_user(void) {
   current_os = eeprom_read_byte(EECONFIG_USERSPACE);
   set_os(current_os, false);
@@ -383,13 +351,28 @@ void matrix_scan_user(void) {
     // begin OS functions
     SEQ_TWO_KEYS(KC_P, KC_B) {
       if (current_os == OS_WIN) {
-              SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_PAUSE) SS_UP(X_LGUI));
+        long_keystroke(2, (uint16_t[]){KC_LGUI, KC_PAUSE});
       } else {
+      }
+    }
+    SEQ_TWO_KEYS(KC_LSFT, M_PMOD) {
+      if (current_os == OS_WIN) {
+        long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LSFT, KC_ESC});
+      } else {
+      }
+    }
+    SEQ_TWO_KEYS(KC_S, KC_S) {
+      if (current_os == OS_MAC) {
+        long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_4});
+      } else if (current_os == OS_WIN) {
+        long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_S});
+      } else {
+        return;
       }
     }
     SEQ_THREE_KEYS(KC_C, KC_A, KC_D) {
       if (current_os == OS_WIN) {
-              SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LALT) SS_TAP(X_DELETE) SS_UP(X_LALT) SS_UP(X_LCTRL));
+        long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LALT, KC_DEL});
       } else {
       }
     }
@@ -415,24 +398,27 @@ void matrix_scan_user(void) {
     SEQ_ONE_KEY(KC_S) {
       surround_type(4, KC_GRAVE, true);
     }
-    SEQ_TWO_KEYS(KC_S, KC_S) {
-      if (current_os == OS_MAC) {
-        long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_4});
-      } else if (current_os == OS_WIN) {
-        long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_S});
-      } else {
-        return;
-      }
-    }
     SEQ_ONE_KEY(KC_C) {
-      surround_type(2, KC_GRAVE, false);
+      send_unicode_hex_string("00E7");
     }
     SEQ_TWO_KEYS(KC_C, KC_C) {
+      surround_type(2, KC_GRAVE, false);
+    }
+    SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
       surround_type(6, KC_GRAVE, false);
+    }
+    SEQ_ONE_KEY(KC_E) {
+      send_unicode_hex_string("00E8");
+    }
+    SEQ_TWO_KEYS(KC_E KC_E) {
+      send_unicode_hex_string("00E9");
     }
     // end format functions
 
     // start fancy functions
+    SEQ_THREE_KEYS(KC_Q, KC_Q, KC_Q) {
+      set_os((current_os+1) % _OS_COUNT, true);
+    }
     SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
       surround_type(6, KC_GRAVE, false);
       pri_mod(true);
@@ -499,12 +485,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
-  case M_OS:
-    if (record->event.pressed) {
-      set_os((current_os+1) % _OS_COUNT, true);
-    }
-    return false;
-
   default:
     if (record->event.pressed) {
       state = active;
@@ -516,11 +496,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_3_GRV_ACT]      = ACTION_TAP_DANCE_FN (dance_3),
-  [TD_C_CED]          = ACTION_TAP_DANCE_FN (dance_c),
   [TD_GRV_3GRV]       = ACTION_TAP_DANCE_FN (dance_grv),
   [TD_SING_DOUB]      = ACTION_TAP_DANCE_FN (dance_quot),
-  [TD_STRK_SHOT]      = ACTION_TAP_DANCE_FN (dance_strk),
   [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_DOUBLE (KC_MINS, LSFT(KC_MINS)),
   [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, LSFT(KC_9)),
   [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, LSFT(KC_0)),

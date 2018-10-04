@@ -18,8 +18,6 @@
 #define RAISE       MO(1)
 #define LOWER       MO(2)
 #define KEEB        MO(3)
-#define MEDIA       MO(4)
-#define LAZY        MO(5)
 
 #define MOD_CTL_MASK (MOD_BIT(KC_LCTL) | MOD_BIT(KC_RCTL))
 #define MOD_GUI_MASK (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
@@ -38,8 +36,6 @@ enum {
   _RAISE,
   _LOWER,
   _KEEB,
-  _MEDIA,
-  _LAZY,
 };
 
 typedef enum {
@@ -76,22 +72,6 @@ typedef enum {
 enum custom_keycodes {
   M_PMOD = SAFE_RANGE,
   M_SMOD,
-  M_P_B,
-  M_C_A_D,
-  M_CALC,
-  M_OS,
-  M_TF,
-  M_TM,
-  M_GGT,
-  M_LOD,
-  M_LENNY,
-  M_BOLD,
-  M_ITAL,
-  M_ULIN,
-  M_SNIPT,
-  M_REPO,
-  M_SHRUG,
-  M_UF,
 };
 
 enum tapdances {
@@ -101,12 +81,10 @@ enum tapdances {
   TD_SLSH_HTTP,
   TD_SING_DOUB,
   TD_HYPH_UNDR,
-  TD_STRK_SHOT,
   TD_SPECIAL,
   TD_BRCK_PARN_O,
   TD_BRCK_PARN_C,
   TD_LALT_RALT,
-  SPC_SFT_NSFT,
 };
 
 void send_unicode_hex_string(const char *str);
