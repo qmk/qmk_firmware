@@ -179,19 +179,25 @@ static tap BSWtap_state = {
 void BSW_finished (qk_tap_dance_state_t *state, void *user_data) {
   BSWtap_state.state = cur_dance(state);
   switch (BSWtap_state.state) {
-    case SINGLE_TAP: register_code(KC_A); break;
+    case SINGLE_TAP: register_code(KC_ENTER); break;
     case SINGLE_HOLD: set_single_persistent_default_layer(0); break;
-    case DOUBLE_TAP: register_code(KC_B); break;
+    case DOUBLE_TAP: 
+	  register_code(KC_LCTRL);
+      register_code(KC_C);
+	  break;
 	case DOUBLE_HOLD: 
-		reset_keyboard(); 
-		break; //register this keycode when button is tapped and then held
+	  reset_keyboard(); 
+	  break; //register this keycode when button is tapped and then held
   }
 }
 
 void BSW_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (BSWtap_state.state) {
-    case SINGLE_TAP: unregister_code(KC_A); break;
-    case DOUBLE_TAP: unregister_code(KC_B); break; 
+    case SINGLE_TAP: unregister_code(KC_ENTER); break;
+    case DOUBLE_TAP: 
+	  unregister_code(KC_LCTRL); 
+	  unregister_code(KC_C);
+	  break; 
   }
   BSWtap_state.state = 0;
 }  
