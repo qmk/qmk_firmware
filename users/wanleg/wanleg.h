@@ -52,6 +52,30 @@ enum userspace_layers {
   gETC,
   PAD,
 };
+#elif KEYBOARD_5x5
+enum userspace_layers {
+  GK75 = 0,
+  QW75,
+  SUB75,
+  SUP75,
+  NUM75,
+  DIR75,
+  ETC75,
+  FN75,
+  PAD,
+  gGK,
+  _GK,
+  _QW,
+  ONE,
+  SUB,
+  SUP,
+  NUM,
+  DIR,
+  ETC,
+  gNUM,
+  gDIR,
+  gETC,
+};
 #else
   enum userspace_layers {
   _GK = 0,
@@ -111,6 +135,7 @@ enum {
   ,CAD_TD
   ,RST_TAP_DANCE
   ,LYR_TAP_DANCE
+  ,LYR75_TAP_DANCE
   ,BSW_TAP_DANCE
 };
 #endif
@@ -129,6 +154,7 @@ enum {
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
 #define LAYOUT_ortho_4x4_wrapper(...)        LAYOUT_ortho_4x4(__VA_ARGS__)
+#define LAYOUT_ortho_5x5_wrapper(...)        LAYOUT_ortho_5x5(__VA_ARGS__)
 
 // Blocks for each of the major keyboard layouts
 // Organized so we can quickly adapt and modify all of them

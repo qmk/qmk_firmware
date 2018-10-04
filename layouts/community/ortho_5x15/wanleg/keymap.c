@@ -5,27 +5,24 @@
 #define _________________Num_Row_75________________ KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NLCK
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
- /* QWERTY 75
- * .--------------------------------------------------------------------------------------------------------------------------------------.
- * | ESC    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | NUMLOCK| gherkin|        | FN     |
- * |-----------------------------------------------------------------------------------------------------------+--------+--------+--------|
- * |                                                                                                           |   7    |   8    |   9    |
- * |                                                                                                           |--------+--------+--------|
- * |                                             4x12 QWERTY LAYOUT                                            |   4    |   5    |   6    |
- * |                                                                                                           |--------+--------+--------|
- * |                                                                                                           |   1    |   2    |   3    |
- * |                                                                                                           |--------+--------+--------|
- * |                                                                                                           |   0    |   0    |   .    |
- * '--------------------------------------------------------------------------------------------------------------------------------------'
- */
-[QW75] = LAYOUT_ortho_5x15_wrapper(
-  _________________Num_Row_75________________, GHERKIN75, XXXXXXX, FUNCTION75,
-  _______________Qwerty_Row__0_______________, KC_KP_7, KC_KP_8, KC_KP_9,
-  _______________Qwerty_Row__1_______________, KC_KP_4, KC_KP_5, KC_KP_6,
-  _______________Qwerty_Row__2_______________, KC_KP_1, KC_KP_2, KC_KP_3,
-  KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, SUBTER75, KC_LSFT, KC_SPC, SUPRA75, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_KP_0, KC_KP_0, KC_KP_DOT
+#if defined(KEYBOARD_5x5)
+[GK75] = LAYOUT_ortho_5x15_wrapper(
+  _________________Num_Row_75________________, QWERTY75, XXXXXXX, FUNCTION75,
+  _______________GherkinLike_0_______________, KC_KP_7, KC_KP_8, KC_KP_9,
+  _______________GherkinLike_1_______________, KC_KP_4, KC_KP_5, KC_KP_6,
+  TD(TD_SFT_CAPS), SFT_T(KC_Z), KC_X, KC_C, LT(NUM75, KC_V), LT(ETC75, KC_B), KC_N, LT(DIR75, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT), KC_KP_1, KC_KP_2, KC_KP_3,
+  TD(RST_TAP_DANCE), KC_LGUI, KC_LALT, NUMPAD, NUMBER75, ETCETERA75, KC_SPC,DIRECTION75, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_KP_0, KC_KP_0, KC_KP_DOT
 ),
 
+[PAD] = LAYOUT_ortho_5x5_wrapper(
+  _______, _______, _______, _______, _______,
+  _______________NUMPAD_Row__0_______________, _______, 
+  _______________NUMPAD_Row__1_______________, _______,
+  _______________NUMPAD_Row__2_______________, _______,
+  KC_KP_0, TD(LYR75_TAP_DANCE), KC_KP_DOT, KC_PMNS, _______
+),
+
+#else
  /* Gherkin 75
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * | ESC    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | NUMLOCK| qwerty |        | FN     |
@@ -45,6 +42,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________GherkinLike_1_______________, KC_KP_4, KC_KP_5, KC_KP_6,
   TD(TD_SFT_CAPS), SFT_T(KC_Z), KC_X, KC_C, LT(NUM75, KC_V), LT(ETC75, KC_B), KC_N, LT(DIR75, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT), KC_KP_1, KC_KP_2, KC_KP_3,
   KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, NUMBER75, ETCETERA75, KC_SPC,DIRECTION75, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_KP_0, KC_KP_0, KC_KP_DOT
+),
+#endif
+ /* QWERTY 75
+ * .--------------------------------------------------------------------------------------------------------------------------------------.
+ * | ESC    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | NUMLOCK| gherkin|        | FN     |
+ * |-----------------------------------------------------------------------------------------------------------+--------+--------+--------|
+ * |                                                                                                           |   7    |   8    |   9    |
+ * |                                                                                                           |--------+--------+--------|
+ * |                                             4x12 QWERTY LAYOUT                                            |   4    |   5    |   6    |
+ * |                                                                                                           |--------+--------+--------|
+ * |                                                                                                           |   1    |   2    |   3    |
+ * |                                                                                                           |--------+--------+--------|
+ * |                                                                                                           |   0    |   0    |   .    |
+ * '--------------------------------------------------------------------------------------------------------------------------------------'
+ */
+[QW75] = LAYOUT_ortho_5x15_wrapper(
+  _________________Num_Row_75________________, GHERKIN75, XXXXXXX, FUNCTION75,
+  _______________Qwerty_Row__0_______________, KC_KP_7, KC_KP_8, KC_KP_9,
+  _______________Qwerty_Row__1_______________, KC_KP_4, KC_KP_5, KC_KP_6,
+  _______________Qwerty_Row__2_______________, KC_KP_1, KC_KP_2, KC_KP_3,
+  KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, SUBTER75, KC_LSFT, KC_SPC, SUPRA75, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_KP_0, KC_KP_0, KC_KP_DOT
 ),
 
  /* SUBTER75

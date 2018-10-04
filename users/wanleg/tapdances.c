@@ -146,6 +146,30 @@ void LYR_reset (qk_tap_dance_state_t *state, void *user_data) {
   LYRtap_state.state = 0;
 }	
 
+//instantiate 'tap' for the 'LYR75' tap dance.
+static tap LYR75tap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void LYR75_finished (qk_tap_dance_state_t *state, void *user_data) {
+  LYR75tap_state.state = cur_dance(state);
+  switch (LYR75tap_state.state) {
+	case SINGLE_TAP: register_code(KC_PSLS); break;
+	case DOUBLE_TAP: set_single_persistent_default_layer(GK75); break;
+    case DOUBLE_SINGLE_TAP: register_code(KC_PSLS); unregister_code(KC_PSLS); register_code(KC_PSLS);
+  }
+}		
+
+void LYR75_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (LYR75tap_state.state) {
+    case SINGLE_TAP: unregister_code(KC_PSLS); break;
+    case DOUBLE_TAP: set_single_persistent_default_layer(GK75); break;
+    case DOUBLE_SINGLE_TAP: unregister_code(KC_PSLS);
+  }
+  LYR75tap_state.state = 0;
+}	
+
 //instantiate 'tap' for the 'BSW' tap dance.
 static tap BSWtap_state = {
   .is_press_action = true,
@@ -183,6 +207,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  ,[RST_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, RST_finished, RST_reset)
  ,[CAD_TD] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, CAD_finished, CAD_reset)
  ,[LYR_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LYR_finished, LYR_reset)
+ ,[LYR75_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, LYR75_finished, LYR75_reset)
  ,[BSW_TAP_DANCE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, BSW_finished, BSW_reset)
 };
 
