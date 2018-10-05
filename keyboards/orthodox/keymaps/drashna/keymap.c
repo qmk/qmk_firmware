@@ -30,14 +30,18 @@ uint8_t last_led;
 uint8_t last_osm;
 #endif
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+#define LAYOUT_orthodox_base( \
+    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
+  ) \
+  LAYOUT_wrapper( \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,                                                                   K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
+    KC_TAB,  K11,    K12,     K13,      K14,     K15,              ___________ORTHODOX_THUMP_TOP_____________,          K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
+    KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     ___________________ORTHODOX_THUMB_BOTTOM____________________, K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF  \
+  )
+#define LAYOUT_orthodox_base_wrapper(...)       LAYOUT_orthodox_base(__VA_ARGS__)
 
 
 

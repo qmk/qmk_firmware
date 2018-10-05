@@ -20,6 +20,18 @@ enum crkbd_keycodes {
   RGBRST = NEW_SAFE_RANGE
 };
 
+#define LAYOUT_crkbd_base( \
+    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
+  ) \
+  LAYOUT_wrapper( \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
+    KC_TAB,  K11,    K12,     K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
+    KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF, \
+                           LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE                                    \
+  )
+#define LAYOUT_crkbd_base_wrapper(...)       LAYOUT_crkbd_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_iris_base_wrapper(
@@ -64,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,  _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, KC_BSPC,
     _______, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, KC_BSLS,
     _______, _________________RAISE_L3__________________,                    _________________RAISE_R3__________________, _______,
-                                     _______, _______, _______,        _______, _______, _______                             
+                                     _______, _______, _______,        _______, _______, _______
   ),
 
   [_ADJUST] = LAYOUT_wrapper( \
