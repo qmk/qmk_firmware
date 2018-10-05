@@ -91,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 },
 [_DYN]= { /* special */
     {KM_HOLD,  DYN_REC_START1, DYN_MACRO_PLAY1, _______, _______, _______, _______, KC_APP,  KC_INS,  _______, KC_PSCR, KC_PAUS},
-    {_______,  DYN_REC_START2, DYN_MACRO_PLAY2, _______, _______, _______, _______, _______, _______, KC_CAPS, KC_SLCK, KC_NLCK},
     {KM_SHLK,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______,  _______,        _______,         _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {KC_LOCK,  DYN_REC_START2, DYN_MACRO_PLAY2, _______, _______,    _______, _______, _______, _______, KC_CAPS, KC_SLCK, KC_NLCK},
 },
 };
 
