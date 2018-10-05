@@ -1,10 +1,11 @@
-#ifndef UNICODE_USERSPACE_H
-#define UNICODE_USERSPACE_H
+#pragma once
 
+#include "quantum.h"
 
+void send_unicode_hex_string(const char* str);
 
 /* use X(n) to call the  */
-
+#ifdef UNICODEMAP_ENABLE
 enum unicode_name {
   THINK, // thinking face 🤔
   GRIN, // grinning face 😊
@@ -67,5 +68,4 @@ const uint32_t PROGMEM unicode_map[] = {
   [IRONY]     = 0x02E2E,
   [DEGREE]    = 0x000B0
  };
-
- #endif
+#endif // UNICODEMAP_ENABLE

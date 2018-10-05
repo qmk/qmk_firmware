@@ -74,6 +74,7 @@
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
   * [ISP Flashing Guide](isp_flashing_guide.md)
+  * [ARM Debugging Guide](arm_debugging.md)
 
 * For a Deeper Understanding
   * [How Keyboards Work](how_keyboards_work.md)
