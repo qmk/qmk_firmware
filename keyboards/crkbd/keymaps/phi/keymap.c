@@ -1,16 +1,21 @@
 #include "crkbd.h"
-#include "dance.c"
-#ifdef SSD1306OLED
-#include "./oled.c"
-#endif
 
-/* LAYER DEFINITIONS */
+/* GLOBAL VARS */
 
 #define BASE     0
 #define RAISE    1
 #define FUNCTION 2
 #define MOUSE    3
 #define WHEEL    4
+
+/* FEATURES */
+
+#ifdef TAP_DANCE_ENABLE
+#include "dance.c"
+#endif
+#ifdef SSD1306OLED
+#include "./oled.c"
+#endif
 
 /* KEYCODE DEFINITIONS */
 

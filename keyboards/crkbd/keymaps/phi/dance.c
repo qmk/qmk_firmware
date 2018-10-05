@@ -1,9 +1,7 @@
 #define TD_SHIFT_CAPS 1
 #define TD_ESC_FUNC   2
-#define send_keycode(key) { register_code(key); unregister_code(key); }
 
-/* layer defs */
-#define FUNCTION 2
+#define send_keycode(key) { register_code(key); unregister_code(key); }
 
 typedef enum { NONE, INTERRUPTED, SINGLE_TAP, SINGLE_HOLD, DOUBLE_TAP, DOUBLE_HOLD } dance_action_t;
 
