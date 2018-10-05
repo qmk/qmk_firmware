@@ -30,7 +30,8 @@ enum planck_keycodes {
     KM_RST,                     /* Reset */
     KM_NUM,                     /* Numeric layer */
     KM_SLP,                     /* Sleep 250 ms */
-    KM_PPLR,                    /* Pure Pro layer */
+    KM_PP_GAME,                 /* Pure Pro Gaming layer */
+    KM_PP_HOLD,                 /* Pure Pro / PP Gaming layer */
     DYNAMIC_MACRO_RANGE,
 };
 
@@ -77,10 +78,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     {_______, BL_TOGG,    _______,    _______,    _______,    KC_BTN1,    KC_BTN1, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 [_RS]= { /* RAISE */
-    {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL },
-    {KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-    {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QW), DF(_CM), KM_PPLR, KM_RST,  KC_ENT },
-    {_______, BL_STEP, _______, _______, _______, KC_BTN2, KC_BTN2, _______, KC_MPLY, KC_VOLD, KC_VOLU, _______}
+    {KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,       KC_0,    KC_DEL },
+    {KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC,    KC_RBRC, KC_BSLS},
+    {_______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  DF(_QW), DF(_CM), KM_PP_HOLD, KM_RST,  KC_ENT },
+    {_______, BL_STEP, _______, _______, _______, KC_BTN2, KC_BTN2, _______, KC_MPLY, KC_VOLD,    KC_VOLU, _______}
 },
 [_DL]= { /* DUAL */
     {_______, _______, KC_WH_U, KC_MS_U, KC_WH_D, _______,     _______,        KC_APP,  KC_INS,  _______, KC_PSCR, _______},
@@ -103,6 +104,15 @@ const uint16_t PROGMEM fn_actions[] = {
     ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
 };
 
+/* It's a pseudo-layer composed of two real layers, we need a function for this. */
+void enable_gaming_layer(void) {
+    default_layer_set((1UL << _PP) | (1UL << _PPG));
+#ifdef BACKLIGHT_ENABLE
+    backlight_toggle();
+    _delay_ms(100);
+    backlight_toggle();
+#endif
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint16_t key_timer;
@@ -176,15 +186,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
         }
         break;
-    case KM_PPLR:
+    case KM_PP_GAME:
+        if (!record->event.pressed) {
+            enable_gaming_layer();
+        }
+        break;
+    case KM_PP_HOLD:
         if (record->event.pressed) {
             key_timer = timer_read();
         } else {
             if (timer_elapsed(key_timer) >= 250) {
-                default_layer_set((1UL << _PP) | (1UL << _PPG));
-                backlight_toggle();
-                _delay_ms(100);
-                backlight_toggle();
+                enable_gaming_layer();
             } else {
                 default_layer_set(1UL << _PP);
             }
