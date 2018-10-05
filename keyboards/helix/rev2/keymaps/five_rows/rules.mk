@@ -6,7 +6,7 @@
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = no       # Audio control and System control(+450)
-CONSOLE_ENABLE = no         # Console for debug
+CONSOLE_ENABLE = no        # Console for debug
 COMMAND_ENABLE = no        # Commands for debug and configuration
 # CONSOLE_ENABLE and COMMAND_ENABLE
 #      yes, no  +1500
@@ -70,6 +70,9 @@ ifneq ($(strip $(HELIX)),)
   ifeq ($(findstring ios,$(HELIX)), ios)
     IOS_DEVICE_ENABLE = yes
   endif
+  ifeq ($(findstring console,$(HELIX)), console)
+    CONSOLE_ENABLE = yes
+  endif
   $(eval $(call HELIX_CUSTOMISE_MSG))
   $(info )
 endif
@@ -117,6 +120,10 @@ endif
 
 ifeq ($(strip $(Link_Time_Optimization)),yes)
     EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
+endif
+
+ifeq ($(strip $(CONSOLE_ENABLE)),yes)
+    EXTRAFLAGS += -DCONSOLE_ENABLE
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
