@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
-// Define layer names
+/* Define layer names */
 enum userspace_layers {
   _QWERTY = 0,
   _NUMLOCK = 0,
@@ -42,15 +42,19 @@ enum userspace_layers {
   _ADJUST,
 };
 
-//define modifiers
+/*
+define modifiers here, since MOD_* doesn't seem to work for these
+ */
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
 
-// RGB color codes are no longer located here anymore.  Instead, you will want to
-// head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
+/*
+RGB color codes are no longer located here anymore.  Instead, you will want to
+head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
+*/
 
 #ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index);
@@ -143,7 +147,7 @@ enum userspace_custom_keycodes {
 #define DL_RAIS LT(_RAISE, KC_DEL)
 #define ET_RAIS LT(_RAISE, KC_ENTER)
 
-// OSM keycodes, to keep things clean and easy to change
+/* OSM keycodes, to keep things clean and easy to change */
 #define KC_MLSF OSM(MOD_LSFT)
 #define KC_MRSF OSM(MOD_RSFT)
 
@@ -172,9 +176,11 @@ enum {
 #endif // TAP_DANCE_ENABLE
 
 
-// Custom Keycodes for Diablo 3 layer
-// But since TD() doesn't work when tap dance is disabled
-// We use custom codes here, so we can substitute the right stuff
+/*
+Custom Keycodes for Diablo 3 layer
+But since TD() doesn't work when tap dance is disabled
+We use custom codes here, so we can substitute the right stuff
+*/
 #ifdef TAP_DANCE_ENABLE
 #define KC_D3_1 TD(TD_D3_1)
 #define KC_D3_2 TD(TD_D3_2)
@@ -188,9 +194,9 @@ enum {
 #endif // TAP_DANCE_ENABLE
 
 /*
-   Since our quirky block definitions are basically a list of comma separated
-   arguments, we need a wrapper in order for these definitions to be
-   expanded before being used as arguments to the LAYOUT_xxx macro.
+Since our quirky block definitions are basically a list of comma separated
+arguments, we need a wrapper in order for these definitions to be
+expanded before being used as arguments to the LAYOUT_xxx macro.
 */
 #if (!defined(LAYOUT) && defined(KEYMAP))
 #define LAYOUT KEYMAP
@@ -203,15 +209,15 @@ enum {
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 
 /*
-   Blocks for each of the four major keyboard layouts
-   Organized so we can quickly adapt and modify all of them
-   at once, rather than for each keyboard, one at a time.
-   And this allows for much cleaner blocks in the keymaps.
-   For instance Tap/Hold for Control on all of the layouts
+Blocks for each of the four major keyboard layouts
+Organized so we can quickly adapt and modify all of them
+at once, rather than for each keyboard, one at a time.
+And this allows for much cleaner blocks in the keymaps.
+For instance Tap/Hold for Control on all of the layouts
 
-   NOTE: These are all the same length.  If you do a search/replace
-         then you need to add/remove underscores to keep the
-         lengths consistent.
+NOTE: These are all the same length.  If you do a search/replace
+  then you need to add/remove underscores to keep the
+  lengths consistent.
 */
 
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
