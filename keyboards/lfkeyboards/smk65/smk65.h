@@ -56,6 +56,9 @@ enum action_functions {
 void reset_keyboard_kb(void);
 void click(uint16_t freq, uint16_t duration);
 
+// readability
+#define ___ KC_NO
+
 /* Vanilla Keymap */
 // This a shortcut to help you visually see your layout.
 /*
@@ -77,28 +80,28 @@ void click(uint16_t freq, uint16_t duration);
     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D,         k1F, k1G, \
     k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D,       k2F, k2G, \
     k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C,           k3F, k3G, \
-    k41,     k43, k44,  k45, k46, k47, k48, k49, k4A, k4B, k4C,         k4D, k4F, k4G, \
-    k51, k52, k53,              k57,                      k5B, k5C, k5D, k5E, k3E, k4E \
+    k41,      k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C,         k4D, k4F, k4G, \
+    k51, k52, k53,              k57,                     k5B, k5C, k5D, k5E, k3E, k4E  \
 ) { \
-    {k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, KC_NO, k1F, k1G}, \
-    {k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, KC_NO, k2F, k2G}, \
-    {k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, KC_NO, k3E, k3F, k3G}, \
-    {k41, KC_NO, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, k4D, k4E, k4F, k4G}, \
-    {k51, k52, k53, KC_NO, KC_NO, KC_NO, k57, KC_NO, KC_NO, KC_NO, k5B, k5C, k5D, k5E, KC_NO, KC_NO}, \
+    { k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, ___, k1F, k1G }, \
+    { k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, ___, k2F, k2G }, \
+    { k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, ___, k3E, k3F, k3G }, \
+    { k41, ___, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, k4D, k4E, k4F, k4G }, \
+    { k51, k52, k53, ___, ___, ___, k57, ___, ___, ___, k5B, k5C, k5D, k5E, ___, ___ }, \
 }
 
 #define LAYOUT_iso( \
     k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D,         k1E, k1G, \
     k21,   k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D,       k2F, k2G, \
     k31,    k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C,           k3F, k3G, \
-    k41,  k42, k43, k44,  k45, k46, k47, k48, k49, k4A, k4B, k4C,       k4D, k4F, k4G, \
-    k51, k52, k53,              k57,                      k5B, k5C, k5D, k5E, k3E, k4E \
+    k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C,         k4D, k4F, k4G, \
+    k51, k52, k53,              k57,                     k5B, k5C, k5D, k5E, k3E, k4E  \
 ) { \
-    {k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, KC_NO, k1G}, \
-    {k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, KC_NO, k2F, k2G}, \
-    {k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, KC_NO, k3E, k3F, k3G}, \
-    {k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, k4D, k4E, k4F, k4G}, \
-    {k51, k52, k53, KC_NO, KC_NO, KC_NO, k57, KC_NO, KC_NO, KC_NO, k5B, k5C, k5D, k5E, KC_NO, KC_NO}, \
+    { k11, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, ___, k1G }, \
+    { k21, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, ___, k2F, k2G }, \
+    { k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3C, ___, k3E, k3F, k3G }, \
+    { k41, k42, k43, k44, k45, k46, k47, k48, k49, k4A, k4B, k4C, k4D, k4E, k4F, k4G }, \
+    { k51, k52, k53, ___, ___, ___, k57, ___, ___, ___, k5B, k5C, k5D, k5E, ___, ___ }, \
 }
 
 #endif //SMK65_H

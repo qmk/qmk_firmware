@@ -4,8 +4,6 @@
 #include "action_layer.h"
 #include "keymap_colemak.h"
 
-#define PREVENT_STUCK_MODIFIERS
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 #define ALPH 0
 #define NUMS 1

@@ -15,11 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include QMK_KEYBOARD_CONFIG_H
-
+#pragma once
 
 #ifdef RGBLIGHT_ENABLE
 #undef RGBLED_NUM
@@ -39,12 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#ifndef NO_PRINT
-#define NO_PRINT
-#endif // !NO_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
@@ -63,6 +53,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_MUSIC_MODE
 #endif
 
+#define STRICT_LAYER_RELEASE
+
 #define LAYOUT_ortho_5x7( \
     L00, L01, L02, L03, L04, L05, L06, \
     L10, L11, L12, L13, L14, L15, L16, \
@@ -78,4 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
         L40, L41, L42, L43, L44, L45, L46, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO \
     )
 
-#endif
+#define QMK_ESC_OUTPUT F5 // usually COL
+#define QMK_ESC_INPUT D4 // usually ROW
+#define QMK_LED B0
+#define QMK_SPEAKER C6

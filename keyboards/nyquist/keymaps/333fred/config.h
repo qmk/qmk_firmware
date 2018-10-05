@@ -1,5 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 #include "../../config.h"
 #include "333fred_config.h"
@@ -9,5 +8,3 @@
 
 #undef  TAPPING_TERM
 #define TAPPING_TERM 150
-
-#endif

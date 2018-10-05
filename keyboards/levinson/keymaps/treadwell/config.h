@@ -16,6 +16,12 @@
 
 #define TAPPING_TERM 150
 
+/* default layer sounds */
+#define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+                              SONG(GAME_SOUND), \
+                              SONG(COLEMAK_SOUND) \
+                            }
+
 //#undef RGBLED_NUM
 //#define RGBLIGHT_ANIMATIONS
 //#define RGBLED_NUM 12

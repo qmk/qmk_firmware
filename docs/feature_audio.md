@@ -3,6 +3,7 @@
 Your keyboard can make sounds! If you've got a Planck, Preonic, or basically any AVR keyboard that allows access to certain PWM-capable pins, you can hook up a simple speaker and make it beep. You can use those beeps to indicate layer transitions, modifiers, special keys, or just to play some funky 8bit tunes.
 
 Up to two simultaneous audio voices are supported, one driven by timer 1 and another driven by timer 3.  The following pins can be defined as audio outputs in config.h:
+
 Timer 1:
 `#define B5_AUDIO`
 `#define B6_AUDIO`
@@ -58,6 +59,13 @@ PLAY_LOOP(my_song);
 
 It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif` to avoid causing problems when audio isn't built into the keyboard.
 
+The available keycodes for audio are: 
+
+* `AU_ON` - Turn audio mode on
+* `AU_OFF` - Turn audio mode off
+* `AU_TOG` - Toggle audio mode
+
+
 ## Music Mode
 
 The music mode maps your columns to a chromatic scale, and your rows to octaves. This works best with ortholinear keyboards, but can be made to work with others. All keycodes less than `0xFF` get blocked, so you won't type while playing notes - if you have special keys/mods, those will still work. A work-around for this is to jump to a different layer with KC_NOs before (or after) enabling music mode.
@@ -111,22 +119,22 @@ You can completely disable Music Mode as well. This is useful, if you're pressed
 
     #define NO_MUSIC_MODE
 
-## Faux Click
+## Audio Click
 
 This adds a click sound each time you hit a button, to simulate click sounds from the keyboard. And the sounds are slightly different for each keypress, so it doesn't sound like a single long note, if you type rapidly. 
 
 * `CK_TOGG` - Toggles the status (will play sound if enabled)
-* `CK_RST` - Resets the frequency to the default state 
-* `CK_UP` - Increases the frequency of the clicks
-* `CK_DOWN` - Decreases the frequency of the clicks
+* `CK_ON` - Turns on Audio Click (plays sound)
+* `CK_OFF` - Turns off Audio Click (doesn't play sound)
+* `CK_RST` - Resets the frequency to the default state (plays sound at default frequency)
+* `CK_UP` - Increases the frequency of the clicks (plays sound at new frequency)
+* `CK_DOWN` - Decreases the frequency of the clicks (plays sound at new frequency)
+
 
 The feature is disabled by default, to save space.  To enable it, add this to your `config.h`:
 
     #define AUDIO_CLICKY
 
-Additionally, even when enabled, the feature is not enabled by default, so you would need to turn it on first.  And since we don't use EEPROM to store the setting (yet), you can default this to on by adding this to your `config.h`:
-
-    #define AUDIO_CLICKY_ON
 
 You can configure the default, min and max frequencies, the stepping and built in randomness by defining these values: 
 
@@ -136,7 +144,7 @@ You can configure the default, min and max frequencies, the stepping and built i
 | `AUDIO_CLICKY_FREQ_MIN` | 65.0f | Sets the lowest frequency (under 60f are a bit buggy). |
 | `AUDIO_CLICKY_FREQ_MAX` | 1500.0f | Sets the the highest frequency. Too high may result in coworkers attacking you. |
 | `AUDIO_CLICKY_FREQ_FACTOR` | 1.18921f| Sets the stepping of UP/DOWN key codes. |
-| `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical. | 
+| `AUDIO_CLICKY_FREQ_RANDOMNESS`     |  0.05f |  Sets a factor of randomness for the clicks, Setting this to `0f` will make each click identical, and `1.0f` will make this sound much like the 90's computer screen scrolling/typing effect. | 
 
 
 
@@ -144,6 +152,23 @@ You can configure the default, min and max frequencies, the stepping and built i
 ## MIDI Functionality
 
 This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
+
+
+## Audio Keycodes
+
+|Key             |Aliases  |Description                       |
+|----------------|---------|----------------------------------|
+|`AU_ON`         |         |Audio mode on                     |
+|`AU_OFF`        |         |Audio mode off                    |
+|`AU_TOG`        |         |Toggles Audio mode                |
+|`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
+|`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
+|`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
+|`CLICKY_RESET`  |`CK_RST` |Resets frequency to default       |
+|`MU_ON`         |         |Turns on Music Mode               |
+|`MU_OFF`        |         |Turns off Music Mode              |
+|`MU_TOG`        |         |Toggles Music Mode                |
+|`MU_MOD`        |         |Cycles through the music modes    |
 
 <!-- FIXME: this formatting needs work
 

@@ -5,7 +5,7 @@
 #endif
 
 #ifndef RGB_MODE
-  #define RGB_MODE 16
+  #define RGB_MODE 2
 #endif
 #ifndef RGB_HUE
   #define RGB_HUE 285
@@ -137,21 +137,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
-#ifdef RGBLIGHT_ENABLE
   switch (biton32(state)) {
     case _RAISE:
+      #ifdef RGBLIGHT_ENABLE
       rgblight_sethsv_noeeprom (240, 255, 255);
+      #endif
       break;
     case _LOWER:
+      #ifdef RGBLIGHT_ENABLE
       rgblight_sethsv_noeeprom (0, 255, 255);
+      #endif
       break;
     case _ADJUST:
+      #ifdef RGBLIGHT_ENABLE
       rgblight_sethsv_noeeprom (0, 0, 255);
+      #endif
       break;
     default:
+      #ifdef RGBLIGHT_ENABLE
       rgblight_sethsv_noeeprom (RGB_HUE, 255, 255);
+      #endif
       break;
     }
   return state;
-#endif
 }
