@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, KC_PSCR, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
       _______, RGB_SAI, RGB_VAI, RGB_SAD, RESET,   KC_LBRC, _______, _______, KC_RBRC, KC_7,    KC_UP,   KC_9,    KC_0,    KC_HOME, \
-      _______, RGB_HUD, RGB_VAD, RGB_HUI, _______, _______, _______, _______, KC_F6,   KC_LEFT, KC_DOWN, KC_RGHT, KC_RBRC, KC_END, \
+      _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST, _______, _______, _______, KC_F6,   KC_LEFT, KC_DOWN, KC_RGHT, KC_RBRC, KC_END, \
       _______, _______, _______, _______, _______, _______, _______, _______, KC_F12,  _______, _______, KC_PGDN, KC_PGUP, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, \
                                                    _______,  KC_DEL, _______, _______ \

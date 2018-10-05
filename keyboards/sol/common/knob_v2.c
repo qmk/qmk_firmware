@@ -4,16 +4,16 @@ bool knob_prev_a = false;
 knob_report_t knob_report = {.dir = 0, .phase = 0};
 
 void knob_init(void) {
-    // I use pins D1 (ISR1) & D4 for a knob.
+    // I use pins D2 (ISR2) & D6 for a knob.
 
-    // Set pin mode for D4 as input.
+    // Set pin mode for D6 as input.
     DDRD &= ~(0UL << PD6);
 
-    // Enable internal pull-up for D4.
+    // Enable internal pull-up for D6.
     // This is done by "writing" 1 to a pin that has its mode set to input.
     PORTD |= (1 << PD6);
 
-    // Enable interrupt for D1
+    // Enable interrupt for D2
     // For more info on the below flags see this awesome section 11.1 (pages 89-90) here:
     // https://cdn-shop.adafruit.com/datasheets/atmel-7766-8-bit-avr-atmega16u4-32u4_datasheet.pdf
     // Set pin mode & pull-up.
