@@ -40,6 +40,10 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
         state->target_lcd_color = LCD_COLOR(130, saturation, 0xFF);
         state->layer_text = "Colemak";
     }
+    else if (state->status.layer & 0x20) {
+        state->target_lcd_color = LCD_COLOR(130, saturation, 0xFF);
+        state->layer_text = "Tarmak";
+    }
     else { 
         state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
         state->layer_text = "Default";
