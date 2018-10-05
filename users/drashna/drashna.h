@@ -348,19 +348,3 @@ enum {
 #define _________________ADJUST_R2_________________        AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN
 #define _________________ADJUST_R3_________________        MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
 
-
-// Since we have 4 default layouts (QWERTY, DVORAK, COLEMAK and WORKMAN),
-// this allows us to quickly modify the bottom row for all of the layouts
-// so we don't have to alter it 4 times and hope that we haven't missed
-// anything
-#define ___________ERGODOX_BOTTOM_LEFT_____________       OSM(MOD_MEH), OSM(MOD_LGUI), KC_LBRC, KC_RBRC
-#define ___________ERGODOX_BOTTOM_RIGHT____________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
-
-
-#define ___________ORTHODOX_THUMP_TOP_____________           ALT_APP, OS_LGUI,         KC_LALT, OS_RGUI
-#define ___________________ORTHODOX_THUMB_BOTTOM____________________ LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE
-
-
-#define __________________ERGODOX_THUMB_CLUSTER_____________________           ALT_T(KC_APP), OSM(MOD_LGUI),           OSM(MOD_RGUI), CTL_T(KC_ESCAPE), \
-                                                                                              KC_HOME,                 KC_PGUP, \
-                                                                LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)
