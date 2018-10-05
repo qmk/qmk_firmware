@@ -76,24 +76,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-    PORTD &= ~(1<<2);
-  } else {
-    PORTD |= (1<<2);
-  }
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    PORTD &= ~(1<<3);
-  } else {
-    PORTD |= (1<<3);
-  }
-  if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-    PORTD &= ~(1<<4);
-  } else {
-    PORTD |= (1<<4);
-  }
-}
-
 void matrix_init_user(void) {
   #ifdef USE_I2C
     i2c_master_init();
@@ -133,7 +115,7 @@ void iota_gfx_task_user(void) {
   struct CharacterMatrix matrix;
 
   matrix_clear(&matrix);
-  matrix_write_P(&matrix, PSTR("TKC1800"));
+  matrix_write_P(&matrix, PSTR("DOLLAR TACO$"));
 
   uint8_t layer = biton32(layer_state);
 

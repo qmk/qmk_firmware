@@ -38,11 +38,25 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 }
 
 void led_init_ports(void) {
-	DDRD |= (1<<2) | (1<<3) | (1<<4); // OUT
-	DDRB |= (1<<7); // OUT
-	PORTB |= (1<<7);
+    DDRD |= (1<<2) | (1<<3) | (1<<4); // OUT
+    DDRB |= (1<<7); // OUT
+    PORTB |= (1<<7);
 }
 
 void led_set_kb(uint8_t usb_led) {
-   led_set_user(usb_led);
+    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+        // Turn LEDs on
+        PORTD |= (1<<2);
+        PORTD |= (1<<3);
+        PORTD |= (1<<4);
+    } else {
+        // Turn LEDs off
+        PORTD &= ~(1<<2);
+        PORTD &= ~(1<<3);
+        PORTD &= ~(1<<4);
+    }
+
+
+
+    led_set_user(usb_led);
 }
