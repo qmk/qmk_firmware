@@ -56,13 +56,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_PP] = { /* Pure Pro */
     {KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
     {KC_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT },
-    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_RSFT, KC_UP,   KC_RCTL},
+    {KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_FN1,  KC_UP,   KC_FN2 },
     {KC_LCTL, MO(_DYN),KC_LGUI, KC_LALT, KM_LW,   KC_SPC,  KC_SPC,  KM_RS,   KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
 },
 [_PPG] = { /* Pure Pro: Gaming */
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
     {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, KC_RSFT, _______, KC_RCTL},
     {_______, _______, KM_LW  , _______, KM_RS  , _______, _______, KM_LW  , _______, _______, _______, _______},
 },
 [_NM] = { /* Numeric */
@@ -102,6 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 const uint16_t PROGMEM fn_actions[] = {
     ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
+    ACTION_MODS_TAP_KEY(MOD_RSFT, KC_DOT),
+    ACTION_MODS_TAP_KEY(MOD_RCTL, KC_SLSH),
 };
 
 /* It's a pseudo-layer composed of two real layers, we need a function for this. */
