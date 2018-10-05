@@ -1,5 +1,4 @@
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
 #include "../viterbi.h"
 
@@ -65,4 +64,3 @@
 
 #define LAYOUT_ortho_5x14 LAYOUT
 
-#endif
