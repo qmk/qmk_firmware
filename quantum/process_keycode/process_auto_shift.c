@@ -172,6 +172,7 @@ bool process_auto_shift(uint16_t keycode, keyrecord_t *record) {
       case KC_COMM:
       case KC_DOT:
       case KC_SLSH:
+      case KC_GRAVE:
 #endif
 
         autoshift_flush();

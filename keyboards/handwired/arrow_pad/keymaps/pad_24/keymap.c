@@ -3,7 +3,7 @@
 #include "led.h"
 
 // This is the 21-key keypad to 2x11 element matrix mapping
-#define KEYMAP( \
+#define LAYOUT( \
     KM_ESC, KM_TAB, KM_BSL, KM_ARR, \
     KM_NUM, KM_FSL, KM_AST, KM_MIN, \
     KM___7, KM___8, KM___9, KM_EQU, \
@@ -47,7 +47,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[LAYER_BASE] = KEYMAP(                \
+[LAYER_BASE] = LAYOUT(                \
   KC_ESC,  KC_TAB,  KC_BSLS, KC_FN0,  \
   KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
   KC_P7,   KC_P8,   KC_P9,   KC_PEQL, \
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_P1,   KC_P2,   KC_P3,   XXXXXXX, \
   KC_P0,   KC_PCMM, KC_PDOT, KC_PENT  ),
 
-[LAYER_EDIT] = KEYMAP(                \
+[LAYER_EDIT] = LAYOUT(                \
   KC_ESC,  KC_TAB,  KC_SPC,  _______, \
   KC_FN1,  SC_PSTE, SC_REDO, SC_UNDO, \
   KC_HOME, KC_UP,   KC_PGUP, KC_LALT, \
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_END,  KC_DOWN, KC_PGDN, XXXXXXX, \
   KC_BSPC, KC_PENT, KC_DEL,  M_SHFCT),
 
-[LAYER_FUNCTION] = KEYMAP(            \
+[LAYER_FUNCTION] = LAYOUT(            \
   KC_FN2,  KC_FN3,  KC_FN4,  _______, \
   KC_FN1,  _______, _______, _______, \
   _______, _______, _______, _______, \

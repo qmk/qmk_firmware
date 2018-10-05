@@ -69,6 +69,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MIDI_ENABLE
 #   include "process_midi.h"
 #endif
+#ifdef HD44780_ENABLE
+#   include "hd44780.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
@@ -117,21 +120,42 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 
 #endif
 
+/** \brief matrix_setup
+ *
+ * FIXME: needs doc
+ */
 __attribute__ ((weak))
 void matrix_setup(void) {
 }
 
+/** \brief keyboard_setup
+ *
+ * FIXME: needs doc
+ */
 void keyboard_setup(void) {
     matrix_setup();
 }
 
+/** \brief is_keyboard_master
+ *
+ * FIXME: needs doc
+ */
 __attribute__((weak))
 bool is_keyboard_master(void) {
     return true;
 }
 
+/** \brief keyboard_init
+ *
+ * FIXME: needs doc
+ */
 void keyboard_init(void) {
     timer_init();
+// To use PORTF disable JTAG with writing JTD bit twice within four cycles.
+#if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
+  MCUCR |= _BV(JTD);
+  MCUCR |= _BV(JTD);
+#endif
     matrix_init();
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
@@ -167,8 +191,16 @@ void keyboard_init(void) {
 #endif
 }
 
-/*
- * Do keyboard routine jobs: scan matrix, light LEDs, ...
+/** \brief Keyboard task: Do keyboard routine jobs
+ *
+ * Do routine keyboard jobs:
+ *
+ * * scan matrix
+ * * handle mouse movements
+ * * run visualizer code
+ * * handle midi commands
+ * * light LEDs
+ *
  * This is repeatedly called as fast as possible.
  */
 void keyboard_task(void)
@@ -274,6 +306,10 @@ MATRIX_LOOP_END:
     }
 }
 
+/** \brief keyboard set leds
+ *
+ * FIXME: needs doc
+ */
 void keyboard_set_leds(uint8_t leds)
 {
     if (debug_keyboard) { debug("keyboard_set_led: "); debug_hex8(leds); debug("\n"); }

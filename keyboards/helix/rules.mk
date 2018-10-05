@@ -1,6 +1,6 @@
-SRC += i2c.c \
-	   serial.c \
-	   ssd1306.c
+SRC += i2c.c
+SRC += serial.c
+SRC += ssd1306.c
 
 # MCU name
 #MCU = at90usb1287

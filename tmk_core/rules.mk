@@ -370,13 +370,15 @@ show_path:
 	@echo SRC=$(SRC)
 	@echo OBJ=$(OBJ)
 
-ifeq ($(CC),avr-gcc)
+ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
 check-size:
-	$(eval MAX_SIZE=$(shell n=`avr-gcc -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne '/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'`; echo $$(($$n)) || echo 0))
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne '/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
+	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
+	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
 	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
 		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
-		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then $(PRINT_WARNING_PLAIN); $(SILENT) || printf " * $(MSG_FILE_TOO_BIG)" ; else $(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)";  fi \
+		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); else $(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)";  fi \
 	fi
 else
 check-size:
