@@ -27,8 +27,13 @@
 #define KC_L2_ALT LALT_T(KC_LANG2)
 #define KC_WEEL   MO(WHEEL)
 
+#ifdef TAP_DANCE_ENABLE
 #define KC_ESC_FN TD(TD_ESC_FUNC)
 #define KC_SFCL   TD(TD_SHIFT_CAPS)
+#else
+#define KC_ESC_FN LT(FUNC, KC_ESC)
+#define KC_SFCL   KC_LSFT
+#endif
 
 #define KC_RST  RESET
 #define KC_MUP  KC_MS_U
