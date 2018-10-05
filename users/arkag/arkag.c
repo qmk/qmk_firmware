@@ -410,7 +410,7 @@ void matrix_scan_user(void) {
     SEQ_ONE_KEY(KC_E) {
       send_unicode_hex_string("00E8");
     }
-    SEQ_TWO_KEYS(KC_E KC_E) {
+    SEQ_TWO_KEYS(KC_E, KC_E) {
       send_unicode_hex_string("00E9");
     }
     // end format functions
