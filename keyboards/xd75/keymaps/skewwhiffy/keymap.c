@@ -26,30 +26,33 @@
 #define _NBR 4 // Numbers right
 #define _SYL 5 // Symbols left
 #define _SYR 6 // Symbols right
-#define _NAV 7 // Navigation
+#define _NAL 7 // Navigation left
+#define _NAR 8 // Navigation right
 
 // Layer buttons
 #define _Z_SFT SFT_T(UK_Z)
 #define _SCLSH SFT_T(UK_SCLN)
 #define _SLSH SFT_T(UK_SLSH)
+
 #define _X_NB LT(_NBL, UK_X)
 #define _Q_NB LT(_NBL, UK_Q)
 #define _DOT_NB LT(_NBR, UK_DOT)
 #define _V_NB LT(_NBR, UK_V)
 #define __NBL LT(_NBL, _______)
 #define __NBR LT(_NBR, _______)
+
 #define _C_SY LT(_SYL, UK_C)
 #define _J_SY LT(_SYL, UK_J)
 #define _W_SY LT(_SYR, UK_W)
 #define _COM_SY LT(_SYR, UK_COMM)
 #define __SYL LT(_SYL, _______)
 #define __SYR LT(_SYR, _______)
-#define _B_NAV LT(_NAV, UK_B)
-#define _X_NAV LT(_NAV, UK_X)
-#define _K_NAV LT(_NAV, UK_K)
-#define _N_NAV LT(_NAV, UK_N)
-#define __NAV LT(_NAV, _______)
-#define __NAV LT(_NAV, _______)
+
+#define _V_NAL LT(_NAL, UK_V)
+#define _K_NAL LT(_NAL, UK_K)
+#define _M_NAR LT(_NAR, UK_M)
+#define __NAL LT(_NAL, _______)
+#define __NAR LT(_NAR, _______)
 
 // Custom hotkeys
 #define _TERM LCTL(UK_QUOT) // Hotkey for Cmder or iTerm
@@ -74,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | A      | R      | S      | T      | D      |        |        |        |        |        | H      | N      | E      | I      | O      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | Z      | X      | C      | V      | B      |        |        |        |        |        | K      | M      | ,      | .      | /      |
- * | SHIFT  | NUMBER | SYMBOL |        | NAV    |        |        |        |        |        | NAV    |        | SYMBOL | FUNC   | SHIFT  |
+ * | SHIFT  | NUMBER | SYMBOL | NAV    |        |        |        |        |        |        |        | NAV    | SYMBOL | FUNC   | SHIFT  |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | LSHIFT | LCTRL  | LALT   | LGUI   | SPACE  | ENT    |        |        |        | DEL    | BKSPC  | RGUI   | RALT   | RCTRL  | RSHIFT |
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -83,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_Q,    UK_W,    UK_F,    UK_P,    UK_G,    _______, _______, _______, _______, _______, UK_J,    UK_L,    UK_U,    UK_Y,    UK_SCLN },
   { UK_A,    UK_R,    UK_S,    UK_T,    UK_D,    _______, _______, _______, _______, _______, UK_H,    UK_N,    UK_E,    UK_I,    UK_O    },
-  { _Z_SFT,  _X_NB,   _C_SY,   UK_V,    _B_NAV,  _______, _______, _______, _______, _______, _K_NAV,  UK_M,    _COM_SY, _DOT_NB, _SLSH   },
+  { _Z_SFT,  _X_NB,   _C_SY,   _V_NAL,  UK_B,    _______, _______, _______, _______, _______, UK_K,    _M_NAR,  _COM_SY, _DOT_NB, _SLSH   },
   { UK_LSFT, UK_LCTL, UK_LALT, UK_LGUI, UK_SPC,  UK_ENT,  _______, _______, _______, UK_DEL,  UK_BSPC, UK_RGUI, UK_RALT, UK_RCTL, UK_RSFT }
  },
 
@@ -96,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | A      | O      | E      | U      | I      |        |        |        |        |        | D      | H      | T      | N      | S      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | ;      | Q      | J      | K      | X      |        |        |        |        |        | B      | M      | W      | V      | Z      |
- * | SHIFT  | NUMBER | SYMBOL |        | NAV    |        |        |        |        |        | NAV    |        | SYMBOL | FUNC   | SHIFT  |
+ * | SHIFT  | NUMBER | SYMBOL | NAV    |        |        |        |        |        |        |        | NAV    | SYMBOL | FUNC   | SHIFT  |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
@@ -105,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_QUOT, UK_COMM, UK_DOT,  UK_P,    UK_Y,    _______, _______, _______, _______, _______, UK_F,    UK_G,    UK_C,    UK_R,    UK_L    },
   { UK_A,    UK_O,    UK_E,    UK_U,    UK_I,    _______, _______, _______, _______, _______, UK_D,    UK_H,    UK_T,    UK_N,    UK_S    },
-  { _SCLSH,  _Q_NB,   _J_SY,   UK_K,    _X_NAV,  _______, _______, _______, _______, _______, _B_NAV,  UK_M,    _W_SY,   _V_NB,   _Z_SFT  },
+  { _SCLSH,  _Q_NB,   _J_SY,   _K_NAL,  UK_X,    _______, _______, _______, _______, _______, UK_B,    _M_NAR,  _W_SY,   _V_NB,   _Z_SFT  },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
 
@@ -118,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | A      | S      | D      | F      | G      |        |        |        |        |        | H      | J      | K      | L      | ;      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | Z      | X      | C      | V      | B      |        |        |        |        |        | N      | M      | ,      | .      | /      |
- * | SHIFT  | NUMBER | SYMBOL |        | NAV    |        |        |        |        |        | NAV    |        | SYMBOL | FUNC   | SHIFT  |
+ * | SHIFT  | NUMBER | SYMBOL | NAV    |        |        |        |        |        |        |        | NAV    | SYMBOL | FUNC   | SHIFT  |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
@@ -129,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_Q,    UK_W,    UK_E,    UK_R,    UK_T,    _______, _______, _______, _______, _______, UK_Y,    UK_U,    UK_I,    UK_O,    UK_P    },
   { UK_A,    UK_S,    UK_D,    UK_F,    UK_G,    _______, _______, _______, _______, _______, UK_H,    UK_J,    UK_K,    UK_L,    UK_SCLN },
-  { _Z_SFT,  _X_NB,   _C_SY,   UK_V,    _B_NAV,  _______, _______, _______, _______, _______, _N_NAV,  UK_M,    _COM_SY, _DOT_NB, _SLSH   },
+  { _Z_SFT,  _X_NB,   _C_SY,   _V_NAL,  UK_B,    _______, _______, _______, _______, _______, UK_N,    _M_NAR,  _COM_SY, _DOT_NB, _SLSH   },
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
 
@@ -189,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
 /*
- * Navigation
+ * Navigation _NA
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * | RESET  | COLEMA | DVORAK | QWERTY |        | RGB_TG |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -202,13 +205,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        | RGB RMD| RGB MD |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- [_NAV] = {
+ [_NAL] = {
   { RESET,   DF(_CM), DF(_DV), DF(_QW), _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
   { UK_ESC,  _C_LEFT, UK_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, UK_PSCR, UK_SLCK, UK_PAUS, _______ },
   { UK_TAB,  UK_LEFT, UK_DOWN, UK_RGHT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, UK_INS,  UK_HOME, UK_PGUP, _TERM   },
-  { _S_TAB,  _A_LEFT, IJ_OMN,  _A_RGHT, __NAV,   RGB_VAD, RGB_VAI, _______, _______, _______, __NAV,   UK_SLCK, UK_END,  UK_PGDN, _______ },
+  { _S_TAB,  _A_LEFT, IJ_OMN,  __NAL,   _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, UK_SLCK, UK_END,  UK_PGDN, _______ },
   { _______, _______, _______, _______, _______, RGB_RMOD,RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______ }
  },
+ [_NAR] = {
+  { RESET,   DF(_CM), DF(_DV), DF(_QW), _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
+  { UK_ESC,  _C_LEFT, UK_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, UK_PSCR, UK_SLCK, UK_PAUS, _______ },
+  { UK_TAB,  UK_LEFT, UK_DOWN, UK_RGHT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, UK_INS,  UK_HOME, UK_PGUP, _TERM   },
+  { _S_TAB,  _A_LEFT, IJ_OMN,  _A_RGHT, _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, __NAR,   UK_END,  UK_PGDN, _______ },
+  { _______, _______, _______, _______, _______, RGB_RMOD,RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______ }
+ }
 };
 
 const uint16_t PROGMEM fn_actions[] = {
