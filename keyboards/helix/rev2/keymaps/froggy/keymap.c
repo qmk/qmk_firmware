@@ -508,7 +508,7 @@ void led_ripple_effect(char r, char g, char b) {
 
     if (scan_count == -1) {
       rgblight_enable_noeeprom();
-      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT-1);
+      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
     } else if (scan_count >= 0 && scan_count < 5) {
       for (unsigned char c=keybuf_begin; c!=keybuf_end; c++) {
         int i = c;
