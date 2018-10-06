@@ -27,10 +27,12 @@ enum userspace_layers {
   ETC75,
   FN75,
   PAD,
+  GK50,
 };
 #elif KEYBOARD_xd75
 enum userspace_layers {
   GK75 = 0,
+  PAD,
   QW75,
   SUB75,
   SUP75,
@@ -50,11 +52,15 @@ enum userspace_layers {
   gNUM,
   gDIR,
   gETC,
-  PAD,
+  GK50,
 };
 #elif KEYBOARD_5x5
 enum userspace_layers {
-  GK75 = 0,
+  GK50 = 0,
+  gNUM,
+  gDIR,
+  gETC,
+  GK75,
   QW75,
   SUB75,
   SUP75,
@@ -72,9 +78,6 @@ enum userspace_layers {
   NUM,
   DIR,
   ETC,
-  gNUM,
-  gDIR,
-  gETC,
 };
 #else
   enum userspace_layers {
@@ -99,6 +102,7 @@ enum userspace_layers {
   DIR75,
   ETC75,
   FN75,
+  GK50,
 };
 #endif
 
@@ -124,6 +128,7 @@ enum userspace_custom_keycodes {
   ETCETERA75,
   FUNCTION75,
   NUMPAD,
+  GHERKIN50,
 
 };
 
@@ -135,6 +140,7 @@ enum {
   ,CAD_TD
   ,RST_TAP_DANCE
   ,LYR_TAP_DANCE
+  ,LYR50_TAP_DANCE
   ,LYR75_TAP_DANCE
   ,BSW_TAP_DANCE
 };
