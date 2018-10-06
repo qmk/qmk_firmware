@@ -11,7 +11,7 @@ Third-party contributions help us grow and improve QMK. We want to make the pull
 
 ## I Don't Want to Read This Whole Thing! I Just Have a Question!
 
-If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Gitter](https://gitter.im/qmk/qmk_firmware).
+If you'd like to ask questions about QMK you can do so on the [OLKB Subreddit](https://reddit.com/r/olkb) or on [Discord](https://discord.gg/Uq7gcHh).
 
 Please keep these things in mind:
 
@@ -29,7 +29,7 @@ QMK is largely written in C, with specific features and parts written in C++. It
 
 # Where Can I Go for Help?
 
-If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on gitter](http://gitter.im/QMK/qmk_firmware).
+If you need help you can [open an issue](https://github.com/qmk/qmk_firmware/issues) or [chat on Discord](https://discord.gg/Uq7gcHh).
 
 # How Do I Make a Contribution?
 
@@ -70,6 +70,7 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
   * Do not write obvious comments
   * If you not sure if a comment is obvious, go ahead and include it.
 * In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
+* We use `#pragma once` at the start of header files rather than old-style include guards (`#ifndef THIS_FILE_H`, `#define THIS_FILE_H`, ..., `#endif`)
 
 # General Guidelines
 
@@ -101,7 +102,7 @@ You'll find all our documentation in the `qmk_firmware/docs` directory, or if yo
 
 Most first-time QMK contributors start with their personal keymaps. We try to keep keymap standards pretty casual (keymaps, after all, reflect the personality of their creators) but we do ask that you follow these guidelines to make it easier for others to discover and learn from your keymap.
 
-* Write a `readme.md` using [the template](https://docs.qmk.fm/documentation_templates.html#).
+* Write a `readme.md` using [the template](documentation_templates.md).
 * All Keymap PR's are squashed, so if you care about how your commits are squashed you should do it yourself
 * Do not lump features in with keymap PR's. Submit the feature first and then a second PR for the keymap.
 * Do not include `Makefile`s in your keymap folder (they're no longer used)
@@ -113,7 +114,7 @@ Keyboards are the raison d'être for QMK. Some keyboards are community maintaine
 
 We also ask that you follow these guidelines:
 
-* Write a `readme.md` using [the template](https://docs.qmk.fm/documentation_templates.html#).
+* Write a `readme.md` using [the template](documentation_templates.md).
 * Keep the number of commits reasonable or we will squash your PR
 * Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.
 * Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
@@ -124,7 +125,7 @@ We also ask that you follow these guidelines:
 
 Before you put a lot of work into building your new feature you should make sure you are implementing it in the best way. You can get a basic understanding of QMK by reading [Understanding QMK](understanding_qmk.md), which will take you on a tour of the QMK program flow. From here you should talk to us to get a sense of the best way to implement your idea. There are two main ways to do this:
 
-* [Chat on Gitter](https://gitter.im/qmk/qmk_firmware)
+* [Chat on Discord](https://discord.gg/Uq7gcHh)
 * [Open an Issue](https://github.com/qmk/qmk_firmware/issues/new)
 
 Feature and Bug Fix PR's affect all keyboards. We are also in the process of restructuring QMK. For this reason it is especially important for significant changes to be discussed before implementation has happened. If you open a PR without talking to us first please be prepared to do some significant rework if your choices do not mesh well with our planned direction.
@@ -140,7 +141,7 @@ We also ask that you follow these guidelines:
 
 * Keep the number of commits reasonable or we will squash your PR
 * Do not lump keyboards or keymaps in with core changes. Submit your core changes first.
-* Write [Unit Tests](http://docs.qmk.fm/unit_testing.html) for your feature
+* Write [Unit Tests](unit_testing.md) for your feature
 * Follow the style of the file you are editing. If the style is unclear or there are mixed styles you should conform to the [coding conventions](#coding-conventions) above.
 
 ## Refactoring

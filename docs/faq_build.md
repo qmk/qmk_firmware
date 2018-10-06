@@ -104,3 +104,17 @@ brew install dfu-programmer
 brew install gcc-arm-none-eabi
 brew install avrdude
 ```
+
+### avr-gcc 8.1 and LUFA
+
+If you updated your avr-gcc to above 7 you may see errors involving LUFA. For example:
+
+`lib/lufa/LUFA/Drivers/USB/Class/Device/AudioClassDevice.h:380:5: error: 'const' attribute on function returning 'void'`
+
+For now, you need to rollback avr-gcc to 7 in brew.
+
+```
+brew uninstall --force avr-gcc
+brew install avr-gcc@7
+brew link avr-gcc@7
+```

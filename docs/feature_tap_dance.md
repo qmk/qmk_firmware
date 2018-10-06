@@ -6,9 +6,9 @@ Hit the semicolon key once, send a semicolon. Hit it twice, rapidly -- send a co
 
 With this feature one can specify keys that behave differently, based on the amount of times they have been tapped, and when interrupted, they get handled before the interrupter.
 
-To make it clear how this is different from `ACTION_FUNCTION_TAP`, lets explore a certain setup! We want one key to send `Space` on single tap, but `Enter` on double-tap.
+To make it clear how this is different from `ACTION_FUNCTION_TAP`, let's explore a certain setup! We want one key to send `Space` on single tap, but `Enter` on double-tap.
 
-With `ACTION_FUNCTION_TAP`, it is quite a rain-dance to set this up, and has the problem that when the sequence is interrupted, the interrupting key will be send first. Thus, `SPC a` will result in `a SPC` being sent, if they are typed within `TAPPING_TERM`. With the tap dance feature, that'll come out as `SPC a`, correctly.
+With `ACTION_FUNCTION_TAP`, it is quite a rain-dance to set this up, and has the problem that when the sequence is interrupted, the interrupting key will be sent first. Thus, `SPC a` will result in `a SPC` being sent, if they are typed within `TAPPING_TERM`. With the tap dance feature, that'll come out as `SPC a`, correctly.
 
 The implementation hooks into two parts of the system, to achieve this: into `process_record_quantum()`, and the matrix scan. We need the latter to be able to time out a tap sequence even when a key is not being pressed, so `SPC` alone will time out and register after `TAPPING_TERM` time.
 
@@ -16,11 +16,13 @@ But lets start with how to use it, first!
 
 First, you will need `TAP_DANCE_ENABLE=yes` in your `rules.mk`, because the feature is disabled by default. This adds a little less than 1k to the firmware size. Next, you will want to define some tap-dance keys, which is easiest to do with the `TD()` macro, that - similar to `F()`, takes a number, which will later be used as an index into the `tap_dance_actions` array.
 
-This array specifies what actions shall be taken when a tap-dance key is in action. Currently, there are three possible options:
+This array specifies what actions shall be taken when a tap-dance key is in action. Currently, there are five possible options:
 
 * `ACTION_TAP_DANCE_DOUBLE(kc1, kc2)`: Sends the `kc1` keycode when tapped once, `kc2` otherwise. When the key is held, the appropriate keycode is registered: `kc1` when pressed and held, `kc2` when tapped once, then pressed and held.
+* `ACTION_TAP_DANCE_DUAL_ROLE(kc, layer)`: Sends the `kc` keycode when tapped once, or moves to `layer`. (this functions like the `TO` layer keycode).
 * `ACTION_TAP_DANCE_FN(fn)`: Calls the specified function - defined in the user keymap - with the final tap count of the tap dance action.
-* `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)`: Calls the first specified function - defined in the user keymap - on every tap, the second function on when the dance action finishes (like the previous option), and the last function when the tap dance action resets.
+* `ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)`: Calls the first specified function - defined in the user keymap - on every tap, the second function when the dance action finishes (like the previous option), and the last function when the tap dance action resets.
+* `ACTION_TAP_DANCE_FN_ADVANCED_TIME(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn, tap_specific_tapping_term)`: This functions identically to the `ACTION_TAP_DANCE_FN_ADVANCED` function, but uses a custom tapping term for it, instead of the predefined `TAPPING_TERM`.
 
 The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise.
 
@@ -194,22 +196,20 @@ SRC += your_name.c
 Pretty simple. It is a nice way to keep some rules common on all your keymaps.
 
 
-### In `/qmk_firmware/users/<your_name>/<you_name>.h`
+### In `/qmk_firmware/users/<your_name>/<your_name>.h`
 
 You will need a few things in this file:
 
 ```c
-#ifndef YOUR_NAME
-#define YOUR_NAME
+#pragma once
 
 #include "quantum.h"
 #include "process_keycode/process_tap_dance.h"
 
-
 typedef struct {
   bool is_press_action;
   int state;
-} xtap;
+} tap;
 
 enum {
   SINGLE_TAP = 1,
@@ -223,9 +223,9 @@ enum {
 
 //Tap dance enums
 enum {
-    CTL_X = 0,
-    SOME_OTHER_DANCE
-}
+  X_CTL = 0,
+  SOME_OTHER_DANCE
+};
 
 int cur_dance (qk_tap_dance_state_t *state);
 
@@ -239,7 +239,7 @@ void x_reset (qk_tap_dance_state_t *state, void *user_data);
 And then in your user's `.c` file you implement the functions above:
 
 ```c
-#include "gordon.h"
+#include "<your_name>.h"
 #include "quantum.h"
 #include "action.h"
 #include "process_keycode/process_tap_dance.h"
@@ -333,4 +333,4 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 ```
 
-And then simply use TD(X_CTL) anywhere in your keymap.
+And then simply use `TD(X_CTL)` anywhere in your keymap after including `<your_name>.h`.

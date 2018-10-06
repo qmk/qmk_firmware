@@ -9,7 +9,7 @@
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    qmkbuilder
 #define PRODUCT         KBD75
-#define DESCRIPTION     QMK keyboard firmware for KBD75 R3 or later
+#define DESCRIPTION     QMK keyboard firmware for KBD75
 
 /* key matrix size */
 #define MATRIX_ROWS 6
@@ -42,9 +42,6 @@
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN

@@ -1,38 +1,59 @@
-Dactyl manuform
+Dactyl Manuform (4x5, 5x6, 5x7, 6x6)
 ======
-
 the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
+![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
+
 
 ## First Time Setup
 
 Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to generate the default .hex using:
 
-```
-$ make dactyl_manuform:dvorak
-```
-
-You will see a lot of output and if everything worked correctly you will see the built hex file:
+Depending on your Layout chose one of the follwing commands:
 
 ```
-dactyl_manuform_dvorak.hex
+$ make handwired/dactyl_manuform/YOUR_LAYOUT:YOUR_KEYMAP_NAME
 ```
 
-If you would like to use one of the alternative keymaps, or create your own, copy one of the existing [keymaps](keymaps/) and run make like so:
-
+example:
 ```
-$ make dactyl_manuform:YOUR_KEYMAP_NAME
+$ make handwired/dactyl_manuform/4x5:default
 ```
 
 If everything worked correctly you will see a file:
 
 ```
-dactyl_manuform_YOUR_KEYMAP_NAME.hex
+dactyl_manuform_YOUR_LAYOUT_YOUR_KEYMAP_NAME.hex
 ```
 
 For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
 
-Required Hardware
------------------
+
+## Keymaps
+
+### [Keymaps 4x5](/keyboards/handwired/dactyl_manuform/4x5/keymaps/)
+
+#### Default
+Simple QWERTY layout with 3 Layers.
+#### Dvorak
+
+### [Keymaps 5x6](/keyboards/handwired/dactyl_manuform/5x6/keymaps/)
+
+#### Default
+Just a copy of the Impstyle keymap. Feel free to adjust it.
+
+#### Impstyle
+A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and the Left ist the master.
+
+### [Keymaps 5x7 aka almost Ergodox](/keyboards/handwired/dactyl_manuform/5x7/keymaps/)
+#### Default
+Keymap of Loligagger from geekhack.
+
+### [Keymaps 6x6](/keyboards/handwired/dactyl_manuform/6x6/keymaps/)
+
+#### Default
+Simple QWERTY layout with 3 Layers.
+
+## Required Hardware
 
 Apart from diodes and key switches for the keyboard matrix in each half, you
 will need:
@@ -44,12 +65,10 @@ Alternatively, you can use any sort of cable and socket that has at least 3
 wires. If you want to use I2C to communicate between halves, you will need a
 cable with at least 4 wires and 2x 4.7kΩ pull-up resistors
 
-Optional Hardware
------------------
+## Optional Hardware
 A speaker can be hooked-up to either side to the `5` (`C6`) pin and `GND`, and turned on via `AUDIO_ENABLE`.
 
-Wiring
-------
+## Wiring
 
 The 3 wires of the TRS/TRRS cable need to connect GND, VCC, and digital pin 3 (i.e.
 PD0 on the ATmega32u4) between the two Pro Micros.
@@ -71,19 +90,17 @@ unnecessary in simple use cases.
 
 You can change your configuration between serial and i2c by modifying your `config.h` file.
 
-Notes on Software Configuration
--------------------------------
+## Notes on Software Configuration
 
 the keymaps in here are for the 4x5 layout of the keyboard only.
 
-Flashing
--------
-From the top level `qmk_firmware` directory run `make KEYBOARD:KEYMAP:avrdude` for automatic serial port resolution and flashing.
-Example: `make lets_split/rev2:default:avrdude`
+## Flashing
+
+To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
 
 
-Choosing which board to plug the USB cable into (choosing Master)
---------
+## Choosing which board to plug the USB cable into (choosing Master)
+
 Because the two boards are identical, the firmware has logic to differentiate the left and right board.
 
 It uses two strategies to figure things out: looking at the EEPROM (memory on the chip) or looking if the current board has the usb cable.
@@ -93,15 +110,18 @@ The EEPROM approach requires additional setup (flashing the eeprom) but allows y
 The USB cable approach is easier to setup and if you just want the usb cable on the left board, you do not need to do anything extra.
 
 ### Setting the left hand as master
+
 If you always plug the usb cable into the left board, nothing extra is needed as this is the default. Comment out `EE_HANDS` and comment out `I2C_MASTER_RIGHT` or `MASTER_RIGHT` if for some reason it was set.
 
 ### Setting the right hand as master
+
 If you always plug the usb cable into the right board, add an extra flag to your `config.h`
 ```
  #define MASTER_RIGHT
 ```
 
 ### Setting EE_hands to use either hands as master
+
 If you define `EE_HANDS` in your `config.h`, you will need to set the
 EEPROM for the left and right halves.
 
