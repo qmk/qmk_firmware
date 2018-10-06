@@ -16,6 +16,9 @@
 #ifdef SSD1306OLED
 #include "./oled.c"
 #endif
+#ifdef RGBLIGHT_ENABLE
+#include "./rgb.c"
+#endif
 
 /* KEYCODE DEFINITIONS */
 
