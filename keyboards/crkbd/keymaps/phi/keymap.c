@@ -109,6 +109,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
+void rgblight_task_user (void) {
+  #ifdef RGBLIGHT_ENABLE
+    update_rgblight();
+  #endif
+}
+
 void matrix_init_user(void) {
   #ifdef SSD1306OLED
     oled_init();
