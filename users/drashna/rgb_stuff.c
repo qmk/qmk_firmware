@@ -230,7 +230,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       userspace_config.rgb_layer_change ^= 1;
       xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-      eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+      eeprom_update_dword(EECONFIG_USERSPACE, userspace_config.raw);
       if (userspace_config.rgb_layer_change) {
         layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
       }
@@ -243,7 +243,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
       if (userspace_config.rgb_layer_change) {
         userspace_config.rgb_layer_change = false;
         xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-        eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+        eeprom_update_dword(EECONFIG_USERSPACE, userspace_config.raw);
       }
     }
     return true; break;
@@ -273,6 +273,7 @@ void matrix_init_rgb(void) {
       default:
         rgblight_sethsv_noeeprom_cyan(); break;
     }
+    rgblight_mode_noeeprom(1);
   }
 }
 

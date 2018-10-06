@@ -271,6 +271,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace            |
 |`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                      |
 |`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides    |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides|
 |`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                 |
 
 ## [Bluetooth](feature_bluetooth.md)

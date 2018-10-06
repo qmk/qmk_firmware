@@ -91,12 +91,23 @@ uint8_t matrix_scan(void) {
     return 1;
 }
 
+__attribute__ ((weak))
+void matrix_scan_user(void) {};
+
+__attribute__ ((weak))
 void matrix_scan_kb(void) {
   // Looping keyboard code goes here
   // This runs every cycle (a lot)
   matrix_scan_user();
 };
 
+__attribute__ ((weak))
+void matrix_init_user(void) {};
+
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+  matrix_init_user();
+}
 // declarations
 void matrix_set_row_status(uint8_t row) {
     DDRB = (1 << row);

@@ -106,14 +106,14 @@ void keyboard_slave_loop(void) {
     
     // Read Backlight Info
     #ifdef BACKLIGHT_ENABLE
-        if (BACKLIT_DIRTY) {
-            #ifdef USE_I2C
+        #ifdef USE_I2C
+            if (BACKLIT_DIRTY) {
                 backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
-            #else // USE_SERIAL
-                backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
-            #endif
-            BACKLIT_DIRTY = false;
-        }
+                BACKLIT_DIRTY = false;
+            }
+        #else // USE_SERIAL
+            backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
+        #endif
     #endif
     // Read RGB Info
     #ifdef RGBLIGHT_ENABLE
