@@ -7,6 +7,7 @@
 #define FUNCTION 2
 #define MOUSE    3
 #define WHEEL    4
+#define LOCK     5
 
 /* FEATURES */
 
@@ -29,6 +30,7 @@
 #define KC_L1_RAI LT(RAISE, KC_LANG1)
 #define KC_L2_ALT LALT_T(KC_LANG2)
 #define KC_WEEL   MO(WHEEL)
+#define KC_CHLD   TG(LOCK)
 
 #ifdef TAP_DANCE_ENABLE
 #define KC_ESC_FN TD(TD_ESC_FUNC)
@@ -70,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     ____ , EXLM , AT   , HASH , DLR  , PERC ,                  CIRC , AMPR , ASTR , LEFT , DOWN , RGHT , \
 //`------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------'
-                                ____ , ____ , ____ ,    RST  , ____ , XXXX  \
+                                ____ , ____ , ____ ,    RST  , CHLD , XXXX  \
 //                            `--------------------'  `--------------------'
 ),
 
@@ -107,6 +109,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ____ , ____ , ____ , ____ , ____ , ____ ,                  ____ , ____ , ____ , ____ , ____ , ____ , \
 //`------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------'
                                 ____ , ____ , ____ ,    ____ , ____ , ____  \
+//                            `--------------------'  `--------------------'
+),
+
+[LOCK] = LAYOUT_kc( \
+//,-----------------------------------------.                ,-----------------------------------------.
+    XXXX , XXXX , XXXX , XXXX , XXXX , XXXX ,                  XXXX , XXXX , XXXX , XXXX , XXXX , XXXX , \
+//|------+------+------+------+------+------|                |------+------+------+------+------+------|
+    XXXX , XXXX , XXXX , XXXX , XXXX , XXXX ,                  XXXX , XXXX , XXXX , XXXX , XXXX , XXXX , \
+//|------+------+------+------+------+------|                |------+------+------+------+------+------|
+    XXXX , XXXX , XXXX , XXXX , XXXX , XXXX ,                  XXXX , XXXX , XXXX , XXXX , XXXX , XXXX , \
+//`------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------'
+                                XXXX , XXXX , XXXX ,    XXXX , XXXX , XXXX  \
 //                            `--------------------'  `--------------------'
 ),
 

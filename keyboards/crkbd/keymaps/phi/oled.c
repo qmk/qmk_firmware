@@ -7,6 +7,7 @@
 #define L_FUNCTION (2 << (2 - 1))
 #define L_MOUSE    (2 << (3 - 1))
 #define L_WHEEL    (2 << (4 - 1))
+#define L_LOCK     (2 << (5 - 1))
 
 #define MOD_CTL (MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RCTRL))
 #define MOD_SFT (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
@@ -32,6 +33,8 @@ char *get_layer_name(void) {
         return "Mouse";
       case L_WHEEL | L_MOUSE:
         return "Wheel";
+      case L_LOCK:
+        return "LOCKED";
       default:
         return "(Undefined)";
     }
