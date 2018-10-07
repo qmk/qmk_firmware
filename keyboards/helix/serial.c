@@ -14,7 +14,49 @@
 #include "serial.h"
 //#include <pro_micro.h>
 
-#ifdef USE_SERIAL
+#ifdef SOFT_SERIAL_PORT
+
+#ifdef __AVR_ATmega32U4__
+  #if SOFT_SERIAL_PORT >= D0 && SOFT_SERIAL_PORT <= D3
+    #define SERIAL_PIN_DDR   DDRD
+    #define SERIAL_PIN_PORT  PORTD
+    #define SERIAL_PIN_INPUT PIND
+    #if SOFT_SERIAL_PORT == D0
+      #define SERIAL_PIN_MASK _BV(PD0)
+      #define EIMSK_BIT       _BV(INT0)
+      #define EICRx_BIT       (~(_BV(ISC00) | _BV(ISC01)))
+      #define SERIAL_PIN_INTERRUPT INT0_vect
+    #elif  SOFT_SERIAL_PORT == D1
+      #define SERIAL_PIN_MASK _BV(PD1)
+      #define EIMSK_BIT       _BV(INT1)
+      #define EICRx_BIT       (~(_BV(ISC10) | _BV(ISC11)))
+      #define SERIAL_PIN_INTERRUPT INT1_vect
+    #elif  SOFT_SERIAL_PORT == D2
+      #define SERIAL_PIN_MASK _BV(PD2)
+      #define EIMSK_BIT       _BV(INT2)
+      #define EICRx_BIT       (~(_BV(ISC20) | _BV(ISC21)))
+      #define SERIAL_PIN_INTERRUPT INT2_vect
+    #elif  SOFT_SERIAL_PORT == D3
+      #define SERIAL_PIN_MASK _BV(PD3)
+      #define EIMSK_BIT       _BV(INT3)
+      #define EICRx_BIT       (~(_BV(ISC30) | _BV(ISC31)))
+      #define SERIAL_PIN_INTERRUPT INT3_vect
+    #endif
+  #elif  SOFT_SERIAL_PORT == E6
+    #define SERIAL_PIN_DDR   DDRE
+    #define SERIAL_PIN_PORT  PORTE
+    #define SERIAL_PIN_INPUT PINE
+    #define SERIAL_PIN_MASK  _BV(PE6)
+    #define EIMSK_BIT        _BV(INT6)
+    #define EICRx_BIT        (~(_BV(ISC60) | _BV(ISC61)))
+    #define SERIAL_PIN_INTERRUPT INT6_vect
+  #else
+  #error invalid SOFT_SERIAL_PORT value
+  #endif
+
+#else
+ #error serial.c now support ATmega32U4 only
+#endif
 
 #ifndef SERIAL_USE_MULTI_TRANSACTION
 /* --- USE Simple API (OLD API, compatible with let's split serial.c) */
@@ -62,34 +104,36 @@ int serial_update_buffers()
 // Serial pulse period in microseconds.
 #define TID_SEND_ADJUST 14
 
-#define SELECT_SERIAL_SPEED 1
-#if SELECT_SERIAL_SPEED == 0
+#ifndef SELECT_SOFT_SERIAL_SPEED
+#define SELECT_SOFT_SERIAL_SPEED 1
+#endif
+#if SELECT_SOFT_SERIAL_SPEED == 0
   // Very High speed
   #define SERIAL_DELAY 4             // micro sec
   #define READ_WRITE_START_ADJUST 33 // cycles
   #define READ_WRITE_WIDTH_ADJUST 3 // cycles
-#elif SELECT_SERIAL_SPEED == 1
+#elif SELECT_SOFT_SERIAL_SPEED == 1
   // High speed
   #define SERIAL_DELAY 6             // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
   #define READ_WRITE_WIDTH_ADJUST 3 // cycles
-#elif SELECT_SERIAL_SPEED == 2
+#elif SELECT_SOFT_SERIAL_SPEED == 2
   // Middle speed
   #define SERIAL_DELAY 12            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
   #define READ_WRITE_WIDTH_ADJUST 3 // cycles
-#elif SELECT_SERIAL_SPEED == 3
+#elif SELECT_SOFT_SERIAL_SPEED == 3
   // Low speed
   #define SERIAL_DELAY 24            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
   #define READ_WRITE_WIDTH_ADJUST 3 // cycles
-#elif SELECT_SERIAL_SPEED == 4
+#elif SELECT_SOFT_SERIAL_SPEED == 4
   // Very Low speed
   #define SERIAL_DELAY 50            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
   #define READ_WRITE_WIDTH_ADJUST 3 // cycles
 #else
-#error Illegal Serial Speed
+#error invalid SELECT_SOFT_SERIAL_SPEED value
 #endif
 
 
@@ -164,18 +208,14 @@ void soft_serial_target_init(SSTD_t *sstd_table)
     Transaction_table = sstd_table;
     serial_input_with_pullup();
 
-#if SERIAL_PIN_MASK == _BV(PD0)
-    // Enable INT0
-    EIMSK |= _BV(INT0);
-    // Trigger on falling edge of INT0
-    EICRA &= ~(_BV(ISC00) | _BV(ISC01));
-#elif SERIAL_PIN_MASK == _BV(PD2)
-    // Enable INT2
-    EIMSK |= _BV(INT2);
-    // Trigger on falling edge of INT2
-    EICRA &= ~(_BV(ISC20) | _BV(ISC21));
+    // Enable INT0-INT3,INT6
+    EIMSK |= EIMSK_BIT;
+#if SERIAL_PIN_MASK == _BV(PE6)
+    // Trigger on falling edge of INT6
+    EICRB &= EICRx_BIT;
 #else
- #error unknown SERIAL_PIN_MASK value
+    // Trigger on falling edge of INT0-INT3
+    EICRA &= EICRx_BIT;
 #endif
 }
 

@@ -4,14 +4,11 @@
 #include <stdbool.h>
 
 // /////////////////////////////////////////////////////////////////
-// Need Soft Serial defines in serial_config.h
+// Need Soft Serial defines in config.h
 // /////////////////////////////////////////////////////////////////
 // ex.
-//  #define SERIAL_PIN_DDR DDRD
-//  #define SERIAL_PIN_PORT PORTD
-//  #define SERIAL_PIN_INPUT PIND
-//  #define SERIAL_PIN_MASK _BV(PD?)   ?=0,2
-//  #define SERIAL_PIN_INTERRUPT INT?_vect  ?=0,2
+//  #define SOFT_SERIAL_PORT ??   // ?? = D0,D1,D2,D3,E6
+//  OPTIONAL: #define SELECT_SOFT_SERIAL_SPEED ? // ? = 1(default),2,3,4
 //
 // //// USE Simple API (OLD API, compatible with let's split serial.c)
 // ex.
