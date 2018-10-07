@@ -43,17 +43,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 1
 
 #undef TAPPING_TERM
-#define TAPPING_TERM 130
+#define TAPPING_TERM 180
 
 /* Prefer "hold" when "down -> up -> down" (recognized immediately as "tap twice" by default) */
 #define TAPPING_FORCE_HOLD
 
 /* Prefer "hold" when "SandS Dn -> A Dn -> A Up -> SandS Up" within the TAPPING_TERM */
 #define PERMISSIVE_HOLD
-#define PERMISSIVE_HOLD_SHIFT_ONLY
+/* #define PERMISSIVE_HOLD_SHIFT_ONLY */
 
 /* Prefer "tap" when "SandS Dn -> A Dn -> Sands Up -> A Up" within the TAPPING_TERM */
 /* (Like IGNORE_MOD_TAP_INTERRUPT but only ignores SHIFT) */
-#define IGNORE_SHIFT_TAP_INTERRUPT
+/* #define IGNORE_SHIFT_TAP_INTERRUPT */
 
 #endif

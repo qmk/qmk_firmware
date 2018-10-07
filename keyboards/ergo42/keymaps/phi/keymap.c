@@ -1,13 +1,9 @@
 #include "ergo42.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-
-extern keymap_config_t keymap_config;
 
 /* LAYER DEFINITIONS */
 
 #define BASE     0
-#define SYMB     1
+#define RAISE    1
 #define MOUSE    3
 #define WHEEL    4
 #define FUNCTION 5
@@ -20,11 +16,10 @@ extern keymap_config_t keymap_config;
 
 /* layers */
 #define KC_D_MOUS LT(MOUSE, KC_D)
-#define KC_L1_FNC LT(FUNCTION, KC_LANG1)
+#define KC_L1_RAI LT(RAISE, KC_LANG1)
 #define KC_L2_ALT LALT_T(KC_LANG2)
 #define KC_WEEL   MO(WHEEL)
-#define KC_SP_SFT LSFT_T(KC_SPC)
-#define KC_ENT_SB LT(SYMB, KC_ENT)
+#define KC_ESC_FN LT(FUNCTION, KC_ESC)
 
 /* aliases */
 #define KC_RST  RESET
@@ -47,19 +42,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
     LSFT , Z    , X    , C    , V    , B    , XXXX , XXXX , B    , N    , M    , COMM , DOT  , SLSH , \
 //`---------------------------+------+------+------.-------------+------+------+--------------------'
-    XXXX , XXXX , XXXX , XXXX ,L2_ALT,SP_SFT, ESC  , TAB  ,ENT_SB,L1_FNC, XXXX , XXXX , XXXX , XXXX   \
+    XXXX , XXXX , XXXX , XXXX ,L2_ALT, SPC  ,ESC_FN, TAB  , ENT  ,L1_RAI, XXXX , XXXX , XXXX , XXXX   \
 //                            `--------------------'--------------------'
 ),
 
-[SYMB] = LAYOUT_kc_ortho_4x14( \
+[RAISE] = LAYOUT_kc_ortho_4x14( \
 //,------+----------------------------------.             ,-----------------------------------------.
-    ____ , 1    , 2    , 3    , 4    , 5    , XXXX , XXXX , 6    , 7    , 8    , 9    , 0    , EQL  , \
+    BSPC , 1    , 2    , 3    , 4    , 5    , XXXX , XXXX , 6    , 7    , 8    , 9    , 0    , EQL  , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-    ____ , ____ , ____ , LCBR , LPRN , LBRC , XXXX , XXXX , RBRC , RPRN , RCBR , PIPE, ____  , PLUS , \
+    ____ , ____ , BSLS , LCBR , LPRN , LBRC , XXXX , XXXX , RBRC , RPRN , RCBR , PIPE , UP   , PLUS , \
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
-    ____ , EXLM , AT   , HASH , DLR  , PERC , XXXX , XXXX , CIRC , AMPR , ASTR , ____ , ____ , BSLS , \
+    ____ , EXLM , AT   , HASH , DLR  , PERC , XXXX , XXXX , CIRC , AMPR , ASTR , LEFT , DOWN , RGHT , \
 //`---------------------------+------+------+------.--------------+-----+-----+---------------------'
-    XXXX , XXXX , XXXX , XXXX , ____ , ____ , ____ , ____ , ____ , ____ , XXXX , XXXX , XXXX , XXXX   \
+    XXXX , XXXX , XXXX , XXXX , ____ , ____ , ____ , RST  , ____ , XXXX , XXXX , XXXX , XXXX , XXXX   \
 //                            `--------------------'--------------------'
 ),
 
@@ -71,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|             |------+------+------+------+------+------|
     ____ , F1   , F2   , F3   , F4   , F5   , XXXX , XXXX , F6   , F7   , F8   , F9   , F10  , ____ , \
 //`---------------------------+------+------+------.--------------+-----+-----+---------------------'
-    XXXX , XXXX , XXXX , XXXX , ____ , ____ , ____ , RST  , ____ , ____ , XXXX , XXXX , XXXX , XXXX   \
+    XXXX , XXXX , XXXX , XXXX , ____ , ____ , ____ , ____ , ____ , ____ , XXXX , XXXX , XXXX , XXXX   \
 //                            `--------------------'--------------------'
 ),
 
