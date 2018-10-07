@@ -14,12 +14,12 @@
 #define KNOB_ENABLE
 
 /* key matrix size */
-#define MATRIX_ROWS 1
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 7
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { C6 }
-#define MATRIX_COL_PINS { F0, B4, E6 }
+#define MATRIX_ROW_PINS { C6, B6, B5, B4, D7, E6 }
+#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, C7 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
