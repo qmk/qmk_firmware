@@ -31,32 +31,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18
 
-#define MATRIX_ONBOARD_ROW_PINS { F7, F6, F5, F4, F1, F0 }
-
 // left columns are all onboard, right columns all on expander
 #define COL_EXPANDED { false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true}
-#define MATRIX_COL_PINS { C6, D7, B5, B6, B7, D6, D3 }
+#define MATRIX_COL_PINS { C6, D7, B5, B6, B7, D6, D3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
 #define MATRIX_ROW_PINS { F7, F6, F5, F4, F1, F0 }
 
-#define MATRIX_ONBOARD_COL_PINS { C6, D7, B5, B6, B7, D6, D3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
-#define EXPANDER_COL_REGISTER 0
-#define MATRIX_EXPANDER_COL_PINS { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }
-
-
 #define DIODE_DIRECTION ROW2COL
-
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-// #define RGBLIGHT_ANIMATIONS
-// #define RGBLED_NUM 16
-// #define RGBLIGHT_HUE_STEP 8
-// #define RGBLIGHT_SAT_STEP 8
-// #define RGBLIGHT_VAL_STEP 8
-// #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5

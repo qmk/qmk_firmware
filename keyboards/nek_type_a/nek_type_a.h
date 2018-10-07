@@ -17,15 +17,29 @@
 #define NEK_TYPE_A_H
 
 #include "quantum.h"
+#include <stdint.h>
+#include <stdbool.h>
+#include "i2cmaster.h"
+#include <util/delay.h>
 
-/* This a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
+#define I2C_ADDR        0b0100000
+#define I2C_ADDR_WRITE  ( (I2C_ADDR<<1) | I2C_WRITE )
+#define I2C_ADDR_READ   ( (I2C_ADDR<<1) | I2C_READ  )
+#define IODIRA          0x00            // i/o direction register
+#define IODIRB          0x01
+#define GPPUA           0x0C            // GPIO pull-up resistor register
+#define GPPUB           0x0D
+#define GPIOA           0x12            // general purpose i/o port register (write modifies OLAT)
+#define GPIOB           0x13
+#define OLATA           0x14            // output latch register
+#define OLATB           0x15
+
+extern uint8_t expander_status;
+extern uint8_t expander_input_pin_mask;
+extern bool i2c_initialized;
+
+void init_expander(void);
+
 #define LAYOUT( \
          L12, L13,      L15, L16, L17,   R11, R12, R13, R14, R15, R16, R17, R18, R19, R1A, R1B, \
     L21, L22, L23, L24, L25, L26, L27,   R21, R22, R23, R24, R25, R26,      R28, R29, R2A, R2B, \
