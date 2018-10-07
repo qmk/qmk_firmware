@@ -14,9 +14,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "planck.h"
+#include QMK_KEYBOARD_H
+
 #include "action_layer.h"
 #include "muse.h"
+#include "keymap_slovenian.h"
 
 extern keymap_config_t keymap_config;
 
@@ -31,8 +33,6 @@ enum planck_layers {
 
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
-  BACKLIT,
-  EXT_PLV
 };
 
 #define LOWER MO(_LOWER)
@@ -44,20 +44,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
+ * | Tab  |   Q  |   W  |   E  |   R  |   T  |   Z  |   U  |   I  |   O  |   P  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | CAPS |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
+ * | Shift|   Y  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Ctrl | Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | Ctrl | GUI  | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
-    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
-    CAPS,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT ,
-    KC_LCTL, KC_LGUI, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   ALTGR, KC_DOWN, KC_UP,   KC_F5
+    KC_TAB,   SI_Q,     SI_W,     SI_E,     SI_R,   SI_T,    SI_Z,    SI_U,    SI_I,    SI_O,    SI_P,    KC_BSPC,
+    CAPS,     SI_A,     SI_S,     SI_D,     SI_F,   SI_G,    SI_H,    SI_J,    SI_K,    SI_L,    KC_SCLN, KC_ENT,
+    KC_LSFT,  SI_Y,     SI_X,     SI_C,     SI_V,   SI_B,    SI_N,    SI_M,    SI_COMM, SI_DOT,  SI_MINS, KC_RSFT ,
+    KC_LCTL,  KC_LGUI,  KC_LALT,  KC_LGUI,  LOWER,  KC_SPC,  KC_SPC,  RAISE,   ALTGR,   KC_DOWN, KC_UP,   KC_F5
 ),
 
 /* Lower
@@ -138,36 +138,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case BACKLIT:
-      if (record->event.pressed) {
-        register_code(KC_RSFT);
-        #ifdef BACKLIGHT_ENABLE
-          backlight_step();
-        #endif
-        #ifdef KEYBOARD_planck_rev5
-          PORTE &= ~(1<<6);
-        #endif
-      } else {
-        unregister_code(KC_RSFT);
-        #ifdef KEYBOARD_planck_rev5
-          PORTE |= (1<<6);
-        #endif
-      }
-      return false;
-      break;
-  }
-  return true;
 }
 
 bool muse_mode = false;
