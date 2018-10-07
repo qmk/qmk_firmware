@@ -65,9 +65,9 @@ void serial_slave_init(void) {
   serial_input();
 
   // Enable INT0
-  EIMSK |= _BV(INT0);
+  EIMSK |= _BV(INT3);
   // Trigger on falling edge of INT0
-  EICRA &= ~(_BV(ISC00) | _BV(ISC01));
+  EICRA &= ~(_BV(ISC30) | _BV(ISC31));
 }
 
 // Used by the master to synchronize timing with the slave.
