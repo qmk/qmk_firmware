@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-pushd ../../../../..
-make thevankeyboards/roadkit:wavebeem-gamepad
-sudo dfu-programmer atmega32u4 erase
-sudo dfu-programmer atmega32u4 flash thevankeyboards_roadkit_wavebeem-gamepad.hex
-sudo dfu-programmer atmega32u4 start
