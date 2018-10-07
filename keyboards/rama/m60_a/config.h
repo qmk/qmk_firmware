@@ -18,8 +18,8 @@
 #include "config_common.h"
 
 // USB Device descriptor parameter
-#define VENDOR_ID       0xFEED // This is same as Zeal60 for now
-#define PRODUCT_ID      0x6060 // This is same as Zeal60 for now
+#define VENDOR_ID       0x5241 // "RW"
+#define PRODUCT_ID      0x060A // 60-A
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RAMA.WORKS
 #define PRODUCT         RAMA M60-A

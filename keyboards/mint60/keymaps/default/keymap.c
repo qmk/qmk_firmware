@@ -31,7 +31,7 @@ extern rgblight_config_t rgblight_config;
 #define XXXXXXX KC_NO
 
 enum custom_keycodes {
-  RGBRST
+  RGBRST = SAFE_RANGE
 };
 
 

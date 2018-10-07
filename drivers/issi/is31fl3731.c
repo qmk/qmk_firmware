@@ -268,4 +268,3 @@ void IS31FL3731_update_led_control_registers( uint8_t addr1, uint8_t addr2 )
         }
     }
 }
-
