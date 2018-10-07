@@ -1,20 +1,26 @@
-# Gamepad Layout by @wavebeem
+![Keymap Diagram](https://i.imgur.com/hRjbhEn.png)
+
+# PC FPS Layout by @wavebeem
 
 The concept behind this layout is the left side of a computer keyboard,
-optimized with essential keys for playing FPS games
+optimized with essential keys for playing FPS games. It was designed for TheVan
+RoadKit, but it should work for any 4x4 ortholinear keyboard.
 
-The numbers 123 are missing for weapon switching, but you can usually switch
-with the mouse wheel or rebind those to ZXC or something else.
+I play with my pinky on `Shift`, thumb on `Space`, and the rest of my fingers on
+`W A S D`. I use my thumb for `Control`, `X`, and sometimes `C`. I usually use
+`Z` with my ring finger. It also helps to angle my fingers more perpendicular to
+the board in order to allow my thumb to more easily access the `Z X C` row.
 
-The keys R and F are generally pretty useful too, but I typically bind those to
-my mouse as well.
+The number keys `1 2 3` are missing for weapon switching, but you can usually
+switch with the mouse wheel or rebind those to `Z X C` or something else.
 
-Note the easy access to all modifier keys potentially useful for gaming. Alt
-isn't great since Alt-Tab will trigger your in-game keybinding for Alt, but I
-think it's important to keep around in case a game wants it or you need to
-Alt-Tab to leave a game.
+The key `R` for reloading is missing, but I prefer to use my extra mouse buttons
+for that.
 
-# Layer 1
+I don't really use `Alt` for games, but I kept it around for `Alt-Tab` in
+Windows.
+
+# Keymap Text Diagram
 
 ```
 +-------+-------+-------+-------+
@@ -24,9 +30,6 @@ Alt-Tab to leave a game.
 +-------+-------+-------+-------+
 | Shift | Z     | X     | C     |
 +-------+-------+-------+-------+
-| Fn    | Alt   | Ctrl  | Space |
+| F     | Alt   | Ctrl  | Space |
 +-------+-------+-------+-------+
 ```
-
-Currently there is only one layer, but I may add more layers later. Fn does
-nothing yet.
