@@ -1,6 +1,6 @@
 ![Keymap Diagram](https://i.imgur.com/hRjbhEn.png)
 
-# PC FPS Layout by @wavebeem
+# Gamepad Layout by @wavebeem
 
 The concept behind this layout is the left side of a computer keyboard,
 optimized with essential keys for playing FPS games. It was designed for TheVan
