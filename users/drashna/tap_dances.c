@@ -38,7 +38,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // Sends the key press to system, but only if on the Diablo layer
 void send_diablo_keystroke(uint8_t diablo_key) {
-  if (biton32(layer_state) == _DIABLO) {
+  if (IS_LAYER_ON(_DIABLO)) {
     switch (diablo_key) {
       case 0:
         tap_code(KC_1); break;
