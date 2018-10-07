@@ -21,10 +21,10 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch(id) {
-    case _MAIN:
+  switch (id) {
+    case 0:
       if (record->event.pressed) {
-        persistent_default_layer_set(1UL << _MAIN);
+        persistent_default_layer_set(1UL << 0);
       }
       break;
   }
