@@ -5,3 +5,5 @@ BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality on B7 by 
 ifeq ($(strip $(dfu)), qmk)
     BOOTLOADER = qmk-dfu
 endif
+
+AUDIO_ENABLE = yes

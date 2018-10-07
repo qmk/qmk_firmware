@@ -43,3 +43,6 @@
 
 // set flashing LED with QMK DFU
 #define QMK_LED B0
+
+// set audio pin
+#define C6_AUDIO

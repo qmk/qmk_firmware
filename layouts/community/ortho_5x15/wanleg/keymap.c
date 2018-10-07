@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [PAD] = LAYOUT_ortho_5x5_wrapper(
   _______, _______, _______, _______, _______,
-  _______________NUMPAD_Row__0_______________, _______, 
+  _______________NUMPAD_Row__0_______________, _______,
   _______________NUMPAD_Row__1_______________, _______,
   _______________NUMPAD_Row__2_______________, _______,
   KC_KP_0, TD(LYR50_TAP_DANCE), KC_KP_DOT, KC_PMNS, _______
@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [GK50] = LAYOUT_ortho_5x10_wrapper(
   KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
-  _______________Gherkin_Row_0_______________, 
+  _______________Gherkin_Row_0_______________,
   _______________Gherkin_Row_1_______________,
   _______________Gherkin_Row_2_______________,
   TD(RST_TAP_DANCE), GHERKIN75, NUMPAD, gNUMBER, gETCETERA, KC_SPC,gDIRECTION, KC_RGUI, KC_RALT, KC_RGUI
@@ -206,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________Gherkin_NUM_0_______________,
   _______________Gherkin_NUM_1_______________,
   _______________Gherkin_NUM_2_______________,
-  _______________Gherkin_NUM_2_______________
+  _______, _______, _______, _______, _______, KC_ENT, KC_RSFT, KC_RGUI, _______, _______
 ),
 
 [gDIR] = LAYOUT_ortho_5x10_wrapper(
@@ -214,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________Gherkin_DIR_0_______________,
   _______________Gherkin_DIR_1_______________,
   _______________Gherkin_DIR_2_______________,
-  _______________Gherkin_DIR_2_______________
+  _________________BLANK_50__________________
 ),
 
 [gETC] = LAYOUT_ortho_5x10_wrapper(
@@ -222,6 +222,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________Gherkin_ETC_0_______________,
   _______________Gherkin_ETC_1_______________,
   _______________Gherkin_ETC_2_______________,
-  _______________Gherkin_ETC_2_______________
+  _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______
 ),
 };
