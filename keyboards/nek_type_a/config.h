@@ -1,5 +1,5 @@
 /*
-Copyright 2018 REPLACE_WITH_YOUR_NAME
+Copyright 2018 Mike Roberts
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,21 +31,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 18
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { F7, F6, F5, F4, F1, F0 }
-#define MATRIX_COL_PINS { C6, D7, B5, B6, B7, D6, D3 }
-#define UNUSED_PINS
+#define MATRIX_ONBOARD_ROW_PINS { F7, F6, F5, F4, F1, F0 }
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+// left columns are all onboard, right columns all on expander
+#define COL_EXPANDED { false, false, false, false, false, false, false, true, true, true, true, true, true, true, true, true, true, true}
+#define MATRIX_COL_PINS { C6, D7, B5, B6, B7, D6, D3 }
+#define MATRIX_ROW_PINS { F7, F6, F5, F4, F1, F0 }
+
+#define MATRIX_ONBOARD_COL_PINS { C6, D7, B5, B6, B7, D6, D3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }
+#define EXPANDER_COL_REGISTER 0
+#define MATRIX_EXPANDER_COL_PINS { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 }
+
+
 #define DIODE_DIRECTION ROW2COL
 
 // #define BACKLIGHT_PIN B7
@@ -63,11 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
-
-/* define if matrix has ghost (lacks anti-ghosting diodes) */
-//#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
