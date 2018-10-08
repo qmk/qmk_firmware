@@ -19,9 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "quantum.h"
 #include "version.h"
 #include "eeprom.h"
+#include "send_unicode.h"
+
 #ifdef RGB_MATRIX_ENABLE
 #include "rgb_matrix.h"
 #endif
+
+
 // Define layer names
 enum userspace_layers {
   _QWERTY = 0,
@@ -49,7 +53,7 @@ enum userspace_layers {
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
-extern bool clicky_enable;
+extern bool rgb_layer_change;
 
 #ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index);
@@ -59,20 +63,26 @@ inline void tap(uint16_t keycode){ register_code(keycode); unregister_code(keyco
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
 bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 
-#define EECONFIG_USERSPACE (uint8_t *)19
+#define EECONFIG_USERSPACE (uint32_t *)19
 
 typedef union {
-  uint8_t raw;
+  uint32_t raw;
   struct {
-    bool     clicky_enable    :1;
     bool     rgb_layer_change :1;
     bool     is_overwatch     :1;
     bool     nuke_switch      :1;
+    uint8_t  unicode_mod      :4;
   };
 } userspace_config_t;
 
+#if defined(KEYMAP_SAFE_RANGE)
+  #define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
+#else
+  #define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
+#endif
+
 enum userspace_custom_keycodes {
-  EPRM = SAFE_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
+  EPRM = PLACEHOLDER_SAFE_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
   VRSN,              // Prints QMK Firmware and board info
   KC_QWERTY,         // Sets default layer to QWERTY
   KC_COLEMAK,        // Sets default layer to COLEMAK
@@ -100,12 +110,13 @@ enum userspace_custom_keycodes {
   KC_SECRET_5,       // test5
   KC_CCCV,           // Hold to copy, tap to paste
   KC_NUKE,           // NUCLEAR LAUNCH DETECTED!!!
-
-#ifdef UNICODE_ENABLE
-  UC_FLIP,           // Table flip (not working?)
-#endif //UNICODE_ENABLE
+  UC_FLIP,           // (ಠ痊ಠ)┻━┻
+  UC_TABL,           // ┬─┬ノ( º _ ºノ)
+  UC_SHRG,           // ¯\_(ツ)_/¯
+  UC_DISA,           // ಠ_ಠ
   NEW_SAFE_RANGE     //use "NEWPLACEHOLDER for keymap specific codes
 };
+
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -154,6 +165,8 @@ enum userspace_custom_keycodes {
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
 
+#define UC_IRNY UC(0x2E2E)
+#define UC_CLUE UC(0x203D)
 
 #ifdef TAP_DANCE_ENABLE
 enum {
