@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "timer.h"
-
+#include "mcp23017.h"
 
 /* Set 0 if debouncing isn't needed */
 
@@ -62,6 +62,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static const bool col_expanded[MATRIX_COLS] = COL_EXPANDED;
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -86,6 +87,7 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 __attribute__ ((weak))
 void matrix_init_quantum(void) {
+    expander_init();
     matrix_init_kb();
 }
 
@@ -147,7 +149,8 @@ uint8_t matrix_cols(void) {
 // }
 
 void matrix_init(void) {
-
+    debug_enable=true;
+    print("hello");
     // initialize row and col
 #if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
@@ -168,7 +171,7 @@ void matrix_init(void) {
 
 uint8_t matrix_scan(void)
 {
-
+    expander_connect();
 #if (DIODE_DIRECTION == COL2ROW)
 
     // Set row, read cols
@@ -351,7 +354,6 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     // For each row...
     for(uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++)
     {
-
         // Store last value of row prior to reading
         matrix_row_t last_row_value = current_matrix[row_index];
 
@@ -383,23 +385,42 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 static void select_col(uint8_t col)
 {
     uint8_t pin = col_pins[col];
-    _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
-    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+    if (col_expanded[col])
+    {
+        expander_select(pin);
+    }
+    else
+    {
+        _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
+        _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+    }
 }
 
 static void unselect_col(uint8_t col)
 {
     uint8_t pin = col_pins[col];
-    _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-    _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    if (col_expanded[col])
+    {
+        expander_unselect(pin);
+    }
+    else
+    {
+        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    }
 }
 
 static void unselect_cols(void)
 {
-    for(uint8_t x = 0; x < MATRIX_COLS; x++) {
-        uint8_t pin = col_pins[x];
-        _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
-        _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+    expander_unselect_all();
+
+    for(uint8_t col = 0; col < MATRIX_COLS; col++) {
+        uint8_t pin = col_pins[col];
+        if (!col_expanded[col])
+        {
+            _SFR_IO8((pin >> 4) + 1) &= ~_BV(pin & 0xF); // IN
+            _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
+        }
     }
 }
 

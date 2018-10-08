@@ -1,5 +1,4 @@
-SRC = twimaster.c \
-	  matrix.c
+SRC = twimaster.c matrix.c mcp23017.c
 
 MCU = atmega32u4
 F_CPU = 8000000
@@ -12,7 +11,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 BOOTLOADER = caterina
 
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes        # Console for debug(+400)
@@ -30,3 +29,4 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 CUSTOM_MATRIX = yes
+DEBUG_ENABLE = yes
