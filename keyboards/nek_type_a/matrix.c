@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "timer.h"
 #include "mcp23017.h"
+#include "outputselect.h"
 
 /* Set 0 if debouncing isn't needed */
 
@@ -149,8 +150,7 @@ uint8_t matrix_cols(void) {
 // }
 
 void matrix_init(void) {
-    debug_enable=true;
-    print("hello");
+    set_output(OUTPUT_AUTO);
     // initialize row and col
 #if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
