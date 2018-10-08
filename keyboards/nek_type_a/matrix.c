@@ -1,5 +1,5 @@
 /*
-Copyright 2012-2017 Jun Wako, Jack Humbert
+Copyright 2012-2018 Jun Wako, Jack Humbert, Mike Roberts
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,6 +14,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
+/*
+ * This matrix.c has been hacked up to support some columns being on an ex pander in ROW2COL mode.
+ * The columns are only ever selected and unselected, never read. Unselecting a single column via the expander is not
+ * implemented because updating one column costs the same as updating all the columns in a bank. Currently both banks
+ * are unselected but two i2c transactions could be removed if we only unselect the the proper half.
+ */
+
 #include <stdint.h>
 #include <stdbool.h>
 #if defined(__AVR__)
@@ -171,7 +179,7 @@ void matrix_init(void) {
 
 uint8_t matrix_scan(void)
 {
-    //wait_ms(100);
+
 #if (DIODE_DIRECTION == COL2ROW)
 
     // Set row, read cols
@@ -349,7 +357,7 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 
     // Select col and wait for col selecton to stabilize
     select_col(current_col);
-    wait_us(60);
+    wait_us(30);
 
     // For each row...
     for(uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++)

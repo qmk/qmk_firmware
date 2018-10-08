@@ -1,4 +1,4 @@
-SRC = twimaster.c matrix.c mcp23017.c
+SRC = matrix.c mcp23017.c
 
 MCU = atmega32u4
 F_CPU = 8000000

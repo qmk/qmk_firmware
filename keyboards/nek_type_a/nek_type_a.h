@@ -19,7 +19,6 @@
 #include "quantum.h"
 #include <stdint.h>
 #include <stdbool.h>
-#include "i2cmaster.h"
 #include <util/delay.h>
 
 #define I2C_ADDR        0b0100000

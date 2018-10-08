@@ -351,7 +351,6 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     // For each row...
     for(uint8_t row_index = 0; row_index < MATRIX_ROWS; row_index++)
     {
-
         // Store last value of row prior to reading
         matrix_row_t last_row_value = current_matrix[row_index];
 

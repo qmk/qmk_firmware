@@ -1,15 +1,25 @@
+/* Copyright 2018 Mike Roberts
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #ifndef MAP23017_H
 #define MAP23017_H
 
-#define MCP23017
-#define MCP23017_A0 0
-#define MCP23017_A1 0
-#define MCP23017_A2 0
-
-#ifdef MCP23017
-#define EXPANDER_ADDRa ((0x20|(MCP23017_A0<<0)|(MCP23017_A1<<1)|(MCP23017_A2<<2)) << 1)
 #define EXPANDER_ADDR 0x27
 #define I2C_TIMEOUT 200 // milliseconds
+#define EXPANDER_PAUSE 0 // microseconds
+
 enum EXPANDER_REGISTERS {
     EXPANDER_REG_IODIRA = 0x00,
     EXPANDER_REG_IODIRB = 0x01,
@@ -34,7 +44,6 @@ enum EXPANDER_REGISTERS {
     EXPANDER_REG_OLATA = 0x14,
     EXPANDER_REG_OLATB = 0x15
 };
-#endif
 
 #define GPA0 0x0
 #define GPA1 0x1

@@ -1,13 +1,25 @@
+/* Copyright 2018 Mike Roberts
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
 #include <stdbool.h>
 #include "action.h"
-//#include "i2cmaster.h"
 #include "lib/lufa/LUFA/Drivers/Peripheral/TWI.h"
 #include "lib/lufa/LUFA/Drivers/Peripheral/AVR8/TWI_AVR8.c"
 #include "mcp23017.h"
 #include "debug.h"
 #include "wait.h"
-
-#define EXPANDER_PAUSE 0
 
 uint8_t bit_for_pin(uint8_t pin);
 
