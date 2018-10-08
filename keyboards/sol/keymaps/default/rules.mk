@@ -11,12 +11,16 @@ NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: ht
 BACKLIGHT_ENABLE = yes      # Enable keyboard backlight functionality
 RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
 MIDI_ENABLE = no            # MIDI controls
-AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 ENCODER_ENABLE = yes        # Enable rotary encoder
+OLED_ENABLE = no            # OLED_ENABLE
+LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
+LED_BACK_ENABLE = yes       # LED backlight (Enable WS2812 RGB underlight.)
+LED_ANIMATIONS = yes        # LED animations
+IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
 define HELIX_CUSTOMISE_MSG
   $(info Helix customize)
@@ -32,12 +36,7 @@ endef
 # you can edit follows 7 Variables
 #  jp: 以下の7つの変数を必要に応じて編集します。
 HELIX_ROWS = 5              # Helix Rows is 4 or 5
-OLED_ENABLE = no            # OLED_ENABLE
-LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
-LED_BACK_ENABLE = yes        # LED backlight (Enable WS2812 RGB underlight.)
-LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
-LED_ANIMATIONS = yes        # LED animations
-IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
+
 
 ####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
 ####    Do not enable these with audio at the same time.
