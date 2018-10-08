@@ -98,7 +98,15 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
       }
       layer_off(_NAV);
     }
-  return false;
+    return false;
+  case KC_P00:
+    if(record->event.pressed) {
+      register_code(KC_P0);
+      unregister_code(KC_P0);
+      register_code(KC_P0);
+      unregister_code(KC_P0);
+    }
+    return false;
 
   #ifdef RGBLIGHT_ENABLE
   case CU_RGBV:

@@ -11,6 +11,7 @@ enum userspace_layers {
 enum userspace_custom_keycodes {
   CU_GAME = SAFE_RANGE,     // Toggle game mode on/off
   CU_NAV,                   // NAV | ESC
+  KC_P00,                   // Numpad double zero
 
   #ifdef GERMAN_ENABLE
   CU_LSFT,                  // LSFT | (
