@@ -62,14 +62,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        ┣━━━━━╉─────┼─────┼─────┼─────┼─────┨      ┠─────┼─────┼─────┼─────┼─────╊━━━━━┫
        ┃SHIFT┃  Z  │  X  │  C  │  V  │  B  ┃      ┃  N  │  M  │  ,  │  .  │  /  ┃CTL/-┃
        ┗━━━━━┻━━━━━┷━━━━━╈━━━━━╈━━━━━╈━━━━━┫      ┣━━━━━╈━━━━━╈━━━━━╈━━━━━┷━━━━━┻━━━━━┛
-                         ┃ ALT ┃     ┃ MOD ┃      ┃SPACE┃ β/= ┃  '  ┃
+                         ┃ ALT ┃ MOD ┃SPACE┃      ┃SPACE┃ β/= ┃  '  ┃
                          ┗━━━━━┻━━━━━┻━━━━━┛      ┗━━━━━┻━━━━━┻━━━━━┛
        */
     [_MAIN] = LAYOUT_kc( \
         TAB,  Q,    W,    E,    R,    T,           Y,    U,    I,    O,    P,    BSPC, \
         ALPHA,A,    S,    D,    F,    G,           H,    J,    K,    L,    SCLN, ENT,  \
         LSFT, Z,    X,    C,    V,    B,           N,    M,    COMM, DOT,  SLSH, LCTRL,\
-        _____,_____,_____,LALT, _____,LGUI,        SPC,  BETA, QUOT, _____,_____,_____ \
+        _____,_____,_____,LALT, LGUI, SPC,         SPC,  BETA, QUOT, _____,_____,_____ \
     ),
 
     /* Alpha layer (α)
@@ -122,7 +122,7 @@ void matrix_scan_user(void) {
     knob_report_t knob_report = knob_report_read();
     knob_report_reset();
     if (knob_report.phase) { // I check for phase to avoid handling the rotation twice (on 90 and 270 degrees).
-        while (knob_report.dir > 0) {
+        while (knob_report.dir < 0) {
             // CCW
             if (layer_state_is(_BETA)) {
                 register_code(KC_VOLD);
@@ -131,12 +131,13 @@ void matrix_scan_user(void) {
                 register_code(KC_LEFT);
                 unregister_code(KC_LEFT);
             } else {
-                register_code(KC_VOLD);
-                unregister_code(KC_VOLD);
+                report_mouse_t report = pointing_device_get_report();
+                report.v += 1;
+                pointing_device_set_report(report);
             }
-            knob_report.dir--;
+            knob_report.dir++;
         }
-        while (knob_report.dir < 0) {
+        while (knob_report.dir > 0) {
             // CW
             if (layer_state_is(_BETA)) {
                 register_code(KC_VOLU);
@@ -145,10 +146,11 @@ void matrix_scan_user(void) {
                 register_code(KC_RIGHT);
                 unregister_code(KC_RIGHT);
             } else {
-                register_code(KC_VOLD);
-                unregister_code(KC_VOLD);
+                report_mouse_t report = pointing_device_get_report();
+                report.v -= 1;
+                pointing_device_set_report(report);
             }
-            knob_report.dir++;
+            knob_report.dir--;
         }
     }
 }
