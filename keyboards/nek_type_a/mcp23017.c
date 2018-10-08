@@ -5,87 +5,64 @@
 #include "lib/lufa/LUFA/Drivers/Peripheral/AVR8/TWI_AVR8.c"
 #include "mcp23017.h"
 #include "debug.h"
+#include "wait.h"
 
-static uint8_t expander_status = 0;
+#define EXPANDER_PAUSE 0
 
 uint8_t bit_for_pin(uint8_t pin);
+
 uint8_t expander_write(uint8_t reg, uint8_t data);
+
 uint8_t expander_read(uint8_t reg, uint8_t *data);
+
 void expander_config(void);
 
-void expander_init(void)
-{
-    i2c_init();
-    expander_connect();
+static const char *twi_err_str(uint8_t res) {
+    switch (res) {
+        case TWI_ERROR_NoError:
+            return "OK";
+        case TWI_ERROR_BusFault:
+            return "BUSFAULT";
+        case TWI_ERROR_BusCaptureTimeout:
+            return "BUSTIMEOUT";
+        case TWI_ERROR_SlaveResponseTimeout:
+            return "SLAVETIMEOUT";
+        case TWI_ERROR_SlaveNotReady:
+            return "SLAVENOTREADY";
+        case TWI_ERROR_SlaveNAK:
+            return "SLAVENAK";
+        default:
+            return "UNKNOWN";
+    }
+}
+
+void expander_init(void) {
+    TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 400000));
 }
 
 // set IN and HI
-void expander_unselect(uint8_t pin)
-{
-    const uint8_t bit = bit_for_pin(pin);
-    if (pin < 8)
-    {
-        expander_write(EXPANDER_REG_IODIRA, bit);
-        expander_write(EXPANDER_REG_OLATA, bit);
-    }
-    else
-    {
-        expander_write(EXPANDER_REG_IODIRB, bit);
-        expander_write(EXPANDER_REG_OLATB, bit);
-    }
-}
-
-// set OUT and LOW
-void expander_select(uint8_t pin)
-{
-    const uint8_t mask = 0xff & ~bit_for_pin(pin);
-    if (pin < 8)
-    {
-        expander_write(EXPANDER_REG_IODIRA, mask);
-        expander_write(EXPANDER_REG_OLATA, mask);
-    }
-    else
-    {
-        expander_write(EXPANDER_REG_IODIRB, mask);
-        expander_write(EXPANDER_REG_OLATB, mask);
-    }
-}
-
-void expander_unselect_all()
-{
+void expander_unselect_all() {
     expander_write(EXPANDER_REG_IODIRA, 0xff);
     expander_write(EXPANDER_REG_IODIRB, 0xff);
     expander_write(EXPANDER_REG_OLATA, 0xff);
     expander_write(EXPANDER_REG_OLATB, 0xff);
+    wait_us(EXPANDER_PAUSE);
 }
 
-void expander_connect()
-{
-    dprintf("expander status: %d ... ", expander_status);
-    i2c_init();
-    uint8_t ret = i2c_start(EXPANDER_ADDR | I2C_WRITE);
-    dprintf("ret %d ... ", ret);
-/*    if (ret == 0) {
-        i2c_stop();
-        if (expander_status == 0) {
-            dprintf("attached\n");
-            expander_status = 1;
-            expander_config();
-            clear_keyboard();
-        }
+// set OUT and LOW
+void expander_select(uint8_t pin) {
+    const uint8_t mask = 0xff & ~(1 << bit_for_pin(pin));
+    if (pin < 8) {
+        expander_write(EXPANDER_REG_IODIRA, mask);
+        expander_write(EXPANDER_REG_OLATA, mask);
+    } else {
+        expander_write(EXPANDER_REG_IODIRB, mask);
+        expander_write(EXPANDER_REG_OLATB, mask);
     }
-    else {
-        if (expander_status == 1) {
-            dprintf("detached\n");
-            expander_status = 0;
-            clear_keyboard();
-        }
-    }*/
-    dprintf("%d\n", expander_status);
+    wait_us(EXPANDER_PAUSE);
 }
 
-void expander_config()
-{
+void expander_config() {
     // set everything to input
     expander_write(EXPANDER_REG_IODIRA, 0xff);
     expander_write(EXPANDER_REG_IODIRB, 0xff);
@@ -98,44 +75,21 @@ void expander_config()
     expander_write(EXPANDER_REG_GPINTENA, 0x0);
     expander_write(EXPANDER_REG_GPINTENB, 0x0);
 
-    // polarity?
+    // polarity
+    expander_write(EXPANDER_REG_IPOLA, 0x0);
+    expander_write(EXPANDER_REG_IPOLB, 0x0);
 }
 
-uint8_t bit_for_pin(uint8_t pin)
-{
+uint8_t bit_for_pin(uint8_t pin) {
     return pin % 8;
 }
 
-uint8_t expander_write(uint8_t reg, uint8_t data)
-{
-    if (expander_status == 0) {
-        return 0;
+uint8_t expander_write(uint8_t reg, unsigned char val) {
+    uint8_t addr = reg;
+    uint8_t result = TWI_WritePacket(EXPANDER_ADDR << 1, I2C_TIMEOUT, &addr, sizeof(addr), &val, sizeof(val));
+    if (result) {
+        xprintf("mcp: set_register %d = %d failed: %s\n", reg, val, twi_err_str(result));
     }
-    uint8_t ret;
-    ret = i2c_start(EXPANDER_ADDR | I2C_WRITE);
-    if (ret) goto stop;
-    ret = i2c_write(reg);
-    if (ret) goto stop;
-    ret = i2c_write(data);
-    stop:
-    i2c_stop();
-    return ret;
+    return result == 0;
 }
 
-uint8_t expander_read(uint8_t reg, uint8_t *data)
-{
-    if (expander_status == 0) {
-        return 0;
-    }
-    uint8_t ret;
-    ret = i2c_start(EXPANDER_ADDR | I2C_WRITE);
-    if (ret) goto stop;
-    ret = i2c_write(reg);
-    if (ret) goto stop;
-    ret = i2c_rep_start(EXPANDER_ADDR | I2C_READ);
-    if (ret) goto stop;
-    *data = i2c_readNak();
-    stop:
-    i2c_stop();
-    return ret;
-}
