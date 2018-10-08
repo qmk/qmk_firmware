@@ -93,11 +93,23 @@ see `qmk_firmware/keyboards/sol/rev1/keymaps/default/rules.mk`
 ```
 # Viariables you can set for SOL
 
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
+EXTRAKEY_ENABLE = no        # Audio control and System control(+450)
+CONSOLE_ENABLE = yes        # Console for debug(+400)
+COMMAND_ENABLE = no         # Commands for debug and configuration
+NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
+MIDI_ENABLE = no            # MIDI controls
+UNICODE_ENABLE = no         # Unicode
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+SWAP_HANDS_ENABLE = no      # Enable one-hand typing
+ENCODER_ENABLE = yes        # Enable rotary encoder
 OLED_ENABLE = no            # OLED_ENABLE
 LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
-LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
-LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
+LED_BACK_ENABLE = yes       # LED backlight (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
+IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
 
 ```
 ## Compile
