@@ -203,7 +203,7 @@ void suspend_wakeup_init_user(void)
 
 ```
 
-### `keyboard_init_*` Function Documentation
+### Keyboard wake/suspend Function Documentation
 
 * Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
