@@ -8,12 +8,9 @@ enum iris_layers {
   _RAISE
 };
 
-#define LOWER OSL(_LOWER)
-#define RAISE OSL(_RAISE)
-#define CTRL OSM(MOD_LCTL)	
-#define GUI OSM(MOD_LGUI)
-#define SHIFT OSM(MOD_LSFT)
-#define ALT OSM(MOD_LALT)
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -29,10 +26,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       RAISE,   KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                               KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_QUOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
   //| LOWER  |   Z    |   X    |   C    |    V   |    B   |   ESC  |        | ALT    |    N   |   M    |   </,  |  >/.   |  ?-/   |   |-\  |
-      LOWER,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_ESC,            ALT,      KC_N,    KC_M,  KC_COMM, KC_DOT,   KC_SLSH, KC_BSLS,
+      LOWER,   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_ESC,            KC_LALT,  KC_N,    KC_M,  KC_COMM, KC_DOT,   KC_SLSH, KC_BSLS,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
   //                               |  CTRL  | COMMAND| BKSPACE|                 | SPACE  |  ENTER | SHIFT  |
-                                     CTRL,    GUI,  KC_BSPC,                      KC_SPC,  KC_ENT,  SHIFT
+                                     KC_LCTL, KC_LGUI, KC_BSPC,                    KC_SPC,  KC_ENT,  KC_LSFT
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
 //KC_LALT  ALT
@@ -66,10 +63,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|        |        |        |        |        |        |                          |        |    1   |    2   |    3   |        |        |
      XXXXXXX, KC_ASTG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                             XXXXXXX,  KC_P1,   KC_P2,   KC_P3,  XXXXXXX, XXXXXXX,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-  //| LOWER  |        |        |        |        |        |  ESC   |        | ALT  |        |   0    |    .   | ENTER  |   =    |        |
-      KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,           KC_TRNS,  XXXXXXX, KC_P0,   KC_PDOT, KC_PENT, KC_PEQL, XXXXXXX,
+  //| LOWER  |        |        |        |        |        |  ESC   |        | ALT    |        |   0    |    .   | ENTER  |   =    |        |
+      KC_TRNS, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_TRNS,         KC_TRNS,  XXXXXXX, KC_P0,   KC_PDOT, KC_PENT, KC_PEQL, XXXXXXX,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-  //                               |  CTRL  | COMMAND| BKSPACE |                 | SPACE  | ENTER  | SHIFT  | 
+  //                               |  CTRL  | COMMAND| BKSPACE |                 | SPACE  | ENTER  | SHIFT  |
                                     KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
                                 // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
   ),
