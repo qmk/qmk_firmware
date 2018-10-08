@@ -4,6 +4,8 @@
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
+#define LEFTNUM
+
 enum layers {
   _BASE,
   _LOWER,
@@ -12,6 +14,7 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
+#ifndef LEFTNUM
 /* Base
 ,---------------------------------------------------------------------------------------------------------------------------------------------------------------.
 |`        |1        |2        |3        |4        |5        |6        |7        |8        |9        |0        |Backspace|Numlock  |/        |*        |-        |
@@ -121,6 +124,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,  _______,
   RESET,    _______,  _______,  _______,  _______,  KC_SPC,   KC_ENT,   _______,  _______,  _______,  _______,  CU_GAME,  _______,  _______,  _______,  _______
 )
+#endif
+
+#ifdef LEFTNUM
+[_BASE] = LAYOUT(
+  KC_PMNS,  KC_PAST,  KC_PSLS,  KC_NLCK,  CU_GRV,   DE_1,     DE_2,     CU_3,     DE_4,     DE_5,     CU_6,     CU_7,     CU_8,     CU_9,     CU_0,     KC_BSPC,
+  KC_PPLS,  KC_P7,    KC_P8,    KC_P9,    KC_TAB,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     CU_Z,     DE_U,     DE_I,     DE_O,     DE_P,     KC_BSPC,
+  KC_PPLS,  KC_P4,    KC_P5,    KC_P6,    CU_NAV,   DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     DE_H,     DE_J,     DE_K,     DE_L,     CU_SCLN,  CU_QUOT,
+  KC_PENT,  KC_P1,    KC_P2,    KC_P3,    CU_LSFT,  CU_Y,     DE_X,     DE_C,     DE_V,     DE_B,     DE_N,     DE_M,     CU_COMM,  CU_DOT,   CU_SLSH,  CU_RSFT,
+  KC_PENT,  KC_PDOT,  KC_P0,    KC_P00,   KC_LCTL,  XXXXXXX,  KC_LGUI,  KC_LALT,  LOWER,    KC_SPC,   KC_ENT,   RAISE,    KC_RALT,  KC_RGUI,  KC_APP,   KC_RCTL
+),
+
+[_LOWER] = LAYOUT(
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  _______,  DE_TILD,  DE_EXLM,  DE_DQOT,  DE_HASH,  DE_DLR,   DE_PERC,  CU_CIRC,  DE_AMPR,  DE_ASTR,  DE_LPRN,  DE_RPRN,  _______,
+  _______,  _______,  _______,  _______,  _______,  DE_AT,    CTRLX,    CTRLC,    CTRLV,    XXXXXXX,  XXXXXXX,  DE_UNDS,  DE_PLUS,  DE_LCBR,  DE_RCBR,  DE_PIPE,
+  _______,  _______,  _______,  _______,  _______,  DE_EURO,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
+),
+
+[_RAISE] = LAYOUT(
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  _______,  CU_GRV,   DE_1,     DE_2,     CU_3,     DE_4,     DE_5,     CU_6,     CU_7,     CU_8,     CU_9,     CU_0,     _______,
+  _______,  _______,  _______,  _______,  _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    DE_MINS,  CU_EQL,   CU_LBRC,  CU_RBRC,  CU_BSLS,
+  _______,  _______,  _______,  _______,  _______,  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______,  _______,  _______,  _______,  _______,
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
+),
+
+[_DEADKEY] = LAYOUT(
+  _______,  _______,  _______,  _______,  CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    _______,
+  _______,  _______,  _______,  _______,  KC_TAB,   CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_UE,    CU_ED,    CU_OE,    CU_ED,    _______,
+  _______,  _______,  _______,  _______,  _______,  CU_AE,    CU_SS,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_DDQ,
+  _______,  _______,  _______,  _______,  _______,  CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    _______,
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  CU_DDQ,   CU_DDQ,   _______,  _______,  _______,  _______,  _______
+),
+
+[_NAV] = LAYOUT(
+  _______,  _______,  _______,  _______,  KC_ESC,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_DEL,
+  _______,  _______,  _______,  _______,  CU_ESCT,  KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
+  _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  XXXXXXX,  GUIL,     GUID,     GUIR,     XXXXXXX,  KC_ENT,
+  _______,  _______,  _______,  _______,  _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
+  _______,  _______,  _______,  _______,  RESET,    _______,  _______,  _______,  _______,  KC_SPC,   KC_ENT,   _______,  _______,  _______,  _______,  CU_GAME
+)
+#endif
 
 };
 
