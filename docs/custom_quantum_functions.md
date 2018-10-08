@@ -366,6 +366,7 @@ And lastly, you want to add the `eeconfig_init_user` function, so that when the 
 
 ```
 void eeconfig_init_user(void) {  // EEPROM is getting reset! 
+  user_config.raw = 0;
   user_config.rgb_layer_change = true; // We want this enabled by default
   eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
 
