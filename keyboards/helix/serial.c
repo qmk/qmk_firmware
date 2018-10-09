@@ -17,6 +17,7 @@
 #ifdef SOFT_SERIAL_PORT
 
 #ifdef __AVR_ATmega32U4__
+// if using ATmega32U4 I2C, can not use PD0 and PD1 in soft serial.
   #if SOFT_SERIAL_PORT >= D0 && SOFT_SERIAL_PORT <= D3
     #define SERIAL_PIN_DDR   DDRD
     #define SERIAL_PIN_PORT  PORTD
