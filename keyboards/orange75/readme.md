@@ -5,7 +5,7 @@
 A 75% made by Fox Lab.
 
 Keyboard Maintainer: [captsis](https://github.com/captsis), [fox-lab](https://github.com/fox-lab)   
-Hardware Supported: Orange75 powered by the ATmega32U4    
+Hardware Supported: Orange75 powered by the ATmega32U4  
 Hardware Availability: [zFrontier](https://en.zfrontier.com/collections/keyboards/products/foxlab-orange75), [Geekhack GB](https://geekhack.org/index.php?topic=95080.0)
 
 
