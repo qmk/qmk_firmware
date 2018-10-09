@@ -28,10 +28,7 @@
 
 #include "flash_stm32.h"
 
-#if defined(EEPROM_EMU_STM32F303xC)
-    #define FLASH_KEY1          ((uint32_t)0x45670123)
-    #define FLASH_KEY2          ((uint32_t)0xCDEF89AB)
-#elif defined(EEPROM_EMU_STM32F103xB)
+#if defined(EEPROM_EMU_STM32F103xB)
     #define FLASH_SR_WRPERR FLASH_SR_WRPRTERR
 #endif
 
