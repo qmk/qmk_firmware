@@ -11,24 +11,22 @@
 #define SCREEN_FRAME_INTERVAL 55 /* 18fps */
 #define ANIMATION_ENABLE
 
-extern uint8_t is_master;
-
 char *get_layer_name(void) {
-    switch (layer_state)
-    {
-      case L_BASE:
-        return "Base";
-      case L_RAISE:
-        return "Raise";
-      case L_FUNCTION:
-        return "Function";
-      case L_MOUSE:
-        return "Mouse";
-      case L_WHEEL | L_MOUSE:
-        return "Wheel";
-      default:
-        return "(Undefined)";
-    }
+  if (layer_state & L_WHEEL) {
+    return "Wheel";
+  } else if (layer_state & L_MOUSE) {
+    return "Mouse";
+  } else if (layer_state & L_FUNCTION) {
+    return "Function";
+  } else if (layer_state & L_TENKEY) {
+    return "Tenkey";
+  } else if (layer_state & L_GARAKE) {
+    return "Garake";
+  } else if (layer_state & L_RAISE) {
+    return "Raise";
+  } else {
+    return "Base";
+  }
 }
 
 int keyfreq_count = 0;

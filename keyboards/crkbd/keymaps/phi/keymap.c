@@ -1,14 +1,20 @@
 #include "crkbd.h"
 
+extern uint8_t is_master;
+
 /* GLOBAL VARS */
 
 #define BASE     0
-#define RAISE    1
-#define FUNCTION 2
-#define MOUSE    3
-#define WHEEL    4
+#define GARAKE   1
+#define TENKEY   2
+#define RAISE    3
+#define FUNCTION 4
+#define MOUSE    5
+#define WHEEL    6
 
 #define L_BASE     0
+#define L_GARAKE   (2 << (GARAKE - 1))
+#define L_TENKEY   (2 << (TENKEY - 1))
 #define L_RAISE    (2 << (RAISE - 1))
 #define L_FUNCTION (2 << (FUNCTION - 1))
 #define L_MOUSE    (2 << (MOUSE - 1))
@@ -35,13 +41,37 @@
 #define KC_L1_RAI LT(RAISE, KC_LANG1)
 #define KC_L2_ALT LALT_T(KC_LANG2)
 #define KC_WEEL   MO(WHEEL)
+#define KC_BASE   TO(BASE)
+#define KC_GARAKE TG(GARAKE)
+#define KC_TENKEY TG(TENKEY)
+#define KC_ENT_SF LSFT_T(KC_ENT)
 
 #ifdef TAP_DANCE_ENABLE
-#define KC_ESC_FN TD(TD_ESC_FUNC)
-#define KC_SFCL   TD(TD_SHIFT_CAPS)
+#define KC_ESC_FN  TD(TD_ESC_FUNC)
+#define KC_SFCL    TD(TD_SHIFT_CAPS)
+#define KC_GK1     TD(TD_GARAKE1)
+#define KC_GK2     TD(TD_GARAKE2)
+#define KC_GK3     TD(TD_GARAKE3)
+#define KC_GK4     TD(TD_GARAKE4)
+#define KC_GK5     TD(TD_GARAKE5)
+#define KC_GK6     TD(TD_GARAKE6)
+#define KC_GK7     TD(TD_GARAKE7)
+#define KC_GK8     TD(TD_GARAKE8)
+#define KC_GK9     TD(TD_GARAKE9)
+#define KC_GK0R    TD(TD_GARAKE0_RAISE)
 #else
-#define KC_ESC_FN LT(FUNC, KC_ESC)
-#define KC_SFCL   KC_LSFT
+#define KC_ESC_FN  LT(FUNC, KC_ESC)
+#define KC_SFCL    KC_LSFT
+#define KC_GK1     KC_1
+#define KC_GK2     KC_2
+#define KC_GK3     KC_3
+#define KC_GK4     KC_4
+#define KC_GK5     KC_5
+#define KC_GK6     KC_6
+#define KC_GK7     KC_7
+#define KC_GK8     KC_8
+#define KC_GK9     KC_9
+#define KC_GK0R    LT(RAISE, KC_0)
 #endif
 
 #define KC_RST  RESET
@@ -53,6 +83,8 @@
 #define KC_WDN  KC_WH_D
 #define KC_WLFT KC_WH_L
 #define KC_WRGT KC_WH_R
+
+/* KEYMAPS */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -68,6 +100,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                            `--------------------'  `--------------------'
 ),
 
+[GARAKE] = LAYOUT_kc( \
+//,-----------------------------------------.                ,-----------------------------------------.
+    ____ , ____ , ____ , ____ , ____ , ____ ,                 TENKEY, GK7  , GK8  , GK9  , BSPC , MINS , \
+//|------+------+------+------+------+------|                |------+------+------+------+------+------|
+    ____ , ____ , ____ , ____ , ____ , ____ ,                  LANG2, GK4  , GK5  , GK6  , SCLN , QUOT , \
+//|------+------+------+------+------+------|                |------+------+------+------+------+------|
+    ____ , ____ , ____ , ____ , ____ , ____ ,                  LANG1, GK1  , GK2  , GK3  , DOT  , SLSH , \
+//`------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------'
+                                ____ , ____ , BASE ,    SPC  ,ENT_SF, GK0R  \
+//                            `--------------------'  `--------------------'
+),
+
+[TENKEY] = LAYOUT_kc( \
+//,-----------------------------------------.                ,-----------------------------------------.
+    ____ , ____ , ____ , ____ , ____ , ____ ,                  ____ , 7    , 8    , 9    , ____ , ____ , \
+//|------+------+------+------+------+------|                |------+------+------+------+------+------|
+    ____ , ____ , ____ , ____ , ____ , ____ ,                  ____ , 4    , 5    , 6    , ____ , ____ , \
+//|------+------+------+------+------+------|                |------+------+------+------+------+------|
+    ____ , ____ , ____ , ____ , ____ , ____ ,                  ____ , 1    , 2    , 3    , ____ , ____ , \
+//`------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------'
+                                ____ , ____ , ____ ,    ____ , ____ , 0     \
+//                            `--------------------'  `--------------------'
+),
+
 [RAISE] = LAYOUT_kc( \
 //,-----------------------------------------.                ,-----------------------------------------.
     BSPC , 1    , 2    , 3    , 4    , 5    ,                  6    , 7    , 8    , 9    , 0    , EQL  , \
@@ -76,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     ____ , EXLM , AT   , HASH , DLR  , PERC ,                  CIRC , AMPR , ASTR , LEFT , DOWN , RGHT , \
 //`------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------'
-                                ____ , ____ , ____ ,    RST  , ____ , XXXX  \
+                                ____ , ____ ,GARAKE,    RST  , ____ , XXXX  \
 //                            `--------------------'  `--------------------'
 ),
 
@@ -117,6 +173,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 };
+
+/* USER TASKS */
 
 void rgblight_task_user (void) {
   #ifdef RGBLIGHT_ENABLE
