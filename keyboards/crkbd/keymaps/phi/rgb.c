@@ -1,3 +1,5 @@
+bool rgb_overriden = false;
+
 void rgb_set_gradient (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
     LED_TYPE from, to;
 
@@ -14,10 +16,20 @@ void rgb_set_gradient (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
     }
 }
 
-void update_rgblight (void) {
-    static bool rgb_initialized = false;
-    if (!rgb_initialized) {
+void update_rgblight (bool force) {
+    static uint32_t last_layer_state = ~0;
+    if ((layer_state != last_layer_state || force) && !rgb_overriden) {
         rgb_set_gradient(250, 135, 1, 130);
-        rgb_initialized = true;
+        last_layer_state = layer_state;
     }
+}
+
+void rgb_override_color (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
+    rgb_overriden = true;
+    rgb_set_gradient(h, s, h2, s2);
+}
+
+void rgb_unoverride_color (void) {
+    rgb_overriden = false;
+    update_rgblight(true);
 }

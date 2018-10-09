@@ -27,7 +27,7 @@ void shift_finished (qk_tap_dance_state_t *state, void *user_data) {
         unregister_code(KC_LSFT);
         shift_action = NONE;
        #ifdef RGBLIGHT_ENABLE
-        rgb_set_gradient(250, 135, 1, 130);
+        rgb_unoverride_color();
        #endif
         return;
     }
@@ -42,7 +42,7 @@ void shift_finished (qk_tap_dance_state_t *state, void *user_data) {
       case DOUBLE_TAP:
        register_code(KC_LSFT);
       #ifdef RGBLIGHT_ENABLE
-       rgb_set_gradient(250, 135, 250, 135);
+       rgb_override_color(250, 135, 250, 135);
       #endif
        break;
       default: break;
