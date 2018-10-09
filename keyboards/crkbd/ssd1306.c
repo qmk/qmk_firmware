@@ -20,6 +20,7 @@
 #define ScreenOffInterval 300000 /* milliseconds */
 static uint16_t last_flush;
 static bool overwrite_mode = false;
+static bool progmem_mode = false;
 
 // Write command sequence.
 // Returns true on success.
@@ -103,6 +104,10 @@ done:
 
 void set_overwrite_mode (bool value) {
   overwrite_mode = value;
+}
+
+void set_progmem_mode (bool value) {
+  progmem_mode = value;
 }
 
 bool iota_gfx_init(bool rotate) {
@@ -226,9 +231,9 @@ void matrix_return(struct CharacterMatrix *matrix) {
 }
 
 void matrix_write(struct CharacterMatrix *matrix, const char *data) {
-  const char *end = data + strlen(data);
-  while (data < end) {
-    matrix_write_char(matrix, *data);
+  char ch;
+  while ((ch = progmem_mode ? pgm_read_byte(data) : *data)) {
+    matrix_write_char(matrix, ch);
     ++data;
   }
 }
@@ -239,23 +244,23 @@ void matrix_write_range(struct CharacterMatrix *matrix, const char *data, uint8_
 
   if (from) {
     if (width <= FontWidth) {
-      matrix_write_char_delimited(matrix, *data, from, width);
+      matrix_write_char_delimited(matrix, progmem_mode ? pgm_read_byte(data) : *data, from, width);
       return;
     } else {
-      matrix_write_char_delimited(matrix, *data, from, FontWidth - from);
+      matrix_write_char_delimited(matrix, progmem_mode ? pgm_read_byte(data) : *data, from, FontWidth - from);
       width -= FontWidth - from;
       data++;
     }
   }
 
   while (width >= FontWidth) {
-    matrix_write_char(matrix, *data);
+    matrix_write_char(matrix, progmem_mode ? pgm_read_byte(data) : *data);
     width -= FontWidth;
     data++;
   }
 
   if (width) {
-    matrix_write_char_delimited(matrix, *data, 0, width);
+    matrix_write_char_delimited(matrix, progmem_mode ? pgm_read_byte(data) : *data, 0, width);
   }
 }
 

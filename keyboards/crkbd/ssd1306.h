@@ -78,6 +78,7 @@ void iota_gfx_clear_screen(void);
 void iota_gfx_task_user(void);
 
 void set_overwrite_mode(bool value);
+void set_progmem_mode(bool value);
 void matrix_clear(struct CharacterMatrix *matrix);
 void matrix_reset_cursor(struct CharacterMatrix *matrix);
 void matrix_return(struct CharacterMatrix *matrix);
