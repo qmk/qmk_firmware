@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEEB
@@ -34,6 +33,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-
-#endif
