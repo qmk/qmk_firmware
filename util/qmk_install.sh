@@ -13,6 +13,9 @@ case $(uname -a) in
 	*Linux*)
 		exec "${util_dir}/linux_install.sh"
 	;;
+	"GNU/Linux")
+		exec "${util_dir}/linux_install.sh"
+	;;
 	MSYS_NT*|MINGW64_NT*|MINGW32_NT*)
 		exec "${util_dir}/msys2_install.sh"
 	;;

@@ -4,7 +4,14 @@ if grep ID /etc/os-release | grep -qE "rhel|fedora"; then
 	sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc \
 	    avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs \
 	    arm-none-eabi-binutils-cs arm-none-eabi-newlib
-elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
+elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
+	#OpenSUSE Tumbleweed
+	sudo zypper dup
+        sudo zypper install gcc unzip wget zip dfu-tool dfu-programmer cross-avr-gcc8 \
+            avr-libc cross-avr-binutils cross-arm-none-newlib-devel \
+            cross-arm-binutils cross-arm-none-newlib-devel
+elif grep ID 
+/etc/os-release | grep -qE 'debian|ubuntu'; then
 	sudo apt-get update
 	sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc \
 	    dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi \
