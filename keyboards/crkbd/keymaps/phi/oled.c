@@ -2,12 +2,6 @@
 #include "ssd1306.h"
 #include "split_util.h"
 
-#define L_BASE     0
-#define L_RAISE    (2 << (1 - 1))
-#define L_FUNCTION (2 << (2 - 1))
-#define L_MOUSE    (2 << (3 - 1))
-#define L_WHEEL    (2 << (4 - 1))
-
 #define MOD_CTL (MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RCTRL))
 #define MOD_SFT (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
 #define MOD_ALT (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))
