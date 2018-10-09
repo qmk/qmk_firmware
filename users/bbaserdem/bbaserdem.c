@@ -1,6 +1,9 @@
 #include "bbaserdem.h"
 #include "action_layer.h"
 
+// Enable lock functionality
+bool lock_flag = false;
+
 /*---------------*\
 |*-----MOUSE-----*|
 \*---------------*/
@@ -14,21 +17,10 @@
 #ifdef RGBLIGHT_ENABLE
 #include "rgblight.h"
 #endif
+
 // Let's split eh slave refresh
 #ifdef SPLIT_KEYBOARD
 #include "split_flags.h"
-#endif
-
-/*-------------*\
-|*---UNICODE---*|
-\*-------------*/
-#ifdef UNICODE_ENABLE
-#endif
-
-/*-------------*\
-|*---UNICODE---*|
-\*-------------*/
-#ifdef UNICODE_ENABLE
 #endif
 
 /*-----------------*\
@@ -53,9 +45,53 @@ float tone_windows[][2] = SONG(UNICODE_WINDOWS);
 |*-----TAP-DANCE-----*|
 \*-------------------*/
 #ifdef TAP_DANCE_ENABLE
+void d_num_alt_dn (qk_tap_dance_state_t *state, void *user_data) {
+  lock_flag = false;
+  if (state->count == 1) {
+    layer_on  (_NU);
+  } else if (state->count == 2) {
+    layer_off (_NU);
+    layer_on  (_AL);
+  } else {
+    layer_off (_AL);
+  }
+}
+void d_num_alt_up (qk_tap_dance_state_t *state, void *user_data) {
+  if ( lock_flag ) {
+    lock_flag = false;
+  } else {
+    if (state->count == 1) {
+      layer_off (_NU);
+    } else if (state->count == 2) {
+      layer_off (_AL);
+    }
+  }
+}
+void d_set_mou_dn (qk_tap_dance_state_t *state, void *user_data) {
+  lock_flag = false;
+  if (state->count == 1) {
+    layer_on  (_SE);
+  } else if (state->count == 2) {
+    layer_off (_SE);
+    layer_on  (_MO);
+  } else {
+    layer_off (_MO);
+  }
+}
+void d_set_mou_up (qk_tap_dance_state_t *state, void *user_data) {
+  if ( lock_flag ) {
+    lock_flag = false;
+  } else {
+    if (state->count == 1) {
+      layer_off (_SE);
+    } else if (state->count == 2) {
+      layer_off (_MO);
+    }
+  }
+}
 qk_tap_dance_action_t tap_dance_actions[] = {
-    // Shift on double tap of semicolon
-    [SCL] = ACTION_TAP_DANCE_DOUBLE( KC_SCLN, KC_COLN )
+  [NUA] = ACTION_TAP_DANCE_FN_ADVANCED (d_num_alt_dn,NULL,d_num_alt_up),
+  [SEM] = ACTION_TAP_DANCE_FN_ADVANCED (d_set_mou_dn,NULL,d_set_mou_up)
 };
 #endif
 
@@ -67,13 +103,16 @@ qk_tap_dance_action_t tap_dance_actions[] = {
  */
 __attribute__ ((weak)) void matrix_init_keymap(void) { }
 __attribute__ ((weak)) void matrix_scan_keymap(void) { }
-__attribute__ ((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-    return true;
-}
-__attribute__ ((weak)) uint32_t layer_state_set_keymap (uint32_t state) {
+__attribute__ ((weak)) bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {return true;}
+__attribute__ ((weak)) uint32_t layer_state_set_keymap (uint32_t state) {return state;}
+__attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
+
+// Ideally layer switching stuff would go here, but doesn't work consistently
+// accross keyboards for me; thus I do explicit layer checking in matrix-scan
+uint32_t layer_state_set_user(uint32_t state) {
+    state = layer_state_set_keymap (state);
     return state;
 }
-__attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
 
 /* ----------------------- *\
  * -----RGB Functions----- *
@@ -87,7 +126,6 @@ int     base_hue;   // Hue value of base state
 int     base_sat;   // Saturation value of base state
 int     base_val;   // Brightness value of base state
 uint8_t base_mod;   // Animation mode of the base state
-
 // Save the current state of the rgb mode
 void rgblight_saveBase(void) {
     base_hue = rgblight_config.hue;
@@ -97,8 +135,7 @@ void rgblight_saveBase(void) {
     base_tog = rgblight_config.enable;
     base_sta = false;   // If saving, that means base layer is being left
 }
-
-// Load the base state back 
+// Load the base state back
 void rgblight_loadBase(void) {
     // Don't do anything if not enabled
     if ( !base_sta ) {
@@ -114,7 +151,6 @@ void rgblight_loadBase(void) {
     // Mark that base is loaded, and to be saved before leaving
     base_sta = true;
 }
-
 // Set to plain HSV color
 void rgblight_colorStatic( int hu, int sa, int va ) {
     // First, it must be enabled or color change is not written
@@ -123,27 +159,6 @@ void rgblight_colorStatic( int hu, int sa, int va ) {
     rgblight_sethsv(hu,sa,va);
     rgblight_enable();
 }
-/* HSV values
- * white        (  0,   0, 255)
- * red          (  0, 255, 255)
- * coral        ( 16, 176, 255)
- * orange       ( 39, 255, 255)
- * goldenrod    ( 43, 218, 218)
- * gold         ( 51, 255, 255)
- * yellow       ( 60, 255, 255)
- * chartreuse   ( 90, 255, 255)
- * green        (120, 255, 255)
- * springgreen  (150, 255, 255)
- * turquoise    (174,  90, 112)
- * teal         (180, 255, 128)
- * cyan         (180, 255, 255)
- * azure        (186, 102, 255)
- * blue         (240, 255, 255)
- * purple       (270, 255, 255)
- * magenta      (300, 255, 255)
- * pink         (330, 128, 255)
- */
-
 // Set RGBLIGHT state depending on layer
 void rgblight_change( uint8_t this_layer ) {
     // Save state, if saving is requested
@@ -152,36 +167,28 @@ void rgblight_change( uint8_t this_layer ) {
     }
     // Change RGB light
     switch ( this_layer ) {
-        case _DV:
-            // Load base layer
+        case _DV:   // Load base layer
             rgblight_loadBase();
             break;
-        case _AL:
-            // Do yellow for alternate
+        case _AL:   // Do yellow for alternate
             rgblight_colorStatic( 60,255,255);
             break;
-        case _GA:
-            // Do purple for game
+        case _GA:   // Do purple for game
             rgblight_colorStatic(285,255,255);
             break;
-        case _NU:
-            // Do azure for number
+        case _NU:   // Do azure for number
             rgblight_colorStatic(186,200,255);
             break;
-        case _SE:
-            // Do red for settings
+        case _SE:   // Do red for settings
             rgblight_colorStatic( 16,255,255);
             break;
-        case _MO:
-            // Do green for mouse
+        case _MO:   // Do green for mouse
             rgblight_colorStatic(120,255,255);
             break;
-        case _MU:
-            // Do orange for music
+        case _MU:   // Do orange for music
             rgblight_colorStatic( 39,255,255);
             break;
-        default:
-            // Something went wrong
+        default:    // Something went wrong: RED
             rgblight_colorStatic(  0,255,255);
             break;
     }
@@ -190,28 +197,20 @@ void rgblight_change( uint8_t this_layer ) {
     RGB_DIRTY = true;
 #endif
 }
-
 #endif
 
 /*---------------------*\
 |*-----MATRIX INIT-----*|
 \*---------------------*/
 void matrix_init_user (void) {
-
     // Keymap specific things, do it first thing to allow for delays etc
     matrix_init_keymap();
-
-    // Correct unicode
-#ifdef UNICODE_ENABLE
+#ifdef UNICODE_ENABLE   // Correct unicode
     set_unicode_input_mode(UC_LNX);
 #endif
-
     // Make beginning layer DVORAK
     set_single_persistent_default_layer(_DV);
-
-//--RGB light initialize base layer
-#ifdef RGBLIGHT_ENABLE
-    // Base hue is white, and RGB disabled
+#ifdef RGBLIGHT_ENABLE  // RGB light initialize base layer
     base_hue = 100;
     base_sat = 0;
     base_val = 255;
@@ -223,7 +222,6 @@ void matrix_init_user (void) {
     rgblight_disable();
     rgblight_loadBase();
 #endif
-
 }
 
 /*---------------------*\
@@ -236,12 +234,10 @@ void matrix_scan_user (void) {
     uint8_t static prev_layer;
     uint8_t current_layer = biton32( layer_state );
     if ( prev_layer != current_layer ) {
-        // Indicator lights
-#ifdef RGBLIGHT_ENABLE
+#ifdef RGBLIGHT_ENABLE  // Indicator lights
         rgblight_change( current_layer );
 #endif
-        // Layer sound effects
-#ifdef AUDIO_ENABLE
+#ifdef AUDIO_ENABLE     // Layer sound effects
         stop_all_notes();
         if ( prev_layer == _GA ) {
             PLAY_SONG(tone_return);
@@ -260,12 +256,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     // Shift check
     bool is_capital = ( keyboard_report->mods & (MOD_BIT(KC_LSFT)|MOD_BIT(KC_RSFT)) );
-    static bool lock_flag = false;
     uint8_t layer = biton32 (layer_state);
 
     switch (keycode) {
-        // Secrets implementation
-#if (__has_include("secrets.h"))
+#if (__has_include("secrets.h"))    // Secrets implementation
         case SECRET1:
             if( !record->event.pressed ) {
                 send_string_P( secret[ keycode - SECRET1 ] );
@@ -284,10 +278,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-#endif 
-
-        // If these keys are pressed, load base layer config, and mark saving
-#ifdef RGBLIGHT_ENABLE
+#endif
+#ifdef RGBLIGHT_ENABLE              // RGB keys load base layer config
         case RGB_TOG:
         case RGB_MOD:
         case RGB_VAI:
@@ -302,7 +294,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return true;
             break;
 #endif
-
         // Lock functionality: These layers are locked if the LOCKED buttons are
         // pressed. Otherwise, they are momentary toggles
         case K_LOCK:
@@ -337,8 +328,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-            
-        // Layer switches with sound
+        // Layer switches
         case K_GAMES:
             if (record->event.pressed) {
                 // On press, turn off layer if active
@@ -366,10 +356,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return true;
             break;
-
-//------UNICODE
-        // Unicode switches with sound
-#ifdef UNICODE_ENABLE
+#ifdef UNICODE_ENABLE       // UNICODE
         case UNI_LI:
             if (record->event.pressed) {
 #ifdef AUDIO_ENABLE
@@ -390,7 +377,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-
         // Turkish letters, with capital functionality
         case TUR_A:
             if (record->event.pressed) {
@@ -491,9 +477,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 #endif
-
-//-------Diagonal mouse movements
-#ifdef MOUSEKEY_ENABLE
+#ifdef MOUSEKEY_ENABLE      // Diagonal mouse movements
         case MO_NE:
             if( record->event.pressed ) {
                 mousekey_on(MO_N);
@@ -591,8 +575,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 #endif
-
-//------DOUBLE PRESS, with added left navigation
+//------DOUBLE PRESS keys
         case DBL_SPC:
             if( record->event.pressed ) {
                 SEND_STRING("  "SS_TAP(X_LEFT));
@@ -646,7 +629,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return process_record_keymap(keycode, record);
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
-    state = layer_state_set_keymap (state);
-    return state;
-}

@@ -113,6 +113,7 @@ enum userspace_custom_keycodes {
     UNI_WN,
     // Double keys
     DBL_SPC,
+    DBL_ENT,
     DBL_ANG,
     DBL_PAR,
     DBL_SQR,
@@ -143,11 +144,14 @@ enum userspace_custom_keycodes {
 // Do tap dancable semicolon key if available
 #ifdef TAP_DANCE_ENABLE
 enum {
-    SCL = 0
+    NUA = 0,
+    SEM
 };
-#define MY_SCL  TD(SCL)
+#define K_NU_AL TD(NUA)
+#define K_SE_MO TD(SEM)
 #else
-#define MY_SCL  KC_SCLN
+#define K_NU_AL K_NUMBR
+#define K_SE_MO MO(_SE)
 #endif
 
 // Shared keymaps
@@ -162,13 +166,14 @@ enum {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * | SYM | ; : |  Q  |  J  |  K  |  X  ||  B  |  M  |  W  |  V  |  Z  | SET |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * | TUR | OS  | Ctrl| Alt | Shf | Spc || Ent | Lft | Dwn |  Up | Rght| MSE |
- * `------------------------------------------------------------------------' */
+ * | TUR | Ctrl|Super| Alt |   Shift   ||   Enter   | Lft | Dwn |  Up | Rght|
+ * `------------------------------------------------------------------------'
+ */
 #define DVORAK \
     KC_ESC, KC_QUOT,KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_F,   KC_G,   KC_C,   KC_R,   KC_L,   KC_BSPC, \
     KC_TAB, KC_A,   KC_O,   KC_E,   KC_U,   KC_I,   KC_D,   KC_H,   KC_T,   KC_N,   KC_S,   KC_SLSH, \
-    K_NUMBR,MY_SCL, KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   MO(_SE), \
-    MO(_AL),KC_LGUI,KC_LCTL,KC_LALT,KC_LSFT,KC_SPC, KC_ENT, KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,K_MOUSE
+    KC_LSFT,MY_SCL, KC_Q,   KC_J,   KC_K,   KC_X,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   K_SE_MO, \
+    K_NU_AL,KC_LCTL,KC_LGUI,KC_LALT,XXX,    KC_SPC, KC_ENT, XXX,    KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
 
 /* Alternative character overlay
  * ,------------------------------------------------------------------------.
@@ -176,15 +181,16 @@ enum {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |     |  A  |  O  | Euro|  U  |  I  ||Degre|Plank|     |     |  S  | Ins |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     | " " | Cut | Copy|Paste|     || BTC | < > | ( ) | [ ] | { } | PgUp|
+ * |     | " " | Cut | Copy|Paste| ` ` || BTC | < > | ( ) | [ ] | { } |     |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |     |     |     |     |     ||     | Home|PgDwn| PgUp| End |     |
- * `------------------------------------------------------------------------' */
+ * |     |     |     |     | Doub. Spc || Doub. Ent | Home|PgDwn| PgUp| End |
+ * `------------------------------------------------------------------------'
+ */
 #define ALTCHAR \
     _______,DBL_QUO,UNDO,   REDO,   CUR_BPN,CUR_YEN,_______,TUR_G,  TUR_C,  _______,CUR_LIR,KC_DEL , \
     _______,TUR_A,  TUR_O,  CUR_EUR,TUR_U,  TUR_I,  PHY_DEG,PHY_HBR,_______,_______,TUR_S,  KC_INS , \
     _______,DBL_DQT,CUT,    COPY,   PASTE,  DBL_GRV,CUR_BIT,DBL_ANG,DBL_PAR,DBL_SQR,DBL_BRC,_______, \
-    _______,_______,_______,_______,_______,DBL_SPC,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END, _______
+    _______,SECRET1,SECRET2,SECRET3,_______,DBL_SPC,DBL_ENT,_______,KC_HOME,KC_PGDN,KC_PGUP,KC_END
 
 /* Game layer
  * ,------------------------------------------------------------------------.
@@ -195,12 +201,13 @@ enum {
  * |     |  Z  |  X  |  C  |  V  |  B  ||  F2 |  1  |  2  |  3  |  ^  |     |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |  /  |  `  |     |     |     | Spc || Spc | Ent |  0  |  <  |  v  |  >  |
- * `------------------------------------------------------------------------' */
+ * `------------------------------------------------------------------------'
+ */
 #define GAME \
     K_GAMES,KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_ESC, KC_P7,  KC_P8,  KC_P9,  KC_NLCK,KC_BSPC, \
     KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_F1,  KC_P4,  KC_P5,  KC_P6,  KC_BSLS,KC_ENT , \
-    _______,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_F2,  KC_P1,  KC_P2,  KC_P3,  KC_UP,  _______, \
-    KC_SLSH,KC_GRV, _______,_______,_______,KC_SPC, KC_SPC, KC_ENT, KC_P0,  KC_LEFT,KC_DOWN,KC_RGHT
+    KC_SLSH,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_F2,  KC_P1,  KC_P2,  KC_P3,  KC_UP,  _______, \
+    _______,KC_GRV, _______,_______,_______,KC_SPC, KC_ENT, _______,KC_P0,  KC_LEFT,KC_DOWN,KC_RGHT
 
 /* Symbols layer
  * ,------------------------------------------------------------------------.
@@ -211,12 +218,13 @@ enum {
  * |     |  !  |  @  |  #  |  $  |  %  ||  ^  |  &  |  *  |  (  |  )  | LCK |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |  |  |     |     |     |     |     ||     |     |     |     |     |     |
- * `------------------------------------------------------------------------' */
+ * `------------------------------------------------------------------------'
+ */
 #define NUMBERS \
     K_NUMBR,KC_GRV, KC_TILD,KC_LBRC,KC_RBRC,KC_LCBR,KC_RCBR,KC_MINS,KC_UNDS,KC_EQL, KC_PLUS,_______, \
     _______,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_BSLS, \
-    _______,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,K_LOCK , \
-    KC_PIPE,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
+    KC_PIPE,KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,K_LOCK , \
+    _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______
 
 /* Settings layer
  * ,------------------------------------------------------------------------.
@@ -227,12 +235,13 @@ enum {
  * | Game|  F9 | F10 | F11 | F12 |Vol 0||PrtSc|     |RGBan|Bri -|Bri +|     |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |Musir|     |     |     |     |Vol -||Vol +| Prev| Stop|TogMu| Next|     |
- * `------------------------------------------------------------------------' */
+ * `------------------------------------------------------------------------'
+ */
 #define SETTINGS \
     BL_STEP,KC_F1,  KC_F2,  KC_F3,  KC_F4,  UNI_LI, UNI_WN, KC_WAKE,_______,RGB_HUD,RGB_HUI,RESET  , \
     _______,KC_F5,  KC_F6,  KC_F7,  KC_F8,  _______,_______,_______,RGB_TOG,RGB_SAD,RGB_SAI,_______, \
     K_GAMES,KC_F9,  KC_F10, KC_F11, KC_F12, KC_MUTE,KC_PSCR,_______,RGB_MOD,RGB_VAD,RGB_VAI,_______, \
-    MU_TOG, _______,_______,_______,_______,KC_VOLD,KC_VOLU,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT,_______
+    MU_TOG, _______,_______,_______,_______,KC_VOLD,KC_VOLU,_______,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT
 
 /* Mouse layer
  * ,------------------------------------------------------------------------.
@@ -242,29 +251,30 @@ enum {
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |     |  /  |  v  |  \  |.....|.....||.....|.....| |/| | |v| | |\| | LCK |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |     |     |     |     |     | Left||Right|     |     |Accl0|Accl1|Accl2|
- * `------------------------------------------------------------------------' */
+ * |     |     |     |     |    Left   ||   Right   |Accl0|Accl1|Accl2|     |
+ * `------------------------------------------------------------------------'
+ */
 #define MOUSE \
     K_MOUSE,MO_NW,  MO_N,   MO_NE,  XXX,    XXX    ,XXX,    XXX,    MO_S_NW,MO_S_N, MO_S_NE,_______, \
     _______,MO_W,   MO_CL_M,MO_E,   MO_CL_4,XXX    ,XXX,    MO_CL_5,MO_S_W, MO_CL_M,MO_S_E, _______, \
-    _______,MO_SW,  MO_S,   MO_SE,  XXX,    XXX    ,XXX,    XXX,    MO_S_SW,MO_S_S, MO_S_SE,K_LOCK , \
-    _______,_______,_______,_______,_______,MO_CL_L,MO_CL_R,_______,MO_AC_0,MO_AC_1,MO_AC_2,_______
+    _______,MO_SW,  MO_S,   MO_SE,  XXX,    XXX    ,XXX,    XXX,    MO_S_SW,MO_S_S, MO_S_SE,_______, \
+    K_LOCK, _______,_______,_______,_______,MO_CL_L,MO_CL_R,_______,MO_AC_0,MO_AC_1,MO_AC_2,_______
 
 /* Music layer
  * ,------------------------------------------------------------------------.
- * |.....|.....|.....|.....|.....|.....||.....|.....|.....|.....|.....|.....|
+ * | play|.....|.....|.....|.....|.....||.....|.....|.....|.....|.....|.....|
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |.....|.....|.....|.....|.....|.....||.....|.....|.....|.....|.....|.....|
+ * | stop|.....|.....|.....|.....|.....||.....|.....|.....|.....|.....|.....|
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |.....|.....|.....|.....|.....|.....||.....|.....|.....|.....|.....|.....|
+ * | rec |.....|.....|.....|.....|.....||.....|.....|.....|.....|.....|.....|
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * | togg| rec | stop| play| slow| fast||modes|.....|.....|.....|.....|.....|
+ * | togg| slow| fast|modes|...........||...........|.....|.....|.....|.....|
  * `------------------------------------------------------------------------'
  */
 #define MUSIC \
-    MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK, \
-    MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK, \
-    MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK, \
-    MU_TOG, MU_REC, MU_STOP,MU_PLAY,MU_SLOW,MU_FAST,MU_MOD, MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK
+    MU_PLAY,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK, \
+    MU_STOP,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK, \
+    MU_REC, MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK, \
+    MU_TOG, MU_SLOW,MU_FAST,MU_MOD, MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK
 
 #endif

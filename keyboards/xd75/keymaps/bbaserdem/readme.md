@@ -1,12 +1,7 @@
 # XD75RE Setup
-
-(WIP) F keyboard for turkish, using unicode.
-
-* Write down keymap in userspace
-* Figure out LED indicators
+F keyboard for turkish, using keymap.
 
 # Make
-
 Take the board into reset mode, then
 ```
 make xd75:bbaserdem:dfu

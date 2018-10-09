@@ -1,21 +1,21 @@
 # Overview
-
 I have mostly ortholinear keyboards, which share a lot of functions.
 For this purpose, I collected them here.
 
 I have the following keymaps:
 
 * Gherkin (Does not use the user space)
-* XD75RE (Uses different keymap)
+* XD75RE (Does not use the user space)
 * Let's Split
-* Let's Split It Up
+* Let's Split Eh
 * Planck
 
 # Layout
-
-I use DVORAK with an unorthodox Turkish layout.
-If you wanna grab my code, and you used a layout with a persistent base
-layer change, change it to layer 0 before proceeding.
+I like using DVORAK, and meaning to teach myself turkish F.
+My small keyboards are set so that they are in qwerty mode, but the letters
+are arranged in a dvorak fashion.
+I map caps-lock to keymap switching on software (linux) level, so to do F, I
+use my XD75RE.
 
 # Layers
 
@@ -34,18 +34,11 @@ layer change, change it to layer 0 before proceeding.
 * **Mouse**: Mouse emulation, complete with diagonal keys.
 * **Turkish**: An AltGr-like overlay that allows some non-common letters, in unicode.
 
-I suggest checking out how I enabled Turkish keys,
-how I planned out RGB lighting,
-and my mouse implementation;
-they might offer some insight into fringe user cases.
+I suggest checking out how I set up unicode keys, RGB lighting, and mouse 
+emulation. Should you want some inspiration.
 
 # Issues
 
 All features are too big for the 32kB bootloader.
 Offenders are audio and rgb lights; it comes down to one or the other.
-
 ~The Proton board, and rev 6 might fix that.~
-
-# Credits
-
-I have previously written my keymap by myself before, but I rewrote it here,
