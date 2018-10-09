@@ -91,6 +91,8 @@ This is a C header file that is one of the first things included, and will persi
   * key combination that allows the use of magic commands (useful for debugging)
 * `#define USB_MAX_POWER_CONSUMPTION`
   * sets the maximum power (in mA) over USB for the device (default: 500)
+* `#define SCL_CLOCK 100000L`
+  * sets the SCL_CLOCK speed for split keyboards. The default is `100000L` but some boards can be set to `400000L`.
 
 ## Features That Can Be Disabled
 
@@ -117,8 +119,8 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define FORCE_NKRO`
   * NKRO by default requires to be turned on, this forces it on during keyboard startup regardless of EEPROM setting. NKRO can still be turned off but will be turned on again if the keyboard reboots.
-* `#define PREVENT_STUCK_MODIFIERS`
-  * stores the layer a key press came from so the same layer is used when the key is released, regardless of which layers are enabled
+* `#define STRICT_LAYER_RELEASE`
+  * force a key release to be evaluated using the current layer stack instead of remembering which layer it came from (used for advanced cases)
 
 ## Behaviors That Can Be Configured
 
@@ -197,6 +199,8 @@ This is a [make](https://www.gnu.org/software/make/manual/make.html) file that i
 
 * `DEFAULT_FOLDER`
   * Used to specify a default folder when a keyboard has more than one sub-folder.
+* `FIRMWARE_FORMAT`
+  * Defines which format (bin, hex) is copied to the root `qmk_firmware` folder after building.
 * `SRC`
   * Used to add files to the compilation/linking list.
 * `LAYOUTS`
@@ -241,6 +245,12 @@ Use these to enable or disable building certain features. The more you have enab
 * `UNICODE_ENABLE`
   * Unicode
 * `BLUETOOTH_ENABLE`
-  * Enable Bluetooth with the Adafruit EZ-Key HID
+  * Legacy option to Enable Bluetooth with the Adafruit EZ-Key HID. See BLUETOOTH
+* `BLUETOOTH`
+  * Current options are AdafruitEzKey, AdafruitBLE, RN42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
+* `WAIT_FOR_USB`
+  * Forces the keyboard to wait for a USB connection to be established before it starts up
+* `NO_USB_STARTUP_CHECK`
+  * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.

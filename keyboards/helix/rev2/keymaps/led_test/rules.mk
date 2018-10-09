@@ -36,6 +36,7 @@ LED_BACK_ENABLE = yes        # LED backlight (Enable WS2812 RGB underlight.)
 LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
 LED_ANIMATIONS = yes        # LED animations
 IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
+Link_Time_Optimization = no # if firmware size over limit, try this option
 
 ####  LED_BACK_ENABLE and LED_UNDERGLOW_ENABLE.
 ####    Do not enable these with audio at the same time.
@@ -99,7 +100,7 @@ ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
-    OPT_DEFS += -DRGBLIGHT_ANIMATIONS
+    OPT_DEFS += -DLED_ANIMATIONS
 endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
@@ -108,6 +109,10 @@ endif
 
 ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
     OPT_DEFS += -DLOCAL_GLCDFONT
+endif
+
+ifeq ($(strip $(Link_Time_Optimization)),yes)
+    EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
 endif
 
 SRC += led_test_init.c

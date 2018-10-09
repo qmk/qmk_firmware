@@ -15,9 +15,15 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 #include "quantum.h"
+#include "version.h"
+#include "eeprom.h"
+#include "send_unicode.h"
+
+#ifdef RGB_MATRIX_ENABLE
+#include "rgb_matrix.h"
+#endif
 
 
 // Define layer names
@@ -47,30 +53,36 @@ enum userspace_layers {
 // RGB color codes are no longer located here anymore.  Instead, you will want to
 // head to https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h
 
-extern bool clicky_enable;
+extern bool rgb_layer_change;
 
 #ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index);
 #endif // RGBLIGHT_ENABLE
 
-void tap(uint16_t keycode);
+inline void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
 bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
 
-#define EECONFIG_USERSPACE (uint8_t *)19
+#define EECONFIG_USERSPACE (uint32_t *)19
 
 typedef union {
-  uint8_t raw;
+  uint32_t raw;
   struct {
-    bool     clicky_enable    :1;
     bool     rgb_layer_change :1;
     bool     is_overwatch     :1;
     bool     nuke_switch      :1;
+    uint8_t  unicode_mod      :4;
   };
 } userspace_config_t;
 
+#if defined(KEYMAP_SAFE_RANGE)
+  #define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
+#else
+  #define PLACEHOLDER_SAFE_RANGE SAFE_RANGE
+#endif
+
 enum userspace_custom_keycodes {
-  EPRM = SAFE_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
+  EPRM = PLACEHOLDER_SAFE_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
   VRSN,              // Prints QMK Firmware and board info
   KC_QWERTY,         // Sets default layer to QWERTY
   KC_COLEMAK,        // Sets default layer to COLEMAK
@@ -90,7 +102,6 @@ enum userspace_custom_keycodes {
   KC_C9,
   KC_GGEZ,
   KC_MAKE,           // Run keyboard's customized make command
-  KC_RESET,          // Resets keyboard, with red underglow
   KC_RGB_T,          // Toggles RGB Layer Indication mode
   KC_SECRET_1,       // test1
   KC_SECRET_2,       // test2
@@ -99,12 +110,13 @@ enum userspace_custom_keycodes {
   KC_SECRET_5,       // test5
   KC_CCCV,           // Hold to copy, tap to paste
   KC_NUKE,           // NUCLEAR LAUNCH DETECTED!!!
-
-#ifdef UNICODE_ENABLE
-  UC_FLIP,           // Table flip (not working?)
-#endif //UNICODE_ENABLE
+  UC_FLIP,           // (ಠ痊ಠ)┻━┻
+  UC_TABL,           // ┬─┬ノ( º _ ºノ)
+  UC_SHRG,           // ¯\_(ツ)_/¯
+  UC_DISA,           // ಠ_ಠ
   NEW_SAFE_RANGE     //use "NEWPLACEHOLDER for keymap specific codes
 };
+
 
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
@@ -123,6 +135,7 @@ enum userspace_custom_keycodes {
 #define COLEMAK KC_COLEMAK
 #define WORKMAN KC_WORKMAN
 
+#define KC_RESET RESET
 #define KC_RST KC_RESET
 
 #ifdef SWAP_HANDS_ENABLE
@@ -130,6 +143,11 @@ enum userspace_custom_keycodes {
 #else // SWAP_HANDS_ENABLE
 #define KC_C1R3 KC_BSPC
 #endif // SWAP_HANDS_ENABLE
+
+#define BK_LWER LT(_LOWER, KC_BSPC)
+#define SP_LWER LT(_LOWER, KC_SPC)
+#define DL_RAIS LT(_RAISE, KC_DEL)
+#define ET_RAIS LT(_RAISE, KC_ENTER)
 
 // OSM keycodes, to keep things clean and easy to change
 #define KC_MLSF OSM(MOD_LSFT)
@@ -147,6 +165,8 @@ enum userspace_custom_keycodes {
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
 
+#define UC_IRNY UC(0x2E2E)
+#define UC_CLUE UC(0x203D)
 
 #ifdef TAP_DANCE_ENABLE
 enum {
@@ -325,7 +345,7 @@ enum {
 
 
 #define _________________ADJUST_L1_________________        RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG
-#define _________________ADJUST_L2_________________        _______, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
+#define _________________ADJUST_L2_________________        MU_TOG , CK_TOGG, AU_ON,   AU_OFF,  AG_NORM
 #define _________________ADJUST_L3_________________        RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T
 
 #define _________________ADJUST_R1_________________        KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5
@@ -350,4 +370,3 @@ enum {
                                                                 LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)
 
 
-#endif // !USERSPACE

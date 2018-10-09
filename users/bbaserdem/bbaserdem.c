@@ -25,6 +25,12 @@
 #ifdef UNICODE_ENABLE
 #endif
 
+/*-------------*\
+|*---UNICODE---*|
+\*-------------*/
+#ifdef UNICODE_ENABLE
+#endif
+
 /*-----------------*\
 |*-----SECRETS-----*|
 \*-----------------*/

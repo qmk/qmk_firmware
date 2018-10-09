@@ -230,7 +230,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       userspace_config.rgb_layer_change ^= 1;
       xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-      eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+      eeprom_update_dword(EECONFIG_USERSPACE, userspace_config.raw);
       if (userspace_config.rgb_layer_change) {
         layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
       }
@@ -243,7 +243,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
       if (userspace_config.rgb_layer_change) {
         userspace_config.rgb_layer_change = false;
         xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-        eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+        eeprom_update_dword(EECONFIG_USERSPACE, userspace_config.raw);
       }
     }
     return true; break;
@@ -267,12 +267,13 @@ void matrix_init_rgb(void) {
       case _COLEMAK:
         rgblight_sethsv_noeeprom_magenta(); break;
       case _DVORAK:
-        rgblight_sethsv_noeeprom_green(); break;
+        rgblight_sethsv_noeeprom_springgreen(); break;
       case _WORKMAN:
         rgblight_sethsv_noeeprom_goldenrod(); break;
       default:
         rgblight_sethsv_noeeprom_cyan(); break;
     }
+    rgblight_mode_noeeprom(1);
   }
 }
 
@@ -313,7 +314,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
       rgblight_mode_noeeprom(5);
       break;
     case _LOWER:
-      rgblight_sethsv_noeeprom_orange();
+      rgblight_sethsv_noeeprom_green();
       rgblight_mode_noeeprom(5);
       break;
     case _ADJUST:
@@ -325,7 +326,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
         case _COLEMAK:
           rgblight_sethsv_noeeprom_magenta(); break;
         case _DVORAK:
-          rgblight_sethsv_noeeprom_green(); break;
+          rgblight_sethsv_noeeprom_springgreen(); break;
         case _WORKMAN:
           rgblight_sethsv_noeeprom_goldenrod(); break;
         default:
