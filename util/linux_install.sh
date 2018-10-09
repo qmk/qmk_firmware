@@ -95,6 +95,20 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 		echo "Quitting..."
 	fi
 
+elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
+	sudo zypper install \
+		avr-libc \
+		cross-avr-gcc8 \
+		cross-avr-binutils \
+		cross-arm-none-newlib-devel \
+		cross-arm-binutils cross-arm-none-newlib-devel \
+		dfu-tool \
+		dfu-programmer \
+		gcc \
+		unzip \
+		wget \
+		zip
+
 else
 	echo "Sorry, we don't recognize your OS. Help us by contributing support!"
 	echo
