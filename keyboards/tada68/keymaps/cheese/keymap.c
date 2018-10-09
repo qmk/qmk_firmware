@@ -9,8 +9,6 @@
 #define _CL 2
 #define _AL 3
 
-#define _______ KC_TRNS
-
 enum custom_keycodes {
     SPX4 = SAFE_RANGE
 };
