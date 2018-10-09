@@ -255,9 +255,9 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
   for( i = 0, byte = 0, p = 0; i < bit; i++ ) {
       serial_delay_half1();   // read the middle of pulses
       if( serial_read_pin() ) {
-	  byte = (byte << 1) | 1; p ^= 1;
+          byte = (byte << 1) | 1; p ^= 1;
       } else {
-	  byte = (byte << 1) | 0; p ^= 0;
+          byte = (byte << 1) | 0; p ^= 0;
       }
       _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
       serial_delay_half2();
@@ -278,12 +278,12 @@ void serial_write_chunk(uint8_t data, uint8_t bit) NO_INLINE;
 void serial_write_chunk(uint8_t data, uint8_t bit) {
     uint8_t b, p;
     for( p = 0, b = 1<<(bit-1); b ; b >>= 1) {
-	if(data & b) {
-	    serial_high(); p ^= 1;
-	} else {
-	    serial_low();  p ^= 0;
-	}
-	serial_delay();
+        if(data & b) {
+            serial_high(); p ^= 1;
+        } else {
+            serial_low();  p ^= 0;
+        }
+        serial_delay();
     }
     /* send parity bit */
     if(p & 1) { serial_high(); }
@@ -362,17 +362,17 @@ ISR(SERIAL_PIN_INTERRUPT) {
   // target send phase
   if( trans->target2initiator_buffer_size > 0 )
       serial_send_packet((uint8_t *)trans->target2initiator_buffer,
-			 trans->target2initiator_buffer_size);
+                         trans->target2initiator_buffer_size);
   // target switch to input
   change_sender2reciver();
 
   // target recive phase
   if( trans->initiator2target_buffer_size > 0 ) {
       if (serial_recive_packet((uint8_t *)trans->initiator2target_buffer,
-			       trans->initiator2target_buffer_size) ) {
-	  *trans->status = TRANSACTION_ACCEPTED;
+                               trans->initiator2target_buffer_size) ) {
+          *trans->status = TRANSACTION_ACCEPTED;
       } else {
-	  *trans->status = TRANSACTION_DATA_ERROR;
+          *trans->status = TRANSACTION_DATA_ERROR;
       }
   } else {
       *trans->status = TRANSACTION_ACCEPTED;
@@ -436,12 +436,12 @@ int  soft_serial_transaction(int sstd_index) {
   // check if the target is present (step2 high->low)
   for( int i = 0; serial_read_pin(); i++ ) {
       if (i > SLAVE_INT_ACK_WIDTH + 1) {
-	  // slave failed to pull the line low, assume not present
-	  serial_output();
-	  serial_high();
-	  *trans->status = TRANSACTION_NO_RESPONSE;
-	  sei();
-	  return TRANSACTION_NO_RESPONSE;
+          // slave failed to pull the line low, assume not present
+          serial_output();
+          serial_high();
+          *trans->status = TRANSACTION_NO_RESPONSE;
+          sei();
+          return TRANSACTION_NO_RESPONSE;
       }
       _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT);
   }
@@ -451,12 +451,12 @@ int  soft_serial_transaction(int sstd_index) {
   // if the target is present syncronize with it
   if( trans->target2initiator_buffer_size > 0 ) {
       if (!serial_recive_packet((uint8_t *)trans->target2initiator_buffer,
-				trans->target2initiator_buffer_size) ) {
-	  serial_output();
-	  serial_high();
-	  *trans->status = TRANSACTION_DATA_ERROR;
-	  sei();
-	  return TRANSACTION_DATA_ERROR;
+                                trans->target2initiator_buffer_size) ) {
+          serial_output();
+          serial_high();
+          *trans->status = TRANSACTION_DATA_ERROR;
+          sei();
+          return TRANSACTION_DATA_ERROR;
       }
    }
 
@@ -466,7 +466,7 @@ int  soft_serial_transaction(int sstd_index) {
   // initiator send phase
   if( trans->initiator2target_buffer_size > 0 ) {
       serial_send_packet((uint8_t *)trans->initiator2target_buffer,
-			 trans->initiator2target_buffer_size);
+                         trans->initiator2target_buffer_size);
   }
 
   // always, release the line when not in use
