@@ -10,14 +10,14 @@
 
 /* FEATURES */
 
+#ifdef RGBLIGHT_ENABLE
+#include "./rgb.c"
+#endif
 #ifdef TAP_DANCE_ENABLE
 #include "dance.c"
 #endif
 #ifdef SSD1306OLED
 #include "./oled.c"
-#endif
-#ifdef RGBLIGHT_ENABLE
-#include "./rgb.c"
 #endif
 
 /* KEYCODE DEFINITIONS */

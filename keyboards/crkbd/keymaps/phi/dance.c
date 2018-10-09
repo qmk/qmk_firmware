@@ -26,12 +26,25 @@ void shift_finished (qk_tap_dance_state_t *state, void *user_data) {
     if (shift_action == DOUBLE_TAP) {
         unregister_code(KC_LSFT);
         shift_action = NONE;
+       #ifdef RGBLIGHT_ENABLE
+        rgb_set_gradient(250, 135, 1, 130);
+       #endif
         return;
     }
     switch (shift_action = dance_state_to_action(state)) {
-      case SINGLE_HOLD: case INTERRUPTED: register_code(KC_LSFT); break;
-      case SINGLE_TAP: unregister_code(KC_LSFT); set_oneshot_mods(MOD_LSFT); break;
-      case DOUBLE_TAP: register_code(KC_LSFT); break;
+      case SINGLE_HOLD: case INTERRUPTED:
+       register_code(KC_LSFT);
+       break;
+      case SINGLE_TAP:
+       unregister_code(KC_LSFT);
+       set_oneshot_mods(MOD_LSFT);
+       break;
+      case DOUBLE_TAP:
+       register_code(KC_LSFT);
+      #ifdef RGBLIGHT_ENABLE
+       rgb_set_gradient(250, 135, 250, 135);
+      #endif
+       break;
       default: break;
     }
 }
