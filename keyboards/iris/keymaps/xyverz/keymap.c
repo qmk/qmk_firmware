@@ -1,20 +1,20 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
 #define _COLEMAK 1
 #define _DVORAK 2
-#define _LOWER 3
-#define _RAISE 4
+#define _WOW 3
+#define _LOWER 4
+#define _RAISE 5
 #define _ADJUST 16
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
+  WOW,
   LOWER,
   RAISE,
   ADJUST,
@@ -28,6 +28,7 @@ enum custom_keycodes {
 #define KC_QWRT QWERTY
 #define KC_CLMK COLEMAK
 #define KC_DVRK DVORAK
+#define KC_WOW WOW
 #define KC_BSLT ALT_T(KC_BSPC)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -56,6 +57,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                        LCTL,BSLT,LGUI,         ENT ,SPC ,LALT
   ),
 
+  [_WOW] = LAYOUT_kc (
+     GRV , 1  , 2  , 3  , 4  , 5  ,                6  , 7  , 8  , 9  , 0  ,BSLS,
+     TAB ,QUOT,COMM,DOT , P  , Y  ,                F  , G  , C  , R  , L  ,SLSH,
+     ESC , A  , O  , E  , U  , I  ,                D  , H  , T  , N  , S  ,MINS,
+     LSFT,SCLN, Q  , J  , K  , X  ,LALT,     RGUI, B  , M  , W  , V  , Z  ,RSFT,
+                       LOWR,BSLT,LCTL,         ENT ,SPC ,RASE
+  ),
+
   [_LOWER] = LAYOUT_kc (
      F11 , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,F12 ,
      TILD,____,____, UP ,____,____,               ____,____,____,____,____,____,
@@ -75,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_kc (
      F11 , F1 , F2 , F3 , F4 , F5 ,                F6 , F7 , F8 , F9 ,F10 ,F12 ,
      ____,RST ,____,____,____,____,               ____,____,____,____,____,____,
-     ____,____,____,____,____,____,               ____,QWRT,CLMK,DVRK,____,____,
+     ____,____,____,____,____,____,               ____,QWRT,CLMK,DVRK,WOW ,____,
      ____,____,____,____,____,____,____,     ____,____,____,____,____,____,____,
                        ____,____,____,         ____,____,____
   )
@@ -125,6 +134,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(tone_dvorak);
         #endif
         persistent_default_layer_set(1UL<<_DVORAK);
+      }
+      return false;
+      break;
+    case WOW:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_dvorak);
+        #endif
+        persistent_default_layer_set(1UL<<_WOW);
       }
       return false;
       break;
