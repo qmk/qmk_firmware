@@ -15,19 +15,14 @@ fi
 while true; do
     echo
     echo "Do you want to install all toolchain dependencies needed for compiling QMK?"
-    echo "This will run install_dependencies.sh, which calls apt-get upgrade."
     echo "If you don't want that, you can install the dependencies manually."
     read -p "(Y/N) " res
     case $res in
-        [Yy]* ) sudo ./install_dependencies.sh; break;;
+        [Yy]* ) ./linux_install.sh; break;;
         [Nn]* ) break;;
         * ) echo "Invalid answer";;
     esac
 done
-
-echo "Installing dependencies needed for the installation (unzip, wget)"
-echo "This will ask for the sudo password"
-sudo apt-get install unzip wget
 
 download_dir=wsl_downloaded
 
