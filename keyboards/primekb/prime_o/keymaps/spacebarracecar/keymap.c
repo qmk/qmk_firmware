@@ -4,7 +4,6 @@
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)
 
-//define LEFTNUM for layout with left mirrored numpad
 #define LEFTNUM
 
 enum layers {
