@@ -3,6 +3,7 @@
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
   * [Testing and Debugging](newbs_testing_debugging.md)
+  * [Learning Resources](newbs_learn_more_resources.md)
 
 * [QMK Basics](README.md)
   * [QMK Introduction](getting_started_introduction.md)
