@@ -1,8 +1,8 @@
-# J3RN's Mac-Centric ErgoDox EZ keymap
+# J3RN's ErgoDox EZ keymap
 
 ## Motivation
 
-Essentially, I wanted to switch to a layout that was less jarring than the default ErgoDox EZ layout, and did not require finger gymnastics to perform common OS X shortcuts (most of which involve the CMD (LGui) key).
+I wanted a layout that was gave easy access to the CMD (LGui) key, and did not require finger gymnastics to use my beloved Emacs shortcuts.
 
 ## How is it different from the default ErgoDox EZ default_osx layout?
 
@@ -15,6 +15,9 @@ This layout more closely resembles that of the Mac keyboard, and has some other 
 - **The key to the left of "Q" is Tab instead of Delete.**
 - **The rightmost big key on the left thumb is CMD (LGui) instead of Backspace.**
 - **The key to the left of Alt-Shift is an Alt key**. This is close to it's position on the Mac keyboard, though slightly further left.
+
+### Emacs changes
+- **Holding "S" sends "left shift," holding "D" sends "left control," and holding "F" sends "left alt." This is mirrored on the right side with "J," "K," and "L."** This should make it easy to use those crazy Escape-Meta-Alt-Control-Shift bindings.
 
 ### Other changes
 
