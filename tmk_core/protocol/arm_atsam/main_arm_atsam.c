@@ -276,9 +276,9 @@ int main(void)
 
     host_set_driver(&arm_atsam_driver);
 
-#ifdef VIRTSER_ENABLE
+#ifdef CONSOLE_ENABLE
     uint64_t next_print = 0;
-#endif //VIRTSER_ENABLE
+#endif //CONSOLE_ENABLE
 
     v_5v_avg = adc_get(ADC_5V);
 
@@ -290,14 +290,16 @@ int main(void)
 
         main_subtasks(); //Note these tasks will also be run while waiting for USB keyboard polling intervals
 
-#ifdef VIRTSER_ENABLE
+#ifdef CONSOLE_ENABLE
         if (CLK_get_ms() > next_print)
         {
             next_print = CLK_get_ms() + 250;
-            dprintf("5v=%u 5vu=%u dlow=%u dhi=%u gca=%u gcd=%u\r\n",v_5v,v_5v_avg,v_5v_avg-V5_LOW,v_5v_avg-V5_HIGH,gcr_actual,gcr_desired);
+            //Add any debug information here that you want to see very often
+            //dprintf("5v=%u 5vu=%u dlow=%u dhi=%u gca=%u gcd=%u\r\n", v_5v, v_5v_avg, v_5v_avg - V5_LOW, v_5v_avg - V5_HIGH, gcr_actual, gcr_desired);
         }
-#endif //VIRTSER_ENABLE
+#endif //CONSOLE_ENABLE
     }
+
 
     return 1;
 }

@@ -620,7 +620,8 @@ void rgb_matrix_custom(void) {
 void rgb_matrix_task(void) {
     static uint8_t toggle_enable_last = 255;
 	if (!rgb_matrix_config.enable) {
-    	rgb_matrix_all_off();
+        rgb_matrix_all_off();
+        rgb_matrix_indicators();
         toggle_enable_last = rgb_matrix_config.enable;
     	return;
     }
@@ -902,4 +903,11 @@ void rgblight_mode(uint8_t mode) {
 
 uint32_t rgblight_get_mode(void) {
     return rgb_matrix_config.mode;
+}
+
+void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
+  rgb_matrix_config.hue = hue;
+  rgb_matrix_config.sat = sat;
+  rgb_matrix_config.val = val;
+  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
