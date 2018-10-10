@@ -266,6 +266,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif // bootloader options
         ), 10);
       }
+      if (temp_mod & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
       send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
       set_mods(temp_mod);
     }
