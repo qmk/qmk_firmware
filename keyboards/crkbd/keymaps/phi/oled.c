@@ -13,13 +13,15 @@
 
 char *get_layer_name(void) {
   if (layer_state & L_WHEEL) {
-    return "Wheel";
+    return "Mouse-Wheel";
   } else if (layer_state & L_MOUSE) {
     return "Mouse";
   } else if (layer_state & L_FUNCTION) {
     return "Function";
   } else if (layer_state & L_TENKEY) {
     return "Tenkey";
+  } else if (layer_state & L_GARARAISE) {
+    return "Garake-Raise";
   } else if (layer_state & L_GARAKE) {
     return "Garake";
   } else if (layer_state & L_RAISE) {
