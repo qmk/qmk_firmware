@@ -18,13 +18,6 @@ extern bool dozing;
 extern bool sleeping;
 extern bool force_usb;
 
-static int8_t sendchar_func(uint8_t c)
-{
-    //xmit(c);        // SUART
-    sendchar(c);    // LUFA
-    return 0;
-}
-
 static void SetupHardware(void)
 {
     /* Disable watchdog if enabled by bootloader/fuses */
@@ -41,7 +34,6 @@ static void SetupHardware(void)
 
     // for Console_Task
     USB_Device_EnableSOFEvents();
-    print_set_sendchar(sendchar_func);
 }
 
 int main(void)  __attribute__ ((weak));
