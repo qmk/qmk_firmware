@@ -63,10 +63,6 @@ enum quantum_keycodes {
     QK_ONE_SHOT_LAYER_MAX = 0x54FF,
     QK_ONE_SHOT_MOD       = 0x5500,
     QK_ONE_SHOT_MOD_MAX   = 0x55FF,
-#ifndef DISABLE_CHORDING
-    QK_CHORDING           = 0x5600,
-    QK_CHORDING_MAX       = 0x56FF,
-#endif
     QK_TAP_DANCE          = 0x5700,
     QK_TAP_DANCE_MAX      = 0x57FF,
     QK_LAYER_TAP_TOGGLE   = 0x5800,
@@ -120,10 +116,11 @@ enum quantum_keycodes {
     MAGIC_UNHOST_NKRO,
     MAGIC_UNSWAP_ALT_GUI,
     MAGIC_TOGGLE_NKRO,
+    MAGIC_TOGGLE_ALT_GUI,
     GRAVE_ESC,
 
     // Leader key
-#ifndef DISABLE_LEADER
+#ifdef LEADER_ENABLE
     KC_LEAD,
 #endif
 
@@ -142,9 +139,12 @@ enum quantum_keycodes {
 
     // Faux clicky as part of main audio feature
     CLICKY_TOGGLE,
+    CLICKY_ENABLE,
+    CLICKY_DISABLE,
     CLICKY_UP,
     CLICKY_DOWN,
     CLICKY_RESET,
+
 
 #ifdef FAUXCLICKY_ENABLE
     // Faux clicky
@@ -574,6 +574,8 @@ enum quantum_keycodes {
 #define CK_RST CLICKY_RESET
 #define CK_UP CLICKY_UP
 #define CK_DOWN CLICKY_DOWN
+#define CK_ON CLICKY_ENABLE
+#define CK_OFF CLICKY_DISABLE
 
 #define RGB_MOD RGB_MODE_FORWARD
 #define RGB_SMOD RGB_MODE_FORWARD
@@ -594,6 +596,7 @@ enum quantum_keycodes {
 
 #define AG_SWAP MAGIC_SWAP_ALT_GUI
 #define AG_NORM MAGIC_UNSWAP_ALT_GUI
+#define AG_TOGG MAGIC_TOGGLE_ALT_GUI
 
 // GOTO layer - 16 layers max
 // when:
