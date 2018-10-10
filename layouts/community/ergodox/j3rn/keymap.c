@@ -10,9 +10,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | Grv    |   1  |   2  |   3  |   4  |   5  |  [   |           |  ]   |   6  |   7  |   8  |   9  |   0  |  BkSp  |
+ * | Sleep  |   1  |   2  |   3  |   4  |   5  |  [   |           |  ]   |   6  |   7  |   8  |   9  |   0  |  BkSp  |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  -   |           |  =   |   Y  |   U  |   I  |   O  |   P  |   \    |
+ * | Esc    |   Q  |   W  |   E  |   R  |   T  |  -   |           |  =   |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * |Ctrl/Esc|   A  | S/Sft| D/Ctl| F/Alt|   G  |------|           |------|   H  | J/Alt| K/Ctl| L/Sft|   ;  |   '    |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
@@ -32,8 +32,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_GRV,        KC_1,    KC_2,          KC_3,         KC_4,         KC_5, KC_LBRC,
-        KC_TAB,        KC_Q,    KC_W,          KC_E,         KC_R,         KC_T, KC_MINS,
+        KC_SLEP,       KC_1,    KC_2,          KC_3,         KC_4,         KC_5, KC_LBRC,
+        KC_ESC,        KC_Q,    KC_W,          KC_E,         KC_R,         KC_T, KC_MINS,
         CTL_T(KC_ESC), KC_A,    LSFT_T(KC_S),  LCTL_T(KC_D), LALT_T(KC_F), KC_G,
         KC_LSFT,       KC_Z,    KC_X,          KC_C,         KC_V,         KC_B, ALL_T(KC_NO),
         MO(SYMB),      KC_LALT, LALT(KC_LSFT), KC_LEFT,      KC_RGHT,
