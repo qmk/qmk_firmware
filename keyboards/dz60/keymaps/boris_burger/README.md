@@ -6,13 +6,18 @@ the bottom right.
 It is based off stephengrier's layout adding support for Home/End/PgUp/PgDn using Fn+arrows
 as used on macOS and Microsoft Surface. It has Insert instead of Fn near the arrow cluster
 and other smaller tweaks:
-* CapsLock is used as Fn key.
-* Del is available as Fn+Backspace & Shift+Backspace (using a macro)
-* PgUp / PgDn / Home / End = Fn+Arrows
-* Tilde = Shift+Esc 
-* Backtick = Fn+Esc
-* Underglow toggle and mode selection are available as Fn+Q and Fn+W
-* Reset (bootloader mode) = Fn+B
+- CapsLock is the only Fn key (CapsLock by itself is not available)
+- Del is available as Fn+Backspace
+- Ctrl+Del is available as Ctrl+Backspace (e.g. deleting word to the right of the cursor)
+- Shift+Del is available as Shift+Backspace (e.g. permanently deleting file or e-mail)
+- PgUp = Fn+Up
+- PgDn = Fn+Down
+- Home = Fn+Left
+- End = Fn+Right
+- Tilde = Shift+Esc 
+- Backtick = Fn+Esc
+- Underglow toggle and mode selection are available as Fn+Q and Fn+W
+- Reset (bootloader mode) = Fn+B
 
 ### 0 Qwerty
 ```
