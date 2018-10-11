@@ -47,6 +47,7 @@
   * [Backlight](feature_backlight.md)
   * [Bluetooth](feature_bluetooth.md)
   * [Bootmagic](feature_bootmagic.md)
+  * [Combos](feature_combo)
   * [Command](feature_command.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
   * [Grave Escape](feature_grave_esc.md)
