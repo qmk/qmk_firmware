@@ -1,17 +1,11 @@
 #include "lets_split_eh.h"
 #include "bbaserdem.h"
 
-
-void matrix_init_keymap (void) {
-}
-
-uint32_t layer_state_set_keymap(uint32_t state) {
-    return state;
-}
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Main Dvorak layer
     [_DV] = LAYOUT_letssplit_wrapper(DVORAK),
+    // Main Qwerty layer
+    [_QW] = LAYOUT_letssplit_wrapper(QWERTY),
     // Turkish and special character overlay
     [_AL] = LAYOUT_letssplit_wrapper(ALTCHAR),
     // Gaming layer

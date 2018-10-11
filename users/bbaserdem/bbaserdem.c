@@ -39,6 +39,8 @@ float tone_game[][2]    = SONG(ZELDA_PUZZLE);
 float tone_return[][2]  = SONG(ZELDA_TREASURE);
 float tone_linux[][2]   = SONG(UNICODE_LINUX);
 float tone_windows[][2] = SONG(UNICODE_WINDOWS);
+float tone_dvorak[][2]  = SONG(DVORAK_SONG);
+float tone_qwerty[][2]  = SONG(QWERTY_SONG);
 #endif
 
 /*-------------------*\
@@ -202,6 +204,7 @@ void rgblight_change( uint8_t this_layer ) {
 /*---------------------*\
 |*-----MATRIX INIT-----*|
 \*---------------------*/
+bool qwerty_on = false;
 void matrix_init_user (void) {
     // Keymap specific things, do it first thing to allow for delays etc
     matrix_init_keymap();
@@ -621,6 +624,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case DBL_GRV:
             if( record->event.pressed ) {
                 SEND_STRING("``"SS_TAP(X_LEFT));
+            }
+            return false;
+            break;
+//------BASE LAYER TOGGLE
+        case TOG_BAS:
+            if( record->event.pressed ) {
+                if qwerty_on {
+                    set_single_persistent_default_layer(_DV);
+                    qwerty_on = false;
+#ifdef AUDIO_ENABLE
+                    stop_all_notes();
+                    PLAY_SONG(tone_dvorak);
+#endif
+                } else {
+                    set_single_persistent_default_layer(_QW);
+                    qwerty_on = true;
+#ifdef AUDIO_ENABLE
+                    stop_all_notes();
+                    PLAY_SONG(tone_qwerty);
+#endif
+                }
             }
             return false;
             break;

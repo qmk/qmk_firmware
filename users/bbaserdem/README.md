@@ -6,6 +6,7 @@ I have the following keymaps:
 
 * Gherkin (Does not use the user space)
 * XD75RE (Does not use the user space)
+* Bigseries (Does not use the user space)
 * Let's Split
 * Let's Split Eh
 * Planck
