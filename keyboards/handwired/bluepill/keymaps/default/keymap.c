@@ -55,10 +55,10 @@ KC_GRAVE, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9, 
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_MOMENTARY(1),  // to Fn overlay
     [1] = ACTION_LAYER_TOGGLE(2),  // to Fn overlay
-    [2] = ACTION_FUNCTION(2),
+    //[2] = ACTION_FUNCTION(2),
 };
 
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+/*void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
   case 2:
     if (record->event.pressed) {
@@ -67,10 +67,10 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
     break;
     
   }
-}
+}*/
 
 /* Layer based ilumination, set min value to 0xFFF */
-/*uint32_t layer_state_set_user(uint32_t state) {
+uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _FNONE:
       palClearPad(GPIOA, 0); //ON
@@ -86,4 +86,4 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
         break;
     }
   return state;
-}*/
+}
