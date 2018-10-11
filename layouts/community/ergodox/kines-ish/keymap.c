@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
-#include "debug.h" #include "action_layer.h"
+#include "debug.h"
+#include "action_layer.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
