@@ -284,6 +284,10 @@ void rgblight_effect_alternating(void);
   #ifdef RGBLIGHT_EFFECT_ALTERNATING
     _RGBM_SINGLE_DYNAMIC( ALTERNATING )
   #endif
+  ////  Add a new mode here.
+  // #ifdef RGBLIGHT_EFFECT_<name>
+  //    _RGBM_<SINGLE|MULTI>_<STATIC|DYNAMIC>( <name> )
+  // #endif
 #endif
 
 #undef _RGBM_SINGLE_STATIC
