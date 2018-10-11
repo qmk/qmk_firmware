@@ -37,6 +37,7 @@ void send_command(uint8_t command);
 void send_data(uint8_t data);
 void set_page_address(uint8_t address);
 void set_column_address(uint8_t address);
+void clear_screen(void);
 void clear_buffer(void);
 void send_buffer(void);
 void draw_pixel(uint8_t x, uint8_t y, uint8_t color, uint8_t mode);

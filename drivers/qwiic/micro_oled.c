@@ -43,6 +43,7 @@ uint16_t fontMapWidth;
 #define swap(a, b) { uint8_t t = a; a = b; b = t; }
 
 uint8_t micro_oled_transfer_buffer[20];
+static uint8_t micro_oled_screen_current[384] = { 0 };
 static uint8_t micro_oled_screen_buffer[] = {
 /* LCD Memory organised in 64 horizontal pixel and 6 rows of byte
    B  B .............B  -----
@@ -145,7 +146,7 @@ void micro_oled_init(void) {
   send_command(0x40);
 
   send_command(DISPLAYON);       //--turn on oled panel
-  //clear_screen();           // Erase hardware memory inside the OLED controller to avoid random data in memory.
+  clear_screen();           // Erase hardware memory inside the OLED controller to avoid random data in memory.
   send_buffer();
 }
 
@@ -217,19 +218,30 @@ void set_contrast(uint8_t contrast) {
 }
 
 /** \brief Transfer display buffer.
-  Bulk move the screen buffer to the SSD1306 controller's memory so that images/graphics drawn on the screen buffer will be displayed on the OLED.
+  Sends the updated buffer to the controller - the current status is checked before to save i2c exectution time
 */
 void send_buffer(void) {
   uint8_t i, j;
 
-  for (i=0; i<6; i++) {
-    set_page_address(i);
-    set_column_address(0);
-    for (j=0;j<0x40;j++) {
-      send_data(micro_oled_screen_buffer[i*0x40+j]);
+  uint8_t page_addr = 0xFF;
+  for (i = 0; i < 6; i++) {
+    uint8_t col_addr = 0xFF;
+    for (j = 0; j < 0x40; j++) {
+      if (micro_oled_screen_buffer[i*0x40+j] != micro_oled_screen_current[i*0x40+j]) {
+        if (page_addr != i) {
+          set_page_address(i);
+        }
+        if (col_addr != j) {
+          set_column_address(j);
+        }
+        send_data(micro_oled_screen_buffer[i*0x40+j]);
+        micro_oled_screen_current[i*0x40+j] = micro_oled_screen_buffer[i*0x40+j];
+        col_addr = j + 1;
+      }
     }
   }
 }
+
 /** \brief Draw pixel with color and mode.
   Draw color pixel in the screen buffer's x,y position with NORM or XOR draw mode.
 */
