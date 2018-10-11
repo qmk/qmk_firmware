@@ -77,11 +77,14 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case CU_GAME:
     if(record->event.pressed) {
+      timer_timeout();
       game = !game;
     }
     return false;
   case KC_LGUI:
   case KC_RGUI:
+    if (record->event.pressed)
+      timer_timeout();
     if (game)
       return false;
     else
@@ -101,6 +104,7 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
     return false;
   case KC_P00:
     if(record->event.pressed) {
+      timer_timeout();
       register_code(KC_P0);
       unregister_code(KC_P0);
       register_code(KC_P0);
@@ -111,6 +115,7 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
   #ifdef RGBLIGHT_ENABLE
   case CU_RGBV:
     if(record->event.pressed) {
+      timer_timeout();
       if (rgblight_get_val()+32>255)
         rgblight_sethsv(rgblight_get_hue(), rgblight_get_sat(), 31);
       else
@@ -162,6 +167,7 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
     return false;
   case CU_ESCT:
     if(record->event.pressed) {
+      timer_timeout();
       esct = !esct;
     }
     return false;
@@ -311,6 +317,7 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
   case KC_LCTL:
   case KC_RCTL:
     if(!record->event.pressed) {
+      timer_timeout();
       unregister_code(KC_Z);
       unregister_code(KC_Y);
     }
