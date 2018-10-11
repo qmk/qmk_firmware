@@ -6,7 +6,7 @@ UNICODE_ENABLE = yes	# Used for unicode character emulation
 EXTRAKEY_ENABLE = yes 	# OS signals like volume control
 
 # DISABLE
-ifndef BLUETOOTH_ENABLE 
+ifndef BLUETOOTH_ENABLE
 	BLUETOOTH_ENABLE = no 	# No bluetooth
 endif
 COMMAND_ENABLE = no			# Some bootmagic thing i dont use
