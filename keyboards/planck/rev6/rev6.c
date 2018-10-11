@@ -22,6 +22,7 @@
 
 static uint8_t layer;
 static bool queue_for_send = false;
+static uint8_t encoder_value = 32;
 
 void draw_ui(void) {
   clear_buffer();
@@ -29,39 +30,51 @@ void draw_ui(void) {
   draw_rect_filled_soft(32, 0, 11, 11, PIXEL_ON, NORM);
   draw_char(35, 2, layer + 0x30, PIXEL_ON, XOR, 0);
 
-  // for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
-  //   for (uint8_t y = 0; y < MATRIX_COLS; y++) {
-  //     if (x < 4)
-  //       draw_pixel(0 + y, 11 + x, (matrix_get_row(x) & (1 << y)) > 0, NORM);
-  //     else
-  //       draw_pixel(6 + y, 7 + x, (matrix_get_row(x) & (1 << y)) > 0, NORM);
-  //   }
-  // }
+#define MATRIX_DISPLAY_X 46
+#define MATRIX_DISPLAY_Y 1
+
+  for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
+    for (uint8_t y = 0; y < MATRIX_COLS; y++) {
+      if (x < 4)
+        draw_pixel(MATRIX_DISPLAY_X + 2 + y, MATRIX_DISPLAY_Y + 2 + x, (matrix_get_row(x) & (1 << y)) > 0, NORM);
+      else
+        draw_pixel(MATRIX_DISPLAY_X + 8 + y, MATRIX_DISPLAY_Y - 2 + x, (matrix_get_row(x) & (1 << y)) > 0, NORM);
+    }
+  }
+  draw_rect_soft(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 16, 8, PIXEL_ON, NORM);
+
+
+  draw_rect_soft(0, 13, 64, 6, PIXEL_ON, NORM);
+  draw_line_vert(encoder_value, 13, 6, PIXEL_ON, NORM);
+
+
+#define MOD_DISPLAY_X 0
+#define MOD_DISPLAY_Y 22
 
   uint8_t mods = get_mods();
   if (mods & MOD_LSFT) {
-    draw_rect_filled_soft(0, 12, 5 + (1 * 6), 11, PIXEL_ON, NORM);
-    draw_string(3, 14, "S", PIXEL_OFF, NORM, 0);
+    draw_rect_filled_soft(MOD_DISPLAY_X + 0, MOD_DISPLAY_Y, 5 + (1 * 6), 11, PIXEL_ON, NORM);
+    draw_string(MOD_DISPLAY_X + 3, MOD_DISPLAY_Y + 2, "S", PIXEL_OFF, NORM, 0);
   } else {
-    draw_string(3, 14, "S", PIXEL_ON, NORM, 0);
+    draw_string(MOD_DISPLAY_X + 3, MOD_DISPLAY_Y + 2, "S", PIXEL_ON, NORM, 0);
   }
   if (mods & MOD_LCTL) {
-    draw_rect_filled_soft(10, 12, 5 + (1 * 6), 11, PIXEL_ON, NORM);
-    draw_string(13, 14, "C", PIXEL_OFF, NORM, 0);
+    draw_rect_filled_soft(MOD_DISPLAY_X + 10, MOD_DISPLAY_Y, 5 + (1 * 6), 11, PIXEL_ON, NORM);
+    draw_string(MOD_DISPLAY_X + 13, MOD_DISPLAY_Y + 2, "C", PIXEL_OFF, NORM, 0);
   } else {
-    draw_string(13, 14, "C", PIXEL_ON, NORM, 0);
+    draw_string(MOD_DISPLAY_X + 13, MOD_DISPLAY_Y + 2, "C", PIXEL_ON, NORM, 0);
   }
   if (mods & MOD_LALT) {
-    draw_rect_filled_soft(20, 12, 5 + (1 * 6), 11, PIXEL_ON, NORM);
-    draw_string(23, 14, "A", PIXEL_OFF, NORM, 0);
+    draw_rect_filled_soft(MOD_DISPLAY_X + 20, MOD_DISPLAY_Y, 5 + (1 * 6), 11, PIXEL_ON, NORM);
+    draw_string(MOD_DISPLAY_X + 23, MOD_DISPLAY_Y + 2, "A", PIXEL_OFF, NORM, 0);
   } else {
-    draw_string(23, 14, "A", PIXEL_ON, NORM, 0);
+    draw_string(MOD_DISPLAY_X + 23, MOD_DISPLAY_Y + 2, "A", PIXEL_ON, NORM, 0);
   }
   if (mods & MOD_LGUI) {
-    draw_rect_filled_soft(30, 12, 5 + (1 * 6), 11, PIXEL_ON, NORM);
-    draw_string(33, 14, "G", PIXEL_OFF, NORM, 0);
+    draw_rect_filled_soft(MOD_DISPLAY_X + 30, MOD_DISPLAY_Y, 5 + (1 * 6), 11, PIXEL_ON, NORM);
+    draw_string(MOD_DISPLAY_X + 33, MOD_DISPLAY_Y + 2, "G", PIXEL_OFF, NORM, 0);
   } else {
-    draw_string(33, 14, "G", PIXEL_ON, NORM, 0);
+    draw_string(MOD_DISPLAY_X + 33, MOD_DISPLAY_Y + 2, "G", PIXEL_ON, NORM, 0);
   }
 
   send_buffer();
@@ -77,6 +90,11 @@ uint32_t layer_state_set_kb(uint32_t state) {
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   queue_for_send = true;
   return process_record_user(keycode, record);
+}
+
+void encoder_update_kb(uint8_t index, bool clockwise) {
+  encoder_value = (encoder_value + (clockwise ? 1 : -1)) % 64;
+  queue_for_send = true;
 }
 
 #endif

@@ -90,6 +90,9 @@ void dip_update(uint8_t index, bool active) { }
 __attribute__ ((weak))
 void encoder_update(bool clockwise) { }
 
+__attribute__ ((weak))
+void encoder_update_kb(uint8_t index, bool clockwise) { }
+
 bool last_dip_switch[4] = {0};
 
 #ifndef ENCODER_RESOLUTION
@@ -114,9 +117,11 @@ uint8_t matrix_scan(void) {
     encoder_value += encoder_LUT[encoder_state & 0xF];
     if (encoder_value >= ENCODER_RESOLUTION) {
         encoder_update(0);
+        encoder_update_kb(0, 0);
     }
     if (encoder_value <= -ENCODER_RESOLUTION) { // direction is arbitrary here, but this clockwise
         encoder_update(1);
+        encoder_update_kb(0, 1);
     }
     encoder_value %= ENCODER_RESOLUTION;
 
