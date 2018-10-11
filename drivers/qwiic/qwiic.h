@@ -20,6 +20,9 @@
 #ifdef QWIIC_JOYSTIIC_ENABLE
   #include "joystiic.h"
 #endif
+#ifdef QWIIC_MICRO_OLED_ENABLE
+  #include "micro_oled.h"
+#endif
 
 void qwiic_init(void);
 void qwiic_task(void);
