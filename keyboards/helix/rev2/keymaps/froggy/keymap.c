@@ -399,7 +399,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
           RGBAnimation = true;
-          rgblight_mode(6);
+          rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
           RGB_current_mode = rgblight_config.mode;
         }
       #endif
@@ -408,7 +408,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
           RGBAnimation = true;
-          rgblight_mode(10);
+          rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 1);
           RGB_current_mode = rgblight_config.mode;
         }
       #endif
@@ -417,7 +417,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
           RGBAnimation = true;
-          rgblight_mode(21);
+          rgblight_mode(RGBLIGHT_MODE_KNIGHT);
           RGB_current_mode = rgblight_config.mode;
         }
       #endif
@@ -508,7 +508,7 @@ void led_ripple_effect(char r, char g, char b) {
 
     if (scan_count == -1) {
       rgblight_enable_noeeprom();
-      rgblight_mode(0);
+      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
     } else if (scan_count >= 0 && scan_count < 5) {
       for (unsigned char c=keybuf_begin; c!=keybuf_end; c++) {
         int i = c;

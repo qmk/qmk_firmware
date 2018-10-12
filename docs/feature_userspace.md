@@ -100,7 +100,7 @@ Additionally, this is a good place to document your code, if you wish to share i
 # Examples
 
 For a brief example, checkout [`/users/_example/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).  
-For a more complicaed example, checkout [`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna)'s userspace.
+For a more complicated example, checkout [`/users/drashna/`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna)'s userspace.
 
 
 ## Customized Functions
@@ -124,7 +124,7 @@ uint32_t layer_state_set_user (uint32_t state) {
   return layer_state_set_keymap (state);
 }
 ```
-The `__attribute__ ((weak))` part tells the compiler that this is a placce holder function that can then be replaced by a version in your `keymap.c`.  That way, you don't need to add it to your `keymap.c`, but if you do, you won't get any conflicts because the function is the same name. 
+The `__attribute__ ((weak))` part tells the compiler that this is a placeholder function that can then be replaced by a version in your `keymap.c`.  That way, you don't need to add it to your `keymap.c`, but if you do, you won't get any conflicts because the function is the same name. 
 
 The `_keymap` part here doesn't matter, it just needs to be something other than `_quantum`, `_kb`, or `_user`, since those are already in use. So you could use `layer_state_set_mine`, `layer_state_set_fn`, or anything else.
 
@@ -140,7 +140,7 @@ ifeq ($(strip $(MACROS_ENABLED)), yes)
     OPT_DEFS += -DMACROS_ENABLED
 endif
 ```
-The `OPT_DEFS` setting causee `MACROS_ENABLED` to be defined for your keyboards (note the `-D` in front of the name), and you could use `#ifdef MACROS_ENABLED` to check the status in your c/h files, and handle that code based on that. 
+The `OPT_DEFS` setting causes `MACROS_ENABLED` to be defined for your keyboards (note the `-D` in front of the name), and you could use `#ifdef MACROS_ENABLED` to check the status in your c/h files, and handle that code based on that. 
 
 Then you add `MACROS_ENABLED = yes` to the `rules.mk` for you keymap to enable this feature and the code in your userspace.
 
@@ -220,7 +220,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 ```
 
-This will add a new `KC_MAKE` keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap">`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
+This will add a new `KC_MAKE` keycode that can be used in any of your keymaps.  And this keycode will output `make <keyboard>:<keymap>`, making frequent compiling easier.  And this will work with any keyboard and any keymap as it will output the current boards info, so that you don't have to type this out every time.
 
 Additionally, this should flash the newly compiled firmware automatically, using the correct utility, based on the bootloader settings (or default to just generating the HEX file). However, it should be noted that this may not work on all systems. AVRDUDE doesn't work on WSL, namely (and will dump the HEX in the ".build" folder instead).
 
