@@ -22,7 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define _FNONE 1
 #define _FNTWO 2
 
-
 // Highly Modified by Xydane
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NORMAL] = KEYMAP_SEVENTY_ISO(
@@ -39,7 +38,7 @@ KC_GRAVE,	KC_1,	  KC_2,	  KC_3, 	KC_4, 	KC_5, 	KC_6,	  KC_7,	  KC_8,	  KC_9,	  K
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_P4,	 KC_P5,	 KC_P6,	 KC_PPLS, KC_TRNS, KC_TRNS,				 	KC_TRNS, \
   KC_TRNS,	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_P1,	 KC_P2,	 KC_P3,	 KC_PAST, KC_TRNS, KC_TRNS,	KC_TRNS,KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_P0,  KC_PDOT,KC_PENT, KC_PSLS, 	KC_TRNS,KC_TRNS,KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS,                 	F(2),          					    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS ),
+  KC_TRNS, KC_TRNS, KC_TRNS,                 	KC_TRNS,          					    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS ),
 
   [_FNTWO] = KEYMAP_SEVENTY_ISO(
   KC_TRNS, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_TRNS,KC_MUTE,KC_VOLD,KC_VOLU, KC_TRNS,KC_TRNS,KC_NLCK, KC_CALC, KC_TRNS,KC_TRNS,KC_TRNS, \
@@ -47,40 +46,28 @@ KC_GRAVE,	KC_1,	  KC_2,	  KC_3, 	KC_4, 	KC_5, 	KC_6,	  KC_7,	  KC_8,	  KC_9,	  K
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_P4,  KC_P5,  KC_P6,  KC_PPLS, KC_TRNS, KC_TRNS,         KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_P1,  KC_P2,  KC_P3,  KC_PAST, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_P0,  KC_PDOT,KC_PENT, KC_PSLS,  KC_TRNS,KC_TRNS,KC_TRNS, \
-  KC_TRNS, KC_TRNS, KC_TRNS,                   F(2),                        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS ),
+  KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,KC_TRNS,KC_TRNS ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_LAYER_MOMENTARY(1),  // to Fn overlay
     [1] = ACTION_LAYER_TOGGLE(2),  // to Fn overlay
-    //[2] = ACTION_FUNCTION(2),
 };
-
-/*void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch (id) {
-  case 2:
-    if (record->event.pressed) {
-      palTogglePad(GPIOA, 1);
-    }     
-    break;
-    
-  }
-}*/
 
 /* Layer based ilumination, set min value to 0xFFF */
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _FNONE:
-      palClearPad(GPIOA, 0); //ON
-      palSetPad(GPIOA, 1);  //OFF
+      palSetPad(GPIOA, 0);  //OFF Color A
+      palClearPad(GPIOA, 1); //ON Color B
         break;
     case _FNTWO:
-      palClearPad(GPIOA, 1); //ON
-      palSetPad(GPIOA, 1);  //OFF
+      palClearPad(GPIOA, 0); //ON Color A
+      palClearPad(GPIOA, 1);  //ON Color B
         break;
     default: //  for any other layers, or the default layer
-      palClearPad(GPIOA, 1); //ON
-      palSetPad(GPIOA, 0);  //OFF
+      palClearPad(GPIOA, 0); //ON Color A
+      palSetPad(GPIOA, 1);  //OFF Color B
         break;
     }
   return state;

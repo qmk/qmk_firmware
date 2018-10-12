@@ -55,4 +55,7 @@ ANSI
 
 It also uses: 
 PC13: Caps Lock led.
-PA1: Backlight.
+
+Backlight dual color leds, my version is for common anode that's more common, for leds with common anode just replace the palSetPad with palClearPad and viceversa.
+PA1: Backlight color A.
+PA0: Backlight color B.
