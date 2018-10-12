@@ -21,6 +21,7 @@
 #define AS_BACK LCTL(LALT(KC_LEFT))
 #define AS_GO_DECLARATION LCTL(KC_B)
 #define AS_GO_IMPLEMENTATION LCTL(LALT(KC_B))
+#define AS_CLOSETAB LCTL(KC_F4)
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -50,10 +51,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [KEYNAV] = LAYOUT(
-    KC_ESC,      AS_GO_IMPLEMENTATION,  RCTL(KC_Z),      RCTL(KC_S),       KC_TRNS,                             KC_TRNS,       KC_HOME,    KC_UP,           KC_END,     KC_PGUP,
-    AS_BACK,     AS_SYMBOL,             RSFT(KC_TAB),    KC_TAB,           SHELL_DEL_WORD,                      LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),
-    KC_TRNS,     AS_CLASS,              AS_TABLEFT,      AS_TABRIGHT,      KC_TRNS,                             KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,
-    KC_TRNS,     AS_GO_DECLARATION,     KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS, KC_ENTER, KC_SPACE,      KC_BSPC,    RCTL(KC_BSPC),   KC_DELETE,  LCTL(KC_DELETE)
+    KC_ESC,       AS_GO_IMPLEMENTATION,  RCTL(KC_Z),      RCTL(KC_S),       KC_TRNS,                             KC_TRNS,       KC_HOME,    KC_UP,           KC_END,     KC_PGUP,
+    AS_BACK,      AS_SYMBOL,             RSFT(KC_TAB),    KC_TAB,           SHELL_DEL_WORD,                      LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),
+    AS_FINDUSAGE, AS_CLASS,              AS_TABLEFT,      AS_TABRIGHT,      AS_CLOSETAB,                         KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,
+    KC_TRNS,      AS_GO_DECLARATION,     KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS, KC_ENTER, KC_SPACE,      KC_BSPC,    RCTL(KC_BSPC),   KC_DELETE,  LCTL(KC_DELETE)
   ),
 
   [KEYSEL] = LAYOUT(
