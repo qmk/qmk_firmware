@@ -51,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [KEYNAV] = LAYOUT(
-    KC_ESC,       AS_GO_IMPLEMENTATION,  RCTL(KC_Z),      RCTL(KC_S),       KC_TRNS,                             KC_TRNS,       KC_HOME,    KC_UP,           KC_END,     KC_PGUP,
+    KC_ESC,       AS_GO_IMPLEMENTATION,  RCTL(KC_Z),      RCTL(KC_S),       MEH(KC_A),                           MEH(KC_B),     KC_HOME,    KC_UP,           KC_END,     KC_PGUP,
     AS_BACK,      AS_SYMBOL,             RSFT(KC_TAB),    KC_TAB,           SHELL_DEL_WORD,                      LCTL(KC_LEFT), KC_LEFT,    KC_DOWN,         KC_RIGHT,   LCTL(KC_RIGHT),
     AS_FINDUSAGE, AS_CLASS,              AS_TABLEFT,      AS_TABRIGHT,      AS_CLOSETAB,                         KC_TRNS,       RCTL(KC_C), RCTL(KC_X),      RCTL(KC_V), KC_PGDOWN,
     KC_TRNS,      AS_GO_DECLARATION,     KC_TRNS,         KC_TRNS,          KC_TRNS,          KC_TRNS, KC_ENTER, KC_SPACE,      KC_BSPC,    RCTL(KC_BSPC),   KC_DELETE,  LCTL(KC_DELETE)
