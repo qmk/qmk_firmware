@@ -220,12 +220,12 @@ enum {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | mLeft  | mDown  | mRight |        | SHIFT  | mBtn3  | mBtn1  | mBtn2  |  ;     |  '     |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | Sft//Cp|        |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
+ * | Sft//Cp| CAPS   |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
  * '-----------------------------------------------------------------------------------------'
  */
 #define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,_______, RESET,   KC_RSFT, 			KC_WH_U, KC_WH_D, _______, KC_BSLS
 #define _______________Gherkin_ETC_1_______________			KC_MS_L, 		KC_MS_D, KC_MS_R,_______, KC_LSFT, KC_BTN3, 			KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT
-#define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),_______, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
+#define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
 
 /* Gherkin-Like
  * .-----------------------------------------------------------------------------------------------------------.
