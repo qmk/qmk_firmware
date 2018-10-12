@@ -1,12 +1,13 @@
 #include QMK_KEYBOARD_H
-#include "debug.h" #include "action_layer.h"
+#include "debug.h"
+#include "action_layer.h"
 
 #define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
-#define MCRO 3 // macros
-#define COLEMAK 4 // colemak
-#define TARMAK 5 // tarmak
+#define TARMAK 1 // tarmak
+#define COLEMAK 2 // colemak
+#define SYMB 3 // symbols
+#define MDIA 4 // media keys
+#define MCRO 5 // macros
 
 #define M_START_BREATHING M(5)
 #define M_STOP_BREATHING M(3)

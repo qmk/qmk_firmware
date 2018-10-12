@@ -26,23 +26,23 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     }
     if (state->status.layer & 0x4) {
         state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
-        state->layer_text = "Media & Mouse";
+        state->layer_text = "Colemak";
     }
     else if (state->status.layer & 0x2) {
         state->target_lcd_color = LCD_COLOR(168, saturation, 0xFF);
-        state->layer_text = "Symbol";
+        state->layer_text = "Tarmak";
     }
     else if (state->status.layer & 0x8) {
         state->target_lcd_color = LCD_COLOR(214, saturation, 0xFF);
-        state->layer_text = "Macro";
+        state->layer_text = "Symbols";
     }
     else if (state->status.layer & 0x10) {
         state->target_lcd_color = LCD_COLOR(130, saturation, 0xFF);
-        state->layer_text = "Colemak";
+        state->layer_text = "Media & Mouse";
     }
     else if (state->status.layer & 0x20) {
         state->target_lcd_color = LCD_COLOR(130, saturation, 0xFF);
-        state->layer_text = "Tarmak";
+        state->layer_text = "Macro";
     }
     else { 
         state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
