@@ -96,8 +96,9 @@ if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a n
 |`RGBLIGHT_MODE_RGB_TEST`     | *None*            |RGB Test                               |
 |`RGBLIGHT_MODE_ALTERNATING`  | *None*            |Alternating                            |
 
-
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
+
+Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight.h` there is a contrast table between the old mode number and the current symbol.
 
 The following options can be used to tweak the various animations:
 
