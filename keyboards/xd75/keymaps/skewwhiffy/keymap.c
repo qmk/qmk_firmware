@@ -1,23 +1,23 @@
 /* Copyright 2017 Kenny Hung
  *
  * This program is free software: you can redistribute it and/or modify
- * it under the terms of the gnu general public license as published by
- * the free software foundation, either version 2 of the license, or
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
- * but without any warranty; without even the implied warranty of
- * merchantability or fitness for a particular purpose.  see the
- * gnu general public license for more details.
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
  *
- * You should have received a copy of the gnu general public license
- * along with this program.  if not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
 #include "keymap_uk.h"
 
-// layer shorthand
-enum layers {
+// Layer shorthand
+enum Layers {
   cm, // colemak
   dv, // dvorak
   qw, // qwerty
@@ -29,7 +29,7 @@ enum layers {
   nar // navigation right
 };
 
-// layer buttons
+// Layer buttons
 #define _Z_SFT SFT_T(UK_Z)
 #define _SCLSH SFT_T(UK_SCLN)
 #define _SLSH SFT_T(UK_SLSH)
@@ -54,7 +54,7 @@ enum layers {
 #define __NAL LT(nal, _______)
 #define __NAR LT(nar, _______)
 
-// custom hotkeys
+// Custom hotkeys
 #define _TERM LCTL(UK_QUOT) // Hotkey for terminal
 #define _S_TAB S(UK_TAB)
 #define _C_LEFT LCTL(UK_LEFT)
@@ -63,23 +63,23 @@ enum layers {
 #define _A_RGHT LALT(UK_RGHT)
 
 enum custom_keycodes {
-  IJ_OMN = SAFE_RANGE // IntelliJ omnibox
+  IJ_OMN = SAFE_RANGE // IntelliJ Omnibox
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* colemak _cm
+/* Colemak
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
- * | q      | w      | f      | p      | g      |        |        |        |        |        | j      | l      | u      | y      | ;      |
+ * | Q      | W      | F      | P      | G      |        |        |        |        |        | J      | L      | U      | Y      | ;      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
- * | a      | r      | s      | t      | d      |        |        |        |        |        | h      | n      | e      | i      | o      |
+ * | A      | R      | S      | T      | D      |        |        |        |        |        | H      | N      | E      | I      | O      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
- * | z      | x      | c      | v      | b      |        |        |        |        |        | k      | m      | ,      | .      | /      |
- * | shift  | number | symbol | nav    |        |        |        |        |        |        |        | nav    | symbol | func   | shift  |
+ * | Z      | X      | C      | V      | B      |        |        |        |        |        | K      | M      | ,      | .      | /      |
+ * | SHIFT  | NUMBER | SYMBOL | NAV    |        |        |        |        |        |        |        | NAV    | SYMBOL | FUNC   | SHIFT  |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
- * | lshift | lctrl  | lalt   | lgui   | space  | ent    |        |        |        | del    | bkspc  | rgui   | ralt   | rctrl  | rshift |
+ * | LSHIFT | LCTRL  | LALT   | LGUI   | SPACE  | ENT    |        |        |        | DEL    | BKSPC  | RGUI   | RALT   | RCTRL  | RSHIFT |
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  */
   [cm] = LAYOUT_ortho_5x15( \
@@ -90,16 +90,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     UK_LSFT, UK_LCTL, UK_LALT, UK_LGUI, UK_SPC,  UK_ENT,  _______, _______, _______, UK_DEL,  UK_BSPC, UK_RGUI, UK_RALT, UK_RCTL, UK_RSFT \
   ),
 
-/* dvorak _dv
+/* Dvorak
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
- * | '      | ,      | .      | p      | y      |        |        |        |        |        | f      | g      | c      | r      | l      |
+ * | '      | ,      | .      | P      | Y      |        |        |        |        |        | F      | G      | C      | R      | L      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
- * | a      | o      | e      | u      | i      |        |        |        |        |        | d      | h      | t      | n      | s      |
+ * | A      | O      | E      | U      | I      |        |        |        |        |        | D      | H      | T      | N      | S      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
- * | ;      | q      | j      | k      | x      |        |        |        |        |        | b      | m      | w      | v      | z      |
- * | shift  | number | symbol | nav    |        |        |        |        |        |        |        | nav    | symbol | func   | shift  |
+ * | ;      | Q      | J      | K      | X      |        |        |        |        |        | B      | M      | W      | V      | Z      |
+ * | SHIFT  | NUMBER | SYMBOL | NAV    |        |        |        |        |        |        |        | NAV    | SYMBOL | FUNC   | SHIFT  |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
@@ -164,9 +164,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
   ),
 
-    /* Symbols _SY
-    * .--------------------------------------------------------------------------------------------------------------------------------------.
-    * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+ /* Symbols _SY
+ * .--------------------------------------------------------------------------------------------------------------------------------------.
+ * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | !      | £      | _      | -      | ~      |        |        |        |        |        | \      | {      | }      | /      | #      |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
