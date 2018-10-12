@@ -620,7 +620,8 @@ void rgb_matrix_custom(void) {
 void rgb_matrix_task(void) {
     static uint8_t toggle_enable_last = 255;
 	if (!rgb_matrix_config.enable) {
-    	rgb_matrix_all_off();
+        rgb_matrix_all_off();
+        rgb_matrix_indicators();
         toggle_enable_last = rgb_matrix_config.enable;
     	return;
     }

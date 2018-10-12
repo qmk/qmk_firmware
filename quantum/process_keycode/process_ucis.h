@@ -45,6 +45,7 @@ extern const qk_ucis_symbol_t ucis_symbol_table[];
 void qk_ucis_start(void);
 void qk_ucis_start_user(void);
 void qk_ucis_symbol_fallback (void);
+void qk_ucis_success(uint8_t symbol_index);
 void register_ucis(const char *hex);
 bool process_ucis (uint16_t keycode, keyrecord_t *record);
 
