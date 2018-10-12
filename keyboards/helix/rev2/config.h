@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 100
 
 /* Use I2C or Serial */
-//#define USE_I2C
+#define USE_I2C
 #define USE_SERIAL
 //#define USE_MATRIX_I2C
 
@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D3
+#define RGB_DI_PIN D2
 #define RGBLIGHT_TIMER
 //#define RGBLED_NUM 12    // Number of LEDs. see ./keymaps/default/config.h
 #define ws2812_PORTREG  PORTD
