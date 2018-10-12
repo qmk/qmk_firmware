@@ -13,8 +13,7 @@ make handwired/bluepill/bluepill70:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
-
-{% hint style='info' %} Read everything before using it for something {% endhint %}
+Read everything before using it.
 
 ## Introduction
 
