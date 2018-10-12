@@ -88,14 +88,88 @@ uint32_t layer_state_set_user(uint32_t state)
   return state;
 }
 
+#define tableNameListLen 32
 
+char *tableNameList = 0;
 
+bool shifted = false;
+
+bool sendAbbr = false;
+
+void printTableAbbreviation(void)
+{
+  send_char(0x20);
+  int i = 0;
+  for (i = 0; i < tableNameListLen && tableNameList[i] > 0; i++)
+  {
+    if (tableNameList[i] >= 65 && tableNameList[i] <= 90)
+    {
+      send_char(tableNameList[i]+32);
+    }
+    else
+    {
+      send_char(tableNameList[i]);
+    }
+    tableNameList[i] = '\0';
+  }
+}
+
+void printStringAndQueueChar(char* str)
+{
+  if (tableNameList == 0)
+  {
+    tableNameList = malloc(tableNameListLen*sizeof(char));
+    for(int i = 0; i < tableNameListLen; i++)
+    {
+      tableNameList[i] = 0;
+    }
+  }
+  if (str[0] != '\0')
+  {
+    int i = 0;
+    while (true)
+    {
+      if (str[i] == 0)
+      {
+        break;
+      }
+      send_char(str[i++]);
+    }
+    for (i = 0; i < tableNameListLen-1; i++)
+    {
+      if (tableNameList[i] == '\0')
+      {
+        tableNameList[i] = str[0];
+        tableNameList[i+1] = '\0';
+        break;
+      }
+      else if (i == tableNameListLen-2)
+      {
+        printTableAbbreviation();
+        break;
+      }
+    }
+    //for (i = 0; i < tableNameListLen && tableNameList[i] > 0; i++)
+    //{
+    //  send_char(tableNameList[i]);
+    //}
+    //send_string_P("Darden");
+    //send_string_P(&myarray);
+    //send_string_P(str);
+  }
+
+}
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   if (record->event.pressed)
   {
     switch (keycode)
     {
+      case KC_LSPO:
+      case KC_RSPC:
+        shifted = true;
+        return true;
+
       case S_LFTJN: SEND_STRING("LEFT JOIN"); return false;
       case S_INRJN: SEND_STRING("INNER JOIN "); return false;
       case S_SLCT:  SEND_STRING("SELECT "); return false;
@@ -106,18 +180,39 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       case S_ALTER: SEND_STRING("ALTER SESSION SET CURRENT_SCHEMA = "); return false;
 
 
-      case N_DRDN:  SEND_STRING("Darden"); return false;
-      case N_PRDCT: SEND_STRING("Product"); return false;
-      case N_SPPLR: SEND_STRING("Supplier"); return false;
-      case N_CNTCT: SEND_STRING("Contact"); return false;
-      case N_WRKFL: SEND_STRING("Workflow"); return false;
-      case N_DIST:  SEND_STRING("Dist"); return false;
-      case N_DSTRB: SEND_STRING("Distributor"); return false;
-      case N_STEP:  SEND_STRING("Step"); return false;
-      case N_NSTNC: SEND_STRING("Instance"); return false;
-      case N_TASK:  SEND_STRING("Task"); return false;
-      case N_CNTR:  SEND_STRING("Center"); return false;
-      case N_PRCNG:  SEND_STRING("Pricing"); return false;
+      case N_DRDN:  printStringAndQueueChar("Darden"); return false;
+      case N_PRDCT: printStringAndQueueChar("Product"); return false;
+      case N_SPPLR: printStringAndQueueChar("Supplier"); return false;
+      case N_CNTCT: printStringAndQueueChar("Contact"); return false;
+      case N_WRKFL: printStringAndQueueChar("Workflow"); return false;
+      case N_DIST:  printStringAndQueueChar("Dist"); return false;
+      case N_DSTRB: printStringAndQueueChar("Distributor"); return false;
+      case N_STEP:  printStringAndQueueChar("Step"); return false;
+      case N_NSTNC: printStringAndQueueChar("Instance"); return false;
+      case N_TASK:  printStringAndQueueChar("Task"); return false;
+      case N_CNTR:  printStringAndQueueChar("Center"); return false;
+      case N_PRCNG: printStringAndQueueChar("Pricing"); return false;
+      case LT(SQLNAMES,KC_BSLS):
+        if (shifted)
+        {
+          sendAbbr = true;
+        }
+        return true;
+    }
+  }
+  else
+  {
+    switch (keycode)
+    {
+      case KC_LSPO:
+      case KC_RSPC:
+        shifted = false;
+        return true;
+      case LT(SQLNAMES,KC_BSLS):
+        if (!shifted)
+          printTableAbbreviation();
+        sendAbbr = false;
+        return true;
     }
   }
   return true;
