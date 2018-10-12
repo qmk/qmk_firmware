@@ -10,8 +10,8 @@ enum userspace_layers {
 
 // Enum of custom keycodes defined in process_record_user
 enum keycodes {
-    KC_FNX, // Hold for FN layer, tap to toggle ARROWS layer. 
+    KC_FNX, // Hold for FN layer, tap to toggle ARROWS layer.
 };
 
 // Custom #defined keycodes
-#define KC_CTCP MT(KC_LCTL, KC_CAPS)
+#define KC_CTCP CTL_T(KC_CAPS)
