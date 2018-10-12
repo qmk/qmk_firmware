@@ -10,8 +10,8 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _BL 0
-#define _FL 1
-#define _CL 2
+#define _FL 2
+#define _CL 1
 #define _EL 3
 
 
@@ -56,7 +56,7 @@ _______,KC_UNDO,KC_CUT,KC_COPY,KC_PASTE, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2,KC_M
  
   /* Keymap _FL: Function Layer
    * ,-----------------------------------------------------------.
-   * | KC_GRV|F1|F2|F3|F4|F5|F6|F7| F8 | F9  |10|F11|F12|  RESET|
+   * | KC_GRV|F1|F2|F3|F4|F5|F6|F7| F8 | F9  |10|F11|F12|        |
    * |-----------------------------------------------------------|
    * |     |   |   |   |   |   |   |   |   |   |   |BL-|BL+|BL   |
    * |-----------------------------------------------------------|
@@ -70,7 +70,7 @@ _______,KC_UNDO,KC_CUT,KC_COPY,KC_PASTE, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2,KC_M
 
 [_FL] = LAYOUT_60_ansi_split_rshift(
   
-  KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, RESET,  \
+  KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______,  \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_PSCREEN, BL_DEC, BL_INC,BL_TOGG, \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,KC_HOME,_______,_______, \
   _______,_______,_______,_______,_______,_______,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,KC_END,_______,_______, TG(_CL), \
