@@ -242,13 +242,13 @@ const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
 };
 #elif defined (RGB_BACKLIGHT_M6_B)
 // M6-B is really simple:
-// 0 3 4
-// 1 2 5
+// 0 3 5
+// 1 2 4
 const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
-	{0,0}, {0,16}, {16,16}, {16,0}, {32,0}, {32,16}
+	{0,0}, {0,16}, {16,16}, {16,0}, {32,16}, {32,0}
 };
 const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
-	{0,0}, {0,16}, {16,16}, {16,0}, {32,0}, {32,16}
+	{0,0}, {0,16}, {16,16}, {16,0}, {32,16}, {32,0}
 };
 #endif
 
@@ -349,10 +349,10 @@ const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 };
 #elif defined (RGB_BACKLIGHT_M6_B)
 // M6-B is really simple:
-// 0 3 4
-// 1 2 5
+// 0 3 5
+// 1 2 4
 const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
-	{     0,     3,     4,     1,     2,     5 }
+	{     0,     3,     5,     1,     2,     4 }
 };
 #endif
 
