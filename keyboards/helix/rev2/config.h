@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
 #else
   #define MATRIX_ROWS 10
-  #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
+  #define MATRIX_ROW_PINS { D4, C6, D7, D4, B4 }
 #endif
 
 // wiring of each half
@@ -86,7 +86,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D2
+#define RGB_DI_PIN D3
 #define RGBLIGHT_TIMER
 //#define RGBLED_NUM 12    // Number of LEDs. see ./keymaps/default/config.h
 #define ws2812_PORTREG  PORTD
