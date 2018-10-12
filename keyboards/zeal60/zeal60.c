@@ -164,6 +164,7 @@ void main_init(void)
 		// Save the magic number last, in case saving was interrupted
 		eeprom_set_valid(true);
 	}
+
 #if RGB_BACKLIGHT_ENABLED
 	// Initialize LED drivers for backlight.
 	backlight_init_drivers();
