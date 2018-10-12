@@ -44,10 +44,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RAW
 #endif
 
-//#define CONSOLE_ENABLE //deferred implementation
-//#ifdef CONSOLE_ENABLE
-//#define CON
-//#endif
+//#define CONSOLE_ENABLE //rules.mk
+#ifdef CONSOLE_ENABLE
+#define CON
+#endif
 
 //#define NKRO_ENABLE //rules.mk
 #ifdef NKRO_ENABLE
@@ -110,8 +110,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef CON
-#define CONSOLE_INTERFACE           NEXT_INTERFACE_4
-#define NEXT_INTERFACE_5            (CONSOLE_INTERFACE + 1)
+#define CON_INTERFACE               NEXT_INTERFACE_4
+#define NEXT_INTERFACE_5            (CON_INTERFACE + 1)
+#define UDI_HID_CON_IFACE_NUMBER    CON_INTERFACE
 #else
 #define NEXT_INTERFACE_5            NEXT_INTERFACE_4
 #endif
@@ -211,11 +212,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifdef CON
-#define CONSOLE_IN_EPNUM            NEXT_IN_EPNUM_4
-#define NEXT_IN_EPNUM_5             (CONSOLE_IN_EPNUM + 1)
-#define CONSOLE_OUT_EPNUM           NEXT_OUT_EPNUM_1
-#define NEXT_OUT_EPNUM_2            (CONSOLE_OUT_EPNUM + 1)
-#define CONSOLE_POLLING_INTERVAL    1
+#define CON_IN_EPNUM                NEXT_IN_EPNUM_4
+#define UDI_HID_CON_EP_IN           CON_IN_EPNUM
+#define NEXT_IN_EPNUM_5             (CON_IN_EPNUM + 1)
+#define CON_OUT_EPNUM               NEXT_OUT_EPNUM_1
+#define UDI_HID_CON_EP_OUT          CON_OUT_EPNUM
+#define NEXT_OUT_EPNUM_2            (CON_OUT_EPNUM + 1)
+#define CON_POLLING_INTERVAL        1
+#ifndef UDI_HID_CON_STRING_ID
+#define UDI_HID_CON_STRING_ID       0
+#endif
 #else
 #define NEXT_IN_EPNUM_5             NEXT_IN_EPNUM_4
 #define NEXT_OUT_EPNUM_2            NEXT_OUT_EPNUM_1
@@ -557,6 +563,66 @@ extern uint8_t udi_hid_raw_report[UDI_HID_RAW_REPORT_SIZE];
 COMPILER_PACK_RESET()
 
 #endif //RAW
+
+// **********************************************************************
+// CON Descriptor structure and content
+// **********************************************************************
+#ifdef CON
+
+COMPILER_PACK_SET(1)
+
+typedef struct {
+    usb_iface_desc_t iface;
+    usb_hid_descriptor_t hid;
+    usb_ep_desc_t ep_out;
+    usb_ep_desc_t ep_in;
+} udi_hid_con_desc_t;
+
+typedef struct {
+    uint8_t array[34];
+} udi_hid_con_report_desc_t;
+
+#define UDI_HID_CON_DESC {\
+    .iface.bLength             = sizeof(usb_iface_desc_t),\
+    .iface.bDescriptorType     = USB_DT_INTERFACE,\
+    .iface.bInterfaceNumber    = UDI_HID_CON_IFACE_NUMBER,\
+    .iface.bAlternateSetting   = 0,\
+    .iface.bNumEndpoints       = 2,\
+    .iface.bInterfaceClass     = HID_CLASS,\
+    .iface.bInterfaceSubClass  = HID_SUB_CLASS_NOBOOT,\
+    .iface.bInterfaceProtocol  = HID_SUB_CLASS_NOBOOT,\
+    .iface.iInterface          = UDI_HID_CON_STRING_ID,\
+    .hid.bLength               = sizeof(usb_hid_descriptor_t),\
+    .hid.bDescriptorType       = USB_DT_HID,\
+    .hid.bcdHID                = LE16(USB_HID_BDC_V1_11),\
+    .hid.bCountryCode          = USB_HID_NO_COUNTRY_CODE,\
+    .hid.bNumDescriptors       = USB_HID_NUM_DESC,\
+    .hid.bRDescriptorType      = USB_DT_HID_REPORT,\
+    .hid.wDescriptorLength     = LE16(sizeof(udi_hid_con_report_desc_t)),\
+    .ep_out.bLength            = sizeof(usb_ep_desc_t),\
+    .ep_out.bDescriptorType    = USB_DT_ENDPOINT,\
+    .ep_out.bEndpointAddress   = UDI_HID_CON_EP_OUT | USB_EP_DIR_OUT,\
+    .ep_out.bmAttributes       = USB_EP_TYPE_INTERRUPT,\
+    .ep_out.wMaxPacketSize     = LE16(CONSOLE_EPSIZE),\
+    .ep_out.bInterval          = CON_POLLING_INTERVAL,\
+    .ep_in.bLength             = sizeof(usb_ep_desc_t),\
+    .ep_in.bDescriptorType     = USB_DT_ENDPOINT,\
+    .ep_in.bEndpointAddress    = UDI_HID_CON_EP_IN | USB_EP_DIR_IN,\
+    .ep_in.bmAttributes        = USB_EP_TYPE_INTERRUPT,\
+    .ep_in.wMaxPacketSize      = LE16(CONSOLE_EPSIZE),\
+    .ep_in.bInterval           = CON_POLLING_INTERVAL,\
+}
+
+#define UDI_HID_CON_REPORT_SIZE CONSOLE_EPSIZE
+
+extern uint8_t udi_hid_con_report_set[UDI_HID_CON_REPORT_SIZE];
+
+//report buffer
+extern uint8_t udi_hid_con_report[UDI_HID_CON_REPORT_SIZE];
+
+COMPILER_PACK_RESET()
+
+#endif //CON
 
 // **********************************************************************
 // CDC Descriptor structure and content

@@ -50,6 +50,11 @@ rgb_config_t rgb_matrix_config;
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #endif
 
+#ifndef RGB_DIGITAL_RAIN_DROPS
+    // lower the number for denser effect/wider keyboard
+    #define RGB_DIGITAL_RAIN_DROPS 24
+#endif
+
 bool g_suspend_state = false;
 
 // Global tick at 20 Hz
@@ -466,7 +471,6 @@ void rgb_matrix_jellybean_raindrops( bool initialize ) {
 void rgb_matrix_digital_rain( const bool initialize ) {
     // algorithm ported from https://github.com/tremby/Kaleidoscope-LEDEffect-DigitalRain
     const uint8_t drop_ticks           = 28;
-    const uint8_t new_drop_probability = 24;
     const uint8_t pure_green_intensity = 0xd0;
     const uint8_t max_brightness_boost = 0xc0;
     const uint8_t max_intensity        = 0xff;
@@ -481,7 +485,7 @@ void rgb_matrix_digital_rain( const bool initialize ) {
     }
     for (uint8_t col = 0; col < MATRIX_COLS; col++) {
         for (uint8_t row = 0; row < MATRIX_ROWS; row++) {
-            if (row == 0 && drop == 0 && rand() < RAND_MAX / new_drop_probability) {
+            if (row == 0 && drop == 0 && rand() < RAND_MAX / RGB_DIGITAL_RAIN_DROPS) {
                 // top row, pixels have just fallen and we're
                 // making a new rain drop in this column
                 map[col][row] = max_intensity;
@@ -616,7 +620,8 @@ void rgb_matrix_custom(void) {
 void rgb_matrix_task(void) {
     static uint8_t toggle_enable_last = 255;
 	if (!rgb_matrix_config.enable) {
-    	rgb_matrix_all_off();
+        rgb_matrix_all_off();
+        rgb_matrix_indicators();
         toggle_enable_last = rgb_matrix_config.enable;
     	return;
     }
@@ -898,4 +903,11 @@ void rgblight_mode(uint8_t mode) {
 
 uint32_t rgblight_get_mode(void) {
     return rgb_matrix_config.mode;
+}
+
+void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
+  rgb_matrix_config.hue = hue;
+  rgb_matrix_config.sat = sat;
+  rgb_matrix_config.val = val;
+  eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }

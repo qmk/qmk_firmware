@@ -19,9 +19,9 @@
 
 #include "quantum.h"
 
-// Use 7 wide characters for keymaps
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+enum userspace_custom_keycodes {
+  VRSN = SAFE_RANGE               // Prints QMK Firmware and board info
+};
 
 // Layers
 #define _QW 0
@@ -72,7 +72,7 @@
 #define NUMPAD_L1  RGB_TOG, RGB_MOD, _______, _______, RGB_HUD, RGB_HUI
 #define NUMPAD_L2  BL_TOGG, BL_STEP, BL_BRTG, _______, RGB_SAD, RGB_SAI
 #define NUMPAD_L3  _______, _______, _______, _______, RGB_VAD, RGB_VAI
-#define NUMPAD_L4    RESET, _______, _______, _______, RGB_SPD, RGB_SPI
+#define NUMPAD_L4    RESET,    VRSN, _______, _______, RGB_SPD, RGB_SPI
 
 #define NUMPAD_R1                                                        _______, KC_P7,   KC_P8,   KC_P9,   KC_PMNS, _______
 #define NUMPAD_R2                                                        _______, KC_P4,   KC_P5,   KC_P6,   KC_PPLS, _______

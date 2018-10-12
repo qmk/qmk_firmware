@@ -82,6 +82,12 @@ bool main_exk_enable(void);
 void main_exk_disable(void);
 #endif //EXK
 
+#ifdef CON
+extern volatile bool main_b_con_enable;
+bool main_con_enable(void);
+void main_con_disable(void);
+#endif //CON
+
 #ifdef MOU
 extern volatile bool main_b_mou_enable;
 bool main_mou_enable(void);

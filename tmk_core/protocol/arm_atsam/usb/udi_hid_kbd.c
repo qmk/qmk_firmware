@@ -45,6 +45,7 @@
  */
 
 #include "samd51j18a.h"
+#include "d51_util.h"
 #include "conf_usb.h"
 #include "usb_protocol.h"
 #include "udd.h"
@@ -86,7 +87,7 @@ bool udi_hid_kbd_b_report_valid;
 COMPILER_WORD_ALIGNED
 uint8_t udi_hid_kbd_report[UDI_HID_KBD_REPORT_SIZE];
 
-static bool udi_hid_kbd_b_report_trans_ongoing;
+volatile bool udi_hid_kbd_b_report_trans_ongoing;
 
 COMPILER_WORD_ALIGNED
 static uint8_t udi_hid_kbd_report_trans[UDI_HID_KBD_REPORT_SIZE];
@@ -186,8 +187,7 @@ bool udi_hid_kbd_send_report(void)
         return false;
     }
 
-    memcpy(udi_hid_kbd_report_trans, udi_hid_kbd_report,
-            UDI_HID_KBD_REPORT_SIZE);
+    memcpy(udi_hid_kbd_report_trans, udi_hid_kbd_report, UDI_HID_KBD_REPORT_SIZE);
     udi_hid_kbd_b_report_valid = false;
     udi_hid_kbd_b_report_trans_ongoing =
             udd_ep_run(UDI_HID_KBD_EP_IN | USB_EP_DIR_IN,
@@ -249,7 +249,7 @@ bool udi_hid_nkro_b_report_valid;
 COMPILER_WORD_ALIGNED
 uint8_t udi_hid_nkro_report[UDI_HID_NKRO_REPORT_SIZE];
 
-static bool udi_hid_nkro_b_report_trans_ongoing;
+volatile bool udi_hid_nkro_b_report_trans_ongoing;
 
 COMPILER_WORD_ALIGNED
 static uint8_t udi_hid_nkro_report_trans[UDI_HID_NKRO_REPORT_SIZE];
@@ -355,7 +355,7 @@ bool udi_hid_nkro_send_report(void)
         return false;
     }
 
-    memcpy(udi_hid_nkro_report_trans, udi_hid_nkro_report,UDI_HID_NKRO_REPORT_SIZE);
+    memcpy(udi_hid_nkro_report_trans, udi_hid_nkro_report, UDI_HID_NKRO_REPORT_SIZE);
     udi_hid_nkro_b_report_valid = false;
     udi_hid_nkro_b_report_trans_ongoing =
             udd_ep_run(UDI_HID_NKRO_EP_IN | USB_EP_DIR_IN,
@@ -843,3 +843,149 @@ static void udi_hid_raw_setreport_valid(void)
 }
 
 #endif //RAW
+
+//********************************************************************************************
+// CON
+//********************************************************************************************
+#ifdef CON
+
+bool udi_hid_con_enable(void);
+void udi_hid_con_disable(void);
+bool udi_hid_con_setup(void);
+uint8_t udi_hid_con_getsetting(void);
+
+UDC_DESC_STORAGE udi_api_t udi_api_hid_con = {
+    .enable = (bool(*)(void))udi_hid_con_enable,
+    .disable = (void (*)(void))udi_hid_con_disable,
+    .setup = (bool(*)(void))udi_hid_con_setup,
+    .getsetting = (uint8_t(*)(void))udi_hid_con_getsetting,
+    .sof_notify = NULL,
+};
+
+COMPILER_WORD_ALIGNED
+static uint8_t udi_hid_con_rate;
+
+COMPILER_WORD_ALIGNED
+static uint8_t udi_hid_con_protocol;
+
+COMPILER_WORD_ALIGNED
+uint8_t udi_hid_con_report_set[UDI_HID_CON_REPORT_SIZE];
+
+bool udi_hid_con_b_report_valid;
+
+COMPILER_WORD_ALIGNED
+uint8_t udi_hid_con_report[UDI_HID_CON_REPORT_SIZE];
+
+volatile bool udi_hid_con_b_report_trans_ongoing;
+
+COMPILER_WORD_ALIGNED
+static uint8_t udi_hid_con_report_trans[UDI_HID_CON_REPORT_SIZE];
+
+COMPILER_WORD_ALIGNED
+UDC_DESC_STORAGE udi_hid_con_report_desc_t udi_hid_con_report_desc = {
+    {
+        0x06, 0x31, 0xFF,           // Vendor Page (PJRC Teensy compatible)
+        0x09, 0x74,                 // Vendor Usage (PJRC Teensy compatible)
+        0xA1, 0x01,                 // Collection (Application)
+            0x09, 0x75,             //   Usage (Vendor)
+            0x15, 0x00,             //   Logical Minimum (0x00)
+            0x26, 0xFF, 0x00,       //   Logical Maximum (0x00FF)
+            0x95, CONSOLE_EPSIZE,   //   Report Count
+            0x75, 0x08,             //   Report Size (8)
+            0x81, 0x02,             //   Input (Data)
+            0x09, 0x76,             //   Usage (Vendor)
+            0x15, 0x00,             //   Logical Minimum (0x00)
+            0x26, 0xFF, 0x00,       //   Logical Maximum (0x00FF)
+            0x95, CONSOLE_EPSIZE,   //   Report Count
+            0x75, 0x08,             //   Report Size (8)
+            0x91, 0x02,             //   Output (Data)
+        0xC0,                       // End Collection
+    }
+};
+
+static bool udi_hid_con_setreport(void);
+static void udi_hid_con_setreport_valid(void);
+
+static void udi_hid_con_report_sent(udd_ep_status_t status, iram_size_t nb_sent, udd_ep_id_t ep);
+
+bool udi_hid_con_enable(void)
+{
+    // Initialize internal values
+    udi_hid_con_rate = 0;
+    udi_hid_con_protocol = 0;
+    udi_hid_con_b_report_trans_ongoing = false;
+    memset(udi_hid_con_report, 0, UDI_HID_CON_REPORT_SIZE);
+    udi_hid_con_b_report_valid = false;
+    return UDI_HID_CON_ENABLE_EXT();
+}
+
+void udi_hid_con_disable(void)
+{
+    UDI_HID_CON_DISABLE_EXT();
+}
+
+bool udi_hid_con_setup(void)
+{
+    return udi_hid_setup(&udi_hid_con_rate,
+                            &udi_hid_con_protocol,
+                            (uint8_t *) &udi_hid_con_report_desc,
+                            udi_hid_con_setreport);
+}
+
+uint8_t udi_hid_con_getsetting(void)
+{
+    return 0;
+}
+
+static bool udi_hid_con_setreport(void)
+{
+    if ((USB_HID_REPORT_TYPE_OUTPUT == (udd_g_ctrlreq.req.wValue >> 8))
+            && (0 == (0xFF & udd_g_ctrlreq.req.wValue))
+            && (UDI_HID_CON_REPORT_SIZE == udd_g_ctrlreq.req.wLength)) {
+        udd_g_ctrlreq.payload = udi_hid_con_report_set;
+        udd_g_ctrlreq.callback = udi_hid_con_setreport_valid;
+        udd_g_ctrlreq.payload_size = UDI_HID_CON_REPORT_SIZE;
+        return true;
+    }
+    return false;
+}
+
+bool udi_hid_con_send_report(void)
+{
+    if (!main_b_con_enable) {
+        return false;
+    }
+
+    if (udi_hid_con_b_report_trans_ongoing) {
+        return false;
+    }
+
+    memcpy(udi_hid_con_report_trans, udi_hid_con_report,UDI_HID_CON_REPORT_SIZE);
+    udi_hid_con_b_report_valid = false;
+    udi_hid_con_b_report_trans_ongoing =
+            udd_ep_run(UDI_HID_CON_EP_IN | USB_EP_DIR_IN,
+                        false,
+                        udi_hid_con_report_trans,
+                        UDI_HID_CON_REPORT_SIZE,
+                        udi_hid_con_report_sent);
+
+    return udi_hid_con_b_report_trans_ongoing;
+}
+
+static void udi_hid_con_report_sent(udd_ep_status_t status, iram_size_t nb_sent, udd_ep_id_t ep)
+{
+    UNUSED(status);
+    UNUSED(nb_sent);
+    UNUSED(ep);
+    udi_hid_con_b_report_trans_ongoing = false;
+    if (udi_hid_con_b_report_valid) {
+        udi_hid_con_send_report();
+    }
+}
+
+static void udi_hid_con_setreport_valid(void)
+{
+
+}
+
+#endif //CON
