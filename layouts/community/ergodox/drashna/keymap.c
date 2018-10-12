@@ -57,11 +57,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_QWERTY] = LAYOUT_ergodox_pretty_wrapper(
         // left hand                                                                       // right hand
-             KC_EQL,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, KC_MINS,
+             KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,                 UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS,
              KC_TAB,  _________________QWERTY_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________QWERTY_R1_________________, KC_BSLS,
              KC_C1R3, _________________QWERTY_L2_________________,                                   _________________QWERTY_R2_________________, KC_QUOT,
              KC_MLSF, _________________QWERTY_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________QWERTY_R3_________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, UC_IRNY,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 /* Keymap 0: COLEMAK layer
@@ -89,11 +89,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
   [_COLEMAK] = LAYOUT_ergodox_pretty_wrapper(
         // left hand                                                                       // right hand
-             KC_EQL,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, KC_MINS,
+             KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,                 UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS,
              KC_TAB,  _________________COLEMAK_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________COLEMAK_R1________________, KC_BSLS,
              KC_C1R3, _________________COLEMAK_L2________________,                                   _________________COLEMAK_R2________________, KC_QUOT,
              KC_MLSF, _________________COLEMAK_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________COLEMAK_R3________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, UC_IRNY,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 /* Keymap 0: DVORAK Layout
@@ -121,11 +121,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
   [_DVORAK] = LAYOUT_ergodox_pretty_wrapper(
         // left hand        // right hand
-             KC_EQL,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, KC_BSLS,
+             KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,                 UC_TABL, ________________NUMBER_RIGHT_______________, KC_BSLS,
              KC_TAB,  _________________DVORAK_L1_________________, TG(_DIABLO),         TG(_DIABLO), _________________DVORAK_R1_________________, KC_SLSH,
              KC_C1R3, _________________DVORAK_L2_________________,                                   _________________DVORAK_R2_________________, KC_MINS,
              KC_MLSF, _________________DVORAK_L3_________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________DVORAK_R3_________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, UC_IRNY,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 /* Keymap 0: WORKMAN layer
@@ -153,11 +153,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
   [_WORKMAN] = LAYOUT_ergodox_pretty_wrapper(
         // left hand
-             KC_EQL,  ________________NUMBER_LEFT________________, _______,                 _______, ________________NUMBER_RIGHT_______________, KC_MINS,
+             KC_ESC,  ________________NUMBER_LEFT________________, UC_FLIP,                 UC_TABL, ________________NUMBER_RIGHT_______________, KC_MINS,
              KC_TAB,  _________________WORKMAN_L1________________, TG(_DIABLO),         TG(_DIABLO), _________________WORKMAN_R1________________, KC_BSLS,
              KC_C1R3, _________________WORKMAN_L2________________,                                   _________________WORKMAN_R2________________, KC_QUOT,
              KC_MLSF, _________________WORKMAN_L3________________, TG(_GAMEPAD),       TG(_GAMEPAD), _________________WORKMAN_R3________________, KC_MRSF,
-             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, KC_NO,
+             KC_GRV,  ___________ERGODOX_BOTTOM_LEFT_____________,                                   ___________ERGODOX_BOTTOM_RIGHT____________, UC_IRNY,
                                                     __________________ERGODOX_THUMB_CLUSTER_____________________
     ),
 
@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_GAMEPAD] = LAYOUT_ergodox_pretty_wrapper(
              KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3, HYPR(KC_Q), HYPR(KC_GRV),            KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
-             KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    UC_SHRG, UC_DISA,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                                      KC_I,    KC_O,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_TRNS,            TG(_GAMEPAD), KC_N,    KC_M,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_GRV,  KC_U,    KC_I,    KC_Y,    KC_T,                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
