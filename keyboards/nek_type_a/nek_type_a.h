@@ -40,7 +40,7 @@ extern bool i2c_initialized;
 void init_expander(void);
 
 #define LAYOUT( \
-         L12, L13,      L15, L16, L17,   R11, R12, R13, R14, R15, R16, R17, R18, R19, R1A, R1B, \
+         L12,      L14, L15, L16, L17,   R11, R12, R13, R14, R15, R16, R17, R18, R19, R1A, R1B, \
     L21, L22, L23, L24, L25, L26, L27,   R21, R22, R23, R24, R25, R26,      R28, R29, R2A, R2B, \
     L31, L32, L33, L34, L35, L36,        R31, R32, R33, R34, R35, R36, R37, R38, R39, R3A, R3B, \
     L41, L42, L43, L44, L45, L46,        R41, R42, R43, R44, R45, R46,      R48,                \
@@ -48,7 +48,7 @@ void init_expander(void);
     L61, L62, L63,      L65,             R61,      R63,      R65, R66,      R68, R69, R6A, R6B  \
 ) \
 { \
-    { KC_NO,   L12,   L13, KC_NO,   L15,   L16,   L17,   R11,   R12,   R13,   R14,   R15,   R16,   R17,   R18,   R19,   R1A,   R1B }, \
+    { KC_NO,   L12, KC_NO,   L14,   L15,   L16,   L17,   R11,   R12,   R13,   R14,   R15,   R16,   R17,   R18,   R19,   R1A,   R1B }, \
     {   L21,   L22,   L23,   L24,   L25,   L26,   L27,   R21,   R22,   R23,   R24,   R25,   R26, KC_NO,   R28,   R29,   R2A,   R2B }, \
     {   L31,   L32,   L33,   L34,   L35,   L36, KC_NO,   R31,   R32,   R33,   R34,   R35,   R36,   R37,   R38,   R39,   R3A,   R3B }, \
     {   L41,   L42,   L43,   L44,   L45,   L46, KC_NO,   R41,   R42,   R43,   R44,   R45,   R46, KC_NO,   R48, KC_NO, KC_NO, KC_NO }, \
