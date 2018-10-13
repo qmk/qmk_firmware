@@ -546,13 +546,21 @@ bool process_record_quantum(keyrecord_t *record) {
         set_output(OUTPUT_USB);
       }
       return false;
-    #ifdef BLUETOOTH_ENABLE
-    case OUT_BT:
-      if (record->event.pressed) {
-        set_output(OUTPUT_BLUETOOTH);
-      }
-      return false;
-    #endif
+        #ifdef BLUETOOTH_ENABLE
+            #ifdef MODULE_ADAFRUIT_BLE
+            case OUT_BT:
+              if (record->event.pressed) {
+                set_output(OUTPUT_AUTO);
+              }
+              return false;
+            #else
+            case OUT_BT:
+              if (record->event.pressed) {
+                set_output(OUTPUT_BLUETOOTH);
+              }
+              return false;
+            #endif
+        #endif
     #endif
     case MAGIC_SWAP_CONTROL_CAPSLOCK ... MAGIC_TOGGLE_NKRO:
       if (record->event.pressed) {
