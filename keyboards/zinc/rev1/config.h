@@ -27,7 +27,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    monksoffunk
 #define PRODUCT         zinc rev.1
+<<<<<<< HEAD
 #define DESCRIPTION     A split keyboard
+=======
+#define DESCRIPTION     A split keyboard
+
+>>>>>>> Add Zinc keyboard
 
 #define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD
@@ -43,6 +48,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MASTER_RIGHT
 //#define EE_HANDS
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Add Zinc keyboard
 /* key matrix size */
 // Rows are doubled-up
   #define MATRIX_ROWS 8
