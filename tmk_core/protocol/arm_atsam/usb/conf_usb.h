@@ -134,6 +134,11 @@
 #define  UDI_HID_EXK_DISABLE_EXT()      main_exk_disable()
 #endif
 
+#ifdef CON
+#define  UDI_HID_CON_ENABLE_EXT()       main_con_enable()
+#define  UDI_HID_CON_DISABLE_EXT()      main_con_disable()
+#endif
+
 #ifdef MOU
 #define  UDI_HID_MOU_ENABLE_EXT()       main_mou_enable()
 #define  UDI_HID_MOU_DISABLE_EXT()      main_mou_disable()

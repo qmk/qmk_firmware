@@ -289,12 +289,12 @@ uint8_t I2C3733_Init_Drivers(void)
     //Set up master device
     i2c_led_send_CRWL(0);
     i2c_led_select_page(0, 3);
-    i2c_led_send_mode_op_gcr(0, ISSI3733_CR_SYNC_MASTER, ISSI3733_CR_SSD_NORMAL);
+    i2c_led_send_mode_op_gcr(0, 0, ISSI3733_CR_SSD_NORMAL); //No SYNC due to brightness mismatch with second driver
 
     //Set up slave device
     i2c_led_send_CRWL(1);
     i2c_led_select_page(1, 3);
-    i2c_led_send_mode_op_gcr(1, ISSI3733_CR_SYNC_SLAVE, ISSI3733_CR_SSD_NORMAL);
+    i2c_led_send_mode_op_gcr(1, 0, ISSI3733_CR_SSD_NORMAL); //No SYNC due to brightness mismatch with first driver and slight flicker at rgb values 1,2
 
     i2c_led_send_CRWL(0);
     i2c_led_select_page(0, 3);
