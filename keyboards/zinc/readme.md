@@ -1,7 +1,7 @@
 Zinc
 ===
 
-![Zinc](https://i.imgur.com/XBAmynN.jpg)
+![Zinc](https://i.imgur.com/vxlpWkD.jpg)
 
 40% row-staggered split keyboard.
 
