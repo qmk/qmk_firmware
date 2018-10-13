@@ -53,6 +53,10 @@ void host_keyboard_send(report_keyboard_t *report)
     if (!driver) return;
 #if defined(NKRO_ENABLE) && defined(NKRO_SHARED_EP)
     if (keyboard_protocol && keymap_config.nkro) {
+        /* The callers of this function assume that report->mods is where mods go in.
+         * But report->nkro.mods can be at a different offset if core keyboard does not have a report ID.
+         */
+        report->nkro.mods = report->mods;
         report->nkro.report_id = REPORT_ID_NKRO;
     } else
 #endif
