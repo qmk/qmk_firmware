@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 wanleg
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,18 +13,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "big_switch.h"
+#include QMK_KEYBOARD_H
+#include "wanleg.h"
 
-void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+[0] = LAYOUT( /* Base */
+TD(CAD_TD) \
+),
+[1] = LAYOUT( /*Secondary*/
+TD(BSW_TAP_DANCE) \
+),
+};
 
-	matrix_init_user();
-}
+void led_set_user(uint8_t usb_led) {
 
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
-
-	matrix_scan_user();
 }

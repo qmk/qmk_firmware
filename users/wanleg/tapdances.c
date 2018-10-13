@@ -1,6 +1,12 @@
 //Tap Dance Settings
 #include "wanleg.h"
 
+//audio settings for one of the tap dances below
+#ifdef AUDIO_ENABLE
+  float lyrup_song[][2]     = SONG(MUSIC_ON_SOUND);
+  float lyrdown_song[][2]  = SONG(MUSIC_OFF_SOUND);
+#endif
+
 ///// QUAD FUNCTION TAP DANCE GENERAL SETUP SECTION START /////
 ///// (no need to edit this section) /////
 //Enums used to clearly convey the state of the tap dance
@@ -35,7 +41,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
     else if (state->pressed) return DOUBLE_HOLD;
     else return DOUBLE_TAP;
   }
-  
+
   //If count = 3, and it has been interrupted - assume that user is trying to type the letter associated
   //with double tap.
   else if (state->count == 3) {
@@ -56,14 +62,14 @@ static tap CADtap_state = {
 void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
   CADtap_state.state = cur_dance(state);
   switch (CADtap_state.state) {
-    case SINGLE_TAP: 
-		//register_code(KC_SPC); 
+    case SINGLE_TAP:
+		//register_code(KC_SPC);
 		SEND_STRING(SS_LGUI("l"));
 		#ifdef BACKLIGHT_ENABLE
-		backlight_set(3);
+    backlight_level(3);
 		#endif
 		break;
-    case SINGLE_HOLD: 
+    case SINGLE_HOLD:
 		//register_code(KC_NO);
 		//take a screenshot of a single window, open Paint and paste
 		SEND_STRING(SS_LALT(SS_TAP(X_PSCREEN)) SS_LGUI("r"));
@@ -72,21 +78,27 @@ void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
         _delay_ms(700);
         SEND_STRING(SS_LCTRL("v"));
 		break; //register this keycode when button is held
-    case DOUBLE_TAP: 
-		//register_code(KC_ENT); 
+    case DOUBLE_TAP:
+		//register_code(KC_ENT);
 		SEND_STRING(SS_LCTRL(SS_LALT(SS_TAP(X_DELETE))));
 		#ifdef BACKLIGHT_ENABLE
-		backlight_set(0);
+    backlight_level(0);
 		#endif
 		break;
     //case DOUBLE_HOLD: register_code(KC_NO); break; //register this keycode when button is tapped and then held
-	case DOUBLE_HOLD: 
-		reset_keyboard(); 
+	case DOUBLE_HOLD:
+		reset_keyboard();
 		break; //register this keycode when button is tapped and then held
 	case TRIPLE_TAP:
 		SEND_STRING("wanleg@github.com");
 		break;
-	case TRIPLE_HOLD: set_single_persistent_default_layer(1); break;
+	case TRIPLE_HOLD:
+  set_single_persistent_default_layer(1);
+  #ifdef AUDIO_ENABLE
+    stop_all_notes();
+    PLAY_SONG(lyrup_song);
+  #endif
+  break;
   }
 }
 
@@ -95,8 +107,8 @@ void CAD_reset (qk_tap_dance_state_t *state, void *user_data) {
 //nothing to do
   }
   CADtap_state.state = 0;
-}  
-  
+}
+
 //instantiate 'tap' for the 'RST' tap dance.
 static tap RSTtap_state = {
   .is_press_action = true,
@@ -111,7 +123,7 @@ void RST_finished (qk_tap_dance_state_t *state, void *user_data) {
 	case DOUBLE_TAP: reset_keyboard(); break;
 	case DOUBLE_SINGLE_TAP: register_code(KC_LCTL); unregister_code(KC_LCTL); register_code(KC_LCTL); break;
   }
-}		
+}
 
 void RST_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (RSTtap_state.state) {
@@ -120,7 +132,7 @@ void RST_reset (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_SINGLE_TAP: unregister_code(KC_LCTL); break;
   }
   RSTtap_state.state = 0;
-}	
+}
 
 //instantiate 'tap' for the 'LYR' tap dance.
 static tap LYRtap_state = {
@@ -135,7 +147,7 @@ void LYR_finished (qk_tap_dance_state_t *state, void *user_data) {
 	case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
     case DOUBLE_SINGLE_TAP: register_code(KC_PSLS); unregister_code(KC_PSLS); register_code(KC_PSLS);
   }
-}		
+}
 
 void LYR_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (LYRtap_state.state) {
@@ -144,7 +156,7 @@ void LYR_reset (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_SINGLE_TAP: unregister_code(KC_PSLS);
   }
   LYRtap_state.state = 0;
-}	
+}
 
 //instantiate 'tap' for the 'LYR75' tap dance.
 static tap LYR75tap_state = {
@@ -159,7 +171,7 @@ void LYR75_finished (qk_tap_dance_state_t *state, void *user_data) {
 	case DOUBLE_TAP: set_single_persistent_default_layer(GK75); break;
     case DOUBLE_SINGLE_TAP: register_code(KC_PSLS); unregister_code(KC_PSLS); register_code(KC_PSLS);
   }
-}		
+}
 
 void LYR75_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (LYR75tap_state.state) {
@@ -168,7 +180,7 @@ void LYR75_reset (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_SINGLE_TAP: unregister_code(KC_PSLS);
   }
   LYR75tap_state.state = 0;
-}	
+}
 
 //instantiate 'tap' for the 'LYR50' tap dance.
 static tap LYR50tap_state = {
@@ -183,7 +195,7 @@ void LYR50_finished (qk_tap_dance_state_t *state, void *user_data) {
 	case DOUBLE_TAP: set_single_persistent_default_layer(GK50); break;
     case DOUBLE_SINGLE_TAP: register_code(KC_PSLS); unregister_code(KC_PSLS); register_code(KC_PSLS);
   }
-}		
+}
 
 void LYR50_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (LYR50tap_state.state) {
@@ -192,7 +204,7 @@ void LYR50_reset (qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_SINGLE_TAP: unregister_code(KC_PSLS);
   }
   LYR50tap_state.state = 0;
-}		
+}
 
 //instantiate 'tap' for the 'BSW' tap dance.
 static tap BSWtap_state = {
@@ -204,13 +216,19 @@ void BSW_finished (qk_tap_dance_state_t *state, void *user_data) {
   BSWtap_state.state = cur_dance(state);
   switch (BSWtap_state.state) {
     case SINGLE_TAP: register_code(KC_ENTER); break;
-    case SINGLE_HOLD: set_single_persistent_default_layer(0); break;
-    case DOUBLE_TAP: 
+    case SINGLE_HOLD:
+      set_single_persistent_default_layer(0);
+      #ifdef AUDIO_ENABLE
+        stop_all_notes();
+        PLAY_SONG(lyrdown_song);
+      #endif
+      break;
+    case DOUBLE_TAP:
 	  register_code(KC_LCTRL);
       register_code(KC_C);
 	  break;
-	case DOUBLE_HOLD: 
-	  reset_keyboard(); 
+	case DOUBLE_HOLD:
+	  reset_keyboard();
 	  break; //register this keycode when button is tapped and then held
   }
 }
@@ -218,13 +236,13 @@ void BSW_finished (qk_tap_dance_state_t *state, void *user_data) {
 void BSW_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (BSWtap_state.state) {
     case SINGLE_TAP: unregister_code(KC_ENTER); break;
-    case DOUBLE_TAP: 
-	  unregister_code(KC_LCTRL); 
+    case DOUBLE_TAP:
+	  unregister_code(KC_LCTRL);
 	  unregister_code(KC_C);
-	  break; 
+	  break;
   }
   BSWtap_state.state = 0;
-}  
+}
 
 ///// QUAD FUNCTION TAP DANCE PERSONALIZATION SECTION END /////
 

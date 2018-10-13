@@ -7,6 +7,9 @@
 #if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_lets_split_rev2)
 //Kailh Coppers activate quickly and don't need a long tapping term
 #define TAPPING_TERM 100
+
+#elif defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_big_switch)
+#define TAPPING_TERM 700
 #else
 #define TAPPING_TERM 145
 #endif
@@ -33,8 +36,8 @@
 #define NO_ACTION_ONESHOT
 
 // Disable mod tap interrrupt
-#ifndef IGNORE_MOD_TAP_INTERRUPT 
-#define IGNORE_MOD_TAP_INTERRUPT 
+#ifndef IGNORE_MOD_TAP_INTERRUPT
+#define IGNORE_MOD_TAP_INTERRUPT
 #endif // !mod tap interrrupt
 
 #endif // !USERSPACE_CONFIG_H
