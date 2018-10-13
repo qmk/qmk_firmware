@@ -960,7 +960,7 @@ void matrix_init_quantum() {
   #ifdef MODULE_ADAFRUIT_BLE
     set_output(OUTPUT_AUTO);
   #endif
-matrix_init_kb();
+  matrix_init_kb();
 }
 
 uint8_t rgb_matrix_task_counter = 0;
