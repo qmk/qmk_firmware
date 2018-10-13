@@ -24,9 +24,9 @@ This is not defined in here as it's present only on `LAYOUT_66` boards, or to be
 
 ### KC_FNX (Fn Extended)
 
-`KC_FNX` functions as a hold for `MO(X)` and tapping for `TG(Y)`. Layer X and Y are different layers. 
+`KC_FNX` functions as a hold for `MO(X)` and tap for `TG(Y)`. Layer X and Y are different layers. 
 
-It is used primarily on my `LAYOUT_60_ansi` boards. 
+It is used primarily on my `LAYOUT_60_ansi` boards as my regular toggle (the 1u key to the right of right shift), is not present there. 
 
 ### KC_CTCP (Control Caps)
 
