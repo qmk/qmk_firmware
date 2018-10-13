@@ -12,7 +12,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include "util.h"
 #include "simple_visualizer.h"
+
+enum _ergodox_layers {
+    _QWERTY,
+    _TARMAK,
+    _COLEMAK,
+    // Intermediate layers
+    _SYMB,
+    _MDIA_MOUSE,
+    _MACRO
+};
 
 // This function should be implemented by the keymap visualizer
 // Don't change anything else than state->target_lcd_color and state->layer_text as that's the only thing
@@ -24,28 +35,33 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
     if (state->status.leds & (1u << USB_LED_CAPS_LOCK)) {
         saturation = 255;
     }
-    if (state->status.layer & 0x4) {
+
+    uint8_t layer = biton32(state->status.layer);
+
+    switch(layer) {
+        case _COLEMAK:
         state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
         state->layer_text = "Colemak";
-    }
-    else if (state->status.layer & 0x2) {
-        state->target_lcd_color = LCD_COLOR(168, saturation, 0xFF);
+        break;
+        case _TARMAK:
+        state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
         state->layer_text = "Tarmak";
-    }
-    else if (state->status.layer & 0x8) {
+        break;
+        case _SYMB:
         state->target_lcd_color = LCD_COLOR(214, saturation, 0xFF);
         state->layer_text = "Symbols";
-    }
-    else if (state->status.layer & 0x10) {
+        break;
+        case _MDIA_MOUSE:
         state->target_lcd_color = LCD_COLOR(130, saturation, 0xFF);
         state->layer_text = "Media & Mouse";
-    }
-    else if (state->status.layer & 0x20) {
+        break;
+        case _MACRO:
         state->target_lcd_color = LCD_COLOR(130, saturation, 0xFF);
         state->layer_text = "Macro";
-    }
-    else { 
+        break;
+        default:
         state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
         state->layer_text = "Default";
+        break;
     }
 }
