@@ -46,7 +46,8 @@ extern uint8_t is_master;
 #define KC_BASE   TO(BASE)
 #define KC_GARAKE TG(GARAKE)
 #define KC_TENKEY TG(TENKEY)
-#define KC_ENT_SF LSFT_T(KC_ENT)
+#define KC_SFT_EN LSFT_T(KC_ENT)
+#define KC_CTR_SP LCTL_T(KC_SPC)
 
 #ifdef TAP_DANCE_ENABLE
 #define KC_ESC_FN  TD(TD_ESC_FUNC)
@@ -134,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------|                |------+------+------+------+------+------|
     ____ , ____ , ____ , ____ , ____ , ____ ,                  LANG1, GK1  , GK2  , GK3  , DOT  , SLSH , \
 //`------+------+------+------+------+------+------.  ,------+------+------+------+------+------+------'
-                                ____ , ____ , BASE ,    SPC  ,ENT_SF, GK0R  \
+                                ____ , ____ , BASE ,   CTR_SP,SFT_EN, GK0R  \
 //                            `--------------------'  `--------------------'
 ),
 
