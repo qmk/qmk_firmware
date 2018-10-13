@@ -158,7 +158,6 @@ uint8_t matrix_cols(void) {
 // }
 
 void matrix_init(void) {
-    set_output(OUTPUT_AUTO);
     // initialize row and col
 #if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
