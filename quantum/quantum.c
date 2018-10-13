@@ -957,7 +957,10 @@ void matrix_init_quantum() {
   #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
   #endif
-  matrix_init_kb();
+  #ifdef MODULE_ADAFRUIT_BLE
+    set_output(OUTPUT_AUTO);
+  #endif
+matrix_init_kb();
 }
 
 uint8_t rgb_matrix_task_counter = 0;
