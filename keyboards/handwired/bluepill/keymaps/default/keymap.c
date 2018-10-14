@@ -17,8 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "bluepill.h"
 
-#define XXXXXXX KC_NO
-
 // Define layer names
 #define _NORMAL 0
 #define _FNONE 1
