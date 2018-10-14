@@ -20,9 +20,6 @@
 
 extern keymap_config_t keymap_config;
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 enum planck_layers {
   _DEFAULT,
   _LOWER,
