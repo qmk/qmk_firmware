@@ -22,8 +22,6 @@
 #include "version.h"
 #include "keymap_swedish.h"
 
-#define _______ KC_TRNS
-
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
 #define MDIA 2 // media keys
