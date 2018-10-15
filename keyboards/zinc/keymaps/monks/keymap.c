@@ -5,6 +5,7 @@ extern keymap_config_t keymap_config;
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
+rgblight_config_t RGB_current_config;
 #endif
 
 extern uint8_t is_master;
@@ -130,18 +131,18 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 
 // define variables for reactive RGB
 bool TOG_STATUS = false;
-int RGB_current_mode;
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
   default_layer_set(default_layer);
 }
 
+
 // Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
     #ifdef RGBLIGHT_ENABLE
-       rgblight_mode_noeeprom(RGB_current_mode);
+       rgblight_mode_noeeprom(RGB_current_config.mode);
     #endif
     layer_on(layer3);
   } else {
@@ -177,7 +178,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
         #ifdef RGBLIGHT_ENABLE
-          rgblight_mode_noeeprom(RGB_current_mode);   // revert RGB to initial mode prior to RGB mode change
+          rgblight_mode_noeeprom(RGB_current_config.mode);   // revert RGB to initial mode prior to RGB mode change
         #endif
         TOG_STATUS = false;
         layer_off(_LOWER);
@@ -201,7 +202,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
         #ifdef RGBLIGHT_ENABLE
-          rgblight_mode_noeeprom(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
+          rgblight_mode_noeeprom(RGB_current_config.mode);  // revert RGB to initial mode prior to RGB mode change
         #endif
         layer_off(_RAISE);
         TOG_STATUS = false;
@@ -222,9 +223,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case RGB_MOD:
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
-          rgblight_mode_noeeprom(RGB_current_mode);
+          rgblight_mode_noeeprom(RGB_current_config.mode);
           rgblight_step();
-          RGB_current_mode = rgblight_config.mode;
+          RGB_current_config.mode = rgblight_config.mode;
         }
       #endif
       return false;
@@ -260,7 +261,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
           eeconfig_update_rgblight_default();
           rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
+          RGB_current_config = rgblight_config;
         }
       #endif
       break;
@@ -274,7 +275,8 @@ void matrix_init_user(void) {
         startup_user();
     #endif
     #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
+      rgblight_init();
+      RGB_current_config = rgblight_config;
     #endif
 }
 
