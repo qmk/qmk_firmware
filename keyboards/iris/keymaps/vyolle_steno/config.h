@@ -15,17 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "config_common.h"
+#pragma once
 
 /* Use I2C or Serial, not both */
 
 #define USE_I2C
 // #define USE_SERIAL
 
-#define PREVENT_STUCK_MODIFIERS //Supposed to help with some steno issues.
 
 #define FORCE_NKRO  //For Steno.
 
@@ -36,4 +32,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 
-#endif

@@ -5,9 +5,3 @@ AUDIO_ENABLE = no           # Audio output on port C6
 MIDI_ENABLE = no            # MIDI controls
 NKRO_ENABLE = yes
 BOOTMAGIC_ENABLE = yes
-
-
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
