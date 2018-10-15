@@ -30,41 +30,47 @@ uint8_t last_led;
 uint8_t last_osm;
 #endif
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+#define LAYOUT_orthodox_base( \
+    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
+  ) \
+  LAYOUT_wrapper( \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,                                                             K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
+    KC_TAB,  K11,    K12,     K13,      K14,     K15,              ALT_APP, OS_LGUI,   KC_LALT, OS_RGUI,          K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
+    KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     LOWER,   KC_SPACE,KC_BSPC,   KC_DEL,  KC_ENT,  RAISE,   K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF  \
+  )
+#define LAYOUT_orthodox_base_wrapper(...)       LAYOUT_orthodox_base(__VA_ARGS__)
 
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_QWERTY] = LAYOUT_wrapper(\
-  KC_ESC,  _________________QWERTY_L1_________________,                                                               _________________QWERTY_R1_________________, KC_BSPC,
-  KC_TAB,  _________________QWERTY_L2_________________,          ___________ORTHODOX_THUMP_TOP_____________,          _________________QWERTY_R2_________________, KC_QUOT,
-  KC_MLSF, _________________QWERTY_L3_________________, ___________________ORTHODOX_THUMB_BOTTOM____________________, _________________QWERTY_R3_________________, KC_MRSF
+[_QWERTY] = LAYOUT_orthodox_base_wrapper(
+  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+  _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+  _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
 ),
 
-[_COLEMAK] = LAYOUT_wrapper(\
-  KC_ESC,  _________________COLEMAK_L1________________,                                                               _________________COLEMAK_R1________________, KC_BSPC,
-  KC_TAB,  _________________COLEMAK_L2________________,          ___________ORTHODOX_THUMP_TOP_____________,          _________________COLEMAK_R2________________, KC_QUOT,
-  KC_MLSF, _________________COLEMAK_L3________________, ___________________ORTHODOX_THUMB_BOTTOM____________________, _________________COLEMAK_R3________________, KC_MRSF
+[_COLEMAK] = LAYOUT_orthodox_base_wrapper(
+  _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
+  _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
+  _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
 ),
 
-[_DVORAK] = LAYOUT_wrapper(\
-  KC_ESC,  _________________DVORAK_L1_________________,                                                               _________________DVORAK_R1_________________, KC_BSPC,
-  KC_TAB,  _________________DVORAK_L2_________________,          ___________ORTHODOX_THUMP_TOP_____________,          _________________DVORAK_R2_________________, KC_MINS,
-  KC_MLSF, _________________DVORAK_L3_________________, ___________________ORTHODOX_THUMB_BOTTOM____________________, _________________DVORAK_R3_________________, KC_MRSF
+[_DVORAK] = LAYOUT_orthodox_base_wrapper(
+  _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
+  _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
+  _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
 ),
-[_WORKMAN] = LAYOUT_wrapper(\
-  KC_ESC,  _________________WORKMAN_L1________________,                                                               _________________WORKMAN_R1________________, KC_BSPC,
-  KC_TAB,  _________________WORKMAN_L2________________,          ___________ORTHODOX_THUMP_TOP_____________,          _________________WORKMAN_R2________________, KC_MINS,
-  KC_MLSF, _________________WORKMAN_L3________________, ___________________ORTHODOX_THUMB_BOTTOM____________________, _________________WORKMAN_R3________________, KC_MRSF
+
+[_WORKMAN] = LAYOUT_orthodox_base_wrapper(
+  _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
+  _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
+  _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
 ),
+
 [_MODS] = LAYOUT_wrapper(\
   _______, _______, _______, _______, _______, _______,                                                               _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,          _______, _______,         _______, _______,          _______, _______, _______, _______, _______, _______,
