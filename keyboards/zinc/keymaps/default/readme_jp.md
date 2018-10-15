@@ -15,7 +15,34 @@
  `------------------------------------------             ------------------------------------------'
 ```
 
-他の配列(Colemak,Dvorak)は、[readme.md](readme.md) を参照
+### Colemak
+
+```
+ ,-----------------------------------------.             ,-----------------------------------------.
+ | Tab  |   Q  |   W  |   F  |   P  |   G  |             |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ | Ctrl |   A  |   R  |   S  |   T  |   D  |             |   H  |   N  |   E  |   I  |   O  |  '   |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ | Shift|   Z  |   X  |   C  |   V  |   B  |             |   K  |   M  |   ,  |   .  |   /  |Enter |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ | Esc  |ADJUST| Alt  | Win  |LOWER |Space |             | Space| RAISE| Left | Down |  Up  | Right|
+ `------------------------------------------             ------------------------------------------'
+```   
+ 
+### Dvorak
+
+```
+ ,-----------------------------------------.             ,-----------------------------------------.
+ | Tab  |   '  |   ,  |   .  |   P  |   Y  |             |   F  |   G  |   C  |   R  |   L  | Del  |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ | Ctrl |   A  |   O  |   E  |   U  |   I  |             |   D  |   H  |   T  |   N  |   S  |  /   |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ | Shift|   ;  |   Q  |   J  |   K  |   X  |             |   B  |   M  |   W  |   V  |   Z  |Enter |
+ |------+------+------+------+------+------|             |------+------+------+------+------+------|
+ | Esc  |ADJUST| Alt  | Win  |LOWER |Space |             | Space| RAISE| Left | Down |  Up  | Right|
+ `-----------------------------------------'             `-----------------------------------------'
+```
+
 
 ## コンパイルの仕方
 
@@ -44,7 +71,21 @@ $ make zinc:default:clean
 
 ## カスタマイズ
 
-`qmk_firmware/keyboards/zinc/rev1/keymaps/default/rules.mk` の以下の部分を編集して機能を有効化してください。
+コマンドラインからオプションを指定してビルドすることが出来ます。
+
+```
+# Zinc keyboard 'default' keymap: convenient command line option
+make ZINC=<options> zinc:defualt
+#    option= back | under | na | ios
+#    ex.
+#      make ZINC=under    zinc:defualt
+#      make ZINC=under,ios zinc:defualt
+#      make ZINC=back     zinc:default
+#      make ZINC=back,na  zinc:default
+#      make ZINC=back,ios zinc:default
+```
+
+あるいは`qmk_firmware/keyboards/zinc/rev1/keymaps/default/rules.mk` の以下の部分を直接編集して機能を有効化してください。
 
 ```
 # Zinc keyboard customize
