@@ -1,7 +1,6 @@
 // This is a modified version of Let's Split keyboard from bbaserdem
 
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 
 #include "quantum.h"
 
@@ -159,10 +158,6 @@ enum {
 #define LAYOUT_planck_wrapper(...) LAYOUT_planck_grid(__VA_ARGS__)
 #define LAYOUT_letssplit_wrapper(...) LAYOUT_ortho_4x12(__VA_ARGS__)
 
-
-
-
-
 /* Dvorak
  * ,------------------------------------------------------------------------.
  * | ' " |  ,  |  .  |  P  |  Y  | Esc || Del |  F  |  G  |  C  |  R  |  L  |
@@ -275,5 +270,3 @@ enum {
     MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK, \
     MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK, \
     MU_TOG, MU_REC, MU_STOP,MU_PLAY,MU_SLOW,MU_FAST,MU_MOD, MU_MASK,MU_MASK,MU_MASK,MU_MASK,MU_MASK
-
-#endif

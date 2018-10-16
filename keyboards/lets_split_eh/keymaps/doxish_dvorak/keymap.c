@@ -1,5 +1,3 @@
-#include QMK_KEYBOARD_H
-#include "action_layer.h"
 #include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
@@ -21,10 +19,6 @@ enum custom_keycodes {
   RAISE,
   ADJUST
 };
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Defines for task manager and such
 #define CALTDEL LCTL(LALT(KC_DEL))
@@ -132,19 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case DVORAK:
-      if (record->event.pressed) {
-        persistent_default_layer_set(1UL<<_DVORAK);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
