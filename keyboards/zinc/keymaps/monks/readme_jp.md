@@ -51,7 +51,21 @@ https://github.com/qmk/qmk_toolbox/releases
 
 ## カスタマイズ
 
-`qmk_firmware/keyboards/zinc/rev1/keymaps/monks/rules.mk` の以下の部分を編集して機能を有効化してください。
+コマンドラインからオプションを指定してビルドすることが出来ます。
+
+```
+# Zinc keyboard 'monks' keymap: convenient command line option
+make ZINC=<options> zinc:monks
+#    option= back | under | na | ios
+#    ex.
+#      make ZINC=under    zinc:monks
+#      make ZINC=under,ios zinc:monks
+#      make ZINC=back     zinc:monks
+#      make ZINC=back,na  zinc:monks
+#      make ZINC=back,ios zinc:monks
+```
+
+あるいは`qmk_firmware/keyboards/zinc/rev1/keymaps/monks/rules.mk` の以下の部分を編集して機能を有効化してください。
 
 ```
 # Zinc keyboard customize

@@ -33,8 +33,6 @@ enum custom_keycodes {
   BACKLIT,
   KANA,
   EISU,
-//  LEISU, //LOWER and EISU
-//  RKANA, //RAISE and KANA
   RGBRST
 };
 
