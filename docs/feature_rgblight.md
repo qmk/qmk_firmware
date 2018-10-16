@@ -79,28 +79,41 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 
 ## Animations
 
-Not only can this lighting be whatever color you want, if `RGBLIGHT_ANIMATIONS` is defined, you also have a number of animation modes at your disposal:
 
-|Mode |Description          |
-|-----|---------------------|
-|1    |Solid color          |
-|2-5  |Solid color breathing|
-|6-8  |Cycling rainbow      |
-|9-14 |Swirling rainbow     |
-|15-20|Snake                |
-|21-23|Knight               |
-|24   |Christmas            |
-|25-34|Static gradient      |
-|35   |RGB Test             |
-|36   |Alternating          |
+Not only can this lighting be whatever color you want,
+if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a number of animation modes at your disposal:
+
+|Mode number symbol           |Additional number  |Description                            |
+|-----------------------------|-------------------|---------------------------------------|
+|`RGBLIGHT_MODE_STATIC_LIGHT` | *None*            |Solid color (this mode is always enabled) |
+|`RGBLIGHT_MODE_BREATHING`    | 0,1,2,3           |Solid color breathing                  |
+|`RGBLIGHT_MODE_RAINBOW_MOOD` | 0,1,2             |Cycling rainbow                        |
+|`RGBLIGHT_MODE_RAINBOW_SWIRL`| 0,1,2,3,4,5       |Swirling rainbow                       |
+|`RGBLIGHT_MODE_SNAKE`        | 0,1,2,3,4,5       |Snake                                  |
+|`RGBLIGHT_MODE_KNIGHT`       | 0,1,2             |Knight                                 |
+|`RGBLIGHT_MODE_CHRISTMAS`    | *None*            |Christmas                              |
+|`RGBLIGHT_MODE_STATIC_GRADIENT`| 0,1,..,9        |Static gradient                        |
+|`RGBLIGHT_MODE_RGB_TEST`     | *None*            |RGB Test                               |
+|`RGBLIGHT_MODE_ALTERNATING`  | *None*            |Alternating                            |
 
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
+
+Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight.h` there is a contrast table between the old mode number and the current symbol.
 
 The following options can be used to tweak the various animations:
 
 |Define                              |Default      |Description                                                                          |
 |------------------------------------|-------------|-------------------------------------------------------------------------------------|
-|`RGBLIGHT_ANIMATIONS`               |*Not defined*|If defined, enables additional animation modes                                       |
+|`RGBLIGHT_EFFECT_BREATHING`         |*Not defined*|If defined, enable breathing animation mode.                                         |
+|`RGBLIGHT_EFFECT_RAINBOW_MOOD`      |*Not defined*|If defined, enable rainbow mood animation mode.                                      |
+|`RGBLIGHT_EFFECT_RAINBOW_SWIRL`     |*Not defined*|If defined, enable rainbow swirl animation mode.                                     |
+|`RGBLIGHT_EFFECT_SNAKE`             |*Not defined*|If defined, enable snake animation mode.                                             |
+|`RGBLIGHT_EFFECT_KNIGHT`            |*Not defined*|If defined, enable knight animation mode.                                            |
+|`RGBLIGHT_EFFECT_CHRISTMAS`         |*Not defined*|If defined, enable christmas animation mode.                                         |
+|`RGBLIGHT_EFFECT_STATIC_GRADIENT`   |*Not defined*|If defined, enable static gradient mode.                                             |
+|`RGBLIGHT_EFFECT_RGB_TEST`          |*Not defined*|If defined, enable RGB test animation mode.                                          |
+|`RGBLIGHT_EFFECT_ALTERNATING`       |*Not defined*|If defined, enable alternating animation mode.                                       |
+|`RGBLIGHT_ANIMATIONS`               |*Not defined*|If defined, enables all additional animation modes                                   |
 |`RGBLIGHT_EFFECT_BREATHE_CENTER`    |`1.85`       |Used to calculate the curve for the breathing animation. Valid values are 1.0 to 2.7 |
 |`RGBLIGHT_EFFECT_BREATHE_MAX`       |`255`        |The maximum brightness for the breathing mode. Valid values are 1 to 255             |
 |`RGBLIGHT_EFFECT_SNAKE_LENGTH`      |`4`          |The number of LEDs to light up for the "Snake" animation                             |

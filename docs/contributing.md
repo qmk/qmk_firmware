@@ -57,19 +57,39 @@ Never made an open source contribution before? Wondering how contributions work 
 Most of our style is pretty easy to pick up on, but right now it's not entirely consistent. You should match the style of the code surrounding your change, but if that code is inconsistent or unclear use the following guidelines:
 
 * We indent using two spaces (soft tabs)
-* We use One True Brace Style
+* We use a modified One True Brace Style
   * Opening Brace: At the end of the same line as the statement that opens the block
   * Closing Brace: Lined up with the first character of the statement that opens the block
   * Else If: Place the closing brace at the beginning of the line and the next opening brace at the end of the same line.
   * Optional Braces: Always include optional braces.
     * Good: if (condition) { return false; }
     * Bad: if (condition) return false;
-* We use C style comments: `/* */`
+* We encourage use of C style comments: `/* */`
   * Think of them as a story describing the feature
   * Use them liberally to explain why particular decisions were made.
   * Do not write obvious comments
   * If you not sure if a comment is obvious, go ahead and include it.
 * In general we don't wrap lines, they can be as long as needed. If you do choose to wrap lines please do not wrap any wider than 76 columns.
+* We use `#pragma once` at the start of header files rather than old-style include guards (`#ifndef THIS_FILE_H`, `#define THIS_FILE_H`, ..., `#endif`)
+
+Here is an example for easy reference:
+
+```c
+/* Enums for foo */
+enum foo_state {
+  FOO_BAR,
+  FOO_BAZ,
+};
+
+/* Returns a value */
+int foo(void) {
+  if (some_condition) {
+    return FOO_BAR;
+  } else {
+    return -1;
+  }
+}
+```
 
 # General Guidelines
 

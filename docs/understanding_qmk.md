@@ -129,6 +129,7 @@ Comparing against our keymap we can see that the pressed key is KC_NLCK. From he
 <!-- FIXME: Magic happens between here and process_record -->
 
 ##### Process Record
+
 The `process_record()` function itself is deceptively simple, but hidden within is a gateway to overriding functionality at various levels of QMK. The chain of events is listed below, using cluecard whenever we need to look at the keyboard/keymap level functions.  Depending on options set in rule.mk or elsewhere, only a subset of the functions below will be included in final firmware.
 
 * [`void process_record(keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/08c682c193f43e5d54df990680ae93fc2e06150a/tmk_core/common/action.c#L172)
@@ -146,7 +147,6 @@ The `process_record()` function itself is deceptively simple, but hidden within 
     * [`bool process_music(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/quantum/process_keycode/process_music.c#L114)
     * [`bool process_tap_dance(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/quantum/process_keycode/process_tap_dance.c#L136)
     * [`bool process_leader(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/quantum/process_keycode/process_leader.c#L38)
-    * [`bool process_chording(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/quantum/process_keycode/process_chording.c#L41)
     * [`bool process_combo(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/quantum/process_keycode/process_combo.c#L115)
     * [`bool process_unicode(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/quantum/process_keycode/process_unicode.c#L22)
     * [`bool process_ucis(uint16_t keycode, keyrecord_t *record)`](https://github.com/qmk/qmk_firmware/blob/661ca4440cc42f3b60697e98985c44b0571ccfc1/quantum/process_keycode/process_ucis.c#L91)

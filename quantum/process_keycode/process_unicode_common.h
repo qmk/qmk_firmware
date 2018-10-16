@@ -31,6 +31,7 @@ uint8_t get_unicode_input_mode(void);
 void unicode_input_start(void);
 void unicode_input_finish(void);
 void register_hex(uint16_t hex);
+void send_unicode_hex_string(const char *str);
 
 #define UC_OSX 0  // Mac OS X
 #define UC_LNX 1  // Linux

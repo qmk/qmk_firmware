@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef DISABLE_LEADER
+#ifdef LEADER_ENABLE
 
 #include "process_leader.h"
 
