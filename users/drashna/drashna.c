@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 userspace_config_t userspace_config;
 
+uint16_t copy_paste_timer;
 //  Helper Functions
 
 
@@ -35,11 +36,11 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
       keycode = KC_ENTER;
     }
     clear_keyboard();
-    tap(keycode);
+    tap_code(keycode);
     wait_ms(50);
     send_string_with_delay(str, MACRO_TIMER);
     wait_ms(50);
-    tap(KC_ENTER);
+    tap_code(KC_ENTER);
   }
   if (override) wait_ms(3000);
   return false;
@@ -126,16 +127,13 @@ uint32_t default_layer_state_set_keymap (uint32_t state) {
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
 
-
+__attribute__ ((weak))
+void eeconfig_init_keymap(void) {}
 
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
-  userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
-
-#ifdef AUDIO_CLICKY
-  clicky_enable = userspace_config.clicky_enable;
-#endif
+  userspace_config.raw = eeconfig_read_user();
 
 #ifdef BOOTLOADER_CATERINA
   DDRD &= ~(1<<5);
@@ -145,9 +143,10 @@ void matrix_init_user(void) {
   PORTB &= ~(1<<0);
 #endif
 
-
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-	set_unicode_input_mode(UC_WINC);
+  if (eeprom_read_byte(EECONFIG_UNICODEMODE) != UC_WIN) {
+    set_unicode_input_mode(UC_WIN);
+  }
 #endif //UNICODE_ENABLE
   matrix_init_keymap();
 }
@@ -177,17 +176,12 @@ void shutdown_user (void) {
   shutdown_keymap();
 }
 
-void suspend_power_down_user(void)
-{
+void suspend_power_down_user(void) {
     suspend_power_down_keymap();
 }
 
-void suspend_wakeup_init_user(void)
-{
+void suspend_wakeup_init_user(void) {
   suspend_wakeup_init_keymap();
-  #ifdef KEYBOARD_ergodox_ez
-  wait_ms(10);
-  #endif
 }
 
 
@@ -220,7 +214,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
-  xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+  #if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_iris_rev2)
+    xprintf("KL: col: %u, row: %u, pressed: %u\n", record->event.key.row, record->event.key.col, record->event.pressed);
+  #else
+    xprintf("KL: col: %u, row: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+  #endif
 #endif //KEYLOGGER_ENABLE
 
   switch (keycode) {
@@ -252,15 +250,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
-      send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP
-#if  (defined(BOOTLOADER_DFU) || defined(BOOTLOADER_LUFA_DFU) || defined(BOOTLOADER_QMK_DFU))
+      uint8_t temp_mod = get_mods();
+      clear_mods();
+      send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
+      if (temp_mod & MODS_SHIFT_MASK) {
+        send_string_with_delay_P(PSTR(
+#if defined(__ARM__)
+                   ":dfu-util"
+#elif defined(BOOTLOADER_DFU)
                    ":dfu"
 #elif defined(BOOTLOADER_HALFKAY)
                    ":teensy"
 #elif defined(BOOTLOADER_CATERINA)
                    ":avrdude"
 #endif // bootloader options
-                   SS_TAP(X_ENTER)), 10);
+        ), 10);
+      }
+      if (temp_mod & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
+      send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
+      set_mods(temp_mod);
     }
     return false;
     break;
@@ -268,8 +276,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case EPRM: // Resets EEPROM
     if (record->event.pressed) {
       eeconfig_init();
-      default_layer_set(1UL<<eeconfig_read_default_layer());
-      layer_state_set(layer_state);
     }
     return false;
     break;
@@ -295,7 +301,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // to save on firmware space, since it's limited.
 #ifdef MACROS_ENABLED
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw); }
+    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeconfig_update_user(userspace_config.raw); }
 #ifdef RGBLIGHT_ENABLE
     userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
 #endif //RGBLIGHT_ENABLE
@@ -338,37 +344,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false; break;
 
 
-  case CLICKY_TOGGLE:
-#ifdef AUDIO_CLICKY
-    userspace_config.clicky_enable = clicky_enable;
-    eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
-#endif
-    break;
-#ifdef UNICODE_ENABLE
-  case UC_FLIP: // (╯°□°)╯ ︵ ┻━┻
-    if (record->event.pressed) {
-      register_code(KC_RSFT);
-      tap(KC_9);
-      unregister_code(KC_RSFT);
-      process_unicode((0x256F | QK_UNICODE), record); // Arm
-      process_unicode((0x00B0 | QK_UNICODE), record); // Eye
-      process_unicode((0x25A1 | QK_UNICODE), record); // Mouth
-      process_unicode((0x00B0 | QK_UNICODE), record); // Eye
-      register_code(KC_RSFT);
-      tap(KC_0);
-      unregister_code(KC_RSFT);
-      process_unicode((0x256F | QK_UNICODE), record); // Arm
-      tap(KC_SPC);
-      process_unicode((0x0361 | QK_UNICODE), record); // Flippy
-      tap(KC_SPC);
-      process_unicode((0x253B | QK_UNICODE), record); // Table
-      process_unicode((0x2501 | QK_UNICODE), record); // Table
-      process_unicode((0x253B | QK_UNICODE), record); // Table
+  case KC_CCCV:                                    // One key copy/paste
+    if(record->event.pressed){
+      copy_paste_timer = timer_read();
+    } else {
+      if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {   // Hold, copy
+        register_code(KC_LCTL);
+        tap_code(KC_C);
+        unregister_code(KC_LCTL);
+      } else {                                // Tap, paste
+        register_code(KC_LCTL);
+        tap_code(KC_V);
+        unregister_code(KC_LCTL);
+      }
     }
     return false;
     break;
-#endif // UNICODE_ENABLE
-
+#ifdef UNICODE_ENABLE
+  case UC_FLIP: // (ノಠ痊ಠ)ノ彡┻━┻
+    if (record->event.pressed) {
+      send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
+    }
+    return false;
+    break;
+  case UC_TABL: // ┬─┬ノ( º _ ºノ)
+    if (record->event.pressed) {
+      send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 30CE 0029");
+    }
+    return false;
+    break;
+  case UC_SHRG: // ¯\_(ツ)_/¯
+    if (record->event.pressed) {
+      send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+    }
+    return false;
+    break;
+  case UC_DISA: // ಠ_ಠ
+    if (record->event.pressed) {
+      send_unicode_hex_string("0CA0 005F 0CA0");
+    }
+    return false;
+    break;
+#endif
   }
   return process_record_keymap(keycode, record) &&
 #ifdef RGBLIGHT_ENABLE
@@ -391,8 +408,8 @@ uint32_t layer_state_set_user(uint32_t state) {
 }
 
 
-uint32_t default_layer_state_set_kb(uint32_t state) {
-  return default_layer_state_set_keymap (state);
+uint32_t default_layer_state_set_user(uint32_t state) {
+  return default_layer_state_set_keymap(state);
 }
 
 
@@ -401,4 +418,9 @@ uint32_t default_layer_state_set_kb(uint32_t state) {
 // So nothing goes here.
 void led_set_user(uint8_t usb_led) {
   led_set_keymap(usb_led);
+}
+
+void eeconfig_init_user(void) {
+  userspace_config.raw = 0;
+  eeconfig_update_user(userspace_config.raw);
 }
