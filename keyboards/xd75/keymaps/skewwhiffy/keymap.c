@@ -13,41 +13,49 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "xd75.h"
+#include QMK_KEYBOARD_H
 #include "keymap_uk.h"
-// Fillers to make layering more clear
-#define _______ KC_TRNS
 
 // Layer shorthand
-#define _CM 0 // Colemak
-#define _DV 1 // Dvorak
-#define _QW 2 // QWERTY
-#define _NB 3 // Numbers
-#define _SY 4 // Symbols
-#define _NAV 5 // Navigation
+enum Layers {
+  cm, // colemak
+  dv, // dvorak
+  qw, // qwerty
+  nbl, // numbers left
+  nbr, // numbers right
+  syl, // symbols left
+  syr, // symbols right
+  nal, // navigation left
+  nar // navigation right
+};
 
 // Layer buttons
 #define _Z_SFT SFT_T(UK_Z)
 #define _SCLSH SFT_T(UK_SCLN)
 #define _SLSH SFT_T(UK_SLSH)
-#define _X_NB LT(_NB, UK_X)
-#define _Q_NB LT(_NB, UK_Q)
-#define _DOT_NB LT(_NB, UK_DOT)
-#define _V_NB LT(_NB, UK_V)
-#define _C_SY LT(_SY, UK_C)
-#define _J_SY LT(_SY, UK_J)
-#define _W_SY LT(_SY, UK_W)
-#define _COM_SY LT(_SY, UK_COMM)
-#define _AST_SY LT(_SY, UK_PAST)
-#define _B_NAV LT(_NAV, UK_B)
-#define _X_NAV LT(_NAV, UK_X)
-#define _K_NAV LT(_NAV, UK_K)
-#define _N_NAV LT(_NAV, UK_N)
-#define _F1_NB LT(_NB, UK_F1)
-#define _3_NB LT(_NB, UK_3)
+
+#define _X_NB LT(nbl, UK_X)
+#define _Q_NB LT(nbl, UK_Q)
+#define _DOT_NB LT(nbr, UK_DOT)
+#define _V_NB LT(nbr, UK_V)
+#define __NBL LT(nbl, _______)
+#define __NBR LT(nbr, _______)
+
+#define _C_SY LT(syl, UK_C)
+#define _J_SY LT(syl, UK_J)
+#define _W_SY LT(syr, UK_W)
+#define _COM_SY LT(syr, UK_COMM)
+#define __SYL LT(syl, _______)
+#define __SYR LT(syr, _______)
+
+#define _V_NAL LT(nal, UK_V)
+#define _K_NAL LT(nal, UK_K)
+#define _M_NAR LT(nar, UK_M)
+#define __NAL LT(nal, _______)
+#define __NAR LT(nar, _______)
 
 // Custom hotkeys
-#define _TERM LCTL(UK_QUOT) // Hotkey for Cmder or iTerm
+#define _TERM LCTL(UK_QUOT) // Hotkey for terminal
 #define _S_TAB S(UK_TAB)
 #define _C_LEFT LCTL(UK_LEFT)
 #define _C_RGHT LCTL(UK_RGHT)
@@ -55,35 +63,34 @@
 #define _A_RGHT LALT(UK_RGHT)
 
 enum custom_keycodes {
-  L_NEXT = SAFE_RANGE,
-  L_SB
+  IJ_OMN = SAFE_RANGE // IntelliJ Omnibox
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Colemak _CM
+/* Colemak
  * .--------------------------------------------------------------------------------------------------------------------------------------.
- * |        |        |        |        |        |        |        |        |        |        |        |        |        | L_NEXT | L_SB   |
+ * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | Q      | W      | F      | P      | G      |        |        |        |        |        | J      | L      | U      | Y      | ;      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | A      | R      | S      | T      | D      |        |        |        |        |        | H      | N      | E      | I      | O      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | Z      | X      | C      | V      | B      |        |        |        |        |        | K      | M      | ,      | .      | /      |
- * | SHIFT  | NUMBER | SYMBOL |        | NAV    |        |        |        |        |        | NAV    |        | SYMBOL | FUNC   | SHIFT  |
+ * | SHIFT  | NUMBER | SYMBOL | NAV    |        |        |        |        |        |        |        | NAV    | SYMBOL | FUNC   | SHIFT  |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | LSHIFT | LCTRL  | LALT   | LGUI   | SPACE  | ENT    |        |        |        | DEL    | BKSPC  | RGUI   | RALT   | RCTRL  | RSHIFT |
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  */
- [_CM] = {
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, L_NEXT,  L_SB    },
-  { UK_Q,    UK_W,    UK_F,    UK_P,    UK_G,    _______, _______, _______, _______, _______, UK_J,    UK_L,    UK_U,    UK_Y,    UK_SCLN },
-  { UK_A,    UK_R,    UK_S,    UK_T,    UK_D,    _______, _______, _______, _______, _______, UK_H,    UK_N,    UK_E,    UK_I,    UK_O    },
-  { _Z_SFT,  _X_NB,   _C_SY,   UK_V,    _B_NAV,  _______, _______, _______, _______, _______, _K_NAV,  UK_M,    _COM_SY, _DOT_NB, _SLSH   },
-  { UK_LSFT, UK_LCTL, UK_LALT, UK_LGUI, UK_SPC,  UK_ENT,  _______, _______, _______, UK_DEL,  UK_BSPC, UK_RGUI, UK_RALT, UK_RCTL, UK_RSFT }
- },
+  [cm] = LAYOUT_ortho_5x15( \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    UK_Q,    UK_W,    UK_F,    UK_P,    UK_G,    _______, _______, _______, _______, _______, UK_J,    UK_L,    UK_U,    UK_Y,    UK_SCLN, \
+    UK_A,    UK_R,    UK_S,    UK_T,    UK_D,    _______, _______, _______, _______, _______, UK_H,    UK_N,    UK_E,    UK_I,    UK_O   , \
+    _Z_SFT,  _X_NB,   _C_SY,   _V_NAL,  UK_B,    _______, _______, _______, _______, _______, UK_K,    _M_NAR,  _COM_SY, _DOT_NB, _SLSH  , \
+    UK_LSFT, UK_LCTL, UK_LALT, UK_LGUI, UK_SPC,  UK_ENT,  _______, _______, _______, UK_DEL,  UK_BSPC, UK_RGUI, UK_RALT, UK_RCTL, UK_RSFT \
+  ),
 
-/* DVORAK _DV
+/* Dvorak
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
@@ -92,18 +99,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | A      | O      | E      | U      | I      |        |        |        |        |        | D      | H      | T      | N      | S      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | ;      | Q      | J      | K      | X      |        |        |        |        |        | B      | M      | W      | V      | Z      |
- * | SHIFT  | NUMBER | SYMBOL |        | NAV    |        |        |        |        |        | NAV    |        | SYMBOL | FUNC   | SHIFT  |
+ * | SHIFT  | NUMBER | SYMBOL | NAV    |        |        |        |        |        |        |        | NAV    | SYMBOL | FUNC   | SHIFT  |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  */
- [_DV] = {
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-  { UK_QUOT, UK_COMM, UK_DOT,  UK_P,    UK_Y,    _______, _______, _______, _______, _______, UK_F,    UK_G,    UK_C,    UK_R,    UK_L    },
-  { UK_A,    UK_O,    UK_E,    UK_U,    UK_I,    _______, _______, _______, _______, _______, UK_D,    UK_H,    UK_T,    UK_N,    UK_S    },
-  { _SCLSH,  _Q_NB,   _J_SY,   UK_K,    _X_NAV,  _______, _______, _______, _______, _______, _B_NAV,  UK_M,    _W_SY,   _V_NB,   _Z_SFT  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
- },
+  [dv] = LAYOUT_ortho_5x15( \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    UK_QUOT, UK_COMM, UK_DOT,  UK_P,    UK_Y,    _______, _______, _______, _______, _______, UK_F,    UK_G,    UK_C,    UK_R,    UK_L   , \
+    UK_A,    UK_O,    UK_E,    UK_U,    UK_I,    _______, _______, _______, _______, _______, UK_D,    UK_H,    UK_T,    UK_N,    UK_S   , \
+    _SCLSH,  _Q_NB,   _J_SY,   _K_NAL,  UK_X,    _______, _______, _______, _______, _______, UK_B,    _M_NAR,  _W_SY,   _V_NB,   _Z_SFT , \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  ),
 
 /* QWERTY _QW
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -114,20 +121,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | A      | S      | D      | F      | G      |        |        |        |        |        | H      | J      | K      | L      | ;      |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | Z      | X      | C      | V      | B      |        |        |        |        |        | N      | M      | ,      | .      | /      |
- * | SHIFT  | NUMBER | SYMBOL |        | NAV    |        |        |        |        |        | NAV    |        | SYMBOL | FUNC   | SHIFT  |
+ * | SHIFT  | NUMBER | SYMBOL | NAV    |        |        |        |        |        |        |        | NAV    | SYMBOL | FUNC   | SHIFT  |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------------------------------------------------------------------------------------------------------------------------------------|
  * | LSHIFT | LCTRL  | LALT   | LGUI   | SPACE  | ENT    |        |        |        | DEL    | BKSPC  | RGUI   | RALT   | RCTRL  | RSHIFT |
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  */
- [_QW] = {
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-  { UK_Q,    UK_W,    UK_E,    UK_R,    UK_T,    _______, _______, _______, _______, _______, UK_Y,    UK_U,    UK_I,    UK_O,    UK_P    },
-  { UK_A,    UK_S,    UK_D,    UK_F,    UK_G,    _______, _______, _______, _______, _______, UK_H,    UK_J,    UK_K,    UK_L,    UK_SCLN },
-  { _Z_SFT,  _X_NB,   _C_SY,   UK_V,    _B_NAV,  _______, _______, _______, _______, _______, _N_NAV,  UK_M,    _COM_SY, _DOT_NB, _SLSH   },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
- },
+  [qw] = LAYOUT_ortho_5x15( \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    UK_Q,    UK_W,    UK_E,    UK_R,    UK_T,    _______, _______, _______, _______, _______, UK_Y,    UK_U,    UK_I,    UK_O,    UK_P   , \
+    UK_A,    UK_S,    UK_D,    UK_F,    UK_G,    _______, _______, _______, _______, _______, UK_H,    UK_J,    UK_K,    UK_L,    UK_SCLN, \
+    _Z_SFT,  _X_NB,   _C_SY,   _V_NAL,  UK_B,    _______, _______, _______, _______, _______, UK_N,    _M_NAR,  _COM_SY, _DOT_NB, _SLSH  , \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  ),
 
 /* Numbers _NB
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -142,15 +149,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- [_NB] = {
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-  { _______, UK_F7,   UK_F8,   UK_F9,   UK_F10,  _______, _______, _______, _______, _______, _______, UK_7,    UK_8,    UK_9,    _______ },
-  { _______, UK_F4,   UK_F5,   UK_F6,   UK_F11,  _______, _______, _______, _______, _______, _______, UK_4,    UK_5,    UK_6,    _______ },
-  { _______, _F1_NB,  UK_F2,   UK_F3,   UK_F12,  _______, _______, _______, _______, _______, UK_0,    UK_1,    UK_2,    _3_NB,   UK_DOT  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
- },
+  [nbl] = LAYOUT_ortho_5x15( \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, UK_F7,   UK_F8,   UK_F9,   UK_F10,  _______, _______, _______, _______, _______, _______, UK_7,    UK_8,    UK_9,    _______, \
+    _______, UK_F4,   UK_F5,   UK_F6,   UK_F11,  _______, _______, _______, _______, _______, _______, UK_4,    UK_5,    UK_6,    _______, \
+    _______, __NBL,   UK_F2,   UK_F3,   UK_F12,  _______, _______, _______, _______, _______, UK_0,    UK_1,    UK_2,    UK_3,    UK_DOT, \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  ),
+  [nbr] = LAYOUT_ortho_5x15( \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    _______, UK_F7,   UK_F8,   UK_F9,   UK_F10,  _______, _______, _______, _______, _______, _______, UK_7,    UK_8,    UK_9,    _______, \
+    _______, UK_F4,   UK_F5,   UK_F6,   UK_F11,  _______, _______, _______, _______, _______, _______, UK_4,    UK_5,    UK_6,    _______, \
+    _______, UK_F1,   UK_F2,   UK_F3,   UK_F12,  _______, _______, _______, _______, _______, UK_0,    UK_1,    UK_2,    __NBR,   UK_DOT , \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  ),
 
-/* Symbols _SY
+ /* Symbols _SY
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -163,17 +177,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- [_SY] = {
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-  { UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH },
-  { UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT   },
-  { UK_CIRC, UK_AMPR, _AST_SY, UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, _COM_SY, UK_RABK, UK_GRV  },
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ }
- },
+  [syl] = LAYOUT_ortho_5x15( \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH, \
+    UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT  , \
+    UK_CIRC, UK_AMPR, __SYL,   UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, UK_RBRC, UK_RABK, UK_GRV , \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  ),
+  [syr] = LAYOUT_ortho_5x15( \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    UK_EXLM, UK_PND,  UK_UNDS, UK_MINS, UK_TILD, _______, _______, _______, _______, _______, UK_BSLS, UK_LCBR, UK_RCBR, UK_SLSH, UK_HASH, \
+    UK_DLR,  UK_PERC, UK_PLUS, UK_EQL,  _______, _______, _______, _______, _______, _______, UK_DQUO, UK_LPRN, UK_RPRN, UK_QUOT, UK_AT  , \
+    UK_CIRC, UK_AMPR, UK_ASTR, UK_PIPE, _______, _______, _______, _______, _______, _______, UK_LABK, UK_LBRC, __SYR,   UK_RABK, UK_GRV , \
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+  ),
 /*
- * Navigation
+ * Navigation _NA
  * .--------------------------------------------------------------------------------------------------------------------------------------.
- * | RESET  | COLEMA | DVORAK | QWERTY |        |        |        |        |        |        |        |        |        |        |        |
+ * | RESET  | COLEMA | DVORAK | QWERTY |        | RGB_TG |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | Esc    | Ctrl L | Up     | Ctrl R |        | RGB HD | RGB HI |        |        |        |        | PtSn   | ScLk   | Pause  |        |
  * +--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -184,105 +205,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        |        | RGB RMD| RGB MD |        |        |        |        |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
- [_NAV] = {
-  { RESET,   DF(_CM), DF(_DV), DF(_QW), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ },
-  { UK_ESC,  _C_LEFT, UK_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, UK_PSCR, UK_SLCK, UK_PAUS, _______ },
-  { UK_TAB,  UK_LEFT, UK_DOWN, UK_RGHT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, UK_INS,  UK_HOME, UK_PGUP, _TERM   },
-  { _S_TAB,  _A_LEFT, UK_LSFT, _A_RGHT, _B_NAV,  RGB_VAD, RGB_VAI, _______, _______, _______, _K_NAV,  UK_SLCK, UK_END,  UK_PGDN, _______ },
-  { _______, _______, _______, _______, _______, RGB_RMOD,RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______ }
- },
+  [nal] = LAYOUT_ortho_5x15( \
+    RESET,   DF(cm),  DF(dv),  DF(qw),  _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    UK_ESC,  _C_LEFT, UK_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, UK_PSCR, UK_SLCK, UK_PAUS, _______, \
+    UK_TAB,  UK_LEFT, UK_DOWN, UK_RGHT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, UK_INS,  UK_HOME, UK_PGUP, _TERM  , \
+    _S_TAB,  _A_LEFT, IJ_OMN,  __NAL,   _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, UK_SLCK, UK_END,  UK_PGDN, _______, \
+    _______, _______, _______, _______, _______, RGB_RMOD,RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______ \
+  ),
+  [nar] = LAYOUT_ortho_5x15( \
+    RESET,   DF(cm),  DF(dv),  DF(qw),  _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+    UK_ESC,  _C_LEFT, UK_UP  , _C_RGHT, _______, RGB_HUD, RGB_HUI, _______, _______, _______, _______, UK_PSCR, UK_SLCK, UK_PAUS, _______, \
+    UK_TAB,  UK_LEFT, UK_DOWN, UK_RGHT, _______, RGB_SAD, RGB_SAI, _______, _______, _______, _______, UK_INS,  UK_HOME, UK_PGUP, _TERM  , \
+    _S_TAB,  _A_LEFT, IJ_OMN,  _A_RGHT, _______, RGB_VAD, RGB_VAI, _______, _______, _______, _______, __NAR,   UK_END,  UK_PGDN, _______, \
+    _______, _______, _______, _______, _______, RGB_RMOD,RGB_MOD, _______, _______, _______, _______, _______, _______, _______, _______ \
+  )
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-            #ifdef BACKLIGHT_ENABLE
-              backlight_step();
-            #endif
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
-};
-
-bool lightsOn = true;
-int keyPresses = 0;
-int effect = 0;
-uint32_t key_timer;
-
-void resetCounts(void) {
-  effect++;
-  keyPresses = 0;
-  key_timer = timer_read32();
-}
-
-void matrix_scan_user(void) {
-  if (!lightsOn) {
-    rgblight_setrgb(0, 0, 0);
-    return;
-  }
-  if (timer_elapsed32(key_timer) > 60000) {
-    resetCounts();
-  }
-  switch (effect) {
-    case 0:
-      rgblight_effect_breathing(3);
-      break;
-    case 1:
-      rgblight_effect_knight(3);
-      break;
-    case 2:
-      rgblight_effect_rainbow_swirl(128);
-      break;
-    case 3:
-      rgblight_effect_snake(30);
-      break;
-    case 4:
-      rgblight_effect_rainbow_swirl(128);
-      break;
-    case 5:
-      rgblight_effect_rainbow_mood(128);
-      break;
-    case 6:
-      rgblight_effect_christmas();
-      break;
-    case 7:
-      rgblight_effect_rgbtest();
-      break;
-    default:
-      effect = 0;
-      break;
-  }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (!record->event.pressed) return true;
-  if (keycode == L_SB) {
-    lightsOn = !lightsOn;
-    if (!lightsOn) {
-      keyPresses = 0;
-    } else {
-      resetCounts();
+  if (record->event.pressed) {
+    switch(keycode) {
+      case IJ_OMN:
+        SEND_STRING(SS_TAP(X_LSHIFT)SS_TAP(X_LSHIFT));
+        return false;
     }
-    return true;
-  }
-  if (keycode == L_NEXT) {
-    resetCounts();
-    return true;
-  }
-  keyPresses++;
-  if (keyPresses > 100) {
-    resetCounts();
   }
   return true;
 }
