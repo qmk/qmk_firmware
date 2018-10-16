@@ -73,7 +73,7 @@ void timer_timeout(void){
   navesc = false;
 }
 
-bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case CU_GAME:
     if(record->event.pressed) {
@@ -336,6 +336,6 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
       #endif
 
     }
-    return true;
+    return process_record_keymap(keycode, record);
   }
 }

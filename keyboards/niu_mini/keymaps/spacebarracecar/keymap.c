@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 switch (keycode) {
   case MO(_LOWER):
     if (game){
@@ -122,5 +122,5 @@ switch (keycode) {
       return true;
     }
   }
-  return process_record_userspace(keycode, record);
+  return true;
 }

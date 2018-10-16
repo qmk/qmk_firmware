@@ -75,7 +75,7 @@ extern bool game;
 
 void timer_timeout(void);
 
-bool process_record_userspace(uint16_t keycode, keyrecord_t *record);
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 #define CTRLX LCTL(KC_X)
 #define CTRLC LCTL(KC_C)
