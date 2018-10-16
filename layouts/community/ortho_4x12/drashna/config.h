@@ -5,7 +5,7 @@
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 16     // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
+
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_VAL_STEP 12

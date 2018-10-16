@@ -43,6 +43,7 @@ endif
 endif
 
 ifeq ($(PLATFORM),ARM_ATSAM)
+	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
 endif
 

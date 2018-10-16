@@ -8,7 +8,7 @@ If you have not yet you should read the [Keyboard Guidelines](hardware_keyboard_
 
 QMK has a number of features to simplify working with AVR keyboards. For most keyboards you don't have to write a single line of code. To get started run the `util/new_project.sh` script:
 
-```
+```bash
 $ util/new_project.sh my_awesome_keyboard
 ######################################################
 # /keyboards/my_awesome_keyboard project created. To start
@@ -30,7 +30,7 @@ This is where all the custom logic for your keyboard goes. Many keyboards do not
 
 This is the file you define your [Layout Macro(s)](feature_layouts.md) in. At minimum you should have a `#define LAYOUT` for your keyboard that looks something like this:
 
-```
+```c
 #define LAYOUT(          \
       k00, k01, k02,     \
       k10,   k11         \
@@ -57,7 +57,7 @@ At the top of the `config.h` you'll find USB related settings. These control how
 
 Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately reflect your keyboard.
 
-```
+```c
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
@@ -72,14 +72,14 @@ Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately r
 
 The next section of the `config.h` file deals with your keyboard's matrix. The first thing you should set is the matrix's size. This is usually, but not always, the same number of rows and columns as the physical key arrangement.
 
-```
+```c
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 3
 ```
 
 Once you've defined the size of your matrix you need to define which pins on your MCU are connected to rows and columns. To do so simply specify the names of those pins:
 
-```
+```c
 #define MATRIX_ROW_PINS { D0, D5 }
 #define MATRIX_COL_PINS { F1, F0, B0 }
 #define UNUSED_PINS
@@ -89,7 +89,7 @@ The number of `MATRIX_ROW_PINS` entries must be the same as the number you assig
 
 Finally, you can specify the direction your diodes point. This can be `COL2ROW`, `ROW2COL`, or `CUSTOM_MATRIX`.
 
-```
+```c
 #define DIODE_DIRECTION COL2ROW
 ```
 
@@ -97,16 +97,14 @@ Finally, you can specify the direction your diodes point. This can be `COL2ROW`,
 
 By default QMK supports backlighting on pins `B5`, `B6`, and `B7`. If you are using one of those you can simply enable it here. For more details see the [Backlight Documentation](feature_backlight.md).
 
-```
+```c
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 3
 #define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 ```
 
-{% hint style='info' %}
-You can use backlighting on any pin you like, but you will have to do more work to support that. See the [Backlight Documentation](feature_backlight.md) for more details.
-{% endhint %}
+?> You can use backlighting on any pin you like, but you will have to do more work to support that. See the [Backlight Documentation](feature_backlight.md) for more details.
 
 ### Other Configuration Options
 
@@ -120,7 +118,7 @@ You use the `rules.mk` file to tell QMK what files to build and what features to
 
 These options tell the build system what CPU to build for. Be very careful if you change any of these settings, you can render your keyboard inoperable.
 
-```
+```make
 MCU = atmega32u4
 F_CPU = 16000000
 ARCH = AVR8
@@ -128,26 +126,26 @@ F_USB = $(F_CPU)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 ```
 
-### Bootloader Size
+### Bootloaders
 
-The bootloader is a special section of your MCU that allows you to upgrade the code stored on the MCU. Think of it like a Rescue Partition for your keyboard. If you are using a teensy 2.0, or a device like the Ergodox EZ that uses the teensy bootloader you should set this to `512`. Most other bootloaders should be set to `4096`, but `1024` and `2048` are other possible values you may encounter.
+The bootloader is a special section of your MCU that allows you to upgrade the code stored on the MCU. Think of it like a Rescue Partition for your keyboard. 
 
-#### Teensy 2.0 Bootloader Example
+#### Teensy Bootloader Example
 
-```
-OPT_DEFS += -DBOOTLOADER_SIZE=512
-```
-
-#### Teensy 2.0++ Bootloader Example
-
-```
-OPT_DEFS += -DBOOTLOADER_SIZE=1024
+```make
+BOOTLOADER = halfkay
 ```
 
 #### Atmel DFU Loader Example
 
+```make
+BOOTLOADER = atmel-dfu
 ```
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+
+#### Pro Micro Bootloader Example
+
+```make
+BOOTLOADER = caterina
 ```
 
 ### Build Options

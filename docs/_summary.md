@@ -47,6 +47,7 @@
   * [Backlight](feature_backlight.md)
   * [Bluetooth](feature_bluetooth.md)
   * [Bootmagic](feature_bootmagic.md)
+  * [Combos](feature_combo)
   * [Command](feature_command.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
   * [Grave Escape](feature_grave_esc.md)
@@ -74,6 +75,7 @@
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
   * [ISP Flashing Guide](isp_flashing_guide.md)
+  * [ARM Debugging Guide](arm_debugging.md)
 
 * For a Deeper Understanding
   * [How Keyboards Work](how_keyboards_work.md)
