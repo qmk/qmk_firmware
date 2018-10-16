@@ -10,8 +10,22 @@
 #define CLRIGHT LT(_FN1, KC_RIGHT)
 
 void change_leds_to(uint16_t, uint8_t, rgblight_config_t);
-bool state_changed = false;
-static bool grave_esc_was_shifted = false;
+
+typedef struct {
+  uint16_t hue;
+  uint8_t sat;
+} hue_sat_pair;
+
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     version_1_1 :1;
+  };
+} user_config_t;
+
+enum rhruiz_keys {
+  KC_KBVSN = SAFE_RANGE
+};
 
 enum rhruiz_layers {
   _BL,
@@ -21,6 +35,25 @@ enum rhruiz_layers {
   _FN1,
   _FN2,
   _CFG
+};
+
+user_config_t user_config;
+bool state_changed = false;
+const hue_sat_pair hue_sat_pairs[][2] = {
+  [_FN1] = {
+    [false] = { 2, 255 },
+    [true] = { 175, 255 }
+  },
+
+  [_FN2] = {
+    [false] = { 275, 255 },
+    [true] = { 2, 255 }
+  },
+
+  [_CFG] = {
+    [false] = { 110, 255 },
+    [true] = { 110, 255 }
+  }
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -73,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_CFG] = LAYOUT(
-		_______,  RGB_M_P,  RGB_M_B,  RGB_M_R,  RGB_M_SW,  RGB_M_SN,  RGB_M_K,  RGB_M_X,  RGB_M_G,  RGB_M_T,  _______,  RGB_SPD,  RGB_SPI,  _______,  RESET,
+		_______,  RGB_M_P,  RGB_M_B,  RGB_M_R,  RGB_M_SW,  RGB_M_SN,  RGB_M_K,  RGB_M_X,  RGB_M_G,  RGB_M_T,  _______,  RGB_SPD,  RGB_SPI,  _______,  KC_KBVSN,
 		_______,  RGB_TOG,  RGB_MOD,  RGB_HUI,  RGB_HUD,   RGB_SAI,   RGB_SAD,  RGB_VAI,  RGB_VAD,  _______,  _______,  _______,  _______,  RESET,
 		_______,  BL_TOGG,  BL_STEP,  BL_BRTG,  _______,   _______,   KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   _______,  _______,  _______,
 		_______,  _______,  _______,  _______,  _______,   _______,   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
@@ -87,30 +120,19 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 }
 
 void matrix_init_user(void) {
+  // Read the user config from EEPROM
+  user_config.raw = eeconfig_read_user();
 }
 
 void matrix_scan_user(void) {
   uint16_t hue = 1;
   uint8_t sat = 0;
 
-  switch(biton32(layer_state)) {
-    case _FN1:
-      hue = 2;
-      sat = 225;
-      break;
+  const hue_sat_pair hue_sat = hue_sat_pairs[biton32(layer_state)][user_config.version_1_1];
+  hue = hue_sat.hue;
+  sat = hue_sat.sat;
 
-    case _FN2:
-      hue = 275;
-      sat = 255;
-      break;
-
-    case _CFG:
-      hue = 110;
-      sat = 255;
-      break;
-  }
-
-  if (hue != 1) {
+  if (hue_sat.hue != 1) {
     rgblight_config_t eeprom_config;
     eeprom_config.raw = eeconfig_read_rgblight();
     change_leds_to(hue, sat, eeprom_config);
@@ -133,6 +155,14 @@ void rhruiz_layer_off(uint8_t layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
+    case KC_KBVSN: {
+      if (record->event.pressed) {
+        user_config.version_1_1 ^= 1; // Toggles the version
+        eeconfig_update_user(user_config.raw); // Writes version to EEPROM
+      }
+      return false;
+    }
+
     case KC_FN1: {
       if (record->event.pressed) {
         rhruiz_layer_on(_FN1);
@@ -150,23 +180,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rhruiz_layer_off(_FN2);
       }
 
-      return false;
-    }
-
-    case GRAVE_ESC: {
-      uint8_t shifted = get_mods() & ((MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)
-                                      |MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI)
-                                      |MOD_BIT(KC_LALT)));
-
-      if (record->event.pressed) {
-        grave_esc_was_shifted = shifted;
-        add_key(shifted ? KC_GRAVE : KC_ESCAPE);
-      }
-      else {
-        del_key(grave_esc_was_shifted ? KC_GRAVE : KC_ESCAPE);
-      }
-
-      send_keyboard_report();
       return false;
     }
   }
@@ -194,6 +207,11 @@ void change_leds_to(uint16_t hue, uint8_t sat, rgblight_config_t eeprom_config) 
     rgblight_sethsv_at(hue, sat, eeprom_config.val, 8);
     rgblight_sethsv_at(hue, sat, eeprom_config.val, 15);
   }
+}
+
+void eeconfig_init_user(void) {
+  user_config.version_1_1 = false;
+  eeconfig_update_user(user_config.raw);
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
