@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6060
 #define MANUFACTURER    ishtob
 #define PRODUCT         Hadron Keyboard
-#define DESCRIPTION     A cherry ML ortholinear keyboard
+#define DESCRIPTION     A low profile ortholinear keyboard
 
 
 

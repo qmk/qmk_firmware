@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
@@ -216,27 +215,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 
-#ifdef AUDIO_ENABLE
-
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
-#endif
+void persistant_default_layer_set(uint16_t default_layer) {
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
+}
 
 // define variables for reactive RGB
 bool RGB_INIT = false;
 bool TOG_STATUS = false;
 int RGB_current_mode;
-
-
-
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
 
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
@@ -251,18 +238,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
         persistant_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
         persistant_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
@@ -337,53 +318,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_init_user(void) {
-  #ifdef USE_I2C
-    i2c_master_init();
-  #ifdef SSD1306OLED
-  // calls code for the SSD1306 OLED
-        _delay_ms(400);
-        TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-        iota_gfx_init();   // turns on the display
-  #endif
-  #endif
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
-}
 
-void matrix_scan_user(void) {
-    #ifdef SSD1306OLED
-     iota_gfx_task();  // this is what updates the display continuously
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{cc
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
 
 /*
  * Macro definition
@@ -404,6 +339,32 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 }
 
+
+//Functions for ver2
+#ifdef KEYBOARD_hadron_ver2
+#include "LUFA/Drivers/Peripheral/TWI.h"
+void matrix_init_user(void) {
+  #ifdef USE_I2C
+    i2c_master_init();
+  #ifdef SSD1306OLED
+  // calls code for the SSD1306 OLED
+        _delay_ms(400);
+        TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
+        iota_gfx_init();   // turns on the display
+  #endif
+  #endif
+    #ifdef AUDIO_ENABLE
+        startup_user();
+    #endif
+}
+
+
+void matrix_scan_user(void) {
+    #ifdef SSD1306OLED
+     iota_gfx_task();  // this is what updates the display continuously
+    #endif
+}
+
 void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
@@ -411,7 +372,6 @@ void matrix_update(struct CharacterMatrix *dest,
     dest->dirty = true;
   }
 }
-
 //assign the right code to your layers for OLED display
 #define L_BASE 0
 #define L_LOWER 8
@@ -491,3 +451,4 @@ void iota_gfx_task_user(void) {
   matrix_update(&display, &matrix);
 }
 
+#endif
