@@ -13,7 +13,7 @@
   LCT| WIN| ALT|               ESPACE             | ALG| FN | RCT| LEF| DOW| RIG
 */
 
-#define KEYMAP_SEVENTY_ANSI( \
+#define LAYOUT_seventy_ansi( \
   K00, K01, K02, K03,   K04,   K05,   K06, K07,   K08,   K09, K0A, K0B, K0C, K0D, K0E, K0F, \
   K10, K11, K12, K13,   K14,   K15,   K16, K17,   K18,   K19, K1A, K1B, K1C,    K1D,   K1E, \
   K20, K21, K22, K23,   K24,   K25,   K26, K27,   K28,   K29, K2A, K2B, K2C,           K2D, \
@@ -38,7 +38,7 @@
   LCT| WIN| ALT|               ESPACE             | ALG| FN | RCT| LEF| DOW| RIG
 */
 
-#define KEYMAP_SEVENTY_ISO( \
+#define LAYOUT_seventy_iso( \
   K00, K01, K02, K03,   K04,   K05,   K06, K07,   K08,   K09, K0A, K0B, K0C, K0D, K0E, K0F, \
   K10, K11, K12, K13,   K14,   K15,   K16, K17,   K18,   K19, K1A, K1B, K1C,    K1D,   K1E, \
   K20, K21, K22, K23,   K24,   K25,   K26, K27,   K28,   K29, K2A, K2B, K2C,           K2D, \
