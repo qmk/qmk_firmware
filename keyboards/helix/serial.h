@@ -7,7 +7,7 @@
 // Need Soft Serial defines in config.h
 // /////////////////////////////////////////////////////////////////
 // ex.
-//  #define SOFT_SERIAL_PORT ??   // ?? = D0,D1,D2,D3,E6
+//  #define SOFT_SERIAL_PIN ??   // ?? = D0,D1,D2,D3,E6
 //  OPTIONAL: #define SELECT_SOFT_SERIAL_SPEED ? // ? = 1(default),2,3,4
 //
 // //// USE Simple API (OLD API, compatible with let's split serial.c)
