@@ -47,6 +47,10 @@
 extern keymap_config_t keymap_config;
 #endif
 
+#ifdef JOYSTICK_ENABLE
+# include <quantum/joystick.h>
+#endif
+
 /* ---------------------------------------------------------
  *       Global interface variables and declarations
  * ---------------------------------------------------------
@@ -247,6 +251,9 @@ typedef struct {
 #ifdef VIRTSER_ENABLE
             usb_driver_config_t serial_driver;
 #endif
+#ifdef JOYSTICK_ENABLE
+            usb_driver_config_t joystick_driver;
+#endif
         };
         usb_driver_config_t array[0];
     };
@@ -282,6 +289,14 @@ static usb_driver_configs_t drivers = {
 #    define CDC_IN_MODE USB_EP_MODE_TYPE_BULK
 #    define CDC_OUT_MODE USB_EP_MODE_TYPE_BULK
     .serial_driver = QMK_USB_DRIVER_CONFIG(CDC, CDC_NOTIFICATION_EPNUM, false),
+#endif
+
+#ifdef JOYSTICK_ENABLE
+  #define JOYSTICK_IN_CAPACITY 4
+  #define JOYSTICK_OUT_CAPACITY 4
+  #define JOYSTICK_IN_MODE USB_EP_MODE_TYPE_BULK
+  #define JOYSTICK_OUT_MODE USB_EP_MODE_TYPE_BULK
+  .joystick_driver = QMK_USB_DRIVER_CONFIG(JOYSTICK, 0, false),
 #endif
 };
 
@@ -867,6 +882,64 @@ void virtser_task(void) {
             virtser_recv(buffer[i]);
         }
     } while (numBytesReceived > 0);
+}
+
+#endif
+
+#ifdef JOYSTICK_ENABLE
+
+typedef struct {
+    #if JOYSTICK_AXES_COUNT>0
+    int8_t  axes[JOYSTICK_AXES_COUNT];
+    #endif
+    
+    #if JOYSTICK_BUTTON_COUNT>0
+    uint8_t buttons[(JOYSTICK_BUTTON_COUNT-1)/8+1];
+    #endif
+} __attribute__ ((packed)) joystick_report_t;
+
+void send_joystick_packet(joystick_t* joystick) {
+    joystick_report_t rep = {
+      #if JOYSTICK_AXES_COUNT>0
+      .axes = {
+          joystick->axes[0]
+
+        #if JOYSTICK_AXES_COUNT >= 2
+          ,joystick->axes[1]
+        #endif
+        #if JOYSTICK_AXES_COUNT >= 3
+          ,joystick->axes[2]
+        #endif
+        #if JOYSTICK_AXES_COUNT >= 4
+          ,joystick->axes[3]
+        #endif
+        #if JOYSTICK_AXES_COUNT >= 5
+          ,joystick->axes[4]
+        #endif
+        #if JOYSTICK_AXES_COUNT >= 6
+          ,joystick->axes[5]
+        #endif
+      },
+      #endif //JOYSTICK_AXES_COUNT>0
+      
+      #if JOYSTICK_BUTTON_COUNT>0
+      .buttons = {
+          joystick->buttons[0]
+          
+        #if JOYSTICK_BUTTON_COUNT>8
+          ,joystick->buttons[1]
+        #endif
+        #if JOYSTICK_BUTTON_COUNT>16
+          ,joystick->buttons[2]
+        #endif
+        #if JOYSTICK_BUTTON_COUNT>24
+          ,joystick->buttons[3]
+        #endif
+      }
+      #endif //JOYSTICK_BUTTON_COUNT>0
+  };
+  
+  chnWrite(&drivers.joystick_driver.driver, (uint8_t*)&rep, sizeof(rep));
 }
 
 #endif

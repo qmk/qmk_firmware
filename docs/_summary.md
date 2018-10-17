@@ -97,6 +97,7 @@
     * [DIP Switch](feature_dip_switch.md)
     * [Encoders](feature_encoders.md)
     * [Haptic Feedback](feature_haptic_feedback.md)
+    * [Joystick](feature_joystick.md)
     * [Proton C Conversion](proton_c_conversion.md)
     * [PS/2 Mouse](feature_ps2_mouse.md)
     * [Split Keyboard](feature_split_keyboard.md)

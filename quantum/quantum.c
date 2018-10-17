@@ -63,6 +63,10 @@ float bell_song[][2] = SONG(TERMINAL_SOUND);
 #    endif
 #endif
 
+#ifdef JOYSTICK_ENABLE
+#include <process_keycode/process_joystick.h>
+#endif //JOYSTICK_ENABLE
+
 static void do_code16(uint16_t code, void (*f)(uint8_t)) {
     switch (code) {
         case QK_MODS ... QK_MODS_MAX:
@@ -265,6 +269,9 @@ bool process_record_quantum(keyrecord_t *record) {
 #endif
 #if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
             process_rgb(keycode, record) &&
+#endif
+#ifdef JOYSTICK_ENABLE
+            process_joystick(keycode, record) &&
 #endif
             true)) {
         return false;

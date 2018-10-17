@@ -85,6 +85,10 @@ extern keymap_config_t keymap_config;
 #    include "raw_hid.h"
 #endif
 
+#ifdef JOYSTICK_ENABLE
+	#include "joystick.h"
+#endif
+
 uint8_t keyboard_idle = 0;
 /* 0: Boot Protocol, 1: Report Protocol(default) */
 uint8_t        keyboard_protocol  = 1;
@@ -260,6 +264,85 @@ static void Console_Task(void) {
     }
 
     Endpoint_SelectEndpoint(ep);
+}
+#endif
+
+/*******************************************************************************
+ * Joystick
+ ******************************************************************************/
+#ifdef JOYSTICK_ENABLE
+
+typedef struct {
+    #if JOYSTICK_AXES_COUNT>0
+    int8_t  axes[JOYSTICK_AXES_COUNT];
+    #endif
+    
+    #if JOYSTICK_BUTTON_COUNT>0
+    uint8_t buttons[(JOYSTICK_BUTTON_COUNT-1)/8+1];
+    #endif
+} __attribute__ ((packed)) joystick_report_t;
+
+void send_joystick_packet(joystick_t* joystick){
+    
+    uint8_t timeout = 255;
+    uint8_t where = where_to_send();
+    
+    if (where != OUTPUT_USB && where != OUTPUT_USB_AND_BT) {
+      return;
+    }
+    
+    joystick_report_t r = {
+        #if JOYSTICK_AXES_COUNT>0
+        .axes = {
+            joystick->axes[0]
+
+          #if JOYSTICK_AXES_COUNT >= 2
+            ,joystick->axes[1]
+          #endif
+          #if JOYSTICK_AXES_COUNT >= 3
+            ,joystick->axes[2]
+          #endif
+          #if JOYSTICK_AXES_COUNT >= 4
+            ,joystick->axes[3]
+          #endif
+          #if JOYSTICK_AXES_COUNT >= 5
+            ,joystick->axes[4]
+          #endif
+          #if JOYSTICK_AXES_COUNT >= 6
+            ,joystick->axes[5]
+          #endif
+        },
+        #endif //JOYSTICK_AXES_COUNT>0
+        
+        #if JOYSTICK_BUTTON_COUNT>0
+        .buttons = {
+            joystick->buttons[0]
+            
+          #if JOYSTICK_BUTTON_COUNT>8
+            ,joystick->buttons[1]
+          #endif
+          #if JOYSTICK_BUTTON_COUNT>16
+            ,joystick->buttons[2]
+          #endif
+          #if JOYSTICK_BUTTON_COUNT>24
+            ,joystick->buttons[3]
+          #endif
+        }
+        #endif //JOYSTICK_BUTTON_COUNT>0
+    };
+
+    /* Select the Joystick Report Endpoint */
+    Endpoint_SelectEndpoint(JOYSTICK_IN_EPNUM);
+
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    if (!Endpoint_IsReadWriteAllowed()) return;
+
+    /* Write Joystick Report Data */
+    Endpoint_Write_Stream_LE(&r, sizeof(joystick_report_t), NULL);
+
+    /* Finalize the stream transfer to send the last packet */
+    Endpoint_ClearIN();
 }
 #endif
 
