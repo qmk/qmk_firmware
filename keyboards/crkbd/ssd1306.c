@@ -4,7 +4,11 @@
 #include "i2c.h"
 #include <string.h>
 #include "print.h"
+#ifndef LOCAL_GLCDFONT
+#include "keymaps/default/glcdfont.c"
+#else
 #include "glcdfont.c"
+#endif
 #ifdef ADAFRUIT_BLE_ENABLE
 #include "adafruit_ble.h"
 #endif
