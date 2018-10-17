@@ -271,8 +271,6 @@ void backspaceString(char *str)
   }
 }
 
-const char *_dist = "Dist";
-
 void processSmartMacroTap(uint16_t kc)
 {
   initStringData();
