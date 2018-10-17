@@ -4,8 +4,10 @@
     #include "rev1.h"
 #elif KEYBOARD_iris_rev1_led
     #include "rev1_led.h"
-#else
+#elif KEYBOARD_iris_rev2
     #include "rev2.h"
+#else
+    #include "rev3.h"
 #endif
 
 #include "quantum.h"

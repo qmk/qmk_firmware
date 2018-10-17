@@ -40,3 +40,5 @@ ifdef HARDWARE_SERIAL
 else
         SRC += protocol/serial_soft.c
 endif
+
+DEFAULT_FOLDER = converter/sun_usb/type5

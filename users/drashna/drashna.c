@@ -36,11 +36,11 @@ bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
       keycode = KC_ENTER;
     }
     clear_keyboard();
-    tap(keycode);
+    tap_code(keycode);
     wait_ms(50);
     send_string_with_delay(str, MACRO_TIMER);
     wait_ms(50);
-    tap(KC_ENTER);
+    tap_code(KC_ENTER);
   }
   if (override) wait_ms(3000);
   return false;
@@ -127,13 +127,13 @@ uint32_t default_layer_state_set_keymap (uint32_t state) {
 __attribute__ ((weak))
 void led_set_keymap(uint8_t usb_led) {}
 
-
+__attribute__ ((weak))
+void eeconfig_init_keymap(void) {}
 
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
-  userspace_config.raw = eeprom_read_dword(EECONFIG_USERSPACE);
-
+  userspace_config.raw = eeconfig_read_user();
 
 #ifdef BOOTLOADER_CATERINA
   DDRD &= ~(1<<5);
@@ -250,7 +250,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
-      send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP
+      uint8_t temp_mod = get_mods();
+      clear_mods();
+      send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
+      if (temp_mod & MODS_SHIFT_MASK) {
+        send_string_with_delay_P(PSTR(
 #if defined(__ARM__)
                    ":dfu-util"
 #elif defined(BOOTLOADER_DFU)
@@ -260,7 +264,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #elif defined(BOOTLOADER_CATERINA)
                    ":avrdude"
 #endif // bootloader options
-                   SS_TAP(X_ENTER)), 10);
+        ), 10);
+      }
+      if (temp_mod & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
+      send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
+      set_mods(temp_mod);
     }
     return false;
     break;
@@ -268,8 +276,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case EPRM: // Resets EEPROM
     if (record->event.pressed) {
       eeconfig_init();
-      default_layer_set(1UL<<eeconfig_read_default_layer());
-      layer_state_set(layer_state);
     }
     return false;
     break;
@@ -295,7 +301,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // to save on firmware space, since it's limited.
 #ifdef MACROS_ENABLED
   case KC_OVERWATCH: // Toggle's if we hit "ENTER" or "BACKSPACE" to input macros
-    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeprom_update_dword(EECONFIG_USERSPACE, userspace_config.raw); }
+    if (record->event.pressed) { userspace_config.is_overwatch ^= 1; eeconfig_update_user(userspace_config.raw); }
 #ifdef RGBLIGHT_ENABLE
     userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
 #endif //RGBLIGHT_ENABLE
@@ -344,11 +350,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     } else {
       if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) {   // Hold, copy
         register_code(KC_LCTL);
-        tap(KC_C);
+        tap_code(KC_C);
         unregister_code(KC_LCTL);
       } else {                                // Tap, paste
         register_code(KC_LCTL);
-        tap(KC_V);
+        tap_code(KC_V);
         unregister_code(KC_LCTL);
       }
     }
@@ -412,4 +418,9 @@ uint32_t default_layer_state_set_user(uint32_t state) {
 // So nothing goes here.
 void led_set_user(uint8_t usb_led) {
   led_set_keymap(usb_led);
+}
+
+void eeconfig_init_user(void) {
+  userspace_config.raw = 0;
+  eeconfig_update_user(userspace_config.raw);
 }
