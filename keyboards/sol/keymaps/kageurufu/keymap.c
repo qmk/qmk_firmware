@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "bootloader.h"
-#ifdef ENCODER_ENABLE
-#include "common/knob_v2.h"
-#endif
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
@@ -51,55 +48,78 @@ enum macro_keycodes {
 
 #define FN_ESC  LT(_FN, KC_ESC)
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-  /* Qwerty
+// Define your non-alpha grouping in this define's LAYOUT, and all your BASE_LAYERS will share the same mod/macro columns
+  /* Base Layout
    * ,------------------------------------------------.  ,------------------------------------------------.
-   * |   `  |   1  |   2  |   3  |   4  |   5  |      |  |      |   6  |   7  |   8  |   9  |   0  | Del  |
+   * |   `  |      |      |      |      |      |      |  |      |      |      |      |      |      | BkSp |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * | Tab  |   Q  |   W  |   E  |   R  |   T  |      |  |      |   Y  |   U  |   I  |   O  |   P  | Bksp |
+   * | Tab  |      |      |      |      |      |      |  |      |      |      |      |      |      |   \  |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * | Ctrl |   A  |   S  |   D  |   F  |   G  |      |  |      |   H  |   J  |   K  |   L  |   ;  |  '   |
+   * | Esc  |      |      |      |      |      |      |  |      |      |      |      |      |      |   '  |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Shift|   Z  |   X  |   C  |   V  |   B  |   [  |  |   ]  |   N  |   M  |   ,  |   .  |   /  |Enter |
+   * | Sft( |      |      |      |      |      |      |  |      |      |      |      |      |      | Sft) |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |ADJ| Esc  | Alt  | GUI  | EISU |Lower |Space |  |Space |FN | KANA | Left | Down |  Up  |Right |
-   * `------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
-   *                                    |Lower |Space |  |Space |FN |
-   *                                    `-------------'  `-------------'
+   * | Ctrl |  Win |  Win |  Alt |  FN  | Space|  RGB |  |  FN  |  FN  |   -  |   =  | Down | PgUp | PgDn |
+   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+   *                                    | Space| Bksp |  | Enter| Space|
+   *                                    `-------------'  `--------=----'
    */
-  [_QWERTY] = LAYOUT( \
-      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   RGB_VAI,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,   RGB_VAD,  RGB_MOD, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
-      FN_ESC,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,   RGB_MOD,  RGBRST,  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-      KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_LBRC,  KC_RBRC, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC, \
-      KC_LCTL, KC_LGUI, KC_LGUI, KC_LALT, FN,      KC_SPC, RGB_MOD,  FN,      FN,      KC_MINS, KC_EQL,  KC_DOWN, KC_PGUP, KC_PGDN, \
-                                                   KC_SPC, KC_BSPC,  KC_ENT,  KC_SPC\
-      ),
+#define BASE_LAYOUT( \
+  _00, _01, _02, _03, _04,  _05, _06, _07, _08, _09, \
+  _10, _11, _12, _13, _14,  _15, _16, _17, _18, _19, \
+  _20, _21, _22, _23, _24,  _25, _26, _27, _28, _29 \
+) \
+LAYOUT( \
+      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   RGB_MOD,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
+      KC_TAB,  _00,     _01,     _02,     _03,     _04,    KC_LBRC,  KC_RBRC, _05,     _06,     _07,     _08,     _09,     KC_BSLS, \
+      FN_ESC,  _10,     _11,     _12,     _13,     _14,    RGB_SAI,  RGB_VAI, _15,     _16,     _17,     _18,     _19,     KC_QUOT, \
+      KC_LSPO, _20,     _21,     _22,     _23,     _24,    RGB_SAD,  RGB_VAD, _25,     _26,     _27,     _28,     _29,     KC_RSPC, \
+      KC_LCTL, KC_LGUI, KC_LGUI, KC_LALT, FN,      KC_SPC, FN,       FN,      KC_SPC,  KC_MINS, KC_EQL,  KC_DOWN, KC_PGUP, KC_PGDN, \
+                        KC_VOLD, KC_VOLU,          KC_SPC, KC_BSPC,  KC_ENT,  KC_SPC,           KC_VOLD, KC_VOLU \
+)
 
-  /* Colemak
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  /* Qwerty
    * ,------------------------------------------------.  ,------------------------------------------------.
    * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      |   Q  |   W  |   F  |   P  |   G  |      |  |      |   J  |   L  |   U  |   Y  |   ;  |      |
+   * |      |   Q  |   W  |   E  |   R  |   T  |      |  |      |   Y  |   U  |   I  |   O  |   P  |      |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      |   A  |   R  |   S  |   T  |   D  |      |  |      |   H  |   N  |   E  |   I  |   O  |      |
+   * |      |   A  |   S  |   D  |   F  |   G  |      |  |      |   H  |   J  |   K  |   L  |   ;  |      |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |      |   Z  |   X  |   C  |   V  |   B  |   [  |  |   ]  |   K  |   M  |      |      |      |      |
+   * |      |   Z  |   X  |   C  |   V  |   B  |      |  |      |   N  |   M  |   ,  |   .  |   /  |      |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    *                                    |      |      |  |      |      |
    *                                    `-------------'  `--------=----'
    */
-  [_COLEMAK] = LAYOUT( \
-      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   RGB_VAI,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,   RGB_VAD,  RGB_MOD, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS, \
-      FN_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,   RGB_MOD,  RGBRST,  KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
-      KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,   KC_LBRC,  KC_RBRC, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSPC, \
-      KC_LCTL, KC_LGUI, KC_LGUI, KC_LALT, FN,      KC_SPC, RGB_MOD,  FN,      FN,      KC_MINS, KC_EQL,  KC_DOWN, KC_PGUP, KC_PGDN, \
-                                                   KC_SPC, KC_BSPC,  KC_ENT,  KC_SPC \
-      ),
+  [_QWERTY] = BASE_LAYOUT( \
+      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
+      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, \
+      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH  \
+  ),
+
+  /* Colemak
+   * ,------------------------------------------------.  ,------------------------------------------------.
+   * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
+   * |      |   Q  |   W  |   F  |   P  |   B  |      |  |      |   J  |   L  |   U  |   Y  |   ;  |      |
+   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
+   * |      |   A  |   R  |   S  |   T  |   G  |      |  |      |   K  |   N  |   E  |   I  |   O  |      |
+   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+   * |      |   Z  |   X  |   C  |   D  |   V  |   [  |  |   ]  |   M  |   H  |   ,  |   .  |   /  |      |
+   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
+   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+   *                                    |      |      |  |      |      |
+   *                                    `-------------'  `--------=----'
+   */
+  [_COLEMAK] = BASE_LAYOUT( \
+      KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, \
+      KC_A,    KC_R,    KC_S,    KC_T,    KC_G,   KC_K,    KC_N,    KC_E,    KC_I,    KC_O,    \
+      KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH
+  ),
 
 
   /* FN
@@ -112,18 +132,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * | Shift|   ;  |   Q  |   J  |   K  |   X  |   [  |  |   ]  |   B  |   M  |   W  |   V  |   Z  |Enter |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |ADJ| Esc  | Alt  | GUI  | EISU |Lower |Space |  |Space |FN | KANA | Left | Down |  Up  |Right |
+   * |  ADJ | Esc  | Alt  | GUI  | EISU |Lower |Space |  |Space |FN | KANA | Left | Down |  Up  |Right |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    *                                    |Lower |Space |  |Space |FN |
    *                                    `-------------'  `------------'
    */
   [_FN] = LAYOUT( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, KC_PSCR, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-      _______, RGB_SAI, RGB_VAI, RGB_SAD, RESET,   KC_LBRC, _______, _______, KC_RBRC, KC_7,    KC_UP,   KC_9,    KC_0,    KC_HOME, \
-      ADJ,     RGB_HUD, RGB_VAD, RGB_HUI, _______, _______, _______, _______, KC_F6,   KC_LEFT, KC_DOWN, KC_RGHT, KC_RBRC, KC_END, \
-      _______, _______, _______, _______, _______, _______, _______, _______, KC_F12,  _______, _______, KC_PGDN, KC_PGUP, _______, \
-      _______, _______, _______, _______, ADJ,     _______, _______, ADJ,     ADJ,     KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, \
-                                                   _______,  KC_DEL, _______, _______ \
+      _______, KC_PGDN, KC_UP,   KC_PGUP, _______, KC_LBRC, _______, _______, KC_RBRC, KC_7,    KC_UP,   KC_9,    KC_0,    KC_HOME, \
+      ADJ,     KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_RBRC, KC_END, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGDN, KC_PGUP, _______, \
+      _______, _______, _______, _______, ADJ,     _______, ADJ,     ADJ,     ADJ,     KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, \
+                        KC_VOLD, KC_VOLU,          _______, KC_DEL,  _______, _______,          KC_VOLD, KC_VOLU \
       ),
 
   /* ADJ
@@ -144,11 +164,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJ] =  LAYOUT( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-      _______, RESET,   RGBRST,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, QWERTY,  COLEMAK, _______, _______, _______, \
+      _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
+      _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______, _______, _______, _______, QWERTY,  COLEMAK, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, \
-                                                   _______, _______, _______, _______ \
+               KC_VOLD, KC_VOLU,          _______, _______, _______, _______,          KC_VOLD, KC_VOLU \
       )
 };
 
@@ -209,9 +229,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-    #ifdef ENCODER_ENABLE
-        knob_init();  //FOR ENCODER
-    #endif
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
     #endif
@@ -219,6 +236,13 @@ void matrix_init_user(void) {
     #ifdef SSD1306OLED
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
+}
+
+void matrix_scan_user(void) {
+  #ifdef SSD1306OLED
+    led_test_init();
+    iota_gfx_task();  // this is what updates the display continuously
+  #endif
 }
 
 
@@ -230,27 +254,6 @@ void matrix_init_user(void) {
 //   'led_test' keymap's led_test_init() force rgblight_mode_noeeprom(35);
 __attribute__ ((weak))
 void led_test_init(void) {}
-
-void matrix_scan_user(void) {
-  #ifdef ENCODER_ENABLE
-    knob_report_t knob_report = knob_report_read();
-    knob_report_reset();
-    if (knob_report.phase) { // I check for phase to avoid handling the rotation twice (on 90 and 270 degrees).
-      while (knob_report.dir > 0) {
-        register_code(KC_VOLU);
-        unregister_code(KC_VOLU);
-        knob_report.dir--;
-      }
-      while (knob_report.dir < 0) {
-        register_code(KC_VOLD);
-        unregister_code(KC_VOLD);
-        knob_report.dir++;
-      }
-    }
-  #endif
-     led_test_init();
-     iota_gfx_task();  // this is what updates the display continuously
-}
 
 void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {

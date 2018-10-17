@@ -1,8 +1,5 @@
 #include QMK_KEYBOARD_H
 #include "bootloader.h"
-#ifdef ENCODER_ENABLE
-#include "common/knob_v2.h"
-#endif
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
@@ -80,7 +77,7 @@ LAYOUT( \
       FN_ESC,  _10,     _11,     _12,     _13,     _14,    RGB_SAI,  RGB_VAI, _15,     _16,     _17,     _18,     _19,     KC_QUOT, \
       KC_LSPO, _20,     _21,     _22,     _23,     _24,    RGB_SAD,  RGB_VAD, _25,     _26,     _27,     _28,     _29,     KC_RSPC, \
       KC_LCTL, KC_LGUI, KC_LGUI, KC_LALT, FN,      KC_SPC, FN,       FN,      KC_SPC,  KC_MINS, KC_EQL,  KC_DOWN, KC_PGUP, KC_PGDN, \
-                                                   KC_SPC, KC_BSPC,  KC_ENT,  KC_SPC\
+                        KC_VOLD, KC_VOLU,          KC_SPC, KC_BSPC,  KC_ENT,  KC_SPC,           KC_VOLD, KC_VOLU \
 )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -123,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_COLEMAK] = BASE_LAYOUT( \
       KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, \
       KC_A,    KC_R,    KC_S,    KC_T,    KC_G,   KC_K,    KC_N,    KC_E,    KC_I,    KC_O,    \
-      KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH
+      KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH  \
   ),
 
 
@@ -148,7 +145,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ADJ,     KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_RBRC, KC_END, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGDN, KC_PGUP, _______, \
       _______, _______, _______, _______, ADJ,     _______, ADJ,     ADJ,     ADJ,     KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, \
-                                                   _______, KC_DEL,  _______, _______ \
+                        KC_VOLD, KC_VOLU,          _______, KC_DEL,  _______, _______,           KC_VOLD, KC_VOLU \
       ),
 
   /* ADJ
@@ -173,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______, _______, _______, _______, QWERTY,  COLEMAK, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, \
-                                                   _______, _______, _______, _______ \
+                        KC_VOLD, KC_VOLU,          _______, _______, _______, _______,           KC_VOLD, KC_VOLU \
       )
 };
 
@@ -188,7 +185,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-// Setting ADJUST layer RGB back to default
+// Setting ADJ layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
     #ifdef RGBLIGHT_ENABLE
@@ -216,7 +213,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case RAISE:
+    case FN:
       if (record->event.pressed) {
         //not sure how to have keyboard check mode and set it to a variable, so my work around
         //uses another variable that would be set to true after the first time a reactive key is pressed.
@@ -227,23 +224,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             //rgblight_mode(15);
           #endif
         }
-        layer_on(_RAISE);
-        //update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
+        layer_on(_FN);
       } else {
         #ifdef RGBLIGHT_ENABLE
           //rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
         #endif
-        layer_off(_RAISE);
+        layer_off(_FN);
         TOG_STATUS = false;
-        //update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
-    case ADJUST:
+    case ADJ:
         if (record->event.pressed) {
-          layer_on(_ADJUST);
+          layer_on(_ADJ);
         } else {
-          layer_off(_ADJUST);
+          layer_off(_ADJ);
         }
         return false;
         break;
@@ -262,9 +257,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_init_user(void) {
-    #ifdef ENCODER_ENABLE
-        knob_init();  //FOR ENCODER
-    #endif
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
     #endif
@@ -285,24 +277,8 @@ __attribute__ ((weak))
 void led_test_init(void) {}
 
 void matrix_scan_user(void) {
-  #ifdef ENCODER_ENABLE
-    knob_report_t knob_report = knob_report_read();
-    knob_report_reset();
-    if (knob_report.phase) { // I check for phase to avoid handling the rotation twice (on 90 and 270 degrees).
-      while (knob_report.dir > 0) {
-        register_code(KC_VOLU);
-        unregister_code(KC_VOLU);
-        knob_report.dir--;
-      }
-      while (knob_report.dir < 0) {
-        register_code(KC_VOLD);
-        unregister_code(KC_VOLD);
-        knob_report.dir++;
-      }
-    }
-  #endif
-     led_test_init();
-     iota_gfx_task();  // this is what updates the display continuously
+    led_test_init();
+    iota_gfx_task();  // this is what updates the display continuously
 }
 
 void matrix_update(struct CharacterMatrix *dest,
@@ -315,9 +291,8 @@ void matrix_update(struct CharacterMatrix *dest,
 
 //assign the right code to your layers for OLED display
 #define L_BASE 0
-#define L_RAISE (1<<_RAISE)
-#define L_ADJUST (1<<_ADJUST)
-#define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
+#define L_FN (1<<_FN)
+#define L_ADJ (1<<_ADJ
 
 static void render_logo(struct CharacterMatrix *matrix) {
 
@@ -354,12 +329,12 @@ void render_status(struct CharacterMatrix *matrix) {
         case L_BASE:
            matrix_write_P(matrix, PSTR("Default"));
            break;
-        case L_RAISE:
-           matrix_write_P(matrix, PSTR("Raise"));
+        case L_FN:
+           matrix_write_P(matrix, PSTR("FN"));
            break;
-        case L_ADJUST:
-        case L_ADJUST_TRI:
-           matrix_write_P(matrix, PSTR("Adjust"));
+        case L_ADJ:
+        case L_ADJ_TRI:
+           matrix_write_P(matrix, PSTR("ADJ"));
            break;
         default:
            matrix_write(matrix, buf);

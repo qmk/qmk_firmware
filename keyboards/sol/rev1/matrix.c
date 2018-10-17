@@ -32,14 +32,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <drivers/avr/pro_micro.h>
 #include "config.h"
 
-#ifdef USE_MATRIX_I2C
-#  include "i2c.h"
-#else // USE_SERIAL
-#  include "serial.h"
-#endif
+#include "serial.h"
 
 #ifndef DEBOUNCE
 #  define DEBOUNCE	5
+#endif
+
+#ifdef ENCODER_ENABLE
+  #include "common/knob_v2.h"
 #endif
 
 #define ERROR_DISCONNECT_COUNT 5
@@ -112,6 +112,9 @@ void matrix_init(void)
 
     is_master = has_usb();
 
+    #ifdef ENCODER_ENABLE
+        knob_init();  //FOR ENCODER
+    #endif
     matrix_init_quantum();
 }
 
@@ -141,58 +144,36 @@ uint8_t _matrix_scan(void)
         }
     }
 
+    #ifdef ENCODER_ENABLE
+      knob_report_t knob_report = knob_report_read();
+
+      knob_report_reset();
+
+      matrix[5 + offset] &= 0b11111100;
+      if (knob_report.phase) { // I check for phase to avoid handling the rotation twice (on 90 and 270 degrees).
+        if (knob_report.dir > 0) {
+          matrix[5 + offset] |= 0b00000001;
+        } else if (knob_report.dir < 0) {
+          matrix[5 + offset] |= 0b00000010;
+        }
+      }
+    #endif
+
     return 1;
 }
-
-#ifdef USE_MATRIX_I2C
-
-// Get rows from other half over i2c
-int i2c_transaction(void) {
-    int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
-
-    int err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-    if (err) goto i2c_error;
-
-    // start of matrix stored at 0x00
-    err = i2c_master_write(0x00);
-    if (err) goto i2c_error;
-
-    // Start read
-    err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_READ);
-    if (err) goto i2c_error;
-
-    if (!err) {
-        int i;
-        for (i = 0; i < ROWS_PER_HAND-1; ++i) {
-            matrix[slaveOffset+i] = i2c_master_read(I2C_ACK);
-        }
-        matrix[slaveOffset+i] = i2c_master_read(I2C_NACK);
-        i2c_master_stop();
-    } else {
-i2c_error: // the cable is disconnceted, or something else went wrong
-        i2c_reset_state();
-        return err;
-    }
-
-    return 0;
-}
-
-#else // USE_SERIAL
 
 int serial_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
     int ret=serial_update_buffers();
     if (ret ) {
-        if(ret==2)RXLED1;
         return 1;
     }
-RXLED0;
+
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         matrix[slaveOffset+i] = serial_slave_buffer[i];
     }
     return 0;
 }
-#endif
 
 uint8_t matrix_scan(void)
 {
@@ -201,17 +182,11 @@ uint8_t matrix_scan(void)
     }else{
         matrix_slave_scan();
 
-//        if(serial_slave_DATA_CORRUPT()){
-//          TXLED0;
-          int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
+        int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
 
-          for (int i = 0; i < ROWS_PER_HAND; ++i) {
-              matrix[offset+i] = serial_master_buffer[i];
-          }
-
-//        }else{
-//          TXLED1;
-//        }
+        for (int i = 0; i < ROWS_PER_HAND; ++i) {
+            matrix[offset+i] = serial_master_buffer[i];
+        }
 
         matrix_scan_quantum();
     }
@@ -223,26 +198,13 @@ uint8_t matrix_master_scan(void) {
 
     int ret = _matrix_scan();
 
-#ifndef KEYBOARD_helix_rev1
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
-#ifdef USE_MATRIX_I2C
-//    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        /* i2c_slave_buffer[i] = matrix[offset+i]; */
-//        i2c_slave_buffer[i] = matrix[offset+i];
-//    }
-#else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_master_buffer[i] = matrix[offset+i];
     }
-#endif
-#endif
 
-#ifdef USE_MATRIX_I2C
-    if( i2c_transaction() ) {
-#else // USE_SERIAL
     if( serial_transaction() ) {
-#endif
         // turn on the indicator led when halves are disconnected
         TXLED1;
 
@@ -269,16 +231,9 @@ void matrix_slave_scan(void) {
 
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
-#ifdef USE_MATRIX_I2C
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        /* i2c_slave_buffer[i] = matrix[offset+i]; */
-        i2c_slave_buffer[i] = matrix[offset+i];
-    }
-#else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
     }
-#endif
 }
 
 bool matrix_is_modified(void)

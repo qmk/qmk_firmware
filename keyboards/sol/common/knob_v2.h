@@ -1,9 +1,19 @@
 // Rotary knob implementation - Version 2.
 // Uses 2 digital pins - D2 (via interrupt) & D6.
-#include "../../../sol/sol.h"
+// #include "rev1.h"
 #include <avr/io.h>
 #include <avr/interrupt.h>
-//#include <stdbool.h>
+#include <stdbool.h>
+
+#ifndef ENCODER_PIN_1
+  #define ENCODER_PIN_1 PD4
+#endif
+#ifndef ENCODER_PIN_2
+  #define ENCODER_PIN_2 PD6
+#endif
+#ifndef ENCODER_INT
+  #define ENCODER_INT   INT2_vect
+#endif
 
 typedef struct knob_report_t {
     int8_t dir;  // Contains number of rotations that happened
