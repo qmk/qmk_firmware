@@ -34,7 +34,7 @@ enum sql_macros {
   TD_S, // Supplier, Step
   TD_T, // Task, Type
   TD_W, // Workflow,
-
+  TD_BSPC,
   TD_ENT,
   TD_ESC
 };
@@ -43,15 +43,46 @@ uint16_t *macroTaps = 0;
 
 char *tableNameList = 0;
 
+uint8_t *charCount = 0;
+uint8_t countPointer = 0;
+
 #define macroTapsLen 32
 #define tableNameListLen 32
+#define charCountLen 32
 
 bool shifted = false;
 
 bool sendAbbr = false;
 
 
-uint32_t mainMode;
+void initStringData(void)
+{
+  if (macroTaps == 0)
+  {
+    macroTaps = malloc(macroTapsLen*sizeof(uint16_t));
+    for(int i = 0; i < macroTapsLen; i++)
+    {
+      macroTaps[i] = 0;
+    }
+  }
+  if (tableNameList == 0)
+  {
+    tableNameList = malloc(tableNameListLen*sizeof(char));
+    for(int i = 0; i < tableNameListLen; i++)
+    {
+      tableNameList[i] = 0;
+    }
+  }
+  if (charCount == 0)
+  {
+    charCount = malloc(charCountLen*sizeof(uint8_t));
+    for (int i = 0; i < charCountLen; i++)
+    {
+      charCount[i] = 0;
+    }
+  }
+}
+
 
 uint32_t layer_state_set_user(uint32_t state)
 {
@@ -98,26 +129,6 @@ uint32_t layer_state_set_user(uint32_t state)
       break;
   }
   return state;
-}
-
-void initStringData(void)
-{
-  if (macroTaps == 0)
-  {
-    macroTaps = malloc(macroTapsLen*sizeof(uint16_t));
-    for(int i = 0; i < macroTapsLen; i++)
-    {
-      macroTaps[i] = 0;
-    }
-  }
-  if (tableNameList == 0)
-  {
-    tableNameList = malloc(tableNameListLen*sizeof(char));
-    for(int i = 0; i < tableNameListLen; i++)
-    {
-      tableNameList[i] = 0;
-    }
-  }
 }
 
 bool containsCode(uint16_t kc)
@@ -173,6 +184,15 @@ void eraseKeyCodes(void)
   while (i < macroTapsLen && macroTaps[i] > 0) macroTaps[i++] = 0;
 }
 
+void eraseCharCounts(void)
+{
+  int i = 0;
+  while (i < charCountLen)
+  {
+    charCount[i] = 0;
+  }
+}
+
 void printTableAbbreviation(void)
 {
   initStringData();
@@ -209,6 +229,7 @@ void eraseTableAbbreviation(void)
 
 void printString(char* str)
 {
+
   if (str[0] != '\0')
   {
     int i = 0;
@@ -219,6 +240,7 @@ void printString(char* str)
         break;
       }
       send_char(str[i++]);
+      charCount[countPointer]++;
     }
   }
     //for (i = 0; i < tableNameListLen && tableNameList[i] > 0; i++)
@@ -233,6 +255,10 @@ void printString(char* str)
 void printStringAndQueueChar(char* str)
 {
   initStringData();
+  if (charCount[countPointer] != 0)
+  {
+    countPointer++;
+  }
   sendAbbr = true;
   if (str[0] != '\0')
   {
@@ -262,13 +288,42 @@ void printStringAndQueueChar(char* str)
   }
 }
 
-void backspaceString(char *str)
+void ReplaceString(char *orig, char *repl)
 {
-  for (int i = 0; str[i] > 0; i++)
+  int i = 0;
+  while((orig[i] != 0x0 && repl[i] != 0x0) && orig[i] == repl[i])
+   i++;
+
+  if(orig[i] != 0x0)
   {
-    register_code(KC_BSPC);
-    unregister_code(KC_BSPC);
+    int o = i;
+    while (orig[o++] != 0x0) {
+      charCount[countPointer]--;
+      register_code(KC_BSPC);
+      unregister_code(KC_BSPC);
+    }
   }
+  printString(repl+i);
+}
+
+void deletePrev(void)
+{
+  for (int i = 0; i < charCount[countPointer]; i++)
+  {
+      register_code(KC_BSPC);
+      unregister_code(KC_BSPC);
+  }
+  charCount[countPointer] = 0;
+  countPointer--;
+  int i = 1;
+  for (;i < tableNameListLen-1; i++)
+  {
+    if (tableNameList[i] == 0x0)
+    {
+      break;
+    }
+  }
+  tableNameList[i-1] = 0x0;
 }
 
 void processSmartMacroTap(uint16_t kc)
@@ -284,8 +339,7 @@ void processSmartMacroTap(uint16_t kc)
       }
       else if (last2CodeAre(TD_C))
       {
-        backspaceString("Corporation");
-        printString("Contact");
+        ReplaceString("Corporation", "Contact");
       }
       else if(lastCodeIs(TD_C))
       {
@@ -299,8 +353,7 @@ void processSmartMacroTap(uint16_t kc)
     case TD_D:
       if (last2CodeAre(TD_D))
       {
-        backspaceString("ion");
-        printString("or");
+        ReplaceString("Distribution", "Distributor");
       }
       else if(lastCodeIs(TD_D))
       {
@@ -327,8 +380,7 @@ void processSmartMacroTap(uint16_t kc)
     case TD_P:
       if (last2CodesAre(TD_D, TD_C))
       {
-        backspaceString("DistributionCenter");
-        printString("DistCenter");
+        ReplaceString("DistributionCenter", "DistCenter");
         printStringAndQueueChar("Pricing");
       }
       else if (last2CodeAre(TD_P))
@@ -336,8 +388,7 @@ void processSmartMacroTap(uint16_t kc)
       }
       else if(lastCodeIs(TD_P))
       {
-        backspaceString("Product");
-        printString("Person");
+        ReplaceString("Product", "Person");
       }
       else
       {
@@ -392,7 +443,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       case KC_BSLS:
         initStringData();
         layer_on(SQLNAMES);
-       return false;
+        return false;
+
+      case TD_BSPC:
+        if (!shifted){
+          deletePrev();
+        }
+        else {
+          register_code(KC_BSPC);
+          unregister_code(KC_BSPC);
+        }
+        return false;
 
       case TD_C:
       case TD_D:
@@ -505,7 +566,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [SQLNAMES]=
     LAYOUT(
-      TD_ESC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      TD_ESC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TD_BSPC,
       KC_TRNS, TD_Q,    TD_W,    KC_TRNS, KC_TRNS, TD_T,    KC_TRNS, KC_TRNS, TD_I,    KC_TRNS, TD_P,    KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_TRNS, TD_S,    TD_D,    KC_TRNS, TD_G,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TD_ENT,
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TD_C,    KC_TRNS, KC_TRNS, TD_N,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
