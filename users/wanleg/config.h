@@ -10,6 +10,10 @@
 
 #elif defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_big_switch)
 #define TAPPING_TERM 700
+
+#elif defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_bigswitch)
+#define TAPPING_TERM 700
+
 #else
 #define TAPPING_TERM 145
 #endif
