@@ -72,7 +72,7 @@ __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
 // Set RGBLIGHT state depending on layer
 void rgblight_change( uint8_t this_layer ) {
     // Enable RGB light; will not work without this
-	rgblight_enable_noeeprom();	
+	//rgblight_enable_noeeprom();	
 	// Change RGB light
     switch ( this_layer ) {
         case _DV:
@@ -83,36 +83,49 @@ void rgblight_change( uint8_t this_layer ) {
             // Do yellow for alternate
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom( 60,255,255);
+			
+
             break;
         case _GA:
             // Do purple for game
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(285,255,255);
+			
+
             break;
         case _NU:
             // Do azure for number
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(186,200,255);
+			
+
             break;
         case _SE:
             // Do red for settings
 			rgblight_enable_noeeprom();
+
             rgblight_sethsv_noeeprom( 16,255,255);
+			
             break;
         case _MO:
             // Do green for mouse
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(120,255,255);
+			
+
             break;
         case _MU:
             // Do orange for music
+			
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom( 39,255,255);
+			
             break;
         default:
             // Something went wrong
 			rgblight_enable_noeeprom();
             rgblight_sethsv_noeeprom(  0,255,255);
+			
             break;
     }
 }
@@ -134,21 +147,6 @@ void matrix_init_user (void) {
 
     // Make beginning layer DVORAK
     set_single_persistent_default_layer(_DV);
-
-//--RGB light initialize base layer
-#ifdef RGBLIGHT_ENABLE
-    // Base hue is white, and RGB disabled
-    base_hue = 100;
-    base_sat = 0;
-    base_val = 255;
-    base_mod = 2;
-    base_tog = false;
-    rgblight_enable();
-    rgblight_mode(base_mod);
-    rgblight_sethsv(base_hue,base_sat,base_val);
-    rgblight_disable();
-    rgblight_loadBase();
-#endif
 
 }
 
@@ -192,23 +190,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
             break;
 #endif 
-
-        // If these keys are pressed, load base layer config, and mark saving
-#ifdef RGBLIGHT_ENABLE
-        case RGB_TOG:
-        case RGB_MOD:
-        case RGB_VAI:
-        case RGB_VAD:
-        case RGB_SAI:
-        case RGB_SAD:
-        case RGB_HUI:
-        case RGB_HUD:
-            if ( !base_sta ) {
-                rgblight_loadBase(); 
-            }
-            return true;
-            break;
-#endif
 
         // Lock functionality: These layers are locked if the LOCKED buttons are
         // pressed. Otherwise, they are momentary toggles
