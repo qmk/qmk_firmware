@@ -1,4 +1,4 @@
-/* Copyright 2017 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018 darm
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,11 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include "../../config.h"
+#define USE_SERIAL
+#define MASTER_LEFT
 
-// place overrides here
+#define TAPPING_TERM 200
+#define TAPPING_TOGGLE 2
 
-#endif
+#define MOUSEKEY_DELAY             0
+#define MOUSEKEY_INTERVAL          16
+#define MOUSEKEY_MAX_SPEED         7
+#define MOUSEKEY_TIME_TO_MAX       60
+#define MOUSEKEY_WHEEL_MAX_SPEED   8
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+#define MOUSEKEY_WHEEL_DELAY 0
