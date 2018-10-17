@@ -224,6 +224,7 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     OPT_DEFS += -DHD44780_ENABLE
 endif
 
+<<<<<<< HEAD
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
     SRC += $(QUANTUM_DIR)/dynamic_keymap.c
@@ -232,6 +233,13 @@ endif
 ifeq ($(strip $(LEADER_ENABLE)), yes)
   SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
   OPT_DEFS += -DLEADER_ENABLE
+endif
+
+ifeq ($(strip $(JOYSTICK_ENABLE)), yes)
+    OPT_DEFS += -DJOYSTICK_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_joystick.c
+    SRC += $(QUANTUM_DIR)/joystick.c
+    SRC += drivers/avr/analog.c
 endif
 
 QUANTUM_SRC:= \

@@ -40,7 +40,7 @@ int16_t analogRead(uint8_t pin)
 		0x25, 0x24, 0x23, 0x22, 0x21, 0x20};
 	if (pin >= 12) return 0;
 	return adc_read(pgm_read_byte(pin_to_mux + pin));
-#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__)
+#elif defined(__AVR_AT90USB646__) || defined(__AVR_AT90USB1286__) || defined(__AVR_ATmega32A__)
 	if (pin >= 8) return 0;
 	return adc_read(pin);
 #else
@@ -57,7 +57,10 @@ int16_t adc_read(uint8_t mux)
 	uint8_t low;
 
 	ADCSRA = (1<<ADEN) | ADC_PRESCALER;		// enable ADC
+  
+#ifndef __AVR_ATmega32A__
 	ADCSRB = (1<<ADHSM) | (mux & 0x20);		// high speed mode
+#endif
 	ADMUX = aref | (mux & 0x1F);			// configure mux input
 	ADCSRA = (1<<ADEN) | ADC_PRESCALER | (1<<ADSC);	// start the conversion
 	while (ADCSRA & (1<<ADSC)) ;			// wait for result
