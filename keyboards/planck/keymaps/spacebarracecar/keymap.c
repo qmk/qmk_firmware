@@ -143,6 +143,7 @@ switch (keycode) {
       layer_off(_MUSICMODE);
     }
     return true;
+  default:
+    return true;
   }
-  return true;
 }

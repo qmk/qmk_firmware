@@ -80,7 +80,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       timer_timeout();
       game = !game;
     }
-    return false;
+    // allows keymap to execute further commands when CU_GAME is pressed, for example enabling a macro layer
+    return process_record_keymap(keycode, record) && false;
   case KC_LGUI:
   case KC_RGUI:
     if (record->event.pressed)

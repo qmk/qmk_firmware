@@ -121,6 +121,7 @@ switch (keycode) {
     } else {
       return true;
     }
+  default:
+    return true;
   }
-  return true;
 }
