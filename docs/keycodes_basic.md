@@ -1,6 +1,6 @@
 # Basic Keycodes
 
-The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07)](http://www.usb.org/developers/hidpage/Hut1_12v2.pdf) with the exception of `KC_NO`, `KC_TRNS` and keycodes in the `0xA5-DF` range. See below for more details.
+The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07)](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) with the exception of `KC_NO`, `KC_TRNS` and keycodes in the `0xA5-DF` range. See below for more details.
 
 ## Letters and Numbers
 
