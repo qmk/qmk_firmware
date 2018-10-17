@@ -68,108 +68,51 @@ __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) { }
  * -----RGB Functions----- *
 \* ----------------------- */
 #ifdef RGBLIGHT_ENABLE
-// Storage variables
-extern  rgblight_config_t rgblight_config;
-bool    base_sta;   // Keeps track if in saveable state
-bool    base_tog;   // Whether base state is active or not
-int     base_hue;   // Hue value of base state
-int     base_sat;   // Saturation value of base state
-int     base_val;   // Brightness value of base state
-uint8_t base_mod;   // Animation mode of the base state
-
-// Save the current state of the rgb mode
-void rgblight_saveBase(void) {
-    base_hue = rgblight_config.hue;
-    base_sat = rgblight_config.sat;
-    base_val = rgblight_config.val;
-    base_mod = rgblight_config.mode;
-    base_tog = rgblight_config.enable;
-    base_sta = false;   // If saving, that means base layer is being left
-}
-
-// Load the base state back 
-void rgblight_loadBase(void) {
-    // Don't do anything if not enabled
-    if ( !base_sta ) {
-        if ( base_tog ) {
-            rgblight_enable();
-            rgblight_mode( base_mod );
-            rgblight_sethsv( base_hue, base_sat, base_val );
-        } else {
-            rgblight_disable();
-        }
-    }
-    // Mark that base is loaded, and to be saved before leaving
-    base_sta = true;
-}
-
-// Set to plain HSV color
-void rgblight_colorStatic( int hu, int sa, int va ) {
-    // First, it must be enabled or color change is not written
-    rgblight_enable();
-    rgblight_mode(1);
-    rgblight_sethsv(hu,sa,va);
-}
-/* HSV values
- * white        (  0,   0, 255)
- * red          (  0, 255, 255)
- * coral        ( 16, 176, 255)
- * orange       ( 39, 255, 255)
- * goldenrod    ( 43, 218, 218)
- * gold         ( 51, 255, 255)
- * yellow       ( 60, 255, 255)
- * chartreuse   ( 90, 255, 255)
- * green        (120, 255, 255)
- * springgreen  (150, 255, 255)
- * turquoise    (174,  90, 112)
- * teal         (180, 255, 128)
- * cyan         (180, 255, 255)
- * azure        (186, 102, 255)
- * blue         (240, 255, 255)
- * purple       (270, 255, 255)
- * magenta      (300, 255, 255)
- * pink         (330, 128, 255)
- */
 
 // Set RGBLIGHT state depending on layer
 void rgblight_change( uint8_t this_layer ) {
-    // Save state, if saving is requested
-    if ( base_sta ) {
-        rgblight_saveBase();
-    }
-    // Change RGB light
+    // Enable RGB light; will not work without this
+	rgblight_enable_noeeprom();	
+	// Change RGB light
     switch ( this_layer ) {
         case _DV:
             // Load base layer
-            rgblight_loadBase();
+            rgblight_disable_noeeprom();
             break;
         case _AL:
             // Do yellow for alternate
-            rgblight_colorStatic( 60,255,255);
+			rgblight_enable_noeeprom();
+            rgblight_sethsv_noeeprom( 60,255,255);
             break;
         case _GA:
             // Do purple for game
-            rgblight_colorStatic(285,255,255);
+			rgblight_enable_noeeprom();
+            rgblight_sethsv_noeeprom(285,255,255);
             break;
         case _NU:
             // Do azure for number
-            rgblight_colorStatic(186,200,255);
+			rgblight_enable_noeeprom();
+            rgblight_sethsv_noeeprom(186,200,255);
             break;
         case _SE:
             // Do red for settings
-            rgblight_colorStatic( 16,255,255);
+			rgblight_enable_noeeprom();
+            rgblight_sethsv_noeeprom( 16,255,255);
             break;
         case _MO:
             // Do green for mouse
-            rgblight_colorStatic(120,255,255);
+			rgblight_enable_noeeprom();
+            rgblight_sethsv_noeeprom(120,255,255);
             break;
         case _MU:
             // Do orange for music
-            rgblight_colorStatic( 39,255,255);
+			rgblight_enable_noeeprom();
+            rgblight_sethsv_noeeprom( 39,255,255);
             break;
         default:
             // Something went wrong
-            rgblight_colorStatic(  0,255,255);
+			rgblight_enable_noeeprom();
+            rgblight_sethsv_noeeprom(  0,255,255);
             break;
     }
 }
