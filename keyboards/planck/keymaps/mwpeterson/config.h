@@ -1,12 +1,7 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include "config_common.h"
-#define PREVENT_STUCK_MODIFIERS
 #define PERMISSIVE_HOLD
 #define IGNORE_MOD_TAP_INTERRUPT
-
-#define NO_DEBUG
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(ONE_UP_SOUND)
@@ -43,5 +38,3 @@
 
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
-
-#endif

@@ -1,11 +1,6 @@
 // from <https://github.com/noahfrederick/dots/tree/master/planck
 
-#include "planck.h"
-#include "action_layer.h"
-#ifdef AUDIO_ENABLE
-#include "audio.h"
-#endif
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 #include "keymap_plover.h"
 #include "version.h"
 
@@ -252,11 +247,6 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(QWERTY_LAYER);
-      }
-      return false;
     case STENO:
       if (record->event.pressed) {
 #ifdef AUDIO_ENABLE
