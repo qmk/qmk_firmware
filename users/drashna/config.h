@@ -19,9 +19,11 @@
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
+#undef RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
 #endif // RGBLIGHT_ENABLE
-
-
 
 #ifndef ONESHOT_TAP_TOGGLE
 #define ONESHOT_TAP_TOGGLE 2
@@ -43,7 +45,6 @@
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef  PERMISSIVE_HOLD
-#define PREVENT_STUCK_MODIFIERS
 // #define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 
@@ -56,7 +57,11 @@
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif // TAPPING_TERM
-#define TAPPING_TERM 175
+#ifdef KEYBOARD_ergodox_ez
+  #define TAPPING_TERM 185
+#else
+  #define TAPPING_TERM 175
+#endif
 
 
 // Disable action_get_macro and fn_actions, since we don't use these

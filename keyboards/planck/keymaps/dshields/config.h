@@ -1,17 +1,7 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include "../../config.h"
-
-#define QMK_ESC_OUTPUT F1
-#define QMK_ESC_INPUT  D5
-#define QMK_LED        E6
-#define QMK_SPEAKER    C6
-
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-#define PREVENT_STUCK_MODIFIERS
-
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_DIGITAL_RAIN_DROPS    24
 #define USB_MAX_POWER_CONSUMPTION 100
 #define ONESHOT_TAP_TOGGLE        2
 #define ONESHOT_TIMEOUT           3000
@@ -39,6 +29,4 @@
 
 // mod-tap keys
 #define MT_SPC  SFT_T(KC_SPC)
-
-#endif
 
