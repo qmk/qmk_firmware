@@ -96,8 +96,25 @@ bool shifted = false;
 
 bool sendAbbr = false;
 
+void initStringData(void)
+{
+  if (tableNameList == 0)
+  {
+    tableNameList = malloc(tableNameListLen*sizeof(char));
+    for(int i = 0; i < tableNameListLen; i++)
+    {
+      tableNameList[i] = 0;
+    }
+  }
+}
+
 void printTableAbbreviation(void)
 {
+  initStringData();
+  if (tableNameList[0] == 0)
+  {
+    return;
+  }
   send_char(0x20);
   int i = 0;
   for (i = 0; i < tableNameListLen && tableNameList[i] > 0; i++)
@@ -112,18 +129,21 @@ void printTableAbbreviation(void)
     }
     tableNameList[i] = '\0';
   }
+  send_char(0x20);
+}
+
+void eraseTableAbbreviation(void)
+{
+  initStringData();
+  for (int i = 0; i < tableNameListLen && tableNameList[i] > 0; i++)
+  {
+    tableNameList[i] = '\0';
+  }
 }
 
 void printStringAndQueueChar(char* str)
 {
-  if (tableNameList == 0)
-  {
-    tableNameList = malloc(tableNameListLen*sizeof(char));
-    for(int i = 0; i < tableNameListLen; i++)
-    {
-      tableNameList[i] = 0;
-    }
-  }
+  initStringData();
   if (str[0] != '\0')
   {
     int i = 0;
@@ -186,7 +206,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       case N_CNTCT: printStringAndQueueChar("Contact"); return false;
       case N_WRKFL: printStringAndQueueChar("Workflow"); return false;
       case N_DIST:  printStringAndQueueChar("Dist"); return false;
-      case N_DSTRB: printStringAndQueueChar("Distributor"); return false;
+      case N_DSTRB: printStringAndQueueChar("Distribution"); return false;
       case N_STEP:  printStringAndQueueChar("Step"); return false;
       case N_NSTNC: printStringAndQueueChar("Instance"); return false;
       case N_TASK:  printStringAndQueueChar("Task"); return false;
@@ -211,6 +231,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       case LT(SQLNAMES,KC_BSLS):
         if (!shifted)
           printTableAbbreviation();
+        else
+          eraseTableAbbreviation();
         sendAbbr = false;
         return true;
     }
@@ -278,9 +300,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [SQLMACROS]=
     LAYOUT(
-      S_ALTER, KC_F13, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_F19, KC_F20, KC_F21, KC_F22, KC_F23, KC_F24, KC_TRNS, KC_TRNS,
+      S_ALTER, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_TRNS, S_WHERE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, S_INRJN, S_ORDER, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_LBRC, S_SLCT,  S_DSNCT, S_FROM,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, S_LFTJN, KC_TRNS, KC_RBRC, KC_TRNS,
+      KC_TRNS, KC_LBRC, S_SLCT,  KC_PAST, S_FROM,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, S_LFTJN, KC_TRNS, KC_RBRC, KC_TRNS,
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
