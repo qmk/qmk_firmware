@@ -39,6 +39,15 @@ enum sql_macros {
   N_PRCNG
 };
 
+#define tableNameListLen 32
+
+char *tableNameList = 0;
+
+bool shifted = false;
+
+bool sendAbbr = false;
+
+
 uint32_t mainMode;
 
 uint32_t layer_state_set_user(uint32_t state)
@@ -88,14 +97,6 @@ uint32_t layer_state_set_user(uint32_t state)
   return state;
 }
 
-#define tableNameListLen 32
-
-char *tableNameList = 0;
-
-bool shifted = false;
-
-bool sendAbbr = false;
-
 void initStringData(void)
 {
   if (tableNameList == 0)
@@ -127,7 +128,6 @@ void printTableAbbreviation(void)
     {
       send_char(tableNameList[i]);
     }
-    tableNameList[i] = '\0';
   }
   send_char(0x20);
 }
@@ -144,6 +144,7 @@ void eraseTableAbbreviation(void)
 void printStringAndQueueChar(char* str)
 {
   initStringData();
+  sendAbbr = true;
   if (str[0] != '\0')
   {
     int i = 0;
@@ -177,8 +178,8 @@ void printStringAndQueueChar(char* str)
     //send_string_P(&myarray);
     //send_string_P(str);
   }
-
 }
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   if (record->event.pressed)
@@ -200,7 +201,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       case S_ALTER: SEND_STRING("ALTER SESSION SET CURRENT_SCHEMA = "); return false;
 
 
-      case N_DRDN:  printStringAndQueueChar("Darden"); return false;
+      case N_DRDN:  printStringAndQueueChar("Darden"); return false; //Q
       case N_PRDCT: printStringAndQueueChar("Product"); return false;
       case N_SPPLR: printStringAndQueueChar("Supplier"); return false;
       case N_CNTCT: printStringAndQueueChar("Contact"); return false;
@@ -212,12 +213,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       case N_TASK:  printStringAndQueueChar("Task"); return false;
       case N_CNTR:  printStringAndQueueChar("Center"); return false;
       case N_PRCNG: printStringAndQueueChar("Pricing"); return false;
-      case LT(SQLNAMES,KC_BSLS):
-        if (shifted)
-        {
-          sendAbbr = true;
-        }
-        return true;
     }
   }
   else
@@ -229,10 +224,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         shifted = false;
         return true;
       case LT(SQLNAMES,KC_BSLS):
-        if (!shifted)
-          printTableAbbreviation();
+        if (sendAbbr)
+        {
+          if (!shifted)
+          {
+            printTableAbbreviation();
+          }
+        }
         else
-          eraseTableAbbreviation();
+        {
+          if (shifted)
+          {
+            SEND_STRING("|");
+          }
+          else
+          {
+            SEND_STRING("\\");
+          }
+        }
+        eraseTableAbbreviation();
         sendAbbr = false;
         return true;
     }
