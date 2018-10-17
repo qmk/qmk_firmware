@@ -24,24 +24,27 @@ enum sql_macros {
   S_WHERE, // W
   S_ALTER, // Esc
 
+  TD_C, // Corp, Corporation, Company
+  TD_D, // Distribution, Dist, Distributor
+  TD_G, // GlobalLookup
+  TD_I, // Instance, Item
+  TD_N, // NadRate
+  TD_P, // Product, Person,
+  TD_Q, // Darden
+  TD_S, // Supplier, Step
+  TD_T, // Task, Type
+  TD_W, // Workflow,
 
-  N_DRDN,
-  N_PRDCT,
-  N_SPPLR,
-  N_CNTCT,
-  N_WRKFL,
-  N_DIST,
-  N_DSTRB,
-  N_STEP,
-  N_NSTNC,
-  N_TASK,
-  N_CNTR,
-  N_PRCNG
+  TD_ENT,
+  TD_ESC
 };
 
-#define tableNameListLen 32
+uint16_t *macroTaps = 0;
 
 char *tableNameList = 0;
+
+#define macroTapsLen 32
+#define tableNameListLen 32
 
 bool shifted = false;
 
@@ -99,6 +102,14 @@ uint32_t layer_state_set_user(uint32_t state)
 
 void initStringData(void)
 {
+  if (macroTaps == 0)
+  {
+    macroTaps = malloc(macroTapsLen*sizeof(uint16_t));
+    for(int i = 0; i < macroTapsLen; i++)
+    {
+      macroTaps[i] = 0;
+    }
+  }
   if (tableNameList == 0)
   {
     tableNameList = malloc(tableNameListLen*sizeof(char));
@@ -107,6 +118,59 @@ void initStringData(void)
       tableNameList[i] = 0;
     }
   }
+}
+
+bool containsCode(uint16_t kc)
+{
+  for (int i = 0; i < macroTapsLen && macroTaps[i] > 0; i++)
+  {
+    if (macroTaps[i] == kc) return true;
+  }
+  return false;
+}
+
+bool lastCodeIs(uint16_t kc)
+{
+  for (int i = 0; i < macroTapsLen-1 && macroTaps[i] > 0; i++)
+  {
+    if (macroTaps[i] == kc && macroTaps[i+1] == 0) return true;
+  }
+  return false;
+}
+
+bool last2CodeAre(uint16_t kc)
+{
+  for (int i = 0; i < macroTapsLen-2 && macroTaps[i] > 0; i++)
+  {
+    if (macroTaps[i] == kc && macroTaps[i+1] == kc && macroTaps[i+2] == 0) return true;
+  }
+  return false;
+}
+
+bool last2CodesAre(uint16_t kc, uint16_t kc2)
+{
+  for (int i = 0; i < macroTapsLen-2 && macroTaps[i] > 0; i++)
+  {
+    if (macroTaps[i] == kc && macroTaps[i+1] == kc2 && macroTaps[i+2] == 0) return true;
+  }
+  return false;
+}
+
+void addKeyCode(uint16_t kc)
+{
+  int i = 0;
+  while (i < macroTapsLen-2 && macroTaps[i] > 0) i++;
+  if (macroTaps[i] == 0)
+  {
+    macroTaps[i] = kc;
+    macroTaps[i+1] = 0;
+  }
+}
+
+void eraseKeyCodes(void)
+{
+  int i = 0;
+  while (i < macroTapsLen && macroTaps[i] > 0) macroTaps[i++] = 0;
 }
 
 void printTableAbbreviation(void)
@@ -141,10 +205,10 @@ void eraseTableAbbreviation(void)
   }
 }
 
-void printStringAndQueueChar(char* str)
+
+
+void printString(char* str)
 {
-  initStringData();
-  sendAbbr = true;
   if (str[0] != '\0')
   {
     int i = 0;
@@ -156,7 +220,25 @@ void printStringAndQueueChar(char* str)
       }
       send_char(str[i++]);
     }
-    for (i = 0; i < tableNameListLen-1; i++)
+  }
+    //for (i = 0; i < tableNameListLen && tableNameList[i] > 0; i++)
+    //{
+    //  send_char(tableNameList[i]);
+    //}
+    //send_string_P("Darden");
+    //send_string_P(&myarray);
+    //send_string_P(str);
+}
+
+void printStringAndQueueChar(char* str)
+{
+  initStringData();
+  sendAbbr = true;
+  if (str[0] != '\0')
+  {
+    printString(str);
+
+    for (int i = 0; i < tableNameListLen-1; i++)
     {
       if (tableNameList[i] == '\0')
       {
@@ -180,6 +262,115 @@ void printStringAndQueueChar(char* str)
   }
 }
 
+void backspaceString(char *str)
+{
+  for (int i = 0; str[i] > 0; i++)
+  {
+    register_code(KC_BSPC);
+    unregister_code(KC_BSPC);
+  }
+}
+
+const char *_dist = "Dist";
+
+void processSmartMacroTap(uint16_t kc)
+{
+  initStringData();
+  switch(kc)
+  {
+    case TD_C:
+      if (containsCode(TD_D))
+      {
+        printString("ribution");
+        printStringAndQueueChar("Center");
+      }
+      else if (last2CodeAre(TD_C))
+      {
+        backspaceString("Corporation");
+        printString("Contact");
+      }
+      else if(lastCodeIs(TD_C))
+      {
+        printString("oration");
+      }
+      else
+      {
+        printStringAndQueueChar("Corp");
+      }
+      break;
+    case TD_D:
+      if (last2CodeAre(TD_D))
+      {
+        backspaceString("ion");
+        printString("or");
+      }
+      else if(lastCodeIs(TD_D))
+      {
+        printString("ribution");
+      }
+      else
+      {
+        printStringAndQueueChar("Dist");
+      }
+      break;
+    case TD_G:
+        printStringAndQueueChar("Global");
+        printStringAndQueueChar("Lookup");
+      break;
+    case TD_I:
+      if (containsCode(TD_W))
+        printStringAndQueueChar("Instance");
+      else
+        printStringAndQueueChar("Item");
+      break;
+    case TD_N:
+      printStringAndQueueChar("NadRate");
+      break;
+    case TD_P:
+      if (last2CodesAre(TD_D, TD_C))
+      {
+        backspaceString("DistributionCenter");
+        printString("DistCenter");
+        printStringAndQueueChar("Pricing");
+      }
+      else if (last2CodeAre(TD_P))
+      {
+      }
+      else if(lastCodeIs(TD_P))
+      {
+        backspaceString("Product");
+        printString("Person");
+      }
+      else
+      {
+        printStringAndQueueChar("Product");
+      }
+      break;
+    case TD_Q:
+      printStringAndQueueChar("Darden");
+      break;
+    case TD_S:
+      if (containsCode(TD_W))
+        if (containsCode(TD_S) || containsCode(TD_D))
+          printStringAndQueueChar("Step");
+        else
+          printStringAndQueueChar("Session");
+      else
+        printStringAndQueueChar("Supplier");
+      break;
+    case TD_T:
+      if (containsCode(TD_W))
+        printStringAndQueueChar("Task");
+      else
+        printStringAndQueueChar("Type");
+      break;
+    case TD_W:
+      printStringAndQueueChar("Workflow");
+      break;
+  }
+  addKeyCode(kc);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
   if (record->event.pressed)
@@ -200,50 +391,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       case S_WHERE: SEND_STRING("WHERE "); return false;
       case S_ALTER: SEND_STRING("ALTER SESSION SET CURRENT_SCHEMA = "); return false;
 
+      case KC_BSLS:
+        initStringData();
+        layer_on(SQLNAMES);
+       return false;
 
-      case N_DRDN:  printStringAndQueueChar("Darden"); return false; //Q
-      case N_PRDCT: printStringAndQueueChar("Product"); return false;
-      case N_SPPLR: printStringAndQueueChar("Supplier"); return false;
-      case N_CNTCT: printStringAndQueueChar("Contact"); return false;
-      case N_WRKFL: printStringAndQueueChar("Workflow"); return false;
-      case N_DIST:  printStringAndQueueChar("Dist"); return false;
-      case N_DSTRB: printStringAndQueueChar("Distribution"); return false;
-      case N_STEP:  printStringAndQueueChar("Step"); return false;
-      case N_NSTNC: printStringAndQueueChar("Instance"); return false;
-      case N_TASK:  printStringAndQueueChar("Task"); return false;
-      case N_CNTR:  printStringAndQueueChar("Center"); return false;
-      case N_PRCNG: printStringAndQueueChar("Pricing"); return false;
+      case TD_C:
+      case TD_D:
+      case TD_G:
+      case TD_I:
+      case TD_N:
+      case TD_P:
+      case TD_Q:
+      case TD_S:
+      case TD_T:
+      case TD_W:
+        processSmartMacroTap(keycode);
+        return false;
+
+      case TD_ENT:
+        printTableAbbreviation();
+      case TD_ESC:
+        eraseKeyCodes();
+        eraseTableAbbreviation();
+        layer_off(SQLNAMES);
+        return true;
     }
   }
   else
   {
     switch (keycode)
     {
+
+      case KC_BSLS:
+        if (macroTaps[0] == 0)
+        {
+          SEND_STRING("\\");
+          layer_off(SQLNAMES);
+        }
+        return true;
       case KC_LSPO:
       case KC_RSPC:
         shifted = false;
-        return true;
-      case LT(SQLNAMES,KC_BSLS):
-        if (sendAbbr)
-        {
-          if (!shifted)
-          {
-            printTableAbbreviation();
-          }
-        }
-        else
-        {
-          if (shifted)
-          {
-            SEND_STRING("|");
-          }
-          else
-          {
-            SEND_STRING("\\");
-          }
-        }
-        eraseTableAbbreviation();
-        sendAbbr = false;
         return true;
     }
   }
@@ -255,7 +444,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [QWERTY]=
     LAYOUT(
       KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_NO, KC_BSPC,
-      KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, LT(SQLNAMES,KC_BSLS),
+      KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
       MO(FN_LAYER), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, LT(SQLMACROS,KC_ENT),
       KC_LSPO, KC_NO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC, KC_NO,
       KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, KC_SPC, KC_SPC, KC_RALT, KC_LGUI, KC_NO, KC_APP, KC_RCTL),
@@ -318,11 +507,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [SQLNAMES]=
     LAYOUT(
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, N_DRDN,  N_PRDCT, N_SPPLR, N_CNTCT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, N_WRKFL, N_DIST,  N_DSTRB, N_STEP,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, N_NSTNC, N_TASK,  N_CNTR,  N_PRCNG, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
+      TD_ESC,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS, TD_Q,    TD_W,    KC_TRNS, KC_TRNS, TD_T,    KC_TRNS, KC_TRNS, TD_I,    KC_TRNS, TD_P,    KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS, KC_TRNS, TD_S,    TD_D,    KC_TRNS, TD_G,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TD_ENT,
+      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TD_C,    KC_TRNS, KC_TRNS, TD_N,    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+      KC_TRNS, KC_TRNS, KC_TRNS, TD_ESC, TD_ESC, TD_ESC, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS),
 
   [FN_LAYER]=
     LAYOUT(
