@@ -86,15 +86,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *      window    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *    switcher    │     │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                │     │  -  │  +  │  `  │  \  │  :  │     │     │  ,  │  .  │  \  │     │
+   *                │     │  -  │  +  │  `  │  |  │  :  │     │     │  ,  │  .  │  \  │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
    *                │     │     │     │     │     │ Backspace │     │     │     │     │     │
    *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
    */
   [LOWER_LAYER] = LAYOUT_planck_grid(
-    KC_GRV,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  S(KC_3),
-    _______,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______,  KC_MINS, KC_PLUS,  KC_GRV,  KC_BSLS, KC_COLN, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_BSLS, _______,
+    KC_GRV,   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  S(KC_3),
+    _______,  KC_1,    KC_2,     KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+    _______,  KC_MINS, KC_PLUS,  KC_GRV,  KC_PIPE, KC_COLN, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_BSLS, _______,
     _______,  _______, _______, _______, _______, KC_BSPC, KC_BSPC, _______, _______, _______, _______, _______
   ),
 
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [RAISE_LAYER] = LAYOUT_planck_grid(
     S(KC_GRV), KC_F11,  KC_F12,  KC_F13,  KC_F14,  KC_F15,  KC_F16,  KC_F17,  KC_F18,  KC_F19,  KC_F20,     S(KC_3),
     _______,   S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_5), S(KC_6), S(KC_7), S(KC_8), KC_QUOT, S(KC_QUOT), _______,
-    _______,   KC_UNDS, KC_EQL, KC_TILD, KC_PIPE, KC_COLN, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH,    _______,
+    _______,   KC_UNDS, KC_EQL,  KC_TILD, KC_PIPE, KC_COLN, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_SLSH,    _______,
     _______,   _______, _______, _______, _______, KC_DEL,  KC_DEL,  _______, _______, _______, _______,    _______
   ),
 
