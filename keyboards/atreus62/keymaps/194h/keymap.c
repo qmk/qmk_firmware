@@ -1,6 +1,4 @@
-#include "atreus62.h"
-#include "action_layer.h"
-#include "action_util.h"
+#include QMK_KEYBOARD_H
 
 //The current Nordic and Norwegian layout files are a mess. I'll do it myself:
 //Norwegian
@@ -65,68 +63,48 @@
 #define L4 3
 #define L5 4
 
-// Fillers to make layering more clear
-#define _____ KC_TRNS
-#define XXXXX KC_NO
-
 // Momentary switch to layer - One Shot Layer
 #define OSL_L3 OSL(L3)
 #define OSL_L4 OSL(L4)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [L1] = {
-
-	//  commented_row  _____________  _____________  _____________  _____________  _____________  to_even_out__  _____________  _____________  _____________  _____________  _____________  the_columns__   //
-	{   KC_LGUI        ,KC_1          ,KC_2          ,KC_3          ,KC_4          ,KC_5          ,XXXXX         ,KC_6          ,KC_7          ,KC_8          ,KC_9          ,KC_0          ,KC_RGUI        },
-	{   KC_TAB         ,KC_Q          ,KC_W          ,KC_E          ,KC_R          ,KC_T          ,XXXXX         ,KC_Y          ,KC_U          ,KC_I          ,KC_O          ,KC_P          ,NO_DQT         },
-	{   KC_BSPC        ,KC_A          ,KC_S          ,KC_D          ,KC_F          ,KC_G          ,XXXXX         ,KC_H          ,KC_J          ,KC_K          ,KC_L          ,NO_SCLN       ,NO_QUOT        },
-	{   OSM_LSFT       ,KC_Z          ,KC_X          ,KC_C          ,KC_V          ,KC_B          ,KC_SPC        ,KC_N          ,KC_M          ,KC_COMM       ,KC_DOT        ,NO_MINS       ,OSM_RSFT       },
-	{   CTL_T(KC_ESC)  ,MO(L5)        ,KC_LEAD       ,OSM_LALT      ,MO(L4)        ,OSL_L3        ,KC_ENT        ,OSL_L3        ,MO(L4)        ,OSM_RALT      ,NO_EQL        ,NO_PLUS       ,KC_RCTL        }
-
-  },
-  [L2] = {
-
-	//  commented_row  _____________  _____________  _____________  _____________  _____________  to_even_out__  _____________  _____________  _____________  _____________  _____________  the_columns__   //
-	{   _____          ,_____         ,_____         ,_____         ,_____         ,_____         ,XXXXX         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____          },
-	{   _____          ,_____         ,_____         ,_____         ,_____         ,_____         ,XXXXX         ,_____         ,_____         ,_____         ,_____         ,_____         ,NO_AO          },
-	{   _____          ,_____         ,_____         ,_____         ,_____         ,_____         ,XXXXX         ,_____         ,_____         ,_____         ,_____         ,NO_OE         ,NO_AE          },
-	{   _____          ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____          },
-	{   _____          ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____         ,_____          }
-
-  },
-  [L3] = {
-
-	//  commented_row  _____________  _____________  _____________  _____________  _____________  to_even_out__  _____________  _____________  _____________  _____________  _____________  the_columns__  //
-	{   NO_LBRC        ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,NO_RBRC       },
-	{   NO_LCBR        ,XXXXX         ,XXXXX         ,NO_AT         ,XXXXX         ,NO_TILD       ,XXXXX         ,NO_QUES       ,NO_EXLM       ,NO_PIPE       ,XXXXX         ,XXXXX         ,NO_RCBR       },
-	{   _____          ,NO_ASTR       ,NO_BSLS       ,NO_DLR        ,NO_HASH       ,XXXXX         ,XXXXX         ,NO_HAT        ,XXXXX         ,NO_COLN       ,NO_SLSH       ,NO_SCLN       ,NO_QUOT       },
-	{   NO_PO          ,KC_0          ,NO_SECT       ,NO_PERC       ,XXXXX         ,NO_GRAV       ,XXXXX         ,NO_AND        ,NO_UMLA       ,NO_LT         ,NO_GT         ,NO_UNDS       ,NO_PC         },
-	{   XXXXX          ,_____         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,_____         ,_____         ,XXXXX         }
-
-  },
-  [L4] = {
-
-	//  commented_row  _____________  _____________  _____________  _____________  _____________  to_even_out__  _____________  _____________  _____________  _____________  _____________  the_columns__  //
-	{   KC_ESC         ,KC_F1         ,KC_F2         ,KC_F3         ,KC_F4         ,KC_F5         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         },
-	{   XXXXX          ,KC_F6         ,KC_F7         ,KC_F8         ,KC_F9         ,KC_F10        ,XXXXX         ,KC_HOME       ,KC_PGDN       ,KC_PGUP       ,KC_END        ,XXXXX         ,XXXXX         },
-	{   _____          ,KC_F11        ,KC_F12        ,KC_F13        ,KC_F14        ,KC_F15        ,XXXXX         ,KC_LEFT       ,KC_DOWN       ,KC_UP         ,KC_RIGHT      ,XXXXX         ,KC_DEL        },
-	{   XXXXX          ,KC_F16        ,KC_F17        ,KC_F18        ,KC_F19        ,KC_F20        ,XXXXX         ,XXXXX         ,KC_APP        ,XXXXX         ,XXXXX         ,KC_VOLD       ,XXXXX         },
-	{   OSM_LCTL       ,_____         ,XXXXX         ,_____         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,KC_MUTE       ,KC_VOLU       ,OSM_RCTL      }
-
-  },
-  [L5] = {
-
-	//  commented_row  _____________  _____________  _____________  _____________  _____________  to_even_out__  _____________  _____________  _____________  _____________  _____________  the_columns__  //
-	{   XXXXX          ,TO(L1)        ,TO(L2)        ,TO(L3)        ,TO(L4)        ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         },
-	{   XXXXX          ,XXXXX         ,XXXXX         ,XXXXX         ,RESET         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,NO_AO         },
-	{   XXXXX          ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,NO_OE         ,NO_AE         },
-	{   XXXXX          ,XXXXX         ,XXXXX         ,KC_CAPS       ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         },
-	{   XXXXX          ,_____         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         ,XXXXX         }
-
-  }
+  [L1] = LAYOUT(
+	KC_LGUI,       KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                     KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_RGUI,
+	KC_TAB,        KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                                     KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,         NO_DQT,
+	KC_BSPC,       KC_A,         KC_S,         KC_D,         KC_F,         KC_G,                                     KC_H,         KC_J,         KC_K,         KC_L,         NO_SCLN,      NO_QUOT,
+	OSM_LSFT,      KC_Z,         KC_X,         KC_C,         KC_V,         KC_B,                                     KC_N,         KC_M,         KC_COMM,      KC_DOT,       NO_MINS,      OSM_RSFT,
+	CTL_T(KC_ESC), MO(L5),       KC_LEAD,      OSM_LALT,     MO(L4),       OSL_L3,       KC_SPC,       KC_ENT,       OSL_L3,       MO(L4),       OSM_RALT,     NO_EQL,       NO_PLUS,      KC_RCTL
+  ),
+  [L2] = LAYOUT(
+	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      _______,
+	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      NO_AO,
+	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      NO_OE,        NO_AE,
+	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      _______,
+	_______,       _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______       
+  ),
+  [L3] = LAYOUT(
+	NO_LBRC,       XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      NO_RBRC,
+	NO_LCBR,       XXXXXXX,      XXXXXXX,      NO_AT,        XXXXXXX,      NO_TILD,                                  NO_QUES,      NO_EXLM,      NO_PIPE,      XXXXXXX,      XXXXXXX,      NO_RCBR,
+	_______,       NO_ASTR,      NO_BSLS,      NO_DLR,       NO_HASH,      XXXXXXX,                                  NO_HAT,       XXXXXXX,      NO_COLN,      NO_SLSH,      NO_SCLN,      NO_QUOT,
+	NO_PO,         KC_0,         NO_SECT,      NO_PERC,      XXXXXXX,      NO_GRAV,                                  NO_AND,       NO_UMLA,      NO_LT,        NO_GT,        NO_UNDS,      NO_PC,
+	XXXXXXX,       _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      _______,      _______,      XXXXXXX
+  ),
+  [L4] = LAYOUT(
+	KC_ESC,        KC_F1,        KC_F2,        KC_F3,        KC_F4,        KC_F5,                                    XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+	XXXXXXX,       KC_F6,        KC_F7,        KC_F8,        KC_F9,        KC_F10,                                   KC_HOME,      KC_PGDN,      KC_PGUP,      KC_END,       XXXXXXX,      XXXXXXX,
+	_______,       KC_F11,       KC_F12,       KC_F13,       KC_F14,       KC_F15,                                   KC_LEFT,      KC_DOWN,      KC_UP,        KC_RIGHT,     XXXXXXX,      KC_DEL,
+	XXXXXXX,       KC_F16,       KC_F17,       KC_F18,       KC_F19,       KC_F20,                                   XXXXXXX,      KC_APP,       XXXXXXX,      XXXXXXX,      KC_VOLD,      XXXXXXX,
+	OSM_LCTL,      _______,      XXXXXXX,      _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_MUTE,      KC_VOLU,      OSM_RCTL
+  ),
+  [L5] = LAYOUT(
+	XXXXXXX,       TO(L1),       TO(L2),       TO(L3),       TO(L4),       XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      RESET,        XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      NO_AO,  
+	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      NO_OE,        NO_AE,  
+	XXXXXXX,       XXXXXXX,      XXXXXXX,      KC_CAPS,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+	XXXXXXX,       _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX
+  )
 };
-const uint16_t PROGMEM fn_actions[] = { };
 
 
 // Unicode Linux
