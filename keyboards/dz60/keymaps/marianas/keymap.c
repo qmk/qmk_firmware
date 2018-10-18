@@ -25,16 +25,32 @@ enum sql_macros {
   S_ALTER, // Esc
   S_ASTRK, // *
 
+  TD_A,
+  TD_B,
   TD_C, // Corp, Corporation, Company
   TD_D, // Distribution, Dist, Distributor
+  TD_E,
+  TD_F,
   TD_G, // GlobalLookup
+  TD_H,
   TD_I, // Instance, Item
+  TD_J,
+  TD_K,
+  TD_L,
+  TD_M,
   TD_N, // NadRate
+  TD_O,
   TD_P, // Product, Person,
   TD_Q, // Darden
+  TD_R,
   TD_S, // Supplier, Step
   TD_T, // Task, Type
+  TD_U,
+  TD_V,
   TD_W, // Workflow,
+  TD_X,
+  TD_Y,
+  TD_Z,
   TD_BSPC,
   TD_ENT,
   TD_ESC
@@ -426,16 +442,32 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         }
         return false;
 
+      case TD_A:
+      case TD_B:
       case TD_C:
       case TD_D:
+      case TD_E:
+      case TD_F:
       case TD_G:
+      case TD_H:
       case TD_I:
+      case TD_J:
+      case TD_K:
+      case TD_L:
+      case TD_M:
       case TD_N:
+      case TD_O:
       case TD_P:
       case TD_Q:
+      case TD_R:
       case TD_S:
       case TD_T:
+      case TD_U:
+      case TD_V:
       case TD_W:
+      case TD_X:
+      case TD_Y:
+      case TD_Z:
         processSmartMacroTap(keycode);
         return false;
 
@@ -506,10 +538,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SQLNAMES]=
     LAYOUT_60_ansi(
       TD_ESC,    ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____, TD_BSPC,
-      ________,   TD_Q,  TD_W,  ____,  ____,  TD_T,  ____,  ____,  TD_I,  ____,  TD_P,  ____,  ____,  _____,
-      ___________, ____,  TD_S,  TD_D,  ____,  TD_G,  ____,  ____,  ____,  ____,  ____,  ____,       TD_ESC,
-      ___________,  ____,  ____,  TD_C,  ____,  ____,  TD_N,  ____,  ____,  ____,  ____,  _________________,
-      ____, ____, ____, /*----------------------*/TD_ESC/*-----------------------*/, ____, ____, ____, RESET),
+      ________,   TD_Q,  TD_W,  TD_E,  TD_R,  TD_T,  TD_Y,  TD_U,  TD_I,  TD_O,  TD_P,  ____,  ____,  _____,
+      ___________, TD_A,  TD_S,  TD_D,  TD_F,  TD_G,  TD_H,  TD_J,  TD_K,  TD_L,  ____,  ____,       TD_ENT,
+      ___________,  TD_Z,  TD_X,  TD_C,  TD_V,  TD_B,  TD_N,  TD_M,  ____,  ____,  ____,  _________________,
+      ____, ____, ____, /*----------------------*/TD_ENT/*-----------------------*/, ____, ____, ____, RESET),
 
   [FN_LAYER]=
     LAYOUT_60_ansi(
