@@ -27,17 +27,17 @@ This usually happens with a periodic scan of key presses. This speed often is li
 
 ## 2. What the Firmware Sends
 
-The [HID specification](http://www.usb.org/developers/hidpage/Hut1_12v2.pdf) tells what a keyboard can actually send through USB to have a chance to be properly recognised. This includes a pre-defined list of scancodes which are simple numbers from `0x00` to `0xE7`. The firmware assigns a scancode to each key of the keyboard.
+The [HID specification](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) tells what a keyboard can actually send through USB to have a chance to be properly recognised. This includes a pre-defined list of scancodes which are simple numbers from `0x00` to `0xE7`. The firmware assigns a scancode to each key of the keyboard.
 
-The firmware does not send actually letters or characters, but only scancodes.
-Thus, by modifying the firmware, you only can modify what scancode is sent over
+The firmware does not send actual letters or characters, but only scancodes.
+Thus, by modifying the firmware, you can only modify what scancode is sent over
 USB for a given key.
 
 ## 3. What the Operating System Does
 
 Once the keycode reaches the operating system, a piece of software has to have
 it match an actual character thanks to a keyboard layout. For example, if your
-layout is set to QWERTY, a sample of the matching table is as follow:
+layout is set to QWERTY, a sample of the matching table is as follows:
 
 | keycode | character |
 |---------|-----------|
@@ -55,11 +55,11 @@ As the layout is generally fixed (unless you create your own), the firmware can 
 
 ## List of Characters You Can Send
 
-Putting aside shortcuts, having a limited set of keycodes mapped to a limited layout means that **the list of characters you can assign to a given key only is the ones present in the layout**.
+Putting aside shortcuts, having a limited set of keycodes mapped to a limited layout means that **the list of characters you can assign to a given key are only the ones present in the layout**.
 
-For example, this means that if you have a QWERTY US layout, and you want to assign 1 key to produce `€` (euro currency symbol), you are unable to do so, because the QWERTY US layout does not have such mapping. You could fix that by using a QWERTY UK layout, or a QWERTY US International.
+For example, this means that if you have a QWERTY US layout, and you want to assign one key to produce `€` (euro currency symbol), you are unable to do so, because the QWERTY US layout does not have such mapping. You could fix that by using a QWERTY UK layout, or a QWERTY US International.
 
-You may wonder why a keyboard layout containing all of Unicode is not devised then? The limited number of keycode available through USB simply disallow such a thing.
+You may wonder why a keyboard layout containing all of Unicode is not devised then? The limited number of keycodes available through USB simply disallows such a thing.
 
 ## How to (Maybe) Enter Unicode Characters
 
