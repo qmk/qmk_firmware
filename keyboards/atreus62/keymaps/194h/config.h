@@ -1,3 +1,4 @@
+#pragma once
 #define ONESHOT_TIMEOUT 3000
 #define TAPPING_TERM 200
 #define FORCE_NKRO
