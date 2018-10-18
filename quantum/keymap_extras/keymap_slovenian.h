@@ -74,8 +74,6 @@
 
 // shifted characters
 #define SI_EXLM LSFT(KC_1) // !
-
-=======
 #define SI_DQOT LSFT(KC_2) // "
 #define SI_HASH LSFT(KC_3) // #
 #define SI_DLR  LSFT(KC_4) // $
@@ -92,8 +90,6 @@
 #define SI_UNDS LSFT(SI_MINS) // _
 
 // Alt Gr-ed characters
-
-=======
 #define SI_CIRC ALTG(KC_3) // ^
 #define SI_DEG ALTG(KC_5) // °
 #define SI_GRV ALTG(KC_7) // `
