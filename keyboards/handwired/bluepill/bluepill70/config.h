@@ -1,5 +1,4 @@
-#ifndef STM70_CONFIG_H_
-#define STM70_CONFIG_H_
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
@@ -24,5 +23,3 @@
 // Iso fix for Space Cadet, comment for ANSI layouts
 #define LSPO_KEY KC_8
 #define RSPC_KEY KC_9
-
-#endif /* STM70_CONFIG_H_ */
