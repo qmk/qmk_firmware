@@ -8,7 +8,7 @@ Note: If it is your first time here, Check out the "Complete Newbs guide" instea
 
 ## Linux
 
-To ensure you are always up to date, you can just run `sudo util/install_dependencies.sh`. That should always install all the dependencies needed. **This will run `apt-get upgrade`.**
+To ensure you are always up to date, you can just run `sudo util/qmk_install.sh`. That should always install all the dependencies needed. **This will run `apt-get upgrade`.**
 
 You can also install things manually, but this documentation might not be always up to date with all requirements.
 
@@ -71,7 +71,7 @@ The best environment to use, for Windows Vista through any later version (tested
 * Open the ``MSYS2 MingGW 64-bit`` shortcut
 * Navigate to your qmk checkout. For example, if it's in the root of your c drive:
  * `$ cd /c/qmk_firmware`
-* Run `util/msys2_install.sh` and follow the prompts
+* Run `util/qmk_install.sh` and follow the prompts
 
 ## Windows 10 (deprecated)
 These are the old instructions for Windows 10. We recommend you use [MSYS2 as outlined above](#windows-with-msys2-recommended).
