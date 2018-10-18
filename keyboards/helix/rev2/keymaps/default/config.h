@@ -21,52 +21,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
+// place overrides here
 
-/* Use I2C or Serial */
+// If you need more program area, try select and reduce rgblight modes to use.
 
-#define USE_I2C
-#define USE_SERIAL
-//#define USE_MATRIX_I2C
-
-/* Select hand configuration */
-
-#define MASTER_LEFT
-// #define MASTER_RIGHT
-// #define EE_HANDS
-
-//#define SSD1306OLED
-
-/* Select rows configuration */
-// Rows are 4 or 5
-#define HELIX_ROWS 5
-
-/* key matrix size */
-// Rows are doubled-up
-#if  HELIX_ROWS == 4
-  #define MATRIX_ROWS 8
-  #define MATRIX_COLS 7
-  #define MATRIX_ROW_PINS { D4, C6, D7, E6 }
-#elif HELIX_ROWS == 5
-  #define MATRIX_ROWS 10
-  #define MATRIX_COLS 7
-  #define MATRIX_ROW_PINS { D4, C6, D7, E6, B4 }
-#else
-  #error "expected HELIX_ROWS 4 or 5"
+// Selection of RGBLIGHT MODE to use.
+#if defined(LED_ANIMATIONS)
+   #define RGBLIGHT_EFFECT_BREATHING
+   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+   #define RGBLIGHT_EFFECT_SNAKE
+   #define RGBLIGHT_EFFECT_KNIGHT
+   #define RGBLIGHT_EFFECT_CHRISTMAS
+   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+   //#define RGBLIGHT_EFFECT_RGB_TEST
+   //#define RGBLIGHT_EFFECT_ALTERNATING
 #endif
 
-#define USE_SERIAL_PD2
-
-#define PREVENT_STUCK_MODIFIERS
-#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 100
-
-
-#undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 6
-#define RGBLIGHT_LIMIT_VAL 255
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
-#endif
+#endif /* CONFIG_USER_H */

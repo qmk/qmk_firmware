@@ -4,7 +4,11 @@
 #include "i2c.h"
 #include <string.h>
 #include "print.h"
+#ifndef LOCAL_GLCDFONT
 #include "common/glcdfont.c"
+#else
+#include <helixfont.h>
+#endif
 #ifdef ADAFRUIT_BLE_ENABLE
 #include "adafruit_ble.h"
 #endif
@@ -123,6 +127,7 @@ static int8_t capture_sendchar(uint8_t c) {
 bool iota_gfx_init(bool rotate) {
   bool success = false;
 
+  i2c_master_init();
   send_cmd1(DisplayOff);
   send_cmd2(SetDisplayClockDiv, 0x80);
   send_cmd2(SetMultiPlex, DisplayHeight - 1);
