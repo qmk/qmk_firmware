@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_MAGIC_NUMBER_OFF                   (uint16_t)0xFFFF
 
 /* eeprom parameteter address */
-#if !defined(STM32F303xC)
+#if !defined(STM32_EEPROM_ENABLE)
 #define EECONFIG_MAGIC                              (uint16_t *)0
 #define EECONFIG_DEBUG                               (uint8_t *)2
 #define EECONFIG_DEFAULT_LAYER                       (uint8_t *)3
