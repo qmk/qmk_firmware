@@ -1,18 +1,8 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
-#include "config_common.h"
-
-#ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(NO_SOUND)
-#endif
-
+#define STARTUP_SONG SONG(STARTUP_SOUND)
 #define MUSIC_MASK (keycode != KC_NO)
 
 #define FORCE_NKRO 1
 #define PREVENT_STUCK_MODIFIERS
 #define GRAVE_ESC_GUI_OVERRIDE
-
-#define MIDI_BASIC
-
-#endif

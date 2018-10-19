@@ -1,12 +1,10 @@
-#include "preonic.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
 
 // Layer declarations
 enum preonic_layers {
-  _DVORAK = 0,
   _QWERTY = 1,
   _GAMING = 2,
   _LOWER = 3,
@@ -14,8 +12,7 @@ enum preonic_layers {
 };
 
 enum preonic_keycodes {
-  DVORAK = SAFE_RANGE,
-  QWERTY,
+  QWERTY = SAFE_RANGE,
   GAMING,
   LOWER,
   RAISE,
@@ -24,32 +21,7 @@ enum preonic_keycodes {
 // QMK predefined macros
 #define SFT_ENT   SFT_T(KC_ENT)   // Tap for Enter, hold for Shift
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-  /* Dvorak
- * ,-----------------------------------------------------------------------------------.
- * | GEsc |  1   |  2   |  3   |  4   |  5   |   6  |   7  |   8  |   9  |   0  | Del  |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Tab  |  "   |  ,   |  .   |  P   |  Y   |   F  |   G  |   C  |   R  |   L  | Bksp |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |Shift |  A   |  O   |  E   |  U   |  I   |   D  |   H  |   T  |   N  |   S  |  /   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |SFTENT|  ;   |  Q   |  J   |  K   |  X   |   B  |   M  |   W  |   V  |   Z  |Enter |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Ctrl | Alt  | GUI  |Lower |    Space    | Raise| Left | Down |  Up  |Right |
- * `-----------------------------------------------------------------------------------'
- */
-[_DVORAK] = {
-  {KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,  KC_5,   KC_6,  KC_7,  KC_8,    KC_9,    KC_0,  KC_DEL },
-  {KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,  KC_Y,   KC_F,  KC_G,  KC_C,    KC_R,    KC_L,  KC_BSPC},
-  {KC_LSFT, KC_A,    KC_O,    KC_E,    KC_U,  KC_I,   KC_D,  KC_H,  KC_T,    KC_N,    KC_S,  KC_SLSH},
-  {SFT_ENT, KC_SCLN, KC_Q,    KC_J,    KC_K,  KC_X,   KC_B,  KC_M,  KC_W,    KC_V,    KC_Z,  KC_ENT },
-  {XXXXXXX, KC_LCTL, KC_LALT, KC_LGUI, LOWER, KC_SPC, KC_SPC,RAISE, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT}
-},
 
   /* Qwerty
  * ,-----------------------------------------------------------------------------------.
@@ -124,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |      |      |      |  +   |  -   |   _  |   =  |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |Dvorak|Qwerty| Game | Reset|
+ * |      |      |      |      |      |             |      |Qwerty| Game |      | Reset|
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = {
@@ -132,29 +104,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSLS, XXXXXXX, XXXXXXX, KC_PSLS, XXXXXXX, XXXXXXX, XXXXXXX, _______},
   {_______, KC_PIPE, KC_LBRC, KC_LCBR, KC_LPRN, KC_LABK, KC_RABK, KC_RPRN, KC_RCBR, KC_RBRC, KC_PIPE, XXXXXXX},
   {_______, XXXXXXX, XXXXXXX, XXXXXXX, KC_PPLS, KC_PMNS, KC_UNDS, KC_EQL,  XXXXXXX, XXXXXXX, XXXXXXX, _______},
-  {_______, _______, _______, _______, _______, _______, _______, _______, DVORAK,  QWERTY,  GAMING,    RESET}
+  {_______, _______, _______, _______, _______, _______, _______, _______, QWERTY ,  GAMING, XXXXXXX, RESET}
 }
 
 };
 
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
 
-        case DVORAK:
-          if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_DVORAK);
-          }
-          return false;
-          break;
-          
         case QWERTY:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_QWERTY);
+            set_single_persistent_default_layer(_QWERTY);
           }
           return false;
           break;
@@ -179,7 +139,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case GAMING:
           if (record->event.pressed) {
-            persistent_default_layer_set(1UL<<_GAMING);
+            set_single_persistent_default_layer(_GAMING);
           }
           return false;
           break;
