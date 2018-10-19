@@ -445,7 +445,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_MPRV, K80(L2K2), K80(L2K3),
   KC_MNXT, KC_TRNS, KC_MPLY
 ),
-/* Keymap 3: Entire Words (one for each key)
+/* Keymap 3: Entire Words (one for each key) & Numbers
  *
  * .--------------------------------------------------.  .--------------------------------------------------.
  * |        |   1  |   2  |   3  |   4  |   5  |      |  |      |   6  |   7  |   8  |   9  |   0  |        |
