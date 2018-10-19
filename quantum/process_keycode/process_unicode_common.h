@@ -28,6 +28,7 @@ static uint8_t input_mode;
 
 void set_unicode_input_mode(uint8_t os_target);
 uint8_t get_unicode_input_mode(void);
+void unicode_input_mode_init(void);
 void unicode_input_start(void);
 void unicode_input_finish(void);
 void register_hex(uint16_t hex);
