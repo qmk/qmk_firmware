@@ -194,18 +194,20 @@ void change_leds_to(uint16_t hue, uint8_t sat, rgblight_config_t eeprom_config) 
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
       for (uint8_t i = RGBLED_NUM ; i-- > 0 ; ) {
         if (i == 8 || i == 15) {
-          rgblight_sethsv_at(hue, sat, eeprom_config.val, i);
+          sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[i]);
           continue;
         }
 
-        rgblight_sethsv_at(0, 0, 0, i);
+        sethsv(0, 0, 0, (LED_TYPE *)&led[i]);
       }
+
+      rgblight_set();
     }
 
     state_changed = false;
   } else {
-    rgblight_sethsv_at(hue, sat, eeprom_config.val, 8);
-    rgblight_sethsv_at(hue, sat, eeprom_config.val, 15);
+    sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[8]);
+    sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[15]);
   }
 }
 
