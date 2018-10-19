@@ -36,10 +36,10 @@ The Configurator's API reads the keyboard's `.h` file from `qmk_firmware/keyboar
     k30, k31, k32, k33, \
     k40,      k42       \
   ) { \
-    { k00, k01, k02, k03 }, \
-    { k10, k11, k12, k13 }, \
-    { k20, k21, k22, KC_NO }, \
-    { k30, k31, k32, k33 }, \
+    { k00, k01,   k02, k03   }, \
+    { k10, k11,   k12, k13   }, \
+    { k20, k21,   k22, KC_NO }, \
+    { k30, k31,   k32, k33   }, \
     { k40, KC_NO, k42, KC_NO }  \
 }
 
@@ -67,6 +67,8 @@ QMK uses `KC_NO` to designate places in the switch matrix where there is no swit
 ```
 
 !> This usage differs from that of keymap macros, which almost always use `XXXXXXX` (seven capital X's) for `KC_NO` and `_______` (seven underscores) for `KC_TRNS`.
+
+!> To prevent user confusion, using `KC_NO` is preferred.
 
 The layout macro tells the Configurator that our keyboard has 17 keys, arranged in five rows of four columns each. Our switch positions are named `k<row><column>`, counting from 0. The names themselves actually don't matter, as long as they match between the top section, which receives the keycodes from the keymap, and the bottom half which designates where each key is in the matrix.
 
@@ -123,7 +125,7 @@ Use the `keyboard_name` object to set the name of the keyboard. The `bootloader`
 }
 ```
 
-The `layouts` object contains the data that represents the physical layout of the keyboard. It has a key `LAYOUT`, which needs to match the name of our layout macro from `numpad.h`. The `LAYOUT` key itself has a key named `layout`, which contains one JSON object for each physical key on our keyboard, formatted as follows:
+The `layouts` object contains the data that represents the physical layout of the keyboard. It has an object `LAYOUT`, which needs to match the name of our layout macro from `numpad.h`. The `LAYOUT` object itself has an object named `layout`, which contains one JSON object for each physical key on our keyboard, formatted as follows:
 
 ```
   ┌ The name of the key. Not displayed in the Configurator.
@@ -164,12 +166,12 @@ k33   | {"label":"Enter", "x":3, "y":3, "h":2}
 k40   | {"label":"0", "x":0, "y":4, "w":2}
 k42   | {"label":".", "x":2, "y":4}
 
-When a user selects the top-left key in the Configurator, and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NLCK` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging.
+When a user selects the top-left key in the Configurator, and assigns Num Lock to it, the Configurator builds a keymap file with `KC_NLCK` as the first key, and so on as the keymap is built. The `label` keys are not used; they are only for the user's reference in identifying specific keys when debugging the `info.json` file.
 
 
 ## Issues and Hazards
 
-Currently, the Configurator does not support key rotation or non-rectangular key shapes like ISO Enter. Additionally, keys that are vertically-offset from their "row" &mdash; the arrow keys on 1800-layouts like the [TKC1800](https://github.com/qmk/qmk_firmware/tree/4ac48a61a66206beaf2fdd5f2939d8bbedd0004c/keyboards/tkc1800/) being a prominent example &mdash; confuse the Configurator, if not adjusted for by the contributor of the `info.json` file.
+Currently, the Configurator does not support key rotation or non-rectangular key shapes like ISO Enter. Additionally, keys that are vertically-offset from their "row" &mdash; the arrow keys on 1800-layouts like the [TKC1800](https://github.com/qmk/qmk_firmware/tree/4ac48a61a66206beaf2fdd5f2939d8bbedd0004c/keyboards/tkc1800/) being a prominent example &mdash; confuse the KLE-to-JSON Converter, if not adjusted for by the contributor of the `info.json` file.
 
 ### Workarounds
 
