@@ -6,8 +6,6 @@
 // help for fast typist+dual function keys?
 #define PERMISSIVE_HOLD
 
-#define BACKLIGHT_BREATHING
-
 //mouse settings
 #define MOUSEKEY_DELAY             100
 #define MOUSEKEY_INTERVAL          30
