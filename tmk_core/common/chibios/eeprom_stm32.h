@@ -10,7 +10,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * This files are free to use from https://github.com/rogerclarkmelbourne/Arduino_STM32 and 
+ * This files are free to use from https://github.com/rogerclarkmelbourne/Arduino_STM32 and
  * https://github.com/leaflabs/libmaple
  *
  * Modifications for QMK and STM32F303 by Yiancar
@@ -27,8 +27,14 @@
 #include "flash_stm32.h"
 
 // HACK ALERT. This definition may not match your processor
-// To Do. Work out correct value for EEPROM_PAGE_SIZE on the STM32F103CT6 etc 
-#define MCU_STM32F303CC
+// To Do. Work out correct value for EEPROM_PAGE_SIZE on the STM32F103CT6 etc
+#if defined(EEPROM_EMU_STM32F303xC)
+  #define MCU_STM32F303CC
+#elif defined(EEPROM_EMU_STM32F103xB)
+  #define MCU_STM32F103RB
+#else
+  #error "not implemented."
+#endif
 
 #ifndef EEPROM_PAGE_SIZE
     #if defined (MCU_STM32F103RB)
