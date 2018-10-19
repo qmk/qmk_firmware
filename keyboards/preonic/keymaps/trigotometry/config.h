@@ -1,6 +1,6 @@
 #pragma once
 
-#define STARTUP_SONG SONG(STARTUP_SOUND)
+#define STARTUP_SONG SONG(PREONIC_SOUND)
 #define MUSIC_MASK (keycode != KC_NO)
 
 #define FORCE_NKRO 1
