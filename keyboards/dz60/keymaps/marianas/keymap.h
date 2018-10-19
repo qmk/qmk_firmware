@@ -1,3 +1,5 @@
+#include QMK_KEYBOARD_H
+
 //Control
 #define MO_FNLR MO(FN_LAYER)
 #define BACKSPC KC_BSPC
@@ -85,7 +87,6 @@
 #define charCountLen 32
 
 void initStringData(void);
-uint32_t layer_state_set_user(uint32_t state);
 bool containsCode(uint16_t kc);
 bool lastCodeIs(uint16_t kc);
 bool last2CodeAre(uint16_t kc);
@@ -100,4 +101,3 @@ void printStringAndQueueChar(char* str);
 void ReplaceString(char *orig, char *repl);
 void deletePrev(void);
 void processSmartMacroTap(uint16_t kc);
-bool process_record_user(uint16_t keycode, keyrecord_t *record);
