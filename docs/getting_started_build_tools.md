@@ -8,7 +8,7 @@ Note: If it is your first time here, Check out the "Complete Newbs guide" instea
 
 ## Linux
 
-To ensure you are always up to date, you can just run `sudo util/install_dependencies.sh`. That should always install all the dependencies needed. **This will run `apt-get upgrade`.**
+To ensure you are always up to date, you can just run `sudo util/qmk_install.sh`. That should always install all the dependencies needed. **This will run `apt-get upgrade`.**
 
 You can also install things manually, but this documentation might not be always up to date with all requirements.
 
