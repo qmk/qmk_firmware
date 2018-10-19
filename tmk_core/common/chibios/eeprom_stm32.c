@@ -10,7 +10,7 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * This files are free to use from https://github.com/rogerclarkmelbourne/Arduino_STM32 and 
+ * This files are free to use from https://github.com/rogerclarkmelbourne/Arduino_STM32 and
  * https://github.com/leaflabs/libmaple
  *
  * Modifications for QMK and STM32F303 by Yiancar
@@ -274,7 +274,7 @@ uint16_t EE_VerifyPageFullWriteVariable(uint16_t Address, uint16_t Data)
 
     // Check each active page address starting from begining
     for (idx = pageBase + 4; idx < pageEnd; idx += 4)
-        if ((*(__IO uint32_t*)idx) == 0xFFFFFFFF)               // Verify if element 
+        if ((*(__IO uint32_t*)idx) == 0xFFFFFFFF)               // Verify if element
         {                                                   //  contents are 0xFFFFFFFF
             FlashStatus = FLASH_ProgramHalfWord(idx, Data); // Set variable data
             if (FlashStatus != FLASH_COMPLETE)
@@ -517,7 +517,7 @@ uint16_t EEPROM_read(uint16_t Address, uint16_t *Data)
 
     // Get the valid Page end Address
     pageEnd = pageBase + ((uint32_t)(PageSize - 2));
-    
+
     // Check each active page address starting from end
     for (pageBase += 6; pageEnd >= pageBase; pageEnd -= 4)
         if ((*(__IO uint16_t*)pageEnd) == Address)      // Compare the read address with the virtual address
@@ -574,7 +574,7 @@ uint16_t EEPROM_update(uint16_t Address, uint16_t Data)
 {
     uint16_t temp;
     EEPROM_read(Address, &temp);
-    if (Address == Data)
+    if (temp == Data)
         return EEPROM_SAME_VALUE;
     else
         return EEPROM_write(Address, Data);

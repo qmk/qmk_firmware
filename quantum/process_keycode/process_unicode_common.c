@@ -22,14 +22,21 @@
 static uint8_t input_mode;
 uint8_t mods;
 
-void set_unicode_input_mode(uint8_t os_target)
-{
+void set_unicode_input_mode(uint8_t os_target) {
   input_mode = os_target;
   eeprom_update_byte(EECONFIG_UNICODEMODE, os_target);
 }
 
 uint8_t get_unicode_input_mode(void) {
   return input_mode;
+}
+
+void unicode_input_mode_init(void) {
+  static bool first_flag = false;
+  if (!first_flag) {
+    input_mode = eeprom_read_byte(EECONFIG_UNICODEMODE);
+    first_flag = true;
+  }
 }
 
 __attribute__((weak))
@@ -104,8 +111,7 @@ void unicode_input_finish (void) {
 }
 
 __attribute__((weak))
-uint16_t hex_to_keycode(uint8_t hex)
-{
+uint16_t hex_to_keycode(uint8_t hex) {
   if (hex == 0x0) {
     return KC_0;
   } else if (hex < 0xA) {
@@ -123,8 +129,7 @@ void register_hex(uint16_t hex) {
   }
 }
 
-void send_unicode_hex_string(const char *str)
-{
+void send_unicode_hex_string(const char *str) {
   if (!str) { return; } // Safety net
 
   while (*str) {
