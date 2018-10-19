@@ -273,10 +273,20 @@ void map_led_to_point( uint8_t index, Point *point )
 			if ( g_config.use_split_backspace )
 				point->x -= 8;
 			break;
+#if defined (RGB_BACKLIGHT_ZEAL60)
 		case 18+14: // LB14A
 			if ( g_config.use_iso_enter )
 				point->y += 8; // extremely pedantic
 			break;
+		case 54+5: // LD5A
+			if ( !g_config.use_iso_enter )
+				point->x -= 10;
+			break;
+		case 36+16: // LC16A
+			if ( !g_config.use_split_left_shift )
+				point->x += 8;
+			break;
+#endif
 #if defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
 		case 36+0: // LC0A
 			if ( g_config.use_7u_spacebar )
@@ -286,19 +296,11 @@ void map_led_to_point( uint8_t index, Point *point )
 			if ( g_config.use_7u_spacebar )
 				point->x += 4;
 			break;
-#endif
-		case 36+16: // LC16A
-			if ( !g_config.use_split_left_shift )
-				point->x += 8;
-			break;
-		case 54+5: // LD5A
-			if ( !g_config.use_iso_enter )
-				point->x -= 10;
-			break;
 		case 54+7: // LD7A
 			if ( !g_config.use_split_right_shift )
 				point->x -= 8;
 			break;
+#endif
 	}
 }
 
@@ -1297,8 +1299,6 @@ void backlight_init_drivers(void)
 		// LC6 LD13 not present on Zeal65
 #if defined (RGB_BACKLIGHT_ZEAL65)
 		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
-						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
-						  ( index == 54+8 && !g_config.use_split_right_shift ) || // LD8
 						  ( index == 36+6 ) || // LC6
 						  ( index == 54+13 ) ); // LD13
 #elif defined (RGB_BACKLIGHT_M60_A)
