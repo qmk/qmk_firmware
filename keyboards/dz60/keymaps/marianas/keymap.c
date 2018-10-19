@@ -1,60 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "keymap.h"
 
-enum marianas_layers {
-  QWERTY,
-/*
-  COLEMAK,
-  DVORAK,
-*/
-  NAV_CLUSTER,
-  GAMING,
-  SQLMACROS,
-  SQLNAMES,
-  FN_LAYER
-};
-
-enum sql_macros {
-  S_LFTJN = SAFE_RANGE, // L
-  S_INRJN, // I
-  S_SLCT,  // S
-  S_FROM,  // F
-  S_DSNCT, // D
-  S_ORDER, // O
-  S_WHERE, // W
-  S_ALTER, // Esc
-  S_ASTRK, // *
-
-  TD_A,
-  TD_B,
-  TD_C, // Corp, Corporation, Company
-  TD_D, // Distribution, Dist, Distributor
-  TD_E,
-  TD_F,
-  TD_G, // GlobalLookup
-  TD_H,
-  TD_I, // Instance, Item
-  TD_J,
-  TD_K,
-  TD_L,
-  TD_M,
-  TD_N, // NadRate
-  TD_O,
-  TD_P, // Product, Person,
-  TD_Q, // Darden
-  TD_R,
-  TD_S, // Supplier, Step
-  TD_T, // Task, Type
-  TD_U,
-  TD_V,
-  TD_W, // Workflow,
-  TD_X,
-  TD_Y,
-  TD_Z,
-  TD_BSPC,
-  TD_ENT,
-  TD_ESC
-};
 
 uint16_t *macroTaps = 0;
 
@@ -64,6 +10,9 @@ uint8_t *charCount = 0;
 uint8_t countPointer = 0;
 
 bool shifted = false;
+
+bool isFn = false;
+bool didFn = false;
 
 bool sendAbbr = false;
 
@@ -406,8 +355,9 @@ void processSmartMacroTap(uint16_t kc)
   addKeyCode(kc);
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
+bool storeShiftState(uint16_t keycode, keyrecord_t *record)
 {
+
   if (record->event.pressed)
   {
     switch (keycode)
@@ -415,8 +365,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       case KC_LSPO:
       case KC_RSPC:
         shifted = true;
-        return true;
+    }
+  }
+  else
+  {
+    switch (keycode)
+    {
 
+      case KC_LSPO:
+      case KC_RSPC:
+        shifted = false;
+        return true;
+    }
+  }
+  return true;
+}
+
+bool printSqlVerbs(uint16_t keycode, keyrecord_t *record)
+{
+  if (record->event.pressed)
+  {
+    switch (keycode)
+    {
       case S_LFTJN: SEND_STRING("LEFT JOIN"); return false;
       case S_INRJN: SEND_STRING("INNER JOIN "); return false;
       case S_SLCT:  SEND_STRING("SELECT "); return false;
@@ -426,12 +396,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       case S_WHERE: SEND_STRING("WHERE "); return false;
       case S_ALTER: SEND_STRING("ALTER SESSION SET CURRENT_SCHEMA = "); return false;
       case S_ASTRK: SEND_STRING("* "); return false;
+    }
+  }
+  return true;
+}
 
-      case KC_BSLS:
-        initStringData();
-        layer_on(SQLNAMES);
+bool updateLayerState(uint16_t keycode, keyrecord_t *record)
+{
+
+  if (record->event.pressed)
+  {
+    switch (keycode)
+    {
+      case FN_QT:
+        layer_on(FN_LAYER);
+        isFn = true;
         return false;
+    }
+    if (isFn)
+    {
+      didFn = true;
+      return true;
+    }
+  }
+  else
+  {
+    switch(keycode)
+    {
+      case FN_QT:
+        layer_off(FN_LAYER);
+        if (!didFn)
+        {
+          initStringData();
+          layer_on(SQLNAMES);
+        }
+        didFn = false;
+        isFn = false;
+        return false;
+    }
+  }
+  return true;
+}
 
+bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
+{
+  if (record->event.pressed)
+  {
+    switch (keycode)
+    {
       case TD_BSPC:
         if (!shifted){
           deletePrev();
@@ -441,7 +453,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
           unregister_code(KC_BSPC);
         }
         return false;
-
       case TD_A:
       case TD_B:
       case TD_C:
@@ -480,25 +491,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         return true;
     }
   }
-  else
-  {
-    switch (keycode)
-    {
-
-      case KC_BSLS:
-        if (macroTaps[0] == 0)
-        {
-          SEND_STRING("\\");
-          layer_off(SQLNAMES);
-        }
-        return true;
-      case KC_LSPO:
-      case KC_RSPC:
-        shifted = false;
-        return true;
-    }
-  }
   return true;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+  return
+    storeShiftState(keycode, record) &&
+    printSqlVerbs(keycode, record) &&
+    updateLayerState(keycode, record) &&
+    handleSmartMacros(keycode, record);
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -507,7 +509,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     LAYOUT_60_ansi(
       ESCAP,  KC_1,  KC_2,  KC_3,  KC_4,  KC_5,  KC_6,  KC_7,  KC_8,  KC_9,  KC_0,  MNUS,  EQUL,  BACKSPC,
       KC_TAB,  KC_Q,  KC_W,  KC_E,  KC_R,  KC_T,  KC_Y,  KC_U,  KC_I,  KC_O,  KC_P,  LBRC,  RBRC,  BSLASH,
-      MO_FNLR,  KC_A,  KC_S,  KC_D,  KC_F,  KC_G,  KC_H,  KC_J,  KC_K,  KC_L,  COLN,  QUOT,  ENTER_OR_SQL,
+      FN_QT,    KC_A,  KC_S,  KC_D,  KC_F,  KC_G,  KC_H,  KC_J,  KC_K,  KC_L,  COLN,  QUOT,  ENTER_OR_SQL,
       LEFTSHFT,  KC_Z,  KC_X,  KC_C,  KC_V,  KC_B,  KC_N,  KC_M,  CMMA,  PRRD,  SLSH,  RIGHT_SHIFT__PAREN,
       CTLL,  WINL,  ALTL,  SPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACE,  ALTR,  WINR,  APPR,  CTLR),
 
@@ -537,17 +539,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [SQLNAMES]=
     LAYOUT_60_ansi(
-      TD_ESC,    ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____, TD_BSPC,
-      ________,   TD_Q,  TD_W,  TD_E,  TD_R,  TD_T,  TD_Y,  TD_U,  TD_I,  TD_O,  TD_P,  ____,  ____,  _____,
-      ___________, TD_A,  TD_S,  TD_D,  TD_F,  TD_G,  TD_H,  TD_J,  TD_K,  TD_L,  ____,  ____,       TD_ENT,
-      ___________,  TD_Z,  TD_X,  TD_C,  TD_V,  TD_B,  TD_N,  TD_M,  ____,  ____,  ____,  _________________,
-      ____, ____, ____, /*----------------------*/TD_ENT/*-----------------------*/, ____, ____, ____, RESET),
+      TD_ESC,    KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  TD_BSPC,
+      KCNO,       TD_Q,  TD_W,  TD_E,  TD_R,  TD_T,  TD_Y,  TD_U,  TD_I,  TD_O,  TD_P,  KCNO,  KCNO,  TD_ESC,
+      TD_ESC,        TD_A,  TD_S,  TD_D,  TD_F,  TD_G,  TD_H,  TD_J,  TD_K,  TD_L,  KCNO,  KCNO,        TD_ENT,
+      KCNO,         TD_Z,  TD_X,  TD_C,  TD_V,  TD_B,  TD_N,  TD_M,  KCNO,  KCNO,  KCNO,   _________________,
+      KCNO, KCNO, KCNO, /*-----------------------*/TD_ENT/*----------------------*/, KCNO, KCNO, KCNO, RESET),
 
   [FN_LAYER]=
     LAYOUT_60_ansi(
       KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
       KC_CAPSLOCK, KC_MPRV, KC_MPLY, KC_MNXT, LWIN(KC_R), ____, KC_CALC, KC_PGUP, KC_UP, KC_PGDN, KC_PSCR, KC_SLCK, KC_BRK, ____,
       ____, KC_VOLD, KC_MUTE, KC_VOLU, ____, ____, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_INS, KC_DEL, ____,
-      ____, ____, ____, ____, ____, ____, KC_END, ____, QWRTY, NAVS, GAME, ____,
+      ____, ____, ____, ____, ____, ____, KC_END, QWRTY, GAME, NAVS, ____, ____,
       ____, ____, ____, _________________, ____, KC_HYPR, KC_MEH, ____)
 };

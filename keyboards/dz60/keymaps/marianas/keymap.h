@@ -78,10 +78,6 @@
 #define SPAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACE KC_SPC
 #define KCNO KC_NO
 
-
-
-
-
 #define macroTapsLen 32
 #define tableNameListLen 32
 #define charCountLen 32
@@ -101,3 +97,61 @@ void printStringAndQueueChar(char* str);
 void ReplaceString(char *orig, char *repl);
 void deletePrev(void);
 void processSmartMacroTap(uint16_t kc);
+
+
+enum marianas_layers {
+  QWERTY,
+/*
+  COLEMAK,
+  DVORAK,
+*/
+  NAV_CLUSTER,
+  GAMING,
+  SQLMACROS,
+  SQLNAMES,
+  FN_LAYER
+};
+
+enum sql_macros {
+  S_LFTJN = SAFE_RANGE, // L
+  S_INRJN, // I
+  S_SLCT,  // S
+  S_FROM,  // F
+  S_DSNCT, // D
+  S_ORDER, // O
+  S_WHERE, // W
+  S_ALTER, // Esc
+  S_ASTRK, // *
+
+  TD_A,
+  TD_B,
+  TD_C, // Corp, Corporation, Company
+  TD_D, // Distribution, Dist, Distributor
+  TD_E,
+  TD_F,
+  TD_G, // GlobalLookup
+  TD_H,
+  TD_I, // Instance, Item
+  TD_J,
+  TD_K,
+  TD_L,
+  TD_M,
+  TD_N, // NadRate
+  TD_O,
+  TD_P, // Product, Person,
+  TD_Q, // Darden
+  TD_R,
+  TD_S, // Supplier, Step
+  TD_T, // Task, Type
+  TD_U,
+  TD_V,
+  TD_W, // Workflow,
+  TD_X,
+  TD_Y,
+  TD_Z,
+  TD_BSPC,
+  TD_ENT,
+  TD_ESC,
+
+  FN_QT
+};
