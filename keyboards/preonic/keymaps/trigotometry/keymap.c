@@ -23,7 +23,7 @@ enum preonic_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  /* Qwerty
+/* QWERTY
  * ,-----------------------------------------------------------------------------------.
  * | GEsc |  1   |  2   |  3   |  4   |  5   |   6  |   7  |   8  |   9  |   0  |  Del |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -148,17 +148,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 };
 
-#ifdef AUDIO_ENABLE
-float tone_startup[][2] = {
-  {NOTE_D5, 8},
-  {NOTE_E6, 8},
-  {NOTE_D6, 8},
-  {NOTE_E5, 8}
-};
+// NFI how to bring this inline with current QMK standards yet, or it's redundant and don't use it.
+// #ifdef AUDIO_ENABLE
+// float tone_startup[][2] = {
+//   {NOTE_D5, 8},
+//   {NOTE_E6, 8},
+//   {NOTE_D6, 8},
+//   {NOTE_E5, 8}
+// };
 
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-#endif
+// void startup_user()
+// {
+//     _delay_ms(20); // gets rid of tick
+//     PLAY_SONG(tone_startup);
+// }
+// #endif
