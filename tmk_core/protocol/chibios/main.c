@@ -44,7 +44,7 @@
 #ifdef MIDI_ENABLE
 #include "qmk_midi.h"
 #endif
-#ifdef STM32F303xC
+#ifdef STM32_EEPROM_ENABLE
 #include "eeprom_stm32.h"
 #endif
 #include "suspend.h"
@@ -112,7 +112,7 @@ int main(void) {
   halInit();
   chSysInit();
 
-#ifdef STM32F303xC
+#ifdef STM32_EEPROM_ENABLE
   EEPROM_init();
 #endif
 
