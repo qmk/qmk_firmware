@@ -41,7 +41,7 @@ BACKLIGHT_ENABLE = yes
 BACKLIGHT_CUSTOM_DRIVER = yes
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
-TAP_DANCE_ENABLE=yes
+TAP_DANCE_ENABLE = no
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend

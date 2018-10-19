@@ -30,6 +30,19 @@ static uint8_t debouncing = DEBOUNCE;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
+__attribute__ ((weak))
+void matrix_init_user(void) {}
+__attribute__ ((weak))
+void matrix_scan_user(void) {}
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+  matrix_init_user();
+}
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+  matrix_scan_user();
+}
+
 void matrix_init(void) {
     // all outputs for rows high
     DDRB = 0xFF;
