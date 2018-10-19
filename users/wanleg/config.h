@@ -8,9 +8,6 @@
 //Kailh Coppers activate quickly and don't need a long tapping term
 #define TAPPING_TERM 100
 
-#elif defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_big_switch)
-#define TAPPING_TERM 700
-
 #elif defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_bigswitch)
 #define TAPPING_TERM 700
 

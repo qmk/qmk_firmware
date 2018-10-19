@@ -24,7 +24,3 @@ TD(CAD_TD) \
 TD(BSW_TAP_DANCE) \
 ),
 };
-
-void led_set_user(uint8_t usb_led) {
-
-}

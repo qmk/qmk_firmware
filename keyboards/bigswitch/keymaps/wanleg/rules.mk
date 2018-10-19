@@ -4,10 +4,8 @@ ifeq ($(strip $(dfu)), qmk)
     BOOTLOADER = qmk-dfu
 endif
 
-
 AUDIO_ENABLE = yes           # Audio output on port C6
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality on B7 by default
-
 CONSOLE_ENABLE = no 		# Console for debug(+400)
 COMMAND_ENABLE = no 		# Commands for debug and configuration
 RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
