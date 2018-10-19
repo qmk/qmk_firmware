@@ -1,6 +1,6 @@
 # Trigotometry's v1.0
 
-This layout is the confluence of the standard Preonic QWERTY layout and some of my own tweaks to make it's software as logical and straight cut as it's physical presence, at least in my eyes. Some might say there's wasted space, though possibly true, I believe in keeping it minimal and only adding what is really needed. So, if you're also beginning your journey of coding and enjoy some downtime with friends on the battlefield I think you'll find this layout a stellar place to kick off your customisation.
+This layout is the confluence of the standard Preonic QWERTY layout and some of my own tweaks to make it's software as logical and straight cut as it's physical presence, at least in my eyes. Some might say there's wasted space, though possibly true, I believe in keeping it minimal and only adding what is really needed. So if, like me, you're also beginning your journey of coding and enjoy some downtime with friends on the battlefield I think you'll find this layout a stellar place to kick off your customisation.
 
 ## Qwerty
 	 /* Qwerty
