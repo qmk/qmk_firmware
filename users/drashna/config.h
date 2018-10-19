@@ -11,15 +11,19 @@
                                   SONG(OVERWATCH_THEME) \
                                 }
 
-#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.0f
-
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
+// #ifdef RGBLIGHT_ENABLE
+// #define NO_MUSIC_MODE
+// #endif //RGBLIGHT_ENABLE
 #endif
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
+#undef RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
 #endif // RGBLIGHT_ENABLE
-
-
 
 #ifndef ONESHOT_TAP_TOGGLE
 #define ONESHOT_TAP_TOGGLE 2
@@ -40,8 +44,7 @@
 // and when this option isn't enabled, z rapidly followed by x
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
-#undef PERMISSIVE_HOLD
-#undef PREVENT_STUCK_MODIFIERS
+#undef  PERMISSIVE_HOLD
 // #define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 
@@ -54,17 +57,15 @@
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif // TAPPING_TERM
-#define TAPPING_TERM 175
+#ifdef KEYBOARD_ergodox_ez
+  #define TAPPING_TERM 185
+#else
+  #define TAPPING_TERM 175
+#endif
 
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
-#define NO_PRINT
-#endif // !NO_PRINT
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 

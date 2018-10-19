@@ -1,6 +1,6 @@
 # BlocKey
 
-![BlocKey](https://imgur.com/a/6jAcrjr)
+![BlocKey](https://i.imgur.com/VDdnuHo.jpg)
 
 A small keyboard.
 

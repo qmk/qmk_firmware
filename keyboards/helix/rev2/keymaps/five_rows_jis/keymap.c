@@ -214,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #endif
 
 #ifdef SSD1306OLED
-char keylog[20] = {};
+char keylog[24] = {};
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
     'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
@@ -223,7 +223,7 @@ const char code_to_name[60] = {
     'R', 'E', 'B', 'T', ' ', '-', ' ', '@', ' ', ' ',
     ' ', ';', ':', ' ', ',', '.', '/', ' ', ' ', ' '};
 
-inline void set_keylog(uint16_t keycode, keyrecord_t *record)
+static inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
   char name = ' ';
   uint8_t leds = host_keyboard_leds();
@@ -246,6 +246,12 @@ inline void set_keylog(uint16_t keycode, keyrecord_t *record)
 }
 #endif
 
+#ifdef RGBLIGHT_ENABLE
+#define RGBLIGHT(mode) rgblight_mode(mode)
+#else
+#define RGBLIGHT(mode)
+#endif
+
 // define variables for reactive RGB
 int RGB_current_mode;
 #ifdef ADJUST_MACRO_ENABLE
@@ -261,12 +267,6 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 #define ADJUST_MACRO(layer1, layer2, layer3) update_tri_layer_RGB(layer1, layer2, layer3)
 #else
 #define ADJUST_MACRO(layer1, layer2, layer3)
-#endif
-
-#ifdef RGBLIGHT_ENABLE
-#define RGBLIGHT(mode) rgblight_mode(mode)
-#else
-#define RGBLIGHT(mode)
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -344,7 +344,7 @@ void matrix_scan_user(void) {
   iota_gfx_task();  // this is what updates the display continuously
 }
 
-inline void matrix_update(struct CharacterMatrix *dest,
+static inline void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
     memcpy(dest->display, source->display, sizeof(dest->display));
@@ -367,13 +367,15 @@ const char helix_logo[]={
   0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
   0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
   0};
-inline void render_logo(struct CharacterMatrix *matrix) {
+
+static inline void render_logo(struct CharacterMatrix *matrix) {
 
   matrix_write(matrix, helix_logo);
 }
 
 const char mac_win_logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
-inline void render_status(struct CharacterMatrix *matrix) {
+
+static inline void render_status(struct CharacterMatrix *matrix) {
 
   char buf[20];
   // Render to mode icon

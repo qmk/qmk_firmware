@@ -3,8 +3,8 @@ JD45
 
 A compact 45% keyboard.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: JD45 PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: JD45 PCB  
 Hardware Availability: https://mechanicalkeyboards.com/shop/index.php?l=product_list&c=346
 
 Make example for this keyboard (after setting up your build environment):

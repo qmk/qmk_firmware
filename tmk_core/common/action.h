@@ -62,7 +62,7 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 bool process_record_quantum(keyrecord_t *record);
 
 /* Utilities for actions.  */
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
 extern bool disable_action_cache;
 #endif
 
@@ -88,6 +88,7 @@ void process_record(keyrecord_t *record);
 void process_action(keyrecord_t *record, action_t action);
 void register_code(uint8_t code);
 void unregister_code(uint8_t code);
+inline void tap_code(uint8_t code) { register_code(code); unregister_code(code); }
 void register_mods(uint8_t mods);
 void unregister_mods(uint8_t mods);
 //void set_mods(uint8_t mods);

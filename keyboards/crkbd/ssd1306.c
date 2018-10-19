@@ -123,6 +123,7 @@ static int8_t capture_sendchar(uint8_t c) {
 bool iota_gfx_init(bool rotate) {
   bool success = false;
 
+  i2c_master_init();
   send_cmd1(DisplayOff);
   send_cmd2(SetDisplayClockDiv, 0x80);
   send_cmd2(SetMultiPlex, DisplayHeight - 1);

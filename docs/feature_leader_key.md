@@ -5,7 +5,7 @@ If you've ever used Vim, you know what a Leader key is. If not, you're about to 
 That's what `KC_LEAD` does. Here's an example:
 
 1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `KC_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
-2. Include the line `#define LEADER_TIMEOUT 300` somewhere in your keymap.c file, probably near the top. The 300 there is 300ms -- that's how long you have for the sequence of keys following the leader. You can tweak this value for comfort, of course.
+2. Include the line `#define LEADER_TIMEOUT 300` in your config.h. The 300 there is 300ms -- that's how long you have for the sequence of keys following the leader. You can tweak this value for comfort, of course.
 3. Within your `matrix_scan_user` function, do something like this:
 
 ```
@@ -39,3 +39,11 @@ void matrix_scan_user(void) {
 As you can see, you have a few function. You can use `SEQ_ONE_KEY` for single-key sequences (Leader followed by just one key), and `SEQ_TWO_KEYS`, `SEQ_THREE_KEYS` up to `SEQ_FIVE_KEYS` for longer sequences.
 
 Each of these accepts one or more keycodes as arguments. This is an important point: You can use keycodes from **any layer on your keyboard**. That layer would need to be active for the leader macro to fire, obviously.
+
+## Adding Leader Key Support in the `rules.mk`
+
+To add support for Leader Key you simply need to add a single line to your keymap's `rules.mk`:
+
+```
+LEADER_ENABLE = yes
+```
