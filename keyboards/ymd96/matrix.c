@@ -50,20 +50,8 @@ void matrix_init(void) {
         matrix[row] = 0x00;
         matrix_debouncing[row] = 0x00;
     }
-/*}
 
     matrix_init_quantum();  // missing from original port by Luiz
-void matrix_set_row_status(uint8_t row) {
-    DDRB = (1 << row);
-    PORTB = ~(1 << row);
-}*/
-
-
-/*uint8_t bit_reverse(uint8_t x) {
-    x = ((x >> 1) & 0x55) | ((x << 1) & 0xaa);
-    x = ((x >> 2) & 0x33) | ((x << 2) & 0xcc);
-    x = ((x >> 4) & 0x0f) | ((x << 4) & 0xf0);
-    return x;*/
 }
 
 uint8_t matrix_scan(void) {

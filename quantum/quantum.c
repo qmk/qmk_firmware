@@ -196,7 +196,7 @@ bool process_record_quantum(keyrecord_t *record) {
   keypos_t key = record->event.key;
   uint16_t keycode;
 
-  #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+  #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
       uint8_t layer;
@@ -251,11 +251,8 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
   #endif
-  #ifndef DISABLE_LEADER
+  #ifdef LEADER_ENABLE
     process_leader(keycode, record) &&
-  #endif
-  #ifndef DISABLE_CHORDING
-    process_chording(keycode, record) &&
   #endif
   #ifdef COMBO_ENABLE
     process_combo(keycode, record) &&
@@ -445,75 +442,97 @@ bool process_record_quantum(keyrecord_t *record) {
     return false;
   case RGB_MODE_PLAIN:
     if (record->event.pressed) {
-      rgblight_mode(1);
+      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
       #ifdef SPLIT_KEYBOARD
           RGB_DIRTY = true;
       #endif
     }
     return false;
   case RGB_MODE_BREATHE:
+  #ifdef RGBLIGHT_EFFECT_BREATHING
     if (record->event.pressed) {
-      if ((2 <= rgblight_get_mode()) && (rgblight_get_mode() < 5)) {
+      if ((RGBLIGHT_MODE_BREATHING <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_BREATHING_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(2);
+        rgblight_mode(RGBLIGHT_MODE_BREATHING);
       }
     }
+  #endif
     return false;
   case RGB_MODE_RAINBOW:
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
     if (record->event.pressed) {
-      if ((6 <= rgblight_get_mode()) && (rgblight_get_mode() < 8)) {
+      if ((RGBLIGHT_MODE_RAINBOW_MOOD <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_MOOD_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(6);
+        rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
       }
     }
+  #endif
     return false;
   case RGB_MODE_SWIRL:
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
     if (record->event.pressed) {
-      if ((9 <= rgblight_get_mode()) && (rgblight_get_mode() < 14)) {
+      if ((RGBLIGHT_MODE_RAINBOW_SWIRL <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_SWIRL_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(9);
+        rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
       }
     }
+  #endif
     return false;
   case RGB_MODE_SNAKE:
+  #ifdef RGBLIGHT_EFFECT_SNAKE
     if (record->event.pressed) {
-      if ((15 <= rgblight_get_mode()) && (rgblight_get_mode() < 20)) {
+      if ((RGBLIGHT_MODE_SNAKE <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_SNAKE_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(15);
+        rgblight_mode(RGBLIGHT_MODE_SNAKE);
       }
     }
+  #endif
     return false;
   case RGB_MODE_KNIGHT:
+  #ifdef RGBLIGHT_EFFECT_KNIGHT
     if (record->event.pressed) {
-      if ((21 <= rgblight_get_mode()) && (rgblight_get_mode() < 23)) {
+      if ((RGBLIGHT_MODE_KNIGHT <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_KNIGHT_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(21);
+        rgblight_mode(RGBLIGHT_MODE_KNIGHT);
       }
     }
+  #endif
     return false;
   case RGB_MODE_XMAS:
+  #ifdef RGBLIGHT_EFFECT_CHRISTMAS
     if (record->event.pressed) {
-      rgblight_mode(24);
+      rgblight_mode(RGBLIGHT_MODE_CHRISTMAS);
     }
+  #endif
     return false;
   case RGB_MODE_GRADIENT:
+  #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
     if (record->event.pressed) {
-      if ((25 <= rgblight_get_mode()) && (rgblight_get_mode() < 34)) {
+      if ((RGBLIGHT_MODE_STATIC_GRADIENT <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_STATIC_GRADIENT_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(25);
+        rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT);
       }
     }
+  #endif
     return false;
   case RGB_MODE_RGBTEST:
+  #ifdef RGBLIGHT_EFFECT_RGB_TEST
     if (record->event.pressed) {
-      rgblight_mode(35);
+      rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
     }
+  #endif
     return false;
   #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     #ifdef PROTOCOL_LUFA
@@ -605,6 +624,17 @@ bool process_record_quantum(keyrecord_t *record) {
             keymap_config.swap_ralt_rgui = false;
             #ifdef AUDIO_ENABLE
               PLAY_SONG(ag_norm_song);
+            #endif
+            break;
+          case MAGIC_TOGGLE_ALT_GUI:
+            keymap_config.swap_lalt_lgui = !keymap_config.swap_lalt_lgui;
+            keymap_config.swap_ralt_rgui = !keymap_config.swap_ralt_rgui;
+            #ifdef AUDIO_ENABLE
+              if (keymap_config.swap_ralt_rgui) {
+                PLAY_SONG(ag_swap_song);
+              } else {
+                PLAY_SONG(ag_norm_song);
+              }
             #endif
             break;
           case MAGIC_TOGGLE_NKRO:
@@ -915,6 +945,9 @@ void tap_random_base64(void) {
 }
 
 void matrix_init_quantum() {
+  if (!eeconfig_is_enabled() && !eeconfig_is_disabled()) {
+    eeconfig_init();
+  }
   #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
   #endif

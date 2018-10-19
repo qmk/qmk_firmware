@@ -1,8 +1,4 @@
-ifeq ($(strip $(KEYBOARD)), lets_split_rev2)
-SRC += ../../keyboards/lets_split/lets_split.c
-endif
-
-SRC += wanleg.c tapdances.c 
+SRC += wanleg.c tapdances.c
 
 TAP_DANCE_ENABLE = yes
 MOUSEKEY_ENABLE = yes
@@ -11,4 +7,10 @@ MOUSEKEY_ENABLE = yes
 #run "make <keyboard>:<keymap> dfu=qmk" when compiling to ensure it is flagged properly after being flashed
 ifeq ($(strip $(dfu)), qmk)
     BOOTLOADER = qmk-dfu
+endif
+
+#use alternate settings for 4x4 board using ProMicro instead of Micro
+#usage: make 4x4:wanleg PM=yes
+ifeq ($(strip $(PM)), yes)
+	OPT_DEFS += -DPRO_MICRO
 endif
