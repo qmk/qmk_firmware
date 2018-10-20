@@ -17,7 +17,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 enum _ergodox_layers {
     _QWERTY,
-    _TARMAK,
     _COLEMAK,
     // Intermediate layers
     _SYMB,
@@ -40,13 +39,13 @@ static void get_visualizer_layer_and_color(visualizer_state_t* state) {
 
     switch(layer) {
         case _COLEMAK:
-        state->target_lcd_color = LCD_COLOR(0, saturation, 0xFF);
+        state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
         state->layer_text = "Colemak";
         break;
-        case _TARMAK:
-        state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
-        state->layer_text = "Tarmak";
-        break;
+//        case _TARMAK:
+//        state->target_lcd_color = LCD_COLOR(84, saturation, 0xFF);
+//        state->layer_text = "Tarmak";
+//        break;
         case _SYMB:
         state->target_lcd_color = LCD_COLOR(214, saturation, 0xFF);
         state->layer_text = "Symbols";
