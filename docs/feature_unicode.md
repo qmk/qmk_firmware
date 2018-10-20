@@ -82,11 +82,11 @@ sort of like macro. Unfortunately, each OS has different ideas on how Unicode is
 
 This is the current list of Unicode input method in QMK:
 
-* _UC_OSX_: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
-* _UC_OSX_RALT_: Same as UC_OSX, but sends the Right Alt key for unicode input
-* _UC_LNX_: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
-* _UC_WIN_: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
-* _UC_WINC_: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
+* __UC_OSX__: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
+* __UC_OSX_RALT__: Same as UC_OSX, but sends the Right Alt key for unicode input
+* __UC_LNX__: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
+* __UC_WIN__: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
+* __UC_WINC__: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
 
 At some point, you need to call `set_unicode_input_mode(x)` to set the correct unicode method.  This sets the method that is used to send the unicode, and stores it in EEPROM, so you only need to call this once.
 

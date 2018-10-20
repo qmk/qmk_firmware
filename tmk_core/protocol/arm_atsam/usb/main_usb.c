@@ -88,6 +88,20 @@ void main_exk_disable(void)
 }
 #endif
 
+#ifdef CON
+volatile bool main_b_con_enable = false;
+bool main_con_enable(void)
+{
+    main_b_con_enable = true;
+    return true;
+}
+
+void main_con_disable(void)
+{
+    main_b_con_enable = false;
+}
+#endif
+
 #ifdef MOU
 volatile bool main_b_mou_enable = false;
 bool main_mou_enable(void)
