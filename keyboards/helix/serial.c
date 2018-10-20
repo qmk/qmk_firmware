@@ -115,46 +115,60 @@ int serial_update_buffers()
 #define NO_INLINE __attribute__((noinline))
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
-// Serial pulse period in microseconds.
-#define TID_SEND_ADJUST 14
-
 // parity check
 #define ODD_PARITY 1
 #define EVEN_PARITY 0
 #define PARITY EVEN_PARITY
 
+#ifdef SERIAL_DELAY
+  // custom setup in config.h
+  // #define TID_SEND_ADJUST 2
+  // #define SERIAL_DELAY 6             // micro sec
+  // #define READ_WRITE_START_ADJUST 30 // cycles
+  // #define READ_WRITE_WIDTH_ADJUST 8 // cycles
+#else
+// ============ Standard setups ============
+
 #ifndef SELECT_SOFT_SERIAL_SPEED
 #define SELECT_SOFT_SERIAL_SPEED 1
 #endif
+
+#define TID_SEND_ADJUST 2
+
 #if SELECT_SOFT_SERIAL_SPEED == 0
   // Very High speed
   #define SERIAL_DELAY 4             // micro sec
   #define READ_WRITE_START_ADJUST 33 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 6 // cycles
 #elif SELECT_SOFT_SERIAL_SPEED == 1
   // High speed
   #define SERIAL_DELAY 6             // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
 #elif SELECT_SOFT_SERIAL_SPEED == 2
   // Middle speed
   #define SERIAL_DELAY 12            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
 #elif SELECT_SOFT_SERIAL_SPEED == 3
   // Low speed
   #define SERIAL_DELAY 24            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
 #elif SELECT_SOFT_SERIAL_SPEED == 4
   // Very Low speed
-  #define SERIAL_DELAY 50            // micro sec
+  #define SERIAL_DELAY 36            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+#elif SELECT_SOFT_SERIAL_SPEED == 5
+  // Ultra Low speed
+  #define SERIAL_DELAY 48            // micro sec
+  #define READ_WRITE_START_ADJUST 30 // cycles
+  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
 #else
 #error invalid SELECT_SOFT_SERIAL_SPEED value
-#endif
-
+#endif /* SELECT_SOFT_SERIAL_SPEED */
+#endif /* SERIAL_DELAY */
 
 #define SERIAL_DELAY_HALF1 (SERIAL_DELAY/2)
 #define SERIAL_DELAY_HALF2 (SERIAL_DELAY - SERIAL_DELAY/2)
