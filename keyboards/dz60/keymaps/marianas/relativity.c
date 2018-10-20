@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "relativity.h"
 #include "keyDefinitions.h"
+#include "keymap.h"
 
 
 uint16_t *macroTaps = 0;
