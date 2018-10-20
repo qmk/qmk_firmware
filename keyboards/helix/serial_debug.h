@@ -6,6 +6,7 @@
 #define SERIAL_DEBUG_MODE_WATCH_IOCHG 0x10
 #define SERIAL_DEBUG_MODE_WATCH_PARITY 0x20
 #define SERIAL_DEBUG_MODE_WATCH_RETRY 0x40
+#define SERIAL_DEBUG_MODE_WATCH_TIDERR 0x80
 
 //#define SERIAL_DEBUG_MODE SERIAL_DEBUG_MODE_WATCH_OUTMODE
 //#define SERIAL_DEBUG_MODE SERIAL_DEBUG_MODE_WATCH_RCVSAMPLE
@@ -17,16 +18,18 @@
 //#define SERIAL_DEBUG_MODE (SERIAL_DEBUG_MODE_WATCH_IOCHG|SERIAL_DEBUG_MODE_WATCH_SYNC)
 //#define SERIAL_DEBUG_MODE SERIAL_DEBUG_MODE_WATCH_PARITY
 //#define SERIAL_DEBUG_MODE SERIAL_DEBUG_MODE_WATCH_RETRY
+#define SERIAL_DEBUG_MODE (SERIAL_DEBUG_MODE_WATCH_RCVSAMPLE|SERIAL_DEBUG_MODE_WATCH_TIDERR)
 
 // Helix keyboard unused port (for Logic analyzer or oscilloscope)
 #ifdef SERIAL_DEBUG_MODE
 #define SERIAL_DBGPIN_DDR DDRB
 #define SERIAL_DBGPIN_PORT PORTB
 #define SERIAL_DBGPIN_MASK _BV(PB5)
+#define SERIAL_DBGPIN_MASK2 _BV(PB6)
 #endif
 
 #ifdef SERIAL_DEBUG_MODE
- #define serial_debug_init() SERIAL_DBGPIN_DDR |= SERIAL_DBGPIN_MASK
+ #define serial_debug_init() SERIAL_DBGPIN_DDR |= (SERIAL_DBGPIN_MASK|SERIAL_DBGPIN_MASK2)
 #else
  #define serial_debug_init()
 #endif
@@ -86,6 +89,15 @@
   #define debug_retry_off()
   #define debug_retry_chg()
 #endif
+
+#if SERIAL_DEBUG_MODE & SERIAL_DEBUG_MODE_WATCH_TIDERR
+  #define debug_tid_error() SERIAL_DBGPIN_PORT |= SERIAL_DBGPIN_MASK2
+  #define debug_tid_noerror() SERIAL_DBGPIN_PORT &= ~SERIAL_DBGPIN_MASK2
+#else
+  #define debug_tid_error()
+  #define debug_tid_noerror()
+#endif
+
 
 #define SYNC_DEBUG_MODE 0
 #if SYNC_DEBUG_MODE == 0

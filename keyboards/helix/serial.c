@@ -348,8 +348,13 @@ uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) {
     debug_bytewidth_start();
     data = serial_read_chunk(&pecount, 8);
     debug_bytewidth_end();
+    if( pecount > 0 ) debug_tid_error(); //debug
     buffer[i] = data;
   }
+#if 1
+  if(pecount> 0) { debug_tid_error(); } //debug
+  else           { debug_tid_noerror(); } //debug
+#endif
   return pecount == 0;
 }
 
@@ -390,8 +395,20 @@ ISR(SERIAL_PIN_INTERRUPT) {
   tid = serial_read_chunk(&pecount,4);
   debug_bytewidth_end();
   if( pecount> 0 || tid > Transaction_table_size ) {
+#if 1
+      for( int i = 0; i < tid ; i++) {  //debug
+          debug_tid_error(); //debug
+          serial_delay_half1(); //debug
+          debug_tid_noerror(); //debug
+          serial_delay_half1(); //debug
+      } //debug
+      if(pecount> 0) debug_tid_error(); //debug
+#endif
       return;
   }
+#if 1
+  else { debug_tid_noerror(); } //debug
+#endif
   serial_delay_half1();
 
   serial_high(); // response step1 low->high
