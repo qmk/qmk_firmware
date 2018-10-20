@@ -1,5 +1,4 @@
-#ifndef _REDOX_W_H
-#define _REDOX_W_H
+#pragma once
 
 #include "quantum.h"
 #include "matrix.h"
@@ -39,5 +38,3 @@
 	{ k42, k43, k44, k45, k46, k47, k48, k49, k50, k51, k52, k53, k54, k55 }, \
 	{ k56, k57, k58, k59, k60, k61, k62, k63, k64, k65, k66, k67, k68, k69 } \
 }
-
-#endif // for #ifndef _REDOX_W_H
