@@ -79,7 +79,7 @@ ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
-//    OPT_DEFS += -DRGBLIGHT_ANIMATIONS
+#    OPT_DEFS += -DRGBLIGHT_ANIMATIONS
     OPT_DEFS += -DLED_ANIMATIONS
 endif
 
