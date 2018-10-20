@@ -382,6 +382,13 @@ void change_reciver2sender(void) {
     serial_delay_half1(); //4
 }
 
+static inline uint8_t nibble_bits_count(uint8_t bits)
+{
+    bits = (bits & 0x5) + (bits >> 1 & 0x5);
+    bits = (bits & 0x3) + (bits >> 2 & 0x3);
+    return bits;
+}
+
 // interrupt handle to be used by the target device
 ISR(SERIAL_PIN_INTERRUPT) {
   debug_output_mode(); debug_input_mode(); // indicate intterupt entry
@@ -394,25 +401,35 @@ ISR(SERIAL_PIN_INTERRUPT) {
   SSTD_t *trans = Transaction_table;
 #else
   // recive transaction table index
-  uint8_t tid;
+  uint8_t tid, bits;
   uint8_t pecount = 0;
   sync_recv();
   debug_bytewidth_start();
-  tid = serial_read_chunk(&pecount,4);
+  bits = serial_read_chunk(&pecount,7);
   debug_bytewidth_end();
-  if( pecount> 0 || tid > Transaction_table_size ) {
-#if 1
-      for( int i = 0; i < tid ; i++) {  //debug
+  tid = bits>>3;
+  bits = (bits&7) != nibble_bits_count(tid);
+  if( bits || pecount> 0 || tid > Transaction_table_size ) {
+#if 0
+      if( bits ) {
           debug_tid_error(); //debug
-          serial_delay_half1(); //debug
+          _delay_us(SERIAL_DELAY*14); //debug
           debug_tid_noerror(); //debug
-          serial_delay_half1(); //debug
+          _delay_us(SERIAL_DELAY*3); //debug
+      }
+      if( tid > Transaction_table_size ) {
+          for( int i = 0; i < tid ; i++) {  //debug
+              debug_tid_error(); //debug
+              serial_delay_half1(); //debug
+              debug_tid_noerror(); //debug
+              serial_delay_half1(); //debug
+          } //debug
       } //debug
       if(pecount> 0) debug_tid_error(); //debug
 #endif
       return;
   }
-#if 1
+#if 0
   else { debug_tid_noerror(); } //debug
 #endif
   serial_delay_half1();
@@ -492,10 +509,11 @@ int  soft_serial_transaction(int sstd_index) {
 
 #else
   // send transaction table index
+  int tid = (sstd_index<<3) | (7 & nibble_bits_count(sstd_index));
   sync_send();
   debug_bytewidth_start();
   _delay_sub_us(TID_SEND_ADJUST);
-  serial_write_chunk(sstd_index, 4);
+  serial_write_chunk(tid, 7);
   debug_bytewidth_end();
   serial_delay_half1();
 
