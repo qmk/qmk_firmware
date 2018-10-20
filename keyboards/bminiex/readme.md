@@ -1,14 +1,14 @@
-B.mini
-========
+B.mini EX
+=========
 
-A 75% keyboard with RGB
+A compact fullsize keyboard with RGB
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: B.mini PCB
-Hardware Availability: http://winkeyless.kr/product/b-mini-x2-pcb/
+Keyboard Maintainer: QMK Community  
+Hardware Supported: B.mini EX PCB
+Hardware Availability: https://winkeyless.kr/product/b-mini-ex-x2-pcb/
 
 Make example for this keyboard (after setting up your build environment):
 
-    make bmini:default
+    make bminiex:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).

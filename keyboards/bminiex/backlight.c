@@ -129,8 +129,6 @@ ISR(TIMER1_OVF_vect, ISR_NOBLOCK)
     custom_breathing_handler();
   }
   #endif
-
-  // TODO call user defined function
 }
 
 // enable timer 1 PWM

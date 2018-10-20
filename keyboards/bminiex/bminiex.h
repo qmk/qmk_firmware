@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BMINI_H
-#define BMINI_H
+#pragma once
 
 #include "quantum.h"
 
@@ -57,4 +56,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     { KC_##K07, KC_##K17, KC_##K27, KC_##K37, KC_##K47, KC_##K57, KC_##K67, KC_##K77, KC_NO,    KC_NO,    KC_##KA7, KC_##KB7, KC_##KC7, KC_##KD7, KC_##KE7 }  \
 }
 
-#endif
