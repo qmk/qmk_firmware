@@ -101,7 +101,13 @@ void serial_slave_init(void)
 // 1 => slave did not respond
 // 2 => checksum error
 int serial_update_buffers()
-{ return soft_serial_transaction(); }
+{
+    int result;
+    debug_trns_start();
+    result = soft_serial_transaction();
+    debug_trns_end();
+    return result;
+}
 
 #endif // Simple API (OLD API, compatible with let's split serial.c)
 
@@ -351,7 +357,7 @@ uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) {
     if( pecount > 0 ) debug_tid_error(); //debug
     buffer[i] = data;
   }
-#if 1
+#if 0
   if(pecount> 0) { debug_tid_error(); } //debug
   else           { debug_tid_noerror(); } //debug
 #endif

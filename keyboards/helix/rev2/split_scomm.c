@@ -58,15 +58,20 @@ int serial_update_buffers(int master_update)
     int status;
     static int need_retry = 0;
     if( s_change_old != slave_buffer_change_count ) {
+        debug_trns_start();
         status = soft_serial_transaction(GET_SLAVE_BUFFER);
+        debug_trns_end();
         if( status == TRANSACTION_END ) {
             s_change_old = slave_buffer_change_count;
         }
     }
-    if( !master_update && !need_retry)
+    if( !master_update && !need_retry) {
         status = soft_serial_transaction(GET_SLAVE_STATUS);
-    else
+    } else {
+        debug_trns_start();
         status = soft_serial_transaction(PUT_MASTER_GET_SLAVE_STATUS);
+        debug_trns_end();
+    }
     need_retry = ( status == TRANSACTION_END ) ? 0 : 1;
     if( need_retry ) debug_retry_on(); else debug_retry_off();
     return status;
