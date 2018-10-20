@@ -34,7 +34,6 @@ const uint8_t SENr[6] = {1, 2, 3, 5, 6, 7};//Maps capacitive pads to pins
 const uint8_t SENc[6] = {0, 4, 8, 9, 10, 11};
 
 volatile uint8_t LEDs[6][6] = {{0}};//Stores current LED values
-volatile uint8_t col = 0;//Keeps track of current multiplex column for LEDs
 
 //Setup interrupt to handle LEDs
 void interruptSetup(void) {
@@ -57,40 +56,34 @@ void interruptSetup(void) {
 
 //Read data from the cap touch IC
 uint8_t readDataFromTS(uint8_t reg) {
-  uint8_t tx[1] = { reg };
-  i2c_transmit(0x1C, tx, 1, 100);
   uint8_t rx[1];
-  i2c_receive(0x1C, rx, 1, 100);
-  return rx[0];
+  if (i2c_readReg(0x1C << 1, reg, rx, 1, 100) == 0) {
+    return rx[0];
+  }
+  return 0;
 }
 
 //Write data to cap touch IC
 uint8_t writeDataToTS(uint8_t reg, uint8_t data) {
   uint8_t tx[2] = { reg, data };
-  i2c_transmit(0x1C, tx, 2, 100);
-  return 1;
+  if (i2c_transmit(0x1C << 1, tx, 2, 100) == 0) {
+    return 1;
+  } else {
+    return 0;
+  }
 }
 
 
 uint8_t checkTSPres(void) {
-  uint8_t temp_byte;
-  temp_byte = readDataFromTS(0x00);
-  if (temp_byte != 0x3E)
-  {
-    return 0;
-  }
-  else
-  {
-    return 1;
-  }
+  return (readDataFromTS(0x00) == 0x3E);
 }
 
 uint8_t capSetup(void) {
 
   uint8_t temp_return = checkTSPres();
 
-  if (temp_return == 1)
-  {
+  if (temp_return == 1) {
+    writePinLow(B7);
     // Perform measurements every 16ms
     writeDataToTS(0x08, 1);
 
@@ -150,6 +143,8 @@ void matrix_scan_kb(void) {
 
 void matrix_init(void) {
 
+  i2c_init();
+
   //pinMode(7, OUTPUT);//Motor enable     E6
   setPinOutput(E6);
   //pinMode(6, OUTPUT);//Motor PWM        D7
@@ -191,7 +186,7 @@ void matrix_init(void) {
   interruptSetup();
 
   capSetup();
-  writeDataToTS(0x06, 0x12);//Calibrate capacitive touch IC
+  writeDataToTS(0x06, 0x12); //Calibrate capacitive touch IC
 
   memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
 
@@ -251,6 +246,7 @@ uint8_t matrix_scan(void) {
   if (isTouchChangeDetected()) {
     uint16_t dataIn = touchDetectionRoutine();
     if ((dataIn & 0b111100010001) > 0 && (dataIn & 0b000011101110) > 0) {
+      writePinLow(B7);
       uint8_t column = 10, row = 10;
       decodeArray(dataIn, &column, &row);
       if (column != 10 && row != 10) {
@@ -258,56 +254,33 @@ uint8_t matrix_scan(void) {
         LEDs[column][row] = 1;
         matrix[row] = _BV(column);
       } else {
-        memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
+        //memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
       }
     }
+    touchClearCurrentDetections();
   }
-  touchClearCurrentDetections();
+  LEDs[3][4] = 1;
 
+  for (uint8_t c = 0; c < 6; c++) {
+    for (uint8_t r = 0; r < 6; r++) {
+      switch (r) {
+        case 0: writePin(D6, LEDs[c][r]); break;
+        case 1: writePin(B4, LEDs[c][r]); break;
+        case 2: writePin(B5, LEDs[c][r]); break;
+        case 3: writePin(B6, LEDs[c][r]); break;
+        case 4: writePin(C6, LEDs[c][r]); break;
+        case 5: writePin(C7, LEDs[c][r]); break;
+      }
 
-  for (uint8_t c = 0; c < 6; c ++) {
-    switch (c) {
-      case 0: writePinLow(D6); break;
-      case 1: writePinLow(B4); break;
-      case 2: writePinLow(B5); break;
-      case 3: writePinLow(B6); break;
-      case 4: writePinLow(C6); break;
-      case 5: writePinLow(C7); break;
+      switch (c) {
+        case 0: writePin(F5, !LEDs[c][r]); break;
+        case 1: writePin(F4, !LEDs[c][r]); break;
+        case 2: writePin(F1, !LEDs[c][r]); break;
+        case 3: writePin(F0, !LEDs[c][r]); break;
+        case 4: writePin(F6, !LEDs[c][r]); break;
+        case 5: writePin(F7, !LEDs[c][r]); break;
+      }
     }
-  }
-
-  switch (col) {
-    case 0: writePinHigh(F7); break;
-    case 1: writePinHigh(F5); break;
-    case 2: writePinHigh(F4); break;
-    case 3: writePinHigh(F1); break;
-    case 4: writePinHigh(F0); break;
-    case 5: writePinHigh(F6); break;
-  }
-
-  switch (col) {
-    case 0: writePinLow(F7); break;
-    case 1: writePinLow(F5); break;
-    case 2: writePinLow(F4); break;
-    case 3: writePinLow(F1); break;
-    case 4: writePinLow(F0); break;
-    case 5: writePinLow(F6); break;
-  }
-
-  for (uint8_t c = 0; c < 6; c ++) {
-    switch (c) {
-      case 0: writePin(D6, LEDs[col][c]); break;
-      case 1: writePin(B4, LEDs[col][c]); break;
-      case 2: writePin(B5, LEDs[col][c]); break;
-      case 3: writePin(B6, LEDs[col][c]); break;
-      case 4: writePin(C6, LEDs[col][c]); break;
-      case 5: writePin(C7, LEDs[col][c]); break;
-    }
-  }
-
-  col++;
-  if (col > 5) {
-    col = 0;
   }
 
   // if (vibrate == VIBRATE_LENGTH) {
@@ -445,71 +418,71 @@ void matrix_print(void) {
  // analogWrite(11, blinker);//Update LED    B7
 
 //LED driving interrupt
-ISR(TIMER1_COMPA_vect) {
+// ISR(TIMER1_COMPA_vect) {
 
-  for (uint8_t c = 0; c < 6; c ++) {
-    switch (c) {
-      case 0: writePinLow(D6); break;
-      case 1: writePinLow(B4); break;
-      case 2: writePinLow(B5); break;
-      case 3: writePinLow(B6); break;
-      case 4: writePinLow(C6); break;
-      case 5: writePinLow(C7); break;
-    }
-  }
+//   for (uint8_t c = 0; c < 6; c ++) {
+//     switch (c) {
+//       case 0: writePinLow(D6); break;
+//       case 1: writePinLow(B4); break;
+//       case 2: writePinLow(B5); break;
+//       case 3: writePinLow(B6); break;
+//       case 4: writePinLow(C6); break;
+//       case 5: writePinLow(C7); break;
+//     }
+//   }
 
-  switch (col) {
-    case 0: writePinHigh(F7); break;
-    case 1: writePinHigh(F5); break;
-    case 2: writePinHigh(F4); break;
-    case 3: writePinHigh(F1); break;
-    case 4: writePinHigh(F0); break;
-    case 5: writePinHigh(F6); break;
-  }
+//   switch (col) {
+//     case 0: writePinHigh(F7); break;
+//     case 1: writePinHigh(F5); break;
+//     case 2: writePinHigh(F4); break;
+//     case 3: writePinHigh(F1); break;
+//     case 4: writePinHigh(F0); break;
+//     case 5: writePinHigh(F6); break;
+//   }
 
-  switch (col) {
-    case 0: writePinLow(F7); break;
-    case 1: writePinLow(F5); break;
-    case 2: writePinLow(F4); break;
-    case 3: writePinLow(F1); break;
-    case 4: writePinLow(F0); break;
-    case 5: writePinLow(F6); break;
-  }
+//   switch (col) {
+//     case 0: writePinLow(F7); break;
+//     case 1: writePinLow(F5); break;
+//     case 2: writePinLow(F4); break;
+//     case 3: writePinLow(F1); break;
+//     case 4: writePinLow(F0); break;
+//     case 5: writePinLow(F6); break;
+//   }
 
-  for (uint8_t c = 0; c < 6; c ++) {
-    switch (c) {
-      case 0: writePin(D6, LEDs[col][c]); break;
-      case 1: writePin(B4, LEDs[col][c]); break;
-      case 2: writePin(B5, LEDs[col][c]); break;
-      case 3: writePin(B6, LEDs[col][c]); break;
-      case 4: writePin(C6, LEDs[col][c]); break;
-      case 5: writePin(C7, LEDs[col][c]); break;
-    }
-  }
+//   for (uint8_t c = 0; c < 6; c ++) {
+//     switch (c) {
+//       case 0: writePin(D6, LEDs[col][c]); break;
+//       case 1: writePin(B4, LEDs[col][c]); break;
+//       case 2: writePin(B5, LEDs[col][c]); break;
+//       case 3: writePin(B6, LEDs[col][c]); break;
+//       case 4: writePin(C6, LEDs[col][c]); break;
+//       case 5: writePin(C7, LEDs[col][c]); break;
+//     }
+//   }
 
-  col++;
-  if (col > 5) {
-    col = 0;
-  }
+//   col++;
+//   if (col > 5) {
+//     col = 0;
+//   }
 
-  if (vibrate == VIBRATE_LENGTH) {
-    //digitalWrite(7, HIGH);
-    writePinHigh(E6);
-    // analogWrite(6, 255);
-    writePinHigh(D7);
-    vibrate--;
-  } else if (vibrate == 8) {
-    // analogWrite(6, 0);
-    writePinLow(D7);
-    vibrate--;
-  } else if (vibrate == 1) {
-    // analogWrite(6, 127);
-    writePinHigh(D7);
-    //digitalWrite(7, LOW);
-    writePinLow(E6);
-    vibrate--;
-  }
-  else if (vibrate > 0) {
-    vibrate--;
-  }
-}
+//   if (vibrate == VIBRATE_LENGTH) {
+//     //digitalWrite(7, HIGH);
+//     writePinHigh(E6);
+//     // analogWrite(6, 255);
+//     writePinHigh(D7);
+//     vibrate--;
+//   } else if (vibrate == 8) {
+//     // analogWrite(6, 0);
+//     writePinLow(D7);
+//     vibrate--;
+//   } else if (vibrate == 1) {
+//     // analogWrite(6, 127);
+//     writePinHigh(D7);
+//     //digitalWrite(7, LOW);
+//     writePinLow(E6);
+//     vibrate--;
+//   }
+//   else if (vibrate > 0) {
+//     vibrate--;
+//   }
+// }
