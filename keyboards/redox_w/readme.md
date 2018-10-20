@@ -9,8 +9,8 @@ Redox wireless
 
 A wireless version of the Redox keyboard.
 
-- Keyboard Maintainer: [@mattdibi](https://github.com/mattdibi)
-- Hardware Supported: Redox-w rev1.0W PCB
+- Keyboard Maintainer: [@mattdibi](https://github.com/mattdibi)  
+- Hardware Supported: Redox-w rev1.0W PCB  
 - Hardware Availability: Falbatech
 
 Make example for this keyboard (after setting up your build environment):
