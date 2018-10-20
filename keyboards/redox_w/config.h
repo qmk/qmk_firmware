@@ -50,8 +50,6 @@
  *  These options are also useful to firmware size reduction.
  */
 
-#define PREVENT_STUCK_MODIFIERS
-
 /* disable debug print */
 //#define NO_DEBUG
 
