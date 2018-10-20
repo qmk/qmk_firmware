@@ -1,8 +1,4 @@
 
-bool isShifted(void);
-void setShifted(bool);
-
-bool storeShiftState(uint16_t keycode, keyrecord_t *record);
 
 uint32_t layer_state_set_user(uint32_t state);
 

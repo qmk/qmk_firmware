@@ -1,6 +1,4 @@
-#include QMK_KEYBOARD_H
 #include "relativity.h"
-#include "keyDefinitions.h"
 #include "keymap.h"
 
 
@@ -11,13 +9,14 @@ char *tableNameList = 0;
 uint8_t *charCount = 0;
 uint8_t countPointer = 0;
 
+bool relativityActive = false;
 
 
 bool sendAbbr = false;
 
 
 
-void initStringData(void)
+void initStringData()
 {
   if (macroTaps == 0)
   {
@@ -45,6 +44,14 @@ void initStringData(void)
   }
 }
 
+void activateRelativity(void)
+{
+  initStringData();
+
+  rgblight_mode(1);
+  rgblight_setrgb(0x80, 0xFF, 0x00);
+  relativityActive = true;
+}
 
 bool containsCode(uint16_t kc)
 {
@@ -110,7 +117,6 @@ void eraseCharCounts(void)
 
 void printTableAbbreviation(void)
 {
-  initStringData();
   if (tableNameList[0] == 0)
   {
     return;
@@ -133,7 +139,6 @@ void printTableAbbreviation(void)
 
 void eraseTableAbbreviation(void)
 {
-  initStringData();
   for (int i = 0; i < tableNameListLen && tableNameList[i] > 0; i++)
   {
     tableNameList[i] = '\0';
@@ -160,7 +165,6 @@ void printString(char* str)
 
 void printStringAndQueueChar(char* str)
 {
-  initStringData();
   if (charCount[countPointer] != 0)
   {
     countPointer++;
@@ -234,20 +238,19 @@ void deletePrev(void)
 
 void processSmartMacroTap(uint16_t kc)
 {
-  initStringData();
   switch(kc)
   {
-    case TD_C:
-      if (containsCode(TD_D))
+    case KC_C:
+      if (containsCode(KC_D))
       {
         printString("ribution");
         printStringAndQueueChar("Center");
       }
-      else if (last2CodeAre(TD_C))
+      else if (last2CodeAre(KC_C))
       {
         ReplaceString("Corporation", "Contact");
       }
-      else if(lastCodeIs(TD_C))
+      else if(lastCodeIs(KC_C))
       {
         printString("oration");
       }
@@ -256,12 +259,12 @@ void processSmartMacroTap(uint16_t kc)
         printStringAndQueueChar("Corp");
       }
       break;
-    case TD_D:
-      if (last2CodeAre(TD_D))
+    case KC_D:
+      if (last2CodeAre(KC_D))
       {
         ReplaceString("Distribution", "Distributor");
       }
-      else if(lastCodeIs(TD_D))
+      else if(lastCodeIs(KC_D))
       {
         printString("ribution");
       }
@@ -270,29 +273,29 @@ void processSmartMacroTap(uint16_t kc)
         printStringAndQueueChar("Dist");
       }
       break;
-    case TD_G:
+    case KC_G:
         printStringAndQueueChar("Global");
         printStringAndQueueChar("Lookup");
       break;
-    case TD_I:
-      if (containsCode(TD_W))
+    case KC_I:
+      if (containsCode(KC_W))
         printStringAndQueueChar("Instance");
       else
         printStringAndQueueChar("Item");
       break;
-    case TD_N:
+    case KC_N:
       printStringAndQueueChar("NadRate");
       break;
-    case TD_P:
-      if (last2CodesAre(TD_D, TD_C))
+    case KC_P:
+      if (last2CodesAre(KC_D, KC_C))
       {
         ReplaceString("DistributionCenter", "DistCenter");
         printStringAndQueueChar("Pricing");
       }
-      else if (last2CodeAre(TD_P))
+      else if (last2CodeAre(KC_P))
       {
       }
-      else if(lastCodeIs(TD_P))
+      else if(lastCodeIs(KC_P))
       {
         ReplaceString("Product", "Person");
       }
@@ -301,25 +304,25 @@ void processSmartMacroTap(uint16_t kc)
         printStringAndQueueChar("Product");
       }
       break;
-    case TD_Q:
+    case KC_Q:
       printStringAndQueueChar("Darden");
       break;
-    case TD_S:
-      if (containsCode(TD_W))
-        if (containsCode(TD_S) || containsCode(TD_D))
+    case KC_S:
+      if (containsCode(KC_W))
+        if (containsCode(KC_S) || containsCode(KC_D))
           printStringAndQueueChar("Step");
         else
           printStringAndQueueChar("Session");
       else
         printStringAndQueueChar("Supplier");
       break;
-    case TD_T:
-      if (containsCode(TD_W))
+    case KC_T:
+      if (containsCode(KC_W))
         printStringAndQueueChar("Task");
       else
         printStringAndQueueChar("Type");
       break;
-    case TD_W:
+    case KC_W:
       printStringAndQueueChar("Workflow");
       break;
   }
@@ -327,14 +330,52 @@ void processSmartMacroTap(uint16_t kc)
 }
 
 
-
-bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
+bool shifted = false;
+bool isShifted()
 {
+  return shifted;
+}
+
+void setShifted(bool val)
+{
+  shifted = val;
+}
+
+
+bool storeShiftState(uint16_t keycode, keyrecord_t *record)
+{
+
   if (record->event.pressed)
   {
     switch (keycode)
     {
-      case TD_BSPC:
+      case KC_LSPO:
+      case KC_RSPC:
+        shifted = true;
+    }
+  }
+  else
+  {
+    switch (keycode)
+    {
+
+      case KC_LSPO:
+      case KC_RSPC:
+        shifted = false;
+        return true;
+    }
+  }
+  return true;
+}
+
+bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
+{
+  if (relativityActive != true) return true;
+  if (record->event.pressed)
+  {
+    switch (keycode)
+    {
+      case KC_BSPC:
         if (!isShifted()){
           deletePrev();
         }
@@ -343,41 +384,41 @@ bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
           unregister_code(KC_BSPC);
         }
         return false;
-      case TD_A:
-      case TD_B:
-      case TD_C:
-      case TD_D:
-      case TD_E:
-      case TD_F:
-      case TD_G:
-      case TD_H:
-      case TD_I:
-      case TD_J:
-      case TD_K:
-      case TD_L:
-      case TD_M:
-      case TD_N:
-      case TD_O:
-      case TD_P:
-      case TD_Q:
-      case TD_R:
-      case TD_S:
-      case TD_T:
-      case TD_U:
-      case TD_V:
-      case TD_W:
-      case TD_X:
-      case TD_Y:
-      case TD_Z:
+      case KC_A:
+      case KC_B:
+      case KC_C:
+      case KC_D:
+      case KC_E:
+      case KC_F:
+      case KC_G:
+      case KC_H:
+      case KC_I:
+      case KC_J:
+      case KC_K:
+      case KC_L:
+      case KC_M:
+      case KC_N:
+      case KC_O:
+      case KC_P:
+      case KC_Q:
+      case KC_R:
+      case KC_S:
+      case KC_T:
+      case KC_U:
+      case KC_V:
+      case KC_W:
+      case KC_X:
+      case KC_Y:
+      case KC_Z:
         processSmartMacroTap(keycode);
         return false;
 
-      case TD_ENT:
+      case KC_ENT:
         printTableAbbreviation();
-      case TD_ESC:
+      case KC_ESC:
         eraseKeyCodes();
         eraseTableAbbreviation();
-        layer_off(SQLNAMES);
+        relativityActive = false;
         return true;
     }
   }

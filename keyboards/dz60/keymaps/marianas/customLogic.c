@@ -1,42 +1,5 @@
 #include "customLogic.h"
 
-bool shifted = false;
-bool isShifted()
-{
-  return shifted;
-}
-
-void setShifted(bool val)
-{
-  shifted = val;
-}
-
-
-bool storeShiftState(uint16_t keycode, keyrecord_t *record)
-{
-
-  if (record->event.pressed)
-  {
-    switch (keycode)
-    {
-      case KC_LSPO:
-      case KC_RSPC:
-        shifted = true;
-    }
-  }
-  else
-  {
-    switch (keycode)
-    {
-
-      case KC_LSPO:
-      case KC_RSPC:
-        shifted = false;
-        return true;
-    }
-  }
-  return true;
-}
 
 
 
@@ -56,10 +19,6 @@ uint32_t layer_state_set_user(uint32_t state)
     case SQLMACROS:
       rgblight_mode(1);
       rgblight_setrgb(0x00, 0xFF, 0x80);
-      break;
-    case SQLNAMES:
-      rgblight_mode(1);
-      rgblight_setrgb(0x80, 0xFF, 0x00);
       break;
     case FN_LAYER:
       rgblight_mode(1);
@@ -121,8 +80,7 @@ bool updateLayerState(uint16_t keycode, keyrecord_t *record)
         layer_off(FN_LAYER);
         if (!didFn)
         {
-          initStringData();
-          layer_on(SQLNAMES);
+          activateRelativity();
         }
         didFn = false;
         isFn = false;

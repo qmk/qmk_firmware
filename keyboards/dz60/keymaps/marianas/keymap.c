@@ -42,14 +42,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ________,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  _________________,
       ____,  ____,  ____,  /*------------------*/_____/*------------------*/,  ____,  ____,  ____,  ____),
 
-  [SQLNAMES]=
-    LAYOUT_60_ansi(
-      TD_ESC,    KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  KCNO,  TD_BSPC,
-      KCNO,       TD_Q,  TD_W,  TD_E,  TD_R,  TD_T,  TD_Y,  TD_U,  TD_I,  TD_O,  TD_P,  KCNO,  KCNO,  TD_ESC,
-      TD_ESC,        TD_A,  TD_S,  TD_D,  TD_F,  TD_G,  TD_H,  TD_J,  TD_K,  TD_L,  KCNO,  KCNO,        TD_ENT,
-      KCNO,         TD_Z,  TD_X,  TD_C,  TD_V,  TD_B,  TD_N,  TD_M,  KCNO,  KCNO,  KCNO,   _________________,
-      KCNO, KCNO, KCNO, /*-----------------------*/TD_ENT/*----------------------*/, KCNO, KCNO, KCNO, RESET),
-
   [FN_LAYER]=
     LAYOUT_60_ansi(
       KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
