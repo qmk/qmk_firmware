@@ -92,10 +92,10 @@ SSTD_t transactions[] = {
 };
 
 void serial_master_init(void)
-{ soft_serial_initiator_init(transactions); }
+{ soft_serial_initiator_init(transactions, TID_LIMIT(transactions)); }
 
 void serial_slave_init(void)
-{ soft_serial_target_init(transactions); }
+{ soft_serial_target_init(transactions, TID_LIMIT(transactions)); }
 
 // 0 => no error
 // 1 => slave did not respond
@@ -111,6 +111,11 @@ int serial_update_buffers()
 
 // Serial pulse period in microseconds.
 #define TID_SEND_ADJUST 14
+
+// parity check
+#define ODD_PARITY 1
+#define EVEN_PARITY 0
+#define PARITY EVEN_PARITY
 
 #ifndef SELECT_SOFT_SERIAL_SPEED
 #define SELECT_SOFT_SERIAL_SPEED 1
@@ -157,6 +162,7 @@ int serial_update_buffers()
 #endif
 
 static SSTD_t *Transaction_table = NULL;
+static uint8_t Transaction_table_size = 0;
 
 inline static
 void serial_delay(void) {
@@ -206,18 +212,20 @@ void serial_high(void) {
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
 
-void soft_serial_initiator_init(SSTD_t *sstd_table)
+void soft_serial_initiator_init(SSTD_t *sstd_table, int sstd_table_size)
 {
     serial_debug_init();
     Transaction_table = sstd_table;
+    Transaction_table_size = (uint8_t)sstd_table_size;
     serial_output();
     serial_high();
 }
 
-void soft_serial_target_init(SSTD_t *sstd_table)
+void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size)
 {
     serial_debug_init();
     Transaction_table = sstd_table;
+    Transaction_table_size = (uint8_t)sstd_table_size;
     serial_input_with_pullup();
 
     // Enable INT0-INT3,INT6
@@ -262,7 +270,7 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
     uint8_t byte, i, p, pb;
 
   _delay_sub_us(READ_WRITE_START_ADJUST);
-  for( i = 0, byte = 0, p = 0; i < bit; i++ ) {
+  for( i = 0, byte = 0, p = PARITY; i < bit; i++ ) {
       serial_delay_half1();   // read the middle of pulses
       debug_recvsample();
       if( serial_read_pin() ) {
@@ -295,7 +303,7 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
 void serial_write_chunk(uint8_t data, uint8_t bit) NO_INLINE;
 void serial_write_chunk(uint8_t data, uint8_t bit) {
     uint8_t b, p;
-    for( p = 0, b = 1<<(bit-1); b ; b >>= 1) {
+    for( p = PARITY, b = 1<<(bit-1); b ; b >>= 1) {
         if(data & b) {
             serial_high(); p ^= 1;
         } else {
@@ -381,8 +389,9 @@ ISR(SERIAL_PIN_INTERRUPT) {
   debug_bytewidth_start();
   tid = serial_read_chunk(&pecount,4);
   debug_bytewidth_end();
-  if(pecount> 0)
+  if( pecount> 0 || tid > Transaction_table_size ) {
       return;
+  }
   serial_delay_half1();
 
   serial_high(); // response step1 low->high
@@ -432,6 +441,8 @@ int  soft_serial_transaction(void) {
   SSTD_t *trans = Transaction_table;
 #else
 int  soft_serial_transaction(int sstd_index) {
+  if( sstd_index > Transaction_table_size )
+      return TRANSACTION_TYPE_ERROR;
   SSTD_t *trans = &Transaction_table[sstd_index];
 #endif
   cli();
