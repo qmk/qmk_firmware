@@ -62,7 +62,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      TAB ,QUOT,COMM,DOT , P  , Y  ,                F  , G  , C  , R  , L  ,SLSH,
      ESC , A  , O  , E  , U  , I  ,                D  , H  , T  , N  , S  ,MINS,
      LSFT,SCLN, Q  , J  , K  , X  ,LALT,     RGUI, B  , M  , W  , V  , Z  ,RSFT,
-                       LOWR,BSLT,LCTL,         ENT ,SPC ,RASE
+                       LOWR,BSPC,LCTL,         ENT ,SPC ,RASE
   ),
 
   [_LOWER] = LAYOUT_kc (
