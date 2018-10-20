@@ -18,11 +18,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-// Fillers to make layering more clear
-#define KC_ KC_TRNS
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
