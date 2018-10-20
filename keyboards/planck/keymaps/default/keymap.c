@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "planck.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #include "muse.h"
 
 extern keymap_config_t keymap_config;
@@ -276,11 +275,21 @@ void encoder_update(bool clockwise) {
     }
   } else {
     if (clockwise) {
-      register_code(KC_PGDN);
-      unregister_code(KC_PGDN);
+      #ifdef MOUSEKEY_ENABLE
+        register_code(KC_MS_WH_DOWN);
+        unregister_code(KC_MS_WH_DOWN);
+      #else
+        register_code(KC_PGDN);
+        unregister_code(KC_PGDN);
+      #endif
     } else {
-      register_code(KC_PGUP);
-      unregister_code(KC_PGUP);
+      #ifdef MOUSEKEY_ENABLE
+        register_code(KC_MS_WH_UP);
+        unregister_code(KC_MS_WH_UP);
+      #else
+        register_code(KC_PGUP);
+        unregister_code(KC_PGUP);
+      #endif
     }
   }
 }

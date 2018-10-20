@@ -18,6 +18,52 @@
 
 #include "rgblight_reconfig.h"
 
+/***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
+
+ old mode number (before 0.6.117) to new mode name table
+
+|-----------------|-----------------------------------|
+| old mode number | new mode name                     |
+|-----------------|-----------------------------------|
+|        1        | RGBLIGHT_MODE_STATIC_LIGHT        |
+|        2        | RGBLIGHT_MODE_BREATHING           |
+|        3        | RGBLIGHT_MODE_BREATHING + 1       |
+|        4        | RGBLIGHT_MODE_BREATHING + 2       |
+|        5        | RGBLIGHT_MODE_BREATHING + 3       |
+|        6        | RGBLIGHT_MODE_RAINBOW_MOOD        |
+|        7        | RGBLIGHT_MODE_RAINBOW_MOOD + 1    |
+|        8        | RGBLIGHT_MODE_RAINBOW_MOOD + 2    |
+|        9        | RGBLIGHT_MODE_RAINBOW_SWIRL       |
+|       10        | RGBLIGHT_MODE_RAINBOW_SWIRL + 1   |
+|       11        | RGBLIGHT_MODE_RAINBOW_SWIRL + 2   |
+|       12        | RGBLIGHT_MODE_RAINBOW_SWIRL + 3   |
+|       13        | RGBLIGHT_MODE_RAINBOW_SWIRL + 4   |
+|       14        | RGBLIGHT_MODE_RAINBOW_SWIRL + 5   |
+|       15        | RGBLIGHT_MODE_SNAKE               |
+|       16        | RGBLIGHT_MODE_SNAKE + 1           |
+|       17        | RGBLIGHT_MODE_SNAKE + 2           |
+|       18        | RGBLIGHT_MODE_SNAKE + 3           |
+|       19        | RGBLIGHT_MODE_SNAKE + 4           |
+|       20        | RGBLIGHT_MODE_SNAKE + 5           |
+|       21        | RGBLIGHT_MODE_KNIGHT              |
+|       22        | RGBLIGHT_MODE_KNIGHT + 1          |
+|       23        | RGBLIGHT_MODE_KNIGHT + 2          |
+|       24        | RGBLIGHT_MODE_CHRISTMAS           |
+|       25        | RGBLIGHT_MODE_STATIC_GRADIENT     |
+|       26        | RGBLIGHT_MODE_STATIC_GRADIENT + 1 |
+|       27        | RGBLIGHT_MODE_STATIC_GRADIENT + 2 |
+|       28        | RGBLIGHT_MODE_STATIC_GRADIENT + 3 |
+|       29        | RGBLIGHT_MODE_STATIC_GRADIENT + 4 |
+|       30        | RGBLIGHT_MODE_STATIC_GRADIENT + 5 |
+|       31        | RGBLIGHT_MODE_STATIC_GRADIENT + 6 |
+|       32        | RGBLIGHT_MODE_STATIC_GRADIENT + 7 |
+|       33        | RGBLIGHT_MODE_STATIC_GRADIENT + 8 |
+|       34        | RGBLIGHT_MODE_STATIC_GRADIENT + 9 |
+|       35        | RGBLIGHT_MODE_RGB_TEST            |
+|       36        | RGBLIGHT_MODE_ALTERNATING         |
+|-----------------|-----------------------------------|
+ *****/
+
 #define _RGBM_SINGLE_STATIC(sym)   RGBLIGHT_MODE_ ## sym,
 #define _RGBM_SINGLE_DYNAMIC(sym)  RGBLIGHT_MODE_ ## sym,
 #define _RGBM_MULTI_STATIC(sym)    RGBLIGHT_MODE_ ## sym,
@@ -238,6 +284,10 @@ void rgblight_effect_alternating(void);
   #ifdef RGBLIGHT_EFFECT_ALTERNATING
     _RGBM_SINGLE_DYNAMIC( ALTERNATING )
   #endif
+  ////  Add a new mode here.
+  // #ifdef RGBLIGHT_EFFECT_<name>
+  //    _RGBM_<SINGLE|MULTI>_<STATIC|DYNAMIC>( <name> )
+  // #endif
 #endif
 
 #undef _RGBM_SINGLE_STATIC

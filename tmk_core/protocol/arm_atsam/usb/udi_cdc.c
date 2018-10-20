@@ -1260,7 +1260,7 @@ uint32_t CDC_print(char *printbuf)
 
 char printbuf[CDC_PRINTBUF_SIZE];
 
-int dpf(const char *_Format, ...)
+int CDC_printf(const char *_Format, ...)
 {
     va_list va; //Variable argument list variable
     int result;
@@ -1356,7 +1356,7 @@ uint32_t CDC_print(char *printbuf)
     return 0;
 }
 
-int dpf(const char *_Format, ...)
+int CDC_printf(const char *_Format, ...)
 {
     return 0;
 }

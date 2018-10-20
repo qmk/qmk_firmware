@@ -12,3 +12,6 @@
 #define MOUSEKEY_TIME_TO_MAX 50
 #define MOUSEKEY_WHEEL_MAX_SPEED 1
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 50
+
+#undef  IS_COMMAND
+#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RCTL)))

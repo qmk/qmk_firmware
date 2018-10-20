@@ -37,6 +37,3 @@ ifdef CONSOLE_ENABLE
   endif
 endif
 
-ifeq ($(strip $(UNICODE_ENABLE)), yes)
-  SRC += send_unicode.c
-endif
