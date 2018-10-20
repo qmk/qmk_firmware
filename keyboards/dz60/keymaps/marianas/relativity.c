@@ -413,7 +413,7 @@ bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
         processSmartMacroTap(keycode);
         return false;
 
-      case KC_ENT:
+      case KC_SPC:
         printTableAbbreviation();
       case KC_ESC:
         eraseKeyCodes();

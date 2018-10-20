@@ -1,5 +1,8 @@
+#include QMK_KEYBOARD_H
 #include "customLogic.h"
-
+#include "keymap.h"
+#include "keyDefinitions.h"
+#include "relativity.h"
 
 
 

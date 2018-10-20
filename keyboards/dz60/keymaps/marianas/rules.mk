@@ -18,3 +18,4 @@ AUTO_SHIFT_ENABLE = no
 
 
 SRC += relativity.c
+SRC += customLogic.c
