@@ -7,8 +7,8 @@
 A short description of the keyboard/project
 
 
-Keyboard Maintainer: [amnesia0287](https://github.com/amnesia0287)
-Hardware Supported: TGR-Elaine v1.0 PCB
+Keyboard Maintainer: [amnesia0287](https://github.com/amnesia0287)  
+Hardware Supported: TGR-Elaine v1.0 PCB  
 Hardware Availability: http://singakbd.com/
 
 

@@ -61,8 +61,8 @@ endif
 
 ifeq ($(strip $(STENO_ENABLE)), yes)
     OPT_DEFS += -DSTENO_ENABLE
-	VIRTSER_ENABLE := yes
-	SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+    VIRTSER_ENABLE := yes
+    SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
 endif
 
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
@@ -75,9 +75,9 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-	OPT_DEFS += -DPOINTING_DEVICE_ENABLE
-	OPT_DEFS += -DMOUSE_ENABLE
-	SRC += $(QUANTUM_DIR)/pointing_device.c
+    OPT_DEFS += -DPOINTING_DEVICE_ENABLE
+    OPT_DEFS += -DMOUSE_ENABLE
+    SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
@@ -110,17 +110,39 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     else
-	    SRC += ws2812.c
+        SRC += ws2812.c
     endif
 endif
 
-ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+RGB_MATRIX_ENABLE ?= no
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
+ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
+    $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
+endif
     OPT_DEFS += -DRGB_MATRIX_ENABLE
-    SRC += is31fl3731.c
-    SRC += i2c_master.c
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
     CIE1931_CURVE = yes
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+	RGB_MATRIX_ENABLE = IS31FL3731
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
+    OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3731.c
+    SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
+    OPT_DEFS += -DIS31FL3733
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3733.c
+    SRC += i2c_master.c
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -169,7 +191,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-		ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+        ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 endif
@@ -197,17 +219,25 @@ ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
-
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
-	OPT_DEFS += -DHD44780_ENABLE
+    OPT_DEFS += -DHD44780_ENABLE
+endif
+
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
+    SRC += $(QUANTUM_DIR)/dynamic_keymap.c
+endif
+
+ifeq ($(strip $(LEADER_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
+  OPT_DEFS += -DLEADER_ENABLE
 endif
 
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
-    $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/process_keycode/process_leader.c
+    $(QUANTUM_DIR)/keycode_config.c
 
 ifndef CUSTOM_MATRIX
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
@@ -222,5 +252,5 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
                 $(QUANTUM_DIR)/split_common/split_util.c \
                 $(QUANTUM_DIR)/split_common/i2c.c \
-                $(QUANTUM_DIR)/split_common/serial.c  
+                $(QUANTUM_DIR)/split_common/serial.c
 endif

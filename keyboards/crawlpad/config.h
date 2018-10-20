@@ -40,9 +40,6 @@
     false \
 )
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS

@@ -1,7 +1,7 @@
 #ifdef KEYBOARD_zeal60
 #include "config.h"
 #include "zeal60.h"
-#include "zeal_backlight.h"
+#include "rgb_backlight.h"
 #include "action_layer.h"
 #include "solarized.h"
 #include "talljoe.h"
@@ -9,7 +9,7 @@
 // from zeal_backlight.c
 // we want to be able to set indicators for the spacebar stabs
 // but they are not represented by a row/index.
-extern zeal_backlight_config g_config;
+extern backlight_config g_config;
 void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led );
 
 void set_backlight_defaults(void) {
@@ -17,7 +17,7 @@ void set_backlight_defaults(void) {
   uint8_t caps_lock;
   map_row_column_to_led(3, 12, &caps_lock);
   map_row_column_to_led(4, 7, &space);
-  zeal_backlight_config default_values = {
+  backlight_config default_values = {
     .use_split_backspace = USE_SPLIT_BACKSPACE,
     .use_split_left_shift = USE_SPLIT_LEFT_SHIFT,
     .use_split_right_shift = USE_SPLIT_RIGHT_SHIFT,
@@ -34,15 +34,17 @@ void set_backlight_defaults(void) {
     .layer_2_indicator = { .index = space, .color = solarized.yellow },
     .layer_3_indicator = { .index = 254, .color = solarized.red },
     .alphas_mods = {
-      BACKLIGHT_ALPHAS_MODS_ROW_0,
-      BACKLIGHT_ALPHAS_MODS_ROW_1,
-      BACKLIGHT_ALPHAS_MODS_ROW_2,
-      BACKLIGHT_ALPHAS_MODS_ROW_3,
-      BACKLIGHT_ALPHAS_MODS_ROW_4 }
+      RGB_BACKLIGHT_ALPHAS_MODS_ROW_0,
+      RGB_BACKLIGHT_ALPHAS_MODS_ROW_1,
+      RGB_BACKLIGHT_ALPHAS_MODS_ROW_2,
+      RGB_BACKLIGHT_ALPHAS_MODS_ROW_3,
+      RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 }
   };
-  memcpy(&g_config, &default_values, sizeof(zeal_backlight_config));
+  memcpy(&g_config, &default_values, sizeof(backlight_config));
   backlight_config_save();
 
+#undef CUSTOM_RGB_LAYOUTS
+#ifdef CUSTOM_RGB_LAYOUTS
   solarized_t* S = &solarized;
   HSV alphas = S->base2;
   HSV custom_color_map[MATRIX_ROWS][MATRIX_COLS] = CM(
@@ -54,9 +56,12 @@ void set_backlight_defaults(void) {
   );
   for (uint8_t row = 0; row < MATRIX_ROWS; ++row) {
     for (uint8_t col = 0; col < MATRIX_COLS; ++col) {
-      backlight_set_key_color(row, col, custom_color_map[row][col]);
+      uint8_t index;
+			map_row_column_to_led( row, col, &index );
+      set_key_color(index, custom_color_map[row][col]);
     }
   }
+#endif // CUSTOM_RGB_LAYOUTS
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {

@@ -230,7 +230,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       userspace_config.rgb_layer_change ^= 1;
       xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-      eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+      eeconfig_update_user(userspace_config.raw);
       if (userspace_config.rgb_layer_change) {
         layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
       }
@@ -243,7 +243,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
       if (userspace_config.rgb_layer_change) {
         userspace_config.rgb_layer_change = false;
         xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-        eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);
+        eeconfig_update_user(userspace_config.raw);
       }
     }
     return true; break;
@@ -267,12 +267,13 @@ void matrix_init_rgb(void) {
       case _COLEMAK:
         rgblight_sethsv_noeeprom_magenta(); break;
       case _DVORAK:
-        rgblight_sethsv_noeeprom_green(); break;
+        rgblight_sethsv_noeeprom_springgreen(); break;
       case _WORKMAN:
         rgblight_sethsv_noeeprom_goldenrod(); break;
       default:
         rgblight_sethsv_noeeprom_cyan(); break;
     }
+    rgblight_mode_noeeprom(1);
   }
 }
 
@@ -294,44 +295,44 @@ uint32_t layer_state_set_rgb(uint32_t state) {
     switch (biton32(state)) {
     case _MACROS:
       rgblight_sethsv_noeeprom_orange();
-      userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
+      userspace_config.is_overwatch ? rgblight_effect_snake(RGBLIGHT_MODE_SNAKE + 2) : rgblight_effect_snake(RGBLIGHT_MODE_SNAKE + 3);
       break;
     case _MEDIA:
       rgblight_sethsv_noeeprom_chartreuse();
-      rgblight_mode_noeeprom(22);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 1);
       break;
     case _GAMEPAD:
       rgblight_sethsv_noeeprom_orange();
-      rgblight_mode_noeeprom(17);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 2);
       break;
     case _DIABLO:
       rgblight_sethsv_noeeprom_red();
-      rgblight_mode_noeeprom(5);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
       break;
     case _RAISE:
       rgblight_sethsv_noeeprom_yellow();
-      rgblight_mode_noeeprom(5);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
       break;
     case _LOWER:
-      rgblight_sethsv_noeeprom_orange();
-      rgblight_mode_noeeprom(5);
+      rgblight_sethsv_noeeprom_green();
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
       break;
     case _ADJUST:
       rgblight_sethsv_noeeprom_red();
-      rgblight_mode_noeeprom(23);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
       break;
     default: //  for any other layers, or the default layer
       switch (biton32(default_layer_state)) {
         case _COLEMAK:
           rgblight_sethsv_noeeprom_magenta(); break;
         case _DVORAK:
-          rgblight_sethsv_noeeprom_green(); break;
+          rgblight_sethsv_noeeprom_springgreen(); break;
         case _WORKMAN:
           rgblight_sethsv_noeeprom_goldenrod(); break;
         default:
           rgblight_sethsv_noeeprom_cyan(); break;
       }
-      biton32(state) == _MODS ? rgblight_mode_noeeprom(2) : rgblight_mode_noeeprom(1); // if _MODS layer is on, then breath to denote it
+      biton32(state) == _MODS ? rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING) : rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // if _MODS layer is on, then breath to denote it
       break;
     }
 //    layer_state_set_indicator(); // Runs every scan, so need to call this here .... since I can't get it working "right" anyhow

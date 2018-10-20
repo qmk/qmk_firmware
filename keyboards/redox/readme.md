@@ -10,8 +10,8 @@
 
 **Redox**: the **R**educed **E**rgo**dox** project. More information and building instruction [here](https://github.com/mattdibi/redox-keyboard).
 
-- Keyboard Maintainer: [Mattia Dal Ben](https://github.com/mattdibi)
-- Hardware Supported: Redox PCB rev1.0 w/ Pro Micro
+- Keyboard Maintainer: [Mattia Dal Ben](https://github.com/mattdibi)  
+- Hardware Supported: Redox PCB rev1.0 w/ Pro Micro  
 - Hardware Availability: [Falbatech](https://falba.tech/product-category/keyboard-parts/redox-parts/)
 
 Make example for this keyboard (after setting up your build environment):
