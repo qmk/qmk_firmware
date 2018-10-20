@@ -1,5 +1,5 @@
-#ifndef INTERPHASE_H
-#define INTERPHASE_H
+#ifndef _REDOX_W_H
+#define _REDOX_W_H
 
 #include "quantum.h"
 #include "matrix.h"
@@ -22,30 +22,6 @@
 #define set_led_cyan    red_led_off; grn_led_on;  blu_led_on
 #define set_led_white   red_led_on;  grn_led_on;  blu_led_on
 
-/*
-#define LED_B 5
-#define LED_R 6
-#define LED_G 7
-
-#define all_leds_off PORTF &= ~(1<<LED_B) & ~(1<<LED_R) & ~(1<<LED_G)
-
-#define red_led_on   PORTF |= (1<<LED_R)
-#define red_led_off  PORTF &= ~(1<<LED_R)
-#define grn_led_on   PORTF |= (1<<LED_G)
-#define grn_led_off  PORTF &= ~(1<<LED_G)
-#define blu_led_on   PORTF |= (1<<LED_B)
-#define blu_led_off  PORTF &= ~(1<<LED_B)
-
-#define set_led_off     PORTF &= ~(1<<LED_B) & ~(1<<LED_R) & ~(1<<LED_G)
-#define set_led_red     PORTF = PORTF & ~(1<<LED_B) & ~(1<<LED_G) | (1<<LED_R)
-#define set_led_blue    PORTF = PORTF & ~(1<<LED_G) & ~(1<<LED_R) | (1<<LED_B)
-#define set_led_green   PORTF = PORTF & ~(1<<LED_B) & ~(1<<LED_R) | (1<<LED_G)
-#define set_led_yellow  PORTF = PORTF & ~(1<<LED_B) | (1<<LED_R) | (1<<LED_G)
-#define set_led_magenta PORTF = PORTF & ~(1<<LED_G) | (1<<LED_R) | (1<<LED_B)
-#define set_led_cyan    PORTF = PORTF & ~(1<<LED_R) | (1<<LED_B) | (1<<LED_G)
-#define set_led_white   PORTF |= (1<<LED_B) | (1<<LED_R) | (1<<LED_G)
-*/
-
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
 // The second converts the arguments into a two-dimensional array
@@ -64,4 +40,4 @@
 	{ k56, k57, k58, k59, k60, k61, k62, k63, k64, k65, k66, k67, k68, k69 } \
 }
 
-#endif
+#endif // for #ifndef _REDOX_W_H
