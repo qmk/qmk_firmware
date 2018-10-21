@@ -134,7 +134,7 @@ For example, if you define a key as `OSM(MOD_LSFT)`, you can type a capital A ch
 
 One shot keys also work as normal modifiers. If you hold down a one shot key and type other keys, your one shot will be released immediately after you let go of the key.
 
-Additionally, for both One Shot keys, if you hit the key 5 times in a short period of time, it will lock that key.  Meaning that it will act as if you held the key down without having to actually hold the key down, keeping the modifier or layer active until you hit the key again.
+Additionally, hitting keys five times in a short period will lock that key. This applies for both One Shot Modifiers and One Shot Layers, and is controlled by the `ONESHOT_TAP_TOGGLE` define.
 
 You can control the behavior of one shot keys by defining these in `config.h`:
 
@@ -203,6 +203,6 @@ With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allo
 
 # Retro Tapping
 
-When you hold a dual function key, and haven't pressed anything when you release the key, normally nothing happens.  However, if you enable this, if you release the key without pressing another key, it will send the original key, even if it is outside of the tapping term.
+Holding and releasing a dual function key without pressing another key will result in nothing happening. With retro tapping enabled, releasing the key without pressing another will send the original keycode even if it is outside the tapping term.
 
-For instance, if you're using `LT(2, KC_SPACE)`, if you hold the key, don't hit anything else and then release it, normally, nothing happens. But with `RETRO_TAPPING` defined in your `config.h`, it will send `KC_SPACE`.
+For instance, holding and releasing `LT(2, KC_SPACE)` without hitting another key will result in nothing happening. With `RETRO_TAPPING` defined in your `config.h`, it will send `KC_SPACE`.
