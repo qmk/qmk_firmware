@@ -22,3 +22,13 @@
     {   K45, KC_NO,   K46,   K47,   K48,   K49,   K50,   K51,   K52,   K53,   K54,   K55,   K56,   K57,   K58, }, \
     {   K59,   K60,   K61, KC_NO, KC_NO, KC_NO,   K62, KC_NO, KC_NO, KC_NO,   K63,   K64,   K65,   K66,   K67, }, \
 }
+
+#define TOGGLE_FLAG_AND_PRINT(var, name) { \
+        if (var) { \
+            dprintf(name " disabled\r\n"); \
+            var = !var; \
+        } else { \
+            var = !var; \
+            dprintf(name " enabled\r\n"); \
+        } \
+    }

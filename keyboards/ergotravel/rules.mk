@@ -1,7 +1,3 @@
-SRC += matrix.c \
-	   i2c.c \
-	   split_util.c \
-	   serial.c
 
 # MCU name
 #MCU = at90usb1287
@@ -41,7 +37,7 @@ F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = caterina
 
@@ -64,11 +60,9 @@ AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-SUBPROJECT_rev1 = yes
-USE_I2C = yes               # I2C is used between the sides
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-CUSTOM_MATRIX = yes
+SPLIT_KEYBOARD = yes
 
 DEFAULT_FOLDER = ergotravel/rev1
