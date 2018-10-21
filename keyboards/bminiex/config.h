@@ -1,5 +1,5 @@
 /*
-Copyright 2013 Mathias Andersson <wraul@dbox.se>
+Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -17,22 +17,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-#include <stdint.h>
-#include <stdbool.h>
+#include "config_common.h"
 
-typedef union {
-    uint8_t raw;
-    struct {
-        bool    enable :1;
-        uint8_t level  :7;
-    };
-} backlight_config_t;
+#define VENDOR_ID       0x20A0
+#define PRODUCT_ID      0x422E
+#define MANUFACTURER    winkeyless.kr
+#define PRODUCT         B.mini Ex
 
-void backlight_init(void);
-void backlight_increase(void);
-void backlight_decrease(void);
-void backlight_toggle(void);
-void backlight_step(void);
-void backlight_set(uint8_t level);
-void backlight_level(uint8_t level);
-uint8_t get_backlight_level(void);
+#define RGBLED_NUM 20
+
+/* matrix size */
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 15
+
+#define RGBLIGHT_ANIMATIONS
+
+#define BACKLIGHT_LEVELS 5
+
+#define NO_UART 1
+
+/* key combination for command */
+#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+
