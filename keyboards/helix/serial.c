@@ -370,6 +370,7 @@ static inline uint8_t nibble_bits_count(uint8_t bits)
 
 // interrupt handle to be used by the target device
 ISR(SERIAL_PIN_INTERRUPT) {
+
 #ifndef SERIAL_USE_MULTI_TRANSACTION
   serial_low();
   serial_output();
@@ -527,3 +528,9 @@ int soft_serial_get_and_clean_status(int sstd_index) {
 #endif
 
 #endif
+
+// Helix serial.c history
+//   2018-1-29 fork from let's split (#2308)
+//   2018-6-28 bug fix master to slave comm (#3255)
+//   2018-8-11 improvements (#3608)
+//   2018-10-21 fix serial and RGB animation conflict
