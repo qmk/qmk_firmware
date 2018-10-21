@@ -10,7 +10,6 @@
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
-#define PREVENT_STUCK_MODIFIERS
 
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM

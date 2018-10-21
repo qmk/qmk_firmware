@@ -11,8 +11,6 @@
 /* skip bootmagic and eeconfig */
 #define BOOTMAGIC_KEY_SKIP              KC_SPACE
 
-#define PREVENT_STUCK_MODIFIERS
-
 #define RGBSPS_ENABLE
 #define RGBSPS_DEMO_ENABLE
 

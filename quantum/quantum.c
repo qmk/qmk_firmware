@@ -196,7 +196,7 @@ bool process_record_quantum(keyrecord_t *record) {
   keypos_t key = record->event.key;
   uint16_t keycode;
 
-  #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+  #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
       uint8_t layer;
@@ -251,11 +251,8 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
   #endif
-  #ifndef DISABLE_LEADER
+  #ifdef LEADER_ENABLE
     process_leader(keycode, record) &&
-  #endif
-  #ifndef DISABLE_CHORDING
-    process_chording(keycode, record) &&
   #endif
   #ifdef COMBO_ENABLE
     process_combo(keycode, record) &&
@@ -629,6 +626,17 @@ bool process_record_quantum(keyrecord_t *record) {
               PLAY_SONG(ag_norm_song);
             #endif
             break;
+          case MAGIC_TOGGLE_ALT_GUI:
+            keymap_config.swap_lalt_lgui = !keymap_config.swap_lalt_lgui;
+            keymap_config.swap_ralt_rgui = !keymap_config.swap_ralt_rgui;
+            #ifdef AUDIO_ENABLE
+              if (keymap_config.swap_ralt_rgui) {
+                PLAY_SONG(ag_swap_song);
+              } else {
+                PLAY_SONG(ag_norm_song);
+              }
+            #endif
+            break;
           case MAGIC_TOGGLE_NKRO:
             keymap_config.nkro = !keymap_config.nkro;
             break;
@@ -937,6 +945,9 @@ void tap_random_base64(void) {
 }
 
 void matrix_init_quantum() {
+  if (!eeconfig_is_enabled() && !eeconfig_is_disabled()) {
+    eeconfig_init();
+  }
   #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
   #endif
