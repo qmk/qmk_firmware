@@ -70,7 +70,7 @@ Additionally, `config.h` here will be processed like the same file in your keyma
 
 The reason for this, is that `<name>.h` won't be added in time to add settings (such as `#define TAPPING_TERM 100`), and including the `<name.h>` file in any `config.h` files will result in compile issues.
 
-If you do add a `config,h` file, you want to make sure that it only gets processed once.  So you may want to start off with something like this:
+If you do add a `config.h` file, you want to make sure that it only gets processed once.  So you may want to start off with something like this:
 
 ```c
 #pragma once
