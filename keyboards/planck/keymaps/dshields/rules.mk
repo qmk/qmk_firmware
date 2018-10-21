@@ -5,6 +5,7 @@ endif
 MOUSEKEY_ENABLE  = yes # Mouse keys(+4700)
 COMMAND_ENABLE   = no  # Commands for debug and configuration
 CONSOLE_ENABLE   = no  # Console for debug(+400)
+EXTRAKEY_ENABLE  = no
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 API_SYSEX_ENABLE = no
 
