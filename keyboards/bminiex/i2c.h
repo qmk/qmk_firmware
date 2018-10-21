@@ -1,5 +1,5 @@
 /*
-Copyright 2013 Mathias Andersson <wraul@dbox.se>
+Copyright 2016 Luiz Ribeiro <luizribeiro@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,24 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+// Please do not modify this file 
+
 #pragma once
 
-#include <stdint.h>
-#include <stdbool.h>
+void i2c_init(void);
+void i2c_set_bitrate(uint16_t bitrate_khz);
+uint8_t i2c_send(uint8_t address, uint8_t *data, uint16_t length);
 
-typedef union {
-    uint8_t raw;
-    struct {
-        bool    enable :1;
-        uint8_t level  :7;
-    };
-} backlight_config_t;
-
-void backlight_init(void);
-void backlight_increase(void);
-void backlight_decrease(void);
-void backlight_toggle(void);
-void backlight_step(void);
-void backlight_set(uint8_t level);
-void backlight_level(uint8_t level);
-uint8_t get_backlight_level(void);
