@@ -36,7 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "issi3733_driver.h"
 #include "./usb/compiler.h"
 #include "./usb/udc.h"
-#include "./usb/spfssf.h"
 #include "./usb/udi_cdc.h"
 
 #endif //MD_BOOTLOADER

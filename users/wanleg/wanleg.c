@@ -41,6 +41,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case NUMPAD:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(PAD);
+      }
+      return false;
+      break;
+    case GHERKIN50:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(GK50);
+      }
+      return false;
+      break;
     case SUBTER:
       if (record->event.pressed) {
         layer_on(SUB);

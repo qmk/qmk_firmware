@@ -31,8 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         ergoinu
 #define DESCRIPTION     An (Not Portable But Small) Ergonomic split keyboard
 
-
-#define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
