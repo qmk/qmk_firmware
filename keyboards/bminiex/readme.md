@@ -4,8 +4,8 @@ B.mini EX
 A compact fullsize keyboard with RGB
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: B.mini EX PCB
-Hardware Availability: https://winkeyless.kr/product/b-mini-ex-x2-pcb/
+Hardware Supported: B.mini EX PCB  
+Hardware Availability: https://winkeyless.kr/product/b-mini-ex-x2-pcb/  
 
 Make example for this keyboard (after setting up your build environment):
 
