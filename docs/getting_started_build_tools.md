@@ -69,7 +69,7 @@ The best environment to use, for Windows Vista through any later version (tested
 
 * Install msys2 by downloading it and following the instructions here: http://www.msys2.org
 * Open the ``MSYS2 MingGW 64-bit`` shortcut
-* Navigate to your qmk checkout. For example, if it's in the root of your c drive:
+* Navigate to your QMK repository. For example, if it's in the root of your c drive:
  * `$ cd /c/qmk_firmware`
 * Run `util/msys2_install.sh` and follow the prompts
 
