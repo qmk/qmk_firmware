@@ -2,7 +2,7 @@
 
 Your keymap can include keycodes that are more advanced than normal, for example keys that switch layers or send modifiers when held, but send regular keycodes when tapped. This page documents the functions that are available to you.
 
-### Assigning Custom Names
+## Assigning Custom Names
 
 People often define custom names using `#define`. For example:
 
@@ -13,7 +13,7 @@ People often define custom names using `#define`. For example:
 
 This will allow you to use `FN_CAPS` and `ALT_TAB` in your `KEYMAP()`, keeping it more readable.
 
-### Caveats
+## Caveats
 
 Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Modifiers specified as part of a Layer Tap or Mod Tap's keycode will be ignored.
 
@@ -36,7 +36,7 @@ These functions allow you to activate layers in various ways. Note that layers a
 
 Care must be taken when switching layers, it's possible to lock yourself into a layer with no way to deactivate that layer (without unplugging your keyboard.) We've created some guidelines to help users avoid the most common problems.
 
-### Beginners
+## Beginners
 
 If you are just getting started with QMK you will want to keep everything simple. Follow these guidelines when setting up your layers:
 
@@ -44,11 +44,11 @@ If you are just getting started with QMK you will want to keep everything simple
 * Arrange your layers in a "tree" layout, with layer 0 as the root. Do not try to enter the same layer from more than one other layer.
 * In a layer's keymap, only reference higher-numbered layers. Because layers are processed from the highest-numbered (topmost) active layer down, modifying the state of lower layers can be tricky and error-prone.
 
-### Intermediate Users
+## Intermediate Users
 
 Sometimes you need more than one base layer. For example, if you want to switch between QWERTY and Dvorak, switch between layouts for different countries, or switch your layout for different videogames. Your base layers should always be the lowest numbered layers. When you have multiple base layers you should always treat them as mutually exclusive. When one base layer is on the others are off.
 
-### Advanced Users
+## Advanced Users
 
 Once you have a good feel for how layers work and what you can do, you can get more creative. The rules listed in the beginner section will help you be successful by avoiding some of the tricker details but they can be constraining, especially for ultra-compact keyboard users. Understanding how layers work will allow you to use them in more advanced ways.
 
@@ -134,6 +134,8 @@ For example, if you define a key as `OSM(MOD_LSFT)`, you can type a capital A ch
 
 One shot keys also work as normal modifiers. If you hold down a one shot key and type other keys, your one shot will be released immediately after you let go of the key.
 
+Additionally, for both One Shot keys, if you hit the key 5 times in a short period of time, it will lock that key.  Meaning that it will act as if you held the key down without having to actually hold the key down, keeping the modifier or layer active until you hit the key again.
+
 You can control the behavior of one shot keys by defining these in `config.h`:
 
 ```c
@@ -144,15 +146,19 @@ You can control the behavior of one shot keys by defining these in `config.h`:
 * `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](#mod-tap), not the `KC_*` codes.
 * `OSL(layer)` - momentary switch to *layer*.
 
-Sometimes, you want to activate a one-shot layer as part of a macro or tap dance routine. To do this, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`. For more complicated actions, take a look at the oneshot implementation in [`process_record`](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action.c#L429).
+Sometimes, you want to activate a one-shot key as part of a macro or tap dance routine.  
 
-If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
+For one shot layers, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`.
+
+For one shot mods, you need to call `set_oneshot_mods(MOD)` to set it, or `clear_oneshot_mods()` to cancel it.
+
+!> If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
 
 # Permissive Hold
 
 As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new `config.h` option:
 
-```
+```c
 #define PERMISSIVE_HOLD
 ```
 
@@ -197,6 +203,6 @@ With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allo
 
 # Retro Tapping
 
-When you hold a dual function key, and haven't pressed anything when you release the key, normally nothing happens.  However, if you enable this, if you release the key without pressing another key, it will send the original key, even if it is outside of the tapping term. 
+When you hold a dual function key, and haven't pressed anything when you release the key, normally nothing happens.  However, if you enable this, if you release the key without pressing another key, it will send the original key, even if it is outside of the tapping term.
 
-For instance, if you're using `LT(2, KC_SPACE)`, if you hold the key, don't hit anything else and then release it, normally, nothing happens. But with `RETRO_TAPPING` defined in your `config.h`, it will send `KC_SPACE`. 
+For instance, if you're using `LT(2, KC_SPACE)`, if you hold the key, don't hit anything else and then release it, normally, nothing happens. But with `RETRO_TAPPING` defined in your `config.h`, it will send `KC_SPACE`.
