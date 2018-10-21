@@ -139,7 +139,7 @@ The `__attribute__ ((weak))` part tells the compiler that this is a placeholder 
 
 The `_keymap` part here doesn't matter, it just needs to be something other than `_quantum`, `_kb`, or `_user`, since those are already in use. So you could use `layer_state_set_mine`, `layer_state_set_fn`, or anything else.
 
-You can see a list of this and other common functions in [template.c](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in [users/drashna](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).
+You can see a list of this and other common functions in [`template.c`](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/template.c) in [`users/drashna`](https://github.com/qmk/qmk_firmware/tree/master/users/drashna).
 
 ## Custom Features
 
