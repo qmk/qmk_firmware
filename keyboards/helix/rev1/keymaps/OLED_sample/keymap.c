@@ -368,7 +368,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
         } else {
           TOG_STATUS = !TOG_STATUS;
-          rgblight_mode(16);
+          rgblight_mode(RGBLIGHT_MODE_SNAKE + 1);
         }
         layer_on(_LOWER);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
@@ -387,7 +387,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
         } else {
           TOG_STATUS = !TOG_STATUS;
-          rgblight_mode(15);
+          rgblight_mode(RGBLIGHT_MODE_SNAKE);
         }
         layer_on(_RAISE);
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);

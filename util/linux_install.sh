@@ -4,13 +4,15 @@ if grep ID /etc/os-release | grep -qE "rhel|fedora"; then
 	sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc \
 	    avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs \
 	    arm-none-eabi-binutils-cs arm-none-eabi-newlib
-elif grep ID /etc/os-release | grep -q debian; then
+elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 	sudo apt-get update
 	sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc \
 	    dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi \
 	    libnewlib-arm-none-eabi
 elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
-	sudo pacman -S gcc unzip wget zip avr-gcc avr-binutils avr-libc \
+  # install avr-gcc 8.1 until 8.3 is available. See #3657 for details of the bug.
+  sudo pacman -U https://archive.archlinux.org/packages/a/avr-gcc/avr-gcc-8.1.0-1-x86_64.pkg.tar.xz
+	sudo pacman -S gcc unzip wget zip avr-binutils avr-libc \
 	    dfu-util arm-none-eabi-gcc arm-none-eabi-binutils \
 	    arm-none-eabi-newlib
 	git clone https://aur.archlinux.org/dfu-programmer.git /tmp/dfu-programmer
@@ -36,5 +38,5 @@ fi
 else
 	echo "Sorry, we don't recognize your OS. Help us by contributing support!"
 	echo
-	echo "https://docs.qmk.fm/contributing.html"
+	echo "https://docs.qmk.fm/#/contributing"
 fi

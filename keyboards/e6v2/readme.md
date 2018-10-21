@@ -17,4 +17,4 @@ The E6V2 has been available with either a bootmapper client or QMK powered PCB. 
 
 Please use the appropriate version when making your firmware. Flashing one in place of the other, can brick your PCB. Please be certain whether you have a OE or LE  PCB. 
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
