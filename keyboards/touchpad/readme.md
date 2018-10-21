@@ -4,7 +4,7 @@
 
 A small capacitive 6x6 touchpad for launching programs. [More info](https://jacoburge.co.uk/touch-pad/)
 
-Keyboard Maintainer: QMK Community
+Keyboard Maintainer: QMK Community  
 Hardware Supported: TouchPad PCB
 Hardware Availability: [JaboBurge's Shop](https://jacoburge.co.uk/shop)
 
