@@ -9,8 +9,8 @@ ifeq ($(strip $(dfu)), qmk)
     BOOTLOADER = qmk-dfu
 endif
 
-#use alternate settings for 4x4 board using ProMicro instead of Micro
-#usage: make 4x4:wanleg PM=yes
+#use alternate settings for boards using ProMicro instead of Micro
+#example usage: make 4x4:wanleg PM=yes
 ifeq ($(strip $(PM)), yes)
 	OPT_DEFS += -DPRO_MICRO
 endif

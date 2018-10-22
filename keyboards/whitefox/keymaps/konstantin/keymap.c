@@ -2,9 +2,12 @@
 
 #define FN      MO(L_FN)
 #define FN_CAPS LT(L_FN, KC_CAPS)
-#define FN_RCTL TD(TD_FN_RCTL) // Unused
-#define RLALT   TD(TD_RLALT)   // Unused
+#define FN_RCTL TD(TD_FN_RCTL)    // Unused
+#define RLALT   TD(TD_RLALT)      // Unused
+#define DESKTOP TD(TD_DESKTOP)
 
+#define DESKT_L LCTL(LGUI(KC_LEFT))
+#define DESKT_R LCTL(LGUI(KC_RGHT))
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
 
@@ -46,8 +49,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
       layer_invert(L_NUMPAD);
       bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
       if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
-        register_code(KC_NLCK); // Toggle Num Lock to match layer state.
-        unregister_code(KC_NLCK);
+        tap_code(KC_NLCK); // Toggle Num Lock to match layer state.
       }
     }
     return false;
@@ -60,24 +62,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 enum tap_dance {
   TD_FN_RCTL,
   TD_RLALT,
+  TD_DESKTOP,
 };
 
-void td_fn_ctrl_finished(qk_tap_dance_state_t *state, void *user_data)
+void td_fn_rctl_finished(qk_tap_dance_state_t *state, void *user_data)
 {
   // Single tap → Fn, double tap → RCtrl, triple tap → Fn+RCtrl etc.
   if (state->count & 1) { layer_on(L_FN); }
   if (state->count & 2) { register_code(KC_RCTL); }
 }
 
-void td_fn_ctrl_reset(qk_tap_dance_state_t *state, void *user_data)
+void td_fn_rctl_reset(qk_tap_dance_state_t *state, void *user_data)
 {
   if (state->count & 1) { layer_off(L_FN); }
   if (state->count & 2) { unregister_code(KC_RCTL); }
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fn_ctrl_finished, td_fn_ctrl_reset),
+  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fn_rctl_finished, td_fn_rctl_reset),
   [TD_RLALT]   = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),
+  [TD_DESKTOP] = ACTION_TAP_DANCE_DOUBLE(LCTL(LGUI(KC_D)), LCTL(LGUI(KC_F4))), // Add/close virtual desktop
 };
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -89,17 +93,17 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |FnCaps| A | S | D | F | G | H | J | K | L | ; | ' | Enter  |PgU|
    * |---------------------------------------------------------------|
-   * | LShift | Z | X | C | V | B | N | M | , | . | / |  Fn  | ↑ |PgD|
+   * | LShift | Z | X | C | V | B | N | M | , | . | / |RCtrl | ↑ |PgD|
    * |---------------------------------------------------------------|
-   * |LCtl|LGui|LAlt|         Space          |RAlt|RCtl| | ← | ↓ | → |
+   * |LCtl|LGui|LAlt|         Space          |RAlt| Fn | | ← | ↓ | → |
    * `---------------------------------------------------------------'
    */
   [L_BASE] = LAYOUT_truefox( \
     KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV, KC_PSCR, \
     KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSPC,        KC_DEL,  \
     FN_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,        KC_ENT,         KC_PGUP, \
-    KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,FN,             KC_UP,  KC_PGDN, \
-    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 KC_RALT,KC_RCTL,                KC_LEFT,KC_DOWN,KC_RGHT  \
+    KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RCTL,        KC_UP,  KC_PGDN, \
+    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 KC_RALT,FN,                     KC_LEFT,KC_DOWN,KC_RGHT  \
   ),
 
   /* Function layer
@@ -110,17 +114,17 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |      |M← |M↓ |M→ |MW↑|   |   |   |   |   |   |   |        |Top|
    * |---------------------------------------------------------------|
-   * |        |MA0|MA2|MW←|MW→|   |   |   |VoD|VoU|Mut|      |PgU|Btm|
+   * |        |MA0|MA2|MW←|MW→|   |   |   |VoD|VoU|Mut| App  |PgU|Btm|
    * |---------------------------------------------------------------|
-   * |    |    |    |          MW↓           |    |Menu| |Hom|PgD|End|
+   * |    |Dstp|Dst←|          MW↓           |Dst→|    | |Hom|PgD|End|
    * `---------------------------------------------------------------'
    */
   [L_FN] = LAYOUT_truefox( \
     _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, NUMPAD, KC_SLCK,KC_PAUS, \
     KC_BTN4,KC_BTN2,KC_MS_U,KC_BTN1,KC_BTN3,KC_BTN5,_______,_______,_______,KC_MSTP,KC_MPLY,KC_MPRV,KC_MNXT,CLEAR,          KC_INS,  \
     _______,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_U,_______,_______,_______,_______,_______,_______,_______,        _______,        TOP,     \
-    _______,        KC_ACL0,KC_ACL2,KC_WH_L,KC_WH_R,_______,_______,_______,KC_VOLD,KC_VOLU,KC_MUTE,_______,        KC_PGUP,BOTTOM,  \
-    _______,_______,_______,                        KC_WH_D,                _______,KC_APP,                 KC_HOME,KC_PGDN,KC_END   \
+    _______,        KC_ACL0,KC_ACL2,KC_WH_L,KC_WH_R,_______,_______,_______,KC_VOLD,KC_VOLU,KC_MUTE,KC_APP,         KC_PGUP,BOTTOM,  \
+    _______,DESKTOP,DESKT_L,                        KC_WH_D,                DESKT_R,_______,                KC_HOME,KC_PGDN,KC_END   \
   ),
 
   /* Numpad layer
