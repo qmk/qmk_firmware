@@ -66,7 +66,7 @@
     #ifdef PORTA
         #define A0 PINDEF(A, 0)
         #define A1 PINDEF(A, 1)
-        #define A2 PINDEF(A, 1)
+        #define A2 PINDEF(A, 2)
         #define A3 PINDEF(A, 3)
         #define A4 PINDEF(A, 4)
         #define A5 PINDEF(A, 5)
