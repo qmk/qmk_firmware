@@ -110,6 +110,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      | ACL0 | ACL1 | ACL2 | BTN2 |           | BTN1 | MS_L | MS_D | MS_U | MS_R |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
+ *                  | ESC  |      |      |    |      |      |      |
+ *                  `------+------|      |    | ENTER|------+------'
+ *                                |      |    |      |
+ *                                `------'    `------'
+ */
+[_NAV] = LAYOUT( \
+  _______, _______, KC_WH_U, KC_WH_D, _______,      _______, KC_PGDN, KC_PGUP, KC_HOME, KC_END,  \
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
+  _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
+                    KC_ESC,  _______, _______,      KC_ENT,  _______, _______,                   \
+),
+
+/* Number
+ *
+ * ,----------------------------------.           ,----------------------------------.
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |           |  F6  |  F7  |  F8  |  F9  |  F10 |
+ * |------+------+------+------+------|           |------+------+------+------+------|
+ * |   7  |CTRL_5| ALT_3| GUI_1|   9  |           |   8  | GUI_0| ALT_2|CTRL_4|   6  |
+ * |------+------+------+------+------|           |------+------+------+------+------|
+ * |
+ * `----------------------------------'           `----------------------------------'
+ *                  ,--------------------.    ,--------------------.
  *                  |      |      |      |    |      |      |      |
  *                  `------+------|      |    |      |------+------'
  *                                |      |    |      |
@@ -122,70 +144,70 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     _______, _______, _______,      _______, _______, _______, \
 ),
 
-/* Number
+/* Symbol (left hand)
  *
  * ,----------------------------------.           ,----------------------------------.
- * |   Q  |   W  |   F  |   P  |   B  |           |   J  |   L  |   U  |   Y  |   '  |
+ * |      |      | WH_U | WH_D |      |           |      | PGDN | PGUP | HOME |  END |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   A  |CTRL_R| ALT_S| GUI_T|   G  |           |   M  | GUI_N| ALT_E|CTRL_I|   O  |
+ * | SHIFT| CTRL |  ALT |  GUI |NAV_LK|           | CAPS | LEFT | DOWN |  UP  | RIGHT|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   Z  |   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
+ * |      | ACL0 | ACL1 | ACL2 | BTN2 |           | BTN1 | MS_L | MS_D | MS_U | MS_R |
  * `----------------------------------'           `----------------------------------'
- *                  ,--------------------.    ,------,-------------.
- *                  |SYM_OS|SFT_OS|      |    |      |SFT_OS|SYM_OS|
- *                  `-------------|NAV_BK|    |NUM_SPC------+------.
+ *                  ,--------------------.    ,--------------------.
+ *                  |      |      |      |    |      |      |      |
+ *                  `------+------|      |    |      |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_COLEMAK_DHM] = LAYOUT( \
-  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
-  KC_A,    CTRL_R,  ALT_S,   GUI_T,   KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O, \
-  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SYM_OS,  SFT_OS,  NAV_BK,       NUM_SPC, SFT_OS,  SYM_OS \
+[_NAV] = LAYOUT( \
+  _______, _______, KC_WH_U, KC_WH_D, _______,      _______, KC_PGDN, KC_PGUP, KC_HOME, KC_END, \
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
+  _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
+                    _______, _______, _______,      _______, _______, _______, \
 ),
 
-/* Symbol
+/* Symbol (right hand)
  *
  * ,----------------------------------.           ,----------------------------------.
- * |   Q  |   W  |   F  |   P  |   B  |           |   J  |   L  |   U  |   Y  |   '  |
+ * |      |      | WH_U | WH_D |      |           |      | PGDN | PGUP | HOME |  END |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   A  |CTRL_R| ALT_S| GUI_T|   G  |           |   M  | GUI_N| ALT_E|CTRL_I|   O  |
+ * | SHIFT| CTRL |  ALT |  GUI |NAV_LK|           | CAPS | LEFT | DOWN |  UP  | RIGHT|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   Z  |   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
+ * |      | ACL0 | ACL1 | ACL2 | BTN2 |           | BTN1 | MS_L | MS_D | MS_U | MS_R |
  * `----------------------------------'           `----------------------------------'
- *                  ,--------------------.    ,------,-------------.
- *                  |SYM_OS|SFT_OS|      |    |      |SFT_OS|SYM_OS|
- *                  `-------------|NAV_BK|    |NUM_SPC------+------.
+ *                  ,--------------------.    ,--------------------.
+ *                  |      |      |      |    |      |      |      |
+ *                  `------+------|      |    |      |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_COLEMAK_DHM] = LAYOUT( \
-  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
-  KC_A,    CTRL_R,  ALT_S,   GUI_T,   KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O, \
-  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SYM_OS,  SFT_OS,  NAV_BK,       NUM_SPC, SFT_OS,  SYM_OS \
+[_NAV] = LAYOUT( \
+  _______, _______, KC_WH_U, KC_WH_D, _______,      _______, KC_PGDN, KC_PGUP, KC_HOME, KC_END, \
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
+  _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
+                    _______, _______, _______,      _______, _______, _______, \
 ),
 
 /* System
  *
  * ,----------------------------------.           ,----------------------------------.
- * |   Q  |   W  |   F  |   P  |   B  |           |   J  |   L  |   U  |   Y  |   '  |
+ * |      |      | WH_U | WH_D |      |           |      | PGDN | PGUP | HOME |  END |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   A  |CTRL_R| ALT_S| GUI_T|   G  |           |   M  | GUI_N| ALT_E|CTRL_I|   O  |
+ * | SHIFT| CTRL |  ALT |  GUI |NAV_LK|           | CAPS | LEFT | DOWN |  UP  | RIGHT|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   Z  |   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
+ * |      | ACL0 | ACL1 | ACL2 | BTN2 |           | BTN1 | MS_L | MS_D | MS_U | MS_R |
  * `----------------------------------'           `----------------------------------'
- *                  ,--------------------.    ,------,-------------.
- *                  |SYM_OS|SFT_OS|      |    |      |SFT_OS|SYM_OS|
- *                  `-------------|NAV_BK|    |NUM_SPC------+------.
+ *                  ,--------------------.    ,--------------------.
+ *                  |      |      |      |    |      |      |      |
+ *                  `------+------|      |    |      |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_COLEMAK_DHM] = LAYOUT( \
-  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
-  KC_A,    CTRL_R,  ALT_S,   GUI_T,   KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O, \
-  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SYM_OS,  SFT_OS,  NAV_BK,       NUM_SPC, SFT_OS,  SYM_OS \
+[_NAV] = LAYOUT( \
+  _______, _______, KC_WH_U, KC_WH_D, _______,      _______, KC_PGDN, KC_PGUP, KC_HOME, KC_END, \
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
+  _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
+                    _______, _______, _______,      _______, _______, _______, \
 ),
 
 };
