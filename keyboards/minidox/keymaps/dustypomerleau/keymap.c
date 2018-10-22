@@ -23,10 +23,6 @@ enum custom_keycodes {
   ALT_OP, // define in process_record_user
   CTL_CCB, // define in process_record_user
   GUI_CP, // define in process_record_user
-  MAC_EM, // define in process_record_user
-  MAC_EN, // define in process_record_user
-  VOL_DN, // define in process_record_user
-  VOL_UP // define in process_record_user
 };
 
 #define _______ KC_TRNS
@@ -45,6 +41,8 @@ enum custom_keycodes {
 #define GUI_CB LGUI_T(KC_RBRC)
 #define GUI_N LGUI_T(KC_N)
 #define GUI_T LGUI_T(KC_T)
+#define MAC_EM S(LALT(KC_MINS))
+#define MAC_EN LALT(KC_MINS)
 #define NAV_BK LT(_NAV, KC_BSPC)
 #define NAV_LK TG(_NAV)
 #define NUM_LK TG(_NUM)
@@ -52,7 +50,16 @@ enum custom_keycodes {
 #define SFT_OS OSM(MOD_LSFT)
 #define SYML_OS OSL(_SYM_L)
 #define SYMR_OS OSL(_SYM_R)
+#define VOL_DN S(LALT(KC__VOLDOWN))
+#define VOL_UP S(LALT(KC__VOLUP))
 #define XXXXXXX KC_NO
+
+#define SYMBOL_LAYER LAYOUT( \
+  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_QUES, KC_QUOT, \
+  KC_PLUS, CTRL_EQ, ALT_OP,  GUI_CP,  KC_DQT,       KC_COLN, GUI_CB,  ALT_OB,  CTL_CCB, KC_LCBR, \
+  KC_LT,   KC_PIPE, KC_MINS, KC_GT,   KC_BSLS,      KC_GRV,  KC_UNDS, KC_SLSH, KC_TILD, KC_SCLN, \
+                    _______, _______, MAC_EN,       MAC_EM,  _______, _______,                   \
+)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -78,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     SYML_OS, SFT_OS,  NAV_BK,       NUM_SPC, SFT_OS,  SYMR_OS                    \
 ),
 
-/* Media + lock keys
+/* Media + layer lock keys
  *
  * ,----------------------------------.           ,----------------------------------.
  * |      |      | VOLU | VOLD |      |           |      | MRWD | MFFD |      |      |
@@ -144,58 +151,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_ESC,  _______, KC_TAB,       _______, _______, _______,                    \
 ),
 
-/* Symbol (left hand)
+/* Symbols
  *
  * ,----------------------------------.           ,----------------------------------.
- * |      |      | WH_U | WH_D |      |           |      | PGDN | PGUP | HOME |  END |
+ * |   !  |   @  |   #  |   $  |   %  |           |   ^  |   &  |   *  |   ?  |   '  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * | SHIFT| CTRL |  ALT |  GUI |NAV_LK|           | CAPS | LEFT | DOWN |  UP  | RIGHT|
+ * |   +  |CTRLEQ|ALT_OP|GUI_CP|   "  |           |   :  |GUI_CB|ALT_OB|CTLCCB|   {  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      | ACL0 | ACL1 | ACL2 | BTN2 |           | BTN1 | MS_L | MS_D | MS_U | MS_R |
+ * |   <  |   |  |   -  |   >  |   \  |           |   `  |   _  |   /  |   ~  |   ;  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |      |      |      |    |      |      |      |
- *                  `------+------|      |    |      |------+------'
+ *                  `------+------|MAC_EN|    |MAC_EM|------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_SYM_L] = LAYOUT( \
-  _______, _______, KC_WH_U, KC_WH_D, _______,      _______, KC_PGDN, KC_PGUP, KC_HOME, KC_END, \
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
-  _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
-                    _______, _______, _______,      _______, _______, _______, \
-),
-
-/* Symbol (right hand)
- *
- * ,----------------------------------.           ,----------------------------------.
- * |      |      | WH_U | WH_D |      |           |      | PGDN | PGUP | HOME |  END |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * | SHIFT| CTRL |  ALT |  GUI |NAV_LK|           | CAPS | LEFT | DOWN |  UP  | RIGHT|
- * |------+------+------+------+------|           |------+------+------+------+------|
- * |      | ACL0 | ACL1 | ACL2 | BTN2 |           | BTN1 | MS_L | MS_D | MS_U | MS_R |
- * `----------------------------------'           `----------------------------------'
- *                  ,--------------------.    ,--------------------.
- *                  |      |      |      |    |      |      |      |
- *                  `------+------|      |    |      |------+------'
- *                                |      |    |      |
- *                                `------'    `------'
- */
-[_SYM_R] = LAYOUT( \
-  _______, _______, KC_WH_U, KC_WH_D, _______,      _______, KC_PGDN, KC_PGUP, KC_HOME, KC_END, \
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
-  _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
-                    _______, _______, _______,      _______, _______, _______, \
-),
+[_SYM_L] = SYMBOL_LAYER,
+[_SYM_R] = SYMBOL_LAYER,
 
 /* System
  *
  * ,----------------------------------.           ,----------------------------------.
- * |      |      | WH_U | WH_D |      |           |      | PGDN | PGUP | HOME |  END |
+ * |      |      |      |      |      |           |      |      |      |      |      |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * | SHIFT| CTRL |  ALT |  GUI |NAV_LK|           | CAPS | LEFT | DOWN |  UP  | RIGHT|
+ * | RESET| DEBUG|AU_OFF| AU_ON|      |           |      |      |      |      |      |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      | ACL0 | ACL1 | ACL2 | BTN2 |           | BTN1 | MS_L | MS_D | MS_U | MS_R |
+ * |      |      |      |      |      |           |      |      |      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |      |      |      |    |      |      |      |
@@ -204,10 +185,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_SYS] = LAYOUT( \
-  _______, _______, KC_WH_U, KC_WH_D, _______,      _______, KC_PGDN, KC_PGUP, KC_HOME, KC_END, \
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
-  _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
-                    _______, _______, _______,      _______, _______, _______, \
+  _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, \
+  RESET,   DEBUG,   AU_OFF,  AU_ON,   _______,      _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, \
+                    _______, _______, _______,      _______, _______, _______,                   \
 ),
 
 };
