@@ -1,5 +1,4 @@
-#ifndef KEYBOARDS_CHIBIOS_TEST_CHIBIOS_TEST_H_
-#define KEYBOARDS_CHIBIOS_TEST_CHIBIOS_TEST_H_
+#pragma once
 
 #include "quantum.h"
 #include "led.h"
@@ -53,5 +52,3 @@
   { K40, K41, K42, K43,   K44,   K45,   K46, K47,   K48,  K49, K4A, K4B, K4C, K4D, K4E }, \
   { K50, K51, K52, KC_NO, KC_NO, KC_NO, K53, KC_NO, KC_NO,K54, K55, K56, K57, K58, K59 } \
 }
-
-#endif /* KEYBOARDS_CHIBIOS_TEST_CHIBIOS_TEST_H_ */
