@@ -80,7 +80,7 @@ default:
     return process_record_keymap(keycode, record);
 ```
 
-####Ensuring that custom keycodes always produce the correct character
+#### Ensuring that custom keycodes always produce the correct character
 
 When very specific key combinations that include custom keycodes are pressed it can happen that wrong characters are produced due to changing shift states. The previously mentioned `add_to_prev` function is there to prevent that. It can be used to add a keycode to the `prev_kcs` array that can hold up to 6 keycodes. On various occasions, but mainly when shift is released `unreg_prev` is called, which then unregisters all saved keycodes.
 
