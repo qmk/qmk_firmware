@@ -1,5 +1,5 @@
-#ifndef CONFIG_RIDINGINTRAFFICTD
-#define CONFIG_RIDINGINTRAFFICTD
+#ifndef CONFIG_RIDINGINTRAFFIC
+#define CONFIG_RIDINGINTRAFFIC
 
 /* tap dance stuff*/
 #include "../../config.h"
