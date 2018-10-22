@@ -234,6 +234,10 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
   OPT_DEFS += -DLEADER_ENABLE
 endif
 
+ifeq ($(strip $(BOOTMAGIC_LITE)), yes)
+  OPT_DEFS += -DBOOTMAGIC_LITE
+endif
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
