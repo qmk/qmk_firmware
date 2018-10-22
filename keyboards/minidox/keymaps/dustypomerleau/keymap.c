@@ -15,14 +15,14 @@ enum custom_layers {
 };
 
 enum custom_keycodes {
-  COLEMAK_DHM = SAFE_RANGE, // techically you could remove this I think, since you don't actually use a keycode to set your default layer.
+  COLEMAK_DHM = SAFE_RANGE, // Not currently in use, given only 1 default layer
   NAV,
   NUM,
   SYM_L,
   SYM_R,
-  ALT_OP, // define in process_record_user
-  CTL_CCB, // define in process_record_user
-  GUI_CP, // define in process_record_user
+  ALT_OP,
+  CTL_CCB,
+  GUI_CP
 };
 
 #define _______ KC_TRNS
@@ -107,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     _______, _______, _______,      _______, _______, _______,                   \
 ),
 
-/* Navigation
+/* Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
  * |      |      | WH_U | WH_D |      |           |      | PGDN | PGUP | HOME |  END |
@@ -129,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_ESC,  _______, _______,      KC_ENT,  _______, _______,                   \
 ),
 
-/* Number
+/* Number + function keys
  *
  * ,----------------------------------.           ,----------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |           |  F6  |  F7  |  F8  |  F9  |  F10 |
@@ -193,46 +193,102 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// copy preonic to below and use as template:
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
+    case COLEMAK_DHM:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_COLEMAK_DHM);
       }
       return false;
       break;
-    case LOWER:
+    case NAV:
       if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        layer_on(_NAV);
+        update_tri_layer(_NAV, _NUM, _MEDIA);
       } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        layer_off(_NAV);
+        update_tri_layer(_NAV, _NUM, _MEDIA);
       }
       return false;
       break;
-    case RAISE:
+    case NUM:
       if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        layer_on(_NUM);
+        update_tri_layer(_NAV, _NUM, _MEDIA);
       } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        layer_off(_NUM);
+        update_tri_layer(_NAV, _NUM, _MEDIA);
       }
       return false;
       break;
-    case ADJUST:
+    case SYM_L:
       if (record->event.pressed) {
-        layer_on(_ADJUST);
+        layer_on(_SYM_L);
+        update_tri_layer(_SYM_L, _SYM_R, _SYS);
       } else {
-        layer_off(_ADJUST);
+        layer_off(_SYM_L);
+        update_tri_layer(_SYM_L, _SYM_R, _SYS);
+      }
+      return false;
+      break;
+    case SYM_R:
+      if (record->event.pressed) {
+        layer_on(_SYM_R);
+        update_tri_layer(_SYM_L, _SYM_R, _SYS);
+      } else {
+        layer_off(_SYM_R);
+        update_tri_layer(_SYM_L, _SYM_R, _SYS);
+      }
+      return false;
+      break;
+    case ALT_OP: {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        register_mods(MOD_BIT(KC_LALT));
+      }
+      else {
+        unregister_mods(MOD_BIT(KC_LALT));
+        if (timer_elapsed(key_timer) < TAPPING_TERM) {
+          register_mods(MOD_BIT(KC_LSFT));
+          register_code(KC_9);
+          unregister_code(KC_9);
+          unregister_mods(MOD_BIT(KC_LSFT));
+        }
+      }
+      return false;
+      break;
+    case CTL_CCB: {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        register_mods(MOD_BIT(KC_LCTL));
+      }
+      else {
+        unregister_mods(MOD_BIT(KC_LCTL));
+        if (timer_elapsed(key_timer) < TAPPING_TERM) {
+          register_mods(MOD_BIT(KC_LSFT));
+          register_code(KC_RBRC);
+          unregister_code(KC_RBRC);
+          unregister_mods(MOD_BIT(KC_LSFT));
+        }
+      }
+      return false;
+      break;
+    case GUI_CP: {
+      if (record->event.pressed) {
+        key_timer = timer_read();
+        register_mods(MOD_BIT(KC_LGUI));
+      }
+      else {
+        unregister_mods(MOD_BIT(KC_LGUI));
+        if (timer_elapsed(key_timer) < TAPPING_TERM) {
+          register_mods(MOD_BIT(KC_LSFT));
+          register_code(KC_0);
+          unregister_code(KC_0);
+          unregister_mods(MOD_BIT(KC_LSFT));
+        }
       }
       return false;
       break;
   }
   return true;
-}
+};
