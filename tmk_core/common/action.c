@@ -331,7 +331,6 @@ void process_action(keyrecord_t *record, action_t action) {
                         }
                     }
                     break;
-#    endif
                     case MODS_ONESHOT_TOGGLE:
                         if (event.pressed) {
                             oneshot_toggle();
@@ -347,6 +346,7 @@ void process_action(keyrecord_t *record, action_t action) {
                             oneshot_disable();
                         }
                         break;
+    #endif
                     case MODS_TAP_TOGGLE:
                     if (event.pressed) {
                         if (tap_count <= TAPPING_TOGGLE) {
