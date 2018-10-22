@@ -235,6 +235,9 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(BOOTMAGIC_LITE)), yes)
+  ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+    $(error Cannot enable BOOTMAGIC and BOOTMAGIC LITE at the same time)
+  endif
   OPT_DEFS += -DBOOTMAGIC_LITE
 endif
 

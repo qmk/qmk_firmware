@@ -961,12 +961,13 @@ void bootmagic_lite(void)
     // Assumes Esc is at [0,0] and spacebar is at [4,7].
     // This isn't very generalized, but we need something that doesn't
     // rely on user's keymaps in firmware or EEPROM.
-    if ((matrix_get_row(BOOTMAGIC_LITE_KEY_ROW) & (1 << BOOTMAGIC_LITE_KEY_COLUMN)) && (matrix_get_row(BOOTMAGIC_LITE_SPACE_ROW) & (1 << BOOTMAGIC_LITE_SPACE_COLUMN))) {
-        // Set the TMK/QMK EEPROM state as invalid.
-        eeconfig_disable();
-        //eeprom_set_valid(false);
-        // Jump to bootloader.
-        bootloader_jump();
+    //    if ((matrix_get_row(BOOTMAGIC_LITE_KEY_ROW) & (1 << BOOTMAGIC_LITE_KEY_COLUMN)) && (matrix_get_row(BOOTMAGIC_LITE_SPACE_ROW) & (1 << BOOTMAGIC_LITE_SPACE_COLUMN))) {
+    if ((matrix_get_row(0) & (1 << 0)) && (matrix_get_row(4) & (1 << 7))) {
+      // Set the TMK/QMK EEPROM state as invalid.
+      eeconfig_disable();
+      //eeprom_set_valid(false);
+      // Jump to bootloader.
+      bootloader_jump();
     }
 }
 
