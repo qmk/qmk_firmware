@@ -49,6 +49,7 @@ extern inline void clear_keys(void);
 #ifndef NO_ACTION_ONESHOT
 static uint8_t oneshot_mods        = 0;
 static uint8_t oneshot_locked_mods = 0;
+static bool oneshot_active         = true;
 uint8_t        get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
 void           set_oneshot_locked_mods(uint8_t mods) {
     if (mods != oneshot_locked_mods) {
@@ -182,6 +183,27 @@ void clear_oneshot_layer_state(oneshot_fullfillment_t state) {
  * FIXME: needs doc
  */
 bool is_oneshot_layer_active(void) { return get_oneshot_layer_state(); }
+
+/** \brief toggle oneshot
+ *
+ * FIXME: needs doc
+ */
+void oneshot_toggle(void) {
+    oneshot_active = !oneshot_active;
+    dprintf("Oneshot: active: %d\n", oneshot_active);
+}
+
+/** \brief enable oneshot
+ *
+ * FIXME: needs doc
+ */
+void oneshot_enable(void) { oneshot_active = true; }
+
+/** \brief disable oneshot
+ *
+ * FIXME: needs doc
+ */
+void oneshot_disable(void) { oneshot_active = false; }
 #endif
 
 /** \brief Send keyboard report
@@ -321,12 +343,14 @@ void del_oneshot_mods(uint8_t mods) {
  * FIXME: needs doc
  */
 void set_oneshot_mods(uint8_t mods) {
-    if (oneshot_mods != mods) {
+    if (oneshot_active) {
+        if (oneshot_mods != mods) {
 #    if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-        oneshot_time = timer_read();
+            oneshot_time = timer_read();
 #    endif
-        oneshot_mods = mods;
-        oneshot_mods_changed_kb(mods);
+            oneshot_mods = mods;
+            oneshot_mods_changed_kb(mods);
+        }
     }
 }
 /** \brief clear oneshot mods

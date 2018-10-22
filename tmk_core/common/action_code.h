@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * ACT_MODS_TAP(001r):
  * 001r|mods|0000 0000    Modifiers with OneShot
  * 001r|mods|0000 0001    Modifiers with tap toggle
+ * 001r|0000|0000 0010    Toggle all OneShot active/inactive
  * 001r|mods|0000 00xx    (reserved)
  * 001r|mods| keycode     Modifiers with Tap Key(Dual role)
  *
@@ -203,6 +204,9 @@ enum mods_bit {
 enum mods_codes {
     MODS_ONESHOT    = 0x00,
     MODS_TAP_TOGGLE = 0x01,
+    MODS_ONESHOT_TOGGLE = 0x10,
+    MODS_ONESHOT_ON = 0x11,
+    MODS_ONESHOT_OFF = 0x12,
 };
 #define ACTION_KEY(key) ACTION(ACT_MODS, (key))
 #define ACTION_MODS(mods) ACTION(ACT_MODS, ((mods)&0x1f) << 8 | 0)
@@ -210,6 +214,7 @@ enum mods_codes {
 #define ACTION_MODS_TAP_KEY(mods, key) ACTION(ACT_MODS_TAP, ((mods)&0x1f) << 8 | (key))
 #define ACTION_MODS_ONESHOT(mods) ACTION(ACT_MODS_TAP, ((mods)&0x1f) << 8 | MODS_ONESHOT)
 #define ACTION_MODS_TAP_TOGGLE(mods) ACTION(ACT_MODS_TAP, ((mods)&0x1f) << 8 | MODS_TAP_TOGGLE)
+#define ACTION_MODS_ONESHOT_TOGGLE() ACTION(ACT_MODS_TAP, MODS_ONESHOT_TOGGLE)
 
 /** \brief Other Keys
  */

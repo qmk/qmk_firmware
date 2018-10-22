@@ -332,7 +332,22 @@ void process_action(keyrecord_t *record, action_t action) {
                     }
                     break;
 #    endif
-                case MODS_TAP_TOGGLE:
+                    case MODS_ONESHOT_TOGGLE:
+                        if (event.pressed) {
+                            oneshot_toggle();
+                        }
+                        break;
+                    case MODS_ONESHOT_ON:
+                        if (event.pressed) {
+                            oneshot_enable();
+                        }
+                        break;
+                    case MODS_ONESHOT_OFF:
+                        if (event.pressed) {
+                            oneshot_disable();
+                        }
+                        break;
+                    case MODS_TAP_TOGGLE:
                     if (event.pressed) {
                         if (tap_count <= TAPPING_TOGGLE) {
                             register_mods(mods);
