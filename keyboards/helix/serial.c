@@ -128,6 +128,12 @@ int serial_update_buffers()
 
 #ifndef SELECT_SOFT_SERIAL_SPEED
 #define SELECT_SOFT_SERIAL_SPEED 1
+//  0: about 189kbps
+//  1: about 137kbps (default)
+//  2: about 75kbps
+//  3: about 39kbps
+//  4: about 26kbps
+//  5: about 20kbps
 #endif
 
 #define TID_SEND_ADJUST 2
@@ -533,4 +539,4 @@ int soft_serial_get_and_clean_status(int sstd_index) {
 //   2018-1-29 fork from let's split (#2308)
 //   2018-6-28 bug fix master to slave comm (#3255)
 //   2018-8-11 improvements (#3608)
-//   2018-10-21 fix serial and RGB animation conflict
+//   2018-10-21 fix serial and RGB animation conflict (#4191)

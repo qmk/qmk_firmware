@@ -8,7 +8,12 @@
 // /////////////////////////////////////////////////////////////////
 // ex.
 //  #define SOFT_SERIAL_PIN ??   // ?? = D0,D1,D2,D3,E6
-//  OPTIONAL: #define SELECT_SOFT_SERIAL_SPEED ? // ? = 1(default),2,3,4
+//  OPTIONAL: #define SELECT_SOFT_SERIAL_SPEED ? // ? = 1,2,3,4,5
+//                                               //  1: about 137kbps (default)
+//                                               //  2: about 75kbps
+//                                               //  3: about 39kbps
+//                                               //  4: about 26kbps
+//                                               //  5: about 20kbps
 //
 // //// USE Simple API (OLD API, compatible with let's split serial.c)
 // ex.
