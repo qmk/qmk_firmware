@@ -13,7 +13,7 @@ enum layers {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Base Layer
+/* Base
 ,-----------------------------------------------------------------------------------------------------------------------.
 |Tab      |Q        |W        |E        |R        |T        |Z        |U        |I        |O        |P        |Backspace|
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
@@ -76,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_LCTL,  KC_LALT,  KC_LGUI,  KC_DOWN,  KC_UP,    XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  MU_MOD,   MU_OFF
 ),
 
-/* Dead-Key
+/* Deadkey
 ,-----------------------------------------------------------------------------------------------------------------------.
 |         |         |         |         |         |         |         |Ü        |         |Ö        |         |         |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
@@ -92,18 +92,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_UE,    CU_ED,    CU_OE,    CU_ED,    KC_BSPC,
   CU_NAV,   CU_AE,    CU_SS,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_DDQ,
   CU_LSFT,  CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_RSFT,
-  KC_LCTL,  XXXXXXX,  KC_LGUI,  KC_LALT,  LOWER,    KC_SPC,   KC_ENT,   RAISE,    KC_RALT,  KC_RGUI,  KC_APP,   KC_RCTL
+  KC_LCTL,  XXXXXXX,  KC_LGUI,  KC_LALT,  LOWER,    CU_DDQ,   CU_DDQ,   RAISE,    KC_RALT,  KC_RGUI,  KC_APP,   KC_RCTL
 ),
 
-/* Nav
+/* Navigation
 ,-----------------------------------------------------------------------------------------------------------------------.
-|Caps Lock|PageDown |Up       |PageUp   |Home     |         |         |         |Win+Up   |         |         |Del      |
+|ESCT     |PageDown |Up       |PageUp   |Home     |         |         |         |Win+Up   |         |         |Del      |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |         |Left     |Down     |Right    |End      |         |         |Win+Left |Win+Down |Win+Right|         |Enter    |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |         |Prev     |Pause    |Next     |LowerVol |RaiseVol |Mute     |         |         |         |         |         |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-|         |         |         |         |         |         |         |         |         |         |RESET    |         |
+|RESET    |         |         |         |         |         |         |         |         |         |         |Game     |
 `-----------------------------------------------------------------------------------------------------------------------'
 */
 
@@ -111,12 +111,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   CU_ESCT,  KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
   _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  XXXXXXX,  GUIL,     GUID,     GUIR,     XXXXXXX,  KC_ENT,
   _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  MU_ON,    XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
-  RESET,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  CU_GAME
+  RESET,    _______,  _______,  _______,  _______,  KC_SPC,   KC_ENT,   _______,  _______,  _______,  _______,  CU_GAME
 )
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 switch (keycode) {
   case MO(_LOWER):
     if (game){
@@ -143,6 +143,7 @@ switch (keycode) {
       layer_off(_MUSICMODE);
     }
     return true;
+  default:
+    return true;
   }
-  return process_record_userspace(keycode, record);
 }
