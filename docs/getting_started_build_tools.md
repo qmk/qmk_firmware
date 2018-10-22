@@ -62,7 +62,7 @@ If you're using [homebrew,](http://brew.sh/) you can use the following commands:
     brew install gcc-arm-none-eabi
     brew install avrdude
 
-This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of avr-libc can take over 20 minutes and exhibit high CPU usage.
+This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of `avr-gcc@7` can take over 20 minutes and exhibit high CPU usage.
 
 ## Windows with msys2 (recommended)
 
@@ -70,9 +70,9 @@ The best environment to use, for Windows Vista through any later version (tested
 
 * Install msys2 by downloading it and following the instructions here: http://www.msys2.org
 * Open the ``MSYS2 MingGW 64-bit`` shortcut
-* Navigate to your qmk checkout. For example, if it's in the root of your c drive:
+* Navigate to your QMK repository. For example, if it's in the root of your c drive:
  * `$ cd /c/qmk_firmware`
-* Run `util/msys2_install.sh` and follow the prompts
+* Run `util/qmk_install.sh` and follow the prompts
 
 ## Windows 10 (deprecated)
 These are the old instructions for Windows 10. We recommend you use [MSYS2 as outlined above](#windows-with-msys2-recommended).
