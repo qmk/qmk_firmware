@@ -1,5 +1,6 @@
 #include "relativity.h"
 #include "keymap.h"
+#include "keyDefinitions.h"
 
 
 uint16_t *macroTaps = 0;
@@ -13,6 +14,9 @@ bool relativityActive = false;
 
 
 bool sendAbbr = false;
+
+
+static int16_t relativityTimer = 0;
 
 
 
@@ -50,6 +54,7 @@ void activateRelativity(void)
 
   rgblight_mode(1);
   rgblight_setrgb(0x80, 0xFF, 0x00);
+  relativityTimer = timer_read();
   relativityActive = true;
 }
 
@@ -242,8 +247,17 @@ void deletePrev(void)
   }
 }
 
-void processSmartMacroTap(uint16_t kc)
+bool processSmartMacroTap(uint16_t kc)
 {
+  if (relativityTimer > 0 && TIMER_DIFF_16(timer_read(), relativityTimer) >= relTimeout)
+  {
+    eraseKeyCodes();
+    eraseTableAbbreviation();
+    eraseCharCounts();
+    relativityActive = false;
+    return true;
+  }
+  relativityTimer = 0;
   switch(kc)
   {
     case KC_C:
@@ -333,6 +347,7 @@ void processSmartMacroTap(uint16_t kc)
       break;
   }
   addKeyCode(kc);
+  return false;
 }
 
 
@@ -416,10 +431,16 @@ bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
       case KC_X:
       case KC_Y:
       case KC_Z:
-        processSmartMacroTap(keycode);
-        return false;
+        return processSmartMacroTap(keycode);
 
       case KC_SPC:
+        printTableAbbreviation();
+        eraseKeyCodes();
+        eraseTableAbbreviation();
+        eraseCharCounts();
+        relativityActive = false;
+        return false;
+      case ENTER_OR_SQL:
         printTableAbbreviation();
       case KC_ESC:
         eraseKeyCodes();

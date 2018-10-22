@@ -3,6 +3,8 @@
 #define tableNameListLen 32
 #define charCountLen 32
 
+#define relTimeout 1500
+
 
 void activateRelativity(void);
 void initStringData(void);
@@ -19,7 +21,7 @@ void printString(char* str);
 void printStringAndQueueChar(char* str);
 void ReplaceString(char *orig, char *repl);
 void deletePrev(void);
-void processSmartMacroTap(uint16_t kc);
+bool processSmartMacroTap(uint16_t kc);
 bool isShifted(void);
 void setShifted(bool);
 

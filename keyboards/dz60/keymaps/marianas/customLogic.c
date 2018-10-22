@@ -3,6 +3,9 @@
 #include "keymap.h"
 #include "keyDefinitions.h"
 #include "relativity.h"
+#include "timer.h"
+
+static int16_t fnTimer = 0;
 
 
 
@@ -57,6 +60,7 @@ bool printSqlVerbs(uint16_t keycode, keyrecord_t *record)
 bool isFn = false;
 bool didFn = false;
 
+
 bool updateLayerState(uint16_t keycode, keyrecord_t *record)
 {
 
@@ -65,6 +69,7 @@ bool updateLayerState(uint16_t keycode, keyrecord_t *record)
     switch (keycode)
     {
       case FN_QT:
+        fnTimer = timer_read();
         layer_on(FN_LAYER);
         isFn = true;
         return false;
@@ -83,7 +88,14 @@ bool updateLayerState(uint16_t keycode, keyrecord_t *record)
         layer_off(FN_LAYER);
         if (!didFn)
         {
+          #if fnTimeout
+          if (TIMER_DIFF_16(timer_read(), fnTimer) <= fnTimeout)
+          {
+            activateRelativity();
+          }
+          #else
           activateRelativity();
+          #endif
         }
         didFn = false;
         isFn = false;
