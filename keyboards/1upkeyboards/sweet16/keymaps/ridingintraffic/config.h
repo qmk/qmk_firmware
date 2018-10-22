@@ -2,7 +2,6 @@
 #define CONFIG_RIDINGINTRAFFIC
 
 /* tap dance stuff*/
-#include "../../config.h"
 
 #undef TAPPING_TERM
 #define TAPPING_TERM 500
