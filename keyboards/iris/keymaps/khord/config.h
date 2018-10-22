@@ -1,5 +1,5 @@
 /*
-Copyright 2018 QMK Contributors
+Copyright 2017 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,24 +14,25 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "bigswitch.h"
 
-volatile uint8_t runonce = true;
-static uint16_t my_timer;
+#pragma once
 
-__attribute__ ((weak))
-void matrix_init_user(void) {
-  my_timer = timer_read();
-}
+/* Use I2C or Serial, not both */
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-#if defined(RGBLIGHT_ENABLE)
-  if (runonce && timer_elapsed(my_timer) > 1000) {
-    runonce = false;
-    rgblight_sethsv_noeeprom(0x0, 0xff, 0x80);
-    rgblight_mode_noeeprom(9);
-    rgblight_enable_noeeprom();
-  }
-#endif
-}
+#define USE_SERIAL
+// #define USE_I2C
+
+/* Select hand configuration */
+
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS
+
+#define TAPPING_TERM 150
+
+#undef RGBLED_NUM
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 12
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8

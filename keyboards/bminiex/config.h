@@ -1,5 +1,5 @@
 /*
-Copyright 2018 QMK Contributors
+Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,24 +14,28 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "bigswitch.h"
 
-volatile uint8_t runonce = true;
-static uint16_t my_timer;
+#pragma once
 
-__attribute__ ((weak))
-void matrix_init_user(void) {
-  my_timer = timer_read();
-}
+#include "config_common.h"
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-#if defined(RGBLIGHT_ENABLE)
-  if (runonce && timer_elapsed(my_timer) > 1000) {
-    runonce = false;
-    rgblight_sethsv_noeeprom(0x0, 0xff, 0x80);
-    rgblight_mode_noeeprom(9);
-    rgblight_enable_noeeprom();
-  }
-#endif
-}
+#define VENDOR_ID       0x20A0
+#define PRODUCT_ID      0x422E
+#define MANUFACTURER    winkeyless.kr
+#define PRODUCT         B.mini Ex
+
+#define RGBLED_NUM 20
+
+/* matrix size */
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 15
+
+#define RGBLIGHT_ANIMATIONS
+
+#define BACKLIGHT_LEVELS 5
+
+#define NO_UART 1
+
+/* key combination for command */
+#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+

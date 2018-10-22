@@ -1,5 +1,5 @@
 /*
-Copyright 2018 QMK Contributors
+Copyright 2016 Luiz Ribeiro <luizribeiro@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,24 +14,12 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "bigswitch.h"
 
-volatile uint8_t runonce = true;
-static uint16_t my_timer;
+// Please do not modify this file 
 
-__attribute__ ((weak))
-void matrix_init_user(void) {
-  my_timer = timer_read();
-}
+#pragma once
 
-__attribute__ ((weak))
-void matrix_scan_user(void) {
-#if defined(RGBLIGHT_ENABLE)
-  if (runonce && timer_elapsed(my_timer) > 1000) {
-    runonce = false;
-    rgblight_sethsv_noeeprom(0x0, 0xff, 0x80);
-    rgblight_mode_noeeprom(9);
-    rgblight_enable_noeeprom();
-  }
-#endif
-}
+void i2c_init(void);
+void i2c_set_bitrate(uint16_t bitrate_khz);
+uint8_t i2c_send(uint8_t address, uint8_t *data, uint16_t length);
+
