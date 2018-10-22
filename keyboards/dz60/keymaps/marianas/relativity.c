@@ -108,11 +108,12 @@ void eraseKeyCodes(void)
 
 void eraseCharCounts(void)
 {
-  int i = 0;
-  while (i < charCountLen)
+  while (countPointer > 0)
   {
-    charCount[i] = 0;
+    charCount[countPointer] = 0;
+    countPointer--;
   }
+  charCount[countPointer] = 0;
 }
 
 void printTableAbbreviation(void)
@@ -165,7 +166,7 @@ void printString(char* str)
 
 void printStringAndQueueChar(char* str)
 {
-  if (charCount[countPointer] != 0)
+  if (charCount[countPointer] > 0 && countPointer < charCountLen)
   {
     countPointer++;
   }
@@ -218,13 +219,14 @@ void ReplaceString(char *orig, char *repl)
 
 void deletePrev(void)
 {
+  if (countPointer == 0 && charCount[countPointer] == 0)
+    return;
   for (int i = 0; i < charCount[countPointer]; i++)
   {
       register_code(KC_BSPC);
       unregister_code(KC_BSPC);
   }
   charCount[countPointer] = 0;
-  countPointer--;
   int i = 1;
   for (;i < tableNameListLen-1; i++)
   {
@@ -234,6 +236,10 @@ void deletePrev(void)
     }
   }
   tableNameList[i-1] = 0x0;
+  if (countPointer > 0)
+  {
+    countPointer--;
+  }
 }
 
 void processSmartMacroTap(uint16_t kc)
@@ -418,6 +424,7 @@ bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
       case KC_ESC:
         eraseKeyCodes();
         eraseTableAbbreviation();
+        eraseCharCounts();
         relativityActive = false;
         return true;
     }
