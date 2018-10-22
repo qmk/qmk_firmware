@@ -58,6 +58,7 @@ If you're using [homebrew,](http://brew.sh/) you can use the following commands:
     brew update
     brew install avr-gcc@7
     brew install dfu-programmer
+    brew install dfu-util
     brew install gcc-arm-none-eabi
     brew install avrdude
 
