@@ -2,8 +2,10 @@
 #define USERSPACE
 
 #include "quantum.h"
+#include "version.h"
+#include "eeprom.h"
 
-// Define layer names 
+// Define layer names
 #define BASE 0
 
 enum custom_keycodes {

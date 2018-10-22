@@ -16,7 +16,13 @@
 #include "quantum.h"
 #include "action_tapping.h"
 
+#ifndef TAPPING_TERM
+#define TAPPING_TERM 200
+#endif
+
+#ifndef NO_ACTION_ONESHOT
 uint8_t get_oneshot_mods(void);
+#endif
 
 static uint16_t last_td;
 static int8_t highest_td = -1;
@@ -146,7 +152,11 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
       action->state.keycode = keycode;
       action->state.count++;
       action->state.timer = timer_read();
+#ifndef NO_ACTION_ONESHOT
       action->state.oneshot_mods = get_oneshot_mods();
+#else
+      action->state.oneshot_mods = 0;
+#endif
       action->state.weak_mods = get_mods();
       action->state.weak_mods |= get_weak_mods();
       process_tap_dance_action_on_each_tap (action);

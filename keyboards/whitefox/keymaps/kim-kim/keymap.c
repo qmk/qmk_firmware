@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* NOTE : This is compatible to TrueFox Layout only */
 
-#include "whitefox.h"
+#include QMK_KEYBOARD_H
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS

@@ -1,4 +1,4 @@
-#include "do60.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

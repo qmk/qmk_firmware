@@ -5,7 +5,7 @@ Custom 65%
 
 Keyboard Maintainer: QMK Community   
 Hardware Supported: CA66   
-Hardware Availability: [Play Keyboard](http://playkeyboard.qdm.com.tw/)
+Hardware Availability: [Play Keyboard](http://play-keyboard.store/)
 
 
 Make example for this keyboard (after setting up your build environment):

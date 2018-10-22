@@ -13,7 +13,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
 #include "kbd8x.h"
+
+extern inline void caps_led_off(void);
+extern inline void caps_led_on(void);
+extern inline void num_led_off(void);
+extern inline void num_led_on(void);
+extern inline void scroll_led_off(void);
+extern inline void scroll_led_on(void);
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here

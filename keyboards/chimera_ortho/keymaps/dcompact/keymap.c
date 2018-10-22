@@ -95,8 +95,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-# These control the color of the LED on the receiver
-# For color reference, see ../../chimera_ortho.h
+// These control the color of the LED on the receiver
+// For color reference, see ../../chimera_ortho.h
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
     

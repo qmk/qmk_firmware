@@ -11,7 +11,7 @@ NKRO_ENABLE       = yes
 NO_SECRETS        = yes
 MACROS_ENABLED    = yes
 INDICATOR_LIGHTS  = no
-RGBLIGHT_TWINKLE  = yes
+RGBLIGHT_TWINKLE  = no
 
 LAYOUTS = ortho_5x7
 
@@ -22,3 +22,4 @@ LAYOUTS = ortho_5x7
 # SRC := $(filter-out split_util.c,$(SRC))
 # SRC += quantum/matrix.c
 
+BOOTLOADER        = qmk-dfu

@@ -6,7 +6,7 @@ This is the layout for my daily driver orthodox. It's based on a custom handwire
 
 To build the firmware run from qmk's project folder
 
-    make orthodox/rev3:rfvizarra:avrdude
+    make orthodox/rev3:rfvizarra
 
 And to flash it, run
 

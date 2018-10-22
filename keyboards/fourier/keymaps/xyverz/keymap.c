@@ -21,6 +21,7 @@ enum custom_keycodes {
 #define XXXXXXX KC_NO
 #define KC_FN1 MO(_FN1)
 #define KC_FN2 MO(_FN2)
+#define KC_ESFN1 LT(_FN1, KC_ESC)
 #define KC_SPFN1 LT(_FN1, KC_SPACE)
 #define KC_SPFN2 LT(_FN2, KC_SPACE)
 #define KC_BSFN1 LT(_FN1, KC_BSPC)

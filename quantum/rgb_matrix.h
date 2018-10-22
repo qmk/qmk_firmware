@@ -1,5 +1,6 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2017 Jack Humbert
+ * Copyright 2018 Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,8 +22,13 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "color.h"
-#include "is31fl3731.h"
 #include "quantum.h"
+
+#ifdef IS31FL3731
+    #include "is31fl3731.h"
+#elif defined (IS31FL3733)
+    #include "is31fl3733.h"
+#endif
 
 typedef struct Point {
 	uint8_t x;
@@ -75,6 +81,7 @@ enum rgb_matrix_effects {
     RGB_MATRIX_RAINBOW_PINWHEELS,
     RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
     RGB_MATRIX_JELLYBEAN_RAINDROPS,
+    RGB_MATRIX_DIGITAL_RAIN,
 #ifdef RGB_MATRIX_KEYPRESSES
     RGB_MATRIX_SOLID_REACTIVE,
     RGB_MATRIX_SPLASH,
@@ -93,9 +100,8 @@ void rgb_matrix_indicators(void);
 void rgb_matrix_indicators_kb(void);
 void rgb_matrix_indicators_user(void);
 
-void rgb_matrix_single_LED_test(void);
-
-void rgb_matrix_init_drivers(void);
+void rgb_matrix_init(void);
+void rgb_matrix_setup_drivers(void);
 
 void rgb_matrix_set_suspend_state(bool state);
 void rgb_matrix_set_indicator_state(uint8_t state);
@@ -118,11 +124,11 @@ void rgb_matrix_decrease(void);
 // void backlight_get_key_color( uint8_t led, HSV *hsv );
 // void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv );
 
-void rgb_matrix_test_led( uint8_t index, bool red, bool green, bool blue );
 uint32_t rgb_matrix_get_tick(void);
 
 void rgblight_toggle(void);
 void rgblight_step(void);
+void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
 void rgblight_step_reverse(void);
 void rgblight_increase_hue(void);
 void rgblight_decrease_hue(void);
@@ -134,5 +140,19 @@ void rgblight_increase_speed(void);
 void rgblight_decrease_speed(void);
 void rgblight_mode(uint8_t mode);
 uint32_t rgblight_get_mode(void);
+
+typedef struct {
+    /* Perform any initialisation required for the other driver functions to work. */
+    void (*init)(void);
+
+    /* Set the colour of a single LED in the buffer. */
+    void (*set_color)(int index, uint8_t r, uint8_t g, uint8_t b);
+    /* Set the colour of all LEDS on the keyboard in the buffer. */
+    void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
+    /* Flush any buffered changes to the hardware. */
+    void (*flush)(void);
+} rgb_matrix_driver_t;
+
+extern const rgb_matrix_driver_t rgb_matrix_driver;
 
 #endif

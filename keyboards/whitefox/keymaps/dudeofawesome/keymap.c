@@ -1,4 +1,4 @@
-#include "whitefox.h"
+#include QMK_KEYBOARD_H
 
 enum whitefox_layers {
   _QWERTY,
