@@ -60,7 +60,7 @@ It is noticeable that before registering a keycode the same keycode gets unregis
 
 It's worth mentioning that SHIFT_ALGR unlike the other templates doesn't allow repetition of characters when held. This is because it would otherwise require extensive checking of physical ralt status similar to shift to prevent ralt from getting stuck.
 
-####Ensuring that shift state is always correct when pressing normal keycodes
+#### Ensuring that shift state is always correct when pressing normal keycodes
 
 To ensure that non custom keycodes always get send with the right shift state the default case in the `process_record_user` function includes a physical shift check that sets shift accordingly.
 
