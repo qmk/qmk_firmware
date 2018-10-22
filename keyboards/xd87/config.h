@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KP Republic
 #define PRODUCT         XD87 TKL
-#define DESCRIPTION     KP Republic XD87 ATmega 32u4
+#define DESCRIPTION     KP Republic XD87
 
 /* key matrix size */
 #define MATRIX_ROWS 6
