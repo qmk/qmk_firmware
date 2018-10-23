@@ -258,11 +258,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         // Override the defualt auto shifted symbols to use SEND_STRING
         // See https://github.com/qmk/qmk_firmware/issues/4072
-        case KC_AT:
-            if (record->event.pressed) { SEND_STRING("@"); }
-            return false;
         case KC_EXLM:
             if (record->event.pressed) { SEND_STRING("!"); }
+            return false;
+        case KC_AT:
+            if (record->event.pressed) { SEND_STRING("@"); }
             return false;
         case KC_HASH:
             if (record->event.pressed) { SEND_STRING("#"); }
@@ -291,11 +291,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_TILD:
             if (record->event.pressed) { SEND_STRING("~"); }
             return false;
+        case KC_GRV:
+            if (record->event.pressed) { SEND_STRING("`"); }
+            return false;
         case KC_PLUS:
             if (record->event.pressed) { SEND_STRING("+"); }
             return false;
+        case KC_EQL:
+            if (record->event.pressed) { SEND_STRING("="); }
+            return false;
         case KC_PIPE:
             if (record->event.pressed) { SEND_STRING("|"); }
+            return false;
+        case KC_BSLS:
+            if (record->event.pressed) { SEND_STRING("\\"); }
+            return false;
+        case KC_LBRC:
+            if (record->event.pressed) { SEND_STRING("["); }
+            return false;
+        case KC_RBRC:
+            if (record->event.pressed) { SEND_STRING("]"); }
             return false;
         case KC_LCBR:
             if (record->event.pressed) { SEND_STRING("{"); }
