@@ -191,6 +191,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MEDIA_PLAY_PAUSE`  |`KC_MPLY`           |Play/Pause Track                               |
 |`KC_MEDIA_SELECT`      |`KC_MSEL`           |Launch Media Player (Windows)                  |
 |`KC_MEDIA_EJECT`       |`KC_EJCT`           |Eject (macOS)                                  |
+|`KC_SCREEN_BRIGHTNESS_UP`   | `KC_SBRU`       |Increase screen brightness                   |
+|`KC_SCREEN_BRIGHTNESS_DOWN` | `KC_SBRD`       |Decrease screen brightness                   |
 |`KC_MAIL`              |                    |Launch Mail (Windows)                          |
 |`KC_CALCULATOR`        |`KC_CALC`           |Launch Calculator (Windows)                    |
 |`KC_MY_COMPUTER`       |`KC_MYCM`           |Launch My Computer (Windows)                   |
