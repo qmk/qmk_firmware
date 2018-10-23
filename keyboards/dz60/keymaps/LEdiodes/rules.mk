@@ -56,3 +56,5 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 AUTO_SHIFT_ENABLE = yes # If the time depressed is greater than or equal to the AUTO_SHIFT_TIMEOUT, then a shifted version of the key is emitted. If the time is less than the AUTO_SHIFT_TIMEOUT time, then the normal state is emitted
 TAP_DANCE_ENABLE = yes
+
+SPACE_CADET_ENABLE = yes  # add option for PR #3885, space cadet feature is going to disable default.

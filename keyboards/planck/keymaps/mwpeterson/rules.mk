@@ -4,3 +4,5 @@ COMMAND_ENABLE   = no   # Disable shift combination, which conflicts with shift-
 MOUSEKEY_ENABLE  = yes  # Mouse keys (disabled to save space)
 NKRO_ENABLE      = no   # N-key rollover required for use as a steno board
 AUDIO_ENABLE     = yes  # Audio output on port C6
+
+SPACE_CADET_ENABLE = yes  # add option for PR #3885, space cadet feature is going to disable default.

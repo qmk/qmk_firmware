@@ -13,3 +13,5 @@ SLEEP_LED_ENABLE = no
 API_SYSEX_ENABLE = no
 RGBLIGHT_ENABLE = no
 RGBLIGHT_ANIMATION = no
+
+SPACE_CADET_ENABLE = yes  # add option for PR #3885, space cadet feature is going to disable default.
