@@ -4,7 +4,7 @@
 #include "keyDefinitions.h"
 #include "customLogic.h"
 
-
+// planned change: store previous table names and abbreviations to allow scrolling for inner joins on table name+id and abbreviation+id.
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
