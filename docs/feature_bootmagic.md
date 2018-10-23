@@ -102,7 +102,7 @@ If you would like to change the hotkey assignments for Bootmagic, `#define` thes
 
 # Bootmagic Lite
 
-In addition to the full blown bootmagic feature, is the Bootmagic Lite feature that only handles jumping into the bootloader.  This is great for boards that don't have a physical reset button but you need a way to jump into the bootloader, and don't want to deal with the headache that Bootmagic can cause.
+In addition to the full blown Bootmagic feature, is the Bootmagic Lite feature that only handles jumping into the bootloader.  This is great for boards that don't have a physical reset button but you need a way to jump into the bootloader, and don't want to deal with the headache that Bootmagic can cause.
 
 To enable this version of bootmagic, you need to enable it in your `rules.mk` with:
 
