@@ -20,6 +20,11 @@
 #include <ctype.h>
 
 static uint8_t input_mode;
+#if UNICODE_SELECTED_MODES != -1
+static uint8_t selected[] = { UNICODE_SELECTED_MODES };
+static uint8_t selected_count = sizeof selected / sizeof *selected;
+static uint8_t selected_index;
+#endif
 uint8_t mods;
 
 void set_unicode_input_mode(uint8_t os_target) {
@@ -35,8 +40,32 @@ void unicode_input_mode_init(void) {
   static bool first_flag = false;
   if (!first_flag) {
     input_mode = eeprom_read_byte(EECONFIG_UNICODEMODE);
+
+#if UNICODE_SELECTED_MODES != -1
+    // Find input_mode in selected modes
+    uint8_t i;
+    for (i = 0; i < selected_count; i++) {
+      if (selected[i] == input_mode) {
+        selected_index = i;
+        break;
+      }
+    }
+    if (i == selected_count) {
+      // input_mode isn't selected, change to one that is
+      input_mode = selected[selected_index = 0];
+    }
+#endif
+
     first_flag = true;
   }
+}
+
+void cycle_unicode_input_mode(void) {
+#if UNICODE_SELECTED_MODES != -1
+  unicode_input_mode_init(); // Init selected_index
+  selected_index = (selected_index + 1) % selected_count;
+  input_mode = selected[selected_index];
+#endif
 }
 
 __attribute__((weak))
