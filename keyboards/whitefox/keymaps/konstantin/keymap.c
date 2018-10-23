@@ -20,7 +20,7 @@
 #define UC_MINS UC(0x2212)
 
 void matrix_init_user(void) {
-  set_unicode_input_mode(UC_WIN);
+  set_unicode_input_mode(UC_WINC);
 }
 
 enum layers {
