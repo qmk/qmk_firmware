@@ -78,7 +78,7 @@ void matrix_init(void)
 
     // LED off
     DDRD |= (1<<6); PORTD &= ~(1<<6);
-    matrix_init_quantum();
+    matrix_scan_quantum();
 }
 
 #ifdef ADB_MOUSE_ENABLE
@@ -239,7 +239,7 @@ uint8_t matrix_scan(void)
             extra_key = key1<<8 | 0xFF; // process in a separate call
     }
 
-    matrix_init_quantum();
+    matrix_scan_quantum();
     return 1;
 }
 
