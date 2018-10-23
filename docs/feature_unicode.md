@@ -75,19 +75,24 @@ void qk_ucis_symbol_fallback (void) { // falls back to manual unicode entry
 }
 ```
 
-## Unicode Input methods
+## Input Modes
 
-Unicode input in QMK works by inputting a sequence of characters to the OS,
-sort of like macro. Unfortunately, each OS has different ideas on how Unicode is input.
+Unicode input in QMK works by inputting a sequence of characters to the OS, sort of like a macro. Unfortunately, the way this is done differs for each OS, so a corresponding input mode has to be set.
 
-This is the current list of Unicode input method in QMK:
+The following input modes are available:
 
-* __UC_OSX__: Mac OS X Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default; to enable, go to System Preferences → Keyboard → Input Sources, and enable Unicode Hex Input. Sends the left Option key (`KC_LALT`) by default, but this can be changed by defining `UNICODE_OSX_KEY` with another keycode.
-* __UC_LNX__: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
-* __UC_WIN__: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
-* __UC_WINC__: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows. Uses right Alt (`KC_RALT`) by default, but this can be changed in the WinCompose options and by defining `UNICODE_WINC_KEY` with another keycode.
+* **`UC_OSX`**: Mac OS X built-in Unicode hex input. Works up to 0xFFFF. To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar. By default, this mode uses the left Option key (`KC_LALT`), but this can be changed by defining `UNICODE_OSX_KEY` with another keycode.
+* **`UC_LNX`**: Linux built-in IBus Unicode input. Works up to 0xFFFFF. Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
+* **`UC_WIN`**: _(not recommended)_ Windows built-in Unicode hex numpad input. To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to `1`, and reboot. This mode is not recommended because of reliability and compatibility issue; use the `UC_WINC` mode instead.
+* **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under all version of Windows supported by the app. To enable, install [WinCompose](https://github.com/samhocevar/wincompose/releases/latest) (it will run automatically on startup). By default, this mode uses the right Alt key (`KC_RALT`), but this can be changed in the WinCompose settings and by defining `UNICODE_WINC_KEY` with another keycode.
 
-At some point, you need to call `set_unicode_input_mode(x)` to set the correct unicode method.  This sets the method that is used to send the unicode, and stores it in EEPROM, so you only need to call this once.
+At some point you need to call `set_unicode_input_mode(X)` in your code to set the appropriate mode. Since the setting is stored in EEPROM, this only needs to be called once, so it's recommended that you do it in `matrix_init_user` (or a similar function). For example:
+
+```c
+void matrix_init_user(void) {
+  set_unicode_input_mode(UC_LNX);
+}
+```
 
 ## `send_unicode_hex_string`
 
