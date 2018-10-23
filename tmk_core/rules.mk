@@ -100,7 +100,6 @@ endif
 #CFLAGS += -Wundef
 #CFLAGS += -Wunreachable-code
 #CFLAGS += -Wsign-compare
-CFLAGS += -fstrict-aliasing -ftree-vrp
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
 
