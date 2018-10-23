@@ -19,23 +19,18 @@
 
 #include "quantum.h"
 
+// Keycodes used for starting Unicode input on different platforms
 #ifndef UNICODE_OSX_KEY
-#define UNICODE_OSX_KEY    KC_LALT
+#define UNICODE_OSX_KEY  KC_LALT
 #endif
 #ifndef UNICODE_WINC_KEY
-#define UNICODE_WINC_KEY   KC_RALT
+#define UNICODE_WINC_KEY KC_RALT
 #endif
+
+// Delay between starting Unicode input and sending a sequence, in ms
 #ifndef UNICODE_TYPE_DELAY
 #define UNICODE_TYPE_DELAY 10
 #endif
-
-void unicode_input_mode_init(void);
-uint8_t get_unicode_input_mode(void);
-void set_unicode_input_mode(uint8_t mode);
-void unicode_input_start(void);
-void unicode_input_finish(void);
-void register_hex(uint16_t hex);
-void send_unicode_hex_string(const char *str);
 
 enum unicode_input_modes {
   UC_OSX,   // Mac OS X using Unicode Hex Input
@@ -46,8 +41,17 @@ enum unicode_input_modes {
   UC__COUNT // Number of available input modes (always leave at the end)
 };
 
-#define UC_BSPC	UC(0x0008)
+void unicode_input_mode_init(void);
+uint8_t get_unicode_input_mode(void);
+void set_unicode_input_mode(uint8_t mode);
 
+void unicode_input_start(void);
+void unicode_input_finish(void);
+
+void register_hex(uint16_t hex);
+void send_unicode_hex_string(const char *str);
+
+#define UC_BSPC	UC(0x0008)
 #define UC_SPC	UC(0x0020)
 
 #define UC_EXLM	UC(0x0021)
