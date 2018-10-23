@@ -16,6 +16,6 @@ UNICODEMAP_ENABLE = no     # This allows sending unicode symbols using X(<unicod
 UNICODE_ENABLE = no        # Unicode
 UCIS_ENABLE = no           # Keep in mind that not all will work (See WinCompose for details on Windows).
 BLUETOOTH_ENABLE = no      # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight. 
 SLEEP_LED_ENABLE = no      # Breathing sleep LED during USB suspend
 API_SYSEX_ENABLE = no      # This enables using the Quantum SYSEX API to send strings
