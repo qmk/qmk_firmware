@@ -25,6 +25,11 @@
 #define UNICODE_SELECTED_MODES -1
 #endif
 
+// Whether input mode changes in cycle should be written to EEPROM
+#ifndef UNICODE_CYCLE_PERSIST
+#define UNICODE_CYCLE_PERSIST true
+#endif
+
 #ifndef UNICODE_TYPE_DELAY
 #define UNICODE_TYPE_DELAY 10
 #endif

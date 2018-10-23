@@ -65,6 +65,9 @@ void cycle_unicode_input_mode(void) {
   unicode_input_mode_init(); // Init selected_index
   selected_index = (selected_index + 1) % selected_count;
   input_mode = selected[selected_index];
+# if UNICODE_CYCLE_PERSIST
+  eeprom_update_byte(EECONFIG_UNICODEMODE, input_mode);
+# endif
 #endif
 }
 
