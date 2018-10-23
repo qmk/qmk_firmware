@@ -260,6 +260,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
+        case KC_EXLM:
+            if (record->event.pressed) {
+                SEND_STRING("!");
+            }
+            return false;
+            break;
     }
     return true;
 }
