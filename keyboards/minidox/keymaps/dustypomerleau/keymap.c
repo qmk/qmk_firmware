@@ -1,4 +1,16 @@
-// dp minidox keymap
+// dustypomerleau, Minidox keymap
+
+// TODO:
+// add back (left index), delete (right index), printscreen (left pinky) to nav
+// add qwerty layer
+// define qwerty mod tap aliases
+// add qwerty and colemak keycodes to sys layer
+// add a normal number layer for j (including aliases) and comment it out
+// add oneshot timeout to config
+// review all docs re: config and add necessary params
+// replace your macros with tap_code(): https://docs.qmk.fm/#/feature_macros?id=tap_code
+//   tap_code(S(kc)) (if this doesn't work you may have to keep register_code for the mods and just use tap_code for the kc)
+//   based on the docs I actually think you'll need the latter, but maybe try the slick way first.
 
 #include QMK_KEYBOARD_H
 
@@ -6,6 +18,7 @@ extern keymap_config_t keymap_config;
 
 enum custom_layers {
   _COLEMAK_DHM,
+  _QWERTY,
   _MEDIA,
   _NAV,
   _NUM,
@@ -15,7 +28,8 @@ enum custom_layers {
 };
 
 enum custom_keycodes {
-  COLEMAK_DHM = SAFE_RANGE, // Not currently in use, given only 1 default layer
+  COLEMAK_DHM = SAFE_RANGE,
+  QWERTY,
   NAV,
   NUM,
   SYM_L,
@@ -79,6 +93,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_COLEMAK_DHM] = LAYOUT( \
+  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
+  KC_A,    CTRL_R,  ALT_S,   GUI_T,   KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O,    \
+  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
+                    SYML_OS, SFT_OS,  NAV_BK,       NUM_SPC, SFT_OS,  SYMR_OS                    \
+),
+
+/* QWERTY
+ *
+ * ,----------------------------------.           ,----------------------------------.
+ * |   Q  |   W  |   F  |   P  |   B  |           |   J  |   L  |   U  |   Y  |   '  |
+ * |------+------+------+------+------|           |------+------+------+------+------|
+ * |   A  |CTRL_R| ALT_S| GUI_T|   G  |           |   M  | GUI_N| ALT_E|CTRL_I|   O  |
+ * |------+------+------+------+------|           |------+------+------+------+------|
+ * |   Z  |   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
+ * `----------------------------------'           `----------------------------------'
+ *                  ,--------------------.    ,--------------------.
+ *                  |SYMLOS|SFT_OS|      |    |      |SFT_OS|SYMROS|
+ *                  `------+------|NAV_BK|    |NUMSPC|------+------'
+ *                                |      |    |      |
+ *                                `------'    `------'
+ */
+[_QWERTY] = LAYOUT( \
   KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
   KC_A,    CTRL_R,  ALT_S,   GUI_T,   KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O,    \
   KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
@@ -200,7 +236,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_COLEMAK_DHM);
       }
       return false;
-      break;
+    case QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
     case NAV:
       if (record->event.pressed) {
         layer_on(_NAV);
@@ -210,7 +250,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_NAV, _NUM, _MEDIA);
       }
       return false;
-      break;
     case NUM:
       if (record->event.pressed) {
         layer_on(_NUM);
@@ -220,7 +259,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_NAV, _NUM, _MEDIA);
       }
       return false;
-      break;
     case SYM_L:
       if (record->event.pressed) {
         layer_on(_SYM_L);
@@ -230,7 +268,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_SYM_L, _SYM_R, _SYS);
       }
       return false;
-      break;
     case SYM_R:
       if (record->event.pressed) {
         layer_on(_SYM_R);
@@ -240,8 +277,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer(_SYM_L, _SYM_R, _SYS);
       }
       return false;
-      break;
-    case ALT_OP: {
+    case ALT_OP:
       if (record->event.pressed) {
         key_timer = timer_read();
         register_mods(MOD_BIT(KC_LALT));
@@ -256,8 +292,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-      break;
-    case CTL_CCB: {
+    case CTL_CCB:
       if (record->event.pressed) {
         key_timer = timer_read();
         register_mods(MOD_BIT(KC_LCTL));
@@ -272,8 +307,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-      break;
-    case GUI_CP: {
+    case GUI_CP:
       if (record->event.pressed) {
         key_timer = timer_read();
         register_mods(MOD_BIT(KC_LGUI));
@@ -288,7 +322,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       }
       return false;
-      break;
+    default:
+      return true;
   }
-  return true;
 };
