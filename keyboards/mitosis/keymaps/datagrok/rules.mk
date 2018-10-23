@@ -32,4 +32,6 @@ ifeq ($(strip $(MITOSIS_DATAGROK_SLOWUART)), yes)
 		OPT_DEFS += -DMITOSIS_DATAGROK_SLOWUART
 endif
 
+SPACE_CADET_ENABLE = yes  # add option for PR #3885, space cadet feature is going to disable default.
+
 # vim: set ts=8 noet:
