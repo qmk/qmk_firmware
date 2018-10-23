@@ -14,5 +14,5 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma one
+#pragma once
 // place overrides here
