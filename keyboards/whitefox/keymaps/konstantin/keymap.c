@@ -19,9 +19,8 @@
 #define UC_DIVS UC(0x00F7)
 #define UC_MINS UC(0x2212)
 
-void matrix_init_user(void)
-{
-  set_unicode_input_mode(UC_WIN);
+void matrix_init_user(void) {
+  set_unicode_input_mode(UC_WINC);
 }
 
 enum layers {
@@ -35,13 +34,10 @@ enum custom_keycodes {
   NUMPAD,
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case CLEAR:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
-    }
+    if (record->event.pressed) { SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE)); }
     return false;
 
   case NUMPAD:
@@ -65,15 +61,13 @@ enum tap_dance {
   TD_DESKTOP,
 };
 
-void td_fn_rctl_finished(qk_tap_dance_state_t *state, void *user_data)
-{
+void td_fn_rctl_finished(qk_tap_dance_state_t *state, void *user_data) {
   // Single tap → Fn, double tap → RCtrl, triple tap → Fn+RCtrl etc.
   if (state->count & 1) { layer_on(L_FN); }
   if (state->count & 2) { register_code(KC_RCTL); }
 }
 
-void td_fn_rctl_reset(qk_tap_dance_state_t *state, void *user_data)
-{
+void td_fn_rctl_reset(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count & 1) { layer_off(L_FN); }
   if (state->count & 2) { unregister_code(KC_RCTL); }
 }
