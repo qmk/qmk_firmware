@@ -7,9 +7,6 @@ tap danc eis turned on in the rules now...
 #define _TAPLAND 1
 #define _LEDCNTL 2
 
-
-#define TAPPING_TOGGLE 2
-
 enum custom_keycodes {
     SHRUG,
     DISFACE,
@@ -30,11 +27,6 @@ enum {
   TD_EXAMPLE2,
   TD_EXAMPLE3,
   TD_EXAMPLE4
-};
-
-void tap(uint16_t keycode){
-    register_code(keycode);
-    unregister_code(keycode);
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -120,9 +112,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             case CMDCLEAR:
                 if (record->event.pressed) {
                     register_code(KC_LGUI);
-                    tap(KC_A);                 
+                    tap_code(KC_A);                 
                     unregister_code(KC_LGUI);
-                    tap(KC_DEL);                 
+                    tap_code(KC_DEL);                 
                 }
                 return false;
                 break;  
@@ -196,10 +188,13 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 // Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-rgblight_setrgb (16, 0, 16);
-};
-
+void matrix_scan_user(void) {
+  static bool has_ran_yet;
+  if (!has_ran_yet) {
+    has_ran_yet = true;
+        rgblight_setrgb (16, 0, 16);
+  }
+}
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _TAPLAND:

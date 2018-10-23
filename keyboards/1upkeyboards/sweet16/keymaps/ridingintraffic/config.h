@@ -4,6 +4,8 @@
 #undef TAPPING_TERM
 #define TAPPING_TERM 500
 
+#define TAPPING_TOGGLE 2
+
 #define EXAMPLESTRING1 "tapdance_1"
 #define EXAMPLESTRING2 "tapdance_2"
 #define EXAMPLESTRING3 "tapdance_3"
