@@ -953,7 +953,7 @@ void bootmagic_lite(void)
 
     // We need multiple scans because debouncing can't be turned off.
     matrix_scan();
-    wait_ms(DEBOUNCING_DELAY);
+    wait_ms(DEBOUNCING_DELAY * 2);
     matrix_scan();
 
     // If the Esc and space bar are held down on power up,
@@ -961,18 +961,18 @@ void bootmagic_lite(void)
     // Assumes Esc is at [0,0] and spacebar is at [4,7].
     // This isn't very generalized, but we need something that doesn't
     // rely on user's keymaps in firmware or EEPROM.
-    //    if ((matrix_get_row(BOOTMAGIC_LITE_KEY_ROW) & (1 << BOOTMAGIC_LITE_KEY_COLUMN)) && (matrix_get_row(BOOTMAGIC_LITE_SPACE_ROW) & (1 << BOOTMAGIC_LITE_SPACE_COLUMN))) {
-    if ((matrix_get_row(0) & (1 << 0)) && (matrix_get_row(4) & (1 << 7))) {
+    if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
       // Set the TMK/QMK EEPROM state as invalid.
-      eeconfig_disable();
-      //eeprom_set_valid(false);
       // Jump to bootloader.
       bootloader_jump();
     }
 }
 
 void matrix_init_quantum() {
-  if (!eeconfig_is_enabled() && !eeconfig_is_disabled()) {
+  #ifdef BOOTMAGIC_LITE
+    bootmagic_lite();
+  #endif
+  if (!eeconfig_is_enabled()) {
     eeconfig_init();
   }
   #ifdef BACKLIGHT_ENABLE
@@ -983,9 +983,6 @@ void matrix_init_quantum() {
   #endif
   #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
-  #endif
-  #ifdef BOOTMAGIC_LITE
-    bootmagic_lite();
   #endif
   matrix_init_kb();
 }
