@@ -422,6 +422,7 @@ void led_set_user(uint8_t usb_led) {
 
 void eeconfig_init_user(void) {
   userspace_config.raw = 0;
+  userspace_config.rgb_layer_change = true;
   eeconfig_update_user(userspace_config.raw);
 }
 
