@@ -12,6 +12,9 @@ SPACE_CADET_ENABLE = yes
 
 Then, replace any Shift key in your keymap with `KC_SFTENT` (Shift, Enter), and you're done.
 
+When this features enable, binary size increases around 520 bytes.
+
+
 ## Keycodes
 
 |Keycode    |Description                             |

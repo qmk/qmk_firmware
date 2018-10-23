@@ -12,6 +12,8 @@ SPACE_CADET_ENABLE = yes
 
 Then, replace the Left Shift key in your keymap with `KC_LSPO` (Left Shift, Parenthesis Open), and Right Shift with `KC_RSPC` (Right Shift, Parenthesis Close).
 
+When this features enable, binary size increases around 520 bytes.
+
 ## Keycodes
 
 |Keycode  |Description                           |
@@ -41,3 +43,4 @@ Also, by default, the Space Cadet applies modifiers LSPO_MOD and RSPC_MOD to key
 |`RSPC_MOD`                    |`KC_RSFT`    |The keycode to send when Right Shift is tapped                                  |
 |`DISABLE_SPACE_CADET_ROLLOVER`|*Not defined*|If defined, use the opposite Shift key to cancel Space Cadet                    |
 |`DISABLE_SPACE_CADET_MODIFIER`|*Not defined*|If defined, prevent the Space Cadet to apply a modifier to LSPO_KEY and RSPC_KEY|
+

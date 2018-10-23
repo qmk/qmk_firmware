@@ -259,7 +259,7 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
   #endif
-  #ifdef SPACE_CADET_ENABLE
+  #ifdef SPACE_CADET_ENABLE                     // temporary position, maintainer, collaborator, contributor can move this above or below, if any keycode conflicts
     process_space_cadet( keycode, record ) &&
   #endif
   #ifdef LEADER_ENABLE

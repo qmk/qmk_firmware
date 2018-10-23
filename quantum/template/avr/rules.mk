@@ -80,5 +80,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
-SPACE_CADET_ENABLE = no  # add option for PR #3885, space cadet feature is going to disable default.
+SPACE_CADET_ENABLE = no  # enable KC_LSPO, KC_RSPC, KC_SFTENT feature (+520)
 
