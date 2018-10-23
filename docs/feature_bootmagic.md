@@ -140,4 +140,4 @@ void bootmagic_lite(void) {
 }
 ```
 
-You can additional feature here like resetting the eeprom, or the like.  Keep in mind that `bootmagic_lite` is called before a majority of features are initialized in the firmware.
+You can additional feature here. For instance, resetting the eeprom or requiring additional keys to be pressed to trigger bootmagic.  Keep in mind that `bootmagic_lite` is called before a majority of features are initialized in the firmware.
