@@ -1,8 +1,7 @@
 /*
 tap danc eis turned on in the rules now...
 */
-#include "sweet16.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 #define _EMOJI 0
 #define _TAPLAND 1
@@ -42,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* EMOJI Pad
     * ,-------------------------------.
-    * |TFLIP | TFlIP2|ANGRYFL|  TPUT  |
+    * |TFLIP | TFlIP2|DISFACE|   FU   |
     * |------+-------+-------+--------|
     * | CLOUD|       |       | CLEAR  |
     * |------+-------+-------+--------|
@@ -52,14 +51,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-------------------------------'
     */
       //purple
-    [_EMOJI]{
-       {TFLIP,   TFLIP2,   KC_TRNS,      FU }, 
-       {CLOUD,   KC_TRNS,  KC_TRNS,      CMDCLEAR}, 
-       {SHRUG,   DISFACE,  HEARTFACE,    HAPPYFACE}, 
-       {KC_ENT,  KC_TRNS,  MO(_LEDCNTL), MO(_TAPLAND)}
-    },
+    [_EMOJI] = LAYOUT_ortho_4x4(
+       TFLIP,   TFLIP2,   KC_NO,      FU , 
+       CLOUD,   KC_NO,  KC_NO,      CMDCLEAR, 
+       SHRUG,   DISFACE,  HEARTFACE,    HAPPYFACE, 
+       KC_ENT,  RGB_TOG,  MO(_LEDCNTL), MO(_TAPLAND)
+    ),
  
-    /* TapLand
+    /* TapLand //
     * ,-------------------------------.
     * | str1 | str2  |  str3 |   str4 |
     * |------+-------+-------+--------|
@@ -71,12 +70,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * `-------------------------------'
     */
     //blue
-    [_TAPLAND]{
-       {TD(TD_EXAMPLE1), TD(TD_EXAMPLE2),  TD(TD_EXAMPLE3), TD(TD_EXAMPLE4)}, 
-       {KC_TRNS,         KC_TRNS,          KC_TRNS,         KC_TRNS}, 
-       {KC_TRNS,         KC_TRNS,          KC_TRNS,         KC_TRNS}, 
-       {KC_TRNS,         KC_TRNS,          KC_TRNS,         KC_TRNS}
-    },
+    [_TAPLAND] = LAYOUT_ortho_4x4(
+       TD(TD_EXAMPLE1), TD(TD_EXAMPLE2),  TD(TD_EXAMPLE3), TD(TD_EXAMPLE4), 
+       KC_NO,         KC_NO,          KC_NO,         KC_NO, 
+       KC_NO,         KC_NO,          KC_NO,         KC_NO, 
+       KC_NO,         KC_NO,          KC_NO,         KC_NO
+    ),
     /* LEDControl Pad
     * ,-------------------------------.
     * | snake|breathe|rainbow|gradient|
@@ -85,16 +84,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * |------+-------+-------+--------|
     * |kngrdr|  Val- | Sat-  |   HUE- |
     * |------+-------+-------+--------|
-    * | swirl|       | PLAIN | ON/OFF | 
+    * | swirl| PLAIN |       | ON/OFF | 
     * `-------------------------------'
     */
     //blue
-    [_LEDCNTL]{
-        {RGB_M_SN, RGB_M_B,    RGB_M_R,     RGB_M_G}, 
-        {RGB_M_X,  RGB_VAI,    RGB_SAI,     RGB_HUI}, 
-        {RGB_M_K,  RGB_VAD,    RGB_SAD,     RGB_HUD}, 
-        {RGB_M_SW, KC_TRNS,    RGB_M_P,     RGB_TOG}
-     },
+    [_LEDCNTL] = LAYOUT_ortho_4x4(
+        RGB_M_SN, RGB_M_B,    RGB_M_R,     RGB_M_G, 
+        RGB_M_X,  RGB_VAI,    RGB_SAI,     RGB_HUI, 
+        RGB_M_K,  RGB_VAD,    RGB_SAD,     RGB_HUD, 
+        RGB_M_SW, RGB_M_P,    KC_NO,     RGB_TOG
+     ),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -102,13 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         switch(keycode) {
             case CLOUD:       // (っ◕‿◕)っ
                 if(record->event.pressed){
-                    process_unicode((0x28|QK_UNICODE), record);   // Head
-                    process_unicode((0x3063|QK_UNICODE), record);   // Hand
-                    process_unicode((0x25D5|QK_UNICODE), record);   // Eye
-                    process_unicode((0x203F|QK_UNICODE), record);  // Mouth
-                    process_unicode((0x25D5|QK_UNICODE), record);  // Eye
-                    process_unicode((0x29|QK_UNICODE), record);   //Head
-                    process_unicode((0x3063|QK_UNICODE), record); // Hand
+                    send_unicode_hex_string("0028 3063 25D5 203F 25D5 0029 3063");
                 }
                 return false;
                 break;
@@ -120,9 +113,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 break;  
             case HAPPYFACE:       // ʘ‿ʘ 
                 if(record->event.pressed){
-                    process_unicode((0x298|QK_UNICODE), record);   // Eye
-                    process_unicode((0x203F|QK_UNICODE), record);   // Mouth
-                    process_unicode((0x298|QK_UNICODE), record);   // Eye
+                     send_unicode_hex_string("0298 203F 0298");
                 }
                 return false;
                 break; 
@@ -135,90 +126,33 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
                 return false;
                 break;  
-            case SHRUG:
+            case SHRUG: // ¯\_(ツ)_/¯
                 if (record->event.pressed) {
-                    set_unicode_input_mode(UC_WIN);
-                    process_unicode((0x00AF|QK_UNICODE), record); // Hand
-                    tap(KC_BSLS);                 // Arm
-                    register_code(KC_LSFT);
-                    tap(KC_UNDS);                 // Arm
-                    tap(KC_LPRN);                 // Head
-                    unregister_code(KC_LSFT);
-                    process_unicode((0x30C4|QK_UNICODE), record); // Face
-                    register_code(KC_LSFT);
-                    tap(KC_RPRN);                 // Head
-                    tap(KC_UNDS);                 // Arm
-                    unregister_code(KC_LSFT);
-                    tap(KC_SLSH);                 // Arm
-                    process_unicode((0x00AF|QK_UNICODE), record); // Hand
+                    send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
                 }
                 return false; 
                 break;
             case HEARTFACE:       // ♥‿♥
                 if(record->event.pressed){
-                    process_unicode((0x2665|QK_UNICODE), record);   // Eye
-                    process_unicode((0x203F|QK_UNICODE), record);   // Mouth
-                    process_unicode((0x2665|QK_UNICODE), record);   // Eye
+                    send_unicode_hex_string("2665 203F 2665");
                 }
                 return false;
                 break;  
-            case DISFACE:       // ಠ_ಠ
+            case DISFACE:       // ಠ_ಠ 
                 if(record->event.pressed){
-                    process_unicode((0x0CA0|QK_UNICODE), record);   // Eye
-                    register_code(KC_RSFT);
-                    tap(KC_MINS);
-                    unregister_code(KC_RSFT);
-                    process_unicode((0x0CA0|QK_UNICODE), record);   // Eye
+                    send_unicode_hex_string("0CA0 005F 0CA0");
                 }
                 return false;
                 break;
-            case TFLIP:         // (╯°□°)╯ ︵ ┻━┻
+            case TFLIP:         // (╯°□°)╯ ︵ ┻━┻ 
                 if(record->event.pressed){
-                    register_code(KC_RSFT);
-                    tap(KC_9);
-                    unregister_code(KC_RSFT);
-                    process_unicode((0x256F|QK_UNICODE), record);   // Arm
-                    process_unicode((0x00B0|QK_UNICODE), record);   // Eye
-                    process_unicode((0x25A1|QK_UNICODE), record);   // Mouth
-                    process_unicode((0x00B0|QK_UNICODE), record);   // Eye
-                    register_code(KC_RSFT);
-                    tap(KC_0);
-                    unregister_code(KC_RSFT);
-                    process_unicode((0x256F|QK_UNICODE), record);   // Arm
-                    tap(KC_SPC);
-                    process_unicode((0x0361|QK_UNICODE), record);   // Flippy
-                    tap(KC_SPC);
-                    process_unicode((0x253B|QK_UNICODE), record);   // Table
-                    process_unicode((0x2501|QK_UNICODE), record);   // Table
-                    process_unicode((0x253B|QK_UNICODE), record);   // Table
+                    send_unicode_hex_string("0028 256F 00B0 25A1 00B0 0029 256F 0020 FE35 0020 253B 2501 253B");
                 }
                 return false;
                 break;
-            case TFLIP2:         // ┻━┻︵ \(°□°)/ ︵ ┻━┻
+            case TFLIP2:         // ┻━┻︵ \(°□°)/ ︵ ┻━┻  
                 if(record->event.pressed){
-                    process_unicode((0x253B|QK_UNICODE), record);   // Table
-                    process_unicode((0x2501|QK_UNICODE), record);   // Table
-                    process_unicode((0x253B|QK_UNICODE), record);   // Table
-                    tap(KC_SPC);
-                    process_unicode((0x0361|QK_UNICODE), record);   // Flippy
-                    tap(KC_SPC);
-                    tap(KC_BSLASH);
-                    register_code(KC_RSFT);
-                    tap(KC_9);
-                    unregister_code(KC_RSFT);
-                    process_unicode((0x00B0|QK_UNICODE), record);   // Eye
-                    process_unicode((0x25A1|QK_UNICODE), record);   // Mouth
-                    process_unicode((0x00B0|QK_UNICODE), record);   // Eye
-                    register_code(KC_RSFT);
-                    tap(KC_0);
-                    unregister_code(KC_RSFT);
-                    tap(KC_SLASH);
-                    tap(KC_SPC);
-                    process_unicode((0x0361|QK_UNICODE), record);   // Flippy
-                    tap(KC_SPC);
-                    process_unicode((0x253B|QK_UNICODE), record);   // Table
-                    process_unicode((0x2501|QK_UNICODE), record);   // Table
-                    process_unicode((0x253B|QK_UNICODE), record);   // Table
+                    send_unicode_hex_string("253B 2501 253B FE35 0020 005C 0028 00B0 25A1 00B0 0029 002F 0020 FE35 0020 253B 2501 253B");
                 }
                 return false;
                 break;
@@ -263,31 +197,24 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-tap(RGB_M_P);
+rgblight_setrgb (16, 0, 16);
 };
 
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-
-  uint8_t layer = biton32(layer_state);
-
-  
-  switch (layer) {
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
     case _TAPLAND:
-      rgblight_setrgb(0, 16, 0); //green
-      break;
-    
+        rgblight_setrgb(0, 16, 0); //green
+        break;
     case _LEDCNTL:
-      rgblight_setrgb(0, 0, 16); //blue
-      break;
-    
+        rgblight_setrgb(0, 0, 16); //blue
+        break;
     case _EMOJI:
-      rgblight_setrgb(16, 0, 16); //purple
-      break;
-    
-    default:
-      // none
-      break;
-  }
+        rgblight_setrgb (16, 0, 16); //purple
+        break;
 
-};
+    default: //  for any other layers, or the default layer
+        rgblight_setrgb (16, 0, 16); //purple
+        break;
+    }
+  return state;
+}
