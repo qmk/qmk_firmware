@@ -952,7 +952,13 @@ void bootmagic_lite(void) {
 
     // We need multiple scans because debouncing can't be turned off.
     matrix_scan();
-    wait_ms(DEBOUNCING_DELAY * 2);
+    #if defined(DEBOUNCING_DELAY)
+      wait_ms(DEBOUNCING_DELAY * 2);
+    #elif defined(DEBOUNCE)
+      wait_ms(DEBOUNCE * 2);
+    #else
+      wait_ms(30);
+    #endif
     matrix_scan();
 
     // If the Esc and space bar are held down on power up,
