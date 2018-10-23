@@ -99,3 +99,45 @@ If you would like to change the hotkey assignments for Bootmagic, `#define` thes
 |`BOOTMAGIC_KEY_DEFAULT_LAYER_5`         |`KC_5`       |Make layer 5 the default layer                     |
 |`BOOTMAGIC_KEY_DEFAULT_LAYER_6`         |`KC_6`       |Make layer 6 the default layer                     |
 |`BOOTMAGIC_KEY_DEFAULT_LAYER_7`         |`KC_7`       |Make layer 7 the default layer                     |
+
+# Bootmagic Lite
+
+In addition to the full blown bootmagic feature, is the Bootmagic Lite feature that only handles jumping into the bootloader.  This is great for boards that don't have a physical reset button but you need a way to jump into the bootloader, and don't want to deal with the headache that Bootmagic can cause.
+
+To enable this version of bootmagic, you need to enable it in your `rules.mk` with:
+
+```make
+BOOTMAGIC_ENABLE = lite
+```
+
+Additionally, you may want to specify which key to use.  This is especially useful for keyboards that have unusual matrices.  To do so, you need to specify the row and column of the key that you want to use. Add these entries to your `config.h` file:
+
+```c
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 1
+```
+
+By default, these are set to 0 and 0, which is usually the "ESC" key on a majority of keyboards.
+
+And to trigger the bootloader, you hold this key down when plugging the keyboard in. Just the single key. 
+
+## Advanced Bootmagic Lite
+
+The `bootmagic_lite` function is defined weakly, so that you can replace this in your code, if you need.  A great example of this is the Zeal60 boards that have some additional handling needed.
+
+To replace the function, all you need to do is add something like this to your code:
+
+```c
+void bootmagic_lite(void) {
+    matrix_scan();
+    wait_ms(DEBOUNCING_DELAY * 2);
+    matrix_scan();
+
+    if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
+      // Jump to bootloader.
+      bootloader_jump();
+    }
+}
+```
+
+You can additional feature here like resetting the eeprom, or the like.  Keep in mind that `bootmagic_lite` is called before a majority of features are initialized in the firmware.

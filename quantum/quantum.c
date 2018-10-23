@@ -945,9 +945,8 @@ void tap_random_base64(void) {
 }
 
 __attribute__((weak))
-void bootmagic_lite(void)
-{
-    // The lite version of TMK's bootmagic made by Wilba.
+void bootmagic_lite(void) {
+    // The lite version of TMK's bootmagic based on Wilba.
     // 100% less potential for accidentally making the
     // keyboard do stupid things.
 
@@ -958,11 +957,10 @@ void bootmagic_lite(void)
 
     // If the Esc and space bar are held down on power up,
     // reset the EEPROM valid state and jump to bootloader.
-    // Assumes Esc is at [0,0] and spacebar is at [4,7].
+    // Assumes Esc is at [0,0].
     // This isn't very generalized, but we need something that doesn't
     // rely on user's keymaps in firmware or EEPROM.
     if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
-      // Set the TMK/QMK EEPROM state as invalid.
       // Jump to bootloader.
       bootloader_jump();
     }
