@@ -117,12 +117,12 @@ void led_set_user(uint8_t usb_led) {
     } else {
         PORTB &= ~(1<<2);
     }
-    if (usb_led & (1<<USB_LED_COMPOSE_LOCK)) {
+    if (usb_led & (1<<USB_LED_COMPOSE)) {
         PORTB |= (1<<3);
     } else {
         PORTB &= ~(1<<3);
     }
-    if (usb_led & (1<<USB_LED_KANA_LOCK)) {
+    if (usb_led & (1<<USB_LED_KANA)) {
         PORTB |= (1<<4);
     } else {
         PORTB &= ~(1<<4);
