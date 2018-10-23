@@ -82,8 +82,7 @@ sort of like macro. Unfortunately, each OS has different ideas on how Unicode is
 
 This is the current list of Unicode input method in QMK:
 
-* __UC_OSX__: Mac OS X Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default; to enable, go to System Preferences → Keyboard → Input Sources, and enable Unicode Hex Input.
-* __UC_OSX_RALT__: Same as UC_OSX, but sends the right Option key for Unicode input instead of left Option.
+* __UC_OSX__: Mac OS X Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default; to enable, go to System Preferences → Keyboard → Input Sources, and enable Unicode Hex Input. Sends the left Option key (`KC_LALT`) by default, but this can be changed by defining `UNICODE_OSX_KEY` with another keycode.
 * __UC_LNX__: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
 * __UC_WIN__: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
 * __UC_WINC__: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows. Uses right Alt (`KC_RALT`) by default, but this can be changed in the WinCompose options and by defining `UNICODE_WINC_KEY` with another keycode.

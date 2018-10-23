@@ -19,6 +19,9 @@
 
 #include "quantum.h"
 
+#ifndef UNICODE_OSX_KEY
+#define UNICODE_OSX_KEY    KC_LALT
+#endif
 #ifndef UNICODE_WINC_KEY
 #define UNICODE_WINC_KEY   KC_RALT
 #endif
@@ -35,13 +38,12 @@ void register_hex(uint16_t hex);
 void send_unicode_hex_string(const char *str);
 
 enum unicode_input_modes {
-  UC_OSX,      // Mac OS X using Unicode Hex Input
-  UC_LNX,      // Linux using IBus
-  UC_WIN,      // Windows using EnableHexNumpad
-  UC_BSD,      // BSD (not implemented)
-  UC_WINC,     // Windows using WinCompose (https://github.com/samhocevar/wincompose)
-  UC_OSX_RALT, // Mac OS X using Unicode Hex Input (right Option)
-  UC__COUNT    // Number of available input modes (always leave at the end)
+  UC_OSX,   // Mac OS X using Unicode Hex Input
+  UC_LNX,   // Linux using IBus
+  UC_WIN,   // Windows using EnableHexNumpad
+  UC_BSD,   // BSD (not implemented)
+  UC_WINC,  // Windows using WinCompose (https://github.com/samhocevar/wincompose)
+  UC__COUNT // Number of available input modes (always leave at the end)
 };
 
 #define UC_BSPC	UC(0x0008)

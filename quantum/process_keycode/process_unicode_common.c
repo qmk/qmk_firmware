@@ -46,10 +46,7 @@ void unicode_input_start(void) {
 
   switch(input_mode) {
   case UC_OSX:
-    register_code(KC_LALT);
-    break;
-  case UC_OSX_RALT:
-    register_code(KC_RALT);
+    register_code(UNICODE_OSX_KEY);
     break;
   case UC_LNX:
     register_code(KC_LCTL);
@@ -75,11 +72,10 @@ __attribute__((weak))
 void unicode_input_finish(void) {
   switch(input_mode) {
   case UC_OSX:
+    unregister_code(UNICODE_OSX_KEY);
+    break;
   case UC_WIN:
     unregister_code(KC_LALT);
-    break;
-  case UC_OSX_RALT:
-    unregister_code(KC_RALT);
     break;
   case UC_LNX:
     tap_code(KC_SPC);
