@@ -18,7 +18,7 @@ MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no        # Enable one-hand typing
 
 define HELIX_CUSTOMISE_MSG
@@ -120,10 +120,6 @@ endif
 
 ifeq ($(strip $(Link_Time_Optimization)),yes)
     EXTRAFLAGS += -flto -DUSE_Link_Time_Optimization
-endif
-
-ifeq ($(strip $(CONSOLE_ENABLE)),yes)
-    EXTRAFLAGS += -DCONSOLE_ENABLE
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
