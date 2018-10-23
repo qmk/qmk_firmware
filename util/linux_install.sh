@@ -96,9 +96,13 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 	fi
 
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
+	CROSS_AVR_GCC=cross-avr-gcc8
+	if grep ID /etc/os-release | grep -q "15.0"; then
+		CROSS_AVR_GCC=cross-avr-gcc7
+	fi
 	sudo zypper install \
 		avr-libc \
-		cross-avr-gcc8 \
+		$CROSS_AVR_GCC \
 		cross-avr-binutils \
 		cross-arm-none-newlib-devel \
 		cross-arm-binutils cross-arm-none-newlib-devel \
