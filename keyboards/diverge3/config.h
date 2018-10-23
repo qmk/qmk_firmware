@@ -31,7 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
-// SERIAL is the only supported
+// Only SERIAL is currently supported
+// By converting this to use I2C, backlight
+// would/should be fully functional as well
 #define USE_SERIAL
 
 /*
@@ -51,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION ROW2COL
 
-// #define BACKLIGHT_PIN B7
+// #define BACKLIGHT_PIN C6
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
@@ -61,8 +63,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
+ 
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
