@@ -105,10 +105,12 @@ The solution is to remove and reinstall all affected modules.
 ```
 brew rm avr-gcc
 brew rm dfu-programmer
+brew rm dfu-util
 brew rm gcc-arm-none-eabi
 brew rm avrdude
 brew install avr-gcc
 brew install dfu-programmer
+brew install dfu-util
 brew install gcc-arm-none-eabi
 brew install avrdude
 ```
