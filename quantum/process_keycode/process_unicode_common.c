@@ -20,7 +20,7 @@
 #include <string.h>
 
 static uint8_t input_mode;
-uint8_t mods;
+static uint8_t saved_mods;
 
 void unicode_input_mode_init(void) {
   static bool first_flag = false;
@@ -40,19 +40,9 @@ void set_unicode_input_mode(uint8_t mode) {
 }
 
 __attribute__((weak))
-void unicode_input_start (void) {
-  // save current mods
-  mods = keyboard_report->mods;
-
-  // unregister all mods to start from clean state
-  if (mods & MOD_BIT(KC_LSFT)) unregister_code(KC_LSFT);
-  if (mods & MOD_BIT(KC_RSFT)) unregister_code(KC_RSFT);
-  if (mods & MOD_BIT(KC_LCTL)) unregister_code(KC_LCTL);
-  if (mods & MOD_BIT(KC_RCTL)) unregister_code(KC_RCTL);
-  if (mods & MOD_BIT(KC_LALT)) unregister_code(KC_LALT);
-  if (mods & MOD_BIT(KC_RALT)) unregister_code(KC_RALT);
-  if (mods & MOD_BIT(KC_LGUI)) unregister_code(KC_LGUI);
-  if (mods & MOD_BIT(KC_RGUI)) unregister_code(KC_RGUI);
+void unicode_input_start(void) {
+  saved_mods = get_mods(); // Save current mods
+  clear_mods(); // Unregister mods to start from a clean state
 
   switch(input_mode) {
   case UC_OSX:
@@ -64,50 +54,39 @@ void unicode_input_start (void) {
   case UC_LNX:
     register_code(KC_LCTL);
     register_code(KC_LSFT);
-    register_code(KC_U);
-    unregister_code(KC_U);
+    tap_code(KC_U);
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
     break;
   case UC_WIN:
     register_code(KC_LALT);
-    register_code(KC_PPLS);
-    unregister_code(KC_PPLS);
+    tap_code(KC_PPLS);
     break;
   case UC_WINC:
-    register_code(KC_RALT);
-    unregister_code(KC_RALT);
-    register_code(KC_U);
-    unregister_code(KC_U);
+    tap_code(KC_RALT);
+    tap_code(KC_U);
+    break;
   }
+
   wait_ms(UNICODE_TYPE_DELAY);
 }
 
 __attribute__((weak))
-void unicode_input_finish (void) {
+void unicode_input_finish(void) {
   switch(input_mode) {
-    case UC_OSX:
-    case UC_WIN:
-      unregister_code(KC_LALT);
-      break;
-    case UC_OSX_RALT:
-      unregister_code(KC_RALT);
-      break;
-    case UC_LNX:
-      register_code(KC_SPC);
-      unregister_code(KC_SPC);
-      break;
+  case UC_OSX:
+  case UC_WIN:
+    unregister_code(KC_LALT);
+    break;
+  case UC_OSX_RALT:
+    unregister_code(KC_RALT);
+    break;
+  case UC_LNX:
+    tap_code(KC_SPC);
+    break;
   }
 
-  // reregister previously set mods
-  if (mods & MOD_BIT(KC_LSFT)) register_code(KC_LSFT);
-  if (mods & MOD_BIT(KC_RSFT)) register_code(KC_RSFT);
-  if (mods & MOD_BIT(KC_LCTL)) register_code(KC_LCTL);
-  if (mods & MOD_BIT(KC_RCTL)) register_code(KC_RCTL);
-  if (mods & MOD_BIT(KC_LALT)) register_code(KC_LALT);
-  if (mods & MOD_BIT(KC_RALT)) register_code(KC_RALT);
-  if (mods & MOD_BIT(KC_LGUI)) register_code(KC_LGUI);
-  if (mods & MOD_BIT(KC_RGUI)) register_code(KC_RGUI);
+  set_mods(saved_mods); // Reregister previously set mods
 }
 
 __attribute__((weak))
@@ -130,7 +109,7 @@ void register_hex(uint16_t hex) {
 }
 
 void send_unicode_hex_string(const char *str) {
-  if (!str) { return; } // Safety net
+  if (!str) { return; }
 
   while (*str) {
     // Find the next code point (token) in the string
