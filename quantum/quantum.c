@@ -967,6 +967,7 @@ void bootmagic_lite(void) {
     // This isn't very generalized, but we need something that doesn't
     // rely on user's keymaps in firmware or EEPROM.
     if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
+      eeconfig_disable();
       // Jump to bootloader.
       bootloader_jump();
     }
