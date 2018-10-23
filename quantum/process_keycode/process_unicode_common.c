@@ -63,7 +63,7 @@ void unicode_input_start(void) {
     tap_code(KC_PPLS);
     break;
   case UC_WINC:
-    tap_code(KC_RALT);
+    tap_code(UNICODE_WINC_KEY);
     tap_code(KC_U);
     break;
   }

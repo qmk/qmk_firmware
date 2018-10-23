@@ -19,6 +19,9 @@
 
 #include "quantum.h"
 
+#ifndef UNICODE_WINC_KEY
+#define UNICODE_WINC_KEY   KC_RALT
+#endif
 #ifndef UNICODE_TYPE_DELAY
 #define UNICODE_TYPE_DELAY 10
 #endif
