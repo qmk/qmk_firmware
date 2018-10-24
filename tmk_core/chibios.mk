@@ -235,24 +235,11 @@ dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 
 dfu-util-wait: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	echo "Preparing to flash firmware. Please enter bootloader now..." ;\
-	sleep 1 ;\
-  echo "Flashin in 9 ..." ;\
-	sleep 1 ;\
-  echo "Flashin in 8 ..." ;\
-	sleep 1 ;\
-  echo "Flashin in 7 ..." ;\
-	sleep 1 ;\
-  echo "Flashin in 6 ..." ;\
-	sleep 1 ;\
-  echo "Flashin in 5 ..." ;\
-	sleep 1 ;\
-  echo "Flashin in 4 ..." ;\
-	sleep 1 ;\
-  echo "Flashin in 3 ..." ;\
-	sleep 1 ;\
-  echo "Flashin in 2 ..." ;\
-	sleep 1 ;\
-  echo "Flashin in 1 ..." ;\
+  for time_left in 10 9 8 7 6 5 4 3 2 1 ; do \
+      echo "Flashing in $$time_left ..." ; \
+      sleep 1 ; \
+  done ;\
+  echo "Flashing $(TARGET).bin" ;\
   sleep 1 ;\
   $(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 
