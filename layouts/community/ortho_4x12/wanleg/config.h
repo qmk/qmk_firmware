@@ -1,6 +1,14 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
+// set top left key as bootloader mode escape key on Planck rev6
+#if defined(KEYBOARD_planck_rev6)
+#undef QMK_ESC_INPUT
+#undef QMK_ESC_OUTPUT
+#define QMK_ESC_OUTPUT F1 // usually COL
+#define QMK_ESC_INPUT D0 // usually ROW
+#endif
+
 //QMK DFU settings (ProMicro boards with QMK bootloader)
 // set top left key as bootloader mode escape key on Lets Split rev2
 #if defined(KEYBOARD_lets_split_rev2)
