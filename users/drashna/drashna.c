@@ -254,17 +254,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       clear_mods();
       send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
       if (temp_mod & MODS_SHIFT_MASK) {
-        send_string_with_delay_P(PSTR(
-#if defined(__ARM__)
-                   ":dfu-util"
-#elif defined(BOOTLOADER_DFU)
-                   ":dfu"
-#elif defined(BOOTLOADER_HALFKAY)
-                   ":teensy"
-#elif defined(BOOTLOADER_CATERINA)
-                   ":avrdude"
-#endif // bootloader options
-        ), 10);
+        #if defined(__ARM__)
+          send_string_with_delay_P(PSTR(":dfu-util"), 10);
+        #elif defined(BOOTLOADER_DFU)
+          send_string_with_delay_P(PSTR(":dfu"), 10);
+        #elif defined(BOOTLOADER_HALFKAY)
+          send_string_with_delay_P(PSTR(":teensy"), 10);
+        #elif defined(BOOTLOADER_CATERINA)
+          send_string_with_delay_P(PSTR(":avrdude"), 10);
+        #endif // bootloader options
       }
       if (temp_mod & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
       send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
