@@ -4,6 +4,6 @@
     #include "gen1.h"
 #endif
 
-#ifdef KEYBOARD_clueboard_66_hotswap_gen2
-    #include "gen2.h"
+#ifdef KEYBOARD_clueboard_66_hotswap_prototype
+    #include "prototype.h"
 #endif
