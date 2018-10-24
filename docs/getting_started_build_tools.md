@@ -127,16 +127,15 @@ If this is a bit complex for you, Docker might be the turn-key solution you need
 ```bash
 # You'll run this every time you want to build a keymap
 # modify the keymap and keyboard assignment to compile what you want
-# defaults are ergodox/default
+# defaults are ergodox_ez:default
 
-docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+docker run --rm -e KEYBOARD=planck/rev6 -e KEYMAP=default -v $('pwd'):/qmk:rw qmkfm/qmk_firmware
 ```
 
 On Windows Docker seems to have issues with the VOLUME tag in Dockerfile, and `$('pwd')` won't print a Windows compliant path; use full path instead, like this:
 
 ```bash
-docker run -e keymap=default -e keyboard=ergodox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
-
+docker run --rm -e KEYBOARD=planck/rev6 -e KEYMAP=default -v C:/Users/QMK/Projects/qmk:/qmk:rw qmkfm/qmk_firmware
 ```
 
 This will compile the targeted keyboard/keymap and leave it in your QMK directory for you to flash.

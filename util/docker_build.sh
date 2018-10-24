@@ -46,8 +46,8 @@ dir=$(pwd -W 2>/dev/null) || dir=$PWD  # Use Windows path if on Windows
 
 # Run container and build firmware
 docker run --rm \
-    ${keyboard:+-e keyboard="$keyboard"} \
-    ${keymap:+-e keymap="$keymap"} \
-    ${target:+-e target="$target"} \
+    ${keyboard:+-e KEYBOARD="$keyboard"} \
+    ${keymap:+-e KEYMAP="$keymap"} \
+    ${target:+-e TARGET="$target"} \
     -v "$dir":/qmk:rw \
     qmkfm/qmk_firmware

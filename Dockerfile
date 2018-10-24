@@ -19,10 +19,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     avrdude \
     && rm -rf /var/lib/apt/lists/*
 
-ENV keyboard=ergodox
-ENV subproject=ez
-ENV keymap=default
+ENV KEYBOARD=ergodox_ez
+ENV KEYMAP=default
 
 VOLUME /qmk
 WORKDIR /qmk
-CMD make clean ; make keyboard=${keyboard} subproject=${subproject} keymap=${keymap}
+CMD make $KEYBOARD:$KEYMAP
