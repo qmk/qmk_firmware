@@ -19,3 +19,15 @@
 #include "backlight.h"
 #include "led.h"
 #include "printf.h"
+
+void backlight_init_ports(void) {
+    printf("backlight_init_ports()\n");
+}
+
+void backlight_set(uint8_t level) {
+    printf("backlight_set(%d)\n", level);
+}
+
+void led_set_kb(uint8_t usb_led) {
+    printf("led_set_kb(%d)\n", usb_led);
+}

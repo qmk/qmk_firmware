@@ -102,7 +102,6 @@ const is31_led g_is31_leds[LED_DRIVER_LED_COUNT] = {
 };
 
 const led_matrix g_leds[LED_DRIVER_LED_COUNT] = {
-
     /*{row | col << 4}
       |            LED_ROW_COL(row, col)
       |             |            modifier
