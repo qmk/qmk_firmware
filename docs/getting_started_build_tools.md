@@ -126,9 +126,9 @@ If this is a bit complex for you, Docker might be the turn-key solution you need
 ```bash
 # You'll run this every time you want to build a keymap
 # modify the keymap and keyboard assignment to compile what you want
-# defaults are ergodox/default
+# defaults are ergodox_ez:default
 
-docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+docker run -e keymap=default -e keyboard=handwired/dactyl_manuform/4x5 --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
 ```
 
 On Windows Docker seems to have issues with the VOLUME tag in Dockerfile, and `$('pwd')` won't print a Windows compliant path; use full path instead, like this:
