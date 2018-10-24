@@ -16,6 +16,7 @@ include common.mk
 KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
 KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
+STM32_PATH := quantum/stm32
 
 # Force expansion
 TARGET := $(TARGET)
@@ -52,11 +53,6 @@ KEYBOARD_PATH_3 := keyboards/$(KEYBOARD_FOLDER_PATH_3)
 KEYBOARD_PATH_4 := keyboards/$(KEYBOARD_FOLDER_PATH_4)
 KEYBOARD_PATH_5 := keyboards/$(KEYBOARD_FOLDER_PATH_5)
 
-ifeq ($(strip $(PROTON)), yes)
-    OPT_DEFS += -DPROTON_CONVERSION
-    PROTON_PATH := quantum/proton
-endif
-
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/)","")
     KEYBOARD_PATHS += $(KEYBOARD_PATH_5)
 endif
@@ -73,9 +69,6 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/)","")
     KEYBOARD_PATHS += $(KEYBOARD_PATH_1)
 endif
 
-ifeq ($(strip $(PROTON)), yes)
-    KEYBOARD_PATHS += $(PROTON_PATH)
-endif
 
 # Pull in rules.mk files from all our subfolders
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/rules.mk)","")
@@ -95,8 +88,17 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
 endif
 
 ifeq ($(strip $(PROTON)), yes)
-    include $(PROTON_PATH)/rules.mk
+    OPT_DEFS += -DPROTON_CONVERSION
+    include $(STM32_PATH)/proton_c.mk
 endif
+
+include quantum/mcu_selection.mk
+
+ifdef MCU_FAMILY
+    OPT_DEFS += -DQMK_STM32
+    KEYBOARD_PATHS += $(STM32_PATH)
+endif
+
 
 # Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
