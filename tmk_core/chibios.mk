@@ -242,7 +242,7 @@ endif
 dfu-util-wait: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	echo "Preparing to flash firmware. Please enter bootloader now..." ;\
   COUNTDOWN=$(TIME_DELAY) ;\
-  while [[ 1 -le $$COUNTDOWN  ]] ; do \
+  while [[ $$COUNTDOWN -ge 1 ]] ; do \
         echo "Flashing in $$COUNTDOWN ..."; \
         sleep 1 ;\
         ((COUNTDOWN = COUNTDOWN - 1)) ; \
