@@ -233,6 +233,29 @@ qmk: $(BUILD_DIR)/$(TARGET).bin
 dfu-util: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
 	$(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
 
+dfu-util-wait: $(BUILD_DIR)/$(TARGET).bin cpfirmware sizeafter
+	echo "Preparing to flash firmware. Please enter bootloader now..." ;\
+	sleep 1 ;\
+  echo "Flashin in 9 ..." ;\
+	sleep 1 ;\
+  echo "Flashin in 8 ..." ;\
+	sleep 1 ;\
+  echo "Flashin in 7 ..." ;\
+	sleep 1 ;\
+  echo "Flashin in 6 ..." ;\
+	sleep 1 ;\
+  echo "Flashin in 5 ..." ;\
+	sleep 1 ;\
+  echo "Flashin in 4 ..." ;\
+	sleep 1 ;\
+  echo "Flashin in 3 ..." ;\
+	sleep 1 ;\
+  echo "Flashin in 2 ..." ;\
+	sleep 1 ;\
+  echo "Flashin in 1 ..." ;\
+  sleep 1 ;\
+  $(DFU_UTIL) $(DFU_ARGS) -D $(BUILD_DIR)/$(TARGET).bin
+
 st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 	$(ST_LINK_CLI) $(ST_LINK_ARGS) -q -c SWD -p $(BUILD_DIR)/$(TARGET).hex -Rst
 
