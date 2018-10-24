@@ -52,6 +52,11 @@ KEYBOARD_PATH_3 := keyboards/$(KEYBOARD_FOLDER_PATH_3)
 KEYBOARD_PATH_4 := keyboards/$(KEYBOARD_FOLDER_PATH_4)
 KEYBOARD_PATH_5 := keyboards/$(KEYBOARD_FOLDER_PATH_5)
 
+ifeq ($(strip $(PROTON)), yes)
+    OPT_DEFS += -DPROTON_CONVERSION
+    PROTON_PATH := quantum/proton
+endif
+
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/)","")
     KEYBOARD_PATHS += $(KEYBOARD_PATH_5)
 endif
@@ -66,6 +71,10 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_2)/)","")
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/)","")
     KEYBOARD_PATHS += $(KEYBOARD_PATH_1)
+endif
+
+ifeq ($(strip $(PROTON)), yes)
+    KEYBOARD_PATHS += $(PROTON_PATH)
 endif
 
 # Pull in rules.mk files from all our subfolders
@@ -83,6 +92,10 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_2)/rules.mk)","")
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
     include $(KEYBOARD_PATH_1)/rules.mk
+endif
+
+ifeq ($(strip $(PROTON)), yes)
+    include $(PROTON_PATH)/rules.mk
 endif
 
 # Find all the C source files to be compiled in subfolders.
