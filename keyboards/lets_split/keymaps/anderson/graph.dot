@@ -1,6 +1,0 @@
-digraph A {
-    matrix_setup -> split_keyboard_setup;
-    split_keyboard_setup -> keyboard_master_setup [label="has_usb"];
-    split_keyboard_setup -> keyboard_slave_setup [label="!has_usb"];
-    matrix_setup -> keyboard_slave_loop [label="!has_usb()"];
-}
