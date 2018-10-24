@@ -26,9 +26,13 @@ if [[ $# -eq 0 ]]; then
     read -rp "keyboard=" keyboard
     read -rp "keymap=" keymap
     read -rp "target=" target
-elif [[ $# -eq 1 && $1 == *:* ]]; then
+elif [[ $# -eq 1 && $1 == *":"* ]]; then
     # keyboard:keymap[:target] form
     IFS=':' read -ra args <<< "$1"
+    if [[ ${#args[@]} -gt 3 ]]; then
+        echo "$USAGE"
+        exit 1
+    fi
     keyboard=${args[0]}
     keymap=${args[1]}
     target=${args[2]}
