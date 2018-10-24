@@ -1,7 +1,7 @@
-FROM debian:jessie
-MAINTAINER Erik Dasque <erik@frenchguys.com>
+FROM debian
 
-RUN apt-get update && apt-get install --no-install-recommends -y build-essential \
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    build-essential \
     gcc \
     unzip \
     wget \

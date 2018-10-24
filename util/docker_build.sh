@@ -50,4 +50,4 @@ docker run --rm \
     ${keymap:+-e keymap="$keymap"} \
     ${target:+-e target="$target"} \
     -v "$dir":/qmk:rw \
-    edasque/qmk_firmware
+    qmkfm/qmk_firmware
