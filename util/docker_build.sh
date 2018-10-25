@@ -21,14 +21,11 @@ if [[ $# -eq 0 ]]; then
     [[ -n $keyboard ]] && read -rp "keymap=" keymap
     [[ -n $keymap   ]] && read -rp "target=" target
 else
-    IFS=':' read -ra args <<< "$1"
-    if [[ ${#args[@]} -gt 3 ]]; then
+    IFS=':' read -r keyboard keymap target x <<< "$1"
+    if [[ -n $x ]]; then
         echo "$USAGE" >&2
         exit 1
     fi
-    keyboard=${args[0]}
-    keymap=${args[1]}
-    target=${args[2]}
 fi
 if [[ -n $target ]]; then
     if [[ $(uname) == "Linux" || $(docker-machine active 2>/dev/null) ]]; then
