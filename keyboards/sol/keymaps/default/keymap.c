@@ -48,23 +48,23 @@ enum macro_keycodes {
 
 #define FN_ESC  LT(_FN, KC_ESC)
 
-#define FN_ESC  LT(_FN, KC_ESC)
+#define FN_CAPS  LT(_FN, KC_CAPS)
 
 // Define your non-alpha grouping in this define's LAYOUT, and all your BASE_LAYERS will share the same mod/macro columns
   /* Base Layout
    * ,------------------------------------------------.  ,------------------------------------------------.
-   * |   `  |      |      |      |      |      |      |  |      |      |      |      |      |      | BkSp |
+   * | GESC |      |      |      |      |      |   -  |  |   =  |      |      |      |      |      | BkSp |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * | Tab  |      |      |      |      |      |      |  |      |      |      |      |      |      |   \  |
+   * | Tab  |      |      |      |      |      |   [  |  |   ]  |      |      |      |      |      |   \  |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * | Esc  |      |      |      |      |      |      |  |      |      |      |      |      |      |   '  |
+   * |FN(CAPS)|    |      |      |      |      |   (  |  |   )  |      |      |      |      |      |   '  |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Sft( |      |      |      |      |      |      |  |      |      |      |      |      |      | Sft) |
+   * |Shift |      |      |      |      |      |   {  |  |   }  |      |      |      |      |      |Shift |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Ctrl |  Win |  Win |  Alt |  FN  | Space|  RGB |  |  FN  |  FN  |   -  |   =  | Down | PgUp | PgDn |
-   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   *                                    | Space| Bksp |  | Enter| Space|
-   *                                    `-------------'  `--------=----'
+   * | Ctrl |  Win |  Alt |  RGB | ADJ  | Space| DEL  |  | Enter| Space|  FN  | Left | Down | Up   |Right |
+   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
+   *                                    | Space| DEL  |  | Enter| Space|
+   *                                    `-------------'  `-------------'
    */
 #define BASE_LAYOUT( \
   _00, _01, _02, _03, _04,  _05, _06, _07, _08, _09, \
@@ -72,12 +72,12 @@ enum macro_keycodes {
   _20, _21, _22, _23, _24,  _25, _26, _27, _28, _29 \
 ) \
 LAYOUT( \
-      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   RGB_MOD,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
+      KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   RGB_MINS, KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
       KC_TAB,  _00,     _01,     _02,     _03,     _04,    KC_LBRC,  KC_RBRC, _05,     _06,     _07,     _08,     _09,     KC_BSLS, \
-      FN_ESC,  _10,     _11,     _12,     _13,     _14,    RGB_SAI,  RGB_VAI, _15,     _16,     _17,     _18,     _19,     KC_QUOT, \
-      KC_LSPO, _20,     _21,     _22,     _23,     _24,    RGB_SAD,  RGB_VAD, _25,     _26,     _27,     _28,     _29,     KC_RSPC, \
-      KC_LCTL, KC_LGUI, KC_LGUI, KC_LALT, FN,      KC_SPC, FN,       FN,      KC_SPC,  KC_MINS, KC_EQL,  KC_DOWN, KC_PGUP, KC_PGDN, \
-                        KC_VOLD, KC_VOLU,          KC_SPC, KC_BSPC,  KC_ENT,  KC_SPC,           KC_VOLD, KC_VOLU \
+      FN_CAPS, _10,     _11,     _12,     _13,     _14,    KC_LPRN,  KC_RPRN, _15,     _16,     _17,     _18,     _19,     KC_QUOT, \
+      KC_LSFT, _20,     _21,     _22,     _23,     _24,    KC_LCBR,  KC_RCBR, _25,     _26,     _27,     _28,     _29,     KC_RSFT, \
+      KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG  ADJ,     KC_SPC, KC_DEL,  KC_ENT,  KC_SPC,  FN,      KC_LEFT, KC_DOWN, KC_UP,  KC_RIGHT, \
+                        KC_VOLD, KC_VOLU,          KC_SPC, KC_DEL,  KC_ENT,  KC_SPC,           KC_VOLD, KC_VOLU \
 )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -141,11 +141,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_FN] = LAYOUT( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, KC_PSCR, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-      _______, KC_PGDN, KC_UP,   KC_PGUP, _______, KC_LBRC, _______, _______, KC_RBRC, KC_7,    KC_UP,   KC_9,    KC_0,    KC_HOME, \
-      ADJ,     KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_RBRC, KC_END, \
+      _______, KC_PGDN, KC_UP,   KC_PGUP, _______, _______, _______, _______, _______, _______, KC_UP,   _______, _______, KC_HOME, \
+      _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_END, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGDN, KC_PGUP, _______, \
-      _______, _______, _______, _______, ADJ,     _______, ADJ,     ADJ,     ADJ,     KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, \
-                        KC_VOLD, KC_VOLU,          _______, KC_DEL,  _______, _______,           KC_VOLD, KC_VOLU \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______,     KC_MPLY, KC_MNXT, KC_MUTE, KC_VOLD, KC_VOLU, \
+                        KC_VOLD, KC_VOLU,          _______, _______, _______, _______,           KC_VOLD, KC_VOLU \
       ),
 
   /* ADJ
@@ -166,11 +166,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJ] =  LAYOUT( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-      _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL, \
+      _______, RGB_SAD, RGB_VAI, RGB_SAI, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, \
       _______, RGB_HUD, RGB_VAD, RGB_HUI, RGBRST,  _______, _______, _______, _______, QWERTY,  COLEMAK, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_SMOD,RGB_HUD, RGB_SAD, RGB_VAD, \
-                        KC_VOLD, KC_VOLU,          _______, _______, _______, _______,           KC_VOLD, KC_VOLU \
+                        KC_VOLD, KC_VOLU,          _______, _______, _______, _______,          KC_VOLD, KC_VOLU \
       )
 };
 
