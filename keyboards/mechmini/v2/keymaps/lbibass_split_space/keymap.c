@@ -5,7 +5,6 @@
 #define _FN2 3
 #define _WIN 1
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BL] = LAYOUT_split_space(
