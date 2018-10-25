@@ -25,11 +25,14 @@ enum userspace_layers {
   NUM75,
   DIR75,
   ETC75,
-  FN75
+  FN75,
+  PAD,
+  GK50,
 };
 #elif KEYBOARD_xd75
 enum userspace_layers {
   GK75 = 0,
+  PAD,
   QW75,
   SUB75,
   SUP75,
@@ -49,29 +52,57 @@ enum userspace_layers {
   gNUM,
   gDIR,
   gETC,
+  GK50,
 };
-#else
-  enum userspace_layers {
-  _GK = 0,
-  _QW,
-  QW75,
+#elif KEYBOARD_5x5
+enum userspace_layers {
+  GK50 = 0,
+  gNUM,
+  gDIR,
+  gETC,
   GK75,
+  QW75,
+  SUB75,
+  SUP75,
+  NUM75,
+  DIR75,
+  ETC75,
+  FN75,
+  PAD,
   gGK,
+  _GK,
+  _QW,
   ONE,
   SUB,
   SUP,
   NUM,
   DIR,
   ETC,
+};
+#else
+  enum userspace_layers {
+  _GK = 0,
+  PAD,
+  _QW,
+  ONE,
+  SUB,
+  SUP,
+  NUM,
+  DIR,
+  ETC,
+  gGK,
   gNUM,
   gDIR,
   gETC,
+  QW75,
+  GK75,
   SUB75,
   SUP75,
   NUM75,
   DIR75,
   ETC75,
-  FN75
+  FN75,
+  GK50,
 };
 #endif
 
@@ -95,7 +126,9 @@ enum userspace_custom_keycodes {
   NUMBER75,
   DIRECTION75,
   ETCETERA75,
-  FUNCTION75
+  FUNCTION75,
+  NUMPAD,
+  GHERKIN50,
 
 };
 
@@ -104,8 +137,12 @@ enum userspace_custom_keycodes {
 enum {
   TD_SFT_CAPS = 0
   ,TD_Q_ESC
-  ,ENT_TAP_DANCE
-  ,DEL_TAP_DANCE
+  ,CAD_TD
+  ,RST_TAP_DANCE
+  ,LYR_TAP_DANCE
+  ,LYR50_TAP_DANCE
+  ,LYR75_TAP_DANCE
+  ,BSW_TAP_DANCE
 };
 #endif
 
@@ -122,6 +159,8 @@ enum {
 #define LAYOUT_ortho_5x10_wrapper(...)       LAYOUT_ortho_5x10(__VA_ARGS__)
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
+#define LAYOUT_ortho_4x4_wrapper(...)        LAYOUT_ortho_4x4(__VA_ARGS__)
+#define LAYOUT_ortho_5x5_wrapper(...)        LAYOUT_ortho_5x5(__VA_ARGS__)
 
 // Blocks for each of the major keyboard layouts
 // Organized so we can quickly adapt and modify all of them
@@ -140,7 +179,7 @@ enum {
  * | A      | S      | D      | F      | G      | H      | J      | K      | L      | SPACE  |
  * |        |        |        |        |        |        |        |        |        |SFThold |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | Z      | X      | C      | V/gNUM | B/gETC | N      | M/gDIR | ,/GUI  | ./ALT  | BKSC   |
+ * | Z      | X      | C      | V/gNUM | B/gETC | N      | M/gDIR | ,/GUI  | ./ALT  | BSPC   |
  * | SFThold|        |        |        |        |        |        |        |        |CTRLhold|
  * '-----------------------------------------------------------------------------------------'
  */
@@ -167,7 +206,7 @@ enum {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | F11    | F12    |        |        |        | ENTER  | SHIFT  | GUI    | ./ALT  | BKSC   |
+ * | F11    | F12    |        |        |        | ENTER  | SHIFT  | GUI    | ./ALT  | BSPC   |
  * |        |        |        |        |        |        |        |        |        |CTRLhold|
  * '-----------------------------------------------------------------------------------------'
  */
@@ -181,21 +220,21 @@ enum {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | mLeft  | mDown  | mRight |        | SHIFT  | mBtn3  | mBtn1  | mBtn2  |  ;     |  '     |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | Sft//Cp|        |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
+ * | Sft//Cp| CAPS   |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
  * '-----------------------------------------------------------------------------------------'
  */
 #define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,_______, RESET,   KC_RSFT, 			KC_WH_U, KC_WH_D, _______, KC_BSLS
 #define _______________Gherkin_ETC_1_______________			KC_MS_L, 		KC_MS_D, KC_MS_R,_______, KC_LSFT, KC_BTN3, 			KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT
-#define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),_______, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
+#define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
 
 /* Gherkin-Like
  * .-----------------------------------------------------------------------------------------------------------.
- * | ESC    | Q//ESC | W      | E      | R      | T      | Y      | U      | I      | O      | P      | BACKSP |
+ * | ESC    | Q//ESC | W      | E      | R      | T      | Y      | U      | I      | O      | P      | BSPC |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | TAB    | A      | S      | D      | F      | G      | H      | J      | K      | L      | SPACE  |  '     |
  * |        |        |        |        |        |        |        |        |        |        |SFThold |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |SFT/CAPS| Z      | X      | C      | V/NUM  | B/ETC  | N      | M/DIR  | ,/GUI  | ./ALT  | BKSC   | ENT/SFT|
+ * |SFT/CAPS| Z      | X      | C      | V/NUM  | B/ETC  | N      | M/DIR  | ,/GUI  | ./ALT  | BSPC   | ENT/SFT|
  * |        |SFThold |        |        |        |        |        |        |        |        |CTRLhold|        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | LCTRL  | LGUI   | ALT    | ONEHAND|  NUM   | ETC    | SPACE  |  DIR   | RGUI   | ALT    | DEL    | CTRL   |
@@ -209,7 +248,7 @@ enum {
 
 /* Qwerty
  * .-------------------------------------------------------------------------------------.
- * | Esc   |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp  |
+ * | Esc   |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | BSPC  |
  * |-------+------+------+------+------+-------------+------+------+------+------+-------|
  * | Tab   |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |   ;  |  '    |
  * |-------+------+------+------+------+------|------+------+------+------+------+-------|
@@ -245,7 +284,7 @@ enum {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |    `   | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | F11    | F12    |        |        |        |        |        | RGUI   | ./ALT  | BKSC   |        |
+ * |        | F11    | F12    |        |        |        |        |        | RGUI   | ./ALT  | BSPC   |        |
  * |        |        |        |        |        |        |        |        |        |        |CTRLhold|	       |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        | gherkin|        |        |        | ENTER  | SHIFT  |        |        |        |        |
@@ -258,11 +297,11 @@ enum {
 
 /* Gherkin Numbers
  * .-----------------------------------------------------------------------------------------------------------.
- * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | BACKSP |
+ * |        | F1     | F2     | F3     | F4     | F5     | F6     | F7     | F8     | F9     | F10    | BSPC |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |        | F11    | F12    |        |        |        | ENTER  | SHIFT  | RGUI   | ./ALT  | BKSC   |        |
+ * |        | F11    | F12    |        |        |        | ENTER  | SHIFT  | RGUI   | ./ALT  | BSPC   |        |
  * |        |        |        |        |        |        |        |        |        |        |CTRLhold|	  	   |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |        |        |        |        | ENTER  | SHIFT  | RGUI   |        |        |        |
@@ -306,4 +345,20 @@ enum {
 #define ______________ETCETERA_Row__2______________   _______, _______________Gherkin_ETC_2_______________, _______
 #define ______________ETCETERA_Row__3______________   _______, _______, _______, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______, _______
  
+/* Single 4x4 board only
+ * .-----------------------------------.
+ * |   7    |   8    |   9    |  BSPC  |
+ * |--------+--------+--------+--------|
+ * |   4    |   5    |   6    | SPACE  |
+ * |--------+--------+--------+--------|
+ * |   1    |   2    |   3    | ENTER  |
+ * |--------+--------+--------+--------|
+ * |   0    |/ //_GK |   .    |   -    |
+ * '-----------------------------------'
+ */
+
+#define _______________NUMPAD_Row__0_______________  KC_KP_7, KC_KP_8, KC_KP_9,   KC_BSPC
+#define _______________NUMPAD_Row__1_______________  KC_KP_4, KC_KP_5, KC_KP_6,   KC_SPC
+#define _______________NUMPAD_Row__2_______________  KC_KP_1, KC_KP_2, KC_KP_3,   KC_PENT
+#define _______________NUMPAD_Row__3_______________  KC_KP_0, TD(LYR_TAP_DANCE), KC_KP_DOT, KC_PMNS
 #endif // !USERSPACE

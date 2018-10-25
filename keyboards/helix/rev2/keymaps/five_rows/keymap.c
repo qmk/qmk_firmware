@@ -10,6 +10,9 @@
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
+#ifdef CONSOLE_ENABLE
+  #include <print.h>
+#endif
 
 extern keymap_config_t keymap_config;
 
@@ -28,6 +31,7 @@ enum layer_number {
     _QWERTY = 0,
     _COLEMAK,
     _DVORAK,
+    _EUCALYN,
     _KEYPAD,
     _AUX,
     _KAUX,
@@ -41,6 +45,7 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
+  EUCALYN,
   KEYPAD,
   EISU,
   KANA,
@@ -72,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   `  |   '  |   N  |   M  |   ,  |   .  |   /  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Lower | Lower| Caps  | GUI  | Alt | Space|  BS  | Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Lower | Lower| Caps |  Alt |  GUI | Space|  BS  | Enter| Space| GUI  | Alt  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_QWERTY] = LAYOUT( \
@@ -94,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   `  |   '  |   K  |   M  |   ,  |   .  |   /  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Lower | Lower| Caps  | GUI  | Alt | Space|  BS  | Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Lower | Lower| Caps |  Alt |  GUI | Space|  BS  | Enter| Space| GUI  | Alt  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_COLEMAK] = LAYOUT( \
@@ -116,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   ;  |   Q  |   J  |   K  |   X  |   `  |   /  |   B  |   M  |   W  |   V  |   Z  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Lower | Lower| Caps  | GUI  | Alt | Space|  BS  | Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Lower | Lower| Caps |  Alt |  GUI | Space|  BS  | Enter| Space| GUI  | Alt  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
   [_DVORAK] = LAYOUT( \
@@ -124,6 +129,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS, \
       KC_LCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_RCTL, \
       KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_GRV, KC_SLSH,  KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
+      MO(_LOWER),MO(_LOWER),  KC_CAPS, KC_LALT, KC_LGUI, KC_SPC,  LT(_RAISE,KC_BSPC), \
+                                                         LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,MO(_LOWER),MO(_LOWER) \
+      ),
+
+  /* Eucalyn (http://eucalyn.hatenadiary.jp/entry/about-eucalyn-layout)
+   * ,-----------------------------------------.             ,-----------------------------------------.
+   * | ESC  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Bksp |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * | Tab  |   Q  |   W  |   ,  |   .  |   ;  |             |   M  |   R  |   D  |   Y  |   P  |  \   |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * | Ctrl |   A  |   O  |   E  |   I  |   U  |             |   G  |   T  |   K  |   S  |   N  | Ctrl |
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Shift|   Z  |   X  |   C  |   V  |   F  |   `  |   '  |   B  |   H  |   J  |   L  |   /  | Shift|
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * |Lower | Lower| Caps |  Alt |  GUI | Space|  BS  | Enter| Space| GUI  | Alt  | Menu |Lower |Lower |
+   * `-------------------------------------------------------------------------------------------------'
+   */
+  [_EUCALYN] = LAYOUT( \
+      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
+      KC_TAB,  KC_Q,    KC_W,    KC_COMM, KC_DOT,  KC_SCLN,                   KC_M,    KC_R,    KC_D,    KC_Y,    KC_P,    KC_BSLS, \
+      KC_LCTL, KC_A,    KC_O,    KC_E,    KC_I,    KC_U,                      KC_G,    KC_T,    KC_K,    KC_S,    KC_N,    KC_RCTL, \
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_F,   KC_GRV,  KC_QUOT,  KC_B,    KC_H,    KC_J,    KC_L,    KC_SLSH, KC_RSFT, \
       MO(_LOWER),MO(_LOWER),  KC_CAPS, KC_LALT, KC_LGUI, KC_SPC,  LT(_RAISE,KC_BSPC), \
                                                          LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,MO(_LOWER),MO(_LOWER) \
       ),
@@ -239,7 +266,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Adjust (Lower + Raise)
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      |      |Keypad|Dvorak|Colemk|Qwerty|             |Qwerty|Colemk|Dvorak|Keypad|      |      |
+   * |      |Keypad|Dvorak|Colemk|Euclyn|Qwerty|             |Qwerty|Euclyn|Colemk|Dvorak|Keypad|      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      | Reset|RGBRST|RGB ON|Aud on| Win  |             | Win  |Aud on|RGB ON|RGBRST|      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -251,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_ADJUST] =  LAYOUT( \
-      XXXXXXX, XXXXXXX, KEYPAD,   DVORAK, COLEMAK,  QWERTY,                   QWERTY,  COLEMAK,  DVORAK,  KEYPAD, XXXXXXX, XXXXXXX, \
+      XXXXXXX, KEYPAD,  DVORAK,  COLEMAK, EUCALYN,  QWERTY,                   QWERTY,  EUCALYN, COLEMAK,  DVORAK,  KEYPAD, XXXXXXX, \
       XXXXXXX, RESET,   RGBRST,  RGB_TOG,   AU_ON, AG_SWAP,                   AG_SWAP,   AU_ON, RGB_TOG,  RGBRST, XXXXXXX, XXXXXXX, \
       RGB_HUI, RGB_SAI, RGB_VAI,RGB_SMOD,  AU_OFF, AG_NORM,                   AG_NORM,  AU_OFF,RGB_SMOD, RGB_VAI, RGB_SAI, RGB_HUI, \
       RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAD, RGB_SAD, RGB_HUD, \
@@ -304,23 +331,25 @@ uint32_t default_layer_state_set_kb(uint32_t state) {
     current_default_layer = state - 1;
     // 1<<_DVORAK  - 2 == 4 - 2 == _DVORAK (=2)
     if ( current_default_layer == 3 ) current_default_layer -= 1;
-    // 1<<_KEYPAD  - 5 == 8 - 5 == _KEYPAD (=3)
+    // 1<<_EUCALYN - 5 == 8 - 5 == _EUCALYN (=3)
     if ( current_default_layer == 7 ) current_default_layer -= 4;
+    // 1<<_KEYPAD  - 12 == 16 - 12 == _KEYPAD (=4)
+    if ( current_default_layer == 15 ) current_default_layer -= 11;
     return state;
 }
 
 void update_base_layer(int base)
 {
     if( current_default_layer != base ) {
-	eeconfig_update_default_layer(1UL<<base);
-	default_layer_set(1UL<<base);
-	layer_off(_AUX);
-	layer_off(_KAUX);
+        eeconfig_update_default_layer(1UL<<base);
+        default_layer_set(1UL<<base);
+        layer_off(_AUX);
+        layer_off(_KAUX);
     } else {
-	if( base < _KEYPAD )
-	    layer_invert(_AUX);
-	else
-	    layer_invert(_KAUX);
+        if( base < _KEYPAD )
+            layer_invert(_AUX);
+        else
+            layer_invert(_KAUX);
     }
 }
 
@@ -331,7 +360,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_qwerty);
         #endif
-	update_base_layer(_QWERTY);
+        update_base_layer(_QWERTY);
       }
       return false;
       break;
@@ -340,7 +369,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
         #endif
-	update_base_layer(_COLEMAK);
+        update_base_layer(_COLEMAK);
       }
       return false;
       break;
@@ -349,7 +378,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
         #endif
-	update_base_layer(_DVORAK);
+        update_base_layer(_DVORAK);
+      }
+      return false;
+      break;
+    case EUCALYN:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_dvorak);
+        #endif
+        update_base_layer(_EUCALYN);
       }
       return false;
       break;
@@ -358,7 +396,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
         #endif
-	update_base_layer(_KEYPAD);
+        update_base_layer(_KEYPAD);
       }
       return false;
       break;
@@ -468,10 +506,10 @@ static void render_logo(struct CharacterMatrix *matrix) {
   char buf[30];
   if(rgblight_config.enable) {
       snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
-	       rgblight_config.mode,
-	       rgblight_config.hue/RGBLIGHT_HUE_STEP,
-	       rgblight_config.sat/RGBLIGHT_SAT_STEP,
-	       rgblight_config.val/RGBLIGHT_VAL_STEP);
+               rgblight_config.mode,
+               rgblight_config.hue/RGBLIGHT_HUE_STEP,
+               rgblight_config.sat/RGBLIGHT_SAT_STEP,
+               rgblight_config.val/RGBLIGHT_VAL_STEP);
       matrix_write(matrix, buf);
   }
 #endif
@@ -481,6 +519,7 @@ static void render_logo(struct CharacterMatrix *matrix) {
 static const char Qwerty_name[]  PROGMEM = " Qwerty";
 static const char Colemak_name[] PROGMEM = " Colemak";
 static const char Dvorak_name[]  PROGMEM = " Dvorak";
+static const char Eucalyn_name[] PROGMEM = " Eucalyn";
 static const char Keypad_name[]  PROGMEM = " Keypad";
 
 static const char AUX_name[]     PROGMEM = ":AUX";
@@ -494,6 +533,7 @@ static const char *layer_names[] = {
     [_QWERTY] = Qwerty_name,
     [_COLEMAK] = Colemak_name,
     [_DVORAK] = Dvorak_name,
+    [_EUCALYN]= Eucalyn_name,
     [_KEYPAD] = Keypad_name,
     [_AUX]    = AUX_name,
     [_KAUX]   = KAUX_name,
@@ -526,18 +566,18 @@ void render_status(struct CharacterMatrix *matrix) {
        lstate && name_num < sizeof(layer_names)/sizeof(char *);
        lstate >>=1, name_num++ ) {
       if( (lstate & 1) != 0 ) {
-	  if( layer_names[name_num] ) {
-	      matrix_write_P(matrix, layer_names[name_num]);
-	  }
+          if( layer_names[name_num] ) {
+              matrix_write_P(matrix, layer_names[name_num]);
+          }
       }
   }
 
   // Host Keyboard LED Status
   char led[40];
     snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
+             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
+             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
+             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
   matrix_write(matrix, led);
 }
 
