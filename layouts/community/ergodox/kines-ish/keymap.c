@@ -2,10 +2,12 @@
 #include "debug.h"
 #include "action_layer.h"
 
-#define BASE 0 // default layer
-#define SYMB 1 // symbols
-#define MDIA 2 // media keys
-#define MCRO 3 // macros
+//#define BASE 0 // default layer
+//#define TARMAK 1 // tarmak
+//#define COLEMAK 2 // colemak
+//#define SYMB 3 // symbols
+//#define MDIA 4 // media keys
+//#define MCRO 5 // macros
 
 #define M_START_BREATHING M(5)
 #define M_STOP_BREATHING M(3)
@@ -17,13 +19,26 @@ enum custom_macros {
 
 //Tap Dance Declarations
 enum {
-  TD_ESC_CAPS = 0
+  TD_ESC_CAPS = 0,
+  TD_SYM_COLEMAK
+};
+
+enum _ergodox_layers {
+    _QWERTY,
+    _COLEMAK,
+    // Intermediate layers
+    _SYMB,
+    _MDIA_MOUSE,
+    _MACRO
 };
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
   //Tap once for Esc, twice for Caps Lock
   [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
+  //Tap once for Symbol layer, twice for colemak
+  //[TD_SYM_COLEMAK]  = ACTION_TAP_DANCE_DOUBLE(TG(_SYMB), TG(COLEMAK))
+
   // Other declarations would go here, separated by commas, if you have them
 };
 
@@ -36,7 +51,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Tab    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  L2  |   Y  |   U  |   I  |   O  |   P  |   \    |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | Esc/Cap|   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
- * |--------+------+------+------+------+------|  L3  |           | Meh  |------+------+------+------+------+--------|
+ * |--------+------+------+------+------+------|  L3  |           | COL  |------+------+------+------+------+--------|
  * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |   /  | RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   | L1   | Grv  |Insert| Left | Right|                                       |  Up  | Down |   [  |   ]  |  L2  |
@@ -51,10 +66,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
 // Otherwise, it needs KC_*
-[BASE] = LAYOUT_ergodox(  // layer 0 : default
+[_QWERTY] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_EQL,            KC_1,    KC_2,    KC_3,     KC_4,     KC_5,  LALT(KC_LEFT),
-        KC_TAB,            KC_Q,    KC_W,    KC_E,     KC_R,     KC_T,  TG(SYMB),
+        KC_EQL,            KC_1,    KC_2,    KC_3,     KC_4,     KC_5,  LALT(KC_LEFT), KC_TAB,            KC_Q,    KC_W,    KC_E,     KC_R,     KC_T,  TG(_SYMB),
         TD(TD_ESC_CAPS),   KC_A,    KC_S,    KC_D,     KC_F,     KC_G,
         KC_LSFT,           KC_Z,    KC_X,    KC_C,     KC_V,     KC_B,  KC_FN3,
         KC_FN1,            KC_GRV,  KC_INS,  KC_LEFT,  KC_RGHT,
@@ -63,9 +77,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_BSPC,KC_DEL,KC_END,
         // right hand
              LALT(KC_RGHT), KC_6,   KC_7,   KC_8,   KC_9,   KC_0,     KC_MINS,
-             TG(MDIA),      KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,     KC_BSLS,
+             TG(_MDIA_MOUSE),KC_Y,  KC_U,   KC_I,   KC_O,   KC_P,     KC_BSLS,
                             KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,  KC_QUOT,
-             MEH_T(KC_NO),  KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RSFT,
+             TG(_COLEMAK),  KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RSFT,
                                     KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,  KC_FN2,
              KC_LGUI, KC_RCTL,
              KC_PGUP,
@@ -93,7 +107,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // SYMBOLS
-[SYMB] = LAYOUT_ergodox(
+[_SYMB] = LAYOUT_ergodox(
        // left hand
        KC_PSCR,KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_TRNS,
        KC_SLCK,KC_EXLM,KC_AT,  KC_LCBR,KC_RCBR,KC_PIPE,KC_TRNS,
@@ -135,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MEDIA AND MOUSE
-[MDIA] = LAYOUT_ergodox(
+[_MDIA_MOUSE] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
@@ -178,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 `--------------------'       `--------------------'
  */
 // MACROS
-[MCRO] = LAYOUT_ergodox(
+[_MACRO] = LAYOUT_ergodox(
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS,
@@ -198,12 +212,75 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
+/* Keymap 4: Colmak layer
+ *
+ * ,--------------------------------------------------.           ,--------------------------------------------------.
+ * |   =    |   1  |   2  |   3  |   4  |   5  | LEFT |           | RIGHT|   6  |   7  |   8  |   9  |   0  |   -    |
+ * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
+ * | Tab    |   Q  |   W  |   F  |   P  |   G  |  L1  |           |  L1  |   J  |   L  |   U  |   Y  |   ;  |   \    |
+ * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
+ * | Bksp   |   A  |   R  |   S  |   T  |   D  |------|           |------|   H  |   N  |   E  |   I  |O / L2|   '    |
+ * |--------+------+------+------+------+------| Hyper|           |      |------+------+------+------+------+--------|
+ * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   K  |   M  |   ,  |   .  |//Ctrl| RShift |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *   |Grv/L1|  '"  |Insert| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
+ *   `----------------------------------'                                       `----------------------------------'
+ *                                        ,-------------.       ,-------------.
+ *                                        | Ctl  | Alt  |       | Gui  |Ctrl/Esc|
+ *                                 ,------|------|------|       |------+--------+------.
+ *                                 |      |      | Home |       | PgUp |        |      |
+ *                                 | Bkspc| Del  |------|       |------| Enter  |Space |
+ *                                 |      |      | End  |       | PgDn |        |      |
+ *                                 `--------------------'       `----------------------'
+ */
+// If it accepts an argument (i.e, is a function), it doesn't need KC_.
+// Otherwise, it needs KC_*
+[_COLEMAK] = LAYOUT_ergodox(  // layer 4 : colemak
+        // left hand
+        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   KC_LEFT,
+        KC_TAB,         KC_Q,         KC_W,   KC_F,   KC_P,   KC_G,   TG(_SYMB),
+        TD(TD_ESC_CAPS),KC_A,         KC_R,   KC_S,   KC_T,   KC_D,
+        KC_LSFT,        CTL_T(KC_Z),  KC_X,   KC_C,   KC_V,   KC_B,   KC_FN3,
+        KC_FN1,KC_GRV,   KC_INS, KC_LEFT,KC_RGHT,
+                                              KC_LCTL,KC_LALT,
+                                                              KC_HOME,
+                                               KC_BSPC,KC_DEL,KC_END,
+        // right hand
+             KC_RGHT,     KC_6,   KC_7,   KC_8,   KC_9,   KC_0,             KC_MINS,
+             TG(_MDIA_MOUSE),KC_J,KC_L,   KC_U,   KC_Y,   KC_SCLN,          KC_BSLS,
+                          KC_H,   KC_N,   KC_E,   KC_I,   LT(_MDIA_MOUSE, KC_O),   KC_QUOT,
+             KC_TRNS,     KC_K,   KC_M,   KC_COMM,KC_DOT, CTL_T(KC_SLSH),   KC_RSFT,
+                                  KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          KC_FN2,
+             KC_LGUI,        CTL_T(KC_ESC),
+             KC_PGUP,
+             KC_PGDN,KC_ENT, KC_SPC
+    )//,
+//[_TARMAK] = LAYOUT_ergodox(  // layer 4 : colemak
+//        // left hand
+//        KC_EQL,            KC_1,    KC_2,    KC_3,     KC_4,     KC_5,  LALT(KC_LEFT), 
+//        KC_TAB,            KC_Q,    KC_W,    KC_F,     KC_P,     KC_G,  TG(_SYMB),
+//        TD(TD_ESC_CAPS),   KC_A,    KC_R,    KC_S,     KC_T,     KC_D,
+//        KC_LSFT,           KC_Z,    KC_X,    KC_C,     KC_V,     KC_B,  KC_FN3,
+//        KC_FN1,            KC_GRV,  KC_INS,  KC_LEFT,  KC_RGHT,
+//                                                       KC_LCTL,KC_LALT,
+//                                                               KC_HOME,
+//                                               KC_BSPC,KC_DEL,KC_END,
+//        // right hand
+//             LALT(KC_RGHT), KC_6,   KC_7,   KC_8,   KC_9,   KC_0,     KC_MINS,
+//             TG(_MDIA_MOUSE),      KC_J,   KC_U,   KC_I,   KC_Y,   KC_SCLN,     KC_BSLS,
+//                            KC_H,   KC_N,   KC_E,   KC_L,   KC_O,     KC_QUOT,
+//             KC_TRNS,       KC_K,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,  KC_RSFT,
+//                                    KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,  KC_FN2,
+//             KC_LGUI, KC_RCTL,
+//             KC_PGUP,
+//             KC_PGDN, KC_ENT, KC_SPC
+//    ),
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB),               // FN1 - Momentary Layer 1 (Symbols)
-    [2] = ACTION_LAYER_TAP_TOGGLE(MDIA),               // FN2 - Momentary Layer 2 (Media)
-    [3] = ACTION_LAYER_TAP_TOGGLE(MCRO)                // FN3 - Momentary Layer 3 (Macro)
+    [1] = ACTION_LAYER_TAP_TOGGLE(_SYMB),               // FN1 - Momentary Layer 1 (Symbols)
+    [2] = ACTION_LAYER_TAP_TOGGLE(_MDIA_MOUSE),               // FN2 - Momentary Layer 2 (Media)
+    [3] = ACTION_LAYER_TAP_TOGGLE(_MACRO)                // FN3 - Momentary Layer 3 (Macro)
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *  record) {
