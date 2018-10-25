@@ -22,10 +22,9 @@ fi
 # Determine arguments
 if [[ $# -eq 0 ]]; then
     # Empty form
-    echo "Input build arguments (leave empty for defaults):"
     read -rp "keyboard=" keyboard
-    read -rp "keymap=" keymap
-    read -rp "target=" target
+    [[ -n $keyboard ]] && read -rp "keymap=" keymap
+    [[ -n $keymap   ]] && read -rp "target=" target
 elif [[ $# -eq 1 && $1 == *":"* ]]; then
     # keyboard:keymap[:target] form
     IFS=':' read -ra args <<< "$1"
@@ -45,9 +44,5 @@ fi
 dir=$(pwd -W 2>/dev/null) || dir=$PWD  # Use Windows path if on Windows
 
 # Run container and build firmware
-docker run --rm \
-    ${keyboard:+-e KEYBOARD="$keyboard"} \
-    ${keymap:+-e KEYMAP="$keymap"} \
-    ${target:+-e TARGET="$target"} \
-    -v "$dir":/qmk:rw \
-    qmkfm/qmk_firmware
+docker run --rm -v "$dir:/qmk:rw" qmkfm/qmk_firmware \
+    make "$keyboard${keymap:+:$keymap}${target:+:$target}"
