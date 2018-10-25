@@ -5,26 +5,28 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6070
-#define DEVICE_VER      0x0001
+#define PRODUCT_ID      0x6090
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    WoodKeys.click
-#define PRODUCT         CrawlPad
-#define DESCRIPTION     ATX Keycrawl 2017
+#define PRODUCT         2Key2Crawl
+#define DESCRIPTION     ATX Keycrawl 2018
 
 /* key matrix size */
-#define MATRIX_ROWS 4
-#define MATRIX_COLS 4
+#define MATRIX_ROWS 2
+#define MATRIX_COLS 7
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { F0, F1, F4, F5 }
-#define MATRIX_COL_PINS { D4, D5, D6, D7 }
+#define MATRIX_ROW_PINS { C4, C5 }
+#define MATRIX_COL_PINS { B3, B4, B5, B6, B7, C7, B2 }
 #define UNUSED_PINS
 
-/* Pins for custom per-row LEDs. Should be changed to use named pins. */
-#define LED_ROW_PINS { 8, 9, 10, 11 }
+#define NUMBER_OF_ENCODERS 1
+#define ENCODERS_PAD_A { D0 }
+#define ENCODERS_PAD_B { D1 }
+#define ENCODER_RESOLUTION 1
 
 /* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
+#define DIODE_DIRECTION COL2ROW
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -41,7 +43,7 @@
 )
 
 #ifdef RGBLIGHT_ENABLE
-#define RGB_DI_PIN D3
+#define RGB_DI_PIN C6
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 3
 #endif

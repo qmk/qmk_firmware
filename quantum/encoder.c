@@ -32,10 +32,7 @@
 static pin_t encoders_pad_a[NUMBER_OF_ENCODERS] = ENCODERS_PAD_A;
 static pin_t encoders_pad_b[NUMBER_OF_ENCODERS] = ENCODERS_PAD_B;
 
-static int8_t encoder_LUT[] = { 0, -1, 1, 0, 1, 0, 0, -1, -1, 0, 0, 1, 0, 1, -1, 0 };
-
 static uint8_t encoder_state[NUMBER_OF_ENCODERS] = {0};
-static int8_t encoder_value[NUMBER_OF_ENCODERS] = {0};
 
 __attribute__ ((weak))
 void encoder_update_user(int8_t index, bool clockwise) { }
@@ -50,21 +47,21 @@ void encoder_init(void) {
     setPinInputHigh(encoders_pad_a[i]);
     setPinInputHigh(encoders_pad_b[i]);
 
-    encoder_state[i] = (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
+    encoder_state[i] = readPin(encoders_pad_a[i]);
   }
 }
 
 void encoder_read(void) {
   for (int i = 0; i < NUMBER_OF_ENCODERS; i++) {
-    encoder_state[i] <<= 2;
-    encoder_state[i] |= (readPin(encoders_pad_a[i]) << 0) | (readPin(encoders_pad_b[i]) << 1);
-    encoder_value[i] += encoder_LUT[encoder_state[i] & 0xF];
-    if (encoder_value[i] >= ENCODER_RESOLUTION) {
-        encoder_update_kb(i, COUNTRECLOCKWISE);
-    }
-    if (encoder_value[i] <= -ENCODER_RESOLUTION) { // direction is arbitrary here, but this clockwise
+    uint8_t aState = readPin(encoders_pad_a[i]);
+    uint8_t bState = readPin(encoders_pad_b[i]);
+    if (encoder_state[i] != aState){
+      if (bState != aState){
         encoder_update_kb(i, CLOCKWISE);
+      } else {
+        encoder_update_kb(i, COUNTRECLOCKWISE);
+      }
     }
-    encoder_value[i] %= ENCODER_RESOLUTION;
+    encoder_state[i] = aState;
   }
 }
