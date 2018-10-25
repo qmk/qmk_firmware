@@ -16,7 +16,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     // Other declarations would go here, separated by commas, if you have them
 };
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BL] = LAYOUT_625_space(
