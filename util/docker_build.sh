@@ -33,5 +33,5 @@ fi
 dir=$(pwd -W 2>/dev/null) || dir=$PWD  # Use Windows path if on Windows
 
 # Run container and build firmware
-docker run --rm -v "$dir:/qmk:rw" qmkfm/qmk_firmware \
+docker run --rm -v "$dir":/qmk_firmware qmkfm/qmk_firmware \
     make "$keyboard${keymap:+:$keymap}${target:+:$target}"
