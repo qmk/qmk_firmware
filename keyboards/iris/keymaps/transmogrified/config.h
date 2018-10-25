@@ -39,6 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP 8
 
 #define NO_USB_STARTUP_CHECK //keep both sides on when pc is sleeping.
+#define TAPPING_TERM 200
 
 // Remove features i don't use
 #define NO_ACTION_ONESHOT

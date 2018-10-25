@@ -2,9 +2,6 @@
 #include "action_layer.h"
 #include "eeconfig.h"
 
-// User Custom Congifs
-#define TAPPING_TERM 200
-
 extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
