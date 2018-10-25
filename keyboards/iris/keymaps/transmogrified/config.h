@@ -27,8 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USE_I2C
 
 /* Select hand configuration */
-
-// #define MASTER_LEFT
+//#define MASTER_LEFT
 #define MASTER_RIGHT
 // #define EE_HANDS
 
@@ -38,5 +37,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
+
+#define NO_USB_STARTUP_CHECK //keep both sides on when pc is sleeping.
+
+// Remove features i don't use
+#define NO_ACTION_ONESHOT
+#define NO_ACTION_MACRO
+
+// Override the rev2 config.h BACKLIGHT_LEVELS setting
+#pragma once
+#undef BACKLIGHT_LEVELS
+#define BACKLIGHT_LEVELS 125
 
 #endif
