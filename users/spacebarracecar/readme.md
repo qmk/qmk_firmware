@@ -35,7 +35,7 @@ To track the physical shift state there are two custom left and right shift keyc
 
 #### Custom keycode templates
 
-To ease the creation of custom keycodes there are a few templates defined in spacebarracecar.h.
+To ease the creation of custom keycodes there are a few templates defined in [spacebarracecar.h](spacebarracecar.h).
 
 - `SHIFT_NORM(kc1, kc2)` Sends independent keycodes kc1 and kc2 depending on physical shift state without changing shift state.
 - `SHIFT_SWITCH(kc1, kc2)` Sends independent keycodes kc1 and kc2 depending on physical shift state while flipping shift state.
