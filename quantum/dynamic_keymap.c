@@ -16,6 +16,8 @@
 
 #include "config.h"
 #include "keymap.h" // to get keymaps[][][]
+#include "tmk_core/common/eeprom.h"
+#include "progmem.h" // to read default from flash
 
 #include "dynamic_keymap.h"
 
@@ -28,8 +30,6 @@
 #ifndef DYNAMIC_KEYMAP_LAYER_COUNT
 #error DYNAMIC_KEYMAP_LAYER_COUNT not defined
 #endif
-
-#define KC_EENULL 0xFFFF // TODO: move to enum quantum_keycodes
 
 void *dynamic_keymap_key_to_eeprom_address(uint8_t layer, uint8_t row, uint8_t column)
 {
@@ -55,16 +55,15 @@ void dynamic_keymap_set_keycode(uint8_t layer, uint8_t row, uint8_t column, uint
 	eeprom_update_byte(address+1, (uint8_t)(keycode & 0xFF));
 }
 
-void dynamic_keymap_clear_all(void)
+void dynamic_keymap_reset(void)
 {
-	// Save "empty" keymaps.
-	for ( int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++ )
-	{
-		for ( int row = 0; row < MATRIX_ROWS; row++ )
-		{
-			for ( int column = 0; column < MATRIX_COLS; column++ )
-			{
-				dynamic_keymap_set_keycode(layer, row, column, KC_EENULL);
+	// Reset the keymaps in EEPROM to what is in flash.
+	// All keyboards using dynamic keymaps should define a layout
+	// for the same number of layers as DYNAMIC_KEYMAP_LAYER_COUNT.
+	for ( int layer = 0; layer < DYNAMIC_KEYMAP_LAYER_COUNT; layer++ )	{
+		for ( int row = 0; row < MATRIX_ROWS; row++ ) {
+			for ( int column = 0; column < MATRIX_COLS; column++ )	{
+				dynamic_keymap_set_keycode(layer, row, column, pgm_read_word(&keymaps[layer][row][column]));
 			}
 		}
 	}
@@ -73,24 +72,13 @@ void dynamic_keymap_clear_all(void)
 // This overrides the one in quantum/keymap_common.c
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
-	// This used to test EEPROM for magic bytes, but it was redundant.
-	// Test for EEPROM usage change (fresh install, address change, etc.)
-	// externally and call dynamic_keymap_default_save()
 	if ( layer < DYNAMIC_KEYMAP_LAYER_COUNT &&
-		 key.row < MATRIX_ROWS && // possibly redundant
-		 key.col < MATRIX_COLS ) // possibly redundant
-	{
-		uint16_t keycode = dynamic_keymap_get_keycode(layer, key.row, key.col);
-
-		// If keycode is not "empty", return it, otherwise
-		// drop down to return the one in flash
-		if ( keycode != KC_EENULL)
-		{
-			return keycode;
-		}
+			key.row < MATRIX_ROWS &&
+			key.col < MATRIX_COLS ) {
+		return dynamic_keymap_get_keycode(layer, key.row, key.col);
+	} else {
+		return KC_NO;
 	}
-
-	return pgm_read_word(&keymaps[layer][key.row][key.col]);
 }
 
 #endif // DYNAMIC_KEYMAP_ENABLE

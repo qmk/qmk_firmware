@@ -945,6 +945,9 @@ void tap_random_base64(void) {
 }
 
 void matrix_init_quantum() {
+  if (!eeconfig_is_enabled() && !eeconfig_is_disabled()) {
+    eeconfig_init();
+  }
   #ifdef BACKLIGHT_ENABLE
     backlight_init_ports();
   #endif

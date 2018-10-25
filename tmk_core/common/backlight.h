@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef BACKLIGHT_H
-#define BACKLIGHT_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -37,5 +36,3 @@ void backlight_step(void);
 void backlight_set(uint8_t level);
 void backlight_level(uint8_t level);
 uint8_t get_backlight_level(void);
-
-#endif
