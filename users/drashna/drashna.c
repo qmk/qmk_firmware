@@ -226,25 +226,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       set_single_persistent_default_layer(_QWERTY);
     }
-    return false;
     break;
   case KC_COLEMAK:
     if (record->event.pressed) {
       set_single_persistent_default_layer(_COLEMAK);
     }
-    return false;
     break;
   case KC_DVORAK:
     if (record->event.pressed) {
       set_single_persistent_default_layer(_DVORAK);
     }
-    return false;
     break;
   case KC_WORKMAN:
     if (record->event.pressed) {
       set_single_persistent_default_layer(_WORKMAN);
     }
-    return false;
     break;
 
 
@@ -264,35 +260,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           send_string_with_delay_P(PSTR(":avrdude"), 10);
         #endif // bootloader options
       }
+      #if defined(KEYBOARD_viterbi)
+        send_string_with_delay_P(PSTR(":dfu"), 10);
+      #endif
       if (temp_mod & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
       send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
       set_mods(temp_mod);
     }
-    return false;
     break;
 
   case EPRM: // Resets EEPROM
     if (record->event.pressed) {
       eeconfig_init();
     }
-    return false;
     break;
   case VRSN: // Prints firmware version
     if (record->event.pressed) {
       send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), MACRO_TIMER);
     }
-    return false;
     break;
-
-/*  Code has been depreciated
-    case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
-      if (!record->event.pressed) {
-        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
-        send_string(decoy_secret[keycode - KC_SECRET_1]);
-      }
-      return false;
-      break;
-*/
 
 // These are a serious of gaming macros.
 // Only enables for the viterbi, basically,
@@ -303,7 +289,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef RGBLIGHT_ENABLE
     userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
 #endif //RGBLIGHT_ENABLE
-    return false; break;
+    break;
   case KC_SALT:
     return send_game_macro("Salt, salt, salt...", record, false);
   case KC_MORESALT:
@@ -339,7 +325,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     }
 #endif // TAP_DANCE_ENABLE
-    return false; break;
+    break;
 
 
   case KC_CCCV:                                    // One key copy/paste
@@ -356,32 +342,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_LCTL);
       }
     }
-    return false;
     break;
 #ifdef UNICODE_ENABLE
   case UC_FLIP: // (ノಠ痊ಠ)ノ彡┻━┻
     if (record->event.pressed) {
       send_unicode_hex_string("0028 30CE 0CA0 75CA 0CA0 0029 30CE 5F61 253B 2501 253B");
     }
-    return false;
     break;
   case UC_TABL: // ┬─┬ノ( º _ ºノ)
     if (record->event.pressed) {
       send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 30CE 0029");
     }
-    return false;
     break;
   case UC_SHRG: // ¯\_(ツ)_/¯
     if (record->event.pressed) {
       send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
     }
-    return false;
     break;
   case UC_DISA: // ಠ_ಠ
     if (record->event.pressed) {
       send_unicode_hex_string("0CA0 005F 0CA0");
     }
-    return false;
     break;
 #endif
   }
