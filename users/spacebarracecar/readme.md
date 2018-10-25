@@ -5,7 +5,7 @@ The main purpose of this userspace is to keep my personal keymaps clean by movin
 
 ## US Layout Keys for German PCs
 
-I'm using the US Ansi layout however I'm living in Germany which means that every PC here has its input language set to German. My goal was to create custom keycodes that emulate the US Keys so that I can plug in my keyboards into any German PC and have them working without changing any settings.
+I'm using the US Ansi layout however I'm living in Germany which means that every PC here has its input language set to German. My goal was to create custom keycodes that emulate the US Keys so that I can plug my keyboards into any German PC and have them working without changing any settings.
 
 ### How to use
 
@@ -13,7 +13,7 @@ I'm using the US Ansi layout however I'm living in Germany which means that ever
 - The keycodes are listed and explained in [spacebarracecar.h](spacebarracecar.h) under `enum userspace_custom_keycodes`.
 - The keycodes are handled by the `process_record_user` function which is now located in [spacebarracecar.c](spacebarracecar.c). To change keyboard specific configuration `process_record_keymap` is used (see [drashna userspace readme](../drashna/readme.md) for better explanation).
 - There is a predefined `_DEADKEY` layer in [spacebarracecar.h](spacebarracecar.h) under `enum userspace_layers`. Shifted CU_QUOT enables the dead key layer, just like KC_QUOT would when using the US International layout. (See `enum userspace_custom_keycodes` for more explanation).
-- In the standard german layout in windows grave and circonflexe are defined as dead keys. Those are automatically escaped when using the custom keycodes. `CU_ESCT` can be used to enable/disable that behavior.
+- On Windows grave and circonflexe are defined as dead keys when using the standard german layout. Those are automatically escaped when using the custom keycodes. `CU_ESCT` can be used to enable/disable this behavior.
 - For a complete example see my [fc660c](../../keyboards/fc660c/keymaps/spacebarracecar/keymap.c) or [planck](../../keyboards/planck/keymaps/spacebarracecar/keymap.c) keymaps.
 
 ### How it works
@@ -66,7 +66,7 @@ if (record->event.pressed) { \
 return false;
 ```
 
-It is noticeable that before registering a keycode the same keycode gets unregistered first. The reason for this is that there can now be two physical keys that use the same keycode only with different shift states. When rolling those two keys the keycode has to be unregistered first, otherwise the second key doesn't register. Also noticable is that sometimes the `add_to_prev` function is called. This will be explained later. The `timer_timeout` function is necessary for the custom space cadet shift.
+It is noticeable that before registering a keycode the same keycode gets unregistered first. The reason for this is that there can now be two physical keys that use the same keycode only with different shift states. When rolling those two keys the keycode has to be unregistered first, otherwise the second key doesn't register. Also noticable is that sometimes the `add_to_prev` function is called. This will be explained later. The `timer_timeout` function is necessary to reset the timers of the custom space cadet shift functionality.
 
 It's worth mentioning that `SHIFT_ALGR` unlike the other templates doesn't allow repetition of characters when held. This is because it would otherwise require extensive checking of physical ralt status similar to shift to prevent ralt from getting stuck.
 
@@ -108,4 +108,4 @@ Since I'm always using a navigation layer with all my keyboards there is a `_NAV
 
 ### Gamemode
 
-The userspace includes the custom keycode `CU_GAME`, that is used to flip a boolean variable called `game`. That variable is used to enable/disable windows keys and space cadet shift. In my [planck keymap](../../keyboards/planck/keymaps/spacebarracecar/keymap.c) it also makes Lower act like Space which is more comfortable when resting on wasd and it could also be used to change various other things when gaming.
+The userspace includes the custom keycode `CU_GAME` that is used to flip a boolean variable called `game`. That variable is used to enable/disable windows keys and space cadet shift. In my [planck keymap](../../keyboards/planck/keymaps/spacebarracecar/keymap.c) it also makes Lower act like Space which is more comfortable when resting on wasd and it could also be used to change various other things when gaming.
