@@ -1,17 +1,13 @@
 #!/bin/bash
 
-read -rd '' USAGE << EOF
-Usage: $0
-       $0 keyboard:keymap[:target]
-       $0 keyboard [keymap] [target]
-EOF
+USAGE="Usage: $0 [keyboard[:keymap[:target]]]"
 
 # Check preconditions
 if [[ $* =~ "--help" ]]; then
     echo "$USAGE"
     exit 0
-elif [[ $# -gt 3 ]]; then
-    echo "$USAGE"
+elif [[ $# -gt 1 ]]; then
+    echo "$USAGE" >&2
     exit 1
 elif [[ ! $(command -v docker) ]]; then
     echo "Error: docker not found" >&2
@@ -21,25 +17,18 @@ fi
 
 # Determine arguments
 if [[ $# -eq 0 ]]; then
-    # Empty form
     read -rp "keyboard=" keyboard
     [[ -n $keyboard ]] && read -rp "keymap=" keymap
     [[ -n $keymap   ]] && read -rp "target=" target
-elif [[ $# -eq 1 && $1 == *":"* ]]; then
-    # keyboard:keymap[:target] form
+else
     IFS=':' read -ra args <<< "$1"
     if [[ ${#args[@]} -gt 3 ]]; then
-        echo "$USAGE"
+        echo "$USAGE" >&2
         exit 1
     fi
     keyboard=${args[0]}
     keymap=${args[1]}
     target=${args[2]}
-else
-    # keyboard [keymap] [target] form
-    keyboard=$1
-    keymap=$2
-    target=$3
 fi
 dir=$(pwd -W 2>/dev/null) || dir=$PWD  # Use Windows path if on Windows
 
