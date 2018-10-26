@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "config_common.h"
+#pragma once
 
 /* Use I2C or Serial, not both */
 
@@ -34,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef RGBLIGHT_ENABLE
 #undef RGBLED_NUM
 #define RGBLED_NUM 16     // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
+
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_VAL_STEP 12
@@ -70,5 +67,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ALT_LED1 7
 #define GUI_LED1 8
-
-#endif

@@ -1,4 +1,5 @@
 USER_NAME := drashna
+SRC += ../drashna/keymap.c
 
 BOOTMAGIC_ENABLE  = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE   = no       # Mouse keys(+4700)
@@ -10,12 +11,10 @@ RGBLIGHT_ENABLE   = yes
 AUDIO_ENABLE      = yes
 NKRO_ENABLE       = yes
 BACKLIGHT_ENABLE  = no
-SWAP_HANDS_ENABLE = no
+SWAP_HANDS_ENABLE = yes
 
 INDICATOR_LIGHTS  = yes
 MACROS_ENABLED    = no
 RGBLIGHT_TWINKLE  = yes
-
-SRC += ../drashna/keymap.c
 
 BOOTLOADER        = qmk-dfu
