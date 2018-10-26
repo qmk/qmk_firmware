@@ -32,9 +32,16 @@ The callback functions can be inserted into your `<keyboard>.c`:
 or `keymap.c`:
 
     void encoder_update_user(uint8_t index, bool clockwise) {
-        
+        if (index == 0) {
+            if (clockwise) {
+                register_code(KC_PGDN);
+                unregister_code(KC_PGDN);
+            } else {
+                register_code(KC_PGUP);
+                unregister_code(KC_PGUP);
+            }
+        }
     }
-
 
 ## Hardware
 
