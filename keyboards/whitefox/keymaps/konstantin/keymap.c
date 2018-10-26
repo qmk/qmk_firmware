@@ -79,7 +79,7 @@ void td_fn_rctrl_each(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void td_fn_rctrl_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if ((state->count == 1 || state->count > 2) && !td_fn_rctrl_data.fn_on) {
+  if ((state->count == 1 || state->count >= 3) && !td_fn_rctrl_data.fn_on) {
     layer_off(L_FN);
   }
   if (state->count >= 2) {
@@ -108,7 +108,7 @@ void td_double_mods_each(qk_tap_dance_state_t *state, void *user_data) {
 
 void td_double_mods_reset(qk_tap_dance_state_t *state, void *user_data) {
   qk_tap_dance_pair_t *mods = (qk_tap_dance_pair_t *)user_data;
-  if (state->count == 1 || state->count > 2) {
+  if (state->count == 1 || state->count >= 3) {
     unregister_code(mods->kc1);
   }
   if (state->count >= 2) {
@@ -141,9 +141,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
    * │FnCaps│ A │ S │ D │ F │ G │ H │ J │ K │ L │ ; │ ' │ Enter  │PgU│
    * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
-   * │ LShift │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │CtlSft│ ↑ │PgD│
+   * │ LShift │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │RCtRSf│ ↑ │PgD│
    * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-   * │LCtl│LGui│LAlt│         Space          │AlGu│FnLk│ │ ← │ ↓ │ → │
+   * │LCtl│LGui│LAlt│         Space          │RAlG│FnLk│ │ ← │ ↓ │ → │
    * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
    */
   [L_BASE] = LAYOUT_truefox( \
