@@ -81,6 +81,21 @@ bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t thi
   return false;
 }
 
+void bootmagic_lite(void) {
+  matrix_scan();
+  #if defined(DEBOUNCING_DELAY) && DEBOUNCING_DELAY > 0
+    wait_ms(DEBOUNCING_DELAY * 2);
+  #elif defined(DEBOUNCE) && DEBOUNCE > 0
+    wait_ms(DEBOUNCE * 2);
+  #else
+    wait_ms(30);
+  #endif
+  matrix_scan();
+   if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
+    bootloader_jump();
+  }
+}
+
 // Add reconfigurable functions here, for keymap customization
 // This allows for a global, userspace functions, and continued
 // customization of the keymap.  Use _keymap instead of _user
@@ -133,6 +148,10 @@ void eeconfig_init_keymap(void) {}
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
+  #if !defined(BOOTMAGIC_LITE) && !defined(BOOTMAGIC_ENABLE)
+    bootmagic_lite();
+  #endif
+
   userspace_config.raw = eeconfig_read_user();
 
 #ifdef BOOTLOADER_CATERINA
