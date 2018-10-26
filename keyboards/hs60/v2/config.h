@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -44,9 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* Prevent modifiers from being stuck on after layer changes. */
-#define PREVENT_STUCK_MODIFIERS
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
@@ -119,5 +115,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
-
-#endif
