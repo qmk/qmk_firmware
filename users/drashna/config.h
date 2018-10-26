@@ -73,4 +73,11 @@
 
 #define MACRO_TIMER 5
 
-
+#if !defined(BOOTMAGIC_LITE) && !defined(BOOTMAGIC_ENABLE)
+#ifndef BOOTMAGIC_LITE_COLUMN
+  #define BOOTMAGIC_LITE_COLUMN 0
+#endif
+#ifndef BOOTMAGIC_LITE_ROW
+  #define BOOTMAGIC_LITE_ROW 0
+#endif
+#endif
