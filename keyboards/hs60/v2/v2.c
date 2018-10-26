@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "hs60_arm.h"
+#include "v2.h"
 #include "config.h"
 //#include "is31fl3733.h"
 

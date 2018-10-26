@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "hs60_arm.h"
+#include QMK_KEYBOARD_H
 
 //This is the ISO version of the PCB
 
