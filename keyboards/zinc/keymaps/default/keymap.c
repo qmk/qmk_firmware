@@ -144,16 +144,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      |RGB ON| HUE+ | SAT+ | VAL+ | Mac  |             | Win  |  -   |   =  |Print |ScLock|Pause |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      | MODE | HUE- | SAT- | VAL- |      |             |      |      |      |      |PageUp|      |
+   * |      | MODE | HUE- | SAT- | VAL- |      |             |      |      |      |      |      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
-   * |      |      |      | EISU | EISU | EISU |             | KANA | KANA | KANA | Home |PageDn| End  |
+   * |      |      |      | EISU | EISU | EISU |             | KANA | KANA | Home |PageDn|PageUp| End  |
    * `-----------------------------------------'             `-----------------------------------------'
    */
     [_ADJUST] =  LAYOUT( \
       _______, RESET,   RGBRST,  AU_ON,   AU_OFF,  _______,                   _______, QWERTY,  COLEMAK, DVORAK,  _______, KC_INS, \
       _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, AG_NORM,                   AG_SWAP, KC_MINS, KC_EQL,  KC_PSCR, KC_SLCK, KC_PAUS,\
-      _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,                   _______, _______, _______, _______, KC_PGUP, _______,\
-      _______, _______, _______, EISU,    EISU,    EISU,                      KANA,    KANA,    KANA,    KC_HOME, KC_PGDN, KC_END\
+      _______, RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,                   _______, _______, _______, _______, _______, _______,\
+      _______, _______, _______, EISU,    EISU,    EISU,                      KANA,    KANA,    KC_HOME, KC_PGDN, KC_PGUP, KC_END\
       )
 };
 
@@ -189,7 +189,6 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
-uint16_t custom_lt_timer;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
