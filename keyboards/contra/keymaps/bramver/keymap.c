@@ -82,7 +82,6 @@ const uint32_t PROGMEM unicode_map[] = {
 };
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
 
 // Layer shorthand
 #define _BASE     0
