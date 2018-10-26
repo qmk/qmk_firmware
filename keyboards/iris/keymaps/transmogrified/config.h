@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Danny Nguyen <danny@keeb.io>
+Copyright 2017 Adam Roberts <adam+gh@bikuman.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,11 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "config_common.h"
+#pragma once
 
 /* Use I2C or Serial, not both */
 
@@ -44,10 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Remove features i don't use
 #define NO_ACTION_ONESHOT
 #define NO_ACTION_MACRO
-
+ 
 // Override the rev2 config.h BACKLIGHT_LEVELS setting
-#pragma once
 #undef BACKLIGHT_LEVELS
 #define BACKLIGHT_LEVELS 125
-
-#endif

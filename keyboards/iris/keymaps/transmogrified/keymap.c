@@ -176,6 +176,8 @@ bool rlocked = false;
 bool llocked = false;
 bool configOn = false;
 int lockedBLLevel;
+int momentaryLBLLevel;
+int momentaryRBLLevel;
 int currentBL;
 /* END VARIABLES */
 
@@ -255,7 +257,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
         configOn = false;
-        backlight_toggle();
+        if (momentaryRBLLevel != 0 || momentaryLBLLevel != 0){
+          backlight_toggle();
+        }
       }
       return false;
       break;
@@ -263,7 +267,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
         configOn = false;
-        backlight_toggle();
+        if (momentaryRBLLevel != 0 || momentaryLBLLevel != 0){
+          backlight_toggle();
+        }
       }
       return false;
       break;
@@ -271,7 +277,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_CONFIG);
         configOn = true;
-        backlight_toggle();
+        if (momentaryRBLLevel != 0 || momentaryLBLLevel != 0){
+          backlight_toggle();
+        }
       }
       return false;
       break;
@@ -279,8 +287,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         layer_on(_RLAYER);
         update_tri_layer(_RLAYER, _LLAYER, _DUAL);
-        for (int i = 0; i < layerBLStep ; i++){
-          backlight_increase();
+        momentaryRBLLevel = get_backlight_level();
+        if (momentaryRBLLevel != 0 || momentaryLBLLevel != 0){
+          for (int i = 0; i < layerBLStep ; i++){
+            backlight_increase();
+          }
         }
       } else {
         unregister_code(KC_LGUI);
@@ -300,8 +311,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         layer_on(_LLAYER);
         update_tri_layer(_RLAYER, _LLAYER, _DUAL);
-        for (int i = 0; i < layerBLStep ; i++){
-          backlight_increase();
+        momentaryLBLLevel = get_backlight_level();
+        if (momentaryRBLLevel != 0 || momentaryLBLLevel != 0){
+          for (int i = 0; i < layerBLStep ; i++){
+            backlight_increase();
+          }
         }
       } else {
         layer_off(_LLAYER);
@@ -366,12 +380,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 // LED breathing when a layer is locked
 void matrix_scan_user(void) {
   // Only breath if layer is locked
-  if (rlocked || llocked){
+  if (lockedBLLevel != 0 && (rlocked || llocked)){
     // counter to slow down the breathing
     if (counter >= breathPulse) {
       counter = 0;
       // iterate brightness up or down
-      if (breathUp == true){
+      if (breathUp){
         backlight_increase();
       } else {
         backlight_decrease();
