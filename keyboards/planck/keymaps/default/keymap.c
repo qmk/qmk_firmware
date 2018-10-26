@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "planck.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #include "muse.h"
 
 extern keymap_config_t keymap_config;
@@ -259,7 +258,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(uint8_t index, bool clockwise) {
+void encoder_update_user(uint8_t index, bool clockwise) {
   if (muse_mode) {
     if (IS_LAYER_ON(_RAISE)) {
       if (clockwise) {
@@ -277,19 +276,21 @@ void encoder_update(uint8_t index, bool clockwise) {
   } else {
     if (index == 0) {
       if (clockwise) {
-        register_code(KC_PGDN);
-        unregister_code(KC_PGDN);
+        #ifdef MOUSEKEY_ENABLE
+          register_code(KC_MS_WH_DOWN);
+          unregister_code(KC_MS_WH_DOWN);
+        #else
+          register_code(KC_PGDN);
+          unregister_code(KC_PGDN);
+        #endif
       } else {
-        register_code(KC_PGUP);
-        unregister_code(KC_PGUP);
-      }
-    } else {
-      if (clockwise) {
-        register_code(KC_MS_DOWN);
-        unregister_code(KC_MS_DOWN);
-      } else {
-        register_code(KC_MS_UP);
-        unregister_code(KC_MS_UP);
+        #ifdef MOUSEKEY_ENABLE
+          register_code(KC_MS_WH_UP);
+          unregister_code(KC_MS_WH_UP);
+        #else
+          register_code(KC_PGUP);
+          unregister_code(KC_PGUP);
+        #endif
       }
     }
   }

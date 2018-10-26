@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Bigtuna.io 
+#define MANUFACTURER    Bigtuna.io
 #define PRODUCT         Miuni32
 #define DESCRIPTION     A custom keyboard for writers
 
@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION ROW2COL
- 
+
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
@@ -159,9 +159,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
-#define RGBLIGHT_TIMER 
+
 #define RGB_DI_PIN D0     // The pin your RGB strip is wired to
-#define RGBLIGHT_TIMER    // Require for fancier stuff (not compatible with audio)
 #define RGBLED_NUM 7     // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 10

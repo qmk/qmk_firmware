@@ -31,6 +31,8 @@ void default_layer_set(uint32_t state);
 
 __attribute__((weak))
 uint32_t default_layer_state_set_kb(uint32_t state);
+__attribute__((weak))
+uint32_t default_layer_state_set_user(uint32_t state);
 
 #ifndef NO_ACTION_LAYER
 /* bitwise operation */

@@ -8,7 +8,9 @@
 #include "i2c_master.h"
 #include "timer.h"
 
+#ifndef F_SCL
 #define F_SCL 400000UL // SCL frequency
+#endif
 #define Prescaler 1
 #define TWBR_val ((((F_CPU / F_SCL) / Prescaler) - 16 ) / 2)
 
