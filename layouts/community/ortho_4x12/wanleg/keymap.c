@@ -31,6 +31,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________NUMPAD_Row__3_______________
 ),
 
+#elif defined(KEYBOARD_jj40)
+[_GK] = LAYOUT_ortho_4x12_wrapper(
+  _______________GherkinLike_0_______________,
+  _______________GherkinLike_1_______________,
+  _______________GherkinLike_2_______________,
+  TD(RST_TAP_DANCE), BL_TOGG, BL_STEP, BL_BRTG, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
+),
+
 #else
 [_GK] = LAYOUT_ortho_4x12_wrapper(
   _______________GherkinLike_0_______________,
