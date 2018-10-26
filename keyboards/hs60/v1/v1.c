@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "v1.h"
-#include "config.h"
 
 // Please ignore this is for upcoming features
 /*#ifdef RAW_ENABLE
