@@ -145,19 +145,21 @@ int serial_update_buffers()
 #if SELECT_SOFT_SERIAL_SPEED == 0
   // Very High speed
   #define SERIAL_DELAY 4             // micro sec
-  #define READ_WRITE_START_ADJUST 33 // cycles
   #if __GNUC__ < 6
+    #define READ_WRITE_START_ADJUST 33 // cycles
     #define READ_WRITE_WIDTH_ADJUST 3 // cycles
   #else
-    #define READ_WRITE_WIDTH_ADJUST 6 // cycles
+    #define READ_WRITE_START_ADJUST 34 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
   #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 1
   // High speed
   #define SERIAL_DELAY 6             // micro sec
-  #define READ_WRITE_START_ADJUST 30 // cycles
   #if __GNUC__ < 6
+    #define READ_WRITE_START_ADJUST 30 // cycles
     #define READ_WRITE_WIDTH_ADJUST 3 // cycles
   #else
+    #define READ_WRITE_START_ADJUST 33 // cycles
     #define READ_WRITE_WIDTH_ADJUST 7 // cycles
   #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 2
