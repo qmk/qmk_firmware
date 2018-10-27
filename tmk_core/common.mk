@@ -61,7 +61,6 @@ endif
 
 
 # Option modules
-BOOTMAGIC_ENABLE ?= no
 VALID_MAGIC_TYPES := yes full lite
 ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
   ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
