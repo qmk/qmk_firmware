@@ -15,55 +15,34 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0257
+#define PRODUCT_ID      0x0258
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Yiancar-Designs
-#define PRODUCT         HS60
+#define PRODUCT         HS60 V2
 #define DESCRIPTION     GH60 compatible, tool free RGB keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
-/*
- * Keyboard Matrix Assignments
- *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
- * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
- *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
- *
-*/
-#define MATRIX_ROW_PINS { B0, B1, B2, B3, F7 }
-#define MATRIX_COL_PINS { F1, F4, F5, E6, F0, B7, D2, D3, D5, D4, D6, D7, B4, B5 }
-#define UNUSED_PINS     { B6, C6, C7, F6 }
-
-/* bootloader configuration */
-
-#define QMK_ESC_OUTPUT B5 // usually COL
-#define QMK_ESC_INPUT B2 // usually ROW
+#define MATRIX_ROW_PINS { B3, B4, B5, A8, A4 }
+#define MATRIX_COL_PINS { A13, A10, A9, A14, A15, B8, B9, C13, C14, C15, A0, A1, A2, A3 }
+// To enable debugger set A13 A14 -> A5 A6
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
-#define DEBOUNCING_DELAY 5
+#define DEBOUNCE 0
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
-/* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
 
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
@@ -121,26 +100,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Backlight options */
 
-//This is experimental do not enable yet
-//#define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
-
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
-#define RGB_MATRIX_SKIP_FRAMES 0
-#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 215
+#define RGB_MATRIX_SKIP_FRAMES 3
 
-#define DRIVER_ADDR_1 0b1110100
-#define DRIVER_ADDR_2 0b1110101
+#define DRIVER_ADDR_1 0b1010000
+#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
 
 #define DRIVER_COUNT 2
-#define DRIVER_1_LED_TOTAL 30
-
-#ifdef  HS60_ANSI
-#define DRIVER_2_LED_TOTAL 31
+#ifdef HS60_ANSI
+#define DRIVER_1_LED_TOTAL 61
 #else
-#define DRIVER_2_LED_TOTAL 32
+#define DRIVER_1_LED_TOTAL 62
 #endif
 
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
-
-#endif
+#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
