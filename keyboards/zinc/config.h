@@ -45,8 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   //  so just disable them
   #define NO_ACTION_MACRO
   #define NO_ACTION_FUNCTION
-
-  #define DISABLE_LEADER
 #endif // USE_Link_Time_Optimization
 
 //#endif /* CONFIG_H */
