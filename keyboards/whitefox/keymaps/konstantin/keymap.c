@@ -37,7 +37,9 @@ enum custom_keycodes {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case CLEAR:
-    if (record->event.pressed) { SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE)); }
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTRL("a") SS_TAP(X_DELETE));
+    }
     return false;
 
   case NUMPAD:
@@ -66,16 +68,24 @@ void td_fn_rctl_each(qk_tap_dance_state_t *state, void *user_data) {
     td_fn_rctl_data.started = true;
   }
   // Single tap → Fn, double tap → RCtrl, triple tap → Fn+RCtrl etc.
-  if (state->count & 1) { layer_on(L_FN); }
+  if (state->count & 1) {
+    layer_on(L_FN);
+  }
   if (state->count & 2) {
-    if (!(state->count & 1) && !td_fn_rctl_data.fn_on) { layer_off(L_FN); }
+    if (!(state->count & 1) && !td_fn_rctl_data.fn_on) {
+      layer_off(L_FN);
+    }
     register_code(KC_RCTL);
   }
 }
 
 void td_fn_rctl_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count & 1 && !td_fn_rctl_data.fn_on) { layer_off(L_FN); }
-  if (state->count & 2) { unregister_code(KC_RCTL); }
+  if (state->count & 1 && !td_fn_rctl_data.fn_on) {
+    layer_off(L_FN);
+  }
+  if (state->count & 2) {
+    unregister_code(KC_RCTL);
+  }
   td_fn_rctl_data.started = false;
 }
 
