@@ -57,6 +57,9 @@ In this handler, the value of an incrementing counter is mapped onto a precomput
 |Function  |Description                                               |
 |----------|----------------------------------------------------------|
 |`backlight_toggle()`   |Turn the backlight on or off                 |
+|`backlight_enable()`   |Turn the backlight on                        |
+|`backlight_disable()`  |Turn the backlight off                       |
+|`backlight_enabled()`  |Return whether the backlight is currently on |
 |`backlight_step()`     |Cycle through backlight levels               |
 |`backlight_increase()` |Increase the backlight level                 |
 |`backlight_decrease()` |Decrease the backlight level                 |
