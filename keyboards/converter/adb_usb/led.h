@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Yiancar
+Copyright 2011 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,14 +13,31 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+Ported to QMK by Peter Roe <pete@13bit.me>
 */
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
 
-#include "../../config.h"
+#ifndef LED_H
+#define LED_H
+#include "stdint.h"
 
-/* Include overwrites for specific keymap */
 
-#define HS60_ANSI
+/* keyboard LEDs */
+#define USB_LED_NUM_LOCK                0
+#define USB_LED_CAPS_LOCK               1
+#define USB_LED_SCROLL_LOCK             2
+#define USB_LED_COMPOSE                 3
+#define USB_LED_KANA                    4
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+void led_set(uint8_t usb_led);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
