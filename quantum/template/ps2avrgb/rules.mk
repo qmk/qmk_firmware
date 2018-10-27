@@ -31,7 +31,7 @@ F_CPU = 12000000
 BOOTLOADER = bootloadHID
 
 # build options
-BOOTMAGIC_ENABLE = yes # Set to "lite" to enable bootloader jumping only
+BOOTMAGIC_ENABLE = lite      # Set to "full" to enable full functionality, set to "lite" enables bootloader jumping only
 MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes

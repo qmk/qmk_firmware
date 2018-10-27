@@ -11,7 +11,13 @@ There are three separate but related features that allow you to change the behav
 On some keyboards Bootmagic is disabled by default. If this is the case, it must be explicitly enabled in your `rules.mk` with:
 
 ```make
-BOOTMAGIC_ENABLE = yes
+BOOTMAGIC_ENABLE = full
+```
+
+Additionally, you can use [Bootmagic Lite](#bootmagic-lite) (a scaled down, very basic version of Bootmagic) by adding the following to your `rules.mk` file:
+
+```make
+BOOTMAGIC_ENABLE = lite
 ```
 
 ## Hotkeys
