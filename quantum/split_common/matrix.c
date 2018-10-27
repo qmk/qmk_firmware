@@ -71,8 +71,8 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 static uint8_t error_count = 0;
 
-static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -137,6 +137,21 @@ void matrix_init(void)
     debug_enable = true;
     debug_matrix = true;
     debug_mouse = true;
+
+    // Set pinout for right half if pinout for that half is defined
+    if (!isLeftHand) {
+#ifdef MATRIX_ROW_PINS_RIGHT
+        const uint8_t row_pins_right[MATRIX_ROWS] = MATRIX_ROW_PINS_RIGHT;
+        for (uint8_t i = 0; i < MATRIX_ROWS; i++)
+            row_pins[i] = row_pins_right[i];
+#endif
+#ifdef MATRIX_COL_PINS_RIGHT
+        const uint8_t col_pins_right[MATRIX_COLS] = MATRIX_COL_PINS_RIGHT;
+        for (uint8_t i = 0; i < MATRIX_COLS; i++)
+            col_pins[i] = col_pins_right[i];
+#endif
+    }
+
     // initialize row and col
 #if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
@@ -340,24 +355,6 @@ void matrix_slave_scan(void) {
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
     }
-#endif
-#ifdef USE_I2C
-#ifdef BACKLIGHT_ENABLE
-    // Read backlight level sent from master and update level on slave
-    backlight_set(i2c_slave_buffer[0]);
-#endif
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        i2c_slave_buffer[i+1] = matrix[offset+i];
-    }
-#else // USE_SERIAL
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        serial_slave_buffer[i] = matrix[offset+i];
-    }
-
-#ifdef BACKLIGHT_ENABLE
-    // Read backlight level sent from master and update level on slave
-    backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
-#endif
 #endif
     matrix_slave_scan_user();
 }

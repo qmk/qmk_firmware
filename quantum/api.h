@@ -17,7 +17,9 @@
 #ifndef _API_H_
 #define _API_H_
 
+#ifdef __AVR__
 #include "lufa.h"
+#endif
 
 enum MESSAGE_TYPE {
     MT_GET_DATA =      0x10, // Get data from keyboard
@@ -28,7 +30,7 @@ enum MESSAGE_TYPE {
     MT_SEND_DATA_ACK = 0x31, // returned data/action confirmation (ACK)
     MT_EXE_ACTION =    0x40, // executing actions on keyboard
     MT_EXE_ACTION_ACK =0x41, // return confirmation/value (ACK)
-    MT_TYPE_ERROR =    0x80 // type not recofgnised (ACK)
+    MT_TYPE_ERROR =    0x80 // type not recognised (ACK)
 };
 
 enum DATA_TYPE {

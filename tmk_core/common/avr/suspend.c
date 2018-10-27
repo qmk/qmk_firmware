@@ -10,6 +10,7 @@
 #include "timer.h"
 #include "led.h"
 #include "host.h"
+#include "rgblight_reconfig.h"
 
 #ifdef PROTOCOL_LUFA
 	#include "lufa.h"
@@ -55,6 +56,24 @@ void suspend_idle(uint8_t time)
     sleep_disable();
 }
 
+
+// TODO: This needs some cleanup
+
+/** \brief Run keyboard level Power down
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void suspend_power_down_user (void) { }
+/** \brief Run keyboard level Power down
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void suspend_power_down_kb(void) {
+  suspend_power_down_user();
+}
+
 #ifndef NO_SUSPEND_POWER_DOWN
 /** \brief Power down MCU with watchdog timer
  *
@@ -71,21 +90,6 @@ void suspend_idle(uint8_t time)
  *          WDTO_8S
  */
 static uint8_t wdt_timeout = 0;
-
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_power_down_user (void) { }
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_power_down_kb(void) {
-  suspend_power_down_user();
-}
 
 /** \brief Power down
  *
@@ -143,6 +147,8 @@ static void power_down(uint8_t wdto)
  */
 void suspend_power_down(void)
 {
+	suspend_power_down_kb();
+
 #ifndef NO_SUSPEND_POWER_DOWN
     power_down(WDTO_15MS);
 #endif
@@ -189,12 +195,15 @@ void suspend_wakeup_init(void)
 #endif
 	led_set(host_keyboard_leds());
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
+#ifdef BOOTLOADER_TEENSY
+  wait_ms(10);
+#endif
   rgblight_enable_noeeprom();
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_enable();
 #endif
 #endif
-  suspend_wakeup_init_kb();
+    suspend_wakeup_init_kb();
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN

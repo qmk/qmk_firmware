@@ -41,6 +41,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case NUMPAD:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(PAD);
+      }
+      return false;
+      break;
+    case GHERKIN50:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(GK50);
+      }
+      return false;
+      break;
     case SUBTER:
       if (record->event.pressed) {
         layer_on(SUB);
@@ -155,4 +167,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
   return true;
+}
+
+/// Turn off LEDs on ProMicros of Let's Split ///
+// LEDs only on by default on Let's Split
+// Add reconfigurable functions here, for keymap customization
+// This allows for a global, userspace functions, and continued
+// customization of the keymap.  Use _keymap instead of _user
+// functions in the keymaps
+__attribute__ ((weak))
+void matrix_init_keymap(void) {}
+
+// Call user matrix init, then call the keymap's init function
+void matrix_init_user(void) {
+#if defined(KEYBOARD_lets_split_rev2)
+  DDRD &= ~(1<<5);
+  PORTD &= ~(1<<5);
+
+  DDRB &= ~(1<<0);
+  PORTB &= ~(1<<0);
+#endif
+  matrix_init_keymap();
 }

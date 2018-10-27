@@ -3,7 +3,6 @@
 
 #include "config_common.h"
 
-#define PREVENT_STUCK_MODIFIERS
 #define TAPPING_TERM 200
 
 #ifdef AUDIO_ENABLE
@@ -28,7 +27,7 @@
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
-                                
+
 #define MIDI_BASIC
 
 /* enable advanced MIDI features:
