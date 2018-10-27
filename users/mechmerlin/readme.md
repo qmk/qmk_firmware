@@ -31,3 +31,10 @@ It is used primarily on my `LAYOUT_60_ansi` boards as my regular toggle (the 1u 
 ### KC_CTCP (Control Caps)
 
 This is just a wrapper for `CTL_T(KC_CAPS)`. This is a hold for control and tap for caps lock. 
+
+## QMK Features
+----
+
+### RGBLIGHT_SLEEP
+
+Ensures that when my computer is in sleep mode, the keyboard underglow lights will also be off. 
