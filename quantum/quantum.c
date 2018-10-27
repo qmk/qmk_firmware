@@ -42,6 +42,11 @@ extern backlight_config_t backlight_config;
 #include "process_midi.h"
 #endif
 
+
+#ifdef ENCODER_ENABLE
+#include "encoder.h"
+#endif
+
 #ifdef AUDIO_ENABLE
   #ifndef GOODBYE_SONG
     #define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -957,6 +962,9 @@ void matrix_init_quantum() {
   #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
   #endif
+  #ifdef ENCODER_ENABLE
+    encoder_init();
+  #endif
   matrix_init_kb();
 }
 
@@ -989,6 +997,10 @@ void matrix_scan_quantum() {
       rgb_matrix_update_pwm_buffers();
     }
     rgb_matrix_task_counter = ((rgb_matrix_task_counter + 1) % (RGB_MATRIX_SKIP_FRAMES + 1));
+  #endif
+
+  #ifdef ENCODER_ENABLE
+    encoder_read();
   #endif
 
   matrix_scan_kb();
