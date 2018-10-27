@@ -234,7 +234,6 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
   OPT_DEFS += -DLEADER_ENABLE
 endif
 
-
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
