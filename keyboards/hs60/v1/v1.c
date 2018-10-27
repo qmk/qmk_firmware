@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "hs60.h"
-#include "config.h"
+#include "v1.h"
 
 // Please ignore this is for upcoming features
 /*#ifdef RAW_ENABLE

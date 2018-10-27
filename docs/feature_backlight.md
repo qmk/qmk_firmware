@@ -61,7 +61,7 @@ In this handler, the value of an incrementing counter is mapped onto a precomput
 |`backlight_increase()` |Increase the backlight level                 |
 |`backlight_decrease()` |Decrease the backlight level                 |
 |`backlight_level(x)`   |Sets the backlight level to specified level  |
-|`get_backlight_level()`|Toggle backlight breathing                   |
+|`get_backlight_level()`|Return the current backlight level           |
 
 ### Backlight Breathing Functions
 
