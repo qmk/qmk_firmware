@@ -55,25 +55,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+struct {
+  bool fn_on;
+  bool started;
+} td_fn_rctl_data;
+
+void td_fn_rctl_each(qk_tap_dance_state_t *state, void *user_data) {
+  if (!td_fn_rctl_data.started) {
+    td_fn_rctl_data.fn_on = IS_LAYER_ON(L_FN);
+    td_fn_rctl_data.started = true;
+  }
+  // Single tap → Fn, double tap → RCtrl, triple tap → Fn+RCtrl etc.
+  if (state->count & 1) { layer_on(L_FN); }
+  if (state->count & 2) {
+    if (!(state->count & 1) && !td_fn_rctl_data.fn_on) { layer_off(L_FN); }
+    register_code(KC_RCTL);
+  }
+}
+
+void td_fn_rctl_reset(qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count & 1 && !td_fn_rctl_data.fn_on) { layer_off(L_FN); }
+  if (state->count & 2) { unregister_code(KC_RCTL); }
+  td_fn_rctl_data.started = false;
+}
+
 enum tap_dance {
   TD_FN_RCTL,
   TD_RLALT,
   TD_DESKTOP,
 };
 
-void td_fn_rctl_finished(qk_tap_dance_state_t *state, void *user_data) {
-  // Single tap → Fn, double tap → RCtrl, triple tap → Fn+RCtrl etc.
-  if (state->count & 1) { layer_on(L_FN); }
-  if (state->count & 2) { register_code(KC_RCTL); }
-}
-
-void td_fn_rctl_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count & 1) { layer_off(L_FN); }
-  if (state->count & 2) { unregister_code(KC_RCTL); }
-}
-
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_fn_rctl_finished, td_fn_rctl_reset),
+  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(td_fn_rctl_each, NULL, td_fn_rctl_reset),
   [TD_RLALT]   = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),
   [TD_DESKTOP] = ACTION_TAP_DANCE_DOUBLE(LCTL(LGUI(KC_D)), LCTL(LGUI(KC_F4))), // Add/close virtual desktop
 };
