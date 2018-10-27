@@ -34,6 +34,7 @@ void backlight_decrease(void);
 void backlight_toggle(void);
 void backlight_enable(void);
 void backlight_disable(void);
+bool backlight_enabled(void);
 void backlight_step(void);
 void backlight_set(uint8_t level);
 void backlight_level(uint8_t level);

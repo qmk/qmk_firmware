@@ -114,6 +114,13 @@ void backlight_disable(void)
 	backlight_set(0);
 }
 
+/** /brief Get the backlight status
+ *
+ * FIXME: needs doc
+ */
+bool backlight_enabled(void)
+{
+	return backlight_config.enable;
 }
 
 /** \brief Backlight step through levels
