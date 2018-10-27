@@ -7,10 +7,6 @@
 #include <stddef.h>
 #include <split_scomm.h>
 #include "serial.h"
-#include "serial_debug.h"
-#ifdef SERIAL_DEBUG_MODE
-#include <avr/io.h>
-#endif
 #ifdef CONSOLE_ENABLE
   #include <print.h>
 #endif
@@ -63,9 +59,7 @@ int serial_update_buffers(int master_update)
     static int need_retry = 0;
 
     if( s_change_old != s_change_new ) {
-        debug_trns_start();
         smatstatus = soft_serial_transaction(GET_SLAVE_BUFFER);
-        debug_trns_end();
         if( smatstatus == TRANSACTION_END ) {
             s_change_old = s_change_new;
 #ifdef CONSOLE_ENABLE
@@ -83,9 +77,7 @@ int serial_update_buffers(int master_update)
     if( !master_update && !need_retry) {
         status = soft_serial_transaction(GET_SLAVE_STATUS);
     } else {
-        debug_trns_start();
         status = soft_serial_transaction(PUT_MASTER_GET_SLAVE_STATUS);
-        debug_trns_end();
     }
     if( status == TRANSACTION_END ) {
         s_change_new = slave_buffer_change_count;
@@ -93,7 +85,6 @@ int serial_update_buffers(int master_update)
     } else {
         need_retry = 1;
     }
-    if( need_retry ) debug_retry_on(); else debug_retry_off();
     return smatstatus;
 }
 

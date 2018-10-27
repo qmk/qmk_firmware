@@ -12,7 +12,6 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include "serial.h"
-#include "serial_debug.h"
 //#include <pro_micro.h>
 
 #ifdef SOFT_SERIAL_PIN
@@ -103,9 +102,7 @@ void serial_slave_init(void)
 int serial_update_buffers()
 {
     int result;
-    debug_trns_start();
     result = soft_serial_transaction();
-    debug_trns_end();
     return result;
 }
 
@@ -241,7 +238,6 @@ void serial_delay_half2(void) {
 inline static void serial_output(void) ALWAYS_INLINE;
 inline static
 void serial_output(void) {
-  debug_output_mode();
   SERIAL_PIN_DDR |= SERIAL_PIN_MASK;
 }
 
@@ -249,7 +245,6 @@ void serial_output(void) {
 inline static void serial_input_with_pullup(void) ALWAYS_INLINE;
 inline static
 void serial_input_with_pullup(void) {
-  debug_input_mode();
   SERIAL_PIN_DDR  &= ~SERIAL_PIN_MASK;
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
@@ -274,7 +269,6 @@ void serial_high(void) {
 
 void soft_serial_initiator_init(SSTD_t *sstd_table, int sstd_table_size)
 {
-    serial_debug_init();
     Transaction_table = sstd_table;
     Transaction_table_size = (uint8_t)sstd_table_size;
     serial_output();
@@ -283,7 +277,6 @@ void soft_serial_initiator_init(SSTD_t *sstd_table, int sstd_table_size)
 
 void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size)
 {
-    serial_debug_init();
     Transaction_table = sstd_table;
     Transaction_table_size = (uint8_t)sstd_table_size;
     serial_input_with_pullup();
@@ -303,25 +296,20 @@ void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size)
 static void sync_recv(void) NO_INLINE;
 static
 void sync_recv(void) {
-  debug_sync_start();
   for (uint8_t i = 0; i < SERIAL_DELAY*5 && serial_read_pin(); i++ ) {
-    debug_sync_end(); debug_sync_start();
   }
   // This shouldn't hang if the target disconnects because the
   // serial line will float to high if the target does disconnect.
   while (!serial_read_pin());
-  debug_sync_end();
 }
 
 // Used by the reciver to send a synchronization signal to the sender.
 static void sync_send(void) NO_INLINE;
 static
 void sync_send(void) {
-  debug_sync_start();
   serial_low();
   serial_delay();
   serial_high();
-  debug_sync_end();
 }
 
 // Reads a byte from the serial line
@@ -332,29 +320,21 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
   _delay_sub_us(READ_WRITE_START_ADJUST);
   for( i = 0, byte = 0, p = PARITY; i < bit; i++ ) {
       serial_delay_half1();   // read the middle of pulses
-      debug_recvsample();
       if( serial_read_pin() ) {
           byte = (byte << 1) | 1; p ^= 1;
       } else {
           byte = (byte << 1) | 0; p ^= 0;
       }
-      debug_recvsample();
       _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
       serial_delay_half2();
-      debug_dummy_delay_recv();
   }
   /* recive parity bit */
   serial_delay_half1();   // read the middle of pulses
-  debug_recvsample();
   pb = serial_read_pin();
-  debug_recvsample();
   _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
   serial_delay_half2();
-  debug_dummy_delay_recv();
 
-  if( p == pb ) debug_parity_on();
   *pterrcount += (p != pb)? 1 : 0;
-  debug_parity_off();
 
   return byte;
 }
@@ -369,18 +349,12 @@ void serial_write_chunk(uint8_t data, uint8_t bit) {
         } else {
             serial_low();  p ^= 0;
         }
-        debug_recvsample();
         serial_delay();
-        debug_recvsample();
-        debug_dummy_delay_send();
     }
     /* send parity bit */
     if(p & 1) { serial_high(); }
     else      { serial_low(); }
-    debug_recvsample();
     serial_delay();
-    debug_recvsample();
-    debug_dummy_delay_send();
 
     serial_low(); // sync_send() / senc_recv() need raise edge
 }
@@ -392,9 +366,7 @@ void serial_send_packet(uint8_t *buffer, uint8_t size) {
     uint8_t data;
     data = buffer[i];
     sync_send();
-    debug_bytewidth_start();
     serial_write_chunk(data,8);
-    debug_bytewidth_end();
   }
 }
 
@@ -405,16 +377,9 @@ uint8_t serial_recive_packet(uint8_t *buffer, uint8_t size) {
   for (uint8_t i = 0; i < size; ++i) {
     uint8_t data;
     sync_recv();
-    debug_bytewidth_start();
     data = serial_read_chunk(&pecount, 8);
-    debug_bytewidth_end();
-    if( pecount > 0 ) debug_tid_error(); //debug
     buffer[i] = data;
   }
-#if 0
-  if(pecount> 0) { debug_tid_error(); } //debug
-  else           { debug_tid_noerror(); } //debug
-#endif
   return pecount == 0;
 }
 
@@ -445,9 +410,6 @@ static inline uint8_t nibble_bits_count(uint8_t bits)
 
 // interrupt handle to be used by the target device
 ISR(SERIAL_PIN_INTERRUPT) {
-  debug_output_mode(); debug_input_mode(); // indicate intterupt entry
-  debug_recvsample();  debug_recvsample(); // indicate intterupt entry
-  debug_sync_start();  debug_sync_end(); // indicate intterupt entry
 
 #ifndef SERIAL_USE_MULTI_TRANSACTION
   serial_low();
@@ -458,34 +420,12 @@ ISR(SERIAL_PIN_INTERRUPT) {
   uint8_t tid, bits;
   uint8_t pecount = 0;
   sync_recv();
-  debug_bytewidth_start();
   bits = serial_read_chunk(&pecount,7);
-  debug_bytewidth_end();
   tid = bits>>3;
   bits = (bits&7) != nibble_bits_count(tid);
   if( bits || pecount> 0 || tid > Transaction_table_size ) {
-#if 0
-      if( bits ) {
-          debug_tid_error(); //debug
-          _delay_us(SERIAL_DELAY*14); //debug
-          debug_tid_noerror(); //debug
-          _delay_us(SERIAL_DELAY*3); //debug
-      }
-      if( tid > Transaction_table_size ) {
-          for( int i = 0; i < tid ; i++) {  //debug
-              debug_tid_error(); //debug
-              serial_delay_half1(); //debug
-              debug_tid_noerror(); //debug
-              serial_delay_half1(); //debug
-          } //debug
-      } //debug
-      if(pecount> 0) debug_tid_error(); //debug
-#endif
       return;
   }
-#if 0
-  else { debug_tid_noerror(); } //debug
-#endif
   serial_delay_half1();
 
   serial_high(); // response step1 low->high
@@ -508,16 +448,13 @@ ISR(SERIAL_PIN_INTERRUPT) {
                                trans->initiator2target_buffer_size) ) {
           *trans->status = TRANSACTION_ACCEPTED;
       } else {
-          debug_parity_on();
           *trans->status = TRANSACTION_DATA_ERROR;
-          debug_parity_off();
       }
   } else {
       *trans->status = TRANSACTION_ACCEPTED;
   }
 
   sync_recv(); //weit initiator output to high
-  debug_output_mode(); debug_input_mode(); // indicate intterupt exit
 }
 
 /////////
@@ -565,35 +502,27 @@ int  soft_serial_transaction(int sstd_index) {
   // send transaction table index
   int tid = (sstd_index<<3) | (7 & nibble_bits_count(sstd_index));
   sync_send();
-  debug_bytewidth_start();
   _delay_sub_us(TID_SEND_ADJUST);
   serial_write_chunk(tid, 7);
-  debug_bytewidth_end();
   serial_delay_half1();
 
   // wait for the target response (step1 low->high)
   serial_input_with_pullup();
   while( !serial_read_pin() ) {
       _delay_sub_us(2);
-      debug_output_mode(); debug_input_mode(); // indicate check pin timeing
   }
 
   // check if the target is present (step2 high->low)
-  debug_output_mode(); _delay_sub_us(1); debug_input_mode(); // indicate check pin timeing
   for( int i = 0; serial_read_pin(); i++ ) {
       if (i > SLAVE_INT_ACK_WIDTH + 1) {
           // slave failed to pull the line low, assume not present
-          debug_recvsample();
           serial_output();
           serial_high();
           *trans->status = TRANSACTION_NO_RESPONSE;
-          debug_recvsample();
           sei();
           return TRANSACTION_NO_RESPONSE;
       }
-      debug_output_mode();
       _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT);
-      debug_input_mode(); // indicate check pin timeing
   }
 #endif
 
@@ -602,10 +531,8 @@ int  soft_serial_transaction(int sstd_index) {
   if( trans->target2initiator_buffer_size > 0 ) {
       if (!serial_recive_packet((uint8_t *)trans->target2initiator_buffer,
                                 trans->target2initiator_buffer_size) ) {
-          debug_parity_on();
           serial_output();
           serial_high();
-          debug_parity_off();
           *trans->status = TRANSACTION_DATA_ERROR;
           sei();
           return TRANSACTION_DATA_ERROR;
@@ -623,7 +550,6 @@ int  soft_serial_transaction(int sstd_index) {
 
   // always, release the line when not in use
   sync_send();
-  debug_input_mode(); debug_output_mode(); // indicate intterupt exit
 
   *trans->status = TRANSACTION_END;
   sei();
