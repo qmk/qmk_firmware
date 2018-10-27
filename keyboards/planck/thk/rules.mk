@@ -36,7 +36,7 @@ MOUSEKEY_ENABLE = yes
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no
 COMMAND_ENABLE = yes
-KEY_LOCK_ENABLE = yes
+KEY_LOCK_ENABLE = no
 NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 AUDIO_ENABLE = yes
 
@@ -53,3 +53,5 @@ SRC = matrix.c
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
 
 LAYOUTS = ortho_4x12 planck_mit planck_grid
+
+ENCODER_ENABLE = yes

@@ -19,10 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-// #define MATRIX_ROW_PINS { A7, A6, A5, A4 }
-// #define MATRIX_COL_PINS { D7, C2, C3, C4, C5, C6, C7, A3, A2, A1, A0, B0 }
+#undef MATRIX_ROW_PINS
+#undef MATRIX_COL_PINS
+
+#define MATRIX_ROW_PINS { A7, A6, A5, A4 }
+#define MATRIX_COL_PINS { D7, C2, C3, C4, C5, C6, C7, A3, A2, A1, A0, B0 }
 
 // #define DIODE_DIRECTION COL2ROW
+
+
+#define NUMBER_OF_ENCODERS 2
+#define ENCODERS_PAD_A { B4, B2 }
+#define ENCODERS_PAD_B { B3, B1 }
 
 #define TAPPING_TOGGLE 3
 
