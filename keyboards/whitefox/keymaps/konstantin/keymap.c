@@ -78,7 +78,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_DESKTOP] = ACTION_TAP_DANCE_DOUBLE(LCTL(LGUI(KC_D)), LCTL(LGUI(KC_F4))), // Add/close virtual desktop
 };
 
-const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Base layer
    * ,---------------------------------------------------------------.
    * |Esc| 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 0 | - | = | \ | ` |PSc|
