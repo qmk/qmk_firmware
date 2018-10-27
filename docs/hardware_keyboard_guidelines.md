@@ -22,7 +22,7 @@ Given the amount of functionality that QMK exposes it's very easy to confuse new
 
 ### Bootmagic and Command
 
-(Bootmagic)[feature_bootmagic.md) and (Command)[feature_command.md) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
+[Bootmagic](feature_bootmagic.md) and [Command](feature_command.md) are two related features that allow a user to control their keyboard in non-obvious ways. We recommend you think long and hard about if you're going to enable either feature, and how you will expose this functionality. Keep in mind that users who want this functionality can enable it in their personal keymaps without affecting all the novice users who may be using your keyboard as their first programmable board.
 
 By far the most common problem new users encounter is accidentally triggering Bootmagic while they're plugging in their keyboard. They're holding the keyboard by the bottom, unknowingly pressing in alt and spacebar, and then they find that these keys have been swapped on them. We recommend leaving this feature disabled by default, but if you do turn it on consider setting `BOOTMAGIC_KEY_SALT` to a key that is hard to press while plugging your keyboard in.
 
@@ -30,7 +30,7 @@ If your keyboard does not have 2 shift keys you should provide a working default
 
 ## Custom Keyboard Programming
 
-As documented on (Customizing Functionality)[custom_quantum_functions.md] you can define custom functions for your keyboard. Please keep in mind that your users may want to customize that behavior as well, and make it possible for them to do that. If you are providing a custom function, for example `process_record_kb()`, make sure that your function calls the `_user()` version of the call too. You should also take into account the return value of the `_user()` version, and only run your custom code if the user returns `true`.
+As documented on [Customizing Functionality](custom_quantum_functions.md) you can define custom functions for your keyboard. Please keep in mind that your users may want to customize that behavior as well, and make it possible for them to do that. If you are providing a custom function, for example `process_record_kb()`, make sure that your function calls the `_user()` version of the call too. You should also take into account the return value of the `_user()` version, and only run your custom code if the user returns `true`.
 
 ## Keyboard Metadata
 
@@ -45,27 +45,8 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
 * `keyboard_name`
   * A free-form text string describing the keyboard.
   * Example: `Clueboard 66%`
-* `manufacturer`
-  * A free-form text string naming the manufacturer.
-  * Example: `Clueboard`
-* `identifier`
-  * The Vendor, Product, and Revision ID's joined by a :
-  * Example: `c1ed:2370:0001`
 * `url`
   * A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.
-* `processor`
-  * The MCU or CPU this keyboard uses.
-  * Example: `atmega32u4` or `stm32f303`
-* `bootloader`
-  * What bootloader this keyboard uses. Available options:
-    * `atmel-dfu`
-    * `kiibohd-dfu-util`
-    * `lufa-dfu`
-    * `qmk-dfu`
-    * `stm32-dfu-util`
-    * `caterina`
-    * `halfkay`
-    * `bootloadHID`
 * `maintainer`
   * GitHub username of the maintainer, or `qmk` for community maintained boards
 * `width`

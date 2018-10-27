@@ -59,11 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D1
-#define RGBLIGHT_TIMER
+#define RGB_DI_PIN D4
+
 #define RGBLED_NUM 12    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 /* Audio settings */
 #ifdef AUDIO_ENABLE

@@ -75,11 +75,12 @@ For critics that think this is cheating, search "diablo 3 num lock auto cast".  
 Secret Macros
 -------------
 
-With help from gitter and Colinta, this adds the ability to add hidden strings to be used for macros.
+With help from gitter and Colinta, this adds the ability to add hidden macros from other users.  
 
-I have a number of long strings that I need to use that are semi-private.  This uses the `__has_include` function to check for the file. If it exists, then it includes the custom text. Otherwise, it uses some default values. 
+First, I have several files that are hidden/excluded from Git/GitHub.  These contain everything needed for the macros. To hide these files, open `.git/info/exclude` and add `secrets.c` and  `secrets.h` to that file, below the comments.
 
-If you would *also* like to take advantage of this feature, you'll first want to make sure your "secrets" file isn't included in the repo.  Open `.git/info/exclude` and add `secrets.h` to that file, below the comments.
+And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined in your `<name>.h` file to define the keycodes for the new macros. 
+
 
 ###### .git/info/exclude
 ```
@@ -89,14 +90,48 @@ If you would *also* like to take advantage of this feature, you'll first want to
 # exclude patterns (uncomment them if you want to use them):
 # *.[oa]
 # *~
+/users/drashna/secrets.c
 /users/drashna/secrets.h
 ```
 
-Then you can create this file and add your macro strings to it:
+Then you can create these files:
+
+###### secrets.c
+
+```c
+#include "drashna.h"  // replace with your keymap's "h" file, or whatever file stores the keycodes
+
+#if (__has_include("secrets.h") && !defined(NO_SECRETS))
+#include "secrets.h"
+#else
+// `PROGMEM const char secret[][x]` may work better, but it takes up more space in the firmware
+// And I'm not familiar enough to know which is better or why...
+static const char * const secret[] = {
+  "test1",
+  "test2",
+  "test3",
+  "test4",
+  "test5"
+};
+#endif
+
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case KC_SECRET_1 ... KC_SECRET_5: // Secrets!  Externally defined strings, not stored in repo
+      if (!record->event.pressed) {
+        clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
+        send_string_with_delay(secret[keycode - KC_SECRET_1], MACRO_TIMER);
+      }
+      return false;
+      break;
+  }
+  return true;
+}
+```
 
 ###### secrets.h
-```
-PROGMEM const char secret[][64] = {
+```c
+static const char * const secrets[] = {
   "secret1",
   "secret2",
   "secret3",
@@ -105,17 +140,89 @@ PROGMEM const char secret[][64] = {
 };
 ```
 
-Replacing the strings with the codes that you need. 
+Replacing the strings with the codes that you need.
 
+###### name.c
 
-These are called in the `process_record_user` function, using this block:
+In the `<name>.c` file, you will want to add this to the top: 
+
+```c
+__attribute__ ((weak))
+bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
 ```
-  case KC_SECRET_1 ... KC_SECRET_5:
-    if (!record->event.pressed) {
-      send_string_P(secret[keycode - KC_SECRET_1]);
-    }
-    return false;
-    break;
+This is so that the function can be called here, and replaced in the `secrets.c` file, and so it won't error out if it doesn't exist. 
+
+
+And then, in the `process_record_user` function, assuming you have `return process_record_keymap(keycode, record)` here,  you'll want to replace the "final" return with the following. Otherwise, you want to replace the `return true;` with `return process_record_secrets(keycode, record);`
+```c
+  return process_record_keymap(keycode, record) && process_record_secrets(keycode, record);
+}
 ```
 
-And this requires `KC_SECRET_1` through `KC_SECRET_5` to be defined, as well. 
+###### rules.mk
+
+Here, you want your `/users/<name>/rules.mk` file to "detect" the existence of the `secrets.c` file, and only add it if the file exists.  To do so, add this block: 
+```c
+ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
+  SRC += secrets.c
+endif
+```
+
+Additionally, if you want to make sure that you can disable the function without messing with the file, you need to add this to your `/users/<name>/rules.mk`, so that it catches the flag:
+```c
+ifeq ($(strip $(NO_SECRETS)), yes)
+    OPT_DEFS += -DNO_SECRETS
+endif
+```
+
+Then, if you run `make keyboard:name NO_SECRETS=yes`, it will default to the test strings in your `<name>.c` file, rather than reading from your file. 
+
+
+Userspace EEPROM config
+-----------------------
+
+This adds EEPROM support fo the userspace, so that certain values are configurable in such a way that persists when power is lost.  Namely, just the clicky feature and the Overwatch macro option ("is_overwatch").  This is done by reading and saving the structure from EEPROM. 
+
+To implement this, first you need to specify the location:
+
+```c
+#define EECONFIG_USERSPACE (uint8_t *)20
+```
+This tells us where in the EEPROM that the data structure is located, and this specifies that it's a byte (8 bits).  However, to maximize it's usage, we want to specify a data structure here, so that we can use multiple settings.  To do that:
+
+```c
+typedef union {
+  uint8_t raw;
+  struct {
+    bool     clicky_enable  :1;
+    bool     is_overwatch   :1;
+  };
+} userspace_config_t;
+```
+Then, in your C file, you want to add: `userspace_config_t userspace_config;`, and in your `matrix_init_*` function, you want to add `userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);`
+
+From there, you'd want to use the data structure (such as `userspace_config.is_overwatch`) when you want to check this value.  
+
+And if you want to update it, update directly and then use `eeprom_update_byte(EECONFIG_USERSPACE, userspace_config.raw);` to write the value back to the EEPROM. 
+
+
+Pro Micro Hacking
+-----------------
+
+Well, you can get the QMK DFU bootloader working on the ProMicro. But you need to change fuses.  
+
+What worked to get into the firmware properly was:
+
+```
+Low: 0x5E High: 0xD9 Extended: 0xC3 Lock: 0x3F
+```
+
+The reason that there was some issues before, is that JTAG was still enabled, and using some of the pins that the keyboard uses.  Disabling JTAG (either by fuse, or modifying the matrix code for splits fixes the issue).
+
+And for reference, if you want to go back to caterina, the default fuse settings I believe were:
+
+```
+Low: 0xFF High: 0xD8 Extended: 0xC3 Lock: 0x3F
+```

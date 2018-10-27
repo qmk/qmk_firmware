@@ -35,7 +35,7 @@ F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = caterina
 
@@ -55,3 +55,5 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https:/
 BACKLIGHT_ENABLE = yes  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
+
+LAYOUTS = ortho_3x10

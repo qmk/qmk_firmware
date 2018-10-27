@@ -1,5 +1,4 @@
-#include "gh60.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 // lshift split, backspace split, full ANSI enter, full right shift
 #define KEYMAP_BZIO(                                                         \

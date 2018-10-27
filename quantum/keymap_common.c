@@ -29,6 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "backlight.h"
 #include "quantum.h"
 
+#ifdef SPLIT_KEYBOARD
+    #include "split_flags.h"
+#endif
+
 #ifdef MIDI_ENABLE
 	#include "process_midi.h"
 #endif
@@ -134,21 +138,39 @@ action_t action_for_key(uint8_t layer, keypos_t key)
     #ifdef BACKLIGHT_ENABLE
         case BL_ON:
             action.code = ACTION_BACKLIGHT_ON();
+            #ifdef SPLIT_KEYBOARD
+                BACKLIT_DIRTY = true;
+            #endif
             break;
         case BL_OFF:
             action.code = ACTION_BACKLIGHT_OFF();
+            #ifdef SPLIT_KEYBOARD
+                BACKLIT_DIRTY = true;
+            #endif
             break;
         case BL_DEC:
             action.code = ACTION_BACKLIGHT_DECREASE();
+            #ifdef SPLIT_KEYBOARD
+                BACKLIT_DIRTY = true;
+            #endif
             break;
         case BL_INC:
             action.code = ACTION_BACKLIGHT_INCREASE();
+            #ifdef SPLIT_KEYBOARD
+                BACKLIT_DIRTY = true;
+            #endif
             break;
         case BL_TOGG:
             action.code = ACTION_BACKLIGHT_TOGGLE();
+            #ifdef SPLIT_KEYBOARD
+                BACKLIT_DIRTY = true;
+            #endif
             break;
         case BL_STEP:
             action.code = ACTION_BACKLIGHT_STEP();
+            #ifdef SPLIT_KEYBOARD
+                BACKLIT_DIRTY = true;
+            #endif
             break;
     #endif
     #ifdef SWAP_HANDS_ENABLE

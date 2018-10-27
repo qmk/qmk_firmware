@@ -97,9 +97,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                        ,-------------.       ,---------------.
  *                                        |Format|Build |       | Copy | Paste  |
  *                                 ,------|------|------|       |------+--------+------.
- *                                 |      |      |Refact|       |Sort U|        |      |
+ *                                 |      |      |Refact|       |  Up  |        |      |
  *                                 |      |ACCESS|------|       |------|        |      |
- *                                 |      |      |      |       |      |        |      |
+ *                                 |      |      |      |       | Down |        |      |
  *                                 `--------------------'       `----------------------'
  */
 // If it accepts an argument (i.e, is a function), it doesn't need KC_.
@@ -122,8 +122,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS,        KC_TRNS, KC_TRNS,
                               KC_F12,  M(GO_TO_IMPL),M(FIND_ALL_REF),KC_TRNS, KC_TRNS,
              LCTL(KC_C), LCTL(KC_V),
-             M(REMOVE_SORT_USINGS),
-             KC_TRNS, KC_TRNS, KC_TRNS
+             KC_UP,
+             KC_DOWN, KC_TRNS, KC_TRNS
     ),
 /* Keymap 2: Symbol Layer
  *
@@ -363,15 +363,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-
-};
-
-
 // Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
+void matrix_scan_user_keyboard(void) {
     ergodox_board_led_on();
     ergodox_led_all_on();
-};
+}
 

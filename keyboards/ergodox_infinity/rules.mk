@@ -58,6 +58,8 @@ OPT_DEFS += -DCORTEX_VTOR_INIT=0x00002000
 #   comment out to disable the options.
 #
 
+DFU_ARGS = -d 1c11:b007
+
 BOOTMAGIC_ENABLE = no  # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE  = yes # Mouse keys(+4700)
 EXTRAKEY_ENABLE  = yes # Audio control and System control(+450)

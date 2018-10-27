@@ -3,3 +3,4 @@ ifndef QUANTUM_DIR
 endif
 
 AUDIO_ENABLE = no
+MOUSEKEY_ENABLE = yes

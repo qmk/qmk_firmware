@@ -1,10 +1,7 @@
 {
   "keyboard_name": "K-Type",
-  "manufacturer": "Input Club",
-  "identifier": "",
   "url": "",
   "maintainer": "qmk",
-  "processor": "cortex-m4",
   "width": 18.25,
   "height": 6.5,
   "layouts": {

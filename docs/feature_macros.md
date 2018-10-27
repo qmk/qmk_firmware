@@ -2,9 +2,7 @@
 
 Macros allow you to send multiple keystrokes when pressing just one key. QMK has a number of ways to define and use macros. These can do anything you want: type common phrases for you, copypasta, repetitive game movements, or even help you code.
 
-{% hint style='danger' %}
-**Security Note**: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets a hold of your keyboard will be able to access that information by opening a text editor.
-{% endhint %}
+!> **Security Note**: While it is possible to use macros to send passwords, credit card numbers, and other sensitive information it is a supremely bad idea to do so. Anyone who gets a hold of your keyboard will be able to access that information by opening a text editor.
 
 ## The New Way: `SEND_STRING()` & `process_record_user`
 
@@ -132,9 +130,7 @@ SEND_STRING(".."SS_TAP(X_END));
 
 ## The Old Way: `MACRO()` & `action_get_macro`
 
-{% hint style='info' %}
-This is inherited from TMK, and hasn't been updated - it's recommend that you use `SEND_STRING` and `process_record_user` instead.
-{% endhint %}
+?> This is inherited from TMK, and hasn't been updated - it's recommend that you use `SEND_STRING` and `process_record_user` instead.
 
 By default QMK assumes you don't have any macros. To define your macros you create an `action_get_macro()` function. For example:
 
@@ -231,6 +227,10 @@ This sends the `<kc>` keydown event to the computer. Some examples would be `KC_
 ### `unregister_code(<kc>);`
 
 Parallel to `register_code` function, this sends the `<kc>` keyup event to the computer. If you don't use this, the key will be held down until it's sent.
+
+### `tap_code(<kc>);`
+
+This will send `register_code(<kc>)` and then `unregister_code(<kc>)`. This is useful if you want to send both the press and release events ("tap" the key, rather than hold it).
 
 ### `clear_keyboard();`
 

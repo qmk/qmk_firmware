@@ -1,3 +1,4 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.

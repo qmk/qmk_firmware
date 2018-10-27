@@ -52,7 +52,7 @@ enum {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 0: basic keys.
-  [BASE] = KEYMAP(  
+  [BASE] = LAYOUT_ergodox(
     /* left hand */
     BP_DLR,   BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, KC_DEL,
     KC_TAB,   BP_B,    BP_ECUT, BP_P,    BP_O,    BP_EGRV, KC_BSPC,
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_DOWN, TD(TAP_MACRO), TT(MOUSE)),
 
   // Layer 1: function and media keys.
-  [FN] = KEYMAP(  
+  [FN] = LAYOUT_ergodox(
     /* left hand */
     KC_SLEP, KC_F1, KC_F2,  KC_F3,   KC_F4,    KC_F5,    ___,
     ___,     ___,   ___,    ___,     ___,      ___,      ___,
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // the MOUSE layer below (except for the arrow keys).
 
   // Layer 2: Mouse control.
-  [MOUSE] = KEYMAP(  
+  [MOUSE] = LAYOUT_ergodox(
     /* left hand */
     KC_SLEP, KC_F1, KC_F2,   KC_F3,   KC_F4,    KC_F5,    ___,
     ___,     ___,   KC_BTN4, KC_MS_U, KC_BTN5,  ___,      ___,
@@ -117,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, ___, ___),
 
   // Layer 3: Numeric keypad and system keys.
-  [NUMS] = KEYMAP(  
+  [NUMS] = LAYOUT_ergodox(
     /* left hand */
     KC_PSCR, KC_INS, KC_PAUS,    ___,     ___,      ___, ___,
     ___,     ___,    ___,        ___,     ___,      ___, ___,
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Layer 4: hand swap, all keys are mirrored to the other side of the keyboard
   // except for the layer toggle itself (so there is no right arrow when this
   // layer is activated).
-  [SWAP] = KEYMAP(  
+  [SWAP] = LAYOUT_ergodox(
     /* left hand */
     ___, ___, ___, ___, ___, ___, ___,
     ___, ___, ___, ___, ___, ___, ___,
@@ -159,11 +159,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___, TT(SWAP),
     ___,
     ___, ___,      ___),
- 
+
   // Layer 5: The LEDs are showing the "standard" caps/num/scroll lock indicator
   // instead of their default which shows the currently active layers (FN, NUMS,
   // and MOUSE in that order).
-  [SYSLEDS] = KEYMAP(  
+  [SYSLEDS] = LAYOUT_ergodox(
     /* left hand */
     ___, ___, ___, ___, ___, ___, ___,
     ___, ___, ___, ___, ___, ___, ___,

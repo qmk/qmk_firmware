@@ -1,6 +1,7 @@
 // This is Sean Hunter's keymap file, customized from the canonical layout file for the Quantum project.
 // If you want to add another keyboard, that is the style you want to emulate.
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #include "eeconfig.h"
@@ -94,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,   LOWER,  KC_SPC,  KC_SPC,     RAISE, KC_RGUI, KC_RALT, KC_RCTL, KC_RSFT}
 },
 
-/* 'Software Dvorak': Designed to look like dvorak in the mapping but depend on software 
+/* 'Software Dvorak': Designed to look like dvorak in the mapping but depend on software
  * dvorak (ie the OS keymapping changed to dvorak).
  * ,-----------------------------------------------------------------------------------.
  * |   "  |   ,  |   .  |   P  |   Y  |   /  |   =  |   F  |   G  |   C  |   R  |   L  |

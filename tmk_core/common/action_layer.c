@@ -11,16 +11,32 @@
 #endif
 
 
-/*
- * Default Layer State
+/** \brief Default Layer State
  */
 uint32_t default_layer_state = 0;
 
+/** \brief Default Layer State Set At user Level
+ *
+ * FIXME: Needs docs
+ */
 __attribute__((weak))
-uint32_t default_layer_state_set_kb(uint32_t state) {
+uint32_t default_layer_state_set_user(uint32_t state) {
     return state;
 }
 
+/** \brief Default Layer State Set At Keyboard Level
+ *
+ * FIXME: Needs docs
+ */
+__attribute__((weak))
+uint32_t default_layer_state_set_kb(uint32_t state) {
+    return default_layer_state_set_user(state);
+}
+
+/** \brief Default Layer State Set
+ *
+ * FIXME: Needs docs
+ */
 static void default_layer_state_set(uint32_t state)
 {
     state = default_layer_state_set_kb(state);
@@ -31,25 +47,45 @@ static void default_layer_state_set(uint32_t state)
     clear_keyboard_but_mods(); // To avoid stuck keys
 }
 
+/** \brief Default Layer Print
+ *
+ * FIXME: Needs docs
+ */
 void default_layer_debug(void)
 {
     dprintf("%08lX(%u)", default_layer_state, biton32(default_layer_state));
 }
 
+/** \brief Default Layer Set
+ *
+ * FIXME: Needs docs
+ */
 void default_layer_set(uint32_t state)
 {
     default_layer_state_set(state);
 }
 
 #ifndef NO_ACTION_LAYER
+/** \brief Default Layer Or
+ *
+ * FIXME: Needs docs
+ */
 void default_layer_or(uint32_t state)
 {
     default_layer_state_set(default_layer_state | state);
 }
+/** \brief Default Layer And
+ *
+ * FIXME: Needs docs
+ */
 void default_layer_and(uint32_t state)
 {
     default_layer_state_set(default_layer_state & state);
 }
+/** \brief Default Layer Xor
+ *
+ * FIXME: Needs docs
+ */
 void default_layer_xor(uint32_t state)
 {
     default_layer_state_set(default_layer_state ^ state);
@@ -58,21 +94,32 @@ void default_layer_xor(uint32_t state)
 
 
 #ifndef NO_ACTION_LAYER
-/*
- * Keymap Layer State
+/** \brief Keymap Layer State
  */
 uint32_t layer_state = 0;
 
+/** \brief Layer state set user
+ *
+ * FIXME: Needs docs
+ */
 __attribute__((weak))
 uint32_t layer_state_set_user(uint32_t state) {
     return state;
 }
 
+/** \brief Layer state set keyboard
+ *
+ * FIXME: Needs docs
+ */
 __attribute__((weak))
 uint32_t layer_state_set_kb(uint32_t state) {
     return layer_state_set_user(state);
 }
 
+/** \brief Layer state set
+ *
+ * FIXME: Needs docs
+ */
 void layer_state_set(uint32_t state)
 {
     state = layer_state_set_kb(state);
@@ -83,61 +130,105 @@ void layer_state_set(uint32_t state)
     clear_keyboard_but_mods(); // To avoid stuck keys
 }
 
+/** \brief Layer clear
+ *
+ * FIXME: Needs docs
+ */
 void layer_clear(void)
 {
     layer_state_set(0);
 }
 
+/** \brief Layer state is
+ *
+ * FIXME: Needs docs
+ */
 bool layer_state_is(uint8_t layer)
 {
     return layer_state_cmp(layer_state, layer);
 }
 
+/** \brief Layer state compare
+ *
+ * FIXME: Needs docs
+ */
 bool layer_state_cmp(uint32_t cmp_layer_state, uint8_t layer) {
     if (!cmp_layer_state) { return layer == 0; }
     return (cmp_layer_state & (1UL<<layer)) != 0;
 }
 
+/** \brief Layer move
+ *
+ * FIXME: Needs docs
+ */
 void layer_move(uint8_t layer)
 {
     layer_state_set(1UL<<layer);
 }
 
+/** \brief Layer on
+ *
+ * FIXME: Needs docs
+ */
 void layer_on(uint8_t layer)
 {
     layer_state_set(layer_state | (1UL<<layer));
 }
 
+/** \brief Layer off
+ *
+ * FIXME: Needs docs
+ */
 void layer_off(uint8_t layer)
 {
     layer_state_set(layer_state & ~(1UL<<layer));
 }
 
+/** \brief Layer invert
+ *
+ * FIXME: Needs docs
+ */
 void layer_invert(uint8_t layer)
 {
     layer_state_set(layer_state ^ (1UL<<layer));
 }
 
+/** \brief Layer or
+ *
+ * FIXME: Needs docs
+ */
 void layer_or(uint32_t state)
 {
     layer_state_set(layer_state | state);
 }
+/** \brief Layer and
+ *
+ * FIXME: Needs docs
+ */
 void layer_and(uint32_t state)
 {
     layer_state_set(layer_state & state);
 }
+/** \brief Layer xor
+ *
+ * FIXME: Needs docs
+ */
 void layer_xor(uint32_t state)
 {
     layer_state_set(layer_state ^ state);
 }
 
+/** \brief Layer debug printing
+ *
+ * FIXME: Needs docs
+ */
 void layer_debug(void)
 {
     dprintf("%08lX(%u)", layer_state, biton32(layer_state));
 }
 #endif
 
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
 uint8_t source_layers_cache[(MATRIX_ROWS * MATRIX_COLS + 7) / 8][MAX_LAYER_BITS] = {{0}};
 
 void update_source_layers_cache(keypos_t key, uint8_t layer)
@@ -172,7 +263,8 @@ uint8_t read_source_layers_cache(keypos_t key)
 }
 #endif
 
-/*
+/** \brief Store or get action (FIXME: Needs better summary)
+ *
  * Make sure the action triggered when the key is released is the same
  * one as the one triggered on press. It's important for the mod keys
  * when the layer is switched after the down event but before the up
@@ -180,7 +272,7 @@ uint8_t read_source_layers_cache(keypos_t key)
  */
 action_t store_or_get_action(bool pressed, keypos_t key)
 {
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     if (disable_action_cache) {
         return layer_switch_get_action(key);
     }
@@ -201,6 +293,10 @@ action_t store_or_get_action(bool pressed, keypos_t key)
 }
 
 
+/** \brief Layer switch get layer
+ *
+ * FIXME: Needs docs
+ */
 int8_t layer_switch_get_layer(keypos_t key)
 {
 #ifndef NO_ACTION_LAYER
@@ -224,6 +320,10 @@ int8_t layer_switch_get_layer(keypos_t key)
 #endif
 }
 
+/** \brief Layer switch get layer
+ *
+ * FIXME: Needs docs
+ */
 action_t layer_switch_get_action(keypos_t key)
 {
     return action_for_key(layer_switch_get_layer(key), key);
