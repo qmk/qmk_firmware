@@ -58,7 +58,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 struct {
-  bool fn_on;
+  bool fn_on; // Layer state when tap dance started
   bool started;
 } td_fn_rctrl_data;
 
@@ -67,12 +67,11 @@ void td_fn_rctrl_each(qk_tap_dance_state_t *state, void *user_data) {
     td_fn_rctrl_data.fn_on = IS_LAYER_ON(L_FN);
     td_fn_rctrl_data.started = true;
   }
-  // Single tap → Fn, double tap → RCtrl, triple tap → Fn+RCtrl etc.
-  if (state->count & 1) {
+  // Single tap → Fn, double tap → RCtrl, triple tap etc. → Fn+RCtrl
+  if (state->count == 1 || state->count == 3) {
     layer_on(L_FN);
-  }
-  if (state->count & 2) {
-    if (!(state->count & 1) && !td_fn_rctrl_data.fn_on) {
+  } else if (state->count == 2) {
+    if (!td_fn_rctrl_data.fn_on) {
       layer_off(L_FN);
     }
     register_code(KC_RCTL);
@@ -80,10 +79,10 @@ void td_fn_rctrl_each(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void td_fn_rctrl_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count & 1 && !td_fn_rctrl_data.fn_on) {
+  if ((state->count == 1 || state->count > 2) && !td_fn_rctrl_data.fn_on) {
     layer_off(L_FN);
   }
-  if (state->count & 2) {
+  if (state->count >= 2) {
     unregister_code(KC_RCTL);
   }
   td_fn_rctrl_data.started = false;
