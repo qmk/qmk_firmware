@@ -6,7 +6,7 @@ Zinc
 40% row-staggered split keyboard.
 
 Keyboard Maintainer: [monksoffunk](https://github.com/monksoffunk/) [@monksoffunkJP](https://twitter.com/monksoffunkJP)  
-Hardware Supported: Zinc PCB
+Hardware Supported: Zinc PCB  
 Hardware Availability: (https://twitter.com/monksoffunkJP)
 
 Make example for this keyboard (after setting up your build environment):
