@@ -423,19 +423,3 @@ void eeconfig_init_user(void) {
   userspace_config.rgb_layer_change = true;
   eeconfig_update_user(userspace_config.raw);
 }
-
-void bootmagic_lite(void) {
-  matrix_scan();
-  #if defined(DEBOUNCING_DELAY) && DEBOUNCING_DELAY > 0
-    wait_ms(DEBOUNCING_DELAY * 2);
-  #elif defined(DEBOUNCE) && DEBOUNCE > 0
-    wait_ms(DEBOUNCE * 2);
-  #else
-    wait_ms(30);
-  #endif
-  matrix_scan();
-
-  if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
-    bootloader_jump();
-  }
-}
