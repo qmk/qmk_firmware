@@ -139,8 +139,11 @@ int serial_update_buffers()
 //  5: about 20kbps
 #endif
 
-//#define TID_SEND_ADJUST 14
-#define TID_SEND_ADJUST 2
+#if __GNUC__ < 6
+  #define TID_SEND_ADJUST 14
+#else
+  #define TID_SEND_ADJUST 2
+#endif
 
 #if SELECT_SOFT_SERIAL_SPEED == 0
   // Very High speed
