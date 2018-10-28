@@ -19,9 +19,11 @@
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
+#undef RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_SNAKE
+#define RGBLIGHT_EFFECT_KNIGHT
 #endif // RGBLIGHT_ENABLE
-
-
 
 #ifndef ONESHOT_TAP_TOGGLE
 #define ONESHOT_TAP_TOGGLE 2
@@ -55,7 +57,11 @@
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif // TAPPING_TERM
-#define TAPPING_TERM 175
+#ifdef KEYBOARD_ergodox_ez
+  #define TAPPING_TERM 185
+#else
+  #define TAPPING_TERM 175
+#endif
 
 
 // Disable action_get_macro and fn_actions, since we don't use these
@@ -63,4 +69,8 @@
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
 
+#define DISABLE_LEADER
+
 #define MACRO_TIMER 5
+
+

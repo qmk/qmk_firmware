@@ -35,7 +35,7 @@ SEARCH_DIR(.)
 /* Memory Spaces Definitions */
 MEMORY
 {
-  //rom      (rx)  : ORIGIN = 0x00000000, LENGTH = 0x00040000
+/*rom      (rx)  : ORIGIN = 0x00000000, LENGTH = 0x00040000*/
   rom      (rx)  : ORIGIN = 0x00004000, LENGTH = 0x0003C000
   ram      (rwx) : ORIGIN = 0x20000000, LENGTH = 0x00020000
   bkupram  (rwx) : ORIGIN = 0x47000000, LENGTH = 0x00002000
@@ -45,9 +45,15 @@ MEMORY
 /* The stack size used by the application. NOTE: you need to adjust according to your application. */
 STACK_SIZE = DEFINED(STACK_SIZE) ? STACK_SIZE : DEFINED(__stack_size__) ? __stack_size__ : 0x8000;
 
+/* The heap size used by the application. */
+HEAP_SIZE = DEFINED(HEAP_SIZE) ? HEAP_SIZE : DEFINED(__heap_size__) ? __heap_size__ : 0x800;
+
 _srom = ORIGIN(rom);
 _lrom = LENGTH(rom);
 _erom = ORIGIN(rom) + LENGTH(rom);
+_sram = ORIGIN(ram);
+_lram = LENGTH(ram);
+_eram = ORIGIN(ram) + LENGTH(ram);
 
 /* Section Definitions */
 SECTIONS
@@ -151,6 +157,17 @@ SECTIONS
         . = ALIGN(4);
         _ebss = . ;
         _ezero = .;
+    } > ram
+
+    /* .heap section for syscalls */
+    .heap (NOLOAD) :
+    {
+        . = ALIGN(4);
+        _end = .;
+        end = .;
+        _heap_start = .;
+        . = . + HEAP_SIZE;
+        _heap_end = .;
     } > ram
 
     /* stack section */

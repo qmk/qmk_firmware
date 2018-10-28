@@ -114,37 +114,35 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+RGB_MATRIX_ENABLE ?= no
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
+ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
+    $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
+endif
     OPT_DEFS += -DRGB_MATRIX_ENABLE
-    OPT_DEFS += -DIS31FL3731
-    COMMON_VPATH += $(DRIVER_PATH)/issi
-    SRC += is31fl3731.c
-    SRC += i2c_master.c
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
     CIE1931_CURVE = yes
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+	RGB_MATRIX_ENABLE = IS31FL3731
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
-    OPT_DEFS += -DRGB_MATRIX_ENABLE
     OPT_DEFS += -DIS31FL3731
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
     SRC += i2c_master.c
-    SRC += $(QUANTUM_DIR)/color.c
-    SRC += $(QUANTUM_DIR)/rgb_matrix.c
-    CIE1931_CURVE = yes
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
-    OPT_DEFS += -DRGB_MATRIX_ENABLE
     OPT_DEFS += -DIS31FL3733
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3733.c
     SRC += i2c_master.c
-    SRC += $(QUANTUM_DIR)/color.c
-    SRC += $(QUANTUM_DIR)/rgb_matrix.c
-    CIE1931_CURVE = yes
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)

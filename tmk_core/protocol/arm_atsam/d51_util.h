@@ -32,6 +32,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define m15_on  REG_PORT_OUTSET1 = 0x40000000 //PB30 High
 #define m15_off REG_PORT_OUTCLR1 = 0x40000000 //PB30 Low
 
+//Debug Port PB23
+#define m27_ena REG_PORT_DIRSET1 = 0x800000 //PB23 Output
+#define m27_on  REG_PORT_OUTSET1 = 0x800000 //PB23 High
+#define m27_off REG_PORT_OUTCLR1 = 0x800000 //PB23 Low
+
+//Debug Port PB31
+#define m28_ena REG_PORT_DIRSET1 = 0x80000000 //PB31 Output
+#define m28_on  REG_PORT_OUTSET1 = 0x80000000 //PB31 High
+#define m28_off REG_PORT_OUTCLR1 = 0x80000000 //PB31 Low
+
 #define m15_loop(M15X) {uint8_t M15L=M15X; while(M15L--){m15_on;CLK_delay_us(1);m15_off;}}
 
 void m15_print(uint32_t x);

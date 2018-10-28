@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * `-----------------------------------------------------------------------------------'    `-------------------'
  */
 
-#define LAYOUT_HP_46010A( \
+#define LAYOUT( \
     KEY_RES, KEY_STOP, KEY_F1, KEY_F2, KEY_F3, KEY_F4,KEY_MENU,KEY_USER, KEY_F5, KEY_F6, KEY_F7, KEY_F8,                     KEY_CLRL, KEY_CLRD,   KEY_B1,   KEY_B2,  KEY_B3,  KEY_B4,   \
     KEY_GRAV,      KEY_1, KEY_2, KEY_3, KEY_4, KEY_5, KEY_6, KEY_7, KEY_8, KEY_9, KEY_0, KEY_MINU, KEY_PLUS, KEY_BACK,       KEY_INSL, KEY_DELL,   KEY_MULT, KEY_DIV, KEY_ADD, KEY_SUBT, \
     KEY_TAB,          KEY_Q,KEY_W, KEY_E, KEY_R, KEY_T, KEY_Y, KEY_U, KEY_I, KEY_O, KEY_P, KEY_LBRA, KEY_RBRA, KEY_PIPE,     KEY_INSC, KEY_DELC,   KEY_P7,   KEY_P8,  KEY_P9,  KEY_PADE, \
@@ -58,5 +58,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     {KEY_B1,    KEY_P0,   KEY_B2,   KC_NO,    KEY_B3,   KEY_PDOT, KEY_B4,   KC_NO    }, \
     {KEY_B,     KEY_V,    KEY_C,    KEY_X,    KEY_Z,    KEY_PRNT, KEY_DELE, KEY_N    }, \
 }
-
-#define LAYOUT LAYOUT_HP_46010A
