@@ -17,8 +17,9 @@ enum planck_keycodes {
   RAISE,
   MOVEMENT,
   NUMPAD,
-  FUNCTION,
 };
+
+#define FUNCTION MO(_FUNCTION)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -174,14 +175,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_MOVEMENT);
 	update_tri_layer(_LOWER, _MOVEMENT, _NUMPAD);
-      }
-      return false;
-      break;
-    case FUNCTION:
-      if (record->event.pressed) {
-        layer_on(_FUNCTION);
-      } else {
-        layer_off(_FUNCTION);
       }
       return false;
       break;
