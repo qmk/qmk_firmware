@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
+// Each layer gets a name for readability, which is then used in the keymap matix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
@@ -44,8 +44,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_EL] = LAYOUT_60_ansi_split_rshift(
   
   KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, _______,  \
-  _______,KC_LCTL,KC_WH_U,_______,_______,KC_MS_U,KC_PGUP,KC_HOME,KC_UP,KC_END,KC_DEL, _______, _______,_______, \
-  _______,KC_LALT,KC_WH_D, KC_LSFT,_______,KC_MS_D,KC_PGDOWN,KC_LEFT,KC_DOWN,KC_RIGHT,_______,_______,_______, \
+  _______,KC_LCTL,KC_WH_U,_______,_______,KC_MS_U,KC_PGUP,KC_HOME,KC_UP,KC_END,KC_DEL, KC_GESC, _______,_______, \
+  _______,KC_LALT,KC_WH_D, KC_LSFT,_______,KC_MS_D,KC_PGDOWN,KC_LEFT,KC_DOWN,KC_RIGHT, KC_BSPC,_______,_______, \
 _______,KC_UNDO,KC_CUT,KC_COPY,KC_PASTE, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2,KC_MS_LEFT,KC_MS_RIGHT,_______,_______, _______, \
   _______,_______,_______,                _______,                        _______,_______,_______,_______),
 
