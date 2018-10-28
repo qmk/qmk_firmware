@@ -136,38 +136,68 @@ int serial_update_buffers()
 //  5: about 20kbps
 #endif
 
-#define TID_SEND_ADJUST 2
+#if __GNUC__ < 6
+  #define TID_SEND_ADJUST 14
+#else
+  #define TID_SEND_ADJUST 2
+#endif
 
 #if SELECT_SOFT_SERIAL_SPEED == 0
   // Very High speed
   #define SERIAL_DELAY 4             // micro sec
-  #define READ_WRITE_START_ADJUST 33 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 6 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_START_ADJUST 33 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_START_ADJUST 34 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 1
   // High speed
   #define SERIAL_DELAY 6             // micro sec
-  #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_START_ADJUST 30 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_START_ADJUST 33 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 2
   // Middle speed
   #define SERIAL_DELAY 12            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 3
   // Low speed
   #define SERIAL_DELAY 24            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 4
   // Very Low speed
   #define SERIAL_DELAY 36            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 5
   // Ultra Low speed
   #define SERIAL_DELAY 48            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #else
 #error invalid SELECT_SOFT_SERIAL_SPEED value
 #endif /* SELECT_SOFT_SERIAL_SPEED */
@@ -187,16 +217,19 @@ int serial_update_buffers()
 static SSTD_t *Transaction_table = NULL;
 static uint8_t Transaction_table_size = 0;
 
+inline static void serial_delay(void) ALWAYS_INLINE;
 inline static
 void serial_delay(void) {
   _delay_us(SERIAL_DELAY);
 }
 
+inline static void serial_delay_half1(void) ALWAYS_INLINE;
 inline static
 void serial_delay_half1(void) {
   _delay_us(SERIAL_DELAY_HALF1);
 }
 
+inline static void serial_delay_half2(void) ALWAYS_INLINE;
 inline static
 void serial_delay_half2(void) {
   _delay_us(SERIAL_DELAY_HALF2);
@@ -216,6 +249,7 @@ void serial_input_with_pullup(void) {
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
 
+inline static uint8_t serial_read_pin(void) ALWAYS_INLINE;
 inline static
 uint8_t serial_read_pin(void) {
   return !!(SERIAL_PIN_INPUT & SERIAL_PIN_MASK);
@@ -270,7 +304,7 @@ void sync_recv(void) {
 }
 
 // Used by the reciver to send a synchronization signal to the sender.
-static void sync_send(void)NO_INLINE;
+static void sync_send(void) NO_INLINE;
 static
 void sync_send(void) {
   serial_low();
