@@ -15,3 +15,9 @@ Make example for this keyboard (after setting up your build environment):
 Plugging the board in while pressing 'Top Left Key' (USB on top) will force it to boot bootloader without loading the firmware.
 
 The code for NP21 is a minor edit of jj40.
+
+For Windows 10: Windows sometimes doesn't recognize the NP21. The easiest way of flashing a new layout is probably using [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
+
+Go to Windows Device Manager and find the keyboard (plug it in while pressing 'Top Left Key' (USB on top)). It can be found under Human Interface Devices or under Keyboards.
+Go to properties and the Details tab to find the hardware ID. You want the VID and the PID (code after the underscore). Plug them into HIDBootFlash and hit Find Device.
+Use make ymdk_np21:<keymap-name> to generate the .hex file in the qmk base folder. Select the .hex file in HIDBootFlash and press Flash Device.
