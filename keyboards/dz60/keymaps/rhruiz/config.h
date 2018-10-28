@@ -6,6 +6,10 @@
 // help for fast typist+dual function keys?
 #define PERMISSIVE_HOLD
 
+// Enable key for bootmagic lite. This should be esc?
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 1
+
 //mouse settings
 #define MOUSEKEY_DELAY             100
 #define MOUSEKEY_INTERVAL          30
