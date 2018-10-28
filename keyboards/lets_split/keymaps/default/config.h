@@ -28,6 +28,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL
 // #define USE_I2C
 
+#ifndef USE_SERIAL
+  #undef SOFT_SERIAL_PIN
+#endif
+/* This '#ifndef USE_SERIAL ... #endif' block should not be here.
+ * It should be included in new post_config.h files to be included following config.h files.
+ * (need extend Makefiles)
+ *
+ * like this:
+ *   avr-gcc -include keyboards/lets_split/config.h \
+ *           -include keyboards/lets_split/rev1/config.h \
+ *           -include keyboards/lets_split/keymaps/MAPNAME/config.h \
+ *           -include keyboards/lets_split/rev1/post_config.h \
+ *           -include keyboards/lets_split/post_config.h \
+ *          XXX.c
+ */
+
 /* Select hand configuration */
 
 #define MASTER_LEFT

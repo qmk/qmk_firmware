@@ -63,6 +63,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLED_NUM 12    // Number of LEDs
 
+/* Soft serial PIN assign */
+/* Configuration of lower interface with the lower layer(hardware) of serial.c */
+#define SOFT_SERIAL_PIN D0
+
+/* Soft serial buffer size */
+/* Configuration of upper interface with the upper layer(matrix.c) of serial.c */
+#define SERIAL_SLAVE_BUFFER_LENGTH MATRIX_ROWS/2
+#define SERIAL_MASTER_BUFFER_LENGTH 1
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
