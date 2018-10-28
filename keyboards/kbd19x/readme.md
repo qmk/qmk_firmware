@@ -1,6 +1,6 @@
 # kbd19x
 
-![kbd19x](imgur.com image replace me!)
+![kbd19x](https://i.imgur.com/0hWTEnh.jpg)
 
 **Layout possibilities for the KBD19x**
 
