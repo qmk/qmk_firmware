@@ -1,23 +1,24 @@
 #include QMK_KEYBOARD_H
 
-#define FN      MO(L_FN)
-#define FN_CAPS LT(L_FN, KC_CAPS)
-#define FN_RCTL TD(TD_FN_RCTL)    // Unused
-#define RLALT   TD(TD_RLALT)      // Unused
-#define DESKTOP TD(TD_DESKTOP)
-
-#define DESKT_L LCTL(LGUI(KC_LEFT))
-#define DESKT_R LCTL(LGUI(KC_RGHT))
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
+#define DSKTP_L LCTL(LGUI(KC_LEFT))
+#define DSKTP_R LCTL(LGUI(KC_RGHT))
 
-#define UC_COMM UC(0x002C)
-#define UC_LPRN UC(0x0028)
-#define UC_RPRN UC(0x0029)
-#define UC_EQLS UC(0x003D)
-#define UC_MULS UC(0x00D7)
-#define UC_DIVS UC(0x00F7)
-#define UC_MINS UC(0x2212)
+#define FN      MO(L_FN)
+#define FN_CAPS LT(L_FN, KC_CAPS)
+
+#define DESKTOP TD(TD_DESKTOP)
+#define FN_RCTL TD(TD_FN_RCTL) // Unused
+#define RLALT   TD(TD_RLALT)   // Unused
+
+#define COMMA   UC(0x002C)
+#define L_PAREN UC(0x0028)
+#define R_PAREN UC(0x0029)
+#define EQUALS  UC(0x003D)
+#define TIMES   UC(0x00D7)
+#define DIVIDE  UC(0x00F7)
+#define MINUS   UC(0x2212)
 
 void matrix_init_user(void) {
   set_unicode_input_mode(UC_WINC);
@@ -89,15 +90,15 @@ void td_fn_rctrl_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 enum tap_dance {
+  TD_DESKTOP,
   TD_FN_RCTL,
   TD_RLALT,
-  TD_DESKTOP,
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_DESKTOP] = ACTION_TAP_DANCE_DOUBLE(LCTL(LGUI(KC_D)), LCTL(LGUI(KC_F4))), // Add/close virtual desktop
   [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(td_fn_rctrl_each, NULL, td_fn_rctrl_reset),
   [TD_RLALT]   = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),
-  [TD_DESKTOP] = ACTION_TAP_DANCE_DOUBLE(LCTL(LGUI(KC_D)), LCTL(LGUI(KC_F4))), // Add/close virtual desktop
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -140,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_BTN4,KC_BTN2,KC_MS_U,KC_BTN1,KC_BTN3,KC_BTN5,_______,_______,_______,KC_MSTP,KC_MPLY,KC_MPRV,KC_MNXT,CLEAR,          KC_INS,  \
     _______,KC_MS_L,KC_MS_D,KC_MS_R,KC_WH_U,_______,_______,_______,_______,_______,_______,_______,        _______,        TOP,     \
     _______,        KC_ACL0,KC_ACL2,KC_WH_L,KC_WH_R,_______,_______,_______,KC_VOLD,KC_VOLU,KC_MUTE,KC_APP,         KC_PGUP,BOTTOM,  \
-    _______,DESKTOP,DESKT_L,                        KC_WH_D,                DESKT_R,_______,                KC_HOME,KC_PGDN,KC_END   \
+    _______,DESKTOP,DSKTP_L,                        KC_WH_D,                DSKTP_R,_______,                KC_HOME,KC_PGDN,KC_END   \
   ),
 
   /* Numpad layer
@@ -157,10 +158,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `---------------------------------------------------------------'
    */
   [L_NUMPAD] = LAYOUT_truefox( \
-    NUMPAD, _______,_______,_______,_______,_______,_______,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,UC_MINS,UC_EQLS,NUMPAD, _______,_______, \
-    _______,_______,_______,_______,_______,_______,_______,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,UC_LPRN,UC_RPRN,_______,        _______, \
-    _______,_______,_______,_______,_______,_______,_______,KC_P1,  KC_P2,  KC_P3,  KC_PAST,UC_MULS,        KC_PENT,        _______, \
-    _______,        _______,_______,_______,_______,_______,KC_P0,  KC_P0,  UC_COMM,KC_PDOT,KC_PSLS,UC_DIVS,        _______,_______, \
+    NUMPAD, _______,_______,_______,_______,_______,_______,KC_P7,  KC_P8,  KC_P9,  KC_PMNS,MINUS,  EQUALS, NUMPAD, _______,_______, \
+    _______,_______,_______,_______,_______,_______,_______,KC_P4,  KC_P5,  KC_P6,  KC_PPLS,L_PAREN,R_PAREN,_______,        _______, \
+    _______,_______,_______,_______,_______,_______,_______,KC_P1,  KC_P2,  KC_P3,  KC_PAST,TIMES,          KC_PENT,        _______, \
+    _______,        _______,_______,_______,_______,_______,KC_P0,  KC_P0,  COMMA,  KC_PDOT,KC_PSLS,DIVIDE,         _______,_______, \
     _______,_______,_______,                        _______,                _______,_______,                _______,_______,_______  \
   ),
 };
