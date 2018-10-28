@@ -96,7 +96,17 @@ enum custom_keycodes {
 #define SCREEN_PASTEREG_3 30
 #define DEL_TO_HOME 36
 
-
+// Android Studio shortcuts
+#define AS_TABLEFT LALT(KC_LEFT)
+#define AS_TABRIGHT LALT(KC_RIGHT)
+#define AS_SYMBOL LCTL(LALT(KC_N))
+#define AS_CLASS LCTL(KC_N)
+#define AS_FINDUSAGE LALT(KC_F7)
+#define AS_BACK LCTL(LALT(KC_LEFT))
+#define AS_GO_DECLARATION LCTL(KC_B)
+#define AS_GO_IMPLEMENTATION LCTL(LALT(KC_B))
+#define AS_CLOSETAB LCTL(KC_F4)
+#define AS_CLOSETOOLWINDOW LCTL(LSFT(KC_F4))
 
 
 #define MACRO_SCREEN_NUM(MACRO_NAME,NUM) \
@@ -336,10 +346,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                KC_TRNS,
                                KC_TRNS,KC_TRNS,KC_TRNS,
        // right hand
-       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,             KC_TRNS,
-                KC_TRNS, LALT(KC_LEFT), LALT(KC_RIGHT),   LCTL(LALT(KC_N)),          LCTL(KC_N),        KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS,       LCTL(LALT(KC_B)), KC_TRNS,                   KC_TRNS,             KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          KC_TRNS,                   KC_TRNS,              KC_TRNS,
+       KC_TRNS, KC_TRNS, KC_TRNS,       AS_FINDUSAGE,     AS_GO_DECLARATION,         AS_GO_IMPLEMENTATION, KC_TRNS,
+                KC_TRNS, AS_TABLEFT,    AS_TABRIGHT,      AS_SYMBOL,                 AS_CLASS,             AS_BACK,
+       KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,          AS_CLOSETAB,               AS_CLOSETOOLWINDOW,   KC_TRNS,
                          // bottom row
                          KC_TRNS,     KC_TRNS,     KC_TRNS,     KC_TRNS,             KC_TRNS,
        // thumb cluster
