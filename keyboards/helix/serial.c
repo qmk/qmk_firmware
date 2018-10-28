@@ -1,5 +1,10 @@
 /*
  * WARNING: be careful changing this code, it is very timing dependent
+ *
+ * 2018-10-28 checked
+ *  avr-gcc 4.9.2
+ *  avr-gcc 5.4.0
+ *  avr-gcc 7.3.0
  */
 
 #ifndef F_CPU
