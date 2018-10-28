@@ -10,7 +10,9 @@
 
 #define DESKTOP TD(TD_DESKTOP)
 #define FN_RCTL TD(TD_FN_RCTL) // Unused
-#define RLALT   TD(TD_RLALT)   // Unused
+#define RAL_LAL TD(TD_RAL_LAL) // Unused
+#define RAL_RGU TD(TD_RAL_RGU) // Unused
+#define RCT_RSF TD(TD_RCT_RSF) // Unused
 
 #define COMMA   UC(0x002C)
 #define L_PAREN UC(0x0028)
@@ -89,16 +91,48 @@ void td_fn_rctrl_reset(qk_tap_dance_state_t *state, void *user_data) {
   td_fn_rctrl_data.started = false;
 }
 
+#define ACTION_TAP_DANCE_DOUBLE_MODS(mod1, mod2) { \
+    .fn = { td_double_mods_each, NULL, td_double_mods_reset }, \
+    .user_data = &(qk_tap_dance_pair_t){ mod1, mod2 }, \
+  }
+
+void td_double_mods_each(qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_pair_t *mods = (qk_tap_dance_pair_t *)user_data;
+  // Single tap → mod1, double tap → mod2, triple tap etc. → mod1+mod2
+  if (state->count == 1 || state->count == 3) {
+    register_code(mods->kc1);
+  } else if (state->count == 2) {
+    unregister_code(mods->kc1);
+    register_code(mods->kc2);
+  }
+  // Prevent tap dance from sending kc1 and kc2 as weak mods
+  state->weak_mods &= ~(MOD_BIT(mods->kc1) | MOD_BIT(mods->kc2));
+}
+
+void td_double_mods_reset(qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_pair_t *mods = (qk_tap_dance_pair_t *)user_data;
+  if (state->count == 1 || state->count > 2) {
+    unregister_code(mods->kc1);
+  }
+  if (state->count >= 2) {
+    unregister_code(mods->kc2);
+  }
+}
+
 enum tap_dance {
   TD_DESKTOP,
   TD_FN_RCTL,
-  TD_RLALT,
+  TD_RAL_LAL,
+  TD_RAL_RGU,
+  TD_RCT_RSF,
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_DESKTOP] = ACTION_TAP_DANCE_DOUBLE(LCTL(LGUI(KC_D)), LCTL(LGUI(KC_F4))), // Add/close virtual desktop
   [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(td_fn_rctrl_each, NULL, td_fn_rctrl_reset),
-  [TD_RLALT]   = ACTION_TAP_DANCE_DOUBLE(KC_RALT, KC_LALT),
+  [TD_RAL_LAL] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RALT, KC_LALT),
+  [TD_RAL_RGU] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RALT, KC_RGUI),
+  [TD_RCT_RSF] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RCTL, KC_RSFT),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
