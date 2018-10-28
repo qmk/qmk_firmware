@@ -1,38 +1,29 @@
 import itertools
 import json
-from pprint import pprint as pp
+import os.path
+import re
 
-layers = dict(enumerate(['_QWERTY', '_LOWER', '_RAISE', '_MOVEMENT', '_NUMPAD']))
-key_names = {('MO(%d)' % i): layers.get(i).strip('_') for i in layers.keys()}
+KEYMAP_C = """/* {0}
+{1}
+*/
+[{2}] = {3}(
+    {4})
+"""
 
-unicodes = {
-    "<i class='fa fa-fast-forward'></i>": "next",
-    "<i class='fa fa-volume-down'></i>": "vol-",
-    "<i class='fa fa-volume-up'></i>": "vol+",
-    "<i class='fa fa-play'></i>": "play",
-}
+README_MD = """## {0}
+```
+{1}
+```
+"""
 
-d = json.load(open('layouts/community/ortho_4x12/guidoism/guidoism.json'))
+base = os.path.dirname(__file__)
 
-def grouper(iterable, n):
-    args = [iter(iterable)] * n
-    return itertools.zip_longest(*args, fillvalue='')
+layer_names = dict(enumerate(['_QWERTY', '_LOWER', '_RAISE', '_MOVEMENT', '_NUMPAD', '_FUNCTION']))
+layer_name = {('MO(%d)' % i): layer_names.get(i).strip('_') for i in layer_names.keys()}
 
-def truthy(s):
-    return [a for a in s if a]
+keys = json.load(open(os.path.join(base, 'keys.json')))
 
-def just(s, n):
-    return [a.center(n*2+1 if len(s) == 11 and i == 5 else n) for i, a in enumerate(s)]
-
-def replace(s):
-    return [key_names.get(a, a) for a in s]
-
-def layer(i, l):
-    n = max(len(s) for s in l)
-    rows = [', '.join(replace(truthy(row))) for row in grouper(l, 12)]
-    return '[%s] = %s(\n%s)' % (layers[i], d['layout'], ',\n'.join(rows))
-
-print(',\n\n'.join(layer(i, l) for i, l in enumerate(d['layers'])))
+d = json.load(open(os.path.join(base, 'guidoism.json')))
 
 def surround(s, a, b, c):
     return a + b.join(s) + c
@@ -40,20 +31,45 @@ def surround(s, a, b, c):
 def pattern(cell, table):
     return ['─'*cell for i in range(table)]
 
-keys = json.load(open('layouts/community/ortho_4x12/guidoism/keys.json'))
+top    = surround(pattern(5, 12), '┌', '┬', '┐')
+mid    = surround(pattern(5, 12), '├', '┼', '┤')
+bottom = surround(pattern(5, 12), '└', '┴', '┘')
 
-def layer2(i, l):
-    def replace(s):
-        s = [keys.get(a, a) for a in s]
-        return [unicodes.get(a, a) for a in s]
-    n = max(len(s) for s in l)
-    return [surround(just(replace(truthy(row)), 5), '│', '│', '│') for row in grouper(l, 12)]
+from more_itertools import chunked, intersperse, interleave_longest
 
-for i, l in enumerate(d['layers']):
-    print(surround(pattern(5, 12), '┌', '┬', '┐'))
-    for n, row in enumerate(layer2(i, l)):
-        print(row)
-        if n < 3:
-            print(surround(pattern(5, 12), '├', '┼', '┤'))
-        else:
-            print(surround(pattern(5, 12), '└', '┴', '┘'))
+def uni(k):
+    return keys.get(k, k).lower().center(5)
+
+def c_layout(i, definition, template):
+    c_name = layer_names[i]
+    pretty_name = c_name.strip('_').capitalize()
+    layout = d['layout']
+    
+    surround = lambda s: ''.join(interleave_longest(['│']*(len(s)+1), s))
+    layer = list(map(uni, definition))
+    layer[41] = layer[41].center(11)
+    layer = chunked(layer, 12)
+    rows = intersperse(mid, map(surround, layer))
+    pretty = '\n'.join(itertools.chain([top], rows, [bottom]))
+    
+    surround = lambda s: ', '.join(s)
+    layer = list(map(lambda k: layer_name.get(k, k), definition))
+    layer = chunked(layer, 12)
+    rows = map(surround, layer)
+    c_layer = ',\n    '.join(itertools.chain([], rows, []))
+    
+    return template.format(pretty_name, pretty, c_name, layout, c_layer)
+
+start = '// START_REPLACEMENT\n'
+end = '// END_REPLACEMENT\n'
+replacement = start + ',\n\n'.join(c_layout(i, l, KEYMAP_C) for i, l in enumerate(d['layers'])) + end
+keymap = os.path.join(base, 'keymap.c')
+existing = open(keymap).read()
+r = re.compile(r'// START_REPLACEMENT.*// END_REPLACEMENT', re.DOTALL)
+open(keymap, 'w').write(r.sub(replacement, existing))
+
+replacement = '## Current Configuration\n\n' + '\n\n'.join(c_layout(i, l, README_MD) for i, l in enumerate(d['layers']))
+keymap = os.path.join(base, 'readme.md')
+existing = open(keymap).read()
+r = re.compile(r'## Current Configuration.*', re.DOTALL)
+open(keymap, 'w').write(r.sub(replacement, existing))
