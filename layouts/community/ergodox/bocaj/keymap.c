@@ -105,11 +105,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______________________QWERTY_L2_________________________,         _______________________QWERTY_R2_________________________,
                  _______________________QWERTY_L3_________________________,         _______________________QWERTY_R3_________________________
   ),
-  [_CLICKY] = LAYOUT_ergodox_pretty_osx_wrapper(
+  [_CLICKY] = LAYOUT_ergodox_pretty_wrapper(
     XXXXXXX,XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,
     XXXXXXX,XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,
-    XXXXXXX,XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX,                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,
-    XXXXXXX,XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,
+    XXXXXXX,   XXXXXXX,   KC_LSFT,    KC_LGUI,    KC_LALT,    XXXXXXX,                      XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,
+    KC_LSFT,   KC_LCTL,   XXXXXXX,    XXXXXXX,       KC_C,       KC_V, XXXXXXX,    XXXXXXX, XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,
     _________________________________________________________,                                       _________________________________________________________,
                                                               _______, _______,    _______,_______,
                                                                        _______,    _______,
@@ -261,14 +261,6 @@ void matrix_scan_keymap(void) {
       ergodox_right_led_2_set(10);
       break;
     case _NUMS:
-      ergodox_right_led_2_on();
-      ergodox_right_led_2_set(10);
-      ergodox_right_led_3_on();
-      ergodox_right_led_3_set(10);
-      break;
-    case _NMOD:
-      ergodox_right_led_1_on();
-      ergodox_right_led_1_set(10);
       ergodox_right_led_2_on();
       ergodox_right_led_2_set(10);
       ergodox_right_led_3_on();
