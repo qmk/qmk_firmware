@@ -2,7 +2,6 @@
     "keyboard_name": "KBD19x", 
     "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/kbd19x", 
     "maintainer": "qmk", 
-    "bootloader": "", 
     "width": 19.5, 
     "height": 6.75, 
     "layouts": {
