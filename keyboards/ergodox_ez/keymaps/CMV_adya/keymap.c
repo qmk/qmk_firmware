@@ -2,31 +2,16 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-#include "shortcut_utils.h"
 
 #define __________ KC_TRANSPARENT
 #define XXXXXXXXXX KC_NO
-
-#define CT(kc) CTL_T(kc)
 
 /* LAYERS */
 enum {
   _COLEMAK = 0,
   _STANDARD,
-  _MACROS,
   _SYMBOLS,
   _NAVIGAT,
-};
-
-/* MACROS */
-enum {
-  NEXT_TAB = 0,
-  PREV_TAB,
-  NEW_TAB,
-  CLOSE_TAB,
-  NEXT_WIN,
-  CLOSE_WIN,
-  INFOS,
 };
 
 enum custom_keycodes {
@@ -151,8 +136,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_F19,       KC_F20,       KC_F21,       KC_F22,       KC_F23,       KC_F24,      KC_SLEP,
     __________,        TO(4),        TO(5),     KC_MS_UP,        TO(6),        TO(8), KC_MS_ACCEL2,
                  KC_WWW_BACK,   KC_MS_LEFT,   KC_MS_DOWN,  KC_MS_RIGHT,  KC_MS_WH_UP, KC_MS_ACCEL1,
-    __________,   M(NEW_TAB),  M(NEXT_WIN), M(CLOSE_WIN),   KC_MS_BTN2,KC_MS_WH_DOWN, KC_MS_ACCEL0,
-                               M(PREV_TAB),  M(NEXT_TAB),   KC_MS_BTN3, M(CLOSE_TAB),        KC_F5,
+    __________,   __________,   __________,   __________,   KC_MS_BTN2,KC_MS_WH_DOWN, KC_MS_ACCEL0,
+                                __________,   __________,   KC_MS_BTN3,   __________,        KC_F5,
         KC_PWR,   __________,
     __________,
        KC_PGUP,     KC_ENTER,   KC_MS_BTN1
@@ -197,31 +182,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     __________,    KC_INSERT,
        KC_PGUP,
        KC_HOME,     KC_ENTER,    KC_BSPACE
-  ),
-
-
-/*
- * MACROS - Macros keys (host-wise and keyboard-wise)
- *
- */
-  [_MACROS] = KEYMAP(
-    __________,   __________,   __________,   __________,   __________,   __________,   __________,
-    __________,   __________,   __________,   __________,   __________,   __________, TO(_NAVIGAT),
-    __________,   __________,   __________,     M(INFOS),   __________,   __________,
-    __________,   __________,   __________,   __________,   __________,   __________,   __________,
-    __________,   __________,   __________,   __________,   __________,
-                                                                          __________,   __________,
-                                                                                        __________,
-                                                            __________,   __________,   __________,
-
-    __________,   __________,   __________,   __________,   __________,   __________,   __________,
-  TO(_NAVIGAT),   __________,   __________,   __________,   __________,   __________,   __________,
-                  __________,   __________,   __________,   __________,   __________,   __________,
-    __________,   __________,   __________,   __________,   __________,   __________,   __________,
-                                __________,   __________,   __________,   __________,   __________,
-    __________,   __________,
-    __________,
-    __________,   __________,   __________
   ),
 
   /*
@@ -276,13 +236,13 @@ bool keycodes_for_key(uint16_t default_kc, uint8_t layer, keypos_t key) {
   case _COLEMAK:
     switch(key.col) {
     case 1:
-      if(key.row == 0xC) return CMV(default_kc, KC_COMMA, 0, 0);
+      if(key.row == 0xC) return CMV(default_kc, KC_COMMA, 0, 0); // Key on col 1, row 0xC on layer _COLEMAK will return "," (comma) if pressed with only shifts
       break;
 
     case 4:
       switch(key.row) {
-        case 0xB: return CMV(default_kc, KC_RABK, 0, 0);
-        case 0xC: return CMV(default_kc, KC_SLASH, 0, 0);
+        case 0xB: return CMV(default_kc, KC_RABK, 0, 0); // Key on col 4, row 0xB on layer _COLEMAK will return ">" (greater than sign) if pressed with only shifts
+        case 0xC: return CMV(default_kc, KC_SLASH, 0, 0); // Key on col 4, row 0xC on layer _COLEMAK will return "/" (forward slash) if pressed with only shifts
       }
       break;
 
@@ -290,55 +250,13 @@ bool keycodes_for_key(uint16_t default_kc, uint8_t layer, keypos_t key) {
     break;
 
   case _SYMBOLS:
-    if(key.col == 3 && key.row == 8) return CMV(default_kc, KC_COMMA, 0, 0);
+    if(key.col == 3 && key.row == 8) return CMV(default_kc, KC_COMMA, 0, 0); // Key on col 3, row 8 on layer _SYMBOLS will return "," (comma) if pressed with only shifts
     break;
   }
   return true;
 }
 #endif
 
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-      switch(id) {
-
-      case INFOS:
-        if(record->event.pressed) SEND_STRING("QMK: " QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " from " QMK_BUILDDATE);
-        break;
-
-      case NEXT_WIN:
-        if(record->event.pressed) shortcut_press(2, KC_LALT, KC_TAB);
-        else shortcut_release(2, KC_TAB, KC_LALT);
-        break;
-
-      case NEW_TAB:
-        if(record->event.pressed) shortcut_press(2, KC_LCTRL, KC_T);
-        else shortcut_release(2, KC_T, KC_LCTRL);
-        break;
-
-      case CLOSE_TAB:
-        if(record->event.pressed) shortcut_press(2, KC_LCTRL, KC_W);
-        else shortcut_release(2, KC_W, KC_LCTRL);
-        break;
-
-      case CLOSE_WIN:
-        if(record->event.pressed) shortcut_press(2, KC_LALT, KC_F4);
-        else shortcut_release(2, KC_F4, KC_LALT);
-        break;
-
-      case NEXT_TAB:
-        if(record->event.pressed) shortcut_press(2, KC_LCTRL, KC_PGDOWN);
-        else shortcut_release(2, KC_PGDOWN, KC_LCTRL);
-        break;
-
-      case PREV_TAB:
-        if(record->event.pressed) shortcut_press(2, KC_LCTRL, KC_PGUP);
-        else shortcut_release(2, KC_PGUP, KC_LCTRL);
-        break;
-
-      }
-    return MACRO_NONE;
-};
 
 
 uint32_t layer_state_set_user(uint32_t state) {
