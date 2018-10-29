@@ -422,4 +422,7 @@ void eeconfig_init_user(void) {
   userspace_config.raw = 0;
   userspace_config.rgb_layer_change = true;
   eeconfig_update_user(userspace_config.raw);
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    set_unicode_input_mode(UC_WIN);
+  #endif
 }
