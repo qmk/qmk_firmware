@@ -11,8 +11,8 @@
 #define DESKTOP TD(TD_DESKTOP)
 #define FN_RCTL TD(TD_FN_RCTL) // Unused
 #define RAL_LAL TD(TD_RAL_LAL) // Unused
-#define RAL_RGU TD(TD_RAL_RGU) // Unused
-#define RCT_RSF TD(TD_RCT_RSF) // Unused
+#define RAL_RGU TD(TD_RAL_RGU)
+#define RCT_RSF TD(TD_RCT_RSF)
 
 #define COMMA   UC(0x002C)
 #define L_PAREN UC(0x0028)
@@ -144,17 +144,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |---------------------------------------------------------------|
    * |FnCaps| A | S | D | F | G | H | J | K | L | ; | ' | Enter  |PgU|
    * |---------------------------------------------------------------|
-   * | LShift | Z | X | C | V | B | N | M | , | . | / |RCtrl | ↑ |PgD|
+   * | LShift | Z | X | C | V | B | N | M | , | . | / |CtlSft| ↑ |PgD|
    * |---------------------------------------------------------------|
-   * |LCtl|LGui|LAlt|         Space          |RAlt| Fn | | ← | ↓ | → |
+   * |LCtl|LGui|LAlt|         Space          |AlGu| Fn | | ← | ↓ | → |
    * `---------------------------------------------------------------'
    */
   [L_BASE] = LAYOUT_truefox( \
     KC_ESC, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSLS,KC_GRV, KC_PSCR, \
     KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSPC,        KC_DEL,  \
     FN_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,        KC_ENT,         KC_PGUP, \
-    KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_RCTL,        KC_UP,  KC_PGDN, \
-    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 KC_RALT,FN,                     KC_LEFT,KC_DOWN,KC_RGHT  \
+    KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,RCT_RSF,        KC_UP,  KC_PGDN, \
+    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 RAL_RGU,FN,                     KC_LEFT,KC_DOWN,KC_RGHT  \
   ),
 
   /* Function layer
