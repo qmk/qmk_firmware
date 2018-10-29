@@ -70,6 +70,7 @@
  #error serial.c now support ATmega32U4 only
 #endif
 
+//////////////// for backward compatibility ////////////////////////////////
 #ifndef SERIAL_USE_MULTI_TRANSACTION
 /* --- USE Simple API (OLD API, compatible with let's split serial.c) */
   #if SERIAL_SLAVE_BUFFER_LENGTH > 0
@@ -111,7 +112,8 @@ int serial_update_buffers()
     return result;
 }
 
-#endif // Simple API (OLD API, compatible with let's split serial.c)
+#endif // end of Simple API (OLD API, compatible with let's split serial.c)
+////////////////////////////////////////////////////////////////////////////
 
 #define ALWAYS_INLINE __attribute__((always_inline))
 #define NO_INLINE __attribute__((noinline))
@@ -575,7 +577,14 @@ int soft_serial_get_and_clean_status(int sstd_index) {
 #endif
 
 // Helix serial.c history
-//   2018-1-29 fork from let's split (#2308)
-//   2018-6-28 bug fix master to slave comm (#3255)
-//   2018-8-11 improvements (#3608)
-//   2018-10-21 fix serial and RGB animation conflict (#4191)
+//   2018-1-29 fork from let's split and add PD2, modify sync_recv() (#2308, bceffdefc)
+//   2018-6-28 bug fix master to slave comm and speed up (#3255, 1038bbef4)
+//             (adjusted with avr-gcc 4.9.2)
+//   2018-7-13 remove USE_SERIAL_PD2 macro (#3374, f30d6dd78)
+//             (adjusted with avr-gcc 4.9.2)
+//   2018-8-11 add support multi-type transaction (#3608, feb5e4aae)
+//             (adjusted with avr-gcc 4.9.2)
+//   2018-10-21 fix serial and RGB animation conflict (#4191, 4665e4fff)
+//             (adjusted with avr-gcc 7.3.0)
+//   2018-10-28 re-adjust compiler depend value of delay (#4269, 8517f8a66)
+//             (adjusted with avr-gcc 5.4.0, 7.3.0)
