@@ -7,9 +7,9 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    Clique Hardware
-#define PRODUCT         The Puck Keypad
-#define DESCRIPTION     A small multi-purpose numberpad
+#define MANUFACTURER    OKKeebs, LLC
+#define PRODUCT         Puck
+#define DESCRIPTION     4x3 macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 4
