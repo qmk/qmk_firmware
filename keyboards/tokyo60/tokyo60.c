@@ -1,5 +1,4 @@
 #include "tokyo60.h"
-//#include "led.h"
 
 void matrix_init_kb(void) {
   // Keyboard start-up code goes here

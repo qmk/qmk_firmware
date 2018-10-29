@@ -3,6 +3,8 @@ ifeq ($(PLATFORM),AVR)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
 else ifeq ($(PLATFORM),CHIBIOS)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/chibios
+else ifeq ($(PLATFORM),ARM_ATSAM)
+	PLATFORM_COMMON_DIR = $(COMMON_DIR)/arm_atsam
 else
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/test
 endif
@@ -29,10 +31,27 @@ endif
 
 ifeq ($(PLATFORM),CHIBIOS)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
-	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
+  ifeq ($(MCU_SERIES), STM32F3xx)
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+    TMK_COMMON_DEFS += -DEEPROM_EMU_STM32F303xC
+    TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
+  else ifeq ($(MCU_SERIES), STM32F1xx)
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+    TMK_COMMON_DEFS += -DEEPROM_EMU_STM32F103xB
+    TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
+  else
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
+endif
   ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
   endif
+endif
+
+ifeq ($(PLATFORM),ARM_ATSAM)
+	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
+	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
 endif
 
 ifeq ($(PLATFORM),TEST)
@@ -42,13 +61,25 @@ endif
 
 
 # Option modules
-ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+BOOTMAGIC_ENABLE ?= no
+VALID_MAGIC_TYPES := yes full lite
+ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
+  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
+    $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
+  endif
+  ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
+      TMK_COMMON_DEFS += -DBOOTMAGIC_LITE
+      TMK_COMMON_DEFS += -DMAGIC_ENABLE
+      TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
+  else
     TMK_COMMON_DEFS += -DBOOTMAGIC_ENABLE
     TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic.c
+  endif
 else
     TMK_COMMON_DEFS += -DMAGIC_ENABLE
     TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
 endif
+
 
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     TMK_COMMON_SRC += $(COMMON_DIR)/mousekey.c

@@ -26,6 +26,8 @@ This array specifies what actions shall be taken when a tap-dance key is in acti
 
 The first option is enough for a lot of cases, that just want dual roles. For example, `ACTION_TAP_DANCE_DOUBLE(KC_SPC, KC_ENT)` will result in `Space` being sent on single-tap, `Enter` otherwise.
 
+!> Keep in mind that only [basic keycodes](keycodes_basic.md) are supported here. Custom keycodes are not supported.
+
 And that's the bulk of it!
 
 And now, on to the explanation of how it works!

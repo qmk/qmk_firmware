@@ -146,9 +146,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DIABLO] = LAYOUT_ergodox_pretty_wrapper(
     KC_ESC , XXXXXXX  , XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX   ,XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX,
     KC_TAB , KC_Q     ,ALT_T(KC_S), KC_I     , KC_F     , KC_J     ,KC_MINS,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX,
+<<<<<<< HEAD
     KC_Q   , KC_1     , KC_2      , KC_3     , KC_4     ,KC_DCLR   ,                      XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX,
     KC_LSFT, KC_D3_1  , KC_D3_2   , KC_D3_3  , KC_D3_4  , KC_T     ,KC_LOCK,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX,
     XXXXXXX, XXXXXXX  , XXXXXXX   , XXXXXXX  , KC_M     ,                                             XXXXXXX,    XXXXXXX,    XXXXXXX,     _______, XXXXXXX,
+=======
+    KC_LOCK, KC_1     , KC_2      , KC_3     , KC_4     ,KC_DCLR   ,                      XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX,
+    KC_LSFT, KC_D3_1  , KC_D3_2   , KC_D3_3  , KC_D3_4  , KC_T     ,KC_MINS,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX,
+    _______, XXXXXXX  , XXXXXXX   , XXXXXXX  , KC_M     ,                                             XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX,
+>>>>>>> upstream/master
                                                               XXXXXXX, XXXXXXX,    XXXXXXX,XXXXXXX,
                                                                        XXXXXXX,    XXXXXXX,
                                                       KC_BTN1,KC_BTN2,KC_ENTER,    XXXXXXX,XXXXXXX,XXXXXXX
@@ -156,15 +162,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+<<<<<<< HEAD
   // Keycodes using ErgoDox specific functions
   // MC_LOCK is here because default_layer is here
+=======
+>>>>>>> upstream/master
   uint8_t default_layer = 0;
   default_layer = eeconfig_read_default_layer();
   switch (keycode) {
     case KC_SWRK:
       if (!record->event.pressed) {
         set_single_persistent_default_layer(_SWRKMN);
+<<<<<<< HEAD
         layer_move(_SWRKMN);
+=======
+        layer_move(default_layer);
+>>>>>>> upstream/master
         ergodox_blink_all_leds();
         ergodox_blink_all_leds();
       }
@@ -173,7 +186,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     case KC_HWRK:
       if (!record->event.pressed) {
         set_single_persistent_default_layer(_HWRKMN);
+<<<<<<< HEAD
         layer_move(_HWRKMN);
+=======
+        layer_move(default_layer);
+>>>>>>> upstream/master
         ergodox_blink_all_leds();
         ergodox_blink_all_leds();
       }

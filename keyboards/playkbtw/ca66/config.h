@@ -42,8 +42,6 @@
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 #define RGB_DI_PIN B1
 #ifdef RGB_DI_PIN

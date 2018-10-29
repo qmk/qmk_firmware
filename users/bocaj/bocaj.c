@@ -115,7 +115,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING("->");
       }
       return false;
+<<<<<<< HEAD
       break;
+=======
+      break; /*
+    case KC_SWRK:
+      if (!record->event.pressed) {
+        set_single_persistent_default_layer(_SWRKMN);
+        layer_move(default_layer);
+        //ergodox_blink_all_leds();
+        //ergodox_blink_all_leds();
+      }
+      return false;
+      break;
+    case KC_HWRK:
+      if (!record->event.pressed) {
+        set_single_persistent_default_layer(_HWRKMN);
+        layer_move(default_layer);
+        //ergodox_blink_all_leds();
+        //ergodox_blink_all_leds();
+      }
+      return false;
+      break;
+    case KC_EPRM:
+      if (!record->event.pressed) {
+        //ergodox_blink_all_leds();
+        eeconfig_init();
+      }
+      return false;
+      break;
+    case MC_LOCK:
+      if (!record->event.pressed) {
+        layer_move(default_layer);
+        SEND_STRING(SS_LCTRL(SS_LGUI("q")));
+      }
+      return false;
+      break; */
+>>>>>>> upstream/master
     case KC_DCLR:
 #ifdef TAP_DANCE_ENABLE
       if (record->event.pressed) {
