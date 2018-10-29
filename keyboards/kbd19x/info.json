@@ -5,7 +5,7 @@
     "width": 19.5, 
     "height": 6.75, 
     "layouts": {
-        "LAYOUT_default": {
+        "LAYOUT_ansi": {
 	    "key_count": 99,
             "layout": [{"label":"Esc", "x":0, "y":0},
 		       {"label":"F1", "x":1.25, "y":0},
