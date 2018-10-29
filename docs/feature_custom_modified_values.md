@@ -16,7 +16,7 @@ You can assign a custom value to any given key for any KCID value (i.e. **one ke
 
 Of course, you **don't have to** assign a keycode **for every KCID**. Assigning 0 (or  `KC_NO`) as a custom modified value makes CMV **return the default keycode** of the key (KCID=0) to the firmware. So, you could for instance bind `KC_DELETE` to a key when pressed while holding down `AltGr`, and `KC_BSPACE` to that very same key in every other cases.
 
-With most versions of **CMV**, you can assign **any 16-bit keycode as a modified value** (*This is not exactly true for every versions. Check out the detailed description for your version below*). This means that you could for example assign to the key `K` the following:
+With most versions of **CMV**, you can assign **any 16-bit keycode as a modified value** (*This is not exactly true for every versions. Check out the detailed description for your version below*). This means that you could for example assign to a key (which we will reference as `K` in this documentation) the following:
 
 | KCID | KEYCODE |
 |------|---------|
@@ -34,7 +34,7 @@ Which means that:
 ---
 ## General **Set-Up** and **Configuration**
 
-CMV can be user-enabled by writing `#define CUSTOM_MODIFIED_VALUES_ENABLE` in your `config.h` file inside your keymap directory.
+CMV can be user-enabled by writing `CUSTOM_MODIFIED_VALUES_ENABLE=yes` in your `rules.mk` file inside your keymap directory.
 
 For more advanced customization and configuration, see **Advanced functionalities** for your corresponding version below.
 
@@ -58,7 +58,7 @@ For more advanced customization and configuration, see **Advanced functionalitie
     ```C
     bool keycodes_for_key(uint16_t default_kc, uint8_t layer, uint8_t row, uint8_t col) {
         if(default_kc == KC_BSPACE) return CMV(default_kc, KC_DELETE, 0, 0);
-        // To do the same but with AltGr instead of Shifts, we would have wrote:
+        // To do the same but with AltGr instead of Shifts, we would have written:
         // if(default_kc == KC_BSPACE) return CMV(default_kc, 0, KC_DELETE, 0);
         return true;
     }
@@ -129,7 +129,7 @@ For more advanced customization and configuration, see **Advanced functionalitie
     ```
     (Note: Of course, if you use lots of custom keycodes for your Custom Modified Values, a `switch` structure is probably better to increase readability)
 
-4. Here's the code needed to accomplish the behaviour described as an example in the **General Description** part:
+4. Here's the code needed to accomplish the behaviour described as an example in the **General Description** section above:
 
     ```C
     enum custom_keycodes {
@@ -177,13 +177,13 @@ Three **`CMV-v2.*`** versions will be available (All three **support classic mod
 ---
 # v1.*
 
-## Description
+## v1.* - Description
 
 These are the first versions of the feature. Although they work great, they use a **different internal architecture** (i.e. far **more messy** and far **less clean**) than more recent versions and are **heavier in general**.
 
 ---
 
-## Limitations
+## v1.* - Limitations
 
 - **No `CMV-v1.*` version supports Oneshot modifiers.**
 - You **cannot** assign **modifier**'s keycodes **as custom modified values**.
@@ -191,7 +191,7 @@ These are the first versions of the feature. Although they work great, they use 
 
 ---
 
-## Configuration
+## v1.* - Configuration
 
 By default the **Lite** version of `CMV-v1.*` is used which is enough for a **normal use of the feature**. There is another version called the **Complete** version, which is essentially the same as the **Lite** version but has **more functionalities** hence its **bigger storage usage**. To load the **Complete** version instead of the **Lite** version, add `#define CMV_COMPLETE_VERSION` along with `#define CUSTOM_MODIFIED_VALUES_ENABLE` in your `config.h` file.
 
@@ -199,7 +199,7 @@ For more advanced customization and configuration, see **Advanced functionalitie
 
 ---
 
-## Advanced functionalities
+## v1.* - Advanced functionalities
 
 CMV has to define an internally-used array containing some informations on the currently held keys (modifiers and non-modifiers keys mixed). The **keyboard report** sent to the host by the firmware can contain **up to 6 non-modifiers keys plus the state of the 8 modifiers**. The CMV holds up to **8 modifiers and non-modifiers keys mixed by default** but you can customize this value to **save a little space** by writing `#define CMV_NUMBER_OF_HELD_KEYS [custom_number_of_keys_tracked_by_CMV]` in your `config.h` file. 
 

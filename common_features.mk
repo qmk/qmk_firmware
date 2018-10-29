@@ -239,6 +239,10 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
   OPT_DEFS += -DLEADER_ENABLE
 endif
 
+ifeq ($(strip $(CUSTOM_MODIFIED_VALUES_ENABLE)), yes)
+    OPT_DEFS += -DCUSTOM_MODIFIED_VALUES_ENABLE
+endif
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \

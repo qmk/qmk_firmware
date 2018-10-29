@@ -26,8 +26,6 @@ enum {
   CLOSE_TAB,
   NEXT_WIN,
   CLOSE_WIN,
-  TOG_DAMR, // CMV: toggle on/off delay after modifier relase
-  TOG_DAKP, // CMV: toggle on/off dynamic active key processing
   INFOS,
 };
 
@@ -209,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MACROS] = KEYMAP(
     __________,   __________,   __________,   __________,   __________,   __________,   __________,
     __________,   __________,   __________,   __________,   __________,   __________, TO(_NAVIGAT),
-    __________,   __________,   __________,     M(INFOS),  M(TOG_DAKP),  M(TOG_DAMR),
+    __________,   __________,   __________,     M(INFOS),   __________,   __________,
     __________,   __________,   __________,   __________,   __________,   __________,   __________,
     __________,   __________,   __________,   __________,   __________,
                                                                           __________,   __________,
@@ -303,18 +301,6 @@ bool keycodes_for_key(uint16_t default_kc, uint8_t layer, keypos_t key) {
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {
-
-#ifdef CMV_COMPLETE_VERSION
-      case TOG_DAKP:
-        if(record->event.pressed) toggle_dakp();
-        break;
-
-      case TOG_DAMR:
-# ifndef CMV_NO_DELAY_AFTER_MODIFIER_RELEASE
-        if(record->event.pressed) toggle_damr();
-# endif
-        break;
-#endif
 
       case INFOS:
         if(record->event.pressed) SEND_STRING("QMK: " QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " from " QMK_BUILDDATE);
