@@ -258,7 +258,6 @@ bool keycodes_for_key(uint16_t default_kc, uint8_t layer, keypos_t key) {
 #endif
 
 
-
 uint32_t layer_state_set_user(uint32_t state) {
 
     uint8_t layer = biton32(state);
