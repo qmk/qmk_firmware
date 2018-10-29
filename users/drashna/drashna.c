@@ -20,6 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_stuff.h"
 
 userspace_config_t userspace_config;
+#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+  extern uint8_t input_mode;
+#endif
 
 uint16_t copy_paste_timer;
 //  Helper Functions
@@ -423,6 +426,7 @@ void eeconfig_init_user(void) {
   userspace_config.rgb_layer_change = true;
   eeconfig_update_user(userspace_config.raw);
   #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    set_unicode_input_mode(UC_WIN);
+    input_mode = UC_WIN;
   #endif
+  eeprom_update_byte(EECONFIG_UNICODEMODE, UC_WIN);
 }
