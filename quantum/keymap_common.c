@@ -37,6 +37,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 	#include "process_midi.h"
 #endif
 
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+  #include "custom_modified_values.h"
+#endif
+
 extern keymap_config_t keymap_config;
 
 #include <inttypes.h>
@@ -204,12 +208,58 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
 }
 
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+static uint16_t cmv_buffer[4] = {0,0,0,0};
+
+bool set_cmv_buffer(uint16_t kc_default, uint16_t kc_shifted, uint16_t kc_altgred, uint16_t kc_sftralt) {
+  cmv_buffer[0] = kc_default;
+  cmv_buffer[1] = kc_shifted;
+  cmv_buffer[2] = kc_altgred;
+  cmv_buffer[3] = kc_sftralt;
+  return false;
+}
+
+__attribute__ ((weak))
+bool keycodes_for_key(uint16_t default_kc, uint8_t layer, keypos_t key) {
+  return true;
+}
+
+static uint16_t* get_custom_modified_values_for_key(uint16_t default_kc, uint8_t layer, keypos_t key) {
+  if(keycodes_for_key(default_kc, layer, key)) {
+    set_cmv_buffer(default_kc, 0, 0, 0);
+  }
+  return cmv_buffer;
+}
+
+static uint8_t get_kcid(uint16_t* kcs) {
+  if(are_there_non_charmods()) return 0;
+  else if(are_there_shifts() && are_there_ralts() && kcs[3]) return 3;
+  else if(are_there_shifts() && kcs[1]) return 1;
+  else if(are_there_ralts() && kcs[2]) return 2;
+  return 0;
+}
+
+static uint16_t keymap_key_to_keycode_cmv(uint8_t layer, keypos_t key) {
+  uint8_t kcid = get_kcid(get_custom_modified_values_for_key(pgm_read_word(&keymaps[layer][key.row][key.col]), layer, key));
+  if (kcid) {
+    set_mods_blocker(true);
+  } else {
+    set_mods_blocker(false);
+  }
+  return cmv_buffer[kcid];
+}
+#endif
+
 // translates key to keycode
 __attribute__ ((weak))
 uint16_t keymap_key_to_keycode(uint8_t layer, keypos_t key)
 {
+#if defined(CUSTOM_MODIFIED_VALUES_ENABLE)
+    return keymap_key_to_keycode_cmv(layer, key);
+#else
     // Read entire word (16bits)
     return pgm_read_word(&keymaps[(layer)][(key.row)][(key.col)]);
+#endif
 }
 
 // translates function id to action

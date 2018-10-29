@@ -180,6 +180,10 @@ extern uint32_t default_layer_state;
     #define readPin(pin) palReadLine(pin)
 #endif
 
+#ifdef CUSTOM_MODIFIED_VALUES_ENABLE
+  #include "custom_modified_values.h"
+#endif
+
 #define STRINGIZE(z) #z
 #define ADD_SLASH_X(y) STRINGIZE(\x ## y)
 #define SYMBOL_STR(x) ADD_SLASH_X(x)
