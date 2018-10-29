@@ -8,7 +8,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 	sudo dnf install \
 		arm-none-eabi-binutils-cs \
 		arm-none-eabi-gcc-cs \
-		arm-none-eabi-newlib
+		arm-none-eabi-newlib \
 		avr-binutils \
 		avr-gcc \
 		avr-libc \
@@ -59,7 +59,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		avr-binutils \
 		avr-libc \
 		avr-gcc \
-                base-devel \
+    base-devel \
 		dfu-util \
 		diff-utils \
 		gcc \
@@ -96,9 +96,13 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 	fi
 
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
+	CROSS_AVR_GCC=cross-avr-gcc8
+	if grep ID /etc/os-release | grep -q "15.0"; then
+		CROSS_AVR_GCC=cross-avr-gcc7
+	fi
 	sudo zypper install \
 		avr-libc \
-		cross-avr-gcc8 \
+		$CROSS_AVR_GCC \
 		cross-avr-binutils \
 		cross-arm-none-newlib-devel \
 		cross-arm-binutils cross-arm-none-newlib-devel \
