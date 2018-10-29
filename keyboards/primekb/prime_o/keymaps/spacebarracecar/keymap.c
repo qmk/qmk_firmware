@@ -8,8 +8,8 @@
 
 enum layers {
   _BASE,
-  _LOWER,
   _RAISE,
+  _LOWER,
   _GAME = _NAV+1
 };
 
