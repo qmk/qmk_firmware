@@ -15,9 +15,10 @@
   #define STARTUP_SONG SONG(ADVENTURE_TIME)
   #define AUDIO_CLICKY
   #define AUDIO_CLICKY_ON
+  #define AUDIO_CLICKY_DELAY_DURATION 8
   #define AUDIO_CLICKY_FREQ_MAX 2500.0f
-  #define AUDIO_CLICKY_FREQ_RANDOMNESS 0.2f
-  #define AUDIO_CLICKY_FREQ_DEFAULT 110.0f
+  #define AUDIO_CLICKY_FREQ_RANDOMNESS 0.25f
+  #define AUDIO_CLICKY_FREQ_DEFAULT 880.0f
 #endif
 
 // for some reason the LSvi rev1 disables action tapping...
