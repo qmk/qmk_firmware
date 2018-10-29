@@ -8,7 +8,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 	sudo dnf install \
 		arm-none-eabi-binutils-cs \
 		arm-none-eabi-gcc-cs \
-		arm-none-eabi-newlib
+		arm-none-eabi-newlib \
 		avr-binutils \
 		avr-gcc \
 		avr-libc \
@@ -59,7 +59,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		avr-binutils \
 		avr-libc \
 		avr-gcc \
-                base-devel \
+    base-devel \
 		dfu-util \
 		diff-utils \
 		gcc \
