@@ -4,7 +4,7 @@ Vinta
 [Vinta](https://i.imgur.com/huX3lff.jpg)
 
 
-This is a ARM-powered 65% keyboard PCB with a USB Mini B connector and a breakout for optional RGB underglow.
+This is an ARM-powered 65% keyboard PCB with USB Mini B connector and breakout for optional RGB underglow.
 
 Keyboard Maintainer: [Peioris](http://peioris.space/) and on [github](https://github.com/coarse)  
 Hardware Supported: Vinta with STM32F042K6T6  
