@@ -62,6 +62,12 @@ void send_keyboard(report_keyboard_t *report)
 {
     uint32_t irqflags;
 
+    if (usb_state == USB_STATE_POWERDOWN)
+    {
+        udc_remotewakeup();
+        return;
+    }
+
 #ifdef NKRO_ENABLE
     if (!keymap_config.nkro)
     {
@@ -156,25 +162,27 @@ void send_consumer(uint16_t data)
 }
 
 uint8_t g_drvid;
+uint8_t g_usb_sleeping = 0;
 
 void main_subtask_usb_state(void)
 {
     if (usb_state == USB_STATE_POWERDOWN)
     {
-        uint32_t timer_led = timer_read32();
-
-        led_on;
-        if (led_enabled)
+        if (!g_usb_sleeping)
         {
-            for (g_drvid = 0; g_drvid < ISSI3733_DRIVER_COUNT; g_drvid++)
+            g_usb_sleeping = 1;
+            if (led_enabled)
             {
-                I2C3733_Control_Set(0);
+                for (g_drvid = 0; g_drvid < ISSI3733_DRIVER_COUNT; g_drvid++)
+                {
+                    I2C3733_Control_Set(0);
+                }
             }
         }
-        while (usb_state == USB_STATE_POWERDOWN)
-        {
-            if (timer_read32() - timer_led > 1000) led_off; //Good to indicate went to sleep, but only for a second
-        }
+    }
+    else if (g_usb_sleeping)
+    {
+        g_usb_sleeping = 0;
         if (led_enabled)
         {
             for (g_drvid = 0; g_drvid < ISSI3733_DRIVER_COUNT; g_drvid++)
@@ -182,12 +190,12 @@ void main_subtask_usb_state(void)
                 I2C3733_Control_Set(1);
             }
         }
-        led_off;
     }
 }
 
 void main_subtask_led(void)
 {
+    if (g_usb_sleeping) return;
     led_matrix_task();
 }
 
