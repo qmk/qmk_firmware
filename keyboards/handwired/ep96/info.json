@@ -1,0 +1,13 @@
+{
+    "keyboard_name":"ep96",
+    "url":null,
+    "maintainer":"e11i0t23",
+    "width":19,
+    "hight":6,
+    "layouts": {
+        "LAYOUT":{
+            "key_count":100,
+            "layout":[]
+        }
+    }
+}
