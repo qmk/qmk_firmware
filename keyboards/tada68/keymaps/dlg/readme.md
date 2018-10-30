@@ -2,8 +2,8 @@
 
 [tshack's layout](https://github.com/qmk/qmk_firmware/tree/master/keyboards/tada68/keymaps/tshack), with:
  + Mac layer
- + volume controls moved to Fn+ M<>
    + Press Fn-I to align the bottom row to mac standards
+ + volume controls moved to Fn+ M<>
  + [Space Cadet Shift](https://docs.qmk.fm/#/feature_space_cadet_shift) enabled
  + Fn+R for LED breathing
  + Fn+Del for Insert
