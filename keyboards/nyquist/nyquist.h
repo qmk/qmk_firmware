@@ -7,6 +7,9 @@
 #ifdef KEYBOARD_nyquist_rev2
     #include "rev2.h"
 #endif
+#ifdef KEYBOARD_nyquist_rev3
+    #include "rev3.h"
+#endif
 
 #include "quantum.h"
 
