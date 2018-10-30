@@ -4,8 +4,6 @@
 #define _FL 1
 #define _MAC 2
 
-#define _______ KC_TRNS
-
 // investigate later - use lctl / lsft as up/down.
 // https://github.com/qmk/qmk_firmware/tree/master/keyboards/tada68/keymaps/fakb
 #define LCTL_MA LCTL_T(KC_UP)
