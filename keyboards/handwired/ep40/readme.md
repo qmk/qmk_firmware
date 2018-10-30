@@ -1,12 +1,12 @@
 # ep40
 
-![ep40](imgur.com image replace me!)
+![ep40](https://i.imgur.com/Jl7w6I9.jpg)
 
 A simple 40% keyboard
 
 Keyboard Maintainer: [Elliot Powell](https://reddit.com/u/e11i0t23)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: EP40 PCB  
+Hardware Availability: None at the moment
 
 Make example for this keyboard (after setting up your build environment):
 
