@@ -19,12 +19,13 @@ extern keymap_config_t keymap_config;
 #define XXXXXXX KC_NO
 
 // Useful custom key shortcuts
+#define SP_FUNC MO(_FUNC)
 #define SP_LESS LSFT(KC_COMMA)
 #define SP_MEDI MO(_MEDIA)
-#define SP_FUNC MO(_FUNC)
-#define SP_NOPE LALT(KC_F4) //alt+f4
 #define SP_MORE LSFT(KC_DOT)
+#define SP_NOPE LALT(KC_F4) //alt+f4
 #define SP_PSCR KC_PSCREEN
+#define SP_SHSP MT(MOD_LSFT, KC_SPC) // space or left shift when held
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -44,14 +45,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * ├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
   * │shift│  Z  │  X  │  C  │  V  │  B  │ │  N  │  M  │  ,  │  .  │ up  │media│
   * ├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
-  * │ctrl │ os  │func │ alt │lower│raise│ │shift│space│ alt │left │down │right│
+  * │ctrl │ os  │func │ alt │lower│raise│ │sp/sh│sp/sh│ alt │left │down │right│
   * └─────┴─────┴─────┴─────┴─────┴─────┘ └─────┴─────┴─────┴─────┴─────┴─────┘
   */
   [_QWERTY] = LAYOUT_ortho_4x12( \
-    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,  KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,    KC_BSPC, \
-    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,  KC_H,    KC_J,   KC_K,    KC_L,    KC_SCLN, KC_ENT, \
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,  KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_UP,   SP_MEDI, \
-    KC_LCTL, KC_LGUI, SP_FUNC, KC_LALT, LOWER, RAISE, KC_RSFT, KC_SPC, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT \
+    KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,  KC_T,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC, \
+    KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,  KC_G,  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT, \
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,  KC_B,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   SP_MEDI, \
+    KC_LCTL, KC_LGUI, SP_FUNC, KC_LALT, LOWER, RAISE, SP_SHSP, SP_SHSP, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT \
   ),
 
   /* custom
@@ -62,14 +63,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
    * │shift│  W  │  Y  │  G  │  ,  │  Z  │ │  X  │  .  │  F  │  H  │ up  │media│
    * ├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
-   * │ctrl │ os  │func │ alt │lower│raise│ │shift│space│ alt │left │down │right│
+   * │ctrl │ os  │func │ alt │lower│raise│ │sp/sh│sp/sh│ alt │left │down │right│
    * └─────┴─────┴─────┴─────┴─────┴─────┘ └─────┴─────┴─────┴─────┴─────┴─────┘
    */
   [_CUSTOM] = LAYOUT_ortho_4x12( \
-    KC_ESC,  KC_B,    KC_M,    KC_P,    KC_Q,    KC_SCLN, KC_K,    KC_V,   KC_C,    KC_D,    KC_J,    KC_BSPC, \
-    KC_TAB,  KC_A,    KC_U,    KC_I,    KC_E,    KC_O,    KC_L,    KC_T,   KC_S,    KC_R,    KC_N,    KC_ENT, \
-    KC_LSFT, KC_W,    KC_Y,    KC_G,    KC_COMM, KC_Z,    KC_X,    KC_DOT, KC_F,    KC_H,    KC_UP,   SP_MEDI, \
-    KC_LCTL, KC_LGUI, SP_FUNC, KC_LALT, LOWER,   RAISE,   KC_RSFT, KC_SPC, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT \
+    KC_ESC,  KC_B,    KC_M,    KC_P,    KC_Q,    KC_SCLN, KC_K,    KC_V,    KC_C,    KC_D,    KC_J,    KC_BSPC, \
+    KC_TAB,  KC_A,    KC_U,    KC_I,    KC_E,    KC_O,    KC_L,    KC_T,    KC_S,    KC_R,    KC_N,    KC_ENT, \
+    KC_LSFT, KC_W,    KC_Y,    KC_G,    KC_COMM, KC_Z,    KC_X,    KC_DOT,  KC_F,    KC_H,    KC_UP,   SP_MEDI, \
+    KC_LCTL, KC_LGUI, SP_FUNC, KC_LALT, LOWER,   RAISE,   SP_SHSP, SP_SHSP, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT \
   ),
 
   /* lower
