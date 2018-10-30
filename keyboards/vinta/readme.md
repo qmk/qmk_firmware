@@ -8,7 +8,7 @@ This is an ARM-powered 65% keyboard PCB with USB Mini B connector and breakout f
 
 Keyboard Maintainer: [Peioris](http://peioris.space/) and on [github](https://github.com/coarse)  
 Hardware Supported: Vinta with STM32F042K6T6  
-Hardware Availability: http://groupbuys.mechboards.co.uk/shop/hs60-hotswap-60-pcb/
+Hardware Availability: Private Groupbuy (will post on Reddit once QMK has RGB underglow working)
 
 Make example for this keyboard (after setting up your build environment):
 
