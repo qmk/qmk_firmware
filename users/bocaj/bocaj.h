@@ -39,6 +39,7 @@ enum userspace_custom_keycodes {
   KC_CCCV,
   MC_LOCK,
   KC_DCLR,
+  KC_MAKE,
   NEW_SAFE_RANGE  //use "NEWPLACEHOLDER for keymap specific codes
 };
 
@@ -57,6 +58,14 @@ enum userspace_custom_keycodes {
 #define _______ KC_TRNS
 
 void tap(uint16_t keycode);
+
+/*
+define modifiers here, since MOD_* doesn't seem to work for these
+ */
+#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
+#define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
 /* *** *** *** *** *** *** *
  * Diablo 3 Macro Handling *

@@ -51,7 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       KC_DEL,     K01,      K02,       K03,        K04,       K05,        KC_LPRN,         KC_RPRN,     K06,       K07,       K08,       K09,       K0A,       KC_BSLS, \
       KC_NUMS,    K11, SFT_T(K12), CTL_T(K13),  ALT_T(K14),   K15,                                      K16,  ALT_T(K17),  CTL_T(K18), SFT_T(K19),  K1A,       KC_QUOT, \
       KC_LSFT, GUI_T(K21),  K22,       K23,        K24,       K25,        HYP_LBK,         MEH_RBK,     K26,       K27,       K28,       K29,    GUI_T(K2A),   KC_RSFT, \
-          K31,     K32,      K33,       K34,        K35,                                                          K36,       K37,       K38,       K39,       K3A,      \
+         K31,     K32,      K33,       K34,        K35,                                                            K36,       K37,       K38,       K39,       K3A,      \
                                                          K41, K42,                                      K43, K44,                                                       \
                                                               K45,                                      K46,                                                            \
                                                     K47, K48, K49,                                      K4A, K51, K52                                                   \
@@ -166,9 +166,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             !-------+-----+-----+-----+-----+-------------!                                              !-------+-----+-----+-----+-----+-----+-------!
             |       |     |     |     |     |     |       |                                              !       |     |     |     |     |     |       |
             !-------+-----+-----+-----x-----x-----!       !                                              !       !-----x-----x-----+-----+-----+-------!
-            |       | 🔇  |  🔉  | 🔊  | LCK |     |-------!                                              !-------!     |     |     |     |     | SWRKM |
+            |       | 🔇  |  🔉  | 🔊  | LCK |     |-------!                                              !-------!     |     |     |     | WIN | QWRTY |
             !-------+-----+-----+-----x-----x-----!       !                                              !       !-----x-----x-----+-----+-----+-------!
-            |       |     |     |     |     |     |       |                                              !       |     |     |     |     |     | HWRKM |
+            |       |     |     |     |     |     |       |                                              !       |     |     |     |     | WIN | HWRKM |
             '-------+-----+-----+-----+-----+-------------'                                              '-------------+-----+-----+-----+-----+-------'
              |      |     |     |     |     | .---------------.                                      .---------------. !     |     |     |     |      |
              '------------------------------' |       |       |                                      !       |       | '------------------------------'
@@ -179,7 +179,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       '-----------------------'                                      '-----------------------'
 */
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
-    XXXXXXX,XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, KC_EPRM,    KC_EPRM, XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,
+    KC_MAKE,XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, KC_EPRM,    KC_EPRM, XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,
     XXXXXXX,XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,     XXXXXXX, XXXXXXX,
     XXXXXXX,KC__MUTE,  KC__VOLDOWN,   KC__VOLUP,   MC_LOCK,   XXXXXXX,                       XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,     KC_WQWR, KC_MQWR,
     XXXXXXX,XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX, XXXXXXX,    XXXXXXX,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,     KC_WWRK, KC_MWRK,
@@ -196,10 +196,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Diablo - http://www.keyboard-layout-editor.com/#/gists/28476e4237e77d4835ac8a9d7e5f9b2c
   [_DIABLO] = LAYOUT_ergodox_pretty_wrapper(
              KC_ESC,  KC_V,    KC_D,    KC_LALT, KC_NO,   KC_NO,   KC_NO,                   KC_NO,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_NO,
-             KC_TAB,  KC_S,    KC_I,    KC_F,    KC_M,    KC_T,    KC_NO,                   KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_TAB,  KC_S,    KC_I,    KC_F,    KC_M,    KC_T,    KC_ENTER,                KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_G,                                      KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-             KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,    KC_NO,                   KC_NO,   KC_N,    KC_M,     KC_NO,   KC_NO,   KC_NO,   KC_NO,
-             KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                       KC_NO,    KC_NO,   KC_NO,   KC_TRNS, KC_NO,
+             KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,    KC_LOCK,                 KC_NO,   KC_N,    KC_M,     KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                         KC_NO,    KC_NO,   KC_NO,   KC_TRNS, KC_NO,
                                                              KC_L,    KC_J,                 KC_NO,   KC_NO,
                                                                       KC_F,                 KC_NO,
                                      SFT_T(KC_SPACE),  ALT_T(KC_Q),   KC_DCLR,              KC_PGDN, KC_DEL,  KC_ENT
@@ -250,6 +250,31 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
       if (!record->event.pressed) {
         layer_move(default_layer);
         SEND_STRING(SS_LCTRL(SS_LGUI("q")));
+      }
+      return false;
+      break;
+    case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
+      if (!record->event.pressed) {
+        uint8_t temp_mod = get_mods();
+        clear_mods();
+        send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
+        if (temp_mod & MODS_SHIFT_MASK) {
+          #if defined(__ARM__)
+            send_string_with_delay_P(PSTR(":dfu-util"), 10);
+          #elif defined(BOOTLOADER_DFU)
+            send_string_with_delay_P(PSTR(":dfu"), 10);
+          #elif defined(BOOTLOADER_HALFKAY)
+            send_string_with_delay_P(PSTR(":teensy"), 10);
+          #elif defined(BOOTLOADER_CATERINA)
+            send_string_with_delay_P(PSTR(":avrdude"), 10);
+          #endif // bootloader options
+        }
+        #if defined(KEYBOARD_viterbi)
+          send_string_with_delay_P(PSTR(":dfu"), 10);
+        #endif
+        if (temp_mod & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
+        send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
+        set_mods(temp_mod);
       }
       return false;
       break;
