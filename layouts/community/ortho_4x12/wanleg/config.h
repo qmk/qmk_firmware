@@ -1,6 +1,15 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
+#if defined(KEYBOARD_jj40)
+#undef BACKLIGHT_BREATHING
+#undef BACKLIGHT_LEVELS
+#undef BREATHING_PERIOD
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 3
+#define BREATHING_PERIOD 15
+#endif
+
 //QMK DFU settings (ProMicro boards with QMK bootloader)
 // set top left key as bootloader mode escape key on Lets Split rev2
 #if defined(KEYBOARD_lets_split_rev2)
