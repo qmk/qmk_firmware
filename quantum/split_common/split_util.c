@@ -32,6 +32,16 @@ volatile bool isLeftHand = true;
 
 volatile uint8_t setTries = 0;
 
+// Temporary code to disable JTAG on the slave board
+void disable_JTAG(void) {
+    /* Copied from tmk_core/common/keybaord.c */
+    // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
+    #if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
+      MCUCR |= _BV(JTD);
+      MCUCR |= _BV(JTD);
+    #endif
+}
+
 static void setup_handedness(void) {
   #ifdef SPLIT_HAND_PIN
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
@@ -155,14 +165,4 @@ void matrix_setup(void) {
         //rgblight_init();
         keyboard_slave_loop();
     }
-}
-
-// Temporary code to disable JTAG on the slave board
-void disable_JTAG(void) {
-    /* Copied from tmk_core/common/keybaord.c */
-    // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
-    #if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
-      MCUCR |= _BV(JTD);
-      MCUCR |= _BV(JTD);
-    #endif
 }
