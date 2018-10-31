@@ -93,6 +93,10 @@ void split_keyboard_setup(void) {
 }
 
 void keyboard_slave_loop(void) {
+   // Disable JTAG since we skip calling keyboard_init() on the slave side
+   // Future fix will possible call keyboard_init() on the slave to remove this need
+   disable_JTAG();
+    
    matrix_init();
    
    //Init RGB
@@ -151,4 +155,14 @@ void matrix_setup(void) {
         //rgblight_init();
         keyboard_slave_loop();
     }
+}
+
+// Temporary code to disable JTAG on the slave board
+void disable_JTAG(void) {
+    /* Copied from tmk_core/common/keybaord.c */
+    // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
+    #if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
+      MCUCR |= _BV(JTD);
+      MCUCR |= _BV(JTD);
+    #endif
 }
