@@ -92,13 +92,14 @@ void split_keyboard_setup(void) {
    sei();
 }
 
+void disable_JTAG(void);
 void keyboard_slave_loop(void) {
    // Disable JTAG since we skip calling keyboard_init() on the slave side
    // Future fix will possible call keyboard_init() on the slave to remove this need
    disable_JTAG();
-    
+
    matrix_init();
-   
+
    //Init RGB
    #ifdef RGBLIGHT_ENABLE
       rgblight_init();
@@ -107,7 +108,7 @@ void keyboard_slave_loop(void) {
    while (1) {
     // Matrix Slave Scan
     matrix_slave_scan();
-    
+
     // Read Backlight Info
     #ifdef BACKLIGHT_ENABLE
         #ifdef USE_I2C
@@ -126,14 +127,14 @@ void keyboard_slave_loop(void) {
                 // Disable interupts (RGB data is big)
                 cli();
                 // Create new DWORD for RGB data
-                uint32_t dword; 
-                
+                uint32_t dword;
+
                 // Fill the new DWORD with the data that was sent over
                 uint8_t *dword_dat = (uint8_t *)(&dword);
                 for (int i = 0; i < 4; i++) {
                     dword_dat[i] = i2c_slave_buffer[I2C_RGB_START+i];
                 }
-                
+
                 // Update the RGB now with the new data and set RGB_DIRTY to false
                 rgblight_update_dword(dword);
                 RGB_DIRTY = false;
