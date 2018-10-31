@@ -73,10 +73,6 @@ static void switch_default_layer(uint8_t layer);
 command_state_t command_state = ONESHOT;
 
 
-#ifndef IS_COMMAND
-  #define IS_COMMAND() (keyboard_report->mods == MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
-#endif
-
 bool command_proc(uint8_t code)
 {
     switch (command_state) {
