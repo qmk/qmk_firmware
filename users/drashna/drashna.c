@@ -427,6 +427,8 @@ void eeconfig_init_user(void) {
   eeconfig_update_user(userspace_config.raw);
   #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
     input_mode = UC_WIN;
+    eeprom_update_byte(EECONFIG_UNICODEMODE, UC_WIN);
+  #else
+    eeprom_update_byte(EECONFIG_UNICODEMODE, 2);
   #endif
-  eeprom_update_byte(EECONFIG_UNICODEMODE, UC_WIN);
 }
