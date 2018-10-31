@@ -41,6 +41,7 @@ void set_unicode_input_mode(uint8_t os_target);
 uint8_t get_unicode_input_mode(void);
 void unicode_input_mode_init(void);
 void cycle_unicode_input_mode(void);
+void persist_unicode_input_mode(void);
 
 void unicode_input_start(void);
 void unicode_input_finish(void);

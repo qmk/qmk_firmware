@@ -29,7 +29,7 @@ uint8_t mods;
 
 void set_unicode_input_mode(uint8_t os_target) {
   input_mode = os_target;
-  eeprom_update_byte(EECONFIG_UNICODEMODE, os_target);
+  persist_unicode_input_mode();
   dprintf("input_mode set to: %u\n", input_mode);
 }
 
@@ -68,10 +68,14 @@ void cycle_unicode_input_mode(void) {
   selected_index = (selected_index + 1) % selected_count;
   input_mode = selected[selected_index];
 # if UNICODE_CYCLE_PERSIST
-  eeprom_update_byte(EECONFIG_UNICODEMODE, input_mode);
+  persist_unicode_input_mode();
 # endif
   dprintf("input_mode cycle to: %u\n", input_mode);
 #endif
+}
+
+void persist_unicode_input_mode(void) {
+  eeprom_update_byte(EECONFIG_UNICODEMODE, input_mode);
 }
 
 __attribute__((weak))
