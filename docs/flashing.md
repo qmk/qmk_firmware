@@ -71,8 +71,8 @@ Flashing sequence:
 
 1. Press the `RESET` keycode, or short RST to GND quickly (you only have 7 seconds to flash once it enters)
 2. Wait for the OS to detect the device
-4. Flash a .hex file
-5. Wait for the device to reset automatically
+3. Flash a .hex file
+4. Wait for the device to reset automatically
 
 or
 
@@ -106,5 +106,27 @@ Flashing sequence:
 
 1. Press the `RESET` keycode, or short RST to GND quickly (you only have 7 seconds to flash once it enters)
 2. Wait for the OS to detect the device
-4. Flash a .hex file
-5. Reset the device into application mode (may be done automatically)
+3. Flash a .hex file
+4. Reset the device into application mode (may be done automatically)
+
+## STM32
+
+All STM32 chips come preloaded with a factory bootloader that cannot be modified nor deleted. Some STM32 chips have bootloaders that do not come with USB programming (e.g. STM32F103) but the process is still the same.
+
+At the moment, no `BOOTLOADER` variable is needed on `rules.mk` for STM32.
+
+Compatible flashers:
+
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
+* [dfu-util](https://github.com/Stefan-Schmidt/dfu-util) / `:avrdude` (recommended command line)
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `RESET` keycode (may not work on STM32F042 devices)
+    * If a reset circuit is present, tap the RESET button
+    * Otherwise, you need to bridge BOOT0 to VCC (via BOOT0 button or bridge), short RESET to GND (via RESET button or bridge), and then let go of the BOOT0 bridge
+2. Wait for the OS to detect the device
+3. Flash a .bin file
+    * You will receive a warning about the DFU signature; Just ignore it
+4. Manually reset the device into application mode
