@@ -5,7 +5,7 @@ MiniAxe
 
 Yet another split ortholinear keyboard with 3x5+3 keys.
 
-Keyboard Maintainer: [ka2hiro](https://github.com/ka2hiro) [@ka2hiro](https://twitter.com/ka2hiro) 
+Keyboard Maintainer: [ka2hiro](https://github.com/ka2hiro) [@ka2hiro](https://twitter.com/ka2hiro)  
 Hardware Supported: MiniAxe PCB, ATMEGA32U4
 Hardware Availability: [@ka2hiro](https://twitter.com/ka2hiro)
 
