@@ -1,7 +1,4 @@
-#include "levinson.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -25,8 +22,6 @@ enum custom_keycodes {
 
 // Fillers to make layering more clear
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // tap toggle numpad on
 #define NUMPAD TT(_NUMS)
@@ -53,7 +48,7 @@ enum custom_keycodes {
 #define CTL_BSL MT(MOD_RCTL, KC_BSLS) //  \       Right Control
 #define CTL_PIP MT(MOD_RCTL, KC_PIPE) //  |       Right Control
 
-// Redefine for KC_KEYMAP
+// Redefine for LAYOUT_kc
 #define KC_CTL_BSL CTL_BSL
 #define KC_CTL_PIP CTL_PIP
 #define KC_CTL_DEL CTL_DEL
@@ -86,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-				[_QWERTY] = KEYMAP(
+				[_QWERTY] = LAYOUT_ortho_4x12(
 								HPR_TAB, KC_Q   , KC_W   , KC_E   , KC_R , KC_T   ,    KC_Y   , KC_U , KC_I   , KC_O   , KC_P   , KC_BSPC,
 								CTL_ESC, KC_A   , KC_S   , KC_D   , KC_F , KC_G   ,    KC_H   , KC_J , KC_K   , KC_L   , KC_SCLN, CTL_QOT,
 								SFT_MIN, KC_Z   , KC_X   , KC_C   , KC_V , KC_B   ,    KC_N   , KC_M , KC_COMM, KC_DOT , KC_SLSH, SFT_ENT,
@@ -105,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-				[_RAISE] = KC_KEYMAP(
+				[_RAISE] = LAYOUT_kc_ortho_4x12(
 								HPR_GRV, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,       ,
                ,LEFT, UP ,DOWN,RGHT,LPRN,     RPRN,MINS, EQL,LBRC,RBRC,CTL_PIP,
 								       ,COLN,QUOT,ASTR,COMM,LCBR,     RCBR,UNDS,PLUS,    ,    ,       ,
@@ -123,14 +118,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-				[_LOWER] = KC_KEYMAP(
+				[_LOWER] = LAYOUT_kc_ortho_4x12(
 								HPR_TIL,EXLM, AT ,HASH,DLR , PERC  ,     CIRC,AMPR,ASTR,LPRN,RPRN,       ,
 								CTL_DEL,VOLU,MUTE,MPLY,PGUP, COLN  ,     QUOT,MINS, EQL,LBRC,RBRC,CTL_BSL,
 								       ,VOLD,MPRV,MNXT,PGDN, SCLN  ,     DQUO,PIPE,COMM, DOT,SLSH,       ,
 								       ,    ,    ,    ,    ,       ,         ,    ,    ,    ,    ,
 								),
 
-				[_FUNC] = KC_KEYMAP(
+				[_FUNC] = LAYOUT_kc_ortho_4x12(
 // ,----+----+----+----+----+----.    ,----+----+----+----+----+----.
 								, F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 , F10,    ,
 // |----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -142,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // `----+----+----+----+----+----'    `----+----+----+----+----+----'
   ),
 
-				[_NUMS] = KC_KEYMAP(
+				[_NUMS] = LAYOUT_kc_ortho_4x12(
 // ,----+----+----+----+----+----.    ,----+----+----+----+----+----.
 								, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  ,SLSH,    ,
 // |----+----+----+----+----+----|    |----+----+----+----+----+----|
@@ -154,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // `----+----+----+----+----+----'    `----+----+----+----+----+----'
 								),
 
-				[_ADJUST] = KEYMAP(
+				[_ADJUST] = LAYOUT_ortho_4x12(
 // ,-------+--------+--------+--------+--------+--------.   ,-------+--------+--------+--------+--------+--------.
 		   RESET , XXXXXXX,  KC_UP , XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL , \
 // |-------+--------+--------+--------+--------+--------|   |-------+--------+--------+--------+--------+--------|
@@ -179,23 +174,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 };
 
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-#endif
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;

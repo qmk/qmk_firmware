@@ -1,7 +1,4 @@
-#include "levinson.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -10,10 +7,10 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _LOWER 3																/* Symbols, Media */
-#define _RAISE 4																/* Numbers, Arrows */
-#define _FUNC  5																/* Function Keys */
-#define _NUMS  6																/* Numpad */
+#define _LOWER 3                                                                /* Symbols, Media */
+#define _RAISE 4                                                                /* Numbers, Arrows */
+#define _FUNC  5                                                                /* Function Keys */
+#define _NUMS  6                                                                /* Numpad */
 #define _ADJUST 16
 
 /* short layer aliases */
@@ -33,10 +30,6 @@ enum custom_keycodes {
 };
 
 #include "dynamic_macro.h"
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 #define DREC_1  DYN_REC_START1
 #define DREC_2  DYN_REC_START2
@@ -85,12 +78,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Numpd| Meh  |      |      |      | Ctrl |    |      |      |      |      | Hyper|      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-	[_QW] = KEYMAP(
-		GUI_GRV, KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , GUI_BSL,
-		CTL_ESC, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
-		SFT_MIN, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, SFT_EQL,
-		NUM_TAB, MEH_LBC, KC_LGUI, KC_LALT, LOWER  , CTL_BSP, KC_SPC , RAISE  , KC_RALT, KC_RGUI, HPR_RBC, KC_ENT
-		),
+    [_QW] = LAYOUT_ortho_4x12(
+        GUI_GRV, KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , GUI_BSL,
+        CTL_ESC, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
+        SFT_MIN, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, SFT_EQL,
+        NUM_TAB, MEH_LBC, KC_LGUI, KC_LALT, LOWER  , CTL_BSP, KC_SPC , RAISE  , KC_RALT, KC_RGUI, HPR_RBC, KC_ENT
+        ),
 
 /* Raise
  * ,-----------------------------------------.    ,-----------------------------------------.
@@ -103,12 +96,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |Adjust|      |    |      | RAISE|   .  |  0   |  +   | Enter|
  * `-----------------------------------------'    `-----------------------------------------'
  */
-	[_RS] = KEYMAP(
-		_______, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
-		_______, KC_LEFT, KC_UP  , KC_DOWN, KC_RGHT, KC_SCLN, KC_QUOT, KC_4   , KC_5   , KC_6   , KC_ASTR, _______,
-		_______, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_COMM, KC_MINS, KC_1   , KC_2   , KC_3   , KC_SLSH, _______,
-		_______, _______, _______, _______, _______, _______, _______, _______, KC_DOT , KC_0   , KC_PLUS, _______
-		),
+    [_RS] = LAYOUT_ortho_4x12(
+        _______, KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , _______,
+        _______, KC_LEFT, KC_UP  , KC_DOWN, KC_RGHT, KC_SCLN, KC_QUOT, KC_4   , KC_5   , KC_6   , KC_ASTR, _______,
+        _______, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_COMM, KC_MINS, KC_1   , KC_2   , KC_3   , KC_SLSH, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, KC_DOT , KC_0   , KC_PLUS, _______
+        ),
 
 /* Lower
  * ,-----------------------------------------.    ,-----------------------------------------.
@@ -121,12 +114,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |LOWER |      |    |      |Adjust|      |      |      | Enter|
  * `-----------------------------------------'    `-----------------------------------------'
  */
-	[_LW] = KEYMAP(
-		_______, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
-		CTL_DEL, KC_VOLU, KC_MUTE, KC_MPLY, KC_PGUP, KC_HOME,    KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,
-		_______, KC_VOLD, KC_MPRV, KC_MNXT, KC_PGDN, KC_END ,    KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,
-		_______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
-		),
+    [_LW] = LAYOUT_ortho_4x12(
+        _______, KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC,    KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______,
+        CTL_DEL, KC_VOLU, KC_MUTE, KC_MPLY, KC_PGUP, KC_HOME,    KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  ,
+        _______, KC_VOLD, KC_MPRV, KC_MNXT, KC_PGDN, KC_END ,    KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,
+        _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
+        ),
 
 /* Numpad
  * ,-----------------------------------------.    ,-----------------------------------------.
@@ -139,12 +132,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |NUMPAD|      |      |      |      |      |    |      |  0   |  .   |  +   |  -   | Enter|
  * `-----------------------------------------'    `-----------------------------------------'
  */
-	[_NM] = KEYMAP(
-		XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX,    XXXXXXX, KC_7   , KC_8   , KC_9   , KC_0   , TO(_NM),
-		XXXXXXX, XXXXXXX, KC_INS , KC_HOME, KC_PGUP, XXXXXXX,    XXXXXXX, KC_4   , KC_5   , KC_6   , KC_SLSH, XXXXXXX,
-		XXXXXXX, XXXXXXX, KC_DEL , KC_END , KC_PGDN, XXXXXXX,    XXXXXXX, KC_1   , KC_2   , KC_3   , KC_ASTR, KC_EQL ,
-		_______, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,    _______, KC_0   , KC_DOT , KC_PLUS, KC_MINS, _______
-		),
+    [_NM] = LAYOUT_ortho_4x12(
+        XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX,    XXXXXXX, KC_7   , KC_8   , KC_9   , KC_0   , TO(_NM),
+        XXXXXXX, XXXXXXX, KC_INS , KC_HOME, KC_PGUP, XXXXXXX,    XXXXXXX, KC_4   , KC_5   , KC_6   , KC_SLSH, XXXXXXX,
+        XXXXXXX, XXXXXXX, KC_DEL , KC_END , KC_PGDN, XXXXXXX,    XXXXXXX, KC_1   , KC_2   , KC_3   , KC_ASTR, KC_EQL ,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______,    _______, KC_0   , KC_DOT , KC_PLUS, KC_MINS, _______
+        ),
 
 /* Adjust
  * ,-----------------------------------------.    ,-----------------------------------------.
@@ -157,85 +150,73 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |    |      |      |      |      |      |      |
  * `-----------------------------------------'    `-----------------------------------------'
  */
-	[_ADJUST] = KEYMAP(
-		RESET  , XXXXXXX,  KC_UP , XXXXXXX, XXXXXXX, DREC_1 ,    DREC_2 , RGB_M_P, RGB_M_SN,RGB_M_G, XXXXXXX, KC_DEL ,
-		KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, MKITPNK, DPLAY_1,    DPLAY_2, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______,
-		_______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DSTOP  ,    DSTOP  , RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,
-		_______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
-		)
+    [_ADJUST] = LAYOUT_ortho_4x12(
+        RESET  , XXXXXXX,  KC_UP , XXXXXXX, XXXXXXX, DREC_1 ,    DREC_2 , RGB_M_P, RGB_M_SN,RGB_M_G, XXXXXXX, KC_DEL ,
+        KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, MKITPNK, DPLAY_1,    DPLAY_2, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______,
+        _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DSTOP  ,    DSTOP  , RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, _______,
+        _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______
+        )
 };
 
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-#endif
-
 void make_it_pink_blue(void) {
-	uint16_t blue_hue = 210;
-	uint16_t pink_hue = 315;
+    uint16_t blue_hue = 210;
+    uint16_t pink_hue = 315;
 
-	/* key is pressed */
-	uint16_t hue = rgblight_get_hue();
-	uint8_t sat = rgblight_get_sat();
-	uint8_t val = rgblight_get_val();
+    /* key is pressed */
+    uint16_t hue = rgblight_get_hue();
+    uint8_t sat = rgblight_get_sat();
+    uint8_t val = rgblight_get_val();
 
-	if (hue != blue_hue)
-		rgblight_sethsv(blue_hue, sat, val);
-	else
-		rgblight_sethsv(pink_hue, sat, val);
-}
-
-void persistent_default_layer_set(uint16_t default_layer) {
-	eeconfig_update_default_layer(default_layer);
-	default_layer_set(default_layer);
+    if (hue != blue_hue)
+        rgblight_sethsv(blue_hue, sat, val);
+    else
+        rgblight_sethsv(pink_hue, sat, val);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if (!process_record_dynamic_macro(keycode, record))
-		return false;
+    if (!process_record_dynamic_macro(keycode, record))
+        return false;
 
-	switch (keycode) {
-    case QWERTY:
-		if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-			PLAY_SONG(tone_qwerty);
-#endif
-			persistent_default_layer_set(1UL<<_QWERTY);
-		}
-		return false;
-		break;
-    case LOWER:
-		if (record->event.pressed) {
-			layer_on(_LOWER);
-			update_tri_layer(_LOWER, _RAISE, _ADJUST);
-		} else {
-			layer_off(_LOWER);
-			update_tri_layer(_LOWER, _RAISE, _ADJUST);
-		}
-		return false;
-		break;
-    case RAISE:
-		if (record->event.pressed) {
-			layer_on(_RAISE);
-			update_tri_layer(_LOWER, _RAISE, _ADJUST);
-		} else {
-			layer_off(_RAISE);
-			update_tri_layer(_LOWER, _RAISE, _ADJUST);
-		}
-		return false;
-		break;
-    case ADJUST:
-		if (record->event.pressed) {
-			layer_on(_ADJUST);
-		} else {
-			layer_off(_ADJUST);
-		}
-		return false;
-		break;
-	case MKITPNK:
-		if (record->event.pressed)
-			make_it_pink_blue();
-		return false;
-		break;
-	}
-	return true;
+    switch (keycode) {
+      case QWERTY:
+          if (record->event.pressed) {
+              set_single_persistent_default_layer(_QWERTY);
+          }
+          return false;
+          break;
+      case LOWER:
+          if (record->event.pressed) {
+              layer_on(_LOWER);
+              update_tri_layer(_LOWER, _RAISE, _ADJUST);
+          } else {
+              layer_off(_LOWER);
+              update_tri_layer(_LOWER, _RAISE, _ADJUST);
+          }
+          return false;
+          break;
+      case RAISE:
+          if (record->event.pressed) {
+              layer_on(_RAISE);
+              update_tri_layer(_LOWER, _RAISE, _ADJUST);
+          } else {
+              layer_off(_RAISE);
+              update_tri_layer(_LOWER, _RAISE, _ADJUST);
+          }
+          return false;
+          break;
+      case ADJUST:
+          if (record->event.pressed) {
+              layer_on(_ADJUST);
+          } else {
+              layer_off(_ADJUST);
+          }
+          return false;
+          break;
+      case MKITPNK:
+          if (record->event.pressed)
+              make_it_pink_blue();
+          return false;
+          break;
+    }
+    return true;
 }
