@@ -118,7 +118,7 @@ At the moment, no `BOOTLOADER` variable is needed on `rules.mk` for STM32.
 Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
-* [dfu-util](https://github.com/Stefan-Schmidt/dfu-util) / `:avrdude` (recommended command line)
+* [dfu-util](https://github.com/Stefan-Schmidt/dfu-util) / `:dfu-util` (recommended command line)
 
 Flashing sequence:
 
@@ -129,4 +129,5 @@ Flashing sequence:
 2. Wait for the OS to detect the device
 3. Flash a .bin file
     * You will receive a warning about the DFU signature; Just ignore it
-4. Manually reset the device into application mode
+4. Reset the device into application mode (may be done automatically)
+    * If you are building from command line (e.g. `make planck/rev6:default:dfu-util`), make sure that `:leave` is passed to the `DFU_ARGS` variable inside your `rules.mk` (e.g. `DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave`) so that your device resets after flashing
