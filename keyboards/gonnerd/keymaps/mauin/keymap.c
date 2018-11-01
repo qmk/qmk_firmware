@@ -1,4 +1,4 @@
-#include "gonnerd.h"
+#include QMK_KEYBOARD_H
 
 // Keymap layers
 #define BASE_LAYER 0
@@ -22,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  Ctl|Alt|Gui  |         Space         |Gui  |Alt| F2| Ctl |
    * `-----------------------------------------------------------'
    */
-  [BASE_LAYER] = KEYMAP_60(
+  [BASE_LAYER] = LAYOUT_60(
       F(0),     KC_1,     KC_2,     KC_3,    KC_4,     KC_5,     KC_6,     KC_7,    KC_8,    KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC, \
       KC_TAB,   KC_Q,     KC_W,     KC_E,    KC_R,     KC_T,     KC_Y,     KC_U,    KC_I,    KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS, \
       MO(1),    KC_A,     KC_S,     KC_D,    KC_F,     KC_G,     KC_H,     KC_J,    KC_K,    KC_L,     KC_SCLN,  KC_QUOT,  __x__,    KC_ENT,  \
@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |     |   |     |                       |     |   |   |     |
    * `-----------------------------------------------------------'
    */
-   [FUNCTION_LAYER] = KEYMAP_60(
+   [FUNCTION_LAYER] = LAYOUT_60(
        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL, \
        __x__,   KC_MPRV, KC_MPLY, KC_MNXT, __x__,   __x__,   KC_PGUP, KC_HOME, KC_UP,   KC_END,  __x__,   KC_SLCK, KC_PAUS, __x__,  \
        KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, __x__,   __x__,   KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, __x__,   __x__,    __x__,  __x__,  \
@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |     |   |     |                       |     |   |   |     |
    * `-----------------------------------------------------------'
    */
-  [SYSTEM_LAYER] = KEYMAP_60(
+  [SYSTEM_LAYER] = LAYOUT_60(
       RESET,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,   __x__, \
       __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,   __x__, \
       __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,  __x__,   __x__, \

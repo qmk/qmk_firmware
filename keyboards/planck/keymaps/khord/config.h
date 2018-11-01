@@ -1,7 +1,7 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 
-#include "../../config.h"
+#include "config_common.h"
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(SONIC_RING)
@@ -12,7 +12,9 @@
                                 }
 #endif
 
+#ifndef LIGHT_CONFIG_H
 #define BACKLIGHT_BREATHING
+#endif
 #define TAPPING_TERM 150
 
 #define MUSIC_MASK (keycode != KC_NO)

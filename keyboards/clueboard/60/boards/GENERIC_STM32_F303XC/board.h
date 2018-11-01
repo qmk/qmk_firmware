@@ -416,7 +416,7 @@
                                      PIN_PUPDR_PULLUP(GPIOB_PIN4) |         \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN5) |         \
                                      PIN_PUPDR_FLOATING(GPIOB_PIN6) |   \
-                                     PIN_PUPDR_PULLUP(GPIOB_PIN7) |   \
+                                     PIN_PUPDR_PULLDOWN(GPIOB_PIN7) |   \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN8) |         \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN9) |         \
                                      PIN_PUPDR_PULLUP(GPIOB_PIN10) |        \
@@ -432,7 +432,7 @@
                                      PIN_ODR_HIGH(GPIOB_PIN4) |             \
                                      PIN_ODR_HIGH(GPIOB_PIN5) |             \
                                      PIN_ODR_HIGH(GPIOB_PIN6) |         \
-                                     PIN_ODR_HIGH(GPIOB_PIN7) |         \
+                                     PIN_ODR_LOW(GPIOB_PIN7) |         \
                                      PIN_ODR_HIGH(GPIOB_PIN8) |             \
                                      PIN_ODR_HIGH(GPIOB_PIN9) |             \
                                      PIN_ODR_HIGH(GPIOB_PIN10) |            \
@@ -1164,14 +1164,14 @@
 /*
  * USB bus activation macro, required by the USB driver.
  */
-// #define usb_lld_connect_bus(usbp) 
+// #define usb_lld_connect_bus(usbp)
 #define usb_lld_connect_bus(usbp) (palSetPadMode(GPIOA, GPIOA_USB_DP, PAL_MODE_ALTERNATE(14)))
 // #define usb_lld_connect_bus(usbp) palSetPadMode(GPIOA, 12, PAL_MODE_INPUT)
 /*
  * USB bus de-activation macro, required by the USB driver.
  */
 // #define usb_lld_disconnect_bus(usbp)
-#define usb_lld_disconnect_bus(usbp) (palSetPadMode(GPIOA, GPIOA_USB_DP, PAL_MODE_OUTPUT_PUSHPULL))
+#define usb_lld_disconnect_bus(usbp) (palSetPadMode(GPIOA, GPIOA_USB_DP, PAL_MODE_OUTPUT_PUSHPULL)); palClearPad(GPIOA, GPIOA_USB_DP)
 // #define usb_lld_disconnect_bus(usbp) palSetPadMode(GPIOA, 12, PAL_MODE_OUTPUT_PUSHPULL); palClearPad(GPIOA, 12)
 
 #if !defined(_FROM_ASM_)

@@ -1,0 +1,7 @@
+SRC += talljoe.c tapdance.c
+
+EXTRAFLAGS+=-flto
+
+TAP_DANCE_ENABLE=yes
+CONSOLE_ENABLE=no
+COMMAND_ENABLE=no

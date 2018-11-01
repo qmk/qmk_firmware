@@ -1,5 +1,4 @@
-#include "gherkin.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 extern rgblight_config_t rgblight_config;
 extern keymap_config_t keymap_config;
@@ -10,10 +9,12 @@ extern keymap_config_t keymap_config;
 #define _XD 3 // This is the Experience Design Layer
 
 enum custom_keycodes {
-	PS = SAFE_RANGE,
-	AI,
-	PR,
+  PS = SAFE_RANGE,
+  AI,
+  PR,
 };
+
+#define _______ KC_TRNS
 
 #define PS TO(0)
 #define AI TO(1)
@@ -62,86 +63,90 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	// Photoshop layer
-	[_PS] = KEYMAP(
-		SAVE,    KC_W, KC_E, KC_T,  KC_U,   KC_I,   KC_P,   INVERT,  CUNDO,   NLAYER,
-		UNDO,    KC_H, KC_L, TRANS, ALIGNL, ALIGNC, ALIGNR, BRINGB,  BRINGF,  OPEN,
-		KC_LSFT, COPY, PAST, KC_Z,  KC_C,   KC_V,   KC_B,   KC_LBRC, KC_RBRC, AI),
+  // Photoshop layer
+  [_PS] = LAYOUT_ortho_3x10(
+    SAVE,    KC_W, KC_E, KC_T,  KC_U,   KC_I,   KC_P,   INVERT,  CUNDO,   NLAYER,
+    UNDO,    KC_H, KC_L, TRANS, ALIGNL, ALIGNC, ALIGNR, BRINGB,  BRINGF,  OPEN,
+    KC_LSFT, COPY, PAST, KC_Z,  KC_C,   KC_V,   KC_B,   KC_LBRC, KC_RBRC, AI
+  ),
 
-	// Illustrator layer
-	[_AI] = KEYMAP(
-		KC_TRNS, M(0),    RULER,   KC_TRNS, KC_G,    KC_TRNS, KC_TRNS, KC_Q,  KC_MINS, KC_PLUS,
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_E,    KC_TRNS, KC_TRNS, KC_TRNS, SHAPE, KC_O,    OPEN,  
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_M,  KC_SLSH, PR),
+  // Illustrator layer
+  [_AI] = LAYOUT_ortho_3x10(
+    _______, M(0),    RULER,   _______, KC_G,    _______, _______, KC_Q,  KC_MINS, KC_PLUS,
+    _______, _______, _______, KC_E,    _______, _______, _______, SHAPE, KC_O,    OPEN,
+    _______, _______, _______, _______, _______, _______, _______, KC_M,  KC_SLSH, PR
+  ),
 
-	// Premiere layer
-	[_PR] = KEYMAP(
-		KC_TRNS, KC_Q,  KC_W,   KC_I,   KC_O, KC_P, IMPORT, EXPORT,  KC_MINS,  KC_EQL,
-		KC_TRNS, REDO,  KC_D,   KC_F,   KC_H, KC_M, KC_ENT, KC_LBRC, KC_RBRC,  OPEN,  
-		KC_TRNS, PCOPY, PPASTE, KC_SPC, KC_Z, KC_C, KC_V,   KC_LEFT, KC_RIGHT, XD),
+  // Premiere layer
+  [_PR] = LAYOUT_ortho_3x10(
+    _______, KC_Q,  KC_W,   KC_I,   KC_O, KC_P, IMPORT, EXPORT,  KC_MINS,  KC_EQL,
+    _______, REDO,  KC_D,   KC_F,   KC_H, KC_M, KC_ENT, KC_LBRC, KC_RBRC,  OPEN,
+    _______, PCOPY, PPASTE, KC_SPC, KC_Z, KC_C, KC_V,   KC_LEFT, KC_RIGHT, XD
+  ),
 
-	// Experience Design layer
-	[_XD] = KEYMAP(
-		KC_TRNS, KC_E,    KC_R,  KC_T,  KC_P, KC_A, KC_L, KC_V, KC_DEL, NEW,
-		KC_TRNS, REDO,    GROUP, UNGRP, VIEW, HORZ, VERT, KC_Z, KC_ENT, OPEN,  
-		KC_TRNS, KC_LCTL, COPY,  PAST,  SYMB, LOCK, MASK, HIDE, REPEAT, PS),
+  // Experience Design layer
+  [_XD] = LAYOUT_ortho_3x10(
+    _______, KC_E,    KC_R,  KC_T,  KC_P, KC_A, KC_L, KC_V, KC_DEL, NEW,
+    _______, REDO,    GROUP, UNGRP, VIEW, HORZ, VERT, KC_Z, KC_ENT, OPEN,
+    _______, KC_LCTL, COPY,  PAST,  SYMB, LOCK, MASK, HIDE, REPEAT, PS
+  ),
 
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {
-	eeconfig_update_default_layer(default_layer);
-	default_layer_set(default_layer);
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
 }
 
 void matrix_init_user(void) {
-	rgblight_enable();
+  rgblight_enable();
 }
 
 void matrix_scan_user(void) {
-	#ifdef RGBLIGHT_ENABLE
+  #ifdef RGBLIGHT_ENABLE
 
-	static uint8_t old_layer = 255;
-	uint8_t new_layer = biton32(layer_state);
+  static uint8_t old_layer = 255;
+  uint8_t new_layer = biton32(layer_state);
 
-	// Color of the Icons.
-	if (old_layer != new_layer) {
-		switch (new_layer) {
-			case _PS:
-			  // #31C5F0
-			  rgblight_setrgb(49, 197, 240);
-			break;
-			case _AI:
-			  // #FF8011
-			  rgblight_setrgb(255, 128, 17);
-			break;
-			case _PR:
-			  // #E788FF
-			  rgblight_setrgb(231, 136, 255);
-			break;
-			case _XD:
-			  // #FF2BC2
-			  rgblight_setrgb(255, 43, 194);
-			break;
-		}
-		old_layer = new_layer;
-	}
-	#endif
+  // Color of the Icons.
+  if (old_layer != new_layer) {
+    switch (new_layer) {
+      case _PS:
+        // #31C5F0
+        rgblight_setrgb(49, 197, 240);
+      break;
+      case _AI:
+        // #FF8011
+        rgblight_setrgb(255, 128, 17);
+      break;
+      case _PR:
+        // #E788FF
+        rgblight_setrgb(231, 136, 255);
+      break;
+      case _XD:
+        // #FF2BC2
+        rgblight_setrgb(255, 43, 194);
+      break;
+    }
+    old_layer = new_layer;
+  }
+  #endif
 }
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	keyevent_t event = record->event;
+  keyevent_t event = record->event;
     (void)event;
 
-	switch (id) {
-		case 0:
-			// Save for Web Macro.
-			return MACRO(D(LSFT), D(LALT), D(LCTL), T(S), U(LCTL), U(LALT), U(LSFT), END);
-	}
-	return MACRO_NONE;
+  switch (id) {
+    case 0:
+      // Save for Web Macro.
+      return MACRO(D(LSFT), D(LALT), D(LCTL), T(S), U(LCTL), U(LALT), U(LSFT), END);
+  }
+  return MACRO_NONE;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	switch (keycode) {
-	}
-	return true;
+  switch (keycode) {
+  }
+  return true;
 }

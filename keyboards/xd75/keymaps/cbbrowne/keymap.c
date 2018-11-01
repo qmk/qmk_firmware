@@ -265,7 +265,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       {
 	layer_on(_RAISE);
 #ifdef BACKLIGHT_ENABLE
-	breathing_speed_set(2);
+	breathing_period_set(2);
 	breathing_pulse();
 #endif
 	update_tri_layer(_LOWER, _RAISE, _ADJUST);
@@ -281,7 +281,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       {
 	layer_on(_LOWER);
 #ifdef BACKLIGHT_ENABLE
-	breathing_speed_set(2);
+	breathing_period_set(2);
 	breathing_pulse();
 #endif
 	update_tri_layer(_LOWER, _RAISE, _ADJUST);

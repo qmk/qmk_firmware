@@ -3,7 +3,7 @@ DeltaSplit75
 
 A split 75% keyboard made by xyxjj. [More info on qmk.fm](http://qmk.fm/deltasplit75/)
 
-Keyboard Maintainer: [xyxjj](https://github.com/xyxjj)  
+Keyboard Maintainer: [xyxjj](https://github.com/xyxjj) & [itsaferbie](https://github.com/itsaferbie)  
 Hardware Supported: Pro Micro  
 Hardware Availability: Group Buy
 

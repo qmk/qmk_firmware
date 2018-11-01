@@ -24,6 +24,12 @@ NO_SUSPEND_POWER_DOWN = yes
 # processor frequency
 F_CPU = 12000000
 
+# Bootloader
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded 
+#     automatically (+60). See bootloader.mk for all options.
+BOOTLOADER = atmel-dfu
+
 # build options
 BOOTMAGIC_ENABLE = yes
 MOUSEKEY_ENABLE = yes
@@ -35,7 +41,6 @@ RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
 
 OPT_DEFS = -DDEBUG_LEVEL=0
-OPT_DEFS += -DBOOTLOADER_SIZE=2048
 
 # custom matrix setup
 CUSTOM_MATRIX = yes

@@ -183,7 +183,7 @@ KC_RSHIFT           KC_RSFT         E5 Keyboard RightShift
 KC_RALT                             E6 Keyboard RightAlt
 KC_RGUI                             E7 Keyboard Right GUI(Windows/Apple/Meta key)
 
-/* 
+/*
  * Virtual keycodes
  */
 /* System Control */

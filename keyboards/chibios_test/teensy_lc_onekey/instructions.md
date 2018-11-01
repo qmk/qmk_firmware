@@ -15,7 +15,7 @@ Next, you'll need ChibiOS. For Teensies, you'll need code from two repositories:
 
 ### If you’re using git
 
-Run `git submodule sync —recursive && git submodule update --init —recursive`. This will install ChibiOS and ChibiOS-Contrib in the `/lib/` directory.
+Run `git submodule sync --recursive && git submodule update --init --recursive`. This will install ChibiOS and ChibiOS-Contrib in the `/lib/` directory.
 
 ### If you’re not using Git
 

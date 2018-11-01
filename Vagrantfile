@@ -2,27 +2,8 @@
 # vi: set ft=ruby :
 
 Vagrant.configure(2) do |config|
-  # You can only have one config.vm.box uncommented at a time
-
-  # Comment this and uncomment another if you don't want to use the minimal Arch box
-  #config.vm.box = "dragon788/arch-ala-elasticdog"
-
   # VMware/Virtualbox 64 bit
   config.vm.box = "phusion/ubuntu-14.04-amd64"
-  #
-  # VMware/Virtualbox 64 bit
-  #config.vm.box = "puphpet/centos65-x64"
-  #
-  # The opensuse boxes don't have dfu-util in their default repositories
-  #
-  # The virtualbox version has tools issues
-  # VMware/Virtualbox 64 bit
-  #config.vm.box = "bento/opensuse-13.2-x86_64"
-  #
-  # Virtualbox only
-  #config.vm.box = "bento/opensuse-13.2-i386"
-  # config.vm.box = ""
-  # config.vm.box = ""
 
   # This section allows you to customize the Virtualbox VM
   # settings, ie showing the GUI or upping the memory
@@ -78,21 +59,19 @@ Vagrant.configure(2) do |config|
   # add a # before ,args: and run 'vagrant up' to get a working
   # non-updated box and then attempt to troubleshoot or open a Github issue
 
-  config.vm.provision "shell", run: "always", path: "./util/install_dependencies.sh", args: "-update"
+  config.vm.provision "shell", run: "always", path: "./util/qmk_install.sh", args: "-update"
 
   config.vm.post_up_message = <<-EOT
-  Log into the VM using 'vagrant ssh' on OSX or from Git Bash (Win)
-  or 'vagrant ssh-config' and Putty or Bitvise SSH or another SSH tool
 
-  Change directory (cd) to the keyboard you wish to program
-  (Optionally) modify your layout,
-  then run 'make clean'
-  and then 'make' to compile the .eep and .hex files.
+  Log into the VM using 'vagrant ssh'. QMK directory synchronized with host is
+  located at /vagrant
+  To compile the .hex files use make command inside this directory.
 
-  Or you can copy and paste the example line below.
-
-  cd /vagrant; cd keyboards; cd ergodox; make clean; make
-
+  QMK's make format recently changed to use folder locations and colons:
+     make project_folder:keymap[:target]
+  Examples:
+     make planck/rev4:default:dfu
+     make planck:default
 
   EOT
 end

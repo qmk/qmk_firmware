@@ -11,8 +11,6 @@
 #define PRODUCT         Space Odyssey
 #define DESCRIPTION     Keyboard
 
-#define CATERINA_BOOTLOADER
-
 #define MOUSEKEY_INTERVAL 16
 #define MOUSEKEY_DELAY 0
 #define MOUSEKEY_TIME_TO_MAX 60
@@ -50,10 +48,6 @@
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
 
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS

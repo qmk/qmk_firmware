@@ -19,7 +19,7 @@ function install_utils {
     unzip teensy_loader_cli_windows.zip
 
     echo "Installing Atmel Flip"
-    wget 'http://www.atmel.com/images/Flip%20Installer%20-%203.4.7.112.exe'
+    wget 'http://ww1.microchip.com/downloads/en/DeviceDoc/Flip%20Installer%20-%203.4.7.112.exe'
     mv Flip\ Installer\ \-\ 3.4.7.112.exe FlipInstaller.exe
 
     echo "Downloading the QMK driver installer"

@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Hyper| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Bksp |Shift | Left | Down |Right |
  * `------------------------------------------------------------------------------------------'
  */
-[_QWERTY] = COMPACT_KEYMAP(
+[_QWERTY] = LAYOUT_compact(
   //,----+----+----+----+----+----+----+----+----+----+----+----+----.
      ESC , 1  , 2  , 3  , 4  , 5  , 6  , 7  , 8  , 9  , 0  ,MINS,EQL ,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----|
