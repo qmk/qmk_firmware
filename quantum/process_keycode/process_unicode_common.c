@@ -58,7 +58,7 @@ void unicode_input_start(void) {
   saved_mods = get_mods(); // Save current mods
   clear_mods(); // Unregister mods to start from a clean state
 
-  switch(unicode_config.input_mode) {
+  switch (unicode_config.input_mode) {
   case UC_OSX:
     register_code(KC_LALT);
     break;
