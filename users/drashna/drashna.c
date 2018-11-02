@@ -21,7 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 userspace_config_t userspace_config;
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-  extern uint8_t input_mode;
+  #define DRASHNA_UNICODE_MODE UC_WIN
+#else
+  // set to 2 for UC_WIN, set to 4 for UC_WINC
+  #define DRASHNA_UNICODE_MODE 2
 #endif
 
 uint16_t copy_paste_timer;
@@ -166,7 +169,8 @@ void matrix_init_user(void) {
   #endif
 
   #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    input_mode = UC_WIN;
+    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
+    get_unicode_input_mode();
   #endif //UNICODE_ENABLE
   matrix_init_keymap();
 }
@@ -424,9 +428,9 @@ void eeconfig_init_user(void) {
   userspace_config.rgb_layer_change = true;
   eeconfig_update_user(userspace_config.raw);
   #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    input_mode = UC_WIN;
-    eeprom_update_byte(EECONFIG_UNICODEMODE, UC_WIN);
+    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
+    get_unicode_input_mode();
   #else
-    eeprom_update_byte(EECONFIG_UNICODEMODE, 2);
+    eeprom_update_byte(EECONFIG_UNICODEMODE, DRASHNA_UNICODE_MODE);
   #endif
 }
