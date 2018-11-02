@@ -100,6 +100,8 @@ You can also set the input method via `set_unicode_input_mode(x)`, and this func
 
 ?> Keep in mind that both methods write to EEPROM, and are loaded each time the keyboard starts. So you only need to hit this once.
 
+!> There are options for BSD, but it is not actually supported at this time. If you use BSD and want support for this, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues)
+
 ### Audio Feedback for Input Mode keycodes
 
 If you have the [Audio feature](feature_audio.md) enabled on the board, you can set "songs" for them to play when pressed, so you have some audio feedback when switching modes.
@@ -107,11 +109,11 @@ If you have the [Audio feature](feature_audio.md) enabled on the board, you can 
 For instance, you can add these to your `config.h` file.
 
 ```c
+#define UNICODE_SONG_OSX COIN_SOUND
 #define UNICODE_SONG_LNX  UNICODE_LINUX
-#define UNICODE_WINDOWS_SONG UNICODE_WINDOWS
-#define UNICODE_WIN_COMPOSE_SONG UNICODE_WINDOWS
-#define UNICODE_OSX_SONG COIN_SOUND
-#define UNICODE_OSX_RALT_SONGCOIN_SOUND
+#define UNICODE_SONG_WINDOWS UNICODE_WINDOWS
+#define UNICODE_SONG_WIN_COMPOSE UNICODE_WINDOWS
+#define UNICODE_SONG_OSX_RALT COIN_SOUND
 ```
 
 ### Unicode Input Method Customization
