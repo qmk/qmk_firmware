@@ -690,6 +690,7 @@ enum quantum_keycodes {
 
 #define UC_M_OS UNICODE_MODE_OSX
 #define UC_M_LN UNICODE_MODE_LNX
+#define UC_M_BD UNICODE_MODE_BSD
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_WC UNICODE_MODE_WINC
 #define UC_M_OR UNICODE_MODE_OSX_RALT
