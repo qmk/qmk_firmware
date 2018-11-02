@@ -1147,42 +1147,154 @@ void matrix_scan_quantum() {
 // on the audio setup (audio wins other backlight)
 // 3. full software PWM
 
-#if BACKLIGHT_PIN == B7
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1C1
-#  define OCRxx  OCR1C
-#  define ICRx   ICR1
-#elif BACKLIGHT_PIN == B6
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1B1
-#  define OCRxx  OCR1B
-#  define ICRx   ICR1
-#elif BACKLIGHT_PIN == B5
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1A1
-#  define OCRxx  OCR1A
-#  define ICRx   ICR1
-#elif BACKLIGHT_PIN == C6
-#  define HARDWARE_PWM
-#  define TCCRxA TCCR3A
-#  define TCCRxB TCCR3B
-#  define COMxx1 COM1A1
-#  define OCRxx  OCR3A
-#  define ICRx   ICR3
-#elif defined(__AVR_ATmega32A__) && BACKLIGHT_PIN == D4
-#  define TCCRxA TCCR1A
-#  define TCCRxB TCCR1B
-#  define COMxx1 COM1B1
-#  define OCRxx  OCR1B
-#  define ICRx   ICR1
-#  define TIMSK1 TIMSK
-#else
+// depending on the backlight pin and MCU, we use a different timer and
+// output compare unit
+#if defined(__AVR_ATmega32U4__) || defined(__AVR_ATmega16U4__)
+// PB5(OC1A), PB6(OC1B), PB7(OC1C), PC6(OC3A)
+# if BACKLIGHT_PIN == B7
+#   ifdef B7_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 1
+#   define OC_UNIT C
+# elif BACKLIGHT_PIN == B6
+#   ifdef B6_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 1
+#   define OC_UNIT B
+# elif BACKLIGHT_PIN == B5
+#   ifdef B5_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 1
+#   define OC_UNIT A
+# elif BACKLIGHT_PIN == C6
+#   ifdef C6_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 3
+#   define OC_UNIT A
+# endif
+#elif defined(__AVR_ATmega32U2__) || defined(__AVR_ATmega16U2__)
+// PC5 (OC1B), PC6 (OC1A), PB7 (OC1C)
+# if BACKLIGHT_PIN == B7
+#   ifdef B7_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 1
+#   define OC_UNIT C
+# elif BACKLIGHT_PIN == C6
+#   ifdef C6_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 1
+#   define OC_UNIT A
+# elif BACKLIGHT_PIN == C5
+#   ifdef C5_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 1
+#   define OC_UNIT B
+# endif
+#elif defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB646__)
+// PB5 (OC1A), PB6 (OC1B), PB7 (OC1C)
+// PC4 (OC3C), PC5 (OC3B), PC6 (OC3A
+# if BACKLIGHT_PIN == B7
+#   ifdef B7_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 1
+#   define OC_UNIT C
+# elif BACKLIGHT_PIN == B6
+#   ifdef B6_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 1
+#   define OC_UNIT B
+# elif BACKLIGHT_PIN == B5
+#   ifdef B5_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 1
+#   define OC_UNIT A
+# elif BACKLIGHT_PIN == C6
+#   ifdef C6_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 3
+#   define OC_UNIT A
+# elif BACKLIGHT_PIN == C5
+#   ifdef C5_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 3
+#   define OC_UNIT B
+# elif BACKLIGHT_PIN == C4
+#   ifdef C4_AUDIO
+#     define AUDIO_BACKLIGHT_ERROR
+#   endif
+#   define TIMER_UNIT 3
+#   define OC_UNIT C
+# endif
+#elif defined(__AVR_ATmega32A__)
+// PD4 (OC1B), PD5 (OC1A)
+# if BACKLIGHT_PIN == D4
+#   define TIMSK_TIMER_UNIT
+#   define TIMER_UNIT 1
+#   define OC_UNIT B
+# elif BACKLIGHT_PIN == D5
+#   define TIMSK_TIMER_UNIT
+#   define TIMER_UNIT 1
+#   define OC_UNIT A
+# endif
+#endif
+
+#if !defined(TIMER_UNIT) && !defined(OC_UNIT)
+// BACKLIGHT_PIN is not an hardware PWM pin
+#define NO_HARDWARE_PWM
+#endif
+
+#ifndef NO_HARDWARE_PWM
+
+// We need to ensure that the backlight pin is not in use for audio
+#ifdef AUDIO_BACKLIGHT_ERROR
+# error "Incorrect configuration: backlight pin cannot be used for audio"
+#endif
+
+// hackish pre-processor magic to produce correct TCCRxA, TCCRxB, COMxx1
+// OCRxx and ICRx from the defined TIMER_UNIT and OC_UNIT of the current MCU
+#define PASTE_TCCRxA(timer_unit) TCCR##timer_unit##A
+#define EVAL_TCCRxA(unit) PASTE_TCCRxA(unit)
+#define TCCRxA EVAL_TCCRxA(TIMER_UNIT)
+
+#define PASTE_TCCRxB(timer_unit) TCCR##timer_unit##B
+#define EVAL_TCCRxB(unit) PASTE_TCCRxB(unit)
+#define TCCRxB EVAL_TCCRxB(TIMER_UNIT)
+
+#define PASTE_COMxx1(timer, oc) COM##timer##oc##1
+#define EVAL_COMxx1(timer, oc) PASTE_COMxx1(timer, oc)
+#define COMxx1 EVAL_COMxx1(TIMER_UNIT, OC_UNIT)
+
+#define PASTE_OCRxx(timer, oc) OCR##timer##oc
+#define EVAL_OCRxx(timer, oc) PASTE_OCRxx(timer, oc)
+#define OCRxx EVAL_OCRxx(TIMER_UNIT, OC_UNIT)
+
+#define PASTE_ICRx(timer_unit) ICR##timer_unit
+#define EVAL_ICRx(unit) PASTE_ICRx(unit)
+#define ICRx EVAL_ICRx(TIMER_UNIT)
+
+#ifndef TIMSK_TIMER_UNIT
+#define TIMSK_TIMER_UNIT TIMER_UNIT
+#endif
+
+#define PASTE_TIMSKx(timer_unit) TIMSK##timer_unit
+#define EVAL_TIMSKx(unit) PASTE_TIMSKx(unit)
+#define TIMSKx EVAL_TIMSKx(TIMSK_TIMER_UNIT)
+
+#endif
+
+#ifdef NO_HARDWARE_PWM
 #  if !defined(BACKLIGHT_CUSTOM_DRIVER)
 #    if !defined(B5_AUDIO) && !defined(B6_AUDIO) && !defined(B7_AUDIO)
      // timer 1 is not used by audio , backlight can use it
@@ -1200,7 +1312,9 @@ void matrix_scan_quantum() {
 #      define TOIEx  TOIE1
 #      define ICRx   ICR1
 #      ifndef TIMSK
-#        define TIMSK TIMSK1
+#        define TIMSKx TIMSK1
+#      else
+#        define TIMSKx TIMSK
 #      endif
 #    elif !defined(C6_AUDIO) && !defined(C5_AUDIO) && !defined(C4_AUDIO)
 #pragma message "Using hardware timer 3 with software PWM"
@@ -1218,7 +1332,9 @@ void matrix_scan_quantum() {
 #      define TOIEx  TOIE3
 #      define ICRx   ICR1
 #      ifndef TIMSK
-#        define TIMSK TIMSK3
+#        define TIMSKx TIMSK3
+#      else
+#        define TIMSKx TIMSK
 #      endif
 #    else
 #pragma message "Audio in use - using pure software PWM"
@@ -1331,10 +1447,10 @@ void backlight_task(void) {
 // (which is not possible since the backlight is not wired to PWM pins on the
 // CPU), we do the LED on/off by oursleves.
 // The timer is setup to count up to 0xFFFF, and we set the Output Compare
-// register to the current 16bits backlight level (after CIE correction). 
-// This means the CPU will trigger a compare match interrupt when the counter 
-// reaches the backlight level, where we turn off the LEDs, 
-// but also an overflow interrupt when the counter rolls back to 0, 
+// register to the current 16bits backlight level (after CIE correction).
+// This means the CPU will trigger a compare match interrupt when the counter
+// reaches the backlight level, where we turn off the LEDs,
+// but also an overflow interrupt when the counter rolls back to 0,
 // in which we're going to turn on the LEDs.
 // The LED will then be on for OCRxx/0xFFFF time, adjusted every 244Hz.
 
@@ -1346,7 +1462,7 @@ ISR(TIMERx_COMPA_vect) {
 }
 
 // Triggered when the counter reaches the TOP value
-// this one triggers at F_CPU/65536 =~ 244 Hz 
+// this one triggers at F_CPU/65536 =~ 244 Hz
 ISR(TIMERx_OVF_vect) {
 #ifdef BACKLIGHT_BREATHING
   breathing_task();
@@ -1400,8 +1516,8 @@ void backlight_set(uint8_t level) {
   if (level == 0) {
     #ifdef BACKLIGHT_PWM_TIMER
       if (OCRxx) {
-        TIMSK &= ~(_BV(OCIExA));
-        TIMSK &= ~(_BV(TOIEx));
+        TIMSKx &= ~(_BV(OCIExA));
+        TIMSKx &= ~(_BV(TOIEx));
         FOR_EACH_LED(
           backlight_off(backlight_pin);
         )
@@ -1413,8 +1529,8 @@ void backlight_set(uint8_t level) {
   } else {
     #ifdef BACKLIGHT_PWM_TIMER
       if (!OCRxx) {
-        TIMSK |= _BV(OCIExA);
-        TIMSK |= _BV(TOIEx);
+        TIMSKx |= _BV(OCIExA);
+        TIMSKx |= _BV(TOIEx);
       }
     #else
     // Turn on PWM control of backlight pin
@@ -1451,11 +1567,11 @@ bool is_breathing(void) {
 #else
 
 bool is_breathing(void) {
-    return !!(TIMSK1 & _BV(TOIE1));
+    return !!(TIMSKx & _BV(TOIE1));
 }
 
-#define breathing_interrupt_enable() do {TIMSK1 |= _BV(TOIE1);} while (0)
-#define breathing_interrupt_disable() do {TIMSK1 &= ~_BV(TOIE1);} while (0)
+#define breathing_interrupt_enable() do {TIMSKx |= _BV(TOIE1);} while (0)
+#define breathing_interrupt_disable() do {TIMSKx &= ~_BV(TOIE1);} while (0)
 #endif
 
 #define breathing_min() do {breathing_counter = 0;} while (0)

@@ -30,19 +30,16 @@ You should then be able to use the keycodes below to change the backlight level.
 
 This feature is distinct from both the [RGB underglow](feature_rgblight.md) and [RGB matrix](feature_rgb_matrix.md) features as it usually allows for only a single colour per switch, though you can obviously use multiple different coloured LEDs on a keyboard.
 
-Hardware PWM is only supported on certain pins of the MCU, so if the backlighting is not connected to one of them, a software PWM implementation triggered by hardware timer interrupts will be used.
+Hardware PWM is only supported on certain pins of the MCU, so if the backlighting is not connected to one of them, a software implementation triggered by hardware timer interrupts will be used. Currently the supported pins depend on the MCU as defined in the following table:
 
-Hardware PWM is supported according to the following table:
+| MCU                    | Allowed pins           |
+|------------------------|------------------------|
+| ATmega32U4/ATmega16U4  | B5, B6, B7, C6         |
+| ATmega32U2/ATmega16U2  | C5, C6, B7             |
+| ATmega32A              | D4, D5                 |
+| AT90USB1286/AT90USB646 | B5, B6, B7, C5, C6, C7 |
 
-| Backlight Pin | Hardware timer |
-|---------------|----------------|
-|`B5`           | Timer 1        |
-|`B6`           | Timer 1        |
-|`B7`           | Timer 1        |
-|`C6`           | Timer 3        |
-| other         | Software PWM   |
-
-The [audio feature](feature_audio.md) also uses hardware timers. Please refer to the following table to know what hardware timer the software PWM will use depending on the audio configuration:
+The [audio feature](feature_audio.md) also uses timers. Please refer to the following table to know what hardware timer the software PWM will use depending on the audio configuration:
 
 | Audio Pin(s) | Audio Timer | Software PWM Timer |
 |--------------|-------------|--------------------|
