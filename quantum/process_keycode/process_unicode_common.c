@@ -50,7 +50,7 @@ uint8_t get_unicode_input_mode(void) {
 }
 
 void unicode_input_mode_init(void) {
-    unicode_config.raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
+  unicode_config.raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
 }
 
 __attribute__((weak))
