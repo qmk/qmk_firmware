@@ -22,6 +22,7 @@
 unicode_config_t unicode_config;
 static uint8_t saved_mods;
 
+
 void set_unicode_input_mode(uint8_t os_target) {
   unicode_config.input_mode = os_target;
   eeprom_update_byte(EECONFIG_UNICODEMODE, os_target);
@@ -36,7 +37,7 @@ void unicode_input_mode_init(void) {
 }
 
 __attribute__((weak))
-void unicode_input_start (void) {
+void unicode_input_start(void) {
   saved_mods = get_mods(); // Save current mods
   clear_mods(); // Unregister mods to start from a clean state
 
@@ -130,4 +131,36 @@ void send_unicode_hex_string(const char *str) {
 
     str += n; // Move to the first ' ' (or '\0') after the current token
   }
+}
+
+bool process_record_unicode_common(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    switch (keycode) {
+      case UNI_OSX:
+        set_unicode_input_mode(UC_OSX);
+        break;
+      case UNI_LINUX:
+        set_unicode_input_mode(UC_LNX);
+        break;
+      case UNI_WIN:
+        set_unicode_input_mode(UC_WIN);
+        break;
+      case UNI_WINC:
+        set_unicode_input_mode(UC_WINC);
+        break;
+      case UNI_OSX_RALT:
+        set_unicode_input_mode(UC_OSX_RALT);
+        break;
+    }
+  }
+  #ifdef UNICODE_ENABLE
+    return process_unicode(keycode, record);
+  #endif
+  #ifdef UCIS_ENABLE
+    return process_ucis(keycode, record);
+  #endif
+  #ifdef UNICODEMAP_ENABLE
+    return process_unicode_map(keycode, record);
+  #endif
+  return true;
 }
