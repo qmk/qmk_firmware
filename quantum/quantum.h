@@ -140,26 +140,28 @@ extern uint32_t default_layer_state;
 
 //Function substitutions to ease GPIO manipulation
 #ifdef __AVR__
+    #define PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)
+
     #define pin_t uint8_t
-    #define setPinInput(pin) _SFR_IO8((pin >> 4) + 1) &= ~ _BV(pin & 0xF)
+    #define setPinInput(pin) PIN_ADDRESS(pin, 1) &= ~ _BV(pin & 0xF)
     #define setPinInputHigh(pin) ({\
-            _SFR_IO8((pin >> 4) + 1) &= ~ _BV(pin & 0xF);\
-            _SFR_IO8((pin >> 4) + 2) |=   _BV(pin & 0xF);\
+            PIN_ADDRESS(pin, 1) &= ~ _BV(pin & 0xF);\
+            PIN_ADDRESS(pin, 2) |=   _BV(pin & 0xF);\
             })
     #define setPinInputLow(pin) _Static_assert(0, "AVR Processors cannot impliment an input as pull low")
-    #define setPinOutput(pin) _SFR_IO8((pin >> 4) + 1) |= _BV(pin & 0xF)
+    #define setPinOutput(pin) PIN_ADDRESS(pin, 1) |= _BV(pin & 0xF)
 
-    #define writePinHigh(pin) _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF)
-    #define writePinLow(pin) _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF)
+    #define writePinHigh(pin) PIN_ADDRESS(pin, 2) |=  _BV(pin & 0xF)
+    #define writePinLow(pin) PIN_ADDRESS(pin, 2) &= ~_BV(pin & 0xF)
     static inline void writePin(pin_t pin, uint8_t level){
         if (level){
-            _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF);
+            PIN_ADDRESS(pin, 2) |=  _BV(pin & 0xF);
         } else {
-            _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF);
+            PIN_ADDRESS(pin, 2) &= ~_BV(pin & 0xF);
         }
     }
 
-    #define readPin(pin) (_SFR_IO8(pin >> 4) & _BV(pin & 0xF))
+    #define readPin(pin) (PIN_ADDRESS(pin, 0) & _BV(pin & 0xF))
 #elif defined(PROTOCOL_CHIBIOS)
     #define pin_t ioline_t
     #define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)

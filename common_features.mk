@@ -244,7 +244,7 @@ QUANTUM_SRC:= \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
 
-ifndef CUSTOM_MATRIX
+ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
     else
