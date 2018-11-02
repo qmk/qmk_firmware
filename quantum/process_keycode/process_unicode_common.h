@@ -23,8 +23,13 @@
 #define UNICODE_TYPE_DELAY 10
 #endif
 
-__attribute__ ((unused))
-static uint8_t input_mode;
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t  input_mode      :8;
+  };
+} unicode_config_t;
+
 
 void set_unicode_input_mode(uint8_t os_target);
 uint8_t get_unicode_input_mode(void);
