@@ -93,7 +93,6 @@ void register_ucis(const char *hex) {
 }
 
 bool process_ucis (uint16_t keycode, keyrecord_t *record) {
-
   if (!qk_ucis_state.in_progress)
     return true;
 
