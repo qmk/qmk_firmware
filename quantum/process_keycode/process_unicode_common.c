@@ -84,7 +84,7 @@ void unicode_input_start(void) {
 }
 
 __attribute__((weak))
-void unicode_input_finish (void) {
+ void unicode_input_finish(void) {
   switch(unicode_config.input_mode) {
     case UC_OSX:
     case UC_WIN:
