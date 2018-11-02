@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_UNICODE_COMMON_H
-#define PROCESS_UNICODE_COMMON_H
+#pragma once
 
 #include "quantum.h"
 
@@ -29,6 +28,8 @@ typedef union {
     uint8_t input_mode :8;
   };
 } unicode_config_t;
+
+extern unicode_config_t unicode_config;
 
 void set_unicode_input_mode(uint8_t os_target);
 uint8_t get_unicode_input_mode(void);
@@ -152,5 +153,3 @@ bool process_record_unicode_common(uint16_t keycode, keyrecord_t *record);
 #define UC_RCBR	UC(0x007D)
 #define UC_TILD	UC(0x007E)
 #define UC_DEL	UC(0x007F)
-
-#endif
