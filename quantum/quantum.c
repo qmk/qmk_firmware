@@ -997,6 +997,9 @@ void matrix_init_quantum() {
   #ifdef ENCODER_ENABLE
     encoder_init();
   #endif
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    unicode_input_mode_init();
+  #endif
   matrix_init_kb();
 }
 
