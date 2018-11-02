@@ -107,7 +107,7 @@ If you have the [Audio feature](feature_audio.md) enabled on the board, you can 
 For instance, you can add these to your `config.h` file.
 
 ```c
-#define UNICODE_LINUX_SONG UNICODE_LINUX
+#define UNICODE_SONG_LNX  UNICODE_LINUX
 #define UNICODE_WINDOWS_SONG UNICODE_WINDOWS
 #define UNICODE_WIN_COMPOSE_SONG UNICODE_WINDOWS
 #define UNICODE_OSX_SONG COIN_SOUND
