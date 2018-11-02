@@ -49,7 +49,7 @@
 #define KEYMAP LAYOUT_planck_grid
 #define LAYOUT_ortho_4x12 LAYOUT_planck_grid
 #define KC_LAYOUT_ortho_4x12 KC_KEYMAP
-
+#define LAYOUT_planck_1x2uC LAYOUT_planck_mit
 #else
 
 	#define LAYOUT_planck_1x2uC( \
@@ -140,7 +140,7 @@
 #define KEYMAP LAYOUT_planck_grid
 #define LAYOUT_ortho_4x12 LAYOUT_planck_grid
 #define KC_LAYOUT_ortho_4x12 KC_KEYMAP
-
+#define LAYOUT_planck_mit LAYOUT_planck_1x2uC
 #endif
 
 #endif
