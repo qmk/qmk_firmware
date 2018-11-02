@@ -456,6 +456,12 @@ enum quantum_keycodes {
 
     EEPROM_RESET,
 
+    UNI_OSX,
+    UNI_LINUX,
+    UNI_WIN,
+    UNI_WINC,
+    UNI_OSX_RALT,
+
     // always leave at the end
     SAFE_RANGE
 };
