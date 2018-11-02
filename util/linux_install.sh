@@ -95,6 +95,18 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 		echo "Quitting..."
 	fi
 
+elif grep ID /etc/os-release | grep -q sabayon; then
+	sudo equo install
+		app-arch/unzip \
+		app-arch/zip \
+		app-mobilephone/dfu-util \
+		net-misc/wget \
+		sys-devel/gcc \
+		sys-devel/crossdev dev-embedded/avrdude
+	sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
+	echo Done!
+
+
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 	CROSS_AVR_GCC=cross-avr-gcc8
 	if grep ID /etc/os-release | grep -q "15.0"; then
