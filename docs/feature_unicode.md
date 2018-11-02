@@ -118,58 +118,11 @@ For instance, you can add these to your `config.h` file.
 
 The "start" and "finish" functions for unicode method can be customized locally. A great use for this is to customize the input methods if you don't use the default keys. Or to add visual, or audio feedback when inputting unicode characters.
 
-* `void unicode_input_start(void)` - This is called to start the sequence to input unicode characters. It handles calling RAlt or whatever ever sequence you want.
+* `void unicode_input_start(void)` - This is called to start the sequence to input unicode characters. It handles calling RAlt or whatever ever sequence you want. 
 * `void unicode_input_finish (void)` - This is called to cleanup things, such as releasing the RAlt key in some cases, or tapping a key to finish the sequence.
 
-The default functions are:
+You can find the default functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
 
-```c
-void unicode_input_start(void) {
-  saved_mods = get_mods(); // Save current mods
-  clear_mods(); // Unregister mods to start from a clean state
-
-  switch(unicode_config.input_mode) {
-  case UC_OSX:
-    register_code(KC_LALT);
-    break;
-  case UC_OSX_RALT:
-    register_code(KC_RALT);
-    break;
-  case UC_LNX:
-    register_code(KC_LCTL);
-    register_code(KC_LSFT);
-    tap_code(KC_U);
-    unregister_code(KC_LSFT);
-    unregister_code(KC_LCTL);
-    break;
-  case UC_WIN:
-    register_code(KC_LALT);
-    tap_code(KC_PPLS);
-    break;
-  case UC_WINC:
-    tap_code(KC_RALT);
-    tap_code(KC_U);
-  }
-  wait_ms(UNICODE_TYPE_DELAY);
-}
-
-void unicode_input_finish (void) {
-  switch(unicode_config.input_mode) {
-    case UC_OSX:
-    case UC_WIN:
-      unregister_code(KC_LALT);
-      break;
-    case UC_OSX_RALT:
-      unregister_code(KC_RALT);
-      break;
-    case UC_LNX:
-      tap_code(KC_SPC);
-      break;
-  }
-
-  set_mods(saved_mods); // Reregister previously set mods
-}
-```
 
 ## `send_unicode_hex_string`
 
