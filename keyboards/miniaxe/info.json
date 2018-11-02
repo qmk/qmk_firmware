@@ -2,7 +2,6 @@
     "keyboard_name": "MiniAxe",
     "url": "",
     "maintainer": "ka2hiro",
-    "bootloader": "atmel-dfu",
     "width": 11,
     "height": 4,
     "layouts": {
