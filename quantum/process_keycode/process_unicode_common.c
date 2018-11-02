@@ -68,21 +68,17 @@ void unicode_input_start(void) {
   case UC_LNX:
     register_code(KC_LCTL);
     register_code(KC_LSFT);
-    register_code(KC_U);
-    unregister_code(KC_U);
+    tap_code(KC_U);
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
     break;
   case UC_WIN:
     register_code(KC_LALT);
-    register_code(KC_PPLS);
-    unregister_code(KC_PPLS);
+    tap_code(KC_PPLS);
     break;
   case UC_WINC:
-    register_code(KC_RALT);
-    unregister_code(KC_RALT);
-    register_code(KC_U);
-    unregister_code(KC_U);
+    tap_code(KC_RALT);
+    tap_code(KC_U);
   }
   wait_ms(UNICODE_TYPE_DELAY);
 }
@@ -98,8 +94,7 @@ void unicode_input_finish (void) {
       unregister_code(KC_RALT);
       break;
     case UC_LNX:
-      register_code(KC_SPC);
-      unregister_code(KC_SPC);
+      tap_code(KC_SPC);
       break;
   }
 
@@ -120,8 +115,7 @@ uint16_t hex_to_keycode(uint8_t hex) {
 void register_hex(uint16_t hex) {
   for(int i = 3; i >= 0; i--) {
     uint8_t digit = ((hex >> (i*4)) & 0xF);
-    register_code(hex_to_keycode(digit));
-    unregister_code(hex_to_keycode(digit));
+    tap_code(hex_to_keycode(digit));
   }
 }
 
