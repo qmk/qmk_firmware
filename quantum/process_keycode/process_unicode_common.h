@@ -18,6 +18,10 @@
 
 #include "quantum.h"
 
+#if defined(UNICODE_ENABLE) + defined(UNICODEMAP_ENABLE) + defined(UCIS_ENABLE) > 1
+  #error "Cannot enable more than one unicode method (UNICODE, UNICODEMAP, UCIS) at the same time"
+#endif
+
 #ifndef UNICODE_TYPE_DELAY
 #define UNICODE_TYPE_DELAY 10
 #endif
