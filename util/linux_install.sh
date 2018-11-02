@@ -90,7 +90,7 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			sys-devel/gcc \
 			sys-devel/crossdev dev-embedded/avrdude
 		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
-		echo Done!
+		echo "Done!"
 	else
 		echo "Quitting..."
 	fi
@@ -104,8 +104,7 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		sys-devel/gcc \
 		sys-devel/crossdev dev-embedded/avrdude
 	sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
-	echo Done!
-
+	echo "Done!"
 
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 	CROSS_AVR_GCC=cross-avr-gcc8
