@@ -102,7 +102,6 @@ void split_keyboard_setup(void) {
    sei();
 }
 
-void disable_JTAG(void);
 void keyboard_slave_loop(void) {
    // Disable JTAG since we skip calling keyboard_init() on the slave side
    // Future fix will possible call keyboard_init() on the slave to remove this need
