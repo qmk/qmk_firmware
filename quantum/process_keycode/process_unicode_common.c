@@ -79,6 +79,7 @@ void unicode_input_start(void) {
   case UC_WINC:
     tap_code(KC_RALT);
     tap_code(KC_U);
+    break;
   }
   wait_ms(UNICODE_TYPE_DELAY);
 }
