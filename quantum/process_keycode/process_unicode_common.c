@@ -22,7 +22,7 @@
 unicode_config_t unicode_config;
 static uint8_t saved_mods;
 #ifdef AUDIO_ENABLE
-  #ifdef UNICODE_LINUX_SONG
+  #ifdef UNICODE_SONG_LNX
     float linux_song[][2] = UNICODE_LINUX_SONG;
   #endif
   #ifdef UNICODE_WINDOWS_SONG
