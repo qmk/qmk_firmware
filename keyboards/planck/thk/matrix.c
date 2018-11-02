@@ -86,9 +86,10 @@ uint8_t matrix_scan(void) {
     dip_switch[2] = !(PIND & (1 << 4));
     dip_switch[3] = !(PIND & (1 << 5));
     for (uint8_t i = 0; i < 4; i++) {
-      if (last_dip_switch[i] ^ dip_switch[i])
+      if (last_dip_switch[i] ^ dip_switch[i]) {
         dip_update(i, dip_switch[i]);
         dip_update_kb(i, dip_switch[i]);
+      }
     }
     memcpy(last_dip_switch, dip_switch, sizeof(&dip_switch));
 
