@@ -97,7 +97,6 @@ enum quantum_keycodes {
 
     RESET = 0x5C00,
     DEBUG,
-    EEPROM_RESET,
     MAGIC_SWAP_CONTROL_CAPSLOCK,
     MAGIC_CAPSLOCK_TO_CONTROL,
     MAGIC_SWAP_LALT_LGUI,
@@ -454,6 +453,8 @@ enum quantum_keycodes {
     TERM_ON,
     TERM_OFF,
 #endif
+
+    EEPROM_RESET,
 
     // always leave at the end
     SAFE_RANGE
