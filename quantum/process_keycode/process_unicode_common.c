@@ -148,7 +148,7 @@ bool process_record_unicode_common(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
       case UNICODE_MODE_OSX:
-        set_unicode_input_mode(UC_OSX);
+      set_unicode_input_mode(UC_OSX);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_OSX_SONG)
           PLAY_SONG(UNICODE_OSX_SONG);
         #endif
