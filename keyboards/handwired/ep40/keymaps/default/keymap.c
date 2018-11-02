@@ -18,7 +18,7 @@
 static bool bsdel_mods = false;
 
 enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // ensure these codes start after the highest keycode defined in Quantum
+  M_BSDEL = SAFE_RANGE, // ensure these codes start after the highest keycode defined in Quantum
   M_BSDEL,
 };
 
