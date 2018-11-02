@@ -52,6 +52,6 @@ SRC = matrix.c
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
 
-LAYOUTS = ortho_4x12 planck_mit planck_grid
+LAYOUTS = ortho_4x12 planck_mit
 
 ENCODER_ENABLE = yes
