@@ -256,26 +256,20 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
   #endif
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    process_record_unicode_common(keycode, record) &&
+  #endif
   #ifdef LEADER_ENABLE
     process_leader(keycode, record) &&
   #endif
   #ifdef COMBO_ENABLE
     process_combo(keycode, record) &&
   #endif
-  #ifdef UNICODE_ENABLE
-    process_unicode(keycode, record) &&
-  #endif
-  #ifdef UCIS_ENABLE
-    process_ucis(keycode, record) &&
-  #endif
   #ifdef PRINTING_ENABLE
     process_printer(keycode, record) &&
   #endif
   #ifdef AUTO_SHIFT_ENABLE
     process_auto_shift(keycode, record) &&
-  #endif
-  #ifdef UNICODEMAP_ENABLE
-    process_unicode_map(keycode, record) &&
   #endif
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&

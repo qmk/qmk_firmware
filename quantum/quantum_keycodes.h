@@ -453,7 +453,11 @@ enum quantum_keycodes {
     TERM_ON,
     TERM_OFF,
 #endif
-
+    UNI_OSX,
+    UNI_LINUX,
+    UNI_WIN,
+    UNI_WINC,
+    UNI_OSX_RALT,
     // always leave at the end
     SAFE_RANGE
 };
