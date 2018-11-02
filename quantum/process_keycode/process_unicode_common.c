@@ -147,31 +147,31 @@ void send_unicode_hex_string(const char *str) {
 bool process_record_unicode_common(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
-      case UNI_OSX:
+      case UNICODE_MODE_OSX:
         set_unicode_input_mode(UC_OSX);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_OSX_SONG)
           PLAY_SONG(UNICODE_OSX_SONG);
         #endif
         break;
-      case UNI_LINUX:
+      case UNICODE_MODE_LINUX:
         set_unicode_input_mode(UC_LNX);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_LINUX_SONG)
           PLAY_SONG(UNICODE_LINUX_SONG);
         #endif
         break;
-      case UNI_WIN:
+      case UNICODE_MODE_WINDOWS:
         set_unicode_input_mode(UC_WIN);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_WINDOWS_SONG)
           PLAY_SONG(UNICODE_WINDOWS_SONG);
         #endif
         break;
-      case UNI_WINC:
+      case UNICODE_MODE_WIN_COMPOSE:
         set_unicode_input_mode(UC_WINC);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_WIN_COMPOSE_SONG)
           PLAY_SONG(UNICODE_WIN_COMPOSE_SONG);
         #endif
         break;
-      case UNI_OSX_RALT:
+      case UNICODE_MODE_OSX_RALT:
         set_unicode_input_mode(UC_OSX_RALT);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_OSX_RALT_SONG)
           PLAY_SONG(UNICODE_OSX_RALT_SONG);
