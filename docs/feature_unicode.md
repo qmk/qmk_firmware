@@ -8,7 +8,7 @@ Supports Unicode up to `0xFFFF`. The keycode function is `UC(n)` in the keymap f
 
 ## UNICODEMAP_ENABLE
 
-Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(n)` where _n_ is the array index of the mapping table.
+Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(n)`, where _n_ is an array index into the mapping table.
 
 And you may want to have an enum to make reference easier.  So you'd want to add something like this to your keymap:
 
@@ -30,7 +30,7 @@ Make sure that the order for both matches.
 
 ## UCIS_ENABLE
 
-Supports Unicode up to `0x10FFFF` (all possible code points). As with `UNICODEMAP`, you may want to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you will have to add a keycode or function that calls `qk_ucis_start()`. Once it's been called, you can type the mnemonic for your character, then hit Space or Enter to complete it, or Esc to cancel. If it matches an entry in your table, it will automatically erase the typed mnemonic and then input the Unicode sequence.
+Supports Unicode up to `0x10FFFF` (all possible code points). As with `UNICODEMAP`, you may want to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you will have to add a keycode or function that calls `qk_ucis_start()`. Once it's been called, you can type the mnemonic for your character, then hit Space or Enter to complete it or Esc to cancel. If the mnemonic matches an entry in your table, the typed text will automatically be erased and the corresponding Unicode sequence inserted.
 
 For instance, you would need to have a table like this in your keymap:
 
@@ -77,7 +77,7 @@ void qk_ucis_symbol_fallback (void) { // falls back to manual unicode entry
 
 ## Input Modes
 
-Unicode input in QMK works by inputting a sequence of characters to the OS, sort of like a macro. Unfortunately, the way this is done differs for each OS, so a corresponding input mode has to be set.
+Unicode input in QMK works by inputting a sequence of characters to the OS, sort of like a macro. Unfortunately, the way this is done differs for each platform, so a corresponding input mode has to be set.
 
 The following input modes are available:
 
