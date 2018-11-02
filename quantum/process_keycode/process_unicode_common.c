@@ -153,19 +153,19 @@ bool process_record_unicode_common(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(UNICODE_OSX_SONG);
         #endif
         break;
-      case UNICODE_MODE_LINUX:
+      case UNICODE_MODE_LNX:
         set_unicode_input_mode(UC_LNX);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_LINUX_SONG)
           PLAY_SONG(UNICODE_LINUX_SONG);
         #endif
         break;
-      case UNICODE_MODE_WINDOWS:
+      case UNICODE_MODE_WIN:
         set_unicode_input_mode(UC_WIN);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_WINDOWS_SONG)
           PLAY_SONG(UNICODE_WINDOWS_SONG);
         #endif
         break;
-      case UNICODE_MODE_WIN_COMPOSE:
+      case UNICODE_MODE_WINC:
         set_unicode_input_mode(UC_WINC);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_WIN_COMPOSE_SONG)
           PLAY_SONG(UNICODE_WIN_COMPOSE_SONG);
