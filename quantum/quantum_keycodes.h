@@ -453,6 +453,7 @@ enum quantum_keycodes {
     TERM_ON,
     TERM_OFF,
 #endif
+
     UNICODE_MODE_OSX,
     UNICODE_MODE_LNX,
     UNICODE_MODE_WIN,
