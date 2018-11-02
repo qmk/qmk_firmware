@@ -86,9 +86,10 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			app-arch/unzip \
 			app-arch/zip \
 			app-mobilephone/dfu-util \
+			dev-embedded/avrdude \
 			net-misc/wget \
 			sys-devel/gcc \
-			sys-devel/crossdev dev-embedded/avrdude
+			sys-devel/crossdev
 		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
 		echo "Done!"
 	else
@@ -100,9 +101,10 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 		app-arch/unzip \
 		app-arch/zip \
 		app-mobilephone/dfu-util \
+		dev-embedded/avrdude \
 		net-misc/wget \
 		sys-devel/gcc \
-		sys-devel/crossdev dev-embedded/avrdude
+		sys-devel/crossdev
 	sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
 	echo "Done!"
 
