@@ -157,19 +157,17 @@ void matrix_init_user(void) {
 
   userspace_config.raw = eeconfig_read_user();
 
-#ifdef BOOTLOADER_CATERINA
-  DDRD &= ~(1<<5);
-  PORTD &= ~(1<<5);
+  #ifdef BOOTLOADER_CATERINA
+    DDRD &= ~(1<<5);
+    PORTD &= ~(1<<5);
 
-  DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);
-#endif
+    DDRB &= ~(1<<0);
+    PORTB &= ~(1<<0);
+  #endif
 
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-  if (eeprom_read_byte(EECONFIG_UNICODEMODE) != UC_WIN) {
-    set_unicode_input_mode(UC_WIN);
-  }
-#endif //UNICODE_ENABLE
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    input_mode = UC_WIN;
+  #endif //UNICODE_ENABLE
   matrix_init_keymap();
 }
 
