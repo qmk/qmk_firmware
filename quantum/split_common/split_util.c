@@ -92,7 +92,6 @@ void split_keyboard_setup(void) {
    sei();
 }
 
-void disable_JTAG(void);
 void keyboard_slave_loop(void) {
    matrix_init();
 
