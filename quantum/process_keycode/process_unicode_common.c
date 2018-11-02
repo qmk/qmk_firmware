@@ -23,7 +23,7 @@ unicode_config_t unicode_config;
 static uint8_t saved_mods;
 #ifdef AUDIO_ENABLE
   #ifdef UNICODE_SONG_LNX
-    float linux_song[][2] = UNICODE_LINUX_SONG;
+    float song_lnx[][2] = UNICODE_SONG_LNX;
   #endif
   #ifdef UNICODE_WINDOWS_SONG
     float windows_song[][2] = UNICODE_WINDOWS_SONG;
