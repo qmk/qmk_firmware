@@ -100,6 +100,20 @@ You can also set the input method via `set_unicode_input_mode(x)`, and this func
 
 ?> Keep in mind that both methods write to EEPROM, and are loaded each time the keyboard starts. So you only need to hit this once.
 
+### Audio Feedback for Input Mode keycodes
+
+If you have the [Audio feature](feature_audio.md) enabled on the board, you can set "songs" for them to play when pressed, so you have some audio feedback when switching modes.
+
+For instance, you can add these to your `config.h` file.
+
+```c
+#define UNICODE_LINUX_SONG UNICODE_LINUX
+#define UNICODE_WINDOWS_SONG UNICODE_WINDOWS
+#define UNICODE_WIN_COMPOSE_SONG UNICODE_WINDOWS
+#define UNICODE_OSX_SONG COIN_SOUND
+#define UNICODE_OSX_RALT_SONGCOIN_SOUND
+```
+
 ### Unicode Input Method Customization
 
 The "start" and "finish" functions for unicode method can be customized locally. A great use for this is to customize the input methods if you don't use the default keys. Or to add visual, or audio feedback when inputting unicode characters.
