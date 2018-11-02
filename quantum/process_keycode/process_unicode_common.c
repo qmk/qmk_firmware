@@ -19,42 +19,28 @@
 #include <string.h>
 #include <ctype.h>
 
-static uint8_t input_mode;
-uint8_t mods;
+unicode_config_t unicode_config;
+static uint8_t saved_mods;
 
 void set_unicode_input_mode(uint8_t os_target) {
-  input_mode = os_target;
+  unicode_config.input_mode = os_target;
   eeprom_update_byte(EECONFIG_UNICODEMODE, os_target);
 }
 
 uint8_t get_unicode_input_mode(void) {
-  return input_mode;
+  return unicode_config.input_mode;
 }
 
 void unicode_input_mode_init(void) {
-  static bool first_flag = false;
-  if (!first_flag) {
-    input_mode = eeprom_read_byte(EECONFIG_UNICODEMODE);
-    first_flag = true;
-  }
+    unicode_config.raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
 }
 
 __attribute__((weak))
 void unicode_input_start (void) {
-  // save current mods
-  mods = keyboard_report->mods;
+  saved_mods = get_mods(); // Save current mods
+  clear_mods(); // Unregister mods to start from a clean state
 
-  // unregister all mods to start from clean state
-  if (mods & MOD_BIT(KC_LSFT)) unregister_code(KC_LSFT);
-  if (mods & MOD_BIT(KC_RSFT)) unregister_code(KC_RSFT);
-  if (mods & MOD_BIT(KC_LCTL)) unregister_code(KC_LCTL);
-  if (mods & MOD_BIT(KC_RCTL)) unregister_code(KC_RCTL);
-  if (mods & MOD_BIT(KC_LALT)) unregister_code(KC_LALT);
-  if (mods & MOD_BIT(KC_RALT)) unregister_code(KC_RALT);
-  if (mods & MOD_BIT(KC_LGUI)) unregister_code(KC_LGUI);
-  if (mods & MOD_BIT(KC_RGUI)) unregister_code(KC_RGUI);
-
-  switch(input_mode) {
+  switch(unicode_config.input_mode) {
   case UC_OSX:
     register_code(KC_LALT);
     break;
@@ -85,7 +71,7 @@ void unicode_input_start (void) {
 
 __attribute__((weak))
 void unicode_input_finish (void) {
-  switch(input_mode) {
+  switch(unicode_config.input_mode) {
     case UC_OSX:
     case UC_WIN:
       unregister_code(KC_LALT);
@@ -99,15 +85,7 @@ void unicode_input_finish (void) {
       break;
   }
 
-  // reregister previously set mods
-  if (mods & MOD_BIT(KC_LSFT)) register_code(KC_LSFT);
-  if (mods & MOD_BIT(KC_RSFT)) register_code(KC_RSFT);
-  if (mods & MOD_BIT(KC_LCTL)) register_code(KC_LCTL);
-  if (mods & MOD_BIT(KC_RCTL)) register_code(KC_RCTL);
-  if (mods & MOD_BIT(KC_LALT)) register_code(KC_LALT);
-  if (mods & MOD_BIT(KC_RALT)) register_code(KC_RALT);
-  if (mods & MOD_BIT(KC_LGUI)) register_code(KC_LGUI);
-  if (mods & MOD_BIT(KC_RGUI)) register_code(KC_RGUI);
+  set_mods(saved_mods); // Reregister previously set mods
 }
 
 __attribute__((weak))
