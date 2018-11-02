@@ -19,7 +19,6 @@ static bool bsdel_mods = false;
 
 enum custom_keycodes {
   M_BSDEL = SAFE_RANGE, // ensure these codes start after the highest keycode defined in Quantum
-  M_BSDEL,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
