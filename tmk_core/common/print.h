@@ -29,7 +29,7 @@
 #include <stdbool.h>
 #include "util.h"
 
-#if defined(PROTOCOL_CHIBIOS)
+#if defined(PROTOCOL_CHIBIOS) || defined(PROTOCOL_ARM_ATSAM)
 #define PSTR(x) x
 #endif
 

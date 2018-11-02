@@ -92,9 +92,14 @@ void split_keyboard_setup(void) {
    sei();
 }
 
+void disable_JTAG(void);
 void keyboard_slave_loop(void) {
+   // Disable JTAG since we skip calling keyboard_init() on the slave side
+   // Future fix will possible call keyboard_init() on the slave to remove this need
+   disable_JTAG();
+
    matrix_init();
-   
+
    //Init RGB
    #ifdef RGBLIGHT_ENABLE
       rgblight_init();
@@ -103,17 +108,17 @@ void keyboard_slave_loop(void) {
    while (1) {
     // Matrix Slave Scan
     matrix_slave_scan();
-    
+
     // Read Backlight Info
     #ifdef BACKLIGHT_ENABLE
-        if (BACKLIT_DIRTY) {
-            #ifdef USE_I2C
+        #ifdef USE_I2C
+            if (BACKLIT_DIRTY) {
                 backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
-            #else // USE_SERIAL
-                backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
-            #endif
-            BACKLIT_DIRTY = false;
-        }
+                BACKLIT_DIRTY = false;
+            }
+        #else // USE_SERIAL
+            backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
+        #endif
     #endif
     // Read RGB Info
     #ifdef RGBLIGHT_ENABLE
@@ -122,14 +127,14 @@ void keyboard_slave_loop(void) {
                 // Disable interupts (RGB data is big)
                 cli();
                 // Create new DWORD for RGB data
-                uint32_t dword; 
-                
+                uint32_t dword;
+
                 // Fill the new DWORD with the data that was sent over
                 uint8_t *dword_dat = (uint8_t *)(&dword);
                 for (int i = 0; i < 4; i++) {
                     dword_dat[i] = i2c_slave_buffer[I2C_RGB_START+i];
                 }
-                
+
                 // Update the RGB now with the new data and set RGB_DIRTY to false
                 rgblight_update_dword(dword);
                 RGB_DIRTY = false;
@@ -151,4 +156,14 @@ void matrix_setup(void) {
         //rgblight_init();
         keyboard_slave_loop();
     }
+}
+
+// Temporary code to disable JTAG on the slave board
+void disable_JTAG(void) {
+    /* Copied from tmk_core/common/keybaord.c */
+    // To use PORTF disable JTAG with writing JTD bit twice within four cycles.
+    #if  (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
+      MCUCR |= _BV(JTD);
+      MCUCR |= _BV(JTD);
+    #endif
 }

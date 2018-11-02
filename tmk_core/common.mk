@@ -34,6 +34,13 @@ ifeq ($(PLATFORM),CHIBIOS)
   ifeq ($(MCU_SERIES), STM32F3xx)
     TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
     TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+    TMK_COMMON_DEFS += -DEEPROM_EMU_STM32F303xC
+    TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
+  else ifeq ($(MCU_SERIES), STM32F1xx)
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_stm32.c
+    TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/flash_stm32.c
+    TMK_COMMON_DEFS += -DEEPROM_EMU_STM32F103xB
+    TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
   else
     TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
 endif
@@ -43,6 +50,7 @@ endif
 endif
 
 ifeq ($(PLATFORM),ARM_ATSAM)
+	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/printf.c
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
 endif
 
@@ -53,9 +61,20 @@ endif
 
 
 # Option modules
-ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+BOOTMAGIC_ENABLE ?= no
+VALID_MAGIC_TYPES := yes full lite
+ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
+  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
+    $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
+  endif
+  ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
+      TMK_COMMON_DEFS += -DBOOTMAGIC_LITE
+      TMK_COMMON_DEFS += -DMAGIC_ENABLE
+      TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
+  else
     TMK_COMMON_DEFS += -DBOOTMAGIC_ENABLE
     TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic.c
+  endif
 else
     TMK_COMMON_DEFS += -DMAGIC_ENABLE
     TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
@@ -63,7 +82,6 @@ endif
 
 SHARED_EP_ENABLE = no
 MOUSE_SHARED_EP ?= yes
-
 ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
     TMK_COMMON_DEFS += -DKEYBOARD_SHARED_EP
     SHARED_EP_ENABLE = yes

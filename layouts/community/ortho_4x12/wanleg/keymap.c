@@ -15,6 +15,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________Qwerty_Row__2_______________,
   KC_LCTL, KC_LGUI, KC_LALT, GHERKIN, SUBTER, SH_T(KC_SPC), SH_T(KC_SPC), SUPRA, KC_RGUI, KC_RALT, GHERKIN, KC_RCTL
 ),
+
+#elif defined(KEYBOARD_4x4)
+[_GK] = LAYOUT_ortho_4x12_wrapper(
+  _______________GherkinLike_0_______________,
+  _______________GherkinLike_1_______________,
+  _______________GherkinLike_2_______________,
+  TD(RST_TAP_DANCE), KC_LGUI, KC_LALT, NUMPAD, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
+),
+
+[PAD] = LAYOUT_ortho_4x4_wrapper(
+  _______________NUMPAD_Row__0_______________, 
+  _______________NUMPAD_Row__1_______________, 
+  _______________NUMPAD_Row__2_______________, 
+  _______________NUMPAD_Row__3_______________
+),
+
 #else
 [_GK] = LAYOUT_ortho_4x12_wrapper(
   _______________GherkinLike_0_______________,
@@ -64,4 +80,5 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ______________ETCETERA_Row__2______________,
   ______________ETCETERA_Row__3______________
 ),
+
 };

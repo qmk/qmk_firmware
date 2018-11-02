@@ -916,6 +916,31 @@ void backlight_set_indicator_index( uint8_t *index, uint8_t row, uint8_t column 
 	}
 }
 
+void backlight_get_indicator_row_col( uint8_t index, uint8_t *row, uint8_t *column )
+{
+	if ( index == 255 || index == 254 )
+	{
+		// Special value, 255=none, 254=all
+		*row = index;
+		*column = 0;
+		return;
+	}
+	for ( uint8_t r = 0; r < MATRIX_ROWS; r++ )
+	{
+		for ( uint8_t c = 0; c < MATRIX_COLS; c++ )
+		{
+			uint8_t i = 255;
+			map_row_column_to_led( r, c, &i );
+			if ( i == index )
+			{
+				*row = r;
+				*column = c;
+				return;
+			}
+		}
+	}
+}
+
 // Some helpers for setting/getting HSV
 void _set_color( HSV *color, uint8_t *data )
 {
@@ -1146,7 +1171,7 @@ void backlight_config_get_value( uint8_t *data )
 		}
 		case id_caps_lock_indicator_row_col:
 		{
-			//*value_data = g_config.caps_lock_indicator.index;
+			backlight_get_indicator_row_col( g_config.caps_lock_indicator.index, &(value_data[0]), &(value_data[1]) );
 			break;
 		}
 		case id_layer_1_indicator_color:
@@ -1156,7 +1181,7 @@ void backlight_config_get_value( uint8_t *data )
 		}
 		case id_layer_1_indicator_row_col:
 		{
-			//*value_data = g_config.layer_1_indicator.index;
+			backlight_get_indicator_row_col( g_config.layer_1_indicator.index, &(value_data[0]), &(value_data[1]) );
 			break;
 		}
 		case id_layer_2_indicator_color:
@@ -1166,7 +1191,7 @@ void backlight_config_get_value( uint8_t *data )
 		}
 		case id_layer_2_indicator_row_col:
 		{
-			//*value_data = g_config.layer_2_indicator.index;
+			backlight_get_indicator_row_col( g_config.layer_2_indicator.index, &(value_data[0]), &(value_data[1]) );
 			break;
 		}
 		case id_layer_3_indicator_color:
@@ -1176,7 +1201,7 @@ void backlight_config_get_value( uint8_t *data )
 		}
 		case id_layer_3_indicator_row_col:
 		{
-			//*value_data = g_config.layer_3_indicator.index;
+			backlight_get_indicator_row_col( g_config.layer_3_indicator.index, &(value_data[0]), &(value_data[1]) );
 			break;
 		}
 		case id_alphas_mods:
