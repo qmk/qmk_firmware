@@ -26,7 +26,7 @@
 typedef union {
   uint32_t raw;
   struct {
-    uint8_t  input_mode      :8;
+    uint8_t input_mode :8;
   };
 } unicode_config_t;
 
