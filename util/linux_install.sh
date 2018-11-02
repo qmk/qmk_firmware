@@ -96,7 +96,7 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 	fi
 
 elif grep ID /etc/os-release | grep -q sabayon; then
-	sudo equo install
+	sudo equo install \
 		app-arch/unzip \
 		app-arch/zip \
 		app-mobilephone/dfu-util \
