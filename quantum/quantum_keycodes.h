@@ -456,11 +456,11 @@ enum quantum_keycodes {
 
     EEPROM_RESET,
 
-    UNI_OSX,
-    UNI_LINUX,
-    UNI_WIN,
-    UNI_WINC,
-    UNI_OSX_RALT,
+    UNICODE_MODE_OSX,
+    UNICODE_MODE_LINUX,
+    UNICODE_MODE_WINDOWS,
+    UNICODE_MODE_WIN_COMPOSE,
+    UNICODE_MODE_OSX_RALT,
 
     // always leave at the end
     SAFE_RANGE
@@ -688,6 +688,12 @@ enum quantum_keycodes {
 #ifdef UNICODEMAP_ENABLE
     #define X(n) (QK_UNICODE_MAP | (n))
 #endif
+
+#define UC_M_OS UNICODE_MODE_OSX
+#define UC_M_LN UNICODE_MODE_LINUX
+#define UC_M_WI UNICODE_MODE_WINDOWS
+#define UC_M_WC UNICODE_MODE_WINCOMPOSE
+#define UC_M_OR UNICODE_MODE_OSX_RALT
 
 #ifdef SWAP_HANDS_ENABLE
   #define SH_T(kc) (QK_SWAP_HANDS | (kc))
