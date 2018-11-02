@@ -88,7 +88,7 @@ void unicode_input_finish (void) {
   switch(unicode_config.input_mode) {
     case UC_OSX:
     case UC_WIN:
-      unregister_code(KC_LALT);
+    unregister_code(KC_LALT);
       break;
     case UC_OSX_RALT:
       unregister_code(KC_RALT);
