@@ -157,7 +157,7 @@ bool process_record_unicode_common(uint16_t keycode, keyrecord_t *record) {
       case UNICODE_MODE_LNX:
         set_unicode_input_mode(UC_LNX);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_LINUX_SONG)
-          PLAY_SONG(UNICODE_LINUX_SONG);
+          PLAY_SONG(song_lnx);
         #endif
         break;
       case UNICODE_MODE_WIN:
