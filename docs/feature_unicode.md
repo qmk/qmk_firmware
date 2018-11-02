@@ -80,7 +80,17 @@ void qk_ucis_symbol_fallback (void) { // falls back to manual unicode entry
 Unicode input in QMK works by inputting a sequence of characters to the OS,
 sort of like macro. Unfortunately, each OS has different ideas on how Unicode is input.
 
-This is the current list of Unicode input method in QMK:
+You can set the input method at any time.  You can do this by using a keycode here.  The Input method is listed next to the keycode for reference. 
+
+|Key                       |Aliases  |Input Method  |Description                                        |
+|--------------------------|---------|--------------|---------------------------------------------------|
+|`UNICODE_MODE_OSX`        |`UC_M_OS`|`UC_OSX`      |Sets the input method for MacOS X                  |
+|`UNICODE_MODE_LNX`        |`UC_M_LN`|`UC_LNX`      |Sets the input method for Linux                    |
+|`UNICODE_MODE_WIN`        |`UC_M_WI`|`UC_WIN`      |Sets the input method for Windows                  |
+|`UNICODE_MODE_WINC`       |`UC_M_WC`|`UC_WINC`     |Sets the input method for Windows using WinCompose |
+|`UNICODE_MODE_OSX_RALT`   |`UC_M_OR`|`UC_OSX_RALT` |Sets the input method for MacOS X using RAlt/AltGr |
+
+You can also set the input method via `set_unicode_input_mode(x)`, and this functions the same way as the keycodes above.
 
 * __UC_OSX__: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
 * __UC_OSX_RALT__: Same as UC_OSX, but sends the Right Alt key for unicode input
@@ -88,7 +98,64 @@ This is the current list of Unicode input method in QMK:
 * __UC_WIN__: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
 * __UC_WINC__: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
 
-At some point, you need to call `set_unicode_input_mode(x)` to set the correct unicode method.  This sets the method that is used to send the unicode, and stores it in EEPROM, so you only need to call this once.
+?> Keep in mind that both methods write to EEPROM, and are loaded each time the keyboard starts. So you only need to hit this once.
+
+### Unicode Input Method Customization
+
+The "start" and "finish" functions for unicode method can be customized locally. A great use for this is to customize the input methods if you don't use the default keys. Or to add visual, or audio feedback when inputting unicode characters.
+
+* `void unicode_input_start(void)` - This is called to start the sequence to input unicode characters. It handles calling RAlt or whatever ever sequence you want.
+* `void unicode_input_finish (void)` - This is called to cleanup things, such as releasing the RAlt key in some cases, or tapping a key to finish the sequence.
+
+The default functions are:
+
+```c
+void unicode_input_start(void) {
+  saved_mods = get_mods(); // Save current mods
+  clear_mods(); // Unregister mods to start from a clean state
+
+  switch(unicode_config.input_mode) {
+  case UC_OSX:
+    register_code(KC_LALT);
+    break;
+  case UC_OSX_RALT:
+    register_code(KC_RALT);
+    break;
+  case UC_LNX:
+    register_code(KC_LCTL);
+    register_code(KC_LSFT);
+    tap_code(KC_U);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
+    break;
+  case UC_WIN:
+    register_code(KC_LALT);
+    tap_code(KC_PPLS);
+    break;
+  case UC_WINC:
+    tap_code(KC_RALT);
+    tap_code(KC_U);
+  }
+  wait_ms(UNICODE_TYPE_DELAY);
+}
+
+void unicode_input_finish (void) {
+  switch(unicode_config.input_mode) {
+    case UC_OSX:
+    case UC_WIN:
+      unregister_code(KC_LALT);
+      break;
+    case UC_OSX_RALT:
+      unregister_code(KC_RALT);
+      break;
+    case UC_LNX:
+      tap_code(KC_SPC);
+      break;
+  }
+
+  set_mods(saved_mods); // Reregister previously set mods
+}
+```
 
 ## `send_unicode_hex_string`
 
