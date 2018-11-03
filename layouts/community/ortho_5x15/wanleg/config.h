@@ -2,12 +2,6 @@
 
 //5x5 powered by Adafruit Feather 32u4 Bluefruit LE
 #if defined(KEYBOARD_5x5) && defined(BLUEFRUIT)
-/*
-// set top left key as bootloader mode escape key on 5x5 75key layout, for QMK_DFU bootloader boards
-#define QMK_LED B0
-#define QMK_ESC_OUTPUT C6 // usually COL
-#define QMK_ESC_INPUT F7 // usually ROW
-*/
 
 //need to undefine standard 5x5 array before defining alternate Bluefruit array
 #undef MATRIX_ROW_PINS
