@@ -81,12 +81,27 @@ Unicode input in QMK works by inputting a sequence of characters to the OS, sort
 
 The following input modes are available:
 
-* __UC_OSX__: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
-* __UC_OSX_RALT__: Same as UC_OSX, but sends the Right Alt key for unicode input
-* __UC_LNX__: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
-* __UC_BSD__: (non operational) Unicode input method under BSD.
-* __UC_WIN__: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
-* __UC_WINC__: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
+* **`UC_OSX`**: Mac OS X built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with `UNICODEMAP`).
+
+  To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
+
+* **`UC_OSX_RALT`**: Same as UC_OSX, but sends the Right Alt key for unicode input
+
+* **`UC_LNX`**: Linux built-in IBus Unicode input. Supports all possible code points (`0x10FFFF`).
+
+  Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
+
+* **`UC_BSD`**: (non operational) Unicode input method under BSD.
+
+* **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
+
+  To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Afterwards, reboot.
+  This mode is not recommended because of reliability and compatibility issues; use the `UC_WINC` mode instead.
+
+* **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.8.2, supports code points up to `0xFFFFF`.
+
+  To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
+  This mode uses the right Alt key (`KC_RALT`), and this needs to be set to this in WinCompose's settings.
 
 !> There is an input mode option for BSD, but it's not implemented at this time. If you use BSD and want to help with adding support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
 
