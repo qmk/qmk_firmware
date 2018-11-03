@@ -28,14 +28,14 @@ static uint8_t saved_mods;
   #ifdef UNICODE_SONG_LNX
     float song_lnx[][2] = UNICODE_SONG_LNX;
   #endif
+  #ifdef UNICODE_SONG_WIN
+    float windows_song[][2] = UNICODE_SONG_WIN;
+  #endif
   #ifdef UNICODE_SONG_BSD
     float song_bsd[][2] = UNICODE_SONG_BSD;
   #endif
-  #ifdef UNICODE_SONG_WINDOWS
-    float windows_song[][2] = UNICODE_SONG_WINDOWS;
-  #endif
-  #ifdef UNICODE_SONG_WIN_COMPOSE
-    float win_compose_song[][2] = UNICODE_SONG_WIN_COMPOSE;
+  #ifdef UNICODE_SONG_WINC
+    float win_compose_song[][2] = UNICODE_SONG_WINC;
   #endif
   #ifdef UNICODE_SONG_OSX_RALT
     float osx_ralt_song[][2] = UNICODE_SONG_OSX_RALT;
@@ -75,6 +75,8 @@ void unicode_input_start(void) {
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
     break;
+  case UC_BSD:
+    break;
   case UC_WIN:
     register_code(KC_LALT);
     tap_code(KC_PPLS);
@@ -92,7 +94,7 @@ void unicode_input_finish(void) {
   switch (unicode_config.input_mode) {
     case UC_OSX:
     case UC_WIN:
-    unregister_code(KC_LALT);
+      unregister_code(KC_LALT);
       break;
     case UC_OSX_RALT:
       unregister_code(KC_RALT);
@@ -148,7 +150,7 @@ void send_unicode_hex_string(const char *str) {
   }
 }
 
-bool process_record_unicode_common(uint16_t keycode, keyrecord_t *record) {
+bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
       case UNICODE_MODE_OSX:
@@ -163,21 +165,21 @@ bool process_record_unicode_common(uint16_t keycode, keyrecord_t *record) {
           PLAY_SONG(song_lnx);
         #endif
         break;
+      case UNICODE_MODE_WIN:
+        set_unicode_input_mode(UC_WIN);
+        #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WIN)
+          PLAY_SONG(windows_song);
+        #endif
+        break;
       case UNICODE_MODE_BSD:
         set_unicode_input_mode(UC_BSD);
         #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_BSD)
           PLAY_SONG(song_bsd);
         #endif
         break;
-      case UNICODE_MODE_WIN:
-        set_unicode_input_mode(UC_WIN);
-        #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WINDOWS)
-          PLAY_SONG(windows_song);
-        #endif
-        break;
       case UNICODE_MODE_WINC:
         set_unicode_input_mode(UC_WINC);
-        #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WIN_COMPOSE)
+        #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WINC)
           PLAY_SONG(win_compose_song);
         #endif
         break;
