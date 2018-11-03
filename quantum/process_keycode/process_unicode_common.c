@@ -21,27 +21,6 @@
 
 unicode_config_t unicode_config;
 static uint8_t saved_mods;
-#ifdef AUDIO_ENABLE
-  #ifdef UNICODE_SONG_OSX
-    float osx_song[][2] = UNICODE_SONG_OSX;
-  #endif
-  #ifdef UNICODE_SONG_LNX
-    float song_lnx[][2] = UNICODE_SONG_LNX;
-  #endif
-  #ifdef UNICODE_SONG_WIN
-    float windows_song[][2] = UNICODE_SONG_WIN;
-  #endif
-  #ifdef UNICODE_SONG_BSD
-    float song_bsd[][2] = UNICODE_SONG_BSD;
-  #endif
-  #ifdef UNICODE_SONG_WINC
-    float win_compose_song[][2] = UNICODE_SONG_WINC;
-  #endif
-  #ifdef UNICODE_SONG_OSX_RALT
-    float osx_ralt_song[][2] = UNICODE_SONG_OSX_RALT;
-  #endif
-#endif
-
 
 void set_unicode_input_mode(uint8_t os_target) {
   unicode_config.input_mode = os_target;
@@ -92,16 +71,16 @@ void unicode_input_start(void) {
 __attribute__((weak))
 void unicode_input_finish(void) {
   switch (unicode_config.input_mode) {
-    case UC_OSX:
-    case UC_WIN:
-      unregister_code(KC_LALT);
-      break;
-    case UC_OSX_RALT:
-      unregister_code(KC_RALT);
-      break;
-    case UC_LNX:
-      tap_code(KC_SPC);
-      break;
+  case UC_OSX:
+  case UC_WIN:
+    unregister_code(KC_LALT);
+    break;
+  case UC_OSX_RALT:
+    unregister_code(KC_RALT);
+    break;
+  case UC_LNX:
+    tap_code(KC_SPC);
+    break;
   }
 
   set_mods(saved_mods); // Reregister previously set mods
@@ -153,52 +132,57 @@ void send_unicode_hex_string(const char *str) {
 bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
-      case UNICODE_MODE_OSX:
+    case UNICODE_MODE_OSX:
       set_unicode_input_mode(UC_OSX);
-        #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX)
-          PLAY_SONG(osx_song);
-        #endif
-        break;
-      case UNICODE_MODE_LNX:
-        set_unicode_input_mode(UC_LNX);
-        #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_LNX)
-          PLAY_SONG(song_lnx);
-        #endif
-        break;
-      case UNICODE_MODE_WIN:
-        set_unicode_input_mode(UC_WIN);
-        #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WIN)
-          PLAY_SONG(windows_song);
-        #endif
-        break;
-      case UNICODE_MODE_BSD:
-        set_unicode_input_mode(UC_BSD);
-        #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_BSD)
-          PLAY_SONG(song_bsd);
-        #endif
-        break;
-      case UNICODE_MODE_WINC:
-        set_unicode_input_mode(UC_WINC);
-        #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WINC)
-          PLAY_SONG(win_compose_song);
-        #endif
-        break;
-      case UNICODE_MODE_OSX_RALT:
-        set_unicode_input_mode(UC_OSX_RALT);
-        #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX_RALT)
-          PLAY_SONG(osx_ralt_song);
-        #endif
-        break;
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX)
+      static float song_osx[][2] = UNICODE_SONG_OSX;
+      PLAY_SONG(song_osx);
+#endif
+      break;
+    case UNICODE_MODE_LNX:
+      set_unicode_input_mode(UC_LNX);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_LNX)
+      static float song_lnx[][2] = UNICODE_SONG_LNX;
+      PLAY_SONG(song_lnx);
+#endif
+      break;
+    case UNICODE_MODE_WIN:
+      set_unicode_input_mode(UC_WIN);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WIN)
+      static float song_win[][2] = UNICODE_SONG_WIN;
+      PLAY_SONG(song_win);
+#endif
+      break;
+    case UNICODE_MODE_BSD:
+      set_unicode_input_mode(UC_BSD);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_BSD)
+      static float song_bsd[][2] = UNICODE_SONG_BSD;
+      PLAY_SONG(song_bsd);
+#endif
+      break;
+    case UNICODE_MODE_WINC:
+      set_unicode_input_mode(UC_WINC);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WINC)
+      static float song_winc[][2] = UNICODE_SONG_WINC;
+      PLAY_SONG(song_winc);
+#endif
+      break;
+    case UNICODE_MODE_OSX_RALT:
+      set_unicode_input_mode(UC_OSX_RALT);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX_RALT)
+      static float song_osx_ralt[][2] = UNICODE_SONG_OSX_RALT;
+      PLAY_SONG(song_osx_ralt);
+#endif
+      break;
     }
   }
-  #ifdef UNICODE_ENABLE
-    return process_unicode(keycode, record);
-  #endif
-  #ifdef UCIS_ENABLE
-    return process_ucis(keycode, record);
-  #endif
-  #ifdef UNICODEMAP_ENABLE
-    return process_unicode_map(keycode, record);
-  #endif
+#if   defined(UNICODE_ENABLE)
+  return process_unicode(keycode, record);
+#elif defined(UNICODEMAP_ENABLE)
+  return process_unicode_map(keycode, record);
+#elif defined(UCIS_ENABLE)
+  return process_ucis(keycode, record);
+#else
   return true;
+#endif
 }
