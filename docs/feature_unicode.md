@@ -13,16 +13,16 @@ Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping table
 And you may want to have an enum to make reference easier.  So you'd want to add something like this to your keymap:
 
 ```c
-enum unicode_name {
+enum unicode_names {
   BANG, // ‽
   IRONY, // ⸮
   SNEK // snke 🐍
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-  [BANG]      = 0x0203D, // ‽
-  [IRONY]     = 0x02E2E, // ⸮
-  [SNEK]      = 0x1F40D // snke 🐍
+  [BANG]  = 0x0203D, // ‽
+  [IRONY] = 0x02E2E, // ⸮
+  [SNEK]  = 0x1F40D  // snke 🐍
 }:
 ```
 
@@ -75,44 +75,50 @@ void qk_ucis_symbol_fallback (void) { // falls back to manual unicode entry
 }
 ```
 
-## Unicode Input methods
+## Input Modes
 
-Unicode input in QMK works by inputting a sequence of characters to the OS,
-sort of like macro. Unfortunately, each OS has different ideas on how Unicode is input.
+Unicode input in QMK works by inputting a sequence of characters to the OS, sort of like a macro. Unfortunately, each OS has different ideas on how Unicode is input. Specifically, each OS has one (or more) key sequences that it requires to input unicode characters.
 
-You can set the input method at any time.  You can do this by using a keycode here.  The Input method is listed next to the keycode for reference. 
+There are two ways to set the input mode for Unicode, by keycode or by function.  
+
+Keep in mind that both methods write to persistant storage (EEPROM), and are loaded each time the keyboard starts. So once you've set it once, you do not need to set it again unless you need to change it or you've reset the EEPROM settings.
+
+!> There are options for BSD here, but it is not implemented at this time. If you use BSD and want to help in adding support for this, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues)
+
+
+### Functions
+
+You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, and this works the same way as the keycodes below.
+
+* __UC_OSX__: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
+* __UC_OSX_RALT__: Same as UC_OSX, but sends the Right Alt key for unicode input
+* __UC_LNX__: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
+* __UC_BSD__: (non operational) Unicode input method under BSD.
+* __UC_WIN__: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
+* __UC_WINC__: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
+
+### Keycodes
 
 |Key                       |Aliases  |Input Method  |Description                                        |
 |--------------------------|---------|--------------|---------------------------------------------------|
 |`UNICODE_MODE_OSX`        |`UC_M_OS`|`UC_OSX`      |Sets the input method for MacOS X                  |
 |`UNICODE_MODE_LNX`        |`UC_M_LN`|`UC_LNX`      |Sets the input method for Linux                    |
+|`UNICODE_MODE_BSD`        |`UC_M_BS`|`UC_BSD`      |Sets the input method for BSD (Non-Operational)    |
 |`UNICODE_MODE_WIN`        |`UC_M_WI`|`UC_WIN`      |Sets the input method for Windows                  |
 |`UNICODE_MODE_WINC`       |`UC_M_WC`|`UC_WINC`     |Sets the input method for Windows using WinCompose |
 |`UNICODE_MODE_OSX_RALT`   |`UC_M_OR`|`UC_OSX_RALT` |Sets the input method for MacOS X using RAlt/AltGr |
-
-You can also set the input method via `set_unicode_input_mode(x)`, and this functions the same way as the keycodes above.
-
-* __UC_OSX__: MacOS Unicode Hex Input support. Works only up to 0xFFFF. Disabled by default. To enable: go to System Preferences -> Keyboard -> Input Sources, and enable Unicode Hex.
-* __UC_OSX_RALT__: Same as UC_OSX, but sends the Right Alt key for unicode input
-* __UC_LNX__: Unicode input method under Linux. Works up to 0xFFFFF. Should work almost anywhere on ibus enabled distros. Without ibus, this works under GTK apps, but rarely anywhere else.
-* __UC_WIN__: (not recommended) Windows built-in Unicode input. To enable: create registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad`, set its value to 1, and reboot. This method is not recommended because of reliability and compatibility issue, use WinCompose method below instead.
-* __UC_WINC__: Windows Unicode input using WinCompose. Requires [WinCompose](https://github.com/samhocevar/wincompose). Works reliably under many (all?) variations of Windows.
-
-?> Keep in mind that both methods write to EEPROM, and are loaded each time the keyboard starts. So you only need to hit this once.
-
-!> There are options for BSD, but it is not actually supported at this time. If you use BSD and want support for this, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues)
-
 ### Audio Feedback for Input Mode keycodes
 
-If you have the [Audio feature](feature_audio.md) enabled on the board, you can set "songs" for them to play when pressed, so you have some audio feedback when switching modes.
+If you have the [Audio feature](feature_audio.md) enabled on the board, you can set melodies to be played when you press the above keys. That way you can have some audio feedback when switching input modes.
 
 For instance, you can add these to your `config.h` file.
 
 ```c
-#define UNICODE_SONG_OSX COIN_SOUND
+#define UNICODE_SONG_OSX  COIN_SOUND
 #define UNICODE_SONG_LNX  UNICODE_LINUX
-#define UNICODE_SONG_WINDOWS UNICODE_WINDOWS
-#define UNICODE_SONG_WIN_COMPOSE UNICODE_WINDOWS
+#define UNICODE_SONG_BSD  MARIO_GAMEOVER
+#define UNICODE_SONG_WIN  UNICODE_WINDOWS
+#define UNICODE_SONG_WINC UNICODE_WINDOWS
 #define UNICODE_SONG_OSX_RALT COIN_SOUND
 ```
 
@@ -120,10 +126,10 @@ For instance, you can add these to your `config.h` file.
 
 The "start" and "finish" functions for unicode method can be customized locally. A great use for this is to customize the input methods if you don't use the default keys. Or to add visual, or audio feedback when inputting unicode characters.
 
-* `void unicode_input_start(void)` - This is called to start the sequence to input unicode characters. It handles calling RAlt or whatever ever sequence you want. 
-* `void unicode_input_finish (void)` - This is called to cleanup things, such as releasing the RAlt key in some cases, or tapping a key to finish the sequence.
+* `void unicode_input_start(void)` - This sends the initial sequence that tells your platform to enter Unicode input mode. For example, it presses Ctrl+Shift+U on Linux and holds the Option key on Mac.
+* `void unicode_input_finish (void)` - his is called to exit Unicode input mode, for example by pressing Space or releasing the Option key.
 
-You can find the default functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
+You can find the default implementations of these functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
 
 
 ## `send_unicode_hex_string`

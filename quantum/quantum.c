@@ -257,7 +257,7 @@ bool process_record_quantum(keyrecord_t *record) {
     process_tap_dance(keycode, record) &&
   #endif
   #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-    process_record_unicode_common(keycode, record) &&
+    process_unicode_common(keycode, record) &&
   #endif
   #ifdef LEADER_ENABLE
     process_leader(keycode, record) &&

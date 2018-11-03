@@ -42,7 +42,7 @@ void unicode_input_start(void);
 void unicode_input_finish(void);
 void register_hex(uint16_t hex);
 void send_unicode_hex_string(const char *str);
-bool process_record_unicode_common(uint16_t keycode, keyrecord_t *record);
+bool process_unicode_common(uint16_t keycode, keyrecord_t *record);
 
 #define UC_OSX 0  // Mac OS X
 #define UC_LNX 1  // Linux
