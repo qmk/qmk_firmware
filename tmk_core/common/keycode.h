@@ -60,7 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOD_MASK_CSG             (MOD_MASK_CTRL  | MOD_MASK_SHIFT | MOD_MASK_GUI)
 #define MOD_MASK_CAG             (MOD_MASK_CTRL  | MOD_MASK_ALT   | MOD_MASK_GUI)
 #define MOD_MASK_SAG             (MOD_MASK_SHIFT | MOD_MASK_ALT   | MOD_MASK_GUI)
-#define MOD_MASK_ALL             (MOD_MASK_CTRL  | MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
+#define MOD_MASK_CSAG            (MOD_MASK_CTRL  | MOD_MASK_SHIFT | MOD_MASK_ALT | MOD_MASK_GUI)
 
 #define FN_BIT(code)             (1 << FN_INDEX(code))
 #define FN_INDEX(code)           ((code) - KC_FN0)
