@@ -4,11 +4,11 @@ There are three Unicode keymap definition methods available in QMK:
 
 ## UNICODE_ENABLE
 
-Supports Unicode input up to 0xFFFF. The keycode function is `UC(n)` in keymap file, where *n* is a 4 digit hexadecimal.
+Supports Unicode up to `0xFFFF`. The keycode function is `UC(n)` in the keymap file, where _n_ is a 4 digit hexadecimal number.
 
 ## UNICODEMAP_ENABLE
 
-Supports Unicode up to 0xFFFFFFFF. You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(n)` where *n* is the array index of the mapping table.
+Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(n)`, where _n_ is an array index into the mapping table.
 
 And you may want to have an enum to make reference easier.  So you'd want to add something like this to your keymap:
 
@@ -30,7 +30,7 @@ Make sure that the order for both matches.
 
 ## UCIS_ENABLE
 
-Supports Unicode up to 0xFFFFFFFF. As with `UNICODE_MAP`, you may want to main a mapping table in your keymap file.  However, there is no keycodes for this feature, you will have to add a keycode or function to call `qk_ucis_start()`. Once you've run that, you can just type the text for your unicode, and then hit space or enter to complete it, or ESC to cancel it. And if it matches an entry in your table, it will automatically "backspace" the trigger word (from your table) and then will input the unicode sequence.
+Supports Unicode up to `0x10FFFF` (all possible code points). As with `UNICODEMAP`, you may want to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you will have to add a keycode or function that calls `qk_ucis_start()`. Once it's been called, you can type the mnemonic for your character, then hit Space or Enter to complete it or Esc to cancel. If the mnemonic matches an entry in your table, the typed text will automatically be erased and the corresponding Unicode sequence inserted.
 
 For instance, you would need to have a table like this in your keymap:
 
@@ -53,27 +53,7 @@ There are several functions that you can add to your keymap to customize the fun
 * `void qk_ucis_success(uint8_t symbol_index)` - This runs when the unicode input has matched something, and has completed. Default doesn't do anything.
 * `void qk_ucis_symbol_fallback (void)` - This runs if the input text doesn't match anything.  The default function falls back to trying that input as a unicode code.
 
-The default code for these are:
-
-```c
-void qk_ucis_start_user(void) { // outputs keyboard emoji
-  unicode_input_start();
-  register_hex(0x2328);
-  unicode_input_finish();
-}
-
-void qk_ucis_success(uint8_t symbol_index) {
-}
-
-void qk_ucis_symbol_fallback (void) { // falls back to manual unicode entry
-  for (uint8_t i = 0; i < qk_ucis_state.count - 1; i++) {
-    uint8_t code = qk_ucis_state.codes[i];
-    register_code(code);
-    unregister_code(code);
-    wait_ms(UNICODE_TYPE_DELAY);
-  }
-}
-```
+You can find the default implementations of these functions in [`process_ucis.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_ucis.c).
 
 ## Input Modes
 
@@ -85,25 +65,23 @@ The following input modes are available:
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
 
-* **`UC_OSX_RALT`**: Same as UC_OSX, but sends the Right Alt key for unicode input
+* **`UC_OSX_RALT`**: Same as `UC_OSX`, but sends the Right Alt/Option key for Unicode input.
 
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports all possible code points (`0x10FFFF`).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
-
-* **`UC_BSD`**: (non operational) Unicode input method under BSD.
 
 * **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
   To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Afterwards, reboot.
   This mode is not recommended because of reliability and compatibility issues; use the `UC_WINC` mode instead.
 
+* **`UC_BSD`**: _(non implemented)_ Unicode input under BSD. Not implemented at this time. If you're a BSD user and want to help add support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
+
 * **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.8.2, supports code points up to `0xFFFFF`.
 
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
-  This mode uses the right Alt key (`KC_RALT`), and this needs to be set to this in WinCompose's settings.
-
-!> There is an input mode option for BSD, but it's not implemented at this time. If you use BSD and want to help with adding support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
+  This mode relies on the Compose key being set to Right Alt (`KC_RALT`). If you change it to something else in the WinCompose settings, this mode will not work.
 
 ### Switching Input Modes
 
@@ -120,7 +98,13 @@ You can switch the input mode at any time by using one of the following keycodes
 |`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose.|
 |`UNICODE_MODE_OSX_RALT`|`UC_M_OR`|`UC_OSX_RALT`|Switch to Mac OS X input using Right Alt.|
 
-You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, and this works the same way as the above keycodes.
+You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user` (or a similar function). For example:
+
+```c
+void eeconfig_init_user(void) {
+  set_unicode_input_mode(UC_LNX);
+}
+```
 
 ### Audio Feedback
 
