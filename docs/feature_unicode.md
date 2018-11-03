@@ -85,7 +85,7 @@ The following input modes are available:
 
 ### Switching Input Modes
 
-There are two ways to set the input mode for Unicode: by keycode or by function. Keep in mind that both methods write to persistent storage (EEPROM), and are loaded each time the keyboard starts. So once you've set it once, you don't need to set it again unless you want to change it, or you've reset the EEPROM settings.
+There are two ways to set the input mode for Unicode: by keycode or by function. Keep in mind that both methods write to persistent storage (EEPROM), and are loaded each time the keyboard starts. So once you've set it the first time, you don't need to set it again unless you want to change it, or you've reset the EEPROM settings.
 
 You can switch the input mode at any time by using one of the following keycodes. The easiest way is to add the ones you use to your keymap.
 
