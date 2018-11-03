@@ -460,8 +460,6 @@ enum quantum_keycodes {
     SAFE_RANGE
 };
 
-#define EEPRST EEPROM_RESET
-
 // Ability to use mods in layouts
 #define LCTL(kc) (QK_LCTL | (kc))
 #define LSFT(kc) (QK_LSFT | (kc))
@@ -573,6 +571,8 @@ enum quantum_keycodes {
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
 #define KC_GESC GRAVE_ESC
+
+#define EEP_RST EEPROM_RESET
 
 #define CK_TOGG CLICKY_TOGGLE
 #define CK_RST CLICKY_RESET
