@@ -131,7 +131,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 /* key combination for magic key command */
-/* defined by default. To change, uncomment and set to the combination you want */
+/* defined by default; to change, uncomment and set to the combination you want */
 // #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 /* control how magic key switches layers */
