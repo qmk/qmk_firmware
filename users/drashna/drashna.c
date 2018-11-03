@@ -271,9 +271,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
       uint8_t temp_mod = get_mods();
-      clear_mods();
+      uint8_t temp_osm = get_oneshot_mods();
+      clear_mods(); clear_oneshot_mods();
       send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
-      if (temp_mod & MODS_SHIFT_MASK) {
+      if (temp_mod & MODS_SHIFT_MASK || temp_osm & MODS_SHIFT_MASK) {
         #if defined(__ARM__)
           send_string_with_delay_P(PSTR(":dfu-util"), 10);
         #elif defined(BOOTLOADER_DFU)
@@ -287,7 +288,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #if defined(KEYBOARD_viterbi)
         send_string_with_delay_P(PSTR(":dfu"), 10);
       #endif
-      if (temp_mod & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
+      if (temp_mod & MODS_CTRL_MASK || temp_osm & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
       send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
       set_mods(temp_mod);
     }
