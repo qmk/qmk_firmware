@@ -395,6 +395,17 @@ switch (keycode) {
     } else {
       return true;
     }
+  case KC_LALT:
+    if (game) {
+      if (record->event.pressed){
+        layer_on(_RAISE);
+      } else {
+        layer_off(_RAISE);
+      }
+      return false;
+    } else {
+      return true;
+    }
   case CU_GAME:
     if(record->event.pressed) {
       if (game)
