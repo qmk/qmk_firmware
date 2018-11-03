@@ -1,9 +1,3 @@
-SWAP_HANDS_ENABLE = no
-
-#ifeq ($(strip $(BLUEFRUIT)), yes)
-#	BLUETOOTH = AdafruitBLE
-#endif
-
 ifeq (,$(findstring yes,$(BLUEFRUIT)))
   BLUETOOTH = AdafruitBLE
   BLUETOOTH_ENABLE = yes
