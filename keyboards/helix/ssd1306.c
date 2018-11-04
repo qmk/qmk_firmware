@@ -1,4 +1,3 @@
-
 #ifdef SSD1306OLED
 
 #include "ssd1306.h"
@@ -28,16 +27,11 @@
 //static uint16_t last_battery_update;
 //static uint32_t vbat;
 //#define BatteryUpdateInterval 10000 /* milliseconds */
-
-// 'last_flush' is declared as uint16_t,
-// so this must be less than 65535 
-#define ScreenOffInterval 60000 /* milliseconds */
+#define ScreenOffInterval 300000 /* milliseconds */
 #if DEBUG_TO_SCREEN
 static uint8_t displaying;
 #endif
 static uint16_t last_flush;
-
-static bool force_dirty = true;
 
 // Write command sequence.
 // Returns true on success.
@@ -324,19 +318,12 @@ void iota_gfx_task_user(void) {
 void iota_gfx_task(void) {
   iota_gfx_task_user();
 
-  if (display.dirty|| force_dirty) {
+  if (display.dirty) {
     iota_gfx_flush();
-    force_dirty = false;
   }
 
   if (timer_elapsed(last_flush) > ScreenOffInterval) {
     iota_gfx_off();
   }
 }
-
-bool process_record_gfx(uint16_t keycode, keyrecord_t *record) {
-  force_dirty = true;
-  return true;
-}
-
 #endif
