@@ -20,6 +20,8 @@
 #include "muse.h"
 #include "keymap_slovenian.h"
 
+#define ALTG(kc) ALGR(kc) // FIXME: Remove this
+
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
@@ -119,9 +121,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ALTGR] = LAYOUT_planck_grid(
-    _______,  ALGR(KC_Q),    ALGR(KC_W),    ALGR(KC_E),    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
-    _______,  _______,    _______,    _______,    ALGR(KC_F),    ALGR(KC_G),    _______,    _______,    _______,    _______,    _______, _______,
-    _______, _______,    _______,    _______,    ALGR(KC_V),    ALGR(KC_B),    ALGR(KC_N),    _______,    ALGR(KC_COMM), ALGR(KC_DOT),  _______, _______ ,
+    _______,  ALTG(KC_Q),    ALTG(KC_W),    ALTG(KC_E),    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,
+    _______,  _______,    _______,    _______,    ALTG(KC_F),    ALTG(KC_G),    _______,    _______,    _______,    _______,    _______, _______,
+    _______, _______,    _______,    _______,    ALTG(KC_V),    ALTG(KC_B),    ALTG(KC_N),    _______,    ALTG(KC_COMM), ALTG(KC_DOT),  _______, _______ ,
     _______, _______, _______, _______, _______,   _______,  _______,  _______,   _______, _______, _______,   _______
 ),
 
