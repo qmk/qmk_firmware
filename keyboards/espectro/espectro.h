@@ -22,7 +22,7 @@
 
 
 //Arrow keys and 1.75u shift
-#define DEFAULT( \
+#define LAYOUT_default( \
 K000, K001, K002, K003, K004, K600, K601, K602, K603, K005, K006, K007, K008, K702, K009, K010, K011, K012, K712,  \
 K100, K101, K102, K103, K104, K604, K605, K606, K607, K105, K106, K107, K108,    K701,    K109, K110, K111, K112,  \
   K200,   K201, K202, K203, K204, K608, K609, K610, K611, K205, K206, K207, K208,  K703,  K209, K210, K211, K212,  \
@@ -42,7 +42,7 @@ K500, K501, K502,                K503,                      K504, K505, K506, K5
 
 // Split numpad (enter, 0), split shifts (right, left), split backspace
 // This is more of an example of every possible keycode placement
-#define SPLIT( \
+#define LAYOUT_split_shift_and_bs( \
 K000, K001, K002, K003, K004, K600, K601, K602, K603, K005, K006, K007, K008, K702, K009, K010, K011, K012, K712,  \
 K100, K101, K102, K103, K104, K604, K605, K606, K607, K105, K106, K107, K108, K700, K701, K109, K110, K111, K112,  \
   K200,   K201, K202, K203, K204, K608, K609, K610, K611, K205, K206, K207, K208,  K703,  K209, K210, K211, K212,  \
@@ -61,13 +61,13 @@ K500, K501, K502,                K503,                      K504, K505, K506, K5
 }
 
 
-//#define LAYOUT
+
 
 /*
 Placement of every possible switch defined below.
 x2 means the diode allows two possible positions for the switch
 
-#define ACTUAL( \
+#define LAYOUT_all( \
 K000, K001, K002, K003, K004, K600, K601, K602, K603, K005, K006, K007, K008, K702, K009, K010, K011, K012, K712, \
 K100, K101, K102, K103, K104, K604, K605, K606, K607, K105, K106, K107, K108, K700, K701x2, K109, K110, K111, K112, \
 K200, K201, K202, K203, K204, K608, K609, K610, K611, K205, K206, K207, K208,     K703,   K209, K210, K211, K212, \
