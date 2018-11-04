@@ -212,7 +212,7 @@ Normally, this would sent `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` ena
 
 ?> If you have `Permissive Hold` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
 
-# Hold after tap
+# Tapping Force Hold
 
 To enable this, add this to your `config.h`: 
 
