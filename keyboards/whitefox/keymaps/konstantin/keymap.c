@@ -7,10 +7,11 @@
 
 #define FN      MO(L_FN)
 #define FN_CAPS LT(L_FN, KC_CAPS)
+#define FN_FNLK TT(L_FN)
 
 #define DESKTOP TD(TD_DESKTOP)
-#define FN_RCTL TD(TD_FN_RCTL) // Unused
-#define RAL_LAL TD(TD_RAL_LAL) // Unused
+#define FN_RCTL TD(TD_FN_RCTL)
+#define RAL_LAL TD(TD_RAL_LAL)
 #define RAL_RGU TD(TD_RAL_RGU)
 #define RCT_RSF TD(TD_RCT_RSF)
 
@@ -146,7 +147,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
    * │ LShift │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │CtlSft│ ↑ │PgD│
    * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-   * │LCtl│LGui│LAlt│         Space          │AlGu│ Fn │ │ ← │ ↓ │ → │
+   * │LCtl│LGui│LAlt│         Space          │AlGu│FnLk│ │ ← │ ↓ │ → │
    * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
    */
   [L_BASE] = LAYOUT_truefox( \
@@ -154,7 +155,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSPC,        KC_DEL,  \
     FN_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,        KC_ENT,         KC_PGUP, \
     KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,RCT_RSF,        KC_UP,  KC_PGDN, \
-    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 RAL_RGU,FN,                     KC_LEFT,KC_DOWN,KC_RGHT  \
+    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 RAL_RGU,FN_FNLK,                KC_LEFT,KC_DOWN,KC_RGHT  \
   ),
 
   /* Function layer
