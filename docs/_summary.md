@@ -3,6 +3,8 @@
   * [Building Your First Firmware](newbs_building_firmware.md)
   * [Flashing Firmware](newbs_flashing.md)
   * [Testing and Debugging](newbs_testing_debugging.md)
+  * [Best Practices](newbs_best_practices.md)
+  * [Learning Resources](newbs_learn_more_resources.md)
 
 * [QMK Basics](README.md)
   * [QMK Introduction](getting_started_introduction.md)
@@ -50,6 +52,7 @@
   * [Combos](feature_combo)
   * [Command](feature_command.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
+  * [Encoders](feature_encoders.md)
   * [Grave Escape](feature_grave_esc.md)
   * [Key Lock](feature_key_lock.md)
   * [Layouts](feature_layouts.md)

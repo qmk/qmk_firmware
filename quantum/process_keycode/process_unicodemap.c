@@ -45,6 +45,7 @@ __attribute__((weak))
 void unicode_map_input_error() {}
 
 bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
+  unicode_input_mode_init();
   uint8_t input_mode = get_unicode_input_mode();
   if ((keycode & QK_UNICODE_MAP) == QK_UNICODE_MAP && record->event.pressed) {
     const uint32_t* map = unicode_map;
