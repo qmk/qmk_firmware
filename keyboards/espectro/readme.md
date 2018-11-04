@@ -6,7 +6,7 @@ A 96% keyboard made and sold by MECHKEYS [More info on MECHKEYS](https://mechkey
 
 Keyboard Maintainer: [TurboMech](https://github.com/TurboMech)  
 Hardware Supported: Espectro  
-Hardware Availability: [MECHKEYS](https://mechkeys.ca)
+Hardware Availability: [MECHKEYS](https://mechkeys.ca)  
 
 Make example for this keyboard (after setting up your build environment):
 
