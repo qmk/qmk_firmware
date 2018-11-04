@@ -267,6 +267,21 @@ ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
 endif
 
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/keyboard_features.mk)","")
+    include $(KEYBOARD_PATH_1)/keyboard_features.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/keyboard_features.mk)","")
+    include $(KEYBOARD_PATH_2)/keyboard_features.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/keyboard_features.mk)","")
+    include $(KEYBOARD_PATH_3)/keyboard_features.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/keyboard_features.mk)","")
+    include $(KEYBOARD_PATH_4)/keyboard_features.mk
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/keyboard_features.mk)","")
+    include $(KEYBOARD_PATH_5)/keyboard_features.mk
+endif
 
 # Object files directory
 #     To put object files in current directory, use a dot (.), do NOT make
