@@ -15,7 +15,6 @@
  */
 
 #pragma once
-#define ESPECTRO_CONFIG_H
 
 #include "config_common.h"
 
