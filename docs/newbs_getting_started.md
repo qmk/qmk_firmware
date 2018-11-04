@@ -89,7 +89,7 @@ Linking: .build/clueboard_66_rev3_default.elf                                   
 Creating load file for flashing: .build/clueboard_66_rev3_default.hex                               [OK]
 Copying clueboard_66_rev3_default.hex to qmk_firmware folder                                        [OK]
 Checking file size of clueboard_66_rev3_default.hex                                                 [OK]
- * File size is fine - 25174/28672
+ * The firmware size is fine - 26356/28672 (2316 bytes free)
 ```
 
 # Creating Your Layout
