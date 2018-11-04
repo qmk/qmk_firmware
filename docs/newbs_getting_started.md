@@ -1,8 +1,8 @@
 # Introduction
 
-Your computer keyboard has a processor inside of it, not unlike the one inside your computer. This processor runs software that is responsible for detecting button presses and sending reports about the state of the keyboard when buttons are pressed or released. QMK fills the role of that software, detecting button presses and passing that information on to the host computer. When you build your custom layout, you are creating the equivalent of an executable program for your keyboard.
+Your computer keyboard has a processor inside of it, not unlike the one inside your computer. This processor runs software that is responsible for detecting button presses and sending reports about the state of the keyboard when buttons are pressed or released. QMK fills the role of that software, detecting button presses and passing that information on to the host computer. When you build your custom keymap, you are creating the equivalent of an executable program for your keyboard.
 
-QMK tries to put a lot of power into your hands by making easy things easy, and hard things possible. You don't have to know how to program to create powerful layouts — you only have to follow a few simple syntax rules.
+QMK tries to put a lot of power into your hands by making easy things easy, and hard things possible. You don't have to know how to program to create powerful keymaps — you only have to follow a few simple syntax rules.
 
 # Getting Started
 
@@ -74,7 +74,7 @@ QMK comes with a script to help you set up the rest of what you'll need. You sho
 
 ## Test Your Build Environment
 
-Now that your QMK build environment is set up, you can build a firmware for your keyboard. Start by trying to build the keyboard's default layout. You should be able to do that with a command in this format:
+Now that your QMK build environment is set up, you can build a firmware for your keyboard. Start by trying to build the keyboard's default keymap. You should be able to do that with a command in this format:
 
     make <keyboard>:default
 
@@ -92,6 +92,6 @@ Checking file size of clueboard_66_rev3_default.hex                             
  * The firmware size is fine - 26356/28672 (2316 bytes free)
 ```
 
-# Creating Your Layout
+# Creating Your Keymap
 
-You are now ready to create your own personal layout! Move on to [Building Your First Firmware](newbs_building_firmware.md) for that.
+You are now ready to create your own personal keymap! Move on to [Building Your First Firmware](newbs_building_firmware.md) for that.
