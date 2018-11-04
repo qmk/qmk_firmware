@@ -16,7 +16,6 @@
 
 
 #include QMK_KEYBOARD_H
-#include "rgblight.h"
 #include "action_layer.h"
 #include "quantum.h"
 #include "action.h"
