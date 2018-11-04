@@ -17,7 +17,6 @@
 #pragma once
 
 #define TAPPING_TOGGLE 2
-#include "../../config.h"
 
 // place overrides here
 
