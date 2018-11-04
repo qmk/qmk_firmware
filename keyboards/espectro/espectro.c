@@ -15,11 +15,8 @@
  */
 
 
-#include "espectro.h"
-#include "rgblight.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 #include "quantum.h"
-#include "action.h"
 
 
 void matrix_scan_kb(void) {
@@ -42,6 +39,7 @@ void led_set_kb(uint8_t usb_led) {
 	led_set_user(usb_led);
 }
 
+__attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {
 
 	if (usb_led & (1 << USB_LED_NUM_LOCK)) {

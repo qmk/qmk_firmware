@@ -14,8 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef ESPECTRO_CONFIG_H
-#define ESPECTRO_CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -69,4 +68,3 @@
 
 #endif
 
-#endif

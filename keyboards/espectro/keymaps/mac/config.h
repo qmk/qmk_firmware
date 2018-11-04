@@ -14,12 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 #define TAPPING_TOGGLE 2
-#include "../../config.h"
 
 // place overrides here
 
-#endif
