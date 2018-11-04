@@ -11,6 +11,7 @@ qmk_firmware:
   before_script:
     - apt-get update -qy
     - apt-get install -y build-essential avr-libc binutils-arm-none-eabi binutils-avr dfu-programmer dfu-util diffutils gcc gcc-arm-none-eabi gcc-avr git libnewlib-arm-none-eabi unzip wget zip
+    - avr-gcc --version
   script:
     - make iris/rev2:drashna iris/rev2:drashna_old ergodox_ez:drashna viterbi/rev1:drashna orthodox/rev1:drashna orthodox/rev3:drashna crkbd:drashna planck/light:drashna
   artifacts:
