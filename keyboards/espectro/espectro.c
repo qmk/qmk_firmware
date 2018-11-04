@@ -17,7 +17,6 @@
 
 #include QMK_KEYBOARD_H
 #include "quantum.h"
-#include "action.h"
 
 
 void matrix_scan_kb(void) {
