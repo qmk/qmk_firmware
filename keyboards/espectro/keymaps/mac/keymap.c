@@ -145,7 +145,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case LAUNCH:
       if (record->event.pressed) {
-        return MACRO(D(LCTRL), T(L), U(LCTRL), END);
+        SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_L) SS_UP(X_LCTL));
       }
       return false;
       break;
