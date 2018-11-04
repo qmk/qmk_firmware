@@ -269,6 +269,7 @@ void matrix_scan_rgb(void) {
 
 uint32_t layer_state_set_rgb(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
+  static bool has_ran;
   if (userspace_config.rgb_layer_change) {
     switch (biton32(state)) {
     case _MACROS:
@@ -300,7 +301,6 @@ uint32_t layer_state_set_rgb(uint32_t state) {
       rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
       break;
     default: //  for any other layers, or the default layer
-      static bool has_ran  = false;
       switch (biton32(default_layer_state)) {
         case _COLEMAK:
           rgblight_sethsv_noeeprom_magenta(); break;
