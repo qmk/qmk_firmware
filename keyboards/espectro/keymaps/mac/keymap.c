@@ -151,7 +151,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case DOCK:
       if (record->event.pressed) {
-        return MACRO(D(LALT), D(LGUI), T(D), U(LALT), U(LGUI), END);
+        SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LGUI) SS_TAP(X_D) SS_UP(X_LGUI) SS_UP(X_LALT));
       }
       return false;
       break;
