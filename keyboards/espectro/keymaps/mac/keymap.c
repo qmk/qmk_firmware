@@ -139,7 +139,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // dynamically generate these.
     case EXPOSE:
       if (record->event.pressed) {
-        return MACRO(D(LCTRL), T(UP), U(LCTRL), END);
+        SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_UP) SS_UP(X_LCTL));
       }
       return false;
       break;
