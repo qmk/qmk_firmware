@@ -157,7 +157,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case SCRCAP:  //screen capture
       if (record->event.pressed) {
-        return MACRO(D(LCTRL), T(S), U(LCTRL), END);
+        SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_S) SS_UP(X_LCTL));
       }
       return false;
       break;
