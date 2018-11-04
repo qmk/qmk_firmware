@@ -135,51 +135,33 @@ ________________________________________________________________________________
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
+  if (record->event.pressed) {
+    switch (keycode) {
     // dynamically generate these.
-    case EXPOSE:
-      if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_UP) SS_UP(X_LCTL));
-      }
-      return false;
-      break;
-    case LAUNCH:
-      if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_L) SS_UP(X_LCTL));
-      }
-      return false;
-      break;
-    case DOCK:
-      if (record->event.pressed) {
+      case EXPOSE:
+        SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_UP) SS_UP(X_LCTRL));
+        return false;
+      case LAUNCH:
+        SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_L) SS_UP(X_LCTRL));
+        return false;
+      case DOCK:
         SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LGUI) SS_TAP(X_D) SS_UP(X_LGUI) SS_UP(X_LALT));
-      }
-      return false;
-      break;
-    case SCRCAP:  //screen capture
-      if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LCTL) SS_TAP(X_S) SS_UP(X_LCTL));
-      }
-      return false;
-      break;
-    case CS1:  //custom shortcut 1
-      if (record->event.pressed) {
+        return false;
+      case SCRCAP:  //screen capture
+        SEND_STRING(SS_DOWN(X_LCTRL) SS_TAP(X_S) SS_UP(X_LCTRL));
+        return false;
+      case CS1:  //custom shortcut 1
         SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LGUI) SS_TAP(X_1) SS_UP(X_LGUI) SS_UP(X_LALT));
-      }
-      return false;
-      break;
-    case CS2:  //custom shortcut 2
-      if (record->event.pressed) {
+        return false;
+      case CS2:  //custom shortcut 2
         SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LGUI) SS_TAP(X_2) SS_UP(X_LGUI) SS_UP(X_LALT));
-      }
-      return false;
-      break;
-    case QALL:  //quit all applications
-      if (record->event.pressed) {
+        return false;
+      case QALL:  //quit all applications
         SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LGUI) SS_TAP(X_Q) SS_UP(X_LGUI) SS_UP(X_LALT));
-      }
-      return false;
-      break;
+        return false;
+    }
+    return false;
   }
   return true;
-}
+};
 
