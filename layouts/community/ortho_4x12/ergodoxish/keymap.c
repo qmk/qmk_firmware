@@ -9,16 +9,16 @@ extern keymap_config_t keymap_config;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-//#define _COLEMAK 1
+#define _COLEMAK 1
 //#define _DVORAK 2
-#define _LOWER 1
-#define _RAISE 2
-#define _MOUSE 3
-#define _ADJUST 16
+#define _LOWER 2
+#define _RAISE 3
+#define _MOUSE 4
+#define _ADJUST 5
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  //COLEMAK,
+  COLEMAK,
   //DVORAK,
   LOWER,
   RAISE,
@@ -65,21 +65,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
- * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
+ * | Tab  |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  |  -   |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Esc  |   A  |   R  |   S  |   T  |   D  |   H  |   N  |   E  |   I  |   O  |  "   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Enter |
+ * | Shift|   Z  |   X  |   C  |   V  |   B  |   K  |   M  |   ,  |   .  |   /  |Shift |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Adjust| Ctrl | Alt  | GUI  |Lower |Space |Space |Raise | Left | Down |  Up  |Right |
+ * |Adjust| Ctrl | Alt  | GUI  |Lw/Bk |Del   |Enter |Ris/Sp| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
-/*[_COLEMAK] = KEYMAP(                                                  \
-  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC, \
+[_COLEMAK] = LAYOUT_ortho_4x12(                                                  \
+  KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_MINS, \
   KC_ESC,  KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT , \
-  ADJUST,  KC_LCTL, KC_LALT, KC_LGUI, LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
-),*/
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT , \
+  ADJUST,  KC_LCTL, KC_LALT, KC_LGUI, LT(_LOWER, KC_BSPC),   KC_DEL,  KC_ENT,  LT(_RAISE, KC_SPC),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT \
+),
 
 /* Dvorak
  * ,-----------------------------------------------------------------------------------.
@@ -166,7 +166,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] =  LAYOUT_ortho_4x12( \
   _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______,    KC_DEL, \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______,  TG(_MOUSE), _______, \
+  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, _______,  TG(_MOUSE), _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______ \
 )
@@ -196,7 +196,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    /*case COLEMAK:
+    case COLEMAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
@@ -205,7 +205,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case DVORAK:
+    /*case DVORAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
