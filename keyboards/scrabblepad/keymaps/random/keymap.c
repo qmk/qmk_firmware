@@ -41,12 +41,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-// This layout is supposed to work with the Teensy controller pointing
-// to the side
-// left 6 columns are Workman layout mirrored (rotate the board around)
-// right 6 columns are dvorak layout
-// middle three columns are for RGB control and other system functions
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT( /* Base */
   RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, RND_KEY, \
