@@ -238,7 +238,7 @@ With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allo
 
 # Retro Tapping
 
-To enable this, add this to your `config.h`: 
+To enable `retro tapping`, add the following to your `config.h`: 
 
 ```c
 #define RETRO_TAPPING
