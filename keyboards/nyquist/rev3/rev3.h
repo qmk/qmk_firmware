@@ -1,10 +1,7 @@
 #pragma once
 
 #include "nyquist.h"
-
-//void promicro_bootloader_jmp(bool program);
 #include "quantum.h"
-
 
 #ifdef USE_I2C
 #include <stddef.h>
@@ -63,3 +60,4 @@
 #endif
 
 #define LAYOUT_ortho_5x12 LAYOUT
+
