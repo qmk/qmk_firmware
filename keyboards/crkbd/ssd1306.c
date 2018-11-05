@@ -328,7 +328,7 @@ void iota_gfx_task(void) {
 
   if (display.dirty|| force_dirty) {
     iota_gfx_flush();
-        force_dirty = false;
+    force_dirty = false;
   }
 
   if (timer_elapsed(last_flush) > ScreenOffInterval) {
