@@ -240,6 +240,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 void matrix_init_rgb(void) {
 
   if (userspace_config.rgb_layer_change) {
+    rgblight_init();
     rgblight_enable_noeeprom();
     switch (biton32(eeconfig_read_default_layer())) {
       case _COLEMAK:
@@ -251,7 +252,7 @@ void matrix_init_rgb(void) {
       default:
         rgblight_sethsv_noeeprom_cyan(); break;
     }
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+    rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
   }
 }
 
