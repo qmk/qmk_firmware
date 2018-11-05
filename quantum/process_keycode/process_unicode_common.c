@@ -19,32 +19,29 @@
 #include <ctype.h>
 #include <string.h>
 
-static uint8_t input_mode;
-static uint8_t saved_mods;
+unicode_config_t unicode_config;
 
 void unicode_input_mode_init(void) {
-  static bool first_flag = false;
-  if (!first_flag) {
-    input_mode = eeprom_read_byte(EECONFIG_UNICODEMODE);
-    first_flag = true;
-  }
+  unicode_config.raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
 }
 
 uint8_t get_unicode_input_mode(void) {
-  return input_mode;
+  return unicode_config.input_mode;
 }
 
 void set_unicode_input_mode(uint8_t mode) {
-  input_mode = mode;
+  unicode_config.input_mode = mode;
   eeprom_update_byte(EECONFIG_UNICODEMODE, mode);
 }
+
+static uint8_t saved_mods;
 
 __attribute__((weak))
 void unicode_input_start(void) {
   saved_mods = get_mods(); // Save current mods
   clear_mods(); // Unregister mods to start from a clean state
 
-  switch(input_mode) {
+  switch (unicode_config.input_mode) {
   case UC_OSX:
     register_code(UNICODE_OSX_KEY);
     break;
@@ -54,6 +51,8 @@ void unicode_input_start(void) {
     tap_code(KC_U); // TODO: Replace with tap_code16(LCTL(LSFT(KC_U))); and test
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
+    break;
+  case UC_BSD:
     break;
   case UC_WIN:
     register_code(KC_LALT);
@@ -70,7 +69,7 @@ void unicode_input_start(void) {
 
 __attribute__((weak))
 void unicode_input_finish(void) {
-  switch(input_mode) {
+  switch (unicode_config.input_mode) {
   case UC_OSX:
     unregister_code(UNICODE_OSX_KEY);
     break;
@@ -99,8 +98,7 @@ uint16_t hex_to_keycode(uint8_t hex) {
 void register_hex(uint16_t hex) {
   for(int i = 3; i >= 0; i--) {
     uint8_t digit = ((hex >> (i*4)) & 0xF);
-    register_code(hex_to_keycode(digit));
-    unregister_code(hex_to_keycode(digit));
+    tap_code(hex_to_keycode(digit));
   }
 }
 
@@ -127,4 +125,55 @@ void send_unicode_hex_string(const char *str) {
 
     str += n; // Move to the first ' ' (or '\0') after the current token
   }
+}
+
+bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    switch (keycode) {
+    case UNICODE_MODE_OSX:
+      set_unicode_input_mode(UC_OSX);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX)
+      static float song_osx[][2] = UNICODE_SONG_OSX;
+      PLAY_SONG(song_osx);
+#endif
+      break;
+    case UNICODE_MODE_LNX:
+      set_unicode_input_mode(UC_LNX);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_LNX)
+      static float song_lnx[][2] = UNICODE_SONG_LNX;
+      PLAY_SONG(song_lnx);
+#endif
+      break;
+    case UNICODE_MODE_WIN:
+      set_unicode_input_mode(UC_WIN);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WIN)
+      static float song_win[][2] = UNICODE_SONG_WIN;
+      PLAY_SONG(song_win);
+#endif
+      break;
+    case UNICODE_MODE_BSD:
+      set_unicode_input_mode(UC_BSD);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_BSD)
+      static float song_bsd[][2] = UNICODE_SONG_BSD;
+      PLAY_SONG(song_bsd);
+#endif
+      break;
+    case UNICODE_MODE_WINC:
+      set_unicode_input_mode(UC_WINC);
+#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WINC)
+      static float song_winc[][2] = UNICODE_SONG_WINC;
+      PLAY_SONG(song_winc);
+#endif
+      break;
+    }
+  }
+#if   defined(UNICODE_ENABLE)
+  return process_unicode(keycode, record);
+#elif defined(UNICODEMAP_ENABLE)
+  return process_unicode_map(keycode, record);
+#elif defined(UCIS_ENABLE)
+  return process_ucis(keycode, record);
+#else
+  return true;
+#endif
 }

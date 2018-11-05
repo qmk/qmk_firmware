@@ -13,16 +13,16 @@ Supports Unicode up to `0x10FFFF` (all possible code points). You need to mainta
 And you may want to have an enum to make reference easier.  So you'd want to add something like this to your keymap:
 
 ```c
-enum unicode_name {
-  BANG, // ‽
-  IRONY, // ⸮
-  SNEK // snke 🐍
+enum unicode_names {
+  BANG,
+  IRONY,
+  SNEK,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-  [BANG]      = 0x0203D, // ‽
-  [IRONY]     = 0x02E2E, // ⸮
-  [SNEK]      = 0x1F40D // snke 🐍
+  [BANG]    = 0x203D,  // ‽
+  [IRONY]   = 0x2E2E,  // ⸮
+  [SNEK]    = 0x1F40D, // 🐍
 }:
 ```
 
@@ -53,31 +53,11 @@ There are several functions that you can add to your keymap to customize the fun
 * `void qk_ucis_success(uint8_t symbol_index)` - This runs when the unicode input has matched something, and has completed. Default doesn't do anything.
 * `void qk_ucis_symbol_fallback (void)` - This runs if the input text doesn't match anything.  The default function falls back to trying that input as a unicode code.
 
-The default code for these are:
-
-```c
-void qk_ucis_start_user(void) { // outputs keyboard emoji
-  unicode_input_start();
-  register_hex(0x2328);
-  unicode_input_finish();
-}
-
-void qk_ucis_success(uint8_t symbol_index) {
-}
-
-void qk_ucis_symbol_fallback (void) { // falls back to manual unicode entry
-  for (uint8_t i = 0; i < qk_ucis_state.count - 1; i++) {
-    uint8_t code = qk_ucis_state.codes[i];
-    register_code(code);
-    unregister_code(code);
-    wait_ms(UNICODE_TYPE_DELAY);
-  }
-}
-```
+You can find the default implementations of these functions in [`process_ucis.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_ucis.c).
 
 ## Input Modes
 
-Unicode input in QMK works by inputting a sequence of characters to the OS, sort of like a macro. Unfortunately, the way this is done differs for each platform, so a corresponding input mode has to be set.
+Unicode input in QMK works by inputting a sequence of characters to the OS, sort of like a macro. Unfortunately, the way this is done differs for each platform. Specifically, each platform requires a different combination of keys to trigger Unicode input. Therefore, a corresponding input mode has to be set in QMK.
 
 The following input modes are available:
 
@@ -95,18 +75,57 @@ The following input modes are available:
   To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Afterwards, reboot.
   This mode is not recommended because of reliability and compatibility issues; use the `UC_WINC` mode instead.
 
+* **`UC_BSD`**: _(non implemented)_ Unicode input under BSD. Not implemented at this time. If you're a BSD user and want to help add support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
+
 * **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.8.2, supports code points up to `0xFFFFF`.
 
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
   By default, this mode uses the right Alt key (`KC_RALT`), but this can be changed in the WinCompose settings and by defining `UNICODE_WINC_KEY` with another keycode.
 
-At some point you need to call `set_unicode_input_mode(X)` in your code to set the appropriate mode. Since the setting is stored in EEPROM, this only needs to be called once, so it's recommended that you do it in `matrix_init_user` (or a similar function). For example:
+### Switching Input Modes
+
+There are two ways to set the input mode for Unicode: by keycode or by function. Keep in mind that both methods write to persistent storage (EEPROM), and are loaded each time the keyboard starts. So once you've set it the first time, you don't need to set it again unless you want to change it, or you've reset the EEPROM settings.
+
+You can switch the input mode at any time by using one of the following keycodes. The easiest way is to add the ones you use to your keymap.
+
+|Keycode                |Alias    |Input mode   |Description                              |
+|-----------------------|---------|-------------|-----------------------------------------|
+|`UNICODE_MODE_OSX`     |`UC_M_OS`|`UC_OSX`     |Switch to Mac OS X input.                |
+|`UNICODE_MODE_LNX`     |`UC_M_LN`|`UC_LNX`     |Switch to Linux input.                   |
+|`UNICODE_MODE_WIN`     |`UC_M_WI`|`UC_WIN`     |Switch to Windows input.                 |
+|`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented).   |
+|`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose.|
+
+You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user` (or a similar function). For example:
 
 ```c
-void matrix_init_user(void) {
+void eeconfig_init_user(void) {
   set_unicode_input_mode(UC_LNX);
 }
 ```
+
+### Audio Feedback
+
+If you have the [Audio feature](feature_audio.md) enabled on the board, you can set melodies to be played when you press the above keys. That way you can have some audio feedback when switching input modes.
+
+For instance, you can add these definitions to your `config.h` file:
+
+```c
+#define UNICODE_SONG_OSX  COIN_SOUND
+#define UNICODE_SONG_LNX  UNICODE_LINUX
+#define UNICODE_SONG_BSD  MARIO_GAMEOVER
+#define UNICODE_SONG_WIN  UNICODE_WINDOWS
+#define UNICODE_SONG_WINC UNICODE_WINDOWS
+```
+
+### Additional Customization
+
+The functions for starting and finishing Unicode input on your platform can be overridden locally. Possible uses include customizing input mode behavior if you don't use the default keys, or adding extra visual/audio feedback to Unicode input.
+
+* `void unicode_input_start(void)` – This sends the initial sequence that tells your platform to enter Unicode input mode. For example, it presses Ctrl+Shift+U on Linux and holds the Option key on Mac.
+* `void unicode_input_finish(void)` – This is called to exit Unicode input mode, for example by pressing Space or releasing the Option key.
+
+You can find the default implementations of these functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
 
 ## `send_unicode_hex_string`
 

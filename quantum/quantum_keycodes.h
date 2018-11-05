@@ -81,9 +81,6 @@ enum quantum_keycodes {
 #endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
-#if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
-    #error "Cannot enable both UNICODEMAP && UNICODE"
-#endif
 #ifdef UNICODE_ENABLE
     QK_UNICODE            = 0x8000,
     QK_UNICODE_MAX        = 0xFFFF,
@@ -454,6 +451,13 @@ enum quantum_keycodes {
     TERM_OFF,
 #endif
 
+    UNICODE_MODE_OSX,
+    UNICODE_MODE_LNX,
+    UNICODE_MODE_WIN,
+    UNICODE_MODE_BSD,
+    UNICODE_MODE_WINC,
+    UNICODE_MODE_OSX_RALT,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -680,6 +684,13 @@ enum quantum_keycodes {
 #ifdef UNICODEMAP_ENABLE
     #define X(n) (QK_UNICODE_MAP | (n))
 #endif
+
+#define UC_M_OS UNICODE_MODE_OSX
+#define UC_M_LN UNICODE_MODE_LNX
+#define UC_M_WI UNICODE_MODE_WIN
+#define UC_M_BS UNICODE_MODE_BSD
+#define UC_M_WC UNICODE_MODE_WINC
+#define UC_M_OR UNICODE_MODE_OSX_RALT
 
 #ifdef SWAP_HANDS_ENABLE
   #define SH_T(kc) (QK_SWAP_HANDS | (kc))

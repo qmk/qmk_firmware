@@ -14,22 +14,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_UNICODE_COMMON_H
-#define PROCESS_UNICODE_COMMON_H
+#pragma once
 
 #include "quantum.h"
 
+#if defined(UNICODE_ENABLE) + defined(UNICODEMAP_ENABLE) + defined(UCIS_ENABLE) > 1
+  #error "Cannot enable more than one Unicode method (UNICODE, UNICODEMAP, UCIS) at the same time"
+#endif
+
 // Keycodes used for starting Unicode input on different platforms
 #ifndef UNICODE_OSX_KEY
-#define UNICODE_OSX_KEY  KC_LALT
+  #define UNICODE_OSX_KEY  KC_LALT
 #endif
 #ifndef UNICODE_WINC_KEY
-#define UNICODE_WINC_KEY KC_RALT
+  #define UNICODE_WINC_KEY KC_RALT
 #endif
 
 // Delay between starting Unicode input and sending a sequence, in ms
 #ifndef UNICODE_TYPE_DELAY
-#define UNICODE_TYPE_DELAY 10
+  #define UNICODE_TYPE_DELAY 10
 #endif
 
 enum unicode_input_modes {
@@ -41,6 +44,15 @@ enum unicode_input_modes {
   UC__COUNT // Number of available input modes (always leave at the end)
 };
 
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t input_mode : 8;
+  };
+} unicode_config_t;
+
+extern unicode_config_t unicode_config;
+
 void unicode_input_mode_init(void);
 uint8_t get_unicode_input_mode(void);
 void set_unicode_input_mode(uint8_t mode);
@@ -50,6 +62,8 @@ void unicode_input_finish(void);
 
 void register_hex(uint16_t hex);
 void send_unicode_hex_string(const char *str);
+
+bool process_unicode_common(uint16_t keycode, keyrecord_t *record);
 
 #define UC_BSPC	UC(0x0008)
 #define UC_SPC	UC(0x0020)
@@ -156,5 +170,3 @@ void send_unicode_hex_string(const char *str);
 #define UC_RCBR	UC(0x007D)
 #define UC_TILD	UC(0x007E)
 #define UC_DEL	UC(0x007F)
-
-#endif
