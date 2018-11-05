@@ -105,7 +105,7 @@ If you want to send a random character to the keyboard, you can use the `tap_ran
 
 ## Software Timers
 
-It's possible to start timers and read values for time-specific events - here's an example:
+It's possible to start timers and read values for time-specific events. Here's an example:
 
 ```c
 static uint16_t key_timer;
