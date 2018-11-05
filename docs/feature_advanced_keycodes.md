@@ -196,7 +196,7 @@ To enable this setting, add this to your `config.h`:
 
 Similar to Permissive Hold, this alters how the firmware processes input for fast typist. If you press a Mod Tap key, press another key, release the Mod Tap key, and then release the normal key, it would normally output the "tapping" function for both keys. This may not be desirable for rolling combo keys. 
 
-This setting makes it so that you have to hold both keys for the `TAPPING_TERM` to trigger the hold function (the mod).
+Setting `Ignore Mod Tap Interrupt` requires  holding both keys for the `TAPPING_TERM` to trigger the hold function (the mod).
 
 For Instance:
 
