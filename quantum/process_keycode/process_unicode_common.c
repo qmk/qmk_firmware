@@ -171,7 +171,7 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
     case UNICODE_MODE_FORWARD:
       cycle_unicode_input_mode(+1);
       break;
-    case UNICODE_MODE_BACKWARD:
+    case UNICODE_MODE_REVERSE:
       cycle_unicode_input_mode(-1);
       break;
     case UNICODE_MODE_OSX:

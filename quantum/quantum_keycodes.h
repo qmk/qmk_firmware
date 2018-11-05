@@ -689,6 +689,7 @@ enum quantum_keycodes {
 
 #define UC_MOD  UNICODE_MODE_FORWARD
 #define UC_RMOD UNICODE_MODE_REVERSE
+
 #define UC_M_OS UNICODE_MODE_OSX
 #define UC_M_LN UNICODE_MODE_LNX
 #define UC_M_WI UNICODE_MODE_WIN
