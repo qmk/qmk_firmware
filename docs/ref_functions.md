@@ -99,7 +99,7 @@ To wipe the EEPROM, run `eeconfig_init()` from your function or macro to reset m
 
 ## Tap random key
 
-If you want to send a random character to the keyboard, you can use the `tap_random_base64()` function.  This selects a number between 0 and 63, and then sends registers a keypress, based on that selection. (0-25 is A-Z, 26-51 is a-z, 52-61 is 0-9, 62 is the plus sign, and 62 is a slash).  
+If you want to send a random character to the host computer, you can use the `tap_random_base64()` function. This [pseudorandomly](https://en.wikipedia.org/wiki/Pseudorandom_number_generator) selects a number between 0 and 63, and then sends a key press based on that selection. (0–25 is `A`–`Z`, 26–51 is `a`–`z`, 52–61 is `0`–`9`, 62 is `+` and 63 is `/`).  
 
 ?> Needless to say, but this is _not_ a cryptographically secure method of generating random Base64 keys or passwords.
 
