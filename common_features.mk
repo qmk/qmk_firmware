@@ -219,6 +219,11 @@ ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/encoder.c
+    OPT_DEFS += -DENCODER_ENABLE
+endif
+
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
@@ -239,7 +244,7 @@ QUANTUM_SRC:= \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
 
-ifndef CUSTOM_MATRIX
+ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
     else

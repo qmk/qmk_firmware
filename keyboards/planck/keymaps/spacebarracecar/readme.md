@@ -1,4 +1,5 @@
-# US-International like Planck layout for PCs with German set as input language
+# SpacebarRacecar US-International Planck Keymap for German PCs
 
-This layout aims to provide a US-International like layout for PCs that have German set as Input Language. This is useful for users living in germany, because it enables the use of the planck on any pc without having to switch the input language. It's mostly based on the Planck default layout, but adds essential features for german input, like a dead key layer to access ä, ö, ü.
-
+This keymap emulates most keys of the US-International layout on PCs that have German set as input language.  
+This allows the use of the keyboard on any PC in Germany without the need to change any settings.
+The keymap is mostly based on the Planck default layout but adds essential features for german input, like access to Ä, Ö, Ü, ß.
