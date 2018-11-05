@@ -13,8 +13,5 @@
 #define TAPPING_TERM    200
 #define TAPPING_TOGGLE  2
 
-#define UNICODE_CYCLE_PERSIST   false
-#define UNICODE_SELECTED_MODES  UC_WINC, UC_LNX
-
 #undef  IS_COMMAND
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RCTL)))
