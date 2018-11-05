@@ -240,8 +240,9 @@ void reset_keyboard(void);
 void startup_user(void);
 void shutdown_user(void);
 
-void register_code16 (uint16_t code);
-void unregister_code16 (uint16_t code);
+void register_code16(uint16_t code);
+void unregister_code16(uint16_t code);
+inline void tap_code16(uint16_t code) { register_code16(code); unregister_code16(code); }
 
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void);
