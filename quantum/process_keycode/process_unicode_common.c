@@ -56,9 +56,9 @@ void unicode_input_mode_init(void) {
   dprintf("input_mode init to: %u\n", unicode_config.input_mode);
 }
 
-void cycle_unicode_input_mode(void) {
+void cycle_unicode_input_mode(uint8_t offset) {
 #if UNICODE_SELECTED_MODES != -1
-  selected_index = (selected_index + 1) % selected_count;
+  selected_index = (selected_index + offset) % selected_count;
   unicode_config.input_mode = selected[selected_index];
   #if UNICODE_CYCLE_PERSIST
   persist_unicode_input_mode();

@@ -38,7 +38,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
 
   case CYCLEUC:
-    if (record->event.pressed) { cycle_unicode_input_mode(); }
+    if (record->event.pressed) { cycle_unicode_input_mode(+1); }
     return false;
 
   case NUMPAD:
