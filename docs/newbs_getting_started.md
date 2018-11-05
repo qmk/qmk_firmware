@@ -2,7 +2,7 @@
 
 Your computer keyboard has a processor inside of it, not unlike the one inside your computer. This processor runs software that is responsible for detecting button presses and sending reports about the state of the keyboard when buttons are pressed or released. QMK fills the role of that software, detecting button presses and passing that information on to the host computer. When you build your custom keymap, you are creating the equivalent of an executable program for your keyboard.
 
-QMK tries to put a lot of power into your hands by making easy things easy, and hard things possible. You don't have to know how to program to create powerful keymaps — you only have to follow a few simple syntax rules.
+QMK tries to put a lot of power into your hands by making easy things easy, and hard things possible. You don't have to know how to program to create powerful keymaps — you only have to follow a few simple syntax rules.
 
 # Getting Started
 
@@ -53,8 +53,8 @@ After Homebrew is installed, continue with _Set Up QMK_. In that step you will r
 
 You will need to install Git. It's very likely that you already have it, but if not, one of the following commands should install it:
 
-* Debian / Ubuntu / Devuan: `apt-get install git`
-* Fedora / Red Hat / CentOS: `yum install git`
+* Debian / Ubuntu / Devuan: `apt-get install git`
+* Fedora / Red Hat / CentOS: `yum install git`
 * Arch: `pacman -S git`
 
 ?> Docker is also an option on all platforms. [Click here for details.](getting_started_build_tools.md#docker)
