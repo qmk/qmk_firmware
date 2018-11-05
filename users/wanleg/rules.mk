@@ -9,8 +9,14 @@ ifeq ($(strip $(dfu)), qmk)
     BOOTLOADER = qmk-dfu
 endif
 
-#use alternate settings for 4x4 board using ProMicro instead of Micro
-#usage: make 4x4:wanleg PM=yes
+#use alternate settings for boards using ProMicro instead of Micro
+#example usage: make 4x4:wanleg PM=yes
 ifeq ($(strip $(PM)), yes)
 	OPT_DEFS += -DPRO_MICRO
+endif
+
+#use alternate settings for boards using "Adafruit Feather 32u4 Bluefruit LE" instead of Micro
+#example usage: make 5x5:wanleg BT=yes
+ifeq ($(strip $(BT)), yes)
+	OPT_DEFS += -DBLUEFRUIT
 endif

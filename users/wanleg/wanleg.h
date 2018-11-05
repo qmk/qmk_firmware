@@ -27,10 +27,12 @@ enum userspace_layers {
   ETC75,
   FN75,
   PAD,
+  GK50,
 };
 #elif KEYBOARD_xd75
 enum userspace_layers {
   GK75 = 0,
+  PAD,
   QW75,
   SUB75,
   SUP75,
@@ -50,7 +52,32 @@ enum userspace_layers {
   gNUM,
   gDIR,
   gETC,
+  GK50,
+};
+#elif KEYBOARD_5x5
+enum userspace_layers {
+  GK50 = 0,
+  gNUM,
+  gDIR,
+  gETC,
+  GK75,
+  QW75,
+  SUB75,
+  SUP75,
+  NUM75,
+  DIR75,
+  ETC75,
+  FN75,
   PAD,
+  gGK,
+  _GK,
+  _QW,
+  ONE,
+  SUB,
+  SUP,
+  NUM,
+  DIR,
+  ETC,
 };
 #else
   enum userspace_layers {
@@ -75,6 +102,7 @@ enum userspace_layers {
   DIR75,
   ETC75,
   FN75,
+  GK50,
 };
 #endif
 
@@ -100,6 +128,7 @@ enum userspace_custom_keycodes {
   ETCETERA75,
   FUNCTION75,
   NUMPAD,
+  GHERKIN50,
 
 };
 
@@ -108,11 +137,12 @@ enum userspace_custom_keycodes {
 enum {
   TD_SFT_CAPS = 0
   ,TD_Q_ESC
-  ,ENT_TAP_DANCE
-  ,DEL_TAP_DANCE
   ,CAD_TD
   ,RST_TAP_DANCE
   ,LYR_TAP_DANCE
+  ,LYR50_TAP_DANCE
+  ,LYR75_TAP_DANCE
+  ,BSW_TAP_DANCE
 };
 #endif
 
@@ -130,6 +160,7 @@ enum {
 #define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
 #define LAYOUT_ortho_4x4_wrapper(...)        LAYOUT_ortho_4x4(__VA_ARGS__)
+#define LAYOUT_ortho_5x5_wrapper(...)        LAYOUT_ortho_5x5(__VA_ARGS__)
 
 // Blocks for each of the major keyboard layouts
 // Organized so we can quickly adapt and modify all of them
@@ -189,12 +220,12 @@ enum {
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | mLeft  | mDown  | mRight |        | SHIFT  | mBtn3  | mBtn1  | mBtn2  |  ;     |  '     |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | Sft//Cp|        |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
+ * | Sft//Cp| CAPS   |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
  * '-----------------------------------------------------------------------------------------'
  */
 #define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,_______, RESET,   KC_RSFT, 			KC_WH_U, KC_WH_D, _______, KC_BSLS
 #define _______________Gherkin_ETC_1_______________			KC_MS_L, 		KC_MS_D, KC_MS_R,_______, KC_LSFT, KC_BTN3, 			KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT
-#define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),_______, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
+#define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
 
 /* Gherkin-Like
  * .-----------------------------------------------------------------------------------------------------------.
