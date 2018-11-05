@@ -205,7 +205,7 @@ For Instance:
 - `SHFT_T(KC_A)` Up
 - `KC_X` Up
 
-Normally, this would sent `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` enabled, it requires you to hold both keys for the `TAPPING_TERM` to register the hold action, and a quick tap will output `ax` in this case, while a hold on both will still output `X`  (`SHIFT`+`x`).
+Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` enabled, holding both keys are required for the `TAPPING_TERM` to register the hold action. A quick tap will output `ax` in this case, while a hold on both will still output `X`  (`SHIFT`+`x`).
 
 
 ?> __Note__: This only concerns modifiers and not layer switching keys.
