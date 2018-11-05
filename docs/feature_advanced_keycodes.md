@@ -214,7 +214,7 @@ Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` ena
 
 # Tapping Force Hold
 
-To enable this, add this to your `config.h`: 
+To enable `tapping force hold`, add the following to your `config.h`: 
 
 ```c
 #define TAPPING_FORCE_HOLD
