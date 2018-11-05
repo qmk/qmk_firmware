@@ -96,3 +96,22 @@ And to do so, add `reset_keyboard()` to your function or macro, and this will re
 If you're having issues with Audio, RGB Underglow, backlighting or keys acting weird, then you can reset the EEPROM (persistent setting storage).  Bootmagic is one way to do this, but if that isn't enabled, then you can use a custom macro to do so.
 
 To wipe the EEPROM, run `eeconfig_init()` from your function or macro to reset most of the settings to default.
+
+## Tap random key
+
+If you want to send a random character to the keyboard, you can use the `tap_random_base64()` function.  This selects a number between 0 and 63, and then sends registers a keypress, based on that selection. (0-25 is A-Z, 26-51 is a-z, 52-61 is 0-9, 62 is the plus sign, and 62 is a slash).  
+
+## Software Timers
+
+It's possible to start timers and read values for time-specific events - here's an example:
+
+```c
+static uint16_t key_timer;
+key_timer = timer_read();
+
+if (timer_elapsed(key_timer) < 100) {
+  // do something if less than 100ms have passed
+} else {
+  // do something if 100ms or more have passed
+}
+```
