@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       S_ALTER, ____, ____, ____, ____, ____, ____, ____, S_ASTRK, ____, ____, ____, ____,    ___________,
       ______,    ____, S_WHERE, ____, ____, ____, ____, ____, S_INRJN, S_ORDER, ____, ____, ____, ______,
       _______, KC_LBRC, S_SLCT, S_ASTRK ,S_FROM, ____, ____, ____, ____, S_LFTJN, ____, RBRC, ___________,
-      ________,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  _________________,
+      ________,  RGB_VAI, RGB_VAD, ____,  ____,  ____,  ____,  ____,  ____,  ____,  ____,  _________________,
       ____,  ____,  ____,  /*------------------*/_____/*------------------*/,  ____,  ____,  ____,  ____),
 
   [FN_LAYER]=
@@ -45,6 +45,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
       KC_CAPSLOCK, KC_MPRV, KC_MPLY, KC_MNXT, LWIN(KC_R), ____, KC_CALC, KC_PGUP, KC_UP, KC_PGDN, KC_PSCR, KC_SLCK, KC_BRK, ____,
       ____, KC_VOLD, KC_MUTE, KC_VOLU, ____, ____, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_INS, KC_DEL, ____,
-      ____, ____, ____, ____, ____, ____, KC_END, QWRTY, GAME, NAVS, ____, ____,
+      ____, RGB_HUI, RGB_SAI, RGB_SAD, ____,  ____, KC_END, QWRTY, GAME, NAVS, ____, ____,
       ____, ____, ____, _________________, ____, KC_HYPR, KC_MEH, RESET)
 };

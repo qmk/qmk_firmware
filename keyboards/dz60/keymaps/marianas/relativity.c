@@ -19,6 +19,8 @@ bool sendAbbr = false;
 static int16_t relativityTimer = 0;
 
 
+bool tempOff = false;
+
 
 
 
@@ -53,11 +55,20 @@ void initStringData()
 void activateRelativity(void)
 {
   initStringData();
-
-  rgblight_mode(1);
-  rgblight_setrgb(0x80, 0xFF, 0x00);
+  rgblight_mode(RGBLIGHT_MODE_KNIGHT);
   relativityTimer = timer_read();
   relativityActive = true;
+}
+
+bool deactivateRelativity(void)
+{  
+  rgblight_mode(9);
+  eraseKeyCodes();
+  eraseTableAbbreviation();
+  eraseCharCounts();
+  relativityActive = false;
+  tempOff = false;
+  return false;
 }
 
 bool containsCode(uint16_t kc)
@@ -273,10 +284,7 @@ bool processSmartMacroTap(uint16_t kc)
 {
   if (relativityTimer > 0 && TIMER_DIFF_16(timer_read(), relativityTimer) >= relTimeout)
   {
-    eraseKeyCodes();
-    eraseTableAbbreviation();
-    eraseCharCounts();
-    relativityActive = false;
+    deactivateRelativity();
     return true;
   }
   relativityTimer = 0;
@@ -411,9 +419,6 @@ bool storeShiftState(uint16_t keycode, keyrecord_t *record)
   return true;
 }
 
-bool tempOff = false;
-bool tempOn = false;
-
 bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
 {
   if (relativityActive != true) return true;
@@ -464,12 +469,7 @@ bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
           SEND_STRING("Id = ");
           printTableAbbreviationLimited();
           SEND_STRING(".Id");
-          eraseKeyCodes();
-          eraseTableAbbreviation();
-          eraseCharCounts();
-          relativityActive = false;
-          tempOff = false;
-          return false;
+          return deactivateRelativity();
         }
         else
         {
@@ -486,42 +486,24 @@ bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
 
       case KC_SPC:
         printTableAbbreviation();
-        eraseKeyCodes();
-        eraseTableAbbreviation();
-        eraseCharCounts();
-        relativityActive = false;
-        tempOff = false;
-        return false;
+          return deactivateRelativity();
       case ENTER_OR_SQL:
         if (tempOff)
         {
           SEND_STRING("Id = ");
           printTableAbbreviationLimited();
           SEND_STRING(".Id");
-          eraseKeyCodes();
-          eraseTableAbbreviation();
-          eraseCharCounts();
-          relativityActive = false;
-          tempOff = false;
+          deactivateRelativity();
           return true;
         }
         else
         {
           printTableAbbreviation();
-          eraseKeyCodes();
-          eraseTableAbbreviation();
-          eraseCharCounts();
-          relativityActive = false;
-          tempOff = false;
+          deactivateRelativity();
           return true;
         }
       case KC_ESC:
-        eraseKeyCodes();
-        eraseTableAbbreviation();
-        eraseCharCounts();
-        relativityActive = false;
-        tempOff = false;
-        return false;
+          return deactivateRelativity();
     }
   }
   return true;

@@ -24,11 +24,9 @@ uint32_t layer_state_set_user(uint32_t state)
       break;
     case SQLMACROS:
       rgblight_mode(1);
-      rgblight_setrgb(0x00, 0xFF, 0x80);
       break;
     case FN_LAYER:
-      rgblight_mode(1);
-      rgblight_setrgb(0x00, 0x80, 0xFF);
+      rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL+5);
       break;
   }
   return state;
@@ -111,6 +109,10 @@ bool updateLayerState(uint16_t keycode, keyrecord_t *record)
           if (TIMER_DIFF_16(timer_read(), fnTimer) <= fnTimeout)
           {
             activateRelativity();
+          }
+          else
+          {
+            deactivateRelativity();
           }
           #else
           activateRelativity();

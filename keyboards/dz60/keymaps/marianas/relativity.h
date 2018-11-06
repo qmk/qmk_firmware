@@ -7,6 +7,7 @@
 
 
 void activateRelativity(void);
+bool deactivateRelativity(void);
 void initStringData(void);
 bool containsCode(uint16_t kc);
 bool lastCodeIs(uint16_t kc);
