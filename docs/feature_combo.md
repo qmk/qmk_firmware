@@ -44,15 +44,15 @@ For a more complicated implementation, you can use the `process_combo_event` fun
 ```c
 enum combo_events {
   ZC_COPY,
-  ZV_PASTE
+  XV_PASTE
   };
 
 const uint16_t PROGMEM copy_combo[] = {KC_Z, KC_C, COMBO_END};
-const uint16_t PROGMEM paste_combo[] = {KC_Z, KC_V, COMBO_END};
+const uint16_t PROGMEM paste_combo[] = {KC_X, KC_V, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [ZC_COPY] = COMBO_ACTION(copy_combo),
-  [ZV_PASTE] = COMBO_ACTION(paste_combo),
+  [XV_PASTE] = COMBO_ACTION(paste_combo),
 };
 
 void process_combo_event(uint8_t combo_index, bool pressed) {
@@ -66,7 +66,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
       }
       break;
 
-    case ZV_PASTE:
+    case XV_PASTE:
       if (pressed) {
         register_code(KC_LCTL);
         register_code(KC_V);
@@ -78,7 +78,7 @@ void process_combo_event(uint8_t combo_index, bool pressed) {
 }
 ```
 
-This will send Ctrl+C if you hit Z and C, and Ctrl+V if you hit Z and V.  But you could change this to do stuff like change layers, play sounds, or change settings.
+This will send Ctrl+C if you hit Z and C, and Ctrl+V if you hit X and V.  But you could change this to do stuff like change layers, play sounds, or change settings.
 
 ## Additional Configuration
 

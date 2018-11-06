@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SPLIT_COMM_H
+#define SPLIT_COMM_H
 
 #ifndef SERIAL_USE_MULTI_TRANSACTION
 /* --- USE Simple API (OLD API, compatible with let's split serial.c) --- */
@@ -19,3 +20,5 @@ void serial_slave_init(void);
 int serial_update_buffers(int master_changed);
 
 #endif
+
+#endif /* SPLIT_COMM_H */
