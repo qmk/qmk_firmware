@@ -46,7 +46,7 @@ ifeq ($(PLATFORM),CHIBIOS)
   endif
   ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
-  else ifeq($(strip $(TERMINAL_ENABLE)), yes)
+  else ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
   endif
 endif
