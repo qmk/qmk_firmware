@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CONFIG_USER_H
+#define CONFIG_USER_H
 
 #if defined(KEYBOARD_jj40)
 #undef BACKLIGHT_BREATHING
@@ -38,6 +39,8 @@
 #undef MATRIX_ROW_PINS
 #undef MATRIX_COL_PINS
 #define MATRIX_ROW_PINS { D1, D0, D4, C6 }
-//last 4 elements of the column array are not broken out on a ProMicro (included only to preserve array structure)
+//last 4 elements of the column array are are not broken out on a ProMicro (included only to preserve array structure)
 #define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6, B5, B4, E6, D7, F0, B7, D6, F1 }
+#endif
+
 #endif

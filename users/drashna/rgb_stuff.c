@@ -15,6 +15,14 @@ void rgblight_sethsv_default_helper(uint8_t index) {
 #endif // RGBLIGHT_ENABLE
 
 #ifdef INDICATOR_LIGHTS
+uint8_t last_mod;
+uint8_t last_led;
+uint8_t last_osm;
+uint8_t current_mod;
+uint8_t current_led;
+uint8_t current_osm;
+
+
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
   if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
     if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
@@ -81,7 +89,16 @@ void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
 }
 
 void matrix_scan_indicator(void) {
-  set_rgb_indicators(get_mods(), host_keyboard_leds(), get_oneshot_mods());
+  current_mod = get_mods();
+  current_led = host_keyboard_leds();
+  current_osm = get_oneshot_mods();
+
+  set_rgb_indicators(current_mod, current_led, current_osm);
+
+  last_mod = current_mod;
+  last_led = current_led;
+  last_osm = current_osm;
+
 }
 #endif //INDICATOR_LIGHTS
 
