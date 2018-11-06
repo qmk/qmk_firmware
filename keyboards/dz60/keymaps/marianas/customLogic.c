@@ -42,15 +42,34 @@ bool printSqlVerbs(uint16_t keycode, keyrecord_t *record)
   {
     switch (keycode)
     {
-      case S_LFTJN: SEND_STRING("LEFT JOIN"); return false;
-      case S_INRJN: SEND_STRING("INNER JOIN "); return false;
-      case S_SLCT:  SEND_STRING("SELECT "); return false;
-      case S_FROM:  SEND_STRING("FROM "); return false;
-      case S_DSNCT: SEND_STRING("DISTINCT "); return false;
-      case S_ORDER: SEND_STRING("ORDER "); return false;
-      case S_WHERE: SEND_STRING("WHERE "); return false;
-      case S_ALTER: SEND_STRING("ALTER SESSION SET CURRENT_SCHEMA = "); return false;
-      case S_ASTRK: SEND_STRING("* "); return false;
+      case S_LFTJN: 
+        SEND_STRING("LEFT JOIN"); 
+        activateRelativity();
+        return false;
+      case S_INRJN: 
+        SEND_STRING("INNER JOIN "); 
+        activateRelativity();
+        return false;
+      case S_SLCT:  
+        SEND_STRING("SELECT "); return 
+        false;
+      case S_FROM:  
+        SEND_STRING("FROM "); return 
+        false;
+      case S_DSNCT: 
+        SEND_STRING("DISTINCT "); return 
+        false;
+      case S_ORDER: 
+        SEND_STRING("ORDER BY "); return 
+        false;
+      case S_WHERE: 
+        SEND_STRING("WHERE "); return 
+        false;
+      case S_ALTER: 
+        SEND_STRING("ALTER SESSION SET CURRENT_SCHEMA = SUPPLY;"); return false;
+      case S_ASTRK: 
+        SEND_STRING("* "); return false;
+        
     }
   }
   return true;

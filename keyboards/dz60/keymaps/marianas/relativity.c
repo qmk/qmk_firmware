@@ -20,6 +20,8 @@ static int16_t relativityTimer = 0;
 
 
 
+
+
 void initStringData()
 {
   if (macroTaps == 0)
@@ -119,6 +121,26 @@ void eraseCharCounts(void)
     countPointer--;
   }
   charCount[countPointer] = 0;
+}
+
+void printTableAbbreviationLimited(void)
+{
+  if (tableNameList[0] == 0)
+  {
+    return;
+  }
+  int i = 0;
+  for (i = 0; i < tableNameListLen && tableNameList[i] > 0; i++)
+  {
+    if (tableNameList[i] >= 65 && tableNameList[i] <= 90)
+    {
+      send_char(tableNameList[i]+32);
+    }
+    else
+    {
+      send_char(tableNameList[i]);
+    }
+  }
 }
 
 void printTableAbbreviation(void)
@@ -389,6 +411,9 @@ bool storeShiftState(uint16_t keycode, keyrecord_t *record)
   return true;
 }
 
+bool tempOff = false;
+bool tempOn = false;
+
 bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
 {
   if (relativityActive != true) return true;
@@ -433,21 +458,70 @@ bool handleSmartMacros(uint16_t keycode, keyrecord_t *record)
       case KC_Z:
         return processSmartMacroTap(keycode);
 
+      case PRRD:
+        if (tempOff)
+        {
+          SEND_STRING("Id = ");
+          printTableAbbreviationLimited();
+          SEND_STRING(".Id");
+          eraseKeyCodes();
+          eraseTableAbbreviation();
+          eraseCharCounts();
+          relativityActive = false;
+          tempOff = false;
+          return false;
+        }
+        else
+        {
+          printTableAbbreviation();
+          SEND_STRING("ON ");
+          printTableAbbreviationLimited();
+          eraseKeyCodes();
+          eraseTableAbbreviation();
+          eraseCharCounts();
+          tempOff = true;
+          return true;
+        }
+        
+
       case KC_SPC:
         printTableAbbreviation();
         eraseKeyCodes();
         eraseTableAbbreviation();
         eraseCharCounts();
         relativityActive = false;
+        tempOff = false;
         return false;
       case ENTER_OR_SQL:
-        printTableAbbreviation();
+        if (tempOff)
+        {
+          SEND_STRING("Id = ");
+          printTableAbbreviationLimited();
+          SEND_STRING(".Id");
+          eraseKeyCodes();
+          eraseTableAbbreviation();
+          eraseCharCounts();
+          relativityActive = false;
+          tempOff = false;
+          return true;
+        }
+        else
+        {
+          printTableAbbreviation();
+          eraseKeyCodes();
+          eraseTableAbbreviation();
+          eraseCharCounts();
+          relativityActive = false;
+          tempOff = false;
+          return true;
+        }
       case KC_ESC:
         eraseKeyCodes();
         eraseTableAbbreviation();
         eraseCharCounts();
         relativityActive = false;
-        return true;
+        tempOff = false;
+        return false;
     }
   }
   return true;
