@@ -86,14 +86,27 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			app-arch/unzip \
 			app-arch/zip \
 			app-mobilephone/dfu-util \
+			dev-embedded/avrdude \
 			net-misc/wget \
 			sys-devel/gcc \
-			sys-devel/crossdev dev-embedded/avrdude
+			sys-devel/crossdev
 		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
-		echo Done!
+		echo "Done!"
 	else
 		echo "Quitting..."
 	fi
+
+elif grep ID /etc/os-release | grep -q sabayon; then
+	sudo equo install \
+		app-arch/unzip \
+		app-arch/zip \
+		app-mobilephone/dfu-util \
+		dev-embedded/avrdude \
+		net-misc/wget \
+		sys-devel/gcc \
+		sys-devel/crossdev
+	sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
+	echo "Done!"
 
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 	CROSS_AVR_GCC=cross-avr-gcc8

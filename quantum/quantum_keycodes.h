@@ -451,6 +451,8 @@ enum quantum_keycodes {
     TERM_OFF,
 #endif
 
+    EEPROM_RESET,
+  
     UNICODE_MODE_OSX,
     UNICODE_MODE_LNX,
     UNICODE_MODE_WIN,
@@ -479,7 +481,6 @@ enum quantum_keycodes {
 #define HYPR(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
 #define MEH(kc)  (QK_LCTL | QK_LSFT | QK_LALT | (kc))
 #define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
-#define ALTG(kc) (QK_RCTL | QK_RALT | (kc))
 #define SGUI(kc) (QK_LGUI | QK_LSFT | (kc))
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
@@ -573,6 +574,8 @@ enum quantum_keycodes {
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
 #define KC_GESC GRAVE_ESC
+
+#define EEP_RST EEPROM_RESET
 
 #define CK_TOGG CLICKY_TOGGLE
 #define CK_RST CLICKY_RESET
