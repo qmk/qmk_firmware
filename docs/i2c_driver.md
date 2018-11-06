@@ -62,7 +62,7 @@ Secondly in the `halconf.h` file `#define HAL_USE_I2C` must be set to `TRUE`. Th
 
 Lastly we need to assign the correct GPIO pins depending on the I2C hardware driver we want to use.
 
-By default the I2C1 hardware driver is assumed to be used. If another hardware driver is used, in the `config.h` file `#define I2C_DRIVER I2CDX` should be added with X being the number of hardware driver used. For example is I2C3 is enabled, the `config.h` file should contain `#define I2C_DRIVER I2CD3`. This aligns the QMK I2C driver with the Chibios I2C driver.
+By default the I2C1 hardware driver is assumed to be used. If another hardware driver is used,  `#define I2C_DRIVER I2CDX` should be added to the `config.h` file with X being the number of hardware driver used. For example is I2C3 is enabled, the `config.h` file should contain `#define I2C_DRIVER I2CD3`. This aligns the QMK I2C driver with the Chibios I2C driver.
 
 STM32 MCUs allows a variety of pins to be configured as I2C pins depending on the hardware driver used. By default B6 and B7 are set to I2C.
 
