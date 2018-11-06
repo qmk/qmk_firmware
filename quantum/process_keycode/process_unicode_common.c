@@ -29,6 +29,7 @@ static uint8_t selected_index;
 void unicode_input_mode_init(void) {
   unicode_config.raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
 #if UNICODE_SELECTED_MODES != -1
+  #if UNICODE_CYCLE_PERSIST
   // Find input_mode in selected modes
   uint8_t i;
   for (i = 0; i < selected_count; i++) {
@@ -38,9 +39,13 @@ void unicode_input_mode_init(void) {
     }
   }
   if (i == selected_count) {
-    // input_mode isn't selected, change to one that is
+    // Not found: input_mode isn't selected, change to one that is
     unicode_config.input_mode = selected[selected_index = 0];
   }
+  #else
+  // Always change to the first selected input mode
+  unicode_config.input_mode = selected[selected_index = 0];
+  #endif
 #endif
   dprintf("Unicode input mode init to: %u\n", unicode_config.input_mode);
 }
