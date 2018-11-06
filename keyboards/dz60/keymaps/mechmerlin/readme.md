@@ -62,3 +62,7 @@ Layout B is missing the `?` key and is instead replaced with a `right shift`. Th
 ### RGBLIGHT_SLEEP
 
 This is set in `mechmerlin/config.h` so that when the computer goes to sleep, the RGB lights will also go to sleep on the keyboard. They will turn back on when the computer wakes. 
+
+## RGB Underglow Color: Yellow
+
+This is set in `mechmerlin/keymap.c` in the `matrix_init_user` function. The list of available colors can be found in [`quantum/rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/388df5359b913eaf1ce6fb0ef624e430ad010ea5/quantum/rgblight_list.h#L59-L121).
