@@ -132,14 +132,15 @@ If you define these options you will enable the associated feature, which may in
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
-  * makes tap and hold keys work better for fast typers who don't want tapping term set above 500
+  * makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the `TAPPING_TERM`
   * See [Permissive Hold](feature_advanced_keycodes.md#permissive-hold) for details
 * `#define IGNORE_MOD_TAP_INTERRUPT`
-  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
-  * See [Mod tap interrupt](feature_advanced_keycodes.md#mod-tap-interrupt) for details
+  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
+  * See [Mod tap interrupt](feature_advanced_keycodes.md#ignore-mod-tap-interrupt) for details
 * `#define TAPPING_FORCE_HOLD`
   * makes it possible to use a dual role key as modifier shortly after having been tapped
-  * See [Hold after tap](feature_advanced_keycodes.md#hold-after-tap)
+  * See [Hold after tap](feature_advanced_keycodes.md#tapping-force-hold)
+  * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
 * `#define ONESHOT_TIMEOUT 300`

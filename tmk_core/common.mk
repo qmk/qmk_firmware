@@ -43,8 +43,10 @@ ifeq ($(PLATFORM),CHIBIOS)
     TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
   else
     TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
-endif
+  endif
   ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
+    TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
+  else ifeq($(strip $(TERMINAL_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
   endif
 endif
