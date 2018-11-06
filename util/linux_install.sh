@@ -126,6 +126,39 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 		wget \
 		zip
 
+elif grep ID /etc/os-release | grep -q slackware; then
+	echo "You will need the following packages from slackbuilds.org:"
+	echo " avr-binutils"
+	echo " avr-gcc"
+	echo " avr-libc"
+	echo " avrdude"
+	echo " dfu-programmer"
+	echo " dfu-util"
+	echo " arm-binutils"
+	echo " arm-gcc"
+	echo " newlib"
+	echo ""
+	echo -n "Would you like to install them with sudo and sboinstall (y/N)? "
+	old_stty_cfg=$(stty -g)
+	stty raw -echo
+	answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
+	stty $old_stty_cfg
+	if echo "$answer" | grep -iq "^y" ;then
+		sudo sboinstall \
+			avr-binutils \
+			avr-gcc \
+			avr-libc \
+			avrdude \
+			dfu-programmer \
+			dfu-util \
+			arm-binutils \
+			arm-gcc \
+			newlib
+		echo "Done!"
+	else
+		echo "Quitting..."
+	fi
+
 else
 	echo "Sorry, we don't recognize your OS. Help us by contributing support!"
 	echo
