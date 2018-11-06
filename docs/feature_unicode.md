@@ -64,8 +64,7 @@ The following input modes are available:
 * **`UC_OSX`**: Mac OS X built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with `UNICODEMAP`).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
-
-* **`UC_OSX_RALT`**: Same as `UC_OSX`, but sends the Right Alt/Option key for Unicode input.
+  By default, this mode uses the left Option key (`KC_LALT`), but this can be changed by defining `UNICODE_OSX_KEY` with another keycode.
 
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports all possible code points (`0x10FFFF`).
 
@@ -81,7 +80,7 @@ The following input modes are available:
 * **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.8.2, supports code points up to `0xFFFFF`.
 
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
-  This mode relies on the Compose key being set to Right Alt (`KC_RALT`). If you change it to something else in the WinCompose settings, this mode will not work.
+  By default, this mode uses the right Alt key (`KC_RALT`), but this can be changed in the WinCompose settings and by defining `UNICODE_WINC_KEY` with another keycode.
 
 ### Switching Input Modes
 
@@ -96,7 +95,6 @@ You can switch the input mode at any time by using one of the following keycodes
 |`UNICODE_MODE_WIN`     |`UC_M_WI`|`UC_WIN`     |Switch to Windows input.                 |
 |`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented).   |
 |`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose.|
-|`UNICODE_MODE_OSX_RALT`|`UC_M_OR`|`UC_OSX_RALT`|Switch to Mac OS X input using Right Alt.|
 
 You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user` (or a similar function). For example:
 
@@ -118,7 +116,6 @@ For instance, you can add these definitions to your `config.h` file:
 #define UNICODE_SONG_BSD  MARIO_GAMEOVER
 #define UNICODE_SONG_WIN  UNICODE_WINDOWS
 #define UNICODE_SONG_WINC UNICODE_WINDOWS
-#define UNICODE_SONG_OSX_RALT COIN_SOUND
 ```
 
 ### Additional Customization
