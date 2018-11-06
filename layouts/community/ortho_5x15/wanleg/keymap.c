@@ -60,14 +60,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(RST_TAP_DANCE), GHERKIN50, KC_LALT, NUMPAD, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_0, KC_0, KC_DOT
 ),
 
-[PAD] = LAYOUT_ortho_5x5_wrapper(
-  _______, _______, _______, _______, _______,
-  _______________NUMPAD_Row__0_______________, _______,
-  _______________NUMPAD_Row__1_______________, _______,
-  _______________NUMPAD_Row__2_______________, _______,
-  KC_KP_0, TD(LYR50_TAP_DANCE), KC_KP_DOT, KC_PMNS, _______
-),
-
 [GK50] = LAYOUT_ortho_5x10_wrapper(
   KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSPC,
   _______________Gherkin_Row_0_______________,

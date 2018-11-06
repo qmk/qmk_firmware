@@ -96,21 +96,6 @@ void suspend_power_down_kb(void) {
  */
 static uint8_t wdt_timeout = 0;
 
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_power_down_user (void) { }
-/** \brief Run keyboard level Power down
- *
- * FIXME: needs doc
- */
-__attribute__ ((weak))
-void suspend_power_down_kb(void) {
-  suspend_power_down_user();
-}
-
 /** \brief Power down
  *
  * FIXME: needs doc
@@ -239,7 +224,7 @@ void suspend_wakeup_init(void) {
   rgblight_timer_enable();
 #endif
 #endif
-  suspend_wakeup_init_kb();
+    suspend_wakeup_init_kb();
 }
 
 #ifndef NO_SUSPEND_POWER_DOWN

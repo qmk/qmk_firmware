@@ -15,14 +15,6 @@ void rgblight_sethsv_default_helper(uint8_t index) {
 #endif // RGBLIGHT_ENABLE
 
 #ifdef INDICATOR_LIGHTS
-uint8_t last_mod;
-uint8_t last_led;
-uint8_t last_osm;
-uint8_t current_mod;
-uint8_t current_led;
-uint8_t current_osm;
-
-
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
   if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
     if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
@@ -89,16 +81,7 @@ void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
 }
 
 void matrix_scan_indicator(void) {
-  current_mod = get_mods();
-  current_led = host_keyboard_leds();
-  current_osm = get_oneshot_mods();
-
-  set_rgb_indicators(current_mod, current_led, current_osm);
-
-  last_mod = current_mod;
-  last_led = current_led;
-  last_osm = current_osm;
-
+  set_rgb_indicators(get_mods(), host_keyboard_leds(), get_oneshot_mods());
 }
 #endif //INDICATOR_LIGHTS
 
@@ -294,6 +277,7 @@ void matrix_scan_rgb(void) {
 
 uint32_t layer_state_set_rgb(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
+  static bool has_ran;
   if (userspace_config.rgb_layer_change) {
     switch (biton32(state)) {
     case _MACROS:
@@ -335,7 +319,12 @@ uint32_t layer_state_set_rgb(uint32_t state) {
         default:
           rgblight_sethsv_noeeprom_cyan(); break;
       }
-      biton32(state) == _MODS ? rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING) : rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // if _MODS layer is on, then breath to denote it
+      if (has_ran) {
+        biton32(state) == _MODS ? rgblight_mode(RGBLIGHT_MODE_BREATHING) : rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT); // if _MODS layer is on, then breath to denote it
+      } else {
+        biton32(state) == _MODS ? rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING) : rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // if _MODS layer is on, then breath to denote it
+        has_ran = true;
+      }
       break;
     }
 //    layer_state_set_indicator(); // Runs every scan, so need to call this here .... since I can't get it working "right" anyhow
