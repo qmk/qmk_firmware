@@ -180,7 +180,7 @@ void keyboard_post_init_kb(void) {
 void keyboard_setup(void) {
     disable_jtag();
     matrix_setup();
-    keyboard_pre_init_kb()
+    keyboard_pre_init_kb();
 }
 
 /** \brief is_keyboard_master
