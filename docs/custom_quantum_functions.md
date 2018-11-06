@@ -165,35 +165,33 @@ In addition, it is possible to specify the brightness level of all LEDs with `er
 
 Ergodox boards also define `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness (which is the default).
 
-# Keyboard `startup`  Code
+# Keyboard Initialization Code
 
-Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LEDs or i&#xb2;c controllers you will need to set up that hardware before it can be used.
+There are several steps in the keyboard initialization process.  Depending on what you want to do will influence which function you should use.  
 
-`matrix_init_user` can be used here as well, but this is ran earlier in the initialization process.  `startup_user` runs after everything else has initialized. So, it may be better to use `startup_user`, especially if you want to reconfigure anything else.
+These are the three main initialization functions, listed in the order that they're called.
 
-### Example `startup_user()` Implementation
+* `keyboard_pre_init_*` - Happens before most anything is started. Good for hardware setup that you want running very early
+* `matrix_init_*` - Happens midway through the firmware's startup process. Hardware is initialized, but features may not be yet.
+* `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part. 
 
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+## Keyboard Pre Initialization code
 
-```
-void startup_user(void) {
-  // Call the keymap level matrix init.
-  rgblight_enable_noeeprom(); // enables Rgb, without saving settings
-  rgblight_sethsv_noeeprom(180, 255, 255): // sets the color to teal/cyan without saving
-  rgblight_mode_noeeprom(5); // sets mode to 5 (fast breathing) without saving
-}
-```
+This is ran very early on in the startup, after the hardware has been set up, but before any of the QMK code has been initialized.  
 
-### `startup_*` Function Documentation
+Shortly after this, the matrix is initialized. 
 
-* Keyboard/Revision: `void startupt_kb(void)`
-* Keymap: `void startup_user(void)`
+For most users, this shouldn't be used, as it's primarly for hardware oriented initialization. 
 
-# Matrix Initialization Code
+### `keyboard_pre_init_*` Function Documentation
 
-Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.  
+* Keyboard/Revision: `void keyboard_pre_init_kb(void)`
+* Keymap: `void keyboard_pre_init_user(void)`
 
-The main difference between this and the `startup_*` function, is that is called as part of the matrix initialization, and happens much earlier in the process. So, it's best to use `startup_*`, as most everything should be loaded and properly configurable by the time `startup_*` is called. 
+## Matrix Initialization Code
+
+This is called when the matrix is initilized, and after some of the hardware has been set up, but before many of the features have been initialized. 
+
 
 ### Example `matrix_init_user()` Implementation
 
@@ -214,6 +212,30 @@ void matrix_init_user(void) {
 
 * Keyboard/Revision: `void matrix_init_kb(void)`
 * Keymap: `void matrix_init_user(void)`
+
+
+## Keyboard Post Initialization code
+
+This is ran as the very last task in the keyboard initialization process. This is useful if you want to make changes to certain features, as they should be initialized by this point. 
+
+
+### Example `keyboard_post_init_user()` Implementation
+
+This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+
+```c
+void keyboard_post_init_user(void) {
+  // Call the keymap level matrix init.
+  rgblight_enable_noeeprom(); // enables Rgb, without saving settings
+  rgblight_sethsv_noeeprom(180, 255, 255): // sets the color to teal/cyan without saving
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3); // sets mode to Fast breathing without saving
+}
+```
+
+### `keyboard_post_init_*` Function Documentation
+
+* Keyboard/Revision: `void keyboard_post_init_kb(void)`
+* Keymap: `void keyboard_post_init_user(void)`
 
 # Matrix Scanning Code
 
@@ -309,7 +331,7 @@ Keep in mind that EEPROM has a limited number of writes. While this is very high
 
 * If you don't understand the example, then you may want to avoid using this feature, as it is rather complicated. 
 
-### Example  Implementation
+### Example Implementation
 
 This is an example of how to add settings, and read and write it. We're using the user keymap for the example here.  This is a complex function, and has a lot going on.  In fact, it uses a lot of the above functions to work! 
 
