@@ -14,7 +14,7 @@ elif [ -z "$KEYBOARD_TYPE" ]; then
   KEYBOARD_TYPE=avr
 fi
 
-if [ $KEYBOARD_TYPE != "avr" -a $KEYBOARD_TYPE != "ps2avrgb" ]; then
+if [ "$KEYBOARD_TYPE" != "avr" ] && [ "$KEYBOARD_TYPE" != "ps2avrgb" ]; then
   echo "Invalid keyboard type target"
   exit 1
 fi
@@ -24,20 +24,33 @@ if [ -e "keyboards/$1" ]; then
 	exit 1
 fi
 
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/.." || exit
 
-KEYBOARD_UPPERCASE=$(echo $1 | awk '{print toupper($0)}')
-KEYBOARD_NAME=$(basename $1)
-KEYBOARD_NAME_UPPERCASE=$(echo $KEYBOARD_NAME | awk '{print toupper($0)}')
+KEYBOARD_NAME=$(basename "$1")
+KEYBOARD_NAME_UPPERCASE=$(echo "$KEYBOARD_NAME" | awk '{print toupper($0)}')
 
 
-cp -r quantum/template/base keyboards/$KEYBOARD
-cp -r quantum/template/$KEYBOARD_TYPE/. keyboards/$KEYBOARD
+cp -r quantum/template/base "keyboards/$KEYBOARD"
+cp -r "quantum/template/$KEYBOARD_TYPE/." "keyboards/$KEYBOARD"
 
-mv keyboards/${KEYBOARD}/template.c keyboards/${KEYBOARD}/${KEYBOARD_NAME}.c
-mv keyboards/${KEYBOARD}/template.h keyboards/${KEYBOARD}/${KEYBOARD_NAME}.h
-find keyboards/${KEYBOARD} -type f -exec sed -i '' -e "s;%KEYBOARD%;${KEYBOARD_NAME};g" {} \;
-find keyboards/${KEYBOARD} -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g" {} \;
+mv "keyboards/${KEYBOARD}/template.c" "keyboards/${KEYBOARD}/${KEYBOARD_NAME}.c"
+mv "keyboards/${KEYBOARD}/template.h" "keyboards/${KEYBOARD}/${KEYBOARD_NAME}.h"
+find "keyboards/${KEYBOARD}" -type f -exec sed -i '' -e "s;%KEYBOARD%;${KEYBOARD_NAME};g" {} \;
+find "keyboards/${KEYBOARD}" -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g" {} \;
+
+GIT=$(whereis git)
+if [ "$GIT" != "" ]; then
+  USER=$($GIT config --get user.name)
+  ID="'$USER'"
+  echo "Using $ID as user name"
+
+  KBD=keyboards/${KEYBOARD}
+  for i in "$KBD/config.h" "$KBD/$KEYBOARD_NAME.c" "$KBD/$KEYBOARD_NAME.h" "$KBD/keymaps/default/config.h" "$KBD/keymaps/default/keymap.c"
+  do
+    awk -v id="$ID" '{sub(/REPLACE_WITH_YOUR_NAME/,id); print}' < "$i" > "$i.$$"
+    mv "$i.$$" "$i"
+  done
+fi
 
 echo "######################################################"
 echo "# /keyboards/$KEYBOARD project created. To start"
