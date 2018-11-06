@@ -177,7 +177,7 @@ These are the three main initialization functions, listed in the order that they
 
 ## Keyboard Pre Initialization code
 
-This is ran very early on in the startup, after the hardware has been set up, but before any of the QMK code has been initialized.
+This is ran very early on in the startup, even before the USB has been started. 
 
 Shortly after this, the matrix is initialized.
 
