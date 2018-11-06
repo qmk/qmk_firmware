@@ -167,7 +167,7 @@ Ergodox boards also define `LED_BRIGHTNESS_LO` for the lowest brightness and `LE
 
 # Keyboard Initialization Code
 
-There are several steps in the keyboard initialization process.  Depending on what you want to do will influence which function you should use.
+There are several steps in the keyboard initialization process.  Depending on what you want to do, it will influence which function you should use.
 
 These are the three main initialization functions, listed in the order that they're called.
 
