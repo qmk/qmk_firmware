@@ -3,7 +3,7 @@
 enum keyboard_layers {
   _BL = 0, // Base Layer
   _FL,     // Function Layer
-  _AL      // Arrow Layer
+  _CL      // Control Layer
 };
 
 // Custom #defined keycodes (shorter macros for readability)
