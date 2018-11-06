@@ -60,7 +60,7 @@ Firstly the `mcuconf.h` file must be setup to enable the necessary hardware driv
 
 Secondly in the `halconf.h` file `#define HAL_USE_I2C` must be set to `TRUE`. This allows Chibios to load its I2C driver.
 
-Lastly we need to assign the correct GPIO pins depending on the I2C hardware driver we want to use.
+Lastly, we need to assign the correct GPIO pins depending on the I2C hardware driver we want to use.
 
 By default the I2C1 hardware driver is assumed to be used. If another hardware driver is used,  `#define I2C_DRIVER I2CDX` should be added to the `config.h` file with X being the number of hardware driver used. For example is I2C3 is enabled, the `config.h` file should contain `#define I2C_DRIVER I2CD3`. This aligns the QMK I2C driver with the Chibios I2C driver.
 
