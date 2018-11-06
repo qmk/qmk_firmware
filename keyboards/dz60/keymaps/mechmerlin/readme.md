@@ -25,14 +25,15 @@ Merlin's keymap has three different layers. To switch layers you can use the `MO
 
 ### _BL
 
-This is the base layer also known as layer 0. It is a standard QWERTY layout. 
+This is the base layer also known as layer 0. It is a standard QWERTY layout. It has the `_FL` layer switch key. 
 
 ### _FL
 
 This is the function layer also known as layer 1. It utiizes the following:
 - Function Keys
 - Navigation Keys
-- Audio keys such as Mute, Volume Down and Volume Up.  
+- Audio keys such as Mute, Volume Down and Volume Up. 
+- `_CL` layer switch key 
 
 ### _CL
 
