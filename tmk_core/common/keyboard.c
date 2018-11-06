@@ -170,7 +170,6 @@ void keyboard_post_init_user() {}
 
 __attribute__ ((weak))
 void keyboard_post_init_kb(void) {
-  startup_user();
   keyboard_post_init_user();
 }
 
