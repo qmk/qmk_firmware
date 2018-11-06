@@ -40,16 +40,19 @@ find "keyboards/${KEYBOARD}" -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;
 
 GIT=$(whereis git)
 if [ "$GIT" != "" ]; then
-  USER=$($GIT config --get user.name)
-  ID="'$USER'"
-  echo "Using $ID as user name"
+  IS_GIT_REPO=$($GIT log >>/dev/null 2>&1; echo $?)
+  if [ $IS_GIT_REPO -eq 0 ]; then
+    USER=$($GIT config --get user.name)
+    ID="'$USER'"
+    echo "Using $ID as user name"
 
-  KBD=keyboards/${KEYBOARD}
-  for i in "$KBD/config.h" "$KBD/$KEYBOARD_NAME.c" "$KBD/$KEYBOARD_NAME.h" "$KBD/keymaps/default/config.h" "$KBD/keymaps/default/keymap.c"
-  do
-    awk -v id="$ID" '{sub(/REPLACE_WITH_YOUR_NAME/,id); print}' < "$i" > "$i.$$"
-    mv "$i.$$" "$i"
-  done
+    KBD=keyboards/${KEYBOARD}
+    for i in "$KBD/config.h" "$KBD/$KEYBOARD_NAME.c" "$KBD/$KEYBOARD_NAME.h" "$KBD/keymaps/default/config.h" "$KBD/keymaps/default/keymap.c"
+    do
+      awk -v id="$ID" '{sub(/REPLACE_WITH_YOUR_NAME/,id); print}' < "$i" > "$i.$$"
+      mv "$i.$$" "$i"
+    done
+  fi
 fi
 
 echo "######################################################"
