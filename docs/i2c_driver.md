@@ -58,7 +58,7 @@ Firstly the `mcuconf.h` file must be setup to enable the necessary hardware driv
 |`#STM32_I2C_USE_DMA`          |Enable/Disable the ability of the MCU to offload the data transfer to the DMA unit  |TRUE   |
 |`#STM32_I2C_XXX_DMA_PRIORITY` |Priority of DMA unit for hardware driver XXX (THIS IS AN EXPERT SETTING)            |1      |
 
-Secondly in the `halconf.h` file `#define HAL_USE_I2C` must be set to `TRUE`. This allows Chibios to load its I2C driver.
+Secondly, in the `halconf.h` file, `#define HAL_USE_I2C` must be set to `TRUE`. This allows ChibiOS to load its I2C driver.
 
 Lastly, we need to assign the correct GPIO pins depending on the I2C hardware driver we want to use.
 
