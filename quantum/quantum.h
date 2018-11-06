@@ -235,6 +235,7 @@ void bootmagic_lite(void);
 
 void reset_keyboard(void);
 
+void startup_user(void);
 void shutdown_user(void);
 
 void register_code16(uint16_t code);
