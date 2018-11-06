@@ -454,6 +454,8 @@ enum quantum_keycodes {
     TERM_OFF,
 #endif
 
+    EEPROM_RESET,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -568,6 +570,8 @@ enum quantum_keycodes {
 #define MACRODOWN(...) (record->event.pressed ? MACRO(__VA_ARGS__) : MACRO_NONE)
 
 #define KC_GESC GRAVE_ESC
+
+#define EEP_RST EEPROM_RESET
 
 #define CK_TOGG CLICKY_TOGGLE
 #define CK_RST CLICKY_RESET

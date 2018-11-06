@@ -298,6 +298,11 @@ bool process_record_quantum(keyrecord_t *record) {
           print("DEBUG: enabled.\n");
       }
     return false;
+    case EEPROM_RESET:
+      if (record->event.pressed) {
+          eeconfig_init();
+      }
+    return false;
   #ifdef FAUXCLICKY_ENABLE
   case FC_TOG:
     if (record->event.pressed) {
