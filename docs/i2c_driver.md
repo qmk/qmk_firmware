@@ -17,7 +17,7 @@ The I2C Master drivers used in QMK have a set of common functions to allow porta
 
 ### Function Return
 
-All the above functions, except `void i2c_init(void);` can return the following truth table:
+All the above functions, except `void i2c_init(void);` return the following truth table:
 
 |Return Value   |Description                                        |
 |---------------|---------------------------------------------------|
