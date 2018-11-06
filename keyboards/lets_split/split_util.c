@@ -14,6 +14,8 @@
 #  include "i2c.h"
 #else
 #  include "serial.h"
+   extern void serial_master_init(void); /* matrix.c */
+   extern void serial_slave_init(void);  /* matrix.c */
 #endif
 
 volatile bool isLeftHand = true;
