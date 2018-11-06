@@ -591,13 +591,13 @@ void led_set_user(uint8_t usb_led)
   old_usb_led = usb_led;
 }
 
-void startup_user(void)
+void startup_user()
 {
   _delay_ms(10); // gets rid of tick
   // PLAY_SONG(tone_my_startup);
 }
 
-void shutdown_user(void)
+void shutdown_user()
 {
   // PLAY_SONG(tone_my_goodbye);
   _delay_ms(2000);
