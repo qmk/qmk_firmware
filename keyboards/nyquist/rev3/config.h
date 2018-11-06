@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
 #define PRODUCT_ID      0x1156
-#define DEVICE_VER      0x0100
+#define DEVICE_VER      0x0300
 #define MANUFACTURER    Keebio
 #define PRODUCT         The Nyquist Keyboard
 #define DESCRIPTION     Split 60 percent ortholinear keyboard
@@ -31,17 +31,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 6
 
 // wiring of each half
-#define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F6, F7, B1, B3, B2, B6 }
+#define MATRIX_ROW_PINS { F0, F5, D7, F6, F7 }
+#define MATRIX_COL_PINS { F1, F4, B7, D2, D3, D4 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
-// #define BACKLIGHT_LEVELS 3
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
@@ -57,9 +54,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D3
+#define RGB_DI_PIN B4
+#define RGBLIGHT_TIMER
+#define RGBLED_NUM 12
 
-#define RGBLED_NUM 16    // Number of LEDs
+/* Backlight LEDs */
+#define BACKLIGHT_PIN D5
+#define BACKLIGHT_LEVELS 7
 
 /*
  * Feature disable options
