@@ -167,21 +167,21 @@ Ergodox boards also define `LED_BRIGHTNESS_LO` for the lowest brightness and `LE
 
 # Keyboard Initialization Code
 
-There are several steps in the keyboard initialization process.  Depending on what you want to do will influence which function you should use.  
+There are several steps in the keyboard initialization process.  Depending on what you want to do will influence which function you should use.
 
 These are the three main initialization functions, listed in the order that they're called.
 
-* `keyboard_pre_init_*` - Happens before most anything is started. Good for hardware setup that you want running very early
+* `keyboard_pre_init_*` - Happens before most anything is started. Good for hardware setup that you want running very early.
 * `matrix_init_*` - Happens midway through the firmware's startup process. Hardware is initialized, but features may not be yet.
-* `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part. 
+* `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part.
 
 ## Keyboard Pre Initialization code
 
-This is ran very early on in the startup, after the hardware has been set up, but before any of the QMK code has been initialized.  
+This is ran very early on in the startup, after the hardware has been set up, but before any of the QMK code has been initialized.
 
-Shortly after this, the matrix is initialized. 
+Shortly after this, the matrix is initialized.
 
-For most users, this shouldn't be used, as it's primarly for hardware oriented initialization. 
+For most users, this shouldn't be used, as it's primarily for hardware oriented initialization.
 
 ### `keyboard_pre_init_*` Function Documentation
 
@@ -190,7 +190,7 @@ For most users, this shouldn't be used, as it's primarly for hardware oriented i
 
 ## Matrix Initialization Code
 
-This is called when the matrix is initilized, and after some of the hardware has been set up, but before many of the features have been initialized. 
+This is called when the matrix is initilized, and after some of the hardware has been set up, but before many of the features have been initialized.
 
 
 ### Example `matrix_init_user()` Implementation
@@ -216,7 +216,7 @@ void matrix_init_user(void) {
 
 ## Keyboard Post Initialization code
 
-This is ran as the very last task in the keyboard initialization process. This is useful if you want to make changes to certain features, as they should be initialized by this point. 
+This is ran as the very last task in the keyboard initialization process. This is useful if you want to make changes to certain features, as they should be initialized by this point.
 
 
 ### Example `keyboard_post_init_user()` Implementation
