@@ -30,7 +30,7 @@ static uint8_t saved_mods;
 void set_unicode_input_mode(uint8_t os_target) {
   unicode_config.input_mode = os_target;
   persist_unicode_input_mode();
-  dprintf("input_mode set to: %u\n", unicode_config.input_mode);
+  dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
 }
 
 uint8_t get_unicode_input_mode(void) {
@@ -53,7 +53,7 @@ void unicode_input_mode_init(void) {
     unicode_config.input_mode = selected[selected_index = 0];
   }
 #endif
-  dprintf("input_mode init to: %u\n", unicode_config.input_mode);
+  dprintf("Unicode input mode init to: %u\n", unicode_config.input_mode);
 }
 
 void cycle_unicode_input_mode(uint8_t offset) {
@@ -63,7 +63,7 @@ void cycle_unicode_input_mode(uint8_t offset) {
   #if UNICODE_CYCLE_PERSIST
   persist_unicode_input_mode();
   #endif
-  dprintf("input_mode cycle to: %u\n", unicode_config.input_mode);
+  dprintf("Unicode input mode cycle to: %u\n", unicode_config.input_mode);
 #endif
 }
 
@@ -174,6 +174,7 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
     case UNICODE_MODE_REVERSE:
       cycle_unicode_input_mode(-1);
       break;
+
     case UNICODE_MODE_OSX:
       set_unicode_input_mode(UC_OSX);
 #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX)
