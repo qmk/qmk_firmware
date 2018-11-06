@@ -31,9 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "timer.h"
 
-#ifdef USE_I2C
+#ifdef SPLIT_COMMUNICATION_I2C
 #  include "i2c.h"
-#else // USE_SERIAL
+#else // SPLIT_COMMUNICATION_SERIAL
 #  include "serial.h"
 #endif
 
@@ -198,7 +198,7 @@ uint8_t _matrix_scan(void)
     return 1;
 }
 
-#ifdef USE_I2C
+#ifdef SPLIT_COMMUNICATION_I2C
 
 // Get rows from other half over i2c
 int i2c_transaction(void) {
@@ -268,9 +268,9 @@ uint8_t matrix_scan(void)
 {
     uint8_t ret = _matrix_scan();
 
-#ifdef USE_I2C
+#ifdef SPLIT_COMMUNICATION_I2C
     if( i2c_transaction() ) {
-#else // USE_SERIAL
+#else // SPLIT_COMMUNICATION_SERIAL
     if( serial_transaction() ) {
 #endif
         // turn on the indicator led when halves are disconnected
@@ -299,11 +299,11 @@ void matrix_slave_scan(void) {
 
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
-#ifdef USE_I2C
+#ifdef SPLIT_COMMUNICATION_I2C
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         i2c_slave_buffer[i] = matrix[offset+i];
     }
-#else // USE_SERIAL
+#else // SPLIT_COMMUNICATION_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
     }

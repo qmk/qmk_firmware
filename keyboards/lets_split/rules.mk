@@ -1,8 +1,5 @@
-SRC += matrix.c \
-	   i2c.c \
-	   split_util.c \
-	   serial.c \
-	   ssd1306.c
+SRC += matrix.c
+SRC += split_util.c
 
 # MCU name
 #MCU = at90usb1287
@@ -53,6 +50,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
+SPLIT_COMMUNICATION = serial # Choose whether to communicate master and slave through serial or i2c.
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
@@ -66,7 +64,8 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight. 
 SUBPROJECT_rev1 = yes
-USE_I2C = yes
+OLED_ENABLE = no            # Enable SSD1306 OLED
+
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 

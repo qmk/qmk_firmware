@@ -65,7 +65,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Soft serial PIN assign */
 /* Configuration of lower interface with the lower layer(hardware) of serial.c */
-#define SOFT_SERIAL_PIN D0
+#ifndef SOFT_SERIAL_PIN
+  #define SOFT_SERIAL_PIN D0
+#endif
 #define SERIAL_USE_SINGLE_TRANSACTION
 
 /*

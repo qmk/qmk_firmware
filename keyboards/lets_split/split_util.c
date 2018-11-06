@@ -10,7 +10,7 @@
 #include "config.h"
 #include "timer.h"
 
-#ifdef USE_I2C
+#ifdef SPLIT_COMMUNICATION_I2C
 #  include "i2c.h"
 #else
 #  include "serial.h"
@@ -34,7 +34,7 @@ static void setup_handedness(void) {
 }
 
 static void keyboard_master_setup(void) {
-#ifdef USE_I2C
+#ifdef SPLIT_COMMUNICATION_I2C
     i2c_master_init();
 #ifdef SSD1306OLED
     matrix_master_OLED_init ();
@@ -46,7 +46,7 @@ static void keyboard_master_setup(void) {
 
 static void keyboard_slave_setup(void) {
   timer_init();
-#ifdef USE_I2C
+#ifdef SPLIT_COMMUNICATION_I2C
     i2c_slave_init(SLAVE_I2C_ADDRESS);
 #else
     serial_slave_init();
