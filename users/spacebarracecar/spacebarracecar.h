@@ -4,13 +4,14 @@
 #include "keymap_german.h"
 
 enum userspace_layers {
-  _DEADKEY = 14,            //change if more than 16 layers are required
+  _DEADKEY = 14,            // Change if more than 16 layers are required
   _NAV
 };
 
 enum userspace_custom_keycodes {
   CU_GAME = SAFE_RANGE,     // Toggle game mode on/off
   CU_NAV,                   // NAV | ESC
+  KC_P00,                   // Numpad double zero
 
   #ifdef GERMAN_ENABLE
   CU_LSFT,                  // LSFT | (
@@ -52,10 +53,8 @@ enum userspace_custom_keycodes {
 };
 
 #ifdef GERMAN_ENABLE
-// these save the current shift status
 extern bool lshift;
 extern bool rshift;
-// stuff for custom space cadet shift
 extern bool lshiftp;
 extern bool rshiftp;
 extern uint16_t lshift_timer;
@@ -63,14 +62,12 @@ extern uint16_t rshift_timer;
 
 extern uint8_t prev_indx;
 extern uint16_t prev_kcs[6];
-
 void add_to_prev(uint16_t kc);
 void unreg_prev(void);
 
 extern bool esct;
 #endif
 
-// stuff for nav esc
 extern bool navesc;
 extern uint16_t navesc_timer;
 
@@ -78,7 +75,7 @@ extern bool game;
 
 void timer_timeout(void);
 
-bool process_record_userspace(uint16_t keycode, keyrecord_t *record);
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 
 #define CTRLX LCTL(KC_X)
 #define CTRLC LCTL(KC_C)
@@ -89,9 +86,9 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record);
 #define GUIL LGUI(KC_LEFT)
 #define GUIR RGUI(KC_RIGHT)
 
-//
-// Templates for Keys, with custom shifted and non shifted Characters
-//
+/*
+Templates for Keys, with custom shifted and non shifted Characters
+*/
 
 // Normal shift status
 #define SHIFT_NORM(kc1, kc2) \
@@ -139,7 +136,7 @@ if (record->event.pressed) { \
 } \
 return false;
 
-// All shift
+// Always shifted
 #define SHIFT_ALL(kc1, kc2) \
 if (record->event.pressed) { \
   timer_timeout(); \
@@ -164,7 +161,7 @@ if (record->event.pressed) { \
 } \
 return false;
 
-// All no shift
+// Never shifted
 #define SHIFT_NO(kc1, kc2) \
 if (record->event.pressed) { \
   timer_timeout(); \
@@ -188,7 +185,7 @@ if (record->event.pressed) { \
 } \
 return false;
 
-// All algr
+// Always AltGr
 #define SHIFT_ALGR(kc1, kc2) \
 if (record->event.pressed) { \
   timer_timeout(); \
@@ -208,7 +205,7 @@ if (record->event.pressed) { \
 } \
 return false;
 
-// Different keycode for ctrl
+// Different keycode when Ctrl is pressed
 #define CTRL(kc1, kc2) \
 if(record->event.pressed) { \
   timer_timeout(); \
@@ -227,7 +224,7 @@ if(record->event.pressed) { \
 } \
 return false;
 
-// Umlaute for deadkey layer
+// Template for keys on deadkey layer (mostly Umlaute)
 #define UML(kc) \
 if(record->event.pressed) { \
   timer_timeout(); \

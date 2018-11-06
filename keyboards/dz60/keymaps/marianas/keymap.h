@@ -1,3 +1,5 @@
+#include "quantum.h"
+
 //Control
 #define MO_FNLR MO(FN_LAYER)
 #define BACKSPC KC_BSPC

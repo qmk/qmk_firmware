@@ -20,6 +20,8 @@
 #include "muse.h"
 #include "keymap_slovenian.h"
 
+#define ALTG(kc) ALGR(kc) // FIXME: Remove this
+
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
@@ -28,7 +30,9 @@ enum planck_layers {
   _RAISE,
   _ADJUST,
   _ALTGR,
-  _CAPS
+  _CAPS,
+  _MEMA,
+  _CARON
 };
 
 enum planck_keycodes {
@@ -39,6 +43,8 @@ enum planck_keycodes {
 #define RAISE MO(_RAISE)
 #define CAPS MO(_CAPS)
 #define ALTGR MO(_ALTGR)
+#define MEMA MO(_MEMA)
+#define CARON LT(_CARON, SI_QOT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -55,14 +61,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_QWERTY] = LAYOUT_planck_grid(
     KC_TAB,   SI_Q,     SI_W,     SI_E,     SI_R,   SI_T,    SI_Z,    SI_U,    SI_I,    SI_O,    SI_P,    KC_BSPC,
-    CAPS,     SI_A,     SI_S,     SI_D,     SI_F,   SI_G,    SI_H,    SI_J,    SI_K,    SI_L,    KC_SCLN, KC_ENT,
+    CAPS,     SI_A,     SI_S,     SI_D,     SI_F,   SI_G,    SI_H,    SI_J,    SI_K,    SI_L,    CARON,   KC_ENT,
     KC_LSFT,  SI_Y,     SI_X,     SI_C,     SI_V,   SI_B,    SI_N,    SI_M,    SI_COMM, SI_DOT,  SI_MINS, KC_RSFT ,
-    KC_LCTL,  KC_LGUI,  KC_LALT,  KC_LGUI,  LOWER,  KC_SPC,  KC_SPC,  RAISE,   ALTGR,   KC_DOWN, KC_UP,   KC_F5
+    KC_LCTL,  KC_LALT,  KC_LALT,  KC_LGUI,  LOWER,  KC_SPC,  KC_SPC,  RAISE,   ALTGR,   MEMA,    KC_F12,   KC_F5
 ),
 
 /* Lower
  * ,-----------------------------------------------------------------------------------.
- * |   ~  |   !  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   (  |   )  | Bksp |
+ * |   ~  |   !  |   "  |   #  |   $  |   %  |   &  |   /  |   (  |   )  |   =  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   _  |   +  |   {  |   }  |  |   |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -72,8 +78,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
-    KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR,    KC_ASTR,    KC_LPRN, KC_RPRN, KC_BSPC,
-    KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_MINS, KC_PPLS , KC_ENT,
+    SI_TILD, SI_EXLM, SI_DQOT, KC_HASH, SI_DLR,  SI_PERC, SI_AMPR, SI_SLSH,    SI_LPRN,    SI_RPRN, SI_EQL,  _______,
+    KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_MINS, KC_PPLS, KC_ENT,
     _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), KC_HOME, KC_END,  _______,
     _______, _______, _______, _______, _______, _______, _______, _______,    KC_MNXT,    KC_VOLD, KC_VOLU, KC_MPLY
 ),
@@ -100,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|Colemk|Dvorak|Plover|      |
+ * |      |      |      |Aud on|Audoff|AGnorm|AGswap|Qwerty|      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * |      |Voice-|Voice+|Mus on|Musoff|MIDIon|MIDIof|      |      |      |      |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
@@ -126,7 +132,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
-)
+),
+
+[_MEMA] = LAYOUT_planck_grid(
+    _______, _______, _______, _______, _______, _______, _______, KC_MPRV, KC_MNXT, KC_VOLD, KC_MPLY, KC_VOLU,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
+
+[_CARON] = LAYOUT_planck_grid(
+    _______, _______, _______, _______, _______, _______, SI_ZV  , _______, _______, _______, _______, _______,
+    _______, _______, SI_SV,   _______, _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, SI_CV,   _______, _______, _______, _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
 
 
 };

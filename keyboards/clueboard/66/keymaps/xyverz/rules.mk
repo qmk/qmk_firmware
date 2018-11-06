@@ -42,7 +42,7 @@
 #   change to "no" to disable the options, or define them in the makefile.mk in 
 #   the appropriate keymap folder that will get included automatically
 #
-RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight. 
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
