@@ -30,6 +30,17 @@
   #define UNICODE_WINC_KEY KC_RALT
 #endif
 
+// Comma-delimited, ordered list of input modes selected for use (e.g. in cycle)
+// Example: #define UNICODE_SELECTED_MODES UC_WINC, UC_LNX
+#ifndef UNICODE_SELECTED_MODES
+  #define UNICODE_SELECTED_MODES -1
+#endif
+
+// Whether input mode changes in cycle should be written to EEPROM
+#ifndef UNICODE_CYCLE_PERSIST
+  #define UNICODE_CYCLE_PERSIST true
+#endif
+
 // Delay between starting Unicode input and sending a sequence, in ms
 #ifndef UNICODE_TYPE_DELAY
   #define UNICODE_TYPE_DELAY 10
@@ -56,6 +67,8 @@ extern unicode_config_t unicode_config;
 void unicode_input_mode_init(void);
 uint8_t get_unicode_input_mode(void);
 void set_unicode_input_mode(uint8_t mode);
+void cycle_unicode_input_mode(uint8_t offset);
+void persist_unicode_input_mode(void);
 
 void unicode_input_start(void);
 void unicode_input_finish(void);

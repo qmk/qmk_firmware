@@ -452,6 +452,9 @@ enum quantum_keycodes {
 #endif
 
     EEPROM_RESET,
+
+    UNICODE_MODE_FORWARD,
+    UNICODE_MODE_REVERSE,
   
     UNICODE_MODE_OSX,
     UNICODE_MODE_LNX,
@@ -687,6 +690,9 @@ enum quantum_keycodes {
 #ifdef UNICODEMAP_ENABLE
     #define X(n) (QK_UNICODE_MAP | (n))
 #endif
+
+#define UC_MOD  UNICODE_MODE_FORWARD
+#define UC_RMOD UNICODE_MODE_REVERSE
 
 #define UC_M_OS UNICODE_MODE_OSX
 #define UC_M_LN UNICODE_MODE_LNX

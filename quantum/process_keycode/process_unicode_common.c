@@ -20,9 +20,29 @@
 #include <string.h>
 
 unicode_config_t unicode_config;
+#if UNICODE_SELECTED_MODES != -1
+static uint8_t selected[] = { UNICODE_SELECTED_MODES };
+static uint8_t selected_count = sizeof selected / sizeof *selected;
+static uint8_t selected_index;
+#endif
 
 void unicode_input_mode_init(void) {
   unicode_config.raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
+#if UNICODE_SELECTED_MODES != -1
+  // Find input_mode in selected modes
+  uint8_t i;
+  for (i = 0; i < selected_count; i++) {
+    if (selected[i] == unicode_config.input_mode) {
+      selected_index = i;
+      break;
+    }
+  }
+  if (i == selected_count) {
+    // input_mode isn't selected, change to one that is
+    unicode_config.input_mode = selected[selected_index = 0];
+  }
+#endif
+  dprintf("Unicode input mode init to: %u\n", unicode_config.input_mode);
 }
 
 uint8_t get_unicode_input_mode(void) {
@@ -31,7 +51,23 @@ uint8_t get_unicode_input_mode(void) {
 
 void set_unicode_input_mode(uint8_t mode) {
   unicode_config.input_mode = mode;
-  eeprom_update_byte(EECONFIG_UNICODEMODE, mode);
+  persist_unicode_input_mode();
+  dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
+}
+
+void cycle_unicode_input_mode(uint8_t offset) {
+#if UNICODE_SELECTED_MODES != -1
+  selected_index = (selected_index + offset) % selected_count;
+  unicode_config.input_mode = selected[selected_index];
+  #if UNICODE_CYCLE_PERSIST
+  persist_unicode_input_mode();
+  #endif
+  dprintf("Unicode input mode cycle to: %u\n", unicode_config.input_mode);
+#endif
+}
+
+void persist_unicode_input_mode(void) {
+  eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode);
 }
 
 static uint8_t saved_mods;
@@ -130,6 +166,13 @@ void send_unicode_hex_string(const char *str) {
 bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
+    case UNICODE_MODE_FORWARD:
+      cycle_unicode_input_mode(+1);
+      break;
+    case UNICODE_MODE_REVERSE:
+      cycle_unicode_input_mode(-1);
+      break;
+
     case UNICODE_MODE_OSX:
       set_unicode_input_mode(UC_OSX);
 #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX)
