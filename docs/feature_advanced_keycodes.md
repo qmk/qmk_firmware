@@ -73,7 +73,6 @@ These allow you to combine a modifier with a keycode. When pressed, the keydown 
 |`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
 |`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
 |`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
-|`ALTG(kc)`|                      |Hold Right Control and Alt and press `kc`           |
 |`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
 |`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
 

@@ -20,6 +20,8 @@
 #include "muse.h"
 #include "keymap_slovenian.h"
 
+#define ALTG(kc) ALGR(kc) // FIXME: Remove this
+
 extern keymap_config_t keymap_config;
 
 enum planck_layers {
