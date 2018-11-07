@@ -198,6 +198,10 @@ void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b);
 void rgblight_sethsv_master(uint16_t hue, uint8_t sat, uint8_t val);
 void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val);
 
+#ifdef RGBW
+void rgbToRgbw(uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* w);
+#endif
+
 uint32_t eeconfig_read_rgblight(void);
 void eeconfig_update_rgblight(uint32_t val);
 void eeconfig_update_rgblight_default(void);
@@ -206,8 +210,10 @@ void eeconfig_debug_rgblight(void);
 void rgb_matrix_increase(void);
 void rgb_matrix_decrease(void);
 
+void convertHsvToRgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, uint8_t *g_p, uint8_t *b_p);
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1);
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1);
+void setrgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w, LED_TYPE *led1);
 
 void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
 void rgblight_mode_noeeprom(uint8_t mode);

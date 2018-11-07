@@ -66,59 +66,82 @@ bool is_rgblight_initialized = false;
 LED_TYPE led[RGBLED_NUM];
 bool rgblight_timer_enabled = false;
 
-void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
-  uint8_t r = 0, g = 0, b = 0, base, color;
+#ifdef RGBW
+void convertRgbToRgbw(uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* w) {
+    // Determine lowest value in all three colors, put that into
+    // the white channel and then shift all colors by that amount
+    *w = MIN(*r, MIN(*g, *b));
+    *r = *r - *w;
+    *g = *g - *w;
+    *b = *b - *w;
+}
+#endif
 
-  if (val > RGBLIGHT_LIMIT_VAL) {
-      val=RGBLIGHT_LIMIT_VAL; // limit the val
-  }
+void convertHsvToRgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, uint8_t *g_p, uint8_t *b_p) {
+    uint8_t r, g, b, base, color;
+    r = g = b = 0; // To make the compiler stop complaining about potentially uninitialized variables
 
-  if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
-    r = val;
-    g = val;
-    b = val;
-  } else {
-    base = ((255 - sat) * val) >> 8;
-    color = (val - base) * (hue % 60) / 60;
-
-    switch (hue / 60) {
-      case 0:
-        r = val;
-        g = base + color;
-        b = base;
-        break;
-      case 1:
-        r = val - color;
-        g = val;
-        b = base;
-        break;
-      case 2:
-        r = base;
-        g = val;
-        b = base + color;
-        break;
-      case 3:
-        r = base;
-        g = val - color;
-        b = val;
-        break;
-      case 4:
-        r = base + color;
-        g = base;
-        b = val;
-        break;
-      case 5:
-        r = val;
-        g = base;
-        b = val - color;
-        break;
+    if (val > RGBLIGHT_LIMIT_VAL) {
+        val=RGBLIGHT_LIMIT_VAL; // limit the val
     }
-  }
-  r = pgm_read_byte(&CIE1931_CURVE[r]);
-  g = pgm_read_byte(&CIE1931_CURVE[g]);
-  b = pgm_read_byte(&CIE1931_CURVE[b]);
 
+    if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
+      r = val;
+      g = val;
+      b = val;
+    } else {
+      base = ((255 - sat) * val) >> 8;
+      color = (val - base) * (hue % 60) / 60;
+
+      switch (hue / 60) {
+        case 0:
+          r = val;
+          g = base + color;
+          b = base;
+          break;
+        case 1:
+          r = val - color;
+          g = val;
+          b = base;
+          break;
+        case 2:
+          r = base;
+          g = val;
+          b = base + color;
+          break;
+        case 3:
+          r = base;
+          g = val - color;
+          b = val;
+          break;
+        case 4:
+          r = base + color;
+          g = base;
+          b = val;
+          break;
+        case 5:
+          r = val;
+          g = base;
+          b = val - color;
+          break;
+      }
+    }
+
+    *r_p = pgm_read_byte(&CIE1931_CURVE[r]);
+    *g_p = pgm_read_byte(&CIE1931_CURVE[g]);
+    *b_p = pgm_read_byte(&CIE1931_CURVE[b]);
+}
+
+void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
+  uint8_t r, g, b;
+  convertHsvToRgb(hue, sat, val, &r, &g, &b);
+  #ifdef RGBW
+  uint8_t w;
+  convertRgbToRgbw(&r, &g, &b, &w);
+  setrgbw(r, g, b, w, led1);
+  #else
   setrgb(r, g, b, led1);
+  #endif
 }
 
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
@@ -156,6 +179,15 @@ void rgblight_check_config(void) {
   }
 
 }
+
+#ifdef RGBW
+void setrgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w, LED_TYPE *led1) {
+  (*led1).r = r;
+  (*led1).g = g;
+  (*led1).b = b;
+  (*led1).w = w;
+}
+#endif
 
 uint32_t eeconfig_read_rgblight(void) {
   #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
@@ -502,10 +534,10 @@ void rgblight_decrease_speed(void) {
 
 void rgblight_sethsv_noeeprom_old(uint16_t hue, uint8_t sat, uint8_t val) {
   if (rgblight_config.enable) {
-    LED_TYPE tmp_led;
-    sethsv(hue, sat, val, &tmp_led);
+    uint8_t r, g, b;
+    convertHsvToRgb(hue, sat, val, &r, &g, &b);
     // dprintf("rgblight set hue [MEMORY]: %u,%u,%u\n", inmem_config.hue, inmem_config.sat, inmem_config.val);
-    rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
+    rgblight_setrgb(r, g, b);
   }
 }
 
@@ -513,9 +545,9 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
   if (rgblight_config.enable) {
     if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
       // same static color
-      LED_TYPE tmp_led;
-      sethsv(hue, sat, val, &tmp_led);
-      rgblight_setrgb(tmp_led.r, tmp_led.g, tmp_led.b);
+      uint8_t r, g, b;
+      convertHsvToRgb(hue, sat, val, &r, &g, &b);
+      rgblight_setrgb(r, g, b);
     } else {
       // all LEDs in same color
       if ( 1 == 0 ) { //dummy
@@ -591,37 +623,50 @@ uint8_t rgblight_get_val(void) {
 
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   if (!rgblight_config.enable) { return; }
-
+  #ifdef RGBW
+  uint8_t w = 0;
+  convertRgbToRgbw(&r, &g, &b, &w);
+  #endif
   for (uint8_t i = 0; i < RGBLED_NUM; i++) {
     led[i].r = r;
     led[i].g = g;
     led[i].b = b;
+    #ifdef RGBW
+    led[i].w = w;
+    #endif
   }
   rgblight_set();
 }
 
 void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index) {
   if (!rgblight_config.enable || index >= RGBLED_NUM) { return; }
-
+  #ifdef RGBW
+  uint8_t w = 0;
+  convertRgbToRgbw(&r, &g, &b, &w);
+  #endif
   led[index].r = r;
   led[index].g = g;
   led[index].b = b;
+  #ifdef RGBW
+  led[index].w = w;
+  #endif
+
   rgblight_set();
 }
 
 void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index) {
   if (!rgblight_config.enable) { return; }
 
-  LED_TYPE tmp_led;
-  sethsv(hue, sat, val, &tmp_led);
-  rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b, index);
+  uint8_t r, g, b;
+  convertHsvToRgb(hue, sat, val, &r, &g, &b);
+  rgblight_setrgb_at(r, g, b, index);
 }
 
 #if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) \
   || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT)
 
 static uint8_t get_interval_time(const uint8_t* default_interval_address, uint8_t velocikey_min, uint8_t velocikey_max) {
-  return 
+  return
 #ifdef VELOCIKEY_ENABLE
     velocikey_enabled() ? velocikey_match_speed(velocikey_min, velocikey_max) :
 #endif
@@ -689,6 +734,9 @@ void rgblight_set(void) {
       led[i].r = 0;
       led[i].g = 0;
       led[i].b = 0;
+      #ifdef RGBW
+      led[i].w = 0;
+      #endif
     }
     #ifdef RGBW
       ws2812_setleds_rgbw(led, RGBLED_NUM);
@@ -813,7 +861,7 @@ void rgblight_effect_breathing(uint8_t interval) {
   float val;
 
   uint8_t interval_time = get_interval_time(&RGBLED_BREATHING_INTERVALS[interval], 1, 100);
-  
+
   if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
@@ -907,6 +955,9 @@ void rgblight_effect_snake(uint8_t interval) {
     led[i].r = 0;
     led[i].g = 0;
     led[i].b = 0;
+    #ifdef RGBW
+    led[i].w = 0;
+    #endif
     for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
       k = pos + j * increment;
       if (k < 0) {
@@ -954,6 +1005,9 @@ void rgblight_effect_knight(uint8_t interval) {
     led[i].r = 0;
     led[i].g = 0;
     led[i].b = 0;
+    #ifdef RGBW
+    led[i].w = 0;
+    #endif
   }
   // Determine which LEDs should be lit up
   for (i = 0; i < RGBLIGHT_EFFECT_KNIGHT_LED_NUM; i++) {
@@ -965,6 +1019,9 @@ void rgblight_effect_knight(uint8_t interval) {
       led[cur].r = 0;
       led[cur].g = 0;
       led[cur].b = 0;
+      #ifdef RGBW
+      led[cur].w = 0;
+      #endif
     }
   }
   rgblight_set();
@@ -1014,9 +1071,8 @@ void rgblight_effect_rgbtest(void) {
   }
 
   if( maxval == 0 ) {
-      LED_TYPE tmp_led;
-      sethsv(0, 255, RGBLIGHT_LIMIT_VAL, &tmp_led);
-      maxval = tmp_led.r;
+      uint8_t g, b;
+      convertHsvToRgb(0, 255, RGBLIGHT_LIMIT_VAL, &maxval, &g, &b );
   }
   last_timer = timer_read();
   g = r = b = 0;
