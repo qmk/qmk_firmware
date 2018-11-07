@@ -1,5 +1,4 @@
 # MCU name
-#MCU = at90usb1286
 MCU = atmega32u4
 
 # Processor frequency.
@@ -43,7 +42,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   Atmel DFU loader 4096
 #   LUFA bootloader  4096
 #   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
+# OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
@@ -71,4 +70,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
-LAYOUTS = ortho_5x5  ortho_5x10  ortho_5x15
+#FIXME: Community keymap build are currently failing due to missing functionality
+#LAYOUTS = ortho_5x5  ortho_5x10  ortho_5x15
