@@ -1,6 +1,7 @@
 # 6lit
 
 ![6lit](https://1.bp.blogspot.com/-Pa8RgYZ0hy8/Wbmr4bjuV0I/AAAAAAACDbI/WLKQMDlcDVAVf1lAIRMN51usR1XcCCVNgCLcBGAs/s1600/a.JPG)
+===
 
 6 key macropad that fits within the 100mm x 100mm PCB size. Can be used singly as a regular 6 key macropad as well.
 

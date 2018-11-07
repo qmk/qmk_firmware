@@ -1,5 +1,8 @@
 # Luddite
 
+![Luddite](https://1.bp.blogspot.com/-GAAa-sMU_WU/W7uYLJJ8x1I/AAAAAAACS44/31n2z69BSboM4KT48YkNMJRYciC8LUMWgCLcBGAs/s640/a.jpg)
+===
+
 Luddite 60% keyboard with backlight and RGB underglow.
 
 * [The original TMK firmware](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/luddite)
