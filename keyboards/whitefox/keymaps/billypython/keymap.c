@@ -2,18 +2,11 @@
 
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
-#define DSKTP_L LCTL(LGUI(KC_LEFT))
-#define DSKTP_R LCTL(LGUI(KC_RGHT))
 
 #define FN      MO(L_FN)
 #define FN_CAPS LT(L_FN, KC_CAPS)
 #define FN_FNLK TT(L_FN)
 
-#define DESKTOP TD(TD_DESKTOP)
-#define FN_RCTL TD(TD_FN_RCTL)
-#define RAL_LAL TD(TD_RAL_LAL)
-#define RAL_RGU TD(TD_RAL_RGU)
-#define RCT_RSF TD(TD_RCT_RSF)
 #define RSF_RCT TD(TD_RSF_RCT)
 
 #define COMMA   UC(0x002C)
@@ -62,37 +55,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
-struct {
-  bool fn_on; // Layer state when tap dance started
-  bool started;
-} td_fn_rctrl_data;
-
-void td_fn_rctrl_each(qk_tap_dance_state_t *state, void *user_data) {
-  if (!td_fn_rctrl_data.started) {
-    td_fn_rctrl_data.fn_on = IS_LAYER_ON(L_FN);
-    td_fn_rctrl_data.started = true;
-  }
-  // Single tap → Fn, double tap → RCtrl, triple tap etc. → Fn+RCtrl
-  if (state->count == 1 || state->count == 3) {
-    layer_on(L_FN);
-  } else if (state->count == 2) {
-    if (!td_fn_rctrl_data.fn_on) {
-      layer_off(L_FN);
-    }
-    register_code(KC_RCTL);
-  }
-}
-
-void td_fn_rctrl_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if ((state->count == 1 || state->count > 2) && !td_fn_rctrl_data.fn_on) {
-    layer_off(L_FN);
-  }
-  if (state->count >= 2) {
-    unregister_code(KC_RCTL);
-  }
-  td_fn_rctrl_data.started = false;
-}
-
 #define ACTION_TAP_DANCE_DOUBLE_MODS(mod1, mod2) { \
     .fn = { td_double_mods_each, NULL, td_double_mods_reset }, \
     .user_data = &(qk_tap_dance_pair_t){ mod1, mod2 }, \
@@ -122,20 +84,10 @@ void td_double_mods_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 enum tap_dance {
-  TD_DESKTOP,
-  TD_FN_RCTL,
-  TD_RAL_LAL,
-  TD_RAL_RGU,
-  TD_RCT_RSF,
   TD_RSF_RCT,
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_DESKTOP] = ACTION_TAP_DANCE_DOUBLE(LCTL(LGUI(KC_D)), LCTL(LGUI(KC_F4))), // Add/close virtual desktop
-  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(td_fn_rctrl_each, NULL, td_fn_rctrl_reset),
-  [TD_RAL_LAL] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RALT, KC_LALT),
-  [TD_RAL_RGU] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RALT, KC_RGUI),
-  [TD_RCT_RSF] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RCTL, KC_RSFT),
   [TD_RSF_RCT] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RSFT, KC_RCTL),
 };
 
@@ -150,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
    * │ LShift │ Z │ X │ C │ V │ B │ N │ M │ , │ . │ / │SftCtl│ ↑ │PgD│
    * ├────┬───┴┬──┴─┬─┴───┴───┴───┴───┴───┴──┬┴───┼───┴┬─┬───┼───┼───┤
-   * │LCtl│LGui│LAlt│         Space          │AlGu│FnLk│ │ ← │ ↓ │ → │
+   * │LCtl│LGui│LAlt│         Space          │RAlt│FnLk│ │ ← │ ↓ │ → │
    * └────┴────┴────┴────────────────────────┴────┴────┘ └───┴───┴───┘
    */
   [L_BASE] = LAYOUT_truefox( \
@@ -158,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_BSPC,        KC_DEL,  \
     FN_CAPS,KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,        KC_ENT,         KC_PGUP, \
     KC_LSFT,        KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,RSF_RCT,        KC_UP,  KC_PGDN, \
-    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 RAL_RGU,FN_FNLK,                KC_LEFT,KC_DOWN,KC_RGHT  \
+    KC_LCTL,KC_LGUI,KC_LALT,                        KC_SPC,                 KC_RALT,FN_FNLK,                KC_LEFT,KC_DOWN,KC_RGHT  \
   ),
 
   /* Function layer
