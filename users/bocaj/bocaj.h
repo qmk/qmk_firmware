@@ -57,6 +57,10 @@ enum userspace_custom_keycodes {
 #define XXXXXXX KC_NO
 #define _______ KC_TRNS
 
+// Other Keycodes
+#define KC_RESET RESET
+#define KC_RST KC_RESET
+
 void tap(uint16_t keycode);
 
 /*
@@ -99,6 +103,50 @@ enum {
 #endif
 
 #define LAYOUT_ergodox_pretty_wrapper(...) LAYOUT_ergodox_pretty(__VA_ARGS__)
+
+#define LAYOUT_ergodox_pretty_osx( \
+    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, \
+    K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, \
+                   K41, K42, K43, K44,                \
+                        K45, K46,                     \
+              K47, K48, K49, K4A, K51, K52            \
+  ) \
+  LAYOUT_ergodox_pretty_wrapper( \
+      KC_ESC,  _______________________NUMBER_LEFT_______________________, JJ_ARRW,         KC_MINUS, _______________________NUMBER_RIGHT______________________, KC_EQL, \
+      KC_DEL,     K01,      K02,       K03,        K04,       K05,        KC_LPRN,         KC_RPRN,     K06,       K07,       K08,       K09,       K0A,       KC_BSLS, \
+      KC_NUMS,    K11, SFT_T(K12), GUI_T(K13),  ALT_T(K14),   K15,                                      K16,  ALT_T(K17),  GUI_T(K18), SFT_T(K19),  K1A,       KC_QUOT, \
+      KC_LSFT, CTL_T(K21),  K22,       K23,        K24,       K25,        HYP_LBK,         MEH_RBK,     K26,       K27,       K28,       K29,    CTL_T(K2A),   KC_RSFT, \
+          K31,     K32,      K33,       K34,        K35,                                                          K36,       K37,       K38,       K39,       K3A,      \
+                                                         K41, K42,                                      K43, K44,                                                       \
+                                                              K45,                                      K46,                                                            \
+                                                    K47, K48, K49,                                      K4A, K51, K52                                                   \
+    )
+
+#define LAYOUT_ergodox_pretty_win( \
+    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, \
+    K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, \
+                   K41, K42, K43, K44,                \
+                        K45, K46,                     \
+              K47, K48, K49, K4A, K51, K52            \
+  ) \
+  LAYOUT_ergodox_pretty_wrapper( \
+      KC_ESC,  _______________________NUMBER_LEFT_______________________, JJ_ARRW,         KC_MINUS, _______________________NUMBER_RIGHT______________________, KC_EQL, \
+      KC_DEL,     K01,      K02,       K03,        K04,       K05,        KC_LPRN,         KC_RPRN,     K06,       K07,       K08,       K09,       K0A,       KC_BSLS, \
+      KC_NUMS,    K11, SFT_T(K12), CTL_T(K13),  ALT_T(K14),   K15,                                      K16,  ALT_T(K17),  CTL_T(K18), SFT_T(K19),  K1A,       KC_QUOT, \
+      KC_LSFT, GUI_T(K21),  K22,       K23,        K24,       K25,        HYP_LBK,         MEH_RBK,     K26,       K27,       K28,       K29,    GUI_T(K2A),   KC_RSFT, \
+         K31,     K32,      K33,       K34,        K35,                                                            K36,       K37,       K38,       K39,       K3A,      \
+                                                         K41, K42,                                      K43, K44,                                                       \
+                                                              K45,                                      K46,                                                            \
+                                                    K47, K48, K49,                                      K4A, K51, K52                                                   \
+    )
+
+#define LAYOUT_ergodox_pretty_osx_wrapper(...)       LAYOUT_ergodox_pretty_osx(__VA_ARGS__)
+#define LAYOUT_ergodox_pretty_win_wrapper(...)       LAYOUT_ergodox_pretty_win(__VA_ARGS__)
+
 /* Pretty Layout
 .---------------------------------------------.         .---------------------------------------------.
 |   1   |  2  |  3  |  4  |  5  |  6  |   7   |         !   8   |  9  |  10 |  11 |  12 |  13 |   14  |
