@@ -79,9 +79,9 @@ The naming convention for these blocks is
 #define L04_LEFT_01  KC_PGUP,        KC_BSPC, KC_UP,   KC_DEL,   KC_PGDN
 #define L04_LEFT_02  KC_HOME,        KC_LEFT, KC_DOWN, KC_RIGHT, KC_END
 #define L04_LEFT_03  KC_ESC,         KC_TAB,  KC_INS,  KC_ENTER, N_UNDO
-#define L04_RIGHT_01 KC_KP_SLASH,    KC_KP_7, KC_KP_8, KC_KP_9,  KC_KP_MINUS
-#define L04_RIGHT_02 KC_KP_ASTERISK, KC_KP_4, KC_KP_5, KC_KP_6,  KC_KP_PLUS
-#define L04_RIGHT_03 KC_KP_ENTER,    KC_KP_1, KC_KP_2, KC_KP_3,  KC_KP_DOT
+#define L04_RIGHT_01 KC_KP_SLASH,    KC_7   , KC_8   , KC_9   ,  KC_KP_MINUS
+#define L04_RIGHT_02 KC_KP_ASTERISK, KC_4   , KC_5   , KC_6   ,  KC_KP_PLUS
+#define L04_RIGHT_03 KC_KP_ENTER,    KC_1   , KC_2   , KC_3   ,  KC_KP_DOT
 
 
 /*

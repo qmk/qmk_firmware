@@ -32,14 +32,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+                                  |                                  +------|
  * | SHIFT|                                  |                                  | SHIFT|
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | CTLR | GUI  | ALT  | L05  | L04  | SPACE| SPACE| L04  | L05  | ALTGR| LFN  | CTLR |
+ * | CTLR | GUI  | ALT  | L05  | L04  | SPACE|  TAB | L04  | L05  | ALTGR| LFN  | CTLR |
  * `-----------------------------------------------------------------------------------'
  */
 [L01] = {
   {KC_ESC,                 L01_LEFT_01,                                 L01_RIGHT_01,                 KC_ENTER},
   {MO(L03),                L01_LEFT_02,                                 L01_RIGHT_02,                 MO(L03)},
   {KC_LSHIFT,              L01_LEFT_03,                                 L01_RIGHT_03,                 KC_RSFT},
-  {KC_LCTRL,KC_LGUI, KC_LALT, MO(L05), MO(L04), KC_SPC,  KC_SPC,  MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTRL}
+  {KC_LCTRL,KC_LGUI, KC_LALT, MO(L05), MO(L04), KC_SPC,  KC_TAB,  MO(L04), MO(L05), KC_RALT, MO(LFN), KC_RCTRL}
 },
 
 
