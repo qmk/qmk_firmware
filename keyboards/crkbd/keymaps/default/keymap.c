@@ -179,10 +179,13 @@ void iota_gfx_task_user(void) {
   matrix_render_user(&matrix);
   matrix_update(&display, &matrix);
 }
+#endif//SSD1306OLED
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
+#ifdef SSD1306OLED
     set_keylog(keycode, record);
+#endif
     // set_timelog();
   }
 
@@ -244,4 +247,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#endif
