@@ -41,7 +41,7 @@ find "keyboards/${KEYBOARD}" -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;
 GIT=$(whereis git)
 if [ "$GIT" != "" ]; then
   IS_GIT_REPO=$($GIT log >>/dev/null 2>&1; echo $?)
-  if [ $IS_GIT_REPO -eq 0 ]; then
+  if [ "$IS_GIT_REPO" -eq 0 ]; then
     USER=$($GIT config --get user.name)
     ID="'$USER'"
     echo "Using $ID as user name"
