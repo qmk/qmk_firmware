@@ -4,10 +4,8 @@
 
 Somewhere between ortholinear and standard offset. Created to have all the same functions on a Planck in a keyboard but with a more conventional keyboard row stagger.
 
-Keyboard Maintainer: [filoxo](https://github.com/filoxo), [network_operations]
-
-Hardware Supported: [PCB design](http://www.40percent.club/2016/10/gnap-20-plateless.html), Arduino Pro Micro
-
+Keyboard Maintainer: [filoxo](https://github.com/filoxo), [network_operations]  
+Hardware Supported: [PCB design](http://www.40percent.club/2016/10/gnap-20-plateless.html), Arduino Pro Micro  
 Hardware Availability: [How to order](http://www.40percent.club/2017/03/ordering-pcb.html)
 
 ### Instructions

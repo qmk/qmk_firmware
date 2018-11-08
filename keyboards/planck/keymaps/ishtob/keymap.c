@@ -327,7 +327,9 @@ void matrix_init_keymap(void) {
 
 void startup_user()
 {
+    #ifdef RGB_MATRIX_ENABLE
     rgblight_mode(RGB_MATRIX_CYCLE_ALL);
+    #endif //RGB_matrix
     wait_ms(20); // gets rid of tick
     PLAY_NOTE_ARRAY(tone_startup, false, 0);
 }
