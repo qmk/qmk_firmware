@@ -21,7 +21,7 @@
 
 // Alt gr
 #ifndef ALTGR
-#define ALTGR(kc)   RALT(kc)
+#define ALTGR(kc)   ALGR(kc)
 #endif
 #define BP_ALGR KC_RALT
 
