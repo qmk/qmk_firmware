@@ -3,8 +3,8 @@ Infinity 60%
 
 A compact community driven keyboard.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: Infinity 60% PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: Infinity 60% PCB  
 Hardware Availability: https://input.club/devices/infinity-keyboard/
 
 Make example for this keyboard (after setting up your build environment):

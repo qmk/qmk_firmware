@@ -4,7 +4,6 @@
 #include "i2c.h"
 #include <string.h>
 #include "print.h"
-#include "glcdfont.c"
 #ifdef ADAFRUIT_BLE_ENABLE
 #include "adafruit_ble.h"
 #endif
@@ -13,6 +12,8 @@
 #endif
 #include "sendchar.h"
 #include "timer.h"
+
+static const unsigned char font[] PROGMEM;
 
 // Set this to 1 to help diagnose early startup problems
 // when testing power-on with ble.  Turn it off otherwise,
@@ -123,6 +124,7 @@ static int8_t capture_sendchar(uint8_t c) {
 bool iota_gfx_init(bool rotate) {
   bool success = false;
 
+  i2c_master_init();
   send_cmd1(DisplayOff);
   send_cmd2(SetDisplayClockDiv, 0x80);
   send_cmd2(SetMultiPlex, DisplayHeight - 1);

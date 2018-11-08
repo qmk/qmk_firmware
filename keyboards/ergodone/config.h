@@ -53,8 +53,6 @@
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
 
-#define PREVENT_STUCK_MODIFIERS
-
 #define USB_MAX_POWER_CONSUMPTION 500
 
 /* NKRO */

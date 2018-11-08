@@ -1,123 +1,32 @@
-# The Default Helix Layout
-## Layout
+# KageUrufu's Sol Layout
 
-### Qwerty
-
-```
- ,-----------------------------------------.             ,-----------------------------------------.
- |   `  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Del  |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- | Tab  |   Q  |   W  |   E  |   R  |   T  |             |   Y  |   U  |   I  |   O  |   P  | Bksp |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- | Ctrl |   A  |   S  |   D  |   F  |   G  |             |   H  |   J  |   K  |   L  |   ;  |  '   |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- | Shift|   Z  |   X  |   C  |   V  |   B  |   [  |   ]  |   N  |   M  |   ,  |   .  |   /  |Enter |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- |Adjust| Esc  | Alt  | GUI  | EISU |Lower |Space |Space |Raise | KANA | Left | Down |  Up  |Right |
- `-------------------------------------------------------------------------------------------------'
-```
-
-### Colemak
-```
- ,-----------------------------------------.             ,-----------------------------------------.
- |   `  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Del  |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- | Tab  |   Q  |   W  |   F  |   P  |   G  |             |   J  |   L  |   U  |   Y  |   ;  | Bksp |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- | Ctrl |   A  |   R  |   S  |   T  |   D  |             |   H  |   N  |   E  |   I  |   O  |  '   |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- | Shift|   Z  |   X  |   C  |   V  |   B  |   [  |   ]  |   K  |   M  |   ,  |   .  |   /  |Enter |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- |Adjust| Esc  | Alt  | GUI  | EISU |Lower |Space |Space |Raise | KANA | Left | Down |  Up  |Right |
- `-------------------------------------------------------------------------------------------------'
-```
-
-### Dvorak
-```
- ,-----------------------------------------.             ,-----------------------------------------.
- |   `  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Bksp |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- | Tab  |   '  |   ,  |   .  |   P  |   Y  |             |   F  |   G  |   C  |   R  |   L  | Del  |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- | Ctrl |   A  |   O  |   E  |   U  |   I  |             |   D  |   H  |   T  |   N  |   S  |  /   |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- | Shift|   ;  |   Q  |   J  |   K  |   X  |   [  |   ]  |   B  |   M  |   W  |   V  |   Z  |Enter |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- |Adjust| Esc  | Alt  | GUI  | EISU |Lower |Space |Space |Raise | KANA | Left | Down |  Up  |Right |
- `-------------------------------------------------------------------------------------------------'
-```
-
-## Layers
-
-|Priority|number|name|description|
-| ---- | ---- | --- | --- |
-|high|16|Adjust|Functions|
-||4|Raise|Numeric charactors|
-||3|Lower|Other charactors|
-||2|Dvorak|Dvorak leyout|
-||1|Colemak|Colemak leyout|
-|low|0|Qwerty|QWERTY leyout(base)|
-
-### Lower
-```
- ,-----------------------------------------.             ,-----------------------------------------.
- |   ~  |   !  |   @  |   #  |   $  |   %  |             |   ^  |   &  |   *  |   (  |   )  |      |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- |   ~  |   !  |   @  |   #  |   $  |   %  |             |   ^  |   &  |   *  |   (  |   )  |      |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- |      |  F1  |  F2  |  F3  |  F4  |  F5  |             |  F6  |   _  |   +  |   {  |   }  |  |   |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- |      |  F7  |  F8  |  F9  |  F10 |  F11 |  (   |   )  |  F12 |      |      | Home | End  |      |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- |      |      |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
- `-------------------------------------------------------------------------------------------------'
-```
-
-### Raise
-```
- ,-----------------------------------------.             ,-----------------------------------------.
- |   `  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Bksp |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- |   `  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Del  |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- |      |  F1  |  F2  |  F3  |  F4  |  F5  |             |  F6  |   -  |   =  |   [  |   ]  |  \   |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- |      |  F7  |  F8  |  F9  |  F10 |  F11 |      |      |  F12 |      |      |PageDn|PageUp|      |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- |      |      |      |      |      |      |      |      |      |      | Next | Vol- | Vol+ | Play |
- `-------------------------------------------------------------------------------------------------'
-```
-
-### Adjust (Lower + Raise)
-```
- ,-----------------------------------------.             ,-----------------------------------------.
- |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |             |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- |      | Reset|RGBRST|      |      |      |             |      |      |      |      |      |  Del |
- |------+------+------+------+------+------|             |------+------+------+------+------+------|
- |      |      |      |Aud on|Audoff| Mac  |             | Win  |Qwerty|Colemk|Dvorak|      |      |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- |      |      |      |      |      |      |      |      |      |      |RGB ON| HUE+ | SAT+ | VAL+ |
- |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
- |      |      |      |      |      |      |      |      |      |      | MODE | HUE- | SAT- | VAL- |
- `-------------------------------------------------------------------------------------------------'
-```
+Read the keymap for the layout, I don't want to deal with maintained ascii art
 
 ## Customize
 
-see `qmk_firmware/keyboards/helix/rev2/keymaps/default/rules.mk`
+see `qmk_firmware/keyboards/sol/rev1/keymaps/default/rules.mk`
 
 ```
-# Helix keyboard customize
-# you can edit follows 7 Variables
-#  jp: 以下の7つの変数を必要に応じて編集します。
-HELIX_ROWS = 5              # Helix Rows is 4 or 5
-OLED_ENABLE = no            # OLED_ENABLE
-LOCAL_GLCDFONT = no         # use each keymaps "helixfont.h" insted of "common/glcdfont.c"
-LED_BACK_ENABLE = no        # LED backlight (Enable WS2812 RGB underlight.)
-LED_UNDERGLOW_ENABLE = no   # LED underglow (Enable WS2812 RGB underlight.)
+# Variables you can set for SOL
+
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE = yes        # Console for debug(+400)
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+RGBLIGHT_ENABLE = yes       # Enable global lighting effects. Do not enable with RGB Matrix
 LED_ANIMATIONS = yes        # LED animations
-IOS_DEVICE_ENABLE = no      # connect to IOS device (iPad,iPhone)
+LED_MIRRORED = no           # Mirror LEDs across halves (enable DIP 1 on slave, and DIP 2 and 3 on master)
+RGB_MATRIX_ENABLE = no      # Enable per-key coordinate based RGB effects. Do not enable with RGBlight (+8500)
+RGB_MATRIX_KEYPRESSES = no  # Enable reactive per-key effects. Can be very laggy (+1500)
+RGBLIGHT_FULL_POWER = no    # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
+UNICODE_ENABLE = no         # Unicode
+SWAP_HANDS_ENABLE = no      # Enable one-hand typing
+ENCODER_ENABLE_CUSTOM = yes # Enable rotary encoder (+90)
+
+OLED_ENABLE = no            # OLED_ENABLE (+5000)
+IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
 
 ```
 ## Compile
@@ -129,15 +38,10 @@ $ cd qmk_firmware
 
 build
 ```
-$ make helix:default
+$ make sol:default
 ```
 
-flash to keyboard
+After the initial flash with AVRdudess, you should be able to flash using this:
 ```
-$ make helix:default:avrdude
+$ make sol:default:dfu
 ```
-
-## Link
-* more detail wrote in Japanese [helix/Doc/firmware_jp.md](https://github.com/MakotoKurauchi/helix/blob/master/Doc/firmware_jp.md)
-* [Helix top](https://github.com/MakotoKurauchi/helix)
-

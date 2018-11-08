@@ -3,8 +3,8 @@ JM60
 
 A compact 60% keyboard with full RGB led support.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: JM60
+Keyboard Maintainer: QMK Community  
+Hardware Supported: JM60  
 Hardware Availability: https://kbdfans.myshopify.com/ (is no longer sold)
 
 Make example for this keyboard (after setting up your build environment):

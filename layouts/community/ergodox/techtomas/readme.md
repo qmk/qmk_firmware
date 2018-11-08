@@ -39,7 +39,7 @@ The right arrow key and End key toggle the control layer on the left board. Ther
 On the left board you have mouse control with left & right click in the location of the G and B keys.
 On the right board you have vim-style arrow keys using hjkl
 
-The left thumb cluster moves shift and alt within easy reach while holding the toggle (end). So far I've found this convient to navigate and  skip around text when using the hjkl arrow keys. I found that it was easy to get the alt key stuck on depending on what key you released first so I added the PREVENT_STUCK_MODIFIERS to the config.h to help with that.
+The left thumb cluster moves shift and alt within easy reach while holding the toggle (end). So far I've found this convient to navigate and  skip around text when using the hjkl arrow keys.
 
 ## Changelog
 

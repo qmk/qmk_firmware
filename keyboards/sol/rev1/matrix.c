@@ -38,7 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #  define DEBOUNCE	5
 #endif
 
-#ifdef ENCODER_ENABLE
+#ifdef ENCODER_ENABLE_CUSTOM
   #include "common/knob_v2.h"
 #endif
 
@@ -112,7 +112,7 @@ void matrix_init(void)
 
     is_master = has_usb();
 
-    #ifdef ENCODER_ENABLE
+    #ifdef ENCODER_ENABLE_CUSTOM
         knob_init();  //FOR ENCODER
     #endif
     matrix_init_quantum();
@@ -144,7 +144,7 @@ uint8_t _matrix_scan(void)
         }
     }
 
-    #ifdef ENCODER_ENABLE
+    #ifdef ENCODER_ENABLE_CUSTOM
       knob_report_t knob_report = knob_report_read();
 
       knob_report_reset();

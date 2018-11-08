@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [0] = LAYOUT(\
@@ -26,7 +22,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-void led_set_kb(uint8_t usb_led) {
+void led_set_user(uint8_t usb_led) {
   DDRB |= (1 << 4) | (1 << 5) | (1 << 6);
 
   if (usb_led & (1 << USB_LED_NUM_LOCK)) {
