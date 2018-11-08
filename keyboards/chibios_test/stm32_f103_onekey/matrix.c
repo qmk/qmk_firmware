@@ -144,16 +144,16 @@ static void  init_cols(void)
 {
 #ifdef BOARD_MAPLEMINI_STM32_F103
     // don't need pullup/down, since it's pulled down in hardware
-    palSetPadMode(GPIOB, 8, PAL_MODE_INPUT);
+    palSetPadMode(GPIOB, 10, PAL_MODE_INPUT);
 #else
-    palSetPadMode(GPIOB, 8, PAL_MODE_INPUT_PULLDOWN);
+    palSetPadMode(GPIOB, 10, PAL_MODE_INPUT_PULLDOWN);
 #endif
 }
 
 /* Returns status of switches(1:on, 0:off) */
 static matrix_row_t read_cols(void)
 {
-    return ((palReadPad(GPIOB, 8)==PAL_LOW) ? 0 : (1<<0));
+    return ((palReadPad(GPIOB, 10)==PAL_LOW) ? 0 : (1<<0));
     // | ((palReadPad(...)==PAL_HIGH) ? 0 : (1<<1))
 }
 
