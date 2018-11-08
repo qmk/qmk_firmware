@@ -56,9 +56,9 @@ uint8_t matrix_cols(void)
 
 /* generic STM32F103C8T6 board */
 #ifdef BOARD_GENERIC_STM32_F103
-#define LED_ON()    do { palClearPad(GPIOA, GPIOA_LED) ;} while (0)
-#define LED_OFF()   do { palSetPad(GPIOA, GPIOA_LED); } while (0)
-#define LED_TGL()   do { palTogglePad(GPIOA, GPIOA_LED); } while (0)
+#define LED_ON()    do { palClearPad(GPIOC, 13) ;} while (0)
+#define LED_OFF()   do { palSetPad(GPIOC, 13); } while (0)
+#define LED_TGL()   do { palTogglePad(GPIOC, 13); } while (0)
 #endif
 
 
@@ -106,6 +106,11 @@ uint8_t matrix_scan(void)
             }
         }
     }
+
+    palSetPad(GPIOC, 13);
+    chThdSleepMilliseconds(1000);
+    palClearPad(GPIOC, 13);
+    chThdSleepMilliseconds(1000);
 
     return 1;
 }
