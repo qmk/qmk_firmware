@@ -67,7 +67,7 @@ LED_TYPE led[RGBLED_NUM];
 bool rgblight_timer_enabled = false;
 
 #ifdef RGBW
-void convertRgbToRgbw(uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* w) {
+void convert_rgb_to_rgbw(uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* w) {
     // Determine lowest value in all three colors, put that into
     // the white channel and then shift all colors by that amount
     *w = MIN(*r, MIN(*g, *b));
@@ -77,7 +77,7 @@ void convertRgbToRgbw(uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* w) {
 }
 #endif
 
-void convertHsvToRgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, uint8_t *g_p, uint8_t *b_p) {
+void convert_hsv_to_rgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, uint8_t *g_p, uint8_t *b_p) {
     uint8_t r, g, b, base, color;
     r = g = b = 0; // To make the compiler stop complaining about potentially uninitialized variables
 
@@ -134,10 +134,10 @@ void convertHsvToRgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, uint8
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r, g, b;
-  convertHsvToRgb(hue, sat, val, &r, &g, &b);
+  convert_hsv_to_rgb(hue, sat, val, &r, &g, &b);
   #ifdef RGBW
   uint8_t w;
-  convertRgbToRgbw(&r, &g, &b, &w);
+  convert_rgb_to_rgbw(&r, &g, &b, &w);
   setrgbw(r, g, b, w, led1);
   #else
   setrgb(r, g, b, led1);
@@ -535,7 +535,7 @@ void rgblight_decrease_speed(void) {
 void rgblight_sethsv_noeeprom_old(uint16_t hue, uint8_t sat, uint8_t val) {
   if (rgblight_config.enable) {
     uint8_t r, g, b;
-    convertHsvToRgb(hue, sat, val, &r, &g, &b);
+    convert_hsv_to_rgb(hue, sat, val, &r, &g, &b);
     // dprintf("rgblight set hue [MEMORY]: %u,%u,%u\n", inmem_config.hue, inmem_config.sat, inmem_config.val);
     rgblight_setrgb(r, g, b);
   }
@@ -546,7 +546,7 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
     if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
       // same static color
       uint8_t r, g, b;
-      convertHsvToRgb(hue, sat, val, &r, &g, &b);
+      convert_hsv_to_rgb(hue, sat, val, &r, &g, &b);
       rgblight_setrgb(r, g, b);
     } else {
       // all LEDs in same color
@@ -625,7 +625,7 @@ void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b) {
   if (!rgblight_config.enable) { return; }
   #ifdef RGBW
   uint8_t w = 0;
-  convertRgbToRgbw(&r, &g, &b, &w);
+  convert_rgb_to_rgbw(&r, &g, &b, &w);
   #endif
   for (uint8_t i = 0; i < RGBLED_NUM; i++) {
     led[i].r = r;
@@ -642,7 +642,7 @@ void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index) {
   if (!rgblight_config.enable || index >= RGBLED_NUM) { return; }
   #ifdef RGBW
   uint8_t w = 0;
-  convertRgbToRgbw(&r, &g, &b, &w);
+  convert_rgb_to_rgbw(&r, &g, &b, &w);
   #endif
   led[index].r = r;
   led[index].g = g;
@@ -658,7 +658,7 @@ void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index) {
   if (!rgblight_config.enable) { return; }
 
   uint8_t r, g, b;
-  convertHsvToRgb(hue, sat, val, &r, &g, &b);
+  convert_hsv_to_rgb(hue, sat, val, &r, &g, &b);
   rgblight_setrgb_at(r, g, b, index);
 }
 
@@ -1072,7 +1072,7 @@ void rgblight_effect_rgbtest(void) {
 
   if( maxval == 0 ) {
       uint8_t g, b;
-      convertHsvToRgb(0, 255, RGBLIGHT_LIMIT_VAL, &maxval, &g, &b );
+      convert_hsv_to_rgb(0, 255, RGBLIGHT_LIMIT_VAL, &maxval, &g, &b );
   }
   last_timer = timer_read();
   g = r = b = 0;
