@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
 #define MANUFACTURER QMK
 #define PRODUCT Practice 60
-#define DESCRIPTION Practice 60 keyboard powered by QMK for ChibiOS
+#define DESCRIPTION Practice 60
 
 /* key matrix size */
 #define MATRIX_ROWS 5

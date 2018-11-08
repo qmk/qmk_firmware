@@ -25,7 +25,7 @@
  * Board identifier.
  */
 #define BOARD_GENERIC_STM32_F103
-#define BOARD_NAME              "Practice60"
+#define BOARD_NAME              "Generic STM32F103x board"
 
 /*
  * Board frequencies.
