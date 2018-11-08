@@ -23,9 +23,6 @@
 #ifndef ALTGR
 #define ALTGR(kc)   RALT(kc)
 #endif
-#ifndef ALGR
-#define ALGR(kc)    ALTGR(kc)
-#endif
 #define BP_ALGR KC_RALT
 
 // Normal characters

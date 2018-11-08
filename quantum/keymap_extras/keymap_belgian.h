@@ -22,9 +22,6 @@
 #define BE_LALT KC_LGUI
 
 // Alt gr
-#ifndef ALGR
-#define ALGR(kc) RALT(kc)
-#endif
 #define NO_ALGR KC_RALT
 
 // Normal characters

@@ -22,9 +22,6 @@
 #ifndef ALTGR
 #define ALTGR(kc)   RALT(kc)
 #endif
-#ifndef ALGR
-#define ALGR(kc)    ALTGR(kc)
-#endif
 
 #define CSA_ALTGR   KC_RALT
 #define CSA_ALGR    CSA_ALTGR

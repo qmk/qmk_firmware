@@ -470,6 +470,7 @@ enum quantum_keycodes {
 #define RCTL(kc) (QK_RCTL | (kc))
 #define RSFT(kc) (QK_RSFT | (kc))
 #define RALT(kc) (QK_RALT | (kc))
+#define ALGR(kc) RALT(kc)
 #define RGUI(kc) (QK_RGUI | (kc))
 #define RCMD(kc) RGUI(kc)
 #define RWIN(kc) RGUI(kc)
@@ -480,7 +481,7 @@ enum quantum_keycodes {
 #define SGUI(kc) (QK_LGUI | QK_LSFT | (kc))
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
-#define LCA(kc) (QK_LCTL | QK_LALT | (kc))
+#define LCA(kc)  (QK_LCTL | QK_LALT | (kc))
 
 #define MOD_HYPR 0xf
 #define MOD_MEH 0x7
