@@ -29,10 +29,10 @@ ARMV = 6
 # 0x00000000-0x00001000 area is occupied by bootlaoder.*/
 # The CORTEX_VTOR... is needed only for MCHCK/Infinity KB
 #OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
-OPT_DEFS = 
+OPT_DEFS =
 
 # Options to pass to dfu-util when flashing
-DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000
+DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 
 # Build Options
 #   comment out to disable the options.
