@@ -17,6 +17,10 @@
 #include QMK_KEYBOARD_H
 #include "drashna.h"
 
+#ifdef RGB_MATRIX_ENABLE
+extern bool g_suspend_state;
+#endif
+
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
   BACKLIT = NEW_SAFE_RANGE,
@@ -25,34 +29,44 @@ enum planck_keycodes {
   #define BACKLIT OSM(MOD_LSFT)
 #endif
 
+#define LAYOUT_ortho_4x12_base( \
+    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
+  ) \
+  LAYOUT_ortho_4x12_wrapper( \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,     K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
+    KC_TAB,  K11,    K12,     K13,      K14,     K15,     K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
+    KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     K26,     K27,     K28,     K29,  CTL_T(K2A), KC_ENT,  \
+    BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT  \
+  )
+#define LAYOUT_ortho_4x12_base_wrapper(...)       LAYOUT_ortho_4x12_base(__VA_ARGS__)
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_QWERTY] = LAYOUT_ortho_4x12_wrapper(
-  KC_ESC,  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________, KC_BSPC,
-  KC_TAB,  _________________QWERTY_L2_________________, _________________QWERTY_R2_________________, KC_QUOT,
-  KC_MLSF, _________________QWERTY_L3_________________, _________________QWERTY_R3_________________, KC_ENT,
-  BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+[_QWERTY] = LAYOUT_ortho_4x12_base_wrapper(
+  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+  _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+  _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
 ),
 
-[_COLEMAK] = LAYOUT_ortho_4x12_wrapper(
-  KC_ESC,  _________________COLEMAK_L1________________, _________________COLEMAK_R1________________, KC_BSPC,
-  KC_TAB,  _________________COLEMAK_L2________________, _________________COLEMAK_R2________________, KC_QUOT,
-  KC_MLSF, _________________COLEMAK_L3________________, _________________COLEMAK_R3________________, KC_ENT,
-  BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+[_COLEMAK] = LAYOUT_ortho_4x12_base_wrapper(
+  _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
+  _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
+  _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
 ),
 
-[_DVORAK] = LAYOUT_ortho_4x12_wrapper(
-  KC_ESC,  _________________DVORAK_L1_________________, _________________DVORAK_R1_________________, KC_BSPC,
-  KC_TAB,  _________________DVORAK_L2_________________, _________________DVORAK_R2_________________, KC_SLSH,
-  KC_MLSF, _________________DVORAK_L3_________________, _________________DVORAK_R3_________________, KC_ENT,
-  BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+[_DVORAK] = LAYOUT_ortho_4x12_base_wrapper(
+  _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
+  _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
+  _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
 ),
 
-[_WORKMAN] = LAYOUT_ortho_4x12_wrapper(
-  KC_TAB,  _________________WORKMAN_L1________________, _________________WORKMAN_R1________________, KC_BSPC,
-  KC_ESC,  _________________WORKMAN_L2________________, _________________WORKMAN_R2________________, KC_QUOT,
-  KC_MLSF, _________________WORKMAN_L3________________, _________________WORKMAN_R3________________, KC_ENT,
-  BACKLIT, OS_LCTL, OS_LALT, OS_LGUI, SP_LWER, BK_LWER, DL_RAIS, ET_RAIS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
+[_WORKMAN] = LAYOUT_ortho_4x12_base_wrapper(
+  _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
+  _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
+  _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
 ),
 
 [_MODS] = LAYOUT_ortho_4x12_wrapper(
@@ -125,6 +139,15 @@ bool music_mask_user(uint16_t keycode) {
 
 #ifdef RGB_MATRIX_ENABLE
 
+void suspend_power_down_keymap(void)
+{
+    rgb_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_keymap(void)
+{
+    rgb_matrix_set_suspend_state(false);
+}
 
 void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
   rgb_led led;
@@ -142,25 +165,26 @@ void rgb_matrix_indicators_user(void) {
   uint8_t this_mod = get_mods();
   uint8_t this_led = host_keyboard_leds();
   uint8_t this_osm = get_oneshot_mods();
-
-  switch (biton32(layer_state)) {
-    case _RAISE:
-      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
-    case _LOWER:
-      rgb_matrix_layer_helper(0x00, 0xFF, 0x00, false); break;
-    case _ADJUST:
-      rgb_matrix_layer_helper(0xFF, 0x00, 0x00, false); break;
-    default:
-      switch (biton32(default_layer_state)) {
-        case _QWERTY:
-          rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, true); break;
-        case _COLEMAK:
-          rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, true); break;
-        case _DVORAK:
-          rgb_matrix_layer_helper(0x00, 0xFF, 0x00, true); break;
-        case _WORKMAN:
-          rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, true); break;
-      }
+  if (!g_suspend_state) {
+    switch (biton32(layer_state)) {
+      case _RAISE:
+        rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
+      case _LOWER:
+        rgb_matrix_layer_helper(0x00, 0xFF, 0x00, false); break;
+      case _ADJUST:
+        rgb_matrix_layer_helper(0xFF, 0x00, 0x00, false); break;
+      default:
+        switch (biton32(default_layer_state)) {
+          case _QWERTY:
+            rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, true); break;
+          case _COLEMAK:
+            rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, true); break;
+          case _DVORAK:
+            rgb_matrix_layer_helper(0x00, 0xFF, 0x00, true); break;
+          case _WORKMAN:
+            rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, true); break;
+        }
+    }
   }
 
   switch (biton32(default_layer_state)) {

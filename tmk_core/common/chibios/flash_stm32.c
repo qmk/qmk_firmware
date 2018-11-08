@@ -10,19 +10,27 @@
  * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
  * DEALINGS IN THE SOFTWARE.
  *
- * This files are free to use from https://github.com/rogerclarkmelbourne/Arduino_STM32 and 
+ * This files are free to use from https://github.com/rogerclarkmelbourne/Arduino_STM32 and
  * https://github.com/leaflabs/libmaple
  *
  * Modifications for QMK and STM32F303 by Yiancar
  */
 
-#define STM32F303xC
+#if defined(EEPROM_EMU_STM32F303xC)
+    #define STM32F303xC
+    #include "stm32f3xx.h"
+#elif defined(EEPROM_EMU_STM32F103xB)
+    #define STM32F103xB
+    #include "stm32f1xx.h"
+#else
+    #error "not implemented."
+#endif
 
-#include "stm32f3xx.h"
 #include "flash_stm32.h"
 
-#define FLASH_KEY1          ((uint32_t)0x45670123)
-#define FLASH_KEY2          ((uint32_t)0xCDEF89AB)
+#if defined(EEPROM_EMU_STM32F103xB)
+    #define FLASH_SR_WRPERR FLASH_SR_WRPRTERR
+#endif
 
 /* Delay definition */
 #define EraseTimeout        ((uint32_t)0x00000FFF)
@@ -71,7 +79,7 @@ FLASH_Status FLASH_GetStatus(void)
   *   FLASH_ERROR_WRP, FLASH_COMPLETE or FLASH_TIMEOUT.
   */
 FLASH_Status FLASH_WaitForLastOperation(uint32_t Timeout)
-{ 
+{
     FLASH_Status status;
 
     /* Check for the Flash Status */
@@ -102,7 +110,7 @@ FLASH_Status FLASH_ErasePage(uint32_t Page_Address)
     ASSERT(IS_FLASH_ADDRESS(Page_Address));
     /* Wait for last operation to be completed */
     status = FLASH_WaitForLastOperation(EraseTimeout);
-  
+
     if(status == FLASH_COMPLETE)
     {
         /* if the previous operation is completed, proceed to erase the page */
@@ -128,7 +136,7 @@ FLASH_Status FLASH_ErasePage(uint32_t Page_Address)
   * @param  Address: specifies the address to be programmed.
   * @param  Data: specifies the data to be programmed.
   * @retval FLASH Status: The returned value can be: FLASH_ERROR_PG,
-  *   FLASH_ERROR_WRP, FLASH_COMPLETE or FLASH_TIMEOUT. 
+  *   FLASH_ERROR_WRP, FLASH_COMPLETE or FLASH_TIMEOUT.
   */
 FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data)
 {
