@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* key combination for magic key command */
+#undef IS_COMMAND
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
 )
@@ -83,4 +84,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define GUI_LED1 8
 #define ALT_LED1 7
-
