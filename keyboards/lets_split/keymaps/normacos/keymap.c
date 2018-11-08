@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 
+
 extern keymap_config_t keymap_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -17,7 +18,7 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  SH_LOG,
+  SH_SUDO,
   SH_GOUP,
   SH_TERM,
   SPOT,
@@ -85,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------. ,-----------------------------------------.
  * |  Tab |   !  |   @  |   #  |   $  |   %  | |   ^  |   &  |   *  |   (  |   )  |  Del |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
- * |CtlEsc|  Log | UpDir| Slack| Term | OutLk| |   =  |   -  |   \  |   [  |   ]  |   `  |
+ * |CtlEsc| Sudo | UpDir| Slack| Term | OutLk| |   =  |   -  |   \  |   [  |   ]  |   `  |
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
  * | Shift|ClrHom|ClrEnd|ShHome| ShEnd|Search| | Play | Mute | VolDn| VolUp|ScnSht|SftEnt|
  * |------+------+------+------+------+------| |------+------+------+------+------+------|
@@ -94,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_ortho_4x12( \
   _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL,  \
-  _______, SH_LOG,  SH_GOUP, SLACK,   SH_TERM, OUTLOOK,  KC_EQL, KC_MINS, KC_BSLS, KC_LBRC, KC_RBRC, KC_GRV,  \
+  _______, SH_SUDO, SH_GOUP, SLACK,   SH_TERM, OUTLOOK,    KC_EQL,  KC_MINS, KC_BSLS, KC_LBRC, KC_RBRC, KC_GRV,  \
   _______, SH_CLRH, SH_CLRE, SH_HOME, SH_END,  SH_RSCH, KC_MPLY, KC_MUTE, KC_VOLD, KC_VOLU, SCN_SHT, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
@@ -148,51 +149,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       case ADJUST:
         layer_on(_ADJUST);
         return false;
-      case SH_LOG:  // Open Jira log work window
-        SEND_STRING(SS_TAP(X_DOT));
-        _delay_ms(100);
-        SEND_STRING("log work");
-        _delay_ms(100);
-        SEND_STRING(SS_TAP(X_ENTER));
+      case SH_SUDO:
+        SEND_STRING("sudo !!"SS_TAP(X_ENTER));					// Elevate last command
         return false;
-      case SH_GOUP:  // Go up a directory
-        SEND_STRING("cd .."SS_TAP(X_ENTER));
+      case SH_GOUP:
+        SEND_STRING("cd .."SS_TAP(X_ENTER));					// Go up a directory
         return false;
-      case SH_TERM:  // Open Terminal
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-        _delay_ms(100);
-        SEND_STRING("terminal");
-        _delay_ms(100);
-        SEND_STRING(SS_TAP(X_ENTER));
+      case SH_TERM:
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))"terminal"SS_TAP(X_ENTER));		// Open Terminal
         return false;
-      case SPOT:  // Open Spotify
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-        _delay_ms(100);
-        SEND_STRING("spotify app");
-        _delay_ms(100);
-        SEND_STRING(SS_TAP(X_ENTER));
+      case SPOT:
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))"spotify app"SS_TAP(X_ENTER));	// Open Spotify
         return false;
-      case SLACK:  // Open Slack
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-        _delay_ms(100);
-        SEND_STRING("slack");
-        _delay_ms(100);
-        SEND_STRING(SS_TAP(X_ENTER));
+      case SLACK:
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))"slack"SS_TAP(X_ENTER));		// Open Slack
         return false;
-      case OUTLOOK:  // Open MS Outlook
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-        _delay_ms(100);
-        SEND_STRING("outlook");
-        _delay_ms(100);
-        SEND_STRING(SS_TAP(X_ENTER));
+      case OUTLOOK:
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))"outlook"SS_TAP(X_ENTER));		// Open Outlook
         return false;
-      case CHROME:  // Open Chrome
-        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE)));
-        _delay_ms(100);
-        SEND_STRING("chrome");
-        _delay_ms(100);
-        SEND_STRING(SS_TAP(X_ENTER));
-        return false;
+      case CHROME:
+        SEND_STRING(SS_LGUI(SS_TAP(X_SPACE))"chrome"SS_TAP(X_ENTER));		// Open Chrome
     }
   } else {
     switch(keycode) {

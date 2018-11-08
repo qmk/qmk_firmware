@@ -91,6 +91,7 @@
 see `qmk_firmware/keyboards/sol/rev1/keymaps/default/rules.mk`
 
 ```
+
 # Variables you can set for SOL
 
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
@@ -111,6 +112,7 @@ ENCODER_ENABLE_CUSTOM = yes # Enable rotary encoder (+90)
 
 OLED_ENABLE = no            # OLED_ENABLE (+5000)
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
+
 
 ```
 ## Compile
