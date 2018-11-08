@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
-
-#include QMK_KEYBOARD_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
@@ -61,10 +58,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
+
 #define RGBLED_NUM 16    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 /*
  * Feature disable options
@@ -83,5 +78,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

@@ -30,7 +30,7 @@ Some optional behavior is configurable without editing the code
 using `CFQ_` prefixed defines which can be set by passing `EXTRAFLAGS` to make.
 
 - `CFQ_USER_KEY0`
-  (0..7) are used for custom-keys
+  (0..8) are used for custom-keys
 - `CFQ_USE_MOMENTARY_LAYER_KEYS`
   is used to prevent layer keys from toggling when tapped.
 - `CFQ_USE_SHIFT_QUOTES`
@@ -122,12 +122,7 @@ Notes:
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 2: Media, Mouse Keys and Numbers
-
-Notes:
-
-- Numbers are included on this layer since some applications differentiate
-  between numbers top row and keypad.
+## Keymap 2: F-Keys, Media & Mouse Keys
 
 ```
 .--------------------------------------------------.  .--------------------------------------------------.
@@ -150,11 +145,16 @@ Notes:
                               '--------------------'  '--------------------'
 ```
 
-## Keymap 3: F-Keys & User Defined Words
+## Keymap 3: User Defined Words & Numbers
 
 This is for assigning whole words to single keys.
 You can define the arguments (which must be quoted) using: `CFQ_WORD_[A-Z]`
 eg: `-DCFQ_WORD_E=\"my@email.com\"`
+
+Notes:
+
+- Numbers are included on this layer since some applications differentiate
+  between numbers top row and keypad.
 
 ```
 .--------------------------------------------------.  .--------------------------------------------------.
@@ -180,7 +180,7 @@ eg: `-DCFQ_WORD_E=\"my@email.com\"`
 ## Changelog
 
 - 2018/10/19
-  Move F-Keys to numpad like layout.
+  Move F-Keys to key-pad like layout.
 
 - 2018/05/29
   Add number keys for cases when keypad numbers are handled differently.
