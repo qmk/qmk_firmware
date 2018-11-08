@@ -28,26 +28,29 @@ cd "$(dirname "$0")/.." || exit
 
 KEYBOARD_NAME=$(basename "$1")
 KEYBOARD_NAME_UPPERCASE=$(echo "$KEYBOARD_NAME" | awk '{print toupper($0)}')
+NEW_KBD=keyboards/${KEYBOARD}
 
 
-cp -r quantum/template/base "keyboards/$KEYBOARD"
-cp -r "quantum/template/$KEYBOARD_TYPE/." "keyboards/$KEYBOARD"
+cp -r quantum/template/base "$NEW_KBD"
+cp -r "quantum/template/$KEYBOARD_TYPE/." "$NEW_KBD"
 
-mv "keyboards/${KEYBOARD}/template.c" "keyboards/${KEYBOARD}/${KEYBOARD_NAME}.c"
-mv "keyboards/${KEYBOARD}/template.h" "keyboards/${KEYBOARD}/${KEYBOARD_NAME}.h"
-find "keyboards/${KEYBOARD}" -type f -exec sed -i '' -e "s;%KEYBOARD%;${KEYBOARD_NAME};g" {} \;
-find "keyboards/${KEYBOARD}" -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g" {} \;
+mv "${NEW_KBD}/template.c" "${NEW_KBD}/${KEYBOARD_NAME}.c"
+mv "${NEW_KBD}/template.h" "${NEW_KBD}/${KEYBOARD_NAME}.h"
+find "${NEW_KBD}" -type f -exec sed -i '' -e "s;%KEYBOARD%;${KEYBOARD_NAME};g" {} \;
+find "${NEW_KBD}" -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g" {} \;
 
 GIT=$(whereis git)
 if [ "$GIT" != "" ]; then
   IS_GIT_REPO=$($GIT log >>/dev/null 2>&1; echo $?)
   if [ "$IS_GIT_REPO" -eq 0 ]; then
-    USER=$($GIT config --get user.name)
-    ID="'$USER'"
+    ID="'$($GIT config --get user.name)'"
     echo "Using $ID as user name"
 
-    KBD=keyboards/${KEYBOARD}
-    for i in "$KBD/config.h" "$KBD/$KEYBOARD_NAME.c" "$KBD/$KEYBOARD_NAME.h" "$KBD/keymaps/default/config.h" "$KBD/keymaps/default/keymap.c"
+    for i in "$NEW_KBD/config.h" \
+             "$NEW_KBD/$KEYBOARD_NAME.c" \
+             "$NEW_KBD/$KEYBOARD_NAME.h" \
+             "$NEW_KBD/keymaps/default/config.h" \
+             "$NEW_KBD/keymaps/default/keymap.c"
     do
       awk -v id="$ID" '{sub(/REPLACE_WITH_YOUR_NAME/,id); print}' < "$i" > "$i.$$"
       mv "$i.$$" "$i"
@@ -55,7 +58,9 @@ if [ "$GIT" != "" ]; then
   fi
 fi
 
-echo "######################################################"
-echo "# /keyboards/$KEYBOARD project created. To start"
-echo "# working on things, cd into keyboards/$KEYBOARD"
-echo "######################################################"
+cat <<-EOF
+######################################################
+# $NEW_KBD project created. To start
+# working on things, cd into $NEW_KBD
+######################################################
+EOF
