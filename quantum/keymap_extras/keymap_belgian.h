@@ -22,7 +22,7 @@
 #define BE_LALT KC_LGUI
 
 // Alt gr
-#define NO_ALGR KC_RALT
+#define BE_ALGR KC_RALT
 
 // Normal characters
 // Line 1
