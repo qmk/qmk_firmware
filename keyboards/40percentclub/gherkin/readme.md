@@ -1,4 +1,6 @@
-Gherkin
+# Gherkin
+
+![Gherkin](https://4.bp.blogspot.com/-sQ18-lNZXOc/WCzlTde-4PI/AAAAAAAB_JQ/qQrehAMG6DMKf3i4oj4mkmLGOfTUvb3KgCLcB/s640/IMG_20161116_122926.jpg)
 ===
 
 A 30 key keyboard.
@@ -11,8 +13,9 @@ Hardware Availability: [Gherkin project on 40% Keyboards](http://www.40percent.c
 
 Make example for this keyboard (after setting up your build environment):
 
-    make gherkin:default
+    make 40percentclub/gherkin:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
 First pass at adding support for the gherkin keyboard. Compiles but completely
 untested. Intended to kick-start development.
