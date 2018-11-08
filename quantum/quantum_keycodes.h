@@ -646,7 +646,7 @@ enum quantum_keycodes {
 #define ALT_T(kc) MT(MOD_LALT, kc)
 #define LALT_T(kc) MT(MOD_LALT, kc)
 #define RALT_T(kc) MT(MOD_RALT, kc)
-#define ALGR_T(kc) MT(MOD_RALT, kc) // dual-function AltGR
+#define ALGR_T(kc) RALT_T(kc)
 
 #define GUI_T(kc) MT(MOD_LGUI, kc)
 #define CMD_T(kc) GUI_T(kc)
