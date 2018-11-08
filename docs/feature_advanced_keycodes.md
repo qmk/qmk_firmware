@@ -68,7 +68,7 @@ These allow you to combine a modifier with a keycode. When pressed, the keydown 
 |`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
 |`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
 |`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|                      |Hold Right Alt and press `kc`                       |
+|`RALT(kc)`|`ALGR(kc)`            |Hold Right Alt and press `kc`                       |
 |`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
 |`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
 |`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
@@ -92,7 +92,7 @@ The modifiers this keycode and `OSM()` accept are prefixed with `MOD_`, not `KC_
 |`MOD_LGUI`|Left GUI (Windows/Command/Meta key)     |
 |`MOD_RCTL`|Right Control                           |
 |`MOD_RSFT`|Right Shift                             |
-|`MOD_RALT`|Right Alt                               |
+|`MOD_RALT`|Right Alt (AltGr)                       |
 |`MOD_RGUI`|Right GUI (Windows/Command/Meta key)    |
 |`MOD_HYPR`|Hyper (Left Control, Shift, Alt and GUI)|
 |`MOD_MEH` |Meh (Left Control, Shift, and Alt)      |

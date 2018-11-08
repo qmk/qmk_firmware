@@ -177,7 +177,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_LGUI`              |`KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key)            |
 |`KC_RCTRL`             |`KC_RCTL`           |Right Control                                  |
 |`KC_RSHIFT`            |`KC_RSFT`           |Right Shift                                    |
-|`KC_RALT`              |                    |Right Alt                                      |
+|`KC_RALT`              |`KC_ALGR`           |Right Alt (AltGr)                              |
 |`KC_RGUI`              |`KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)           |
 |`KC_SYSTEM_POWER`      |`KC_PWR`            |System Power Down                              |
 |`KC_SYSTEM_SLEEP`      |`KC_SLEP`           |System Sleep                                   |
@@ -331,7 +331,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
 |`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
 |`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|                      |Hold Right Alt and press `kc`                       |
+|`RALT(kc)`|`ALGR(kc)`            |Hold Right Alt and press `kc`                       |
 |`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
 |`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
 |`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
