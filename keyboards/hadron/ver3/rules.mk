@@ -52,4 +52,5 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
 AUDIO_ENABLE = yes
 RGBLIGHT_ENABLE = no
+QWIIC_ENABLE += MICRO_OLED
 # SERIAL_LINK_ENABLE = yes

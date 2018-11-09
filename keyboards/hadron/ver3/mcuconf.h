@@ -154,7 +154,7 @@
 /*
  * I2C driver system settings.
  */
-#define STM32_I2C_USE_I2C1                  FALSE
+#define STM32_I2C_USE_I2C1                  TRUE
 #define STM32_I2C_USE_I2C2                  FALSE
 #define STM32_I2C_BUSY_TIMEOUT              50
 #define STM32_I2C_I2C1_IRQ_PRIORITY         10
