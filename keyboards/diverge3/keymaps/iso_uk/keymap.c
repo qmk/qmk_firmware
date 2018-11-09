@@ -29,7 +29,6 @@ enum custom_keycodes {
 #define LOWER MO(_LOWER)
 
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT( \
