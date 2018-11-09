@@ -77,7 +77,7 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 	read -rp "Proceed (y/N)? " answer
 	if echo "$answer" | grep -iq "^y"; then
 		sudo touch /etc/portage/package.use/qmkfirmware
-		echo "sys-devel/gcc multilib" | sudo tee --append /etc/portage/package.use/qmkfirmware > /dev/null
+		echo "sys-devel/gcc multilib" >> /etc/portage/package.use/qmkfirmware
 		sudo emerge -auN \
 			app-arch/unzip \
 			app-arch/zip \
