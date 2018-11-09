@@ -64,11 +64,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _____________DIRECTIONS_Row__1_____________,
     _____________DIRECTIONS_Row__2_____________
   ),
-  [ETC] = LAYOUT_iris_base_wrapper(
+  [ETC] = LAYOUT_wrapper(
     _________________BLANK_48__________________,
     ______________ETCETERA_Row__0______________,
     ______________ETCETERA_Row__1______________,
-    ______________ETCETERA_Row__2______________
+    _______, TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______,		_______, _______,		LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL, _______,
+												_______,_______, _______,		LALT(LCTL(KC_DEL)),	_______, _______
   )
   
 
