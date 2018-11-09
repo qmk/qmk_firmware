@@ -74,7 +74,8 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 
 elif grep ID /etc/os-release | grep -q gentoo; then
 	echo GENTOO_WARNING | fmt
-	read -rp "Proceed (y/N)? " answer
+	echo -n "Proceed (y/N)? "
+	read -r answer
 	if echo "$answer" | grep -iq "^y"; then
 		sudo touch /etc/portage/package.use/qmkfirmware
 		echo "sys-devel/gcc multilib" >> /etc/portage/package.use/qmkfirmware
