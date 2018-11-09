@@ -9,7 +9,7 @@ if [[ $* =~ "--help" ]]; then
 elif [[ $# -gt 1 ]]; then
     echo "$USAGE" >&2
     exit 1
-elif [[ ! $(command -v docker) ]]; then
+elif ! command -v docker &>/dev/null; then
     echo "Error: docker not found" >&2
     echo "See https://docs.docker.com/install/#supported-platforms for installation instructions" >&2
     exit 2
@@ -28,7 +28,7 @@ else
     fi
 fi
 if [[ -n $target ]]; then
-    if [[ $(uname) == "Linux" || $(docker-machine active 2>/dev/null) ]]; then
+    if [[ $(uname) == "Linux" ]] || docker-machine active &>/dev/null; then
         usb_args="--privileged -v /dev/bus/usb:/dev/bus/usb"
     else
         echo "Error: target requires docker-machine to work on your platform" >&2
