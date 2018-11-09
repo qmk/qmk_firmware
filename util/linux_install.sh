@@ -74,12 +74,8 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 
 elif grep ID /etc/os-release | grep -q gentoo; then
 	echo GENTOO_WARNING | fmt
-	echo -n "Proceed (y/N)? "
-	old_stty_cfg=$(stty -g)
-	stty raw -echo
-	answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
-	stty $old_stty_cfg
-	if echo "$answer" | grep -iq "^y" ;then
+	read -rp "Proceed (y/N)? " answer
+	if echo "$answer" | grep -iq "^y"; then
 		sudo touch /etc/portage/package.use/qmkfirmware
 		echo "sys-devel/gcc multilib" | sudo tee --append /etc/portage/package.use/qmkfirmware > /dev/null
 		sudo emerge -auN \
