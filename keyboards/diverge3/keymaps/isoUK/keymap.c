@@ -17,16 +17,17 @@
 
 // KEYMAP
 
-
-#define _QWERTY 0
-#define _LOWER 1
+enum layers {
+  _QWERTY,
+  _LOWER,
+};
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   LOWER,
 };
 
-// Make layer undefined do nothing
+#define LOWER MO(_LOWER)
 
 
 
@@ -48,24 +49,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_ASRP, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
   )
 
-};
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-      } else {
-        layer_off(_LOWER);
-      }
-      return false;
-      break;
-  }
-  return true;
 };
