@@ -12,7 +12,7 @@ def beautify_src_file(filename):
 
     with open(filename) as f:
         current_section = "before"
-        for line in f.read().split("\n"):
+        for line in f:
             if current_section == "before":
                 if line == "const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {":
                     current_section = "keys"
