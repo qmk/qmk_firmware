@@ -30,7 +30,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 	DEBIAN_FRONTEND=noninteractive
 	DEBCONF_NONINTERACTIVE_SEEN=true
-        export DEBIAN_FRONTEND DEBCONF_NONINTERACTIVE_SEEN
+	export DEBIAN_FRONTEND DEBCONF_NONINTERACTIVE_SEEN
 	sudo apt-get update
 	sudo apt-get install \
 		build-essential \
@@ -59,7 +59,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		avr-binutils \
 		avr-libc \
 		avr-gcc \
-    base-devel \
+		base-devel \
 		dfu-util \
 		diff-utils \
 		gcc \
