@@ -27,7 +27,6 @@ enum custom_keycodes {
 };
 
 // Make layer undefined do nothing
-#define _______ KC_TRNS
 
 
 
