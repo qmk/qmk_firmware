@@ -20,14 +20,17 @@ indent_size = 4
 [*.mk]
 end_of_line = lf
 indent_style = tab
+indent_size = 4
 
 [Makefile]
 end_of_line = lf
 indent_style = tab
+indent_size = 4
 
 [*.sh]
 end_of_line = lf
 indent_style = tab
+indent_size = 4
 
 # The gitattributes file will handle the line endings conversion properly according to the operating system settings for other files
 
