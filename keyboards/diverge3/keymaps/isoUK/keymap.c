@@ -16,7 +16,6 @@
 #include QMK_KEYBOARD_H
 
 // KEYMAP
-extern keymap_config_t keymap_config;
 
 
 #define _QWERTY 0
