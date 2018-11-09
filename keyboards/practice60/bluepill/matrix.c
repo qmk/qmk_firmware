@@ -61,6 +61,23 @@ uint8_t matrix_cols(void)
 #define LED_TGL()   do { palTogglePad(GPIOC, 13); } while (0)
 #endif
 
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
 
 void matrix_init(void)
 {
@@ -79,6 +96,8 @@ void matrix_init(void)
     LED_ON();
     wait_ms(500);
     LED_OFF();
+
+    matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void)
@@ -175,7 +194,7 @@ static matrix_row_t read_cols(void)
  */
 static void unselect_rows(void)
 {
-palSetPadMode(GPIOB, 3, PAL_MODE_INPUT);
+  palSetPadMode(GPIOB, 3, PAL_MODE_INPUT);
   palSetPadMode(GPIOB, 4, PAL_MODE_INPUT);
   palSetPadMode(GPIOB, 5, PAL_MODE_INPUT);
   palSetPadMode(GPIOB, 6, PAL_MODE_INPUT);
