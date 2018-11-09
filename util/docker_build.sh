@@ -3,10 +3,13 @@
 USAGE="Usage: $0 [keyboard[:keymap[:target]]]"
 
 # Check preconditions
-if [[ $* =~ "--help" ]]; then
-    echo "$USAGE"
-    exit 0
-elif [[ $# -gt 1 ]]; then
+for arg; do
+    if [[ $arg == "--help" ]]; then
+        echo "$USAGE"
+        exit 0
+    fi
+done
+if [[ $# -gt 1 ]]; then
     echo "$USAGE" >&2
     exit 1
 elif ! command -v docker &>/dev/null; then
