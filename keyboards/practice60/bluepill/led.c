@@ -16,8 +16,30 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "hal.h"
+#include "backlight.h"
 #include "led.h"
+#include "printf.h"
 
+void backlight_init_ports(void) {
+    printf("backlight_init_ports()\n");
+    #ifdef BACKLIGHT_ENABLE
+    palSetPadMode(GPIOA, 8, PAL_MODE_OUTPUT_PUSHPULL);
+    palSetPad(GPIOA, 8);
+    #endif
+}
+
+void backlight_set(uint8_t level) {
+    printf("backlight_set(%d)\n", level);
+    #ifdef BACKLIGHT_ENABLE
+    if (level == 0) {
+        // Turn backlight off
+        palSetPad(GPIOA, 8);
+    } else {
+        // Turn backlight on
+        palClearPad(GPIOA, 8);
+    }
+    #endif
+}
 
 void led_set(uint8_t usb_led)
 {

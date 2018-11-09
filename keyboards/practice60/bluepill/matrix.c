@@ -94,7 +94,9 @@ void matrix_init(void)
     //debug
     debug_matrix = true;
     LED_ON();
+    palSetPad(GPIOA, 8);
     wait_ms(500);
+    palClearPad(GPIOA, 8);
     LED_OFF();
 
     matrix_init_quantum();
