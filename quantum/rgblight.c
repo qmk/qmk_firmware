@@ -79,7 +79,6 @@ void convert_rgb_to_rgbw(uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* w) {
 
 void convert_hsv_to_rgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, uint8_t *g_p, uint8_t *b_p) {
     uint8_t r, g, b, base, color;
-    r = g = b = 0; // To make the compiler stop complaining about potentially uninitialized variables
 
     if (val > RGBLIGHT_LIMIT_VAL) {
         val=RGBLIGHT_LIMIT_VAL; // limit the val
@@ -90,6 +89,8 @@ void convert_hsv_to_rgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, ui
       g = val;
       b = val;
     } else {
+      while(hue > 360) { hue -= 360; } //Making sure Hue is at or below 360
+
       base = ((255 - sat) * val) >> 8;
       color = (val - base) * (hue % 60) / 60;
 
@@ -123,6 +124,12 @@ void convert_hsv_to_rgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, ui
           r = val;
           g = base;
           b = val - color;
+          break;
+        default:
+          //We should never be here but the compiler likes it thorough
+          r = 0;
+          g = 0;
+          b = 0;
           break;
       }
     }
