@@ -26,8 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define RGBLED_NUM 16
 
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 15
+#define MATRIX_COLS 8
 
 #define MATRIX_ROW_PINS { D0, D5 }
 #define MATRIX_COL_PINS { F1, F0, B0 }
