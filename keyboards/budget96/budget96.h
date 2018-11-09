@@ -23,8 +23,12 @@
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
 #define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k11   \
+    k05, k25, k35, k45, k55, k06, kA6, kA7, k07, kB5, kC5, kD5, kE5, kD1, kE1, kD0, k67, k97, k87, \
+    k04, k14, k24, k34, k44, k54, k16, kB6, kB7, k17, kA4, kB4, kC4, kD4, kE4, k64, k74, k84, k94, \
+    k03, k13, k23, k33, k43, k53, k26, kC6, kC7, k27, kA3, kB3, kC3, kD3, k63, k73, k83, k93,      \
+    k02, k12, k22, k32, k42, k52, k36, kD6, kD7, k37, kA2, kB2, kC2, k62, k72, k82, k92,           \
+    k01, k30, k11, k21, k31, k41, k51, k46, kE6, k47, kA1, kB1, k86, k61, k71, k81, k91,           \
+    k00, k10, k20, k56, k57, kA0, kB0, k66, k76, k96, k60, k80, k90
 ) \
 { \
     { k00, k01, k02, k03, k04, k05, k06, k07 }, \
