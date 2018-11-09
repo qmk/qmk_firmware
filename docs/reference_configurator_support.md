@@ -26,8 +26,7 @@ To understand how the Configurator understands keyboards, first one must underst
 The Configurator's API reads the keyboard's `.h` file from `qmk_firmware/keyboards/<keyboard>/<keyboard>.h`. For our numpad, this file would be `qmk_firmware/keyboards/numpad/numpad.h`:
 
 ```c
-#ifndef NUMPAD_H
-#define NUMPAD_H
+#pragma once
 
 #define LAYOUT( \
     k00, k01, k02, k03, \
@@ -43,7 +42,6 @@ The Configurator's API reads the keyboard's `.h` file from `qmk_firmware/keyboar
     { k40, KC_NO, k42, KC_NO }  \
 }
 
-#endif
 ```
 
 QMK uses `KC_NO` to designate places in the switch matrix where there is no switch. Sometimes, `XXX`, `___` or `____` are used as shorthand to make this section easier to read if it needs to be debugged. This is usually defined near the beginning of the `.h` file:
