@@ -107,11 +107,6 @@ uint8_t matrix_scan(void)
         }
     }
 
-    palSetPad(GPIOC, 13);
-    chThdSleepMilliseconds(1000);
-    palClearPad(GPIOC, 13);
-    chThdSleepMilliseconds(1000);
-
     return 1;
 }
 
