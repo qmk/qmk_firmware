@@ -1,12 +1,14 @@
-# idobo
+# IDOBO
 
-![idobo](imgur.com image replace me!)
+![IDOBO](imgur.com image replace me!)
 
-A short description of the keyboard/project
+75Keys Aluminum Mechanical Keyboard.
+
+Firmware here originally appeared on qmkeyboard.cn
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: IDOBO PCB
+Hardware Availability: [IDOBO on Massdrop](https://www.massdrop.com/buy/xd75-aluminum-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
 
