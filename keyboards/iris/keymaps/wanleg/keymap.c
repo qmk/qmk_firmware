@@ -13,11 +13,11 @@
      K01,	K02,	K03,	K04,	K05,	K06,					K07,	K08,	K09,	K0A,	K0B,	K0C, \
      K11,	K12,	K13,	K14,	K15,	K16,					K17,	K18,	K19,	K1A,	K1B,	K1C, \
      K21,	K22,	K23,	K24,	K25,	K26,					K27,	K28,	K29,	K2A,	K2B,	K2C, \
-     K31,	K32,	K33,	K34,	K35,	K36,	KC_NO,	KC_NO,  K37,	K38,	K39,	K3A,	K3B,	K3C, \
+     K31,	K32,	K33,	K34,	K35,	K36,	GHERKIN,QWERTY,	K37,	K38,	K39,	K3A,	K3B,	K3C, \
                                ONEHAND,	NUMBER,	ETCETERA,			KC_SPC,	DIRECTION,	KC_RGUI                  \
   )
 #define LAYOUT_iris_base_wrapper(...)       LAYOUT_iris_base(__VA_ARGS__)
-#define _________________BLANK_48__________________ _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+#define _________________BLANK_48__________________ KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSPC
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______________NUMBERS_Row_0_______________,
     _______________NUMBERS_Row_1_______________,
     _______, KC_F11, KC_F12, _______,_______, _______,		_______, _______,		KC_ENT, KC_RSFT, KC_RGUI, ALT_T(KC_DOT), CTL_T(KC_BSPC), _______,
-										_______,_______, _______,		KC_ENT,	_______, _______
+										_______,_______, _______,		KC_ENT,	KC_RSFT, _______
   ),
   [DIR] = LAYOUT_iris_base_wrapper(
     _________________BLANK_48__________________,
