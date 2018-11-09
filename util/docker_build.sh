@@ -1,37 +1,39 @@
-#!/bin/bash
+#!/bin/sh
 
 USAGE="Usage: $0 [keyboard[:keymap[:target]]]"
 
 # Check preconditions
 for arg; do
-    if [[ $arg == "--help" ]]; then
+    if [ "$arg" = "--help" ]; then
         echo "$USAGE"
         exit 0
     fi
 done
-if [[ $# -gt 1 ]]; then
+if [ $# -gt 1 ]; then
     echo "$USAGE" >&2
     exit 1
-elif ! command -v docker &>/dev/null; then
+elif ! command -v docker >/dev/null 2>&1; then
     echo "Error: docker not found" >&2
     echo "See https://docs.docker.com/install/#supported-platforms for installation instructions" >&2
     exit 2
 fi
 
 # Determine arguments
-if [[ $# -eq 0 ]]; then
-    read -rp "keyboard=" keyboard
-    [[ -n $keyboard ]] && read -rp "keymap=" keymap
-    [[ -n $keymap   ]] && read -rp "target=" target
+if [ $# -eq 0 ]; then
+    printf "keyboard=" && read -r keyboard
+    [ -n "$keyboard" ] && printf "keymap=" && read -r keymap
+    [ -n "$keymap"   ] && printf "target=" && read -r target
 else
-    IFS=':' read -r keyboard keymap target x <<< "$1"
-    if [[ -n $x ]]; then
+    IFS=':' read -r keyboard keymap target x <<EOF
+$1
+EOF
+    if [ -n "$x" ]; then
         echo "$USAGE" >&2
         exit 1
     fi
 fi
-if [[ -n $target ]]; then
-    if [[ $(uname) == "Linux" ]] || docker-machine active &>/dev/null; then
+if [ -n "$target" ]; then
+    if [ "$(uname)" = "Linux" ] || docker-machine active >/dev/null 2>&1; then
         usb_args="--privileged -v /dev/bus/usb:/dev/bus/usb"
     else
         echo "Error: target requires docker-machine to work on your platform" >&2
