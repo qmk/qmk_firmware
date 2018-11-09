@@ -81,15 +81,13 @@ void convert_hsv_to_rgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, ui
     uint8_t r, g, b, base, color;
 
     if (val > RGBLIGHT_LIMIT_VAL) {
-        val=RGBLIGHT_LIMIT_VAL; // limit the val
+        val = RGBLIGHT_LIMIT_VAL; // Limit the val
     }
 
     if (sat == 0) { // Acromatic color (gray). Hue doesn't mind.
-      r = val;
-      g = val;
-      b = val;
+      r = g = b = val;
     } else {
-      while(hue > 360) { hue -= 360; } //Making sure Hue is at or below 360
+      if (hue > 360) { hue %= 360; } // Limit the hue
 
       base = ((255 - sat) * val) >> 8;
       color = (val - base) * (hue % 60) / 60;
@@ -127,9 +125,7 @@ void convert_hsv_to_rgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, ui
           break;
         default:
           //We should never be here but the compiler likes it thorough
-          r = 0;
-          g = 0;
-          b = 0;
+          r = g = b = 0;
           break;
       }
     }
