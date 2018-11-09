@@ -71,9 +71,9 @@ void convert_rgb_to_rgbw(uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* w) {
     // Determine lowest value in all three colors, put that into
     // the white channel and then shift all colors by that amount
     *w = MIN(*r, MIN(*g, *b));
-    *r = *r - *w;
-    *g = *g - *w;
-    *b = *b - *w;
+    *r -= *w;
+    *g -= *w;
+    *b -= *w;
 }
 #endif
 
@@ -152,9 +152,9 @@ void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
 }
 
 void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
-  (*led1).r = r;
-  (*led1).g = g;
-  (*led1).b = b;
+  led1->r = r;
+  led1->g = g;
+  led1->b = b;
 }
 
 void rgblight_check_config(void) {
@@ -189,10 +189,10 @@ void rgblight_check_config(void) {
 
 #ifdef RGBW
 void setrgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w, LED_TYPE *led1) {
-  (*led1).r = r;
-  (*led1).g = g;
-  (*led1).b = b;
-  (*led1).w = w;
+  led1->r = r;
+  led1->g = g;
+  led1->b = b;
+  led1->w = w;
 }
 #endif
 
