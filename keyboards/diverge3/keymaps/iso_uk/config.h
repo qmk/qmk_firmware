@@ -15,7 +15,6 @@
  */
 
 #pragma once
-#define CONFIG_USER_H
 
 
 // place overrides here
