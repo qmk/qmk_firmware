@@ -9,7 +9,7 @@
 #define PRODUCT_ID      0x0412
 #define DEVICE_VER      0x0000
 #define MANUFACTURER    Fate Everywhere
-#define PRODUCT         412–64 Model 00
+#define PRODUCT         412 64 Model 00
 #define DESCRIPTION     A compact 60% keyboard inspired by the 4x4x4x4x4
 
 /* key matrix size */
