@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// KEYMAP
 
 enum layers {
   _QWERTY,
