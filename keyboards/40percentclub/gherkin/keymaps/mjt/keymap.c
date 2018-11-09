@@ -37,10 +37,6 @@ enum gherkin_keycodes {
   EXT_PLV
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_ortho_3x10(
     TD(TD_Q_ESC),   KC_W,               KC_E,           KC_R,  KC_T,               KC_Y,   KC_U,  KC_I,     KC_O,    KC_P,

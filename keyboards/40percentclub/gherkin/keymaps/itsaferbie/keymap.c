@@ -14,8 +14,6 @@ enum custom_keycodes {
   PR,
 };
 
-#define _______ KC_TRNS
-
 #define PS TO(0)
 #define AI TO(1)
 #define PR TO(2)

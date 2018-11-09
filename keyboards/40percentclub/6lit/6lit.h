@@ -16,7 +16,6 @@
 #pragma once
 
 #include "quantum.h"
-#define ________ KC_NO
 
 #ifndef FLIP_HALF
 #define LAYOUT_split( \

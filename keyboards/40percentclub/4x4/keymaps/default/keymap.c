@@ -6,9 +6,6 @@
 #define NUM 2
 #define DIR 3
 
-// Readability keycodes
-#define _______ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Single 4x4 board only
