@@ -79,6 +79,8 @@ def transform_raw_key_symbol(raw):
     if type(raw) is pycparser.c_ast.ID:
         if raw.name in ["KC_TRNS", "KC_TRANSPARENT"]:
             return "_______"
+        if raw.name == 'KC_NO':
+            return 'XXXXXXX'
         return raw.name
     elif type(raw) is pycparser.c_ast.FuncCall:
         return unpack_function(raw)
