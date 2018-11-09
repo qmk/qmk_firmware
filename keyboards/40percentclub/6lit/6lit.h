@@ -16,6 +16,7 @@
 #pragma once
 
 #include "quantum.h"
+#define ___ KC_NO
 
 #ifndef FLIP_HALF
 #define LAYOUT_split( \
@@ -45,6 +46,8 @@
 ) { \
 	{ L00, L01, L02 }, \
 	{ L10, L11, L12 }, \
+	{ ___, ___, ___ }, \
+  { ___, ___, ___ }, \
 }
 
 #define LAYOUT LAYOUT_macro
