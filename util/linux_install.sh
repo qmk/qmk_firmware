@@ -73,7 +73,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 	rm -rf /tmp/dfu-programmer/
 
 elif grep ID /etc/os-release | grep -q gentoo; then
-	echo GENTOO_WARNING | fmt
+	echo "$GENTOO_WARNING" | fmt
 	echo -n "Proceed (y/N)? "
 	read -r answer
 	if echo "$answer" | grep -iq "^y"; then
