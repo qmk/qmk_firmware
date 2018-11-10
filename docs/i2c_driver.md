@@ -71,7 +71,8 @@ This can be changed by declaring the `i2c_init` function which intentionally has
 ```C
 void i2c_init(void)
 {
-  palSetGroupMode(GPIOB, GPIOB_PIN6 | GPIOB_PIN7, 0, PAL_MODE_INPUT); // Try releasing special pins for a short time
+  setPinInput(B6); // Try releasing special pins for a short time
+  setPinInput(B7);
   chThdSleepMilliseconds(10); // Wait for the release to happen
 
   palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP); // Set B6 to I2C function
