@@ -16,6 +16,9 @@
 
 #include "hal.h"
 
+// Value to place in RTC backup register 10 for persistent bootloader mode
+#define RTC_BOOTLOADER_FLAG 0x424C
+
 /**
  * @brief   PAL setup.
  * @details Digital I/O ports static configuration as defined in @p board.h.
@@ -48,4 +51,6 @@ void __early_init(void) {
 void boardInit(void) {
    //JTAG-DP Disabled and SW-DP Enabled
    AFIO->MAPR |= AFIO_MAPR_SWJ_CFG_JTAGDISABLE;
+   //Set backup register DR10 to enter bootloader on reset
+   BKP->DR10 = RTC_BOOTLOADER_FLAG;
 }

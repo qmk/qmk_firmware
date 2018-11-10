@@ -1,6 +1,8 @@
 # project specific files
 SRC =	matrix.c \
-	    led.c
+	    led.c \
+		underglow.c \
+		hsv2rgb.c 
 
 # GENERIC STM32F103C8T6 board - stm32duino bootloader
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000

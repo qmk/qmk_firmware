@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include "wait.h"
+#include "underglow.h"
 
 #ifndef DEBOUNCE
 #   define DEBOUNCE 5
@@ -85,6 +86,9 @@ void matrix_init(void)
     unselect_rows();
     init_cols();
 
+    /* MOSI pin*/
+    palSetPadMode(GPIOB, 15, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
@@ -98,6 +102,8 @@ void matrix_init(void)
     wait_ms(500);
     palClearPad(GPIOA, 8);
     LED_OFF();
+
+    leds_init();
 
     matrix_init_quantum();
 }
