@@ -68,7 +68,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		wget \
 		zip
 	git clone https://aur.archlinux.org/dfu-programmer.git /tmp/dfu-programmer
-	cd /tmp/dfu-programmer
+	cd /tmp/dfu-programmer || exit 1
 	makepkg -sic
 	rm -rf /tmp/dfu-programmer/
 
