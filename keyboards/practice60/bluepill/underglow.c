@@ -51,7 +51,7 @@ static THD_FUNCTION(ledsThread, arg) {
 static THD_WORKING_AREA(HSVTRANS_WA, 128);
 static THD_FUNCTION(hsv_transThread, arg){
   (void) arg;
-  hsv_color color = {0, 255, 255};
+  hsv_color color = {0, 255, 127};
   while(1){
     color.h += 1;
     color.h %= 256;
