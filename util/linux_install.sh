@@ -74,7 +74,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 
 elif grep ID /etc/os-release | grep -q gentoo; then
 	echo "$GENTOO_WARNING" | fmt
-	echo -n "Proceed (y/N)? "
+	printf "\nProceed (y/N)? "
 	read -r answer
 	if echo "$answer" | grep -iq "^y"; then
 		sudo touch /etc/portage/package.use/qmkfirmware
