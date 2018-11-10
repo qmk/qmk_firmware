@@ -1,4 +1,4 @@
-# Configurator Support
+# Supporting Your Keyboard in QMK Configurator
 
 This page covers how to properly support keyboards in the [QMK Configurator](https://config.qmk.fm/).
 
@@ -41,12 +41,13 @@ The Configurator's API reads the keyboard's `.h` file from `qmk_firmware/keyboar
     { k30, k31,   k32, k33   }, \
     { k40, KC_NO, k42, KC_NO }  \
 }
-
 ```
 
 QMK uses `KC_NO` to designate places in the switch matrix where there is no switch. Sometimes, `XXX`, `___` or `____` are used as shorthand to make this section easier to read if it needs to be debugged. This is usually defined near the beginning of the `.h` file:
 
 ```c
+#pragma once
+
 #define XXX KC_NO
 
 #define LAYOUT( \
