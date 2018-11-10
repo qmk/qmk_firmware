@@ -40,9 +40,26 @@ static THD_WORKING_AREA(LEDS_THREAD_WA, 128);
 static THD_FUNCTION(ledsThread, arg) {
   (void) arg;
   while(1){
-    spiSend(&LEDS_SPI, PREAMBLE_SIZE + DATA_SIZE + RESET_SIZE, txbuf);
+    spiSend(&WS2812_SPI, PREAMBLE_SIZE + DATA_SIZE + RESET_SIZE, txbuf);
   }
 }
+
+// static THD_WORKING_AREA(HSVTRANS_WA, 128);
+// static THD_FUNCTION(hsv_transThread, arg){
+//   (void) arg;
+//   LED_TYPE color = {0, 128, 128};
+//   while(1){
+//     color.r += 1;
+//     color.r %= 128;
+//     color.g += 1;
+//     color.g %= 128;
+//     color.b += 1;
+//     color.b %= 128;
+//     set_leds_color_rgb(color);
+//     chThdSleepMilliseconds(50);
+//   }
+// }
+
 
 static const SPIConfig spicfg = {
   NULL,
@@ -60,14 +77,18 @@ static const SPIConfig spicfg = {
  * txbuff values)
  */
 void leds_init(void){
+  /* MOSI pin*/
+  palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
   for(int i = 0; i < RESET_SIZE; i++)
     txbuf[DATA_SIZE+i] = 0x00;
   for (int i=0; i<PREAMBLE_SIZE; i++)
     txbuf[i] = 0x00;
-  spiAcquireBus(&LEDS_SPI);              /* Acquire ownership of the bus.    */
-  spiStart(&LEDS_SPI, &spicfg);          /* Setup transfer parameters.       */
-  spiSelect(&LEDS_SPI);                  /* Slave Select assertion.          */
+  spiAcquireBus(&WS2812_SPI);              /* Acquire ownership of the bus.    */
+  spiStart(&WS2812_SPI, &spicfg);          /* Setup transfer parameters.       */
+  spiSelect(&WS2812_SPI);                  /* Slave Select assertion.          */
   chThdCreateStatic(LEDS_THREAD_WA, sizeof(LEDS_THREAD_WA),NORMALPRIO, ledsThread, NULL);
+    // chThdCreateStatic(HSVTRANS_WA, sizeof(HSVTRANS_WA),
+    //   NORMALPRIO, hsv_transThread, NULL);
 }
 
 /*
@@ -90,50 +111,41 @@ static uint8_t get_protocol_eq(uint8_t data, int pos){
 
 
 void WS2812_init(void) {
-  /* MOSI pin*/
-  palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
   leds_init();
 }
 
 void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
-//   uint8_t i = 0;
-//   while (i < number_of_leds) {
-//     ws2812_write_led(i, ledarray[i].r, ledarray[i].g, ledarray[i].b);
-//     i++;
-//   }
   uint8_t i = 0;
   while (i < number_of_leds) {
-    setColor(ledarray[i].g, (fb+24*i), sMask);
-    setColor(ledarray[i].r, (fb+24*i)+8, sMask);
-    setColor(ledarray[i].b, (fb+24*i)+16, sMask);
+    set_led_color_rgb(ledarray[i], i);
     i++;
   }
 }
 
+/*
+ * If you want to set a LED's color in the RGB color space, simply call this
+ * function with a hsv_color containing the desired color and the index of the
+ * led on the LED strip (starting from 0, the first one being the closest the
+ * first plugged to the board)
+ *
+ * Only set the color of the LEDs through the functions given by this API
+ * (unless you really know what you are doing)
+ */
+void set_led_color_rgb(LED_TYPE color, int pos){
+  for(int j = 0; j < 4; j++)
+    txbuf[PREAMBLE_SIZE + BYTES_FOR_LED*pos + j] = get_protocol_eq(color.g, j);
+  for(int j = 0; j < 4; j++)
+    txbuf[PREAMBLE_SIZE + BYTES_FOR_LED*pos + BYTES_FOR_LED_BYTE+j] = get_protocol_eq(color.r, j);
+  for(int j = 0; j < 4; j++)
+    txbuf[PREAMBLE_SIZE + BYTES_FOR_LED*pos + BYTES_FOR_LED_BYTE*2+j] = get_protocol_eq(color.b, j);
+}
+
+void set_leds_color_rgb(LED_TYPE color){
+  for(int i = 0; i < NB_LEDS; i++)
+    set_led_color_rgb(color, i);
+}
+
+
 void ws2812_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds) {
 
-}
-
-void WS2812_send_color( uint8_t index ) {
-  setColor(led_array[index].g, (fb+24*index), sMask);
-  setColor(led_array[index].r, (fb+24*index)+8, sMask);
-  setColor(led_array[index].b, (fb+24*index)+16, sMask);
-}
-
-void WS2812_set_color( uint8_t index, uint8_t red, uint8_t green, uint8_t blue ) {
-  led_array[index].r = red;
-  led_array[index].g = green;
-  led_array[index].b = blue;
-}
-
-void WS2812_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
-  for (int i = 0; i < RGBLED_NUM; i++) {
-    WS2812_set_color( i, red, green, blue );
-  }
-}
-
-void WS2812_send_colors(void) {
-  for (int i = 0; i < RGBLED_NUM; i++) {
-    WS2812_send_color( i );
-  }
 }

@@ -3,17 +3,9 @@
 #include "hal.h"
 #include "rgblight_types.h"
 
-#define sign(x) (( x > 0 ) - ( x < 0 ))
 
-typedef struct {
-  unsigned char r;
-  unsigned char g;
-  unsigned char b;
-} rgb_color;
-
-
-void set_leds_color_rgb(rgb_color color);
-void set_led_color_rgb(rgb_color color, int pos);
+void set_leds_color_rgb(LED_TYPE color);
+void set_led_color_rgb(LED_TYPE color, int pos);
 void leds_init(void);
 
 

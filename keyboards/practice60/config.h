@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 14
 #define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_LEVELS 4
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -51,7 +51,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
+#define RGBLIGHT_ANIMATIONS
 
+#define WS2812_LED_N 9
+
+#define RGBLED_NUM WS2812_LED_N
+#define PORT_WS2812     GPIOB
+#define PIN_WS2812      15
+#define WS2812_SPI SPID2
 
 /*
  * Feature disable options
