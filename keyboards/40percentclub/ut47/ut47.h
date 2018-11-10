@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef UT47_H
-#define UT47_H
+#pragma once
 
 #include "quantum.h"
 
@@ -45,5 +44,3 @@
   )
 
 #define LAYOUT_kc_ut47 LAYOUT_kc
-
-#endif
