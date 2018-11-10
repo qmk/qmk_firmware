@@ -12,7 +12,7 @@
      KC_ESC,  ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS, \
      KC_TAB , K01,    K02,     K03,      K04,     K05,                           K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
      KC_C1R3, K11,    K12,     K13,      K14,     K15,                           K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
-     KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     ALT_APP,     OS_RGUI, K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF, \
+     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,     OS_LALT,     OS_RGUI, K26,     K27,     K28,     K29,  CTL_T(K2A), OS_RSFT, \
                              LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE                                      \
   )
 #define LAYOUT_iris_base_wrapper(...)       LAYOUT_iris_base(__VA_ARGS__)
@@ -95,4 +95,3 @@ void matrix_init_keymap(void) {
   DDRB &= ~(1<<0);
   PORTB &= ~(1<<0);
 }
-

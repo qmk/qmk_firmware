@@ -43,8 +43,10 @@ ifeq ($(PLATFORM),CHIBIOS)
     TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
   else
     TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
-endif
+  endif
   ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
+    TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
+  else ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
   endif
 endif
@@ -61,13 +63,25 @@ endif
 
 
 # Option modules
-ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+BOOTMAGIC_ENABLE ?= no
+VALID_MAGIC_TYPES := yes full lite
+ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
+  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
+    $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
+  endif
+  ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
+      TMK_COMMON_DEFS += -DBOOTMAGIC_LITE
+      TMK_COMMON_DEFS += -DMAGIC_ENABLE
+      TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
+  else
     TMK_COMMON_DEFS += -DBOOTMAGIC_ENABLE
     TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic.c
+  endif
 else
     TMK_COMMON_DEFS += -DMAGIC_ENABLE
     TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
 endif
+
 
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     TMK_COMMON_SRC += $(COMMON_DIR)/mousekey.c

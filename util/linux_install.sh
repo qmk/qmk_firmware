@@ -8,7 +8,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 	sudo dnf install \
 		arm-none-eabi-binutils-cs \
 		arm-none-eabi-gcc-cs \
-		arm-none-eabi-newlib
+		arm-none-eabi-newlib \
 		avr-binutils \
 		avr-gcc \
 		avr-libc \
@@ -59,7 +59,7 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		avr-binutils \
 		avr-libc \
 		avr-gcc \
-                base-devel \
+    base-devel \
 		dfu-util \
 		diff-utils \
 		gcc \
@@ -86,19 +86,36 @@ elif grep ID /etc/os-release | grep -q gentoo; then
 			app-arch/unzip \
 			app-arch/zip \
 			app-mobilephone/dfu-util \
+			dev-embedded/avrdude \
 			net-misc/wget \
 			sys-devel/gcc \
-			sys-devel/crossdev dev-embedded/avrdude
+			sys-devel/crossdev
 		sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
-		echo Done!
+		echo "Done!"
 	else
 		echo "Quitting..."
 	fi
 
+elif grep ID /etc/os-release | grep -q sabayon; then
+	sudo equo install \
+		app-arch/unzip \
+		app-arch/zip \
+		app-mobilephone/dfu-util \
+		dev-embedded/avrdude \
+		net-misc/wget \
+		sys-devel/gcc \
+		sys-devel/crossdev
+	sudo crossdev -s4 --stable --g =4.9.4 --portage --verbose --target avr
+	echo "Done!"
+
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
+	CROSS_AVR_GCC=cross-avr-gcc8
+	if grep ID /etc/os-release | grep -q "15.0"; then
+		CROSS_AVR_GCC=cross-avr-gcc7
+	fi
 	sudo zypper install \
 		avr-libc \
-		cross-avr-gcc8 \
+		$CROSS_AVR_GCC \
 		cross-avr-binutils \
 		cross-arm-none-newlib-devel \
 		cross-arm-binutils cross-arm-none-newlib-devel \
