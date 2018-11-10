@@ -15,15 +15,21 @@
  */
 #include "rev3.h"
 #include "qwiic.h"
+
 #include "action_layer.h"
 #include "matrix.h"
 
 #ifdef QWIIC_MICRO_OLED_ENABLE
+#include "micro_oled.h"
 
-//set height for the smaller screen utilized in hadron keyboards
-#undef  LCDHEIGHT 
-#define LCDHEIGHT     24
-
+//set qwiic micro oled display to confirm to the 128x32 oled used by the hadron
+#undef I2C_ADDRESS_SA0_1
+#undef LCDWIDTH
+#undef LCDHEIGHT
+#define I2C_ADDRESS_SA0_1 0b0111100
+#define LCDWIDTH      128
+#define LCDHEIGHT     32
+#define micro_oled_rotate_180
 
 static uint8_t layer;
 static bool queue_for_send = false;

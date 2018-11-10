@@ -133,6 +133,12 @@ void micro_oled_init(void) {
   send_command(SEGREMAP | 0x1);
   send_command(COMSCANDEC);
 
+//rotate display 180
+#ifdef micro_oled_rotate_180
+  send_command(SEGREMAP);
+  send_command(COMSCANINC);
+#endif
+
   send_command(SETCOMPINS);      // 0xDA
   send_command(0x12);
 

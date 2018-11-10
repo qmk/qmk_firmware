@@ -127,3 +127,13 @@ typedef enum CMD {
   CMD_SETCOLOR,   //17
   CMD_SETDRAWMODE   //18
 } commCommand_t;
+
+
+//set qwiic micro oled display to confirm to the 128x32 oled used by the hadron
+#undef I2C_ADDRESS_SA0_1
+#undef LCDWIDTH
+#undef LCDHEIGHT
+#define I2C_ADDRESS_SA0_1 0b0111100
+#define LCDWIDTH      128
+#define LCDHEIGHT     32
+#define micro_oled_rotate_180
