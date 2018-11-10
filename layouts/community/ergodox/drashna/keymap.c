@@ -335,3 +335,75 @@ bool indicator_is_this_led_used_keyboard(uint8_t index) {
     return false;
   }
 }
+
+
+#ifdef RGB_MATRIX_ENABLE
+
+void suspend_power_down_keymap(void) {
+    rgb_matrix_set_suspend_state(true);
+}
+
+void suspend_wakeup_init_keymap(void) {
+    rgb_matrix_set_suspend_state(false);
+}
+
+void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
+
+
+void rgb_matrix_indicators_user(void) {
+  uint8_t this_mod = get_mods();
+  uint8_t this_led = host_keyboard_leds();
+  uint8_t this_osm = get_oneshot_mods();
+  switch (biton32(layer_state)) {
+    case _RAISE:
+      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
+    case _LOWER:
+      rgb_matrix_layer_helper(0x00, 0xFF, 0x00, false); break;
+    case _ADJUST:
+      rgb_matrix_layer_helper(0xFF, 0x00, 0x00, false); break;
+    default:
+      switch (biton32(default_layer_state)) {
+        case _QWERTY:
+          rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, true); break;
+        case _COLEMAK:
+          rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, true); break;
+        case _DVORAK:
+          rgb_matrix_layer_helper(0x00, 0xFF, 0x00, true); break;
+        case _WORKMAN:
+          rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, true); break;
+      }
+  }
+
+  switch (biton32(default_layer_state)) {
+    case _QWERTY:
+      rgb_matrix_set_color(42, 0x00, 0xFF, 0xFF); break;
+    case _COLEMAK:
+      rgb_matrix_set_color(42, 0xFF, 0x00, 0xFF); break;
+    case _DVORAK:
+      rgb_matrix_set_color(42, 0x00, 0xFF, 0x00); break;
+    case _WORKMAN:
+      rgb_matrix_set_color(42, 0xD9, 0xA5, 0x21); break;
+  }
+
+  if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
+    rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
+    rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
+  }
+  if (this_mod & MODS_CTRL_MASK || this_osm & MODS_CTRL_MASK) {
+    rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
+    rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
+    rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
+
+  }
+  if (this_mod & MODS_GUI_MASK || this_osm & MODS_GUI_MASK) {
+    rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
+  }
+  if (this_mod & MODS_ALT_MASK || this_osm & MODS_ALT_MASK) {
+    rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
+  }
+}
+
+void matrix_init_keymap(void) {
+  rgblight_mode(RGB_MATRIX_MULTISPLASH);
+}
+#endif //RGB_MATRIX_INIT
