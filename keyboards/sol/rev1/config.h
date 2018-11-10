@@ -101,7 +101,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLED_NUM 70
 #endif
 
-#define RGBLIGHT_RAINBOW_SWIRL_RANGE 1950
+#define RGBLIGHT_RAINBOW_SWIRL_RANGE 3600
 
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40
@@ -117,6 +117,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_VAL_STEP (RGBLIGHT_LIMIT_VAL / 10)
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
+
+#define RGBLIGHT_ANIMATIONS
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value for Helix keyboard
