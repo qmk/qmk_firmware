@@ -4,6 +4,20 @@
 
 GENTOO_WARNING="This script will make a USE change in order to ensure that that QMK works on your system. All changes will be sent to the the file /etc/portage/package.use/qmk_firmware -- please review it, and read Portage's output carefully before installing any packages on your system. You will also need to ensure that your kernel is compiled with support for the keyboard chip that you are using (e.g. enable Arduino for the Pro Micro). Further information can be found on the Gentoo wiki."
 
+read -rd '' SLACKWARE_WARNING << EOF
+You will need the following packages from slackbuilds.org:
+	arm-binutils
+	arm-gcc
+	avr-binutils
+	avr-gcc
+	avr-libc
+	avrdude
+	dfu-programmer
+	dfu-util
+	newlib
+
+EOF
+
 if grep ID /etc/os-release | grep -qE "fedora"; then
 	sudo dnf install \
 		arm-none-eabi-binutils-cs \
@@ -127,22 +141,8 @@ elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 		zip
 
 elif grep ID /etc/os-release | grep -q slackware; then
-	echo "You will need the following packages from slackbuilds.org:"
-	echo " avr-binutils"
-	echo " avr-gcc"
-	echo " avr-libc"
-	echo " avrdude"
-	echo " dfu-programmer"
-	echo " dfu-util"
-	echo " arm-binutils"
-	echo " arm-gcc"
-	echo " newlib"
-	echo ""
-	echo -n "Would you like to install them with sudo and sboinstall (y/N)? "
-	old_stty_cfg=$(stty -g)
-	stty raw -echo
-	answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
-	stty $old_stty_cfg
+	echo $SLACKWARE_WARNING
+	read -rp "Would you like to install them with sudo and sboinstall (y/N)? " answer
 	if echo "$answer" | grep -iq "^y" ;then
 		sudo sboinstall \
 			avr-binutils \
