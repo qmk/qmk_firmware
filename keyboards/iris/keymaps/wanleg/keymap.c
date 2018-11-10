@@ -10,14 +10,14 @@
 	K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C  \
   ) \
   LAYOUT_wrapper( \
-     K01,	K02,	K03,	K04,	K05,	K06,					K07,	K08,	K09,	K0A,	K0B,	K0C, \
-     K11,	K12,	K13,	K14,	K15,	K16,					K17,	K18,	K19,	K1A,	K1B,	K1C, \
-     K21,	K22,	K23,	K24,	K25,	K26,					K27,	K28,	K29,	K2A,	K2B,	K2C, \
-     K31,	K32,	K33,	K34,	K35,	K36,	GHERKIN,QWERTY,	K37,	K38,	K39,	K3A,	K3B,	K3C, \
+     K01,	K02,	K03,	K04,	K05,	K06,						K07,	K08,	K09,	K0A,	K0B,	K0C, \
+     K11,	K12,	K13,	K14,	K15,	K16,						K17,	K18,	K19,	K1A,	K1B,	K1C, \
+     K21,	K22,	K23,	K24,	K25,	K26,						K27,	K28,	K29,	K2A,	K2B,	K2C, \
+     K31,	K32,	K33,	K34,	K35,	K36,	GHERKIN,ONEHAND,	K37,	K38,	K39,	K3A,	K3B,	K3C, \
                                ONEHAND,	NUMBER,	ETCETERA,			KC_SPC,	DIRECTION,	KC_RGUI                  \
   )
 #define LAYOUT_iris_base_wrapper(...)       LAYOUT_iris_base(__VA_ARGS__)
-#define _________________BLANK_48__________________ KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSPC
+#define _________________BLANK_48__________________ KC_ESC, _______, _______, _______, _______, GHERKIN, GHERKIN, _______, _______, _______, _______, KC_BSPC
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -27,11 +27,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______________GherkinLike_1_______________,
     _______________GherkinLike_2_______________
   ),
-  [ONE] = LAYOUT_iris_base_wrapper(
+  [ONE] = LAYOUT_wrapper(
     _________________BLANK_48__________________,
     _______________Qwerty_Row__0_______________,
     _______________Qwerty_Row__1_______________,
-    _______________Qwerty_Row__2_______________
+    TD(TD_SFT_CAPS),  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,		NUMBER, KC_LSFT,		KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_T(KC_ENT),
+												_______,SUBTER, SH_T(KC_SPC),		SH_T(KC_SPC),SUPRA, _______
   ),
   [_QW] = LAYOUT_iris_base_wrapper(
     _________________BLANK_48__________________,
