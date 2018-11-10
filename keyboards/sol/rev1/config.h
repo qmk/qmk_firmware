@@ -101,7 +101,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGBLED_NUM 70
 #endif
 
-#define RGBLIGHT_RAINBOW_SWIRL_RANGE 3600
+#define RGBLIGHT_RAINBOW_SWIRL_RANGE 1950
 
 #ifdef IOS_DEVICE_ENABLE
   #define RGBLIGHT_LIMIT_VAL 40
