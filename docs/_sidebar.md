@@ -79,6 +79,7 @@
   * [Hand Wiring Guide](hand_wire.md)
   * [ISP Flashing Guide](isp_flashing_guide.md)
   * [ARM Debugging Guide](arm_debugging.md)
+  * [I2C Driver](i2c_driver.md)
 
 * For a Deeper Understanding
   * [How Keyboards Work](how_keyboards_work.md)
