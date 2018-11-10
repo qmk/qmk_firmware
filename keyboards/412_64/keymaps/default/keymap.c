@@ -6,7 +6,6 @@
 #define _LOWER 2
 
 // Readability keycodes
-#define _______ KC_TRNS
 #define LOWER   MO(_LOWER)
 #define RAISE   MO(_RAISE)
 
