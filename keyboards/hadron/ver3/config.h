@@ -27,6 +27,33 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
+
+//Audio
+#undef AUDIO_VOICES
+#undef C6_AUDIO
+
+#ifdef AUDIO_ENABLE
+    #define STARTUP_SONG SONG(PLANCK_SOUND)
+    // #define STARTUP_SONG SONG(NO_SOUND)
+
+    #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
+                                  SONG(COLEMAK_SOUND), \
+                                  SONG(DVORAK_SOUND) \
+                                }
+#endif
+
+//configure qwiic micro_oled driver for the 128x32 oled
+#ifdef QWIIC_MICRO_OLED_ENABLE
+
+#undef I2C_ADDRESS_SA0_1
+//#undef LCDWIDTH
+//#undef LCDHEIGHT
+#define I2C_ADDRESS_SA0_1 0b0111100
+#define LCDWIDTH      128
+#define LCDHEIGHT     32
+#define micro_oled_rotate_180
+
+#endif
 /*
  * Keyboard Matrix Assignments
  *
@@ -89,7 +116,6 @@
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
 /*
  * MIDI options
  */
@@ -100,7 +126,8 @@
 /* enable basic MIDI features:
    - MIDI notes can be sent when in Music mode is on
 */
-//#define MIDI_BASIC
+
+#define MIDI_BASIC
 
 /* enable advanced MIDI features:
    - MIDI notes can be added to the keymap
@@ -111,8 +138,7 @@
 //#define MIDI_ADVANCED
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
-//#define MIDI_TONE_KEYCODE_OCTAVES 1
-
+//#define MIDI_TONE_KEYCODE_OCTAVES 2
 //#define WS2812_LED_N 2
 //#define RGBLED_NUM WS2812_LED_N
 //#define WS2812_TIM_N 2

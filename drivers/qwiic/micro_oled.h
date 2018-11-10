@@ -52,15 +52,21 @@ void draw_char(uint8_t x, uint8_t y, uint8_t c, uint8_t color, uint8_t mode, uin
 void draw_string(uint8_t x, uint8_t y, char * string, uint8_t color, uint8_t mode, uint8_t font);
 
 #define I2C_ADDRESS_SA0_0 0b0111100
+#ifndef I2C_ADDRESS_SA0_1
 #define I2C_ADDRESS_SA0_1 0b0111101
+#endif
 #define I2C_COMMAND 0x00
 #define I2C_DATA 0x40
 
 #define PIXEL_OFF 0
 #define PIXEL_ON  1
 
+#ifndef LCDWIDTH
 #define LCDWIDTH      64
+#endif
+#ifndef LCDWIDTH
 #define LCDHEIGHT     48
+#endif
 #define FONTHEADERSIZE    6
 
 #define NORM        0
@@ -127,13 +133,3 @@ typedef enum CMD {
   CMD_SETCOLOR,   //17
   CMD_SETDRAWMODE   //18
 } commCommand_t;
-
-
-//set qwiic micro oled display to confirm to the 128x32 oled used by the hadron
-#undef I2C_ADDRESS_SA0_1
-#undef LCDWIDTH
-#undef LCDHEIGHT
-#define I2C_ADDRESS_SA0_1 0b0111100
-#define LCDWIDTH      128
-#define LCDHEIGHT     32
-#define micro_oled_rotate_180
