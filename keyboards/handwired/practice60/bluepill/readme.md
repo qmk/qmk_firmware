@@ -1,3 +1,3 @@
-# ChibiOS Test
+# Bluepill Based Practice 60 Board
 
-Test code for the stm32_f103 one key keyboard
+BluePill code for the practice 60

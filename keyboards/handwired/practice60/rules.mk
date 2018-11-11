@@ -10,4 +10,4 @@ BACKLIGHT_ENABLE = yes
 
 LAYOUTS = 60_ansi
 
-DEFAULT_FOLDER = practice60/bluepill
+DEFAULT_FOLDER = handwired/practice60/bluepill
