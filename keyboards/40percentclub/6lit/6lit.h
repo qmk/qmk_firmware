@@ -19,7 +19,7 @@
 #define ___ KC_NO
 
 #ifndef FLIP_HALF
-#define LAYOUT_split( \
+#define LAYOUT_ortho_2x6( \
 	L00, L01, L02, R00, R01, R02, \
 	L10, L11, L12, R10, R11, R12  \
 ) { \
@@ -29,7 +29,7 @@
 	{ R12, R11, R10 }, \
 }
 #else
-#define LAYOUT_split( \
+#define LAYOUT_ortho_2x6( \
 	L00, L01, L02, R00, R01, R02, \
 	L10, L11, L12, R10, R11, R12  \
 ) { \
@@ -40,7 +40,7 @@
 }
 #endif
 
-#define LAYOUT_macro( \
+#define LAYOUT_ortho_2x3( \
 	L00, L01, L02, \
 	L10, L11, L12  \
 ) { \
@@ -50,7 +50,8 @@
   { ___, ___, ___ }, \
 }
 
-#define LAYOUT LAYOUT_macro
+#define LAYOUT_macro LAYOUT_ortho_2x3
+#define LAYOUT_split LAYOUT_ortho_2x6
 
 #ifdef USE_I2C
   #error "I2C not Supported"
