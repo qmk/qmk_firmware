@@ -355,6 +355,12 @@ void rgb_matrix_indicators_user(void) {
   uint8_t this_led = host_keyboard_leds();
   uint8_t this_osm = get_oneshot_mods();
   switch (biton32(layer_state)) {
+    case _MODS:
+      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
+    case _GAMEPAD:
+      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
+    case _DIABLO:
+      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
     case _RAISE:
       rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
     case _LOWER:
@@ -372,17 +378,6 @@ void rgb_matrix_indicators_user(void) {
         case _WORKMAN:
           rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, true); break;
       }
-  }
-
-  switch (biton32(default_layer_state)) {
-    case _QWERTY:
-      rgb_matrix_set_color(42, 0x00, 0xFF, 0xFF); break;
-    case _COLEMAK:
-      rgb_matrix_set_color(42, 0xFF, 0x00, 0xFF); break;
-    case _DVORAK:
-      rgb_matrix_set_color(42, 0x00, 0xFF, 0x00); break;
-    case _WORKMAN:
-      rgb_matrix_set_color(42, 0xD9, 0xA5, 0x21); break;
   }
 
   if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
