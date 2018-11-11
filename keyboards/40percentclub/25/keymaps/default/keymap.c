@@ -1,4 +1,4 @@
-/* Copyright 2018 REPLACE_WITH_YOUR_NAME
+/* Copyright 2018
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,10 +21,6 @@
 // entirely and just use numbers.
 #define _QWERTY 0
 #define _LOWER  1
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
