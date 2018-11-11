@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "wait.h"
 #include "rgblight.h"
+#include "led_custom.h"
 
 #ifndef DEBOUNCE
 #   define DEBOUNCE 5
@@ -98,7 +99,7 @@ void matrix_init(void)
     wait_ms(500);
     LED_OFF();
 
-    palClearPad(GPIOA, 8);
+    palSetPad(GPIOA, 8);
 
     leds_init();
     matrix_init_quantum();
@@ -130,6 +131,7 @@ uint8_t matrix_scan(void)
         }
     }
 
+    backlight_task();
     rgblight_task();
 
     return 1;
@@ -193,7 +195,7 @@ static matrix_row_t read_cols(void)
     | ((palReadPad(GPIOA, 1)==PAL_HIGH) ? 0 : (1<<10))
     | ((palReadPad(GPIOA, 0)==PAL_HIGH) ? 0 : (1<<11))
     | ((palReadPad(GPIOC, 15)==PAL_HIGH) ? 0 : (1<<12))
-    | ((palReadPad(GPIOC, 14)==PAL_HIGH) ? 0 : (1<<13)); 
+    | ((palReadPad(GPIOC, 14)==PAL_HIGH) ? 0 : (1<<13));
 }
 
 /* Row pin configuration
@@ -229,6 +231,6 @@ static void select_row(uint8_t row)
         case 4:
             palSetPadMode(GPIOB, 7, PAL_MODE_OUTPUT_PUSHPULL);
             palClearPad(GPIOB, 7);
-            break; 
+            break;
     }
 }
