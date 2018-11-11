@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../../config.h"
 #define RGB_DI_PIN F6
 #define RGBLED_NUM 10
 #define RGBLIGHT_ANIMATIONS

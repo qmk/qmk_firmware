@@ -1,7 +1,5 @@
 #pragma once
 
-#include "../../config.h"
-
 #undef RGB_DI_PIN
 #undef RGBLED_NUM
 #define RGB_DI_PIN D2
