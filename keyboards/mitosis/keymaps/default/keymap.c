@@ -1,7 +1,7 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
-#include "mitosis.h"
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -15,7 +15,7 @@ enum mitosis_layers
 	_FUNCSHIFT
 };
 
-enum mitosis_keycodes 
+enum mitosis_keycodes
 {
   FNKEY = SAFE_RANGE,
   SHIFT
@@ -38,44 +38,45 @@ enum mitosis_macros
 #define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_MALT] = { /* Malt Layout, customised for reduced columns (ex: quote and shift locations) */
-  {KC_Q,    KC_P,    KC_Y,    KC_C,    KC_B,           KC_V,    KC_M,    KC_U,    KC_Z,    KC_L    },
-  {KC_A,    KC_N,    KC_I,    KC_S,    KC_F,           KC_D,    KC_T,    KC_H,    KC_O,    KC_R    },
-  {KC_COMM, KC_DOT,  KC_J,    KC_G,    KC_SLSH,        KC_SCLN, KC_W,    KC_K,    KC_QUOT, KC_X    },
-  {XXXXXXX, M(VOLU), M(ESCM), KC_TAB,  KC_LCTL,        KC_LALT, KC_ENT,  KC_DEL,  KC_PGUP, XXXXXXX },
-  {XXXXXXX, M(VOLD), KC_LGUI, KC_E,    FNKEY,          SHIFT,   KC_SPC,  KC_BSPC, KC_PGDN, XXXXXXX }
-},
+
+  [_MALT] = LAYOUT( /* Malt Layout, customised for reduced columns (ex: quote and shift locations) */
+    KC_Q,    KC_P,    KC_Y,    KC_C,    KC_B,           KC_V,    KC_M,    KC_U,    KC_Z,    KC_L,
+    KC_A,    KC_N,    KC_I,    KC_S,    KC_F,           KC_D,    KC_T,    KC_H,    KC_O,    KC_R,
+    KC_COMM, KC_DOT,  KC_J,    KC_G,    KC_SLSH,        KC_SCLN, KC_W,    KC_K,    KC_QUOT, KC_X,
+             M(VOLU), M(ESCM), KC_TAB,  KC_LCTL,        KC_LALT, KC_ENT,  KC_DEL,  KC_PGUP,
+             M(VOLD), KC_LGUI, KC_E,    FNKEY,          SHIFT,   KC_SPC,  KC_BSPC, KC_PGDN
+  ),
 
 
-[_SHIFTED] = { /* Shifted Layer, layered so that tri_layer can be used, or selectively
-                                 able to modify individual key's shifted behaviour */
-  {_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ },
-  {_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ },
-  {_______, _______, _______, _______, _______,       _______, _______, _______, _______, _______ },
-  {XXXXXXX, _______, _______, _______, _______,       _______, _______, _______, _______, XXXXXXX },
-  {XXXXXXX, _______, _______, _______, _______,       _______, _______, _______, _______, XXXXXXX }
-},
+  [_SHIFTED] = LAYOUT( /* Shifted Layer, layered so that tri_layer can be used, or selectively
+                                         able to modify individual key's shifted behaviour */
+    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+    _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______,
+             _______, _______, _______, _______,       _______, _______, _______, _______,
+             _______, _______, _______, _______,       _______, _______, _______, _______
+  ),
 
 
 
-[_FUNCTION] = { /* Function Layer, primary alternative layer featuring numpad on right hand,
-                                   cursor keys on left hand, and all symbols*/
-  {KC_AMPR, KC_PERC, KC_UP,   KC_CIRC, KC_PIPE,       KC_LBRC, KC_7,    KC_8,    KC_9,    KC_MINS },
-  {KC_AT,   KC_LEFT, KC_DOWN, KC_RGHT, KC_HASH,       KC_LPRN, KC_4,    KC_5,    KC_6,    KC_PLUS },
-  {KC_ASTR, KC_UNDS, KC_EXLM, KC_DLR,  KC_BSLS,       KC_LCBR, KC_1,    KC_2,    KC_3,    KC_ENT  },
-  {XXXXXXX, KC_HOME, KC_GRV,  KC_PWR,  _______,       _______, KC_EQL,  KC_TILD, KC_DOT,  XXXXXXX },
-  {XXXXXXX, KC_END,  _______, _______, _______,       _______, KC_0,    _______, KC_PSCR, XXXXXXX }
-},
+  [_FUNCTION] = LAYOUT( /* Function Layer, primary alternative layer featuring numpad on right hand,
+                                           cursor keys on left hand, and all symbols*/
+    KC_AMPR, KC_PERC, KC_UP,   KC_CIRC, KC_PIPE,       KC_LBRC, KC_7,    KC_8,    KC_9,    KC_MINS,
+    KC_AT,   KC_LEFT, KC_DOWN, KC_RGHT, KC_HASH,       KC_LPRN, KC_4,    KC_5,    KC_6,    KC_PLUS,
+    KC_ASTR, KC_UNDS, KC_EXLM, KC_DLR,  KC_BSLS,       KC_LCBR, KC_1,    KC_2,    KC_3,    KC_ENT,
+             KC_HOME, KC_GRV,  KC_PWR,  _______,       _______, KC_EQL,  KC_TILD, KC_DOT,
+             KC_END,  _______, _______, _______,       _______, KC_0,    _______, KC_PSCR
+  ),
 
 
-[_FUNCSHIFT] = { /* Function Shifted Layer, secondary alternative layer with closing brackets,
-                                            and F-keys under their numpad equivalents*/
-  {_______, _______, _______, _______, _______,       KC_RBRC, KC_F7,   KC_F8,   KC_F9,   KC_F10  },
-  {_______, _______, _______, _______, _______,       KC_RPRN, KC_F4,   KC_F5,   KC_F6,   KC_F11  },
-  {_______, _______, _______, _______, _______,       KC_RCBR, KC_F1,   KC_F2,   KC_F3,   KC_F12  },
-  {XXXXXXX, _______, _______, _______, _______,       _______, _______, _______, _______, XXXXXXX },
-  {XXXXXXX, _______, _______, _______, _______,       _______, _______, _______, _______, XXXXXXX }
-}
+  [_FUNCSHIFT] = LAYOUT( /* Function Shifted Layer, secondary alternative layer with closing brackets,
+                                                    and F-keys under their numpad equivalents*/
+    _______, _______, _______, _______, _______,       KC_RBRC, KC_F7,   KC_F8,   KC_F9,   KC_F10,
+    _______, _______, _______, _______, _______,       KC_RPRN, KC_F4,   KC_F5,   KC_F6,   KC_F11,
+    _______, _______, _______, _______, _______,       KC_RCBR, KC_F1,   KC_F2,   KC_F3,   KC_F12,
+             _______, _______, _______, _______,       _______, _______, _______, _______,
+             _______, _______, _______, _______,       _______, _______, _______, _______
+  )
 
 };
 
@@ -128,7 +129,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                   return MACRO(T(ESC), END);
                 }
           	}
-          	break;     
+          	break;
 
         break;
     }
@@ -183,7 +184,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   //FUNCSHIFT has been shifted by the SHIFT handling, some keys need to be excluded
   if (layer == _FUNCSHIFT) {
-  	//F1-F12 should be sent as unshifted keycodes, 
+  	//F1-F12 should be sent as unshifted keycodes,
   	//and ] needs to be unshifted or it is sent as }
   	if ( (keycode >= KC_F1 && keycode <= KC_F12)
   	   || keycode == KC_RBRC ) {
@@ -200,7 +201,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
-    
+
     switch (layer) {
     	case _MALT:
     		set_led_off;

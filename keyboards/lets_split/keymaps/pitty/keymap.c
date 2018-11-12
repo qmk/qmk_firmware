@@ -1,6 +1,5 @@
-#include "lets_split.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
+
 
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;

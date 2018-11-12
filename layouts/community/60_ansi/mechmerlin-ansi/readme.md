@@ -10,9 +10,8 @@ It is used on his
 [NPKC KC60](https://github.com/qmk/qmk_firmware/tree/master/keyboards/kc60)   
 
 ## Keymap Notes
-- Highly influenced by the KBP V60 and WKL B.Face standard layouts
-- Does not support any form of inswitch or underglow lighting as Merlin hates them.
-- Arrow toggle switch is FN + Space
+- Arrow toggle switch is tapping the `FN` key once. 
+- `Caps Lock` can be held to act as a `Left Control`
 
 ### Build
-To build this keymap, simply run `make your_keyboard:mechmerlin-ansi`.
+To build the firmware file associated with this keymap, simply run `make your_keyboard:mechmerlin-ansi`.

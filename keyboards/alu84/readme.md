@@ -5,10 +5,8 @@ ALU84
 
 A 75% keyboard made and sold by MECHKEYS [More info on MECHKEYS](https://mechkeys.ca).
 
-Keyboard Maintainer: [TurboMech](https://github.com/TurboMech)
-
-Hardware Supported: ALU84
-
+Keyboard Maintainer: [TurboMech](https://github.com/TurboMech)  
+Hardware Supported: ALU84  
 Hardware Availability: [MECHKEYS](https://mechkeys.ca)
 
 Make example for this keyboard (after setting up your build environment):

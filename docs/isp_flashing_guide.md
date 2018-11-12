@@ -19,58 +19,79 @@ If you're having trouble flashing/erasing your board, and running into cryptic e
     Memory write error, use debug for more info.
     commands.c:360: Error writing memory data. (err -4)
 
-You're likely going to need to ISP flash your board/device to get it working again. Luckily, this process is pretty straight-forward, provided you have any extra programmable keyboard, Arduino, or Teensy 2.0/Teensy 2.0++. There are also dedicated ISP flashers available for this, but most cost >$15, and it's assumed that if you are googling this error, this is the first you've heard about ISP flashing, and don't have one readily available (whereas you might have some other AVR board). __We'll be using a Teensy 2.0 with Windows 10 in this guide__ - if you are comfortable doing this on another system, please consider editing this guide and contributing those instructions!
+You're likely going to need to ISP flash your board/device to get it working again. Luckily, this process is pretty straight-forward, provided you have any extra programmable keyboard, Pro Micro, or Teensy 2.0/Teensy 2.0++. There are also dedicated ISP flashers available for this, but most cost >$15, and it's assumed that if you are googling this error, this is the first you've heard about ISP flashing, and don't have one readily available (whereas you might have some other AVR board). __We'll be using a Teensy 2.0 or Pro Micro with Windows 10 in this guide__ - if you are comfortable doing this on another system, please consider editing this guide and contributing those instructions!   
 
 ## Software Needed
 
-* [The Arduino IDE](https://www.arduino.cc/en/Main/Software)
-* [Teensyduino](https://www.pjrc.com/teensy/td_download.html) (if you're using a Teensy)
-* [WinAVR](http://www.ladyada.net/learn/avr/setup-win.html) (Windows)
+* [Teensy Loader](https://www.pjrc.com/teensy/loader.html) (if using a Teensy)
+* QMK Toolbox (flash as usual - be sure to select the correct MCU) or `avrdude` via [WinAVR](http://www.ladyada.net/learn/avr/setup-win.html) (for Teensy & Pro Micro)
 
 ## Wiring
 
 This is pretty straight-forward - we'll be connecting like-things to like-things in the following manner:
 
-    Flasher B0  <-> Keyboard RESET
-    Flasher B1  <-> Keyboard B1 (SCLK)
-    Flasher B2  <-> Keyboard B2 (MOSI)
-    Flasher B3  <-> Keyboard B3 (MISO)
-    Flasher VCC <-> Keyboard VCC
-    Flasher GND <-> Keyboard GND
+### Teensy 2.0
 
-## The ISP Firmware
+    Teensy B0  <-> Keyboard RESET
+    Teensy B1  <-> Keyboard B1 (SCLK)
+    Teensy B2  <-> Keyboard B2 (MOSI)
+    Teensy B3  <-> Keyboard B3 (MISO)
+    Teensy VCC <-> Keyboard VCC
+    Teensy GND <-> Keyboard GND
+    
+### Pro Micro
+
+    Pro Micro 10 (B6)  <-> Keyboard RESET
+    Pro Micro 15 (B1)  <-> Keyboard B1 (SCLK)
+    Pro Micro 16 (B2)  <-> Keyboard B2 (MOSI)
+    Pro Micro 14 (B3)  <-> Keyboard B3 (MISO)
+    Pro Micro VCC      <-> Keyboard VCC
+    Pro Micro GND      <-> Keyboard GND
+
+## The ISP Firmware (now pre-compiled)
+
+The only difference between the .hex files below is which pin is connected to RESET. You can use them on other boards as well, as long as you're aware of the pins being used. If for some reason neither of these pins are available, [create an issue](https://github.com/qmk/qmk_firmware/issues/new), and we can generate one for you!
+
+* Teensy 2.0: [`util/teensy_2.0_ISP_B0.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/teensy_2.0_ISP_B0.hex) (`B0`)
+* Pro Micro: [`util/pro_micro_ISP_B6_10.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/pro_mico_ISP_B6_10.hex) (`B6/10`)
+
+**Flash your Teenys/Pro Micro with one of these and continue - you won't need the file after flashing your ISP device.**
+
+## Just the Bootloader File
+
+If you just want to get things back to normal, you can flash only a bootloader from [`util/` folder](https://github.com/qmk/qmk_firmware/tree/master/util), and use your normal process to flash the firmware afterwards. Be sure to flash the correct bootloader for your chip:
+
+* [`atmega32u4`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32u4_1_0_0.hex) - Most keyboards, Planck Rev 1-5, Preonic Rev 1-2
+* [`at90usb1286`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_at90usb128x_1_0_1.hex) - Planck Light Rev 1
+
+If you're not sure what your board uses, look in the `rules.mk` file for the keyboard in QMK. The `MCU =` line will have the value you need. It may differ between different versions of the board.
+
+### Advanced/Production Techniques
+
+If you'd like to flash both the bootloader **and** the regular firmware at the same time, you need to combine the files. 
+
+1. Open the original firmware .hex file in a text editor
+2. Remove the last line (which should be `:00000001FF` - this is an EOF message)
+3. Copy the entire bootloader's contents onto a new line (with no empty lines between) and paste it at the end of the original file
+4. Save it as a new file by naming it `<keyboard>_<keymap>_production.hex`
+
+It's possible to use other bootloaders here in the same way, but __you need a bootloader__, otherwise you'll have to use ISP again to write new firmware to your keyboard.
+
+## Flashing Your Bootloader/Production File
 
 Make sure your keyboard is unplugged from any device, and plug in your Teensy.
 
-1. Run Arduino after you have everything installed
-2. Select `Tools > Board * > Teensy 2.0`
-3. Click `File > Examples > 11.ArduinoISP > ArduinoISP`
+### QMK Toolbox
 
-Then scroll down until you see something that looks like this block of code:
+1. `AVRISP device connected` will show up in yellow
+2. Select the correct bootloader/production .hex file with the `Open` dialog (spaces can't be in the path)
+3. Be sure the correct `Microcontroller` option is selected
+4. Hit `Flash`
+5. Wait, as nothing will output for a while, especially with production files
 
-    // Configure which pins to use:
+If the verification and fuse checks are ok, you're done! Your board may restart automatically, otherwise, unplug your Teensy and plug in your keyboard - you can leave your Teensy wired to your keyboard while testing things, but it's recommended that you desolder it/remove the wiring once you're sure everything works.
 
-    // The standard pin configuration.
-    #ifndef ARDUINO_HOODLOADER2
-
-    #define RESET     0  // Use 0 (B0) instead of 10
-    #define LED_HB    11 // Use 11 (LED on the Teensy 2.0)
-    #define LED_ERR   8  // This won't be used unless you have an LED hooked-up to 8 (D3)
-    #define LED_PMODE 7  // This won't be used unless you have an LED hooked-up to 7 (D2)
-
-And make the changes in the last four lines. If you're using something besides the Teensy 2.0, you'll want to choose something else that makes sense for `LED_HB`. We define `RESET` as `0`/`B0` because that's what's close - if you want to use another pin for some reason, [you can use the pinouts to choose something else](https://www.pjrc.com/teensy/pinout.html).
-
-Once you've made your changes, you can click the Upload button (right arrow), which will open up the Teensy flasher app - you'll need to press the reset button on the Teensy the first time, but after that, it's automatic (you shouldn't be flashing this more than once, though). Once flashed, the orange LED on the Teensy will flash on and off, indicating it's ready for some action.
-
-## The `.hex` File
-
-Before flashing your firmware, you're going to need to and do a little preparation. We'll be appending [this bootloader (also a .hex file)](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32u4_1_0_0.hex) to the end of our firmware by opening the original .hex file in a text editor, and removing the last line, which should be `:00000001FF` (this is an EOF message). After that's been removed, copy the entire bootloader's contents and paste it at the end of the original file, and save it.
-
-It's possible to use other bootloaders here in the same way, but __you need a bootloader__, otherwise you'll have to ISP to write new firmware to your keyboard.
-
-## Flashing Your Firmware
-
-Make sure your keyboard is unplugged from any device, and plug in your Teensy.
+### Command Line
 
 Open `cmd` and navigate to your where your modified .hex file is. We'll pretend this file is called `main.hex`, and that your Teensy 2.0 is on the `COM3` port - if you're unsure, you can open your Device Manager, and look for `Ports > USB Serial Device`. Use that COM port here. You can confirm it's the right port with:
 

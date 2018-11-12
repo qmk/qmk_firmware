@@ -715,14 +715,17 @@ void send_mouse(report_mouse_t *report) {
     osalSysUnlock();
     return;
   }
-  osalSysUnlock();
 
-  /* TODO: LUFA manually waits for the endpoint to become ready
-   * for about 10ms for mouse, kbd, system; 1ms for nkro
-   * is this really needed?
-   */
-
-  osalSysLock();
+  if(usbGetTransmitStatusI(&USB_DRIVER, MOUSE_IN_EPNUM)) {
+    /* Need to either suspend, or loop and call unlock/lock during
+     * every iteration - otherwise the system will remain locked,
+     * no interrupts served, so USB not going through as well.
+     * Note: for suspend, need USB_USE_WAIT == TRUE in halconf.h */
+    if (osalThreadSuspendTimeoutS(&(&USB_DRIVER)->epc[MOUSE_IN_EPNUM]->in_state->thread, MS2ST(10)==MSG_TIMEOUT)) {
+      osalSysUnlock();
+      return;
+    }
+  }
   usbStartTransmitI(&USB_DRIVER, MOUSE_IN_EPNUM, (uint8_t *)report, sizeof(report_mouse_t));
   osalSysUnlock();
 }

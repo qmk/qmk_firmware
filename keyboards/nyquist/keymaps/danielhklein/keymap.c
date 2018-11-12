@@ -1,6 +1,4 @@
-#include "nyquist.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 /*
  Keymap is loosely based on DivergeJM's Nyquist keymap
@@ -34,7 +32,7 @@ enum custom_keycodes {
 
   // Enable these functions using FUNC(n) macro.
   const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
-      [0] = LT(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Backspace, 
+      [0] = LT(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Backspace,
       [1] = LT(_RAISE, KC_BSPC),     //Hold for momentary Raise layer, Tap for Space,
       [2] = MO(_ARROW), //Hold for momentary Arrow
    };
@@ -53,7 +51,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* QWERTY 
+/* QWERTY
  * .----------------------------------------.     .-----------------------------------------.
  * | Esc |   1  |   2  |   3  |   4  |   5  |     |   6  |   7  |   8  |   9  |   0  |  -   |
  * |-----+------+------+------+------+------|     |------+------+------+------+------+------|
@@ -68,12 +66,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT(
-  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,      KC_9,    KC_0,    KC_MINS,  
-  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,      KC_O,    KC_P,    KC_ENT, 
-  KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,    KC_SCLN, KC_QUOT, 
-  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,  KC_SLSH, KC_RSFT, 
-  ARW,     KC_LCTL, KC_LALT, KC_LGUI, BSP_RSE, BSP_RSE, SPC_LWR, SPC_LWR, KC_RGUI,   KC_RALT, KC_RCTL, KC_DEL 
-  ),  
+  KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,      KC_9,    KC_0,    KC_MINS,
+  KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,      KC_O,    KC_P,    KC_ENT,
+  KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,      KC_L,    KC_SCLN, KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM,   KC_DOT,  KC_SLSH, KC_RSFT,
+  ARW,     KC_LCTL, KC_LALT, KC_LGUI, BSP_RSE, BSP_RSE, SPC_LWR, SPC_LWR, KC_RGUI,   KC_RALT, KC_RCTL, KC_DEL
+  ),
 
 /* Raise
  * ,-----------------------------------------.    .-----------------------------------------.
@@ -89,12 +87,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'    `-----------------------------------------'
  */
 
-[_RAISE] = LAYOUT( 
-  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_PEQL, KC_PSLS, KC_PAST, KC_MINS,  KC_BSLS, KC_GRV, 
+[_RAISE] = LAYOUT(
+  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_PEQL, KC_PSLS, KC_PAST, KC_MINS,  KC_BSLS, KC_GRV,
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_7,    KC_8,    KC_9,    KC_PPLS,  KC_LBRC, KC_RBRC,
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_4,    KC_5,    KC_6,    KC_PENT,  XXXXXXX, XXXXXXX,
   _______,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_1,    KC_2,    KC_3,    KC_SPC,   XXXXXXX, XXXXXXX,
-  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  KC_0,    KC_0,    KC_DOT,  KC_BSPC,  XXXXXXX, XXXXXXX 
+  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  KC_0,    KC_0,    KC_DOT,  KC_BSPC,  XXXXXXX, XXXXXXX
 ),
 
 /* Lower
@@ -111,12 +109,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'    `-----------------------------------------'
 */
 
-[_LOWER] = LAYOUT( 
-  KC_F1,    KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
-  KC_F7,    KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
-  KC_MPLY,  KC_MUTE, KC_VOLD,  KC_VOLU, KC_MPRV, KC_MNXT, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
-  RGB_TOG,  RGB_MOD, RGB_RMOD, RGB_HUI, RGB_HUD, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
-  RGB_SAI,  RGB_SAD, RGB_VAI,  RGB_VAD, XXXXXXX, XXXXXXX, _______,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX 
+[_LOWER] = LAYOUT(
+  KC_F1,    KC_F2,   KC_F3,    KC_F4,   KC_F5,   KC_F6,   XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_F7,    KC_F8,   KC_F9,    KC_F10,  KC_F11,  KC_F12,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  KC_MPLY,  KC_MUTE, KC_VOLD,  KC_VOLU, KC_MPRV, KC_MNXT, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  RGB_TOG,  RGB_MOD, RGB_RMOD, RGB_HUI, RGB_HUD, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+  RGB_SAI,  RGB_SAD, RGB_VAI,  RGB_VAD, XXXXXXX, XXXXXXX, _______,  _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
 /* Arrow
@@ -133,12 +131,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------'     `----------------------------------------'
  */
 
-[_ARROW] = LAYOUT( 
-  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, 
+[_ARROW] = LAYOUT(
+  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, KC_UP,   XXXXXXX,  XXXXXXX, XXXXXXX,
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT,  XXXXXXX, XXXXXXX,
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,
-  _______,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX 
+  _______,  XXXXXXX,  XXXXXXX,  _______,  XXXXXXX,  XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX
 ),
 
 };

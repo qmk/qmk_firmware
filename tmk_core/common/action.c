@@ -120,7 +120,7 @@ void process_hand_swap(keyevent_t *event) {
 }
 #endif
 
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
 bool disable_action_cache = false;
 
 void process_record_nocache(keyrecord_t *record)
@@ -258,10 +258,10 @@ void process_action(keyrecord_t *record, action_t action)
                         if (event.pressed) {
                             if (tap_count == 0) {
                                 dprint("MODS_TAP: Oneshot: 0\n");
-                                register_mods(mods);
+                                register_mods(mods | get_oneshot_mods());
                             } else if (tap_count == 1) {
                                 dprint("MODS_TAP: Oneshot: start\n");
-                                set_oneshot_mods(mods);
+                                set_oneshot_mods(mods | get_oneshot_mods());
                     #if defined(ONESHOT_TAP_TOGGLE) && ONESHOT_TAP_TOGGLE > 1
                             } else if (tap_count == ONESHOT_TAP_TOGGLE) {
                                 dprint("MODS_TAP: Toggling oneshot");
@@ -270,7 +270,7 @@ void process_action(keyrecord_t *record, action_t action)
                                 register_mods(mods);
                     #endif
                             } else {
-                                register_mods(mods);
+                                register_mods(mods | get_oneshot_mods());
                             }
                         } else {
                             if (tap_count == 0) {
@@ -773,6 +773,13 @@ void register_code(uint8_t code)
     else if IS_CONSUMER(code) {
         host_consumer_send(KEYCODE2CONSUMER(code));
     }
+
+    #ifdef MOUSEKEY_ENABLE
+      else if IS_MOUSEKEY(code) {
+        mousekey_on(code);
+        mousekey_send();
+      }
+    #endif
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
@@ -832,6 +839,12 @@ void unregister_code(uint8_t code)
     else if IS_CONSUMER(code) {
         host_consumer_send(0);
     }
+    #ifdef MOUSEKEY_ENABLE
+      else if IS_MOUSEKEY(code) {
+        mousekey_off(code);
+        mousekey_send();
+      }
+    #endif
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
