@@ -1,5 +1,5 @@
 /*
-Copyright 2017 IslandMan93
+Copyright 2018 MechMerlin
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,22 +15,21 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1257
+#define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    UniKeyboard
-#define PRODUCT         diverge3
-#define DESCRIPTION     Split 72 key keyboard
+#define MANUFACTURER    You
+#define PRODUCT         idobo
+#define DESCRIPTION     A custom keyboard
 
 /* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 8
+#define MATRIX_ROWS 5
+#define MATRIX_COLS 15
 
 /*
  * Keyboard Matrix Assignments
@@ -42,17 +41,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2, B6 }
+#define MATRIX_ROW_PINS { B0, B3, C7, B6, C6 }
+#define MATRIX_COL_PINS { F6, F5, F4, F1, E6, D5, D3, D2, D1, D0, D4, D6, D7, B4, B5 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION ROW2COL
+#define DIODE_DIRECTION COL2ROW
 
-#define BACKLIGHT_PIN C6
+#define BACKLIGHT_PIN B7
 #define BACKLIGHT_BREATHING
-#define BACKLIGHT_LEVELS 5
+#define BACKLIGHT_LEVELS 3
 
+#define RGB_DI_PIN F0
+#ifdef RGB_DI_PIN
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 16
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
+#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
@@ -60,6 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
 
+/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -69,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* If defined, GRAVE_ESC will always act as ESC when CTRL is held.
  * This is userful for the Windows task manager shortcut (ctrl+shift+esc).
  */
- #define GRAVE_ESC_CTRL_OVERRIDE
+// #define GRAVE_ESC_CTRL_OVERRIDE
 
 /*
  * Force NKRO
@@ -186,4 +194,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
+/*
+ * HD44780 LCD Display Configuration
+ */
+/*
+#define LCD_LINES           2     //< number of visible lines of the display
+#define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
+
+#define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
+
+#if LCD_IO_MODE
+#define LCD_PORT         PORTB        //< port for the LCD lines
+#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
+#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
+#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
+#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
+#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
+#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
+#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
+#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
+#define LCD_RS_PORT      LCD_PORT     //< port for RS line
+#define LCD_RS_PIN       3            //< pin  for RS line
+#define LCD_RW_PORT      LCD_PORT     //< port for RW line
+#define LCD_RW_PIN       2            //< pin  for RW line
+#define LCD_E_PORT       LCD_PORT     //< port for Enable line
+#define LCD_E_PIN        1            //< pin  for Enable line
 #endif
+*/
+
+/* Bootmagic Lite key configuration */
+// #define BOOTMAGIC_LITE_ROW 0
+// #define BOOTMAGIC_LITE_COLUMN 0

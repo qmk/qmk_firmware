@@ -1,5 +1,4 @@
-/* Copyright 2018 MechMerlin
- * Copyright 2018 Logan Huskins
+/* Copyright 2017 IslandMan93
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,4 +16,9 @@
 
 #pragma once
 
+
 // place overrides here
+#define MASTER_LEFT
+#define PERMISSIVE_HOLD
+#define TAPPING_TERM 150
+
