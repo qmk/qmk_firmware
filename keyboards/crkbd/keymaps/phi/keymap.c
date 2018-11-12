@@ -63,7 +63,7 @@ extern uint8_t is_master;
 #define KC_GK9     TD(TD_GARAKE9)
 #define KC_GK0R    TD(TD_GARAKE0_RAISE)
 #else
-#define KC_ESC_FN  LT(FUNC, KC_ESC)
+#define KC_ESC_FN  LT(FUNCTION, KC_ESC)
 #define KC_SFCL    KC_LSFT
 #define KC_GK1     KC_1
 #define KC_GK2     KC_2
