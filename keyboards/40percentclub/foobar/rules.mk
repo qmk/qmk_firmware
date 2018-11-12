@@ -81,3 +81,5 @@ HD44780_ENABLE = no 		    # Enable support for HD44780 based LCDs (+400)
 
 # Enable generic behavior for split boards
 SPLIT_KEYBOARD = yes
+
+LAYOUTS = ortho_3x10

@@ -18,7 +18,6 @@
   #include "protocol/serial.h"
 #endif
 
-#define _______ KC_TRNS
 #define LT3_TAB LT(3, KC_TAB)
 #define MT_RSFT_ENT MT(MOD_RSFT, KC_ENT)
 

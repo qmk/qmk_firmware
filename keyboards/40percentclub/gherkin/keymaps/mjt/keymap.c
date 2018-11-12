@@ -12,7 +12,6 @@ enum {
   TD_C_LALT = 2,
   TD_A_TAB = 3,
   TD_Q_ESC = 4,
-//   M(0)
 };
 
 //Friendly Layer Names
@@ -36,10 +35,6 @@ enum gherkin_keycodes {
   MACSLEEP,
   EXT_PLV
 };
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_ortho_3x10(
@@ -170,30 +165,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true;
 }
-
-
-/*
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  keyevent_t event = record->event;
-
-  switch (id) {
-        case 0: {
-            if (record->event.pressed) {
-                key_timer = timer_read(); // if the key is being pressed, we start the timer.
-            }
-            else { // this means the key was just released, so we can figure out how long it was pressed for (tap or "held down").
-                if (timer_elapsed(key_timer) > 150) { // 150 being 150ms, the threshhold we pick for counting something as a tap.
-                    return MACRO( D(LSFT), END  );
-                }
-                else {
-                    return MACRO( T(N), END  );
-                }
-            }
-            break;
-        }
-      }
-  return MACRO_NONE;
-}*/
 
 void matrix_init_user(void) {
     #ifdef AUDIO_ENABLE
