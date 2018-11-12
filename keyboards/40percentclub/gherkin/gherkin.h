@@ -1,5 +1,4 @@
-#ifndef GHERKIN_H
-#define GHERKIN_H
+#pragma once
 
 #include "quantum.h"
 
@@ -14,5 +13,3 @@
 	{ K30,   K31,   K32,   K33,   K34,   K35 }, \
 	{ K40,   K41,   K42,   K43,   K44,   K45 }  \
 }
-
-#endif
