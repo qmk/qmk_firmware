@@ -1,11 +1,7 @@
 /* serial.h backward compatibility */
 
-#ifndef SERIAL_PIN_DDR
- #define SERIAL_PIN_DDR DDRD
- #define SERIAL_PIN_PORT PORTD
- #define SERIAL_PIN_INPUT PIND
- #define SERIAL_PIN_MASK _BV(PD0)
- #define SERIAL_PIN_INTERRUPT INT0_vect
+#ifndef SOFT_SERIAL_PIN
+ #define SOFT_SERIAL_PIN D0
 #endif
 
 #ifndef SERIAL_SLAVE_BUFFER_LENGTH
