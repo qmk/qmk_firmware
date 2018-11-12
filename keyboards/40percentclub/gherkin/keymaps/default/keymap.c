@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
 #define FN1_Q LT(1, KC_Q)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -18,16 +17,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  keyevent_t event = record->event;
-    (void)event;
-
-  switch (id) {
-
-  }
-  return MACRO_NONE;
-}
 
 void matrix_init_user(void) {
 }

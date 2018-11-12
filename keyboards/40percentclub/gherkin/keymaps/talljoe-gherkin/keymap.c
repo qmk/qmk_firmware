@@ -4,8 +4,6 @@
 #define ST_BOLT QK_STENO_BOLT
 #define ST_GEM  QK_STENO_GEMINI
 
-#define XXXXXXX KC_NO
-
 enum keyboard_layers {
   _QWERTY,
   _RAISE,
