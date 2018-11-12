@@ -96,6 +96,9 @@ Use the `keyboard_name` object to set the name of the keyboard. The `bootloader`
     "keyboard_name": "Numpad",
     "url": "",
     "maintainer": "qmk",
+    "tags": {
+        "form_factor": "numpad"
+    },
     "width": 4,
     "height": 5,
     "layouts": {
