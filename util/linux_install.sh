@@ -112,12 +112,15 @@ elif grep ID /etc/os-release | grep -q sabayon; then
 
 elif grep ID /etc/os-release | grep -qE "opensuse|tumbleweed"; then
 	CROSS_AVR_GCC=cross-avr-gcc8
+	CROSS_ARM_GCC=cross-arm-none-gcc8
 	if grep ID /etc/os-release | grep -q "15.0"; then
 		CROSS_AVR_GCC=cross-avr-gcc7
+		CROSS_ARM_GCC=cross-arm-none-gcc7
 	fi
 	sudo zypper install \
 		avr-libc \
 		$CROSS_AVR_GCC \
+		$CROSS_ARM_GCC \
 		cross-avr-binutils \
 		cross-arm-none-newlib-devel \
 		cross-arm-binutils cross-arm-none-newlib-devel \
