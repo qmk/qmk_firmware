@@ -43,8 +43,8 @@ uint16_t fontMapWidth;
 #define swap(a, b) { uint8_t t = a; a = b; b = t; }
 
 uint8_t micro_oled_transfer_buffer[20];
-static uint8_t micro_oled_screen_current[384] = { 0 };
-static uint8_t micro_oled_screen_buffer[] = {
+static uint8_t micro_oled_screen_current[LCDWIDTH*LCDWIDTH/8] = { 0 };
+static uint8_t micro_oled_screen_buffer[LCDWIDTH*LCDWIDTH/8] = {0};
 /* LCD Memory organised in 64 horizontal pixel and 6 rows of byte
    B  B .............B  -----
    y  y .............y        \
@@ -63,7 +63,7 @@ static uint8_t micro_oled_screen_buffer[] = {
   */
 
 // QMK Logo - generated at http://www.majer.ch/lcd/adf_bitmap.php
-
+/*
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 0x00, 0xF0, 0xF0, 0x00, 0x00, 0x00, 0xF0, 0xF0, 0x00, 0x00,
@@ -104,7 +104,7 @@ static uint8_t micro_oled_screen_buffer[] = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 0x00, 0x00, 0x00, 0x00
 };
-
+*/
 void micro_oled_init(void) {
 
   i2c_init();
@@ -117,12 +117,12 @@ void micro_oled_init(void) {
   send_command(0x80);          // the suggested ratio 0x80
 
   send_command(SETMULTIPLEX);      // 0xA8
-  send_command(0x2F);
+  send_command(LCDHEIGHT - 1);
 
   send_command(SETDISPLAYOFFSET);    // 0xD3
-  send_command(0x0);         // no offset
+  send_command(0x00);         // no offset
 
-  send_command(SETSTARTLINE | 0x0);  // line #0
+  send_command(SETSTARTLINE | 0x00);  // line #0
 
   send_command(CHARGEPUMP);      // enable charge pump
   send_command(0x14);
@@ -130,6 +130,7 @@ void micro_oled_init(void) {
   send_command(NORMALDISPLAY);     // 0xA6
   send_command(DISPLAYALLONRESUME);  // 0xA4
 
+//display at regular orientation
   send_command(SEGREMAP | 0x1);
   send_command(COMSCANDEC);
 
@@ -138,10 +139,16 @@ void micro_oled_init(void) {
   send_command(SEGREMAP);
   send_command(COMSCANINC);
 #endif
+//test diff with AVR ssd1306 driver
+  send_command(MEMORYMODE);
+  send_command(0x00);
 
   send_command(SETCOMPINS);      // 0xDA
+if (LCDHEIGHT > 32) {
   send_command(0x12);
-
+} else {
+  send_command(0x02);
+}
   send_command(SETCONTRAST);     // 0x81
   send_command(0x8F);
 
@@ -201,7 +208,8 @@ void clear_screen(void) {
     To clear GDRAM inside the LCD controller.
 */
 void clear_buffer(void) {
-  memset(micro_oled_screen_buffer, 0, 384);
+//384
+  memset(micro_oled_screen_buffer, 0, LCDWIDTH*LCDWIDTH/8);
 }
 
 /** \brief Invert display.
@@ -230,18 +238,18 @@ void send_buffer(void) {
   uint8_t i, j;
 
   uint8_t page_addr = 0xFF;
-  for (i = 0; i < 6; i++) {
+  for (i = 0; i < LCDHEIGHT/8; i++) {
     uint8_t col_addr = 0xFF;
-    for (j = 0; j < 0x40; j++) {
-      if (micro_oled_screen_buffer[i*0x40+j] != micro_oled_screen_current[i*0x40+j]) {
+    for (j = 0; j < LCDWIDTH; j++) {
+      if (micro_oled_screen_buffer[i*LCDWIDTH+j] != micro_oled_screen_current[i*LCDWIDTH+j]) {
         if (page_addr != i) {
           set_page_address(i);
         }
         if (col_addr != j) {
           set_column_address(j);
         }
-        send_data(micro_oled_screen_buffer[i*0x40+j]);
-        micro_oled_screen_current[i*0x40+j] = micro_oled_screen_buffer[i*0x40+j];
+        send_data(micro_oled_screen_buffer[i*LCDWIDTH+j]);
+        micro_oled_screen_current[i*LCDWIDTH+j] = micro_oled_screen_buffer[i*LCDWIDTH+j];
         col_addr = j + 1;
       }
     }

@@ -57,7 +57,6 @@ void draw_string(uint8_t x, uint8_t y, char * string, uint8_t color, uint8_t mod
 #endif
 #define I2C_COMMAND 0x00
 #define I2C_DATA 0x40
-
 #define PIXEL_OFF 0
 #define PIXEL_ON  1
 

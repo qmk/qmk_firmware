@@ -46,8 +46,6 @@
 #ifdef QWIIC_MICRO_OLED_ENABLE
 
 #undef I2C_ADDRESS_SA0_1
-//#undef LCDWIDTH
-//#undef LCDHEIGHT
 #define I2C_ADDRESS_SA0_1 0b0111100
 #define LCDWIDTH      128
 #define LCDHEIGHT     32

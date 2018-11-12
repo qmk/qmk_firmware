@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "rev3.h"
+#include "ver3.h"
 #include "qwiic.h"
 
 #include "action_layer.h"
@@ -22,35 +22,34 @@
 #ifdef QWIIC_MICRO_OLED_ENABLE
 
 static uint8_t layer;
-static bool queue_for_send = false;
+static bool queue_for_send = false; 
 static uint8_t encoder_value = 32;
 
 void draw_ui(void) {
   clear_buffer();
   draw_string(0, 2, "LAYER", PIXEL_ON, NORM, 0);
-  draw_rect_filled_soft(32, 0, 11, 11, PIXEL_ON, NORM);
-  draw_char(35, 2, layer + 0x30, PIXEL_ON, XOR, 0);
+  draw_rect_filled_soft(32, 1, 9, 9, PIXEL_ON, NORM);
+  draw_char(34, 2, layer + 0x30, PIXEL_ON, XOR, 0);
 
-#define MATRIX_DISPLAY_X 46
-#define MATRIX_DISPLAY_Y 1
+#define MATRIX_DISPLAY_X 0
+#define MATRIX_DISPLAY_Y 18
 
   for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
     for (uint8_t y = 0; y < MATRIX_COLS; y++) {
-      if (x < 4)
-        draw_pixel(MATRIX_DISPLAY_X + 2 + y, MATRIX_DISPLAY_Y + 2 + x, (matrix_get_row(x) & (1 << y)) > 0, NORM);
-      else
-        draw_pixel(MATRIX_DISPLAY_X + 8 + y, MATRIX_DISPLAY_Y - 2 + x, (matrix_get_row(x) & (1 << y)) > 0, NORM);
+      draw_pixel(MATRIX_DISPLAY_X + y + 2, MATRIX_DISPLAY_Y + x + 2,(matrix_get_row(x) & (1 << y)) > 0, NORM);
     }
-  }
-  draw_rect_soft(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 16, 8, PIXEL_ON, NORM);
-
-
+  } 
+  draw_rect_soft(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 19, 9, PIXEL_ON, NORM);
+  //hadron oled location on thumbnail
+  draw_rect_filled_soft(MATRIX_DISPLAY_X + 14, MATRIX_DISPLAY_Y + 2, 3, 1, PIXEL_ON, NORM);
+/*
   draw_rect_soft(0, 13, 64, 6, PIXEL_ON, NORM);
   draw_line_vert(encoder_value, 13, 6, PIXEL_ON, NORM);
 
+*/
 
-#define MOD_DISPLAY_X 0
-#define MOD_DISPLAY_Y 3
+#define MOD_DISPLAY_X 30
+#define MOD_DISPLAY_Y 18
 
   uint8_t mods = get_mods();
   if (mods & MOD_LSFT) {
@@ -108,11 +107,11 @@ void matrix_init_kb(void) {
 }
 
 void matrix_scan_kb(void) {
-#ifdef QWIIC_MICRO_OLED_ENABLE
+//#ifdef QWIIC_MICRO_OLED_ENABLE
   if (queue_for_send) {
    draw_ui();
    queue_for_send = false;
   }
-#endif
+//#endif
 	matrix_scan_user();
 }
