@@ -20,9 +20,6 @@
 ## Layers
 
 This keymap use the default one with some minor improvements to suit my needs.
-The example image shows US keymap intl with some dead keys modifier (diacritical
-marks). I've also added some chars for AltGr modifier for reference.
-
 
 ## Changelog
 
