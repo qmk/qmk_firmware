@@ -14,7 +14,7 @@ MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = yes           # Audio output on port B5
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no        # Enable one-hand typing
 
 define HELIX_CUSTOMISE_MSG
@@ -92,7 +92,7 @@ ifeq ($(strip $(IOS_DEVICE_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(LED_ANIMATIONS)), yes)
-    OPT_DEFS += -DRGBLIGHT_ANIMATIONS
+    OPT_DEFS += -DLED_ANIMATIONS
 endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)

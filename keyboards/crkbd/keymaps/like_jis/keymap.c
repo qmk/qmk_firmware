@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 int RGB_current_mode;
 
 // Setting ADJUST layer RGB back to default
-inline void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
+static inline void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
     layer_on(layer3);
   } else {
@@ -155,7 +155,7 @@ void matrix_scan_user(void) {
    iota_gfx_task();
 }
 
-inline void matrix_render_user(struct CharacterMatrix *matrix) {
+static inline void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
     // If you want to change the display of OLED, you need to change here
     matrix_write_ln(matrix, read_layer_state());
@@ -171,7 +171,7 @@ inline void matrix_render_user(struct CharacterMatrix *matrix) {
   }
 }
 
-inline void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
+static inline void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
     memcpy(dest->display, source->display, sizeof(dest->display));
     dest->dirty = true;
