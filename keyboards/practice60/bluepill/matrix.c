@@ -100,8 +100,9 @@ void matrix_init(void)
     LED_OFF();
 
     palSetPad(GPIOA, 8);
-
+#ifdef RGBLIGHT_ENABLE
     leds_init();
+#endif
     matrix_init_quantum();
 }
 
@@ -132,7 +133,9 @@ uint8_t matrix_scan(void)
     }
 
     backlight_task();
+#ifdef RGBLIGHT_ENABLE
     rgblight_task();
+#endif
 
     return 1;
 }
