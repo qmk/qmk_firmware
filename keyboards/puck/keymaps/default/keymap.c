@@ -1,4 +1,4 @@
-#include "puck.h"
+#include QMK_KEYBOARD_H
 
 #define _BL 0
 #define _HL 1

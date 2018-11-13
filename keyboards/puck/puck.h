@@ -12,6 +12,4 @@
     { K09, K0A, K0B }, \
 }
 
-#define KEYMAP LAYOUT
-
 #endif
