@@ -14,7 +14,7 @@ ok keyboards/nyquist/rules.mk:SPLIT_KEYBOARD = yes
 ok keyboards/quefrency/rules.mk:SPLIT_KEYBOARD = yes
 ok keyboards/qwertyydox/rules.mk:SPLIT_KEYBOARD = yes
 ok keyboards/redox/rules.mk:SPLIT_KEYBOARD = yes
-keyboards/rorschach/rules.mk:SPLIT_KEYBOARD = yes
+ok keyboards/rorschach/rules.mk:SPLIT_KEYBOARD = yes
 
 $ find keyboards/6lit keyboards/divergetm2 keyboards/ergotravel keyboards/foobar keyboards/handwired/dactyl_manuform keyboards/handwired/qc60 keyboards/handwired/xealous keyboards/iris keyboards/lets_split_eh keyboards/levinson keyboards/miniaxe keyboards/nyquist keyboards/quefrency keyboards/qwertyydox keyboards/redox keyboards/rorschach -name config.h | xargs grep USE_I2C | grep -v '://'
 keyboards/ergotravel/keymaps/ckofy/config.h:#define USE_I2C
