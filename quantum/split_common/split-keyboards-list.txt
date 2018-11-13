@@ -1,7 +1,7 @@
  $ find keyboards -name rules.mk | xargs grep SPLIT_KEYBOARD   
 ok keyboards/6lit/rules.mk:SPLIT_KEYBOARD = yes
 ok keyboards/divergetm2/rules.mk:SPLIT_KEYBOARD = yes
-keyboards/ergotravel/rules.mk:SPLIT_KEYBOARD = yes
+ok keyboards/ergotravel/rules.mk:SPLIT_KEYBOARD = yes
 keyboards/foobar/rules.mk:SPLIT_KEYBOARD = yes
 keyboards/handwired/dactyl_manuform/rules.mk:SPLIT_KEYBOARD = yes
 keyboards/handwired/qc60/rules.mk:SPLIT_KEYBOARD = yes
