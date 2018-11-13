@@ -71,8 +71,8 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 static uint8_t error_count = 0;
 
-static const uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
-static const uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+static uint8_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
+static uint8_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -128,15 +128,24 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-#ifdef DISABLE_JTAG
-  // JTAG disable for PORT F. write JTD bit twice within four cycles.
-  MCUCR |= (1<<JTD);
-  MCUCR |= (1<<JTD);
-#endif
-
     debug_enable = true;
     debug_matrix = true;
     debug_mouse = true;
+
+    // Set pinout for right half if pinout for that half is defined
+    if (!isLeftHand) {
+#ifdef MATRIX_ROW_PINS_RIGHT
+        const uint8_t row_pins_right[MATRIX_ROWS] = MATRIX_ROW_PINS_RIGHT;
+        for (uint8_t i = 0; i < MATRIX_ROWS; i++)
+            row_pins[i] = row_pins_right[i];
+#endif
+#ifdef MATRIX_COL_PINS_RIGHT
+        const uint8_t col_pins_right[MATRIX_COLS] = MATRIX_COL_PINS_RIGHT;
+        for (uint8_t i = 0; i < MATRIX_COLS; i++)
+            col_pins[i] = col_pins_right[i];
+#endif
+    }
+
     // initialize row and col
 #if (DIODE_DIRECTION == COL2ROW)
     unselect_rows();

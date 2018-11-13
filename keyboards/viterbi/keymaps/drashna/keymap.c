@@ -13,7 +13,7 @@ extern keymap_config_t keymap_config;
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
-#define LMACRO   TG(_MACROS)
+#define LMACRO   OSL(_MACROS)
 #define DIABLO   TG(_DIABLO)
 #define GAMEPAD  TG(_GAMEPAD)
 #define MEDIA    TT(_MEDIA)
