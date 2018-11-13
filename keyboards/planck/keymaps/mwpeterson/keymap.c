@@ -35,6 +35,17 @@ enum planck_layers {
 #define WM_W    LALT(LGUI(KC_LEFT))
 #define WM_CNTR LALT(LGUI(KC_C))
 
+// Unicode
+#ifdef UNICODEMAP_ENABLE
+enum unicode_name {
+  IBANG // ‽
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+  [IBANG]      = 0x0203D // ‽
+};
+#endif // UNICODEMAP_ENABLE
+
 // Custom key codes
 enum planck_keycodes {
   QWERTY = SAFE_RANGE,
@@ -81,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *      window    ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    *    switcher    │     │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   *                │     │  -  │  +  │  `  │  |  │  :  │     │     │  ,  │  .  │  \  │     │
+   *                │     │  -  │  +  │  `  │  |  │  :  │     │  ‽  │  ,  │  .  │  \  │     │
    *                ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
    *                │     │     │     │     │     │ Backspace │     │     │     │     │     │
    *                └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
@@ -89,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LOWER_LAYER] = LAYOUT_planck_grid(
     KC_GRV,   KC_F1,   KC_F2,    KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  S(KC_3),
     _______,  KC_1,    KC_2,     KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
-    _______,  KC_MINS, KC_PLUS,  KC_GRV,  KC_PIPE, KC_COLN, XXXXXXX, XXXXXXX, KC_COMM, KC_DOT,  KC_BSLS, _______,
+    _______,  KC_MINS, KC_PLUS,  KC_GRV,  KC_PIPE, KC_COLN, XXXXXXX, X(IBANG), KC_COMM, KC_DOT,  KC_BSLS, _______,
     _______,  _______, _______, _______, _______, KC_BSPC, KC_BSPC, _______, _______, _______, _______, _______
   ),
 
@@ -240,6 +251,10 @@ void plover_lookup(void) {
   unregister_code(PV_RB);
   unregister_code(PV_RG);
 }
+
+void matrix_init_user(void) {
+    set_unicode_input_mode(UC_LNX);
+};
 
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, LOWER_LAYER, RAISE_LAYER, ADJUST_LAYER);
