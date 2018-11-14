@@ -121,9 +121,9 @@ const char *read_host_led_state(void);
 
 
 const char* read_layer_state(void) {
-  switch (layer_state) {
+  switch (biton32(layer_state)) {
     case _QWERTY:
-      switch (default_layer_state) {
+      switch (biton32(default_layer_state)) {
         case _QWERTY:
           snprintf(layer_state_str, sizeof(layer_state_str), "Layer: QWERTY");
           break;
@@ -165,7 +165,7 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
     matrix_write_ln(matrix, read_keylog());
     matrix_write_ln(matrix, read_keylogs());
     //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    matrix_write_ln(matrix, read_host_led_state());
+    matrix_write(matrix, read_host_led_state());
     //matrix_write_ln(matrix, read_timelog());
   } else {
     matrix_write(matrix, read_logo());
