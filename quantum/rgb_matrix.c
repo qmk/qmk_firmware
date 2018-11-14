@@ -750,21 +750,31 @@ void rgb_matrix_task(void) {
                 break;
         #endif
         #ifdef RGB_MATRIX_KEYPRESSES
-            case RGB_MATRIX_SOLID_REACTIVE:
-                rgb_matrix_solid_reactive();
-                break;
-            case RGB_MATRIX_SPLASH:
-                rgb_matrix_splash();
-                break;
-            case RGB_MATRIX_MULTISPLASH:
-                rgb_matrix_multisplash();
-                break;
-            case RGB_MATRIX_SOLID_SPLASH:
-                rgb_matrix_solid_splash();
-                break;
-            case RGB_MATRIX_SOLID_MULTISPLASH:
-                rgb_matrix_solid_multisplash();
-                break;
+            #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
+                case RGB_MATRIX_SOLID_REACTIVE:
+                    rgb_matrix_solid_reactive();
+                    break;
+            #endif
+            #ifndef DISABLE_RGB_MATRIX_SPLASH
+                case RGB_MATRIX_SPLASH:
+                    rgb_matrix_splash();
+                    break;
+            #endif
+            #ifndef DISABLE_RGB_MATRIX_MULTISPLASH
+                case RGB_MATRIX_MULTISPLASH:
+                    rgb_matrix_multisplash();
+                    break;
+            #endif
+            #ifndef DISABLE_RGB_MATRIX_SOLID_SPLASH
+                case RGB_MATRIX_SOLID_SPLASH:
+                    rgb_matrix_solid_splash();
+                    break;
+            #endif
+            #ifndef DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
+                case RGB_MATRIX_SOLID_MULTISPLASH:
+                    rgb_matrix_solid_multisplash();
+                    break;
+            #endif
         #endif
         default:
             rgb_matrix_custom();
