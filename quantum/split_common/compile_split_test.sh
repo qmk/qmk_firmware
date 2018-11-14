@@ -8,7 +8,7 @@ echo $LOG
 git status | grep "On branch" > $LOG
 date >> $LOG
 
-split_kbd_list="6lit:all
+split_kbd_list_old="6lit:all
 divergetm2:all
 ergotravel:all
 foobar:all
@@ -89,7 +89,11 @@ qwertyydox:default
 redox:all
 rorschach:all"
 
-# split_kbd_list=""
+split_kbd_list="diverge3:all
+40percentclub/25:all
+40percentclub/6lit:all
+40percentclub/foobar:all
+"
 
 function compiletest() {
    src=$1
