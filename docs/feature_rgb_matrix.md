@@ -150,6 +150,13 @@ These are the effects that are currently available:
 	#endif
 	    RGB_MATRIX_EFFECT_MAX
 	};
+    
+You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `config.h`:
+
+```
+// to disable alphas mods
+#define DISABLE_RGB_MATRIX_ALPHAS_MODS
+```
 
 ## Custom layer effects
 
