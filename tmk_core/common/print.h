@@ -29,7 +29,7 @@
 #include <stdbool.h>
 #include "util.h"
 
-#if defined(PROTOCOL_CHIBIOS)
+#if defined(PROTOCOL_CHIBIOS) || defined(PROTOCOL_ARM_ATSAM)
 #define PSTR(x) x
 #endif
 
@@ -73,7 +73,9 @@ void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 
 #elif defined(PROTOCOL_CHIBIOS) /* PROTOCOL_CHIBIOS */
 
+#ifndef TERMINAL_ENABLE
 #  include "chibios/printf.h"
+#endif
 
 #  ifdef USER_PRINT /* USER_PRINT */
 
