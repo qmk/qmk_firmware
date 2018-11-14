@@ -459,6 +459,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`SH_MOFF`  |Momentarily turns off swap.                                              |
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
 |`SH_TT`    |Toggles with a tap; momentary when held.                                 |
+
 ## [Unicode Support](feature_unicode.md)
 
 |Key         |Aliases|                                                 |
