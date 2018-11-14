@@ -118,7 +118,7 @@ void backlight_disable(void)
  *
  * FIXME: needs doc
  */
-bool backlight_enabled(void)
+bool is_backlight_enabled(void)
 {
 	return backlight_config.enable;
 }
