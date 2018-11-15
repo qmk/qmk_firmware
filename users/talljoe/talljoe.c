@@ -1,6 +1,9 @@
 #include QMK_KEYBOARD_H
 
 #include "talljoe.h"
+#ifdef ZEAL_RGB
+#include "../../../keyboards/zeal60/rgb_backlight.h"
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = TEMPLATE_TKL(
@@ -65,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_LGUI, KC_LALT,                   NM_SPC2, NM_SPC1, NM_SPC3,                   KC_PDOT, KC_PCMM, KC_RCTL, KC_PTT ),
  // Adjust layer is on the split-shift key; or NAV+Enter (for non-split keyboards)
   [_ADJUST] = TEMPLATE_ADJUST(
-      MO_RST , FX(1)  , FX(2)  , FX(3)  , FX(4)  , FX(5)  , FX(8)  , FX(9)  , FX(10) , FX(20) , FX(0)  , BR_DEC , BR_INC , XXXXXXX, MO_RST ,
+      MO_RST , FX(1)  , FX(2)  , FX(3)  , FX(4)  , FX(5)  , FX(6)  , FX(7)  , FX(8) ,  FX(9) ,  FX(10) , BR_DEC , BR_INC , XXXXXXX, MO_RST ,
       MO_RST , H1_INC , S1_INC , H2_INC , S2_INC , EF_INC , RGB_HUI, RGB_SAI, RGB_MOD, RGB_M_P, DFAULTS, RGB_VAD, RGB_VAI, MO_RST ,
       XXXXXXX, H1_DEC , S1_DEC , H2_DEC , S2_DEC , EF_DEC , RGB_HUD, RGB_SAD, RGB_RMOD,RGB_M_K, RGB_M_B, RGB_M_G,          TG_ADJ ,
       TG_NKRO, LY_QWER, LY_WORK, LY_NRMN, LY_DVRK, LY_CLMK, XXXXXXX, LY_MALT, XXXXXXX, XXXXXXX, KC_MAKE,          KC_CAPS, XXXXXXX,
@@ -101,7 +104,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+#ifdef ZEAL_RGB
+extern backlight_config g_config;
+#endif
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static uint8_t last_effect;
 
 #ifdef RGBLIGHT_ENABLE
   static uint32_t savedRgbMode;
@@ -144,6 +151,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+#ifdef ZEAL_RGB
+    case BL_TOGG:
+      if (IS_PRESSED(record->event)) {
+        if (g_config.effect) {
+          last_effect = g_config.effect;
+          g_config.effect = 0;
+        } else {
+          g_config.effect = last_effect;
+        }
+      }
+      return false;
+    case EFFECT...EFFECT_END:
+      if (IS_PRESSED(record->event)) {
+        uint8_t effect = keycode - EFFECT;
+        if(effect == g_config.effect)
+          effect = 0; // Toggle effect on second press
+        g_config.effect = effect;
+        backlight_config_save();
+      }
+      return false;
+#endif
   }
   return process_record_keymap(keycode, record);
 }
