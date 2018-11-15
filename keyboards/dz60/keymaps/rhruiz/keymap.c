@@ -125,6 +125,10 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
+  if (biton32(layer_state) == _BL) {
+    return;
+  }
+
   uint16_t hue = 1;
   uint8_t sat = 0;
 
@@ -132,11 +136,9 @@ void matrix_scan_user(void) {
   hue = hue_sat.hue;
   sat = hue_sat.sat;
 
-  if (hue_sat.hue != 1) {
-    rgblight_config_t eeprom_config;
-    eeprom_config.raw = eeconfig_read_rgblight();
-    change_leds_to(hue, sat, eeprom_config);
-  }
+  rgblight_config_t eeprom_config;
+  eeprom_config.raw = eeconfig_read_rgblight();
+  change_leds_to(hue, sat, eeprom_config);
 }
 
 void rhruiz_layer_on(uint8_t layer) {
@@ -194,21 +196,19 @@ void change_leds_to(uint16_t hue, uint8_t sat, rgblight_config_t eeprom_config) 
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
       for (uint8_t i = RGBLED_NUM ; i-- > 0 ; ) {
         if (i == 8 || i == 15) {
-          sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[i]);
           continue;
         }
 
         sethsv(0, 0, 0, (LED_TYPE *)&led[i]);
       }
-
-      rgblight_set();
     }
 
     state_changed = false;
-  } else {
-    sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[8]);
-    sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[15]);
   }
+
+  sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[8]);
+  sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[15]);
+  rgblight_set();
 }
 
 void eeconfig_init_user(void) {
