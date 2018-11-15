@@ -37,8 +37,8 @@ RGB hsv_to_rgb( HSV hsv )
 	s = hsv.s;
 	v = hsv.v;
 
-	region = h / 43;
-	remainder = (h - (region * 43)) * 6;
+	region = h / 60;
+	remainder = (h - (region * 60)) * 6;
 
 	p = (v * (255 - s)) >> 8;
 	q = (v * (255 - ((s * remainder) >> 8))) >> 8;
