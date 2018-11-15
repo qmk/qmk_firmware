@@ -8,7 +8,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Auto Shift](feature_auto_shift.md) - Tap for the normal key, hold slightly longer for its shifted state.
 * [Backlight](feature_backlight.md) - LED lighting support for your keyboard.
 * [Bootmagic](feature_bootmagic.md) - Adjust the behavior of your keyboard using hotkeys.
-* [Combos](feature_combos.md) - Custom actions for multiple key holds.
+* [Combos](feature_combo.md) - Custom actions for multiple key holds.
 * [Command](feature_command.md) - Runtime version of bootmagic (Formerly known as "Magic").
 * [Dynamic Macros](feature_dynamic_macros.md) - Record and playback macros from the keyboard itself.
 * [Grave Escape](feature_grave_esc.md) - Lets you use a single key for Esc and Grave. 
