@@ -136,7 +136,16 @@ const char* read_modifier_state(void) {
 
 const char* read_layer_state(void) {
   switch (biton32(layer_state)) {
-    case _QWERTY:
+    case _RAISE:
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise  ");
+      break;
+    case _LOWER:
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower  ");
+      break;
+    case _ADJUST:
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust ");
+      break;
+    default:
       switch (biton32(default_layer_state)) {
         case _QWERTY:
           snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Qwerty ");
@@ -152,17 +161,6 @@ const char* read_layer_state(void) {
           break;
       }
       break;
-    case _RAISE:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise  ");
-      break;
-    case _LOWER:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower  ");
-      break;
-    case _ADJUST:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust ");
-      break;
-    default:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: %ld", layer_state);
   }
 
     return layer_state_str;
@@ -201,8 +199,14 @@ void iota_gfx_task_user(void) {
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    set_keylog(keycode, record);
+  switch (keycode) {
+    case KC_A ... KC_SLASH:
+    case KC_F1 ... KC_F12:
+    case KC_INSERT ... KC_UP:
+    case KC_KP_SLASH ... KC_KP_DOT:
+    case KC_F13 ... KC_F24:
+      set_keylog(keycode, record);
+      break;
     // set_timelog();
   }
   return true;
