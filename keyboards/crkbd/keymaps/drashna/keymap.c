@@ -27,7 +27,7 @@ enum crkbd_keycodes {
   ) \
   LAYOUT_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
-    KC_TAB,  K11,    K12,     K13,      K14,     K15,                        K16,     K17,     K18,     K19, RGUI_T(K1A), KC_QUOT, \
+    KC_TAB,  K11,    K12,     K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A,     RGUI_T(KC_QUOT), \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29,  CTL_T(K2A), OS_RALT, \
                            LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,     KC_DEL,  KC_ENT,  RAISE                                        \
   )
@@ -110,28 +110,81 @@ void matrix_init_keymap(void) {
 
 // When add source files to SRC in rules.mk, you can use functions.
 const char *read_logo(void);
-void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_keylog(void);
-const char *read_keylogs(void);
 char layer_state_str[24];
-char modifier_state_str[10];
+char modifier_state_str[24];
+char host_led_state_str[24];
+char keylog_str[24] = {};
+char keylogs_str[21] = {};
+int keylogs_str_idx = 0;
+
 // const char *read_mode_icon(bool swap);
-const char *read_host_led_state(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
+
+const char code_to_name[60] = {
+    ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
+    'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p',
+    'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
+    '1', '2', '3', '4', '5', '6', '7', '8', '9', '0',
+    'R', 'E', 'B', 'T', '_', ' ', ' ', ' ', ' ', ' ',
+    ' ', ';', '\'', ' ', ',', '.', '/', ' ', ' ', ' '};
+
+void set_keylog(uint16_t keycode, keyrecord_t *record) {
+  char name = ' ';
+  if (keycode < 60) {
+    name = code_to_name[keycode];
+  }
+
+  // update keylog
+  snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
+           record->event.key.row, record->event.key.col,
+           keycode, name);
+
+  // update keylogs
+  if (keylogs_str_idx == sizeof(keylogs_str) - 1) {
+    keylogs_str_idx = 0;
+    for (int i = 0; i < sizeof(keylogs_str) - 1; i++) {
+      keylogs_str[i] = ' ';
+    }
+  }
+
+  keylogs_str[keylogs_str_idx] = name;
+  keylogs_str_idx++;
+}
+
+const char *read_keylog(void) {
+  return keylog_str;
+}
+
+const char *read_keylogs(void) {
+  return keylogs_str;
+}
+
 
 const char* read_modifier_state(void) {
   uint8_t modifiers = get_mods();
   uint8_t one_shot = get_oneshot_mods();
 
-  snprintf(modifier_state_str, sizeof(modifier_state_str), "Mods:%s%s%s%s",
-    (modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) ? "C" : " ",
-    (modifiers & MODS_GUI_MASK || one_shot & MODS_GUI_MASK) ? "G" : " ",
-    (modifiers & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) ? "A" : " ",
-    (modifiers & MODS_SHIFT_MASK || one_shot & MODS_SHIFT_MASK) ? "S" : " "
+  snprintf(modifier_state_str, sizeof(modifier_state_str), "Mods:%s %s %s %s",
+    (modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) ? "CTL" : "   ",
+    (modifiers & MODS_GUI_MASK || one_shot & MODS_GUI_MASK) ? "GUI" : "   ",
+    (modifiers & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) ? "ALT" : "   ",
+    (modifiers & MODS_SHIFT_MASK || one_shot & MODS_SHIFT_MASK) ? "SFT" : "   "
   );
 
   return modifier_state_str;
+}
+
+const char *read_host_led_state(void) {
+  uint8_t leds = host_keyboard_leds();
+
+  snprintf(host_led_state_str, sizeof(host_led_state_str), "NL:%s CL:%s SL:%s",
+    (leds & (1 << USB_LED_NUM_LOCK)) ? "on" : "- ",
+    (leds & (1 << USB_LED_CAPS_LOCK)) ? "on" : "- ",
+    (leds & (1 << USB_LED_SCROLL_LOCK)) ? "on" : "- "
+  );
+
+  return host_led_state_str;
 }
 
 const char* read_layer_state(void) {
@@ -174,7 +227,8 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
     //If you want to change the display of OLED, you need to change here
     matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
+    matrix_write_ln(matrix, read_modifier_state());
+    // matrix_write_ln(matrix, read_keylog());
     matrix_write_ln(matrix, read_keylogs());
     // matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
     matrix_write(matrix, read_host_led_state());
@@ -205,7 +259,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     case KC_INSERT ... KC_UP:
     case KC_KP_SLASH ... KC_KP_DOT:
     case KC_F13 ... KC_F24:
-      set_keylog(keycode, record);
+    if (record->event.pressed) { set_keylog(keycode, record); }
       break;
     // set_timelog();
   }
