@@ -29,7 +29,7 @@ enum crkbd_keycodes {
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
     KC_TAB,  K11,    K12,     K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29,  CTL_T(K2A), OS_RSFT, \
-                           LT(_LOWER,KC_GRV), KC_SPC,  LALT_T(KC_BSPC),  KC_DEL,  KC_ENT,  RAISE                                    \
+                           LT(_LOWER,KC_GRV), KC_SPC,  LALT_T(KC_BSPC),  RGUI_T(KC_DEL),  KC_ENT,  RAISE                                    \
   )
 #define LAYOUT_crkbd_base_wrapper(...)       LAYOUT_crkbd_base(__VA_ARGS__)
 
@@ -102,36 +102,50 @@ void matrix_init_keymap(void) {
   PORTD &= ~(1<<5);
 
   DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);}
+  PORTB &= ~(1<<0);
+}
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
 
 // When add source files to SRC in rules.mk, you can use functions.
-const char *read_layer_state(void);
 const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
 char layer_state_str[24];
+char modifier_state_str[10];
 // const char *read_mode_icon(bool swap);
 const char *read_host_led_state(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
 
+const char* read_modifier_state(void) {
+  uint8_t modifiers = get_mods();
+  uint8_t one_shot = get_oneshot_mods();
+
+  snprintf(modifier_state_str, sizeof(modifier_state_str), "Mods:%s%s%s%s",
+    (modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) ? "C" : " ",
+    (modifiers & MODS_GUI_MASK || one_shot & MODS_GUI_MASK) ? "G" : " ",
+    (modifiers & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) ? "A" : " ",
+    (modifiers & MODS_SHIFT_MASK || one_shot & MODS_SHIFT_MASK) ? "S" : " "
+  );
+
+  return modifier_state_str;
+}
 
 const char* read_layer_state(void) {
   switch (biton32(layer_state)) {
     case _QWERTY:
       switch (biton32(default_layer_state)) {
         case _QWERTY:
-          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: QWERTY");
+          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Qwerty ");
           break;
         case _COLEMAK:
           snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Colemak");
           break;
         case _DVORAK:
-          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Dvorak");
+          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Dvorak ");
           break;
         case _WORKMAN:
           snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Workman");
@@ -139,16 +153,16 @@ const char* read_layer_state(void) {
       }
       break;
     case _RAISE:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise  ");
       break;
     case _LOWER:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower");
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower  ");
       break;
     case _ADJUST:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust");
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust ");
       break;
     default:
-      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state);
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: %ld", layer_state);
   }
 
     return layer_state_str;
@@ -160,11 +174,11 @@ void matrix_scan_keymap(void) {
 
 void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
-    // If you want to change the display of OLED, you need to change here
+    //If you want to change the display of OLED, you need to change here
     matrix_write_ln(matrix, read_layer_state());
     matrix_write_ln(matrix, read_keylog());
     matrix_write_ln(matrix, read_keylogs());
-    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
+    // matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
     matrix_write(matrix, read_host_led_state());
     //matrix_write_ln(matrix, read_timelog());
   } else {
