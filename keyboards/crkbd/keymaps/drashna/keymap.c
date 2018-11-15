@@ -26,7 +26,7 @@ enum crkbd_keycodes {
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-    KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
     KC_TAB,  K11,    K12,     K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A,     RGUI_T(KC_QUOT), \
     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29,  CTL_T(K2A), OS_RALT, \
                            LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,     KC_DEL,  KC_ENT,  RAISE                                        \
@@ -83,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, KC_RESET,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EPRM,
     TG_MODS, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, KC_MPLY,
-                                     _______, _______, _______,        _______, _______, _______
+                                     _______, _______, _______,        KC_NUKE, _______, _______
   )
 };
 
