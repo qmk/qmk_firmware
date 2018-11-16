@@ -452,7 +452,7 @@ enum quantum_keycodes {
 #endif
 
     EEPROM_RESET,
-  
+
     UNICODE_MODE_OSX,
     UNICODE_MODE_LNX,
     UNICODE_MODE_WIN,
