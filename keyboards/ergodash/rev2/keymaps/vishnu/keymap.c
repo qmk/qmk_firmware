@@ -18,12 +18,13 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 #define ESC_ADJ LT(_ADJUST, KC_ESC)
+#define QUOT_ADJ LT(_ADJUST, KC_QUOT)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Qwerty
    * ,----------------------------------------------------------------------------------------------------------------------.
-   * |  `   |   1  |   2  |   3  |   4  |   5  |   -  |                    |   =  |   6  |   7  |   8  |   9  |   0  |Pscree|
+   * |  `   |   1  |   2  |   3  |   4  |   5  |   -  |                    |   =  |   6  |   7  |   8  |   9  |   0  |Bkspc ||
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
    * | Tab  |   Q  |   W  |   E  |   R  |   T  |   [  |                    |   ]  |   Y  |   U  |   I  |   O  |   P  |  \   |
    * |------+------+------+------+------+------+------+--------------------+------+------+------+------+------+------+------|
@@ -37,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT( \
     KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,                        KC_EQL , KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,                        KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
-    ESC_ADJ, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_DEL ,                        KC_BSPC, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_ENT ,                        KC_ENT , KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-    KC_LCTL, KC_LGUI, KC_LALT,          _______, _______, KC_SPC ,_______,        _______,KC_SPC , RAISE,   _______,          KC_RALT, KC_RGUI, KC_RCTL  \
+    ESC_ADJ, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_DEL ,                        KC_BSPC, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, QUOT_ADJ, \
+    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    _______,                        _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
+    KC_LCTL, KC_LGUI, KC_LALT,          KC_MINS, KC_ENT,  KC_SPC ,_______,        _______,KC_SPC , KC_ENT,  KC_EQL,           KC_RALT, KC_RGUI, KC_RCTL  \
   ),
 
   /* Adjust
@@ -58,9 +59,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT(
     _______, _______, _______, _______, KC_END , _______,_______,                       _______, _______, _______, _______, _______,  KC_HOME, KC_DELETE, \
     _______, _______, _______, _______, _______, _______,_______,                       _______, _______, _______, _______, _______,  _______, _______ , \
-    _______, _______, _______, _______, _______, _______,_______,                       _______, KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______, KC_ENT , \
+    _______, _______, _______, _______, _______, _______,_______,                       _______, KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______, _______, \
     _______, _______, _______, _______, _______, _______,_______,                       _______, _______, _______, _______, _______,  _______, _______ , \
-    _______, _______, _______,          _______, _______,KC_ENT ,_______,       _______,KC_ENT , _______, _______,          _______,  _______, FKeys     \
+    _______, _______, _______,          _______, KC_LBRC,KC_ENT ,_______,       _______,KC_ENT , KC_RBRC, _______,          _______,  _______, FKeys     \
   ),
   /* FKeys
    * ,----------------------------------------------------------------------------------------------------------------------.
