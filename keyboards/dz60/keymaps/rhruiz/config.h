@@ -3,9 +3,6 @@
 
 #include "../../config.h"
 
-// disable backlight when sleeping
-#define RGBLIGHT_SLEEP
-
 // help for fast typist+dual function keys?
 #define PERMISSIVE_HOLD
 
