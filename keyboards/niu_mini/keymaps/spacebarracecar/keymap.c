@@ -89,21 +89,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Navigation
 ,-----------------------------------------------------------------------------------------------------------------------.
-|ESCT     |PageDown |Up       |PageUp   |Home     |         |         |         |Win+Up   |         |         |Del      |
+|ALT F4   |PageDown |Up       |PageUp   |Home     |         |         |         |Win+Up   |         |         |Del      |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |         |Left     |Down     |Right    |End      |         |         |Win+Left |Win+Down |Win+Right|         |Enter    |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |         |Prev     |Pause    |Next     |LowerVol |RaiseVol |Mute     |         |         |         |         |         |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
-|RESET    |         |         |         |         |         |         |         |         |         |         |Game     |
+|RESET    |ESCT     |         |         |         |         |         |         |         |         |         |Game     |
 `-----------------------------------------------------------------------------------------------------------------------'
 */
 
 [_NAV] = LAYOUT_ortho_4x12(
-  CU_ESCT,  KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
+  ALTF4,    KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
   _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  XXXXXXX,  GUIL,     GUID,     GUIR,     RGB_M_P,  KC_ENT,
   _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  RGB_TOG,  RGB_MOD,  RGB_HUI,  CU_RGBV,  _______,
-  RESET,    _______,  _______,  _______,  _______,  KC_SPC,   KC_ENT,   _______,  _______,  _______,  _______,  CU_GAME
+  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   KC_ENT,   _______,  _______,  _______,  _______,  CU_GAME
 )
 
 };
