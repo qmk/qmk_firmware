@@ -455,7 +455,7 @@ enum quantum_keycodes {
 
     UNICODE_MODE_FORWARD,
     UNICODE_MODE_REVERSE,
-  
+
     UNICODE_MODE_OSX,
     UNICODE_MODE_LNX,
     UNICODE_MODE_WIN,
