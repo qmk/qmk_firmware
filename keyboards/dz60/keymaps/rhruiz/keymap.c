@@ -1,5 +1,8 @@
 #include QMK_KEYBOARD_H
 
+#include "raw_hid.h"
+#include "rhruiz_api.h"
+
 #define MISCTRL LCTL(KC_UP)
 #define CTRLESC LCTL_T(KC_ESC)
 
@@ -9,7 +12,8 @@
 #define CLUP MT(MOD_RCTL, KC_UP)
 #define CLRIGHT LT(_FN1, KC_RIGHT)
 
-void change_leds_to(uint16_t, uint8_t, rgblight_config_t);
+void change_leds_to(uint16_t, uint8_t);
+void rhruiz_rgblight_reset(void);
 
 typedef struct {
   uint16_t hue;
@@ -114,6 +118,59 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+void raw_hid_receive( uint8_t *data, uint8_t length ) {
+	uint8_t *command_id = &(data[0]);
+	uint8_t *command_data = &(data[1]);
+
+	switch ( *command_id ) {
+		case id_get_keyboard_value: {
+			if ( command_data[0] == id_uptime ) {
+				uint32_t value = timer_read32();
+				command_data[1] = (value >> 24 ) & 0xFF;
+				command_data[2] = (value >> 16 ) & 0xFF;
+				command_data[3] = (value >> 8 ) & 0xFF;
+				command_data[4] = value & 0xFF;
+			} else {
+				*command_id = id_unhandled;
+			}
+			break;
+		}
+
+    case id_bootloader_jump: {
+			raw_hid_send( data, length );
+			wait_ms(100);
+			bootloader_jump();
+			break;
+    }
+
+    case id_rgblight_color: {
+      uint16_t hue = ((uint16_t)command_data[0] << 8) | command_data[1];
+      uint8_t sat = command_data[2];
+      state_changed = true;
+      change_leds_to(hue, sat);
+
+      break;
+    }
+
+    case id_rgblight_reset: {
+      rhruiz_rgblight_reset();
+      break;
+    }
+
+    case id_backlight_toggle: {
+      backlight_toggle();
+      break;
+    }
+
+    case id_rgblight_toggle: {
+      rgblight_toggle();
+      break;
+    }
+  }
+
+	raw_hid_send( data, length );
+}
+
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	// keyevent_t event = record->event;
 	return MACRO_NONE;
@@ -136,9 +193,7 @@ void matrix_scan_user(void) {
   hue = hue_sat.hue;
   sat = hue_sat.sat;
 
-  rgblight_config_t eeprom_config;
-  eeprom_config.raw = eeconfig_read_rgblight();
-  change_leds_to(hue, sat, eeprom_config);
+  change_leds_to(hue, sat);
 }
 
 void rhruiz_layer_on(uint8_t layer) {
@@ -189,7 +244,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void change_leds_to(uint16_t hue, uint8_t sat, rgblight_config_t eeprom_config) {
+void change_leds_to(uint16_t hue, uint8_t sat) {
+  rgblight_config_t eeprom_config;
+  eeprom_config.raw = eeconfig_read_rgblight();
+
   if (state_changed) {
     if (!eeprom_config.enable) {
       rgblight_enable_noeeprom();
@@ -216,19 +274,24 @@ void eeconfig_init_user(void) {
   eeconfig_update_user(user_config.raw);
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
-  static uint32_t last_state = 0;
+void rhruiz_rgblight_reset(void) {
   rgblight_config_t eeprom_config;
   eeprom_config.raw = eeconfig_read_rgblight();
 
+  if (!eeprom_config.enable) {
+    rgblight_disable_noeeprom();
+  }
+
+  rgblight_mode_noeeprom(eeprom_config.mode);
+  rgblight_sethsv_noeeprom(eeprom_config.hue, eeprom_config.sat, eeprom_config.val);
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  static uint32_t last_state = 0;
   if (state != last_state) {
     switch(biton32(state)) {
       case _BL:
-        if (!eeprom_config.enable) {
-          rgblight_disable_noeeprom();
-        }
-        rgblight_mode_noeeprom(eeprom_config.mode);
-        rgblight_sethsv_noeeprom(eeprom_config.hue, eeprom_config.sat, eeprom_config.val);
+        rhruiz_rgblight_reset();
         state_changed = false;
         break;
 
