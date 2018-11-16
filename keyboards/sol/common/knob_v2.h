@@ -6,7 +6,7 @@
 #include <stdbool.h>
 
 #ifndef ENCODER_PIN_1
-  #define ENCODER_PIN_1 PD4
+  #define ENCODER_PIN_1 PD2
 #endif
 #ifndef ENCODER_PIN_2
   #define ENCODER_PIN_2 PD6
