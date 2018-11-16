@@ -679,6 +679,10 @@ void rgblight_effect_rainbow_mood(uint8_t interval) {
 #endif
 
 #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#ifndef RGBLIGHT_RAINBOW_SWIRL_RANGE
+  #define RGBLIGHT_RAINBOW_SWIRL_RANGE 360
+#endif
+
 __attribute__ ((weak))
 const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
 
@@ -692,7 +696,7 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   }
   last_timer = timer_read();
   for (i = 0; i < RGBLED_NUM; i++) {
-    hue = (360 / RGBLED_NUM * i + current_hue) % 360;
+    hue = (RGBLIGHT_RAINBOW_SWIRL_RANGE / RGBLED_NUM * i + current_hue) % 360;
     sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
   }
   rgblight_set();

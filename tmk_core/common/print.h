@@ -73,7 +73,9 @@ void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 
 #elif defined(PROTOCOL_CHIBIOS) /* PROTOCOL_CHIBIOS */
 
+#ifndef TERMINAL_ENABLE
 #  include "chibios/printf.h"
+#endif
 
 #  ifdef USER_PRINT /* USER_PRINT */
 
