@@ -15,18 +15,25 @@
  */
 #include "ver3.h"
 #include "qwiic.h"
-
 #include "action_layer.h"
 #include "matrix.h"
 
 #ifdef QWIIC_MICRO_OLED_ENABLE
 
+//screen off after this many milliseconds
+#include "timer.h"
+#define ScreenOffInterval 60000 /* milliseconds */
+static uint16_t last_flush;
+
 static uint8_t layer;
 static bool queue_for_send = false; 
 static uint8_t encoder_value = 32;
 
+__attribute__ ((weak))
 void draw_ui(void) {
   clear_buffer();
+  last_flush = timer_read();
+  send_command(DISPLAYON);
   draw_string(0, 2, "LAYER", PIXEL_ON, NORM, 0);
   draw_rect_filled_soft(32, 1, 9, 9, PIXEL_ON, NORM);
   draw_char(34, 2, layer + 0x30, PIXEL_ON, XOR, 0);
@@ -107,11 +114,14 @@ void matrix_init_kb(void) {
 }
 
 void matrix_scan_kb(void) {
-//#ifdef QWIIC_MICRO_OLED_ENABLE
+#ifdef QWIIC_MICRO_OLED_ENABLE
   if (queue_for_send) {
    draw_ui();
    queue_for_send = false;
   }
-//#endif
+  if (timer_elapsed(last_flush) > ScreenOffInterval) {
+  send_command(DISPLAYOFF);      // 0xAE
+  }
+#endif
 	matrix_scan_user();
 }
