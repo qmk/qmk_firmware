@@ -141,9 +141,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_LOCKING_SCROLL`    |`KC_LSCR`           |Locking Scroll Lock                            |
 |`KC_KP_COMMA`          |`KC_PCMM`           |Keypad `,`                                     |
 |`KC_KP_EQUAL_AS400`    |                    |Keypad `=` on AS/400 keyboards                 |
-|`KC_INT1`              |`KC_RO`             |JIS `\` and <code>&#124;</code>                |
+|`KC_INT1`              |`KC_RO`             |JIS `\` and `_`                                |
 |`KC_INT2`              |`KC_KANA`           |JIS Katakana/Hiragana                          |
-|`KC_INT3`              |`KC_JYEN`           |JIS `¥`                                        |
+|`KC_INT3`              |`KC_JYEN`           |JIS `¥` and <code>&#124;</code>                |
 |`KC_INT4`              |`KC_HENK`           |JIS Henkan                                     |
 |`KC_INT5`              |`KC_MHEN`           |JIS Muhenkan                                   |
 |`KC_INT6`              |                    |JIS Numpad `,`                                 |
@@ -271,6 +271,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace            |
 |`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                      |
 |`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides    |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides|
 |`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                 |
 
 ## [Bluetooth](feature_bluetooth.md)
@@ -318,7 +319,7 @@ This is a reference only. Each group of keys links to the page documenting their
 ## [Modifiers](feature_advanced_keycodes.md#modifier-keys)
 
 |Key       |Aliases               |Description                                         |
-|----------|----------            |----------------------------------------------------|
+|----------|----------------------|----------------------------------------------------|
 |`KC_HYPR` |                      |Hold Left Control, Shift, Alt and GUI               |
 |`KC_MEH`  |                      |Hold Left Control, Shift and Alt                    |
 |`LCTL(kc)`|                      |Hold Left Control and press `kc`                    |
@@ -332,7 +333,6 @@ This is a reference only. Each group of keys links to the page documenting their
 |`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
 |`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
 |`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
-|`ALTG(kc)`|                      |Hold Right Control and Alt and press `kc`           |
 |`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
 |`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
 
@@ -353,7 +353,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`LCAG_T(kc)`|                                       |Left Control, Alt and GUI when held, `kc` when tapped  |
 |`RCAG_T(kc)`|                                       |Right Control, Alt and GUI when held, `kc` when tapped |
 |`ALL_T(kc)` |                                       |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
-|`SCMD_T(kc)`|`SWIN_T(kc)`                           |Left Shift and GUI when held, `kc` when tapped         |
+|`SGUI_T(kc)`|`SCMD_T(kc)`, `SWIN_T(kc)`             |Left Shift and GUI when held, `kc` when tapped         |
 |`LCA_T(kc)` |                                       |Left Control and Alt when held, `kc` when tapped       |
 
 ## [RGB Lighting](feature_rgblight.md)
@@ -459,6 +459,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`SH_MOFF`  |Momentarily turns off swap.                                              |
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
 |`SH_TT`    |Toggles with a tap; momentary when held.                                 |
+
 ## [Unicode Support](feature_unicode.md)
 
 |Key         |Aliases|                                                 |
