@@ -196,7 +196,7 @@ Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in yo
 * `#define USE_I2C`
   * For using I2C instead of Serial (defaults to serial)
 
-* `#define #define SOFT_SERIAL_PIN D0`
+* `#define SOFT_SERIAL_PIN D0`
   * When using serial, define this. `D0` or `D1`,`D2`,`D3`,`E6`.
 
 # The `rules.mk` File
