@@ -23,9 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 /* report id */
-#define REPORT_ID_MOUSE     1
-#define REPORT_ID_SYSTEM    2
-#define REPORT_ID_CONSUMER  3
+#define REPORT_ID_KEYBOARD  1
+#define REPORT_ID_MOUSE     2
+#define REPORT_ID_SYSTEM    3
+#define REPORT_ID_CONSUMER  4
+#define REPORT_ID_NKRO      5
 
 /* mouse buttons */
 #define MOUSE_BTN1 (1<<0)
@@ -72,32 +74,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SYSTEM_WAKE_UP          0x0083
 
 
+#define NKRO_SHARED_EP
 /* key report size(NKRO or boot mode) */
 #if defined(NKRO_ENABLE)
-  #if defined(PROTOCOL_PJRC)
-    #include "usb.h"
-    #define KEYBOARD_REPORT_SIZE KBD2_SIZE
-    #define KEYBOARD_REPORT_KEYS (KBD2_SIZE - 2)
-    #define KEYBOARD_REPORT_BITS (KBD2_SIZE - 1)
-  #elif defined(PROTOCOL_LUFA) || defined(PROTOCOL_CHIBIOS)
+  #if defined(PROTOCOL_LUFA) || defined(PROTOCOL_CHIBIOS)
     #include "protocol/usb_descriptor.h"
-    #define KEYBOARD_REPORT_SIZE NKRO_EPSIZE
-    #define KEYBOARD_REPORT_KEYS (NKRO_EPSIZE - 2)
-    #define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
+    #define KEYBOARD_REPORT_BITS (SHARED_EPSIZE - 2)
   #elif defined(PROTOCOL_ARM_ATSAM)
     #include "protocol/arm_atsam/usb/udi_device_epsize.h"
-    #define KEYBOARD_REPORT_SIZE NKRO_EPSIZE
-    #define KEYBOARD_REPORT_KEYS (NKRO_EPSIZE - 2)
     #define KEYBOARD_REPORT_BITS (NKRO_EPSIZE - 1)
+    #undef NKRO_SHARED_EP
+    #undef MOUSE_SHARED_EP
   #else
     #error "NKRO not supported with this protocol"
+  #endif
 #endif
 
+#ifdef KEYBOARD_SHARED_EP
+#   define KEYBOARD_REPORT_SIZE 9
 #else
 #   define KEYBOARD_REPORT_SIZE 8
-#   define KEYBOARD_REPORT_KEYS 6
 #endif
 
+#define KEYBOARD_REPORT_KEYS 6
+
+/* VUSB hardcodes keyboard and mouse+extrakey only */
+#if defined(PROTOCOL_VUSB)
+  #undef KEYBOARD_SHARED_EP
+  #undef MOUSE_SHARED_EP
+#endif
 
 #ifdef __cplusplus
 extern "C" {
@@ -126,12 +131,18 @@ extern "C" {
 typedef union {
     uint8_t raw[KEYBOARD_REPORT_SIZE];
     struct {
+#ifdef KEYBOARD_SHARED_EP
+        uint8_t report_id;
+#endif
         uint8_t mods;
         uint8_t reserved;
         uint8_t keys[KEYBOARD_REPORT_KEYS];
     };
 #ifdef NKRO_ENABLE
-    struct {
+    struct nkro_report {
+#ifdef NKRO_SHARED_EP
+        uint8_t report_id;
+#endif
         uint8_t mods;
         uint8_t bits[KEYBOARD_REPORT_BITS];
     } nkro;
@@ -139,6 +150,9 @@ typedef union {
 } __attribute__ ((packed)) report_keyboard_t;
 
 typedef struct {
+#ifdef MOUSE_SHARED_EP
+    uint8_t report_id;
+#endif
     uint8_t buttons;
     int8_t x;
     int8_t y;
