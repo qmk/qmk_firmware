@@ -57,7 +57,7 @@
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif // TAPPING_TERM
-#ifdef KEYBOARD_ergodox_ez
+#if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_crkbd)
   #define TAPPING_TERM 185
 #else
   #define TAPPING_TERM 175
