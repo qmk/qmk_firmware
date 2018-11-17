@@ -27,8 +27,8 @@ enum crkbd_keycodes {
   ) \
   LAYOUT_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_MINS, \
-    KC_TAB,  K11,    K12,     K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A,     RGUI_T(KC_QUOT), \
-    OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29,  CTL_T(K2A), OS_RALT, \
+    KC_TAB, ALT_T(K11),  K12, K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A, RGUI_T(KC_QUOT), \
+    OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29,  CTL_T(K2A), OS_RSFT, \
                            LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,     KC_DEL,  KC_ENT,  RAISE                                        \
   )
 #define LAYOUT_crkbd_base_wrapper(...)       LAYOUT_crkbd_base(__VA_ARGS__)
@@ -66,14 +66,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
   [_LOWER] = LAYOUT_wrapper(
-    KC_TILD, _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, KC_BSPC,
-    KC_F11,  _________________LOWER_L2__________________,                    _________________LOWER_R2__________________, KC_PIPE,
-    KC_F12,  _________________LOWER_L3__________________,                    _________________LOWER_R3__________________, _______,
+    KC_F11,  _________________LOWER_L1__________________,                    _________________LOWER_R1__________________, KC_F11,
+    KC_F12,  _________________LOWER_L2__________________,                    _________________LOWER_R2__________________, KC_PIPE,
+    _______, _________________LOWER_L3__________________,                    _________________LOWER_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
   ),
 
   [_RAISE] = LAYOUT_wrapper( \
-    KC_GRV,  _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, KC_BSPC,
+    _______, _________________RAISE_L1__________________,                    _________________RAISE_R1__________________, _______,
     _______, _________________RAISE_L2__________________,                    _________________RAISE_R2__________________, KC_BSLS,
     _______, _________________RAISE_L3__________________,                    _________________RAISE_R3__________________, _______,
                                      _______, _______, _______,        _______, _______, _______
@@ -82,17 +82,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJUST] = LAYOUT_wrapper( \
     KC_MAKE, _________________ADJUST_L1_________________,                    _________________ADJUST_R1_________________, KC_RESET,
     VRSN,    _________________ADJUST_L2_________________,                    _________________ADJUST_R2_________________, EPRM,
-    TG_MODS, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, KC_MPLY,
-                                     _______, _______, _______,        KC_NUKE, _______, _______
+    _______, _________________ADJUST_L3_________________,                    _________________ADJUST_R3_________________, KC_MPLY,
+                                     _______, _______, _______,        KC_NUKE, TG_MODS, _______
   )
 };
 
-int RGB_current_mode;
-
 void matrix_init_keymap(void) {
-    #ifdef RGBLIGHT_ENABLE
-      RGB_current_mode = rgblight_config.mode;
-    #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
         iota_gfx_init(!has_usb());   // turns on the display

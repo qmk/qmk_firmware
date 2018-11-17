@@ -290,10 +290,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-void matrix_init_keymap(void) { // Runs boot tasks for keyboard
-};
-
-
 void matrix_scan_keymap(void) {  // runs frequently to update info
   uint8_t modifiers = get_mods();
   uint8_t led_usb_state = host_keyboard_leds();
@@ -347,36 +343,46 @@ void suspend_wakeup_init_keymap(void) {
     rgb_matrix_set_suspend_state(false);
 }
 
-void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue, bool default_layer) {
-
+void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
+  rgb_led led;
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    led = g_rgb_leds[i];
+    if (led.matrix_co.raw < 0xFF) {
+      if (led.modifier) {
+          rgb_matrix_set_color( i, red, green, blue );
+      }
+    }
+  }
+}
 
 void rgb_matrix_indicators_user(void) {
   uint8_t this_mod = get_mods();
   uint8_t this_led = host_keyboard_leds();
   uint8_t this_osm = get_oneshot_mods();
+
   switch (biton32(layer_state)) {
     case _MODS:
-      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
+      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
     case _GAMEPAD:
-      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
+      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
     case _DIABLO:
-      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
+      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
     case _RAISE:
-      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
+      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
     case _LOWER:
-      rgb_matrix_layer_helper(0x00, 0xFF, 0x00, false); break;
+      rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
     case _ADJUST:
-      rgb_matrix_layer_helper(0xFF, 0x00, 0x00, false); break;
+      rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
     default:
       switch (biton32(default_layer_state)) {
         case _QWERTY:
-          rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, true); break;
+          rgb_matrix_layer_helper(0x00, 0xFF, 0xFF); break;
         case _COLEMAK:
-          rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, true); break;
+          rgb_matrix_layer_helper(0xFF, 0x00, 0xFF); break;
         case _DVORAK:
-          rgb_matrix_layer_helper(0x00, 0xFF, 0x00, true); break;
+          rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
         case _WORKMAN:
-          rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, true); break;
+          rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
       }
   }
 
@@ -399,6 +405,7 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void matrix_init_keymap(void) {
-  rgblight_mode(RGB_MATRIX_MULTISPLASH);
+  rgblight_mode(RGB_MATRIX_JELLYBEAN_RAINDROPS);
 }
+
 #endif //RGB_MATRIX_INIT
