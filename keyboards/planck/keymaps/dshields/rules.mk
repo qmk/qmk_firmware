@@ -9,12 +9,20 @@ EXTRAKEY_ENABLE  = no
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 API_SYSEX_ENABLE = no
 
-ifneq (,$(findstring planck/light,$(KEYBOARD)))
-    AUDIO_ENABLE      = yes
-    BACKLIGHT_ENABLE  = no
-    RGB_MATRIX_ENABLE = yes
-else
-    AUDIO_ENABLE      = no
-    BACKLIGHT_ENABLE  = yes
-    RGB_MATRIX_ENABLE = no
+ifeq ($(strip $(KEYBOARD)), planck/rev3)
+	AUDIO_ENABLE	  = no
+	BACKLIGHT_ENABLE  = yes
+	RGB_MATRIX_ENABLE = no
 endif
+ifeq ($(strip $(KEYBOARD)), planck/rev6)
+	EXTRALDFLAGS	  = -Wl,--build-id=none
+	AUDIO_ENABLE	  = yes
+	BACKLIGHT_ENABLE  = no
+	RGB_MATRIX_ENABLE = no
+endif
+ifeq ($(strip $(KEYBOARD)), planck/light)
+	AUDIO_ENABLE	  = yes
+	BACKLIGHT_ENABLE  = no
+	RGB_MATRIX_ENABLE = yes
+endif
+

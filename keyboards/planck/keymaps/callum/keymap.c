@@ -172,7 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |Power| F11 | F12 | F13 | F14 | F15 | F16 | F17 | F18 | F19 | F20 |VolDn|
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     | F21 | F22 | F23 | F24 |     |     |     |     |Clmak|Qwrty|     |
+     * |     |     |     |TabL |TabR |     |     |     |     |Clmak|Qwrty|     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |     |     |     |     |Prev |Mute |Play |Next |     |     |     |     |
      * `-----------------------------------------------------------------------'
@@ -189,8 +189,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             KC_F18,       KC_F19,       KC_F20,       KC_VOLD
         },
         {
-            _______,      KC_F21,       KC_F22,       KC_F23,
-            KC_F24,       XXXXXXX,      XXXXXXX,      XXXXXXX,
+            _______,      XXXXXXX,      XXXXXXX,      SC(KC_TAB),
+            C(KC_TAB),    XXXXXXX,      XXXXXXX,      XXXXXXX,
             XXXXXXX,      COLEMAK,      QWERTY,       _______
         },
         {
@@ -229,13 +229,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 set_colemak();
             }
             return false;
-            break;
         case QWERTY:
             if (record->event.pressed) {
                 set_qwerty();
             }
             return false;
-            break;
         case SYMB:
             if (record->event.pressed) {
                 layer_on(_SYMB);
@@ -243,7 +241,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_SYMB);
             }
             return false;
-            break;
         case MOVE:
             if (record->event.pressed) {
                 layer_on(_MOVE);
@@ -251,7 +248,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_MOVE);
             }
             return false;
-            break;
         case FUNC:
             if (record->event.pressed) {
                 layer_on(_FUNC);
@@ -259,7 +255,69 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 layer_off(_FUNC);
             }
             return false;
-            break;
+
+        // Override the defualt auto shifted symbols to use SEND_STRING
+        // See https://github.com/qmk/qmk_firmware/issues/4072
+        case KC_EXLM:
+            if (record->event.pressed) { SEND_STRING("!"); }
+            return false;
+        case KC_AT:
+            if (record->event.pressed) { SEND_STRING("@"); }
+            return false;
+        case KC_HASH:
+            if (record->event.pressed) { SEND_STRING("#"); }
+            return false;
+        case KC_DLR:
+            if (record->event.pressed) { SEND_STRING("$"); }
+            return false;
+        case KC_PERC:
+            if (record->event.pressed) { SEND_STRING("%"); }
+            return false;
+        case KC_CIRC:
+            if (record->event.pressed) { SEND_STRING("^"); }
+            return false;
+        case KC_AMPR:
+            if (record->event.pressed) { SEND_STRING("&"); }
+            return false;
+        case KC_ASTR:
+            if (record->event.pressed) { SEND_STRING("*"); }
+            return false;
+        case KC_LPRN:
+            if (record->event.pressed) { SEND_STRING("("); }
+            return false;
+        case KC_RPRN:
+            if (record->event.pressed) { SEND_STRING(")"); }
+            return false;
+        case KC_TILD:
+            if (record->event.pressed) { SEND_STRING("~"); }
+            return false;
+        case KC_GRV:
+            if (record->event.pressed) { SEND_STRING("`"); }
+            return false;
+        case KC_PLUS:
+            if (record->event.pressed) { SEND_STRING("+"); }
+            return false;
+        case KC_EQL:
+            if (record->event.pressed) { SEND_STRING("="); }
+            return false;
+        case KC_PIPE:
+            if (record->event.pressed) { SEND_STRING("|"); }
+            return false;
+        case KC_BSLS:
+            if (record->event.pressed) { SEND_STRING("\\"); }
+            return false;
+        case KC_LBRC:
+            if (record->event.pressed) { SEND_STRING("["); }
+            return false;
+        case KC_RBRC:
+            if (record->event.pressed) { SEND_STRING("]"); }
+            return false;
+        case KC_LCBR:
+            if (record->event.pressed) { SEND_STRING("{"); }
+            return false;
+        case KC_RCBR:
+            if (record->event.pressed) { SEND_STRING("}"); }
+            return false;
     }
     return true;
 }

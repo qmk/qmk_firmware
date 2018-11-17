@@ -105,10 +105,12 @@ The solution is to remove and reinstall all affected modules.
 ```
 brew rm avr-gcc
 brew rm dfu-programmer
+brew rm dfu-util
 brew rm gcc-arm-none-eabi
 brew rm avrdude
 brew install avr-gcc
 brew install dfu-programmer
+brew install dfu-util
 brew install gcc-arm-none-eabi
 brew install avrdude
 ```
@@ -124,5 +126,5 @@ For now, you need to rollback avr-gcc to 7 in brew.
 ```
 brew uninstall --force avr-gcc
 brew install avr-gcc@7
-brew link avr-gcc@7
+brew link --force avr-gcc@7
 ```
