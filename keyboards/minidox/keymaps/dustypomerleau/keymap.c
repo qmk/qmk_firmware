@@ -1,23 +1,17 @@
 // dustypomerleau, Minidox keymap
+// Thanks for checking out my keymap. The rationale behind this layout is described in the README.
 
 // TODO:
-// add back (left index), delete (right index), printscreen (left pinky) to nav
-// add qwerty layer
-// define qwerty mod tap aliases
-// add qwerty and colemak keycodes to sys layer
-// add a normal number layer for j (including aliases) and comment it out
 // add oneshot timeout to config
-// review all docs re: config and add necessary params
-// replace your macros with tap_code(): https://docs.qmk.fm/#/feature_macros?id=tap_code
-//   tap_code(S(kc)) (if this doesn't work you may have to keep register_code for the mods and just use tap_code for the kc)
-//   based on the docs I actually think you'll need the latter, but maybe try the slick way first.
+// review all docs re: config and add necessary params to config (ignore mod tap interrupt, permissive hold, tapping force hold, prevent stuck modifiers, possibly tapping term adjust, etc.)
+//without tapping force hold you can doubletap a MT() to get repeats of the tap key - if you want to be able to use the mod quickly you can define tapping force hold but then you’re giving up doubletap to repeat
 
 #include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
 enum custom_layers {
-  _COLEMAK_DHM,
+  _CMK_DHM,
   _QWERTY,
   _MEDIA,
   _NAV,
@@ -28,7 +22,7 @@ enum custom_layers {
 };
 
 enum custom_keycodes {
-  COLEMAK_DHM = SAFE_RANGE,
+  CMK_DHM = SAFE_RANGE,
   QWERTY,
   NAV,
   NUM,
@@ -42,17 +36,28 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define ALT_2 LALT_T(KC_2)
 #define ALT_3 LALT_T(KC_3)
+#define ALT_8 LALT_T(KC_8)
+#define ALT_D LALT_T(KC_D)
 #define ALT_E LALT_T(KC_E)
+#define ALT_K LALT_T(KC_K)
 #define ALT_OB LALT_T(KC_LBRC)
 #define ALT_S LALT_T(KC_S)
+#define CTRL_2 LCTL_T(KC_2)
 #define CTRL_4 LCTL_T(KC_4)
 #define CTRL_5 LCTL_T(KC_5)
+#define CTRL_9 LCTL_T(KC_9)
 #define CTRL_EQ LCTL_T(KC_EQL)
 #define CTRL_I LCTL_T(KC_I)
+#define CTRL_L LCTL_T(KC_L)
 #define CTRL_R LCTL_T(KC_R)
+#define CTRL_S LCTL_T(KC_S)
 #define GUI_0 LGUI_T(KC_0)
 #define GUI_1 LGUI_T(KC_1)
+#define GUI_4 LGUI_T(KC_4)
+#define GUI_7 LGUI_T(KC_7)
 #define GUI_CB LGUI_T(KC_RBRC)
+#define GUI_F LGUI_T(KC_F)
+#define GUI_J LGUI_T(KC_J)
 #define GUI_N LGUI_T(KC_N)
 #define GUI_T LGUI_T(KC_T)
 #define MAC_EM S(LALT(KC_MINS))
@@ -77,7 +82,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Colemak DH(M)
+/* Colemak DHm
  *
  * ,----------------------------------.           ,----------------------------------.
  * |   Q  |   W  |   F  |   P  |   B  |           |   J  |   L  |   U  |   Y  |   '  |
@@ -92,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_COLEMAK_DHM] = LAYOUT( \
+[_CMK_DHM] = LAYOUT( \
   KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
   KC_A,    CTRL_R,  ALT_S,   GUI_T,   KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O,    \
   KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
@@ -102,11 +107,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* QWERTY
  *
  * ,----------------------------------.           ,----------------------------------.
- * |   Q  |   W  |   F  |   P  |   B  |           |   J  |   L  |   U  |   Y  |   '  |
+ * |   Q  |   W  |   E  |   R  |   T  |           |   Y  |   U  |   I  |   O  |   P  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   A  |CTRL_R| ALT_S| GUI_T|   G  |           |   M  | GUI_N| ALT_E|CTRL_I|   O  |
+ * |   A  |CTRL_S| ALT_D| GUI_F|   G  |           |   H  | GUI_J| ALT_K|CTRL_L|   '  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   Z  |   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
+ * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   ;  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |SYMLOS|SFT_OS|      |    |      |SFT_OS|SYMROS|
@@ -115,9 +120,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_QWERTY] = LAYOUT( \
-  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
-  KC_A,    CTRL_R,  ALT_S,   GUI_T,   KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O,    \
-  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
+  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P, \
+  KC_A,    CTRL_S,  ALT_D,   GUI_F,   KC_G,         KC_H,    GUI_J,   ALT_K,   CTRL_L,  KC_QUOT,    \
+  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN, \
                     SYML_OS, SFT_OS,  NAV_BK,       NUM_SPC, SFT_OS,  SYMR_OS                    \
 ),
 
@@ -146,7 +151,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * |      |      | WH_U | WH_D |      |           |      | PGDN | PGUP | HOME |  END |
+ * | PSCR |      | WH_U | WH_D | BSPC |           | DEL  | PGDN | PGUP | HOME |  END |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | SHIFT| CTRL |  ALT |  GUI |NAV_LK|           | CAPS | LEFT | DOWN |  UP  | RIGHT|
  * |------+------+------+------+------|           |------+------+------+------+------|
@@ -159,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_NAV] = LAYOUT( \
-  _______, _______, KC_WH_U, KC_WH_D, _______,      _______, KC_PGDN, KC_PGUP, KC_HOME, KC_END,  \
+  KC_PSCR, _______, KC_WH_U, KC_WH_D, KC_BSPC,      KC_DEL,  KC_PGDN, KC_PGUP, KC_HOME, KC_END,  \
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
   _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
                     KC_ESC,  _______, _______,      KC_ENT,  _______, _______,                   \
@@ -187,6 +192,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                     KC_ESC,  _______, KC_TAB,       _______, _______, _______,                    \
 ),
 
+/* Vanilla numbers + function keys (uncomment if you prefer standard number order)
+ *
+ * ,----------------------------------.           ,----------------------------------.
+ * |  F1  |  F2  |  F3  |  F4  |  F5  |           |  F6  |  F7  |  F8  |  F9  |  F10 |
+ * |------+------+------+------+------|           |------+------+------+------+------|
+ * |   1  |CTRL_2| ALT_3| GUI_4|   5  |           |   6  | GUI_7| ALT_8|CTRL_9|   0  |
+ * |------+------+------+------+------|           |------+------+------+------+------|
+ * |      |      |  F11 |  F12 |      |           |      |NUM_LK|      |      |      |
+ * `----------------------------------'           `----------------------------------'
+ *                  ,--------------------.    ,--------------------.
+ *                  |  ESC |      |      |    |      |      |      |
+ *                  `------+------|  TAB |    |      |------+------'
+ *                                |      |    |      |
+ *                                `------'    `------'
+ */
+// [_NUM] = LAYOUT( \
+//   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
+//   KC_1,    CTRL_2,  ALT_3,   GUI_4,   KC_5,         KC_6,    GUI_7,   ALT_8,   CTRL_9,  KC_0,     \
+//   _______, _______, KC_F11,  KC_F12,  _______,      _______, NUM_LK,  _______, _______, _______,  \
+//                     KC_ESC,  _______, KC_TAB,       _______, _______, _______,                    \
+// ),
+
 /* Symbols
  *
  * ,----------------------------------.           ,----------------------------------.
@@ -210,7 +237,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |      |      |      |      |      |           |      |      |      |      |      |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * | RESET| DEBUG|AU_OFF| AU_ON|      |           |      |      |      |      |      |
+ * | RESET| DEBUG|AU_OFF| AU_ON|      |           |      |COLEMK|QWERTY|      |      |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |      |      |      |      |      |           |      |      |      |      |      |
  * `----------------------------------'           `----------------------------------'
@@ -222,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYS] = LAYOUT( \
   _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, \
-  RESET,   DEBUG,   AU_OFF,  AU_ON,   _______,      _______, _______, _______, _______, _______, \
+  RESET,   DEBUG,   AU_OFF,  AU_ON,   _______,      _______, CMK_DHM, QWERTY, _______, _______, \
   _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, \
                     _______, _______, _______,      _______, _______, _______,                   \
 ),
@@ -231,9 +258,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case COLEMAK_DHM:
+    case CMK_DHM:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK_DHM);
+        set_single_persistent_default_layer(_CMK_DHM);
       }
       return false;
     case QWERTY:
@@ -286,8 +313,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_LALT));
         if (timer_elapsed(key_timer) < TAPPING_TERM) {
           register_mods(MOD_BIT(KC_LSFT));
-          register_code(KC_9);
-          unregister_code(KC_9);
+          tap_code(KC_9);
           unregister_mods(MOD_BIT(KC_LSFT));
         }
       }
@@ -301,8 +327,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_LCTL));
         if (timer_elapsed(key_timer) < TAPPING_TERM) {
           register_mods(MOD_BIT(KC_LSFT));
-          register_code(KC_RBRC);
-          unregister_code(KC_RBRC);
+          tap_code(KC_RBRC);
           unregister_mods(MOD_BIT(KC_LSFT));
         }
       }
@@ -316,7 +341,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_LGUI));
         if (timer_elapsed(key_timer) < TAPPING_TERM) {
           register_mods(MOD_BIT(KC_LSFT));
-          register_code(KC_0);
+          tap_code(KC_0);
           unregister_code(KC_0);
           unregister_mods(MOD_BIT(KC_LSFT));
         }
