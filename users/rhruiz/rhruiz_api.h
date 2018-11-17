@@ -1,5 +1,4 @@
-enum rhruiz_command_id
-{
+enum rhruiz_command_id {
 	id_get_protocol_version = 0x01, // always 0x01
   id_get_keyboard_value,
   id_set_keyboard_value,
@@ -11,7 +10,6 @@ enum rhruiz_command_id
 	id_unhandled = 0xFF,
 };
 
-enum rhruiz_keyboard_value_id
-{
+enum rhruiz_keyboard_value_id {
 	id_uptime = 0x01
 };
