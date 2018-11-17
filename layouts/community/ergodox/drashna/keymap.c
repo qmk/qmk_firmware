@@ -364,9 +364,9 @@ void rgb_matrix_indicators_user(void) {
     case _MODS:
       rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
     case _GAMEPAD:
-      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+      rgb_matrix_layer_helper(0xFF, 0x80, 0x00); break;
     case _DIABLO:
-      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+      rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
     case _RAISE:
       rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
     case _LOWER:
@@ -405,7 +405,7 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void matrix_init_keymap(void) {
-  rgblight_mode(RGB_MATRIX_JELLYBEAN_RAINDROPS);
+  rgblight_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
 }
 
 #endif //RGB_MATRIX_INIT
