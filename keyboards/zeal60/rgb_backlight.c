@@ -15,12 +15,12 @@
  */
 #if RGB_BACKLIGHT_ENABLED
 
-#if defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_ZEAL65) || defined (RGB_BACKLIGHT_M60_A)
+#if defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_ZEAL65) || defined (RGB_BACKLIGHT_M60_A) || defined(RGB_BACKLIGHT_M6_B)
 #else
-#error None of the following was defined: RGB_BACKLIGHT_ZEAL60, RGB_BACKLIGHT_ZEAL65, RGB_BACKLIGHT_M60_A
+#error None of the following was defined: RGB_BACKLIGHT_ZEAL60, RGB_BACKLIGHT_ZEAL65, RGB_BACKLIGHT_M60_A, RGB_BACKLIGHT_M6_B
 #endif
 
-#include "zeal60.h"
+#include "quantum.h"
 #include "rgb_backlight.h"
 #include "rgb_backlight_api.h"
 #include "rgb_backlight_keycodes.h"
@@ -32,7 +32,14 @@
 
 #include "quantum/color.h"
 #include "drivers/avr/i2c_master.h"
+
+#if defined (RGB_BACKLIGHT_M6_B)
+#include "drivers/issi/is31fl3218.h"
+#define BACKLIGHT_LED_COUNT 6
+#else
 #include "drivers/issi/is31fl3731.h"
+#define BACKLIGHT_LED_COUNT 72
+#endif
 
 #define BACKLIGHT_EFFECT_MAX 10
 
@@ -69,11 +76,12 @@ uint8_t g_indicator_state = 0;
 uint32_t g_tick = 0;
 
 // Ticks since this key was last hit.
-uint8_t g_key_hit[72];
+uint8_t g_key_hit[BACKLIGHT_LED_COUNT];
 
 // Ticks since any key was last hit.
 uint32_t g_any_key_hit = 0;
 
+#if !defined(RGB_BACKLIGHT_M6_B)
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
 #define ISSI_ADDR_1 0x74
@@ -162,7 +170,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 	{1, C9_16, C7_15, C6_15}, // LD16
 	{1, C8_16, C7_16, C6_16}, // LD17
 };
-
+#endif // !defined(RGB_BACKLIGHT_M6_B)
 
 
 typedef struct Point {
@@ -175,7 +183,7 @@ typedef struct Point {
 // point values in range x=0..224 y=0..64
 // origin is center of top-left key (i.e Esc)
 #if defined (RGB_BACKLIGHT_ZEAL65)
-const Point g_map_led_to_point[72] PROGMEM = {
+const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
 	// LA0..LA17
 	{120,16}, {104,16}, {88,16}, {72,16}, {56,16}, {40,16}, {24,16}, {4,16}, {4,32},
 	{128,0}, {112,0}, {96,0}, {80,0}, {64,0}, {48,0}, {32,0}, {16,0}, {0,0},
@@ -189,7 +197,7 @@ const Point g_map_led_to_point[72] PROGMEM = {
 	{124,32}, {140,32}, {156,32}, {172,32}, {188,32}, {214,32}, {180,48}, {202,48}, {224,48},
 	{116,48}, {132,48}, {148,48}, {164,48}, {255,255}, {144,60}, {164,64}, {188,64}, {208,64}
 };
-const Point g_map_led_to_point_polar[72] PROGMEM = {
+const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
 	// LA0..LA17
 	{64,128}, {75,132}, {84,145}, {91,164}, {97,187}, {102,213}, {105,242}, {109,255}, {128,247},
 	{61,255}, {67,255}, {72,255}, {77,255}, {82,255}, {86,255}, {90,255}, {93,255}, {96,255},
@@ -204,7 +212,7 @@ const Point g_map_led_to_point_polar[72] PROGMEM = {
 	{189,128}, {200,131}, {210,141}, {218,159}, {201,228}, {201,228}, {206,255}, {213,255}, {218,255}
 };
 #elif defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
-const Point g_map_led_to_point[72] PROGMEM = {
+const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
 	// LA0..LA17
 	{120,16}, {104,16}, {88,16}, {72,16}, {56,16}, {40,16}, {24,16}, {4,16}, {4,32},
 	{128,0}, {112,0}, {96,0}, {80,0}, {64,0}, {48,0}, {32,0}, {16,0}, {0,0},
@@ -218,7 +226,7 @@ const Point g_map_led_to_point[72] PROGMEM = {
 	{124,32}, {140,32}, {156,32}, {172,32}, {188,32}, {214,32}, {180,48}, {210,48}, {224,48},
 	{116,48}, {132,48}, {148,48}, {164,48}, {144,64}, {161,64}, {181,64}, {201,64}, {221,64}
 };
-const Point g_map_led_to_point_polar[72] PROGMEM = {
+const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
 	// LA0..LA17
 	{58,129}, {70,129}, {80,139}, {89,157}, {96,181}, {101,208}, {105,238}, {109,255}, {128,247}, {58,255},
 	{64,255}, {70,255}, {75,255}, {80,255}, {85,255}, {89,255}, {93,255}, {96,255},
@@ -231,6 +239,16 @@ const Point g_map_led_to_point_polar[72] PROGMEM = {
 	// LD0..LD17
 	{0,27}, {0,64}, {0,101}, {0,137}, {0,174}, {255,233}, {228,201}, {235,255}, {237,255},
 	{195,128}, {206,136}, {215,152}, {222,175}, {205,234}, {209,255}, {214,255}, {219,255}, {223,255}
+};
+#elif defined (RGB_BACKLIGHT_M6_B)
+// M6-B is really simple:
+// 0 3 5
+// 1 2 4
+const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
+	{0,0}, {0,16}, {16,16}, {16,0}, {32,16}, {32,0}
+};
+const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
+	{0,0}, {0,16}, {16,16}, {16,0}, {32,16}, {32,0}
 };
 #endif
 
@@ -245,16 +263,30 @@ void map_led_to_point( uint8_t index, Point *point )
 	point->x = pgm_read_byte(addr);
 	point->y = pgm_read_byte(addr+1);
 
+#if defined (RGB_BACKLIGHT_M6_B)
+	return;
+#endif
+
 	switch (index)
 	{
 		case 18+4: // LB4A
 			if ( g_config.use_split_backspace )
 				point->x -= 8;
 			break;
+#if defined (RGB_BACKLIGHT_ZEAL60)
 		case 18+14: // LB14A
 			if ( g_config.use_iso_enter )
 				point->y += 8; // extremely pedantic
 			break;
+		case 54+5: // LD5A
+			if ( !g_config.use_iso_enter )
+				point->x -= 10;
+			break;
+		case 36+16: // LC16A
+			if ( !g_config.use_split_left_shift )
+				point->x += 8;
+			break;
+#endif
 #if defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
 		case 36+0: // LC0A
 			if ( g_config.use_7u_spacebar )
@@ -264,19 +296,11 @@ void map_led_to_point( uint8_t index, Point *point )
 			if ( g_config.use_7u_spacebar )
 				point->x += 4;
 			break;
-#endif
-		case 36+16: // LC16A
-			if ( !g_config.use_split_left_shift )
-				point->x += 8;
-			break;
-		case 54+5: // LD5A
-			if ( !g_config.use_iso_enter )
-				point->x -= 10;
-			break;
 		case 54+7: // LD7A
 			if ( !g_config.use_split_right_shift )
 				point->x -= 8;
 			break;
+#endif
 	}
 }
 
@@ -325,6 +349,13 @@ const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 	{ 36+16, 36+15,  36+5,  36+4,  36+3,  36+2,  36+1,  54+9, 54+10, 54+11, 54+12,  54+6,  54+7,  54+8 },
 	{ 36+17,  36+8,  36+7,  36+6,   255,   255,   255,  36+0,  255,  54+13, 54+14, 54+15, 54+16, 54+17 }
 };
+#elif defined (RGB_BACKLIGHT_M6_B)
+// M6-B is really simple:
+// 0 3 5
+// 1 2 4
+const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+	{     0,     3,     5,     1,     2,     4 }
+};
 #endif
 
 void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led )
@@ -338,18 +369,30 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led )
 
 void backlight_update_pwm_buffers(void)
 {
+#if defined (RGB_BACKLIGHT_M6_B)
+	IS31FL3218_update_pwm_buffers();
+#else
 	IS31FL3731_update_pwm_buffers( ISSI_ADDR_1, ISSI_ADDR_2 );
 	IS31FL3731_update_led_control_registers( ISSI_ADDR_1, ISSI_ADDR_2 );
+#endif
 }
 
 void backlight_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
 {
+#if defined (RGB_BACKLIGHT_M6_B)
+	IS31FL3218_set_color( index, red, green, blue );
+#else
 	IS31FL3731_set_color( index, red, green, blue );
+#endif
 }
 
 void backlight_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
 {
+#if defined (RGB_BACKLIGHT_M6_B)
+	IS31FL3218_set_color_all( red, green, blue );
+#else
 	IS31FL3731_set_color_all( red, green, blue );
+#endif
 }
 
 void backlight_set_key_hit(uint8_t row, uint8_t column)
@@ -436,6 +479,7 @@ void backlight_effect_rgb_test(void)
 	}
 }
 
+#if defined(RGB_DEBUGGING_ONLY)
 // This tests the LEDs
 // Note that it will change the LED control registers
 // in the LED drivers, and leave them in an invalid
@@ -475,6 +519,7 @@ void backlight_effect_single_LED_test(void)
 	backlight_set_color_all( 255, 255, 255 );
 	backlight_test_led( led, color==0, color==1, color==2 );
 }
+#endif // defined(RGB_DEBUGGING_ONLY)
 
 // All LEDs off
 void backlight_effect_all_off(void)
@@ -502,7 +547,7 @@ void backlight_effect_alphas_mods(void)
 		{
 			uint8_t index;
 			map_row_column_to_led( row, column, &index );
-			if ( index < 72 )
+			if ( index < BACKLIGHT_LED_COUNT )
 			{
 				if ( ( g_config.alphas_mods[row] & (1<<column) ) == 0 )
 				{
@@ -542,7 +587,7 @@ void backlight_effect_gradient_up_down(void)
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
 	{
 		map_led_to_point( i, &point );
 		// The y range will be 0..64, map this to 0..4
@@ -580,9 +625,9 @@ void backlight_effect_raindrops(bool initialize)
 	RGB rgb;
 
 	// Change one LED every tick
-	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % 72 : 255;
+	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % BACKLIGHT_LED_COUNT : 255;
 
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
 	{
 		// If initialize, all get set to random colors
 		// If not, all but one will stay the same as before.
@@ -604,7 +649,7 @@ void backlight_effect_cycle_all(void)
 	uint8_t offset = ( g_tick << g_config.effect_speed ) & 0xFF;
 
 	// Relies on hue being 8-bit and wrapping
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
 		// stabilizer LEDs use spacebar hits
@@ -627,7 +672,7 @@ void backlight_effect_cycle_left_right(void)
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
 		// stabilizer LEDs use spacebar hits
@@ -652,7 +697,7 @@ void backlight_effect_cycle_up_down(void)
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
 		// stabilizer LEDs use spacebar hits
@@ -677,9 +722,9 @@ void backlight_effect_jellybean_raindrops( bool initialize )
 	RGB rgb;
 
 	// Change one LED every tick
-	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % 72 : 255;
+	uint8_t led_to_change = ( g_tick & 0x000 ) == 0 ? rand() % BACKLIGHT_LED_COUNT : 255;
 
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
 	{
 		// If initialize, all get set to random colors
 		// If not, all but one will stay the same as before.
@@ -702,7 +747,7 @@ void backlight_effect_cycle_radial1(void)
 	HSV hsv = { .h = 0, .s = 255, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
 	{
 		map_led_to_point_polar( i, &point );
 		// Relies on hue being 8-bit and wrapping
@@ -720,7 +765,7 @@ void backlight_effect_cycle_radial2(void)
 	HSV hsv = { .h = 0, .s = g_config.color_1.s, .v = g_config.brightness };
 	RGB rgb;
 	Point point;
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
 	{
 		map_led_to_point_polar( i, &point );
 		uint8_t offset2 = offset + point.x;
@@ -826,7 +871,7 @@ ISR(TIMER3_COMPA_vect)
 		g_any_key_hit++;
 	}
 
-	for ( int led = 0; led < 72; led++ )
+	for ( int led = 0; led < BACKLIGHT_LED_COUNT; led++ )
 	{
 		if ( g_key_hit[led] < 255 )
 		{
@@ -899,7 +944,9 @@ ISR(TIMER3_COMPA_vect)
 
 	if ( ! suspend_backlight )
 	{
+#if !defined(RGB_BACKLIGHT_M6_B)
 		backlight_effect_indicators();
+#endif
 	}
 }
 
@@ -1239,17 +1286,19 @@ void backlight_init_drivers(void)
 {
 	// Initialize I2C
 	i2c_init();
+
+#if defined(RGB_BACKLIGHT_M6_B)
+	IS31FL3218_init();
+#else
 	IS31FL3731_init( ISSI_ADDR_1 );
 	IS31FL3731_init( ISSI_ADDR_2 );
 
-	for ( int index = 0; index < 72; index++ )
+	for ( int index = 0; index < BACKLIGHT_LED_COUNT; index++ )
 	{
 		// OR the possible "disabled" cases together, then NOT the result to get the enabled state
 		// LC6 LD13 not present on Zeal65
 #if defined (RGB_BACKLIGHT_ZEAL65)
 		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
-						  ( index == 36+15 && !g_config.use_split_left_shift ) || // LC15
-						  ( index == 54+8 && !g_config.use_split_right_shift ) || // LD8
 						  ( index == 36+6 ) || // LC6
 						  ( index == 54+13 ) ); // LD13
 #elif defined (RGB_BACKLIGHT_M60_A)
@@ -1286,11 +1335,12 @@ void backlight_init_drivers(void)
 	}
 	// This actually updates the LED drivers
 	IS31FL3731_update_led_control_registers( ISSI_ADDR_1, ISSI_ADDR_2 );
+#endif // !defined(RGB_BACKLIGHT_M6_B)
 
 	// TODO: put the 1 second startup delay here?
 
 	// clear the key hits
-	for ( int led=0; led<72; led++ )
+	for ( int led=0; led<BACKLIGHT_LED_COUNT; led++ )
 	{
 		g_key_hit[led] = 255;
 	}
@@ -1510,9 +1560,10 @@ void backlight_color_2_sat_decrease(void)
 	backlight_config_save();
 }
 
+#if defined(RGB_DEBUGGING_ONLY)
 void backlight_test_led( uint8_t index, bool red, bool green, bool blue )
 {
-	for ( int i=0; i<72; i++ )
+	for ( int i=0; i<BACKLIGHT_LED_COUNT; i++ )
 	{
 		if ( i == index )
 		{
@@ -1524,6 +1575,7 @@ void backlight_test_led( uint8_t index, bool red, bool green, bool blue )
 		}
 	}
 }
+#endif // defined(RGB_DEBUGGING_ONLY)
 
 void backlight_debug_led( bool state )
 {

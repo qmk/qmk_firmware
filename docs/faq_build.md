@@ -126,5 +126,5 @@ For now, you need to rollback avr-gcc to 7 in brew.
 ```
 brew uninstall --force avr-gcc
 brew install avr-gcc@7
-brew link avr-gcc@7
+brew link --force avr-gcc@7
 ```
