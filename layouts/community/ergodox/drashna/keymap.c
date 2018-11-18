@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef UNICODEMAP_ENABLE
 #include "drashna_unicode.h"
 #endif // UNICODEMAP_ENABLE
+extern uint8_t input_mode;
 
 
 
@@ -40,7 +41,7 @@ bool skip_leds = false;
       KC_TAB,  K01,    K02,     K03,      K04,     K05,     TG(_DIABLO),         TG(_DIABLO), K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
       KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
       KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG(_GAMEPAD),       TG(_GAMEPAD), K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF, \
-      KC_GRV,  OSM(MOD_MEH),OSM(MOD_LGUI),KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC_SHRG, \
+      KC_GRV,  OSM(MOD_MEH),OSM(MOD_LGUI),KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E), \
                                                   OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE), \
                                                            KC_HOME,                 KC_PGUP, \
                              LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)                          \
@@ -405,7 +406,16 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void matrix_init_keymap(void) {
-  rgblight_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
-}
+  #ifdef RGB_MATRIX_KEYPRESSES
+    rgblight_mode(RGB_MATRIX_MULTISPLASH);
+  #else
+    rgblight_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+  #endif
 
+  input_mode = 2;
+}
+#else
+void matrix_init_keymap(void) {
+  input_mode = 2;
+}
 #endif //RGB_MATRIX_INIT

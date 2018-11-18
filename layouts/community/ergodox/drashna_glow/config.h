@@ -9,3 +9,4 @@
 #define DEBOUNCE 5
 
 #define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
+#undef RGB_MATRIX_SKIP_FRAMES
