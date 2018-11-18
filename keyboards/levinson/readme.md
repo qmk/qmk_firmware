@@ -17,9 +17,11 @@ Example of flashing this keyboard with Pro micro:
 
 Example of flashing this keyboard with Elite-C:
 
-    Add `BOOTLOADER = atmel-dfu` to the `rules.mk` file. Hold the reset button on the Elite-C board, or the reset button on the keyboard if already assembled, then release the button and run:
+    Hold the reset button on the Elite-C board, or the reset button on the keyboard if already assembled, then release the button and run:
 
     make levinson/rev2:default:dfu
+
+    Note: You'll need to add `BOOTLOADER = atmel-dfu` to your `rules.mk` to ensure that resetting the board works properly.
 
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
