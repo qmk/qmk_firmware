@@ -5,8 +5,8 @@
 extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
-#define _ADJUST 8
-#define _FKeys 16
+#define _ADJUST 1
+#define _FKeys 2
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -61,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______,_______,                       _______, _______, _______, _______, _______,  _______, _______ , \
     _______, _______, _______, _______, _______, _______,_______,                       _______, KC_LEFT, KC_DOWN, KC_UP  , KC_RIGHT, _______, _______, \
     _______, _______, _______, _______, _______, _______,_______,                       _______, _______, _______, _______, _______,  _______, _______ , \
-    _______, _______, _______,          _______, KC_LBRC,KC_ENT ,_______,       _______,KC_ENT , KC_RBRC, _______,          _______,  _______, FKeys     \
+    _______, _______, _______,           KC_LBRC,_______,KC_ENT ,_______,       _______,KC_ENT , _______, KC_RBRC,          _______,  _______, OSL(_FKeys)     \
   ),
   /* FKeys
    * ,----------------------------------------------------------------------------------------------------------------------.
@@ -108,14 +108,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_ADJUST);
       } else {
         layer_off(_ADJUST);
-      }
-      return false;
-      break;
-    case FKeys:
-      if (record->event.pressed) {
-        layer_on(_FKeys);
-      } else {
-        layer_off(_FKeys);
       }
       return false;
       break;
