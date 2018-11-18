@@ -1,10 +1,12 @@
-# IBM Trackpoint demonstration
+# 108 Key Trackpoint
 
-This is just a simple demo to show how to integrate IBM Trackpoint in QMK.
+This is based off the handwired/trackpoint keyboard and generated code from [Keyboard Firmware Builder](https://kbfirmware.com/).
 
-Wiring used in the demonstration:
-![Wiring example](http://imgur.com/8ghG2U8)
+You may have to modify the source code to suit 104 keys, RGB backlit, US qwerty, or big ass enter.
 
-Some documentation:
-* [How to wire IBM Trackpoint](https://github.com/alonswartz/trackpoint)
-* [QMK documentation](https://docs.qmk.fm/)
+Wiring used:
+
+<img src="wiring.JPG" alt="wiring" width="1000"/>
+
+
+To figure out how to wire your specific trackpoint have a look out: [How to integrate a trackpoint in a mechanical keyboard](https://github.com/alonswartz/trackpoint)
