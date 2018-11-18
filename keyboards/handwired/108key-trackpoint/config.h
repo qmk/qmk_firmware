@@ -7,11 +7,11 @@
     #define PRODUCT_ID      0x5678
     #define DEVICE_VER      0x0001
     #define MANUFACTURER    QMK
-    #define PRODUCT         TRACKPOINT-DEMO
-    #define DESCRIPTION     Simple demonstration for IBM Trackpoint integration
+    #define PRODUCT         108-TRACKPOINT
+    #define DESCRIPTION     A 108 key ANSI keyboard with a trackpoint and three mouse buttons
 
-    #define MATRIX_ROWS 1
-    #define MATRIX_COLS 3
+    #define MATRIX_ROWS 8
+    #define MATRIX_COLS 23
 
     #ifdef PS2_USE_USART
         #define PS2_CLOCK_PORT  PORTD
@@ -55,8 +55,8 @@
         #define PS2_USART_RX_VECT       USART1_RX_vect
     #endif
 
-    #define MATRIX_COL_PINS { F1, F4, F5 }
-    #define MATRIX_ROW_PINS { F0 }
+    #define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5, B6, B7 }
+    #define MATRIX_COL_PINS { C0, C1, C2, C3, C4, C5, C6, C7, D0, D1, F0, D3, D4, F1, D6, D7, E0, E1, E2, E3, E4, E5, E6 }
     #define UNUSED_PINS
 
     /* COL2ROW or ROW2COL */
@@ -67,9 +67,11 @@
     #define LOCKING_SUPPORT_ENABLE
     #define LOCKING_RESYNC_ENABLE
 
-    /* key combination for command */
+    /* key combination for commkand */
     #define IS_COMMAND() ( \
         keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
     )
+
+    #define PREVENT_STUCK_MODIFIERS
 
 #endif
