@@ -18,8 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-
 #define KM_JIS  0
 #define KM_MEDIA 1
 
