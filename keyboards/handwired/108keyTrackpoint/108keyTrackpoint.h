@@ -1,5 +1,5 @@
-#ifndef KB_H
-#define KB_H
+#ifndef KEYTRACKPOINT
+#define KEYTRACKPOINT
 
 #include "quantum.h"
 
