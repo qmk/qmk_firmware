@@ -4,7 +4,7 @@
 
 This is based off the handwired/trackpoint keyboard and generated code from [Keyboard Firmware Builder](https://kbfirmware.com/).
 
-Keyboard Maintainer: [mkem114](https://github.com/mkem114)
+Keyboard Maintainer: [mkem114](https://github.com/mkem114)  
 Hardware Supported (tested): Teensy++ 2.0
 
 Make example for this keyboard (after setting up your build environment):
