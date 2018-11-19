@@ -25,12 +25,9 @@
 #define ScreenOffInterval 60000 /* milliseconds */
 static uint16_t last_flush;
 
-bool led_numlock = false; 
-bool led_capslock = false; 
-bool led_scrolllock = false; 
-bool led_compose = false; 
-bool led_kana = false; 
-
+volatile uint8_t led_numlock = false; 
+volatile uint8_t  led_capslock = false; 
+volatile uint8_t  led_scrolllock = false;
 
 static uint8_t layer;
 static bool queue_for_send = false; 
@@ -94,17 +91,24 @@ void draw_ui(void) {
 #define LOCK_DISPLAY_X 100
 #define LOCK_DISPLAY_Y 0
 
-  if (led_numlock) {
+  if (led_numlock == true) {
     draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 0, 5 + (3 * 6), 9, PIXEL_ON, NORM);
     draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 1, "NUM", PIXEL_OFF, NORM, 0);
-  } else {
+  } else if (led_numlock == false) {
     draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 1, "NUM", PIXEL_ON, NORM, 0);
   }
-  if (led_capslock) {
-    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 11, 5 + (3 * 6), 9, PIXEL_ON, NORM);
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "CAP", PIXEL_OFF, NORM, 0);
-  } else {
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "CAP", PIXEL_ON, NORM, 0);
+  if (led_capslock == true) {
+    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 10, 5 + (3 * 6), 9, PIXEL_ON, NORM);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 10 +1, "CAP", PIXEL_OFF, NORM, 0);
+  } else if (led_capslock == false) {
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 10 +1, "CAP", PIXEL_ON, NORM, 0);
+  }
+
+  if (led_scrolllock == true) {
+    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 20, 5 + (3 * 6), 9, PIXEL_ON, NORM);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 20 +1, "SCR", PIXEL_OFF, NORM, 0);
+  } else if (led_scrolllock == false) {
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 20 +1, "SCR", PIXEL_ON, NORM, 0);
   }
 //todo: add if/else for each locks
 
