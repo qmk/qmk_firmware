@@ -6,7 +6,7 @@
 #define _________________Num_Row_75________________ KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NLCK
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-#if defined(KEYBOARD_5x5)
+#if defined(KEYBOARD_40percentclub_5x5)
 [GK75] = LAYOUT_ortho_5x15_wrapper(
   _________________Num_Row_75________________, QWERTY75, XXXXXXX, FUNCTION75,
   _______________GherkinLike_0_______________, KC_KP_7, KC_KP_8, KC_KP_9,
