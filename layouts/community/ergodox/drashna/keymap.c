@@ -366,7 +366,7 @@ void rgb_matrix_indicators_user(void) {
       rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
     case _GAMEPAD:
       rgb_matrix_layer_helper(0xFF, 0x80, 0x00);
-      rgb_matrix_set_color(32, 0x00, 0xFF, 0xFF); // Q
+      rgb_matrix_set_color(32, 0x00, 0xFF, 0x00); // Q
       rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF); // W
       rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // E
       rgb_matrix_set_color(29, 0xFF, 0x80, 0x00); // R
@@ -377,7 +377,7 @@ void rgb_matrix_indicators_user(void) {
 
       rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF); // 1
       rgb_matrix_set_color(26, 0x00, 0xFF, 0x00); // 2
-      rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 2
+      rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 3
 
       break;
     case _DIABLO:
@@ -400,7 +400,7 @@ void rgb_matrix_indicators_user(void) {
           rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
       }
   }
-
+#if 0
   if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
     rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
     rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
@@ -417,6 +417,7 @@ void rgb_matrix_indicators_user(void) {
   if (this_mod & MODS_ALT_MASK || this_osm & MODS_ALT_MASK) {
     rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
   }
+#endif
 }
 
 void matrix_init_keymap(void) {
