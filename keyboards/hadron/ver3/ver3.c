@@ -25,6 +25,13 @@
 #define ScreenOffInterval 60000 /* milliseconds */
 static uint16_t last_flush;
 
+bool led_numlock = false; 
+bool led_capslock = false; 
+bool led_scrolllock = false; 
+bool led_compose = false; 
+bool led_kana = false; 
+
+
 static uint8_t layer;
 static bool queue_for_send = false; 
 static uint8_t encoder_value = 32;
@@ -84,7 +91,45 @@ void draw_ui(void) {
     draw_string(MOD_DISPLAY_X + 33, MOD_DISPLAY_Y + 2, "G", PIXEL_ON, NORM, 0);
   }
 
+#define LOCK_DISPLAY_X 100
+#define LOCK_DISPLAY_Y 0
+
+  if (led_numlock) {
+    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 0, 5 + (3 * 6), 9, PIXEL_ON, NORM);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 1, "NUM", PIXEL_OFF, NORM, 0);
+  } else {
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 1, "NUM", PIXEL_ON, NORM, 0);
+  }
+  if (led_capslock) {
+    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 11, 5 + (3 * 6), 9, PIXEL_ON, NORM);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "CAP", PIXEL_OFF, NORM, 0);
+  } else {
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "CAP", PIXEL_ON, NORM, 0);
+  }
+//todo: add if/else for each locks
+
   send_buffer();
+}
+
+void read_host_led_state(void) {
+  uint8_t leds = host_keyboard_leds();
+  if (leds & (1 << USB_LED_NUM_LOCK))    {
+    led_numlock = true;
+    } else {
+    led_numlock = false;
+    }
+  if (leds & (1 << USB_LED_CAPS_LOCK))   {
+    if (led_capslock == false){
+    led_capslock = true;}
+    } else {
+    if (led_capslock == true){  
+    led_capslock = false;}
+    }
+  if (leds & (1 << USB_LED_SCROLL_LOCK)) {
+    led_scrolllock = true;
+    } else {
+    led_scrolllock = false;
+    }
 }
 
 uint32_t layer_state_set_kb(uint32_t state) {
@@ -108,14 +153,15 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 
 void matrix_init_kb(void) {
 #ifdef QWIIC_MICRO_OLED_ENABLE
-  queue_for_send = true;
+    queue_for_send = true;
 #endif
 	matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
 #ifdef QWIIC_MICRO_OLED_ENABLE
-  if (queue_for_send) {
+if (queue_for_send) {
+   read_host_led_state();
    draw_ui();
    queue_for_send = false;
   }
