@@ -114,9 +114,11 @@ void draw_ui(void) {
 void read_host_led_state(void) {
   uint8_t leds = host_keyboard_leds();
   if (leds & (1 << USB_LED_NUM_LOCK))    {
-    led_numlock = true;
+    if (led_numlock == false){
+    led_numlock = true;}
     } else {
-    led_numlock = false;
+    if (led_numlock == true){
+    led_numlock = false;}
     }
   if (leds & (1 << USB_LED_CAPS_LOCK))   {
     if (led_capslock == false){
@@ -126,9 +128,11 @@ void read_host_led_state(void) {
     led_capslock = false;}
     }
   if (leds & (1 << USB_LED_SCROLL_LOCK)) {
-    led_scrolllock = true;
+    if (led_scrolllock == false){
+    led_scrolllock = true;}
     } else {
-    led_scrolllock = false;
+    if (led_scrolllock == true){
+    led_scrolllock = false;}
     }
 }
 
