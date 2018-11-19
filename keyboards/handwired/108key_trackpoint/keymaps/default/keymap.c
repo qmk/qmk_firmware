@@ -1,4 +1,4 @@
-#include "108keyTrackpoint.h"
+#include "108key_trackpoint.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [0] = KEYMAP (
