@@ -71,4 +71,3 @@
   keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-#define PREVENT_STUCK_MODIFIERS
