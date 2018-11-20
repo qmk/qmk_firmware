@@ -16,9 +16,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
+//default to I2C as per original split code ???
+#if !defefined(USE_I2C) && !defefined(USE_SERIAL)
+  #define USE_I2C
+#elif defefined(USE_I2C) && defefined(USE_SERIAL)
+  #error "I2C and serial defined - not Supported"
 #endif
