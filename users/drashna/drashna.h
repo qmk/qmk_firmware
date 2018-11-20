@@ -159,6 +159,9 @@ enum userspace_custom_keycodes {
 #define OS_RCTL OSM(MOD_RCTL)
 #define OS_LALT OSM(MOD_LALT)
 #define OS_RALT OSM(MOD_RALT)
+#define OS_MEH  OSM(MOD_MEH)
+#define OS_HYPR OSM(MOD_HYPR)
+
 #define ALT_APP ALT_T(KC_APP)
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
