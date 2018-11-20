@@ -6,3 +6,11 @@ ifeq (,$(findstring yes,$(BLUEFRUIT)))
   COMMAND_ENABLE = no 		# Commands for debug and configuration
   RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 endif
+
+ifneq (,$(findstring xd75,$(KEYBOARD)))
+#something
+endif
+
+ifeq (,$(findstring 40percentclub/5x5,$(KEYBOARD)))
+#something
+endif

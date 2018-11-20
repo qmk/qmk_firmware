@@ -31,7 +31,6 @@ enum userspace_layers {
 #elif KEYBOARD_xd75
 enum userspace_layers {
   GK75 = 0,
-  PAD,
   QW75,
   SUB75,
   SUP75,
@@ -42,6 +41,7 @@ enum userspace_layers {
   gGK,
   _GK,
   _QW,
+  PAD,
   ONE,
   SUB,
   SUP,
