@@ -1,9 +1,9 @@
 {
-    "keyboard_name": "KBD19x", 
-    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/kbd19x", 
-    "maintainer": "qmk", 
-    "width": 19.5, 
-    "height": 6.75, 
+    "keyboard_name": "KBD19x",
+    "url": "https://github.com/qmk/qmk_firmware/tree/master/keyboards/kbd19x",
+    "maintainer": "qmk",
+    "width": 19.5,
+    "height": 6.75,
     "layouts": {
         "LAYOUT_ansi": {
 	    "key_count": 99,
@@ -61,7 +61,7 @@
 		       {"label":"8", "x":16.5, "y":2.5},
 		       {"label":"9", "x":17.5, "y":2.5},
 		       {"label":"+", "x":18.5, "y":2.5, "h":2},
-		       {"label":"Caps Lock", "x":0, "y":3.5, "w":1.75},\
+		       {"label":"Caps Lock", "x":0, "y":3.5, "w":1.75},
 		       {"label":"A", "x":1.75, "y":3.5},
 		       {"label":"S", "x":2.75, "y":3.5},
 		       {"label":"D", "x":3.75, "y":3.5},

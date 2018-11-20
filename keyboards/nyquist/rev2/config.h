@@ -15,10 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV2_CONFIG_H
-#define REV2_CONFIG_H
-
-#include QMK_KEYBOARD_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
@@ -82,5 +79,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

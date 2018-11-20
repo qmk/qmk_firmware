@@ -257,13 +257,15 @@ issi3733_led_t *led_cur;
 uint8_t led_per_run = 15;
 float breathe_mult;
 
-void led_matrix_run(led_setup_t *f)
+__attribute__ ((weak))
+void led_matrix_run(void)
 {
     float ro;
     float go;
     float bo;
     float px;
     uint8_t led_this_run = 0;
+    led_setup_t *f = (led_setup_t*)led_setups[led_animation_id];
 
     if (led_cur == 0) //Denotes start of new processing cycle in the case of chunked processing
     {
@@ -459,11 +461,17 @@ uint8_t led_matrix_init(void)
 
     //Run led matrix code once for initial LED coloring
     led_cur = 0;
-    led_matrix_run((led_setup_t*)led_setups[led_animation_id]);
+    rgb_matrix_init_user();
+    led_matrix_run();
 
     DBGC(DC_LED_MATRIX_INIT_COMPLETE);
 
     return 0;
+}
+
+__attribute__ ((weak))
+void rgb_matrix_init_user(void) {
+
 }
 
 #define LED_UPDATE_RATE 10  //ms
@@ -502,7 +510,7 @@ void led_matrix_task(void)
     if (led_cur != lede)
     {
         //m15_off; //debug profiling
-        led_matrix_run((led_setup_t*)led_setups[led_animation_id]);
+        led_matrix_run();
         //m15_on; //debug profiling
     }
 }

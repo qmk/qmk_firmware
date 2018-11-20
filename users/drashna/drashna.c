@@ -20,6 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_stuff.h"
 
 userspace_config_t userspace_config;
+#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+  #define DRASHNA_UNICODE_MODE UC_WIN
+#else
+  // set to 2 for UC_WIN, set to 4 for UC_WINC
+  #define DRASHNA_UNICODE_MODE 2
+#endif
 
 uint16_t copy_paste_timer;
 //  Helper Functions
@@ -154,19 +160,18 @@ void matrix_init_user(void) {
 
   userspace_config.raw = eeconfig_read_user();
 
-#ifdef BOOTLOADER_CATERINA
-  DDRD &= ~(1<<5);
-  PORTD &= ~(1<<5);
+  #ifdef BOOTLOADER_CATERINA
+    DDRD &= ~(1<<5);
+    PORTD &= ~(1<<5);
 
-  DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);
-#endif
+    DDRB &= ~(1<<0);
+    PORTB &= ~(1<<0);
+  #endif
 
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-  if (eeprom_read_byte(EECONFIG_UNICODEMODE) != UC_WIN) {
-    set_unicode_input_mode(UC_WIN);
-  }
-#endif //UNICODE_ENABLE
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
+    get_unicode_input_mode();
+  #endif //UNICODE_ENABLE
   matrix_init_keymap();
 }
 
@@ -266,9 +271,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
       uint8_t temp_mod = get_mods();
-      clear_mods();
+      uint8_t temp_osm = get_oneshot_mods();
+      clear_mods(); clear_oneshot_mods();
       send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
-      if (temp_mod & MODS_SHIFT_MASK) {
+      if (temp_mod & MODS_SHIFT_MASK || temp_osm & MODS_SHIFT_MASK) {
         #if defined(__ARM__)
           send_string_with_delay_P(PSTR(":dfu-util"), 10);
         #elif defined(BOOTLOADER_DFU)
@@ -282,7 +288,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #if defined(KEYBOARD_viterbi)
         send_string_with_delay_P(PSTR(":dfu"), 10);
       #endif
-      if (temp_mod & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
+      if (temp_mod & MODS_CTRL_MASK || temp_osm & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
       send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
       set_mods(temp_mod);
     }
@@ -422,4 +428,10 @@ void eeconfig_init_user(void) {
   userspace_config.raw = 0;
   userspace_config.rgb_layer_change = true;
   eeconfig_update_user(userspace_config.raw);
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
+    get_unicode_input_mode();
+  #else
+    eeprom_update_byte(EECONFIG_UNICODEMODE, DRASHNA_UNICODE_MODE);
+  #endif
 }

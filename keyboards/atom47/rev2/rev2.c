@@ -17,6 +17,9 @@ void matrix_scan_kb(void) {
 void led_init_ports(void) {
     // * Set our LED pins as output
     DDRB &= ~(1<<5);
+
+	//Set output high, so the capslock led is off
+	PORTB |= (1 << 5);
 }
 
 void led_set_kb(uint8_t usb_led) {

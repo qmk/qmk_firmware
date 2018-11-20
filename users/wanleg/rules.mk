@@ -14,3 +14,9 @@ endif
 ifeq ($(strip $(PM)), yes)
 	OPT_DEFS += -DPRO_MICRO
 endif
+
+#use alternate settings for boards using "Adafruit Feather 32u4 Bluefruit LE" instead of Micro
+#example usage: make 5x5:wanleg BT=yes
+ifeq ($(strip $(BT)), yes)
+	OPT_DEFS += -DBLUEFRUIT
+endif
