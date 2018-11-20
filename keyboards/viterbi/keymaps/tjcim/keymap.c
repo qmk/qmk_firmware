@@ -38,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------|      |------+------+------+------+------+------+------|
  * |   =  | Esc  |   A  |   S  |   D  |   F  |   G  |      |   H  |   J  |   K  |   L  |   ;  |   "  |Enter |
  * |------+------+------+------+------+------+------|      |------+------+------+------+------+------+------|
- * | Pg Up| Shift|   Z  |   X  |   C  |   V  |   B  |      |   N  |   M  |   ,  |   .  |   /  | Home | End  |
+ * | Pg Up| Shift|   Z  |   X  |   C  |   V  |   B  |      |   N  |   M  |   ,  |   .  |   /  | RSFT | End  |
  * |------+------+------+------+------+------+------|      |------+------+------+------+------+------+------|
- * | Pg Dn|Adjust| Ctrl | Alt  | GUI  |Lower |Space |      |Space |Raise | Left | Down |  Up  | Right|   \  |
+ * | Pg Dn|Adjust| Ctrl | Alt  | GUI  |Lower |LGUI  |      |Space |Raise | Left | Down |  Up  | Right|   \  |
  * `------------------------------------------------'      `------------------------------------------------'
  */
   [_QWERTY] = LAYOUT_kc(
@@ -51,9 +51,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
      EQL, ESC , A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,ENT ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-     PGUP,LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,HOME,END ,
+     PGUP,LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,RSFT,END ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-     PGDN,AJST,LCTL,LALT,LGUI,LOWR,SPC ,     SPC ,RASE,LEFT,DOWN, UP ,RGHT,BSLS
+     PGDN,AJST,LCTL,LALT,LGUI,LOWR,LGUI,     SPC ,RASE,LEFT,DOWN, UP ,RGHT,BSLS
   //`----+----+----+----+----+----+----'    `----+----+----+----+----+----+----'
   ),
 
@@ -74,9 +74,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----+----+----+----+----+----+----.    ,----+----+----+----+----+----+----.
          ,TILD, F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 ,F10 ,F11 ,F12 ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-     UNDS,    ,EXLM, AT ,HASH,DLR ,PERC,     CIRC,AMPR,ASTR,LPRN,RPRN,LCBR,RCBR,
+     UNDS,    ,EXLM, AT ,HASH,DLR ,PERC,     CAPS,PSCR,ASTR,LPRN,RPRN,LCBR,RCBR,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-     PLUS,    , F1 , F2 , F3 , F4 , F5 ,      F6 ,UNDS,PLUS,LCBR,RCBR,    ,    ,
+     PLUS,    , F1 , F2 , F3 , F4 , F5 ,     LEFT,DOWN, UP ,RIGHT,RCBR,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
          ,    , F7 , F8 , F9 ,F10 ,F11 ,     F12 ,    ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
@@ -99,15 +99,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_RAISE] = LAYOUT_kc(
   //,----+----+----+----+----+----+----.    ,----+----+----+----+----+----+----.
-         ,TILD, F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 ,F10 ,F11 ,F12 ,
+         ,TILD, F1 , F2 , F3 , F4 , F5 ,      F6 ,  ,KP_SLASH,KP_ASTERISK,KP_MINUS,F11 ,F12 ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-     UNDS,    , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,LCBR,RCBR,
+     UNDS,    , 1  , 2  , 3  , 4  , 5  ,         , 7  , 8  , 9  ,KP_PLUS,LCBR,RCBR,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-     PLUS,    , F1 , F2 , F3 , F4 , F5 ,      F6 ,MINS,EQL ,LBRC,RBRC,    ,    ,
+     PLUS,    , F1 , F2 , F3 , F4 , F5 ,         , 4  , 5  , 6  ,    ,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-         ,    , F7 , F8 , F9 ,F10 ,F11 ,     F12 ,NUHS,NUBS,    ,    ,    ,    ,
+         ,    , F7 , F8 ,COPY,PASTE,F11,         , 1  , 2  , 3  ,KP_ENTER,,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,         ,    ,MNXT,VOLD,VOLU,MPLY,MUTE
+         ,    ,    ,    ,    ,    ,    ,      0  ,    ,MNXT,VOLD,VOLU,MPLY,MUTE
   //`----+----+----+----+----+----+----'    `----+----+----+----+----+----+----'
   ),
 
