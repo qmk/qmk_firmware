@@ -18,6 +18,8 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
+  KC_MY_COPY,
+  KC_MY_PASTE,
 };
 
 // Fillers to make layering more clear
@@ -26,7 +28,22 @@ enum custom_keycodes {
 #define XXXXXXX KC_NO
 #define KC_AJST ADJUST
 #define KC_LOWR LOWER
-#define KC_RASE RAISE
+#define KC_RASE TG(_RAISE)
+
+//Tap Dance Declarations
+enum {
+  TD_LSFT_CAPS = 0
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for SFT, twice for Caps Lock
+  [TD_LSFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
+// Other declarations would go here, separated by commas, if you have them
+};
+
+//In Layer declaration, add tap dance item in place of a key code
+#define KC_MYCAPS TD(TD_LSFT_CAPS)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -51,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
      EQL, ESC , A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,ENT ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-     PGUP,LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,RSFT,END ,
+     PGUP,MYCAPS, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,RSFT,END ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
      PGDN,AJST,LCTL,LALT,LGUI,LOWR,LGUI,     SPC ,RASE,LEFT,DOWN, UP ,RGHT,BSLS
   //`----+----+----+----+----+----+----'    `----+----+----+----+----+----+----'
@@ -105,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
      PLUS,    , F1 , F2 , F3 , F4 , F5 ,         , 4  , 5  , 6  ,    ,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-         ,    , F7 , F8 ,COPY,PASTE,F11,         , 1  , 2  , 3  ,KP_ENTER,,    ,
+         ,    , F7 , F8 ,MY_COPY,MY_PASTE,F11,         , 1  , 2  , 3  ,KP_ENTER,,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,    ,      0  ,    ,MNXT,VOLD,VOLU,MPLY,MUTE
   //`----+----+----+----+----+----+----'    `----+----+----+----+----+----+----'
@@ -124,6 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef AUDIO_ENABLE
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
 #endif
+
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -169,6 +187,40 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+    case KC_MY_COPY:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTRL("c"));
+      } else {
+      }
+      return false;
+    case KC_MY_PASTE:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTRL(SS_LSFT("v")));
+      } else {
+      }
+      return false;
   }
   return true;
 }
+
+uint32_t layer_state_set_user(uint32_t state) {
+  uint8_t layer = biton32(state);
+  switch (layer) {
+    case _QWERTY:
+      rgblight_setrgb_white();
+      break;
+    case _RAISE:
+      rgblight_setrgb_springgreen();
+      break;
+    default:
+      rgblight_setrgb_red();
+      break;
+  }
+  return state;
+}
+
+void matrix_init_user(void) {
+  rgblight_enable();
+  rgblight_setrgb_white();
+  rgblight_mode(1);
+};
