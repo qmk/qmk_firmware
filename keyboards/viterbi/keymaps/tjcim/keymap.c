@@ -1,4 +1,4 @@
-#include "viterbi.h"
+#include "viterbi.h" // NOLINT
 #include "action_layer.h"
 #include "eeconfig.h"
 
@@ -18,8 +18,6 @@ enum custom_keycodes {
   LOWER,
   RAISE,
   ADJUST,
-  KC_MY_COPY,
-  KC_MY_PASTE,
 };
 
 // Fillers to make layering more clear
@@ -28,22 +26,14 @@ enum custom_keycodes {
 #define XXXXXXX KC_NO
 #define KC_AJST ADJUST
 #define KC_LOWR LOWER
-#define KC_RASE TG(_RAISE)
-
-//Tap Dance Declarations
-enum {
-  TD_LSFT_CAPS = 0
-};
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for SFT, twice for Caps Lock
-  [TD_LSFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
-// Other declarations would go here, separated by commas, if you have them
-};
-
-//In Layer declaration, add tap dance item in place of a key code
-#define KC_MYCAPS TD(TD_LSFT_CAPS)
+#define KC_RASE RAISE
+#define KC_MCPY LCTL(KC_C)
+#define KC_MPST LCTL(LSFT(KC_V))
+#define KC_OSWN OSM(MOD_LGUI)
+#define KC_OSCT OSM(MOD_LCTL)
+#define KC_OSSH OSM(MOD_LSFT)  /* One shot shift */
+#define KC_OSLW OSL(_LOWER)  /* One shot layer */
+#define KC_OSRA OSL(_RAISE)  /* One shot layer */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -62,15 +52,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_QWERTY] = LAYOUT_kc(
   //,----+----+----+----+----+----+----.    ,----+----+----+----+----+----+----.
-     INS, GRV , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,BSPC,DEL ,
+         , GRV, 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,BSPC,DEL ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
      MINS,TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,LBRC,RBRC,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
      EQL, ESC , A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,ENT ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-     PGUP,MYCAPS, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,RSFT,END ,
+         ,OSSH, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,RSFT,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-     PGDN,AJST,LCTL,LALT,LGUI,LOWR,LGUI,     SPC ,RASE,LEFT,DOWN, UP ,RGHT,BSLS
+         ,AJST,LCTL,LALT,OSCT,OSLW,OSWN,     SPC ,OSRA,HOME,END ,PGUP,PGDN,BSLS
   //`----+----+----+----+----+----+----'    `----+----+----+----+----+----+----'
   ),
 
@@ -122,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
      PLUS,    , F1 , F2 , F3 , F4 , F5 ,         , 4  , 5  , 6  ,    ,    ,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
-         ,    , F7 , F8 ,MY_COPY,MY_PASTE,F11,         , 1  , 2  , 3  ,KP_ENTER,,    ,
+         ,    , F7 , F8 ,MCPY,MPST,F11,         , 1  , 2  , 3  ,KP_ENTER,,    ,
   //|----+----+----+----+----+----+----|    |----+----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,    ,      0  ,    ,MNXT,VOLD,VOLU,MPLY,MUTE
   //`----+----+----+----+----+----+----'    `----+----+----+----+----+----+----'
@@ -187,18 +177,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case KC_MY_COPY:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL("c"));
-      } else {
-      }
-      return false;
-    case KC_MY_PASTE:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTRL(SS_LSFT("v")));
-      } else {
-      }
-      return false;
   }
   return true;
 }
@@ -218,9 +196,3 @@ uint32_t layer_state_set_user(uint32_t state) {
   }
   return state;
 }
-
-void matrix_init_user(void) {
-  rgblight_enable();
-  rgblight_setrgb_white();
-  rgblight_mode(1);
-};

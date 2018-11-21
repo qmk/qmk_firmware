@@ -38,6 +38,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 
-#define TAPPING_TERM 200
+#define ONESHOT_TAP_TOGGLE 3 /* Tap three times to hold the key on */
+#define ONESHOT_TIMEOUT 500
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
+#define DISABLE_LEADER
+
+#ifndef NO_DEBUG
+#define NO_DEBUG
+#endif // !NO_DEBUG
+#if !defined(NO_PRINT) && !defined(CONSOLE_ENABLE)
+#define NO_PRINT
+#endif // !NO_PRINT
 
 #endif
