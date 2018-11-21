@@ -81,6 +81,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define CTRLC LCTL(KC_C)
 #define CTRLV LCTL(KC_V)
 
+#define ALTF4 LALT(KC_F4)
+
 #define GUIU LGUI(KC_UP)
 #define GUID LGUI(KC_DOWN)
 #define GUIL LGUI(KC_LEFT)
