@@ -15,7 +15,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________Qwerty_Row__2_______________,
   KC_LCTL, KC_LGUI, KC_LALT, GHERKIN, SUBTER, SH_T(KC_SPC), SH_T(KC_SPC), SUPRA, KC_RGUI, KC_RALT, GHERKIN, KC_RCTL
 ),
-
+[DIR] = LAYOUT_ortho_4x12_wrapper(
+  _____________DIRECTIONS_Row__0_____________,
+  _____________DIRECTIONS_Row__1_____________,
+  _____________DIRECTIONS_Row__2_____________,
+  _______, _______, ONEHAND, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
 #elif defined(KEYBOARD_40percentclub_4x4)
 [_GK] = LAYOUT_ortho_4x12_wrapper(
   _______________GherkinLike_0_______________,
