@@ -225,10 +225,11 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
 endif
 
-ifeq ($(strip $(HAPTIC_ENABLE)), yes)
+ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
     SRC += DRV2605L.c
-    OPT_DEFS += -DHAPTIC_ENABLE
+    SRC += i2c_master.c
+    OPT_DEFS += -DDRV2605L
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
