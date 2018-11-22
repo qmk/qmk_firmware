@@ -1,7 +1,6 @@
 #pragma once
 #define CONFIG_USER_H
 
-#include "../../config.h"
 
 #define LEADER_TIMEOUT 300
 //#define BACKLIGHT_BREATHING
