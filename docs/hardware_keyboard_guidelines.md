@@ -47,16 +47,6 @@ The `info.json` file is a JSON formatted dictionary with the following keys avai
   * Example: `Clueboard 66%`
 * `url`
   * A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.
-* `bootloader`
-  * What bootloader this keyboard uses. Available options:
-    * `atmel-dfu`
-    * `kiibohd-dfu-util`
-    * `lufa-dfu`
-    * `qmk-dfu`
-    * `stm32-dfu-util`
-    * `caterina`
-    * `halfkay`
-    * `bootloadHID`
 * `maintainer`
   * GitHub username of the maintainer, or `qmk` for community maintained boards
 * `width`

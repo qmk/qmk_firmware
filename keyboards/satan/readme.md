@@ -4,8 +4,8 @@ Satan GH60
 ![controller](https://i.imgur.com/9vyRBoT.jpg)
 ![power](https://i.imgur.com/pHMZHLP.jpg)
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: Satan GH60 PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: Satan GH60 PCB  
 Hardware Availability: https://1upkeyboards.com/gh60-satan-pcb.html
 
 Make example for this keyboard (after setting up your build environment):

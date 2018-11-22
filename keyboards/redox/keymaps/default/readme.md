@@ -1,1 +1,1 @@
-# The default keymap for redox
+# The default keymap for Redox

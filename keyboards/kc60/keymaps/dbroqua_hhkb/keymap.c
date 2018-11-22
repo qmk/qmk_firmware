@@ -1,5 +1,5 @@
 
-#include "kc60.h"
+#include QMK_KEYBOARD_H
 
 #define _QWERTY 0
 #define _FN 1

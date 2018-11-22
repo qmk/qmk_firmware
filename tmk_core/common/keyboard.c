@@ -69,6 +69,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef MIDI_ENABLE
 #   include "process_midi.h"
 #endif
+#ifdef HD44780_ENABLE
+#   include "hd44780.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
@@ -117,6 +120,14 @@ static inline bool has_ghost_in_row(uint8_t row, matrix_row_t rowdata)
 
 #endif
 
+void disable_jtag(void) {
+// To use PORTF disable JTAG with writing JTD bit twice within four cycles.
+#if (defined(__AVR_AT90USB1286__) || defined(__AVR_AT90USB1287__) || defined(__AVR_ATmega32U4__))
+    MCUCR |= _BV(JTD);
+    MCUCR |= _BV(JTD);
+#endif
+}
+
 /** \brief matrix_setup
  *
  * FIXME: needs doc
@@ -130,6 +141,7 @@ void matrix_setup(void) {
  * FIXME: needs doc
  */
 void keyboard_setup(void) {
+    disable_jtag();
     matrix_setup();
 }
 
@@ -185,7 +197,7 @@ void keyboard_init(void) {
 
 /** \brief Keyboard task: Do keyboard routine jobs
  *
- * Do routine keyboard jobs: 
+ * Do routine keyboard jobs:
  *
  * * scan matrix
  * * handle mouse movements

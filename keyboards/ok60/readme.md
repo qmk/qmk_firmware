@@ -6,7 +6,7 @@ A 60% keyboard PCB sold on AliExpress by Shenzhen YMD Tech Co.,Ltd.
 It supports the same layouts and cases as the GH60 but comes with WS2812 RGB underglow.
 
 Keyboard Maintainer: [Edward Browncross](https://github.com/edwardbrowncross)  
-Hardware Supported: OK60 PCB, OK60XRGB, Diamond 60 Keyboard 
+Hardware Supported: OK60 PCB, OK60XRGB, Diamond 60 Keyboard  
 Hardware Availability: [AliExpress](https://www.aliexpress.com/store/product/Free-shipping-Pre-soldered-Diode-Resistance-Satan-GH60-PCB-Board-Programmable-DIY-Mechanical-Keyboard-Poker-2/429151_32809893696.html)
 
 Make example for this keyboard (after setting up your build environment):

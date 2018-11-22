@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "v60_type_r.h"
+#include QMK_KEYBOARD_H
 
 #define _____ KC_TRNS
 #define XXXXX KC_NO

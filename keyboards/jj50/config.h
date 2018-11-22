@@ -35,11 +35,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 15
 #define DIODE_DIRECTION ROW2COL
 
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 3
+//#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 12
 
-//#define RGB_DI_PIN C0
-#define RGBLED_NUM 5
+#define RGB_DI_PIN E2
+#define RGBLED_NUM 12
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 15

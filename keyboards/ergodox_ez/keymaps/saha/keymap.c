@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#include "ergodox_ez.h"
 #include "debug.h"
 #include "action_layer.h"
 
@@ -13,7 +12,7 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    
+
     [BASE] = LAYOUT_ergodox(
 
     // Left side
@@ -93,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         /*=============================================*/
     ),
 
-    
+
     [SPEC] = LAYOUT_ergodox(
 
     // Left side

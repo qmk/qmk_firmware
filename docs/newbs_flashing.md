@@ -12,17 +12,15 @@ However, the QMK Toolbox is only available for Windows and macOS currently.  If 
 
 Begin by opening the QMK Toolbox application. You'll want to locate the firmware file in Finder or Explorer. Your keyboard firmware may be in one of two formats- `.hex` or `.bin`. QMK tries to copy the appropriate one for your keyboard into the root `qmk_firmware` directory.
 
-{% hint style='info' %}
-If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
+?> If you are on Windows or macOS there are commands you can use to easily open the current firmware folder in Explorer or Finder.
 
-Windows:
+?> Windows:
 
     start .
 
-macOS:
+?> macOS:
 
     open .
-{% endhint %}
 
 The firmware file always follows this naming format:
 

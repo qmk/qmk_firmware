@@ -158,7 +158,7 @@ void terminal_keymap(void) {
             for (int c = 0; c < MATRIX_COLS; c++) {
                 uint16_t keycode = pgm_read_word(&keymaps[layer][r][c]);
                 char keycode_s[8];
-                sprintf(keycode_s, "0x%04x, ", keycode);
+                sprintf(keycode_s, "0x%04x,", keycode);
                 send_string(keycode_s);
             }
             send_string(newline);

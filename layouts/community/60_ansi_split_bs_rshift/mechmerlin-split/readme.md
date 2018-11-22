@@ -6,12 +6,12 @@ host of the [MechMerlin](www.youtube.com/mechmerlin) YouTube channel.
 
 It is used on his   
 [Sentraq S60-X RGB](https://github.com/qmk/qmk_firmware/tree/master/keyboards/s60_x)   
-[MechanicalKeyboards.com FaceW](https://github.com/qmk/qmk_firmware/tree/master/keyboards/bfake)   
+[Zeal60 Rev4](https://github.com/qmk/qmk_firmware/tree/master/keyboards/zeal60)  
+[DO60](https://github.com/qmk/qmk_firmware/tree/master/keyboards/do60)   
 
 ## Keymap Notes
 - Highly influenced by the KBP V60 and WKL B.Face standard layouts
-- Does not support any form of inswitch or underglow lighting as Merlin hates them.
 - Arrow toggle switch is the 1u key by right shift
 
 ### Build
-To build this keymap, simply run `make your_keyboard:mechmerlin-split`.
+To build the firmware file associated with this keymap, simply run `make your_keyboard:mechmerlin-split`.

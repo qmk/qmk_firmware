@@ -28,10 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DESCRIPTION     6000
 
 /* key matrix size */
-#define MATRIX_ROWS 8 
-#define MATRIX_COLS 18 
+#define MATRIX_ROWS 8
+#define MATRIX_COLS 18
 
-#ifdef ASTAR 
+#ifdef ASTAR
 #define PRODUCT         sculpt mobile astar
                         /*0   1   2   3    4   5  6   7   8 */
 #define MATRIX_ROW_PINS {D7, C6, D4, D0, D1, D3, D2, E2}
@@ -94,7 +94,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#define PREVENT_STUCK_MODIFIERS
 
 #endif

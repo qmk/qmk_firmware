@@ -3,7 +3,7 @@
 This is the keymap for rev2 of the Atom47. Only 9 of those have been sold for testing purposes. It had a slightly misaligned usb port and the pcb was too thick (should've been 1.2mm instead of 1.6mm). The pcb only supports the default hardware layout, although /u/ChrisSwires has [modified his](https://www.reddit.com/r/MechanicalKeyboards/comments/7n2dua/not_your_average_core_with_honeywell/) and put a big spacebar in it.
 
 ## Support
-Keyboard Maintainer: [Matthew Kerfoot(https://github.com/mkerfoot)  
+Keyboard Maintainer: [Matthew Kerfoot](https://github.com/mkerfoot)  
 Hardware Supported: Atom47 rev2  
 Hardware Availability: None  
 
