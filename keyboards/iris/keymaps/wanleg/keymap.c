@@ -22,54 +22,54 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_GK] = LAYOUT_iris_base_wrapper(
-    _________________BLANK_48__________________,
     _______________GherkinLike_0_______________,
     _______________GherkinLike_1_______________,
-    _______________GherkinLike_2_______________
+    _______________GherkinLike_2_______________,
+	_______________GherkinLike_3_______________
   ),
   [ONE] = LAYOUT_wrapper(
-    _________________BLANK_48__________________,
     _______________Qwerty_Row__0_______________,
     _______________Qwerty_Row__1_______________,
-    TD(TD_SFT_CAPS),  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,		NUMBER, KC_LSFT,		KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SFT_T(KC_ENT),
+	_______________Qwerty_Row__2_______________,
+    KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, SUBTER,  KC_LSFT,		NUMBER, KC_LSFT,		KC_SPC,  SUPRA,   KC_RGUI, KC_RALT, KC_DEL,  KC_RCTL,
 												_______,SUBTER, SH_T(KC_SPC),		SH_T(KC_SPC),SUPRA, _______
   ),
   [_QW] = LAYOUT_iris_base_wrapper(
-    _________________BLANK_48__________________,
     _______________Qwerty_Row__0_______________,
     _______________Qwerty_Row__1_______________,
-    _______________Qwerty_Row__2_______________
+    _______________Qwerty_Row__2_______________,
+	_______________Qwerty_Row__3_______________
   ),
   [SUP] = LAYOUT_iris_base_wrapper(
-    _________________BLANK_48__________________,
     ________________SUPRA_Row_0________________,
     ________________SUPRA_Row_1________________,
-    ________________SUPRA_Row_2________________
+    ________________SUPRA_Row_2________________,
+	________________SUPRA_Row_3________________
   ),
   [SUB] = LAYOUT_iris_base_wrapper(
-    _________________BLANK_48__________________,
     _______________SUBTER_Row__0_______________,
     _______________SUBTER_Row__1_______________,
-    _______________SUBTER_Row__2_______________
+    _______________SUBTER_Row__2_______________,
+	_______________SUBTER_Row__3_______________
   ),
   [NUM] = LAYOUT_wrapper(
-    _________________BLANK_48__________________,
     _______________NUMBERS_Row_0_______________,
     _______________NUMBERS_Row_1_______________,
-    _______, KC_F11, KC_F12, _______,_______, _______,		_______, _______,		KC_ENT, KC_RSFT, KC_RGUI, ALT_T(KC_DOT), CTL_T(KC_BSPC), _______,
+	_______________NUMBERS_Row_2_______________,
+    _______, _______, _______, _______, _______, _______,		_______, _______,		KC_ENT, KC_RSFT, KC_RGUI, _______, _______, _______,
 										_______,_______, _______,		KC_ENT,	KC_RSFT, _______
   ),
   [DIR] = LAYOUT_iris_base_wrapper(
-    _________________BLANK_48__________________,
     _____________DIRECTIONS_Row__0_____________,
     _____________DIRECTIONS_Row__1_____________,
-    _____________DIRECTIONS_Row__2_____________
+    _____________DIRECTIONS_Row__2_____________,
+	_____________DIRECTIONS_Row__3_____________
   ),
   [ETC] = LAYOUT_wrapper(
-    _________________BLANK_48__________________,
     ______________ETCETERA_Row__0______________,
     ______________ETCETERA_Row__1______________,
-    _______, TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______,		_______, _______,		LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL, _______,
+	______________ETCETERA_Row__2______________,
+    _______, _______, _______, _______, _______, _______,		_______, _______,		LALT(LCTL(KC_DEL)), _______, _______, _______, _______, _______,
 												_______,_______, _______,		LALT(LCTL(KC_DEL)),	_______, _______
   )
   
