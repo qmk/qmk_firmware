@@ -225,6 +225,12 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
 endif
 
+ifeq ($(strip $(HAPTIC_ENABLE)), yes)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += DRV2605L.c
+    OPT_DEFS += -DHAPTIC_ENABLE
+endif
+
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE

@@ -32,7 +32,7 @@
 
 static uint8_t i2c_address;
 
-// This configures the I2C clock to 400Mhz assuming a 72Mhz clock
+// This configures the I2C clock to 400khz assuming a 72Mhz clock
 // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 static const I2CConfig i2cconfig = {
   STM32_TIMINGR_PRESC(15U) |
@@ -52,7 +52,7 @@ void i2c_init(void)
   palSetPadMode(GPIOB, 7, PAL_MODE_INPUT);
 
   chThdSleepMilliseconds(10);
-
+ 
   palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
   palSetPadMode(GPIOB, 7, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
 

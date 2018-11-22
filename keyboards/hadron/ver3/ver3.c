@@ -17,6 +17,7 @@
 #include "qwiic.h"
 #include "action_layer.h"
 #include "matrix.h"
+#include "DRV2605L.h"
 
 #ifdef QWIIC_MICRO_OLED_ENABLE
 
@@ -38,7 +39,7 @@ void draw_ui(void) {
   clear_buffer();
   last_flush = timer_read();
   send_command(DISPLAYON);
-  draw_string(0, 2, "LAYER", PIXEL_ON, NORM, 0);
+  draw_string(1, 2, "LAYER", PIXEL_ON, NORM, 0);
   draw_rect_filled_soft(32, 1, 9, 9, PIXEL_ON, NORM);
   draw_char(34, 2, layer + 0x30, PIXEL_ON, XOR, 0);
 
@@ -160,6 +161,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 void matrix_init_kb(void) {
+  DRV_init();
 #ifdef QWIIC_MICRO_OLED_ENABLE
     queue_for_send = true;
 #endif
@@ -169,6 +171,7 @@ void matrix_init_kb(void) {
 void matrix_scan_kb(void) {
 #ifdef QWIIC_MICRO_OLED_ENABLE
 if (queue_for_send) {
+   DRV_pulse(0x11);
    read_host_led_state();
    draw_ui();
    queue_for_send = false;
