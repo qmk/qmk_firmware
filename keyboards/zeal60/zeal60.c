@@ -26,6 +26,16 @@
 #include "timer.h"
 #include "tmk_core/common/eeprom.h"
 
+void send_macro( uint8_t id )
+{
+	char macro_number[3] = "00";
+	macro_number[0] = '0' + (id / 10);
+	macro_number[1] = '0' + (id % 10);
+
+	SEND_STRING("macro");
+	send_string(macro_number);
+}
+
 bool eeprom_is_valid(void)
 {
 	return (eeprom_read_word(((void*)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
@@ -239,6 +249,17 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 			break;
 	}
 	
+	// Handle macros
+	if (record->event.pressed) {
+		if ( keycode >= MACRO00 && keycode <= MACRO15 )
+		{
+			uint8_t id = keycode - MACRO00;
+			send_macro(id);
+			return false;
+		}
+	}
+
+
 	return process_record_user(keycode, record);
 }
 
