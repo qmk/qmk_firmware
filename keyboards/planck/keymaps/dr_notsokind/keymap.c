@@ -130,7 +130,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |LShift|  F6  |  F7  |  F8  |  F9  |  F10 |      |ISO # |ISO / | NULL | PgUp | Enter|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
-<<<<<<< HEAD
  * |      |  F11 |  F12 |      |      |             |      |      | Home | PgDn |  End |
  * `-----------------------------------------------------------------------------------'
  */
@@ -139,16 +138,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_DEL ,  KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
   {KC_LSFT,  KC_F6,  KC_F7,    KC_F8,   KC_F9,  KC_F10, _______, KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT },
   {_______,  KC_F11, KC_F12, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END }
-=======
- * |      |      |      |  F11 |      |      F12    |      |      | Home | PgDn |  End |
- * `-----------------------------------------------------------------------------------'
- */
-[_RAISE] = {
-  {KC_GRV ,  KC_1,    KC_2,   KC_3,     KC_4,  KC_5,      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL},
-  {KC_DEL ,  KC_F1,   KC_F2,  KC_F3,    KC_F4, KC_F5,  _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS},
-  {KC_LSFT,  KC_F6,   KC_F7,  KC_F8,    KC_F9, KC_F10, _______, KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT },
-  {_______, _______, _______, KC_F11, _______, KC_F12,  KC_F12, _______, _______, KC_HOME, KC_PGDN, KC_END }
->>>>>>> 87f06e7297c10020912beaba10013f11d2e8e570
 },
 
 /* LOWER
@@ -181,17 +170,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MEDIA] = {
-<<<<<<< HEAD
 	{XXXXXXX, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,   XXXXXXX, KC_PSCR, XXXXXXX},
 	{XXXXXXX, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2 },
 	{KC_LSFT, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP },
 	{ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY }
-=======
-    {XXXXXXX, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,   XXXXXXX, KC_PSCR, XXXXXXX},
-    {XXXXXXX, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2 },
-    {KC_LSFT, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP },
-    {ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY }
->>>>>>> 87f06e7297c10020912beaba10013f11d2e8e570
 },
 
 /* ONESHOT
@@ -224,17 +206,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNCTN] = {
-<<<<<<< HEAD
 	{KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PWR },
 	{KC_WAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
 	{XXXXXXX, XXXXXXX, XXXXXXX, AU_OFF,  MU_OFF,  QWERTY,  NUMPAD,  MU_ON,   AU_ON,   XXXXXXX, MUV_IN,  KC_SYSREQ},
 	{RESET,   XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, AG_NORM, MUV_DE,  AG_SWAP}
-=======
-    {KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PWR },
-    {KC_WAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
-    {XXXXXXX, XXXXXXX, XXXXXXX, AU_OFF,  MU_OFF,  QWERTY,  NUMPAD,  MU_ON,   AU_ON,   XXXXXXX, MUV_IN,  KC_SYSREQ},
-    {RESET,   XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, AG_NORM, MUV_DE,  AG_SWAP}
->>>>>>> 87f06e7297c10020912beaba10013f11d2e8e570
 }
 
 };
