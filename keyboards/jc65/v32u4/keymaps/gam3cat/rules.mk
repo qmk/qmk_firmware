@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
@@ -26,3 +27,11 @@ SPLIT_KEYBOARD = no         # This enables split keyboard support and includes a
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
+=======
+ifndef QUANTUM_DIR
+	include ../../../../Makefile
+endif
+
+BACKLIGHT_ENABLE=yes
+//TAP_DANCE_ENABLE=yes
+>>>>>>> upstream/master

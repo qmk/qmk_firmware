@@ -4,10 +4,9 @@
 
 A fully customizable 60%+numpad keyboard.
 
-* Keyboard Maintainer: [Rozakiin](https://github.com/rozakiin)
-* Hardware Supported: UK78 PCB
-  * rev2 
-* Hardware Availability: [ukkeyboards.](http://ukkeyboards.bigcartel.com/)
+Keyboard Maintainer: [Rozakiin](https://github.com/rozakiin)  
+Hardware Supported: UK78 rev2 PCB  
+Hardware Availability: [ukkeyboards](http://ukkeyboards.bigcartel.com/)
 
 Make example for this keyboard (after setting up your build environment):
 

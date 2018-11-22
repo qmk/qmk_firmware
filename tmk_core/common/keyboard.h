@@ -57,6 +57,8 @@ static inline bool IS_RELEASED(keyevent_t event) { return (!IS_NOEVENT(event) &&
     .time = (timer_read() | 1)                          \
 }
 
+void disable_jtag(void);
+
 /* it runs once at early stage of startup before keyboard_init. */
 void keyboard_setup(void);
 /* it runs once after initializing host side protocol, debug and MCU peripherals. */

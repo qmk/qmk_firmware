@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "debug.h"
 #include "action_layer.h"
-#include "keymap_plover.h"
+#include "keymap_steno.h"
 
 #define BASE 0 // default layer
 #define SYMB 1 // symbols
@@ -35,14 +35,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Otherwise, it needs KC_*
 [BASE] = LAYOUT_ergodox(  // layer 0 : default
         // left hand
-        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   M(0),
+        KC_EQL,         KC_1,         KC_2,   KC_3,   KC_4,   KC_5,   TG(STEN),
         KC_DELT,        KC_QUOT,      KC_COMM,KC_DOT, KC_P,   KC_Y,   KC_ESC,
         KC_BSPC,        KC_A,         KC_O,   KC_E,   KC_U,   KC_I,
         KC_LSFT,        KC_SCLN,      KC_Q,   KC_J,   KC_K,   KC_X,   KC_TAB,
         MO(SYMB),       KC_NO,        KC_GRV, KC_LEFT,KC_RGHT,
                                                       KC_PGUP,KC_PGDN,
                                                               KC_NO,
-                                              KC_LALT,KC_ENT ,KC_LGUI,
+                                              KC_LALT,KC_ENT ,M(0),
         // right hand
              KC_NO,       KC_6,   KC_7,   KC_8,   KC_9,   KC_0,    KC_BSLS,
              KC_CAPS,     KC_F,   KC_G,   KC_C,   KC_R,   KC_L,    KC_SLSH,
@@ -96,37 +96,60 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
 
+/* Keymap 2: Steno for Plover
+ *
+ * ,---------------------------------------------------.           ,---------------------------------------------------.
+ * |        |      |   #  |   #  |   #   |   #  |      |           |       |   #  |   #  |   #  |   #  |   #  |        |
+ * |--------+------+------+------+-------+-------------|           |-------+------+------+------+------+------+--------|
+ * |        |      |   S  |   T  |   P   |   H  |   *  |           |   *   |   F  |   P  |   L  |   T  |   D  |        |
+ * |--------+------+------+------+-------+------|      |           |       |------+------+------+------+------+--------|
+ * |        |      |   S  |   K  |   W   |   R  |------|           |-------|   R  |   B  |   G  |   S  |   Z  |        |
+ * |--------+------+------+------+-------+------|   *  |           |   *   |------+------+------+------+------+--------|
+ * |        |      |      |      |       |      |      |           |       |      |      |      |      |      |        |
+ * `--------+------+------+------+-------+-------------'           `--------------+------+------+------+------+--------'
+ *   |  L1  |      |      | Left | Right |                                        |  Up  | Down |      |      |  L1  |
+ *   `-----------------------------------'                                        `----------------------------------'
+ *                                        ,--------------.         ,---------------.
+ *                                        |       |      |         |       |       |
+ *                                 ,------|-------|------|         |-------+-------+------.
+ *                                 |      |       |      |         |       |       |      |
+ *                                 |   A  |   O   |------|         |-------|   E   |   U  |
+ *                                 |      |       |      |         |       |       |      |
+ *                                 `---------------------'         `----------------------'
+ */
+
+
 [STEN] = LAYOUT_ergodox(  // layout: layer 2: Steno for Plover
         // left hand
-        KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,   KC_TRNS,
-        KC_NO,  PV_NUM, PV_NUM, PV_NUM,  PV_NUM, PV_NUM,  PV_STAR,
-        KC_NO,  PV_LS,  PV_LT,  PV_LP,   PV_LH,  PV_STAR,
-        KC_NO,  PV_LS,  PV_LK,  PV_LW,   PV_LR,  PV_STAR, PV_STAR,
+        KC_NO,  STN_N1, STN_N2, STN_N3,  STN_N4, STN_N5,  KC_TRNS,
+        KC_NO,  KC_NO,  STN_S1, STN_TL,  STN_PL, STN_HL,  STN_ST1,
+        KC_NO,  KC_NO,  STN_S2, STN_KL,  STN_WL, STN_RL,
+        KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,   STN_ST2,
         KC_TRNS,KC_NO,  KC_NO,  KC_TRNS, KC_TRNS,
                                           KC_NO, KC_NO,
                                                  KC_NO,
-                                   PV_A,  PV_O,  KC_NO,
+                                 STN_A,  STN_O,  KC_TRNS,
         // right hand
-          KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
-        PV_STAR,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,  PV_NUM,
-                 PV_STAR,   PV_RF,   PV_RP,   PV_RL,   PV_RT,   PV_RD,
-        PV_STAR, PV_STAR,   PV_RR,   PV_RB,   PV_RG,   PV_RS,   PV_RZ,
+          KC_NO,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,   KC_NO,
+        STN_ST3,  STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR,   KC_NO,
+                  STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR,   KC_NO,
+        STN_ST4,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
                           KC_TRNS, KC_TRNS,   KC_NO,   KC_NO, KC_TRNS,
         KC_NO,  KC_NO,
         KC_NO,
-        KC_TRNS,PV_E,    PV_U
+        KC_TRNS, STN_E, STN_U
 ),
 
 /* Keymap 3: Media and mouse keys
  *
  * ,--------------------------------------------------.           ,--------------------------------------------------.
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |      |      |      |      | STEN |           |      |      |      |      |      |      |        |
  * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
  * |        |      |      | MsUp |      |      |      |           |      |      | Back |      | Frwd |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |MsLeft|MsDown|MsRght|      |------|           |------|      | Prev | Play | Next |      |        |
+ * |        |      |MsLeft|MsDown|MsRght|      |------|           |------|      | Lclk | Mclk | Rclk |      |        |
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |        |      |      |      |      |      |      |           |      |      | Prev | Play | Next |      |        |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |      |      |      | Lclk | Rclk |                                       |VolUp |VolDn | Mute |      |      |
  *   `----------------------------------'                                       `----------------------------------'
@@ -144,15 +167,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-       KC_TRNS, KC_TRNS, KC_TRNS, KC_BTN1, KC_BTN2,
+       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
                                            KC_TRNS, KC_TRNS,
                                                     KC_TRNS,
                                   KC_TRNS, KC_TRNS, KC_TRNS,
     // right hand
        KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
        KC_TRNS,  KC_TRNS, KC_WBAK, KC_TRNS, KC_WFWD, KC_TRNS, KC_TRNS,
-                 KC_TRNS, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS,
-       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+                 KC_TRNS, KC_BTN1, KC_BTN3, KC_BTN2, KC_TRNS, KC_TRNS,
+       KC_TRNS,  KC_TRNS, KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS,
                           KC_VOLU, KC_VOLD, KC_MUTE, KC_TRNS, KC_TRNS,
        KC_TRNS, KC_TRNS,
        KC_TRNS,
@@ -164,43 +187,34 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(MDIA)                // FN1 - Momentary Layer 3 (Media)
 };
 
-void toggle_steno(int pressed)
+// press `key`, but deactivate `layer` whilst it's held
+void press_without(int pressed, int key, uint8_t layer)
 {
-  uint8_t layer = biton32(layer_state);
-  
+  static bool was_on;
   if (pressed) {
-    if (layer != STEN) layer_on(STEN); else layer_off(STEN);
-
-    register_code(PV_LP);
-    register_code(PV_LH);
-    register_code(PV_LR);
-    register_code(PV_O);
-    register_code(PV_RL);
-    register_code(PV_RG);
+    was_on = layer_state_is(layer);
+    layer_off(layer);
+    register_code(key);
   } else {
-    unregister_code(PV_LP);
-    unregister_code(PV_LH);
-    unregister_code(PV_LR);
-    unregister_code(PV_O);
-    unregister_code(PV_RL);
-    unregister_code(PV_RG);
+    if (was_on) layer_on(layer);
+    unregister_code(key);
   }
 }
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-        toggle_steno(record->event.pressed);
-        break;
-      }
-    return MACRO_NONE;
+  switch(id) {
+  case 0:
+    press_without(record->event.pressed, KC_LGUI, STEN);
+    break;
+  }
+  return MACRO_NONE;
 };
 
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
-
+  steno_set_mode(STENO_MODE_BOLT);
 };
 
 // Runs constantly in the background, in a loop.
@@ -209,7 +223,7 @@ void matrix_scan_user(void) {
     uint32_t layer0 = layer_state & (1UL << 0),
              layer1 = layer_state & (1UL << 1),
              layer2 = layer_state & (1UL << 2),
-             layer3 = layer_state & (1UL << 3);    
+             layer3 = layer_state & (1UL << 3);
 
     ergodox_board_led_off();
     ergodox_right_led_1_off();

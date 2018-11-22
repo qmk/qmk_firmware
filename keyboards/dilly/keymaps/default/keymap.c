@@ -1,5 +1,4 @@
-#include "dilly.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -10,7 +9,6 @@ extern keymap_config_t keymap_config;
 #define _FN4 4
 #define _FN5 5
 
-#define KC_ KC_TRNS
 #define _______ KC_TRNS
 
 // Tap-Hold keys
@@ -30,78 +28,42 @@ extern keymap_config_t keymap_config;
 
 #define KC_GUIC LGUI(KC_C)
 
-#define KC_RST RESET
-#define KC_BL_S BL_STEP
-#define KC_DBUG DEBUG
-#define KC_RTOG RGB_TOG
-#define KC_RMOD RGB_MOD
-#define KC_RHUI RGB_HUI
-#define KC_RHUD RGB_HUD
-#define KC_RSAI RGB_SAI
-#define KC_RSAD RGB_SAD
-#define KC_RVAI RGB_VAI
-#define KC_RVAD RGB_VAD
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_BASE] = KC_KEYMAP(
-  //,----+----+----+----+----+----+----+----+----+----.
-      Q  , W  , E  , R  , T  , Y  , U  , I  , O  , P  ,
-  //|----+----+----+----+----+----+----+----+----+----|
-     ASFT, S  , D  ,F_L3, G  , H  , J  , K  , L  ,ESCS,
-  //|----+----+----+----+----+----+----+----+----+----|
-     ZCTL,XALT,CGUI,V_L4,SPL2,B_L1,N_L5,MALT,BSCT,ENTS
-  //`----+----+----+----+----+----+----+----+----+----'
+  [_BASE] = LAYOUT_ortho_3x10(
+    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
+    KC_ASFT, KC_S,    KC_D,    KC_F_L3, KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_ESCS,
+    KC_ZCTL, KC_XALT, KC_CGUI, KC_V_L4, KC_SPL2, KC_B_L1, KC_N_L5, KC_MALT, KC_BSCT, KC_ENTS
   ),
 
-  [_FN1] = KC_KEYMAP(
-  //,----+----+----+----+----+----+----+----+----+----.
-      1  , 2  , 3  , 4  , 5  , 6  , 7  , 8  , 9  , 0  ,
-  //|----+----+----+----+----+----+----+----+----+----|
-      F1 , F2 , F3 , F4 , F5 , F6 , F7 , F8 , F9 ,F10 ,
-  //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,BSPC,    ,    ,    ,    ,    
-  //`----+----+----+----+----+----+----+----+----+----'
+  [_FN1] = LAYOUT_ortho_3x10(
+    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,
+    _______, _______, _______, _______, KC_BSPC, _______, _______, _______, _______, _______
   ),
 
-  [_FN2] = KC_KEYMAP(
-  //,----+----+----+----+----+----+----+----+----+----.
-     EXLM, AT ,HASH,DLR ,PERC,CIRC,AMPR,ASTR,LPRN,RPRN,
-  //|----+----+----+----+----+----+----+----+----+----|
-     F11 ,F12 ,    ,    ,    ,    ,    ,    ,    ,GRV ,
-  //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,DEL ,    ,    ,    ,    
-  //`----+----+----+----+----+----+----+----+----+----'
+  [_FN2] = LAYOUT_ortho_3x10(
+    KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN,
+    KC_F11,  KC_F12,  _______, _______, _______, _______, _______, _______, _______, KC_GRV,
+    _______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______
   ),
 
-  [_FN3] = KC_KEYMAP(
-  //,----+----+----+----+----+----+----+----+----+----.
-         ,    ,    ,    ,    ,MINS,EQL ,LBRC,RBRC,BSLS,
-  //|----+----+----+----+----+----+----+----+----+----|
-     TAB ,    ,    ,    ,    ,COMM,DOT ,SLSH,SCLN,QUOT,
-  //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,BSPC,    ,LEFT,DOWN, UP ,RGHT
-  //`----+----+----+----+----+----+----+----+----+----'
+  [_FN3] = LAYOUT_ortho_3x10(
+    _______, _______, _______, _______, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
+    KC_TAB,  _______, _______, _______, _______, KC_COMM, KC_DOT,  KC_SLSH, KC_SCLN, KC_QUOT,
+    _______, _______, _______, _______, KC_BSPC, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT
   ),
 
-  [_FN4] = KC_KEYMAP(
-  //,----+----+----+----+----+----+----+----+----+----.
-         ,    ,    ,    ,    ,UNDS,PLUS,LCBR,RCBR,PIPE,
-  //|----+----+----+----+----+----+----+----+----+----|
-     TAB ,    ,    ,    ,    , LT , GT ,QUES,COLN,DQUO,
-  //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,GUIC,    ,BSPC,    ,HOME,PGDN,PGUP,END 
-  //`----+----+----+----+----+----+----+----+----+----'
+  [_FN4] = LAYOUT_ortho_3x10(
+    _______, _______, _______, _______, _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
+    KC_TAB,  _______, _______, _______, _______, KC_LT,   KC_GT,   KC_QUES, KC_COLN, KC_DQUO,
+    _______, _______, KC_GUIC, _______, KC_BSPC, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END
   ),
 
-  [_FN5] = KC_KEYMAP(
-  //,----+----+----+----+----+----+----+----+----+----.
-     RTOG,RMOD,    ,RST ,RHUI,RSAI,RVAI,    ,    ,    ,
-  //|----+----+----+----+----+----+----+----+----+----|
-         ,    ,DBUG,    ,RHUD,RSAD,RVAD,    ,    ,    ,
-  //|----+----+----+----+----+----+----+----+----+----|
-     BL_S,    ,GUIC,    ,    ,    ,    ,    ,    ,    
-  //`----+----+----+----+----+----+----+----+----+----'
+  [_FN5] = LAYOUT_ortho_3x10(
+    RGB_TOG, RGB_MOD, _______, RESET,   RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______,
+    _______, _______, DEBUG,   _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______,
+    BL_STEP, _______, KC_GUIC, _______, _______, _______, _______, _______, _______, _______
   )
 
 };

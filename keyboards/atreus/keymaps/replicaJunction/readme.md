@@ -1,61 +1,103 @@
-# replicaJunction - Atreus Layout #
+# replicaJunction - Atreus Layout
 
 This layout is designed to make the absolute most out of the Atreus 40% keyboard.
 
-I was enchanted with the idea of the Atreus keyboard after using my Ergodox for several months. I wanted something of a similar form factor that was easily portable, so I could bring and transport a keyboard to my workplace without much hassle. After building the Atreus keyboard, though, I realized very quickly that the 40% form factor requires a lot more creativity than a full-size keyboard (even one as strangely-shaped as the Ergodox).
+This layout is probably not perfect for you. That's okay! Use it for ideas as you design your own perfect layout.
 
-The default Atreus keyboard layout provides all the necessary keys in order to function with the keyboard, but as a programmer, I needed quicker access to just about everything. I noticed that the default layer didn't include any dual-role keys, and so I started on my journey to build my perfect layout for the Atreus.
+Most of the custom logic in this keyboard is actually not in these files. Instead, it's in the directory `/users/replicaJunction` (from the root of the QMK repo). This allows me to share macros and custom logic between multiple keyboards. A `process_record_keyboard()` function defined weakly in `replicaJunction.h` allows keyboards to process records individually as well without overriding the `process_record_user()` function. (My Ergodox uses this to handle its LEDs, for example.)
 
-I won't claim that this layout is perfect for everyone. It does make several significant changes from the "normal" Atreus layout. In my own use, though, I've found this keyboard turbocharges my Atreus, and gives it the power of a full-size keyboard without the size.
+The default letter layout in this keymap is [Colemak-ModDH](https://colemakmods.github.io/mod-dh/). I use the "matrix version" of that layout, which retains the M key on the home row as in normal Colemak.
 
-## Base Layer ##
+## Design Goals
 
-![Atreus base layout](http://imgur.com/YbOjS7O)
+I designed this layout with the following goals in mind:
 
-The letters on this layout are arranged in the [Colemak Mod-DH layout](https://colemakmods.github.io/mod-dh/).
+* Nothing may interfere with ordinary typing.
+* Symbols need to be accessible quickly and organized in a manner I can remember.
+* Limit more difficult finger movements (and pinky usage in general).
 
-The primary mechanism for the Shift keys in this keyboard are the dual-role Z and slash keys. Pressing the key sends the keystroke, while holding the key sends a shift. This is a design choice taken from the xyverz layout, and one I find much more intuitive than a thumb shift. In addition, the pinky doesn't need to stretch as far to reach these keys as it does to reach a standard Shift key.
+### Nothing may interfere with ordinary typing
 
-Occasionally, when typing the letter Z, I'll hold the key down a fraction of a second too long, and the keyboard will shift instead. If you're not a confident typist, this dual-role Shift key layout is probably not a good solution. In that case, I'd suggest moving Shift onto the Backspace key (press for Backspace, hold for Shift).
+For a long time, this meant that I couldn't use letters or home row keys as dual-role keys. I'm a fast typer, and I'm sometimes already typing the next letter before I've fully released the previous one. Normal keyboards don't care about this, but if I started adding dual-role functionality to letters, I found that I would sometimes type the next letter before releasing the layer toggle, and the letter I tried to send would still be sent under the layer I thought I'd left off.
 
-In addition to the Shift keys, there are three dual-purpose keys: Ctrl (Delete), Alt (Enter), and Space (Number layer). In QMK, these dual-role keys can be made to hold their primary key with a tap and hold. For example, if I wanted to insert a long string of Spaces, I would tap the Space key, then tap it again and hold. A single press and hold would trigger the secondary function of the key instead.
+Fortunately, though, QMK has addressed this with the `PERMISSIVE_HOLD` flag. [Details are on the QMK docs page.](https://docs.qmk.fm/#/feature_advanced_keycodes?id=permissive-hold)
 
-## Extend Layer ##
+Using that flag, I'm comfortable having layer shift keys on the home row, and this goes a long way to eliminate finger stress.
 
-![Atreus extend layer](http://imgur.com/WiKkMQw)
+### Sympols need to be accessible quickly
 
-This layout is designed primarily for keyboard navigation. Arrow keys are easily accessible under the right hand (a welcome change from the original Atreus layout, which places them under the left hand), along with Home/End and PgUp/PgDn.
+Symbols are available under my left hand by holding the I key (on my right hand). I've grouped parenthesis, slashes, and braces together; the remaining symbols are ordered in the same way as they appear on USA keycap legends (for example, 1 is !, so that symbol is first in my lineup). Practically, I just had to get used to these other "misc" symbols.
 
-Modifiers are also placed under the home row of the left hand. One of the single keyboard actions I use most is Shift+Ctrl+Left/Right to select a whole word; this layer makes those keypresses simple by adding the Ctrl key in an easy-to-reach location.
+This also means that some symbols are accessible in more than one way. For example, the carats (greater than and less than) are available both in the "normal" location (Shift+Comma / Shift+Period) and on the symbol layer. I make regular changes to some of the symbols I don't use as commonly as I think of them.
 
-For the common Ctrl shortcuts, I also added some hotkeys to this layer over the letter keys they are associated with. This gives the Extend key some extra utility by letting it "feel" like a Ctrl key in some cases.
+### Limit more difficult finger movements
 
-The Space key exists to prevent going from this layer directly into the Number layer. Similarly, the Shift key on the left pinky helps make sure that the normal letter (Z) doesn't fire.
+This is why I kept trying to put layer toggles on the home row keys instead of just placing them on random thumb keys. I suffer from RSI, and it's important for me to watch out for more "stressful" finger movements.
 
-## Number and Symbol Layer ##
+The home row is the easiest row for your fingers to hit, followed by the upper row, and the lower row is noticeably more difficult to press. Because of this, I favored the upper row over the lower one any time I had the option to do so.
 
-![Atreus number and symbol layer](http://imgur.com/gfTXcjC)
+## Features
 
-This layer provides the only way of accessing number keys on this keyboard, since it's too small for its own number row. Note that even though they are laid out in the number pad fashion, they send the "regular" number keystrokes. Games and programs that specifically use NumPad keys are not supported in this layout at the moment.
+### ZXC Mods
 
-This layer also provides plenty of symbol shortcuts. Most of these can be accessed through other means (like Shift+8 for the asterisk), but having shortcut keys to them makes for one less keypress, which adds up quickly when using these symbols on a regular basis. I've been through many revisions of this concept on my Ergodox as well as the Atreus, and I've finally arrived at this layout as the one that provides the symbols I need most frequently in places I can think to expect them. The Ordinary layout from the Ergodox-EZ keyboard in this repository was a large influence in this design.
+Keys on the bottom row of each half of this keyboard can be held to send modifier keys. I've tried to map this in a relatively logical manner:
 
-## Function Layer ##
+* Z / Slash: Ctrl
+* X / Period: GUI
+* C / Comma: Ctrl+Alt
+* D / H: Alt
 
-![Atreus function layer](http://imgur.com/m5x0MxZ)
+Combined with Shift keys on the thumbs, this makes all modifiers quick to access on either hand.
 
-Function keys (F1-F12) are on this layer. Their layout in groups of four comes from Jeremy's Atreus layout in this repository. I'd been using 1-9 in a numpad layout, then adding 10-12 on the side...I suppose it took seeing someone else do it this way for me to realize how much more sense it makes.
+### Layer tap dance
 
-On the right side are mouse keys - cursor left/right/up/down, and scroll up/down. Volume keys are also here, though really only because there was room for them (I'm not entirely happy with their positions).
+The lower-left key on the left hand can be used to apply or remove layers based on a number of taps:
 
-Finally, the reset key is on this layer, as well as toggles from Colemak to QWERTY and back. The QWERTY layer is not currently documented, but it is functionally identical to the base layer except for letter positions.
+* 1 tap sends Escape, and also disables any persistent layers.
+* 2 taps enables the Number pad layer.
+* 5 or more taps resets the keyboard.
 
-## Gaming Layer ##
+## Extend Layer
 
-![Atreus gaming layer](http://imgur.com/4S5AO4E)
+[Originally found on the Colemak forums](https://forum.colemak.com/topic/2014-extend-extra-extreme/), having a QMK-powered keyboard allows a super easy implementation of this concept. The idea is to place commonly-used keys under easy reach of your hands. Since I work with text often, my most common needs are things like Ctrl+Shift+arrow keys, and they're easy to access using this layer. (While technically it's four keypresses instead of just three, since it takes one key to enter the layer, that one key is a thumb button and the other three are all on the home row, so I find it much more comfortable than modifiers on a traditional keyboard.)
 
-This is a small layer developed to allow some simple gameplay without a mouse. This layer is a toggle (from the Number layer), so it is designed to stay on while in use.
+Also featured in this layer is easy access to Tab, plus a Shift+Tab key. Alt-Tabbing back and forth, along with Ctrl-Tab, are super easy and friendly. When I need Ctrl+Alt+Delete, I typically use the ones found on this layer.
 
-The keys on the left hand bring Space into the left thumb's reach, as well as overriding the dual-role Shift with its standard function (Z in both QWERTY and in Colemak). This allows easy Shift presses without blocking the Z key, commonly used in games.
+## Layout Images
 
-I would probably not consider the Atreus a hard-core gaming keyboard in the first place, and this layout does have the huge problem of blocking access to the number keys, but for more casual games, it plays quite well. I've used it quite a bit on Minecraft, for example, and I'm quite pleased with it.
+Colored keys indicate keys that swap to another layer when held.
+
+These images are located in the `kle` folder of this directory. Also included is the "raw data" from Keyboard-Layout-Editor in a corresponding text file.
+
+### Base layer
+
+![Base layer](kle/base-layer.png)
+
+### R layer
+
+![R layer](kle/r-layer.png)
+
+### E layer
+
+![E layer](kle/i-layer.png)
+
+### I layer
+
+![I layer](kle/i-layer.png)
+
+### Space layer
+
+![Space layer](kle/space-layer.png)
+
+### Function layer
+
+![Function layer](kle/fn-layer.png)
+
+## Credits
+
+* [Drashna](https://github.com/qmk/qmk_firmware/blob/master/users/drashna/readme.md)
+  * User / keymap function ideas
+* [Jeremy](https://github.com/qmk/qmk_firmware/blob/master/keyboards/atreus/keymaps/jeremy/readme.md)
+  * Sanity check on the Function keys (_of course they should be in rows of 4, not rows of 3 like a number pad. Why did I ever use anything else?_)
+* [DreymaR of the Colemak forums](https://forum.colemak.com/topic/2014-extend-extra-extreme/)
+  * Original idea of the Extend layer

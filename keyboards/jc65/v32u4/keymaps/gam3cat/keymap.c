@@ -11,6 +11,7 @@ enum layers {
     _AL,        // Adjust Layer
 };
 
+<<<<<<< HEAD
 enum custom_keycodes {
     DYNAMIC_MACRO_RANGE = SAFE_RANGE,
     QMK_REV,
@@ -20,6 +21,12 @@ enum custom_keycodes {
 
 static uint8_t current_layer;
 
+=======
+enum jc65_keycodes {
+    DYNAMIC_MACRO_RANGE = SAFE_RANGE,
+};
+
+>>>>>>> upstream/master
 #include "dynamic_macro.h"
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -30,6 +37,7 @@ static uint8_t current_layer;
 #define KC_DMP2 DYN_MACRO_PLAY2
 #define KC_DMRS DYN_REC_STOP
 
+<<<<<<< HEAD
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*#### _BL: Base Layer - Mostly standard 65% QWERTY layout.
     *  .---------------------------------------------------------------.
@@ -40,6 +48,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |FnCaps|A  |S  |D  |F  |G  |H  |J  |K  |L  |;  |'  |Return  |PgU|
     *  |---------------------------------------------------------------|
     *  |Shift   |Z  |X  |C  |V  |B  |N  |M  |,  |.  |/  |Shift |Up |PgD|
+=======
+static uint8_t current_layer;
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+    /* _BL: Base Layer, mostly standard 65% QWERTY layout.
+    *  .---------------------------------------------------------------.
+    *  |GrE|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp |Ins|
+    *  |---------------------------------------------------------------|
+    *  |Tab  |  Q|  W|  E|  R|  T|  Y|  U|  I|  O|  P|  [|  ]|    \|Del|
+    *  |---------------------------------------------------------------|
+    *  |FnCaps|  A|  S|  D|  F|  G|  H|  J|  K|  L|  ;|  '|Return  |PgU|
+    *  |---------------------------------------------------------------|
+    *  |Shift   |  Z|  X|  C|  V|  B|  N|  M|  ,|  .|  /|Shift |Up |PgD|
+>>>>>>> upstream/master
     *  |---------------------------------------------------------------|
     *  |Ctrl|Gui |Alt |      Space             |RAlt |Ctrl |Lft|Dwn|Rgt|
     *  *---------------------------------------------------------------*
@@ -51,6 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LSFT, XXXXXXX, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_PGDN,
         KC_LCTL, KC_LGUI,          KC_LALT, KC_SPC,           KC_SPC,           KC_SPC,           KC_RALT, KC_RGUI, KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT
     ),
+<<<<<<< HEAD
     /*#### _WL: Workman Layer.
     *  .---------------------------------------------------------------.
     *  |   |   |   |   |   |   |   |   |   |   |   |-  |=  |       |   |
@@ -60,6 +83,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |      |A  |S  |H  |T  |G  |Y  |N  |E  |O  |I  |'  |        |   |
     *  |---------------------------------------------------------------|
     *  |        |Z  |X  |M  |C  |V  |K  |L  |,  |.  |/  |      |   |   |
+=======
+
+    /* _WL: Workman Layer.
+    *  .---------------------------------------------------------------.
+    *  |   |   |   |   |   |   |   |   |   |   |   |  -|  =|       |   |
+    *  |---------------------------------------------------------------|
+    *  |     |  Q|  D|  R|  W|  B|  J|  F|  U|  P|  ;|  [|  ]|    \|   |
+    *  |---------------------------------------------------------------|
+    *  |      |  A|  S|  H|  T|  G|  Y|  N|  E|  O|  I|  '|        |   |
+    *  |---------------------------------------------------------------|
+    *  |        |  Z|  X|  M|  C|  V|  K|  L|  ,|  .|  /|      |   |   |
+>>>>>>> upstream/master
     *  |---------------------------------------------------------------|
     *  |    |    |    |                        |     |     |   |   |   |
     *  *---------------------------------------------------------------*
@@ -71,6 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_Z   , KC_X   , KC_M   , KC_C   , KC_V   , KC_K   , KC_L   , KC_COMM, KC_DOT , KC_SLSH,          _______, _______, _______,
         _______, _______,          _______, _______,          _______,          _______,          _______, _______, _______, _______, _______, _______
     ),
+<<<<<<< HEAD
     /*#### _NL: Norman Layer.
     *  .---------------------------------------------------------------.
     *  |   |   |   |   |   |   |   |   |   |   |   |-  |=  |       |   |
@@ -80,6 +116,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |      |A  |S  |E  |T  |G  |Y  |N  |I  |O  |H  |'  |        |   |
     *  |---------------------------------------------------------------|
     *  |        |Z  |X  |C  |V  |B  |P  |M  |,  |.  |/  |      |   |   |
+=======
+
+    /* _NL: Norman Layer.
+    *  .---------------------------------------------------------------.
+    *  |   |   |   |   |   |   |   |   |   |   |   |  -|  =|       |   |
+    *  |---------------------------------------------------------------|
+    *  |     |  Q|  W|  D|  F|  K|  J|  U|  R|  L|  ;|  [|  ]|    \|   |
+    *  |---------------------------------------------------------------|
+    *  |      |  A|  S|  E|  T|  G|  Y|  N|  I|  O|  H|  '|        |   |
+    *  |---------------------------------------------------------------|
+    *  |        |  Z|  X|  C|  V|  B|  P|  M|  ,|  .|  /|      |   |   |
+>>>>>>> upstream/master
     *  |---------------------------------------------------------------|
     *  |    |    |    |                        |     |     |   |   |   |
     *  *---------------------------------------------------------------*
@@ -91,6 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_P   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,          _______, _______, _______,
         _______, _______,          _______, _______,          _______,          _______,          _______, _______, _______, _______, _______, _______
     ),
+<<<<<<< HEAD
     /*#### _DL: Dvorak Layer.
     *  .---------------------------------------------------------------.
     *  |   |   |   |   |   |   |   |   |   |   |   |[  |]  |       |   |
@@ -100,6 +149,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |      |A  |O  |E  |U  |I  |D  |H  |T  |N  |S  |-  |        |   |
     *  |---------------------------------------------------------------|
     *  |        |;  |Q  |J  |K  |X  |B  |M  |W  |V  |Z  |      |   |   |
+=======
+
+    /* _DL: Dvorak Layer.
+    *  .---------------------------------------------------------------.
+    *  |   |   |   |   |   |   |   |   |   |   |   |  [|  ]|       |   |
+    *  |---------------------------------------------------------------|
+    *  |     |  '|  ,|  .|  P|  Y|  F|  G|  C|  R|  L|  /|  =|    \|   |
+    *  |---------------------------------------------------------------|
+    *  |      |  A|  O|  E|  U|  I|  D|  H|  T|  N|  S|  -|        |   |
+    *  |---------------------------------------------------------------|
+    *  |        |  ;|  Q|  J|  K|  X|  B|  M|  W|  V|  Z|      |   |   |
+>>>>>>> upstream/master
     *  |---------------------------------------------------------------|
     *  |    |    |    |                        |     |     |   |   |   |
     *  *---------------------------------------------------------------*
@@ -111,6 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_SCLN, KC_Q   , KC_J   , KC_K   , KC_X   , KC_B   , KC_M   , KC_W   , KC_V   , KC_Z   ,          _______, _______, _______,
         _______, _______,          _______, _______,          _______,          _______,          _______, _______, _______, _______, _______, _______
     ),
+<<<<<<< HEAD
     /*#### _CL: Colmak Layer.
     *  .---------------------------------------------------------------.
     *  |   |   |   |   |   |   |   |   |   |   |   |-  |=  |       |   |
@@ -120,6 +182,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |      |A  |R  |S  |T  |D  |H  |N  |E  |I  |O  |'  |        |   |
     *  |---------------------------------------------------------------|
     *  |        |Z  |X  |C  |V  |B  |K  |M  |,  |.  |/  |      |   |   |
+=======
+
+    /* _CL: Colmak Layer.
+    *  .---------------------------------------------------------------.
+    *  |   |   |   |   |   |   |   |   |   |   |   |  -|  =|       |   |
+    *  |---------------------------------------------------------------|
+    *  |     |  Q|  W|  F|  P|  G|  J|  L|  U|  Y|  ;|  [|  ]|    \|   |
+    *  |---------------------------------------------------------------|
+    *  |      |  A|  R|  S|  T|  D|  H|  N|  E|  I|  O|  '|        |   |
+    *  |---------------------------------------------------------------|
+    *  |        |  Z|  X|  C|  V|  B|  K|  M|  ,|  .|  /|      |   |   |
+>>>>>>> upstream/master
     *  |---------------------------------------------------------------|
     *  |    |    |    |                        |     |     |   |   |   |
     *  *---------------------------------------------------------------*
@@ -131,9 +205,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_K   , KC_M   , KC_COMM, KC_DOT , KC_SLSH,          _______, _______, _______,
         _______, _______,          _______, _______,          _______,          _______,          _______, _______, _______, _______, _______, _______
     ),
+<<<<<<< HEAD
     /*#### _FL: Function Layer.
     *  .---------------------------------------------------------------.
     *  |Web|F1 |F2 |F3 |F4 |F5 |F6 |F7 |F8 |F9 |F10|F11|F12|SLock  |PSc|
+=======
+
+    /* _FL: Function Layer.
+    *  M0 opens Chrome
+    *  .---------------------------------------------------------------.
+    *  |M0 | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|SLock  |PSc|
+>>>>>>> upstream/master
     *  |---------------------------------------------------------------|
     *  |Fn_AL|   |   |   |   |   |   |   |   |   |   |   |   |     |Pau|
     *  |---------------------------------------------------------------|
@@ -141,6 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  |---------------------------------------------------------------|
     *  |        |   |   |   |   |   |   |   |   |   |   |VlMute|VlU|End|
     *  |---------------------------------------------------------------|
+<<<<<<< HEAD
     *  |    |    |Menu|      SP4               |     |     |WBk|VlD|WFw|
     *  *---------------------------------------------------------------*
     */
@@ -154,6 +237,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*#### _AL: Adjust Layer - Keymap select, RGB Underglow, LED backlight, and Dynamic Macro settings.
     *  .---------------------------------------------------------------.
     *  |Rev|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |BLT|BL-|BL+|       |MP1|
+=======
+    *  |    |    |Menu|                        |     |     |WBk|VlD|WFw|
+    *  *---------------------------------------------------------------*
+    */
+    [_FL] = LAYOUT(
+        M(0),    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX, KC_SLCK, KC_PSCR,
+        MO(_AL),          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PAUS,
+        _______,          XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX,          KC_HOME,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_MUTE, KC_VOLU, KC_END,
+        XXXXXXX, XXXXXXX,          KC_MENU, M(1),             M(1),             M(1),             XXXXXXX, XXXXXXX, XXXXXXX, KC_WBAK, KC_VOLD, KC_WFWD
+    ),
+
+    /* _AL: Adjust Layer.
+    *  Default keymap, RGB Underglow, LED backlight, and Dynamic Macro settings.
+    *  .---------------------------------------------------------------.
+    *  |Ver|Tog|Mod|H- |H+ |S- |S+ |V- |V+ |   |BLT|BL-|BL+|       |MP1|
+>>>>>>> upstream/master
     *  |---------------------------------------------------------------|
     *  |Fn_AL|_BL|_WL|   |   |   |   |   |   |   |   |   |   |     |MR1|
     *  |---------------------------------------------------------------|
@@ -165,7 +265,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *  *---------------------------------------------------------------*
     */
     [_AL] = LAYOUT(
+<<<<<<< HEAD
         QMK_REV, RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, BL_TOGG, BL_DEC,  BL_INC,  XXXXXXX, XXXXXXX, KC_DMP1,
+=======
+        F(0),    RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, XXXXXXX, BL_TOGG, BL_DEC,  BL_INC,  XXXXXXX, XXXXXXX, KC_DMP1,
+>>>>>>> upstream/master
         _______,          DF(_BL), DF(_WL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DMR1,
         _______,          XXXXXXX, XXXXXXX, DF(_DL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          KC_DMRS,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, DF(_CL), XXXXXXX, DF(_BL), DF(_NL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX, XXXXXXX, KC_DMR2,
@@ -173,6 +277,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 };
 
+<<<<<<< HEAD
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QMK_REV:
@@ -201,6 +306,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         return false;
     }
     return true;
+=======
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch(id) {
+        case 0:
+            if (record->event.pressed) {
+                return MACRO(I(0), D(LGUI), T(R), U(LGUI), END);
+            }
+            else {
+                SEND_STRING("chrome.exe https://geekhack.org/index.php?topic=86756.new;topicseen#new\n");
+                return false;
+            }
+        break;
+        case 1:
+            if (record->event.pressed) {
+                return MACRO(I(0), T(SPC), T(SPC), T(SPC), T(SPC), END);
+            }
+            else {
+                return false;
+            }
+        break;
+    }
+    return MACRO_NONE;
+};
+
+const uint16_t PROGMEM fn_actions[] = {
+    [0] = ACTION_FUNCTION(0),
+};
+
+void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    switch (id) {
+        case 0:
+            if (record->event.pressed) {
+                SEND_STRING ("[QMK:" QMK_KEYBOARD ":" QMK_KEYMAP ":" QMK_VERSION "]");
+            }
+        break;
+    }
+>>>>>>> upstream/master
 }
 
 void matrix_init_user(void) {
@@ -213,6 +355,10 @@ void matrix_init_user(void) {
     #endif
 }
 
+<<<<<<< HEAD
+=======
+// Runs constantly in the background, in a loop.
+>>>>>>> upstream/master
 void matrix_scan_user(void) {
     uint8_t layer = biton32(layer_state);
 
@@ -220,7 +366,11 @@ void matrix_scan_user(void) {
     }
     else {
         current_layer = layer;
+<<<<<<< HEAD
         switch (current_layer) {
+=======
+        switch (layer) {
+>>>>>>> upstream/master
             case 0:
                 backlight_level(0);
                 rgblight_sethsv(180,100,255);
@@ -257,6 +407,15 @@ void matrix_scan_user(void) {
     }
 }
 
+<<<<<<< HEAD
 void led_set_user(uint8_t usb_led) {
 
+=======
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // Enable Dynamic Macros.
+    if (!process_record_dynamic_macro(keycode, record)) {
+        return false;
+    }
+    return true;
+>>>>>>> upstream/master
 }

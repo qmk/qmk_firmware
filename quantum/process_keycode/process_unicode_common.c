@@ -16,18 +16,27 @@
 
 #include "process_unicode_common.h"
 #include "eeprom.h"
+#include <string.h>
+#include <ctype.h>
 
 static uint8_t input_mode;
 uint8_t mods;
 
-void set_unicode_input_mode(uint8_t os_target)
-{
+void set_unicode_input_mode(uint8_t os_target) {
   input_mode = os_target;
   eeprom_update_byte(EECONFIG_UNICODEMODE, os_target);
 }
 
 uint8_t get_unicode_input_mode(void) {
   return input_mode;
+}
+
+void unicode_input_mode_init(void) {
+  static bool first_flag = false;
+  if (!first_flag) {
+    input_mode = eeprom_read_byte(EECONFIG_UNICODEMODE);
+    first_flag = true;
+  }
 }
 
 __attribute__((weak))
@@ -102,8 +111,7 @@ void unicode_input_finish (void) {
 }
 
 __attribute__((weak))
-uint16_t hex_to_keycode(uint8_t hex)
-{
+uint16_t hex_to_keycode(uint8_t hex) {
   if (hex == 0x0) {
     return KC_0;
   } else if (hex < 0xA) {
@@ -118,5 +126,30 @@ void register_hex(uint16_t hex) {
     uint8_t digit = ((hex >> (i*4)) & 0xF);
     register_code(hex_to_keycode(digit));
     unregister_code(hex_to_keycode(digit));
+  }
+}
+
+void send_unicode_hex_string(const char *str) {
+  if (!str) { return; } // Safety net
+
+  while (*str) {
+    // Find the next code point (token) in the string
+    for (; *str == ' '; str++);
+    size_t n = strcspn(str, " "); // Length of the current token
+    char code_point[n+1];
+    strncpy(code_point, str, n);
+    code_point[n] = '\0'; // Make sure it's null-terminated
+
+    // Normalize the code point: make all hex digits lowercase
+    for (char *p = code_point; *p; p++) {
+      *p = tolower((unsigned char)*p);
+    }
+
+    // Send the code point as a Unicode input string
+    unicode_input_start();
+    send_string(code_point);
+    unicode_input_finish();
+
+    str += n; // Move to the first ' ' (or '\0') after the current token
   }
 }

@@ -16,7 +16,11 @@ void set_led_state(int ledId, bool state) {
 				PORTD |= (1<<7);
 				break;
 			case 1:
-				PORTC |= (1<<6);
+				if((PINB & (1 << 7)) != 0) {
+					PORTC |= (1<<6);
+				} else {
+					PORTC |= (1<<7);
+				}
 				break;
 			case 2:
 				PORTD |= (1<<4);
@@ -47,7 +51,11 @@ void set_led_state(int ledId, bool state) {
 				PORTD &= ~(1<<7);
 				break;
 			case 1:
-				PORTC &= ~(1<<6);
+				if((PINB & (1 << 7)) != 0) {
+					PORTC &= ~(1<<6);
+				} else {
+					PORTC &= ~(1<<7);
+				}
 				break;
 			case 2:
 				PORTD &= ~(1<<4);
@@ -75,8 +83,12 @@ void set_led_state(int ledId, bool state) {
 }
 
 void led_init_ports() {
+	PORTB |= (1 << 7);
+	DDRB &= ~(1<<7);
+	
 	DDRD |= (1<<7);
 	DDRC |= (1<<6);
+	DDRC |= (1<<7);
 	DDRD |= (1<<4);
 	DDRE |= (1<<6);
 	DDRB |= (1<<4);
@@ -87,10 +99,16 @@ void led_init_ports() {
 	DDRB |= (1<<0);
 }
 
+void led_set_layer(int layer) {
+
+	/*KNOPS_SIMPLELED_STATES*/
+
+}
+
 void matrix_init_user(void) {
 	led_init_ports();
 	
-	led_set_layer(0);
+	led_set_layer(1);
 	
 	/*KNOPS_INIT*/
 }
@@ -99,6 +117,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	//keyevent_t event = record->event;
 
 	/*KNOPS_MACRO*/
+	return NULL;
 }
 
 
@@ -112,15 +131,11 @@ void led_set_user(uint8_t usb_led) {
 
 }
 
-void led_set_layer(int layer) {
-
-	/*KNOPS_SIMPLELED_STATES*/
-
-}
-
 bool process_record_user (uint16_t keycode, keyrecord_t *record) {
   
 	/*KNOPS_PROCESS_STATE*/
+
+	return NULL;
   
 }
 

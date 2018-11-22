@@ -2,6 +2,7 @@
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
+<<<<<<< HEAD
 TAP_DANCE_ENABLE = no       # Enable TapDance functionality
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
@@ -22,6 +23,21 @@ FAUXCLICKY_ENABLE = no      # Uses buzzer to emulate clicky switches.  By defaul
 API_SYSEX_ENABLE = no       # This enables using the Quantum SYSEX API to send strings(+5390)
 KEY_LOCK_ENABLE = no        # This enables key lock(+260)
 SPLIT_KEYBOARD = no         # This enables split keyboard support and includes all necessary files located at quantum/split_common
+=======
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
+MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
+CONSOLE_ENABLE = yes        # Console for debug(+400)
+COMMAND_ENABLE = yes        # Commands for debug and configuration
+NKRO_ENABLE = yes           # Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality
+MIDI_ENABLE = no            # MIDI controls
+AUDIO_ENABLE = no           # Audio output on port C6
+UNICODE_ENABLE = no         # Unicode
+BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
+SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+>>>>>>> upstream/master
 
 ifndef QUANTUM_DIR
 	include ../../../../Makefile

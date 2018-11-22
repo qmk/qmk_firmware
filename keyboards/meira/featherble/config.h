@@ -36,6 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_EN_PIN D2
 #define UNUSED_PINS
 
+#define QMK_SPEAKER B5
+#define B5_AUDIO
+#define AUDIO_VOICES
+
 #define CATERINA_BOOTLOADER
 
  

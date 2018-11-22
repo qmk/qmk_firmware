@@ -1,4 +1,4 @@
-#include "s60_x.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: qwerty
@@ -14,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LCTRL│L_WIN│L_ALT│█████│█████│█████│ SPC │█████│█████│█████│ Fn0 │R_WIN│ APP │RCTRL│█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
     */
-    LEGACY_KEYMAP(
+    LAYOUT_kc(
          GRV,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS,  EQL,   NO, BSPC, \
          TAB,    Q,    W,   E,   R,   T,   Y,   U,   I,    O,    P, LBRC, RBRC, BSLS,       \
         CAPS,    A,    S,   D,   F,   G,   H,   J,   K,    L, SCLN, QUOT,   NO,  ENT,       \
@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LCTRL│L_WIN│L_ALT│█████│█████│█████│ SPC │█████│█████│█████│ Fn0 │R_WIN│ APP │RCTRL│█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
     */
-    LEGACY_KEYMAP(
+    LAYOUT_kc(
          GRV,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS, EQL,   NO, BSPC, \
          TAB,    Q,    W,   F,   P,   G,   J,   L,   U,    Y, SCLN, LBRC, RBRC, BSLS,      \
         BSPC,    A,    R,   S,   T,   D,   H,   N,   E,    I,    O, QUOT,   NO,  ENT,      \
@@ -50,15 +50,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LSHFT│▒▒▒▒▒│  ;  │  Q  │  J  │  K  │  X  │  B  │  M  │  W  │  V  │  Z  │▒▒▒▒▒│RSHFT│▒▒▒▒▒│
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 │LCTRL│L_WIN│L_ALT│█████│█████│█████│ SPC │█████│█████│█████│ Fn0 │R_WIN│ APP │RCTRL│█████│
-└─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘   
+└─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
     */
-    LEGACY_KEYMAP(
+    LAYOUT_kc(
          GRV,    1,    2,    3,   4,   5,   6,   7,   8,   9,   0, LBRC, RBRC,   NO, BSPC, \
          TAB, QUOT, COMM,  DOT,   P,   Y,   F,   G,   C,   R,   L, SLSH,  EQL, BSLS,       \
         CAPS,    A,    O,    E,   U,   I,   D,   H,   T,   N,   S, MINS,   NO,  ENT,       \
         LSFT,   NO, SCLN,    Q,   J,   K,   X,   B,   M,   W,   V,    Z,   NO, RSFT,   NO, \
         LCTL, LGUI, LALT,                 SPC,                FN0, RGUI,  APP, RCTL),
-    /* 3: workman 
+    /* 3: workman
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │GRAVE│  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  -  │  =  │▒▒▒▒▒│BKSPC│
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LCTRL│L_WIN│L_ALT│█████│█████│█████│ SPC │█████│█████│█████│ Fn0 │R_WIN│ APP │RCTRL│█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
     */
-    LEGACY_KEYMAP(
+    LAYOUT_kc(
          GRV,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS,  EQL,   NO, BSPC, \
          TAB,    Q,    D,   R,   W,   B,   J,   F,   U,    P, SCLN, LBRC, RBRC, BSLS,       \
         BSPC,    A,    S,   H,   T,   G,   Y,   N,   E,    O,    I, QUOT,   NO,  ENT,       \
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │     │     │     │█████│█████│█████│     │█████│█████│█████│     │Left │Down │Right│█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
     */
-    LEGACY_KEYMAP(
+    LAYOUT_kc(
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │     │     │     │█████│█████│█████│     │█████│█████│█████│     │     │     │     │█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
     */
-    LEGACY_KEYMAP(
+    LAYOUT_kc(
          ESC, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
@@ -134,7 +134,7 @@ FnQ: toggle Esc overlay
 FnS: toggle Arrow overlay
 
     */
-    LEGACY_KEYMAP(
+    LAYOUT_kc(
         ESC,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS, TRNS, \
         TRNS,  FN2,   UP, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, CALC, TRNS, HOME,  INS,  FN4,       \
         TRNS, LEFT, DOWN, RGHT, TRNS, TRNS, PSCR, SLCK, PAUS, TRNS,  FN3,  END, TRNS, TRNS,       \
@@ -159,7 +159,7 @@ Ld: set Dvorak layout
 Lw: set Workman layout
 
     */
-    LEGACY_KEYMAP(
+    LAYOUT_kc(
         FN5,  FN6,  FN7,  FN8, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
         TRNS,  FN5,  FN8, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
         TRNS, TRNS, TRNS,  FN7, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \

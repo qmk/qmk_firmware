@@ -38,7 +38,7 @@ increment_version ()
 
 git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE}
 
-NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | wc -l)
+NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)' | grep -Ev '^(docs/)' | grep -Ev '^(users/)' | grep -Ev '^(layouts/)' | wc -l)
 if [[ $NEFM -gt 0 ]] ; then
 	echo "Essential files modified."
 	git fetch --tags
