@@ -125,18 +125,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |      |   -  |   =  |   [  |   ]  |  \   |
+ * | Del  |  F11 |  F12 |  F13 |  F14 |  F15 |      |   -  |   =  |   [  |   ]  |  \   |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |LShift|  F6  |  F7  |  F8  |  F9  |  F10 |      |ISO # |ISO / | NULL | PgUp | Enter|
+ * |LShift|  F16 |  F17 |  F18 |  F19 |  F20 |      |ISO # |ISO / | NULL | PgUp | Enter|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  F11 |  F12 |      |      |             |      |      | Home | PgDn |  End |
+ * |      |      |      |      |      |             |      |      | Home | PgDn |  End |
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_planck_grid(
-    KC_GRV ,  KC_1,   KC_2,      KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,
-    KC_DEL ,  KC_F1,  KC_F2,    KC_F3,   KC_F4,   KC_F5, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-    KC_LSFT,  KC_F6,  KC_F7,    KC_F8,   KC_F9,  KC_F10, _______, KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT,
-    _______,  KC_F11, KC_F12, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END 
+    KC_GRV , KC_1,    KC_2,      KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,  KC_DEL,
+    KC_DEL , KC_F11,  KC_F12,   KC_F13,  KC_F14, KC_F15, _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
+    KC_LSFT, KC_F16,  KC_F17,   KC_F18,  KC_F19, KC_F20, _______, KC_NUHS, KC_NUBS, XXXXXXX, KC_PGUP, KC_ENT,
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END 
 ),
 
 /* LOWER
@@ -147,14 +147,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |LShift|  F6  |  F7  |  F8  |  F9  |  F10 |      |ISO ~ |ISO | | NULL | PgUp | Enter|
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |  F11 |  F12 |      |      |             |      |      | Home | PgDn |  End |
+ * |      |      |      |      |      |             |      |      | Home | PgDn |  End |
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_planck_grid(
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL ,
     KC_DEL , KC_F1,   KC_F2,   KC_F3,    KC_F4, KC_F5,   _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
     KC_LSFT, KC_F6,   KC_F7,   KC_F8,    KC_F9, KC_F10,  _______, S(KC_NUHS), S(KC_NUBS), XXXXXXX, KC_PGUP, KC_ENT ,
-    _______,  KC_F11, KC_F12, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END 
+    _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_END 
 ),
 
 /* MEDIA AND COMMANDS
