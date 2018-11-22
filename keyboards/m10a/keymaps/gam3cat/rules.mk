@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
@@ -24,8 +23,6 @@ API_SYSEX_ENABLE = no       # This enables using the Quantum SYSEX API to send s
 KEY_LOCK_ENABLE = no        # This enables key lock(+260)
 SPLIT_KEYBOARD = no         # This enables split keyboard support and includes all necessary files located at quantum/split_common
 
-=======
->>>>>>> upstream/master
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
 endif
