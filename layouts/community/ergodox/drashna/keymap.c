@@ -22,7 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif // UNICODEMAP_ENABLE
 extern uint8_t input_mode;
 
-
+#ifdef RGB_MATRIX_ENABLE
+extern bool g_suspend_state;
+extern rgb_config_t rgb_matrix_config;
+#endif
 
 //enum more_custom_keycodes {
 //    KC_P00 = NEW_SAFE_RANGE
@@ -338,9 +341,11 @@ bool indicator_is_this_led_used_keyboard(uint8_t index) {
 
 void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);
+    rgb_matrix_config.enable = false;
 }
 
 void suspend_wakeup_init_keymap(void) {
+    rgb_matrix_config.enable = true;
     rgb_matrix_set_suspend_state(false);
 }
 
@@ -357,6 +362,7 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void rgb_matrix_indicators_user(void) {
+  if (g_suspend_state) return;
 
   switch (biton32(layer_state)) {
     case _MODS:
@@ -426,6 +432,7 @@ void matrix_init_keymap(void) {
 
   input_mode = 2;
 }
+
 #else
 void matrix_init_keymap(void) {
   input_mode = 2;
