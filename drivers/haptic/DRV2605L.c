@@ -36,18 +36,22 @@ void DRV_init(void)
   i2c_start(DRV2605L_BASE_ADDRESS);
 
   //0x07 sets DRV2605 into calibration mode
-  DRV_write(DRV_FEEDBACK_CTRL,0xB8);
-  //DRV_write(DRV_RATED_VOLT,); 
-  //DRV_write(DRV_OVERDRIVE_CLAMP_VOLT, ); 
-
+  DRV_write(DRV_FEEDBACK_CTRL,0xB6);
+  DRV_write(DRV_RATED_VOLT, 0x53); 
+  DRV_write(DRV_OVERDRIVE_CLAMP_VOLT, 0x60); 
+  DRV_write(DRV_CTRL_1,0x93);
+  DRV_write(DRV_CTRL_2,0xF5);
+  DRV_write(DRV_CTRL_3,0x80);
+  DRV_write(DRV_LIB_SELECTION,0x06);
   DRV_write(DRV_MODE,0x07); 
+  //start autocalibration
+  DRV_write(DRV_GO, 0x01);
 
   //0x00 sets DRV2605 out of standby and to use internal trigger
   //0x01 sets DRV2605 out of standby and to use external trigger
   DRV_write(DRV_MODE,0x00); 
   
   //0x06: LRA library
-  DRV_write(DRV_LIB_SELECTION,0x06);
   DRV_write(DRV_WAVEFORM_SEQ_1, 0x01);
 
   // 0xB9: LRA, 4x brake factor, medium gain, 7.5x back EMF
@@ -55,9 +59,6 @@ void DRV_init(void)
   
   //TODO: set rest of initiation
 
-
-  //Play seq x1 at end of initialization
-  DRV_write(DRV_GO, 0x01);
 }
 
 void DRV_pulse(uint8_t sequence)

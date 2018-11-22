@@ -161,21 +161,27 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 void matrix_init_kb(void) {
+#ifdef HAPTIC_ENABLE
   DRV_init();
-#ifdef QWIIC_MICRO_OLED_ENABLE
-    queue_for_send = true;
 #endif
+  queue_for_send = true;
 	matrix_init_user();
 }
 
 void matrix_scan_kb(void) {
-#ifdef QWIIC_MICRO_OLED_ENABLE
+
 if (queue_for_send) {
-   DRV_pulse(0x11);
+#ifdef HAPTIC_ENABLE
+   DRV_EFFECT play_eff = strong_click; 
+   DRV_pulse(play_eff);
+#endif
+#ifdef QWIIC_MICRO_OLED_ENABLE
    read_host_led_state();
    draw_ui();
+#endif
    queue_for_send = false;
   }
+#ifdef QWIIC_MICRO_OLED_ENABLE
   if (timer_elapsed(last_flush) > ScreenOffInterval) {
   send_command(DISPLAYOFF);      // 0xAE
   }
