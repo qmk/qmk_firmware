@@ -31,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______________Qwerty_Row__0_______________,
     _______________Qwerty_Row__1_______________,
 	_______________Qwerty_Row__2_______________,
-    KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, SUBTER,  KC_LSFT,		NUMBER, KC_LSFT,		KC_SPC,  SUPRA,   KC_RGUI, KC_RALT, KC_DEL,  KC_RCTL,
+	KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, SUBTER,  KC_LSFT,		NUMBER, KC_LSFT,		KC_SPC,  SUPRA,   KC_RGUI, KC_RALT, KC_DEL,  KC_RCTL,
 												_______,SUBTER, SH_T(KC_SPC),		SH_T(KC_SPC),SUPRA, _______
   ),
   [_QW] = LAYOUT_iris_base_wrapper(
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______________NUMBERS_Row_0_______________,
     _______________NUMBERS_Row_1_______________,
 	_______________NUMBERS_Row_2_______________,
-    _______, _______, _______, _______, _______, _______,		_______, _______,		KC_ENT, KC_RSFT, KC_RGUI, _______, _______, _______,
+	_______, _______, _______, _______, _______, _______,		_______, _______,		KC_ENT, KC_RSFT, KC_RGUI, _______, _______, _______,
 										_______,_______, _______,		KC_ENT,	KC_RSFT, _______
   ),
   [DIR] = LAYOUT_iris_base_wrapper(
@@ -69,7 +69,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ______________ETCETERA_Row__0______________,
     ______________ETCETERA_Row__1______________,
 	______________ETCETERA_Row__2______________,
-    _______, _______, _______, _______, _______, _______,		_______, _______,		LALT(LCTL(KC_DEL)), _______, _______, _______, _______, _______,
+	_______, _______, _______, _______, _______, _______,		_______, _______,		LALT(LCTL(KC_DEL)), _______, _______, _______, _______, _______,
 												_______,_______, _______,		LALT(LCTL(KC_DEL)),	_______, _______
   )
   
