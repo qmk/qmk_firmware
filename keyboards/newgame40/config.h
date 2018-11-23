@@ -40,7 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN F6
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 25    // Number of LEDs
-#define ws2812_DDRREG   DDRD
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 
