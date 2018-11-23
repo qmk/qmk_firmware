@@ -166,7 +166,7 @@
   * |      |      |      |      |      |      |      |      |      |      |
   * `---------------------------------------------------------------------'
   */
- [_ADJUST] =  LAYOUT( \
+ [_ADJUST] =  LAYOUT_ortho_4x10( \
    _______,  RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, \
    _______, _______,  _______,  AU_ON,    AU_OFF, AG_NORM, AG_SWAP, _______, BL_TOGG, BL_STEP, \
    QWERTY,  COLEMAK, DVORAK,  EUCALYN, _______, _______, _______, _______, _______, _______, \
