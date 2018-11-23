@@ -60,7 +60,7 @@
 #    define println(s)         xputs(PSTR(s "\r\n"))
 #    define uprint(s)          print(s)
 #    define uprintln(s)        println(s)
-#    define uprintf(fmt, ...)  xprintf(fmt, ...)
+#    define uprintf(fmt, ...)  xprintf(fmt, ##__VA_ARGS__)
 
 #  endif /* USER_PRINT / NORMAL PRINT */
 
