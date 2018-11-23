@@ -28,8 +28,8 @@ enum crkbd_keycodes {
   LAYOUT_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                        K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
     KC_TAB,  K11,    K12,     K13,      K14,     K15,                        K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
-    KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF, \
-                           LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE                                    \
+    OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,                        K26,     K27,     K28,     K29,  CTL_T(K2A), OS_RSFT, \
+                           LT(_LOWER,KC_GRV), KC_SPC,  LALT_T(KC_BSPC),  KC_DEL,  KC_ENT,  RAISE                                    \
   )
 #define LAYOUT_crkbd_base_wrapper(...)       LAYOUT_crkbd_base(__VA_ARGS__)
 
@@ -113,11 +113,46 @@ const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
 const char *read_keylog(void);
 const char *read_keylogs(void);
-
+char layer_state_str[24];
 // const char *read_mode_icon(bool swap);
-// const char *read_host_led_state(void);
+const char *read_host_led_state(void);
 // void set_timelog(void);
 // const char *read_timelog(void);
+
+
+const char* read_layer_state(void) {
+  switch (layer_state) {
+    case _QWERTY:
+      switch (default_layer_state) {
+        case _QWERTY:
+          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: QWERTY");
+          break;
+        case _COLEMAK:
+          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Colemak");
+          break;
+        case _DVORAK:
+          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Dvorak");
+          break;
+        case _WORKMAN:
+          snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Workman");
+          break;
+      }
+      break;
+    case _RAISE:
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Raise");
+      break;
+    case _LOWER:
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Lower");
+      break;
+    case _ADJUST:
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Adjust");
+      break;
+    default:
+      snprintf(layer_state_str, sizeof(layer_state_str), "Layer: Undef-%ld", layer_state);
+  }
+
+    return layer_state_str;
+}
 
 void matrix_scan_keymap(void) {
    iota_gfx_task();
@@ -130,7 +165,7 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
     matrix_write_ln(matrix, read_keylog());
     matrix_write_ln(matrix, read_keylogs());
     //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    //matrix_write_ln(matrix, read_host_led_state());
+    matrix_write_ln(matrix, read_host_led_state());
     //matrix_write_ln(matrix, read_timelog());
   } else {
     matrix_write(matrix, read_logo());
@@ -155,28 +190,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     set_keylog(keycode, record);
     // set_timelog();
-  }
-
-  switch (keycode) {
-    case RGB_MOD:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          rgblight_mode_noeeprom(RGB_current_mode);
-          rgblight_step();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      return false;
-      break;
-    case RGBRST:
-      #ifdef RGBLIGHT_ENABLE
-        if (record->event.pressed) {
-          eeconfig_update_rgblight_default();
-          rgblight_enable();
-          RGB_current_mode = rgblight_config.mode;
-        }
-      #endif
-      break;
   }
   return true;
 }

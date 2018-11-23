@@ -16,7 +16,7 @@ Start by navigating to the `keymaps` folder for your keyboard.
 
 ?> Windows:
 
-    start keyboards/<keyboard_folder>/keymaps
+    start .\\keyboards\\<keyboard_folder>\\keymaps
 
 ## Create a Copy Of The `default` Keymap
 

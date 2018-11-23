@@ -1,36 +1,55 @@
 # Guido's Planck Keyboard Layout
 
+I've written a script to convert the json file from the
+[QMK Configurator](https://config.qmk.fm) to the C macros
+and a pretty form the comments. 
+
+First import the json file in this directory into the configurator,
+make any changes, export the file and then run this:
+
+    mv ~/Downloads/guidoism.json layouts/community/ortho_4x12/guidoism/ && python3 layouts/community/ortho_4x12/guidoism/generate_c.py && make planck:guidoism:dfu
+
+TODO: Move running of generate_c.py to makefile so I just need to run `make planck:guidoism:dfu`
+
+Note that the pretty forms of the keys are defined in another json
+file and are made for my specific board. You made need to update this
+file to get the pretty forms to look right.
+
 * Left palm to the `mov` key gets you the `Move` layer
 * Right thumb on the `raise` key gets you the various programming brackets and parens on your left hand
 * Left palm on `mov` key and left thumb on `lower` key gets you a numpad on your right hand
 * Shift with the spacebar
 * Left pinky is control on hold and escape on tap
-* Left shift is caps lock on double-tap
 
+## Current Configuration
+
+## Qwerty
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │  ⇥  │  q  │  w  │  e  │  r  │  t  │  y  │  u  │  i  │  o  │  p  │  ⌫  │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│ c/e │  a  │  s  │  d  │  f  │  g  │  h  │  j  │  k  │  l  │  :  │  ⏎  │
+│ ctrl│  a  │  s  │  d  │  f  │  g  │  h  │  j  │  k  │  l  │  :  │  ⏎  │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 │  ⇧  │  z  │  x  │  c  │  v  │  b  │  n  │  m  │  ,  │  .  │  /  │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│ mov │     │  ⌥  │  ⌘  │lower│   sp/sh   │raise│  ⌘  │  ⌥  │  ;  │     │
+│ mov │  ⎋  │  ⌥  │  ⌘  │lower│   sp/sh   │raise│  ⌘  │  ⌥  │  ;  │  fn │
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
+
 
 ## Lower
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-│  ~  │  !  │  @  │  #  │  $  │  %  │  ^  │  &  │  *  │     │     │ Undo│
+│  ~  │  !  │  @  │  #  │  $  │  %  │  ^  │  &  │  *  │     │     │ undo│
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │ Cut │ Copy│Paste│     │     │  _  │  +  │  "  │  '  │  |  │
+│     │     │ cut │ copy│paste│     │     │  _  │  +  │  "  │  '  │  |  │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │     │     │     │     │     │     │
+│ caps│     │     │     │     │     │     │     │     │     │     │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 │     │     │     │     │     │           │     │ next│ vol-│ vol+│ play│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
+
 
 ## Raise
 ```
@@ -45,32 +64,44 @@
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
 
-## Move
+
+## Movement
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-│RESET│DEBUG│     │     │     │     │     │ PgUp│  ↑  │ PgDn│     │     │
+│reset│debug│     │     │     │     │     │ pgup│  ↑  │ pgdn│     │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 │     │     │     │     │     │     │     │  ←  │  ↓  │  →  │     │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │     │ Home│     │ End │     │     │
+│     │     │     │     │     │     │     │ home│     │ end │     │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
 │     │     │     │     │     │           │     │     │     │     │     │
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
 
+
 ## Numpad
 ```
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
-│     │     │     │     │     │     │     │  7  │  8  │  9  │  /  │     │
+│     │     │     │     │     │     │  %  │  7  │  8  │  9  │  0  │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │     │  4  │  5  │  6  │  *  │     │
+│     │     │     │     │     │     │  $  │  4  │  5  │  6  │  .  │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │     │     │  1  │  2  │  3  │  -  │     │
+│     │     │     │     │     │     │  0  │  1  │  2  │  3  │  ,  │     │
 ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-│     │     │     │     │     │           │  ,  │  0  │  .  │  +  │     │
+│     │     │     │     │     │           │     │  0  │     │     │     │
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 ```
 
-Use the [QMK Configurator](https://config.qmk.fm/#/planck/rev4/LAYOUT_planck_mit) 
-to edit the guidoism.json file. Then update it and run `python3 layouts/community/ortho_4x12/guidoism/generate_c.py`
-to get the update C structs and Markdown for this file.
+
+## Function
+```
+┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+│     │  f1 │  f2 │  f3 │  f4 │  f5 │  f6 │  f7 │  f8 │  f9 │ f10 │     │
+├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│     │     │     │     │     │     │     │     │     │     │     │     │
+├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│     │     │     │     │     │     │     │     │     │     │     │     │
+├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+│     │     │     │     │     │           │     │     │     │     │     │
+└─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+```

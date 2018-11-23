@@ -39,6 +39,7 @@
   * [Glossary](reference_glossary.md)
   * [Unit Testing](unit_testing.md)
   * [Useful Functions](ref_functions.md)
+  * [Configurator Support](reference_configurator_support.md)
 
 * [Features](features.md)
   * [Basic Keycodes](keycodes_basic.md)
@@ -52,6 +53,7 @@
   * [Combos](feature_combo)
   * [Command](feature_command.md)
   * [Dynamic Macros](feature_dynamic_macros.md)
+  * [Encoders](feature_encoders.md)
   * [Grave Escape](feature_grave_esc.md)
   * [Key Lock](feature_key_lock.md)
   * [Layouts](feature_layouts.md)
@@ -78,6 +80,7 @@
   * [Hand Wiring Guide](hand_wire.md)
   * [ISP Flashing Guide](isp_flashing_guide.md)
   * [ARM Debugging Guide](arm_debugging.md)
+  * [I2C Driver](i2c_driver.md)
 
 * For a Deeper Understanding
   * [How Keyboards Work](how_keyboards_work.md)

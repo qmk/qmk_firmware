@@ -28,11 +28,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______,KC_PGDN,KC_UP,  KC_PGUP,KC_HOME,XXXXXXX,XXXXXXX,XXXXXXX,GUIU,   XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,     CU_ESCT,
         _______,KC_LEFT,KC_DOWN,KC_RGHT,KC_END, XXXXXXX,XXXXXXX,GUIL,   GUID,   GUIR,   XXXXXXX,XXXXXXX,     KC_ENT,
         _______,KC_MPRV,KC_MPLY,KC_MNXT,KC_VOLD,KC_VOLU,KC_MUTE,XXXXXXX,XXXXXXX,XXXXXXX,XXXXXXX,_______,     KC_PGUP,
-        RESET,  _______,_______,                _______,                _______,_______,_______,     KC_HOME,KC_PGDN,KC_END
+        RESET,  _______,_______,                KC_SPC,                 _______,_______,_______,     KC_HOME,KC_PGDN,KC_END
     )
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  return process_record_userspace(keycode, record);
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
 }

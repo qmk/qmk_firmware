@@ -68,3 +68,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ALT_LED1 8
 #define GUI_LED1 9
 
+#define BOOTMAGIC_LITE_ROW 4
+#define BOOTMAGIC_LITE_COLUMN 3
