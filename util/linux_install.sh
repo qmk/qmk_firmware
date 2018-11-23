@@ -61,9 +61,9 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		avr-binutils \
 		avr-libc \
 		avr-gcc \
-    base-devel \
+		base-devel \
 		dfu-util \
-		diff-utils \
+		diffutils \
 		gcc \
 		git \
 		unzip \
