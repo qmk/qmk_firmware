@@ -52,7 +52,7 @@ void DRV_init(void)
   // 0xB9: LRA, 4x brake factor, medium gain, 7.5x back EMF
   // 0x39: ERM, 4x brake factor, medium gain, 1.365x back EMF
   
-  //TODO: set rest of initiation
+  //TODO: set rest of init     iation
 
 }
 

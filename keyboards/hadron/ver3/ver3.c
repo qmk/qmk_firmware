@@ -161,7 +161,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 #endif
 
 void matrix_init_kb(void) {
-#ifdef HAPTIC_ENABLE
+#ifdef DRV2605L
   DRV_init();
 #endif
   queue_for_send = true;
@@ -171,10 +171,10 @@ void matrix_init_kb(void) {
 void matrix_scan_kb(void) {
 
 if (queue_for_send) {
-#ifdef HAPTIC_ENABLE
-   DRV_EFFECT play_eff = strong_click; 
-   DRV_pulse(play_eff);
-#endif
+  #ifdef DRV2605L
+    DRV_EFFECT play_eff = strong_click1; 
+    DRV_pulse(play_eff);
+  #endif
 #ifdef QWIIC_MICRO_OLED_ENABLE
    read_host_led_state();
    draw_ui();
