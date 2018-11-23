@@ -1,11 +1,6 @@
 // dustypomerleau, Minidox keymap
 // Thanks for checking out my keymap. The rationale behind this layout is described in the README.
 
-// TODO:
-// add oneshot timeout to config
-// review all docs re: config and add necessary params to config (ignore mod tap interrupt, permissive hold, tapping force hold, prevent stuck modifiers, possibly tapping term adjust, etc.)
-//without tapping force hold you can doubletap a MT() to get repeats of the tap key - if you want to be able to use the mod quickly you can define tapping force hold but then you’re giving up doubletap to repeat
-
 #include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
@@ -87,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |   Q  |   W  |   F  |   P  |   B  |           |   J  |   L  |   U  |   Y  |   '  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   A  |CTRL_R| ALT_S| GUI_T|   G  |           |   M  | GUI_N| ALT_E|CTRL_I|   O  |
+ * |   A  | CTL/R| ALT/S| GUI/T|   G  |           |   M  | GUI/N| ALT/E| CTL/I|   O  |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |   Z  |   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
  * `----------------------------------'           `----------------------------------'
@@ -109,7 +104,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |   Q  |   W  |   E  |   R  |   T  |           |   Y  |   U  |   I  |   O  |   P  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   A  |CTRL_S| ALT_D| GUI_F|   G  |           |   H  | GUI_J| ALT_K|CTRL_L|   '  |
+ * |   A  | CTL/S| ALT/D| GUI/F|   G  |           |   H  | GUI/J| ALT/K| CTL/L|   '  |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   ;  |
  * `----------------------------------'           `----------------------------------'
@@ -175,7 +170,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |           |  F6  |  F7  |  F8  |  F9  |  F10 |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   7  |CTRL_5| ALT_3| GUI_1|   9  |           |   8  | GUI_0| ALT_2|CTRL_4|   6  |
+ * |   7  | CTL/5| ALT/3| GUI/1|   9  |           |   8  | GUI/0| ALT/2| CTL/4|   6  |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |      |      |  F11 |  F12 |      |           |      |NUM_LK|      |      |      |
  * `----------------------------------'           `----------------------------------'
@@ -197,7 +192,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |           |  F6  |  F7  |  F8  |  F9  |  F10 |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   1  |CTRL_2| ALT_3| GUI_4|   5  |           |   6  | GUI_7| ALT_8|CTRL_9|   0  |
+ * |   1  | CTL/2| ALT/3| GUI/4|   5  |           |   6  | GUI/7| ALT/8| CTL/9|   0  |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |      |      |  F11 |  F12 |      |           |      |NUM_LK|      |      |      |
  * `----------------------------------'           `----------------------------------'
@@ -219,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |   !  |   @  |   #  |   $  |   %  |           |   ^  |   &  |   *  |   ?  |   '  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   +  |CTRLEQ|ALT_OP|GUI_CP|   "  |           |   :  |GUI_CB|ALT_OB|CTLCCB|   {  |
+ * |   +  | CTL/=| ALT/(| GUI/)|   "  |           |   :  | GUI/]| ALT/[| CTL/}|   {  |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |   <  |   |  |   -  |   >  |   \  |           |   `  |   _  |   /  |   ~  |   ;  |
  * `----------------------------------'           `----------------------------------'
