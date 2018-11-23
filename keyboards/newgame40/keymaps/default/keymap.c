@@ -42,7 +42,6 @@
  };
 
  // Fillers to make layering more clear
- #define XXXXXXX KC_NO
  #define LOWER MO(_LOWER)
  #define RAISE MO(_RAISE)
 
