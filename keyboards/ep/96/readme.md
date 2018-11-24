@@ -6,7 +6,7 @@ A simple 96 key keyboard
 
 Keyboard Maintainer: Keyboard Maintainer: [Elliot Powell](https://github.com/e11i0t23), [/u/e11i0t23](https://reddit.com/u/e11i0t23)  
 Hardware Supported: EP96 PCB
-Hardware Availability: Possible availability upon request
+Hardware Availability: Possible availability upon request   
 
 Make example for this keyboard (after setting up your build environment):
 
