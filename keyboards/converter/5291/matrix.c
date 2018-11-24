@@ -43,8 +43,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define ROW_SHIFTER                ((uint8_t)1)
 #define check_bit(var,pos)         ((var) & (1<<(pos)))
 
-static const uint8_t row_pins [5] = MATRIX_ROW_PINS ;
-static const uint8_t col_pins [2] = MATRIX_COL_PINS ;
+#define NUM_ROW_PINS 5
+#define NUM_COL_PINS 2
+
+static const uint8_t row_pins [NUM_ROW_PINS] = MATRIX_ROW_PINS ;
+static const uint8_t col_pins [NUM_ROW_PINS] = MATRIX_COL_PINS ;
 
 #if ( DEBOUNCING_DELAY > 0 )
 static uint16_t debouncing_time         ;
@@ -61,7 +64,7 @@ static
 inline
 void toggle_led(void) {
     uint8_t pin = LED_PIN ;
-    _SFR_IO8((pin >> 4) + 2) ^= _BV(pin & 0xF); // LOW
+    _SFR_IO8((pin >> 4) + 2) ^= _BV(pin & 0xF);
 }
 
 static
@@ -85,13 +88,13 @@ inline
 void init_strobe(void) {
     uint8_t pin = MATRIX_STROBE_PIN ;
     _SFR_IO8((pin >> 4) + 1) |= _BV(pin & 0xF);  // OUT
-    _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
+    _SFR_IO8((pin >> 4) + 2) |= _BV(pin & 0xF);  // HI
 }
 
 static
 inline
 void init_rows(void) {
-    for ( uint8_t i = 0 ; i < 5; ++i ) {
+    for ( uint8_t i = 0 ; i < NUM_ROW_PINS; ++i ) {
         uint8_t pin = row_pins[i];
         _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
         _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
@@ -101,7 +104,7 @@ void init_rows(void) {
 static
 inline
 void init_cols(void) {
-    for ( uint8_t i = 0 ; i < 2; ++i ) {
+    for ( uint8_t i = 0 ; i < NUM_COL_PINS; ++i ) {
         uint8_t pin = col_pins[i];
         _SFR_IO8((pin >> 4) + 1) |=  _BV(pin & 0xF); // OUT
         _SFR_IO8((pin >> 4) + 2) &= ~_BV(pin & 0xF); // LOW
@@ -111,7 +114,7 @@ void init_cols(void) {
 static
 inline
 void select_row(uint8_t current_row) {
-    for ( uint8_t i = 0 ; i < 5; ++i ) {
+    for ( uint8_t i = 0 ; i < NUM_ROW_PINS; ++i ) {
         uint8_t pin = row_pins[i] ;
         if ( check_bit( current_row, i ) ) {
             _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
@@ -125,7 +128,7 @@ void select_row(uint8_t current_row) {
 static
 inline
 void select_col(uint8_t current_col) {
-    for ( uint8_t i = 0 ; i < 2; ++i ) {
+    for ( uint8_t i = 0 ; i < NUM_COL_PINS; ++i ) {
         uint8_t pin = col_pins[i] ;
         if ( check_bit( current_col, i ) ) {
             _SFR_IO8((pin >> 4) + 2) |=  _BV(pin & 0xF); // HI
@@ -142,16 +145,16 @@ uint8_t matrix_strobe(uint8_t col_index) {
     uint8_t strobe_pin = MATRIX_STROBE_PIN ;
     uint8_t data_pin   = MATRIX_DATA_PIN   ;
     
-    // set strobe pin high
-    _SFR_IO8((strobe_pin >> 4) + 2) |=  _BV(strobe_pin & 0xF);
+    // set strobe pin low
+    _SFR_IO8((strobe_pin >> 4) + 2) &=  ~_BV(strobe_pin & 0xF);
     
     wait_us(30) ;
     
     // read data 
     uint8_t data = (_SFR_IO8(data_pin >> 4) & _BV(data_pin & 0xF)) ;
     
-    // set strobe pin low
-    _SFR_IO8((strobe_pin >> 4) + 2) &= ~_BV(strobe_pin & 0xF);
+    // set strobe pin hi
+    _SFR_IO8((strobe_pin >> 4) + 2) |= _BV(strobe_pin & 0xF);
     
     uint8_t out = data ? (1 << col_index) : 0 ;
     return out ;
@@ -232,7 +235,7 @@ void matrix_init(void) {
     init_strobe() ;
     
     // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+    for (uint8_t i = 0; i < MATRIX_ROWS; i++) {
         matrix[i]            = 0;
 #       if (DEBOUNCING_DELAY > 0)
         matrix_debounce  [i] = 0;
