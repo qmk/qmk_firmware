@@ -6,7 +6,7 @@
 
 Keyboard Maintainer:
 [GoTakigawa](https://github.com/GoTakigawa)
-[@Go_Drums](https://twitter.com/Go_Drums)
+[@Go_Drums](https://twitter.com/Go_Drums)  
 Hardware Supported: The NEWGAME40 PCBs, ProMicro supported  
 Hardware Availability: Group buy soon
 
