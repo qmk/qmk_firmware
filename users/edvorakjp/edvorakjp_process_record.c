@@ -1,6 +1,8 @@
 #include "edvorakjp.h"
 
+#if TAP_DANCE_ENABLE != yes
 static uint16_t time_on_pressed;
+#endif
 /*
  * Each process_record_* methods defined here are
  * return false if handle edvorak_keycodes, or return true others.
@@ -136,6 +138,7 @@ bool process_record_layer(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
+#if TAP_DANCE_ENABLE != yes
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
@@ -162,6 +165,7 @@ bool process_record_layer(uint16_t keycode, keyrecord_t *record) {
         time_on_pressed = 0;
       }
       return false;
+#endif
   }
   return true;
 }

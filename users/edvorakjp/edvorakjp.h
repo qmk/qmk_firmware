@@ -41,6 +41,11 @@ enum edvorakjp_keycodes {
   NEW_SAFE_RANGE
 };
 
+enum tap_dance_code {
+  TD_LOWER = 0,
+  TD_RAISE
+};
+
 // base
 void dvorakj_layer_off(void);
 void matrix_init_user(void);
