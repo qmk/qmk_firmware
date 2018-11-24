@@ -18,8 +18,8 @@
 #pragma once
 #include "i2c_master.h"
 
-//register defines --------------------------------------------------------
-#define DRV2605L_BASE_ADDRESS       0x5A		//!< DRV2605L Base address
+/* register defines -------------------------------------------------------- */
+#define DRV2605L_BASE_ADDRESS       0x5A		/* DRV2605L Base address */
 #define DRV_STATUS                  0x00
 #define DRV_MODE                    0x01
 #define DRV_RTP_INPUT               0x02
@@ -58,7 +58,7 @@
 
 void DRV_init(void);
 void DRV_write(const uint8_t drv_register, const uint8_t settings);
-//void DRV_read(const uint8_t drv_register, const uint8_t settings);
+/*void DRV_read(const uint8_t drv_register, const uint8_t regdata); */
 void DRV_pulse(const uint8_t sequence);
 
 
@@ -187,41 +187,40 @@ typedef enum DRV_EFFECT{
   smooth_hum3_30 = 121,
   smooth_hum4_20 = 122,
   smooth_hum5_10 = 123,
-  //WIP
 } DRV_EFFECT;
 
-//Register but array unions
+/* Register bit array unions */
 
 typedef union DRVREG_STATUS {
   uint8_t Byte;
   struct {
-    uint8_t OC_DETECT   :1; // set to 1 when overcurrent event is detected
-    uint8_t OVER_TEMP   :1; // set to 1 when device exceeds temp threshold
-    uint8_t FB_STS      :1; // set to 1 when feedback controller has timed out
-    // auto-calibration routine and diagnostic result
-    // result  |  auto-calibation  |      diagnostic       |
-    //   0     |      passed       | actuator func normal  |
-    //   1     |      failed       | actuator func fault*  |
-    // * actuator is not present or is shorted, timing out, or giving out–of-range back-EMF
+    uint8_t OC_DETECT   :1; /* set to 1 when overcurrent event is detected */
+    uint8_t OVER_TEMP   :1; /* set to 1 when device exceeds temp threshold */
+    uint8_t FB_STS      :1; /* set to 1 when feedback controller has timed out */
+    /* auto-calibration routine and diagnostic result
+     * result  |  auto-calibation  |      diagnostic       |
+     *   0     |      passed       | actuator func normal  |
+     *   1     |      failed       | actuator func fault*  |
+     * * actuator is not present or is shorted, timing out, or giving out–of-range back-EMF */
     uint8_t DIAG_RESULT :1;
     uint8_t             :1;
-    uint8_t DEVICE_ID   :3; // Device IDs 3: DRV2605  4: DRV2604  5: DRV2604L  6: DRV2605L
+    uint8_t DEVICE_ID   :3; /* Device IDs 3: DRV2605  4: DRV2604  5: DRV2604L  6: DRV2605L */
   } Bits;
 } DRVREG_STATUS;
 
 typedef union DRVREG_MODE {
   uint8_t Byte;
   struct {
-    uint8_t MODE        :3; // Mode setting
+    uint8_t MODE        :3; /* Mode setting */
     uint8_t             :3;
-    uint8_t STANDBY     :1; // 0:standby 1:ready
+    uint8_t STANDBY     :1; /* 0:standby 1:ready */
   } Bits;
 } DRVREG_MODE;
 
 typedef union DRVREG_WAIT {
   uint8_t Byte;
   struct {
-    uint8_t WAIT_MODE   :1; // Set to 1 to interpret as wait for next 7 bits x10ms
+    uint8_t WAIT_MODE   :1; /* Set to 1 to interpret as wait for next 7 bits x10ms */
     uint8_t WAIT_TIME   :7;
   } Bits;
 } DRVREG_WAIT;

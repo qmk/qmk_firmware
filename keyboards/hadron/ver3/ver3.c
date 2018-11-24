@@ -21,7 +21,7 @@
 
 #ifdef QWIIC_MICRO_OLED_ENABLE
 
-//screen off after this many milliseconds
+/* screen off after this many milliseconds */
 #include "timer.h"
 #define ScreenOffInterval 60000 /* milliseconds */
 static uint16_t last_flush;
@@ -39,10 +39,16 @@ void draw_ui(void) {
   clear_buffer();
   last_flush = timer_read();
   send_command(DISPLAYON);
-  draw_string(1, 2, "LAYER", PIXEL_ON, NORM, 0);
-  draw_rect_filled_soft(32, 1, 9, 9, PIXEL_ON, NORM);
-  draw_char(34, 2, layer + 0x30, PIXEL_ON, XOR, 0);
 
+/* Layer indicator is 41 x 10 pixels */
+#define LAYER_INDICATOR_X 0
+#define LAYER_INDICATOR_Y 0 
+
+  draw_string(LAYER_INDICATOR_X + 1, LAYER_INDICATOR_Y + 2, "LAYER", PIXEL_ON, NORM, 0);
+  draw_rect_filled_soft(LAYER_INDICATOR_X + 32, LAYER_INDICATOR_Y + 1, 9, 9, PIXEL_ON, NORM);
+  draw_char(LAYER_INDICATOR_X + 34, LAYER_INDICATOR_Y + 2, layer + 0x30, PIXEL_ON, XOR, 0);
+
+/* Matrix display is 19 x 9 pixels */
 #define MATRIX_DISPLAY_X 0
 #define MATRIX_DISPLAY_Y 18
 
@@ -52,7 +58,7 @@ void draw_ui(void) {
     }
   } 
   draw_rect_soft(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 19, 9, PIXEL_ON, NORM);
-  //hadron oled location on thumbnail
+  /* hadron oled location on thumbnail */
   draw_rect_filled_soft(MATRIX_DISPLAY_X + 14, MATRIX_DISPLAY_Y + 2, 3, 1, PIXEL_ON, NORM);
 /*
   draw_rect_soft(0, 13, 64, 6, PIXEL_ON, NORM);
@@ -60,6 +66,7 @@ void draw_ui(void) {
 
 */
 
+/* Mod display is 41 x 16 pixels */
 #define MOD_DISPLAY_X 30
 #define MOD_DISPLAY_Y 18
 
@@ -89,30 +96,29 @@ void draw_ui(void) {
     draw_string(MOD_DISPLAY_X + 33, MOD_DISPLAY_Y + 2, "G", PIXEL_ON, NORM, 0);
   }
 
+/* Lock display is 23 x 32 */
 #define LOCK_DISPLAY_X 100
 #define LOCK_DISPLAY_Y 0
 
   if (led_numlock == true) {
-    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 0, 5 + (3 * 6), 9, PIXEL_ON, NORM);
+    draw_rect_filled_soft(LOCK_DISPLAY_X, LOCK_DISPLAY_Y, 5 + (3 * 6), 9, PIXEL_ON, NORM);
     draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 1, "NUM", PIXEL_OFF, NORM, 0);
   } else if (led_numlock == false) {
     draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 1, "NUM", PIXEL_ON, NORM, 0);
   }
   if (led_capslock == true) {
-    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 10, 5 + (3 * 6), 9, PIXEL_ON, NORM);
+    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 11, 5 + (3 * 6), 9, PIXEL_ON, NORM);
     draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 10 +1, "CAP", PIXEL_OFF, NORM, 0);
   } else if (led_capslock == false) {
     draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 10 +1, "CAP", PIXEL_ON, NORM, 0);
   }
 
   if (led_scrolllock == true) {
-    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 20, 5 + (3 * 6), 9, PIXEL_ON, NORM);
+    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 22, 5 + (3 * 6), 9, PIXEL_ON, NORM);
     draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 20 +1, "SCR", PIXEL_OFF, NORM, 0);
   } else if (led_scrolllock == false) {
     draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 20 +1, "SCR", PIXEL_ON, NORM, 0);
   }
-//todo: add if/else for each locks
-
   send_buffer();
 }
 
@@ -183,7 +189,7 @@ if (queue_for_send) {
   }
 #ifdef QWIIC_MICRO_OLED_ENABLE
   if (timer_elapsed(last_flush) > ScreenOffInterval) {
-  send_command(DISPLAYOFF);      // 0xAE
+  send_command(DISPLAYOFF);      /* 0xAE */
   }
 #endif
 	matrix_scan_user();

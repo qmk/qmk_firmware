@@ -30,7 +30,7 @@ void DRV_init(void)
   i2c_init();
   i2c_start(DRV2605L_BASE_ADDRESS);
 
-  //0x07 sets DRV2605 into calibration mode
+  /* 0x07 sets DRV2605 into calibration mode */
   DRV_write(DRV_FEEDBACK_CTRL,0xB6);
   DRV_write(DRV_RATED_VOLT, 0x53); 
   DRV_write(DRV_OVERDRIVE_CLAMP_VOLT, 0x60); 
@@ -42,17 +42,17 @@ void DRV_init(void)
   //start autocalibration
   DRV_write(DRV_GO, 0x01);
 
-  //0x00 sets DRV2605 out of standby and to use internal trigger
-  //0x01 sets DRV2605 out of standby and to use external trigger
+  /* 0x00 sets DRV2605 out of standby and to use internal trigger
+   * 0x01 sets DRV2605 out of standby and to use external trigger */
   DRV_write(DRV_MODE,0x00); 
   
-  //0x06: LRA library
+  /* 0x06: LRA library */
   DRV_write(DRV_WAVEFORM_SEQ_1, 0x01);
 
-  // 0xB9: LRA, 4x brake factor, medium gain, 7.5x back EMF
-  // 0x39: ERM, 4x brake factor, medium gain, 1.365x back EMF
+  /* 0xB9: LRA, 4x brake factor, medium gain, 7.5x back EMF
+   * 0x39: ERM, 4x brake factor, medium gain, 1.365x back EMF */
   
-  //TODO: set rest of init     iation
+  /* TODO: setup auto-calibration as part of initiation */
 
 }
 
