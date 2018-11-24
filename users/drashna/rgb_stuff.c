@@ -2,8 +2,11 @@
 #include "rgb_stuff.h"
 #include "eeprom.h"
 
+#if defined(RGBLIGHT_ENABLE)
 extern rgblight_config_t rgblight_config;
-extern userspace_config_t userspace_config;
+#elif defined(RGB_MATRIX_ENABLE)
+extern rgb_config_t rgb_matrix_config;
+#endif
 
 #ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index) {
@@ -209,7 +212,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
       return true; break;
 #endif // RGBLIGHT_TWINKLE
   case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     if (record->event.pressed) {
       userspace_config.rgb_layer_change ^= 1;
       xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
@@ -239,6 +242,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_rgb(void) {
 
+#ifdef RGBLIGHT_ENABLE
   if (userspace_config.rgb_layer_change) {
     rgblight_init();
     rgblight_enable_noeeprom();
@@ -254,6 +258,7 @@ void matrix_init_rgb(void) {
     }
     rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
   }
+#endif
 }
 
 void matrix_scan_rgb(void) {

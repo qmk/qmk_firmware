@@ -26,6 +26,7 @@ extern uint8_t input_mode;
 extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 #endif
+extern userspace_config_t userspace_config;
 
 //enum more_custom_keycodes {
 //    KC_P00 = NEW_SAFE_RANGE
@@ -362,7 +363,7 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void rgb_matrix_indicators_user(void) {
-  if (g_suspend_state || !rgb_matrix_config.enable) return;
+  if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) return;
 
   switch (biton32(layer_state)) {
     case _MODS:

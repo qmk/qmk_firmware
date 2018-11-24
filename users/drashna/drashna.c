@@ -392,7 +392,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   }
   return process_record_keymap(keycode, record) &&
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     process_record_user_rgb(keycode, record) &&
 #endif // RGBLIGHT_ENABLE
     process_record_secrets(keycode, record);

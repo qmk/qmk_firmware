@@ -73,6 +73,8 @@ typedef union {
   };
 } userspace_config_t;
 
+extern userspace_config_t userspace_config;
+
 #if defined(KEYMAP_SAFE_RANGE)
   #define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
 #else
