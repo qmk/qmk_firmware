@@ -25,16 +25,6 @@ static uint8_t selected[] = { UNICODE_SELECTED_MODES };
 static uint8_t selected_count = sizeof selected / sizeof *selected;
 static uint8_t selected_index;
 #endif
-static uint8_t saved_mods;
-
-void set_unicode_input_mode(uint8_t os_target) {
-  unicode_config.input_mode = os_target;
-  persist_unicode_input_mode();
-  dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
-
-uint8_t get_unicode_input_mode(void) {
-  return unicode_config.input_mode;
-}
 
 void unicode_input_mode_init(void) {
   unicode_config.raw = eeprom_read_byte(EECONFIG_UNICODEMODE);
@@ -58,6 +48,16 @@ void unicode_input_mode_init(void) {
   #endif
 #endif
   dprintf("Unicode input mode init to: %u\n", unicode_config.input_mode);
+}
+
+uint8_t get_unicode_input_mode(void) {
+  return unicode_config.input_mode;
+}
+
+void set_unicode_input_mode(uint8_t mode) {
+  unicode_config.input_mode = mode;
+  persist_unicode_input_mode();
+  dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
 }
 
 void cycle_unicode_input_mode(uint8_t offset) {
@@ -89,15 +89,13 @@ void unicode_input_start(void) {
   case UC_LNX:
     register_code(KC_LCTL);
     register_code(KC_LSFT);
-    tap_code(KC_U);
+    tap_code(KC_U); // TODO: Replace with tap_code16(LCTL(LSFT(KC_U))); and test
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
     break;
   case UC_WIN:
     register_code(KC_LALT);
     tap_code(KC_PPLS);
-    break;
-  case UC_BSD:
     break;
   case UC_WINC:
     tap_code(UNICODE_WINC_KEY);
@@ -120,10 +118,6 @@ void unicode_input_finish(void) {
   case UC_WIN:
     unregister_code(KC_LALT);
     break;
-  case UC_BSD:
-  case UC_WINC:
-    break;
-
   }
 
   set_mods(saved_mods); // Reregister previously set mods
@@ -181,6 +175,7 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
     case UNICODE_MODE_REVERSE:
       cycle_unicode_input_mode(-1);
       break;
+
     case UNICODE_MODE_OSX:
       set_unicode_input_mode(UC_OSX);
 #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX)

@@ -22,6 +22,14 @@
   #error "Cannot enable more than one Unicode method (UNICODE, UNICODEMAP, UCIS) at the same time"
 #endif
 
+// Keycodes used for starting Unicode input on different platforms
+#ifndef UNICODE_OSX_KEY
+  #define UNICODE_OSX_KEY  KC_LALT
+#endif
+#ifndef UNICODE_WINC_KEY
+  #define UNICODE_WINC_KEY KC_RALT
+#endif
+
 // Comma-delimited, ordered list of input modes selected for use (e.g. in cycle)
 // Example: #define UNICODE_SELECTED_MODES UC_WINC, UC_LNX
 #ifndef UNICODE_SELECTED_MODES
@@ -33,20 +41,10 @@
   #define UNICODE_CYCLE_PERSIST true
 #endif
 
-
-// Keycodes used for starting Unicode input on different platforms
-#ifndef UNICODE_OSX_KEY
-  #define UNICODE_OSX_KEY  KC_LALT
-#endif
-#ifndef UNICODE_WINC_KEY
-  #define UNICODE_WINC_KEY KC_RALT
-#endif
-
 // Delay between starting Unicode input and sending a sequence, in ms
 #ifndef UNICODE_TYPE_DELAY
   #define UNICODE_TYPE_DELAY 10
 #endif
-
 
 enum unicode_input_modes {
   UC_OSX,   // Mac OS X using Unicode Hex Input
@@ -67,17 +65,16 @@ typedef union {
 extern unicode_config_t unicode_config;
 
 void unicode_input_mode_init(void);
-void cycle_unicode_input_mode(uint8_t offset);
-void persist_unicode_input_mode(void);
 uint8_t get_unicode_input_mode(void);
 void set_unicode_input_mode(uint8_t mode);
+void cycle_unicode_input_mode(uint8_t offset);
+void persist_unicode_input_mode(void);
 
 void unicode_input_start(void);
 void unicode_input_finish(void);
 
 void register_hex(uint16_t hex);
 void send_unicode_hex_string(const char *str);
-bool process_unicode_common(uint16_t keycode, keyrecord_t *record);
 
 bool process_unicode_common(uint16_t keycode, keyrecord_t *record);
 
