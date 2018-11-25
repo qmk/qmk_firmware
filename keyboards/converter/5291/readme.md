@@ -37,6 +37,8 @@ IBM−5291−Cable to Pinhead−14
 the pins on this connector are organized ![here](https://geekhack.org/index.php?action=dlattach;topic=48950.0;attach=36759;image)
 
 IBM−5291−2 Cable with DB15M connector:
+
+pin | description
 1,2,3 | GND
 4     | +5V
 5     | D0
@@ -55,12 +57,12 @@ the above connector is actually numbered so it should be easier to determine
 where the needed connections are.
 
 to connect to the teensy, the following are pins are needed (if you should choose not set your own):
-PB0 -> PB6 are connected to D0 -> D6
-+5V is connected to the corresponding teensy pin
-gnd is as well, only one of the gnd pins needs to be connected though.
-strobe is connected to pin PD1
-data is connected to PD0
-PE does not need to be connected to anything, but it could also be connected to gnd 
+* PB0 -> PB6 are connected to D0 -> D6
+* +5V is connected to the corresponding teensy pin
+* gnd is as well, only one of the gnd pins needs to be connected though.
+* strobe is connected to pin PD1
+* data is connected to PD0
+* PE does not need to be connected to anything, but it could also be connected to gnd 
 
 sources:
     http://www.retrocomputing.eu/documents/5291_MaintenanceLibrary.pdf
