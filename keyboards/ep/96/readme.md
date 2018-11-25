@@ -1,6 +1,6 @@
 # ep96
 
-![ep96](https://imgur.com/PZ2C7a8)
+![ep96](https://i.imgur.com/PZ2C7a8.jpg)
 
 A simple 96 key keyboard
 
