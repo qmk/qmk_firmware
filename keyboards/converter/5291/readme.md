@@ -39,6 +39,7 @@ the pins on this connector are organized ![here](https://geekhack.org/index.php?
 IBM−5291−2 Cable with DB15M connector:
 
 pin | description
+-----------------
 1,2,3 | GND
 4     | +5V
 5     | D0
