@@ -16,7 +16,6 @@
 
 
 #include QMK_KEYBOARD_H
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 
 #define _BL 0 //Base layer
 #define _FN1 1 //Function layer
