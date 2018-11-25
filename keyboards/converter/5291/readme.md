@@ -37,21 +37,21 @@ IBM−5291−Cable to Pinhead−14
 the pins on this connector are organized ![here](https://geekhack.org/index.php?action=dlattach;topic=48950.0;attach=36759;image)
 
 IBM−5291−2 Cable with DB15M connector
-pin | description
+| pin | description
 -----------------
-1,2,3 | GND
-4     | +5V
-5     | D0
-6     | D1
-7     | D2
-8     | D3
-9     | D4
-10    | D5
-11    | D6
-12    | Strobe
-13    | Out
-14    | PE 
-15    | NC
+|1,2,3 | GND
+|4     | +5V
+|5     | D0
+|6     | D1
+|7     | D2
+|8     | D3
+|9     | D4
+|10    | D5
+|11    | D6
+|12    | Strobe
+|13    | Out
+|14    | PE 
+|15    | NC
 
 the above connector is actually numbered so it should be easier to determine
 where the needed connections are.
