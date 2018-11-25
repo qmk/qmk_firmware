@@ -683,15 +683,10 @@ enum quantum_keycodes {
     // To have a key that sends out Œ, go UC(0x0152)
     #define UNICODE(n) (QK_UNICODE | (n))
     #define UC(n) UNICODE(n)
-#else
-    #define UNICODE(n) KC_NO
-    #define UC(n) KC_NO
 #endif
 
 #ifdef UNICODEMAP_ENABLE
     #define X(n) (QK_UNICODE_MAP | (n))
-#else
-  #define X(n) KC_NO
 #endif
 
 #define UC_MOD  UNICODE_MODE_FORWARD
