@@ -107,6 +107,23 @@ bool process_record_edvorakjp_ext(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+bool process_record_edvorakjp_swap_scln(uint16_t keycode, keyrecord_t *record) {
+#ifdef SWAP_SCLN
+  static uint8_t last_mods_status;
+  if (keycode == KC_SCLN) {
+    if (record->event.pressed) {
+      last_mods_status = get_mods();
+      // invert L_SHIFT and clear R_SHIFT
+      set_mods((last_mods_status ^ MOD_BIT(KC_LSFT)) & ~MOD_BIT(KC_RSFT));
+    } else {
+      set_mods(last_mods_status);
+      last_mods_status = 0;
+    }
+  }
+#endif
+  return true;
+}
+
 bool process_record_edvorakjp_config(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case KC_MAC:

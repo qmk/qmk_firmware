@@ -70,6 +70,7 @@ void set_japanese_mode(bool new_state);
  * You can add your original macros in process_record_keymap() in keymap.c.
  */
 bool process_record_edvorakjp_ext(uint16_t keycode, keyrecord_t *record);
+bool process_record_edvorakjp_swap_scln(uint16_t keycode, keyrecord_t *record);
 bool process_record_edvorakjp_config(uint16_t keycode, keyrecord_t *record);
 bool process_record_layer(uint16_t keycode, keyrecord_t *record);
 bool process_record_ime(uint16_t keycode, keyrecord_t *record);
