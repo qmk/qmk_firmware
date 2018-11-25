@@ -241,7 +241,7 @@ void matrix_init(void) {
         matrix_debounce  [i] = 0;
 #       endif
     }
-    
+   
     matrix_init_quantum() ;
 }
 
