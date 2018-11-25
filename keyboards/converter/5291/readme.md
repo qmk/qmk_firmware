@@ -17,8 +17,9 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 the pinout is as follows:
 
 IBM−5291−Cable to Pinhead−14 
+
 | pin | description
-----------------------------
+----|------------------------
 1 | GND   
 2 | NC    
 3 | GND   
@@ -37,8 +38,9 @@ IBM−5291−Cable to Pinhead−14
 the pins on this connector are organized ![here](https://geekhack.org/index.php?action=dlattach;topic=48950.0;attach=36759;image)
 
 IBM−5291−2 Cable with DB15M connector
+
 | pin | description
------------------
+----|-------------
 |1,2,3 | GND
 |4     | +5V
 |5     | D0
