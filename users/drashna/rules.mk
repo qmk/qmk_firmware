@@ -41,3 +41,16 @@ ifdef CONSOLE_ENABLE
     OPT_DEFS += -DKEYLOGGER_ENABLE
   endif
 endif
+
+
+ifeq ($(strip $(UCIS_ENABLE)), yes)
+  SRC += send_unicode.c
+endif
+
+ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
+  SRC += send_unicode.c
+endif
+
+ifeq ($(strip $(UNICODE_ENABLE)), yes)
+  SRC += send_unicode.c
+endif

@@ -326,6 +326,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
 }
 
 uint32_t default_layer_state_set_rgb(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
   if (userspace_config.rgb_layer_change) {
     rgblight_config_t temp_rgblight_config = rgblight_config;
     switch (biton32(state)) {
@@ -356,5 +357,6 @@ uint32_t default_layer_state_set_rgb(uint32_t state) {
       eeconfig_update_rgblight(temp_rgblight_config.raw);
     }
   }
+#endif // RGBLIGHT_ENABLE
   return state;
 }
