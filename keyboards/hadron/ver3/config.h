@@ -40,6 +40,10 @@
                                   SONG(COLEMAK_SOUND), \
                                   SONG(DVORAK_SOUND) \
                                 }
+#define AUDIO_CLICKY
+  /* to enable clicky on startup */
+  //#define AUDIO_CLICKY_ON
+#define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 #endif
 
 //configure qwiic micro_oled driver for the 128x32 oled
@@ -137,6 +141,44 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
+
+/* Haptic Driver initialization settings
+ * Feedback Control Settings */
+#define FB_ERM_LRA 1 /* For ERM:0 or LRA:1*/
+#define FB_BRAKEFACTOR 6 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
+#define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+
+#define RATED_VOLTAGE 2
+#define V_RMS 2.0
+#define V_PEAK 2.85
+#define F_LRA 205
+/* Library Selection */
+#define LIB_SELECTION 6 /* For Empty:0' TS2200 library A to D:1-5, LRA Library: 6 */
+
+/* Control 1 register settings */
+#define DRIVE_TIME 25
+#define AC_COUPLE 0
+#define STARTUP_BOOST 1
+
+/* Control 2 Settings */
+#define BIDIR_INPUT 1
+#define BRAKE_STAB 1 /* Loopgain is reduced when braking is almost complete to improve stability */
+#define SAMPLE_TIME 3
+#define BLANKING_TIME 1
+#define IDISS_TIME 1
+
+/* Control 3 settings */
+#define NG_THRESH 2
+#define ERM_OPEN_LOOP 1
+#define SUPPLY_COMP_DIS 0
+#define DATA_FORMAT_RTO 0
+#define LRA_DRIVE_MODE 0
+#define N_PWM_ANALOG 0
+#define LRA_OPEN_LOOP 0
+/* Control 4 settings */
+#define ZC_DET_TIME 0
+#define AUTO_CAL_TIME 3
+
 //#define WS2812_LED_N 2
 //#define RGBLED_NUM WS2812_LED_N
 //#define WS2812_TIM_N 2

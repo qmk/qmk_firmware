@@ -18,6 +18,107 @@
 #pragma once
 #include "i2c_master.h"
 
+/* Initialization settings
+
+ * Feedback Control Settings */
+#ifndef FB_ERM_LRA
+#define FB_ERM_LRA 1 /* For ERM:0 or LRA:1*/
+#endif
+#ifndef FB_BRAKEFACTOR
+#define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
+#endif
+#ifndef FB_LOOPGAIN
+#define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+#endif
+
+#ifndef RATED_VOLTAGE
+#define RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
+#ifndef V_PEAK
+#define V_PEAK 2.8
+#endif
+#endif
+
+/* LRA specific settings */
+#if FB_ERM_LRA == 1
+#ifndef V_RMS
+#define V_RMS 2.0
+#endif
+#ifndef V_PEAK
+#define V_PEAK 2.1
+#endif
+#ifndef F_LRA
+#define F_LRA 205
+#endif
+#endif
+
+/* Library Selection */
+#ifndef LIB_SELECTION
+#if FB_ERM_LRA == 1
+#define LIB_SELECTION 6 /* For Empty:0' TS2200 library A to D:1-5, LRA Library: 6 */
+#else
+#define LIB_SELECTION 1
+#endif
+#endif
+
+/* Control 1 register settings */
+#ifndef DRIVE_TIME
+#define DRIVE_TIME 25
+#endif
+#ifndef AC_COUPLE
+#define AC_COUPLE 0
+#endif
+#ifndef STARTUP_BOOST
+#define STARTUP_BOOST 1
+#endif
+
+/* Control 2 Settings */
+#ifndef BIDIR_INPUT
+#define BIDIR_INPUT 1
+#endif
+#ifndef BRAKE_STAB
+#define BRAKE_STAB 1 /* Loopgain is reduced when braking is almost complete to improve stability */
+#endif
+#ifndef SAMPLE_TIME 
+#define SAMPLE_TIME 3
+#endif
+#ifndef BLANKING_TIME
+#define BLANKING_TIME 1
+#endif
+#ifndef IDISS_TIME
+#define IDISS_TIME 1
+#endif
+
+/* Control 3 settings */
+#ifndef NG_THRESH
+#define NG_THRESH 2
+#endif
+#ifndef ERM_OPEN_LOOP
+#define ERM_OPEN_LOOP 1
+#endif
+#ifndef SUPPLY_COMP_DIS
+#define SUPPLY_COMP_DIS 0
+#endif
+#ifndef DATA_FORMAT_RTO
+#define DATA_FORMAT_RTO 0
+#endif
+#ifndef LRA_DRIVE_MODE
+#define LRA_DRIVE_MODE 0
+#endif
+#ifndef N_PWM_ANALOG
+#define N_PWM_ANALOG 0
+#endif
+#ifndef LRA_OPEN_LOOP
+#define LRA_OPEN_LOOP 0
+#endif
+
+/* Control 4 settings */
+#ifndef ZC_DET_TIME
+#define ZC_DET_TIME 0
+#endif
+#ifndef AUTO_CAL_TIME
+#define AUTO_CAL_TIME 3
+#endif
+
 /* register defines -------------------------------------------------------- */
 #define DRV2605L_BASE_ADDRESS       0x5A		/* DRV2605L Base address */
 #define DRV_STATUS                  0x00
@@ -58,7 +159,7 @@
 
 void DRV_init(void);
 void DRV_write(const uint8_t drv_register, const uint8_t settings);
-/*void DRV_read(const uint8_t drv_register, const uint8_t regdata); */
+uint8_t DRV_read(const uint8_t regaddress);
 void DRV_pulse(const uint8_t sequence);
 
 
@@ -84,7 +185,7 @@ typedef enum DRV_EFFECT{
   strong_click2_80    = 18,
   strong_click3_60    = 19,
   strong_click4_30    = 20,
-  medium_click1_100   = 21,
+  medium_click1       = 21,
   medium_click2_80    = 22,
   medium_click3_60    = 23,
   sharp_tick1         = 24,
@@ -191,7 +292,7 @@ typedef enum DRV_EFFECT{
 
 /* Register bit array unions */
 
-typedef union DRVREG_STATUS {
+typedef union DRVREG_STATUS { /* register 0x00 */
   uint8_t Byte;
   struct {
     uint8_t OC_DETECT   :1; /* set to 1 when overcurrent event is detected */
@@ -208,7 +309,7 @@ typedef union DRVREG_STATUS {
   } Bits;
 } DRVREG_STATUS;
 
-typedef union DRVREG_MODE {
+typedef union DRVREG_MODE { /* register 0x01 */
   uint8_t Byte;
   struct {
     uint8_t MODE        :3; /* Mode setting */
@@ -224,3 +325,70 @@ typedef union DRVREG_WAIT {
     uint8_t WAIT_TIME   :7;
   } Bits;
 } DRVREG_WAIT;
+
+typedef union DRVREG_FBR{ /* register 0x1A */
+  uint8_t Byte;
+  struct {
+    uint8_t BEMF_GAIN    :2;
+    uint8_t LOOP_GAIN    :2;
+    uint8_t BRAKE_FACTOR :3;
+    uint8_t ERM_LRA      :1;
+  } Bits;
+} DRVREG_FBR;
+
+typedef union DRVREG_CTRL1{ /* register 0x1B */
+  uint8_t Byte;
+  struct {
+    uint8_t C1_DRIVE_TIME    :5;
+    uint8_t C1_AC_COUPLE     :1;
+    uint8_t                  :1;
+    uint8_t C1_STARTUP_BOOST :1;
+  } Bits;
+} DRVREG_CTRL1;
+
+typedef union DRVREG_CTRL2{ /* register 0x1C */
+  uint8_t Byte;
+  struct {
+    uint8_t C2_IDISS_TIME    :2;
+    uint8_t C2_BLANKING_TIME :2;
+    uint8_t C2_SAMPLE_TIME   :2;
+    uint8_t C2_BRAKE_STAB    :1;
+    uint8_t C2_BIDIR_INPUT   :1;
+  } Bits;
+} DRVREG_CTRL2;
+
+typedef union DRVREG_CTRL3{ /* register 0x1D */
+  uint8_t Byte;
+  struct {
+    uint8_t C3_LRA_OPEN_LOOP   :1;
+    uint8_t C3_N_PWM_ANALOG    :1;
+    uint8_t C3_LRA_DRIVE_MODE  :1;
+    uint8_t C3_DATA_FORMAT_RTO :1;
+    uint8_t C3_SUPPLY_COMP_DIS :1;
+    uint8_t C3_ERM_OPEN_LOOP   :1;
+    uint8_t C3_NG_THRESH       :2;
+  } Bits;
+} DRVREG_CTRL3;
+
+typedef union DRVREG_CTRL4{ /* register 0x1E */
+  uint8_t Byte;
+  struct {
+    uint8_t C4_OTP_PROGRAM     :1;
+    uint8_t                    :1;
+    uint8_t C4_OTP_STATUS      :1;
+    uint8_t                    :1;
+    uint8_t C4_AUTO_CAL_TIME   :2;
+    uint8_t C4_ZC_DET_TIME     :2;
+  } Bits;
+} DRVREG_CTRL4;
+
+typedef union DRVREG_CTRL5{ /* register 0x1F */
+  uint8_t Byte;
+  struct {
+    uint8_t C5_IDISS_TIME         :2;
+    uint8_t C5_BLANKING_TIME      :2;
+    uint8_t C5_PLAYBACK_INTERVAL  :1;
+    uint8_t C5_LRA_AUTO_OPEN_LOOP :1;
+    uint8_t C5_AUTO_OL_CNT        :2;
+  } Bits;
+} DRVREG_CTRL5;

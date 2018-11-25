@@ -108,16 +108,16 @@ void draw_ui(void) {
   }
   if (led_capslock == true) {
     draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 11, 5 + (3 * 6), 9, PIXEL_ON, NORM);
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 10 +1, "CAP", PIXEL_OFF, NORM, 0);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "CAP", PIXEL_OFF, NORM, 0);
   } else if (led_capslock == false) {
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 10 +1, "CAP", PIXEL_ON, NORM, 0);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "CAP", PIXEL_ON, NORM, 0);
   }
 
   if (led_scrolllock == true) {
     draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 22, 5 + (3 * 6), 9, PIXEL_ON, NORM);
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 20 +1, "SCR", PIXEL_OFF, NORM, 0);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 22 +1, "SCR", PIXEL_OFF, NORM, 0);
   } else if (led_scrolllock == false) {
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 20 +1, "SCR", PIXEL_ON, NORM, 0);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 22 +1, "SCR", PIXEL_ON, NORM, 0);
   }
   send_buffer();
 }
@@ -173,12 +173,12 @@ void matrix_init_kb(void) {
   queue_for_send = true;
 	matrix_init_user();
 }
-
+            
 void matrix_scan_kb(void) {
 
 if (queue_for_send) {
   #ifdef DRV2605L
-    DRV_EFFECT play_eff = strong_click1; 
+    DRV_EFFECT play_eff = strong_click; 
     DRV_pulse(play_eff);
   #endif
 #ifdef QWIIC_MICRO_OLED_ENABLE
