@@ -337,7 +337,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (timer_elapsed(key_timer) < TAPPING_TERM) {
           register_mods(MOD_BIT(KC_LSFT));
           tap_code(KC_0);
-          unregister_code(KC_0);
           unregister_mods(MOD_BIT(KC_LSFT));
         }
       }

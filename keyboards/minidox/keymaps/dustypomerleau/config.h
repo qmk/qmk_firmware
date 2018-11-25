@@ -1,9 +1,4 @@
-// dustypomerleau minidox config
-
-// prevent stuck modifiers
-// tapping term
-//without tapping force hold you can doubletap a MT() to get repeats of the tap key - if you want to be able to use the mod quickly you can define tapping force hold but then you’re giving up doubletap to repeat
-
+// dustypomerleau Minidox config
 
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
@@ -15,7 +10,7 @@
 #define ONESHOT_TIMEOUT 1000
 #define PERMISSIVE_HOLD
 #define PREVENT_STUCK_MODIFIERS
-#define TAPPING_FORCE_HOLD
+#define TAPPING_FORCE_HOLD // allows rapid mod use after tap event, but sacrifices double-tap to repeat
 #define USE_SERIAL
 
 // #define MOUSEKEY_DELAY 0 //  before cursor movement (high feels sluggish, low makes fine movement difficult)
