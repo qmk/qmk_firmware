@@ -173,12 +173,15 @@ void matrix_init_user(void) {
     get_unicode_input_mode();
   #endif //UNICODE_ENABLE
   matrix_init_keymap();
-}
-
-void startup_user (void) {
   #ifdef RGBLIGHT_ENABLE
     matrix_init_rgb();
   #endif //RGBLIGHT_ENABLE
+}
+
+void startup_user (void) {
+  // #ifdef RGBLIGHT_ENABLE
+  //   matrix_init_rgb();
+  // #endif //RGBLIGHT_ENABLE
   startup_keymap();
 }
 
@@ -413,7 +416,11 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 
 uint32_t default_layer_state_set_user(uint32_t state) {
-  return default_layer_state_set_keymap(state);
+  state = default_layer_state_set_keymap(state);
+#ifdef RGBLIGHT_ENABLE
+  state = default_layer_state_set_rgb(state);
+#endif // RGBLIGHT_ENABLE
+  return state;
 }
 
 
