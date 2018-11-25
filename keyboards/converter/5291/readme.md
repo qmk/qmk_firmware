@@ -36,8 +36,7 @@ IBM−5291−Cable to Pinhead−14
 
 the pins on this connector are organized ![here](https://geekhack.org/index.php?action=dlattach;topic=48950.0;attach=36759;image)
 
-IBM−5291−2 Cable with DB15M connector:
-
+IBM−5291−2 Cable with DB15M connector
 pin | description
 -----------------
 1,2,3 | GND
