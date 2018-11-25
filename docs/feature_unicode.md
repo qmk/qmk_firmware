@@ -95,6 +95,7 @@ You can switch the input mode at any time by using one of the following keycodes
 |`UNICODE_MODE_WIN`     |`UC_M_WI`|`UC_WIN`     |Switch to Windows input.                 |
 |`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented).   |
 |`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose.|
+|`UNICODE_MODE_OSX_RALT`|`UC_M_OR`|`UC_OSX_RALT`|Switch to Mac OS X input using Right Alt.|
 
 You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user` (or a similar function). For example:
 
