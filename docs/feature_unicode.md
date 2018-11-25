@@ -65,7 +65,8 @@ The following input modes are available:
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
 
-* **`UC_OSX_RALT`**: Same as `UC_OSX`, but sends the Right Alt/Option key for Unicode input.
+  By default, this mode uses the left Option key (`KC_LALT`), but this can be changed by defining [`UNICODE_OSX_KEY`](#input-key-configuration) with another keycode.
+
 
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports all possible code points (`0x10FFFF`).
 
@@ -81,7 +82,8 @@ The following input modes are available:
 * **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.8.2, supports code points up to `0xFFFFF`.
 
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
-  This mode relies on the Compose key being set to Right Alt (`KC_RALT`). If you change it to something else in the WinCompose settings, this mode will not work.
+
+  By default, this mode uses the right Alt key (`KC_RALT`), but this can be changed in the WinCompose settings and by defining `UNICODE_WINC_KEY` with another keycode.
 
 ### Switching Input Modes
 
@@ -96,7 +98,9 @@ You can switch the input mode at any time by using one of the following keycodes
 |`UNICODE_MODE_WIN`     |`UC_M_WI`|`UC_WIN`     |Switch to Windows input.                 |
 |`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented).   |
 |`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose.|
-|`UNICODE_MODE_OSX_RALT`|`UC_M_OR`|`UC_OSX_RALT`|Switch to Mac OS X input using Right Alt.|
+|`UNICODE_MODE_FORWARD` |`UC_MOD` |             |Cycles forwards through the available modes.[(Disabled by default)](#input-method-cycling)|
+|`UNICODE_MODE_REVERSE` |`UC_RMOD`|             |Cycles forwards through the available modes. [(Disabled by default)](#input-method-cycling)|
+
 
 You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user` (or a similar function). For example:
 
@@ -118,10 +122,13 @@ For instance, you can add these definitions to your `config.h` file:
 #define UNICODE_SONG_BSD  MARIO_GAMEOVER
 #define UNICODE_SONG_WIN  UNICODE_WINDOWS
 #define UNICODE_SONG_WINC UNICODE_WINDOWS
-#define UNICODE_SONG_OSX_RALT COIN_SOUND
 ```
 
 ### Additional Customization
+
+Because Unicode is such a large and variable feature, there are a number of options that you can customize to work better on your system. 
+
+#### Start and Finish input functions
 
 The functions for starting and finishing Unicode input on your platform can be overridden locally. Possible uses include customizing input mode behavior if you don't use the default keys, or adding extra visual/audio feedback to Unicode input.
 
@@ -129,6 +136,23 @@ The functions for starting and finishing Unicode input on your platform can be o
 * `void unicode_input_finish(void)` – This is called to exit Unicode input mode, for example by pressing Space or releasing the Option key.
 
 You can find the default implementations of these functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
+
+
+#### Input Key Configuration
+
+Additionally, you can customize the keys used to trigger the unicode input for macOS and WinCompose by adding defines to your `config.h`
+
+```c
+#define UNICODE_OSX_KEY  KC_LALT
+#define UNICODE_WINC_KEY KC_RALT
+```
+#### Input method Cycling
+
+Also, you can choose which input methods are availble for cycling through.  By default, this is disabled. But if you want to enabled it, then limiting it to just those modes makes sense.  Note that `UNICODE_SELECTED_MODES` define is comma delimited.
+
+```c
+#define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WIN, UC_BSD, UC_WINC
+```
 
 ## `send_unicode_hex_string`
 

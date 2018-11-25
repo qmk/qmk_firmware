@@ -16,8 +16,8 @@
 
 #include "process_unicode_common.h"
 #include "eeprom.h"
-#include <string.h>
 #include <ctype.h>
+#include <string.h>
 
 unicode_config_t unicode_config;
 #if UNICODE_SELECTED_MODES != -1
@@ -31,7 +31,6 @@ void set_unicode_input_mode(uint8_t os_target) {
   unicode_config.input_mode = os_target;
   persist_unicode_input_mode();
   dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
-}
 
 uint8_t get_unicode_input_mode(void) {
   return unicode_config.input_mode;
@@ -76,6 +75,8 @@ void persist_unicode_input_mode(void) {
   eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode);
 }
 
+static uint8_t saved_mods;
+
 __attribute__((weak))
 void unicode_input_start(void) {
   saved_mods = get_mods(); // Save current mods
@@ -83,10 +84,7 @@ void unicode_input_start(void) {
 
   switch (unicode_config.input_mode) {
   case UC_OSX:
-    register_code(KC_LALT);
-    break;
-  case UC_OSX_RALT:
-    register_code(KC_RALT);
+    register_code(UNICODE_OSX_KEY);
     break;
   case UC_LNX:
     register_code(KC_LCTL);
@@ -95,17 +93,18 @@ void unicode_input_start(void) {
     unregister_code(KC_LSFT);
     unregister_code(KC_LCTL);
     break;
-  case UC_BSD:
-    break;
   case UC_WIN:
     register_code(KC_LALT);
     tap_code(KC_PPLS);
     break;
+  case UC_BSD:
+    break;
   case UC_WINC:
-    tap_code(KC_RALT);
+    tap_code(UNICODE_WINC_KEY);
     tap_code(KC_U);
     break;
   }
+
   wait_ms(UNICODE_TYPE_DELAY);
 }
 
@@ -113,15 +112,18 @@ __attribute__((weak))
 void unicode_input_finish(void) {
   switch (unicode_config.input_mode) {
   case UC_OSX:
-  case UC_WIN:
-    unregister_code(KC_LALT);
-    break;
-  case UC_OSX_RALT:
-    unregister_code(KC_RALT);
+    unregister_code(UNICODE_OSX_KEY);
     break;
   case UC_LNX:
     tap_code(KC_SPC);
     break;
+  case UC_WIN:
+    unregister_code(KC_LALT);
+    break;
+  case UC_BSD:
+  case UC_WINC:
+    break;
+
   }
 
   set_mods(saved_mods); // Reregister previously set mods
@@ -146,7 +148,7 @@ void register_hex(uint16_t hex) {
 }
 
 void send_unicode_hex_string(const char *str) {
-  if (!str) { return; } // Safety net
+  if (!str) { return; }
 
   while (*str) {
     // Find the next code point (token) in the string
@@ -179,7 +181,6 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
     case UNICODE_MODE_REVERSE:
       cycle_unicode_input_mode(-1);
       break;
-
     case UNICODE_MODE_OSX:
       set_unicode_input_mode(UC_OSX);
 #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX)
@@ -213,13 +214,6 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
 #if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_WINC)
       static float song_winc[][2] = UNICODE_SONG_WINC;
       PLAY_SONG(song_winc);
-#endif
-      break;
-    case UNICODE_MODE_OSX_RALT:
-      set_unicode_input_mode(UC_OSX_RALT);
-#if defined(AUDIO_ENABLE) && defined(UNICODE_SONG_OSX_RALT)
-      static float song_osx_ralt[][2] = UNICODE_SONG_OSX_RALT;
-      PLAY_SONG(song_osx_ralt);
 #endif
       break;
     }
