@@ -143,7 +143,7 @@ Additionally, you can customize the keys used to trigger the unicode input for m
 #define UNICODE_WINC_KEY KC_RALT
 ```
 
-#### Input method Cycling
+#### Input Method Cycling
 
 Also, you can choose which input methods are availble for cycling through.  By default, this is disabled. But if you want to enabled it, then limiting it to just those modes makes sense.  Note that `UNICODE_SELECTED_MODES` define is comma delimited.
 
