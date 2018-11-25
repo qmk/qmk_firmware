@@ -461,7 +461,6 @@ enum quantum_keycodes {
     UNICODE_MODE_WIN,
     UNICODE_MODE_BSD,
     UNICODE_MODE_WINC,
-    UNICODE_MODE_OSX_RALT,
 
     // always leave at the end
     SAFE_RANGE
@@ -684,10 +683,15 @@ enum quantum_keycodes {
     // To have a key that sends out Œ, go UC(0x0152)
     #define UNICODE(n) (QK_UNICODE | (n))
     #define UC(n) UNICODE(n)
+#else
+    #define UNICODE(n) KC_NO
+    #define UC(n) KC_NO
 #endif
 
 #ifdef UNICODEMAP_ENABLE
     #define X(n) (QK_UNICODE_MAP | (n))
+#else
+  #define X(n) KC_NO
 #endif
 
 #define UC_MOD  UNICODE_MODE_FORWARD
@@ -698,7 +702,6 @@ enum quantum_keycodes {
 #define UC_M_WI UNICODE_MODE_WIN
 #define UC_M_BS UNICODE_MODE_BSD
 #define UC_M_WC UNICODE_MODE_WINC
-#define UC_M_OR UNICODE_MODE_OSX_RALT
 
 #ifdef SWAP_HANDS_ENABLE
   #define SH_T(kc) (QK_SWAP_HANDS | (kc))
