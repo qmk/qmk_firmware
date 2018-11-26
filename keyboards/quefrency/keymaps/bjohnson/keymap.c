@@ -13,7 +13,6 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
 };
 
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = LAYOUT_65(
