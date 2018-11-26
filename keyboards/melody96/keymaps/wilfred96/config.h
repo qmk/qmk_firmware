@@ -6,7 +6,7 @@
 
 #include "../../config.h"
 
-//overrides
+// overrides
 #undef TAPPING_TOGGLE
 #define TAPPING_TOGGLE 2
 #define TAPPING_TERM 175

@@ -7,15 +7,15 @@
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  DYNAMIC_MACRO_RANGE,
+//  DYNAMIC_MACRO_RANGE,
 };
 
-#include "dynamic_macro.h"
+//#include "dynamic_macro.h"
 
 #define _______ KC_TRNS
-#define KC_REC DYN_REC_START1
-#define KC_DONE DYN_REC_STOP
-#define KC_PLAY DYN_MACRO_PLAY1
+//#define KC_REC DYN_REC_START1
+//#define KC_DONE DYN_REC_STOP
+//#define KC_PLAY DYN_MACRO_PLAY1
 #define _BL 0
 #define _NL 1
 #define _FL 2
@@ -40,10 +40,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |   FN 1       |   A    |   S    |   D    |   F    |   G    |   H    |   J    |   K    |   L    |   :    |   "    |       ENTER        |  DEL   |  END   |  PGDN  |   +    |
 |______________|________|________|________|________|________|________|________|________|________|________|________|____________________|________|________|________|________|
 |         |        |        |        |        |        |        |        |        |   ,    |    .   |   /    |                |        |        |        |        |        |
-|  SHIFT  |  SPACE |   Z    |   X    |   C    |   V    |   B    |   N    |   M    |   <    |    >   |   ?    |       SHIFT    |  DEL   |   1    |   UP   |   3    | ENTER  |
+|  SHIFT  |  SPACE |   Z    |   X    |   C    |   V    |   B    |   N    |   M    |   <    |    >   |   ?    |       SHIFT    |  DEL   |   NO   |   UP   |   NO   | ENTER  |
 |_________|________|________|________|________|________|________|________|________|________|________|________|________________|________|________|________|________|________|
 |          |          |          |                                                        |        |        |        |        |        |        |        |        |        |
-| CTRL     |   LGUI   | L ALT    |                      FN 1                              | R ALT  | WIN    |  WIN   |  FN 1  |  RCTRL |  LEFT  |  DOWN  |  RIGHT | ENTER  |
+| CTRL     |   LGUI   | L ALT    |                      FN 1                              | R ALT  | WIN    |  WIN   | R CTRL |  FN 1  |  LEFT  |  DOWN  |  RIGHT | ENTER  |
 |__________|__________|__________|________________________________________________________|________|________|________|________|________|________|________|________|________|
 */
 
@@ -53,8 +53,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GRV,    		  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSLS, KC_BSPC, TG(_NL), KC_PSLS, KC_PAST, KC_PMNS, 
     KC_TAB,  		  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_INS,  KC_HOME, KC_PGUP, KC_PMNS, 
     FN_CAPS,		  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, 				KC_ENT,     KC_DEL,  KC_END,  KC_PGDN, KC_PPLS, 
-    KC_LSFT, KC_SPC,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,       			  KC_RSFT, KC_DEL,  KC_P1,   KC_UP,   KC_P3,   KC_PENT, 
-    KC_LCTL, 		  KC_LGUI, KC_LALT,                            MO(_FL),                            KC_RALT, KC_RGUI, KC_RGUI, TT(_FL), KC_RCTL, KC_LEFT, KC_DOWN, KC_RGHT, KC_PENT 
+    KC_LSFT, KC_SPC,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,       			  KC_RSFT, KC_DEL,  KC_NO,   KC_UP,   KC_NO,   KC_PENT, 
+    KC_LCTL, 		  KC_LGUI, KC_LALT,                            MO(_FL),                            KC_RALT, KC_RGUI, KC_RGUI, KC_RCTL, TT(_FL), KC_LEFT, KC_DOWN, KC_RGHT, KC_PENT 
 	),
 	
   /* Keymap _NP: Numpad Layer
@@ -89,8 +89,8 @@ ________________________________________________________________________________
 	),	
   /* Keymap _FL: Function Layer
   ____________________________________________________________________________________________________________________________________________________________________________
-| RESET  |  RGB   |  RGB   |  VALUE | VALUE  |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
-| 	     | TOGGLE |  MODE  |INCREASE|DECREASE|        |        |        |        |        |        |        |        |        |        |        |        | SLEEP  | POWER  |
+| RESET  |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+| 	     |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        | SLEEP  | POWER  |
 |________|________|________|________|________|________|________|________|________|________|________|________|________|________|________|________|________|________|________|
 |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
 |        |  F1    |   F2   |  F3    |   F4   |   F5   |  F6    |   F7   |  F8    |   F9   |   F10  |  F11   |   F12  |        |  DEL   |        |        |        |        |
@@ -102,7 +102,7 @@ ________________________________________________________________________________
 |              | PREV   | PLAY   |  NEXT  |        |        | MYCOMP | LEFT   |  DOWN  | RIGHT  |  PGDN  |        |    INSERT          |        |        |        |        |
 |______________|________|________|________|________|________|________|________|________|________|________|________|____________________|________|________|________|________|
 |         |        |        |        |        |        |        |        |        |        |        |        |                |        |        |        |        |        |
-|         |  SPACE |        |        |        |        |        | MENU   | MACRO  | M_REC  | M_END  |        |                |        |        |        |        |        |
+|         |  SPACE |        |        |        |        |        | MENU   |        |        |        |        |                |        |        |        |        |        |
 |_________|________|________|________|________|________|________|________|________|________|________|________|________________|________|________|________|________|________|
 |          |          |          |                                                        |        |        |        |        |        |        |        |        |        |
 |          |          |          |                                                        |        |        |        |        |        |        |        |        |        |
@@ -112,11 +112,11 @@ BL_TOGG, BL_DEC, BL_INC changes the in-switch LEDs
 */
 	
 	[_FL] = LAYOUT(
-    _______,		  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, _______, _______, KC_SLEP, KC_PWR, 
-    _______, 		  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,  _______, _______, _______, _______, 
+    _______,		  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_SLEP, KC_PWR, 
+    _______, 		  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_DEL,  _______, _______, _______, _______, 
     MO(_HL), 		  KC_MPLY, KC_VOLU, KC_MUTE, _______, _______, KC_CALC, KC_HOME, KC_UP  , KC_END , KC_PGUP, _______, _______, KC_PSCR,          _______, _______, _______, _______, 
     _______, 		  KC_MPRV, KC_VOLD, KC_MNXT, _______, _______, KC_MYCM, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, 				 KC_INS,    _______, _______, _______, _______, 
-    _______, _______, _______, _______, _______, _______, _______, KC_APP,  KC_PLAY, KC_REC , KC_DONE, _______, 		 		  _______, KC_ESC,  _______, _______, _______, _______, 
+    _______, _______, _______, _______, _______, _______, _______, KC_APP,  _______, _______, _______, _______, 		 		  _______, KC_ESC,  _______, _______, _______, _______, 
     _______, 		  _______, _______,                            _______,                            _______, _______, _______, _______, _______, _______, _______, _______, _______ 
 	),
 	
@@ -185,24 +185,30 @@ ________________________________________________________________________________
 	),
 */	
 };
-
+/*
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 	return MACRO_NONE;
 }
-/*
-void matrix_init_user(void) {
-}
 */
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+	return MACRO_NONE;
+}
 
-//void matrix_scan_user(void) {
-//}
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	return true;
+}
 
+void matrix_scan_user(void) {
+}
+
+/*
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!process_record_dynamic_macro(keycode, record)) {
         return false;
     }
 	return true;
 }
+*/
 
 //RGB LAYERS BEGIN
 
@@ -218,7 +224,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 uint8_t prev = _BL;
-uint32_t desired = 4;
+uint32_t desired = 3;
 uint16_t hue = 30;
 uint16_t sat = 255;
 uint16_t val = 255;
@@ -246,7 +252,7 @@ uint32_t layer_state_set_user(uint32_t state) {
   
        case _BL:
           rgblight_mode_noeeprom(desired);		
-          rgblight_sethsv_noeeprom (30, 255, 255);
+          rgblight_sethsv_noeeprom (hue, sat, val);
           break;
 
 		case _FL:
@@ -271,22 +277,5 @@ uint32_t layer_state_set_user(uint32_t state) {
 //RGB LAYERS END
 
 
-//CAPS LOCK UNDERGLOW BEGIN
 
-void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-       rgblight_sethsv_at(0, 255, 255, 0);
-	   rgblight_sethsv_at(0, 255, 255, 1);
-
-  } else { 
-    if (biton32(layer_state) == _BL) {
-	   rgblight_sethsv_at(0, 0, 0, 0);
-       rgblight_sethsv_at(0, 0, 0, 1);
-
-
-    }
-  }
-}
-
-//CAPS LOCK UNDERGLOW END
 

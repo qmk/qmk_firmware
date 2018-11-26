@@ -215,7 +215,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
         case _BL:
           rgblight_mode_noeeprom(desired);		
-          rgblight_sethsv_noeeprom (hue, sat, val);
+          rgblight_sethsv_noeeprom (0, 0, 0);
           if (host_keyboard_leds()  & (1<<USB_LED_CAPS_LOCK) ) {
   			rgblight_sethsv_at   (240, 255, 255, 0);
             rgblight_sethsv_at   (240, 255, 255, 1);
@@ -258,8 +258,8 @@ void led_set_user(uint8_t usb_led) {
 	   rgblight_sethsv_at(240, 255, 255, 1);
   } else { 
     if (biton32(layer_state) == _BL) {
-	   rgblight_sethsv_at(hue, sat, val, 0);
-       rgblight_sethsv_at(hue, sat, val, 1);
+	   rgblight_sethsv_at(0, 0, 0, 0);
+       rgblight_sethsv_at(0, 0, 0, 1);
 
 
     }
