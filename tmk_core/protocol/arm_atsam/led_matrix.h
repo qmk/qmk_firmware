@@ -86,6 +86,7 @@ typedef struct led_disp_s {
 } led_disp_t;
 
 uint8_t led_matrix_init(void);
+void rgb_matrix_init_user(void);
 
 #define LED_MODE_NORMAL             0   //Must be 0
 #define LED_MODE_KEYS_ONLY          1
@@ -134,7 +135,7 @@ extern void *led_setups[];
 extern issi3733_led_t *led_cur;
 extern issi3733_led_t *lede;
 
-void led_matrix_run(led_setup_t *f);
+void led_matrix_run(void);
 void led_matrix_task(void);
 
 void gcr_compute(void);

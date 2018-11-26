@@ -17,8 +17,12 @@
 
 #ifndef KEYMAP_SLOVENIAN
 #define KEYMAP_SLOVENIAN
+
 #include "keymap.h"
 
+// Alt gr
+#define ALGR(kc) RALT(kc)
+#define SI_ALGR KC_RALT
 
 //Swapped Z and Y
 #define SI_Z KC_Y
@@ -90,18 +94,18 @@
 #define SI_UNDS LSFT(SI_MINS) // _
 
 // Alt Gr-ed characters
-#define SI_CIRC ALTG(KC_3) // ^
-#define SI_DEG ALTG(KC_5) // °
-#define SI_GRV ALTG(KC_7) // `
-#define SI_ACCU ALTG(KC_9) // ´
-#define SI_LCBR ALTG(KC_B) // {
-#define SI_RCBR ALTG(KC_N) // }
-#define SI_LBRC ALTG(KC_F) // [
-#define SI_RBRC ALTG(KC_G) // ]
-#define SI_BSLS ALTG(KC_Q) // backslash
-#define SI_AT  ALTG(KC_V) // @
-#define SI_EURO ALTG(KC_E) // €
-#define SI_TILD ALTG(KC_1) // ~
-#define SI_PIPE ALTG(KC_W) // |
+#define SI_CIRC ALGR(KC_3) // ^
+#define SI_DEG ALGR(KC_5) // °
+#define SI_GRV ALGR(KC_7) // `
+#define SI_ACCU ALGR(KC_9) // ´
+#define SI_LCBR ALGR(KC_B) // {
+#define SI_RCBR ALGR(KC_N) // }
+#define SI_LBRC ALGR(KC_F) // [
+#define SI_RBRC ALGR(KC_G) // ]
+#define SI_BSLS ALGR(KC_Q) // backslash
+#define SI_AT  ALGR(KC_V) // @
+#define SI_EURO ALGR(KC_E) // €
+#define SI_TILD ALGR(KC_1) // ~
+#define SI_PIPE ALGR(KC_W) // |
 
 #endif
