@@ -1,3 +1,3 @@
-#include "5291.h"
+#include "ibm_5291.h"
 #include <avr/io.h>
 #include "quantum.h"
