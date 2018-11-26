@@ -61,7 +61,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* QWERTY
    * ,------------------------------------------------.  ,------------------------------------------------.
-   * |   `  |   1  |   2  |   3  |   4  |   5  |   -  |  |   =  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
+   * |   `  |   1  |   2  |   3  |   4  |   5  |   -  |  |   =  |   6  |   7  |   8  |   9  |   0  | Bspc |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
    * |  Tab |   Q  |   W  |   E  |   R  |   T  |   [  |  |   ]  |   Y  |   U  |   I  |   O  |   P  |   \  |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
@@ -165,7 +165,6 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
 
   switch (keycode) {
     case QWERTY:
