@@ -12,4 +12,4 @@ about: Suggest a new feature or changes to existing features
 - [ ] New behavior
 
 ## Description 
-A few sentances describing what it is that you'd like to see. Additional information (such as links to spec sheets, licensing info, other related issues or PR's, etc) would be helpful. 
+A few sentences describing what it is that you'd like to see. Additional information (such as links to spec sheets, licensing info, other related issues or PR's, etc) would be helpful. 
