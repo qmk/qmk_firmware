@@ -1,4 +1,4 @@
-/* Copyright 2018
+/* Copyright 2018 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,5 +17,3 @@
 #pragma once
 
 // place overrides here
-
-#define PERMISSIVE_HOLD
