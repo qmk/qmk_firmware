@@ -56,3 +56,4 @@ AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = yes
 
 LAYOUTS = ortho_4x12 planck_mit
+LAYOUTS_HAS_BACKLIGHT = no

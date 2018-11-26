@@ -369,7 +369,6 @@ void matrix_update(struct CharacterMatrix *dest,
 #define L_NUMLAY 128
 #define L_NLOWER 136
 #define L_NFNLAYER 192
-#define L_MOUSECURSOR 256
 #define L_ADJUST 65560
 
 void iota_gfx_task_user(void) {
