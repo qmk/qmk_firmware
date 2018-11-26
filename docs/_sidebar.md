@@ -88,6 +88,7 @@
 
 * Other Topics
   * [Using Eclipse with QMK](eclipse.md)
+  * [Support](support.md)
 
 * QMK Internals (In Progress)
   * [Defines](internals_defines.md)
