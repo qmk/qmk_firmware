@@ -18,4 +18,3 @@ SLEEP_LED_ENABLE = yes       # Breathing sleep LED during USB suspend
 TAP_DANCE_ENABLE = yes      # Tappa Dance Bitch
 ifndef QUANTUM_DIR
 	include ../../../../Makefile
-endif
