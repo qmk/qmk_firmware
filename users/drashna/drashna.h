@@ -82,8 +82,7 @@ extern userspace_config_t userspace_config;
 #endif
 
 enum userspace_custom_keycodes {
-  EPRM = PLACEHOLDER_SAFE_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
-  VRSN,              // Prints QMK Firmware and board info
+  VRSN = PLACEHOLDER_SAFE_RANGE,              // Prints QMK Firmware and board info
   KC_QWERTY,         // Sets default layer to QWERTY
   KC_COLEMAK,        // Sets default layer to COLEMAK
   KC_DVORAK,         // Sets default layer to DVORAK
