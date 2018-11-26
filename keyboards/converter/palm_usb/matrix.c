@@ -1,5 +1,7 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2018 milestogo 
+with elements Copyright 2014 cy384 under a modified BSD license
+building on qmk structure Copyright 2012 Jun Wako <wakojun@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -27,7 +29,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * ROW: 12(4bits)
  * COL:  8(3bits)
  *
- *    8bit wide
  *   +---------+
  *  0|00 ... 07|
  *  1|00 ... 07|
