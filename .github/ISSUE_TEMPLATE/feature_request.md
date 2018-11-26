@@ -7,7 +7,7 @@ about: Suggest a new feature or changes to existing features
 ## Feature Request Type
 
 - [ ] Core Functionality
-- [ ] Add-on hardware support (eg audio, rgb, oled screen, etc)
+- [ ] Add-on hardware support (e.g. audio, RGB, OLED screen, etc.)
 - [ ] Alteration (enhancement/optimization) of existing Feature(s)
 - [ ] New behavior
 
