@@ -18,7 +18,7 @@ First, head to the [Compiling/Flashing FAQ Page](https://docs.qmk.fm/#/faq_build
 
 Okay, that's fine. Then please check the [open issues in our GitHub](https://github.com/qmk/qmk_firmware/issues) to see if somebody is experiencing the same thing (make sure it's not just similar, but actually the same).  
 
-If you can't find anything, then please open a [new issue](https://github.com/qmk/qmk_firmware/issues)!
+If you can't find anything, then please open a [new issue](https://github.com/qmk/qmk_firmware/issues/new)!
 
 ## What if I found a bug? 
 
