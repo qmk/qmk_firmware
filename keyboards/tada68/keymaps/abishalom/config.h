@@ -1,3 +1,3 @@
-#include "../../config.h"
+#pragma once
 
 #define BACKLIGHT_BREATHING
