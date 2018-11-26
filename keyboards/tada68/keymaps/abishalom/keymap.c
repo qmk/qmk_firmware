@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |    |WTOG|    |                       |   |   |    |Pre|PPl|Nxt |
    * `----------------------------------------------------------------'
    */
-[_FL] = KEYMAP_ANSI(
+[_FL] = LAYOUT_ansi(
   _______, KC_F1 ,KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, _______ ,  \
   TO(_NL),KC_MPRV, KC_UP ,KC_MNXT,_______, _______,_______,KC_PGDN,KC_UP,KC_PGUP,KC_PSCR,_______,_______, _______,KC_INSERT, \
   _______,KC_LEFT,KC_DOWN,KC_RGHT,KC_MPLY,_______,_______,KC_LEFT,KC_DOWN,KC_RGHT,_______,_______,        _______,KC_HOME, \
