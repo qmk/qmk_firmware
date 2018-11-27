@@ -1,3 +1,2 @@
-SRC += pico/matrix.c \
-	   pico/split_util.c \
-	   ws2812.c
+SRC += pico/matrix.c
+SRC += pico/split_util.c
