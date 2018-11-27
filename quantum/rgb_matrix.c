@@ -841,18 +841,20 @@ void rgb_matrix_init(void) {
   eeconfig_debug_rgb_matrix(); // display current eeprom values
 }
 
+#ifndef RGBLIGHT_ENABLE
 // Deals with the messy details of incrementing an integer
-uint8_t increment( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
+static uint8_t increment( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
     int16_t new_value = value;
     new_value += step;
     return MIN( MAX( new_value, min ), max );
 }
 
-uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
+static uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
     int16_t new_value = value;
     new_value -= step;
     return MIN( MAX( new_value, min ), max );
 }
+#endif
 
 // void *backlight_get_custom_key_color_eeprom_address( uint8_t led )
 // {
@@ -887,9 +889,28 @@ uint32_t rgb_matrix_get_tick(void) {
     return g_tick;
 }
 
+#ifndef RGBLIGHT_ENABLE
 void rgblight_toggle(void) {
 	rgb_matrix_config.enable ^= 1;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+}
+
+void rgblight_enable(void) {
+	rgb_matrix_config.enable = 1;
+    eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+}
+
+void rgblight_enable_noeeprom(void) {
+	rgb_matrix_config.enable = 1;
+}
+
+void rgblight_disable(void) {
+	rgb_matrix_config.enable = 0;
+    eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+}
+
+void rgblight_disable_noeeprom(void) {
+	rgb_matrix_config.enable = 0;
 }
 
 void rgblight_step(void) {
@@ -951,6 +972,10 @@ void rgblight_mode(uint8_t mode) {
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
+void rgblight_mode_noeeprom(uint8_t mode) {
+    rgb_matrix_config.mode = mode;
+}
+
 uint32_t rgblight_get_mode(void) {
     return rgb_matrix_config.mode;
 }
@@ -961,3 +986,10 @@ void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
   rgb_matrix_config.val = val;
   eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
+
+void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val) {
+  rgb_matrix_config.hue = hue;
+  rgb_matrix_config.sat = sat;
+  rgb_matrix_config.val = val;
+}
+#endif

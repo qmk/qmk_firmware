@@ -127,6 +127,7 @@ enum rgb_matrix_effects {
 };
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue );
+void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue );
 
 // This runs after another backlight effect and replaces
 // colors already set
@@ -160,9 +161,15 @@ void rgb_matrix_decrease(void);
 
 uint32_t rgb_matrix_get_tick(void);
 
+#ifndef RGBLIGHT_ENABLE
 void rgblight_toggle(void);
+void rgblight_enable(void);
+void rgblight_enable_noeeprom(void);
+void rgblight_disable(void);
+void rgblight_disable_noeeprom(void);
 void rgblight_step(void);
 void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
 void rgblight_step_reverse(void);
 void rgblight_increase_hue(void);
 void rgblight_decrease_hue(void);
@@ -173,7 +180,9 @@ void rgblight_decrease_val(void);
 void rgblight_increase_speed(void);
 void rgblight_decrease_speed(void);
 void rgblight_mode(uint8_t mode);
+void rgblight_mode_noeeprom(uint8_t mode);
 uint32_t rgblight_get_mode(void);
+#endif
 
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
