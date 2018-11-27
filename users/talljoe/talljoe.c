@@ -108,7 +108,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 extern backlight_config g_config;
 #endif
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef ZEAL_RGB
   static uint8_t last_effect;
+#endif
 
 #ifdef RGBLIGHT_ENABLE
   static uint32_t savedRgbMode;
