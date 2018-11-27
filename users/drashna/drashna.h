@@ -73,6 +73,8 @@ typedef union {
   };
 } userspace_config_t;
 
+extern userspace_config_t userspace_config;
+
 #if defined(KEYMAP_SAFE_RANGE)
   #define PLACEHOLDER_SAFE_RANGE KEYMAP_SAFE_RANGE
 #else
@@ -80,8 +82,7 @@ typedef union {
 #endif
 
 enum userspace_custom_keycodes {
-  EPRM = PLACEHOLDER_SAFE_RANGE, // Resets EEPROM do defaults (as in eeconfig_init)
-  VRSN,              // Prints QMK Firmware and board info
+  VRSN = PLACEHOLDER_SAFE_RANGE,              // Prints QMK Firmware and board info
   KC_QWERTY,         // Sets default layer to QWERTY
   KC_COLEMAK,        // Sets default layer to COLEMAK
   KC_DVORAK,         // Sets default layer to DVORAK
@@ -159,6 +160,9 @@ enum userspace_custom_keycodes {
 #define OS_RCTL OSM(MOD_RCTL)
 #define OS_LALT OSM(MOD_LALT)
 #define OS_RALT OSM(MOD_RALT)
+#define OS_MEH  OSM(MOD_MEH)
+#define OS_HYPR OSM(MOD_HYPR)
+
 #define ALT_APP ALT_T(KC_APP)
 
 #define MG_NKRO MAGIC_TOGGLE_NKRO
