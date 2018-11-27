@@ -8,7 +8,6 @@
 #define _FL 1
 #define _NL 2
 
-#define _______ KC_TRNS
 #define SEMI_FN LT(_FL, KC_SCLN)
 
 //Tap Dance Declarations
