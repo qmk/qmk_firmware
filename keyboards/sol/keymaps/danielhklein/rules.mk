@@ -48,7 +48,3 @@ endif
 ifeq ($(strip $(LED_MIRRORED)), yes)
     OPT_DEFS += -DLED_MIRRORED
 endif
-
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

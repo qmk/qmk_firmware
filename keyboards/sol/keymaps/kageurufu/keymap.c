@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
@@ -40,11 +39,6 @@ enum custom_keycodes {
 enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
-
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 #define FN_ESC  LT(_FN, KC_ESC)
 

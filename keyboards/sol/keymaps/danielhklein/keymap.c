@@ -41,10 +41,6 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Define your non-alpha grouping in this define's LAYOUT, and all your BASE_LAYERS will share the same mod/macro columns
   /* Base Layout
    * ,------------------------------------------------.  ,------------------------------------------------.
