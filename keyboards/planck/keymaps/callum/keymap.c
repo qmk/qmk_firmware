@@ -129,11 +129,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* MOVE
      * ,-----------------------------------------------------------------------.
-     * |     |     |     |     |     |     |     |Home | Up  | End |     | Esc |
+     * |     |     |     |     |     |     |CtrUp|Home | Up  | End |Caps | Esc |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |     |Left |Down |Right|Caps | Del |
+     * |     |     |     |     |     |     |SpaL |Left |Down |Right|SpaR | Del |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |     |PgDn |PgUp |TabL |TabR |     |
+     * |     |     |     |     |     |     |CtrDn|PgDn |PgUp |TabL |TabR |     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |     |     |     |     |     |     |     |     |     |     |     |     |
      * `-----------------------------------------------------------------------'
@@ -141,17 +141,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MOVE] = {
         {
             AC(KC_A),     AC(KC_B),     AC(KC_C),     AC(KC_D),
-            AC(KC_E),     AC(KC_F),     XXXXXXX,      KC_HOME,
-            KC_UP,        KC_END,       XXXXXXX,      KC_ESC
+            AC(KC_E),     AC(KC_F),     C(KC_UP),     KC_HOME,
+            KC_UP,        KC_END,       KC_CAPS,      KC_ESC
         },
         {
             AC(KC_G),     AC(KC_H),     AC(KC_I),     AC(KC_J),
-            AC(KC_K),     AC(KC_L),     XXXXXXX,      KC_LEFT,
-            KC_DOWN,      KC_RGHT,      KC_CAPS,      KC_DEL
+            AC(KC_K),     AC(KC_L),     C(KC_LEFT),   KC_LEFT,
+            KC_DOWN,      KC_RGHT,      C(KC_RIGHT),  KC_DEL
         },
         {
             _______,      AC(KC_M),     AC(KC_N),     AC(KC_O),
-            AC(KC_P),     AC(KC_Q),     XXXXXXX,      KC_PGDN,
+            AC(KC_P),     AC(KC_Q),     C(KC_DOWN),   KC_PGDN,
             KC_PGUP,      SC(KC_TAB),   C(KC_TAB),    _______
         },
         {
