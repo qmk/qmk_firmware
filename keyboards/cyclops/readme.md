@@ -1,10 +1,10 @@
 # Cyclops
 
-66% Alps Keyboard. 
+66% Alps Keyboard in ISO layout. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: 66% Alps Keyboard 
-Hardware Availability: N/A. 
+Hardware Supported: 66% Alps Keyboard  
+Hardware Availability: A very limited number were made. 
 
 Make example for this keyboard (after setting up your build environment):
 
