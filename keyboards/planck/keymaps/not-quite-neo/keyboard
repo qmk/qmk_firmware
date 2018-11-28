@@ -1,0 +1,158 @@
+let SessionLoad = 1
+let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
+let v:this_session=expand("<sfile>:p")
+silent only
+cd D:\Programmieren\qmk_firmware\keyboards\levinson\keymaps\iarumas
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+set shortmess=aoO
+badd +10 D:\Programmieren\qmk_firmware\keyboards\planck\keymaps\not-quite-neo\keymap.c
+badd +6 keymap.c
+badd +110 neo2-basic-layout.h
+badd +2 neo2-common.h
+badd +1 neo2-keys-on-quertz-de-latin1.h
+badd +0 D:\Programmieren\qmk_firmware\users\not-quite-neo\nqn-basic-layout.h
+argglobal
+silent! argdel *
+edit keymap.c
+set splitbelow splitright
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd w
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd t
+set winminheight=1 winminwidth=1 winheight=1 winwidth=1
+exe 'vert 1resize ' . ((&columns * 25 + 160) / 320)
+exe '2resize ' . ((&lines * 33 + 35) / 70)
+exe 'vert 2resize ' . ((&columns * 134 + 160) / 320)
+exe '3resize ' . ((&lines * 33 + 35) / 70)
+exe 'vert 3resize ' . ((&columns * 159 + 160) / 320)
+exe '4resize ' . ((&lines * 34 + 35) / 70)
+exe 'vert 4resize ' . ((&columns * 134 + 160) / 320)
+exe '5resize ' . ((&lines * 34 + 35) / 70)
+exe 'vert 5resize ' . ((&columns * 159 + 160) / 320)
+argglobal
+enew
+file NERD_tree_1
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal nofen
+lcd D:\Programmieren\qmk_firmware\keyboards\planck\keymaps\not-quite-neo
+wincmd w
+argglobal
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 46 - ((32 * winheight(0) + 16) / 33)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+46
+normal! 0
+lcd D:\Programmieren\qmk_firmware\keyboards\planck\keymaps\not-quite-neo
+wincmd w
+argglobal
+if bufexists('D:\Programmieren\qmk_firmware\keyboards\levinson\keymaps\iarumas\neo2-basic-layout.h') | buffer D:\Programmieren\qmk_firmware\keyboards\levinson\keymaps\iarumas\neo2-basic-layout.h | else | edit D:\Programmieren\qmk_firmware\keyboards\levinson\keymaps\iarumas\neo2-basic-layout.h | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 131 - ((32 * winheight(0) + 16) / 33)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+131
+normal! 06|
+lcd D:\Programmieren\qmk_firmware\keyboards\planck\keymaps\not-quite-neo
+wincmd w
+argglobal
+if bufexists('D:\Programmieren\qmk_firmware\keyboards\planck\keymaps\not-quite-neo\keymap.c') | buffer D:\Programmieren\qmk_firmware\keyboards\planck\keymaps\not-quite-neo\keymap.c | else | edit D:\Programmieren\qmk_firmware\keyboards\planck\keymaps\not-quite-neo\keymap.c | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 27 - ((26 * winheight(0) + 17) / 34)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+27
+normal! 0
+lcd D:\Programmieren\qmk_firmware\keyboards\planck\keymaps\not-quite-neo
+wincmd w
+argglobal
+if bufexists('D:\Programmieren\qmk_firmware\users\not-quite-neo\nqn-basic-layout.h') | buffer D:\Programmieren\qmk_firmware\users\not-quite-neo\nqn-basic-layout.h | else | edit D:\Programmieren\qmk_firmware\users\not-quite-neo\nqn-basic-layout.h | endif
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let s:l = 118 - ((33 * winheight(0) + 17) / 34)
+if s:l < 1 | let s:l = 1 | endif
+exe s:l
+normal! zt
+118
+normal! 0
+lcd D:\Programmieren\qmk_firmware\keyboards\planck\keymaps\not-quite-neo
+wincmd w
+5wincmd w
+exe 'vert 1resize ' . ((&columns * 25 + 160) / 320)
+exe '2resize ' . ((&lines * 33 + 35) / 70)
+exe 'vert 2resize ' . ((&columns * 134 + 160) / 320)
+exe '3resize ' . ((&lines * 33 + 35) / 70)
+exe 'vert 3resize ' . ((&columns * 159 + 160) / 320)
+exe '4resize ' . ((&lines * 34 + 35) / 70)
+exe 'vert 4resize ' . ((&columns * 134 + 160) / 320)
+exe '5resize ' . ((&lines * 34 + 35) / 70)
+exe 'vert 5resize ' . ((&columns * 159 + 160) / 320)
+tabnext 1
+if exists('s:wipebuf') && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20 winminheight=1 winminwidth=1 shortmess=filnxtToOFI
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if file_readable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &so = s:so_save | let &siso = s:siso_save
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :
