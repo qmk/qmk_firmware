@@ -203,6 +203,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_WWW_FAVORITES`     |`KC_WFAV`           |Browser Favorites (Windows)                    |
 |`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`           |Next Track (macOS)                             |
 |`KC_MEDIA_REWIND`      |`KC_MRWD`           |Previous Track (macOS)                         |
+|`KC_BRIGHTNESS_UP`     |`KC_BRIU`           |Brightness Up                                  |
+|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`           |Brightness Down                                |
 
 ## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
