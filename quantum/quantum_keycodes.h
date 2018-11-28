@@ -581,7 +581,6 @@ enum quantum_keycodes {
 #define CK_OFF CLICKY_DISABLE
 
 #define RGB_MOD RGB_MODE_FORWARD
-#define RGB_SMOD RGB_MODE_FORWARD
 #define RGB_RMOD RGB_MODE_REVERSE
 
 #define RGB_M_P RGB_MODE_PLAIN

@@ -63,8 +63,6 @@ Changing the **Value** sets the overall brightness.
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red, Green, Blue test animation mode                                |
 
-?> For backwards compatibility, `RGB_SMOD` is another alias of `RGB_MOD`.
-
 ## Configuration
 
 Your RGB lighting can be configured by placing these `#define`s in your `config.h`:
