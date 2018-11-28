@@ -7,7 +7,6 @@
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
-#include "config.h"
 #include "serial.h"
 
 volatile bool isLeftHand = true;

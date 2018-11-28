@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "split_util.h"
 #include <drivers/avr/pro_micro.h>
-#include "config.h"
 
 #include "serial.h"
 

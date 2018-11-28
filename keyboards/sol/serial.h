@@ -1,7 +1,6 @@
 #ifndef MY_SERIAL_H
 #define MY_SERIAL_H
 
-#include "config.h"
 #include <stdbool.h>
 
 /* TODO:  some defines for interrupt setup */
