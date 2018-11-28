@@ -1,17 +1,9 @@
 #include QMK_KEYBOARD_H
 
-extern keymap_config_t keymap_config;
-
 enum custom_layers {
     _QWERTY,
     _FN
 };
-
-enum custom_keycodes {
-    EPRM = SAFE_RANGE,
-};
-
-#define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -47,7 +39,7 @@ KC_F5, KC_LCTL, KC_LGUI, KC_LALT,                      KC_SPC,                  
  * |------|   |-------------------------------------------------------------------------------------------------|
  * |      |   |           |     |     |     |     |     |     |     |     |     |     |             |     |PgDn |
  * |------|   |-------------------------------------------------------------------------------------------------|
- * |EPRM  |   |      |       |       |                                   |         |           |     |    |     |
+ * |EEPRST|   |      |       |       |                                   |         |           |     |    |     |
  * `------'   `-------------------------------------------------------------------------------------------------'
  */
 
@@ -56,40 +48,17 @@ RESET,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,  
 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, KC_VOLD, KC_MUTE, KC_VOLU, _______, _______,          KC_PGUP,
 _______, _______,          _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PGDN,
-EPRM,    _______, _______, _______,                        _______,                       _______, _______,          _______, _______, _______
+EEP_RST, _______, _______, _______,                        _______,                       _______, _______,          _______, _______, _______
 ),
 };
 
-void caps_lock_indicator(void) {
+void led_set_user(uint8_t usb_led) {
     // Turn LEDs On/Off for Caps Lock
     if (host_keyboard_leds() & (1 << USB_LED_CAPS_LOCK)) {
         rgblight_enable_noeeprom();
+        rgblight_sethsv_noeeprom(0, 0, 80);
     } else {
+        rgblight_sethsv_noeeprom(0, 0, 80);
         rgblight_disable_noeeprom();
     }
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case EPRM:
-            if (record->event.pressed) {
-                // Reset to defaults
-                eeconfig_init();
-            }
-            return true;
-            break;
-        case KC_CAPS:
-            if (record->event.pressed) {
-                caps_lock_indicator();
-            }
-            return true;
-            break;
-    }
-    return true;
-}
-
-void matrix_scan_user(void) {
-     // Set the LEDs to not-too-bright white
-    rgblight_sethsv(0, 0, 80);
-    caps_lock_indicator();
 }
