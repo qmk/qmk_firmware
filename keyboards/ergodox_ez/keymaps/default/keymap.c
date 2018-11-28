@@ -6,8 +6,7 @@
 #define MDIA 2 // media keys
 
 enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
+  EPRM = SAFE_RANGE,
   VRSN,
   RGB_SLD
 };
@@ -145,47 +144,21 @@ const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) {
-        SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      break;
-    case 1:
-      if (record->event.pressed) { // For resetting EEPROM
-        eeconfig_init();
-      }
-      break;
-  }
-  return MACRO_NONE;
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    // dynamically generate these.
-    case EPRM:
-      if (record->event.pressed) {
+  if (record->event.pressed) {
+    switch (keycode) {
+      case EPRM:
         eeconfig_init();
-      }
-      return false;
-      break;
-    case VRSN:
-      if (record->event.pressed) {
+        return false;
+      case VRSN:
         SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-      }
-      return false;
-      break;
-    case RGB_SLD:
-      if (record->event.pressed) {
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_mode(1);
-        #endif
-      }
-      return false;
-      break;
+        return false;
+      #ifdef RGBLIGHT_ENABLE
+      case RGB_SLD:
+        rgblight_mode(1);
+        return false;
+      #endif
+    }
   }
   return true;
 }
@@ -195,11 +168,6 @@ void matrix_init_user(void) {
 #ifdef RGBLIGHT_COLOR_LAYER_0
   rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
 #endif
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-
 };
 
 // Runs whenever there is a layer state change.
