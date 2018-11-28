@@ -1,12 +1,10 @@
-# cyclops
+# Cyclops
 
-![cyclops](imgur.com image replace me!)
+66% Alps Keyboard. 
 
-A short description of the keyboard/project
-
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+Hardware Supported: 66% Alps Keyboard 
+Hardware Availability: N/A. 
 
 Make example for this keyboard (after setting up your build environment):
 
