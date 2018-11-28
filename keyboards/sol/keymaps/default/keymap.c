@@ -42,9 +42,6 @@ enum macro_keycodes {
 };
 
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 #define FN_ESC  LT(_FN, KC_ESC)
 #define FN_CAPS  LT(_FN, KC_CAPS)
