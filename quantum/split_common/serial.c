@@ -12,8 +12,6 @@
 #include <stdbool.h>
 #include "serial.h"
 
-#ifndef USE_I2C
-
 // Serial pulse period in microseconds. Its probably a bad idea to lower this
 // value.
 #define SERIAL_DELAY 24
@@ -224,5 +222,3 @@ int serial_update_buffers(void) {
   sei();
   return 0;
 }
-
-#endif
