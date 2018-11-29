@@ -173,12 +173,15 @@ void matrix_init_user(void) {
     get_unicode_input_mode();
   #endif //UNICODE_ENABLE
   matrix_init_keymap();
-}
-
-void startup_user (void) {
   #ifdef RGBLIGHT_ENABLE
     matrix_init_rgb();
   #endif //RGBLIGHT_ENABLE
+}
+
+void startup_user (void) {
+  // #ifdef RGBLIGHT_ENABLE
+  //   matrix_init_rgb();
+  // #endif //RGBLIGHT_ENABLE
   startup_keymap();
 }
 
@@ -294,11 +297,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     break;
 
-  case EPRM: // Resets EEPROM
-    if (record->event.pressed) {
-      eeconfig_init();
-    }
-    break;
   case VRSN: // Prints firmware version
     if (record->event.pressed) {
       send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), MACRO_TIMER);
@@ -392,7 +390,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   }
   return process_record_keymap(keycode, record) &&
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     process_record_user_rgb(keycode, record) &&
 #endif // RGBLIGHT_ENABLE
     process_record_secrets(keycode, record);
@@ -413,7 +411,11 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 
 uint32_t default_layer_state_set_user(uint32_t state) {
-  return default_layer_state_set_keymap(state);
+  state = default_layer_state_set_keymap(state);
+#ifdef RGBLIGHT_ENABLE
+  state = default_layer_state_set_rgb(state);
+#endif // RGBLIGHT_ENABLE
+  return state;
 }
 
 

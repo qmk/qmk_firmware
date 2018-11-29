@@ -77,5 +77,4 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 				# Enable support for HD44780 based LCDs (+400)
 
-#FIXME: Community keymap build are currently failing due to missing functionality
-#LAYOUTS = ortho_5x5  ortho_5x10  ortho_5x15
+LAYOUTS = ortho_5x5  ortho_5x10  ortho_5x15
