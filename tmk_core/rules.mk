@@ -28,7 +28,7 @@ VPATH :=
 
 # Convert all SRC to OBJ
 define OBJ_FROM_SRC
-$(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.cc,$1/%.o,$(patsubst %.S,$1/%.o,$($1_SRC)))))
+$(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.cc,$1/%.o,$(patsubst %.S,$1/%.o,$(patsubst %.clib,$1/%.a,$($1_SRC))))))
 endef
 $(foreach OUTPUT,$(OUTPUTS),$(eval $(OUTPUT)_OBJ +=$(call OBJ_FROM_SRC,$(OUTPUT))))
 
@@ -329,6 +329,12 @@ $1/%.o : %.S $1/asflags.txt $1/compiler.txt | $(BEGIN)
 	$$(eval CMD=$$(CC) -c $$($1_ASFLAGS) $$< -o $$@)
 	@$$(BUILD_CMD)
 
+$1/%.a : $1/%.o
+	@mkdir -p $$(@D)
+	@$(SILENT) || printf "Archiving: $$<" | $$(AWK_CMD)
+	$$(eval CMD=$$(AR) $$@ $$<)
+	@$$(BUILD_CMD)
+
 $1/force:
 
 $1/cflags.txt: $1/force
@@ -354,7 +360,7 @@ $(MASTER_OUTPUT)/ldflags.txt: $(MASTER_OUTPUT)/force
 
 
 # We have to use static rules for the .d files for some reason
-DEPS = $(patsubst %.o,%.d,$(OBJ))
+DEPS = $(patsubst %.o,%.d,$(patsubst %.a,%.o,$(OBJ)))
 # Keep the .d files
 .PRECIOUS: $(DEPS)
 # Empty rule to force recompilation if the .d file is missing
@@ -399,7 +405,7 @@ $(shell mkdir -p $(BUILD_DIR) 2>/dev/null)
 $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 # Include the dependency files.
--include $(patsubst %.o,%.d,$(OBJ))
+-include $(patsubst %.o,%.d,$(patsubst %.a,%.o,$(OBJ)))
 
 
 # Listing of phony targets.
