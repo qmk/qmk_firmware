@@ -18,76 +18,53 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "moonlander.h"
 
 void matrix_init_kb(void) {
+  setPinOutput(B0);
+  setPinOutput(B1);
+  setPinOutput(B2);
 
+  writePinLow(B0);
+  writePinLow(B1);
+  writePinLow(B2);
 }
 
 void matrix_scan_kb(void) {
 
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
-  ergodox_board_led_off();
-  ergodox_right_led_1_off();
-  ergodox_right_led_2_off();
-  ergodox_right_led_3_off();
+uint32_t layer_state_set_kb(uint32_t state) {
+  writePinLow(B0);
+  writePinLow(B1);
+  writePinLow(B2);
 
   uint8_t layer = biton32(state);
   switch (layer) {
       case 0:
-        #ifdef RGBLIGHT_COLOR_LAYER_0
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-        #else
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_init();
-        #endif
-        #endif
         break;
       case 1:
-        ergodox_right_led_1_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_1
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
-        #endif
+        writePinHigh(B0);
         break;
       case 2:
-        ergodox_right_led_2_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_2
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
-        #endif
+        writePinHigh(B1);
         break;
       case 3:
-        ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_3
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
-        #endif
+        writePinHigh(B2);
         break;
       case 4:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_4
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
-        #endif
+        writePinHigh(B0);
+        writePinHigh(B1);
         break;
       case 5:
-        ergodox_right_led_1_on();
-        ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_5
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
-        #endif
+        writePinHigh(B0);
+        writePinHigh(B2);
         break;
       case 6:
-        ergodox_right_led_2_on();
-        ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_6
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
-        #endif
+        writePinHigh(B1);
+        writePinHigh(B2);
         break;
       case 7:
-        ergodox_right_led_1_on();
-        ergodox_right_led_2_on();
-        ergodox_right_led_3_on();
-        #ifdef RGBLIGHT_COLOR_LAYER_7
-          rgblight_setrgb(RGBLIGHT_COLOR_LAYER_7);
-        #endif
+        writePinHigh(B0);
+        writePinHigh(B1);
+        writePinHigh(B2);
         break;
       default:
         break;
