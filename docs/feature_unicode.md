@@ -30,7 +30,7 @@ Make sure that the order for both matches.
 
 ## UCIS_ENABLE
 
-Supports Unicode up to 0xFFFFFFFF. As with `UNICODE_MAP`, you may want to main a mapping table in your keymap file.  However, there is no keycodes for this feature, you will have to add a keycode or function to call `qk_ucis_start()`. Once you've run that, you can just type the text for your unicode, and then hit space or enter to complete it, or ESC to cancel it. And if it matches an entry in your table, it will automatically "backspace" the trigger word (from your table) and then will input the unicode sequence.
+Supports Unicode up to 0xFFFFFFFF. As with `UNICODE_MAP`, you may want to maintain a mapping table in your keymap file.  However, there is no keycodes for this feature, you will have to add a keycode or function to call `qk_ucis_start()`. Once you've run that, you can just type the text for your unicode, and then hit space or enter to complete it, or ESC to cancel it. And if it matches an entry in your table, it will automatically "backspace" the trigger word (from your table) and then will input the unicode sequence.
 
 For instance, you would need to have a table like this in your keymap:
 
