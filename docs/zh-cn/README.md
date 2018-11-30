@@ -1,10 +1,10 @@
 # 量子力學鍵盤固件
 
-[[當前版本](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
-[![築邦(https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)(https://travis-ci.org/qmk/qmk_firmware)
+[![當前版本](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
+[![築邦](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
 [![不和諧](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/Uq7gcHh)
-[![文檔狀態(https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
-[![GitHub的貢獻者(https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
+[![文檔狀態](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
+[![GitHub的貢獻者](https://img.shields.io/github/contributors/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/pulse/monthly)
 [![GitHub的叉](https://img.shields.io/github/forks/qmk/qmk_firmware.svg?style=social&label=Fork)](https://github.com/qmk/qmk_firmware/)
 
 ## 什麼是QMK固件？
