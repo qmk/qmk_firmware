@@ -2,150 +2,57 @@
 
 extern keymap_config_t keymap_config;
 
-#include "levinson.h"
 #include "neo2-keys-on-quertz-de-latin1.h"
 #include "neo2-basic-layout.h"
 
-enum my_keycodes
-{
-  N2_LETTERS = 1,
-
-  N2_SYM = 3,
-  N2_CON = 4,
-  N2_GREEK = 5,
-  N2_MATH = 6,
-  N2_FUN = 7,
-
-  QWERTY = 8,
+enum my_keycodes{
+  N2_LETS = 0,
+  /* L02 */
+  N2_SYMB,
+  N2_CTRL,
+  /*  L05 -> N2_GREEK */
+  /*  L06 -> N2_MATH */
+  N2_FUN,
+  //
+  QUERTZ
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
-/* L01 -> default: BASE LAYER
- * ,-----------------------------------------------------------------------------------.
- * | ESC  |                                  |                                  | ENTER|
- * |------+                                  |                                  +------|
- * | L03  |             L01_LEFT             |             L01_RIGHT            | L03  |
- * |------+                                  |                                  +------|
- * | SHIFT|                                  |                                  | SHIFT|
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | CTLR | GUI  | ALT  | L05  | L04  | SPACE| SPACE| L04  | L05  | ALTGR| LFN  | CTLR |
- * `-----------------------------------------------------------------------------------'
- */
-[N2_LETTERS] = {
-  {KC_ESC,                 L01_LEFT_01,                                 L01_RIGHT_01,                 KC_ENTER},
-  {MO(N2_SYM),             L01_LEFT_02,                                 L01_RIGHT_02,                 MO(N2_SYM)},
-  {KC_LSHIFT,              L01_LEFT_03,                                 L01_RIGHT_03,                 KC_RSFT},
-  {KC_LCTRL,KC_LGUI, KC_LALT, MO(N2_FUN), MO(N2_CON), KC_SPC,  KC_SPC,  MO(N2_CON), MO(N2_FUN), KC_RALT, GUI, KC_RCTRL}
-},
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
+[N2_LETS] = LAYOUT_ortho_4x12( 
+  KC_ESC,     KC_X,    KC_V,    KC_L,    KC_C,    KC_W,   KC_K,    KC_H,    KC_G,    KC_F,    KC_Q,    KC_ENTER,
+  MO(N2_SYMB),    KC_U,    KC_I,    KC_A,    KC_E,    KC_O,   KC_S,    KC_N,    KC_R,    KC_T,    KC_D,    MO(N2_SYMB),
+  KC_LSHIFT,  N_UE,    N_OE,    N_AE,    KC_P,    N_Z,    KC_B,    KC_M,    KC_COMM, KC_DOT,  KC_J,    KC_RSFT,
+  KC_LCTRL,   KC_LGUI, KC_LALT, MO(N2_FUN), MO(N2_CTRL), KC_SPC, KC_SPC,  MO(N2_CTRL), MO(N2_FUN), KC_RALT, KC_LGUI, KC_RCTRL
+),
 
 
-[N2_SYM] = {
-  { _______,               L03_LEFT_01,                                 L03_RIGHT_01,                           _______},
-  { _______,               L03_LEFT_02,                                 L03_RIGHT_02,                           _______},
-  { _______,               L03_LEFT_03,                                 L03_RIGHT_03,                           _______},
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-},
+[N2_SYMB] = LAYOUT_ortho_4x12( 
+   _______,  N_DOTS,  N_USC,   N_LSQBR, N_RSQBR, N_CIRC,  N_EXKL,  N_LT,    N_GT,    N_EQ,    N_AMP,  _______,
+   _______,  N_BSLS,  N_SLSH,  N_LCUBR, N_MINS, N_COLN,   N_QUES,  N_LPARN, N_RPARN, N_MINS,  N_AT,   _______,
+   _______,  N_HASH,  N_DLR,   N_PIPE,  N_TILD,  N_GRAVE, N_PLUS,  N_PERC,  N_QUOT,  N_SING,  N_SEMI, _______,
+   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+),
 
 
-[N2_CON] = {
-  { _______,               L04_LEFT_01,                                 L04_RIGHT_01,                           _______},
-  { _______,               L04_LEFT_01,                                 L04_RIGHT_02,                           _______},
-  { _______,               L04_LEFT_03,                                 L04_RIGHT_03,                           _______},
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+[N2_CTRL] = LAYOUT_ortho_4x12( 
+   _______, KC_PGUP, KC_BSPC, KC_UP,   KC_DEL,   KC_PGDN, KC_KP_SLASH,    KC_KP_7, KC_KP_8, KC_KP_9,  KC_KP_MINUS,     _______,
+   _______, KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT, KC_END,  KC_KP_ASTERISK, KC_KP_4, KC_KP_5, KC_KP_6,  KC_KP_PLUS,      _______,
+   _______, KC_ESC,  KC_TAB,  KC_INS,  KC_ENTER, N_UNDO,  KC_KP_ENTER,    KC_KP_1, KC_KP_2, KC_KP_3,  KC_KP_DOT,       _______,
+   _______, _______, _______, _______, _______, _______, _______,         _______, _______, _______,  _______,         _______
 
-},
+),
 
-[N2_FUN] = {
-  { _______,               L07_LEFT_01,                                 L07_RIGHT_01,                           _______},
-  { _______,               L07_LEFT_01,                                 L07_RIGHT_02,                           _______},
-  { _______,               L07_LEFT_03,                                 L07_RIGHT_03,                           _______},
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+[N2_FUN] = LAYOUT_ortho_4x12( 
+   _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   _______, KC_MAIL, KC_MSEL, KC_MY_COMPUTER, KC_CALCULATOR, N_PASTE, _______,
+   _______, KC_F5,   KC_F6,   KC_F7,   KC_F8,   _______, KC_MPRV, KC_MPLY, KC_MNXT,        KC_MSTP,       N_COPY,  _______,
+   _______, KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, KC_PSCR, KC_SLCK, KC_PAUS,        KC_NLCK,       N_CUT,   _______,
+   _______, _______, _______, _______, _______, _______, _______, _______, _______,         _______,      _______, _______
+),
 
-},
-
-[QWERTY] = {
-  { _______,               L08_LEFT_01,                                 L08_RIGHT_01,                           _______},
-  { _______,               L08_LEFT_01,                                 L08_RIGHT_02,                           _______},
-  { _______,               L08_LEFT_03,                                 L08_RIGHT_03,                           _______},
-  { _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
-
-}
+[QUERTZ] = LAYOUT_ortho_4x12(
+   _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Z,    KC_U,    KC_I,    KC_O,    KC_P,    _______,
+   _______, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    N_OE,    _______,
+   _______, KC_Y,    KC_X,    KC_C,    KC_V,    KC_B,     KC_N,    KC_M,    KC_COMM, KC_DOT,  N_MINS,  _______,
+   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+)
 };
-
-
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-#endif
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
-      }
-      return false;
-      break;
-    case COLEMAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
-      }
-      return false;
-      break;
-    case DVORAK:
-      if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
-      }
-      return false;
-      break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case ADJUST:
-      if (record->event.pressed) {
-        layer_on(_ADJUST);
-      } else {
-        layer_off(_ADJUST);
-      }
-      return false;
-      break;
-  }
-  return true;
-}
