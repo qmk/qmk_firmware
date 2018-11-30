@@ -150,11 +150,14 @@
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x07
+#define EEPROM_VERSION 0x08
 #define EEPROM_VERSION_ADDR 34
 
 // Backlight config starts after EEPROM version
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+37)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 72
-
+// Dynamic keymap starts after backlight config (35+43)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 78
+// Dynamic macro starts after dynamic keymaps (78+(4*6*2)) = (78+48)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 126
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 898
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16
