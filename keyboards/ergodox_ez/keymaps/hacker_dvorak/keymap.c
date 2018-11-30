@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "ergodox_ez.h"
-#include "action_layer.h"
 #include "keymap_dvorak.h"
 #include "sendstring_dvorak.h"
 #include "keymap_plover.h"
@@ -16,6 +14,7 @@
 #define MT_AG    MAGIC_TOGGLE_ALT_GUI
 #define MY_GUI   MAGIC_UNNO_GUI
 #define MN_GUI   MAGIC_NO_GUI
+
 
 // Layers
 enum layers {
@@ -37,8 +36,9 @@ enum layers {
     HYPER_FN,
     MEH_FN,
     MEH_FN_PLUS,
-    MAGICS
+    FIRMWARE
 };
+
 
 enum tap_dances {
     TD_ESC_CAPS = 0
@@ -48,15 +48,14 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_ESC_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_CAPS)
 };
 
+
 enum custom_keycodes {
     PLACEHOLDER = SAFE_RANGE, // can always be here
-    EPRM,
-    RGB_SLD,
     RGB_RED,
     RGB_GREEN,
     RGB_BLUE,
     RGB_MAGENTA,
-    RGB_YELLOW
+    RGB_YELLOW,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -450,7 +449,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_MEDIA_PREV_TRACK, KC_F9,         KC_F7,      KC_F5,   KC_F3,      KC_F1,   KC_WWW_HOME,
         KC_PAUSE,            KC_F19,        KC_F17,     KC_F15,  KC_F13,     KC_F11,
         RGB_HUD,             XXXXXXX,       XXXXXXX,    _______, KC_F23,     KC_F21,  KC_WWW_BACK,
-        RGB_VAD,             KC_CAPSLOCK,   KC_PSCREEN, XXXXXXX, MO(MAGICS),
+        RGB_VAD,             KC_CAPSLOCK,   KC_PSCREEN, XXXXXXX, MO(FIRMWARE),
 
         // left thumb
                  _______,   XXXXXXX,
@@ -458,7 +457,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RGB_RED, RGB_GREEN, KC_MEDIA_EJECT,
 
         // right hand
-        KC_WWW_FAVORITES, KC_MY_COMPUTER, KC_CALCULATOR,   XXXXXXX, RGB_MOD,         RGB_SLD,        KC_AUDIO_VOL_UP,
+        KC_WWW_FAVORITES, KC_MY_COMPUTER, KC_CALCULATOR,   XXXXXXX, RGB_MOD,         RGB_M_P,        KC_AUDIO_VOL_UP,
         KC_WWW_SEARCH,    KC_F2,          KC_F4,           KC_F6,   KC_F8,           KC_F10,         KC_MEDIA_NEXT_TRACK,
                           KC_F12,         KC_F14,          KC_F16,  KC_F18,          KC_F20,         KC_MEDIA_PLAY_PAUSE,
         KC_WWW_FORWARD,   KC_F22,         KC_F24,          _______, XXXXXXX,         XXXXXXX,        RGB_HUI,
@@ -548,9 +547,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         XXXXXXX, XXXXXXX, XXXXXXX
     ),
 
-    [MAGICS] = LAYOUT_ergodox(
+    [FIRMWARE] = LAYOUT_ergodox(
         // left hand
-        EPRM,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
@@ -562,21 +561,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         RESET, XXXXXXX, XXXXXXX,
 
         // right hand
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MS_GE,
-        MN_GUI,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MU_GE,
-                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MT_NKRO,
-        MY_GUI,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MT_AG,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+                 XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
                           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
 
         // right thumb
         XXXXXXX, XXXXXXX,
         XXXXXXX,
-        XXXXXXX, MS_CC,   MU_CC
+        XXXXXXX, XXXXXXX, EEP_RST
     )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(1)
 };
 
 void matrix_init_user(void) {
@@ -585,21 +580,6 @@ void matrix_init_user(void) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        // dynamically generate these.
-        case EPRM:
-            if (record->event.pressed) {
-                eeconfig_init();
-            }
-
-            return false;
-
-        case RGB_SLD:
-            if (record->event.pressed) {
-                rgblight_mode(1);
-            }
-
-            return false;
-
         case RGB_RED:
             if (record->event.pressed) {
                 #ifdef RGBLIGHT_ENABLE
@@ -668,7 +648,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
 
-    switch (layer) {
+    switch (biton32(layer)) {
         case DVORAK_US:
             rgblight_sethsv_noeeprom_green();
 
@@ -782,7 +762,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
             break;
 
-        case MAGICS:
+        case FIRMWARE:
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
             rgblight_sethsv_noeeprom_pink();
