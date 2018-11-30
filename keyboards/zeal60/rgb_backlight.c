@@ -280,7 +280,7 @@ const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
 	{0,0}, {0,16}, {16,16}, {16,0}, {32,16}, {32,0}
 };
 const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
-	{0,0}, {0,16}, {16,16}, {16,0}, {32,16}, {32,0}
+	{160,255}, {96,255}, {77,255}, {179,255}, {51,255}, {205,255}
 };
 #endif
 
