@@ -9,7 +9,7 @@
 
 ## 什麼是QMK固件？
 
-QMK(*量子力學鍵盤*)是一個開源社區維護QMK固件，QMK Toolbox，qmk.fm和這些文檔。 QMK固件是根據[tmk\_keyboard](http://github.com/tmk/tmk_keyboard) 具有用於Atmel AVR控制器一些有用的功能鍵盤固件，並且更具體地，[OLKB產品線](https://olkb.com)時，[ergodox EZ](http://www.ergodox-ez.com)鍵盤，並且[Clueboard產品線](http://clueboard.co/)。它也被移植到使用ChibiOS ARM芯片。你可以用它來驅動你自己的手，有線或自定義鍵盤PCB。
+QMK是一個由社群維護的開源鍵盤韌體，其中包含了QMK Toolbox、qmk.fm和其它文件。QMK韌體是以[tmk\_keyboard](http://github.com/tmk/tmk_keyboard)為基礎，讓一些有用的功能在Atmel AVR控制器實現，使用於[OLKB](https://olkb.com)、[ergodox EZ](http://www.ergodox-ez.com)，和[Clueboard](http://clueboard.co/)的產品中。它也被移植到使用ChibiOS的ARM晶片上。你也可以用它來讓你徒手佈線，或是客製的鍵盤PCB發揮功能。
 
 ## 如何得到QMK
 
