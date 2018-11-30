@@ -2,6 +2,7 @@
 # split keyboards compile test
 #
 export SKIP_VERSION=yes
+export SKIP_DEBUG_INFO=yes
 git status | grep "On branch"
 BRANCH=`git status | awk '/^On branch/ { print $3 }' | sed "s'/'_'" `
 LOG=/tmp/split-compile-$BRANCH.txt
