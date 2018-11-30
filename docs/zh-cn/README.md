@@ -1,4 +1,4 @@
-# 量子力學鍵盤固件
+# QMK鍵盤固件
 
 [![當前版本](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
 [![築邦](https://travis-ci.org/qmk/qmk_firmware.svg?branch=master)](https://travis-ci.org/qmk/qmk_firmware)
@@ -9,9 +9,9 @@
 
 ## 什麼是QMK固件？
 
-QMK(*量子力學鍵盤*)是一個開源社區維護QMK固件，QMK工具箱，qmk.fm這些文檔。 QMK固件是根據[tmk\_keyboard](http://github.com/tmk/tmk_keyboard) 具有用於愛特梅爾AVR控制器一些有用的功能鍵盤固件，並且更具體地，[OLKB產品線](https://olkb.com)時，[ergodox EZ](http://www.ergodox-ez.com)鍵盤，並且[Clueboard產品線](http://clueboard.co/)。它也被移植到使用ChibiOS ARM芯片。你可以用它來驅動你自己的手，有線或自定義鍵盤PCB。
+QMK(*量子力學鍵盤*)是一個開源社區維護QMK固件，QMK Toolbox，qmk.fm和這些文檔。 QMK固件是根據[tmk\_keyboard](http://github.com/tmk/tmk_keyboard) 具有用於Atmel AVR控制器一些有用的功能鍵盤固件，並且更具體地，[OLKB產品線](https://olkb.com)時，[ergodox EZ](http://www.ergodox-ez.com)鍵盤，並且[Clueboard產品線](http://clueboard.co/)。它也被移植到使用ChibiOS ARM芯片。你可以用它來驅動你自己的手，有線或自定義鍵盤PCB。
 
-## 如何得到它
+## 如何得到QMK
 
 如果你打算貢獻鍵盤佈局，鍵盤或功能QMK，最容易做的事情是[叉通過Github上爬行](https://github.com/qmk/qmk_firmware#fork-destination-box)，和克隆你爬在本地進行更改，推動他們，然後打開從你的叉子[拉請求](https://github.com/qmk/qmk_firmware/pulls)。
 
@@ -27,6 +27,6 @@ QMK(*量子力學鍵盤*)是一個開源社區維護QMK固件，QMK工具箱，q
 
     make preonic:default
 
-## 如何自定義
+## 如何赶近
 
 QMK有很多[特點](features.md)探索和很好的協議[參考文獻](http://docs.qmk.fm)挖通的。大部分功能通過修改[鍵盤映射(keymap.md)，並改變[鍵碼](keycodes.md)冤大頭。
