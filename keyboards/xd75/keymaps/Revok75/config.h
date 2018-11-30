@@ -14,11 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
+#pragma once
 #define CONFIG_USER_H
 
-#include "../../config.h"
 // place overrides here
 #undef BACKLIGHT_BREATHING
-
-#endif
