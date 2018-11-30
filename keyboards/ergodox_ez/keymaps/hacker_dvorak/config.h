@@ -7,7 +7,7 @@
 
 /* Keyboard Settings */
 #undef  TAPPING_TERM
-#define TAPPING_TERM 300
+#define TAPPING_TERM 200
 
 #undef  DEBOUNCE
 #define DEBOUNCE 10
@@ -19,12 +19,9 @@
 #define FORCE_NKRO
 
 /* This isn't defined by default, so there is no need to undefine it first. */
-#define ONESHOT_TAP_TOGGLE 2
-#define ONESHOT_TIMEOUT 1000
-#define LEADER_TIMEOUT 1000
+#define LEADER_TIMEOUT 500
 #define PERMISSIVE_HOLD
 #define QMK_KEYS_PER_SCAN 4
-#define COMBO_TERM 300
 
 
 // RGB Lights
@@ -74,5 +71,12 @@
 // #undef  NO_PRINT
 // #define NO_PRINT
 
-/* For COMBO_COUNT only*/
+/* For COMBO only*/
 // #define COMBO_COUNT 1
+// #define COMBO_TERM 200
+
+/* For tap toggle */
+// #define TAPPING_TOGGLE 2
+// #define ONESHOT_TAP_TOGGLE 2
+// #define ONESHOT_TIMEOUT 300
+

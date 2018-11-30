@@ -51,11 +51,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 enum custom_keycodes {
     PLACEHOLDER = SAFE_RANGE, // can always be here
-    RGB_RED,
-    RGB_GREEN,
-    RGB_BLUE,
-    RGB_MAGENTA,
-    RGB_YELLOW,
+    RGB_GREEN  // to set default RGB layer as green once
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -81,11 +77,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [DVORAK_US] = LAYOUT_ergodox(
         // left hand
-        KC_ESC,      KC_LABK,         KC_LCBR,         KC_LBRC,             KC_LPRN,             KC_EXLM, KC_AMPR,
-        KC_TAB,      KC_QUOT,         SCMD_T(KC_COMM), MEH_T(KC_DOT),       ALL_T(KC_P),         KC_Y,    KC_AT,
-        KC_EQL,      CTL_T(KC_A),     SFT_T(KC_O),     LT(NUMPAD_US, KC_E), LT(ARROWS_US, KC_U), KC_I,
-        KC_BSLS,     ALGR_T(KC_SCLN), ALT_T(KC_Q),     LT(MEDIA_FN, KC_J),  GUI_T(KC_K),         KC_X,    KC_PERC,
-        OSL(MEH_FN), TG(LAYERS_US),   KC_CIRC,         KC_PLUS,             KC_COLN,
+        KC_ESC,     KC_LABK,         KC_LCBR,         KC_LBRC,             KC_LPRN,             KC_EXLM, KC_AMPR,
+        KC_TAB,     KC_QUOT,         SCMD_T(KC_COMM), MEH_T(KC_DOT),       ALL_T(KC_P),         KC_Y,    KC_AT,
+        KC_EQL,     CTL_T(KC_A),     SFT_T(KC_O),     LT(NUMPAD_US, KC_E), LT(ARROWS_US, KC_U), KC_I,
+        KC_BSLS,    ALGR_T(KC_SCLN), ALT_T(KC_Q),     LT(MEDIA_FN, KC_J),  GUI_T(KC_K),         KC_X,    KC_PERC,
+        S(MEH_FN), TG(LAYERS_US),   KC_CIRC,         KC_PLUS,             KC_COLN,
 
         // left thumb
                 KC_LEFT, KC_RGHT,
@@ -97,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_HASH, KC_F,    ALL_T(KC_G),        MEH_T(KC_C),        SCMD_T(KC_R), KC_L,          KC_SLSH,
                  KC_D,    LT(MOUSE_US, KC_H), LT(HYPER_FN, KC_T), SFT_T(KC_N),  CTL_T(KC_S),   KC_MINS,
         KC_DLR,  KC_B,    GUI_T(KC_M),        LT(MEDIA_FN, KC_W), ALT_T(KC_V),  ALGR_T(KC_Z),  KC_GRV,
-                          KC_DQUO,            KC_UNDS,            KC_TILD,      TG(DVORAK_DV), OSL(MEH_FN_PLUS),
+                          KC_DQUO,            KC_UNDS,            KC_TILD,      TG(DVORAK_DV), MO(MEH_FN_PLUS),
 
         // right thumb
         KC_UP,   KC_DOWN,
@@ -107,11 +103,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [PLOVER_US] = LAYOUT_ergodox(
         // left hand
-        XXXXXXX,     XXXXXXX,       KC_MS_BTN2, KC_MS_UP,   KC_MS_BTN1,  KC_MS_BTN3, GUI_T(KC_NO),
-        KC_ESC,      KC_MS_BTN4,    KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_BTN5, PV_NUM,
-        KC_TAB,      PV_LS,         PV_LT,      PV_LP,      PV_LH,       PV_STAR,
-        KC_CAPS,     PV_LS,         PV_LK,      PV_LW,      PV_LR,       PV_STAR,    PV_STAR,
-        OSL(MEH_FN), TG(LAYERS_US), PV_NUM,     PV_NUM,     PV_NUM,
+        XXXXXXX,    XXXXXXX,       KC_MS_BTN2, KC_MS_UP,   KC_MS_BTN1,  KC_MS_BTN3, GUI_T(KC_NO),
+        KC_ESC,     KC_MS_BTN4,    KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_BTN5, PV_NUM,
+        KC_TAB,     PV_LS,         PV_LT,      PV_LP,      PV_LH,       PV_STAR,
+        KC_CAPS,    PV_LS,         PV_LK,      PV_LW,      PV_LR,       PV_STAR,    PV_STAR,
+        MO(MEH_FN), TG(LAYERS_US), PV_NUM,     PV_NUM,     PV_NUM,
 
         // left thumb
               KC_SPACE, KC_BSPACE,
@@ -123,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         PV_NUM,       KC_MS_WH_LEFT, KC_LEFT,      KC_DOWN, KC_RIGHT,       KC_MS_WH_RIGHT, KC_MS_WH_DOWN,
                       PV_STAR,       PV_RF,        PV_RP,   PV_RL,          PV_RT,          PV_RD,
         PV_STAR,      PV_STAR,       PV_RR,        PV_RB,   PV_RG,          PV_RS,          PV_RZ,
-                                     PV_NUM,       PV_NUM,  PV_NUM,         PV_NUM,         OSL(MEH_FN_PLUS),
+                                     PV_NUM,       PV_NUM,  PV_NUM,         PV_NUM,         MO(MEH_FN_PLUS),
 
         // right thumb
         KC_DELETE, KC_ENTER,
@@ -133,28 +129,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [GAMING_US] = LAYOUT_ergodox(
         // left hand
-        KC_ESCAPE,              GUI_T(KC_MINS), KC_I,     KC_O,   KC_P,   ALGR_T(KC_EQL), KC_T,
-        KC_TAB,                 KC_LALT,        KC_Q,     KC_W,   KC_E,   ALL_T(KC_R),    KC_G,
-        LT(MOUSE_US, KC_GRV),   KC_LCTRL,       KC_A,     KC_S,   KC_D,   MEH_T(KC_F),
-        KC_BSLS,                KC_LSHIFT,      KC_Z,     KC_X,   KC_C,   SCMD_T(KC_V),   KC_M,
-        OSL(MEH_FN),            TG(LAYERS_US),  KC_COMM, KC_DOT, KC_LBRC,
+        KC_ESCAPE,            GUI_T(KC_MINS), KC_I,     KC_O,   KC_P,   ALGR_T(KC_EQL), KC_T,
+        KC_TAB,               KC_LALT,        KC_Q,     KC_W,   KC_E,   ALL_T(KC_R),    KC_G,
+        LT(MOUSE_US, KC_GRV), KC_LCTRL,       KC_A,     KC_S,   KC_D,   MEH_T(KC_F),
+        KC_BSLS,              KC_LSHIFT,      KC_Z,     KC_X,   KC_C,   SCMD_T(KC_V),   KC_M,
+        MO(MEH_FN),           TG(LAYERS_US),  KC_COMM, KC_DOT, KC_LBRC,
 
         // left thumb
-                   OSL(MEDIA_FN), KC_NUMLOCK,
-                                  KC_SCLN,
-         KC_SPACE, KC_ENTER,      KC_BSPACE,
+                   MO(MEDIA_FN), KC_NUMLOCK,
+                                 KC_SCLN,
+         KC_SPACE, KC_ENTER,     KC_BSPACE,
 
         // right hand
         KC_QUOT,       KC_Y,       KC_K,        KC_U,        KC_KP_7, KC_KP_8,  KC_KP_9,
         KC_MS_WH_UP,   KC_H,       KC_J,        KC_L,        KC_KP_4, KC_KP_2,  KC_KP_6,
                        KC_B,       KC_MS_UP,    KC_N,        KC_KP_1, KC_KP_5,  KC_KP_3,
         KC_MS_WH_DOWN, KC_MS_LEFT, KC_MS_DOWN,  KC_MS_RIGHT, KC_UP,   KC_KP_0,  KC_SLASH,
-                                   KC_RBRC,     KC_LEFT,     KC_DOWN, KC_RIGHT, OSL(MEH_FN_PLUS),
+                                   KC_RBRC,     KC_LEFT,     KC_DOWN, KC_RIGHT, MO(MEH_FN_PLUS),
 
         // right thumb
-        KC_MS_BTN5, OSL(HYPER_FN),
+        KC_MS_BTN5, MO(HYPER_FN),
         KC_MS_BTN4,
-        KC_MS_BTN3, KC_MS_BTN2,    KC_MS_BTN1
+        KC_MS_BTN3, KC_MS_BTN2,   KC_MS_BTN1
     ),
 
     [ARROWS_US] = LAYOUT_ergodox(
@@ -263,11 +259,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [DVORAK_DV] = LAYOUT_ergodox(
         // left hand
-        KC_ESC,      DV_LABK,         DV_LCBR,         DV_LBRC,             DV_LPRN,             DV_EXLM, DV_AMPR,
-        KC_TAB,      DV_QUOT,         SCMD_T(DV_COMM), MEH_T(DV_DOT),       ALL_T(DV_P),         DV_Y,    DV_AT,
-        DV_EQL,      CTL_T(DV_A),     SFT_T(DV_O),     LT(NUMPAD_DV, DV_E), LT(ARROWS_DV, DV_U), DV_I,
-        DV_BSLS,     ALGR_T(DV_SCLN), ALT_T(DV_Q),     LT(MEDIA_FN, DV_J),  GUI_T(DV_K),         DV_X,    DV_PERC,
-        OSL(MEH_FN), TG(LAYERS_DV),   DV_CIRC,         DV_PLUS,             DV_COLN,
+        KC_ESC,     DV_LABK,         DV_LCBR,         DV_LBRC,             DV_LPRN,             DV_EXLM, DV_AMPR,
+        KC_TAB,     DV_QUOT,         SCMD_T(DV_COMM), MEH_T(DV_DOT),       ALL_T(DV_P),         DV_Y,    DV_AT,
+        DV_EQL,     CTL_T(DV_A),     SFT_T(DV_O),     LT(NUMPAD_DV, DV_E), LT(ARROWS_DV, DV_U), DV_I,
+        DV_BSLS,    ALGR_T(DV_SCLN), ALT_T(DV_Q),     LT(MEDIA_FN, DV_J),  GUI_T(DV_K),         DV_X,    DV_PERC,
+        MO(MEH_FN), TG(LAYERS_DV),   DV_CIRC,         DV_PLUS,             DV_COLN,
 
         // left thumb
                 KC_LEFT, KC_RGHT,
@@ -279,7 +275,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         DV_HASH, DV_F,    ALL_T(DV_G),        MEH_T(DV_C),        SCMD_T(DV_R), DV_L,         DV_SLSH,
                  DV_D,    LT(MOUSE_DV, DV_H), LT(HYPER_FN, DV_T), SFT_T(DV_N),  CTL_T(DV_S),  DV_MINS,
         DV_DLR,  DV_B,    GUI_T(DV_M),        LT(MEDIA_FN, DV_W), ALT_T(DV_V),  ALGR_T(DV_Z), DV_GRV,
-                          DV_DQUO,            DV_UNDS,            DV_TILD,      _______,      OSL(MEH_FN_PLUS),
+                          DV_DQUO,            DV_UNDS,            DV_TILD,      _______,      MO(MEH_FN_PLUS),
 
         // right thumb
         KC_UP,   KC_DOWN,
@@ -289,11 +285,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [PLOVER_DV] = LAYOUT_ergodox(
         // left hand
-        XXXXXXX,     XXXXXXX,       KC_MS_BTN2, KC_MS_UP,   KC_MS_BTN1,  KC_MS_BTN3, GUI_T(KC_NO),
-        KC_ESC,      KC_MS_BTN4,    KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_BTN5, PD_NUM,
-        KC_TAB,      PD_LS,         PD_LT,      PD_LP,      PD_LH,       PD_STAR,
-        KC_CAPS,     PD_LS,         PD_LK,      PD_LW,      PD_LR,       PD_STAR,    PD_STAR,
-        OSL(MEH_FN), TG(LAYERS_DV), PD_NUM,     PD_NUM,     PD_NUM,
+        XXXXXXX,    XXXXXXX,       KC_MS_BTN2, KC_MS_UP,   KC_MS_BTN1,  KC_MS_BTN3, GUI_T(KC_NO),
+        KC_ESC,     KC_MS_BTN4,    KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_MS_BTN5, PD_NUM,
+        KC_TAB,     PD_LS,         PD_LT,      PD_LP,      PD_LH,       PD_STAR,
+        KC_CAPS,    PD_LS,         PD_LK,      PD_LW,      PD_LR,       PD_STAR,    PD_STAR,
+        MO(MEH_FN), TG(LAYERS_DV), PD_NUM,     PD_NUM,     PD_NUM,
 
         // left thumb
               KC_SPACE, KC_BSPACE,
@@ -305,7 +301,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         PD_NUM,       KC_MS_WH_LEFT, KC_LEFT,      KC_DOWN, KC_RIGHT,       KC_MS_WH_RIGHT, KC_MS_WH_DOWN,
                       PD_STAR,       PD_RF,        PD_RP,   PD_RL,          PD_RT,          PD_RD,
         PD_STAR,      PD_STAR,       PD_RR,        PD_RB,   PD_RG,          PD_RS,          PD_RZ,
-                                     PD_NUM,       PD_NUM,  PD_NUM,         PD_NUM,         OSL(MEH_FN_PLUS),
+                                     PD_NUM,       PD_NUM,  PD_NUM,         PD_NUM,         MO(MEH_FN_PLUS),
 
         // right thumb
         KC_DELETE, KC_ENTER,
@@ -319,24 +315,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,               KC_LALT,        DV_Q,    DV_W,   DV_E,    ALL_T(DV_R),    DV_G,
         LT(MOUSE_DV, DV_GRV), KC_LCTRL,       DV_A,    DV_S,   DV_D,    MEH_T(DV_F),
         DV_BSLS,              KC_LSHIFT,      DV_Z,    DV_X,   DV_C,    SCMD_T(DV_V),   DV_M,
-        OSL(MEH_FN),          TG(LAYERS_DV),  DV_COMM, DV_DOT, DV_LBRC,
+        MO(MEH_FN),           TG(LAYERS_DV),  DV_COMM, DV_DOT, DV_LBRC,
 
         // left thumb
-                   OSL(MEDIA_FN), KC_NUMLOCK,
-                                  DV_SCLN,
-         KC_SPACE, KC_ENTER,      KC_BSPACE,
+                   MO(MEDIA_FN), KC_NUMLOCK,
+                                 DV_SCLN,
+         KC_SPACE, KC_ENTER,     KC_BSPACE,
 
         // right hand
         DV_QUOT,       DV_Y,       DV_K,       DV_U,        KC_KP_7, KC_KP_8,  KC_KP_9,
         KC_MS_WH_UP,   DV_H,       DV_J,       DV_L,        KC_KP_4, KC_KP_2,  KC_KP_6,
                        DV_B,       KC_MS_UP,   DV_N,        KC_KP_1, KC_KP_5,  KC_KP_3,
         KC_MS_WH_DOWN, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_UP,   KC_KP_0,  DV_SLSH,
-                                   DV_RBRC,    KC_LEFT,     KC_DOWN, KC_RIGHT, OSL(MEH_FN_PLUS),
+                                   DV_RBRC,    KC_LEFT,     KC_DOWN, KC_RIGHT, MO(MEH_FN_PLUS),
 
         // right thumb
-        KC_MS_BTN5, OSL(HYPER_FN),
+        KC_MS_BTN5, MO(HYPER_FN),
         KC_MS_BTN4,
-        KC_MS_BTN3, KC_MS_BTN2,    KC_MS_BTN1
+        KC_MS_BTN3, KC_MS_BTN2,   KC_MS_BTN1
     ),
 
     [ARROWS_DV] = LAYOUT_ergodox(
@@ -445,16 +441,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [MEDIA_FN] = LAYOUT_ergodox(
         // left hand
-        KC_AUDIO_VOL_DOWN,   KC_AUDIO_MUTE, RGB_TOG,    XXXXXXX, KC_MAIL,    KC_FIND, KC_WWW_REFRESH,
-        KC_MEDIA_PREV_TRACK, KC_F9,         KC_F7,      KC_F5,   KC_F3,      KC_F1,   KC_WWW_HOME,
-        KC_PAUSE,            KC_F19,        KC_F17,     KC_F15,  KC_F13,     KC_F11,
-        RGB_HUD,             XXXXXXX,       XXXXXXX,    _______, KC_F23,     KC_F21,  KC_WWW_BACK,
+        KC_AUDIO_VOL_DOWN,   KC_AUDIO_MUTE, RGB_TOG,    XXXXXXX, KC_MAIL,      KC_FIND, KC_WWW_REFRESH,
+        KC_MEDIA_PREV_TRACK, KC_F9,         KC_F7,      KC_F5,   KC_F3,        KC_F1,   KC_WWW_HOME,
+        KC_PAUSE,            KC_F19,        KC_F17,     KC_F15,  KC_F13,       KC_F11,
+        RGB_HUD,             XXXXXXX,       XXXXXXX,    _______, KC_F23,       KC_F21,  KC_WWW_BACK,
         RGB_VAD,             KC_CAPSLOCK,   KC_PSCREEN, XXXXXXX, MO(FIRMWARE),
 
         // left thumb
-                 _______,   XXXXXXX,
-                            XXXXXXX,
-        RGB_RED, RGB_GREEN, KC_MEDIA_EJECT,
+                 _______, XXXXXXX,
+                          XXXXXXX,
+        XXXXXXX, XXXXXXX, KC_MEDIA_EJECT,
 
         // right hand
         KC_WWW_FAVORITES, KC_MY_COMPUTER, KC_CALCULATOR,   XXXXXXX, RGB_MOD,         RGB_M_P,        KC_AUDIO_VOL_UP,
@@ -464,9 +460,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                           KC_SYSTEM_POWER, XXXXXXX, KC_SYSTEM_SLEEP, KC_SYSTEM_WAKE, RGB_VAI,
 
         // right thumb
-        XXXXXXX,  XXXXXXX,
+        XXXXXXX,   XXXXXXX,
         XXXXXXX,
-        RGB_BLUE, RGB_MAGENTA, RGB_YELLOW
+        RGB_GREEN, XXXXXXX, XXXXXXX
     ),
 
     [HYPER_FN] = LAYOUT_ergodox(
@@ -574,66 +570,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-void matrix_init_user(void) {
-    rgblight_sethsv_noeeprom_green();
-};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case RGB_RED:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                    rgblight_enable();
-                    rgblight_mode(1);
-                    rgblight_sethsv_noeeprom_red();
-                #endif
-            }
-
-            return false;
-
         case RGB_GREEN:
             if (record->event.pressed) {
                 #ifdef RGBLIGHT_ENABLE
                     rgblight_enable();
                     rgblight_mode(1);
-                    rgblight_sethsv_noeeprom_green();
+                    rgblight_sethsv_green();
                 #endif
             }
 
             return false;
-
-        case RGB_BLUE:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                    rgblight_enable();
-                    rgblight_mode(1);
-                    rgblight_sethsv_noeeprom_blue();
-                #endif
-            }
-
-            return false;
-
-        case RGB_MAGENTA:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                    rgblight_enable();
-                    rgblight_mode(1);
-                    rgblight_sethsv_noeeprom_magenta();
-                #endif
-            }
-
-            return false;
-
-        case RGB_YELLOW:
-            if (record->event.pressed) {
-                #ifdef RGBLIGHT_ENABLE
-                    rgblight_enable();
-                    rgblight_mode(1);
-                    rgblight_sethsv_noeeprom_yellow();
-                #endif
-        }
-
-        return false;
 
         default:
             return true;
@@ -648,7 +597,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
 
-    switch (biton32(layer)) {
+    switch (layer) {
         case DVORAK_US:
             rgblight_sethsv_noeeprom_green();
 
@@ -656,83 +605,83 @@ uint32_t layer_state_set_user(uint32_t state) {
 
         case PLOVER_US:
             ergodox_right_led_1_on();
-            rgblight_sethsv_noeeprom_red();
+            rgblight_sethsv_noeeprom_springgreen();
 
             break;
 
         case GAMING_US:
             ergodox_right_led_2_on();
-            rgblight_sethsv_noeeprom_cyan();
+            rgblight_sethsv_noeeprom_turquoise();
 
             break;
 
         case ARROWS_US:
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_yellow();
+            rgblight_sethsv_noeeprom_orange();
 
             break;
 
         case MOUSE_US:
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
-            rgblight_sethsv_noeeprom_magenta();
+            rgblight_sethsv_noeeprom_goldenrod();
 
             break;
 
         case NUMPAD_US:
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_yellow();
+            rgblight_sethsv_noeeprom_gold();
 
             break;
 
         case LAYERS_US:
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_orange();
+            rgblight_sethsv_noeeprom_red();
 
             break;
 
         case DVORAK_DV:
-            rgblight_sethsv_noeeprom_springgreen();
+            rgblight_sethsv_noeeprom_cyan();
             break;
 
         case PLOVER_DV:
             ergodox_right_led_1_on();
-            rgblight_sethsv_noeeprom_coral();
+            rgblight_sethsv_noeeprom_azure();
 
             break;
 
         case GAMING_DV:
             ergodox_right_led_2_on();
-            rgblight_sethsv_noeeprom_azure();
+            rgblight_sethsv_noeeprom_blue();
 
             break;
 
         case ARROWS_DV:
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_goldenrod();
+            rgblight_sethsv_noeeprom_chartreuse();
 
             break;
 
         case MOUSE_DV:
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
-            rgblight_sethsv_noeeprom_purple();
+            rgblight_sethsv_noeeprom_turquoise();
 
             break;
 
         case NUMPAD_DV:
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_gold();
+            rgblight_sethsv_noeeprom_white();
 
             break;
 
         case LAYERS_DV:
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_chartreuse();
+            rgblight_sethsv_noeeprom_coral();
 
             break;
 
@@ -740,32 +689,32 @@ uint32_t layer_state_set_user(uint32_t state) {
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_teal();
+            rgblight_sethsv_noeeprom_yellow();
 
             break;
 
         case HYPER_FN:
             ergodox_right_led_2_on();
-            rgblight_sethsv_noeeprom_blue();
+            rgblight_sethsv_noeeprom_purple();
 
             break;
 
         case MEH_FN:
             ergodox_right_led_1_on();
-            rgblight_sethsv_noeeprom_turquoise();
+            rgblight_sethsv_noeeprom_magenta();
 
             break;
 
         case MEH_FN_PLUS:
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_white();
+            rgblight_sethsv_noeeprom_pink();
 
             break;
 
         case FIRMWARE:
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_pink();
+            rgblight_sethsv_noeeprom_teal();
 
             break;
 
