@@ -28,6 +28,6 @@ Sometimes it's useful to print debug messages from within your [custom code](cus
 After that you can use a few different print functions:
 
 * `print("string")`: Print a simple string.
-* `sprintf("%s string", var)`: Print a formatted string
+* `uprintf("%s string", var)`: Print a formatted string
 * `dprint("string")` Print a simple string, but only when debug mode is enabled
 * `dprintf("%s string", var)`: Print a formatted string, but only when debug mode is enabled

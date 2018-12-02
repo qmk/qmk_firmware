@@ -36,24 +36,31 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
+
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   atmega32a    bootloadHID
+BOOTLOADER = caterina
+
+
+# If you don't know the bootloader type, then you can specify the
+# Boot Section Size in *bytes* by uncommenting out the OPT_DEFS line
+#   Teensy halfKay      512
+#   Teensy++ halfKay    1024
+#   Atmel DFU loader    4096
+#   LUFA bootloader     4096
+#   USBaspLoader        2048
 # OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
-# Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded
-#     automatically (+60). See bootloader.mk for all options.
-BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
 #
-BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
+BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes        # Console for debug(+400)
@@ -68,7 +75,6 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
-HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
+HD44780_ENABLE = no 				# Enable support for HD44780 based LCDs (+400)
 
-#FIXME: Community keymap build are currently failing due to missing functionality
-#LAYOUTS = ortho_5x5  ortho_5x10  ortho_5x15
+LAYOUTS = ortho_5x5  ortho_5x10  ortho_5x15

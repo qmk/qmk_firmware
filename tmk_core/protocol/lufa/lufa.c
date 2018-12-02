@@ -409,19 +409,21 @@ void EVENT_USB_Device_ConfigurationChanged(void)
     bool ConfigSuccess = true;
 
     /* Setup Keyboard HID Report Endpoints */
+#ifndef KEYBOARD_SHARED_EP
     ConfigSuccess &= ENDPOINT_CONFIG(KEYBOARD_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                      KEYBOARD_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
 
-#ifdef MOUSE_ENABLE
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
     /* Setup Mouse HID Report Endpoint */
     ConfigSuccess &= ENDPOINT_CONFIG(MOUSE_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
                                      MOUSE_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
-#ifdef EXTRAKEY_ENABLE
-    /* Setup Extra HID Report Endpoint */
-    ConfigSuccess &= ENDPOINT_CONFIG(EXTRAKEY_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                     EXTRAKEY_EPSIZE, ENDPOINT_BANK_SINGLE);
+#ifdef SHARED_EP_ENABLE
+    /* Setup Shared HID Report Endpoint */
+    ConfigSuccess &= ENDPOINT_CONFIG(SHARED_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                     SHARED_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
 #ifdef RAW_ENABLE
@@ -440,12 +442,6 @@ void EVENT_USB_Device_ConfigurationChanged(void)
     ConfigSuccess &= ENDPOINT_CONFIG(CONSOLE_OUT_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_OUT,
                                      CONSOLE_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
-#endif
-
-#ifdef NKRO_ENABLE
-    /* Setup NKRO HID Report Endpoints */
-    ConfigSuccess &= ENDPOINT_CONFIG(NKRO_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
-                                     NKRO_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
 
 #ifdef MIDI_ENABLE
@@ -512,8 +508,8 @@ void EVENT_USB_Device_ControlRequest(void)
                 // Interface
                 switch (USB_ControlRequest.wIndex) {
                 case KEYBOARD_INTERFACE:
-#ifdef NKRO_ENABLE
-                case NKRO_INTERFACE:
+#if defined(SHARED_EP_ENABLE) && !defined(KEYBOARD_SHARED_EP)
+                case SHARED_INTERFACE:
 #endif
                     Endpoint_ClearSETUP();
 
@@ -521,7 +517,17 @@ void EVENT_USB_Device_ControlRequest(void)
                         if (USB_DeviceState == DEVICE_STATE_Unattached)
                           return;
                     }
+#if defined(SHARED_EP_ENABLE)
+                    uint8_t report_id = REPORT_ID_KEYBOARD;
+                    if (keyboard_protocol) {
+                       report_id = Endpoint_Read_8();
+                    }
+                    if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
+                        keyboard_led_stats = Endpoint_Read_8();
+                    }
+#else
                     keyboard_led_stats = Endpoint_Read_8();
+#endif
 
                     Endpoint_ClearOUT();
                     Endpoint_ClearStatusStage();
@@ -612,16 +618,20 @@ static void send_keyboard(report_keyboard_t *report)
     #ifdef MODULE_ADAFRUIT_BLE
       adafruit_ble_send_keys(report->mods, report->keys, sizeof(report->keys));
     #elif MODULE_RN42
-       bluefruit_serial_send(0xFD);
-       bluefruit_serial_send(0x09);
-       bluefruit_serial_send(0x01);
-       for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
-         bluefruit_serial_send(report->raw[i]);
-       }
+      bluefruit_serial_send(0xFD);
+      bluefruit_serial_send(0x09);
+      bluefruit_serial_send(0x01);
+      bluefruit_serial_send(report->mods);
+      bluefruit_serial_send(report->reserved);
+      for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+        bluefruit_serial_send(report->keys[i]);
+      }
     #else
       bluefruit_serial_send(0xFD);
-      for (uint8_t i = 0; i < KEYBOARD_EPSIZE; i++) {
-        bluefruit_serial_send(report->raw[i]);
+      bluefruit_serial_send(report->mods);
+      bluefruit_serial_send(report->reserved);
+      for (uint8_t i = 0; i < KEYBOARD_REPORT_KEYS; i++) {
+        bluefruit_serial_send(report->keys[i]);
       }
     #endif
   }
@@ -632,30 +642,24 @@ static void send_keyboard(report_keyboard_t *report)
     }
 
     /* Select the Keyboard Report Endpoint */
+    uint8_t ep = KEYBOARD_IN_EPNUM;
+    uint8_t size = KEYBOARD_REPORT_SIZE;
 #ifdef NKRO_ENABLE
     if (keyboard_protocol && keymap_config.nkro) {
-        /* Report protocol - NKRO */
-        Endpoint_SelectEndpoint(NKRO_IN_EPNUM);
-
-        /* Check if write ready for a polling interval around 1ms */
-        while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(4);
-        if (!Endpoint_IsReadWriteAllowed()) return;
-
-        /* Write Keyboard Report Data */
-        Endpoint_Write_Stream_LE(report, NKRO_EPSIZE, NULL);
+        ep = SHARED_IN_EPNUM;
+        size = sizeof(struct nkro_report);
     }
-    else
 #endif
-    {
-        /* Boot protocol */
-        Endpoint_SelectEndpoint(KEYBOARD_IN_EPNUM);
+    Endpoint_SelectEndpoint(ep);
+    /* Check if write ready for a polling interval around 10ms */
+    while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
+    if (!Endpoint_IsReadWriteAllowed()) return;
 
-        /* Check if write ready for a polling interval around 10ms */
-        while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
-        if (!Endpoint_IsReadWriteAllowed()) return;
-
-        /* Write Keyboard Report Data */
-        Endpoint_Write_Stream_LE(report, KEYBOARD_EPSIZE, NULL);
+    /* If we're in Boot Protocol, don't send any report ID or other funky fields */
+    if (!keyboard_protocol) {
+        Endpoint_Write_Stream_LE(&report->mods, 8, NULL);
+    } else {
+        Endpoint_Write_Stream_LE(report, size, NULL);
     }
 
     /* Finalize the stream transfer to send the last packet */
@@ -718,6 +722,7 @@ static void send_mouse(report_mouse_t *report)
  */
 static void send_system(uint16_t data)
 {
+#ifdef EXTRAKEY_ENABLE
     uint8_t timeout = 255;
 
     if (USB_DeviceState != DEVICE_STATE_Configured)
@@ -727,7 +732,7 @@ static void send_system(uint16_t data)
         .report_id = REPORT_ID_SYSTEM,
         .usage = data - SYSTEM_POWER_DOWN + 1
     };
-    Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
+    Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
     while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
@@ -735,6 +740,7 @@ static void send_system(uint16_t data)
 
     Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
     Endpoint_ClearIN();
+#endif
 }
 
 /** \brief Send Consumer
@@ -743,6 +749,7 @@ static void send_system(uint16_t data)
  */
 static void send_consumer(uint16_t data)
 {
+#ifdef EXTRAKEY_ENABLE
     uint8_t timeout = 255;
     uint8_t where = where_to_send();
 
@@ -786,7 +793,7 @@ static void send_consumer(uint16_t data)
         .report_id = REPORT_ID_CONSUMER,
         .usage = data
     };
-    Endpoint_SelectEndpoint(EXTRAKEY_IN_EPNUM);
+    Endpoint_SelectEndpoint(SHARED_IN_EPNUM);
 
     /* Check if write ready for a polling interval around 10ms */
     while (timeout-- && !Endpoint_IsReadWriteAllowed()) _delay_us(40);
@@ -794,6 +801,7 @@ static void send_consumer(uint16_t data)
 
     Endpoint_Write_Stream_LE(&r, sizeof(report_extra_t), NULL);
     Endpoint_ClearIN();
+#endif
 }
 
 

@@ -21,5 +21,5 @@
 #define DIODE_DIRECTION COL2ROW
 
 // Iso fix for Space Cadet, comment for ANSI layouts
-#define LSPO_KEY KC_8
-#define RSPC_KEY KC_9
+//#define LSPO_KEY KC_8
+//#define RSPC_KEY KC_9

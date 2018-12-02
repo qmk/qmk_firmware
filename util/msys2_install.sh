@@ -13,9 +13,11 @@ source "$dir/win_shared_install.sh"
 
 function install_avr {
     rm -f -r "$avrtools"
-    wget "http://ww1.microchip.com/downloads/en/DeviceDoc/avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe"
-    7z x avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe
-    rm avr8-gnu-toolchain-installer-3.5.4.91-win32.any.x86.exe
+    wget "http://ww1.microchip.com/downloads/en/DeviceDoc/avr8-gnu-toolchain-3.6.1.1752-win32.any.x86.zip"
+    7z x avr8-gnu-toolchain-3.6.1.1752-win32.any.x86.zip
+    mv avr8-gnu-toolchain-win32_x86/ avr8-gnu-toolchain
+    rm __MACOSX -R
+    rm avr8-gnu-toolchain-3.6.1.1752-win32.any.x86.zip
     pacman --needed -S mingw-w64-x86_64-avrdude
 }
 

@@ -4,6 +4,7 @@
 #undef TAPPING_FORCE_HOLD
 #undef TAPPING_TERM
 #define TAPPING_TERM 120
+#define SWAP_SCLN
 
 // If you need more program area, try select and reduce rgblight modes to use.
 

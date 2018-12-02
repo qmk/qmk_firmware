@@ -143,6 +143,7 @@ void matrix_print(void){
 /* Column pin configuration
  */
 //  Modified by Xydane
+// note that the pads are pulled up, so they're high by default
 static void  init_cols(void){
   palSetPadMode(GPIOB, 3, PAL_MODE_INPUT_PULLUP);
   palSetPadMode(GPIOB, 4, PAL_MODE_INPUT_PULLUP);
@@ -161,20 +162,21 @@ static void  init_cols(void){
 
 /* Returns status of switches(1:on, 0:off) */
 //  Modified by Xydane
+// that's why when they read high, it's actually 0
 static matrix_row_t read_cols(void){
-  return ((palReadPad(GPIOB, 3)==PAL_HIGH) ? 0 : (1<<0))
-    | ((palReadPad(GPIOB, 4)==PAL_HIGH) ? 0 : (1<<1))
-    | ((palReadPad(GPIOB, 5)==PAL_HIGH) ? 0 : (1<<2))
-    | ((palReadPad(GPIOB, 6)==PAL_HIGH) ? 0 : (1<<3))
-    | ((palReadPad(GPIOB, 7)==PAL_HIGH) ? 0 : (1<<4))
-    | ((palReadPad(GPIOB, 11)==PAL_HIGH) ? 0 : (1<<5))
-    | ((palReadPad(GPIOB, 10)==PAL_HIGH) ? 0 : (1<<6))
-    | ((palReadPad(GPIOB, 1)==PAL_HIGH) ? 0 : (1<<7))
-    | ((palReadPad(GPIOB, 0)==PAL_HIGH) ? 0 : (1<<8))
-    | ((palReadPad(GPIOA, 7)==PAL_HIGH) ? 0 : (1<<9))
-    | ((palReadPad(GPIOA, 6)==PAL_HIGH) ? 0 : (1<<10))
-    | ((palReadPad(GPIOA, 5)==PAL_HIGH) ? 0 : (1<<11))
-    | ((palReadPad(GPIOA, 4)==PAL_HIGH) ? 0 : (1<<12));
+  return (!palReadPad(GPIOB, 3) << 0)
+    | (!palReadPad(GPIOB, 4) << 1)
+    | (!palReadPad(GPIOB, 5) << 2)
+    | (!palReadPad(GPIOB, 6) << 3)
+    | (!palReadPad(GPIOB, 7) << 4)
+    | (!palReadPad(GPIOB, 11) << 5)
+    | (!palReadPad(GPIOB, 10) << 6)
+    | (!palReadPad(GPIOB, 1) << 7)
+    | (!palReadPad(GPIOB, 0) << 8)
+    | (!palReadPad(GPIOA, 7) << 9)
+    | (!palReadPad(GPIOA, 6) << 10)
+    | (!palReadPad(GPIOA, 5) << 11)
+    | (!palReadPad(GPIOA, 4) << 12);
 }
 
 /* Row pin configuration
