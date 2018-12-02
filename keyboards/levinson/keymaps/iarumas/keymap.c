@@ -20,8 +20,8 @@ enum my_keycodes{
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
 [N2_LETS] = LAYOUT_ortho_4x12( 
   KC_ESC,     KC_X,    KC_V,    KC_L,    KC_C,    KC_W,   KC_K,    KC_H,    KC_G,    KC_F,    KC_Q,    KC_ENTER,
-  MO(N2_SYMB),    KC_U,    KC_I,    KC_A,    KC_E,    KC_O,   KC_S,    KC_N,    KC_R,    KC_T,    KC_D,    MO(N2_SYMB),
-  KC_LSHIFT,  N_UE,    N_OE,    N_AE,    KC_P,    N_Z,    KC_B,    KC_M,    KC_COMM, KC_DOT,  KC_J,    KC_RSFT,
+  MO(N2_SYMB),    KC_U,    KC_I,    KC_A,    KC_E,    KC_O,   KC_S,    KC_N,    KC_R,    KC_T,    KC_D,    N_SS,
+  KC_LSHIFT,  N_UE,    N_OE,    N_AE,    KC_P,    N_Z,    KC_B,    KC_M,    KC_COMM, KC_DOT,  KC_J,    N_Y,
   KC_LCTRL,   KC_LGUI, KC_LALT, MO(N2_FUN), MO(N2_CTRL), KC_SPC, KC_SPC,  MO(N2_CTRL), MO(N2_FUN), KC_RALT, KC_LGUI, KC_RCTRL
 ),
 
@@ -52,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
 [QUERTZ] = LAYOUT_ortho_4x12(
    _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Z,    KC_U,    KC_I,    KC_O,    KC_P,    _______,
    _______, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    N_OE,    _______,
-   _______, KC_Y,    KC_X,    KC_C,    KC_V,    KC_B,     KC_N,    KC_M,    KC_COMM, KC_DOT,  N_MINS,  _______,
+   _______, KC_Y,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  N_MINS,  _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )
 };
