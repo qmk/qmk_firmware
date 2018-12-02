@@ -25,9 +25,15 @@
 
 #include "quantum/color.h"
 
+typedef struct PACKED
+{
+	uint8_t h;
+	uint8_t s;
+} HS;
+
 typedef struct
 {
-	HSV color;
+	HS color;
 	uint8_t index;
 } backlight_config_indicator;
 
@@ -45,14 +51,17 @@ typedef struct
 	uint8_t brightness;                 // 1 byte
 	uint8_t effect;                     // 1 byte
 	uint8_t effect_speed;				// 1 byte
-	HSV color_1;                        // 3 bytes
-	HSV color_2;                        // 3 bytes
-	backlight_config_indicator caps_lock_indicator;	// 4 bytes
-	backlight_config_indicator layer_1_indicator;	// 4 bytes
-	backlight_config_indicator layer_2_indicator;	// 4 bytes
-	backlight_config_indicator layer_3_indicator;	// 4 bytes
+	HS color_1;                         // 2 bytes
+	HS color_2;                         // 2 bytes
+	backlight_config_indicator caps_lock_indicator;	// 3 bytes
+	backlight_config_indicator layer_1_indicator;	// 3 bytes
+	backlight_config_indicator layer_2_indicator;	// 3 bytes
+	backlight_config_indicator layer_3_indicator;	// 3 bytes
 	uint16_t alphas_mods[5];            // 10 bytes
-} backlight_config;                // = 37 bytes
+#if defined(RGB_BACKLIGHT_M6_B)
+	HS custom_color[6];                 // 12 bytes
+#endif
+} backlight_config;                // = 31 bytes (M6-B = 43 bytes)
 
 void backlight_config_load(void);
 void backlight_config_save(void);

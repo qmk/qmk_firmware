@@ -50,7 +50,7 @@ enum custom_keycodes {
 #define KC_LSAD  RGB_SAD
 #define KC_LVAI  RGB_VAI
 #define KC_LVAD  RGB_VAD
-#define KC_LSMOD RGB_SMOD
+#define KC_LMOD  RGB_MOD
 
 #define KC_KNRM  AG_NORM
 #define KC_KSWP  AG_SWAP
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+-------+------+------+------+-----|                |------+------+------+------+------+------|
       _____,   LTOG,  LHUI,  LSAI,  LVAI,XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX,  PGUP, XXXXX,\
   //|------+-------+------+------+------+-----|                |------+------+------+------+------+------|
-      _____,  LSMOD,  LHUD,  LSAD,  LVAD,XXXXX,                  XXXXX, XXXXX, XXXXX,  HOME,  PGDN,   END,\
+      _____,   LMOD,  LHUD,  LSAD,  LVAD,XXXXX,                  XXXXX, XXXXX, XXXXX,  HOME,  PGDN,   END,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   _____, _____, XXXXX,    _____, _____, XXXXX \
                               //`--------------------'  `--------------------'
