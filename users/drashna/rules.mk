@@ -27,6 +27,11 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   endif
 endif
 
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+  SRC += rgb_stuff.c
+endif
+
+
 ifeq ($(strip $(MACROS_ENABLED)), yes)
     OPT_DEFS += -DMACROS_ENABLED
 endif
@@ -37,3 +42,15 @@ ifdef CONSOLE_ENABLE
   endif
 endif
 
+
+ifeq ($(strip $(UCIS_ENABLE)), yes)
+  SRC += send_unicode.c
+endif
+
+ifeq ($(strip $(UNICODEMAP_ENABLE)), yes)
+  SRC += send_unicode.c
+endif
+
+ifeq ($(strip $(UNICODE_ENABLE)), yes)
+  SRC += send_unicode.c
+endif

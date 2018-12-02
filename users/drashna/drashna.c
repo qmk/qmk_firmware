@@ -20,6 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgb_stuff.h"
 
 userspace_config_t userspace_config;
+#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+  #define DRASHNA_UNICODE_MODE UC_WIN
+#else
+  // set to 2 for UC_WIN, set to 4 for UC_WINC
+  #define DRASHNA_UNICODE_MODE 2
+#endif
 
 uint16_t copy_paste_timer;
 //  Helper Functions
@@ -154,26 +160,28 @@ void matrix_init_user(void) {
 
   userspace_config.raw = eeconfig_read_user();
 
-#ifdef BOOTLOADER_CATERINA
-  DDRD &= ~(1<<5);
-  PORTD &= ~(1<<5);
+  #ifdef BOOTLOADER_CATERINA
+    DDRD &= ~(1<<5);
+    PORTD &= ~(1<<5);
 
-  DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);
-#endif
+    DDRB &= ~(1<<0);
+    PORTB &= ~(1<<0);
+  #endif
 
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-  if (eeprom_read_byte(EECONFIG_UNICODEMODE) != UC_WIN) {
-    set_unicode_input_mode(UC_WIN);
-  }
-#endif //UNICODE_ENABLE
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
+    get_unicode_input_mode();
+  #endif //UNICODE_ENABLE
   matrix_init_keymap();
-}
-
-void startup_user (void) {
   #ifdef RGBLIGHT_ENABLE
     matrix_init_rgb();
   #endif //RGBLIGHT_ENABLE
+}
+
+void startup_user (void) {
+  // #ifdef RGBLIGHT_ENABLE
+  //   matrix_init_rgb();
+  // #endif //RGBLIGHT_ENABLE
   startup_keymap();
 }
 
@@ -266,9 +274,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
       uint8_t temp_mod = get_mods();
-      clear_mods();
+      uint8_t temp_osm = get_oneshot_mods();
+      clear_mods(); clear_oneshot_mods();
       send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
-      if (temp_mod & MODS_SHIFT_MASK) {
+      if (temp_mod & MODS_SHIFT_MASK || temp_osm & MODS_SHIFT_MASK) {
         #if defined(__ARM__)
           send_string_with_delay_P(PSTR(":dfu-util"), 10);
         #elif defined(BOOTLOADER_DFU)
@@ -282,17 +291,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #if defined(KEYBOARD_viterbi)
         send_string_with_delay_P(PSTR(":dfu"), 10);
       #endif
-      if (temp_mod & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
+      if (temp_mod & MODS_CTRL_MASK || temp_osm & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
       send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
       set_mods(temp_mod);
     }
     break;
 
-  case EPRM: // Resets EEPROM
-    if (record->event.pressed) {
-      eeconfig_init();
-    }
-    break;
   case VRSN: // Prints firmware version
     if (record->event.pressed) {
       send_string_with_delay_P(PSTR(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION ", Built on: " QMK_BUILDDATE), MACRO_TIMER);
@@ -386,7 +390,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif
   }
   return process_record_keymap(keycode, record) &&
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     process_record_user_rgb(keycode, record) &&
 #endif // RGBLIGHT_ENABLE
     process_record_secrets(keycode, record);
@@ -407,7 +411,11 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 
 uint32_t default_layer_state_set_user(uint32_t state) {
-  return default_layer_state_set_keymap(state);
+  state = default_layer_state_set_keymap(state);
+#ifdef RGBLIGHT_ENABLE
+  state = default_layer_state_set_rgb(state);
+#endif // RGBLIGHT_ENABLE
+  return state;
 }
 
 
@@ -422,4 +430,10 @@ void eeconfig_init_user(void) {
   userspace_config.raw = 0;
   userspace_config.rgb_layer_change = true;
   eeconfig_update_user(userspace_config.raw);
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
+    get_unicode_input_mode();
+  #else
+    eeprom_update_byte(EECONFIG_UNICODEMODE, DRASHNA_UNICODE_MODE);
+  #endif
 }
