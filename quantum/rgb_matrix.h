@@ -25,10 +25,8 @@
 #include "quantum.h"
 
 #ifdef IS31FL3731
-    #include "i2c_master.h"
     #include "is31fl3731.h"
 #elif defined (IS31FL3733)
-    #include "i2c_master.h"
     #include "is31fl3733.h"
 #elif defined (WS2812)
     #include "ws2812.h"

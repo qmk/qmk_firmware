@@ -889,28 +889,6 @@ uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
 //     }
 // }
 
-void rgb_matrix_test_led( uint8_t index, bool red, bool green, bool blue ) {
-    for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
-    {
-        if ( i == index )
-        {
-#ifdef IS31FL3731
-            IS31FL3731_set_led_control_register( i, red, green, blue );
-#elif defined (IS31FL3733)
-            IS31FL3733_set_led_control_register( i, red, green, blue );
-#endif
-        }
-        else
-        {
-#ifdef IS31FL3731
-            IS31FL3731_set_led_control_register( i, false, false, false );
-#elif defined (IS31FL3733)
-            IS31FL3733_set_led_control_register( i, false, false, false );
-#endif
-        }
-    }
-}
-
 uint32_t rgb_matrix_get_tick(void) {
     return g_tick;
 }

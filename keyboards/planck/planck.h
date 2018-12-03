@@ -3,7 +3,7 @@
 
 #include "quantum.h"
 
-//#define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)
+#define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)
 
 #ifdef __AVR__
 #define LAYOUT_planck_mit( \

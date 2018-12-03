@@ -90,6 +90,7 @@ uint8_t matrix_scan(void) {
         dip_update(i, dip_switch[i]);
     }
     memcpy(last_dip_switch, dip_switch, sizeof(&dip_switch));
+
     // actual matrix
     for (int col = 0; col < MATRIX_COLS; col++) {
         matrix_row_t data = 0;

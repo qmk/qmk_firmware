@@ -306,9 +306,9 @@ void rgblight_disable(void) {
   rgblight_config.enable = 0;
   eeconfig_update_rgblight(rgblight_config.raw);
   xprintf("rgblight disable [EEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
-  #ifdef RGBLIGHT_ANIMATIONS
-    rgblight_timer_disable();
-  #endif
+#ifdef RGBLIGHT_USE_TIMER
+      rgblight_timer_disable();
+#endif
   wait_ms(50);
   rgblight_set();
 }
@@ -318,7 +318,7 @@ void rgblight_disable_noeeprom(void) {
   xprintf("rgblight disable [noEEPROM]: rgblight_config.enable = %u\n", rgblight_config.enable);
 #ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_disable();
-  #endif
+#endif
   wait_ms(50);
   rgblight_set();
 }
