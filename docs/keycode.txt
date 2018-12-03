@@ -209,6 +209,8 @@ KC_WWW_FORWARD      KC_WFWD
 KC_WWW_STOP         KC_WSTP
 KC_WWW_REFRESH      KC_WREF
 KC_WWW_FAVORITES    KC_WFAV
+KC_BRIGHTNESS_UP    KC_BRIU
+KC_BRIGHTNESS_DOWN  KC_BRID
 /* Mousekey */
 KC_MS_UP            KC_MS_U         Mouse Cursor Up
 KC_MS_DOWN          KC_MS_D         Mouse Cursor Down
