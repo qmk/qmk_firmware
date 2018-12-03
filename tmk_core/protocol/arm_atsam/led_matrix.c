@@ -336,6 +336,15 @@ void led_matrix_run(void)
                   po = led_cur->px;
                 }
 
+                if (po < 0)
+                {
+                  po += 100;
+                }
+                else if (po > 100)
+                {
+                  po -= 100;
+                }
+
                 float pomod;
                 pomod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
 
