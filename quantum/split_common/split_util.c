@@ -24,8 +24,6 @@
 
 #if defined(USE_I2C) || defined(EH)
 #  include "i2c.h"
-#else
-#  include "serial.h"
 #endif
 
 volatile bool isLeftHand = true;

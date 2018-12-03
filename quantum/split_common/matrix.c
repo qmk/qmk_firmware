@@ -68,6 +68,7 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 #define ERROR_DISCONNECT_COUNT 5
 
 #define ROWS_PER_HAND (MATRIX_ROWS/2)
+#define SERIAL_MASTER_BUFFER_LENGTH 1
 
 static uint8_t error_count = 0;
 
@@ -286,10 +287,27 @@ i2c_error: // the cable is disconnceted, or something else went wrong
 
 #else // USE_SERIAL
 
+uint8_t volatile serial_slave_buffer[ROWS_PER_HAND] = {0};
+uint8_t volatile serial_master_buffer[SERIAL_MASTER_BUFFER_LENGTH] = {0};
+uint8_t volatile status0 = 0;
+
+SSTD_t transactions[] = {
+    { (uint8_t *)&status0,
+      sizeof(serial_master_buffer), (uint8_t *)serial_master_buffer,
+      sizeof(serial_slave_buffer), (uint8_t *)serial_slave_buffer
+  }
+};
+
+void serial_master_init(void)
+{ soft_serial_initiator_init(transactions, TID_LIMIT(transactions)); }
+
+void serial_slave_init(void)
+{ soft_serial_target_init(transactions, TID_LIMIT(transactions)); }
+
 int serial_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 
-    if (serial_update_buffers()) {
+    if (soft_serial_transaction()) {
         return 1;
     }
 
