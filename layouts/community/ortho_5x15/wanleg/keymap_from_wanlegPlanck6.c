@@ -5,41 +5,87 @@
 #define _________________BLANK_50__________________ _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 #define _________________Num_Row_75________________ KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NLCK
 
-#if defined(CLEAVE)
-#define LAYOUT_75_base( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, \
-	K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C  \
-  ) \
-  LAYOUT_wrapper( \
-     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NLCK,  QWERTY75, GHERKIN75, FUNCTION75, \
-     K01,	K02,	K03,	K04,	K05,	K06, KC_7, KC_8, KC_9,		K07,	K08,	K09,	K0A,	K0B,	K0C, \
-     K11,	K12,	K13,	K14,	K15,	K16, KC_4, KC_5, KC_6,		K17,	K18,	K19,	K1A,	K1B,	K1C, \
-     K21,	K22,	K23,	K24,	K25,	K26, KC_1, KC_2, KC_3,		K27,	K28,	K29,	K2A,	K2B,	K2C, \
-     K31,	K32,	K33,	K34,	K35,	K36, KC_0, KC_0, KC_DOT,	K37,	K38,	K39,	K3A,	K3B,	K3C  \
-  )
-  
-#else
-#define LAYOUT_75_base( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, \
-	K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C  \
-  ) \
-  LAYOUT_wrapper( \
-     KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NLCK,  QWERTY75, GHERKIN75, FUNCTION75, \
-     K01,	K02,	K03,	K04,	K05,	K06,	K07,	K08,	K09,	K0A,	K0B,	K0C, KC_7, KC_8, KC_9, \
-     K11,	K12,	K13,	K14,	K15,	K16,	K17,	K18,	K19,	K1A,	K1B,	K1C, KC_4, KC_5, KC_6, \
-     K21,	K22,	K23,	K24,	K25,	K26,	K27,	K28,	K29,	K2A,	K2B,	K2C, KC_1, KC_2, KC_3, \
-     K31,	K32,	K33,	K34,	K35,	K36,	K37,	K38,	K39,	K3A,	K3B,	K3C, KC_0, KC_0, KC_DOT\
-  )
-#endif  
-
-#define LAYOUT_75_base_wrapper(...)       LAYOUT_75_base(__VA_ARGS__)
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+#if defined(KEYBOARD_40percentclub_5x5)
+[GK75] = LAYOUT_ortho_5x15_wrapper(
+  _________________Num_Row_75________________, QWERTY75, XXXXXXX, FUNCTION75,
+  _______________GherkinLike_0_______________, KC_KP_7, KC_KP_8, KC_KP_9,
+  _______________GherkinLike_1_______________, KC_KP_4, KC_KP_5, KC_KP_6,
+  TD(TD_SFT_CAPS), SFT_T(KC_Z), KC_X, KC_C, LT(NUM75, KC_V), LT(ETC75, KC_B), KC_N, LT(DIR75, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT), KC_KP_1, KC_KP_2, KC_KP_3,
+  TD(RST_TAP_DANCE), GHERKIN50, KC_LALT, NUMPAD, NUMBER75, ETCETERA75, KC_SPC,DIRECTION75, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_KP_0, KC_KP_0, KC_KP_DOT
+),
 
+[GK50] = LAYOUT_ortho_5x10_wrapper(
+  KC_ESC,    _______, _______, _______, _______, _______, _______, _______, _______,    KC_BSPC,
+  _______________Gherkin_Row_0_______________,
+  _______________Gherkin_Row_1_______________,
+  _______________Gherkin_Row_2_______________,
+  TD(RST_TAP_DANCE), GHERKIN75, NUMPAD, gNUMBER, gETCETERA, KC_SPC,gDIRECTION, KC_RGUI, KC_RALT, KC_RGUI
+),
+
+[gNUM] = LAYOUT_ortho_5x10_wrapper(
+  _________________BLANK_50__________________,
+  _______________Gherkin_NUM_0_______________,
+  _______________Gherkin_NUM_1_______________,
+  _______________Gherkin_NUM_2_______________,
+  _______, _______, _______, _______, _______, KC_ENT, KC_RSFT, KC_RGUI, _______, _______
+),
+
+[gDIR] = LAYOUT_ortho_5x10_wrapper(
+  _________________BLANK_50__________________,
+  _______________Gherkin_DIR_0_______________,
+  _______________Gherkin_DIR_1_______________,
+  _______________Gherkin_DIR_2_______________,
+  _________________BLANK_50__________________
+),
+
+[gETC] = LAYOUT_ortho_5x10_wrapper(
+  _________________BLANK_50__________________,
+  _______________Gherkin_ETC_0_______________,
+  _______________Gherkin_ETC_1_______________,
+  _______________Gherkin_ETC_2_______________,
+  _______, KC_CAPS, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______
+),
+
+#if defined(BLUEFRUIT)
+[PAD] = LAYOUT_ortho_5x5_wrapper(
+  _______, _______, _______, OUT_BT, OUT_USB,
+  _______________NUMPAD_Row__0_______________, _______,
+  _______________NUMPAD_Row__1_______________, _______,
+  _______________NUMPAD_Row__2_______________, _______,
+  KC_KP_0, TD(LYR50_TAP_DANCE), KC_KP_DOT, KC_PMNS, _______
+),
+#else
+ [PAD] = LAYOUT_ortho_5x5_wrapper(
+  _______, _______, _______, _______, _______,
+  _______________NUMPAD_Row__0_______________, _______,
+  _______________NUMPAD_Row__1_______________, _______,
+  _______________NUMPAD_Row__2_______________, _______,
+  KC_KP_0, TD(LYR50_TAP_DANCE), KC_KP_DOT, KC_PMNS, _______
+),
+#endif
+#else
+ /* Gherkin 75
+ * .--------------------------------------------------------------------------------------------------------------------------------------.
+ * | ESC    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | NUMLOCK| qwerty |        | FN     |
+ * |-----------------------------------------------------------------------------------------------------------+--------+--------+--------|
+ * |                                                                                                           |   7    |   8    |   9    |
+ * |                                                                                                           |--------+--------+--------|
+ * |                                            4x12 GHERKIN LAYOUT                                            |   4    |   5    |   6    |
+ * |                                                                                                           |--------+--------+--------|
+ * |                                                                                                           |   1    |   2    |   3    |
+ * |                                                                                                           |--------+--------+--------|
+ * |                                                                                                           |   0    |   0    |   .    |
+ * '--------------------------------------------------------------------------------------------------------------------------------------'
+ */
+[GK75] = LAYOUT_ortho_5x15_wrapper(
+  _________________Num_Row_75________________, QWERTY75, XXXXXXX, FUNCTION75,
+  _______________GherkinLike_0_______________, KC_KP_7, KC_KP_8, KC_KP_9,
+  _______________GherkinLike_1_______________, KC_KP_4, KC_KP_5, KC_KP_6,
+  TD(TD_SFT_CAPS), SFT_T(KC_Z), KC_X, KC_C, LT(NUM75, KC_V), LT(ETC75, KC_B), KC_N, LT(DIR75, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT), KC_KP_1, KC_KP_2, KC_KP_3,
+  KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, NUMBER75, ETCETERA75, KC_SPC,DIRECTION75, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_KP_0, KC_KP_0, KC_KP_DOT
+),
+#endif
  /* QWERTY 75
  * .--------------------------------------------------------------------------------------------------------------------------------------.
  * | ESC    | 1      | 2      | 3      | 4      | 5      | 6      | 7      | 8      | 9      | 0      | NUMLOCK| gherkin|        | FN     |
@@ -53,11 +99,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |                                                                                                           |   0    |   0    |   .    |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-[QW75] = LAYOUT_75_base_wrapper(
-  _______________Qwerty_Row__0_______________, 
-  _______________Qwerty_Row__1_______________, 
-  _______________Qwerty_Row__2_______________, 
-  _______________Qwerty_Row__3_______________
+[QW75] = LAYOUT_ortho_5x15_wrapper(
+  _________________Num_Row_75________________, GHERKIN75, XXXXXXX, FUNCTION75,
+  _______________Qwerty_Row__0_______________, KC_KP_7, KC_KP_8, KC_KP_9,
+  _______________Qwerty_Row__1_______________, KC_KP_4, KC_KP_5, KC_KP_6,
+  _______________Qwerty_Row__2_______________, KC_KP_1, KC_KP_2, KC_KP_3,
+  KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, SUBTER75, KC_LSFT, KC_SPC, SUPRA75, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_KP_0, KC_KP_0, KC_KP_DOT
 ),
 
  /* SUBTER75
