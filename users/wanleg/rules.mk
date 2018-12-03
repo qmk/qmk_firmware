@@ -28,3 +28,9 @@ ifeq ($(strip $(BT)), yes)
   COMMAND_ENABLE = no 		# Commands for debug and configuration
   RGBLIGHT_ENABLE = no        # Enable keyboard RGB underglow
 endif
+
+#move numpad to centre on 5x15 boards
+#example usage: make 4x4:wanleg cleave=yes
+ifeq ($(strip $(cleave)), yes)
+	OPT_DEFS += -DCLEAVE
+endif
