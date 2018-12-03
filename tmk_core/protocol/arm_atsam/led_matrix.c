@@ -264,8 +264,7 @@ void led_matrix_run(void)
     float ro;
     float go;
     float bo;
-    float px;
-    float py;
+    float po;
     uint8_t led_this_run = 0;
     led_setup_t *f = (led_setup_t*)led_setups[led_animation_id];
 
@@ -327,118 +326,68 @@ void led_matrix_run(void)
             //Act on LED
             for (fcur = 0; fcur < fmax; fcur++)
             {
-                if (led_animation_orientation) {
-                    py = led_cur->py;
-                    float pymod;
-                    pymod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
 
-                    //Add in any moving effects
-                    if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
-                    {
-                        pymod *= 100.0f;
-                        pymod = (uint32_t)pymod % 10000;
-                        pymod /= 100.0f;
-
-                        py -= pymod;
-
-                        if (py > 100) py -= 100;
-                        else if (py < 0) py += 100;
-                    }
-                    else if ((!led_animation_direction && f[fcur].ef & EF_SCR_L) || (led_animation_direction && (f[fcur].ef & EF_SCR_R)))
-                    {
-                        pymod *= 100.0f;
-                        pymod = (uint32_t)pymod % 10000;
-                        pymod /= 100.0f;
-                        py += pymod;
-
-                        if (py > 100) py -= 100;
-                        else if (py < 0) py += 100;
-                    }
-
-                    //Check if LED's py is in current frame
-                    if (py < f[fcur].hs) continue;
-                    if (py > f[fcur].he) continue;
-                    //note: < 0 or > 100 continue
-
-                    //Calculate the py within the start-stop percentage for color blending
-                    py = (py - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
-
-                    //Add in any color effects
-                    if (f[fcur].ef & EF_OVER)
-                    {
-                        ro = (py * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                        go = (py * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                        bo = (py * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                    }
-                    else if (f[fcur].ef & EF_SUBTRACT)
-                    {
-                        ro -= (py * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                        go -= (py * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                        bo -= (py * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                    }
-                    else
-                    {
-                        ro += (py * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                        go += (py * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                        bo += (py * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                    }
+                if (led_animation_orientation)
+                {
+                  po = led_cur->py;
                 }
                 else
                 {
-                    px = led_cur->px;
-                    float pxmod;
-                    pxmod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+                  po = led_cur->px;
+                }
 
-                    //Add in any moving effects
-                    if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
-                    {
-                        pxmod *= 100.0f;
-                        pxmod = (uint32_t)pxmod % 10000;
-                        pxmod /= 100.0f;
+                float pomod;
+                pomod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
 
-                        px -= pxmod;
+                //Add in any moving effects
+                if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
+                {
+                    pomod *= 100.0f;
+                    pomod = (uint32_t)pomod % 10000;
+                    pomod /= 100.0f;
 
-                        if (px > 100) px -= 100;
-                        else if (px < 0) px += 100;
-                    }
-                    else if ((!led_animation_direction && f[fcur].ef & EF_SCR_L) || (led_animation_direction && (f[fcur].ef & EF_SCR_R)))
-                    {
-                        pxmod *= 100.0f;
-                        pxmod = (uint32_t)pxmod % 10000;
-                        pxmod /= 100.0f;
-                        px += pxmod;
+                    po -= pomod;
 
-                        if (px > 100) px -= 100;
-                        else if (px < 0) px += 100;
-                    }
+                    if (po > 100) po -= 100;
+                    else if (po < 0) po += 100;
+                }
+                else if ((!led_animation_direction && f[fcur].ef & EF_SCR_L) || (led_animation_direction && (f[fcur].ef & EF_SCR_R)))
+                {
+                    pomod *= 100.0f;
+                    pomod = (uint32_t)pomod % 10000;
+                    pomod /= 100.0f;
+                    po += pomod;
 
-                    //Check if LED's px is in current frame
-                    if (px < f[fcur].hs) continue;
-                    if (px > f[fcur].he) continue;
-                    //note: < 0 or > 100 continue
+                    if (po > 100) po -= 100;
+                    else if (po < 0) po += 100;
+                }
 
-                    //Calculate the px within the start-stop percentage for color blending
-                    px = (px - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
+                //Check if LED's po is in current frame
+                if (po < f[fcur].hs) continue;
+                if (po > f[fcur].he) continue;
+                //note: < 0 or > 100 continue
 
-                    //Add in any color effects
-                    if (f[fcur].ef & EF_OVER)
-                    {
-                        ro = (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                        go = (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                        bo = (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                    }
-                    else if (f[fcur].ef & EF_SUBTRACT)
-                    {
-                        ro -= (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                        go -= (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                        bo -= (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                    }
-                    else
-                    {
-                        ro += (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                        go += (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                        bo += (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                    }
+                //Calculate the po within the start-stop percentage for color blending
+                po = (po - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
+
+                //Add in any color effects
+                if (f[fcur].ef & EF_OVER)
+                {
+                    ro = (po * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+                    go = (po * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+                    bo = (po * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+                }
+                else if (f[fcur].ef & EF_SUBTRACT)
+                {
+                    ro -= (po * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+                    go -= (po * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+                    bo -= (po * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+                }
+                else
+                {
+                    ro += (po * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+                    go += (po * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+                    bo += (po * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
                 }
             }
         }
