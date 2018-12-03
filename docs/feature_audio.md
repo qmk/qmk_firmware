@@ -67,7 +67,7 @@ The available keycodes for audio are:
 
 ## ARM Audio Volume
 
-For ARM devices, you can adjust the DAC Sample values. If your board is too loud for you or your coworkers, you can set the max using `DAC_SAMPLE_MAX` in your `config.h`:
+For ARM devices, you can adjust the DAC sample values. If your board is too loud for you or your coworkers, you can set the max using `DAC_SAMPLE_MAX` in your `config.h`:
 
 ```c
 #define DAC_SAMPLE_MAX 65535U
