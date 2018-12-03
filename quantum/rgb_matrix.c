@@ -847,37 +847,6 @@ void rgb_matrix_init(void) {
   eeconfig_debug_rgb_matrix(); // display current eeprom values
 }
 
-void rgb_matrix_setup_drivers(void) {
-  // Initialize TWI
-#ifdef IS31FL3731
-  i2c_init();
-  IS31FL3731_init( DRIVER_ADDR_1 );
-  IS31FL3731_init( DRIVER_ADDR_2 );
-#elif defined (IS31FL3733)
-  i2c_init();
-  IS31FL3733_init( DRIVER_ADDR_1 );
-#elif defined(WS2812)
-  WS2812_init();
-#endif
-
-  for ( int index = 0; index < DRIVER_LED_TOTAL; index++ ) {
-    __attribute__((unused))
-    bool enabled = true;
-    // This only caches it for later
-#ifdef IS31FL3731
-    IS31FL3731_set_led_control_register( index, enabled, enabled, enabled );
-#elif defined (IS31FL3733)
-    IS31FL3733_set_led_control_register( index, enabled, enabled, enabled );
-#endif
-  }
-  // This actually updates the LED drivers
-#ifdef IS31FL3731
-  IS31FL3731_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-#elif defined (IS31FL3733)
-  IS31FL3733_update_led_control_registers( DRIVER_ADDR_1, DRIVER_ADDR_2 );
-#endif
-}
-
 // Deals with the messy details of incrementing an integer
 uint8_t increment( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
     int16_t new_value = value;
