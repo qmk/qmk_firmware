@@ -65,7 +65,7 @@ The available keycodes for audio are:
 * `AU_OFF` - Turn audio mode off
 * `AU_TOG` - Toggle audio mode
 
-## Arm Audio Volume
+## ARM Audio Volume
 
 For ARM devices, you can adjust the DAC Sample values. If your board is too loud for you or your coworkers, you can set the max using `DAC_SAMPLE_MAX` in your `config.h`:
 
