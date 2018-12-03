@@ -131,20 +131,10 @@
 
 #define RGBLIGHT_ANIMATIONS
 
-#define WS2812_LED_N 9
-
-#define RGBLED_NUM WS2812_LED_N
-#define RGBLED_PORT ((uint32_t)GPIOA | 1)
+#define RGBLED_NUM 9
+#define RGB_DI_PIN A1
 #define DRIVER_LED_TOTAL RGBLED_NUM
 
 #define RGB_MATRIX_KEYPRESSES
-
-#define WS2812_TIM_N 2
-#define WS2812_TIM_CH 2
-#define PORT_WS2812     GPIOA
-#define PIN_WS2812      1
-#define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
-//#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
-//#define WS2812_EXTERNAL_PULLUP
 
 #endif
