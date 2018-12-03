@@ -32,6 +32,10 @@ void qk_ucis_start_user(void) {
   unicode_input_finish();
 }
 
+__attribute__((weak))
+void qk_ucis_success(uint8_t symbol_index) {
+}
+
 static bool is_uni_seq(char *seq) {
   uint8_t i;
 
@@ -91,6 +95,8 @@ void register_ucis(const char *hex) {
 bool process_ucis (uint16_t keycode, keyrecord_t *record) {
   uint8_t i;
 
+  unicode_input_mode_init();
+
   if (!qk_ucis_state.in_progress)
     return true;
 
@@ -141,6 +147,10 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
       qk_ucis_symbol_fallback();
     }
     unicode_input_finish();
+
+    if (symbol_found) {
+      qk_ucis_success(i);
+    }
 
     qk_ucis_state.in_progress = false;
     return false;

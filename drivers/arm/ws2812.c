@@ -183,7 +183,7 @@ void WS2812_send_color( uint8_t index ) {
   setColor(led_array[index].b, (fb+24*index)+16, sMask);
 }
 
-void WS2812_set_color( uint8_t index, uint8_t red, uint8_t green, uint8_t blue ) {
+void WS2812_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
   led_array[index].r = red;
   led_array[index].g = green;
   led_array[index].b = blue;

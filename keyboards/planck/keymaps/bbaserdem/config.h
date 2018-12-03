@@ -1,7 +1,7 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#ifndef CONFIG_KEYMAP_H
+#define CONFIG_KEYMAP_H
 
-#include "../../config.h"
+#include "config_common.h"
 
 // LED strip stuff
 #ifdef RGBLIGHT_ENABLE
@@ -18,5 +18,7 @@
 #define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 2000
 #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
 #endif
+
+#define ENCODER_RESOLUTION 4
 
 #endif

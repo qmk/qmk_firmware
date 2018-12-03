@@ -1,5 +1,7 @@
 # Build options
 
+USER_NAME := bbaserdem-without-userspace
+
 BACKLIGHT_ENABLE = no		# Switch LEDs
 MOUSEKEY_ENABLE = no		# Emulates mouse key using keypresses
 RGBLIGHT_ENABLE = no 		# LED strips

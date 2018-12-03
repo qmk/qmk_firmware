@@ -30,41 +30,47 @@ uint8_t last_led;
 uint8_t last_osm;
 #endif
 
-// Each layer gets a name for readability, which is then used in the keymap matrix below.
-// The underscores don't mean anything - you can have a layer called STUFF or any other name.
-// Layer names don't all need to be of the same length, obviously, and you can also skip them
-// entirely and just use numbers.
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+#define LAYOUT_orthodox_base( \
+    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
+    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
+    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
+  ) \
+  LAYOUT_wrapper( \
+    KC_ESC,  K01,    K02,     K03,      K04,     K05,                                                             K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
+    KC_TAB,  K11,    K12,     K13,      K14,     K15,              OS_LALT, OS_LGUI,   OS_RALT, OS_RGUI,          K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
+    KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     LOWER,   KC_SPACE,KC_BSPC,   KC_DEL,  KC_ENT,  RAISE,   K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF  \
+  )
+#define LAYOUT_orthodox_base_wrapper(...)       LAYOUT_orthodox_base(__VA_ARGS__)
 
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_QWERTY] = LAYOUT_wrapper(\
-  KC_ESC,  _________________QWERTY_L1_________________,                                                               _________________QWERTY_R1_________________, KC_BSPC,
-  KC_TAB,  _________________QWERTY_L2_________________,          ALT_APP, OS_LGUI,         KC_LALT, OS_RGUI,          _________________QWERTY_R2_________________, KC_QUOT,
-  KC_MLSF, _________________QWERTY_L3_________________, LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE,   _________________QWERTY_R3_________________, KC_MRSF
+[_QWERTY] = LAYOUT_orthodox_base_wrapper(
+  _________________QWERTY_L1_________________, _________________QWERTY_R1_________________,
+  _________________QWERTY_L2_________________, _________________QWERTY_R2_________________,
+  _________________QWERTY_L3_________________, _________________QWERTY_R3_________________
 ),
 
-[_COLEMAK] = LAYOUT_wrapper(\
-  KC_ESC,  _________________COLEMAK_L1________________,                                                               _________________COLEMAK_R1________________, KC_BSPC,
-  KC_TAB,  _________________COLEMAK_L2________________,          ALT_APP, OS_LGUI,         KC_LALT, OS_RGUI,          _________________COLEMAK_R2________________, KC_QUOT,
-  KC_MLSF, _________________COLEMAK_L3________________, LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE,   _________________COLEMAK_R3________________, KC_MRSF
+[_COLEMAK] = LAYOUT_orthodox_base_wrapper(
+  _________________COLEMAK_L1________________, _________________COLEMAK_R1________________,
+  _________________COLEMAK_L2________________, _________________COLEMAK_R2________________,
+  _________________COLEMAK_L3________________, _________________COLEMAK_R3________________
 ),
 
-[_DVORAK] = LAYOUT_wrapper(\
-  KC_ESC,  _________________DVORAK_L1_________________,                                                               _________________DVORAK_R1_________________, KC_BSPC,
-  KC_TAB,  _________________DVORAK_L2_________________,          ALT_APP, OS_LGUI,         KC_LALT, OS_RGUI,          _________________DVORAK_R2_________________, KC_MINS,
-  KC_MLSF, _________________DVORAK_L3_________________, LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE,   _________________DVORAK_R3_________________, KC_MRSF
+[_DVORAK] = LAYOUT_orthodox_base_wrapper(
+  _________________DVORAK_L1_________________, _________________DVORAK_R1_________________,
+  _________________DVORAK_L2_________________, _________________DVORAK_R2_________________,
+  _________________DVORAK_L3_________________, _________________DVORAK_R3_________________
 ),
-[_WORKMAN] = LAYOUT_wrapper(\
-  KC_ESC,  _________________WORKMAN_L1________________,                                                               _________________WORKMAN_R1________________, KC_BSPC,
-  KC_TAB,  _________________WORKMAN_L2________________,          ALT_APP, OS_LGUI,         KC_LALT, OS_RGUI,          _________________WORKMAN_R2________________, KC_MINS,
-  KC_MLSF, _________________WORKMAN_L3________________, LOWER,   KC_SPACE,KC_BSPC,         KC_DEL,  KC_ENT,  RAISE,   _________________WORKMAN_R3________________, KC_MRSF
+
+[_WORKMAN] = LAYOUT_orthodox_base_wrapper(
+  _________________WORKMAN_L1________________, _________________WORKMAN_R1________________,
+  _________________WORKMAN_L2________________, _________________WORKMAN_R2________________,
+  _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
 ),
+
 [_MODS] = LAYOUT_wrapper(\
   _______, _______, _______, _______, _______, _______,                                                               _______, _______, _______, _______, _______, _______,
   _______, _______, _______, _______, _______, _______,          _______, _______,         _______, _______,          _______, _______, _______, _______, _______, _______,
@@ -72,40 +78,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_LOWER] = LAYOUT_wrapper(\
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                                                                KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_BSPC,
-  KC_F11,  _________________FUNC_LEFT_________________,           _______, _______,         _______, _______,          _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
-  KC_F12,  _________________FUNC_RIGHT________________,  _______, _______, _______,         _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______
+  KC_TILD, _________________LOWER_L1__________________,                                                               _________________LOWER_R1__________________, KC_BSPC,
+  KC_F11,  _________________LOWER_L2__________________,          _______, _______,         _______, _______,          _________________LOWER_R2__________________, KC_PIPE,
+  KC_F12,  _________________LOWER_L3__________________, _______, _______, _______,         _______, _______, _______, _________________LOWER_R3__________________, _______
 ),
 
 [_RAISE] = LAYOUT_wrapper(\
-  KC_GRV,  ________________NUMBER_LEFT________________,                                                               ________________NUMBER_RIGHT_______________, KC_BSPC,
-  _______, _______, _______, _______, _______, _______,          _______, _______,         _______, _______,          _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______,         _______, _______, _______, _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END, _______
+  KC_GRV,  _________________RAISE_L1__________________,                                                               _________________RAISE_R1__________________, KC_BSPC,
+  _______, _________________RAISE_L2__________________,          _______, _______,         _______, _______,          _________________RAISE_R2__________________, KC_BSLS,
+  _______, _________________RAISE_L3__________________, _______, _______, _______,         _______, _______, _______, _________________RAISE_R3__________________, _______
 ),
 
 [_ADJUST] = LAYOUT_wrapper(\
-  KC_MAKE, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_TOG,                                                               KC_SEC1, KC_SEC2, KC_SEC3, KC_SEC4, KC_SEC5, KC_RESET,
-  VRSN,    _______, CK_TOGG, AU_ON,   AU_OFF,  AG_NORM,          _______, _______,         _______, KC_NUKE,          AG_SWAP, QWERTY,  COLEMAK, DVORAK,  WORKMAN, EPRM,
-  TG(_MODS),RGB_RMOD,RGB_HUD,RGB_SAD, RGB_VAD, KC_RGB_T,_______, _______, _______,         _______, _______, _______, MG_NKRO, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT, KC_MPLY
+  KC_MAKE, _________________ADJUST_L1_________________,                                                               _________________ADJUST_R1_________________, KC_RESET,
+  VRSN,    _________________ADJUST_L2_________________,          _______, _______,         _______, KC_NUKE,          _________________ADJUST_R2_________________, EEP_RST,
+  TG_MODS, _________________ADJUST_L3_________________, _______, _______, _______,         _______, _______, _______, _________________ADJUST_R3_________________, KC_MPLY
 )
-
-
 };
 
+void matrix_init_keymap(void) {
+  DDRD &= ~(1<<5);
+  PORTD &= ~(1<<5);
 
-bool indicator_is_this_led_used(uint8_t index) {
-  switch (index) {
-#ifdef INDICATOR_LIGHTS
-    case SHFT_LED1:
-    case SHFT_LED2:
-    case CTRL_LED1:
-    case CTRL_LED2:
-    case GUI_LED1:
-    case GUI_LED2:
-      return true;
-      break;
-#endif
-    default:
-    return false;
-  }
+  DDRB &= ~(1<<0);
+  PORTB &= ~(1<<0);
 }

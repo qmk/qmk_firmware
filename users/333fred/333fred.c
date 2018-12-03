@@ -34,6 +34,7 @@ void tap_dance_layer_finished(qk_tap_dance_state_t *state, void *user_data) {
             break;
         case DOUBLE:
             layer_on(VIM);
+            break;
     }
 }
 
@@ -60,4 +61,27 @@ void tap_dance_process_record(uint16_t keycode) {
     if (tap_dance_state == SINGLE_TAP && keycode != TD(TD_SYM_VIM)) {
         tap_dance_active = false;
     }
+}
+
+__attribute__ ((weak))
+void matrix_init_rgb(void) {}
+
+__attribute__ ((weak))
+void layer_state_set_rgb(uint32_t state) {}
+
+__attribute__ ((weak))
+void matrix_scan_user_keyboard(void) {}
+
+void matrix_scan_user() {
+  static bool first_run = true;
+  if (first_run) {
+    first_run = false;
+    matrix_init_rgb();
+  }
+  matrix_scan_user_keyboard();
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  layer_state_set_rgb(state);
+  return state;
 }

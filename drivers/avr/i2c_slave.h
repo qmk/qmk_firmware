@@ -8,9 +8,13 @@
 #ifndef I2C_SLAVE_H
 #define I2C_SLAVE_H
 
+#define TX_BUFFER_SIZE 30
+#define RX_BUFFER_SIZE 30
+
 volatile uint8_t buffer_address;
-volatile uint8_t txbuffer[0xFF];
-volatile uint8_t rxbuffer[0xFF];
+static volatile bool slave_has_register_set = false;
+volatile uint8_t txbuffer[TX_BUFFER_SIZE];
+volatile uint8_t rxbuffer[RX_BUFFER_SIZE];
 
 void i2c_init(uint8_t address);
 void i2c_stop(void);

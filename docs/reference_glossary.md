@@ -128,12 +128,12 @@ The standard Deutsche (German) keyboard layout. Named for the first 6 letters on
 The term for pressing a key while a key is already held down. Variants include 2KRO, 6KRO, and NKRO.
 
 ## Scancode
-A 1 byte number that is sent as part of a HID report over USB that represents a single key. These numbers are documented in the [HID Usage Tables](http://www.usb.org/developers/hidpage/Hut1_12v2.pdf) published by the [USB-IF](http://www.usb.org/).
+A 1 byte number that is sent as part of a HID report over USB that represents a single key. These numbers are documented in the [HID Usage Tables](https://www.usb.org/sites/default/files/documents/hut1_12v2.pdf) published by the [USB-IF](http://www.usb.org/).
 
 ## Space Cadet Shift
 A special set of shift keys which allow you to type various types of braces by tapping the left or right shift one or more times.
 
-* [Space Cadet Shift Documentation](feature_space_cadet.md)
+* [Space Cadet Shift Documentation](feature_space_cadet_shift.md)
 
 ## Tap
 Pressing and releasing a key. In some situations you will need to distinguish between a key down and a key up event, and Tap always refers to both at once.

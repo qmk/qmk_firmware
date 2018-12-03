@@ -1,5 +1,6 @@
 // Layout picture at http://www.keyboard-layout-editor.com/#/gists/125febfad6960add078e6f14256539b6
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -23,19 +24,19 @@ extern keymap_config_t keymap_config;
 #define _ONESHOT 7
 
 enum planck_keycodes {
-	QWERTY = SAFE_RANGE,
-	NUMPAD,
-	RAISE,
-	LOWER,
-	MEDIA,
-	ONESHOT,
-	DYNAMIC_MACRO_RANGE
+    QWERTY = SAFE_RANGE,
+    NUMPAD,
+    RAISE,
+    LOWER,
+    MEDIA,
+    ONESHOT,
+    DYNAMIC_MACRO_RANGE
 };
 
 #include "dynamic_macro.h"
 
 // Key code names
-#define SFT_ENT  FUNC(0)	// Tap for enter, hold for right shift
+#define SFT_ENT  FUNC(0)    // Tap for enter, hold for right shift
 #define LOCK     FUNC(1)
 #define KC_PSTE  KC_PASTE
 #define _______  KC_TRNS
@@ -45,7 +46,7 @@ enum planck_keycodes {
 #define ZOOM_NML LCTL(KC_0)
 
 #ifdef TAP_DANCE_ENABLE
-#define SFT_CAP  TD(0)	// Left shift, double tap for caps
+#define SFT_CAP  TD(0)  // Left shift, double tap for caps
 #endif
 #ifndef TAP_DANCE_ENABLE
 #define SFT_CAP  KC_LSFT // Regular left shift
@@ -54,14 +55,14 @@ enum planck_keycodes {
 // Tap Dance Definitions
 #ifdef TAP_DANCE_ENABLE
 qk_tap_dance_action_t tap_dance_actions[] = {
-	[0]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
+    [0]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS)
 };
 #endif
 
 // Function definitions
 const uint16_t PROGMEM fn_actions[] = {
-	[0] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
-	[1] = ACTION_LAYER_TOGGLE(_LOCKED)
+    [0] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),
+    [1] = ACTION_LAYER_TOGGLE(_LOCKED)
 };
 
 // Layout definitions
@@ -79,10 +80,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = {
-	{KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-	{KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
-	{SFT_CAP, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   SFT_ENT},
-	{KC_LCTL, KC_LGUI, KC_LALT, MEDIA,   LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT}
+    {KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
+    {KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT},
+    {SFT_CAP, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   SFT_ENT},
+    {KC_LCTL, KC_LGUI, KC_LALT, MEDIA,   LOWER,   KC_SPC,  KC_SPC,  RAISE,   KC_SLSH, KC_LEFT, KC_DOWN, KC_RGHT}
 },
 
 /* NUMPAD
@@ -115,10 +116,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOCKED] = {
-	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-	{KC_LSFT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  KC_ENT},
-	{_______, XXXXXXX, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {KC_LSFT, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  KC_ENT},
+    {_______, XXXXXXX, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* RAISE
@@ -169,10 +170,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_MEDIA] = {
-	{XXXXXXX, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,   XXXXXXX, KC_PSCR, XXXXXXX},
-	{XXXXXXX, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2 },
-	{KC_LSFT, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP },
-	{ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY }
+    {XXXXXXX, XXXXXXX, KC_WHOM, XXXXXXX, XXXXXXX, XXXXXXX, KC_AGAIN, XXXXXXX, KC_INS,   XXXXXXX, KC_PSCR, XXXXXXX},
+    {XXXXXXX, XXXXXXX, KC_WSCH, XXXXXXX, KC_FIND, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX,  XXXXXXX, DYN_MACRO_PLAY1, DYN_MACRO_PLAY2 },
+    {KC_LSFT, XXXXXXX, XXXXXXX, KC_CALC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, ZOOM_OUT, ZOOM_IN, KC_MPRV, DYN_REC_STOP },
+    {ONESHOT, XXXXXXX, XXXXXXX, _______, KC_VOLD, KC_MUTE, KC_MUTE,  KC_VOLU, ZOOM_NML, KC_MSTP, KC_MNXT, KC_MPLY }
 },
 
 /* ONESHOT
@@ -187,10 +188,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_ONESHOT] = {
-	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1, DYN_REC_START2},
-	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
-	{_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, DYN_REC_START1, DYN_REC_START2},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______},
+    {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 },
 
 /* FUNCTIONS
@@ -205,10 +206,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_FUNCTN] = {
-	{KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PWR },
-	{KC_WAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
-	{XXXXXXX, XXXXXXX, XXXXXXX, AU_OFF,  MU_OFF,  QWERTY,  NUMPAD,  MU_ON,   AU_ON,   XXXXXXX, MUV_IN,  KC_SYSREQ},
-	{RESET,   XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, AG_NORM, MUV_DE,  AG_SWAP}
+    {KC_SLEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PWR },
+    {KC_WAKE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX },
+    {XXXXXXX, XXXXXXX, XXXXXXX, AU_OFF,  MU_OFF,  QWERTY,  NUMPAD,  MU_ON,   AU_ON,   XXXXXXX, MUV_IN,  KC_SYSREQ},
+    {RESET,   XXXXXXX, LOCK,    XXXXXXX, _______, XXXXXXX, XXXXXXX, _______, XXXXXXX, AG_NORM, MUV_DE,  AG_SWAP}
 }
 
 };
@@ -227,95 +228,95 @@ float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 void press_key(uint16_t key) {
     register_code(key);
     unregister_code(key);
-} 
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	// uint16_t macro_kc = (keycode == ONESHOT ? DYN_REC_STOP : keycode);
-	if (!process_record_dynamic_macro(keycode, record)) {
-		switch(keycode) {
-		  case DYN_REC_START1:
-		  case DYN_REC_START2:
+    // uint16_t macro_kc = (keycode == ONESHOT ? DYN_REC_STOP : keycode);
+    if (!process_record_dynamic_macro(keycode, record)) {
+        switch(keycode) {
+          case DYN_REC_START1:
+          case DYN_REC_START2:
 #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_dyn_macro_rec);
 #endif
-		      break;
-		  case DYN_REC_STOP:
+              break;
+          case DYN_REC_STOP:
 #ifdef AUDIO_ENABLE
               PLAY_SONG(tone_dyn_macro_stop);
 #endif
-		      break;
-		}
-		return false;
-	}
-	switch (keycode) {
-		case ONESHOT:
-			if (record->event.pressed) {
-				layer_on(_ONESHOT);
-				set_oneshot_layer(_ONESHOT, ONESHOT_START);
-				clear_oneshot_layer_state(ONESHOT_PRESSED);
+              break;
+        }
+        return false;
+    }
+    switch (keycode) {
+        case ONESHOT:
+            if (record->event.pressed) {
+                layer_on(_ONESHOT);
+                set_oneshot_layer(_ONESHOT, ONESHOT_START);
+                clear_oneshot_layer_state(ONESHOT_PRESSED);
 #ifdef AUDIO_ENABLE
-		        PLAY_SONG(tone_oneshot);
+                PLAY_SONG(tone_oneshot);
 #endif
-			}
-			return false;
-			break;
-		case QWERTY:
-			if (record->event.pressed) {
-				if (IS_LAYER_ON(_NUMPAD)) {
+            }
+            return false;
+            break;
+        case QWERTY:
+            if (record->event.pressed) {
+                if (IS_LAYER_ON(_NUMPAD)) {
 #ifdef AUDIO_ENABLE
-					PLAY_SONG(tone_qwerty);
+                    PLAY_SONG(tone_qwerty);
 #endif
-					layer_off(_NUMPAD);
-				}
-			}
-			return false;
-			break;
-		case NUMPAD:
-			if (record->event.pressed) {
-				if (!IS_LAYER_ON(_NUMPAD)) {
+                    layer_off(_NUMPAD);
+                }
+            }
+            return false;
+            break;
+        case NUMPAD:
+            if (record->event.pressed) {
+                if (!IS_LAYER_ON(_NUMPAD)) {
 #ifdef AUDIO_ENABLE
-					PLAY_SONG(tone_numpad);
+                    PLAY_SONG(tone_numpad);
 #endif
-					layer_on(_NUMPAD);
-				}
-			}
-			return false;
-			break;
-		case RAISE:
-			if (record->event.pressed) {
-				layer_on(_RAISE);
-				update_tri_layer(_RAISE, _LOWER, _FUNCTN);
-			} else {
-				layer_off(_RAISE);
-				update_tri_layer(_RAISE, _LOWER, _FUNCTN);
-			}
-			return false;
-			break;
-		case LOWER:
-			if (record->event.pressed) {
-				layer_on(_LOWER);
-				update_tri_layer(_RAISE, _LOWER, _FUNCTN);
-			} else {
-				layer_off(_LOWER);
-				update_tri_layer(_RAISE, _LOWER, _FUNCTN);
-			}
-			return false;
-			break;
-		case MEDIA:
-			if (record->event.pressed) {
-				layer_on(_MEDIA);
-			} else {
-				layer_off(_MEDIA);
-			}
-			return false;
-			break;
-	}
-	return true;
+                    layer_on(_NUMPAD);
+                }
+            }
+            return false;
+            break;
+        case RAISE:
+            if (record->event.pressed) {
+                layer_on(_RAISE);
+                update_tri_layer(_RAISE, _LOWER, _FUNCTN);
+            } else {
+                layer_off(_RAISE);
+                update_tri_layer(_RAISE, _LOWER, _FUNCTN);
+            }
+            return false;
+            break;
+        case LOWER:
+            if (record->event.pressed) {
+                layer_on(_LOWER);
+                update_tri_layer(_RAISE, _LOWER, _FUNCTN);
+            } else {
+                layer_off(_LOWER);
+                update_tri_layer(_RAISE, _LOWER, _FUNCTN);
+            }
+            return false;
+            break;
+        case MEDIA:
+            if (record->event.pressed) {
+                layer_on(_MEDIA);
+            } else {
+                layer_off(_MEDIA);
+            }
+            return false;
+            break;
+    }
+    return true;
 }
 
 void matrix_init_user(void) {
 #ifdef AUDIO_ENABLE
-	startup_user();
+    startup_user();
 #endif
 }
 
@@ -323,25 +324,25 @@ void matrix_init_user(void) {
 
 void startup_user()
 {
-	_delay_ms(20); // gets rid of tick
-	PLAY_SONG(tone_startup);
+    _delay_ms(20); // gets rid of tick
+    PLAY_SONG(tone_startup);
 }
 
 void shutdown_user()
 {
-	PLAY_SONG(tone_goodbye);
-	_delay_ms(150);
-	stop_all_notes();
+    PLAY_SONG(tone_goodbye);
+    _delay_ms(150);
+    stop_all_notes();
 }
 
 void music_on_user(void)
 {
-	music_scale_user();
+    music_scale_user();
 }
 
 void music_scale_user(void)
 {
-	PLAY_SONG(music_scale);
+    PLAY_SONG(music_scale);
 }
 
 #endif

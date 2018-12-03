@@ -9,6 +9,5 @@ ARCH = AVR8
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-ifndef QUANTUM_DIR
-	include ../../Makefile
-endif
+
+LAYOUTS = numpad_6x4
