@@ -219,6 +219,8 @@ Windows and macOS use different keycodes for "next track" and "previous track". 
 |`KC_WWW_FAVORITES`     |`KC_WFAV`|Browser Favorites (Windows)  |
 |`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`|Next Track (macOS)           |
 |`KC_MEDIA_REWIND`      |`KC_MRWD`|Previous Track (macOS)       |
+|`KC_BRIGHTNESS_UP`     |`KC_BRIU`|Brightness Up                |
+|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`|Brightness Down              |
 
 ## Number Pad
 
