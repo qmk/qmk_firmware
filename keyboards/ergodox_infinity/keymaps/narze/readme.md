@@ -26,19 +26,18 @@ Press `S+D` simultaneously and hold, then...
 
 ## Build instructions
 - `cd /path/to/qmk_firmware`
+- `make git-submodule`
 
 #### Left side
- ```
-docker run -e keymap=narze -e subproject=infinity -e keyboard=ergodox --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
-avr-objcopy -Iihex -Obinary .build/ergodox_infinity_narze.hex .build/ergodox_infinity_narze_left.bin
-dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze_left.bin
+```
+docker run --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware make ergodox_infinity:narze
+dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze.bin
 ```
 
 #### Right side
 ```
-docker run -e keymap=narze -e subproject=infinity -e keyboard=ergodox -e MASTER=right --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
-avr-objcopy -Iihex -Obinary .build/ergodox_infinity_narze.hex .build/ergodox_infinity_narze_right.bin
-dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze_right.bin
+docker run --rm -e MASTER=right -v $('pwd'):/qmk:rw edasque/qmk_firmware make ergodox_infinity:narze
+dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze.bin
 ```
 
 ## TODO

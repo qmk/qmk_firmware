@@ -22,10 +22,9 @@ Press `S+D` simultaneously and hold, then...
 
 ## Build instructions
 - `cd /path/to/qmk_firmware`
-- `docker run -e keymap=narze -e subproject=rev4 -e keyboard=planck --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware`
-- `dfu-programmer atmega32u4 erase && dfu-programmer atmega32u4 flash .build/planck_rev4_narze.hex`
-
-## TODO
-- [] Make SuperDuper mode fully-compatible in Windows by swapping GUI with Ctrl
-
-
+- Build with docker
+  - Planck Rev. 4 : `docker run -e keymap=narze -e subproject=rev4 -e keyboard=planck --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware`
+  - Planck Light : `docker run -e keymap=narze -e keyboard=planck/light --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware`
+- Flash hex file
+  - Using dfu-programmer `dfu-programmer atmega32u4 erase && dfu-programmer atmega32u4 flash .build/planck_rev4_narze.hex`
+  - Use [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases)
