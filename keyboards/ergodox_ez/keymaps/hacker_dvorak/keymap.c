@@ -595,41 +595,41 @@ uint32_t layer_state_set_user(uint32_t state) {
             break;
 
         case PLOVER_US:
-            ergodox_right_led_1_on();
             rgblight_sethsv_noeeprom_springgreen();
+            ergodox_right_led_1_on();
 
             break;
 
         case GAMING_US:
-            ergodox_right_led_2_on();
             rgblight_sethsv_noeeprom_turquoise();
+            ergodox_right_led_2_on();
 
             break;
 
         case ARROWS_US:
-            ergodox_right_led_3_on();
             rgblight_sethsv_noeeprom_orange();
+            ergodox_right_led_3_on();
 
             break;
 
         case MOUSE_US:
+            rgblight_sethsv_noeeprom_goldenrod();
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
-            rgblight_sethsv_noeeprom_goldenrod();
 
             break;
 
         case NUMPAD_US:
+            rgblight_sethsv_noeeprom_gold();
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_gold();
 
             break;
 
         case LAYERS_US:
+            rgblight_sethsv_noeeprom_red();
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_red();
 
             break;
 
@@ -638,74 +638,74 @@ uint32_t layer_state_set_user(uint32_t state) {
             break;
 
         case PLOVER_DV:
-            ergodox_right_led_1_on();
             rgblight_sethsv_noeeprom_azure();
+            ergodox_right_led_1_on();
 
             break;
 
         case GAMING_DV:
-            ergodox_right_led_2_on();
             rgblight_sethsv_noeeprom_blue();
+            ergodox_right_led_2_on();
 
             break;
 
         case ARROWS_DV:
-            ergodox_right_led_3_on();
             rgblight_sethsv_noeeprom_chartreuse();
+            ergodox_right_led_3_on();
 
             break;
 
         case MOUSE_DV:
+            rgblight_sethsv_noeeprom_turquoise();
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
-            rgblight_sethsv_noeeprom_turquoise();
 
             break;
 
         case NUMPAD_DV:
+            rgblight_sethsv_noeeprom_white();
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_white();
 
             break;
 
         case LAYERS_DV:
+            rgblight_sethsv_noeeprom_coral();
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_coral();
 
             break;
 
         case MEDIA_FN:
+            rgblight_sethsv_noeeprom_yellow();
             ergodox_right_led_1_on();
             ergodox_right_led_2_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_yellow();
 
             break;
 
         case HYPER_FN:
-            ergodox_right_led_2_on();
             rgblight_sethsv_noeeprom_purple();
+            ergodox_right_led_2_on();
 
             break;
 
         case MEH_FN:
-            ergodox_right_led_1_on();
             rgblight_sethsv_noeeprom_magenta();
+            ergodox_right_led_1_on();
 
             break;
 
         case MEH_FN_PLUS:
-            ergodox_right_led_3_on();
             rgblight_sethsv_noeeprom_pink();
+            ergodox_right_led_3_on();
 
             break;
 
         case FIRMWARE:
+            rgblight_sethsv_noeeprom_teal();
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
-            rgblight_sethsv_noeeprom_teal();
 
             break;
 

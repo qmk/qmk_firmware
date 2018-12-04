@@ -7,7 +7,7 @@
 
 /* Keyboard Settings */
 #undef  TAPPING_TERM
-#define TAPPING_TERM 200
+#define TAPPING_TERM 150
 
 #undef  DEBOUNCE
 #define DEBOUNCE 10
