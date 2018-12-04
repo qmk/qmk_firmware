@@ -18,8 +18,8 @@
 #include "config_common.h"
 
 // USB Device descriptor parameter
-#define VENDOR_ID       0xFEED // This is same as Zeal60 for now
-#define PRODUCT_ID      0x6060 // This is same as Zeal60 for now
+#define VENDOR_ID       0x5241 // "RW"
+#define PRODUCT_ID      0x060A // 60-A
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    RAMA.WORKS
 #define PRODUCT         RAMA M60-A
@@ -31,7 +31,7 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 14
 
-// Zeal60 PCB default pin-out
+// M60-A PCB default pin-out
 #define MATRIX_ROW_PINS { F0, F1, F4, F6, F7 }
 #define MATRIX_COL_PINS { F5, D5, B1, B2, B3, D3, D2, C7, C6, B6, B5, B4, D7, D6 }
 #define UNUSED_PINS
@@ -118,11 +118,14 @@
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x07
+#define EEPROM_VERSION 0x08
 #define EEPROM_VERSION_ADDR 34
 
 // Backlight config starts after EEPROM version
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+37)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 72
-
+// Dynamic keymap starts after backlight config (35+31)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 66
+// Dynamic macro starts after dynamic keymaps (66+(4*5*14*2)) = (66+560)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 626
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 398
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16

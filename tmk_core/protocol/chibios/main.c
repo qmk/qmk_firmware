@@ -44,7 +44,7 @@
 #ifdef MIDI_ENABLE
 #include "qmk_midi.h"
 #endif
-#ifdef STM32F303xC
+#ifdef STM32_EEPROM_ENABLE
 #include "eeprom_stm32.h"
 #endif
 #include "suspend.h"
@@ -75,7 +75,7 @@ host_driver_t chibios_driver = {
 void virtser_task(void);
 #endif
 
-#ifdef RAW_HID_ENABLE
+#ifdef RAW_ENABLE
 void raw_hid_task(void);
 #endif
 
@@ -112,7 +112,7 @@ int main(void) {
   halInit();
   chSysInit();
 
-#ifdef STM32F303xC
+#ifdef STM32_EEPROM_ENABLE
   EEPROM_init();
 #endif
 
@@ -220,7 +220,7 @@ int main(void) {
 #ifdef VIRTSER_ENABLE
     virtser_task();
 #endif
-#ifdef RAW_HID_ENABLE
+#ifdef RAW_ENABLE
     raw_hid_task();
 #endif
   }

@@ -132,14 +132,15 @@ If you define these options you will enable the associated feature, which may in
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
 * `#define PERMISSIVE_HOLD`
-  * makes tap and hold keys work better for fast typers who don't want tapping term set above 500
+  * makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the `TAPPING_TERM`
   * See [Permissive Hold](feature_advanced_keycodes.md#permissive-hold) for details
 * `#define IGNORE_MOD_TAP_INTERRUPT`
-  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold
-  * See [Mod tap interrupt](feature_advanced_keycodes.md#mod-tap-interrupt) for details
+  * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
+  * See [Mod tap interrupt](feature_advanced_keycodes.md#ignore-mod-tap-interrupt) for details
 * `#define TAPPING_FORCE_HOLD`
   * makes it possible to use a dual role key as modifier shortly after having been tapped
-  * See [Hold after tap](feature_advanced_keycodes.md#hold-after-tap)
+  * See [Hold after tap](feature_advanced_keycodes.md#tapping-force-hold)
+  * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
 * `#define ONESHOT_TIMEOUT 300`
@@ -155,6 +156,10 @@ If you define these options you will enable the associated feature, which may in
     going to produce the 500 keystrokes a second needed to actually get more than a
     few ms of delay from this. But if you're doing chording on something with 3-4ms
     scan times? You probably want this.
+* `#define COMBO_COUNT 2`
+  * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature.
+* `#define COMBO_TERM 200`
+  * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
 
 ## RGB Light Configuration
 
@@ -234,6 +239,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Console for debug(+400)
 * `COMMAND_ENABLE`
   * Commands for debug and configuration
+* `COMBO_ENABLE`
+  * Key combo feature
 * `NKRO_ENABLE`
   * USB N-Key Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 * `AUDIO_ENABLE`
@@ -245,10 +252,41 @@ Use these to enable or disable building certain features. The more you have enab
 * `UNICODE_ENABLE`
   * Unicode
 * `BLUETOOTH_ENABLE`
-  * Enable Bluetooth with the Adafruit EZ-Key HID
+  * Legacy option to Enable Bluetooth with the Adafruit EZ-Key HID. See BLUETOOTH
+* `BLUETOOTH`
+  * Current options are AdafruitEzKey, AdafruitBLE, RN42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `WAIT_FOR_USB`
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+
+## USB Endpoint Limitations
+
+In order to provide services over USB, QMK has to use USB endpoints.
+These are a finite resource: each microcontroller has only a certain number.
+This limits what features can be enabled together.
+If the available endpoints are exceeded, a build error is thrown.
+
+The following features can require separate endpoints:
+
+* `MOUSEKEY_ENABLE`
+* `EXTRAKEY_ENABLE`
+* `CONSOLE_ENABLE`
+* `NKRO_ENABLE`
+* `MIDI_ENABLE`
+* `RAW_ENABLE`
+* `VIRTSER_ENABLE`
+
+In order to improve utilisation of the endpoints, the HID features can be combined to use a single endpoint.
+By default, `MOUSEKEY`, `EXTRAKEY`, and `NKRO` are combined into a single endpoint.
+
+The base keyboard functionality can also be combined into the endpoint,
+by setting `KEYBOARD_SHARED_EP = yes`.
+This frees up one more endpoint,
+but it can prevent the keyboard working in some BIOSes,
+as they do not implement Boot Keyboard protocol switching.
+
+Combining the mouse also breaks Boot Mouse compatibility.
+The mouse can be uncombined by setting `MOUSE_SHARED_EP = no` if this functionality is required.

@@ -66,14 +66,19 @@ void mouse_in_cb(USBDriver *usbp, usbep_t ep);
 #endif /* MOUSE_ENABLE */
 
 /* ---------------
+ * Shared EP header
+ * ---------------
+ */
+
+/* shared IN request callback handler */
+void shared_in_cb(USBDriver *usbp, usbep_t ep);
+
+/* ---------------
  * Extrakey header
  * ---------------
  */
 
 #ifdef EXTRAKEY_ENABLE
-
-/* extrakey IN request callback handler */
-void extra_in_cb(USBDriver *usbp, usbep_t ep);
 
 /* extra report structure */
 typedef struct {

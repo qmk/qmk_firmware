@@ -139,9 +139,12 @@ enum quantum_keycodes {
 
     // Faux clicky as part of main audio feature
     CLICKY_TOGGLE,
+    CLICKY_ENABLE,
+    CLICKY_DISABLE,
     CLICKY_UP,
     CLICKY_DOWN,
     CLICKY_RESET,
+
 
 #ifdef FAUXCLICKY_ENABLE
     // Faux clicky
@@ -454,6 +457,8 @@ enum quantum_keycodes {
     TERM_OFF,
 #endif
 
+    EEPROM_RESET,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -475,7 +480,6 @@ enum quantum_keycodes {
 #define HYPR(kc) (QK_LCTL | QK_LSFT | QK_LALT | QK_LGUI | (kc))
 #define MEH(kc)  (QK_LCTL | QK_LSFT | QK_LALT | (kc))
 #define LCAG(kc) (QK_LCTL | QK_LALT | QK_LGUI | (kc))
-#define ALTG(kc) (QK_RCTL | QK_RALT | (kc))
 #define SGUI(kc) (QK_LGUI | QK_LSFT | (kc))
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
@@ -570,13 +574,16 @@ enum quantum_keycodes {
 
 #define KC_GESC GRAVE_ESC
 
+#define EEP_RST EEPROM_RESET
+
 #define CK_TOGG CLICKY_TOGGLE
 #define CK_RST CLICKY_RESET
 #define CK_UP CLICKY_UP
 #define CK_DOWN CLICKY_DOWN
+#define CK_ON CLICKY_ENABLE
+#define CK_OFF CLICKY_DISABLE
 
 #define RGB_MOD RGB_MODE_FORWARD
-#define RGB_SMOD RGB_MODE_FORWARD
 #define RGB_RMOD RGB_MODE_REVERSE
 
 #define RGB_M_P RGB_MODE_PLAIN
