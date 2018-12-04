@@ -17,3 +17,5 @@
 #pragma once
 
 // place overrides here
+#undef RGBLED_NUM
+#define RGBLED_NUM 4
