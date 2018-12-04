@@ -40,10 +40,6 @@
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
-
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 8
@@ -51,9 +47,7 @@
 #define RGBLIGHT_VAL_STEP 8
 #endif
 #define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
+
 #define RGBLED_NUM 4
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 #endif

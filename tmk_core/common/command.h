@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef COMMAND_H
-#define COMMAND
+#pragma once
 
 /* FIXME: Add doxygen comments for the behavioral defines in here. */
 
@@ -155,5 +154,3 @@ bool command_proc(uint8_t code);
 
 #define XMAGIC_KC(key) KC_##key
 #define MAGIC_KC(key) XMAGIC_KC(key)
-
-#endif

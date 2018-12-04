@@ -169,7 +169,8 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
-avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+define EXEC_AVRDUDE
+	USB= ;\
 	if $(GREP) -q -s Microsoft /proc/version; then \
 		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
@@ -191,6 +192,15 @@ avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 		sleep 1; \
 		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
 	fi
+endef
+
+avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_AVRDUDE)
+
+avrdude-loop: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	while true; do \
+	    $(call EXEC_AVRDUDE) ; \
+	done
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
