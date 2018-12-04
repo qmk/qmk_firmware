@@ -6,15 +6,6 @@
 
 
 #define SCTL(kc) LSFT(LCTL(kc))
-#define MS_CC    MAGIC_SWAP_CONTROL_CAPSLOCK
-#define MU_CC    MAGIC_UNSWAP_CONTROL_CAPSLOCK
-#define MS_GE    MAGIC_SWAP_GRAVE_ESC
-#define MU_GE    MAGIC_UNSWAP_GRAVE_ESC
-#define MT_NKRO  MAGIC_TOGGLE_NKRO
-#define MT_AG    MAGIC_TOGGLE_ALT_GUI
-#define MY_GUI   MAGIC_UNNO_GUI
-#define MN_GUI   MAGIC_NO_GUI
-
 
 // Layers
 enum layers {
