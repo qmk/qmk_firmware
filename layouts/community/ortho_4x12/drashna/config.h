@@ -31,11 +31,11 @@
 #define EE_HANDS
 #endif
 
-#if defined(KEYBOARD_planck_rev5)
+#if !defined(KEYBOARD_planck_light)
 #ifdef RGBLIGHT_ENABLE
 #define NO_MUSIC_MODE
 #endif // RGBLIGHT_ENABLE
-#endif // KEYBOARD_planck_rev5
+#endif // KEYBOARD_planck_light
 
 
 /*
