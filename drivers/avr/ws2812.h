@@ -20,8 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIGHT_WS2812_H_
-#define LIGHT_WS2812_H_
+#pragma once
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -72,5 +71,3 @@ void ws2812_sendarray_mask(uint8_t *array,uint16_t length, uint8_t pinmask);
 #ifndef CONCAT_EXP
 #define CONCAT_EXP(a, b)   CONCAT(a, b)
 #endif
-
-#endif /* LIGHT_WS2812_H_ */
