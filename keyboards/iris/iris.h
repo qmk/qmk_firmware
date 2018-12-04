@@ -1,12 +1,13 @@
-#ifndef IRIS_H
-#define IRIS_H
+#pragma once
 
 #ifdef KEYBOARD_iris_rev1
     #include "rev1.h"
 #elif KEYBOARD_iris_rev1_led
     #include "rev1_led.h"
-#else
+#elif KEYBOARD_iris_rev2
     #include "rev2.h"
+#else
+    #include "rev3.h"
 #endif
 
 #include "quantum.h"
@@ -26,5 +27,3 @@
         KC_##L30, KC_##L31, KC_##L32, KC_##L33, KC_##L34, KC_##L35, KC_##LT4, KC_##RT4, KC_##R30, KC_##R31, KC_##R32, KC_##R33, KC_##R34, KC_##R35, \
                                                 KC_##LT1, KC_##LT2, KC_##LT3, KC_##RT3, KC_##RT2, KC_##RT1 \
     )
-
-#endif

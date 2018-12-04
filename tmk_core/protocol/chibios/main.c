@@ -44,6 +44,9 @@
 #ifdef MIDI_ENABLE
 #include "qmk_midi.h"
 #endif
+#ifdef STM32_EEPROM_ENABLE
+#include "eeprom_stm32.h"
+#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -72,7 +75,7 @@ host_driver_t chibios_driver = {
 void virtser_task(void);
 #endif
 
-#ifdef RAW_HID_ENABLE
+#ifdef RAW_ENABLE
 void raw_hid_task(void);
 #endif
 
@@ -109,6 +112,10 @@ int main(void) {
   halInit();
   chSysInit();
 
+#ifdef STM32_EEPROM_ENABLE
+  EEPROM_init();
+#endif
+
   // TESTING
   // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
 
@@ -135,10 +142,15 @@ int main(void) {
 
   /* Wait until the USB or serial link is active */
   while (true) {
+#if defined(WAIT_FOR_USB) || defined(SERIAL_LINK_ENABLE)
     if(USB_DRIVER.state == USB_ACTIVE) {
       driver = &chibios_driver;
       break;
     }
+#else
+    driver = &chibios_driver;
+    break;
+#endif
 #ifdef SERIAL_LINK_ENABLE
     if(is_serial_link_connected()) {
       driver = get_serial_link_driver();
@@ -171,6 +183,7 @@ int main(void) {
   /* Main loop */
   while(true) {
 
+#if !defined(NO_USB_STARTUP_CHECK)
     if(USB_DRIVER.state == USB_SUSPENDED) {
       print("[s]");
 #ifdef VISUALIZER_ENABLE
@@ -198,6 +211,7 @@ int main(void) {
       visualizer_resume();
 #endif
     }
+#endif
 
     keyboard_task();
 #ifdef CONSOLE_ENABLE
@@ -206,7 +220,7 @@ int main(void) {
 #ifdef VIRTSER_ENABLE
     virtser_task();
 #endif
-#ifdef RAW_HID_ENABLE
+#ifdef RAW_ENABLE
     raw_hid_task();
 #endif
   }

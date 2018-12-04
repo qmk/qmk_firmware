@@ -3,8 +3,8 @@ JD40
 
 A compact 40% keyboard.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: JD40 PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: JD40 PCB  
 Hardware Availability: [1up](https://1upkeyboards.com/jd40-mkii-1up-keyboards-logo-pcb.html) [mechanicalkeyboards.com](https://mechanicalkeyboards.com/shop/index.php?l=product_detail&p=2452) [originative](https://www.originativeco.com/products/jd40-pcb)
 
 Make example for this keyboard (after setting up your build environment):
