@@ -31,13 +31,15 @@ Press `S+D` simultaneously and hold, then...
 #### Left side
 ```
 docker run --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware make ergodox_infinity:narze
-dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze.bin
+mv .build/ergodox_infinity_narze.bin .build/ergodox_infinity_narze_left.bin
+dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze_left.bin
 ```
 
 #### Right side
 ```
 docker run --rm -e MASTER=right -v $('pwd'):/qmk:rw edasque/qmk_firmware make ergodox_infinity:narze
-dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze.bin
+mv .build/ergodox_infinity_narze.bin .build/ergodox_infinity_narze_right.bin
+dfu-util --device 1c11:b007 -D .build/ergodox_infinity_narze_right.bin
 ```
 
 ## TODO
