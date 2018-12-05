@@ -2,8 +2,11 @@
 #include "rgb_stuff.h"
 #include "eeprom.h"
 
+#if defined(RGBLIGHT_ENABLE)
 extern rgblight_config_t rgblight_config;
-extern userspace_config_t userspace_config;
+#elif defined(RGB_MATRIX_ENABLE)
+extern rgb_config_t rgb_matrix_config;
+#endif
 
 #ifdef RGBLIGHT_ENABLE
 void rgblight_sethsv_default_helper(uint8_t index) {
@@ -12,14 +15,6 @@ void rgblight_sethsv_default_helper(uint8_t index) {
 #endif // RGBLIGHT_ENABLE
 
 #ifdef INDICATOR_LIGHTS
-uint8_t last_mod;
-uint8_t last_led;
-uint8_t last_osm;
-uint8_t current_mod;
-uint8_t current_led;
-uint8_t current_osm;
-
-
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
   if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
     if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
@@ -86,16 +81,7 @@ void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
 }
 
 void matrix_scan_indicator(void) {
-  current_mod = get_mods();
-  current_led = host_keyboard_leds();
-  current_osm = get_oneshot_mods();
-
-  set_rgb_indicators(current_mod, current_led, current_osm);
-
-  last_mod = current_mod;
-  last_led = current_led;
-  last_osm = current_osm;
-
+  set_rgb_indicators(get_mods(), host_keyboard_leds(), get_oneshot_mods());
 }
 #endif //INDICATOR_LIGHTS
 
@@ -226,11 +212,11 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
       return true; break;
 #endif // RGBLIGHT_TWINKLE
   case KC_RGB_T:  // This allows me to use underglow as layer indication, or as normal
-#ifdef RGBLIGHT_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
     if (record->event.pressed) {
       userspace_config.rgb_layer_change ^= 1;
       xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-      eeprom_update_dword(EECONFIG_USERSPACE, userspace_config.raw);
+      eeconfig_update_user(userspace_config.raw);
       if (userspace_config.rgb_layer_change) {
         layer_state_set(layer_state); // This is needed to immediately set the layer color (looks better)
       }
@@ -243,7 +229,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
       if (userspace_config.rgb_layer_change) {
         userspace_config.rgb_layer_change = false;
         xprintf("rgblight layer change [EEPROM]: %u\n", userspace_config.rgb_layer_change);
-        eeprom_update_dword(EECONFIG_USERSPACE, userspace_config.raw);
+        eeconfig_update_user(userspace_config.raw);
       }
     }
     return true; break;
@@ -254,28 +240,25 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
 
 
-void matrix_init_rgb(void) {
-#ifdef INDICATOR_LIGHTS
-  current_mod = last_mod = get_mods();
-  current_led = last_led = host_keyboard_leds();
-  current_osm = last_osm = get_oneshot_mods();
-#endif
+ void matrix_init_rgb(void) {
 
-  if (userspace_config.rgb_layer_change) {
-    rgblight_enable_noeeprom();
-    switch (biton32(eeconfig_read_default_layer())) {
-      case _COLEMAK:
-        rgblight_sethsv_noeeprom_magenta(); break;
-      case _DVORAK:
-        rgblight_sethsv_noeeprom_springgreen(); break;
-      case _WORKMAN:
-        rgblight_sethsv_noeeprom_goldenrod(); break;
-      default:
-        rgblight_sethsv_noeeprom_cyan(); break;
-    }
-    rgblight_mode_noeeprom(1);
-  }
-}
+// #ifdef RGBLIGHT_ENABLE
+//   if (userspace_config.rgb_layer_change) {
+//     rgblight_enable_noeeprom();
+//     switch (biton32(eeconfig_read_default_layer())) {
+//       case _COLEMAK:
+//         rgblight_sethsv_noeeprom_magenta(); break;
+//       case _DVORAK:
+//         rgblight_sethsv_noeeprom_springgreen(); break;
+//       case _WORKMAN:
+//         rgblight_sethsv_noeeprom_goldenrod(); break;
+//       default:
+//         rgblight_sethsv_noeeprom_cyan(); break;
+//     }
+//     rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+//   }
+// #endif
+ }
 
 void matrix_scan_rgb(void) {
 #ifdef RGBLIGHT_TWINKLE
@@ -295,31 +278,31 @@ uint32_t layer_state_set_rgb(uint32_t state) {
     switch (biton32(state)) {
     case _MACROS:
       rgblight_sethsv_noeeprom_orange();
-      userspace_config.is_overwatch ? rgblight_mode_noeeprom(17) : rgblight_mode_noeeprom(18);
+      userspace_config.is_overwatch ? rgblight_effect_snake(RGBLIGHT_MODE_SNAKE + 2) : rgblight_effect_snake(RGBLIGHT_MODE_SNAKE + 3);
       break;
     case _MEDIA:
       rgblight_sethsv_noeeprom_chartreuse();
-      rgblight_mode_noeeprom(22);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 1);
       break;
     case _GAMEPAD:
       rgblight_sethsv_noeeprom_orange();
-      rgblight_mode_noeeprom(17);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 2);
       break;
     case _DIABLO:
       rgblight_sethsv_noeeprom_red();
-      rgblight_mode_noeeprom(5);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
       break;
     case _RAISE:
       rgblight_sethsv_noeeprom_yellow();
-      rgblight_mode_noeeprom(5);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
       break;
     case _LOWER:
       rgblight_sethsv_noeeprom_green();
-      rgblight_mode_noeeprom(5);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3);
       break;
     case _ADJUST:
       rgblight_sethsv_noeeprom_red();
-      rgblight_mode_noeeprom(23);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_KNIGHT + 2);
       break;
     default: //  for any other layers, or the default layer
       switch (biton32(default_layer_state)) {
@@ -332,7 +315,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
         default:
           rgblight_sethsv_noeeprom_cyan(); break;
       }
-      biton32(state) == _MODS ? rgblight_mode_noeeprom(2) : rgblight_mode_noeeprom(1); // if _MODS layer is on, then breath to denote it
+      biton32(state) == _MODS ? rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING) : rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // if _MODS layer is on, then breath to denote it
       break;
     }
 //    layer_state_set_indicator(); // Runs every scan, so need to call this here .... since I can't get it working "right" anyhow
@@ -342,4 +325,38 @@ uint32_t layer_state_set_rgb(uint32_t state) {
   return state;
 }
 
-
+uint32_t default_layer_state_set_rgb(uint32_t state) {
+#ifdef RGBLIGHT_ENABLE
+  if (userspace_config.rgb_layer_change) {
+    rgblight_config_t temp_rgblight_config = rgblight_config;
+    switch (biton32(state)) {
+      case _COLEMAK:
+        temp_rgblight_config.hue = 300;
+        temp_rgblight_config.val = 255;
+        temp_rgblight_config.sat = 255;
+        temp_rgblight_config.mode = 1;
+        break;
+      case _DVORAK:
+        temp_rgblight_config.hue = 150;
+        temp_rgblight_config.val = 255;
+        temp_rgblight_config.sat = 255;
+        temp_rgblight_config.mode = 1;
+      case _WORKMAN:
+        temp_rgblight_config.hue = 43;
+        temp_rgblight_config.val = 218;
+        temp_rgblight_config.sat = 218;
+        temp_rgblight_config.mode = 1;
+      default:
+        temp_rgblight_config.hue = 180;
+        temp_rgblight_config.val = 255;
+        temp_rgblight_config.sat = 255;
+        temp_rgblight_config.mode = 1;
+    }
+    if (temp_rgblight_config.raw != eeconfig_read_rgblight()) {
+      xprintf("rgblight set default layer hsv [EEPROM]: %u,%u,%u,%u\n", temp_rgblight_config.hue, temp_rgblight_config.sat, temp_rgblight_config.val, temp_rgblight_config.mode);
+      eeconfig_update_rgblight(temp_rgblight_config.raw);
+    }
+  }
+#endif // RGBLIGHT_ENABLE
+  return state;
+}

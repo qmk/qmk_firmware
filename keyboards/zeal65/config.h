@@ -79,10 +79,10 @@
 
 // enable/disable LEDs based on layout
 #define RGB_BACKLIGHT_USE_SPLIT_BACKSPACE 0
-#define RGB_BACKLIGHT_USE_SPLIT_LEFT_SHIFT 0
-#define RGB_BACKLIGHT_USE_SPLIT_RIGHT_SHIFT 1
-#define RGB_BACKLIGHT_USE_7U_SPACEBAR 0
-#define RGB_BACKLIGHT_USE_ISO_ENTER 0
+#define RGB_BACKLIGHT_USE_SPLIT_LEFT_SHIFT 0  // Unused
+#define RGB_BACKLIGHT_USE_SPLIT_RIGHT_SHIFT 0 // Unused
+#define RGB_BACKLIGHT_USE_7U_SPACEBAR 1       // Used only for stab LED matching spacebar LED
+#define RGB_BACKLIGHT_USE_ISO_ENTER 0         // Unused
 #define RGB_BACKLIGHT_DISABLE_HHKB_BLOCKER_LEDS 0
 
 // disable backlight when USB suspended (PC sleep/hibernate/shutdown)
@@ -115,11 +115,15 @@
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x07
+#define EEPROM_VERSION 0x08
 #define EEPROM_VERSION_ADDR 34
 
 // Backlight config starts after EEPROM version
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+37)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 72
+// Dynamic keymap starts after backlight config (35+31)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 66
+// Dynamic macro starts after dynamic keymaps (66+(4*5*15*2)) = (66+600)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 666
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 358
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16
 

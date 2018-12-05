@@ -630,7 +630,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //------BASE LAYER TOGGLE
         case TOG_BAS:
             if( record->event.pressed ) {
-                if qwerty_on {
+                if (qwerty_on) {
                     set_single_persistent_default_layer(_DV);
                     qwerty_on = false;
 #ifdef AUDIO_ENABLE

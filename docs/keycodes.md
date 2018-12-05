@@ -141,9 +141,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_LOCKING_SCROLL`    |`KC_LSCR`           |Locking Scroll Lock                            |
 |`KC_KP_COMMA`          |`KC_PCMM`           |Keypad `,`                                     |
 |`KC_KP_EQUAL_AS400`    |                    |Keypad `=` on AS/400 keyboards                 |
-|`KC_INT1`              |`KC_RO`             |JIS `\` and <code>&#124;</code>                |
+|`KC_INT1`              |`KC_RO`             |JIS `\` and `_`                                |
 |`KC_INT2`              |`KC_KANA`           |JIS Katakana/Hiragana                          |
-|`KC_INT3`              |`KC_JYEN`           |JIS `¥`                                        |
+|`KC_INT3`              |`KC_JYEN`           |JIS `¥` and <code>&#124;</code>                |
 |`KC_INT4`              |`KC_HENK`           |JIS Henkan                                     |
 |`KC_INT5`              |`KC_MHEN`           |JIS Muhenkan                                   |
 |`KC_INT6`              |                    |JIS Numpad `,`                                 |
@@ -203,21 +203,24 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_WWW_FAVORITES`     |`KC_WFAV`           |Browser Favorites (Windows)                    |
 |`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`           |Next Track (macOS)                             |
 |`KC_MEDIA_REWIND`      |`KC_MRWD`           |Previous Track (macOS)                         |
+|`KC_BRIGHTNESS_UP`     |`KC_BRIU`           |Brightness Up                                  |
+|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`           |Brightness Down                                |
 
 ## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
-|Key          |Aliases    |Description                                                          |
-|-------------|-----------|---------------------------------------------------------------------|
-|`RESET`      |           |Put the keyboard into DFU mode for flashing                          |
-|`DEBUG`      |           |Toggle debug mode                                                    |
-|`KC_GESC`    |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
-|`KC_LSPO`    |           |Left Shift when held, `(` when tapped                                |
-|`KC_RSPC`    |           |Right Shift when held, `)` when tapped                               |
-|`KC_LEAD`    |           |The [Leader key](feature_leader_key.md)                              |
-|`KC_LOCK`    |           |The [Lock key](feature_key_lock.md)                                  |
-|`FUNC(n)`    |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
-|`M(n)`       |           |Call macro `n`                                                       |
-|`MACROTAP(n)`|           |Macro-tap `n` idk FIXME                                              |
+|Key            |Aliases    |Description                                                          |
+|---------------|-----------|---------------------------------------------------------------------|
+|`RESET`        |           |Put the keyboard into DFU mode for flashing                          |
+|`DEBUG`        |           |Toggle debug mode                                                    |
+|`EEPROM_RESET` |`EEP_RST`  |Resets EEPROM state by reinitializing it                             |
+|`KC_GESC`      |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
+|`KC_LSPO`      |           |Left Shift when held, `(` when tapped                                |
+|`KC_RSPC`      |           |Right Shift when held, `)` when tapped                               |
+|`KC_LEAD`      |           |The [Leader key](feature_leader_key.md)                              |
+|`KC_LOCK`      |           |The [Lock key](feature_key_lock.md)                                  |
+|`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
+|`M(n)`         |           |Call macro `n`                                                       |
+|`MACROTAP(n)`  |           |Macro-tap `n` idk FIXME                                              |
 
 ## [Audio Keys](feature_audio.md)
 
@@ -333,7 +336,6 @@ This is a reference only. Each group of keys links to the page documenting their
 |`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
 |`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
 |`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
-|`ALTG(kc)`|                      |Hold Right Control and Alt and press `kc`           |
 |`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
 |`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
 
@@ -460,6 +462,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`SH_MOFF`  |Momentarily turns off swap.                                              |
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
 |`SH_TT`    |Toggles with a tap; momentary when held.                                 |
+
 ## [Unicode Support](feature_unicode.md)
 
 |Key         |Aliases|                                                 |

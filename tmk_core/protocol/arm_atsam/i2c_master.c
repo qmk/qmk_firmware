@@ -261,8 +261,9 @@ uint8_t I2C3733_Init_Control(void)
 {
     DBGC(DC_I2C3733_INIT_CONTROL_BEGIN);
 
-    srdata.bit.SDB_N = 1;
-    SPI_WriteSRData();
+    //Hardware state shutdown on boot
+    //USB state machine will enable driver when communication is ready
+    I2C3733_Control_Set(0);
 
     CLK_delay_ms(1);
 
