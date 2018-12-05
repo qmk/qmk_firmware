@@ -2,12 +2,8 @@
 #include "bbaserdem.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    // Main Dvorak layer
-    [_DV] = LAYOUT_letssplit_wrapper(DVORAK),
-    // Main Qwerty layer
-    [_QW] = LAYOUT_letssplit_wrapper(QWERTY),
-    // Turkish and special character overlay
-    [_AL] = LAYOUT_letssplit_wrapper(ALTCHAR),
+    // Main layer
+    [_BA] = LAYOUT_letssplit_wrapper(BASE),
     // Gaming layer
     [_GA] = LAYOUT_letssplit_wrapper(GAME),
     // Numbers layer

@@ -41,8 +41,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC,KC_DEL },
   { KC_ESC, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_HOME,KC_PGUP},
   { KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_BSLS,KC_END, KC_PGDN},
-  { KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_NUBS,KC_RSFT,KC_UP,  KC_CAPS},
-  { FUNCT,  KC_LCTL,KC_LGUI,KC_LALT,KC_SPC, XXX,    KC_ENT, XXX,    KC_RALT,XXX,    KC_RGUI,KC_RCTL,KC_LEFT,KC_DOWN,KC_RGHT},
+  { KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_NUHH,KC_RSFT,KC_UP,  KC_INS },
+  { KC_LCTL,KC_LGUI,KC_LALT,FUNCT,  KC_SPC, XXX,    KC_ENT, XXX,    KC_RALT,KC_RGUI,KC_RCTL,KC_CAPS,KC_LEFT,KC_DOWN,KC_RGHT},
  },
 
 /* FUNCTION
@@ -64,6 +64,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { _______,KC_SLEP,KC_F13, BL_DEC, BL_INC, KC_F14, KC_F15, KC_F16, KC_F17, KC_F18, KC_MUTE,KC_VOLD,KC_VOLU,KC_F19, KC_F20 },
   { _______,KC_F21 ,KC_F22, KC_F23, KC_F24, XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    KC_WAKE,_______},
   { _______,XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    _______,KC_MSTP,_______},
-  { _______,_______,_______,_______,XXX,    _______,XXX,    _______,XXX,    _______,_______,_______,KC_MPRV,KC_MPLY,KC_MNXT},
+  { _______,_______,_______,_______,XXX,    _______,XXX,    _______,SECRET1,SECRET2,SECRET3,SECRET4,KC_MPRV,KC_MPLY,KC_MNXT},
  }
 };
