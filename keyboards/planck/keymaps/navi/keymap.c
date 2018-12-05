@@ -15,12 +15,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "planck.h"
-#include "action_layer.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-  #include "song_list.h"
-#endif
+
 
 extern keymap_config_t keymap_config;
 

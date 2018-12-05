@@ -37,8 +37,6 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
-#define PREVENT_STUCK_MODIFIERS
-
 #define MOUSEKEY_INTERVAL 16
 
 #define MOUSEKEY_DELAY 0
@@ -50,9 +48,6 @@
 #define MOUSEKEY_WHEEL_DELAY 0
 
 #ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include QMK_KEYBOARD_CONFIG_H
 
 #define TAPPING_TERM 80
 #define TAPPING_TOGGLE 2
