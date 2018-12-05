@@ -1,18 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "LUFA/Drivers/Peripheral/TWI.h"
-#ifdef AUDIO_ENABLE
-  #include "audio.h"
-#endif
-#ifdef USE_I2C
-#include "i2c.h"
-#endif
-#ifdef SSD1306OLED
-#include "ssd1306.h"
-#endif
-extern keymap_config_t keymap_config;
-
-//Following line allows macro to read current RGB settings
-extern rgblight_config_t rgblight_config;
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -102,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,    KC_P7,   KC_P8,   KC_P9,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,  KC_BSPC, \
   KC_LCTRL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_P4,   KC_P5,   KC_P6,    KC_H,    KC_N,    KC_E,    KC_I, LT_MC(KC_O), KC_QUOT, \
   KC_LSFT,  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_P1,   KC_P2,   KC_P3,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  CTL_ENT, \
-  KC_GRV,   KC_LCTRL, KC_LGUI, KC_LALT, LOWER,  KC_SPC,  KC_P0,   KC_DOT,  KC_EQL,   KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT  \
+  KC_GRV,   KC_CAPS, KC_LGUI, KC_LALT, LOWER,  KC_SPC,  KC_P0,   KC_DOT,  KC_EQL,   KC_SPC,  RAISE,   KC_LEFT, KC_DOWN, KC_UP,    KC_RGHT  \
   ),
 
 /* Dvorak
@@ -208,62 +194,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   RESET,   RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______, _______, _______, _______, KC_DEL, \
   _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, _______, _______, _______, AG_SWAP, QWERTY,  COLEMAK, _______,  _______,  _______, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF, _______, _______, _______,  _______, BL_DEC,  BL_INC,  BL_STEP, BL_TOGG, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______\
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, CK_RST,  CK_DOWN, CK_UP,   CK_TOGG\
 )
 
 
 
 };
 
-
-#ifdef AUDIO_ENABLE
-
-float tone_startup[][2]    = SONG(STARTUP_SOUND);
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
-float tone_goodbye[][2]    = SONG(GOODBYE_SOUND);
-#endif
-
-// define variables for reactive RGB
-bool RGB_INIT = false;
-bool TOG_STATUS = false;
-int RGB_current_mode;
-
-
-
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
+uint32_t layer_state_set_user(uint32_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
-  if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
-    rgblight_mode(RGB_current_mode);
-    layer_on(layer3);
-  } else {
-    layer_off(layer3);
-  }
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
@@ -271,22 +224,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
           //not sure how to have keyboard check mode and set it to a variable, so my work around
           //uses another variable that would be set to true after the first time a reactive key is pressed.
-        if (RGB_INIT) {} else {
-          RGB_current_mode = rgblight_config.mode;
-          RGB_INIT = true;
-        }
-        if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
-        } else {
-          TOG_STATUS = !TOG_STATUS;
-          rgblight_mode(16);
-        }
         layer_on(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
-        rgblight_mode(RGB_current_mode);   // revert RGB to initial mode prior to RGB mode change
-        TOG_STATUS = false;
         layer_off(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
@@ -294,22 +234,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         //not sure how to have keyboard check mode and set it to a variable, so my work around
         //uses another variable that would be set to true after the first time a reactive key is pressed.
-        if (RGB_INIT) {} else {
-          RGB_current_mode = rgblight_config.mode;
-          RGB_INIT = true;
-        }
-        if (TOG_STATUS) { //TOG_STATUS checks is another reactive key currently pressed, only changes RGB mode if returns false
-        } else {
-          TOG_STATUS = !TOG_STATUS;
-          rgblight_mode(15);
-        }
         layer_on(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       } else {
-        rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
         layer_off(_RAISE);
-        TOG_STATUS = false;
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
       break;
@@ -324,66 +251,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case RGB_MOD:
-      //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
-      if (record->event.pressed) {
-        rgblight_mode(RGB_current_mode);
-        rgblight_step();
-        RGB_current_mode = rgblight_config.mode;
-      }
-      return false;
-      break;
   }
   return true;
 }
 
-void matrix_init_user(void) {
-  #ifdef USE_I2C
-    i2c_master_init();
-  #ifdef SSD1306OLED
-  // calls code for the SSD1306 OLED
-        _delay_ms(400);
-        TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-        iota_gfx_init();   // turns on the display
-  #endif
-  #endif
-    #ifdef AUDIO_ENABLE
-        startup_user();
-    #endif
+bool music_mask_user(uint16_t keycode) {
+  switch (keycode) {
+    case RAISE:
+    case LOWER:
+      return false;
+    default:
+      return true;
+  }
 }
 
-void matrix_scan_user(void) {
-    #ifdef SSD1306OLED
-     iota_gfx_task();  // this is what updates the display continuously
-    #endif
-}
-
-#ifdef AUDIO_ENABLE
-
-void startup_user()
-{
-    _delay_ms(20); // gets rid of tick
-    PLAY_SONG(tone_startup);
-}
-
-void shutdown_user()
-{cc
-    PLAY_SONG(tone_goodbye);
-    _delay_ms(150);
-    stop_all_notes();
-}
-
-void music_on_user(void)
-{
-    music_scale_user();
-}
-
-void music_scale_user(void)
-{
-    PLAY_SONG(music_scale);
-}
-
-#endif
 
 /*
  * Macro definition
@@ -404,90 +285,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     return MACRO_NONE;
 }
 
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
+
+void matrix_init_user(void) {
 }
 
-//assign the right code to your layers for OLED display
-#define L_BASE 0
-#define L_LOWER 8
-#define L_RAISE 16
-#define L_FNLAYER 64
-#define L_NUMLAY 128
-#define L_NLOWER 136
-#define L_NFNLAYER 192
-#define L_MOUSECURSOR 256
-#define L_ADJUST 65560
 
-void iota_gfx_task_user(void) {
-#if DEBUG_TO_SCREEN
-  if (debug_enable) {
-    return;
-  }
-#endif
-
-  struct CharacterMatrix matrix;
-
-  matrix_clear(&matrix);
-  matrix_write_P(&matrix, PSTR("USB: "));
-#ifdef PROTOCOL_LUFA
-  switch (USB_DeviceState) {
-    case DEVICE_STATE_Unattached:
-      matrix_write_P(&matrix, PSTR("Unattached"));
-      break;
-    case DEVICE_STATE_Suspended:
-      matrix_write_P(&matrix, PSTR("Suspended"));
-      break;
-    case DEVICE_STATE_Configured:
-      matrix_write_P(&matrix, PSTR("Connected"));
-      break;
-    case DEVICE_STATE_Powered:
-      matrix_write_P(&matrix, PSTR("Powered"));
-      break;
-    case DEVICE_STATE_Default:
-      matrix_write_P(&matrix, PSTR("Default"));
-      break;
-    case DEVICE_STATE_Addressed:
-      matrix_write_P(&matrix, PSTR("Addressed"));
-      break;
-    default:
-      matrix_write_P(&matrix, PSTR("Invalid"));
-  }
-#endif
-
-// Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-
-  char buf[40];
-  snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
-  matrix_write_P(&matrix, PSTR("\n\nLayer: "));
-    switch (layer_state) {
-        case L_BASE:
-           matrix_write_P(&matrix, PSTR("Default"));
-           break;
-        case L_RAISE:
-           matrix_write_P(&matrix, PSTR("Raise"));
-           break;
-        case L_LOWER:
-           matrix_write_P(&matrix, PSTR("Lower"));
-           break;
-        case L_ADJUST:
-           matrix_write_P(&matrix, PSTR("ADJUST"));
-           break;
-        default:
-           matrix_write(&matrix, buf);
- }
-
-  // Host Keyboard LED Status
-  char led[40];
-    snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(&matrix, led);
-  matrix_update(&display, &matrix);
+void matrix_scan_user(void) {
 }
 
