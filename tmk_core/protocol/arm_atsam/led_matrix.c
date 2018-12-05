@@ -226,7 +226,7 @@ void disp_pixel_setup(void)
     while (cur < lede)
     {
         cur->px = (cur->x - disp.left) / disp.width * 100;
-        cur->py = (cur->y - disp.top) / disp.height * 100;
+        cur->py = (cur->y - disp.bottom) / disp.height * 100;
         *cur->rgb.r = 0;
         *cur->rgb.g = 0;
         *cur->rgb.b = 0;
@@ -334,15 +334,6 @@ void led_matrix_run(void)
                 else
                 {
                   po = led_cur->px;
-                }
-
-                if (po < 0)
-                {
-                  po += 100;
-                }
-                else if (po > 100)
-                {
-                  po -= 100;
                 }
 
                 float pomod;
