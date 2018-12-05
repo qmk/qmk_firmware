@@ -47,9 +47,5 @@
 
 #define MOUSEKEY_WHEEL_DELAY 0
 
-#ifndef CONFIG_USER_H
-
 #define TAPPING_TERM 80
 #define TAPPING_TOGGLE 2
-
-#endif
