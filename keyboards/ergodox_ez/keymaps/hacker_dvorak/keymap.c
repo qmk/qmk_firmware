@@ -30,9 +30,9 @@ enum layers {
     FIRMWARE
 };
 
-int CAPS_ON   = 0;
-int NUM_ON    = 0;
-int SCROLL_ON = 0;
+int CAPS_LOCK   = 0;
+int NUM_LOCK    = 0;
+int SCROLL_LOCK = 0;
 
 enum tap_dances {
     TD_ESC_CAPS = 0
@@ -580,12 +580,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_CLCK:
             if (record->event.pressed) {
-                if (!(CAPS_ON)) {
+                if (!(CAPS_LOCK)) {
                     ergodox_right_led_1_on();
-                    CAPS_ON = 1;
+                    CAPS_LOCK = 1;
                 } else {
                     ergodox_right_led_1_off();
-                    CAPS_ON = 0;
+                    CAPS_LOCK = 0;
                 }
             }
 
@@ -593,12 +593,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_NLCK:
             if (record->event.pressed) {
-                if (!(NUM_ON)) {
+                if (!(NUM_LOCK)) {
                     ergodox_right_led_2_on();
-                    NUM_ON = 1;
+                    NUM_LOCK = 1;
                 } else {
                     ergodox_right_led_2_off();
-                    NUM_ON = 0;
+                    NUM_LOCK = 0;
                 }
             }
 
@@ -606,12 +606,48 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case KC_SLCK:
             if (record->event.pressed) {
-                if (!(SCROLL_ON)) {
+                if (!(SCROLL_LOCK)) {
                     ergodox_right_led_3_on();
-                    SCROLL_ON = 1;
+                    SCROLL_LOCK = 1;
                 } else {
                     ergodox_right_led_3_off();
-                    SCROLL_ON = 0;
+                    SCROLL_LOCK = 0;
+                }
+            }
+
+        case KC_MS_WH_LEFT:
+            if (record->event.pressed) {
+                if (SCROLL_LOCK) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+        case KC_MS_WH_UP:
+            if (record->event.pressed) {
+                if (SCROLL_LOCK) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+        case KC_MS_WH_DOWN:
+            if (record->event.pressed) {
+                if (SCROLL_LOCK) {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+
+        case KC_MS_WH_RIGHT:
+            if (record->event.pressed) {
+                if (SCROLL_LOCK) {
+                    return false;
+                } else {
+                    return true;
                 }
             }
 
