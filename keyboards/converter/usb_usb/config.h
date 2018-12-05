@@ -40,8 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* matrix scanning is done in custom_matrix.cpp */
 #define DIODE_DIRECTION CUSTOM_MATRIX
 
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))) 
 
 /*
  * Feature disable options
