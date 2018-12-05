@@ -1,6 +1,7 @@
 <!--- Provide a general summary of your changes in the Title above -->
 
-<!--- This template is entirely option and can be reomved, but is here to help both you and us. -->
+<!--- This template is entirely option and can be removed, but is here to help both you and us. -->
+<!--- This text and anything on lines wrapped like this one will not show up in the final text. This text is to help us and you. -->
 
 ## Description
 <!--- Describe your changes in detail -->
