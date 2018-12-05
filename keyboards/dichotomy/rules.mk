@@ -1,6 +1,5 @@
 
 OPT_DEFS += -DDICHOTOMY_PROMICRO
-OPT_DEFS += -DCATERINA_BOOTLOADER
 DICHOTOMY_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                          avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 
