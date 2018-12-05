@@ -1,6 +1,4 @@
 #include "dichotomy.h"
-#include "pointing_device.h"
-#include "report.h"
 
 void uart_init(void) {
 	SERIAL_UART_INIT();

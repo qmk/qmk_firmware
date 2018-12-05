@@ -1,16 +1,13 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
-#include QMK_KEYBOARD_H
-#include "report.h"
-#include "pointing_device.h"
+#include "dichotomy.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
-enum dichotomy_layers
-{
+enum dichotomy_layers {
 	_BS,
 	_SF,
 	_NM,
@@ -36,16 +33,8 @@ enum dichotomy_keycodes
   MS_BTN3
 };
 
-// Macro definitions for readability
-enum dichotomy_macros
-{
-	VOLU,
-	VOLD,
-	ESCM
-};
-
-#define LONGPRESS_DELAY 150
-#define MAX_TOGGLE_LENGTH 300
+#define CUSTOM_LONGPRESS 150
+#define CUSTOM_TOGGLE_TIME 300
 
 #define RED_BRIGHTNESS 3
 #define GREEN_BRIGHTNESS 2
@@ -141,7 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				layer_invert(_NM);
 				numLED = !numLED;
 			} else {
-				if (timer_elapsed(num_timer) < MAX_TOGGLE_LENGTH && number_singular_key) {
+				if (timer_elapsed(num_timer) < CUSTOM_TOGGLE_TIME && number_singular_key) {
 					//do nothing, the layer has already been inverted
 				} else {
 					layer_invert(_NM);
@@ -164,7 +153,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			} else {
 				shift_held = false;
 				shiftLED = false;
-				if (timer_elapsed(shift_timer) < MAX_TOGGLE_LENGTH && shift_singular_key) {
+				if (timer_elapsed(shift_timer) < CUSTOM_TOGGLE_TIME && shift_singular_key) {
 					//this was basically a toggle, so activate/deactivate caps lock.
 					SEND_STRING(SS_TAP(X_CAPSLOCK));
 					capsLED = !capsLED;
@@ -183,7 +172,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				layer_invert(_MS);
 				mouseLED = !mouseLED;
 			} else {
-				if (timer_elapsed(mouse_timer) < MAX_TOGGLE_LENGTH && mouse_singular_key){
+				if (timer_elapsed(mouse_timer) < CUSTOM_TOGGLE_TIME && mouse_singular_key){
 					//do nothing, it was a toggle (and it's already been toggled)
 				} else {
 					layer_invert(_MS);
@@ -203,7 +192,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				special_key_pressed[CK_1G-SAFE_RANGE] = 1;
 			} else {
 				if (special_key_states[CK_1G-SAFE_RANGE]){
-					//key was activated after longpress_delay, need to close those keycodes
+					//key was activated after custom_longpress, need to close those keycodes
 					special_key_states[CK_1G-SAFE_RANGE] = 0;
 					unregister_code(KC_GRAVE);
 				} else {
@@ -230,7 +219,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				special_key_pressed[CK_BSPE-SAFE_RANGE] = 1;
 			} else {
 				if (special_key_states[CK_BSPE-SAFE_RANGE]){
-					//key was activated after longpress_delay, need to close those keycodes
+					//key was activated after custom_longpress, need to close those keycodes
 					special_key_states[CK_BSPE-SAFE_RANGE] = 0;
 					unregister_code(KC_ENTER);
 				} else {
@@ -256,7 +245,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				special_key_pressed[CK_QE-SAFE_RANGE] = 1;
 			} else {
 				if (special_key_states[CK_QE-SAFE_RANGE]){
-					//key was activated after longpress_delay, need to close those keycodes
+					//key was activated after custom_longpress, need to close those keycodes
 					special_key_states[CK_QE-SAFE_RANGE] = 0;
 					unregister_code(KC_ENTER);
 				} else {
@@ -282,7 +271,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 				special_key_pressed[CK_TE-SAFE_RANGE] = 1;
 			} else {
 				if (special_key_states[CK_TE-SAFE_RANGE]){
-					//key was activated after longpress_delay, need to close those keycodes
+					//key was activated after custom_longpress, need to close those keycodes
 					special_key_states[CK_TE-SAFE_RANGE] = 0;
 					unregister_code(KC_ESCAPE);
 				} else {
@@ -459,7 +448,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
 	//uint8_t layer = biton32(layer_state);
 	for (uint8_t i = 0; i<LONGPRESS_COUNT; i++){
-		if ((timer_elapsed(special_timers[i]) >= LONGPRESS_DELAY) && (!special_key_states[i]) && special_key_pressed[i]){
+		if ((timer_elapsed(special_timers[i]) >= CUSTOM_LONGPRESS) && (!special_key_states[i]) && special_key_pressed[i]){
 			switch (i + SAFE_RANGE){
 				case CK_1G:
 					register_code(KC_GRAVE);
