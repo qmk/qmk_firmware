@@ -470,37 +470,37 @@ void matrix_scan_user(void) {
     if (shiftLED || capsLED){
 		red_timer++;
 		if (red_timer < RED_BRIGHTNESS){
-			red_led_on;
+			red_led_on();
 		} else {
 			red_timer = 0;
-			red_led_off;
+			red_led_off();
 		}
     } else {
 		red_timer = 0;
-		red_led_off;
+		red_led_off();
     }
     if (numLED){
 		green_timer++;
 		if (green_timer < GREEN_BRIGHTNESS){
-			grn_led_on;
+			grn_led_on();
 		} else {
 			green_timer = 0;
-			grn_led_off;
+			grn_led_off();
 		}
     } else {
 		green_timer = 0;
-		grn_led_off;
+		grn_led_off();
     }
     if (mouseLED){
 		blue_timer++;
 		if (blue_timer < BLUE_BRIGHTNESS){
-			blu_led_on;
+			blu_led_on();
 		} else {
 			blue_timer = 0;
-			blu_led_off;
+			blu_led_off();
 		}
     } else {
 		blue_timer = 0;
-		blu_led_off;
+		blu_led_off();
     }
 };
