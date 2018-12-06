@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef STOWAWAY_H
+#pragma once
 #define STOWAWAY_H
 
 #include "quantum.h"

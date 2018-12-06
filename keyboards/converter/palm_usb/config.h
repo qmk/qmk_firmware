@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-#ifndef CONFIG_H
+#pragma once
 #define CONFIG_H
 
 #define CUSTOM_MATRIX 2
@@ -40,12 +40,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RTS_PIN  C6 // 5  //[ was D4 // 4 on the cy384
 #define DCD_PIN  E6  //7 
 
-#ifdef CY384
+// if using the particular arduino pinout of CY384
+#ifdef CY384 
     #define GND_PIN  D7 //6
     #define PULLDOWN_PIN  B1 // 15
 #endif
-// Set to 1 for Handspring / to disable RTS/DCD based handshake. 
-#define HANDSPRING 0
+
+#ifndef HANDSPRING
+// Set to 1 for Handspring or to disable RTS/DCD based handshake. 
+    #define HANDSPRING 0
+#endif
+
 #define MAXDROP 10 // check if keyboard is connected every X polling cycles
 #define SLEEP_TIMEOUT 500000 // check keyboard/reset this many millis
 
