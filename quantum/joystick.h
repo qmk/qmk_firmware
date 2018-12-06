@@ -16,12 +16,19 @@
 //
 #define JS_VIRTUAL_AXIS 0xFF
 
+#define JOYSTICK_AXIS_VIRTUAL                                                       {JS_VIRTUAL_AXIS,JS_VIRTUAL_AXIS,JS_VIRTUAL_AXIS,0  ,1023}
+#define JOYSTICK_AXIS_IN(INPUT_PIN, LOW, REST, HIGH)                                      {JS_VIRTUAL_AXIS,INPUT_PIN      ,JS_VIRTUAL_AXIS,LOW,REST,HIGH}
+#define JOYSTICK_AXIS_IN_OUT(INPUT_PIN, OUTPUT_PIN, LOW, REST, HIGH)                      {OUTPUT_PIN     ,INPUT_PIN      ,JS_VIRTUAL_AXIS,LOW,REST,HIGH}
+#define JOYSTICK_AXIS_IN_OUT_GROUND(INPUT_PIN, OUTPUT_PIN, GROUND_PIN, LOW, REST, HIGH)   {OUTPUT_PIN     ,INPUT_PIN      ,GROUND_PIN     ,LOW,REST,HIGH}
+
 typedef struct {
   uint8_t output_pin;
   uint8_t input_pin;
+  uint8_t ground_pin;
   
   //the AVR ADC offers 10 bit precision, with significant bits on the higher part
   uint16_t min_digit;
+  uint16_t mid_digit;
   uint16_t max_digit;
 } joystick_config_t;
 
@@ -36,7 +43,7 @@ typedef struct {
   
   uint8_t buttons[JOYSTICK_BUTTON_COUNT/8+1];
   
-  int8_t  axes[JOYSTICK_AXES_COUNT];
+  int16_t  axes[JOYSTICK_AXES_COUNT];
   uint8_t status:2;
 } joystick_t;
 

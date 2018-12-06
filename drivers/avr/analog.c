@@ -46,6 +46,7 @@ int16_t analogRead(uint8_t pin) {
 #endif
 }
 
+<<<<<<< HEAD
 int16_t analogReadPin(pin_t pin) { return adc_read(pinToMux(pin)); }
 
 uint8_t pinToMux(pin_t pin) {
@@ -94,6 +95,29 @@ uint8_t pinToMux(pin_t pin) {
         case C5: return _BV(MUX2) | _BV(MUX0);  // ADC5
         // ADC7:6 not present in DIP package and not shared by GPIO pins
         default: return _BV(MUX3) | _BV(MUX2) | _BV(MUX1) | _BV(MUX0);  // 0V
+=======
+// Mux input
+int16_t adc_read(uint8_t mux)
+{
+#if defined(__AVR_AT90USB162__)
+	return 0;
+#else
+	uint16_t res = 0;
+
+	ADCSRA = (1<<ADEN) | ADC_PRESCALER;		// enable ADC
+  
+#ifndef __AVR_ATmega32A__
+	ADCSRB = (1<<ADHSM) | (mux & 0x20);		// high speed mode
+#endif
+	ADMUX = aref | (mux & 0x1F);			// configure mux input
+	ADCSRA |= (1<<ADSC);	// start the conversion
+	while (ADCSRA & (1<<ADSC)) ;			// wait for result
+	res = ADCL;					// must read LSB first
+  res |= (ADCH << 8) | res;
+  
+  ADCSRA &= ~(1<<ADEN);//turn off the ADC
+  return res;
+>>>>>>> 5939a4430... Add save and restore of each pin used in reading joystick (AVR).
 #endif
             // clang-format on
     }

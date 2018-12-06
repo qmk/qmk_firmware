@@ -24,11 +24,13 @@ bool process_joystick(uint16_t keycode, keyrecord_t *record){
 
 __attribute__ ((weak))
 void joystick_task(void){
-  if (process_joystick_analog() && (joystick_status.status & JS_UPDATED)){
+  if (process_joystick_analogread() && (joystick_status.status & JS_UPDATED)){
     send_joystick_packet(&joystick_status);
     joystick_status.status &= ~JS_UPDATED;
   }
 }
+
+
 
 bool process_joystick_buttons(uint16_t keycode, keyrecord_t *record){
   
@@ -47,33 +49,110 @@ bool process_joystick_buttons(uint16_t keycode, keyrecord_t *record){
   return true;
 }
 
+uint8_t savePinState(uint8_t pin){
+#ifdef __AVR__
+  uint8_t pinNumber = pin & 0xF;
+  return ((PIN_ADDRESS(pin, 2) >> pinNumber) & 0x1) << 1 
+       | ((PIN_ADDRESS(pin, 1) >> pinNumber) & 0x1) ;
+#else
+  return 0;
+#endif
+}
+
+void restorePinState(uint8_t pin, uint8_t restoreState){
+#ifdef __AVR__
+  uint8_t pinNumber = pin & 0xF;
+  PIN_ADDRESS(pin, 2) = (PIN_ADDRESS(pin, 2) & ~_BV(pinNumber)) | (((restoreState >> 1) & 0x1) << pinNumber);
+  PIN_ADDRESS(pin, 1) = (PIN_ADDRESS(pin, 1) & ~_BV(pinNumber)) | ((restoreState & 0x1) << pinNumber);
+#else
+  return;
+#endif
+}
+
 __attribute__ ((weak))
-bool process_joystick_analog(){
+bool process_joystick_analogread(){
+  return process_joystick_analogread_quantum();
+}
+
+bool process_joystick_analogread_quantum(){
+
 #if JOYSTICK_AXES_COUNT > 0
   for (int axis_index=0 ; axis_index<JOYSTICK_AXES_COUNT ; ++axis_index){
-    if (joystick_axes[axis_index].output_pin==JS_VIRTUAL_AXIS || joystick_axes[axis_index].input_pin==JS_VIRTUAL_AXIS){
+    if (joystick_axes[axis_index].input_pin==JS_VIRTUAL_AXIS){
       continue;
     }
     
-    setPinOutput(joystick_axes[axis_index].output_pin);
-    writePinHigh(joystick_axes[axis_index].output_pin);
+    //save previous input pin status as well
+    uint8_t inputSavedState = savePinState(joystick_axes[axis_index].input_pin);
     
-    //disable pull-up resistance
-    setPinInput(joystick_axes[axis_index].input_pin);
+    //disable pull-up resistor
     writePinLow(joystick_axes[axis_index].input_pin);
+    
+    //if pin was a pull-up input, we need to uncharge it by turning it low 
+    // before making it a low input
+    setPinOutput(joystick_axes[axis_index].input_pin);
+    
+    wait_us(10);
+    
+    //save and apply output pin status
+    uint8_t outputSavedState = 0;
+    if (joystick_axes[axis_index].output_pin!=JS_VIRTUAL_AXIS) {
+      //save previous output pin status
+      outputSavedState = savePinState(joystick_axes[axis_index].output_pin);
+      
+      setPinOutput(joystick_axes[axis_index].output_pin);
+      writePinHigh(joystick_axes[axis_index].output_pin);
+    }
+    
+    uint8_t groundSavedState = 0;
+    if (joystick_axes[axis_index].ground_pin!=JS_VIRTUAL_AXIS) {
+      //save previous output pin status
+      groundSavedState = savePinState(joystick_axes[axis_index].ground_pin);
+      
+      setPinOutput(joystick_axes[axis_index].ground_pin);
+      writePinLow(joystick_axes[axis_index].ground_pin);
+    }
+    
+    wait_us(10);
+    
+    setPinInput(joystick_axes[axis_index].input_pin);
+    
+    wait_us(10);
     
 #ifdef __AVR__
     int16_t axis_val = analogReadPin(joystick_axes[axis_index].input_pin);
 #else
-    int16_t axis_val = 0;
+  //default to resting position
+    int16_t axis_val = joystick_axes[axis_index].mid_digit;
 #endif
-    if (axis_val!=joystick_status.axes[axis_index]){
-      joystick_status.axes[axis_index] = axis_val;
+    
+    //test the converted value against the lower range
+    uint16_t ref = joystick_axes[axis_index].mid_digit;
+    uint16_t range = joystick_axes[axis_index].min_digit;
+    int16_t ranged_val = -127*fminf(1.f, (axis_val - (float)(ref)) /(range - (float)ref));
+    if (ranged_val > 0){
+      //the value is in the higher range
+      range = joystick_axes[axis_index].max_digit;
+      ranged_val = 127*fminf(1.f, (axis_val - (float)(ref)) /(range - (float)ref));
+    }
+    
+    if (ranged_val!=joystick_status.axes[axis_index]){
+      joystick_status.axes[axis_index] = ranged_val;
       joystick_status.status |= JS_UPDATED;
     }
     
-    writePinLow(joystick_axes[axis_index].output_pin);
+    //restore output, ground and input status
+    if (joystick_axes[axis_index].output_pin!=JS_VIRTUAL_AXIS) {
+      restorePinState(joystick_axes[axis_index].output_pin, outputSavedState);
+    }
+    if (joystick_axes[axis_index].ground_pin!=JS_VIRTUAL_AXIS) {
+      restorePinState(joystick_axes[axis_index].ground_pin, groundSavedState);
+    }
+    
+    restorePinState(joystick_axes[axis_index].input_pin, inputSavedState);
+    
   }
+  
 #endif
   return true;
 }

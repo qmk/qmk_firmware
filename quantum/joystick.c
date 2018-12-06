@@ -2,7 +2,11 @@
 
 joystick_t joystick_status = { 
   .buttons = {0},
-  .axes = {0},
+  .axes = {
+#if JOYSTICK_AXES_COUNT>0
+  0
+#endif
+    },
   .status = 0
 };
 

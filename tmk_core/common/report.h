@@ -29,7 +29,8 @@ enum hid_report_ids {
     REPORT_ID_MOUSE,
     REPORT_ID_SYSTEM,
     REPORT_ID_CONSUMER,
-    REPORT_ID_NKRO
+    REPORT_ID_NKRO,
+    REPORT_ID_JOYSTICK
 };
 
 /* Mouse buttons */

@@ -157,8 +157,7 @@ typedef struct {
 void send_joystick_packet(joystick_t* status)
 {
     vusb_joystick_report_t r = {
-        .report_id = 0x4,
-
+        .report_id = REPORT_ID_JOYSTICK,
         #if JOYSTICK_AXES_COUNT>0
         .axes = {
             status->axes[0]
@@ -401,9 +400,10 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
     0x05, 0x01,     // USAGE_PAGE (Generic Desktop)
     0x09, 0x04,     // USAGE (Joystick)
     0xa1, 0x01,     // COLLECTION (Application)
-    0x85, 0x4,      //   REPORT_ID (4)
+    0x85, REPORT_ID_JOYSTICK,      //   REPORT_ID (6)
     0x09, 0x01,     //   USAGE (Pointer)
     0xa1, 0x00,     //   COLLECTION (Physical)
+#if JOYSTICK_AXES_COUNT > 0
   #if JOYSTICK_AXES_COUNT >= 1
     0x09, 0x30,     //     USAGE (X)
   #endif
@@ -427,7 +427,8 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
     0x75, 0x08,     //   REPORT_SIZE (8)
     0x95, JOYSTICK_AXES_COUNT,     //   REPORT_COUNT (JOYSTICK_AXES_COUNT)
     0x81, 0x02,     //   INPUT (Data,Var,Abs)
-    0xc0,           // END_COLLECTION
+#endif
+#if JOYSTICK_BUTTON_COUNT> 0
     0x05, 0x09,     // USAGE_PAGE (Button)
     0x19, 0x01,     //   USAGE_MINIMUM (Button 1)
     0x29, JOYSTICK_BUTTON_COUNT,     //   USAGE_MAXIMUM
@@ -436,8 +437,16 @@ const PROGMEM uchar mouse_extra_hid_report[] = {
     0x75, 0x01,     // REPORT_SIZE (1)
     0x95, JOYSTICK_BUTTON_COUNT,     // REPORT_COUNT
     0x81, 0x02,     // INPUT (Data,Var,Abs)
+    //fill up report to get it byte-aligned
+#if (JOYSTICK_BUTTON_COUNT % 8) != 0
+    0x75, 0x01,     // REPORT_SIZE (1)
+    0x95, 8 - (JOYSTICK_BUTTON_COUNT % 8),     // REPORT_COUNT
+    0x81, 0x01,     // INPUT (Data,Var,Abs)
+    #endif
+#endif
+    0xc0,           // END_COLLECTION
     0xc0 // END_COLLECTION
-#endif //GAMEPAD_ENABLE
+#endif //JOYSTICK_ENABLE
 };
 #endif
 
