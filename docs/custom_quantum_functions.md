@@ -183,7 +183,24 @@ This runs very early during startup, even before the USB has been started.
 
 Shortly after this, the matrix is initialized.
 
-For most users, this shouldn't be used, as it's primarily for hardware oriented initialization.
+For most users, this shouldn't be used, as it's primarily for hardware oriented initialization. 
+
+However, if you have hardware stuff that you need initialized, this is the best place for it (such as initializing LED pins).
+
+### Example `keyboard_pre_init_user()` Implementation
+
+This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+
+```
+void keyboard_pre_init_user(void) {
+  // Call the keyboard pre init code.
+
+  // Set our LED pins as output
+  DDRB |= (1<<1);
+  DDRB |= (1<<2);
+  DDRB |= (1<<3);
+}
+```
 
 ### `keyboard_pre_init_*` Function Documentation
 
@@ -192,23 +209,10 @@ For most users, this shouldn't be used, as it's primarily for hardware oriented 
 
 ## Matrix Initialization Code
 
-This is called when the matrix is initilized, and after some of the hardware has been set up, but before many of the features have been initialized.
+This is called when the matrix is initialized, and after some of the hardware has been set up, but before many of the features have been initialized. 
 
+This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependant on where it's started. 
 
-### Example `matrix_init_user()` Implementation
-
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
-
-```
-void matrix_init_user(void) {
-  // Call the keymap level matrix init.
-
-  // Set our LED pins as output
-  DDRB |= (1<<1);
-  DDRB |= (1<<2);
-  DDRB |= (1<<3);
-}
-```
 
 ### `matrix_init_*` Function Documentation
 
@@ -223,11 +227,11 @@ This is ran as the very last task in the keyboard initialization process. This i
 
 ### Example `keyboard_post_init_user()` Implementation
 
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+This example, running after everything else has initialized, sets up the rgb underglow configuration.
 
 ```c
 void keyboard_post_init_user(void) {
-  // Call the keymap level matrix init.
+  // Call the post init code.
   rgblight_enable_noeeprom(); // enables Rgb, without saving settings
   rgblight_sethsv_noeeprom(180, 255, 255): // sets the color to teal/cyan without saving
   rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3); // sets mode to Fast breathing without saving
