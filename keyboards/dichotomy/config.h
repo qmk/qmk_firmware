@@ -24,10 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xACC7
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    unknown
-#define PRODUCT         Dichotemy
-#define DESCRIPTION     q.m.k. keyboard firmware for Dichotemy
+#define DEVICE_VER      0x0002
+#define MANUFACTURER    Broekhuijsen
+#define PRODUCT         Dichotomy
+#define DESCRIPTION     q.m.k. keyboard firmware for Dichotomy
 
 /* key matrix size */
 #define MATRIX_ROWS 5

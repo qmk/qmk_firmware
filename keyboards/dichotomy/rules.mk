@@ -1,6 +1,6 @@
 
-OPT_DEFS += -DDICHOTEMY_PROMICRO
-DICHOTEMY_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
+OPT_DEFS += -DDICHOTOMY_PROMICRO
+DICHOTOMY_UPLOAD_COMMAND = while [ ! -r $(USB) ]; do sleep 1; done; \
                          avrdude -p $(MCU) -c avr109 -U flash:w:$(TARGET).hex -P $(USB)
 
 # # project specific files
@@ -24,6 +24,8 @@ MCU = atmega32u4
 #     software delays.
 F_CPU = 16000000
 
+
+#
 # LUFA specific
 #
 # Target architecture (see library "Board Types" documentation).
@@ -43,10 +45,10 @@ ARCH = AVR8
 F_USB = $(F_CPU)
 
 # Bootloader
-#     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
-#     automatically (+60). See bootloader.mk for all options.
-BOOTLOADER = caterina
+ #     This definition is optional, and if your keyboard supports multiple bootloaders of
+ #     different sizes, comment this out, and the correct address will be loaded
+ #     automatically (+60). See bootloader.mk for all options.
+ BOOTLOADER = caterina
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
@@ -72,4 +74,4 @@ UNICODE_ENABLE = YES 		# Unicode
 USB = /dev/ttyACM0
 
 #upload: build
-#	$(DICHOTEMY_UPLOAD_COMMAND)
+#	$(DICHOTOMY_UPLOAD_COMMAND)
