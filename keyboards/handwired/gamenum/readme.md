@@ -1,5 +1,16 @@
-GameNum firmware
-======================
+# GameNum
+
+A handwired standard numpad oriented toward gaming on the go.
+
+Keyboard Maintainer: [The QMK Community](https://github.com/qmk)  
+Hardware Supported: GameNum, Pro Micro  
+
+Make example for this keyboard (after setting up your build environment):
+
+    make handwired/gamenum:default
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
 ## Board overview
 
 The GameNum was designed to facilitate the use of mechanical keys for gaming even when your packing space is limited.
@@ -22,7 +33,7 @@ The indicator LED's are normally assigned to `pin C6` and `pin D4`, C6 goes high
 
 Keep in mind that the minus of the diodes should point towards the pro micros inputs.
 
-##LED hookup
+## LED hookup
 
 ![led overview](http://i.imgur.com/U6m865n.jpg)
 
@@ -34,13 +45,13 @@ Keep in mind here that the number after the name should correspond with the numb
 Next thing to do is to add the actual layer for the keymap.
 
 ```
-[DEF] = KEYMAP(
-  KC_FN0,   KC_SLSH, KC_ASTR, KC_MINS, \
-  KC_7,      KC_8,       KC_9,       KC_PLUS, \
-  KC_4,      KC_5,       KC_6, \
-  KC_1,      KC_2,       KC_3, \
-  KC_0,      KC_DOT,  KC_ENT \
-)
+  [DEF] = LAYOUT(
+    KC_FN0,  KC_SLSH, KC_ASTR, KC_MINS, \
+    KC_7,    KC_8,    KC_9,    KC_PLUS, \
+    KC_4,    KC_5,    KC_6,             \
+    KC_1,    KC_2,    KC_3,             \
+    KC_0,             KC_DOT,  KC_ENT   \
+  )
 ```
 
 This is the default layer for the gamenum. It's generally easiest to just copy this and change things as you see fit. Keep in mind that at least 1 button on the pad has to be used to switch to the next layer in the stack or you will be stuck in that layer FOREVER! D:
@@ -54,8 +65,8 @@ Now for the LEDs, if you plan on adding extra LED's to the keyboard to indicate 
 Look for this piece of code: 
 
 ```
-	DDRD |= (1<<4);
-	PORTD &= ~(1<<4);
+    DDRD |= (1<<4);
+    PORTD &= ~(1<<4);
 ```
 
 Copy it and change the letter after DDR and PORT to the letter of your pin. Change the 4 to the number of your pin. `DDRx |= (1<<y);` defines that pin as an output. `PORTx &= ~(1<<y);` sets the pin to LOW turning off the LED.
@@ -64,39 +75,11 @@ Now go back to `keymap.c` and look for the `process_record_user` function. The f
 
 ```
   case KC_FN1:
-      if (record->event.pressed) {
-        PORTC &= ~(1 << 6); // PC6 goes low 
-		PORTD |= (1<<4); //PD4 goes high
-     }
-     break;
+    if (record->event.pressed) {
+      PORTC &= ~(1 << 6); // PC6 goes low 
+      PORTD |= (1<<4); //PD4 goes high
+    }
+    break;
 ```
 
 This is the code for the KC_FN1 button. Notice how we check against what key is pressed in the case and then set pin C6 low and pin D4 high. Adjust this as you see fit.
-
-
-## Quantum MK Firmware
-
-For the full Quantum feature list, see [the parent readme.md](/docs/README.md).
-
-## Building
-
-Download or clone the whole firmware and navigate to the keyboards/handwired/gamenum folder.
-Read the README.md for the qmk repository on how to set up your developer enviroment to build your firmware with.
-Building firmware on Windows can be a bit of a hassle. Linux is a lot easier to use if you have some experience with it. A raspberry pi will already be able to build the firmware for you.
-Once your dev env is set up, you'll be able to type `make` to generate your .hex - you can then use AVRDudess to program your .hex file.
-
-### Default
-
-To build with the default keymap, simply run `make`.
-
-### Other Keymaps
-
-To build the firmware binary hex file with a keymap just do `make` with `keymap` option like:
-
-```
-$ make keymap=[default|jack|<name>]
-```
-
-Keymaps follow the format **__keymap.c__** and are stored in folders in the `keymaps` folder, eg `keymaps/my_keymap/`
-
-
