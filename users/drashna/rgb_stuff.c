@@ -277,7 +277,6 @@ void matrix_scan_rgb(void) {
 
 uint32_t layer_state_set_rgb(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
-  static bool has_ran;
   if (userspace_config.rgb_layer_change) {
     switch (biton32(state)) {
     case _MACROS:
@@ -319,12 +318,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
         default:
           rgblight_sethsv_noeeprom_cyan(); break;
       }
-      if (has_ran) {
-        biton32(state) == _MODS ? rgblight_mode(RGBLIGHT_MODE_BREATHING) : rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT); // if _MODS layer is on, then breath to denote it
-      } else {
-        biton32(state) == _MODS ? rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING) : rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // if _MODS layer is on, then breath to denote it
-        has_ran = true;
-      }
+      biton32(state) == _MODS ? rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING) : rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT); // if _MODS layer is on, then breath to denote it
       break;
     }
 //    layer_state_set_indicator(); // Runs every scan, so need to call this here .... since I can't get it working "right" anyhow
