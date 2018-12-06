@@ -1,9 +1,10 @@
 #include QMK_KEYBOARD_H
+#include "../../../../../quantum/rgblight_list.h"
 
 #define base 0
 #define raise 1
 #define lower 2
-#define RS_layer 3
+#define game 3
 #define _______ KC_TRNS 
 
 //Tap Dance Declarations
@@ -43,17 +44,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[lower] = LAYOUT_2u_space_ortho(
 		_______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   _______,
-		_______,    RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_VAD,  RGB_HUI,  RGB_HUD,  RGB_SAI,  RGB_SAD,  KC_HOME,  KC_END,   _______,
-		_______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
+		_______,    RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_VAD,  RGB_HUI,  RGB_HUD,  RGB_SAI,  RGB_SAD,  _______,  _______,  _______,
+		_______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,  KC_END,   _______,
 		_______,    _______,  _______,  _______,  _______,      _______,        _______,  _______,  KC_PGDN,  KC_PGUP,  _______),
 
-  [RS_layer] = LAYOUT_2u_space_ortho( 
+  [game] = LAYOUT_2u_space_ortho( 
 		KC_TAB,     KC_Q,     KC_W,     KC_UP,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
 		KC_ESC,     KC_A,     KC_LEFT,  KC_DOWN,   KC_RIGHT, KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     TD(0),    KC_ENT,
 		KC_LSFT,    KC_Z,     KC_X,     KC_C,      KC_V,     KC_B,     KC_N,     KC_M,     TD(1),    TD(2),    TD(3),    KC_RSFT,
-		KC_LCTL,    TO(0),    KC_LALT,  KC_LGUI,   MO(1),        KC_SPC,         MO(2),    KC_VOLD,  KC_MPLY,  KC_VOLU,  KC_GRV),
+		KC_LCTL,    TO(0),    KC_LALT,  KC_LGUI,   _______,        KC_SPC,       _______,  KC_VOLD,  KC_MPLY,  KC_VOLU,  KC_GRV),
 };
 
+//change colors and rgb modes on layer change
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case raise:
+        rgblight_mode(1);
+        rgblight_setrgb_purple ();
+        break;
+    case lower:
+        rgblight_mode(1);
+        rgblight_setrgb_green ();
+        break;
+    case game:
+        rgblight_mode(1);
+        rgblight_setrgb_red ();
+        break;
+    default: // for any other layers, or the default layer
+        rgblight_mode(5);
+        rgblight_setrgb(0xFF, 0xB6, 0x00);
+        break;
+    }
+  return state;
+}
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 
