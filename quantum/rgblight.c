@@ -325,13 +325,13 @@ void rgblight_disable_noeeprom(void) {
 
 
 // Deals with the messy details of incrementing an integer
-uint8_t increment( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
+static uint8_t increment( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
     int16_t new_value = value;
     new_value += step;
     return MIN( MAX( new_value, min ), max );
 }
 
-uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
+static uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
     int16_t new_value = value;
     new_value -= step;
     return MIN( MAX( new_value, min ), max );
