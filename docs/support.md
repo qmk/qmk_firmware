@@ -22,7 +22,7 @@ If you can't find anything, then please open a [new issue](https://github.com/qm
 
 ## What if I found a bug? 
 
-Then please open an issue, and if you know how to fix it, open up a Pull Request on GitHub with the fix.
+Then please open an [issue](https://github.com/qmk/qmk_firmware/issues/new), and if you know how to fix it, open up a Pull Request on GitHub with the fix.
 
 ## But `git` and `GitHub` are intimidating! 
 
