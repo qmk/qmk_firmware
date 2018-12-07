@@ -12,7 +12,6 @@ extern keymap_config_t keymap_config;
 #define KC_LPRN LSFT(KC_9)      // (
 #define KC_RPRN LSFT(KC_0)      // )
 
-#define _______ KC_TRNS
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
