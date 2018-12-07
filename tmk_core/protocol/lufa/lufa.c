@@ -493,6 +493,10 @@ void EVENT_USB_Device_ConfigurationChanged(void) {
     ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_OUT_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
     ConfigSuccess &= Endpoint_ConfigureEndpoint(CDC_IN_EPADDR, EP_TYPE_BULK, CDC_EPSIZE, ENDPOINT_BANK_SINGLE);
 #endif
+#ifdef JOYSTICK_ENABLE
+    ConfigSuccess &= ENDPOINT_CONFIG(JOYSTICK_IN_EPNUM, EP_TYPE_INTERRUPT, ENDPOINT_DIR_IN,
+                                     JOYSTICK_EPSIZE, ENDPOINT_BANK_SINGLE);
+#endif
 }
 
 /* FIXME: Expose this table in the docs somehow
