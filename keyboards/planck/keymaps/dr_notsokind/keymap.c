@@ -1,6 +1,6 @@
 // Layout picture at http://www.keyboard-layout-editor.com/#/gists/125febfad6960add078e6f14256539b6
 
-#include "planck.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
 #include "audio.h"
