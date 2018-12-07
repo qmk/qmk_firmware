@@ -20,8 +20,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef UNICODEMAP_ENABLE
 #include "drashna_unicode.h"
 #endif // UNICODEMAP_ENABLE
+extern uint8_t input_mode;
 
-
+#ifdef RGB_MATRIX_ENABLE
+extern bool g_suspend_state;
+extern rgb_config_t rgb_matrix_config;
+#endif
+extern userspace_config_t userspace_config;
 
 //enum more_custom_keycodes {
 //    KC_P00 = NEW_SAFE_RANGE
@@ -40,8 +45,8 @@ bool skip_leds = false;
       KC_TAB,  K01,    K02,     K03,      K04,     K05,     TG(_DIABLO),         TG(_DIABLO), K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
       KC_C1R3, K11,    K12,     K13,      K14,     K15,                                       K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
       KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     TG(_GAMEPAD),       TG(_GAMEPAD), K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF, \
-      KC_GRV,  OSM(MOD_MEH),OSM(MOD_LGUI),KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC_IRNY, \
-                                            ALT_T(KC_APP), OSM(MOD_LGUI),           OSM(MOD_RGUI), CTL_T(KC_ESCAPE), \
+      KC_GRV,  OS_MEH, OS_HYPR, KC_LBRC, KC_RBRC,                                            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, UC(0x2E2E), \
+                                                  OS_LALT, OS_LGUI,                 OS_RGUI, CTL_T(KC_ESCAPE), \
                                                            KC_HOME,                 KC_PGUP, \
                              LT(_LOWER, KC_SPACE),KC_BSPC, KC_END,                  KC_PGDN, KC_DEL,  LT(_RAISE, KC_ENTER)                          \
     )
@@ -198,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [_GAMEPAD] = LAYOUT_ergodox_pretty_wrapper(
              KC_ESC,  KC_NO,   KC_1,    KC_2,    KC_3, HYPR(KC_Q), HYPR(KC_GRV),            KC_TRNS, KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NO,   KC_NO,
-             KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    UC_SHRG, UC_DISA,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_F1,   KC_K,    KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                    UC_SHRG, UC_DISA, KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_TAB,  KC_G,    KC_A,    KC_S,    KC_D,    KC_F,                                      KC_I,    KC_O,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_LCTL, KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_TRNS,            TG(_GAMEPAD), KC_N,    KC_M,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_GRV,  KC_U,    KC_I,    KC_Y,    KC_T,                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
@@ -263,7 +268,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_ergodox_pretty_wrapper(
              KC_MAKE, _______, _______, _______, _______, _______, _______,                 KC_NUKE, _________________ADJUST_R1_________________, KC_RST,
-             VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _______, _______, _______, _______, _______, EPRM,
+             VRSN,    _________________ADJUST_L1_________________, _______,                 _______, _______, _______, _______, _______, _______, EEP_RST,
              _______, _________________ADJUST_L2_________________,                                   _________________ADJUST_R2_________________, TG(_MODS),
              _______, _________________ADJUST_L3_________________, _______,                 _______, _________________ADJUST_R3_________________, KC_MPLY,
              _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______,
@@ -289,10 +294,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   //}
   return true;
 }
-
-void matrix_init_keymap(void) { // Runs boot tasks for keyboard
-};
-
 
 void matrix_scan_keymap(void) {  // runs frequently to update info
   uint8_t modifiers = get_mods();
@@ -336,3 +337,105 @@ bool indicator_is_this_led_used_keyboard(uint8_t index) {
   }
 }
 
+
+#ifdef RGB_MATRIX_ENABLE
+
+void suspend_power_down_keymap(void) {
+    rgb_matrix_set_suspend_state(true);
+    rgb_matrix_config.enable = false;
+}
+
+void suspend_wakeup_init_keymap(void) {
+    rgb_matrix_config.enable = true;
+    rgb_matrix_set_suspend_state(false);
+}
+
+void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
+  rgb_led led;
+  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    led = g_rgb_leds[i];
+    if (led.matrix_co.raw < 0xFF) {
+      if (led.modifier) {
+          rgb_matrix_set_color( i, red, green, blue );
+      }
+    }
+  }
+}
+
+void rgb_matrix_indicators_user(void) {
+  if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) return;
+
+  switch (biton32(layer_state)) {
+    case _MODS:
+      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+    case _GAMEPAD:
+      rgb_matrix_layer_helper(0xFF, 0x80, 0x00);
+      rgb_matrix_set_color(32, 0x00, 0xFF, 0x00); // Q
+      rgb_matrix_set_color(31, 0x00, 0xFF, 0xFF); // W
+      rgb_matrix_set_color(30, 0xFF, 0x00, 0x00); // E
+      rgb_matrix_set_color(29, 0xFF, 0x80, 0x00); // R
+      rgb_matrix_set_color(37, 0x00, 0xFF, 0xFF); // A
+      rgb_matrix_set_color(36, 0x00, 0xFF, 0xFF); // S
+      rgb_matrix_set_color(35, 0x00, 0xFF, 0xFF); // D
+      rgb_matrix_set_color(34, 0x7A, 0x00, 0xFF); // F
+
+      rgb_matrix_set_color(27, 0xFF, 0xFF, 0xFF); // 1
+      rgb_matrix_set_color(26, 0x00, 0xFF, 0x00); // 2
+      rgb_matrix_set_color(25, 0x7A, 0x00, 0xFF); // 3
+
+      break;
+    case _DIABLO:
+      rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+    case _RAISE:
+      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+    case _LOWER:
+      rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
+    case _ADJUST:
+      rgb_matrix_layer_helper(0xFF, 0x00, 0x00); break;
+    default:
+      switch (biton32(default_layer_state)) {
+        case _QWERTY:
+          rgb_matrix_layer_helper(0x00, 0xFF, 0xFF); break;
+        case _COLEMAK:
+          rgb_matrix_layer_helper(0xFF, 0x00, 0xFF); break;
+        case _DVORAK:
+          rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
+        case _WORKMAN:
+          rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
+      }
+  }
+#if 0
+  if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
+    rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
+    rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
+  }
+  if (this_mod & MODS_CTRL_MASK || this_osm & MODS_CTRL_MASK) {
+    rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
+    rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
+    rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
+
+  }
+  if (this_mod & MODS_GUI_MASK || this_osm & MODS_GUI_MASK) {
+    rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
+  }
+  if (this_mod & MODS_ALT_MASK || this_osm & MODS_ALT_MASK) {
+    rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
+  }
+#endif
+}
+
+void matrix_init_keymap(void) {
+  #ifdef RGB_MATRIX_KEYPRESSES
+    rgblight_mode(RGB_MATRIX_MULTISPLASH);
+  #else
+    rgblight_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
+  #endif
+
+  input_mode = 2;
+}
+
+#else
+void matrix_init_keymap(void) {
+  input_mode = 2;
+}
+#endif //RGB_MATRIX_INIT

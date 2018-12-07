@@ -226,7 +226,7 @@ void disp_pixel_setup(void)
     while (cur < lede)
     {
         cur->px = (cur->x - disp.left) / disp.width * 100;
-        cur->py = (cur->y - disp.top) / disp.height * 100;
+        cur->py = (cur->y - disp.bottom) / disp.height * 100;
         *cur->rgb.r = 0;
         *cur->rgb.g = 0;
         *cur->rgb.b = 0;
@@ -244,6 +244,7 @@ void led_matrix_prepare(void)
 uint8_t led_enabled;
 float led_animation_speed;
 uint8_t led_animation_direction;
+uint8_t led_animation_orientation;
 uint8_t led_animation_breathing;
 uint8_t led_animation_breathe_cur;
 uint8_t breathe_step;
@@ -256,57 +257,57 @@ uint8_t led_lighting_mode;
 issi3733_led_t *led_cur;
 uint8_t led_per_run = 15;
 float breathe_mult;
-float pxmod;
+float pomod;
 
-void led_run_pattern(led_setup_t *f, float* ro, float* go, float* bo, float pxs) {
-    float px;
+void led_run_pattern(led_setup_t *f, float* ro, float* go, float* bo, float pos) {
+    float po;
 
     while (f->end != 1)
     {
-        px = pxs; //Reset px for new frame
+        po = pos; //Reset po for new frame
 
         //Add in any moving effects
         if ((!led_animation_direction && f->ef & EF_SCR_R) || (led_animation_direction && (f->ef & EF_SCR_L)))
         {
-            px -= pxmod;
+            po -= pomod;
 
-            if (px > 100) px -= 100;
-            else if (px < 0) px += 100;
+            if (po > 100) po -= 100;
+            else if (po < 0) po += 100;
         }
         else if ((!led_animation_direction && f->ef & EF_SCR_L) || (led_animation_direction && (f->ef & EF_SCR_R)))
         {
-            px += pxmod;
+            po += pomod;
 
-            if (px > 100) px -= 100;
-            else if (px < 0) px += 100;
+            if (po > 100) po -= 100;
+            else if (po < 0) po += 100;
         }
 
-        //Check if LED's px is in current frame
-        if (px < f->hs) { f++; continue; }
-        if (px > f->he) { f++; continue; }
+        //Check if LED's po is in current frame
+        if (po < f->hs) { f++; continue; }
+        if (po > f->he) { f++; continue; }
         //note: < 0 or > 100 continue
 
-        //Calculate the px within the start-stop percentage for color blending
-        px = (px - f->hs) / (f->he - f->hs);
+        //Calculate the po within the start-stop percentage for color blending
+        po = (po - f->hs) / (f->he - f->hs);
 
         //Add in any color effects
         if (f->ef & EF_OVER)
         {
-            *ro = (px * (f->re - f->rs)) + f->rs;// + 0.5;
-            *go = (px * (f->ge - f->gs)) + f->gs;// + 0.5;
-            *bo = (px * (f->be - f->bs)) + f->bs;// + 0.5;
+            *ro = (po * (f->re - f->rs)) + f->rs;// + 0.5;
+            *go = (po * (f->ge - f->gs)) + f->gs;// + 0.5;
+            *bo = (po * (f->be - f->bs)) + f->bs;// + 0.5;
         }
         else if (f->ef & EF_SUBTRACT)
         {
-            *ro -= (px * (f->re - f->rs)) + f->rs;// + 0.5;
-            *go -= (px * (f->ge - f->gs)) + f->gs;// + 0.5;
-            *bo -= (px * (f->be - f->bs)) + f->bs;// + 0.5;
+            *ro -= (po * (f->re - f->rs)) + f->rs;// + 0.5;
+            *go -= (po * (f->ge - f->gs)) + f->gs;// + 0.5;
+            *bo -= (po * (f->be - f->bs)) + f->bs;// + 0.5;
         }
         else
         {
-            *ro += (px * (f->re - f->rs)) + f->rs;// + 0.5;
-            *go += (px * (f->ge - f->gs)) + f->gs;// + 0.5;
-            *bo += (px * (f->be - f->bs)) + f->bs;// + 0.5;
+            *ro += (po * (f->re - f->rs)) + f->rs;// + 0.5;
+            *go += (po * (f->ge - f->gs)) + f->gs;// + 0.5;
+            *bo += (po * (f->be - f->bs)) + f->bs;// + 0.5;
         }
 
         f++;
@@ -319,12 +320,15 @@ led_instruction_t led_instructions[] = { { .end = 1 } };
 uint8_t highest_active_layer = 0;
 uint32_t temp_layer_state = 0;
 
-void led_matrix_run(led_setup_t *f)
+__attribute__ ((weak))
+void led_matrix_run(void)
 {
     float ro;
     float go;
     float bo;
+    float po;
     uint8_t led_this_run = 0;
+    led_setup_t *f = (led_setup_t*)led_setups[led_animation_id];
 
     if (led_cur == 0) //Denotes start of new processing cycle in the case of chunked processing
     {
@@ -351,10 +355,10 @@ void led_matrix_run(led_setup_t *f)
         }
 
         //Only needs to be calculated once per frame
-        pxmod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
-        pxmod *= 100.0f;
-        pxmod = (uint32_t)pxmod % 10000;
-        pxmod /= 100.0f;
+        pomod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+        pomod *= 100.0f;
+        pomod = (uint32_t)pomod % 10000;
+        pomod /= 100.0f;
 
         highest_active_layer = 0;
         temp_layer_state = layer_state;
@@ -370,6 +374,15 @@ void led_matrix_run(led_setup_t *f)
         ro = 0;
         go = 0;
         bo = 0;
+
+        if (led_animation_orientation)
+        {
+            po = led_cur->py;
+        }
+        else
+        {
+            po = led_cur->px;
+        }
 
         if (led_lighting_mode == LED_MODE_KEYS_ONLY && led_cur->scan == 255)
         {
@@ -391,7 +404,7 @@ void led_matrix_run(led_setup_t *f)
             //Act on LED
             if (led_cur_instruction->end) {
                 // If no instructions, use normal pattern
-                led_run_pattern(f, &ro, &go, &bo, led_cur->px);
+                led_run_pattern(f, &ro, &go, &bo, po);
             } else {
                 uint8_t skip;
                 uint8_t modid = (led_cur->id - 1) / 32;                         //PS: Calculate which id# contains the led bit
@@ -424,9 +437,9 @@ void led_matrix_run(led_setup_t *f)
                             go = led_cur_instruction->g;
                             bo = led_cur_instruction->b;
                         } else if (led_cur_instruction->flags & LED_FLAG_USE_PATTERN) {
-                            led_run_pattern(led_setups[led_cur_instruction->pattern_id], &ro, &go, &bo, led_cur->px);
+                            led_run_pattern(led_setups[led_cur_instruction->pattern_id], &ro, &go, &bo, po);
                         } else if (led_cur_instruction->flags & LED_FLAG_USE_ROTATE_PATTERN) {
-                            led_run_pattern(f, &ro, &go, &bo, led_cur->px);
+                            led_run_pattern(f, &ro, &go, &bo, po);
                         }
                     }
 
@@ -504,6 +517,7 @@ uint8_t led_matrix_init(void)
     led_lighting_mode = LED_MODE_NORMAL;
     led_animation_speed = 4.0f;
     led_animation_direction = 0;
+    led_animation_orientation = 0;
     led_animation_breathing = 0;
     led_animation_breathe_cur = BREATHE_MIN_STEP;
     breathe_step = 1;
@@ -514,11 +528,17 @@ uint8_t led_matrix_init(void)
 
     //Run led matrix code once for initial LED coloring
     led_cur = 0;
-    led_matrix_run((led_setup_t*)led_setups[led_animation_id]);
+    rgb_matrix_init_user();
+    led_matrix_run();
 
     DBGC(DC_LED_MATRIX_INIT_COMPLETE);
 
     return 0;
+}
+
+__attribute__ ((weak))
+void rgb_matrix_init_user(void) {
+
 }
 
 #define LED_UPDATE_RATE 10  //ms
@@ -557,7 +577,7 @@ void led_matrix_task(void)
     if (led_cur != lede)
     {
         //m15_off; //debug profiling
-        led_matrix_run((led_setup_t*)led_setups[led_animation_id]);
+        led_matrix_run();
         //m15_on; //debug profiling
     }
 }

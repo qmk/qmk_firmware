@@ -1,4 +1,5 @@
-﻿/* Copyright 2018 Žan Pevec
+/* Copyright 2018 Žan Pevec
+
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +17,12 @@
 
 #ifndef KEYMAP_SLOVENIAN
 #define KEYMAP_SLOVENIAN
+
 #include "keymap.h"
 
+// Alt gr
+#define ALGR(kc) RALT(kc)
+#define SI_ALGR KC_RALT
 
 //Swapped Z and Y
 #define SI_Z KC_Y
@@ -73,7 +78,7 @@
 
 // shifted characters
 #define SI_EXLM LSFT(KC_1) // !
-#define SO_DQOT LSFT(KC_2) // "
+#define SI_DQOT LSFT(KC_2) // "
 #define SI_HASH LSFT(KC_3) // #
 #define SI_DLR  LSFT(KC_4) // $
 #define SI_PERC LSFT(KC_5) // %

@@ -213,10 +213,23 @@ endif
 ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_terminal.c
     OPT_DEFS += -DTERMINAL_ENABLE
+    OPT_DEFS += -DUSER_PRINT
 endif
 
 ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
+endif
+
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/encoder.c
+    OPT_DEFS += -DENCODER_ENABLE
+endif
+
+ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += DRV2605L.c
+    SRC += i2c_master.c
+    OPT_DEFS += -DDRV2605L
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
@@ -234,12 +247,14 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
   OPT_DEFS += -DLEADER_ENABLE
 endif
 
+include $(DRIVER_PATH)/qwiic/qwiic.mk
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
 
-ifndef CUSTOM_MATRIX
+ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
     else
