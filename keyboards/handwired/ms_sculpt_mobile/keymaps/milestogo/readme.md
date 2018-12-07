@@ -1,1 +1,1 @@
-# A more programmer oriented keymap for microsoft-sculpt-mobile
+# A more programmer oriented keymap for Microsoft Sculpt Mobile

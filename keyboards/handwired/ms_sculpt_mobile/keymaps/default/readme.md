@@ -1,1 +1,1 @@
-# The default keymap for microsoft-sculpt-mobile
+# The default keymap for Microsoft Sculpt Mobile
