@@ -1,15 +1,15 @@
-/*  A library to output the right key shortcut in any common app. 
-Given a global variable babble_mode to show the environment and a 
-key that calls the paste macro, do the right type of paste. 
+/*  A library to output the right key shortcut in any common app.
+Given a global variable babble_mode to show the environment and a
+key that calls the paste macro, do the right type of paste.
 
-Setting the bable_mode is done by another macro, or TBD interaction with the host. 
+Setting the bable_mode is done by another macro, or TBD interaction with the host.
 
 Huge thanks to https://en.wikipedia.org/wiki/Table_of_keyboard_shortcuts
 and jeebak & algernon's keymap
 */
 #ifndef _babblePaste_h_included__
 #define _babblePaste_h_included__
-#include "../MS_sculpt_mobile/config.h"
+#include "config.h"
 #include "action_layer.h"
 #include "quantum_keycodes.h"
 
@@ -18,11 +18,11 @@ and jeebak & algernon's keymap
 /* ***************************
 
 // Uncomment any modes you want. Whatever mode = 0 will be the default on boot
-// Expect to get errors if you comment a feature out and leave it in your keymap. 
+// Expect to get errors if you comment a feature out and leave it in your keymap.
 
 #define USE_BABLPASTE
 
-//#define MS_MODE 0 // Windows. 
+//#define MS_MODE 0 // Windows.
 //#define MAC_MODE 1
 //#define LINUX_MODE 2 //aka gnome+KDE
 //#define EMACS_MODE 3
@@ -42,7 +42,7 @@ and jeebak & algernon's keymap
 //#define BABL_MOVEMENTONLY
 
 
-// Define starting number for BABL macros in the macro range. 
+// Define starting number for BABL macros in the macro range.
 // Probably can start the default even lower
 #define BABL_START_NUM 50
 
@@ -53,7 +53,7 @@ enum  {
 	// left & right
 	BABL_GO_LEFT_1C= BABL_START_NUM,
 	BABL_GO_RIGHT_1C,
-	BABL_GO_LEFT_WORD,	
+	BABL_GO_LEFT_WORD,
 	BABL_GO_RIGHT_WORD,
 	BABL_GO_START_LINE,
 	BABL_GO_END_LINE,
@@ -65,7 +65,7 @@ enum  {
 	BABL_PGDN,
 	BABL_PGUP,
 	// And the delete options
-	//BABL_DEL_LEFT_1C == backspace, so why bother. 
+	//BABL_DEL_LEFT_1C == backspace, so why bother.
 	BABL_DEL_RIGHT_1C, // usually = Del
 	BABL_DEL_LEFT_WORD,
 	BABL_DEL_RIGHT_WORD,
@@ -110,7 +110,7 @@ enum  {
 	BABL_BROWSER_FULLSCREEN,
 	BABL_BROWSER_ZOOM_IN,
 	BABL_BROWSER_ZOOM_OUT,
-	
+
 #endif
 
 #endif
@@ -137,8 +137,8 @@ enum  {
 
 };
 
-// BUG, used to jump to babble functiion. Surely there is a way to calculate size of enum? 
-#define BABL_NUM_MACROS 48+4 // 48 + # of defined modes. 
+// BUG, used to jump to babble functiion. Surely there is a way to calculate size of enum?
+#define BABL_NUM_MACROS 48+4 // 48 + # of defined modes.
 
 /* And all the shorthand keymap ready versions */
 // First the mode switching macros
@@ -161,7 +161,7 @@ enum  {
 #define B_READ  M(BABL_READLINE)
 #endif
 
-// and all the movement & action. 
+// and all the movement & action.
 
 #define B_L1C  M(BABL_GO_LEFT_1C)
 #define B_R1C  M(BABL_GO_RIGHT_1C)
@@ -175,7 +175,7 @@ enum  {
 #define B_UP  M(BABL_GO_PREV_LINE)
 #define B_PGDN  M(BABL_PGDN)
 #define B_PGUP  M(BABL_PGUP)
-//#define B_BKSP  M(BABL_DEL_LEFT_1C) == backspace so why bother. 
+//#define B_BKSP  M(BABL_DEL_LEFT_1C) == backspace so why bother.
 #define B_DEL  M(BABL_DEL_RIGHT_1C) // usually = Del
 #define B_DLW  M(BABL_DEL_LEFT_WORD)
 #define B_DRW  M(BABL_DEL_RIGHT_WORD)
@@ -210,8 +210,8 @@ enum  {
 #define B_BFUlL  M(BABL_BROWSER_FULLSCREEN)
 #define B_ZMIN  M(BABL_BROWSER_ZOOM_IN)
 #define B_ZMOT  M(BABL_BROWSER_ZOOM_OUT)
- 
- 
+
+
 
 
 
