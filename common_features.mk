@@ -225,6 +225,13 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
 endif
 
+ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += DRV2605L.c
+    SRC += i2c_master.c
+    OPT_DEFS += -DDRV2605L
+endif
+
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
@@ -239,6 +246,8 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
   SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
   OPT_DEFS += -DLEADER_ENABLE
 endif
+
+include $(DRIVER_PATH)/qwiic/qwiic.mk
 
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
