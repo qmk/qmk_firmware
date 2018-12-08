@@ -1,12 +1,10 @@
 # budget96
 
-![budget96](imgur.com image replace me!)
-
-A short description of the keyboard/project
+96 key atmega32a keyboard. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: Budget96 PCB 
+Hardware Availability: [DonutCables](https://donutcables.com/)  
 
 Make example for this keyboard (after setting up your build environment):
 
