@@ -18,6 +18,9 @@ void tmux_window_switch(uint16_t keycode);
 #define _________________NUMBER_L1_________________        KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _________________NUMBER_R1_________________        KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
+#define _________________SYMBOL_L1_________________        KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC
+#define _________________SYMBOL_R1_________________        KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN
+
 #define _________________QWERTY_L1_________________        KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
 #define _________________QWERTY_L2_________________        KC_A,    KC_S,    KC_D,    KC_F,    KC_G
 #define _________________QWERTY_L3_________________        KC_Z,    KC_X,    KC_C,    KC_V,    KC_B

@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_preonic_grid_wrapper( \
-  KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
+  KC_TILD, _________________SYMBOL_L1_________________,  _________________SYMBOL_R1_________________, _______, \
   _______, _______, _______, KC_UP,   _______,  KC_GRV,  _______, KC_LCBR, KC_RCBR, KC_UNDS, _______, KC_PIPE, \
   _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_TILD, KC_EQL,  KC_LPRN, KC_RPRN, KC_PLUS, KC_COLN, KC_DQT , \
   _______, KC_VOLD, KC_MRWD, KC_MPLY, KC_MFFD,  KC_VOLU, KC_MINS, KC_LBRC, KC_RBRC, _______, KC_QUES, _______, \
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_preonic_grid_wrapper( \
-  KC_GESC, KC_EXLM, KC_AT, KC_HASH,    KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, _______, \
+  KC_GESC, _________________SYMBOL_L1_________________, _________________SYMBOL_R1_________________, _______, \
   _______, ____________FUNCTION_3____________, _______, _______, KC_LCBR, KC_RCBR, _______, _______, KC_BSPC, \
   _______, ____________FUNCTION_2____________, _______, _______, KC_LPRN, KC_RPRN, KC_LT,   KC_GT,   _______, \
   _______, ____________FUNCTION_1____________, _______, _______, KC_LBRC, KC_RBRC, _______, _______, _______, \
