@@ -120,9 +120,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_LOWER] = LAYOUT_preonic_grid_wrapper( \
   KC_TILD, _________________SYMBOL_L1_________________,  _________________SYMBOL_R1_________________, _______, \
-  _______, _______, _______, KC_UP,   _______,  KC_GRV,  _______, KC_LCBR, KC_RCBR, KC_UNDS, _______, KC_PIPE, \
-  _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_TILD, KC_EQL,  KC_LPRN, KC_RPRN, KC_PLUS, KC_COLN, KC_DQT , \
-  _______, KC_VOLD, KC_MRWD, KC_MPLY, KC_MFFD,  KC_VOLU, KC_MINS, KC_LBRC, KC_RBRC, _______, KC_QUES, _______, \
+  _______, _______, _______, KC_UP,   _______,  KC_GRV,  _______, ____CRBRACES____, KC_UNDS, _______, KC_PIPE, \
+  _______, KC_DEL,  KC_LEFT, KC_DOWN, KC_RIGHT, KC_TILD, KC_EQL,  _____PARENS_____, KC_PLUS, KC_COLN, KC_DQT , \
+  _______, KC_VOLD, KC_MRWD, KC_MPLY, KC_MFFD,  KC_VOLU, KC_MINS, ___SQBRACKETS___, _______, KC_QUES, _______, \
   _______, KC_MUTE, _______, _______, _______,  _______, _______, _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END   \
 ),
 
@@ -141,9 +141,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_RAISE] = LAYOUT_preonic_grid_wrapper( \
   KC_GESC, _________________SYMBOL_L1_________________, _________________SYMBOL_R1_________________, _______, \
-  _______, ____________FUNCTION_3____________, _______, _______, KC_LCBR, KC_RCBR, _______, _______, KC_BSPC, \
-  _______, ____________FUNCTION_2____________, _______, _______, KC_LPRN, KC_RPRN, KC_LT,   KC_GT,   _______, \
-  _______, ____________FUNCTION_1____________, _______, _______, KC_LBRC, KC_RBRC, _______, _______, _______, \
+  _______, ____________FUNCTION_3____________, _______, _______, ____CRBRACES____, _______, _______, KC_BSPC, \
+  _______, ____________FUNCTION_2____________, _______, _______, _____PARENS_____, ___ANBRACKETS___, _______, \
+  _______, ____________FUNCTION_1____________, _______, _______, ___SQBRACKETS___, _______, _______, _______, \
   _______, _______, _______, _______, _______, KC_ENT,  KC_ENT,  _______, KC_HOME, KC_PGUP, KC_PGDN, KC_END   \
 ),
 

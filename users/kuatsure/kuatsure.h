@@ -33,4 +33,9 @@ void tmux_window_switch(uint16_t keycode);
 #define ____________FUNCTION_2____________                 KC_F5,   KC_F6,   KC_F7,   KC_F8
 #define ____________FUNCTION_3____________                 KC_F9,   KC_F10,  KC_F11,  KC_F12
 
+#define ___SQBRACKETS___                                   KC_LBRC, KC_RBRC
+#define _____PARENS_____                                   KC_LPRN, KC_RPRN
+#define ____CRBRACES____                                   KC_LCBR, KC_RCBR
+#define ___ANBRACKETS___                                   KC_LT,   KC_GT
+
 #endif
