@@ -32,8 +32,6 @@ enum preonic_keycodes {
   GAME_MOD,
   LOWER,
   RAISE,
-
-  END_OF_LINE,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
