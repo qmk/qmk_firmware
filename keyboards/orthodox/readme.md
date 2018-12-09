@@ -125,7 +125,7 @@ EEPROM for the left and right halves.
 
 The EEPROM is used to store whether the
 half is left handed or right handed. This makes it so that the same firmware
-file will run on both hands instead of having to flash [left](../lets_split/eeprom-lefthand.eep) and [right](../lets_split/eeprom-righthand.eep) handed
+file will run on both hands instead of having to flash [left](../../quantum/split_common/eeprom-lefthand.eep) and [right](../../quantum/split_common/eeprom-righthand.eep) handed
 versions of the firmware to each half. To flash the EEPROM file for the left
 half run:
 ```
