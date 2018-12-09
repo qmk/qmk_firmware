@@ -123,9 +123,9 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 |Key       |Aliases  |Description                    |
 |----------|---------|-------------------------------|
-|`KC_INT1` |`KC_RO`  |JIS `\` and <code>&#124;</code>|
+|`KC_INT1` |`KC_RO`  |JIS `\` and `_`                |
 |`KC_INT2` |`KC_KANA`|JIS Katakana/Hiragana          |
-|`KC_INT3` |`KC_JYEN`|JIS `¥`                        |
+|`KC_INT3` |`KC_JYEN`|JIS `¥` and <code>&#124;</code>|
 |`KC_INT4` |`KC_HENK`|JIS Henkan                     |
 |`KC_INT5` |`KC_MHEN`|JIS Muhenkan                   |
 |`KC_INT6` |         |JIS Numpad `,`                 |
@@ -219,6 +219,8 @@ Windows and macOS use different keycodes for "next track" and "previous track". 
 |`KC_WWW_FAVORITES`     |`KC_WFAV`|Browser Favorites (Windows)  |
 |`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`|Next Track (macOS)           |
 |`KC_MEDIA_REWIND`      |`KC_MRWD`|Previous Track (macOS)       |
+|`KC_BRIGHTNESS_UP`     |`KC_BRIU`|Brightness Up                |
+|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`|Brightness Down              |
 
 ## Number Pad
 

@@ -41,5 +41,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#define RGBLIGHT_LIMIT_VAL 120
+#define RGBLIGHT_LIMIT_VAL 100
+#endif
+
+#ifdef AUDIO_ENABLE
+#define B6_AUDIO
+// #define NO_MUSIC_MODE
 #endif

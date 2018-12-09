@@ -261,3 +261,32 @@ Use these to enable or disable building certain features. The more you have enab
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
   * Disables usb suspend check after keyboard startup. Usually the keyboard waits for the host to wake it up before any tasks are performed. This is useful for split keyboards as one half will not get a wakeup call but must send commands to the master.
+
+## USB Endpoint Limitations
+
+In order to provide services over USB, QMK has to use USB endpoints.
+These are a finite resource: each microcontroller has only a certain number.
+This limits what features can be enabled together.
+If the available endpoints are exceeded, a build error is thrown.
+
+The following features can require separate endpoints:
+
+* `MOUSEKEY_ENABLE`
+* `EXTRAKEY_ENABLE`
+* `CONSOLE_ENABLE`
+* `NKRO_ENABLE`
+* `MIDI_ENABLE`
+* `RAW_ENABLE`
+* `VIRTSER_ENABLE`
+
+In order to improve utilisation of the endpoints, the HID features can be combined to use a single endpoint.
+By default, `MOUSEKEY`, `EXTRAKEY`, and `NKRO` are combined into a single endpoint.
+
+The base keyboard functionality can also be combined into the endpoint,
+by setting `KEYBOARD_SHARED_EP = yes`.
+This frees up one more endpoint,
+but it can prevent the keyboard working in some BIOSes,
+as they do not implement Boot Keyboard protocol switching.
+
+Combining the mouse also breaks Boot Mouse compatibility.
+The mouse can be uncombined by setting `MOUSE_SHARED_EP = no` if this functionality is required.
