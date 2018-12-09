@@ -25,7 +25,9 @@
 #include "rgblight.h"
 #include "debug.h"
 #include "led_tables.h"
-#include "velocikey.h"
+#ifdef VELOCIKEY_ENABLE
+  #include "velocikey.h"
+#endif
 
 #ifndef RGBLIGHT_LIMIT_VAL
 #define RGBLIGHT_LIMIT_VAL 255
