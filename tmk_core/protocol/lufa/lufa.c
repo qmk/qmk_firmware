@@ -54,8 +54,11 @@
 #include "quantum.h"
 #include <util/atomic.h>
 #include "outputselect.h"
-#include "velocikey.h"
 #include "rgblight_reconfig.h"
+
+#ifdef VELOCIKEY_ENABLE
+  #include "velocikey.h"
+#endif
 
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
