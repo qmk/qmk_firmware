@@ -40,8 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // EEHANDS for two handed boards
 #define EECONFIG_HANDEDNESS         			        	(uint8_t *)14
 #define EECONFIG_KEYBOARD                          (uint32_t *)15
-#define EECONFIG_VELOCIKEY                          (uint8_t *)23
 #define EECONFIG_USER                              (uint32_t *)19
+#define EECONFIG_VELOCIKEY                          (uint8_t *)23
 
 #else
 /* STM32F3 uses 16byte block. Reconfigure memory map */
@@ -58,8 +58,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // EEHANDS for two handed boards
 #define EECONFIG_HANDEDNESS                     		(uint8_t *)11
 #define EECONFIG_KEYBOARD                          (uint32_t *)12
-#define EECONFIG_VELOCIKEY                          (uint8_t *)16
 #define EECONFIG_USER                              (uint32_t *)14
+#define EECONFIG_VELOCIKEY                          (uint8_t *)16
 #endif
 
 /* debug bit */
