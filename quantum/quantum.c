@@ -205,7 +205,7 @@ bool process_record_quantum(keyrecord_t *record) {
   uint16_t keycode;
 
   #ifdef VELOCIKEY_ENABLE
-    if (velocikey_enabled()) velocikey_accelerate();
+    if (velocikey_enabled()) { velocikey_accelerate(); }
   #endif
 
   #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
