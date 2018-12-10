@@ -274,7 +274,7 @@ bool process_terminal(uint16_t keycode, keyrecord_t *record) {
             return false;
         }
 
-        if (keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) {
+        if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
             keycode = keycode & 0xFF;
         }
 
