@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { F4, D7, E6, B4 }
 #define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2, B6 }
+#define SPLIT_HAND_PIN D2
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -53,7 +54,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 14    // Number of LEDs
 
