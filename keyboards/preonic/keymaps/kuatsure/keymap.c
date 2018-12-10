@@ -27,7 +27,7 @@ enum preonic_layers {
 };
 
 enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
+  QWERTY = USER_SAFE_RANGE,
   GAME,
   GAME_MOD,
   LOWER,
@@ -149,7 +149,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-----------------------------------------------------------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Reset| Debug|      |      |      |      |      |      |      |      |  Del |
+ * |      | Reset| MAKE | FLASH| DEBUG|      |      |      |      |      |      |  Del |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
  * |      |      |      |      |      |Aud on|AudOff|      |      |      |      |      |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_ADJUST] = LAYOUT_preonic_grid_wrapper( \
   ____________FUNCTION_1____________, ____________FUNCTION_2____________, ____________FUNCTION_3____________, \
-  _______, RESET,   DEBUG,   _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,  \
+  _______, RESET,   KC_MAKE, KC_FLSH, DEBUG,   _______, _______, _______, _______, _______, _______, KC_DEL,  \
   _______, _______, _______, _______, _______, AU_ON,   AU_OFF,  _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, MU_MOD,  MU_ON,   MU_OFF,  _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, QWERTY,  GAME,    _______, _______  \
@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {

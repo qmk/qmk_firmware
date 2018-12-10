@@ -3,6 +3,13 @@
 
 #include "quantum.h"
 
+enum kuatsure_keycodes {
+  KC_MAKE = SAFE_RANGE,
+  KC_FLSH,
+
+  USER_SAFE_RANGE,
+};
+
 void tmux_prefix(void);
 void tmux_pane_zoom(void);
 void tmux_pane_switch(uint16_t keycode);
