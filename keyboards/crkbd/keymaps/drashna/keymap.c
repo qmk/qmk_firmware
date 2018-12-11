@@ -126,10 +126,10 @@ const char code_to_name[60] = {
 
 void set_keylog(uint16_t keycode, keyrecord_t *record) {
   char name = ' ';
+  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) { keycode = keycode & 0xFF; }
   if (keycode < 60) {
     name = code_to_name[keycode];
   }
-
   // update keylog
   snprintf(keylog_str, sizeof(keylog_str), "%dx%d, k%2d : %c",
            record->event.key.row, record->event.key.col,
@@ -254,6 +254,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     case KC_INSERT ... KC_UP:
     case KC_KP_SLASH ... KC_KP_DOT:
     case KC_F13 ... KC_F24:
+    case QK_MOD_TAP ... QK_MOD_TAP_MAX:
+    case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
     if (record->event.pressed) { set_keylog(keycode, record); }
       break;
     // set_timelog();
