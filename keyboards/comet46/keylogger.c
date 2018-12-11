@@ -1,7 +1,7 @@
 char keylog[40] = {};
 int keylogs_idx = 0;
 
-char code_to_name[][4] = {
+char code_to_name[][5] = {
     {"NO"},{" "},{" "},{" "},{"A"},{"B"},{"C"},{"D"},{"E"},{"F"},{"G"},{"H"},
     {"I"},{"J"},{"K"},{"L"},{"M"},{"N"},{"O"},{"P"},{"Q"},{"R"},{"S"},{"T"},
     {"U"},{"V"},{"W"},{"X"},{"Y"},{"Z"},{"1"},{"2"},{"3"},{"4"},{"5"},{"6"},
@@ -18,10 +18,10 @@ char code_to_name[][4] = {
 
 void set_keylog(uint16_t keycode, keyrecord_t *record)
 {
-  char name[4] = "?";
+  char name[5] = "?";
   if (keycode < 117)
   {
-    for (int i = 0; i < 4; i++)
+    for (int i = 0; i < 5; i++)
     {
       name[i] = code_to_name[keycode][i];
     }
