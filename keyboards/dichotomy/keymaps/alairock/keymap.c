@@ -1,7 +1,7 @@
 // this is the style you want to emulate.
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
-#include "dichotomy.h"
+#include QMK_KEYBOARD_H
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -29,10 +29,6 @@ enum dichotomy_keycodes
 #define RED_BRIGHTNESS 3
 #define GREEN_BRIGHTNESS 2
 #define BLUE_BRIGHTNESS 2
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -78,11 +74,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 )
 
 }; // end keymaps block
-
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
 
 static bool shift_held = false;
 static bool shift_suspended = false;
