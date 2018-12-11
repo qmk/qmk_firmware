@@ -109,7 +109,7 @@ UDC_DESC_STORAGE udi_hid_kbd_report_desc_t udi_hid_kbd_report_desc = {
         0x81, 0x02,     //   Input (Data, Variable, Absolute)
         0x81, 0x01,     //   Input (Constant)
         0x19, 0x00,     //   Usage Minimum (0)
-        0x29, 0x65,     //   Usage Maximum (101)
+        0x29, 0xE7,     //   Usage Maximum (231)
         0x15, 0x00,     //   Logical Minimum (0)
         0x25, 0x65,     //   Logical Maximum (101)
         0x75, 0x08,     //   Report Size (8)
