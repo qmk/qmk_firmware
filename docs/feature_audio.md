@@ -61,9 +61,9 @@ It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif
 
 The available keycodes for audio are: 
 
-* `AU_ON` - Turn audio state on
-* `AU_OFF` - Turn audio state off
-* `AU_TOG` - Toggle audio state
+* `AU_ON` - Turn Audio Feature on
+* `AU_OFF` - Turn Audio Feature off
+* `AU_TOG` - Toggle Audio Feature state
 
 !> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely. 
 

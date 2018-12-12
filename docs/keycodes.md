@@ -226,8 +226,8 @@ This is a reference only. Each group of keys links to the page documenting their
 
 |Key             |Aliases  |Description                       |
 |----------------|---------|----------------------------------|
-|`AU_ON`         |         |Turns on Audio features           |
-|`AU_OFF`        |         |Turns off all Audio features      |
+|`AU_ON`         |         |Turns on Audio Feature            |
+|`AU_OFF`        |         |Turns off Audio Feature           |
 |`AU_TOG`        |         |Toggles Audio state               |
 |`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
 |`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
