@@ -65,7 +65,7 @@ The available keycodes for audio are:
 * `AU_OFF` - Turn audio state off
 * `AU_TOG` - Toggle audio state
 
-!> These keycodes turn all of the audio functionaly on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc are disabled, completely. 
+!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely. 
 
 ## ARM Audio Volume
 
