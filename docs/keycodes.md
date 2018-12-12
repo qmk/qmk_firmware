@@ -431,7 +431,6 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_LEFT_ANGLE_BRACKET` |`KC_LABK`, `KC_LT` |`<`                |
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`                |
 |`KC_QUESTION`           |`KC_QUES`          |`?`                |
-                 |
 
 ## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
 
