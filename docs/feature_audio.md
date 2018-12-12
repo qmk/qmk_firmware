@@ -61,9 +61,11 @@ It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif
 
 The available keycodes for audio are: 
 
-* `AU_ON` - Turn audio mode on
-* `AU_OFF` - Turn audio mode off
-* `AU_TOG` - Toggle audio mode
+* `AU_ON` - Turn audio state on
+* `AU_OFF` - Turn audio state off
+* `AU_TOG` - Toggle audio state
+
+!> These keycodes turn all of the audio functionaly on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc are disabled, completely. 
 
 ## ARM Audio Volume
 
