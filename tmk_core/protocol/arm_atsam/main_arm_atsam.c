@@ -247,8 +247,13 @@ void main_subtasks(void)
 
 int main(void)
 {
-    led_ena;
-    m15_ena;
+    DBG_LED_ENA;
+    DBG_1_ENA;
+    DBG_1_OFF;
+    DBG_2_ENA;
+    DBG_2_OFF;
+    DBG_3_ENA;
+    DBG_3_OFF;
 
     debug_code_init();
 
@@ -256,7 +261,7 @@ int main(void)
 
     ADC0_init();
 
-    SPI_Init();
+    SR_EXP_Init();
 
     i2c1_init();
 
@@ -274,8 +279,7 @@ int main(void)
 
     while (USB2422_Port_Detect_Init() == 0) {}
 
-    led_off;
-    m15_off;
+    DBG_LED_OFF;
 
     led_matrix_init();
 

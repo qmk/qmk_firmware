@@ -267,8 +267,8 @@ uint8_t I2C3733_Init_Control(void)
 
     CLK_delay_ms(1);
 
-    srdata.bit.IRST = 0;
-    SPI_WriteSRData();
+    sr_exp_data.bit.IRST = 0;
+    SR_EXP_WriteData();
 
     CLK_delay_ms(1);
 
@@ -357,8 +357,8 @@ void I2C3733_Control_Set(uint8_t state)
 {
     DBGC(DC_I2C3733_CONTROL_SET_BEGIN);
 
-    srdata.bit.SDB_N = (state == 1 ? 1 : 0);
-    SPI_WriteSRData();
+    sr_exp_data.bit.SDB_N = (state == 1 ? 1 : 0);
+    SR_EXP_WriteData();
 
     DBGC(DC_I2C3733_CONTROL_SET_COMPLETE);
 }
@@ -489,7 +489,7 @@ uint8_t i2c_led_q_request_room(uint8_t request_size)
 
         if (i2c_led_q_full >= 100) //Give the queue a chance to clear up
         {
-            led_on;
+            DBG_LED_ON;
             I2C_DMAC_LED_Init();
             i2c_led_q_init();
             return 1;

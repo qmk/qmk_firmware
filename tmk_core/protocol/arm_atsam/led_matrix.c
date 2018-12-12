@@ -520,9 +520,9 @@ void led_matrix_task(void)
     //Process more data if not finished
     if (led_cur != lede)
     {
-        //m15_off; //debug profiling
+        //DBG_1_OFF; //debug profiling
         led_matrix_run();
-        //m15_on; //debug profiling
+        //DBG_1_ON; //debug profiling
     }
 }
 
