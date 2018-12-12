@@ -140,6 +140,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_LWIN KC_LGUI
 #define KC_RCTL KC_RCTRL
 #define KC_RSFT KC_RSHIFT
+#define KC_ALGR KC_RALT
 #define KC_RCMD KC_RGUI
 #define KC_RWIN KC_RGUI
 
