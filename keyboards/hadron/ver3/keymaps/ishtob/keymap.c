@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT_FN(KC_TAB),   _________________QWERTY_L1_________________,    KC_P7,   KC_P8,   KC_P9,    _________________QWERTY_R1_________________, KC_BSPC, \
   KC_CAPS,  _________________QWERTY_L2_________________,    KC_P4,   KC_P5,   KC_P6,    _________________QWERTY_R2_________________, CTL_ENT, \
   KC_LSFT,  _________________QWERTY_L3_________________,    KC_P1,   KC_P2,   KC_P3,    _________________QWERTY_R3_________________, LT_RAI(KC_MINS), \
-  KC_ESC,   KC_LCTRL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,    KC_P0,   KC_DOT,  KC_EQL,  KC_SPC,   RAISE, KC_RALT, TG_NUMLAY, KC_APP,  KC_DEL  \
+  KC_ESC,   KC_LCTRL, KC_LGUI, KC_LALT, LOWER,   KC_SPC,    KC_P0,   KC_DOT,  KC_EQL,  KC_SPC,   RAISE, KC_RALT, KC_RGUI, KC_APP,  KC_DEL  \
 ),
 
 /* Colemak
@@ -42,7 +42,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT_FN(KC_TAB),   _________________COLEMAK_L1________________, KC_P7,   KC_P8,   KC_P9,    _________________COLEMAK_R1________________, KC_BSPC, \
   KC_LCTRL, _________________COLEMAK_L2________________, KC_P4,   KC_P5,   KC_P6,    _________________COLEMAK_R2________________, CTL_ENT, \
   KC_LSFT,  _________________COLEMAK_L3________________, KC_P1,   KC_P2,   KC_P3,    _________________COLEMAK_R3________________, LT_RAI(KC_MINS), \
-  KC_ESC,   KC_CAPS, KC_LGUI, KC_LALT,  LOWER,   KC_SPC, KC_P0,   KC_DOT,  KC_EQL,   KC_SPC,  RAISE, KC_RALT, TG_NUMLAY, KC_APP,  KC_DEL  \
+  KC_ESC,   KC_CAPS, KC_LGUI, KC_LALT,  LOWER,   KC_SPC, KC_P0,   KC_DOT,  KC_EQL,   KC_SPC,  RAISE, KC_RALT, KC_RGUI, KC_APP,  KC_DEL  \
   ),
 
 /* Dvorak
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LT_FN(KC_TAB),  _________________DVORAK_L1_________________, KC_P7, KC_P8,  KC_P9,  _________________DVORAK_R1_________________, KC_BSPC, \
   KC_LCTL, _________________DVORAK_L2_________________, KC_P4, KC_P5,  KC_P6,  _________________DVORAK_R2_________________, CTL_ENT, \
   KC_LSFT, _________________DVORAK_L3_________________, KC_P1, KC_P2,  KC_P3,  _________________DVORAK_R3_________________, LT_RAI(KC_MINS), \
-  KC_ESC,  KC_CAPS,  KC_LGUI,  KC_LALT, LOWER,  KC_SPC, KC_P0, KC_DOT, KC_EQL, KC_SPC,  RAISE, KC_RALT, TG_NUMLAY, KC_APP,  KC_DEL \
+  KC_ESC,  KC_CAPS,  KC_LGUI,  KC_LALT, LOWER,  KC_SPC, KC_P0, KC_DOT, KC_EQL, KC_SPC,  RAISE, KC_RALT, KC_RGUI, KC_APP,  KC_DEL \
 ),
 
 /* Lower
