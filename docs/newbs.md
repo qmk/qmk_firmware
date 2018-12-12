@@ -19,4 +19,4 @@ This guide is focused on helping someone who has never compiled software before.
 
 ## Additional Resources
 
-* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) - A user-created blog covering the basics of how to use QMK Firmware, as seen from a new user.
+* [Thomas Baart's QMK Basics Blog](https://thomasbaart.nl/category/mechanical-keyboards/firmware/qmk/qmk-basics/) – A user-created blog covering the basics of how to use QMK Firmware, as seen from a new user's perspective.
