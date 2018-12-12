@@ -853,7 +853,7 @@ void unregister_code(uint8_t code)
  */
 void tap_code(uint8_t code) {
   register_code(code);
-  #if defined(TAP_CODE_DELAY) && TAP_CODE_DELAY > 0
+  #if TAP_CODE_DELAY > 0
     wait_ms(TAP_CODE_DELAY);
   #endif
   unregister_code(code);
