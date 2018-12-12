@@ -20,10 +20,7 @@
 
 // Alt gr
 #ifndef ALTGR
-#define ALTGR(kc)   RALT(kc)
-#endif
-#ifndef ALGR
-#define ALGR(kc)    ALTGR(kc)
+#define ALTGR(kc)   ALGR(kc)
 #endif
 
 #define CSA_ALTGR   KC_RALT
