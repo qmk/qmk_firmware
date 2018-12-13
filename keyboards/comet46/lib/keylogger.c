@@ -1,7 +1,9 @@
-char keylog[40] = {};
+#include <stdio.h>
+
+char keylog[22] = {"Waiting for input..."};
 int keylogs_idx = 0;
 
-char code_to_name[][5] = {
+const char code_to_name[][5] = {
     {"NO"},{" "},{" "},{" "},{"A"},{"B"},{"C"},{"D"},{"E"},{"F"},{"G"},{"H"},
     {"I"},{"J"},{"K"},{"L"},{"M"},{"N"},{"O"},{"P"},{"Q"},{"R"},{"S"},{"T"},
     {"U"},{"V"},{"W"},{"X"},{"Y"},{"Z"},{"1"},{"2"},{"3"},{"4"},{"5"},{"6"},
@@ -16,7 +18,7 @@ char code_to_name[][5] = {
     {"F16"},{"F17"},{"F18"},{"F19"},{"F20"},{"F21"},{"F22"},{"F23"},{"F24"},
     };
 
-void set_keylog(uint16_t keycode, keyrecord_t *record)
+void set_keylog(uint16_t keycode)
 {
   char name[5] = "?";
   if (keycode < 117)
@@ -33,6 +35,6 @@ void set_keylog(uint16_t keycode, keyrecord_t *record)
            keycode);
 }
 
-char *read_keylog(void) {
+const char *read_keylog(void) {
   return keylog;
 }
