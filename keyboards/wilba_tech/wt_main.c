@@ -15,7 +15,9 @@
  */
 
 #include "quantum.h"
+#ifdef WT_MONO_BACKLIGHT
 #include "keyboards/wilba_tech/wt_mono_backlight.h"
+#endif
 #include "keyboards/zeal60/zeal60_api.h" // Temporary hack
 #include "keyboards/zeal60/zeal60_keycodes.h" // Temporary hack
 
@@ -194,11 +196,13 @@ void main_init(void)
 		eeprom_set_valid(true);
 	}
 
+#ifdef WT_MONO_BACKLIGHT
 	// Initialize LED drivers for backlight.
 	backlight_init_drivers();
 
 	backlight_timer_init();
 	backlight_timer_enable();
+#endif
 }
 
 void bootmagic_lite(void)
@@ -230,8 +234,10 @@ void matrix_init_kb(void)
 
 void matrix_scan_kb(void)
 {
+#ifdef WT_MONO_BACKLIGHT
 	// This only updates the LED driver buffers if something has changed.
 	backlight_update_pwm_buffers();
+#endif
 	matrix_scan_user();
 }
 
