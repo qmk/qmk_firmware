@@ -33,3 +33,6 @@ OPT_DEFS =
 
 # Options to pass to dfu-util when flashing
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
+
+RGBLIGHT_ENABLE = no
+AUDIO_ENABLE = yes

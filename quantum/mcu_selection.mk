@@ -1,5 +1,5 @@
 
-ifneq ($(findstring STM32, $(MCU)),)
+ifneq ($(findstring STM32F303, $(MCU)),)
   ## chip/board settings
   # - the next two should match the directories in
   #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)

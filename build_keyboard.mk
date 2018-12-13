@@ -88,8 +88,9 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
 endif
 
 ifeq ($(strip $(PROTON)), yes)
-    OPT_DEFS += -DPROTON_CONVERSION
+    TARGET := $(TARGET)_proton_c
     include $(STM32_PATH)/proton_c.mk
+    OPT_DEFS += -DPROTON_CONVERSION
 endif
 
 include quantum/mcu_selection.mk
