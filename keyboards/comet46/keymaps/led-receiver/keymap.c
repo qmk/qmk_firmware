@@ -148,6 +148,13 @@ uint32_t layer_state_set_user(uint32_t state) {
 }
 
 // settings for LED on receiver
+void led_init(void) {
+	DDRD  |= (1<<1);
+	PORTD |= (1<<1);
+	DDRF  |= (1<<4) | (1<<5);
+	PORTF |= (1<<4) | (1<<5);
+}
+
 #define red_led_off   PORTF |= (1<<5)
 #define red_led_on    PORTF &= ~(1<<5)
 #define blu_led_off   PORTF |= (1<<4)
@@ -163,6 +170,10 @@ uint32_t layer_state_set_user(uint32_t state) {
 #define set_led_magenta red_led_on;  grn_led_off; blu_led_on
 #define set_led_cyan    red_led_off; grn_led_on;  blu_led_on
 #define set_led_white   red_led_on;  grn_led_on;  blu_led_on
+
+void matrix_init_user(void) {
+  led_init();
+}
 
 void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
