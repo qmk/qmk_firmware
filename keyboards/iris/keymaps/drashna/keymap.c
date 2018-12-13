@@ -12,7 +12,7 @@
      KC_ESC,  ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_MINS, \
      KC_TAB , K01,    K02,     K03,      K04,     K05,                           K06,     K07,     K08,     K09,     K0A,     KC_BSLS, \
      KC_C1R3, K11,    K12,     K13,      K14,     K15,                           K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
-     KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     ALT_APP,     OS_RGUI, K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF, \
+     OS_LSFT, CTL_T(K21), K22, K23,      K24,     K25,     OS_LALT,     OS_RGUI, K26,     K27,     K28,     K29,  CTL_T(K2A), OS_RSFT, \
                              LT(_LOWER,KC_GRV), KC_SPC,  KC_BSPC,         KC_DEL,  KC_ENT,  RAISE                                      \
   )
 #define LAYOUT_iris_base_wrapper(...)       LAYOUT_iris_base(__VA_ARGS__)
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_wrapper(
       KC_MAKE, _______, _______, _______, _______, _______,                      _________________ADJUST_R1_________________, KC_RST,
-      VRSN,    _________________ADJUST_L1_________________,                      KC_NUKE, _______, _______, _______, _______, EPRM,
+      VRSN,    _________________ADJUST_L1_________________,                      KC_NUKE, _______, _______, _______, _______, EEP_RST,
       _______, _________________ADJUST_L2_________________,                      _________________ADJUST_R2_________________, TG_MODS,
       _______, _________________ADJUST_L3_________________, TG_GAME,    _______, _________________ADJUST_R3_________________, KC_MPLY,
                                         _______, _______, _______,        _______, _______, _______
@@ -95,4 +95,3 @@ void matrix_init_keymap(void) {
   DDRB &= ~(1<<0);
   PORTB &= ~(1<<0);
 }
-

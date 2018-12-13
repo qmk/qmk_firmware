@@ -38,7 +38,7 @@ uint8_t last_osm;
   ) \
   LAYOUT_wrapper( \
     KC_ESC,  K01,    K02,     K03,      K04,     K05,                                                             K06,     K07,     K08,     K09,     K0A,     KC_BSPC, \
-    KC_TAB,  K11,    K12,     K13,      K14,     K15,              ALT_APP, OS_LGUI,   KC_LALT, OS_RGUI,          K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
+    KC_TAB,  K11,    K12,     K13,      K14,     K15,              OS_LALT, OS_LGUI,   OS_RALT, OS_RGUI,          K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
     KC_MLSF, CTL_T(K21), K22, K23,      K24,     K25,     LOWER,   KC_SPACE,KC_BSPC,   KC_DEL,  KC_ENT,  RAISE,   K26,     K27,     K28,     K29,  CTL_T(K2A), KC_MRSF  \
   )
 #define LAYOUT_orthodox_base_wrapper(...)       LAYOUT_orthodox_base(__VA_ARGS__)
@@ -91,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = LAYOUT_wrapper(\
   KC_MAKE, _________________ADJUST_L1_________________,                                                               _________________ADJUST_R1_________________, KC_RESET,
-  VRSN,    _________________ADJUST_L2_________________,          _______, _______,         _______, KC_NUKE,          _________________ADJUST_R2_________________, EPRM,
+  VRSN,    _________________ADJUST_L2_________________,          _______, _______,         _______, KC_NUKE,          _________________ADJUST_R2_________________, EEP_RST,
   TG_MODS, _________________ADJUST_L3_________________, _______, _______, _______,         _______, _______, _______, _________________ADJUST_R3_________________, KC_MPLY
 )
 };

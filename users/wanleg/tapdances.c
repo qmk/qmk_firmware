@@ -73,9 +73,9 @@ void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
 		//register_code(KC_NO);
 		//take a screenshot of a single window, open Paint and paste
 		SEND_STRING(SS_LALT(SS_TAP(X_PSCREEN)) SS_LGUI("r"));
-        _delay_ms(500);
+        wait_ms(500);
         SEND_STRING("mspaint" SS_TAP(X_ENTER));
-        _delay_ms(700);
+        wait_ms(700);
         SEND_STRING(SS_LCTRL("v"));
 		break; //register this keycode when button is held
     case DOUBLE_TAP:

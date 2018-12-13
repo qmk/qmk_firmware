@@ -1,13 +1,16 @@
 #include QMK_KEYBOARD_H
 
 #include "talljoe.h"
+#ifdef ZEAL_RGB
+#include "../../../keyboards/zeal60/rgb_backlight.h"
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = TEMPLATE_TKL(
       KC_ESC,  KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,          KC_PSCR, KC_SLCK, MO_ADJ ,
       US_GRV , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   , KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , KC_MINS, KC_EQL , US_BSLS, KC_INS , KC_HOME, KC_PGUP,
       US_TAB , KC_Q,    KC_W,    KC_E,    KC_R,    KC_T   , KC_Y,    KC_U,    KC_I,    KC_O,    KC_P   , KC_LBRC, KC_RBRC, KC_BSPC, KC_DEL , KC_END , KC_PGDN,
-      CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G   , KC_H,    KC_J,    KC_K,    KC_L,    US_SCLN, US_QUOT,          US_ENT ,
+      CTL_ESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G   , KC_H,    KC_J,    KC_K,    KC_L,    US_SCLN, KC_QUOT,          US_ENT ,
       SH_LBRC, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B   , KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,                   SH_RBRC,          KC_UP  ,
       KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC2, KC_SPC1, KC_SPC3,                   KC_RALT, KC_RGUI, KC_RCTL, KC_PTT , KC_LEFT, KC_DOWN, KC_RGHT),
   [_WORKMAN] = TEMPLATE(
@@ -52,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_PTT , KC_PGDN,                   KC_SPC , KC_SPC , KC_SPC ,                   KC_RALT, KC_APP , KC_RCTL, KC_PTT ),
 #endif
   [_NAV] = TEMPLATE_NAV(
-      KC_GRV , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+      KC_GRV , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX, XXXXXXX,
       US_TAB , KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC, KC_INS , KC_PGUP, KC_UP  , KC_PGDN, KC_BTN1, KC_BTN3, KC_BTN2, KC_DEL ,
       CTL_ESC, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AMPR, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END , US_QUOT,          TG_ADJ ,
       KC_LSFT, KC_EQL,  KC_PLUS, KC_MINS, KC_UNDS, KC_ASTR, KC_CALC, US_GRV , KC_WBAK, KC_WFWD, KC_WREF,          KC_RSFT, KC_APP ,
@@ -65,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_LGUI, KC_LALT,                   NM_SPC2, NM_SPC1, NM_SPC3,                   KC_PDOT, KC_PCMM, KC_RCTL, KC_PTT ),
  // Adjust layer is on the split-shift key; or NAV+Enter (for non-split keyboards)
   [_ADJUST] = TEMPLATE_ADJUST(
-      MO_RST , FX(1)  , FX(2)  , FX(3)  , FX(4)  , FX(5)  , FX(8)  , FX(9)  , FX(10) , FX(20) , FX(0)  , BR_DEC , BR_INC , XXXXXXX, MO_RST ,
+      MO_RST , FX(1)  , FX(2)  , FX(3)  , FX(4)  , FX(5)  , FX(6)  , FX(7)  , FX(8) ,  FX(9) ,  FX(10) , BR_DEC , BR_INC , XXXXXXX, MO_RST ,
       MO_RST , H1_INC , S1_INC , H2_INC , S2_INC , EF_INC , RGB_HUI, RGB_SAI, RGB_MOD, RGB_M_P, DFAULTS, RGB_VAD, RGB_VAI, MO_RST ,
       XXXXXXX, H1_DEC , S1_DEC , H2_DEC , S2_DEC , EF_DEC , RGB_HUD, RGB_SAD, RGB_RMOD,RGB_M_K, RGB_M_B, RGB_M_G,          TG_ADJ ,
       TG_NKRO, LY_QWER, LY_WORK, LY_NRMN, LY_DVRK, LY_CLMK, XXXXXXX, LY_MALT, XXXXXXX, XXXXXXX, KC_MAKE,          KC_CAPS, XXXXXXX,
@@ -101,7 +104,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+#ifdef ZEAL_RGB
+extern backlight_config g_config;
+#endif
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifdef ZEAL_RGB
+  static uint8_t last_effect;
+#endif
 
 #ifdef RGBLIGHT_ENABLE
   static uint32_t savedRgbMode;
@@ -144,6 +153,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+#ifdef ZEAL_RGB
+    case BL_TOGG:
+      if (IS_PRESSED(record->event)) {
+        if (g_config.effect) {
+          last_effect = g_config.effect;
+          g_config.effect = 0;
+        } else {
+          g_config.effect = last_effect;
+        }
+      }
+      return false;
+    case EFFECT...EFFECT_END:
+      if (IS_PRESSED(record->event)) {
+        uint8_t effect = keycode - EFFECT;
+        if(effect == g_config.effect)
+          effect = 0; // Toggle effect on second press
+        g_config.effect = effect;
+        backlight_config_save();
+      }
+      return false;
+#endif
   }
   return process_record_keymap(keycode, record);
 }

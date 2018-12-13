@@ -39,6 +39,7 @@
 //Norwegian layout - dependant on previous definitions
 #define  NO_UNDS  LSFT(NO_MINS)  //  _
 #define  NO_QUES  LSFT(NO_PLUS)  //  ?
+#define  NO_ACUT  RALT(NO_BSLS)  //  Acute
 #define  NO_GRAV  LSFT(NO_BSLS)  //  `
 #define  NO_GT    LSFT(NO_LT)    //  >
 #define  NO_HALF  RALT(NO_LT)    //  ½
@@ -56,6 +57,9 @@
 #define OSM_RSFT OSM(MOD_RSFT)
 #define OSM_RGUI OSM(MOD_RGUI)
 
+//CTRL on hold, ESC on tap
+#define CTL_ESC CTL_T(KC_ESC)
+
 //Layers
 #define L1 0
 #define L2 1
@@ -63,23 +67,51 @@
 #define L4 3
 #define L5 4
 
+// Momentary switch to layer 
+#define MO_L2 MO(L2)
+#define MO_L4 MO(L4)
+#define MO_L5 MO(L5)
 // Momentary switch to layer - One Shot Layer
+#define OSL_L2 OSL(L2)
 #define OSL_L3 OSL(L3)
 #define OSL_L4 OSL(L4)
+
+//Tap Dance Declarations
+enum {
+  SCLN_OE = 0,
+  QUOT_AE,
+  DQT_AO
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for semicolon, twice for ø
+  [SCLN_OE] = ACTION_TAP_DANCE_DOUBLE(NO_SCLN, NO_OE),
+  //Tap once for single quote, twice for æ
+  [QUOT_AE] = ACTION_TAP_DANCE_DOUBLE(NO_QUOT, NO_AE),
+  //Tap once for double quote, twice for å
+  [DQT_AO] = ACTION_TAP_DANCE_DOUBLE(NO_DQT, NO_AO),
+// Other declarations would go here, separated by commas, if you have them
+};
+
+//Tap Dance keys
+#define TD_SCLN_OE TD(SCLN_OE)
+#define TD_QUOT_AE TD(QUOT_AE)
+#define TD_DQT_AO TD(DQT_AO)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [L1] = LAYOUT(
 	KC_LGUI,       KC_1,         KC_2,         KC_3,         KC_4,         KC_5,                                     KC_6,         KC_7,         KC_8,         KC_9,         KC_0,         KC_RGUI,
-	KC_TAB,        KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                                     KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,         NO_DQT,
-	KC_BSPC,       KC_A,         KC_S,         KC_D,         KC_F,         KC_G,                                     KC_H,         KC_J,         KC_K,         KC_L,         NO_SCLN,      NO_QUOT,
+	KC_TAB,        KC_Q,         KC_W,         KC_E,         KC_R,         KC_T,                                     KC_Y,         KC_U,         KC_I,         KC_O,         KC_P,         TD_DQT_AO,
+	KC_BSPC,       KC_A,         KC_S,         KC_D,         KC_F,         KC_G,                                     KC_H,         KC_J,         KC_K,         KC_L,         TD_SCLN_OE,   TD_QUOT_AE,
 	OSM_LSFT,      KC_Z,         KC_X,         KC_C,         KC_V,         KC_B,                                     KC_N,         KC_M,         KC_COMM,      KC_DOT,       NO_MINS,      OSM_RSFT,
-	CTL_T(KC_ESC), MO(L5),       KC_LEAD,      OSM_LALT,     MO(L4),       OSL_L3,       KC_SPC,       KC_ENT,       OSL_L3,       MO(L4),       OSM_RALT,     NO_EQL,       NO_PLUS,      KC_RCTL
+	CTL_ESC,       MO_L5,        KC_TAB,       OSM_LALT,     MO_L4,        OSL_L3,       KC_SPC,       KC_ENT,       OSL_L3,       MO_L4,        OSM_LALT,     NO_EQL,       NO_PLUS,      KC_RCTL
   ),
   [L2] = LAYOUT(
 	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      _______,
-	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      NO_AO,
-	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      NO_OE,        NO_AE,
+	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      NO_DQT,
+	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      NO_SCLN,      NO_QUOT,
 	_______,       _______,      _______,      _______,      _______,      _______,                                  _______,      _______,      _______,      _______,      _______,      _______,
 	_______,       _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______,      _______       
   ),
@@ -95,66 +127,23 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	XXXXXXX,       KC_F6,        KC_F7,        KC_F8,        KC_F9,        KC_F10,                                   KC_HOME,      KC_PGDN,      KC_PGUP,      KC_END,       XXXXXXX,      XXXXXXX,
 	_______,       KC_F11,       KC_F12,       KC_F13,       KC_F14,       KC_F15,                                   KC_LEFT,      KC_DOWN,      KC_UP,        KC_RIGHT,     XXXXXXX,      KC_DEL,
 	XXXXXXX,       KC_F16,       KC_F17,       KC_F18,       KC_F19,       KC_F20,                                   XXXXXXX,      KC_APP,       XXXXXXX,      XXXXXXX,      KC_VOLD,      XXXXXXX,
-	OSM_LCTL,      _______,      XXXXXXX,      _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      KC_MUTE,      KC_VOLU,      OSM_RCTL
+	OSM_LCTL,      _______,      XXXXXXX,      _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      OSM_RALT,     KC_MUTE,      KC_VOLU,      OSM_RCTL
   ),
   [L5] = LAYOUT(
 	XXXXXXX,       TO(L1),       TO(L2),       TO(L3),       TO(L4),       XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
-	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      RESET,        XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      NO_AO,  
-	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      NO_OE,        NO_AE,  
+	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      RESET,        XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
+	XXXXXXX,       XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
 	XXXXXXX,       XXXXXXX,      XXXXXXX,      KC_CAPS,      XXXXXXX,      XXXXXXX,                                  XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,
 	XXXXXXX,       _______,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX,      XXXXXXX
   )
 };
 
-
-// Unicode Linux
-void matrix_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
-};
-
-
-#define TAP_ONCE(code)  \
-  register_code (code); \
-  unregister_code (code)
-
-
-LEADER_EXTERNS();
-
-// Runs constantly in the background, in a loop. Only supports basic keycodes.
-void matrix_scan_user(void) {
-  LEADER_DICTIONARY() {
-    leading = false;
-    leader_end();
-
-    //probably useless in practice, but cool
-    SEQ_ONE_KEY (KC_P) {
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-      tap_random_base64();
-    }
-
-    SEQ_ONE_KEY (KC_G) {
-      SEND_STRING("grep something !");
-      register_code(KC_RALT);
-      TAP_ONCE(KC_4);
-      unregister_code(KC_RALT);
-    }
-    SEQ_ONE_KEY (KC_T) {
-      SEND_STRING("tail "); 
-      TAP_ONCE(KC_SLSH);
-      SEND_STRING("f !");
-      register_code(KC_RALT);
-      TAP_ONCE(KC_4);
-      unregister_code(KC_RALT);
-    }
-    SEQ_ONE_KEY (KC_S) {
-      SEND_STRING("sudo !!");
-      TAP_ONCE(KC_ENT);
-    }
-  }
-}
+//TODO: Is there productivity gain in the use of unicode?
+//	- Won't work in xterm.
+//	Create a layer for macros and/or unicode?
+//	Are macros useful?
+//	- Found no gain in having sendstring for commands.
+//	- Find repeated tasks that cannot be done easily on the OS.
+//	- Most other keymaps have macros for game/fun stuff, hard to find "serious" onces.
+//	Screw Norwegian layout, switch to US with unicode æøå or US/English International?
+//	- Will be different from laptop keyboard, requiring a switch on the OS side when only using the laptop.
