@@ -449,14 +449,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                         register_code(KC_1 + (id - M_1));
                         break;
                     case M_DEGR:
-                        return MACRO(DOWN(CSA_ALTGR), D(SCLN), END);
+                        return MACRO(DOWN(KC_ALGR), D(SCLN), END);
                     case M_SCLN:
                         return MACRO(D(SCLN), END);
                     case M_GRV:
-                        return MACRO(I(75), DOWN(CSA_ALTGR), TYPE(CSA_DCRC), UP(CSA_ALTGR), T(SPACE), END);
+                        return MACRO(I(75), DOWN(KC_ALGR), TYPE(CSA_DCRC), UP(KC_ALGR), T(SPACE), END);
                     case M_NBSP:
                         // use weak mod such that pressing another key will not be affected
-                        add_weak_mods(MOD_BIT(CSA_ALTGR));
+                        add_weak_mods(MOD_BIT(KC_ALGR));
                         return MACRO(D(SPACE), END);
                 }
             } else {
@@ -466,11 +466,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
                         unregister_code(KC_1 + (id - M_1));
                         break;
                     case M_DEGR:
-                        return MACRO(UP(CSA_ALTGR), U(SCLN), END);
+                        return MACRO(UP(KC_ALGR), U(SCLN), END);
                     case M_SCLN:
                         return MACRO(U(SCLN), END);
                     case M_NBSP:
-                        del_weak_mods(MOD_BIT(CSA_ALTGR));
+                        del_weak_mods(MOD_BIT(KC_ALGR));
                         return MACRO(U(SPACE), END);
                 }
             }
