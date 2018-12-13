@@ -21,9 +21,6 @@
 #define BE_LGUI KC_LALT
 #define BE_LALT KC_LGUI
 
-// Alt gr
-#define BE_ALGR KC_RALT
-
 // Normal characters
 // Line 1
 #define BE_SUP2	KC_GRV

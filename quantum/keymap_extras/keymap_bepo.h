@@ -23,7 +23,6 @@
 #ifndef ALTGR
 #define ALTGR(kc)   ALGR(kc)
 #endif
-#define BP_ALGR KC_RALT
 
 // Normal characters
 // First row (on usual keyboards)

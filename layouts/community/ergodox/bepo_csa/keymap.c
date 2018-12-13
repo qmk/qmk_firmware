@@ -105,7 +105,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_BSPC,   BP_DCRC,  BP_V,    BP_D,    BP_L,    BP_J,     BP_Z,
                    BP_C,     BP_T,    BP_S,    BP_R,    BP_N,     BP_M,
         KC_ENT,    BP_APOS,  BP_Q,    BP_G,    BP_H,    BP_F,     KC_RSFT,
-                             BP_ALGR, BP_PERC, KC_APP,  BP_CCED,  KC_RCTL,
+                             KC_ALGR, BP_PERC, KC_APP,  BP_CCED,  KC_RCTL,
 
         KC_LEFT, KC_RGHT,
         KC_UP,
