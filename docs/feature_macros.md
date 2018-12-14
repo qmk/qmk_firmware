@@ -250,6 +250,8 @@ Parallel to `register_code` function, this sends the `<kc>` keyup event to the c
 
 This will send `register_code(<kc>)` and then `unregister_code(<kc>)`. This is useful if you want to send both the press and release events ("tap" the key, rather than hold it).
 
+If you're having issues with taps (un)registering, you can add a delay between the register and unregister events by setting `#define TAP_CODE_DELAY 100` in your `config.h` file. The value is in milliseconds.
+
 ### `clear_keyboard();`
 
 This will clear all mods and keys currently pressed.
