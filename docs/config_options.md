@@ -198,6 +198,9 @@ Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in yo
 * `#define USE_I2C`
   * For using I2C instead of Serial (defaults to serial)
 
+* `#define SOFT_SERIAL_PIN D0`
+  * When using serial, define this. `D0` or `D1`,`D2`,`D3`,`E6`.
+
 # The `rules.mk` File
 
 This is a [make](https://www.gnu.org/software/make/manual/make.html) file that is included by the top-level `Makefile`. It is used to set some information about the MCU that we will be compiling for as well as enabling and disabling certain features.
