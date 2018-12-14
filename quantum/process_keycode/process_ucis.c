@@ -124,7 +124,7 @@ bool process_ucis (uint16_t keycode, keyrecord_t *record) {
   if (keycode == KC_ENT || keycode == KC_SPC || keycode == KC_ESC) {
     bool symbol_found = false;
 
-    for (i = qk_ucis_state.count; i > 0; i--) {
+    for (i = qk_ucis_state.count; i > 1; i--) {
       register_code (KC_BSPC);
       unregister_code (KC_BSPC);
       wait_ms(UNICODE_TYPE_DELAY);
