@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = { \
 
 [_N2_SYMB] = LAYOUT_ortho_4x12( 
    _______,  N_DOTS,  N_USC,   N_LSQBR, N_RSQBR, N_CIRC,  N_EXKL,  N_LT,    N_GT,    N_EQ,    N_AMP,  _______,
-   _______,  N_BSLS,  N_SLSH,  N_LCUBR, N_MINS, N_COLN,   N_QUES,  N_LPARN, N_RPARN, N_MINS,  N_COLN, N_AT,
+   _______,  N_BSLS,  N_SLSH,  N_LCUBR, N_RCUBR,  N_ASTR,  N_QUES,  N_LPARN, N_RPARN, N_MINS,  N_COLN, N_AT,
    _______,  N_HASH,  N_DLR,   N_PIPE,  N_TILD,  N_GRAVE, N_PLUS,  N_PERC,  N_QUOT,  N_SING,  N_SEMI, _______,
    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
