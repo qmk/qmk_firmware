@@ -160,6 +160,8 @@ If you define these options you will enable the associated feature, which may in
   * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature.
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
+* `#define TAP_CODE_DELAY 100`
+  * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 
 ## RGB Light Configuration
 
