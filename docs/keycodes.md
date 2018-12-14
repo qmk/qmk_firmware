@@ -288,15 +288,16 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
-|Key         |Description                                                               |
-|-----------------|---------------------------------------------------------------------|
-|`DF(layer)`      |Switches the default layer                                           |
-|`MO(layer)`      |Momentarily activates layer, switches off when you let go            |
-|`LM(layer, mod)` |As `MO(layer)` but with `mod` active                                 |
-|`LT(layer, kc)`  |Momentarily activates layer if held, sends kc if tapped              |
-|`TG(layer)`      |Toggles the layer (enables it if no active, and vise versa)          |
-|`TO(layer)`      |Activates layer and deactivates all other layers                     |
-|`TT(layer)`      |Momentarily activates layer if held, toggles it if tapped repeatedly |
+|Key             |Description                                                                       |
+|----------------|----------------------------------------------------------------------------------|
+|`DF(layer)`     |Set the base (default) layer                                                      |
+|`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
+|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](https://docs.qmk.fm/#/feature_advanced_keycodes?id=one-shot-keys) for details. |
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well. 
+|`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
+|`TG(layer)`     |Toggle `layer` on or off                                                          |
+|`TO(layer)`     |Turn on `layer` when pressed                                                      |
+|`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
 
 ## [Mouse Keys](feature_mouse_keys.md)
 
@@ -430,18 +431,6 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_LEFT_ANGLE_BRACKET` |`KC_LABK`, `KC_LT` |`<`                |
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`                |
 |`KC_QUESTION`           |`KC_QUES`          |`?`                |
-
-## [Switching and Toggling Layers](feature_advanced_keycodes.md#switching-and-toggling-layers)
-
-|Key             |Description                                                                       |
-|----------------|----------------------------------------------------------------------------------|
-|`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
-|`TO(layer)`     |Turn on `layer` when pressed                                                      |
-|`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`DF(layer)`     |Set the base (default) layer                                                      |
-|`TG(layer)`     |Toggle `layer` on or off                                                          |
-|`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.                  |
 
 ## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
 
