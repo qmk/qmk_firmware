@@ -15,9 +15,9 @@
  */
 #if RGB_BACKLIGHT_ENABLED
 
-#if defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_ZEAL65) || defined (RGB_BACKLIGHT_M60_A) || defined(RGB_BACKLIGHT_M6_B)
+#if defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_ZEAL65) || defined (RGB_BACKLIGHT_M60_A) || defined(RGB_BACKLIGHT_M6_B) || defined(RGB_BACKLIGHT_KOYU)
 #else
-#error None of the following was defined: RGB_BACKLIGHT_ZEAL60, RGB_BACKLIGHT_ZEAL65, RGB_BACKLIGHT_M60_A, RGB_BACKLIGHT_M6_B
+#error None of the following was defined: RGB_BACKLIGHT_ZEAL60, RGB_BACKLIGHT_ZEAL65, RGB_BACKLIGHT_M60_A, RGB_BACKLIGHT_M6_B, RGB_BACKLIGHT_KOYU
 #endif
 
 #include "quantum.h"
@@ -55,18 +55,21 @@ backlight_config g_config = {
 	.brightness = 255,
 	.effect = RGB_BACKLIGHT_EFFECT,
 	.effect_speed = 0,
-	.color_1 = { .h = 0, .s = 255, .v = 255 },
-	.color_2 = { .h = 127, .s = 255, .v = 255 },
-	.caps_lock_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
-	.layer_1_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
-	.layer_2_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
-	.layer_3_indicator = { .color = { .h = 0, .s = 0, .v = 255 }, .index = 255 },
+	.color_1 = { .h = 0, .s = 255 },
+	.color_2 = { .h = 127, .s = 255 },
+	.caps_lock_indicator = { .color = { .h = 0, .s = 0 }, .index = 255 },
+	.layer_1_indicator = { .color = { .h = 0, .s = 0 }, .index = 255 },
+	.layer_2_indicator = { .color = { .h = 0, .s = 0 }, .index = 255 },
+	.layer_3_indicator = { .color = { .h = 0, .s = 0 }, .index = 255 },
 	.alphas_mods = {
 		RGB_BACKLIGHT_ALPHAS_MODS_ROW_0,
 		RGB_BACKLIGHT_ALPHAS_MODS_ROW_1,
 		RGB_BACKLIGHT_ALPHAS_MODS_ROW_2,
 		RGB_BACKLIGHT_ALPHAS_MODS_ROW_3,
-		RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 }
+		RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 },
+#if defined(RGB_BACKLIGHT_M6_B)
+	.custom_color = { { 0, 255 }, { 43, 255 }, { 85, 255 }, { 128, 255 }, { 171, 255 }, { 213, 255 } }
+#endif
 };
 
 bool g_suspend_state = false;
@@ -199,7 +202,7 @@ const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
 };
 const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
 	// LA0..LA17
-	{64,128}, {75,132}, {84,145}, {91,164}, {97,187}, {102,213}, {105,242}, {109,255}, {128,247},
+	{64,128}, {75,132}, {84,145}, {91,164}, {97,187}, {102,213}, {105,242}, {109,255}, {128,243},
 	{61,255}, {67,255}, {72,255}, {77,255}, {82,255}, {86,255}, {90,255}, {93,255}, {96,255},
 	// LB0..LB17
 	{56,255}, {51,255}, {46,255}, {42,255}, {37,255}, {35,255}, {32,255}, {19,255}, {0,255},
@@ -208,8 +211,37 @@ const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
 	{184,255}, {179,135}, {170,149}, {163,169}, {157,193}, {153,220}, {255,255}, {167,255}, {165,255},
 	{128,26}, {128,60}, {128,94}, {128,128}, {128,162}, {128,196}, {145,233}, {148,255}, {161,255},
 	// LD0..LD17
-	{0,9}, {0,43}, {0,77}, {0,111}, {0,145}, {255,201}, {224,181}, {230,217}, {235,255},
-	{189,128}, {200,131}, {210,141}, {218,159}, {201,228}, {201,228}, {206,255}, {213,255}, {218,255}
+	{0,9}, {0,43}, {0,77}, {0,111}, {0,145}, {0,201}, {224,181}, {230,217}, {235,255},
+	{189,128}, {200,131}, {210,141}, {218,159}, {255,255}, {201,228}, {206,255}, {213,255}, {218,255}
+};
+#elif defined (RGB_BACKLIGHT_KOYU)
+const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
+	// LA0..LA17
+	{120,16}, {104,16}, {88,16}, {72,16}, {56,16}, {40,16}, {24,16}, {4,16}, {4,32},
+	{128,0}, {112,0}, {96,0}, {80,0}, {64,0}, {48,0}, {32,0}, {16,0}, {0,0},
+	// LB0..LB17
+	{144,0}, {160,0}, {176,0}, {192,0}, {208,0}, {224,0}, {240,0}, {240,16}, {240,32},
+	{136,16}, {152,16}, {168,16}, {184,16}, {200,16}, {220,16}, {240,48}, {240,64}, {224,64},
+	// LC0..LC17
+	{112,64}, {100,48}, {84,48}, {68,48}, {52,48}, {36,48}, {64,60}, {44,60}, {24,64},
+	{108,32}, {92,32}, {76,32}, {60,32}, {44,32}, {28,32}, {255,255}, {10,48}, {4,64},
+	// LD0..LD17
+	{124,32}, {140,32}, {156,32}, {172,32}, {188,32}, {214,32}, {180,48}, {202,48}, {224,48},
+	{116,48}, {132,48}, {148,48}, {164,48}, {255,255}, {160,60}, {180,64}, {208,64}, {255,255}
+};
+const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
+	// LA0..LA17
+	{64,128}, {75,132}, {84,145}, {91,164}, {97,187}, {102,213}, {105,242}, {109,255}, {128,243},
+	{61,255}, {67,255}, {72,255}, {77,255}, {82,255}, {86,255}, {90,255}, {93,255}, {96,255},
+	// LB0..LB17
+	{56,255}, {51,255}, {46,255}, {42,255}, {38,255}, {35,255}, {32,255}, {19,255}, {0,255},
+	{53,132}, {44,145}, {37,164}, {31,187}, {26,213}, {22,249}, {237,255}, {224,255}, {221,255},
+	// LC0..LC17
+	{189,255}, {179,135}, {170,149}, {163,169}, {157,193}, {153,220}, {172,252}, {169,255}, {165,255},
+	{128,26}, {128,60}, {128,94}, {128,128}, {128,162}, {128,196}, {255,255}, {148,255}, {161,255},
+	// LD0..LD17
+	{0,9}, {0,43}, {0,77}, {0,111}, {0,145}, {0,201}, {224,181}, {230,217}, {235,255},
+	{189,128}, {200,131}, {210,141}, {218,159}, {255,255}, {207,238}, {211,255}, {218,255}, {255,255}
 };
 #elif defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
 const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
@@ -248,7 +280,7 @@ const Point g_map_led_to_point[BACKLIGHT_LED_COUNT] PROGMEM = {
 	{0,0}, {0,16}, {16,16}, {16,0}, {32,16}, {32,0}
 };
 const Point g_map_led_to_point_polar[BACKLIGHT_LED_COUNT] PROGMEM = {
-	{0,0}, {0,16}, {16,16}, {16,0}, {32,16}, {32,0}
+	{160,255}, {96,255}, {77,255}, {179,255}, {51,255}, {205,255}
 };
 #endif
 
@@ -318,7 +350,7 @@ void map_led_to_point_polar( uint8_t index, Point *point )
 
 
 #if defined (RGB_BACKLIGHT_ZEAL65)
-// Note: Left spacebar stab is at 4,3 (LC7)
+// Note: Left spacebar stab is at 4,2 (LC7)
 // Right spacebar stab is at 4,9 (D14)
 //
 // A17, A16, A15, A14, A13, A12, A11, A10,  A9,  B0,  B1,  B2,  B3,  B4,  B6
@@ -332,6 +364,22 @@ const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 	{   0+8, 36+14, 36+13, 36+12, 36+11, 36+10,  36+9,  54+0,  54+1,  54+2,  54+3,  54+4,  54+5,  18+5,  18+8 },
 	{ 36+16, 36+15,  36+5,  36+4,  36+3,  36+2,  36+1,  54+9, 54+10, 54+11, 54+12,  54+6,  54+7,  54+8, 18+15 },
 	{ 36+17,  36+8,  36+7,   255,   255,   255,   255,  36+0,  255,  54+14, 54+15, 54+16, 54+17, 18+17, 18+16 }
+};
+#elif defined(RGB_BACKLIGHT_KOYU)
+// Note: Left spacebar stab is at 4,4 (LC6)
+// Right spacebar stab is at 4,10 (D14)
+//
+// A17, A16, A15, A14, A13, A12, A11, A10,  A9,  B0,  B1,  B2,  B3,  B4,  B6
+//  A7,  A6,  A5,  A4,  A3,  A2,  A1,  A0,  B9, B10, B11, B12, B13, B14,  B7
+//  A8, C14, C13, C12, C11, C10,  C9,  D0,  D1,  D2,  D3,  D4,  D5,  B5,  B8
+// C16, C15,  C5,  C4,  C3,  C2,  C1,  D9, D10, D11, D12,  D6,  D7,  D8, B15
+// C17,  C8,  C7,  C6, ---, ---, ---,  C0, ---, ---, D14, D15, D16, B17, B16
+const uint8_t g_map_row_column_to_led[MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
+	{  0+17,  0+16,  0+15,  0+14,  0+13,  0+12,  0+11,  0+10,   0+9,  18+0,  18+1,  18+2,  18+3,  18+4,  18+6 },
+	{   0+7,   0+6,   0+5,   0+4,   0+3,   0+2,   0+1,   0+0,  18+9, 18+10, 18+11, 18+12, 18+13, 18+14,  18+7 },
+	{   0+8, 36+14, 36+13, 36+12, 36+11, 36+10,  36+9,  54+0,  54+1,  54+2,  54+3,  54+4,  54+5,  18+5,  18+8 },
+	{ 36+16, 36+15,  36+5,  36+4,  36+3,  36+2,  36+1,  54+9, 54+10, 54+11, 54+12,  54+6,  54+7,  54+8, 18+15 },
+	{ 36+17,  36+8,  36+7,  36+6,   255,   255,   255,  36+0,  255,    255, 54+14, 54+15, 54+16, 18+17, 18+16 }
 };
 #elif defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
 // Note: Left spacebar stab is at 4,3 (LC6)
@@ -781,8 +829,24 @@ void backlight_effect_cycle_radial2(void)
 	}
 }
 
-void backlight_effect_indicators_set_colors( uint8_t index, HSV hsv )
+#if defined(RGB_BACKLIGHT_M6_B)
+void backlight_effect_custom_colors(void)
 {
+	RGB rgb;
+	for ( uint8_t i = 0; i < 6; i++ )
+	{
+		HSV hsv = { .h = g_config.custom_color[i].h, .s = g_config.custom_color[i].s, .v = g_config.brightness };
+		rgb = hsv_to_rgb( hsv );
+		uint8_t led;
+		map_row_column_to_led( 0, i, &led );
+		backlight_set_color( led, rgb.r, rgb.g, rgb.b );
+	}
+}
+#endif
+
+void backlight_effect_indicators_set_colors( uint8_t index, HS color )
+{
+	HSV hsv = { .h = color.h, .s = color.s, .v = g_config.brightness };
 	RGB rgb = hsv_to_rgb( hsv );
 	if ( index == 254 )
 	{
@@ -798,6 +862,9 @@ void backlight_effect_indicators_set_colors( uint8_t index, HSV hsv )
 		{
 #if defined (RGB_BACKLIGHT_ZEAL65)
 			backlight_set_color( 36+7, rgb.r, rgb.g, rgb.b ); // LC7
+			backlight_set_color( 54+14, rgb.r, rgb.g, rgb.b ); // LD14
+#elif defined (RGB_BACKLIGHT_KOYU)
+			backlight_set_color( 36+6, rgb.r, rgb.g, rgb.b ); // LC6
 			backlight_set_color( 54+14, rgb.r, rgb.g, rgb.b ); // LD14
 #elif defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
 			backlight_set_color( 36+6, rgb.r, rgb.g, rgb.b ); // LC6
@@ -911,7 +978,11 @@ ISR(TIMER3_COMPA_vect)
 			backlight_effect_solid_color();
 			break;
 		case 2:
+#if defined(RGB_BACKLIGHT_M6_B)
+			backlight_effect_custom_colors();
+#else
 			backlight_effect_alphas_mods();
+#endif
 			break;
 		case 3:
 			backlight_effect_gradient_up_down();
@@ -989,18 +1060,16 @@ void backlight_get_indicator_row_col( uint8_t index, uint8_t *row, uint8_t *colu
 }
 
 // Some helpers for setting/getting HSV
-void _set_color( HSV *color, uint8_t *data )
+void _set_color( HS *color, uint8_t *data )
 {
 	color->h = data[0];
 	color->s = data[1];
-	color->v = data[2];
 }
 
-void _get_color( HSV *color, uint8_t *data )
+void _get_color( HS *color, uint8_t *data )
 {
 	data[0] = color->h;
 	data[1] = color->s;
-	data[2] = color->v;
 }
 
 void backlight_config_set_value( uint8_t *data )
@@ -1132,6 +1201,16 @@ void backlight_config_set_value( uint8_t *data )
 				g_config.alphas_mods[i] = ( *(value_data+i*2) << 8 ) | ( *(value_data+i*2+1) );
 			}
 		}
+#if defined(RGB_BACKLIGHT_M6_B)
+		case id_custom_color:
+		{
+			uint8_t index = value_data[0];
+			if ( index >= 0 && index <= 6 )
+			{
+				_set_color( &(g_config.custom_color[index]), &(value_data[1]) );
+			}
+		}
+#endif
 	}
 
 	if ( reinitialize )
@@ -1259,6 +1338,16 @@ void backlight_config_get_value( uint8_t *data )
 				*(value_data+i*2+1)	= g_config.alphas_mods[i] & 0xFF;
 			}
 		}
+#if defined(RGB_BACKLIGHT_M6_B)
+		case id_custom_color:
+		{
+			uint8_t index = value_data[0];
+			if ( index >= 0 && index <= 6 )
+			{
+				_get_color( &(g_config.custom_color[index]), &(value_data[1]) );
+			}
+		}
+#endif
 	}
 }
 
@@ -1301,6 +1390,10 @@ void backlight_init_drivers(void)
 		bool enabled = !( ( index == 18+5 && !g_config.use_split_backspace ) || // LB5
 						  ( index == 36+6 ) || // LC6
 						  ( index == 54+13 ) ); // LD13
+#elif defined (RGB_BACKLIGHT_KOYU)
+		bool enabled = !( ( index == 36+15 ) || // LC15
+						  ( index == 54+13 ) || // LD13
+						  ( index == 54+17 ) ); // LD17
 #elif defined (RGB_BACKLIGHT_M60_A)
 		bool enabled = !(
 		// LB6 LB7 LB8 LB15 LB16 LB17 not present on M60-A

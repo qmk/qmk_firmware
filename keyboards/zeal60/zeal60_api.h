@@ -15,7 +15,7 @@
  */
 #pragma once
 
-#define PROTOCOL_VERSION 0x0007
+#define PROTOCOL_VERSION 0x0008
 
 enum zeal60_command_id
 {
@@ -30,6 +30,14 @@ enum zeal60_command_id
 	id_backlight_config_save,
 	id_eeprom_reset,
 	id_bootloader_jump,
+	id_dynamic_keymap_macro_get_count,
+	id_dynamic_keymap_macro_get_buffer_size,
+	id_dynamic_keymap_macro_get_buffer,
+	id_dynamic_keymap_macro_set_buffer,
+	id_dynamic_keymap_macro_reset,
+	id_dynamic_keymap_get_layer_count,
+	id_dynamic_keymap_get_buffer,
+	id_dynamic_keymap_set_buffer,
 	id_unhandled = 0xFF,
 };
 
