@@ -38,9 +38,15 @@ uint8_t leader_sequence_size = 0;
 bool process_leader(uint16_t keycode, keyrecord_t *record) {
   // Leader key set-up
   if (record->event.pressed) {
+#ifdef LEADER_PER_KEY_TIMING
+    leader_time = timer_read();
+#endif
     if (!leading && keycode == KC_LEAD) {
       leader_start();
       leading = true;
+#ifndef LEADER_PER_KEY_TIMING
+      leader_time = timer_read();
+#endif
       leader_time = timer_read();
       leader_sequence_size = 0;
       leader_sequence[0] = 0;
