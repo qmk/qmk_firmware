@@ -517,12 +517,12 @@ void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index) {
   rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b, index);
 }
 
-static uint8_t get_interval_time(const uint8_t* default_address, uint8_t velocikey_min, uint8_t velocikey_max) {
+static uint8_t get_interval_time(const uint8_t* default_interval_address, uint8_t velocikey_min, uint8_t velocikey_max) {
   return 
 #ifdef VELOCIKEY_ENABLE
     velocikey_enabled() ? velocikey_match_speed(velocikey_min, velocikey_max) :
 #endif
-    pgm_read_byte(default_address);
+    pgm_read_byte(default_interval_address);
 }
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
