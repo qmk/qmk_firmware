@@ -27,7 +27,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void led_set_user(uint8_t usb_led) {
 
-  #ifndef PROTON_CONVERSION
+  #ifndef CONVERT_TO_PROTON_C
   /* Map RXLED to USB_LED_NUM_LOCK */
 	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
 		DDRB |= (1 << 0); PORTB &= ~(1 << 0);

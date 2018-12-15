@@ -125,6 +125,7 @@
     #endif
 
 #elif defined(PROTOCOL_CHIBIOS)
+  // Defines mapping for Proton C replacement
   #ifdef PROTON_CONVERSION
     // Left side (front)
     #define D3 PAL_LINE(GPIOA, 9)
@@ -154,7 +155,7 @@
     #define B2 PAL_LINE(GPIOB, 15)
     #define B6 PAL_LINE(GPIOB, 9)
 
-    // LEDs
+    // LEDs (only D5/C13 uses an actual LED)
     #define D5 PAL_LINE(GPIOC, 13)
     #define B0 PAL_LINE(GPIOC, 14)
   #else

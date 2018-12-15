@@ -87,10 +87,48 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
     include $(KEYBOARD_PATH_1)/rules.mk
 endif
 
-ifeq ($(strip $(PROTON)), yes)
+
+MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
+MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
+MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
+MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
+MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
+
+ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
+    -include $(MAIN_KEYMAP_PATH_5)/rules.mk
+    KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
+else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
+    -include $(MAIN_KEYMAP_PATH_4)/rules.mk
+    KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
+else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
+    -include $(MAIN_KEYMAP_PATH_3)/rules.mk
+    KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
+else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_2)/keymap.c)","")
+    -include $(MAIN_KEYMAP_PATH_2)/rules.mk
+    KEYMAP_C := $(MAIN_KEYMAP_PATH_2)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
+else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
+    -include $(MAIN_KEYMAP_PATH_1)/rules.mk
+    KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
+else ifneq ($(LAYOUTS),)
+    include build_layout.mk
+else
+    $(error Could not find keymap)
+    # this state should never be reached
+endif
+
+ifeq ($(strip $(CTPC)), yes)
+  CONVERT_TO_PROTON_C=yes
+endif
+
+ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
     TARGET := $(TARGET)_proton_c
     include $(STM32_PATH)/proton_c.mk
-    OPT_DEFS += -DPROTON_CONVERSION
+    OPT_DEFS += -DCONVERT_TO_PROTON_C
 endif
 
 include quantum/mcu_selection.mk
@@ -238,39 +276,6 @@ endif
 PROJECT_DEFS := $(OPT_DEFS)
 PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
 PROJECT_CONFIG := $(CONFIG_H)
-
-MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
-
-ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_5)/rules.mk
-    KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
-    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
-else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_4)/rules.mk
-    KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
-    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
-else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_3)/rules.mk
-    KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
-    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
-else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_2)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_2)/rules.mk
-    KEYMAP_C := $(MAIN_KEYMAP_PATH_2)/keymap.c
-    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
-else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_1)/rules.mk
-    KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
-    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
-else ifneq ($(LAYOUTS),)
-    include build_layout.mk
-else
-    $(error Could not find keymap)
-    # this state should never be reached
-endif
 
 # Userspace setup and definitions
 ifeq ("$(USER_NAME)","")
