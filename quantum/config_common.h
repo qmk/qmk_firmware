@@ -135,7 +135,7 @@
     #define D0 PAL_LINE(GPIOB, 6)
     #define D4 PAL_LINE(GPIOB, 5)
     #define C6 PAL_LINE(GPIOB, 4)
-    #define C7 PAL_LINE(GPIOB, 3)
+    #define D7 PAL_LINE(GPIOB, 3)
     #define E6 PAL_LINE(GPIOB, 2)
     #define B4 PAL_LINE(GPIOB, 1)
     #define B5 PAL_LINE(GPIOB, 0)
