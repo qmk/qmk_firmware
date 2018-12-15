@@ -12,16 +12,14 @@
 #include <stdbool.h>
 #include "serial.h"
 
-#ifndef SOFT_SERIAL_PIN
-  #error quantum/split_common/serial.c need SOFT_SERIAL_PIN define
-#endif
+#ifdef SOFT_SERIAL_PIN
 
 #ifdef __AVR_ATmega32U4__
   // if using ATmega32U4 I2C, can not use PD0 and PD1 in soft serial.
-  #ifdef USE_I2C
-    #if SOFT_SERIAL_PIN == D0 || SOFT_SERIAL_PIN == D1
-      #error Using ATmega32U4 I2C, so can not use PD0, PD1
-    #endif
+  #ifdef USE_AVR_I2C
+     #if SOFT_SERIAL_PIN == D0 || SOFT_SERIAL_PIN == D1
+       #error Using ATmega32U4 I2C, so can not use PD0, PD1
+     #endif
   #endif
 
   #if SOFT_SERIAL_PIN >= D0 && SOFT_SERIAL_PIN <= D3
@@ -275,3 +273,5 @@ int serial_update_buffers(void) {
   sei();
   return 0;
 }
+
+#endif /* SOFT_SERIAL_PIN */
