@@ -52,6 +52,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     static bool debouncing = false;
 #endif
 
+#if defined(USE_I2C) || defined(EH)
+
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
 #    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
@@ -59,6 +61,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #    define ROW_SHIFTER ((uint8_t)1)
 #else
 #    error "Currently only supports 8 COLS"
+#endif
+
+#else // USE_SERIAL
+
+#if (MATRIX_COLS <= 8)
+#    define print_matrix_header()  print("\nr/c 01234567\n")
+#    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
+#    define matrix_bitpop(i)       bitpop(matrix[i])
+#    define ROW_SHIFTER ((uint8_t)1)
+#elif (MATRIX_COLS <= 16)
+#    define print_matrix_header()  print("\nr/c 0123456789ABCDEF\n")
+#    define print_matrix_row(row)  print_bin_reverse16(matrix_get_row(row))
+#    define matrix_bitpop(i)       bitpop16(matrix[i])
+#    define ROW_SHIFTER ((uint16_t)1)
+#elif (MATRIX_COLS <= 32)
+#    define print_matrix_header()  print("\nr/c 0123456789ABCDEF0123456789ABCDEF\n")
+#    define print_matrix_row(row)  print_bin_reverse32(matrix_get_row(row))
+#    define matrix_bitpop(i)       bitpop32(matrix[i])
+#    define ROW_SHIFTER  ((uint32_t)1)
+#endif
+
 #endif
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
@@ -283,14 +306,20 @@ i2c_error: // the cable is disconnceted, or something else went wrong
 
 #else // USE_SERIAL
 
-uint8_t volatile serial_slave_buffer[ROWS_PER_HAND] = {0};
+
+typedef struct _Serial_s2m_buffer_t {
+    // TODO: if MATRIX_COLS > 8 change to uint8_t packed_matrix[] for pack/unpack
+    matrix_row_t smatrix[ROWS_PER_HAND];
+} Serial_s2m_buffer_t;
+
+volatile Serial_s2m_buffer_t serial_s2m_buffer = {0};
 volatile Serial_m2s_buffer_t serial_m2s_buffer;
 uint8_t volatile status0 = 0;
 
 SSTD_t transactions[] = {
     { (uint8_t *)&status0,
       sizeof(serial_m2s_buffer), (uint8_t *)&serial_m2s_buffer,
-      sizeof(serial_slave_buffer), (uint8_t *)serial_slave_buffer
+      sizeof(serial_s2m_buffer), (uint8_t *)&serial_s2m_buffer
   }
 };
 
@@ -307,8 +336,9 @@ int serial_transaction(void) {
         return 1;
     }
 
+    // TODO:  if MATRIX_COLS > 8 change to unpack()
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        matrix[slaveOffset+i] = serial_slave_buffer[i];
+        matrix[slaveOffset+i] = serial_s2m_buffer.smatrix[i];
     }
     
     #ifdef RGBLIGHT_ENABLE
@@ -360,8 +390,9 @@ void matrix_slave_scan(void) {
         i2c_slave_buffer[I2C_KEYMAP_START+i] = matrix[offset+i];
     }   
 #else // USE_SERIAL
+    // TODO: if MATRIX_COLS > 8 change to pack()
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        serial_slave_buffer[i] = matrix[offset+i];
+        serial_s2m_buffer.smatrix[i] = matrix[offset+i];
     }
 #endif
     matrix_slave_scan_user();
