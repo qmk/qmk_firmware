@@ -129,13 +129,15 @@ enum RGBLIGHT_EFFECT_MODE {
 #include <stdbool.h>
 #include "eeconfig.h"
 #ifndef RGBLIGHT_CUSTOM_DRIVER
-#include "ws2812.h"
+  #include "ws2812.h"
 #endif
 #include "rgblight_types.h"
 #include "rgblight_list.h"
 
 #if defined(__AVR__)
-    #include <avr/pgmspace.h>
+  #include <avr/pgmspace.h>
+#else
+  #define PROGMEM
 #endif
 
 extern LED_TYPE led[RGBLED_NUM];

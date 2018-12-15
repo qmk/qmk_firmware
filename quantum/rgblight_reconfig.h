@@ -1,5 +1,4 @@
-#ifndef RGBLIGHT_RECONFIG_H
-#define RGBLIGHT_RECONFIG_H
+#pragma once
 
 #ifdef RGBLIGHT_ANIMATIONS
    // for backward compatibility
@@ -33,4 +32,3 @@
   #endif
 #endif
 
-#endif // RGBLIGHT_RECONFIG_H

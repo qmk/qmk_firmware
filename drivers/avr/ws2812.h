@@ -43,6 +43,7 @@
  *         - Send out the LED data
  *         - Wait 50�s to reset the LEDs
  */
+void leds_init();
 
 void ws2812_setleds     (LED_TYPE *ledarray, uint16_t number_of_leds);
 void ws2812_setleds_pin (LED_TYPE *ledarray, uint16_t number_of_leds,uint8_t pinmask);
