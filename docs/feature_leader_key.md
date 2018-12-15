@@ -86,6 +86,54 @@ void leader_start(void) {
 }
 
 void leader_end(void) {
-  // sequence ended (no success/failuer detectino)
+  // sequence ended (no success/failuer detection)
+}
+```
+
+### Example
+
+This example will play the Mario "One Up" sound when you hit `KC_LEAD` to start the Leader Sequence, and will play "All Star" if it completes successfully or "Rick Roll" you if it fails. 
+
+```c
+bool did_leader_succeed;
+#ifdef AUDIO_ENABLE
+float leader_start[][2] = SONG(ONE_UP_SOUND );
+float leader_succeed[][2] = SONG(ALL_STAR);
+float leader_fail[][2] = SONG(RICK_ROLL);
+#endif
+
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    did_leader_succeed = leading = false;
+
+    SEQ_ONE_KEY(KC_E) {
+      // Anything you can do in a macro.
+      SEND_STRING(SS_LCTRL(SS_LSFT("t")));
+      did_leader_succeed = true;
+    } else 
+    SEQ_TWO_KEYS(KC_E, KC_D) {
+      SEND_STRING(SS_LGUI("r")"cmd"SS_TAP(KC_ENTER)SS_LCTRL("c"));
+      did_leader_succeed = true;
+    }
+    leader_end();
+  }
+}
+
+void leader_start(void) {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(leader_start);
+#endif
+}
+
+void leader_end(void) {
+  if (did_leader_succeed) {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(leader_succeed);
+#endif
+  } else {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(leader_fail);
+#endif
+  }
 }
 ```
