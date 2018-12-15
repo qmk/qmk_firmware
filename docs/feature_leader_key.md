@@ -71,3 +71,21 @@ SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
   SEND_STRING("Per key timing is great!!!");
 }
 ```
+
+## Customization 
+
+The Leader Key feature has some additional customization that you can perform here.  It has two functions that can be called at certain parts of the process.  Namely `leader_start()` and `leader_end()`.
+
+The `leader_start()` function is called when you tap the `KC_LEAD` key, and the `leader_end()` function is called when either the leader sequence is completed, or the leader timeout is hit. 
+
+You can add these functions to your `keymap.c` file to add feedback (such as beeping or playing music).
+
+```c
+void leader_start(void) {
+  // sequence started
+}
+
+void leader_end(void) {
+  // sequence ended (no success/failuer detectino)
+}
+```
