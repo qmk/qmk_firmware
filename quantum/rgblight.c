@@ -167,7 +167,12 @@ void rgblight_init(void) {
     rgblight_config.raw = eeconfig_read_rgblight();
   }
   eeconfig_debug_rgblight(); // display current eeprom values
+
+#ifdef RGBLIGHT_STM32_SPI
+  #ifndef RGBLIGHT_CUSTOM_DRIVER
   leds_init();
+  #endif
+#endif
 
 #ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_init(); // setup the timer
