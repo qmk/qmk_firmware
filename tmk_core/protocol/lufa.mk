@@ -1,20 +1,21 @@
 LUFA_DIR = protocol/lufa
 
 # Path to the LUFA library
-LUFA_PATH ?= $(LUFA_DIR)/LUFA-git
+LUFA_PATH = $(LIB_PATH)/lufa
 
 
 # Create the LUFA source path variables by including the LUFA makefile
-ifneq (, $(wildcard $(TMK_PATH)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk))
+ifneq (, $(wildcard $(LUFA_PATH)/LUFA/Build/lufa_sources.mk))
     # New build system from 20120730
     LUFA_ROOT_PATH = $(LUFA_PATH)/LUFA
-    include $(TMK_PATH)/$(LUFA_PATH)/LUFA/Build/lufa_sources.mk
+    DMBS_LUFA_PATH = $(LUFA_PATH)/LUFA/Build/LUFA
+    include $(LUFA_PATH)/LUFA/Build/lufa_sources.mk
 else
-    include $(TMK_PATH)/$(LUFA_PATH)/LUFA/makefile
+    include $(LUFA_PATH)/LUFA/makefile
 endif
 
 LUFA_SRC = lufa.c \
-	   descriptor.c \
+	   usb_descriptor.c \
 	   outputselect.c \
 	   $(LUFA_SRC_USB)
 
@@ -49,7 +50,7 @@ SRC += $(LUFA_SRC)
 
 # Search Path
 VPATH += $(TMK_PATH)/$(LUFA_DIR)
-VPATH += $(TMK_PATH)/$(LUFA_PATH)
+VPATH += $(LUFA_PATH)
 
 # Option modules
 #ifdef $(or MOUSEKEY_ENABLE, PS2_MOUSE_ENABLE)
@@ -63,7 +64,7 @@ LUFA_OPTS  = -DUSB_DEVICE_ONLY
 LUFA_OPTS += -DUSE_FLASH_DESCRIPTORS
 LUFA_OPTS += -DUSE_STATIC_OPTIONS="(USB_DEVICE_OPT_FULLSPEED | USB_OPT_REG_ENABLED | USB_OPT_AUTO_PLL)"
 #LUFA_OPTS += -DINTERRUPT_CONTROL_ENDPOINT
-LUFA_OPTS += -DFIXED_CONTROL_ENDPOINT_SIZE=8 
+LUFA_OPTS += -DFIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -DFIXED_CONTROL_ENDPOINT_SIZE=8
 LUFA_OPTS += -DFIXED_NUM_CONFIGURATIONS=1
 

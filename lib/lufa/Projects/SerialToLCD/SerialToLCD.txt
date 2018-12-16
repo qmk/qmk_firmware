@@ -1,0 +1,109 @@
+/** \file
+ *
+ *  This file contains special DoxyGen information for the generation of the main page and other special
+ *  documentation pages. It is not a project source file.
+ */
+
+/** \mainpage Simon Foster's USB Serial to HD44780 LCD Project
+ *
+ *  \section Sec_Compat Project Compatibility:
+ *
+ *  The following list indicates what microcontrollers are compatible with this project.
+ *
+ *  \li AT90USB162
+ *
+ *  \section Sec_Info USB Information:
+ *
+ *  The following table gives a rundown of the USB utilization of this project.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>USB Mode:</b></td>
+ *    <td>Device</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Class:</b></td>
+ *    <td>Communications Device Class (CDC)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>USB Subclass:</b></td>
+ *    <td>Abstract Control Model (ACM)</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Relevant Standards:</b></td>
+ *    <td>USBIF CDC Class Standard</td>
+ *   </tr>
+ *   <tr>
+ *    <td><b>Supported USB Speeds:</b></td>
+ *    <td>Full Speed Mode</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Description Project Description:
+ *
+ *  Firmware for a USB Virtual Serial to HD44780 LCD controller project, by Simon Foster. This
+ *  project connects a standard HD7780 compatible LCD controller to a PC via a virtual serial
+ *  link, so that data supplied by the host can be written to the display. This project is
+ *  designed to use the Minimum USB AVR board, however it can be modified to suit other hardware
+ *  if desired.
+ *
+ *  LCD Datasheet:    http://www.sparkfun.com/datasheets/LCD/HD44780.pdf \n
+ *  More Information: http://en.wikipedia.org/wiki/HD44780_Character_LCD \n
+ *
+ *  Below are the connections between the AVR Minimus board and LCD.
+ *
+ *  <table>
+ *   <tr>
+ *    <td><b>AVR Pin:</b></td>
+ *    <td><b>HD44780 LCD Pin:</b></td>
+ *   </tr>
+ *   <tr>
+ *    <td>VCC</td>
+ *    <td>VCC</td>
+ *   </tr>
+ *   <tr>
+ *    <td>GND</td>
+ *    <td>GND</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PD0</td>
+ *    <td>DB4</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PD1</td>
+ *    <td>DB5</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PD2</td>
+ *    <td>DB6</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PD3</td>
+ *    <td>DB7</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PD4</td>
+ *    <td>/RS</td>
+ *   </tr>
+ *   <tr>
+ *    <td>GND</td>
+ *    <td>/RW</td>
+ *   </tr>
+ *   <tr>
+ *    <td>PD7</td>
+ *    <td>/E</td>
+ *   </tr>
+ *  </table>
+ *
+ *  \section Sec_Options Project Options
+ *
+ *  The following defines can be found in this project, which can control the project behaviour when defined, or changed in value.
+ *
+ *  <table>
+ *   <tr>
+ *    <td>
+ *     None
+ *    </td>
+ *   </tr>
+ *  </table>
+ */

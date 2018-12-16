@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "test_driver.h"
+#include "test_driver.hpp"
 
 TestDriver* TestDriver::m_this = nullptr;
 

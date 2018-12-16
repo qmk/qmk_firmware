@@ -34,7 +34,12 @@ ifeq ($(strip $(AUDIO_ENABLE)), yes)
     OPT_DEFS += -DAUDIO_ENABLE
     MUSIC_ENABLE := 1
     SRC += $(QUANTUM_DIR)/process_keycode/process_audio.c
-    SRC += $(QUANTUM_DIR)/audio/audio.c
+    SRC += $(QUANTUM_DIR)/process_keycode/process_clicky.c
+    ifeq ($(PLATFORM),AVR)
+        SRC += $(QUANTUM_DIR)/audio/audio.c
+    else
+        SRC += $(QUANTUM_DIR)/audio/audio_arm.c
+    endif
     SRC += $(QUANTUM_DIR)/audio/voices.c
     SRC += $(QUANTUM_DIR)/audio/luts.c
 endif
@@ -54,6 +59,12 @@ ifeq ($(strip $(COMBO_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_combo.c
 endif
 
+ifeq ($(strip $(STENO_ENABLE)), yes)
+    OPT_DEFS += -DSTENO_ENABLE
+    VIRTSER_ENABLE := yes
+    SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+endif
+
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
     OPT_DEFS += -DVIRTSER_ENABLE
 endif
@@ -61,6 +72,12 @@ endif
 ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
     OPT_DEFS += -DFAUXCLICKY_ENABLE
     SRC += $(QUANTUM_DIR)/fauxclicky.c
+endif
+
+ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
+    OPT_DEFS += -DPOINTING_DEVICE_ENABLE
+    OPT_DEFS += -DMOUSE_ENABLE
+    SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
@@ -87,10 +104,45 @@ endif
 
 ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     OPT_DEFS += -DRGBLIGHT_ENABLE
-    SRC += $(QUANTUM_DIR)/light_ws2812.c
     SRC += $(QUANTUM_DIR)/rgblight.c
     CIE1931_CURVE = yes
     LED_BREATHING_TABLE = yes
+    ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
+        OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
+    else
+        SRC += ws2812.c
+    endif
+endif
+
+RGB_MATRIX_ENABLE ?= no
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
+ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
+    $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
+endif
+    OPT_DEFS += -DRGB_MATRIX_ENABLE
+    SRC += $(QUANTUM_DIR)/color.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
+    CIE1931_CURVE = yes
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+	RGB_MATRIX_ENABLE = IS31FL3731
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
+    OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3731.c
+    SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
+    OPT_DEFS += -DIS31FL3733
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3733.c
+    SRC += i2c_master.c
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -98,10 +150,23 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c
 endif
 
+ifeq ($(strip $(KEY_LOCK_ENABLE)), yes)
+    OPT_DEFS += -DKEY_LOCK_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_key_lock.c
+endif
+
 ifeq ($(strip $(PRINTING_ENABLE)), yes)
     OPT_DEFS += -DPRINTING_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_printer.c
     SRC += $(TMK_DIR)/protocol/serial_uart.c
+endif
+
+ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
+    OPT_DEFS += -DAUTO_SHIFT_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_auto_shift.c
+    ifeq ($(strip $(AUTO_SHIFT_MODIFIERS)), yes)
+        OPT_DEFS += -DAUTO_SHIFT_MODIFIERS
+    endif
 endif
 
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
@@ -126,6 +191,9 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
+        ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+        OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
+    endif
 endif
 
 ifeq ($(strip $(CIE1931_CURVE)), yes)
@@ -142,12 +210,67 @@ ifeq ($(strip $(LED_TABLES)), yes)
     SRC += $(QUANTUM_DIR)/led_tables.c
 endif
 
+ifeq ($(strip $(TERMINAL_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/process_keycode/process_terminal.c
+    OPT_DEFS += -DTERMINAL_ENABLE
+    OPT_DEFS += -DUSER_PRINT
+endif
+
+ifeq ($(strip $(USB_HID_ENABLE)), yes)
+    include $(TMK_DIR)/protocol/usb_hid.mk
+endif
+
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/encoder.c
+    OPT_DEFS += -DENCODER_ENABLE
+endif
+
+ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += DRV2605L.c
+    SRC += i2c_master.c
+    OPT_DEFS += -DDRV2605L
+endif
+
+ifeq ($(strip $(HD44780_ENABLE)), yes)
+    SRC += drivers/avr/hd44780.c
+    OPT_DEFS += -DHD44780_ENABLE
+endif
+
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
+    SRC += $(QUANTUM_DIR)/dynamic_keymap.c
+endif
+
+ifeq ($(strip $(LEADER_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
+  OPT_DEFS += -DLEADER_ENABLE
+endif
+
+include $(DRIVER_PATH)/qwiic/qwiic.mk
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
-    $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/process_keycode/process_leader.c
+    $(QUANTUM_DIR)/keycode_config.c
 
-ifndef CUSTOM_MATRIX
-    QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
+ifneq ($(strip $(CUSTOM_MATRIX)), yes)
+    ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
+    else
+        QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
+    endif
+endif
+
+ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    SERIAL_BACKWARD_COMPAT := $(wildcard $(QUANTUM_DIR)/split_common/serial_backward_compatibility.h)
+    ifneq ($(SERIAL_BACKWARD_COMPAT),)
+      CONFIG_H += $(SERIAL_BACKWARD_COMPAT)
+      # $(info CONFIG_H=$(CONFIG_H))
+    endif
+    OPT_DEFS += -DSPLIT_KEYBOARD
+    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
+                $(QUANTUM_DIR)/split_common/split_util.c
+    QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c
+    QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c
 endif

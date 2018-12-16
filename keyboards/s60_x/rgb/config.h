@@ -1,7 +1,7 @@
 #ifndef RBG_CONFIG_H
 #define RBG_CONFIG_H
 
-#include "../config.h"
+#include "config_common.h"
 
 #define PRODUCT         S60-X-RGB
 #define DESCRIPTION     q.m.k. keyboard firmware for S60-X RGB
@@ -16,9 +16,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 #define RGB_DI_PIN F6
 #ifdef RGB_DI_PIN

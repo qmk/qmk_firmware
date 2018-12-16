@@ -21,10 +21,7 @@
 
 // Alt gr
 #ifndef ALTGR
-#define ALTGR(kc)   RALT(kc)
-#endif
-#ifndef ALGR
-#define ALGR(kc)    ALTGR(kc)
+#define ALTGR(kc)   ALGR(kc)
 #endif
 #define BP_ALGR KC_RALT
 
@@ -203,7 +200,7 @@
 #define BP_DEAD_TREMA               ALTGR(BP_I)         // dead ¨ (trema/umlaut/diaresis)
 #define BP_DTRM                     BP_DEAD_TREMA
 #define BP_EURO                     ALTGR(BP_E)         // €
-#define BP_TYPOGRAPHICAL_APOSTROPHE ALTGR(BP_COMMMA)    // ’
+#define BP_TYPOGRAPHICAL_APOSTROPHE ALTGR(BP_COMMA)     // ’
 #define BP_TAPO                     BP_TYPOGRAPHICAL_APOSTROPHE
 #define BP_COPYRIGHT                ALTGR(BP_C)         // ©
 #define BP_CPRT                     BP_COPYRIGHT

@@ -56,6 +56,9 @@ OPT_DEFS = -DCORTEX_VTOR_INIT=0x00001000
 # Build Options
 #   comment out to disable the options.
 #
+
+DFU_ARGS = -d 1c11:b007
+
 BOOTMAGIC_ENABLE = no	# Virtual DIP switch configuration
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = yes	# Mouse keys
@@ -65,3 +68,5 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
+
+LAYOUTS = 60_ansi_split_bs_rshift

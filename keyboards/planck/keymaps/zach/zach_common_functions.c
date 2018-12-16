@@ -110,7 +110,7 @@ void dance_lower_lift(qk_tap_dance_state_t *state, void *user_data){ // Called o
         update_tri_layer(_LOWER, _RAISE, _ADJUST);
         layer_on(_UNICODES);
         #ifdef AUDIO_ENABLE
-            PLAY_NOTE_ARRAY(tone_ctrl_mod, false, 0);
+            PLAY_SONG(tone_ctrl_mod);
         #endif
         break;
   }
@@ -202,7 +202,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(record->event.pressed){
             persistent_default_layer_set(1UL<<_COLEMAK);
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_colemak, false, 0);
+              PLAY_SONG(tone_colemak);
             #endif
         }
         return false;
@@ -211,7 +211,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(record->event.pressed){
             persistent_default_layer_set(1UL<<_SWCOLE);
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(tone_swcole, false, 0);
+              PLAY_SONG(tone_swcole);
             #endif
         }
         return false;
@@ -236,7 +236,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
         return false;
         break;
-    case SHFT_CAP: 
+    case SHFT_CAP:
         if(record->event.pressed){
             key_timer = timer_read();               // if the key is being pressed, we start the timer.
             register_code(KC_LSHIFT);
@@ -246,12 +246,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 if(caps_status == 0){
                     caps_status = 1;
                     #ifdef AUDIO_ENABLE
-                        PLAY_NOTE_ARRAY(tone_capslock_on, false, 0);
+                        PLAY_SONG(tone_capslock_on);
                     #endif
                 } else {
                     caps_status = 0;
                     #ifdef AUDIO_ENABLE
-                        PLAY_NOTE_ARRAY(tone_capslock_off, false, 0);
+                        PLAY_SONG(tone_capslock_off);
                     #endif
                 }
             }
@@ -267,10 +267,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (timer_elapsed(key_timer) < 152) {   // Time in ms, the threshold we pick for counting something as a tap.
                 tap(KC_B);
                 #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_ctrl_mod, false, 0);
+                    PLAY_SONG(tone_ctrl_mod);
                 #endif
                 #ifdef BACKLIGHT_BREATHING
-                    breathing_speed_set(2);
+                    breathing_period_set(2);
                     breathing_pulse();
                 #endif
             }
@@ -287,14 +287,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 tap(KC_C);
                 unregister_code(KC_LCTL);
                 #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_copy, false, 0);
+                    PLAY_SONG(tone_copy);
                 #endif
             } else {                                // Tap, paste
                 register_code(KC_LCTL);
                 tap(KC_V);
                 unregister_code(KC_LCTL);
                 #ifdef AUDIO_ENABLE
-                    PLAY_NOTE_ARRAY(tone_paste, false, 0);
+                    PLAY_SONG(tone_paste);
                 #endif
             }
         }
@@ -305,7 +305,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(record->event.pressed){
             set_unicode_input_mode(UC_WIN);
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(uniwin, false, 0);
+              PLAY_SONG(uniwin);
             #endif
         }
         return false;
@@ -314,7 +314,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if(record->event.pressed){
             set_unicode_input_mode(UC_LNX);
             #ifdef AUDIO_ENABLE
-              PLAY_NOTE_ARRAY(unilin, false, 0);
+              PLAY_SONG(unilin);
             #endif
         }
         return false;
@@ -419,28 +419,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_init_user(void){        // Run once at startup
     #ifdef AUDIO_ENABLE
         _delay_ms(50); // gets rid of tick
-        PLAY_NOTE_ARRAY(tone_startup, false, 0);
+        PLAY_SONG(tone_startup);
     #endif
 }
 
 #ifdef AUDIO_ENABLE
 void play_goodbye_tone(void){
-  PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+  PLAY_SONG(tone_goodbye);
   _delay_ms(150);
 }
 
 void shutdown_user(){
-    PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+    PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
 }
 
 void music_on_user(void){           // Run when the music layer is turned on
-    PLAY_NOTE_ARRAY(tone_startup, false, 0);
+    PLAY_SONG(tone_startup);
 }
 
 void music_off_user(void){          // Run when music is turned off
-	PLAY_NOTE_ARRAY(tone_goodbye, false, 0);
+	PLAY_SONG(tone_goodbye);
 }
 #endif
 

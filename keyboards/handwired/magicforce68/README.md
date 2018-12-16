@@ -5,7 +5,7 @@ This firmware is for a Magicforce 68 that's had its PCB removed and is handwired
 
 ## Wiring Layout
 
-![Wiring Layout](http://imgur.com/NmTCv5u)
+![Wiring Layout](http://i.imgur.com/NmTCv5u.png)
 
 ## Pinout
 

@@ -1,0 +1,10 @@
+These are notes on how to build and deploy the firmware to Ez, but they are
+from before the qmk restructuring.
+
+cd qmk_firmware/keyboard/ergodox_ez
+make LAYOUT_ergodox=jafo
+cp ergodox_ez.hex keymaps/jafo/
+/tmp/teensy.64bit
+Open hex keymap file
+Program
+Upload

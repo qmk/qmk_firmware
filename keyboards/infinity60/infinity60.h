@@ -19,8 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "quantum.h"
 
-#ifdef INFINITY_PROTOTYPE
+#define LAYOUT_60_ansi_split_bs_rshift KEYMAP
 
+#ifdef INFINITY_PROTOTYPE
 /* Infinity prototype */
 #define KEYMAP( \
     K00, K10, K20, K30, K40, K50, K60, K70, K80, K01, K11, K21, K31, K41, K86, \

@@ -34,14 +34,14 @@ ECHO ------------------------------------------
 ECHO Installing dfu-programmer.
 ECHO ------------------------------------------
 ECHO.
-wget 'http://downloads.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip' >> %STARTINGDIR%\environment-setup.log
+wget --no-check-certificate 'http://downloads.sourceforge.net/project/dfu-programmer/dfu-programmer/0.7.2/dfu-programmer-win-0.7.2.zip' >> %STARTINGDIR%\environment-setup.log
 unzip -o dfu-programmer-win-0.7.2.zip >> %STARTINGDIR%\environment-setup.log
 COPY dfu-programmer.exe .. >> %STARTINGDIR%\environment-setup.log
 
 ECHO ------------------------------------------
 ECHO Downloading driver
 ECHO ------------------------------------------
-wget http://downloads.sourceforge.net/project/libusb-win32/libusb-win32-releases/1.2.6.0/libusb-win32-bin-1.2.6.0.zip >> %STARTINGDIR%\environment-setup.log
+wget --no-check-certificate http://downloads.sourceforge.net/project/libusb-win32/libusb-win32-releases/1.2.6.0/libusb-win32-bin-1.2.6.0.zip >> %STARTINGDIR%\environment-setup.log
 unzip -o libusb-win32-bin-1.2.6.0.zip >> %STARTINGDIR%\environment-setup.log
 COPY libusb-win32-bin-1.2.6.0\bin\x86\libusb0_x86.dll ../libusb0.dll >> %STARTINGDIR%\environment-setup.log
 

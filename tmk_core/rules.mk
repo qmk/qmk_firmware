@@ -28,12 +28,13 @@ VPATH :=
 
 # Convert all SRC to OBJ
 define OBJ_FROM_SRC
-$(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.cc,$1/%.o,$(patsubst %.S,$1/%.o,$($1_SRC)))))
+$(patsubst %.c,$1/%.o,$(patsubst %.cpp,$1/%.o,$(patsubst %.cc,$1/%.o,$(patsubst %.S,$1/%.o,$(patsubst %.clib,$1/%.a,$($1_SRC))))))
 endef
 $(foreach OUTPUT,$(OUTPUTS),$(eval $(OUTPUT)_OBJ +=$(call OBJ_FROM_SRC,$(OUTPUT))))
 
 # Define a list of all objects
 OBJ := $(foreach OUTPUT,$(OUTPUTS),$($(OUTPUT)_OBJ))
+NO_LTO_OBJ := $(filter %.a,$(OBJ))
 
 MASTER_OUTPUT := $(firstword $(OUTPUTS))
 
@@ -81,7 +82,9 @@ CSTANDARD = -std=gnu99
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-CFLAGS += -g$(DEBUG)
+ifndef SKIP_DEBUG_INFO
+  CFLAGS += -g$(DEBUG)
+endif
 CFLAGS += $(CDEFS)
 CFLAGS += -O$(OPT)
 # add color
@@ -103,7 +106,6 @@ endif
 CFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 CFLAGS += $(CSTANDARD)
 
-
 #---------------- Compiler Options C++ ----------------
 #  -g*:          generate debugging information
 #  -O*:          optimization level
@@ -111,7 +113,9 @@ CFLAGS += $(CSTANDARD)
 #  -Wall...:     warning level
 #  -Wa,...:      tell GCC to pass this to the assembler.
 #    -adhlns...: create assembler listing
-CPPFLAGS += -g$(DEBUG)
+ifndef SKIP_DEBUG_INFO
+  CPPFLAGS += -g$(DEBUG)
+endif
 CPPFLAGS += $(CPPDEFS)
 CPPFLAGS += -O$(OPT)
 # to supress "warning: only initialized variables can be placed into program memory area"
@@ -139,7 +143,11 @@ CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
 ASFLAGS += $(ADEFS) 
-ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
+ifndef SKIP_DEBUG_INFO
+  ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
+else
+  ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),--listing-cont-lines=100
+endif
 
 #---------------- Library Options ----------------
 # Minimalistic printf version
@@ -211,11 +219,19 @@ ALL_CFLAGS = $(MCUFLAGS) $(CFLAGS) $(EXTRAFLAGS)
 ALL_CPPFLAGS = $(MCUFLAGS) -x c++ $(CPPFLAGS) $(EXTRAFLAGS)
 ALL_ASFLAGS = $(MCUFLAGS) -x assembler-with-cpp $(ASFLAGS) $(EXTRAFLAGS)
 
+define NO_LTO
+$(patsubst %.a,%.o,$1): NOLTO_CFLAGS += -fno-lto
+endef
+$(foreach LOBJ, $(NO_LTO_OBJ), $(eval $(call NO_LTO,$(LOBJ))))
+
 MOVE_DEP = mv -f $(patsubst %.o,%.td,$@) $(patsubst %.o,%.d,$@)
 
 
 elf: $(BUILD_DIR)/$(TARGET).elf
 hex: $(BUILD_DIR)/$(TARGET).hex
+cpfirmware: $(FIRMWARE_FORMAT)
+	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
+	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
 eep: $(BUILD_DIR)/$(TARGET).eep
 lss: $(BUILD_DIR)/$(TARGET).lss
 sym: $(BUILD_DIR)/$(TARGET).sym
@@ -223,19 +239,17 @@ LIBNAME=lib$(TARGET).a
 lib: $(LIBNAME)
 
 # Display size of file.
-HEXSIZE = $(SIZE) --target=$(FORMAT) $(TARGET).hex
+HEXSIZE = $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex
 #ELFSIZE = $(SIZE) --mcu=$(MCU) --format=avr $(TARGET).elf
 ELFSIZE = $(SIZE) $(BUILD_DIR)/$(TARGET).elf
 
 sizebefore:
-	@if test -f $(TARGET).hex; then $(SECHO) $(MSG_SIZE_BEFORE); $(SILENT) || $(HEXSIZE); \
+	@if test -f $(BUILD_DIR)/$(TARGET).hex; then $(SECHO) $(MSG_SIZE_BEFORE); $(SILENT) || $(HEXSIZE); \
 	2>/dev/null; $(SECHO); fi
 
 sizeafter: $(BUILD_DIR)/$(TARGET).hex
-	@if test -f $(TARGET).hex; then $(SECHO); $(SECHO) $(MSG_SIZE_AFTER); $(SILENT) || $(HEXSIZE); \
+	@if test -f $(BUILD_DIR)/$(TARGET).hex; then $(SECHO); $(SECHO) $(MSG_SIZE_AFTER); $(SILENT) || $(HEXSIZE); \
 	2>/dev/null; $(SECHO); fi
-	# test file sizes eventually
-	# @if [[ $($(SIZE) --target=$(FORMAT) $(TARGET).hex | $(AWK) 'NR==2 {print "0x"$5}') -gt 0x200 ]]; then $(SECHO) "File is too big!"; fi
 
 # Display compiler version information.
 gccversion :
@@ -247,10 +261,8 @@ gccversion :
 	$(eval CMD=$(HEX) $< $@)
 	@$(BUILD_CMD)
 	@if $(AUTOGEN); then \
-		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(KEYBOARD)_$(KEYMAP).hex\n"; \
-		$(COPY) $@ $(KEYMAP_PATH)/$(KEYBOARD)_$(KEYMAP).hex; \
-	else \
-		$(COPY) $@ $(TARGET).hex; \
+		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(TARGET).hex\n"; \
+		$(COPY) $@ $(KEYMAP_PATH)/$(TARGET).hex; \
 	fi
 
 %.eep: %.elf
@@ -290,10 +302,10 @@ BEGIN = gccversion sizebefore
 define GEN_OBJRULE
 $1_INCFLAGS := $$(patsubst %,-I%,$$($1_INC))
 ifdef $1_CONFIG
-$1_CONFIG_FLAGS += -include $$($1_CONFIG)
+$1_CONFIG_FLAGS += $$(patsubst %,-include %,$$($1_CONFIG))
 endif
-$1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
-$1_CPPFLAGS= $$(ALL_CPPFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
+$1_CFLAGS = $$(ALL_CFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
+$1_CPPFLAGS= $$(ALL_CPPFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS) $$(NOLTO_CFLAGS)
 $1_ASFLAGS= $$(ALL_ASFLAGS) $$($1_DEFS) $$($1_INCFLAGS) $$($1_CONFIG_FLAGS)
 
 # Compile: create object files from C source files.
@@ -323,6 +335,12 @@ $1/%.o : %.S $1/asflags.txt $1/compiler.txt | $(BEGIN)
 	$$(eval CMD=$$(CC) -c $$($1_ASFLAGS) $$< -o $$@)
 	@$$(BUILD_CMD)
 
+$1/%.a : $1/%.o
+	@mkdir -p $$(@D)
+	@$(SILENT) || printf "Archiving: $$<" | $$(AWK_CMD)
+	$$(eval CMD=$$(AR) $$@ $$<)
+	@$$(BUILD_CMD)
+
 $1/force:
 
 $1/cflags.txt: $1/force
@@ -348,7 +366,7 @@ $(MASTER_OUTPUT)/ldflags.txt: $(MASTER_OUTPUT)/force
 
 
 # We have to use static rules for the .d files for some reason
-DEPS = $(patsubst %.o,%.d,$(OBJ))
+DEPS = $(patsubst %.o,%.d,$(patsubst %.a,%.o,$(OBJ)))
 # Keep the .d files
 .PRECIOUS: $(DEPS)
 # Empty rule to force recompilation if the .d file is missing
@@ -371,6 +389,21 @@ show_path:
 	@echo SRC=$(SRC)
 	@echo OBJ=$(OBJ)
 
+ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
+check-size:
+	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne '/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
+	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
+	$(eval FREE_SIZE=$(shell expr $(MAX_SIZE) - $(CURRENT_SIZE)))
+	$(eval OVER_SIZE=$(shell expr $(CURRENT_SIZE) - $(MAX_SIZE)))
+	if [ $(MAX_SIZE) -gt 0 ] && [ $(CURRENT_SIZE) -gt 0 ]; then \
+		$(SILENT) || printf "$(MSG_CHECK_FILESIZE)" | $(AWK_CMD); \
+		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); else $(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)";  fi \
+	fi
+else
+check-size:
+	echo "(Firmware size check does not yet support $(MCU) microprocessors; skipping.)"
+endif
+
 # Create build directory
 $(shell mkdir -p $(BUILD_DIR) 2>/dev/null)
 
@@ -378,11 +411,11 @@ $(shell mkdir -p $(BUILD_DIR) 2>/dev/null)
 $(eval $(foreach OUTPUT,$(OUTPUTS),$(shell mkdir -p $(OUTPUT) 2>/dev/null)))
 
 # Include the dependency files.
--include $(patsubst %.o,%.d,$(OBJ))
+-include $(patsubst %.o,%.d,$(patsubst %.a,%.o,$(OBJ)))
 
 
 # Listing of phony targets.
-.PHONY : all finish sizebefore sizeafter gccversion \
-build elf hex eep lss sym coff extcoff \
+.PHONY : all finish sizebefore sizeafter qmkversion \
+gccversion build elf hex eep lss sym coff extcoff \
 clean clean_list debug gdb-config show_path \
-program teensy dfu flip dfu-ee flip-ee dfu-start 
+program teensy dfu flip dfu-ee flip-ee dfu-start

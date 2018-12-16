@@ -1,0 +1,53 @@
+/*
+             LUFA Library
+     Copyright (C) Dean Camera, 2017.
+
+  dean [at] fourwalledcubicle [dot] com
+           www.lufa-lib.org
+*/
+
+.programlisting {
+ 	display: block;
+ 	margin-left: 15px;
+ 	padding: 10px;
+ 	background-color: #f4f4f4;
+ 	border: 1px solid #aaaaaa;
+ 	font-family: "Consolas", "Courier New", sans-serif;
+ }
+
+ code {
+ 	background-color: #f4f4f4;
+ 	font-family: "Consolas", "Courier New", sans-serif;
+ }
+
+.note, .warning, .tip {
+	display: block;
+ 	margin-left: 15px;
+ 	padding-left: 10px;
+ 	padding-bottom: 5px;
+ 	background-color: #f4f4f4;
+ 	border: 1px solid #aaaaaa;
+}
+
+table {
+	border: 1px solid #aaaaaa;
+	border-collapse: collapse;
+	margin-left: 15px;
+	font-size: 10pt;
+}
+
+table thead {
+ 	background-color: #f4f4f4;
+}
+
+table thead th {
+	padding: 5px;
+}
+
+table tbody td {
+	padding: 5px;
+}
+
+ul {
+	padding-left: 20px;
+}

@@ -62,7 +62,7 @@ AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 UNICODEMAP_ENABLE = yes
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
 PS2_MOUSE_ENABLE = yes
 PS2_USE_INT = yes
 API_SYSEX_ENABLE = no
@@ -72,7 +72,7 @@ BLUETOOTH = AdafruitBLE
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-SRC += $(QUANTUM_DIR)/light_ws2812.c
+SRC += ws2812.c
 SRC += rgbsps.c
-SRC += $(QUANTUM_DIR)/analog.c
+SRC += analog.c
 SRC += matrix.c

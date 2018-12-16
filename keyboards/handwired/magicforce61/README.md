@@ -19,6 +19,6 @@ The following pins are used:
 
 ## Compiling and loading the firmware
 
-To build the firmware, run `make handwired-magicforce61`.
+To build the firmware, run `make handwired/magicforce61`.
 
 Flash the firmware using the teensy loader or avrdude.
