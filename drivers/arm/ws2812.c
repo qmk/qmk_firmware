@@ -45,13 +45,6 @@
     }
   }
 
-
-  static const SPIConfig spicfg = {
-    NULL,
-    RGB_PORT,
-    RGB_PAD,
-    RGBLIGHT_SPI_DIVISOR // baudrate : fpclk / 8 => 1tick is 0.32us (2.25 MHz)
-  };
   /*
   * Function used to initialize the driver.
   *
@@ -61,8 +54,8 @@
   * txbuff values)
   */
   void leds_init(void){
-    printf("INIT RGB LED\n");
-    // SPIConfig spicfg = getSPIConfig();
+    static SPIConfig spicfg;
+    populateSPIConfig(&spicfg);
 
     /* MOSI pin*/
     palSetPadMode(RGB_PORT, RGB_PAD, PAL_MODE_STM32_ALTERNATE_PUSHPULL);

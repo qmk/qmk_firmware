@@ -6,25 +6,19 @@
 #define RGB_PORT PAL_PORT(RGB_DI_PIN)
 #define RGB_PAD PAL_PAD(RGB_DI_PIN)
 
-// static SPIConfig getSPIConfig(void){
-//   SPIConfig spicfg = {
-//     NULL,
-//     RGB_PORT,
-//     RGB_PAD,
-//     (SPI_CR1_BR_1|SPI_CR1_BR_0) // baudrate : fpclk / 8 => 1tick is 0.32us (2.25 MHz)
-//   };
+void populateSPIConfig(SPIConfig* spicfg){
+  spicfg->end_cb = NULL;
+  spicfg->ssport = RGB_PORT;
+  spicfg->sspad = RGB_PAD;
 
-//   #ifdef STM32F103_MCUCONF
-//     if(RGB_PORT == GPIOB && RGB_PAD == 15U){
-//       spicfg.cr1 = (SPI_CR1_BR_1|SPI_CR1_BR_0);
-//       return spicfg;
-//     } else if(RGB_PORT == GPIOA && RGB_PAD == 7U) {
-//       spicfg.cr1 = (SPI_CR1_BR_2);
-//       return spicfg;
-//     }
-//   #elif STM32F303_MCUCONF
-//   #else
-//   #endif
-//   return spicfg;
-// }
+  #ifdef STM32F103_MCUCONF
+    if(RGB_PORT == GPIOB && RGB_PAD == 15U){
+      spicfg->cr1 = (SPI_CR1_BR_1|SPI_CR1_BR_0);
+    } else if(RGB_PORT == GPIOA && RGB_PAD == 7U) {
+      spicfg->cr1 = (SPI_CR1_BR_2);
+    }
+  #elif STM32F303_MCUCONF
+  #else
+  #endif
+}
 

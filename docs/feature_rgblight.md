@@ -42,16 +42,6 @@ In addition to the values above, you must also define:
 |----------------------|---------------------------------------------------------------|
 |`RGBLIGHT_STM32_SPI`  |Enables the SPI DMA based RGB underglow feature                |
 |`WS2812_SPI`          |The SPI driver in use for your SPI MOSI pin (for example SPID2)|
-|`RGBLIGHT_SPI_DIVISOR`|Baud rate divisor for your SPI bus                             |
-
-The `RGBLIGHT_SPI_DIVISOR` depends on the specific SPI bus you're using and the frequency of your processor. Here are some known values:
-
-|STM32 Family    |SPI Driver |Divisor                     |
-|----------------|-----------|----------------------------|
-|stm32f103xxxx   |SPID1      |SPI_CR1_BR_2                |
-|stm32f103xxxx   |SPID2      |(SPI_CR1_BR_1|SPI_CR1_BR_0) |
-|stm32f303xxxx   |SPID1      |SPI_CR1_BR_2                |
-|stm32f303xxxx   |SPID2      |(SPI_CR1_BR_1|SPI_CR1_BR_0) |
 
 You must also turn on the SPI feature in your halconf.h and mcuconf.h
 
