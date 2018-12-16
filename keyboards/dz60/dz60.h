@@ -176,6 +176,6 @@
 }
 
 //defined this layout to reduce work needing to be done, please refarin from making new keymaps using this macro.
-#define LAYOUT_ANSI_2U_Lshift LAYOUT_all
+#define LAYOUT_all LAYOUT_ANSI_2U_Lshift
 
 #endif
