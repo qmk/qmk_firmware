@@ -2,7 +2,9 @@
 #include "ws2812.h"
 #include "stdlib.h"
 
-#ifdef RGBLIGHT_ARM_SPI
+#ifdef RGBLIGHT_STM32_SPI
+#include "ws2812_spi_lookup.h"
+
   /*
   * These are currently defined to support STM32 Chips that run at
   * 72 MHz, including STM32F1xx and STM32F3xx.
@@ -17,9 +19,6 @@
   #define DATA_SIZE BYTES_FOR_LED*NB_LEDS
   #define RESET_SIZE 200
   #define PREAMBLE_SIZE 4
-
-  // Define the spi your LEDs are plugged to here
-  #define WS2812_SPI SPID2
 
   // Define the number of LEDs you wish to control in your LED strip
   #define NB_LEDS RGBLED_NUM
@@ -46,11 +45,12 @@
     }
   }
 
+
   static const SPIConfig spicfg = {
     NULL,
-    PORT_WS2812,
-    PIN_WS2812,
-    SPI_CR1_BR_1|SPI_CR1_BR_0 // baudrate : fpclk / 8 => 1tick is 0.32us (2.25 MHz)
+    RGB_PORT,
+    RGB_PAD,
+    RGBLIGHT_SPI_DIVISOR // baudrate : fpclk / 8 => 1tick is 0.32us (2.25 MHz)
   };
   /*
   * Function used to initialize the driver.
@@ -62,9 +62,10 @@
   */
   void leds_init(void){
     printf("INIT RGB LED\n");
+    // SPIConfig spicfg = getSPIConfig();
 
     /* MOSI pin*/
-    palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+    palSetPadMode(RGB_PORT, RGB_PAD, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
     for(int i = 0; i < RESET_SIZE; i++)
       txbuf[DATA_SIZE+i] = 0x00;
     for (int i=0; i<PREAMBLE_SIZE; i++)

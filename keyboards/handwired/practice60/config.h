@@ -40,13 +40,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-#define RGBLIGHT_ARM_SPI
+#define RGBLIGHT_STM32_SPI
 #define RGBLIGHT_ANIMATIONS
-#define WS2812_LED_N 8
-#define RGBLED_NUM WS2812_LED_N
-#define PORT_WS2812     GPIOB
-#define PIN_WS2812      15
+#define RGBLED_NUM 8
+#define RGB_DI_PIN B15
 #define WS2812_SPI SPID2
+#define RGBLIGHT_SPI_DIVISOR (SPI_CR1_BR_1|SPI_CR1_BR_0)
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5

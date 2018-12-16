@@ -30,6 +30,30 @@ At minimum you must define the data pin your LED strip is connected to, and the 
 
 Then you should be able to use the keycodes below to change the RGB lighting to your liking.
 
+### Support on STM32
+
+STM32 chips support driving WS2812B LEDs using their SPI bus. You may want to do this to support both RGB Matrix and Underglow independently, at the same time. Driving via SPI also frees up 2 timers that are used in the alternative implemenetaion.
+
+If you want to use this feature, you have to turn it on specifically, as well as use specific pins and provide some extra information. SPI driven WS2812B LEDs require use of an SPI MOSI pin on your STM32 chip. 
+
+In addition to the values above, you must also define:
+
+|Define                |Description                                                    |
+|----------------------|---------------------------------------------------------------|
+|`RGBLIGHT_STM32_SPI`  |Enables the SPI DMA based RGB underglow feature                |
+|`WS2812_SPI`          |The SPI driver in use for your SPI MOSI pin (for example SPID2)|
+|`RGBLIGHT_SPI_DIVISOR`|Baud rate divisor for your SPI bus                             |
+
+The `RGBLIGHT_SPI_DIVISOR` depends on the specific SPI bus you're using and the frequency of your processor. Here are some known values:
+
+|STM32 Family    |SPI Driver |Divisor                     |
+|stm32f103xxxx   |SPID1      |SPI_CR1_BR_2                |
+|stm32f103xxxx   |SPID2      |(SPI_CR1_BR_1|SPI_CR1_BR_0) |
+|stm32f303xxxx   |SPID1      |SPI_CR1_BR_2                |
+|stm32f303xxxx   |SPID2      |(SPI_CR1_BR_1|SPI_CR1_BR_0) |
+
+You must also turn on the SPI feature in your halconf.h and mcuconf.h
+
 ### Color Selection
 
 QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV) to select colors rather than RGB. The color wheel below demonstrates how this works.
@@ -39,6 +63,7 @@ QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV)
 Changing the **Hue** cycles around the circle.  
 Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.  
 Changing the **Value** sets the overall brightness.
+
 
 ## Keycodes
 
