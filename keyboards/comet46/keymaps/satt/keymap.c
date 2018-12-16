@@ -177,6 +177,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 // const char *read_layer_state(void);
 void set_keylog(uint16_t keycode);
 const char *read_keylog(void);
+const char *read_mod_state(void);
 const char *read_host_led_state(void);
 
 void matrix_init_user(void) {
@@ -234,8 +235,10 @@ void render_status(struct CharacterMatrix *matrix) {
   matrix_write_ln(matrix, layer_str);
   // Last entered keycode
   matrix_write_ln(matrix, read_keylog());
+  // Modifier state
+  matrix_write_ln(matrix, read_mod_state());
   // Host Keyboard LED Status
-  matrix_write_ln(matrix, read_host_led_state());
+  matrix_write(matrix, read_host_led_state());
 }
 
 void iota_gfx_task_user(void) {
