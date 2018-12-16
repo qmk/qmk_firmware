@@ -1,12 +1,10 @@
-# sentraq_number_pad
+# Sentraq Number Pad RGB DIY Kit
 
-![sentraq_number_pad](imgur.com image replace me!)
+Sentraq Number Pad RGB DIY Kit.
 
-A short description of the keyboard/project
-
-Keyboard Maintainer: [You](https://github.com/yourusername)
-Hardware Supported: Sentraq Number Pad RGB DIY Kit
-Hardware Availability: https://sentraq.com/collections/kits/products/number-pad-rgb-kit
+Keyboard Maintainer: QMK Community\
+Hardware Supported: Sentraq Number Pad PCB\
+Hardware Availability: [Sentraq](https://sentraq.com/collections/kits/products/number-pad-rgb-kit)\
 
 Make example for this keyboard (after setting up your build environment):
 
