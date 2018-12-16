@@ -6,7 +6,7 @@ That's what `KC_LEAD` does. Here's an example:
 
 1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `KC_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
 2. Include the line `#define LEADER_TIMEOUT 300` in your `config.h`. The 300 there is 300ms -- that's how long you have for the sequence of keys following the leader. You can tweak this value for comfort, of course.
-   * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to switch to the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped. 
+   * By default, thi timeout is how lonk after hitting `KC_LEAD` you to complete your entire sequence. This may be very low for some people. So you may want to increase this timeout.  Optionally, you may want to switch to the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped. 
 3. Within your `matrix_scan_user` function, do something like this:
 
 ```
