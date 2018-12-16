@@ -36,12 +36,16 @@ STM32 chips support driving WS2812B LEDs using their SPI bus. You may want to do
 
 If you want to use this feature, you have to turn it on specifically, as well as use specific pins and provide some extra information. SPI driven WS2812B LEDs require use of an SPI MOSI pin on your STM32 chip. 
 
-In addition to the values above, you must also define:
+To enable the feature, at a minimum, you must define:
 
-|Define                |Description                                                    |
-|----------------------|---------------------------------------------------------------|
-|`RGBLIGHT_STM32_SPI`  |Enables the SPI DMA based RGB underglow feature                |
-|`WS2812_SPI`          |The SPI driver in use for your SPI MOSI pin (for example SPID2)|
+|Define                |Description                                                                |
+|----------------------|---------------------------------------------------------------------------|
+|`RGB_DI_PIN`          |The pin connected to the data pin of the LEDs - this must be a SPI MOSI pin|
+|`RGBLED_NUM`          |The number of LEDs connected                                               |
+|`RGBLIGHT_STM32_SPI`  |Enables the SPI DMA based RGB underglow feature                            |
+|`WS2812_SPI`          |The SPI driver in use for your SPI MOSI pin (for example SPID2)            |
+
+SPI MOSI pins on STM32 chips are usually B15 and A7, but you should validate in your MCU's datasheet to be sure.
 
 You must also turn on the SPI feature in your halconf.h and mcuconf.h
 
