@@ -128,11 +128,11 @@ unsigned char I2C_Write(unsigned char c)
         c <<= 1;
     }
 
-    
+
     I2C_WriteBit(0);
     _delay_us(I2C_DELAY);
     _delay_us(I2C_DELAY);
-  
+
     // _delay_us(I2C_DELAY);
     //return I2C_ReadBit();
     return 0;
@@ -140,6 +140,9 @@ unsigned char I2C_Write(unsigned char c)
 
 
 #endif
+
+void leds_init(void){
+}
 
 // Setleds for standard RGB
 void inline ws2812_setleds(LED_TYPE *ledarray, uint16_t leds)
