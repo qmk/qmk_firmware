@@ -12,12 +12,17 @@ AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 
-ifneq ("$(KEYBOARD)","nyquist")
-  RGBLIGHT_ENABLE = yes
-  BACKLIGHT_ENABLE = yes
-else
+ifeq ("$(KEYBOARD)","nyquist")
   RGBLIGHT_ENABLE = no
   BACKLIGHT_ENABLE = no
+else
+  ifeq ("$(KEYBOARD)","handwired/ortho60")
+    RGBLIGHT_ENABLE = no
+    BACKLIGHT_ENABLE = no
+  else
+    RGBLIGHT_ENABLE = yes
+    BACKLIGHT_ENABLE = yes
+  endif
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
