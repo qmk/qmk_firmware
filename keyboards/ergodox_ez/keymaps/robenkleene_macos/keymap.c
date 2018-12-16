@@ -137,7 +137,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -171,11 +170,8 @@ void matrix_scan_user(void) {
   ergodox_right_led_3_off();
   switch (layer) {
     // TODO: Make this relevant to the ErgoDox EZ.
-    case SYMB:
+    case FCTN:
       ergodox_right_led_1_on();
-      break;
-    case MDIA:
-      ergodox_right_led_2_on();
       break;
     default:
       // none
