@@ -341,8 +341,8 @@ typedef struct _Serial_s2m_buffer_t {
     matrix_row_t smatrix[ROWS_PER_HAND];
 } Serial_s2m_buffer_t;
 
-volatile Serial_s2m_buffer_t serial_s2m_buffer = {0};
-volatile Serial_m2s_buffer_t serial_m2s_buffer;
+volatile Serial_s2m_buffer_t serial_s2m_buffer = {};
+volatile Serial_m2s_buffer_t serial_m2s_buffer = {};
 uint8_t volatile status0 = 0;
 
 SSTD_t transactions[] = {
