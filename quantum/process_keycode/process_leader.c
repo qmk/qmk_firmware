@@ -40,6 +40,11 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     if (leading) {
       if (timer_elapsed(leader_time) < LEADER_TIMEOUT) {
+#ifndef LEADER_KEY_STRICT_KEY_PROCESSING
+        if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+          keycode = keycode & 0xFF;
+        }
+#endif // LEADER_KEY_STRICT_KEY_PROCESSING
         leader_sequence[leader_sequence_size] = keycode;
         leader_sequence_size++;
         return false;
