@@ -6,8 +6,8 @@
 #define BACKLIGHT_LEVELS 8
 
 /* ws2812 RGB LED */
-#undef RGB_DI_PIN
 #if defined(KEYBOARD_preonic_rev2)
+  #undef RGB_DI_PIN
   #define RGB_DI_PIN B3
   #undef RGBLED_NUM
   #define RGBLIGHT_ANIMATIONS
