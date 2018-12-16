@@ -4,7 +4,7 @@ Sentraq Number Pad RGB DIY Kit.
 
 Keyboard Maintainer: QMK Community\
 Hardware Supported: Sentraq Number Pad PCB\
-Hardware Availability: [Sentraq](https://sentraq.com/collections/kits/products/number-pad-rgb-kit)\
+Hardware Availability: [Sentraq](https://sentraq.com/collections/kits/products/number-pad-rgb-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
