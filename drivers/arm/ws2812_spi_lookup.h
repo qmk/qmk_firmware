@@ -18,6 +18,11 @@ void populateSPIConfig(SPIConfig* spicfg){
       spicfg->cr1 = (SPI_CR1_BR_2);
     }
   #elif STM32F303_MCUCONF
+    if(RGB_PORT == GPIOB && RGB_PAD == 15U){
+      spicfg->cr1 = (SPI_CR1_BR_1|SPI_CR1_BR_0);
+    } else if(RGB_PORT == GPIOA && RGB_PAD == 7U) {
+      spicfg->cr1 = (SPI_CR1_BR_2);
+    }
   #else
   #endif
 }
