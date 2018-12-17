@@ -132,14 +132,14 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
-    OPT_DEFS += -DIS31FL3731
+    OPT_DEFS += -DIS31FL3731 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
     SRC += i2c_master.c
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
-    OPT_DEFS += -DIS31FL3733
+    OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3733.c
     SRC += i2c_master.c
