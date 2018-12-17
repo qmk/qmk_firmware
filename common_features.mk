@@ -263,9 +263,14 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
 endif
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    SERIAL_BACKWARD_COMPAT := $(wildcard $(QUANTUM_DIR)/split_common/serial_backward_compatibility.h)
+    ifneq ($(SERIAL_BACKWARD_COMPAT),)
+      CONFIG_H += $(SERIAL_BACKWARD_COMPAT)
+      # $(info CONFIG_H=$(CONFIG_H))
+    endif
     OPT_DEFS += -DSPLIT_KEYBOARD
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
-                $(QUANTUM_DIR)/split_common/split_util.c \
-                $(QUANTUM_DIR)/split_common/i2c.c \
-                $(QUANTUM_DIR)/split_common/serial.c
+                $(QUANTUM_DIR)/split_common/split_util.c
+    QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c
+    QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c
 endif
