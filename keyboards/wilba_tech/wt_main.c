@@ -15,11 +15,9 @@
  */
 
 #include "quantum.h"
-
 #ifdef WT_MONO_BACKLIGHT
 #include "keyboards/wilba_tech/wt_mono_backlight.h"
 #endif
-
 #include "keyboards/zeal60/zeal60_api.h" // Temporary hack
 #include "keyboards/zeal60/zeal60_keycodes.h" // Temporary hack
 
@@ -205,7 +203,6 @@ void main_init(void)
 	backlight_timer_init();
 	backlight_timer_enable();
 #endif
-
 }
 
 void bootmagic_lite(void)
