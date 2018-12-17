@@ -83,7 +83,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_ENABLE
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 5
-#define BACKLIGHT_BREATHING
+//#define BACKLIGHT_BREATHING
 #define BREATHING_PERIOD 6
 #endif
 
