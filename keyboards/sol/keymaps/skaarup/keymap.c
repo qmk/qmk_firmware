@@ -8,7 +8,7 @@
   #include "common/ssd1306.h"
 #endif
 
-#include "keymap_nordicwegian.h"
+#include "keymap_norwegian.h"
 
 extern keymap_config_t keymap_config;
 
@@ -32,6 +32,8 @@ enum layer_number {
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  SVOL,
+  APIPE,
   COLEMAK,
   FN,
   ADJ,
@@ -71,8 +73,8 @@ enum macro_keycodes {
 ) \
 LAYOUT( \
       KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_MNXT,  ADJ,     KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_PPLS, \
-      KC_TAB,  _00,     _01,     _02,     _03,     _04,    KC_MPLY,  LCTL(KC_N),_05,  _06,     _07,     _08,     _09,      NO_AA,   \
-      KC_CAPS, _10,     _11,     _12,     _13,     _14,    KC_VOLD,  KC_HOME, _15,     _16,     _17,     _18,     _19,     NO_OSLH, \
+      KC_TAB,  _00,     _01,     _02,     _03,     _04,    KC_MPLY,  LCTL(KC_N),_05,  _06,     _07,     _08,     _09,      NO_ACUT,   \
+      KC_CAPS, _10,     _11,     _12,     _13,     _14,    SVOL,  KC_HOME,    _15,     _16,     _17,     _18,     _19,        APIPE, \
       KC_LSFT, _20,     _21,     _22,     _23,     _24,    KC_MPRV,  KC_END,  _25,     _26,     _27,     _28,     _29,     NO_QUOT,  \
       KC_LCTL, KC_LGUI, KC_LALT, LCTL(KC_S),FN,    KC_SPC, KC_RALT,  KC_ENT,  KC_BSPC, KC_DEL,  KC_PSLS, KC_PAST, KC_PCMM, KC_RSFT, \
                         KC_VOLU, KC_VOLD,          KC_SPC, KC_RALT,  KC_ENT,  KC_BSPC,          KC_VOLU, KC_VOLD \
@@ -156,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |  |      |      |      |RGBTOG|  HUI |  SAI | VAI  |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |      |      |      |RGBMOD(|      |      |      |  |      |      |     |RGBRMOD| HUD |  SAD | VAD  |
+   * |      |      |      |RGBMOD|      |      |      |  |      |      |      |RGBRMOD| HUD |  SAD | VAD  |
    * `------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    |      |      |  |      |      |
    *                                    `-------------'  `-------------'
@@ -194,6 +196,43 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
 
   switch (keycode) {
+
+    //--------------------------
+
+    case SVOL:
+      if ((keyboard_report->mods & MOD_BIT (KC_LSFT)) || (keyboard_report->mods & MOD_BIT (KC_RSFT))) {
+        // Shift pressed -> < (volume up)
+        if (record->event.pressed)
+          register_code(KC_VOLU);
+        else
+          unregister_code(KC_VOLU);
+      } else {
+        // No shift -> ( (volume down)
+        register_code(KC_VOLD);
+        unregister_code(KC_VOLD);
+      }
+    
+    //--------------------------
+
+    case APIPE:
+      if ((keyboard_report->mods & MOD_BIT (KC_RALT))) {
+        // Right Alt (alt gr) pressed -> < (pipe)
+        if (record->event.pressed) {
+          register_code(KC_LSFT); // press shift, then press backslash
+          register_code(KC_BSLS);
+          }
+        else {
+          unregister_code(KC_BSLS);
+          unregister_code(KC_LSFT);
+          }
+      } else {
+        // No alt -> ( (O slash)
+        register_code(NO_OSLH);
+        unregister_code(NO_OSLH);
+      }
+  
+    //--------------------------
+
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
