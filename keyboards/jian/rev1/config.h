@@ -136,9 +136,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 //
-#define QMK_ESC_OUTPUT D3 // usually COL
-#define QMK_ESC_INPUT F4 // usually ROW
-#define QMK_LED B0
-#define QMK_SPEAKER B6
+//#define QMK_ESC_OUTPUT D3 // usually COL
+//#define QMK_ESC_INPUT F4 // usually ROW
+//#define QMK_LED B0
+//#define QMK_SPEAKER B6
 
 #endif //REV1_CONFIG_H

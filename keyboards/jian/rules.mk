@@ -2,7 +2,7 @@ MCU = atmega32u4
 F_CPU = 16000000
 ARCH = AVR8
 F_USB = $(F_CPU)
-BOOTLOADER = qmk-dfu
+BOOTLOADER = caterina
 
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
