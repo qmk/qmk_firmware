@@ -150,18 +150,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       TG_RSE,  _______, _______,      _______, _______, TG_RSE\
 ),
 
-[_ADJUST] = LAYOUT(\
-  RESET,   DEBUG,   KC_ASUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ASUP, DEBUG,   RESET, \
-           KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,       PLOVER,  QWERTY,  XXXXXXX, XXXXXXX, KC_ASTG, KC_ASRP, \
-           BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, TG_ISO,  TG_THMB,      TG_THMB, TG_ISO,  XXXXXXX, XXXXXXX, KC_ASDN, BL_ADJ, \
-                                      _______, SH_TG,   _______,      _______, SH_TG,   _______\
+[_ADJUST] = SYMM_LAYOUT(\
+  RESET,   DEBUG,   KC_ASUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+           KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,  \
+           BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, TG_ISO,  TG_THMB, \
+                                      _______, SH_TG,   _______  \
 ),
 #if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
-[_BCKLT_ADJ] = LAYOUT(\
-  XXXXXXX, XXXXXXX, XXXXXXX, BL_INC,  RGB_MOD, RGB_HUD, RGB_HUI,      RGB_HUI, RGB_HUD, RGB_MOD, BL_INC,  XXXXXXX, XXXXXXX, XXXXXXX, \
-           XXXXXXX, XXXXXXX, BL_TOGG, RGB_TOG, RGB_SAD, RGB_SAI,      RGB_SAI, RGB_SAD, RGB_TOG, BL_TOGG, XXXXXXX, XXXXXXX, \
-           BL_ADJ,  XXXXXXX, BL_DEC,  RGB_RMOD,RGB_VAD, RGB_VAI,      RGB_VAI, RGB_VAD, RGB_RMOD,BL_DEC,  XXXXXXX, BL_ADJ,  \
-                                      _______, _______, _______,      _______, _______, _______\
+[_BCKLT_ADJ] = SYMM_LAYOUT(\
+  XXXXXXX, XXXXXXX, XXXXXXX, BL_INC,  RGB_VAI, RGB_HUD, RGB_HUI, \
+           XXXXXXX, XXXXXXX, BL_DEC,  RGB_VAD, RGB_SAD, RGB_SAI, \
+           BL_ADJ,  XXXXXXX, XXXXXXX, RGB_TOG, RGB_RMOD,RGB_MOD, \
+                                      _______, _______, _______  \
 ),
 #endif // defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
 #ifdef TRAINING_HALFES_LOCK
