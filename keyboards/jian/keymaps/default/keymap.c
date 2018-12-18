@@ -27,7 +27,7 @@ enum jian_layers {
   _LOWER,
   _RAISE,
   _ADJUST,
-  _RGBADJUST,
+  _BCKLT_ADJ,
   _THUMB_ALT,
 #ifdef TRAINING_HALFES_LOCK
   _LEFT,
@@ -80,7 +80,7 @@ static uint8_t layout_conversion_dip_state = 0;
 
 #define TG_ISO  TG(_ISO)
 #define TG_THMB TG(_THUMB_ALT)
-#define RGB_ADJ TG(_RGBADJUST)
+#define BL_ADJ  TG(_BCKLT_ADJ)
 #define TG_LWR  TG(_LOWER)
 #define TG_RSE  TG(_RAISE)
 
@@ -151,19 +151,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = LAYOUT(\
-  RESET,   DEBUG,   KC_ASUP, BL_INC,  XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, BL_INC,  KC_ASUP, DEBUG,   RESET, \
-           KC_ASRP, KC_ASTG, BL_BRTG, RGB_TOG, QWERTY,  PLOVER,       PLOVER,  QWERTY,  RGB_TOG, BL_BRTG, KC_ASTG, KC_ASRP, \
-           XXXXXXX, KC_ASDN, BL_DEC,  RGB_ADJ, TG_ISO,  TG_THMB,      TG_THMB, TG_ISO,  RGB_ADJ, BL_DEC,  KC_ASDN, XXXXXXX, \
+  RESET,   DEBUG,   KC_ASUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ASUP, DEBUG,   RESET, \
+           KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,       PLOVER,  QWERTY,  XXXXXXX, XXXXXXX, KC_ASTG, KC_ASRP, \
+           BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, TG_ISO,  TG_THMB,      TG_THMB, TG_ISO,  XXXXXXX, XXXXXXX, KC_ASDN, BL_ADJ, \
                                       _______, SH_TG,   _______,      _______, SH_TG,   _______\
 ),
-#ifdef RGBLIGHT_ENABLE
-[_RGBADJUST] = LAYOUT(\
-  RGB_ADJ, _______, _______, _______, RGB_MOD, RGB_HUD, RGB_HUI,      RGB_HUI, RGB_HUD, RGB_MOD, _______, _______, _______, RGB_ADJ, \
-           _______, _______, _______, RGB_TOG, RGB_SAD, RGB_SAI,      RGB_SAI, RGB_SAD, RGB_TOG, _______, _______, _______, \
-           _______, _______, _______, RGB_ADJ, RGB_VAD, RGB_VAI,      RGB_VAI, RGB_VAD, RGB_ADJ, _______, _______, _______, \
+#if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
+[_BCKLT_ADJ] = LAYOUT(\
+  XXXXXXX, XXXXXXX, XXXXXXX, BL_INC,  RGB_MOD, RGB_HUD, RGB_HUI,      RGB_HUI, RGB_HUD, RGB_MOD, BL_INC,  XXXXXXX, XXXXXXX, XXXXXXX, \
+           XXXXXXX, XXXXXXX, BL_TOGG, RGB_TOG, RGB_SAD, RGB_SAI,      RGB_SAI, RGB_SAD, RGB_TOG, BL_TOGG, XXXXXXX, XXXXXXX, \
+           BL_ADJ,  XXXXXXX, BL_DEC,  RGB_RMOD,RGB_VAD, RGB_VAI,      RGB_VAI, RGB_VAD, RGB_RMOD,BL_DEC,  XXXXXXX, BL_ADJ,  \
                                       _______, _______, _______,      _______, _______, _______\
 ),
-#endif // RGBLIGHT_ENABLE
+#endif // defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
 #ifdef TRAINING_HALFES_LOCK
 [_LEFT] = LAYOUT_base(\
   _______, _______, _______, _______, _______, _______,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
@@ -283,6 +283,7 @@ void matrix_init_user(void) {
   layer_on(_DIPS);
 #endif // DIPS_ENABLE
 }
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef TRAINING_HALFES_LOCK
   if (!record->event.pressed) {

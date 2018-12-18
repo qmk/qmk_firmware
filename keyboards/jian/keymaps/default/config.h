@@ -27,7 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_AUTO_SHIFT_NUMERIC
 #define AUTO_SHIFT_MODIFIERS
 #define IGNORE_MOD_TAP_INTERRUPT
-//#define ALT_LAYOUTS_ENABLE
+#define ALT_LAYOUTS_ENABLE
 //#define TRAINING_HALFES_LOCK
 
 #endif
