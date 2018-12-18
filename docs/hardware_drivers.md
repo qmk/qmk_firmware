@@ -22,9 +22,10 @@ Support for SSD1306 based OLED displays. This needs to be better documented, if 
 
 You can make use of uGFX within QMK to drive character and graphic LCD's, LED arrays, OLED, TFT, and other display technologies. This needs to be better documented, if you are trying to do this and reading the code doesn't help please [open an issue](https://github.com/qmk/qmk_firmware/issues/new) and we can help you through the process.
 
-## WS2812 (AVR Only)
+## WS2812
 
-Support for WS2811/WS2812{a,b,c} LED's. For more information see the [RGB Light](feature_rgblight.md) page.
+AVR based boards have support for WS2811/WS2812{a,b,c} LED's. STM32 chips support WS2812b LEDs. For more information see the [RGB Light](feature_rgblight.md) page.
+
 
 ## IS31FL3731
 

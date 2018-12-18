@@ -13,7 +13,7 @@ Currently QMK supports the following addressable LEDs on AVR microcontrollers (h
 
 These LEDs are called "addressable" because instead of using a wire per color, each LED contains a small microchip that understands a special protocol sent over a single wire. The chip passes on the remaining data to the next LED, allowing them to be chained together. In this way, you can easily control the color of the individual LEDs.
 
-## Usage
+## Configuration
 
 On keyboards with onboard RGB LEDs, it is usually enabled by default. If it is not working for you, check that your `rules.mk` includes the following:
 
@@ -49,6 +49,8 @@ SPI MOSI pins on STM32 chips are usually B15 and A7, but you should validate in 
 
 You must also turn on the SPI feature in your halconf.h and mcuconf.h
 
+## Usage
+
 ### Color Selection
 
 QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV) to select colors rather than RGB. The color wheel below demonstrates how this works.
@@ -58,6 +60,18 @@ QMK uses [Hue, Saturation, and Value](https://en.wikipedia.org/wiki/HSL_and_HSV)
 Changing the **Hue** cycles around the circle.  
 Changing the **Saturation** moves between the inner and outer sections of the wheel, affecting the intensity of the color.  
 Changing the **Value** sets the overall brightness.
+
+### Extra Configuration
+
+Your RGB lighting can be configured by placing these `#define`s in your `config.h`:
+
+|Define               |Default      |Description                                                                  |
+|---------------------|-------------|-----------------------------------------------------------------------------|
+|`RGBLIGHT_HUE_STEP`  |`10`         |The number of steps to cycle through the hue by                              |
+|`RGBLIGHT_SAT_STEP`  |`17`         |The number of steps to increment the saturation by                           |
+|`RGBLIGHT_VAL_STEP`  |`17`         |The number of steps to increment the brightness by                           |
+|`RGBLIGHT_LIMIT_VAL` |`255`        |The maximum brightness level                                                 |
+|`RGBLIGHT_SLEEP`     |*Not defined*|If defined, the RGB lighting will be switched off when the host goes to sleep|
 
 
 ## Keycodes
@@ -82,18 +96,6 @@ Changing the **Value** sets the overall brightness.
 |`RGB_MODE_XMAS`    |`RGB_M_X` |Christmas animation mode                                            |
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red, Green, Blue test animation mode                                |
-
-## Configuration
-
-Your RGB lighting can be configured by placing these `#define`s in your `config.h`:
-
-|Define               |Default      |Description                                                                  |
-|---------------------|-------------|-----------------------------------------------------------------------------|
-|`RGBLIGHT_HUE_STEP`  |`10`         |The number of steps to cycle through the hue by                              |
-|`RGBLIGHT_SAT_STEP`  |`17`         |The number of steps to increment the saturation by                           |
-|`RGBLIGHT_VAL_STEP`  |`17`         |The number of steps to increment the brightness by                           |
-|`RGBLIGHT_LIMIT_VAL` |`255`        |The maximum brightness level                                                 |
-|`RGBLIGHT_SLEEP`     |*Not defined*|If defined, the RGB lighting will be switched off when the host goes to sleep|
 
 ## Animations
 
