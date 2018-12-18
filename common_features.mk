@@ -115,7 +115,7 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
 endif
 
 RGB_MATRIX_ENABLE ?= no
-VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 IS31FL3737 custom
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
@@ -142,6 +142,13 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
     OPT_DEFS += -DIS31FL3733 -DSTM32_I2C -DHAL_USE_I2C=TRUE
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3733.c
+    SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3737)
+    OPT_DEFS += -DIS31FL3737 -DSTM32_I2C -DHAL_USE_I2C=TRUE
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3737.c
     SRC += i2c_master.c
 endif
 
