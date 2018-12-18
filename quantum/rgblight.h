@@ -203,6 +203,14 @@ void rgblight_mode_noeeprom(uint8_t mode);
 void rgblight_toggle_noeeprom(void);
 void rgblight_enable_noeeprom(void);
 void rgblight_disable_noeeprom(void);
+void rgblight_step_noeeprom(void);
+void rgblight_step_reverse_noeeprom(void);
+void rgblight_increase_hue_noeeprom(void);
+void rgblight_decrease_hue_noeeprom(void);
+void rgblight_increase_sat_noeeprom(void);
+void rgblight_decrease_sat_noeeprom(void);
+void rgblight_increase_val_noeeprom(void);
+void rgblight_decrease_val_noeeprom(void);
 
 void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
 void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);

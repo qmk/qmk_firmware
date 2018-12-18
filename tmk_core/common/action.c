@@ -851,6 +851,18 @@ void unregister_code(uint8_t code)
  *
  * FIXME: Needs documentation.
  */
+void tap_code(uint8_t code) {
+  register_code(code);
+  #if TAP_CODE_DELAY > 0
+    wait_ms(TAP_CODE_DELAY);
+  #endif
+  unregister_code(code);
+}
+
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
 void register_mods(uint8_t mods)
 {
     if (mods) {

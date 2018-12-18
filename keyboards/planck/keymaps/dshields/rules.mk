@@ -16,7 +16,7 @@ ifeq ($(strip $(KEYBOARD)), planck/rev3)
 endif
 ifeq ($(strip $(KEYBOARD)), planck/rev6)
 	EXTRALDFLAGS	  = -Wl,--build-id=none
-	AUDIO_ENABLE	  = yes
+	AUDIO_ENABLE	  = no
 	BACKLIGHT_ENABLE  = no
 	RGB_MATRIX_ENABLE = no
 endif

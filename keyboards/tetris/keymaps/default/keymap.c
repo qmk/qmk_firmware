@@ -286,7 +286,7 @@ static uint16_t  Type_Hue=270;
 
 void matrix_init_user( void )
 {
-  _delay_ms( 200 );
+  wait_ms( 200 );
 
   /* Encoder init */
   encoder_state = PIND & 0x3;
@@ -368,27 +368,22 @@ void matrix_scan_user( void )
     switch ( layer )
     {
     case 0:
-      register_code( KC_VOLD );
-      unregister_code( KC_VOLD );
+      tap_code( KC_VOLD );
       break;
     case _CODE:
-      register_code( KC_LEFT );
-      unregister_code( KC_LEFT );
+      tap_code( KC_LEFT );
       break;
     case _RGB:
       rgblight_decrease_val();
       break;
     case _NUMB:
-      register_code( KC_LEFT );
-      unregister_code( KC_LEFT );
+      tap_code( KC_LEFT );
       break;
     case _MARO:
-      register_code( KC_UP );
-      unregister_code( KC_UP );
+      tap_code( KC_UP );
       break;
     default:
-      register_code( KC_VOLD );
-      unregister_code( KC_VOLD );
+      tap_code( KC_VOLD );
     }
   /* End of Set Encoder Keycode */
 
@@ -441,27 +436,22 @@ void matrix_scan_user( void )
     switch ( layer )
     {
       case 0:
-        register_code( KC_VOLU );
-        unregister_code( KC_VOLU );
+        tap_code( KC_VOLU );
         break;
       case _CODE:
-        register_code( KC_RGHT );
-        unregister_code( KC_RGHT );
+        tap_code( KC_RGHT );
         break;
       case _RGB:
         rgblight_increase_val();
         break;
       case _NUMB:
-        register_code( KC_RGHT );
-        unregister_code( KC_RGHT );
+        tap_code( KC_RGHT );
         break;
       case _MARO:
-        register_code( KC_DOWN );
-        unregister_code( KC_DOWN );
+        tap_code( KC_DOWN );
         break;
       default:
-        register_code( KC_VOLU );
-        unregister_code( KC_VOLU );
+        tap_code( KC_VOLU );
     }
   /* End of Set Encoder Keycode */
 
@@ -739,11 +729,8 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ){
       if (record->event.pressed) {
         // Do something when pressed
       } else {
-        register_code( KC_0 );   // send 0
-        unregister_code( KC_0 );
-
-        register_code( KC_0 );   // send 0 twice without macro
-        unregister_code( KC_0 );
+        tap_code( KC_0 );   // send 0
+        tap_code( KC_0 );   // send 0 twice without macro
       }
       return false; // Skip all further processing of this key
 
@@ -818,7 +805,7 @@ bool process_record_user( uint16_t keycode, keyrecord_t *record ){
 void led_set_user( uint8_t usb_led )
 {
   static uint8_t old_usb_led = 0;
-  _delay_ms( 10 ); /* gets rid of tick */
+  wait_ms( 10 ); /* gets rid of tick */
 
   if ( (usb_led & (1 << USB_LED_CAPS_LOCK) ) && !(old_usb_led & (1 << USB_LED_CAPS_LOCK) ) )  {
 /* CAPS on */
@@ -844,4 +831,3 @@ void led_set_user( uint8_t usb_led )
   }
   old_usb_led = usb_led;
 }  // End of led_set_user
-
