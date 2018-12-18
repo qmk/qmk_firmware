@@ -28,6 +28,15 @@ extern report_keyboard_t *keyboard_report;
 
 void send_keyboard_report(void);
 
+void oneshot_locked_mods_set_user(uint8_t mods);
+void oneshot_locked_mods_set_kb(uint8_t mods);
+void oneshot_locked_mods_cleared_user();
+void oneshot_locked_mods_cleared_kb();
+void oneshot_mods_set_user(uint8_t mods);
+void oneshot_mods_set_kb(uint8_t mods);
+void oneshot_mods_cleared_user();
+void oneshot_mods_cleared_kb();
+
 /* key */
 inline void add_key(uint8_t key) {
   add_key_to_report(keyboard_report, key);

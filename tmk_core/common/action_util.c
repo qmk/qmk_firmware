@@ -47,12 +47,72 @@ extern inline void add_key(uint8_t key);
 extern inline void del_key(uint8_t key);
 extern inline void clear_keys(void);
 
+/** \brief Callback which is called when the one shot modifiers have been locked.
+ */
+__attribute__((weak))
+void oneshot_locked_mods_set_user(uint8_t mods) { }
+
+/** \brief Callback which is called when the locked one shot modifiers have been locked.
+ */
+__attribute__((weak))
+void oneshot_locked_mods_set_kb(uint8_t mods) {
+    oneshot_locked_mods_set_user(mods);
+}
+
+/** \brief Callback which is called when the one shot modifiers have been locked.
+ */
+__attribute__((weak))
+void oneshot_locked_mods_cleared_user() { }
+
+/** \brief Callback which is called when the locked one shot modifiers have been locked.
+ */
+__attribute__((weak))
+void oneshot_locked_mods_cleared_kb() {
+    oneshot_locked_mods_cleared_user();
+}
+
+/** \brief Callback which is called when the one shot modifiers have been set.
+ */
+__attribute__((weak))
+void oneshot_mods_set_user(uint8_t mods) { }
+
+/** \brief Callback which is called when the one shot modifiers have been cleared.
+ */
+__attribute__((weak))
+void oneshot_mods_cleared_user() { }
+
+/** \brief Callback which is called when the one shot modifiers have been set.
+ */
+__attribute__((weak))
+void oneshot_mods_set_kb(uint8_t mods) {
+    oneshot_mods_set_user(mods);
+}
+
+/** \brief Callback which is called when the one shot modifiers have been cleared.
+ */
+__attribute__((weak))
+void oneshot_mods_cleared_kb() {
+    oneshot_mods_cleared_user();
+}
+
 #ifndef NO_ACTION_ONESHOT
 static int8_t oneshot_mods = 0;
 static int8_t oneshot_locked_mods = 0;
 int8_t get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
-void set_oneshot_locked_mods(int8_t mods) { oneshot_locked_mods = mods; }
-void clear_oneshot_locked_mods(void) { oneshot_locked_mods = 0; }
+void set_oneshot_locked_mods(int8_t mods) {
+    uint8_t original_oneshot_locked_mods = oneshot_locked_mods;
+    oneshot_locked_mods = mods;
+    if (original_oneshot_locked_mods != oneshot_locked_mods) {
+        oneshot_locked_mods_set_kb(oneshot_locked_mods);
+    }
+}
+void clear_oneshot_locked_mods(void) {
+    uint8_t original_oneshot_locked_mods = oneshot_locked_mods;
+    oneshot_locked_mods = 0;
+    if (original_oneshot_locked_mods != oneshot_locked_mods) {
+        oneshot_locked_mods_cleared_kb();
+    }
+}
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
 static int16_t oneshot_time = 0;
 bool has_oneshot_mods_timed_out(void) {
@@ -245,10 +305,14 @@ void clear_macro_mods(void) { macro_mods = 0; }
  */
 void set_oneshot_mods(uint8_t mods)
 {
+    uint8_t original_oneshot_mods = oneshot_mods;
     oneshot_mods = mods;
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_time = timer_read();
 #endif
+    if (original_oneshot_mods != oneshot_mods) {
+        oneshot_mods_set_kb(oneshot_mods);
+    }
 }
 /** \brief clear oneshot mods
  *
@@ -256,10 +320,14 @@ void set_oneshot_mods(uint8_t mods)
  */
 void clear_oneshot_mods(void)
 {
+    uint8_t original_oneshot_mods = oneshot_mods;
     oneshot_mods = 0;
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_time = 0;
 #endif
+    if (original_oneshot_mods != oneshot_mods) {
+        oneshot_mods_cleared_kb();
+    }
 }
 /** \brief get oneshot mods
  *
