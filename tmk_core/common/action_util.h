@@ -28,15 +28,6 @@ extern report_keyboard_t *keyboard_report;
 
 void send_keyboard_report(void);
 
-void oneshot_locked_mods_set_user(uint8_t mods);
-void oneshot_locked_mods_set_kb(uint8_t mods);
-void oneshot_locked_mods_cleared_user(void);
-void oneshot_locked_mods_cleared_kb(void);
-void oneshot_mods_set_user(uint8_t mods);
-void oneshot_mods_set_kb(uint8_t mods);
-void oneshot_mods_cleared_user(void);
-void oneshot_mods_cleared_kb(void);
-
 /* key */
 inline void add_key(uint8_t key) {
   add_key_to_report(keyboard_report, key);
@@ -97,6 +88,15 @@ void reset_oneshot_layer(void);
 bool is_oneshot_layer_active(void);
 uint8_t get_oneshot_layer_state(void);
 bool has_oneshot_layer_timed_out(void);
+
+void oneshot_locked_mods_set_user(uint8_t mods);
+void oneshot_locked_mods_set_kb(uint8_t mods);
+void oneshot_locked_mods_cleared_user(void);
+void oneshot_locked_mods_cleared_kb(void);
+void oneshot_mods_set_user(uint8_t mods);
+void oneshot_mods_set_kb(uint8_t mods);
+void oneshot_mods_cleared_user(void);
+void oneshot_mods_cleared_kb(void);
 
 /* inspect */
 uint8_t has_anymod(void);

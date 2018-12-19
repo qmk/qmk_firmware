@@ -47,54 +47,6 @@ extern inline void add_key(uint8_t key);
 extern inline void del_key(uint8_t key);
 extern inline void clear_keys(void);
 
-/** \brief Callback which is called when the one shot modifiers have been locked.
- */
-__attribute__((weak))
-void oneshot_locked_mods_set_user(uint8_t mods) { }
-
-/** \brief Callback which is called when the locked one shot modifiers have been locked.
- */
-__attribute__((weak))
-void oneshot_locked_mods_set_kb(uint8_t mods) {
-    oneshot_locked_mods_set_user(mods);
-}
-
-/** \brief Callback which is called when the one shot modifiers have been locked.
- */
-__attribute__((weak))
-void oneshot_locked_mods_cleared_user(void) { }
-
-/** \brief Callback which is called when the locked one shot modifiers have been locked.
- */
-__attribute__((weak))
-void oneshot_locked_mods_cleared_kb(void) {
-    oneshot_locked_mods_cleared_user();
-}
-
-/** \brief Callback which is called when the one shot modifiers have been set.
- */
-__attribute__((weak))
-void oneshot_mods_set_user(uint8_t mods) { }
-
-/** \brief Callback which is called when the one shot modifiers have been cleared.
- */
-__attribute__((weak))
-void oneshot_mods_cleared_user(void) { }
-
-/** \brief Callback which is called when the one shot modifiers have been set.
- */
-__attribute__((weak))
-void oneshot_mods_set_kb(uint8_t mods) {
-    oneshot_mods_set_user(mods);
-}
-
-/** \brief Callback which is called when the one shot modifiers have been cleared.
- */
-__attribute__((weak))
-void oneshot_mods_cleared_kb() {
-    oneshot_mods_cleared_user();
-}
-
 #ifndef NO_ACTION_ONESHOT
 static int8_t oneshot_mods = 0;
 static int8_t oneshot_locked_mods = 0;
@@ -338,6 +290,54 @@ uint8_t get_oneshot_mods(void)
     return oneshot_mods;
 }
 #endif
+
+/** \brief Called when the one shot modifiers have been locked.
+ */
+__attribute__((weak))
+void oneshot_locked_mods_set_user(uint8_t mods) { }
+
+/** \brief Called when the locked one shot modifiers have been locked.
+ */
+__attribute__((weak))
+void oneshot_locked_mods_set_kb(uint8_t mods) {
+    oneshot_locked_mods_set_user(mods);
+}
+
+/** \brief Called when the one shot modifiers have been locked.
+ */
+__attribute__((weak))
+void oneshot_locked_mods_cleared_user(void) { }
+
+/** \brief Called when the locked one shot modifiers have been locked.
+ */
+__attribute__((weak))
+void oneshot_locked_mods_cleared_kb(void) {
+    oneshot_locked_mods_cleared_user();
+}
+
+/** \brief Called when the one shot modifiers have been set.
+ */
+__attribute__((weak))
+void oneshot_mods_set_user(uint8_t mods) { }
+
+/** \brief Called when the one shot modifiers have been set.
+ */
+__attribute__((weak))
+void oneshot_mods_set_kb(uint8_t mods) {
+    oneshot_mods_set_user(mods);
+}
+
+/** \brief Called when the one shot modifiers have been cleared.
+ */
+__attribute__((weak))
+void oneshot_mods_cleared_user(void) { }
+
+/** \brief Called when the one shot modifiers have been cleared.
+ */
+__attribute__((weak))
+void oneshot_mods_cleared_kb() {
+    oneshot_mods_cleared_user();
+}
 
 /** \brief inspect keyboard state
  *
