@@ -28,19 +28,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 
 /* key matrix size */
-#define MATRIX_ROWS 6
+#define MATRIX_ROWS 12
 #define MATRIX_COLS 7
 
 /* Planck PCB default pin-out */
-#define MATRIX_ROW_PINS { B10, B11, B12, B13, B14, B15 }
-#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6 }
+// #define MATRIX_ROW_PINS { B10, B11, B12, B13, B14, B15 }
+// #define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6 }
 
-#define MCP23_ROW_PINS { GPB5, GBP4, GBP3, GBP2, GBP1, GBP0 }
-#define MCP23_COL_PINS { GPA0, GBA1, GBA2, GBA3, GBA4, GBA5, GBA6 }
+// #define MCP23_ROW_PINS { GPB5, GBP4, GBP3, GBP2, GBP1, GBP0 }
+// #define MCP23_COL_PINS { GPA0, GBA1, GBA2, GBA3, GBA4, GBA5, GBA6 }
 
-#define MCP23_LED_R GPB7
-#define MCP23_LED_G GPB6
-#define MCP23_LED_B GPA7
+// #define MCP23_LED_R GPB7
+// #define MCP23_LED_G GPB6
+// #define MCP23_LED_B GPA7
 
 
 /* COL2ROW or ROW2COL */
