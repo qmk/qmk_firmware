@@ -88,16 +88,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_keymap(void) {
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
-    #endif
+  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
+  #ifdef SSD1306OLED
+    iota_gfx_init(!has_usb());   // turns on the display
+  #endif
 
-  DDRD &= ~(1<<5);
-  PORTD &= ~(1<<5);
+  #ifndef CONVERT_TO_PROTON_C
+    setPinOutput(D5);
+    writePinLow(D5);
 
-  DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);
+    setPinOutput(B0);
+    writePinLow(B0);
+  #endif
 }
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
