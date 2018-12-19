@@ -101,6 +101,7 @@ float leader_start[][2] = SONG(ONE_UP_SOUND );
 float leader_succeed[][2] = SONG(ALL_STAR);
 float leader_fail[][2] = SONG(RICK_ROLL);
 #endif
+LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
   LEADER_DICTIONARY() {
