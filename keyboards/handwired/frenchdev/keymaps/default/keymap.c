@@ -1,8 +1,6 @@
-#include "frenchdev.h"
+#include QMK_KEYBOARD_H
 #include "mousekey.h"
-#include "action.h"
-#include "action_layer.h"
-#include "keymap_extras/keymap_bepo.h"
+#include "keymap_bepo.h"
 
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
@@ -67,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-------------/                           \-------------/        ..        \-------------/                           \-------------/ *
  *M(M_LP)
  */
-[_BASE] = KEYMAP(
+[_BASE] = LAYOUT(
            KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,                                          KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     \
   KC_ESC,  BP_DQOT, BP_LGIL, BP_RGIL, BP_LPRN, BP_RPRN, BP_DTRM,                                        BP_DCRC, BP_AT,   BP_PLUS, BP_MINS, BP_SLSH, BP_ASTR, KC_BSPC, \
   KC_TAB,  BP_B,    BP_ECUT, BP_O,    BP_P,    BP_EGRV, BP_UNDS,                                        BP_EQL,  BP_K,    BP_V,    BP_D,    BP_L,    BP_J,    KC_ENT,  \
@@ -99,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-------------/                           \-------------/        ..        \-------------/                           \-------------/ *
   *
   */
-[_SYMBOLS] = KEYMAP(
+[_SYMBOLS] = LAYOUT(
            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          \
   KC_TRNS, BP_DCUR, BP_PARG, BP_SECT, BP_DGRK, KC_TRNS, BP_TILD,                                       BP_DCAR, BP_LEQL, BP_GEQL, BP_PSMS, BP_OBEL, BP_TIMS, KC_TRNS, \
   KC_TRNS, BP_BSLS, BP_ASTR, BP_LCBR, BP_RCBR, BP_GRV,  KC_TRNS,                                       BP_DIFF, BP_HASH, BP_LBRC, BP_RBRC, BP_PERC, BP_PMIL, KC_TRNS, \
@@ -131,7 +129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   * `-------------/                           \-------------/        ..        \-------------/                           \-------------/ *
   *
   */
-[_MEDIA] = KEYMAP(
+[_MEDIA] = LAYOUT(
            RESET,   KC_SLCK, KC_PAUS, KC_MUTE, KC_VOLD, KC_VOLU,                                     KC_MUTE, KC_VOLD, KC_VOLU, KC_PSCR, KC_CALC, KC_NLCK,          \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_MSTP, KC_MPRV, KC_MNXT, KC_MPLY,                                     KC_MPLY, KC_MPRV, KC_MNXT, KC_MSTP, KC_TRNS, KC_PMNS, KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_WH_U, KC_TRNS, KC_BTN4, KC_BTN5,                                     KC_BTN4, KC_BTN5, KC_KP_7, KC_KP_8, KC_KP_9, KC_PPLS, KC_TRNS, \
@@ -163,7 +161,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *
  */
 
-[_TRNS] = KEYMAP(
+[_TRNS] = LAYOUT(
            KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                                     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, \

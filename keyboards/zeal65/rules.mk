@@ -1,8 +1,8 @@
 
 
 # project specific files
-SRC =	../zeal60/zeal60.c \
-		../zeal60/rgb_backlight.c \
+SRC =	keyboards/zeal60/zeal60.c \
+		keyboards/zeal60/rgb_backlight.c \
 		quantum/color.c \
 		drivers/issi/is31fl3731.c \
 		drivers/avr/i2c_master.c
@@ -68,7 +68,7 @@ MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
@@ -76,4 +76,3 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 RAW_ENABLE = yes
 DYNAMIC_KEYMAP_ENABLE = yes
 CIE1931_CURVE = yes
-

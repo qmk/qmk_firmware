@@ -777,6 +777,7 @@ void register_code(uint8_t code)
     #ifdef MOUSEKEY_ENABLE
       else if IS_MOUSEKEY(code) {
         mousekey_on(code);
+        mousekey_send();
       }
     #endif
 }
@@ -841,8 +842,21 @@ void unregister_code(uint8_t code)
     #ifdef MOUSEKEY_ENABLE
       else if IS_MOUSEKEY(code) {
         mousekey_off(code);
+        mousekey_send();
       }
     #endif
+}
+
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
+void tap_code(uint8_t code) {
+  register_code(code);
+  #if TAP_CODE_DELAY > 0
+    wait_ms(TAP_CODE_DELAY);
+  #endif
+  unregister_code(code);
 }
 
 /** \brief Utilities for actions. (FIXME: Needs better description)
