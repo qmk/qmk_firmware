@@ -161,6 +161,57 @@ For one shot mods, you need to call `set_oneshot_mods(MOD)` to set it, or `clear
 
 !> If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
 
+## Callbacks
+
+When you'd like to perform custom logic when pressing an `OSM(mod)` key, there are several callbacks you can choose to implement.
+
+There are callbacks that will be called when one shot modifiers have been set or cleared. These can be inserted into your `<keyboard>.c`:
+
+```c
+void oneshot_mods_set_kb(uint8_t mods) {
+    oneshot_mods_set_user(mods);
+}
+
+void oneshot_mods_cleared_kb() {
+    oneshot_mods_cleared_user();
+}
+```
+
+or `keymap.c`:
+
+```c
+void oneshot_mods_set_user(uint8_t mods) {
+    print("Oneshot mods have been set!");
+}
+
+void oneshot_mods_cleared_user(void) {
+    print("Oneshot mods have been cleared!")
+}
+```
+
+There are also callbacks that will be called when one shot modifiers have been locked. They will only be called when `ONESHOT_TAP_TOGGLE` is defined. The callbacks can be inserted into your `<keyboard>.c`:
+
+```c
+void oneshot_locked_mods_set_kb(uint8_t mods) {
+    oneshot_locked_mods_set_user(mods);
+}
+
+void oneshot_locked_mods_cleared_kb(void) {
+    oneshot_locked_mods_cleared_user();
+}
+```
+
+or `keymap.c`:
+
+```c
+void oneshot_locked_mods_set_user(uint8_t mods) {
+    print("Oneshot mods have been locked!");
+}
+void oneshot_locked_mods_cleared_user(void) {
+    print("Oneshot mods have been cleared!");
+}
+```
+
 # Tap-Hold Configuration Options
 
 While Tap-Hold options are fantastic, they are not without their issues.  We have tried to configure them with reasonal defaults, but that may still cause issues for some people. 
