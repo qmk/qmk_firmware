@@ -62,12 +62,12 @@ void oneshot_locked_mods_set_kb(uint8_t mods) {
 /** \brief Callback which is called when the one shot modifiers have been locked.
  */
 __attribute__((weak))
-void oneshot_locked_mods_cleared_user() { }
+void oneshot_locked_mods_cleared_user(void) { }
 
 /** \brief Callback which is called when the locked one shot modifiers have been locked.
  */
 __attribute__((weak))
-void oneshot_locked_mods_cleared_kb() {
+void oneshot_locked_mods_cleared_kb(void) {
     oneshot_locked_mods_cleared_user();
 }
 
@@ -79,7 +79,7 @@ void oneshot_mods_set_user(uint8_t mods) { }
 /** \brief Callback which is called when the one shot modifiers have been cleared.
  */
 __attribute__((weak))
-void oneshot_mods_cleared_user() { }
+void oneshot_mods_cleared_user(void) { }
 
 /** \brief Callback which is called when the one shot modifiers have been set.
  */
