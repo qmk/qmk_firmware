@@ -177,7 +177,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_LGUI`              |`KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key)            |
 |`KC_RCTRL`             |`KC_RCTL`           |Right Control                                  |
 |`KC_RSHIFT`            |`KC_RSFT`           |Right Shift                                    |
-|`KC_RALT`              |                    |Right Alt                                      |
+|`KC_RALT`              |`KC_ALGR`           |Right Alt (AltGr)                              |
 |`KC_RGUI`              |`KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)           |
 |`KC_SYSTEM_POWER`      |`KC_PWR`            |System Power Down                              |
 |`KC_SYSTEM_SLEEP`      |`KC_SLEP`           |System Sleep                                   |
@@ -203,6 +203,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_WWW_FAVORITES`     |`KC_WFAV`           |Browser Favorites (Windows)                    |
 |`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`           |Next Track (macOS)                             |
 |`KC_MEDIA_REWIND`      |`KC_MRWD`           |Previous Track (macOS)                         |
+|`KC_BRIGHTNESS_UP`     |`KC_BRIU`           |Brightness Up                                  |
+|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`           |Brightness Down                                |
 
 ## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
@@ -224,9 +226,9 @@ This is a reference only. Each group of keys links to the page documenting their
 
 |Key             |Aliases  |Description                       |
 |----------------|---------|----------------------------------|
-|`AU_ON`         |         |Audio mode on                     |
-|`AU_OFF`        |         |Audio mode off                    |
-|`AU_TOG`        |         |Toggles Audio mode                |
+|`AU_ON`         |         |Turns on Audio Feature            |
+|`AU_OFF`        |         |Turns off Audio Feature           |
+|`AU_TOG`        |         |Toggles Audio state               |
 |`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
 |`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
 |`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
@@ -286,15 +288,16 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
-|Key         |Description                                                               |
-|-----------------|---------------------------------------------------------------------|
-|`DF(layer)`      |Switches the default layer                                           |
-|`MO(layer)`      |Momentarily activates layer, switches off when you let go            |
-|`LM(layer, mod)` |As `MO(layer)` but with `mod` active                                 |
-|`LT(layer, kc)`  |Momentarily activates layer if held, sends kc if tapped              |
-|`TG(layer)`      |Toggles the layer (enables it if no active, and vise versa)          |
-|`TO(layer)`      |Activates layer and deactivates all other layers                     |
-|`TT(layer)`      |Momentarily activates layer if held, toggles it if tapped repeatedly |
+|Key             |Description                                                                       |
+|----------------|----------------------------------------------------------------------------------|
+|`DF(layer)`     |Set the base (default) layer                                                      |
+|`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
+|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](https://docs.qmk.fm/#/feature_advanced_keycodes?id=one-shot-keys) for details. |
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well. 
+|`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
+|`TG(layer)`     |Toggle `layer` on or off                                                          |
+|`TO(layer)`     |Turn on `layer` when pressed                                                      |
+|`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
 
 ## [Mouse Keys](feature_mouse_keys.md)
 
@@ -329,7 +332,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
 |`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
 |`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|                      |Hold Right Alt and press `kc`                       |
+|`RALT(kc)`|`ALGR(kc)`            |Hold Right Alt and press `kc`                       |
 |`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
 |`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
 |`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
@@ -428,18 +431,6 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_LEFT_ANGLE_BRACKET` |`KC_LABK`, `KC_LT` |`<`                |
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`                |
 |`KC_QUESTION`           |`KC_QUES`          |`?`                |
-
-## [Switching and Toggling Layers](feature_advanced_keycodes.md#switching-and-toggling-layers)
-
-|Key             |Description                                                                       |
-|----------------|----------------------------------------------------------------------------------|
-|`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
-|`TO(layer)`     |Turn on `layer` when pressed                                                      |
-|`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`DF(layer)`     |Set the base (default) layer                                                      |
-|`TG(layer)`     |Toggle `layer` on or off                                                          |
-|`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.                  |
 
 ## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
 

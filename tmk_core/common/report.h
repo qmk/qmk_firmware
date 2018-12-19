@@ -38,6 +38,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Consumer Page(0x0C)
  * following are supported by Windows: http://msdn.microsoft.com/en-us/windows/hardware/gg463372.aspx
+ * see also https://docs.microsoft.com/en-us/windows-hardware/drivers/hid/display-brightness-control
  */
 #define AUDIO_MUTE              0x00E2
 #define AUDIO_VOL_UP            0x00E9
@@ -47,6 +48,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TRANSPORT_STOP          0x00B7
 #define TRANSPORT_STOP_EJECT    0x00CC
 #define TRANSPORT_PLAY_PAUSE    0x00CD
+#define BRIGHTNESSUP            0x006F
+#define BRIGHTNESSDOWN          0x0070
 /* application launch */
 #define AL_CC_CONFIG            0x0183
 #define AL_EMAIL                0x018A
@@ -189,7 +192,9 @@ typedef struct {
     (key == KC_WWW_FORWARD      ?  AC_FORWARD : \
     (key == KC_WWW_STOP         ?  AC_STOP : \
     (key == KC_WWW_REFRESH      ?  AC_REFRESH : \
-    (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0)))))))))))))))))))))
+    (key == KC_BRIGHTNESS_UP    ?  BRIGHTNESSUP : \
+    (key == KC_BRIGHTNESS_DOWN  ?  BRIGHTNESSDOWN : \
+    (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0)))))))))))))))))))))))
 
 uint8_t has_anykey(report_keyboard_t* keyboard_report);
 uint8_t get_first_key(report_keyboard_t* keyboard_report);

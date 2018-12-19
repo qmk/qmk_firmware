@@ -13,7 +13,7 @@ and this to your `config.h`:
 Each PAD_A/B variable defines an array so multiple encoders can be defined, e.g.:
 
     #define ENCODERS_PAD_A { encoder1a, encoder2a }
-    #define ENCODERS_PAD_B { encoder1a, encoder2b }
+    #define ENCODERS_PAD_B { encoder1b, encoder2b }
 
 If your encoder's clockwise directions are incorrect, you can swap the A & B pad definitions.
 

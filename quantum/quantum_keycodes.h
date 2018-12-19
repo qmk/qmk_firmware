@@ -470,6 +470,7 @@ enum quantum_keycodes {
 #define RCTL(kc) (QK_RCTL | (kc))
 #define RSFT(kc) (QK_RSFT | (kc))
 #define RALT(kc) (QK_RALT | (kc))
+#define ALGR(kc) RALT(kc)
 #define RGUI(kc) (QK_RGUI | (kc))
 #define RCMD(kc) RGUI(kc)
 #define RWIN(kc) RGUI(kc)
@@ -480,7 +481,7 @@ enum quantum_keycodes {
 #define SGUI(kc) (QK_LGUI | QK_LSFT | (kc))
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
-#define LCA(kc) (QK_LCTL | QK_LALT | (kc))
+#define LCA(kc)  (QK_LCTL | QK_LALT | (kc))
 
 #define MOD_HYPR 0xf
 #define MOD_MEH 0x7
@@ -581,7 +582,6 @@ enum quantum_keycodes {
 #define CK_OFF CLICKY_DISABLE
 
 #define RGB_MOD RGB_MODE_FORWARD
-#define RGB_SMOD RGB_MODE_FORWARD
 #define RGB_RMOD RGB_MODE_REVERSE
 
 #define RGB_M_P RGB_MODE_PLAIN
@@ -646,7 +646,7 @@ enum quantum_keycodes {
 #define ALT_T(kc) MT(MOD_LALT, kc)
 #define LALT_T(kc) MT(MOD_LALT, kc)
 #define RALT_T(kc) MT(MOD_RALT, kc)
-#define ALGR_T(kc) MT(MOD_RALT, kc) // dual-function AltGR
+#define ALGR_T(kc) RALT_T(kc)
 
 #define GUI_T(kc) MT(MOD_LGUI, kc)
 #define CMD_T(kc) GUI_T(kc)

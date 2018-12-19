@@ -842,13 +842,13 @@ void rgb_matrix_init(void) {
 }
 
 // Deals with the messy details of incrementing an integer
-uint8_t increment( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
+static uint8_t increment( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
     int16_t new_value = value;
     new_value += step;
     return MIN( MAX( new_value, min ), max );
 }
 
-uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
+static uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max ) {
     int16_t new_value = value;
     new_value -= step;
     return MIN( MAX( new_value, min ), max );
@@ -887,77 +887,105 @@ uint32_t rgb_matrix_get_tick(void) {
     return g_tick;
 }
 
-void rgblight_toggle(void) {
+void rgb_matrix_toggle(void) {
 	rgb_matrix_config.enable ^= 1;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
-void rgblight_step(void) {
+void rgb_matrix_enable(void) {
+	rgb_matrix_config.enable = 1;
+    eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+}
+
+void rgb_matrix_enable_noeeprom(void) {
+	rgb_matrix_config.enable = 1;
+}
+
+void rgb_matrix_disable(void) {
+	rgb_matrix_config.enable = 0;
+    eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+}
+
+void rgb_matrix_disable_noeeprom(void) {
+	rgb_matrix_config.enable = 0;
+}
+
+void rgb_matrix_step(void) {
     rgb_matrix_config.mode++;
     if (rgb_matrix_config.mode >= RGB_MATRIX_EFFECT_MAX)
         rgb_matrix_config.mode = 1;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
-void rgblight_step_reverse(void) {
+void rgb_matrix_step_reverse(void) {
     rgb_matrix_config.mode--;
     if (rgb_matrix_config.mode < 1)
         rgb_matrix_config.mode = RGB_MATRIX_EFFECT_MAX - 1;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
-void rgblight_increase_hue(void) {
+void rgb_matrix_increase_hue(void) {
     rgb_matrix_config.hue = increment( rgb_matrix_config.hue, 8, 0, 255 );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
-void rgblight_decrease_hue(void) {
+void rgb_matrix_decrease_hue(void) {
     rgb_matrix_config.hue = decrement( rgb_matrix_config.hue, 8, 0, 255 );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
-void rgblight_increase_sat(void) {
+void rgb_matrix_increase_sat(void) {
     rgb_matrix_config.sat = increment( rgb_matrix_config.sat, 8, 0, 255 );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
-void rgblight_decrease_sat(void) {
+void rgb_matrix_decrease_sat(void) {
     rgb_matrix_config.sat = decrement( rgb_matrix_config.sat, 8, 0, 255 );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
-void rgblight_increase_val(void) {
+void rgb_matrix_increase_val(void) {
     rgb_matrix_config.val = increment( rgb_matrix_config.val, 8, 0, RGB_MATRIX_MAXIMUM_BRIGHTNESS );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
-void rgblight_decrease_val(void) {
+void rgb_matrix_decrease_val(void) {
     rgb_matrix_config.val = decrement( rgb_matrix_config.val, 8, 0, RGB_MATRIX_MAXIMUM_BRIGHTNESS );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
-void rgblight_increase_speed(void) {
+void rgb_matrix_increase_speed(void) {
     rgb_matrix_config.speed = increment( rgb_matrix_config.speed, 1, 0, 3 );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);//EECONFIG needs to be increased to support this
 }
 
-void rgblight_decrease_speed(void) {
+void rgb_matrix_decrease_speed(void) {
     rgb_matrix_config.speed = decrement( rgb_matrix_config.speed, 1, 0, 3 );
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);//EECONFIG needs to be increased to support this
 }
 
-void rgblight_mode(uint8_t mode) {
+void rgb_matrix_mode(uint8_t mode) {
     rgb_matrix_config.mode = mode;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
-uint32_t rgblight_get_mode(void) {
+void rgb_matrix_mode_noeeprom(uint8_t mode) {
+    rgb_matrix_config.mode = mode;
+}
+
+uint32_t rgb_matrix_get_mode(void) {
     return rgb_matrix_config.mode;
 }
 
-void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
+void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
   rgb_matrix_config.hue = hue;
   rgb_matrix_config.sat = sat;
   rgb_matrix_config.val = val;
   eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
+}
+
+void rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val) {
+  rgb_matrix_config.hue = hue;
+  rgb_matrix_config.sat = sat;
+  rgb_matrix_config.val = val;
 }

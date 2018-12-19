@@ -4,6 +4,7 @@
 #
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = no        # Mouse keys(+4700)
+
 EXTRAKEY_ENABLE = yes       # Audio control and System control(+450)
 CONSOLE_ENABLE = yes        # Console for debug(+400)
 COMMAND_ENABLE = yes        # Commands for debug and configuration
@@ -17,6 +18,11 @@ RGBLIGHT_FULL_POWER = yes   # Allow maximum RGB brightness. Otherwise, limited t
 UNICODE_ENABLE = no         # Unicode
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
 ENCODER_ENABLE_CUSTOM = yes # Enable rotary encoder (+90)
+RGBLIGHT_FULL_POWER = no    # Allow maximum RGB brightness. Otherwise, limited to a safe level for a normal USB-A port
+UNICODE_ENABLE = no         # Unicode
+SWAP_HANDS_ENABLE = no      # Enable one-hand typing
+ENCODER_ENABLE_CUSTOM = yes # Enable rotary encoder (+90)
+
 OLED_ENABLE = no            # OLED_ENABLE (+5000)
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
 
