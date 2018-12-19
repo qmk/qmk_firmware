@@ -36,6 +36,7 @@ uint16_t leader_sequence[5] = {0, 0, 0, 0, 0};
 uint8_t leader_sequence_size = 0;
 
 void qk_leader_start(void) {
+  if (leading) { return; }
   leader_start();
   leading = true;
   leader_time = timer_read();
