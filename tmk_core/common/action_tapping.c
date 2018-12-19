@@ -19,11 +19,11 @@
 #define IS_TAPPING_RELEASED()   (IS_TAPPING() && !tapping_key.event.pressed)
 #define IS_TAPPING_KEY(k)       (IS_TAPPING() && KEYEQ(tapping_key.event.key, (k)))
 
-__attribute__ ((weak)) 
-uint16_t get_tapping_term(keyevent_t* event) { 
-  return TAPPING_TERM; 
-} 
-#define WITHIN_TAPPING_TERM(e)  (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(&e))
+__attribute__ ((weak))
+uint16_t get_tapping_term(keyevent_t* event) {
+  return TAPPING_TERM;
+}
+#define WITHIN_TAPPING_TERM(e)  (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(e))
 
 static keyrecord_t tapping_key = {};
 static keyrecord_t waiting_buffer[WAITING_BUFFER_SIZE] = {};
