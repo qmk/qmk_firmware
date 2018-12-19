@@ -146,7 +146,7 @@ void check_state (void) {
 
   case sleeping:
     if (!slept) {
-      rgblight_mode_noeeprom(4);
+      rgblight_mode_noeeprom(3);
       slept = true;
       activated = false;
       deactivated = false;
