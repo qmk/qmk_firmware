@@ -5,11 +5,11 @@ If you've ever used Vim, you know what a Leader key is. If not, you're about to 
 That's what `KC_LEAD` does. Here's an example:
 
 1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `KC_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
-2. Include the line `#define LEADER_TIMEOUT 300` in your `config.h`. The 300 there is 300ms -- that's how long you have for the sequence of keys following the leader. You can tweak this value for comfort, of course.
-   * By default, this timeout is how long after pressing `KC_LEAD` to complete your entire sequence. This may be very low for some people. So you may want to increase this timeout.  Optionally, you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.  To do so, add `#define LEADER_PER_KEY_TIMING` to your `config.h`.
-3. Within your `matrix_scan_user` function, do something like this:
+2. Include the line `#define LEADER_TIMEOUT 300` in your `config.h`. This sets the timeout for the `KC_LEAD` key.  Specifically, when you press the `KC_LEAD` key, you only have a certain amount of time to head the Leader Key sequence.  The `300` here sets that to 300ms, and you can increase this value to give you more time to hit the sequence. But any keys pressed during this timeout are intercepted and not send.  
+   * By default, this timeout is how long after pressing `KC_LEAD` to complete your entire sequence. This may be very low for some people. So you may want to increase this timeout.  Optionally, you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.  This allows you to maintain a low value here, but still be able to use the longer sequences.   To enable this option, add `#define LEADER_PER_KEY_TIMING` to your `config.h`.
+3. Within your `matrix_scan_user` function, add something like this:
 
-```
+```c
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
@@ -45,7 +45,7 @@ Each of these accepts one or more keycodes as arguments. This is an important po
 
 To add support for Leader Key you simply need to add a single line to your keymap's `rules.mk`:
 
-```
+```make
 LEADER_ENABLE = yes
 ```
 
@@ -54,19 +54,19 @@ LEADER_ENABLE = yes
 Rather than relying on an incredibly high timeout for long leader key strings or those of us without 200wpm typing skills, we can enable per key timing to ensure that each key pressed provides us with more time to finish our stroke. This is incredibly helpful with leader key emulation of tap dance (read: multiple taps of the same key like C, C, C).
 
 In order to enable this, place this in your `config.h`:
-```
+```c
 #define LEADER_PER_KEY_TIMING
 ```
 
 After this, it's recommended that you lower your `LEADER_TIMEOUT` to something less that 300ms.
 
-```
+```c
 #define LEADER_TIMEOUT 250
 ```
 
 Now, something like this won't seem impossible to do without a 1000MS leader key timeout:
 
-```
+```c
 SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
   SEND_STRING("Per key timing is great!!!");
 }
@@ -74,11 +74,11 @@ SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
 
 ## Customization 
 
-The Leader Key feature has some additional customization that you can perform here.  It has two functions that can be called at certain parts of the process.  Namely `leader_start()` and `leader_end()`.
+The Leader Key feature has some additional customization to how the Leader Key feature works.  It has two functions that can be called at certain parts of the process.  Namely `leader_start()` and `leader_end()`.
 
 The `leader_start()` function is called when you tap the `KC_LEAD` key, and the `leader_end()` function is called when either the leader sequence is completed, or the leader timeout is hit. 
 
-You can add these functions to your `keymap.c` file to add feedback (such as beeping or playing music).
+You can add these functions to your code (`keymap.c` usually) to add feedback to the Leader sequences (such as beeping or playing music).
 
 ```c
 void leader_start(void) {
