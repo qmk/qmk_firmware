@@ -436,9 +436,6 @@ void matrix_scan_user(void) {
       // ™
       send_unicode_hex_string("2122");
     }
-    SEQ_THREE_KEYS(KC_G, KC_G, KC_T) {
-      SEND_STRING("@GrahamGoldenTech.com");
-    }
     SEQ_THREE_KEYS(KC_L, KC_O, KC_D) {
       // ಠ__ಠ
       send_unicode_hex_string("0CA0 005F 005F 0CA0");
