@@ -33,12 +33,16 @@ public:
     MOCK_METHOD1(send_mouse_mock, void (report_mouse_t&));
     MOCK_METHOD1(send_system_mock, void (uint16_t));
     MOCK_METHOD1(send_consumer_mock, void (uint16_t));
+    MOCK_METHOD1(oneshot_mods_set_kb, void (uint8_t));
+    MOCK_METHOD0(oneshot_mods_cleared_kb, void ());
 private:
     static uint8_t keyboard_leds(void);
     static void send_keyboard(report_keyboard_t *report);
     static void send_mouse(report_mouse_t* report);
     static void send_system(uint16_t data);
     static void send_consumer(uint16_t data);
+    static void oneshot_mods_set_kb(uint8_t mods);
+    static void oneshot_mods_cleared_kb();
     host_driver_t m_driver;
     uint8_t m_leds = 0;
     static TestDriver* m_this;
