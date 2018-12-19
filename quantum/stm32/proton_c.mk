@@ -1,3 +1,12 @@
+# Proton C MCU settings for converting AVR projects
+
+# These are defaults based on what has been implemented for ARM boards
+AUDIO_ENABLE = yes
+RGBLIGHT_ENABLE = no
+BACKLIGHT_ENABLE = no
+
+# The rest of these settings shouldn't change
+
 ## chip/board settings
 # - the next two should match the directories in
 #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)

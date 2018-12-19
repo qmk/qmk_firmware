@@ -30,9 +30,8 @@
 #define MATRIX_ROWS 1
 #define MATRIX_COLS 1
 
-#define MATRIX_ROW_PINS { C2 }
-#define MATRIX_COL_PINS { C1 }
-
+#define MATRIX_ROW_PINS { B9 }
+#define MATRIX_COL_PINS { B0 }
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 6

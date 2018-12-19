@@ -34,7 +34,7 @@
    { K40, K41, K42, {}, {}, {}, {}, K47, {}, {}, K4A, K4B, K4C, K4D } \
   }
 
-#ifdef KEYBOARD_zeal60
+#if defined (RGB_BACKLIGHT_ZEAL60) || defined (RGB_BACKLIGHT_M60_A)
 
   #define ZEAL_RGB
 

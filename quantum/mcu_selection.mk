@@ -1,5 +1,5 @@
 
-ifneq ($(findstring STM32, $(MCU)),)
+ifneq ($(findstring STM32F303, $(MCU)),)
   ## chip/board settings
   # - the next two should match the directories in
   #   <chibios>/os/hal/ports/$(MCU_FAMILY)/$(MCU_SERIES)
@@ -36,7 +36,7 @@ ifneq ($(findstring STM32, $(MCU)),)
   DFU_ARGS ?= -d 0483:df11 -a 0 -s 0x08000000:leave
 endif
 
-ifeq ($(strip $(MCU)), atmega32u4)
+ifneq (,$(filter $(MCU),atmega32u4 at90usb1286))
   # Processor frequency.
   #     This will define a symbol, F_CPU, in all source code files equal to the
   #     processor frequency in Hz. You can then use this symbol in your source code to

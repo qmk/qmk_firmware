@@ -63,8 +63,6 @@ Changing the **Value** sets the overall brightness.
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red, Green, Blue test animation mode                                |
 
-?> For backwards compatibility, `RGB_SMOD` is another alias of `RGB_MOD`.
-
 ## Configuration
 
 Your RGB lighting can be configured by placing these `#define`s in your `config.h`:
@@ -122,6 +120,7 @@ The following options can be used to tweak the various animations:
 |`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                             |
 |`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`1000`       |How long to wait between light changes for the "Christmas" animation, in milliseconds|
 |`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation    |
+|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`360`        |Range adjustment for the rainbow swirl effect to get different swirls                |
 
 You can also modify the speeds that the different modes animate at:
 
