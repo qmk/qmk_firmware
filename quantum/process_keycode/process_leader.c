@@ -59,11 +59,11 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
 #endif // LEADER_KEY_STRICT_KEY_PROCESSING
         leader_sequence[leader_sequence_size] = keycode;
         leader_sequence_size++;
+#ifdef LEADER_PER_KEY_TIMING
+        leader_time = timer_read();
+#endif
         return false;
       }
-#ifdef LEADER_PER_KEY_TIMING
-      else { leader_time = timer_read(); }
-#endif
     } else {
       if (keycode == KC_LEAD) {
         qk_leader_start();
