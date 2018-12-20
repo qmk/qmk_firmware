@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "moonlander.h"
 
+bool mcp23018_leds[3] = {0, 0, 0};
+
 void matrix_init_kb(void) {
   setPinOutput(B0);
   setPinOutput(B1);
@@ -25,6 +27,10 @@ void matrix_init_kb(void) {
   writePinLow(B0);
   writePinLow(B1);
   writePinLow(B2);
+
+  mcp23018_leds[0] = 0; // blue
+  mcp23018_leds[1] = 0; // green
+  mcp23018_leds[2] = 0; // red
 }
 
 void matrix_scan_kb(void) {
@@ -32,39 +38,35 @@ void matrix_scan_kb(void) {
 }
 
 uint32_t layer_state_set_kb(uint32_t state) {
-  writePinLow(B0);
-  writePinLow(B1);
-  writePinLow(B2);
+  ML_LED_1(0);
+  ML_LED_2(0);
+  ML_LED_3(0);
+  ML_LED_4(0);
+  ML_LED_5(0);
+  ML_LED_6(0);
 
   uint8_t layer = biton32(state);
   switch (layer) {
       case 0:
         break;
       case 1:
-        writePinHigh(B0);
+        ML_LED_1(1);
+        ML_LED_4(1);
         break;
       case 2:
-        writePinHigh(B1);
+        ML_LED_2(1);
         break;
       case 3:
-        writePinHigh(B2);
+        ML_LED_3(1);
         break;
       case 4:
-        writePinHigh(B0);
-        writePinHigh(B1);
+        ML_LED_4(1);
         break;
       case 5:
-        writePinHigh(B0);
-        writePinHigh(B2);
+        ML_LED_5(1);
         break;
       case 6:
-        writePinHigh(B1);
-        writePinHigh(B2);
-        break;
-      case 7:
-        writePinHigh(B0);
-        writePinHigh(B1);
-        writePinHigh(B2);
+        ML_LED_6(1);
         break;
       default:
         break;
