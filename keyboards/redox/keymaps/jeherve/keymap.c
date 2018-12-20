@@ -25,7 +25,9 @@ enum custom_keycodes {
 	WAVE,
 	YOSHI,
 	THUMB_UP,
-	NBSP
+	NBSP,
+  INVOKE_1P,
+  ALFRED
 };
 
 // Is shift being held? Let's store this in a bool.
@@ -39,6 +41,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return false;
 			break;
+    case INVOKE_1P:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LGUI)SS_DOWN(X_LALT));
+        SEND_STRING(SS_TAP(X_BSLASH));
+        SEND_STRING(SS_UP(X_LGUI)SS_UP(X_LALT));
+      }
+      return false;
+      break;
+    case ALFRED:
+      if (record->event.pressed) {
+        SEND_STRING(SS_DOWN(X_LALT));
+        SEND_STRING(SS_TAP(X_SPACE));
+        SEND_STRING(SS_UP(X_LALT));
+      }
+      return false;
+      break;
 		case YOSHI:
 			if (record->event.pressed) {
 				SEND_STRING(":yellow_yoshi:");
@@ -141,13 +159,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_GRV  ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                                            KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_EQL  ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TAB  ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_G    ,KC_ESC  ,                          KC_CTDN ,KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_BSLS ,
+     KC_TAB  ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_G    ,KC_ESC  ,                        INVOKE_1P ,KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_BSLS ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      SYM_L   ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_D    ,M_BRACKET_LEFT,            M_BRACKET_RIGHT ,KC_H    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_SYQT ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT ,KC_Z    ,KC_X    ,KC_C    ,KC_V    ,KC_B    ,TT(_NAV),TT(_SYMB),      TT(_SYMB),TT(_NAV),KC_K    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_SLSH ,KC_RSFT ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     MO_INTR ,KC_LCTL ,KC_HYPR ,KC_LALT ,     KC_LCMD ,    KC_BSPC ,KC_LCTL ,        KC_ENT  ,KC_SPC  ,    KC_RCMD ,     TT_ADJ  ,KC_HYPR ,KC_RCTL ,MO_INTR
+     MO_INTR ,KC_LCTL ,KC_HYPR ,KC_LALT ,     KC_LCMD ,    KC_BSPC ,KC_LCTL ,        KC_ENT  ,KC_SPC  ,    ALFRED  ,     TT_ADJ  ,KC_HYPR ,KC_RCTL ,MO_INTR
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   ),
 
