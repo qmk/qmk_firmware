@@ -309,12 +309,11 @@ static uint8_t micro_oled_screen_buffer[] = {
 #else
 //catchall for custom screen szies
     static uint8_t micro_oled_screen_buffer[LCDWIDTH*LCDWIDTH/8] = {0};
-#endif  
+#endif
 
 
 
 void micro_oled_init(void) {
-
   i2c_init();
   i2c_start(I2C_ADDRESS_SA0_1);
 
