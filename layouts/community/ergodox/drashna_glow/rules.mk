@@ -7,3 +7,5 @@ ifneq (,$(findstring ergodox_ez,$(KEYBOARD)))
   RGBLIGHT_ENABLE = no
   RGB_MATRIX_ENABLE = yes
 endif
+
+COMMAND_ENABLE = no
