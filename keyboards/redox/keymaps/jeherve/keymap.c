@@ -26,7 +26,7 @@ enum custom_keycodes {
 	YOSHI,
 	THUMB_UP,
 	NBSP,
-  INVOKE_1P,
+  INV_1P,
   ALFRED
 };
 
@@ -41,7 +41,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			}
 			return false;
 			break;
-    case INVOKE_1P:
+    case INV_1P:
       if (record->event.pressed) {
         SEND_STRING(SS_DOWN(X_LGUI)SS_DOWN(X_LALT));
         SEND_STRING(SS_TAP(X_BSLASH));
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_GRV  ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                                            KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_EQL  ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TAB  ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_G    ,KC_ESC  ,                        INVOKE_1P ,KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_BSLS ,
+     KC_TAB  ,KC_Q    ,KC_W    ,KC_F    ,KC_P    ,KC_G    ,KC_ESC  ,                           INV_1P ,KC_J    ,KC_L    ,KC_U    ,KC_Y    ,KC_SCLN ,KC_BSLS ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      SYM_L   ,KC_A    ,KC_R    ,KC_S    ,KC_T    ,KC_D    ,M_BRACKET_LEFT,            M_BRACKET_RIGHT ,KC_H    ,KC_N    ,KC_E    ,KC_I    ,KC_O    ,KC_SYQT ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
