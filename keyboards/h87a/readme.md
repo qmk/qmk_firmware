@@ -7,7 +7,7 @@ Keyboard Maintainer: hineybush (Josh Hinnebusch)
 
 Hardware Supported: h87a Rev 1  
 
-Hardware Availability: Currently prototyped, group buy TBD  
+Hardware Availability: https://hineybush.com/h87a-project/ 
 
 Make example for this keyboard (after setting up your build environment):
      
