@@ -24,9 +24,7 @@ TestDriver::TestDriver()
         &TestDriver::send_keyboard,
         &TestDriver::send_mouse,
         &TestDriver::send_system,
-        &TestDriver::send_consumer,
-        &TestDriver::oneshot_mods_set_kb,
-        &TestDriver::oneshot_mods_cleared_kb
+        &TestDriver::send_consumer
     }
 {
     host_set_driver(&m_driver);
@@ -56,12 +54,4 @@ void TestDriver::send_system(uint16_t data) {
 
 void TestDriver::send_consumer(uint16_t data) {
     m_this->send_consumer(data);
-}
-
-void TestDriver::oneshot_mods_set_kb(uint8_t mods) {
-    m_this->oneshot_mods_set_kb_mock(mods);
-}
-
-void TestDriver::oneshot_mods_cleared_kb() {
-    m_this->oneshot_mods_cleared_kb_mock();
 }
