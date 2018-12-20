@@ -143,6 +143,7 @@ If you define these options you will enable the associated feature, which may in
   * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
+    * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped. 
 * `#define LEADER_PER_KEY_TIMING`
   * sets the timer for leader key chords to run on each key press rather than overall
 * `#define ONESHOT_TIMEOUT 300`
