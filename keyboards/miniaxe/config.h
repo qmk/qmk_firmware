@@ -237,6 +237,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Serial settings */
 #define USE_SERIAL
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0
+
 //#define EE_HANDS
 #define I2C_MASTER_LEFT
 //#define I2C_MASTER_RIGHT

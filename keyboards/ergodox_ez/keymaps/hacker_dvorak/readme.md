@@ -17,8 +17,8 @@ I plan to use [QMK](https://docs.qmk.fm) in the future, in order to overcome som
   * All symbols (including shifted symbols).
   * All modifier are dual keys positioned near the home row.
 2. Querty
-  * Used to overcome the limitation pointed above, when your OS layout is set to Dvorak instead of US, this way you can use 
-    Standard Dvorak (available by default on all the main operating systems) on other normal keybdoards and Hacker Dvorak on 
+  * Used to overcome the limitation pointed above, when your OS layout is set to Dvorak instead of US, this way you can use
+    Standard Dvorak (available by default on all the main operating systems) on other normal keybdoards and Hacker Dvorak on
     the Ergodox EZ Shine at the same time, without changing back and forth tho OS layout.
 3. Gaming
   * Still in development.
@@ -35,7 +35,7 @@ I plan to use [QMK](https://docs.qmk.fm) in the future, in order to overcome som
 6. Numpad
   * ATM style numpad.
   * All modifier keys.
-  * Letters from `A` to `F` for hexadecimal numbers (`B` is also used for binary numeric literals in most programming 
+  * Letters from `A` to `F` for hexadecimal numbers (`B` is also used for binary numeric literals in most programming
     languages, ie. `0b11001`).
   * `X` for hexadecimal numeric literals in most programming languages, ie. `0xbeef`.
   * `O` for octal numeric literals in most programming languages, ie `0o123`.
@@ -52,7 +52,7 @@ I plan to use [QMK](https://docs.qmk.fm) in the future, in order to overcome som
   * Useful for custom application shortcuts.
 10. Meh Fn +
   * Useful for custom standard shortcuts.
-  
+
 ## To Do
 
 Add images.

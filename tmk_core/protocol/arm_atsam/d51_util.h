@@ -20,37 +20,65 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "samd51j18a.h"
 
-//TODO: PS: Should bring these ports out to keyboard level configuration
+/* Debug LED */
+#if DEBUG_LED_ENABLE == 1
+#define DBG_LED_ENA PORT->Group[DEBUG_LED_PORT].DIRSET.reg = (1 << DEBUG_LED_PIN)
+#define DBG_LED_DIS PORT->Group[DEBUG_LED_PORT].DIRCLR.reg = (1 << DEBUG_LED_PIN)
+#define DBG_LED_ON  PORT->Group[DEBUG_LED_PORT].OUTSET.reg = (1 << DEBUG_LED_PIN)
+#define DBG_LED_OFF PORT->Group[DEBUG_LED_PORT].OUTCLR.reg = (1 << DEBUG_LED_PIN)
+#else
+#define DBG_LED_ENA
+#define DBG_LED_DIS
+#define DBG_LED_ON
+#define DBG_LED_OFF
+#endif
 
-//Debug LED PA27
-#define led_ena REG_PORT_DIRSET0 = 0x08000000 //PA27 Output
-#define led_on  REG_PORT_OUTSET0 = 0x08000000 //PA27 High
-#define led_off REG_PORT_OUTCLR0 = 0x08000000 //PA27 Low
+/* Debug Port 1 */
+#if DEBUG_PORT1_ENABLE == 1
+#define DBG_1_ENA PORT->Group[DEBUG_PORT1_PORT].DIRSET.reg = (1 << DEBUG_PORT1_PIN)
+#define DBG_1_DIS PORT->Group[DEBUG_PORT1_PORT].DIRCLR.reg = (1 << DEBUG_PORT1_PIN)
+#define DBG_1_ON  PORT->Group[DEBUG_PORT1_PORT].OUTSET.reg = (1 << DEBUG_PORT1_PIN)
+#define DBG_1_OFF PORT->Group[DEBUG_PORT1_PORT].OUTCLR.reg = (1 << DEBUG_PORT1_PIN)
+#else
+#define DBG_1_ENA
+#define DBG_1_DIS
+#define DBG_1_ON 
+#define DBG_1_OFF
+#endif
 
-//Debug Port PB30
-#define m15_ena REG_PORT_DIRSET1 = 0x40000000 //PB30 Output
-#define m15_on  REG_PORT_OUTSET1 = 0x40000000 //PB30 High
-#define m15_off REG_PORT_OUTCLR1 = 0x40000000 //PB30 Low
+/* Debug Port 2 */
+#if DEBUG_PORT2_ENABLE == 1
+#define DBG_2_ENA PORT->Group[DEBUG_PORT2_PORT].DIRSET.reg = (1 << DEBUG_PORT2_PIN)
+#define DBG_2_DIS PORT->Group[DEBUG_PORT2_PORT].DIRCLR.reg = (1 << DEBUG_PORT2_PIN)
+#define DBG_2_ON  PORT->Group[DEBUG_PORT2_PORT].OUTSET.reg = (1 << DEBUG_PORT2_PIN)
+#define DBG_2_OFF PORT->Group[DEBUG_PORT2_PORT].OUTCLR.reg = (1 << DEBUG_PORT2_PIN)
+#else
+#define DBG_2_ENA
+#define DBG_2_DIS
+#define DBG_2_ON 
+#define DBG_2_OFF
+#endif
 
-//Debug Port PB23
-#define m27_ena REG_PORT_DIRSET1 = 0x800000 //PB23 Output
-#define m27_on  REG_PORT_OUTSET1 = 0x800000 //PB23 High
-#define m27_off REG_PORT_OUTCLR1 = 0x800000 //PB23 Low
+/* Debug Port 3 */
+#if DEBUG_PORT3_ENABLE == 1
+#define DBG_3_ENA PORT->Group[DEBUG_PORT3_PORT].DIRSET.reg = (1 << DEBUG_PORT3_PIN)
+#define DBG_3_DIS PORT->Group[DEBUG_PORT3_PORT].DIRCLR.reg = (1 << DEBUG_PORT3_PIN)
+#define DBG_3_ON  PORT->Group[DEBUG_PORT3_PORT].OUTSET.reg = (1 << DEBUG_PORT3_PIN)
+#define DBG_3_OFF PORT->Group[DEBUG_PORT3_PORT].OUTCLR.reg = (1 << DEBUG_PORT3_PIN)
+#else
+#define DBG_3_ENA
+#define DBG_3_DIS
+#define DBG_3_ON 
+#define DBG_3_OFF
+#endif
 
-//Debug Port PB31
-#define m28_ena REG_PORT_DIRSET1 = 0x80000000 //PB31 Output
-#define m28_on  REG_PORT_OUTSET1 = 0x80000000 //PB31 High
-#define m28_off REG_PORT_OUTCLR1 = 0x80000000 //PB31 Low
-
-#define m15_loop(M15X) {uint8_t M15L=M15X; while(M15L--){m15_on;CLK_delay_us(1);m15_off;}}
-
-void m15_print(uint32_t x);
+void dbg_print(uint32_t x);
 void dled_print(uint32_t x, uint8_t long_pause);
 
 void debug_code_init(void);
 void debug_code_disable(void);
 
-#ifdef DEBUG_BOOT_TRACING
+#ifdef DEBUG_BOOT_TRACING_ENABLE
 
 #define DBGC(n) debug_code = n
 
@@ -190,6 +218,6 @@ enum debug_code_list {
 
 #define DBGC(n) {}
 
-#endif //DEBUG_BOOT_TRACING
+#endif //DEBUG_BOOT_TRACING_ENABLE
 
 #endif //_D51_UTIL_H_
