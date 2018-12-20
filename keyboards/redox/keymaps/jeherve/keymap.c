@@ -43,17 +43,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break;
     case INV_1P:
       if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LGUI)SS_DOWN(X_LALT));
-        SEND_STRING(SS_TAP(X_BSLASH));
-        SEND_STRING(SS_UP(X_LGUI)SS_UP(X_LALT));
+        SEND_STRING(SS_DOWN(X_LGUI)SS_DOWN(X_LALT)SS_TAP(X_BSLASH)SS_UP(X_LGUI)SS_UP(X_LALT));
       }
       return false;
       break;
     case ALFRED:
       if (record->event.pressed) {
-        SEND_STRING(SS_DOWN(X_LALT));
-        SEND_STRING(SS_TAP(X_SPACE));
-        SEND_STRING(SS_UP(X_LALT));
+        SEND_STRING(SS_DOWN(X_LALT)SS_TAP(X_SPACE)SS_UP(X_LALT));
       }
       return false;
       break;
