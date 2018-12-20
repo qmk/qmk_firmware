@@ -56,6 +56,9 @@ void send_unicode_hex_string(const char* str) {
 
 
 // If you need a good converter: https://r12a.github.io/app-conversion/
+
+
+#if 0
 uint8_t saved_mods;
 
 void unicode_input_start (void) {
@@ -110,3 +113,4 @@ void unicode_input_finish (void) {
 
   set_mods(saved_mods); // Reregister previously set mods
 }
+#endif
