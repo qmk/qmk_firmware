@@ -28,11 +28,6 @@ enum custom_keycodes {
 	NBSP
 };
 
-// Make macros a bit simpler with this shortcut.
-#define TAP_ONCE(code)  \
-  register_code (code); \
-  unregister_code (code)
-
 // Is shift being held? Let's store this in a bool.
 static bool shift_held = false;
 
@@ -40,13 +35,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch(keycode) {
 		case SHRUG:
 			if (record->event.pressed) {
-				unicode_input_start(); register_hex(0xaf); unicode_input_finish();
-				TAP_ONCE (KC_BSLS);
-				register_code (KC_RSFT); TAP_ONCE (KC_MINS); TAP_ONCE (KC_9); unregister_code (KC_RSFT);
-				unicode_input_start (); register_hex(0x30c4); unicode_input_finish();
-				register_code (KC_RSFT); TAP_ONCE (KC_0); TAP_ONCE (KC_MINS); unregister_code (KC_RSFT);
-				TAP_ONCE (KC_SLSH);
-				unicode_input_start (); register_hex(0xaf); unicode_input_finish();
+				send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
 			}
 			return false;
 			break;
