@@ -132,7 +132,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 };
 
 // Shortcut to make keymap more readable
-#define KC_CTDN  LCTL(KC_DOWN)
 #define KC_SYQT  LT(_SYMB,KC_QUOT)
 #define SYM_L    MO(_SYMB)
 #define MO_INTR  MO(_INTER)
