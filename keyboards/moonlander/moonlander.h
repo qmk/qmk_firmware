@@ -17,6 +17,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
+#define MCP23018_DEFAULT_ADDRESS 0b0100000
+
 #include "quantum.h"
 
 #define LAYOUT_moonlander( \

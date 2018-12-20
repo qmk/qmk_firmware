@@ -28,6 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action.h"
 #include "keycode.h"
 #include <string.h>
+#include "moonlander.h"
+#include "i2c_master.h"
 
 /*
 #define MATRIX_ROW_PINS { B10, B11, B12, B13, B14, B15 } outputs
@@ -35,9 +37,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_COLS];
+static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 static bool debouncing = false;
 static uint16_t debouncing_time = 0;
+static bool debouncing_right = false;
+static uint16_t debouncing_time_right = 0;
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -53,6 +57,41 @@ void matrix_init_kb(void) {
 __attribute__ ((weak))
 void matrix_scan_kb(void) {
   matrix_scan_user();
+}
+
+bool mcp23018_initd = false;
+uint8_t mcp23018_tx[3];
+uint8_t mcp23018_rx[1];
+
+void mcp23018_init(void) {
+
+    i2c_init();
+    i2c_start(MCP23018_DEFAULT_ADDRESS << 1);
+
+// #define MCP23_ROW_PINS { GPB5, GBP4, GBP3, GBP2, GBP1, GBP0 }       outputs
+// #define MCP23_COL_PINS { GPA0, GBA1, GBA2, GBA3, GBA4, GBA5, GBA6 } inputs
+
+    mcp23018_tx[0] = 0x00; // IODIRA
+    mcp23018_tx[1] = 0x00; // ?
+    mcp23018_tx[2] = 0b00111111; // A is inputs
+
+    if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1,
+        mcp23018_tx, 3, 100
+    )) {
+        printf("error hori\n");
+    } else {
+        mcp23018_tx[0] = 0x0C; // GPPUA
+        mcp23018_tx[1] = 0x00; // ?
+        mcp23018_tx[2] = 0b00111111; // pull-up As
+
+        if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1,
+            mcp23018_tx, 3, 100
+        )) {
+            printf("error hori\n");
+        } else {
+            mcp23018_initd = true;
+        }
+    }
 }
 
 void matrix_init(void) {
@@ -79,13 +118,15 @@ void matrix_init(void) {
     memset(matrix, 0, MATRIX_ROWS * sizeof(matrix_row_t));
     memset(matrix_debouncing, 0, MATRIX_ROWS * sizeof(matrix_row_t));
 
+    mcp23018_init();
+
     matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void) {
 
     // actual matrix
-    for (int row = 0; row < MATRIX_ROWS; row++) {
+    for (int row = 0; row < 6; row++) {
         matrix_row_t data = 0;
 
         // strobe row
@@ -127,13 +168,64 @@ uint8_t matrix_scan(void) {
             debouncing = true;
             debouncing_time = timer_read();
         }
+
+
+
+        // right side
+
+        if (!mcp23018_initd) {
+            printf("trying to init right\n");
+            mcp23018_init();
+        }
+
+        // #define MCP23_ROW_PINS { GPB5, GBP4, GBP3, GBP2, GBP1, GBP0 }       outputs
+        // #define MCP23_COL_PINS { GPA0, GBA1, GBA2, GBA3, GBA4, GBA5, GBA6 } inputs
+
+        // select row
+
+        mcp23018_tx[0] = 0x12; // GPIOA
+        mcp23018_tx[1] = 0xFF & ~(1<<(row)); // activate row
+
+        if (MSG_OK != i2c_transmit(MCP23018_DEFAULT_ADDRESS << 1,
+            mcp23018_tx, 2, 100
+        )) {
+            printf("error hori\n");
+        }
+
+        // read col
+
+        mcp23018_tx[0] = 0x13; // GPIOB
+
+        if (MSG_OK != i2c_transmit_receive(MCP23018_DEFAULT_ADDRESS << 1,
+            mcp23018_tx, 1,
+            mcp23018_rx, 1
+        )) {
+            printf("error vert\n");
+        }
+
+        data = mcp23018_rx[0];
+
+        if (matrix_debouncing[row + 6] != data) {
+            matrix_debouncing[row + 6] = data;
+            debouncing_right = true;
+            debouncing_time_right = timer_read();
+        }
+
     }
 
+
     if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCING_DELAY) {
-        for (int row = 0; row < MATRIX_ROWS; row++) {
+        for (int row = 0; row < 6; row++) {
             matrix[row] = matrix_debouncing[row];
         }
         debouncing = false;
+    }
+
+    if (debouncing_right && timer_elapsed(debouncing_time_right) > DEBOUNCING_DELAY) {
+        for (int row = 6; row < 12; row++) {
+            matrix[row] = matrix_debouncing[row];
+        }
+        debouncing_right = false;
     }
 
     matrix_scan_quantum();

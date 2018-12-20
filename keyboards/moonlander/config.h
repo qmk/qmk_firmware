@@ -76,3 +76,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
+
+#define DRIVER_ADDR_1 0b1110100
+#define DRIVER_ADDR_2 0b1110111
+
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 35
+#define DRIVER_2_LED_TOTAL 35
+#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
