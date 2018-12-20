@@ -341,7 +341,7 @@ int serial_transaction(void) {
         matrix[slaveOffset+i] = serial_s2m_buffer.smatrix[i];
     }
     
-    #ifdef RGBLIGHT_ENABLE
+    #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
         // Code to send RGB over serial goes here (not implemented yet)
     #endif
     

@@ -132,7 +132,9 @@ void keyboard_slave_loop(void) {
                 sei();
             }
         #else // USE_SERIAL
+          #ifdef RGBLIGHT_SPLIT
             // Add serial implementation for RGB here
+          #endif
         #endif
     #endif
    }

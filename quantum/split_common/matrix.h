@@ -12,7 +12,14 @@ typedef struct _Serial_m2s_buffer_t {
     uint8_t backlight_level;
 #endif
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-    //not yet rgblight_config_t rgblight_config;
+    rgblight_config_t rgblight_config; //not yet use
+    //
+    // When MCUs on both sides drive their respective RGB LED chains,
+    // it is necessary to synchronize, so it is necessary to communicate RGB information.
+    // In that case, define the RGBLIGHT_SPLIT macro.
+    //
+    // Otherwise, if the master side MCU drives both sides RGB LED chains,
+    // there is no need to communicate.
 #endif
 } Serial_m2s_buffer_t;
 
