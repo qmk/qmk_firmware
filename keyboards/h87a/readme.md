@@ -5,7 +5,7 @@ A QMK-powered replacement PCB for custom TKL keyboards. This PCB has the same si
 
 Keyboard Maintainer: hineybush (Josh Hinnebusch)  
 
-Hardware Supported: h87a Rev 1  
+Hardware Supported: h87a ver 1.1, 1.2, 1.4, 1.5. h87a-alps 1.0
 
 Hardware Availability: https://hineybush.com/h87a-project/ 
 
