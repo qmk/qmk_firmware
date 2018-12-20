@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "hecomi_alpha.h"
+#include "split_common.h"
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
