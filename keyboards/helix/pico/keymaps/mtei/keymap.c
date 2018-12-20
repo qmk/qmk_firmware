@@ -32,7 +32,8 @@ enum layer_number {
     _COLEMAK,
     _DVORAK,
     _EUCALYN,
-    _NUM,
+    _NUML,
+    _NUMR,
     _LOWER,
     _RAISE,
     _ADJUST,
@@ -43,7 +44,8 @@ enum custom_keycodes {
   COLEMAK,
   DVORAK,
   EUCALYN,
-  NUM,
+  NUML,
+  NUMR,
   KC_xEISU,
   KC_xKANA,
   KC_ZERO2,
@@ -51,8 +53,9 @@ enum custom_keycodes {
 };
 
 //Macros
-#define KC_NUM    MO(_NUM)
 #define KC_LOWER  MO(_LOWER)
+#define KC_NUML   LT(_NUML,KC_SPC)
+#define KC_NUMR   LT(_NUMR,KC_SPC)
 #define KC_RABS   LT(_RAISE,KC_BSPC)
 #define KC_RAEN   LT(_RAISE,KC_ENT)
 #define KC_____   _______
@@ -93,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ESC,    Q,    W,    E,    R,    T,                  Y,    U,    I,    O,    P,  BSLS, \
       LCTL,   A,    S,    D,    F,    G,                  H,    J,    K,    L, SCLN,  RCTL, \
       LSFT,   Z,    X,    C,    V,    B,                  N,    M, COMM,  DOT, SLSH,  RSFT, \
-      NUM, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP, LOWER,  NUM \
+      LOWER,LOWER, CAPS, LALT, LGUI,NUML, RABS,   RAEN,NUMR, RGUI, RALT,  APP,LOWER,  LOWER \
       ),
 
   /* Colemak
@@ -111,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ESC,    Q,    W,    F,    P,    G,                  J,    L,    U,    Y, SCLN,  BSLS, \
       LCTL,   A,    R,    S,    T,    D,                  H,    N,    E,    I,    O,  RCTL, \
       LSFT,   Z,    X,    C,    V,    B,                  K,    M, COMM,  DOT, SLSH,  RSFT, \
-      NUM, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP, LOWER,  NUM \
+      LOWER,LOWER, CAPS, LALT, LGUI,NUML, RABS,   RAEN,NUMR, RGUI, RALT,  APP,LOWER,  LOWER \
       ),
 
   /* Dvorak
@@ -129,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ESC, QUOT, COMM,  DOT,    P,    Y,                  F,    G,    C,    R,    L,  BSLS, \
       LCTL,   A,    O,    E,    U,    I,                  D,    H,    T,    N,    S,  RCTL, \
       LSFT, SCLN,   Q,    J,    K,    X,                  B,    M,    W,    V,    Z,  RSFT, \
-      NUM, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP, LOWER,  NUM \
+      LOWER,LOWER, CAPS, LALT, LGUI,NUML, RABS,   RAEN,NUMR, RGUI, RALT,  APP,LOWER,  LOWER \
       ),
 
   /* Eucalyn (http://eucalyn.hatenadiary.jp/entry/about-eucalyn-layout)
@@ -144,28 +147,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------------------------------------------------------'
    */
   [_EUCALYN] = LAYOUT_kc( \
-      ESC,    Q,    W, COMM,  DOT, SCLN,                M,    R,    D,    Y,     P,  BSLS, \
-      LCTL,   A,    O,    E,    I,    U,                G,    T,    K,    S,     N,  RCTL, \
-      LSFT,   Z,    X,    C,    V,    F,                B,    H,    J,    L,  SLSH,  RSFT, \
-      NUM, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP, LOWER,  NUM \
+      ESC,    Q,    W, COMM,  DOT, SCLN,                  M,    R,    D,    Y,    P,  BSLS, \
+      LCTL,   A,    O,    E,    I,    U,                  G,    T,    K,    S,    N,  RCTL, \
+      LSFT,   Z,    X,    C,    V,    F,                  B,    H,    J,    L, SLSH,  RSFT, \
+      LOWER,LOWER, CAPS, LALT, LGUI,NUML, RABS,   RAEN,NUMR, RGUI, RALT,  APP,LOWER,  LOWER \
       ),
 
   /* Num
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      |  F1  |  F2  |  F3  |  F4  |  F5  |             |  F6  |  F7  |  F8  |  F9  |  F10 | F11  |
-   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      |   !  |   @  |   #  |   $  |   %  |             |   ^  |   &  |   *  |   (  |   )  |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | F12  |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * |      |  F1  |  F2  |  F3  |  F4  |  F5  |             |  F6  |  F7  |  F8  |  F9  |  F10 | F11  |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_NUM] = LAYOUT_kc( \
-      ____,   F1,   F2,   F3,   F4,   F5,               F6,   F7,   F8,   F9,  F10,  F11, \
+  [_NUML] = LAYOUT_kc( \
       ____,   S1,   S2,   S3,   S4,   S5,               S6,   S7,   S8,   S9,   S0, ____, \
-      ____,    1,    2,    3,    4,    5,                6,    7,    8,    9,    0, ____, \
-      ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____ \
+      ____,    1,    2,    3,    4,    5,                6,    7,    8,    9,    0,  F12, \
+      ____,   F1,   F2,   F3,   F4,   F5,               F6,   F7,   F8,   F9,  F10,  F11, \
+      ____, ____, ____, ____, ____, ____, ____, ____,  SPC, ____, ____, ____, ____, ____ \
+      ),
+
+  [_NUMR] = LAYOUT_kc( \
+      ____,   S1,   S2,   S3,   S4,   S5,               S6,   S7,   S8,   S9,   S0, ____, \
+      ____,    1,    2,    3,    4,    5,                6,    7,    8,    9,    0,  F12, \
+      ____,   F1,   F2,   F3,   F4,   F5,               F6,   F7,   F8,   F9,  F10,  F11, \
+      ____, ____, ____, ____, ____,  SPC, ____, ____, ____, ____, ____, ____, ____, ____ \
       ),
 
   /* Lower
@@ -407,7 +417,8 @@ static const char Colemak_name[] PROGMEM = " Colemak";
 static const char Dvorak_name[]  PROGMEM = " Dvorak";
 static const char Eucalyn_name[] PROGMEM = " Eucalyn";
 
-static const char Num_name[]     PROGMEM = ":Num";
+static const char NumL_name[]     PROGMEM = ":NumL";
+static const char NumR_name[]     PROGMEM = ":NumR";
 static const char Lower_name[]   PROGMEM = ":Func";
 static const char Raise_name[]   PROGMEM = ":Extra";
 static const char Adjust_name[]  PROGMEM = ":Adjust";
@@ -418,7 +429,8 @@ static const char *layer_names[] = {
     [_DVORAK]  = Dvorak_name,
     [_EUCALYN] = Eucalyn_name,
 
-    [_NUM]     = Num_name,
+    [_NUML]    = NumL_name,
+    [_NUMR]    = NumR_name,
     [_LOWER]   = Lower_name,
     [_RAISE]   = Raise_name,
     [_ADJUST]  = Adjust_name
