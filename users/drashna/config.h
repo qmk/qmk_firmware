@@ -15,6 +15,8 @@
 // #ifdef RGBLIGHT_ENABLE
 // #define NO_MUSIC_MODE
 // #endif //RGBLIGHT_ENABLE
+#undef  NOTE_REST
+#define NOTE_REST         1.00f
 #endif
 
 #ifdef RGBLIGHT_ENABLE
