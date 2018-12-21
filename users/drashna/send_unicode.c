@@ -56,3 +56,57 @@ void send_unicode_hex_string(const char* str) {
 
 
 // If you need a good converter: https://r12a.github.io/app-conversion/
+uint8_t saved_mods;
+
+void unicode_input_start (void) {
+  // save current mods
+  saved_mods = get_mods(); // Save current mods
+  clear_mods(); // Unregister mods to start from a clean state
+
+  switch(get_unicode_input_mode()) {
+  case UC_OSX:
+    register_code(KC_LALT);
+    break;
+  case UC_OSX_RALT:
+    register_code(KC_RALT);
+    break;
+  case UC_LNX:
+    register_code(KC_LCTL);
+    register_code(KC_LSFT);
+    register_code(KC_U);
+    unregister_code(KC_U);
+    unregister_code(KC_LSFT);
+    unregister_code(KC_LCTL);
+    break;
+  case UC_WIN:
+    register_code(KC_LALT);
+    register_code(KC_PPLS);
+    unregister_code(KC_PPLS);
+    break;
+  case UC_WINC:
+    register_code(KC_RALT);
+    unregister_code(KC_RALT);
+    register_code(KC_U);
+    unregister_code(KC_U);
+    break;
+  }
+  wait_ms(UNICODE_TYPE_DELAY);
+}
+
+void unicode_input_finish (void) {
+  switch(get_unicode_input_mode()) {
+    case UC_OSX:
+    case UC_WIN:
+      unregister_code(KC_LALT);
+      break;
+    case UC_OSX_RALT:
+      unregister_code(KC_RALT);
+      break;
+    case UC_LNX:
+      register_code(KC_SPC);
+      unregister_code(KC_SPC);
+      break;
+  }
+
+  set_mods(saved_mods); // Reregister previously set mods
+}

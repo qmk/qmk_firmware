@@ -6,21 +6,13 @@
 #define _________________Num_Row_75________________ KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NLCK
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-#if defined(KEYBOARD_5x5)
+#if defined(KEYBOARD_40percentclub_5x5)
 [GK75] = LAYOUT_ortho_5x15_wrapper(
   _________________Num_Row_75________________, QWERTY75, XXXXXXX, FUNCTION75,
   _______________GherkinLike_0_______________, KC_KP_7, KC_KP_8, KC_KP_9,
   _______________GherkinLike_1_______________, KC_KP_4, KC_KP_5, KC_KP_6,
   TD(TD_SFT_CAPS), SFT_T(KC_Z), KC_X, KC_C, LT(NUM75, KC_V), LT(ETC75, KC_B), KC_N, LT(DIR75, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT), KC_KP_1, KC_KP_2, KC_KP_3,
   TD(RST_TAP_DANCE), GHERKIN50, KC_LALT, NUMPAD, NUMBER75, ETCETERA75, KC_SPC,DIRECTION75, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL, KC_KP_0, KC_KP_0, KC_KP_DOT
-),
-
-[PAD] = LAYOUT_ortho_5x5_wrapper(
-  _______, _______, _______, _______, _______,
-  _______________NUMPAD_Row__0_______________, _______,
-  _______________NUMPAD_Row__1_______________, _______,
-  _______________NUMPAD_Row__2_______________, _______,
-  KC_KP_0, TD(LYR50_TAP_DANCE), KC_KP_DOT, KC_PMNS, _______
 ),
 
 [GK50] = LAYOUT_ortho_5x10_wrapper(
@@ -31,6 +23,47 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(RST_TAP_DANCE), GHERKIN75, NUMPAD, gNUMBER, gETCETERA, KC_SPC,gDIRECTION, KC_RGUI, KC_RALT, KC_RGUI
 ),
 
+[gNUM] = LAYOUT_ortho_5x10_wrapper(
+  _________________BLANK_50__________________,
+  _______________Gherkin_NUM_0_______________,
+  _______________Gherkin_NUM_1_______________,
+  _______________Gherkin_NUM_2_______________,
+  _______, _______, _______, _______, _______, KC_ENT, KC_RSFT, KC_RGUI, _______, _______
+),
+
+[gDIR] = LAYOUT_ortho_5x10_wrapper(
+  _________________BLANK_50__________________,
+  _______________Gherkin_DIR_0_______________,
+  _______________Gherkin_DIR_1_______________,
+  _______________Gherkin_DIR_2_______________,
+  _________________BLANK_50__________________
+),
+
+[gETC] = LAYOUT_ortho_5x10_wrapper(
+  _________________BLANK_50__________________,
+  _______________Gherkin_ETC_0_______________,
+  _______________Gherkin_ETC_1_______________,
+  _______________Gherkin_ETC_2_______________,
+  _______, KC_CAPS, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______
+),
+
+#if defined(BLUEFRUIT)
+[PAD] = LAYOUT_ortho_5x5_wrapper(
+  _______, _______, _______, OUT_BT, OUT_USB,
+  _______________NUMPAD_Row__0_______________, _______,
+  _______________NUMPAD_Row__1_______________, _______,
+  _______________NUMPAD_Row__2_______________, _______,
+  KC_KP_0, TD(LYR50_TAP_DANCE), KC_KP_DOT, KC_PMNS, _______
+),
+#else
+ [PAD] = LAYOUT_ortho_5x5_wrapper(
+  _______, _______, _______, _______, _______,
+  _______________NUMPAD_Row__0_______________, _______,
+  _______________NUMPAD_Row__1_______________, _______,
+  _______________NUMPAD_Row__2_______________, _______,
+  KC_KP_0, TD(LYR50_TAP_DANCE), KC_KP_DOT, KC_PMNS, _______
+),
+#endif
 #else
  /* Gherkin 75
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -201,27 +234,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
 ),
 
-[gNUM] = LAYOUT_ortho_5x10_wrapper(
-  _________________BLANK_50__________________,
-  _______________Gherkin_NUM_0_______________,
-  _______________Gherkin_NUM_1_______________,
-  _______________Gherkin_NUM_2_______________,
-  _______, _______, _______, _______, _______, KC_ENT, KC_RSFT, KC_RGUI, _______, _______
-),
-
-[gDIR] = LAYOUT_ortho_5x10_wrapper(
-  _________________BLANK_50__________________,
-  _______________Gherkin_DIR_0_______________,
-  _______________Gherkin_DIR_1_______________,
-  _______________Gherkin_DIR_2_______________,
-  _________________BLANK_50__________________
-),
-
-[gETC] = LAYOUT_ortho_5x10_wrapper(
-  _________________BLANK_50__________________,
-  _______________Gherkin_ETC_0_______________,
-  _______________Gherkin_ETC_1_______________,
-  _______________Gherkin_ETC_2_______________,
-  _______, KC_CAPS, _______, _______, _______, LALT(LCTL(KC_DEL)), _______, _______, _______, _______
-),
 };

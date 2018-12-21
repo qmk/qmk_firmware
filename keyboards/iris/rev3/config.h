@@ -48,6 +48,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
 
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0
+
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -58,12 +61,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-#define BACKLIGHT_PIN B5
+#define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 5
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN F7
-
 #define RGBLED_NUM 12    // Number of LEDs
 
 /*
