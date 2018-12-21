@@ -91,9 +91,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_keymap(void) {
   #ifndef CONVERT_TO_PROTON_C
     setPinOutput(D5);
-    writePinLow(D5);
+    writePinHigh(D5);
 
     setPinOutput(B0);
-    writePinLow(B0);
+    writePinHigh(B0);
   #endif
 }

@@ -147,10 +147,10 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_keymap(void) {
 #ifdef KEYBOARD_fractal
-  DDRD &= ~(1<<5);
-  PORTD &= ~(1<<5);
+    setPinOutput(D5);
+    writePinHigh(D5);
 
-  DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);
+    setPinOutput(B0);
+    writePinHigh(B0);
 #endif
 }
