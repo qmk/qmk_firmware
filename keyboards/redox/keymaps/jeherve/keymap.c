@@ -232,8 +232,8 @@ void persistent_default_layer_set(uint16_t default_layer) {
 }
 
 // Set unicode in Mac OS.
-void matrix_init_user(void) {
-	set_unicode_input_mode(UC_OSX);
+void eeconfig_init_user(void) {
+  set_unicode_input_mode(UC_OSX);
 };
 
 // Change LED colors depending on the layer.
