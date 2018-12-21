@@ -70,7 +70,6 @@ bool process_leader(uint16_t keycode, keyrecord_t *record) {
         qk_leader_start();
         return false;
       }
-      break;
     }
   }
   return true;

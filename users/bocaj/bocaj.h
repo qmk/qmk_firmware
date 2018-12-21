@@ -10,8 +10,6 @@ enum userspace_layers {
   _OSXWRKMN = 0,
   _WINWRKMN,
   _OSXQWERTY,
-  _WINQWERTY,
-  _CLICKY,
   _LOWER,
   _ADJUST,
   _NUMS,
@@ -31,7 +29,6 @@ enum userspace_custom_keycodes {
   KC_MWRK,
   KC_WWRK,
   KC_MQWR,
-  KC_WQWR,
   KC_VRSN,
   JJ_COPY,
   JJ_PSTE,
@@ -53,7 +50,6 @@ enum userspace_custom_keycodes {
 #define KC_NUMS TT(_NUMS)
 #define LM_SHFT LM(_NMOD, MOD_LSFT)
 #define KC_GAME TT(_DIABLO)
-#define KC_CLIK TT(_CLICKY)
 #define XXXXXXX KC_NO
 #define _______ KC_TRNS
 
@@ -183,7 +179,7 @@ enum {
 #define _______________________WORKMAN_R2________________________       KC_Y,     KC_N,           KC_E,           KC_O,           KC_I
 #define _______________________WORKMAN_R3________________________       KC_K,     KC_L,           KC_COMM,        KC_DOT,         KC_SLASH
 
-#define ___________________ERGODOX_BOTTOM_LEFT___________________       KC_CLIK,  KC_NUMS,        TT(_LOWER),     KC_UP,          KC_LEFT
+#define ___________________ERGODOX_BOTTOM_LEFT___________________       XXXXXXX,  KC_NUMS,        TT(_LOWER),     KC_UP,          KC_LEFT
 #define ___________________ERGODOX_BOTTOM_RIGHT__________________       KC_RIGHT, KC_DOWN,        XXXXXXX,        KC_GAME,        KC_ADJS
 
 #define _______________________NUMBER_LEFT_______________________       KC_1,     KC_2,           KC_3,           KC_4,           KC_5
@@ -196,8 +192,8 @@ enum {
 #define XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       KC_NO,    KC_NO,          KC_NO,          KC_NO,          KC_NO
 
 //                                                                                LEFT        |       RIGHT
-#define ______________________ERGODOX_THUMBS_____________________             KC_APP,KC_HOME,    KC_PGUP,KC_ESC,           \
-                                                                                     KC_WWRK,    KC_WQWR,                \
-                                                                  KC_SPACE,KC_BSPACE,KC_MWRK,    KC_MQWR,KC_TAB,KC_LWEN
+#define ______________________ERGODOX_THUMBS_____________________             KC_APP,KC_HOME,    KC_END,KC_ESC,           \
+                                                                                     XXXXXXX,    XXXXXXX,                \
+                                                                  KC_SPACE,KC_BSPACE,KC_LEAD,    KC_MQWR,KC_TAB,KC_LWEN
 
 #endif // !USERSPACE
