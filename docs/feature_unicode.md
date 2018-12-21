@@ -23,7 +23,7 @@ const uint32_t PROGMEM unicode_map[] = {
   [BANG]    = 0x203D,  // ‽
   [IRONY]   = 0x2E2E,  // ⸮
   [SNEK]    = 0x1F40D, // 🐍
-}:
+};
 ```
 
 Make sure that the order for both matches.
