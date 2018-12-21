@@ -30,3 +30,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define AUTO_SHIFT_TIMEOUT 130
 #endif
+
+// RGB lighting
+#define RGBLIGHT_ANIMATIONS
+#undef RGBLED_NUM
+#define RGBLED_NUM 24
+
