@@ -161,7 +161,7 @@ extern uint32_t default_layer_state;
         }
     }
 
-    #define readPin(pin) (PIN_ADDRESS(pin, 0) & _BV(pin & 0xF))
+    #define readPin(pin) ((bool)(PIN_ADDRESS(pin, 0) & _BV(pin & 0xF)))
 #elif defined(PROTOCOL_CHIBIOS)
     #define pin_t ioline_t
     #define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
@@ -197,6 +197,7 @@ extern uint32_t default_layer_state;
 #define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
 #define SS_LSFT(string) SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
 #define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
+#define SS_ALGR(string) SS_RALT(string)
 
 #define SEND_STRING(str) send_string_P(PSTR(str))
 extern const bool ascii_to_shift_lut[0x80];
@@ -242,7 +243,7 @@ void shutdown_user(void);
 
 void register_code16(uint16_t code);
 void unregister_code16(uint16_t code);
-inline void tap_code16(uint16_t code) { register_code16(code); unregister_code16(code); }
+void tap_code16(uint16_t code);
 
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void);
