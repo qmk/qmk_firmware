@@ -1,3 +1,9 @@
-#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped this number of times again. */
-#define ONESHOT_TIMEOUT 1000
+#define ONESHOT_TAP_TOOGLE 2
+#define ONESHOT_TIMEOUT 2000
+#define PREVENT_STUCK_MODIFIERS
 #define TAPPING_TERM 200
+#define TAPPING_TOGGLE 2
+#define PERMISSIVE_HOLD
+// Fix KC_GESC conflict with Cmd+Alt+Esc on macros
+#define GRAVE_ESC_GUI_OVERRIDE
+

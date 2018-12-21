@@ -1,1 +1,5 @@
-# this is the default hhkb layout in a more useable normalized form (aka the way i use mine)
+# Othi's Universal HHKB keymap
+
+- Goals
+- Layers
+- Modifiers and Tap Dance keys
