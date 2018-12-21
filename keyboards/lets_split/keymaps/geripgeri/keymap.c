@@ -20,7 +20,38 @@ enum custom_keycodes {
   RAISE,
   NUMPAD,
   ADJUST,
+  AE,
+  EE,
+  IE,
 };
+
+enum td_hungarian_letters {
+  U,
+  O
+};
+
+
+void tap_dance_u_finished (qk_tap_dance_state_t *state, void *user_data) {
+  switch(state->count) {
+    case 1: SEND_STRING(SS_RALT("]")); break;
+    case 2: SEND_STRING(SS_RALT("-")); break;
+    case 3: SEND_STRING(SS_RALT("\\")); break;
+  }
+}
+
+void tap_dance_o_finished (qk_tap_dance_state_t *state, void *user_data) {
+  switch(state->count) {
+    case 1: SEND_STRING(SS_RALT("=")); break;
+    case 2: SEND_STRING(SS_RALT("0")); break;
+    case 3: SEND_STRING(SS_RALT("[")); break;
+  }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [U] = ACTION_TAP_DANCE_FN(tap_dance_u_finished),
+  [O] = ACTION_TAP_DANCE_FN(tap_dance_o_finished)
+};
+
 
 // Fillers to make layering more clear
 #define _______ KC_TRNS
@@ -101,20 +132,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------.                ,-----------------------------------------.
- * | Reset|EEPRST|      |      |      |      |                |      |      |      |      |      | TGLAS|
+ * | Reset|EEPRST|      |  EE  |      |      |                |      |  UE  |  IE  |  OE  |      |      |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
- * |      |      |      |Aud on|Audoff|AGnorm|                |      |Qwerty|Colemk|      |      |      |
- * |------+------+------+------+------+------|                |------+------+------+------+------+------|
- * |      |      |      |      |      |      |                |      |      |      |      |      |      |
+ * |      |  AE  |      |Aud on|Audoff|AGnorm|                |Qwerty|Colemk|      |      |      |      |
  * |------+------+------+------+------+------|                |------+------+------+------+------+------|
  * |      |      |      |      |      |      |                |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|                |------+------+------+------+------+------|
+ * | TGLAS|      |      |      |      |      |                |      |      |      |      |      |      |
  * `-----------------------------------------'                `-----------------------------------------'
  */
 [_ADJUST] =  LAYOUT_ortho_4x12( \
-  RESET,   EEP_RST, _______, _______, _______, _______,       _______, _______, _______, _______, _______, KC_ASTG, \
-  _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,       _______, QWERTY,  COLEMAK, _______, _______, _______, \
+  RESET,   EEP_RST, _______, EE,      _______, _______,       _______, TD(U),   IE,      TD(O),   _______,_______, \
+  _______, AE,      _______, AU_ON,   AU_OFF,  AG_NORM,       QWERTY,  COLEMAK, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______ \
+  KC_ASTG, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______ \
 ),
 
 /* Numpad
@@ -203,7 +234,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	layer_off(_NUMPAD);
 	PORTB |= (1<<0);
       }
-      break;		 
+      break;
+    case AE:           
+      if(record->event.pressed) {
+	SEND_STRING(SS_RALT("'"));
+      }    
+      break;
+    case EE:            
+      if(record->event.pressed) {
+	SEND_STRING(SS_RALT(";"));
+      }    
+      break;
+    case IE:            
+      if(record->event.pressed) {
+	SEND_STRING(SS_RALT("z"));
+      }    
+      break;
   }
   return true;
 }

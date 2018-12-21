@@ -36,3 +36,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLED_NUM
 #define RGBLED_NUM 24
 
+#define TAPPING_TERM 200
