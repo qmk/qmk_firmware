@@ -146,6 +146,8 @@ If you define these options you will enable the associated feature, which may in
     * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped. 
 * `#define LEADER_PER_KEY_TIMING`
   * sets the timer for leader key chords to run on each key press rather than overall
+* `#define LEADER_KEY_STRICT_KEY_PROCESSING`
+  * Disables keycode filtering for Mod-Tap and Layer-Tap keycodes. Eg, if you enable this, you would need to specify `MT(MOD_CTL, KC_A)` if you want to use `KC_A`.
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
