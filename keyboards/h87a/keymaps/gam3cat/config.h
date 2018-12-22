@@ -1,4 +1,5 @@
-#include "../../config.h"
+#pragma once
+
 //Force NKRO to be enabled.
 #define FORCE_NKRO
 

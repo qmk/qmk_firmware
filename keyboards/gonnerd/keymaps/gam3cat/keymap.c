@@ -18,11 +18,7 @@ enum custom_keycodes {
     KC_SP4
 };
 
-static uint8_t current_layer;
-
 #include "dynamic_macro.h"
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define FN_CAPS LT(_FL, KC_CAPS)
 #define KC_DMR1 DYN_REC_START1
 #define KC_DMR2 DYN_REC_START2
@@ -205,7 +201,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_WEB:
             if (record->event.pressed) {
                 SEND_STRING(SS_LGUI("r"));
-                _delay_ms(100);
+                wait_ms(100);
                 SEND_STRING("chrome.exe\n");
             }
             return false;
@@ -231,33 +227,31 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
 
-    if (current_layer == layer) {
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+        case _BL:
+            backlight_level(0);
+            break;
+        case _WL:
+        case _NL:
+        case _DL:
+        case _CL:
+            backlight_level(1);
+            break;
+        case _FL:
+            backlight_level(2);
+            break;
+        case _AL:
+            backlight_level(3);
+            break;
+        default:
+            backlight_level(0);
+            break;
     }
-    else {
-        current_layer = layer;
-        switch (current_layer) {
-            case _BL:
-                backlight_level(0);
-                break;
-            case _WL:
-            case _NL:
-            case _DL:
-            case _CL:
-                backlight_level(1);
-                break;
-            case _FL:
-                backlight_level(2);
-                break;
-            case _AL:
-                backlight_level(3);
-                break;
-            default:
-                backlight_level(0);
-                break;
-        }
-    }
+    return state;
 }
 
 void led_set_user(uint8_t usb_led) {

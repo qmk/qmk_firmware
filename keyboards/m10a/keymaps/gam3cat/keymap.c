@@ -23,11 +23,7 @@ enum custom_keycodes {
     KC_WCLS
 };
 
-static uint8_t current_layer;
-
 #include "dynamic_macro.h"
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define FN_ZERO LT(_L9, KC_KP_0)
 #define KC_DMR1 DYN_REC_START1
 #define KC_DMR2 DYN_REC_START2
@@ -104,50 +100,47 @@ void matrix_init_user(void) {
   #endif
 }
 
-// Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
-    uint8_t layer = biton32(layer_state);
 
-    if (current_layer == layer) {
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+        case _L0:
+            backlight_level(0);
+            break;
+        case _L1:
+            backlight_level(1);
+            break;
+        case _L2:
+            backlight_level(2);
+            break;
+        case _L3:
+            backlight_level(3);
+            break;
+        case _L4:
+            backlight_level(4);
+            break;
+        case _L5:
+            backlight_level(5);
+            break;
+        case _L6:
+            backlight_level(6);
+            break;
+        case _L7:
+            backlight_level(6);
+            break;
+        case _L8:
+            backlight_level(6);
+            break;
+        case _L9:
+            backlight_level(0);
+            break;
+        default:
+            backlight_level(0);
+            break;
     }
-    else {
-        current_layer = layer;
-        switch (current_layer) {
-            case _L0:
-                backlight_level(0);
-                break;
-            case _L1:
-                backlight_level(1);
-                break;
-            case _L2:
-                backlight_level(2);
-                break;
-            case _L3:
-                backlight_level(3);
-                break;
-            case _L4:
-                backlight_level(4);
-                break;
-            case _L5:
-                backlight_level(5);
-                break;
-            case _L6:
-                backlight_level(6);
-                break;
-            case _L7:
-                backlight_level(6);
-                break;
-            case _L8:
-                backlight_level(6);
-                break;
-            case _L9:
-                backlight_level(0);
-                break;
-            default:
-                backlight_level(0);
-                break;
-        }
-    }
+    return state;
 }
 
 void led_set_user(uint8_t usb_led) {
