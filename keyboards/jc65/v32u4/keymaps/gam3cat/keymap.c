@@ -205,7 +205,7 @@ void matrix_init_user(void) {
     #endif
     #ifdef RGBLIGHT_ENABLE
         rgblight_mode(1);
-        rgblight_sethsv(180,100,100);
+        rgblight_sethsv_noeeprom(180,100,100);
     #endif
 }
 
@@ -217,35 +217,35 @@ uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
        case _BL:
            backlight_level(0);
-           rgblight_sethsv(180,100,255);
+           rgblight_sethsv_noeeprom(180,100,255);
            break;
        case _WL:
            backlight_level(1);
-           rgblight_sethsv(180,95,240);
+           rgblight_sethsv_noeeprom(180,95,240);
            break;
        case _NL:
            backlight_level(1);
-           rgblight_sethsv(180,90,225);
+           rgblight_sethsv_noeeprom(180,90,225);
            break;
        case _DL:
            backlight_level(1);
-           rgblight_sethsv(180,85,210);
+           rgblight_sethsv_noeeprom(180,85,210);
            break;
        case _CL:
            backlight_level(1);
-           rgblight_sethsv(180,80,195);
+           rgblight_sethsv_noeeprom(180,80,195);
            break;
        case _FL:
            backlight_level(2);
-           rgblight_sethsv(230,255,255);
+           rgblight_sethsv_noeeprom(230,255,255);
            break;
        case _AL:
            backlight_level(3);
-           rgblight_sethsv(350,255,255);
+           rgblight_sethsv_noeeprom(350,255,255);
            break;
        default:
            backlight_level(0);
-           rgblight_sethsv(180,100,100);
+           rgblight_sethsv_noeeprom(180,100,100);
            break;
     }
     return state;
