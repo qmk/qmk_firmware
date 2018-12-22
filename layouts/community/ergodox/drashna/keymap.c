@@ -424,10 +424,12 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void matrix_init_keymap(void) {
+#if 0
   #ifdef RGB_MATRIX_KEYPRESSES
     rgblight_mode(RGB_MATRIX_MULTISPLASH);
   #else
     rgblight_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
   #endif
+#endif
 }
 #endif //RGB_MATRIX_INIT
