@@ -69,7 +69,7 @@ enum macro_keycodes {
   _20, _21, _22, _23, _24,  _25, _26, _27, _28, _29 \
 ) \
 LAYOUT( \
-      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_LBRC,  KC_RBRC, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
       KC_TAB,  _00,     _01,     _02,     _03,     _04,     KC_LBRC,  KC_RBRC, _05,     _06,     _07,     _08,     _09,     KC_SLSH, \
       FN,      _10,     _11,     _12,     _13,     _14,     XXXXXXX,  XXXXXXX, _15,     _16,     _17,     _18,     _19,     _30, \
       KC_LSFT, _20,     _21,     _22,     _23,     _24,     XXXXXXX,  XXXXXXX, _25,     _26,     _27,     _28,     _29,     KC_RSFT, \
