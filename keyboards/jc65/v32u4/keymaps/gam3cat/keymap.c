@@ -180,7 +180,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case KC_WEB:
             if (record->event.pressed) {
                 SEND_STRING(SS_LGUI("r"));
-                _delay_ms(100);
+                wait_ms(100);
                 SEND_STRING("chrome.exe https://geekhack.org/index.php?topic=86756.new;topicseen#new\n");
             }
             return false;
