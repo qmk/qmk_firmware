@@ -23,6 +23,8 @@ enum custom_keycodes {
     KC_WCLS
 };
 
+extern backlight_config_t backlight_config;
+
 #include "dynamic_macro.h"
 #define FN_ZERO LT(_L9, KC_KP_0)
 #define KC_DMR1 DYN_REC_START1
@@ -94,9 +96,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void custom_backlight_level(uint8_t level) {
+    if (level > BACKLIGHT_LEVELS)
+        level = BACKLIGHT_LEVELS;
+    backlight_config.level = level;
+    backlight_config.enable = !!backlight_config.level;
+    backlight_set(backlight_config.level);
+}
+
 void matrix_init_user(void) {
   #ifdef BACKLIGHT_ENABLE
-    backlight_level(0);
+    custom_backlight_level(0);
   #endif
 }
 
@@ -107,37 +117,37 @@ void matrix_scan_user(void) {
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
         case _L0:
-            backlight_level(0);
+            custom_backlight_level(0);
             break;
         case _L1:
-            backlight_level(1);
+            custom_backlight_level(1);
             break;
         case _L2:
-            backlight_level(2);
+            custom_backlight_level(2);
             break;
         case _L3:
-            backlight_level(3);
+            custom_backlight_level(3);
             break;
         case _L4:
-            backlight_level(4);
+            custom_backlight_level(4);
             break;
         case _L5:
-            backlight_level(5);
+            custom_backlight_level(5);
             break;
         case _L6:
-            backlight_level(6);
+            custom_backlight_level(6);
             break;
         case _L7:
-            backlight_level(6);
+            custom_backlight_level(6);
             break;
         case _L8:
-            backlight_level(6);
+            custom_backlight_level(6);
             break;
         case _L9:
-            backlight_level(0);
+            custom_backlight_level(0);
             break;
         default:
-            backlight_level(0);
+            custom_backlight_level(0);
             break;
     }
     return state;

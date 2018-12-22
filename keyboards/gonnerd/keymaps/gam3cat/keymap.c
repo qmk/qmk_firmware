@@ -18,6 +18,8 @@ enum custom_keycodes {
     KC_SP4
 };
 
+extern backlight_config_t backlight_config;
+
 #include "dynamic_macro.h"
 #define FN_CAPS LT(_FL, KC_CAPS)
 #define KC_DMR1 DYN_REC_START1
@@ -220,9 +222,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void custom_backlight_level(uint8_t level) {
+    if (level > BACKLIGHT_LEVELS)
+        level = BACKLIGHT_LEVELS;
+    backlight_config.level = level;
+    backlight_config.enable = !!backlight_config.level;
+    backlight_set(backlight_config.level);
+}
+
 void matrix_init_user(void) {
     #ifdef BACKLIGHT_ENABLE
-        backlight_level(0);
+        custom_backlight_level(0);
     #endif
 }
 
@@ -233,22 +243,22 @@ void matrix_scan_user(void) {
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
         case _BL:
-            backlight_level(0);
+            custom_backlight_level(0);
             break;
         case _WL:
         case _NL:
         case _DL:
         case _CL:
-            backlight_level(1);
+            custom_backlight_level(1);
             break;
         case _FL:
-            backlight_level(2);
+            custom_backlight_level(2);
             break;
         case _AL:
-            backlight_level(3);
+            custom_backlight_level(3);
             break;
         default:
-            backlight_level(0);
+            custom_backlight_level(0);
             break;
     }
     return state;
