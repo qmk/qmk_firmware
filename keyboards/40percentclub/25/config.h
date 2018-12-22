@@ -27,6 +27,8 @@
 #define DESCRIPTION     A split 50 key keyboard
 
 #define USE_SERIAL
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0
 
 /* Select hand configuration */
 #define MASTER_LEFT

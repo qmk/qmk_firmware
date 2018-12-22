@@ -72,6 +72,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef HD44780_ENABLE
 #   include "hd44780.h"
 #endif
+#ifdef QWIIC_ENABLE
+#   include "qwiic.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
@@ -161,6 +164,9 @@ bool is_keyboard_master(void) {
 void keyboard_init(void) {
     timer_init();
     matrix_init();
+#ifdef QWIIC_ENABLE
+    qwiic_init();
+#endif
 #ifdef PS2_MOUSE_ENABLE
     ps2_mouse_init();
 #endif
@@ -269,6 +275,10 @@ void keyboard_task(void)
     action_exec(TICK);
 
 MATRIX_LOOP_END:
+
+#ifdef QWIIC_ENABLE
+    qwiic_task();
+#endif
 
 #ifdef MOUSEKEY_ENABLE
     // mousekey repeat & acceleration

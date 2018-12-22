@@ -1,4 +1,5 @@
-SRC += drashna.c
+SRC += drashna.c \
+       process_records.c
 
 ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
   SRC += secrets.c
