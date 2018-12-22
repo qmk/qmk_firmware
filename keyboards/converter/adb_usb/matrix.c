@@ -58,26 +58,20 @@ void matrix_scan_user(void) {
 
 void matrix_init(void)
 {
-    // LED on
-    DDRD |= (1<<6); PORTD |= (1<<6);
-
     adb_host_init();
+
     // wait for keyboard to boot up and receive command
     _delay_ms(2000);
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) matrix[i] = 0x00;
 
-    led_set(host_keyboard_leds());
-
-    // debug_enable = false;
+    // debug_enable = true;
     // debug_matrix = true;
     // debug_keyboard = true;
     // debug_mouse = true;
     // print("debug enabled.\n");
 
-    // LED off
-    DDRD |= (1<<6); PORTD &= ~(1<<6);
     matrix_init_quantum();
 }
 
