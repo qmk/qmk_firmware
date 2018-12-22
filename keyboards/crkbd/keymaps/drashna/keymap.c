@@ -256,8 +256,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
     case KC_INSERT ... KC_UP:
     case KC_KP_SLASH ... KC_KP_DOT:
     case KC_F13 ... KC_F24:
-    case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-    case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
     if (record->event.pressed) { set_keylog(keycode, record); }
       break;
     // set_timelog();
