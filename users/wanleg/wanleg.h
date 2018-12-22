@@ -1,5 +1,4 @@
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 
 #include "quantum.h"
 
@@ -32,7 +31,6 @@ enum userspace_layers {
 #elif KEYBOARD_xd75
 enum userspace_layers {
   GK75 = 0,
-  PAD,
   QW75,
   SUB75,
   SUP75,
@@ -43,6 +41,7 @@ enum userspace_layers {
   gGK,
   _GK,
   _QW,
+  PAD,
   ONE,
   SUB,
   SUP,
@@ -54,7 +53,7 @@ enum userspace_layers {
   gETC,
   GK50,
 };
-#elif KEYBOARD_5x5
+#elif KEYBOARD_40percentclub_5x5
 enum userspace_layers {
   GK50 = 0,
   gNUM,
@@ -82,8 +81,8 @@ enum userspace_layers {
 #else
   enum userspace_layers {
   _GK = 0,
-  PAD,
   _QW,
+  PAD,
   ONE,
   SUB,
   SUP,
@@ -156,11 +155,11 @@ enum {
 #define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_ortho_3x10_wrapper(...)       LAYOUT_ortho_3x10(__VA_ARGS__)
-#define LAYOUT_ortho_5x10_wrapper(...)       LAYOUT_ortho_5x10(__VA_ARGS__)
-#define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
-#define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
 #define LAYOUT_ortho_4x4_wrapper(...)        LAYOUT_ortho_4x4(__VA_ARGS__)
+#define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_5x5_wrapper(...)        LAYOUT_ortho_5x5(__VA_ARGS__)
+#define LAYOUT_ortho_5x10_wrapper(...)       LAYOUT_ortho_5x10(__VA_ARGS__)
+#define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
 
 // Blocks for each of the major keyboard layouts
 // Organized so we can quickly adapt and modify all of them
@@ -229,7 +228,7 @@ enum {
 
 /* Gherkin-Like
  * .-----------------------------------------------------------------------------------------------------------.
- * | ESC    | Q//ESC | W      | E      | R      | T      | Y      | U      | I      | O      | P      | BSPC |
+ * | ESC    | Q//ESC | W      | E      | R      | T      | Y      | U      | I      | O      | P      | BSPC   |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | TAB    | A      | S      | D      | F      | G      | H      | J      | K      | L      | SPACE  |  '     |
  * |        |        |        |        |        |        |        |        |        |        |SFThold |        |
@@ -361,4 +360,3 @@ enum {
 #define _______________NUMPAD_Row__1_______________  KC_KP_4, KC_KP_5, KC_KP_6,   KC_SPC
 #define _______________NUMPAD_Row__2_______________  KC_KP_1, KC_KP_2, KC_KP_3,   KC_PENT
 #define _______________NUMPAD_Row__3_______________  KC_KP_0, TD(LYR_TAP_DANCE), KC_KP_DOT, KC_PMNS
-#endif // !USERSPACE

@@ -517,7 +517,7 @@ void EVENT_USB_Device_ControlRequest(void)
                         if (USB_DeviceState == DEVICE_STATE_Unattached)
                           return;
                     }
-#if defined(SHARED_EP_ENABLE)
+#ifdef KEYBOARD_SHARED_EP
                     uint8_t report_id = REPORT_ID_KEYBOARD;
                     if (keyboard_protocol) {
                        report_id = Endpoint_Read_8();
