@@ -50,9 +50,9 @@ enum macro_keycodes {
 // Define your non-alpha grouping in this define's LAYOUT, and all your BASE_LAYERS will share the same mod/macro columns
   /* Base Layout
    * ,------------------------------------------------.  ,------------------------------------------------.
-   * | GESC |      |      |      |      |      |   -  |  |   =  |      |      |      |      |      | Del  |
+   * | GESC |      |      |      |      |      |   -  |  |   =  |      |      |      |      |      |   \  |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * | Tab  |      |      |      |      |      |   [  |  |   ]  |      |      |      |      |      |   \  |
+   * | Tab  |      |      |      |      |      |   [  |  |   ]  |      |      |      |      |      |   /  |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
    * |FN(CAPS)|    |      |      |      |      |   (  |  |   )  |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -69,9 +69,9 @@ enum macro_keycodes {
   _20, _21, _22, _23, _24,  _25, _26, _27, _28, _29 \
 ) \
 LAYOUT( \
-      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_LBRC,  KC_RBRC, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL, \
-      KC_TAB,  _00,     _01,     _02,     _03,     _04,     KC_LBRC,  KC_RBRC, _05,     _06,     _07,     _08,     _09,     KC_BSLS, \
-      FN_CAPS, _10,     _11,     _12,     _13,     _14,     XXXXXXX,  XXXXXXX, _15,     _16,     _17,     _18,     _19,     _30, \
+      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+      KC_TAB,  _00,     _01,     _02,     _03,     _04,     KC_LBRC,  KC_RBRC, _05,     _06,     _07,     _08,     _09,     KC_SLSH, \
+      FN,      _10,     _11,     _12,     _13,     _14,     XXXXXXX,  XXXXXXX, _15,     _16,     _17,     _18,     _19,     _30, \
       KC_LSFT, _20,     _21,     _22,     _23,     _24,     XXXXXXX,  XXXXXXX, _25,     _26,     _27,     _28,     _29,     KC_RSFT, \
       KC_LCTL, KC_LALT, KC_GRV,  KC_LEFT, KC_RGHT, KC_LCTL, KC_LALT,  KC_RALT, KC_RCTL, KC_UP,   KC_DOWN, KC_SLSH, KC_EQL,  ADJ, \
                         KC_VOLU, KC_VOLD,          KC_BSPC, KC_LGUI,  KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_NLCK, _______, _______, \
       _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-      _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+      KC_CAPS, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
       _______, _______, _______, KC_HOME, KC_END,  _______, _______, _______, _______, KC_PGUP, KC_PGDN, _______, _______, _______, \
                         KC_VOLU, KC_VOLD,          KC_DEL,  _______, _______, KC_INS,           KC_VOLU, KC_VOLD \
       ),
@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJ] =  LAYOUT( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
       _______, _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, QWERTY,  DVORAK,  _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, DVORAK,  QWERTY,  _______, _______, _______, \
       _______, RGB_SAD, RGB_VAI, RGB_SAI, RGBRST,  _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, \
       _______, RGB_HUD, RGB_VAD, RGB_HUI, RGB_MOD, _______, _______, _______, _______, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, _______, \
                         KC_VOLU, KC_VOLD,          _______, _______, _______, _______,          KC_VOLU, KC_VOLD \
