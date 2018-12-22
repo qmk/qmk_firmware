@@ -40,7 +40,6 @@
 #define COLN_CTL CTL_T(KC_SCLN)
 
 #define ______ KC_TRNS
-#define __ KC_TRNS
 #define LSHIFT KC_LSHIFT
 #define RSHIFT KC_RSHIFT
 #define COMMA KC_COMM
@@ -51,9 +50,8 @@
 #define ENTER KC_ENT
 #define PERIOD KC_DOT
 
-#define BASE_LAYER KEYMAP
-#define BLANK_LAYER KEYMAP
-#define UNUSED_LAYER KEYMAP(__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__,__)
+#define BASE_LAYER LAYOUT
+#define BLANK_LAYER LAYOUT
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -84,26 +82,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //                  ,--------+--------+--------+--------.    ,--------+--------+--------+--------.
                       ______ , ______ , ______ , ______ ,      ______ , ______ , ______ , ______
 //                  `--------+--------+--------+--------'    `--------+--------+--------+--------'
-),
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER,
-    UNUSED_LAYER
-};
+)
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    return MACRO_NONE;
-}
+};
 
 // a linked list of pending key events (press or release) which we haven't processed yet.
 struct _pending_key_t {
