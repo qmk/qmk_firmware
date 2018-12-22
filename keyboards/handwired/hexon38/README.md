@@ -6,6 +6,6 @@ QMK support for the [hexon38](https://github.com/pepaslabs/hexon38).
 
 ```
 $ cd qmk_firmware
-$ make hexon38
+$ make handwired/hexon38
 ```
 
