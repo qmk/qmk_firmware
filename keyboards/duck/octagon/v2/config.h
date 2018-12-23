@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x444B // Duck ("DK")
-#define PRODUCT_ID      0x3847 // Octagon ("8G")
+#define PRODUCT_ID      0x4F32 // Octagon V2 ("O2")
 #define DEVICE_VER      0x0002
 #define MANUFACTURER    Duck
 #define PRODUCT         Octagon V2
