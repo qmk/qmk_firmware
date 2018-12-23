@@ -1,4 +1,4 @@
-ADB-to USB Keyboard Converter
+ADB-to-USB Keyboard Converter
 =============================
 This firmware converts Apple Desktop Bus (ADB) keyboard protocol to USB so that you can use an ADB keyboard on a modern computer. It works on the PJRC Teensy 2.0 and other USB AVR MCUs (ATMega32U4, AT90USB64/128, etc) and needs at least 10KB of flash memory.
 
@@ -81,3 +81,4 @@ though the ADB protocol itself supports it. See protocol/adb.c for more info.
 QMK Port Changelog
 ---------
 - 2018/09/16 - Initial release.
+- 2018/12/23 - Fixed lock LED support.
