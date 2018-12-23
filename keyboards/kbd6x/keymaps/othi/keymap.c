@@ -24,50 +24,18 @@
 #define FN3 4
 #define ACCENT 5
 #define ACCENT_CAP 6
-enum custom_keycodes {
-    MY_CUSTOM_MACRO = SAFE_RANGE,
-    DE_AE, /* Ctrl + Shift + u00E4 */
-    DE_SS, /* Ctrl + Shift + u00DF */
-    DE_OE, /* Ctrl + Shift + u00F6 */
-    DE_UE, /* Ctrl + Shift + u00FC */
-    FLUSH, /* clears oneshots */
-    DE_AE_CAP, /* Ctrl + Shift + u00C4 */
-    DE_OE_CAP, /* Ctrl + Shift + u00D6 */
-    DE_UE_CAP, /* Ctrl + Shift + u00DC */
-};
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch(keycode) {
-            case MY_CUSTOM_MACRO:
-                SEND_STRING("QMK is the best thing ever!"); // this is our macro!
-                return false;
-            case DE_AE:
-                SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) SS_TAP(X_U) SS_UP(X_LCTRL) SS_UP(X_LSHIFT) SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_E) SS_TAP(X_4) SS_TAP(X_ENTER));
-                return false;
-            case DE_AE_CAP:
-                SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) SS_TAP(X_U) SS_UP(X_LCTRL) SS_UP(X_LSHIFT) SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_C) SS_TAP(X_4) SS_TAP(X_ENTER));
-                return false;
-            case DE_OE:
-                SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) SS_TAP(X_U) SS_UP(X_LCTRL) SS_UP(X_LSHIFT) SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_F) SS_TAP(X_6) SS_TAP(X_ENTER));
-                return false;
-            case DE_OE_CAP:
-                SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) SS_TAP(X_U) SS_UP(X_LCTRL) SS_UP(X_LSHIFT) SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_D) SS_TAP(X_6) SS_TAP(X_ENTER));
-                return false;
-            case DE_UE:
-                SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) SS_TAP(X_U) SS_UP(X_LCTRL) SS_UP(X_LSHIFT) SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_F) SS_TAP(X_C) SS_TAP(X_ENTER));
-                return false;
-            case DE_UE_CAP:
-                SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) SS_TAP(X_U) SS_UP(X_LCTRL) SS_UP(X_LSHIFT) SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_D) SS_TAP(X_C) SS_TAP(X_ENTER));
-                return false;
-            case DE_SS:
-                SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LSHIFT) SS_TAP(X_U) SS_UP(X_LCTRL) SS_UP(X_LSHIFT) SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_D) SS_TAP(X_F) SS_TAP(X_ENTER));
-                return false;
-        }
-    }
-    return true;
-};
-
+//Unicode keymaps
+void eeconfig_init_user(void) {
+  set_unicode_input_mode(UC_LNX);
+}
+#define DE_AE UC(0x00E4)
+#define DE_SS UC(0x00DF)
+#define DE_OE UC(0x00F6)
+#define DE_UE UC(0x00FC)
+#define DE_AE_CAP UC(0x00C4)
+#define DE_OE_CAP UC(0x00D6)
+#define DE_UE_CAP UC(0x00DC)
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case NM_MODE:
@@ -91,13 +59,13 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 //Tap Dance Declarations
 enum {
-  CTRL_NM = 0,
+  CTL_NM = 0,
   ALT_NM = 1,
   SFT_NM = 2,
   GUI_NM = 3
 };
 
-void dance_CTRL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
+void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
 	set_oneshot_mods(MOD_LCTL);
   } else {
@@ -106,7 +74,7 @@ void dance_CTRL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_CTRL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
+void dance_CTL_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
     unregister_code (KC_LCTL);
   } else {
@@ -172,7 +140,7 @@ void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
- [CTRL_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_CTRL_NM_finished, dance_CTRL_NM_reset),
+ [CTL_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_CTL_NM_finished, dance_CTL_NM_reset),
  [GUI_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_GUI_NM_finished, dance_GUI_NM_reset),
  [ALT_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_ALT_NM_finished, dance_ALT_NM_reset),
  [SFT_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_SFT_NM_finished, dance_SFT_NM_reset)
@@ -186,14 +154,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MT(MOD_LGUI,KC_TAB),       LT(NM_MODE,KC_Q),    KC_W,    LT(ACCENT,KC_F),    KC_P,    KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN,     KC_LBRC, KC_RBRC, KC_BSPC,
       MT(MOD_LCTL,KC_BSPC),      KC_A,    KC_R,    KC_S,    KC_T,    KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,           KC_QUOT, KC_ENT,
       TD(SFT_NM),                KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_K,    KC_M,    MT(MOD_LCTL,KC_COMM), MT(MOD_LSFT,KC_DOT),  MT(MOD_LALT,KC_SLSH),        LM(CL,MOD_LGUI|MOD_LSFT), TT(NM_MODE),
-      _______, TD(CTRL_NM),                     TD(ALT_NM),              		KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT)    , _______
+      _______, TD(CTL_NM),                     TD(ALT_NM),              		KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT)    , _______
       ),
   [NM_MODE] = LAYOUT(
       KC_GRV,            KC_MPRV,    KC_MNXT,    KC_MPLY,    KC_END,      _______,     _______,     _______,     _______,     _______,     KC_HOME,    _______,  _______,  RESET, KC_INS,
       LGUI(KC_TAB),       _______,    LCTL(KC_RGHT),  _______,    _______,    _______,    _______,    KC_UP,    KC_PGUP,    _______,    _______,     _______, TG(CL), KC_DEL,
       _______,            KC_LEFT,    _______,    KC_RGHT,      _______,    KC_PGDN,    KC_LEFT,   KC_DOWN,   KC_RGHT,     _______,    KC_ENT,  KC_QUOT, KC_LGUI,
       KC_LSFT,     			_______,    _______,    _______,      _______,    LCTL(KC_LEFT),    _______,    _______,    _______,    _______,    _______,    TG(VI_MODE), TO(CL),
-      _______, TD(CTRL_NM),                     TD(ALT_NM),              		KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT), _______
+      _______, TD(CTL_NM),                     TD(ALT_NM),              		KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT), _______
       ),
 
   [VI_MODE] = LAYOUT(
@@ -201,12 +169,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       LGUI(KC_TAB),     _______,    LSFT(LCTL(KC_RGHT)),  _______,    _______,    _______,    _______,    LSFT(KC_UP),    _______,    _______,    _______,     _______, TG(CL), KC_BSPC,
       _______,            _______,    _______,    _______,      _______,    _______,    LSFT(LCTL(KC_LEFT)),   LSFT(KC_DOWN),   LSFT(KC_RGHT),     _______,    KC_SCLN,  KC_QUOT, KC_LGUI,
       KC_LSFT,      	    _______,  _______, _______,      _______,    LSFT(LCTL(KC_LEFT)),    _______,    _______,    _______,    _______,    KC_SLSH,    OSM(MOD_LSFT), TO(CL),
-      _______, TD(CTRL_NM),                     TD(ALT_NM),              		KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT), _______
+      _______, TD(CTL_NM),                     TD(ALT_NM),              		KC_SPC,    LM(CL,MOD_LGUI|MOD_LALT), OSL(ACCENT), _______
       ),
   [ACCENT] = LAYOUT(
       _______,       KC_F1,  KC_F2, KC_F3,    KC_F4,     KC_F5,     KC_F6,     KC_F7,     KC_F8,     KC_F9,     KC_F10,    KC_F11,  KC_F12,  _______, _______,
       _______,         RGB_TOG,    RGB_MODE_PLAIN,  _______,    _______,    _______,    _______,    _______,    DE_UE,    _______,    _______,     _______, _______, _______,
-      _______,            DE_AE,    _______,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_OE,  _______, _______,
+      _______,            DE_AE,    UC_Z,    DE_SS,      _______,    _______,    _______,   _______,   _______,     _______,    DE_OE,  _______, _______,
       OSL(ACCENT_CAP),     _______,  _______, _______,      _______,    _______,    _______,    _______,    _______,    _______,        _______, _______, TO(CL),
       _______,             _______,         _______,            _______,         _______, _______,  _______
       ),
