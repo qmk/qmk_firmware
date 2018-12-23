@@ -29,15 +29,17 @@
 #include "quantum.h"
 #include <string.h>
 #include <hal.h>
+#include "chtypes.h"
+#include "ch.h"
 
 static uint8_t i2c_address;
 
-// This configures the I2C clock to 400khz assuming a 72Mhz clock
+// This configures the I2C clock to 400khz assuming a 48Mhz clock
 // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 static const I2CConfig i2cconfig = {
-  STM32_TIMINGR_PRESC(15U) |
-  STM32_TIMINGR_SCLDEL(4U) | STM32_TIMINGR_SDADEL(2U) |
-  STM32_TIMINGR_SCLH(15U)  | STM32_TIMINGR_SCLL(21U),
+  STM32_TIMINGR_PRESC(0x05)  |
+  STM32_TIMINGR_SCLDEL(0x03) | STM32_TIMINGR_SDADEL(0x03) |
+  STM32_TIMINGR_SCLH(0x03)   | STM32_TIMINGR_SCLL(0x09),
   0,
   0
 };
@@ -45,14 +47,15 @@ static const I2CConfig i2cconfig = {
 __attribute__ ((weak))
 void i2c_init(void)
 {
+  printf("hello, world!");
   // Try releasing special pins for a short time
   palSetPadMode(GPIOB, 6, PAL_MODE_INPUT);
   palSetPadMode(GPIOB, 7, PAL_MODE_INPUT);
 
   chThdSleepMilliseconds(10);
- 
-  palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN);
-  palSetPadMode(GPIOB, 7, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN);
+
+  palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(1) | PAL_STM32_OTYPE_OPENDRAIN);
+  palSetPadMode(GPIOB, 7, PAL_MODE_ALTERNATE(1) | PAL_STM32_OTYPE_OPENDRAIN);
 
   //i2cInit(); //This is invoked by halInit() so no need to redo it.
 }
@@ -67,9 +70,26 @@ uint8_t i2c_start(uint8_t address)
 
 uint8_t i2c_transmit(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)
 {
+  i2cflags_t errors = 0;
+  msg_t status = MSG_OK;
+
   i2c_address = address;
   i2cStart(&I2C_DRIVER, &i2cconfig);
-  return i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, 0, 0, MS2ST(timeout));
+  i2cAcquireBus(&I2C_DRIVER);
+  status = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, 0, 0, MS2ST(timeout));
+  i2cReleaseBus(&I2C_DRIVER);
+  if (status == MSG_RESET){
+      errors = i2cGetErrors(&I2C_DRIVER);
+      xprintf( "MSG_RESET status\n");
+      xprintf( "Errors: %d\n", errors);
+  } else if(status == MSG_OK) {
+      xprintf( "| Send success\n");
+  } else if(status == MSG_TIMEOUT){
+      xprintf( "Timeout before operation end\n");
+  } else {
+    xprintf( "Unknown status\n");
+  }
+  return status;
 }
 
 uint8_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)

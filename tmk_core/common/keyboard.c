@@ -165,7 +165,7 @@ void keyboard_init(void) {
     timer_init();
     matrix_init();
 #ifdef QWIIC_ENABLE
-    dprintf("initializing qwiic\n");
+    printf("initializing qwiic\n");
     qwiic_init();
 #endif
 #ifdef PS2_MOUSE_ENABLE

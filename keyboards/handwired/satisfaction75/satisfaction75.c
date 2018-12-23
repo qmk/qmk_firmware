@@ -1,6 +1,92 @@
 #include "satisfaction75.h"
-// #include "action_layer.h"
-// #include "matrix.h"
+#include "print.h"
+#include "debug.h"
+#include "micro_oled.h"
+// #include "ssd1306.h"
+
+// // #include "action_layer.h"
+// // #include "matrix.h"
+// static const I2CConfig i2ccfg = { // I2CCLK=48MHz, SCL=~100kHz
+// #if 0 // 100kHz @ 48MHz
+//   STM32_TIMINGR_PRESC(0x0B)  |
+//   STM32_TIMINGR_SCLDEL(0x04) | STM32_TIMINGR_SDADEL(0x02) |
+//   STM32_TIMINGR_SCLH(0x0F)   | STM32_TIMINGR_SCLL(0x13),
+// #else // 400kHz @ 48Mhz
+//   STM32_TIMINGR_PRESC(0x05)  |
+//   STM32_TIMINGR_SCLDEL(0x03) | STM32_TIMINGR_SDADEL(0x03) |
+//   STM32_TIMINGR_SCLH(0x03)   | STM32_TIMINGR_SCLL(0x09),
+// #endif
+//   0,
+//   0
+// };
+
+// static const SSD1306Config ssd1306cfg = {
+//   &I2CD1,
+//   &i2ccfg,
+//   SSD1306_SAD_0X78,
+// };
+
+// static SSD1306Driver SSD1306D1;
+
+// static void __attribute__((unused)) delayUs(uint32_t val) {
+//   (void)val;
+// }
+
+// static void __attribute__((unused)) delayMs(uint32_t val) {
+//   chThdSleepMilliseconds(val);
+// }
+
+// static THD_WORKING_AREA(waOledDisplay, 512);
+// static __attribute__((noreturn)) THD_FUNCTION(OledDisplay, arg) {
+//   (void)arg;
+
+//   chRegSetThreadName("OledDisplay");
+
+//   ssd1306ObjectInit(&SSD1306D1);
+//   ssd1306Start(&SSD1306D1, &ssd1306cfg);
+
+//   ssd1306FillScreen(&SSD1306D1, 0x00);
+
+//   while (TRUE) {
+// 	ssd1306GotoXy(&SSD1306D1, 0, 32);
+// 	ssd1306Puts(&SSD1306D1, "Hello, world!", &ssd1306_font_7x10, SSD1306_COLOR_WHITE);
+
+// 	ssd1306UpdateScreen(&SSD1306D1);
+
+//     chThdSleepMilliseconds(30);
+//   }
+
+//   ssd1306Stop(&SSD1306D1);
+// }
+
+void matrix_init_user(void){
+    debug_enable = true;
+    debug_keyboard = true;
+    // chThdCreateStatic(waOledDisplay, sizeof(waOledDisplay), NORMALPRIO, OledDisplay, NULL);
+}
+
+void matrix_scan_user(void){
+  // xprintf("lolololololol\n");
+  // send_buffer();
+
+ 	printf("Scanning I2C bus:\r\n");
+ 	uint8_t i;
+ 	for (i=1; i<128; i++)
+ 	{
+ 	  /*
+ 	   * the HAL wants a left aligned i2c address
+ 	   * &hi2c1 is the handle
+ 	   * (uint16_t)(i<<1) is the i2c address left aligned
+ 	   * retries 2
+ 	   * timeout 2
+ 	   */
+     uint8_t arr[] = {1,2,3,4};
+     printf("Addr: %d\n", i);
+     i2c_transmit(i, arr, 4, 100);
+ 	}
+}
+
+
 
 // #ifdef QWIIC_MICRO_OLED_ENABLE
 // #include "qwiic.h"

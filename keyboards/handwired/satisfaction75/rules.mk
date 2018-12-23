@@ -35,6 +35,9 @@ ARMV = 6
 #   comment out to disable the options.
 #
 
+SRC += ssd1306.c
+      #  ssd1306_font.c
+
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control

@@ -53,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef QWIIC_MICRO_OLED_ENABLE
 
 #undef I2C_ADDRESS_SA0_1
-#define I2C_ADDRESS_SA0_1 0b0111100
+#define I2C_ADDRESS_SA0_1 0x3C
 #define LCDWIDTH      128
 #define LCDHEIGHT     32
 #define micro_oled_rotate_180
