@@ -77,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,    ,      XXXX,LEFT,DOWN, UP ,RGHT,END ,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,      HOME,XXXX,XXXX,XXXX,XXXX,XXXX,    ,
+         ,    ,    ,    ,    ,    ,    ,      HOME,XXXX,PGDN,PGUP,XXXX,XXXX,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
                              ,    ,    ,          ,    ,    
   //                    +----+----+---/       \---+----+----+
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
          ,    ,    ,    ,    ,    , GRV,      XXXX,LEFT,DOWN, UP ,RGHT,END ,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,      HOME,XXXX,XXXX,XXXX,XXXX,XXXX,    ,
+         ,    ,    ,    ,    ,    ,    ,      HOME,XXXX,PGDN,PGUP,XXXX,XXXX,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
                              ,    ,    ,          ,    ,    
   //                    +----+----+---/       \---+----+----+
@@ -173,8 +173,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
 
-// When add source files to SRC in rules.mk, you can use functions.
-// const char *read_layer_state(void);
+// You need to add source files to SRC in rules.mk when using OLED display functions
 void set_keylog(uint16_t keycode);
 const char *read_keylog(void);
 const char *read_mod_state(void);
@@ -185,7 +184,7 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-     iota_gfx_task();  // this is what updates the display continuously
+  iota_gfx_task();  // this is what updates the display continuously
 }
 
 void matrix_update(struct CharacterMatrix *dest,
@@ -263,7 +262,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       set_keylog(keycode);
     }
   #endif
-    switch (keycode) {
+  switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
