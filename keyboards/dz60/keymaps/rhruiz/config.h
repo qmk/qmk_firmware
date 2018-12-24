@@ -1,5 +1,4 @@
-#ifndef CONFIG_KEYMAP_H
-#define CONFIG_KEYMAP_H
+#pragma once
 
 #include "../../config.h"
 
@@ -22,5 +21,3 @@
 #define MANUFACTURER    rhruiz
 #define PRODUCT         rhruiz one
 #define DESCRIPTION     rhruiz one keyboard
-
-#endif
