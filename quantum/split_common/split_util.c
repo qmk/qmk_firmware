@@ -11,9 +11,6 @@
 #include "timer.h"
 #include "split_flags.h"
 
-#ifdef RGBLIGHT_ENABLE
-#   include "rgblight.h"
-#endif
 #ifdef BACKLIGHT_ENABLE
 #   include "backlight.h"
 #endif
@@ -24,8 +21,6 @@
 
 #if defined(USE_I2C) || defined(EH)
 #  include "i2c.h"
-#else
-#  include "serial.h"
 #endif
 
 volatile bool isLeftHand = true;
@@ -112,7 +107,7 @@ void keyboard_slave_loop(void) {
                 BACKLIT_DIRTY = false;
             }
         #else // USE_SERIAL
-            backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
+            backlight_set(serial_m2s_buffer.backlight_level);
         #endif
     #endif
     // Read RGB Info
@@ -137,7 +132,9 @@ void keyboard_slave_loop(void) {
                 sei();
             }
         #else // USE_SERIAL
+          #ifdef RGBLIGHT_SPLIT
             // Add serial implementation for RGB here
+          #endif
         #endif
     #endif
    }
