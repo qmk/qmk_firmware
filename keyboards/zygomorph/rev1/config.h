@@ -56,9 +56,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_COLS 7
 #define MATRIX_COL_PINS { F4, F6, C7, D5, B6, D4 }
-// #define MATRIX_COL_PINS { B2, B3, B1, F7, F6, F5, F4 } //uncomment this line and comment line above if you need to reverse left-to-right key order
-
 #define SOFT_SERIAL_PIN D3
+
+#define ZYGO_ROWS 5
 
 // #define NUMBER_OF_ENCODERS 1
 // #define ENCODERS_PAD_A PD2
@@ -101,7 +101,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #else
   #define RGBLIGHT_LIMIT_VAL 120
-  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 120
+  #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 150
 #endif
 
 #define RGBLIGHT_VAL_STEP (RGBLIGHT_LIMIT_VAL / 10)
