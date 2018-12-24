@@ -7,9 +7,6 @@
 #include <stdlib.h>
 #include "eeconfig.h"
 
-// backlight level store index in serial_master_buffer[] for slave to read
-#define SERIAL_BACKLIT_START   0x00
-
 #define SLAVE_I2C_ADDRESS           0x32
 
 extern volatile bool isLeftHand;
