@@ -5,7 +5,7 @@
 // help for fast typist+dual function keys?
 #define PERMISSIVE_HOLD
 
-// Enable key for bootmagic lite. This should be esc?
+// Enable key for bootmagic lite.
 #define BOOTMAGIC_LITE_ROW 0
 #define BOOTMAGIC_LITE_COLUMN 1
 
