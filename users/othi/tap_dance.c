@@ -1,3 +1,12 @@
+#include "tap_dance.h"
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+ [CTL_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_CTL_NM_finished, dance_CTL_NM_reset),
+ [GUI_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_GUI_NM_finished, dance_GUI_NM_reset),
+ [ALT_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_ALT_NM_finished, dance_ALT_NM_reset),
+ [SFT_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_SFT_NM_finished, dance_SFT_NM_reset)
+};
+
 void dance_CTL_NM_finished (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
 	set_oneshot_mods(MOD_LCTL);
@@ -70,11 +79,3 @@ void dance_SFT_NM_reset (qk_tap_dance_state_t *state, void *user_data) {
 	layer_off(NM_MODE);
   }
 }
-
-
-qk_tap_dance_action_t tap_dance_actions[] = {
- [CTL_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_CTL_NM_finished, dance_CTL_NM_reset),
- [GUI_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_GUI_NM_finished, dance_GUI_NM_reset),
- [ALT_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_ALT_NM_finished, dance_ALT_NM_reset),
- [SFT_NM] = ACTION_TAP_DANCE_FN_ADVANCED (NULL, dance_SFT_NM_finished, dance_SFT_NM_reset)
-};

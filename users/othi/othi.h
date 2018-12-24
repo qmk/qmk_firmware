@@ -1,17 +1,11 @@
-ifndef USERSPACE
-#define USERSPACE
-
 #include "quantum.h"
+
 #ifdef TAP_DANCE_ENABLE
-#include "tap_dances.h"
+#include "tap_dance.h"
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#include "rgblights.h"
-#endif
-
-#ifndef TAP_DANCE_ENABLE
-#include "tap_dance.h"
+#include "rgblight.h"
 #endif
 
 #define CL 0
@@ -28,13 +22,3 @@ ifndef USERSPACE
 #define DE_AE_CAP UC(0x00C4)
 #define DE_OE_CAP UC(0x00D6)
 #define DE_UE_CAP UC(0x00DC)
-
-
-//Tap Dance Declarations
-enum {
-  CTL_NM = 0,
-  ALT_NM = 1,
-  SFT_NM = 2,
-  GUI_NM = 3
-};
-

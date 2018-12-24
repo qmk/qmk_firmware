@@ -1,8 +1,11 @@
 SRC += othi.c
 
+ifdef TAP_DANCE_ENABLE
+	src += tap_dance.c
+endif
+
 ifdef RGBLIGHT_ENABLE
-  # Include my fancy rgb functions source here
-  SRC += rgblights.c
+	src += rgblight.c
 endif
 
 BOOTMAGIC_ENABLE = no      # Virtual DIP switch configuration(+1000)
@@ -16,9 +19,8 @@ BACKLIGHT_ENABLE = no       # Enable keyboard backlight functionality on B7 by d
 MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = yes         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = no
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 TAP_DANCE_ENABLE=yes
-KEY_LOCK_ENABLE=yes
