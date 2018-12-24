@@ -1,76 +1,28 @@
 #include QMK_KEYBOARD_H
 #include "action_layer.h"
 
-#ifdef STENO_ENABLE
-#include "keymap_steno.h"
-#endif // STENO_ENABLE
-
 extern keymap_config_t keymap_config;
 
 enum jian_layers {
   _QWERTY,
-#ifdef ALT_LAYOUTS_ENABLE
   _DVORAK,
   _COLEMAK,
   _WORKMAN,
-  _DVK2QWE,
-  _DVK2CMK,
-  _DVK2WMN,
-  _CMK2QWE,
-  _CMK2DVK,
-  _CMK2WMN,
-  _WMN2QWE,
-  _WMN2DVK,
-  _WMN2CMK,
-#endif // ALT_LAYOUTS_ENABLE
   _ISO,
   _LOWER,
   _RAISE,
   _ADJUST,
   _BCKLT_ADJ,
   _THUMB_ALT,
-#ifdef TRAINING_HALFES_LOCK
-  _LEFT,
-  _RIGHT,
-#endif //TRAINING_HALFES_LOCK
-#ifdef DIPS_ENABLE
-  _DIPS,
-#endif // DIPS_ENABLE
-#ifdef STENO_ENABLE
-  _PLOVER
-#endif // STENO_ENABLE
 };
 
 enum jian_keycodes {
   QWERTY = SAFE_RANGE,
-  PLOVER,
-  EXT_PLV,
+  DVORAK,
+  COLEMAK,
+  WORKMAN,
   EXT_RGB,
-#ifdef DIPS_ENABLE
-  LAYOUT0,
-  LAYOUT1,
-  LAYOUT2,
-  LAYOUT3,
-  DIP_ISO,
-  FLIP_TH,
-  DIP6,
-  DIP7,
-  DIP8,
-  DIP9,
-  DIP10,
-  DIP11,
-#endif // DIPS_ENABLE
 };
-
-#ifdef TRAINING_HALFES_LOCK
-static uint8_t lock_timeout = 1;
-static uint8_t lock_cooldown = 0;
-#endif //TRAINING_HALFES_LOCK
-#ifdef DIPS_ENABLE
-#ifdef ALT_LAYOUTS_ENABLE
-static uint8_t layout_conversion_dip_state = 0;
-#endif // ALT_LAYOUTS_ENABLE
-#endif // DIPS_ENABLE
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
@@ -81,24 +33,14 @@ static uint8_t layout_conversion_dip_state = 0;
 #define TG_ISO  TG(_ISO)
 #define TG_THMB TG(_THUMB_ALT)
 #define BL_ADJ  TG(_BCKLT_ADJ)
-#define TG_LWR  TG(_LOWER)
-#define TG_RSE  TG(_RAISE)
 
-#define RBR_RGU MT(MOD_RGUI, KC_RBRC)
 #define F12_RGU MT(MOD_RGUI, KC_F12)
 #define PLS_LCT MT(MOD_LCTL, KC_PPLS)
 #define EQL_LCT MT(MOD_LCTL, KC_PEQL)
-#define APP_LCT MT(MOD_LCTL, KC_APP)
-#define EQL_RCT MT(MOD_RCTL, KC_PEQL)
-#define QUO_RCT MT(MOD_RCTL, KC_QUOT)
 #define APP_RCT MT(MOD_RCTL, KC_APP)
 #define MIN_RCT MT(MOD_RCTL, KC_MINS)
 #define EQL_LAL MT(MOD_LALT, KC_EQL)
 #define BSL_RAL MT(MOD_RALT, KC_BSLS)
-
-#define NBS_LCT MT(MOD_LCTL, KC_NUBS)
-#define BSH_LAL MT(MOD_LALT, KC_BSLS)
-#define APP_RAL MT(MOD_RALT, KC_APP)
 
 #define BSP_LSH MT(MOD_LSFT, KC_BSPC)
 #define BSP_RSH MT(MOD_RSFT, KC_BSPC)
@@ -125,16 +67,13 @@ static uint8_t layout_conversion_dip_state = 0;
   )
 #define LAYOUT_base_wrapper(...) LAYOUT_base(__VA_ARGS__)
 
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_QWERTY] = LAYOUT_base_wrapper(QWERTY_base),
-
-#ifdef DIPS_ENABLE
-[_DIPS] = LAYOUT_DIPS(\
-  LAYOUT0, LAYOUT1, LAYOUT2, LAYOUT3, DIP_ISO, FLIP_TH, \
-  LAYOUT0, LAYOUT1, LAYOUT2, LAYOUT3, DIP_ISO, FLIP_TH \
-),
-#endif // DIPS_ENABLE
+[_DVORAK] = LAYOUT_base_wrapper(DVORAK_base),
+[_COLEMAK] = LAYOUT_base_wrapper(COLEMAK_base),
+[_WORKMAN] = LAYOUT_base_wrapper(WORKMAN_base),
 
 [_LOWER] = LAYOUT(\
   _______, KC_UNDS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  F12_RGU, \
@@ -151,9 +90,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_ADJUST] = SYMM_LAYOUT(\
-  RESET,   DEBUG,   KC_ASUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-           KC_ASRP, KC_ASTG, XXXXXXX, XXXXXXX, QWERTY,  PLOVER,  \
-           BL_ADJ,  KC_ASDN, XXXXXXX, XXXXXXX, TG_ISO,  TG_THMB, \
+  RESET,   DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+           XXXXXXX, WORKMAN, COLEMAK, DVORAK,  QWERTY,  XXXXXXX, \
+           BL_ADJ,  XXXXXXX, XXXXXXX, XXXXXXX, TG_ISO,  TG_THMB, \
                                       _______, SH_TG,   _______  \
 ),
 #if defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
@@ -164,28 +103,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                       _______, _______, _______  \
 ),
 #endif // defined(RGBLIGHT) | defined(BACKLIGHT_ENABLE)
-#ifdef TRAINING_HALFES_LOCK
-[_LEFT] = LAYOUT_base(\
-  _______, _______, _______, _______, _______, _______,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-           _______, _______, _______, _______, _______,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-           _______, _______, _______, _______, _______,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
-),
-
-[_RIGHT] = LAYOUT_base(\
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      _______, _______, _______, _______, _______, _______, _______, \
-           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      _______, _______, _______, _______, _______, _______, \
-           XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      _______, _______, _______, _______, _______ \
-),
-#endif // TRAINING_HALFES_LOCK
-
-#ifdef STENO_ENABLE
-[_PLOVER] = LAYOUT(
-  EXT_PLV, STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,       STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC,  EXT_PLV, \
-           STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1,      STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR, \
-           XXXXXXX, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2,      STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR, \
-                                      XXXXXXX, STN_A,   STN_O,        STN_E,   STN_U,   XXXXXXX\
-),
-#endif // STENO_ENABLE
 
 [_THUMB_ALT] = LAYOUT(\
   _______, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______, \
@@ -201,221 +118,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                               _______, _______, _______,      _______, _______, _______\
 ),
 
-#ifdef ALT_LAYOUTS_ENABLE
-[_DVORAK] = LAYOUT_base_wrapper(DVORAK_base),
-[_COLEMAK] = LAYOUT_base_wrapper(COLEMAK_base),
-[_WORKMAN] = LAYOUT_base_wrapper(WORKMAN_base),
-[_DVK2QWE] = LAYOUT_base_wrapper(DVK2QWE_base),
-[_CMK2QWE] = LAYOUT_base_wrapper(CMK2QWE_base),
-[_WMN2QWE] = LAYOUT_base_wrapper(WMN2QWE_base),
-[_CMK2DVK] = LAYOUT_base_wrapper(CMK2DVK_base),
-[_WMN2DVK] = LAYOUT_base_wrapper(WMN2DVK_base),
-[_DVK2CMK] = LAYOUT_base_wrapper(DVK2CMK_base),
-[_WMN2CMK] = LAYOUT_base_wrapper(WMN2CMK_base),
-[_DVK2WMN] = LAYOUT_base_wrapper(DVK2WMN_base),
-[_CMK2WMN] = LAYOUT_base_wrapper(CMK2WMN_base)
-#endif // ALT_LAYOUTS_ENABLE
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-#ifdef DIPS_ENABLE
-#ifdef ALT_LAYOUTS_ENABLE
-void layout_convert(uint8_t statuses) {
-  switch (0b1111 & statuses) {
-    case 0b0000:
-      set_single_persistent_default_layer(_QWERTY);
-      break;
-    case 0b0001:
-      set_single_persistent_default_layer(_DVORAK);
-      break;
-    case 0b0010:
-      set_single_persistent_default_layer(_COLEMAK);
-      break;
-    case 0b0011:
-      set_single_persistent_default_layer(_WORKMAN);
-      break;
-    case 0b0100:
-      set_single_persistent_default_layer(_DVK2QWE);
-      break;
-    case 0b0101:
-      set_single_persistent_default_layer(_QWERTY);
-      break;
-    case 0b0110:
-      set_single_persistent_default_layer(_DVK2CMK);
-      break;
-    case 0b0111:
-      set_single_persistent_default_layer(_DVK2WMN);
-      break;
-    case 0b1000:
-      set_single_persistent_default_layer(_CMK2QWE);
-      break;
-    case 0b1001:
-      set_single_persistent_default_layer(_CMK2DVK);
-      break;
-    case 0b1010:
-      set_single_persistent_default_layer(_QWERTY);
-      break;
-    case 0b1011:
-      set_single_persistent_default_layer(_CMK2WMN);
-      break;
-    case 0b1100:
-      set_single_persistent_default_layer(_WMN2QWE);
-      break;
-    case 0b1101:
-      set_single_persistent_default_layer(_WMN2DVK);
-      break;
-    case 0b1110:
-      set_single_persistent_default_layer(_WMN2CMK);
-      break;
-    case 0b1111:
-      set_single_persistent_default_layer(_QWERTY);
-      break;
-   }
-}
-#endif // ALT_LAYOUTS_ENABLE
-#endif // DIPS_ENABLE
-
-void matrix_init_user(void) {
-#ifdef DIPS_ENABLE
-  layer_on(_DIPS);
-#endif // DIPS_ENABLE
-}
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifdef TRAINING_HALFES_LOCK
-  if (!record->event.pressed) {
-      lock_cooldown = --lock_cooldown < 0 ? 0 : lock_cooldown;
-  }
-  if (lock_cooldown == 0) {
-      layer_off(_LEFT);
-      layer_off(_RIGHT);
-  }
-#endif // TRAINING_HALFES_LOCK
   switch (keycode) {
-#ifdef TRAINING_HALFES_LOCK
-    case SPC_RSH:
-    case BSP_RSH:
-    case DEL_RSE:
-    case ESC_LWR:
-    case BSL_RAL:
-    case RGU_RBR:
-    case RCT_QUO:
-    if (record->event.pressed) {
-        layer_on(_LEFT);
-        lock_cooldown = lock_timeout;
-        break;
-    }
-    else {
-        lock_cooldown = 0;
-        layer_off(_LEFT);
-        break;
-    }
-    case BSP_LSH:
-    case SPC_LSH:
-    case TAB_RSE:
-    case ENT_LWR:
-    case KC_LCTL:
-    case KC_LGUI:
-    case KC_LALT:
-    if (record->event.pressed) {
-        layer_on(_RIGHT);
-        lock_cooldown = lock_timeout;
-        break;
-    }
-    else {
-        lock_cooldown = 0;
-        layer_off(_RIGHT);
-        break;
-    }
-#endif // TRAINING_HALFES_LOCK
-#ifdef STENO_ENABLE
-    case PLOVER:
-      if (!record->event.pressed) {
-        layer_off(_RAISE);
-        layer_off(_LOWER);
-        layer_off(_ADJUST);
-        layer_on(_PLOVER);
-        if (!eeconfig_is_enabled()) {
-            eeconfig_init();
-        }
-        keymap_config.raw = eeconfig_read_keymap();
-        keymap_config.nkro = 1;
-        eeconfig_update_keymap(keymap_config.raw);
-      }
-      return false;
-      break;
-    case EXT_PLV:
-      if (record->event.pressed) {
-        layer_off(_PLOVER);
-      }
-      return false;
-      break;
-#endif // STENO_ENABLE
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
       break;
-#ifdef DIPS_ENABLE
-#ifdef ALT_LAYOUTS_ENABLE
-    case LAYOUT0:
+    case DVORAK:
       if (record->event.pressed) {
-        layout_conversion_dip_state |= 1 << 0;
-      } else {
-        layout_conversion_dip_state &= ~(1 << 0);
-      }
-      layout_convert(layout_conversion_dip_state);
-      return false;
-      break;
-    case LAYOUT1:
-      if (record->event.pressed) {
-        layout_conversion_dip_state |= 1 << 1;
-      } else {
-        layout_conversion_dip_state &= ~(1 << 1);
-      }
-      layout_convert(layout_conversion_dip_state);
-      return false;
-      break;
-    case LAYOUT2:
-      if (record->event.pressed) {
-        layout_conversion_dip_state |= 1 << 2;
-      } else {
-        layout_conversion_dip_state &= ~(1 << 2);
-      }
-      layout_convert(layout_conversion_dip_state);
-      return false;
-      break;
-    case LAYOUT3:
-      if (record->event.pressed) {
-        layout_conversion_dip_state |= 1 << 3;
-      } else {
-        layout_conversion_dip_state &= ~(1 << 3);
-      }
-      layout_convert(layout_conversion_dip_state);
-      return false;
-      break;
-#endif // ALT_LAYOUTS_ENABLE
-    case DIP_ISO:
-      if (record->event.pressed) {
-          layer_on(_ISO);
-      } else {
-          layer_off(_ISO);
+        set_single_persistent_default_layer(_DVORAK);
       }
       return false;
       break;
-    case FLIP_TH:
+    case COLEMAK:
       if (record->event.pressed) {
-          layer_on(_THUMB_ALT);
-      } else {
-          layer_off(_THUMB_ALT);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
-#endif // DIPS_ENABLE
+    case WORKMAN:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_WORKMAN);
+      }
+      return false;
+      break;
   }
   return true;
 }

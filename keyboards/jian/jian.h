@@ -13,11 +13,6 @@
                              KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,   KC_SCLN, KC_QUOT, \
                              KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH
 
-#ifdef ALT_LAYOUTS_ENABLE
-
-#include <keymap_dvorak.h>
-#include <keymap_colemak.h>
-#include <keymap_workman.h>
 
 #define DVORAK_base  KC_GRV, KC_QUOT, KC_COMM, KC_DOT,KC_P, KC_Y, KC_F, KC_G, KC_C, KC_R, KC_L, KC_LBRC, KC_RBRC, \
                              KC_A,    KC_O,    KC_E,  KC_U, KC_I, KC_D, KC_H, KC_T, KC_N, KC_S, KC_SLSH, \
@@ -28,6 +23,13 @@
 #define WORKMAN_base KC_GRV, KC_Q, KC_D, KC_R, KC_W, KC_B, KC_J, KC_F, KC_U,    KC_P,   KC_SCLN, KC_LBRC, KC_RBRC, \
                              KC_A, KC_S, KC_H, KC_T, KC_G, KC_Y, KC_N, KC_E,    KC_O,   KC_I,    KC_QUOT, \
                              KC_Z, KC_X, KC_M, KC_C, KC_V, KC_K, KC_L, KC_COMM, KC_DOT, KC_SLSH
+
+#ifdef ALT_LAYOUTS_ENABLE
+
+#include <keymap_dvorak.h>
+#include <keymap_colemak.h>
+#include <keymap_workman.h>
+
 #define DVK2QWE_base DV_GRV, DV_Q, DV_W, DV_E, DV_R, DV_T, DV_Y, DV_U, DV_I,    DV_O,   DV_P,    DV_LBRC, DV_RBRC, \
                              DV_A, DV_S, DV_D, DV_F, DV_G, DV_H, DV_J, DV_K,    DV_L,   DV_SCLN, DV_QUOT, \
                              DV_Z, DV_X, DV_C, DV_V, DV_B, DV_N, DV_M, DV_COMM, DV_DOT, DV_SLSH
