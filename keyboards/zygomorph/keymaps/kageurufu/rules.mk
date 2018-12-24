@@ -38,3 +38,6 @@ endif
 ifeq ($(strip $(LED_MIRRORED)), yes)
     OPT_DEFS += -DLED_MIRRORED
 endif
+
+# Link time optimization, should save on firmware size
+EXTRAFLAGS += -flto
