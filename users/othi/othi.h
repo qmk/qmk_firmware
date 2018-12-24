@@ -7,11 +7,11 @@ ifndef USERSPACE
 #endif
 
 #ifdef RGBLIGHT_ENABLE
-#include "rgblights.c"
+#include "rgblights.h"
 #endif
 
 #ifndef TAP_DANCE_ENABLE
-#include "tap_dance.c"
+#include "tap_dance.h"
 #endif
 
 #define CL 0
