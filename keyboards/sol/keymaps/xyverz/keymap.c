@@ -24,6 +24,7 @@ extern uint8_t is_master;
 enum layer_number {
     _DVORAK = 0,
     _QWERTY,
+    _COLEMAK,
     _FN,
     _ADJ
 };
@@ -31,6 +32,7 @@ enum layer_number {
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
   QWERTY,
+  COLEMAK,
   FN,
   ADJ,
   BACKLIT,
@@ -120,6 +122,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH  \
   ),
 
+  /* Colemak
+   * ,------------------------------------------------.  ,------------------------------------------------.
+   * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
+   * |      |   Q  |   W  |   F  |   P  |   G  |      |  |      |   J  |   L  |   U  |   Y  |   ;  |      |
+   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
+   * |      |   A  |   R  |   S  |   T  |   D  |      |  |      |   H  |   N  |   E  |   I  |   O  |      |
+   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+   * |      |   Z  |   X  |   C  |   V  |   B  |      |  |      |   K  |   M  |   ,  |   .  |   /  |      |
+   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
+   * `------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
+   *                                    |      |      |  |      |      |
+   *                                    `-------------'  `--------=----'
+   */
+  [_COLEMAK] = BASE_LAYOUT( \
+      KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, \
+      KC_A,    KC_R,    KC_S,    KC_T,    KC_G,   KC_K,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,    \
+      KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH  \
+  ),
 
   /* FN
    * ,------------------------------------------------.  ,------------------------------------------------.
@@ -164,9 +186,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_ADJ] =  LAYOUT( \
       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
       _______, _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, DVORAK,  QWERTY,  _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, DVORAK,  QWERTY,  COLEMAK, _______, _______, \
       _______, RGB_SAD, RGB_VAI, RGB_SAI, RGBRST,  _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, \
-      _______, RGB_HUD, RGB_VAD, RGB_HUI, RGB_MOD, _______, _______, _______, _______, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, _______, \
+      _______, RGB_HUD, RGB_VAD, RGB_HUI, RGB_MOD, _______, _______, _______, RGB_MOD, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, _______, \
                         KC_VOLU, KC_VOLD,          _______, _______, _______, _______,          KC_VOLU, KC_VOLD \
       )
 };
@@ -202,6 +224,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case DVORAK:
       if(record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
+      }
+      return false;
+      break;
+    case COLEMAK:
+      if(record->event.pressed) {
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
       break;
