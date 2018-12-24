@@ -57,11 +57,14 @@ void rhruiz_change_leds_to(uint16_t hue, uint8_t sat) {
   rgblight_config_t eeprom_config;
   eeprom_config.raw = eeconfig_read_rgblight();
 
+  uint8_t left_led = RGBLED_NUM / 2;
+  uint8_t right_led = RGBLED_NUM - 1;
+
   if (rgblight_get_mode() == false) {
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     for (uint8_t i = RGBLED_NUM ; i-- > 0 ; ) {
-      if (i == 8 || i == 15) {
+      if (i ==  left_led || i == right_led) {
         continue;
       }
 
@@ -69,8 +72,8 @@ void rhruiz_change_leds_to(uint16_t hue, uint8_t sat) {
     }
   }
 
-  sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[8]);
-  sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[15]);
+  sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[left_led]);
+  sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[right_led]);
   rgblight_set();
 #endif
 }
