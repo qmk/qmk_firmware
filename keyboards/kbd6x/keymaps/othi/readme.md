@@ -29,10 +29,9 @@
 	Function row and Unicode characters
 
 ### Modifiers and Tap Dance keys
-
 **LHS:**
 
-- Any Tap Dance key with the format of `TD(XXX_NM)` act as normal XXX modifier upon hold, but will hold **and** put you to `NM_MODE` when double click hold(a tap before the hold)
+- Any Tap Dance key with the format of `TD(XXX_NM)` act as normal XXX modifier upon hold, but will hold **and** put you to `NM_MODE` when double click hold(a tap before the hold)(eg you can produce `Alt + PgUp` by pressing `Alt + Alt + U`)
 
 - `KC_TAB` acts as both `KC_TAB` on tap and `KC_LGUI` on hold
 
@@ -47,3 +46,11 @@
 - 3 keys `KC_SCLN`, `KC_DOT` and `KC_SLSH` in `CL` layer can also be held down for respectively `KC_LCTL`, `KC_LSFT`, `KC_LALT` for easier 2-hand modifier holding
 
 - Right modifiers hold the selected modifier with `KC_LGUI` at the same time, mainly for i3wm, you can change this to whatever combination you want
+
+### Misc. functionalities
+
+**Unicode:**
+
+- In case the keyboard output the 4-digit codepoint instead of the actual unicode, you need to change the rewrite input mode of the keyboard into the EEPROM(you only have to do this if the EEPROM was cleared or your current machine use another unicode compose method other than IBus/Linux's `Ctrl + Shift + U`). Change the corresponding Input `void eeconfig_init_user(void)`. See [this](https://docs.qmk.fm/#/feature_unicode) for availble input modes.
+
+- **NOTE:** make sure to keep your qmk env up to date with upstream

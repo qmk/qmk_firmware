@@ -29,13 +29,14 @@
 void eeconfig_init_user(void) {
   set_unicode_input_mode(UC_LNX);
 }
-#define DE_AE UC(0x00E4)
-#define DE_SS UC(0x00DF)
-#define DE_OE UC(0x00F6)
-#define DE_UE UC(0x00FC)
+#define DE_AE     UC(0x00E4)
+#define DE_SS     UC(0x00DF)
+#define DE_OE     UC(0x00F6)
+#define DE_UE     UC(0x00FC)
 #define DE_AE_CAP UC(0x00C4)
 #define DE_OE_CAP UC(0x00D6)
 #define DE_UE_CAP UC(0x00DC)
+
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case NM_MODE:
