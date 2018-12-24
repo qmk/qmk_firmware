@@ -136,8 +136,20 @@ void matrix_scan_user(void) {
     // Start Diablo 3
     SEQ_ONE_KEY(KC_3) {
       SEND_STRING(SS_LCTRL(" "));
-      SEND_STRING("Diablo 3");
+      SEND_STRING("Diablo");
       tap(KC_ENTER);
+    }
+
+    SEQ_ONE_KEY(KC_B) {
+      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+      tap(KC_ENTER);
+      SEND_STRING ("Built at: " QMK_BUILDDATE " - File Location: " __BASE_FILE__);
+      tap(KC_ENTER);
+#ifndef __UNIX__
+      SEND_STRING ("Probably compiled on Home PC");
+#else
+      SEND_STRING ("Probably compiled on Work Laptop");
+#endif
     }
   }
 
@@ -196,4 +208,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return process_record_keymap(keycode, record);
 }
-

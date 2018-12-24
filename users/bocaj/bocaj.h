@@ -10,7 +10,6 @@ enum userspace_layers {
   _OSXWRKMN = 0,
   _WINWRKMN,
   _OSXQWERTY,
-  _LOWER,
   _ADJUST,
   _NUMS,
   _DIABLO
@@ -45,10 +44,9 @@ enum userspace_custom_keycodes {
 #define MEH_RBK MEH_T(KC_RBRACKET)
 
 // Layout beauti-/simpli-fication
-#define KC_LWEN LT(_LOWER, KC_ENTER)
+#define KC_LWEN LT(_ADJUST, KC_ENTER)
 #define KC_ADJS TT(_ADJUST)
 #define KC_NUMS TT(_NUMS)
-#define LM_SHFT LM(_NMOD, MOD_LSFT)
 #define KC_GAME TT(_DIABLO)
 #define XXXXXXX KC_NO
 #define _______ KC_TRNS
@@ -179,7 +177,7 @@ enum {
 #define _______________________WORKMAN_R2________________________       KC_Y,     KC_N,           KC_E,           KC_O,           KC_I
 #define _______________________WORKMAN_R3________________________       KC_K,     KC_L,           KC_COMM,        KC_DOT,         KC_SLASH
 
-#define ___________________ERGODOX_BOTTOM_LEFT___________________       XXXXXXX,  KC_NUMS,        TT(_LOWER),     KC_UP,          KC_LEFT
+#define ___________________ERGODOX_BOTTOM_LEFT___________________       XXXXXXX,  KC_NUMS,        TT(_ADJUST),     KC_UP,          KC_LEFT
 #define ___________________ERGODOX_BOTTOM_RIGHT__________________       KC_RIGHT, KC_DOWN,        XXXXXXX,        KC_GAME,        KC_ADJS
 
 #define _______________________NUMBER_LEFT_______________________       KC_1,     KC_2,           KC_3,           KC_4,           KC_5
