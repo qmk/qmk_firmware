@@ -34,9 +34,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TAPPING_TERM 150
 
 /* Select hand configuration */
-#define MASTER_LEFT
+// #define MASTER_LEFT
 // #define MASTER_RIGHT
-// #define EE_HANDS
+#define EE_HANDS
 
 // Helix keyboard OLED support
 //      see ./rules.mk: OLED_ENABLE=yes or no
@@ -50,16 +50,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key matrix size */
 // Rows are doubled-up
-#define MATRIX_ROWS 10  // The 11th "row" is fake, and used to store the encoder rotation state
+#define MATRIX_ROWS 10
 #define MATRIX_ROW_PINS { F1, F5, F7, B5, B4 }
 
 // wiring of each half
 #define MATRIX_COLS 7
 #define MATRIX_COL_PINS { F4, F6, C7, D5, B6, D4 }
+
 #define SOFT_SERIAL_PIN D3
-
-#define ZYGO_ROWS 5
-
 // #define NUMBER_OF_ENCODERS 1
 // #define ENCODERS_PAD_A PD2
 // #define ENCODERS_PAD_B PD7
