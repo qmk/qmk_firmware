@@ -30,6 +30,12 @@ dance_action_t dance_state_to_action (qk_tap_dance_state_t *state) {
 
 /* ---- */
 
+/** Enhanced "Shift"
+ * - Single tap to capitalize the next character
+ * - Double tap to CapsLock
+ * - Hold (or interrupt) to "Shift"
+ */
+
 dance_action_t shift_action;
 
 void shift_finished (qk_tap_dance_state_t *state, void *user_data) {
@@ -68,6 +74,11 @@ void shift_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 /* ---- */
 
+/** Enhanced "Esc"
+ * - Tap to "Esc + Lang2" (escape then turn off the IME)
+ * - Hold (or interrupt) to "FN"
+ */
+
 dance_action_t esc_action;
 
 void esc_finished (qk_tap_dance_state_t *state, void *user_data) {
@@ -86,6 +97,14 @@ void esc_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 /* ---- */
+
+/** Garake keys
+ * - Provides garake-like keys
+ * - Example:
+ *   - Tap garake8 once (within TAPPING_TERM) to send "a"
+ *   - Tap garake8 twice (within TAPPING_TERM) to send "b"
+ *   - Tap garake8 three (within TAPPING_TERM) times to send "c"
+ */
 
 void garake7 (qk_tap_dance_state_t *state, void *user_data) {
   switch (state->count % 3) {
@@ -171,6 +190,8 @@ void garake3 (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 /* ---- */
+
+/** garake0 works as "garake-raise" when held */
 
 bool garake0_raised = false;
 
