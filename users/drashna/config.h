@@ -14,10 +14,12 @@
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 // #ifdef RGBLIGHT_ENABLE
 // #define NO_MUSIC_MODE
-// #endif //RGBLIGHT_ENABLE
+// #endif //RGBLIGHT_ENABLE/
+#ifndef __arm__
 #undef  NOTE_REST
 #define NOTE_REST         1.00f
-#endif
+#endif // !__arm__
+#endif // !AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
