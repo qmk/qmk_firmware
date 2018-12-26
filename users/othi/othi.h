@@ -1,12 +1,10 @@
 #include "quantum.h"
 
-#ifdef TAP_DANCE_ENABLE
-#include "tap_dance.h"
-#endif
-
-#ifdef RGBLIGHT_ENABLE
-#include "rgblight.h"
-#endif
+//i don't think i need this ?
+//TODO: test rgb without this snippet
+//#ifdef RGBLIGHT_ENABLE
+//#include "rgblight.h"
+//#endif
 
 //Layers Definition
 #define CL 0
@@ -24,3 +22,9 @@
 #define DE_AE_CAP UC(0x00C4)
 #define DE_OE_CAP UC(0x00D6)
 #define DE_UE_CAP UC(0x00DC)
+enum tap_dancers {
+  CTL_NM = 0,
+  GUI_NM = 1,
+  ALT_NM = 2,
+  SFT_NM = 3,
+};

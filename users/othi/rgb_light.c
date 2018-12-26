@@ -1,4 +1,4 @@
-#include "rgblight.h"
+#include "rgb_light.h"
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case NM_MODE:
