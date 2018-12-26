@@ -20,7 +20,7 @@ Tests:
     - make planck/rev6:default
 
 QMK Firmware Defaults:
-  stage: build
+  stage: deploy
   variables:
     GIT_SUBMODULE_STRATEGY: recursive
   tags:
