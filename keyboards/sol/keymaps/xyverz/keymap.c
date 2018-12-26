@@ -25,7 +25,6 @@ enum layer_number {
     _DVORAK = 0,
     _QWERTY,
     _COLEMAK,
-    _FN,
     _ADJ
 };
 
@@ -33,7 +32,6 @@ enum custom_keycodes {
   DVORAK = SAFE_RANGE,
   QWERTY,
   COLEMAK,
-  FN,
   ADJ,
   BACKLIT,
   RGBRST
@@ -43,24 +41,20 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
-
-
-#define FN_ESC  LT(_FN, KC_ESC)
-#define FN_CAPS  LT(_FN, KC_CAPS)
 #define XXXXXXX KC_NO
 
 // Define your non-alpha grouping in this define's LAYOUT, and all your BASE_LAYERS will share the same mod/macro columns
   /* Base Layout
    * ,------------------------------------------------.  ,------------------------------------------------.
-   * | GESC |      |      |      |      |      |   -  |  |   =  |      |      |      |      |      |   \  |
+   * | ESC  |      |      |      |      |      |   -  |  |   =  |      |      |      |      |      |   \  |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
    * | Tab  |      |      |      |      |      |   [  |  |   ]  |      |      |      |      |      |   /  |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |FN(CAPS)|    |      |      |      |      |      |  |      |      |      |      |      |      |      |
+   * | Del  |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * |Shift |      |      |      |      |      |      |  |      |      |      |      |      |      |Shift |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Ctrl | Alt  |   `  | Left | Rght | Ctrl | Alt  |  | Alt  | Ctrl |  Up  | Down |   /  |   =  |Right |
+   * | Adj  | Alt  |   `  | Left | Rght | Ctrl | Alt  |  | Alt  | Ctrl |  Up  | Down |   /  |   =  | Adj  |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    | BkSp | Win  |  | Enter| Space|
    *                                    `-------------'  `-------------'
@@ -73,9 +67,9 @@ enum macro_keycodes {
 LAYOUT( \
       KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
       KC_TAB,  _00,     _01,     _02,     _03,     _04,     KC_LBRC,  KC_RBRC, _05,     _06,     _07,     _08,     _09,     KC_SLSH, \
-      FN,      _10,     _11,     _12,     _13,     _14,     XXXXXXX,  XXXXXXX, _15,     _16,     _17,     _18,     _19,     _30, \
+      KC_DEL,  _10,     _11,     _12,     _13,     _14,     XXXXXXX,  XXXXXXX, _15,     _16,     _17,     _18,     _19,     _30, \
       KC_LSFT, _20,     _21,     _22,     _23,     _24,     XXXXXXX,  XXXXXXX, _25,     _26,     _27,     _28,     _29,     KC_RSFT, \
-      KC_LCTL, KC_LALT, KC_GRV,  KC_LEFT, KC_RGHT, KC_LCTL, KC_LALT,  KC_RALT, KC_RCTL, KC_UP,   KC_DOWN, KC_SLSH, KC_EQL,  ADJ, \
+      ADJ,     KC_LALT, KC_GRV,  KC_LEFT, KC_RGHT, KC_LCTL, KC_LALT,  KC_RALT, KC_RCTL, KC_UP,   KC_DOWN, KC_SLSH, KC_EQL,  ADJ, \
                         KC_VOLU, KC_VOLD,          KC_BSPC, KC_LGUI,  KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
 )
 
@@ -143,53 +137,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH  \
   ),
 
-  /* FN
+  /* ADJ
    * ,------------------------------------------------.  ,------------------------------------------------.
-   * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |      |  |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
+   * |  F11 |  F1  |  F2  |  F3  |  F4  |  F5  | RESET|  |      |  F6  |  F7  |  F8  |  F9  |  F10 |  F12 |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |  |      |      | PrSc | ScLk | NmLk |      |      |
+   * |      |      |QWERTY|DVORAK|COLEMK|      |      |  |      |      | PrSc | ScLk | NmLk |      |      |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      |      | Mute | Vol- | Vol+ |      |      |  |      |      |      |      |      |      |      |
+   * |      |      | Mute | Vol- | Vol+ |      |      |  |      |RGBTOG|RGBMOD|  HUI |  SAI | VAI  |      |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |      |      | Prev | Play | Next |      |      |  |      |      |      |      |      |      |      |
+   * |      |      | Prev | Play | Next |      |      |  |      |      |RGBRMD|  HUD |  SAD | VAD  |      |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * |      |      |      | Home | End  |      |      |  |      |      | PgUp | PgDn |      |      |      |
    * `------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    | Del  |      |  |      | Ins  |
    *                                    `-------------'  `-------------'
    */
-  [_FN] = LAYOUT( \
-      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_NLCK, _______, _______, \
-      _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-      KC_CAPS, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, KC_HOME, KC_END,  _______, _______, _______, _______, KC_PGUP, KC_PGDN, _______, _______, _______, \
-                        KC_VOLU, KC_VOLD,          KC_DEL,  _______, _______, KC_INS,           KC_VOLU, KC_VOLD \
-      ),
-
-  /* ADJ
-   * ,------------------------------------------------.  ,------------------------------------------------.
-   * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |      |  |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
-   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      |      |RESET |      |      |      |      |  |      |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      | SAD  | VAI  | SAI  |      |      |      |  |      |      |QWERTY|DVORAK|      |      |      |
-   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |      | HUD  | VAD  | HUI  |RGBRST|      |      |  |      |      |RGBTOG|  HUI |  SAI | VAI  |      |
-   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |      |      |      |RGBMOD|      |      |      |  |      |      |RGBRMOD| HUD |  SAD | VAD  |      |
-   * `------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
-   *                                    |      |      |  |      |      |
-   *                                    `-------------'  `-------------'
-   */
 
   [_ADJ] =  LAYOUT( \
-      KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   _______, _______, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12, \
-      _______, _______, RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, DVORAK,  QWERTY,  COLEMAK, _______, _______, \
-      _______, RGB_SAD, RGB_VAI, RGB_SAI, RGBRST,  _______, _______, _______, _______, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, _______, \
-      _______, RGB_HUD, RGB_VAD, RGB_HUI, RGB_MOD, _______, _______, _______, RGB_MOD, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, _______, \
-                        KC_VOLU, KC_VOLD,          _______, _______, _______, _______,          KC_VOLU, KC_VOLD \
+      KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   RESET,   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12, \
+      _______, _______, DVORAK,  QWERTY,  COLEMAK, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_NLCK, _______, _______, \
+      KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, XXXXXXX, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, \
+      _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, XXXXXXX, XXXXXXX, _______, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, _______, \
+      _______, _______, _______, KC_HOME, KC_END,  _______, _______, _______, _______, KC_PGUP, KC_PGDN, _______, _______, _______, \
+                        KC_VOLU, KC_VOLD,          KC_DEL,  _______, _______, KC_INS,           KC_VOLU, KC_VOLD \
       )
 };
 
@@ -233,6 +203,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+/*
+    Commenting this out since I removed the layer, but I want this in here for reference.
+
     case FN:
       if (record->event.pressed) {
         //not sure how to have keyboard check mode and set it to a variable, so my work around
@@ -254,6 +227,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
+ */
     case ADJ:
         if (record->event.pressed) {
           layer_on(_ADJ);
@@ -349,9 +323,9 @@ void render_status(struct CharacterMatrix *matrix) {
         case L_BASE:
            matrix_write_P(matrix, PSTR("Default"));
            break;
-        case L_FN:
+        /* case L_FN:
            matrix_write_P(matrix, PSTR("FN"));
-           break;
+           break; */
         case L_ADJ:
         /* case L_ADJ_TRI: */
            matrix_write_P(matrix, PSTR("ADJ"));
