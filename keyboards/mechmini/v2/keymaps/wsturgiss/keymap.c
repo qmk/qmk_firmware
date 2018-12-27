@@ -12,12 +12,13 @@ enum {
   TD_SEMI_QUOT = 0,
   TD_COMM_MINUS = 1,
   TD_DOT_EQUAL = 2,
-  TD_SLASH_BACKSLASH = 3
+  TD_SLASH_BACKSLASH = 3,
+  TBL_FLP = SAFE_RANGE
 };
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for ;, twice for '
+  //Tap once for ;, twice for ' -not used anymore
   [TD_SEMI_QUOT]  = ACTION_TAP_DANCE_DOUBLE(KC_SCLN, KC_QUOT),
   //Tap once for , twice for -
   [TD_COMM_MINUS]  = ACTION_TAP_DANCE_DOUBLE(KC_COMM, KC_MINUS),
@@ -43,12 +44,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______,    _______,  _______,  _______,  _______,      _______,        _______,  KC_MPRV,  _______,  KC_MFFD,  _______),
 
 	[lower] = LAYOUT_2u_space_ortho(
-		_______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   _______,
+		_______,    KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,
 		_______,    RGB_TOG,  RGB_MOD,  RGB_VAI,  RGB_VAD,  RGB_HUI,  RGB_HUD,  RGB_SAI,  RGB_SAD,  _______,  _______,  _______,
-		_______,    _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,  KC_END,   _______,
+		_______,    TBL_FLP, _______, _______,  _______,  _______,  _______,  _______,  _______,  KC_HOME,  KC_END,   _______,
 		_______,    _______,  _______,  _______,  _______,      _______,        _______,  _______,  KC_PGDN,  KC_PGUP,  _______),
 
-  [game] = LAYOUT_2u_space_ortho( 
+
+	[game] = LAYOUT_2u_space_ortho(
 		KC_TAB,     KC_Q,     KC_W,     KC_UP,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC,
 		KC_ESC,     KC_A,     KC_LEFT,  KC_DOWN,   KC_RIGHT, KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     TD(0),    KC_ENT,
 		KC_LSFT,    KC_Z,     KC_X,     KC_C,      KC_V,     KC_B,     KC_N,     KC_M,     TD(1),    TD(2),    TD(3),    KC_RSFT,
@@ -64,7 +66,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         break;
     case lower:
         rgblight_mode(1);
-        rgblight_setrgb_green ();
+        rgblight_setrgb(0x00, 0xa3, 0x0d);
         break;
     case game:
         rgblight_mode(1);
@@ -76,74 +78,30 @@ uint32_t layer_state_set_user(uint32_t state) {
         break;
     }
   return state;
-}
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-	switch (id) {
-		case 1:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(C), U(LCTL), END );
-			}
-			break;
-		case 2:
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(V), U(LCTL), END );
-			}
-			break;
-	}
-	return MACRO_NONE;
-}
-
-void matrix_init_user(void) {
-}
-
-void matrix_scan_user(void) {
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
-}
-
-void led_set_user(uint8_t usb_led) {
-
-	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_COMPOSE)) {
-
-	} else {
-
-	}
-
-	if (usb_led & (1 << USB_LED_KANA)) {
-
-	} else {
-
-	}
-
-}
+};
 
 enum function_id {
     SHIFT_ESC,
 };
 
+//I think this is to cancel space cadet stuff
 const uint16_t PROGMEM fn_actions[] = {
   [0]  = ACTION_FUNCTION(SHIFT_ESC),
 };
 
+//Macros
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case TBL_FLP:
+      if (record->event.pressed) {
+        // when keycode tableflip is pressed
+        SEND_STRING("");
+ 
+      } else {
+        // when keycode tableflip is released
+      }
+      break;
+
+  }
+  return true;
+};
