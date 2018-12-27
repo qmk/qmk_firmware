@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_COLS 7
-#define MATRIX_COL_PINS { F4, F6, C7, D5, B6, D4 }
+#define MATRIX_COL_PINS { F4, F6, C7, D1, B6, D4 }
 
 #define SOFT_SERIAL_PIN D3
 // #define NUMBER_OF_ENCODERS 1
