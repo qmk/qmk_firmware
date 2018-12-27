@@ -367,8 +367,8 @@ if (LCDHEIGHT > 32) {
   send_command(0x40);
 
   send_command(DISPLAYON);       //--turn on oled panel
-  // clear_screen();           // Erase hardware memory inside the OLED controller to avoid random data in memory.
-  // send_buffer();
+  clear_screen();           // Erase hardware memory inside the OLED controller to avoid random data in memory.
+  send_buffer();
 }
 
 void send_command(uint8_t command) {
@@ -378,7 +378,6 @@ void send_command(uint8_t command) {
 }
 
 void send_data(uint8_t data) {
-  xprintf("sending data");
   micro_oled_transfer_buffer[0] = I2C_DATA;
   micro_oled_transfer_buffer[1] = data;
   i2c_transmit(I2C_ADDRESS_SA0_0 << 1, micro_oled_transfer_buffer, 2, 100);

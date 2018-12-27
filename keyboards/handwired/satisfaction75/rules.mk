@@ -35,7 +35,7 @@ ARMV = 6
 #   comment out to disable the options.
 #
 
-SRC += ssd1306.c
+# SRC += ssd1306.c
       #  ssd1306_font.c
 
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
