@@ -1,10 +1,3 @@
-<<<<<<< HEAD
-# Othi's Universal HHKB keymap
-
-- Goals
-- Layers
-- Modifiers and Tap Dance keys
-=======
 ## Othi's Universal HHKB keymap
 
 ### Goals
@@ -61,4 +54,3 @@
 - In case the keyboard output the 4-digit codepoint instead of the actual unicode, you need to change the rewrite input mode of the keyboard into the EEPROM(you only have to do this if the EEPROM was cleared or your current machine use another unicode compose method other than IBus/Linux's `Ctrl + Shift + U`). Change the corresponding Input `void eeconfig_init_user(void)`. See [this](https://docs.qmk.fm/#/feature_unicode) for availble input modes.
 
 - **NOTE:** make sure to keep your qmk env up to date with upstream
->>>>>>> fd7a1bb0649bb04a53852fc78531db6a426b3e38
