@@ -23,12 +23,23 @@ enum custom_keycodes {
   AE,
   EE,
   IE,
+  VAD_NEE,
+  VAI_NEE,
+  SAI_NEE,
+  SAD_NEE,
+  HUI_NEE,
+  HUD_NEE,
+  TOG_NEE,
+  RGB_ANM,
+  RGB_PRE
 };
 
 enum td_hungarian_letters {
   U,
   O
 };
+
+uint32_t rgb_mode = RGBLIGHT_MODE_BREATHING + 1;
 
 
 void tap_dance_u_finished (qk_tap_dance_state_t *state, void *user_data) {
@@ -154,16 +165,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|               |------+------+------+------+------+------|
  * |      |      |      |      |      |      |               |   4  |   5  |   6  |   *  |      |      |
  * |------+------+------+------+------+------|               |------+------+------+------+------+------|
- * |      |  VAI |  SAI |  SAD | HUI  | HUD  |               |   3  |   2  |   1  |   -  |      |      |
+ * |  VAI |  VAD |  SAI |  SAD | HUI  | HUD  |               |   3  |   2  |   1  |   -  |      |      |
  * |------+------+------+------+------+------|               |------+------+------+------+------+------|
- * |      |      |      |      |RGBMFW|RGBTGL|               | Bksp |   0  |      |   +  |      |      |
+ * |      |      |      |RGBMPR|RGBMFW|RGBTGL|               | Bksp |   0  |      |   +  |      |      |
  * `-----------------------------------------'               `-----------------------------------------'
  */
 [_NUMPAD] = LAYOUT_ortho_4x12( \
   _______, _______, _______, _______, _______, _______,       KC_7,    KC_8,   KC_9,    KC_PSLS, _______, _______, \
   _______, _______, _______, _______, _______, _______,       KC_4,    KC_5,   KC_6,    KC_PAST, _______, _______, \
-  _______, RGB_VAI,RGB_SAI,RGB_SAD, RGB_HUI,RGB_HUD,          KC_1,    KC_2,   KC_3,    KC_PMNS, _______, _______, \
-  _______, _______, _______, _______, RGB_MOD, RGB_TOG,       KC_BSPC, KC_0,  _______,  KC_PPLS, _______, _______  \
+  VAI_NEE, VAD_NEE, SAI_NEE, SAD_NEE, HUI_NEE, HUD_NEE,       KC_1,    KC_2,   KC_3,    KC_PMNS, _______, _______, \
+  _______, _______, _______, RGB_PRE, RGB_ANM, TOG_NEE,       KC_BSPC, KC_0,  _______,  KC_PPLS, _______, _______ \
 )
 
 };
@@ -250,7 +261,80 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	SEND_STRING(SS_RALT("z"));
       }    
       break;
+    case VAI_NEE:            
+      if(record->event.pressed) {
+        rgblight_increase_val_noeeprom();
+      }    
+      break;
+    case VAD_NEE:            
+      if(record->event.pressed) {
+        rgblight_decrease_val_noeeprom();
+      }    
+      break;
+    case SAI_NEE:            
+      if(record->event.pressed) {
+        rgblight_increase_sat_noeeprom();
+      }    
+      break;
+    case SAD_NEE:            
+      if(record->event.pressed) {
+        rgblight_decrease_sat_noeeprom();
+      }    
+      break;
+    case HUI_NEE:            
+      if(record->event.pressed) {
+        rgblight_increase_hue_noeeprom();
+      }    
+      break;
+    case HUD_NEE:            
+      if(record->event.pressed) {
+        rgblight_decrease_hue_noeeprom();
+      }    
+      break;
+    case TOG_NEE:            
+      if(record->event.pressed) {
+	rgblight_toggle_noeeprom();
+      }    
+      break;
+    case RGB_ANM:            
+      if(record->event.pressed) {
+        rgblight_step_noeeprom();
+	rgb_mode = rgblight_get_mode();
+      }    
+      break;
+    case RGB_PRE:            
+      if(record->event.pressed) {
+        rgblight_step_reverse_noeeprom();
+	rgb_mode = rgblight_get_mode();
+      }    
+      break;
   }
   return true;
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  switch (biton32(state)) {
+    case _RAISE:
+      rgblight_setrgb_at(255, 255, 255, RGBLED_NUM / 2);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+      break;
+    case _LOWER:
+      rgblight_setrgb_at(255, 255, 255, RGBLED_NUM / 2 - 1);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+      break;
+    case _NUMPAD:
+      rgblight_setrgb_at(0,255,0, 0);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+      break;
+    default:
+      rgblight_mode_noeeprom(rgb_mode);      
+      break;
+  }
+  return state;
+}
+
+void led_set_user(uint8_t usb_led) {
+  rgblight_sethsv_noeeprom(38, 247, 127);
+  rgblight_mode_noeeprom(rgb_mode);
 }
 

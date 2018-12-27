@@ -32,8 +32,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // RGB lighting
-#define RGBLIGHT_ANIMATIONS
+#define RGBLIGHT_SLEEP
 #undef RGBLED_NUM
 #define RGBLED_NUM 24
+#define RGBLIGHT_SLEEP
+
+#define RGBLIGHT_EFFECT_BREATHING
+#define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#define RGBLIGHT_EFFECT_STATIC_GRADIENT
 
 #define TAPPING_TERM 200
