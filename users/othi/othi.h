@@ -1,4 +1,5 @@
 #include "quantum.h"
+#include "eeprom.h"
 
 //i don't think i need this ?
 //TODO: test rgb without this snippet
