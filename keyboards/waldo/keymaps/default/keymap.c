@@ -26,7 +26,7 @@ enum waldo_layers {
   _FUNCTION
 };
 
-enum planck_keycodes {
+enum waldo_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
@@ -120,7 +120,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        print("mode just switched to qwerty and this is a huge string\n");
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
@@ -139,14 +138,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case BACKLIT:
       if (record->event.pressed) {
-        register_code(KC_RSFT);
         #ifdef BACKLIGHT_ENABLE
           backlight_step();
         #endif
-        PORTE &= ~(1<<6);
-      } else {
-        unregister_code(KC_RSFT);
-        PORTE |= (1<<6);
       }
       return false;
       break;
