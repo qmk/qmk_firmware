@@ -54,7 +54,7 @@ enum macro_keycodes {
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * |Shift |      |      |      |      |      |      |  |      |      |      |      |      |      |Shift |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Adj  | Alt  |   `  | Left | Rght | Ctrl | Alt  |  | Alt  | Ctrl |  Up  | Down |   /  |   =  | Adj  |
+   * | Adj  | Alt  |   `  | Left | Rght | Ctrl | Alt  |  | Alt  | Ctrl |  Up  | Down |   /  | Win  | Adj  |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    | BkSp | Win  |  | Enter| Space|
    *                                    `-------------'  `-------------'
@@ -69,7 +69,7 @@ LAYOUT( \
       KC_TAB,  _00,     _01,     _02,     _03,     _04,     KC_LBRC,  KC_RBRC, _05,     _06,     _07,     _08,     _09,     KC_SLSH, \
       KC_DEL,  _10,     _11,     _12,     _13,     _14,     XXXXXXX,  XXXXXXX, _15,     _16,     _17,     _18,     _19,     _30, \
       KC_LSFT, _20,     _21,     _22,     _23,     _24,     XXXXXXX,  XXXXXXX, _25,     _26,     _27,     _28,     _29,     KC_RSFT, \
-      ADJ,     KC_LALT, KC_GRV,  KC_LEFT, KC_RGHT, KC_LCTL, KC_LALT,  KC_RALT, KC_RCTL, KC_UP,   KC_DOWN, KC_SLSH, KC_EQL,  ADJ, \
+      ADJ,     KC_LALT, KC_GRV,  KC_LEFT, KC_RGHT, KC_LCTL, KC_LALT,  KC_RALT, KC_RCTL, KC_UP,   KC_DOWN, KC_SLSH, KC_RGUI, ADJ, \
                         KC_VOLU, KC_VOLD,          KC_BSPC, KC_LGUI,  KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
 )
 
