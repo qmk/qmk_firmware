@@ -157,7 +157,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 // You need to add source files to SRC in rules.mk when using OLED display functions
 void set_keylog(uint16_t keycode);
 const char *read_keylog(void);
-const char *read_mod_state(void);
+const char *read_modifier_state(void);
 const char *read_host_led_state(void);
 
 void matrix_init_user(void) {
@@ -182,38 +182,38 @@ void render_status(struct CharacterMatrix *matrix) {
   matrix_write_P(matrix, PSTR("Layer: "));
   uint8_t layer = biton32(layer_state);
   uint8_t default_layer = eeconfig_read_default_layer();
-    switch (layer) {
-        case _QWERTY:
-           if (default_layer & (1UL << _QWERTY)) {
-             snprintf(layer_str, sizeof(layer_str), "Qwerty");
-           }
-           else if (default_layer & (1UL << _COLEMAK)) {
-             snprintf(layer_str, sizeof(layer_str), "Colemak");
-           }
-           else if (default_layer & (1UL << _DVORAK)) {
-             snprintf(layer_str, sizeof(layer_str), "Dvorak");
-           }
-           else {
-             snprintf(layer_str, sizeof(layer_str), "Undef-%d", default_layer);
-           }
-           break;
-        case _RAISE:
-           snprintf(layer_str, sizeof(layer_str), "Raise");
-           break;
-        case _LOWER:
-           snprintf(layer_str, sizeof(layer_str), "Lower");
-           break;
-        case _ADJUST:
-           snprintf(layer_str, sizeof(layer_str), "Adjust");
-           break;
-        default:
-           snprintf(layer_str, sizeof(layer_str), "Undef-%d", layer);
-    }
+  switch (layer) {
+    case _QWERTY:
+        if (default_layer & (1UL << _QWERTY)) {
+          snprintf(layer_str, sizeof(layer_str), "Qwerty");
+        }
+        else if (default_layer & (1UL << _COLEMAK)) {
+          snprintf(layer_str, sizeof(layer_str), "Colemak");
+        }
+        else if (default_layer & (1UL << _DVORAK)) {
+          snprintf(layer_str, sizeof(layer_str), "Dvorak");
+        }
+        else {
+          snprintf(layer_str, sizeof(layer_str), "Undef-%d", default_layer);
+        }
+        break;
+    case _RAISE:
+        snprintf(layer_str, sizeof(layer_str), "Raise");
+        break;
+    case _LOWER:
+        snprintf(layer_str, sizeof(layer_str), "Lower");
+        break;
+    case _ADJUST:
+        snprintf(layer_str, sizeof(layer_str), "Adjust");
+        break;
+    default:
+        snprintf(layer_str, sizeof(layer_str), "Undef-%d", layer);
+  }
   matrix_write_ln(matrix, layer_str);
   // Last entered keycode
   matrix_write_ln(matrix, read_keylog());
   // Modifier state
-  matrix_write_ln(matrix, read_mod_state());
+  matrix_write_ln(matrix, read_modifier_state());
   // Host Keyboard LED Status
   matrix_write(matrix, read_host_led_state());
 }
@@ -221,13 +221,11 @@ void render_status(struct CharacterMatrix *matrix) {
 
 void iota_gfx_task_user(void) {
   struct CharacterMatrix matrix;
-
-#if DEBUG_TO_SCREEN
-  if (debug_enable) {
-    return;
-  }
-#endif
-
+  #if DEBUG_TO_SCREEN
+    if (debug_enable) {
+      return;
+    }
+  #endif
   matrix_clear(&matrix);
   render_status(&matrix);
   matrix_update(&display, &matrix);

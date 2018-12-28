@@ -176,7 +176,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 // You need to add source files to SRC in rules.mk when using OLED display functions
 void set_keylog(uint16_t keycode);
 const char *read_keylog(void);
-const char *read_mod_state(void);
+const char *read_modifier_state(void);
 const char *read_host_led_state(void);
 
 void matrix_init_user(void) {
@@ -235,7 +235,7 @@ void render_status(struct CharacterMatrix *matrix) {
   // Last entered keycode
   matrix_write_ln(matrix, read_keylog());
   // Modifier state
-  matrix_write_ln(matrix, read_mod_state());
+  matrix_write_ln(matrix, read_modifier_state());
   // Host Keyboard LED Status
   matrix_write(matrix, read_host_led_state());
 }
