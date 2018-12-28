@@ -90,7 +90,7 @@
 
 #ifndef SELECT_SOFT_SERIAL_SPEED
 #define SELECT_SOFT_SERIAL_SPEED 1
-//  0: about 189kbps (Experiment only)
+//  0: about 189kbps (Experimental only)
 //  1: about 137kbps (default)
 //  2: about 75kbps
 //  3: about 39kbps
