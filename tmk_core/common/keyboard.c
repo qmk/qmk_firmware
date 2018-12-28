@@ -234,7 +234,7 @@ void keyboard_init(void) {
 #if defined(NKRO_ENABLE) && defined(FORCE_NKRO)
     keymap_config.nkro = 1;
 #endif
-  keyboard_post_init_kb(); /* Always keep this last */
+    keyboard_post_init_kb(); /* Always keep this last */
 }
 
 /** \brief Keyboard task: Do keyboard routine jobs
