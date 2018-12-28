@@ -197,14 +197,47 @@ If you define these options you will enable the associated feature, which may in
 
 Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk
 
-* `#define SPLIT_HAND_PIN B7`
-  * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace 'B7' with the pin you are using. This is optional and you can still use the EEHANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
+### Setting Handedness
+
+One thing to remember, the side that the USB port is plugged into is always the master half. The side not plugged into USB is the slave.
+
+There are a few different ways to set handedness for split keyboards (listed in order of precedence):
+
+1. Set `SPLIT_HAND_PIN`: Reads a pin to determine handedness. If pin is high, it's the left side, if low, the half is determined to be the right side
+2. Set `EE_HANDS` and flash `eeprom-lefthand.eep`/`eeprom-righthand.eep` to each half
+3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
+4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
+
+* `#define SPLIT_HAND_PIN B7` 
+  * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
+
+* `#define EE_HANDS` (only works if `SPLIT_HAND_PIN` is not defined)
+  * Reads the handedness value stored in the EEPROM after `eeprom-lefthand.eep`/`eeprom-righthand.eep` has been flashed to their respective halves.
+
+* `#define MASTER_RIGHT`
+  * Master half is defined to be the right half.
+
+### Other Options
 
 * `#define USE_I2C`
   * For using I2C instead of Serial (defaults to serial)
 
 * `#define SOFT_SERIAL_PIN D0`
   * When using serial, define this. `D0` or `D1`,`D2`,`D3`,`E6`.
+
+* `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
+* `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
+  * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
+
+* `#define SELECT_SOFT_SERIAL_SPEED <speed>` (default speed is 1)
+  * Sets the protocol speed when using serial communication
+  * Speeds:
+    * 0: about 189kbps (Experimental only)
+    * 1: about 137kbps (default)
+    * 2: about 75kbps
+    * 3: about 39kbps
+    * 4: about 26kbps
+    * 5: about 20kbps
 
 # The `rules.mk` File
 
