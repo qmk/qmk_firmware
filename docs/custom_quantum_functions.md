@@ -175,7 +175,7 @@ These are the three main initialization functions, listed in the order that they
 * `matrix_init_*` - Happens midway through the firmware's startup process. Hardware is initialized, but features may not be yet.
 * `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part.
 
-!> For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is useful for setting up RGB Underglow.
+!> For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is where you want to set up things for RGB Underglow.
 
 ## Keyboard Pre Initialization code
 
@@ -191,7 +191,7 @@ However, if you have hardware stuff that you need initialized, this is the best 
 
 This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
-```
+```c
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
 
@@ -272,7 +272,7 @@ This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_
 
 This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
-```
+```c
 void suspend_power_down_user(void)
 {
     rgb_matrix_set_suspend_state(true);
