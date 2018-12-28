@@ -43,6 +43,7 @@
 
 * [Features](features.md)
   * [Basic Keycodes](keycodes_basic.md)
+  * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
   * [Quantum Keycodes](quantum_keycodes.md)
   * [Advanced Keycodes](feature_advanced_keycodes.md)
   * [Audio](feature_audio.md)
@@ -74,7 +75,6 @@
   * [Thermal Printer](feature_thermal_printer.md)
   * [Unicode](feature_unicode.md)
   * [Userspace](feature_userspace.md)
-  * [US ANSI Shifted Keys](keycodes_us_ansi_shifted.md)
 
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
@@ -88,6 +88,7 @@
 
 * Other Topics
   * [Using Eclipse with QMK](eclipse.md)
+  * [Support](support.md)
 
 * QMK Internals (In Progress)
   * [Defines](internals_defines.md)

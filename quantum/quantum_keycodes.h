@@ -81,9 +81,6 @@ enum quantum_keycodes {
 #endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
-#if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
-    #error "Cannot enable both UNICODEMAP && UNICODE"
-#endif
 #ifdef UNICODE_ENABLE
     QK_UNICODE            = 0x8000,
     QK_UNICODE_MAX        = 0xFFFF,
@@ -456,6 +453,15 @@ enum quantum_keycodes {
 
     EEPROM_RESET,
 
+    UNICODE_MODE_FORWARD,
+    UNICODE_MODE_REVERSE,
+
+    UNICODE_MODE_OSX,
+    UNICODE_MODE_LNX,
+    UNICODE_MODE_WIN,
+    UNICODE_MODE_BSD,
+    UNICODE_MODE_WINC,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -470,6 +476,7 @@ enum quantum_keycodes {
 #define RCTL(kc) (QK_RCTL | (kc))
 #define RSFT(kc) (QK_RSFT | (kc))
 #define RALT(kc) (QK_RALT | (kc))
+#define ALGR(kc) RALT(kc)
 #define RGUI(kc) (QK_RGUI | (kc))
 #define RCMD(kc) RGUI(kc)
 #define RWIN(kc) RGUI(kc)
@@ -480,7 +487,7 @@ enum quantum_keycodes {
 #define SGUI(kc) (QK_LGUI | QK_LSFT | (kc))
 #define SCMD(kc) SGUI(kc)
 #define SWIN(kc) SGUI(kc)
-#define LCA(kc) (QK_LCTL | QK_LALT | (kc))
+#define LCA(kc)  (QK_LCTL | QK_LALT | (kc))
 
 #define MOD_HYPR 0xf
 #define MOD_MEH 0x7
@@ -645,7 +652,7 @@ enum quantum_keycodes {
 #define ALT_T(kc) MT(MOD_LALT, kc)
 #define LALT_T(kc) MT(MOD_LALT, kc)
 #define RALT_T(kc) MT(MOD_RALT, kc)
-#define ALGR_T(kc) MT(MOD_RALT, kc) // dual-function AltGR
+#define ALGR_T(kc) RALT_T(kc)
 
 #define GUI_T(kc) MT(MOD_LGUI, kc)
 #define CMD_T(kc) GUI_T(kc)
@@ -682,6 +689,15 @@ enum quantum_keycodes {
 #ifdef UNICODEMAP_ENABLE
     #define X(n) (QK_UNICODE_MAP | (n))
 #endif
+
+#define UC_MOD  UNICODE_MODE_FORWARD
+#define UC_RMOD UNICODE_MODE_REVERSE
+
+#define UC_M_OS UNICODE_MODE_OSX
+#define UC_M_LN UNICODE_MODE_LNX
+#define UC_M_WI UNICODE_MODE_WIN
+#define UC_M_BS UNICODE_MODE_BSD
+#define UC_M_WC UNICODE_MODE_WINC
 
 #ifdef SWAP_HANDS_ENABLE
   #define SH_T(kc) (QK_SWAP_HANDS | (kc))
