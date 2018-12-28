@@ -2,7 +2,7 @@
 
 ![cyclops](https://github.com/westfoxtrot/Cyclops)
 
-A short description of the keyboard/project
+66% Alps Keyboard in ISO layout.
 
 Keyboard Maintainer: [westfoxtrot](https://github.com/westfoxtrot)
 Hardware Supported: Cyclops (AEKISO66) PCB
