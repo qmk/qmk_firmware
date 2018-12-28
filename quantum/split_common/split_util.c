@@ -36,7 +36,7 @@ static void setup_handedness(void) {
     #ifdef EE_HANDS
       isLeftHand = eeprom_read_byte(EECONFIG_HANDEDNESS);
     #else
-      #ifdef(MASTER_RIGHT)
+      #ifdef MASTER_RIGHT
         isLeftHand = !has_usb();
       #else
         isLeftHand = has_usb();
