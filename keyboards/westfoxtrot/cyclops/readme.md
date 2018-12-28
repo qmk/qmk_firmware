@@ -6,7 +6,7 @@
 
 Keyboard Maintainer: [westfoxtrot](https://github.com/westfoxtrot)
 Hardware Supported: Cyclops (AEKISO66) PCB
-Hardware Availability: Files released here (https://github.com/westfoxtrot/Cyclops)
+ Hardware Availability: Files released here (https://github.com/westfoxtrot/Cyclops)  
 
 Make example for this keyboard (after setting up your build environment):
 
