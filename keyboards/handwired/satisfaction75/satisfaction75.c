@@ -3,6 +3,11 @@
 #include "debug.h"
 #include "micro_oled.h"
 
+#include "ch.h"
+#include "hal.h"
+
+#include "underglow.h"
+
 // void matrix_init_user(void){
 //     debug_enable = true;
 //     debug_keyboard = true;
@@ -14,7 +19,7 @@
 //   // send_buffer();
 // }
 
-#ifdef QWIIC_MICRO_OLED_ENABLE
+// #ifdef QWIIC_MICRO_OLED_ENABLE
 #include "qwiic.h"
 
 
@@ -164,6 +169,9 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 void matrix_init_user(void) {
   queue_for_send = true;
   printf("Queued OLED send on init\n");
+  /* MOSI pin*/
+  palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(0) | PAL_STM32_OSPEED_HIGHEST);
+  leds_init();
 }
 
 void matrix_scan_user(void) {
@@ -177,4 +185,4 @@ void matrix_scan_user(void) {
   }
 }
 
-#endif
+// #endif
