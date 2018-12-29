@@ -4,6 +4,7 @@
 #include QMK_KEYBOARD_H
 #include "keymap_jis2us.h"
 #include "action_pseudo_lut.h"
+#include "keymap_jp.h"
 #ifdef SSD1306OLED
   #include "ssd1306.h"
 #endif
@@ -25,35 +26,66 @@ enum comet46_layers {
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   PSEUDO_US,
-  JIS2US
+  JIS2US,
 };
 
-#define KC_LWR MO(_LOWER)
-#define KC_RSE MO(_RAISE)
+// JIS keycodes
+#define KC_JZHT JP_ZHTG  // hankaku/zenkaku|kanzi
+#define KC_JCIR JP_CIRC  // ^, ~
+#define KC_JAT  JP_AT    // @, `
+#define KC_JLBR JP_LBRC  // [, {
+#define KC_JCOL JP_COLN  // :, *
+#define KC_JRBR JP_RBRC  // ], }
+#define KC_JBSL JP_BSLS  // \, _
+#define KC_JMHE JP_MHEN  // muhenkan
+#define KC_JHEN JP_HENK  // henkan
+#define KC_JKAN JP_KANA  // katakana/hiragana|ro-mazi
+#define KC_JMKA JP_MKANA //kana on MacOSX
+#define KC_JMEI JP_MEISU //eisu on MacOSX
+#define KC_JAMP JP_AMPR  // &
+#define KC_JQUO JP_QUOT  // '
+#define KC_JLPR JP_LPRN  // (
+#define KC_JRPR JP_RPRN  // )
+#define KC_JEQL JP_EQL   // =
+#define KC_JTIL JP_TILD  // ~
+#define KC_JPIP JP_PIPE  // |
+#define KC_JGRV JP_GRV   // `
+#define KC_JLCB JP_LCBR  // {
+#define KC_JPLU JP_PLUS  // +
+#define KC_JAST JP_ASTR  // *
+#define KC_JRCB JP_RCBR  // }
+#define KC_JUND JP_UNDS  // _
+
+// Layer related keycodes
+#define KC_LWR  MO(_LOWER)
+#define KC_RSE  MO(_RAISE)
 #define KC_P_LW MO(_PSEUDO_US_LOWER)
 #define KC_P_RS MO(_PSEUDO_US_RAISE)
 #define KC_QWRT QWERTY
 #define KC_P_US PSEUDO_US
 #define KC_J2US JIS2US
+
+// Special keycodes
 #define KC_SPCT CTL_T(KC_SPC)
 #define KC_ENSF SFT_T(KC_ENT)
+#define KC_CAEC MT(MOD_LCTL | MOD_LALT, KC_ESC)
+#define KC_CSTB C_S_T(KC_TAB)
 #define KC_IMON ALT_T(KC_F13)
 #define KC_IMOF GUI_T(KC_F14)
-#define KC_SRO S(KC_RO)
-#define KC_SYEN S(KC_JYEN)
 #define KC_CAD LCA(KC_DEL)
 #define KC_RST RESET
+
 // Fillers to make layering more clear
-#define KC_ KC_TRNS 
+#define KC_ KC_TRNS
 #define KC_XXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_kc(  
+  [_QWERTY] = LAYOUT_kc(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
-     ESC , Q  , W  , E  , R  , T  ,                 Y  , U  , I  , O  , P  ,DEL ,
+     CAEC, Q  , W  , E  , R  , T  ,                 Y  , U  , I  , O  , P  ,DEL ,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-     TAB , A  , S  , D  , F  , G  ,LPRN,      RPRN, H  , J  , K  , L  ,SCLN,BSPC,
+     CSTB, A  , S  , D  , F  , G  ,LPRN,      RPRN, H  , J  , K  , L  ,SCLN,BSPC,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
      LSFT, Z  , X  , C  , V  , B  ,LBRC,      RBRC, N  , M  ,COMM,DOT ,SLSH,QUOT,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
@@ -61,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //                    +----+----+---/       \---+----+----+
   ),
 
-  [_LOWER] = LAYOUT_kc(  
+  [_LOWER] = LAYOUT_kc(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
          ,EXLM, AT ,HASH,DLR ,PERC,                CIRC,AMPR,ASTR,LPRN,RPRN,    ,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
@@ -69,11 +101,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
          , F7 , F8 , F9 , F10, F11, F12,      TILD,PIPE,UNDS,PLUS,LCBR,RCBR,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                             ,    ,    ,          ,    ,    
+                             ,    ,    ,          ,    ,
   //                    +----+----+---/       \---+----+----+
   ),
 
-  [_RAISE] = LAYOUT_kc(  
+  [_RAISE] = LAYOUT_kc(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
          , 1  , 2  , 3  , 4  , 5  ,                 6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
@@ -81,15 +113,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,    ,      HOME,XXXX,PGDN,PGUP,XXXX,XXXX,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                             ,    ,    ,          ,    ,    
+                             ,    ,    ,          ,    ,
   //                    +----+----+---/       \---+----+----+
   ),
 
-  [_PSEUDO_US] = LAYOUT_kc(  
+  [_PSEUDO_US] = LAYOUT_kc(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
-     ESC , Q  , W  , E  , R  , T  ,                 Y  , U  , I  , O  , P  ,DEL ,
+     CAEC, Q  , W  , E  , R  , T  ,                 Y  , U  , I  , O  , P  ,DEL ,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-     TAB , A  , S  , D  , F  , G  ,ASTR,      LPRN, H  , J  , K  , L  ,J2US,BSPC,
+     CSTB, A  , S  , D  , F  , G  ,JLPR,      JRPR, H  , J  , K  , L  ,J2US,BSPC,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
      LSFT, Z  , X  , C  , V  , B  ,J2US,      J2US, N  , M  ,COMM,DOT ,SLSH,J2US,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
@@ -98,31 +130,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [_PSEUDO_US_LOWER] = LAYOUT_kc(  
+  [_PSEUDO_US_LOWER] = LAYOUT_kc(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
-         ,EXLM,LBRC,HASH,DLR ,PERC,                EQL ,CIRC, DQT,ASTR,LPRN,    ,
+         ,EXLM,JAT ,HASH,DLR ,PERC,                JCIR,JAMP,JAST,JLPR,JRPR,    ,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-         , F1 , F2 , F3 , F4 , F5 , F6 ,      LCBR,JYEN,MINS,UNDS,RBRC,BSLS,    ,
+         , F1 , F2 , F3 , F4 , F5 , F6 ,      JGRV,JBSL,MINS,JEQL,JLBR,JRBR,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-         , F7 , F8 , F9 , F10, F11, F12,      PLUS,SYEN,SRO ,COLN,RCBR,PIPE,    ,
+         , F7 , F8 , F9 , F10, F11, F12,      JTIL,JPIP,JUND,JPLU,JLCB,JRCB,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                             ,    ,    ,          ,    ,    
+                             ,    ,    ,          ,    ,
   //                    +----+----+---/       \---+----+----+
   ),
 
-  [_PSEUDO_US_RAISE] = LAYOUT_kc(  
+  [_PSEUDO_US_RAISE] = LAYOUT_kc(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
          , 1  , 2  , 3  , 4  , 5  ,                 6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    , GRV,      XXXX,LEFT,DOWN, UP ,RGHT,END ,    ,
+         ,    ,    ,    ,    ,    ,JZHT,      XXXX,LEFT,DOWN, UP ,RGHT,END ,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,    ,      HOME,XXXX,PGDN,PGUP,XXXX,XXXX,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                             ,    ,    ,          ,    ,    
+                             ,    ,    ,          ,    ,
   //                    +----+----+---/       \---+----+----+
   ),
 
-  [_ADJUST] = LAYOUT_kc(  
+  [_ADJUST] = LAYOUT_kc(
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
          ,    ,    ,    ,    ,    ,                    ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
@@ -130,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
          ,    ,    ,    ,    ,    ,RST ,      P_US,    ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-                             ,    ,    ,          ,    ,    
+                             ,    ,    ,          ,    ,
   //                    +----+----+---/       \---+----+----+
   )
 
@@ -139,7 +171,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint32_t layer_state_set_user(uint32_t state) {
   switch (biton32(state)) {
     case _PSEUDO_US_LOWER:
-    case _PSEUDO_US_RAISE: 
+    case _PSEUDO_US_RAISE:
       return update_tri_layer_state(state, _PSEUDO_US_RAISE, _PSEUDO_US_LOWER, _ADJUST);
       break;
     default:
@@ -254,6 +286,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case JIS2US:
       action_pseudo_lut(record, _QWERTY, keymap_jis2us);
+      break;
   }
   return true;
 }
