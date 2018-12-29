@@ -13,18 +13,19 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 enum comet46_layers {
-    _QWERTY,
-    _LOWER,
-    _RAISE,
-    _PSEUDO_US,
-    _PSEUDO_US_LOWER,
-    _PSEUDO_US_RAISE,
-    _ADJUST
+  _QWERTY,
+  _LOWER,
+  _RAISE,
+  _PSEUDO_US,
+  _PSEUDO_US_LOWER,
+  _PSEUDO_US_RAISE,
+  _ADJUST
 };
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   PSEUDO_US,
+  JIS2US
 };
 
 #define KC_LWR MO(_LOWER)
@@ -33,6 +34,7 @@ enum custom_keycodes {
 #define KC_P_RS MO(_PSEUDO_US_RAISE)
 #define KC_QWRT QWERTY
 #define KC_P_US PSEUDO_US
+#define KC_J2US JIS2US
 #define KC_SPCT CTL_T(KC_SPC)
 #define KC_ENSF SFT_T(KC_ENT)
 #define KC_IMON ALT_T(KC_F13)
@@ -87,9 +89,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,----+----+----+----+----+----+               +----+----+----+----+----+----.
      ESC , Q  , W  , E  , R  , T  ,                 Y  , U  , I  , O  , P  ,DEL ,
   //|----+----+----+----+----+----+----+     +----+----+----+----+----+----+----|
-     TAB , A  , S  , D  , F  , G  ,ASTR,      LPRN, H  , J  , K  , L  ,FN0 ,BSPC,
+     TAB , A  , S  , D  , F  , G  ,ASTR,      LPRN, H  , J  , K  , L  ,J2US,BSPC,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  ,FN0 ,      FN0 , N  , M  ,COMM,DOT ,SLSH,FN0 ,
+     LSFT, Z  , X  , C  , V  , B  ,J2US,      J2US, N  , M  ,COMM,DOT ,SLSH,J2US,
   //|----+----+----+----+----+----+----|     |----+----+----+----+----+----+----|
                          IMOF,P_LW,SPCT,      ENSF,P_RS,IMON
   //                    +----+----+---/       \---+----+----+
@@ -134,30 +136,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-/*
- * user defined action function
- */
-enum function_id {
-    PSEUDO_US_FUNCTION,
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    switch (id)
-    {
-    case PSEUDO_US_FUNCTION:
-        action_pseudo_lut(record, _QWERTY, keymap_jis2us);
-        break;
-    }
-}
-
-/*
- * Fn action definition
- */
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_FUNCTION(PSEUDO_US_FUNCTION),
-};
-
 uint32_t layer_state_set_user(uint32_t state) {
   switch (biton32(state)) {
     case _PSEUDO_US_LOWER:
@@ -187,8 +165,7 @@ void matrix_scan_user(void) {
   iota_gfx_task();  // this is what updates the display continuously
 }
 
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
+void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
     memcpy(dest->display, source->display, sizeof(dest->display));
     dest->dirty = true;
@@ -198,38 +175,40 @@ void matrix_update(struct CharacterMatrix *dest,
 void render_status(struct CharacterMatrix *matrix) {
   // Layer state
   char layer_str[22];
-  matrix_write_P(matrix, PSTR("Layer: "));
+  matrix_write(matrix, "Layer: ");
   uint8_t layer = biton32(layer_state);
-  uint8_t default_layer = eeconfig_read_default_layer();
+  uint8_t default_layer = biton32(eeconfig_read_default_layer());
     switch (layer) {
-        case _QWERTY:
-           if (default_layer & (1UL << _QWERTY)) {
-             snprintf(layer_str, sizeof(layer_str), "Qwerty");
-           }
-           else if (default_layer & (1UL << _PSEUDO_US)) {
-             snprintf(layer_str, sizeof(layer_str), "Psuedo_US");
-           }
-           else {
-             snprintf(layer_str, sizeof(layer_str), "Undef-%d", default_layer);
-           }
-           break;
-        case _RAISE:
-           snprintf(layer_str, sizeof(layer_str), "Raise");
-           break;
-        case _LOWER:
-           snprintf(layer_str, sizeof(layer_str), "Lower");
-           break;
-        case _PSEUDO_US_RAISE:
-           snprintf(layer_str, sizeof(layer_str), "P_US_Raise");
-           break;
-        case _PSEUDO_US_LOWER:
-           snprintf(layer_str, sizeof(layer_str), "P_US_Lower");
-           break;
-        case _ADJUST:
-           snprintf(layer_str, sizeof(layer_str), "Adjust");
-           break;
-        default:
-           snprintf(layer_str, sizeof(layer_str), "Undef-%d", layer);
+      case _QWERTY:
+        switch (default_layer) {
+          case _QWERTY:
+            snprintf(layer_str, sizeof(layer_str), "Qwerty");
+            break;
+          case _PSEUDO_US:
+            snprintf(layer_str, sizeof(layer_str), "Psuedo_US");
+            break;
+          default:
+            snprintf(layer_str, sizeof(layer_str), "Undef-%d", default_layer);
+            break;
+        }
+        break;
+      case _RAISE:
+        snprintf(layer_str, sizeof(layer_str), "Raise");
+        break;
+      case _LOWER:
+        snprintf(layer_str, sizeof(layer_str), "Lower");
+        break;
+      case _PSEUDO_US_RAISE:
+        snprintf(layer_str, sizeof(layer_str), "P_US_Raise");
+        break;
+      case _PSEUDO_US_LOWER:
+        snprintf(layer_str, sizeof(layer_str), "P_US_Lower");
+        break;
+      case _ADJUST:
+        snprintf(layer_str, sizeof(layer_str), "Adjust");
+        break;
+      default:
+        snprintf(layer_str, sizeof(layer_str), "Undef-%d", layer);
     }
   matrix_write_ln(matrix, layer_str);
   // Last entered keycode
@@ -267,14 +246,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
       }
-      return false;
       break;
     case PSEUDO_US:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_PSEUDO_US);
       }
-      return false;
       break;
+    case JIS2US:
+      action_pseudo_lut(record, _QWERTY, keymap_jis2us);
   }
   return true;
 }

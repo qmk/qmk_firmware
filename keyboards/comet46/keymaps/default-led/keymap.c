@@ -177,7 +177,7 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
   uint8_t layer = biton32(layer_state);
-  uint8_t default_layer = eeconfig_read_default_layer();
+  uint8_t default_layer = biton32(eeconfig_read_default_layer());
   switch (layer) {
     case _LOWER:
       set_led_red;
@@ -189,14 +189,16 @@ void matrix_scan_user(void) {
       set_led_magenta;
       break;
     default:
-      if (default_layer & (1UL << _COLEMAK)) {
-        set_led_white;
-      }
-      else if (default_layer & (1UL << _DVORAK)) {
-        set_led_yellow;
-      }
-      else {
-        set_led_green;
+      switch (default_layer) {
+        case _COLEMAK:
+          set_led_white;
+          break;
+        case _DVORAK:
+          set_led_yellow;
+          break;
+        default:
+          set_led_green;
+          break;
       }
       break;
   }
@@ -208,19 +210,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
       }
-      return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
       }
-      return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
       }
-      return false;
       break;
   }
   return true;

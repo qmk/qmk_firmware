@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include "comet46.h"
 

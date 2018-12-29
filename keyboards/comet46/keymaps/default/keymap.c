@@ -168,8 +168,7 @@ void matrix_scan_user(void) {
   iota_gfx_task();  // this is what updates the display continuously
 }
 
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
+void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
   if (memcmp(dest->display, source->display, sizeof(dest->display))) {
     memcpy(dest->display, source->display, sizeof(dest->display));
     dest->dirty = true;
@@ -179,35 +178,37 @@ void matrix_update(struct CharacterMatrix *dest,
 void render_status(struct CharacterMatrix *matrix) {
   // Layer state
   char layer_str[22];
-  matrix_write_P(matrix, PSTR("Layer: "));
+  matrix_write(matrix, "Layer: ");
   uint8_t layer = biton32(layer_state);
-  uint8_t default_layer = eeconfig_read_default_layer();
+  uint8_t default_layer = biton32(eeconfig_read_default_layer());
   switch (layer) {
     case _QWERTY:
-        if (default_layer & (1UL << _QWERTY)) {
+      switch (default_layer) {
+        case _QWERTY:
           snprintf(layer_str, sizeof(layer_str), "Qwerty");
-        }
-        else if (default_layer & (1UL << _COLEMAK)) {
+          break;
+        case _COLEMAK:
           snprintf(layer_str, sizeof(layer_str), "Colemak");
-        }
-        else if (default_layer & (1UL << _DVORAK)) {
+          break;
+        case _DVORAK:
           snprintf(layer_str, sizeof(layer_str), "Dvorak");
-        }
-        else {
+          break;
+        default:
           snprintf(layer_str, sizeof(layer_str), "Undef-%d", default_layer);
-        }
-        break;
+          break;
+      }
+      break;
     case _RAISE:
-        snprintf(layer_str, sizeof(layer_str), "Raise");
-        break;
+      snprintf(layer_str, sizeof(layer_str), "Raise");
+      break;
     case _LOWER:
-        snprintf(layer_str, sizeof(layer_str), "Lower");
-        break;
+      snprintf(layer_str, sizeof(layer_str), "Lower");
+      break;
     case _ADJUST:
-        snprintf(layer_str, sizeof(layer_str), "Adjust");
-        break;
+      snprintf(layer_str, sizeof(layer_str), "Adjust");
+      break;
     default:
-        snprintf(layer_str, sizeof(layer_str), "Undef-%d", layer);
+      snprintf(layer_str, sizeof(layer_str), "Undef-%d", layer);
   }
   matrix_write_ln(matrix, layer_str);
   // Last entered keycode
@@ -221,11 +222,6 @@ void render_status(struct CharacterMatrix *matrix) {
 
 void iota_gfx_task_user(void) {
   struct CharacterMatrix matrix;
-  #if DEBUG_TO_SCREEN
-    if (debug_enable) {
-      return;
-    }
-  #endif
   matrix_clear(&matrix);
   render_status(&matrix);
   matrix_update(&display, &matrix);
@@ -244,19 +240,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
       }
-      return false;
       break;
     case COLEMAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_COLEMAK);
       }
-      return false;
       break;
     case DVORAK:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_DVORAK);
       }
-      return false;
       break;
   }
   return true;
