@@ -1,7 +1,12 @@
 from sortedcontainers import SortedDict
 
+# Add all used Unicode symbols to this list.
+# The key (e.g. "SNEK") is used in keymap.c for "enum", "unicode_map" and "keymaps", so it needs to be a valid C variable name.
+# The key is also used in this file to define the layout, so use recognizeable names.
+# The value (e.g. "0x1f40d") is used in keymap.c for "unicode_map" and to automatically generate the comments.
+# When adding new Unicode names, use "0x1f40d" until you looked up the correct Unicode code point.
 uc_dict = SortedDict({
-    "SNEK": "0x1F40D", ## Error
+    "SNEK": "0x1f40d", ## Error
     ## base
     "ACUTE": "0x00b4",
     ## baseSH
@@ -65,13 +70,17 @@ uc_dict = SortedDict({
     "OE": "0x00d6",
     "UE": "0x00dc",
     "SZ": "0x1e9e",
-    "N_TILDE": "0x00d1",
-
-
+    "N_TILDE": "0x00d1"
 })
 
+# Add all used Keycodes to this list.
+# The key (e.g. "a") is used in keymap.c to automatically generate the comments. The first 7 chars will show as a keycap legend.
+# The key is also used in this file to define the layout, so use recognizeable names.
+# The value (e.g. "0x1f40d") is used in keymap.c for "unicode_map" and to automatically generate the comments.
+# When adding new Unicode names, use "0x1f40d" until you looked up the correct Unicode code point.
 qmk_dict = {
-    # test cases
+    # test cases (These are handled in generate_km.py within toKC() and toLgd(), so these definitions will be ignored.
+    # If you find "BAD" in your keymaps, then something went wrong.)
     "a": "BAD", "A": "BAD", "0": "BAD",
     # Basic Keycodes
     "XXX": "XXXXXXX", "": "KC_TRNS",
