@@ -17,6 +17,8 @@ enum rhruiz_layers {
 /* tap to esc, hold to ctrl */
 #define CTRLESC LCTL_T(KC_ESC)
 
+/* space or fn2 */
+#define SPCFN2 LT(_FN2, KC_SPC)
 
 /* arrow cluster */
 #define CLLEFT MT(MOD_LGUI, KC_LEFT)
