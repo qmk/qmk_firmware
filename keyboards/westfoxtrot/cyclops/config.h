@@ -1,5 +1,5 @@
 /*
-Copyright 2018 'mechmerlin'
+Copyright 2018 westfoxtrot
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -20,12 +20,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define VENDOR_ID       0x21FF
+#define PRODUCT_ID      0x0A66
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    You
+#define MANUFACTURER    westfoxtrot
 #define PRODUCT         cyclops
-#define DESCRIPTION     A custom 66% keyboard
+#define DESCRIPTION     AEK66
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -187,9 +187,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /*
 #define LCD_LINES           2     //< number of visible lines of the display
 #define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
-
 #define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
-
 #if LCD_IO_MODE
 #define LCD_PORT         PORTB        //< port for the LCD lines
 #define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
