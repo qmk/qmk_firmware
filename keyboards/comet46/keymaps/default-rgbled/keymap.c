@@ -2,10 +2,6 @@
 // This is the canonical layout file for the Quantum project. If you want to add another keyboard,
 
 #include QMK_KEYBOARD_H
-#ifdef SSD1306OLED
-  #include "ssd1306.h"
-#endif
-
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -151,90 +147,64 @@ uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+// settings for LED on receiver
+void led_init(void) {
+	DDRD  |= (1<<1);
+	PORTD |= (1<<1);
+	DDRF  |= (1<<4) | (1<<5);
+	PORTF |= (1<<4) | (1<<5);
+}
 
-// You need to add source files to SRC in rules.mk when using OLED display functions
-void set_keylog(uint16_t keycode);
-const char *read_keylog(void);
-const char *read_modifier_state(void);
-const char *read_host_led_state(void);
+#define red_led_off   PORTF |= (1<<5)
+#define red_led_on    PORTF &= ~(1<<5)
+#define blu_led_off   PORTF |= (1<<4)
+#define blu_led_on    PORTF &= ~(1<<4)
+#define grn_led_off   PORTD |= (1<<1)
+#define grn_led_on    PORTD &= ~(1<<1)
+
+#define set_led_off     red_led_off; grn_led_off; blu_led_off
+#define set_led_red     red_led_on;  grn_led_off; blu_led_off
+#define set_led_blue    red_led_off; grn_led_off; blu_led_on
+#define set_led_green   red_led_off; grn_led_on;  blu_led_off
+#define set_led_yellow  red_led_on;  grn_led_on;  blu_led_off
+#define set_led_magenta red_led_on;  grn_led_off; blu_led_on
+#define set_led_cyan    red_led_off; grn_led_on;  blu_led_on
+#define set_led_white   red_led_on;  grn_led_on;  blu_led_on
 
 void matrix_init_user(void) {
-  iota_gfx_init(false);   // turns on the display
+  led_init();
 }
 
 void matrix_scan_user(void) {
-  iota_gfx_task();  // this is what updates the display continuously
-}
-
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void render_status(struct CharacterMatrix *matrix) {
-  // Layer state
-  char layer_str[22];
-  matrix_write(matrix, "Layer: ");
   uint8_t layer = biton32(layer_state);
   uint8_t default_layer = biton32(eeconfig_read_default_layer());
   switch (layer) {
-    case _QWERTY:
+    case _LOWER:
+      set_led_red;
+      break;
+    case _RAISE:
+      set_led_blue;
+      break;
+    case _ADJUST:
+      set_led_magenta;
+      break;
+    default:
       switch (default_layer) {
-        case _QWERTY:
-          snprintf(layer_str, sizeof(layer_str), "Qwerty");
-          break;
         case _COLEMAK:
-          snprintf(layer_str, sizeof(layer_str), "Colemak");
+          set_led_white;
           break;
         case _DVORAK:
-          snprintf(layer_str, sizeof(layer_str), "Dvorak");
+          set_led_yellow;
           break;
         default:
-          snprintf(layer_str, sizeof(layer_str), "Undef-%d", default_layer);
+          set_led_green;
           break;
       }
       break;
-    case _RAISE:
-      snprintf(layer_str, sizeof(layer_str), "Raise");
-      break;
-    case _LOWER:
-      snprintf(layer_str, sizeof(layer_str), "Lower");
-      break;
-    case _ADJUST:
-      snprintf(layer_str, sizeof(layer_str), "Adjust");
-      break;
-    default:
-      snprintf(layer_str, sizeof(layer_str), "Undef-%d", layer);
   }
-  matrix_write_ln(matrix, layer_str);
-  // Last entered keycode
-  matrix_write_ln(matrix, read_keylog());
-  // Modifier state
-  matrix_write_ln(matrix, read_modifier_state());
-  // Host Keyboard LED Status
-  matrix_write(matrix, read_host_led_state());
-}
-
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-  matrix_clear(&matrix);
-  render_status(&matrix);
-  matrix_update(&display, &matrix);
-}
-
-#endif//SSD1306OLED
+};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef SSD1306OLED
-    if (record->event.pressed) {
-      set_keylog(keycode);
-    }
-  #endif
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
