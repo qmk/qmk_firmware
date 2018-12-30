@@ -12,17 +12,25 @@
 #define _MOUSE 9
 */
 
+enum my_keycodes {
+  GREEK = SAFE_RANGE,
+  SYMBOL,
+	MATH,
+	GAME,
+	MOUSE
+};
+
 enum unicode_name {
-<enum/>
+//<enum/>
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-<uc_map/>
+//<uc_map/>
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-<keymaps/>
+//<keymaps/>
 };
 
 
@@ -39,7 +47,83 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	return true;
+	switch (keycode) {
+		case GREEK:
+			if (record->event.pressed) {
+				layer_invert(12);
+				layer_off(16);
+				layer_off(18);
+				layer_off(23);
+				layer_off(24);
+			} else {
+				// Do something else when release
+			}
+			return false; // Skip all further processing of this key
+		case SYMBOL:
+			if (record->event.pressed) {
+				layer_off(12);
+				layer_invert(16);
+				layer_off(18);
+				layer_off(23);
+				layer_off(24);
+			} else {
+				// Do something else when release
+			}
+			return false; // Skip all further processing of this key
+		case MATH:
+			if (record->event.pressed) {
+				layer_off(12);
+				layer_off(16);
+				layer_invert(18);
+				layer_off(23);
+				layer_off(24);
+			} else {
+				// Do something else when release
+			}
+			return false; // Skip all further processing of this key
+		case GAME:
+			if (record->event.pressed) {
+				layer_off(12);
+				layer_off(16);
+				layer_off(18);
+				layer_invert(23);
+				layer_off(24);
+			} else {
+				// Do something else when release
+			}
+			return false; // Skip all further processing of this key
+		case MOUSE:
+			if (record->event.pressed) {
+				layer_off(12);
+				layer_off(16);
+				layer_off(18);
+				layer_off(23);
+				layer_invert(24);
+			} else {
+				// Do something else when release
+			}
+			return false; // Skip all further processing of this key
+		default:
+			return true; // Process all other keycodes normally
+	}
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  state = update_tri_layer_state(state, 1, 2, 3);
+  state = update_tri_layer_state(state, 1, 4, 5);
+  state = update_tri_layer_state(state, 1, 6, 7);
+  state = update_tri_layer_state(state, 1, 8, 9);
+  state = update_tri_layer_state(state, 2, 8, 10);
+  state = update_tri_layer_state(state, 1, 10, 11);
+  state = update_tri_layer_state(state, 1, 12, 13);
+  state = update_tri_layer_state(state, 2, 12, 14);
+  state = update_tri_layer_state(state, 1, 14, 15);
+  state = update_tri_layer_state(state, 1, 16, 17);
+  state = update_tri_layer_state(state, 1, 18, 19);
+  state = update_tri_layer_state(state, 4, 18, 20);
+  state = update_tri_layer_state(state, 1, 20, 21);
+  state = update_tri_layer_state(state, 2, 21, 22);
+  return state;
 }
 
 void led_set_user(uint8_t usb_led) {
