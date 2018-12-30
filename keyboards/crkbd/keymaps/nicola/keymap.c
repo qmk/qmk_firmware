@@ -206,6 +206,7 @@ static uint8_t ncl_chrcount = 0; // 文字キー入力のカウンタ (シフト
 static uint8_t ncl_keycount = 0; // シフトキーも含めた入力のカウンタ
 static bool ncl_rshift = false; // 右シフトキーの状態  
 static bool ncl_lshift = false; // 左シフトキーの状態
+static bool is_modifier = false; // modifierの状態
 
 // 文字入力バッファ
 static uint16_t ninputs[5];
@@ -269,8 +270,6 @@ void ncl_type(void) {
     } else {
       send_string(nmap[ninputs[i]].t);
     }
-    ncl_lshift = false; // 連続シフトをしない (高速でタイプした時の誤入力を防ぐ)
-    ncl_rshift = false;
   }
   ncl_clear();
 }
@@ -360,19 +359,45 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
   }
 
-  // 親指シフトの処理 開始
-  if (is_nicola) {
+  // 親指シフトの処理　ここから
+
+  // modifierが押されているか
+  switch (keycode) {
+    case KC_LCTRL:
+    case KC_LSHIFT:
+    case KC_LALT:
+    case KC_LGUI:
+    case KC_RCTRL:
+    case KC_RSHIFT:
+    case KC_RALT:
+    case KC_RGUI:
+    case LOWER:
+    case RAISE:
+    case ADJUST:
+      if (record->event.pressed) {
+        is_modifier = true;
+      } else {
+        is_modifier = false;
+      }
+      break;
+  }
+
+  if (is_nicola & !is_modifier) {
     if (record->event.pressed) {
       switch (keycode) {
-        case NLSHFT:
+        case NLSHFT: // 親指シフトキー
           ncl_lshift = true;
           ncl_keycount++;
+          if (ncl_keycount > 1) ncl_type();
+          return false;
           break;
         case NRSHFT:
           ncl_rshift = true;
           ncl_keycount++;
+          if (ncl_keycount > 1) ncl_type();
+          return false;
           break;
-        case KC_A ... KC_Z:
+        case KC_A ... KC_Z: // 親指シフト処理するキー
         case KC_SLSH:
         case KC_DOT:
         case KC_COMM:
@@ -380,34 +405,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           ninputs[ncl_chrcount] = keycode;
           ncl_chrcount++;
           ncl_keycount++;
+          if (ncl_keycount > 1) ncl_type();
           return false;
           break;
-        default:
+        default: // 親指シフトに関係ないキー
           ncl_clear();
           break;
       }
 
-      if (ncl_keycount > 1) { // 2キー押したらPCへ送る
-        ncl_type();
-        return false;
-      }
     } else { // key release
       switch (keycode) {
-        case NLSHFT:
+        case NLSHFT: // 親指シフトキー
           ncl_lshift = false;
+          if (ncl_keycount > 0) ncl_type();
+          return false;
           break;
         case NRSHFT:
           ncl_rshift = false;
+          if (ncl_keycount > 0) ncl_type();
+          return false;
+          break; 
+        case KC_A ... KC_Z: // 親指シフト処理するキー
+        case KC_SLSH:
+        case KC_DOT:
+        case KC_COMM:
+        case KC_SCLN:
+          if (ncl_keycount > 0) ncl_type();
+          return false;
           break;
-      }
-
-      if (ncl_chrcount > 0) { // キーリリースするときにバッファがあったらPCへ送る
-        ncl_type();
-        return false;
       }
     }
   }
-  // 親指シフト処理 終わり
+  // 親指シフト処理 ここまで
 
   return true;
 }
