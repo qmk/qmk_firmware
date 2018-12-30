@@ -1,6 +1,6 @@
 # keymap for brainfuck
 
-this keymap is specialize for brainfuck.
+ This keymap is specialized for the brainfuck programming language.
 
 | < | > | + | - |
 | . | , | [ | ] |
