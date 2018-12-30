@@ -49,7 +49,7 @@ docker run -e KEYBOARD=crkbd -e KEYMAP=nicola  --rm -v $('pwd'):/qmk_firmware:rw
 
 ## 既知の問題点
 
-- crkbdにそのままコードを追加するとファームウエアの最大容量を超えるため、RGBLIGHT_ENABLE = no にしています。
+- ~~crkbdにそのままコードを追加するとファームウエアの最大容量を超えるため、RGBLIGHT_ENABLE = no にしています。~~ Link Time Optimizationでサイズを減らすことができたのでRGBLIGHT_ENABLE= onにできました。(https://github.com/qmk/qmk_firmware/issues/3224#issuecomment-399769416)
 - ~~NICOLAレイヤーでのCMDキーやOPTIONキーの動作は未実装です。期待した動作になりません。~~ 実装しました。
 
 ## 実装方法
