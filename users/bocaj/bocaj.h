@@ -1,61 +1,39 @@
-#ifndef USERSPACE
-#define USERSPACE
+/*
+Copyright 2018 Jacob Jerrell <jacob.jerrell@gmail.com> @JacobJerrell
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#pragma once
 #include "quantum.h"
+#include "version.h"
+#include "eeprom.h"
+#include "wrappers.h"
+#include "process_records.h"
+#ifdef TAP_DANCE_ENABLE
+  #include "tap_dances.h"
+#endif // TAP_DANCE_ENABLE
 
-/* *** *** *** *** *** *
- * Define layer names  *
- * *** *** *** *** *** */
+/* Layer Names */
 enum userspace_layers {
-  _OSXWRKMN = 0,
-  _WINWRKMN,
-  _OSXQWERTY,
+  _WORKMAN = 0,
+  _WINWORKMAN,
+  _QWERTY,
+  _LOWER,
   _ADJUST,
-  _NUMS,
-  _DIABLO
+  _DIABLO,
 };
-
-#define EECONFIG_USERSPACE (uint8_t *)19
-typedef union {
-  uint8_t raw;
-} userspace_config_t;
-
-/* *** *** *** *** *** *** *
- *  Define Custom Keycodes *
- * *** *** *** *** *** *** */
-enum userspace_custom_keycodes {
-  KC_EPRM = SAFE_RANGE, // can always be here
-  KC_MWRK,
-  KC_WWRK,
-  KC_MQWR,
-  KC_VRSN,
-  JJ_COPY,
-  JJ_PSTE,
-  JJ_ARRW,
-  KC_CCCV,
-  MC_LOCK,
-  KC_DCLR,
-  KC_MAKE,
-  NEW_SAFE_RANGE  //use "NEWPLACEHOLDER for keymap specific codes
-};
-
-// Space Cadet Hyper/Meh and [/]
-#define HYP_LBK ALL_T(KC_LBRACKET)
-#define MEH_RBK MEH_T(KC_RBRACKET)
-
-// Layout beauti-/simpli-fication
-#define KC_LWEN LT(_ADJUST, KC_ENTER)
-#define KC_ADJS TT(_ADJUST)
-#define KC_NUMS TT(_NUMS)
-#define KC_GAME TT(_DIABLO)
-#define XXXXXXX KC_NO
-#define _______ KC_TRNS
-
-// Other Keycodes
-#define KC_RESET RESET
-#define KC_RST KC_RESET
-
-void tap(uint16_t keycode);
 
 /*
 define modifiers here, since MOD_* doesn't seem to work for these
@@ -65,19 +43,36 @@ define modifiers here, since MOD_* doesn't seem to work for these
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
-/* *** *** *** *** *** *** *
- * Diablo 3 Macro Handling *
- * *** *** *** *** *** *** */
+bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
+bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
+bool send_game_macro(const char *str, keyrecord_t *record, bool override);
+void matrix_init_keymap(void);
+void shutdown_keymap(void);
+void suspend_power_down_keymap(void);
+void suspend_wakeup_init_keymap(void);
+void matrix_scan_keymap(void);
+uint32_t layer_state_set_keymap (uint32_t state);
+uint32_t default_layer_state_set_keymap (uint32_t state);
+void led_set_keymap(uint8_t usb_led);
+void eeconfig_init_keymap(void);
+void tap(uint16_t keycode);
+
+typedef union {
+  uint8_t raw;
+} userspace_config_t;
+
+extern userspace_config_t userspace_config;
 
 // If Tap Dancing is enabled, we manage that here.
 // If it is not, then we define the KC_D3_# codes gracefully
 #ifdef TAP_DANCE_ENABLE
-enum {
+// TODO:: Remove if defined elsewhere
+/* enum {
   TD_D3_1 = 0,
   TD_D3_2,
   TD_D3_3,
   TD_D3_4,
-};
+}; */
 
 #define KC_D3_1 TD(TD_D3_1)
 #define KC_D3_2 TD(TD_D3_2)
@@ -89,109 +84,3 @@ enum {
 #define KC_D3_3 KC_D
 #define KC_D3_4 KC_F
 #endif // TAP_DANCE_ENABLE
-
-// Wrapper for handling of keymap 'blocks'
-// not 100% sure what this first part does. Credit to Drashna
-#if (!defined(LAYOUT) && defined(KEYMAP))
-#define LAYOUT KEYMAP
-#endif
-
-#define LAYOUT_ergodox_pretty_wrapper(...) LAYOUT_ergodox_pretty(__VA_ARGS__)
-
-#define LAYOUT_ergodox_pretty_osx( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, \
-    K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, \
-                   K41, K42, K43, K44,                \
-                        K45, K46,                     \
-              K47, K48, K49, K4A, K51, K52            \
-  ) \
-  LAYOUT_ergodox_pretty_wrapper( \
-      KC_ESC,  _______________________NUMBER_LEFT_______________________, JJ_ARRW,         KC_MINUS, _______________________NUMBER_RIGHT______________________, KC_EQL, \
-      KC_DEL,     K01,      K02,       K03,        K04,       K05,        KC_LPRN,         KC_RPRN,     K06,       K07,       K08,       K09,       K0A,       KC_BSLS, \
-      KC_NUMS,    K11, SFT_T(K12), GUI_T(K13),  ALT_T(K14),   K15,                                      K16,  ALT_T(K17),  GUI_T(K18), SFT_T(K19),  K1A,       KC_QUOT, \
-      KC_LSFT, CTL_T(K21),  K22,       K23,        K24,       K25,        HYP_LBK,         MEH_RBK,     K26,       K27,       K28,       K29,    CTL_T(K2A),   KC_RSFT, \
-          K31,     K32,      K33,       K34,        K35,                                                          K36,       K37,       K38,       K39,       K3A,      \
-                                                         K41, K42,                                      K43, K44,                                                       \
-                                                              K45,                                      K46,                                                            \
-                                                    K47, K48, K49,                                      K4A, K51, K52                                                   \
-    )
-
-#define LAYOUT_ergodox_pretty_win( \
-    K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
-    K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
-    K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, \
-    K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, \
-                   K41, K42, K43, K44,                \
-                        K45, K46,                     \
-              K47, K48, K49, K4A, K51, K52            \
-  ) \
-  LAYOUT_ergodox_pretty_wrapper( \
-      KC_ESC,  _______________________NUMBER_LEFT_______________________, JJ_ARRW,         KC_MINUS, _______________________NUMBER_RIGHT______________________, KC_EQL, \
-      KC_DEL,     K01,      K02,       K03,        K04,       K05,        KC_LPRN,         KC_RPRN,     K06,       K07,       K08,       K09,       K0A,       KC_BSLS, \
-      KC_NUMS,    K11, SFT_T(K12), CTL_T(K13),  ALT_T(K14),   K15,                                      K16,  ALT_T(K17),  CTL_T(K18), SFT_T(K19),  K1A,       KC_QUOT, \
-      KC_LSFT, GUI_T(K21),  K22,       K23,        K24,       K25,        HYP_LBK,         MEH_RBK,     K26,       K27,       K28,       K29,    GUI_T(K2A),   KC_RSFT, \
-         K31,     K32,      K33,       K34,        K35,                                                            K36,       K37,       K38,       K39,       K3A,      \
-                                                         K41, K42,                                      K43, K44,                                                       \
-                                                              K45,                                      K46,                                                            \
-                                                    K47, K48, K49,                                      K4A, K51, K52                                                   \
-    )
-
-#define LAYOUT_ergodox_pretty_osx_wrapper(...)       LAYOUT_ergodox_pretty_osx(__VA_ARGS__)
-#define LAYOUT_ergodox_pretty_win_wrapper(...)       LAYOUT_ergodox_pretty_win(__VA_ARGS__)
-
-/* Pretty Layout
-.---------------------------------------------.         .---------------------------------------------.
-|   1   |  2  |  3  |  4  |  5  |  6  |   7   |         !   8   |  9  |  10 |  11 |  12 |  13 |   14  |
-!-------+-----+-----+-----+-----+-------------!         !-------+-----+-----+-----+-----+-----+-------!
-|   15  |  16 |  17 |  18 |  19 |  20 |   21  |         !   22  |  23 |  24 |  25 |  26 |  27 |   28  |
-!-------+-----+-----+-----x-----x-----!       !         !       !-----x-----x-----+-----+-----+-------!
-|   29  |  30 |  31 |  32 |  33 |  34 |-------!         !-------!  35 |  36 |  37 |  38 |  39 |   40  |
-!-------+-----+-----+-----x-----x-----!       !         !       !-----x-----x-----+-----+-----+-------!
-|   41  |  42 |  43 |  44 |  45 |  46 |   47  |         !   48  |  49 |  50 |  51 |  52 |  53 |   54  |
-'-------+-----+-----+-----+-----+-------------'         '-------------+-----+-----+-----+-----+-------'
- |  55  |  56 |  57 |  58 |  59 | .---------------. .---------------. !  60 |  61 |  62 |  63 |   64 |
- '------------------------------' |   65  |   66  | !   67  |   68  | '------------------------------'
-                          .-------+-------+-------! !-------+-------+-------.
-                          !       !       |   69  | !   70  |       !       !
-                          !       !       !-------! !-------!       !       !
-                          |   71  |   72  |   73  | !   74  |   75  |   76  |
-                          '-----------------------' '-----------------------'
-*/
-
-#define _______________________QWERTY_L1_________________________       KC_Q,     KC_W,           KC_E,           KC_R,           KC_T
-#define _______________________QWERTY_L2_________________________       KC_A,     KC_S,           KC_D,           KC_F,           KC_G
-#define _______________________QWERTY_L3_________________________       KC_Z,     KC_X,           KC_C,           KC_V,           KC_B
-
-#define _______________________QWERTY_R1_________________________       KC_Y,     KC_U,           KC_I,           KC_O,           KC_P
-#define _______________________QWERTY_R2_________________________       KC_H,     KC_J,           KC_K,           KC_L,           KC_SCLN
-#define _______________________QWERTY_R3_________________________       KC_N,     KC_M,           KC_COMM,        KC_DOT,         KC_SLASH
-
-// Hardware Driven Workman
-#define _______________________WORKMAN_L1________________________       KC_Q,     KC_D,           KC_R,           KC_W,           KC_B
-#define _______________________WORKMAN_L2________________________       KC_A,     KC_S,           KC_H,           KC_T,           KC_G
-#define _______________________WORKMAN_L3________________________       KC_Z,     KC_X,           KC_M,           KC_C,           KC_V
-
-#define _______________________WORKMAN_R1________________________       KC_J,     KC_F,           KC_U,           KC_P,           KC_SCLN
-#define _______________________WORKMAN_R2________________________       KC_Y,     KC_N,           KC_E,           KC_O,           KC_I
-#define _______________________WORKMAN_R3________________________       KC_K,     KC_L,           KC_COMM,        KC_DOT,         KC_SLASH
-
-#define ___________________ERGODOX_BOTTOM_LEFT___________________       XXXXXXX,  KC_NUMS,        TT(_ADJUST),     KC_UP,          KC_LEFT
-#define ___________________ERGODOX_BOTTOM_RIGHT__________________       KC_RIGHT, KC_DOWN,        XXXXXXX,        KC_GAME,        KC_ADJS
-
-#define _______________________NUMBER_LEFT_______________________       KC_1,     KC_2,           KC_3,           KC_4,           KC_5
-#define _______________________NUMBER_RIGHT______________________       KC_6,     KC_7,           KC_8,           KC_9,           KC_0
-
-#define _______________________SPECIAL_LEFT______________________       KC_EXLM,  KC_AT,          KC_HASH,        KC_DLR,         KC_PERC
-#define _______________________SPECIAL_RIGHT_____________________       KC_CIRC,  KC_AMPR,        KC_ASTR,        KC_LPRN,        KC_RPRN
-
-#define _________________________________________________________       KC_TRNS,  KC_TRNS,        KC_TRNS,        KC_TRNS,        KC_TRNS
-#define XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX       KC_NO,    KC_NO,          KC_NO,          KC_NO,          KC_NO
-
-//                                                                                LEFT        |       RIGHT
-#define ______________________ERGODOX_THUMBS_____________________             KC_APP,KC_HOME,    KC_END,KC_ESC,           \
-                                                                                     XXXXXXX,    XXXXXXX,                \
-                                                                  KC_SPACE,KC_BSPACE,KC_LEAD,    KC_MQWR,KC_TAB,KC_LWEN
-
-#endif // !USERSPACE

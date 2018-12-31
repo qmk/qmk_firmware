@@ -1,14 +1,30 @@
+/*
+Copyright 2018 Jacob Jerrell <jacob.jerrell@gmail.com> @JacobJerrell
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "bocaj.h"
-#include "eeprom.h"
-#include "version.h"
-#include "tap_dances.h"
 
-static uint16_t copy_paste_timer;
 userspace_config_t userspace_config;
+#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+  #define BOCAJ_UNICODE_MODE UC_WINC
+#else
+  // set to 2 for UC_WIN, set to 4 for UC_WINC
+  #define BOCAJ_UNICODE_MODE 2
+#endif
 
-/* *** *** *** ***  *
- * Helper Functions *
- * *** *** *** ***  */
 void tap(uint16_t keycode){ register_code(keycode); unregister_code(keycode); };
 
 // Add reconfigurable functions here, for keymap customization
@@ -40,6 +56,8 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+__attribute__ ((weak))
+void matrix_scan_secrets(void) {}
 
 __attribute__ ((weak))
 uint32_t layer_state_set_keymap (uint32_t state) {
@@ -57,7 +75,14 @@ void led_set_keymap(uint8_t usb_led) {}
 // Call user matrix init, set default RGB colors and then
 // call the keymap's init function
 void matrix_init_user(void) {
-  userspace_config.raw = eeprom_read_byte(EECONFIG_USERSPACE);
+  userspace_config.raw = eeconfig_read_user();
+
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    set_unicode_input_mode(BOCAJ_UNICODE_MODE);
+    get_unicode_input_mode();
+  #endif //UNICODE_ENABLE
+
+
   matrix_init_keymap();
 }
 
@@ -75,6 +100,17 @@ void suspend_wakeup_init_user(void)
   suspend_wakeup_init_keymap();
   #ifdef KEYBOARD_ergodox_ez
   wait_ms(10);
+  #endif
+}
+
+void eeconfig_init_user(void) {
+  userspace_config.raw = 0;
+  eeconfig_update_user(userspace_config.raw);
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    set_unicode_input_mode(BOCAJ_UNICODE_MODE);
+    get_unicode_input_mode();
+  #else
+    eeprom_update_byte(EECONFIG_UNICODEMODE, BOCAJ_UNICODE_MODE);
   #endif
 }
 
@@ -151,6 +187,9 @@ void matrix_scan_user(void) {
       SEND_STRING ("Probably compiled on Work Laptop");
 #endif
     }
+#ifndef NO_SECRETS
+    matrix_scan_secrets();
+#endif // !NO_SECRETS
   }
 
 #ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
@@ -158,53 +197,4 @@ void matrix_scan_user(void) {
 #endif // TAP_DANCE_ENABLE
 
   matrix_scan_keymap();
-}
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  /* uint8_t default_layer = 0;
-  default_layer = eeconfig_read_default_layer(); */
-  switch (keycode) {
-    case JJ_COPY:
-      if (!record->event.pressed) {
-        SEND_STRING(SS_LGUI("c"));
-      }
-      return false;
-      break;
-    case JJ_PSTE:
-      if (!record->event.pressed) {
-        SEND_STRING(SS_LGUI("v"));
-      }
-      return false;
-      break;
-    case JJ_ARRW:
-      if (!record->event.pressed) {
-        SEND_STRING("->");
-      }
-      return false;
-      break;
-    case KC_DCLR:
-#ifdef TAP_DANCE_ENABLE
-      if (record->event.pressed) {
-        uint8_t dtime;
-        for (dtime = 0; dtime < 4; dtime++) {
-          diablo_key_time[dtime] = diablo_times[0];
-        }
-      }
-#endif // !TAP_DANCE_ENABLE
-      return false;
-      break;
-    case KC_CCCV:
-      if (record->event.pressed) {
-        copy_paste_timer = timer_read();
-      } else {
-        if (timer_elapsed(copy_paste_timer) > TAPPING_TERM) { // Hold, copy
-          SEND_STRING(SS_LGUI("c"));
-        } else {
-          SEND_STRING(SS_LGUI("v"));
-        }
-      }
-      return false;
-      break;
-  }
-  return process_record_keymap(keycode, record);
 }
