@@ -1,6 +1,8 @@
 SRC += i2c.c
+SRC += matrix.c
 SRC += serial.c
-# SRC += ssd1306.c
+SRC += split_scomm.c
+SRC += split_util.c
 
 # if firmware size over limit, try this option
 # CFLAGS += -flto
@@ -73,4 +75,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = yes
 
-DEFAULT_FOLDER = pinky/rev1
+DEFAULT_FOLDER = pinky/3

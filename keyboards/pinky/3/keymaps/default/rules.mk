@@ -16,16 +16,3 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no      # Enable one-hand typing
-
-PINKY = 3                   # Pinky3 or 4?
-
-ifneq ($(strip $(PINKY)), 3)
-  ifneq ($(strip $(PINKY)), 4)
-    $(error PINKY = $(strip $(PINKY)) is unexpected value)
-  endif
-endif
-OPT_DEFS += -DPINKY=$(strip $(PINKY))
-
-# Uncomment these for debugging
-# $(info -- OPT_DEFS=$(OPT_DEFS))
-# $(info )
