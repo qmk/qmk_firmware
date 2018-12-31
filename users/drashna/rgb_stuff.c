@@ -200,7 +200,10 @@ void start_rgb_light(void) {
 
 
 bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
+  if ((keycode >= QK_MOD_TAP && keycode <= QK_MOD_TAP_MAX) || (keycode >= QK_LAYER_TAP && keycode <= QK_LAYER_TAP_MAX)) {
+    keycode = keycode & 0xFF;
+  }
+  switch (keycode) {
 #ifdef RGBLIGHT_TWINKLE
     case KC_A ... KC_SLASH:
     case KC_F1 ... KC_F12:
