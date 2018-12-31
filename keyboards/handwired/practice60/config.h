@@ -45,7 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 8
 #define RGB_DI_PIN B15
 #define WS2812_SPI SPID2
-#define RGBLIGHT_SPI_DIVISOR (SPI_CR1_BR_1|SPI_CR1_BR_0)
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    5
