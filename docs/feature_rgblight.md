@@ -34,7 +34,7 @@ Then you should be able to use the keycodes below to change the RGB lighting to 
 
 STM32 chips support driving WS2812B LEDs using their SPI bus. You may want to do this to support both RGB Matrix and Underglow independently, at the same time. Driving via SPI also frees up 2 timers that are used in the alternative implemenetaion.
 
-If you want to use this feature, you have to turn it on specifically, as well as use specific pins and provide some extra information. SPI driven WS2812B LEDs require use of an SPI MOSI pin on your STM32 chip. 
+If you want to use this feature, you have to turn it on specifically, as well as use specific pins and provide some extra information. SPI driven WS2812B LEDs require use of an SPI MOSI pin on your STM32 chip. **While this is highly chip dependent, typically ONLY _A7_ and _B15_ will work for RGB underglow**. 
 
 To enable the feature, at a minimum, you must define:
 
@@ -45,7 +45,7 @@ To enable the feature, at a minimum, you must define:
 |`RGBLIGHT_STM32_SPI`  |Enables the SPI DMA based RGB underglow feature                            |
 |`WS2812_SPI`          |The SPI driver in use for your SPI MOSI pin (for example SPID2)            |
 
-SPI MOSI pins on STM32 chips are usually B15 and A7, but you should validate in your MCU's datasheet to be sure.
+Again, SPI MOSI pins on STM32 chips are usually B15 and A7, but **you should validate in your MCU's datasheet to be sure**.
 
 You must also turn on the SPI feature in your halconf.h and mcuconf.h
 
