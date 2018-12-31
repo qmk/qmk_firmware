@@ -5,7 +5,10 @@
 #include "split_util.h"
 #endif
 #ifdef SSD1306OLED
+  #include "wait.h"
   #include "common/ssd1306.h"
+
+  #define STARTUP_DELAY 1750
 #endif
 
 extern keymap_config_t keymap_config;
@@ -253,6 +256,7 @@ void matrix_init_user(void) {
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
+        wait_ms(STARTUP_DELAY);      // wait until keyboard init done
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
@@ -284,6 +288,7 @@ void matrix_update(struct CharacterMatrix *dest,
 #define L_BASE 0
 #define L_FN (1<<_FN)
 #define L_ADJ (1<<_ADJ)
+#define L_ADJ_TRI (L_ADJ|L_FN)
 
 static void render_logo(struct CharacterMatrix *matrix) {
 
