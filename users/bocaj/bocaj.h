@@ -66,21 +66,13 @@ extern userspace_config_t userspace_config;
 // If Tap Dancing is enabled, we manage that here.
 // If it is not, then we define the KC_D3_# codes gracefully
 #ifdef TAP_DANCE_ENABLE
-// TODO:: Remove if defined elsewhere
-/* enum {
-  TD_D3_1 = 0,
-  TD_D3_2,
-  TD_D3_3,
-  TD_D3_4,
-}; */
-
-#define KC_D3_1 TD(TD_D3_1)
-#define KC_D3_2 TD(TD_D3_2)
-#define KC_D3_3 TD(TD_D3_3)
-#define KC_D3_4 TD(TD_D3_4)
+  #define KC_D3_1 TD(TD_D3_1)
+  #define KC_D3_2 TD(TD_D3_2)
+  #define KC_D3_3 TD(TD_D3_3)
+  #define KC_D3_4 TD(TD_D3_4)
 #else // !TAP_DANCE_ENABLE
-#define KC_D3_1 KC_A
-#define KC_D3_2 KC_S
-#define KC_D3_3 KC_D
-#define KC_D3_4 KC_F
+  #define KC_D3_1 KC_1
+  #define KC_D3_2 KC_2
+  #define KC_D3_3 KC_3
+  #define KC_D3_4 KC_4
 #endif // TAP_DANCE_ENABLE

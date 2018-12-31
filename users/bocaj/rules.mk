@@ -9,7 +9,8 @@ ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
   SRC += tap_dances.c
 endif
 
-EXTRAFLAGS += -flto
+# Caused problems when building via docker on Mac OS
+# EXTRAFLAGS += -flto
 
 ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS

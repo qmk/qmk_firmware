@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 userspace_config_t userspace_config;
 #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-  #define BOCAJ_UNICODE_MODE UC_WINC
+  #define BOCAJ_UNICODE_MODE UC_OSX
 #else
   // set to 2 for UC_WIN, set to 4 for UC_WINC
   #define BOCAJ_UNICODE_MODE 2
@@ -48,11 +48,6 @@ void matrix_scan_keymap(void) {}
 
 __attribute__ ((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-__attribute__ ((weak))
-bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
@@ -177,15 +172,9 @@ void matrix_scan_user(void) {
     }
 
     SEQ_ONE_KEY(KC_B) {
-      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+      SEND_STRING (QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION " ");
       tap(KC_ENTER);
-      SEND_STRING ("Built at: " QMK_BUILDDATE " - File Location: " __BASE_FILE__);
-      tap(KC_ENTER);
-#ifndef __UNIX__
-      SEND_STRING ("Probably compiled on Home PC");
-#else
-      SEND_STRING ("Probably compiled on Work Laptop");
-#endif
+      SEND_STRING ("Built at: " QMK_BUILDDATE);
     }
 #ifndef NO_SECRETS
     matrix_scan_secrets();

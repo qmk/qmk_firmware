@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
   [_WORKMAN] = LAYOUT_ergodox_pretty_base_wrapper(
                  _________________WORKMAN_L1_________________,         _________________WORKMAN_R1_________________,
-                 _________________WORKMAN_L2_________________,         ________________MWORKMAN_R2_________________,
+                 _________________WORKMAN_L2_________________,         _________________WORKMAN_R2_________________,
                  _________________WORKMAN_L3_________________,         _________________WORKMAN_R3_________________
   ),
   [_WINWORKMAN] = LAYOUT_ergodox_pretty_base_wrapper(
@@ -164,8 +164,13 @@ void matrix_scan_keymap(void) {
         ergodox_right_led_1_set( 50 );
       }
       if (modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK || modifiers & MODS_GUI_MASK || one_shot & MODS_GUI_MASK) {
-        ergodox_right_led_2_on();
-        ergodox_right_led_2_set( 10 );
+        if ((modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) && (modifiers & MODS_GUI_MASK || one_shot & MODS_GUI_MASK)) {
+          ergodox_right_led_2_on();
+          ergodox_right_led_2_set( 50 );
+        } else {
+          ergodox_right_led_2_on();
+          ergodox_right_led_2_set( 10 );
+        }
       }
       if (modifiers & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
         ergodox_right_led_3_on();
