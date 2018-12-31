@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "hecomi_alpha.h"
 
 // Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
@@ -21,11 +22,20 @@ enum custom_keycodes {
   QMKURL
 };
 
+//7 8
+//7 8
+//6 7
+//6 8
+//6 6
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT( /* Base */
-    KC_A,  KC_1,  KC_H, \
-      KC_TAB,  KC_SPC   \
-  ),
+	[0]=LAYOUT(\
+			ESC,1,2,3,4,5,6,      7,8,9,0,MINS,EQL,NUHS,GRV,\
+			TAB  ,Q,W,E,R,T,Y,   Y,U,I,O,P,LBRC,RBRC,DEL,\
+			LCTRL ,A,S,D,F,G,     H,J,K,L,SCLN,QUOT,ENT,\
+			LSFT   ,Z,X,C,V,B,  B,N,M,COMM,DOT,SLSH,RSFT,0,\
+			LCTRL,LGUI,LALT,MHEN,BSPC,SPC,  ENT,ESC,HENK,RALT,RGUI,RCTRL\
+			),
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
