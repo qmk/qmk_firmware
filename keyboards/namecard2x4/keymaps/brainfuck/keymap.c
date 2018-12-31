@@ -1,4 +1,4 @@
-/* Copyright 2018 'mechmerlin'
+/* Copyright 2018 takashiski
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,31 +13,47 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "cyclops.h"
+#include QMK_KEYBOARD_H
+#include "keymap_jp.h"
 
-void matrix_init_kb(void) {
-	// put your keyboard start-up code here
-	// runs once when the firmware starts up
+enum Layer
+{
+	JP,
+	EN,
+	CONFIG
+};
 
-	matrix_init_user();
+
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+[JP] = LAYOUT(
+		JP_LT,JP_GT,JP_PLUS,JP_MINS,\
+		LT(CONFIG,JP_DOT),JP_COMM,JP_LBRC,LT(CONFIG,JP_RBRC)\
+		),
+[EN] = LAYOUT(
+		KC_LT,KC_GT,KC_PLUS,KC_MINS,\
+		LT(CONFIG,KC_DOT),KC_COMM,KC_LBRC,LT(CONFIG,KC_RBRC)\
+		),
+[CONFIG]= LAYOUT(
+		KC_NO,DF(JP),DF(JP),KC_NO,\
+		KC_TRNS,DF(EN),DF(JP),KC_TRNS\
+		)
+
+};
+
+
+void matrix_init_user(void) {
+
 }
 
-void matrix_scan_kb(void) {
-	// put your looping keyboard code here
-	// runs every cycle (a lot)
+void matrix_scan_user(void) {
 
-	matrix_scan_user();
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
-
-	return process_record_user(keycode, record);
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  return true;
 }
 
-void led_set_kb(uint8_t usb_led) {
-	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+void led_set_user(uint8_t usb_led) {
 
-	led_set_user(usb_led);
 }

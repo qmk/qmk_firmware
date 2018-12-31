@@ -268,4 +268,5 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
                 $(QUANTUM_DIR)/split_common/split_util.c
     QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c
     QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c
+    COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
