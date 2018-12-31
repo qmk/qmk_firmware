@@ -4,3 +4,12 @@ SRC += kageurufu.c \
 
 # Link time optimization, should save on firmware size
 EXTRAFLAGS += -flto
+
+
+# Some usual defaults
+MOUSEKEY_ENABLE = no
+EXTRAKEY_ENABLE = yes
+COMMAND_ENABLE = yes
+CONSOLE_ENABLE = yes
+RGBLIGHT_ENABLE = yes
+RGBLIGHT_ANIMATIONS = yes

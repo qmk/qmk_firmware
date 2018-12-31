@@ -2,6 +2,8 @@
 #include "kageurufu.h"
 
 #define FN_ESC  LT(_FN, KC_ESC)
+#define FN      MO(_FN)
+#define ADJ     MO(_ADJ)
 
 enum layer_number {
     _QWERTY = 0,
@@ -16,8 +18,6 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   CMAK_DH,
-  FN,
-  ADJ,
   RGBRST,
   KAGEURUFU_SAFE_RANGE
 };
