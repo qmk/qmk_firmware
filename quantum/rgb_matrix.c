@@ -973,7 +973,7 @@ void rgb_matrix_mode_noeeprom(uint8_t mode) {
     rgb_matrix_config.mode = mode;
 }
 
-uint32_t rgb_matrix_get_mode(void) {
+uint8_t rgb_matrix_get_mode(void) {
     return rgb_matrix_config.mode;
 }
 
