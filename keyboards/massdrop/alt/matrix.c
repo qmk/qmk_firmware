@@ -75,7 +75,7 @@ void matrix_init(void)
         PORT->Group[col_ports[col]].DIRSET.reg = 1 << col_pins[col]; //Output
         PORT->Group[col_ports[col]].OUTCLR.reg = 1 << col_pins[col]; //Low
     }
-    
+
     matrix_init_quantum();
 }
 
@@ -91,7 +91,7 @@ uint8_t matrix_scan(void)
 
     if (CLK_get_ms() < mdebouncing) return 1; //mdebouncing == 0 when no debouncing active
 
-    //m15_off; //Profiling scans
+    //DBG_1_OFF; //Profiling scans
 
     memset(mlatest, 0, MATRIX_ROWS * sizeof(matrix_row_t)); //Zero the result buffer
 
@@ -135,7 +135,7 @@ uint8_t matrix_scan(void)
         mdebouncing = CLK_get_ms() + DEBOUNCING_DELAY;
     }
 
-    //m15_on; //Profiling scans
+    //DBG_1_ON; //Profiling scans
 
     matrix_scan_quantum();
 

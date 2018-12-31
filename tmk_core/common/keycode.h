@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define IS_SPECIAL(code)         ((0xA5 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
 #define IS_SYSTEM(code)          (KC_PWR       <= (code) && (code) <= KC_WAKE)
-#define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_MRWD)
+#define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_BRID)
 
 #define IS_FN(code)              (KC_FN0       <= (code) && (code) <= KC_FN31)
 
@@ -140,6 +140,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_LWIN KC_LGUI
 #define KC_RCTL KC_RCTRL
 #define KC_RSFT KC_RSHIFT
+#define KC_ALGR KC_RALT
 #define KC_RCMD KC_RGUI
 #define KC_RWIN KC_RGUI
 
@@ -170,6 +171,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_WFAV KC_WWW_FAVORITES
 #define KC_MFFD KC_MEDIA_FAST_FORWARD
 #define KC_MRWD KC_MEDIA_REWIND
+#define KC_BRIU KC_BRIGHTNESS_UP
+#define KC_BRID KC_BRIGHTNESS_DOWN
 
 /* Mouse Keys */
 #define KC_MS_U KC_MS_UP
@@ -457,6 +460,8 @@ enum internal_special_keycodes {
   KC_WWW_FAVORITES,
   KC_MEDIA_FAST_FORWARD,
   KC_MEDIA_REWIND,
+  KC_BRIGHTNESS_UP,
+  KC_BRIGHTNESS_DOWN,
 
   /* Fn keys */
   KC_FN0                  = 0xC0,

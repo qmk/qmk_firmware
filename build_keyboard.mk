@@ -34,6 +34,10 @@ $(error MASTER does not have a valid value(left/right))
     endif
 endif
 
+ifdef SKIP_VERSION
+    OPT_DEFS += -DSKIP_VERSION
+endif
+
 # Determine which subfolders exist.
 KEYBOARD_FOLDER_PATH_1 := $(KEYBOARD)
 KEYBOARD_FOLDER_PATH_2 := $(patsubst %/,%,$(dir $(KEYBOARD_FOLDER_PATH_1)))
@@ -110,8 +114,28 @@ ifneq ("$(wildcard $(KEYBOARD_C_1))","")
     KEYBOARD_SRC += $(KEYBOARD_C_1)
 endif
 
-OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE)
+# Generate KEYBOARD_name_subname for all levels of the keyboard folder
+KEYBOARD_FILESAFE_1 := $(subst .,,$(subst /,_,$(KEYBOARD_FOLDER_PATH_1)))
+KEYBOARD_FILESAFE_2 := $(subst .,,$(subst /,_,$(KEYBOARD_FOLDER_PATH_2)))
+KEYBOARD_FILESAFE_3 := $(subst .,,$(subst /,_,$(KEYBOARD_FOLDER_PATH_3)))
+KEYBOARD_FILESAFE_4 := $(subst .,,$(subst /,_,$(KEYBOARD_FOLDER_PATH_4)))
+KEYBOARD_FILESAFE_5 := $(subst .,,$(subst /,_,$(KEYBOARD_FOLDER_PATH_5)))
 
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/)","")
+    OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE_5)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/)","")
+    OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE_4)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/)","")
+    OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE_3)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/)","")
+    OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE_2)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/)","")
+    OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE_1)
+endif
 
 # Setup the define for QMK_KEYBOARD_H. This is used inside of keymaps so
 # that the same keymap may be used on multiple keyboards.
@@ -258,6 +282,7 @@ ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 endif
 
 # # project specific files
+SRC += $(patsubst %.c,%.clib,$(LIB_SRC))
 SRC += $(KEYBOARD_SRC) \
     $(KEYMAP_C) \
     $(QUANTUM_SRC)
@@ -276,6 +301,7 @@ include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
 include bootloader.mk
 
+SRC += $(patsubst %.c,%.clib,$(QUANTUM_LIB_SRC))
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
