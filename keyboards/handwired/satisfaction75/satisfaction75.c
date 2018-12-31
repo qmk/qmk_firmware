@@ -170,7 +170,6 @@ void matrix_init_user(void) {
   queue_for_send = true;
   printf("Queued OLED send on init\n");
   /* MOSI pin*/
-  palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(0) | PAL_STM32_OSPEED_HIGHEST);
   leds_init();
 }
 

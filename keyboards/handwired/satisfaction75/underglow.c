@@ -38,6 +38,7 @@ static THD_WORKING_AREA(LEDS_THREAD_WA, 128);
 static THD_FUNCTION(ledsThread, arg) {
   (void) arg;
   while(1){
+    xprintf("sending SPI\n");
     spiSend(&LEDS_SPI, PREAMBLE_SIZE + DATA_SIZE + RESET_SIZE, txbuf);
   }
 }
@@ -98,8 +99,6 @@ void leds_init(void){
   spiAcquireBus(&LEDS_SPI);              /* Acquire ownership of the bus.    */
   spiStart(&LEDS_SPI, &spicfg);          /* Setup transfer parameters.       */
   spiSelect(&LEDS_SPI);                  /* Slave Select assertion.          */
-  spiSend(&LEDS_SPI, PREAMBLE_SIZE + DATA_SIZE + RESET_SIZE, txbuf);
-  xprintf("first send complete\n");
   chThdCreateStatic(LEDS_THREAD_WA, sizeof(LEDS_THREAD_WA),
     NORMALPRIO, ledsThread, NULL);
 #if LED_SPIRAL
