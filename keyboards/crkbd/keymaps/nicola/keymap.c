@@ -229,7 +229,7 @@ const ncl_keymap nmap[] = {
   [KC_U]    = {.t = "ti", .l = "di",  .r = "ni"}, 
   [KC_I]    = {.t = "ku", .l = "gu",  .r = "ru"}, 
   [KC_O]    = {.t = "tu", .l = "du",  .r = "ma"}, 
-  [KC_P]    = {.t = ",",  .l = "",    .r = "le"}, 
+  [KC_P]    = {.t = ",",  .l = "pi",  .r = "le"}, 
 
   [KC_A]    = {.t = "u",  .l = "wo",  .r = "vu"},
   [KC_S]    = {.t = "si", .l = "a",   .r = "zi"}, 
