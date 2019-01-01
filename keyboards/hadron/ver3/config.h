@@ -144,7 +144,7 @@
 
 /* Haptic Driver initialization settings
  * Feedback Control Settings */
-#define FB_ERM_LRA 0 /* For ERM:0 or LRA:1*/
+#define FB_ERM_LRA 1 /* For ERM:0 or LRA:1*/
 #define FB_BRAKEFACTOR 6 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
 #define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 
