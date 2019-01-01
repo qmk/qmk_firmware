@@ -6,9 +6,9 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    qmkbuilder
-#define PRODUCT         keyboard
-#define DESCRIPTION     Keyboard
+#define MANUFACTURER    Flehrad
+#define PRODUCT         Snagpad
+#define DESCRIPTION     A Pro Micro-Powered 5x4 macropad/numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -43,7 +43,7 @@
 )
 
 /* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
+//#define STRICT_LAYER_RELEASE
 
 
 #ifdef RGB_DI_PIN
