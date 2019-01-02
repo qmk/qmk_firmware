@@ -18,6 +18,7 @@ enum userspace_custom_keycodes {
   JJ_PSTE,
   JJ_ARRW,
   KC_CCCV,
+  LM_DFLT,
   MC_LOCK,
   KC_DCLR,
   KC_MAKE,
