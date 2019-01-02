@@ -53,7 +53,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
       if (!record->event.pressed) {
         uint8_t temp_mod = get_mods();
+        uint8_t temp_osm = get_oneshot_mods();
         clear_mods();
+        clear_oneshot_mods();
         if (biton32(default_layer_state) == _WINWORKMAN) {
           send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
         } else {
