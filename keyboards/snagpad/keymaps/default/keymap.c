@@ -17,7 +17,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  		KC_P0,        KC_PDOT),
 };
 
-	switch (id) {
 
 	}
 	return MACRO_NONE;
