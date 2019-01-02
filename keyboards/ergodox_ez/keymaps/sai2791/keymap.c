@@ -12,6 +12,18 @@ enum custom_keycodes {
 
 };
 
+//Tap Dance Declarations
+enum {
+  TD_ALT_CAPS = 0
+};
+
+//Tap Dance Definitions
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap once for Esc, twice for Caps Lock
+  [TD_ALT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LALT, KC_CAPS)
+// Other declarations would go here, separated by commas, if you have them
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -51,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                       KC_H,KC_J,KC_K,KC_L,LT(2,KC_SCOLON),GUI_T(KC_QUOTE),
                       KC_MEH,KC_N,KC_M,KC_COMMA,KC_DOT,RCTL_T(KC_SLASH),KC_RSHIFT,
                       KC_UP,KC_DOWN,KC_LBRACKET,KC_RBRACKET,MO(1),
-                                   KC_LALT,CTL_T(KC_ESCAPE),
+                                   TD_ALT_CAPS,CTL_T(KC_ESCAPE),
                                                     KC_PGUP,
                                    KC_PGDOWN,KC_TAB,KC_ENTER),
 /* Keymap 1: Symbol Layer
