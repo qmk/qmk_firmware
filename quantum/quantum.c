@@ -42,6 +42,11 @@ extern backlight_config_t backlight_config;
 #include "process_midi.h"
 #endif
 
+
+#ifdef ENCODER_ENABLE
+#include "encoder.h"
+#endif
+
 #ifdef AUDIO_ENABLE
   #ifndef GOODBYE_SONG
     #define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -125,6 +130,14 @@ void unregister_code16 (uint16_t code) {
   } else {
       do_code16 (code, qk_unregister_weak_mods);
   }
+}
+
+void tap_code16(uint16_t code) {
+  register_code16(code);
+  #if TAP_CODE_DELAY > 0
+    wait_ms(TAP_CODE_DELAY);
+  #endif
+  unregister_code16(code);
 }
 
 __attribute__ ((weak))
@@ -230,7 +243,7 @@ bool process_record_quantum(keyrecord_t *record) {
     process_key_lock(&keycode, record) &&
   #endif
   #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
-      process_clicky(keycode, record) &&
+    process_clicky(keycode, record) &&
   #endif //AUDIO_CLICKY
     process_record_kb(keycode, record) &&
   #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
@@ -245,11 +258,14 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef STENO_ENABLE
     process_steno(keycode, record) &&
   #endif
-  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
+  #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
+  #endif
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    process_unicode_common(keycode, record) &&
   #endif
   #ifdef LEADER_ENABLE
     process_leader(keycode, record) &&
@@ -257,20 +273,11 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef COMBO_ENABLE
     process_combo(keycode, record) &&
   #endif
-  #ifdef UNICODE_ENABLE
-    process_unicode(keycode, record) &&
-  #endif
-  #ifdef UCIS_ENABLE
-    process_ucis(keycode, record) &&
-  #endif
   #ifdef PRINTING_ENABLE
     process_printer(keycode, record) &&
   #endif
   #ifdef AUTO_SHIFT_ENABLE
     process_auto_shift(keycode, record) &&
-  #endif
-  #ifdef UNICODEMAP_ENABLE
-    process_unicode_map(keycode, record) &&
   #endif
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
@@ -291,6 +298,11 @@ bool process_record_quantum(keyrecord_t *record) {
       if (record->event.pressed) {
           debug_enable = true;
           print("DEBUG: enabled.\n");
+      }
+    return false;
+    case EEPROM_RESET:
+      if (record->event.pressed) {
+          eeconfig_init();
       }
     return false;
   #ifdef FAUXCLICKY_ENABLE
@@ -944,8 +956,40 @@ void tap_random_base64(void) {
   }
 }
 
+__attribute__((weak))
+void bootmagic_lite(void) {
+  // The lite version of TMK's bootmagic based on Wilba.
+  // 100% less potential for accidentally making the
+  // keyboard do stupid things.
+
+  // We need multiple scans because debouncing can't be turned off.
+  matrix_scan();
+  #if defined(DEBOUNCING_DELAY) && DEBOUNCING_DELAY > 0
+    wait_ms(DEBOUNCING_DELAY * 2);
+  #elif defined(DEBOUNCE) && DEBOUNCE > 0
+    wait_ms(DEBOUNCE * 2);
+  #else
+    wait_ms(30);
+  #endif
+  matrix_scan();
+
+  // If the Esc and space bar are held down on power up,
+  // reset the EEPROM valid state and jump to bootloader.
+  // Assumes Esc is at [0,0].
+  // This isn't very generalized, but we need something that doesn't
+  // rely on user's keymaps in firmware or EEPROM.
+  if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
+    eeconfig_disable();
+    // Jump to bootloader.
+    bootloader_jump();
+  }
+}
+
 void matrix_init_quantum() {
-  if (!eeconfig_is_enabled() && !eeconfig_is_disabled()) {
+  #ifdef BOOTMAGIC_LITE
+    bootmagic_lite();
+  #endif
+  if (!eeconfig_is_enabled()) {
     eeconfig_init();
   }
   #ifdef BACKLIGHT_ENABLE
@@ -956,6 +1000,12 @@ void matrix_init_quantum() {
   #endif
   #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
+  #endif
+  #ifdef ENCODER_ENABLE
+    encoder_init();
+  #endif
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    unicode_input_mode_init();
   #endif
   matrix_init_kb();
 }
@@ -989,6 +1039,10 @@ void matrix_scan_quantum() {
       rgb_matrix_update_pwm_buffers();
     }
     rgb_matrix_task_counter = ((rgb_matrix_task_counter + 1) % (RGB_MATRIX_SKIP_FRAMES + 1));
+  #endif
+
+  #ifdef ENCODER_ENABLE
+    encoder_read();
   #endif
 
   matrix_scan_kb();
