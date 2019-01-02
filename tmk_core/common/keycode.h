@@ -173,6 +173,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_MRWD KC_MEDIA_REWIND
 #define KC_BRIU KC_BRIGHTNESS_UP
 #define KC_BRID KC_BRIGHTNESS_DOWN
+#define KC_MICO KC_MISSION_CONTROL
+#define KC_LAUN KC_LAUNCHPAD
 
 /* Mouse Keys */
 #define KC_MS_U KC_MS_UP
@@ -432,9 +434,10 @@ enum hid_keyboard_keypad_usage {
 };
 
 /* Media and Function keys */
-enum internal_special_keycodes {
+enum internal_special_keycodes
+{
   /* Generic Desktop Page (0x01) */
-  KC_SYSTEM_POWER         = 0xA5,
+  KC_SYSTEM_POWER = 0xA5,
   KC_SYSTEM_SLEEP,
   KC_SYSTEM_WAKE,
 
@@ -447,7 +450,7 @@ enum internal_special_keycodes {
   KC_MEDIA_STOP,
   KC_MEDIA_PLAY_PAUSE,
   KC_MEDIA_SELECT,
-  KC_MEDIA_EJECT,         //0xB0
+  KC_MEDIA_EJECT, //0xB0
   KC_MAIL,
   KC_CALCULATOR,
   KC_MY_COMPUTER,
@@ -462,9 +465,11 @@ enum internal_special_keycodes {
   KC_MEDIA_REWIND,
   KC_BRIGHTNESS_UP,
   KC_BRIGHTNESS_DOWN,
+  KC_LAUNCHPAD,
+  KC_MISSION_CONTROL,
 
-  /* Fn keys */
-  KC_FN0                  = 0xC0,
+      /* Fn keys */
+      KC_FN0 = 0xC0,
   KC_FN1,
   KC_FN2,
   KC_FN3,
@@ -480,7 +485,7 @@ enum internal_special_keycodes {
   KC_FN13,
   KC_FN14,
   KC_FN15,
-  KC_FN16,                //0xD0
+  KC_FN16, //0xD0
   KC_FN17,
   KC_FN18,
   KC_FN19,
