@@ -18,13 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 #include "bocaj.h"
 
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-  #define BOCAJ_UNICODE_MODE UC_OSX
-#else
-  // set to 2 for UC_WIN, set to 4 for UC_WINC
-  #define BOCAJ_UNICODE_MODE 2
-#endif
-
 #define LAYOUT_ergodox_pretty_base( \
     K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, \
     K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, \
@@ -35,10 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       KC_DEL,  K01,        K02,        K03,        K04, K05, KC_LPRN,                 KC_RPRN,  K06, K07,        K08,        K09,        K0A, KC_BSLASH, \
       KC_NUMS, K11, SFT_T(K12),        K13, ALT_T(K14), K15,                                    K16, ALT_T(K17), K18,     SFT_T(K19),    K1A, KC_QUOT,   \
       OS_LSFT, CTL_T(K21), K22,        K23,        K24, K25, HYP_LBK,                 MEH_RBK,  K26, K27,        K28,        K29, CTL_T(K2A), KC_RSFT,   \
-       UC_FLIP,KC_NUMS,    TT(_LOWER), KC_UP,  KC_LEFT,                                            KC_RIGHT,   KC_DOWN,    UC_TABL,KC_GAME, KC_ADJS,     \
+       KC_GAME,KC_NUMS,    TT(_LOWER), KC_UP,  KC_LEFT,                                            KC_RIGHT,   KC_DOWN,    UC_DISA,KC_GAME, KC_ADJS,     \
                                                              KC_APP,KC_HOME,    KC_END,KC_ESC,           \
-                                                                    XXXXXXX,    XXXXXXX,                \
-                                                 KC_SPACE,KC_BSPACE,KC_LEAD,    XXXXXXX,KC_TAB,KC_LWEN                          \
+                                                                    UC_FLIP,    UC_TABL,                \
+                                                 KC_SPACE,KC_BSPACE,KC_LEAD,    UC_SHRG,KC_TAB,KC_LWEN                          \
 )
 
 #define LAYOUT_ergodox_pretty_base_wrapper(...)       LAYOUT_ergodox_pretty_base(__VA_ARGS__)
@@ -136,9 +129,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_DIABLO] = LAYOUT_ergodox_pretty_wrapper(
              KC_ESC,  KC_V,    KC_D,    KC_LALT, KC_NO,   KC_NO,   KC_NO,                   KC_NO,   KC_F9,   KC_F10,   KC_F11,  KC_F12,  KC_NO,   KC_NO,
              KC_TAB,  KC_S,    KC_F,    KC_I,    KC_M,    KC_T,    KC_ENTER,                KC_NO,   KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
-             LM_DFLT, KC_1,    KC_2,    KC_3,    KC_4,    KC_P,                                      KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
+             KC_Q,    KC_1,    KC_2,    KC_3,    KC_4,    KC_P,                                      KC_NO,   KC_NO,    KC_NO,   KC_NO,   KC_NO,   KC_NO,
              KC_LCTL, KC_D3_1, KC_D3_2, KC_D3_3, KC_D3_4, KC_Z,    KC_LOCK,                 KC_NO,   KC_N,    KC_M,     KC_NO,   KC_NO,   KC_NO,   KC_NO,
-             KC_NO, KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                         KC_NO,    KC_NO,   KC_NO,   KC_TRNS, KC_NO,
+             _______, KC_NO,   KC_NO,   KC_NO,   KC_NO,                                                         KC_NO,    KC_NO,   KC_NO,   KC_TRNS, KC_NO,
                                                              KC_L,    KC_J,                 KC_NO,   KC_NO,
                                                                       KC_F,                 KC_NO,
                                      SFT_T(KC_SPACE),  ALT_T(KC_Q),   KC_DCLR,              KC_PGDN, KC_DEL,  KC_ENT
@@ -146,38 +139,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-      case KC_MWRK:
-      if (!record->event.pressed) {
-        set_single_persistent_default_layer(_WORKMAN);
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-        BOCAJ_UNICODE_MODE = 0;
-#endif
-        layer_move(0);
-        ergodox_blink_all_leds();
-      }
-      break;
-    case KC_WWRK:
-      if (!record->event.pressed) {
-        set_single_persistent_default_layer(_WINWORKMAN);
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-        BOCAJ_UNICODE_MODE = 4;
-#endif
-        layer_move(0);
-        ergodox_blink_all_leds();
-      }
-      break;
-    case KC_MQWR:
-      if (!record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-        BOCAJ_UNICODE_MODE = 0;
-#endif
-        layer_move(0);
-        ergodox_blink_all_leds();
-      }
-      break;
-  }
   return true;
 }
 
@@ -206,9 +167,10 @@ void matrix_scan_keymap(void) {
         if ((modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) && (modifiers & MODS_GUI_MASK || one_shot & MODS_GUI_MASK)) {
           ergodox_right_led_2_on();
           ergodox_right_led_2_set( 50 );
+        } else {
+          ergodox_right_led_2_on();
+          ergodox_right_led_2_set( 10 );
         }
-        ergodox_right_led_2_on();
-        ergodox_right_led_2_set( 10 );
       }
       if (modifiers & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
         ergodox_right_led_3_on();

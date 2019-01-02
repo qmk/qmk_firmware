@@ -35,6 +35,13 @@ enum userspace_layers {
   _DIABLO,
 };
 
+#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+  #define BOCAJ_UNICODE_MODE UC_OSX
+#else
+  // set to 2 for UC_WIN, set to 4 for UC_WINC
+  #define BOCAJ_UNICODE_MODE 2
+#endif
+
 /*
 define modifiers here, since MOD_* doesn't seem to work for these
  */

@@ -14,12 +14,12 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 // Then runs the _keymap's record handler if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-/*     case KC_MWRK:
+    case KC_MWRK:
       if (!record->event.pressed) {
         set_single_persistent_default_layer(_WORKMAN);
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-        BOCAJ_UNICODE_MODE = 0;
-#endif
+        #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+          set_unicode_input_mode(0);
+        #endif
         layer_move(0);
         ergodox_blink_all_leds();
       }
@@ -27,9 +27,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_WWRK:
       if (!record->event.pressed) {
         set_single_persistent_default_layer(_WINWORKMAN);
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-        BOCAJ_UNICODE_MODE = 4;
-#endif
+        #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+          set_unicode_input_mode(4);
+        #endif
         layer_move(0);
         ergodox_blink_all_leds();
       }
@@ -37,13 +37,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case KC_MQWR:
       if (!record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
-#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
-        BOCAJ_UNICODE_MODE = 0;
-#endif
+        #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+          set_unicode_input_mode(0);
+        #endif
         layer_move(0);
         ergodox_blink_all_leds();
       }
-      break; */
+      break;
     case MC_LOCK:
       if (!record->event.pressed) {
         layer_move(0);
@@ -54,15 +54,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (!record->event.pressed) {
         uint8_t temp_mod = get_mods();
         clear_mods();
-        send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
-        if (temp_mod & MODS_SHIFT_MASK) {
-          #if defined(BOOTLOADER_HALFKAY)
-            send_string_with_delay_P(PSTR(":teensy"), 10);
-          #endif // bootloader options
+        if (biton32(default_layer_state) == _WINWORKMAN) {
+          send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
+        } else {
+          send_string_with_delay_P(PSTR("util/docker_build.sh " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
         }
-        if (temp_mod & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
+        if (temp_mod & MODS_SHIFT_MASK) {
+          send_string_with_delay_P(PSTR(":teensy"), 10);
+        }
+        if (temp_mod & MODS_CTRL_MASK) {
+          send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10);
+        }
         send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
         set_mods(temp_mod);
+        layer_move(0);
       }
       break;
     case KC_DCLR:  // reset all Diablo timers, disabling them
@@ -99,21 +104,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           set_mods(temp_mod);
         } else {
           layer_move(0);
-        }
-      }
-      return false;
-      break;
-    case LM_DFLT:
-      if (record->event.pressed) {
-        heal_layer_timer = timer_read();
-        if (timer_elapsed(heal_layer_timer) > TAPPING_TERM) {
-          layer_on(0);
-        }
-      } else {
-        if (timer_elapsed(heal_layer_timer) < TAPPING_TERM) {
-            tap(KC_Q);
-        } else {
-          layer_off(0);
         }
       }
       return false;
