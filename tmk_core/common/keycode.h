@@ -465,8 +465,8 @@ enum internal_special_keycodes
   KC_MEDIA_REWIND,
   KC_BRIGHTNESS_UP,
   KC_BRIGHTNESS_DOWN,
-  KC_LAUNCHPAD,
   KC_MISSION_CONTROL,
+  KC_LAUNCHPAD,
 
   /* Fn keys */
   KC_FN0 = 0xC0,

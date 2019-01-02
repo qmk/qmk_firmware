@@ -50,8 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TRANSPORT_PLAY_PAUSE    0x00CD
 #define BRIGHTNESSUP            0x006F
 #define BRIGHTNESSDOWN          0x0070
-#define LAUNCHPAD               0x2a0
-#define MISSION_CONTROL         0x29F
+#define LAUNCHPAD               0x02a0
+#define MISSION_CONTROL         0x029F
 
 /* application launch */
 #define AL_CC_CONFIG            0x0183
