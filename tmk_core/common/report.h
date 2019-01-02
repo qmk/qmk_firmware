@@ -50,8 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TRANSPORT_PLAY_PAUSE    0x00CD
 #define BRIGHTNESSUP            0x006F
 #define BRIGHTNESSDOWN          0x0070
-#define MISSION_CONTROL         0x029F
-#define LAUNCHPAD               0x02A0
+#define LAUNCHPAD               0x2a0
+#define MISSION_CONTROL         0x29F
 
 /* application launch */
 #define AL_CC_CONFIG            0x0183
@@ -174,7 +174,7 @@ typedef struct {
     (key == KC_SYSTEM_WAKE  ? SYSTEM_WAKE_UP : 0)))
 
 /* keycode to consumer usage */
-#define KEYCODE2CONSUMER(key) \
+#define KEYCODE2CONSUMER(key)                                 \
     (key == KC_AUDIO_MUTE       ?  AUDIO_MUTE : \
     (key == KC_AUDIO_VOL_UP     ?  AUDIO_VOL_UP : \
     (key == KC_AUDIO_VOL_DOWN   ?  AUDIO_VOL_DOWN : \
@@ -197,6 +197,8 @@ typedef struct {
     (key == KC_WWW_REFRESH      ?  AC_REFRESH : \
     (key == KC_BRIGHTNESS_UP    ?  BRIGHTNESSUP : \
     (key == KC_BRIGHTNESS_DOWN  ?  BRIGHTNESSDOWN : \
+    (key == KC_LAUNCHPAD        ?  LAUNCHPAD : \
+    (key == KC_MISSION_CONTROL  ?  MISSION_CONTROL : \
     (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0)))))))))))))))))))))))
 
 uint8_t has_anykey(report_keyboard_t* keyboard_report);

@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define IS_SPECIAL(code)         ((0xA5 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
 #define IS_SYSTEM(code)          (KC_PWR       <= (code) && (code) <= KC_WAKE)
-#define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_BRID)
+#define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_LAUN)
 
 #define IS_FN(code)              (KC_FN0       <= (code) && (code) <= KC_FN31)
 
@@ -468,8 +468,8 @@ enum internal_special_keycodes
   KC_LAUNCHPAD,
   KC_MISSION_CONTROL,
 
-      /* Fn keys */
-      KC_FN0 = 0xC0,
+  /* Fn keys */
+  KC_FN0 = 0xC0,
   KC_FN1,
   KC_FN2,
   KC_FN3,
