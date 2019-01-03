@@ -47,7 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOD_INDEX(code)          ((code) & 0x07)
 
 #define FN_BIT(code)             (1 << FN_INDEX(code))
-#define FN_INDEX(code)           ((code) - KC_FN0)
+#define FN_INDEX(code)           ((code) - KC_FN1)
 #define FN_MIN                   KC_FN0
 #define FN_MAX                   KC_FN31
 
@@ -469,7 +469,6 @@ enum internal_special_keycodes
   KC_LAUNCHPAD,
 
   /* Fn keys */
-  KC_FN0 = 0xC0,
   KC_FN1,
   KC_FN2,
   KC_FN3,
