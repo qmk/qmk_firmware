@@ -67,9 +67,6 @@ void unicode_input_start (void) {
   case UC_OSX:
     register_code(KC_LALT);
     break;
-  case UC_OSX_RALT:
-    register_code(KC_RALT);
-    break;
   case UC_LNX:
     register_code(KC_LCTL);
     register_code(KC_LSFT);
@@ -98,9 +95,6 @@ void unicode_input_finish (void) {
     case UC_OSX:
     case UC_WIN:
       unregister_code(KC_LALT);
-      break;
-    case UC_OSX_RALT:
-      unregister_code(KC_RALT);
       break;
     case UC_LNX:
       register_code(KC_SPC);
