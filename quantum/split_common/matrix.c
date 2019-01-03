@@ -246,8 +246,8 @@ int i2c_transaction(void) {
             // Backlight location
             err = i2c_master_write(I2C_BACKLIT_START);
             if (err) goto i2c_error;
-            
-            // Write backlight 
+
+            // Write backlight
             i2c_master_write(get_backlight_level());
             
             BACKLIT_DIRTY = false;
@@ -351,48 +351,104 @@ int serial_transaction(void) {
 }
 #endif
 
-uint8_t matrix_scan(void)
+static void master_transport(void)
 {
-    uint8_t ret = _matrix_scan();
-
 #if defined(USE_I2C) || defined(EH)
-    if( i2c_transaction() ) {
-#else // USE_SERIAL
-    if( serial_transaction() ) {
+  if (i2c_transaction())
+  {
+#else  // USE_SERIAL
+  if (serial_transaction())
+  {
 #endif
 
-        error_count++;
+    error_count++;
 
-        if (error_count > ERROR_DISCONNECT_COUNT) {
-            // reset other half if disconnected
-            int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
-            for (int i = 0; i < ROWS_PER_HAND; ++i) {
-                matrix[slaveOffset+i] = 0;
-            }
-        }
-    } else {
-        error_count = 0;
+    if (error_count > ERROR_DISCONNECT_COUNT)
+    {
+      // reset other half if disconnected
+      int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
+      for (int i = 0; i < ROWS_PER_HAND; ++i)
+      {
+        matrix[slaveOffset + i] = 0;
+      }
     }
-    matrix_scan_quantum();
-    return ret;
+  }
+  else
+  {
+    error_count = 0;
+  }
 }
 
-void matrix_slave_scan(void) {
-    _matrix_scan();
+static void slave_transport(void) {
 
-    int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
+  int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
 #if defined(USE_I2C) || defined(EH)
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        i2c_slave_buffer[I2C_KEYMAP_START+i] = matrix[offset+i];
-    }   
-#else // USE_SERIAL
-    // TODO: if MATRIX_COLS > 8 change to pack()
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        serial_s2m_buffer.smatrix[i] = matrix[offset+i];
+  for (int i = 0; i < ROWS_PER_HAND; ++i)
+  {
+    i2c_slave_buffer[I2C_KEYMAP_START + i] = matrix[offset + i];
+  }
+  // Read Backlight Info
+  #ifdef BACKLIGHT_ENABLE
+  if (BACKLIT_DIRTY)
+  {
+    backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
+    BACKLIT_DIRTY = false;
+  }
+  #endif
+  #ifdef RGBLIGHT_ENABLE
+  if (RGB_DIRTY)
+  {
+    // Disable interupts (RGB data is big)
+    cli();
+    // Create new DWORD for RGB data
+    uint32_t dword;
+
+    // Fill the new DWORD with the data that was sent over
+    uint8_t * dword_dat = (uint8_t *)(&dword);
+    for (int i = 0; i < 4; i++)
+    {
+      dword_dat[i] = i2c_slave_buffer[I2C_RGB_START + i];
     }
+
+    // Update the RGB now with the new data and set RGB_DIRTY to false
+    rgblight_update_dword(dword);
+    RGB_DIRTY = false;
+    // Re-enable interupts now that RGB is set
+    sei();
+  }
+  #endif
+
+#else  // USE_SERIAL
+  // TODO: if MATRIX_COLS > 8 change to pack()
+  for (int i = 0; i < ROWS_PER_HAND; ++i)
+  {
+    serial_s2m_buffer.smatrix[i] = matrix[offset + i];
+  }
+  #ifdef BACKLIGHT_ENABLE
+    backlight_set(serial_m2s_buffer.backlight_level);
+  #endif
+  #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+  // Add serial implementation for RGB here
+  #endif
 #endif
-    matrix_slave_scan_user();
+}
+
+uint8_t matrix_scan(void)
+{
+  uint8_t ret = _matrix_scan();
+
+  if (is_keyboard_master())
+  {
+    master_transport();
+  }
+  else
+  {
+    slave_transport();
+  }
+
+  matrix_scan_quantum();
+  return ret;
 }
 
 bool matrix_is_modified(void)
