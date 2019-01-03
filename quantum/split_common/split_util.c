@@ -8,14 +8,7 @@
 
 #ifdef EE_HANDS
 #   include "tmk_core/common/eeprom.h"
-#endif
-
-#ifdef BACKLIGHT_ENABLE
-#   include "backlight.h"
-#endif
-
-#if defined(USE_I2C) || defined(EH)
-#  include "i2c.h"
+#   include "eeconfig.h"
 #endif
 
 volatile bool isLeftHand = true;
@@ -60,13 +53,11 @@ bool is_keyboard_master(void)
 
 static void keyboard_master_setup(void) {
 #if defined(USE_I2C) || defined(EH)
-  i2c_master_init();
   #ifdef SSD1306OLED
     matrix_master_OLED_init ();
   #endif
 #else
-  serial_master_init();
-#endif
+  transport_master_init();
 
   // For master the Backlight info needs to be sent on startup
   // Otherwise the salve won't start with the proper info until an update
@@ -75,11 +66,7 @@ static void keyboard_master_setup(void) {
 
 static void keyboard_slave_setup(void)
 {
-#if defined(USE_I2C) || defined(EH)
-  i2c_slave_init(SLAVE_I2C_ADDRESS);
-#else
-  serial_slave_init();
-#endif
+  transport_slave_init();
 }
 
 // this code runs before the usb and keyboard is initialized

@@ -25,7 +25,7 @@ typedef struct _Serial_m2s_buffer_t {
 
 extern volatile Serial_m2s_buffer_t serial_m2s_buffer;
 
-void serial_master_init(void);
-void serial_slave_init(void);
+void transport_master_init(void);
+void transport_slave_init(void);
 
 #endif

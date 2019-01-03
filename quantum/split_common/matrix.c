@@ -36,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #if defined(USE_I2C) || defined(EH)
 #  include "i2c.h"
+#  define SLAVE_I2C_ADDRESS           0x32
 #else // USE_SERIAL
 #  include "serial.h"
 #endif
@@ -233,7 +234,7 @@ uint8_t _matrix_scan(void)
 #if defined(USE_I2C) || defined(EH)
 
 // Get rows from other half over i2c
-int i2c_transaction(void) {
+bool do_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
     int err = 0;
     
@@ -275,7 +276,7 @@ int i2c_transaction(void) {
     } else {
 i2c_error: // the cable is disconnceted, or something else went wrong
         i2c_reset_state();
-        return err;
+        return false;
     }
     
     #ifdef RGBLIGHT_ENABLE
@@ -298,11 +299,18 @@ i2c_error: // the cable is disconnceted, or something else went wrong
         }
     #endif
 
-    return 0;
+    return true;
+}
+
+void transport_master_init(void) {
+  i2c_master_init();
+}
+
+void transport_slave_init(void) {
+  i2c_slave_init(SLAVE_I2C_ADDRESS);
 }
 
 #else // USE_SERIAL
-
 
 typedef struct _Serial_s2m_buffer_t {
     // TODO: if MATRIX_COLS > 8 change to uint8_t packed_matrix[] for pack/unpack
@@ -320,17 +328,17 @@ SSTD_t transactions[] = {
   }
 };
 
-void serial_master_init(void)
+void transport_master_init(void)
 { soft_serial_initiator_init(transactions, TID_LIMIT(transactions)); }
 
-void serial_slave_init(void)
+void transport_slave_init(void)
 { soft_serial_target_init(transactions, TID_LIMIT(transactions)); }
 
-int serial_transaction(void) {
+bool do_transaction(void) {
     int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 
     if (soft_serial_transaction()) {
-        return 1;
+        return false;
     }
 
     // TODO:  if MATRIX_COLS > 8 change to unpack()
@@ -347,20 +355,13 @@ int serial_transaction(void) {
         serial_m2s_buffer.backlight_level = backlight_config.enable ? backlight_config.level : 0;
     #endif
 
-    return 0;
+    return true;
 }
 #endif
 
 static void master_transport(void)
 {
-#if defined(USE_I2C) || defined(EH)
-  if (i2c_transaction())
-  {
-#else  // USE_SERIAL
-  if (serial_transaction())
-  {
-#endif
-
+  if (!do_transaction()) {
     error_count++;
 
     if (error_count > ERROR_DISCONNECT_COUNT)
