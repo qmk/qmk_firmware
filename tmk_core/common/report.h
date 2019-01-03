@@ -199,7 +199,7 @@ typedef struct {
     (key == KC_BRIGHTNESS_DOWN  ?  BRIGHTNESSDOWN : \
     (key == KC_LAUNCHPAD        ?  LAUNCHPAD : \
     (key == KC_MISSION_CONTROL  ?  MISSION_CONTROL : \
-    (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0)))))))))))))))))))))))
+    (key == KC_WWW_FAVORITES    ?  AC_BOOKMARKS : 0)))))))))))))))))))))))))
 
 uint8_t has_anykey(report_keyboard_t* keyboard_report);
 uint8_t get_first_key(report_keyboard_t* keyboard_report);
