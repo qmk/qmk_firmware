@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "action_layer.h"
 #include "timer.h"
 #include "keycode_config.h"
+#include <quantum_keycodes.h>
 
 extern keymap_config_t keymap_config;
 
@@ -364,3 +365,120 @@ __attribute__((weak)) void oneshot_layer_changed_kb(uint8_t layer) { oneshot_lay
  * FIXME: needs doc
  */
 uint8_t has_anymod(void) { return bitpop(real_mods); }
+
+/** \brief custom modifier handling
+ *
+ * This function checks if the given modifier mask is set and the given layer is
+ * the current spec. If not it returns true. If the mask is set and the key
+ * pressed, it deregisters the currently held modifiers, executes the given
+ * function and returns the value returned by the function. If the key is
+ * released, it simply runs the function and returns its value.
+ *
+ * This function is meant to be used in process_record_user to be able to
+ * trigger specific action on key code with modifier, for example when shift-esc
+ * is pressed.
+ *
+ * \param modifier_mask modifier mask to check against current modifiers held.
+ * \param layer layer to check against current layer.
+ * \param keycode the processed keycode, will be forwarded to handler.
+ * \param record the processed record, will be forwarded to handler.
+ * \param data anonymous data to be passed to the handler.
+ * \param handler to be called when modifiers and layer are matched.
+ * \return true if modifiers or layer did not match, return value of handler otherwise.
+ */
+bool run_on_modifiers(uint8_t modifier_mask, int16_t layer, uint16_t keycode,  keyrecord_t *record,
+                      void *data,  bool (*handler)(uint16_t keycode,  keyrecord_t *record, void *data)) {
+  static bool in_alternate_modifier;
+
+  /* nothing to do if we are not in the right layer */
+  if (layer >= 0 && !layer_state_is(layer))
+    return true;
+
+  /* when it's a key press and modifier state is pressed */
+  if (record->event.pressed && (get_mods() & modifier_mask) == modifier_mask) {
+    in_alternate_modifier = true;
+
+    /* will send modifier up so that the os won't shift the keycode we will send */
+    del_mods(modifier_mask);
+
+    /* send mods modifications */
+    send_keyboard_report();
+
+    /* execute handler */
+    bool rc = handler(keycode, record, data);
+
+    add_mods(modifier_mask);
+
+    return rc;
+  }
+
+  /* when releasing the key and we activated alternate modifier */
+  if (!record->event.pressed && in_alternate_modifier) {
+    in_alternate_modifier = false;
+
+    /* execute handler */
+    bool rc = handler(keycode, record, data);
+
+    /* make sure all mods we sat up earlier are released */
+    clear_weak_mods();
+
+    /* send mods modification */
+    send_keyboard_report();
+
+    return rc;
+  }
+
+  return true;
+}
+
+/** \brief add a weak mod if keycode has the mod enabled */
+#define maybe_add_weak_mods(keycode, mod)                               \
+  if (keycode < QK_MODS_MAX &&                                          \
+      (keycode & 0xff00) == QK_ ## mod)                                 \
+    add_weak_mods(MOD_BIT(KC_ ## mod))
+
+/** \brief copy keycode mods as weak mod */
+static void copy_mods_as_weak(uint16_t keycode) {
+    /* send mods if keycode needs it */
+    maybe_add_weak_mods(keycode, LCTL);
+    maybe_add_weak_mods(keycode, LSFT);
+    maybe_add_weak_mods(keycode, LALT);
+    maybe_add_weak_mods(keycode, LGUI);
+    maybe_add_weak_mods(keycode, RCTL);
+    maybe_add_weak_mods(keycode, RSFT);
+    maybe_add_weak_mods(keycode, RALT);
+    maybe_add_weak_mods(keycode, RGUI);
+}
+
+/** \brief run_on_modifiers handler to send custom keycode
+ */
+static bool custom_keycode_on_modifiers_handler(uint16_t keycode, keyrecord_t *record, void *data) {
+  uint16_t custom_keycode =  *((uint16_t *) data);
+
+  if (record->event.pressed) {
+    /* register custom keycode mods */
+    copy_mods_as_weak(custom_keycode);
+    send_keyboard_report();
+
+    /* send alternate key code */
+    register_code(custom_keycode);
+  } else {
+    /* release the alternate key */
+    unregister_code(custom_keycode);
+
+    /* make sure all mods we sat up earlier are released */
+    clear_weak_mods();
+
+    /* send mods modification */
+    send_keyboard_report();
+  }
+
+  return false;
+}
+
+/** \brief Send custom keycode when modifier mask is set on layer.
+ *
+ */
+bool custom_keycode_on_modifiers(uint8_t modifier_mask, int16_t layer, keyrecord_t *record, uint16_t custom_keycode) {
+  return run_on_modifiers(modifier_mask, layer, 0, record, &custom_keycode, custom_keycode_on_modifiers_handler);
+}
