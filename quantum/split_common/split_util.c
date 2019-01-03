@@ -6,6 +6,10 @@
 #include "split_flags.h"
 #include "quantum.h"
 
+#ifdef EE_HANDS
+#   include "tmk_core/common/eeprom.h"
+#endif
+
 #ifdef BACKLIGHT_ENABLE
 #   include "backlight.h"
 #endif
