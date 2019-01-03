@@ -4,9 +4,9 @@
 #include "quantum.h"
 
 enum kuatsure_keycodes {
-  KC_MAKE = SAFE_RANGE,
-  KC_FLSH,
-  KC_VRSN,
+  KB_MAKE = SAFE_RANGE,
+  KB_FLSH,
+  KB_VRSN,
 
   USER_SAFE_RANGE,
 };
