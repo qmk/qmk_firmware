@@ -217,7 +217,6 @@ uint8_t matrix_scan(void) {
             debouncing_right = true;
             debouncing_time_right = timer_read();
         }
-
     }
 
 

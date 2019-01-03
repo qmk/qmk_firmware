@@ -55,6 +55,7 @@ uint32_t layer_state_set_kb(uint32_t state) {
         break;
       case 2:
         ML_LED_2(1);
+        ML_LED_5(1);
         break;
       case 3:
         ML_LED_3(1);
