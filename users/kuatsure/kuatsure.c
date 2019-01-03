@@ -106,19 +106,19 @@ void matrix_scan_user(void) {
     }
 
     // TMUX - shift to first window
-    SEQ_ONE_KEY(KC_U) {
+    SEQ_TWO_KEYS(KC_J, KC_J) {
       tmux_prefix();
       SEND_STRING("1");
     }
 
     // TMUX - shift to second window
-    SEQ_ONE_KEY(KC_I) {
+    SEQ_TWO_KEYS(KC_K, KC_K) {
       tmux_prefix();
       SEND_STRING("2");
     }
 
     // TMUX - shift to third window
-    SEQ_ONE_KEY(KC_O) {
+    SEQ_TWO_KEYS(KC_L, KC_L) {
       tmux_prefix();
       SEND_STRING("3");
     }
