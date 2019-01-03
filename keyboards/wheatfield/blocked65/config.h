@@ -7,8 +7,8 @@
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Dou
-#define PRODUCT         Fanoe
-#define DESCRIPTION     A fake Canoe
+#define PRODUCT         Blocked65
+#define DESCRIPTION     65% keyboard with arrow cluster blocker
 
 /* key matrix size */
 #define MATRIX_ROWS 5
