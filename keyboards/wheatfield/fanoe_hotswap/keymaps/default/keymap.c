@@ -1,10 +1,4 @@
 #include QMK_KEYBOARD_H
-#include <print.h>
-
-#define _BL 0
-#define _FL 1
-
-extern keymap_config_t keymap_config;
 
 enum layers {
   _QWERTY,
@@ -34,22 +28,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  print("Process record!\n");
-
-  return true;
-}
-
-void matrix_init_user(void) {
-
-}
-
-void matrix_scan_user(void) {
-
-}
-
-void led_set_user(uint8_t usb_led) {
-
-}
-                    
