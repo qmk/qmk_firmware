@@ -1,5 +1,5 @@
 # Keymap Maintainer: Gam3cat
-make gonnerd:gam3cat
+make h87a:gam3cat
 ## Layout Config:
 2u backspace, 2.25u lshift/enter, [2.75u rshift] or [1.75u rshift, 1u Fn].
 [1.5u, 1u, 1.5u 1x7.0u, 1.5u, 1u, 1.5u, 3x1u] or [2x1.5u, 1x7.0u, 2x1.5u, 3x1u] bottom row.
