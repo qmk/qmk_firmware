@@ -6,6 +6,7 @@
 enum kuatsure_keycodes {
   KC_MAKE = SAFE_RANGE,
   KC_FLSH,
+  KC_VRSN,
 
   USER_SAFE_RANGE,
 };
