@@ -25,8 +25,10 @@
 
 /* number of backlight levels */
 
+#define BACKLIGHT_PIN B6
+
 #ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 0
+#define BACKLIGHT_LEVELS 6
 #endif
 
 /* Set 0 if debouncing isn't needed */
@@ -43,12 +45,11 @@
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
-#ifdef RGB_DI_PIN
+#define RGB_DI_PIN E2
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 0
+#define RGBLED_NUM 2
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
-#endif
 
 #endif
