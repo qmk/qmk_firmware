@@ -709,7 +709,6 @@ void main_init(void)
 void matrix_init_kb(void) {
     // put your keyboard start-up code here
     // runs once when the firmware starts up
-    //eeprom_reset();
     bootmagic_lite();
 
     main_init();
