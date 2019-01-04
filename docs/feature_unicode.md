@@ -8,7 +8,7 @@ Supports Unicode up to `0xFFFF`. The keycode function is `UC(c)` in the keymap f
 
 ## `UNICODEMAP_ENABLE`
 
-Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(i)`, where _i_ is an array index into the mapping table.
+Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(i)`, where _i_ is an array index into the mapping table. The table may contain at most 1024 values.
 
 And you may want to have an enum to make reference easier.  So you'd want to add something like this to your keymap:
 
