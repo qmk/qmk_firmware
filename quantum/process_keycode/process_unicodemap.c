@@ -46,9 +46,9 @@ void unicode_map_input_error() {}
 
 bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
   uint8_t input_mode = get_unicode_input_mode();
-  if ((keycode & QK_UNICODE_MAP) == QK_UNICODE_MAP && record->event.pressed) {
+  if ((keycode & QK_UNICODEMAP) == QK_UNICODEMAP && record->event.pressed) {
     const uint32_t* map = unicode_map;
-    uint16_t index = keycode - QK_UNICODE_MAP;
+    uint16_t index = keycode - QK_UNICODEMAP;
     uint32_t code = pgm_read_dword(&map[index]);
     if (code > 0xFFFF && code <= 0x10ffff && input_mode == UC_OSX) {
       // Convert to UTF-16 surrogate pair
