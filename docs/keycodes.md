@@ -141,9 +141,9 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_LOCKING_SCROLL`    |`KC_LSCR`           |Locking Scroll Lock                            |
 |`KC_KP_COMMA`          |`KC_PCMM`           |Keypad `,`                                     |
 |`KC_KP_EQUAL_AS400`    |                    |Keypad `=` on AS/400 keyboards                 |
-|`KC_INT1`              |`KC_RO`             |JIS `\` and <code>&#124;</code>                |
+|`KC_INT1`              |`KC_RO`             |JIS `\` and `_`                                |
 |`KC_INT2`              |`KC_KANA`           |JIS Katakana/Hiragana                          |
-|`KC_INT3`              |`KC_JYEN`           |JIS `¥`                                        |
+|`KC_INT3`              |`KC_JYEN`           |JIS `¥` and <code>&#124;</code>                |
 |`KC_INT4`              |`KC_HENK`           |JIS Henkan                                     |
 |`KC_INT5`              |`KC_MHEN`           |JIS Muhenkan                                   |
 |`KC_INT6`              |                    |JIS Numpad `,`                                 |
@@ -177,7 +177,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_LGUI`              |`KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key)            |
 |`KC_RCTRL`             |`KC_RCTL`           |Right Control                                  |
 |`KC_RSHIFT`            |`KC_RSFT`           |Right Shift                                    |
-|`KC_RALT`              |                    |Right Alt                                      |
+|`KC_RALT`              |`KC_ALGR`           |Right Alt (AltGr)                              |
 |`KC_RGUI`              |`KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)           |
 |`KC_SYSTEM_POWER`      |`KC_PWR`            |System Power Down                              |
 |`KC_SYSTEM_SLEEP`      |`KC_SLEP`           |System Sleep                                   |
@@ -203,29 +203,32 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_WWW_FAVORITES`     |`KC_WFAV`           |Browser Favorites (Windows)                    |
 |`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`           |Next Track (macOS)                             |
 |`KC_MEDIA_REWIND`      |`KC_MRWD`           |Previous Track (macOS)                         |
+|`KC_BRIGHTNESS_UP`     |`KC_BRIU`           |Brightness Up                                  |
+|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`           |Brightness Down                                |
 
 ## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
-|Key          |Aliases    |Description                                                          |
-|-------------|-----------|---------------------------------------------------------------------|
-|`RESET`      |           |Put the keyboard into DFU mode for flashing                          |
-|`DEBUG`      |           |Toggle debug mode                                                    |
-|`KC_GESC`    |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
-|`KC_LSPO`    |           |Left Shift when held, `(` when tapped                                |
-|`KC_RSPC`    |           |Right Shift when held, `)` when tapped                               |
-|`KC_LEAD`    |           |The [Leader key](feature_leader_key.md)                              |
-|`KC_LOCK`    |           |The [Lock key](feature_key_lock.md)                                  |
-|`FUNC(n)`    |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
-|`M(n)`       |           |Call macro `n`                                                       |
-|`MACROTAP(n)`|           |Macro-tap `n` idk FIXME                                              |
+|Key            |Aliases    |Description                                                          |
+|---------------|-----------|---------------------------------------------------------------------|
+|`RESET`        |           |Put the keyboard into DFU mode for flashing                          |
+|`DEBUG`        |           |Toggle debug mode                                                    |
+|`EEPROM_RESET` |`EEP_RST`  |Resets EEPROM state by reinitializing it                             |
+|`KC_GESC`      |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
+|`KC_LSPO`      |           |Left Shift when held, `(` when tapped                                |
+|`KC_RSPC`      |           |Right Shift when held, `)` when tapped                               |
+|`KC_LEAD`      |           |The [Leader key](feature_leader_key.md)                              |
+|`KC_LOCK`      |           |The [Lock key](feature_key_lock.md)                                  |
+|`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
+|`M(n)`         |           |Call macro `n`                                                       |
+|`MACROTAP(n)`  |           |Macro-tap `n` idk FIXME                                              |
 
 ## [Audio Keys](feature_audio.md)
 
 |Key             |Aliases  |Description                       |
 |----------------|---------|----------------------------------|
-|`AU_ON`         |         |Audio mode on                     |
-|`AU_OFF`        |         |Audio mode off                    |
-|`AU_TOG`        |         |Toggles Audio mode                |
+|`AU_ON`         |         |Turns on Audio Feature            |
+|`AU_OFF`        |         |Turns off Audio Feature           |
+|`AU_TOG`        |         |Toggles Audio state               |
 |`CLICKY_TOGGLE` |`CK_TOGG`|Toggles Audio clicky mode         |
 |`CLICKY_UP`     |`CK_UP`  |Increases frequency of the clicks |
 |`CLICKY_DOWN`   |`CK_DOWN`|Decreases frequency of the clicks |
@@ -271,6 +274,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`MAGIC_UNSWAP_BACKSLASH_BACKSPACE`|         |Unswap `\` and Backspace            |
 |`MAGIC_UNHOST_NKRO`               |         |Force NKRO off                      |
 |`MAGIC_UNSWAP_ALT_GUI`            |`AG_NORM`|Unswap Alt and GUI on both sides    |
+|`MAGIC_TOGGLE_ALT_GUI`            |`AG_TOGG`|Toggle Alt and GUI swap on both sides|
 |`MAGIC_TOGGLE_NKRO`               |         |Turn NKRO on or off                 |
 
 ## [Bluetooth](feature_bluetooth.md)
@@ -284,15 +288,16 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Layer Switching](feature_advanced_keycodes.md#switching-and-toggling-layers)
 
-|Key         |Description                                                               |
-|-----------------|---------------------------------------------------------------------|
-|`DF(layer)`      |Switches the default layer                                           |
-|`MO(layer)`      |Momentarily activates layer, switches off when you let go            |
-|`LM(layer, mod)` |As `MO(layer)` but with `mod` active                                 |
-|`LT(layer, kc)`  |Momentarily activates layer if held, sends kc if tapped              |
-|`TG(layer)`      |Toggles the layer (enables it if no active, and vise versa)          |
-|`TO(layer)`      |Activates layer and deactivates all other layers                     |
-|`TT(layer)`      |Momentarily activates layer if held, toggles it if tapped repeatedly |
+|Key             |Description                                                                       |
+|----------------|----------------------------------------------------------------------------------|
+|`DF(layer)`     |Set the base (default) layer                                                      |
+|`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
+|`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](https://docs.qmk.fm/#/feature_advanced_keycodes?id=one-shot-keys) for details. |
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well. 
+|`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
+|`TG(layer)`     |Toggle `layer` on or off                                                          |
+|`TO(layer)`     |Turn on `layer` when pressed                                                      |
+|`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
 
 ## [Mouse Keys](feature_mouse_keys.md)
 
@@ -318,7 +323,7 @@ This is a reference only. Each group of keys links to the page documenting their
 ## [Modifiers](feature_advanced_keycodes.md#modifier-keys)
 
 |Key       |Aliases               |Description                                         |
-|----------|----------            |----------------------------------------------------|
+|----------|----------------------|----------------------------------------------------|
 |`KC_HYPR` |                      |Hold Left Control, Shift, Alt and GUI               |
 |`KC_MEH`  |                      |Hold Left Control, Shift and Alt                    |
 |`LCTL(kc)`|                      |Hold Left Control and press `kc`                    |
@@ -327,12 +332,11 @@ This is a reference only. Each group of keys links to the page documenting their
 |`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
 |`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
 |`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|                      |Hold Right Alt and press `kc`                       |
+|`RALT(kc)`|`ALGR(kc)`            |Hold Right Alt and press `kc`                       |
 |`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
 |`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
 |`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
 |`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
-|`ALTG(kc)`|                      |Hold Right Control and Alt and press `kc`           |
 |`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
 |`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
 
@@ -353,7 +357,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`LCAG_T(kc)`|                                       |Left Control, Alt and GUI when held, `kc` when tapped  |
 |`RCAG_T(kc)`|                                       |Right Control, Alt and GUI when held, `kc` when tapped |
 |`ALL_T(kc)` |                                       |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
-|`SCMD_T(kc)`|`SWIN_T(kc)`                           |Left Shift and GUI when held, `kc` when tapped         |
+|`SGUI_T(kc)`|`SCMD_T(kc)`, `SWIN_T(kc)`             |Left Shift and GUI when held, `kc` when tapped         |
 |`LCA_T(kc)` |                                       |Left Control and Alt when held, `kc` when tapped       |
 
 ## [RGB Lighting](feature_rgblight.md)
@@ -428,18 +432,6 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_RIGHT_ANGLE_BRACKET`|`KC_RABK`, `KC_GT` |`>`                |
 |`KC_QUESTION`           |`KC_QUES`          |`?`                |
 
-## [Switching and Toggling Layers](feature_advanced_keycodes.md#switching-and-toggling-layers)
-
-|Key             |Description                                                                       |
-|----------------|----------------------------------------------------------------------------------|
-|`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
-|`TO(layer)`     |Turn on `layer` when pressed                                                      |
-|`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
-|`DF(layer)`     |Set the base (default) layer                                                      |
-|`TG(layer)`     |Toggle `layer` on or off                                                          |
-|`TT(layer)`     |Normally acts like MO unless it's tapped multiple times, which toggles `layer` on |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.                  |
-
 ## [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
 
 |Key         |Description                       |
@@ -459,6 +451,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`SH_MOFF`  |Momentarily turns off swap.                                              |
 |`SH_TG`    |Toggles swap on and off with every key press.                            |
 |`SH_TT`    |Toggles with a tap; momentary when held.                                 |
+
 ## [Unicode Support](feature_unicode.md)
 
 |Key         |Aliases|                                                 |

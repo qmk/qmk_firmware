@@ -11,8 +11,6 @@
 /* skip bootmagic and eeconfig */
 #define BOOTMAGIC_KEY_SKIP              KC_SPACE
 
-#define PREVENT_STUCK_MODIFIERS
-
 #define UNICODE_TYPE_DELAY 0
 
 #define LAYOUT_DVORAK

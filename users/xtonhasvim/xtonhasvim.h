@@ -22,11 +22,9 @@
 
 #define X_____X KC_NO
 
-bool process_record_xtonhasvim(uint16_t keycode, keyrecord_t *record);
-
 enum xtonhasvim_keycodes {
-  DUMMY = SAFE_RANGE,
-  FIREY_RETURN, // kick off special effects
+  // 20: give keyboard-specific codes some room
+  FIREY_RETURN = SAFE_RANGE + 20,  // kick off special effects
   VIM_START, // bookend for vim states
   VIM_A,
   VIM_B,
