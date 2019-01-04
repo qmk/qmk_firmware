@@ -56,7 +56,7 @@ static void keyboard_master_setup(void) {
   #ifdef SSD1306OLED
     matrix_master_OLED_init ();
   #endif
-#else
+#endif
   transport_master_init();
 
   // For master the Backlight info needs to be sent on startup
