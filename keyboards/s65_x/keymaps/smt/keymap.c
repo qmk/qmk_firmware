@@ -1,4 +1,4 @@
-#include "s65_x.h"
+#include QMK_KEYBOARD_H
 
 #define _QWERTY 0
 #define _COLEMAK 1
@@ -11,10 +11,6 @@ enum planck_keycodes {
   COLEMAK,
   DVORAK
 };
-
-// Helpful defines
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl

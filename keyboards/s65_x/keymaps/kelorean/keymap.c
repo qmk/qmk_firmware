@@ -1,4 +1,4 @@
-#include "s65_x.h"
+#include QMK_KEYBOARD_H
 
 #define _BL 0
 #define _CM 1
