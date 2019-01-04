@@ -44,8 +44,20 @@ __attribute__((weak))
 void unicodemap_input_error() {}
 
 bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
-  if ((keycode & QK_UNICODEMAP) == QK_UNICODEMAP && record->event.pressed) {
-    uint16_t index = keycode - QK_UNICODEMAP;
+  if (keycode > QK_UNICODEMAP && record->event.pressed) {
+    uint16_t index;
+    if (keycode > QK_UNICODEMAP_SHIFT) {
+      // Keycode is a pair: extract index based on whether Shift is pressed
+      index = keycode - QK_UNICODEMAP_SHIFT;
+      if (unicode_saved_mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))) {
+        index >>= 7;
+      }
+      index &= 0x7F;
+    } else {
+      // Keycode is a regular index
+      index = keycode - QK_UNICODEMAP;
+    }
+
     uint32_t code = pgm_read_dword(unicode_map + index);
     uint8_t input_mode = get_unicode_input_mode();
 
