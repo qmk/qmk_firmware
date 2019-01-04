@@ -1,0 +1,13 @@
+{
+  "keyboard_name": "SixShooter",
+  "maintainer": "qmk",
+  "url": "https://geekhack.org/index.php?topic=70033.0",
+  "width": 3,
+  "height": 2,
+  "layouts": {
+    "LAYOUT": {
+      "key_count": 6,
+      "layout": [{"label":"K00", "x":0, "y":0}, {"label":"K01", "x":1, "y":0}, {"label":"K02", "x":2, "y":0}, {"label":"K03", "x":0, "y":1}, {"label":"K04", "x":1, "y":1}, {"label":"K05", "x":2, "y":1}]
+    }
+  }
+}

@@ -64,7 +64,7 @@ action_t action_for_key(uint8_t layer, keypos_t key)
         case KC_SYSTEM_POWER ... KC_SYSTEM_WAKE:
             action.code = ACTION_USAGE_SYSTEM(KEYCODE2SYSTEM(keycode));
             break;
-        case KC_AUDIO_MUTE ... KC_MEDIA_REWIND:
+        case KC_AUDIO_MUTE ... KC_BRIGHTNESS_DOWN:
             action.code = ACTION_USAGE_CONSUMER(KEYCODE2CONSUMER(keycode));
             break;
         case KC_MS_UP ... KC_MS_ACCEL2:

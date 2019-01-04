@@ -35,7 +35,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SSD1306OLED
 
-#define PREVENT_STUCK_MODIFIERS
+#define USE_SERIAL_PD2
+
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 

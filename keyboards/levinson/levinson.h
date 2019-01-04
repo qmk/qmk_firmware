@@ -1,5 +1,4 @@
-#ifndef LEVINSON_H
-#define LEVINSON_H
+#pragma once
 
 #include "quantum.h"
 
@@ -24,5 +23,3 @@
     )
 
 #define LAYOUT_kc_ortho_4x12 LAYOUT_kc
-
-#endif
