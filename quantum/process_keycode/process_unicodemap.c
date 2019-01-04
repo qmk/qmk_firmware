@@ -41,9 +41,9 @@ void register_hex32(uint32_t hex) {
 }
 
 __attribute__((weak))
-void unicode_map_input_error() {}
+void unicodemap_input_error() {}
 
-bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
+bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
   if ((keycode & QK_UNICODEMAP) == QK_UNICODEMAP && record->event.pressed) {
     uint16_t index = keycode - QK_UNICODEMAP;
     uint32_t code = pgm_read_dword(&unicode_map[index]);
@@ -60,7 +60,7 @@ bool process_unicode_map(uint16_t keycode, keyrecord_t *record) {
       unicode_input_finish();
     } else if ((code > 0x10FFFF && input_mode == UC_OSX) || (code > 0xFFFFF && input_mode == UC_LNX)) {
       // Character is out of range supported by the OS
-      unicode_map_input_error();
+      unicodemap_input_error();
     } else {
       unicode_input_start();
       register_hex32(code);
