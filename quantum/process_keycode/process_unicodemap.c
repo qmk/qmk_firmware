@@ -46,7 +46,7 @@ void unicodemap_input_error() {}
 bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
   if ((keycode & QK_UNICODEMAP) == QK_UNICODEMAP && record->event.pressed) {
     uint16_t index = keycode - QK_UNICODEMAP;
-    uint32_t code = pgm_read_dword(&unicode_map[index]);
+    uint32_t code = pgm_read_dword(unicode_map + index);
     uint8_t input_mode = get_unicode_input_mode();
 
     if (code > 0xFFFF && code <= 0x10FFFF && input_mode == UC_OSX) {
