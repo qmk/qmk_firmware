@@ -454,7 +454,7 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Unicode Support](feature_unicode.md)
 
-|Key         |Aliases|                                                 |
-|------------|-------|-------------------------------------------------|
-|`UNICODE(n)`|`UC(n)`|Send Unicode character `n`                       |
-|`X(n)`      |       |Send Unicode character `n` via a different method|
+|Key    |Description                                                                |
+|-------|---------------------------------------------------------------------------|
+|`UC(c)`|Send Unicode code point `c` (`UNICODE_ENABLE`)                             |
+|`X(i)` |Send Unicode code point at index `i` in `unicode_map` (`UNICODEMAP_ENABLE`)|

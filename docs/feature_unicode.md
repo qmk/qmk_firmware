@@ -2,13 +2,13 @@
 
 There are three Unicode keymap definition methods available in QMK:
 
-## UNICODE_ENABLE
+## `UNICODE_ENABLE`
 
-Supports Unicode up to `0xFFFF`. The keycode function is `UC(n)` in the keymap file, where _n_ is a 4 digit hexadecimal number.
+Supports Unicode up to `0xFFFF`. The keycode function is `UC(c)` in the keymap file, where _c_ is the number of the code point (preferably hexadecimal, up to 4 digits long).
 
-## UNICODEMAP_ENABLE
+## `UNICODEMAP_ENABLE`
 
-Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(n)`, where _n_ is an array index into the mapping table.
+Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(i)`, where _i_ is an array index into the mapping table.
 
 And you may want to have an enum to make reference easier.  So you'd want to add something like this to your keymap:
 
@@ -28,7 +28,7 @@ const uint32_t PROGMEM unicode_map[] = {
 
 Make sure that the order for both matches.
 
-## UCIS_ENABLE
+## `UCIS_ENABLE`
 
 Supports Unicode up to `0x10FFFF` (all possible code points). As with `UNICODEMAP`, you may want to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you will have to add a keycode or function that calls `qk_ucis_start()`. Once it's been called, you can type the mnemonic for your character, then hit Space or Enter to complete it or Esc to cancel. If the mnemonic matches an entry in your table, the typed text will automatically be erased and the corresponding Unicode sequence inserted.
 
