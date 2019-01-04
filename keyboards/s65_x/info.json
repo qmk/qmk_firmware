@@ -5,7 +5,7 @@
   "width": 16,
   "height": 5,
   "layouts": {
-    "LAYOUT_ansi": {
+    "LAYOUT_65_ansi": {
       "key_count": 68,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
@@ -78,7 +78,7 @@
         {"label":"Right", "x":15, "y":4}
       ]
     },
-    "LAYOUT_iso": {
+    "LAYOUT_65_iso": {
       "key_count": 69,
       "layout": [
         {"label":"Esc", "x":0, "y":0},
