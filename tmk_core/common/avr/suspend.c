@@ -109,8 +109,10 @@ static void power_down(uint8_t wdto)
 	backlight_set(0);
 #endif
 
+#ifndef BACKLIGHT_CAPS_LOCK_INDICATOR
 	// Turn off LED indicators
 	led_set(0);
+#endif
 
 	#ifdef AUDIO_ENABLE
         // This sometimes disables the start-up noise, so it's been disabled
