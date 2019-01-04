@@ -1,22 +1,15 @@
-#Numbrero
+# Numbrero
 
-QMK for the Numbrero numpad
+No picture currently available.
 
-Layout designed by Taylor Rana-Ruby and Drake Patterson
-PCB by Don Chiou (/u/flehrad)
+A Reversible Numpad (Left/Right handed) with extra macro keys.
 
-This PCB is a reversible left hand/right hand utilising the dual sided footprint, and zigzap Pro-Micro courtesty of Keeb.io footprint library 
-This PCB can be utilised in standard numpad layout or ortho numpad
-To utilise in LH formation, you will have to simply map the mentally mirror it as you assign keymap
+Keyboard Maintainer: [Flehrad](https://github.com/flehrad)  
+Hardware Supported: Numbrero PCB.  
+Hardware Availability: The Board Podcast Slack
 
-This build utilises a Pro Micro.
+Make example for this keyboard (after setting up your build environment):
 
-Can be built as single PCB with custom case, or as two PCB style with standoffs.
+    make handwired/numbrero/numbrero:default
 
-If you like this simple PCB and want to make a donation, you can at https://paypal.me/theboardpodcast
-
-Check out our:
-
-YouTube (https://www.youtube.com/channel/UCg98oJZNffR9nDLJNkorjqw)
-Podcast (www.libsyn.com/theboardpodcast)
-Patreon (www.patreon.com/theboardpodcast)
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
