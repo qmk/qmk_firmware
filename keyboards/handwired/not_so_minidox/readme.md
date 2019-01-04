@@ -5,7 +5,7 @@ not_so_minidox
 
 A slightly larger version of the MiniDox
 
-Keyboard Maintainer: mtdjr
+Keyboard Maintainer: mtdjr  
 Hardware Supported: None yet/ProMicro
 
 Make example for this keyboard (after setting up your build environment):
@@ -50,13 +50,13 @@ file will run on both hands instead of having to flash left and right handed
 versions of the firmware to each half. To flash the EEPROM file for the left
 half run:
 ```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:eeprom-lefthand.eep
+avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:"./quantum/split_common/eeprom-lefthand.eep"
 // or the equivalent in dfu-programmer
 
 ```
 and similarly for right half
 ```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:eeprom-righhand.eep
+avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:"./quantum/split_common/eeprom-righthand.eep"
 // or the equivalent in dfu-programmer
 ```
 

@@ -15,6 +15,8 @@ Example of flashing this keyboard:
 
     make quefrency/rev1:default:avrdude
 
+Handedness detection is already hardwired onto the PCB, so no need to deal with `EE_HANDS` or flashing .eep files.
+
 See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
 
 A build guide for this keyboard can be found here: [Keebio Build Guides](https://docs.keeb.io)
