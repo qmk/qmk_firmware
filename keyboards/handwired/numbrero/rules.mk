@@ -57,4 +57,3 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https:/
 BACKLIGHT_ENABLE = no  # Enable keyboard backlight functionality
 AUDIO_ENABLE = no
 RGBLIGHT_ENABLE = no
-LAYOUTS = numbrero_numpad numbrero_ortho
