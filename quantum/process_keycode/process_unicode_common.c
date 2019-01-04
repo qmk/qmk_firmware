@@ -20,6 +20,8 @@
 #include <string.h>
 
 unicode_config_t unicode_config;
+uint8_t          unicode_saved_mods;
+
 #if UNICODE_SELECTED_MODES != -1
 static uint8_t selected[] = { UNICODE_SELECTED_MODES };
 static uint8_t selected_count = sizeof selected / sizeof *selected;
@@ -75,11 +77,9 @@ void persist_unicode_input_mode(void) {
   eeprom_update_byte(EECONFIG_UNICODEMODE, unicode_config.input_mode);
 }
 
-static uint8_t saved_mods;
-
 __attribute__((weak))
 void unicode_input_start(void) {
-  saved_mods = get_mods(); // Save current mods
+  unicode_saved_mods = get_mods(); // Save current mods
   clear_mods(); // Unregister mods to start from a clean state
 
   switch (unicode_config.input_mode) {
@@ -120,7 +120,7 @@ void unicode_input_finish(void) {
     break;
   }
 
-  set_mods(saved_mods); // Reregister previously set mods
+  set_mods(unicode_saved_mods); // Reregister previously set mods
 }
 
 __attribute__((weak))
