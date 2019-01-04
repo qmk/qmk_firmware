@@ -23,6 +23,7 @@ extern uint8_t is_master;
 // entirely and just use numbers.
 enum layer_number {
     _DVORAK = 0,
+    _DESTINY,
     _QWERTY,
     _COLEMAK,
     _ADJ
@@ -30,6 +31,7 @@ enum layer_number {
 
 enum custom_keycodes {
   DVORAK = SAFE_RANGE,
+  DESTINY,
   QWERTY,
   COLEMAK,
   ADJ,
@@ -42,36 +44,6 @@ enum macro_keycodes {
 };
 
 #define XXXXXXX KC_NO
-
-// Define your non-alpha grouping in this define's LAYOUT, and all your BASE_LAYERS will share the same mod/macro columns
-  /* Base Layout
-   * ,------------------------------------------------.  ,------------------------------------------------.
-   * | ESC  |      |      |      |      |      |   -  |  |   =  |      |      |      |      |      |   \  |
-   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * | Tab  |      |      |      |      |      |   [  |  |   ]  |      |      |      |      |      |   /  |
-   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * | Del  |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
-   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |Shift |      |      |      |      |      |      |  |      |      |      |      |      |      |Shift |
-   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Adj  | Alt  |   `  | Left | Rght | Ctrl | Alt  |  | Alt  | Ctrl |  Up  | Down |   /  | Win  | Adj  |
-   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
-   *                                    | BkSp | Win  |  | Enter| Space|
-   *                                    `-------------'  `-------------'
-   */
-#define BASE_LAYOUT( \
-  _00, _01, _02, _03, _04,  _05, _06, _07, _08, _09, \
-  _10, _11, _12, _13, _14,  _15, _16, _17, _18, _19, _30, \
-  _20, _21, _22, _23, _24,  _25, _26, _27, _28, _29 \
-) \
-LAYOUT( \
-      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
-      KC_TAB,  _00,     _01,     _02,     _03,     _04,     KC_LBRC,  KC_RBRC, _05,     _06,     _07,     _08,     _09,     KC_SLSH, \
-      KC_DEL,  _10,     _11,     _12,     _13,     _14,     XXXXXXX,  XXXXXXX, _15,     _16,     _17,     _18,     _19,     _30, \
-      KC_LSFT, _20,     _21,     _22,     _23,     _24,     XXXXXXX,  XXXXXXX, _25,     _26,     _27,     _28,     _29,     KC_RSFT, \
-      ADJ,     KC_LALT, KC_GRV,  KC_LEFT, KC_RGHT, KC_LCTL, KC_LALT,  KC_RALT, KC_RCTL, KC_UP,   KC_DOWN, KC_SLSH, KC_RGUI, ADJ, \
-                        KC_VOLU, KC_VOLD,          KC_BSPC, KC_LGUI,  KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
-)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Dvorak
@@ -89,13 +61,40 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                    |      |      |  |      |      |
    *                                    `-------------'  `--------=----'
    */
-  [_DVORAK] = BASE_LAYOUT( \
-      KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    \
-      KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
-      KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z  \
+  [_DVORAK] = LAYOUT( \
+      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+      KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_LBRC,  KC_RBRC, KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, \
+      KC_RCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    XXXXXXX,  XXXXXXX, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
+      KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    XXXXXXX,  XXXXXXX, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
+      ADJ,     KC_RGUI, KC_GRV,  KC_LEFT, KC_RGHT, KC_LCTL, KC_LALT,  KC_RALT, KC_RCTL, KC_UP,   KC_DOWN, KC_SLSH, KC_RGUI, ADJ, \
+                        KC_VOLU, KC_VOLD,          KC_BSPC, KC_RGUI,  KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
+
   ),
 
-  /* Qwerty
+  /* Destiny
+   * ,------------------------------------------------.  ,------------------------------------------------.
+   * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
+   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
+   * |      |   "  |   ,  |   .  |   P  |   Y  |      |  |      |   F  |   G  |   C  |   R  |   L  |      |
+   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
+   * |      |   A  |   O  |   E  |   U  |   I  |      |  |      |   D  |   H  |   T  |   N  |   S  |   -  |
+   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+   * |      |   ;  |   Q  |   J  |   K  |   X  |      |  |      |   B  |   M  |   W  |   V  |   Z  |      |
+   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+   * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
+   * `------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
+   *                                    |      |      |  |      |      |
+   *                                    `-------------'  `--------=----'
+   */
+  [_DESTINY] = LAYOUT( \
+      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+      KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,    KC_LBRC,  KC_RBRC, KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_SLSH, \
+      KC_RCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,    XXXXXXX,  XXXXXXX, KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_MINS, \
+      KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    XXXXXXX,  XXXXXXX, KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
+      ADJ,     KC_RGUI, KC_GRV,  KC_LEFT, KC_RGHT, KC_LCTL, KC_LALT,  KC_RALT, KC_RCTL, KC_UP,   KC_DOWN, KC_SLSH, KC_RGUI, ADJ, \
+                        KC_VOLU, KC_VOLD,          KC_BSPC, KC_DEL,   KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
+
+  ),  /* Qwerty
    * ,------------------------------------------------.  ,------------------------------------------------.
    * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
@@ -110,11 +109,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                    |      |      |  |      |      |
    *                                    `-------------'  `--------=----'
    */
-  [_QWERTY] = BASE_LAYOUT( \
-      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
-      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
-      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH  \
-  ),
+  [_QWERTY] = LAYOUT( \
+      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,  KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_SLSH, \
+      KC_RCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX,  XXXXXXX, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, \
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    XXXXXXX,  XXXXXXX, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
+      ADJ,     KC_RGUI, KC_GRV,  KC_LEFT, KC_RGHT, KC_LCTL, KC_LALT,  KC_RALT, KC_RCTL, KC_UP,   KC_DOWN, KC_SLSH, KC_RGUI, ADJ, \
+                        KC_VOLU, KC_VOLD,          KC_BSPC, KC_DEL,   KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
+),
 
   /* Colemak
    * ,------------------------------------------------.  ,------------------------------------------------.
@@ -131,17 +133,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                    |      |      |  |      |      |
    *                                    `-------------'  `--------=----'
    */
-  [_COLEMAK] = BASE_LAYOUT( \
-      KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,   KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, \
-      KC_A,    KC_R,    KC_S,    KC_T,    KC_G,   KC_K,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT,    \
-      KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,   KC_M,    KC_H,    KC_COMM, KC_DOT,  KC_SLSH  \
+  [_COLEMAK] = LAYOUT( \
+      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSLS, \
+      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,    KC_LBRC,  KC_RBRC, KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_SLSH, \
+      KC_RCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_G,    XXXXXXX,  XXXXXXX, KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT, \
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,    XXXXXXX,  XXXXXXX, KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
+      ADJ,     KC_RGUI, KC_GRV,  KC_LEFT, KC_RGHT, KC_LCTL, KC_LALT,  KC_RALT, KC_RCTL, KC_UP,   KC_DOWN, KC_SLSH, KC_RGUI, ADJ, \
+                        KC_VOLU, KC_VOLD,          KC_BSPC, KC_DEL,   KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
   ),
 
   /* ADJ
    * ,------------------------------------------------.  ,------------------------------------------------.
    * |  F11 |  F1  |  F2  |  F3  |  F4  |  F5  | RESET|  |      |  F6  |  F7  |  F8  |  F9  |  F10 |  F12 |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      |      |QWERTY|DVORAK|COLEMK|      |      |  |      |      | PrSc | ScLk | NmLk |      |      |
+   * |      |      |QWERTY|COLEMK|DVORAK|DESTNY|      |  |      |      | PrSc | ScLk | NmLk |      |      |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
    * |      |      | Mute | Vol- | Vol+ |      |      |  |      |RGBTOG|RGBMOD|  HUI |  SAI | VAI  |      |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -155,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJ] =  LAYOUT( \
       KC_F11,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   RESET,   _______, KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F12, \
-      _______, _______, DVORAK,  QWERTY,  COLEMAK, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_NLCK, _______, _______, \
+      _______, _______, QWERTY,  COLEMAK, DVORAK,  DESTINY, _______, _______, _______, KC_PSCR, KC_SLCK, KC_NLCK, _______, _______, \
       KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, XXXXXXX, XXXXXXX, RGB_TOG, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, _______, \
       _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, XXXXXXX, XXXXXXX, _______, RGB_RMOD,RGB_HUD, RGB_SAD, RGB_VAD, _______, \
       _______, _______, _______, KC_HOME, KC_END,  _______, _______, _______, _______, KC_PGUP, KC_PGDN, _______, _______, _______, \
@@ -181,25 +186,36 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
+void persistent_default_layer_set(uint16_t default_layer) {
+  eeconfig_update_default_layer(default_layer);
+  default_layer_set(default_layer);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   //uint8_t shifted = get_mods() & (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT));
 
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
+    case DVORAK:
+      if(record->event.pressed) {
+        persistent_default_layer_set(1UL<<_DVORAK);
       }
       return false;
       break;
-    case DVORAK:
+    case DESTINY:
       if(record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
+        persistent_default_layer_set(1UL<<_DESTINY);
+      }
+      return false;
+      break;
+    case QWERTY:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_QWERTY);
       }
       return false;
       break;
     case COLEMAK:
       if(record->event.pressed) {
-        set_single_persistent_default_layer(_COLEMAK);
+        persistent_default_layer_set(1UL<<_COLEMAK);
       }
       return false;
       break;
