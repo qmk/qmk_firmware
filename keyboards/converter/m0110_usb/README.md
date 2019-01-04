@@ -1,19 +1,19 @@
-M0110(A) keyboard converter
-======================================
+# M0110(A) keyboard converter
+
 This is a port of the original M0110 converter from TMK to QMK. The original converter was designed to work with **ATmega32U2** and **ATmega32U4** based microcontrollers to convert Apple M0110/M0110A keyboards and M0120 numpads to USB. This port has been tested to be compatible with the [**Adafruit Feather 32U4 BLE**](https://learn.adafruit.com/adafruit-feather-32u4-bluefruit-le).
 
 
-### Enabling Bluetooth for the Adafruit Feather 32U4 BLE
-----------------------------------------------------
+## Enabling Bluetooth for the Adafruit Feather 32U4 BLE
+
 Simply add `BLUETOOTH = AdafruitBLE` to your `rules.mk` file. This enables code specifically for the Adafruit Feather 32U4 BLE. If enabled, the device will use the `PRODUCT` and `DESCRIPTION` values from `config.h` for the device name displayed by the Feather on host devices. You can simply change these values to change the device name.
 
 
-### Pins
-----
+## Pins
+
 This port utilizes the same pins that the TMK converter used. `PD1` is used for `CLOCK` and `PD0` is used for the `DATA` from the keyboard. These pins can be changed in `config.h`.
 
 
-### Other important hardware notes from the original TMK converter Readme:
+## Other important hardware notes from the original TMK converter Readme:
 >### Hardware
 >--------
 >You can buy preassembled [TMK converter] or make yourown with AVR dev board like PJRC [Teensy].
@@ -45,7 +45,7 @@ This port utilizes the same pins that the TMK converter used. `PD1` is used for 
 [**View the original TMK converter Repository**](https://github.com/tmk/tmk_keyboard/tree/master/converter/m0110_usb)
 
 
-### QMK Port Changelog
----------
+## QMK Port Changelog
+
 - 2018/08/01 - Original Release
 

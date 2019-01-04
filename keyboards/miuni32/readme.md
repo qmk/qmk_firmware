@@ -5,7 +5,7 @@ A compact 30% keyboard.
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: miuni32 PCB  
-Hardware Availability: https://zealpc.net/products/miuni32
+Hardware Availability: https://bigtuna.io
 
 Make example for this keyboard (after setting up your build environment):
 

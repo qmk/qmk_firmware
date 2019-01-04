@@ -177,3 +177,22 @@ void matrix_print(void)
         xprintf("\n");
     }
 }
+
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void) {
+    matrix_scan_user();
+}
+
+__attribute__ ((weak))
+void matrix_init_user(void) {
+}
+
+__attribute__ ((weak))
+void matrix_scan_user(void) {
+}
+

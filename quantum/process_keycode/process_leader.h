@@ -24,7 +24,7 @@ bool process_leader(uint16_t keycode, keyrecord_t *record);
 
 void leader_start(void);
 void leader_end(void);
-
+void qk_leader_start(void);
 
 #define SEQ_ONE_KEY(key) if (leader_sequence[0] == (key) && leader_sequence[1] == 0 && leader_sequence[2] == 0 && leader_sequence[3] == 0 && leader_sequence[4] == 0)
 #define SEQ_TWO_KEYS(key1, key2) if (leader_sequence[0] == (key1) && leader_sequence[1] == (key2) && leader_sequence[2] == 0 && leader_sequence[3] == 0 && leader_sequence[4] == 0)
