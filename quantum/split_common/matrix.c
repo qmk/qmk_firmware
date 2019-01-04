@@ -89,14 +89,21 @@ static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 static uint8_t error_count = 0;
 
+#ifdef DIRECT_PINS
+static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+#else
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
+#endif
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
-#if (DIODE_DIRECTION == COL2ROW)
+#ifdef DIRECT_PINS
+    static void init_pins(void);
+    static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
+#elif (DIODE_DIRECTION == COL2ROW)
     static void init_cols(void);
     static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
     static void unselect_rows(void);
@@ -165,7 +172,9 @@ void matrix_init(void)
     }
 
     // initialize row and col
-#if (DIODE_DIRECTION == COL2ROW)
+#ifdef DIRECT_PINS
+    init_pins();
+#elif (DIODE_DIRECTION == COL2ROW)
     unselect_rows();
     init_cols();
 #elif (DIODE_DIRECTION == ROW2COL)
@@ -186,7 +195,8 @@ void matrix_init(void)
 uint8_t _matrix_scan(void)
 {
     int offset = isLeftHand ? 0 : (ROWS_PER_HAND);
-#if (DIODE_DIRECTION == COL2ROW)
+
+#if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
     // Set row, read cols
     for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
 #       if (DEBOUNCING_DELAY > 0)
@@ -489,7 +499,36 @@ uint8_t matrix_key_count(void)
     return count;
 }
 
-#if (DIODE_DIRECTION == COL2ROW)
+#ifdef DIRECT_PINS
+
+static void init_pins(void)
+{
+  for(int row = 0; row < MATRIX_ROWS; row++) {
+    for(int col = 0; col < MATRIX_COLS; col++) {
+      pin_t pin = direct_pins[row][col];
+      if(pin != NO_PIN) {
+        setPinInputHigh(pin);
+      }
+    }
+  }
+}
+
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
+{
+  matrix_row_t last_row_value = current_matrix[current_row];
+  current_matrix[current_row] = 0;
+
+  for(uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+    pin_t pin = direct_pins[current_row][col_index];
+    if(pin != NO_PIN) {
+      current_matrix[current_row] |= readPin(pin) ? 0 : (ROW_SHIFTER << col_index);
+    }
+  }
+
+  return (last_row_value != current_matrix[current_row]);
+}
+
+#elif (DIODE_DIRECTION == COL2ROW)
 
 static void init_cols(void)
 {
