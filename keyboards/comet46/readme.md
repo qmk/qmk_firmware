@@ -1,6 +1,6 @@
 # Comet46
 
-![Comet46](https://user-images.githubusercontent.com/39004890/42418180-d5bb188c-82d5-11e8-99fa-65020ce5ac5d.jpg)
+![Comet46](https://user-images.githubusercontent.com/39004890/50396817-a1660600-07af-11e9-8611-3156c635db43.jpg)
 
 A split wireless 40% column-staggered keyboard 
 
@@ -13,4 +13,5 @@ Make example for this keyboard (after setting up your build environment):
 
     make comet46:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+

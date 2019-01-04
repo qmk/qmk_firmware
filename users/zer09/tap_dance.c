@@ -17,15 +17,27 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 volatile uint8_t active_layer = _BL;
+volatile uint8_t gm_layer_act = false;
 static tap upltap_state = {.state = 0};
 static tap dwltap_state = {.state = 0};
 static tap lsprtap_state = {.state = 0};
 static tap ralttap_state = {.state = 0};
 
 void layer_switcher_tap(uint8_t new_layer) {
-  layer_off(active_layer);
-  layer_on(new_layer);
-  active_layer = new_layer;
+  if (gm_layer_act == true) {
+    layer_off(active_layer);
+    if (new_layer == _BL) {
+      layer_on(_GM);
+      active_layer = _GM;
+    } else {
+      layer_on(new_layer);
+      active_layer = new_layer;
+    }
+  } else {
+    layer_off(active_layer);
+    layer_on(new_layer);
+    active_layer = new_layer;
+  }
 }
 
 int cur_dance(qk_tap_dance_state_t *state) {
@@ -162,6 +174,14 @@ void dance_dwly_finished(qk_tap_dance_state_t *state, void *user_data) {
   case DOUBLE_HOLD:
     layer_switcher_tap(_AL);
     break;
+  case TRIPLE_TAP:
+    if (gm_layer_act == true) {
+      gm_layer_act = false;
+      layer_switcher_tap(_BL);
+    } else {
+      gm_layer_act = true;
+      layer_switcher_tap(_GM);
+    }
   default:
     layer_switcher_tap(_BL);
     break;
@@ -174,6 +194,7 @@ void dance_dwly_reset(qk_tap_dance_state_t *state, void *user_data) {
     break;
   case SINGLE_HOLD:
   case DOUBLE_HOLD:
+  case TRIPLE_TAP:
   default:
     layer_switcher_tap(_BL);
     break;

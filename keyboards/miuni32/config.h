@@ -161,7 +161,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define RGB_DI_PIN D0     // The pin your RGB strip is wired to
-#define RGBLED_NUM 7     // Number of LEDs
+#define RGBLED_NUM 17     // Number of LEDs
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
