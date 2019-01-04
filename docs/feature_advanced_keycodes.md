@@ -21,7 +21,7 @@ Additionally, if at least one right-handed modifier is specified in a Mod Tap or
 
 # Switching and Toggling Layers
 
-These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see [Keymap Overview](keymap.md#keymap-and-layers)
+These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see [Keymap Overview](keymap.md#keymap-and-layers) When using momentary layer switching with MO(), LM(), TT(), or LT(), make sure to leave the key on the above layers transparent or it may not work as intended.
 
 * `DF(layer)` - switches the default layer. The default layer is the always-active base layer that other layers stack on top of. See below for more about the default layer. This might be used to switch from QWERTY to Dvorak layout. (Note that this is a temporary switch that only persists until the keyboard loses power. To modify the default layer in a persistent way requires deeper customization, such as calling the `set_single_persistent_default_layer` function inside of [process_record_user](custom_quantum_functions.md#programming-the-behavior-of-any-keycode).)
 * `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated. 
@@ -68,7 +68,7 @@ These allow you to combine a modifier with a keycode. When pressed, the keydown 
 |`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
 |`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
 |`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|                      |Hold Right Alt and press `kc`                       |
+|`RALT(kc)`|`ALGR(kc)`            |Hold Right Alt and press `kc`                       |
 |`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
 |`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
 |`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
@@ -92,7 +92,7 @@ The modifiers this keycode and `OSM()` accept are prefixed with `MOD_`, not `KC_
 |`MOD_LGUI`|Left GUI (Windows/Command/Meta key)     |
 |`MOD_RCTL`|Right Control                           |
 |`MOD_RSFT`|Right Shift                             |
-|`MOD_RALT`|Right Alt                               |
+|`MOD_RALT`|Right Alt (AltGr)                       |
 |`MOD_RGUI`|Right GUI (Windows/Command/Meta key)    |
 |`MOD_HYPR`|Hyper (Left Control, Shift, Alt and GUI)|
 |`MOD_MEH` |Meh (Left Control, Shift, and Alt)      |
@@ -161,8 +161,13 @@ For one shot mods, you need to call `set_oneshot_mods(MOD)` to set it, or `clear
 
 !> If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
 
+# Tap-Hold Configuration Options
 
-# Permissive Hold
+While Tap-Hold options are fantastic, they are not without their issues.  We have tried to configure them with reasonal defaults, but that may still cause issues for some people. 
+
+These options let you modify the behavior of the Tap-Hold keys.
+
+## Permissive Hold
 
 As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new `config.h` option:
 
@@ -185,7 +190,7 @@ Normally, if you do all this within the `TAPPING_TERM` (default: 200ms) this wil
 
 ?> If you have `Ignore Mod Tap Interrupt` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
 
-# Ignore Mod Tap Interrupt
+## Ignore Mod Tap Interrupt
 
 To enable this setting, add this to your `config.h`:
 
@@ -211,7 +216,7 @@ Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` ena
 
 ?> If you have `Permissive Hold` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
 
-# Tapping Force Hold
+## Tapping Force Hold
 
 To enable `tapping force hold`, add the following to your `config.h`: 
 
@@ -235,7 +240,7 @@ With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allo
 
 !> `TAPPING_FORCE_HOLD` will break anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tapping Toggle).
 
-# Retro Tapping
+## Retro Tapping
 
 To enable `retro tapping`, add the following to your `config.h`: 
 

@@ -2,10 +2,10 @@
 
 ![Hadron](https://i.imgur.com/aFbvV08.jpg)
 
-A low-profile Cherry ML ortholinear build.
+A low-profile ortholinear build.
 
 Keyboard Maintainer: [ishtob](https://github.com/ishtob), [QMK](https://github.com/qmk)  
-Hardware Supported: Hadron PCB rev0, rev2  
+Hardware Supported: Hadron PCB rev0, rev2, rev3 
 
 Make example for this keyboard (after setting up your build environment):
 

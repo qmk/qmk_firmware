@@ -97,9 +97,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_keymap(void) {
-  DDRD &= ~(1<<5);
-  PORTD &= ~(1<<5);
+  #ifndef CONVERT_TO_PROTON_C
+    setPinOutput(D5);
+    writePinHigh(D5);
 
-  DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);
+    setPinOutput(B0);
+    writePinHigh(B0);
+  #endif
 }
