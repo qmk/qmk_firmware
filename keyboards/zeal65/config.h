@@ -18,12 +18,12 @@
 #include "config_common.h"
 
 // USB Device descriptor parameter
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6065
+#define VENDOR_ID       0x5A45 // ZealPC ("ZE")
+#define PRODUCT_ID      0x0065 // Zeal65
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ZealPC
 #define PRODUCT         Zeal65
-#define DESCRIPTION     Zeal65 (QMK Firmware)
+#define DESCRIPTION     Zeal65
 
 // key matrix size
 #define MATRIX_ROWS 5

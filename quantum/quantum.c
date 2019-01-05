@@ -132,6 +132,14 @@ void unregister_code16 (uint16_t code) {
   }
 }
 
+void tap_code16(uint16_t code) {
+  register_code16(code);
+  #if TAP_CODE_DELAY > 0
+    wait_ms(TAP_CODE_DELAY);
+  #endif
+  unregister_code16(code);
+}
+
 __attribute__ ((weak))
 bool process_action_kb(keyrecord_t *record) {
   return true;
@@ -235,7 +243,7 @@ bool process_record_quantum(keyrecord_t *record) {
     process_key_lock(&keycode, record) &&
   #endif
   #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
-      process_clicky(keycode, record) &&
+    process_clicky(keycode, record) &&
   #endif //AUDIO_CLICKY
     process_record_kb(keycode, record) &&
   #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
@@ -250,11 +258,14 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef STENO_ENABLE
     process_steno(keycode, record) &&
   #endif
-  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
+  #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
+  #endif
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    process_unicode_common(keycode, record) &&
   #endif
   #ifdef LEADER_ENABLE
     process_leader(keycode, record) &&
@@ -262,20 +273,11 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef COMBO_ENABLE
     process_combo(keycode, record) &&
   #endif
-  #ifdef UNICODE_ENABLE
-    process_unicode(keycode, record) &&
-  #endif
-  #ifdef UCIS_ENABLE
-    process_ucis(keycode, record) &&
-  #endif
   #ifdef PRINTING_ENABLE
     process_printer(keycode, record) &&
   #endif
   #ifdef AUTO_SHIFT_ENABLE
     process_auto_shift(keycode, record) &&
-  #endif
-  #ifdef UNICODEMAP_ENABLE
-    process_unicode_map(keycode, record) &&
   #endif
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
@@ -1001,6 +1003,9 @@ void matrix_init_quantum() {
   #endif
   #ifdef ENCODER_ENABLE
     encoder_init();
+  #endif
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    unicode_input_mode_init();
   #endif
   matrix_init_kb();
 }

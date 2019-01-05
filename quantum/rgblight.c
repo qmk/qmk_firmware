@@ -205,24 +205,36 @@ void rgblight_decrease(void) {
   }
   rgblight_mode(mode);
 }
-void rgblight_step(void) {
+void rgblight_step_helper(bool write_to_eeprom) {
   uint8_t mode = 0;
   mode = rgblight_config.mode + 1;
   if (mode > RGBLIGHT_MODES) {
     mode = 1;
   }
-  rgblight_mode(mode);
+  rgblight_mode_eeprom_helper(mode, write_to_eeprom);
 }
-void rgblight_step_reverse(void) {
+void rgblight_step_noeeprom(void) {
+  rgblight_step_helper(false);
+}
+void rgblight_step(void) {
+  rgblight_step_helper(true);
+}
+void rgblight_step_reverse_helper(bool write_to_eeprom) {
   uint8_t mode = 0;
   mode = rgblight_config.mode - 1;
   if (mode < 1) {
     mode = RGBLIGHT_MODES;
   }
-  rgblight_mode(mode);
+  rgblight_mode_eeprom_helper(mode, write_to_eeprom);
+}
+void rgblight_step_reverse_noeeprom(void) {
+  rgblight_step_reverse_helper(false);
+}
+void rgblight_step_reverse(void) {
+  rgblight_step_reverse_helper(true);
 }
 
-uint32_t rgblight_get_mode(void) {
+uint8_t rgblight_get_mode(void) {
   if (!rgblight_config.enable) {
     return false;
   }
@@ -337,55 +349,91 @@ static uint8_t decrement( uint8_t value, uint8_t step, uint8_t min, uint8_t max 
     return MIN( MAX( new_value, min ), max );
 }
 
-void rgblight_increase_hue(void) {
+void rgblight_increase_hue_helper(bool write_to_eeprom) {
   uint16_t hue;
   hue = (rgblight_config.hue+RGBLIGHT_HUE_STEP) % 360;
-  rgblight_sethsv(hue, rgblight_config.sat, rgblight_config.val);
+  rgblight_sethsv_eeprom_helper(hue, rgblight_config.sat, rgblight_config.val, write_to_eeprom);
 }
-void rgblight_decrease_hue(void) {
+void rgblight_increase_hue_noeeprom(void) {
+  rgblight_increase_hue_helper(false);
+}
+void rgblight_increase_hue(void) {
+  rgblight_increase_hue_helper(true);
+}
+void rgblight_decrease_hue_helper(bool write_to_eeprom) {
   uint16_t hue;
   if (rgblight_config.hue-RGBLIGHT_HUE_STEP < 0) {
     hue = (rgblight_config.hue + 360 - RGBLIGHT_HUE_STEP) % 360;
   } else {
     hue = (rgblight_config.hue - RGBLIGHT_HUE_STEP) % 360;
   }
-  rgblight_sethsv(hue, rgblight_config.sat, rgblight_config.val);
+  rgblight_sethsv_eeprom_helper(hue, rgblight_config.sat, rgblight_config.val, write_to_eeprom);
 }
-void rgblight_increase_sat(void) {
+void rgblight_decrease_hue_noeeprom(void) {
+  rgblight_decrease_hue_helper(false);
+}
+void rgblight_decrease_hue(void) {
+  rgblight_decrease_hue_helper(true);
+}
+void rgblight_increase_sat_helper(bool write_to_eeprom) {
   uint8_t sat;
   if (rgblight_config.sat + RGBLIGHT_SAT_STEP > 255) {
     sat = 255;
   } else {
     sat = rgblight_config.sat + RGBLIGHT_SAT_STEP;
   }
-  rgblight_sethsv(rgblight_config.hue, sat, rgblight_config.val);
+  rgblight_sethsv_eeprom_helper(rgblight_config.hue, sat, rgblight_config.val, write_to_eeprom);
 }
-void rgblight_decrease_sat(void) {
+void rgblight_increase_sat_noeeprom(void) {
+  rgblight_increase_sat_helper(false);
+}
+void rgblight_increase_sat(void) {
+  rgblight_increase_sat_helper(true);
+}
+void rgblight_decrease_sat_helper(bool write_to_eeprom) {
   uint8_t sat;
   if (rgblight_config.sat - RGBLIGHT_SAT_STEP < 0) {
     sat = 0;
   } else {
     sat = rgblight_config.sat - RGBLIGHT_SAT_STEP;
   }
-  rgblight_sethsv(rgblight_config.hue, sat, rgblight_config.val);
+  rgblight_sethsv_eeprom_helper(rgblight_config.hue, sat, rgblight_config.val, write_to_eeprom);
 }
-void rgblight_increase_val(void) {
+void rgblight_decrease_sat_noeeprom(void) {
+  rgblight_decrease_sat_helper(false);
+}
+void rgblight_decrease_sat(void) {
+  rgblight_decrease_sat_helper(true);
+}
+void rgblight_increase_val_helper(bool write_to_eeprom) {
   uint8_t val;
   if (rgblight_config.val + RGBLIGHT_VAL_STEP > RGBLIGHT_LIMIT_VAL) {
     val = RGBLIGHT_LIMIT_VAL;
   } else {
     val = rgblight_config.val + RGBLIGHT_VAL_STEP;
   }
-  rgblight_sethsv(rgblight_config.hue, rgblight_config.sat, val);
+  rgblight_sethsv_eeprom_helper(rgblight_config.hue, rgblight_config.sat, val, write_to_eeprom);
 }
-void rgblight_decrease_val(void) {
+void rgblight_increase_val_noeeprom(void) {
+  rgblight_increase_val_helper(false);
+}
+void rgblight_increase_val(void) {
+  rgblight_increase_val_helper(true);
+}
+void rgblight_decrease_val_helper(bool write_to_eeprom) {
   uint8_t val;
   if (rgblight_config.val - RGBLIGHT_VAL_STEP < 0) {
     val = 0;
   } else {
     val = rgblight_config.val - RGBLIGHT_VAL_STEP;
   }
-  rgblight_sethsv(rgblight_config.hue, rgblight_config.sat, val);
+  rgblight_sethsv_eeprom_helper(rgblight_config.hue, rgblight_config.sat, val, write_to_eeprom);
+}
+void rgblight_decrease_val_noeeprom(void) {
+  rgblight_decrease_val_helper(false);
+}
+void rgblight_decrease_val(void) {
+  rgblight_decrease_val_helper(true);
 }
 void rgblight_increase_speed(void) {
     rgblight_config.speed = increment( rgblight_config.speed, 1, 0, 3 );
