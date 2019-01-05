@@ -1,11 +1,9 @@
 # Numbrero
 
-No picture currently available.
-
-A Reversible Numpad (Left/Right handed) with extra macro keys.
+A reversible numpad (left/right-handed) with extra macro keys.
 
 Keyboard Maintainer: [Flehrad](https://github.com/flehrad)  
-Hardware Supported: Numbrero PCB.  
+Hardware Supported: Numbrero PCB, Pro Micro  
 Hardware Availability: The Board Podcast Slack
 
 Make example for this keyboard (after setting up your build environment):
