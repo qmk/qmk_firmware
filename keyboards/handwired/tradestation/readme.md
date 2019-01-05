@@ -12,7 +12,7 @@ This PCB supports an overall 4x4 matrix with unique spacing.
 If you like this simple PCB and want to make a donation, you can do so at [paypal.me/theboardpodcast](https://paypal.me/theboardpodcast).
 
 - [The Board Podcast on YouTube](https://www.youtube.com/channel/UCg98oJZNffR9nDLJNkorjqw)
-- [The Board Podcast on Libsyn](https://www.libsyn.com/theboardpodcast)
+- [The Board Podcast on Libsyn](http://theboard.libsyn.com/)
 - [The Board Podcast on Patreon](https://www.patreon.com/theboardpodcast)
 
 Designed by Didier Luximon.
