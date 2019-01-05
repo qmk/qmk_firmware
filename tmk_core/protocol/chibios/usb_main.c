@@ -168,43 +168,43 @@ typedef struct {
   .queue_capacity_in = stream##_IN_CAPACITY, \
   .queue_capacity_out = stream##_OUT_CAPACITY, \
   .in_ep_config = { \
-    .ep_mode = stream##_IN_MODE, \
-    .setup_cb = NULL, \
-    .in_cb = qmkusbDataTransmitted, \
-    .out_cb = NULL, \
-    .in_maxsize = stream##_EPSIZE, \
-    .out_maxsize = 0, \
+    stream##_IN_MODE,           /* Interrupt EP */ \
+    NULL,                       /* SETUP packet notification callback */ \
+    qmkusbDataTransmitted,      /* IN notification callback */ \
+    NULL,                       /* OUT notification callback */ \
+    stream##_EPSIZE,            /* IN maximum packet size */ \
+    0,                          /* OUT maximum packet size */ \
     /* The pointer to the states will be filled during initialization */ \
-    .in_state = NULL, \
-    .out_state = NULL, \
-    .ep_buffers = 2, \
-    .setup_buf = NULL \
+    NULL,                       /* IN Endpoint state */ \
+    NULL,                       /* OUT endpoint state */ \
+    2,                          /* IN multiplier */ \
+    NULL                        /* SETUP buffer (not a SETUP endpoint) */ \
   }, \
   .out_ep_config = { \
-    .ep_mode = stream##_OUT_MODE, \
-    .setup_cb = NULL, \
-    .in_cb = NULL, \
-    .out_cb = qmkusbDataReceived, \
-    .in_maxsize = 0, \
-    .out_maxsize = stream##_EPSIZE, \
+    stream##_OUT_MODE,          /* Interrupt EP */ \
+    NULL,                       /* SETUP packet notification callback */ \
+    NULL,                       /* IN notification callback */ \
+    qmkusbDataReceived,         /* OUT notification callback */ \
+    0,                          /* IN maximum packet size */ \
+    stream##_EPSIZE,            /* OUT maximum packet size */ \
     /* The pointer to the states will be filled during initialization */ \
-    .in_state = NULL, \
-    .out_state = NULL, \
-    .ep_buffers = 2, \
-    .setup_buf = NULL, \
+    NULL,                       /* IN Endpoint state */ \
+    NULL,                       /* OUT endpoint state */ \
+    2,                          /* IN multiplier */ \
+    NULL                        /* SETUP buffer (not a SETUP endpoint) */ \
   }, \
   .int_ep_config = { \
-    .ep_mode = USB_EP_MODE_TYPE_INTR, \
-    .setup_cb = NULL, \
-    .in_cb = qmkusbInterruptTransmitted, \
-    .out_cb = NULL, \
-    .in_maxsize = CDC_NOTIFICATION_EPSIZE, \
-    .out_maxsize = 0, \
+    USB_EP_MODE_TYPE_INTR,      /* Interrupt EP */ \
+    NULL,                       /* SETUP packet notification callback */ \
+    qmkusbInterruptTransmitted, /* IN notification callback */ \
+    NULL,                       /* OUT notification callback */ \
+    CDC_NOTIFICATION_EPSIZE,    /* IN maximum packet size */ \
+    0,                          /* OUT maximum packet size */ \
     /* The pointer to the states will be filled during initialization */ \
-    .in_state = NULL, \
-    .out_state = NULL, \
-    .ep_buffers = 2, \
-    .setup_buf = NULL, \
+    NULL,                       /* IN Endpoint state */ \
+    NULL,                       /* OUT endpoint state */ \
+    2,                          /* IN multiplier */ \
+    NULL                        /* SETUP buffer (not a SETUP endpoint) */ \
   }, \
   .config = { \
     .usbp = &USB_DRIVER, \
