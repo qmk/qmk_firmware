@@ -7,4 +7,4 @@
 #define TAPPING_TERM 200
 #define QMK_KEYS_PER_SCAN 4
 
-  #define EECONFIG_RGB_MATRIX (uint32_t *)16
+#define EECONFIG_RGB_MATRIX (uint32_t *)16
