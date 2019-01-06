@@ -1443,13 +1443,13 @@ void led_set(uint8_t usb_led)
     //     PORTE &= ~(1<<6);
     // }
 
-#if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_CAPS_LOCK_INDICATOR)
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
   // Use backlight as Caps Lock indicator
   uint8_t bl_toggle_lvl = 0;
 
   if (usb_led & (1<<USB_LED_CAPS_LOCK) && !backlight_config.enable) {
     // Turning Caps Lock ON and backlight is disabled in config
-    // Toggling backlight to the highest level
+    // Toggling backlight to the brightest level
     bl_toggle_lvl = BACKLIGHT_LEVELS;
   } else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && backlight_config.enable) {
     // Turning Caps Lock OFF and backlight is enabled in config

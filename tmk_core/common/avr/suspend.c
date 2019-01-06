@@ -111,7 +111,7 @@ static void power_down(uint8_t wdto)
 
   // Turn off LED indicators
   uint8_t leds_off = 0;
-#ifdef BACKLIGHT_CAPS_LOCK_INDICATOR
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
   if (is_backlight_enabled()) {
     // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
     leds_off |= (1<<USB_LED_CAPS_LOCK);
