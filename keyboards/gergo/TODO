@@ -1,7 +1,0 @@
-Fixes for push
-
-- USB-C connector
-- Swap SDA/SCL
-- Tri footprint
-- Move TRRS closer to edge
-- Break out i2c
