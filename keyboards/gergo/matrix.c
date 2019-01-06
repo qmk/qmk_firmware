@@ -76,8 +76,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define TRKRT (1<<7)
 #define TRKBTN (1<<6)
 
+
+// Multiple for mouse moves
 #ifndef TRKSTEP
-#define TRKSTEP 20 // Multiple for mouse moves
+#define TRKSTEP 20 
+#endif
+
+// multiple for mouse scroll
+#ifndef SCROLLSTEP
+#define SCROLLSTEP 5
 #endif
 
 // bit masks
@@ -234,28 +241,41 @@ uint8_t matrix_scan(void)
   #ifdef BALLER
   uint8_t pBtn   = PINE & TRKBTN;
   
-#ifdef DEBUG_BALLER
+  #ifdef DEBUG_BALLER
   // Compare to previous, mod report 
   if (tbUpCnt + tbDnCnt + tbLtCnt + tbRtCnt != 0)
     xprintf("U: %d D: %d L: %d R: %d B: %d\n", tbUpCnt, tbDnCnt, tbLtCnt, tbRtCnt, (trkBtnState >> 6));
-#endif
-  report_mouse_t pRprt = pointing_device_get_report();
-  pRprt.x -= tbLtCnt * TRKSTEP * (layer_state + 1); tbLtCnt = 0;
-  pRprt.x += tbRtCnt * TRKSTEP * (layer_state + 1); tbRtCnt = 0;
-  pRprt.y -= tbUpCnt * TRKSTEP * (layer_state + 1); tbUpCnt = 0;
-  pRprt.y += tbDnCnt * TRKSTEP * (layer_state + 1); tbDnCnt = 0;
+  #endif
 
-#ifdef DEBUG_BALLER
+  // Modify the report 
+  report_mouse_t pRprt = pointing_device_get_report();
+
+  // Scroll by default, move on layer
+  if (layer_state == 0) {
+		  pRprt.h += tbLtCnt * SCROLLSTEP; tbLtCnt = 0;
+		  pRprt.h -= tbRtCnt * SCROLLSTEP; tbRtCnt = 0;
+		  pRprt.v -= tbUpCnt * SCROLLSTEP; tbUpCnt = 0;
+		  pRprt.v += tbDnCnt * SCROLLSTEP; tbDnCnt = 0;
+  } else {
+		  pRprt.x -= tbLtCnt * TRKSTEP * (layer_state - 1); tbLtCnt = 0;
+		  pRprt.x += tbRtCnt * TRKSTEP * (layer_state - 1); tbRtCnt = 0;
+		  pRprt.y -= tbUpCnt * TRKSTEP * (layer_state - 1); tbUpCnt = 0;
+		  pRprt.y += tbDnCnt * TRKSTEP * (layer_state - 1); tbDnCnt = 0;
+  }
+
+  #ifdef DEBUG_BALLER
   if (pRprt.x != 0 || pRprt.y != 0) 
 	xprintf("X: %d Y: %d\n", pRprt.x, pRprt.y);
-#endif
+  #endif
 
-  //if ((pBtn != trkBtnState) && ((pBtn >> 6) == 0))  pRprt.buttons |= MOUSE_BTN1;
-  //if ((pBtn != trkBtnState) && ((pBtn >> 6) == 1))  pRprt.buttons &= ~MOUSE_BTN1;
+  if ((pBtn != trkBtnState) && ((pBtn >> 6) == 0))  pRprt.buttons |= MOUSE_BTN1;
+  if ((pBtn != trkBtnState) && ((pBtn >> 6) == 1))  pRprt.buttons &= ~MOUSE_BTN1;
 
   // Save state, push update
+  if (pRprt.x != 0 || pRprt.y != 0 || pRprt.h != 0 || pRprt.v != 0 || (trkBtnState != pBtn)) 
+    pointing_device_set_report(pRprt);
+
   trkBtnState = pBtn;
-  pointing_device_set_report(pRprt);
   #endif
 
   // Then the keyboard
@@ -403,7 +423,7 @@ static void unselect_rows(void)
     // the other row bits high, and it's not changing to a different
     // direction
     // Hi-Z(DDR:0, PORT:0) to unselect
-    DDRB  &= ~(BMASK);
+    DDRB  &= ~(BMASK | TRKMASK);
     PORTB &= ~(BMASK);
     DDRC  &= ~CMASK;
     PORTC &= ~CMASK;
@@ -411,7 +431,6 @@ static void unselect_rows(void)
     PORTD &= ~DMASK;
 
 	// Fix trashing of DDRB for TB
-    DDRB  &= ~TRKMASK;
     PORTB |= TRKMASK;
 }
 
