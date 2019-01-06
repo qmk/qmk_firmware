@@ -542,13 +542,14 @@ uint8_t matrix_scan(void)
   if (is_keyboard_master())
   {
     master_transport();
+    matrix_scan_quantum();
   }
   else
   {
     slave_transport();
+    matrix_slave_scan_user();
   }
 
-  matrix_scan_quantum();
   return ret;
 }
 
