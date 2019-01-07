@@ -332,17 +332,17 @@ void led_matrix_run(void)
             {
 
                 if (led_animation_circular) {
-                  po = sqrtf((powf(fabsf((disp.width / 2) - (led_cur->x - disp.left)), 2) + powf(fabsf((disp.height / 2) - (led_cur->y - disp.bottom)), 2))) / disp.max_distance * 100;
+                    po = sqrtf((powf(fabsf((disp.width / 2) - (led_cur->x - disp.left)), 2) + powf(fabsf((disp.height / 2) - (led_cur->y - disp.bottom)), 2))) / disp.max_distance * 100;
                 }
                 else {
-                  if (led_animation_orientation)
-                  {
-                      po = led_cur->py;
-                  }
-                  else
-                  {
-                      po = led_cur->px;
-                  }
+                    if (led_animation_orientation)
+                    {
+                        po = led_cur->py;
+                    }
+                    else
+                    {
+                        po = led_cur->px;
+                    }
                 }
 
                 float pomod;
