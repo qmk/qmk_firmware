@@ -84,6 +84,9 @@ static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
+// row offsets for each hand
+uint8_t thisHand, thatHand;
+
 #ifdef DIRECT_PINS
 
 static void init_pins(void)
@@ -269,6 +272,9 @@ void matrix_init(void)
 #endif
   }
 
+  thisHand = isLeftHand ? 0 : (ROWS_PER_HAND);
+  thatHand = ROWS_PER_HAND - thisHand;
+
   // initialize key pins
   init_pins();
 
@@ -283,20 +289,18 @@ void matrix_init(void)
 
 uint8_t _matrix_scan(void)
 {
-  int offset = isLeftHand ? 0 : (ROWS_PER_HAND);
-
 #if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
   // Set row, read cols
   for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
 #if (DEBOUNCING_DELAY > 0)
-    bool matrix_changed = read_cols_on_row(matrix_debouncing+offset, current_row);
+    bool matrix_changed = read_cols_on_row(matrix_debouncing+thisHand, current_row);
 
     if (matrix_changed) {
       debouncing = true;
       debouncing_time = timer_read();
     }
 #else
-    read_cols_on_row(matrix+offset, current_row);
+    read_cols_on_row(matrix+thisHand, current_row);
 #endif
   }
 
@@ -304,13 +308,13 @@ uint8_t _matrix_scan(void)
   // Set col, read rows
   for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
 #if (DEBOUNCING_DELAY > 0)
-    bool matrix_changed = read_rows_on_col(matrix_debouncing+offset, current_col);
+    bool matrix_changed = read_rows_on_col(matrix_debouncing+thisHand, current_col);
     if (matrix_changed) {
         debouncing = true;
         debouncing_time = timer_read();
     }
 #else
-    read_rows_on_col(matrix+offset, current_col);
+    read_rows_on_col(matrix+thisHand, current_col);
 #endif
   }
 #endif
@@ -318,7 +322,7 @@ uint8_t _matrix_scan(void)
 #if (DEBOUNCING_DELAY > 0)
   if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
     for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
-      matrix[i+offset] = matrix_debouncing[i+offset];
+      matrix[thisHand+i] = matrix_debouncing[thisHand+i];
     }
     debouncing = false;
   }
@@ -335,7 +339,6 @@ uint8_t _matrix_scan(void)
 
 // Get rows from other half over i2c
 bool do_transaction(void) {
-  int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
   int err = 0;
 
   // write backlight info
@@ -369,9 +372,9 @@ bool do_transaction(void) {
   if (!err) {
     int i;
     for (i = 0; i < ROWS_PER_HAND-1; ++i) {
-      matrix[slaveOffset+i] = i2c_master_read(I2C_ACK);
+      matrix[thatHand+i] = i2c_master_read(I2C_ACK);
     }
-    matrix[slaveOffset+i] = i2c_master_read(I2C_NACK);
+    matrix[thatHand+i] = i2c_master_read(I2C_NACK);
     i2c_master_stop();
   } else {
 i2c_error: // the cable is disconnceted, or something else went wrong
@@ -435,7 +438,6 @@ void transport_slave_init(void)
 { soft_serial_target_init(transactions, TID_LIMIT(transactions)); }
 
 bool do_transaction(void) {
-  int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
 
   if (soft_serial_transaction()) {
     return false;
@@ -443,7 +445,7 @@ bool do_transaction(void) {
 
   // TODO:  if MATRIX_COLS > 8 change to unpack()
   for (int i = 0; i < ROWS_PER_HAND; ++i) {
-    matrix[slaveOffset+i] = serial_s2m_buffer.smatrix[i];
+    matrix[thatHand+i] = serial_s2m_buffer.smatrix[i];
   }
 
   #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
@@ -467,10 +469,9 @@ static void master_transport(void)
     if (error_count > ERROR_DISCONNECT_COUNT)
     {
       // reset other half if disconnected
-      int slaveOffset = (isLeftHand) ? (ROWS_PER_HAND) : 0;
       for (int i = 0; i < ROWS_PER_HAND; ++i)
       {
-        matrix[slaveOffset + i] = 0;
+        matrix[thatHand + i] = 0;
       }
     }
   }
@@ -482,12 +483,10 @@ static void master_transport(void)
 
 static void slave_transport(void) {
 
-  int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
-
 #if defined(USE_I2C) || defined(EH)
   for (int i = 0; i < ROWS_PER_HAND; ++i)
   {
-    i2c_slave_buffer[I2C_KEYMAP_START + i] = matrix[offset + i];
+    i2c_slave_buffer[I2C_KEYMAP_START + i] = matrix[thisHand + i];
   }
   // Read Backlight Info
   #ifdef BACKLIGHT_ENABLE
@@ -524,7 +523,7 @@ static void slave_transport(void) {
   // TODO: if MATRIX_COLS > 8 change to pack()
   for (int i = 0; i < ROWS_PER_HAND; ++i)
   {
-    serial_s2m_buffer.smatrix[i] = matrix[offset + i];
+    serial_s2m_buffer.smatrix[i] = matrix[thisHand + i];
   }
   #ifdef BACKLIGHT_ENABLE
     backlight_set(serial_m2s_buffer.backlight_level);
