@@ -10,7 +10,7 @@ Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)
 Hardware Supported: Gergo (Kit, Partial, Ready)   
 Hardware Availability: [gboards.ca](http://gboards.ca)  
 
-##Firmware building
+## Firmware building
 After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
 
     make gergo:germ:dfu
