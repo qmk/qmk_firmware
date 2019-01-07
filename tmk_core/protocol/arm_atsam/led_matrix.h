@@ -83,6 +83,7 @@ typedef struct led_disp_s {
     float bottom;
     float width;
     float height;
+    float max_distance;
 } led_disp_t;
 
 uint8_t led_matrix_init(void);

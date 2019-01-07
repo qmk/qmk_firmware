@@ -218,6 +218,7 @@ void disp_calc_extents(void)
 
     disp.width = disp.right - disp.left;
     disp.height = disp.top - disp.bottom;
+    disp.max_distance = sqrtf(powf(disp.width, 2) + powf(disp.height, 2));
 }
 
 void disp_pixel_setup(void)
@@ -267,6 +268,7 @@ void led_matrix_run(void)
     float go;
     float bo;
     float po;
+
     uint8_t led_this_run = 0;
     led_setup_t *f = (led_setup_t*)led_setups[led_animation_id];
 
@@ -330,7 +332,7 @@ void led_matrix_run(void)
             {
 
                 if (led_animation_circular) {
-                  po = sqrtf((powf(fabsf(50 - led_cur->py), 2) + powf(fabsf(50 - led_cur->px), 2)));
+                  po = sqrtf((powf(fabsf((disp.width / 2) - (led_cur->x - disp.left)), 2) + powf(fabsf((disp.height / 2) - (led_cur->y - disp.bottom)), 2))) / disp.max_distance * 100;
                 }
                 else {
                   if (led_animation_orientation)
