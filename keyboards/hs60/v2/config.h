@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x8968
 #define PRODUCT_ID      0x4853
-#define DEVICE_VER      0x0001
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    Yiancar-Designs
 #define PRODUCT         HS60 V2
 #define DESCRIPTION     GH60 compatible, tool free RGB keyboard
