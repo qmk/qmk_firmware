@@ -5,7 +5,7 @@
   "width": 22.75,
   "height": 6,
   "layouts": {
-    "LAYOUT_downbubble_standard": {
+    "LAYOUT_standard": {
       "layout": [
         {"label":"K00", "x":0, "y":0},
         {"label":"K01", "x":1, "y":0},
@@ -113,7 +113,7 @@
         {"label":"K519", "x":21.75, "y":5}
       ]
     },
-    "LAYOUT_downbubble_splitbackspace": {
+    "LAYOUT_split_bs": {
       "layout": [
         {"label":"K00", "x":0, "y":0},
         {"label":"K01", "x":1, "y":0},
@@ -222,7 +222,7 @@
         {"label":"K519", "x":21.75, "y":5}
       ]
     },
-    "LAYOUT_downbubble_splitrightshift": {
+    "LAYOUT_split_rshift": {
       "layout": [
         {"label":"K00", "x":0, "y":0},
         {"label":"K01", "x":1, "y":0},
@@ -331,7 +331,7 @@
         {"label":"K519", "x":21.75, "y":5}
       ]
     },
-    "LAYOUT_downbubble_splitnumpad": {
+    "LAYOUT_split_numpad": {
       "layout": [
         {"label":"K00", "x":0, "y":0},
         {"label":"K01", "x":1, "y":0},
@@ -442,7 +442,7 @@
         {"label":"K519", "x":21.75, "y":5}
       ]
     },
-    "LAYOUT_downbubble_spliteverything": {
+    "LAYOUT_all": {
       "layout": [
         {"label":"K00", "x":0, "y":0},
         {"label":"K01", "x":1, "y":0},
