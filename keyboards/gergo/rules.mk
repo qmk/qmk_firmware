@@ -13,7 +13,6 @@ F_CPU = 16000000
 ARCH = AVR8
 BOOTLOADER = atmel-dfu
 F_USB = $(F_CPU)
-LAYOUTS = gergo
 
 
 # Firmware options

@@ -136,6 +136,35 @@ KC_TRNS, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,        KC_TRNS,  K
                                              	  KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS)
 };
 
+/* Keymap template 
+ *
+ * ,-------------------------------------------.                         ,-------------------------------------------.
+ * |        |      |      |      |      |      |                         |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
+ * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
+ *                        .------.   .------.                                 .------.   .-----.
+ *                        |      |   |      |                                 |      |   |     |
+ *                        '------'   '------'                                 `------.   '-----'
+ *                                        ,-------.       ,-------.
+ *                                        |       |       |       |
+ *                                 ,------|-------|       |-------|------.
+ *                                 |      |       |       |       |      |
+ *                                 |      |       |       |       |      |
+ *                                 |      |       |       |       |      |
+ *                                 `--------------'       `--------------'
+[SYMB] = LAYOUT_GERGO(  
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
+KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, 
+
+                                                  KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS,
+                                                           KC_TRNS,       KC_TRNS,
+                                             	  KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS),
+ */
+
 const uint16_t PROGMEM fn_actions[] = {
     //[1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
@@ -167,31 +196,3 @@ void matrix_scan_user(void) {
 };
 
 
-/* Keymap template 
- *
- * ,-------------------------------------------.                         ,-------------------------------------------.
- * |        |      |      |      |      |      |                         |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|------.           .------|------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|------|           |------|------+------+------+------+------+--------|
- * |        |      |      |      |      |      |      |           |      |      |      |      |      |      |        |
- * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
- *                        .------.   .------.                                 .------.   .-----.
- *                        |      |   |      |                                 |      |   |     |
- *                        '------'   '------'                                 `------.   '-----'
- *                                        ,-------.       ,-------.
- *                                        |       |       |       |
- *                                 ,------|-------|       |-------|------.
- *                                 |      |       |       |       |      |
- *                                 |      |       |       |       |      |
- *                                 |      |       |       |       |      |
- *                                 `--------------'       `--------------'
-[SYMB] = LAYOUT_GERGO(  
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, 
-
-                                                  KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS,
-                                                           KC_TRNS,       KC_TRNS,
-                                             	  KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS),
- */

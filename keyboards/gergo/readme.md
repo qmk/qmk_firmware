@@ -1,16 +1,26 @@
-# [Gergo! By g Heavy Industries](http://gboards.ca)
+# Gergo
 
-![Gergo image](https://4.bp.blogspot.com/-889nMXxgSM0/XCNxwnO5kUI/AAAAAAAA6mI/tZbWgZVCBW0dyZOCGJDkjN06DVax7j8XwCLcBGAs/s1600/48422820_967732713413298_485744639215665152_n.jpg)
+![Gergo](https://cdn.pbrd.co/images/HVglSWD.jpg)
 
-Gergo uses the atmel-dfu loader, for flashing please install dfu-programmer for your system!
+A compact 50% (14x4) Split Keyboard compatible with i2c modules and a trackball. 
 
-To build and flash your firmware:
-  - download/clone the QMK repository
-  - cd to the QMK directory
-  - run "make gergo:germ:dfu"
-  - Fix any errors you made hacking on your keymap
-  - press the reset button when prompted
+[More info on qmk.fm](http://qmk.fm/gergo/)
 
-## Settings
-You may want to enable QMK_KEYS_PER_SCAN because the Gergo has a relatively
-slow scan rate. Other options can be defined in keyboards/gergo/rules.mk
+Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)  
+Hardware Supported: Gergo (Kit, Partial, Ready)   
+Hardware Availability: [gboards.ca](http://gboards.ca)  
+
+##Firmware building
+After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
+
+    make gergo:germ:dfu
+
+To just test your build with the default keymap
+   
+    make gergo:germ
+
+Gadgets and options can be enabled/disabled in keyboards/gergo/rules.mk
+
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+## Have an idea for a gadget? [Reach out to me!](mailto:bernhardtjeremy@gmail.com)
