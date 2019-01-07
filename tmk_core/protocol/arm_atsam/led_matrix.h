@@ -129,6 +129,7 @@ extern uint8_t led_animation_orientation;
 extern uint8_t led_animation_breathing;
 extern uint8_t led_animation_breathe_cur;
 extern uint8_t breathe_dir;
+extern uint8_t led_animation_circular;
 extern const uint8_t led_setups_count;
 
 extern void *led_setups[];

@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "arm_atsam_protocol.h"
 #include "tmk_core/common/led.h"
 #include <string.h>
+#include <math.h>
 
 void SERCOM1_0_Handler( void )
 {
@@ -249,6 +250,7 @@ uint8_t led_animation_breathing;
 uint8_t led_animation_breathe_cur;
 uint8_t breathe_step;
 uint8_t breathe_dir;
+uint8_t led_animation_circular;
 uint64_t led_next_run;
 
 uint8_t led_animation_id;
@@ -327,13 +329,18 @@ void led_matrix_run(void)
             for (fcur = 0; fcur < fmax; fcur++)
             {
 
-                if (led_animation_orientation)
-                {
-                  po = led_cur->py;
+                if (led_animation_circular) {
+                  po = sqrtf((powf(fabsf(50 - led_cur->py), 2) + powf(fabsf(50 - led_cur->px), 2)));
                 }
-                else
-                {
-                  po = led_cur->px;
+                else {
+                  if (led_animation_orientation)
+                  {
+                      po = led_cur->py;
+                  }
+                  else
+                  {
+                      po = led_cur->px;
+                  }
                 }
 
                 float pomod;
@@ -466,6 +473,7 @@ uint8_t led_matrix_init(void)
     led_animation_breathe_cur = BREATHE_MIN_STEP;
     breathe_step = 1;
     breathe_dir = 1;
+    led_animation_circular = 0;
 
     gcr_min_counter = 0;
     v_5v_cat_hit = 0;
