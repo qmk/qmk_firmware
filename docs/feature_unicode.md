@@ -2,15 +2,15 @@
 
 There are three Unicode keymap definition methods available in QMK:
 
-## UNICODE_ENABLE
+## `UNICODE_ENABLE`
 
-Supports Unicode up to `0xFFFF`. The keycode function is `UC(n)` in the keymap file, where _n_ is a 4 digit hexadecimal number.
+Supports Unicode up to `0x7FFF`. This covers characters for most modern languages, as well as symbols, but it doesn't cover emoji. The keycode function is `UC(c)` in the keymap file, where _c_ is the code point's number (preferably hexadecimal, up to 4 digits long). For example: `UC(0x45B)`, `UC(0x30C4)`.
 
-## UNICODEMAP_ENABLE
+## `UNICODEMAP_ENABLE`
 
-Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(n)`, where _n_ is an array index into the mapping table.
+Supports Unicode up to `0x10FFFF` (all possible code points). You need to maintain a separate mapping table `const uint32_t PROGMEM unicode_map[] = {...}` in your keymap file. The keycode function is `X(i)`, where _i_ is an array index into the mapping table. The table may contain at most 1024 entries.
 
-And you may want to have an enum to make reference easier.  So you'd want to add something like this to your keymap:
+You may want to have an enum to make referencing easier. So, you could add something like this to your keymap file:
 
 ```c
 enum unicode_names {
@@ -20,38 +20,37 @@ enum unicode_names {
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-  [BANG]    = 0x203D,  // ‽
-  [IRONY]   = 0x2E2E,  // ⸮
-  [SNEK]    = 0x1F40D, // 🐍
+  [BANG]  = 0x203D,  // ‽
+  [IRONY] = 0x2E2E,  // ⸮
+  [SNEK]  = 0x1F40D, // 🐍
 };
 ```
 
-Make sure that the order for both matches.
+Then you can use `X(BANG)` etc. in your keymap.
 
-## UCIS_ENABLE
+## `UCIS_ENABLE`
 
-Supports Unicode up to `0x10FFFF` (all possible code points). As with `UNICODEMAP`, you may want to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you will have to add a keycode or function that calls `qk_ucis_start()`. Once it's been called, you can type the mnemonic for your character, then hit Space or Enter to complete it or Esc to cancel. If the mnemonic matches an entry in your table, the typed text will automatically be erased and the corresponding Unicode sequence inserted.
+Supports Unicode up to `0x10FFFF` (all possible code points). As with `UNICODEMAP`, you need to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you will have to add a keycode or function that calls `qk_ucis_start()`. Once this function's been called, you can type the corresponding mnemonic for your character, then hit Space or Enter to complete it, or Esc to cancel. If the mnemonic matches an entry in your table, the typed text will automatically be erased and the corresponding Unicode character inserted.
 
-For instance, you would need to have a table like this in your keymap:
+For instance, you would define a table like this in your keymap file:
 
 ```c
-const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE
-(
- UCIS_SYM("poop", 0x1f4a9),
- UCIS_SYM("rofl", 0x1f923),
- UCIS_SYM("kiss", 0x1f619)
+const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
+  UCIS_SYM("poop", 0x1F4A9), // 💩
+  UCIS_SYM("rofl", 0x1F923), // 🤣
+  UCIS_SYM("kiss", 0x1F619)  // 😙
 );
 ```
 
-You run the function, and then type "rofl" and hit enter, it should backspace remove "rofl" and input the `0x1f923` unicode.
+You call `qk_ucis_start()`, then type "rofl" and hit Enter. QMK should erase the "rofl" text and input the laughing emoji.
 
 ### Customization
 
-There are several functions that you can add to your keymap to customize the functionality of this feature.
+There are several functions that you can define in your keymap to customize the functionality of this feature.
 
-* `void qk_ucis_start_user(void)` - This runs when you run the "start" function, and can be used to provide feedback. By default, it types out a keyboard emoji.
-* `void qk_ucis_success(uint8_t symbol_index)` - This runs when the unicode input has matched something, and has completed. Default doesn't do anything.
-* `void qk_ucis_symbol_fallback (void)` - This runs if the input text doesn't match anything.  The default function falls back to trying that input as a unicode code.
+* `void qk_ucis_start_user(void)` – This runs when you call the "start" function, and can be used to provide feedback. By default, it types out a keyboard emoji.
+* `void qk_ucis_success(uint8_t symbol_index)` – This runs when the input has matched something and has completed. By default, it doesn't do anything.
+* `void qk_ucis_symbol_fallback (void)` – This runs when the input doesn't match anything. By default, it falls back to trying that input as a Unicode code.
 
 You can find the default implementations of these functions in [`process_ucis.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_ucis.c).
 
@@ -66,7 +65,7 @@ The following input modes are available:
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`), but this can be changed by defining [`UNICODE_OSX_KEY`](#input-key-configuration) with another keycode.
 
-* **`UC_LNX`**: Linux built-in IBus Unicode input. Supports all possible code points (`0x10FFFF`).
+* **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
 
@@ -77,7 +76,7 @@ The following input modes are available:
 
 * **`UC_BSD`**: _(non implemented)_ Unicode input under BSD. Not implemented at this time. If you're a BSD user and want to help add support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
 
-* **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.8.2, supports code points up to `0xFFFFF`.
+* **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.8.2, supports code points up to `0xFFFFF` (all currently assigned code points).
 
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
   By default, this mode uses the right Alt key (`KC_RALT`), but this can be changed in the WinCompose settings and by defining [`UNICODE_WINC_KEY`](#input-key-configuration) with another keycode.
