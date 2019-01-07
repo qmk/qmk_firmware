@@ -296,23 +296,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
+        layer_off(_NICOLA);
         register_code(KC_LANG2); // Mac
-        // SEND_STRING(SS_LALT("`")); // Win
+        // register_code(KC_MHEN); // Win
         is_nicola = false;
       } else {
         unregister_code(KC_LANG2); // Mac
+        // unregister_code(KC_MHEN); // Win
       }
       return false;
       break;
     case NICOLA:
       if (record->event.pressed) {
-        set_single_persistent_default_layer(_NICOLA);
+        layer_on(_NICOLA);
         register_code(KC_LANG1); // Mac
-        // SEND_STRING(SS_LALT("`")); // Win
+        // register_code(KC_HENK); // Win
         is_nicola = true;
       } else {
         unregister_code(KC_LANG1); // Mac
+        // unregister_code(KC_HENK); // Win
       }
       return false;
       break;
