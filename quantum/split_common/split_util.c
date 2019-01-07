@@ -41,7 +41,8 @@ bool is_keyboard_master(void)
   if (usbstate == UNKNOWN)
   {
     USBCON |= (1 << OTGPADE);  // enables VBUS pad
-    _delay_us(5);
+    wait_us(5);
+
     usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
   }
 

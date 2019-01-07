@@ -165,14 +165,6 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 #elif (DIODE_DIRECTION == ROW2COL)
 
-static void init_pins(void)
-{
-  unselect_cols();
-  for(uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-    setPinInputHigh(row_pins[x]);
-  }
-}
-
 static void select_col(uint8_t col)
 {
   writePinLow(col_pins[col]);
@@ -188,6 +180,14 @@ static void unselect_cols(void)
 {
   for(uint8_t x = 0; x < MATRIX_COLS; x++) {
     setPinInputHigh(col_pins[x]);
+  }
+}
+
+static void init_pins(void)
+{
+  unselect_cols();
+  for(uint8_t x = 0; x < ROWS_PER_HAND; x++) {
+    setPinInputHigh(row_pins[x]);
   }
 }
 
@@ -537,6 +537,10 @@ static void slave_transport(void) {
 #endif
 }
 
+__attribute__ ((weak))
+void matrix_slave_scan_user(void) {
+}
+
 uint8_t matrix_scan(void)
 {
   uint8_t ret = _matrix_scan();
@@ -609,6 +613,3 @@ __attribute__ ((weak))
 void matrix_scan_user(void) {
 }
 
-__attribute__ ((weak))
-void matrix_slave_scan_user(void) {
-}
