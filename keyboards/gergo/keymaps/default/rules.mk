@@ -1,8 +1,6 @@
 #----------------------------------------------------------------------------
 # make gergo:germ:dfu
 # Make sure you have dfu-programmer installed!
-# This is the keyboard level makefile, override these settings 
-# in your layouts rules.mk!
 #----------------------------------------------------------------------------
 
 # Source includes

@@ -19,7 +19,7 @@ To just test your build with the default keymap
    
     make gergo:germ
 
-Gadgets and options can be enabled/disabled in keyboards/gergo/rules.mk
+Gadgets and options can be enabled/disabled in keyboards/gergo/layouts/default/rules.mk . Copy the default directory and make any changes to your layout, if you think they're worth sharing submit a PR!
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
