@@ -17,7 +17,7 @@ LAYOUTS = ergodox
 
 
 # Firmware options
-BALLER = no				# Enable to ball out
+BALLER = yes # Enable to ball out
 BALLSTEP = 20  			# Multiple in px to move, multiplied by layer number
 SCROLLSTEP = 3 			# Lines to scroll with ball
 MOUSEKEY_ENABLE  = yes  # Mouse keys(+4700), needed for baller
@@ -34,7 +34,7 @@ UNICODE_ENABLE   = yes # Unicode
 VERBOSE 		 = yes
 DEBUG_MATRIX_SCAN_RATE = no
 DEBUG_BALLER = no
-DEBUG_MATRIX= yes
+DEBUG_MATRIX= no
 
 
 # A bunch of stuff that you shouldn't touch unless you

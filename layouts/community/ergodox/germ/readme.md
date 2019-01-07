@@ -1,20 +1,23 @@
 # Gergo
 
-TODO: Update image
-![Gergo](http://i.imgur.com/q2M3uEU.jpg)
+![Gergo](https://cdn.pbrd.co/images/HVglSWD.jpg)
 
 A compact 50% (14x4) Split Keyboard compatible with i2c modules and a trackball. 
 
 [More info on qmk.fm](http://qmk.fm/gergo/)
 
 Keyboard Maintainer: [Jeremy Bernhardt](https://github.com/germ)  
-Hardware Supported: Gergo (Kit, Partial, Ready)
-Hardware Availability: [gboards.ca](http://gboards.ca) 
+Hardware Supported: Gergo (Kit, Partial, Ready)   
+Hardware Availability: [gboards.ca](http://gboards.ca)  
 
 ##Firmware building
-After cloning the QMK repo and installing dfu-programmer build with.
+After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
 
     make gergo:germ:dfu
+
+To just test your build with the default keymap
+   
+   make gergo:germ
 
 Gadgets and options can be enabled/disabled in keyboards/gergo/rules.mk
 
