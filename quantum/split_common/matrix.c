@@ -45,11 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #  define DEBOUNCING_DELAY 5
 #endif
 
-#if (DEBOUNCING_DELAY > 0)
-  static uint16_t debouncing_time;
-  static bool debouncing = false;
-#endif
-
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
 #    define print_matrix_row(row)  print_bin_reverse8(matrix_get_row(row))
@@ -286,46 +281,55 @@ void matrix_init(void)
   matrix_init_quantum();
 }
 
-uint8_t _matrix_scan(void)
+#if DEBOUNCING_DELAY > 0
+void debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed)
 {
-#if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
-  // Set row, read cols
-  for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
-#if (DEBOUNCING_DELAY > 0)
-    bool matrix_changed = read_cols_on_row(raw_matrix, current_row);
+  static uint16_t debouncing_time;
+  static bool debouncing = false;
 
-    if (matrix_changed) {
-      debouncing = true;
-      debouncing_time = timer_read();
-    }
-#else
-    read_cols_on_row(matrix+thisHand, current_row);
-#endif
+  if (changed)
+  {
+    debouncing = true;
+    debouncing_time = timer_read();
   }
 
-#elif (DIODE_DIRECTION == ROW2COL)
-  // Set col, read rows
-  for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-#if (DEBOUNCING_DELAY > 0)
-    bool matrix_changed = read_rows_on_col(raw_matrix, current_col);
-    if (matrix_changed) {
-        debouncing = true;
-        debouncing_time = timer_read();
-    }
-#else
-    read_rows_on_col(matrix+thisHand, current_col);
-#endif
-  }
-#endif
-
-#if (DEBOUNCING_DELAY > 0)
   if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
     for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
       matrix[thisHand+i] = raw_matrix[i];
     }
     debouncing = false;
   }
+}
+#else
+// no debounce
+bool debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed)
+{
+  if (changed)
+  {
+  for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
+      cooked[i] = raw[i];
+    }
+  }
+}
 #endif
+
+uint8_t _matrix_scan(void)
+{
+  bool changed = false;
+
+#if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
+  // Set row, read cols
+  for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
+    changed |= read_cols_on_row(raw_matrix, current_row);
+  }
+#elif (DIODE_DIRECTION == ROW2COL)
+  // Set col, read rows
+  for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+    changed |= read_rows_on_col(raw_matrix, current_col);
+  }
+#endif
+
+  debounce(raw_matrix, matrix+thisHand, changed);
 
   return 1;
 }
@@ -553,7 +557,6 @@ uint8_t matrix_scan(void)
 
 bool matrix_is_modified(void)
 {
-  if (debouncing) return false;
   return true;
 }
 
