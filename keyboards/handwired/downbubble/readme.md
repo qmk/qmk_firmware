@@ -1,8 +1,8 @@
 # downbubble
 
-![downbubble](imgur.com image replace me!)
+Prototype hand-wired version of this keyboard - https://imgur.com/a/0KbX1JH
 
-A short description of the keyboard/project
+This is an ergonomic keyboard with a 5 degree rotation on keyboard halves, and a rotated numpad in the center for RH users.
 
 Keyboard Maintainer: [Flehrad](https://github.com/flehrad)  
 Hardware Supported: downbubble PCB, AT90USB1286 MCU, MX switches and MiniUSB connector
