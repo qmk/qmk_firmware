@@ -1,6 +1,4 @@
-#ifndef GERGO_H
-#define GERGO_H
-
+#pragma once
 #include <util/delay.h>
 #include <stdint.h>
 #include <stdbool.h>
@@ -30,5 +28,3 @@ extern i2c_status_t mcp23018_status;
 
 void init_ergodox(void);
 uint8_t init_mcp23018(void);
-
-#endif
