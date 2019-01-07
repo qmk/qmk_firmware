@@ -1,4 +1,4 @@
-# Alpha28Keymap
+# Alpha 28-Key Keyboard Alternate Keymap
 Alternate keymap for [Alpha 28-key keyboard](https://github.com/qmk/qmk_firmware/tree/master/keyboards/alpha).
 
 ## How-to
