@@ -7,7 +7,7 @@ Gergo uses the atmel-dfu loader, for flashing please install dfu-programmer for 
 To build and flash your firmware:
   - download/clone the QMK repository
   - cd to the QMK directory
-  - run "make gergo:germ"
+  - run "make gergo:germ:dfu"
   - Fix any errors you made hacking on your keymap
   - press the reset button when prompted
 
