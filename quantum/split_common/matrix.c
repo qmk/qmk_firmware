@@ -82,7 +82,7 @@ static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
-static matrix_row_t matrix_debouncing[MATRIX_ROWS];
+static matrix_row_t raw_matrix[ROWS_PER_HAND];
 
 // row offsets for each hand
 uint8_t thisHand, thatHand;
@@ -281,7 +281,6 @@ void matrix_init(void)
   // initialize matrix state: all keys off
   for (uint8_t i=0; i < MATRIX_ROWS; i++) {
     matrix[i] = 0;
-    matrix_debouncing[i] = 0;
   }
 
   matrix_init_quantum();
@@ -293,7 +292,7 @@ uint8_t _matrix_scan(void)
   // Set row, read cols
   for (uint8_t current_row = 0; current_row < ROWS_PER_HAND; current_row++) {
 #if (DEBOUNCING_DELAY > 0)
-    bool matrix_changed = read_cols_on_row(matrix_debouncing+thisHand, current_row);
+    bool matrix_changed = read_cols_on_row(raw_matrix, current_row);
 
     if (matrix_changed) {
       debouncing = true;
@@ -308,7 +307,7 @@ uint8_t _matrix_scan(void)
   // Set col, read rows
   for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
 #if (DEBOUNCING_DELAY > 0)
-    bool matrix_changed = read_rows_on_col(matrix_debouncing+thisHand, current_col);
+    bool matrix_changed = read_rows_on_col(raw_matrix, current_col);
     if (matrix_changed) {
         debouncing = true;
         debouncing_time = timer_read();
@@ -322,7 +321,7 @@ uint8_t _matrix_scan(void)
 #if (DEBOUNCING_DELAY > 0)
   if (debouncing && (timer_elapsed(debouncing_time) > DEBOUNCING_DELAY)) {
     for (uint8_t i = 0; i < ROWS_PER_HAND; i++) {
-      matrix[thisHand+i] = matrix_debouncing[thisHand+i];
+      matrix[thisHand+i] = raw_matrix[i];
     }
     debouncing = false;
   }
