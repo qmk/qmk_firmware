@@ -137,25 +137,6 @@ KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,       KC_TRNS,  K
                                              	  KC_TRNS, KC_TRNS,       KC_TRNS, KC_TRNS),
  */
 
-const uint16_t PROGMEM fn_actions[] = {
-    //[1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-    if (record->event.pressed) {
-      register_code(KC_RSFT);
-    } else {
-      unregister_code(KC_RSFT);
-    }
-    break;
-  }
-  return MACRO_NONE;
-};
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 

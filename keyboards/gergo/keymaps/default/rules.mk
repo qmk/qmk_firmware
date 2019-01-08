@@ -2,19 +2,6 @@
 # make gergo:germ:dfu
 # Make sure you have dfu-programmer installed!
 #----------------------------------------------------------------------------
-
-# Source includes
-SRC += matrix.c i2c_master.c
-#OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-# Hardware info
-MCU = atmega32u4
-F_CPU = 16000000
-ARCH = AVR8
-BOOTLOADER = atmel-dfu
-F_USB = $(F_CPU)
-
-
 # Firmware options
 BALLER = yes # Enable to ball out
 BALLSTEP = 20  			# Multiple in px to move, multiplied by layer number
