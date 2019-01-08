@@ -47,11 +47,11 @@ bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
   if (keycode > QK_UNICODEMAP && record->event.pressed) {
     uint16_t index;
     if (keycode > QK_UNICODEMAP_SHIFT) {
-      // Keycode is a pair: extract index based on whether Shift is pressed
+      // Keycode is a pair: extract index based on Shift / Caps Lock state
       index = keycode - QK_UNICODEMAP_SHIFT;
-      if (unicode_saved_mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))) {
-        index >>= 7;
-      }
+      bool shift = unicode_saved_mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+      bool caps = host_keyboard_leds() & 1<<USB_LED_CAPS_LOCK;
+      if (shift || caps) { index >>= 7; }
       index &= 0x7F;
     } else {
       // Keycode is a regular index
