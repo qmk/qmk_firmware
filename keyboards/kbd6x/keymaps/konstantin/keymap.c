@@ -41,6 +41,8 @@ void td_lsft_fn_each(qk_tap_dance_state_t *state, void *user_data) {
     register_code(KC_LSFT);
   } else if (state->count == 2) {
     unregister_code(KC_LSFT);
+    // Prevent tap dance from sending LShift as a weak mod
+    state->weak_mods &= ~MOD_BIT(KC_LSFT);
     layer_on(L_FN);
   }
 }
