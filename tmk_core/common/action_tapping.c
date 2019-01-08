@@ -100,10 +100,9 @@ bool process_tapping(keyrecord_t *keyp)
                     // enqueue
                     return false;
                 }
-#if TAPPING_TERM >= 500 || defined PERMISSIVE_HOLD
                 /* Process a key typed within TAPPING_TERM
                  * This can register the key before settlement of tapping,
-                 * useful for long TAPPING_TERM but may prevent fast typing.
+                 * useful for long TAPPING_TERM.
                  */
                 else if (IS_RELEASED(event) && waiting_buffer_typed(event)) {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
@@ -113,7 +112,6 @@ bool process_tapping(keyrecord_t *keyp)
                     // enqueue
                     return false;
                 }
-#endif
                 /* Process release event of a key pressed before tapping starts
                  * Without this unexpected repeating will occur with having fast repeating setting
                  * https://github.com/tmk/tmk_keyboard/issues/60

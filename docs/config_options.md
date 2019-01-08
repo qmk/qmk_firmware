@@ -131,9 +131,6 @@ If you define these options you will enable the associated feature, which may in
   * See [Retro Tapping](feature_advanced_keycodes.md#retro-tapping) for details
 * `#define TAPPING_TOGGLE 2`
   * how many taps before triggering the toggle
-* `#define PERMISSIVE_HOLD`
-  * makes tap and hold keys trigger the hold if another key is pressed before releasing, even if it hasn't hit the `TAPPING_TERM`
-  * See [Permissive Hold](feature_advanced_keycodes.md#permissive-hold) for details
 * `#define IGNORE_MOD_TAP_INTERRUPT`
   * makes it possible to do rolling combos (zx) with keys that convert to other keys on hold, by enforcing the `TAPPING_TERM` for both keys.
   * See [Mod tap interrupt](feature_advanced_keycodes.md#ignore-mod-tap-interrupt) for details

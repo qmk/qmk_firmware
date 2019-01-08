@@ -242,29 +242,6 @@ While Tap-Hold options are fantastic, they are not without their issues.  We hav
 
 These options let you modify the behavior of the Tap-Hold keys.
 
-## Permissive Hold
-
-As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new `config.h` option:
-
-```c
-#define PERMISSIVE_HOLD
-```
-
-This makes tap and hold keys (like Mod Tap) work better for fast typist, or for high `TAPPING_TERM` settings. 
-
-If you press a Mod Tap key, tap another key (press and release) and then release the Mod Tap key, all within the tapping term, it will output the "tapping" function for both keys.
-
-For Instance:
-
-- `SHFT_T(KC_A)` Down
-- `KC_X` Down
-- `KC_X` Up
-- `SHFT_T(KC_A)` Up
-
-Normally, if you do all this within the `TAPPING_TERM` (default: 200ms) this will be registered as `ax` by the firmware and host system. With permissive hold enabled, this modifies how this is handled by considering the Mod Tap keys as a Mod if another key is tapped, and would registered as `X` (`SHIFT`+`x`). 
-
-?> If you have `Ignore Mod Tap Interrupt` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
-
 ## Ignore Mod Tap Interrupt
 
 To enable this setting, add this to your `config.h`:
@@ -288,8 +265,6 @@ Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` ena
 
 
 ?> __Note__: This only concerns modifiers and not layer switching keys.
-
-?> If you have `Permissive Hold` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
 
 ## Tapping Force Hold
 
