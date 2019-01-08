@@ -6,8 +6,4 @@
 // keymap needs oneshot functionality
 #undef NO_ACTION_ONESHOT
 
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 #endif

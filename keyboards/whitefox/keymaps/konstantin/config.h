@@ -26,5 +26,3 @@
 #define UNICODE_CYCLE_PERSIST   false
 #define UNICODE_SELECTED_MODES  UC_WINC, UC_LNX
 #define UNICODE_WINC_KEY        KC_RGUI
-
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RCTL)))
