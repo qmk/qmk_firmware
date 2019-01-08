@@ -25,7 +25,7 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT_downbubble_standard( \
+#define LAYOUT_standard( \
     K00,  K01,  K02,  K03,  K04,  K05,  K06,                                       K010,  K011,  K012,  K013,  K014,  K015,  K016,  K017,  K018,  K019,\
     K10,  K11,  K12,  K13,  K14,  K15,  K16,              K17,  K18,  K19,         K110,  K111,  K112,  K113,  K114,  K115,         K116,  K118,  K119,\
     K20,  K21,  K22,  K23,  K24,  K25,              K26,  K27,  K28,               K210,  K211,  K212,  K213,  K214,  K215,  K216,  K217,  K218,  K219,\
@@ -42,7 +42,7 @@
     { K50,  K51,  K52,  K53,  K54,  KC_NO,  K56,  KC_NO,  K58,    KC_NO,  K510,  KC_NO,  K512,  K513,  K514,  KC_NO,  K516,   K517,   K518,   K519  }, \
          }
 
-#define LAYOUT_downbubble_splitbackspace( \
+#define LAYOUT_split_bs( \
     K00,  K01,  K02,  K03,  K04,  K05,  K06,                                       K010,  K011,  K012,  K013,  K014,  K015,  K016,  K017,  K018,  K019,\
     K10,  K11,  K12,  K13,  K14,  K15,  K16,              K17,  K18,  K19,         K110,  K111,  K112,  K113,  K114,  K115,  K116,  K117,  K118,  K119,\
     K20,  K21,  K22,  K23,  K24,  K25,              K26,  K27,  K28,               K210,  K211,  K212,  K213,  K214,  K215,  K216,  K217,  K218,  K219,\
@@ -59,7 +59,7 @@
     { K50,  K51,  K52,  K53,  K54,  KC_NO,  K56,  KC_NO,  K58,    KC_NO,  K510,  KC_NO,  K512,  K513,  K514,  KC_NO,  K516,   K517,   K518,   K519  }, \
          }
 
-#define LAYOUT_downbubble_splitrightshift( \
+#define LAYOUT_split_rshift( \
     K00,  K01,  K02,  K03,  K04,  K05,  K06,                                       K010,  K011,  K012,  K013,  K014,  K015,  K016,  K017,  K018,  K019,\
     K10,  K11,  K12,  K13,  K14,  K15,  K16,              K17,  K18,  K19,         K110,  K111,  K112,  K113,  K114,  K115,         K116,  K118,  K119,\
     K20,  K21,  K22,  K23,  K24,  K25,              K26,  K27,  K28,               K210,  K211,  K212,  K213,  K214,  K215,  K216,  K217,  K218,  K219,\
@@ -76,7 +76,7 @@
     { K50,  K51,  K52,  K53,  K54,  KC_NO,  K56,  KC_NO,  K58,    KC_NO,  K510,  KC_NO,  K512,  K513,  K514,  KC_NO,  K516,   K517,   K518,   K519  }, \
          }
 
-#define LAYOUT_downbubble_splitnumpad( \
+#define LAYOUT_split_numpad( \
     K00,  K01,  K02,  K03,  K04,  K05,  K06,                                       K010,  K011,  K012,  K013,  K014,  K015,  K016,  K017,  K018,  K019,\
     K10,  K11,  K12,  K13,  K14,  K15,  K16,              K17,  K18,  K19,         K110,  K111,  K112,  K113,  K114,  K115,         K116,  K118,  K119,\
     K20,  K21,  K22,  K23,  K24,  K25,              K26,  K27,  K28,  K29,         K210,  K211,  K212,  K213,  K214,  K215,  K216,  K217,  K218,  K219,\
@@ -93,7 +93,7 @@
     { K50,  K51,  K52,  K53,  K54,  KC_NO,  K56,  K57,    K58,    K59,    K510,  KC_NO,  K512,  K513,  K514,  KC_NO,  K516,   K517,   K518,   K519  }, \
          }
 
-#define LAYOUT_downbubble_spliteverything( \
+#define LAYOUT_all( \
     K00,  K01,  K02,  K03,  K04,  K05,  K06,                                       K010,  K011,  K012,  K013,  K014,  K015,  K016,  K017,  K018,  K019,\
     K10,  K11,  K12,  K13,  K14,  K15,  K16,              K17,  K18,  K19,         K110,  K111,  K112,  K113,  K114,  K115,  K116,  K117,  K118,  K119,\
     K20,  K21,  K22,  K23,  K24,  K25,              K26,  K27,  K28,  K29,         K210,  K211,  K212,  K213,  K214,  K215,  K216,  K217,  K218,  K219,\
