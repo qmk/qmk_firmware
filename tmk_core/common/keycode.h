@@ -32,8 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_MOD(code)             (KC_LCTRL     <= (code) && (code) <= KC_RGUI)
 
 #define IS_SPECIAL(code)         ((0xA5 <= (code) && (code) <= 0xDF) || (0xE8 <= (code) && (code) <= 0xFF))
-#define IS_SYSTEM(code)          (KC_PWR       <= (code) && (code) <= KC_WAKE)
-#define IS_CONSUMER(code)        (KC_MUTE      <= (code) && (code) <= KC_BRID)
 
 #define IS_FN(code)              (KC_FN0       <= (code) && (code) <= KC_FN31)
 
@@ -143,36 +141,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_ALGR KC_RALT
 #define KC_RCMD KC_RGUI
 #define KC_RWIN KC_RGUI
-
-/* Generic Desktop Page (0x01) */
-#define KC_PWR  KC_SYSTEM_POWER
-#define KC_SLEP KC_SYSTEM_SLEEP
-#define KC_WAKE KC_SYSTEM_WAKE
-
-/* Consumer Page (0x0C) */
-#define KC_MUTE KC_AUDIO_MUTE
-#define KC_VOLU KC_AUDIO_VOL_UP
-#define KC_VOLD KC_AUDIO_VOL_DOWN
-#define KC_MNXT KC_MEDIA_NEXT_TRACK
-#define KC_MPRV KC_MEDIA_PREV_TRACK
-#define KC_MSTP KC_MEDIA_STOP
-#define KC_MPLY KC_MEDIA_PLAY_PAUSE
-#define KC_MSEL KC_MEDIA_SELECT
-#define KC_EJCT KC_MEDIA_EJECT
-#define KC_MAIL KC_MAIL
-#define KC_CALC KC_CALCULATOR
-#define KC_MYCM KC_MY_COMPUTER
-#define KC_WSCH KC_WWW_SEARCH
-#define KC_WHOM KC_WWW_HOME
-#define KC_WBAK KC_WWW_BACK
-#define KC_WFWD KC_WWW_FORWARD
-#define KC_WSTP KC_WWW_STOP
-#define KC_WREF KC_WWW_REFRESH
-#define KC_WFAV KC_WWW_FAVORITES
-#define KC_MFFD KC_MEDIA_FAST_FORWARD
-#define KC_MRWD KC_MEDIA_REWIND
-#define KC_BRIU KC_BRIGHTNESS_UP
-#define KC_BRID KC_BRIGHTNESS_DOWN
 
 /* Mouse Keys */
 #define KC_MS_U KC_MS_UP
@@ -433,36 +401,6 @@ enum hid_keyboard_keypad_usage {
 
 /* Media and Function keys */
 enum internal_special_keycodes {
-  /* Generic Desktop Page (0x01) */
-  KC_SYSTEM_POWER         = 0xA5,
-  KC_SYSTEM_SLEEP,
-  KC_SYSTEM_WAKE,
-
-  /* Consumer Page (0x0C) */
-  KC_AUDIO_MUTE,
-  KC_AUDIO_VOL_UP,
-  KC_AUDIO_VOL_DOWN,
-  KC_MEDIA_NEXT_TRACK,
-  KC_MEDIA_PREV_TRACK,
-  KC_MEDIA_STOP,
-  KC_MEDIA_PLAY_PAUSE,
-  KC_MEDIA_SELECT,
-  KC_MEDIA_EJECT,         //0xB0
-  KC_MAIL,
-  KC_CALCULATOR,
-  KC_MY_COMPUTER,
-  KC_WWW_SEARCH,
-  KC_WWW_HOME,
-  KC_WWW_BACK,
-  KC_WWW_FORWARD,
-  KC_WWW_STOP,
-  KC_WWW_REFRESH,
-  KC_WWW_FAVORITES,
-  KC_MEDIA_FAST_FORWARD,
-  KC_MEDIA_REWIND,
-  KC_BRIGHTNESS_UP,
-  KC_BRIGHTNESS_DOWN,
-
   /* Fn keys */
   KC_FN0                  = 0xC0,
   KC_FN1,

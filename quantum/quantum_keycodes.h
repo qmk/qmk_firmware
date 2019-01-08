@@ -462,6 +462,36 @@ enum quantum_keycodes {
     UNICODE_MODE_BSD,
     UNICODE_MODE_WINC,
 
+    /* Generic Desktop Page (0x01) */
+    KC_SYSTEM_POWER,
+    KC_SYSTEM_SLEEP,
+    KC_SYSTEM_WAKE,
+
+    /* Consumer Page (0x0C) */
+    KC_AUDIO_MUTE,
+    KC_AUDIO_VOL_UP,
+    KC_AUDIO_VOL_DOWN,
+    KC_MEDIA_NEXT_TRACK,
+    KC_MEDIA_PREV_TRACK,
+    KC_MEDIA_STOP,
+    KC_MEDIA_PLAY_PAUSE,
+    KC_MEDIA_SELECT,
+    KC_MEDIA_EJECT,
+    KC_MAIL,
+    KC_CALCULATOR,
+    KC_MY_COMPUTER,
+    KC_WWW_SEARCH,
+    KC_WWW_HOME,
+    KC_WWW_BACK,
+    KC_WWW_FORWARD,
+    KC_WWW_STOP,
+    KC_WWW_REFRESH,
+    KC_WWW_FAVORITES,
+    KC_MEDIA_FAST_FORWARD,
+    KC_MEDIA_REWIND,
+    KC_BRIGHTNESS_UP,
+    KC_BRIGHTNESS_DOWN,
+
     // always leave at the end
     SAFE_RANGE
 };

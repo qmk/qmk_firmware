@@ -282,6 +282,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
   #endif
+  #ifdef HID_KEYCODES_ENABLE
+    process_hid_keycodes(keycode, record) &&
+  #endif
       true)) {
     return false;
   }
