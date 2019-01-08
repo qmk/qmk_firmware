@@ -63,16 +63,18 @@ bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
     uint32_t code = pgm_read_dword(unicode_map + unicodemap_index(keycode));
     uint8_t input_mode = get_unicode_input_mode();
 
-    if (code > 0xFFFF && code <= 0x10FFFF && input_mode == UC_OSX) {
-      // Convert to UTF-16 surrogate pair
+    if (code > 0x10FFFF
+        || (code > 0xFFFF  && input_mode == UC_WIN)
+        || (code > 0xFFFFF && input_mode == UC_WINC)) {
+      // Character is out of range supported by the platform
+      unicode_input_cancel();
+    } else if (code > 0xFFFF && input_mode == UC_OSX) {
+      // Convert to UTF-16 surrogate pair on Mac
       code -= 0x10000;
       uint32_t lo = code & 0x3FF, hi = (code & 0xFFC00) >> 10;
       register_hex32(hi + 0xD800);
       register_hex32(lo + 0xDC00);
       unicode_input_finish();
-    } else if ((code > 0x10FFFF && input_mode == UC_OSX) || (code > 0xFFFFF && input_mode == UC_LNX)) {
-      // Character is out of range supported by the OS
-      unicode_input_cancel();
     } else {
       register_hex32(code);
       unicode_input_finish();
