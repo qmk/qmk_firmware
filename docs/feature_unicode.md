@@ -66,14 +66,15 @@ Unicode input in QMK works by inputting a sequence of characters to the OS, sort
 
 The following input modes are available:
 
-* **`UC_OSX`**: Mac OS X built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with `UNICODEMAP`).
+* **`UC_OSX`**: Mac OS X built-in Unicode hex input. Supports code points up to `0xFFFF` with `UNICODE`, and `0x10FFFF` (all possible code points) with `UNICODEMAP`.
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
-  By default, this mode uses the left Option key (`KC_LALT`), but this can be changed by defining [`UNICODE_KEY_OSX`](#input-key-configuration) with another keycode.
+  By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_OSX`](#input-key-configuration) with another keycode.
 
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
+  By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with another keycode. This might be required on IBus versions ≥1.5.15, where Ctrl+Shift+U behavior was consolidated into Ctrl+Shift+E.
 
 * **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
@@ -85,7 +86,7 @@ The following input modes are available:
 * **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.8.2, supports code points up to `0xFFFFF` (all currently assigned code points).
 
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
-  By default, this mode uses the right Alt key (`KC_RALT`), but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with another keycode.
+  By default, this mode uses right Alt (`KC_RALT`) as the Compose key, but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with another keycode.
 
 ### Switching Input Modes
 
@@ -141,11 +142,12 @@ You can find the default implementations of these functions in [`process_unicode
 
 #### Input Key Configuration
 
-Additionally, you can customize the keys used to trigger Unicode input for macOS and WinCompose by adding defines to your `config.h`:
+You can customize the keys used to trigger Unicode input for Mac, Linux and WinCompose by adding defines to your `config.h`. For example:
 
 ```c
-#define UNICODE_KEY_OSX  KC_LALT
-#define UNICODE_KEY_WINC KC_RALT
+#define UNICODE_KEY_OSX  KC_RALT
+#define UNICODE_KEY_LNX  LCTL(LSFT(KC_E))
+#define UNICODE_KEY_WINC KC_RGUI
 ```
 
 #### Input Method Cycling

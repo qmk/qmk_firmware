@@ -26,6 +26,9 @@
 #ifndef UNICODE_KEY_OSX
   #define UNICODE_KEY_OSX  KC_LALT
 #endif
+#ifndef UNICODE_KEY_LNX
+  #define UNICODE_KEY_LNX  LCTL(LSFT(KC_U))
+#endif
 #ifndef UNICODE_KEY_WINC
   #define UNICODE_KEY_WINC KC_RALT
 #endif
