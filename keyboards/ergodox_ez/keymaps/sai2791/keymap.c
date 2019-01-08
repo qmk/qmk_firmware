@@ -12,18 +12,6 @@ enum custom_keycodes {
 
 };
 
-//Tap Dance Declarations
-enum {
-  TD_TEST = 0
-};
-
-//Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  //Tap once for Esc, twice for Caps Lock
-  [TD_TEST]  = ACTION_TAP_DANCE_DOUBLE(KC_A, KC_B)
-// Other declarations would go here, separated by commas, if you have them
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Keymap 0: Basic layer
  *
@@ -91,9 +79,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [1] = LAYOUT_ergodox(
                                            KC_ESCAPE,KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_TRANSPARENT,
                                            KC_TRANSPARENT,KC_EXLM,KC_AT,KC_LCBR,KC_RCBR,KC_PIPE,KC_TRANSPARENT,
-                                           TD_TEST,KC_HASH,KC_DLR,KC_LPRN,KC_RPRN,KC_GRAVE,
+                                           KC_TRANSPARENT,KC_HASH,KC_DLR,KC_LPRN,KC_RPRN,KC_GRAVE,
                                            KC_TRANSPARENT,KC_PERC,KC_CIRC,KC_LBRACKET,KC_RBRACKET,KC_TILD,KC_TRANSPARENT,
-                                          KC_TRANSPARENT,TD_TEST,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
+                                          KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
                                           RGB_MOD,KC_TRANSPARENT,
                                           KC_TRANSPARENT,
                                           RGB_VAD,RGB_VAI,KC_TRANSPARENT,
