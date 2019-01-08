@@ -40,24 +40,28 @@ void register_hex32(uint32_t hex) {
 }
 
 __attribute__((weak))
+uint16_t unicodemap_index(uint16_t keycode) {
+  if (keycode > QK_UNICODEMAP_SHIFT) {
+    // Keycode is a pair: extract index based on Shift / Caps Lock state
+    uint16_t index = keycode - QK_UNICODEMAP_SHIFT;
+
+    bool shift = unicode_saved_mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
+    bool caps = host_keyboard_leds() & 1<<USB_LED_CAPS_LOCK;
+    if (shift || caps) { index >>= 7; }
+
+    return index & 0x7F;
+  } else {
+    // Keycode is a regular index
+    return keycode - QK_UNICODEMAP;
+  }
+}
+
+__attribute__((weak))
 void unicodemap_input_error() {}
 
 bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
   if (keycode > QK_UNICODEMAP && record->event.pressed) {
-    uint16_t index;
-    if (keycode > QK_UNICODEMAP_SHIFT) {
-      // Keycode is a pair: extract index based on Shift / Caps Lock state
-      index = keycode - QK_UNICODEMAP_SHIFT;
-      bool shift = unicode_saved_mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
-      bool caps = host_keyboard_leds() & 1<<USB_LED_CAPS_LOCK;
-      if (shift || caps) { index >>= 7; }
-      index &= 0x7F;
-    } else {
-      // Keycode is a regular index
-      index = keycode - QK_UNICODEMAP;
-    }
-
-    uint32_t code = pgm_read_dword(unicode_map + index);
+    uint32_t code = pgm_read_dword(unicode_map + unicodemap_index(keycode));
     uint8_t input_mode = get_unicode_input_mode();
 
     if (code > 0xFFFF && code <= 0x10FFFF && input_mode == UC_OSX) {
