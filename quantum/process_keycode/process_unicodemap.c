@@ -47,7 +47,7 @@ uint16_t unicodemap_index(uint16_t keycode) {
 
     bool shift = unicode_saved_mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
     bool caps = host_keyboard_leds() & 1<<USB_LED_CAPS_LOCK;
-    if (shift || caps) { index >>= 7; }
+    if (shift ^ caps) { index >>= 7; }
 
     return index & 0x7F;
   } else {
