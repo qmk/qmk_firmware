@@ -87,11 +87,7 @@ void unicode_input_start(void) {
     register_code(UNICODE_OSX_KEY);
     break;
   case UC_LNX:
-    register_code(KC_LCTL);
-    register_code(KC_LSFT);
-    tap_code(KC_U); // TODO: Replace with tap_code16(LCTL(LSFT(KC_U))); and test
-    unregister_code(KC_LSFT);
-    unregister_code(KC_LCTL);
+    tap_code16(LCTL(LSFT(KC_U)));
     break;
   case UC_WIN:
     register_code(KC_LALT);
