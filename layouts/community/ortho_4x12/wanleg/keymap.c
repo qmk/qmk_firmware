@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _____________DIRECTIONS_Row__2_____________,
   _______, _______, ONEHAND, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
-#elif defined(KEYBOARD_40percentclub_4x4)
+#elif defined(KEYBOARD_40percentclub_4x4) || defined(KEYBOARD_40percentclub_nori)
 [_GK] = LAYOUT_ortho_4x12_wrapper(
   _______________GherkinLike_0_______________,
   _______________GherkinLike_1_______________,
