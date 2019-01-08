@@ -19,6 +19,4 @@
 
 // place overrides here
 #define MASTER_LEFT
-#define PERMISSIVE_HOLD
 #define TAPPING_TERM 150
-

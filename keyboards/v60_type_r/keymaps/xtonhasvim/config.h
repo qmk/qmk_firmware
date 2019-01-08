@@ -18,7 +18,3 @@
 #pragma once
 
 #define V60_POLESTAR
-
-#define PERMISSIVE_HOLD
-
-

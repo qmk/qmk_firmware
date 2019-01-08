@@ -17,7 +17,6 @@
 
 // Makes it easier for fast typists to use dual-role keys. See additional details here:
 // https://docs.qmk.fm/features/advanced-keycodes#permissive-hold
-#define PERMISSIVE_HOLD
 
 // MS after tapping the Leader key to listen for a sequence (default: 300)
 #undef LEADER_TIMEOUT

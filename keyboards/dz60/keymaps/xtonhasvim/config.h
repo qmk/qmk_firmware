@@ -4,7 +4,6 @@
 #include "../../config.h"
 
 // help for fast typist+dual function keys?
-#define PERMISSIVE_HOLD
 
 /* speed up mousekeys a bit */
 #define MOUSEKEY_DELAY             50

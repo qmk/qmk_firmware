@@ -29,7 +29,6 @@
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
 
 // help for fast typist+dual function keys?
-#define PERMISSIVE_HOLD
 
 // where is the cord plugged in?
 #define MASTER_LEFT

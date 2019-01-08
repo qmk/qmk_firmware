@@ -1,7 +1,6 @@
 #pragma once
 
 // help for fast typist+dual function keys?
-#define PERMISSIVE_HOLD
 // Let me type `ls -l` more quickly.
 #define TAPPING_FORCE_HOLD
 

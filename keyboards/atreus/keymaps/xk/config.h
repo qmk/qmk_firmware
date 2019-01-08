@@ -31,6 +31,5 @@ the Free Software Foundation, either version 2 of the License, or
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 
 #define IGNORE_MOD_TAP_INTERRUPT
-#define PERMISSIVE_HOLD
 
 #endif

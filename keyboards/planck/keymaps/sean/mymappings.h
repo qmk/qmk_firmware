@@ -2,7 +2,6 @@
 
 #include "keymap_extras/keymap_dvorak.h"
 
-#define PERMISSIVE_HOLD
 
 //Special hammerspoon keys
 #define HMENU  LCTL(LSFT(KC_BSLS))

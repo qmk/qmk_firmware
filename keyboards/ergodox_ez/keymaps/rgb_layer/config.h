@@ -10,7 +10,6 @@
 #endif // !QMK_KEYS_PER_SCAN
 
 #define IGNORE_MOD_TAP_INTERRUPT
-#undef PERMISSIVE_HOLD
 #undef PREVENT_STUCK_MODIFIERS
 
 
@@ -21,4 +20,3 @@
 #endif
 
 #endif // !USERSPACE_CONFIG_H
-

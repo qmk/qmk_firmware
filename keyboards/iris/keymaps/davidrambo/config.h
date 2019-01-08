@@ -26,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define USE_I2C
 
 /* Select hand configuration */
-#define PERMISSIVE_HOLD
 #define MASTER_LEFT
 // #define MASTER_RIGHT
 // #define EE_HANDS

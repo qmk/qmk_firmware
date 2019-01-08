@@ -35,6 +35,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define EE_HANDS
 
 
- #define PERMISSIVE_HOLD
-
+ 
 #endif
