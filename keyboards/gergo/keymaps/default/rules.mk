@@ -25,7 +25,6 @@ POINTING_DEVICE_ENABLE = yes
 EXTRAKEY_ENABLE  = yes # Audio control and System control(+450)
 CONSOLE_ENABLE   = yes # Console for debug(+400)
 COMMAND_ENABLE   = yes # Commands for debug and configuration
-CUSTOM_MATRIX    = yes # Custom matrix file for the ErgoDox EZ
 NKRO_ENABLE      = no  # USB Nkey Rollover
 UNICODE_ENABLE   = yes # Unicode
 
