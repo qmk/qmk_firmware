@@ -84,7 +84,7 @@ void unicode_input_start(void) {
 
   switch (unicode_config.input_mode) {
   case UC_OSX:
-    register_code(UNICODE_OSX_KEY);
+    register_code(UNICODE_KEY_OSX);
     break;
   case UC_LNX:
     tap_code16(LCTL(LSFT(KC_U)));
@@ -94,7 +94,7 @@ void unicode_input_start(void) {
     tap_code(KC_PPLS);
     break;
   case UC_WINC:
-    tap_code(UNICODE_WINC_KEY);
+    tap_code(UNICODE_KEY_WINC);
     tap_code(KC_U);
     break;
   }
@@ -106,7 +106,7 @@ __attribute__((weak))
 void unicode_input_finish(void) {
   switch (unicode_config.input_mode) {
   case UC_OSX:
-    unregister_code(UNICODE_OSX_KEY);
+    unregister_code(UNICODE_KEY_OSX);
     break;
   case UC_LNX:
     tap_code(KC_SPC);
@@ -123,7 +123,7 @@ __attribute__((weak))
 void unicode_input_cancel(void) {
   switch (unicode_config.input_mode) {
   case UC_OSX:
-    unregister_code(UNICODE_OSX_KEY);
+    unregister_code(UNICODE_KEY_OSX);
     break;
   case UC_LNX:
   case UC_WINC:

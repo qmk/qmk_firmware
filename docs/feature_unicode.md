@@ -69,7 +69,7 @@ The following input modes are available:
 * **`UC_OSX`**: Mac OS X built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with `UNICODEMAP`).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
-  By default, this mode uses the left Option key (`KC_LALT`), but this can be changed by defining [`UNICODE_OSX_KEY`](#input-key-configuration) with another keycode.
+  By default, this mode uses the left Option key (`KC_LALT`), but this can be changed by defining [`UNICODE_KEY_OSX`](#input-key-configuration) with another keycode.
 
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
@@ -85,7 +85,7 @@ The following input modes are available:
 * **`UC_WINC`**: Windows Unicode input using [WinCompose](https://github.com/samhocevar/wincompose). As of v0.8.2, supports code points up to `0xFFFFF` (all currently assigned code points).
 
   To enable, install the [latest release](https://github.com/samhocevar/wincompose/releases/latest). Once installed, WinCompose will automatically run on startup. Works reliably under all version of Windows supported by the app.
-  By default, this mode uses the right Alt key (`KC_RALT`), but this can be changed in the WinCompose settings and by defining [`UNICODE_WINC_KEY`](#input-key-configuration) with another keycode.
+  By default, this mode uses the right Alt key (`KC_RALT`), but this can be changed in the WinCompose settings and by defining [`UNICODE_KEY_WINC`](#input-key-configuration) with another keycode.
 
 ### Switching Input Modes
 
@@ -141,11 +141,11 @@ You can find the default implementations of these functions in [`process_unicode
 
 #### Input Key Configuration
 
-Additionally, you can customize the keys used to trigger the unicode input for macOS and WinCompose by adding defines to your `config.h`
+Additionally, you can customize the keys used to trigger Unicode input for macOS and WinCompose by adding defines to your `config.h`:
 
 ```c
-#define UNICODE_OSX_KEY  KC_LALT
-#define UNICODE_WINC_KEY KC_RALT
+#define UNICODE_KEY_OSX  KC_LALT
+#define UNICODE_KEY_WINC KC_RALT
 ```
 
 #### Input Method Cycling
