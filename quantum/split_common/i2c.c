@@ -7,8 +7,6 @@
 #include "i2c.h"
 #include "split_flags.h"
 
-#if defined(USE_I2C) || defined(EH)
-
 // Limits the amount of we wait for any one i2c transaction.
 // Since were running SCL line 100kHz (=> 10μs/bit), and each transactions is
 // 9 bits, a single transaction will take around 90μs to complete.
@@ -184,4 +182,3 @@ ISR(TWI_vect) {
   // Reset everything, so we are ready for the next TWI interrupt
   TWCR |= (1<<TWIE) | (1<<TWINT) | (ack<<TWEA) | (1<<TWEN);
 }
-#endif

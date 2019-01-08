@@ -81,16 +81,13 @@ enum quantum_keycodes {
 #endif
     QK_MOD_TAP            = 0x6000,
     QK_MOD_TAP_MAX        = 0x7FFF,
-#if defined(UNICODEMAP_ENABLE) && defined(UNICODE_ENABLE)
-    #error "Cannot enable both UNICODEMAP && UNICODE"
-#endif
 #ifdef UNICODE_ENABLE
     QK_UNICODE            = 0x8000,
     QK_UNICODE_MAX        = 0xFFFF,
 #endif
 #ifdef UNICODEMAP_ENABLE
-    QK_UNICODE_MAP        = 0x8000,
-    QK_UNICODE_MAP_MAX    = 0x83FF,
+    QK_UNICODEMAP         = 0x8000,
+    QK_UNICODEMAP_MAX     = 0x83FF,
 #endif
 
     // Loose keycodes - to be used directly
@@ -456,6 +453,15 @@ enum quantum_keycodes {
 
     EEPROM_RESET,
 
+    UNICODE_MODE_FORWARD,
+    UNICODE_MODE_REVERSE,
+
+    UNICODE_MODE_OSX,
+    UNICODE_MODE_LNX,
+    UNICODE_MODE_WIN,
+    UNICODE_MODE_BSD,
+    UNICODE_MODE_WINC,
+
     // always leave at the end
     SAFE_RANGE
 };
@@ -673,16 +679,22 @@ enum quantum_keycodes {
 #define KC_MEH  MEH(KC_NO)
 
 #ifdef UNICODE_ENABLE
-    // For sending unicode codes.
-    // You may not send codes over 7FFF -- this supports most of UTF8.
-    // To have a key that sends out Œ, go UC(0x0152)
-    #define UNICODE(n) (QK_UNICODE | (n))
-    #define UC(n) UNICODE(n)
+  // Allows Unicode input up to 0x7FFF
+  #define UC(c) (QK_UNICODE | (c))
+#endif
+#ifdef UNICODEMAP_ENABLE
+  // Allows Unicode input up to 0x10FFFF, requires unicode_map
+  #define X(i) (QK_UNICODEMAP | (i))
 #endif
 
-#ifdef UNICODEMAP_ENABLE
-    #define X(n) (QK_UNICODE_MAP | (n))
-#endif
+#define UC_MOD  UNICODE_MODE_FORWARD
+#define UC_RMOD UNICODE_MODE_REVERSE
+
+#define UC_M_OS UNICODE_MODE_OSX
+#define UC_M_LN UNICODE_MODE_LNX
+#define UC_M_WI UNICODE_MODE_WIN
+#define UC_M_BS UNICODE_MODE_BSD
+#define UC_M_WC UNICODE_MODE_WINC
 
 #ifdef SWAP_HANDS_ENABLE
   #define SH_T(kc) (QK_SWAP_HANDS | (kc))

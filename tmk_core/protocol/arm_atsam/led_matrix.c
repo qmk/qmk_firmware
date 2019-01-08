@@ -494,11 +494,11 @@ void led_matrix_task(void)
     if (led_enabled)
     {
         //If an update may run and frame processing has completed
-        if (CLK_get_ms() >= led_next_run && led_cur == lede)
+        if (timer_read64() >= led_next_run && led_cur == lede)
         {
             uint8_t drvid;
 
-            led_next_run = CLK_get_ms() + LED_UPDATE_RATE;  //Set next frame update time
+            led_next_run = timer_read64() + LED_UPDATE_RATE;  //Set next frame update time
 
             //NOTE: GCR does not need to be timed with LED processing, but there is really no harm
             if (gcr_actual != gcr_actual_last)

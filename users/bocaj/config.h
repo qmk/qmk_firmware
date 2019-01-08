@@ -10,11 +10,14 @@
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
 #undef PERMISSIVE_HOLD
+#define PREVENT_STUCK_MODIFIERS
 
 #ifdef TAPPING_TERM
 #undef TAPPING_TERM
 #endif // TAPPING_TERM
 #define TAPPING_TERM 175
+
+#define RETRO_TAPPING
 
 // Disable action_get_macro and fn_actions, since we don't use these
 // and it saves on space in the firmware.
@@ -26,7 +29,5 @@
 #endif // !NO_PRINT
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-
-#define DISABLE_LEADER
 
 #define MACRO_TIMER 5
