@@ -5,6 +5,7 @@
 #define USB_MAX_POWER_CONSUMPTION 100
 #define ONESHOT_TAP_TOGGLE        2
 #define ONESHOT_TIMEOUT           3000
+#define RETRO_TAPPING
 
 #define MOUSEKEY_INTERVAL         20
 #define MOUSEKEY_DELAY            0

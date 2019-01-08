@@ -61,9 +61,11 @@ It's advised that you wrap all audio features in `#ifdef AUDIO_ENABLE` / `#endif
 
 The available keycodes for audio are: 
 
-* `AU_ON` - Turn audio mode on
-* `AU_OFF` - Turn audio mode off
-* `AU_TOG` - Toggle audio mode
+* `AU_ON` - Turn Audio Feature on
+* `AU_OFF` - Turn Audio Feature off
+* `AU_TOG` - Toggle Audio Feature state
+
+!> These keycodes turn all of the audio functionality on and off.  Turning it off means that audio feedback, audio clicky, music mode, etc. are disabled, completely. 
 
 ## ARM Audio Volume
 
@@ -158,7 +160,7 @@ You can configure the default, min and max frequencies, the stepping and built i
 
 ## MIDI Functionality
 
-This is still a WIP, but check out `quantum/keymap_midi.c` to see what's happening. Enable from the Makefile.
+This is still a WIP, but check out `quantum/process_keycode/process_midi.c` to see what's happening. Enable from the Makefile.
 
 
 ## Audio Keycodes

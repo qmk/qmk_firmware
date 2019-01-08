@@ -116,7 +116,7 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 |`KC_LGUI`  |`KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key) |
 |`KC_RCTRL` |`KC_RCTL`           |Right Control                       |
 |`KC_RSHIFT`|`KC_RSFT`           |Right Shift                         |
-|`KC_RALT`  |                    |Right Alt                           |
+|`KC_RALT`  |`KC_ALGR`           |Right Alt (AltGr)                   |
 |`KC_RGUI`  |`KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)|
 
 ## International
