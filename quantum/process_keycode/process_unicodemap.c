@@ -15,7 +15,6 @@
  */
 
 #include "process_unicodemap.h"
-#include "process_unicode_common.h"
 
 __attribute__((weak))
 const uint32_t PROGMEM unicode_map[] = {};
