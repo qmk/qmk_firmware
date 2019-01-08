@@ -41,9 +41,9 @@ void register_hex32(uint32_t hex) {
 
 __attribute__((weak))
 uint16_t unicodemap_index(uint16_t keycode) {
-  if (keycode >= QK_UNICODEMAP_SHIFT) {
+  if (keycode >= QK_UNICODEMAP_PAIR) {
     // Keycode is a pair: extract index based on Shift / Caps Lock state
-    uint16_t index = keycode - QK_UNICODEMAP_SHIFT;
+    uint16_t index = keycode - QK_UNICODEMAP_PAIR;
 
     bool shift = unicode_saved_mods & (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT));
     bool caps = host_keyboard_leds() & 1<<USB_LED_CAPS_LOCK;
@@ -57,7 +57,7 @@ uint16_t unicodemap_index(uint16_t keycode) {
 }
 
 bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
-  if (keycode >= QK_UNICODEMAP && keycode <= QK_UNICODEMAP_SHIFT_MAX && record->event.pressed) {
+  if (keycode >= QK_UNICODEMAP && keycode <= QK_UNICODEMAP_PAIR_MAX && record->event.pressed) {
     unicode_input_start();
 
     uint32_t code = pgm_read_dword(unicode_map + unicodemap_index(keycode));
