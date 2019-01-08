@@ -124,6 +124,24 @@ void unicode_input_finish(void) {
 }
 
 __attribute__((weak))
+void unicode_input_cancel(void) {
+  switch (unicode_config.input_mode) {
+  case UC_OSX:
+    unregister_code(UNICODE_OSX_KEY);
+    break;
+  case UC_LNX:
+  case UC_WINC:
+    tap_code(KC_ESC);
+    break;
+  case UC_WIN:
+    unregister_code(KC_LALT);
+    break;
+  }
+
+  set_mods(unicode_saved_mods); // Reregister previously set mods
+}
+
+__attribute__((weak))
 uint16_t hex_to_keycode(uint8_t hex) {
   if (hex == 0x0) {
     return KC_0;

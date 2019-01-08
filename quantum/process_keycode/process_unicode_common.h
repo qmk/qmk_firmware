@@ -73,6 +73,7 @@ void persist_unicode_input_mode(void);
 
 void unicode_input_start(void);
 void unicode_input_finish(void);
+void unicode_input_cancel(void);
 
 void register_hex(uint16_t hex);
 void send_unicode_hex_string(const char *str);

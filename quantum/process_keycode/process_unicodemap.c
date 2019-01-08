@@ -56,9 +56,6 @@ uint16_t unicodemap_index(uint16_t keycode) {
   }
 }
 
-__attribute__((weak))
-void unicodemap_input_error() {}
-
 bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
   if (keycode > QK_UNICODEMAP && record->event.pressed) {
     unicode_input_start();
@@ -72,14 +69,14 @@ bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
       uint32_t lo = code & 0x3FF, hi = (code & 0xFFC00) >> 10;
       register_hex32(hi + 0xD800);
       register_hex32(lo + 0xDC00);
+      unicode_input_finish();
     } else if ((code > 0x10FFFF && input_mode == UC_OSX) || (code > 0xFFFFF && input_mode == UC_LNX)) {
       // Character is out of range supported by the OS
-      unicodemap_input_error();
+      unicode_input_cancel();
     } else {
       register_hex32(code);
+      unicode_input_finish();
     }
-
-    unicode_input_finish();
   }
   return true;
 }
