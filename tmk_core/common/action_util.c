@@ -52,17 +52,15 @@ static int8_t oneshot_mods = 0;
 static int8_t oneshot_locked_mods = 0;
 int8_t get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
 void set_oneshot_locked_mods(int8_t mods) {
-    uint8_t original_oneshot_locked_mods = oneshot_locked_mods;
-    oneshot_locked_mods = mods;
-    if (original_oneshot_locked_mods != oneshot_locked_mods) {
-        oneshot_locked_mods_set_kb(oneshot_locked_mods);
+    if (mods != oneshot_locked_mods) {
+        oneshot_locked_mods = mods;
+        oneshot_locked_mods_set_kb(mods);
     }
 }
-void clear_oneshot_locked_mods(void) {
-    uint8_t original_oneshot_locked_mods = oneshot_locked_mods;
-    oneshot_locked_mods = 0;
-    if (original_oneshot_locked_mods != oneshot_locked_mods) {
-        oneshot_locked_mods_cleared_kb();
+void clear_oneshot_locked_mods(int8_t mods) {
+    if (mods != oneshot_locked_mods) {
+        oneshot_locked_mods = 0;
+        oneshot_locked_mods_set_kb(mods);
     }
 }
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
@@ -255,31 +253,27 @@ void clear_macro_mods(void) { macro_mods = 0; }
  *
  * FIXME: needs doc
  */
-void set_oneshot_mods(uint8_t mods)
-{
-    uint8_t original_oneshot_mods = oneshot_mods;
-    oneshot_mods = mods;
+void set_oneshot_mods(uint8_t mods) {
+  if (oneshot_mods != mods) {
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_time = timer_read();
 #endif
-    if (original_oneshot_mods != oneshot_mods) {
-        oneshot_mods_set_kb(oneshot_mods);
-    }
+    oneshot_mods = mods;
+    oneshot_mods_set_kb(mods);
+  }
 }
 /** \brief clear oneshot mods
  *
  * FIXME: needs doc
  */
-void clear_oneshot_mods(void)
-{
-    uint8_t original_oneshot_mods = oneshot_mods;
+void clear_oneshot_mods(void) {
+  if (oneshot_mods!= mods) {
     oneshot_mods = 0;
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_time = 0;
 #endif
-    if (original_oneshot_mods != oneshot_mods) {
-        oneshot_mods_cleared_kb();
-    }
+    oneshot_mods_cleared_kb();
+  }
 }
 /** \brief get oneshot mods
  *
