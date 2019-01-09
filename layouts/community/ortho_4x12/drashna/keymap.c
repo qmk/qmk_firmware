@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_MAKE, _________________ADJUST_L1_________________, _________________ADJUST_R1_________________, KC_RST,
   VRSN,    _________________ADJUST_L2_________________, _________________ADJUST_R2_________________, EEP_RST,
   _______, _________________ADJUST_L3_________________, _________________ADJUST_R3_________________, TG_MODS,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_NUKE
 )
 
 
@@ -218,5 +218,16 @@ void rgb_matrix_indicators_user(void) {
 
 void matrix_init_keymap(void) {
   rgblight_mode(RGB_MATRIX_MULTISPLASH);
+}
+#else //RGB_MATRIX_INIT
+
+void matrix_init_keymap(void) {
+  #ifndef CONVERT_TO_PROTON_C
+    setPinOutput(D5);
+    writePinHigh(D5);
+
+    setPinOutput(B0);
+    writePinHigh(B0);
+  #endif
 }
 #endif //RGB_MATRIX_INIT
