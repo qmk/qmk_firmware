@@ -48,7 +48,7 @@
 // and when this option isn't enabled, z rapidly followed by x
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
-#undef PERMISSIVE_HOLD
+#define PERMISSIVE_HOLD
 //#define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 
