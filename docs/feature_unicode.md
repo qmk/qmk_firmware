@@ -26,7 +26,7 @@ const uint32_t PROGMEM unicode_map[] = {
 };
 ```
 
-Then you can use `X(BANG)` etc. in your keymap.
+Then you can use `X(BANG)`, `X(SNEK)` etc. in your keymap.
 
 ### Lower and Upper Case
 
@@ -38,7 +38,7 @@ Due to keycode size constraints, _i_ and _j_ can each only refer to one of the f
 
 Supports Unicode up to `0x10FFFF` (all possible code points). As with `UNICODEMAP`, you need to maintain a mapping table in your keymap file. However, there are no built-in keycodes for this feature — you have to add a keycode or function that calls `qk_ucis_start()`. Once this function has been called, you can type the corresponding mnemonic for your character, then hit Space or Enter to complete it, or Esc to cancel. If the mnemonic matches an entry in your table, the typed text will automatically be erased and the corresponding Unicode character inserted.
 
-For instance, you would define a table like this in your keymap file:
+For instance, you could define a table like this in your keymap file:
 
 ```c
 const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
@@ -48,7 +48,7 @@ const qk_ucis_symbol_t ucis_symbol_table[] = UCIS_TABLE(
 );
 ```
 
-You call `qk_ucis_start()`, then type "rofl" and hit Enter. QMK should erase the "rofl" text and input the laughing emoji.
+To use it, call `qk_ucis_start()`, then type "rofl" and hit Enter. QMK should erase the "rofl" text and insert the laughing emoji.
 
 ### Customization
 
@@ -66,7 +66,7 @@ Unicode input in QMK works by inputting a sequence of characters to the OS, sort
 
 The following input modes are available:
 
-* **`UC_OSX`**: Mac OS X built-in Unicode hex input. Supports code points up to `0xFFFF` with `UNICODE`, and `0x10FFFF` (all possible code points) with `UNICODEMAP`.
+* **`UC_OSX`**: Mac OS X built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with `UNICODEMAP`).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_OSX`](#input-key-configuration) with another keycode.
@@ -74,7 +74,7 @@ The following input modes are available:
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
-  By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with another keycode. This might be required on IBus versions ≥1.5.15, where Ctrl+Shift+U behavior was consolidated into Ctrl+Shift+E.
+  By default, this mode uses Ctrl+Shift+U (`LCTL(LSFT(KC_U))`) to start Unicode input, but this can be changed by defining [`UNICODE_KEY_LNX`](#input-key-configuration) with another keycode. This might be required for IBus versions ≥1.5.15, where Ctrl+Shift+U behavior is consolidated into Ctrl+Shift+E.
 
 * **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
