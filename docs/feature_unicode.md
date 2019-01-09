@@ -30,9 +30,9 @@ Then you can use `X(BANG)` etc. in your keymap.
 
 ### Lower and Upper Case
 
-Characters often come in lower and upper case pairs, for example: å, Å. To make inputting these characters easier, you can use `XS(i, j)` in your keymap, where _i_ and _j_ are the mapping table indices of the lower and upper case characters, respectively. If Caps Lock is on or you're holding down Shift when you press the key, the second (upper case) character will be inserted; otherwise, the first (lower case) version will come out.
+Characters often come in lower and upper case pairs, for example: å, Å. To make inputting these characters easier, you can use `XP(i, j)` in your keymap, where _i_ and _j_ are the mapping table indices of the lower and upper case character, respectively. If you're holding down Shift or have Caps Lock turned on when you press the key, the second (upper case) character will be inserted; otherwise, the first (lower case) version will appear.
 
-Due to keycode size constraints, _i_ and _j_ can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ _i_, _j_ ≤ 127.
+Due to keycode size constraints, _i_ and _j_ can each only refer to one of the first 128 characters in your `unicode_map`. In other words, 0 ≤ _i_ ≤ 127 and 0 ≤ _j_ ≤ 127.
 
 ## `UCIS_ENABLE`
 

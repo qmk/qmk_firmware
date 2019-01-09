@@ -458,4 +458,4 @@ This is a reference only. Each group of keys links to the page documenting their
 |----------|-------------------------------------------------------------------------------------|
 |`UC(c)`   |Send Unicode code point `c` (`UNICODE_ENABLE`)                                       |
 |`X(i)`    |Send Unicode code point at index `i` in `unicode_map` (`UNICODEMAP_ENABLE`)          |
-|`XS(i, j)`|Send Unicode code point at index `i` or `j` if Shift/Caps is on (`UNICODEMAP_ENABLE`)|
+|`XP(i, j)`|Send Unicode code point at index `i` or `j` if Shift/Caps is on (`UNICODEMAP_ENABLE`)|

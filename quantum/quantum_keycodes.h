@@ -687,7 +687,7 @@ enum quantum_keycodes {
 #ifdef UNICODEMAP_ENABLE
   // Allows Unicode input up to 0x10FFFF, requires unicode_map
   #define X(i)     (QK_UNICODEMAP | (i))
-  #define XS(i, j) (QK_UNICODEMAP_PAIR | ((i) & 0x7F) | (((j) & 0x7F) << 7)) // 127 max i and j
+  #define XP(i, j) (QK_UNICODEMAP_PAIR | ((i) & 0x7F) | (((j) & 0x7F) << 7)) // 127 max i and j
 #endif
 
 #define UC_MOD  UNICODE_MODE_FORWARD
