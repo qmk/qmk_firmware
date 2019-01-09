@@ -67,6 +67,10 @@ void matrix_scan_user(void) {
     // anything you can do in a macro https://docs.qmk.fm/macros.html
     // https://docs.qmk.fm/feature_leader_key.html
 
+    // Stop music and lock computer via alfred
+    SEQ_ONE_KEY(KC_H) {
+      SEND_STRING(SS_LGUI(" ") "afk" SS_TAP(X_ENTER) SS_TAP(X_MEDIA_PLAY_PAUSE));
+    }
     // Whole Screen Shot
     SEQ_ONE_KEY(KC_A) {
       SEND_STRING(SS_LGUI(SS_LSFT("3")));
