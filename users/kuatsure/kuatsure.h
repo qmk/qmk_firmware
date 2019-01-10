@@ -15,6 +15,7 @@ void tmux_prefix(void);
 void tmux_pane_zoom(void);
 
 #define KT_CESC CTL_T(KC_ESC)
+#define KT_MTAB MEH_T(KC_TAB)
 
 #undef LEADER_TIMEOUT
 #define LEADER_TIMEOUT 300
