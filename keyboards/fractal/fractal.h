@@ -1,5 +1,4 @@
-#ifndef FRACTAL_H
-#define FRACTAL_H
+#pragma once
 
 #include "quantum.h"
 
@@ -30,7 +29,3 @@
   { K300,  K301,  K302,  K303,  K304,  K305,  K306,  K307,  K308,  K309,  K310,  K311 }, \
   { K400,  K401,  K402,  K403,  K404,  KC_NO, K406,  K407,  K408,  K409,  K410,  K411 }  \
 }
-
-#define KEYMAP LAYOUT_preonic_mit
-
-#endif
