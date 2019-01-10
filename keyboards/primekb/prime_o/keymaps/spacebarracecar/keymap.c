@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_PPLS,  KC_P7,    KC_P8,    KC_P9,    KC_TAB,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     CU_Z,     DE_U,     DE_I,     DE_O,     DE_P,     KC_BSPC,
   CU_EQL,   KC_P4,    KC_P5,    KC_P6,    CU_NAV,   DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     DE_H,     DE_J,     DE_K,     DE_L,     CU_SCLN,  CU_QUOT,
   KC_PENT,  KC_P1,    KC_P2,    KC_P3,    CU_LSFT,  CU_Y,     DE_X,     DE_C,     DE_V,     DE_B,     DE_N,     DE_M,     CU_COMM,  CU_DOT,   CU_SLSH,  CU_RSFT,
-  KC_BSPC,  KC_PDOT,  KC_P0,    KC_P00,   KC_LCTL,  XXXXXXX,  KC_LGUI,  KC_LALT,  LOWER,    KC_SPC,   KC_ENT,   RAISE,    KC_RALT,  KC_RGUI,  KC_APP,   KC_RCTL
+  KC_BSPC,  KC_PDOT,  KC_P0,    KC_P00,   KC_LCTL,  XXXXXXX,  KC_LGUI,  KC_LALT,  LOWER,    KC_SPC,   CU_ENT,   RAISE,    KC_RALT,  KC_RGUI,  KC_APP,   KC_RCTL
 ),
 
 /* Lower
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,  _______,  _______,  _______,  ALTF4,    KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
   _______,  _______,  _______,  _______,  _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  XXXXXXX,  GUIL,     GUID,     GUIR,     XXXXXXX,  KC_ENT,
   _______,  _______,  _______,  _______,  _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
-  _______,  _______,  _______,  _______,  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   KC_ENT,   _______,  _______,  _______,  _______,  CU_GAME
+  _______,  _______,  _______,  _______,  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   CU_ENT,   _______,  _______,  _______,  _______,  CU_GAME
 ),
 
 // Can be used to place macros on the numpad
@@ -157,7 +157,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     KC_P7,    KC_P8,    KC_P9,    KC_PPLS,  CU_Z,     DE_U,     DE_I,     DE_O,     DE_P,     KC_BSPC,
   CU_NAV,   DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     KC_P4,    KC_P5,    KC_P6,    CU_EQL,   DE_H,     DE_J,     DE_K,     DE_L,     CU_SCLN,  CU_QUOT,
   CU_LSFT,  CU_Y,     DE_X,     DE_C,     DE_V,     DE_B,     KC_P1,    KC_P2,    KC_P3,    KC_PENT,  DE_N,     DE_M,     CU_COMM,  CU_DOT,   CU_SLSH,  CU_RSFT,
-  KC_LCTL,  XXXXXXX,  KC_LGUI,  KC_LALT,  LOWER,    KC_SPC,   KC_P00,   KC_P0,    KC_PDOT,  KC_TAB,   KC_ENT,   RAISE,    KC_RALT,  KC_RGUI,  KC_APP,   KC_RCTL
+  KC_LCTL,  XXXXXXX,  KC_LGUI,  KC_LALT,  LOWER,    KC_SPC,   KC_P00,   KC_P0,    KC_PDOT,  KC_TAB,   CU_ENT,   RAISE,    KC_RALT,  KC_RGUI,  KC_APP,   KC_RCTL
 ),
 
 /* Lower
@@ -245,7 +245,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ALTF4,    KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  _______,  _______,  _______,  _______,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
   _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  _______,  _______,  _______,  _______,  XXXXXXX,  GUIL,     GUID,     GUIR,     XXXXXXX,  KC_ENT,
   _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  _______,  _______,  _______,  _______,  KC_MUTE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
-  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   _______,  _______,  _______,  _______,  KC_ENT,   _______,  _______,  _______,  _______,  CU_GAME
+  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   _______,  _______,  _______,  _______,  CU_ENT,   _______,  _______,  _______,  _______,  CU_GAME
 ),
 
 // Can be used to place macros on the numpad
@@ -278,7 +278,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     CU_Z,     DE_U,     DE_I,     DE_O,     DE_P,     KC_BSPC,  KC_P7,    KC_P8,    KC_P9,    KC_PPLS,
   CU_NAV,   DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     DE_H,     DE_J,     DE_K,     DE_L,     CU_SCLN,  CU_QUOT,  KC_P4,    KC_P5,    KC_P6,    CU_EQL,
   CU_LSFT,  CU_Y,     DE_X,     DE_C,     DE_V,     DE_B,     DE_N,     DE_M,     CU_COMM,  CU_DOT,   CU_SLSH,  CU_RSFT,  KC_P1,    KC_P2,    KC_P3,    KC_PENT,
-  KC_LCTL,  XXXXXXX,  KC_LGUI,  KC_LALT,  LOWER,    KC_SPC,   KC_ENT,   RAISE,    KC_RALT,  KC_RGUI,  KC_APP,   KC_RCTL,  KC_P00,   KC_P0,    KC_PDOT,  KC_TAB
+  KC_LCTL,  XXXXXXX,  KC_LGUI,  KC_LALT,  LOWER,    KC_SPC,   CU_ENT,   RAISE,    KC_RALT,  KC_RGUI,  KC_APP,   KC_RCTL,  KC_P00,   KC_P0,    KC_PDOT,  KC_TAB
 ),
 
 /* Lower
@@ -366,7 +366,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ALTF4,    KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,   _______,  _______,  _______,  _______,
   _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  XXXXXXX,  GUIL,     GUID,     GUIR,     XXXXXXX,  KC_ENT,   _______,  _______,  _______,  _______,
   _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,  _______,  _______,  _______,  _______,
-  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   KC_ENT,   _______,  _______,  _______,  _______,  CU_GAME,  _______,  _______,  _______,  _______
+  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   CU_ENT,   _______,  _______,  _______,  _______,  CU_GAME,  _______,  _______,  _______,  _______
 ),
 
 // Can be used to place macros on the numpad

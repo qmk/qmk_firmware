@@ -12,6 +12,7 @@ enum userspace_custom_keycodes {
   CU_GAME = SAFE_RANGE,     // Toggle game mode on/off
   CU_NAV,                   // NAV | ESC
   KC_P00,                   // Numpad double zero
+  CU_ENT,                   // CTL | ENT
 
   #ifdef GERMAN_ENABLE
   CU_LSFT,                  // LSFT | (
@@ -70,6 +71,9 @@ extern bool esct;
 
 extern bool navesc;
 extern uint16_t navesc_timer;
+
+extern bool ctlent;
+extern uint16_t ctlent_timer;
 
 extern bool game;
 

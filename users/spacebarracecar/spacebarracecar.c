@@ -61,6 +61,10 @@ void unreg_prev(void){
 bool navesc = false;
 uint16_t navesc_timer = 0;
 
+// Interrupt and times for Ctl/Ent
+bool ctlent = false;
+uint16_t ctlent_timer = 0;
+
 // If true Gui keys and Space Cadet Shift get disabled
 bool game = false;
 
@@ -71,6 +75,7 @@ void timer_timeout(void){
   rshiftp = false;
   #endif
   navesc = false;
+  ctlent = false;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -101,6 +106,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_ESC);
       }
       layer_off(_NAV);
+    }
+    return false;
+  case CU_ENT:
+    if(record->event.pressed) {
+      ctlent = true;
+      ctlent_timer = timer_read();
+      register_code(KC_LCTL);
+    } else {
+      unregister_code(KC_LCTL);
+      if (timer_elapsed(ctlent_timer) < 200 && ctlent) {
+        register_code(KC_ENT);
+        unregister_code(KC_ENT);
+      }
     }
     return false;
   case KC_P00:
