@@ -176,11 +176,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 void hold_shift(void) {
   shift_count = shift_count + 1;
   register_code(KC_LSHIFT);

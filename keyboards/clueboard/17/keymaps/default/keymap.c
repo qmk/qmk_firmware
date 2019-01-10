@@ -55,9 +55,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*enum function_id {
 };*/
 
-const uint16_t PROGMEM fn_actions[] = {
-};
-
 void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
   switch (id) {
   }
