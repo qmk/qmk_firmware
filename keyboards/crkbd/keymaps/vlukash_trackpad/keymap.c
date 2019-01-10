@@ -1,5 +1,9 @@
 #include QMK_KEYBOARD_H
 #include "bootloader.h"
+#include "mousekey.h"
+#include "pointing_device.h"
+#include "report.h"
+
 #ifdef PROTOCOL_LUFA
   #include "lufa.h"
   #include "split_util.h"
@@ -29,7 +33,8 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   BACKLIT,
-  RGBRST
+  RGBRST,
+  MBTN1
 };
 
 enum macro_keycodes {
@@ -56,7 +61,8 @@ enum macro_keycodes {
 #define KC_SFTZ SFT_T(KC_Z)
 #define KC_SFTSL SFT_T(KC_SLSH)
 
-12300
+#define KC_MBTN1  MBTN1
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
@@ -66,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       GRAVE,  SFTZ,     X,     C,     V,     B,                      N,     M,  COMM,   DOT, SFTSL,  BSPC,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  RAISE, LOWER,   SPC,      ENT,  BTN1, RAISE \
+                                  RAISE, LOWER,   SPC,      ENT, MBTN1, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
@@ -74,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC, XXXXX,  PGDN,  PSCR,  PGUP,  LBRC,                   RBRC,     7,     8,     9, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX, LCTRL,  PLUS,  MINS,   EQL,  LBRC,                   RBRC,     4,     5,     6, RCTRL,  QUOT,\
+      XXXXX, LCTRL,  PLUS,  MINS,   EQL,  LPRN,                   RPRN,     4,     5,     6, RCTRL,  QUOT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       XXXXX,  LSFT,  HOME, XXXXX,   END,  LCBR,                   RCBR,     1,     2,     3,  RSFT, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
@@ -100,7 +106,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,   RST,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
                                   RAISE, LOWER,   SPC,      ENT, LOWER, RAISE \
                               //`--------------------'  `--------------------'
@@ -130,6 +136,7 @@ void matrix_init_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  report_mouse_t currentReport = {};
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -184,7 +191,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
+    case MBTN1:
+      currentReport = pointing_device_get_report();
+      if (record->event.pressed) {
+        currentReport.buttons |= MOUSE_BTN1;
+      }
+      else {
+        currentReport.buttons &= ~MOUSE_BTN1;
+      }
+      pointing_device_set_report(currentReport);
+      pointing_device_send();
+      return false;
+      break;
   }
   return true;
 }
-
