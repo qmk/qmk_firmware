@@ -4,14 +4,6 @@
 */
 #define DISABLE_RGB_MATRIX_DIGITAL_RAIN
 #define DISABLE_RGB_MATRIX_ALPHAS_MODS
-<<<<<<< HEAD
-// #define TAPPING_TERM 200
 #define QMK_KEYS_PER_SCAN 4
-=======
->>>>>>> dev_branch
 
 #define EECONFIG_RGB_MATRIX (uint32_t *)16
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-#define NO_ACTION_TAPPING

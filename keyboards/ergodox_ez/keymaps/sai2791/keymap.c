@@ -81,17 +81,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            KC_TRANSPARENT,KC_EXLM,KC_AT,KC_LCBR,KC_RCBR,KC_PIPE,KC_TRANSPARENT,
                                            KC_TRANSPARENT,KC_HASH,KC_DLR,KC_LPRN,KC_RPRN,KC_GRAVE,
                                            KC_TRANSPARENT,KC_PERC,KC_CIRC,KC_LBRACKET,KC_RBRACKET,KC_TILD,KC_TRANSPARENT,
-<<<<<<< HEAD
                                            KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
                                                                                 RGB_MOD,KC_TRANSPARENT,
                                                                                 KC_TRANSPARENT,
                                                                                 RGB_VAD,RGB_VAI,KC_TRANSPARENT,
-=======
-                                          KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,KC_TRANSPARENT,
-                                          RGB_MOD,KC_TRANSPARENT,
-                                          KC_TRANSPARENT,
-                                          RGB_VAD,RGB_VAI,KC_TRANSPARENT,
->>>>>>> dev_branch
 
                                            KC_TRANSPARENT,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,
                                            KC_TRANSPARENT,KC_UP,KC_7,KC_8,KC_9,KC_ASTR,KC_F12,

@@ -3,8 +3,4 @@
 SRC = matrix.c
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
-<<<<<<< HEAD
-TAP_DANCE_ENABLE = no
-=======
-TAP_DANCE_ENABLE= no
->>>>>>> dev_branch
+TAP_DANCE_ENABLE = yes
