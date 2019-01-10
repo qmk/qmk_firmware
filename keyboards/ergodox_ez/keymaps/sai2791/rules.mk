@@ -3,4 +3,3 @@
 SRC = matrix.c
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
-TAP_DANCE_ENABLE = yes
