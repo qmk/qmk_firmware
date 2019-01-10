@@ -108,8 +108,8 @@ extern uint32_t default_layer_state;
     #include "process_unicodemap.h"
 #endif
 
-#ifdef HID_KEYCODES_ENABLE
-  #include "process_hid_keycodes.h"
+#ifdef EXTRAKEY_ENABLE
+  #include "process_extra_keycodes.h"
 #endif
 
 #ifdef TAP_DANCE_ENABLE

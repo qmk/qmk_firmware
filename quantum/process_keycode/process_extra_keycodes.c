@@ -13,24 +13,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifdef HID_KEYCODES_ENABLE
-#include "process_hid_keycodes.h"
+#ifdef EXTRAKEY_ENABLE
+#include "process_extra_keycodes.h"
 
-bool process_hid_keycodes(uint16_t keycode, keyrecord_t *record) {
-  if IS_SYSTEM(keycode) {
-    host_system_send(KEYCODE2SYSTEM(keycode));
-  }
-  else if IS_CONSUMER(keycode) {
-    host_consumer_send(KEYCODE2CONSUMER(keycode));
-  }
-  #if TAP_CODE_DELAY > 0
-    wait_ms(TAP_CODE_DELAY);
-  #endif
-  if IS_SYSTEM(keycode) {
-    host_system_send(0);
-  }
-  else if IS_CONSUMER(keycode) {
-    host_consumer_send(0);
+bool process_extra_keycodes(uint16_t keycode, keyrecord_t *record) {
+  if (IS_SYSTEM(keycode) || IS_CONSUMER(keycode)) {
+    tap_code16(keycode);
+    return false;
   }
   return true;
 }

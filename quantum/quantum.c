@@ -115,6 +115,16 @@ static inline void qk_unregister_mods(uint8_t kc) {
 }
 
 void register_code16 (uint16_t code) {
+#ifdef EXTRAKEY_ENABLE
+  if IS_SYSTEM(code) {
+    host_system_send(KEYCODE2SYSTEM(code));
+    return;
+  }
+  else if IS_CONSUMER(code) {
+    host_consumer_send(KEYCODE2CONSUMER(code));
+    return;
+  }
+#endif
   if (IS_MOD(code) || code == KC_NO) {
       do_code16 (code, qk_register_mods);
   } else {
@@ -124,6 +134,16 @@ void register_code16 (uint16_t code) {
 }
 
 void unregister_code16 (uint16_t code) {
+#ifdef EXTRAKEY_ENABLE
+  if IS_SYSTEM(code) {
+    host_system_send(0);
+    return;
+  }
+  else if IS_CONSUMER(code) {
+    host_consumer_send(0);
+    return;
+  }
+#endif
   unregister_code (code);
   if (IS_MOD(code) || code == KC_NO) {
       do_code16 (code, qk_unregister_mods);
@@ -282,8 +302,8 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
   #endif
-  #ifdef HID_KEYCODES_ENABLE
-    process_hid_keycodes(keycode, record) &&
+  #ifdef EXTRAKEY_ENABLE
+    process_extra_keycodes(keycode, record) &&
   #endif
       true)) {
     return false;
