@@ -110,14 +110,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   case CU_ENT:
     if(record->event.pressed) {
-      ctlent = true;
-      ctlent_timer = timer_read();
-      register_code(KC_LCTL);
-    } else {
-      unregister_code(KC_LCTL);
-      if (timer_elapsed(ctlent_timer) < 200 && ctlent) {
+      if (game) {
         register_code(KC_ENT);
+      } else {
+        ctlent = true;
+        ctlent_timer = timer_read();
+        register_code(KC_LCTL);
+      }
+    } else {
+      if (game) {
         unregister_code(KC_ENT);
+      } else {
+        unregister_code(KC_LCTL);
+        if (timer_elapsed(ctlent_timer) < 200 && ctlent) {
+          register_code(KC_ENT);
+          unregister_code(KC_ENT);
+        }
       }
     }
     return false;
