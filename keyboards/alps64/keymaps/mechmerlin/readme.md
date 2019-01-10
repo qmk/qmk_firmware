@@ -4,7 +4,6 @@ This is the 60% infinity layout used by u/merlin36, host of the [MechMerlin](www
 YouTube channel.
 
 ## Keymap Notes
-- Arrow toggle switch is tapping the `FN` key once. 
 - `Caps Lock` can be held to act as a `Left Control`
 
 ### Build
