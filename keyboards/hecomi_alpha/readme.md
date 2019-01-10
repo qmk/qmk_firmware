@@ -2,11 +2,13 @@
 
 ![hecomi_alpha](imgur.com image replace me!)
 
-A short description of the keyboard/project
+This keyboard based on HHKB pro 2 and physical layout designed by @hecomi and @takashiski.
 
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+This keyboard use 2 pro micro's, but you can use USB type-c. There are a bit tricky implementation.
+
+Keyboard Maintainer: [takashiski](https://github.com/takashiski)  
+Hardware Supported: hecomi_alpha, promicro  
+Hardware Availability: booth(@skyhigh_works)
 
 Make example for this keyboard (after setting up your build environment):
 
