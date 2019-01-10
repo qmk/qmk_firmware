@@ -1,12 +1,14 @@
 # ErgoDox EZ Code Friendly Colemak Layout
 
-  This layout was inspired by qwerty_code_friendly layout. 
+  _This layout was inspired by qwerty_code_friendly layout._ 
 
   Having all the symbols accessible without modifiers is a good improvement for coding.
+
+  There are only two layouts which is easy to memorize.
+
+  There are two _"Super shifts"_, LNUM and RNUM, placed on the most convenient physical keys. Each of them act as shift for the opposite side of the keyboard, and as a modifier key for the current side (usage similar to AltGr in many national layouts). This is achieved by duplicating the parts of Layer 0 and 1 into Layer 3 and 4. As a bonus, pressing both toggles Caps-Lock.
   
-  The LNUM and RNUM keys makes this layout really easy to operate. There are basically two layouts, but when you press LNUM the left side becomes a symbol layout, where the right side becomes shifted. RNUM behaves the same way. I have been always using the opposite hand shifts so these keys behave for me like a regular shifts but on Ergodox I can conveniently press any key on the same side of the keyboard whilst holding LNUM or RNUM, thus the keys became also a modifier keys without any confusion! As a bonus, pressing both toggles Caps-Lock.
-  
-  The numerical keypad is composed from regular number keys because I use it also in macOS.
+  The numerical keypad is composed from regular number keys, works even in macOS.
 
 ## Keymap 0: Basic layer
 
