@@ -18,14 +18,14 @@
 #define _BOARD_H_
 
 /*
- * Setup for Clueboard 60% Keyboard
+ * Setup for Generic STM32_F303 Board
  */
 
 /*
  * Board identifier.
  */
 #define BOARD_GENERIC_STM32_F303XC
-#define BOARD_NAME                  "Planck PCB"
+#define BOARD_NAME                  "STM32_F303"
 
 /*
  * Board oscillators-related settings.
