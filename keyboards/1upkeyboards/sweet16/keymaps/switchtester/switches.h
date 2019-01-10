@@ -1,3 +1,5 @@
+#pragma once
+
 struct mechswitch
 {
   unsigned int brand: 4;
