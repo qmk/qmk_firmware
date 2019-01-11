@@ -34,20 +34,21 @@ enum layers{
 };
 
 #define KC_FN MO(FN)
+#define KC_SFT(XXX) LSFT(XXX)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[DF]=LAYOUT(\
 			ESC,1,2,3,4,5,6,                  7,8,9,0,MINS,EQL,NUHS,GRV,\
-			TAB  ,Q,W,E,R,T,Y,                 Y,U,I,O,P,LBRC,RBRC,BSPC,\
+			TAB  ,Q,W,E,R,T,Y,                 Y,U,I,O,P,LBRC,RBRC,DEL,\
 			LCTRL ,A,S,D,F,G,                     H,J,K,L,SCLN,QUOT,ENT,\
 			LSFT   ,Z,X,C,V,B,               B,N,M,COMM,DOT,SLSH,RSFT,FN,\
 			LCTRL,LGUI,LALT,MHEN,BSPC,SPC,  ENT,ESC,HENK,RALT,RGUI,RCTRL\
 			),
 	[FN]=LAYOUT(\
-			ESC,1,2,3,4,5,6,                  7,8,9,0,MINS,EQL,NUHS,GRV,\
-			TAB  ,Q,W,E,R,T,Y,                 Y,U,I,O,P,LBRC,RBRC,BSPC,\
-			LCTRL ,A,S,D,F,G,                     H,J,K,L,SCLN,QUOT,ENT,\
-			LSFT   ,Z,X,C,V,B,               B,N,M,COMM,DOT,SLSH,RSFT,0,\
+			ESC,F1,F2,F3,F4,F5,F6,                  F7,F8,F9,F10,F11,F12,INS,DEL,\
+			TAB  ,Q,W,E,R,T,Y,                 Y,U,PSCR,SLCK,PAUSE,UP,RBRC,BSPC,\
+			CAPS ,A,S,D,F,G,                     SFT(KC_8),SLSH,HOME,PGUP,LEFT,RIGHT,ENT,\
+			LSFT   ,Z,X,C,V,B,               B,SFT(KC_EQL),MINS,END,PGDN,DOWN,RSFT,0,\
 			LCTRL,LGUI,LALT,MHEN,BSPC,SPC,  ENT,ESC,HENK,RALT,RGUI,RCTRL\
 			),
 };
