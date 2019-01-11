@@ -1,8 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "muse.h"
-
-extern keymap_config_t keymap_config;
-
 enum planck_layers {
   _DEFAULT,
   _LOWER,
