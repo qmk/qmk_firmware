@@ -36,7 +36,7 @@ LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
 	 	KC_LSFT,  KC_A, 	KC_S, 	 KC_D, 	 KC_F, 	  KC_G,         					  KC_H, 	KC_J, 	KC_K, 	  KC_L,  KC_OE,   KC_AE,
 	//├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-	 	KC_LCTL,   KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,   RAISE,           KC_BSPC,  KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_MINS,
+	 	KC_LCTL,   KC_Z,   KC_X,    KC_C,    KC_V,    KC_B,   RAISE,           KC_BSPC,  KC_N,    KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_NO,
 	//└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
 	                   				   KC_LGUI, KC_LALT, KC_SPC,         			 KC_ENT,  ADJUST, KC_RALT
 								  // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
@@ -44,13 +44,13 @@ LT(_LOWER, KC_TAB),KC_Q,  KC_W, 	KC_E, 	 KC_R, 	  KC_T,                				  KC_
 
 	[_LOWER] = LAYOUT(
 	//┌────────┬────────┬────────┬────────┬────────┬────────┐                          ┌────────┬────────┬────────┬────────┬────────┬────────┐
-	   NO_TILD,  KC_EXLM, NO_AT,   KC_HASH, NO_DLR, KC_PERC,                     		NO_CIRC,  NO_AMPR, NO_ASTR, NO_SLSH, NO_LPRN, NO_RPRN,
+	   KC_TILD,  KC_EXLM, NO_AT,   KC_HASH, NO_DLR, KC_PERC,                     		NO_CIRC,  NO_AMPR, NO_ASTR, NO_SLSH, NO_LPRN, NO_RPRN,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
 	   KC_TRNS,  KC_MPRV, KC_MPLY, KC_MNXT, KC_TRNS, KC_TRNS,                     		KC_TRNS,  KC_PGUP, KC_UP, KC_PGDOWN, NO_LCBR, NO_RCBR,
 	//├────────┼────────┼────────┼────────┼────────┼────────┤                          ├────────┼────────┼────────┼────────┼────────┼────────┤
 	  KC_TRNS,  KC_VOLD, KC_MUTE, KC_VOLU, KC_TRNS, NO_BSLS,                     		KC_TRNS, KC_LEFT,  KC_DOWN, KC_RGHT, NO_LBRC,  NO_RBRC,
 	//├────────┼────────┼────────┼────────┼────────┼────────┼────────┐        ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-	   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_DEL, KC_TRNS, KC_GRAVE, KC_CIRC, KC_QUOTE, NO_LESS, NO_GRTR,
+	   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         KC_DEL, KC_TRNS, KC_GRAVE, KC_RBRC,  KC_NUHS, NO_LESS, NO_GRTR,
 	//└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘        └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
 	                               	   KC_TRNS, KC_TRNS, KC_TRNS,         		    KC_TRNS, KC_TRNS, KC_TRNS
 								  // └────────┴────────┴────────┘                 └────────┴────────┴────────┘
