@@ -33,7 +33,6 @@
 #define MATRIX_ROW_PINS { B9 }
 #define MATRIX_COL_PINS { B0 }
 
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 6
 

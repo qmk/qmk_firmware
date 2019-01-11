@@ -19,5 +19,5 @@
 #include "quantum.h"
 #include "process_unicode_common.h"
 
-void unicode_map_input_error(void);
-bool process_unicode_map(uint16_t keycode, keyrecord_t *record);
+void unicodemap_input_error(void);
+bool process_unicodemap(uint16_t keycode, keyrecord_t *record);
