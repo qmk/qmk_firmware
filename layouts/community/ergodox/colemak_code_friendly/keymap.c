@@ -203,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 static bool recording_dynamic_macro;
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+static bool process_record_dynamic_macro_wrapper(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     /* detect dynamic macro recording state */
     case DYN_REC_START1:
@@ -218,8 +218,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
   }
-  
+
   if (!process_record_dynamic_macro(keycode, record)) {
+    return false;
+  }
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  
+  /* the purpose of the ..._wrapper is to detect START/ST0P keys to
+     light the blue led during recording */
+  if (!process_record_dynamic_macro_wrapper(keycode, record)) {
     return false;
   }
 
