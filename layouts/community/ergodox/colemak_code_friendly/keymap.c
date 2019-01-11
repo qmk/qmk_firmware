@@ -222,6 +222,8 @@ static bool process_record_dynamic_macro_wrapper(uint16_t keycode, keyrecord_t *
   if (!process_record_dynamic_macro(keycode, record)) {
     return false;
   }
+
+  return true;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
