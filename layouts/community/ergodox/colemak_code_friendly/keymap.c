@@ -1,9 +1,6 @@
 /* -*- Mode:C; c-basic-offset:2; tab-width:2; indent-tabs-mode:nil; evil-indent-convert-tabs:t; -*- */
 
 #include QMK_KEYBOARD_H
-#include "debug.h"
-#include "action_layer.h"
-#include "version.h"
 
 //#define DYNAMIC_MACRO_SIZE 128
 
@@ -15,8 +12,8 @@
 enum custom_keycodes5 {
   PLACEHOLDER = SAFE_RANGE, /* can always be here */
 
-  M_POINER,
-  M_LAMBDA,
+  M_POINER,  /* -> */
+  M_LAMBDA,  /* => */
   M_IN_CBR,  /* {} */
   M_IN_PRN,  /* () */
   M_IN_BRC,  /* [] */
@@ -204,30 +201,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-};
-
-static int recording_dynamic_macro;
+static bool recording_dynamic_macro;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  if (!process_record_dynamic_macro(keycode, record)) {
-    return false;
-  }
-
   switch (keycode) {
     /* detect dynamic macro recording state */
     case DYN_REC_START1:
     case DYN_REC_START2:
       if (record->event.pressed) {
-        recording_dynamic_macro = 1;
+        recording_dynamic_macro = true;
       }
       break;
     case DYN_REC_STOP:
       if (record->event.pressed) {
-        recording_dynamic_macro = 0;
+        recording_dynamic_macro = false;
       }
       break;
+  }
+  
+  if (!process_record_dynamic_macro(keycode, record)) {
+    return false;
+  }
+
+  switch (keycode) {
     /* static macro keys */
     case M_IN_CBR:
       if (record->event.pressed) {
