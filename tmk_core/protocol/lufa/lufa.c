@@ -526,7 +526,7 @@ void EVENT_USB_Device_ControlRequest(void)
                       }
 
                       if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
-                          keyboard_led_stats = Endpoint_Read_8();
+                        keyboard_led_stats = Endpoint_Read_8();
                       }
                     } else {
                       keyboard_led_stats = Endpoint_Read_8();
