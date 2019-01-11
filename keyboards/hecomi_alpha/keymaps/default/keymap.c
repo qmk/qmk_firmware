@@ -22,18 +22,32 @@ enum custom_keycodes {
   QMKURL
 };
 
-//7 8
-//7 8
-//6 7
-//6 8
-//6 6
+//R1:7 8
+//R2:7 8
+//R3:6 7
+//R4:6 8
+//R5:6 6
+//
+enum layers{
+	DF,
+	FN
+};
+
+#define KC_FN MO(FN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0]=LAYOUT(\
-			ESC,1,2,3,4,5,6,      7,8,9,0,MINS,EQL,NUHS,GRV,\
-			TAB  ,Q,W,E,R,T,Y,   Y,U,I,O,P,LBRC,RBRC,BSPC,\
-			LCTRL ,A,S,D,F,G,     H,J,K,L,SCLN,QUOT,ENT,\
-			LSFT   ,Z,X,C,V,B,  B,N,M,COMM,DOT,SLSH,RSFT,0,\
+	[DF]=LAYOUT(\
+			ESC,1,2,3,4,5,6,                  7,8,9,0,MINS,EQL,NUHS,GRV,\
+			TAB  ,Q,W,E,R,T,Y,                 Y,U,I,O,P,LBRC,RBRC,BSPC,\
+			LCTRL ,A,S,D,F,G,                     H,J,K,L,SCLN,QUOT,ENT,\
+			LSFT   ,Z,X,C,V,B,               B,N,M,COMM,DOT,SLSH,RSFT,FN,\
+			LCTRL,LGUI,LALT,MHEN,BSPC,SPC,  ENT,ESC,HENK,RALT,RGUI,RCTRL\
+			),
+	[FN]=LAYOUT(\
+			ESC,1,2,3,4,5,6,                  7,8,9,0,MINS,EQL,NUHS,GRV,\
+			TAB  ,Q,W,E,R,T,Y,                 Y,U,I,O,P,LBRC,RBRC,BSPC,\
+			LCTRL ,A,S,D,F,G,                     H,J,K,L,SCLN,QUOT,ENT,\
+			LSFT   ,Z,X,C,V,B,               B,N,M,COMM,DOT,SLSH,RSFT,0,\
 			LCTRL,LGUI,LALT,MHEN,BSPC,SPC,  ENT,ESC,HENK,RALT,RGUI,RCTRL\
 			),
 };
