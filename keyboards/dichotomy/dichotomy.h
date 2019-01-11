@@ -12,6 +12,10 @@
 #define grn_led_off()   PORTD |= (1<<1)
 #define grn_led_on()    PORTD &= ~(1<<1)
 
+#define red_led(flag)   if (flag) red_led_on(); else red_led_off()
+#define blu_led(flag)   if (flag) blu_led_on(); else blu_led_off()
+#define grn_led(flag)   if (flag) grn_led_on(); else grn_led_off()
+
 #define set_led_off()     red_led_off(); grn_led_off(); blu_led_off()
 #define set_led_red()     red_led_on();  grn_led_off(); blu_led_off()
 #define set_led_blue()    red_led_off(); grn_led_off(); blu_led_on()
