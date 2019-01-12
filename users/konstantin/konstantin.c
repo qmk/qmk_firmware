@@ -17,6 +17,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
+#ifdef LAYER_FN
+  static bool fn_lock;
+
+  case FN_FNLK:
+    if (record->tap.count == TAPPING_TOGGLE) {
+      fn_lock = !IS_LAYER_ON(L_FN); // Fn layer will be toggled after this
+    }
+    return true;
+#endif
+
 #ifdef LAYER_NUMPAD
   case NUMPAD:
   case_NUMPAD:
@@ -37,8 +47,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
 #endif
 #ifdef LAYER_FN
-    if (IS_LAYER_ON(L_FN)) {
+    if (IS_LAYER_ON(L_FN) && fn_lock) {
       layer_off(L_FN);
+      return fn_lock = false;
     }
 #endif
     return true;
