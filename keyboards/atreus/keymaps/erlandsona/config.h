@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-
 /* Make Overloaded Keys switch faster */
 #define TAPPING_TERM 150
 

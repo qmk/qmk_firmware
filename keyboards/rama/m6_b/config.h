@@ -50,7 +50,6 @@
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
 
@@ -101,7 +100,6 @@
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
 
 #define RGB_BACKLIGHT_ENABLED 1
 

@@ -36,7 +36,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
 #define RGB_DI_PIN E2
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 20

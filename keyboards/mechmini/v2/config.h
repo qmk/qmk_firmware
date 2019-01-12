@@ -17,7 +17,6 @@
 
 #include "config_common.h"
 
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0xCA40
@@ -56,7 +55,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN

@@ -34,7 +34,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B4
 #define RGBLIGHT_ANIMATIONS

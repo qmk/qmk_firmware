@@ -42,7 +42,6 @@
 #define BACKLIGHT_PIN B6
 #define BACKLIGHT_LEVELS 5
 
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
 
@@ -51,7 +50,6 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
 
 #define RGB_DI_PIN E2
 #ifdef RGB_DI_PIN

@@ -37,8 +37,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
-
 /* there is no rgb underglow by default. */
 #define RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS

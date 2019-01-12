@@ -38,8 +38,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
-
 #define RGB_DI_PIN F4
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS

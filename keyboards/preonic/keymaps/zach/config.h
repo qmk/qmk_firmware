@@ -45,7 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
 
-
 #define BACKLIGHT_BREATHING     // LED breathing
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 5
@@ -84,6 +83,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define NO_ACTION_FUNCTION
 //#define DYNAMIC_MACRO_ENABLE    // Enable if you need to use the macro functionality
 //#define SPACE_CADET             // Parenthesis on L/R shift
-
 
 #endif

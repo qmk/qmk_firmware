@@ -47,14 +47,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
 #define RGB_DI_PIN D1
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 5
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
-
 
 #define TAPPING_TERM 200
 /*

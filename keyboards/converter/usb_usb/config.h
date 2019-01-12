@@ -32,14 +32,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         QMK USB-USB Converter
 #define DESCRIPTION     USB to USB Keyboard Converter with QMK
 
-
 /* size of virtual matrix */
 #define MATRIX_ROWS 16
 #define MATRIX_COLS 16
 
 /* matrix scanning is done in custom_matrix.cpp */
 #define DIODE_DIRECTION CUSTOM_MATRIX
-
 
 /*
  * Feature disable options

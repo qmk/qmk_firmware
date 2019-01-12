@@ -34,7 +34,6 @@
 /* force n-key rollover*/
 #define FORCE_NKRO
 
-
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 0

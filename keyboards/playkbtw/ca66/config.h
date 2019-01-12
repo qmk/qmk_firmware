@@ -37,8 +37,6 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
-
 #define RGB_DI_PIN B1
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS

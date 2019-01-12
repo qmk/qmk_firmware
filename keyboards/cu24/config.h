@@ -107,7 +107,6 @@
  *
  */
 
-
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true

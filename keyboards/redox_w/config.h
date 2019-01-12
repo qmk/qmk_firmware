@@ -39,8 +39,6 @@
 
 #define ONESHOT_TIMEOUT 500
 
-
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

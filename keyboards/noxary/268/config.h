@@ -55,7 +55,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
 /* ws2812b options */
 #define RGB_DI_PIN B5
 #ifdef RGB_DI_PIN

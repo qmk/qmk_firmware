@@ -76,7 +76,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
 
-
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_NKEYS  true
@@ -130,8 +129,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-
 
 #ifdef SUBPROJECT_alvicstep
     #include "alvicstep/config.h"

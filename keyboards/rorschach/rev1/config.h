@@ -50,7 +50,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-
 #define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 5
 

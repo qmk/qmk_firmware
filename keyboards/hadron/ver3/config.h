@@ -27,7 +27,6 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
-
 //Audio
 #undef AUDIO_VOICES
 #undef C6_AUDIO
@@ -161,7 +160,6 @@
 #define LIB_SELECTION 6 /* For Empty:0' TS2200 library A to D:1-5, LRA Library: 6 */
 
 #endif
-
 
 /* Control 1 register settings */
 #define DRIVE_TIME 25
