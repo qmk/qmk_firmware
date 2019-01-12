@@ -1,14 +1,88 @@
 # QMK Keyboard Guidelines
 
-We welcome all keyboard projects into QMK, but ask that you try to stick to a couple guidelines that help us keep things organised and consistent.
+Since starting QMK has grown by leaps and bounds, and it's thanks to people like you contributing to and maintaining our community keyboards. As we have grown we have discovered some patterns that work well, and ask that you conform to them to make it easier for other people to make use of your hard work.
 
 ## Naming Your Keyboard/Project
 
-All names should be lowercase alphanumeric, and separated by an underscore (`_`), but not begin with one. Your directory and your `.h` and `.c` files should have exactly the same name. All folders should follow the same format. `test`, `keyboard`, and `all` are reserved by make and are not a valid name for a keyboard.
+All keyboard names are in lower case, consisting only of letters, numbers, and underscore (`_`). Names may not begin with an underscore. The names `test`, `keyboard`, and `all` are reserved for make commands and may not be used as a keyboard or subfolder name.
 
-## `readme.md`
+Valid Examples:
+
+* `412_64`
+* `chimera_ortho`
+* `clueboard/66/rev3`
+* `planck`
+* `v60_type_r`
+
+## Sub-folders
+
+QMK uses sub-folders both for organization and to share code between revisions of the same keyboard. You can nest folders up to 4 levels deep:
+
+    qmk_firmware/keyboards/top_folder/sub_1/sub_2/sub_3/sub_4
+
+If a sub-folder has a `rules.mk` file it will be considered a compilable keyboard. It will be available in QMK Configurator and tested with `make all`. If you are using a folder to organize several keyboards from the same maker you should not have a `rules.mk` file.
+
+Example:
+
+Clueboard uses sub-folders for both purposes, organization and keyboard revisions.
+
+* [`qmk_firmware`](https://github.com/qmk/qmk_firmware/tree/master)
+  * [`keyboards`](https://github.com/qmk/qmk_firmware/tree/master/keyboards)
+    * [`clueboard`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard)  &lt;-- this is the organization folder, no `rules.mk` file
+      * [`60`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/60)  &lt;-- this is a compilable keyboard, it has a `rules.mk` file.
+      * [`66`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66)  &lt;-- this is also compilable, it uses `DEFAULT_FOLDER` to specify `rev3` as the default revision
+        * [`rev1`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev1)  &lt;-- compilable, `make clueboard/66/rev1`
+        * [`rev2`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev2)  &lt;-- compilable, `make clueboard/66/rev2`
+        * [`rev3`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev3)  &lt;-- compilable, `make clueboard/66/rev3` and `make clueboard/66`
+
+## Keyboard Folder Structure
+
+Your keyboard should be located in `qmk_firmware/keyboards/` and the directory name should be your keyboard's name as described in the previous section. Inside this directory should be several files:
+
+* `readme.md`
+* `config.h`
+* `rules.mk`
+* `<keyboard_name>.c`
+* `<keyboard_name>.h`
+
+### `readme.md`
 
 All projects need to have a `readme.md` file that explains what the keyboard is, who made it, where it is available, and links to more information. Please follow the [published template](documentation_templates.md#keyboard-readmemd-template).
+
+### `config.h`
+
+All projects need to have a `config.h` file to set things like the processor type, bootloader, USB VID/PID, and other default settings. In general you should use this file to set reasonable defaults for your keyboard that will always work.
+
+### `rules.mk`
+
+The prescence of this file means this folder is a keyboard target, and can be used in make commands. This is where you setup the build environment for your keyboard and configure the default set of features. You should turn on only those features you have a need for and leave the rest turned off, users can enable them in their keymap `rules.mk`.
+
+### `<keyboard_name.c>`
+
+This is where you will write custom code for your keyboard. Typically you will write code to initialize and interface with the hardware in your keyboard. If your keyboard consists of only a key matrix with no LEDs, speakers, or other auxillary hardware this file can be blank.
+
+The following functions are typically defined in this file:
+
+* `void matrix_init_kb(void)`
+* `void matrix_scan_kb(void)`
+* `bool process_record_kb(uint16_t keycode, keyrecord_t *record)`
+* `void led_set_kb(uint8_t usb_led)`
+
+### `<keyboard_name.h>`
+
+This file is used to define the matrix for your keyboard. You should define at least one CPP macro named `LAYOUT` which translates an array into a matrix representing your switch matrix. If it's possible to build your keyboard with multiple layouts you may define additional macros.
+
+When defining multiple layouts you should have a base layout, named `LAYOUT`, that supports all possible switch positions on your matrix, even if that layout is impossible to build physically. This is the macro you should use in your `default` keymap. You should then have additional keymaps named `default-<layout>` that use your other layout macros. This will make it easier for people to use the layouts you define.
+
+Layout macro names are entirely lowercase, except for the word `LAYOUT` at the front.
+
+As an example, if you have a 60% PCB that supports ANSI and ISO you might define the following layouts and keymaps:
+
+| Layout Name | Keymap Name | Description |
+|-------------|-------------|-------------|
+| LAYOUT | default | A keymap that supports both ISO and ANSI |
+| LAYOUT_ansi | default-ansi | An ANSI layout |
+| LAYOUT_iso | default-iso | An ISO layout |
 
 ## Image/Hardware Files
 
