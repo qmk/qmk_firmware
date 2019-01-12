@@ -17,6 +17,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
+#ifdef LAYER_FN
+  case FNRCTL:
+    if (record->event.pressed) {
+      layer_on(L_FN);
+      register_code(KC_RCTL);
+    } else {
+      layer_off(L_FN);
+      unregister_code(KC_RCTL);
+    }
+    return false;
+#endif
+
 #ifdef LAYER_NUMPAD
   case NUMPAD:
     if (record->event.pressed) {
@@ -32,4 +44,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   default:
     return true;
   }
+}
+
+__attribute__((weak))
+uint32_t layer_state_set_keymap(uint32_t state) {
+  return state;
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  return layer_state_set_keymap(state);
 }

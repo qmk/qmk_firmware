@@ -10,13 +10,29 @@
 
 #ifdef LAYER_FN
   #define FN      MO(L_FN)
+  #define FNLCTL  LM(L_FN, MOD_LCTL)
   #define FN_CAPS LT(L_FN, KC_CAPS)
   #define FN_FNLK TT(L_FN)
 #endif
 
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
+#define PREVTAB LCTL(KC_PGUP)
+#define NEXTTAB LCTL(KC_PGDN)
+
 #define LCT_CPS LCTL_T(KC_CAPS)
+
+enum keycodes_user {
+  CLEAR = SAFE_RANGE,
+#ifdef LAYER_FN
+  FNRCTL,
+#endif
+#ifdef LAYER_NUMPAD
+  NUMPAD,
+#endif
+
+  RANGE_KEYMAP,
+};
 
 enum layers_user {
   L_BASE,
@@ -30,13 +46,5 @@ enum layers_user {
   L_RANGE_KEYMAP,
 };
 
-enum custom_keycodes_user {
-  CLEAR = SAFE_RANGE,
-#ifdef LAYER_NUMPAD
-  NUMPAD,
-#endif
-
-  SAFE_RANGE_KEYMAP,
-};
-
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
+uint32_t layer_state_set_keymap(uint32_t state);
