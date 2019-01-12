@@ -19,15 +19,29 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef LAYER_NUMPAD
   case NUMPAD:
+  case_NUMPAD:
     if (record->event.pressed) {
       layer_invert(L_NUMPAD);
       bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
       if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
-        tap_code(KC_NLCK); // Toggle Num Lock to match layer state.
+        tap_code(KC_NLCK); // Toggle Num Lock to match layer state
       }
     }
     return false;
 #endif
+
+  case KC_ESC:
+#ifdef LAYER_NUMPAD
+    if (IS_LAYER_ON(L_NUMPAD)) {
+      goto case_NUMPAD;
+    }
+#endif
+#ifdef LAYER_FN
+    if (IS_LAYER_ON(L_FN)) {
+      layer_off(L_FN);
+    }
+#endif
+    return true;
 
   default:
     return true;
