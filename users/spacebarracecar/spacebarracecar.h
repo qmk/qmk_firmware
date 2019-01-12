@@ -12,7 +12,6 @@ enum userspace_custom_keycodes {
   CU_GAME = SAFE_RANGE,     // Toggle game mode on/off
   CU_NAV,                   // NAV | ESC
   KC_P00,                   // Numpad double zero
-  CU_ENT,                   // CTL | ENT
 
   #ifdef GERMAN_ENABLE
   CU_LSFT,                  // LSFT | (
@@ -72,9 +71,6 @@ extern bool esct;
 extern bool navesc;
 extern uint16_t navesc_timer;
 
-extern bool ctlent;
-extern uint16_t ctlent_timer;
-
 extern bool game;
 
 void timer_timeout(void);
@@ -91,6 +87,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define GUID LGUI(KC_DOWN)
 #define GUIL LGUI(KC_LEFT)
 #define GUIR RGUI(KC_RIGHT)
+
+#define CTLENT CTL_T(KC_ENT)
 
 /*
 Templates for Keys, with custom shifted and non shifted Characters
