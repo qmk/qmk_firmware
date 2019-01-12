@@ -10,23 +10,23 @@
 
 #ifdef LAYER_FN
   #define FN      MO(L_FN)
-  #define FNLCTL  LM(L_FN, MOD_LCTL)
   #define FN_CAPS LT(L_FN, KC_CAPS)
   #define FN_FNLK TT(L_FN)
 #endif
 
+#define MV_UP   LCTL(KC_UP)
+#define MV_DOWN LCTL(KC_DOWN)
+#define MV_LEFT LCTL(KC_LEFT)
+#define MV_RGHT LCTL(KC_RGHT)
 #define TOP     LCTL(KC_HOME)
 #define BOTTOM  LCTL(KC_END)
-#define PREVTAB LCTL(KC_PGUP)
-#define NEXTTAB LCTL(KC_PGDN)
+#define PRV_TAB LCTL(KC_PGUP)
+#define NXT_TAB LCTL(KC_PGDN)
 
 #define LCT_CPS LCTL_T(KC_CAPS)
 
 enum keycodes_user {
   CLEAR = SAFE_RANGE,
-#ifdef LAYER_FN
-  FNRCTL,
-#endif
 #ifdef LAYER_NUMPAD
   NUMPAD,
 #endif
