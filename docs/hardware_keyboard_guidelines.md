@@ -88,7 +88,7 @@ As an example, if you have a 60% PCB that supports ANSI and ISO you might define
 
 ## Image/Hardware Files
 
-In an effort to keep the repo size down, we're no longer accepting images of any format in the repo, with few exceptions. Hosting them elsewhere (such as <https://imgurcom>) and linking them in the `readme.md` is the preferred method.
+In an effort to keep the repo size down, we're no longer accepting images of any format in the repo, with few exceptions. Hosting them elsewhere (such as <https://imgur.com>) and linking them in the `readme.md` is the preferred method.
 
 Any sort of hardware file (plate, case, pcb) can't be stored in qmk_firmware, but we have the [qmk.fm repo](https://github.com/qmk/qmk.fm) where such files (as well as in-depth info) can be stored and viewed on [qmk.fm](http://qmk.fm). Downloadable files are stored in `/<keyboard>/` (name follows the same format as above) which are served at `http://qmk.fm/<keyboard>/`, and pages are generated from `/_pages/<keyboard>/` which are served at the same location (.md files are generated into .html files through Jekyll). Check out the `lets_split` directory for an example.
 
@@ -160,7 +160,7 @@ All key positions and rotations are specified in relation to the top-left corner
 * `H`
   * The height of the key, in Key Units. Ignored if `ks` is provided. Default: `1`
 * `R`
-  * How many degrees clockwise to rotate the key.
+  * How many degrees clockwise to rotate the key. (Not supported by config.qmk.fm right now)
 * `RX`
   * The absolute position of the point to rotate the key around in the horizontal axis. Default: `x`
 * `RY`
@@ -200,6 +200,8 @@ If you are modifying someone else's code and have made only trivial changes you 
 The year should be the first year the file is created. If work was done to that file in later years you can reflect that by appending the second year to the first, like so:
 
     Copyright 2015-2017 Your Name <you@example.com>
+    
+If you are modifying your code from someone elses code **that is licensed under the GPL** you must release your code under the same license. This is not optional!
 
 ## License
 
