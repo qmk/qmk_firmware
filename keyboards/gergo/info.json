@@ -5,7 +5,7 @@
     "keyboard_name": "Gergo",
     "url": "http://gboards.ca",
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_GERGO": {
             "layout": [
                 {
                     "label": "L00",
