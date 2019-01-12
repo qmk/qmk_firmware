@@ -1,5 +1,5 @@
 /*
-Copyright 2018 QMK Community
+Copyright 2019 QMK Community
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -24,8 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Sentraq
-#define PRODUCT         sentraq_number_pad
-#define DESCRIPTION     RBG backlit number pad
+#define PRODUCT         Sentraq Number Pad
+#define DESCRIPTION     RBG backlit number pad kit
 
 /* key matrix size */
 #define MATRIX_ROWS 5

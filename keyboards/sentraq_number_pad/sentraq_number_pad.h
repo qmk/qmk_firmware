@@ -1,4 +1,4 @@
-/* Copyright 2018 QMK Community
+/* Copyright 2019 QMK Community
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
