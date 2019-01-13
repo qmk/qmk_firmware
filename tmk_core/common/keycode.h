@@ -196,7 +196,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_MAC_BRIU				KC_SLCK
 #define KC_MAC_BRID				KC_PAUS
 #define KC_MAC_BRIGHTNESS_UP	KC_SLCK
-#define KC_MAC_BRIGHTNESS_DOWN	KC_PAUS
+#define KC_MAC_BRIGHTNESS_DWN	KC_PAUS
 
 /* Keyboard/Keypad Page (0x07) */
 enum hid_keyboard_keypad_usage {

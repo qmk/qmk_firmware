@@ -205,6 +205,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_MEDIA_REWIND`      |`KC_MRWD`           |Previous Track (macOS)                         |
 |`KC_BRIGHTNESS_UP`     |`KC_BRIU`           |Brightness Up                                  |
 |`KC_BRIGHTNESS_DOWN`   |`KC_BRID`           |Brightness Down                                |
+|`KC_MAC_BRIGHTNESS_UP` |`KC_MAC_BRIU`       |Brightness Up (macOS)                          |
+|`KC_MAC_BRIGHTNESS_DWN`|`KC_MAC_BRID`       |Brightness Down (macOS)                        |
 
 ## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
