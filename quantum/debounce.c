@@ -1,6 +1,5 @@
 
 #include "matrix.h"
-#include "config.h"
 #include "timer.h"
 #include "quantum.h"
 
