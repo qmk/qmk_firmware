@@ -50,7 +50,3 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t macro_id, uint8_t o
 {
     return MACRO_NONE;
 }
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
