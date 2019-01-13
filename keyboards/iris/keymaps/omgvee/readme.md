@@ -4,6 +4,10 @@
 
 ![My beloved IRIS keeb](https://i.imgur.com/wgsb37e.jpg)
 
+![My beloved choc IRIS keeb](https://imgur.com/a/NDXqLGb)
+=======
+
+
 - mouse keys
 - media keys and media controls
 - in-switch LED intensity controls (+/-)
@@ -14,4 +18,6 @@
 - also have alternates on the same layer, in the form of AWSD, as well as HJKL (keep in mind the order is Left, Up, Down, Right)
 - arrow keys on one layer, however with another modifier key, they become left=home, right=end, up=page up, down=page Down
 
+
 See keymap.c for layouts
+
