@@ -160,7 +160,7 @@ All key positions and rotations are specified in relation to the top-left corner
 * `H`
   * The height of the key, in Key Units. Ignored if `ks` is provided. Default: `1`
 * `R`
-  * How many degrees clockwise to rotate the key. (Not supported by config.qmk.fm right now)
+  * How many degrees to rotate the key by, clockwise. (Currently not supported by QMK Configurator.)
 * `RX`
   * The absolute position of the point to rotate the key around in the horizontal axis. Default: `x`
 * `RY`
