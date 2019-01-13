@@ -121,6 +121,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_PEQL KC_KP_EQUAL
 #define KC_PCMM KC_KP_COMMA
 
+/* System Specfic */
+#define KC_BRMU KC_SCROLLLOCK
+#define KC_BRMD KC_PAUSE
+
 /* Japanese specific */
 #define KC_ZKHK KC_GRAVE
 #define KC_RO   KC_INT1
@@ -191,12 +195,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_ACL0 KC_MS_ACCEL0
 #define KC_ACL1 KC_MS_ACCEL1
 #define KC_ACL2 KC_MS_ACCEL2
-
-/* System Specfic Aliases */
-#define KC_MAC_BRIU				KC_SLCK
-#define KC_MAC_BRID				KC_PAUS
-#define KC_MAC_BRIGHTNESS_UP	KC_SLCK
-#define KC_MAC_BRIGHTNESS_DWN	KC_PAUS
 
 /* Keyboard/Keypad Page (0x07) */
 enum hid_keyboard_keypad_usage {
