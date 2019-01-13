@@ -270,10 +270,19 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
                    $(QUANTUM_DIR)/split_common/split_util.c
-    ifneq ($(strip $(CUSTOM_TRANSPORT)), yes)
+    ifndef SPLIT_TRANSPORT
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c \
                        $(QUANTUM_DIR)/split_common/i2c.c \
                        $(QUANTUM_DIR)/split_common/serial.c
+    else
+        ifeq ($(strip $(SPLIT_TRANSPORT)), serial)
+            QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
+            QUANTUM_SRC += $(QUANTUM_DIR)/split_common/serial.c
+        endif
+        ifeq ($(strip $(SPLIT_TRANSPORT)), i2c)
+            QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
+            QUANTUM_SRC += $(QUANTUM_DIR)/split_common/i2c.c
+        endif
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
