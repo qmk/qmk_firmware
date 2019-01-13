@@ -64,41 +64,26 @@ uint32_t layer_state_set_user(uint32_t state) {
   return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
 
-report_mouse_t currentReport = {};
+#define SetBitMask(variable, mask, on) if (on) variable |= mask; else variable &= ~mask
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  report_mouse_t currentReport;
 	switch (keycode) {
 		//mouse buttons, for 1-3, to update the mouse report:
+		//MOUSE_BTN1-3 are consts defined in report.h
 		case MS_BTN1:
 			currentReport = pointing_device_get_report();
-			if (record->event.pressed) {
-				//update mouse report here
-				currentReport.buttons |= MOUSE_BTN1; //MOUSE_BTN1 is a const defined in report.h
-			} else {
-				//update mouse report here
-				currentReport.buttons &= ~MOUSE_BTN1;
-			}
+			SetBitMask(currentReport.buttons, MOUSE_BTN1, record->event.pressed);
 			pointing_device_set_report(currentReport);
 			return false;
 		case MS_BTN2:
 			currentReport = pointing_device_get_report();
-			if (record->event.pressed) {
-				//update mouse report here
-				currentReport.buttons |= MOUSE_BTN2; //MOUSE_BTN2 is a const defined in report.h
-			} else {
-				//update mouse report here
-				currentReport.buttons &= ~MOUSE_BTN2;
-			}
+			SetBitMask(currentReport.buttons, MOUSE_BTN2, record->event.pressed);
 			pointing_device_set_report(currentReport);
 			return false;
 		case MS_BTN3:
 			currentReport = pointing_device_get_report();
-			if (record->event.pressed) {
-				//update mouse report here
-				currentReport.buttons |= MOUSE_BTN3; //MOUSE_BTN3 is a const defined in report.h
-			} else {
-				//update mouse report here
-				currentReport.buttons &= ~MOUSE_BTN3;
-			}
+			SetBitMask(currentReport.buttons, MOUSE_BTN3, record->event.pressed);
 			pointing_device_set_report(currentReport);
 			return false;
 	}
