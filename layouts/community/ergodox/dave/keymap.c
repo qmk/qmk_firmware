@@ -137,11 +137,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    //[1] = ACTION_LAYER_TAP_TOGGLE(PROG),               // FN1 - Momentary Layer 1 (Symbols)
-    //[2] = ACTION_LAYER_TAP_TOGGLE(NAVI)                // FN2 - Momentary Layer 2 (Navigation)
-};
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function

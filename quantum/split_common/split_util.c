@@ -1,31 +1,21 @@
-#include <avr/io.h>
-#include <avr/wdt.h>
-#include <avr/power.h>
-#include <avr/interrupt.h>
-#include <util/delay.h>
-#include <avr/eeprom.h>
 #include "split_util.h"
 #include "matrix.h"
 #include "keyboard.h"
 #include "config.h"
 #include "timer.h"
 #include "split_flags.h"
+#include "quantum.h"
 
-#ifdef RGBLIGHT_ENABLE
-#   include "rgblight.h"
+#ifdef EE_HANDS
+#   include "tmk_core/common/eeprom.h"
 #endif
+
 #ifdef BACKLIGHT_ENABLE
 #   include "backlight.h"
 #endif
 
-#ifdef SPLIT_HAND_PIN
-#   include "pincontrol.h"
-#endif
-
 #if defined(USE_I2C) || defined(EH)
 #  include "i2c.h"
-#else
-#  include "serial.h"
 #endif
 
 volatile bool isLeftHand = true;
@@ -35,14 +25,13 @@ volatile uint8_t setTries = 0;
 static void setup_handedness(void) {
   #ifdef SPLIT_HAND_PIN
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
-    pinMode(SPLIT_HAND_PIN, PinDirectionInput);
-    isLeftHand = digitalRead(SPLIT_HAND_PIN);
+    setPinInput(SPLIT_HAND_PIN);
+    isLeftHand = readPin(SPLIT_HAND_PIN);
   #else
     #ifdef EE_HANDS
       isLeftHand = eeprom_read_byte(EECONFIG_HANDEDNESS);
     #else
-      // I2C_MASTER_RIGHT is deprecated, use MASTER_RIGHT instead, since this works for both serial and i2c
-      #if defined(I2C_MASTER_RIGHT) || defined(MASTER_RIGHT)
+      #ifdef MASTER_RIGHT
         isLeftHand = !has_usb();
       #else
         isLeftHand = has_usb();
@@ -112,7 +101,7 @@ void keyboard_slave_loop(void) {
                 BACKLIT_DIRTY = false;
             }
         #else // USE_SERIAL
-            backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
+            backlight_set(serial_m2s_buffer.backlight_level);
         #endif
     #endif
     // Read RGB Info
@@ -137,7 +126,9 @@ void keyboard_slave_loop(void) {
                 sei();
             }
         #else // USE_SERIAL
+          #ifdef RGBLIGHT_SPLIT
             // Add serial implementation for RGB here
+          #endif
         #endif
     #endif
    }

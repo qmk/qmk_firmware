@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "pegasushoof.h"
+#include QMK_KEYBOARD_H
 
 /* Allow shortcuts for combos like RALT(KC_RBRC) that don't take up more than 7 characters: */
 #define G(kc) RALT(KC_##kc)
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '------------------------------------------------------------------------' '--------------'
  *                                                                                                  NUHS = true position of KC_NUHS
  */
-[DEF] = KEYMAP( \
+[DEF] = LAYOUT( \
   KC_ESC,         KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12,   KC_PSCR,KC_SLCK,TD(AF4), \
   KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC,  KC_INS, KC_HOME,KC_PGUP, \
   KC_TAB, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_NUHS,  KC_DEL, KC_END, KC_PGDN, \
@@ -89,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * '------------------------------------------------------------------------' '--------------'
  *
  */
-[FUN] = KEYMAP( \
+[FUN] = LAYOUT( \
   CTALDEL,        KC_MYCM,KC_WHOM,KC_CALC,KC_MSEL,KC_MPRV,KC_MNXT,KC_MPLY,KC_MSTP,KC_MUTE,KC_VOLD,KC_VOLU,MO(RES),  _______,KC_SLCK,KC_PAUS, \
   _______,_______,_______,_______,_______,_______,_______,G(7),   G(8),   G(9),   G(0),   G(MINS),_______,_______,  _______,_______,KC_WH_U, \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,G(RBRC),_______,  _______,_______,KC_WH_D, \
@@ -99,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 /* Layer 3: Reset layer (prevents accidental resets) */
-[RES] = KEYMAP( \
+[RES] = LAYOUT( \
   _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,  _______,_______,_______, \
   _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,  _______,_______,_______, \
   _______,_______,_______,_______,RESET,  _______,_______,_______,_______,_______,_______,_______,_______,_______,  _______,_______,_______, \
