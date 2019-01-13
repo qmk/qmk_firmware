@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #pragma once
-#ifdef EXTRAKEY_ENABLE
 
 #include "quantum.h"
 
@@ -51,6 +50,6 @@
 #define IS_SYSTEM(code)   (KC_PWR       <= (code) && (code) <= KC_WAKE)
 #define IS_CONSUMER(code) (KC_MUTE      <= (code) && (code) <= KC_BRID)
 
+#ifdef EXTRAKEY_ENABLE
 bool process_extra_keycodes(uint16_t keycode, keyrecord_t *record);
-
 #endif

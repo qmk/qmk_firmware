@@ -13,9 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifdef EXTRAKEY_ENABLE
 #include "process_extra_keycodes.h"
 
+#ifdef EXTRAKEY_ENABLE
 bool process_extra_keycodes(uint16_t keycode, keyrecord_t *record) {
   if (IS_SYSTEM(keycode) || IS_CONSUMER(keycode)) {
     tap_code16(keycode);
@@ -23,5 +23,4 @@ bool process_extra_keycodes(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
 #endif

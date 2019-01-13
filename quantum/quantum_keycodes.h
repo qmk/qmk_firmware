@@ -462,7 +462,6 @@ enum quantum_keycodes {
     UNICODE_MODE_BSD,
     UNICODE_MODE_WINC,
 
-#ifdef EXTRAKEY_ENABLE
     /* Generic Desktop Page (0x01) */
     KC_SYSTEM_POWER,
     KC_SYSTEM_SLEEP,
@@ -492,7 +491,6 @@ enum quantum_keycodes {
     KC_MEDIA_REWIND,
     KC_BRIGHTNESS_UP,
     KC_BRIGHTNESS_DOWN,
-#endif
 
     // always leave at the end
     SAFE_RANGE
