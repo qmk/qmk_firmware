@@ -174,7 +174,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_BRIU KC_BRIGHTNESS_UP
 #define KC_BRID KC_BRIGHTNESS_DOWN
 
-/* System Specfic */
+/* System Specific */
 #define KC_BRMU KC_SCROLLLOCK
 #define KC_BRMD KC_PAUSE
 
