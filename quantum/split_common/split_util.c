@@ -4,6 +4,7 @@
 #include "config.h"
 #include "timer.h"
 #include "split_flags.h"
+#include "transport.h"
 #include "quantum.h"
 
 #ifdef EE_HANDS
