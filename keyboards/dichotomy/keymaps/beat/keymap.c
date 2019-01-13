@@ -20,7 +20,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT,
   KC_LSFT,     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,           KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, TT(_MOUSE),
                                  KC_LCTL, KC_LALT, TT(_MOUSE),     KC_RGUI, KC_RALT, KC_RCTL,
-              MS_BTN3, SFT_T(KC_ESCAPE), KC_LGUI, KC_BSPC,         KC_SPC,  MO(_RAISE), MO(_LOWER),   MS_BTN3
+              MS_BTN3, SFT_T(KC_ESCAPE), KC_LGUI, KC_BSPC,         KC_SPC,  MO(_RAISE), TT(_LOWER),   MS_BTN3
   ),
 
   [_RAISE] = LAYOUT( /* Shifted layout, small changes (because angle brackets have been moved to thumb cluster buttons) */
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MOUSE] = LAYOUT( /* Mouse layer, including buttons for clicking. */
   _______, _______, _______, _______, _______, _______,        KC_VOLU, KC_HOME, KC_PGUP, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______,        _______, MS_BTN1, MS_BTN2, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______,        _______, MS_BTN1, MS_BTN2, MS_BTN3, _______, _______,
   _______, _______, _______, _______, _______, _______,        KC_VOLD, KC_END,  KC_PGDN, _______, _______, _______,
                              _______, _______, _______,        _______, KC_UP,   _______,
                     _______, _______, _______, _______,        KC_LEFT, KC_DOWN, KC_RGHT, _______
