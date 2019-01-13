@@ -22,8 +22,8 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0006
-#define MANUFACTURER    QMK
-#define PRODUCT         Proton C
+#define MANUFACTURER    The Key Company
+#define PRODUCT         Candybar
 #define DESCRIPTION     A compact ortholinear keyboard
 
 /* key matrix size */
