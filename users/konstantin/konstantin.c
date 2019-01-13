@@ -1,5 +1,15 @@
 #include "konstantin.h"
 
+#ifdef LAYER_NUMPAD
+static void toggle_numpad(void) {
+  layer_invert(L_NUMPAD);
+  bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
+  if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
+    tap_code(KC_NLCK); // Toggle Num Lock to match layer state
+  }
+}
+#endif
+
 __attribute__((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
@@ -29,13 +39,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #ifdef LAYER_NUMPAD
   case NUMPAD:
-  case_NUMPAD:
     if (record->event.pressed) {
-      layer_invert(L_NUMPAD);
-      bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
-      if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
-        tap_code(KC_NLCK); // Toggle Num Lock to match layer state
-      }
+      toggle_numpad();
     }
     return false;
 #endif
@@ -44,7 +49,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
 #ifdef LAYER_NUMPAD
       if (IS_LAYER_ON(L_NUMPAD)) {
-        goto case_NUMPAD;
+        toggle_numpad();
+        return false;
       }
 #endif
 #ifdef LAYER_FN
