@@ -1,7 +1,5 @@
 # kbd67
 
-![kbd67](imgur.com image replace me!)
-
 65% keyboard with blocker.  
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
