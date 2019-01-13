@@ -61,7 +61,7 @@
 
 // Notes - # = Octave
 
-#define NOTE_REST         0.00f
+#define NOTE_REST         1.00f
 
 /* These notes are currently bugged
 #define NOTE_C0          16.35f
