@@ -261,6 +261,8 @@ void matrix_init(void)
     matrix[i] = 0;
   }
 
+  debounce_init(ROWS_PER_HAND);
+
   matrix_init_quantum();
 }
 
@@ -280,7 +282,7 @@ uint8_t _matrix_scan(void)
   }
 #endif
 
-  debounce(raw_matrix, matrix+thisHand, changed);
+  debounce(raw_matrix, matrix+thisHand, ROWS_PER_HAND, changed);
 
   return 1;
 }
@@ -327,6 +329,7 @@ uint8_t matrix_scan(void)
 
 bool matrix_is_modified(void)
 {
+  if (debounce_active()) return false;
   return true;
 }
 

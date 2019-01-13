@@ -262,18 +262,18 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
+ifneq ($(strip $(CUSTOM_DEBOUNCE)), yes)
+    QUANTUM_SRC += $(QUANTUM_DIR)/debounce.c
+endif
+
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
                    $(QUANTUM_DIR)/split_common/split_util.c
     ifneq ($(strip $(CUSTOM_TRANSPORT)), yes)
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/transport.c \
-                           $(QUANTUM_DIR)/split_common/i2c.c \
-                           $(QUANTUM_DIR)/split_common/serial.c
-    endif
-    ifneq ($(strip $(CUSTOM_DEBOUNCE)), yes)
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/debounce.c
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c \
+                       $(QUANTUM_DIR)/split_common/i2c.c \
+                       $(QUANTUM_DIR)/split_common/serial.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
-
 endif
