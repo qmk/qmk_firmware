@@ -121,10 +121,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_PEQL KC_KP_EQUAL
 #define KC_PCMM KC_KP_COMMA
 
-/* System Specfic */
-#define KC_BRMU KC_SCROLLLOCK
-#define KC_BRMD KC_PAUSE
-
 /* Japanese specific */
 #define KC_ZKHK KC_GRAVE
 #define KC_RO   KC_INT1
@@ -177,6 +173,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_MRWD KC_MEDIA_REWIND
 #define KC_BRIU KC_BRIGHTNESS_UP
 #define KC_BRID KC_BRIGHTNESS_DOWN
+
+/* System Specfic */
+#define KC_BRMU KC_SCROLLLOCK
+#define KC_BRMD KC_PAUSE
 
 /* Mouse Keys */
 #define KC_MS_U KC_MS_UP
