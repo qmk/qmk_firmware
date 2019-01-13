@@ -2,9 +2,11 @@
 
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define ESC_CTL     CTL_T(KC_ESCAPE)            // Tap for Esc, hold for Ctrl
-#define _______ KC_TRNS
 
-#define HASHRKT M(0)
+enum custom_keycodes {
+  HASHRKT = SAFE_RANGE,
+  CLNEQLS,
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -57,13 +59,22 @@ void led_set_user(uint8_t usb_led) {
 
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  if (record->event.pressed) {
-    switch(id) {
-      case 0:
-        SEND_STRING("=>");
-        return false;
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+  switch (keycode)
+  {
+  case HASHRKT:
+    if (record->event.pressed)
+    {
+      SEND_STRING("=>");
     }
+    break;
+  case CLNEQLS:
+    if (record->event.pressed)
+    {
+      SEND_STRING(":=");
+    }
+    break;
   }
-  return MACRO_NONE;
-};
+  return true;
+}
