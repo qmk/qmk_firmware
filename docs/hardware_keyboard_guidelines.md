@@ -49,7 +49,7 @@ Your keyboard should be located in `qmk_firmware/keyboards/` and the directory n
 
 ### `readme.md`
 
-All projects need to have a `readme.md` file that explains what the keyboard is, who made it, where it is available, and links to more information. Please follow the [published template](documentation_templates.md#keyboard-readmemd-template).
+All projects need to have a `readme.md` file that explains what the keyboard is, who made it and where it's available. If applicable, it should also contain links to more information, such as the maker's website. Please follow the [published template](documentation_templates.md#keyboard-readmemd-template).
 
 ### `config.h`
 
