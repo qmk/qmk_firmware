@@ -1,6 +1,7 @@
 # QMK Keyboard Guidelines
 
-Since starting, QMK has grown by leaps and bounds thanks to people like you who contribute to creating and maintaining our community keyboards. As we have grown we have discovered some patterns that work well, and ask that you conform to them to make it easier for other people to make use of your hard work.
+Since starting, QMK has grown by leaps and bounds thanks to people like you who contribute to creating and maintaining our community keyboards. As we've grown we've discovered some patterns that work well, and ask that you conform to them to make it easier for other people to benefit from your hard work.
+
 
 ## Naming Your Keyboard/Project
 
@@ -30,18 +31,19 @@ Clueboard uses sub-folders for both purposes, organization and keyboard revision
 
 * [`qmk_firmware`](https://github.com/qmk/qmk_firmware/tree/master)
   * [`keyboards`](https://github.com/qmk/qmk_firmware/tree/master/keyboards)
-    * [`clueboard`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard)  &larr; This is the organization directory, there's no `rules.mk` file.
-      * [`60`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/60)  &larr; This is a compilable keyboard, it has a `rules.mk` file.
-      * [`66`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66) &larr; This is also compilable- it uses `DEFAULT_FOLDER` to specify `rev3` as the default revision.
+    * [`clueboard`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard)  &larr; This is the organization folder, there's no `rules.mk` file
+      * [`60`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/60)  &larr; This is a compilable keyboard, it has a `rules.mk` file
+      * [`66`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66) &larr; This is also compilable- it uses `DEFAULT_FOLDER` to specify `rev3` as the default revision
         * [`rev1`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev1) &larr; compilable: `make clueboard/66/rev1`
         * [`rev2`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev2) &larr; compilable: `make clueboard/66/rev2`
         * [`rev3`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev3) &larr; compilable: `make clueboard/66/rev3` or `make clueboard/66`
 
 ## Keyboard Folder Structure
 
-Your keyboard should be located in `qmk_firmware/keyboards/` and the directory name should be your keyboard's name as described in the previous section. Inside this directory should be several files:
+Your keyboard should be located in `qmk_firmware/keyboards/` and the folder name should be your keyboard's name as described in the previous section. Inside this folder should be several files:
 
 * `readme.md`
+* `info.json`
 * `config.h`
 * `rules.mk`
 * `<keyboard_name>.c`
@@ -50,6 +52,10 @@ Your keyboard should be located in `qmk_firmware/keyboards/` and the directory n
 ### `readme.md`
 
 All projects need to have a `readme.md` file that explains what the keyboard is, who made it and where it's available. If applicable, it should also contain links to more information, such as the maker's website. Please follow the [published template](documentation_templates.md#keyboard-readmemd-template).
+
+### `info.json`
+
+This file is used by the [QMK API](https://github.com/qmk/qmk_api). It contains the information [QMK Configurator](https://config.qmk.fm/) needs to display a representation of your keyboard. You can also set metadata here. For more information see the [reference page](reference_info_json.md).
 
 ### `config.h`
 
@@ -74,7 +80,7 @@ The following functions are typically defined in this file:
 
 This file is used to define the matrix for your keyboard. You should define at least one C macro named `LAYOUT` which translates an array into a matrix representing the physical switch matrix for your keyboard. If it's possible to build your keyboard with multiple layouts you may define additional macros.
 
-When defining multiple layouts you should have a base layout, named `LAYOUT`, that supports all possible switch positions on your matrix, even if that layout is impossible to build physically. This is the macro you should use in your `default` keymap. You should then have additional keymaps named `default-<layout>` that use your other layout macros. This will make it easier for people to use the layouts you define.
+When defining multiple layouts you should have a base layout, named `LAYOUT`, that supports all possible switch positions on your matrix, even if that layout is impossible to build physically. This is the macro you should use in your `default` keymap. You should then have additional keymaps named `default_<layout>` that use your other layout macros. This will make it easier for people to use the layouts you define.
 
 Layout macro names are entirely lowercase, except for the word `LAYOUT` at the front.
 
@@ -82,15 +88,15 @@ As an example, if you have a 60% PCB that supports ANSI and ISO you might define
 
 | Layout Name | Keymap Name | Description |
 |-------------|-------------|-------------|
-| LAYOUT | default | A keymap that supports both ISO and ANSI |
-| LAYOUT_ansi | default-ansi | An ANSI layout |
-| LAYOUT_iso | default-iso | An ISO layout |
+| LAYOUT | default | A layout that supports both ISO and ANSI |
+| LAYOUT_ansi | default_ansi | An ANSI layout |
+| LAYOUT_iso | default_iso | An ISO layout |
 
 ## Image/Hardware Files
 
 In an effort to keep the repo size down we're no longer accepting binary files of any format, with few exceptions. Hosting them elsewhere (such as <https://imgur.com>) and linking them in the `readme.md` is preferred.
 
-Any sort of hardware file (plate, case, pcb) can't be stored in qmk_firmware, but we have the [qmk.fm repo](https://github.com/qmk/qmk.fm) where such files (as well as in-depth info) can be stored and viewed on [qmk.fm](http://qmk.fm). Downloadable files are stored in `/<keyboard>/` (name follows the same format as above) which are served at `http://qmk.fm/<keyboard>/`, and pages are generated from `/_pages/<keyboard>/` which are served at the same location (.md files are generated into .html files through Jekyll). Check out the `lets_split` directory for an example.
+Hardware files (such as plates, cases, pcb) can be contributed to the [qmk.fm repo](https://github.com/qmk/qmk.fm) and they will be made available on [qmk.fm](http://qmk.fm). Downloadable files are stored in `/<keyboard>/` (name follows the same format as above) which are served at `http://qmk.fm/<keyboard>/`, and pages are generated from `/_pages/<keyboard>/` which are served at the same location (.md files are generated into .html files through Jekyll). Check out the `lets_split` folder for an example.
 
 ## Keyboard Defaults
 
@@ -107,77 +113,6 @@ If your keyboard does not have 2 shift keys you should provide a working default
 ## Custom Keyboard Programming
 
 As documented on [Customizing Functionality](custom_quantum_functions.md) you can define custom functions for your keyboard. Please keep in mind that your users may want to customize that behavior as well, and make it possible for them to do that. If you are providing a custom function, for example `process_record_kb()`, make sure that your function calls the `_user()` version of the call too. You should also take into account the return value of the `_user()` version, and only run your custom code if the user returns `true`.
-
-## Keyboard Metadata
-
-As QMK grows so does the ecosystem surrounding QMK. To make it easier for projects in that ecosystem to tie into QMK as we make changes we are developing a metadata system to expose information about keyboards in QMK.
-
-You can create `info.json` files at every level under `qmk_firmware/keyboards/<name>` to specify this metadata. These files are combined, with more specific files overriding keys in less specific files. This means you do not need to duplicate your metadata information. For example, `qmk_firmware/keyboards/clueboard/info.json` specifies `manufacturer` and `maintainer`, while `qmk_firmware/keyboards/clueboard/66/info.json` specifies more specific information about Clueboard 66%.
-
-### `info.json` Format
-
-The `info.json` file is a JSON formatted dictionary with the following keys available to be set. You do not have to set all of them, merely the keys that apply to your keyboard.
-
-* `keyboard_name`
-  * A free-form text string describing the keyboard.
-  * Example: `Clueboard 66%`
-* `url`
-  * A URL to the keyboard's product page, [QMK.fm/keyboards](https://qmk.fm/keyboards) page, or other page describing information about the keyboard.
-* `maintainer`
-  * GitHub username of the maintainer, or `qmk` for community maintained boards
-* `width`
-  * Width of the board in Key Units
-* `height`
-  * Height of the board in Key Units
-* `layouts`
-  * Physical Layout representations. See the next section for more detail.
-
-#### Layout Format
-
-Within our `info.json` file the `layouts` portion of the dictionary contains several nested dictionaries. The outer layer consists of QMK layout macros, for example `LAYOUT_ansi` or `LAYOUT_iso`. Within each layout macro are keys for `width`, `height`, and `key_count`, each of which should be self-explanatory.
-
-* `width`
-  * Optional: The width of the layout in Key Units
-* `height`
-  * Optional: The height of the layout in Key Units
-* `key_count`
-  * **Required**: The number of keys in this layout
-* `layout`
-  * A list of Key Dictionaries describing the physical layout. See the next section for more details.
-
-#### Key Dictionary Format
-
-Each Key Dictionary in a layout describes the physical properties of a key. If you are familiar with the Raw Code for <http://keyboard-layout-editor.com> you will find many of the concepts the same. We re-use the same key names and layout choices wherever possible, but unlike keyboard-layout-editor each key is stateless, inheriting no properties from the keys that came before it.
-
-All key positions and rotations are specified in relation to the top-left corner of the keyboard, and the top-left corner of each key.
-
-* `X`
-  * **Required**: The absolute position of the key in the horizontal axis, in Key Units.
-* `Y`
-  * **Required**: The absolute position of the key in the vertical axis, in Key Units.
-* `W`
-  * The width of the key, in Key Units. Ignored if `ks` is provided. Default: `1`
-* `H`
-  * The height of the key, in Key Units. Ignored if `ks` is provided. Default: `1`
-* `R`
-  * How many degrees clockwise to rotate the key.
-* `RX`
-  * The absolute position of the point to rotate the key around in the horizontal axis. Default: `x`
-* `RY`
-  * The absolute position of the point to rotate the key around in the vertical axis. Default: `y`
-* `KS`
-  * Key Shape: define a polygon by providing a list of points, in Key Units.
-  * **Important**: These are relative to the top-left of the key, not absolute.
-  * Example ISO Enter: `[ [0,0], [1.5,0], [1.5,2], [0.25,2], [0.25,1], [0,1], [0,0] ]`
-
-### How is the Metadata Exposed?
-
-This metadata is primarily used in two ways:
-
-* To allow web-based configurators to dynamically generate UI
-* To support the new `make keyboard:keymap:qmk` target, which bundles this metadata up with the firmware to allow QMK Toolbox to be smarter.
-
-Configurator authors can see the [QMK Compiler](https://docs.compile.qmk.fm/api_docs.html) docs for more information on using the JSON API.
 
 ## Non-Production/Handwired Projects
 
