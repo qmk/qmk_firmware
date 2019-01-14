@@ -72,7 +72,7 @@ The following functions are typically defined in this file:
 
 ### `<keyboard_name.h>`
 
-This file is used to define the matrix for your keyboard. You should define at least one CPP macro named `LAYOUT` which translates an array into a matrix representing your switch matrix. If it's possible to build your keyboard with multiple layouts you may define additional macros.
+This file is used to define the matrix for your keyboard. You should define at least one C macro named `LAYOUT` which translates an array into a matrix representing the physical switch matrix for your keyboard. If it's possible to build your keyboard with multiple layouts you may define additional macros.
 
 When defining multiple layouts you should have a base layout, named `LAYOUT`, that supports all possible switch positions on your matrix, even if that layout is impossible to build physically. This is the macro you should use in your `default` keymap. You should then have additional keymaps named `default-<layout>` that use your other layout macros. This will make it easier for people to use the layouts you define.
 
