@@ -226,7 +226,7 @@ void disp_pixel_setup(void)
     while (cur < lede)
     {
         cur->px = (cur->x - disp.left) / disp.width * 100;
-        cur->py = (cur->y - disp.top) / disp.height * 100;
+        cur->py = (cur->y - disp.bottom) / disp.height * 100;
         *cur->rgb.r = 0;
         *cur->rgb.g = 0;
         *cur->rgb.b = 0;
@@ -244,6 +244,7 @@ void led_matrix_prepare(void)
 uint8_t led_enabled;
 float led_animation_speed;
 uint8_t led_animation_direction;
+uint8_t led_animation_orientation;
 uint8_t led_animation_breathing;
 uint8_t led_animation_breathe_cur;
 uint8_t breathe_step;
@@ -263,7 +264,7 @@ void led_matrix_run(void)
     float ro;
     float go;
     float bo;
-    float px;
+    float po;
     uint8_t led_this_run = 0;
     led_setup_t *f = (led_setup_t*)led_setups[led_animation_id];
 
@@ -325,59 +326,68 @@ void led_matrix_run(void)
             //Act on LED
             for (fcur = 0; fcur < fmax; fcur++)
             {
-                px = led_cur->px;
-                float pxmod;
-                pxmod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+
+                if (led_animation_orientation)
+                {
+                  po = led_cur->py;
+                }
+                else
+                {
+                  po = led_cur->px;
+                }
+
+                float pomod;
+                pomod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
 
                 //Add in any moving effects
                 if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
                 {
-                    pxmod *= 100.0f;
-                    pxmod = (uint32_t)pxmod % 10000;
-                    pxmod /= 100.0f;
+                    pomod *= 100.0f;
+                    pomod = (uint32_t)pomod % 10000;
+                    pomod /= 100.0f;
 
-                    px -= pxmod;
+                    po -= pomod;
 
-                    if (px > 100) px -= 100;
-                    else if (px < 0) px += 100;
+                    if (po > 100) po -= 100;
+                    else if (po < 0) po += 100;
                 }
                 else if ((!led_animation_direction && f[fcur].ef & EF_SCR_L) || (led_animation_direction && (f[fcur].ef & EF_SCR_R)))
                 {
-                    pxmod *= 100.0f;
-                    pxmod = (uint32_t)pxmod % 10000;
-                    pxmod /= 100.0f;
-                    px += pxmod;
+                    pomod *= 100.0f;
+                    pomod = (uint32_t)pomod % 10000;
+                    pomod /= 100.0f;
+                    po += pomod;
 
-                    if (px > 100) px -= 100;
-                    else if (px < 0) px += 100;
+                    if (po > 100) po -= 100;
+                    else if (po < 0) po += 100;
                 }
 
-                //Check if LED's px is in current frame
-                if (px < f[fcur].hs) continue;
-                if (px > f[fcur].he) continue;
+                //Check if LED's po is in current frame
+                if (po < f[fcur].hs) continue;
+                if (po > f[fcur].he) continue;
                 //note: < 0 or > 100 continue
 
-                //Calculate the px within the start-stop percentage for color blending
-                px = (px - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
+                //Calculate the po within the start-stop percentage for color blending
+                po = (po - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
 
                 //Add in any color effects
                 if (f[fcur].ef & EF_OVER)
                 {
-                    ro = (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                    go = (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                    bo = (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+                    ro = (po * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+                    go = (po * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+                    bo = (po * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
                 }
                 else if (f[fcur].ef & EF_SUBTRACT)
                 {
-                    ro -= (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                    go -= (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                    bo -= (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+                    ro -= (po * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+                    go -= (po * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+                    bo -= (po * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
                 }
                 else
                 {
-                    ro += (px * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                    go += (px * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                    bo += (px * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
+                    ro += (po * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
+                    go += (po * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
+                    bo += (po * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
                 }
             }
         }
@@ -451,6 +461,7 @@ uint8_t led_matrix_init(void)
     led_lighting_mode = LED_MODE_NORMAL;
     led_animation_speed = 4.0f;
     led_animation_direction = 0;
+    led_animation_orientation = 0;
     led_animation_breathing = 0;
     led_animation_breathe_cur = BREATHE_MIN_STEP;
     breathe_step = 1;
@@ -483,11 +494,11 @@ void led_matrix_task(void)
     if (led_enabled)
     {
         //If an update may run and frame processing has completed
-        if (CLK_get_ms() >= led_next_run && led_cur == lede)
+        if (timer_read64() >= led_next_run && led_cur == lede)
         {
             uint8_t drvid;
 
-            led_next_run = CLK_get_ms() + LED_UPDATE_RATE;  //Set next frame update time
+            led_next_run = timer_read64() + LED_UPDATE_RATE;  //Set next frame update time
 
             //NOTE: GCR does not need to be timed with LED processing, but there is really no harm
             if (gcr_actual != gcr_actual_last)
@@ -509,9 +520,9 @@ void led_matrix_task(void)
     //Process more data if not finished
     if (led_cur != lede)
     {
-        //m15_off; //debug profiling
+        //DBG_1_OFF; //debug profiling
         led_matrix_run();
-        //m15_on; //debug profiling
+        //DBG_1_ON; //debug profiling
     }
 }
 

@@ -517,17 +517,20 @@ void EVENT_USB_Device_ControlRequest(void)
                         if (USB_DeviceState == DEVICE_STATE_Unattached)
                           return;
                     }
-#if defined(SHARED_EP_ENABLE)
-                    uint8_t report_id = REPORT_ID_KEYBOARD;
-                    if (keyboard_protocol) {
-                       report_id = Endpoint_Read_8();
-                    }
-                    if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
+
+                    if (Endpoint_BytesInEndpoint() == 2) {
+                      uint8_t report_id = REPORT_ID_KEYBOARD;
+
+                      if (keyboard_protocol) {
+                        report_id = Endpoint_Read_8();
+                      }
+
+                      if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
                         keyboard_led_stats = Endpoint_Read_8();
+                      }
+                    } else {
+                      keyboard_led_stats = Endpoint_Read_8();
                     }
-#else
-                    keyboard_led_stats = Endpoint_Read_8();
-#endif
 
                     Endpoint_ClearOUT();
                     Endpoint_ClearStatusStage();

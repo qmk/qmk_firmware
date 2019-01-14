@@ -185,6 +185,8 @@
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
+#define WT_MONO_BACKLIGHT
+
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 // EEPROM usage
@@ -198,7 +200,9 @@
 #define EEPROM_VERSION 0x07
 #define EEPROM_VERSION_ADDR 34
 
-// Backlight config starts after EEPROM version
-#define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+37)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 72
+// Dynamic keymap starts after EEPROM version
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
+// Dynamic macro starts after dynamic keymaps (35+(4*6*17*2)) = (35+816)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 851
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 173
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16

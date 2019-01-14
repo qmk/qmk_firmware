@@ -225,6 +225,13 @@ ifeq ($(strip $(ENCODER_ENABLE)), yes)
     OPT_DEFS += -DENCODER_ENABLE
 endif
 
+ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += DRV2605L.c
+    SRC += i2c_master.c
+    OPT_DEFS += -DDRV2605L
+endif
+
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
@@ -240,23 +247,27 @@ ifeq ($(strip $(LEADER_ENABLE)), yes)
   OPT_DEFS += -DLEADER_ENABLE
 endif
 
+include $(DRIVER_PATH)/qwiic/qwiic.mk
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
 
-ifneq ($(strip $(CUSTOM_MATRIX)), yes)
-    ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
-    else
-        QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
-    endif
-endif
-
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    ifneq ($(strip $(CUSTOM_MATRIX)), yes)
+       QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
+       # Do not use $(QUANTUM_DIR)/matrix.c.
+       CUSTOM_MATRIX=yes
+    endif
     OPT_DEFS += -DSPLIT_KEYBOARD
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
-                $(QUANTUM_DIR)/split_common/split_util.c \
-                $(QUANTUM_DIR)/split_common/i2c.c \
-                $(QUANTUM_DIR)/split_common/serial.c
+                $(QUANTUM_DIR)/split_common/split_util.c
+    QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c
+    QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c
+    COMMON_VPATH += $(QUANTUM_PATH)/split_common
+endif
+
+ifneq ($(strip $(CUSTOM_MATRIX)), yes)
+    QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
 endif

@@ -64,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
     KC_MAKE, _______, RGB_HUI, RGB_HUD,   \
     KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT,   \
-    RGB_TOG, RGB_SMOD, RGB_SAI, RGB_VAI,   \
+    RGB_TOG, RGB_MOD, RGB_SAI, RGB_VAI,   \
     _______, KC_RGB_T, RGB_SAD, RGB_VAD   \
 ),
 

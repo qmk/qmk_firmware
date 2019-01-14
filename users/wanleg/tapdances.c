@@ -73,9 +73,9 @@ void CAD_finished (qk_tap_dance_state_t *state, void *user_data) {
 		//register_code(KC_NO);
 		//take a screenshot of a single window, open Paint and paste
 		SEND_STRING(SS_LALT(SS_TAP(X_PSCREEN)) SS_LGUI("r"));
-        _delay_ms(500);
+        wait_ms(500);
         SEND_STRING("mspaint" SS_TAP(X_ENTER));
-        _delay_ms(700);
+        wait_ms(700);
         SEND_STRING(SS_LCTRL("v"));
 		break; //register this keycode when button is held
     case DOUBLE_TAP:
@@ -168,7 +168,7 @@ void LYR75_finished (qk_tap_dance_state_t *state, void *user_data) {
   LYR75tap_state.state = cur_dance(state);
   switch (LYR75tap_state.state) {
 	case SINGLE_TAP: register_code(KC_PSLS); break;
-	case DOUBLE_TAP: set_single_persistent_default_layer(GK75); break;
+	case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
     case DOUBLE_SINGLE_TAP: register_code(KC_PSLS); unregister_code(KC_PSLS); register_code(KC_PSLS);
   }
 }
@@ -176,7 +176,7 @@ void LYR75_finished (qk_tap_dance_state_t *state, void *user_data) {
 void LYR75_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (LYR75tap_state.state) {
     case SINGLE_TAP: unregister_code(KC_PSLS); break;
-    case DOUBLE_TAP: set_single_persistent_default_layer(GK75); break;
+    case DOUBLE_TAP: set_single_persistent_default_layer(_GK); break;
     case DOUBLE_SINGLE_TAP: unregister_code(KC_PSLS);
   }
   LYR75tap_state.state = 0;

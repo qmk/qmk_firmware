@@ -1,4 +1,9 @@
 # project specific files
+SRC =	keyboards/zeal60/zeal60.c \
+		keyboards/zeal60/rgb_backlight.c \
+		drivers/issi/is31fl3733.c \
+		quantum/color.c \
+		drivers/arm/i2c_master.c
 
 ## chip/board settings
 #   the next two should match the directories in
@@ -44,15 +49,18 @@ DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 # Build Options
 #   comment out to disable the options.
 #
-BACKLIGHT_ENABLE = no
-BOOTMAGIC_ENABLE = yes             # Virtual DIP switch configuration
+BACKLIGHT_ENABLE = no              # Enable keyboard backlight functionality
+BOOTMAGIC_ENABLE = no              # Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes              # Mouse keys
 EXTRAKEY_ENABLE = yes              # Audio control and System control
 CONSOLE_ENABLE = no                # Console for debug
 COMMAND_ENABLE = no                # Commands for debug and configuration
-#SLEEP_LED_ENABLE = yes            # Breathing sleep LED during USB suspend
+SLEEP_LED_ENABLE = no              # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes                  # USB Nkey Rollover
-AUDIO_ENABLE = no
-RGB_MATRIX_ENABLE = IS31FL3733     # Use RGB matrix
+AUDIO_ENABLE = no                  # Audio output on port C6
 NO_USB_STARTUP_CHECK = no          # Disable initialization only when usb is plugged in
 #SERIAL_LINK_ENABLE = yes
+
+RAW_ENABLE = yes
+DYNAMIC_KEYMAP_ENABLE = yes
+CIE1931_CURVE = yes
