@@ -190,16 +190,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void rgblight_task_user (void) {
   #ifdef RGBLIGHT_ENABLE
-    update_rgblight(false);
+    rgb_update(false);
   #endif
 }
 
-/* void matrix_init_user(void) { */
-/* } */
-/*  */
-/* void matrix_scan_user(void) { */
-/* } */
-/*  */
-/* bool process_record_user(uint16_t keycode, keyrecord_t *record) { */
-/*     return true; */
-/* } */
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    rgb_process_record(keycode, record);
+    return true;
+}
