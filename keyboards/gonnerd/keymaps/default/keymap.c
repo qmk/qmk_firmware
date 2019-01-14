@@ -20,7 +20,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       __x__,  __x__,  __x__,                  __x__,                                  __x__,  __x__,  KC_TRNS, __x__  \
   ),
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
