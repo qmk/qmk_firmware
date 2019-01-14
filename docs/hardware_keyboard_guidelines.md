@@ -53,7 +53,7 @@ All projects need to have a `readme.md` file that explains what the keyboard is,
 
 ### `config.h`
 
-All projects need to have a `config.h` file to set things like the processor type, bootloader, USB VID/PID, and other default settings. In general you should use this file to set reasonable defaults for your keyboard that will always work.
+All projects need to have a `config.h` file that sets things like the matrix size, product name, USB VID/PID, description and other settings. In general, use this file to set essential information and defaults for your keyboard that will always work.
 
 ### `rules.mk`
 
