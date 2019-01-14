@@ -41,21 +41,21 @@ Each Key Dictionary in a layout describes the physical properties of a key. If y
 
 All key positions and rotations are specified in relation to the top-left corner of the keyboard, and the top-left corner of each key.
 
-* `X`
+* `x`
   * **Required**: The absolute position of the key in the horizontal axis, in Key Units.
-* `Y`
+* `y`
   * **Required**: The absolute position of the key in the vertical axis, in Key Units.
-* `W`
+* `w`
   * The width of the key, in Key Units. Ignored if `ks` is provided. Default: `1`
-* `H`
+* `h`
   * The height of the key, in Key Units. Ignored if `ks` is provided. Default: `1`
-* `R`
+* `r`
   * How many degrees clockwise to rotate the key.
-* `RX`
+* `rx`
   * The absolute position of the point to rotate the key around in the horizontal axis. Default: `x`
-* `RY`
+* `ry`
   * The absolute position of the point to rotate the key around in the vertical axis. Default: `y`
-* `KS`
+* `ks`
   * Key Shape: define a polygon by providing a list of points, in Key Units.
   * **Important**: These are relative to the top-left of the key, not absolute.
   * Example ISO Enter: `[ [0,0], [1.5,0], [1.5,2], [0.25,2], [0.25,1], [0,1], [0,0] ]`
