@@ -67,4 +67,4 @@ This metadata is primarily used in two ways:
 * To allow web-based configurators to dynamically generate UI
 * To support the new `make keyboard:keymap:qmk` target, which bundles this metadata up with the firmware to allow QMK Toolbox to be smarter.
 
-Configurator authors can see the [QMK Compiler](https://docs.compile.qmk.fm/api_docs.html) docs for more information on using the JSON API.
+Configurator authors can see the [QMK Compiler](https://docs.api.qmk.fm/using-the-api) docs for more information on using the JSON API.
