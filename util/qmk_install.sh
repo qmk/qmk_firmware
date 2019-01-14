@@ -1,7 +1,9 @@
 #!/bin/sh
 # Pick the correct install script based on the current OS
 
-util_dir=$(dirname "$0")
+if [ -z "${util_dir+x}" ]; then
+	util_dir=$(dirname "$0")
+fi
 
 case $(uname -a) in
 	*Darwin*)
