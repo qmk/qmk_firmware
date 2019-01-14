@@ -4,8 +4,8 @@
 
 A 3x3 custom macro pad designed and developed by Tomek Wójcik.
 
-Keyboard Maintainer: [Tomek Wójcik](https://www.bthlabs.pl/)
-Hardware Supported: GeekPad Custom PCB
+Keyboard Maintainer: [Tomek Wójcik](https://www.bthlabs.pl/)  
+Hardware Supported: GeekPad Custom PCB  
 Hardware Availability: [Project Repository](https://git.bthlabs.pl/tomekwojcik/geekpad)
 
 Make example for this keyboard (after setting up your build environment):
