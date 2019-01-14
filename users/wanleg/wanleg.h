@@ -3,7 +3,7 @@
 #include "quantum.h"
 
 // Define layer names and order
-#ifdef KEYBOARD_gherkin
+#ifdef KEYBOARD_40percentclub_gherkin
 enum userspace_layers {
   gGK = 0,
   gNUM,
