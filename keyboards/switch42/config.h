@@ -21,7 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 #include <serial_config.h>
 
-#define USE_I2C
 #define USE_SERIAL
 
 #ifdef USE_Link_Time_Optimization
