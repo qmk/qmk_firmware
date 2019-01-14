@@ -84,5 +84,4 @@ void matrix_setup(void)
   {
     keyboard_slave_setup();
   }
-  sei();
 }
