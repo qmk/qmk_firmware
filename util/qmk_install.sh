@@ -1,7 +1,7 @@
 #!/bin/sh
 # Pick the correct install script based on the current OS
 
-if [ -z "${util_dir+x}" ]; then
+if [ -z "$util_dir" ]; then
 	util_dir=$(dirname "$0")
 fi
 
