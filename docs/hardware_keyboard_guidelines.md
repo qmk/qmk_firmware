@@ -34,7 +34,7 @@ Clueboard uses sub-folders for both purposes, organization and keyboard revision
       * [`60`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/60)  &larr; This is a compilable keyboard, it has a `rules.mk` file.
       * [`66`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66) &larr; This is also compilable- it uses `DEFAULT_FOLDER` to specify `rev3` as the default revision.
         * [`rev1`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev1) &larr; compilable: `make clueboard/66/rev1`
-        * [`rev2`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev2)  &lt;-- compilable, `make clueboard/66/rev2`
+        * [`rev2`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev2) &larr; compilable: `make clueboard/66/rev2`
         * [`rev3`](https://github.com/qmk/qmk_firmware/tree/master/keyboards/clueboard/66/rev3)  &lt;-- compilable, `make clueboard/66/rev3` and `make clueboard/66`
 
 ## Keyboard Folder Structure
