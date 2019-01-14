@@ -1,5 +1,5 @@
-// dustypomerleau, Minidox keymap
-// Thanks for checking out my keymap. The rationale behind this layout is described in the README.
+// Minidox keymap by dustypomerleau
+// Thanks for checking out my keymap. The rationale behind the layout is described in the README.
 
 #include QMK_KEYBOARD_H
 
@@ -54,7 +54,7 @@ enum custom_keycodes {
 #define GUI_F LGUI_T(KC_F)
 #define GUI_J LGUI_T(KC_J)
 #define GUI_N LGUI_T(KC_N)
-#define GUI_T LGUI_T(KC_T)
+#define GUI_TEA LGUI_T(KC_T)
 #define MAC_EM S(LALT(KC_MINS))
 #define MAC_EN LALT(KC_MINS)
 #define NAV_BK LT(_NAV, KC_BSPC)
@@ -72,7 +72,7 @@ enum custom_keycodes {
   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_QUES, KC_QUOT, \
   KC_PLUS, CTRL_EQ, ALT_OP,  GUI_CP,  KC_DQT,       KC_COLN, GUI_CB,  ALT_OB,  CTL_CCB, KC_LCBR, \
   KC_LT,   KC_PIPE, KC_MINS, KC_GT,   KC_BSLS,      KC_GRV,  KC_UNDS, KC_SLSH, KC_TILD, KC_SCLN, \
-                    _______, _______, MAC_EN,       MAC_EM,  _______, _______,                   \
+                    _______, _______, MAC_EN,       MAC_EM,  _______, _______                   \
 )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_CMK_DHM] = LAYOUT( \
   KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
-  KC_A,    CTRL_R,  ALT_S,   GUI_T,   KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O,    \
+  KC_A,    CTRL_R,  ALT_S,   GUI_TEA, KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O,    \
   KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
                     SYML_OS, SFT_OS,  NAV_BK,       NUM_SPC, SFT_OS,  SYMR_OS                    \
 ),
@@ -140,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, KC__VOLUP, KC__VOLDOWN, _______,_______, KC_MRWD, KC_MFFD, _______, _______, \
   KC_DEL,  KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_POWER,VOL_DN,  VOL_UP,  KC__MUTE,KC_MPLY, \
   _______, _______, _______, _______, _______,      _______, NUM_LK,  _______, _______, _______, \
-                    _______, _______, _______,      _______, _______, _______,                   \
+                    _______, _______, _______,      _______, _______, _______                    \
 ),
 
 /* Navigation + mouse keys
@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_PSCR, _______, KC_WH_U, KC_WH_D, KC_BSPC,      KC_DEL,  KC_PGDN, KC_PGUP, KC_HOME, KC_END,  \
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
   _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
-                    KC_ESC,  _______, _______,      KC_ENT,  _______, _______,                   \
+                    KC_ESC,  _______, _______,      KC_ENT,  _______, _______                    \
 ),
 
 /* Number + function keys
@@ -184,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
   KC_7,    CTRL_5,  ALT_3,   GUI_1,   KC_9,         KC_8,    GUI_0,   ALT_2,   CTRL_4,  KC_6,     \
   _______, _______, KC_F11,  KC_F12,  _______,      _______, NUM_LK,  _______, _______, _______,  \
-                    KC_ESC,  _______, KC_TAB,       _______, _______, _______,                    \
+                    KC_ESC,  _______, KC_TAB,       _______, _______, _______                     \
 ),
 
 /* Vanilla numbers + function keys (uncomment if you prefer standard number order)
@@ -202,12 +202,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-// [_NUM] = LAYOUT( \
-//   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
-//   KC_1,    CTRL_2,  ALT_3,   GUI_4,   KC_5,         KC_6,    GUI_7,   ALT_8,   CTRL_9,  KC_0,     \
-//   _______, _______, KC_F11,  KC_F12,  _______,      _______, NUM_LK,  _______, _______, _______,  \
-//                     KC_ESC,  _______, KC_TAB,       _______, _______, _______,                    \
-// ),
+/*
+* [_NUM] = LAYOUT( \
+*   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
+*   KC_1,    CTRL_2,  ALT_3,   GUI_4,   KC_5,         KC_6,    GUI_7,   ALT_8,   CTRL_9,  KC_0,     \
+*   _______, _______, KC_F11,  KC_F12,  _______,      _______, NUM_LK,  _______, _______, _______,  \
+*                     KC_ESC,  _______, KC_TAB,       _______, _______, _______                     \
+* ),
+*/
 
 /* Symbols
  *
@@ -244,14 +246,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYS] = LAYOUT( \
   _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, \
-  RESET,   DEBUG,   AU_OFF,  AU_ON,   _______,      _______, CMK_DHM, QWERTY, _______, _______, \
+  RESET,   DEBUG,   AU_OFF,  AU_ON,   _______,      _______, CMK_DHM, QWERTY,  _______, _______, \
   _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, \
-                    _______, _______, _______,      _______, _______, _______,                   \
+                    _______, _______, _______,      _______, _______, _______                    \
 ),
 
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  static uint16_t key_timer;
   switch (keycode) {
     case CMK_DHM:
       if (record->event.pressed) {

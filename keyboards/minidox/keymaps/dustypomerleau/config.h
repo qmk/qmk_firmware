@@ -1,4 +1,4 @@
-// dustypomerleau Minidox config
+// dustypomerleau, Minidox config
 
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
@@ -11,6 +11,7 @@
 #define PERMISSIVE_HOLD
 #define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD // allows rapid mod use after tap event, but sacrifices double-tap to repeat
+#define TAPPING_TERM 150
 #define USE_SERIAL
 
 // #define MOUSEKEY_DELAY 0 //  before cursor movement (high feels sluggish, low makes fine movement difficult)
@@ -21,6 +22,5 @@
 // #define MOUSEKEY_WHEEL_MAX_SPEED 8
 // #define MOUSEKEY_WHEEL_TIME_TO_MAX 4
 // #define ONESHOT_TAP_TOGGLE 2 // not compatible with TAPPING_FORCE_HOLD
-// #define TAPPING_TERM 200
 
 #endif
