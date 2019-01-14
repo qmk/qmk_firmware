@@ -137,6 +137,20 @@ This enables [key lock](feature_key_lock.md). This consumes an additional 260 by
 
 This enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 
+`SPLIT_TRANSPORT`
+
+Selects the protocol used to communicate between master and slave on a split keyboard. `SPLIT_TRANSPORT = i2c` will include the avr i2c driver (USE_I2C must also be set). `SPLIT_TRANSPORT = serial` will include the avr serial driver (only used if USE_I2C is not set). The default is to include both drivers, which may increase binary size unnecessarily. `SPLIT_TRANSPORT = custom` will include neither, and a custom implementation must be provided.
+
+As there is no standard driver for ARM-based split keyboards yet, `SPLIT_TRANSPORT = custom` must be used for these.
+
+`CUSTOM_MATRIX`
+
+Lets you replace the default matrix scanning routine with your own code. You will need to provide your own implementations of matrix_init() and matrix_scan().
+
+`CUSTOM_DEBOUNCE`
+
+Lets you replace the default key debouncing routine with your own code. You will need to provide your own implementation of debounce().
+
 ## Customizing Makefile Options on a Per-Keymap Basis
 
 If your keymap directory has a file called `rules.mk` any options you set in that file will take precedence over other `rules.mk` options for your particular keyboard.
