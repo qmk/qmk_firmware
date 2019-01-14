@@ -90,7 +90,7 @@ keyrecord_t record {
 
 # LED Control
 
-This allows you to control the 5 LED's defined as part of the USB Keyboard spec. It will be called when the state of one of those 5 LEDs changes.
+The firmware allows to read the 5 LED's defined as part of the USB Keyboard spec:
 
 * `USB_LED_NUM_LOCK`
 * `USB_LED_CAPS_LOCK`
@@ -98,31 +98,47 @@ This allows you to control the 5 LED's defined as part of the USB Keyboard spec.
 * `USB_LED_COMPOSE`
 * `USB_LED_KANA`
 
+These five constants corresponds to the positional bits of the host LED state.
+There are two ways to get the host LED state:
+
+* by implementing `led_set_user()`
+* by calling `host_keyboard_leds()`
+
+## `led_set_user()`
+
+This function will be called when the state of one of those 5 LEDs changes.
+It receives the LED state as parameter.
+Use the `IS_LED_ON(USB_LED, LED_NAME)` and `IS_LED_OFF(USB_LED, LED_NAME)`
+macros to check the LED status.
+
+Note that `host_keyboard_leds()` may reflect the new value already
+`led_set_user()` is called.
+
 ### Example `led_set_user()` Implementation
 
 ```c
 void led_set_user(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
+    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
         PORTB |= (1<<0);
     } else {
         PORTB &= ~(1<<0);
     }
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
         PORTB |= (1<<1);
     } else {
         PORTB &= ~(1<<1);
     }
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
+    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
         PORTB |= (1<<2);
     } else {
         PORTB &= ~(1<<2);
     }
-    if (usb_led & (1<<USB_LED_COMPOSE)) {
+    if (IS_LED_ON(usb_led, USB_LED_COMPOSE)) {
         PORTB |= (1<<3);
     } else {
         PORTB &= ~(1<<3);
     }
-    if (usb_led & (1<<USB_LED_KANA)) {
+    if (IS_LED_ON(usb_led, USB_LED_KANA)) {
         PORTB |= (1<<4);
     } else {
         PORTB &= ~(1<<4);
@@ -135,6 +151,29 @@ void led_set_user(uint8_t usb_led) {
 * Keyboard/Revision: `void led_set_kb(uint8_t usb_led)`
 * Keymap: `void led_set_user(uint8_t usb_led)`
 
+## `host_keyboard_leds()`
+
+Call this function to get the last received LED state.
+This is useful for reading the LED state outside `led_set_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
+
+For convenience, you can use the `IS_HOST_LED_ON(LED_NAME)` and `IS_HOST_LED_OFF(LED_NAME)` macros instead of calling directly `host_keyboard_leds()`.
+
+## Setting physical LED state
+
+Some keyboard implementations provide convenience methods for setting the state of the physical LED's.
+
+### Ergodox and Ergodox EZ
+
+The Ergodox EZ implementation provides `ergodox_right_led_``1`/`2`/`3_on`/`off()`
+to turn individual LED's on and off, as well as
+`ergodox_right_led_on`/`off(uint8_t led)`
+to turn them on and off by their number.
+
+In addition, it is possible to specify the brightness level with `ergodox_led_all_set(uint8_t n)`,
+for individual LED's with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`
+or by their number using `ergodox_right_led_set(uint8_t led, uint8_t n)`.
+
+It defines `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness, which is also the default.
 
 # Matrix Initialization Code
 
