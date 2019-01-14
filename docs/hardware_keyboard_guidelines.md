@@ -78,9 +78,11 @@ The following functions are typically defined in this file:
 
 ### `<keyboard_name.h>`
 
-This file is used to define the matrix for your keyboard. You should define at least one C macro named `LAYOUT` which translates an array into a matrix representing the physical switch matrix for your keyboard. If it's possible to build your keyboard with multiple layouts you may define additional macros.
+This file is used to define the matrix for your keyboard. You should define at least one C macro which translates an array into a matrix representing the physical switch matrix for your keyboard. If it's possible to build your keyboard with multiple layouts you should define additional macros.
 
-When defining multiple layouts you should have a base layout, named `LAYOUT`, that supports all possible switch positions on your matrix, even if that layout is impossible to build physically. This is the macro you should use in your `default` keymap. You should then have additional keymaps named `default_<layout>` that use your other layout macros. This will make it easier for people to use the layouts you define.
+If you have only a single layout you should call this macro `LAYOUT`.
+
+When defining multiple layouts you should have a base layout, named `LAYOUT_all`, that supports all possible switch positions on your matrix, even if that layout is impossible to build physically. This is the macro you should use in your `default` keymap. You should then have additional keymaps named `default_<layout>` that use your other layout macros. This will make it easier for people to use the layouts you define.
 
 Layout macro names are entirely lowercase, except for the word `LAYOUT` at the front.
 
@@ -88,7 +90,7 @@ As an example, if you have a 60% PCB that supports ANSI and ISO you might define
 
 | Layout Name | Keymap Name | Description |
 |-------------|-------------|-------------|
-| LAYOUT | default | A layout that supports both ISO and ANSI |
+| LAYOUT_all | default | A layout that supports both ISO and ANSI |
 | LAYOUT_ansi | default_ansi | An ANSI layout |
 | LAYOUT_iso | default_iso | An ISO layout |
 
