@@ -114,6 +114,7 @@ typedef struct led_setup_s {
 } led_setup_t;
 
 typedef struct led_keyrgb_s {
+    uint8_t aid;
     uint8_t ss;
     uint8_t se;
     uint8_t r;

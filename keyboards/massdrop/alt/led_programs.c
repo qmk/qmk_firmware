@@ -118,3 +118,23 @@ void *led_setups[] = {
 };
 
 const uint8_t led_setups_count = sizeof(led_setups) / sizeof(led_setups[0]);
+
+led_keyrgb_t layer_one[] = {
+    { .end = 1 },
+};
+
+led_keyrgb_t layer_two[] = {
+    { .ss = 36, .se = 36, .r = 255, .g = 0, .b = 0 },
+    { .ss = 52, .se = 54, .r = 255, .g = 0, .b = 0 },
+    { .ss = 82, .se = 82, .r = 255, .g = 0, .b = 0 },
+    { .ss = 31, .se = 31, .r = 255, .g = 0, .b = 0 },
+    { .ss = 48, .se = 49, .r = 255, .g = 0, .b = 0 },
+    { .aid = 0, .end = 1 },
+};
+
+void *led_keyrgbs[] = {
+    layer_one,
+    layer_two
+};
+
+const uint8_t led_keyrgbs_count = sizeof(led_keyrgbs) / sizeof(led_keyrgbs[0]);

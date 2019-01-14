@@ -297,13 +297,22 @@ void led_matrix_run(void)
     uint8_t fcur = 0;
     uint8_t fmax = 0;
 
+    uint8_t kcur = 0;
+    uint8_t kmax = 0;
+
     //Frames setup
     while (f[fcur].end != 1)
     {
         fcur++; //Count frames
     }
 
+    while( k[kcur].end != 1 )
+    {
+        kcur++;
+    }
+
     fmax = fcur; //Store total frames count
+    kmax = kcur;
 
     while (led_cur < lede && led_this_run < led_per_run)
     {
@@ -392,6 +401,19 @@ void led_matrix_run(void)
                     bo += (po * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
                 }
             }
+
+            if ( k[kmax].aid == led_animation_id || k[kmax].aid == -1 )
+            {
+                for (kcur = 0; kcur < kmax; kcur++)
+                {        
+                    if ( led_cur->id >= k[kcur].ss && led_cur->id <= k[kcur].se )
+                    {
+                        ro = k[kcur].r;
+                        go = k[kcur].g;
+                        bo = k[kcur].b;
+                    }
+                }
+            }
         }
 
         //Clamp values 0-255
@@ -409,18 +431,6 @@ void led_matrix_run(void)
         *led_cur->rgb.r = (uint8_t)ro;
         *led_cur->rgb.g = (uint8_t)go;
         *led_cur->rgb.b = (uint8_t)bo;
-
-        uint8_t kcur = 0;
-        while( k[kcur].end != 1 )
-        {
-            if ( led_cur->scan >= k[kcur].ss && led_cur->scan <= k[kcur].se )
-            {
-                *led_cur->rgb.r = k[kcur].r;
-                *led_cur->rgb.g = k[kcur].g;
-                *led_cur->rgb.b = k[kcur].b;
-            }
-            kcur++;
-        }
 
 #ifdef USB_LED_INDICATOR_ENABLE
         if (keyboard_leds())

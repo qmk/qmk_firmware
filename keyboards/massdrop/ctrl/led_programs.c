@@ -18,14 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ctrl.h"
 #include "led_matrix.h"
 
-//Teal <-> Purple
-led_setup_t leds_teal_purple[] = {
-    { .hs = 0,  .he = 30,  .rs = 24,  .re = 24,  .gs = 127, .ge = 127, .bs = 80, .be = 80, .ef = EF_NONE },
-    { .hs = 30, .he = 66,  .rs = 24,  .re = 145, .gs = 127, .ge = 48, .bs = 80, .be = 255, .ef = EF_NONE },
-    { .hs = 66, .he = 100, .rs = 145, .re = 145, .gs = 48, .ge = 48, .bs = 255, .be = 255, .ef = EF_NONE },
-    { .end = 1 },
-};
-
 //Teal <-> Salmon
 led_setup_t leds_teal_salmon[] = {
     { .hs = 0,  .he = 33,  .rs = 24,  .re = 24,  .gs = 215, .ge = 215, .bs = 204, .be = 204, .ef = EF_NONE },
@@ -112,7 +104,6 @@ led_setup_t leds_rainbow_s[] = {
 //Add the new animation name to the list below following its format
 
 void *led_setups[] = {
-    leds_teal_purple,
     leds_rainbow_s,
     leds_rainbow_ns,
     leds_teal_salmon,
@@ -131,18 +122,21 @@ const uint8_t led_setups_count = sizeof(led_setups) / sizeof(led_setups[0]);
 // Customize Specific key Colours.
 
 led_keyrgb_t layer_one[] = {
-    { .ss = 17, .se = 20, .r = 255, .g = 0, .b = 0 },
     { .end = 1 },
 };
 
-led_keyrgb_t esc_key[] = {
-    { .ss = 0, .se = 0, .r = 255, .g = 0, .b = 0 },
-    { .end = 1 },
+led_keyrgb_t layer_two[] = {
+    { .ss = 36, .se = 36, .r = 255, .g = 0, .b = 0 },
+    { .ss = 52, .se = 54, .r = 255, .g = 0, .b = 0 },
+    { .ss = 82, .se = 82, .r = 255, .g = 0, .b = 0 },
+    { .ss = 31, .se = 31, .r = 255, .g = 0, .b = 0 },
+    { .ss = 48, .se = 49, .r = 255, .g = 0, .b = 0 },
+    { .aid = 0, .end = 1 },
 };
 
 void *led_keyrgbs[] = {
     layer_one,
-    esc_key
+    layer_two
 };
 
 const uint8_t led_keyrgbs_count = sizeof(led_keyrgbs) / sizeof(led_keyrgbs[0]);

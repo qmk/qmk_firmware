@@ -63,6 +63,14 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
 };
 
+// Runs on layer change.
+uint32_t layer_state_set_user(uint32_t state) {
+    led_keyrgb_id = biton32(state);
+    if ( led_keyrgb_id < 0 ) led_keyrgb_id = 0;
+    if ( led_keyrgb_id > led_keyrgbs_count ) led_keyrgb_id = 0;
+    return state;
+}
+
 #define MODS_SHIFT  (keyboard_report->mods & MOD_BIT(KC_LSHIFT) || keyboard_report->mods & MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL  (keyboard_report->mods & MOD_BIT(KC_LCTL) || keyboard_report->mods & MOD_BIT(KC_RCTRL))
 #define MODS_ALT  (keyboard_report->mods & MOD_BIT(KC_LALT) || keyboard_report->mods & MOD_BIT(KC_RALT))
@@ -89,16 +97,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (led_animation_id == led_setups_count - 1) led_animation_id = 0;
                 else led_animation_id++;
-                if ( led_keyrgb_id == led_keyrgbs_count - 1) led_keyrgb_id = 0;
-                else led_keyrgb_id++;
             }
             return false;
         case L_PTP:
             if (record->event.pressed) {
                 if (led_animation_id == 0) led_animation_id = led_setups_count - 1;
                 else led_animation_id--;
-                if ( led_keyrgb_id == 0 ) led_keyrgb_id = led_keyrgbs_count - 1;
-                else led_keyrgb_id--;
             }
             return false;
         case L_PSI:
