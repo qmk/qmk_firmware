@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 
-#define RGBLED_NUM 12    // Number of LEDs
+#define RGBLED_NUM 21    // Number of LEDs
 
 /*
  * Feature disable options
