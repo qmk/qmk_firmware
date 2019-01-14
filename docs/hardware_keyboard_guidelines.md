@@ -57,7 +57,7 @@ All projects need to have a `config.h` file that sets things like the matrix siz
 
 ### `rules.mk`
 
-The prescence of this file means this folder is a keyboard target, and can be used in make commands. This is where you setup the build environment for your keyboard and configure the default set of features.
+The presence of this file means that the folder is a keyboard target and can be used in `make` commands. This is where you setup the build environment for your keyboard and configure the default set of features.
 
 ### `<keyboard_name.c>`
 
