@@ -1,6 +1,6 @@
 # QMK Keyboard Guidelines
 
-Since starting QMK has grown by leaps and bounds thanks to people like you who contributed to creating and maintaining our community keyboards. As we have grown we have discovered some patterns that work well, and ask that you conform to them to make it easier for other people to make use of your hard work.
+Since starting, QMK has grown by leaps and bounds thanks to people like you who contribute to creating and maintaining our community keyboards. As we have grown we have discovered some patterns that work well, and ask that you conform to them to make it easier for other people to make use of your hard work.
 
 ## Naming Your Keyboard/Project
 
