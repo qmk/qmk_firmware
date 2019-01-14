@@ -78,7 +78,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_F12`               |                    |F12                                            |
 |`KC_PSCREEN`           |`KC_PSCR`           |Print Screen                                   |
 |`KC_SCROLLLOCK`        |`KC_SLCK`, `KC_BRMD`|Scroll Lock, Brightness Down (macOS)           |
-|`KC_PAUSE`             |`KC_PAUS`, `KC_BRK` |Pause (macOS: Brightness up)                   |
+|`KC_PAUSE`             |`KC_PAUS`, `KC_BRK`, `KC_BRMU`|Pause, Brightness Up (macOS)         |
 |`KC_INSERT`            |`KC_INS`            |Insert                                         |
 |`KC_HOME`              |                    |Home                                           |
 |`KC_PGUP`              |                    |Page Up                                        |
