@@ -59,6 +59,9 @@ All key positions and rotations are specified in relation to the top-left corner
   * Key Shape: define a polygon by providing a list of points, in Key Units.
   * **Important**: These are relative to the top-left of the key, not absolute.
   * Example ISO Enter: `[ [0,0], [1.5,0], [1.5,2], [0.25,2], [0.25,1], [0,1], [0,0] ]`
+* `label`
+  * What to name this position in the matrix.
+  * This should usually be the same name as what is silkscreened on the PCB at this location.
 
 ## How is the Metadata Exposed?
 
