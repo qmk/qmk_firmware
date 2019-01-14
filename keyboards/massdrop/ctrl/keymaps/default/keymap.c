@@ -89,12 +89,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (led_animation_id == led_setups_count - 1) led_animation_id = 0;
                 else led_animation_id++;
+                if ( led_keyrgb_id == led_keyrgbs_count - 1) led_keyrgb_id = 0;
+                else led_keyrgb_id++;
             }
             return false;
         case L_PTP:
             if (record->event.pressed) {
                 if (led_animation_id == 0) led_animation_id = led_setups_count - 1;
                 else led_animation_id--;
+                if ( led_keyrgb_id == 0 ) led_keyrgb_id = led_keyrgbs_count - 1;
+                else led_keyrgb_id--;
             }
             return false;
         case L_PSI:

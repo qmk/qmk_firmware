@@ -252,6 +252,7 @@ uint8_t breathe_dir;
 uint64_t led_next_run;
 
 uint8_t led_animation_id;
+uint8_t led_keyrgb_id;
 uint8_t led_lighting_mode;
 
 issi3733_led_t *led_cur;
@@ -267,6 +268,7 @@ void led_matrix_run(void)
     float po;
     uint8_t led_this_run = 0;
     led_setup_t *f = (led_setup_t*)led_setups[led_animation_id];
+    led_keyrgb_t *k = (led_keyrgb_t*)led_keyrgbs[led_keyrgb_id];
 
     if (led_cur == 0) //Denotes start of new processing cycle in the case of chunked processing
     {
@@ -408,6 +410,18 @@ void led_matrix_run(void)
         *led_cur->rgb.g = (uint8_t)go;
         *led_cur->rgb.b = (uint8_t)bo;
 
+        uint8_t kcur = 0;
+        while( k[kcur].end != 1 )
+        {
+            if ( led_cur->scan >= k[kcur].ss && led_cur->scan <= k[kcur].se )
+            {
+                *led_cur->rgb.r = k[kcur].r;
+                *led_cur->rgb.g = k[kcur].g;
+                *led_cur->rgb.b = k[kcur].b;
+            }
+            kcur++;
+        }
+
 #ifdef USB_LED_INDICATOR_ENABLE
         if (keyboard_leds())
         {
@@ -458,6 +472,7 @@ uint8_t led_matrix_init(void)
 
     led_enabled = 1;
     led_animation_id = 0;
+    led_keyrgb_id = 0;
     led_lighting_mode = LED_MODE_NORMAL;
     led_animation_speed = 4.0f;
     led_animation_direction = 0;

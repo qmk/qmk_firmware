@@ -113,6 +113,15 @@ typedef struct led_setup_s {
   uint8_t end;      //Set to signal end of the setup
 } led_setup_t;
 
+typedef struct led_keyrgb_s {
+    uint8_t ss;
+    uint8_t se;
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+    uint8_t end;
+} led_keyrgb_t;
+
 extern issi3733_driver_t issidrv[ISSI3733_DRIVER_COUNT];
 
 extern uint8_t gcr_desired;
@@ -121,6 +130,7 @@ extern uint8_t gcr_actual;
 extern uint8_t gcr_actual_last;
 
 extern uint8_t led_animation_id;
+extern uint8_t led_keyrgb_id;
 extern uint8_t led_enabled;
 extern float led_animation_speed;
 extern uint8_t led_lighting_mode;
@@ -130,8 +140,10 @@ extern uint8_t led_animation_breathing;
 extern uint8_t led_animation_breathe_cur;
 extern uint8_t breathe_dir;
 extern const uint8_t led_setups_count;
+extern const uint8_t led_keyrgbs_count;
 
 extern void *led_setups[];
+extern void *led_keyrgbs[];
 
 extern issi3733_led_t *led_cur;
 extern issi3733_led_t *lede;
