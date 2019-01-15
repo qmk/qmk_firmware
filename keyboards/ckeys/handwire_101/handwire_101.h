@@ -1,4 +1,4 @@
-#ifndef HANDWIRE_101_H
+#pragma once
 #define HANDWIRE_101_H
 
 #include "quantum.h"
