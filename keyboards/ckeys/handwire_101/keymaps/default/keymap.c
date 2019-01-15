@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |TERMINAL ON |HELP |          |         |
    * `--------=======------------------------'
    */
-  [_TERMINAL] = KEYMAP(
+  [_TERMINAL] = LAYOUT(
     _____,    TERM_ABOUT, _____, _____, \
     TERM_OFF, TERM_PRINT, _____, _____, \
     _____,    TERM_FLUSH, _____, _____, \
