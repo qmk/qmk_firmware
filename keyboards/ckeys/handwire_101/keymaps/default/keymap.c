@@ -102,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  BUTTON 3 |SCROLL LEFT|SCROLL DOWN |SCROLL RIGHT|
    * `-------------------------------------------------'
    */
-  [_MOUSE] = KEYMAP(
+  [_MOUSE] = LAYOUT(
     KC_MS_BTN5, _____,         KC_MS_WH_UP,   _____,         \
     _____,      KC_MS_BTN1,    KC_MS_UP,      KC_MS_BTN2,    \
     KC_MS_BTN4, KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,   \
