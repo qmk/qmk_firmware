@@ -111,8 +111,7 @@ It receives the LED state as parameter.
 Use the `IS_LED_ON(USB_LED, LED_NAME)` and `IS_LED_OFF(USB_LED, LED_NAME)`
 macros to check the LED status.
 
-Note that `host_keyboard_leds()` may reflect the new value already
-`led_set_user()` is called.
+!> `host_keyboard_leds()` may already reflect a new value before `led_set_user()` is called.
 
 ### Example `led_set_user()` Implementation
 
@@ -160,24 +159,24 @@ For convenience, you can use the `IS_HOST_LED_ON(LED_NAME)` and `IS_HOST_LED_OFF
 
 ## Setting physical LED state
 
-Some keyboard implementations provide convenience methods for setting the state of the physical LED's.
+Some keyboard implementations provide convenience methods for setting the state of the physical LEDs.
 
 ### Ergodox and Ergodox EZ
 
 The Ergodox EZ implementation provides `ergodox_right_led_``1`/`2`/`3_on`/`off()`
-to turn individual LED's on and off, as well as
+to turn individual LEDs on and off, as well as
 `ergodox_right_led_on`/`off(uint8_t led)`
 to turn them on and off by their number.
 
 In addition, it is possible to specify the brightness level with `ergodox_led_all_set(uint8_t n)`,
-for individual LED's with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`
+for individual LEDs with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`
 or by their number using `ergodox_right_led_set(uint8_t led, uint8_t n)`.
 
 It defines `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness, which is also the default.
 
 # Matrix Initialization Code
 
-Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LED's or i&#xb2;c controllers you will need to set up that hardware before it can be used.
+Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LEDs or i&#xb2;c controllers you will need to set up that hardware before it can be used.
 
 
 ### Example `matrix_init_user()` Implementation
@@ -215,7 +214,7 @@ This example has been deliberately omitted. You should understand enough about Q
 
 This function gets called at every matrix scan, which is basically as often as the MCU can handle. Be careful what you put here, as it will get run a lot.
 
-You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LED's or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
+You should use this function if you need custom matrix scanning code. It can also be used for custom status output (such as LEDs or a display) or other functionality that you want to trigger regularly even when the user isn't typing.
 
 
 # Keyboard Idling/Wake Code
