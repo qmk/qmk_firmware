@@ -1,14 +1,14 @@
 #include QMK_KEYBOARD_H
 
-#define _BASE           0  // base layer
-#define _LAYERS         1  // layer of all layers
-#define _MUSIC          2  // music mode
-#define _MUSIC_4_LIFE   3  // music mode until unplugged
-#define _MOUSE          4  // mousekeys
-#define _TERMINAL       5  // terminal
-#define _ADMIN          6  // admin duties
-
-#define _____ KC_TRNS
+enum layers {
+  _BASE,                // base layer
+  _LAYERS,              // layer of all layers
+  _MUSIC,               // music mode
+  _MUSIC_4_LIFE,        // music mode until unplugged
+  _MOUSE,               // mousekeys
+  _TERMINAL,            // terminal
+  _ADMIN                // admin duties
+};
 
 enum custom_keycodes {
   TERM_ABOUT = SAFE_RANGE,
@@ -50,10 +50,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `---------------------------'
    */
   [_LAYERS] = LAYOUT(
-    TG(_MUSIC),    _____, _____, _____, \
-    TG(_MOUSE),    _____, _____, _____, \
-    TG(_TERMINAL), _____, _____, _____, \
-    TG(_ADMIN),    _____, _____, _____ \
+    TG(_MUSIC),    _______, _______, _______, \
+    TG(_MOUSE),    _______, _______, _______, \
+    TG(_TERMINAL), _______, _______, _______, \
+    TG(_ADMIN),    _______, _______, _______\
   ),
     /* MUSIC
    * ,-----------------------.
@@ -68,10 +68,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   // TODO: Make this music layer the one to jump to other music layers (different octaves)
   [_MUSIC] = LAYOUT(
-    _____,  _____, _____, _____,             \
-    _____,  _____, _____, TG(_MUSIC_4_LIFE), \
-    MU_OFF, _____, _____, _____,             \
-    MU_ON,  _____, _____, MU_MOD \
+    _______,  _______, _______, _______,             \
+    _______,  _______, _______, TG(_MUSIC_4_LIFE), \
+    MU_OFF,   _______, _______, _______,             \
+    MU_ON,    _______, _______, MU_MOD \
   ),
     /* MUSIC_4_LIFE
    * ,-----------------------.
@@ -102,8 +102,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-------------------------------------------------'
    */
   [_MOUSE] = LAYOUT(
-    KC_MS_BTN5, _____,         KC_MS_WH_UP,   _____,         \
-    _____,      KC_MS_BTN1,    KC_MS_UP,      KC_MS_BTN2,    \
+    KC_MS_BTN5, _______,       KC_MS_WH_UP,   _______,         \
+    _______,    KC_MS_BTN1,    KC_MS_UP,      KC_MS_BTN2,    \
     KC_MS_BTN4, KC_MS_LEFT,    KC_MS_DOWN,    KC_MS_RIGHT,   \
     KC_MS_BTN3, KC_MS_WH_LEFT, KC_MS_WH_DOWN, KC_MS_WH_RIGHT \
   ),
@@ -119,10 +119,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `--------=======------------------------'
    */
   [_TERMINAL] = LAYOUT(
-    _____,    TERM_ABOUT, _____, _____, \
-    TERM_OFF, TERM_PRINT, _____, _____, \
-    _____,    TERM_FLUSH, _____, _____, \
-    TERM_ON,  TERM_HELP , _____, _____ \
+    _______,    TERM_ABOUT, _______, _______, \
+    TERM_OFF,   TERM_PRINT, _______, _______, \
+    _______,    TERM_FLUSH, _______, _______, \
+    TERM_ON,    TERM_HELP , _______, _______\
   ),
     /* ADMIN
    * ,-----------------------------------------.
@@ -136,10 +136,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `-----------------------------------------'
    */
   [_ADMIN] = LAYOUT(
-    RESET,       _____, _____, _____,  \
-    CKEYS_ABOUT, _____, _____, _____,  \
-    _____,       _____, _____, CK_OFF, \
-    _____,       _____, _____, CK_ON \
+    RESET,       _______, _______, _______,  \
+    CKEYS_ABOUT, _______, _______, _______,  \
+    _______,     _______, _______, CK_OFF, \
+    _______,     _______, _______, CK_ON \
   ),
 };
 
