@@ -171,7 +171,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case CKEYS_ABOUT:
       if (record->event.pressed) {
-        SEND_STRING("https://cKeys.org"SS_TAP(X_ENTER)"Making people smile one keyboard at a time."SS_TAP(X_ENTER)"cKeys is a volunteer run 501(c)(3) nonprofit."SS_TAP(X_ENTER));
+        SEND_STRING("https://cKeys.org"SS_TAP(X_ENTER)"Making people smile one keyboard at a time."SS_TAP(X_ENTER)"cKeys is a volunteer-run 501(c)(3) nonprofit organization."SS_TAP(X_ENTER));
       } else { }
       break;
   }
