@@ -6,6 +6,7 @@ bool fg[RGBLED_NUM];
 LED_TYPE fg_color = { .r = 255, .g = 255, .b = 255 };
 
 LED_TYPE led[RGBLED_NUM];
+bool led_dirty = false;
 
 /* ------ */
 
@@ -20,6 +21,7 @@ void rgb_set_bg_cell (uint8_t r, uint8_t g, uint8_t b, int i) {
     led[i].r = fg[i] ? fg_color.r : r;
     led[i].g = fg[i] ? fg_color.g : g;
     led[i].b = fg[i] ? fg_color.b : b;
+    led_dirty = true;
 }
 
 void rgb_set_fg_cell (bool value, int i) {
@@ -27,6 +29,7 @@ void rgb_set_fg_cell (bool value, int i) {
     led[i].r = value ? fg_color.r : bg[i].r;
     led[i].g = value ? fg_color.g : bg[i].g;
     led[i].b = value ? fg_color.b : bg[i].b;
+    led_dirty = true;
 }
 
 void rgb_set_bg_gradient (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
@@ -71,7 +74,6 @@ void rgb_process_record (uint16_t keycode, keyrecord_t* record) {
     }
 
     rgb_set_fg_cell(record->event.pressed, row * 6 + col);
-    rgb_send();
 }
 
 void rgb_update (bool force) {
@@ -87,7 +89,10 @@ void rgb_update (bool force) {
             rgb_set_bg_gradient(1, 130, 250, 135);
         }
         last_layer_state = layer_state;
+    }
+    if (led_dirty) {
         rgb_send();
+        led_dirty = false;
     }
 }
 
