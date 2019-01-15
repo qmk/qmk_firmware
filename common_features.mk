@@ -276,19 +276,10 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
                    $(QUANTUM_DIR)/split_common/split_util.c
 
     # Determine which (if any) transport files are required
-    ifndef SPLIT_TRANSPORT
-        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c \
-                       $(QUANTUM_DIR)/split_common/i2c.c \
-                       $(QUANTUM_DIR)/split_common/serial.c
-    else
-        ifeq ($(strip $(SPLIT_TRANSPORT)), serial)
-            QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
-            QUANTUM_SRC += $(QUANTUM_DIR)/split_common/serial.c
-        endif
-        ifeq ($(strip $(SPLIT_TRANSPORT)), i2c)
-            QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
-            QUANTUM_SRC += $(QUANTUM_DIR)/split_common/i2c.c
-        endif
+    ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
+        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c \
+                           $(QUANTUM_DIR)/split_common/serial.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif

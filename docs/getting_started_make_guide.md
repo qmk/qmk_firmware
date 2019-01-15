@@ -97,7 +97,7 @@ This allows you to send Unicode characters using `UC(<code point>)` in your keym
 
 `UNICODEMAP_ENABLE`
 
-This allows you to send Unicode characters using `X(<map index>)` in your keymap. You will need to maintain a mapping table in your keymap file. All possible code points (up to `0x10FFFF`) are supported. 
+This allows you to send Unicode characters using `X(<map index>)` in your keymap. You will need to maintain a mapping table in your keymap file. All possible code points (up to `0x10FFFF`) are supported.
 
 `UCIS_ENABLE`
 
@@ -137,9 +137,7 @@ This enables split keyboard support (dual MCU like the let's split and bakingpy'
 
 `SPLIT_TRANSPORT`
 
-Selects the protocol used to communicate between master and slave on a split keyboard. `SPLIT_TRANSPORT = i2c` will include the avr i2c driver (USE_I2C must also be set). `SPLIT_TRANSPORT = serial` will include the avr serial driver (only used if USE_I2C is not set). The default is to include both drivers, which may increase binary size unnecessarily. `SPLIT_TRANSPORT = custom` will include neither, and a custom implementation must be provided.
-
-As there is no standard driver for ARM-based split keyboards yet, `SPLIT_TRANSPORT = custom` must be used for these.
+As there is no standard split communication driver for ARM-based split keyboards yet, `SPLIT_TRANSPORT = custom` must be used for these. It will prevent the standard split keyboard communication code (which is AVR-specific) from being included, allowing a custom implementation to be used.
 
 `CUSTOM_MATRIX`
 

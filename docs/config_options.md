@@ -197,8 +197,8 @@ If you define these options you will enable the associated feature, which may in
 
 Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk
 
-* `SPLIT_TRANSPORT`
-  * Selects the driver used to communicate between master and slave on a split keyboard. Current options are `i2c`, `serial`, and `custom`. By default both i2c and serial drivers are included (USE_I2C decides which is used). ARM-based keyboards must use `custom`.
+* `SPLIT_TRANSPORT = custom`
+  * Allows replacing the standard split communication routines with a custom one. ARM based split keyboards must use this at present.
 
 ### Setting Handedness
 
