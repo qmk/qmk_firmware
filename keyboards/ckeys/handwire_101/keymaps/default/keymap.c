@@ -33,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  0  |  .  |  =  |  +  |
    * `---------------------- '
    */
-  [_BASE] = KEYMAP(
+  [_BASE] = LAYOUT(
     KC_KP_7, KC_KP_8, KC_KP_9, LT(MO(_LAYERS), KC_PSLS), \
     KC_KP_4, KC_KP_5, KC_KP_6, KC_PAST,                  \
     KC_KP_1, KC_KP_2, KC_KP_3, KC_PMNS,                  \
@@ -50,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  ADMIN  |     |     |     |
    * `---------------------------'
    */
-  [_LAYERS] = KEYMAP(
+  [_LAYERS] = LAYOUT(
     TG(_MUSIC),    _____, _____, _____, \
     TG(_MOUSE),    _____, _____, _____, \
     TG(_TERMINAL), _____, _____, _____, \
@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `---------------------- '
    */
   // TODO: Make this music layer the one to jump to other music layers (different octaves)
-  [_MUSIC] = KEYMAP(
+  [_MUSIC] = LAYOUT(
     _____,  _____, _____, _____,             \
     _____,  _____, _____, TG(_MUSIC_4_LIFE), \
     MU_OFF, _____, _____, _____,             \

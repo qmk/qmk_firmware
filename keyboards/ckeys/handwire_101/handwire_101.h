@@ -6,7 +6,7 @@
 // The following is an example using the Planck MIT layout
 // The first section contains all of the arguements
 // The second converts the arguments into a two-dimensional array
-#define KEYMAP( \
+#define LAYOUT( \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, k23, \
@@ -19,4 +19,3 @@
     { k30, k31, k32, k33 } \
 }
 
-#endif
