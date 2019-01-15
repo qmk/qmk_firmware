@@ -1,5 +1,4 @@
 #pragma once
-#define HANDWIRE_101_H
 
 #include "quantum.h"
 
