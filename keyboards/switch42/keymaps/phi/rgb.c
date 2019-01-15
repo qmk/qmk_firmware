@@ -1,3 +1,5 @@
+#define BG_GRADIENT_VALUE 64
+
 LED_TYPE bg[RGBLED_NUM];
 
 bool fg[RGBLED_NUM];
@@ -30,8 +32,8 @@ void rgb_set_fg_cell (bool value, int i) {
 void rgb_set_bg_gradient (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
     LED_TYPE from, to;
 
-    sethsv(h, s, 255, &from);
-    sethsv(h2, s2, 255, &to);
+    sethsv(h, s, BG_GRADIENT_VALUE, &from);
+    sethsv(h2, s2, BG_GRADIENT_VALUE, &to);
 
     for (int i = 0; i < RGBLED_NUM; i++) {
         rgb_set_bg_cell(
