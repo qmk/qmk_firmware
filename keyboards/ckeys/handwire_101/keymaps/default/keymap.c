@@ -1,5 +1,4 @@
-#include "handwire_101.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 #define _BASE           0  // base layer
 #define _LAYERS         1  // layer of all layers
