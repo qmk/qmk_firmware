@@ -136,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |     X      |     |CLICKY DOWN|CLICKY ON |
    * `-----------------------------------------'
    */
-  [_ADMIN] = KEYMAP(
+  [_ADMIN] = LAYOUT(
     RESET,       _____, _____, _____,  \
     CKEYS_ABOUT, _____, _____, _____,  \
     _____,       _____, _____, CK_OFF, \
