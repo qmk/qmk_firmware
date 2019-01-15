@@ -90,7 +90,7 @@ keyrecord_t record {
 
 # LED Control
 
-The firmware allows to read the 5 LED's defined as part of the USB Keyboard spec:
+QMK provides methods to read the 5 LEDs defined as part of the HID spec:
 
 * `USB_LED_NUM_LOCK`
 * `USB_LED_CAPS_LOCK`
