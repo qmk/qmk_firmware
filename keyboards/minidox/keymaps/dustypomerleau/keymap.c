@@ -72,7 +72,7 @@ enum custom_keycodes {
   KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_QUES, KC_QUOT, \
   KC_PLUS, CTRL_EQ, ALT_OP,  GUI_CP,  KC_DQT,       KC_COLN, GUI_CB,  ALT_OB,  CTL_CCB, KC_LCBR, \
   KC_LT,   KC_PIPE, KC_MINS, KC_GT,   KC_BSLS,      KC_GRV,  KC_UNDS, KC_SLSH, KC_TILD, KC_SCLN, \
-                    _______, _______, MAC_EN,       MAC_EM,  _______, _______                    \
+                    _______, MAC_EN,  _______,      _______, MAC_EM,  _______                    \
 )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -87,8 +87,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   Z  |   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  |SYMLOS|SFT_OS|      |    |      |SFT_OS|SYMROS|
- *                  `------+------|NAV_BK|    |NUMSPC|------+------'
+ *                  |SFT_OS|NAV_BK|      |    |      |NUMSPC|SFT_OS|
+ *                  `------+------|SYMLOS|    |SYMROS|------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
   KC_A,    CTRL_R,  ALT_S,   GUI_TEA, KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O,    \
   KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SYML_OS, SFT_OS,  NAV_BK,       NUM_SPC, SFT_OS,  SYMR_OS                    \
+                    SFT_OS,  NAV_BK,  SYML_OS,      SYMR_OS, NUM_SPC, SFT_OS                     \
 ),
 
 /* QWERTY
@@ -109,8 +109,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   ;  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  |SYMLOS|SFT_OS|      |    |      |SFT_OS|SYMROS|
- *                  `------+------|NAV_BK|    |NUMSPC|------+------'
+ *                  |SFT_OS|NAV_BK|      |    |      |NUMSPC|SFT_OS|
+ *                  `------+------|SYMLOS|    |SYMROS|------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -118,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
   KC_A,    CTRL_S,  ALT_D,   GUI_F,   KC_G,         KC_H,    GUI_J,   ALT_K,   CTRL_L,  KC_QUOT, \
   KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SYML_OS, SFT_OS,  NAV_BK,       NUM_SPC, SFT_OS,  SYMR_OS                    \
+                    SFT_OS,  NAV_BK,  SYML_OS,      SYMR_OS, NUM_SPC, SFT_OS                     \
 ),
 
 /* Media + layer lock keys
@@ -153,8 +153,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      | ACL0 | ACL1 | ACL2 | BTN2 |           | BTN1 | MS_L | MS_D | MS_U | MS_R |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  | ESC  |      |      |    |      |      |      |
- *                  `------+------|      |    | ENTER|------+------'
+ *                  |      |      |      |    |      | ENTER|      |
+ *                  `------+------|  ESC |    |      |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_PSCR, _______, KC_WH_U, KC_WH_D, KC_BSPC,      KC_DEL,  KC_PGDN, KC_PGUP, KC_HOME, KC_END,  \
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
   _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
-                    KC_ESC,  _______, _______,      KC_ENT,  _______, _______                    \
+                    _______, _______, KC_ESC,       _______, KC_ENT,  _______                    \
 ),
 
 /* Number + function keys
@@ -175,8 +175,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |  F11 |  F12 |      |           |      |NUM_LK|      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  |  ESC |      |      |    |      |      |      |
- *                  `------+------|  TAB |    |      |------+------'
+ *                  |      | TAB  |      |    |      |      |      |
+ *                  `------+------|  ESC |    |      |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -184,7 +184,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
   KC_7,    CTRL_5,  ALT_3,   GUI_1,   KC_9,         KC_8,    GUI_0,   ALT_2,   CTRL_4,  KC_6,     \
   _______, _______, KC_F11,  KC_F12,  _______,      _______, NUM_LK,  _______, _______, _______,  \
-                    KC_ESC,  _______, KC_TAB,       _______, _______, _______                     \
+                    _______, KC_TAB,  KC_ESC,       _______, _______, _______                     \
 ),
 
 /* Vanilla numbers + function keys (uncomment if you prefer standard number order)
@@ -197,8 +197,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |  F11 |  F12 |      |           |      |NUM_LK|      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  |  ESC |      |      |    |      |      |      |
- *                  `------+------|  TAB |    |      |------+------'
+ *                  |      | TAB  |      |    |      |      |      |
+ *                  `------+------|  ESC |    |      |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -207,7 +207,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 *   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
 *   KC_1,    CTRL_2,  ALT_3,   GUI_4,   KC_5,         KC_6,    GUI_7,   ALT_8,   CTRL_9,  KC_0,     \
 *   _______, _______, KC_F11,  KC_F12,  _______,      _______, NUM_LK,  _______, _______, _______,  \
-*                     KC_ESC,  _______, KC_TAB,       _______, _______, _______                     \
+*                     _______, KC_TAB,  KC_ESC,       _______, _______, _______                     \
 * ),
 */
 
@@ -221,8 +221,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |   <  |   |  |   -  |   >  |   \  |           |   `  |   _  |   /  |   ~  |   ;  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  |      |      |      |    |      |      |      |
- *                  `------+------|MAC_EN|    |MAC_EM|------+------'
+ *                  |      |MAC_EN|      |    |      |MAC_EM|      |
+ *                  `------+------|      |    |      |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
