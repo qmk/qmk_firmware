@@ -85,7 +85,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |  ♫  |  ♫  |  ♫  |  ♫  |
    * `---------------------- '
    */
-  [_MUSIC_4_LIFE] = KEYMAP(
+  [_MUSIC_4_LIFE] = LAYOUT(
     KC_M, KC_M, KC_M, KC_M, \
     KC_M, KC_M, KC_M, KC_M, \
     KC_M, KC_M, KC_M, KC_M, \
