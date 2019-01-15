@@ -1,3 +1,4 @@
 RGBLIGHT_ENABLE = yes
 BACKLIGHT_ENABLE = yes
 MOUSEKEY_ENABLE = no       # Mouse keys(+4700)
+UNICODE_ENABLE = yes

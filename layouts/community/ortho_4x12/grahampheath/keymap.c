@@ -4,15 +4,19 @@ extern keymap_config_t keymap_config;
 
 enum custom_layers {
   _QWERTY,
+  _WORKMAN,
   _LOWER,
   _RAISE,
+  _ADJUST,
   _EMOJI,
 };
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  WORKMAN,
   LOWER,
   RAISE,
+  ADJUST,
   EMOJI,
   ABOVE,
   BUG,
@@ -58,6 +62,10 @@ enum custom_keycodes {
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
 
+#define KC_QWERTY QWERTY
+#define KC_WORKMAN WORKMAN
+#define ADJUST MO(_ADJUST)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -68,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |   /  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |Emoji | Ctrl | Alt  |Lower | Cmd  |Space |Space |Raise | Left | Down |  Up  |Right |
+ * |Emoji | Ctrl | Alt  | Cmd  | Lower|Space |Space |Raise | Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_ortho_4x12(
@@ -94,6 +102,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_WTAB, KC_BACK, KC_FORWARD, KC_TABL, KC_TABR, KC_F5,   KC_F6,   KC_UNDS,    KC_PLUS,    KC_LCBR, KC_RCBR, KC_PIPE,
   KC_LSFT, KC_F7,   KC_F8,      KC_F9,   KC_F10,  KC_F11,  KC_F12,  S(KC_NUHS), S(KC_NUBS), _______, _______, _______,
   _______, _______, _______, _______, _______,    KC_QS,   KC_QS,   _______,    _______,    _______, _______, _______
+),
+
+ /* Workman
+  * ,-----------------------------------------------------------------------------------.
+  * | Esc  |   Q  |   D  |   R  |   W  |   B  |   J  |   F  |   U  |   P  |  ;   | Bksp |
+  * |------+------+------+------+------+-------------+------+------+------+------+------|
+  * | Tab  |   A  |   S  |   H  |   T  |   G  |   Y  |   N  |   E  |   O  |   I  |  '   |
+  * |------+------+------+------+------+------|------+------+------+------+------+------|
+  * | Shift|   Z  |   X  |   M  |   C  |   V  |   K  |   L  |   ,  |   .  |   /  |Enter |
+  * |------+------+------+------+------+------+------+------+------+------+------+------|
+  * |Emoji | Ctrl | Alt  | Cmd  | Lower|Space |Space |Raise | Left | Down |  Up  |Right |
+  * `-----------------------------------------------------------------------------------'
+  */
+[_WORKMAN] = LAYOUT_ortho_4x12_wrapper(
+  KC_TAB,  KC_Q,    KC_D,    KC_R,    KC_W,       KC_B,   KC_J,    KC_F,       KC_U,    KC_P,    KC_SCLN, KC_BSPC,
+  KC_X0,   KC_A,    KC_S,    KC_H,    KC_T,       KC_G,   KC_Y,    KC_N,       KC_E,    KC_O,    KC_I,    KC_QUOT,
+  KC_LSFT, KC_Z,    KC_X,    KC_M,    KC_C,       KC_V,   KC_K,    KC_L,       KC_COMM, KC_DOT,  KC_SLSH, KC_X1,
+  KC_EMOJ, KC_LCTL, KC_LALT, KC_LGUI, MO(_LOWER), KC_SPC, KC_SPC,  MO(_RAISE), KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT
 ),
 
 /* Raise
@@ -131,6 +157,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   HYPR_2,  SING,    THINK,   CLAP,    CONFUSED, BUG,     _______, _______, SHIT,    ELIP,    _______, _______ ,
   _______, _______, _______, _______, KC_SLCK,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT
 ),
+
+/* Adjust Layer
+ * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
+ * │     │     │     │     │     │     │     │     │     │     │     │     │
+ * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+ * │     │     │     │     │     │Qwert│Workm│     │     │     │     │     │
+ * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
+ * │     │     │     │     |     │     │     │     │     │     │     │     │
+ * ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
+ * │     │     │     │     │     │           │     │     │     |     │     │
+ * └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
+ */
+[_ADJUST] = LAYOUT_ortho_4x12(
+ _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+ _______, _______, _______, _______, _______, _QWERTY,_WORKMAN, _______, _______, _______, _______, _______
+ _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
+ _______, _______, _______, _______, ADJUST,  _______, _______, ADJUST,  _______, _______, _______, _______
+),
+
 };
 
 #ifdef AUDIO_ENABLE
@@ -144,8 +189,24 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
+uint32_t layer_state_set_user(uint32_t state) {
+  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
+    case KC_QWERTY:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_QWERTY);
+      }
+      return false;
+      break;
+    case KC_WORKMAN:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_WORKMAN);
+      }
+      return false;
+      break;
     case ABOVE:
       if (record->event.pressed) {
         SEND_STRING("&above; ");
