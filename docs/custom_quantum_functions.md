@@ -156,7 +156,7 @@ void led_set_user(uint8_t usb_led) {
 Call this function to get the last received LED state.
 This is useful for reading the LED state outside `led_set_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
 
-For convenience, you can use the `IS_HOST_LED_ON(LED_NAME)` and `IS_HOST_LED_OFF(LED_NAME)` macros instead of calling directly `host_keyboard_leds()`.
+For convenience, you can use the `IS_HOST_LED_ON(LED_NAME)` and `IS_HOST_LED_OFF(LED_NAME)` macros instead of calling `host_keyboard_leds()` directly.
 
 ## Setting physical LED state
 
