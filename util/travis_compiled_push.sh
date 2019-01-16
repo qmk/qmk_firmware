@@ -73,6 +73,10 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
 	for file in ../qmk_firmware/keyboards/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
 	for file in ../qmk_firmware/keyboards/*/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+	for file in ../qmk_firmware/keyboards/*/keymaps/*/*_default_via.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*_default_via.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+	for file in ../qmk_firmware/keyboards/*/*/*/keymaps/*/*_default_via.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+	for file in ../qmk_firmware/keyboards/*/*/*/*/keymaps/*/*_default_via.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
 	bash _util/generate_keyboard_page.sh
 	git add -A
 	git commit -m "generated from qmk/qmk_firmware@${rev}"

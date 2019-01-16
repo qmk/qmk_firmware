@@ -142,6 +142,9 @@ ifdef MCU_FAMILY
     KEYBOARD_PATHS += $(STM32_PATH)
 endif
 
+ifeq ($(strip $(VIA)), true)
+  TARGET := $(TARGET)_via
+endif
 
 # Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
