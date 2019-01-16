@@ -5,14 +5,14 @@
 
 // Layers
 enum {
-        BASE=0,
-        SYMNUM,  // Symbols and numbers (activated by holding enter)
-        FKEYS,   // Function keys (activated by a thumb button)
+    BASE=0,
+    SYMNUM,  // Symbols and numbers (activated by holding enter)
+    FKEYS,   // Function keys (activated by a thumb button)
 };
 
 // counter that increments on all key press events.  This is needed for our LT
 // handling
-static uint16_t press_counter = 0;
+uint16_t press_counter = 0;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
