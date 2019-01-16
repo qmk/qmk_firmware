@@ -128,12 +128,6 @@ uint8_t matrix_cols(void)
 
 void matrix_init(void)
 {
-#ifdef DISABLE_JTAG
-  // JTAG disable for PORT F. write JTD bit twice within four cycles.
-  MCUCR |= (1<<JTD);
-  MCUCR |= (1<<JTD);
-#endif
-
     debug_enable = true;
     debug_matrix = true;
     debug_mouse = true;
@@ -355,24 +349,6 @@ void matrix_slave_scan(void) {
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
     }
-#endif
-#ifdef USE_I2C
-#ifdef BACKLIGHT_ENABLE
-    // Read backlight level sent from master and update level on slave
-    backlight_set(i2c_slave_buffer[0]);
-#endif
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        i2c_slave_buffer[i+1] = matrix[offset+i];
-    }
-#else // USE_SERIAL
-    for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        serial_slave_buffer[i] = matrix[offset+i];
-    }
-
-#ifdef BACKLIGHT_ENABLE
-    // Read backlight level sent from master and update level on slave
-    backlight_set(serial_master_buffer[SERIAL_BACKLIT_START]);
-#endif
 #endif
     matrix_slave_scan_user();
 }
