@@ -13,11 +13,11 @@
 
 /* key matrix size */
 #define MATRIX_ROWS 5
-#define MATRIX_COLS 18
+#define MATRIX_COLS 16
 
 /* key matrix pins */
 #define MATRIX_ROW_PINS { C7, C6, B6, B5, B4 }
-#define MATRIX_COL_PINS { F6, F5, F4, F1, F0, E6, B0, B1, D5, B2, B3, D0, D1, D2, D4, D6, D7, F7 }
+#define MATRIX_COL_PINS { F4, F1, F0, E6, B0, B1, D5, B2, B3, D0, D1, D2, D4, D6, D7, F7 }
 #define UNUSED_PINS
 
 /* number of backlight levels */

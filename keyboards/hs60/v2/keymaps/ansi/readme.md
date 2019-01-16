@@ -1,6 +1,6 @@
-The default keymap for ANSI HS60
-================================
+The default keymap for ANSI HS60 V2
+===================================
 
-![Layout image](https://imgur.com/CSyPw0J.png)
+![Layout image](https://i.imgur.com/m8t5CfE.png)
 
 Default layer is normal ANSI and Fn layer is used for RGB functions, Volume control and arrow cluster

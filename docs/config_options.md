@@ -109,9 +109,9 @@ If you define these options you will disable the associated feature, which can s
 * `#define NO_ACTION_ONESHOT`
   * disable one-shot modifiers
 * `#define NO_ACTION_MACRO`
-  * disable all macro handling
+  * disable old style macro handling: MACRO() & action_get_macro
 * `#define NO_ACTION_FUNCTION`
-  * disable the action function (deprecated)
+  * disable calling of action_function() from the fn_actions array (deprecated)
 
 ## Features That Can Be Enabled
 
