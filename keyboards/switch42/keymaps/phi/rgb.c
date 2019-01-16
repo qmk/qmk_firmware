@@ -19,9 +19,13 @@ void rgb_set_bg_cell (uint8_t r, uint8_t g, uint8_t b, int i) {
     bg[i].r = r;
     bg[i].g = g;
     bg[i].b = b;
-    led[i].r = fg[i] ? fg_color.r : r;
-    led[i].g = fg[i] ? fg_color.g : g;
-    led[i].b = fg[i] ? fg_color.b : b;
+
+    if (!fg[i]) {
+        led[i].r = r;
+        led[i].g = g;
+        led[i].b = b;
+    }
+
     led_dirty = true;
 }
 
@@ -82,6 +86,7 @@ void rgb_update (bool force) {
     static uint32_t last_layer_state = ~0;
 
     if (timer_elapsed(last_update) < RGB_REFRESH_INTERVAL) return;
+    last_update = timer_read();
 
     if ((layer_state != last_layer_state || force) && !temporary_bg_enabled) {
         if (layer_state & L_GARAKE) {
