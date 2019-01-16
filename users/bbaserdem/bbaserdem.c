@@ -89,13 +89,6 @@ uint32_t layer_state_set_user(uint32_t state) {
     layer_state_set_audio(state);
 #endif // AUDIO_ENABLE
 
-    // Mark as having been on gaming layer
-    if( biton32(state) == _GA ) {
-        userspace_config.game_flag = true;
-    } else {
-        userspace_config.game_flag = false;
-    }
-
     return state;
 }
 

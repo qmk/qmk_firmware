@@ -14,49 +14,41 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tap_dances.h"
 
 void d_num_gam_dn (qk_tap_dance_state_t *state, void *user_data) {
-    userspace_config.lock_flag = false;
+    layer_off(_GA);
     if (state->count == 1) {
         layer_on  (_NU);
     } else if (state->count == 2) {
         layer_off (_NU);
         layer_on  (_GA);
-        userspace_config.lock_flag = true;
     } else {
         layer_off (_GA);
-        userspace_config.lock_flag = false;
     }
 }
 
 void d_num_gam_up (qk_tap_dance_state_t *state, void *user_data) {
-    if ( userspace_config.lock_flag ) {
-        userspace_config.lock_flag = false;
-    } else {
-        layer_off (_NU);
-        layer_off (_GA);
-    }
+    layer_off (_NU);
 }
 
 void d_set_mou_dn (qk_tap_dance_state_t *state, void *user_data) {
-    userspace_config.lock_flag = false;
-    if (state->count == 1) {
-        layer_on  (_SE);
-    } else if (state->count == 2) {
-        layer_off (_SE);
-        layer_on  (_MO);
-    } else {
-        layer_off (_MO);
-    }
-}
-
-void d_set_mou_up (qk_tap_dance_state_t *state, void *user_data) {
     if ( userspace_config.lock_flag ) {
         userspace_config.lock_flag = false;
     } else {
         if (state->count == 1) {
-            layer_off (_SE);
+            layer_off (_MO);
+            layer_on  (_SE);
         } else if (state->count == 2) {
+            layer_off (_SE);
+            layer_on  (_MO);
+        } else {
             layer_off (_MO);
         }
+    }
+}
+
+void d_set_mou_up (qk_tap_dance_state_t *state, void *user_data) {
+    if ( !userspace_config.lock_flag ) {
+        layer_off (_SE);
+        layer_off (_MO);
     }
 }
 

@@ -20,13 +20,16 @@ float tone_return[][2]  = SONG(ZELDA_TREASURE);
 // Audio playing when layer changes
 uint32_t layer_state_set_audio(uint32_t state) {
 
-    uint8_t current_layer = biton32( layer_state );
+    uint8_t current_layer = biton32( state );
 
-    stop_all_notes();
-    if ( userspace_config.game_flag ) {
+    if ( userspace_config.game_flag && ( current_layer != _GA ) ) {
+        stop_all_notes();
         PLAY_SONG(tone_return);
-    } else if ( current_layer == _GA ) {
+        userspace_config.game_flag = false;
+    } else if ( ( current_layer == _GA ) && ( !userspace_config.game_flag) ) {
+        stop_all_notes();
         PLAY_SONG(tone_game);
+        userspace_config.game_flag = true;
     }
 
     return state;

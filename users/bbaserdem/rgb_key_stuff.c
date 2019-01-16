@@ -43,7 +43,7 @@ void rgb_matrix_game(void) {
     uint8_t r1 = 0xBF, g1 = 0x00, b1 = 0xFF;
 
     // WASD, IJKL
-    int k1[8] = { 2, 13, 14, 15, 8, 19, 20, 21 };
+    int k1[8] = { 2, 13, 14, 15, 9, 20, 21, 22 };
     for ( int i = 0; i < 8; i++ ) {
         rgb_matrix_set_color( k1[i], r1, g1, b1 );
     }

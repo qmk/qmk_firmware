@@ -1,15 +1,16 @@
 # Overview
+
 I have mostly ortholinear keyboards, which share a lot of functions.
-For this purpose, I collected them here.
 
 I have the following keymaps:
 
 * Gherkin (Does not use the user space)
-* XD75RE (Does not use the user space)
+* XD75RE
 * Bigseries (Does not use the user space)
-* Let's Split
+* Let's Split (with Choc Low switches)
 * Let's Split Eh
-* Planck
+* Planck (rev4 and rev6)
+* Planck Light
 
 # Layout
 Optimized for software level Dvorak, Turkish F and Qwerty layouts.
@@ -25,6 +26,4 @@ Optimized for software level Dvorak, Turkish F and Qwerty layouts.
 
 # Functionality
 
-* **RGB Backlight**: With layer indication, and ability to change base layer lighting mode.
-* **Secrets**: By placing a secrets.h, and not tracking it, passwords can be stored.
-* **Mouse**: Mouse emulation, complete with diagonal keys.
+## Audio
