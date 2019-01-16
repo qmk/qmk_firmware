@@ -1,0 +1,33 @@
+QMK Firmware 0.5.236
+[33;01mWARNING:[0m
+ Some git sub-modules are out of date or modified, please consider running:[1m
+ make git-submodule
+ You can ignore this warning if you are not compiling any ChibiOS keyboards,
+ or if you have modified the ChibiOS libraries yourself. 
+
+[0mMaking [1mplanck/light[0m with keymap [1mbbaserdem[0m
+
+avr-gcc (GCC) 8.2.0
+Copyright (C) 2018 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+Compiling: users/bbaserdem/bbaserdem.c                                                             Compiling: quantum/process_keycode/process_tap_dance.c                                             Compiling: keyboards/planck/keymaps/bbaserdem/keymap.c                                             Compiling: quantum/led_tables.c                                                                    Compiling: tmk_core/common/keyboard.c                                                              Compiling: tmk_core/common/action_tapping.c                                                        Compiling: tmk_core/common/action.c                                                                Compiling: tmk_core/common/host.c                                                                   [32;01m[OK][0m
+ [32;01m[OK][0m
+ [31;01m[ERRORS][0m
+ [32;01m[OK][0m
+ | 
+ | 
+ | 
+Compiling: tmk_core/common/action_macro.c                                                          Compiling: tmk_core/common/action_layer.c                                                           [32;01m[OK][0m
+ [32;01m[OK][0m
+Compiling: tmk_core/common/action_util.c                                                            [32;01m[OK][0m
+ [31;01m[ERRORS][0m
+ | 
+ | 
+ | 
+ [32;01m[OK][0m
+ [32;01m[OK][0m
+ [32;01m[OK][0m
+[31;01mMake finished with errors
+[0m

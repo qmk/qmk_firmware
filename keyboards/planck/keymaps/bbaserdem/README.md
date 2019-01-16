@@ -1,6 +1,6 @@
 # Planck Layout
 
-Current keymap is for rev4.
+Current keymap is being prepared for light.
 Audio is disabled in favor of RGB.
 Check out [user readme](../../../../users/bbaserdem/README.md) for more info.
 
