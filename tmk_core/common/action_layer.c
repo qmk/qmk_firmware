@@ -140,7 +140,7 @@ void layer_state_set(uint32_t state)
 
 /** \brief Layer clear
  *
- * FIXME: Needs docs
+ * Turn off all layers.
  */
 void layer_clear(void)
 {
@@ -149,7 +149,7 @@ void layer_clear(void)
 
 /** \brief Layer state is
  *
- * FIXME: Needs docs
+ * Return whether the given state is on (it might still be shadowed by a higher state, though).
  */
 bool layer_state_is(uint8_t layer)
 {
@@ -167,7 +167,7 @@ bool layer_state_cmp(uint32_t cmp_layer_state, uint8_t layer) {
 
 /** \brief Layer move
  *
- * FIXME: Needs docs
+ * Turn on the given layer and turn off all other layers.
  */
 void layer_move(uint8_t layer)
 {
@@ -176,7 +176,7 @@ void layer_move(uint8_t layer)
 
 /** \brief Layer on
  *
- * FIXME: Needs docs
+ * Turn on the given layer.
  */
 void layer_on(uint8_t layer)
 {
@@ -194,7 +194,7 @@ void layer_off(uint8_t layer)
 
 /** \brief Layer invert
  *
- * FIXME: Needs docs
+ * Toggle the given layer (set it if it's unset, or unset it if it's set).
  */
 void layer_invert(uint8_t layer)
 {
@@ -228,7 +228,7 @@ void layer_xor(uint32_t state)
 
 /** \brief Layer debug printing
  *
- * FIXME: Needs docs
+ * Print out the hex value of the 32-bit layer state, as well as the value of the highest bit.
  */
 void layer_debug(void)
 {
