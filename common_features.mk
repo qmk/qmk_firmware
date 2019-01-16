@@ -28,6 +28,10 @@ ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     MIDI_ENABLE=yes
 endif
 
+ifeq ($(strip $(VIA)), true)
+  DYNAMIC_KEYMAP_ENABLE=yes
+endif
+
 MUSIC_ENABLE := 0
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)

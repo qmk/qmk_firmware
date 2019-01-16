@@ -109,6 +109,10 @@ ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
     SHARED_EP_ENABLE = yes
 endif
 
+ifeq ($(strip $(VIA)), true)
+  RAW_ENABLE=yes
+endif
+
 ifeq ($(strip $(RAW_ENABLE)), yes)
     TMK_COMMON_DEFS += -DRAW_ENABLE
 endif
