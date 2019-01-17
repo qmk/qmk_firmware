@@ -30,7 +30,8 @@ enum custom_keycodes {
   ADJUST,
   BACKLIT,
   RGBRST,
-  AQOURS //サンシャインぴっかぴかモード
+  AQOURS, //サンシャインぴっかぴかモード
+  ELEC_BOARD //電光掲示板
 };
 
 enum macro_keycodes {
@@ -55,7 +56,7 @@ enum macro_keycodes {
 #define KC_GUIEI GUI_T(KC_LANG2)
 #define KC_ALTKN ALT_T(KC_LANG1)
 #define KC_AQOURS AQOURS
-
+#define KC_ELEC_BOARD ELEC_BOARD
 #ifdef RGBLIGHT_ENABLE
 //9色に変化するLEDのHSV各パラメータ
 //千歌,梨子,果南,ダイヤ,曜,善子,花丸,マリ、ルビィ
@@ -69,12 +70,25 @@ int aqours_next_color_timer_count = 0;
 int aqours_num  = 0;
 int target_col = 0;
 
+
+//■    ■■■  ■   ■  ■■■    ■    ■   ■   ■  ■■■
+//■    ■ ■   ■ ■   ■■     ■    ■    ■ ■   ■■
+//■■■  ■■■    ■    ■■■    ■■■  ■     ■    ■■■
+#define ELECTRIC_BOARD_LENGTH 43
+bool electric_board_mode = false;
+int electric_board_data[3][ELECTRIC_BOARD_LENGTH] = {
+  {1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1},
+  {1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0},
+  {1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1}
+};
+
 #endif
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------. ,-----------------------------------------.
-     AQOURS,     Q,     W,     E,     R,     T,       Y,     U,     I,     O,     P,  BSPC,\
+     AQOURS, ELEC_BOARD,     W,     E,     R,     T,       Y,     U,     I,     O,     P,  BSPC,\
   //|------+------+------+------+------+------| |------+------+------+------+------+------|
       CTLTB,     A,     S,     D,     F,     G,       H,     J,     K,     L,  SCLN,  QUOT,\
   //|------+------+------+------+------+------| |------+------+------+------+------+------|
@@ -163,6 +177,33 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
       }
     }
   }
+
+  int board_timer = 0;
+  int board_index = 0;
+  void electric_board_render(void) {
+    board_timer++;
+    if (board_timer == 400) {
+        board_timer = 0;
+        board_index++;
+        if (board_index == ELECTRIC_BOARD_LENGTH) {
+            board_index = 0;
+        }
+        for (int i = 0; i <= 6; i++) {
+          for (int c = 0; c <= 2; c++) {
+            int read_num = board_index + i;
+            if (read_num > ELECTRIC_BOARD_LENGTH)  {
+                read_num = read_num - ELECTRIC_BOARD_LENGTH;
+            }
+            if (electric_board_data[c][read_num]) {
+                sethsv(aqours_h[0], aqours_s[0], aqours_v[0], (LED_TYPE *)&led[i + 6 * c]);
+            } else {
+                sethsv(0, 0, 0, (LED_TYPE *)&led[i + 6 * c]);
+            }
+          }
+        }
+        rgblight_set();
+      }
+    };
 #endif
 
 void matrix_init_user(void) {
@@ -175,6 +216,9 @@ void matrix_scan_user(void) {
     #ifdef RGBLIGHT_ENABLE
       if (aqours_mode) {
         aqours_led();
+      }
+      if (electric_board_mode) {
+        electric_board_render();
       }
     #endif
 }
@@ -239,9 +283,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           rgblight_enable();
           RGB_current_mode = rgblight_config.mode;
           aqours_mode = false;
+          electric_board_mode = false;
         }
       #endif
       break;
+    case ELEC_BOARD:
+    #ifdef RGBLIGHT_ENABLE
+      if (record->event.pressed) {
+        electric_board_mode = !electric_board_mode;
+        aqours_mode = false;
+      }
+    #endif
+    break;
   }
   return true;
 }
