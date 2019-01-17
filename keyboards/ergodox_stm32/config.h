@@ -14,10 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-
-
-#ifndef ERGODOX_STM32_CONFIG_H
-#define ERGODOX_STM32_CONFIG_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #define VENDOR_ID 0xFFCD
 #define PRODUCT_ID 0xBFCE
