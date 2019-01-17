@@ -21,9 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID 0xFFCD
 #define PRODUCT_ID 0xBFCE
-#define DEVICE_VER 0x0001
+#define DEVICE_VER 0x101
 #define MANUFACTURER ErgoDox
-#define PRODUCT ErgoDox_STM
+#define PRODUCT ErgoDox STM
 #define DESCRIPTION ErgoDox STM32 Keyboard
 
 #define MATRIX_ROWS 14
