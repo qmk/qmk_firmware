@@ -1,5 +1,6 @@
 #define BG_GRADIENT_VALUE 120
 #define RGB_REFRESH_INTERVAL 66 /* 15fps */
+#define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 LED_TYPE bg[RGBLED_NUM];
 
@@ -7,34 +8,37 @@ bool fg[RGBLED_NUM];
 LED_TYPE fg_color = { .r = 255, .g = 255, .b = 255 };
 
 LED_TYPE led[RGBLED_NUM];
-bool led_dirty = false;
+int dirty_led_count = 0;
 
 /* ------ */
 
 void rgb_send (void) {
-    ws2812_setleds(led, RGBLED_NUM);
+    if (dirty_led_count) {
+        ws2812_setleds(led, dirty_led_count);
+        dirty_led_count = 0;
+    }
 }
 
 void rgb_set_bg_cell (uint8_t r, uint8_t g, uint8_t b, int i) {
-    bg[i].r = r;
-    bg[i].g = g;
-    bg[i].b = b;
+    setrgb(r, g, b, &bg[i]);
 
     if (!fg[i]) {
-        led[i].r = r;
-        led[i].g = g;
-        led[i].b = b;
+        setrgb(r, g, b, &led[i]);
     }
 
-    led_dirty = true;
+    dirty_led_count = RGBLED_NUM;
 }
 
 void rgb_set_fg_cell (bool value, int i) {
     fg[i] = value;
-    led[i].r = value ? fg_color.r : bg[i].r;
-    led[i].g = value ? fg_color.g : bg[i].g;
-    led[i].b = value ? fg_color.b : bg[i].b;
-    led_dirty = true;
+
+    if (value) {
+        setrgb(fg_color.r, fg_color.g, fg_color.b, &led[i]);
+    } else {
+        setrgb(bg[i].r, bg[i].g, bg[i].b, &led[i]);
+    }
+
+    dirty_led_count = MAX(dirty_led_count, i + 1);
 }
 
 void rgb_set_bg_gradient (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
@@ -101,10 +105,7 @@ void rgb_update (bool force) {
         last_layer_state = layer_state;
     }
 
-    if (led_dirty) {
-        rgb_send();
-        led_dirty = false;
-    }
+    rgb_send();
 }
 
 void rgb_override_color (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
