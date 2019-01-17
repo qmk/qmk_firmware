@@ -23,11 +23,11 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-	 _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-     _______, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, _______, _______, _______, \
-     _______, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, _______, _______, \
-     _______, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, _______, _______, \
-     _______, _______, _______,				_______,			_______, _______, _______ \
+	 KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, FUNCTION, \
+     KC_TAB, 			K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, _______, _______, _______, \
+     TD(TD_SFT_CAPS), 	K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, KC_QUOT, KC_ENT, \
+     KC_LSFT, 			K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, KC_LSFT, _______, \
+     KC_LCTL, KC_LGUI, KC_LALT,				KC_SPC,			KC_RALT, KC_RGUI, KC_RCTL \
   )
 #define LAYOUT_kbd6x_base_wrapper(...)       LAYOUT_kbd6x_base(__VA_ARGS__)
 
@@ -57,12 +57,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________Gherkin_ETC_2_______________
 ),
 
-[_FN] = LAYOUT_wrapper(
-      KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,
-      KC_TRNS, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS, BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-      KC_TRNS, KC_TRNS, KC_TRNS,                   KC_TRNS,                   KC_TRNS, KC_TRNS, KC_TRNS
+[_FN] = LAYOUT_kbd6x_base_wrapper(
+      RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______,
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+      _______, _______, BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, _______, _______, _______, _______
       ),
 	  
 };
