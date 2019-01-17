@@ -5,8 +5,10 @@
 
 // LED strip stuff
 #ifdef RGBLIGHT_ENABLE
+#ifdef KEYBOARD_planck_rev4
 #define RGB_DI_PIN B2
 #define RGBLED_NUM 12
+#endif // KEYBOARD_planck_rev4
 #define RGBLIGHT_HUE_STEP 6
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_VAL_STEP 20
@@ -17,8 +19,8 @@
 #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM 6
 #define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 2000
 #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
-#endif
+#endif // RGBLIGHT_ENABLE
 
 #define ENCODER_RESOLUTION 4
 
-#endif
+#endif // CONFIG_KEYMAP_H

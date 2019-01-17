@@ -13,6 +13,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #pragma once
 #include "bbaserdem.h"
+#include "rgb_matrix.h"
+#include "color.h"
 
 bool process_record_rgb(uint16_t keycode, keyrecord_t *record);
+void matrix_init_rgb(void);
 void rgb_matrix_indicators_rgb(void);
+void rgb_matrix_game(void);
+void rgb_matrix_number(void);
+void rgb_matrix_settings(void);
+void rgb_matrix_mouse(void);
+void rgb_matrix_music(void);

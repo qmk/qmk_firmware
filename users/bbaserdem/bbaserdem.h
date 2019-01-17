@@ -78,15 +78,22 @@ void rgb_matrix_indicators_keymap(void);
 typedef union {
     uint32_t raw;
     struct {
-        bool    lock_flag;          // If current layer is locked
-        bool    game_flag;          // If the game layer was on previously
-        uint8_t unicode_mod;        // State of unicode mode
-        bool    rgb_base_state;     // Checks if base state is to be saved
-        bool    rgb_base_toggle;    // Is RGB active on base layer
-        int     rgb_base_hue;       // Hue value of base state
-        int     rgb_base_sat;       // Saturation value of base state
-        int     rgb_base_val;       // Brightness value of base state
-        uint8_t rgb_base_mode;      // Animation mode of the base state
+        bool        lock_flag       :1;     // Current layer is locked?
+        bool        game_flag       :1;     // Game layer was on previously?
+        bool        rgb_blt_state   :1;     // (Backlight)  On load state?
+        bool        rgb_blt_toggle  :1;     //              Is light on?
+        bool        rgb_mat_state   :1;     // (Matrix)     On load state?
+        bool        rgb_mat_toggle  :1;     //              Is light on?
+        uint8_t     rgb_blt_mode    :6;     // (Backlight)  Animation mode
+        uint8_t     rgb_blt_sat     :8;     //              Saturation
+        uint8_t     rgb_blt_val     :8;     //              Brightness
+        uint8_t     rgb_blt_speed   :8;     //              Speed
+        uint8_t     rgb_mat_mode    :6;     // (Matrix)     Animation mode
+        uint8_t     rgb_mat_sat     :8;     //              Saturation
+        uint8_t     rgb_mat_val     :8;     //              Brightness
+        uint8_t     rgb_mat_speed   :8;     //              Speed
+        uint16_t    rgb_blt_hue     :9;     // (Backlight)  Hue
+        uint16_t    rgb_mat_hue     :9;     // (Matrix)     Hue
     };
 } userspace_config_t;
 

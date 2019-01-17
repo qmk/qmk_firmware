@@ -14,6 +14,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include "bbaserdem.h"
 #include "rgblight.h"
+#include "rgblight_list.h"
 
 uint32_t layer_state_set_rgb( uint32_t state );
 bool process_record_rgb(uint16_t keycode, keyrecord_t *record);
