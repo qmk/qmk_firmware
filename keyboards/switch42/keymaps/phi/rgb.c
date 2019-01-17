@@ -1,5 +1,5 @@
 #define BG_GRADIENT_VALUE 120
-#define RGB_REFRESH_INTERVAL 50 /* 20fps */
+#define RGB_REFRESH_INTERVAL 66 /* 15fps */
 
 LED_TYPE bg[RGBLED_NUM];
 
