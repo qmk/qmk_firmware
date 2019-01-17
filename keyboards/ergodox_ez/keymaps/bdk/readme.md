@@ -24,7 +24,7 @@ so I rolled my own to handle it.
 My first layouts had multiple layers that I could switch to, but that
 overloaded my brain.  This layout basically only uses 1 extra layer.
 Technically there's also a function key layer, but I only use those keys for
-a handlful of things: boot order, rename, reload page, that's basically it.
+a handful of things: boot order, rename, reload page, that's basically it.
 
 ## Brackets should be easy to use
 
