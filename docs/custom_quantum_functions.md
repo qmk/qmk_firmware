@@ -98,7 +98,7 @@ QMK provides methods to read the 5 LEDs defined as part of the HID spec:
 * `USB_LED_COMPOSE`
 * `USB_LED_KANA`
 
-These five constants corresponds to the positional bits of the host LED state.
+These five constants correspond to the positional bits of the host LED state.
 There are two ways to get the host LED state:
 
 * by implementing `led_set_user()`
