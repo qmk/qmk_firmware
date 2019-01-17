@@ -2,6 +2,7 @@
 #define ERGODOX_STM32_H
 
 #include "quantum.h"
+#include "action_layer.h"
 #include <stdint.h>
 #include <stdbool.h>
 

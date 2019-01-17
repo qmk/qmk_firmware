@@ -16,7 +16,7 @@ ARMV = 7
 OPT_DEFS =
 
 BOOTMAGIC_ENABLE = no
-MOUSEKEY_ENABLE = yes	# Mouse keys
+MOUSEKEY_ENABLE = no	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
 CONSOLE_ENABLE = no	# Console for debug
 COMMAND_ENABLE = no    # Commands for debug and configuration
