@@ -21,6 +21,10 @@ enum rhruiz_layers {
 #define SPCFN1 LT(_FN1, KC_SPC)
 #define SPCFN2 LT(_FN2, KC_SPC)
 
+/* backspace or fn */
+#define BKSFN1 LT(_FN1, KC_BSPC)
+#define BKSFN2 LT(_FN2, KC_BSPC)
+
 /* arrow cluster */
 #define CLLEFT MT(MOD_LGUI, KC_LEFT)
 #define CLDOWN MT(MOD_LALT, KC_DOWN)
