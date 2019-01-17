@@ -87,11 +87,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 static uint16_t special_timers[LONGPRESS_COUNT] = {0xFFFF,0xFFFF,0xFFFF,0xFFFF};
 static bool special_key_states[LONGPRESS_COUNT] = {0,0,0,0};
 static bool special_key_pressed[LONGPRESS_COUNT] = {0,0,0,0};

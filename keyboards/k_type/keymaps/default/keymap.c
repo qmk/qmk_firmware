@@ -10,10 +10,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_LCTL, KC_LGUI, KC_LALT,          KC_SPC,                KC_RALT, KC_RGUI, KC_MENU, KC_RCTL,                            KC_LEFT, KC_DOWN, KC_RGHT),
 };
 
-const uint16_t fn_actions[] = {
-
-};
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 
