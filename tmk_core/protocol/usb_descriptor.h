@@ -49,8 +49,7 @@
 #include "hal.h"
 #endif
 
-typedef struct
-{
+typedef struct {
   USB_Descriptor_Configuration_Header_t Config;
 
 #ifndef KEYBOARD_SHARED_EP
