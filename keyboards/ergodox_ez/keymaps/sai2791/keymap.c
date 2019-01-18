@@ -5,8 +5,6 @@
 #include "keymap_german.h"
 #include "keymap_nordic.h"
 
-#define KC_LOCKSCR  LCTL(LGUI(KC_Q)) // mac system wide Lock Screen 10.13 and later
-
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
