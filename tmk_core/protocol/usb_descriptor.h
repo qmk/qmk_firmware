@@ -50,42 +50,42 @@
 #endif
 
 typedef struct {
-  USB_Descriptor_Configuration_Header_t Config;
+  USB_Descriptor_Configuration_Header_t    Config;
 
 #ifndef KEYBOARD_SHARED_EP
   // Keyboard HID Interface
-  USB_Descriptor_Interface_t            Keyboard_Interface;
-  USB_HID_Descriptor_HID_t              Keyboard_HID;
-  USB_Descriptor_Endpoint_t             Keyboard_INEndpoint;
+  USB_Descriptor_Interface_t                Keyboard_Interface;
+  USB_HID_Descriptor_HID_t                  Keyboard_HID;
+  USB_Descriptor_Endpoint_t                 Keyboard_INEndpoint;
 #endif
 
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
   // Mouse HID Interface
-   USB_Descriptor_Interface_t            Mouse_Interface;
-  USB_HID_Descriptor_HID_t              Mouse_HID;
-  USB_Descriptor_Endpoint_t             Mouse_INEndpoint;
+   USB_Descriptor_Interface_t               Mouse_Interface;
+  USB_HID_Descriptor_HID_t                  Mouse_HID;
+  USB_Descriptor_Endpoint_t                 Mouse_INEndpoint;
 #endif
 
 #if defined(SHARED_EP_ENABLE)
-  USB_Descriptor_Interface_t            Shared_Interface;
-  USB_HID_Descriptor_HID_t              Shared_HID;
-  USB_Descriptor_Endpoint_t             Shared_INEndpoint;
+  USB_Descriptor_Interface_t                Shared_Interface;
+  USB_HID_Descriptor_HID_t                  Shared_HID;
+  USB_Descriptor_Endpoint_t                 Shared_INEndpoint;
 #endif
 
 #if defined(RAW_ENABLE)
   // Raw HID Interface
-  USB_Descriptor_Interface_t            Raw_Interface;
-  USB_HID_Descriptor_HID_t              Raw_HID;
-  USB_Descriptor_Endpoint_t             Raw_INEndpoint;
-  USB_Descriptor_Endpoint_t             Raw_OUTEndpoint;
+  USB_Descriptor_Interface_t                Raw_Interface;
+  USB_HID_Descriptor_HID_t                  Raw_HID;
+  USB_Descriptor_Endpoint_t                 Raw_INEndpoint;
+  USB_Descriptor_Endpoint_t                 Raw_OUTEndpoint;
 #endif
 
 #ifdef CONSOLE_ENABLE
   // Console HID Interface
-  USB_Descriptor_Interface_t            Console_Interface;
-  USB_HID_Descriptor_HID_t              Console_HID;
-  USB_Descriptor_Endpoint_t             Console_INEndpoint;
-  USB_Descriptor_Endpoint_t             Console_OUTEndpoint;
+  USB_Descriptor_Interface_t                Console_Interface;
+  USB_HID_Descriptor_HID_t                  Console_HID;
+  USB_Descriptor_Endpoint_t                 Console_INEndpoint;
+  USB_Descriptor_Endpoint_t                 Console_OUTEndpoint;
 #endif
 
 #ifdef MIDI_ENABLE
@@ -108,19 +108,19 @@ typedef struct {
 #endif
 
 #ifdef VIRTSER_ENABLE
-  USB_Descriptor_Interface_Association_t   CDC_Interface_Association;
+  USB_Descriptor_Interface_Association_t    CDC_Interface_Association;
 
   // CDC Control Interface
-  USB_Descriptor_Interface_t               CDC_CCI_Interface;
-  USB_CDC_Descriptor_FunctionalHeader_t    CDC_Functional_Header;
-  USB_CDC_Descriptor_FunctionalACM_t       CDC_Functional_ACM;
-  USB_CDC_Descriptor_FunctionalUnion_t     CDC_Functional_Union;
-  USB_Descriptor_Endpoint_t                CDC_NotificationEndpoint;
+  USB_Descriptor_Interface_t                CDC_CCI_Interface;
+  USB_CDC_Descriptor_FunctionalHeader_t     CDC_Functional_Header;
+  USB_CDC_Descriptor_FunctionalACM_t        CDC_Functional_ACM;
+  USB_CDC_Descriptor_FunctionalUnion_t      CDC_Functional_Union;
+  USB_Descriptor_Endpoint_t                 CDC_NotificationEndpoint;
 
   // CDC Data Interface
-  USB_Descriptor_Interface_t               CDC_DCI_Interface;
-  USB_Descriptor_Endpoint_t                CDC_DataOutEndpoint;
-  USB_Descriptor_Endpoint_t                CDC_DataInEndpoint;
+  USB_Descriptor_Interface_t                CDC_DCI_Interface;
+  USB_Descriptor_Endpoint_t                 CDC_DataOutEndpoint;
+  USB_Descriptor_Endpoint_t                 CDC_DataInEndpoint;
 #endif
 } USB_Descriptor_Configuration_t;
 
@@ -165,12 +165,12 @@ enum usb_endpoints {
 #if !defined(KEYBOARD_SHARED_EP)
   KEYBOARD_IN_EPNUM = NEXT_EPNUM,
 #else
-# define KEYBOARD_IN_EPNUM    SHARED_IN_EPNUM
+# define KEYBOARD_IN_EPNUM SHARED_IN_EPNUM
 #endif
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
   MOUSE_IN_EPNUM = NEXT_EPNUM,
 #else
-# define MOUSE_IN_EPNUM   SHARED_IN_EPNUM
+# define MOUSE_IN_EPNUM SHARED_IN_EPNUM
 #endif
 #if defined(RAW_ENABLE)
   RAW_IN_EPNUM = NEXT_EPNUM,
@@ -193,16 +193,16 @@ enum usb_endpoints {
 #ifdef MIDI_ENABLE
   MIDI_STREAM_IN_EPNUM = NEXT_EPNUM,
   MIDI_STREAM_OUT_EPNUM = NEXT_EPNUM,
-# define MIDI_STREAM_IN_EPADDR    (ENDPOINT_DIR_IN | MIDI_STREAM_IN_EPNUM)
-# define MIDI_STREAM_OUT_EPADDR   (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
+# define MIDI_STREAM_IN_EPADDR  (ENDPOINT_DIR_IN  | MIDI_STREAM_IN_EPNUM)
+# define MIDI_STREAM_OUT_EPADDR (ENDPOINT_DIR_OUT | MIDI_STREAM_OUT_EPNUM)
 #endif
 #ifdef VIRTSER_ENABLE
   CDC_NOTIFICATION_EPNUM = NEXT_EPNUM,
   CDC_IN_EPNUM = NEXT_EPNUM,
   CDC_OUT_EPNUM = NEXT_EPNUM,
-# define CDC_NOTIFICATION_EPADDR        (ENDPOINT_DIR_IN | CDC_NOTIFICATION_EPNUM)
-# define CDC_IN_EPADDR                  (ENDPOINT_DIR_IN | CDC_IN_EPNUM)
-# define CDC_OUT_EPADDR                  (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
+# define CDC_NOTIFICATION_EPADDR (ENDPOINT_DIR_IN  | CDC_NOTIFICATION_EPNUM)
+# define CDC_IN_EPADDR           (ENDPOINT_DIR_IN  | CDC_IN_EPNUM)
+# define CDC_OUT_EPADDR          (ENDPOINT_DIR_OUT | CDC_OUT_EPNUM)
 #endif
 };
 
@@ -220,14 +220,14 @@ enum usb_endpoints {
 # error There are not enough available endpoints to support all functions. Remove some in the rules.mk file. (MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL, STENO)
 #endif
 
-#define KEYBOARD_EPSIZE             8
-#define SHARED_EPSIZE               32
-#define MOUSE_EPSIZE                8
-#define RAW_EPSIZE                  32
-#define CONSOLE_EPSIZE              32
-#define MIDI_STREAM_EPSIZE          64
-#define CDC_NOTIFICATION_EPSIZE     8
-#define CDC_EPSIZE                  16
+#define KEYBOARD_EPSIZE          8
+#define SHARED_EPSIZE           32
+#define MOUSE_EPSIZE             8
+#define RAW_EPSIZE              32
+#define CONSOLE_EPSIZE          32
+#define MIDI_STREAM_EPSIZE      64
+#define CDC_NOTIFICATION_EPSIZE  8
+#define CDC_EPSIZE              16
 
 uint16_t get_usb_descriptor(const uint16_t wValue,
                             const uint16_t wIndex,
