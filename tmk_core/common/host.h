@@ -46,6 +46,12 @@ void host_consumer_send(uint16_t data);
 uint16_t host_last_system_report(void);
 uint16_t host_last_consumer_report(void);
 
+#define IS_LED_ON(USB_LED, LED_NAME)    ((USB_LED) & (1 << (LED_NAME)))
+#define IS_LED_OFF(USB_LED, LED_NAME)   (~(USB_LED) & (1 << (LED_NAME)))
+
+#define IS_HOST_LED_ON(LED_NAME)     IS_LED_ON(host_keyboard_leds(), (LED_NAME))
+#define IS_HOST_LED_OFF(LED_NAME)    IS_LED_OFF(host_keyboard_leds(), (LED_NAME))
+
 #ifdef __cplusplus
 }
 #endif

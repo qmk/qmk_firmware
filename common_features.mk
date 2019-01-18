@@ -254,20 +254,34 @@ QUANTUM_SRC:= \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
 
-ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
-    ifneq ($(strip $(CUSTOM_MATRIX)), yes)
-       QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
-       # Do not use $(QUANTUM_DIR)/matrix.c.
-       CUSTOM_MATRIX=yes
+# Include the standard or split matrix code if needed
+ifneq ($(strip $(CUSTOM_MATRIX)), yes)
+    ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
+    else
+        QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
     endif
-    OPT_DEFS += -DSPLIT_KEYBOARD
-    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
-                $(QUANTUM_DIR)/split_common/split_util.c
-    QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c
-    QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c
-    COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
 
-ifneq ($(strip $(CUSTOM_MATRIX)), yes)
-    QUANTUM_SRC += $(QUANTUM_DIR)/matrix.c
+# Include the standard debounce code if needed
+ifneq ($(strip $(CUSTOM_DEBOUNCE)), yes)
+    QUANTUM_SRC += $(QUANTUM_DIR)/debounce.c
+endif
+
+ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
+    OPT_DEFS += -DSPLIT_KEYBOARD
+
+    # Include files used by all split keyboards
+    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
+                   $(QUANTUM_DIR)/split_common/split_util.c
+
+    # Determine which (if any) transport files are required
+    ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
+        # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
+        # Unused functions are pruned away, which is why we can add both drivers here without bloat.
+        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c \
+                           $(QUANTUM_DIR)/split_common/serial.c
+    endif
+    COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif

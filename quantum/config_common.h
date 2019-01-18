@@ -21,6 +21,9 @@
 #define ROW2COL       1
 #define CUSTOM_MATRIX 2 /* Disables built-in matrix scanning code */
 
+// useful for direct pin mapping
+#define NO_PIN (~0)
+
 #ifdef __AVR__
     #ifndef __ASSEMBLER__
       #include <avr/io.h>

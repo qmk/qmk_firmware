@@ -1,4 +1,5 @@
-SRC += matrix_scanrate.c matrix.c 
+#SRC += matrix_scanrate.c matrix.c
+SRC += debounce.c
 
 # MCU name
 MCU = atmega32u4
@@ -37,7 +38,7 @@ F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = caterina
 
@@ -59,14 +60,15 @@ MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = yes          # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight. 
+RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SPLIT_KEYBOARD = yes        # Use shared split_common code
 SUBPROJECT_rev1 = yes
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = no
+CUSTOM_DEBOUNCE = yes
 
 LAYOUTS = split60
 
