@@ -246,10 +246,4 @@ enum usb_endpoints {
   #define CDC_EPSIZE              16
 
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress);
-
-  /* new API */
-  #if LUFA_VERSION_INTEGER < 0x140302
-    #undef VERSION_BCD
-    #define VERSION_BCD(Major, Minor, Revision) CPU_TO_LE16(((Major & 0xFF) << 8) | ((Minor & 0x0F) << 4) | (Revision & 0x0F))
-  #endif
 #endif
