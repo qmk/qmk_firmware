@@ -277,7 +277,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
     .Type                   = DTYPE_Device
   },
 
-  .USBSpecification         = VERSION_BCD(1,1,0),
+  .USBSpecification         = VERSION_BCD(1, 1, 0),
 #if VIRTSER_ENABLE
   .Class                    = USB_CSCP_IADDeviceClass,
   .SubClass                 = USB_CSCP_IADDeviceSubclass,
@@ -351,7 +351,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
       .Type                 = HID_DTYPE_HID
     },
 
-    .HIDSpec                = VERSION_BCD(1,1,1),
+    .HIDSpec                = VERSION_BCD(1, 1, 1),
     .CountryCode            = 0x00,
     .TotalReportDescriptors = 1,
     .HIDReportType          = HID_DTYPE_Report,
@@ -399,7 +399,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
       .Type                 = HID_DTYPE_HID
     },
 
-    .HIDSpec                = VERSION_BCD(1,1,1),
+    .HIDSpec                = VERSION_BCD(1, 1, 1),
     .CountryCode            = 0x00,
     .TotalReportDescriptors = 1,
     .HIDReportType          = HID_DTYPE_Report,
@@ -452,7 +452,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
       .Type                 = HID_DTYPE_HID
     },
 
-    .HIDSpec                = VERSION_BCD(1,1,1),
+    .HIDSpec                = VERSION_BCD(1, 1, 1),
     .CountryCode            = 0x00,
     .TotalReportDescriptors = 1,
     .HIDReportType          = HID_DTYPE_Report,
@@ -500,7 +500,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
       .Type                 = HID_DTYPE_HID
     },
 
-    .HIDSpec                = VERSION_BCD(1,1,1),
+    .HIDSpec                = VERSION_BCD(1, 1, 1),
     .CountryCode            = 0x00,
     .TotalReportDescriptors = 1,
     .HIDReportType          = HID_DTYPE_Report,
@@ -560,7 +560,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
       .Type                 = HID_DTYPE_HID
     },
 
-    .HIDSpec                = VERSION_BCD(1,1,1),
+    .HIDSpec                = VERSION_BCD(1, 1, 1),
     .CountryCode            = 0x00,
     .TotalReportDescriptors = 1,
     .HIDReportType          = HID_DTYPE_Report,
@@ -633,7 +633,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     },
     .Subtype                = AUDIO_DSUBTYPE_CSInterface_Header,
 
-    .ACSpecification        = VERSION_BCD(1,0,0),
+    .ACSpecification        = VERSION_BCD(1, 0, 0),
     .TotalLength            = sizeof(USB_Audio_Descriptor_Interface_AC_t),
 
     .InCollection           = 1,
@@ -665,11 +665,9 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     },
     .Subtype                = AUDIO_DSUBTYPE_CSInterface_General,
 
-    .AudioSpecification     = VERSION_BCD(1,0,0),
+    .AudioSpecification     = VERSION_BCD(1, 0, 0),
 
-    .TotalLength            = offsetof(USB_Descriptor_Configuration_t, MIDI_Out_Jack_Endpoint_SPC)
-                                        + sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t)
-                                        - offsetof(USB_Descriptor_Configuration_t, Audio_StreamInterface_SPC)
+    .TotalLength            = offsetof(USB_Descriptor_Configuration_t, MIDI_Out_Jack_Endpoint_SPC) + sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t) - offsetof(USB_Descriptor_Configuration_t, Audio_StreamInterface_SPC)
   },
 
   .MIDI_In_Jack_Emb = {
@@ -831,7 +829,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     },
     .Subtype                = 0x00,
 
-    .CDCSpecification       = VERSION_BCD(1,1,0),
+    .CDCSpecification       = VERSION_BCD(1, 1, 0),
   },
 
   .CDC_Functional_ACM = {
@@ -927,7 +925,7 @@ const USB_Descriptor_String_t PROGMEM LanguageString = {
 const USB_Descriptor_String_t PROGMEM ManufacturerString = {
   /* subtract 1 for null terminator */
   .Header = {
-      .Size      = USB_STRING_LEN(sizeof(STR(MANUFACTURER))-1),
+      .Size      = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1),
       .Type      = DTYPE_String
     },
 
@@ -937,7 +935,7 @@ const USB_Descriptor_String_t PROGMEM ManufacturerString = {
 const USB_Descriptor_String_t PROGMEM ProductString = {
   /* subtract 1 for null terminator */
   .Header = {
-      .Size      = USB_STRING_LEN(sizeof(STR(PRODUCT))-1),
+      .Size      = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1),
       .Type      = DTYPE_String
     },
 
@@ -951,7 +949,7 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
   /* subtract 1 for null terminator */
   .Header = {
-      .Size      = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER))-1),
+      .Size      = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1),
       .Type      = DTYPE_String
     },
 
@@ -965,77 +963,91 @@ const USB_Descriptor_String_t PROGMEM SerialNumberString = {
  *  is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
  *  USB host.
  */
-uint16_t get_usb_descriptor(const uint16_t wValue,
-                            const uint16_t wIndex,
-                            const void** const DescriptorAddress) {
-  const uint8_t  DescriptorType   = (wValue >> 8);
-  const uint8_t  DescriptorIndex  = (wValue & 0xFF);
-
-  const void* Address = NULL;
-  uint16_t    Size    = NO_DESCRIPTOR;
+uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress) {
+  const uint8_t DescriptorType  = (wValue >> 8);
+  const uint8_t DescriptorIndex = (wValue & 0xFF);
+  const void*   Address         = NULL;
+  uint16_t      Size            = NO_DESCRIPTOR;
 
   switch (DescriptorType) {
     case DTYPE_Device:
       Address = &DeviceDescriptor;
       Size    = sizeof(USB_Descriptor_Device_t);
+
       break;
     case DTYPE_Configuration:
       Address = &ConfigurationDescriptor;
       Size    = sizeof(USB_Descriptor_Configuration_t);
+
       break;
     case DTYPE_String:
       switch (DescriptorIndex ) {
         case 0x00:
           Address = &LanguageString;
           Size    = pgm_read_byte(&LanguageString.Header.Size);
+
           break;
         case 0x01:
           Address = &ManufacturerString;
           Size    = pgm_read_byte(&ManufacturerString.Header.Size);
+
           break;
         case 0x02:
           Address = &ProductString;
           Size    = pgm_read_byte(&ProductString.Header.Size);
+
           break;
         case 0x03:
           Address = &SerialNumberString;
           Size    = pgm_read_byte(&SerialNumberString.Header.Size);
+
           break;
       }
+
       break;
     case HID_DTYPE_HID:
       switch (wIndex) {
+
 #ifndef KEYBOARD_SHARED_EP
         case KEYBOARD_INTERFACE:
           Address = &ConfigurationDescriptor.Keyboard_HID;
           Size    = sizeof(USB_HID_Descriptor_HID_t);
           break;
 #endif
+
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
         case MOUSE_INTERFACE:
           Address = &ConfigurationDescriptor.Mouse_HID;
           Size    = sizeof(USB_HID_Descriptor_HID_t);
+
           break;
 #endif
+
 #ifdef SHARED_EP_ENABLE
         case SHARED_INTERFACE:
           Address = &ConfigurationDescriptor.Shared_HID;
           Size    = sizeof(USB_HID_Descriptor_HID_t);
+
           break;
 #endif
+
 #ifdef RAW_ENABLE
         case RAW_INTERFACE:
           Address = &ConfigurationDescriptor.Raw_HID;
           Size    = sizeof(USB_HID_Descriptor_HID_t);
+
           break;
 #endif
+
 #ifdef CONSOLE_ENABLE
         case CONSOLE_INTERFACE:
           Address = &ConfigurationDescriptor.Console_HID;
           Size    = sizeof(USB_HID_Descriptor_HID_t);
+
           break;
 #endif
       }
+
       break;
     case HID_DTYPE_Report:
       switch (wIndex) {
@@ -1043,36 +1055,47 @@ uint16_t get_usb_descriptor(const uint16_t wValue,
         case KEYBOARD_INTERFACE:
           Address = &KeyboardReport;
           Size    = sizeof(KeyboardReport);
+
           break;
 #endif
+
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
         case MOUSE_INTERFACE:
           Address = &MouseReport;
           Size    = sizeof(MouseReport);
+
           break;
 #endif
+
 #ifdef SHARED_EP_ENABLE
         case SHARED_INTERFACE:
           Address = &SharedReport;
           Size    = sizeof(SharedReport);
+
           break;
 #endif
+
 #ifdef RAW_ENABLE
         case RAW_INTERFACE:
           Address = &RawReport;
           Size    = sizeof(RawReport);
+
           break;
 #endif
+
 #ifdef CONSOLE_ENABLE
         case CONSOLE_INTERFACE:
           Address = &ConsoleReport;
           Size    = sizeof(ConsoleReport);
+
           break;
 #endif
       }
+
       break;
   }
 
   *DescriptorAddress = Address;
+
   return Size;
 }
