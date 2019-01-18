@@ -41,7 +41,7 @@
 #include "usb_descriptor.h"
 
 #ifndef USB_MAX_POWER_CONSUMPTION
-#define USB_MAX_POWER_CONSUMPTION 500
+  #define USB_MAX_POWER_CONSUMPTION 500
 #endif
 
 /*******************************************************************************
@@ -49,16 +49,16 @@
  ******************************************************************************/
 #ifdef KEYBOARD_SHARED_EP
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
-#define SHARED_REPORT_STARTED
+  #define SHARED_REPORT_STARTED
 #else
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
 #endif
   HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
   HID_RI_USAGE(8, 0x06), /* Keyboard */
   HID_RI_COLLECTION(8, 0x01), /* Application */
-#   ifdef KEYBOARD_SHARED_EP
+#ifdef KEYBOARD_SHARED_EP
     HID_RI_REPORT_ID(8, REPORT_ID_KEYBOARD),
-#   endif
+#endif
     HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
     HID_RI_USAGE_MINIMUM(8, 0xE0), /* Keyboard Left Control */
     HID_RI_USAGE_MAXIMUM(8, 0xE7), /* Keyboard Right GUI */
@@ -91,25 +91,23 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
     HID_RI_REPORT_SIZE(8, 0x08),
     HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
   HID_RI_END_COLLECTION(0),
-
 #ifndef KEYBOARD_SHARED_EP
 };
 #endif
 
-#if defined(MOUSE_ENABLE)
-
-#   if !defined(MOUSE_SHARED_EP)
+#ifdef MOUSE_ENABLE
+  #ifndef MOUSE_SHARED_EP
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] = {
-#   elif !defined(SHARED_REPORT_STARTED)
+  #elif !defined(SHARED_REPORT_STARTED)
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
-#define SHARED_REPORT_STARTED
-#   endif
+    #define SHARED_REPORT_STARTED
+  #endif
   HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
   HID_RI_USAGE(8, 0x02), /* Mouse */
   HID_RI_COLLECTION(8, 0x01), /* Application */
-#   ifdef MOUSE_SHARED_EP
+  #ifdef MOUSE_SHARED_EP
     HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
-#   endif
+  #endif
     HID_RI_USAGE(8, 0x01), /* Pointer */
     HID_RI_COLLECTION(8, 0x00), /* Physical */
 
@@ -151,15 +149,16 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 
     HID_RI_END_COLLECTION(0),
   HID_RI_END_COLLECTION(0),
-#   ifndef MOUSE_SHARED_EP
+  #ifndef MOUSE_SHARED_EP
 };
-#   endif
+  #endif
 #endif
 
 #if defined(SHARED_EP_ENABLE) && !defined(SHARED_REPORT_STARTED)
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #endif
-#   ifdef EXTRAKEY_ENABLE
+
+#ifdef EXTRAKEY_ENABLE
   HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
   HID_RI_USAGE(8, 0x80), /* System Control */
   HID_RI_COLLECTION(8, 0x01), /* Application */
@@ -185,9 +184,9 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
     HID_RI_REPORT_COUNT(8, 1),
     HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
   HID_RI_END_COLLECTION(0),
-#   endif
+#endif
 
-#   ifdef NKRO_ENABLE
+#ifdef NKRO_ENABLE
   HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
   HID_RI_USAGE(8, 0x06), /* Keyboard */
   HID_RI_COLLECTION(8, 0x01), /* Application */
@@ -220,7 +219,7 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
     HID_RI_REPORT_SIZE(8, 0x01),
     HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
   HID_RI_END_COLLECTION(0),
-#   endif
+#endif
 #ifdef SHARED_EP_ENABLE
 };
 #endif
@@ -266,7 +265,6 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
   HID_RI_END_COLLECTION(0),
 };
 #endif
-
 
 /*******************************************************************************
  * Device Descriptors
@@ -435,10 +433,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .TotalEndpoints         = 1,
 
     .Class                  = HID_CSCP_HIDClass,
-#   ifdef KEYBOARD_SHARED_EP
+#ifdef KEYBOARD_SHARED_EP
     .SubClass               = HID_CSCP_BootSubclass,
     .Protocol               = HID_CSCP_KeyboardBootProtocol,
-#   else
+#else
     .SubClass               = HID_CSCP_NonBootSubclass,
     .Protocol               = HID_CSCP_NonBootProtocol,
 #endif
@@ -981,7 +979,7 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
 
       break;
     case DTYPE_String:
-      switch (DescriptorIndex ) {
+      switch (DescriptorIndex) {
         case 0x00:
           Address = &LanguageString;
           Size    = pgm_read_byte(&LanguageString.Header.Size);
@@ -1007,7 +1005,6 @@ uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const 
       break;
     case HID_DTYPE_HID:
       switch (wIndex) {
-
 #ifndef KEYBOARD_SHARED_EP
         case KEYBOARD_INTERFACE:
           Address = &ConfigurationDescriptor.Keyboard_HID;
