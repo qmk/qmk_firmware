@@ -44,47 +44,49 @@
   #define USB_MAX_POWER_CONSUMPTION 500
 #endif
 
-/*******************************************************************************
- * HID Report Descriptors
- ******************************************************************************/
+/*
+ * HID report descriptors
+ */
 #ifdef KEYBOARD_SHARED_EP
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
   #define SHARED_REPORT_STARTED
 #else
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
 #endif
-  HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-  HID_RI_USAGE(8, 0x06), /* Keyboard */
-  HID_RI_COLLECTION(8, 0x01), /* Application */
+  HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
+  HID_RI_USAGE(8, 0x06), // Keyboard
+  HID_RI_COLLECTION(8, 0x01), // Application
 #ifdef KEYBOARD_SHARED_EP
     HID_RI_REPORT_ID(8, REPORT_ID_KEYBOARD),
 #endif
-    HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
-    HID_RI_USAGE_MINIMUM(8, 0xE0), /* Keyboard Left Control */
-    HID_RI_USAGE_MAXIMUM(8, 0xE7), /* Keyboard Right GUI */
+    // Modifiers (8 bits)
+    HID_RI_USAGE_PAGE(8, 0x07), // Keyboard/Keypad
+    HID_RI_USAGE_MINIMUM(8, 0xE0), // Keyboard Left Control
+    HID_RI_USAGE_MAXIMUM(8, 0xE7), // Keyboard Right GUI
     HID_RI_LOGICAL_MINIMUM(8, 0x00),
     HID_RI_LOGICAL_MAXIMUM(8, 0x01),
     HID_RI_REPORT_COUNT(8, 0x08),
     HID_RI_REPORT_SIZE(8, 0x01),
     HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-
+    // Reserved (1 byte)
     HID_RI_REPORT_COUNT(8, 0x01),
     HID_RI_REPORT_SIZE(8, 0x08),
-    HID_RI_INPUT(8, HID_IOF_CONSTANT),  /* reserved */
-
-    HID_RI_USAGE_PAGE(8, 0x08), /* LEDs */
-    HID_RI_USAGE_MINIMUM(8, 0x01), /* Num Lock */
-    HID_RI_USAGE_MAXIMUM(8, 0x05), /* Kana */
+    HID_RI_INPUT(8, HID_IOF_CONSTANT),
+    // Status LEDs (5 bits)
+    HID_RI_USAGE_PAGE(8, 0x08), // LED
+    HID_RI_USAGE_MINIMUM(8, 0x01), // Num Lock
+    HID_RI_USAGE_MAXIMUM(8, 0x05), // Kana
     HID_RI_REPORT_COUNT(8, 0x05),
     HID_RI_REPORT_SIZE(8, 0x01),
     HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+    // LED padding (3 bits)
     HID_RI_REPORT_COUNT(8, 0x01),
     HID_RI_REPORT_SIZE(8, 0x03),
     HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
-
-    HID_RI_USAGE_PAGE(8, 0x07), /* Keyboard */
-    HID_RI_USAGE_MINIMUM(8, 0x00), /* Reserved (no event indicated) */
-    HID_RI_USAGE_MAXIMUM(8, 0xFF), /* Keyboard Application */
+    // Keycodes (6 bytes)
+    HID_RI_USAGE_PAGE(8, 0x07), // Keyboard/Keypad
+    HID_RI_USAGE_MINIMUM(8, 0x00),
+    HID_RI_USAGE_MAXIMUM(8, 0xFF),
     HID_RI_LOGICAL_MINIMUM(8, 0x00),
     HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
     HID_RI_REPORT_COUNT(8, 0x06),
@@ -102,51 +104,51 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] = {
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
     #define SHARED_REPORT_STARTED
   #endif
-  HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-  HID_RI_USAGE(8, 0x02), /* Mouse */
-  HID_RI_COLLECTION(8, 0x01), /* Application */
+  HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
+  HID_RI_USAGE(8, 0x02), // Mouse
+  HID_RI_COLLECTION(8, 0x01), // Application
   #ifdef MOUSE_SHARED_EP
     HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
   #endif
-    HID_RI_USAGE(8, 0x01), /* Pointer */
-    HID_RI_COLLECTION(8, 0x00), /* Physical */
-
-      HID_RI_USAGE_PAGE(8, 0x09), /* Button */
-      HID_RI_USAGE_MINIMUM(8, 0x01),  /* Button 1 */
-      HID_RI_USAGE_MAXIMUM(8, 0x05),  /* Button 5 */
+    HID_RI_USAGE(8, 0x01), // Pointer
+    HID_RI_COLLECTION(8, 0x00), // Physical
+      // Buttons (5 bits)
+      HID_RI_USAGE_PAGE(8, 0x09), // Button
+      HID_RI_USAGE_MINIMUM(8, 0x01), // Button 1
+      HID_RI_USAGE_MAXIMUM(8, 0x05), // Button 5
       HID_RI_LOGICAL_MINIMUM(8, 0x00),
       HID_RI_LOGICAL_MAXIMUM(8, 0x01),
       HID_RI_REPORT_COUNT(8, 0x05),
       HID_RI_REPORT_SIZE(8, 0x01),
       HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+      // Button padding (3 bits)
       HID_RI_REPORT_COUNT(8, 0x01),
       HID_RI_REPORT_SIZE(8, 0x03),
       HID_RI_INPUT(8, HID_IOF_CONSTANT),
-
-      HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-      HID_RI_USAGE(8, 0x30), /* Usage X */
-      HID_RI_USAGE(8, 0x31), /* Usage Y */
+      // X/Y position (2 bytes)
+      HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
+      HID_RI_USAGE(8, 0x30), // X
+      HID_RI_USAGE(8, 0x31), // Y
       HID_RI_LOGICAL_MINIMUM(8, -127),
       HID_RI_LOGICAL_MAXIMUM(8, 127),
       HID_RI_REPORT_COUNT(8, 0x02),
       HID_RI_REPORT_SIZE(8, 0x08),
       HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
-
-      HID_RI_USAGE(8, 0x38), /* Wheel */
+      // Vertical wheel (1 byte)
+      HID_RI_USAGE(8, 0x38), // Wheel
       HID_RI_LOGICAL_MINIMUM(8, -127),
       HID_RI_LOGICAL_MAXIMUM(8, 127),
       HID_RI_REPORT_COUNT(8, 0x01),
       HID_RI_REPORT_SIZE(8, 0x08),
       HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
-
-      HID_RI_USAGE_PAGE(8, 0x0C), /* Consumer */
-      HID_RI_USAGE(16, 0x0238), /* AC Pan (Horizontal wheel) */
+      // Horizontal wheel (1 byte)
+      HID_RI_USAGE_PAGE(8, 0x0C), // Consumer
+      HID_RI_USAGE(16, 0x0238), // AC Pan
       HID_RI_LOGICAL_MINIMUM(8, -127),
       HID_RI_LOGICAL_MAXIMUM(8, 127),
       HID_RI_REPORT_COUNT(8, 0x01),
       HID_RI_REPORT_SIZE(8, 0x08),
       HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
-
     HID_RI_END_COLLECTION(0),
   HID_RI_END_COLLECTION(0),
   #ifndef MOUSE_SHARED_EP
@@ -159,27 +161,27 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #endif
 
 #ifdef EXTRAKEY_ENABLE
-  HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-  HID_RI_USAGE(8, 0x80), /* System Control */
-  HID_RI_COLLECTION(8, 0x01), /* Application */
+  HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
+  HID_RI_USAGE(8, 0x80), // System Control
+  HID_RI_COLLECTION(8, 0x01), // Application
     HID_RI_REPORT_ID(8, REPORT_ID_SYSTEM),
     HID_RI_LOGICAL_MINIMUM(16, 0x0001),
     HID_RI_LOGICAL_MAXIMUM(16, 0x0003),
-    HID_RI_USAGE_MINIMUM(16, 0x0081), /* System Power Down */
-    HID_RI_USAGE_MAXIMUM(16, 0x0083), /* System Wake Up */
+    HID_RI_USAGE_MINIMUM(16, 0x0081), // System Power Down
+    HID_RI_USAGE_MAXIMUM(16, 0x0083), // System Wake Up
     HID_RI_REPORT_SIZE(8, 16),
     HID_RI_REPORT_COUNT(8, 1),
     HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
   HID_RI_END_COLLECTION(0),
 
-  HID_RI_USAGE_PAGE(8, 0x0C), /* Consumer */
-  HID_RI_USAGE(8, 0x01), /* Consumer Control */
-  HID_RI_COLLECTION(8, 0x01), /* Application */
+  HID_RI_USAGE_PAGE(8, 0x0C), // Consumer
+  HID_RI_USAGE(8, 0x01), // Consumer Control
+  HID_RI_COLLECTION(8, 0x01), // Application
     HID_RI_REPORT_ID(8, REPORT_ID_CONSUMER),
     HID_RI_LOGICAL_MINIMUM(16, 0x0001),
     HID_RI_LOGICAL_MAXIMUM(16, 0x029C),
-    HID_RI_USAGE_MINIMUM(16, 0x0001), /* +10 */
-    HID_RI_USAGE_MAXIMUM(16, 0x029C), /* AC Distribute Vertically */
+    HID_RI_USAGE_MINIMUM(16, 0x0001), // Consumer Control
+    HID_RI_USAGE_MAXIMUM(16, 0x029C), // AC Distribute Vertically
     HID_RI_REPORT_SIZE(8, 16),
     HID_RI_REPORT_COUNT(8, 1),
     HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
@@ -187,35 +189,37 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #endif
 
 #ifdef NKRO_ENABLE
-  HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-  HID_RI_USAGE(8, 0x06), /* Keyboard */
-  HID_RI_COLLECTION(8, 0x01), /* Application */
+  HID_RI_USAGE_PAGE(8, 0x01), // Generic Desktop
+  HID_RI_USAGE(8, 0x06), // Keyboard
+  HID_RI_COLLECTION(8, 0x01), // Application
     HID_RI_REPORT_ID(8, REPORT_ID_NKRO),
-    HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
-    HID_RI_USAGE_MINIMUM(8, 0xE0), /* Keyboard Left Control */
-    HID_RI_USAGE_MAXIMUM(8, 0xE7), /* Keyboard Right GUI */
+    // Modifiers (8 bits)
+    HID_RI_USAGE_PAGE(8, 0x07), // Keyboard/Keypad
+    HID_RI_USAGE_MINIMUM(8, 0xE0), // Keyboard Left Control
+    HID_RI_USAGE_MAXIMUM(8, 0xE7), // Keyboard Right GUI
     HID_RI_LOGICAL_MINIMUM(8, 0x00),
     HID_RI_LOGICAL_MAXIMUM(8, 0x01),
     HID_RI_REPORT_COUNT(8, 0x08),
     HID_RI_REPORT_SIZE(8, 0x01),
     HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-
-    HID_RI_USAGE_PAGE(8, 0x08), /* LEDs */
-    HID_RI_USAGE_MINIMUM(8, 0x01), /* Num Lock */
-    HID_RI_USAGE_MAXIMUM(8, 0x05), /* Kana */
+    // Status LEDs (5 bits)
+    HID_RI_USAGE_PAGE(8, 0x08), // LED
+    HID_RI_USAGE_MINIMUM(8, 0x01), // Num Lock
+    HID_RI_USAGE_MAXIMUM(8, 0x05), // Kana
     HID_RI_REPORT_COUNT(8, 0x05),
     HID_RI_REPORT_SIZE(8, 0x01),
     HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+    // LED padding (3 bits)
     HID_RI_REPORT_COUNT(8, 0x01),
     HID_RI_REPORT_SIZE(8, 0x03),
     HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
-
-    HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
-    HID_RI_USAGE_MINIMUM(8, 0x00), /* Keyboard 0 */
-    HID_RI_USAGE_MAXIMUM(8, KEYBOARD_REPORT_BITS*8-1),
+    // Keycodes
+    HID_RI_USAGE_PAGE(8, 0x07), // Keyboard/Keypad
+    HID_RI_USAGE_MINIMUM(8, 0x00),
+    HID_RI_USAGE_MAXIMUM(8, KEYBOARD_REPORT_BITS * 8 - 1),
     HID_RI_LOGICAL_MINIMUM(8, 0x00),
     HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-    HID_RI_REPORT_COUNT(8, KEYBOARD_REPORT_BITS*8),
+    HID_RI_REPORT_COUNT(8, KEYBOARD_REPORT_BITS * 8),
     HID_RI_REPORT_SIZE(8, 0x01),
     HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
   HID_RI_END_COLLECTION(0),
@@ -226,16 +230,18 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 
 #ifdef RAW_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM RawReport[] = {
-  HID_RI_USAGE_PAGE(16, 0xFF60), /* Vendor Page 0xFF60 */
-  HID_RI_USAGE(8, 0x61), /* Vendor Usage 0x61 */
-  HID_RI_COLLECTION(8, 0x01), /* Application */
-    HID_RI_USAGE(8, 0x62), /* Vendor Usage 0x62 */
+  HID_RI_USAGE_PAGE(16, 0xFF60), // Vendor Defined
+  HID_RI_USAGE(8, 0x61), // Vendor Defined
+  HID_RI_COLLECTION(8, 0x01), // Application
+    // Data to host
+    HID_RI_USAGE(8, 0x62), // Vendor Defined
     HID_RI_LOGICAL_MINIMUM(8, 0x00),
     HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
     HID_RI_REPORT_COUNT(8, RAW_EPSIZE),
     HID_RI_REPORT_SIZE(8, 0x08),
     HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-    HID_RI_USAGE(8, 0x63), /* Vendor Usage 0x63 */
+    // Data from host
+    HID_RI_USAGE(8, 0x63), // Vendor Defined
     HID_RI_LOGICAL_MINIMUM(8, 0x00),
     HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
     HID_RI_REPORT_COUNT(8, RAW_EPSIZE),
@@ -247,16 +253,18 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM RawReport[] = {
 
 #ifdef CONSOLE_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
-  HID_RI_USAGE_PAGE(16, 0xFF31), /* Vendor Page(PJRC Teensy compatible) */
-  HID_RI_USAGE(8, 0x74), /* Vendor Usage(PJRC Teensy compatible) */
-  HID_RI_COLLECTION(8, 0x01), /* Application */
-    HID_RI_USAGE(8, 0x75), /* Vendor Usage 0x75 */
+  HID_RI_USAGE_PAGE(16, 0xFF31), // Vendor Defined (PJRC Teensy compatible)
+  HID_RI_USAGE(8, 0x74), // Vendor Defined (PJRC Teensy compatible)
+  HID_RI_COLLECTION(8, 0x01), // Application
+    // Data to host
+    HID_RI_USAGE(8, 0x75), // Vendor Defined
     HID_RI_LOGICAL_MINIMUM(8, 0x00),
     HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
     HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
     HID_RI_REPORT_SIZE(8, 0x08),
     HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-    HID_RI_USAGE(8, 0x76), /* Vendor Usage 0x76 */
+    // Data from host
+    HID_RI_USAGE(8, 0x76), // Vendor Defined
     HID_RI_LOGICAL_MINIMUM(8, 0x00),
     HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
     HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
@@ -266,9 +274,9 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
 };
 #endif
 
-/*******************************************************************************
- * Device Descriptors
- ******************************************************************************/
+/*
+ * Device descriptor
+ */
 const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
   .Header = {
     .Size                   = sizeof(USB_Descriptor_Device_t),
@@ -288,7 +296,7 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
 
   .Endpoint0Size            = FIXED_CONTROL_ENDPOINT_SIZE,
 
-  /* specified in config.h */
+  // Specified in config.h
   .VendorID                 = VENDOR_ID,
   .ProductID                = PRODUCT_ID,
   .ReleaseNumber            = DEVICE_VER,
@@ -300,9 +308,9 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
   .NumberOfConfigurations   = FIXED_NUM_CONFIGURATIONS
 };
 
-/*******************************************************************************
- * Configuration Descriptors
- ******************************************************************************/
+/*
+ * Configuration descriptors
+ */
 const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   .Config = {
     .Header = {
@@ -321,10 +329,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .MaxPowerConsumption    = USB_CONFIG_POWER_MA(USB_MAX_POWER_CONSUMPTION)
   },
 
+#ifndef KEYBOARD_SHARED_EP
   /*
    * Keyboard
    */
-#ifndef KEYBOARD_SHARED_EP
   .Keyboard_Interface = {
     .Header = {
       .Size                 = sizeof(USB_Descriptor_Interface_t),
@@ -369,10 +377,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 #endif
 
+#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
   /*
    * Mouse
    */
-#if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
   .Mouse_Interface = {
     .Header = {
       .Size                 = sizeof(USB_Descriptor_Interface_t),
@@ -417,10 +425,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 #endif
 
+#ifdef SHARED_EP_ENABLE
   /*
    * Shared
    */
-#ifdef SHARED_EP_ENABLE
   .Shared_Interface = {
     .Header = {
       .Size                 = sizeof(USB_Descriptor_Interface_t),
@@ -470,10 +478,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 #endif
 
-  /*
-   * Raw
-   */
 #ifdef RAW_ENABLE
+  /*
+   * Raw HID
+   */
   .Raw_Interface = {
     .Header = {
       .Size                 = sizeof(USB_Descriptor_Interface_t),
@@ -530,10 +538,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 #endif
 
+#ifdef CONSOLE_ENABLE
   /*
    * Console
    */
-#ifdef CONSOLE_ENABLE
   .Console_Interface = {
     .Header = {
       .Size                 = sizeof(USB_Descriptor_Interface_t),
@@ -591,6 +599,9 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
 #endif
 
 #ifdef MIDI_ENABLE
+  /*
+   * MIDI
+   */
   .Audio_Interface_Association = {
     .Header = {
       .Size                 = sizeof(USB_Descriptor_Interface_Association_t),
@@ -786,6 +797,9 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
 #endif
 
 #ifdef VIRTSER_ENABLE
+  /*
+   * Virtual Serial
+   */
   .CDC_Interface_Association = {
     .Header = {
       .Size                 = sizeof(USB_Descriptor_Interface_Association_t),
@@ -907,35 +921,32 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
 #endif
 };
 
-
-/*******************************************************************************
- * String Descriptors
- ******************************************************************************/
+/*
+ * String descriptors
+ */
 const USB_Descriptor_String_t PROGMEM LanguageString = {
   .Header = {
-      .Size      = USB_STRING_LEN(1),
-      .Type      = DTYPE_String
-    },
+    .Size      = USB_STRING_LEN(1),
+    .Type      = DTYPE_String
+  },
 
   .UnicodeString = {LANGUAGE_ID_ENG}
 };
 
 const USB_Descriptor_String_t PROGMEM ManufacturerString = {
-  /* subtract 1 for null terminator */
   .Header = {
-      .Size      = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1),
-      .Type      = DTYPE_String
-    },
+    .Size      = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1), // Subtract 1 for null terminator
+    .Type      = DTYPE_String
+  },
 
   .UnicodeString = LSTR(MANUFACTURER)
 };
 
 const USB_Descriptor_String_t PROGMEM ProductString = {
-  /* subtract 1 for null terminator */
   .Header = {
-      .Size      = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1),
-      .Type      = DTYPE_String
-    },
+    .Size      = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1), // Subtract 1 for null terminator
+    .Type      = DTYPE_String
+  },
 
   .UnicodeString = LSTR(PRODUCT)
 };
@@ -945,21 +956,20 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
 #endif
 
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
-  /* subtract 1 for null terminator */
   .Header = {
-      .Size      = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1),
-      .Type      = DTYPE_String
-    },
+    .Size      = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1), // Subtract 1 for null terminator
+    .Type      = DTYPE_String
+  },
 
   .UnicodeString = LSTR(SERIAL_NUMBER)
 };
 
-
-/** This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
- *  documentation) by the application code so that the address and size of a requested descriptor can be given
- *  to the USB library. When the device receives a Get Descriptor request on the control endpoint, this function
- *  is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
- *  USB host.
+/**
+ * This function is called by the library when in device mode, and must be overridden (see library "USB Descriptors"
+ * documentation) by the application code so that the address and size of a requested descriptor can be given
+ * to the USB library. When the device receives a Get Descriptor request on the control endpoint, this function
+ * is called so that the descriptor details can be passed back and the appropriate descriptor sent back to the
+ * USB host.
  */
 uint16_t get_usb_descriptor(const uint16_t wValue, const uint16_t wIndex, const void** const DescriptorAddress) {
   const uint8_t DescriptorType  = (wValue >> 8);

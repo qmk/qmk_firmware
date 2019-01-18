@@ -40,7 +40,6 @@
  *
  *  Header file for Descriptors.c.
  */
-
 #ifndef _DESCRIPTORS_H_
   #define _DESCRIPTORS_H_
 
@@ -68,6 +67,7 @@ typedef struct {
   #endif
 
   #ifdef SHARED_EP_ENABLE
+  // Shared Interface
   USB_Descriptor_Interface_t                Shared_Interface;
   USB_HID_Descriptor_HID_t                  Shared_HID;
   USB_Descriptor_Endpoint_t                 Shared_INEndpoint;
@@ -94,7 +94,6 @@ typedef struct {
   // MIDI Audio Control Interface
   USB_Descriptor_Interface_t                Audio_ControlInterface;
   USB_Audio_Descriptor_Interface_AC_t       Audio_ControlInterface_SPC;
-
   // MIDI Audio Streaming Interface
   USB_Descriptor_Interface_t                Audio_StreamInterface;
   USB_MIDI_Descriptor_AudioInterface_AS_t   Audio_StreamInterface_SPC;
@@ -110,14 +109,12 @@ typedef struct {
 
   #ifdef VIRTSER_ENABLE
   USB_Descriptor_Interface_Association_t    CDC_Interface_Association;
-
   // CDC Control Interface
   USB_Descriptor_Interface_t                CDC_CCI_Interface;
   USB_CDC_Descriptor_FunctionalHeader_t     CDC_Functional_Header;
   USB_CDC_Descriptor_FunctionalACM_t        CDC_Functional_ACM;
   USB_CDC_Descriptor_FunctionalUnion_t      CDC_Functional_Union;
   USB_Descriptor_Endpoint_t                 CDC_NotificationEndpoint;
-
   // CDC Data Interface
   USB_Descriptor_Interface_t                CDC_DCI_Interface;
   USB_Descriptor_Endpoint_t                 CDC_DataOutEndpoint;
@@ -125,8 +122,9 @@ typedef struct {
   #endif
 } USB_Descriptor_Configuration_t;
 
-
-/* index of interface */
+/*
+ * Interface indexes
+ */
 enum usb_interfaces {
   #ifndef KEYBOARD_SHARED_EP
   KEYBOARD_INTERFACE,
@@ -134,9 +132,9 @@ enum usb_interfaces {
     #define KEYBOARD_INTERFACE SHARED_INTERFACE
   #endif
 
-// It is important that the Raw HID interface is at a constant
-// interface number, to support Linux/OSX platforms and chrome.hid
-// If Raw HID is enabled, let it be always 1.
+  // It is important that the Raw HID interface is at a constant
+  // interface number, to support Linux/OSX platforms and chrome.hid
+  // If Raw HID is enabled, let it be always 1.
   #ifdef RAW_ENABLE
   RAW_INTERFACE,
   #endif
@@ -169,7 +167,7 @@ enum usb_interfaces {
   #define NEXT_EPNUM __COUNTER__
 
 enum usb_endpoints {
-  __unused_epnum__ = NEXT_EPNUM,   /* EP numbering starts at 1 */
+  __unused_epnum__ = NEXT_EPNUM, // Endpoint numbering starts at 1
 
   #ifndef KEYBOARD_SHARED_EP
   KEYBOARD_IN_EPNUM = NEXT_EPNUM,
@@ -196,9 +194,9 @@ enum usb_endpoints {
   CONSOLE_IN_EPNUM = NEXT_EPNUM,
 
     #ifdef PROTOCOL_CHIBIOS
-// ChibiOS has enough memory and descriptor to actually enable the endpoint
-// It could use the same endpoint numbers, as that's supported by ChibiOS
-// But the QMK code currently assumes that the endpoint numbers are different
+  // ChibiOS has enough memory and descriptor to actually enable the endpoint
+  // It could use the same endpoint numbers, as that's supported by ChibiOS
+  // But the QMK code currently assumes that the endpoint numbers are different
   CONSOLE_OUT_EPNUM = NEXT_EPNUM,
     #else
       #define CONSOLE_OUT_EPNUM CONSOLE_IN_EPNUM
@@ -222,15 +220,15 @@ enum usb_endpoints {
   #endif
 };
 
-  #ifdef ROTOCOL_LUFA
-    /* LUFA tells us total endpoints including control */
+  #ifdef PROTOCOL_LUFA
+    // LUFA tells us total endpoints including control
     #define MAX_ENDPOINTS (ENDPOINT_TOTAL_ENDPOINTS - 1)
   #elif defined(PROTOCOL_CHIBIOS)
-    /* ChibiOS gives us number of available user endpoints, not control */
+    // ChibiOS gives us number of available user endpoints, not control
     #define MAX_ENDPOINTS USB_MAX_ENDPOINTS
   #endif
-  /* TODO - ARM_ATSAM */
 
+  // TODO - ARM_ATSAM
 
   #if (NEXT_EPNUM - 1) > MAX_ENDPOINTS
     #error There are not enough available endpoints to support all functions. Remove some in the rules.mk file. (MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL, STENO)
