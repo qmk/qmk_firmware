@@ -49,6 +49,9 @@
     #include "hal.h"
   #endif
 
+/*
+ * USB descriptor structure
+ */
 typedef struct {
   USB_Descriptor_Configuration_Header_t    Config;
 
@@ -166,6 +169,9 @@ enum usb_interfaces {
 
   #define NEXT_EPNUM __COUNTER__
 
+/*
+ * Endpoint numbers
+ */
 enum usb_endpoints {
   __unused_epnum__ = NEXT_EPNUM, // Endpoint numbering starts at 1
 
