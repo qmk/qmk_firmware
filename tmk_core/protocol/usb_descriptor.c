@@ -272,7 +272,10 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] = {
  * Device Descriptors
  ******************************************************************************/
 const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
-  .Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
+  .Header = {
+    .Size = sizeof(USB_Descriptor_Device_t),
+    .Type = DTYPE_Device
+  },
 
   .USBSpecification       = VERSION_BCD(1,1,0),
 #if VIRTSER_ENABLE
@@ -304,7 +307,10 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
  ******************************************************************************/
 const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   .Config = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Configuration_Header_t),
+      .Type = DTYPE_Configuration
+    },
 
     .TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
     .TotalInterfaces        = TOTAL_INTERFACES,
@@ -322,7 +328,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
    */
 #ifndef KEYBOARD_SHARED_EP
   .Keyboard_Interface = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_t),
+      .Type = DTYPE_Interface
+    },
 
     .InterfaceNumber        = KEYBOARD_INTERFACE,
     .AlternateSetting       = 0x00,
@@ -337,7 +346,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Keyboard_HID = {
-    .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+    .Header = {
+      .Size = sizeof(USB_HID_Descriptor_HID_t),
+      .Type = HID_DTYPE_HID
+    },
 
     .HIDSpec                = VERSION_BCD(1,1,1),
     .CountryCode            = 0x00,
@@ -347,7 +359,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Keyboard_INEndpoint = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Endpoint_t),
+      .Type = DTYPE_Endpoint
+    },
 
     .EndpointAddress        = (ENDPOINT_DIR_IN | KEYBOARD_IN_EPNUM),
     .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -361,7 +376,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
    */
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
   .Mouse_Interface = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_t),
+      .Type = DTYPE_Interface
+    },
 
     .InterfaceNumber        = MOUSE_INTERFACE,
     .AlternateSetting       = 0x00,
@@ -376,7 +394,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Mouse_HID = {
-    .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+    .Header = {
+      .Size = sizeof(USB_HID_Descriptor_HID_t),
+      .Type = HID_DTYPE_HID
+    },
 
     .HIDSpec                = VERSION_BCD(1,1,1),
     .CountryCode            = 0x00,
@@ -386,7 +407,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Mouse_INEndpoint = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Endpoint_t),
+      .Type = DTYPE_Endpoint
+    },
 
     .EndpointAddress        = (ENDPOINT_DIR_IN | MOUSE_IN_EPNUM),
     .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -400,7 +424,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
    */
 #ifdef SHARED_EP_ENABLE
   .Shared_Interface = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_t),
+      .Type = DTYPE_Interface
+    },
 
     .InterfaceNumber        = SHARED_INTERFACE,
     .AlternateSetting       = 0x00,
@@ -420,7 +447,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Shared_HID = {
-    .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+    .Header = {
+      .Size = sizeof(USB_HID_Descriptor_HID_t),
+      .Type = HID_DTYPE_HID
+    },
 
     .HIDSpec                = VERSION_BCD(1,1,1),
     .CountryCode            = 0x00,
@@ -430,7 +460,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Shared_INEndpoint = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Endpoint_t),
+      .Type = DTYPE_Endpoint
+    },
 
     .EndpointAddress        = (ENDPOINT_DIR_IN | SHARED_IN_EPNUM),
     .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -444,7 +477,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
    */
 #ifdef RAW_ENABLE
   .Raw_Interface = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_t),
+      .Type = DTYPE_Interface
+    },
 
     .InterfaceNumber        = RAW_INTERFACE,
     .AlternateSetting       = 0x00,
@@ -459,7 +495,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Raw_HID = {
-    .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+    .Header = {
+      .Size = sizeof(USB_HID_Descriptor_HID_t),
+      .Type = HID_DTYPE_HID
+    },
 
     .HIDSpec                = VERSION_BCD(1,1,1),
     .CountryCode            = 0x00,
@@ -469,7 +508,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Raw_INEndpoint = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Endpoint_t),
+      .Type = DTYPE_Endpoint
+    },
 
     .EndpointAddress        = (ENDPOINT_DIR_IN | RAW_IN_EPNUM),
     .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -478,7 +520,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Raw_OUTEndpoint = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Endpoint_t),
+      .Type = DTYPE_Endpoint
+    },
 
     .EndpointAddress        = (ENDPOINT_DIR_OUT | RAW_OUT_EPNUM),
     .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -492,7 +537,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
    */
 #ifdef CONSOLE_ENABLE
   .Console_Interface = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_t),
+      .Type = DTYPE_Interface
+    },
 
     .InterfaceNumber        = CONSOLE_INTERFACE,
     .AlternateSetting       = 0x00,
@@ -507,7 +555,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Console_HID = {
-    .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+    .Header = {
+      .Size = sizeof(USB_HID_Descriptor_HID_t),
+      .Type = HID_DTYPE_HID
+    },
 
     .HIDSpec                = VERSION_BCD(1,1,1),
     .CountryCode            = 0x00,
@@ -517,7 +568,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Console_INEndpoint = {
-  .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Endpoint_t),
+      .Type = DTYPE_Endpoint
+    },
 
     .EndpointAddress        = (ENDPOINT_DIR_IN | CONSOLE_IN_EPNUM),
     .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -526,7 +580,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Console_OUTEndpoint = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Endpoint_t),
+      .Type = DTYPE_Endpoint
+    },
 
     .EndpointAddress        = (ENDPOINT_DIR_OUT | CONSOLE_OUT_EPNUM),
     .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -537,7 +594,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
 
 #ifdef MIDI_ENABLE
   .Audio_Interface_Association = {
-    .Header                   = {.Size = sizeof(USB_Descriptor_Interface_Association_t), .Type = DTYPE_InterfaceAssociation},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_Association_t),
+      .Type = DTYPE_InterfaceAssociation
+    },
 
     .FirstInterfaceIndex      = AC_INTERFACE,
     .TotalInterfaces          = 2,
@@ -549,7 +609,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
     .IADStrIndex              = NO_DESCRIPTOR,
   },
   .Audio_ControlInterface = {
-    .Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_t),
+      .Type = DTYPE_Interface
+    },
 
     .InterfaceNumber          = AC_INTERFACE,
     .AlternateSetting         = 0,
@@ -564,7 +627,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Audio_ControlInterface_SPC = {
-    .Header                   = {.Size = sizeof(USB_Audio_Descriptor_Interface_AC_t), .Type = DTYPE_CSInterface},
+    .Header = {
+      .Size = sizeof(USB_Audio_Descriptor_Interface_AC_t),
+      .Type = DTYPE_CSInterface
+    },
     .Subtype                  = AUDIO_DSUBTYPE_CSInterface_Header,
 
     .ACSpecification          = VERSION_BCD(1,0,0),
@@ -575,7 +641,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Audio_StreamInterface = {
-    .Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_t),
+      .Type = DTYPE_Interface
+    },
 
     .InterfaceNumber          = AS_INTERFACE,
     .AlternateSetting         = 0,
@@ -590,7 +659,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .Audio_StreamInterface_SPC = {
-    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_AudioInterface_AS_t), .Type = DTYPE_CSInterface},
+    .Header = {
+      .Size = sizeof(USB_MIDI_Descriptor_AudioInterface_AS_t),
+      .Type = DTYPE_CSInterface
+    },
     .Subtype                  = AUDIO_DSUBTYPE_CSInterface_General,
 
     .AudioSpecification       = VERSION_BCD(1,0,0),
@@ -601,7 +673,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .MIDI_In_Jack_Emb = {
-    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_InputJack_t), .Type = DTYPE_CSInterface},
+    .Header = {
+      .Size = sizeof(USB_MIDI_Descriptor_InputJack_t),
+      .Type = DTYPE_CSInterface
+    },
     .Subtype                  = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
 
     .JackType                 = MIDI_JACKTYPE_Embedded,
@@ -611,7 +686,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .MIDI_In_Jack_Ext = {
-    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_InputJack_t), .Type = DTYPE_CSInterface},
+    .Header = {
+      .Size = sizeof(USB_MIDI_Descriptor_InputJack_t),
+      .Type = DTYPE_CSInterface
+    },
     .Subtype                  = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
 
     .JackType                 = MIDI_JACKTYPE_External,
@@ -621,7 +699,9 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .MIDI_Out_Jack_Emb = {
-    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_OutputJack_t), .Type = DTYPE_CSInterface},
+    .Header = {
+      .Size = sizeof(USB_MIDI_Descriptor_OutputJack_t),.Type = DTYPE_CSInterface
+    },
     .Subtype                  = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
 
     .JackType                 = MIDI_JACKTYPE_Embedded,
@@ -635,7 +715,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .MIDI_Out_Jack_Ext = {
-    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_OutputJack_t), .Type = DTYPE_CSInterface},
+    .Header = {
+      .Size = sizeof(USB_MIDI_Descriptor_OutputJack_t),
+      .Type = DTYPE_CSInterface
+    },
     .Subtype                  = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
 
     .JackType                 = MIDI_JACKTYPE_External,
@@ -650,7 +733,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
 
   .MIDI_In_Jack_Endpoint = {
     .Endpoint = {
-      .Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
+      .Header = {
+        .Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t),
+        .Type = DTYPE_Endpoint
+      },
 
       .EndpointAddress     = MIDI_STREAM_OUT_EPADDR,
       .Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -663,7 +749,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .MIDI_In_Jack_Endpoint_SPC = {
-    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = DTYPE_CSEndpoint},
+    .Header = {
+      .Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t),
+      .Type = DTYPE_CSEndpoint
+    },
     .Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
 
     .TotalEmbeddedJacks       = 0x01,
@@ -672,7 +761,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
 
   .MIDI_Out_Jack_Endpoint = {
     .Endpoint = {
-      .Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
+      .Header = {
+        .Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t),
+        .Type = DTYPE_Endpoint
+      },
 
       .EndpointAddress     = MIDI_STREAM_IN_EPADDR,
       .Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -685,7 +777,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .MIDI_Out_Jack_Endpoint_SPC = {
-    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = DTYPE_CSEndpoint},
+    .Header = {
+      .Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t),
+      .Type = DTYPE_CSEndpoint
+    },
     .Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
 
     .TotalEmbeddedJacks       = 0x01,
@@ -695,7 +790,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
 
 #ifdef VIRTSER_ENABLE
   .CDC_Interface_Association = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_Association_t), .Type = DTYPE_InterfaceAssociation},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_Association_t),
+      .Type = DTYPE_InterfaceAssociation
+    },
 
     .FirstInterfaceIndex    = CCI_INTERFACE,
     .TotalInterfaces        = 2,
@@ -708,7 +806,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .CDC_CCI_Interface = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_t),
+      .Type = DTYPE_Interface
+    },
 
     .InterfaceNumber        = CCI_INTERFACE,
     .AlternateSetting       = 0,
@@ -723,21 +824,30 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .CDC_Functional_Header = {
-    .Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalHeader_t), .Type = DTYPE_CSInterface},
+    .Header = {
+      .Size = sizeof(USB_CDC_Descriptor_FunctionalHeader_t),
+      .Type = DTYPE_CSInterface
+    },
     .Subtype                = 0x00,
 
     .CDCSpecification       = VERSION_BCD(1,1,0),
   },
 
   .CDC_Functional_ACM = {
-    .Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalACM_t), .Type = DTYPE_CSInterface},
+    .Header = {
+      .Size = sizeof(USB_CDC_Descriptor_FunctionalACM_t),
+      .Type = DTYPE_CSInterface
+    },
     .Subtype                = 0x02,
 
     .Capabilities           = 0x02,
   },
 
   .CDC_Functional_Union = {
-    .Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalUnion_t), .Type = DTYPE_CSInterface},
+    .Header = {
+      .Size = sizeof(USB_CDC_Descriptor_FunctionalUnion_t),
+      .Type = DTYPE_CSInterface
+    },
     .Subtype                = 0x06,
 
     .MasterInterfaceNumber  = CCI_INTERFACE,
@@ -745,7 +855,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .CDC_NotificationEndpoint = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Endpoint_t),
+      .Type = DTYPE_Endpoint
+    },
 
     .EndpointAddress        = CDC_NOTIFICATION_EPADDR,
     .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -754,7 +867,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .CDC_DCI_Interface = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Interface_t),
+      .Type = DTYPE_Interface
+    },
 
     .InterfaceNumber        = CDI_INTERFACE,
     .AlternateSetting       = 0,
@@ -769,7 +885,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .CDC_DataOutEndpoint = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Endpoint_t),
+      .Type = DTYPE_Endpoint
+    },
 
     .EndpointAddress        = CDC_OUT_EPADDR,
     .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -778,7 +897,10 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
   },
 
   .CDC_DataInEndpoint = {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+    .Header = {
+      .Size = sizeof(USB_Descriptor_Endpoint_t),
+      .Type = DTYPE_Endpoint
+    },
 
     .EndpointAddress        = CDC_IN_EPADDR,
     .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
@@ -793,21 +915,30 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
  * String Descriptors
  ******************************************************************************/
 const USB_Descriptor_String_t PROGMEM LanguageString = {
-  .Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
+  .Header = {
+      .Size = USB_STRING_LEN(1),
+      .Type = DTYPE_String
+    },
 
   .UnicodeString          = {LANGUAGE_ID_ENG}
 };
 
 const USB_Descriptor_String_t PROGMEM ManufacturerString = {
   /* subtract 1 for null terminator */
-  .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(MANUFACTURER))-1), .Type = DTYPE_String},
+  .Header = {
+      .Size = USB_STRING_LEN(sizeof(STR(MANUFACTURER))-1),
+      .Type = DTYPE_String
+    },
 
   .UnicodeString          = LSTR(MANUFACTURER)
 };
 
 const USB_Descriptor_String_t PROGMEM ProductString = {
   /* subtract 1 for null terminator */
-  .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(PRODUCT))-1), .Type = DTYPE_String},
+  .Header = {
+      .Size = USB_STRING_LEN(sizeof(STR(PRODUCT))-1),
+      .Type = DTYPE_String
+    },
 
   .UnicodeString          = LSTR(PRODUCT)
 };
@@ -818,7 +949,10 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
 
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
   /* subtract 1 for null terminator */
-  .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER))-1), .Type = DTYPE_String},
+  .Header = {
+      .Size = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER))-1),
+      .Type = DTYPE_String
+    },
 
   .UnicodeString          = LSTR(SERIAL_NUMBER)
 };
