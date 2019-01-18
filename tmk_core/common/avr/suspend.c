@@ -22,6 +22,8 @@
 
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
   #include "rgblight.h"
+  extern rgblight_config_t rgblight_config;
+  static bool rgblight_enabled;
 #endif
 
 
@@ -120,6 +122,7 @@ static void power_down(uint8_t wdto)
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_disable();
 #endif
+  rgblight_enabled = rgblight_config.enable;
   rgblight_disable_noeeprom();
 #endif
   suspend_power_down_kb();
@@ -195,10 +198,12 @@ void suspend_wakeup_init(void)
 #endif
 	led_set(host_keyboard_leds());
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-#ifdef BOOTLOADER_TEENSY
-  wait_ms(10);
-#endif
-  rgblight_enable_noeeprom();
+  if (rgblight_enabled) {
+    #ifdef BOOTLOADER_TEENSY
+      wait_ms(10);
+    #endif
+    rgblight_enable_noeeprom();
+  }
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_enable();
 #endif
