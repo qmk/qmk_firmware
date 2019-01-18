@@ -1,6 +1,6 @@
 # GPIO Control
 
-QMK has a GPIO control abstraction layer which is micro-controller agnostic. This is done to allow easy access to pin control across different platforms.
+QMK has a GPIO control abstraction layer which is microcontroller agnostic. This is done to allow easy access to pin control across different platforms.
 
 ## Functions
 
