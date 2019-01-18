@@ -48,8 +48,7 @@ __asm__ __volatile__ (  \
  *
  * FIXME: needs doc
  */
-void suspend_idle(uint8_t time)
-{
+void suspend_idle(uint8_t time) {
     cli();
     set_sleep_mode(SLEEP_MODE_IDLE);
     sleep_enable();
@@ -97,8 +96,7 @@ static uint8_t wdt_timeout = 0;
  *
  * FIXME: needs doc
  */
-static void power_down(uint8_t wdto)
-{
+static void power_down(uint8_t wdto) {
 #ifdef PROTOCOL_LUFA
     if (USB_DeviceState == DEVICE_STATE_Configured) return;
 #endif
@@ -148,8 +146,7 @@ static void power_down(uint8_t wdto)
  *
  * FIXME: needs doc
  */
-void suspend_power_down(void)
-{
+void suspend_power_down(void) {
 	suspend_power_down_kb();
 
 #ifndef NO_SUSPEND_POWER_DOWN
@@ -159,8 +156,7 @@ void suspend_power_down(void)
 
 __attribute__ ((weak)) void matrix_power_up(void) {}
 __attribute__ ((weak)) void matrix_power_down(void) {}
-bool suspend_wakeup_condition(void)
-{
+bool suspend_wakeup_condition(void) {
     matrix_power_up();
     matrix_scan();
     matrix_power_down();
@@ -189,8 +185,7 @@ void suspend_wakeup_init_kb(void) {
  *
  * FIXME: needs doc
  */
-void suspend_wakeup_init(void)
-{
+void suspend_wakeup_init(void) {
     // clear keyboard state
     clear_keyboard();
 #ifdef BACKLIGHT_ENABLE
@@ -213,8 +208,7 @@ void suspend_wakeup_init(void)
 
 #ifndef NO_SUSPEND_POWER_DOWN
 /* watchdog timeout */
-ISR(WDT_vect)
-{
+ISR(WDT_vect) {
     // compensate timer for sleep
     switch (wdt_timeout) {
         case WDTO_15MS:
