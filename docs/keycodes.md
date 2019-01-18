@@ -77,8 +77,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_F11`               |                    |F11                                            |
 |`KC_F12`               |                    |F12                                            |
 |`KC_PSCREEN`           |`KC_PSCR`           |Print Screen                                   |
-|`KC_SCROLLLOCK`        |`KC_SLCK`           |Scroll Lock                                    |
-|`KC_PAUSE`             |`KC_PAUS`, `KC_BRK` |Pause                                          |
+|`KC_SCROLLLOCK`        |`KC_SLCK`, `KC_BRMD`|Scroll Lock, Brightness Down (macOS)           |
+|`KC_PAUSE`             |`KC_PAUS`, `KC_BRK`, `KC_BRMU`|Pause, Brightness Up (macOS)         |
 |`KC_INSERT`            |`KC_INS`            |Insert                                         |
 |`KC_HOME`              |                    |Home                                           |
 |`KC_PGUP`              |                    |Page Up                                        |
@@ -203,8 +203,8 @@ This is a reference only. Each group of keys links to the page documenting their
 |`KC_WWW_FAVORITES`     |`KC_WFAV`           |Browser Favorites (Windows)                    |
 |`KC_MEDIA_FAST_FORWARD`|`KC_MFFD`           |Next Track (macOS)                             |
 |`KC_MEDIA_REWIND`      |`KC_MRWD`           |Previous Track (macOS)                         |
-|`KC_BRIGHTNESS_UP`     |`KC_BRIU`           |Brightness Up                                  |
-|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`           |Brightness Down                                |
+|`KC_BRIGHTNESS_UP`     |`KC_BRIU`           |Brightness Up (macOS: use `KC_BRMU`)           |
+|`KC_BRIGHTNESS_DOWN`   |`KC_BRID`           |Brightness Down (macOS: use `KC_BRMD`)         |
 
 ## [Quantum Keycodes](quantum_keycodes.md#qmk-keycodes)
 
