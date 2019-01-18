@@ -53,44 +53,44 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #else
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM KeyboardReport[] = {
 #endif
-    HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-    HID_RI_USAGE(8, 0x06), /* Keyboard */
-    HID_RI_COLLECTION(8, 0x01), /* Application */
+  HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+  HID_RI_USAGE(8, 0x06), /* Keyboard */
+  HID_RI_COLLECTION(8, 0x01), /* Application */
 #   ifdef KEYBOARD_SHARED_EP
-        HID_RI_REPORT_ID(8, REPORT_ID_KEYBOARD),
+    HID_RI_REPORT_ID(8, REPORT_ID_KEYBOARD),
 #   endif
-        HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
-        HID_RI_USAGE_MINIMUM(8, 0xE0), /* Keyboard Left Control */
-        HID_RI_USAGE_MAXIMUM(8, 0xE7), /* Keyboard Right GUI */
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-        HID_RI_REPORT_COUNT(8, 0x08),
-        HID_RI_REPORT_SIZE(8, 0x01),
-        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+    HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
+    HID_RI_USAGE_MINIMUM(8, 0xE0), /* Keyboard Left Control */
+    HID_RI_USAGE_MAXIMUM(8, 0xE7), /* Keyboard Right GUI */
+    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+    HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+    HID_RI_REPORT_COUNT(8, 0x08),
+    HID_RI_REPORT_SIZE(8, 0x01),
+    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
 
-        HID_RI_REPORT_COUNT(8, 0x01),
-        HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_INPUT(8, HID_IOF_CONSTANT),  /* reserved */
+    HID_RI_REPORT_COUNT(8, 0x01),
+    HID_RI_REPORT_SIZE(8, 0x08),
+    HID_RI_INPUT(8, HID_IOF_CONSTANT),  /* reserved */
 
-        HID_RI_USAGE_PAGE(8, 0x08), /* LEDs */
-        HID_RI_USAGE_MINIMUM(8, 0x01), /* Num Lock */
-        HID_RI_USAGE_MAXIMUM(8, 0x05), /* Kana */
-        HID_RI_REPORT_COUNT(8, 0x05),
-        HID_RI_REPORT_SIZE(8, 0x01),
-        HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
-        HID_RI_REPORT_COUNT(8, 0x01),
-        HID_RI_REPORT_SIZE(8, 0x03),
-        HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
+    HID_RI_USAGE_PAGE(8, 0x08), /* LEDs */
+    HID_RI_USAGE_MINIMUM(8, 0x01), /* Num Lock */
+    HID_RI_USAGE_MAXIMUM(8, 0x05), /* Kana */
+    HID_RI_REPORT_COUNT(8, 0x05),
+    HID_RI_REPORT_SIZE(8, 0x01),
+    HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+    HID_RI_REPORT_COUNT(8, 0x01),
+    HID_RI_REPORT_SIZE(8, 0x03),
+    HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
 
-        HID_RI_USAGE_PAGE(8, 0x07), /* Keyboard */
-        HID_RI_USAGE_MINIMUM(8, 0x00), /* Reserved (no event indicated) */
-        HID_RI_USAGE_MAXIMUM(8, 0xFF), /* Keyboard Application */
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
-        HID_RI_REPORT_COUNT(8, 0x06),
-        HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
-    HID_RI_END_COLLECTION(0),
+    HID_RI_USAGE_PAGE(8, 0x07), /* Keyboard */
+    HID_RI_USAGE_MINIMUM(8, 0x00), /* Reserved (no event indicated) */
+    HID_RI_USAGE_MAXIMUM(8, 0xFF), /* Keyboard Application */
+    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+    HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
+    HID_RI_REPORT_COUNT(8, 0x06),
+    HID_RI_REPORT_SIZE(8, 0x08),
+    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
+  HID_RI_END_COLLECTION(0),
 
 #ifndef KEYBOARD_SHARED_EP
 };
@@ -104,53 +104,53 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM MouseReport[] = {
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #define SHARED_REPORT_STARTED
 #   endif
-    HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-    HID_RI_USAGE(8, 0x02), /* Mouse */
-    HID_RI_COLLECTION(8, 0x01), /* Application */
+  HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+  HID_RI_USAGE(8, 0x02), /* Mouse */
+  HID_RI_COLLECTION(8, 0x01), /* Application */
 #   ifdef MOUSE_SHARED_EP
-        HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
+    HID_RI_REPORT_ID(8, REPORT_ID_MOUSE),
 #   endif
-        HID_RI_USAGE(8, 0x01), /* Pointer */
-        HID_RI_COLLECTION(8, 0x00), /* Physical */
+    HID_RI_USAGE(8, 0x01), /* Pointer */
+    HID_RI_COLLECTION(8, 0x00), /* Physical */
 
-            HID_RI_USAGE_PAGE(8, 0x09), /* Button */
-            HID_RI_USAGE_MINIMUM(8, 0x01),  /* Button 1 */
-            HID_RI_USAGE_MAXIMUM(8, 0x05),  /* Button 5 */
-            HID_RI_LOGICAL_MINIMUM(8, 0x00),
-            HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-            HID_RI_REPORT_COUNT(8, 0x05),
-            HID_RI_REPORT_SIZE(8, 0x01),
-            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-            HID_RI_REPORT_COUNT(8, 0x01),
-            HID_RI_REPORT_SIZE(8, 0x03),
-            HID_RI_INPUT(8, HID_IOF_CONSTANT),
+      HID_RI_USAGE_PAGE(8, 0x09), /* Button */
+      HID_RI_USAGE_MINIMUM(8, 0x01),  /* Button 1 */
+      HID_RI_USAGE_MAXIMUM(8, 0x05),  /* Button 5 */
+      HID_RI_LOGICAL_MINIMUM(8, 0x00),
+      HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+      HID_RI_REPORT_COUNT(8, 0x05),
+      HID_RI_REPORT_SIZE(8, 0x01),
+      HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+      HID_RI_REPORT_COUNT(8, 0x01),
+      HID_RI_REPORT_SIZE(8, 0x03),
+      HID_RI_INPUT(8, HID_IOF_CONSTANT),
 
-            HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-            HID_RI_USAGE(8, 0x30), /* Usage X */
-            HID_RI_USAGE(8, 0x31), /* Usage Y */
-            HID_RI_LOGICAL_MINIMUM(8, -127),
-            HID_RI_LOGICAL_MAXIMUM(8, 127),
-            HID_RI_REPORT_COUNT(8, 0x02),
-            HID_RI_REPORT_SIZE(8, 0x08),
-            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
+      HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+      HID_RI_USAGE(8, 0x30), /* Usage X */
+      HID_RI_USAGE(8, 0x31), /* Usage Y */
+      HID_RI_LOGICAL_MINIMUM(8, -127),
+      HID_RI_LOGICAL_MAXIMUM(8, 127),
+      HID_RI_REPORT_COUNT(8, 0x02),
+      HID_RI_REPORT_SIZE(8, 0x08),
+      HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 
-            HID_RI_USAGE(8, 0x38), /* Wheel */
-            HID_RI_LOGICAL_MINIMUM(8, -127),
-            HID_RI_LOGICAL_MAXIMUM(8, 127),
-            HID_RI_REPORT_COUNT(8, 0x01),
-            HID_RI_REPORT_SIZE(8, 0x08),
-            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
+      HID_RI_USAGE(8, 0x38), /* Wheel */
+      HID_RI_LOGICAL_MINIMUM(8, -127),
+      HID_RI_LOGICAL_MAXIMUM(8, 127),
+      HID_RI_REPORT_COUNT(8, 0x01),
+      HID_RI_REPORT_SIZE(8, 0x08),
+      HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 
-            HID_RI_USAGE_PAGE(8, 0x0C), /* Consumer */
-            HID_RI_USAGE(16, 0x0238), /* AC Pan (Horizontal wheel) */
-            HID_RI_LOGICAL_MINIMUM(8, -127),
-            HID_RI_LOGICAL_MAXIMUM(8, 127),
-            HID_RI_REPORT_COUNT(8, 0x01),
-            HID_RI_REPORT_SIZE(8, 0x08),
-            HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
+      HID_RI_USAGE_PAGE(8, 0x0C), /* Consumer */
+      HID_RI_USAGE(16, 0x0238), /* AC Pan (Horizontal wheel) */
+      HID_RI_LOGICAL_MINIMUM(8, -127),
+      HID_RI_LOGICAL_MAXIMUM(8, 127),
+      HID_RI_REPORT_COUNT(8, 0x01),
+      HID_RI_REPORT_SIZE(8, 0x08),
+      HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_RELATIVE),
 
-        HID_RI_END_COLLECTION(0),
     HID_RI_END_COLLECTION(0),
+  HID_RI_END_COLLECTION(0),
 #   ifndef MOUSE_SHARED_EP
 };
 #   endif
@@ -160,66 +160,66 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #endif
 #   ifdef EXTRAKEY_ENABLE
-    HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-    HID_RI_USAGE(8, 0x80), /* System Control */
-    HID_RI_COLLECTION(8, 0x01), /* Application */
-        HID_RI_REPORT_ID(8, REPORT_ID_SYSTEM),
-        HID_RI_LOGICAL_MINIMUM(16, 0x0001),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x0003),
-        HID_RI_USAGE_MINIMUM(16, 0x0081), /* System Power Down */
-        HID_RI_USAGE_MAXIMUM(16, 0x0083), /* System Wake Up */
-        HID_RI_REPORT_SIZE(8, 16),
-        HID_RI_REPORT_COUNT(8, 1),
-        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
-    HID_RI_END_COLLECTION(0),
+  HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+  HID_RI_USAGE(8, 0x80), /* System Control */
+  HID_RI_COLLECTION(8, 0x01), /* Application */
+    HID_RI_REPORT_ID(8, REPORT_ID_SYSTEM),
+    HID_RI_LOGICAL_MINIMUM(16, 0x0001),
+    HID_RI_LOGICAL_MAXIMUM(16, 0x0003),
+    HID_RI_USAGE_MINIMUM(16, 0x0081), /* System Power Down */
+    HID_RI_USAGE_MAXIMUM(16, 0x0083), /* System Wake Up */
+    HID_RI_REPORT_SIZE(8, 16),
+    HID_RI_REPORT_COUNT(8, 1),
+    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
+  HID_RI_END_COLLECTION(0),
 
-    HID_RI_USAGE_PAGE(8, 0x0C), /* Consumer */
-    HID_RI_USAGE(8, 0x01), /* Consumer Control */
-    HID_RI_COLLECTION(8, 0x01), /* Application */
-        HID_RI_REPORT_ID(8, REPORT_ID_CONSUMER),
-        HID_RI_LOGICAL_MINIMUM(16, 0x0001),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x029C),
-        HID_RI_USAGE_MINIMUM(16, 0x0001), /* +10 */
-        HID_RI_USAGE_MAXIMUM(16, 0x029C), /* AC Distribute Vertically */
-        HID_RI_REPORT_SIZE(8, 16),
-        HID_RI_REPORT_COUNT(8, 1),
-        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
-    HID_RI_END_COLLECTION(0),
+  HID_RI_USAGE_PAGE(8, 0x0C), /* Consumer */
+  HID_RI_USAGE(8, 0x01), /* Consumer Control */
+  HID_RI_COLLECTION(8, 0x01), /* Application */
+    HID_RI_REPORT_ID(8, REPORT_ID_CONSUMER),
+    HID_RI_LOGICAL_MINIMUM(16, 0x0001),
+    HID_RI_LOGICAL_MAXIMUM(16, 0x029C),
+    HID_RI_USAGE_MINIMUM(16, 0x0001), /* +10 */
+    HID_RI_USAGE_MAXIMUM(16, 0x029C), /* AC Distribute Vertically */
+    HID_RI_REPORT_SIZE(8, 16),
+    HID_RI_REPORT_COUNT(8, 1),
+    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_ARRAY | HID_IOF_ABSOLUTE),
+  HID_RI_END_COLLECTION(0),
 #   endif
 
 #   ifdef NKRO_ENABLE
-    HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
-    HID_RI_USAGE(8, 0x06), /* Keyboard */
-    HID_RI_COLLECTION(8, 0x01), /* Application */
-        HID_RI_REPORT_ID(8, REPORT_ID_NKRO),
-        HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
-        HID_RI_USAGE_MINIMUM(8, 0xE0), /* Keyboard Left Control */
-        HID_RI_USAGE_MAXIMUM(8, 0xE7), /* Keyboard Right GUI */
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-        HID_RI_REPORT_COUNT(8, 0x08),
-        HID_RI_REPORT_SIZE(8, 0x01),
-        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+  HID_RI_USAGE_PAGE(8, 0x01), /* Generic Desktop */
+  HID_RI_USAGE(8, 0x06), /* Keyboard */
+  HID_RI_COLLECTION(8, 0x01), /* Application */
+    HID_RI_REPORT_ID(8, REPORT_ID_NKRO),
+    HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
+    HID_RI_USAGE_MINIMUM(8, 0xE0), /* Keyboard Left Control */
+    HID_RI_USAGE_MAXIMUM(8, 0xE7), /* Keyboard Right GUI */
+    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+    HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+    HID_RI_REPORT_COUNT(8, 0x08),
+    HID_RI_REPORT_SIZE(8, 0x01),
+    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
 
-        HID_RI_USAGE_PAGE(8, 0x08), /* LEDs */
-        HID_RI_USAGE_MINIMUM(8, 0x01), /* Num Lock */
-        HID_RI_USAGE_MAXIMUM(8, 0x05), /* Kana */
-        HID_RI_REPORT_COUNT(8, 0x05),
-        HID_RI_REPORT_SIZE(8, 0x01),
-        HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
-        HID_RI_REPORT_COUNT(8, 0x01),
-        HID_RI_REPORT_SIZE(8, 0x03),
-        HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
+    HID_RI_USAGE_PAGE(8, 0x08), /* LEDs */
+    HID_RI_USAGE_MINIMUM(8, 0x01), /* Num Lock */
+    HID_RI_USAGE_MAXIMUM(8, 0x05), /* Kana */
+    HID_RI_REPORT_COUNT(8, 0x05),
+    HID_RI_REPORT_SIZE(8, 0x01),
+    HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+    HID_RI_REPORT_COUNT(8, 0x01),
+    HID_RI_REPORT_SIZE(8, 0x03),
+    HID_RI_OUTPUT(8, HID_IOF_CONSTANT),
 
-        HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
-        HID_RI_USAGE_MINIMUM(8, 0x00), /* Keyboard 0 */
-        HID_RI_USAGE_MAXIMUM(8, KEYBOARD_REPORT_BITS*8-1),
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(8, 0x01),
-        HID_RI_REPORT_COUNT(8, KEYBOARD_REPORT_BITS*8),
-        HID_RI_REPORT_SIZE(8, 0x01),
-        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-    HID_RI_END_COLLECTION(0),
+    HID_RI_USAGE_PAGE(8, 0x07), /* Key Codes */
+    HID_RI_USAGE_MINIMUM(8, 0x00), /* Keyboard 0 */
+    HID_RI_USAGE_MAXIMUM(8, KEYBOARD_REPORT_BITS*8-1),
+    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+    HID_RI_LOGICAL_MAXIMUM(8, 0x01),
+    HID_RI_REPORT_COUNT(8, KEYBOARD_REPORT_BITS*8),
+    HID_RI_REPORT_SIZE(8, 0x01),
+    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+  HID_RI_END_COLLECTION(0),
 #   endif
 #ifdef SHARED_EP_ENABLE
 };
@@ -228,44 +228,44 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM SharedReport[] = {
 #ifdef RAW_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM RawReport[] =
 {
-    HID_RI_USAGE_PAGE(16, 0xFF60), /* Vendor Page 0xFF60 */
-    HID_RI_USAGE(8, 0x61), /* Vendor Usage 0x61 */
-    HID_RI_COLLECTION(8, 0x01), /* Application */
-        HID_RI_USAGE(8, 0x62), /* Vendor Usage 0x62 */
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
-        HID_RI_REPORT_COUNT(8, RAW_EPSIZE),
-        HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-        HID_RI_USAGE(8, 0x63), /* Vendor Usage 0x63 */
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
-        HID_RI_REPORT_COUNT(8, RAW_EPSIZE),
-        HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
-    HID_RI_END_COLLECTION(0),
+  HID_RI_USAGE_PAGE(16, 0xFF60), /* Vendor Page 0xFF60 */
+  HID_RI_USAGE(8, 0x61), /* Vendor Usage 0x61 */
+  HID_RI_COLLECTION(8, 0x01), /* Application */
+    HID_RI_USAGE(8, 0x62), /* Vendor Usage 0x62 */
+    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+    HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
+    HID_RI_REPORT_COUNT(8, RAW_EPSIZE),
+    HID_RI_REPORT_SIZE(8, 0x08),
+    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+    HID_RI_USAGE(8, 0x63), /* Vendor Usage 0x63 */
+    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+    HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
+    HID_RI_REPORT_COUNT(8, RAW_EPSIZE),
+    HID_RI_REPORT_SIZE(8, 0x08),
+    HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+  HID_RI_END_COLLECTION(0),
 };
 #endif
 
 #ifdef CONSOLE_ENABLE
 const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] =
 {
-    HID_RI_USAGE_PAGE(16, 0xFF31), /* Vendor Page(PJRC Teensy compatible) */
-    HID_RI_USAGE(8, 0x74), /* Vendor Usage(PJRC Teensy compatible) */
-    HID_RI_COLLECTION(8, 0x01), /* Application */
-        HID_RI_USAGE(8, 0x75), /* Vendor Usage 0x75 */
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
-        HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
-        HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
-        HID_RI_USAGE(8, 0x76), /* Vendor Usage 0x76 */
-        HID_RI_LOGICAL_MINIMUM(8, 0x00),
-        HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
-        HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
-        HID_RI_REPORT_SIZE(8, 0x08),
-        HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
-    HID_RI_END_COLLECTION(0),
+  HID_RI_USAGE_PAGE(16, 0xFF31), /* Vendor Page(PJRC Teensy compatible) */
+  HID_RI_USAGE(8, 0x74), /* Vendor Usage(PJRC Teensy compatible) */
+  HID_RI_COLLECTION(8, 0x01), /* Application */
+    HID_RI_USAGE(8, 0x75), /* Vendor Usage 0x75 */
+    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+    HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
+    HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
+    HID_RI_REPORT_SIZE(8, 0x08),
+    HID_RI_INPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE),
+    HID_RI_USAGE(8, 0x76), /* Vendor Usage 0x76 */
+    HID_RI_LOGICAL_MINIMUM(8, 0x00),
+    HID_RI_LOGICAL_MAXIMUM(16, 0x00FF),
+    HID_RI_REPORT_COUNT(8, CONSOLE_EPSIZE),
+    HID_RI_REPORT_SIZE(8, 0x08),
+    HID_RI_OUTPUT(8, HID_IOF_DATA | HID_IOF_VARIABLE | HID_IOF_ABSOLUTE | HID_IOF_NON_VOLATILE),
+  HID_RI_END_COLLECTION(0),
 };
 #endif
 
@@ -275,31 +275,31 @@ const USB_Descriptor_HIDReport_Datatype_t PROGMEM ConsoleReport[] =
  ******************************************************************************/
 const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
 {
-    .Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
+  .Header                 = {.Size = sizeof(USB_Descriptor_Device_t), .Type = DTYPE_Device},
 
-    .USBSpecification       = VERSION_BCD(1,1,0),
+  .USBSpecification       = VERSION_BCD(1,1,0),
 #if VIRTSER_ENABLE
-    .Class                  = USB_CSCP_IADDeviceClass,
-    .SubClass               = USB_CSCP_IADDeviceSubclass,
-    .Protocol               = USB_CSCP_IADDeviceProtocol,
+  .Class                  = USB_CSCP_IADDeviceClass,
+  .SubClass               = USB_CSCP_IADDeviceSubclass,
+  .Protocol               = USB_CSCP_IADDeviceProtocol,
 #else
-    .Class                  = USB_CSCP_NoDeviceClass,
-    .SubClass               = USB_CSCP_NoDeviceSubclass,
-    .Protocol               = USB_CSCP_NoDeviceProtocol,
+  .Class                  = USB_CSCP_NoDeviceClass,
+  .SubClass               = USB_CSCP_NoDeviceSubclass,
+  .Protocol               = USB_CSCP_NoDeviceProtocol,
 #endif
 
-    .Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
+  .Endpoint0Size          = FIXED_CONTROL_ENDPOINT_SIZE,
 
-    /* specified in config.h */
-    .VendorID               = VENDOR_ID,
-    .ProductID              = PRODUCT_ID,
-    .ReleaseNumber          = DEVICE_VER,
+  /* specified in config.h */
+  .VendorID               = VENDOR_ID,
+  .ProductID              = PRODUCT_ID,
+  .ReleaseNumber          = DEVICE_VER,
 
-    .ManufacturerStrIndex   = 0x01,
-    .ProductStrIndex        = 0x02,
-    .SerialNumStrIndex      = 0x03,
+  .ManufacturerStrIndex   = 0x01,
+  .ProductStrIndex        = 0x02,
+  .SerialNumStrIndex      = 0x03,
 
-    .NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
+  .NumberOfConfigurations = FIXED_NUM_CONFIGURATIONS
 };
 
 /*******************************************************************************
@@ -307,530 +307,530 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor =
  ******************************************************************************/
 const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
 {
-    .Config =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
+  .Config =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Configuration_Header_t), .Type = DTYPE_Configuration},
 
-            .TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
-            .TotalInterfaces        = TOTAL_INTERFACES,
+    .TotalConfigurationSize = sizeof(USB_Descriptor_Configuration_t),
+    .TotalInterfaces        = TOTAL_INTERFACES,
 
-            .ConfigurationNumber    = 1,
-            .ConfigurationStrIndex  = NO_DESCRIPTOR,
+    .ConfigurationNumber    = 1,
+    .ConfigurationStrIndex  = NO_DESCRIPTOR,
 
-            .ConfigAttributes       = (USB_CONFIG_ATTR_RESERVED | USB_CONFIG_ATTR_REMOTEWAKEUP),
+    .ConfigAttributes       = (USB_CONFIG_ATTR_RESERVED | USB_CONFIG_ATTR_REMOTEWAKEUP),
 
-            .MaxPowerConsumption    = USB_CONFIG_POWER_MA(USB_MAX_POWER_CONSUMPTION)
-        },
+    .MaxPowerConsumption    = USB_CONFIG_POWER_MA(USB_MAX_POWER_CONSUMPTION)
+  },
 
-    /*
-     * Keyboard
-     */
+  /*
+   * Keyboard
+   */
 #ifndef KEYBOARD_SHARED_EP
-    .Keyboard_Interface =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+  .Keyboard_Interface =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-            .InterfaceNumber        = KEYBOARD_INTERFACE,
-            .AlternateSetting       = 0x00,
+    .InterfaceNumber        = KEYBOARD_INTERFACE,
+    .AlternateSetting       = 0x00,
 
-            .TotalEndpoints         = 1,
+    .TotalEndpoints         = 1,
 
-            .Class                  = HID_CSCP_HIDClass,
-            .SubClass               = HID_CSCP_BootSubclass,
-            .Protocol               = HID_CSCP_KeyboardBootProtocol,
+    .Class                  = HID_CSCP_HIDClass,
+    .SubClass               = HID_CSCP_BootSubclass,
+    .Protocol               = HID_CSCP_KeyboardBootProtocol,
 
-            .InterfaceStrIndex      = NO_DESCRIPTOR
-        },
+    .InterfaceStrIndex      = NO_DESCRIPTOR
+  },
 
-    .Keyboard_HID =
-        {
-            .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+  .Keyboard_HID =
+  {
+    .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
 
-            .HIDSpec                = VERSION_BCD(1,1,1),
-            .CountryCode            = 0x00,
-            .TotalReportDescriptors = 1,
-            .HIDReportType          = HID_DTYPE_Report,
-            .HIDReportLength        = sizeof(KeyboardReport)
-        },
+    .HIDSpec                = VERSION_BCD(1,1,1),
+    .CountryCode            = 0x00,
+    .TotalReportDescriptors = 1,
+    .HIDReportType          = HID_DTYPE_Report,
+    .HIDReportLength        = sizeof(KeyboardReport)
+  },
 
-    .Keyboard_INEndpoint =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+  .Keyboard_INEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-            .EndpointAddress        = (ENDPOINT_DIR_IN | KEYBOARD_IN_EPNUM),
-            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-            .EndpointSize           = KEYBOARD_EPSIZE,
-            .PollingIntervalMS      = 0x0A
-        },
+    .EndpointAddress        = (ENDPOINT_DIR_IN | KEYBOARD_IN_EPNUM),
+    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = KEYBOARD_EPSIZE,
+    .PollingIntervalMS      = 0x0A
+  },
 #endif
 
-    /*
-     * Mouse
-     */
+  /*
+   * Mouse
+   */
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
-    .Mouse_Interface =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+  .Mouse_Interface =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-            .InterfaceNumber        = MOUSE_INTERFACE,
-            .AlternateSetting       = 0x00,
+    .InterfaceNumber        = MOUSE_INTERFACE,
+    .AlternateSetting       = 0x00,
 
-            .TotalEndpoints         = 1,
+    .TotalEndpoints         = 1,
 
-            .Class                  = HID_CSCP_HIDClass,
-            .SubClass               = HID_CSCP_BootSubclass,
-            .Protocol               = HID_CSCP_MouseBootProtocol,
+    .Class                  = HID_CSCP_HIDClass,
+    .SubClass               = HID_CSCP_BootSubclass,
+    .Protocol               = HID_CSCP_MouseBootProtocol,
 
-            .InterfaceStrIndex      = NO_DESCRIPTOR
-        },
+    .InterfaceStrIndex      = NO_DESCRIPTOR
+  },
 
-    .Mouse_HID =
-        {
-            .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+  .Mouse_HID =
+  {
+    .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
 
-            .HIDSpec                = VERSION_BCD(1,1,1),
-            .CountryCode            = 0x00,
-            .TotalReportDescriptors = 1,
-            .HIDReportType          = HID_DTYPE_Report,
-            .HIDReportLength        = sizeof(MouseReport)
-        },
+    .HIDSpec                = VERSION_BCD(1,1,1),
+    .CountryCode            = 0x00,
+    .TotalReportDescriptors = 1,
+    .HIDReportType          = HID_DTYPE_Report,
+    .HIDReportLength        = sizeof(MouseReport)
+  },
 
-    .Mouse_INEndpoint =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+  .Mouse_INEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-            .EndpointAddress        = (ENDPOINT_DIR_IN | MOUSE_IN_EPNUM),
-            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-            .EndpointSize           = MOUSE_EPSIZE,
-            .PollingIntervalMS      = 0x0A
-        },
+    .EndpointAddress        = (ENDPOINT_DIR_IN | MOUSE_IN_EPNUM),
+    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = MOUSE_EPSIZE,
+    .PollingIntervalMS      = 0x0A
+  },
 #endif
 
-    /*
-     * Shared
-     */
+  /*
+   * Shared
+   */
 #ifdef SHARED_EP_ENABLE
-    .Shared_Interface =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+  .Shared_Interface =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-            .InterfaceNumber        = SHARED_INTERFACE,
-            .AlternateSetting       = 0x00,
+    .InterfaceNumber        = SHARED_INTERFACE,
+    .AlternateSetting       = 0x00,
 
-            .TotalEndpoints         = 1,
+    .TotalEndpoints         = 1,
 
-            .Class                  = HID_CSCP_HIDClass,
+    .Class                  = HID_CSCP_HIDClass,
 #   ifdef KEYBOARD_SHARED_EP
-            .SubClass               = HID_CSCP_BootSubclass,
-            .Protocol               = HID_CSCP_KeyboardBootProtocol,
+    .SubClass               = HID_CSCP_BootSubclass,
+    .Protocol               = HID_CSCP_KeyboardBootProtocol,
 #   else
-            .SubClass               = HID_CSCP_NonBootSubclass,
-            .Protocol               = HID_CSCP_NonBootProtocol,
+    .SubClass               = HID_CSCP_NonBootSubclass,
+    .Protocol               = HID_CSCP_NonBootProtocol,
 #endif
 
-            .InterfaceStrIndex      = NO_DESCRIPTOR
-        },
+    .InterfaceStrIndex      = NO_DESCRIPTOR
+  },
 
-    .Shared_HID =
-        {
-            .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+  .Shared_HID =
+  {
+    .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
 
-            .HIDSpec                = VERSION_BCD(1,1,1),
-            .CountryCode            = 0x00,
-            .TotalReportDescriptors = 1,
-            .HIDReportType          = HID_DTYPE_Report,
-            .HIDReportLength        = sizeof(SharedReport)
-        },
+    .HIDSpec                = VERSION_BCD(1,1,1),
+    .CountryCode            = 0x00,
+    .TotalReportDescriptors = 1,
+    .HIDReportType          = HID_DTYPE_Report,
+    .HIDReportLength        = sizeof(SharedReport)
+  },
 
-    .Shared_INEndpoint =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+  .Shared_INEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-            .EndpointAddress        = (ENDPOINT_DIR_IN | SHARED_IN_EPNUM),
-            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-            .EndpointSize           = SHARED_EPSIZE,
-            .PollingIntervalMS      = 0x0A
-        },
+    .EndpointAddress        = (ENDPOINT_DIR_IN | SHARED_IN_EPNUM),
+    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = SHARED_EPSIZE,
+    .PollingIntervalMS      = 0x0A
+  },
 #endif
 
-		/*
-	     * Raw
-	     */
-	#ifdef RAW_ENABLE
-	    .Raw_Interface =
-	        {
-	            .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+  /*
+   * Raw
+   */
+#ifdef RAW_ENABLE
+  .Raw_Interface =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-	            .InterfaceNumber        = RAW_INTERFACE,
-	            .AlternateSetting       = 0x00,
+    .InterfaceNumber        = RAW_INTERFACE,
+    .AlternateSetting       = 0x00,
 
-	            .TotalEndpoints         = 2,
+    .TotalEndpoints         = 2,
 
-	            .Class                  = HID_CSCP_HIDClass,
-	            .SubClass               = HID_CSCP_NonBootSubclass,
-	            .Protocol               = HID_CSCP_NonBootProtocol,
+    .Class                  = HID_CSCP_HIDClass,
+    .SubClass               = HID_CSCP_NonBootSubclass,
+    .Protocol               = HID_CSCP_NonBootProtocol,
 
-	            .InterfaceStrIndex      = NO_DESCRIPTOR
-	        },
+    .InterfaceStrIndex      = NO_DESCRIPTOR
+  },
 
-	    .Raw_HID =
-	        {
-	            .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+  .Raw_HID =
+  {
+    .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
 
-	            .HIDSpec                = VERSION_BCD(1,1,1),
-	            .CountryCode            = 0x00,
-	            .TotalReportDescriptors = 1,
-	            .HIDReportType          = HID_DTYPE_Report,
-	            .HIDReportLength        = sizeof(RawReport)
-	        },
+    .HIDSpec                = VERSION_BCD(1,1,1),
+    .CountryCode            = 0x00,
+    .TotalReportDescriptors = 1,
+    .HIDReportType          = HID_DTYPE_Report,
+    .HIDReportLength        = sizeof(RawReport)
+  },
 
-	    .Raw_INEndpoint =
-	        {
-	            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+  .Raw_INEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-	            .EndpointAddress        = (ENDPOINT_DIR_IN | RAW_IN_EPNUM),
-	            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-	            .EndpointSize           = RAW_EPSIZE,
-	            .PollingIntervalMS      = 0x01
-	        },
+    .EndpointAddress        = (ENDPOINT_DIR_IN | RAW_IN_EPNUM),
+    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = RAW_EPSIZE,
+    .PollingIntervalMS      = 0x01
+  },
 
-	    .Raw_OUTEndpoint =
-	        {
-	            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+  .Raw_OUTEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-	            .EndpointAddress        = (ENDPOINT_DIR_OUT | RAW_OUT_EPNUM),
-	            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-	            .EndpointSize           = RAW_EPSIZE,
-	            .PollingIntervalMS      = 0x01
-	        },
-	#endif
+    .EndpointAddress        = (ENDPOINT_DIR_OUT | RAW_OUT_EPNUM),
+    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = RAW_EPSIZE,
+    .PollingIntervalMS      = 0x01
+  },
+#endif
 
-    /*
-     * Console
-     */
+  /*
+   * Console
+   */
 #ifdef CONSOLE_ENABLE
-    .Console_Interface =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+  .Console_Interface =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-            .InterfaceNumber        = CONSOLE_INTERFACE,
-            .AlternateSetting       = 0x00,
+    .InterfaceNumber        = CONSOLE_INTERFACE,
+    .AlternateSetting       = 0x00,
 
-            .TotalEndpoints         = 2,
+    .TotalEndpoints         = 2,
 
-            .Class                  = HID_CSCP_HIDClass,
-            .SubClass               = HID_CSCP_NonBootSubclass,
-            .Protocol               = HID_CSCP_NonBootProtocol,
+    .Class                  = HID_CSCP_HIDClass,
+    .SubClass               = HID_CSCP_NonBootSubclass,
+    .Protocol               = HID_CSCP_NonBootProtocol,
 
-            .InterfaceStrIndex      = NO_DESCRIPTOR
-        },
+    .InterfaceStrIndex      = NO_DESCRIPTOR
+  },
 
-    .Console_HID =
-        {
-            .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
+  .Console_HID =
+  {
+    .Header                 = {.Size = sizeof(USB_HID_Descriptor_HID_t), .Type = HID_DTYPE_HID},
 
-            .HIDSpec                = VERSION_BCD(1,1,1),
-            .CountryCode            = 0x00,
-            .TotalReportDescriptors = 1,
-            .HIDReportType          = HID_DTYPE_Report,
-            .HIDReportLength        = sizeof(ConsoleReport)
-        },
+    .HIDSpec                = VERSION_BCD(1,1,1),
+    .CountryCode            = 0x00,
+    .TotalReportDescriptors = 1,
+    .HIDReportType          = HID_DTYPE_Report,
+    .HIDReportLength        = sizeof(ConsoleReport)
+  },
 
-    .Console_INEndpoint =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+  .Console_INEndpoint =
+  {
+  .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-            .EndpointAddress        = (ENDPOINT_DIR_IN | CONSOLE_IN_EPNUM),
-            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-            .EndpointSize           = CONSOLE_EPSIZE,
-            .PollingIntervalMS      = 0x01
-        },
+    .EndpointAddress        = (ENDPOINT_DIR_IN | CONSOLE_IN_EPNUM),
+    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = CONSOLE_EPSIZE,
+    .PollingIntervalMS      = 0x01
+  },
 
-    .Console_OUTEndpoint =
-        {
-            .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+  .Console_OUTEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-            .EndpointAddress        = (ENDPOINT_DIR_OUT | CONSOLE_OUT_EPNUM),
-            .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-            .EndpointSize           = CONSOLE_EPSIZE,
-            .PollingIntervalMS      = 0x01
-        },
+    .EndpointAddress        = (ENDPOINT_DIR_OUT | CONSOLE_OUT_EPNUM),
+    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = CONSOLE_EPSIZE,
+    .PollingIntervalMS      = 0x01
+  },
 #endif
 
 #ifdef MIDI_ENABLE
-    .Audio_Interface_Association =
-        {
-            .Header                   = {.Size = sizeof(USB_Descriptor_Interface_Association_t), .Type = DTYPE_InterfaceAssociation},
+  .Audio_Interface_Association =
+  {
+    .Header                   = {.Size = sizeof(USB_Descriptor_Interface_Association_t), .Type = DTYPE_InterfaceAssociation},
 
-            .FirstInterfaceIndex      = AC_INTERFACE,
-            .TotalInterfaces          = 2,
+    .FirstInterfaceIndex      = AC_INTERFACE,
+    .TotalInterfaces          = 2,
 
-            .Class                    = AUDIO_CSCP_AudioClass,
-            .SubClass                 = AUDIO_CSCP_ControlSubclass,
-            .Protocol                 = AUDIO_CSCP_ControlProtocol,
+    .Class                    = AUDIO_CSCP_AudioClass,
+    .SubClass                 = AUDIO_CSCP_ControlSubclass,
+    .Protocol                 = AUDIO_CSCP_ControlProtocol,
 
-            .IADStrIndex              = NO_DESCRIPTOR,
-        },
-    .Audio_ControlInterface =
-        {
-            .Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+    .IADStrIndex              = NO_DESCRIPTOR,
+  },
+  .Audio_ControlInterface =
+  {
+    .Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-            .InterfaceNumber          = AC_INTERFACE,
-            .AlternateSetting         = 0,
+    .InterfaceNumber          = AC_INTERFACE,
+    .AlternateSetting         = 0,
 
-            .TotalEndpoints           = 0,
+    .TotalEndpoints           = 0,
 
-            .Class                    = AUDIO_CSCP_AudioClass,
-            .SubClass                 = AUDIO_CSCP_ControlSubclass,
-            .Protocol                 = AUDIO_CSCP_ControlProtocol,
+    .Class                    = AUDIO_CSCP_AudioClass,
+    .SubClass                 = AUDIO_CSCP_ControlSubclass,
+    .Protocol                 = AUDIO_CSCP_ControlProtocol,
 
-            .InterfaceStrIndex        = NO_DESCRIPTOR
-        },
+    .InterfaceStrIndex        = NO_DESCRIPTOR
+  },
 
-    .Audio_ControlInterface_SPC =
-        {
-            .Header                   = {.Size = sizeof(USB_Audio_Descriptor_Interface_AC_t), .Type = DTYPE_CSInterface},
-            .Subtype                  = AUDIO_DSUBTYPE_CSInterface_Header,
+  .Audio_ControlInterface_SPC =
+  {
+    .Header                   = {.Size = sizeof(USB_Audio_Descriptor_Interface_AC_t), .Type = DTYPE_CSInterface},
+    .Subtype                  = AUDIO_DSUBTYPE_CSInterface_Header,
 
-            .ACSpecification          = VERSION_BCD(1,0,0),
-            .TotalLength              = sizeof(USB_Audio_Descriptor_Interface_AC_t),
+    .ACSpecification          = VERSION_BCD(1,0,0),
+    .TotalLength              = sizeof(USB_Audio_Descriptor_Interface_AC_t),
 
-            .InCollection             = 1,
-            .InterfaceNumber          = AS_INTERFACE,
-        },
+    .InCollection             = 1,
+    .InterfaceNumber          = AS_INTERFACE,
+  },
 
-    .Audio_StreamInterface =
-        {
-            .Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+  .Audio_StreamInterface =
+  {
+    .Header                   = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-            .InterfaceNumber          = AS_INTERFACE,
-            .AlternateSetting         = 0,
+    .InterfaceNumber          = AS_INTERFACE,
+    .AlternateSetting         = 0,
 
-            .TotalEndpoints           = 2,
+    .TotalEndpoints           = 2,
 
-            .Class                    = AUDIO_CSCP_AudioClass,
-            .SubClass                 = AUDIO_CSCP_MIDIStreamingSubclass,
-            .Protocol                 = AUDIO_CSCP_StreamingProtocol,
+    .Class                    = AUDIO_CSCP_AudioClass,
+    .SubClass                 = AUDIO_CSCP_MIDIStreamingSubclass,
+    .Protocol                 = AUDIO_CSCP_StreamingProtocol,
 
-            .InterfaceStrIndex        = NO_DESCRIPTOR
-        },
+    .InterfaceStrIndex        = NO_DESCRIPTOR
+  },
 
-    .Audio_StreamInterface_SPC =
-        {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_AudioInterface_AS_t), .Type = DTYPE_CSInterface},
-            .Subtype                  = AUDIO_DSUBTYPE_CSInterface_General,
+  .Audio_StreamInterface_SPC =
+  {
+    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_AudioInterface_AS_t), .Type = DTYPE_CSInterface},
+    .Subtype                  = AUDIO_DSUBTYPE_CSInterface_General,
 
-            .AudioSpecification       = VERSION_BCD(1,0,0),
+    .AudioSpecification       = VERSION_BCD(1,0,0),
 
-            .TotalLength              = offsetof(USB_Descriptor_Configuration_t, MIDI_Out_Jack_Endpoint_SPC)
+    .TotalLength              = offsetof(USB_Descriptor_Configuration_t, MIDI_Out_Jack_Endpoint_SPC)
                                         + sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t)
                                         - offsetof(USB_Descriptor_Configuration_t, Audio_StreamInterface_SPC)
-        },
+  },
 
-    .MIDI_In_Jack_Emb =
-        {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_InputJack_t), .Type = DTYPE_CSInterface},
-            .Subtype                  = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
+  .MIDI_In_Jack_Emb =
+  {
+    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_InputJack_t), .Type = DTYPE_CSInterface},
+    .Subtype                  = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
 
-            .JackType                 = MIDI_JACKTYPE_Embedded,
-            .JackID                   = 0x01,
+    .JackType                 = MIDI_JACKTYPE_Embedded,
+    .JackID                   = 0x01,
 
-            .JackStrIndex             = NO_DESCRIPTOR
-        },
+    .JackStrIndex             = NO_DESCRIPTOR
+  },
 
-    .MIDI_In_Jack_Ext =
-        {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_InputJack_t), .Type = DTYPE_CSInterface},
-            .Subtype                  = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
+  .MIDI_In_Jack_Ext =
+  {
+    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_InputJack_t), .Type = DTYPE_CSInterface},
+    .Subtype                  = AUDIO_DSUBTYPE_CSInterface_InputTerminal,
 
-            .JackType                 = MIDI_JACKTYPE_External,
-            .JackID                   = 0x02,
+    .JackType                 = MIDI_JACKTYPE_External,
+    .JackID                   = 0x02,
 
-            .JackStrIndex             = NO_DESCRIPTOR
-        },
+    .JackStrIndex             = NO_DESCRIPTOR
+  },
 
-    .MIDI_Out_Jack_Emb =
-        {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_OutputJack_t), .Type = DTYPE_CSInterface},
-            .Subtype                  = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
+  .MIDI_Out_Jack_Emb =
+  {
+    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_OutputJack_t), .Type = DTYPE_CSInterface},
+    .Subtype                  = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
 
-            .JackType                 = MIDI_JACKTYPE_Embedded,
-            .JackID                   = 0x03,
+    .JackType                 = MIDI_JACKTYPE_Embedded,
+    .JackID                   = 0x03,
 
-            .NumberOfPins             = 1,
-            .SourceJackID             = {0x02},
-            .SourcePinID              = {0x01},
+    .NumberOfPins             = 1,
+    .SourceJackID             = {0x02},
+    .SourcePinID              = {0x01},
 
-            .JackStrIndex             = NO_DESCRIPTOR
-        },
+    .JackStrIndex             = NO_DESCRIPTOR
+  },
 
-    .MIDI_Out_Jack_Ext =
-        {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_OutputJack_t), .Type = DTYPE_CSInterface},
-            .Subtype                  = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
+  .MIDI_Out_Jack_Ext =
+  {
+    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_OutputJack_t), .Type = DTYPE_CSInterface},
+    .Subtype                  = AUDIO_DSUBTYPE_CSInterface_OutputTerminal,
 
-            .JackType                 = MIDI_JACKTYPE_External,
-            .JackID                   = 0x04,
+    .JackType                 = MIDI_JACKTYPE_External,
+    .JackID                   = 0x04,
 
-            .NumberOfPins             = 1,
-            .SourceJackID             = {0x01},
-            .SourcePinID              = {0x01},
+    .NumberOfPins             = 1,
+    .SourceJackID             = {0x01},
+    .SourcePinID              = {0x01},
 
-            .JackStrIndex             = NO_DESCRIPTOR
-        },
+    .JackStrIndex             = NO_DESCRIPTOR
+  },
 
-    .MIDI_In_Jack_Endpoint =
-        {
-            .Endpoint =
-                {
-                    .Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
+  .MIDI_In_Jack_Endpoint =
+  {
+    .Endpoint =
+    {
+      .Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
 
-                    .EndpointAddress     = MIDI_STREAM_OUT_EPADDR,
-                    .Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-                    .EndpointSize        = MIDI_STREAM_EPSIZE,
-                    .PollingIntervalMS   = 0x05
-                },
+      .EndpointAddress     = MIDI_STREAM_OUT_EPADDR,
+      .Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+      .EndpointSize        = MIDI_STREAM_EPSIZE,
+      .PollingIntervalMS   = 0x05
+    },
 
-            .Refresh                  = 0,
-            .SyncEndpointNumber       = 0
-        },
+    .Refresh                  = 0,
+    .SyncEndpointNumber       = 0
+  },
 
-    .MIDI_In_Jack_Endpoint_SPC =
-        {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = DTYPE_CSEndpoint},
-            .Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
+  .MIDI_In_Jack_Endpoint_SPC =
+  {
+    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = DTYPE_CSEndpoint},
+    .Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
 
-            .TotalEmbeddedJacks       = 0x01,
-            .AssociatedJackID         = {0x01}
-        },
+    .TotalEmbeddedJacks       = 0x01,
+    .AssociatedJackID         = {0x01}
+  },
 
-    .MIDI_Out_Jack_Endpoint =
-        {
-            .Endpoint =
-                {
-                    .Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
+  .MIDI_Out_Jack_Endpoint =
+  {
+    .Endpoint =
+    {
+      .Header              = {.Size = sizeof(USB_Audio_Descriptor_StreamEndpoint_Std_t), .Type = DTYPE_Endpoint},
 
-                    .EndpointAddress     = MIDI_STREAM_IN_EPADDR,
-                    .Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-                    .EndpointSize        = MIDI_STREAM_EPSIZE,
-                    .PollingIntervalMS   = 0x05
-                },
+      .EndpointAddress     = MIDI_STREAM_IN_EPADDR,
+      .Attributes          = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+      .EndpointSize        = MIDI_STREAM_EPSIZE,
+      .PollingIntervalMS   = 0x05
+    },
 
-            .Refresh                  = 0,
-            .SyncEndpointNumber       = 0
-        },
+    .Refresh                  = 0,
+    .SyncEndpointNumber       = 0
+  },
 
-    .MIDI_Out_Jack_Endpoint_SPC =
-        {
-            .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = DTYPE_CSEndpoint},
-            .Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
+  .MIDI_Out_Jack_Endpoint_SPC =
+  {
+    .Header                   = {.Size = sizeof(USB_MIDI_Descriptor_Jack_Endpoint_t), .Type = DTYPE_CSEndpoint},
+    .Subtype                  = AUDIO_DSUBTYPE_CSEndpoint_General,
 
-            .TotalEmbeddedJacks       = 0x01,
-            .AssociatedJackID         = {0x03}
-        },
+    .TotalEmbeddedJacks       = 0x01,
+    .AssociatedJackID         = {0x03}
+  },
 #endif
 
 #ifdef VIRTSER_ENABLE
-    .CDC_Interface_Association =
-            {
-                    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_Association_t), .Type = DTYPE_InterfaceAssociation},
+  .CDC_Interface_Association =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_Association_t), .Type = DTYPE_InterfaceAssociation},
 
-                    .FirstInterfaceIndex    = CCI_INTERFACE,
-                    .TotalInterfaces        = 2,
+    .FirstInterfaceIndex    = CCI_INTERFACE,
+    .TotalInterfaces        = 2,
 
-                    .Class                  = CDC_CSCP_CDCClass,
-                    .SubClass               = CDC_CSCP_ACMSubclass,
-                    .Protocol               = CDC_CSCP_ATCommandProtocol,
+    .Class                  = CDC_CSCP_CDCClass,
+    .SubClass               = CDC_CSCP_ACMSubclass,
+    .Protocol               = CDC_CSCP_ATCommandProtocol,
 
-                    .IADStrIndex            = NO_DESCRIPTOR,
-            },
+    .IADStrIndex            = NO_DESCRIPTOR,
+  },
 
-    .CDC_CCI_Interface =
-            {
-                    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+  .CDC_CCI_Interface =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-                    .InterfaceNumber        = CCI_INTERFACE,
-                    .AlternateSetting       = 0,
+    .InterfaceNumber        = CCI_INTERFACE,
+    .AlternateSetting       = 0,
 
-                    .TotalEndpoints         = 1,
+    .TotalEndpoints         = 1,
 
-                    .Class                  = CDC_CSCP_CDCClass,
-                    .SubClass               = CDC_CSCP_ACMSubclass,
-                    .Protocol               = CDC_CSCP_ATCommandProtocol,
+    .Class                  = CDC_CSCP_CDCClass,
+    .SubClass               = CDC_CSCP_ACMSubclass,
+    .Protocol               = CDC_CSCP_ATCommandProtocol,
 
-                    .InterfaceStrIndex      = NO_DESCRIPTOR
-            },
+    .InterfaceStrIndex      = NO_DESCRIPTOR
+  },
 
-    .CDC_Functional_Header =
-            {
-                    .Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalHeader_t), .Type = DTYPE_CSInterface},
-                    .Subtype                = 0x00,
+  .CDC_Functional_Header =
+  {
+    .Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalHeader_t), .Type = DTYPE_CSInterface},
+    .Subtype                = 0x00,
 
-                    .CDCSpecification       = VERSION_BCD(1,1,0),
-            },
+    .CDCSpecification       = VERSION_BCD(1,1,0),
+  },
 
-    .CDC_Functional_ACM =
-            {
-                    .Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalACM_t), .Type = DTYPE_CSInterface},
-                    .Subtype                = 0x02,
+  .CDC_Functional_ACM =
+  {
+    .Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalACM_t), .Type = DTYPE_CSInterface},
+    .Subtype                = 0x02,
 
-                    .Capabilities           = 0x02,
-            },
+    .Capabilities           = 0x02,
+  },
 
-    .CDC_Functional_Union =
-            {
-                    .Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalUnion_t), .Type = DTYPE_CSInterface},
-                    .Subtype                = 0x06,
+  .CDC_Functional_Union =
+  {
+    .Header                 = {.Size = sizeof(USB_CDC_Descriptor_FunctionalUnion_t), .Type = DTYPE_CSInterface},
+    .Subtype                = 0x06,
 
-                    .MasterInterfaceNumber  = CCI_INTERFACE,
-                    .SlaveInterfaceNumber   = CDI_INTERFACE,
-            },
+    .MasterInterfaceNumber  = CCI_INTERFACE,
+    .SlaveInterfaceNumber   = CDI_INTERFACE,
+  },
 
-    .CDC_NotificationEndpoint =
-            {
-                    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+  .CDC_NotificationEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-                    .EndpointAddress        = CDC_NOTIFICATION_EPADDR,
-                    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-                    .EndpointSize           = CDC_NOTIFICATION_EPSIZE,
-                    .PollingIntervalMS      = 0xFF
-            },
+    .EndpointAddress        = CDC_NOTIFICATION_EPADDR,
+    .Attributes             = (EP_TYPE_INTERRUPT | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = CDC_NOTIFICATION_EPSIZE,
+    .PollingIntervalMS      = 0xFF
+  },
 
-    .CDC_DCI_Interface =
-            {
-                    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
+  .CDC_DCI_Interface =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Interface_t), .Type = DTYPE_Interface},
 
-                    .InterfaceNumber        = CDI_INTERFACE,
-                    .AlternateSetting       = 0,
+    .InterfaceNumber        = CDI_INTERFACE,
+    .AlternateSetting       = 0,
 
-                    .TotalEndpoints         = 2,
+    .TotalEndpoints         = 2,
 
-                    .Class                  = CDC_CSCP_CDCDataClass,
-                    .SubClass               = CDC_CSCP_NoDataSubclass,
-                    .Protocol               = CDC_CSCP_NoDataProtocol,
+    .Class                  = CDC_CSCP_CDCDataClass,
+    .SubClass               = CDC_CSCP_NoDataSubclass,
+    .Protocol               = CDC_CSCP_NoDataProtocol,
 
-                    .InterfaceStrIndex      = NO_DESCRIPTOR
-            },
+    .InterfaceStrIndex      = NO_DESCRIPTOR
+  },
 
-    .CDC_DataOutEndpoint =
-            {
-                    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+  .CDC_DataOutEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-                    .EndpointAddress        = CDC_OUT_EPADDR,
-                    .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-                    .EndpointSize           = CDC_EPSIZE,
-                    .PollingIntervalMS      = 0x05
-            },
+    .EndpointAddress        = CDC_OUT_EPADDR,
+    .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = CDC_EPSIZE,
+    .PollingIntervalMS      = 0x05
+  },
 
-    .CDC_DataInEndpoint =
-            {
-                    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
+  .CDC_DataInEndpoint =
+  {
+    .Header                 = {.Size = sizeof(USB_Descriptor_Endpoint_t), .Type = DTYPE_Endpoint},
 
-                    .EndpointAddress        = CDC_IN_EPADDR,
-                    .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
-                    .EndpointSize           = CDC_EPSIZE,
-                    .PollingIntervalMS      = 0x05
-            },
+    .EndpointAddress        = CDC_IN_EPADDR,
+    .Attributes             = (EP_TYPE_BULK | ENDPOINT_ATTR_NO_SYNC | ENDPOINT_USAGE_DATA),
+    .EndpointSize           = CDC_EPSIZE,
+    .PollingIntervalMS      = 0x05
+  },
 #endif
 };
 
@@ -840,37 +840,37 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor =
  ******************************************************************************/
 const USB_Descriptor_String_t PROGMEM LanguageString =
 {
-    .Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
+  .Header                 = {.Size = USB_STRING_LEN(1), .Type = DTYPE_String},
 
-    .UnicodeString          = {LANGUAGE_ID_ENG}
+  .UnicodeString          = {LANGUAGE_ID_ENG}
 };
 
 const USB_Descriptor_String_t PROGMEM ManufacturerString =
 {
-    /* subtract 1 for null terminator */
-    .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(MANUFACTURER))-1), .Type = DTYPE_String},
+  /* subtract 1 for null terminator */
+  .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(MANUFACTURER))-1), .Type = DTYPE_String},
 
-    .UnicodeString          = LSTR(MANUFACTURER)
+  .UnicodeString          = LSTR(MANUFACTURER)
 };
 
 const USB_Descriptor_String_t PROGMEM ProductString =
 {
-    /* subtract 1 for null terminator */
-    .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(PRODUCT))-1), .Type = DTYPE_String},
+  /* subtract 1 for null terminator */
+  .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(PRODUCT))-1), .Type = DTYPE_String},
 
-    .UnicodeString          = LSTR(PRODUCT)
+  .UnicodeString          = LSTR(PRODUCT)
 };
 
 #ifndef SERIAL_NUMBER
-    #define SERIAL_NUMBER 0
+  #define SERIAL_NUMBER 0
 #endif
 
 const USB_Descriptor_String_t PROGMEM SerialNumberString =
 {
-    /* subtract 1 for null terminator */
-    .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER))-1), .Type = DTYPE_String},
+  /* subtract 1 for null terminator */
+  .Header                 = {.Size = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER))-1), .Type = DTYPE_String},
 
-    .UnicodeString          = LSTR(SERIAL_NUMBER)
+  .UnicodeString          = LSTR(SERIAL_NUMBER)
 };
 
 
@@ -884,113 +884,113 @@ uint16_t get_usb_descriptor(const uint16_t wValue,
                             const uint16_t wIndex,
                             const void** const DescriptorAddress)
 {
-    const uint8_t  DescriptorType   = (wValue >> 8);
-    const uint8_t  DescriptorIndex  = (wValue & 0xFF);
+  const uint8_t  DescriptorType   = (wValue >> 8);
+  const uint8_t  DescriptorIndex  = (wValue & 0xFF);
 
-    const void* Address = NULL;
-    uint16_t    Size    = NO_DESCRIPTOR;
+  const void* Address = NULL;
+  uint16_t    Size    = NO_DESCRIPTOR;
 
-    switch (DescriptorType)
-    {
-        case DTYPE_Device:
-            Address = &DeviceDescriptor;
-            Size    = sizeof(USB_Descriptor_Device_t);
-            break;
-        case DTYPE_Configuration:
-            Address = &ConfigurationDescriptor;
-            Size    = sizeof(USB_Descriptor_Configuration_t);
-            break;
-        case DTYPE_String:
-            switch (DescriptorIndex )
-            {
-                case 0x00:
-                    Address = &LanguageString;
-                    Size    = pgm_read_byte(&LanguageString.Header.Size);
-                    break;
-                case 0x01:
-                    Address = &ManufacturerString;
-                    Size    = pgm_read_byte(&ManufacturerString.Header.Size);
-                    break;
-                case 0x02:
-                    Address = &ProductString;
-                    Size    = pgm_read_byte(&ProductString.Header.Size);
-                    break;
-                case 0x03:
-                    Address = &SerialNumberString;
-                    Size    = pgm_read_byte(&SerialNumberString.Header.Size);
-                    break;
-            }
-            break;
-        case HID_DTYPE_HID:
-            switch (wIndex) {
+  switch (DescriptorType)
+  {
+    case DTYPE_Device:
+      Address = &DeviceDescriptor;
+      Size    = sizeof(USB_Descriptor_Device_t);
+      break;
+    case DTYPE_Configuration:
+      Address = &ConfigurationDescriptor;
+      Size    = sizeof(USB_Descriptor_Configuration_t);
+      break;
+    case DTYPE_String:
+      switch (DescriptorIndex )
+      {
+        case 0x00:
+          Address = &LanguageString;
+          Size    = pgm_read_byte(&LanguageString.Header.Size);
+          break;
+        case 0x01:
+          Address = &ManufacturerString;
+          Size    = pgm_read_byte(&ManufacturerString.Header.Size);
+          break;
+        case 0x02:
+          Address = &ProductString;
+          Size    = pgm_read_byte(&ProductString.Header.Size);
+          break;
+        case 0x03:
+          Address = &SerialNumberString;
+          Size    = pgm_read_byte(&SerialNumberString.Header.Size);
+          break;
+      }
+      break;
+    case HID_DTYPE_HID:
+      switch (wIndex) {
 #ifndef KEYBOARD_SHARED_EP
-            case KEYBOARD_INTERFACE:
-                Address = &ConfigurationDescriptor.Keyboard_HID;
-                Size    = sizeof(USB_HID_Descriptor_HID_t);
-                break;
+        case KEYBOARD_INTERFACE:
+          Address = &ConfigurationDescriptor.Keyboard_HID;
+          Size    = sizeof(USB_HID_Descriptor_HID_t);
+          break;
 #endif
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
-            case MOUSE_INTERFACE:
-                Address = &ConfigurationDescriptor.Mouse_HID;
-                Size    = sizeof(USB_HID_Descriptor_HID_t);
-                break;
+        case MOUSE_INTERFACE:
+          Address = &ConfigurationDescriptor.Mouse_HID;
+          Size    = sizeof(USB_HID_Descriptor_HID_t);
+          break;
 #endif
 #ifdef SHARED_EP_ENABLE
-            case SHARED_INTERFACE:
-                Address = &ConfigurationDescriptor.Shared_HID;
-                Size    = sizeof(USB_HID_Descriptor_HID_t);
-                break;
+        case SHARED_INTERFACE:
+          Address = &ConfigurationDescriptor.Shared_HID;
+          Size    = sizeof(USB_HID_Descriptor_HID_t);
+          break;
 #endif
 #ifdef RAW_ENABLE
-            case RAW_INTERFACE:
-                Address = &ConfigurationDescriptor.Raw_HID;
-                Size    = sizeof(USB_HID_Descriptor_HID_t);
-                break;
+        case RAW_INTERFACE:
+          Address = &ConfigurationDescriptor.Raw_HID;
+          Size    = sizeof(USB_HID_Descriptor_HID_t);
+          break;
 #endif
 #ifdef CONSOLE_ENABLE
-            case CONSOLE_INTERFACE:
-                Address = &ConfigurationDescriptor.Console_HID;
-                Size    = sizeof(USB_HID_Descriptor_HID_t);
-                break;
+        case CONSOLE_INTERFACE:
+          Address = &ConfigurationDescriptor.Console_HID;
+          Size    = sizeof(USB_HID_Descriptor_HID_t);
+          break;
 #endif
-            }
-            break;
-        case HID_DTYPE_Report:
-            switch (wIndex) {
+      }
+      break;
+    case HID_DTYPE_Report:
+      switch (wIndex) {
 #ifndef KEYBOARD_SHARED_EP
-            case KEYBOARD_INTERFACE:
-                Address = &KeyboardReport;
-                Size    = sizeof(KeyboardReport);
-                break;
+        case KEYBOARD_INTERFACE:
+          Address = &KeyboardReport;
+          Size    = sizeof(KeyboardReport);
+          break;
 #endif
 #if defined(MOUSE_ENABLE) && !defined(MOUSE_SHARED_EP)
-            case MOUSE_INTERFACE:
-                Address = &MouseReport;
-                Size    = sizeof(MouseReport);
-                break;
+        case MOUSE_INTERFACE:
+          Address = &MouseReport;
+          Size    = sizeof(MouseReport);
+          break;
 #endif
 #ifdef SHARED_EP_ENABLE
-            case SHARED_INTERFACE:
-                Address = &SharedReport;
-                Size    = sizeof(SharedReport);
-                break;
+        case SHARED_INTERFACE:
+          Address = &SharedReport;
+          Size    = sizeof(SharedReport);
+          break;
 #endif
 #ifdef RAW_ENABLE
-            case RAW_INTERFACE:
-                Address = &RawReport;
-                Size    = sizeof(RawReport);
-                break;
+        case RAW_INTERFACE:
+          Address = &RawReport;
+          Size    = sizeof(RawReport);
+          break;
 #endif
 #ifdef CONSOLE_ENABLE
-            case CONSOLE_INTERFACE:
-                Address = &ConsoleReport;
-                Size    = sizeof(ConsoleReport);
-                break;
+        case CONSOLE_INTERFACE:
+          Address = &ConsoleReport;
+          Size    = sizeof(ConsoleReport);
+          break;
 #endif
-            }
-            break;
-    }
+      }
+      break;
+  }
 
-    *DescriptorAddress = Address;
-    return Size;
+  *DescriptorAddress = Address;
+  return Size;
 }
