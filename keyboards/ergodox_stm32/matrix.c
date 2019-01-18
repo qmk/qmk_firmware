@@ -18,13 +18,26 @@ static matrix_row_t matrix[MATRIX_ROWS];
 
 // static uint8_t debounce_matrix[MATRIX_ROWS * MATRIX_COLS];
 
+__attribute__ ((weak))
+void matrix_init_user(void) {}
+
+__attribute__ ((weak))
+void matrix_init_kb(void) {
+    matrix_init_user();
+}
+
+__attribute__ ((weak))
+void matrix_scan_kb(void)
+{}
+
 void matrix_init(void)
 {
-
+    matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void)
 {
+  matrix_scan_quantum();
   return 1;
 }
 

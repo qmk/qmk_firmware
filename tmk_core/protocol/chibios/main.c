@@ -104,17 +104,6 @@ void console_task(void);
 // }
 
 
-static THD_WORKING_AREA(testThread1WorkingArea, 128);
-static THD_FUNCTION(testThread1, arg) {
-    palSetPadMode(GPIOC, 13, PAL_MODE_OUTPUT_PUSHPULL);
-    while(true) {
-        palSetPad(GPIOC, 13);
-        chThdSleepMilliseconds(100);
-        palClearPad(GPIOC, 13);
-        chThdSleepMilliseconds(100);
-    }
-}
-
 /* Main thread
  */
 int main(void) {
@@ -128,8 +117,6 @@ int main(void) {
 
   // TESTING
   // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
-
-  (void)chThdCreateStatic(testThread1WorkingArea, sizeof(testThread1WorkingArea), NORMALPRIO, testThread1, NULL);
 
   /* Init USB */
   init_usb_driver(&USB_DRIVER);
