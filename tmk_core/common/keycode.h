@@ -175,8 +175,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KC_BRID KC_BRIGHTNESS_DOWN
 
 /* System Specific */
-#define KC_BRMU KC_SCROLLLOCK
-#define KC_BRMD KC_PAUSE
+#define KC_BRMU KC_PAUSE
+#define KC_BRMD KC_SCROLLLOCK
 
 /* Mouse Keys */
 #define KC_MS_U KC_MS_UP
