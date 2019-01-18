@@ -58,11 +58,11 @@ static THD_FUNCTION(hsv_transThread, arg){
     color.h += 1;
     color.h %= 256;
     set_leds_color_hsv(color);
-    xprintf("set hue: %d\n", color.h);
-    for (int i =0;i< PREAMBLE_SIZE + DATA_SIZE + RESET_SIZE; i++){
-      xprintf("%02x", txbuf[i]);
-    }
-    xprintf("\n");
+    // xprintf("set hue: %d\n", color.h);
+    // for (int i =0;i< PREAMBLE_SIZE + DATA_SIZE + RESET_SIZE; i++){
+    //   xprintf("%02x", txbuf[i]);
+    // }
+    // xprintf("\n");
     chThdSleepMilliseconds(50);
   }
 }

@@ -22,7 +22,7 @@
 // #ifdef QWIIC_MICRO_OLED_ENABLE
 #include "qwiic.h"
 
-
+#define MEDIA_KEY_DELAY 10
 /* screen off after this many milliseconds */
 #include "timer.h"
 #define ScreenOffInterval 60000 /* milliseconds */
@@ -35,6 +35,7 @@ volatile uint8_t  led_scrolllock = false;
 static uint8_t layer;
 static bool queue_for_send = false;
 static uint8_t encoder_value = 32;
+static uint8_t encoder_mode = ENC_MODE_VOLUME;
 
 __attribute__ ((weak))
 void draw_ui(void) {
@@ -49,6 +50,29 @@ void draw_ui(void) {
   draw_string(LAYER_INDICATOR_X + 1, LAYER_INDICATOR_Y + 2, "LAYER", PIXEL_ON, NORM, 0);
   draw_rect_filled_soft(LAYER_INDICATOR_X + 32, LAYER_INDICATOR_Y + 1, 9, 9, PIXEL_ON, NORM);
   draw_char(LAYER_INDICATOR_X + 34, LAYER_INDICATOR_Y + 2, layer + 0x30, PIXEL_ON, XOR, 0);
+
+#define ENCODER_INDICATOR_X 45
+#define ENCODER_INDICATOR_Y 0
+  draw_string(ENCODER_INDICATOR_X + 1, ENCODER_INDICATOR_Y + 2, "ENC", PIXEL_ON, NORM, 0);
+  draw_rect_filled_soft(ENCODER_INDICATOR_X + 22, ENCODER_INDICATOR_Y + 1, 3 + (3 * 6), 9, PIXEL_ON, NORM);
+  switch(encoder_mode){
+    default:
+    case ENC_MODE_VOLUME:
+      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "VOL", PIXEL_ON, XOR, 0);
+      break;
+    case ENC_MODE_MEDIA:
+      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "MED", PIXEL_ON, XOR, 0);
+      break;
+    case ENC_MODE_SCROLL:
+      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "SCR", PIXEL_ON, XOR, 0);
+      break;
+    case ENC_MODE_BRIGHTNESS:
+      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "BRT", PIXEL_ON, XOR, 0);
+      break;
+    case ENC_MODE_BACKLIGHT:
+      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "BKL", PIXEL_ON, XOR, 0);
+      break;
+  }
 
 /* Matrix display is 19 x 9 pixels */
 #define MATRIX_DISPLAY_X 0
@@ -158,12 +182,93 @@ uint32_t layer_state_set_kb(uint32_t state) {
 
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   queue_for_send = true;
+  switch (keycode) {
+    case ENC_MOD:
+      if (record->event.pressed) {
+        encoder_mode = (encoder_mode + 1) % _NUM_ENCODER_MODES;
+      }
+      return false;
+    case ENC_PRESS:
+      if (record->event.pressed) {
+        uint16_t mapped_code = KC_MUTE;
+        switch(encoder_mode){
+          default:
+          case ENC_MODE_BRIGHTNESS:
+          case ENC_MODE_VOLUME:
+            break;
+          case ENC_MODE_MEDIA:
+            mapped_code = KC_MEDIA_PLAY_PAUSE;
+            break;
+          case ENC_MODE_SCROLL:
+            mapped_code = KC_BTN3;
+            break;
+          case ENC_MODE_BACKLIGHT:
+            mapped_code = BL_TOGG;
+            break;
+        }
+        uint16_t held_keycode_timer = timer_read();
+        register_code(mapped_code);
+        while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ /* no-op */ }
+        unregister_code(mapped_code);
+      } else {
+        // Do something else when release
+      }
+      return false;
+    default:
+      break;
+  }
+
   return process_record_user(keycode, record);
 }
 
 void encoder_update_kb(uint8_t index, bool clockwise) {
   encoder_value = (encoder_value + (clockwise ? 1 : -1)) % 64;
   queue_for_send = true;
+  if (index == 0) {
+    uint16_t mapped_code = KC_VOLU;
+    if (clockwise) {
+      switch(encoder_mode){
+          default:
+          case ENC_MODE_VOLUME:
+            break;
+          case ENC_MODE_MEDIA:
+            mapped_code = KC_MEDIA_NEXT_TRACK;
+            break;
+          case ENC_MODE_SCROLL:
+            mapped_code = KC_WH_D;
+            break;
+          case ENC_MODE_BACKLIGHT:
+            mapped_code = BL_INC;
+            break;
+          case ENC_MODE_BRIGHTNESS:
+            mapped_code = KC_BRIGHTNESS_UP;
+            break;
+      }
+    } else {
+      switch(encoder_mode){
+          default:
+          case ENC_MODE_VOLUME:
+            mapped_code = KC_VOLD;
+            break;
+          case ENC_MODE_MEDIA:
+            mapped_code = KC_MEDIA_PREV_TRACK;
+            break;
+          case ENC_MODE_SCROLL:
+            mapped_code = KC_WH_U;
+            break;
+          case ENC_MODE_BACKLIGHT:
+            mapped_code = BL_DEC;
+            break;
+          case ENC_MODE_BRIGHTNESS:
+            mapped_code = KC_BRIGHTNESS_DOWN;
+            break;
+      }
+    }
+    uint16_t held_keycode_timer = timer_read();
+    register_code(mapped_code);
+    while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ /* no-op */ }
+    unregister_code(mapped_code);
+  }
 }
 
 void matrix_init_user(void) {

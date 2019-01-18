@@ -36,6 +36,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROW_PINS { B3, B4, A0, A2, A4, A3 }
 #define DIODE_DIRECTION COL2ROW
 
+#define NUMBER_OF_ENCODERS 1
+#define ENCODERS_PAD_A { B9 }
+#define ENCODERS_PAD_B { B8 }
+
 //LEDS A6, RGB B15
 
 /* define if matrix has ghost */
@@ -56,7 +60,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_ADDRESS_SA0_1 0x3C
 #define LCDWIDTH      128
 #define LCDHEIGHT     32
-#define micro_oled_rotate_180
 
 #endif
 
