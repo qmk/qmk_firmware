@@ -40,10 +40,6 @@
 #include "report.h"
 #include "usb_descriptor.h"
 
-#ifndef USB_MAX_POWER_CONSUMPTION
-  #define USB_MAX_POWER_CONSUMPTION 500
-#endif
-
 /*
  * HID report descriptors
  */
@@ -306,6 +302,10 @@ const USB_Descriptor_Device_t PROGMEM DeviceDescriptor = {
   .SerialNumStrIndex        = 0x03,
   .NumberOfConfigurations   = FIXED_NUM_CONFIGURATIONS
 };
+
+#ifndef USB_MAX_POWER_CONSUMPTION
+  #define USB_MAX_POWER_CONSUMPTION 500
+#endif
 
 /*
  * Configuration descriptors
@@ -811,24 +811,24 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
  */
 const USB_Descriptor_String_t PROGMEM LanguageString = {
   .Header = {
-    .Size      = USB_STRING_LEN(1),
-    .Type      = DTYPE_String
+    .Size        = USB_STRING_LEN(1),
+    .Type        = DTYPE_String
   },
   .UnicodeString = {LANGUAGE_ID_ENG}
 };
 
 const USB_Descriptor_String_t PROGMEM ManufacturerString = {
   .Header = {
-    .Size      = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1), // Subtract 1 for null terminator
-    .Type      = DTYPE_String
+    .Size        = USB_STRING_LEN(sizeof(STR(MANUFACTURER)) - 1), // Subtract 1 for null terminator
+    .Type        = DTYPE_String
   },
   .UnicodeString = LSTR(MANUFACTURER)
 };
 
 const USB_Descriptor_String_t PROGMEM ProductString = {
   .Header = {
-    .Size      = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1), // Subtract 1 for null terminator
-    .Type      = DTYPE_String
+    .Size        = USB_STRING_LEN(sizeof(STR(PRODUCT)) - 1), // Subtract 1 for null terminator
+    .Type        = DTYPE_String
   },
   .UnicodeString = LSTR(PRODUCT)
 };
@@ -839,8 +839,8 @@ const USB_Descriptor_String_t PROGMEM ProductString = {
 
 const USB_Descriptor_String_t PROGMEM SerialNumberString = {
   .Header = {
-    .Size      = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1), // Subtract 1 for null terminator
-    .Type      = DTYPE_String
+    .Size        = USB_STRING_LEN(sizeof(STR(SERIAL_NUMBER)) - 1), // Subtract 1 for null terminator
+    .Type        = DTYPE_String
   },
   .UnicodeString = LSTR(SERIAL_NUMBER)
 };
