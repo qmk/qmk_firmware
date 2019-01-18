@@ -25,6 +25,13 @@
 
 #define LCT_CPS LCTL_T(KC_CAPS)
 
+#define SEND_STRING_CLEAN(...) {   \
+    uint8_t ssc_mods = get_mods(); \
+    clear_mods();                  \
+    SEND_STRING(__VA_ARGS__);      \
+    set_mods(ssc_mods);            \
+  }
+
 enum keycodes_user {
   CLEAR = SAFE_RANGE,
 #ifdef LAYER_NUMPAD
