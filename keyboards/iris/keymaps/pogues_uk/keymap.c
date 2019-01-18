@@ -13,11 +13,18 @@ extern keymap_config_t keymap_config;
 // control when held; single quote when tapped
 #define KC_CQUT LCTL_T(KC_QUOT)
 // just a ^
-#define KC_HAT LSFT(KC_6)
+#define MY_HAT LSFT(KC_6)
 // less than (<)
-#define KC_LTHN LSFT(KC_COMM)
+#define MY_LTHN LSFT(KC_COMM)
 // greater than (>)
-#define KC_GTHN LSFT(KC_DOT)
+#define MY_GTHN LSFT(KC_DOT)
+// shift NUHS for PIPE
+#define MY_PIPE LSFT(KC_NUBS)
+// shift NUHS for tilde
+#define MY_TLDE LSFT(KC_NUHS)
+// shift quote for @
+#define MY_AT LSFT(KC_QUOTE)
+
 // undo 
 #define KC__UDO LCTL(KC_Z)
 // cut
@@ -43,17 +50,19 @@ enum custom_keycodes {
     ADJUST,
     ALT_LYR,
     VIM_G,
+    ALT_2,
+    ALT_QOT,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(  // Base layer
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                    ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     ALT_LYR, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NUBS,
+     ALT_LYR, KC_1,    ALT_2,   KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NUBS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_CESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_CQUT,
+     KC_CESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, ALT_QOT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI,    KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘  └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
@@ -71,21 +80,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,      KC_EQL,  KC_EQL,  KC_1,    KC_2,    KC_3,    KC_SLSH, KC_SPC,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘  └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, _______, KC_DEL,              KC_COMM, KC_DOT,  KC_P0
+                                    _______, _______, KC_DEL,              KC_DOT,   KC_P0,  KC_COMM
                                 // └────────┴────────┴────────┘           └────────┴────────┴────────┘
   ),
 
   [_RAISE] = LAYOUT(  // bracket layer (RAISE)
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                    ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     KC_ESC,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   KC_LTHN, KC_GTHN, KC_NO,   KC_NO,   KC_NO,  
+     KC_ESC,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   MY_LTHN, MY_GTHN, KC_NO,   KC_NO,   KC_NO,  
   //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_EXLM, KC_LPRN, KC_RPRN, KC_AT,   KC_BSLS, _______,
+     _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_EXLM, KC_LPRN, KC_RPRN, MY_AT,   KC_NUBS, _______,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_LCTL, KC_MPRV, KC_MNXT, KC_VOLU, KC_PGUP, KC_UNDS,                      KC_NUHS, KC_LBRC, KC_RBRC, KC_PIPE, KC_TILD, KC_GRV,
+     KC_LCTL, KC_MPRV, KC_MNXT, KC_VOLU, KC_PGUP, KC_UNDS,                      KC_NUHS, KC_LBRC, KC_RBRC, MY_PIPE, MY_TLDE, KC_GRV,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_MUTE, KC_MSTP, KC_MPLY, KC_VOLD, KC_PGDN, KC_MINS, KC_LPRN,    _______, KC_AMPR, KC_LCBR, KC_RCBR,  KC_DLR,   KC_HAT, _______,
+     KC_MUTE, KC_MSTP, KC_MPLY, KC_VOLD, KC_PGDN, KC_MINS, KC_LPRN,    _______, KC_AMPR, KC_LCBR, KC_RCBR,  KC_DLR,   MY_HAT, _______,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘  └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    _______, _______, KC_UNDS,             _______, _______, _______
+                                    _______, _______, KC_UNDS,             _______, KC_UNDS, _______
                                 // └────────┴────────┴────────┘           └────────┴────────┴────────┘
   ),
 
@@ -160,6 +169,22 @@ bool action_function_mods_layer_tap(keyrecord_t *record, uint8_t mods, uint8_t l
 }
 
 
+bool action_function_altered_shift(keyrecord_t *record, uint8_t base_key, uint8_t shifted_key) {
+    // TODO do we need to worry about the tap count / interrupted states here?
+    uint8_t shift_held = SHIFT_HELD;
+    uint8_t key = base_key;
+    if (shift_held) {
+        key = shifted_key;
+    }
+    if (record->event.pressed) {
+        key_press(key);
+    } else {
+        key_release(key);
+    }
+    return false;
+}
+
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case QWERTY:
@@ -199,6 +224,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
         case VIM_G:
             return action_function_vim_g(record);
+            break;
+        case ALT_2:
+            return action_function_altered_shift(record, KC_2, KC_QUOT);
+            break;
+        case ALT_QOT:
+            return action_function_altered_shift(record, KC_QUOT, KC_2);
             break;
         case ALT_LYR:
             return action_function_mods_layer_tap(record, MOD_BIT(KC_LALT), _ALT_LAYER, KC_ESC);

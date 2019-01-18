@@ -1,0 +1,8 @@
+To build:
+
+make iris/rev2:pogues_uk
+
+to then install:
+
+make iris/rev2:pogues_uk:avrdude
+
