@@ -1,4 +1,4 @@
-Copyright 2019 Steven Inglis sai2791@googlemail.com
+Copyright 2019 Steven Inglis sai2791@googlemail.com @sai2791
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,3 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 # Overview
 
 This is my personal userspace file.
+
+# Shared Keys
+- System wide Mac lock screen Keys (KC_LOCKSCR)
