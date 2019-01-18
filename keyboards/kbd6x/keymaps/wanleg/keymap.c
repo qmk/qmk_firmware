@@ -23,11 +23,11 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-	 KC_ESC, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, FUNCTION, \
-     KC_TAB, 			K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, _______, _______, _______, \
-     TD(TD_SFT_CAPS), 	K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, KC_QUOT, KC_ENT, \
-     KC_LSFT, 			K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, KC_LSFT, _______, \
-     KC_LCTL, KC_LGUI, KC_LALT,				KC_SPC,			KC_RALT, KC_RGUI, KC_RCTL \
+	 KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,     KC_6,   KC_7,   KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL, KC_BSPC, KC_BSPC, \
+     KC_TAB, 			K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, KC_LBRC, KC_RBRC, KC_BSLS, \
+     KC_CAPS, 	K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, KC_QUOT, KC_ENT, \
+     KC_LSFT, 			K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, KC_LSFT, FUNCTION, \
+     KC_LCTL, KC_LGUI, KC_LALT,				LT(gDIR,KC_SPC),			KC_RALT, KC_RGUI, KC_RCTL \
   )
 #define LAYOUT_kbd6x_base_wrapper(...)       LAYOUT_kbd6x_base(__VA_ARGS__)
 
