@@ -231,7 +231,7 @@ enum usb_endpoints {
   // TODO - ARM_ATSAM
 
   #if (NEXT_EPNUM - 1) > MAX_ENDPOINTS
-    #error There are not enough available endpoints to support all functions. Remove some in the rules.mk file. (MOUSEKEY, EXTRAKEY, CONSOLE, NKRO, MIDI, SERIAL, STENO)
+    #error There are not enough available endpoints to support all functions. Please disable one or more of the following: Mouse Keys, Extra Keys, Console, NKRO, MIDI, Serial, Steno
   #endif
 
   #define KEYBOARD_EPSIZE          8
