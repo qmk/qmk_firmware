@@ -28,16 +28,31 @@ static uint8_t encoder_mode = ENC_MODE_VOLUME;
 static RTCDateTime last_timespec;
 static uint16_t last_minute = 0;
 
+static uint8_t time_config_idx = 0;
+static uint8_t hour_config = 0;
+static uint16_t minute_config = 0;
+
 __attribute__ ((weak))
 void draw_ui(void) {
-  uint8_t hour = (last_minute / 60) % 12;
-  bool is_pm = ((last_minute / 60) / 12)  > 0;
+  uint8_t hour = last_minute / 60;
   uint16_t minute = last_minute % 60;
+
+  if(encoder_mode == ENC_MODE_CLOCK_SET){
+    hour = hour_config;
+    minute = minute_config;
+  }
+
+  bool is_pm = (hour / 12) > 0;
+  hour = hour % 12;
   if (hour == 0){
     hour = 12;
   }
   char hour_str[2] = "";
   char min_str[2] = "";
+
+  sprintf(hour_str, "%02d", hour);
+  sprintf(min_str, "%02d", minute);
+
 
   clear_buffer();
   last_flush = timer_read();
@@ -71,6 +86,9 @@ void draw_ui(void) {
       break;
     case ENC_MODE_BACKLIGHT:
       draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "BKL", PIXEL_ON, XOR, 0);
+      break;
+    case ENC_MODE_CLOCK_SET:
+      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "CLK", PIXEL_ON, XOR, 0);
       break;
   }
 
@@ -142,9 +160,6 @@ void draw_ui(void) {
 
 #define TIME_DISPLAY_X 82
 #define TIME_DISPLAY_Y 22
-  sprintf(hour_str, "%02d", hour);
-  sprintf(min_str, "%02d", minute);
-
   draw_string(TIME_DISPLAY_X, TIME_DISPLAY_Y, hour_str, PIXEL_ON, NORM, 0);
   draw_string(TIME_DISPLAY_X + 11, TIME_DISPLAY_Y, ":", PIXEL_ON, NORM, 0);
   draw_string(TIME_DISPLAY_X + 15, TIME_DISPLAY_Y, min_str, PIXEL_ON, NORM, 0);
@@ -197,16 +212,30 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case ENC_MOD:
       if (record->event.pressed) {
+        if(encoder_mode == ENC_MODE_CLOCK_SET){
+          RTCDateTime timespec;
+          timespec.year = last_timespec.year;
+          timespec.month = last_timespec.month;
+          timespec.day = last_timespec.day;
+          timespec.dayofweek = last_timespec.dayofweek;
+          timespec.dstflag = last_timespec.dstflag;
+          timespec.millisecond = (hour_config * 60 + minute_config) * 60 * 1000;
+          rtcSetTime(&RTCD1, &timespec);
+        }
         encoder_mode = (encoder_mode + 1) % _NUM_ENCODER_MODES;
+        if(encoder_mode == ENC_MODE_CLOCK_SET){
+          hour_config = (last_minute / 60);
+          minute_config = last_minute % 60;
+          time_config_idx = 0;
+        }
       }
       return false;
     case ENC_PRESS:
       if (record->event.pressed) {
-        uint16_t mapped_code = KC_MUTE;
+        uint16_t mapped_code = 0;
         switch(encoder_mode){
-          default:
-          case ENC_MODE_BRIGHTNESS:
           case ENC_MODE_VOLUME:
+            mapped_code = KC_MUTE;
             break;
           case ENC_MODE_MEDIA:
             mapped_code = KC_MEDIA_PLAY_PAUSE;
@@ -217,11 +246,18 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
           case ENC_MODE_BACKLIGHT:
             mapped_code = BL_TOGG;
             break;
+          case ENC_MODE_CLOCK_SET:
+            time_config_idx = (time_config_idx + 1) % 2;
+          default:
+          case ENC_MODE_BRIGHTNESS:
+            break;
         }
         uint16_t held_keycode_timer = timer_read();
-        register_code(mapped_code);
-        while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ /* no-op */ }
-        unregister_code(mapped_code);
+        if(mapped_code != 0){
+          register_code(mapped_code);
+          while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ /* no-op */ }
+          unregister_code(mapped_code);
+        }
       } else {
         // Do something else when release
       }
@@ -237,11 +273,12 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
   encoder_value = (encoder_value + (clockwise ? 1 : -1)) % 64;
   queue_for_send = true;
   if (index == 0) {
-    uint16_t mapped_code = KC_VOLU;
+    uint16_t mapped_code = 0;
     if (clockwise) {
       switch(encoder_mode){
           default:
           case ENC_MODE_VOLUME:
+            mapped_code = KC_VOLU;
             break;
           case ENC_MODE_MEDIA:
             mapped_code = KC_MEDIA_NEXT_TRACK;
@@ -254,6 +291,14 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
             break;
           case ENC_MODE_BRIGHTNESS:
             mapped_code = KC_BRIGHTNESS_UP;
+            break;
+          case ENC_MODE_CLOCK_SET:
+            if(time_config_idx == 0){
+              hour_config = (hour_config + 1) % 24;
+            }else{
+              minute_config = (minute_config + 1) % 60;
+            }
+            queue_for_send = true;
             break;
       }
     } else {
@@ -274,12 +319,23 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
           case ENC_MODE_BRIGHTNESS:
             mapped_code = KC_BRIGHTNESS_DOWN;
             break;
+          case ENC_MODE_CLOCK_SET:
+            if(time_config_idx == 0){
+              hour_config = (hour_config - 1) % 24;
+            }else{
+              minute_config = (minute_config - 1) % 60;
+            }
+            queue_for_send = true;
+            break;
+
       }
     }
     uint16_t held_keycode_timer = timer_read();
-    register_code(mapped_code);
-    while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ /* no-op */ }
-    unregister_code(mapped_code);
+    if(mapped_code != 0){
+      register_code(mapped_code);
+      while (timer_elapsed(held_keycode_timer) < MEDIA_KEY_DELAY){ /* no-op */ }
+      unregister_code(mapped_code);
+    }
   }
 }
 
@@ -318,4 +374,3 @@ void matrix_scan_user(void) {
   }
 }
 
-// #endif
