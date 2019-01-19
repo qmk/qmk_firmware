@@ -152,7 +152,7 @@ void process_record_nocache(keyrecord_t *record) { process_record(record); }
 __attribute__((weak)) bool process_record_quantum(keyrecord_t *record) { return true; }
 
 __attribute__ ((weak))
-void process_record_after(keyrecord_t *record) {
+void post_process_record_quantum(keyrecord_t *record) {
 }
 
 #ifndef NO_ACTION_TAPPING
@@ -187,11 +187,11 @@ void process_record(keyrecord_t *record) {
 
     if (!process_record_quantum(record)) return;
 
-    process_record_system(record);
-    process_record_after(record);
+    process_record_handler(record);
+    post_process_record_quantum(record);
 }
 
-void process_record_system(keyrecord_t *record) {
+void process_record_handler(keyrecord_t *record) {
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
     dprint("ACTION: ");
     debug_action(action);
