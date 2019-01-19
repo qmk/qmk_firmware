@@ -58,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 
 [_FN] = LAYOUT_kbd6x_base_wrapper(
-      RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, _______, _______,
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-      _______, _______, BL_DEC,  BL_TOGG, BL_INC,  BL_STEP, _______, _______, _______, _______
+      _______________Gherkin_FN_0________________,
+      _______________Gherkin_FN_1________________,
+      _______________Gherkin_FN_2________________
       ),
 	  
 };

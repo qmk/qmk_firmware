@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________GherkinLike_0_______________,
   _______________GherkinLike_1_______________,
   _______________GherkinLike_2_______________,
-  TD(RST_TAP_DANCE), BL_TOGG, BL_STEP, BL_BRTG, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
+   KC_LCTL, KC_LGUI, KC_LALT, FUNCTION, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
 ),
 
 #else
@@ -92,6 +92,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ______________ETCETERA_Row__1______________,
   ______________ETCETERA_Row__2______________,
   ______________ETCETERA_Row__3______________
+),
+
+[_FN] = LAYOUT_ortho_4x12_wrapper(
+  _______, _______________Gherkin_FN_0________________, _______,
+  _______, _______________Gherkin_FN_0________________, _______,
+  _______, _______________Gherkin_FN_0________________, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 ),
 
 };
