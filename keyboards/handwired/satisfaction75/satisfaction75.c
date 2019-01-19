@@ -173,8 +173,6 @@ void draw_ui(void) {
 }
 
 
-
-
 void read_host_led_state(void) {
   uint8_t leds = host_keyboard_leds();
   if (leds & (1 << USB_LED_NUM_LOCK))    {
