@@ -1,0 +1,192 @@
+#+Title: Samuel's Literate QMK Config
+#+PROPERTY: header-args :tangle ~/qmk_firmware/keyboards/planck/keymaps/samuel/keymap.c
+
+This is my qmk firmware for my keyboard. I grew tired of organizing the keycode array in plain text so I made it a literate .org file. I've never done this before, so bear with me.
+
+* Keymap
+
+Below is the main layer. As you can see, all "KC_"'s have been removed and all other keys need to have their actual strings defined in the script below, which makes the table much narrower. You could do this for all the symbols too but I'm too lazy. '/' represents a key that does something different when tapped, a feature that I love.
+
+#+BEGIN_COMMENT
+#+NAME: empty-layer
+| <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    |
+| -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+| -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+| -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+| -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+#+END_COMMENT
+
+#+NAME: home-layer
+| <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    |
+| RISE/D | QUOT   | COMM   | DOT    | P      | Y      | F      | G      | C      | R      | L      | RISE// |
+| LSFT/= | A      | O      | E      | U      | I      | D      | H      | T      | N      | S      | RSFT/- |
+| LCTL/[ | SCLN   | Q      | J      | K      | X      | B      | M      | W      | V      | Z      | RCTL/] |
+| LGUI/` | LALT/( | LEFT   | RGHT   | BSPC   | TAB    | ENT    | SPC    | UP     | DOWN   | RALT/) | RGUI/\ |
+
+#+NAME: secondary-layer
+| <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    |    <6> |    <6> |    <6> | <6>    | <6>    |
+| --     | Undo   | Copy   | Cut    | Paste  | INS    | EQL    |      7 |      8 |      9 | F11    | --     |
+| --     | ESC    | CAPS   | PGUP   | PGDN   | F4     | ASTR   |      4 |      5 |      6 | 0      | --     |
+| --     | EXLM   | AT     | HASH   | DLR    | PERC   | CIRC   |      1 |      2 |      3 | F12    | --     |
+| --     | --     | EZLEFT | EZRGHT | --     | --     | --     |     -- |   EZUP | EZDOWN | --     | --     |
+
+* Keymap Conversion in Python
+
+This python can convert that table into the array needed for the keymap file. It simply prepends every key with "KC_" unless the key is already present in specialkeys.
+
+It would be nice to have the script space the array prettily, but I will only edit from this file so it doesn't matter to me.
+
+#+NAME:layer-to-array
+#+BEGIN_SRC python :var keys=secondary-layer :tangle no
+specialkeys = {
+  "RISE/D":"LT(_RISE, KC_DEL)",
+  "RISE//":"LT(_RISE, KC_SLSH)",
+  "LSFT/=":"LSFT_T(KC_EQL)",
+  "RSFT/-":"RSFT_T(KC_MINUS)",
+  "LCTL/[":"LCTL_T(KC_LBRC)",
+  "RCTL/]":"RCTL_T(KC_RBRC)",
+  "LGUI/`":"LGUI_T(KC_GRAVE)",
+ "RGUI/\\":"RGUI_T(KC_BSLASH)",
+  "LALT/(":"LALT",
+  "RALT/)":"RALT",
+  "EZLEFT":"LCTL(LSFT(KC_LEFT))",
+  "EZRGHT":"LCTL(LSFT(KC_RGHT))",
+  "EZUP"  :"LCTL(LSFT(KC_UP))",
+  "EZDOWN":"LCTL(LSFT(KC_DOWN))",
+      "--":"KC_TRNS",
+  "Undo"  :"LCTL(KC_Z)",
+  "Copy"  :"LCTL(KC_C)",
+  "Cut"   :"LCTL(KC_X)",
+  "Paste" :"LCTL(KC_V)"
+}
+results = "{"
+row = 1
+while row < len(keys):
+  results += '{ '
+  key = 0
+  while key < len(keys[row]):
+     keyName = str(keys[row][key])
+     if keyName in specialkeys:
+       results += specialkeys[keyName]
+     else:
+       results += 'KC_' + keyName
+     if key != 11:
+       results += ', '
+     key+=1
+  results += '}'
+  if row != 4:
+    results += ','
+  results += '\n'
+  row+=1
+results += '},\n'
+return results
+#+END_SRC
+
+* keymap.c
+
+** Headers And Layer Declaration
+
+#+BEGIN_SRC C :noweb yes
+#include "planck.h"
+#include "action_layer.h"
+
+#define TAPPING_TERM 250
+
+extern keymap_config_t keymap_config;
+
+static uint16_t alt_timers[2]  = { 0, 0};
+
+bool altInterupted = false;
+
+enum planck_layers {
+  _DVORAK,
+  _RISE
+};
+
+enum planck_keycodes {
+  DVORAK = SAFE_RANGE,
+  RISE,
+  LALT,
+  RALT
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+[_DVORAK] =
+#+END_SRC
+
+** Import Key table
+
+#+BEGIN_SRC C :noweb yes
+<<layer-to-array(home-layer)>>
+#+END_SRC
+
+#+BEGIN_SRC C :noweb yes
+[_RISE] =
+#+END_SRC
+
+#+BEGIN_SRC C :noweb yes
+<<layer-to-array(secondary-layer)>>
+#+END_SRC
+
+** Process User Input
+
+   I implemented the tap modifier for alt custom because it was impossible to reach the paren's from it. However, now that I have done it, I like it more than the default mod tap function, so I will custom implement all of them once I have more energy.
+
+#+BEGIN_SRC C :noweb yes
+};
+
+void mod_type(uint16_t modcode, uint16_t keycode) {
+  register_mods(MOD_BIT(modcode));
+  register_code(keycode);
+  unregister_code(keycode);
+  unregister_mods(MOD_BIT(modcode));
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case DVORAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_DVORAK);
+      }
+      return false;
+      break;
+    case RISE:
+      if (record->event.pressed) {
+        layer_on(_RISE);
+      } else {
+        layer_off(_RISE);
+      }
+      return false;
+      break;
+    case LALT:
+      if (record->event.pressed) {
+        alt_timers[0] = timer_read();
+        altInterupted = false;
+        register_mods(MOD_BIT(KC_LALT));
+      } else {
+        unregister_mods(MOD_BIT(KC_LALT));
+        if (!altInterupted && timer_elapsed(alt_timers[0]) < TAPPING_TERM) {
+          mod_type(KC_LSHIFT, KC_9);
+        }
+      }
+      return false;
+      break;
+    case RALT:
+      if (record->event.pressed) {
+        alt_timers[1] = timer_read();
+        altInterupted = false;
+        register_mods(MOD_BIT(KC_RALT));
+      } else {
+        unregister_mods(MOD_BIT(KC_RALT));
+        if (!altInterupted && timer_elapsed(alt_timers[1]) < TAPPING_TERM) {
+          mod_type(KC_LSHIFT, KC_0);
+        }
+      }
+      return false;
+      break;
+  }
+  altInterupted = true;
+  return true;
+}
+#+END_SRC
