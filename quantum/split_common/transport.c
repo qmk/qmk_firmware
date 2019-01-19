@@ -16,98 +16,40 @@ extern backlight_config_t backlight_config;
 
 #if defined(USE_I2C) || defined(EH)
 
-#  include "i2c.h"
+#  include "i2c_master.h"
+#  include "i2c_slave.h"
+
+#  define I2C_BACKLIT_START 0x00
+// Need 4 bytes for RGB (32 bit)
+#  define I2C_RGB_START 0x01
+#  define I2C_KEYMAP_START 0x05
+
+#  define TIMEOUT 100
 
 #  ifndef SLAVE_I2C_ADDRESS
 #    define SLAVE_I2C_ADDRESS 0x32
 #  endif
 
-#  if (MATRIX_COLS > 8)
-#    error "Currently only supports 8 COLS"
-#  endif
-
 // Get rows from other half over i2c
 bool transport_master(matrix_row_t matrix[]) {
-  int err = 0;
+  i2c_readReg(SLAVE_I2C_ADDRESS, I2C_KEYMAP_START, (void *)matrix, ROWS_PER_HAND * sizeof(matrix_row_t), TIMEOUT);
 
   // write backlight info
 #  ifdef BACKLIGHT_ENABLE
   static uint8_t prev_level = ~0;
   uint8_t        level      = get_backlight_level();
   if (level != prev_level) {
-    err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-    if (err) {
-      goto i2c_error;
-    }
-
-    // Backlight location
-    err = i2c_master_write(I2C_BACKLIT_START);
-    if (err) {
-      goto i2c_error;
-    }
-
-    // Write backlight
-    i2c_master_write(get_backlight_level());
-
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIT_START, (void *)&level, sizeof(level), TIMEOUT);
     prev_level = level;
   }
 #  endif
-
-  err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-  if (err) {
-    goto i2c_error;
-  }
-
-  // start of matrix stored at I2C_KEYMAP_START
-  err = i2c_master_write(I2C_KEYMAP_START);
-  if (err) {
-    goto i2c_error;
-  }
-
-  // Start read
-  err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_READ);
-  if (err) {
-    goto i2c_error;
-  }
-
-  if (!err) {
-    int i;
-    for (i = 0; i < ROWS_PER_HAND - 1; ++i) {
-      matrix[i] = i2c_master_read(I2C_ACK);
-    }
-    matrix[i] = i2c_master_read(I2C_NACK);
-    i2c_master_stop();
-  } else {
-  i2c_error:  // the cable is disconnceted, or something else went wrong
-    i2c_reset_state();
-    return false;
-  }
 
 #  ifdef RGBLIGHT_ENABLE
   static uint32_t prev_rgb = ~0;
   uint32_t        rgb      = eeconfig_read_rgblight();
   if (rgb != prev_rgb) {
-    err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_WRITE);
-    if (err) {
-      goto i2c_error;
-    }
-
-    // RGB Location
-    err = i2c_master_write(I2C_RGB_START);
-    if (err) {
-      goto i2c_error;
-    }
-
-    uint32_t dword = eeconfig_read_rgblight();
-
-    // Write RGB
-    err = i2c_master_write_data(&dword, 4);
-    if (err) {
-      goto i2c_error;
-    }
-
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIT_START, (void *)&rgb, sizeof(rgb), TIMEOUT);
     prev_rgb = rgb;
-    i2c_master_stop();
   }
 #  endif
 
@@ -115,34 +57,23 @@ bool transport_master(matrix_row_t matrix[]) {
 }
 
 void transport_slave(matrix_row_t matrix[]) {
-  for (int i = 0; i < ROWS_PER_HAND; ++i) {
-    i2c_slave_buffer[I2C_KEYMAP_START + i] = matrix[i];
+  for (int i = 0; i < ROWS_PER_HAND * sizeof(matrix_row_t); ++i) {
+    i2c_slave_reg[I2C_KEYMAP_START + i] = matrix[i];
   }
+
 // Read Backlight Info
 #  ifdef BACKLIGHT_ENABLE
-  backlight_set(i2c_slave_buffer[I2C_BACKLIT_START]);
+  backlight_set(i2c_slave_reg[I2C_BACKLIT_START]);
 #  endif
+
 #  ifdef RGBLIGHT_ENABLE
-  // Disable interupts (RGB data is big)
-  cli();
-  // Create new DWORD for RGB data
-  uint32_t dword;
-
-  // Fill the new DWORD with the data that was sent over
-  uint8_t *dword_dat = (uint8_t *)(&dword);
-  for (int i = 0; i < 4; i++) {
-    dword_dat[i] = i2c_slave_buffer[I2C_RGB_START + i];
-  }
-
-  // Update the RGB now with the new data
-  rgblight_update_dword(dword);
-  // Re-enable interupts now that RGB is set
-  sei();
-}
+  uint32_t rgb = *(uint32_t *)(i2c_slave_reg + I2C_RGB_START);
+  // Update the RGB with the new data
+  rgblight_update_dword(rgb);
 #  endif
 }
 
-void transport_master_init(void) { i2c_master_init(); }
+void transport_master_init(void) { i2c_init(); }
 
 void transport_slave_init(void) { i2c_slave_init(SLAVE_I2C_ADDRESS); }
 

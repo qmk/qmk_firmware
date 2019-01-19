@@ -322,9 +322,10 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
         # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
-        # Unused functions are pruned away, which is why we can add both drivers here without bloat.
-        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c \
-                           $(QUANTUM_DIR)/split_common/serial.c
+        # Unused functions are pruned away, which is why we can add multiple drivers here without bloat.
+        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c \
+                           i2c_master.c \
+                           i2c_slave.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
