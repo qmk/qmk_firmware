@@ -69,17 +69,17 @@ bool aqours_mode = false;
 int aqours_next_color_timer_count = 0;
 int aqours_num  = 0;
 int target_col = 0;
-
+static uint16_t color_timer, change_target_timer;
 
 //■    ■■■  ■   ■  ■■■    ■    ■   ■   ■  ■■■
 //■    ■ ■   ■ ■   ■■     ■    ■    ■ ■   ■■
 //■■■  ■■■    ■    ■■■    ■■■  ■     ■    ■■■
-#define ELECTRIC_BOARD_LENGTH 43
+#define ELECTRIC_BOARD_LENGTH 47
 bool electric_board_mode = false;
 int electric_board_data[3][ELECTRIC_BOARD_LENGTH] = {
-  {1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1},
-  {1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0},
-  {1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1}
+  {1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,},
+  {1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0,},
+  {1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0,}
 };
 
 #endif
@@ -181,23 +181,26 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   int board_timer = 0;
   int board_index = 0;
   void electric_board_render(void) {
-    board_timer++;
-    if (board_timer == 400) {
+    if (timer_elapsed(color_timer) > 400) {
+        color_timer = timer_read();
         board_timer = 0;
         board_index++;
         if (board_index == ELECTRIC_BOARD_LENGTH) {
             board_index = 0;
         }
-        for (int i = 0; i <= 6; i++) {
+        for (int i = 0; i <= 5; i++) {
           for (int c = 0; c <= 2; c++) {
             int read_num = board_index + i;
+            if (!is_master) {
+                read_num = read_num + 6;
+            }
             if (read_num > ELECTRIC_BOARD_LENGTH)  {
                 read_num = read_num - ELECTRIC_BOARD_LENGTH;
             }
             if (electric_board_data[c][read_num]) {
-                sethsv(aqours_h[0], aqours_s[0], aqours_v[0], (LED_TYPE *)&led[i + 6 * c]);
+                sethsv(aqours_h[3], aqours_s[3], aqours_v[3], (LED_TYPE *)&led[i + 6 * c]);
             } else {
-                sethsv(0, 0, 0, (LED_TYPE *)&led[i + 6 * c]);
+                sethsv(aqours_h[4], aqours_s[4], aqours_v[4], (LED_TYPE *)&led[i + 6 * c]);
             }
           }
         }
@@ -292,6 +295,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         electric_board_mode = !electric_board_mode;
         aqours_mode = false;
+      }
+      if (electric_board_mode) {
+          color_timer = timer_read();
+          change_target_timer = color_timer;
       }
     #endif
     break;
