@@ -151,6 +151,10 @@ void process_record_nocache(keyrecord_t *record) { process_record(record); }
 
 __attribute__((weak)) bool process_record_quantum(keyrecord_t *record) { return true; }
 
+__attribute__ ((weak))
+void process_record_after(keyrecord_t *record) {
+}
+
 #ifndef NO_ACTION_TAPPING
 /** \brief Allows for handling tap-hold actions immediately instead of waiting for TAPPING_TERM or another keypress.
  *
@@ -179,12 +183,15 @@ void process_record_tap_hint(keyrecord_t *record) {
  * FIXME: Needs documentation.
  */
 void process_record(keyrecord_t *record) {
-    if (IS_NOEVENT(record->event)) {
-        return;
-    }
+    if (IS_NOEVENT(record->event)) { return; }
 
     if (!process_record_quantum(record)) return;
 
+    process_record_system(record);
+    process_record_after(record);
+}
+
+void process_record_system(keyrecord_t *record) {
     action_t action = store_or_get_action(record->event.pressed, record->event.key);
     dprint("ACTION: ");
     debug_action(action);
@@ -926,12 +933,12 @@ void clear_keyboard_but_mods_and_keys() {
     clear_macro_mods();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
-    mousekey_clear();
-    mousekey_send();
+  mousekey_clear();
+  mousekey_send();
 #endif
 #ifdef EXTRAKEY_ENABLE
-    host_system_send(0);
-    host_consumer_send(0);
+  host_system_send(0);
+  host_consumer_send(0);
 #endif
 }
 
@@ -983,7 +990,6 @@ bool is_tap_action(action_t action) {
  * FIXME: Needs documentation.
  */
 void debug_event(keyevent_t event) { dprintf("%04X%c(%u)", (event.key.row << 8 | event.key.col), (event.pressed ? 'd' : 'u'), event.time); }
-
 /** \brief Debug print (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.
@@ -991,7 +997,7 @@ void debug_event(keyevent_t event) { dprintf("%04X%c(%u)", (event.key.row << 8 |
 void debug_record(keyrecord_t record) {
     debug_event(record.event);
 #ifndef NO_ACTION_TAPPING
-    dprintf(":%u%c", record.tap.count, (record.tap.interrupted ? '-' : ' '));
+  dprintf(":%u%c", record.tap.count, (record.tap.interrupted ? '-' : ' '));
 #endif
 }
 
