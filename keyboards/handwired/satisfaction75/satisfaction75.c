@@ -6,26 +6,15 @@
 #include "ch.h"
 #include "hal.h"
 
-#include "underglow.h"
-
-// void matrix_init_user(void){
-//     debug_enable = true;
-//     debug_keyboard = true;
-//     // chThdCreateStatic(waOledDisplay, sizeof(waOledDisplay), NORMALPRIO, OledDisplay, NULL);
-// }
-
-// void matrix_scan_user(void){
-//   // xprintf("lolololololol\n");
-//   // send_buffer();
-// }
-
 // #ifdef QWIIC_MICRO_OLED_ENABLE
 #include "qwiic.h"
 
+#include "timer.h"
+/* Artificial delay added to get media keys to work in the encoder*/
 #define MEDIA_KEY_DELAY 10
 /* screen off after this many milliseconds */
-#include "timer.h"
 #define ScreenOffInterval 60000 /* milliseconds */
+
 static uint16_t last_flush;
 
 volatile uint8_t led_numlock = false;
@@ -36,9 +25,20 @@ static uint8_t layer;
 static bool queue_for_send = false;
 static uint8_t encoder_value = 32;
 static uint8_t encoder_mode = ENC_MODE_VOLUME;
+static RTCDateTime last_timespec;
+static uint16_t last_minute = 0;
 
 __attribute__ ((weak))
 void draw_ui(void) {
+  uint8_t hour = (last_minute / 60) % 12;
+  bool is_pm = ((last_minute / 60) / 12)  > 0;
+  uint16_t minute = last_minute % 60;
+  if (hour == 0){
+    hour = 12;
+  }
+  char hour_str[2] = "";
+  char min_str[2] = "";
+
   clear_buffer();
   last_flush = timer_read();
   send_command(DISPLAYON);
@@ -122,31 +122,43 @@ void draw_ui(void) {
     draw_string(MOD_DISPLAY_X + 33, MOD_DISPLAY_Y + 2, "G", PIXEL_ON, NORM, 0);
   }
 
-/* Lock display is 23 x 32 */
+/* Lock display is 23 x 21 */
 #define LOCK_DISPLAY_X 100
 #define LOCK_DISPLAY_Y 0
 
-  if (led_numlock == true) {
-    draw_rect_filled_soft(LOCK_DISPLAY_X, LOCK_DISPLAY_Y, 5 + (3 * 6), 9, PIXEL_ON, NORM);
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 1, "NUM", PIXEL_OFF, NORM, 0);
-  } else if (led_numlock == false) {
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 1, "NUM", PIXEL_ON, NORM, 0);
-  }
   if (led_capslock == true) {
-    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 11, 5 + (3 * 6), 9, PIXEL_ON, NORM);
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "CAP", PIXEL_OFF, NORM, 0);
+    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y, 5 + (3 * 6), 9, PIXEL_ON, NORM);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y +1, "CAP", PIXEL_OFF, NORM, 0);
   } else if (led_capslock == false) {
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "CAP", PIXEL_ON, NORM, 0);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y +1, "CAP", PIXEL_ON, NORM, 0);
   }
 
   if (led_scrolllock == true) {
-    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 22, 5 + (3 * 6), 9, PIXEL_ON, NORM);
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 22 +1, "SCR", PIXEL_OFF, NORM, 0);
+    draw_rect_filled_soft(LOCK_DISPLAY_X + 0, LOCK_DISPLAY_Y + 11, 5 + (3 * 6), 9, PIXEL_ON, NORM);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "SCR", PIXEL_OFF, NORM, 0);
   } else if (led_scrolllock == false) {
-    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 22 +1, "SCR", PIXEL_ON, NORM, 0);
+    draw_string(LOCK_DISPLAY_X + 3, LOCK_DISPLAY_Y + 11 +1, "SCR", PIXEL_ON, NORM, 0);
   }
+
+#define TIME_DISPLAY_X 82
+#define TIME_DISPLAY_Y 22
+  sprintf(hour_str, "%02d", hour);
+  sprintf(min_str, "%02d", minute);
+
+  draw_string(TIME_DISPLAY_X, TIME_DISPLAY_Y, hour_str, PIXEL_ON, NORM, 0);
+  draw_string(TIME_DISPLAY_X + 11, TIME_DISPLAY_Y, ":", PIXEL_ON, NORM, 0);
+  draw_string(TIME_DISPLAY_X + 15, TIME_DISPLAY_Y, min_str, PIXEL_ON, NORM, 0);
+  if(is_pm){
+    draw_string(TIME_DISPLAY_X + 27, TIME_DISPLAY_Y, "pm", PIXEL_ON, NORM, 0);
+  } else{
+    draw_string(TIME_DISPLAY_X + 27, TIME_DISPLAY_Y, "am", PIXEL_ON, NORM, 0);
+  }
+
   send_buffer();
 }
+
+
+
 
 void read_host_led_state(void) {
   uint8_t leds = host_keyboard_leds();
@@ -272,13 +284,30 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 }
 
 void matrix_init_user(void) {
+  rtcGetTime(&RTCD1, &last_timespec);
   queue_for_send = true;
-  printf("Queued OLED send on init\n");
-  /* MOSI pin*/
-  leds_init();
 }
 
 void matrix_scan_user(void) {
+  rtcGetTime(&RTCD1, &last_timespec);
+  uint16_t minutes_since_midnight = last_timespec.millisecond / 1000 / 60;
+
+  if (minutes_since_midnight != last_minute){
+    last_minute = minutes_since_midnight;
+    if(timer_elapsed(last_flush) <= ScreenOffInterval){
+      queue_for_send = true;
+    }
+
+    printf(
+      "%d-%d-%d T %d:%d\n",
+      last_timespec.year + 1980,
+      last_timespec.month,
+      last_timespec.day,
+      minutes_since_midnight / 60,
+      minutes_since_midnight % 60
+    );
+  }
+
   if (queue_for_send) {
     read_host_led_state();
     draw_ui();

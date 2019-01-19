@@ -35,8 +35,7 @@ ARMV = 6
 #   comment out to disable the options.
 #
 
-SRC += underglow.c \
-       hsv2rgb.c
+#SRC +=
 
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
