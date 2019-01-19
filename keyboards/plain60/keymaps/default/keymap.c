@@ -6,8 +6,6 @@
 // entirely and just use numbers.
 #define _MA 0
 
-#define _______ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MA] = LAYOUT(
