@@ -15,8 +15,10 @@
  */
 #include <stdint.h>
 #include <stdbool.h>
-#include <avr/io.h>
-#include <util/delay.h>
+#if defined(__AVR__)
+    #include <avr/io.h>
+#endif
+#include "wait.h"
 #include "luts.h"
 
 #ifndef VOICES_H

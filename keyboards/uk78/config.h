@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <ukkeyboards@gmail.com>
+Copyright 2017 Ruari Armstrong <ukkeyboards@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -59,9 +59,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define IS_COMMAND() ( \
     keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
 
 /* ws2812b options */
 #define RGB_DI_PIN F6

@@ -11,10 +11,14 @@ extern "C" {
 #   include <util/delay.h>
 #   define wait_ms(ms)  _delay_ms(ms)
 #   define wait_us(us)  _delay_us(us)
-#elif defined(PROTOCOL_CHIBIOS)
+#elif defined PROTOCOL_CHIBIOS
 #   include "ch.h"
 #   define wait_ms(ms) chThdSleepMilliseconds(ms)
 #   define wait_us(us) chThdSleepMicroseconds(us)
+#elif defined PROTOCOL_ARM_ATSAM
+#   include "clks.h"
+#   define wait_ms(ms) CLK_delay_ms(ms)
+#   define wait_us(us) CLK_delay_us(us)
 #elif defined(__arm__)
 #   include "wait_api.h"
 #else  // Unit tests
