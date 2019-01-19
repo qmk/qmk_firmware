@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #ifndef NO_ACTION_TAPPING
-uint16_t get_tapping_term( keyevent_t* event );
+uint16_t get_tapping_term(keyevent_t event);
 void action_tapping_process(keyrecord_t record);
 #endif
 
