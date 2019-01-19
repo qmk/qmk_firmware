@@ -41,7 +41,7 @@ void rgblight_loadBase(void) {
 }
 
 // Set RGBLIGHT state depending on layer
-uint32_t layer_state_set_rgb( uint32_t state ) {
+uint32_t layer_state_set_rgb_light( uint32_t state ) {
     // Get most recent state
     uint8_t this_layer = biton32(state);
     // Save if leaving base state
@@ -89,7 +89,7 @@ uint32_t layer_state_set_rgb( uint32_t state ) {
 }
 
 // Make it so that RGB keys first load the base layer
-bool process_record_rgb(uint16_t keycode, keyrecord_t *record) {
+bool process_record_rgb_light(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case RGB_TOG:
         case RGB_MOD:
@@ -109,7 +109,7 @@ bool process_record_rgb(uint16_t keycode, keyrecord_t *record) {
 }
 
 // RGB lighting initialize base layer
-void matrix_init_rgb(void) {
+void matrix_init_rgb_light(void) {
     rgblight_enable();
     rgblight_mode(2);
     rgblight_sethsv(100,0,255);

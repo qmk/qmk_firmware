@@ -16,6 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgblight.h"
 #include "rgblight_list.h"
 
-uint32_t layer_state_set_rgb( uint32_t state );
-bool process_record_rgb(uint16_t keycode, keyrecord_t *record);
-void matrix_init_rgb(void);
+uint32_t layer_state_set_rgb_light( uint32_t state );
+bool process_record_rgb_light(uint16_t keycode, keyrecord_t *record);
+void matrix_init_rgb_light(void);

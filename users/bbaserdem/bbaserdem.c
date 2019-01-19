@@ -20,56 +20,61 @@ userspace_config_t userspace_config;
 |*-----MATRIX INIT-----*|
 \*---------------------*/
 
-/* This code runs once on startup
+/*
+ * This code runs once on startup
  * So far, sets the base layer and fixes unicode mode
  */
 
 __attribute__ ((weak)) void matrix_init_keymap(void) {}
-__attribute__ ((weak)) void matrix_init_rgb(void) {}
 
 void matrix_init_user (void) {
-    // Keymap specific things, do it first thing to allow for delays etc
-    matrix_init_keymap();
+    // Fix beginning base layer
+    set_single_persistent_default_layer(_BA);
 
     // Unicode mode
 #ifdef UNICODE_ENABLE
     set_unicode_input_mode(UC_LNX);
 #endif
 
-    // Fix beginning base layer
-    set_single_persistent_default_layer(_BA);
-
     // RGB backlight
-#if (defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE))
-    matrix_init_rgb();
+#ifdef RGBLIGHT_ENABLE
+    matrix_init_rgb_light();
 #endif
+
+    // RGB Matrix
+#ifdef RGB_MATRIX_ENABLE
+    matrix_init_rgb_matrix();
+#endif
+
+    // Keymap specific things
+    matrix_init_keymap();
 }
 
 /*---------------------*\
 |*-----MATRIX SCAN-----*|
 \*---------------------*/
+
+/*
+ * This code runs every frame
+ * I used to check for layer switching here, but layer state is better used.
+ * Try to not put anything here
+ */
+
 __attribute__ ((weak)) void matrix_scan_keymap(void) { }
 
 void matrix_scan_user (void) {
     // Keymap specific scan function
     matrix_scan_keymap();
-
-    /*/
-    // Hook on to layer change events
-    uint8_t static prev_layer;
-    uint8_t current_layer = biton32( layer_state );
-    if ( prev_layer != current_layer ) {
-        prev_layer = current_layer;
-    }
-    //*/
 }
 
 /*---------------------*\
 |*-----LAYER STATE-----*|
 \*---------------------*/
 
-/* Ideally layer switching stuff would go here, but doesn't work consistently
- * across keyboards for me; thus I do explicit layer checking in matrix-scan */
+/*
+ * This code runs after every layer change
+ * State represents the new layer state.
+ */
 
 __attribute__ ((weak)) uint32_t layer_state_set_keymap (uint32_t state) {
     return state;
@@ -81,7 +86,12 @@ uint32_t layer_state_set_user(uint32_t state) {
 
     // RGB Backlight
 #ifdef RGBLIGHT_ENABLE
-    layer_state_set_rgb(state);
+    layer_state_set_rgb_light(state);
+#endif // RGBLIGHT_ENABLE
+
+    // RGB Matrix
+#ifdef RGB_MATRIX_ENABLE
+    layer_state_set_rgb_matrix(state);
 #endif // RGBLIGHT_ENABLE
 
     // Audio sounds
@@ -95,6 +105,10 @@ uint32_t layer_state_set_user(uint32_t state) {
 /*-----------------------------*\
 |*-----DEFAULT LAYER STATE-----*|
 \*-----------------------------*/
+
+/*
+ * This code runs after every time default base layer is changed
+ */
 
 __attribute__ ((weak)) uint32_t default_layer_state_set_keymap (uint32_t state) {
     return state;
@@ -110,23 +124,13 @@ uint32_t default_layer_state_set_user(uint32_t state) {
 |*-----LED SET KEYMAP-----*|
 \*------------------------*/
 
-// Used for custom LED code
+/*
+ * I assume this runs to update LEDs, I don't really know
+ */
+
 __attribute__ ((weak)) void led_set_keymap(uint8_t usb_led) {}
 void led_set_user(uint8_t usb_led) {
     led_set_keymap(usb_led);
-}
-
-/*------------------------*\
-|*-----LED SET KEYMAP-----*|
-\*------------------------*/
-
-// Used for custom LED code
-__attribute__ ((weak)) void rgb_matrix_indicators_keymap(void) {}
-void rgb_matrix_indicators_user(void) {
-#ifdef RGB_MATRIX_ENABLE
-    rgb_matrix_indicators_rgb();
-#endif // RGB_MATRIX_ENABLE
-    rgb_matrix_indicators_keymap();
 }
 
 /*-----------------------*\

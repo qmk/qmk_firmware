@@ -36,9 +36,14 @@ __attribute__ ((weak))
 bool process_record_mouse(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-// RGB: RGB backlight modifiers (rgb_bl_stuff.h OR rgb_key_stuff.bl)
+// RGBLIGHT: RGB backlight modifiers (rgb_bl_stuff.h)
 __attribute__ ((weak))
-bool process_record_rgb(uint16_t keycode, keyrecord_t *record) {
+bool process_record_rgb_light(uint16_t keycode, keyrecord_t *record) {
+    return true;
+}
+// RGB MATRIX: RGB backlight modifiers (rgb_key_stuff.h)
+__attribute__ ((weak))
+bool process_record_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 // Secrets: Secret keycodes that output macros (secrets.h)
@@ -61,6 +66,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     process_record_audio(keycode, record)           &&
     process_record_double(keycode, record)          &&
     process_record_mouse(keycode, record)           &&
-    process_record_rgb(keycode, record)             &&
+    process_record_rgb_light(keycode, record)       &&
+    process_record_rgb_matrix(keycode, record)      &&
     process_record_secrets(keycode, record);
 }

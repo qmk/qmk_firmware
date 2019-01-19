@@ -50,47 +50,64 @@ void rgb_matrix_loadBase(void) {
     }
 }
 
+// These are keyboard, and matrix, specific so they need to be defined there
 __attribute__ ((weak)) void rgb_matrix_game(void) { }
 __attribute__ ((weak)) void rgb_matrix_number(void) { }
 __attribute__ ((weak)) void rgb_matrix_settings(void) { }
 __attribute__ ((weak)) void rgb_matrix_mouse(void) { }
 __attribute__ ((weak)) void rgb_matrix_music(void) { }
 
-// Set RGB state depending on layer
-void rgb_matrix_indicators_rgb(void) {
-    uint8_t this_layer = biton32(layer_state);
+// RGB matrix initialize base layer
+void matrix_init_rgb_matrix() {
+    // Load HSV colors
+    rgb_matrix_sethsv_noeeprom(75,192,100);
+    rgb_matrix_mode_noeeprom(RGB_MATRIX_CYCLE_UP_DOWN);
+    rgb_matrix_enable();
+    rgb_matrix_saveBase();
+    rgb_matrix_loadBase();
+}
 
-    // Save if leaving base loaded state
-    if( (this_layer != _BA) && (userspace_config.rgb_mat_state) ) {
+// This code loads or saves base state on layer changes
+uint32_t layer_state_set_rgb_matrix(uint32_t state) {
+    // If base is loaded, save it
+    if ( userspace_config.rgb_mat_state ) {
         rgb_matrix_saveBase();
     }
-
-    switch ( this_layer ) {
-        case _BA:   // Load base layer iff it's not loaded yet
-            if( !userspace_config.rgb_mat_state ) {
-                rgb_matrix_loadBase();
-            }
-            break;
-        case _GA:   // Do game layer
-            rgb_matrix_game();
-            break;
-        case _NU:   // Do number layer
-            rgb_matrix_number();
-            break;
-        case _SE:   // Do setting layer
-            rgb_matrix_settings();
-            break;
-        case _MO:   // Do mouse layer
-            rgb_matrix_mouse();
-            break;
-        case _MU:   // Do music layer
-            rgb_matrix_music();
-            break;
+    // If coming to base, load
+    if ( biton32(state) == _BA ) {
+        rgb_matrix_loadBase();
     }
+    return state;
+}
+
+// Set RGB state depending on layer, loaded by some higher function
+__attribute__ ((weak)) void rgb_matrix_indicators_keymap(void) { }
+void rgb_matrix_indicators_user(void) {
+    // If base is not loaded
+    if( !userspace_config.rgb_mat_state ) {
+        switch ( biton32(layer_state) ) {
+            case _GA:   // Do game layer
+                rgb_matrix_game();
+                break;
+            case _NU:   // Do number layer
+                rgb_matrix_number();
+                break;
+            case _SE:   // Do setting layer, if not loaded
+                rgb_matrix_settings();
+                break;
+            case _MO:   // Do mouse layer
+                rgb_matrix_mouse();
+                break;
+            case _MU:   // Do music layer
+                rgb_matrix_music();
+                break;
+        }
+    }
+    rgb_matrix_indicators_keymap();
 }
 
 // Make it so that RGB keys first load the base layer
-bool process_record_rgb(uint16_t keycode, keyrecord_t *record) {
+bool process_record_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case RGB_TOG:
         case RGB_MOD:
@@ -100,6 +117,7 @@ bool process_record_rgb(uint16_t keycode, keyrecord_t *record) {
         case RGB_SAD:
         case RGB_HUI:
         case RGB_HUD:
+            // If base is not loaded already, load base layer
             if ( !userspace_config.rgb_mat_state ) {
                 rgb_matrix_loadBase();
             }
@@ -107,17 +125,4 @@ bool process_record_rgb(uint16_t keycode, keyrecord_t *record) {
             break;
     }
     return true;
-}
-
-// RGB lighting initialize base layer
-void matrix_init_rgb() {
-    // Load HSV colors
-    rgb_matrix_sethsv( userspace_config.rgb_mat_hue,
-            userspace_config.rgb_mat_sat,
-            userspace_config.rgb_mat_val );
-    rgb_matrix_sethsv(300,255,255);
-    rgb_matrix_mode(1);
-    rgb_matrix_enable();
-    rgb_matrix_saveBase();
-    rgb_matrix_loadBase();
 }

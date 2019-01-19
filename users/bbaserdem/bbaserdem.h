@@ -28,7 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "process_records.h"    // Keycodes
 #ifdef RGBLIGHT_ENABLE          // RGB backlight stuff
     #include "rgb_bl_stuff.h"
-#elif RGB_MATRIX_ENABLE         // RGB individual key light
+#endif
+#ifdef RGB_MATRIX_ENABLE         // RGB individual key light
     #include "rgb_key_stuff.h"
 #endif
 #if (__has_include("secret.h")) && !defined(NO_SECRETS) // Secret macros
@@ -71,7 +72,6 @@ uint32_t layer_state_set_keymap(uint32_t state);
 uint32_t default_layer_state_set_keymap (uint32_t state);
 void led_set_keymap(uint8_t usb_led);
 void eeconfig_init_keymap(void);
-void rgb_matrix_indicators_keymap(void);
 
 // Record keyboard state in this variable, I don't know why I need union,
 //  typedef struct screws things up a bit.
