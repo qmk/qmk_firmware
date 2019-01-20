@@ -122,7 +122,7 @@ __attribute__((weak)) bool process_record_user(uint16_t keycode, keyrecord_t *re
 
 __attribute__ ((weak))
 void post_process_record_kb(uint16_t keycode, keyrecord_t *record) {
-  process_record_user(keycode, record);
+  post_process_record_user(keycode, record);
 }
 
 __attribute__ ((weak))
