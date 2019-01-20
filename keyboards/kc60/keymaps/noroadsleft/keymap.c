@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "version.h"
 #include <sendstring_dvorak.h>
 //#include <sendstring_colemak.h>
 #include <print.h>
@@ -85,7 +86,8 @@ enum custom_keycodes {
   Q2_GRV,
   MC_UNDO,
   MC_PSTE,
-  NUBS_Z
+  NUBS_Z,
+  VRSN
 };
 
 
@@ -94,6 +96,7 @@ enum custom_keycodes {
 #define MODS_CTRL_MASK   (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK    (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
 #define MODS_GUI_MASK    (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+#define MODS_RALT_MASK   (MOD_BIT(KC_RALT))
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -237,12 +240,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       break;
     case NUBS_Z:
       if (record->event.pressed) {
-        if ( modifiers & MODS_ALT_MASK ) {
+        if ( modifiers & MODS_RALT_MASK ) {
           SEND_STRING( SS_TAP(X_NONUS_BSLASH) );
         } else {
           SEND_STRING( SS_TAP(X_Z) );
         }
       };
+      return false;
+      break;
+    case VRSN:
+      if (record->event.pressed) {
+        SEND_STRING( QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION );
+      }
       return false;
       break;
   } // switch()
@@ -394,7 +403,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* System layer */
   [_SYSTEM] = LAYOUT_60_ansi(
     //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
-    TG(_SY), TO(_QW), TO(_DV), TO(_CM), GO_Q2,   XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX, \
+    TG(_SY), TO(_QW), TO(_DV), TO(_CM), GO_Q2,   XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, DEBUG,   XXXXXXX, VRSN,    XXXXXXX, \
     XXXXXXX, XXXXXXX, TG(_MC), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          \
     XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_TOGG, BL_INC,  BL_BRTG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   \
