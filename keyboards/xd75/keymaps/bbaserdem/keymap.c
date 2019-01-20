@@ -25,19 +25,32 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-[_BASE] = { // QWERTY
-  { KC_GRV, KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINS,KC_EQL, KC_BSPC,KC_DEL },
-  { KC_ESC, KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,   KC_LBRC,KC_RBRC,KC_HOME,KC_PGUP},
-  { KC_TAB, KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,   KC_SCLN,KC_QUOT,KC_BSLS,KC_END, KC_PGDN},
-  { KC_LSFT,KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM,KC_DOT, KC_SLSH,KC_NUHS,KC_RSFT,KC_UP,  KC_INS },
-  { KC_LCTL,KC_LGUI,KC_LALT,KC_SPC, XXX,    KC_ENT, XXX,    KC_SPC, XXX,    KC_RALT,FUNCT,  KC_CAPS,KC_LEFT,KC_DOWN,KC_RGHT},
- },
+[_BASE] = LAYOUT_ortho_5x15_wrapper(
+            __QWERTY_NUMBER_13__,                                                               KC_BSPC,KC_DEL,
+    KC_ESC, __QWERTY_ROW_QW_12__,                                                               KC_HOME,KC_PGUP,
+    KC_TAB, __QWERTY_ROW_AS_12__,                                                               KC_END, KC_PGDN,
+    KC_LSFT,__QWERTY_ROW_ZX_11__,                                                       KC_RSFT,KC_UP,  KC_INS,
+    KC_LCTL,KC_LGUI,KC_LALT,KC_SPC,XXX, KC_ENT,XXX, KC_SPC,XXX, KC_RALT,FUNCT,  KC_CAPS,KC_LEFT,KC_DOWN,KC_RGHT),
 
-[_FUNC] = { // FUNCTION
-  { RESET,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10, KC_F11, KC_F12, KC_PSCR,KC_INS },
-  { BL_BRTG,RGB_RMD,RGB_HUI,RGB_SAI,RGB_VAI,XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX    },
-  { BL_STEP,RGB_MOD,RGB_HUD,RGB_SAD,RGB_VAD,XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    KC_MUTE,XXX    },
-  { BL_TOGG,RGB_TOG,XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    XXX,    KC_VOLD,KC_MSTP,KC_VOLU},
-  { XXX,    XXX,    XXX,    XXX,    SECRET1,XXX,    SECRET2,XXX,    SECRET3,XXX,    _______,XXX,    KC_MPRV,KC_MPLY,KC_MNXT},
- }
+[_FUNC] =  LAYOUT_ortho_5x15_wrapper(
+    RESET, __QWERTY_FUNCTN_12__,                                                                XXX,    KC_PSCR,
+    BL_BRTG,RGB_RMD,RGB_HUI,RGB_SAI,RGB_VAI,RGB_SPI, XXX,XXX,XXX,XXX,XXX,XXX,XXX,               XXX,    XXX,
+    BL_STEP,RGB_MOD,RGB_HUD,RGB_SAD,RGB_VAD,RGB_SPD, XXX,XXX,XXX,XXX,XXX,XXX,XXX,               KC_MUTE,XXX,
+    BL_TOGG,RGB_TOG, XXX,XXX,XXX,XXX,XXX,XXX,XXX,XXX,XXX,XXX,                           KC_VOLD,KC_MSTP,KC_VOLU,
+    XXX,    XXX,    XXX,    SECRET1,XXX,SECRET2,XXX,SECRET3,XXX,XXX,    _______,XXX,    KC_MPRV,KC_MPLY,KC_MNXT)
+};
+
+uint32_t layer_state_set_keymap(uint32_t state) {
+    if ( biton32(state) == _FUNC ) {
+        capslock_led_on();
+        keycaps_led_on();
+        gp103_led_on();
+        gp100_led_on();
+    } else {
+        capslock_led_off();
+        keycaps_led_off();
+        gp103_led_off();
+        gp100_led_off();
+    }
+    return state;
 };

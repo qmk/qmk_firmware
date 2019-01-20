@@ -6,25 +6,15 @@
 #define XXX     KC_NO
 
 #define LAYOUT_ortho_4x12_wrapper(...)      LAYOUT_ortho_4x12(__VA_ARGS__)
+#define LAYOUT_ortho_5x15_wrapper(...)      LAYOUT_ortho_5x15(__VA_ARGS__)
 #define LAYOUT_planck_wrapper(...)          LAYOUT_planck_grid(__VA_ARGS__)
 
 // Generic QWERTY
-#define _________________QWERTY_L1_________________     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T
-#define _________________QWERTY_R1_________________     KC_Y,    KC_U,    KC_I,    KC_O,    KC_P
-#define _________________QWERTY_L2_________________     KC_A,    KC_S,    KC_D,    KC_F,    KC_G
-#define _________________QWERTY_R2_________________     KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN
-#define _________________QWERTY_L3_________________     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
-#define _________________QWERTY_R3_________________     KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLASH
-// Number row
-#define ________________NUMBER_LEFT________________     KC_1,    KC_2,    KC_3,    KC_4,    KC_5
-#define ________________NUMBER_RIGHT_______________     KC_6,    KC_7,    KC_8,    KC_9,    KC_0
-#define ____________NUMBER_LEFT_SHIFTED____________     KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC
-#define ____________NUMBER_RIGHT_SHIFTED___________     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN
-#define ___________________EXTRA___________________     _______, KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC
-#define _______________EXTRA_SHIFTED_______________     _______, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR
-// Function keys
-#define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
-#define _________________FUNC_RIGHT________________       KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10
+#define __QWERTY_FUNCTN_12__ KC_F1,KC_F2,KC_F3,KC_F4,KC_F5,KC_F6,KC_F7,KC_F8,KC_F9,KC_F10,KC_F11,KC_F12
+#define __QWERTY_NUMBER_13__ KC_GRAVE,KC_1,KC_2,KC_3,KC_4,KC_5,KC_6,KC_7,KC_8,KC_9,KC_0,KC_MINS,KC_EQL
+#define __QWERTY_ROW_QW_12__ KC_Q,KC_W,KC_E,KC_R,KC_T,KC_Y,KC_U,KC_I,KC_O,KC_P,KC_LBRC,KC_RBRC
+#define __QWERTY_ROW_AS_12__ KC_A,KC_S,KC_D,KC_F,KC_G,KC_H,KC_J,KC_K,KC_L,KC_SCLN,KC_QUOT,KC_BSLS
+#define __QWERTY_ROW_ZX_11__ KC_Z,KC_X,KC_C,KC_V,KC_B,KC_N,KC_M,KC_COMM,KC_DOT,KC_SLSH,KC_NUBS
 
 /* Base
  * ,------------------------------------------------------------------------.
@@ -90,8 +80,8 @@
  */
 #define SETTINGS \
     _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  UC_M_LN,KC_WAKE,_______,RGB_MOD,RGB_TOG,BL_STEP,RESET,   \
-    _______,KC_F5,  KC_F6,  KC_F7,  KC_F8,  UC_M_WC,KC_PSCR,CUR_LIR,RGB_HUI,RGB_SAI,RGB_VAI,_______, \
-    _______,KC_F9,  KC_F10, KC_F11, KC_F12, KC_VOLD,KC_VOLU,CUR_BIT,RGB_HUD,RGB_SAD,RGB_VAD,_______, \
+    _______,KC_F5,  KC_F6,  KC_F7,  KC_F8,  UC_M_WC,KC_PSCR,CUR_LIR,RGB_HUI,RGB_SAI,RGB_VAI,RGB_SPI, \
+    _______,KC_F9,  KC_F10, KC_F11, KC_F12, KC_VOLD,KC_VOLU,CUR_BIT,RGB_HUD,RGB_SAD,RGB_VAD,RGB_SPD, \
     _______,_______,_______,_______,MU_TOG, KC_MUTE,KC_MUTE,_______,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT
 
 /* Mouse layer
