@@ -41,9 +41,6 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 # Bootloader selection
 BOOTLOADER = atmel-dfu
 
-# Boot section
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
-
 # Build Options
 #   change yes to no to disable
 #
