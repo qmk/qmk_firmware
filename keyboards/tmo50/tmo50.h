@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef TMO50_H
-#define TMO50_H
+#pragma once
 
 #include "quantum.h"
 
@@ -39,4 +38,3 @@
 	{ K300,  K301,  K302,  K303,  KC_NO, K305,  KC_NO, K307,  KC_NO, K309,  K310,  KC_NO, KC_NO, KC_NO }  \
 }
 
-#endif
