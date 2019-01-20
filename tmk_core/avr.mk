@@ -169,7 +169,38 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
-avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+dfu-split-left: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
+	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
+	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) erase --force;\
+		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-lefthand.eep;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) erase;\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-lefthand.eep;\
+	fi
+	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+	$(DFU_PROGRAMMER) $(MCU) reset
+
+dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
+	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
+	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) erase --force;\
+		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) erase;\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-rightand.eep;\
+	fi
+	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+	$(DFU_PROGRAMMER) $(MCU) reset
+
+define EXEC_AVRDUDE
+	USB= ;\
 	if $(GREP) -q -s Microsoft /proc/version; then \
 		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
@@ -191,6 +222,15 @@ avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 		sleep 1; \
 		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
 	fi
+endef
+
+avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_AVRDUDE)
+
+avrdude-loop: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	while true; do \
+	    $(call EXEC_AVRDUDE) ; \
+	done
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
@@ -269,4 +309,3 @@ production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	@cat $(TARGET)_bootloader.hex >> $(TARGET)_production.hex
 	echo "File sizes:"
 	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
-

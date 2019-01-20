@@ -29,15 +29,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case QWERTY75:
+    case NUMPAD:
     if (record->event.pressed) {
-      set_single_persistent_default_layer(QW75);
+      set_single_persistent_default_layer(PAD);
       }
       return false;
       break;
-    case GHERKIN75:
+    case GHERKIN50:
     if (record->event.pressed) {
-      set_single_persistent_default_layer(GK75);
+      set_single_persistent_default_layer(GK50);
       }
       return false;
       break;
@@ -105,51 +105,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-	case SUBTER75:
+	case FUNCTION:
       if (record->event.pressed) {
-        layer_on(SUB75);
+        layer_on(_FN);
       } else {
-        layer_off(SUB75);
-      }
-      return false;
-      break;
-	case SUPRA75:
-      if (record->event.pressed) {
-        layer_on(SUP75);
-      } else {
-        layer_off(SUP75);
-      }
-      return false;
-      break;
-	case NUMBER75:
-      if (record->event.pressed) {
-        layer_on(NUM75);
-      } else {
-        layer_off(NUM75);
-      }
-      return false;
-      break;
-	case DIRECTION75:
-      if (record->event.pressed) {
-        layer_on(DIR75);
-      } else {
-        layer_off(DIR75);
-      }
-      return false;
-      break;
-	case ETCETERA75:
-      if (record->event.pressed) {
-        layer_on(ETC75);
-      } else {
-        layer_off(ETC75);
-      }
-      return false;
-      break;
-	case FUNCTION75:
-      if (record->event.pressed) {
-        layer_on(FN75);
-      } else {
-        layer_off(FN75);
+        layer_off(_FN);
       }
       return false;
       break;

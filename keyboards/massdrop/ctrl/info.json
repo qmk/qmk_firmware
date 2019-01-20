@@ -5,7 +5,7 @@
     "width": 18.5,
     "height": 6.5,
     "layouts": {
-        "LAYOUT_all": {
+        "LAYOUT": {
             "layout": [
               {"label":"ESCAPE", "x":0, "y":0},
               {"label":"F1", "x":2, "y":0},

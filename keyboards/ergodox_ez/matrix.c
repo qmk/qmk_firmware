@@ -57,6 +57,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
+/*
+ * matrix state(1:on, 0:off)
+ * contains the raw values without debounce filtering of the last read cycle.
+ */
+static matrix_row_t raw_matrix[MATRIX_ROWS];
 
 // Debouncing: store for each key the number of scans until it's eligible to
 // change.  When scanning the matrix, ignore any changes in keys that have
@@ -118,6 +123,7 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
+        raw_matrix[i] = 0;
         for (uint8_t j=0; j < MATRIX_COLS; ++j) {
             debounce_matrix[i * MATRIX_COLS + j] = 0;
         }
@@ -151,26 +157,30 @@ void matrix_power_up(void) {
 
 // Returns a matrix_row_t whose bits are set if the corresponding key should be
 // eligible to change in this scan.
-matrix_row_t debounce_mask(uint8_t row) {
+matrix_row_t debounce_mask(matrix_row_t rawcols, uint8_t row) {
   matrix_row_t result = 0;
-  for (uint8_t j=0; j < MATRIX_COLS; ++j) {
-    if (debounce_matrix[row * MATRIX_COLS + j]) {
-      --debounce_matrix[row * MATRIX_COLS + j];
+  matrix_row_t change = rawcols ^ raw_matrix[row];
+  raw_matrix[row] = rawcols;
+  for (uint8_t i = 0; i < MATRIX_COLS; ++i) {
+    if (debounce_matrix[row * MATRIX_COLS + i]) {
+      --debounce_matrix[row * MATRIX_COLS + i];
     } else {
-      result |= (1 << j);
+      result |= (1 << i);
+    }
+    if (change & (1 << i)) {
+      debounce_matrix[row * MATRIX_COLS + i] = DEBOUNCE;
     }
   }
   return result;
 }
 
-// Report changed keys in the given row.  Resets the debounce countdowns
-// corresponding to each set bit in 'change' to DEBOUNCE.
-void debounce_report(matrix_row_t change, uint8_t row) {
-  for (uint8_t i = 0; i < MATRIX_COLS; ++i) {
-    if (change & (1 << i)) {
-      debounce_matrix[row * MATRIX_COLS + i] = DEBOUNCE;
-    }
-  }
+matrix_row_t debounce_read_cols(uint8_t row) {
+  // Read the row without debouncing filtering and store it for later usage.
+  matrix_row_t cols = read_cols(row);
+  // Get the Debounce mask.
+  matrix_row_t mask = debounce_mask(cols, row);
+  // debounce the row and return the result.
+  return (cols & mask) | (matrix[row] & ~mask);;
 }
 
 uint8_t matrix_scan(void)
@@ -214,15 +224,12 @@ uint8_t matrix_scan(void)
         select_row(i + MATRIX_ROWS_PER_SIDE);
         // we don't need a 30us delay anymore, because selecting a
         // left-hand row requires more than 30us for i2c.
-        matrix_row_t mask = debounce_mask(i);
-        matrix_row_t cols = (read_cols(i) & mask) | (matrix[i] & ~mask);
-        debounce_report(cols ^ matrix[i], i);
-        matrix[i] = cols;
+
+        // grab cols from left hand
+        matrix[i] = debounce_read_cols(i);
         // grab cols from right hand
-        mask = debounce_mask(i + MATRIX_ROWS_PER_SIDE);
-        cols = (read_cols(i + MATRIX_ROWS_PER_SIDE) & mask) | (matrix[i + MATRIX_ROWS_PER_SIDE] & ~mask);
-        debounce_report(cols ^ matrix[i + MATRIX_ROWS_PER_SIDE], i + MATRIX_ROWS_PER_SIDE);
-        matrix[i + MATRIX_ROWS_PER_SIDE] = cols;
+        matrix[i + MATRIX_ROWS_PER_SIDE] = debounce_read_cols(i + MATRIX_ROWS_PER_SIDE);
+
         unselect_rows();
     }
 
@@ -379,7 +386,7 @@ static void select_row(uint8_t row)
                 break;
             case 11:
                 DDRD  |= (1<<2);
-                PORTD &= ~(1<<3);
+                PORTD &= ~(1<<2);
                 break;
             case 12:
                 DDRD  |= (1<<3);
@@ -392,4 +399,3 @@ static void select_row(uint8_t row)
         }
     }
 }
-

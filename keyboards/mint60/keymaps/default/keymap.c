@@ -31,7 +31,7 @@ extern rgblight_config_t rgblight_config;
 #define XXXXXXX KC_NO
 
 enum custom_keycodes {
-  RGBRST
+  RGBRST = SAFE_RANGE
 };
 
 
@@ -50,10 +50,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, KC_PGUP, _______, \
     XXXXXXX,   _______,    _______,    _______,    XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX,                   KC_HOME, KC_PGDN, KC_END \
   )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 // define variables for reactive RGB

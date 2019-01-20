@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _USB2422_H_
 #define _USB2422_H_
 
-#define USB2422_ALT67_1P0
 #define REV_USB2422        0x100
 
 #define USB2422_ADDR       0x58 //I2C device address, one instance

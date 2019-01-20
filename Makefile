@@ -578,7 +578,7 @@ lib/%:
 
 git-submodule:
 	git submodule sync --recursive
-	git submodule update --init --recursive
+	git submodule update --init --recursive --progress
 
 ifdef SKIP_VERSION
 SKIP_GIT := yes

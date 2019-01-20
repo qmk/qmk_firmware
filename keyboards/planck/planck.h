@@ -3,6 +3,8 @@
 
 #include "quantum.h"
 
+#define encoder_update(clockwise) encoder_update_user(uint8_t index, clockwise)
+
 #ifdef __AVR__
 #define LAYOUT_planck_mit( \
 	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
