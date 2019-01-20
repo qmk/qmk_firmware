@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 #define LEADER_TIMEOUT 300
 //#define BACKLIGHT_BREATHING
@@ -16,5 +13,3 @@
 #define RGBLED_NUM 14     // Number of LEDs
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
-
-#endif

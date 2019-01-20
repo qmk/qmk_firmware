@@ -9,7 +9,6 @@
 #ifdef SSD1306OLED
 #include "ssd1306.h"
 #endif
-extern keymap_config_t keymap_config;
 
 //Following line allows macro to read current RGB settings
 extern rgblight_config_t rgblight_config;
@@ -41,15 +40,9 @@ enum preonic_keycodes {
   RGBLED_DECREASE_SAT,
   RGBLED_INCREASE_VAL,
   RGBLED_DECREASE_VAL,
+  QMKBEST,
 };
 
-enum macro_keycodes {
-  KC_DEMOMACRO,
-};
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
 #define CTL_TTAB    CTL_T(KC_TAB)               // Tap for Esc, hold for Ctrl
@@ -58,7 +51,6 @@ enum macro_keycodes {
 // Requires KC_TRNS/_______ for the trigger key in the destination layer
 #define LT_MC(kc)   LT(_MOUSECURSOR, kc)        // L-ayer T-ap M-ouse C-ursor
 #define LT_RAI(kc)  LT(_RAISE, kc)              // L-ayer T-ap to Raise
-#define DEMOMACRO   M(KC_DEMOMACRO)            // Sample for macros
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -184,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_MOUSECURSOR] = LAYOUT(
   KC_ACL0, KC_ACL1, KC_ACL2, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_WH_L, KC_MS_U, KC_WH_R,DEMOMACRO,_______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, KC_HOME, KC_PGUP, KC_WH_L, KC_MS_U, KC_WH_R, QMKBEST,_______, \
   _______, _______, _______, _______, _______, _______, _______, _______, KC_END , KC_PGDN, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BTN2, KC_BTN3, KC_BTN4, KC_BTN5, _______, _______, \
   _______, _______, _______, _______, _______, KC_BTN1, _______, _______, _______, KC_BTN1, _______, _______, _______, _______, _______  \
@@ -232,12 +224,6 @@ bool TOG_STATUS = false;
 int RGB_current_mode;
 
 
-
-void persistant_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
     rgblight_mode(RGB_current_mode);
@@ -254,19 +240,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_qwerty);
         #endif
-        persistant_default_layer_set(1UL<<_QWERTY);
+        set_single_persistent_default_layer(_QWERTY);
       }
       return false;
-      break;
     case COLEMAK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
         #endif
-        persistant_default_layer_set(1UL<<_COLEMAK);
+        set_single_persistent_default_layer(_COLEMAK);
       }
       return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
           //not sure how to have keyboard check mode and set it to a variable, so my work around
@@ -289,7 +273,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     case RAISE:
       if (record->event.pressed) {
         //not sure how to have keyboard check mode and set it to a variable, so my work around
@@ -312,7 +295,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
       }
       return false;
-      break;
     case BACKLIT:
       if (record->event.pressed) {
         register_code(KC_RSFT);
@@ -323,7 +305,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_code(KC_RSFT);
       }
       return false;
-      break;
     case RGB_MOD:
       //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
       if (record->event.pressed) {
@@ -332,7 +313,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         RGB_current_mode = rgblight_config.mode;
       }
       return false;
-      break;
+    case QMKBEST:
+      if (record->event.pressed) {
+        // when keycode QMKBEST is pressed
+        SEND_STRING("QMK is the best thing ever!");
+      } else {
+        // when keycode QMKBEST is released
+      }
+      return false;
   }
   return true;
 }
@@ -367,7 +355,7 @@ void startup_user()
 }
 
 void shutdown_user()
-{cc
+{
     PLAY_SONG(tone_goodbye);
     _delay_ms(150);
     stop_all_notes();
@@ -384,25 +372,6 @@ void music_scale_user(void)
 }
 
 #endif
-
-/*
- * Macro definition
- */
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-    if (!eeconfig_is_enabled()) {
-      eeconfig_init();
-    }
-
-    switch (id) {
-      case KC_DEMOMACRO:
-        if (record->event.pressed){
-          return MACRO (I(1), T(H),T(E),T(L), T(L), T(O), T(SPACE), T(W), T(O), T(R), T(L), T(D),  END);
-        }
-    }
-
-    return MACRO_NONE;
-}
 
 void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {
