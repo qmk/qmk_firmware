@@ -1,12 +1,12 @@
 # tmo50
 
-![tmo50](https://imgur.com/BhRYzl6)
+![tmo50](https://imgur.com/BhRYzl6.jpg)
 
 TMO50 is a 50% mechanical keyboard with macro column on the left side. Sub60% board without compromises.
 
-Keyboard Maintainer: [funderburker](https://github.com/emiilsd)
-Hardware Supported: TMO50 mechanical keyboard
-Hardware Availability: Group buys
+Keyboard Maintainer: [funderburker](https://github.com/emiilsd)  
+Hardware Supported: TMO50 mechanical keyboard  
+Hardware Availability: Group buys  
 
 Make example for this keyboard (after setting up your build environment):
 
