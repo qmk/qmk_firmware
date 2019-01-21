@@ -102,4 +102,7 @@
     { k30, KC_NO, k32, k33, k34, k35, k36, k37, k38, k39, k3a, k3b, k3c, KC_NO, k3e, }, \
     { k40, k41, k42, KC_NO, KC_NO, KC_NO, KC_NO, k47, KC_NO, KC_NO, k4a, k4b, k4c, KC_NO, k4e, }, \
 }
+
+#define LAYOUT LAYOUT_all
+#define KEYMAP LAYOUT_all
 #endif

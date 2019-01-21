@@ -26,6 +26,12 @@
 #define PRODUCT         Clueboard 60%
 #define DESCRIPTION     Clueboard 60%
 
+/* Address for jumping to bootloader on STM32 chips. */
+/* It is chip dependent, the correct number can be looked up here:
+ * http://www.st.com/web/en/resource/technical/document/application_note/CD00167594.pdf
+ */
+#define STM32_BOOTLOADER_ADDRESS 0x1FFFD800
+
 /* key matrix size */
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
@@ -33,21 +39,22 @@
 /*
  * Keyboard Matrix Assignments
  *
- * Change this to how you wired your keyboard
- * COLS: AVR pins used for columns, left to right
- * ROWS: AVR pins used for rows, top to bottom
+ * COLS: Pins used for columns, left to right
+ * ROWS: Pins used for rows, top to bottom
  * DIODE_DIRECTION: COL2ROW = COL = Anode (+), ROW = Cathode (-, marked on diode)
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-/* Note: These are not used for arm boards. They're here purely as documentation.
- * #define MATRIX_ROW_PINS { PB0, PB1, PB2, PA15, PA10 }
- * #define MATRIX_COL_PINS { PA2, PA3, PA6, PB14, PB15, PA8, PA9, PA7, PB3, PB4, PC14, PC15, PC13, PB5, PB6 }
- * #define UNUSED_PINS
- */
+#define MATRIX_ROW_PINS { B0, B1, B2, A15, A10 }
+#define MATRIX_COL_PINS { A2, A3, A6, B14, B15, A8, A9, A7, B3, B4, C14, C15, C13, B5, B6 }
+#define UNUSED_PINS { A0, A1, A9, B7, B8, B9, B10, B11, B12, B13 }
+#define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 6
+
+/* Prevent modifiers from being stuck on after layer changes. */
+#define PREVENT_STUCK_MODIFIERS
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
