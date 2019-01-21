@@ -1,5 +1,5 @@
 /*
-Copyright 2019 REPLACE_WITH_YOUR_NAME
+Copyright 2019 funderburker
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -23,13 +23,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0000
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    You
-#define PRODUCT         %KEYBOARD%
-#define DESCRIPTION     A custom keyboard
+#define MANUFACTURER    funderburker
+#define PRODUCT         TMO50
+#define DESCRIPTION     50% mechanical keyboard with macro column
 
 /* key matrix size */
-#define MATRIX_ROWS 2
-#define MATRIX_COLS 3
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 14
 
 /*
  * Keyboard Matrix Assignments
@@ -41,51 +41,45 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *                  ROW2COL = ROW = Anode (+), COL = Cathode (-, marked on diode)
  *
 */
-#define MATRIX_ROW_PINS { D0, D5 }
-#define MATRIX_COL_PINS { F1, F0, B0 }
+#define MATRIX_ROW_PINS { D5, D3, D2, D0 }
+#define MATRIX_COL_PINS { D1, D4, F0, F1, F4, F5, F6, F7, D6, D7, B4, B5, B6, C6 }
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
-/*
- * Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk, and define SOFT_SERIAL_PIN.
- */
-#define SOFT_SERIAL_PIN D0 // or D1, D2, D3, E6
+/* number of backlight levels */
+#define BACKLIGHT_PIN B7
+#define BACKLIGHT_BREATHING
+#define BACKLIGHT_LEVELS 3
 
-// #define BACKLIGHT_PIN B7
-// #define BACKLIGHT_BREATHING
-// #define BACKLIGHT_LEVELS 3
-
-// #define RGB_DI_PIN E2
-// #ifdef RGB_DI_PIN
-//   #define RGBLED_NUM 16
-//   #define RGBLIGHT_HUE_STEP 8
-//   #define RGBLIGHT_SAT_STEP 8
-//   #define RGBLIGHT_VAL_STEP 8
-//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
-//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
-// /*== all animations enable ==*/
-//   #define RGBLIGHT_ANIMATIONS
-// /*== or choose animations ==*/
-//   #define RGBLIGHT_EFFECT_BREATHING
-//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-//   #define RGBLIGHT_EFFECT_SNAKE
-//   #define RGBLIGHT_EFFECT_KNIGHT
-//   #define RGBLIGHT_EFFECT_CHRISTMAS
-//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
-//   #define RGBLIGHT_EFFECT_RGB_TEST
-//   #define RGBLIGHT_EFFECT_ALTERNATING
-// #endif
+#define RGB_DI_PIN C7
+#ifdef RGB_DI_PIN
+  #define RGBLED_NUM 10
+  #define RGBLIGHT_HUE_STEP 8
+  #define RGBLIGHT_SAT_STEP 8
+  #define RGBLIGHT_VAL_STEP 8
+  #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+  #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+/*== all animations enable ==*/
+  #define RGBLIGHT_ANIMATIONS
+/*== or choose animations ==*/
+  // #define RGBLIGHT_EFFECT_BREATHING
+  // #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+  // #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+  // #define RGBLIGHT_EFFECT_SNAKE
+  // #define RGBLIGHT_EFFECT_KNIGHT
+  // #define RGBLIGHT_EFFECT_CHRISTMAS
+  // #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+  // #define RGBLIGHT_EFFECT_RGB_TEST
+  // #define RGBLIGHT_EFFECT_ALTERNATING
+#endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
 
 /* define if matrix has ghost (lacks anti-ghosting diodes) */
 //#define MATRIX_HAS_GHOST
-
-/* number of backlight levels */
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -212,34 +206,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
 
-/*
- * HD44780 LCD Display Configuration
- */
-/*
-#define LCD_LINES           2     //< number of visible lines of the display
-#define LCD_DISP_LENGTH    16     //< visibles characters per line of the display
-
-#define LCD_IO_MODE      1            //< 0: memory mapped mode, 1: IO port mode
-
-#if LCD_IO_MODE
-#define LCD_PORT         PORTB        //< port for the LCD lines
-#define LCD_DATA0_PORT   LCD_PORT     //< port for 4bit data bit 0
-#define LCD_DATA1_PORT   LCD_PORT     //< port for 4bit data bit 1
-#define LCD_DATA2_PORT   LCD_PORT     //< port for 4bit data bit 2
-#define LCD_DATA3_PORT   LCD_PORT     //< port for 4bit data bit 3
-#define LCD_DATA0_PIN    4            //< pin for 4bit data bit 0
-#define LCD_DATA1_PIN    5            //< pin for 4bit data bit 1
-#define LCD_DATA2_PIN    6            //< pin for 4bit data bit 2
-#define LCD_DATA3_PIN    7            //< pin for 4bit data bit 3
-#define LCD_RS_PORT      LCD_PORT     //< port for RS line
-#define LCD_RS_PIN       3            //< pin  for RS line
-#define LCD_RW_PORT      LCD_PORT     //< port for RW line
-#define LCD_RW_PIN       2            //< pin  for RW line
-#define LCD_E_PORT       LCD_PORT     //< port for Enable line
-#define LCD_E_PIN        1            //< pin  for Enable line
-#endif
-*/
-
-/* Bootmagic Lite key configuration */
-// #define BOOTMAGIC_LITE_ROW 0
-// #define BOOTMAGIC_LITE_COLUMN 0

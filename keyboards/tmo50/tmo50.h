@@ -1,4 +1,4 @@
-/* Copyright 2019 REPLACE_WITH_YOUR_NAME
+/* Copyright 2019 funderburker
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef %KEYBOARD_UPPERCASE%_H
-#define %KEYBOARD_UPPERCASE%_H
+#pragma once
 
 #include "quantum.h"
 
@@ -27,12 +26,15 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k11   \
+	K000, K001, K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013, \
+	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, \
+	K200, K201, K202, K203, K204, K205, K206, K207, K208, K209, K210, K211, K212, K213, \
+	K300, K301, K302, K303,       K305,       K307,       K309, K310  \
 ) \
 { \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k11 }, \
+	{ K000,  K001,  K002,  K003,  K004,  K005,  K006,  K007,  K008,  K009,  K010,  K011,  K012,  K013 }, \
+	{ K100,  K101,  K102,  K103,  K104,  K105,  K106,  K107,  K108,  K109,  K110,  K111,  K112,  K113 }, \
+	{ K200,  K201,  K202,  K203,  K204,  K205,  K206,  K207,  K208,  K209,  K210,  K211,  K212,  K213 }, \
+	{ K300,  K301,  K302,  K303,  KC_NO, K305,  KC_NO, K307,  KC_NO, K309,  K310,  KC_NO, KC_NO, KC_NO }  \
 }
 
-#endif

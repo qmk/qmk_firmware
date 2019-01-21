@@ -1,8 +1,5 @@
 #pragma once
 
-#ifndef PLAIN60_H
-#define PLAIN60_H
-
 #include "quantum.h"
 
 // readability
@@ -25,5 +22,3 @@
 
 void matrix_init_user(void);
 void matrix_scan_user(void);
-
-#endif
