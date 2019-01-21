@@ -1447,11 +1447,11 @@ void led_set(uint8_t usb_led)
   // Use backlight as Caps Lock indicator
   uint8_t bl_toggle_lvl = 0;
 
-  if (usb_led & (1<<USB_LED_CAPS_LOCK) && !backlight_config.enable) {
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) && !backlight_config.enable) {
     // Turning Caps Lock ON and backlight is disabled in config
     // Toggling backlight to the brightest level
     bl_toggle_lvl = BACKLIGHT_LEVELS;
-  } else if (!(usb_led & (1<<USB_LED_CAPS_LOCK)) && backlight_config.enable) {
+  } else if (IS_LED_OFF(usb_led, USB_LED_CAPS_LOCK) && backlight_config.enable) {
     // Turning Caps Lock OFF and backlight is enabled in config
     // Toggling backlight and restoring config level
     bl_toggle_lvl = backlight_config.level;
