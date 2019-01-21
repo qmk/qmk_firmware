@@ -69,8 +69,14 @@ void matrix_scan_user(void) {
 
     // Stop music and lock computer via alfred
     SEQ_ONE_KEY(KC_H) {
+      SEND_STRING(SS_LGUI(" ") "afk" SS_TAP(X_ENTER));
+    }
+
+    // Stop music and lock computer via alfred
+    SEQ_TWO_KEYS(KC_H, KC_H) {
       SEND_STRING(SS_LGUI(" ") "afk" SS_TAP(X_ENTER) SS_TAP(X_MEDIA_PLAY_PAUSE));
     }
+
     // Whole Screen Shot
     SEQ_ONE_KEY(KC_A) {
       SEND_STRING(SS_LGUI(SS_LSFT("3")));
