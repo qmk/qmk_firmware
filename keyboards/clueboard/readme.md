@@ -1,4 +1,4 @@
-![Clueboard Logo](https://static1.squarespace.com/static/55c13bdee4b099be5dcb82eb/t/59c9703318b27d1ab34f40df/1508257572555/)
+![Clueboard Logo](https://i.imgur.com/220uMry.png)
 
 Clueboard makes fully customizable custom keyboards in a variety of form-factors. Inside this directory you'll find support for the entire line of Clueboard products.
 
