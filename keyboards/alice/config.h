@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422E
@@ -29,6 +28,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 6
 #define MATRIX_COLS 15
 
+#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5 }
+#define MATRIX_COL_PINS { A0, A1, A2, A3, A4, A5, A6, A7, C7, C6, C5, C4, C3, C2, C1 }
+#define DIODE_DIRECTION COL2ROW
+
 #define RGBLED_NUM 20
 #define RGBLIGHT_ANIMATIONS
 
@@ -37,5 +40,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
-
-#endif

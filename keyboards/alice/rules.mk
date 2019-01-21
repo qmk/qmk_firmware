@@ -28,7 +28,7 @@ F_CPU = 12000000
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
 #     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
-BOOTLOADER = atmel-dfu
+BOOTLOADER = bootloadHID
 
 # build options
 BOOTMAGIC_ENABLE = full
@@ -42,9 +42,7 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
-# custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c i2c.c
+SRC += i2c_master.c
 
 # programming options
 PROGRAM_CMD = ./keyboards/ps2avrGB/program $(TARGET).hex
