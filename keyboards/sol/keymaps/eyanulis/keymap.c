@@ -47,7 +47,7 @@ enum macro_keycodes {
 // Define your non-alpha grouping in this define's LAYOUT, and all your BASE_LAYERS will share the same mod/macro columns
   /* Base Layout
    * ,------------------------------------------------.  ,------------------------------------------------.
-   * | GESC |  1   |  2   |  3   |  4   |  5   |   6  |  |   7  |   8  |   9  |   0  |   -  |   =  | BkSp |
+   * | GESC |  1   |  2   |  3   |  4   |  5   |  -   |  |   +  |   6  |   7  |   8  |   9  |   0  | BkSp |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
    * | Tab  |      |      |      |      |      |   [  |  |   ]  |      |      |      |      |      |   \  |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
@@ -66,7 +66,7 @@ enum macro_keycodes {
   _20, _21, _22, _23, _24,  _25, _26, _27, _28, _29 \
 ) \
 LAYOUT( \
-      KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_6, KC_7,  KC_8,    KC_9,    KC_0,    KC_MINS,    KC_EQL,    KC_BSPC, \
+      KC_GESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,  KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
       KC_TAB,  _00,     _01,     _02,     _03,     _04,    KC_LBRC,  KC_RBRC, _05,     _06,     _07,     _08,     _09,     KC_BSLS, \
       KC_CAPS, _10,     _11,     _12,     _13,     _14,    KC_LPRN,  KC_RPRN, _15,     _16,     _17,     _18,     _19,     KC_QUOT, \
       KC_LSFT, _20,     _21,     _22,     _23,     _24,    KC_LCBR,  KC_RCBR, _25,     _26,     _27,     _28,     _29,     KC_ENT, \
