@@ -1,2 +1,9 @@
 RGBLIGHT_ENABLE = no
 BACKLIGHT_ENABLE = no
+
+# turn off options from the base
+MOUSEKEY_ENABLE = no
+EXTRAKEY_ENABLE = no
+
+CONSOLE_ENABLE = yes
+# COMMAND_ENABLE = no

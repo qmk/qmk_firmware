@@ -1,5 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#include "debug.h"
+
 extern keymap_config_t keymap_config;
 
 #define _QWERTY 0
@@ -41,6 +43,11 @@ extern keymap_config_t keymap_config;
 
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))
 #define SHIFT_HELD (get_mods() & MODS_SHIFT_MASK)
+
+
+enum macro_numbers {
+    M_ENT = 0,
+};
 
 
 enum custom_keycodes {
@@ -88,7 +95,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                    ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_ESC,  KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,                        KC_NO,   MY_LTHN, MY_GTHN, KC_NO,   KC_NO,   KC_NO,  
   //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
-     _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_EXLM, KC_LPRN, KC_RPRN, MY_AT,   KC_NUBS, _______,
+     _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,                      KC_EXLM, KC_LPRN, KC_RPRN, MY_AT,   KC_NUBS,  KC_DEL,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LCTL, KC_MPRV, KC_MNXT, KC_VOLU, KC_PGUP, KC_UNDS,                      KC_NUHS, KC_LBRC, KC_RBRC, MY_PIPE, MY_TLDE, KC_GRV,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -102,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                    ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_ESC,   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_CAPS,  KC_NO,  KC__FWD,  KC_UP,   KC_NO,   KC_NO,                       _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,
+     KC_CAPS,  KC_NO,  KC__FWD,  KC_UP,   KC_NO,   KC_NO,                       _______, _______, KC_PSCR, KC_SLCK, KC_PAUS,  KC_DEL,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
      _______,  KC_NO,   KC_LEFT, KC_DOWN, KC_RGHT, VIM_G,                       KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,   KC_NO,   KC_NO,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
@@ -110,8 +117,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘  └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
                                     _______, _______, _______,             _______, _______, _______
                                 // └────────┴────────┴────────┘           └────────┴────────┴────────┘
-  )
+  ),
+
+  [_ALT_LAYER] = LAYOUT(  // entered when the top left "esc" key is held
+  //┌────────┬────────┬────────┬────────┬────────┬────────┐                    ┌────────┬────────┬────────┬────────┬────────┬────────┐
+     _______,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_DEL,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, _______,
+  //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
+     KC_LCTL, _______, _______, _______, _______, _______,                      _______, _______, _______, _______, _______, KC_RCTL,
+  //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
+     _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______, _______, _______, _______, _______,
+  //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘  └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
+                                     KC_NO,    KC_NO,   KC_NO,              KC_NO,   KC_NO,   KC_NO
+                                // └────────┴────────┴────────┘           └────────┴────────┴────────┘
+  ),
 };
+
+/*
+const uint16_t PROGMEM fn_actions[] = {
+    [M_ENT] = ACTION_MACRO_TAP(M_ENT),
+};*/
 
 
 void key_press(uint8_t key) {
@@ -150,21 +176,28 @@ bool action_function_vim_g(keyrecord_t *record) {
 
 
 bool action_function_mods_layer_tap(keyrecord_t *record, uint8_t mods, uint8_t layer, uint8_t key) {
+    xprintf("AFMLT: mods=%u, layer=%u, key=%u\n", mods, layer, key);
+    xprintf("        pressed=%u, tap.count=%u, interrupted=%u\n", record->event.pressed, record->tap.count, record->tap.interrupted);
     if (record->tap.count == 0 || record->tap.interrupted) {
         if (record->event.pressed) {
             layer_on(layer);
             add_weak_mods(mods);
+            xprintf("        layer on / weak mods added\n");
         } else {
             del_weak_mods(mods);
             layer_off(layer);
+            xprintf("        layer off / weak mods removed\n");
         }
     } else {
         if (record->event.pressed) {
             key_press(key);
+            xprintf("        key pressed\n");
         } else {
             key_release(key);
+            xprintf("        key released\n");
         }
     }
+    xprintf("AFMLT: end\n\n");
     return false;
 }
 
@@ -183,6 +216,45 @@ bool action_function_altered_shift(keyrecord_t *record, uint8_t base_key, uint8_
     }
     return false;
 }
+
+/*
+const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
+    xprintf("MACRO:  pressed=%u, tap.count=%u, interrupted=%u\n", record->event.pressed, record->tap.count, record->tap.interrupted);
+    xprintf("        id=%u, opt=%u\n", id, opt);
+    switch (id) {
+        case M_ENT:
+            xprintf("enter macro ");
+            if (record->tap.count && !record->tap.interrupted) {
+                if (record->event.pressed) {
+                    uint8_t shift_held = SHIFT_HELD;
+                    if (shift_held) {
+                        add_weak_mods(MOD_RSFT);
+                        add_key(KC_2);
+                        send_keyboard_report();
+                        del_key(KC_2);
+                        send_keyboard_report();
+                        del_weak_mods(MOD_RSFT);
+                    } else {
+                        register_code(KC_QUOTE);
+                        unregister_code(KC_QUOTE);
+                    }
+                }
+                record->tap.count = 0;  
+            } else {
+                if (record->event.pressed) {
+                    xprintf("   pressed reg ctrl\n");
+                    register_mods(MOD_RCTL);
+                } else {
+                    // deactivate the ctrl
+                    unregister_mods(MOD_RCTL);
+                    xprintf("   released reg ctrl\n");
+                }
+            }
+            break;
+    }
+    xprintf("MACRO: end\n\n");
+    return MACRO_NONE;
+}*/
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -221,18 +293,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
             break;
-
         case VIM_G:
             return action_function_vim_g(record);
             break;
         case ALT_2:
             return action_function_altered_shift(record, KC_2, KC_QUOT);
             break;
+        /*case ALT_QOT:
+            return action_function_mods_tap_altered_shift(record, MOD_BIT(KC_LCTL), KC_QUOT, KC_2);
+            break;*/
         case ALT_QOT:
-            return action_function_altered_shift(record, KC_QUOT, KC_2);
-            break;
+            return action_function_altered_shift(record, KC_QUOT, KC_2);  // really want ctrl on hold XXX
         case ALT_LYR:
             return action_function_mods_layer_tap(record, MOD_BIT(KC_LALT), _ALT_LAYER, KC_ESC);
+            break;
     }
     return true;
 }
