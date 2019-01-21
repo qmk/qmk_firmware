@@ -1,6 +1,6 @@
 # Clueboard 17% (Formerly Cluepad)
 
-![Clueboard 17%](https://static1.squarespace.com/static/55c13bdee4b099be5dcb82eb/5842fbdce3df28eae5ec557e/5844fb2cb8a79bbdfd63bad1/1498501250178/IMGP3931.jpg?format=750w)
+![Clueboard 17%](https://i.imgur.com/3XBC5c0.jpg)
 
 A basic 17 key numpad PCB.
 
