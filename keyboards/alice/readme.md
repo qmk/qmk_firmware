@@ -4,9 +4,9 @@
 
 An ergonomic 60% keyboard.
 
-Keyboard Maintainer: [Felipe Coury](https://github.com/fcoury)
-Hardware Supported: TGR Alice
-Hardware Availability: Group buy finished
+Keyboard Maintainer: [Felipe Coury](https://github.com/fcoury)  
+Hardware Supported: TGR Alice  
+Hardware Availability: Group buy finished  
 
 Make example for this keyboard (after setting up your build environment):
 
