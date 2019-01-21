@@ -5,6 +5,21 @@
 
 #define _______ KC_TRNS
 
+enum rys_keycodes {
+  PSTOKEN = SAFE_RANGE,
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case PSTOKEN:
+      if (record->event.pressed) {
+        SEND_STRING(RYS_PSTOKEN);
+      }
+      break;
+  }
+  return true;
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _BL: (Base Layer) Default Layer
    * ,----------------------------------------------------------------.
@@ -16,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |----------------------------------------------------------------|
    * |Shift|  \ |  Z|  X|  C|  V|  B|  N|  M|  ,|  .| /|Rshift|Up|PgDn|
    * |----------------------------------------------------------------|
-   * |Ctrl|Win |Alt |        Space          |Alt| FN|Ctrl|Lef|Dow|Rig |
+   * |Ctrl|Alt |LGUI|        Space          |Alt| FN|Ctrl|Lef|Dow|Rig |
    * `----------------------------------------------------------------'
    */
   [_BL] = LAYOUT_iso(
@@ -29,22 +44,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   /* Keymap _FL1: Function Layer 1
    * ,----------------------------------------------------------------.
-   * |   | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12| Delete| Ins|
+   * |   | F1| F2| F3| F4| F5| F6| F7| F8| F9|F10|F11|F12|       | :D |
    * |----------------------------------------------------------------|
-   * |     |   | ↑ |   |   |   |   |   |   |   |   |   |   |     |Home|
+   * |     |LMB| Up|RMB|   |   |   |   |   |   |   |   |   |     |    |
    * |-------------------------------------------------------    -----|
-   * |       | ← | ↓ | → |   |   |   |   |   |   |   |  |   |    | End|
+   * |       |Lef|Dow|Rig|   |   |   |   |   |   |   |  |   |    |Home|
    * |----------------------------------------------------------------|
-   * |     |   |   |   | L+|LED| L-|   | V+|  V-|Mut|  | MsBtn|Up|MsBn|
+   * |     |   |   |   | L+|LED| L-|   | V+|  V-|Mut|  | MsBtn|↑ | End|
    * |----------------------------------------------------------------|
-   * |    |    |    |                       |   |   |    | Lt| Dn| Rt |
+   * |    |    |    |      Reset            |   |   |    | ← | ↓ | →  |
    * `----------------------------------------------------------------'
    */
   [_FL] = LAYOUT_iso(
-    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, _______, \
+    _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  _______, PSTOKEN, \
     _______, KC_BTN1, KC_UP,   KC_BTN2, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_HOME, \
     _______, _______, _______, _______, BL_DEC,  BL_TOGG, BL_INC,  _______, KC_VOLU, KC_VOLD, KC_MUTE, _______, _______, KC_MS_U, KC_END,  \
-    _______, _______, _______,                   _______,                            _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
+    _______, _______, _______,                   RESET,                              _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R
 	),
 };
