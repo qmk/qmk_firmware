@@ -1,5 +1,4 @@
-#ifndef CLUECARD_H
-#define CLUECARD_H
+#pragma once
 
 #include "quantum.h"
 
@@ -18,5 +17,3 @@
 	{ k20, k21, k22, }, \
 	{ k30, k31, k32, } \
 }
-
-#endif
