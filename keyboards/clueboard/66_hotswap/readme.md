@@ -6,7 +6,7 @@ A fully customizable 66% keyboard with Hot Swap sockets.
 
 * Keyboard Maintainer: [Zach White](https://github.com/skullydazed)
 * Hardware Supported: Clueboard 66% HotSwap PCB
-  * 2.9
+  * 2.9 (gen1)
 * Hardware Availability: [clueboard.co](https://clueboard.co/)
 
 Make example for this keyboard (after setting up your build environment):
