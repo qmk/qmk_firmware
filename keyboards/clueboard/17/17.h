@@ -33,4 +33,7 @@
     { k40, KC_NO, k42, KC_NO }  \
 }
 
+#define LAYOUT LAYOUT_numpad_5x4
+#define KEYMAP LAYOUT_numpad_5x4
+
 #endif
