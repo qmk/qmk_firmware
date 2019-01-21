@@ -94,11 +94,23 @@ void matrix_scan_user(void) {
       tmux_pane_zoom();
     }
 
+    // TMUX - shift to first window
+    SEQ_TWO_KEYS(KC_J, KC_J) {
+      tmux_prefix();
+      SEND_STRING("1");
+    }
+
     // TMUX - shift to pane 2 and zoom
     SEQ_ONE_KEY(KC_K) {
       tmux_prefix();
       SEND_STRING("q2");
       tmux_pane_zoom();
+    }
+
+    // TMUX - shift to second window
+    SEQ_TWO_KEYS(KC_K, KC_K) {
+      tmux_prefix();
+      SEND_STRING("2");
     }
 
     // TMUX - shift to pane 3 and zoom
@@ -108,29 +120,17 @@ void matrix_scan_user(void) {
       tmux_pane_zoom();
     }
 
+    // TMUX - shift to third window
+    SEQ_TWO_KEYS(KC_L, KC_L) {
+      tmux_prefix();
+      SEND_STRING("3");
+    }
+
     // TMUX - shift to last pane and zoom
     SEQ_ONE_KEY(KC_SCOLON) {
       tmux_prefix();
       SEND_STRING(";");
       tmux_pane_zoom();
-    }
-
-    // TMUX - shift to first window
-    SEQ_TWO_KEYS(KC_J, KC_J) {
-      tmux_prefix();
-      SEND_STRING("1");
-    }
-
-    // TMUX - shift to second window
-    SEQ_TWO_KEYS(KC_K, KC_K) {
-      tmux_prefix();
-      SEND_STRING("2");
-    }
-
-    // TMUX - shift to third window
-    SEQ_TWO_KEYS(KC_L, KC_L) {
-      tmux_prefix();
-      SEND_STRING("3");
     }
   }
 }
