@@ -10,30 +10,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void send_unicode_hex_string(const char *str) {
-  if (!str) { return; } // Saftey net
-  while (*str) {
-    // Find the next code point (token) in the string
-    for (; *str == ' '; str++);
-    size_t n = strcspn(str, " "); // Length of the current token
-    char code_point[n+1];
-    strncpy(code_point, str, n);
-    code_point[n] = '\0'; // Make sure it's null-terminated
-
-    // Normalize the code point: make all hex digits lowercase
-    for (char *p = code_point; *p; p++) {
-            *p = tolower(*p);
-    }
-
-    // Send the code point as a Unicode input string
-    unicode_input_start();
-    send_string(code_point);
-    unicode_input_finish();
-    str += n; // Move to the first ' ' (or '\0') after the current token
-  }
-}
-// End: Written by konstantin: vomindoraan
-
 // Start: Written by Chris Lewis
 #ifndef MIN
 #define MIN(a,b) (((a)<(b))?(a):(b))
@@ -146,7 +122,7 @@ void check_state (void) {
 
   case sleeping:
     if (!slept) {
-      rgblight_mode_noeeprom(4);
+      rgblight_mode_noeeprom(2);
       slept = true;
       activated = false;
       deactivated = false;
