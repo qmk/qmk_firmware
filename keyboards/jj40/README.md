@@ -78,7 +78,7 @@ If you flash a bad hex (e.g. you have a V1 board without RGB and compile/flash b
 2. Wire the Arduino to the jj40. Match the data pins on the Arduino to those on the jj40. "RST" usually goes to D10 on the Arduino. I didn't need a capacitor when using my Uno. 
 ![Imgur](https://i.imgur.com/oLWJOkQ.jpg)
 3. Get a working bootloader from https://blog.winkeyless.kr/m/152. The file is called "main.hex" from the archive called "ps2avrGB_bootloader_161215.zip"  Copy "main.hex" to your qmk folder.  
-4. Burn the bootloader with the following command
+4. Burn the bootloader with the following command  
 ` avrdude -b 19200 -c avrisp -p atmega32 -v -e -U hfuse:w:0xD0:m -U lfuse:w:0x0F:m -U flash:w:main.hex:i -P comPORT`  
 Change `comPORT` to whatever port is used by the Arduino (e.g. `com11` in Windows or `/dev/ttyACM0` in Linux). Use Device Manager in Windows to find the port being used. Use `ls /dev/tty*` in Linux.
 5. If this process is successful, you should now be able to upload normally.
