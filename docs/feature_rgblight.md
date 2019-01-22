@@ -63,8 +63,6 @@ Changing the **Value** sets the overall brightness.
 |`RGB_MODE_GRADIENT`|`RGB_M_G` |Static gradient animation mode                                      |
 |`RGB_MODE_RGBTEST` |`RGB_M_T` |Red, Green, Blue test animation mode                                |
 
-?> For backwards compatibility, `RGB_SMOD` is another alias of `RGB_MOD`.
-
 ## Configuration
 
 Your RGB lighting can be configured by placing these `#define`s in your `config.h`:
@@ -96,8 +94,9 @@ if `RGBLIGHT_EFFECT_xxxx` or `RGBLIGHT_ANIMATIONS` is defined, you also have a n
 |`RGBLIGHT_MODE_RGB_TEST`     | *None*            |RGB Test                               |
 |`RGBLIGHT_MODE_ALTERNATING`  | *None*            |Alternating                            |
 
-
 Check out [this video](https://youtube.com/watch?v=VKrpPAHlisY) for a demonstration.
+
+Note: For versions older than 0.6.117, The mode numbers were written directly. In `quantum/rgblight.h` there is a contrast table between the old mode number and the current symbol.
 
 The following options can be used to tweak the various animations:
 
@@ -121,6 +120,7 @@ The following options can be used to tweak the various animations:
 |`RGBLIGHT_EFFECT_KNIGHT_LED_NUM`    |`RGBLED_NUM` |The number of LEDs to have the "Knight" animation travel                             |
 |`RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL`|`1000`       |How long to wait between light changes for the "Christmas" animation, in milliseconds|
 |`RGBLIGHT_EFFECT_CHRISTMAS_STEP`    |`2`          |The number of LEDs to group the red/green colors by for the "Christmas" animation    |
+|`RGBLIGHT_RAINBOW_SWIRL_RANGE`      |`360`        |Range adjustment for the rainbow swirl effect to get different swirls                |
 
 You can also modify the speeds that the different modes animate at:
 
@@ -161,6 +161,24 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 |`rgblight_sethsv(h, s, v)`         |Set all LEDs to the given HSV value where `h` is between 0 and 360 and `s`/`v` are between 0 and 255                                                                   |
 |`rgblight_sethsv_noeeprom(h, s, v)`|Set all LEDs to the given HSV value where `h` is between 0 and 360 and `s`/`v` are between 0 and 255 (not written to EEPROM)                                           |
 |`rgblight_sethsv_at(h, s, v, led)` |Set a single LED to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255, and `led` is between 0 and `RGBLED_NUM` (not written to EEPROM)|
+|`rgblight_toggle()`                |Toggle all LEDs between on and off                                                                                                                                     |
+|`rgblight_toggle_noeeprom()`       |Toggle all LEDs between on and off (not written to EEPROM)                                                                                                             |
+|`rgblight_step()`                  |Change the mode to the next RGB animation in the list of enabled RGB animations                                                                                        |
+|`rgblight_step_noeeprom()`         |Change the mode to the next RGB animation in the list of enabled RGB animations (not written to EEPROM)                                                                |
+|`rgblight_step_reverse()`          |Change the mode to the previous RGB animation in the list of enabled RGB animations                                                                                    |
+|`rgblight_step_reverse_noeeprom()` |Change the mode to the previous RGB animation in the list of enabled RGB animations (not written to EEPROM)                                                            |
+|`rgblight_increase_hue()`          |Increase the hue for all LEDs. This wraps around at maximum hue                                                                                                        |
+|`rgblight_increase_hue_noeeprom()` |Increase the hue for all LEDs. This wraps around at maximum hue (not written to EEPROM)                                                                                |
+|`rgblight_decrease_hue()`          |Decrease the hue for all LEDs. This wraps around at minimum hue                                                                                                        |
+|`rgblight_decrease_hue_noeeprom()` |Decrease the hue for all LEDs. This wraps around at minimum hue (not written to EEPROM)                                                                                |
+|`rgblight_increase_sat()`          |Increase the saturation for all LEDs. This wraps around at maximum saturation                                                                                          |
+|`rgblight_increase_sat_noeeprom()` |Increase the saturation for all LEDs. This wraps around at maximum saturation (not written to EEPROM)                                                                  |
+|`rgblight_decrease_sat()`          |Decrease the saturation for all LEDs. This wraps around at minimum saturation                                                                                          |
+|`rgblight_decrease_sat_noeeprom()` |Decrease the saturation for all LEDs. This wraps around at minimum saturation (not written to EEPROM)                                                                  |
+|`rgblight_increase_val()`          |Increase the value for all LEDs. This wraps around at maximum value                                                                                                    |
+|`rgblight_increase_val_noeeprom()` |Increase the value for all LEDs. This wraps around at maximum value (not written to EEPROM)                                                                            |
+|`rgblight_decrease_val()`          |Decrease the value for all LEDs. This wraps around at minimum value                                                                                                    |
+|`rgblight_decrease_val_noeeprom()` |Decrease the value for all LEDs. This wraps around at minimum value (not written to EEPROM)                                                                            |
 
 Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h) defines several predefined shortcuts for various colors. Feel free to add to this list!
 

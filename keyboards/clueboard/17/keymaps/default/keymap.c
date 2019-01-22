@@ -51,15 +51,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS,          RGB_SAD,    KC_TRNS, RGB_VAD, \
   RGB_MOD,                      KC_TRNS)
 };
-
-/*enum function_id {
-};*/
-
-const uint16_t PROGMEM fn_actions[] = {
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch (id) {
-  }
-}
-

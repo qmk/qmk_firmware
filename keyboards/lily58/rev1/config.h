@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-//#include QMK_KEYBOARD_CONFIG_H
-#include "config_common.h"
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFC51
 #define PRODUCT_ID      0x0058 
@@ -51,9 +48,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCING_DELAY 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+//#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
+//#define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
 #define IS_COMMAND() ( \
@@ -62,10 +59,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
-#define RGBLED_NUM 14    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
+#define RGBLED_NUM 12    // Number of LEDs
 
 /*
  * Feature disable options
