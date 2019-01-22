@@ -1,4 +1,4 @@
-#include "unigo66.h"
+#include QMK_KEYBOARD_H
 
 enum layer_number {
     _MAC = 0,
