@@ -60,6 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 509    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
 
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
 
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE                       (1<<0)

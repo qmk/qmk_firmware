@@ -8,10 +8,6 @@
 
 #define PROTOCOL_VERSION 0x0008
 
-#define DYNAMIC_KEYMAP_LAYER_COUNT 4
-
-
-
 enum via_command_id {
 	id_get_protocol_version = 0x01, // always 0x01
 	id_get_keyboard_value,
