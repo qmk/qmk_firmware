@@ -1,5 +1,8 @@
 #include "trackpad.h"
 
+// bool isScrollingMode = false;
+bool isScrollMode = false;
+
 void pointing_device_init(void){
 
   SPI_Init(SPI_SPEED_FCPU_DIV_8 | SPI_MODE_MASTER);
@@ -50,8 +53,16 @@ void pointing_device_task(void){
     int8_t dy = readRegister(0x04);
 
     report_mouse_t currentReport = pointing_device_get_report();
-    currentReport.x = dx * SPEED_MULTIPLIER;
-    currentReport.y = -dy * SPEED_MULTIPLIER;
+    if (isScrollMode)
+    {
+      currentReport.h = dx/2;
+      currentReport.v = -dy/2;
+    }
+    else
+    {
+      currentReport.x = dx * SPEED_MULTIPLIER;
+      currentReport.y = -dy * SPEED_MULTIPLIER;
+    }
 
     pointing_device_set_report(currentReport);
     pointing_device_send();

@@ -9,6 +9,8 @@
   #include "split_util.h"
 #endif
 
+extern bool isScrollMode;
+
 extern keymap_config_t keymap_config;
 
 #ifdef RGBLIGHT_ENABLE
@@ -34,7 +36,8 @@ enum custom_keycodes {
   ADJUST,
   BACKLIT,
   RGBRST,
-  MBTN1
+  MBTN1,
+  SCRL
 };
 
 enum macro_keycodes {
@@ -62,6 +65,7 @@ enum macro_keycodes {
 #define KC_SFTSL SFT_T(KC_SLSH)
 
 #define KC_MBTN1  MBTN1
+#define KC_SCRL   SCRL
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
@@ -72,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       GRAVE,  SFTZ,     X,     C,     V,     B,                      N,     M,  COMM,   DOT, SFTSL,BSLASH,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,   SPC,  BSPC,    MBTN1,   ENT, RAISE \
+                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
@@ -84,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       XXXXX,  LSFT,  HOME, XXXXX,   END,  LCBR,                   RCBR,     1,     2,     3,  RSFT, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,   SPC,  BSPC,    MBTN1,   ENT,     0 \
+                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT,     0 \
                               //`--------------------'  `--------------------'
   ),
 
@@ -96,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       XXXXX,  LSFT,    F1,    F2,    F3,   F12,                  XXXXX, XXXXX,  VOLU,  VOLD,  MUTE,  RSFT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,   SPC,  BSPC,    MBTN1,   ENT, RAISE \
+                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
@@ -108,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,   SPC,  BSPC,    MBTN1,   ENT, RAISE \
+                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT, RAISE \
                               //`--------------------'  `--------------------'
   )
 };
@@ -201,6 +205,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       pointing_device_set_report(currentReport);
       pointing_device_send();
+      return false;
+      break;
+    case SCRL:
+      if (record->event.pressed) {
+        isScrollMode = true;
+      }
+      else {
+        isScrollMode = false;
+      }
       return false;
       break;
   }
