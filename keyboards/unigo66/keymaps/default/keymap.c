@@ -1,4 +1,4 @@
-#include "UniGo66.h"
+#include "unigo66.h"
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] PROGMEM = {
 /* 

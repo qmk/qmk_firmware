@@ -1,4 +1,4 @@
-#include "UniGo66.h"
+#include "unigo66.h"
 
 enum layer_number {
     _MAC = 0,
