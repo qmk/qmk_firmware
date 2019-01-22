@@ -32,7 +32,9 @@ enum custom_keycodes {
   RAISE,
   ADJUST,
   BACKLIT,
-  RGBRST
+  RGBRST,
+  MBTN1,
+  SCRL
 };
 
 enum macro_keycodes {
@@ -60,6 +62,7 @@ enum macro_keycodes {
 #define KC_SFTSL SFT_T(KC_SLSH)
 
 #define KC_MBTN1  MBTN1
+#define KC_SCRL   SCRL
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
@@ -70,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       GRAVE,  SFTZ,     X,     C,     V,     B,                      N,     M,  COMM,   DOT, SFTSL,BSLASH,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  RAISE, LOWER,   SPC,      ENT,  BTN1, RAISE \
+                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
@@ -78,11 +81,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC, XXXXX,  PGDN,  PSCR,  PGUP,  LBRC,                   RBRC,     7,     8,     9, XXXXX, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX, LCTRL,  PLUS,  MINS,   EQL,  LPRN,                   RPRN,     4,     5,     6, RCTRL,  QUOT,\
+      XXXXX, LCTRL,  PLUS,  MINS,   EQL,  LPRN,                   RPRN,     4,     5,     6, RCTRL, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       XXXXX,  LSFT,  HOME, XXXXX,   END,  LCBR,                   RCBR,     1,     2,     3,  RSFT, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  RAISE, LOWER,   SPC,      ENT,  BTN1,     0 \
+                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT,     0 \
                               //`--------------------'  `--------------------'
   ),
 
@@ -94,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
       XXXXX,  LSFT,    F1,    F2,    F3,   F12,                  XXXXX, XXXXX,  VOLU,  VOLD,  MUTE,  RSFT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  RAISE, LOWER,   SPC,      ENT,  BTN1, RAISE \
+                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
@@ -106,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  RAISE, LOWER,   SPC,      ENT,  BTN1, RAISE \
+                                  LOWER,   SPC,  SCRL,    MBTN1,   ENT, RAISE \
                               //`--------------------'  `--------------------'
   )
 };
