@@ -41,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______________GherkinLike_0_______________,
   _______________GherkinLike_1_______________,
   _______________GherkinLike_2_______________,
-   KC_LCTL, KC_LGUI, KC_LALT, FUNCTION, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
+  KC_LCTL, KC_LGUI, KC_LALT, FUNCTION, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
 ),
 
 #else
