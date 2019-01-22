@@ -28,10 +28,6 @@ ifeq ($(strip $(API_SYSEX_ENABLE)), yes)
     MIDI_ENABLE=yes
 endif
 
-ifeq ($(strip $(VIA)), true)
-  DYNAMIC_KEYMAP_ENABLE=yes
-endif
-
 MUSIC_ENABLE := 0
 
 ifeq ($(strip $(AUDIO_ENABLE)), yes)
@@ -239,6 +235,12 @@ endif
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
+endif
+
+ifeq ($(strip $(VIA_SUPPORT_ENABLE)), yes)
+  OPT_DEFS += -DVIA_SUPPORT_ENABLE
+  SRC += $(QUANTUM_DIR)/via_support.c
+  DYNAMIC_KEYMAP_ENABLE=yes
 endif
 
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)

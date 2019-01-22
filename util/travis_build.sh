@@ -14,7 +14,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 		echo "Making default keymaps for all keyboards"
 		eval $MAKE_ALL
 		: $((exit_code = $exit_code + $?))
-     make all:default AUTOGEN=true VIA=true BREAK_ON_ERRORS=no
+     make all:default AUTOGEN=true VIA_SUPPORT_ENABLE=yes BREAK_ON_ERRORS=no
 	else
 		NEFM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -Ev '^(keyboards/)'  | grep -Ev '^(docs/)' | wc -l)
 		BRANCH=$(git rev-parse --abbrev-ref HEAD)
@@ -22,7 +22,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 			echo "Making default keymaps for all keyboards"
 			eval $MAKE_ALL
 			: $((exit_code = $exit_code + $?))
-      make all:default AUTOGEN=true VIA=true BREAK_ON_ERRORS=no
+      make all:default AUTOGEN=true VIA_SUPPORT_ENABLE=yes BREAK_ON_ERRORS=no
 		else
 			MKB=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -oP '(?<=keyboards\/)([a-zA-Z0-9_\/]+)(?=\/)' | sort -u)
 			for KB in $MKB ; do
@@ -34,14 +34,15 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 					echo "Making all keymaps for $KB"
 					make ${KB}:all AUTOGEN=true
 					: $((exit_code = $exit_code + $?))
-					make ${KB}:all AUTOGEN=true VIA=true BREAK_ON_ERRORS=no
+					make ${KB}:default AUTOGEN=true VIA_SUPPORT_ENABLE=yes BREAK_ON_ERRORS=no
 				else
 					MKM=$(git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE} | grep -oP '(?<=keyboards/'${KB}'/keymaps/)([a-zA-Z0-9_]+)(?=\/)' | sort -u)
 					for KM in $MKM ; do
 						echo "Making $KM for $KB"
 						make ${KB}:${KM} AUTOGEN=true
 						: $((exit_code = $exit_code + $?))
-						make ${KB}:${KM} AUTOGEN=true VIA=true BREAK_ON_ERRORS=no
+						# Ideally, this should be run if the keymap is the "default" keymap, but I'm not sure how to do that
+						make ${KB}:${KM} AUTOGEN=true VIA_SUPPORT_ENABLE=yes BREAK_ON_ERRORS=no
 					done
 				fi
 			done

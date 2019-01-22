@@ -109,7 +109,7 @@ ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
     SHARED_EP_ENABLE = yes
 endif
 
-ifeq ($(strip $(VIA)), true)
+ifeq ($(strip $(VIA_SUPPORT_ENABLE)), yes)
   RAW_ENABLE=yes
 endif
 
