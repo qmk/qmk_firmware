@@ -15,8 +15,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
+
+#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xC1ED
@@ -52,9 +53,6 @@
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 6
-
-/* Prevent modifiers from being stuck on after layer changes. */
-#define PREVENT_STUCK_MODIFIERS
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 //#define LOCKING_SUPPORT_ENABLE
@@ -127,8 +125,6 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 1
-
-#endif
 
  /* Backlight configuration
  */
