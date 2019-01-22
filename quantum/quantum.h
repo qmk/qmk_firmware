@@ -138,6 +138,10 @@ extern uint32_t default_layer_state;
     #include "hd44780.h"
 #endif
 
+#ifdef VIA_SUPPORT_ENABLE
+  #include "via_support.h"
+#endif
+
 //Function substitutions to ease GPIO manipulation
 #ifdef __AVR__
     #define PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)

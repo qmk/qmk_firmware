@@ -462,6 +462,23 @@ enum quantum_keycodes {
     UNICODE_MODE_BSD,
     UNICODE_MODE_WINC,
 
+    VIA_MACRO00,
+    VIA_MACRO01,
+    VIA_MACRO02,
+    VIA_MACRO03,
+    VIA_MACRO04,
+    VIA_MACRO05,
+    VIA_MACRO06,
+    VIA_MACRO07,
+    VIA_MACRO08,
+    VIA_MACRO09,
+    VIA_MACRO10,
+    VIA_MACRO11,
+    VIA_MACRO12,
+    VIA_MACRO13,
+    VIA_MACRO14,
+    VIA_MACRO15,
+
     // always leave at the end
     SAFE_RANGE
 };

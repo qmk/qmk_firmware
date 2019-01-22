@@ -40,6 +40,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EECONFIG_HANDEDNESS         			        	(uint8_t *)14
 #define EECONFIG_KEYBOARD                          (uint32_t *)15
 #define EECONFIG_USER                              (uint32_t *)19
+/* Note that Via Support uses address 32 and up for dynamic keymap support */
+
+// VIA Support EEPROM usage
+
+// TODO: refactor with new user EEPROM code (coming soon)
+#define EEPROM_MAGIC 0x451F
+#define EEPROM_MAGIC_ADDR 32
+// Bump this every time we change what we store
+// This will automatically reset the EEPROM with defaults
+// and avoid loading invalid data from the EEPROM
+#define EEPROM_VERSION 0x08
+#define EEPROM_VERSION_ADDR 34
+
+// Dynamic keymap starts after EEPROM version
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
+// Dynamic macro starts after dynamic keymaps (35+(4*10*6*2)) = (35+480)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 515
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 509    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16
+
 
 /* debug bit */
 #define EECONFIG_DEBUG_ENABLE                       (1<<0)
@@ -93,5 +113,9 @@ uint32_t eeconfig_read_kb(void);
 void eeconfig_update_kb(uint32_t val);
 uint32_t eeconfig_read_user(void);
 void eeconfig_update_user(uint32_t val);
+
+bool eeprom_is_valid(void);
+void eeprom_set_valid(bool valid);
+void eeprom_reset(void);
 
 #endif

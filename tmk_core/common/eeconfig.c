@@ -62,8 +62,7 @@ void eeconfig_init(void) {
  *
  * FIXME: needs doc
  */
-void eeconfig_enable(void)
-{
+void eeconfig_enable(void) {
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER);
 }
 
@@ -71,8 +70,7 @@ void eeconfig_enable(void)
  *
  * FIXME: needs doc
  */
-void eeconfig_disable(void)
-{
+void eeconfig_disable(void) {
 #ifdef STM32_EEPROM_ENABLE
     EEPROM_Erase();
 #endif
@@ -83,8 +81,7 @@ void eeconfig_disable(void)
  *
  * FIXME: needs doc
  */
-bool eeconfig_is_enabled(void)
-{
+bool eeconfig_is_enabled(void) {
     return (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER);
 }
 
@@ -92,8 +89,7 @@ bool eeconfig_is_enabled(void)
  *
  * FIXME: needs doc
  */
-bool eeconfig_is_disabled(void)
-{
+bool eeconfig_is_disabled(void) {
     return (eeprom_read_word(EECONFIG_MAGIC) == EECONFIG_MAGIC_NUMBER_OFF);
 }
 
@@ -177,3 +173,19 @@ uint32_t eeconfig_read_user(void)      { return eeprom_read_dword(EECONFIG_USER)
 void eeconfig_update_user(uint32_t val) { eeprom_update_dword(EECONFIG_USER, val); }
 
 
+bool eeprom_is_valid(void) {
+	return (eeprom_read_word(((void*)EEPROM_MAGIC_ADDR)) == EEPROM_MAGIC &&
+			eeprom_read_byte(((void*)EEPROM_VERSION_ADDR)) == EEPROM_VERSION);
+}
+
+void eeprom_set_valid(bool valid) {
+	eeprom_update_word(((void*)EEPROM_MAGIC_ADDR), valid ? EEPROM_MAGIC : 0xFFFF);
+	eeprom_update_byte(((void*)EEPROM_VERSION_ADDR), valid ? EEPROM_VERSION : 0xFF);
+}
+
+void eeprom_reset(void) {
+	// Set the Zeal60 specific EEPROM state as invalid.
+	eeprom_set_valid(false);
+	// Set the TMK/QMK EEPROM state as invalid.
+	eeconfig_disable();
+}

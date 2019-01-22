@@ -246,6 +246,9 @@ bool process_record_quantum(keyrecord_t *record) {
     process_clicky(keycode, record) &&
   #endif //AUDIO_CLICKY
     process_record_kb(keycode, record) &&
+  #ifdef VIA_SUPPORT_ENABLE
+    process_via(keycode, record) &&
+  #endif
   #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
     process_rgb_matrix(keycode, record) &&
   #endif
@@ -1006,6 +1009,9 @@ void matrix_init_quantum() {
   #endif
   #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
     unicode_input_mode_init();
+  #endif
+  #ifdef VIA_SUPPORT_ENABLE
+    via_init();
   #endif
   matrix_init_kb();
 }
