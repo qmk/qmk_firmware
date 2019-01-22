@@ -1,18 +1,21 @@
 #include "dz60.h"
 #include "led.h"
 
-void matrix_init_kb(void) {
-  // Keyboard start-up code goes here
-  // Runs once when the firmware starts up
-  matrix_init_user();
-  led_init_ports();
-};
+// If not using VIA
+#ifndef DYNAMIC_KEYMAP_LAYER_COUNT
+  void matrix_init_kb(void) {
+    // Keyboard start-up code goes here
+    // Runs once when the firmware starts up
+    matrix_init_user();
+    led_init_ports();
+  };
 
-void matrix_scan_kb(void) {
-  // Looping keyboard code goes here
-  // This runs every cycle (a lot)
-  matrix_scan_user();
-};
+  void matrix_scan_kb(void) {
+    // Looping keyboard code goes here
+    // This runs every cycle (a lot)
+    matrix_scan_user();
+  };
+#endif
 
 void led_init_ports(void) {
   // Set caps lock LED pin as output
