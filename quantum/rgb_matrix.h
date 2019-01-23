@@ -50,25 +50,17 @@ typedef struct rgb_led {
 
 extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
 
-typedef struct
-{
-	HSV color;
-	uint8_t index;
-} rgb_indicator;
-
 typedef union {
   uint32_t raw;
   struct {
     bool     enable  :1;
     uint8_t  mode    :6;
-    uint16_t hue     :9;
-    uint8_t  sat     :8;
     uint8_t  val     :8;
     uint8_t  speed   :8;//EECONFIG needs to be increased to support this
   };
-} rgb_config_t;
+} led_config_t;
 
-enum rgb_matrix_effects {
+enum _matrix_effects {
 	RGB_MATRIX_SOLID_COLOR = 1,
 #ifndef DISABLE_RGB_MATRIX_ALPHAS_MODS
     RGB_MATRIX_ALPHAS_MODS,
