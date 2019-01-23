@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef %KEYBOARD_UPPERCASE%_H
-#define %KEYBOARD_UPPERCASE%_H
+#pragma once
 
 #include "quantum.h"
 
@@ -34,5 +33,3 @@
     { K00, K01,   K02 }, \
     { K10, KC_NO, K11 }, \
 }
-
-#endif
