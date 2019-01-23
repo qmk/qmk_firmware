@@ -13,8 +13,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef KBD67_H
-#define KBD67_H
+#ifndef REV1_H
+#define REV1_H
 
 #include "quantum.h"
 
