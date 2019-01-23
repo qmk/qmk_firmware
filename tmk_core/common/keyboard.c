@@ -75,6 +75,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef QWIIC_ENABLE
 #   include "qwiic.h"
 #endif
+#ifdef VELOCIKEY_ENABLE
+  #include "velocikey.h"
+#endif
 
 #ifdef MATRIX_HAS_GHOST
 extern const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS];
@@ -311,6 +314,10 @@ MATRIX_LOOP_END:
 
 #ifdef MIDI_ENABLE
     midi_task();
+#endif
+
+#ifdef VELOCIKEY_ENABLE
+    if (velocikey_enabled()) { velocikey_decelerate();  }
 #endif
 
     // update LED

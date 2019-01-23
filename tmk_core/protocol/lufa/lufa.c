@@ -56,10 +56,6 @@
 #include "outputselect.h"
 #include "rgblight_reconfig.h"
 
-#ifdef VELOCIKEY_ENABLE
-  #include "velocikey.h"
-#endif
-
 #ifdef NKRO_ENABLE
   #include "keycode_config.h"
 
@@ -1088,10 +1084,6 @@ int main(void)
 
 #ifdef MIDI_ENABLE
         MIDI_Device_USBTask(&USB_MIDI_Interface);
-#endif
-
-#ifdef VELOCIKEY_ENABLE
-    if (velocikey_enabled()) { velocikey_decelerate();  }
 #endif
 
 #if defined(RGBLIGHT_ANIMATIONS) & defined(RGBLIGHT_ENABLE)

@@ -212,10 +212,6 @@ bool process_record_quantum(keyrecord_t *record) {
   keypos_t key = record->event.key;
   uint16_t keycode;
 
-  #ifdef VELOCIKEY_ENABLE
-    if (velocikey_enabled()) { velocikey_accelerate(); }
-  #endif
-
   #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
@@ -239,6 +235,10 @@ bool process_record_quantum(keyrecord_t *record) {
     //   process_action(record, action);
     //   return false;
     // }
+
+  #ifdef VELOCIKEY_ENABLE
+    if (velocikey_enabled() && record->event.pressed) { velocikey_accelerate(); }
+  #endif
 
   #ifdef TAP_DANCE_ENABLE
     preprocess_tap_dance(keycode, record);
