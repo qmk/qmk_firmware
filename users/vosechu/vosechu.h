@@ -1,5 +1,4 @@
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 
 #include "quantum.h"
 
@@ -51,11 +50,3 @@ enum userspace_custom_keycodes {
 #define RSE_J    LT(RSE,  KC_J)
 #define LFT_BK   LT(LFT,  KC_BSPC)
 #define LFT_ENT  LT(LFT,  KC_ENT)
-
-// Make Overloaded Keys switch faster
-#define TAPPING_TERM 150
-#define TAPPING_TOGGLE 2
-
-// void my_custom_function(void);
-
-#endif
