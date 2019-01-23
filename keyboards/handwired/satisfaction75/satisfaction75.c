@@ -32,6 +32,8 @@ static uint8_t time_config_idx = 0;
 static uint8_t hour_config = 0;
 static uint16_t minute_config = 0;
 
+static uint8_t kb_backlight_level = BACKLIGHT_LEVELS;
+
 __attribute__ ((weak))
 void draw_ui(void) {
   uint8_t hour = last_minute / 60;
@@ -285,7 +287,12 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
             mapped_code = KC_WH_D;
             break;
           case ENC_MODE_BACKLIGHT:
-            mapped_code = BL_INC;
+            // mapped_code = BL_INC;
+            kb_backlight_level = kb_backlight_level + 1;
+            if(kb_backlight_level > BACKLIGHT_LEVELS){
+              kb_backlight_level = BACKLIGHT_LEVELS;
+            }
+            backlight_set(kb_backlight_level);
             break;
           case ENC_MODE_BRIGHTNESS:
             mapped_code = KC_BRIGHTNESS_UP;
@@ -312,16 +319,30 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
             mapped_code = KC_WH_U;
             break;
           case ENC_MODE_BACKLIGHT:
-            mapped_code = BL_DEC;
+            // mapped_code = BL_DEC;
+            if(kb_backlight_level != 0){
+              kb_backlight_level = kb_backlight_level - 1;
+            }
+            backlight_set(kb_backlight_level);
             break;
           case ENC_MODE_BRIGHTNESS:
             mapped_code = KC_BRIGHTNESS_DOWN;
             break;
           case ENC_MODE_CLOCK_SET:
             if(time_config_idx == 0){
-              hour_config = (hour_config - 1) % 24;
+              // Note - not using MOD here because it's an unsigned int
+              // When we subtract 1 from 0, we get a very large number
+              if(hour_config == 0){
+                hour_config = 23;
+              } else {
+                hour_config = (hour_config - 1);
+              }
             }else{
-              minute_config = (minute_config - 1) % 60;
+              if(minute_config == 0){
+                minute_config = 59;
+              }else{
+                minute_config = minute_config - 1;
+              }
             }
             queue_for_send = true;
             break;
@@ -340,6 +361,7 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
 void matrix_init_user(void) {
   rtcGetTime(&RTCD1, &last_timespec);
   queue_for_send = true;
+  backlight_init_ports();
 }
 
 void matrix_scan_user(void) {

@@ -34,3 +34,6 @@ enum encoder_modes {
   ENC_MODE_CLOCK_SET,
   _NUM_ENCODER_MODES
 };
+
+void backlight_init_ports(void);
+void backlight_set(uint8_t level);
