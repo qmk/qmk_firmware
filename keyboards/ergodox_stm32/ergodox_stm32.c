@@ -23,3 +23,10 @@ void matrix_init_kb(void)
     (void)chThdCreateStatic(testThread1WorkingArea, sizeof(testThread1WorkingArea), NORMALPRIO, testThread1, NULL);
     matrix_init_user();
 }
+
+void mcp23017_init(void) {
+  i2c_init();
+
+  i2c_readReg(I2C_ADDR, );
+}
+

@@ -4,10 +4,18 @@
 #include "quantum.h"
 #include "action_layer.h"
 #include <stdint.h>
+#include "i2c_master.h"
 #include <stdbool.h>
 
 // #define I2C_ADDR 0b01000000
-// #define
+#define I2C_ADDR 0b0100000
+#define IODIRA 0x0
+#define IODIRB 0x1
+#define GPIOA 0x12
+#define GPIOB 0x13
+#define OLATA 0x14
+#define OLATB 0x15
+
 /*
  *   LEFT HAND: LINES 115-122
  *  RIGHT HAND: LINES 124-131
