@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LALT(KC_RIGHT), KC_MS_WH_DOWN, KC_MS_UP,     KC_MS_WH_UP,  _______,    _______, _______, KC_4,    KC_5,    KC_6,    KC_PLUS, KC_DEL, \
   KC_DEL,         KC_MS_LEFT,    KC_MS_DOWN,   KC_MS_RIGHT,  _______,    _______, _______, KC_1,    KC_2,    KC_3,    KC_ASTR, KC_BSLS, \
   _______,        KC_P0,         KC_MS_BTN1,   KC_MS_BTN1,   KC_MS_BTN2, _______, _______, KC_0,    KC_DOT,  KC_EQL,  KC_SLSH, _______, \
-  MIDI,           _______,       _______,      _______,      _______,    _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY \
+  MO(_MIDI),      _______,       _______,      _______,      _______,    _______, _______, _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY \
 ),
 
 /*
