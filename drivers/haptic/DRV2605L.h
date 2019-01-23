@@ -17,6 +17,7 @@
 
 #pragma once
 #include "i2c_master.h"
+#include "haptic.h"
 
 /* Initialization settings
 

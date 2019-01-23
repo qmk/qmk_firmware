@@ -42,6 +42,9 @@ extern backlight_config_t backlight_config;
 #include "process_midi.h"
 #endif
 
+#ifdef HAPTIC_ENABLE
+    #include "haptic.h"
+#endif
 
 #ifdef ENCODER_ENABLE
 #include "encoder.h"
@@ -245,6 +248,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
     process_clicky(keycode, record) &&
   #endif //AUDIO_CLICKY
+  #ifdef HAPTIC_ENABLE
+    process_haptic(keycode, record) &&
+  #endif //HAPTIC_ENABLE
     process_record_kb(keycode, record) &&
   #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
     process_rgb_matrix(keycode, record) &&
@@ -1007,6 +1013,9 @@ void matrix_init_quantum() {
   #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
     unicode_input_mode_init();
   #endif
+  #ifdef HAPTIC_ENABLE
+    haptic_init();
+  #endif //HAPTIC_ENABLE
   matrix_init_kb();
 }
 
