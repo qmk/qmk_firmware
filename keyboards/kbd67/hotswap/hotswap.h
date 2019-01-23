@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef HOTSWAP_H
-#define HOTSWAP_H
+#pragma once
 
 #include "quantum.h"
 
@@ -42,4 +41,3 @@
     { K40, K41, K42, KC_NO, KC_NO, K45, KC_NO, KC_NO, KC_NO, K49, K4A, K4B, KC_NO, K4D, K4E}, \
 }
 
-#endif
