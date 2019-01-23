@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "config.h"
 #include "../../../../../quantum/rgblight_list.h"
 
 #define base 0
