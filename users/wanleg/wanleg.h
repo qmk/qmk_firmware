@@ -125,13 +125,13 @@ enum {
  * | A      | S      | D      | F      | G      | H      | J      | K      | L      | SPACE  |
  * |        |        |        |        |        |        |        |        |        |SFThold |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * | Z      | X      | C      | V/gNUM | B/gETC | N      | M/gDIR | ,/GUI  | ./ALT  | BSPC   |
+ * | Z      | X      | C      | V/gNUM | B/gETC |  N/Fn  | M/gDIR | ,/GUI  | ./ALT  | BSPC   |
  * | SFThold|        |        |        |        |        |        |        |        |CTRLhold|
  * '-----------------------------------------------------------------------------------------'
  */
 #define _______________Gherkin_Row_0_______________			TD(TD_Q_ESC),	KC_W,	KC_E, 	KC_R, 			KC_T, 			KC_Y, 	KC_U, 			KC_I, 			KC_O, 			KC_P
 #define _______________Gherkin_Row_1_______________			KC_A, 			KC_S, 	KC_D, 	KC_F, 			KC_G, 			KC_H, 	KC_J, 			KC_K, 			KC_L, 			SFT_T(KC_SPC)
-#define _______________Gherkin_Row_2_______________			SFT_T(KC_Z), 	KC_X, 	KC_C, 	LT(gNUM,KC_V),	LT(gETC,KC_B),  KC_N, 	LT(gDIR,KC_M), 	GUI_T(KC_COMM),	ALT_T(KC_DOT),	CTL_T(KC_BSPC)
+#define _______________Gherkin_Row_2_______________			SFT_T(KC_Z), 	KC_X, 	KC_C, 	LT(gNUM,KC_V),	LT(gETC,KC_B),  LT(_FN,KC_N), 	LT(gDIR,KC_M), 	GUI_T(KC_COMM),	ALT_T(KC_DOT),	CTL_T(KC_BSPC)
 
 /* Gherkin Directional Keys
  * .-----------------------------------------------------------------------------------------.
@@ -162,14 +162,14 @@ enum {
 
 /* Gherkin Et Cetera
  * .-----------------------------------------------------------------------------------------.
- * |  `     | mUP    |        |        | RESET  | SHIFT  | mScrDn | mScrUp |        |  \     |
+ * |  `     | mUP    |        |   ESC  | RESET  | SHIFT  | mScrDn | mScrUp |        |  \     |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | mLeft  | mDown  | mRight |        | SHIFT  | mBtn3  | mBtn1  | mBtn2  |  ;     |  '     |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | Sft//Cp| CAPS   |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
  * '-----------------------------------------------------------------------------------------'
  */
-#define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,_______, RESET,   KC_RSFT, 			KC_WH_D, KC_WH_U, _______, KC_BSLS
+#define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,KC_ESC,  RESET,   KC_RSFT, 			KC_WH_D, KC_WH_U, _______, KC_BSLS
 #define _______________Gherkin_ETC_1_______________			KC_MS_L, 		KC_MS_D, KC_MS_R,_______, KC_LSFT, KC_BTN3, 			KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT
 #define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
 
@@ -180,7 +180,7 @@ enum {
  * | TAB    | A      | S      | D      | F      | G      | H      | J      | K      | L      | SPACE  |  '     |
  * |        |        |        |        |        |        |        |        |        |        |SFThold |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
- * |SFT/CAPS| Z      | X      | C      | V/NUM  | B/ETC  | N      | M/DIR  | ,/GUI  | ./ALT  | BSPC   | ENT/SFT|
+ * |SFT/CAPS| Z      | X      | C      | V/NUM  | B/ETC  | N/Fn   | M/DIR  | ,/GUI  | ./ALT  | BSPC   | ENT/SFT|
  * |        |SFThold |        |        |        |        |        |        |        |        |CTRLhold|        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | LCTRL  | LGUI   | ALT    | ONEHAND|  NUM   | ETC    | SPACE  |  DIR   | RGUI   | ALT    | DEL    | CTRL   |
@@ -188,7 +188,7 @@ enum {
  */
 #define _______________GherkinLike_0_______________     KC_ESC, _______________Gherkin_Row_0_______________, KC_BSPC
 #define _______________GherkinLike_1_______________     KC_TAB, _______________Gherkin_Row_1_______________, KC_QUOT
-#define _______________GherkinLike_2_______________     TD(TD_SFT_CAPS), SFT_T(KC_Z), KC_X, KC_C, LT(NUM, KC_V),LT(ETC, KC_B),KC_N, LT(DIR, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT)
+#define _______________GherkinLike_2_______________     TD(TD_SFT_CAPS), SFT_T(KC_Z), KC_X, KC_C, LT(NUM, KC_V),LT(ETC, KC_B),LT(_FN,KC_N), LT(DIR, KC_M), GUI_T(KC_COMM), ALT_T(KC_DOT), CTL_T(KC_BSPC), SFT_T(KC_ENT)
 #define _______________GherkinLike_3_______________     KC_LCTL, KC_LGUI, KC_LALT, KC_LALT, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, KC_DEL, KC_RCTL
 #define _______________GherkinLike_3_OneHand_______     KC_LCTL, KC_LGUI, KC_LALT, ONEHAND, NUMBER, ETCETERA, KC_SPC,DIRECTION, KC_RGUI, KC_RALT, ONEHAND, KC_RCTL
 
@@ -277,7 +277,7 @@ enum {
 
 /* Gherkin-Like Et Cetera
  * .-----------------------------------------------------------------------------------------------------------.
- * |        |  `     | mUP    |        |        | RESET  | SHIFT  | mScrUp |mScrDown|        |  \     | DEL    |
+ * |        |  `     | mUP    |        |        | RESET  | SHIFT  | mScrDn | mScrUp |        |  \     | DEL    |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        | mLeft  | mDown  | mRight |        | SHIFT  | mBtn3  | mBtn1  | mBtn2  |  ;     |  '     |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
