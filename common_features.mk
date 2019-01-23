@@ -114,8 +114,26 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-RGB_MATRIX_ENABLE ?= no
 VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+
+LED_MATRIX_ENABLE ?= no
+ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
+ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
+    $(error LED_MATRIX_ENABLE="$(LED_MATRIX_ENABLE)" is not a valid matrix type)
+endif
+    OPT_DEFS += -DLED_MATRIX_ENABLE
+    SRC += $(QUANTUM_DIR)/led_matrix.c
+    SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+endif
+
+ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
+    OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3731-simple.c
+    SRC += i2c_master.c
+endif
+
+RGB_MATRIX_ENABLE ?= no
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
