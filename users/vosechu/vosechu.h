@@ -1,9 +1,13 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 #pragma once
 =======
 #ifndef USERSPACE
 #define USERSPACE
 >>>>>>> Add userspace files for vosechu
+=======
+#pragma once
+>>>>>>> Code review corrections
 
 #include "quantum.h"
 
@@ -105,6 +109,7 @@ enum userspace_custom_keycodes {
 #define RSE_J    LT(RSE,  KC_J)
 #define LFT_BK   LT(LFT,  KC_BSPC)
 #define LFT_ENT  LT(LFT,  KC_ENT)
+<<<<<<< HEAD
 
 // Make Overloaded Keys switch faster
 #define TAPPING_TERM 150
@@ -114,3 +119,5 @@ enum userspace_custom_keycodes {
 
 #endif
 >>>>>>> Add userspace files for vosechu
+=======
+>>>>>>> Code review corrections
