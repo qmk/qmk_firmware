@@ -1,7 +1,6 @@
-#ifndef REV3_H
-#define REV3_H
+#pragma once
 
-#include "66.h"
+#include "quantum.h"
 
 /* Clueboard matrix layout
  * ,-----------------------------------------------------------.  ,---.
@@ -48,7 +47,6 @@
     { k80, k81, k82, k83, k84, k85, k86, KC_NO }, \
     { k90, KC_NO, k92, k93, k94, k95, k96, k97 }  \
 }
-#define KEYMAP LAYOUT
 
 /* LAYOUT_66_ansi, standard 66 key ANSI layout
  */
@@ -92,4 +90,4 @@
     { KC_NO, KC_NO, k92, k93, k94, k95, k96, k97 }  \
 }
 
-#endif
+#define KEYMAP LAYOUT
