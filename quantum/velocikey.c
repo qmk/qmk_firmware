@@ -36,7 +36,7 @@ void velocikey_decelerate(void) {
     //Decay a little faster at half of max speed
     if (typing_speed > TYPING_SPEED_MAX_VALUE / 2) typing_speed -= 1;
     //Decay even faster at 3/4 of max speed
-    if (typing_speed > TYPING_SPEED_MAX_VALUE / 4 * 3) typing_speed -= 3;
+    if (typing_speed > TYPING_SPEED_MAX_VALUE / 4 * 3) typing_speed -= 2;
     decay_timer = timer_read();
   }
 }
