@@ -52,7 +52,7 @@
 
 #ifndef EEPROM_START_ADDRESS
     #if defined (MCU_STM32F103RB)
-        #define FEE_MCU_FLASH_SIZE  128     // Size in Kb
+        #define FEE_MCU_FLASH_SIZE  64     // Size in Kb
     #elif defined (MCU_STM32F103ZE) || defined (MCU_STM32F103RE)
         #define FEE_MCU_FLASH_SIZE  512     // Size in Kb
     #elif defined (MCU_STM32F103RD)
