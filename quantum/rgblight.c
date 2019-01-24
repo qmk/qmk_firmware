@@ -18,7 +18,8 @@
 #ifdef __AVR__
   #include <avr/eeprom.h>
   #include <avr/interrupt.h>
-#else
+#endif
+#ifdef QMK_STM32
   #include "hal.h"
   #include "eeprom.h"
   #include "eeprom_stm32.h"
@@ -124,10 +125,16 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
 
 
 uint32_t eeconfig_read_rgblight(void) {
-  return eeprom_read_dword(EECONFIG_RGBLIGHT);
+  #if defined(__AVR__) || defined(QMK_STM32)
+    return eeprom_read_dword(EECONFIG_RGBLIGHT);
+  #else
+    return 0;
+  #endif
 }
 void eeconfig_update_rgblight(uint32_t val) {
-  eeprom_update_dword(EECONFIG_RGBLIGHT, val);
+  #if defined(__AVR__) || defined(QMK_STM32)
+    eeprom_update_dword(EECONFIG_RGBLIGHT, val);
+  #endif
 }
 void eeconfig_update_rgblight_default(void) {
   //dprintf("eeconfig_update_rgblight_default\n");
