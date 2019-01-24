@@ -178,7 +178,7 @@ uint32_t eeconfig_read_user(void)      { return eeprom_read_dword(EECONFIG_USER)
 void eeconfig_update_user(uint32_t val) { eeprom_update_dword(EECONFIG_USER, val); }
 
 
-int16_t eeconfig_read_haptic(void)      { return eeprom_read_word(EECONFIG_HAPTIC); }
+uint16_t eeconfig_read_haptic(void)      { return eeprom_read_word(EECONFIG_HAPTIC); }
 /** \brief eeconfig update user
  *
  * FIXME: needs doc

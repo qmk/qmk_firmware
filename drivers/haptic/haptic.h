@@ -18,20 +18,31 @@
 #pragma once
 #include <stdint.h>
 #include <stdbool.h>
+#include "quantum.h"
+#ifdef DRV2605L
+#include "DRV2605L.h"
+#endif
 
 /* EEPROM config settings */
 typedef union {
   uint16_t raw;
   struct {
     bool    enable    :1;
-    uint8_t timing    :2;
-    uint8_t intensity :2;
-    uint8_t reserved  :6;
+    uint8_t feedback  :2;
+    uint8_t reserved  :8;
 /* bits reserved for future features */
-    uint8_t mode      :5;
+    uint8_t mode      :7;
   };
 } haptic_config_t;
 
+typedef enum HAPTIC_FEEDBACK{
+  KEY_PRESS,
+  KEY_PRESS_RELEASE,
+  KEY_RELEASE,
+  HAPTIC_FEEDBACK_MAX,
+} HAPTIC_FEEDBACK;
+
+bool process_haptic(uint16_t keycode, keyrecord_t *record);
 
 void haptic_init(void);
 void eeconfig_debug_haptic(void);
@@ -39,19 +50,19 @@ void haptic_enable(void);
 void haptic_disable(void);
 void haptic_toggle(void);
 void haptic_play(void);
-
-uint16_t eeconfig_read_haptic(void);
-void eeconfig_update_haptic(uint8_t mode);
+void haptic_feedback_toggle(void);
+void haptic_intensity_toggle(void);
+void haptic_mode_toggle(void);
 
 //under developement
+
+uint8_t haptic_get_feedback(uint8_t mode);
 uint8_t haptic_get_intensity(uint8_t intensity);
-uint8_t haptic_get_keypress(uint8_t mode);
+void haptic_set_intensity(uint8_t intensity);
 uint8_t haptic_get_mode(uint8_t mode);
 void haptic_set_intensity(uint8_t intensity);
-void haptic_set_keypress(uint8_t keypress);
+void haptic_set_feedback(uint8_t feedback);
 void haptic_set_mode(uint8_t mode);
-void haptic_keypress_toggle(void);
-void haptic_mode_toggle(void);
 void haptic_set(void);
 
 

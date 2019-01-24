@@ -1015,7 +1015,7 @@ void matrix_init_quantum() {
   #endif
   #ifdef HAPTIC_ENABLE
     haptic_init();
-  #endif //HAPTIC_ENABLE
+  #endif
   matrix_init_kb();
 }
 

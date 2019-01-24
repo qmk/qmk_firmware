@@ -127,3 +127,4 @@ void DRV_pulse(uint8_t sequence)
   DRV_write(DRV_WAVEFORM_SEQ_1, sequence);
   DRV_write(DRV_GO, 0x01);
 }
+ 

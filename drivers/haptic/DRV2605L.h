@@ -17,7 +17,6 @@
 
 #pragma once
 #include "i2c_master.h"
-#include "haptic.h"
 
 /* Initialization settings
 
@@ -163,7 +162,6 @@ void DRV_write(const uint8_t drv_register, const uint8_t settings);
 uint8_t DRV_read(const uint8_t regaddress);
 void DRV_pulse(const uint8_t sequence);
 
-
 typedef enum DRV_EFFECT{
   clear_sequence      = 0,
   strong_click 		    = 1,
@@ -289,6 +287,7 @@ typedef enum DRV_EFFECT{
   smooth_hum3_30 = 121,
   smooth_hum4_20 = 122,
   smooth_hum5_10 = 123,
+  drv_effect_max = 124,
 } DRV_EFFECT;
 
 /* Register bit array unions */

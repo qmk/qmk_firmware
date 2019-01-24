@@ -17,7 +17,7 @@
 #include "qwiic.h"
 #include "action_layer.h"
 #include "matrix.h"
-#include "DRV2605L.h"
+#include "haptic.h"
 
 #ifdef QWIIC_MICRO_OLED_ENABLE
 

@@ -227,8 +227,10 @@ endif
 
 ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
     SRC += DRV2605L.c
     SRC += i2c_master.c
+    OPT_DEFS += -DHAPTIC_ENABLE
     OPT_DEFS += -DDRV2605L
 endif
 
