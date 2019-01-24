@@ -106,10 +106,8 @@ There are two ways to get the host LED state:
 
 ## `led_set_user()`
 
-This function will be called when the state of one of those 5 LEDs changes.
-It receives the LED state as parameter.
-Use the `IS_LED_ON(USB_LED, LED_NAME)` and `IS_LED_OFF(USB_LED, LED_NAME)`
-macros to check the LED status.
+This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a parameter.
+Use the `IS_LED_ON(usb_led, led_name)` and `IS_LED_OFF(usb_led, led_name)` macros to check the LED status.
 
 !> `host_keyboard_leds()` may already reflect a new value before `led_set_user()` is called.
 
@@ -152,27 +150,20 @@ void led_set_user(uint8_t usb_led) {
 
 ## `host_keyboard_leds()`
 
-Call this function to get the last received LED state.
-This is useful for reading the LED state outside `led_set_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
+Call this function to get the last received LED state. This is useful for reading the LED state outside `led_set_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
+For convenience, you can use the `IS_HOST_LED_ON(led_name)` and `IS_HOST_LED_OFF(led_name)` macros instead of calling and checking `host_keyboard_leds()` directly.
 
-For convenience, you can use the `IS_HOST_LED_ON(LED_NAME)` and `IS_HOST_LED_OFF(LED_NAME)` macros instead of calling `host_keyboard_leds()` directly.
-
-## Setting physical LED state
+## Setting Physical LED State
 
 Some keyboard implementations provide convenience methods for setting the state of the physical LEDs.
 
-### Ergodox and Ergodox EZ
+### Ergodox Boards
 
-The Ergodox EZ implementation provides `ergodox_right_led_``1`/`2`/`3_on`/`off()`
-to turn individual LEDs on and off, as well as
-`ergodox_right_led_on`/`off(uint8_t led)`
-to turn them on and off by their number.
+The Ergodox implementations provide `ergodox_right_led_1`/`2`/`3_on`/`off()` to turn individual LEDs on or off, as well as `ergodox_right_led_on`/`off(uint8_t led)` to turn them on or off by their index.
 
-In addition, it is possible to specify the brightness level with `ergodox_led_all_set(uint8_t n)`,
-for individual LEDs with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`
-or by their number using `ergodox_right_led_set(uint8_t led, uint8_t n)`.
+In addition, it is possible to specify the brightness level of all LEDs with `ergodox_led_all_set(uint8_t n)`; of individual LEDs with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`; or by index with `ergodox_right_led_set(uint8_t led, uint8_t n)`.
 
-It defines `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness, which is also the default.
+Ergodox boards also define `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness (which is the default).
 
 # Matrix Initialization Code
 

@@ -1,4 +1,4 @@
-#include "66.h"
+#include QMK_KEYBOARD_H
 
 // Helpful defines
 #define xxxxxxx KC_NO
