@@ -34,15 +34,6 @@ enum {
 
 #include "dynamic_macro.h"
 
-#define MOUSE_LAYER 2
-
-// Toggle MOUSE_LAYER. Additional layers can be added for additional layouts or other special functions.
-const uint16_t PROGMEM fn_actions[] = {
-
-  [2] = ACTION_LAYER_TOGGLE(MOUSE_LAYER),
-
-};
-
 // Tap dance actions - double tap for Caps Lock.
 qk_tap_dance_action_t tap_dance_actions[] = {
 
@@ -146,7 +137,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 KC_TRNS, KC_TRNS, KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT, KC_TRNS, KC_TRNS, KC_MS_BTN1, KC_MS_BTN3, KC_MS_BTN2, KC_TRNS, KC_TRNS, 
 	 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
 	 KC_TRNS, RESET, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-	 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, F(2))
+	 KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TG(2))
 };
 
 // Simple macro ideas follow. Each of them is designed to give you a quick way to create pairs of

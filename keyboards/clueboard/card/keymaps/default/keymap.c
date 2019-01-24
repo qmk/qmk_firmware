@@ -1,12 +1,18 @@
 #include QMK_KEYBOARD_H
 
+enum custom_keycodes {
+	SONG_SU = SAFE_RANGE,
+	SONG_SC,
+	SONG_GB
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT(
 		RGB_TOG,        RGB_SAI,        RGB_VAI, \
 		        RGB_HUD,        RGB_HUI,         \
 		RGB_MOD,        RGB_SAD,        RGB_VAD, \
 		BL_STEP,                                 \
-		F(0),   F(1),   F(2)                     \
+		SONG_SU,SONG_SC,SONG_GB                  \
 	)
 };
 
@@ -23,28 +29,6 @@ float music_scale[][2] = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
-const uint16_t PROGMEM fn_actions[] = {
-	[0] = ACTION_FUNCTION(0),
-	[1] = ACTION_FUNCTION(1),
-	[2] = ACTION_FUNCTION(2)
-};
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	if (record->event.pressed) {
-		switch (id) {
-			case 0:
-				PLAY_SONG(tone_startup);
-				break;
-			case 1:
-				PLAY_SONG(music_scale);
-				break;
-			case 2:
-				PLAY_SONG(tone_goodbye);
-				break;
-		}
-	}
-};
-
 void matrix_init_user(void) {
 }
 
@@ -52,7 +36,24 @@ void matrix_scan_user(void) {
 
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+  if (record->event.pressed) {
+    switch (keycode) {
+      case SONG_SU:
+        PLAY_SONG(tone_startup);
+
+        break;
+      case SONG_SC:
+        PLAY_SONG(music_scale);
+
+        break;
+      case SONG_GB:
+        PLAY_SONG(tone_goodbye);
+
+        break;
+    }
+  }
+
   return true;
 }
 
