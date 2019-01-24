@@ -52,5 +52,3 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes
 
 LAYOUTS = ortho_5x12
-
-DEFAULT_FOLDER = handwired/ortho60
