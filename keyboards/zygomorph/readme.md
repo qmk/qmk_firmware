@@ -16,15 +16,7 @@ Zygomorph is the thinnest keyboard with a fully enclosed case. It's only 3.3mm t
 8. You will also need to solder SJ2 on the master side. Hold wire/metal to connect the pads for flashing the slave side. I'm not sure if disconnecting SJ2 while flashing will brick the board, so be careful. SJ1 is the reset pads.
 9. Place nuts into cutouts. You may need to push the switchplate back down and/or force the nuts in.
 
-# Pin D5 reassignment (this will prevent you from using the OLED port)
-![Patch wire](https://i.imgur.com/Z9LCCx2.jpg)
-![Trace cut](https://i.imgur.com/MxGIx4t.jpg)
-
-1. Run a patch wire (must be less than 1mm thick) from the square OLED pin to one of the two leftmost pins on column 3
-2. Cut the trace shown above with the black arrows, make sure NOT to cut the trace circled in red
-3. Recompile the firmware, make sure the line with pin D5 replaced by D1 is active.
-
-# Please do not post any pics of Zygomorph without asking me first.
+# Please do not post any prototype pics of Zygomorph without asking me first.
 
 Pictures for the build guide will be coming later. Currently the firmware is not setup at all.
 
