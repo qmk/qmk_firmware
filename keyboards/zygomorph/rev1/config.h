@@ -55,9 +55,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_COLS 7
-//#define MATRIX_COL_PINS { F4, F6, C7, D5, B6, D4 }
-//Enable the top line when we've got D5 working properly
-#define MATRIX_COL_PINS { F4, F6, C7, B7, B6, D4 }
+//#define MATRIX_COL_PINS { F4, F6, C7, C6, B6, D4 }
+
+#define MATRIX_COL_PINS { F4, F6, C7, D5, B6, D4 }
+//For prototypes, comment out line 58 and enable line 60
 
 #define SOFT_SERIAL_PIN D3
 // #define NUMBER_OF_ENCODERS 1
@@ -73,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 )
 
 /* ws2812 RGB LED */
-#define RGB_DI_PIN D7
+#define RGB_DI_PIN B7
 #define RGBLIGHT_TIMER
 //#define RGBLED_NUM 12    // Number of LEDs. see ./keymaps/default/config.h
 #define ws2812_PORTREG  PORTD
