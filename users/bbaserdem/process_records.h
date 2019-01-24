@@ -34,6 +34,8 @@ enum userspace_custom_keycodes {
     SECRET2,
     SECRET3,
     SECRET4,
+    // Stupid thing
+    MANUAL_ELLIPSIS,
     //use "NEWPLACEHOLDER for keymap specific codes
     NEW_SAFE_RANGE
 };

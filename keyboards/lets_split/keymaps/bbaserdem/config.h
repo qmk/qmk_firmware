@@ -3,7 +3,7 @@
 
 #include "../../config.h"
 
-#define USE_SERIAL
+#define USE_I2C
 #define EE_HANDS
 
 // LED strip stuff

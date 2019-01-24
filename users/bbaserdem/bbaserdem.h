@@ -21,6 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef AUDIO_ENABLE             // Audio stuff
     #include "audio_stuff.h"
 #endif
+#ifdef BACKLIGHT_ENABLE         // Backlight LED
+    #include "backlight_stuff.h"
+#endif
 #include "double_press.h"       // Double press keys
 #ifdef MOUSEKEY_ENABLE          // Functions for mouse key emulation
     #include "mouse_emulation.h"
@@ -175,6 +178,7 @@ extern userspace_config_t userspace_config;
 #define CUR_EUR UC(0x20ac)
 #define CUR_BPN UC(0x00a3)
 #define CUR_YEN UC(0x00a5)
+#define KC_ELLP UC(0x2026)
 #else
 #define PHY_HBR KC_NO
 #define PHY_DEG KC_NO
@@ -183,4 +187,5 @@ extern userspace_config_t userspace_config;
 #define CUR_EUR KC_NO
 #define CUR_BPN KC_NO
 #define CUR_YEN KC_NO
+#define KC_ELLP MANUAL_ELLIPSIS
 #endif

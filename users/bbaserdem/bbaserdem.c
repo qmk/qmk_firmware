@@ -31,6 +31,11 @@ void matrix_init_user (void) {
     // Fix beginning base layer
     set_single_persistent_default_layer(_BA);
 
+    // Backlight LED
+#ifdef RGB_MATRIX_ENABLE
+    matrix_init_backlight();
+#endif
+
     // Unicode mode
 #ifdef UNICODE_ENABLE
     set_unicode_input_mode(UC_LNX);

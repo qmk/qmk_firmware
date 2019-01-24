@@ -35,6 +35,9 @@ ifndef DISABLE_USERSPACE
   ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += audio_stuff.c
   endif
+  ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
+    SRC += backlight_stuff.c
+  endif
   ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     SRC += mouse_emulation.c
   endif

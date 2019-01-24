@@ -1,8 +1,11 @@
-// This is a game-pad gherkin layout with RGB and LED lights
+/*
+ * GHERKIN - Gaming mini-mouse
+ * Keymap by @bbaserdem
+ * Check qmk_firmware/users/bbaserdem for the main part of the code
+ */
 
 #include QMK_KEYBOARD_H
-
-backlight_config_t backlight_config;
+#include "bbaserdem.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Game pad
@@ -22,15 +25,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_user(void) {
-    // Set LED's to max
-    _delay_us(300);
-    backlight_config.level = 2;
-    backlight_config.enable = 1;
-    eeconfig_update_backlight(backlight_config.raw);
-    backlight_set(backlight_config.level);
     // Set RGB to rainbow mood light
+#ifdef RGBLIGHT_ENABLE
     rgblight_enable();
-    rgblight_mode(1);
+    rgblight_mode(6);
     rgblight_sethsv(120,255,255);
     rgblight_mode(6);
+#endif
 }

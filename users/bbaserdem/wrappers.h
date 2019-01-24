@@ -6,6 +6,7 @@
 #define XXX     KC_NO
 
 #define LAYOUT_ortho_4x12_wrapper(...)      LAYOUT_ortho_4x12(__VA_ARGS__)
+#define LAYOUT_kc_ortho_4x12_wrapper(...)   LAYOUT_kc_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_5x15_wrapper(...)      LAYOUT_ortho_5x15(__VA_ARGS__)
 #define LAYOUT_planck_wrapper(...)          LAYOUT_planck_grid(__VA_ARGS__)
 
@@ -54,7 +55,7 @@
  * ,------------------------------------------------------------------------.
  * |  `  |  1  |  2  |  3  |  -  |  =  ||  !  |  @  |  #  |  _  |  +  | Del |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
- * |  ~  |  4  |  5  |  6  |  [  |  ]  ||  $  |  %  |  ^  |  {  |  }  | # @ |
+ * |  ~  |  4  |  5  |  6  |  [  |  ]  ||  $  |  %  |  ^  |  {  |  }  | < > |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
  * |     |  7  |  8  |  9  |  0  |  \  ||  &  |  *  |  (  |  )  |  |  | Ins |
  * |-----+-----+-----+-----+-----+-----++-----+-----+-----+-----+-----+-----|
@@ -63,7 +64,7 @@
  */
 #define NUMBERS \
     KC_GRV, KC_1,   KC_2,   KC_3,   KC_MINS,KC_EQL, KC_EXLM,KC_AT,  KC_HASH,KC_UNDS,KC_PLUS,KC_DEL,  \
-    KC_TILD,KC_4,   KC_5,   KC_4,   KC_LBRC,KC_RBRC,KC_DLR, KC_PERC,KC_CIRC,KC_LCBR,KC_RCBR,KC_NUHS, \
+    KC_TILD,KC_4,   KC_5,   KC_4,   KC_LBRC,KC_RBRC,KC_DLR, KC_PERC,KC_CIRC,KC_LCBR,KC_RCBR,KC_NUBS, \
     _______,KC_7,   KC_8,   KC_9,   KC_0,   KC_BSLS,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_PIPE,KC_INS,  \
     _______,_______,_______,_______,_______,_______,_______,KC_CAPS,KC_HOME,KC_PGDN,KC_PGUP,KC_END
 
@@ -79,7 +80,7 @@
  * `------------------------------------------------------------------------'
  */
 #define SETTINGS \
-    _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  UC_M_LN,KC_WAKE,_______,RGB_MOD,RGB_TOG,BL_STEP,RESET,   \
+    _______,KC_F1,  KC_F2,  KC_F3,  KC_F4,  UC_M_LN,KC_WAKE,BL_STEP,BL_BRTG,RGB_MOD,RGB_TOG,RESET,   \
     _______,KC_F5,  KC_F6,  KC_F7,  KC_F8,  UC_M_WC,KC_PSCR,CUR_LIR,RGB_HUI,RGB_SAI,RGB_VAI,RGB_SPI, \
     _______,KC_F9,  KC_F10, KC_F11, KC_F12, KC_VOLD,KC_VOLU,CUR_BIT,RGB_HUD,RGB_SAD,RGB_VAD,RGB_SPD, \
     _______,_______,_______,_______,MU_TOG, KC_MUTE,KC_MUTE,_______,KC_MPRV,KC_MSTP,KC_MPLY,KC_MNXT
