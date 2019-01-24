@@ -70,8 +70,12 @@ void mcp23017_init(void) {
     data[0] = 0x0;
     data[1] = 0b00111111;
     mcp23017_status = i2c_writeReg(I2C_ADDR, I2C_IODIRA, data, 2, 1000);
+    if (mcp23017_status) goto out;
     mcp23017_status = i2c_writeReg(I2C_ADDR, I2C_GPPUA, data, 2, 1000);
+    if (mcp23017_status) goto out;
 
+ out:
+    return;
     // i2c_readReg(I2C_ADDR, );
 }
 
