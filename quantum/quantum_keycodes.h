@@ -467,7 +467,9 @@ enum quantum_keycodes {
         HAPT_TOGGLE,
         HAPT_FEEDBACK,
         HAPT_INTENSITY,
-        HAPT_MODE,
+        HAPT_MODE_INC,
+        HAPT_MODE_DEC,
+        HAPT_MODE_RESET,
 
         // always leave at the end
         SAFE_RANGE

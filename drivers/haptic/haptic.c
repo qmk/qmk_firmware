@@ -18,20 +18,26 @@
 #include "eeconfig.h"
 #include "progmem.h"
 #include "debug.h"
+#ifdef DRV2605L
+#include "DRV2605L.h"
+#endif
 
 haptic_config_t haptic_config;
 
 void haptic_init(void) {
-  /*check signature */
+  debug_enable = 1; //Debug is ON!
   if (!eeconfig_is_enabled()) {
   	eeconfig_init();
   }
   haptic_config.raw = eeconfig_read_haptic();
+  if (haptic_config.mode < 1){
+  haptic_config.mode = 1;
+  }
   #ifdef DRV2605L
     DRV_init();
     dprintf("DRV2605 driver initialized\n");
-    //temp testing to start keys
   #endif
+  eeconfig_debug_haptic();
 }
 
 void eeconfig_debug_haptic(void) {
@@ -66,20 +72,53 @@ if (haptic_config.enable) {
 void haptic_feedback_toggle(void){
  haptic_config.feedback++;
   if (haptic_config.feedback >= HAPTIC_FEEDBACK_MAX)
-  haptic_config.feedback = 0;
+  haptic_config.feedback = KEY_PRESS;
   eeconfig_update_haptic(haptic_config.raw);
 }
 
-void haptic_mode_toggle(void){
-  haptic_config.mode++;
-    if (haptic_config.mode >= drv_effect_max) {haptic_config.mode = 0;}
-      haptic_config.mode = 0;
+void haptic_mode_increase(void) {
+  uint8_t mode = haptic_config.mode;
+  if (haptic_config.mode >= drv_effect_max) {
+    haptic_config.mode = 0;
+  }
+  haptic_config.mode = mode + 1;
+  eeconfig_update_haptic(haptic_config.raw);
+  xprintf("Haptic mode written to EEPROM %u\n", haptic_config.mode);
+}
+
+void haptic_mode_decrease(void) {
+  uint8_t mode = haptic_config.mode;
+  if (haptic_config.mode < 1) {
+    mode = (haptic_config.mode + drv_effect_max);
+  }
+  haptic_config.mode = mode -1;
+  eeconfig_update_haptic(haptic_config.raw);
+  xprintf("Haptic mode written to EEPROM %u\n", haptic_config.mode);
+}
+
+void haptic_mode_reset(void){
+  haptic_config.mode = 1;
   eeconfig_update_haptic(haptic_config.raw);
 }
+
+uint8_t haptic_get_mode(void) {
+  if (!haptic_config.enable){
+    return false;
+  }
+
+  return haptic_config.mode;
+}
+
+
+
+
+
 
 void haptic_play(void) {
   #ifdef DRV2605L
-  DRV_EFFECT play_eff = strong_click; 
+  //DRV_EFFECT play_eff = strong_click; 
+  uint8_t play_eff = 0;
+  play_eff = haptic_config.mode;
   DRV_pulse(play_eff);
   #endif
 }
@@ -89,18 +128,20 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HAPT_ON && record->event.pressed) { haptic_enable(); }
     if (keycode == HAPT_OFF && record->event.pressed) { haptic_disable(); }
     if (keycode == HAPT_FEEDBACK && record->event.pressed) { haptic_feedback_toggle(); }
-    if (keycode == HAPT_MODE && record->event.pressed) { haptic_mode_toggle(); }
+    if (keycode == HAPT_MODE_INC && record->event.pressed) { haptic_mode_increase(); }
+    if (keycode == HAPT_MODE_DEC && record->event.pressed) { haptic_mode_decrease(); }
+    if (keycode == HAPT_MODE_RESET && record->event.pressed) { haptic_mode_reset(); }
   if (haptic_config.enable) {
     if ( record->event.pressed ) {
 	// keypress
-      if (haptic_config.feedback < 3) {
+      if (haptic_config.feedback < 2) {
       haptic_play();
       }
     } else {
     //keyrelease
-      if (haptic_config.feedback > 1) {
+      if (haptic_config.feedback > 0) {
       haptic_play();
-      }
+      } 
     }
   }
   return true;
