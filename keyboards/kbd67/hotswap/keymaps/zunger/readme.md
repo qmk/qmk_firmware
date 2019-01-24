@@ -8,9 +8,8 @@ screen lock, which is very important when working with and sitting next to secur
 Backspace and backslash are currently swapped to match my keycaps, but I'm not thrilled about it and
 will probably change that after a bit more experimenting.
 
-Escape is in its normal place, and grave between backspace and pause. That latter still feels
-suboptimal, but coding really requires fast access to both of these keys, so grave escape isn't
-feeling quite right.
+There's a grave key still on the map, in addition to a grave escape, and that should probably be
+replaced with something more useful. Not sure what yet.
 
 Layer 1: This layer deliberately sets KC_NO for the keys it doesn't use. It has RESET at fn-esc, and
 various media controls elsewhere.

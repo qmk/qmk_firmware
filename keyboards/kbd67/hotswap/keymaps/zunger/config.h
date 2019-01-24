@@ -16,4 +16,7 @@
 
 #pragma once
 
+// Enable cmd-option-escape on mac.
+#define GRAVE_ESC_ALT_OVERRIDE
+
 // place overrides here
