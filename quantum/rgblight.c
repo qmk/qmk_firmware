@@ -18,6 +18,10 @@
 #ifdef __AVR__
   #include <avr/eeprom.h>
   #include <avr/interrupt.h>
+#else
+  #include "hal.h"
+  #include "eeprom.h"
+  #include "eeprom_stm32.h"
 #endif
 #include "wait.h"
 #include "progmem.h"
@@ -120,16 +124,10 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
 
 
 uint32_t eeconfig_read_rgblight(void) {
-  #ifdef __AVR__
-    return eeprom_read_dword(EECONFIG_RGBLIGHT);
-  #else
-    return 0;
-  #endif
+  return eeprom_read_dword(EECONFIG_RGBLIGHT);
 }
 void eeconfig_update_rgblight(uint32_t val) {
-  #ifdef __AVR__
-    eeprom_update_dword(EECONFIG_RGBLIGHT, val);
-  #endif
+  eeprom_update_dword(EECONFIG_RGBLIGHT, val);
 }
 void eeconfig_update_rgblight_default(void) {
   //dprintf("eeconfig_update_rgblight_default\n");
@@ -331,7 +329,7 @@ void rgblight_disable_noeeprom(void) {
 #ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_disable();
 #endif
-  _delay_ms(50);
+  wait_ms(50);
   rgblight_set();
 }
 

@@ -4,7 +4,8 @@
 #include "ch.h"
 #include "hal.h"
 
-#include "underglow.h"
+// #include "underglow.h"
+#include "led_custom.h"
 #include "print.h"
 #include "debug.h"
 #include "util.h"
@@ -26,7 +27,13 @@ void matrix_init_kb(void){
     palClearPad(GPIOA, 8);
     LED_OFF();
 
+#ifdef RGBLIGHT_ENABLE
     leds_init();
+#endif
+}
 
-
+void matrix_scan_kb(void){
+  #ifdef RGBLIGHT_ENABLE
+    rgblight_task();
+  #endif
 }
