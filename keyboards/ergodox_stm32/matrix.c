@@ -17,6 +17,11 @@ static matrix_row_t matrix[MATRIX_ROWS];
 // static matrix_row_t raw_matrix[MATRIX_ROWS];
 
 // static uint8_t debounce_matrix[MATRIX_ROWS * MATRIX_COLS];
+static matrix_row_t read_cols(uint8_t row);
+static void init_cols(void);
+static void unselect_rows(void);
+static void select_row(uint8_t row);
+
 
 __attribute__ ((weak))
 void matrix_init_user(void) {}
@@ -28,10 +33,14 @@ void matrix_init_kb(void) {
 
 __attribute__ ((weak))
 void matrix_scan_kb(void)
-{}
+{
+
+}
 
 void matrix_init(void)
 {
+    mcp23017_init();
+
     matrix_init_quantum();
 }
 
@@ -64,4 +73,21 @@ void matrix_print(void)
         }
         xprintf("\n");
     }
+}
+
+static matrix_row_t read_cols(uint8_t row)
+{
+    
+}
+static void init_cols(void)
+{
+    
+}
+static void unselect_rows(void)
+{
+    GPIOA->regs->BSRR = 0b1111111 << 8;
+}
+static void select_row(uint8_t row)
+{
+    
 }

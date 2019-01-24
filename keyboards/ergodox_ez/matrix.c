@@ -116,7 +116,6 @@ void matrix_init(void)
 
     mcp23018_status = init_mcp23018();
 
-
     unselect_rows();
     init_cols();
 

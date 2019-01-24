@@ -16,6 +16,8 @@
 #define I2C_GPIOB 0x13
 #define I2C_OLATA 0x14
 #define I2C_OLATB 0x15
+#define I2C_GPPUA 0x0C
+#define I2C_GPPUB 0x0D
 
 inline void ergodox_board_led_1_on(void) { palSetPad(GPIOA, 10); }
 inline void ergodox_board_led_2_on(void) { palSetPad(GPIOA, 9); }

@@ -10,6 +10,9 @@ extern inline void ergodox_board_led_2_off(void);
 extern inline void ergodox_board_led_3_off(void);
 extern inline void ergodox_led_all_off(void);
 
+int mcp23017_status = 0x20;
+uint8_t i2c_initializied = 0;
+
 // static THD_WORKING_AREA(testThread1WorkingArea, 128);
 // static THD_FUNCTION(testThread1, arg) {
 //     palSetPadMode(GPIOA, 14, PAL_MODE_INPUT_PULLUP);
@@ -58,8 +61,17 @@ void ergodox_blink_all_leds(void)
 }
 
 void mcp23017_init(void) {
-  i2c_init();
+    if (!i2c_initializied) {
+        i2c_init();
+        i2c_initializied = 1;
+    }
 
-  // i2c_readReg(I2C_ADDR, );
+    uint8_t data[2];
+    data[0] = 0x0;
+    data[1] = 0b00111111;
+    mcp23017_status = i2c_writeReg(I2C_ADDR, I2C_IODIRA, data, 2, 1000);
+    mcp23017_status = i2c_writeReg(I2C_ADDR, I2C_GPPUA, data, 2, 1000);
+
+    // i2c_readReg(I2C_ADDR, );
 }
 
