@@ -52,4 +52,20 @@
 
 #define LAYOUT_ortho_5x15 KEYMAP
 
+void capslock_led_init(void);
+void capslock_led_off(void);
+void capslock_led_on(void);
+
+void gp100_led_init(void);
+void gp100_led_off(void);
+void gp100_led_on(void);
+
+void gp103_led_init(void);
+void gp103_led_off(void);
+void gp103_led_on(void);
+
+void keycaps_led_init(void);
+void keycaps_led_off(void);
+void keycaps_led_on(void);
+
 #endif

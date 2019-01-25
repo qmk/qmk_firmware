@@ -197,10 +197,6 @@ Missing still...
  },
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 /* This bit of logic seeds a wee linear congruential random number generator */
 /* lots of prime numbers everywhere... */
 static uint16_t random_value = 157;
@@ -265,7 +261,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       {
 	layer_on(_RAISE);
 #ifdef BACKLIGHT_ENABLE
-	breathing_speed_set(2);
+	breathing_period_set(2);
 	breathing_pulse();
 #endif
 	update_tri_layer(_LOWER, _RAISE, _ADJUST);
@@ -281,7 +277,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       {
 	layer_on(_LOWER);
 #ifdef BACKLIGHT_ENABLE
-	breathing_speed_set(2);
+	breathing_period_set(2);
 	breathing_pulse();
 #endif
 	update_tri_layer(_LOWER, _RAISE, _ADJUST);

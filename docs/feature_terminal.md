@@ -14,12 +14,14 @@ When enabled, a `> ` prompt will appear, where you'll be able to type, backspace
 
 `#define TERMINAL_HELP` enables some other output helpers that aren't really needed with this page.
 
-## Future ideas
+Pressing "up" and "down" will allow you to cycle through the past 5 commands entered.
 
-* Keyboard/user-extendable commands
+## Future Ideas
+
+* Keyboard/user-extensible commands
 * Smaller footprint
 * Arrow key support
-* Command history
+* Command history - Done
 * SD card support
 * LCD support for buffer display
 * Keycode -> name string LUT
@@ -30,7 +32,7 @@ When enabled, a `> ` prompt will appear, where you'll be able to type, backspace
 * EEPROM read/write
 * Audio control
 
-## Current commands
+## Current Commands
 
 ### `about`
 
@@ -43,14 +45,39 @@ QMK Firmware
   Built: 2017-08-29-20:24:44
 ```
 
+
+### `print-buffer`
+
+Outputs the last 5 commands entered
+
+```
+> print-buffer
+0. print-buffer
+1. help
+2. about
+3. keymap 0
+4. help 
+5. flush-buffer
+```
+
+### `flush-buffer`
+
+Clears command buffer
+```
+> flush-buffer
+Buffer cleared!
+```
+
+
 ### `help`
+
 
 Prints out the available commands:
 
 ```
 > help
 commands available:
-  about help keycode keymap exit
+  about help keycode keymap exit print-buffer flush-buffer
 ```
 
 ### `keycode <layer> <row> <col>`
@@ -68,11 +95,11 @@ Prints out the entire keymap for a certain layer
 
 ```
 > keymap 0
-0x002b, 0x0014, 0x001a, 0x0008, 0x0015, 0x0017, 0x001c, 0x0018, 0x000c, 0x0012, 0x0013, 0x002a, 
-0x0029, 0x0004, 0x0016, 0x0007, 0x0009, 0x000a, 0x000b, 0x000d, 0x000e, 0x000f, 0x0033, 0x0034, 
-0x00e1, 0x001d, 0x001b, 0x0006, 0x0019, 0x0005, 0x0011, 0x0010, 0x0036, 0x0037, 0x0038, 0x0028, 
+0x002b, 0x0014, 0x001a, 0x0008, 0x0015, 0x0017, 0x001c, 0x0018, 0x000c, 0x0012, 0x0013, 0x002a,
+0x0029, 0x0004, 0x0016, 0x0007, 0x0009, 0x000a, 0x000b, 0x000d, 0x000e, 0x000f, 0x0033, 0x0034,
+0x00e1, 0x001d, 0x001b, 0x0006, 0x0019, 0x0005, 0x0011, 0x0010, 0x0036, 0x0037, 0x0038, 0x0028,
 0x5cd6, 0x00e0, 0x00e2, 0x00e3, 0x5cd4, 0x002c, 0x002c, 0x5cd5, 0x0050, 0x0051, 0x0052, 0x004f,
-> 
+>
 ```
 
 ### `exit`

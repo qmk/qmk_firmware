@@ -1,379 +1,240 @@
-#include "drashna.h"
-#include "quantum.h"
-#include "action.h"
-#include "version.h"
+/*
+Copyright 2017 Christopher Courtney <drashna@live.com> @drashna
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#include "drashna.h"
+
+userspace_config_t userspace_config;
+#if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+  #define DRASHNA_UNICODE_MODE UC_WIN
+#else
+  // set to 2 for UC_WIN, set to 4 for UC_WINC
+  #define DRASHNA_UNICODE_MODE 2
+#endif
+
+
+// This block is for all of the gaming macros, as they were all doing
+// the same thing, but with differring text sent.
+bool send_game_macro(const char *str, keyrecord_t *record, bool override) {
+  if (!record->event.pressed || override) {
+    uint16_t keycode;
+    if (userspace_config.is_overwatch) {
+      keycode = KC_BSPC;
+    } else {
+      keycode = KC_ENTER;
+    }
+    clear_keyboard();
+    tap_code(keycode);
+    wait_ms(50);
+    send_string_with_delay(str, MACRO_TIMER);
+    wait_ms(50);
+    tap_code(KC_ENTER);
+  }
+  if (override) wait_ms(3000);
+  return false;
+}
+
+bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed) {
+  static uint16_t this_timer;
+  if(pressed) {
+      this_timer= timer_read();
+  } else {
+      if (timer_elapsed(this_timer) < TAPPING_TERM){
+          register_code(code);
+          unregister_code(code);
+      } else {
+          register_code(mod_code);
+          register_code(code);
+          unregister_code(code);
+          unregister_code(mod_code);
+      }
+  }
+  return false;
+}
+
+bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer) {
+  if(pressed) {
+      this_timer= timer_read();
+  } else {
+      if (timer_elapsed(this_timer) < TAPPING_TERM){
+          register_code(code);
+          unregister_code(code);
+      } else {
+          register_code(mod_code);
+          register_code(code);
+          unregister_code(code);
+          unregister_code(mod_code);
+      }
+  }
+  return false;
+}
+
+void bootmagic_lite(void) {
+  matrix_scan();
+  #if defined(DEBOUNCING_DELAY) && DEBOUNCING_DELAY > 0
+    wait_ms(DEBOUNCING_DELAY * 2);
+  #elif defined(DEBOUNCE) && DEBOUNCE > 0
+    wait_ms(DEBOUNCE * 2);
+  #else
+    wait_ms(30);
+  #endif
+  matrix_scan();
+   if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
+    bootloader_jump();
+  }
+}
+
+// Add reconfigurable functions here, for keymap customization
+// This allows for a global, userspace functions, and continued
+// customization of the keymap.  Use _keymap instead of _user
+// functions in the keymaps
 __attribute__ ((weak))
 void matrix_init_keymap(void) {}
+
+// Call user matrix init, set default RGB colors and then
+// call the keymap's init function
+void matrix_init_user(void) {
+  userspace_config.raw = eeconfig_read_user();
+
+  #ifdef BOOTLOADER_CATERINA
+    DDRD &= ~(1<<5);
+    PORTD &= ~(1<<5);
+
+    DDRB &= ~(1<<0);
+    PORTB &= ~(1<<0);
+  #endif
+
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
+    get_unicode_input_mode();
+  #endif //UNICODE_ENABLE
+  matrix_init_keymap();
+  #ifdef RGBLIGHT_ENABLE
+    matrix_init_rgb();
+  #endif //RGBLIGHT_ENABLE
+}
+
+
+__attribute__ ((weak))
+void shutdown_keymap(void) {}
+
+void shutdown_user (void) {
+  #ifdef RGBLIGHT_ENABLE
+    rgblight_enable_noeeprom();
+    rgblight_mode_noeeprom(1);
+    rgblight_setrgb_red();
+  #endif // RGBLIGHT_ENABLE
+  #ifdef RGB_MATRIX_ENABLE
+    uint16_t timer_start = timer_read();
+    rgb_matrix_set_color_all( 0xFF, 0x00, 0x00 );
+    while(timer_elapsed(timer_start) < 250) { wait_ms(1); }
+  #endif //RGB_MATRIX_ENABLE
+  shutdown_keymap();
+}
+
+__attribute__ ((weak))
+void suspend_power_down_keymap(void) {}
+
+void suspend_power_down_user(void) {
+    suspend_power_down_keymap();
+}
+
+__attribute__ ((weak))
+void suspend_wakeup_init_keymap(void) {}
+
+void suspend_wakeup_init_user(void) {
+  suspend_wakeup_init_keymap();
+}
+
 
 __attribute__ ((weak))
 void matrix_scan_keymap(void) {}
 
-__attribute__ ((weak))
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
-
-
-void matrix_init_user(void) {
-#ifdef RGBLIGHT_ENABLE
-  uint8_t default_layer = eeconfig_read_default_layer();
-
-  rgblight_enable();
-
-  if (true) {
-    if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_set_magenta;
-    }
-    else if (default_layer & (1UL << _DVORAK)) {
-      rgblight_set_green;
-    }
-    else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_set_purple;
-    }
-    else {
-      rgblight_set_teal;
-    }
-  }
-  else
-  {
-    rgblight_set_red;
-    rgblight_mode(5);
-  }
-#endif
-  matrix_init_keymap();
-}
-
+// No global matrix scan code, so just run keymap's matrix
+// scan function
 void matrix_scan_user(void) {
+  static bool has_ran_yet;
+  if (!has_ran_yet) {
+    has_ran_yet = true;
+    startup_user();
+  }
+
+#ifdef TAP_DANCE_ENABLE  // Run Diablo 3 macro checking code.
+  run_diablo_macro_check();
+#endif // TAP_DANCE_ENABLE
+
+#ifdef RGBLIGHT_ENABLE
+  matrix_scan_rgb();
+#endif // RGBLIGHT_ENABLE
+
   matrix_scan_keymap();
 }
 
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-float tone_workman[][2]    = SONG(PLOVER_SOUND);
-#endif
 
-
-void persistent_default_layer_set(uint16_t default_layer) {
-  eeconfig_update_default_layer(default_layer);
-  default_layer_set(default_layer);
-}
-
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-  uint16_t kc;
-  if (is_overwatch) {
-    kc = KC_BSPC;
-  }
-  else {
-    kc = KC_ENTER;
-  }
-#ifdef CONSOLE_ENABLE
-  xprintf("KL: row: %u, column: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
-#endif
-
-  switch (keycode) {
-  case KC_QWERTY:
-    if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_qwerty);
-#endif
-      persistent_default_layer_set(1UL << _QWERTY);
-    }
-    return false;
-    break;
-  case KC_COLEMAK:
-    if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_colemak);
-#endif
-      persistent_default_layer_set(1UL << _COLEMAK);
-    }
-    return false;
-    break;
-  case KC_DVORAK:
-    if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_dvorak);
-#endif
-      persistent_default_layer_set(1UL << _DVORAK);
-    }
-    return false;
-    break;
-  case KC_WORKMAN:
-    if (record->event.pressed) {
-#ifdef AUDIO_ENABLE
-      PLAY_SONG(tone_workman);
-#endif
-      persistent_default_layer_set(1UL << _WORKMAN);
-    }
-    return false;
-    break;
-  case LOWER:
-    if (record->event.pressed) {
-      layer_on(_LOWER);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    else {
-      layer_off(_LOWER);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    return false;
-    break;
-  case RAISE:
-    if (record->event.pressed) {
-      layer_on(_RAISE);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    else {
-      layer_off(_RAISE);
-      update_tri_layer(_LOWER, _RAISE, _ADJUST);
-    }
-    return false;
-    break;
-  case ADJUST:
-    if (record->event.pressed) {
-      layer_on(_ADJUST);
-    }
-    else {
-      layer_off(_ADJUST);
-    }
-    return false;
-    break;
-  case KC_OVERWATCH:
-    if (record->event.pressed) {
-      is_overwatch = !is_overwatch;
-    }
-#ifdef RGBLIGHT_ENABLE
-    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-#endif
-    return false;
-    break;
-  case KC_SALT:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Salt, salt, salt...");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_MORESALT:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Please sir, can I have some more salt?!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_SALTHARD:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Your salt only makes my penis that much harder, and even more aggressive!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_GOODGAME:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Good game, everyone!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-  }
-    return false;
-    break;
-  case KC_GLHF:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Good luck, have fun!!!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_SYMM:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Left click to win!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_DOOMFIST:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("Hey, look at me.  I'm Doomfist, and I'm overpowered!  All I do is spam punches all day!   I'm DPS, tank and defense, rolled into one! All I need is team healing to be complete!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_JUSTGAME:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("It may be a game, but if you don't want to actually try, please go play AI, so that people that actually want to take the game seriously and \"get good\" have a place to do so without trolls like you throwing games.");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_TORB:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("That was positively riveting!");
-      register_code(KC_ENTER);
-      unregister_code(KC_ENTER);
-    }
-    return false;
-    break;
-  case KC_AIM:
-    if (!record->event.pressed) {
-      register_code(kc);
-      unregister_code(kc);
-      _delay_ms(50);
-      SEND_STRING("That aim is absolutely amazing. It's almost like you're a machine!" SS_TAP(X_ENTER));
-      _delay_ms(50);
-      SEND_STRING("Wait! That aim is TOO good!  You're clearly using an aim hack! CHEATER!" SS_TAP(X_ENTER));
-    }
-    return false;
-    break;
-  case KC_MAKE:
-    if (!record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=yes" SS_TAP(X_ENTER));
-#else
-      SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP " RGBLIGHT_ENABLE=no"SS_TAP(X_ENTER));
-#endif
-    }
-    return false;
-    break;
-  case KC_RESET:
-    if (!record->event.pressed) {
-#ifdef RGBLIGHT_ENABLE
-      rgblight_enable();
-      rgblight_mode(1);
-      rgblight_setrgb(0xff, 0x00, 0x00);
-#endif
-      reset_keyboard();
-    }
-    return false;
-    break;
-  case EPRM:
-    if (record->event.pressed) {
-      eeconfig_init();
-    }
-    return false;
-    break;
-  case VRSN:
-    if (record->event.pressed) {
-      SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-    }
-    return false;
-    break;
-  case KC_P00:
-    if (!record->event.pressed) {
-      register_code(KC_P0);
-      unregister_code(KC_P0);
-      register_code(KC_P0);
-      unregister_code(KC_P0);
-    }
-    return false;
-    break;
-  }
-  return process_record_keymap(keycode, record);
-}
-
-
-uint32_t layer_state_set_kb(uint32_t state) {
-#ifdef RGBLIGHT_ENABLE
-  uint8_t default_layer = eeconfig_read_default_layer();
-
-  switch (biton32(state)) {
-  case _NAV:
-    rgblight_set_blue;
-    rgblight_mode(1);
-    break;
-  case _SYMB:
-    rgblight_set_blue;
-    rgblight_mode(2);
-    break;
-  case _MOUS:
-    rgblight_set_yellow;
-    rgblight_mode(1);
-    break;
-  case _MACROS:
-    rgblight_set_orange;
-    is_overwatch ? rgblight_mode(17) : rgblight_mode(18);
-    rgblight_mode(18);
-    break;
-  case _MEDIA:
-    rgblight_set_green;
-    rgblight_mode(22);
-    break;
-  case _OVERWATCH:
-    rgblight_set_orange;
-    rgblight_mode(17);
-    break;
-  case _DIABLO:
-    rgblight_set_red;
-    rgblight_mode(5);
-    break;
-  case _RAISE:
-    rgblight_set_yellow;
-    rgblight_mode(5);
-    break;
-  case _LOWER:
-    rgblight_set_orange;
-    rgblight_mode(5);
-    break;
-  case _ADJUST:
-    rgblight_set_red;
-    rgblight_mode(23);
-    break;
-  case _COVECUBE:
-    rgblight_set_green;
-    rgblight_mode(2);
-  default:
-    if (default_layer & (1UL << _COLEMAK)) {
-      rgblight_set_magenta;
-    }
-    else if (default_layer & (1UL << _DVORAK)) {
-      rgblight_set_green;
-    }
-    else if (default_layer & (1UL << _WORKMAN)) {
-      rgblight_set_purple;
-    }
-    else {
-      rgblight_set_teal;
-    }
-    rgblight_mode(1);
-    break;
-  }
-#endif
+__attribute__ ((weak))
+uint32_t layer_state_set_keymap (uint32_t state) {
   return state;
+}
+
+// on layer change, no matter where the change was initiated
+// Then runs keymap's layer change check
+uint32_t layer_state_set_user(uint32_t state) {
+  state = update_tri_layer_state(state, _RAISE, _LOWER, _ADJUST);
+#ifdef RGBLIGHT_ENABLE
+  state = layer_state_set_rgb(state);
+#endif // RGBLIGHT_ENABLE
+  return layer_state_set_keymap (state);
+}
+
+
+__attribute__ ((weak))
+uint32_t default_layer_state_set_keymap (uint32_t state) {
+  return state;
+}
+
+// Runs state check and changes underglow color and animation
+uint32_t default_layer_state_set_user(uint32_t state) {
+  state = default_layer_state_set_keymap(state);
+#ifdef RGBLIGHT_ENABLE
+  state = default_layer_state_set_rgb(state);
+#endif // RGBLIGHT_ENABLE
+  return state;
+}
+
+__attribute__ ((weak))
+void led_set_keymap(uint8_t usb_led) {}
+
+// Any custom LED code goes here.
+// So far, I only have keyboard specific code,
+// So nothing goes here.
+void led_set_user(uint8_t usb_led) {
+  led_set_keymap(usb_led);
+}
+
+__attribute__ ((weak))
+void eeconfig_init_keymap(void) {}
+
+void eeconfig_init_user(void) {
+  userspace_config.raw = 0;
+  userspace_config.rgb_layer_change = true;
+  eeconfig_update_user(userspace_config.raw);
+  #if (defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE))
+    set_unicode_input_mode(DRASHNA_UNICODE_MODE);
+    get_unicode_input_mode();
+  #else
+    eeprom_update_byte(EECONFIG_UNICODEMODE, DRASHNA_UNICODE_MODE);
+  #endif
 }

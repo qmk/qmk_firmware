@@ -29,6 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef NO_ACTION_MACRO
 
 #define MACRO_READ()  (macro = MACRO_GET(macro_p++))
+/** \brief Action Macro Play
+ *
+ * FIXME: Needs doc
+ */
 void action_macro_play(const macro_t *macro_p)
 {
     macro_t macro = END;

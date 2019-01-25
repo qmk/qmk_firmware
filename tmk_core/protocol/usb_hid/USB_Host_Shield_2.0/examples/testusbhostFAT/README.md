@@ -10,7 +10,7 @@ To compile this example you will need the following libraries as well:
 * [generic_storage FATfs](https://github.com/xxxajk/generic_storage)
 * [RTClib](https://github.com/xxxajk/RTClib)
 
-The following shield is recommended for larger projects: <http://ruggedcircuits.com/html/quadram.html>.
+The following shield is recommended for larger projects: <https://www.rugged-circuits.com/new-products/quadram>.
 
 You may use the bundled [Makefile](Makefile) to compile the code instead of the Arduino IDE if you have problems or want a smaller binary. The master makefile is bundled as a submodule, but can also be downloaded manually at the following link: <https://github.com/xxxajk/Arduino_Makefile_master>.
 

@@ -1,14 +1,15 @@
-# The Leader key: A new kind of modifier
+# The Leader Key: A New Kind of Modifier
 
 If you've ever used Vim, you know what a Leader key is. If not, you're about to discover a wonderful concept. :) Instead of hitting Alt+Shift+W for example (holding down three keys at the same time), what if you could hit a _sequence_ of keys instead? So you'd hit our special modifier (the Leader key), followed by W and then C (just a rapid succession of keys), and something would happen.
 
 That's what `KC_LEAD` does. Here's an example:
 
 1. Pick a key on your keyboard you want to use as the Leader key. Assign it the keycode `KC_LEAD`. This key would be dedicated just for this -- it's a single action key, can't be used for anything else.
-2. Include the line `#define LEADER_TIMEOUT 300` somewhere in your keymap.c file, probably near the top. The 300 there is 300ms -- that's how long you have for the sequence of keys following the leader. You can tweak this value for comfort, of course.
-3. Within your `matrix_scan_user` function, do something like this:
+2. Include the line `#define LEADER_TIMEOUT 300` in your `config.h`. This sets the timeout for the `KC_LEAD` key.  Specifically, when you press the `KC_LEAD` key, you only have a certain amount of time to complete the Leader Key sequence.  The `300` here sets that to 300ms, and you can increase this value to give you more time to hit the sequence. But any keys pressed during this timeout are intercepted and not sent, so you may want to keep this value low. .  
+   * By default, this timeout is how long after pressing `KC_LEAD` to complete your entire sequence. This may be very low for some people. So you may want to increase this timeout.  Optionally, you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.  This allows you to maintain a low value here, but still be able to use the longer sequences.   To enable this option, add `#define LEADER_PER_KEY_TIMING` to your `config.h`.
+3. Within your `matrix_scan_user` function, add something like this:
 
-```
+```c
 LEADER_EXTERNS();
 
 void matrix_scan_user(void) {
@@ -17,14 +18,16 @@ void matrix_scan_user(void) {
     leader_end();
 
     SEQ_ONE_KEY(KC_F) {
-      register_code(KC_S);
-      unregister_code(KC_S);
+      // Anything you can do in a macro.
+      SEND_STRING("QMK is awesome.");
+    }
+    SEQ_TWO_KEYS(KC_D, KC_D) {
+      SEND_STRING(SS_LCTRL("a")SS_LCTRL("c"));
+    }
+    SEQ_THREE_KEYS(KC_D, KC_D, KC_S) {
+      SEND_STRING("https://start.duckduckgo.com"SS_TAP(X_ENTER));
     }
     SEQ_TWO_KEYS(KC_A, KC_S) {
-      register_code(KC_H);
-      unregister_code(KC_H);
-    }
-    SEQ_THREE_KEYS(KC_A, KC_S, KC_D) {
       register_code(KC_LGUI);
       register_code(KC_S);
       unregister_code(KC_S);
@@ -34,4 +37,110 @@ void matrix_scan_user(void) {
 }
 ```
 
-As you can see, you have three function. you can use - `SEQ_ONE_KEY` for single-key sequences (Leader followed by just one key), and `SEQ_TWO_KEYS` and `SEQ_THREE_KEYS` for longer sequences. Each of these accepts one or more keycodes as arguments. This is an important point: You can use keycodes from **any layer on your keyboard**. That layer would need to be active for the leader macro to fire, obviously.
+As you can see, you have a few function. You can use `SEQ_ONE_KEY` for single-key sequences (Leader followed by just one key), and `SEQ_TWO_KEYS`, `SEQ_THREE_KEYS` up to `SEQ_FIVE_KEYS` for longer sequences.
+
+Each of these accepts one or more keycodes as arguments. This is an important point: You can use keycodes from **any layer on your keyboard**. That layer would need to be active for the leader macro to fire, obviously.
+
+## Adding Leader Key Support in the `rules.mk`
+
+To add support for Leader Key you simply need to add a single line to your keymap's `rules.mk`:
+
+```make
+LEADER_ENABLE = yes
+```
+
+## Per Key Timing on Leader keys
+
+Rather than relying on an incredibly high timeout for long leader key strings or those of us without 200wpm typing skills, we can enable per key timing to ensure that each key pressed provides us with more time to finish our stroke. This is incredibly helpful with leader key emulation of tap dance (read: multiple taps of the same key like C, C, C).
+
+In order to enable this, place this in your `config.h`:
+```c
+#define LEADER_PER_KEY_TIMING
+```
+
+After this, it's recommended that you lower your `LEADER_TIMEOUT` to something less that 300ms.
+
+```c
+#define LEADER_TIMEOUT 250
+```
+
+Now, something like this won't seem impossible to do without a 1000MS leader key timeout:
+
+```c
+SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
+  SEND_STRING("Per key timing is great!!!");
+}
+```
+
+## Strict Key Processing
+
+By default, the Leader Key feature will filter the keycode out of [`Mod-Tap`](feature_advanced_keycodes.md#mod-tap) and [`Layer Tap`](feature_advanced_keycodes.md#switching-and-toggling-layers) functions when checking for the Leader sequences. That means if you're using `LT(3, KC_A)`, it will pick this up as `KC_A` for the sequence, rather than `LT(3, KC_A)`, giving a more expected behavior for newer users.
+
+While, this may be fine for most, if you want to specify the whole keycode (eg, `LT(3, KC_A)` from the example above) in the sequence, you can enable this by added `#define LEADER_KEY_STRICT_KEY_PROCESSING` to your `config.h` file.  This well then disable the filtering, and you'll need to specify the whole keycode.
+
+## Customization 
+
+The Leader Key feature has some additional customization to how the Leader Key feature works.  It has two functions that can be called at certain parts of the process.  Namely `leader_start()` and `leader_end()`.
+
+The `leader_start()` function is called when you tap the `KC_LEAD` key, and the `leader_end()` function is called when either the leader sequence is completed, or the leader timeout is hit. 
+
+You can add these functions to your code (`keymap.c` usually) to add feedback to the Leader sequences (such as beeping or playing music).
+
+```c
+void leader_start(void) {
+  // sequence started
+}
+
+void leader_end(void) {
+  // sequence ended (no success/failuer detection)
+}
+```
+
+### Example
+
+This example will play the Mario "One Up" sound when you hit `KC_LEAD` to start the Leader Sequence, and will play "All Star" if it completes successfully or "Rick Roll" you if it fails. 
+
+```c
+bool did_leader_succeed;
+#ifdef AUDIO_ENABLE
+float leader_start[][2] = SONG(ONE_UP_SOUND );
+float leader_succeed[][2] = SONG(ALL_STAR);
+float leader_fail[][2] = SONG(RICK_ROLL);
+#endif
+LEADER_EXTERNS();
+
+void matrix_scan_user(void) {
+  LEADER_DICTIONARY() {
+    did_leader_succeed = leading = false;
+
+    SEQ_ONE_KEY(KC_E) {
+      // Anything you can do in a macro.
+      SEND_STRING(SS_LCTRL(SS_LSFT("t")));
+      did_leader_succeed = true;
+    } else 
+    SEQ_TWO_KEYS(KC_E, KC_D) {
+      SEND_STRING(SS_LGUI("r")"cmd"SS_TAP(KC_ENTER)SS_LCTRL("c"));
+      did_leader_succeed = true;
+    }
+    leader_end();
+  }
+}
+
+void leader_start(void) {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(leader_start);
+#endif
+}
+
+void leader_end(void) {
+  if (did_leader_succeed) {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(leader_succeed);
+#endif
+  } else {
+#ifdef AUDIO_ENABLE
+    PLAY_SONG(leader_fail);
+#endif
+  }
+}
+```

@@ -1,4 +1,4 @@
-#include "s60_x.h"
+#include QMK_KEYBOARD_H
 
 /*
  * SpaceFN
@@ -18,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LCTRL│L_GUI│L_ALT│█████│█████│█████Spc/Fn0█████│█████│█████│R_ALT│R_GUI│ APP │RCTRL│█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
      */
-    LEGACY_KEYMAP(
+    LAYOUT_kc(
          ESC,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS,  EQL,   NO, BSPC, \
          TAB,    Q,    W,   E,   R,   T,   Y,   U,   I,    O,    P, LBRC, RBRC, BSLS,       \
         CAPS,    A,    S,   D,   F,   G,   H,   J,   K,    L, SCLN, QUOT,   NO,  ENT,       \
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │     │     │     │█████│█████│█████│     │█████│█████│█████│     │     │     │     │█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
      */
-    LEGACY_KEYMAP(
+    LAYOUT_kc(
 	 GRV,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS,  DEL, \
         TRNS, TRNS, TRNS,  ESC, TRNS, TRNS, TRNS, HOME,   UP,  END, PSCR, SLCK, PAUS,  INS,       \
 	TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, PGUP, LEFT, DOWN, RGHT, TRNS, TRNS, TRNS, TRNS,       \

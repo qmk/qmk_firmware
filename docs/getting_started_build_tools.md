@@ -4,9 +4,11 @@ This page describes setting up the build environment for QMK. These instructions
 
 <!-- FIXME: We should have ARM instructions somewhere. -->
 
+Note: If it is your first time here, Check out the "Complete Newbs guide" instead
+
 ## Linux
 
-To ensure you are always up to date, you can just run `sudo util/install_dependencies.sh`. That should always install all the dependencies needed. **This will run `apt-get upgrade`.**
+To ensure you are always up to date, you can just run `sudo util/qmk_install.sh`. That should always install all the dependencies needed. **This will run `apt-get upgrade`.**
 
 You can also install things manually, but this documentation might not be always up to date with all requirements.
 
@@ -31,10 +33,20 @@ git
 
 Install the dependencies with your favorite package manager.
 
-Debian/Ubuntu example:
+Debian / Ubuntu example:
 
     sudo apt-get update
     sudo apt-get install gcc unzip wget zip gcc-avr binutils-avr avr-libc dfu-programmer dfu-util gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
+
+Fedora / Red Hat example:
+
+    sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs arm-none-eabi-binutils-cs arm-none-eabi-newlib
+    
+Arch / Manjaro example:
+
+    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git
+
+(the `dfu-programmer` package is availble on AUR only so you should download from there or use an AUR helper)
 
 ## Nix
 
@@ -50,11 +62,14 @@ If you're using [homebrew,](http://brew.sh/) you can use the following commands:
     brew tap osx-cross/avr
     brew tap PX4/homebrew-px4
     brew update
-    brew install avr-gcc
+    brew install avr-gcc@7
+    brew link --force avr-gcc@7
     brew install dfu-programmer
+    brew install dfu-util
     brew install gcc-arm-none-eabi
+    brew install avrdude
 
-This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of avr-libc can take over 20 minutes and exhibit high CPU usage.
+This is the recommended method. If you don't have homebrew, [install it!](http://brew.sh/) It's very much worth it for anyone who works in the command line. Note that the `make` and `make install` portion during the homebrew installation of `avr-gcc@7` can take over 20 minutes and exhibit high CPU usage.
 
 ## Windows with msys2 (recommended)
 
@@ -62,9 +77,9 @@ The best environment to use, for Windows Vista through any later version (tested
 
 * Install msys2 by downloading it and following the instructions here: http://www.msys2.org
 * Open the ``MSYS2 MingGW 64-bit`` shortcut
-* Navigate to your qmk checkout. For example, if it's in the root of your c drive:
+* Navigate to your QMK repository. For example, if it's in the root of your c drive:
  * `$ cd /c/qmk_firmware`
-* Run `util/msys2_install.sh` and follow the prompts
+* Run `util/qmk_install.sh` and follow the prompts
 
 ## Windows 10 (deprecated)
 These are the old instructions for Windows 10. We recommend you use [MSYS2 as outlined above](#windows-with-msys2-recommended).
@@ -78,26 +93,26 @@ In addition to the Creators Update, you need Windows 10 Subystem for Linux, so i
 ### Git
 If you already have cloned the repository on your Windows file system you can ignore this section.
 
-You will need to clone the repository to your Windows file system using the normal Git for Windows and **not** the WSL Git. So if you haven't installed Git before, [download](https://git-scm.com/download/win) and install it. Then [set it up](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup), it's important that you setup the e-mail and user name, especially if you are planning to contribute. 
+You will need to clone the repository to your Windows file system using the normal Git for Windows and **not** the WSL Git. So if you haven't installed Git before, [download](https://git-scm.com/download/win) and install it. Then [set it up](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup), it's important that you setup the e-mail and user name, especially if you are planning to contribute.
 
 Once Git is installed, open the Git Bash command and change the directory to where you want to clone QMK; note that you have to use forward slashes, and that your c drive is accessed like this `/c/path/to/where/you/want/to/go`. Then run `git clone --recurse-submodules https://github.com/qmk/qmk_firmware`, this will create a new folder `qmk_firmware` as a subfolder of the current one.
 
-### Toolchain setup
+### Toolchain Setup
 The Toolchain setup is done through the Windows Subsystem for Linux, and the process is fully automated. If you want to do everything manually, there are no other instructions than the scripts themselves, but you can always open issues and ask for more information.
 
-1. Open "Bash On Ubuntu On Windows" from the start menu. 
-2. Go to the directory where you cloned `qmk_firmware`. Note that the paths start with `/mnt/` in the WSL, so you have to write for example `cd /mnt/c/path/to/qmk_firmware`. 
+1. Open "Bash On Ubuntu On Windows" from the start menu.
+2. Go to the directory where you cloned `qmk_firmware`. Note that the paths start with `/mnt/` in the WSL, so you have to write for example `cd /mnt/c/path/to/qmk_firmware`.
 3. Run `util/wsl_install.sh` and follow the on-screen instructions.
 4. Close the Bash command window, and re-open it.
 5. You are ready to compile and flash the firmware!
 
-### Some important things to keep in mind
+### Some Important Things to Keep in Mind
 * You can run `util/wsl_install.sh` again to get all the newest updates.
 * Your QMK repository need to be on a Windows file system path, since WSL can't run executables outside it.
 * The WSL Git is **not** compatible with the Windows Git, so use the Windows Git Bash or a windows Git GUI for all Git operations
 * You can edit files either inside WSL or normally using Windows, but note that if you edit makefiles or shell scripts, make sure you are using an editor that saves the files with Unix line endings. Otherwise the compilation might not work.
 
-## Windows (Vista and later) (Deprecated)
+## Windows (Vista and Later) (Deprecated)
 
 These are the old instructions for Windows Vista and later. We recommend you use [MSYS2 as outlined above](#windows-with-msys2-recommended).
 
@@ -114,24 +129,27 @@ If you have trouble and want to ask for help, it is useful to generate a *Win_Ch
 
 ## Docker
 
-If this is a bit complex for you, Docker might be the turn-key solution you need. After installing [Docker](https://www.docker.com/products/docker), run the following command at the root of the QMK folder to build a keyboard/keymap:
-
+If this is a bit complex for you, Docker might be the turn-key solution you need. After installing [Docker CE](https://docs.docker.com/install/#supported-platforms), run the following command from the `qmk_firmware` directory to build a keyboard/keymap:
 ```bash
-# You'll run this every time you want to build a keymap
-# modify the keymap and keyboard assigment to compile what you want
-# defaults are ergodox/default
+util/docker_build.sh keyboard:keymap 
+# For example: util/docker_build.sh ergodox_ez:steno
+```
+This will compile the targeted keyboard/keymap and leave the resulting `.hex` or `.bin` file in the QMK directory for you to flash. If `:keymap` is omitted, the `default` keymap is used. Note that the parameter format is the same as when building with `make`.
 
-docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+You can also start the script without any parameters, in which case it will ask you to input the build parameters one by one, which you may find easier to use:
+```bash
+util/docker_build.sh
+# Reads parameters as input (leave blank for defaults)
 ```
 
-On Windows Docker seems to have issues with the VOLUME tag in Dockerfile, and `$('pwd')` won't print a Windows compliant path; use full path instead, like this:
-
+There is also support for building _and_ flashing the keyboard straight from Docker by specifying the `target` as well:
 ```bash
-docker run -e keymap=default -e keyboard=ergobox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
-
+util/docker_build.sh keyboard:keymap:target
+# For example: util/docker_build.sh planck/rev6:default:dfu-util
 ```
+If you're on Linux, this should work out of the box. On Windows and macOS, it requires [Docker Machine](http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos/) to be running. This is tedious to set up, so it's not recommended; use QMK Toolbox instead.
 
-This will compile the targeted keyboard/keymap and leave it in your QMK directory for you to flash.
+!> Docker for Windows requires [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) to be enabled. This means that it cannot work on versions of Windows which don't have Hyper-V, such as Windows 7, Windows 8 and **Windows 10 Home**.
 
 ## Vagrant
 If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [vagrant guide](getting_started_vagrant.md).

@@ -16,10 +16,25 @@
 #include "quantum.h"
 #include "action_tapping.h"
 
+#ifndef TAPPING_TERM
+#define TAPPING_TERM 200
+#endif
+
+#ifndef NO_ACTION_ONESHOT
 uint8_t get_oneshot_mods(void);
+#endif
 
 static uint16_t last_td;
 static int8_t highest_td = -1;
+
+void qk_tap_dance_pair_on_each_tap (qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
+
+  if (state->count == 2) {
+    register_code16 (pair->kc2);
+    state->finished = true;
+  }
+}
 
 void qk_tap_dance_pair_finished (qk_tap_dance_state_t *state, void *user_data) {
   qk_tap_dance_pair_t *pair = (qk_tap_dance_pair_t *)user_data;
@@ -38,6 +53,15 @@ void qk_tap_dance_pair_reset (qk_tap_dance_state_t *state, void *user_data) {
     unregister_code16 (pair->kc1);
   } else if (state->count == 2) {
     unregister_code16 (pair->kc2);
+  }
+}
+
+void qk_tap_dance_dual_role_on_each_tap (qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_dual_role_t *pair = (qk_tap_dance_dual_role_t *)user_data;
+
+  if (state->count == 2) {
+    layer_move (pair->layer);
+    state->finished = true;
   }
 }
 
@@ -79,6 +103,7 @@ static inline void process_tap_dance_action_on_dance_finished (qk_tap_dance_acti
     return;
   action->state.finished = true;
   add_mods(action->state.oneshot_mods);
+  add_weak_mods(action->state.weak_mods);
   send_keyboard_report();
   _process_tap_dance_action_fn (&action->state, action->user_data, action->fn.on_dance_finished);
 }
@@ -87,16 +112,35 @@ static inline void process_tap_dance_action_on_reset (qk_tap_dance_action_t *act
 {
   _process_tap_dance_action_fn (&action->state, action->user_data, action->fn.on_reset);
   del_mods(action->state.oneshot_mods);
+  del_weak_mods(action->state.weak_mods);
   send_keyboard_report();
+}
+
+void preprocess_tap_dance(uint16_t keycode, keyrecord_t *record) {
+  qk_tap_dance_action_t *action;
+
+  if (!record->event.pressed)
+    return;
+
+  if (highest_td == -1)
+    return;
+
+  for (int i = 0; i <= highest_td; i++) {
+    action = &tap_dance_actions[i];
+    if (action->state.count) {
+      if (keycode == action->state.keycode && keycode == last_td)
+        continue;
+      action->state.interrupted = true;
+      action->state.interrupting_keycode = keycode;
+      process_tap_dance_action_on_dance_finished (action);
+      reset_tap_dance (&action->state);
+    }
+  }
 }
 
 bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
   uint16_t idx = keycode - QK_TAP_DANCE;
   qk_tap_dance_action_t *action;
-
-  if (last_td && last_td != keycode) {
-    (&tap_dance_actions[last_td - QK_TAP_DANCE])->state.interrupted = true;
-  }
 
   switch(keycode) {
   case QK_TAP_DANCE ... QK_TAP_DANCE_MAX:
@@ -109,36 +153,22 @@ bool process_tap_dance(uint16_t keycode, keyrecord_t *record) {
       action->state.keycode = keycode;
       action->state.count++;
       action->state.timer = timer_read();
+#ifndef NO_ACTION_ONESHOT
       action->state.oneshot_mods = get_oneshot_mods();
+#else
+      action->state.oneshot_mods = 0;
+#endif
+      action->state.weak_mods = get_mods();
+      action->state.weak_mods |= get_weak_mods();
       process_tap_dance_action_on_each_tap (action);
 
-      if (last_td && last_td != keycode) {
-        qk_tap_dance_action_t *paction = &tap_dance_actions[last_td - QK_TAP_DANCE];
-        paction->state.interrupted = true;
-        process_tap_dance_action_on_dance_finished (paction);
-        reset_tap_dance (&paction->state);
-      }
-
       last_td = keycode;
+    } else {
+      if (action->state.count && action->state.finished) {
+        reset_tap_dance (&action->state);
+      }
     }
 
-    break;
-
-  default:
-    if (!record->event.pressed)
-      return true;
-
-    if (highest_td == -1)
-      return true;
-
-    for (int i = 0; i <= highest_td; i++) {
-      action = &tap_dance_actions[i];
-      if (action->state.count == 0)
-        continue;
-      action->state.interrupted = true;
-      process_tap_dance_action_on_dance_finished (action);
-      reset_tap_dance (&action->state);
-    }
     break;
   }
 
@@ -152,7 +182,7 @@ void matrix_scan_tap_dance () {
     return;
   uint16_t tap_user_defined;
 
-for (uint8_t i = 0; i <= highest_td; i++) {
+  for (uint8_t i = 0; i <= highest_td; i++) {
     qk_tap_dance_action_t *action = &tap_dance_actions[i];
     if(action->custom_tapping_term > 0 ) {
       tap_user_defined = action->custom_tapping_term;
@@ -180,5 +210,6 @@ void reset_tap_dance (qk_tap_dance_state_t *state) {
   state->count = 0;
   state->interrupted = false;
   state->finished = false;
+  state->interrupting_keycode = 0;
   last_td = 0;
 }

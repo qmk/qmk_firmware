@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "host_driver.h"
 #include "vusb.h"
 #include "bootloader.h"
+#include <util/delay.h>
 
 
 static uint8_t vusb_keyboard_leds = 0;
@@ -46,19 +47,26 @@ typedef struct {
 
 static keyboard_report_t keyboard_report; // sent to PC
 
+#define VUSB_TRANSFER_KEYBOARD_MAX_TRIES 10
+
 /* transfer keyboard report from buffer */
 void vusb_transfer_keyboard(void)
 {
-    if (usbInterruptIsReady()) {
-        if (kbuf_head != kbuf_tail) {
-            usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
-            kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
-            if (debug_keyboard) {
-                print("V-USB: kbuf["); pdec(kbuf_tail); print("->"); pdec(kbuf_head); print("](");
-                phex((kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
-                print(")\n");
+    for (int i = 0; i < VUSB_TRANSFER_KEYBOARD_MAX_TRIES; i++) {
+        if (usbInterruptIsReady()) {
+            if (kbuf_head != kbuf_tail) {
+                usbSetInterrupt((void *)&kbuf[kbuf_tail], sizeof(report_keyboard_t));
+                kbuf_tail = (kbuf_tail + 1) % KBUF_SIZE;
+                if (debug_keyboard) {
+                    print("V-USB: kbuf["); pdec(kbuf_tail); print("->"); pdec(kbuf_head); print("](");
+                    phex((kbuf_head < kbuf_tail) ? (KBUF_SIZE - kbuf_tail + kbuf_head) : (kbuf_head - kbuf_tail));
+                    print(")\n");
+                }
             }
+            break;
         }
+        usbPoll();
+        _delay_ms(1);
     }
 }
 

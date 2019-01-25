@@ -1,73 +1,100 @@
-#ifndef USERSPACE
-#define USERSPACE
+/*
+Copyright 2017 Christopher Courtney <drashna@live.com> @drashna
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#pragma once
 #include "quantum.h"
-
-// Define layer names 
-#define _QWERTY 0
-#define _NUMLOCK 0
-#define _COLEMAK 1
-#define _DVORAK 2
-#define _WORKMAN 3
-#define _NAV 5
-#define _COVECUBE 6
-#define _SYMB 8
-#define _OVERWATCH 9
-#define _DIABLO 10
-#define _MOUS 11
-#define _MACROS 12
-#define _MEDIA 13
-#define _LOWER 14
-#define _RAISE 15
-#define _ADJUST 16
+#include "version.h"
+#include "eeprom.h"
+#include "wrappers.h"
+#include "process_records.h"
+#ifdef TAP_DANCE_ENABLE
+  #include "tap_dances.h"
+#endif // TAP_DANCE_ENABLE
+#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
+  #include "rgb_stuff.h"
+#endif
 
 
-//define modifiers
+/* Define layer names */
+enum userspace_layers {
+  _QWERTY = 0,
+  _NUMLOCK = 0,
+  _COLEMAK,
+  _DVORAK,
+  _WORKMAN,
+  _MODS,
+  _GAMEPAD,
+  _DIABLO,
+  _MACROS,
+  _MEDIA,
+  _LOWER,
+  _RAISE,
+  _ADJUST,
+};
+
+/*
+define modifiers here, since MOD_* doesn't seem to work for these
+ */
 #define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
 #define MODS_ALT_MASK  (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
+#define MODS_GUI_MASK  (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
-#ifdef RGBLIGHT_ENABLE
-#define rgblight_set_blue        rgblight_sethsv (0xFF,  0xFF, 0xFF);
-#define rgblight_set_red         rgblight_sethsv (0x00,  0xFF, 0xFF);
-#define rgblight_set_green       rgblight_sethsv (0x78,  0xFF, 0xFF);
-#define rgblight_set_orange      rgblight_sethsv (0x1E,  0xFF, 0xFF);
-#define rgblight_set_teal        rgblight_sethsv (0xC3,  0xFF, 0xFF);
-#define rgblight_set_magenta     rgblight_sethsv (0x12C, 0xFF, 0xFF);
-#define rgblight_set_yellow      rgblight_sethsv (0x3C,  0xFF, 0xFF);
-#define rgblight_set_purple      rgblight_sethsv (0x10E, 0xFF, 0xFF);
-#endif
 
-__attribute__ ((weak))
-bool is_overwatch = false;
 
-enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
-  EPRM,
-  VRSN,
-  KC_QWERTY,
-  KC_COLEMAK,
-  KC_DVORAK,
-  KC_WORKMAN,
-  LOWER,
-  RAISE,
-  ADJUST,
-  KC_DIABLO_CLEAR,
-  KC_OVERWATCH,
-  KC_SALT,
-  KC_MORESALT,
-  KC_SALTHARD,
-  KC_GOODGAME,
-  KC_SYMM,
-  KC_DOOMFIST,
-  KC_JUSTGAME,
-  KC_GLHF,
-  KC_TORB,
-  KC_AIM,
-  KC_MAKE,
-  KC_RESET,
-  KC_P00,
-  NEWPLACEHOLDER
-};
+bool mod_key_press_timer (uint16_t code, uint16_t mod_code, bool pressed);
+bool mod_key_press (uint16_t code, uint16_t mod_code, bool pressed, uint16_t this_timer);
+bool send_game_macro(const char *str, keyrecord_t *record, bool override);
+void matrix_init_keymap(void);
+void shutdown_keymap(void);
+void suspend_power_down_keymap(void);
+void suspend_wakeup_init_keymap(void);
+void matrix_scan_keymap(void);
+uint32_t layer_state_set_keymap (uint32_t state);
+uint32_t default_layer_state_set_keymap (uint32_t state);
+void led_set_keymap(uint8_t usb_led);
+void eeconfig_init_keymap(void);
 
-#endif
+typedef union {
+  uint32_t raw;
+  struct {
+    bool     rgb_layer_change :1;
+    bool     is_overwatch     :1;
+    bool     nuke_switch      :1;
+    uint8_t  unicode_mod      :4;
+  };
+} userspace_config_t;
+
+extern userspace_config_t userspace_config;
+
+
+/*
+Custom Keycodes for Diablo 3 layer
+But since TD() doesn't work when tap dance is disabled
+We use custom codes here, so we can substitute the right stuff
+*/
+#ifdef TAP_DANCE_ENABLE
+#define KC_D3_1 TD(TD_D3_1)
+#define KC_D3_2 TD(TD_D3_2)
+#define KC_D3_3 TD(TD_D3_3)
+#define KC_D3_4 TD(TD_D3_4)
+#else // TAP_DANCE_ENABLE
+#define KC_D3_1 KC_1
+#define KC_D3_2 KC_2
+#define KC_D3_3 KC_3
+#define KC_D3_4 KC_4
+#endif // TAP_DANCE_ENABLE

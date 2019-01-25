@@ -1,11 +1,4 @@
-SRC += matrix.c \
-	   i2c.c \
-	   split_util.c \
-	   serial.c \
-	   ssd1306.c
-
 # MCU name
-#MCU = at90usb1287
 MCU = atmega32u4
 
 # Processor frequency.
@@ -40,17 +33,14 @@ ARCH = AVR8
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
 F_USB = $(F_CPU)
 
+# Bootloader
+#     This definition is optional, and if your keyboard supports multiple bootloaders of
+#     different sizes, comment this out, and the correct address will be loaded
+#     automatically (+60). See bootloader.mk for all options.
+BOOTLOADER = caterina
+
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
-
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
@@ -67,13 +57,12 @@ MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
-SUBPROJECT_rev1 = yes
-USE_I2C = yes
+RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
+
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-CUSTOM_MATRIX = yes
+SPLIT_KEYBOARD = yes
 
 LAYOUTS = ortho_4x12
 

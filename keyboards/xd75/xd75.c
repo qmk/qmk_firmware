@@ -15,9 +15,19 @@
  */
 #include "xd75.h"
 
+#define XD75_CAPSLOCK_LED 2  // B2
+#define XD75_GP103_LED 4  // F4
+#define XD75_KEYCAPS_LED 5  // F5
+#define XD75_GP100_LED 7  // F7
+
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
+
+	capslock_led_init();
+	gp100_led_init();
+	gp103_led_init();
+	keycaps_led_init();
 
 	matrix_init_user();
 }
@@ -40,4 +50,56 @@ void led_set_kb(uint8_t usb_led) {
 	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 
 	led_set_user(usb_led);
+}
+
+void capslock_led_init(void) {
+	DDRB |= (1 << XD75_CAPSLOCK_LED);
+	capslock_led_off();
+}
+
+void capslock_led_off(void) {
+	PORTB |= (1 << XD75_CAPSLOCK_LED);
+}
+
+void capslock_led_on(void) {
+	PORTB &= ~(1 << XD75_CAPSLOCK_LED);
+}
+
+void gp100_led_init(void) {
+	DDRF |= (1 << XD75_GP100_LED);
+	gp100_led_off();
+}
+
+void gp100_led_off(void) {
+	PORTF |= (1 << XD75_GP100_LED);
+}
+
+void gp100_led_on(void) {
+	PORTF &= ~(1 << XD75_GP100_LED);
+}
+
+void gp103_led_init(void) {
+	DDRF |= (1 << XD75_GP103_LED);
+	gp103_led_off();
+}
+
+void gp103_led_off(void) {
+	PORTF &= ~(1 << XD75_GP103_LED);
+}
+
+void gp103_led_on(void) {
+	PORTF |= (1 << XD75_GP103_LED);
+}
+
+void keycaps_led_init(void) {
+	DDRF |= (1 << XD75_KEYCAPS_LED);
+	keycaps_led_off();
+}
+
+void keycaps_led_off(void) {
+	PORTF |= (1 << XD75_KEYCAPS_LED);
+}
+
+void keycaps_led_on(void) {
+	PORTF &= ~(1 << XD75_KEYCAPS_LED);
 }

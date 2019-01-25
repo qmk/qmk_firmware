@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #error This visualizer needs that LCD is enabled
 #endif
 
-#include "visualizer.h"
+#include "./visualizer.h"
 #include "visualizer_keyframes.h"
 #include "lcd_keyframes.h"
 #include "lcd_backlight_keyframes.h"
@@ -295,17 +295,17 @@ void ergodox_board_led_on(void){
   // No board led support
 }
 
-void ergodox_right_led_1_on(void){
+void ergodox_led_lower_on(void){
   user_data_keyboard.led_on |= (1u << 0);
   visualizer_set_user_data(&user_data_keyboard);
 }
 
-void ergodox_right_led_2_on(void){
+void ergodox_led_raise_on(void){
   user_data_keyboard.led_on |= (1u << 1);
   visualizer_set_user_data(&user_data_keyboard);
 }
 
-void ergodox_right_led_3_on(void){
+void ergodox_led_adjust_on(void){
   user_data_keyboard.led_on |= (1u << 2);
   visualizer_set_user_data(&user_data_keyboard);
 }
@@ -314,32 +314,32 @@ void ergodox_board_led_off(void){
   // No board led support
 }
 
-void ergodox_right_led_1_off(void){
+void ergodox_led_lower_off(void){
   user_data_keyboard.led_on &= ~(1u << 0);
   visualizer_set_user_data(&user_data_keyboard);
 }
 
-void ergodox_right_led_2_off(void){
+void ergodox_led_raise_off(void){
   user_data_keyboard.led_on &= ~(1u << 1);
   visualizer_set_user_data(&user_data_keyboard);
 }
 
-void ergodox_right_led_3_off(void){
+void ergodox_led_adjust_off(void){
   user_data_keyboard.led_on &= ~(1u << 2);
   visualizer_set_user_data(&user_data_keyboard);
 }
 
-void ergodox_right_led_1_set(uint8_t n) {
+void ergodox_led_lower_set(uint8_t n) {
   user_data_keyboard.led1 = n;
   visualizer_set_user_data(&user_data_keyboard);
 }
 
-void ergodox_right_led_2_set(uint8_t n) {
+void ergodox_led_raise_set(uint8_t n) {
   user_data_keyboard.led2 = n;
   visualizer_set_user_data(&user_data_keyboard);
 }
 
-void ergodox_right_led_3_set(uint8_t n) {
+void ergodox_led_adjust_set(uint8_t n) {
   user_data_keyboard.led3 = n;
   visualizer_set_user_data(&user_data_keyboard);
 }
