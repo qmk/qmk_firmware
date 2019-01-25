@@ -1,4 +1,4 @@
-/* Copyright 2019 REPLACE_WITH_YOUR_NAME
+/* Copyright 2019 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,26 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef %KEYBOARD_UPPERCASE%_H
-#define %KEYBOARD_UPPERCASE%_H
 
-#include "quantum.h"
+#pragma once
 
-/* This a shortcut to help you visually see your layout.
- *
- * The first section contains all of the arguments representing the physical
- * layout of the board and position of the keys.
- *
- * The second converts the arguments into a two-dimensional array which
- * represents the switch matrix.
- */
-#define LAYOUT( \
-    K00, K01, K02, \
-      K10,  K11   \
-) \
-{ \
-    { K00, K01,   K02 }, \
-    { K10, KC_NO, K11 }, \
-}
-
-#endif
+// place overrides here

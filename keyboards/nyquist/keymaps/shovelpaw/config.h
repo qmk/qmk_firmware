@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2017 Danny Nguyen <danny@hexwire.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,19 +14,30 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+
 #pragma once
 
-/* USB Device descriptor parameter */
-#define DEVICE_VER      0x0001
+/* Use I2C or Serial, not both */
 
-/* key matrix size */
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 15
+#define USE_SERIAL
+// #define USE_I2C
 
-/* Hadron Ver0 PCB default pin-out */
-#define MATRIX_ROW_PINS { D7, E6, B4, B5, B6 }
-#define MATRIX_COL_PINS { F6, F7, C6, C7, F5, F4, F1, F0, D2, D3, D5, B3, B2, B1, B0 }
-#define UNUSED_PINS
+/* Select hand configuration */
 
+#define MASTER_LEFT
+// #define MASTER_RIGHT
+// #define EE_HANDS
 
+#undef RGBLED_NUM
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 12
+#define RGBLIGHT_HUE_STEP 8
+#define RGBLIGHT_SAT_STEP 8
+#define RGBLIGHT_VAL_STEP 8
 
+// Mouse specific settings
+#define MOUSEKEY_INTERVAL 16
+#define MOUSEKEY_DELAY 0
+#define MOUSEKEY_TIME_TO_MAX 60
+#define MOUSEKEY_MAX_SPEED 6
+#define MOUSEKEY_WHEEL_DELAY 0

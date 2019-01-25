@@ -1,4 +1,4 @@
-/* Copyright 2019 REPLACE_WITH_YOUR_NAME
+/* Copyright 2019 Danny Nguyen <danny@keeb.io>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef %KEYBOARD_UPPERCASE%_H
-#define %KEYBOARD_UPPERCASE%_H
+#pragma once
 
 #include "quantum.h"
 
@@ -27,12 +26,10 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k11   \
+    KA1, KA2, KA3, \
+    KB1, KB2, KB3, \
+    KC1, KC2, KC3 \
 ) \
 { \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k11 }, \
+    { KA1, KA2, KA3, KB1, KB2, KB3, KC1, KC2, KC3 } \
 }
-
-#endif
