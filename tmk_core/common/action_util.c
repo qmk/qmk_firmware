@@ -60,7 +60,7 @@ void set_oneshot_locked_mods(uint8_t mods) {
 void clear_oneshot_locked_mods(void) {
     if (oneshot_locked_mods != 0) {
         oneshot_locked_mods = 0;
-        oneshot_locked_mods_set_kb(mods);
+        oneshot_locked_mods_cleared_kb();
     }
 }
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
@@ -267,7 +267,7 @@ void set_oneshot_mods(uint8_t mods) {
  * FIXME: needs doc
  */
 void clear_oneshot_mods(void) {
-  if (oneshot_mods!= mods) {
+  if (oneshot_mods!= 0) {
     oneshot_mods = 0;
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_time = 0;
