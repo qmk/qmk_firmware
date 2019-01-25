@@ -6,7 +6,7 @@ Compact 60% with arrows.
 ![Top View of a pair of XD60 Keyboard](https://i.imgur.com/3Jq2743.jpg)
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: XD60 PCB rev2 & rev3
+Hardware Supported: XD60 PCB rev2 & rev3  
 Hardware Availability: https://www.massdrop.com/buy/xd60-xd64-custom-mechanical-keyboard-kit?mode=guest_open
 
 With the implementation of Rev3 you need to specify the Rev you want to build.
