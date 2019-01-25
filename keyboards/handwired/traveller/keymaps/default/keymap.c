@@ -157,11 +157,8 @@ Right hand nav keys work pretty well chorded with the Right hand Hi Key
 const uint16_t PROGMEM fn_actions[] = {
     [_QW] = ACTION_LAYER_ON(_QW,ON_RELEASE), // return to QWERTY  layer
     [_LW] = ACTION_LAYER_TAP_TOGGLE(_LW), // Turn on LW when holding, or tap 3 times to switch
-    [_HI] = ACTION_LAYER_TAP_TOGGLE(_HI), // Turn on LW when holding, or tap 3 times to switch               
     [_NAV] = ACTION_LAYER_TOGGLE(_NAV),                                   
     [_FKEYS] = ACTION_LAYER_TOGGLE(_FKEYS),  
-    [_LWOUT] = ACTION_LAYER_OFF(_LW,ON_RELEASE),
-    [_HIOUT] = ACTION_LAYER_OFF(_HI,ON_RELEASE),
     
     // Functions
   [RGBLED_TOGGLE]  = ACTION_FUNCTION(RGBLED_TOGGLE),

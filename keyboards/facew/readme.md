@@ -7,8 +7,8 @@ but does have in switch LEDs. Also unlike the B.Face, it is based on ps2avru ins
 is designed and manufactured in Korea.  It originally uses BootMapperClient for programming but 
 can now also use QMK. 
 
-Keyboard Maintainer: [MechMerlin](www.github.com/mechmerlin)
-Hardware Supported: FaceW Sprit Edition PCB
+Keyboard Maintainer: [MechMerlin](www.github.com/mechmerlin)  
+Hardware Supported: FaceW Sprit Edition PCB  
 Hardware Availability: https://mechanicalkeyboards.com/shop/index.php?l=product_detail&p=1352
 
 ## Keyboard Notes
@@ -50,4 +50,4 @@ macOS:
 5. Flash the board by typing `bootloadHID -r` followed by the path to your `.hex` file. 
 
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

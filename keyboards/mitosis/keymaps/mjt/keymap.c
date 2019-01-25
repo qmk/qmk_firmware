@@ -119,9 +119,6 @@ float music_scale[][2]     = SONG(MUSIC_SCALE_SOUND);
 float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
 #endif
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
 static uint16_t function_layer = _FUNCTIONMAC;
 static uint16_t key_timer;
 

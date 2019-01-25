@@ -19,10 +19,6 @@
 
 #include "keymap.h"
 
-// Alt gr
-#define ALGR(kc) RALT(kc)
-#define HU_ALGR KC_RALT
-
 // basic letters
 #define HU_Z KC_Y
 #define HU_Y KC_Z
