@@ -1,7 +1,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "config.h"
 
 #define _x_ KC_NO
 
