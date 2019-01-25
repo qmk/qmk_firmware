@@ -58,7 +58,7 @@ LAYOUT_5x12( \
       RESET,   _10,     _11,     _12,     _13,     _14,    _15,     _16,     _17,     _18,     _19,     KC_QUOT, \
       KC_LSFT, _20,     _21,     _22,     _23,     _24,    _25,     _26,     _27,     _28,     _29,     KC_ENT, \
       KC_LCTL, KC_LGUI, KC_LALT, RGB_TOG, ADJ,     KC_SPC, KC_SPC,  FN,      KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, \
-                        KC_VOLU, KC_VOLD,                    KC_VOLU, KC_VOLD \
+                        _______, _______,                    _______, _______ \
 )
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
