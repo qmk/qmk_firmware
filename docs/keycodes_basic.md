@@ -97,14 +97,14 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 ## Lock Keys
 
-|Key                |Aliases             |Description              |
-|-------------------|--------------------|-------------------------|
-|`KC_CAPSLOCK`      |`KC_CLCK`, `KC_CAPS`|Caps Lock                |
-|`KC_SCROLLLOCK`    |`KC_SLCK`           |Scroll Lock              |
-|`KC_NUMLOCK`       |`KC_NLCK`           |Keypad Num Lock and Clear|
-|`KC_LOCKING_CAPS`  |`KC_LCAP`           |Locking Caps Lock        |
-|`KC_LOCKING_NUM`   |`KC_LNUM`           |Locking Num Lock         |
-|`KC_LOCKING_SCROLL`|`KC_LSCR`           |Locking Scroll Lock      |
+|Key                |Aliases             |Description                         |
+|-------------------|--------------------|------------------------------------|
+|`KC_CAPSLOCK`      |`KC_CLCK`, `KC_CAPS`|Caps Lock                           |
+|`KC_SCROLLLOCK`    |`KC_SLCK`, `KC_BRMD`|Scroll Lock, Brightness Down (macOS)|
+|`KC_NUMLOCK`       |`KC_NLCK`           |Keypad Num Lock and Clear           |
+|`KC_LOCKING_CAPS`  |`KC_LCAP`           |Locking Caps Lock                   |
+|`KC_LOCKING_NUM`   |`KC_LNUM`           |Locking Num Lock                    |
+|`KC_LOCKING_SCROLL`|`KC_LSCR`           |Locking Scroll Lock                 |
 
 ## Modifiers
 
@@ -116,7 +116,7 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 |`KC_LGUI`  |`KC_LCMD`, `KC_LWIN`|Left GUI (Windows/Command/Meta key) |
 |`KC_RCTRL` |`KC_RCTL`           |Right Control                       |
 |`KC_RSHIFT`|`KC_RSFT`           |Right Shift                         |
-|`KC_RALT`  |                    |Right Alt                           |
+|`KC_RALT`  |`KC_ALGR`           |Right Alt (AltGr)                   |
 |`KC_RGUI`  |`KC_RCMD`, `KC_RWIN`|Right GUI (Windows/Command/Meta key)|
 
 ## International
@@ -144,48 +144,48 @@ The basic set of keycodes are based on the [HID Keyboard/Keypad Usage Page (0x07
 
 ## Commands
 
-|Key               |Aliases            |Description                   |
-|------------------|-------------------|------------------------------|
-|`KC_PSCREEN`      |`KC_PSCR`          |Print Screen                  |
-|`KC_PAUSE`        |`KC_PAUS`, `KC_BRK`|Pause                         |
-|`KC_INSERT`       |`KC_INS`           |Insert                        |
-|`KC_HOME`         |                   |Home                          |
-|`KC_PGUP`         |                   |Page Up                       |
-|`KC_DELETE`       |`KC_DEL`           |Forward Delete                |
-|`KC_END`          |                   |End                           |
-|`KC_PGDOWN`       |`KC_PGDN`          |Page Down                     |
-|`KC_RIGHT`        |`KC_RGHT`          |Right Arrow                   |
-|`KC_LEFT`         |                   |Left Arrow                    |
-|`KC_DOWN`         |                   |Down Arrow                    |
-|`KC_UP`           |                   |Up Arrow                      |
-|`KC_APPLICATION`  |`KC_APP`           |Application (Windows Menu Key)|
-|`KC_POWER`        |                   |System Power (macOS/Linux)    |
-|`KC_EXECUTE`      |`KC_EXEC`          |Execute                       |
-|`KC_HELP`         |                   |Help                          |
-|`KC_MENU`         |                   |Menu                          |
-|`KC_SELECT`       |`KC_SLCT`          |Select                        |
-|`KC_STOP`         |                   |Stop                          |
-|`KC_AGAIN`        |`KC_AGIN`          |Again                         |
-|`KC_UNDO`         |                   |Undo                          |
-|`KC_CUT`          |                   |Cut                           |
-|`KC_COPY`         |                   |Copy                          |
-|`KC_PASTE`        |`KC_PSTE`          |Paste                         |
-|`KC_FIND`         |                   |Find                          |
-|`KC__MUTE`        |                   |Mute (macOS)                  |
-|`KC__VOLUP`       |                   |Volume Up (macOS)             |
-|`KC__VOLDOWN`     |                   |Volume Down (macOS)           |
-|`KC_ALT_ERASE`    |`KC_ERAS`          |Alternate Erase               |
-|`KC_SYSREQ`       |                   |SysReq/Attention              |
-|`KC_CANCEL`       |                   |Cancel                        |
-|`KC_CLEAR`        |`KC_CLR`           |Clear                         |
-|`KC_PRIOR`        |                   |Prior                         |
-|`KC_RETURN`       |                   |Return                        |
-|`KC_SEPARATOR`    |                   |Separator                     |
-|`KC_OUT`          |                   |Out                           |
-|`KC_OPER`         |                   |Oper                          |
-|`KC_CLEAR_AGAIN`  |                   |Clear/Again                   |
-|`KC_CRSEL`        |                   |CrSel/Props                   |
-|`KC_EXSEL`        |                   |ExSel                         |
+|Key               |Aliases                       |Description                   |
+|------------------|------------------------------|------------------------------|
+|`KC_PSCREEN`      |`KC_PSCR`                     |Print Screen                  |
+|`KC_PAUSE`        |`KC_PAUS`, `KC_BRK`, `KC_BRMU`|Pause, Brightness Up (macOS)  |
+|`KC_INSERT`       |`KC_INS`                      |Insert                        |
+|`KC_HOME`         |                              |Home                          |
+|`KC_PGUP`         |                              |Page Up                       |
+|`KC_DELETE`       |`KC_DEL`                      |Forward Delete                |
+|`KC_END`          |                              |End                           |
+|`KC_PGDOWN`       |`KC_PGDN`                     |Page Down                     |
+|`KC_RIGHT`        |`KC_RGHT`                     |Right Arrow                   |
+|`KC_LEFT`         |                              |Left Arrow                    |
+|`KC_DOWN`         |                              |Down Arrow                    |
+|`KC_UP`           |                              |Up Arrow                      |
+|`KC_APPLICATION`  |`KC_APP`                      |Application (Windows Menu Key)|
+|`KC_POWER`        |                              |System Power (macOS/Linux)    |
+|`KC_EXECUTE`      |`KC_EXEC`                     |Execute                       |
+|`KC_HELP`         |                              |Help                          |
+|`KC_MENU`         |                              |Menu                          |
+|`KC_SELECT`       |`KC_SLCT`                     |Select                        |
+|`KC_STOP`         |                              |Stop                          |
+|`KC_AGAIN`        |`KC_AGIN`                     |Again                         |
+|`KC_UNDO`         |                              |Undo                          |
+|`KC_CUT`          |                              |Cut                           |
+|`KC_COPY`         |                              |Copy                          |
+|`KC_PASTE`        |`KC_PSTE`                     |Paste                         |
+|`KC_FIND`         |                              |Find                          |
+|`KC__MUTE`        |                              |Mute (macOS)                  |
+|`KC__VOLUP`       |                              |Volume Up (macOS)             |
+|`KC__VOLDOWN`     |                              |Volume Down (macOS)           |
+|`KC_ALT_ERASE`    |`KC_ERAS`                     |Alternate Erase               |
+|`KC_SYSREQ`       |                              |SysReq/Attention              |
+|`KC_CANCEL`       |                              |Cancel                        |
+|`KC_CLEAR`        |`KC_CLR`                      |Clear                         |
+|`KC_PRIOR`        |                              |Prior                         |
+|`KC_RETURN`       |                              |Return                        |
+|`KC_SEPARATOR`    |                              |Separator                     |
+|`KC_OUT`          |                              |Out                           |
+|`KC_OPER`         |                              |Oper                          |
+|`KC_CLEAR_AGAIN`  |                              |Clear/Again                   |
+|`KC_CRSEL`        |                              |CrSel/Props                   |
+|`KC_EXSEL`        |                              |ExSel                         |
 
 ## Media Keys
 
