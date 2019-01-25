@@ -36,13 +36,14 @@
 
 /* EEPROM config settings */
 typedef union {
-  uint16_t raw;
+  uint32_t raw;
   struct {
-    bool    enable    :1;
-    uint8_t feedback  :2;
-    uint8_t mode      :7;
-    bool    buzz      :1;
-    uint8_t dwell     :7;
+    bool     enable    :1;
+    uint8_t  feedback  :2;
+    uint8_t  mode      :7;
+    bool     buzz      :1;
+    uint8_t  dwell     :7;
+    uint16_t reserved  :16; 
   };
 } haptic_config_t;
 
