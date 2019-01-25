@@ -149,12 +149,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
 
   // Update the layer.
-  const uint32_t old_layer_state = layer_state;
-  uint32_t new_layer_state = old_layer_state & LAYER_MASK;
+  uint32_t new_layer_state = layer_state & LAYER_MASK;
   if (magic) {
     new_layer_state |= (shifted ? SHIFTMAGIC_LAYER : MAGIC_LAYER);
   }
-  if (old_layer_state != new_layer_state) {
+  if (layer_state != new_layer_state) {
     layer_state_set(new_layer_state);
   }
 
