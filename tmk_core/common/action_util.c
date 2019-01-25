@@ -57,8 +57,8 @@ void set_oneshot_locked_mods(int8_t mods) {
         oneshot_locked_mods_set_kb(mods);
     }
 }
-void clear_oneshot_locked_mods(int8_t mods) {
-    if (mods != oneshot_locked_mods) {
+void clear_oneshot_locked_mods(void) {
+    if (oneshot_locked_mods != 0) {
         oneshot_locked_mods = 0;
         oneshot_locked_mods_set_kb(mods);
     }
