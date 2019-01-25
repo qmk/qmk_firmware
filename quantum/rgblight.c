@@ -137,7 +137,7 @@ void rgblight_check_config(void) {
   if (rgblight_config.hue < 0) {
     rgblight_config.hue = 0;
   } else if (rgblight_config.hue > 360) {
-    rgblight_config.hue = 360;
+    rgblight_config.hue %= 360;
   }
 
   if (rgblight_config.sat < 0) {
