@@ -29,13 +29,14 @@ Select a pin that has PWM
 
 Not all keycodes below will work depending on which haptic mechanism you have chosen.
 
-|Name      |Description                                   |
-|----------|----------------------------------------------|
-|`HAPT_ON`|Automatically switch between USB and Bluetooth|
-|`HAPT_OFF` |USB only                                      |
-|`HAPT_TOGGLE`  |                                |
-|`HAPT_RESET`  |                                |
-|`HAPT_FEEDBACK`  |                                |
-|`HAPT_MODE_INC`  |                                |
-|`SOLENOID_DWELL_INC`  |                                |
-|`SOLENOID_DWELL_DEC`  |                                |
+|Name       |Description                                            |
+|-----------|-------------------------------------------------------|
+|`HPT_ON`   | Turn haptic feedback on                               |
+|`HPT_OFF`  | Turn haptic feedback on                               |
+|`HPT_TOG`  | Toggle haptic feedback on/off                         |
+|`HPT_RST`  | Reset haptic feedback config to default               |
+|`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |
+|`HPT_MODI` | Go to next DRV2605L waveform                          |
+|`HPT_MODD` | Go to previous DRV2605L waveform                      |
+|`HPT_DWLI` | Increase Solenoid dwell time                          |
+|`HPT_DWLD` | Decrease Solenoid dwell time                          |

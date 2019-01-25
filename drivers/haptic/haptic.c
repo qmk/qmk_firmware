@@ -179,15 +179,15 @@ void haptic_play(void) {
 }
 
 bool process_haptic(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == HAPT_ON && record->event.pressed) { haptic_enable(); }
-    if (keycode == HAPT_OFF && record->event.pressed) { haptic_disable(); }
-    if (keycode == HAPT_TOGGLE && record->event.pressed) { haptic_toggle(); }
-    if (keycode == HAPT_RESET && record->event.pressed) { haptic_reset(); }
-    if (keycode == HAPT_FEEDBACK && record->event.pressed) { haptic_feedback_toggle(); }
-    if (keycode == HAPT_MODE_INC && record->event.pressed) { haptic_mode_increase(); }
-    if (keycode == HAPT_MODE_DEC && record->event.pressed) { haptic_mode_decrease(); }
-    if (keycode == SOLENOID_DWELL_INC && record->event.pressed) { haptic_dwell_increase(); }
-    if (keycode == SOLENOID_DWELL_DEC && record->event.pressed) { haptic_dwell_decrease(); }
+    if (keycode == HPT_ON && record->event.pressed) { haptic_enable(); }
+    if (keycode == HPT_OFF && record->event.pressed) { haptic_disable(); }
+    if (keycode == HPT_TOG && record->event.pressed) { haptic_toggle(); }
+    if (keycode == HPT_RST && record->event.pressed) { haptic_reset(); }
+    if (keycode == HPT_FBK && record->event.pressed) { haptic_feedback_toggle(); }
+    if (keycode == HPT_MODI && record->event.pressed) { haptic_mode_increase(); }
+    if (keycode == HPT_MODD && record->event.pressed) { haptic_mode_decrease(); }
+    if (keycode == HPT_DWLI && record->event.pressed) { haptic_dwell_increase(); }
+    if (keycode == HPT_DWLD && record->event.pressed) { haptic_dwell_decrease(); }
   if (haptic_config.enable) {
     if ( record->event.pressed ) {
 	// keypress

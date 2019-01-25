@@ -462,15 +462,15 @@ enum quantum_keycodes {
         UNICODE_MODE_BSD,
         UNICODE_MODE_WINC,
 
-        HAPT_ON,
-        HAPT_OFF,
-        HAPT_TOGGLE,
-        HAPT_RESET,
-        HAPT_FEEDBACK,
-        HAPT_MODE_INC,
-        HAPT_MODE_DEC,
-        SOLENOID_DWELL_INC,
-        SOLENOID_DWELL_DEC,
+        HPT_ON,
+        HPT_OFF,
+        HPT_TOG,
+        HPT_RST,
+        HPT_FBK,
+        HPT_MODI,
+        HPT_MODD,
+        HPT_DWLI,
+        HPT_DWLD,
 
         // always leave at the end
         SAFE_RANGE
