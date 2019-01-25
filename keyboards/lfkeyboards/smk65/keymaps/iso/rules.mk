@@ -23,10 +23,6 @@ ISSI_ENABLE = no               # If the I2C pullup resistors aren't install this
 WATCHDOG_ENABLE = yes           # Resets keyboard if matrix_scan isn't run every 250ms
 
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
-
 ifeq ($(strip $(ISSI_ENABLE)), yes)
     TMK_COMMON_DEFS += -DISSI_ENABLE
 endif
@@ -51,3 +47,4 @@ endif
 # endif
 # OPT_DEFS += -DLFK_REV_$(LFK_REV)
 # OPT_DEFS += -DUSB_PRODUCT=\"LFK_Rev$(LFK_REV)\"
+

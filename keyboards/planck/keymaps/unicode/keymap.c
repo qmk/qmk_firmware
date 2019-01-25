@@ -21,6 +21,7 @@
 */
 
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -187,10 +188,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______}
 }
 
-
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 

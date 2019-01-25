@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Danny Nguyen <danny@hexwire.com>
+Copyright 2017 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -15,13 +15,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
-
-#include QMK_KEYBOARD_CONFIG_H
+#pragma once
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCEEB
+#define VENDOR_ID       0xCB10
 #define PRODUCT_ID      0x1156
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
@@ -49,6 +46,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
 
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0
+
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
@@ -61,10 +61,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
+
 #define RGBLED_NUM 16    // Number of LEDs
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 
 /*
  * Feature disable options
@@ -83,5 +81,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
-#endif

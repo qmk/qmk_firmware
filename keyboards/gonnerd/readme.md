@@ -3,15 +3,15 @@ GON NerD
 
 A Korean Custom TKL.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: GON NerD TKL PCB
-Hardware Availability: http://www.gonskeyboardworks.com/pcbs-and-controllers/60-nerd-tkl-ver20-pcb.html
+Keyboard Maintainer: QMK Community  
+Hardware Supported: GON NerD TKL PCB  
+Hardware Availability: [gonskeyboardworks.com](http://www.gonskeyboardworks.com/pcbs-and-controllers/60-nerd-tkl-ver20-pcb.html)
 
 Make example for this keyboard (after setting up your build environment):
 
     make gonnerd:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 ## Changing Bootloader
 

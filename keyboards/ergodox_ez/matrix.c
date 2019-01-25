@@ -34,7 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "util.h"
 #include "matrix.h"
 #include QMK_KEYBOARD_H
-#include "i2cmaster.h"
 #ifdef DEBUG_MATRIX_SCAN_RATE
 #include  "timer.h"
 #endif
@@ -58,6 +57,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
+/*
+ * matrix state(1:on, 0:off)
+ * contains the raw values without debounce filtering of the last read cycle.
+ */
+static matrix_row_t raw_matrix[MATRIX_ROWS];
 
 // Debouncing: store for each key the number of scans until it's eligible to
 // change.  When scanning the matrix, ignore any changes in keys that have
@@ -70,6 +74,7 @@ static void unselect_rows(void);
 static void select_row(uint8_t row);
 
 static uint8_t mcp23018_reset_loop;
+// static uint16_t mcp23018_reset_loop;
 
 #ifdef DEBUG_MATRIX_SCAN_RATE
 uint32_t matrix_timer;
@@ -118,6 +123,7 @@ void matrix_init(void)
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         matrix[i] = 0;
+        raw_matrix[i] = 0;
         for (uint8_t j=0; j < MATRIX_COLS; ++j) {
             debounce_matrix[i * MATRIX_COLS + j] = 0;
         }
@@ -151,32 +157,37 @@ void matrix_power_up(void) {
 
 // Returns a matrix_row_t whose bits are set if the corresponding key should be
 // eligible to change in this scan.
-matrix_row_t debounce_mask(uint8_t row) {
+matrix_row_t debounce_mask(matrix_row_t rawcols, uint8_t row) {
   matrix_row_t result = 0;
-  for (uint8_t j=0; j < MATRIX_COLS; ++j) {
-    if (debounce_matrix[row * MATRIX_COLS + j]) {
-      --debounce_matrix[row * MATRIX_COLS + j];
+  matrix_row_t change = rawcols ^ raw_matrix[row];
+  raw_matrix[row] = rawcols;
+  for (uint8_t i = 0; i < MATRIX_COLS; ++i) {
+    if (debounce_matrix[row * MATRIX_COLS + i]) {
+      --debounce_matrix[row * MATRIX_COLS + i];
     } else {
-      result |= (1 << j);
+      result |= (1 << i);
+    }
+    if (change & (1 << i)) {
+      debounce_matrix[row * MATRIX_COLS + i] = DEBOUNCE;
     }
   }
   return result;
 }
 
-// Report changed keys in the given row.  Resets the debounce countdowns
-// corresponding to each set bit in 'change' to DEBOUNCE.
-void debounce_report(matrix_row_t change, uint8_t row) {
-  for (uint8_t i = 0; i < MATRIX_COLS; ++i) {
-    if (change & (1 << i)) {
-      debounce_matrix[row * MATRIX_COLS + i] = DEBOUNCE;
-    }
-  }
+matrix_row_t debounce_read_cols(uint8_t row) {
+  // Read the row without debouncing filtering and store it for later usage.
+  matrix_row_t cols = read_cols(row);
+  // Get the Debounce mask.
+  matrix_row_t mask = debounce_mask(cols, row);
+  // debounce the row and return the result.
+  return (cols & mask) | (matrix[row] & ~mask);;
 }
 
 uint8_t matrix_scan(void)
 {
     if (mcp23018_status) { // if there was an error
         if (++mcp23018_reset_loop == 0) {
+        // if (++mcp23018_reset_loop >= 1300) {
             // since mcp23018_reset_loop is 8 bit - we'll try to reset once in 255 matrix scans
             // this will be approx bit more frequent than once per second
             print("trying to reset mcp23018\n");
@@ -213,15 +224,12 @@ uint8_t matrix_scan(void)
         select_row(i + MATRIX_ROWS_PER_SIDE);
         // we don't need a 30us delay anymore, because selecting a
         // left-hand row requires more than 30us for i2c.
-        matrix_row_t mask = debounce_mask(i);
-        matrix_row_t cols = (read_cols(i) & mask) | (matrix[i] & ~mask);
-        debounce_report(cols ^ matrix[i], i);
-        matrix[i] = cols;
+
+        // grab cols from left hand
+        matrix[i] = debounce_read_cols(i);
         // grab cols from right hand
-        mask = debounce_mask(i + MATRIX_ROWS_PER_SIDE);
-        cols = (read_cols(i + MATRIX_ROWS_PER_SIDE) & mask) | (matrix[i + MATRIX_ROWS_PER_SIDE] & ~mask);
-        debounce_report(cols ^ matrix[i + MATRIX_ROWS_PER_SIDE], i + MATRIX_ROWS_PER_SIDE);
-        matrix[i + MATRIX_ROWS_PER_SIDE] = cols;
+        matrix[i + MATRIX_ROWS_PER_SIDE] = debounce_read_cols(i + MATRIX_ROWS_PER_SIDE);
+
         unselect_rows();
     }
 
@@ -294,13 +302,14 @@ static matrix_row_t read_cols(uint8_t row)
             return 0;
         } else {
             uint8_t data = 0;
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);    if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOB);             if (mcp23018_status) goto out;
-            mcp23018_status = i2c_start(I2C_ADDR_READ);     if (mcp23018_status) goto out;
-            data = i2c_readNak();
-            data = ~data;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);    if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOB, ERGODOX_EZ_I2C_TIMEOUT);             if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_READ, ERGODOX_EZ_I2C_TIMEOUT);     if (mcp23018_status) goto out;
+            mcp23018_status = i2c_read_nack(ERGODOX_EZ_I2C_TIMEOUT);                if (mcp23018_status < 0) goto out;
+            data = ~((uint8_t)mcp23018_status);
+            mcp23018_status = I2C_STATUS_SUCCESS;
         out:
-            i2c_stop();
+            i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
             return data;
         }
     } else {
@@ -349,11 +358,11 @@ static void select_row(uint8_t row)
         } else {
             // set active row low  : 0
             // set other rows hi-Z : 1
-            mcp23018_status = i2c_start(I2C_ADDR_WRITE);        if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(GPIOA);                 if (mcp23018_status) goto out;
-            mcp23018_status = i2c_write(0xFF & ~(1<<row));      if (mcp23018_status) goto out;
+            mcp23018_status = i2c_start(I2C_ADDR_WRITE, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(GPIOA, ERGODOX_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
+            mcp23018_status = i2c_write(0xFF & ~(1<<row), ERGODOX_EZ_I2C_TIMEOUT);      if (mcp23018_status) goto out;
         out:
-            i2c_stop();
+            i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
         }
     } else {
         // select on teensy
@@ -377,7 +386,7 @@ static void select_row(uint8_t row)
                 break;
             case 11:
                 DDRD  |= (1<<2);
-                PORTD &= ~(1<<3);
+                PORTD &= ~(1<<2);
                 break;
             case 12:
                 DDRD  |= (1<<3);
@@ -390,4 +399,3 @@ static void select_row(uint8_t row)
         }
     }
 }
-

@@ -18,18 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define PREVENT_STUCK_MODIFIERS
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x1c11
 #define PRODUCT_ID      0xb04d
-#define DEVICE_VER      673
+#define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
-#define MANUFACTURER "Input Club"
-#define USBSTR_MANUFACTURER    'I', '\x00', 'n', '\x00', 'p', '\x00', 'u', '\x00', 't', '\x00', ' ', '\x00', 'C', '\x00', 'l', '\x00', 'u', '\x00', 'b', '\x00'
-#define PRODUCT "K-Type/QMK"
-#define USBSTR_PRODUCT         'K', '\x00', '-', '\x00', 'T', '\x00', 'y', '\x00', 'p', '\x00', 'e', '\x00', '/', '\x00', 'Q', '\x00', 'M', '\x00', 'K', '\x00'
+#define MANUFACTURER Input Club
+#define PRODUCT K-Type/QMK
 /* key matrix size */
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 10
