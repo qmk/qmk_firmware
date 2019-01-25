@@ -14,8 +14,9 @@ The right-hand alt and gui keys take on a different meaning: right-alt lives up 
 AltGr by invoking Greek (the "magic" layers, 2 and 3), and right-gui invokes the function layer.
 
 *Layer 1 (Functions):* This layer deliberately sets KC_NO for the keys it doesn't use. I realize
-this isn't common, but I like to keep my functions quite distinct from all other layers. It has RESET
-at fn-esc, and various media controls elsewhere.
+this isn't common, but I like to keep my functions quite distinct from all other layers.
+
+RESET can be accessed at Fn+Left Shift+Escape.
 
 *Layers 2 and 3*: These are invoked by the "magic" key (AltGr) and by magic+shift. The
 letters mostly produce Greek; the numbers, superscripts (magic) and subscripts (magic+shift); and

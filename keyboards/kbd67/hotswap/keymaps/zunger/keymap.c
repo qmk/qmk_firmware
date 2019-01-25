@@ -14,11 +14,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-#include "eeconfig.h"
 
-// Defines the keycodes used by our macros in process_record_user
 enum custom_keycodes {
-  MAGIC = SAFE_RANGE,
+  SAFE_RESET = SAFE_RANGE,
 };
 
 enum layers_keymap {
@@ -29,8 +27,7 @@ enum layers_keymap {
   _SHIFTMAGIC,
 };
 
-#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-
+// This is so that H(xxxx) has the same width as _______, which makes the grids more legible.
 #define H(x) UC(0x##x)
 
 
@@ -53,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TAB,  KC_Q,    KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_END,  \
   KC_LCTL, KC_A,    KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_PGUP, \
   KC_LSFT, KC_Z,    KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                   KC_UP,   KC_PGDN, \
-  KC_LCTL, KC_LALT, KC_LGUI,                KC_SPC,                          MAGIC,   MO(_FUNCTION),             KC_LEFT, KC_DOWN, KC_RGHT),
+  KC_LCTL, KC_LALT, KC_LGUI,                KC_SPC,                          KC_RALT, MO(_FUNCTION),             KC_LEFT, KC_DOWN, KC_RGHT),
 
   /* Keymap Fn Layer. Blank keys are deliberately NO, not TRNS.
    * ,----------------------------------------------------------------.
@@ -69,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * `----------------------------------------------------------------'
    */
 [_FUNCTION] = LAYOUT(
-   RESET,   KC_F1,   KC_F2,       KC_F3,   KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10, KC_F11, KC_F12, KC_F13, KC_PSCR,  KC_MPLY, \
+   SAFE_RESET, KC_F1,   KC_F2,       KC_F3,   KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10, KC_F11, KC_F12, KC_F13, KC_PSCR,  KC_MPLY, \
    DEBUG,   KC_NO,   KC_NO,       KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,            _______,   \
    _______, KC_NO,   KC__VOLUP,   KC_NO,   KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,  KC_NO,          KC_NO,            KC_NO,   \
    _______, KC_MRWD, KC__VOLDOWN, KC_MFFD, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,   KC_NO,                  KC_BTN1, KC_MS_U, KC_BTN2, \
@@ -118,29 +115,50 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  _______, _______, _______,                   _______,                            _______, _______,                   H(21d0), H(21d3), H(21d2)),
 };
 
+// Layer bitfields.
+#define MAGIC_LAYER (1UL << _MAGIC)
+#define SHIFTMAGIC_LAYER (1UL << _SHIFTMAGIC)
+// The layers we don't touch.
+#define LAYER_MASK ~(MAGIC_LAYER|SHIFTMAGIC_LAYER)
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // We want magic to move us to layer _MAGIC, and shift+magic to move us to layer _SHIFTMAGIC. We
-  // can't do this with MO's because they get confused about the various orders in which keys can be
-  // pressed and released, so let's do it carefully and in code instead.
+  // Activate the appropriate magic layer:
+  //   User is holding AltGr+Shift => _SHIFTMAGIC
+  //   User is holding AltGr       => _MAGIC
+  //   Not holding AltGr           => None
+  // We do this the efficient way, by grabbing the non-magic bits from the current layer bitmap,
+  // setting the appropriate magic or shiftmagic bit, and doing an absolute layer set. (Layer
+  // sets are nontrivial, so we don't want to do extras!)
+
+  // We track shift and AltGr state on our own, because this function is called before get_mods is
+  // updated!
   static bool shifted = false;
   static bool magic = false;
 
   if (keycode == KC_LSHIFT || keycode == KC_RSHIFT) {
     shifted = record->event.pressed;
-  } else if (keycode == MAGIC) {
+  } else if (keycode == KC_RALT) {
     magic = record->event.pressed;
   }
 
-  if (magic && shifted) {
-    layer_off(_MAGIC);
-    layer_on(_SHIFTMAGIC);
-  } else if (magic) {
-    layer_on(_MAGIC);
-    layer_off(_SHIFTMAGIC);
-  } else {
-    layer_off(_MAGIC);
-    layer_off(_SHIFTMAGIC);
+  // Update the layer.
+  const uint32_t old_layer_state = layer_state;
+  uint32_t new_layer_state = old_layer_state & LAYER_MASK;
+  if (magic) {
+    new_layer_state |= (shifted ? SHIFTMAGIC_LAYER : MAGIC_LAYER);
   }
+  if (old_layer_state != new_layer_state) {
+    layer_state_set(new_layer_state);
+  }
+
+  // Second, implement SAFE_RESET. This is just a RESET key, but we want to avoid accidentally
+  // triggering it, so we also require left-shift. This means that to flash the keyboard you need
+  // to hit Fn+left-shift+esc, which is less likely to hit by accident than Fn+esc -- especially
+  // since AltGr+Esc is the easiest way to generate a backtick.
+  if (keycode == SAFE_RESET && record->event.pressed && shifted) {
+    reset_keyboard();
+  }
+
   return true;
 }
 
@@ -149,9 +167,6 @@ void eeconfig_init_user(void) {
 }
 
 void matrix_init_user(void) {
-  if (!eeconfig_is_enabled()) {
-    eeconfig_init();
-  }
 }
 
 void matrix_scan_user(void) {
