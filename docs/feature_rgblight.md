@@ -148,37 +148,43 @@ const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 
 If you need to change your RGB lighting in code, for example in a macro to change the color whenever you switch layers, QMK provides a set of functions to assist you. See [`rgblight.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight.h) for the full list, but the most commonly used functions include:
 
-|Function                           |Description                                                                                                                                                            |
-|-----------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`rgblight_enable()`                |Turn LEDs on, based on their previous state                                                                                                                            |
-|`rgblight_enable_noeeprom()`       |Turn LEDs on, based on their previous state (not written to EEPROM)                                                                                                    |
-|`rgblight_disable()`               |Turn LEDs off                                                                                                                                                          |
-|`rgblight_disable_noeeprom()`      |Turn LEDs off (not written to EEPROM)                                                                                                                                  |
-|`rgblight_mode(x)`                 |Set the mode, if RGB animations are enabled                                                                                                                            |
-|`rgblight_mode_noeeprom(x)`        |Set the mode, if RGB animations are enabled (not written to EEPROM)                                                                                                    |
-|`rgblight_setrgb(r, g, b)`         |Set all LEDs to the given RGB value where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM)                                                                    |
-|`rgblight_setrgb_at(r, g, b, led)` |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `led` is between 0 and `RGBLED_NUM` (not written to EEPROM)                       |
-|`rgblight_sethsv(h, s, v)`         |Set all LEDs to the given HSV value where `h` is between 0 and 360 and `s`/`v` are between 0 and 255                                                                   |
-|`rgblight_sethsv_noeeprom(h, s, v)`|Set all LEDs to the given HSV value where `h` is between 0 and 360 and `s`/`v` are between 0 and 255 (not written to EEPROM)                                           |
-|`rgblight_sethsv_at(h, s, v, led)` |Set a single LED to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255, and `led` is between 0 and `RGBLED_NUM` (not written to EEPROM)|
-|`rgblight_toggle()`                |Toggle all LEDs between on and off                                                                                                                                     |
-|`rgblight_toggle_noeeprom()`       |Toggle all LEDs between on and off (not written to EEPROM)                                                                                                             |
-|`rgblight_step()`                  |Change the mode to the next RGB animation in the list of enabled RGB animations                                                                                        |
-|`rgblight_step_noeeprom()`         |Change the mode to the next RGB animation in the list of enabled RGB animations (not written to EEPROM)                                                                |
-|`rgblight_step_reverse()`          |Change the mode to the previous RGB animation in the list of enabled RGB animations                                                                                    |
-|`rgblight_step_reverse_noeeprom()` |Change the mode to the previous RGB animation in the list of enabled RGB animations (not written to EEPROM)                                                            |
-|`rgblight_increase_hue()`          |Increase the hue for all LEDs. This wraps around at maximum hue                                                                                                        |
-|`rgblight_increase_hue_noeeprom()` |Increase the hue for all LEDs. This wraps around at maximum hue (not written to EEPROM)                                                                                |
-|`rgblight_decrease_hue()`          |Decrease the hue for all LEDs. This wraps around at minimum hue                                                                                                        |
-|`rgblight_decrease_hue_noeeprom()` |Decrease the hue for all LEDs. This wraps around at minimum hue (not written to EEPROM)                                                                                |
-|`rgblight_increase_sat()`          |Increase the saturation for all LEDs. This wraps around at maximum saturation                                                                                          |
-|`rgblight_increase_sat_noeeprom()` |Increase the saturation for all LEDs. This wraps around at maximum saturation (not written to EEPROM)                                                                  |
-|`rgblight_decrease_sat()`          |Decrease the saturation for all LEDs. This wraps around at minimum saturation                                                                                          |
-|`rgblight_decrease_sat_noeeprom()` |Decrease the saturation for all LEDs. This wraps around at minimum saturation (not written to EEPROM)                                                                  |
-|`rgblight_increase_val()`          |Increase the value for all LEDs. This wraps around at maximum value                                                                                                    |
-|`rgblight_increase_val_noeeprom()` |Increase the value for all LEDs. This wraps around at maximum value (not written to EEPROM)                                                                            |
-|`rgblight_decrease_val()`          |Decrease the value for all LEDs. This wraps around at minimum value                                                                                                    |
-|`rgblight_decrease_val_noeeprom()` |Decrease the value for all LEDs. This wraps around at minimum value (not written to EEPROM)                                                                            |
+|Function                                    |Description                                                                                                                                                   |
+|--------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`rgblight_enable()`                         |Turn LEDs on, based on their previous state                                                                                                                   |
+|`rgblight_enable_noeeprom()`                |Turn LEDs on, based on their previous state (not written to EEPROM)                                                                                           |
+|`rgblight_disable()`                        |Turn LEDs off                                                                                                                                                 |
+|`rgblight_disable_noeeprom()`               |Turn LEDs off (not written to EEPROM)                                                                                                                         |
+|`rgblight_mode(x)`                          |Set the mode, if RGB animations are enabled                                                                                                                   |
+|`rgblight_mode_noeeprom(x)`                 |Set the mode, if RGB animations are enabled (not written to EEPROM)                                                                                           |
+|`rgblight_setrgb(r, g, b)`                  |Set all LEDs to the given RGB value where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM)                                                           |
+|`rgblight_setrgb_at(r, g, b, led)`          |Set a single LED to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `led` is between 0 and `RGBLED_NUM` (not written to EEPROM)              |
+|`rgblight_setrgb_range(r, g, b, start, end)`|Set a continuous range of LEDs to the given RGB value, where `r`/`g`/`b` are between 0 and 255 and `start`(included) and `stop`(excluded) are between 0 and `RGBLED_NUM` (not written to EEPROM)|
+|`rgblight_setrgb_master(r, g, b)`           |Set the LEDs on the master side  to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM)                                      |
+|`rgblight_setrgb_slave(r, g, b)`            |Set the LEDs on the slave side  to the given RGB value, where `r`/`g`/`b` are between 0 and 255 (not written to EEPROM)                                       |
+|`rgblight_sethsv(h, s, v)`                  |Set all LEDs to the given HSV value where `h` is between 0 and 360 and `s`/`v` are between 0 and 255                                                          |
+|`rgblight_sethsv_noeeprom(h, s, v)`         |Set all LEDs to the given HSV value where `h` is between 0 and 360 and `s`/`v` are between 0 and 255 (not written to EEPROM)                                  |
+|`rgblight_sethsv_at(h, s, v, led)`          |Set a single LED to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255, and `led` is between 0 and `RGBLED_NUM` (not written to EEPROM)|
+|`rgblight_sethsv_range(h, s, v, start, end)`|Set a continuous range of LEDs to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255, and `start`(included) and `stop`(excluded) are between 0 and `RGBLED_NUM` (not written to EEPROM)|
+|`rgblight_sethsv_master(h, s, v)`           |Set the LEDs on the master side to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255 (not written to EEPROM)                 |
+|`rgblight_sethsv_slave(h, s, v)`            |Set the LEDs on the slave side to the given HSV value, where `h` is between 0 and 360, `s`/`v` are between 0 and 255 (not written to EEPROM)                  |
+|`rgblight_toggle()`                         |Toggle all LEDs between on and off                                                                                                                            |
+|`rgblight_toggle_noeeprom()`                |Toggle all LEDs between on and off (not written to EEPROM)                                                                                                    |
+|`rgblight_step()`                           |Change the mode to the next RGB animation in the list of enabled RGB animations                                                                               |
+|`rgblight_step_noeeprom()`                  |Change the mode to the next RGB animation in the list of enabled RGB animations (not written to EEPROM)                                                       |
+|`rgblight_step_reverse()`                   |Change the mode to the previous RGB animation in the list of enabled RGB animations                                                                           |
+|`rgblight_step_reverse_noeeprom()`          |Change the mode to the previous RGB animation in the list of enabled RGB animations (not written to EEPROM)                                                   |
+|`rgblight_increase_hue()`                   |Increase the hue for all LEDs. This wraps around at maximum hue                                                                                               |
+|`rgblight_increase_hue_noeeprom()`          |Increase the hue for all LEDs. This wraps around at maximum hue (not written to EEPROM)                                                                       |
+|`rgblight_decrease_hue()`                   |Decrease the hue for all LEDs. This wraps around at minimum hue                                                                                               |
+|`rgblight_decrease_hue_noeeprom()`          |Decrease the hue for all LEDs. This wraps around at minimum hue (not written to EEPROM)                                                                       |
+|`rgblight_increase_sat()`                   |Increase the saturation for all LEDs. This wraps around at maximum saturation                                                                                 |
+|`rgblight_increase_sat_noeeprom()`          |Increase the saturation for all LEDs. This wraps around at maximum saturation (not written to EEPROM)                                                         |
+|`rgblight_decrease_sat()`                   |Decrease the saturation for all LEDs. This wraps around at minimum saturation                                                                                 |
+|`rgblight_decrease_sat_noeeprom()`          |Decrease the saturation for all LEDs. This wraps around at minimum saturation (not written to EEPROM)                                                         |
+|`rgblight_increase_val()`                   |Increase the value for all LEDs. This wraps around at maximum value                                                                                           |
+|`rgblight_increase_val_noeeprom()`          |Increase the value for all LEDs. This wraps around at maximum value (not written to EEPROM)                                                                   |
+|`rgblight_decrease_val()`                   |Decrease the value for all LEDs. This wraps around at minimum value                                                                                           |
+|`rgblight_decrease_val_noeeprom()`          |Decrease the value for all LEDs. This wraps around at minimum value (not written to EEPROM)                                                                   |
 
 Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h) defines several predefined shortcuts for various colors. Feel free to add to this list!
 
