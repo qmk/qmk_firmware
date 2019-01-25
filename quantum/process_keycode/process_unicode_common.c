@@ -60,6 +60,11 @@ void set_unicode_input_mode(uint8_t mode) {
   dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
 }
 
+void set_unicode_input_mode_noeeprom(uint8_t mode) {
+  unicode_config.input_mode = mode;
+  dprintf("Unicode input mode set to: %u\n", unicode_config.input_mode);
+}
+
 void cycle_unicode_input_mode(uint8_t offset) {
 #if UNICODE_SELECTED_MODES != -1
   selected_index = (selected_index + offset) % selected_count;

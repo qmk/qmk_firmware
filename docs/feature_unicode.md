@@ -83,7 +83,12 @@ The following input modes are available:
 
 ### Switching Input Modes
 
-There are two ways to set the input mode for Unicode: by keycode or by function. Keep in mind that both methods write to persistent storage (EEPROM), and are loaded each time the keyboard starts. So once you've set it the first time, you don't need to set it again unless you want to change it, or you've reset the EEPROM settings.
+The Unicode input mode is stored in two places: in persistent storage (EEPROM) and in memory. The system normally reads the value from EEPROM at init time, and relies on the in-memory value thereafter.
+
+There are three ways to set the input mode for Unicode: with a mode-switching keycode, with a
+function that just changes the value in memory, and with a function that changes the value in
+EEPROM. (The mode-switching keycodes write the change to EEPROM, so once you set them you don't need
+to set them again unless you want to change them)
 
 You can switch the input mode at any time by using one of the following keycodes. The easiest way is to add the ones you use to your keymap.
 
@@ -97,13 +102,7 @@ You can switch the input mode at any time by using one of the following keycodes
 |`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented).   |
 |`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose.|
 
-You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user` (or a similar function). For example:
-
-```c
-void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_LNX);
-}
-```
+You can also switch the input mode by calling `set_unicode_input_mode(x)` or `set_unicode_input_mode_noeeprom(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the first of these writes to EEPROM, you shouldn't call it unless the value of the mode has actually changed. If you want to set the value at keyboard power-on time, you can examine the value already loaded from EEPROM with `get_unicode_input_mode`, and set it with `set_unicode_input_mode_noeeprom`, from your `matrix_init_user` function.
 
 ### Audio Feedback
 
