@@ -23,6 +23,7 @@
 #include "DRV2605L.h"
 #endif
 
+
 #ifndef HAPTIC_INTENSITY_DEFAULT
 #define HAPTIC_INTENSITY_DEFAULT 0
 #endif
@@ -40,8 +41,8 @@ typedef union {
     bool    enable    :1;
     uint8_t feedback  :2;
     uint8_t mode      :7;
-    uint8_t reserved  :8;
-/* bits reserved for future features */
+    bool    buzz      :1;
+    uint8_t dwell     :7;
   };
 } haptic_config_t;
 
@@ -54,22 +55,22 @@ typedef enum HAPTIC_FEEDBACK{
 
 bool process_haptic(uint16_t keycode, keyrecord_t *record);
 void haptic_init(void);
+void haptic_task(void);
 void eeconfig_debug_haptic(void);
 void haptic_enable(void);
 void haptic_disable(void);
 void haptic_toggle(void);
 void haptic_feedback_toggle(void);
-void haptic_intensity_toggle(void);
 void haptic_mode_increase(void);
 void haptic_mode_decrease(void);
 void haptic_mode(uint8_t mode);
-void haptic_mode_reset(void);
-void haptic_set_intensity(uint8_t intensity);
+void haptic_reset(void);
 void haptic_set_feedback(uint8_t feedback);
 void haptic_set_mode(uint8_t mode);
 uint8_t haptic_get_mode(void);
 uint8_t haptic_get_feedback(void);
-uint8_t haptic_get_intensity(void);
+void haptic_dwell_increase(void);
+void haptic_dwell_decrease(void);
 
 void haptic_play(void);
 

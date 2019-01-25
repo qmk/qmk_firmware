@@ -465,11 +465,12 @@ enum quantum_keycodes {
         HAPT_ON,
         HAPT_OFF,
         HAPT_TOGGLE,
+        HAPT_RESET,
         HAPT_FEEDBACK,
-        HAPT_INTENSITY,
         HAPT_MODE_INC,
         HAPT_MODE_DEC,
-        HAPT_MODE_RESET,
+        SOLENOID_DWELL_INC,
+        SOLENOID_DWELL_DEC,
 
         // always leave at the end
         SAFE_RANGE

@@ -1054,6 +1054,10 @@ void matrix_scan_quantum() {
     encoder_read();
   #endif
 
+  #ifdef HAPTIC_ENABLE
+    haptic_task();
+  #endif
+
   matrix_scan_kb();
 }
 #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
