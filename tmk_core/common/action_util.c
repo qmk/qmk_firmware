@@ -48,10 +48,10 @@ extern inline void del_key(uint8_t key);
 extern inline void clear_keys(void);
 
 #ifndef NO_ACTION_ONESHOT
-static int8_t oneshot_mods = 0;
-static int8_t oneshot_locked_mods = 0;
+static uint8_t oneshot_mods = 0;
+static uint8_t oneshot_locked_mods = 0;
 int8_t get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
-void set_oneshot_locked_mods(int8_t mods) {
+void set_oneshot_locked_mods(uint8_t mods) {
     if (mods != oneshot_locked_mods) {
         oneshot_locked_mods = mods;
         oneshot_locked_mods_set_kb(mods);
