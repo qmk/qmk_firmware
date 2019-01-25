@@ -14,8 +14,7 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
 };
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+
 #define FN1 MO(_FN1)
 #define FN2 MO(_FN2)
 #define SPFN1 LT(_FN1, KC_SPACE)
