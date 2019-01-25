@@ -22,4 +22,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
           LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT, SLSH, NO,   RSFT,   NO, \
           LCTL, LGUI, LALT,                SPC,                 RALT, RGUI, APP,  RCTL),
 };
-const uint16_t PROGMEM fn_actions[] = {};

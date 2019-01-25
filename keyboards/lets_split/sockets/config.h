@@ -16,10 +16,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef SOCKETS_CONFIG_H
-#define SOCKETS_CONFIG_H
-
-#include "config_common.h"
+#pragma once
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xBEE5
@@ -47,6 +44,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
+
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
 #define LOCKING_SUPPORT_ENABLE
@@ -86,5 +86,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
 
+#ifdef USE_Link_Time_Optimization
+  // LTO has issues with macros (action_get_macro) and "functions" (fn_actions),
+  //  so just disable them
+  #define NO_ACTION_MACRO
+  #define NO_ACTION_FUNCTION
 
-#endif
+  #define DISABLE_LEADER
+#endif // USE_Link_Time_Optimization

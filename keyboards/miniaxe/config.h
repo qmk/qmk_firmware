@@ -44,8 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 // #define MATRIX_ROW_PINS { D0, D5 }
 // #define MATRIX_COL_PINS { F1, F0, B0 }
-#define NO_PIN 0xFF
-#define MATRIX_ROW_COL_PINS { \
+#define DIRECT_PINS { \
     { F1, E6, B0, B2, B3 }, \
     { F5, F0, B1, B7, D2 }, \
     { F6, F7, C7, D5, D3 }, \
@@ -54,7 +53,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION CUSTOM_MATRIX
+//#define DIODE_DIRECTION CUSTOM_MATRIX
 
 // #define BACKLIGHT_PIN B7
 // #define BACKLIGHT_BREATHING
@@ -237,6 +236,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Serial settings */
 #define USE_SERIAL
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0
+
 //#define EE_HANDS
 #define I2C_MASTER_LEFT
 //#define I2C_MASTER_RIGHT

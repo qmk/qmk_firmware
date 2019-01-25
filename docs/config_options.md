@@ -109,9 +109,9 @@ If you define these options you will disable the associated feature, which can s
 * `#define NO_ACTION_ONESHOT`
   * disable one-shot modifiers
 * `#define NO_ACTION_MACRO`
-  * disable all macro handling
+  * disable old style macro handling: MACRO() & action_get_macro
 * `#define NO_ACTION_FUNCTION`
-  * disable the action function (deprecated)
+  * disable calling of action_function() from the fn_actions array (deprecated)
 
 ## Features That Can Be Enabled
 
@@ -143,6 +143,11 @@ If you define these options you will enable the associated feature, which may in
   * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
+    * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.
+* `#define LEADER_PER_KEY_TIMING`
+  * sets the timer for leader key chords to run on each key press rather than overall
+* `#define LEADER_KEY_STRICT_KEY_PROCESSING`
+  * Disables keycode filtering for Mod-Tap and Layer-Tap keycodes. Eg, if you enable this, you would need to specify `MT(MOD_CTL, KC_A)` if you want to use `KC_A`.
 * `#define ONESHOT_TIMEOUT 300`
   * how long before oneshot times out
 * `#define ONESHOT_TAP_TOGGLE 2`
@@ -160,6 +165,8 @@ If you define these options you will enable the associated feature, which may in
   * Set this to the number of combos that you're using in the [Combo](feature_combo.md) feature.
 * `#define COMBO_TERM 200`
   * how long for the Combo keys to be detected. Defaults to `TAPPING_TERM` if not defined.
+* `#define TAP_CODE_DELAY 100`
+  * Sets the delay between `register_code` and `unregister_code`, if you're having issues with it registering properly (common on VUSB boards). The value is in milliseconds.
 
 ## RGB Light Configuration
 
@@ -190,11 +197,50 @@ If you define these options you will enable the associated feature, which may in
 
 Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk
 
+* `SPLIT_TRANSPORT = custom`
+  * Allows replacing the standard split communication routines with a custom one. ARM based split keyboards must use this at present.
+
+### Setting Handedness
+
+One thing to remember, the side that the USB port is plugged into is always the master half. The side not plugged into USB is the slave.
+
+There are a few different ways to set handedness for split keyboards (listed in order of precedence):
+
+1. Set `SPLIT_HAND_PIN`: Reads a pin to determine handedness. If pin is high, it's the left side, if low, the half is determined to be the right side
+2. Set `EE_HANDS` and flash `eeprom-lefthand.eep`/`eeprom-righthand.eep` to each half
+3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
+4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
+
 * `#define SPLIT_HAND_PIN B7`
-  * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace 'B7' with the pin you are using. This is optional and you can still use the EEHANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
-  
+  * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
+
+* `#define EE_HANDS` (only works if `SPLIT_HAND_PIN` is not defined)
+  * Reads the handedness value stored in the EEPROM after `eeprom-lefthand.eep`/`eeprom-righthand.eep` has been flashed to their respective halves.
+
+* `#define MASTER_RIGHT`
+  * Master half is defined to be the right half.
+
+### Other Options
+
 * `#define USE_I2C`
   * For using I2C instead of Serial (defaults to serial)
+
+* `#define SOFT_SERIAL_PIN D0`
+  * When using serial, define this. `D0` or `D1`,`D2`,`D3`,`E6`.
+
+* `#define MATRIX_ROW_PINS_RIGHT { <row pins> }`
+* `#define MATRIX_COL_PINS_RIGHT { <col pins> }`
+  * If you want to specify a different pinout for the right half than the left half, you can define `MATRIX_ROW_PINS_RIGHT`/`MATRIX_COL_PINS_RIGHT`. Currently, the size of `MATRIX_ROW_PINS` must be the same as `MATRIX_ROW_PINS_RIGHT` and likewise for the definition of columns.
+
+* `#define SELECT_SOFT_SERIAL_SPEED <speed>` (default speed is 1)
+  * Sets the protocol speed when using serial communication
+  * Speeds:
+    * 0: about 189kbps (Experimental only)
+    * 1: about 137kbps (default)
+    * 2: about 75kbps
+    * 3: about 39kbps
+    * 4: about 26kbps
+    * 5: about 20kbps
 
 # The `rules.mk` File
 
@@ -247,6 +293,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Enable the audio subsystem.
 * `RGBLIGHT_ENABLE`
   * Enable keyboard underlight functionality
+* `LEADER_ENABLE`
+  * Enable leader key chording
 * `MIDI_ENABLE`
   * MIDI controls
 * `UNICODE_ENABLE`
@@ -257,6 +305,10 @@ Use these to enable or disable building certain features. The more you have enab
   * Current options are AdafruitEzKey, AdafruitBLE, RN42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
+* `CUSTOM_MATRIX`
+  * Allows replacing the standard matrix scanning routine with a custom one.
+* `CUSTOM_DEBOUNCE`
+  * Allows replacing the standard key debouncing routine with a custom one.
 * `WAIT_FOR_USB`
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`

@@ -82,12 +82,10 @@ void layer_xor(uint32_t state);
 #define layer_or(state)
 #define layer_and(state)
 #define layer_xor(state)
-
-__attribute__((weak))
-uint32_t layer_state_set_user(uint32_t state);
-__attribute__((weak))
-uint32_t layer_state_set_kb(uint32_t state);
 #endif
+
+uint32_t layer_state_set_user(uint32_t state);
+uint32_t layer_state_set_kb(uint32_t state);
 
 /* pressed actions cache */
 #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
