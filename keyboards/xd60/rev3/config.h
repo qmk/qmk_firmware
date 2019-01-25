@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Eduardo Pinto <edulpn@gmail.com>
+Copyright 2019 Rodrigo Feijao <hello@rodrigofeijao.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -60,7 +60,7 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 #define RGB_DI_PIN F6
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 12     // Number of LEDs
+#define RGBLED_NUM 12
 #define RGBLIGHT_HUE_STEP 10
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
