@@ -39,14 +39,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  static uint8_t shift_esc_shift_mask;
-
   switch (keycode) {
     case SFT_ESC:
-      shift_esc_shift_mask = get_mods() & MODS_SHIFT_MASK;
-
       if (record->event.pressed) {
-        if (shift_esc_shift_mask) {
+        if (get_mods() & MODS_SHIFT_MASK) {
           add_key(KC_GRV);
           send_keyboard_report();
         } else {
@@ -54,7 +50,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
           send_keyboard_report();
         }
       } else {
-        if (shift_esc_shift_mask) {
+        if (get_mods() & MODS_SHIFT_MASK) {
           del_key(KC_GRV);
           send_keyboard_report();
         } else {
