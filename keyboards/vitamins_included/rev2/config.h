@@ -16,9 +16,14 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once
+#ifndef REV2_CONFIG_H
+#define REV2_CONFIG_H
 
 #include "config_common.h"
 
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
+#define QMK_ESC_OUTPUT F1 // usually COL
+#define QMK_ESC_INPUT F5 // usually ROW
+#define QMK_LED D5
+#define QMK_SPEAKER C6
+
+#endif
