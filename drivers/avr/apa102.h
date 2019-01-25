@@ -20,8 +20,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef LIGHT_APA102_H_
-#define LIGHT_APA102_H_
+#pragma once
 
 #include <avr/io.h>
 #include <avr/interrupt.h>
@@ -45,5 +44,3 @@
 void apa102_setleds     (LED_TYPE *ledarray, uint16_t number_of_leds);
 void apa102_setleds_pin (LED_TYPE *ledarray, uint16_t number_of_leds,uint8_t pinmask);
 void apa102_setleds_rgbw(LED_TYPE *ledarray, uint16_t number_of_leds);
-
-#endif /* LIGHT_APA102_H_ */

@@ -27,41 +27,34 @@
 #include "debug.h"
 
 // Setleds for standard RGB
-void inline apa102_setleds(LED_TYPE *ledarray, uint16_t leds)
-{
+void inline apa102_setleds(LED_TYPE *ledarray, uint16_t leds){
   apa102_setleds_pin(ledarray,leds, _BV(RGB_DI_PIN & 0xF), _BV(RGB_CLK_PIN & 0xF));
 }
 
-void static inline apa102_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmask_DI, uint8_t pinmask_CLK)
-{
+void static inline apa102_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmask_DI, uint8_t pinmask_CLK){
   pinMode(RGB_DI_PIN, PinDirectionOutput);
   pinMode(RGB_CLK_PIN, PinDirectionOutput);
 
   apa102_send_array((uint8_t*)ledarray,leds)
 }
 
-void apa102_send_array(uint8_t *data, uint16_t leds) // Data is struct of 3 bytes. RGB - leds is number of leds in data
-{
+void apa102_send_array(uint8_t *data, uint16_t leds){ // Data is struct of 3 bytes. RGB - leds is number of leds in data
   apa102_start_frame();
-  while(leds--)
-  {
+  while(leds--){
     apa102_send_frame(0xFF000000 | (data->b << 16) | (data->g << 8) | data->r);
     data++;
   }
   apa102_end_frame(leds);
 }
 
-void apa102_send_frame(uint32_t frame)
-{
-  for(uint32_t i=0xFF; i>0;)
-  {
+void apa102_send_frame(uint32_t frame){
+  for(uint32_t i=0xFF; i>0;){
     apa102_send_byte(frame & i);
     i = i << 8;
   }
 }
 
-void apa102_start_frame()
-{
+void apa102_start_frame(){
   apa102_send_frame(0);
 }
 
@@ -94,17 +87,14 @@ void apa102_end_frame(uint16_t leds)
   // start displaying their new colors right away.
 
   apa102_send_byte(0xFF);
-  for (uint16_t i = 0; i < 5 + leds / 16; i++)
-  {
+  for (uint16_t i = 0; i < 5 + leds / 16; i++){
     apa102_send_byte(0);
   }
 }
 
-void apa102_send_byte(uint8_t byte)
-{
+void apa102_send_byte(uint8_t byte){
   uint8_t i;
-  for (i = 0; i < 8; i++)
-  {
+  for (i = 0; i < 8; i++){
     digitalWrite(RGB_DI_PIN, !!(byte & (1 << (7-i)));
     digitalWrite(RGB_CLK_PIN, PinLevelHigh);
   }
