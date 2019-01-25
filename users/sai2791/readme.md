@@ -24,3 +24,12 @@ This is my personal userspace file.
 - ergodox_ez  Doesnt use the sai2791.c
 - radox_w     Doesnt use the sai2791.c
 - ymdk_np21   Doesnt use the sai2791.c
+
+# Notes to myself
+- If i add the compile time flags flto gives an error about the redefinition
+of fn_action
+quantum/keymap_common.c:190:24: error: type of 'fn_actions' does not match original declaration [-Werror]
+|  const uint16_t PROGMEM fn_actions[] = {
+|                         ^
+| keyboards/ergodox_ez/keymaps/sai2791/keymap.c:226:24: note: previously declared here
+|  const uint16_t PROGMEM fn_actions[] = {

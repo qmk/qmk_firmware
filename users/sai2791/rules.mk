@@ -9,3 +9,5 @@ endif
 ifeq ($(strip $(KEYBOARD)), redox_w)
 		SRC +=
 endif
+
+EXTRAFLAGS+=-flto
