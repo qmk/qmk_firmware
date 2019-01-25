@@ -46,8 +46,11 @@ void matrix_init(void)
 
 uint8_t matrix_scan(void)
 {
-  matrix_scan_quantum();
-  return 1;
+    if (mcp23017_status) {
+        
+    }
+    matrix_scan_quantum();
+    return 1;
 }
 
 bool matrix_is_on(uint8_t row, uint8_t col)

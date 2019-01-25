@@ -32,6 +32,8 @@ inline void ergodox_led_all_off(void)
   palClearPad(GPIOA, 8);
 }
 
+extern int mcp23017_status = 0x20;
+
 void ergodox_blink_all_leds(void);
 
 /*
