@@ -290,7 +290,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`DF(layer)`     |Set the base (default) layer                                                      |
 |`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
 |`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](https://docs.qmk.fm/#/feature_advanced_keycodes?id=one-shot-keys) for details. |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well. 
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](https://docs.qmk.fm/#/feature_advanced_keycodes?id=mod-tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 |`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
 |`TO(layer)`     |Turn on `layer` when pressed                                                      |
