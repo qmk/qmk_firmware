@@ -3,5 +3,9 @@ ifeq ($(strip $(KEYBOARD)), ymdk_np21)
 endif
 
 ifeq ($(strip $(KEYBOARD)), ergodox_ez)
-		SRC += sai2791.c
+		SRC +=
+endif
+
+ifeq ($(strip $(KEYBOARD)), redox_w)
+		SRC += 
 endif
