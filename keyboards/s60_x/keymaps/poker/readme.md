@@ -1,6 +1,6 @@
 ﻿### 3  Poker
-[keymap_poker.c](keymap_poker.c) emulates original Poker layers
-while both [keymap_poker_bit.c](keymap_poker_bit.c) and [keymap_poker_set.c](keymap_poker_set.c) implements same layout in different way and they fix a minor issue of original Poker and enhance arrow keys.
+[keymap_poker](../poker/readme.md) emulates original Poker layers
+while both [keymap_poker_bit](../poker_bit/readme.md) and [keymap_poker_set](../poker_set/readme.md) implements same layout in different way and they fix a minor issue of original Poker and enhance arrow keys.
 
     Fn + Esc = `
     Fn + {left, down, up, right}  = {home, pgdown, pgup, end}

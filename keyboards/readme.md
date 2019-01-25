@@ -38,6 +38,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Arrow Pad](/keyboards/arrow_pad) &mdash; A custom creation by IBNobody.
 * [Atreus](/keyboards/atreus) &mdash; Made by Technomancy.
 * [Bantam44](/keyboards/bantam44) &mdash; It is a 44-key 40% staggered keyboard.
+* [DataHand](/keyboards/handwired/datahand) &mdash; DataHand keyboard converted to use a Teensy board.
 * [Ergodox Infinity](/keyboards/ergodox_infinity) - Ergonomic Split Keyboard by Input Club.
 * [GH60](/keyboards/gh60) &mdash; A 60% Geekhack community-driven project.
 * [GON NerD](/keyboards/gonnerd) &mdash; Korean custom 60% PCB
@@ -53,7 +54,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Lets Split](/keyboards/lets_split) - Split ortholinear 40% keyboard.
 * [Phantom](/keyboards/phantom) &mdash; A tenkeyless kit by Teel, also from Geekhack.
 * [Retro Refit](/keyboards/retro_refit) &mdash; Another creation by IBNobody.
-* [S60-x](/keyboards/s60-x) &mdash; DIY compact keyboard designed by VinnyCordeiro for Sentraq.
+* [S60-x](/keyboards/s60_x) &mdash; DIY compact keyboard designed by VinnyCordeiro for Sentraq.
 * [Satan](/keyboards/satan) &mdash; A GH60 variant.
 * [SixKeyBoard](/keyboards/sixkeyboard) &mdash; A 6-key keyboard made by TechKeys.
 * [TheVan 44](/keyboards/tv44) &mdash; A 44-key staggered keybard by Evangs.

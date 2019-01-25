@@ -1,22 +1,16 @@
-JC65
-===
+# JC65
 
-![JC65](https://imgur.com/a/C2oa5)
+![JC65 with 32u4](https://i.imgur.com/I4hCyBI.jpg)
+![JC65 with 32a](https://i.imgur.com/9cJ9UbX.jpg)
 
-The JC65 PCB actually has two revisions: A QMK native version, and a PS2AVRGB version. Jchan offered both PCBs as options during the M65-A Round 1 group buy, and were also available choices for the 65% acrylic case group buy. In the near future both PCB versions should be available from keyclack.com when the storefront part opens.
+The JC65 is the PCB for the Rama M65-A sold through [keyclack.com](https://keyclack.com/). There are two revisions available, a native QMK powered PCB (v32u4) and a PS2AVRGB PCB (v32a), both are available on keyclack. 
 
-These docs are for the QMK version of the PCB. [More info on qmk.fm](http://qmk.fm/planck/)
+QMK is supported for both variants. 
 
-Keyboard Maintainer: [Ethan Madden](https://github.com/jetpacktuxedo)
-Hardware Supported: JC65 rev.qmk
-Hardware Availability: [keyclack.com](https://keyclack.com/)
+Make example native QMK version (after setting up your build environment):
 
-Make example for this keyboard (after setting up your build environment):
+    make jc65/v32u4:default
 
-    make jc65:default
+Make example ps2avrGB version (after setting up your build environment):
 
-Or to make and flash:
-
-    make jc65:default:dfu
-
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+    make jc65/v32a:default

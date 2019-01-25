@@ -3,16 +3,16 @@ include message.mk
 # Directory common source files exist
 TOP_DIR = .
 TMK_DIR = tmk_core
-TMK_PATH = $(TOP_DIR)/$(TMK_DIR)
-LIB_PATH = $(TOP_DIR)/lib
+TMK_PATH = $(TMK_DIR)
+LIB_PATH = lib
 
 QUANTUM_DIR = quantum
-QUANTUM_PATH = $(TOP_DIR)/$(QUANTUM_DIR)
+QUANTUM_PATH = $(QUANTUM_DIR)
 
 DRIVER_DIR = drivers
-DRIVER_PATH = $(TOP_DIR)/$(DRIVER_DIR)
+DRIVER_PATH = $(DRIVER_DIR)
 
-BUILD_DIR := $(TOP_DIR)/.build
+BUILD_DIR := .build
 
 COMMON_VPATH := $(TOP_DIR)
 COMMON_VPATH += $(TMK_PATH)

@@ -503,7 +503,7 @@ static int CDC_Host_getchar_Blocking(FILE* Stream)
 }
 #endif
 
-void CDC_Host_Event_Stub(void)
+void CDC_Host_Event_Stub(USB_ClassInfo_CDC_Host_t* const CDCInterfaceInfo)
 {
 
 }

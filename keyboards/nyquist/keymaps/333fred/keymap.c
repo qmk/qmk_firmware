@@ -1,7 +1,4 @@
-#include "nyquist.h"
-#include "action_layer.h"
-#include "action_util.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 #include "333fred.h"
 
 extern keymap_config_t keymap_config;
@@ -32,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl |  Alt |  F4  | GUI  |Lwr/VM| Bksp | Spc  | Ent  | Lock |   =  |  Alt | Del  |
  * `-----------------------------------------------------------------------------------'
  */
-[BASE] = KEYMAP( \
+[BASE] = LAYOUT( \
     KC_GRV,        KC_1,         KC_2,  KC_3,    KC_4,           KC_5,    KC_6,    KC_7,    KC_8,    KC_9,   KC_0,            KC_MINUS, \
     KC_TAB,        KC_Q,         KC_W,  KC_E,    KC_R,           KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,            KC_BSLASH, \
     KC_ESC,        KC_A,         KC_S,  KC_D,    KC_F,           KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN,         KC_QUOT, \
@@ -53,7 +50,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Pscr |      |      |      |      | GAME |   0  |   .  |   =  | Prev | Next | Play |
  * `-----------------------------------------------------------------------------------'
  */
-[SYMB] = KEYMAP( \
+[SYMB] = LAYOUT( \
     KC_CAPS,        KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6, KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11, \
     _______,        KC_EXLM, KC_AT,   KC_LPRN, KC_RPRN, KC_PIPE,  KC_7,  KC_8,   KC_9,   KC_ASTR, KC_RPRN, KC_F12, \
     _______,        KC_HASH, KC_DLR,  KC_LCBR, KC_RCBR, KC_GRV,   KC_4,  KC_5,   KC_6,   KC_PLUS, KC_RCBR, KC_PIPE, \
@@ -74,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      |      |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[VIM] =  KEYMAP( \
+[VIM] =  LAYOUT( \
     _______, _______,  _______,   _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______,  _______,   KC_LSFT, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, M(DLEFT), M(DRIGHT), KC_LCTL, KC_LGUI, _______, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, _______, \
@@ -96,14 +93,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Enter|      | Lock | Bksp |  Alt |  Spc | Lower| Left |  Up  | Down | Right|QWERTY|
  * `-----------------------------------------------------------------------------------'
  */
-[GAME] =  KEYMAP( \
-    KC_ESC,  _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,    \
-    _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______,    \
-    KC_LCTL, _______, _______, _______, KC_F,    _______, _______,     _______, _______, _______, _______, _______,    \
-    KC_LSFT, KC_Z,    _______, _______, _______, _______, _______,     _______, _______, _______, _______, KC_LGUI,    \
+[GAME] =  LAYOUT( \
+    KC_ESC,  _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______,    \
+    _______, _______, _______, _______, _______, _______, _______,   _______, _______, _______, _______, _______,    \
+    KC_LCTL, _______, _______, _______, KC_F,    _______, _______,   _______, _______, _______, _______, _______,    \
+    KC_LSFT, KC_Z,    _______, _______, _______, _______, _______,   _______, _______, _______, _______, KC_LGUI,    \
     KC_ENT,  _______, KC_LOCK, KC_BSPC, KC_LALT, KC_SPC,  OSL(SYMB), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, TO(BASE) \
 )
-
 };
 
 void persistent_default_layer_set(uint16_t default_layer) {

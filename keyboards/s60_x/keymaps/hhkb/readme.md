@@ -1,5 +1,5 @@
 ﻿### 7. HHKB
-[keymap_hhkb.c](keymap_hhkb.c) emulates original HHKB layers.
+[keymap.c](keymap.c) emulates original HHKB layers.
 #### 7.0: Default layer
     ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
     │ Esc │  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  -  │  =  │  \  │  `  │

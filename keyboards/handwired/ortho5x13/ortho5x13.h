@@ -1,9 +1,8 @@
-#ifndef ORTHO5X13_H
-#define ORTHO5X13_H
+#pragma once
 
 #include "quantum.h"
 
-#define KEYMAP( \
+#define LAYOUT( \
   k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, \
   k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, \
   k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, \
@@ -18,7 +17,7 @@
   { k40, k41, k42, k43, k44, k45, KC_NO, k47, k48, k49, k4a, k4b, k4c } \
 }
 
-#define COMPACT_KEYMAP( \
+#define LAYOUT_kc( \
   k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, \
   k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, \
   k20, k21, k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, \
@@ -32,5 +31,3 @@
   { KC_##k30, KC_##k31, KC_##k32, KC_##k33, KC_##k34, KC_##k35, KC_##k35, KC_##k37, KC_##k38, KC_##k39, KC_##k3a, KC_##k3b, KC_##k3c }, \
   { KC_##k40, KC_##k41, KC_##k42, KC_##k43, KC_##k44, KC_##k45, KC_NO,    KC_##k47, KC_##k48, KC_##k49, KC_##k4a, KC_##k4b, KC_##k4c } \
 }
-
-#endif

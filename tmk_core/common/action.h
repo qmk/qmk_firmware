@@ -62,12 +62,12 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt);
 bool process_record_quantum(keyrecord_t *record);
 
 /* Utilities for actions.  */
-#if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+#if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
 extern bool disable_action_cache;
 #endif
 
 /* Code for handling one-handed key modifiers. */
-#ifdef ONEHAND_ENABLE
+#ifdef SWAP_HANDS_ENABLE
 extern bool swap_hands;
 extern const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS];
 #if (MATRIX_COLS <= 8)
@@ -88,13 +88,20 @@ void process_record(keyrecord_t *record);
 void process_action(keyrecord_t *record, action_t action);
 void register_code(uint8_t code);
 void unregister_code(uint8_t code);
+void tap_code(uint8_t code);
 void register_mods(uint8_t mods);
 void unregister_mods(uint8_t mods);
 //void set_mods(uint8_t mods);
 void clear_keyboard(void);
 void clear_keyboard_but_mods(void);
+void clear_keyboard_but_mods_and_keys(void);
 void layer_switch(uint8_t new_layer);
 bool is_tap_key(keypos_t key);
+bool is_tap_action(action_t action);
+
+#ifndef NO_ACTION_TAPPING
+void process_record_tap_hint(keyrecord_t *record);
+#endif
 
 /* debug */
 void debug_event(keyevent_t event);
