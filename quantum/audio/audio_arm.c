@@ -273,19 +273,23 @@ static const DACConversionGroup dacgrpcfg2 = {
   .trigger      = DAC_TRG(0)
 };
 
-void audio_init()
-{
+void audio_init() {
 
     if (audio_initialized)
         return;
 
     // Check EEPROM
-    // if (!eeconfig_is_enabled())
-    // {
-    //     eeconfig_init();
-    // }
-    // audio_config.raw = eeconfig_read_audio();
+#ifdef STM32_EEPROM_ENABLE
+    if (!eeconfig_is_enabled()) {
+        eeconfig_init();
+    }
+    audio_config.raw = eeconfig_read_audio();
+#else // STM32_EEPROM_ENABLE
     audio_config.enable = true;
+  #ifdef AUDIO_CLICKY_ON
+    audio_config.clicky_enable = true;
+  #endif
+#endif // STM32_EEPROM_ENABLE
 
   /*
    * Starting DAC1 driver, setting up the output pin as analog as suggested
@@ -316,8 +320,7 @@ void audio_init()
 
 }
 
-void stop_all_notes()
-{
+void stop_all_notes() {
     dprintf("audio stop all notes");
 
     if (!audio_initialized) {
@@ -342,8 +345,7 @@ void stop_all_notes()
     }
 }
 
-void stop_note(float freq)
-{
+void stop_note(float freq) {
     dprintf("audio stop note freq=%d", (int)freq);
 
     if (playing_note) {
@@ -383,8 +385,7 @@ void stop_note(float freq)
 
 #ifdef VIBRATO_ENABLE
 
-float mod(float a, int b)
-{
+float mod(float a, int b) {
     float r = fmod(a, b);
     return r < 0 ? r + b : r;
 }
@@ -625,8 +626,7 @@ void play_note(float freq, int vol) {
 
 }
 
-void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat)
-{
+void play_notes(float (*np)[][2], uint16_t n_count, bool n_repeat) {
 
     if (!audio_initialized) {
         audio_init();
