@@ -7,5 +7,5 @@ ifeq ($(strip $(KEYBOARD)), ergodox_ez)
 endif
 
 ifeq ($(strip $(KEYBOARD)), redox_w)
-		SRC += 
+		SRC +=
 endif
