@@ -98,7 +98,6 @@ void apa102_end_frame(uint16_t leds)
   {
     apa102_send_byte(0);
   }
-
 }
 
 void apa102_send_byte(uint8_t byte)
