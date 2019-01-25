@@ -280,17 +280,17 @@ void audio_init() {
   }
 
   // Check EEPROM
-#ifdef STM32_EEPROM_ENABLE
+  #if defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
     if (!eeconfig_is_enabled()) {
-        eeconfig_init();
+      eeconfig_init();
     }
     audio_config.raw = eeconfig_read_audio();
-#else // STM32_EEPROM_ENABLE
+#else // ARM EEPROM
     audio_config.enable = true;
   #ifdef AUDIO_CLICKY_ON
     audio_config.clicky_enable = true;
   #endif
-#endif // STM32_EEPROM_ENABLE
+#endif // ARM EEPROM
 
   /*
    * Starting DAC1 driver, setting up the output pin as analog as suggested
@@ -684,6 +684,7 @@ void audio_on(void) {
 }
 
 void audio_off(void) {
+  stop_all_notes();
   audio_config.enable = 0;
   eeconfig_update_audio(audio_config.raw);
 }
