@@ -71,8 +71,8 @@ void oneshot_enable(void);
 void oneshot_disable(void);
 bool has_oneshot_mods_timed_out(void);
 
-int8_t get_oneshot_locked_mods(void);
-void set_oneshot_locked_mods(int8_t mods);
+uint8_t get_oneshot_locked_mods(void);
+void set_oneshot_locked_mods(uint8_t mods);
 void clear_oneshot_locked_mods(void);
 
 typedef enum {
