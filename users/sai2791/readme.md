@@ -19,3 +19,8 @@ This is my personal userspace file.
 
 # Shared Keys
 - System wide Mac lock screen Keys (KC_LOCKSCR)
+
+# Shared Keyboards
+- ergodox_ez  Doesnt use the sai2791.c
+- radox_w     Doesnt use the sai2791.c
+- ymdk_np21   Doesnt use the sai2791.c
