@@ -60,7 +60,6 @@ void haptic_disable(void) {
 }
 
 void haptic_toggle(void) {
-  xprintf("haptic_config.enable = %u\n", !haptic_config.enable);
 if (haptic_config.enable) {
   haptic_disable();
   } else {
@@ -73,52 +72,85 @@ void haptic_feedback_toggle(void){
  haptic_config.feedback++;
   if (haptic_config.feedback >= HAPTIC_FEEDBACK_MAX)
   haptic_config.feedback = KEY_PRESS;
+  xprintf("haptic_config.feedback = %u\n", !haptic_config.feedback);
   eeconfig_update_haptic(haptic_config.raw);
 }
 
 void haptic_mode_increase(void) {
-  uint8_t mode = haptic_config.mode;
+  uint8_t mode = haptic_config.mode + 1;
   if (haptic_config.mode >= drv_effect_max) {
-    haptic_config.mode = 0;
+    haptic_config.mode = 1;
   }
-  haptic_config.mode = mode + 1;
-  eeconfig_update_haptic(haptic_config.raw);
-  xprintf("Haptic mode written to EEPROM %u\n", haptic_config.mode);
+    haptic_set_mode(mode);
 }
 
 void haptic_mode_decrease(void) {
-  uint8_t mode = haptic_config.mode;
+  uint8_t mode = haptic_config.mode -1;
   if (haptic_config.mode < 1) {
-    mode = (haptic_config.mode + drv_effect_max);
+    mode = (drv_effect_max - 1);
   }
-  haptic_config.mode = mode -1;
-  eeconfig_update_haptic(haptic_config.raw);
-  xprintf("Haptic mode written to EEPROM %u\n", haptic_config.mode);
+  haptic_set_mode(mode);
 }
 
 void haptic_mode_reset(void){
-  haptic_config.mode = 1;
+  intensity = HAPTIC_INTENSITY_DEFAULT
+  feedback = HAPTIC_FEEDBACK_DEFAULT
+  mode = HAPTIC_MODE_DEFAULT
+  haptic_config.intensity = intensity;
+  haptic_config.feedback = feedback;
+  haptic_config.mode = mode;
   eeconfig_update_haptic(haptic_config.raw);
+  xprintf("haptic_config.feedback = %u\n", haptic_config.feedback);
+  xprintf("haptic_config.intensity = %u\n", haptic_config.intensity);
+  xprintf("haptic_config.mode = %u\n", haptic_config.mode);
 }
+
+void haptic_set_intensity(uint8_t intensity) {
+  haptic_config.intensity = intensity;
+  eeconfig_update_haptic(haptic_config.raw);
+  xprintf("haptic_config.intensity = %u\n", haptic_config.intensity);
+
+}
+
+void haptic_set_feedback(uint8_t feedback) {
+  haptic_config.feedback = feedback;
+  eeconfig_update_haptic(haptic_config.raw);
+  xprintf("haptic_config.feedback = %u\n", haptic_config.feedback);
+
+}
+
+void haptic_set_mode(uint8_t mode) {
+  haptic_config.mode = mode;
+  eeconfig_update_haptic(haptic_config.raw);
+  xprintf("haptic_config.mode = %u\n", haptic_config.mode);
+}
+
 
 uint8_t haptic_get_mode(void) {
   if (!haptic_config.enable){
     return false;
   }
-
   return haptic_config.mode;
 }
 
+uint8_t haptic_get_feedback(uint8_t mode) {
+  if (!haptic_config.enable){
+    return false;
+  }
+  return haptic_config.feedback;
+}
 
-
-
-
+uint8_t haptic_get_intensity(uint8_t intensity) {
+  if (!haptic_config.enable){
+    return false;
+  }
+  return haptic_config.intensity;
+}
 
 void haptic_play(void) {
-  #ifdef DRV2605L
-  //DRV_EFFECT play_eff = strong_click; 
   uint8_t play_eff = 0;
   play_eff = haptic_config.mode;
+  #ifdef DRV2605L
   DRV_pulse(play_eff);
   #endif
 }
