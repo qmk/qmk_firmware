@@ -34,13 +34,8 @@ void inline apa102_setleds(LED_TYPE *ledarray, uint16_t leds)
 
 void static inline apa102_setleds_pin(LED_TYPE *ledarray, uint16_t leds, uint8_t pinmask_DI, uint8_t pinmask_CLK)
 {
-  #ifdef DDR_OUTPUT
-    DDR_OUTPUT(RGB_DI_PIN);
-    DDR_OUTPUT(RGB_CLK_PIN);
-  #else
-    _SFR_IO8((RGB_DI_PIN >> 4) + 1) |= pinmask_DI;
-    _SFR_IO8((RGB_CLK_PIN >> 4) + 1) |= pinmask_CLK;
-  #endif
+  pinMode(RGB_DI_PIN, PinDirectionOutput);
+  pinMode(RGB_CLK_PIN, PinDirectionOutput);
 
   apa102_send_array((uint8_t*)ledarray,leds)
 }
@@ -111,14 +106,7 @@ void apa102_send_byte(uint8_t byte)
   uint8_t i;
   for (i = 0; i < 8; i++)
   {
-    #ifdef PORT_HIGH
-      (!!(byte & 1 << (7-i))) ? PORT_HIGH(RGB_DI_PIN) : PORT_LOW(RGB_DI_PIN);
-      PORT_HIGH(RGB_CLK_PIN);
-      PORT_LOW(RGB_CLK_PIN);
-    #else
-      (!!(byte & 1 << (7-i))) ? _SFR_IO8((RGB_DI_PIN >> 4) + 2) |= _BV(RGB_DI_PIN & 0xF) : _SFR_IO8((RGB_DI_PIN >> 4) + 2) &= ~_BV(RGB_DI_PIN & 0xF);
-      _SFR_IO8((RGB_CLK_PIN >> 4) + 2) |= _BV(RGB_CLK_PIN & 0xF);
-      _SFR_IO8((RGB_CLK_PIN >> 4) + 2) &= ~_BV(RGB_CLK_PIN & 0xF);
-    #endif
+    digitalWrite(RGB_DI_PIN, !!(byte & (1 << (7-i)));
+    digitalWrite(RGB_CLK_PIN, PinLevelHigh);
   }
 }
