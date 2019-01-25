@@ -127,11 +127,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return true;
     case NR_L3:
       if (record->event.pressed) {
-        register_code(DE_ALGR);
+        register_code(KC_ALGR);
         layer_on(_NUMROW_L3);
       } else {
         layer_off(_NUMROW_L3);
-        unregister_code(DE_ALGR);
+        unregister_code(KC_ALGR);
       }
       return false;
     default:

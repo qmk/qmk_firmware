@@ -23,10 +23,6 @@
 #define DIVIDE  UC(0x00F7)
 #define MINUS   UC(0x2212)
 
-void eeconfig_init_user(void) {
-  set_unicode_input_mode(UC_WINC);
-}
-
 enum layers {
   L_BASE,
   L_FN,
@@ -162,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
    * │   │F1 │F2 │F3 │F4 │F5 │F6 │F7 │F8 │F9 │F10│F11│F12│Num│Scr│Pau│
    * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┼───┤
-   * │ M4  │M2 │M↑ │M1 │M3 │M5 │   │   │   │Stp│Ply│Prv│Nxt│Clear│Ins│
+   * │ M4  │M2 │M↑ │M1 │M3 │M5 │   │UCM│   │Stp│Ply│Prv│Nxt│Clear│Ins│
    * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┼───┤
    * │      │M← │M↓ │M→ │MW↑│   │   │   │   │   │   │   │        │Top│
    * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┼───┤
@@ -173,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [L_FN] = LAYOUT_truefox( \
     _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  NUMPAD,  KC_SLCK, KC_PAUS, \
-    KC_BTN4, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, KC_BTN5, _______, _______, _______, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, CLEAR,            KC_INS,  \
+    KC_BTN4, KC_BTN2, KC_MS_U, KC_BTN1, KC_BTN3, KC_BTN5, _______, UC_MOD,  _______, KC_MSTP, KC_MPLY, KC_MPRV, KC_MNXT, CLEAR,            KC_INS,  \
     _______, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_U, _______, _______, _______, _______, _______, _______, _______,          _______,          TOP,     \
     _______,          KC_ACL0, KC_ACL2, KC_WH_L, KC_WH_R, _______, _______, _______, KC_VOLD, KC_VOLU, KC_MUTE, KC_APP,           KC_PGUP, BOTTOM,  \
     _______, DESKTOP, DSKTP_L,                            KC_WH_D,                   DSKTP_R, _______,                   KC_HOME, KC_PGDN, KC_END   \

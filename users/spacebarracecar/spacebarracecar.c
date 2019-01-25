@@ -211,11 +211,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       timer_timeout();
       if (lshift || rshift){
         unregister_code(KC_LSFT);
-        register_code(DE_ALGR);
+        register_code(KC_ALGR);
         unregister_code(DE_PLUS);
         register_code(DE_PLUS);
         unregister_code(DE_PLUS);
-        unregister_code(DE_ALGR);
+        unregister_code(KC_ALGR);
         register_code(KC_LSFT);
       } else {
         register_code(KC_LSFT);

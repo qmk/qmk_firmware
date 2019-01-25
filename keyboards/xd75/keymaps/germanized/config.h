@@ -27,9 +27,6 @@
 //Tap Dancing
 #define TAPPING_TERM 200
 
-// Alt gr
-#define DE_ALGR KC_RALT
-
 // normal characters
 #define DE_Z KC_Y
 #define DE_Y KC_Z

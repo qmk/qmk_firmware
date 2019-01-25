@@ -1,4 +1,4 @@
-#include "60.h"
+#include QMK_KEYBOARD_H
 
 #define _______ KC_TRNS
 
@@ -8,7 +8,7 @@ enum keyboard_layers {
   _CL
 };
 
-const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
      * ,-----------------------------------------------------------.
      * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|   BkSp|

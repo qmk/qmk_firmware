@@ -148,12 +148,25 @@
 #define FB_BRAKEFACTOR 6 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
 #define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 
+/* default 3V ERM vibration motor voltage and library*/
+#if FB_ERM_LRA == 0 
+#define RATED_VOLTAGE 3
+#define V_RMS 2.3
+#define V_PEAK 3.30
+/* Library Selection */
+#define LIB_SELECTION 4 /* For Empty:0' TS2200 library A to D:1-5, LRA Library: 6 */
+
+/* default 2V LRA voltage and library */
+#elif FB_ERM_LRA == 1
 #define RATED_VOLTAGE 2
 #define V_RMS 2.0
 #define V_PEAK 2.85
-#define F_LRA 205
+#define F_LRA 200
 /* Library Selection */
 #define LIB_SELECTION 6 /* For Empty:0' TS2200 library A to D:1-5, LRA Library: 6 */
+
+#endif
+
 
 /* Control 1 register settings */
 #define DRIVE_TIME 25
@@ -179,14 +192,11 @@
 #define ZC_DET_TIME 0
 #define AUTO_CAL_TIME 3
 
-//#define WS2812_LED_N 2
-//#define RGBLED_NUM WS2812_LED_N
-//#define WS2812_TIM_N 2
-//#define WS2812_TIM_CH 2
-//#define PORT_WS2812     GPIOA
-//#define PIN_WS2812      15
-//#define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
-//#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
-//#define WS2812_EXTERNAL_PULLUP
+//#define RGBLIGHT_ANIMATIONS
 
+//#define RGBLED_NUM 10
+//#define RGB_DI_PIN B5
+//#define DRIVER_LED_TOTAL RGBLED_NUM
+
+//#define RGB_MATRIX_KEYPRESSES
 #endif
