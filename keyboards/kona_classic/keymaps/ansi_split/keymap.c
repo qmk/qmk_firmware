@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 
-#define MODS_SHFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+#define MODS_SHIFT_GUI_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 #define MODS_GUI_MASK   (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
 // Helpful defines
@@ -68,7 +68,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   switch (keycode) {
     case SFT_ESC:
-      shift_esc_shift_mask = get_mods() & MODS_SHFT_MASK;
+      shift_esc_shift_mask = get_mods() & MODS_SHIFT_GUI_MASK;
  
       if (record->event.pressed) {
         if (shift_esc_shift_mask) {

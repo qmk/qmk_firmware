@@ -8,7 +8,7 @@ enum custom_keycodes {
 	SFT_ESC
 };
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
+#define MODS_SHIFT_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_BL] = LAYOUT_split_space(
@@ -85,7 +85,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
 
   switch (keycode) {
     case SFT_ESC:
-      shift_esc_shift_mask = get_mods() & MODS_CTRL_MASK;
+      shift_esc_shift_mask = get_mods() & MODS_SHIFT_MASK;
 
       if (record->event.pressed) {
         if (shift_esc_shift_mask) {
