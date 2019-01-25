@@ -33,7 +33,7 @@ void eeconfig_init_kb(void) {
  */
 void eeconfig_init_quantum(void) {
 #ifdef STM32_EEPROM_ENABLE
-    EEPROM_format();
+    EEPROM_Erase();
 #endif
   eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
   eeprom_update_byte(EECONFIG_DEBUG,          0);
@@ -74,7 +74,7 @@ void eeconfig_enable(void)
 void eeconfig_disable(void)
 {
 #ifdef STM32_EEPROM_ENABLE
-    EEPROM_format();
+    EEPROM_Erase();
 #endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
 }

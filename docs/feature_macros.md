@@ -12,24 +12,28 @@ Here is an example `keymap.c` for a two-key keyboard:
 
 ```c
 enum custom_keycodes {
-	MY_CUSTOM_MACRO = SAFE_RANGE
+  QMKBEST = SAFE_RANGE,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if (record->event.pressed) {
-		switch(keycode) {
-			case MY_CUSTOM_MACRO:
-				SEND_STRING("QMK is the best thing ever!"); // this is our macro!
-				return false;
-		}
-	}
-	return true;
+  switch (keycode) {
+    case QMKBEST:
+      if (record->event.pressed) {
+        // when keycode QMKBEST is pressed
+        SEND_STRING("QMK is the best thing ever!");
+      } else {
+        // when keycode QMKBEST is released
+      }
+      break;
+
+  }
+  return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = {
-	  {MY_CUSTOM_MACRO, KC_ESC}
-	}
+  [0] = {
+    {QMKBEST, KC_ESC}
+  }
 };
 ```
 
@@ -37,7 +41,7 @@ What happens here is this:
 We first define a new custom keycode in the range not occupied by any other keycodes.
 Then we use the `process_record_user` function, which is called whenever a key is pressed or released, to check if our custom keycode has been activated.
 If yes, we send the string `"QMK is the best thing ever!"` to the computer via the `SEND_STRING` macro (this is a C preprocessor macro, not to be confused with QMK macros).
-We return `false` to indicate to the caller that the key press we just processed need not be processed any further.
+We return `true` to indicate to the caller that the key press we just processed should continue to be processed as normal (as we didn't replace or alter the functionality).
 Finally, we define the keymap so that the first button activates our macro and the second button is just an escape button.
 
 You might want to add more than one macro.
@@ -45,28 +49,42 @@ You can do that by adding another keycode and adding another case to the switch 
 
 ```c
 enum custom_keycodes {
-	MY_CUSTOM_MACRO = SAFE_RANGE,
-	MY_OTHER_MACRO
+  QMKBEST = SAFE_RANGE,
+  QMKURL,
+  MY_OTHER_MACRO
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	if (record->event.pressed) {
-		switch(keycode) {
-			case MY_CUSTOM_MACRO:
-				SEND_STRING("QMK is the best thing ever!");
-				return false;
-			case MY_OTHER_MACRO:
-				SEND_STRING(SS_LCTRL("ac")); // selects all and copies
-				return false;
-		}
-	}
-	return true;
+  switch (keycode) {
+    case QMKBEST:
+      if (record->event.pressed) {
+        // when keycode QMKBEST is pressed
+        SEND_STRING("QMK is the best thing ever!");
+      } else {
+        // when keycode QMKBEST is released
+      }
+      break;
+    case QMKURL:
+      if (record->event.pressed) {
+        // when keycode QMKURL is pressed
+        SEND_STRING("https://qmk.fm/" SS_TAP(X_ENTER));
+      } else {
+        // when keycode QMKURL is released
+      }
+      break;
+    case MY_OTHER_MACRO:
+      if (record->event.pressed) {
+                SEND_STRING(SS_LCTRL("ac")); // selects all and copies
+      }
+      break;
+  }
+  return true;
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = {
-	  {MY_CUSTOM_MACRO, MY_OTHER_MACRO}
-	}
+  [0] = {
+    {MY_CUSTOM_MACRO, MY_OTHER_MACRO}
+  }
 };
 ```
 
@@ -136,21 +154,21 @@ By default QMK assumes you don't have any macros. To define your macros you crea
 
 ```c
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	if (record->event.pressed) {
-		switch(id) {
-			case 0:
-				return MACRO(D(LSFT), T(H), U(LSFT), T(I), D(LSFT), T(1), U(LSFT), END);
-			case 1:
-				return MACRO(D(LSFT), T(B), U(LSFT), T(Y), T(E), D(LSFT), T(1), U(LSFT), END);
-		}
-	}
-	return MACRO_NONE;
+    if (record->event.pressed) {
+        switch(id) {
+            case 0:
+                return MACRO(D(LSFT), T(H), U(LSFT), T(I), D(LSFT), T(1), U(LSFT), END);
+            case 1:
+                return MACRO(D(LSFT), T(B), U(LSFT), T(Y), T(E), D(LSFT), T(1), U(LSFT), END);
+        }
+    }
+    return MACRO_NONE;
 };
 ```
 
 This defines two macros which will be run when the key they are assigned to is pressed. If instead you'd like them to run when the key is released you can change the if statement:
 
-	if (!record->event.pressed) {
+    if (!record->event.pressed) {
 
 ### Macro Commands
 
@@ -169,21 +187,21 @@ Use the `M()` function within your `KEYMAP()` to call a macro. For example, here
 
 ```c
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = KEYMAP(
-		M(0), M(1)
-	),
+    [0] = KEYMAP(
+        M(0), M(1)
+    ),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	if (record->event.pressed) {
-		switch(id) {
-			case 0:
-				return MACRO(D(LSFT), T(H), U(LSFT), T(I), D(LSFT), T(1), U(LSFT), END);
-			case 1:
-				return MACRO(D(LSFT), T(B), U(LSFT), T(Y), T(E), D(LSFT), T(1), U(LSFT), END);
-		}
-	}
-	return MACRO_NONE;
+    if (record->event.pressed) {
+        switch(id) {
+            case 0:
+                return MACRO(D(LSFT), T(H), U(LSFT), T(I), D(LSFT), T(1), U(LSFT), END);
+            case 1:
+                return MACRO(D(LSFT), T(B), U(LSFT), T(Y), T(E), D(LSFT), T(1), U(LSFT), END);
+        }
+    }
+    return MACRO_NONE;
 };
 ```
 
@@ -198,9 +216,9 @@ If you have a bunch of macros you want to refer to from your keymap while keepin
 #define M_BYE M(1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-	[0] = KEYMAP(
-		M_HI, M_BYE
-	),
+    [0] = KEYMAP(
+        M_HI, M_BYE
+    ),
 };
 ```
 
@@ -213,11 +231,11 @@ There are some functions you may find useful in macro-writing. Keep in mind that
 This is a boolean value that can be tested to see if the switch is being pressed or released. An example of this is
 
 ```c
-	if (record->event.pressed) {
-		// on keydown
-	} else {
-		// on keyup
-	}
+    if (record->event.pressed) {
+        // on keydown
+    } else {
+        // on keyup
+    }
 ```
 
 ### `register_code(<kc>);`
@@ -231,6 +249,8 @@ Parallel to `register_code` function, this sends the `<kc>` keyup event to the c
 ### `tap_code(<kc>);`
 
 This will send `register_code(<kc>)` and then `unregister_code(<kc>)`. This is useful if you want to send both the press and release events ("tap" the key, rather than hold it).
+
+If you're having issues with taps (un)registering, you can add a delay between the register and unregister events by setting `#define TAP_CODE_DELAY 100` in your `config.h` file. The value is in milliseconds.
 
 ### `clear_keyboard();`
 
@@ -250,16 +270,16 @@ This example defines a macro which sends `Ctrl-C` when pressed down, and `Ctrl-V
 
 ```c
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-	switch(id) {
-		case 0: {
-			if (record->event.pressed) {
-				return MACRO( D(LCTL), T(C), U(LCTL), END  );
-			} else {
-				return MACRO( D(LCTL), T(V), U(LCTL), END  );
-			}
-			break;
-		}
-	}
-	return MACRO_NONE;
+    switch(id) {
+        case 0: {
+            if (record->event.pressed) {
+                return MACRO( D(LCTL), T(C), U(LCTL), END  );
+            } else {
+                return MACRO( D(LCTL), T(V), U(LCTL), END  );
+            }
+            break;
+        }
+    }
+    return MACRO_NONE;
 };
 ```

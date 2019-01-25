@@ -18,12 +18,12 @@
 #include "config_common.h"
 
 // USB Device descriptor parameter
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
+#define VENDOR_ID       0x5A45 // ZealPC ("ZE")
+#define PRODUCT_ID      0x0060 // Zeal60
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    ZealPC
 #define PRODUCT         Zeal60
-#define DESCRIPTION     Zeal60 (QMK Firmware)
+#define DESCRIPTION     Zeal60
 
 // key matrix size
 #define MATRIX_ROWS 5
@@ -115,11 +115,15 @@
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x07
+#define EEPROM_VERSION 0x08
 #define EEPROM_VERSION_ADDR 34
 
 // Backlight config starts after EEPROM version
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+37)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 72
+// Dynamic keymap starts after backlight config (35+31)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 66
+// Dynamic macro starts after dynamic keymaps (66+(4*5*14*2)) = (66+560)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 626
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 398
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16
 

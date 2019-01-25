@@ -91,15 +91,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_ADJUST] = LAYOUT_wrapper(\
   KC_MAKE, _________________ADJUST_L1_________________,                                                               _________________ADJUST_R1_________________, KC_RESET,
-  VRSN,    _________________ADJUST_L2_________________,          _______, _______,         _______, KC_NUKE,          _________________ADJUST_R2_________________, EPRM,
+  VRSN,    _________________ADJUST_L2_________________,          _______, _______,         _______, KC_NUKE,          _________________ADJUST_R2_________________, EEP_RST,
   TG_MODS, _________________ADJUST_L3_________________, _______, _______, _______,         _______, _______, _______, _________________ADJUST_R3_________________, KC_MPLY
 )
 };
 
 void matrix_init_keymap(void) {
-  DDRD &= ~(1<<5);
-  PORTD &= ~(1<<5);
+  #ifndef CONVERT_TO_PROTON_C
+    setPinOutput(D5);
+    writePinHigh(D5);
 
-  DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);
+    setPinOutput(B0);
+    writePinHigh(B0);
+  #endif
 }
