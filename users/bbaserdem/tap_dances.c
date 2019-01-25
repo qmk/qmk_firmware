@@ -52,7 +52,41 @@ void d_set_mou_up (qk_tap_dance_state_t *state, void *user_data) {
     }
 }
 
+void bigswitch_fin (qk_tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1: // Send LGUI + ESC
+            register_code(KC_LGUI);
+            register_code(KC_ESC);
+            break;
+        case 2: // Change RGB mode
+            rgblight_increase();
+            break;
+        case 3: // Change RGB hue
+            rgblight_increase_hue();
+            break;
+        case 4: // Toggle RGB
+            rgblight_toggle();
+            break;
+        case 5:
+            register_code(KC_POWER);
+            break;
+    }
+}
+
+void bigswitch_res (qk_tap_dance_state_t *state, void *user_data) {
+    switch (state->count) {
+        case 1: // Send LGUI + ESC
+            unregister_code(KC_ESC);
+            unregister_code(KC_LGUI);
+            break;
+        case 5:
+            unregister_code(KC_POWER);
+            break;
+    }
+}
+
 qk_tap_dance_action_t tap_dance_actions[] = {
   [NUG] = ACTION_TAP_DANCE_FN_ADVANCED (d_num_gam_dn,NULL,d_num_gam_up),
-  [SEM] = ACTION_TAP_DANCE_FN_ADVANCED (d_set_mou_dn,NULL,d_set_mou_up)
+  [SEM] = ACTION_TAP_DANCE_FN_ADVANCED (d_set_mou_dn,NULL,d_set_mou_up),
+  [BIG] = ACTION_TAP_DANCE_FN_ADVANCED (NULL,bigswitch_fin,bigswitch_res)
 };

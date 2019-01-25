@@ -36,8 +36,8 @@ enum userspace_custom_keycodes {
     SECRET4,
     // Stupid thing
     MANUAL_ELLIPSIS,
-    //use "NEWPLACEHOLDER for keymap specific codes
-    NEW_SAFE_RANGE
+    //use for keymap specific codes
+    KEYMAP_SAFE_RANGE
 };
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record);

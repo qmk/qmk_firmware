@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef TAP_DANCE_ENABLE
 enum {
     NUG = 0,
-    SEM
+    SEM,
+    BIG
 };
 #endif

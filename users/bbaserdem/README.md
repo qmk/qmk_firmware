@@ -25,5 +25,3 @@ Optimized for software level Dvorak, Turkish F and Qwerty layouts.
 * **Music** Allows playing sounds.
 
 # Functionality
-
-## Audio
