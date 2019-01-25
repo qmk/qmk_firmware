@@ -10,7 +10,7 @@ Hardware Supported: XD60 PCB rev2 & rev3
 Hardware Availability: https://www.massdrop.com/buy/xd60-xd64-custom-mechanical-keyboard-kit?mode=guest_open
 
 With the implementation of Rev3 you need to specify the Rev you want to built.
-To built for a Rev2 with a default layout:
+To build for a Rev2 with a default keymap:
 
 ```make xd60/rev2:default```
 
