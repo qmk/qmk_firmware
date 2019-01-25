@@ -14,7 +14,7 @@ To build for a Rev2 with a default keymap:
 
 ```make xd60/rev2:default```
 
-To built for a Rev3 with a default layout:
+To build for a Rev3 with a default keymap:
 
 ```make xd60/rev3:default```
 
