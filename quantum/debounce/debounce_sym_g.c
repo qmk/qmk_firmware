@@ -45,7 +45,7 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 #else //no debouncing.
 void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed)
 {
-  for (int i = 0; i < MATRIX_ROWS; i++) {
+  for (int i = 0; i < num_rows; i++) {
     cooked[i] = raw[i];
   }
 }
