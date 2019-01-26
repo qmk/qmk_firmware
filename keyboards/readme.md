@@ -38,6 +38,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [Arrow Pad](/keyboards/arrow_pad) &mdash; A custom creation by IBNobody.
 * [Atreus](/keyboards/atreus) &mdash; Made by Technomancy.
 * [Bantam44](/keyboards/bantam44) &mdash; It is a 44-key 40% staggered keyboard.
+* [DataHand](/keyboards/handwired/datahand) &mdash; DataHand keyboard converted to use a Teensy board.
 * [Ergodox Infinity](/keyboards/ergodox_infinity) - Ergonomic Split Keyboard by Input Club.
 * [GH60](/keyboards/gh60) &mdash; A 60% Geekhack community-driven project.
 * [GON NerD](/keyboards/gonnerd) &mdash; Korean custom 60% PCB
