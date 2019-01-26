@@ -36,11 +36,7 @@
 //#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-/* key combination for command
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-*/
+
 /* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 8
@@ -86,7 +82,7 @@
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 255
 
 // only change
-#undef RGB_DI_PIN 
+#undef RGB_DI_PIN
 #define RGB_DI_PIN B2
 
 #endif
