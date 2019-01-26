@@ -18,9 +18,9 @@ After pressing a key, it immediately changes state, and sets a counter.
 No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 */
 
-#include "debounce.h"
 #include "matrix.h"
 #include "timer.h"
+#include "quantum.h"
 #include <stdlib.h>
 
 #ifndef DEBOUNCE
@@ -114,7 +114,7 @@ void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t n
   }  
 }
 
-bool debounce_active()
+bool debounce_active(void)
 {
   return true;
 }
