@@ -265,11 +265,11 @@ endif
 
 DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
 # Debounce Modules. If implemented in matrix.c, don't use these.
-ifeq ($(strip $(DEBOUNCE_ALGO)), manual)
+ifeq ($(strip $(DEBOUNCE_TYPE)), custom)
     # Do nothing. do your debouncing in matrix.c
-else ifeq ($(strip $(DEBOUNCE_ALGO)), sym_g)
+else ifeq ($(strip $(DEBOUNCE_TYPE)), sym_g)
     QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
-else ifeq ($(strip $(DEBOUNCE_ALGO)), eager_pk)
+else ifeq ($(strip $(DEBOUNCE_TYPE)), eager_pk)
     QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_eager_pk.c
 else # default algorithm. Won't be used if we have a custom_matrix that doesn't utilize it
     QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
