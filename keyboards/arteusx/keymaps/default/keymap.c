@@ -22,8 +22,6 @@ enum custom_keycodes {
 };
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define ESC KC_ESC
 
 
