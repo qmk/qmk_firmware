@@ -70,6 +70,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
 }
 
 //instanalize an instance of 'tap' for the 'x' tap dance.
+/*
 static tap xtap_state = {
   .is_press_action = true,
   .state = 0
@@ -99,7 +100,7 @@ void reset_sftswap (qk_tap_dance_state_t *state, void *user_data) {
   }
   xtap_state.state = 0;
 }
-
+*/
 
 // define variables for reactive RGB
 bool TOG_STATUS = false;
@@ -224,7 +225,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
-
+/*
  void matrix_init_user(void) {
      #ifdef AUDIO_ENABLE
          startup_user();
@@ -263,7 +264,7 @@ case KC_MAKE:  // Compiles the firmware, and adds the flash command based on key
       set_mods(temp_mod);
     }
     break;
-
+*/
 void macroTogKey(qk_tap_dance_state_t *state, void *user_data) {
   keyrecord_t kr;
 
@@ -494,7 +495,7 @@ void mcpstin(qk_tap_dance_state_t *state, void *user_data)
 
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [SSWAP]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,sftswap, reset_sftswap),
+  //[SSWAP]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL,sftswap, reset_sftswap),
   [TD_MCROTOG]  = ACTION_TAP_DANCE_FN(macroTogKey),
   [TD_MCROTG2] = ACTION_TAP_DANCE_FN(macroTogKey2),
   [TD_PSTI] = ACTION_TAP_DANCE_FN(pstinsrt),

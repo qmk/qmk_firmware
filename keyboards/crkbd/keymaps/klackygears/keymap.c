@@ -51,79 +51,50 @@ extern uint8_t is_master;
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_DVRK] = LAYOUT_kc( \
- //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,  QUOT, COMQUES, DTEX,    P,     Y,                      F,     G,     C,     R,     L,   WNL,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     A,     O,     E,     U,     I,                      D,     H,     T,     N,     S,  RSFT,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      MCRTG,  WNSC,  ALTQ,  CTLJ,     K,     X,                      B,     M,  CTLW,  ALTV,  MDAZ,  QUAD,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   ENT,  SPSY,  BSNB,     TBNB,  ENSY,   RSFT \
-                              //`--------------------'  `--------------------'
+  [_DVRK] = LAYOUT( \
+
+KC_ESC,         KC_QUOT,              TD(TD_COMQUES),    TD(TD_DTEX),       KC_P, KC_Y,         KC_F, KC_G, KC_C,              KC_R,              KC_L,            LGUI(KC_L),\
+KC_LSFT,        KC_A,                 KC_O,              KC_E,              KC_U, KC_I,         KC_D, KC_H, KC_T,              KC_N,              KC_S,            KC_RSFT,\
+TD(TD_MCROTG2), MT(MOD_LGUI,KC_SCLN), MT(MOD_LALT,KC_Q), MT(MOD_LCTL,KC_J), KC_K, KC_X,         KC_B, KC_M, MT(MOD_LCTL,KC_W), MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z),  TD(TD_MCROTOG),\
+                          KC_ENT, LT(_SYMB,KC_SPC), LT(_NUMB,KC_BSPC),     LT(_NUMB,KC_TAB),  LT(_SYMB,KC_ENT),   KC_RSFT \
   ),
 
-  [_MDVK] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,  QUOT, COMQUES, DTEX,    P,     Y,                      F,     G,     C,     R,     L,   MCL,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     A,     O,     E,     U,     I,                      D,     H,     T,     N,     S,  RSFT,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      QUAD,  CSCN,  ALTQ,  GUIJ,     K,     X,                      B,     M,  GUIW,  ALTV,  MDAZ,  QUAD,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                   ENT,  SPSY,  MBNB,     MTNB,  ENSY,   RSFT \
-                              //`--------------------'  `--------------------'
+  [_MDVK] = LAYOUT( \
+KC_ESC,         KC_QUOT,              TD(TD_COMQUES),    TD(TD_DTEX),       KC_P, KC_Y,         KC_F, KC_G, KC_C,              KC_R,              KC_L,            LGUI(KC_L),\
+KC_LSFT,        KC_A,                 KC_O,              KC_E,              KC_U, KC_I,         KC_D, KC_H, KC_T,              KC_N,              KC_S,            KC_RSFT,\
+KC______,       MT(MOD_LCTL,KC_SCLN), MT(MOD_LALT,KC_Q), MT(MOD_LGUI,KC_J), KC_K, KC_X,         KC_B, KC_M, MT(MOD_LGUI,KC_W), MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z),  KC______,\
+                          KC_ENT, LT(_SYMB,KC_SPC), LT(_MNMB,KC_BSPC),     LT(_MNMB,KC_TAB),  LT(_SYMB,KC_ENT),   KC_RSFT \
+ ),
+
+  [_NUMB] = LAYOUT( \
+KC______,  KC_PGUP,     KC_PGDN,    KC_HOME,     KC_END,      TD(TD_FNDR),           TD(TD_MINPLS), KC_7, KC_8,              KC_9,              KC_COLN,        KC______,\
+KC______,  KC_LEFT,     KC_UP,      KC_DOWN,     KC_RIGHT,    TD(TD_PTSP),           TD(TD_DIVMLT), KC_4, KC_5,              KC_6,              C_S_T(KC_COLN), KC______,\
+KC______,  TD(TD_ACCW), LCTL(KC_A), TD(TD_CCPY), TD(TD_PSTI), TD(TD_DDEL),           TD(TD_DOTEQL), KC_1, MT(MOD_LCTL,KC_2), MT(MOD_LALT,KC_3), KC_RWIN,        KC______,\
+                                KC______, KC______, KC______,            KC______, KC______,     KC_0 \
+ ),
+
+
+  [_MNMB] = LAYOUT( \
+KC______, KC_PGUP,  KC_PGDN,  KC_HOME,       KC_END,         KC_XXXXX,          TD(TD_MINPLS), KC_7, KC_8,              KC_9,              KC_COLN,        KC______,\
+KC______, KC_LEFT,  KC_UP,    KC_DOWN,       KC_RIGHT,       KC_XXXXX,          TD(TD_DIVMLT), KC_4, KC_5,              KC_6,              C_S_T(KC_COLN), KC______,\
+KC______, KC_XXXXX, KC_XXXXX, TD(TD_MCCCPY), TD(TD_MCPSTIN), KC_DEL,            TD(TD_DOTEQL), KC_1, MT(MOD_LCTL,KC_2), MT(MOD_LALT,KC_3), KC_RWIN,        KC______,\
+                            KC______, KC______, KC______,                KC______, KC______,     KC_0 \
+),
+
+
+  [_SYMB] = LAYOUT( \
+KC______,  KC_BSLS,    KC_AT,  KC_HASH,   KC_DLR,  KC_PERC,          TO(_MDVK), KC_F9,   KC_F10,   KC_F11,   KC_F12, KC______,\
+KC______,  KC_PLUS,  KC_MINS,  KC_ASTR,  KC_SLSH,   KC_EQL,          TO(_DVRK), KC_F5,   KC_F6,    KC_F7,    KC_F8,  KC______,\
+KC______,  KC_LBRC,  KC_RBRC,  KC_LPRN,  KC_RPRN,  KC_AMPR,          KC_GRV,    KC_F1,   KC_F2,    KC_F3,    KC_F4,  KC______,\
+                                 KC______, KC______, KC_DEL,           KC______,  KC_CAPS, KC______ \
   ),
 
-  [_NUMB] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-      _____,  PGUP,  PGDN,  HOME,   END,  FNDR,                 MINPLS,     7,     8,     9, _____, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,  LEFT,    UP,  DOWN, RIGHT,  PTSP,                 DIVMLT,     4,     5,     6,  CSTC, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,  ACCW,  CTLA,  CCPY,  PSTI,  DDEL,                 DOTEQL,     1,  CTL2,  ALT3,  RWIN, _____,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, _____, _____,    _____, _____,     0 \
-                              //`--------------------'  `--------------------'
-  ),
-
-
-  [_MNMB] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-      _____,  PGUP,  PGDN,  HOME,   END, XXXXX,                 MINPLS,     7,     8,     9, _____, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,  LEFT,    UP,  DOWN, RIGHT, XXXXX,                 DIVMLT,     4,     5,     6,  CSTC, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____, XXXXX, XXXXX, MCCPY, MCPIN,   DEL,                 DOTEQL,     1,  CTL2,  ALT3,  RWIN, _____,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, SPACE, BSPC,     _____, _____,     0 \
-                              //`--------------------'  `--------------------'
-  ),
-
-
-  [_SYMB] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-      _____,  BSLS,    AT,  HASH,   DLR,  PERC,                   MACD,    F9,   F10,   F11,   F12, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,  PLUS,  MINS,  ASTR,  SLSH,   EQL,                   MCNB,    F5,    F6,    F7,    F8, _____,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      _____,  LBRC,  RBRC,  LPRN,  RPRN,  AMPR,                    GRV,    F1,    F2,    F3,    F4, _____,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____, _____,   DEL,    _____,  CAPS, _____ \
-                              //`--------------------'  `--------------------'
-  ),
-
-  [_MDIA] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        RST,  XXXXX, XXXXX, XXXXX, XXXXX, ACL2,                  XXXXX,  LRST,  LSAD,  LSAI, XXXXX, _____,\
-  //|------+-------+------+------+------+-----|                |------+------+------+------+------+------|
-      _____,   MS_L,  MS_U,  MS_D,  MS_R, ACL1,                  XXXXX, LRMOD,  LHUD,  LHUI, XXXXX, _____,\
-  //|------+-------+------+------+------+-----|                |------+------+------+------+------+------|
-      _____,  LRMOD,  WH_U,  WH_D,  LVAD, ACL0,                  XXXXX,  MUTE,  VOLD,  VOLU, XXXXX, _____,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  _____,  BTN1,  BTN2,    _____, _____, XXXXX \
-                              //`--------------------'  `--------------------'
-  )
+  [_MDIA] = LAYOUT( \
+RESET,    KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_XXXXX, KC_ACL2,                  KC_XXXXX, RGBRST,   RGB_SAD,  RGB_SAI, KC_XXXXX, KC______,\
+KC______, KC_MS_L,  KC_MS_U,  KC_MS_D,  KC_MS_R,  KC_ACL1,                  KC_XXXXX, RGB_RMOD, RGB_HUD,  RGB_HUI, KC_XXXXX, KC______,\
+KC______, RGB_RMOD, KC_WH_U,  KC_WH_D,  KC_XXXXX, KC_ACL0,                  KC_XXXXX, KC_MUTE,  KC_VOLD,  KC_VOLU, KC_XXXXX, KC______,\
+                              KC______, KC_BTN1,  KC_BTN2,    KC______, KC______, KC_XXXXX \
+)
 };
 
 
@@ -137,7 +108,7 @@ static inline void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t 
     layer_off(layer3);
   }
 }
-
+/*
 void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
@@ -147,7 +118,7 @@ void matrix_init_user(void) {
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
-
+*/
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 //#ifdef SSD1306OLED
 

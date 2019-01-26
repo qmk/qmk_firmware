@@ -26,9 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define PREVENT_STUCK_MODIFIERS
 //#define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 200
+//#define TAPPING_TERM 200
 #define IGNORE_MOD_TAP_INTERRUPT
 
+#ifdef MASTER_LEFT
+#undef MASTER_LEFT
+#define EE_HANDS
+#endif
 // place overrides here
 
 // If you need more program area, try select and reduce rgblight modes to use.

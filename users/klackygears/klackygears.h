@@ -18,19 +18,28 @@
 #ifndef IGNORE_MOD_TAP_INTERRUPT
 #define IGNORE_MOD_TAP_INTERRUPT
 #endif
+//#ifndef TAPPING_FORCE_HOLD
+//#define TAPPING_FORCE_HOLD
+//#endif
+#if defined(KEYBOARD_helix)
+#undef MASTER_LEFT
+#define EE_HANDS
+//#undef TAPPING_FORCE_HOLD
+#endif
+
 
 /*
 #ifdef TAP_DANCE_ENABLE
   #include "tap_dances.h"
 #endif // TAP_DANCE_ENABLE
-*/
+
 
 
 typedef struct {
   bool is_press_action;
   int state;
 } tap;
-
+*/
 enum layer_number {
     _DVRK = 0,
     _QUER,
@@ -60,13 +69,13 @@ enum {
 };
 
 enum custom_keycodes {
-  //DVRK = SAFE_RANGE,
-  //MDVK,
-  //NUMB,
-  //MNMB,
-  //SYMB,
-  //MDIA,
-  RGBRST = SAFE_RANGE,
+  DVRK = SAFE_RANGE,
+  MDVK,
+  NUMB,
+  MNMB,
+  SYMB,
+  MDIA,
+  RGBRST,
   //ADJUST,
   KC_MAKE,
   DYNAMIC_MACRO_RANGE,
@@ -76,8 +85,8 @@ enum custom_keycodes {
 
 //Tap dance enums
 enum {
-  SSWAP = 0,
-  TD_MCROTOG,
+  //SSWAP,
+  TD_MCROTOG = 0,
   TD_MCROTG2,
   TD_BTK,
   TD_TDE,
@@ -109,110 +118,27 @@ enum {
 
 #define KC______ KC_TRNS
 #define KC_XXXXX KC_NO
-//#define KC_KANJI KC_GRV
-
-/*
-#define KC_SYMB SYMB
-#define KC_NUMB NUMB
-#define KC_MNMB MNMB
-#define KC_DVRK TO(_DVRK)
-#define KC_QUER TO(_QUER)
-#define KC_MACD TO(_MDVK)
-#define KC_MNMB TO(_MNMB)
-#define KC_ADJS TO(_MDIA)
-*/
-
-#define KC_RST   RESET
-
-#define KC_LRST  RGBRST
-#define KC_LTOG  RGB_TOG
-#define KC_LHUI  RGB_HUI
-#define KC_LHUD  RGB_HUD
-#define KC_LSAI  RGB_SAI
-#define KC_LSAD  RGB_SAD
-#define KC_LVAI  RGB_VAI
-#define KC_LVAD  RGB_VAD
-#define KC_LRMOD RGB_RMOD
-
-#define KC_SPSY LT(_SYMB,KC_SPC)
-#define KC_BSNB LT(_NUMB,KC_BSPC)
-#define KC_TBNB LT(_NUMB,KC_TAB)
-#define KC_ENSY LT(_SYMB,KC_ENT)
-#define KC_MBNB LT(_MNMB,KC_BSPC)
-#define KC_MTNB LT(_MNMB,KC_TAB)
-
-//Define tap dance macros as kc_ to make keymap more legible
-#define KC_MCRTG   TD(TD_MCROTOG)
-#define KC_MCRT2   TD(TD_MCROTG2)
-#define KC_CMWN    TD(TD_CMWN)
-#define KC_ATSH    TD(TD_ATSH)
-#define KC_PSTI    TD(TD_PSTI)
-#define KC_PTSP    TD(TD_PTSP)
-#define KC_FNDR    TD(TD_FNDR)
-#define KC_CCPY    TD(TD_CCPY)
-#define KC_DDEL    TD(TD_DDEL)
-#define KC_ACCW    TD(TD_ACCW)
-#define KC_CAPES   TD(TD_CAPES)
-#define KC_DTEX    TD(TD_DTEX)
-#define KC_COMQUES TD(TD_COMQUES)
-#define KC_MINPLS  TD(TD_MINPLS)
-#define KC_DIVMLT  TD(TD_DIVMLT)
-#define KC_DOTEQL  TD(TD_DOTEQL)
-#define KC_LSHSYM  TD(TD_LSHSYM)
-#define KC_RSHSYM  TD(TD_RSHSYM)
-#define KC_SCNSP   TD(TD_SCNSP)
-#define KC_MCCPY   TD(TD_MCCCPY)
-#define KC_MCPIN   TD(TD_MCPSTIN)
-
-//#define KC_QUAD TD(SSWAP)
-
-//mod tap keys
-#define KC_WNL  LGUI(KC_L)
-#define KC_MCL  LCTL(LALT(KC_Q))
-#define KC_WNSC MT(MOD_LGUI,KC_SCLN)
-#define KC_CSCN MT(MOD_LCTL,KC_SCLN)
-#define KC_ALTQ MT(MOD_LALT,KC_Q)
-#define KC_CTLJ MT(MOD_LCTL,KC_J)
-#define KC_GUIJ MT(MOD_LGUI,KC_J)
-#define KC_SHFK MT(MOD_LSFT,KC_K)
-#define KC_SHFM MT(MOD_LSFT,KC_M)
-#define KC_CTLW MT(MOD_LCTL,KC_W)
-#define KC_GUIW MT(MOD_LGUI,KC_W)
-#define KC_ALTV MT(MOD_LALT,KC_V)
-#define KC_MDAZ LT(_MDIA,KC_Z)
-#define KC_CTLA LCTL(KC_A)
-#define KC_CTL2 MT(MOD_LCTL,KC_2)
-#define KC_ALT3 MT(MOD_LALT,KC_3)
-#define KC_CSTC C_S_T(KC_COLN)
-//#define KC_SWP  SH_TT
-
-//dynamic macros
-#define KC_MRC1 DYN_REC_START1
-#define KC_MPL1 DYN_MACRO_PLAY1
-#define KC_MSP  DYN_REC_STOP
-
-
-#define KC_LRST  RGBRST
-#define KC_LTOG  RGB_TOG
-#define KC_LMOD  RGB_MOD
-#define KC_LHUI  RGB_HUI
-#define KC_LHUD  RGB_HUD
-#define KC_LSAI  RGB_SAI
-#define KC_LSAD  RGB_SAD
-#define KC_LVAI  RGB_VAI
-#define KC_LVAD  RGB_VAD
-#define KC_LSPI  RGB_SPI
-#define KC_LSPD  RGB_SPD
-#define KC_LRMOD RGB_RMOD
-
-#define KC_KNRM  AG_NORM
-#define KC_KSWP  AG_SWAP
-#define KC_GUAP  LALT_T(KC_APP)
 
 int cur_dance (qk_tap_dance_state_t *state);
 
 //for the x tap dance. Put it here so it can be used in any keymap
-void sftswap (qk_tap_dance_state_t *state, void *user_data);
-void reset_sftswap (qk_tap_dance_state_t *state, void *user_data);
+//void sftswap (qk_tap_dance_state_t *state, void *user_data);
+//void reset_sftswap (qk_tap_dance_state_t *state, void *user_data);
+
+
+
+// Selection of RGBLIGHT MODE to use.
+#if defined(LED_ANIMATIONS)
+//   #define RGBLIGHT_EFFECT_BREATHING
+//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+     #define RGBLIGHT_EFFECT_SNAKE
+//   #define RGBLIGHT_EFFECT_KNIGHT
+//   #define RGBLIGHT_EFFECT_CHRISTMAS
+//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+   //#define RGBLIGHT_EFFECT_RGB_TEST
+   //#define RGBLIGHT_EFFECT_ALTERNATING
+//     #define RGBLIGHT_EFFECT_BEAM
+#endif
 
 #endif
