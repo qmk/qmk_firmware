@@ -249,10 +249,14 @@ endif
 
 include $(DRIVER_PATH)/qwiic/qwiic.mk
 
+
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
+
+
+
 
 # Include the standard or split matrix code if needed
 ifneq ($(strip $(CUSTOM_MATRIX)), yes)
@@ -263,10 +267,21 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
-# Include the standard debounce code if needed
-ifneq ($(strip $(CUSTOM_DEBOUNCE)), yes)
-    QUANTUM_SRC += $(QUANTUM_DIR)/debounce.c
+DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
+# Debounce Modules. If implemented in matrix.c, don't use these.
+ifeq ($(strip $(DEBOUNCE_ALGO)), manual)
+    # Do nothing. do your debouncing in matrix.c
+else ifeq ($(strip $(DEBOUNCE_ALGO)), sym_g)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
+else ifeq ($(strip $(DEBOUNCE_ALGO)), eager_pk)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_eager_pk.c
+else ifeq ($(strip $(CUSTOM_MATRIX)), yes)
+    # Do nothing. Custom matrix code.
+else # default algorithm
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
 endif
+
+
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
