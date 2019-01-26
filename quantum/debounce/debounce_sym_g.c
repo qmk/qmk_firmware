@@ -16,9 +16,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 Basic global debounce algorithm. Used in 99% of keyboards at time of implementation
 When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 */
-#include "debounce.h"
 #include "matrix.h"
 #include "timer.h"
+#include "quantum.h"
 #ifndef DEBOUNCE
   #define DEBOUNCE 5
 #endif
@@ -51,7 +51,7 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool 
 }
 #endif
 
-bool debounce_active() {
+bool debounce_active(void) {
   return debouncing;
 }
 
