@@ -9,7 +9,7 @@
 #include "i2c_master.h"
 
 // #define I2C_ADDR 0b01000000
-#define I2C_ADDR 0b0100000
+#define I2C_ADDR 0b01000000
 #define I2C_IODIRA 0x0
 #define I2C_IODIRB 0x1
 #define I2C_GPIOA 0x12

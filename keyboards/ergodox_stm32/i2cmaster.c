@@ -35,8 +35,8 @@ static uint8_t i2c_address;
 // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 static const I2CConfig i2cconfig = {
   OPMODE_I2C,
-  400000,
-  FAST_DUTY_CYCLE_2,
+  100000,
+  STD_DUTY_CYCLE,
 };
 
 __attribute__ ((weak))
