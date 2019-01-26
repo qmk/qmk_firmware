@@ -274,10 +274,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-};
-
-
 void matrix_init_user(){
   set_unicode_input_mode(UC_LNX);
 }
