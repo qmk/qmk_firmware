@@ -21,6 +21,11 @@
 #define LED_MATRIX_H
 
 
+#ifndef BACKLIGHT_ENABLE
+  #error You must define BACKLIGHT_ENABLE with LED_MATRIX_ENABLE
+#endif
+
+
 typedef struct Point {
 	uint8_t x;
 	uint8_t y;
@@ -38,7 +43,7 @@ typedef struct led_matrix {
 	uint8_t modifier:1;
 } __attribute__((packed)) led_matrix;
 
-extern const led_matrix g_leds[DRIVER_LED_TOTAL];
+extern const led_matrix g_leds[LED_DRIVER_LED_COUNT];
 
 typedef struct {
 	uint8_t index;
@@ -104,26 +109,11 @@ void led_matrix_decrease_speed(void);
 void led_matrix_mode(uint8_t mode, bool eeprom_write);
 void led_matrix_mode_noeeprom(uint8_t mode);
 uint8_t led_matrix_get_mode(void);
-void led_matrix_set_value(uint8_t mode, bool eeprom_write);
+void led_matrix_set_value(uint8_t mode);
+void led_matrix_set_value_noeeprom(uint8_t mode);
 
-#ifndef BACKLIGHT_ENABLE
-#define backlight_toggle() backlight_matrix_toggle()
-#define backlight_enable() backlight_matrix_enable()
-#define backlight_enable_noeeprom() backlight_matrix_enable_noeeprom()
-#define backlight_disable() backlight_matrix_disable()
-#define backlight_disable_noeeprom() backlight_matrix_disable_noeeprom()
-#define backlight_step() backlight_matrix_step()
-#define backlight_set_value(val) backlight_matrix_set_value(val)
-#define backlight_set_value_noeeprom(val) backlight_matrix_set_value_noeeprom(val)
-#define backlight_step_reverse() backlight_matrix_step_reverse()
-#define backlight_increase_val() backlight_matrix_increase_val()
-#define backlight_decrease_val() backlight_matrix_decrease_val()
-#define backlight_increase_speed() backlight_matrix_increase_speed()
-#define backlight_decrease_speed() backlight_matrix_decrease_speed()
-#define backlight_mode(mode) backlight_matrix_mode(mode)
-#define backlight_mode_noeeprom(mode) backlight_matrix_mode_noeeprom(mode)
-#define backlight_get_mode() backlight_matrix_get_mode()
-#endif
+// Hook into the existing backlight API
+#define backlight_set(val) led_matrix_set_value(val)
 
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
