@@ -1,7 +1,5 @@
 #pragma once
 
-#include "matrix.h"
-
 // raw is the current key state
 // on entry cooked is the previous debounced state
 // on exit cooked is the current debounced state
