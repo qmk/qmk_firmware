@@ -13,18 +13,6 @@ extern keymap_config_t keymap_config;
 #define _LOWER 1
 #define _RAISE 2
 #define _ADJUST 16
-#define LAYOUT( \
-  L00, L01, L02, L03, L04, L05,      L06,   L07, L08, L09, L10, L11, L12, \
-  L13, L14, L15, L16, L17, L18,      L19,   L20, L21, L22, L23, L24, L25, \
-  L26, L27, L28, L29, L30, L31,      L32,   L33, L34, L35, L36, L37, L38, \
-                      L39, L40,      L41,   L42, L43 \
-  ) \
-  { \
-    {      L00, L01, L02, L03, L04, L05,        L06,    L07, L08, L09, L10, L11, L12 }, \
-    {      L13, L14, L15, L16, L17, L18,        L19,    L20, L21, L22, L23, L24, L25 }, \
-    {      L26, L27, L28, L29, L30, L31,        L32,    L33, L34, L35, L36, L37, L38 }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, L39, L40,     L41,    L42, L43} \
-  }
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
