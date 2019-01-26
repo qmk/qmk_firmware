@@ -290,7 +290,7 @@ This is a reference only. Each group of keys links to the page documenting their
 |`DF(layer)`     |Set the base (default) layer                                                      |
 |`MO(layer)`     |Momentarily turn on `layer` when pressed (requires `KC_TRNS` on destination layer)|
 |`OSL(layer)`    |Momentarily activates `layer` until a key is pressed. See [One Shot Keys](https://docs.qmk.fm/#/feature_advanced_keycodes?id=one-shot-keys) for details. |
-|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well. 
+|`LM(layer, mod)`|Momentarily turn on `layer` (like MO) with `mod` active as well.  Where `mod` is a mods_bit.  Mods can be viewed [here](https://docs.qmk.fm/#/feature_advanced_keycodes?id=mod-tap).  Example Implementation: `LM(LAYER_1, MOD_LALT)`|
 |`LT(layer, kc)` |Turn on `layer` when held, `kc` when tapped                                       |
 |`TG(layer)`     |Toggle `layer` on or off                                                          |
 |`TO(layer)`     |Turn on `layer` when pressed                                                      |
@@ -319,43 +319,43 @@ This is a reference only. Each group of keys links to the page documenting their
 
 ## [Modifiers](feature_advanced_keycodes.md#modifier-keys)
 
-|Key       |Aliases               |Description                                         |
-|----------|----------------------|----------------------------------------------------|
-|`KC_HYPR` |                      |Hold Left Control, Shift, Alt and GUI               |
-|`KC_MEH`  |                      |Hold Left Control, Shift and Alt                    |
-|`LCTL(kc)`|                      |Hold Left Control and press `kc`                    |
-|`LSFT(kc)`|`S(kc)`               |Hold Left Shift and press `kc`                      |
-|`LALT(kc)`|                      |Hold Left Alt and press `kc`                        |
-|`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
-|`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
-|`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|`ALGR(kc)`            |Hold Right Alt and press `kc`                       |
-|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
-|`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
-|`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
-|`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
-|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
-|`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
+|Key       |Aliases                        |Description                                         |
+|----------|-------------------------------|----------------------------------------------------|
+|`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                    |
+|`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                      |
+|`LALT(kc)`|`A(kc)`                        |Hold Left Alt and press `kc`                        |
+|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
+|`RCTL(kc)`|                               |Hold Right Control and press `kc`                   |
+|`RSFT(kc)`|                               |Hold Right Shift and press `kc`                     |
+|`RALT(kc)`|`ALGR(kc)`                     |Hold Right Alt and press `kc`                       |
+|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`         |Hold Right GUI and press `kc`                       |
+|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`              |
+|`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`            |
+|`LCAG(kc)`|                               |Hold Left Control, Alt and GUI and press `kc`       |
+|`MEH(kc)` |                               |Hold Left Control, Shift and Alt and press `kc`     |
+|`HYPR(kc)`|                               |Hold Left Control, Shift, Alt and GUI and press `kc`|
+|`KC_MEH`  |                               |Left Control, Shift and Alt                         |
+|`KC_HYPR` |                               |Left Control, Shift, Alt and GUI                    |
 
 ## [Mod-Tap Keys](feature_advanced_keycodes.md#mod-tap)
 
 |Key         |Aliases                                                          |Description                                            |
 |------------|-----------------------------------------------------------------|-------------------------------------------------------|
 |`LCTL_T(kc)`|`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped               |
-|`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped              |
 |`LSFT_T(kc)`|`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                 |
-|`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                |
 |`LALT_T(kc)`|`ALT_T(kc)`                                                      |Left Alt when held, `kc` when tapped                   |
-|`RALT_T(kc)`|`ALGR_T(kc)`                                                     |Right Alt when held, `kc` when tapped                  |
 |`LGUI_T(kc)`|`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                   |
+|`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped              |
+|`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                |
+|`RALT_T(kc)`|`ALGR_T(kc)`                                                     |Right Alt when held, `kc` when tapped                  |
 |`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                  |
-|`C_S_T(kc)` |                                                                 |Left Control and Shift when held, `kc` when tapped     |
-|`MEH_T(kc)` |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
-|`LCAG_T(kc)`|                                                                 |Left Control, Alt and GUI when held, `kc` when tapped  |
-|`RCAG_T(kc)`|                                                                 |Right Control, Alt and GUI when held, `kc` when tapped |
-|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 |`SGUI_T(kc)`|`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped         |
 |`LCA_T(kc)` |                                                                 |Left Control and Alt when held, `kc` when tapped       |
+|`LCAG_T(kc)`|                                                                 |Left Control, Alt and GUI when held, `kc` when tapped  |
+|`RCAG_T(kc)`|                                                                 |Right Control, Alt and GUI when held, `kc` when tapped |
+|`C_S_T(kc)` |                                                                 |Left Control and Shift when held, `kc` when tapped     |
+|`MEH_T(kc)` |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
+|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 
 ## [RGB Lighting](feature_rgblight.md)
 
