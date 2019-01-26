@@ -1,6 +1,5 @@
 #include "crkbd.h"
 #include "bootloader.h"
-#include "eeconfig.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
