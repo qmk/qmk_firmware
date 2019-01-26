@@ -89,14 +89,12 @@ bool is_oneshot_layer_active(void);
 uint8_t get_oneshot_layer_state(void);
 bool has_oneshot_layer_timed_out(void);
 
-void oneshot_locked_mods_set_user(uint8_t mods);
-void oneshot_locked_mods_set_kb(uint8_t mods);
-void oneshot_locked_mods_cleared_user(void);
-void oneshot_locked_mods_cleared_kb(void);
-void oneshot_mods_set_user(uint8_t mods);
-void oneshot_mods_set_kb(uint8_t mods);
-void oneshot_mods_cleared_user(void);
-void oneshot_mods_cleared_kb(void);
+void oneshot_locked_mods_changed_user(uint8_t mods);
+void oneshot_locked_mods_changed_kb(uint8_t mods);
+void oneshot_mods_changed_user(uint8_t mods);
+void oneshot_mods_changed_kb(uint8_t mods);
+void oneshot_layers_changed_user(uint8_t layer);
+void oneshot_layers_changed_kb(uint8_t layer);
 
 /* inspect */
 uint8_t has_anymod(void);
