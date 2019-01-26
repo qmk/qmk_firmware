@@ -1,4 +1,4 @@
-#define BG_GRADIENT_VALUE 120
+#define BG_GRADIENT_VALUE 60
 #define RGB_REFRESH_INTERVAL 66 /* 15fps */
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
