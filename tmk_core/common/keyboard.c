@@ -18,7 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "keyboard.h"
 #include "matrix.h"
-#include "debounce.h"
 #include "keymap.h"
 #include "host.h"
 #include "led.h"
@@ -164,8 +163,7 @@ bool is_keyboard_master(void) {
  */
 void keyboard_init(void) {
     timer_init();
-    matrix_init();
-    matrix_debounce_init();
+    matrix_init();    
 #ifdef QWIIC_ENABLE
     qwiic_init();
 #endif
@@ -225,12 +223,11 @@ void keyboard_task(void)
     uint8_t keys_processed = 0;
 #endif
 
-    matrix_scan();
-    matrix_debounce();
+    matrix_scan();    
 
     if (is_keyboard_master()) {
         for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
-            matrix_row = matrix_debounce_get_row(r);
+            matrix_row = matrix_get_row(r);
             matrix_change = matrix_row ^ matrix_prev[r];
             if (matrix_change) {
 #ifdef MATRIX_HAS_GHOST
