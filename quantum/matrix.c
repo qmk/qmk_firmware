@@ -122,7 +122,7 @@ void matrix_init(void) {
         raw_matrix[i] = 0;
         matrix[i] = 0;
     }
-    debounce_init();
+    debounce_init(MATRIX_ROWS);
 
     matrix_init_quantum();
 }
@@ -143,7 +143,7 @@ uint8_t matrix_scan(void)
   }
 #endif
 
-  debounce(raw_matrix, matrix, changed);
+  debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
 
   matrix_scan_quantum();
   return 1;
