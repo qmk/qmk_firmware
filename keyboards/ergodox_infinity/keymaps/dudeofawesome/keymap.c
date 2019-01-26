@@ -2,19 +2,7 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-
-enum custom_layers {
-  _QWERTY,
-  _WORKMAN,
-  _DVORAK,
-  _COLEMAK,
-  _LOWER,
-  _RAISE,
-  _ADJUST,
-  _GAME,
-  _MOUSE,
-  _NUM,
-};
+#include "layers.h"
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
