@@ -36,19 +36,18 @@ extern uint8_t is_master;
 #define KC_____ KC_TRNS
 #define KC_XXXX KC_NO
 
-#define KC_D_MOUS LT(MOUSE, KC_D)
-#define KC_L1_RAI LT(RAISE, KC_LANG1)
-#define KC_L2_ALT LALT_T(KC_LANG2)
-#define KC_WEEL   MO(WHEEL)
-#define KC_BASE   TO(BASE)
-#define KC_GARAKE TG(GARAKE)
-#define KC_TENKEY TG(TENKEY)
-#define KC_SFT_EN LSFT_T(KC_ENT)
-#define KC_CTR_SP LCTL_T(KC_SPC)
+#define KC_D_MOUS  LT(MOUSE, KC_D)
+#define KC_L1_RAI  LT(RAISE, KC_LANG1)
+#define KC_ESC_FN  LT(FUNCTION, KC_ESC)
+#define KC_L2_ALT  LALT_T(KC_LANG2)
+#define KC_WEEL    MO(WHEEL)
+#define KC_BASE    TO(BASE)
+#define KC_GARAKE  TG(GARAKE)
+#define KC_TENKEY  TG(TENKEY)
+#define KC_SFT_EN  LSFT_T(KC_ENT)
+#define KC_CTR_SP  LCTL_T(KC_SPC)
 
 #ifdef TAP_DANCE_ENABLE
-#define KC_ESC_FN  TD(TD_ESC_FUNC)
-#define KC_SFCL    TD(TD_SHIFT_CAPS)
 #define KC_GK1     TD(TD_GARAKE1)
 #define KC_GK2     TD(TD_GARAKE2)
 #define KC_GK3     TD(TD_GARAKE3)
@@ -60,8 +59,6 @@ extern uint8_t is_master;
 #define KC_GK9     TD(TD_GARAKE9)
 #define KC_GK0R    TD(TD_GARAKE0_RAISE)
 #else
-#define KC_ESC_FN  LT(FUNCTION, KC_ESC)
-#define KC_SFCL    KC_LSFT
 #define KC_GK1     KC_1
 #define KC_GK2     KC_2
 #define KC_GK3     KC_3
@@ -94,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     LCTL , A    , S    ,D_MOUS, F    , G    ,   H    , J    , K    , L    , SCLN , QUOT , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    SFCL , Z    , X    , C    , V    , B    ,   B    , N    , M    , COMM , DOT  , SLSH , \
+    LSFT , Z    , X    , C    , V    , B    ,   B    , N    , M    , COMM , DOT  , SLSH , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
                         L2_ALT, SPC  ,ESC_FN,   TAB  , ENT  ,L1_RAI \
 //                     `--------------------' `--------------------'
