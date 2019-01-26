@@ -93,8 +93,8 @@ void oneshot_locked_mods_changed_user(uint8_t mods);
 void oneshot_locked_mods_changed_kb(uint8_t mods);
 void oneshot_mods_changed_user(uint8_t mods);
 void oneshot_mods_changed_kb(uint8_t mods);
-void oneshot_layers_changed_user(uint8_t layer);
-void oneshot_layers_changed_kb(uint8_t layer);
+void oneshot_layer_changed_user(uint8_t layer);
+void oneshot_layer_changed_kb(uint8_t layer);
 
 /* inspect */
 uint8_t has_anymod(void);
