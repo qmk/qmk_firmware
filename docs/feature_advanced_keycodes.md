@@ -163,54 +163,78 @@ For one shot mods, you need to call `set_oneshot_mods(MOD)` to set it, or `clear
 
 ## Callbacks
 
-When you'd like to perform custom logic when pressing an `OSM(mod)` key, there are several callbacks you can choose to implement.
+When you'd like to perform custom logic when pressing a one shot key, there are several callbacks you can choose to implement. You could indicate changes in one shot keys by flashing an LED or making a sound, for example.
 
-There are callbacks that will be called when one shot modifiers have been set or cleared. These can be inserted into your `<keyboard>.c`:
+There is a callback for `OSM(mod)`. It is called whenever the state of any one shot modifier key is changed: when it toggles on, but also when it is toggled off. You can use it like this:
 
 ```c
-void oneshot_mods_set_kb(uint8_t mods) {
-    oneshot_mods_set_user(mods);
-}
-
-void oneshot_mods_cleared_kb() {
-    oneshot_mods_cleared_user();
+void oneshot_mods_changed_user(uint8_t mods) {
+  if (mods & MOD_MASK_SHIFT) {
+    println("Oneshot mods SHIFT");
+  }
+  if (mods & MOD_MASK_CTRL) {
+    println("Oneshot mods CTRL");
+  }
+  if (mods & MOD_MASK_ALT) {
+    println("Oneshot mods ALT");
+  }
+  if (mods & MOD_MASK_GUI) {
+    println("Oneshot mods GUI");
+  }
+  if (!mods) {
+    println("Oneshot mods off");
+  }
 }
 ```
 
-or `keymap.c`:
+The `mods` argument contains the active mods after the change, so it reflects the current state.
+
+When you use One Shot Tap Toggle (by adding `#define ONESHOT_TAP_TOGGLE 2` in your `config.h` file), you may lock a modifier key by pressing it the specified amount of times. There's a callback for that, too:
 
 ```c
-void oneshot_mods_set_user(uint8_t mods) {
-    print("Oneshot mods have been set!");
-}
-
-void oneshot_mods_cleared_user(void) {
-    print("Oneshot mods have been cleared!")
+void oneshot_locked_mods_changed_user(uint8_t mods) {
+  if (mods & MOD_MASK_SHIFT) {
+    println("Oneshot locked mods SHIFT");
+  }
+  if (mods & MOD_MASK_CTRL) {
+    println("Oneshot locked mods CTRL");
+  }
+  if (mods & MOD_MASK_ALT) {
+    println("Oneshot locked mods ALT");
+  }
+  if (mods & MOD_MASK_GUI) {
+    println("Oneshot locked mods GUI");
+  }
+  if (!mods) {
+    println("Oneshot locked mods off");
+  }
 }
 ```
 
-There are also callbacks that will be called when one shot modifiers have been locked. They will only be called when `ONESHOT_TAP_TOGGLE` is defined. The callbacks can be inserted into your `<keyboard>.c`:
+Last, there is also a callback for the `OSL(layer)` one shot key:
 
 ```c
-void oneshot_locked_mods_set_kb(uint8_t mods) {
-    oneshot_locked_mods_set_user(mods);
-}
-
-void oneshot_locked_mods_cleared_kb(void) {
-    oneshot_locked_mods_cleared_user();
+void oneshot_layer_changed_user(uint8_t layer) {
+  if (layer == 1) {
+    println("Oneshot layer 1 on");
+  }
+  if (!layer) {
+    println("Oneshot layer off");
+  }
 }
 ```
 
-or `keymap.c`:
+If any one shot layer is switched off, `layer` will be zero. When you're looking to do something on any layer change instead of one shot layer changes, `layer_state_set_user` is a better callback to use.
+
+If you are making your own keyboard, there are also `_kb` equivalent functions:
 
 ```c
-void oneshot_locked_mods_set_user(uint8_t mods) {
-    print("Oneshot mods have been locked!");
-}
-void oneshot_locked_mods_cleared_user(void) {
-    print("Oneshot mods have been cleared!");
-}
+void oneshot_locked_mods_changed_kb(uint8_t mods);
+void oneshot_mods_changed_kb(uint8_t mods);
+void oneshot_layer_changed_kb(uint8_t layer);
 ```
+
+As with any callback, be sure to call the `_user` variant to allow for further customizability.
 
 # Tap-Hold Configuration Options
 
