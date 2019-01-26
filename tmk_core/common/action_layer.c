@@ -37,7 +37,7 @@ layer_state_t default_layer_state_set_kb(layer_state_t state) {
  *
  * Static function to set the default layer state, prints debug info and clears keys
  */
-static void default_layer_state_set(layer_state_t state)
+static void default_layer_state_set(layer_state_t state) {
   state = default_layer_state_set_kb(state);
   debug("default_layer_state: ");
   default_layer_debug(); debug(" to ");
@@ -62,8 +62,7 @@ void default_layer_debug(void) {
  *
  * Sets the default layer state.
  */
-void default_layer_set(layer_state_t state)
-{
+void default_layer_set(layer_state_t state) {
     default_layer_state_set(state);
 }
 
@@ -72,24 +71,21 @@ void default_layer_set(layer_state_t state)
  *
  * Turns on the default layer based on matching bits between specifed layer and existing layer state
  */
-void default_layer_or(layer_state_t state)
-{
+void default_layer_or(layer_state_t state) {
     default_layer_state_set(default_layer_state | state);
 }
 /** \brief Default Layer And
  *
  * Turns on default layer based on matching enabled bits between specifed layer and existing layer state
  */
-void default_layer_and(layer_state_t state)
-{
+void default_layer_and(layer_state_t state) {
     default_layer_state_set(default_layer_state & state);
 }
 /** \brief Default Layer Xor
  *
  * Turns on default layer based on non-matching bits between specifed layer and existing layer state
  */
-void default_layer_xor(layer_state_t state)
-{
+void default_layer_xor(layer_state_t state) {
     default_layer_state_set(default_layer_state ^ state);
 }
 #endif
@@ -122,8 +118,7 @@ layer_state_t layer_state_set_kb(layer_state_t state) {
  *
  * Sets the layer to match the specifed state (a bitmask)
  */
-void layer_state_set(layer_state_t state)
-{
+void layer_state_set(layer_state_t state) {
   state = layer_state_set_kb(state);
   dprint("layer_state: ");
   layer_debug(); dprint(" to ");
@@ -140,8 +135,7 @@ void layer_state_set(layer_state_t state)
  *
  * Turn off all layers
  */
-void layer_clear(void)
-{
+void layer_clear(void) {
     layer_state_set(0);
 }
 
@@ -198,24 +192,21 @@ void layer_invert(uint8_t layer) {
  *
  * Turns on layers based on matching bits between specifed layer and existing layer state
  */
-void layer_or(layer_state_t state)
-{
+void layer_or(layer_state_t state) {
   layer_state_set(layer_state | state);
 }
 /** \brief Layer and
  *
  * Turns on layers based on matching enabled bits between specifed layer and existing layer state
  */
-void layer_and(layer_state_t state)
-{
+void layer_and(layer_state_t state) {
   layer_state_set(layer_state & state);
 }
 /** \brief Layer xor
  *
  * Turns on layers based on non-matching bits between specifed layer and existing layer state
  */
-void layer_xor(layer_state_t state)
-{
+void layer_xor(layer_state_t state) {
   layer_state_set(layer_state ^ state);
 }
 
@@ -312,7 +303,7 @@ int8_t layer_switch_get_layer(keypos_t key) {
 
   layer_state_t layers = layer_state | default_layer_state;
   /* check top layer first */
-  for (int8_t i = 31; i >= 0; i--) {
+  for (int8_t i = sizeof(layer_state_t)-1; i >= 0; i--) {
     if (layers & (1UL<<i)) {
       action = action_for_key(i, key);
       if (action.code != ACTION_TRANSPARENT) {
