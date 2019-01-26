@@ -81,26 +81,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* fix space cadet rollover issue */
 #define DISABLE_SPACE_CADET_ROLLOVER
 
-// #define RGB_MIDI
 #define RGBW_BB_TWI
 
 #define RGBW 1
 
-/* "debounce" is measured in keyboard scans. Some users reported
- * needing values as high as 15, which was at the time around 50ms.
+/*
+ * The debounce filtering reports a key/switch change directly,
+ * without any extra delay. After that the debounce logic will filter
+ * all further changes, until the key/switch reports the same state for
+ * the given count of scans.
+ * So a perfect switch will get a short debounce period and
+ * a bad key will get a much longer debounce period.
+ * The result is an adaptive debouncing period for each switch.
+ *
  * If you don't define it here, the matrix code will default to
  * 5, which is now closer to 10ms, but still plenty according to
  * manufacturer specs.
- *
- * Default is quite high, because of reports with some production
- * runs seeming to need it. This may change when configuration for
- * this is more directly exposed.
  */
-#define DEBOUNCE    15
-
-#define PREVENT_STUCK_MODIFIERS
+#define DEBOUNCE    10
 
 #define USB_MAX_POWER_CONSUMPTION 500
+
+// RGB backlight
+#define DRIVER_ADDR_1 0b1110100
+#define DRIVER_ADDR_2 0b1110111
+#define DRIVER_COUNT 2
+#define DRIVER_1_LED_TOTAL 24
+#define DRIVER_2_LED_TOTAL 24
+#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
+#define RGB_MATRIX_SKIP_FRAMES 10
 
 // #define RGBLIGHT_COLOR_LAYER_0 0x00, 0x00, 0xFF
 /* #define RGBLIGHT_COLOR_LAYER_1 0x00, 0x00, 0xFF */

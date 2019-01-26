@@ -14,7 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "whitefox.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Layer 0: Default Layer
@@ -69,24 +69,3 @@ const uint16_t fn_actions[] = {
     [7] = ACTION_USAGE_CONSUMER(0x1A0),
 
 };
-
-/* custom action function */
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  /*
-  (void)opt;
-  switch(id) {
-    case ACTION_LEDS_ALL:
-        if(record->event.pressed) {
-          // signal the LED controller thread
-          chMBPost(&led_mailbox, LED_MSG_GAME_TOGGLE, TIME_IMMEDIATE);
-        }
-      break;
-    case ACTION_LEDS_GAME:
-      if(record->event.pressed) {
-        // signal the LED controller thread
-        chMBPost(&led_mailbox, LED_MSG_ALL_TOGGLE, TIME_IMMEDIATE);
-      }
-      break;
-  }
-  */
-}

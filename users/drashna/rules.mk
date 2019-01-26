@@ -1,17 +1,22 @@
+SRC += drashna.c \
+       process_records.c
 
-SRC += drashna.c secrets.c rgb_stuff.c
+ifneq ("$(wildcard $(USER_PATH)/secrets.c)","")
+  SRC += secrets.c
+endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
   SRC += tap_dances.c
 endif
 
-EXTRAFLAGS        += -flto
+EXTRAFLAGS += -flto
 
 ifeq ($(strip $(NO_SECRETS)), yes)
     OPT_DEFS += -DNO_SECRETS
 endif
 
-ifdef RGBLIGHT_ENABLE
+ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+  SRC += rgb_stuff.c
   ifeq ($(strip $(INDICATOR_LIGHTS)), yes)
       OPT_DEFS += -DINDICATOR_LIGHTS
   endif
@@ -22,6 +27,11 @@ ifdef RGBLIGHT_ENABLE
     OPT_DEFS += -DRGBLIGHT_NOEEPROM
   endif
 endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+  SRC += rgb_stuff.c
+endif
+
 
 ifeq ($(strip $(MACROS_ENABLED)), yes)
     OPT_DEFS += -DMACROS_ENABLED

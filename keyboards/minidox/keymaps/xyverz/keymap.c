@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 

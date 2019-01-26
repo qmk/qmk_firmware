@@ -17,7 +17,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LCTRL│L_WIN│L_ALT│█████│█████│█████│ SPC │█████│█████│█████│R_ALT│ Fn3 │ Fn3 │ Fn0 │█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
      */
-	LAYOUT_legacy(
+	LAYOUT_kc(
          ESC,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS,  EQL,   NO, BSPC, \
          TAB,    Q,    W,   E,   R,   T,   Y,   U,   I,    O,    P, LBRC, RBRC, BSLS,       \
         CAPS,    A,    S,   D,   F,   G,   H,   J,   K,    L,  FN2, QUOT,   NO,  ENT,       \
@@ -36,7 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LCTRL│L_WIN│L_ALT│█████│█████│█████│ SPC │█████│█████│█████│R_ALT│R_WIN│ APP │ Fn0 │█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
     */
-    LAYOUT_legacy(
+    LAYOUT_kc(
          GRV,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS, EQL,   NO, BSPC, \
          TAB,    Q,    W,   F,   P,   G,   J,   L,   U,    Y, SCLN, LBRC, RBRC, BSLS,      \
         BSPC,    A,    R,   S,   T,   D,   H,   N,   E,    I,    O, QUOT,   NO,  ENT,      \
@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LCTRL│L_WIN│L_ALT│█████│█████│█████│ SPC │█████│█████│█████│R_ALT│R_WIN│ APP │ FN0 │█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
     */
-    LAYOUT_legacy(
+    LAYOUT_kc(
          GRV,    1,    2,    3,   4,   5,   6,   7,   8,   9,   0, LBRC, RBRC,   NO, BSPC, \
          TAB, QUOT, COMM,  DOT,   P,   Y,   F,   G,   C,   R,   L, SLSH,  EQL, BSLS,       \
         CAPS,    A,    O,    E,   U,   I,   D,   H,   T,   N,   S, MINS,   NO,  ENT,       \
@@ -74,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LCTRL│L_WIN│L_ALT│█████│█████│█████│ SPC │█████│█████│█████│R_ALT│R_WIN│ APP │ FN0 │█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
     */
-    LAYOUT_legacy(
+    LAYOUT_kc(
          GRV,    1,    2,   3,   4,   5,   6,   7,   8,    9,    0, MINS,  EQL,   NO, BSPC, \
          TAB,    Q,    D,   R,   W,   B,   J,   F,   U,    P, SCLN, LBRC, RBRC, BSLS,       \
         BSPC,    A,    S,   H,   T,   G,   Y,   N,   E,    O,    I, QUOT,   NO,  ENT,       \
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LCTRL│L_GUI│L_ALT│█████│█████│█████│Space│█████│█████│█████│R_ALT│R_GUI│ App │     │█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
      */
-    LAYOUT_legacy(
+    LAYOUT_kc(
          GRV,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS,  DEL, \
         CAPS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, PSCR, SLCK, PAUS,   UP, TRNS,  INS,       \
         LCTL, VOLD, VOLU, MUTE, TRNS, TRNS, PAST, PSLS, HOME, PGUP, LEFT, RGHT, TRNS,  ENT,       \
@@ -112,7 +112,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 │LCTRL│L_GUI│L_ALT│█████│█████│█████│Space│█████│█████│█████│R_ALT│R_GUI│ APP │RCTRL│█████│
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
      */
-    LAYOUT_legacy(
+    LAYOUT_kc(
          GRV, F1,     F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS, BSPC, \
          TAB, HOME, PGDN,   UP, PGUP,  END, HOME, PGDN, PGUP,  END, TRNS, TRNS, TRNS, TRNS,       \
         LCTL, TRNS, LEFT, DOWN, RGHT, TRNS, LEFT, DOWN,   UP, RGHT, TRNS, TRNS, TRNS,  ENT,       \
@@ -132,7 +132,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
      * Mc: Mouse Cursor / Mb: Mouse Button / Mw: Mouse Wheel
      */
-    LAYOUT_legacy(
+    LAYOUT_kc(
          GRV,   F1,   F2,   F3,   F4,   F5,   F6,   F7,   F8,   F9,  F10,  F11,  F12, TRNS, BSPC, \
          TAB, TRNS, TRNS, TRNS, TRNS, TRNS, WH_L, WH_D, WH_U, WH_R, TRNS, TRNS, TRNS, TRNS,       \
         LCTL, TRNS, ACL0, ACL1, ACL2, TRNS, MS_L, MS_D, MS_U, MS_R, TRNS, TRNS, TRNS,  ENT,       \
@@ -157,7 +157,7 @@ Ld: set Dvorak layout
 Lw: set Workman layout
 
     */
-    LAYOUT_legacy(
+    LAYOUT_kc(
          FN5,  FN6,  FN7,  FN8, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, \
 	TRNS,  FN5,  FN8, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \
 	TRNS, TRNS, TRNS,  FN7, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,       \

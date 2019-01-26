@@ -54,3 +54,5 @@ NKRO_ENABLE = no		# USB Nkey Rollover - if this doesn't work, see here: https://
 BACKLIGHT_ENABLE = yes  # In-switch LEDs
 AUDIO_ENABLE = no      # There is no available timer or pin for audio on the NovelPad
 RGBLIGHT_ENABLE = yes  # RGB LEDs for underglow, installed and enabled by default for the NovelPad
+
+LAYOUTS = ortho_5x4

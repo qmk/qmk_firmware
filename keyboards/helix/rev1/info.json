@@ -1,9 +1,9 @@
 {
-  "keyboard_name": "Helix rev. 1", 
-  "url": "", 
-  "maintainer": "qmk", 
-  "width": 13, 
-  "height": 5, 
+  "keyboard_name": "Helix rev. 1",
+  "url": "https://github.com/MakotoKurauchi/helix", 
+  "maintainer": "MakotoKurauchi",
+  "width": 13,
+  "height": 5,
   "layouts": {
     "LAYOUT": {
       "key_count": 60,
@@ -11,4 +11,3 @@
     }
   }
 }
-

@@ -4,7 +4,8 @@
  * Designed for aeronautical data entry on the OLKB Planck.
  */
 
- #include "planck.h"
+ #pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
+#include "planck.h"
  #include "action_layer.h"
 
  extern keymap_config_t keymap_config;

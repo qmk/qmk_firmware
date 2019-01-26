@@ -1,5 +1,7 @@
 # Build options
 
+USER_NAME := bbaserdem-without-userspace
+
 BACKLIGHT_ENABLE = no		# Switch LEDs
 MOUSEKEY_ENABLE = no		# Emulates mouse key using keypresses
 RGBLIGHT_ENABLE = no 		# LED strips
@@ -19,6 +21,3 @@ KEY_LOCK_ENABLE = no 		# Allows locking any key. Not used
 UNICODE_ENABLE = no			# Used for unicode character emulation
 EXTRAKEY_ENABLE = no		# OS signals like volume control
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

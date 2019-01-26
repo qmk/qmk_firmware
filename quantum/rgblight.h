@@ -16,11 +16,69 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
-#ifdef RGBLIGHT_ANIMATIONS
-	#define RGBLIGHT_MODES 35
-#else
-	#define RGBLIGHT_MODES 1
-#endif
+#include "rgblight_reconfig.h"
+
+/***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
+
+ old mode number (before 0.6.117) to new mode name table
+
+|-----------------|-----------------------------------|
+| old mode number | new mode name                     |
+|-----------------|-----------------------------------|
+|        1        | RGBLIGHT_MODE_STATIC_LIGHT        |
+|        2        | RGBLIGHT_MODE_BREATHING           |
+|        3        | RGBLIGHT_MODE_BREATHING + 1       |
+|        4        | RGBLIGHT_MODE_BREATHING + 2       |
+|        5        | RGBLIGHT_MODE_BREATHING + 3       |
+|        6        | RGBLIGHT_MODE_RAINBOW_MOOD        |
+|        7        | RGBLIGHT_MODE_RAINBOW_MOOD + 1    |
+|        8        | RGBLIGHT_MODE_RAINBOW_MOOD + 2    |
+|        9        | RGBLIGHT_MODE_RAINBOW_SWIRL       |
+|       10        | RGBLIGHT_MODE_RAINBOW_SWIRL + 1   |
+|       11        | RGBLIGHT_MODE_RAINBOW_SWIRL + 2   |
+|       12        | RGBLIGHT_MODE_RAINBOW_SWIRL + 3   |
+|       13        | RGBLIGHT_MODE_RAINBOW_SWIRL + 4   |
+|       14        | RGBLIGHT_MODE_RAINBOW_SWIRL + 5   |
+|       15        | RGBLIGHT_MODE_SNAKE               |
+|       16        | RGBLIGHT_MODE_SNAKE + 1           |
+|       17        | RGBLIGHT_MODE_SNAKE + 2           |
+|       18        | RGBLIGHT_MODE_SNAKE + 3           |
+|       19        | RGBLIGHT_MODE_SNAKE + 4           |
+|       20        | RGBLIGHT_MODE_SNAKE + 5           |
+|       21        | RGBLIGHT_MODE_KNIGHT              |
+|       22        | RGBLIGHT_MODE_KNIGHT + 1          |
+|       23        | RGBLIGHT_MODE_KNIGHT + 2          |
+|       24        | RGBLIGHT_MODE_CHRISTMAS           |
+|       25        | RGBLIGHT_MODE_STATIC_GRADIENT     |
+|       26        | RGBLIGHT_MODE_STATIC_GRADIENT + 1 |
+|       27        | RGBLIGHT_MODE_STATIC_GRADIENT + 2 |
+|       28        | RGBLIGHT_MODE_STATIC_GRADIENT + 3 |
+|       29        | RGBLIGHT_MODE_STATIC_GRADIENT + 4 |
+|       30        | RGBLIGHT_MODE_STATIC_GRADIENT + 5 |
+|       31        | RGBLIGHT_MODE_STATIC_GRADIENT + 6 |
+|       32        | RGBLIGHT_MODE_STATIC_GRADIENT + 7 |
+|       33        | RGBLIGHT_MODE_STATIC_GRADIENT + 8 |
+|       34        | RGBLIGHT_MODE_STATIC_GRADIENT + 9 |
+|       35        | RGBLIGHT_MODE_RGB_TEST            |
+|       36        | RGBLIGHT_MODE_ALTERNATING         |
+|-----------------|-----------------------------------|
+ *****/
+
+#define _RGBM_SINGLE_STATIC(sym)   RGBLIGHT_MODE_ ## sym,
+#define _RGBM_SINGLE_DYNAMIC(sym)  RGBLIGHT_MODE_ ## sym,
+#define _RGBM_MULTI_STATIC(sym)    RGBLIGHT_MODE_ ## sym,
+#define _RGBM_MULTI_DYNAMIC(sym)   RGBLIGHT_MODE_ ## sym,
+#define _RGBM_TMP_STATIC(sym)      RGBLIGHT_MODE_ ## sym,
+#define _RGBM_TMP_DYNAMIC(sym)     RGBLIGHT_MODE_ ## sym,
+enum RGBLIGHT_EFFECT_MODE {
+    RGBLIGHT_MODE_zero = 0,
+#include "rgblight.h"
+    RGBLIGHT_MODE_last
+};
+
+#ifndef RGBLIGHT_H_DUMMY_DEFINE
+
+#define RGBLIGHT_MODES (RGBLIGHT_MODE_last-1)
 
 #ifndef RGBLIGHT_EFFECT_BREATHE_CENTER
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1-2.7
@@ -76,6 +134,10 @@
 #include "rgblight_types.h"
 #include "rgblight_list.h"
 
+#if defined(__AVR__)
+    #include <avr/pgmspace.h>
+#endif
+
 extern LED_TYPE led[RGBLED_NUM];
 
 extern const uint8_t RGBLED_BREATHING_INTERVALS[4] PROGMEM;
@@ -105,7 +167,7 @@ void rgblight_enable(void);
 void rgblight_disable(void);
 void rgblight_step(void);
 void rgblight_step_reverse(void);
-uint32_t rgblight_get_mode(void);
+uint8_t rgblight_get_mode(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
 void rgblight_update_dword(uint32_t dword);
@@ -141,6 +203,14 @@ void rgblight_mode_noeeprom(uint8_t mode);
 void rgblight_toggle_noeeprom(void);
 void rgblight_enable_noeeprom(void);
 void rgblight_disable_noeeprom(void);
+void rgblight_step_noeeprom(void);
+void rgblight_step_reverse_noeeprom(void);
+void rgblight_increase_hue_noeeprom(void);
+void rgblight_decrease_hue_noeeprom(void);
+void rgblight_increase_sat_noeeprom(void);
+void rgblight_decrease_sat_noeeprom(void);
+void rgblight_increase_val_noeeprom(void);
+void rgblight_decrease_val_noeeprom(void);
 
 void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
 void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
@@ -162,5 +232,75 @@ void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
 void rgblight_effect_christmas(void);
 void rgblight_effect_rgbtest(void);
+void rgblight_effect_alternating(void);
 
+#endif // #ifndef RGBLIGHT_H_DUMMY_DEFINE
+#endif // RGBLIGHT_H
+
+#ifdef _RGBM_SINGLE_STATIC
+  _RGBM_SINGLE_STATIC( STATIC_LIGHT )
+  #ifdef RGBLIGHT_EFFECT_BREATHING
+    _RGBM_MULTI_DYNAMIC( BREATHING )
+    _RGBM_TMP_DYNAMIC( breathing_3 )
+    _RGBM_TMP_DYNAMIC( breathing_4 )
+    _RGBM_TMP_DYNAMIC( BREATHING_end )
+  #endif
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
+    _RGBM_MULTI_DYNAMIC( RAINBOW_MOOD )
+    _RGBM_TMP_DYNAMIC( rainbow_mood_7 )
+    _RGBM_TMP_DYNAMIC( RAINBOW_MOOD_end )
+  #endif
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
+    _RGBM_MULTI_DYNAMIC( RAINBOW_SWIRL )
+    _RGBM_TMP_DYNAMIC( rainbow_swirl_10 )
+    _RGBM_TMP_DYNAMIC( rainbow_swirl_11 )
+    _RGBM_TMP_DYNAMIC( rainbow_swirl_12 )
+    _RGBM_TMP_DYNAMIC( rainbow_swirl_13 )
+    _RGBM_TMP_DYNAMIC( RAINBOW_SWIRL_end )
+  #endif
+  #ifdef RGBLIGHT_EFFECT_SNAKE
+    _RGBM_MULTI_DYNAMIC( SNAKE )
+    _RGBM_TMP_DYNAMIC( snake_16 )
+    _RGBM_TMP_DYNAMIC( snake_17 )
+    _RGBM_TMP_DYNAMIC( snake_18 )
+    _RGBM_TMP_DYNAMIC( snake_19 )
+    _RGBM_TMP_DYNAMIC( SNAKE_end )
+  #endif
+  #ifdef RGBLIGHT_EFFECT_KNIGHT
+    _RGBM_MULTI_DYNAMIC( KNIGHT )
+    _RGBM_TMP_DYNAMIC( knight_22 )
+    _RGBM_TMP_DYNAMIC( KNIGHT_end )
+  #endif
+  #ifdef RGBLIGHT_EFFECT_CHRISTMAS
+    _RGBM_SINGLE_DYNAMIC( CHRISTMAS )
+  #endif
+  #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
+    _RGBM_MULTI_STATIC( STATIC_GRADIENT )
+    _RGBM_TMP_STATIC( static_gradient_26 )
+    _RGBM_TMP_STATIC( static_gradient_27 )
+    _RGBM_TMP_STATIC( static_gradient_28 )
+    _RGBM_TMP_STATIC( static_gradient_29 )
+    _RGBM_TMP_STATIC( static_gradient_30 )
+    _RGBM_TMP_STATIC( static_gradient_31 )
+    _RGBM_TMP_STATIC( static_gradient_32 )
+    _RGBM_TMP_STATIC( static_gradient_33 )
+    _RGBM_TMP_STATIC( STATIC_GRADIENT_end )
+  #endif
+  #ifdef RGBLIGHT_EFFECT_RGB_TEST
+    _RGBM_SINGLE_DYNAMIC( RGB_TEST )
+  #endif
+  #ifdef RGBLIGHT_EFFECT_ALTERNATING
+    _RGBM_SINGLE_DYNAMIC( ALTERNATING )
+  #endif
+  ////  Add a new mode here.
+  // #ifdef RGBLIGHT_EFFECT_<name>
+  //    _RGBM_<SINGLE|MULTI>_<STATIC|DYNAMIC>( <name> )
+  // #endif
 #endif
+
+#undef _RGBM_SINGLE_STATIC
+#undef _RGBM_SINGLE_DYNAMIC
+#undef _RGBM_MULTI_STATIC
+#undef _RGBM_MULTI_DYNAMIC
+#undef _RGBM_TMP_STATIC
+#undef _RGBM_TMP_DYNAMIC

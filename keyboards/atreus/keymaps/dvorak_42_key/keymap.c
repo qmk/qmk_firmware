@@ -5,15 +5,9 @@
 #define BASE      0
 #define KEYNAV    1
 #define KEYSEL    2
-#define MOUSE     3
-#define COMBINED  4
-#define BROWSER_CONTROL 5
+#define COMBINED  3
+#define BROWSER_CONTROL 4
 
-// macros
-#define MOUSE_TOGGLE 1
-#define MOUSE_LOCK 2
-
-static bool mouse_lock = false;
 
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
@@ -63,23 +57,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS, KC_TILD, KC_GRAVE,    KC_CIRC,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,  KC_0, KC_DOT, KC_PIPE, KC_BSLS
   ),
 
-  [MOUSE] = LAYOUT(
-    KC_TRNS,      KC_PGUP,       KC_MS_WH_UP,   KC_UP,        KC_TRNS,                   KC_UP,     KC_HOME,            KC_MS_U,      KC_END,     KC_MS_WH_UP,
-    KC_MS_ACCEL0, KC_PGDN,       KC_MS_WH_DOWN, KC_DOWN,      KC_TRNS,                   KC_DOWN,   KC_MS_L,            KC_MS_D,      KC_MS_R,    KC_MS_WH_DOWN,
-    KC_TRNS,      KC_TRNS,       KC_TRNS,       KC_TRNS,      KC_TRNS,                   MEH(KC_X), MEH(KC_Y),          MEH(KC_Z),    KC_F5,      RCTL(KC_W),
-    KC_TRNS,      M(MOUSE_LOCK), KC_TRNS,       KC_MS_ACCEL0, KC_TRNS, KC_BTN3, KC_BTN1, KC_BTN2,   RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), RCTL(KC_T), LALT(KC_LEFT)
-  ),
-
   [BROWSER_CONTROL] = LAYOUT(
-    KC_TRNS, KC_BTN3, KC_MS_U, KC_BTN1, KC_BTN2,                      KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   KC_TRNS,
-    KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,                      KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT),
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,                      KC_TRNS,    RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
-    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, RCTL(KC_W), RCTL(KC_T), RSFT(RCTL(KC_TAB)), KC_TRNS,      KC_TRNS,       KC_TRNS
+    MEH(KC_0), KC_BTN3,   KC_MS_U,   KC_BTN1,   KC_BTN2,                      KC_UP,      KC_PGUP,            KC_PGDN,      KC_MS_WH_UP,   MEH(KC_9),
+    MEH(KC_1), KC_MS_L,   KC_MS_D,   KC_MS_R,   MEH(KC_6),                    KC_DOWN,    RSFT(RCTL(KC_TAB)), RCTL(KC_TAB), KC_MS_WH_DOWN, LALT(KC_LEFT),
+    MEH(KC_2), MEH(KC_3), MEH(KC_4), MEH(KC_5), MEH(KC_7),                    MEH(KC_8),  RCTL(KC_1),         RCTL(KC_9),   KC_F6,         KC_F5,
+    KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS, RCTL(KC_W), RCTL(KC_T), RSFT(RCTL(KC_TAB)), KC_TRNS,      KC_TRNS,       KC_TRNS
   ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -116,30 +99,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-		case MOUSE_TOGGLE:
-            if (record->event.pressed) {
-				layer_on(MOUSE);
-            } else {
-				if(!mouse_lock)
-					layer_off(MOUSE);
-			}
-			break;
-		case MOUSE_LOCK:
-			if (record->event.pressed)
-			{
-				if(mouse_lock)
-				{
-					mouse_lock = false;
-					layer_off(MOUSE);
-				}
-				else
-					mouse_lock = true;
-			}
-			break;
-      }
-    return MACRO_NONE;
-};

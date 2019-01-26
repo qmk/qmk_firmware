@@ -1,7 +1,9 @@
 # XD75RE Setup
 
-This layout is the xd75re layout, inspired by my planck keymap.
-Contains some code from the original keymap here, but had to be modded.
+(WIP) F keyboard for turkish, using unicode.
+
+* Write down keymap in userspace
+* Figure out LED indicators
 
 # Make
 

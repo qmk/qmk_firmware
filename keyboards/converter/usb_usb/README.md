@@ -3,15 +3,15 @@ USB to USB keyboard protocol converter
 A small device to connect between your USB keyboard and your PC that makes (almost) every keyboard fully programmable.
 Original code from the [TMK firmware](https://github.com/tmk/tmk_keyboard/tree/master/converter/usb_usb). Ported to QMK by [Balz Guenat](https://github.com/BalzGuenat).
 
-Keyboard Maintainer: [Balz Guenat](https://github.com/BalzGuenat)
-Hardware Supported: [Hasu's USB-USB converter](https://geekhack.org/index.php?topic=69169.0), [Pro Micro + USB Host Shield](https://geekhack.org/index.php?topic=80421.0), maybe more
+Keyboard Maintainer: [Balz Guenat](https://github.com/BalzGuenat)  
+Hardware Supported: [Hasu's USB-USB converter](https://geekhack.org/index.php?topic=69169.0), [Pro Micro + USB Host Shield](https://geekhack.org/index.php?topic=80421.0), maybe more  
 Hardware Availability: [GH thread](https://geekhack.org/index.php?topic=72052.0), self-built
 
 Make example for this keyboard (after setting up your build environment):
 
     make converter/usb_usb:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 Note that you have to choose the right hardware variant as your subproject, otherwise you will probably have issues.
 
