@@ -65,3 +65,5 @@ AUDIO_ENABLE = no           # Audio output on port C6
 NKRO_ENABLE = yes          # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE = yes     # Enable keyboard backlight functionality
 RGBLIGHT_ENABLE = yes      # Enable RGB light
+
+LAYOUTS = 65_ansi 65_iso

@@ -19,28 +19,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 #undef RGBLED_NUM
-#define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16
+
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_EFFECT_KNIGHT_LENGTH 2
 #define RGBLIGHT_EFFECT_SNAKE_LENGTH 2
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1
-#define RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL 300
-#define RGBLIGHT_EFFECT_CHRISTMAS_STEP 1
 #endif // RGBLIGHT_ENABLE
 
 
 #undef LOCKING_SUPPORT_ENABLE
 #undef LOCKING_RESYNC_ENABLE
 
-#ifndef NO_DEBUG
-#define NO_DEBUG
-#endif // !NO_DEBUG
-#ifndef NO_PRINT
-#define NO_PRINT
-#endif // !NO_PRINT
 
 /* disable action features */
 //#define NO_ACTION_LAYER
@@ -58,6 +50,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define C6_AUDIO
 #define NO_MUSIC_MODE
 #endif
+
+#define STRICT_LAYER_RELEASE
 
 #define LAYOUT_ortho_5x7( \
     L00, L01, L02, L03, L04, L05, L06, \

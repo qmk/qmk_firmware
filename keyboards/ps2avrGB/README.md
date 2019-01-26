@@ -17,6 +17,7 @@ compatible with QMK; fully supported boards have their own directory.
 
 - [b.fake](https://github.com/qmk/qmk_firmware/tree/master/keyboards/bfake)
 - [b.mini](https://github.com/qmk/qmk_firmware/tree/master/keyboards/bmini)
+- [b.face](https://github.com/qmk/qmk_firmware/tree/master/keyboards/bface)
 - [pearl](https://github.com/qmk/qmk_firmware/tree/master/keyboards/pearl)
 
 ## Installing

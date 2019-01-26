@@ -31,7 +31,7 @@ static const uint8_t led_mask[] = {
 	0xFF, 0x00, /* C6-1 -> C6-16 */
 	0xFF, 0x00, /* C7-1 -> C7-16 */
 	0xFF, 0x00, /* C8-1 -> C8-16 */
-	0xFE, 0x00, /* C9-1 -> C9-16 */
+	0xFF, 0x00, /* C9-1 -> C9-16 */
 };
 
 // The address of the LED

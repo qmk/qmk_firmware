@@ -53,6 +53,8 @@ but the `LAYOUT_<layout>` variable must be defined in `<folder>.h` as well.
 
 ## Tips for Making Layouts Keyboard-Agnostic
 
+### Includes
+
 Instead of using `#include "planck.h"`, you can use this line to include whatever `<keyboard>.h` (`<folder>.h` should not be included here) file that is being compiled:
 
     #include QMK_KEYBOARD_H
@@ -72,3 +74,7 @@ For example:
 ```
 
 Note that the names are lowercase and match the folder/file names for the keyboard/revision exactly.
+
+### Keymaps
+
+In order to support both split and non-split keyboards with the same layout, you need to use the keyboard agnostic `LAYOUT_<layout name>` macro in your keymap. For instance, in order for a Let's Split and Planck to share the same layout file, you need to use `LAYOUT_ortho_4x12` instead of `LAYOUT_planck_grid` or just `{}` for a C array.
