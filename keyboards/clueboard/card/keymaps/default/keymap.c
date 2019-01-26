@@ -36,7 +36,7 @@ void matrix_scan_user(void) {
 
 }
 
-bool process_record_user(uint16_t keycode, keyrecord_t* record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
       case SONG_SU:
