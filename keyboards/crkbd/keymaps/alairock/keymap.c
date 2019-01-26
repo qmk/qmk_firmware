@@ -1,6 +1,5 @@
 #include "crkbd.h"
 #include "bootloader.h"
-#include "action_layer.h"
 #include "action_util.h"
 #include "eeconfig.h"
 #ifdef PROTOCOL_LUFA
