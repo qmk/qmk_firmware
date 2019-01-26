@@ -28,6 +28,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define USE_SERIAL_PD2
 #define MASTER_LEFT             /* LEFT or RIGHT (or EE_HANDS) */
 
+#define BACKLIGHT_NUM 21
+#define UNDERGLOW_NUM 4
+
+#undef RGBLED_NUM
+#define RGBLED_NUM (BACKLIGHT_NUM + UNDERGLOW_NUM)
+
+#undef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 255
+
 // #define CATERINA_BOOTLOADER /* Explicitly use caterina bootloader to make RESET keycode available */
 #define PREVENT_STUCK_MODIFIERS /* Auto-restore layer when the layer key is released */
 
