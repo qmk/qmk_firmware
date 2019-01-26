@@ -22,3 +22,8 @@ COMMON_VPATH += $(QUANTUM_PATH)/audio
 COMMON_VPATH += $(QUANTUM_PATH)/process_keycode
 COMMON_VPATH += $(QUANTUM_PATH)/api
 COMMON_VPATH += $(DRIVER_PATH)
+
+define USE_RULES
+    $(if $(filter $(1),$(RULES_MK_LIST)),,$(eval RULES_MK_LIST += $(1)))\
+    $(eval $(2)include $(1))
+endef
