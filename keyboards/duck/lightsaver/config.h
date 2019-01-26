@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1337
+#define VENDOR_ID       0x444B // Duck ("DK")
+#define PRODUCT_ID      0x4C53 // Lightsaver ("LS")
 #define DEVICE_VER      0x0003
 #define MANUFACTURER    Duck
 #define PRODUCT         Lightsaver V3

@@ -5,6 +5,3 @@ BACKLIGHT_ENABLE = no
 UNICODE_ENABLE = yes
 DEFAULT_FOLDER = levinson/rev2
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

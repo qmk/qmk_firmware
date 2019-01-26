@@ -1,5 +1,10 @@
 /*
  * WARNING: be careful changing this code, it is very timing dependent
+ *
+ * 2018-10-28 checked
+ *  avr-gcc 4.9.2
+ *  avr-gcc 5.4.0
+ *  avr-gcc 7.3.0
  */
 
 #ifndef F_CPU
@@ -14,9 +19,58 @@
 #include "serial.h"
 //#include <pro_micro.h>
 
-#ifdef USE_SERIAL
-//#ifndef USE_SERIAL_PD2
+#ifdef SOFT_SERIAL_PIN
 
+#ifdef __AVR_ATmega32U4__
+  // if using ATmega32U4 I2C, can not use PD0 and PD1 in soft serial.
+  #ifdef USE_I2C
+    #if SOFT_SERIAL_PIN == D0 || SOFT_SERIAL_PIN == D1
+      #error Using ATmega32U4 I2C, so can not use PD0, PD1
+    #endif
+  #endif
+
+  #if SOFT_SERIAL_PIN >= D0 && SOFT_SERIAL_PIN <= D3
+    #define SERIAL_PIN_DDR   DDRD
+    #define SERIAL_PIN_PORT  PORTD
+    #define SERIAL_PIN_INPUT PIND
+    #if SOFT_SERIAL_PIN == D0
+      #define SERIAL_PIN_MASK _BV(PD0)
+      #define EIMSK_BIT       _BV(INT0)
+      #define EICRx_BIT       (~(_BV(ISC00) | _BV(ISC01)))
+      #define SERIAL_PIN_INTERRUPT INT0_vect
+    #elif  SOFT_SERIAL_PIN == D1
+      #define SERIAL_PIN_MASK _BV(PD1)
+      #define EIMSK_BIT       _BV(INT1)
+      #define EICRx_BIT       (~(_BV(ISC10) | _BV(ISC11)))
+      #define SERIAL_PIN_INTERRUPT INT1_vect
+    #elif  SOFT_SERIAL_PIN == D2
+      #define SERIAL_PIN_MASK _BV(PD2)
+      #define EIMSK_BIT       _BV(INT2)
+      #define EICRx_BIT       (~(_BV(ISC20) | _BV(ISC21)))
+      #define SERIAL_PIN_INTERRUPT INT2_vect
+    #elif  SOFT_SERIAL_PIN == D3
+      #define SERIAL_PIN_MASK _BV(PD3)
+      #define EIMSK_BIT       _BV(INT3)
+      #define EICRx_BIT       (~(_BV(ISC30) | _BV(ISC31)))
+      #define SERIAL_PIN_INTERRUPT INT3_vect
+    #endif
+  #elif  SOFT_SERIAL_PIN == E6
+    #define SERIAL_PIN_DDR   DDRE
+    #define SERIAL_PIN_PORT  PORTE
+    #define SERIAL_PIN_INPUT PINE
+    #define SERIAL_PIN_MASK  _BV(PE6)
+    #define EIMSK_BIT        _BV(INT6)
+    #define EICRx_BIT        (~(_BV(ISC60) | _BV(ISC61)))
+    #define SERIAL_PIN_INTERRUPT INT6_vect
+  #else
+  #error invalid SOFT_SERIAL_PIN value
+  #endif
+
+#else
+ #error serial.c now support ATmega32U4 only
+#endif
+
+//////////////// for backward compatibility ////////////////////////////////
 #ifndef SERIAL_USE_MULTI_TRANSACTION
 /* --- USE Simple API (OLD API, compatible with let's split serial.c) */
   #if SERIAL_SLAVE_BUFFER_LENGTH > 0
@@ -43,56 +97,118 @@ SSTD_t transactions[] = {
 };
 
 void serial_master_init(void)
-{ soft_serial_initiator_init(transactions); }
+{ soft_serial_initiator_init(transactions, TID_LIMIT(transactions)); }
 
 void serial_slave_init(void)
-{ soft_serial_target_init(transactions); }
+{ soft_serial_target_init(transactions, TID_LIMIT(transactions)); }
 
 // 0 => no error
 // 1 => slave did not respond
 // 2 => checksum error
 int serial_update_buffers()
-{ return soft_serial_transaction(); }
+{
+    int result;
+    result = soft_serial_transaction();
+    return result;
+}
 
-#endif // Simple API (OLD API, compatible with let's split serial.c)
+#endif // end of Simple API (OLD API, compatible with let's split serial.c)
+////////////////////////////////////////////////////////////////////////////
 
 #define ALWAYS_INLINE __attribute__((always_inline))
 #define NO_INLINE __attribute__((noinline))
 #define _delay_sub_us(x)    __builtin_avr_delay_cycles(x)
 
-// Serial pulse period in microseconds.
-#define TID_SEND_ADJUST 14
+// parity check
+#define ODD_PARITY 1
+#define EVEN_PARITY 0
+#define PARITY EVEN_PARITY
 
-#define SELECT_SERIAL_SPEED 1
-#if SELECT_SERIAL_SPEED == 0
+#ifdef SERIAL_DELAY
+  // custom setup in config.h
+  // #define TID_SEND_ADJUST 2
+  // #define SERIAL_DELAY 6             // micro sec
+  // #define READ_WRITE_START_ADJUST 30 // cycles
+  // #define READ_WRITE_WIDTH_ADJUST 8 // cycles
+#else
+// ============ Standard setups ============
+
+#ifndef SELECT_SOFT_SERIAL_SPEED
+#define SELECT_SOFT_SERIAL_SPEED 1
+//  0: about 189kbps
+//  1: about 137kbps (default)
+//  2: about 75kbps
+//  3: about 39kbps
+//  4: about 26kbps
+//  5: about 20kbps
+#endif
+
+#if __GNUC__ < 6
+  #define TID_SEND_ADJUST 14
+#else
+  #define TID_SEND_ADJUST 2
+#endif
+
+#if SELECT_SOFT_SERIAL_SPEED == 0
   // Very High speed
   #define SERIAL_DELAY 4             // micro sec
-  #define READ_WRITE_START_ADJUST 33 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
-#elif SELECT_SERIAL_SPEED == 1
+  #if __GNUC__ < 6
+    #define READ_WRITE_START_ADJUST 33 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_START_ADJUST 34 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
+#elif SELECT_SOFT_SERIAL_SPEED == 1
   // High speed
   #define SERIAL_DELAY 6             // micro sec
-  #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
-#elif SELECT_SERIAL_SPEED == 2
+  #if __GNUC__ < 6
+    #define READ_WRITE_START_ADJUST 30 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_START_ADJUST 33 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
+#elif SELECT_SOFT_SERIAL_SPEED == 2
   // Middle speed
   #define SERIAL_DELAY 12            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
-#elif SELECT_SERIAL_SPEED == 3
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
+#elif SELECT_SOFT_SERIAL_SPEED == 3
   // Low speed
   #define SERIAL_DELAY 24            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
-#elif SELECT_SERIAL_SPEED == 4
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
+#elif SELECT_SOFT_SERIAL_SPEED == 4
   // Very Low speed
-  #define SERIAL_DELAY 50            // micro sec
+  #define SERIAL_DELAY 36            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
+#elif SELECT_SOFT_SERIAL_SPEED == 5
+  // Ultra Low speed
+  #define SERIAL_DELAY 48            // micro sec
+  #define READ_WRITE_START_ADJUST 30 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #else
-#error Illegal Serial Speed
-#endif
-
+#error invalid SELECT_SOFT_SERIAL_SPEED value
+#endif /* SELECT_SOFT_SERIAL_SPEED */
+#endif /* SERIAL_DELAY */
 
 #define SERIAL_DELAY_HALF1 (SERIAL_DELAY/2)
 #define SERIAL_DELAY_HALF2 (SERIAL_DELAY - SERIAL_DELAY/2)
@@ -106,17 +222,21 @@ int serial_update_buffers()
 #endif
 
 static SSTD_t *Transaction_table = NULL;
+static uint8_t Transaction_table_size = 0;
 
+inline static void serial_delay(void) ALWAYS_INLINE;
 inline static
 void serial_delay(void) {
   _delay_us(SERIAL_DELAY);
 }
 
+inline static void serial_delay_half1(void) ALWAYS_INLINE;
 inline static
 void serial_delay_half1(void) {
   _delay_us(SERIAL_DELAY_HALF1);
 }
 
+inline static void serial_delay_half2(void) ALWAYS_INLINE;
 inline static
 void serial_delay_half2(void) {
   _delay_us(SERIAL_DELAY_HALF2);
@@ -136,6 +256,7 @@ void serial_input_with_pullup(void) {
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
 
+inline static uint8_t serial_read_pin(void) ALWAYS_INLINE;
 inline static
 uint8_t serial_read_pin(void) {
   return !!(SERIAL_PIN_INPUT & SERIAL_PIN_MASK);
@@ -153,30 +274,28 @@ void serial_high(void) {
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
 
-void soft_serial_initiator_init(SSTD_t *sstd_table)
+void soft_serial_initiator_init(SSTD_t *sstd_table, int sstd_table_size)
 {
     Transaction_table = sstd_table;
+    Transaction_table_size = (uint8_t)sstd_table_size;
     serial_output();
     serial_high();
 }
 
-void soft_serial_target_init(SSTD_t *sstd_table)
+void soft_serial_target_init(SSTD_t *sstd_table, int sstd_table_size)
 {
     Transaction_table = sstd_table;
+    Transaction_table_size = (uint8_t)sstd_table_size;
     serial_input_with_pullup();
 
-#if SERIAL_PIN_MASK == _BV(PD0)
-    // Enable INT0
-    EIMSK |= _BV(INT0);
-    // Trigger on falling edge of INT0
-    EICRA &= ~(_BV(ISC00) | _BV(ISC01));
-#elif SERIAL_PIN_MASK == _BV(PD2)
-    // Enable INT2
-    EIMSK |= _BV(INT2);
-    // Trigger on falling edge of INT2
-    EICRA &= ~(_BV(ISC20) | _BV(ISC21));
+    // Enable INT0-INT3,INT6
+    EIMSK |= EIMSK_BIT;
+#if SERIAL_PIN_MASK == _BV(PE6)
+    // Trigger on falling edge of INT6
+    EICRB &= EICRx_BIT;
 #else
- #error unknown SERIAL_PIN_MASK value
+    // Trigger on falling edge of INT0-INT3
+    EICRA &= EICRx_BIT;
 #endif
 }
 
@@ -192,7 +311,7 @@ void sync_recv(void) {
 }
 
 // Used by the reciver to send a synchronization signal to the sender.
-static void sync_send(void)NO_INLINE;
+static void sync_send(void) NO_INLINE;
 static
 void sync_send(void) {
   serial_low();
@@ -206,12 +325,12 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
     uint8_t byte, i, p, pb;
 
   _delay_sub_us(READ_WRITE_START_ADJUST);
-  for( i = 0, byte = 0, p = 0; i < bit; i++ ) {
+  for( i = 0, byte = 0, p = PARITY; i < bit; i++ ) {
       serial_delay_half1();   // read the middle of pulses
       if( serial_read_pin() ) {
-	  byte = (byte << 1) | 1; p ^= 1;
+          byte = (byte << 1) | 1; p ^= 1;
       } else {
-	  byte = (byte << 1) | 0; p ^= 0;
+          byte = (byte << 1) | 0; p ^= 0;
       }
       _delay_sub_us(READ_WRITE_WIDTH_ADJUST);
       serial_delay_half2();
@@ -231,13 +350,13 @@ static uint8_t serial_read_chunk(uint8_t *pterrcount, uint8_t bit) {
 void serial_write_chunk(uint8_t data, uint8_t bit) NO_INLINE;
 void serial_write_chunk(uint8_t data, uint8_t bit) {
     uint8_t b, p;
-    for( p = 0, b = 1<<(bit-1); b ; b >>= 1) {
-	if(data & b) {
-	    serial_high(); p ^= 1;
-	} else {
-	    serial_low();  p ^= 0;
-	}
-	serial_delay();
+    for( p = PARITY, b = 1<<(bit-1); b ; b >>= 1) {
+        if(data & b) {
+            serial_high(); p ^= 1;
+        } else {
+            serial_low();  p ^= 0;
+        }
+        serial_delay();
     }
     /* send parity bit */
     if(p & 1) { serial_high(); }
@@ -289,6 +408,13 @@ void change_reciver2sender(void) {
     serial_delay_half1(); //4
 }
 
+static inline uint8_t nibble_bits_count(uint8_t bits)
+{
+    bits = (bits & 0x5) + (bits >> 1 & 0x5);
+    bits = (bits & 0x3) + (bits >> 2 & 0x3);
+    return bits;
+}
+
 // interrupt handle to be used by the target device
 ISR(SERIAL_PIN_INTERRUPT) {
 
@@ -298,12 +424,15 @@ ISR(SERIAL_PIN_INTERRUPT) {
   SSTD_t *trans = Transaction_table;
 #else
   // recive transaction table index
-  uint8_t tid;
+  uint8_t tid, bits;
   uint8_t pecount = 0;
   sync_recv();
-  tid = serial_read_chunk(&pecount,4);
-  if(pecount> 0)
+  bits = serial_read_chunk(&pecount,7);
+  tid = bits>>3;
+  bits = (bits&7) != nibble_bits_count(tid);
+  if( bits || pecount> 0 || tid > Transaction_table_size ) {
       return;
+  }
   serial_delay_half1();
 
   serial_high(); // response step1 low->high
@@ -316,17 +445,17 @@ ISR(SERIAL_PIN_INTERRUPT) {
   // target send phase
   if( trans->target2initiator_buffer_size > 0 )
       serial_send_packet((uint8_t *)trans->target2initiator_buffer,
-			 trans->target2initiator_buffer_size);
+                         trans->target2initiator_buffer_size);
   // target switch to input
   change_sender2reciver();
 
   // target recive phase
   if( trans->initiator2target_buffer_size > 0 ) {
       if (serial_recive_packet((uint8_t *)trans->initiator2target_buffer,
-			       trans->initiator2target_buffer_size) ) {
-	  *trans->status = TRANSACTION_ACCEPTED;
+                               trans->initiator2target_buffer_size) ) {
+          *trans->status = TRANSACTION_ACCEPTED;
       } else {
-	  *trans->status = TRANSACTION_DATA_ERROR;
+          *trans->status = TRANSACTION_DATA_ERROR;
       }
   } else {
       *trans->status = TRANSACTION_ACCEPTED;
@@ -350,6 +479,8 @@ int  soft_serial_transaction(void) {
   SSTD_t *trans = Transaction_table;
 #else
 int  soft_serial_transaction(int sstd_index) {
+  if( sstd_index > Transaction_table_size )
+      return TRANSACTION_TYPE_ERROR;
   SSTD_t *trans = &Transaction_table[sstd_index];
 #endif
   cli();
@@ -376,9 +507,10 @@ int  soft_serial_transaction(int sstd_index) {
 
 #else
   // send transaction table index
+  int tid = (sstd_index<<3) | (7 & nibble_bits_count(sstd_index));
   sync_send();
   _delay_sub_us(TID_SEND_ADJUST);
-  serial_write_chunk(sstd_index, 4);
+  serial_write_chunk(tid, 7);
   serial_delay_half1();
 
   // wait for the target response (step1 low->high)
@@ -390,12 +522,12 @@ int  soft_serial_transaction(int sstd_index) {
   // check if the target is present (step2 high->low)
   for( int i = 0; serial_read_pin(); i++ ) {
       if (i > SLAVE_INT_ACK_WIDTH + 1) {
-	  // slave failed to pull the line low, assume not present
-	  serial_output();
-	  serial_high();
-	  *trans->status = TRANSACTION_NO_RESPONSE;
-	  sei();
-	  return TRANSACTION_NO_RESPONSE;
+          // slave failed to pull the line low, assume not present
+          serial_output();
+          serial_high();
+          *trans->status = TRANSACTION_NO_RESPONSE;
+          sei();
+          return TRANSACTION_NO_RESPONSE;
       }
       _delay_sub_us(SLAVE_INT_ACK_WIDTH_UNIT);
   }
@@ -405,12 +537,12 @@ int  soft_serial_transaction(int sstd_index) {
   // if the target is present syncronize with it
   if( trans->target2initiator_buffer_size > 0 ) {
       if (!serial_recive_packet((uint8_t *)trans->target2initiator_buffer,
-				trans->target2initiator_buffer_size) ) {
-	  serial_output();
-	  serial_high();
-	  *trans->status = TRANSACTION_DATA_ERROR;
-	  sei();
-	  return TRANSACTION_DATA_ERROR;
+                                trans->target2initiator_buffer_size) ) {
+          serial_output();
+          serial_high();
+          *trans->status = TRANSACTION_DATA_ERROR;
+          sei();
+          return TRANSACTION_DATA_ERROR;
       }
    }
 
@@ -420,7 +552,7 @@ int  soft_serial_transaction(int sstd_index) {
   // initiator send phase
   if( trans->initiator2target_buffer_size > 0 ) {
       serial_send_packet((uint8_t *)trans->initiator2target_buffer,
-			 trans->initiator2target_buffer_size);
+                         trans->initiator2target_buffer_size);
   }
 
   // always, release the line when not in use
@@ -443,3 +575,16 @@ int soft_serial_get_and_clean_status(int sstd_index) {
 #endif
 
 #endif
+
+// Helix serial.c history
+//   2018-1-29 fork from let's split and add PD2, modify sync_recv() (#2308, bceffdefc)
+//   2018-6-28 bug fix master to slave comm and speed up (#3255, 1038bbef4)
+//             (adjusted with avr-gcc 4.9.2)
+//   2018-7-13 remove USE_SERIAL_PD2 macro (#3374, f30d6dd78)
+//             (adjusted with avr-gcc 4.9.2)
+//   2018-8-11 add support multi-type transaction (#3608, feb5e4aae)
+//             (adjusted with avr-gcc 4.9.2)
+//   2018-10-21 fix serial and RGB animation conflict (#4191, 4665e4fff)
+//             (adjusted with avr-gcc 7.3.0)
+//   2018-10-28 re-adjust compiler depend value of delay (#4269, 8517f8a66)
+//             (adjusted with avr-gcc 5.4.0, 7.3.0)

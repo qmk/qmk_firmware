@@ -11,6 +11,7 @@
 #endif
 
 #include "quantum.h"
+#include "../../zeal60/zeal60_keycodes.h"
 
 // Used to create a keymap using only KC_ prefixed keys
 #define LAYOUT_kc( \

@@ -7,20 +7,6 @@ void led_set_kb(uint8_t usb_led) {
 }
 #endif
 
-void matrix_init_kb(void) {
-
-    // // green led on
-    // DDRD |= (1<<5);
-    // PORTD &= ~(1<<5);
-
-    // // orange led on
-    // DDRB |= (1<<0);
-    // PORTB &= ~(1<<0);
-
-	matrix_init_user();
-};
-
-
 #ifdef SWAP_HANDS_ENABLE
 __attribute__ ((weak))
 // swap-hands action needs a matrix to define the swap
@@ -39,4 +25,3 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
     {{0,4}, {1,4}, {2,4}, {3,4}, {4,4}, {5,4}},
 };
 #endif
-
