@@ -1,4 +1,4 @@
-#include "crkbd.h"
+#include QMK_KEYBOARD_H
 #include "bootloader.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
