@@ -103,7 +103,6 @@
 /*
  * I2C driver system settings.
  */
-#define HAL_USE_I2C                         TRUE
 #define STM32_I2C_USE_I2C1                  TRUE
 #define STM32_I2C_USE_I2C2                  FALSE
 #define STM32_I2C_BUSY_TIMEOUT              50

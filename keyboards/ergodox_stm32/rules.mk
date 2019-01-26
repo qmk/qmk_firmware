@@ -1,4 +1,5 @@
-SRC = matrix.c
+SRC += matrix.c \
+i2cmaster.c
 
 MCU_FAMILY = STM32
 MCU_SERIES = STM32F1xx

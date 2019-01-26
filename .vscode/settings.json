@@ -12,6 +12,10 @@
         "*.c": "c",
         "*.cpp": "cpp",
         "*.hpp": "cpp",
-        "xstddef": "c"
+        "xstddef": "c",
+        "iterator": "c",
+        "string": "c",
+        "string_view": "c",
+        "vector": "c"
     }
 }

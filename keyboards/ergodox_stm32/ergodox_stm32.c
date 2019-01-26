@@ -1,6 +1,5 @@
-
-#include "ergodox_stm32.h"
 #include QMK_KEYBOARD_H
+#include "i2cmaster.h"
 
 extern inline void ergodox_board_led_1_on(void);
 extern inline void ergodox_board_led_2_on(void);
@@ -60,7 +59,7 @@ void ergodox_blink_all_leds(void)
     ergodox_board_led_3_off();
 }
 
-void mcp23017_init(void) {
+uint8_t init_mcp23017(void) {
     if (!i2c_initializied) {
         i2c_init();
         i2c_initializied = 1;
@@ -69,13 +68,13 @@ void mcp23017_init(void) {
     uint8_t data[2];
     data[0] = 0x0;
     data[1] = 0b00111111;
-    mcp23017_status = i2c_writeReg(I2C_ADDR, I2C_IODIRA, data, 2, 1000);
+    mcp23017_status = i2c_writeReg(I2C_ADDR, I2C_IODIRA, data, 2, 10);
     if (mcp23017_status) goto out;
-    mcp23017_status = i2c_writeReg(I2C_ADDR, I2C_GPPUA, data, 2, 1000);
+    mcp23017_status = i2c_writeReg(I2C_ADDR, I2C_GPPUB, data+1, 1, 10);
     if (mcp23017_status) goto out;
 
  out:
-    return;
+    return mcp23017_status;
     // i2c_readReg(I2C_ADDR, );
 }
 

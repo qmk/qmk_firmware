@@ -4,9 +4,9 @@
 #include "quantum.h"
 #include "action_layer.h"
 #include <stdint.h>
-#include "i2c_master.h"
 #include <stdbool.h>
 #include "hal.h"
+#include "i2c_master.h"
 
 // #define I2C_ADDR 0b01000000
 #define I2C_ADDR 0b0100000
@@ -32,7 +32,9 @@ inline void ergodox_led_all_off(void)
   palClearPad(GPIOA, 8);
 }
 
-extern int mcp23017_status = 0x20;
+extern int mcp23017_status;
+
+uint8_t init_mcp23017(void);
 
 void ergodox_blink_all_leds(void);
 
