@@ -54,7 +54,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   { RESET,	FR_EMPT,	FR_EMPT,	FR_TRANS,	FR_EMPT,	FR_EMPT,	FR_EMPT,	FR_EMPT,  	FR_EMPT,  	FR_EMPT,  	FR_0,   	FR_DOT,  	FR_ENTK,  	FR_EMPT,	BL_STEP	},
  },
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-};
-

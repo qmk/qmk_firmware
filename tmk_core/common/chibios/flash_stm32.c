@@ -186,3 +186,18 @@ void FLASH_Lock(void)
     /* Set the Lock Bit to lock the FPEC and the FCR */
     FLASH->CR |= FLASH_CR_LOCK;
 }
+
+/**
+  * @brief  Clears the FLASH's pending flags.
+  * @param  FLASH_FLAG: specifies the FLASH flags to clear.
+  *   This parameter can be any combination of the following values:
+  *     @arg FLASH_FLAG_PGERR: FLASH Programming error flag flag
+  *     @arg FLASH_FLAG_WRPERR: FLASH Write protected error flag
+  *     @arg FLASH_FLAG_EOP: FLASH End of Programming flag                
+  * @retval None
+  */
+void FLASH_ClearFlag(uint32_t FLASH_FLAG)
+{
+    /* Clear the flags */
+    FLASH->SR = FLASH_FLAG;
+}
