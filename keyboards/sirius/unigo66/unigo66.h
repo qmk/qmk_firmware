@@ -3,8 +3,6 @@
 
 #include "quantum.h"
 
-#define ______ KC_TRNS
-
 /*         ,---------------. ,---------------. ,---------------.
  *         |F13|F14|F15|F16| |F17|F18|F19|F20| |F21|F22|F23|F24|
  * ,---.   |---------------| |---------------| |---------------| ,-----------. ,---------------. ,-------.
@@ -23,7 +21,7 @@
  * `-----------------------------------------------------------' `-----------' `---------------' `-------'
 
  */
-#define LAYOUT_ALL( \
+#define KEYMAP_ALL( \
             K68,K69,K6A,K6B,K6C,K6D,K6E,K6F,K70,K71,K72,K73,                                              \
     K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,  K81,K80,K7F,K66, K75,     \
     K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K89,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, K78,K79, \
@@ -88,11 +86,11 @@
 #define LAYOUT( \
   K29,K1E,K1F,K20,K21,K22,K2D,    K2E,K23,K24,K25,K26,K27,K2A,\
   K2B,K14,K1A,K08,K15,K17,K4B,    K2F,K1C,K18,K0C,K12,K13,K31,\
-  K39,K04,K16,K07,K09,K0A,        K0B,K0D,K0E,K0F,K33,K34,\
+  K39,K04,K16,K07,K09,K0A,            K0B,K0D,K0E,K0F,K33,K34,\
   KE1,K1D,K1B,K06,K19,K05,K4E,    K30,K11,K10,K36,K37,K52,KE5,\
-  KE0,KE3,KE2,            K50,K51,K4F,\
-                K2C,K49,    K4A,K28,        \
-                KE6,K4C,    K4D,KE4         \
+  KE0,KE3,KE2,                                    K50,K51,K4F,\
+                      K2C,K49,    K4A,K28,        \
+                      KE6,K4C,    K4D,KE4         \
 ) LAYOUT_ALL( \
             KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,                                              \
     K29,    KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,      KC_NO,KC_NO,KC_NO,  KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,\
