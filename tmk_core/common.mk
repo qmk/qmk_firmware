@@ -1,5 +1,4 @@
 COMMON_DIR = common
-
 ifeq ($(PLATFORM),AVR)
 	PLATFORM_COMMON_DIR = $(COMMON_DIR)/avr
 else ifeq ($(PLATFORM),CHIBIOS)
@@ -60,6 +59,7 @@ endif
 ifeq ($(PLATFORM),TEST)
 	TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom.c
 endif
+
 
 
 # Option modules

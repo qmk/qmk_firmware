@@ -249,14 +249,10 @@ endif
 
 include $(DRIVER_PATH)/qwiic/qwiic.mk
 
-
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
-
-
-
 
 # Include the standard or split matrix code if needed
 ifneq ($(strip $(CUSTOM_MATRIX)), yes)
