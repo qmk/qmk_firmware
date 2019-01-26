@@ -8,8 +8,8 @@
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    u/waxpoetic
-#define PRODUCT         Southpole
-#define DESCRIPTION     Southpaw keyboard (left hand numpad)
+#define PRODUCT         southpole
+#define DESCRIPTION     southpaw keyboard, left hand numpad
 
 /* key matrix size */
 #define MATRIX_ROWS 5
