@@ -21,6 +21,7 @@ No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 #include "debounce.h"
 #include "matrix.h"
 #include "timer.h"
+#include <stdlib.h>
 
 #ifndef DEBOUNCE
   #define DEBOUNCE 5
@@ -39,7 +40,7 @@ No further inputs are accepted until DEBOUNCE milliseconds have occurred.
 
 #define debounce_counter_t uint8_t
 
-static debounce_counter_t debounce_counters[MATRIX_ROWS*MATRIX_COLS];
+static debounce_counter_t *debounce_counters;
 
 #define DEBOUNCE_ELAPSED 251
 #define MAX_DEBOUNCE (DEBOUNCE_ELAPSED - 1)
@@ -47,10 +48,12 @@ static debounce_counter_t debounce_counters[MATRIX_ROWS*MATRIX_COLS];
 void update_debounce_counters(uint8_t num_rows, uint8_t current_time);
 void transfer_matrix_values(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, uint8_t current_time);
 
+//we use num_rows rather than MATRIX_ROWS to support split keyboards
 void debounce_init(uint8_t num_rows)
 {
+  debounce_counters = (debounce_counter_t*)malloc(num_rows*MATRIX_COLS * sizeof(debounce_counter_t));
   int i = 0;
-  for (uint8_t r = 0; r < MATRIX_ROWS; r++)
+  for (uint8_t r = 0; r < num_rows; r++)
   {
     for (uint8_t c = 0; c < MATRIX_COLS; c++)
     {
