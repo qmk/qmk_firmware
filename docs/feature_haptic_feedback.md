@@ -14,11 +14,11 @@ The following options are currently available for haptic feedback:
 
 ### Solenoids
 
-Firs you will need a build a circuit to drive the solenoid through a mosfet as most MCU will not be able to provide the current needed to drive the coil in the solenoid.
+First you will need a build a circuit to drive the solenoid through a mosfet as most MCU will not be able to provide the current needed to drive the coil in the solenoid.
 
-[Wiring diagram provided by Adafruid](https://playground.arduino.cc/uploads/Learning/solenoid_driver.pdf)
+[Wiring diagram provided by Adafruit](https://playground.arduino.cc/uploads/Learning/solenoid_driver.pdf)
 
-Select a pin that has PWM
+Select a pin that has PWM for the signal pin
 
 * #define   #define SOLENOID_PIN *PIN*
 

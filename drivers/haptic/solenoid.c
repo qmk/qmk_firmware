@@ -18,8 +18,8 @@
 #pragma once
 #include <timer.h>
 #include "solenoid.h"
+#include "haptic.h"
 
-bool solenoid_enabled = SOLENOID_ACTIVE;
 bool solenoid_on = false;
 bool solenoid_buzz = false;
 bool solenoid_buzzing = false;
@@ -35,11 +35,11 @@ void solenoid_buzz_off(void) {
   solenoid_buzz = false;
 }
 
-void solenoid_dwell_minus(void) {
+void solenoid_dwell_minus(uint8_t solenoid_dwell) {
   if (solenoid_dwell > 0) solenoid_dwell--;
 }
 
-void solenoid_dwell_plus(void) {
+void solenoid_dwell_plus(uint8_t solenoid_dwell) {
   if (solenoid_dwell < SOLENOID_MAX_DWELL) solenoid_dwell++;
 }
 
@@ -77,7 +77,7 @@ void solenoid_check(void) {
     if (elapsed / SOLENOID_MIN_DWELL % 2 == 0){
       if (!solenoid_buzzing) {
         solenoid_buzzing = true;
-        digitalWrite(SOLENOID_PIN, PinLevelHigh);
+        writePinHigh(SOLENOID_PIN);
       }
     }
     else {
