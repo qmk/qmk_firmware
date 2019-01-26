@@ -16,7 +16,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #pragma once
-#define CONFIG_H
 #define PREVENT_STUCK_MODIFIERS
 
 #include "config_common.h"
