@@ -271,9 +271,7 @@ else ifeq ($(strip $(DEBOUNCE_ALGO)), sym_g)
     QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
 else ifeq ($(strip $(DEBOUNCE_ALGO)), eager_pk)
     QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_eager_pk.c
-else ifeq ($(strip $(CUSTOM_MATRIX)), yes)
-    # Do nothing. Custom matrix code.
-else # default algorithm
+else # default algorithm. Won't be used if we have a custom_matrix that doesn't utilize it
     QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
 endif
 

@@ -13,24 +13,18 @@ else ifeq ($(strip $(DEBOUNCE_ALGO)), sym_g)
     QUANTUM_SRC += $(DEBOUNCE)/debounce_sym_g.c
 else ifeq ($(strip $(DEBOUNCE_ALGO)), eager_pk)
     QUANTUM_SRC += $(DEBOUNCE)/debounce_eager_pk.c
-else ifeq ($(strip $(CUSTOM_MATRIX)), yes)
-    # Do nothing. Custom matrix code.
 else # default algorithm
     QUANTUM_SRC += $(DEBOUNCE)/debounce_sym_g.c
 endif
 ```
 
 # Debounce selection
-The following is for keyboards where ```SPLIT_KEYBOARD``` is **not** defined as ```YES```
 
-| DEBOUNCE_ALGO    | CUSTOM_MATRIX | Description                                                 | What to do                    |
-| -------------    |  -------------| ---------------------------------------------------         | ----------------------------- |
-| Not defined      | Not defined   | You are using the included matrix.c and debounce.c          | Nothing. Debounce_sym_g used. |
-| manual           | Not defined   | You are using the included matrix.c but your own debounce.c | ```SRC += debounce.c``` add your own debounce.c and implement necessary functions |
-| sym_g / eager_pk | Not defined   | You are using the included matrix.c and debounce.c          | Nothing. Chosen debounce method used. |
-| Not defined      | YES           | You have your own matrix.c, and your own debounce           | Write the fully debounced matrix into matrix.c's matrix |
-| manual           | YES           | Same as above                                               | same as above                                           |
-| sym_g / eager_pk | YES           | You are using your own matrix.c, but included debounce      | Write the raw matrix values into matrix.c's matrix      |
+| DEBOUNCE_ALGO    | Description                                                 | What to do                    |
+| -------------    | ---------------------------------------------------         | ----------------------------- |
+| Not defined      | You are using the included matrix.c and debounce.c          | Nothing. Debounce_sym_g will be compiled, and used if necessary |
+| manual           | Use your own debounce.c                                     | ```SRC += debounce.c``` add your own debounce.c and implement necessary functions |
+| sym_g / eager_pk | You are using the included matrix.c and debounce.c          | Use an alternative debounce algorithm |
 
 **Regarding split keyboards**: 
 The debounce code is compatible with split keyboards.
@@ -38,7 +32,7 @@ The debounce code is compatible with split keyboards.
 # Use your own debouncing code
 * Set ```DEBOUNCE_ALGO = manual```.
 * Add ```SRC += debounce.c```
-* Add your own ```debounce.c```. Look at included debounce.c's for sample implementations.
+* Add your own ```debounce.c```. Look at included ```debounce_sym_g.c```s for sample implementations.
 * Debouncing occurs after every raw matrix scan.
 
 # Changing between included debouncing methods
