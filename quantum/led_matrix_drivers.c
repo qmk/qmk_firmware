@@ -39,32 +39,32 @@ static void init(void) {
     i2c_init();
     #ifdef IS31FL3731
         #ifdef LED_DRIVER_ADDR_1
-            IS31FL3731_init(DRIVER_ADDR_1);
+            IS31FL3731_init(LED_DRIVER_ADDR_1);
         #endif
         #ifdef LED_DRIVER_ADDR_2
-            IS31FL3731_init(DRIVER_ADDR_2);
+            IS31FL3731_init(LED_DRIVER_ADDR_2);
         #endif
         #ifdef LED_DRIVER_ADDR_3
-            IS31FL3731_init(DRIVER_ADDR_3);
+            IS31FL3731_init(LED_DRIVER_ADDR_3);
         #endif
         #ifdef LED_DRIVER_ADDR_4
-            IS31FL3731_init(DRIVER_ADDR_4);
+            IS31FL3731_init(LED_DRIVER_ADDR_4);
         #endif
     #else
         #ifdef LED_DRIVER_ADDR_1
-            IS31FL3733_init(DRIVER_ADDR_1);
+            IS31FL3733_init(LED_DRIVER_ADDR_1);
         #endif
         #ifdef LED_DRIVER_ADDR_2
-            IS31FL3733_init(DRIVER_ADDR_2);
+            IS31FL3733_init(LED_DRIVER_ADDR_2);
         #endif
         #ifdef LED_DRIVER_ADDR_3
-            IS31FL3733_init(DRIVER_ADDR_3);
+            IS31FL3733_init(LED_DRIVER_ADDR_3);
         #endif
         #ifdef LED_DRIVER_ADDR_4
-            IS31FL3733_init(DRIVER_ADDR_4);
+            IS31FL3733_init(LED_DRIVER_ADDR_4);
         #endif
     #endif
-    for (int index = 0; index < DRIVER_LED_TOTAL; index++) {
+    for (int index = 0; index < LED_DRIVER_COUNT; index++) {
         #ifdef IS31FL3731
             IS31FL3731_set_led_control_register(index, true);
         #else
@@ -74,29 +74,29 @@ static void init(void) {
     // This actually updates the LED drivers
     #ifdef IS31FL3731
         #ifdef LED_DRIVER_ADDR_1
-            IS31FL3731_update_led_control_registers(DRIVER_ADDR_1);
+            IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_1, 0);
         #endif
         #ifdef LED_DRIVER_ADDR_2
-            IS31FL3731_update_led_control_registers(DRIVER_ADDR_2);
+            IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_2, 1);
         #endif
         #ifdef LED_DRIVER_ADDR_3
-            IS31FL3731_update_led_control_registers(DRIVER_ADDR_3);
+            IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_3, 2);
         #endif
         #ifdef LED_DRIVER_ADDR_4
-            IS31FL3731_update_led_control_registers(DRIVER_ADDR_4);
+            IS31FL3731_update_led_control_registers(LED_DRIVER_ADDR_4, 3);
         #endif
     #else
         #ifdef LED_DRIVER_ADDR_1
-            IS31FL3733_update_led_control_registers(DRIVER_ADDR_1);
+            IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_1, 0);
         #endif
         #ifdef LED_DRIVER_ADDR_2
-            IS31FL3733_update_led_control_registers(DRIVER_ADDR_2);
+            IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_2, 1);
         #endif
         #ifdef LED_DRIVER_ADDR_3
-            IS31FL3733_update_led_control_registers(DRIVER_ADDR_3);
+            IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_3, 2);
         #endif
         #ifdef LED_DRIVER_ADDR_4
-            IS31FL3733_update_led_control_registers(DRIVER_ADDR_4);
+            IS31FL3733_update_led_control_registers(LED_DRIVER_ADDR_4, 3);
         #endif
     #endif
 }
@@ -104,29 +104,29 @@ static void init(void) {
 static void flush(void) {
     #ifdef IS31FL3731
         #ifdef LED_DRIVER_ADDR_1
-            IS31FL3731_update_pwm_buffers(DRIVER_ADDR_1);
+            IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_1, 0);
         #endif
         #ifdef LED_DRIVER_ADDR_2
-            IS31FL3731_update_pwm_buffers(DRIVER_ADDR_2);
+            IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_2, 1);
         #endif
         #ifdef LED_DRIVER_ADDR_3
-            IS31FL3731_update_pwm_buffers(DRIVER_ADDR_3);
+            IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_3, 2);
         #endif
         #ifdef LED_DRIVER_ADDR_4
-            IS31FL3731_update_pwm_buffers(DRIVER_ADDR_4);
+            IS31FL3731_update_pwm_buffers(LED_DRIVER_ADDR_4, 3);
         #endif
     #else
         #ifdef LED_DRIVER_ADDR_1
-            IS31FL3733_update_pwm_buffers(DRIVER_ADDR_1);
+            IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_1, 0);
         #endif
         #ifdef LED_DRIVER_ADDR_2
-            IS31FL3733_update_pwm_buffers(DRIVER_ADDR_2);
+            IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_2, 1);
         #endif
         #ifdef LED_DRIVER_ADDR_3
-            IS31FL3733_update_pwm_buffers(DRIVER_ADDR_3);
+            IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_3, 2);
         #endif
         #ifdef LED_DRIVER_ADDR_4
-            IS31FL3733_update_pwm_buffers(DRIVER_ADDR_4);
+            IS31FL3733_update_pwm_buffers(LED_DRIVER_ADDR_4, 3);
         #endif
     #endif
 }

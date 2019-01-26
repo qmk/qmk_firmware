@@ -29,6 +29,7 @@
 #include "is31fl3731-simple.h"
 #include "i2c_master.h"
 #include "progmem.h"
+#include "print.h"
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -72,10 +73,19 @@ uint8_t g_twi_transfer_buffer[20];
 // We could optimize this and take out the unused registers from these
 // buffers and the transfers in IS31FL3731_write_pwm_buffer() but it's
 // probably not worth the extra complexity.
-uint8_t g_pwm_buffer[DRIVER_COUNT][144];
+uint8_t g_pwm_buffer[LED_DRIVER_COUNT][144];
 bool g_pwm_buffer_update_required = false;
 
-uint8_t g_led_control_registers[DRIVER_COUNT][18] = { { 0 }, { 0 } };
+/* There's probably a better way to init this... */
+#if LED_DRIVER_COUNT == 1
+    uint8_t g_led_control_registers[LED_DRIVER_COUNT][18] = {{0}};
+#elif LED_DRIVER_COUNT == 2
+    uint8_t g_led_control_registers[LED_DRIVER_COUNT][18] = {{0}, {0}};
+#elif LED_DRIVER_COUNT == 3
+    uint8_t g_led_control_registers[LED_DRIVER_COUNT][18] = {{0}, {0}, {0}};
+#elif LED_DRIVER_COUNT == 4
+    uint8_t g_led_control_registers[LED_DRIVER_COUNT][18] = {{0}, {0}, {0}, {0}};
+#endif
 bool g_led_control_registers_update_required = false;
 
 // This is the bit pattern in the LED control registers
@@ -194,7 +204,7 @@ void IS31FL3731_init(uint8_t addr) {
 }
 
 void IS31FL3731_set_value(int index, uint8_t value) {
-    if (index >= 0 && index < DRIVER_LED_TOTAL) {
+    if (index >= 0 && index < LED_DRIVER_LED_COUNT) {
         is31_led led = g_is31_leds[index];
 
         // Subtract 0x24 to get the second index of g_pwm_buffer
@@ -204,7 +214,7 @@ void IS31FL3731_set_value(int index, uint8_t value) {
 }
 
 void IS31FL3731_set_value_all(uint8_t value) {
-    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (int i = 0; i < LED_DRIVER_LED_COUNT; i++) {
         IS31FL3731_set_value(i, value);
     }
 }

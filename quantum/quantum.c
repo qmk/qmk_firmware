@@ -1031,7 +1031,11 @@ void matrix_init_quantum() {
     eeconfig_init();
   }
   #ifdef BACKLIGHT_ENABLE
-    backlight_init_ports();
+    #ifdef LED_MATRIX_ENABLE
+        led_matrix_init();
+    #else
+        backlight_init_ports();
+    #endif
   #endif
   #ifdef AUDIO_ENABLE
     audio_init();
@@ -1067,8 +1071,12 @@ void matrix_scan_quantum() {
     matrix_scan_combo();
   #endif
 
-  #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
-    backlight_task();
+  #if defined(BACKLIGHT_ENABLE)
+    #if defined(LED_MATRIX_ENABLE)
+        led_matrix_task();
+    #elif defined(BACKLIGHT_PIN)
+        backlight_task();
+    #endif
   #endif
 
   #ifdef RGB_MATRIX_ENABLE
@@ -1198,7 +1206,7 @@ static inline void set_pwm(uint16_t val) {
 	OCRxx = val;
 }
 
-#ifndef BACKLIGHT_CUSTOM_DRIVER
+#ifndef BACKLIGHT_CUSTOM_DRIVER || LED_MATRIX_ENABLE
 __attribute__ ((weak))
 void backlight_set(uint8_t level) {
   if (level > BACKLIGHT_LEVELS)
