@@ -265,12 +265,12 @@ uint8_t I2C3733_Init_Control(void)
     //USB state machine will enable driver when communication is ready
     I2C3733_Control_Set(0);
 
-    CLK_delay_ms(1);
+    wait_ms(1);
 
     sr_exp_data.bit.IRST = 0;
     SR_EXP_WriteData();
 
-    CLK_delay_ms(1);
+    wait_ms(1);
 
     DBGC(DC_I2C3733_INIT_CONTROL_COMPLETE);
 

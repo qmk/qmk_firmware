@@ -86,9 +86,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-};
-
 /*
 Capslock's led cannot be controlled separately on bananasplit and you can only turn on/off all
   leds at once. If you only install led for capslock, it will look like capslock has toggable

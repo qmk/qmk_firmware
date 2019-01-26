@@ -21,6 +21,9 @@
 #define ROW2COL       1
 #define CUSTOM_MATRIX 2 /* Disables built-in matrix scanning code */
 
+// useful for direct pin mapping
+#define NO_PIN (~0)
+
 #ifdef __AVR__
     #ifndef __ASSEMBLER__
       #include <avr/io.h>
@@ -125,6 +128,45 @@
     #endif
 
 #elif defined(PROTOCOL_CHIBIOS)
+  // Defines mapping for Proton C replacement
+  #ifdef CONVERT_TO_PROTON_C
+    // Left side (front)
+    #define D3 PAL_LINE(GPIOA, 9)
+    #define D2 PAL_LINE(GPIOA, 10)
+    //      GND
+    //      GND
+    #define D1 PAL_LINE(GPIOB, 7)
+    #define D0 PAL_LINE(GPIOB, 6)
+    #define D4 PAL_LINE(GPIOB, 5)
+    #define C6 PAL_LINE(GPIOB, 4)
+    #define D7 PAL_LINE(GPIOB, 3)
+    #define E6 PAL_LINE(GPIOB, 2)
+    #define B4 PAL_LINE(GPIOB, 1)
+    #define B5 PAL_LINE(GPIOB, 0)
+
+    // Right side (front)
+    //      RAW
+    //      GND
+    //      RESET
+    //      VCC
+    #define F4 PAL_LINE(GPIOA, 2)
+    #define F5 PAL_LINE(GPIOA, 1)
+    #define F6 PAL_LINE(GPIOA, 0)
+    #define F7 PAL_LINE(GPIOB, 8)
+    #define B1 PAL_LINE(GPIOB, 13)
+    #define B3 PAL_LINE(GPIOB, 14)
+    #define B2 PAL_LINE(GPIOB, 15)
+    #define B6 PAL_LINE(GPIOB, 9)
+
+    // LEDs (only D5/C13 uses an actual LED)
+    #ifdef CONVERT_TO_PROTON_C_RXLED
+      #define D5 PAL_LINE(GPIOC, 13)
+      #define B0 PAL_LINE(GPIOC, 13)
+    #else
+      #define D5 PAL_LINE(GPIOC, 13)
+      #define B0 PAL_LINE(GPIOC, 14)
+    #endif
+  #else
     #define A0  PAL_LINE(GPIOA, 0)
     #define A1  PAL_LINE(GPIOA, 1)
     #define A2  PAL_LINE(GPIOA, 2)
@@ -221,6 +263,7 @@
     #define F13 PAL_LINE(GPIOF, 13)
     #define F14 PAL_LINE(GPIOF, 14)
     #define F15 PAL_LINE(GPIOF, 15)
+  #endif
 #endif
 
 /* USART configuration */

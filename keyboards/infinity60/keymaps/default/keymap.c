@@ -42,10 +42,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TRNS,KC_TRNS,KC_TRNS,          KC_TRNS,               KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS),
 };
 
-const uint16_t fn_actions[] = {
-    
-};
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 

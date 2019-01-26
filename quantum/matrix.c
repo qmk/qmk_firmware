@@ -21,9 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debug.h"
 #include "util.h"
 #include "matrix.h"
-#include "timer.h"
+#include "debounce.h"
 #include "quantum.h"
-
 
 #if (MATRIX_COLS <= 8)
 #    define print_matrix_header()  print("\nr/c 01234567\n")
@@ -52,8 +51,9 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t matrix[MATRIX_ROWS];
+static matrix_row_t raw_matrix[MATRIX_ROWS];
 
+static matrix_row_t matrix[MATRIX_ROWS];
 
 #if (DIODE_DIRECTION == COL2ROW)
     static void init_cols(void);
@@ -120,34 +120,40 @@ void matrix_init(void) {
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        raw_matrix[i] = 0;
         matrix[i] = 0;
     }
+    debounce_init(MATRIX_ROWS);
 
     matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void)
 {
+  bool changed = false;
 
 #if (DIODE_DIRECTION == COL2ROW)
-    // Set row, read cols
-    for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-        read_cols_on_row(matrix, current_row);
-    }
+  // Set row, read cols
+  for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+    changed |= read_cols_on_row(raw_matrix, current_row);
+  }
 #elif (DIODE_DIRECTION == ROW2COL)
-    // Set col, read rows
-    for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-        read_rows_on_col(matrix, current_col);
-    }
+  // Set col, read rows
+  for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+    changed |= read_rows_on_col(raw_matrix, current_col);
+  }
 #endif
 
-    matrix_scan_quantum();
-    return 1;
+  debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+
+  matrix_scan_quantum();
+  return 1;
 }
 
 //Deprecated.
 bool matrix_is_modified(void)
 {
+    if (debounce_active()) return false;
     return true;
 }
 
