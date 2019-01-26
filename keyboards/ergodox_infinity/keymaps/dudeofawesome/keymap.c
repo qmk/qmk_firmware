@@ -564,34 +564,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-/**
- * Runs just one time when the keyboard initializes.
- */
-void matrix_init_user(void) {
-
-};
-
-/**
- * Runs constantly in the background, in a loop.
- */
-void matrix_scan_user(void) {
-  uint8_t layer = biton32(layer_state);
-
-  ergodox_board_led_off();
-  ergodox_led_lower_off();
-  ergodox_led_raise_off();
-  ergodox_led_adjust_off();
-
-  switch (layer) {
-    case _LOWER:
-      ergodox_led_lower_on();
-      break;
-    case _RAISE:
-      ergodox_led_raise_on();
-      break;
-    case _ADJUST:
-      ergodox_led_adjust_on();
-      break;
-  }
-};
