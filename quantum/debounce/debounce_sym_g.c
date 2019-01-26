@@ -26,10 +26,10 @@ When no state changes have occured for DEBOUNCE milliseconds, we push the state.
 static bool debouncing = false;
 static uint16_t debouncing_time;
 
-void debounce_init(void) {}
+void debounce_init(uint8_t num_rows) {}
 
 #if DEBOUNCE > 0
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed)
+void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed)
 {
   if (changed) {
     debouncing = true;
@@ -37,14 +37,14 @@ void debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed)
   }
 
   if (debouncing && timer_elapsed(debouncing_time) > DEBOUNCE) {
-    for (int i = 0; i < MATRIX_ROWS; i++) {
+    for (int i = 0; i < num_rows; i++) {
       cooked[i] = raw[i];
     }
     debouncing = false;
   }
 }
 #else //no debouncing.
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed)
+void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed)
 {
   for (int i = 0; i < MATRIX_ROWS; i++) {
     cooked[i] = raw[i];

@@ -16,11 +16,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "matrix.h"
 
-void debounce_init(void); //every debounce algorithm will have unique storage needs.
+void debounce_init(uint8_t num_rows); //every debounce algorithm will have unique storage needs.
 
 // raw is the current key state
 // cooked is the debounced input/output key state
 // changed is true if raw has changed since the last call
-void debounce(matrix_row_t raw[], matrix_row_t cooked[], bool changed);
+void debounce(matrix_row_t raw[], matrix_row_t cooked[], uint8_t num_rows, bool changed);
 
 bool debounce_active(void);
