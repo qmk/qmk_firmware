@@ -1,11 +1,5 @@
-#include "frosty_flake.h"
-#include "action_layer.h"
-#include "eeconfig.h"
-#include "process_unicode.h"
-#include "process_unicodemap.h"
-#include "quantum.h"
+#include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
 #define MAXEMOJITAPS 80
 
 
@@ -33,16 +27,16 @@ enum taps{
   ALLS
 };
 
-enum unicode_name { 
+enum unicode_name {
   EMOTIS = 1,//80, //1F60x - 1F64x
   ANIMALS, //64, //1F40x - 1F43x
   SYMBOLS,// = 45, //1F300 - 1F32C
-  FOODS,// = 87 , //1F32D - 
+  FOODS,// = 87 , //1F32D -
   ETC,// = 192, //1F44x -1F4Fx
   VEHICLES,// = 83, //1F68x - 1F6Dx
   SUPPLEMENT,// = 32, //1F91x-1F92x
   ALCHEMY,// = 116 //1F70x - 1F773
-  
+
 };
 
 enum my_macros {
@@ -102,7 +96,7 @@ const uint32_t PROGMEM unicode_map[] = {
   [EMOTIS]     = 0x1F600,
   [ANIMALS]    = 0x1F400,
   [SYMBOLS]    = 0x1F300,
-  [FOODS]      = 0x1F32D, 
+  [FOODS]      = 0x1F32D,
   [ETC]        = 0x1F440,
   [VEHICLES]   = 0x1F680,
   [SUPPLEMENT] = 0x1F910,
@@ -110,27 +104,30 @@ const uint32_t PROGMEM unicode_map[] = {
  };
 // Layouts
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = KEYMAP(\
-      KC_ESC,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,           KC_PSCR,KC_SLCK,KC_PAUS,                        \
-      KC_GRV,   KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_MINS, KC_EQL,KC_BSPC,   KC_INS,KC_HOME,KC_PGUP,  KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS, \
-      KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,KC_LBRC,KC_RBRC,KC_BSLS,   KC_DEL, KC_END,KC_PGDN,    KC_P7,  KC_P8,  KC_P9,KC_PPLS, \
-      KC_LCTL,   KC_A,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,KC_SCLN,KC_QUOT,         KC_ENT,                              KC_P4,  KC_P5,  KC_P6,      \
-      KC_LSPO,KC_NUBS,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,KC_COMM, KC_DOT,KC_SLSH,        KC_RSPC,            KC_UP,            KC_P1,  KC_P2,  KC_P3,KC_PENT, \
- TD(TD_CTCPS),KC_LGUI,KC_LALT,                 KC_SPC,                                KC_LEAD,KC_RGUI, KC_APP,MO(1)  ,  KC_LEFT,KC_DOWN,KC_RGHT,    KC_P0,KC_PDOT),
-[1] = KEYMAP(\
-    TD(ALLS),  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,           KC_PSCR,KC_SLCK,KC_PAUS,                        \
-      KC_GRV, TD(EMOJIS),TD(ANIMAL),TD(ETC),TD(FOODS),   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_MINS, KC_EQL,KC_BSPC,   KC_MPRV,KC_MPLY,KC_MNXT,  KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS, \
-      KC_TAB,   KC_Q,   M(0),   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P, KC_UP  ,KC_RBRC,KC_BSLS,   KC_MUTE,KC_VOLD,KC_VOLU,    KC_P7,  KC_P8,  KC_P9,KC_PPLS, \
-      KC_LCTL,   M(1),   M(3),   M(2),   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,KC_LEFT,KC_RGHT,         KC_ENT,                              KC_P4,  KC_P5,  KC_P6,      \
-      KC_LSFT,KC_NUBS,   KC_Z,   KC_X,   KC_C, KC_V,   KC_B,   KC_N,    KC_M,KC_COMM, KC_DOT,KC_DOWN,        KC_RSFT,          KC_MS_U,            KC_P1,  KC_P2,  KC_P3,KC_PENT, \
-      KC_BTN1,KC_BTN3,KC_BTN2,                 KC_SPC,                                KC_RALT,KC_RGUI, TG(2),_______  ,  KC_MS_L,KC_MS_D,KC_MS_R,    KC_P0,KC_PDOT),
-[2] = KEYMAP(\
-      KC_ESC,  KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9, KC_F10, KC_F11, KC_F12,           KC_PSCR,KC_SLCK,KC_PAUS,                        \
-      KC_GRV,  KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,KC_MINS, KC_EQL,KC_BSPC,   KC_MPRV,KC_MPLY,KC_MNXT,  KC_NLCK,KC_PSLS,KC_PAST,KC_PMNS, \
-      KC_TAB,   KC_Q,   KC_W,   KC_E,   KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,   KC_P,KC_LBRC,KC_RBRC,KC_BSLS,   KC_MUTE,KC_VOLD,KC_VOLU,    KC_P7,  KC_P8,  KC_P9,KC_PPLS, \
-      KC_LCTL,   KC_D,   KC_S,   KC_D,   KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,KC_SCLN,KC_QUOT,         KC_ENT,                              KC_P4,  KC_P5,  KC_P6,      \
-      KC_LSFT,KC_NUBS,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_B,   KC_N,   KC_M,KC_COMM, KC_DOT,KC_SLSH,        KC_RSFT,          KC_MS_U,            KC_P1,  KC_P2,  KC_P3,KC_PENT, \
-      KC_BTN1,KC_BTN3,KC_BTN2,                 KC_SPC,                                KC_RALT,KC_RGUI, TG(2) , KC_NO ,  KC_MS_L,KC_MS_D,KC_MS_R,    KC_P0,KC_PDOT),
+  [0] = LAYOUT(\
+    KC_ESC,                KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     KC_PSCR, KC_SLCK, KC_PAUS,                                        \
+    KC_GRV,       KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,    KC_INS,  KC_HOME, KC_PGUP,    KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
+    KC_TAB,       KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,    KC_DEL,  KC_END,  KC_PGDN,    KC_P7,   KC_P8,   KC_P9,   KC_PPLS, \
+    KC_LCTL,      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,                                   KC_P4,   KC_P5,   KC_P6,            \
+    KC_LSPO,      KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSPC,             KC_UP,               KC_P1,   KC_P2,   KC_P3,   KC_PENT, \
+    TD(TD_CTCPS), KC_LGUI, KC_LALT,                            KC_SPC,                             KC_LEAD, KC_RGUI, KC_APP,  MO(1),      KC_LEFT, KC_DOWN, KC_RGHT,    KC_P0,            KC_PDOT           \
+  ),
+  [1] = LAYOUT(\
+    TD(ALLS),             KC_F1,      KC_F2,   KC_F3,   KC_F4,     KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     KC_PSCR, KC_SLCK, KC_PAUS,                                        \
+    KC_GRV,   TD(EMOJIS), TD(ANIMAL), TD(ETC), TD(FOODS), KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,    KC_MPRV, KC_MPLY, KC_MNXT,    KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
+    KC_TAB,   KC_Q,       M(0),       KC_E,    KC_R,      KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_UP,   KC_RBRC, KC_BSLS,    KC_MUTE, KC_VOLD, KC_VOLU,    KC_P7,   KC_P8,   KC_P9,   KC_PPLS, \
+    KC_LCTL,  M(1),       M(3),       M(2),    KC_F,      KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_LEFT, KC_RGHT,          KC_ENT,                                   KC_P4,   KC_P5,   KC_P6,            \
+    KC_LSFT,  KC_NUBS,    KC_Z,       KC_X,    KC_C,      KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_DOWN,          KC_RSFT,             KC_MS_U,             KC_P1,   KC_P2,   KC_P3,   KC_PENT, \
+    KC_BTN1,  KC_BTN3,    KC_BTN2,                                 KC_SPC,                             KC_RALT, KC_RGUI, TG(2),   _______,    KC_MS_L, KC_MS_D, KC_MS_R,    KC_P0,            KC_PDOT           \
+  ),
+  [2] = LAYOUT(\
+    KC_ESC,           KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,     KC_PSCR, KC_SLCK, KC_PAUS,                                        \
+    KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,    KC_MPRV, KC_MPLY, KC_MNXT,    KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
+    KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,    KC_MUTE, KC_VOLD, KC_VOLU,    KC_P7,   KC_P8,   KC_P9,   KC_PPLS, \
+    KC_LCTL, KC_D,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,                                   KC_P4,   KC_P5,   KC_P6,            \
+    KC_LSFT, KC_NUBS, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT,             KC_MS_U,             KC_P1,   KC_P2,   KC_P3,   KC_PENT, \
+    KC_BTN1, KC_BTN3, KC_BTN2,                            KC_SPC,                             KC_RALT, KC_RGUI, TG(2),   KC_NO,      KC_MS_L, KC_MS_D, KC_MS_R,    KC_P0,            KC_PDOT           \
+  ),
 };
 
 LEADER_EXTERNS();
@@ -183,7 +180,7 @@ void cycleEmojis(qk_tap_dance_state_t *state, void *user_data) {
   }
 };
 
-void cycleAnimals(qk_tap_dance_state_t *state, void *user_data) { 
+void cycleAnimals(qk_tap_dance_state_t *state, void *user_data) {
   if(state->count == 1) {
     unicode_input_start();
     register_hex32(pgm_read_dword(&unicode_map[ANIMALS]));

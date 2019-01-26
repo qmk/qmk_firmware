@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "../../config.h"
+#pragma once
 
 #define PRIYADI_PROMETHIUM
 
@@ -23,5 +20,3 @@
 
 #define DOUBLESPACE_LAYER_ENABLE
 // #define TOLELOT_ENABLE
-
-#endif
