@@ -295,6 +295,13 @@ define PARSE_RULE
     endif
 endef
 
+# different from the common.mk version because this needs extra $ because
+# it's used in PARSE_KEYBOARD which is already really magic
+define USE_RULES
+    $$(if $$(filter $(1),$$(RULES_MK_LIST)),,$$(eval RULES_MK_LIST += $(1)))\
+    $$(eval include $(1))
+endef
+
 # $1 = Keyboard
 # Parses a rule in the format <keymap>:<target>
 # the keyboard is already known when entering this function
@@ -308,9 +315,9 @@ define PARSE_KEYBOARD
     DEFAULT_FOLDER := $$(CURRENT_KB)
 
     # We assume that every rules.mk will contain the full default value
-    $$(eval include $(ROOT_DIR)/keyboards/$$(CURRENT_KB)/rules.mk)
+    $(call USE_RULES,$(ROOT_DIR)/keyboards/$$(CURRENT_KB)/rules.mk)
     ifneq ($$(DEFAULT_FOLDER),$$(CURRENT_KB))
-        $$(eval include $(ROOT_DIR)/keyboards/$$(DEFAULT_FOLDER)/rules.mk)
+        $(call USE_RULES,$(ROOT_DIR)/keyboards/$$(DEFAULT_FOLDER)/rules.mk)
     endif
     CURRENT_KB := $$(DEFAULT_FOLDER)
 
@@ -335,27 +342,27 @@ define PARSE_KEYBOARD
     KEYBOARD_LAYOUTS :=
     ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)
+      $(call USE_RULES,$(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_5)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
     ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)
+      $(call USE_RULES,$(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_4)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
     ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)
+      $(call USE_RULES,$(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_3)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
     ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)
+      $(call USE_RULES,$(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_2)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
     ifneq ("$$(wildcard $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)","")
       LAYOUTS :=
-      $$(eval include $(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)
+      $(call USE_RULES,$(ROOT_DIR)/keyboards/$$(KEYBOARD_FOLDER_PATH_1)/rules.mk)
       KEYBOARD_LAYOUTS := $$(sort $$(LAYOUTS) $$(KEYBOARD_LAYOUTS))
     endif
 
@@ -363,6 +370,8 @@ define PARSE_KEYBOARD
     $$(foreach LAYOUT,$$(KEYBOARD_LAYOUTS),$$(eval LAYOUT_KEYMAPS += $$(notdir $$(patsubst %/.,%,$$(wildcard $(ROOT_DIR)/layouts/*/$$(LAYOUT)/*/.)))))
 
     KEYMAPS := $$(sort $$(KEYMAPS) $$(LAYOUT_KEYMAPS))
+
+    $$(eval include $$(foreach RULES_MK,$$(RULES_MK_LIST),$$(wildcard $$(subst rules.mk,build.mk,$$(RULES_MK)))))
 
     # if the rule after removing the start of it is empty (we haven't specified a kemap or target)
     # compile all the keymaps

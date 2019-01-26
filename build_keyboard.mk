@@ -76,19 +76,19 @@ endif
 
 # Pull in rules.mk files from all our subfolders
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/rules.mk)","")
-    include $(KEYBOARD_PATH_5)/rules.mk
+    $(call USE_RULES,$(KEYBOARD_PATH_5)/rules.mk)
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_4)/rules.mk)","")
-    include $(KEYBOARD_PATH_4)/rules.mk
+    $(call USE_RULES,$(KEYBOARD_PATH_4)/rules.mk)
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_3)/rules.mk)","")
-    include $(KEYBOARD_PATH_3)/rules.mk
+    $(call USE_RULES,$(KEYBOARD_PATH_3)/rules.mk)
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_2)/rules.mk)","")
-    include $(KEYBOARD_PATH_2)/rules.mk
+    $(call USE_RULES,$(KEYBOARD_PATH_2)/rules.mk)
 endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
-    include $(KEYBOARD_PATH_1)/rules.mk
+    $(call USE_RULES,$(KEYBOARD_PATH_1)/rules.mk)
 endif
 
 
@@ -315,7 +315,8 @@ ifeq ("$(USER_NAME)","")
 endif
 USER_PATH := users/$(USER_NAME)
 
--include $(USER_PATH)/rules.mk
+$(call USE_RULES,$(USER_PATH)/rules.mk,-)
+$(eval include $(foreach RULES_MK,$(RULES_MK_LIST),$(wildcard $(subst rules.mk,build.mk,$(RULES_MK)))))
 ifneq ("$(wildcard $(USER_PATH)/config.h)","")
     CONFIG_H += $(USER_PATH)/config.h
 endif
