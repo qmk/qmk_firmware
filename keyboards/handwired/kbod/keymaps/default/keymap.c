@@ -67,12 +67,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
       shift_esc_mask = MODS_PRESSED(SHIFT);
       SET_WHETHER(shift_esc_mask, KC_ESC, KC_GRAVE);
 
-      break;
+      return false;
     case ALT_F4:
       alt_mask = MODS_PRESSED(ALT);
       SET_WHETHER(alt_mask, KC_4, KC_F4);
 
-      break;
+      return false;
   }
 
   return true;

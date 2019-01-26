@@ -42,15 +42,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
       case SONG_SU:
         PLAY_SONG(tone_startup);
 
-        break;
+        return false;
       case SONG_SC:
         PLAY_SONG(music_scale);
 
-        break;
+        return false;
       case SONG_GB:
         PLAY_SONG(tone_goodbye);
 
-        break;
+        return false;
     }
   }
 
