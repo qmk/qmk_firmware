@@ -1,7 +1,5 @@
-Stanrc85's Standard ANSI 60% Layout
+#Stanrc85's Standard ANSI 60% Layout
 ======================
-
-This is the 60% layout used by u/stanrc
 
 Shared keymap between two 60% PCB:
 - 1upkeyboards60HSE
