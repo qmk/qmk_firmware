@@ -135,14 +135,14 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
     OPT_DEFS += -DIS31FL3731
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3731.c
-    SRC += i2c_master.c
+    I2C_MASTER_ENABLE = yes
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
     OPT_DEFS += -DIS31FL3733
     COMMON_VPATH += $(DRIVER_PATH)/issi
     SRC += is31fl3733.c
-    SRC += i2c_master.c
+    I2C_MASTER_ENABLE = yes
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -228,8 +228,8 @@ endif
 ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
     SRC += DRV2605L.c
-    SRC += i2c_master.c
     OPT_DEFS += -DDRV2605L
+    I2C_MASTER_ENABLE = yes
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
@@ -263,11 +263,6 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
-# Include the standard debounce code if needed
-ifneq ($(strip $(CUSTOM_DEBOUNCE)), yes)
-    QUANTUM_SRC += $(QUANTUM_DIR)/debounce.c
-endif
-
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
 
@@ -284,4 +279,8 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
                            $(QUANTUM_DIR)/split_common/serial.c
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
+endif
+
+ifeq ($(strip $(I2C_MASTER_ENABLE)), yes)
+    SRC += i2c_master.c
 endif
