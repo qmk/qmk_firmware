@@ -34,24 +34,28 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
 };
 
 
-bool process_record_user (uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
-  case TO(HDN):
-    if (record->event.pressed) {
-      PORTC |= (1 << 6); // PC6 goes high
-    }
-    break;
-  case TO(OSY):
-    if (record->event.pressed) {
-      PORTC &= ~(1 << 6); // PC6 goes high
-      PORTD |= (1<<4);
-    }
-    break;
-  case TO(DEF):
-    if (record->event.pressed) {
-      PORTD &= ~(1 << 4); // PC6 goes high
-    }
-    break;
+    case TO(HDN):
+      if (record->event.pressed) {
+        PORTC |= (1 << 6); // PC6 goes high
+      }
+
+      return true;
+    case TO(OSY):
+      if (record->event.pressed) {
+        PORTC &= ~(1 << 6); // PC6 goes high
+        PORTD |= (1<<4);
+      }
+
+      return true;
+    case TO(DEF):
+      if (record->event.pressed) {
+        PORTD &= ~(1 << 4); // PC6 goes high
+      }
+
+      return true;
+    default:
+      return true;
   }
-  return true;
 }

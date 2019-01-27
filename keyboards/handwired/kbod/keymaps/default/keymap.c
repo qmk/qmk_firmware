@@ -59,23 +59,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint8_t shift_esc_mask;
-  static uint8_t alt_mask;
-
   switch (keycode) {
     case SFT_ESC:
-      shift_esc_mask = MODS_PRESSED(SHIFT);
-      SET_WHETHER(shift_esc_mask, KC_ESC, KC_GRAVE);
+      SET_WHETHER(MODS_PRESSED(SHIFT), KC_ESC, KC_GRAVE);
 
       return false;
     case ALT_F4:
-      alt_mask = MODS_PRESSED(ALT);
-      SET_WHETHER(alt_mask, KC_4, KC_F4);
+      SET_WHETHER(MODS_PRESSED(ALT), KC_4, KC_F4);
 
       return false;
+    default:
+      return true;
   }
-
-  return true;
 }
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

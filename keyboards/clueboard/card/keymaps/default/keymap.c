@@ -37,24 +37,28 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    switch (keycode) {
-      case SONG_SU:
+  switch (keycode) {
+    case SONG_SU:
+      if (record->event.pressed) {
         PLAY_SONG(tone_startup);
+      }
 
-        return false;
-      case SONG_SC:
+      return false;
+    case SONG_SC:
+      if (record->event.pressed) {
         PLAY_SONG(music_scale);
+      }
 
-        return false;
-      case SONG_GB:
+      return false;
+    case SONG_GB:
+      if (record->event.pressed) {
         PLAY_SONG(tone_goodbye);
+      }
 
-        return false;
-    }
+      return false;
+    default:
+      return true;
   }
-
-  return true;
 }
 
 void led_set_user(uint8_t usb_led) {
