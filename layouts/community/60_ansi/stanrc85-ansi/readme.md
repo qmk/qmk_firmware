@@ -1,4 +1,4 @@
-#Stanrc85's Standard ANSI 60% Layout
+# Stanrc85's Standard ANSI 60% Layout
 ======================
 
 Shared keymap between two 60% PCB:
