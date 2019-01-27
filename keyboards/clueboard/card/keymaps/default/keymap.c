@@ -44,18 +44,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
 
       return false;
+
     case SONG_SC:
       if (record->event.pressed) {
         PLAY_SONG(music_scale);
       }
 
       return false;
+
     case SONG_GB:
       if (record->event.pressed) {
         PLAY_SONG(tone_goodbye);
       }
 
       return false;
+
     default:
       return true;
   }

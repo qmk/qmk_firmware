@@ -42,6 +42,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
 
       return true;
+
     case TO(OSY):
       if (record->event.pressed) {
         PORTC &= ~(1 << 6); // PC6 goes high
@@ -49,12 +50,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
 
       return true;
+
     case TO(DEF):
       if (record->event.pressed) {
         PORTD &= ~(1 << 4); // PC6 goes high
       }
 
       return true;
+
     default:
       return true;
   }

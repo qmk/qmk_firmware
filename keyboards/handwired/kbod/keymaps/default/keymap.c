@@ -64,10 +64,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SET_WHETHER(MODS_PRESSED(SHIFT), KC_ESC, KC_GRAVE);
 
       return false;
+
     case ALT_F4:
       SET_WHETHER(MODS_PRESSED(ALT), KC_4, KC_F4);
 
       return false;
+
     default:
       return true;
   }
