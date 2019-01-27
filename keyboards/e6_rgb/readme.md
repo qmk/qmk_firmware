@@ -1,7 +1,5 @@
 # e6 pcb with rgb 
 
-![e6_rgb](https://imgur.com/a/aAEInPB)
-
 A full rgb pcb for exclusive E6V1&V2
 
 Keyboard Maintainer: [astro](https://github.com/yulei)  
