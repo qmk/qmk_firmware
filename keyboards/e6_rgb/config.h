@@ -2,9 +2,7 @@
  * config.h
  *
  */
-
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -23,16 +21,10 @@
 #define MATRIX_ROW_PINS { F1, F4, F5, F6, D6 }
 #define MATRIX_COL_PINS { D7, B4, B5, B6, C6, C7, F7, F0, B0, B1, D2, D3, B3, B2 }
 #define UNUSED_PINS
-//#define DIODE_DIRECTION ROW2COL
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 5
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-	keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /*
  * Feature disable options
@@ -71,5 +63,3 @@
 #define TAPPING_TERM    200
 #define RETRO_TAPPING
 #define PERMISSIVE_HOLD
-
-#endif
