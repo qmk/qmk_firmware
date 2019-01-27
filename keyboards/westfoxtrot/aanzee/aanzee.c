@@ -37,7 +37,7 @@ if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
 
 // Turn capslock on
 
-PORTB &= ~(1<<2);
+  writePinLow(B2);
 
 } else {
 
