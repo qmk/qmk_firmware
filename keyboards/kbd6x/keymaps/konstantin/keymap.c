@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
    * │        │Mut│VoD│VoU│Ply│Prv│Nxt│MW←│MW→│M4 │M5 │      │   │
    * └─────┬──┴┬──┴──┬┴───┴───┴───┴───┴───┴───┴──┬┴───┴┬───┬─┴───┘
-   *       │   │     │            MW↓            │     │   │
+   *       │   │     │            MW↓            │MAcl2│   │
    *       └───┴─────┴───────────────────────────┴─────┴───┘
    */
   [L_FN] = LAYOUT(
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, _______, _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, KC_DEL,
     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, _______, KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, _______,
     _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MPRV, KC_MNXT, KC_WH_L, KC_WH_R, KC_BTN4, KC_BTN5, _______, _______,
-    XXXXXXX, _______, _______,                   KC_WH_D,                   _______, _______, XXXXXXX
+    XXXXXXX, _______, _______,                   KC_WH_D,                   KC_ACL2, _______, XXXXXXX
   ),
 
   /* RCtrl layer

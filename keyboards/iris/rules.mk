@@ -39,8 +39,3 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 SPLIT_KEYBOARD = yes
 
 DEFAULT_FOLDER = iris/rev2
-
-# VIA Support - Comment these 3 lines out to disable
-RAW_ENABLE = yes
-DYNAMIC_KEYMAP_ENABLE = yes
-SRC += keyboards/wilba_tech/wt_main.c
