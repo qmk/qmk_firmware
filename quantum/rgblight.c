@@ -19,7 +19,7 @@
   #include <avr/eeprom.h>
   #include <avr/interrupt.h>
 #endif
-#ifdef QMK_STM32
+#ifdef STM32_EEPROM_ENABLE
   #include "hal.h"
   #include "eeprom.h"
   #include "eeprom_stm32.h"
