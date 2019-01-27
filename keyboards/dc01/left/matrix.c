@@ -158,7 +158,7 @@ void matrix_init(void) {
         matrix[i] = 0;
         matrix_debouncing[i] = 0;
     }
-    
+
     matrix_init_quantum();
 }
 
@@ -209,7 +209,7 @@ uint8_t matrix_scan(void)
             debouncing = false;
         }
 #   endif
-        
+
     if (i2c_transaction(SLAVE_I2C_ADDRESS_RIGHT, 0x3F, 0)){ //error has occured for main right half
         error_count_right++;
         if (error_count_right > ERROR_DISCONNECT_COUNT){ //disconnect half
@@ -220,7 +220,7 @@ uint8_t matrix_scan(void)
    }else{ //no error
         error_count_right = 0;
     }
-    
+
     if (i2c_transaction(SLAVE_I2C_ADDRESS_ARROW, 0X3FFF, 8)){ //error has occured for arrow cluster
         error_count_arrow++;
         if (error_count_arrow > ERROR_DISCONNECT_COUNT){ //disconnect arrow cluster
@@ -258,7 +258,7 @@ bool matrix_is_modified(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline
