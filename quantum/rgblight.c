@@ -125,14 +125,14 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
 
 
 uint32_t eeconfig_read_rgblight(void) {
-  #if defined(__AVR__) || defined(QMK_STM32)
+  #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
     return eeprom_read_dword(EECONFIG_RGBLIGHT);
   #else
     return 0;
   #endif
 }
 void eeconfig_update_rgblight(uint32_t val) {
-  #if defined(__AVR__) || defined(QMK_STM32)
+  #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
     eeprom_update_dword(EECONFIG_RGBLIGHT, val);
   #endif
 }
