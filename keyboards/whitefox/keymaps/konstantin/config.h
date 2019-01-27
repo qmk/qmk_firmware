@@ -1,9 +1,9 @@
 #pragma once
 
+#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RCTL)))
+
 #define LAYER_FN
 #define LAYER_NUMPAD
-
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RCTL)))
 
 #define MAGIC_KEY_LAYER0_ALT1 BSLS
 #define MAGIC_KEY_BOOTLOADER  ESC

@@ -34,19 +34,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // IO pins to serial
 // https://deskthority.net/wiki/Arduino_Pro_Micro for pin lookup
-#define VCC_PIN D1 // pro micro 2 
+#define VCC_PIN D1 // pro micro 2
 #define RX_PIN   D0 //pro micro 3 , was 8 on cy384
 #define RTS_PIN  C6 // 5  //[ was D4 // 4 on the cy384
-#define DCD_PIN  E6  //7 
+#define DCD_PIN  E6  //7
 
 // if using the particular arduino pinout of CY384
-#ifdef CY384 
+#ifdef CY384
     #define GND_PIN  D7 //6
     #define PULLDOWN_PIN  B1 // 15
 #endif
 
 #ifndef HANDSPRING
-// Set to 1 for Handspring or to disable RTS/DCD based handshake. 
+// Set to 1 for Handspring or to disable RTS/DCD based handshake.
     #define HANDSPRING 0
 #endif
 
@@ -59,9 +59,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* key combination for command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)) || \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
+    get_mods() == (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT)) || \
+    get_mods() == (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI)) || \
+    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
 )
 
 
@@ -74,10 +74,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_SOFT_BIT_ORDER_LSB
 #if (HANDSPRING == 0)
     #define SERIAL_SOFT_LOGIC_NEGATIVE  //RS232 logic
-#endif 
+#endif
 /* RXD Port */
 #define SERIAL_SOFT_RXD_ENABLE
-    
+
 // we are using Pro micro pin 3 / D0 as serial
 #define SERIAL_SOFT_RXD_DDR         DDRD
 #define SERIAL_SOFT_RXD_PORT        PORTD
