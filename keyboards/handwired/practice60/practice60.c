@@ -15,8 +15,6 @@
 #define LED_TGL()   do { palTogglePad(GPIOC, 13); } while (0)
 #endif
 
-// static uint8_t writeBL = 0;
-
 void matrix_init_kb(void){
       /* MOSI pin*/
     palSetPadMode(GPIOB, 15, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
