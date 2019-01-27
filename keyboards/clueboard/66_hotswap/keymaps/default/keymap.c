@@ -52,70 +52,72 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _CL: Control layer
    */
 [_CL] = LAYOUT(
-  BL_STEP,RGB_M_P,RGB_M_B,RGB_M_R,RGB_M_SW,RGB_M_SN,RGB_M_K,RGB_M_X,RGB_M_G,_______,_______,_______,_______,   RGB_TOG,           RGB_VAI, \
-  _______,_______,_______,_______,RESET,  _______,_______,_______,_______,_______,_______,_______,_______,_______,                RGB_VAD, \
+  BL_STEP,S_ONEUP,S_SCALE,RGB_M_R,RGB_M_SW,RGB_M_SN,RGB_M_K,RGB_M_X,RGB_M_G,_______,_______,_______,_______,   BL_TOGG,           BL_INC, \
+  _______,_______,_______,_______,RESET,  _______,_______,_______,_______,_______,_______,_______,_______,_______,                BL_DEC, \
   _______,_______,MO(_CL),_______,_______,_______,_______,_______,_______,_______,_______,_______,    _______,                             \
   _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,        RGB_SAI,         \
-  _______,_______,_______,                RGB_MOD,RGB_MOD,                        _______,_______,MO(_FL),_______,RGB_HUD,RGB_SAD,RGB_HUI),
+  _______,_______,_______,                BL_BRTG,BL_BRTG,                        _______,_______,MO(_FL),_______,RGB_HUD,RGB_SAD,RGB_HUI),
 };
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
-        case S_BSKTC:
-            if (record->event.pressed) {
-                stop_all_notes();
-                PLAY_SONG(song_basketcase);
-            }
-            return false;
-        case S_ODEJY:
-            if (record->event.pressed) {
-                stop_all_notes();
-                PLAY_SONG(song_ode_to_joy);
-            }
-            return false;
-        case S_RCKBY:
-            if (record->event.pressed) {
-                stop_all_notes();
-                PLAY_SONG(song_rock_a_bye_baby);
-            }
-            return false;
-        case S_DOEDR:
-            if (record->event.pressed) {
-                stop_all_notes();
-                PLAY_SONG(song_doe_a_deer);
-            }
-            return false;
-        case S_SCALE:
-            if (record->event.pressed) {
-                stop_all_notes();
-                PLAY_SONG(song_scale);
-            }
-            return false;
-        case S_ONEUP:
-            if (record->event.pressed) {
-                stop_all_notes();
-                PLAY_SONG(song_one_up);
-            }
-            return false;
-        case S_COIN:
-            if (record->event.pressed) {
-                stop_all_notes();
-                PLAY_SONG(song_coin);
-            }
-            return false;
-        case S_SONIC:
-            if (record->event.pressed) {
-                stop_all_notes();
-                PLAY_SONG(song_sonic_ring);
-            }
-            return false;
-        case S_ZELDA:
-            if (record->event.pressed) {
-                stop_all_notes();
-                PLAY_SONG(song_zelda_puzzle);
-            }
-            return false;
+        #ifdef AUDIO_ENABLE
+            case S_BSKTC:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_basketcase);
+                }
+                return false;
+            case S_ODEJY:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_ode_to_joy);
+                }
+                return false;
+            case S_RCKBY:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_rock_a_bye_baby);
+                }
+                return false;
+            case S_DOEDR:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_doe_a_deer);
+                }
+                return false;
+            case S_SCALE:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_scale);
+                }
+                return false;
+            case S_ONEUP:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_one_up);
+                }
+                return false;
+            case S_COIN:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_coin);
+                }
+                return false;
+            case S_SONIC:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_sonic_ring);
+                }
+                return false;
+            case S_ZELDA:
+                if (record->event.pressed) {
+                    stop_all_notes();
+                    PLAY_SONG(song_zelda_puzzle);
+                }
+                return false;
+        #endif
     }
     return true;
 }

@@ -39,12 +39,12 @@ OPT_DEFS =
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 
 # LED Configuration
-RGB_MATRIX_ENABLE = IS31FL3731
+LED_MATRIX_ENABLE = IS31FL3731
 
 # Build Options
 #   comment out to disable the options.
 #
-BACKLIGHT_ENABLE = no
+BACKLIGHT_ENABLE = yes
 BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 ## (Note that for BOOTMAGIC on Teensy LC you have to use a custom .ld script.)
 MOUSEKEY_ENABLE = yes	# Mouse keys

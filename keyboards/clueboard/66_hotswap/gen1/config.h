@@ -120,7 +120,7 @@
 
  /* Backlight configuration
  */
-#define BACKLIGHT_LEVELS 1
+#define BACKLIGHT_LEVELS 10
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -129,10 +129,10 @@
 // 0b1110111 AD <-> VCC
 // 0b1110101 AD <-> SCL
 // 0b1110110 AD <-> SDA
-#define DRIVER_ADDR_1 0b1110100
-#define DRIVER_ADDR_2 0b1110110 // Not actually used...
+#define LED_DRIVER_ADDR_1 0b1110100
+#define I2C1_BANK GPIOB
+#define I2C1_SCL 8
+#define I2C1_SDA 9
 
-#define DRIVER_COUNT 2
-#define DRIVER_1_LED_TOTAL 71
-#define DRIVER_2_LED_TOTAL 0
-#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL + DRIVER_2_LED_TOTAL
+#define LED_DRIVER_COUNT 1
+#define LED_DRIVER_LED_COUNT 71
