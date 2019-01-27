@@ -209,7 +209,10 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-        ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+    ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+        OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
+    endif
+    ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 endif

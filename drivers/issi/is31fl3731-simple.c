@@ -158,12 +158,7 @@ void IS31FL3731_init(uint8_t addr) {
     // enable software shutdown
     IS31FL3731_write_register(addr, ISSI_REG_SHUTDOWN, 0x00);
     // this delay was copied from other drivers, might not be needed
-    // FIXME: Don't we have a wrapper for this already?
-    #ifdef __AVR__
-    _delay_ms(10);
-    #else
     wait_ms(10);
-    #endif
 
     // picture mode
     IS31FL3731_write_register(addr, ISSI_REG_CONFIG, ISSI_REG_CONFIG_PICTUREMODE);

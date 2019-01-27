@@ -64,7 +64,8 @@ static void init(void) {
             IS31FL3733_init(LED_DRIVER_ADDR_4);
         #endif
     #endif
-    for (int index = 0; index < LED_DRIVER_COUNT; index++) {
+
+    for (int index = 0; index < LED_DRIVER_LED_COUNT; index++) {
         #ifdef IS31FL3731
             IS31FL3731_set_led_control_register(index, true);
         #else

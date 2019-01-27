@@ -112,9 +112,6 @@ uint8_t led_matrix_get_mode(void);
 void led_matrix_set_value(uint8_t mode);
 void led_matrix_set_value_noeeprom(uint8_t mode);
 
-// Hook into the existing backlight API
-#define backlight_set(val) led_matrix_set_value(val)
-
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
     void (*init)(void);
