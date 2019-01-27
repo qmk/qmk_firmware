@@ -58,12 +58,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______ , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_7    , KC_8    , KC_9    , XXXXXXX , _______ ,
     _______ , XXXXXXX , XXXXXXX , XXXXXXX , _LAYER_ , XXXXXXX , XXXXXXX , KC_4    , KC_5    , KC_6    , XXXXXXX , _______ ,
     _______ , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , KC_1    , KC_2    , KC_3    , XXXXXXX , _______ ,
-    _______ , _______ , _______ , _______ , _______ , _______ , _______ , KC_0    , KC_0    , KC_DOT  , _______ , _______
+    _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , KC_0    , KC_DOT  , _______ , _______
   ),
   [_RAISE] = LAYOUT(
-    _______ , KC_LABK , KC_RABK , KC_LCBR , KC_RCBR , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , _______ ,
-    _______ , KC_LPRN , KC_RPRN , KC_LBRC , KC_RBRC , XXXXXXX , XXXXXXX , _LAYER_ , XXXXXXX , XXXXXXX , XXXXXXX , _______ ,
-    _______ , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , _______ ,
+    _______ , KC_LABK , KC_RABK , KC_LCBR , KC_RCBR , KC_EQL  , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , _______ ,
+    _______ , KC_LPRN , KC_RPRN , KC_LBRC , KC_RBRC , KC_MINS , XXXXXXX , _LAYER_ , XXXXXXX , XXXXXXX , XXXXXXX , _______ ,
+    _______ , XXXXXXX , XXXXXXX , XXXXXXX , KC_BSLS , KC_SLSH , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , XXXXXXX , _______ ,
     _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______ , _______
   ),
   [_LIFT] = LAYOUT(
