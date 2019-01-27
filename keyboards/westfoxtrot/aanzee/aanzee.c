@@ -43,7 +43,7 @@ PORTB &= ~(1<<2);
 
 // Turn capslock off
 
-PORTB |= (1<<2);
+  writePinHigh(B2);
 
 }
 
