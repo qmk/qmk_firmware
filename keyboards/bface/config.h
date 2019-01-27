@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VENDOR_ID       0x20A0
 #define PRODUCT_ID      0x422D
-// You can edit those at usbconfig.h about line 250. These values will 
+// You can edit those at usbconfig.h about line 250. These values will
 // unforunatly be ignored so far
 #define MANUFACTURER    winkeyless.kr
 #define PRODUCT         b.face
@@ -35,9 +35,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_UART 1
 #define BOOTLOADHID_BOOTLOADER 1
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 #ifdef BACKLIGHT_ENABLE
 	// the backlight PWM does not work (yet). Therefore, we only have two backlight levels (on/off)
