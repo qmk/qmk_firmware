@@ -316,8 +316,7 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
 
     # Include files used by all split keyboards
-    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
-                   $(QUANTUM_DIR)/split_common/split_util.c
+    QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_util.c
 
     # Determine which (if any) transport files are required
     ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
