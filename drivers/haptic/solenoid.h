@@ -44,9 +44,11 @@ uint8_t solenoid_dwell = SOLENOID_DEFAULT_DWELL;
 
 void solenoid_buzz_on(void);
 void solenoid_buzz_off(void);
+void solenoid_set_buzz(bool buzz);
 
 void solenoid_dwell_minus(void);
 void solenoid_dwell_plus(void);
+void solenoid_set_dwell(uint8_t dwell);
 
 void solenoid_stop(void);
 void solenoid_fire(void);

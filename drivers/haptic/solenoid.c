@@ -35,12 +35,21 @@ void solenoid_buzz_off(void) {
   solenoid_buzz = false;
 }
 
+void solenoid_set_buzz(bool buzz) {
+  solenoid_buzz = buzz;
+}
+
+
 void solenoid_dwell_minus(uint8_t solenoid_dwell) {
   if (solenoid_dwell > 0) solenoid_dwell--;
 }
 
 void solenoid_dwell_plus(uint8_t solenoid_dwell) {
   if (solenoid_dwell < SOLENOID_MAX_DWELL) solenoid_dwell++;
+}
+
+void solenoid_set_dwell(uint8_t dwell) {
+  solenoid_dwell = dwell;
 }
 
 void solenoid_stop(void) {

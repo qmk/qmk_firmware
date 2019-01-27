@@ -91,7 +91,7 @@ void haptic_mode_increase(void) {
   uint8_t mode = haptic_config.mode + 1;
   #ifdef DRV2605L
   if (haptic_config.mode >= drv_effect_max) {
-    haptic_config.mode = 1;
+    mode = 1;
   }
   #endif
     haptic_set_mode(mode);
@@ -106,17 +106,26 @@ void haptic_mode_decrease(void) {
 }
 
 void haptic_dwell_increase(void) {
-#ifdef SOLENOID_ENABLE
-solenoid_dwell_plus();
-#endif
+  uint8_t dwell = haptic_config.dwell + 1;
+  #ifdef SOLENOID_ENABLE
+  if (haptic_config.dwell >= SOLENOID_MAX_DWELL) {
+    dwell = 1;
+  }
+  solenoid_set_dwell(dwell);
+  #endif
+  haptic_set_dwell(dwell);
 }
 
 void haptic_dwell_decrease(void) {
-#ifdef SOLENOID_ENABLE
-solenoid_dwell_minus();
-#endif
+  uint8_t dwell = haptic_config.dwell -1;
+  #ifdef SOLENOID_ENABLE
+  if (haptic_config.dwell < SOLENOID_MIN_DWELL) {
+    dwell = SOLENOID_MAX_DWELL;
+  }
+  solenoid_set_dwell(dwell);
+  #endif
+  haptic_set_dwell(dwell);
 }
-
 
 void haptic_reset(void){
   uint8_t feedback = HAPTIC_FEEDBACK_DEFAULT;
