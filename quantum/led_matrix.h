@@ -63,8 +63,8 @@ typedef union {
 } led_config_t;
 
 enum led_matrix_effects {
-	  LED_MATRIX_UNIFORM_BRIGHTNESS = 1,
-	  // All new effects go above this line
+    LED_MATRIX_UNIFORM_BRIGHTNESS = 1,
+    // All new effects go above this line
     LED_MATRIX_EFFECT_MAX
 };
 
