@@ -17,7 +17,7 @@ Click the drop down box and select the keyboard you want to create a keymap for.
 
 I'll say that again because it's important
 
-## MAKE SURE YOU SELECT THE RIGHT VERSION!
+!> **MAKE SURE YOU SELECT THE RIGHT VERSION!**
 
 If your keyboard has been advertised to be powered by QMK but is not in the list, chances are a developer hasn't gotten to it yet. File an issue at [qmk_firmware](https://github.com/qmk/qmk_firmware/issues) requesting to support that particular keyboard. There are also QMK powered keyboards that are in their manufacturer's own github accounts. Double check for that as well. 
 
