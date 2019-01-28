@@ -128,7 +128,9 @@ uint32_t eeconfig_read_rgblight(void) {
 }
 void eeconfig_update_rgblight(uint32_t val) {
   #ifdef __AVR__
+  if (eeconfig_read_rgblight() != val) {
     eeprom_update_dword(EECONFIG_RGBLIGHT, val);
+  }
   #endif
 }
 void eeconfig_update_rgblight_default(void) {
