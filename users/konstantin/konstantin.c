@@ -28,6 +28,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
+  case DST_P_R:
+    (record->event.pressed ? register_code16 : unregister_code16)(
+      (get_mods() & MOD_MASK_CTRL) ? DST_RMV : DST_PRV
+    );
+    return false;
+
+  case DST_N_A:
+    (record->event.pressed ? register_code16 : unregister_code16)(
+      (get_mods() & MOD_MASK_CTRL) ? DST_ADD : DST_NXT
+    );
+    return false;
+
 #ifdef LAYER_FN
   static bool fn_lock;
 
