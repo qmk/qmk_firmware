@@ -57,7 +57,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
-#define RGBLED_NUM 21    // Number of LEDs
+#define RGBLED_NUM ((MATRIX_ROWS >> 1) * MATRIX_COLS - (MATRIX_COLS >> 1)) // Number of LEDs
 #define RGBLIGHT_LIMIT_VAL 120
 
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
