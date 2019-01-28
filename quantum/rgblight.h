@@ -159,6 +159,18 @@ typedef union {
   };
 } rgblight_config_t;
 
+typedef struct _rgblight_status_t {
+    bool timer_enabled;
+    // TODO: add animation syncronizing
+} rgblight_status_t;
+
+#ifdef RGBLIGHT_SPLIT
+/* for split keyboard master side */
+void rgblight_update_hook(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom);
+/* for split keyboard slave side */
+void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom);
+#endif
+
 void rgblight_init(void);
 void rgblight_increase(void);
 void rgblight_decrease(void);
