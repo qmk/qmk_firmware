@@ -1,4 +1,5 @@
-/* Copyright 2018 Clueboard
+/* Copyright 2018 James Laird-Wah
+ * Copyright 2019 Clueboard
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
