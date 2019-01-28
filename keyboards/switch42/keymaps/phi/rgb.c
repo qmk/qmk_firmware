@@ -111,7 +111,7 @@ void rgb_update (bool force) {
     static int last_update = 0;
     static uint32_t last_layer_state = ~0;
 
-    if (timer_elapsed(last_update) < RGB_REFRESH_INTERVAL && !force) return;
+    if (last_update && timer_elapsed(last_update) < RGB_REFRESH_INTERVAL && !force) return;
     last_update = timer_read();
 
     if ((layer_state != last_layer_state || force) && !temporary_bg_enabled) {
