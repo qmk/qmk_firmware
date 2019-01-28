@@ -18,7 +18,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "quantum.h"
-#include "led_matrix.h"
+#include "ledmatrix.h"
 
 /* Each driver needs to define a struct:
  *
