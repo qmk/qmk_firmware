@@ -1,5 +1,9 @@
 # RGB Matrix Lighting
 
+This feature allows you to use RGB LED matrices driven by external drivers. It hooks into the RGBLIGHT system so you can use the same keycodes as RGBLIGHT to control it.
+
+If you want to use single color LED's you should use the [LED Matrix Subsystem](feature_led_matrix.md) instead.
+
 ## Driver configuration
 
 ### IS31FL3731

@@ -1,14 +1,31 @@
-# RGB Matrix Lighting
+# LED Matrix Lighting
+
+This feature allows you to use LED matrices driven by external drivers. It hooks into the backlight system so you can use the same keycodes as backlighting to control it.
+
+If you want to use RGB LED's you should use the [RGB Matrix Subsystem](feature_rgb_matrix.md) instead.
 
 ## Driver configuration
 
 ### IS31FL3731
 
-There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
+There is basic support for addressable LED matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
 
     LED_MATRIX_ENABLE = IS31FL3731
+    
+You can use between 1 and 4 IS31FL3731 IC's. Do not specify `LED_DRIVER_ADDR_<N>` defines for IC's that are not present on your keyboard. You can define the following items in `config.h`:
 
-Configure the hardware via your `config.h`:
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `ISSI_TIMEOUT` | (Optional) How long to wait for i2c messages | 100 |
+| `ISSI_PERSISTENCE` | (Optional) Retry failed messages this many times | 0 |
+| `LED_DRIVER_COUNT` | (Required) How many LED driver IC's are present | |
+| `LED_DRIVER_LED_COUNT` | (Required) How many LED lights are present across all drivers | |
+| `LED_DRIVER_ADDR_1` | (Required) Address for the first LED driver | |
+| `LED_DRIVER_ADDR_2` | (Optional) Address for the second LED driver | |
+| `LED_DRIVER_ADDR_3` | (Optional) Address for the third LED driver | |
+| `LED_DRIVER_ADDR_4` | (Optional) Address for the fourth LED driver | |
+
+Here is an example using 2 drivers.
 
 	// This is a 7-bit address, that gets left-shifted and bit 0
 	// set to 0 for write, 1 for read (as per I2C protocol)
@@ -21,9 +38,9 @@ Configure the hardware via your `config.h`:
 	#define LED_DRIVER_ADDR_2 0b1110110
 
 	#define LED_DRIVER_COUNT 2
-	#define LED_DRIVER_1_LED_TOTAL 25
-	#define LED_DRIVER_2_LED_TOTAL 24
-	#define LED_DRIVER_LED_TOTAL LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL
+	#define LED_DRIVER_1_LED_COUNT 25
+	#define LED_DRIVER_2_LED_COUNT 24
+	#define LED_DRIVER_LED_COUNT LED_DRIVER_1_LED_TOTAL + LED_DRIVER_2_LED_TOTAL
 
 Currently only 2 drivers are supported, but it would be trivial to support all 4 combinations.
 
@@ -32,175 +49,31 @@ Define these arrays listing all the LEDs in your `<keyboard>.c`:
 	const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 	/* Refer to IS31 manual for these locations
 	 *   driver
-	 *   |  R location
-	 *   |  |      G location
-	 *   |  |      |      B location
-	 *   |  |      |      | */
-	    {0, C1_3,  C2_3,  C3_3},
+	 *   |  LED address
+	 *   |  | */
+	    {0, C3_3},
 	    ....
 	}
 
-Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
-
-###  IS31FL3733
-
-There is basic support for addressable RGB matrix lighting with the I2C IS31FL3733 RGB controller. To enable it, add this to your `rules.mk`:
-
-    RGB_MATRIX_ENABLE = IS31FL3733
-
-Configure the hardware via your `config.h`:
-
-	// This is a 7-bit address, that gets left-shifted and bit 0
-	// set to 0 for write, 1 for read (as per I2C protocol)
-	// The address will vary depending on your wiring:
-	// 00 <-> GND
-	// 01 <-> SCL
-	// 10 <-> SDA
-	// 11 <-> VCC
-	// ADDR1 represents A1:A0 of the 7-bit address.
-	// ADDR2 represents A3:A2 of the 7-bit address.
-	// The result is: 0b101(ADDR2)(ADDR1)
-	#define DRIVER_ADDR_1 0b1010000
-	#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
-
-	#define DRIVER_COUNT 1
-	#define DRIVER_1_LED_TOTAL 64
-	#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
-
-Currently only a single drivers is supported, but it would be trivial to support all 4 combinations. For now define `DRIVER_ADDR_2` as `DRIVER_ADDR_1`
-
-Define these arrays listing all the LEDs in your `<keyboard>.c`:
-
-	const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
-	/* Refer to IS31 manual for these locations
-	 *   driver
-	 *   |  R location
-	 *   |  |       G location
-	 *   |  |       |       B location
-	 *   |  |       |       | */
-	    {0, B_1,    A_1,    C_1},
-	    ....
-	}
-
-Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
-
-From this point forward the configuration is the same for all the drivers. 
-
-	const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
-	/* {row | col << 4}
-	 *    |           {x=0..224, y=0..64}
-	 *    |              |               modifier
-	 *    |              |                 | */
-	    {{0|(0<<4)},   {20.36*0, 21.33*0}, 1},
-	    {{0|(1<<4)},   {20.36*1, 21.33*0}, 1},
-	    ....
-	}
-
-The format for the matrix position used in this array is `{row | (col << 4)}`. The `x` is between (inclusive) 0-224, and `y` is between (inclusive) 0-64. The easiest way to calculate these positions is:
-
-    x = 224 / ( NUMBER_OF_ROWS - 1 ) * ROW_POSITION
-    y = 64 / (NUMBER_OF_COLS - 1 ) * COL_POSITION
-
-Where all variables are decimels/floats.
-
-`modifier` is a boolean, whether or not a certain key is considered a modifier (used in some effects).
+Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731-simple.h`. The `driver` is the index of the driver you defined in your `config.h` (`0`, `1`, `2`, or `3` ).
 
 ## Keycodes
 
-All RGB keycodes are currently shared with the RGBLIGHT system:
+All LED matrix keycodes are currently shared with the [backlight system](feature_backlight.md).
 
-	* `RGB_TOG` - toggle
-	* `RGB_MOD` - cycle through modes
-	* `RGB_HUI` - increase hue
-	* `RGB_HUD` - decrease hue
-	* `RGB_SAI` - increase saturation
-	* `RGB_SAD` - decrease saturation
-	* `RGB_VAI` - increase value
-	* `RGB_VAD` - decrease value
-	* `RGB_SPI` - increase speed effect (no EEPROM support)
-	* `RGB_SPD` - decrease speed effect (no EEPROM support)
+## LED Matrix Effects
 
-
-	* `RGB_MODE_*` keycodes will generally work, but are not currently mapped to the correct effects for the RGB Matrix system
-
-## RGB Matrix Effects
-
-These are the effects that are currently available:
-
-	enum rgb_matrix_effects {
-	    RGB_MATRIX_SOLID_COLOR = 1,
-	    RGB_MATRIX_ALPHAS_MODS,
-	    RGB_MATRIX_DUAL_BEACON,
-	    RGB_MATRIX_GRADIENT_UP_DOWN,
-	    RGB_MATRIX_RAINDROPS,
-	    RGB_MATRIX_CYCLE_ALL,
-	    RGB_MATRIX_CYCLE_LEFT_RIGHT,
-	    RGB_MATRIX_CYCLE_UP_DOWN,
-	    RGB_MATRIX_RAINBOW_BEACON,
-	    RGB_MATRIX_RAINBOW_PINWHEELS,
-	    RGB_MATRIX_RAINBOW_MOVING_CHEVRON,
-	    RGB_MATRIX_JELLYBEAN_RAINDROPS,
-	    RGB_MATRIX_DIGITAL_RAIN,
-	#ifdef RGB_MATRIX_KEYPRESSES
-	    RGB_MATRIX_SOLID_REACTIVE,
-	    RGB_MATRIX_SPLASH,
-	    RGB_MATRIX_MULTISPLASH,
-	    RGB_MATRIX_SOLID_SPLASH,
-	    RGB_MATRIX_SOLID_MULTISPLASH,
-	#endif
-	    RGB_MATRIX_EFFECT_MAX
-	};
-    
-You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `config.h`:
-
-
-|Define                                             |Description                                 |
-|---------------------------------------------------|--------------------------------------------|
-|`#define DISABLE_RGB_MATRIX_ALPHAS_MODS`           |Disables `RGB_MATRIX_ALPHAS_MODS`           |
-|`#define DISABLE_RGB_MATRIX_DUAL_BEACON`           |Disables `RGB_MATRIX_DUAL_BEACON`           |
-|`#define DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN`      |Disables `RGB_MATRIX_GRADIENT_UP_DOWN`      |
-|`#define DISABLE_RGB_MATRIX_RAINDROPS`             |Disables `RGB_MATRIX_RAINDROPS`             |
-|`#define DISABLE_RGB_MATRIX_CYCLE_ALL`             |Disables `RGB_MATRIX_CYCLE_ALL`             |
-|`#define DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT`      |Disables `RGB_MATRIX_CYCLE_LEFT_RIGHT`      |
-|`#define DISABLE_RGB_MATRIX_CYCLE_UP_DOWN`         |Disables `RGB_MATRIX_CYCLE_UP_DOWN`         |
-|`#define DISABLE_RGB_MATRIX_RAINBOW_BEACON`        |Disables `RGB_MATRIX_RAINBOW_BEACON`        |
-|`#define DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS`     |Disables `RGB_MATRIX_RAINBOW_PINWHEELS`     |
-|`#define DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON`|Disables `RGB_MATRIX_RAINBOW_MOVING_CHEVRON`|
-|`#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`   |Disables `RGB_MATRIX_JELLYBEAN_RAINDROPS`   |
-|`#define DISABLE_RGB_MATRIX_DIGITAL_RAIN`          |Disables `RGB_MATRIX_DIGITAL_RAIN`          |
-|`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE`        |Disables `RGB_MATRIX_SOLID_REACTIVE`        |
-|`#define DISABLE_RGB_MATRIX_SPLASH`                |Disables `RGB_MATRIX_SPLASH`                |
-|`#define DISABLE_RGB_MATRIX_MULTISPLASH`           |Disables `RGB_MATRIX_MULTISPLASH`           |
-|`#define DISABLE_RGB_MATRIX_SOLID_SPLASH`          |Disables `RGB_MATRIX_SOLID_SPLASH`          |
-|`#define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH`     |Disables `RGB_MATRIX_SOLID_MULTISPLASH`     |
-
+Currently no LED matrix effects have been created.
 
 ## Custom layer effects
 
 Custom layer effects can be done by defining this in your `<keyboard>.c`:
 
-    void rgb_matrix_indicators_kb(void) {
-        rgb_matrix_set_color(index, red, green, blue);
+    void led_matrix_indicators_kb(void) {
+        led_matrix_set_index_value(index, value);
     }
 
-A similar function works in the keymap as `rgb_matrix_indicators_user`.
-
-## Additional `config.h` Options
-
-	#define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
-	#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
-	#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
-	#define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
-    #define RGB_MATRIX_SKIP_FRAMES 1 // number of frames to skip when displaying animations (0 is full effect) if not defined defaults to 1
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
-
-## EEPROM storage
-
-The EEPROM for it is currently shared with the RGBLIGHT system (it's generally assumed only one RGB would be used at a time), but could be configured to use its own 32bit address with:
-
-    #define EECONFIG_RGB_MATRIX (uint32_t *)16
-
-Where `16` is an unused index from `eeconfig.h`.
+A similar function works in the keymap as `led_matrix_indicators_user`.
 
 ## Suspended state
 
@@ -208,10 +81,10 @@ To use the suspend feature, add this to your `<keyboard>.c`:
 
 	void suspend_power_down_kb(void)
 	{
-	    rgb_matrix_set_suspend_state(true);
+	    led_matrix_set_suspend_state(true);
 	}
 
 	void suspend_wakeup_init_kb(void)
 	{
-	    rgb_matrix_set_suspend_state(false);
+	    led_matrix_set_suspend_state(false);
 	}
