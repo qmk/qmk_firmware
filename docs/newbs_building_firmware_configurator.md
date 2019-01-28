@@ -31,6 +31,8 @@ Choose the layout that best represents the keymap you want to create. Some keybo
 
 Call this keymap what you want. 
 
+?> If you are running into issues when compiling, it may be worth changing this name, as it may already exist in the QMK  Firmware repo.
+
 ## Creating Your Keymap
 
 Keycode Entry is accomplished in 3 ways.  
