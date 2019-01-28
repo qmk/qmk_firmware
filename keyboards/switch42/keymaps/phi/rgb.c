@@ -1,5 +1,5 @@
 #define BG_GRADIENT_VALUE 60
-#define UNDERGLOW_VALUE 255
+#define UNDERGLOW_VALUE 223
 #define RGB_REFRESH_INTERVAL 66 /* 15fps */
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
@@ -124,7 +124,7 @@ void rgb_update (bool force) {
             }
         } else {
             rgb_set_bg_gradient(1, 90, 250, 95);
-            rgb_set_underglow_gradient(1, 0, 250, 0);
+            rgb_set_underglow_gradient(1, 90, 250, 95);
         }
         last_layer_state = layer_state;
     }
