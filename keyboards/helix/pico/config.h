@@ -27,7 +27,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         HelixPico
 #define DESCRIPTION     A split keyboard for the cheap makers
 
-
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
@@ -70,11 +69,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* Audio */
 #ifdef AUDIO_ENABLE
@@ -144,6 +138,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-
 
 #endif
