@@ -41,7 +41,3 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS,KC_TRNS,KC_TRNS,                KC_TRNS,                        KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
     ), // */
 };
-
-const uint16_t PROGMEM fn_actions[] = {
-	[0]  = ACTION_LAYER_MOMENTARY(1),
-};
