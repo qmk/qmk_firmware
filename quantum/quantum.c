@@ -1206,7 +1206,7 @@ static inline void set_pwm(uint16_t val) {
 	OCRxx = val;
 }
 
-#ifndef BACKLIGHT_CUSTOM_DRIVER || LED_MATRIX_ENABLE
+#ifndef BACKLIGHT_CUSTOM_DRIVER
 __attribute__ ((weak))
 void backlight_set(uint8_t level) {
   if (level > BACKLIGHT_LEVELS)
