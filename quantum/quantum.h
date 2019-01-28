@@ -29,7 +29,7 @@
 #include "keymap.h"
 #ifdef BACKLIGHT_ENABLE
     #ifdef LED_MATRIX_ENABLE
-        #include "led_matrix.h"
+        #include "ledmatrix.h"
     #else
         #include "backlight.h"
     #endif
