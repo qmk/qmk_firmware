@@ -4,6 +4,8 @@ QMK is a powerful Open Source firmware for your mechanical keyboard. You can use
 
 Not sure if your keyboard can run QMK? If it's a mechanical keyboard you built yourself chances are good it can. We support a [large number of hobbyist boards](http://qmk.fm/keyboards/), so even if your current keyboard can't run QMK you shouldn't have trouble finding one to suit your needs.
 
+If you are simply trying to easily create a keymap and flash it onto your keyboard, please consider using the online [QMK Configurator](https://config.qmk.fm). [QMK Configurator](https://config.qmk.fm) is an online graphical user interface allowing you to create a keymap, and compile a keyboard firmware file. After compiling this keyboard firmware file, you may follow the [Flashing Firmware](newbs_flashing.md) instructions. 
+
 ## Overview
 
 There are 6 main sections to this guide:

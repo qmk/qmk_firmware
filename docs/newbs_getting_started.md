@@ -6,7 +6,9 @@ QMK tries to put a lot of power into your hands by making easy things easy, and 
 
 # Getting Started
 
-Before you can build keymaps, you need to install some software and set up your build environment. This only has to be done once no matter how many keyboards you plan to compile firmware for.
+Before you can build keymaps, you need to install some software and set up your build environment. This only has to be done once no matter how many keyboards you plan to compile firmware for. 
+
+If you would prefer a more graphical user interface approach, please consider using the online [QMK Configurator](https://config.qmk.fm).
 
 ## Download Software
 
