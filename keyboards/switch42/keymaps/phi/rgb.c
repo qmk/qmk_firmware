@@ -100,7 +100,7 @@ void rgb_process_record (uint16_t keycode, keyrecord_t* record) {
         if (!is_master) return;
     }
 
-    if (row == 4) {
+    if (row == 3) {
         col %= 3;
     }
 
