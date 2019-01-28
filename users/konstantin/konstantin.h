@@ -24,7 +24,7 @@
 #define NXT_TAB LCTL(KC_PGDN)
 
 #define DST_ADD LCTL(LGUI(KC_D))
-#define DST_RMV LCTL(LGUI(KC_F4))
+#define DST_REM LCTL(LGUI(KC_F4))
 #define DST_PRV LCTL(LGUI(KC_LEFT))
 #define DST_NXT LCTL(LGUI(KC_RGHT))
 #ifndef DST_MOD_MASK
