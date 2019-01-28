@@ -82,7 +82,7 @@ void td_lsft_fn_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_DESKTOP] = ACTION_TAP_DANCE_DOUBLE(LCTL(LGUI(KC_D)), LCTL(LGUI(KC_F4))), // Add/close virtual desktop
+  [TD_DST_A_R] = ACTION_TAP_DANCE_DOUBLE(DST_ADD, DST_RMV),
 
   [TD_RAL_LAL] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RALT, KC_LALT),
   [TD_RAL_RGU] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RALT, KC_RGUI),

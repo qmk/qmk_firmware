@@ -23,6 +23,11 @@
 #define PRV_TAB LCTL(KC_PGUP)
 #define NXT_TAB LCTL(KC_PGDN)
 
+#define DST_ADD LCTL(LGUI(KC_D))
+#define DST_RMV LCTL(LGUI(KC_F4))
+#define DST_PRV LCTL(LGUI(KC_LEFT))
+#define DST_NXT LCTL(LGUI(KC_RGHT))
+
 #define LCT_CPS LCTL_T(KC_CAPS)
 
 #ifdef SEND_STRING_CLEAN
@@ -37,6 +42,8 @@
 
 enum keycodes_user {
   CLEAR = SAFE_RANGE,
+  DST_P_R,
+  DST_N_A,
 #ifdef LAYER_NUMPAD
   NUMPAD,
 #endif
