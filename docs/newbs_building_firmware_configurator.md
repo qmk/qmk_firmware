@@ -1,6 +1,8 @@
 # QMK Configurator
 
-The [QMK Configurator](https://config.qmk.fm) is an online graphical user interface that generates QMK Firmware hex files.  **Please follow these steps in order.** 
+The [QMK Configurator](https://config.qmk.fm) is an online graphical user interface that generates QMK Firmware hex files.  
+
+?> **Please follow these steps in order.**
 
 Watch the [Video Tutorial](https://youtu.be/7RH-1pAbjvw)
 
