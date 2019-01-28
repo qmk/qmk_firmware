@@ -65,7 +65,7 @@ When you're satisfied with your keymap or just want to work on it later, press t
 
 You can then load this .json file in the future by pressing the `Import Keymap` button. 
 
-**CAUTION:** This is not the same type of .json file used for kbfirmware.com or any other tool. If you try to use this for those tools, or the .json from those tools with QMK Configurator, there is a chance your keyboard will **explode**. 
+!> **CAUTION:** This is not the same type of .json file used for kbfirmware.com or any other tool. If you try to use this for those tools, or the .json from those tools with QMK Configurator, there is a chance your keyboard will **explode**. 
 
 ## Generating your firmware file
 
