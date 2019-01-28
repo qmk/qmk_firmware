@@ -133,7 +133,9 @@ uint32_t eeconfig_read_rgblight(void) {
 }
 void eeconfig_update_rgblight(uint32_t val) {
   #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
+  if (eeconfig_read_rgblight() != val) {
     eeprom_update_dword(EECONFIG_RGBLIGHT, val);
+  }
   #endif
 }
 void eeconfig_update_rgblight_default(void) {
