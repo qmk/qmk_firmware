@@ -2,7 +2,7 @@
 
 ![Photo](https://i.imgur.com/hYoW8IJ.jpg)
 
-An 65% keyboard made specifically for Alps SKCM/L switches and AEK/M0116 keycaps.
+A 65% keyboard made specifically for Alps SKCM/L switches and AEK/M0116 keycaps.
 
 Keyboard Maintainer: [ai03](https://github.com/ai03-2725)  
 Hardware Supported: Official Lunar PCB
