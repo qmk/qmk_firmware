@@ -82,7 +82,7 @@ void eeconfig_update_led_matrix_default(void) {
   eeconfig_update_led_matrix(led_matrix_config.raw);
 }
 void eeconfig_debug_led_matrix(void) {
-  dprintf("led_matrix_config eprom\n");
+  dprintf("led_matrix_config eeprom\n");
   dprintf("led_matrix_config.enable = %d\n", led_matrix_config.enable);
   dprintf("led_matrix_config.mode = %d\n", led_matrix_config.mode);
   dprintf("led_matrix_config.val = %d\n", led_matrix_config.val);
@@ -176,21 +176,12 @@ void led_matrix_task(void) {
         return;
     }
 
-    // delay 1 second before driving LEDs or doing anything else
-    // FIXME: Can't we use wait_ms() here?
-    static uint8_t startup_tick = 0;
-    if (startup_tick < 20) {
-        startup_tick++;
-        return;
-    }
-
     g_tick++;
 
     if (g_any_key_hit < 0xFFFFFFFF) {
         g_any_key_hit++;
     }
 
-/* FIXME: WHY YOU COMMENT OUT?!
     for (int led = 0; led < LED_DRIVER_LED_COUNT; led++) {
         if (g_key_hit[led] < 255) {
             if (g_key_hit[led] == 254)
@@ -199,12 +190,6 @@ void led_matrix_task(void) {
         }
     }
 
-    // Factory default magic value
-    if (led_matrix_config.mode == 255) {
-        led_matrix_uniform_brightness();
-        return;
-    }
-*/
     // Ideally we would also stop sending zeros to the LED driver PWM buffers
     // while suspended and just do a software shutdown. This is a cheap hack for now.
     bool suspend_backlight = ((g_suspend_state && LED_DISABLE_WHEN_USB_SUSPENDED) ||
@@ -263,25 +248,28 @@ void led_matrix_indicators_user(void) {}
 void led_matrix_init(void) {
   led_matrix_driver.init();
 
-  // TODO: put the 1 second startup delay here?
+  // Wait a second for the driver to finish initializing
+  wait_ms(1000);
 
   // clear the key hits
   for (int led=0; led<LED_DRIVER_LED_COUNT; led++) {
       g_key_hit[led] = 255;
   }
 
-
   if (!eeconfig_is_enabled()) {
       dprintf("led_matrix_init_drivers eeconfig is not enabled.\n");
       eeconfig_init();
       eeconfig_update_led_matrix_default();
   }
+
   led_matrix_config.raw = eeconfig_read_led_matrix();
+
   if (!led_matrix_config.mode) {
       dprintf("led_matrix_init_drivers led_matrix_config.mode = 0. Write default values to EEPROM.\n");
       eeconfig_update_led_matrix_default();
       led_matrix_config.raw = eeconfig_read_led_matrix();
   }
+
   eeconfig_debug_led_matrix(); // display current eeprom values
 }
 
