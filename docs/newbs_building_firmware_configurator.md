@@ -9,7 +9,7 @@ Watch the [Video Tutorial](https://youtu.be/7RH-1pAbjvw)
 The QMK Configurator works best with Chrome/Firefox. 
 
 
-# Files from other tools such as KLE, or kbfirmware will not be compatible with QMK Configurator. Do not load them, do not import them. QMK Configurator is a DIFFERENT tool. 
+!> **Files from other tools such as KLE, or kbfirmware will not be compatible with QMK Configurator. Do not load them, do not import them. QMK Configurator is a DIFFERENT tool. **
 
 ## Selecting your keyboard
 
