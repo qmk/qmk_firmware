@@ -30,7 +30,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case DST_P_R:
     (record->event.pressed ? register_code16 : unregister_code16)(
-      (get_mods() & DST_MOD_MASK) ? DST_RMV : DST_PRV
+      (get_mods() & DST_MOD_MASK) ? DST_REM : DST_PRV
     );
     return false;
 
