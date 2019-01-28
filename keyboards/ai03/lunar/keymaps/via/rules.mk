@@ -1,3 +1,8 @@
+SRC += keyboards/wilba_tech/wt_main.c
+
+RAW_ENABLE = yes
+DYNAMIC_KEYMAP_ENABLE = yes
+
 # MCU name
 #MCU = at90usb1286
 MCU = atmega32u4
