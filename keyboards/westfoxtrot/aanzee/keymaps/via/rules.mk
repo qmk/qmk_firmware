@@ -63,3 +63,8 @@ AUDIO_ENABLE = no
 UNICODE_ENABLE = no 		# Unicode
 BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
 
+#add files needed for via
+
+RAW_ENABLE = yes
+DYNAMIC_KEYMAP_ENABLE = yes
+SRC += keyboards/wilba_tech/wt_main.c
