@@ -34,9 +34,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #undef RGBLED_NUM
 #define RGBLED_NUM (BACKLIGHT_NUM + UNDERGLOW_NUM)
 
-#undef RGBLIGHT_LIMIT_VAL
-#define RGBLIGHT_LIMIT_VAL 255
-
 // #define CATERINA_BOOTLOADER /* Explicitly use caterina bootloader to make RESET keycode available */
 #define PREVENT_STUCK_MODIFIERS /* Auto-restore layer when the layer key is released */
 
