@@ -71,7 +71,7 @@ Windows sometimes doesn't recognize the jj40. The easiest way of flashing a new 
    for more info.
 
 ## Recovery 
-If you flash a bad hex (e.g. you have a V1 board without RGB and compile/flash blindly without editing your rules.mk), your jj40 is now semi-bricked and you're stuck unless you have access to an ISP. Luckily, the ubiquitous Arduino can function as an ISP.
+If you flash a bad hex (e.g. you have a V1 board without RGB and compile/flash blindly without editing your rules.mk), your jj40 is now semi-bricked and you're stuck unless you have access to an ISP. Unfortunately, the [ISP Flashing Guide](https://docs.qmk.fm/#/isp_flashing_guide) does not yet include support for the Atmega32A. However, the instructions below should get you up and running provided you have an Arduino or clone.
 
 ### Arduino Setup 
 1. Upload the ArduinoISP sketch onto your Arduino board (https://www.arduino.cc/en/Tutorial/ArduinoISP).  
