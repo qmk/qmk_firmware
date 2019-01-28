@@ -3,3 +3,9 @@
 SRC = matrix.c
 RGBLIGHT_ENABLE = no
 RGB_MATRIX_ENABLE = yes
+
+# Trying stuff  5950
+RGBLIGHT_ANIMATION = no  ## No difference
+UNICODE_ENABLE   = no ## saves 598 buyes
+#SLEEP_LED_ENABLE = no ## No Difference
+#API_SYSEX_ENABLE = no ## uses 3274 bytes
