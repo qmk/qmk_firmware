@@ -87,7 +87,6 @@ void rgb_set_bg_disabled (void) {
 
 /* ---------- */
 
-bool temporary_bg_enabled = false;
 
 void rgb_process_record (uint16_t keycode, keyrecord_t* record) {
     int row = record->event.key.row;
@@ -114,7 +113,7 @@ void rgb_update (bool force) {
     if (last_update && timer_elapsed(last_update) < RGB_REFRESH_INTERVAL && !force) return;
     last_update = timer_read();
 
-    if ((layer_state != last_layer_state || force) && !temporary_bg_enabled) {
+    if (layer_state != last_layer_state || force) {
         if (layer_state & L_GARAKE) {
             if (is_master) {
                 rgb_set_bg_disabled();
@@ -130,15 +129,4 @@ void rgb_update (bool force) {
     }
 
     rgb_send();
-}
-
-void rgb_override_color (uint16_t h, uint8_t s, uint16_t h2, uint8_t s2) {
-    temporary_bg_enabled = true;
-    rgb_set_bg_gradient(h, s, h2, s2);
-    rgb_send();
-}
-
-void rgb_unoverride_color (void) {
-    temporary_bg_enabled = false;
-    rgb_update(true);
 }
