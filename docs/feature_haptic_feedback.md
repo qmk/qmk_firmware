@@ -4,10 +4,10 @@
 
 ## Haptic feedback rules.mk options
 
-The following options are currently available for haptic feedback:
+The following options are currently available for haptic feedback in `rule.mk`:
 
-* HAPTIC_ENABLE = DRV2605L
-* HAPTIC_ENABLE = SOLENOID
+`HAPTIC_ENABLE = DRV2605L`
+`HAPTIC_ENABLE = SOLENOID`
 
 ## Known Supported Hardware
 
@@ -40,7 +40,9 @@ First you will need a build a circuit to drive the solenoid through a mosfet as 
 
 Select a pin that has PWM for the signal pin
 
-* #define   #define SOLENOID_PIN *PIN*
+```
+#define SOLENOID_PIN *pin*
+```
 
 ### DRV2605L
 
@@ -54,7 +56,8 @@ This driver supports 2 different feedback motors. Set the following in your `con
 
 Eccentric Rotating Mass vibration motors (ERM) is motor with a off-set weight attached so when drive signal is attached, the off-set weight spins and causes a sinusoidal wave that translate into vibrations.
 
-``` #define FB_ERM_LRA 0
+```
+#define FB_ERM_LRA 0
 
 /* Please refer to your datasheet for the optimal setting for your specific motor. */
 
