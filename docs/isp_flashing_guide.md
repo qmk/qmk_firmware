@@ -63,6 +63,7 @@ If you just want to get things back to normal, you can flash only a bootloader f
 
 * [`atmega32u4`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32u4_1_0_0.hex) - Most keyboards, Planck Rev 1-5, Preonic Rev 1-2
 * [`at90usb1286`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_at90usb128x_1_0_1.hex) - Planck Light Rev 1
+* [`atmega32a`](https://github.com/qmk/qmk_firmware/blob/master/util/bootloader_atmega32a_1_0_0.hex) - jj40
 
 If you're not sure what your board uses, look in the `rules.mk` file for the keyboard in QMK. The `MCU =` line will have the value you need. It may differ between different versions of the board.
 
@@ -112,6 +113,10 @@ and you should get something like the following output:
 Since our keyboard uses an `atmega32u4` (common), that is the chip we'll specify. This is the full command:
 
     avrdude -c avrisp -P COM3 -p atmega32u4 -U flash:w:main.hex:i
+
+If your board uses an `atmega32a` (e.g. on a jj40), the command is this (the extra code at the end sets the fuses correctly):
+
+	avrdude -c avrisp -P COM3 -p atmega32 -U flash:w:main.hex:i -U hfuse:w:0xD0:m -U lfuse:w:0x0F:m
 
 You should see a couple of progress bars, then you should see:
 
