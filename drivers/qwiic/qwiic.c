@@ -22,10 +22,16 @@ void qwiic_init(void) {
   #ifdef QWIIC_MICRO_OLED_ENABLE
     micro_oled_init();
   #endif
+  #ifdef QWIIC_RGB7SEG_ENABLE
+    rgb7seg_init();
+  #endif
 }
 
 void qwiic_task(void) {
   #ifdef QWIIC_JOYSTIIC_ENABLE
     joystiic_task();
+  #endif
+  #ifdef QWIIC_RGB7SEG_ENABLE
+    rgb7seg_task();
   #endif
 }

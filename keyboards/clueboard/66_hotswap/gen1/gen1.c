@@ -14,7 +14,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "gen1.h"
-#include "is31fl3731-simple.h"
 
 void matrix_init_kb(void) {
 }
@@ -23,6 +22,8 @@ void matrix_scan_kb(void) {
 }
 
 #ifdef LED_MATRIX_ENABLE
+#include "is31fl3731-simple.h"
+
 const is31_led g_is31_leds[LED_DRIVER_LED_COUNT] = {
 /* Refer to IS31 manual for these locations
  *  driver

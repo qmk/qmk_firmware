@@ -16,3 +16,9 @@ ifneq ($(filter MICRO_OLED, $(QWIIC_ENABLE)),)
   OPT_DEFS += -DQWIIC_MICRO_OLED_ENABLE
   SRC += micro_oled.c
 endif
+
+ifneq ($(filter RGB7SEG, $(QWIIC_ENABLE)),)
+  COMMON_VPATH += $(DRIVER_PATH)/issi
+  OPT_DEFS += -DQWIIC_RGB7SEG_ENABLE
+  SRC += rgb7seg.c is31fl3235a.c
+endif
