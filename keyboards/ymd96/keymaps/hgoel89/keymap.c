@@ -27,7 +27,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 #define _DEFLT 0
 #define _RAISE 1
 
-#define KEYMAP KEYMAP_CUSTOM
+#define KEYMAP LAYOUT_CUSTOM
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	
