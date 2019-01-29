@@ -26,7 +26,5 @@ EXTRAKEY_ENABLE		= yes	# Audio control and System control(+450)
 USB_HID_ENABLE = yes
 
 CUSTOM_MATRIX = yes
-SRC = custom_matrix.cpp
-
-CUSTOM_MATRIX = yes
-SRC = custom_matrix.cpp
+SRC += custom_matrix.cpp \
+			main.c
