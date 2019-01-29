@@ -12,6 +12,8 @@ Make example for this keyboard (after setting up your build environment):
 
 Flashing
 
+**Reset Key:** Left Control
+
 ps2avr(GB) boards use an atmega32a microcontroller and a different bootloader. It is not flashable using the regular QMK methods. 
 
 Windows: 
