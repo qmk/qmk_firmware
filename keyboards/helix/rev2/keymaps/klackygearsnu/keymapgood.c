@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-//#include "klackygears.h"
 #include "bootloader.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
@@ -29,7 +28,7 @@ enum layer_number {
     _DVORAK = 0,
     _SYMB,
     _NUMB,
-    _MDIA
+    _ADJUST
 };
 
 enum custom_keycodes {
@@ -37,11 +36,11 @@ enum custom_keycodes {
   DVORAK = SAFE_RANGE,
   SYMB,
   NUMB,
-  MDIA,
+  ADJUST,
   BACKLIT,
   EISU,
   KANA,
-  //RGBRST,
+  RGBRST,
   DYNAMIC_MACRO_RANGE,
 };
 
@@ -85,53 +84,147 @@ enum {
 
 #define KC________ KC_TRNS
 #define KC_XXXXX KC_NO
+#define KC_KANJI KC_GRV
+#define KC_DVORAK DVORAK
+#define KC_SYMB SYMB
+#define KC_NUMB NUMB
+#define KC_ADJUST ADJUST
+#define KC_BACKLIT BACKLIT
+#define KC_EISU EISU
+#define KC_KATNA KANA
+#define KC_RESET RESET
+#define KC_AU_ON AU_ON
+#define KC_AU_OFF AU_OFF
+#define KC_AG_NORM AG_NORM
+#define KC_KSWP  AG_SWAP
 
 
-//#if HELIX_ROWS == 5
+
+#define KC_SYMB SYMB
+#define KC_NUMB NUMB
+#define KC_MNMB MNMB
+#define KC_MACD TO(_MDVK)
+#define KC_MCNB TO(_MNMB)
+
+#define KC_RST   RESET
+
+#define KC_LRST  RGBRST
+#define KC_LTOG  RGB_TOG
+#define KC_LMOD  RGB_MOD
+#define KC_LHUI  RGB_HUI
+#define KC_LHUD  RGB_HUD
+#define KC_LSAI  RGB_SAI
+#define KC_LSAD  RGB_SAD
+#define KC_LVAI  RGB_VAI
+#define KC_LVAD  RGB_VAD
+#define KC_LSPI  RGB_SPI
+#define KC_LSPD  RGB_SPD
+#define KC_LRMOD RGB_RMOD
+
+#define KC_SPSY LT(_SYMB,KC_SPC)
+#define KC_BSNB LT(_NUMB,KC_BSPC)
+#define KC_TBNB LT(_NUMB,KC_TAB)
+#define KC_ENSY LT(_SYMB,KC_ENT)
+#define KC_MBNB LT(_MNMB,KC_BSPC)
+#define KC_MTNB LT(_MNMB,KC_TAB)
+
+#define KC_MCRTG TD(TD_MCROTOG)
+#define KC_MCTG2 TD(TD_MCROTG2)
+#define KC_CMWN TD(TD_CMWN)
+#define KC_ATSH TD(TD_ATSH)
+#define KC_PSTI TD(TD_PSTI)
+#define KC_PTSP TD(TD_PTSP)
+#define KC_FNDR TD(TD_FNDR)
+#define KC_CCPY TD(TD_CCPY)
+#define KC_DDEL TD(TD_DDEL)
+#define KC_ACCW TD(TD_ACCW)
+#define KC_CAPES TD(TD_CAPES)
+#define KC_DTEX TD(TD_DTEX)
+#define KC_COMQUES TD(TD_COMQUES)
+#define KC_MINPLS TD(TD_MINPLS)
+#define KC_DIVMLT TD(TD_DIVMLT)
+#define KC_DOTEQL TD(TD_DOTEQL)
+#define KC_LSHSYM TD(TD_LSHSYM)
+#define KC_RSHSYM TD(TD_RSHSYM)
+#define KC_SCNSP TD(TD_SCNSP)
+#define KC_MCCPY TD(TD_MCCCPY)
+#define KC_MCPIN TD(TD_MCPSTIN)
+
+#define KC_WNL  LGUI(KC_L)
+#define KC_MCL  LCTL(LALT(KC_Q))
+#define KC_WNSC MT(MOD_LGUI,KC_SCLN)
+#define KC_CSCN MT(MOD_LCTL,KC_SCLN)
+#define KC_ALTQ MT(MOD_LALT,KC_Q)
+#define KC_CTLJ MT(MOD_LCTL,KC_J)
+#define KC_GUIJ MT(MOD_LGUI,KC_J)
+#define KC_SHFK MT(MOD_LSFT,KC_K)
+#define KC_SHFM MT(MOD_LSFT,KC_M)
+#define KC_CTLW MT(MOD_LCTL,KC_W)
+#define KC_GUIW MT(MOD_LGUI,KC_W)
+#define KC_ALTV MT(MOD_LALT,KC_V)
+#define KC_MDAZ LT(_ADJUST,KC_Z)
+#define KC_CTLA LCTL(KC_A)
+#define KC_CTL2 MT(MOD_LCTL,KC_2)
+#define KC_ALT3 MT(MOD_LALT,KC_3)
+#define KC_CSTC C_S_T(KC_COLN)
+
+#define KC_MRC1 DYN_REC_START1
+#define KC_MPL1 DYN_MACRO_PLAY1
+#define KC_MSP DYN_REC_STOP
+
+#define KC_KNRM  AG_NORM
+#define KC_GUAP  LALT_T(KC_APP)
+
+///Macros
+#define M_SAMPLE M(KC_SAMPLEMACRO)
+
+
+
+#if HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-  [_DVORAK] = LAYOUT( \
-      RGB_MOD,   KC________,           KC________,        KC________,         KC________, KC________,                                            KC________,       KC________, KC________,        KC________,        KC________,     KC________, \
-      KC_ESC,    KC_QUOT,              TD(TD_COMQUES),    TD(TD_DTEX),        KC_P,       KC_Y,                                                  KC_F,             KC_G,       KC_C,              KC_R,              KC_L,           KC________, \
-      KC_LSFT,   KC_A,                 KC_O,              KC_E,               KC_U,       KC_I,                                                  KC_D,             KC_H,       KC_T,              KC_N,              KC_S,           KC_RSFT, \
-      KC_LSFT,   MT(MOD_LCTL,KC_SCLN), MT(MOD_LALT,KC_Q), MT(MOD_LGUI, KC_J), KC_K,       KC_X,             TD(TD_MCROTG2),    TD(TD_MCROTOG),   KC_B,             KC_M,       MT(MOD_LGUI,KC_W), MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z), KC_RSFT, \
-      MO(_MDIA), KC_ENT,               KC_LALT,           KC_ENT,             KC_ENT,     LT(_SYMB,KC_SPC), LT(_NUMB,KC_BSPC), LT(_NUMB,KC_TAB), LT(_SYMB,KC_ENT), KC_LCTL,    KC_LEFT,           KC_DOWN,           KC_UP,          KC_RGHT \
+  [_DVORAK] = LAYOUT_kc( \
+      LRMOD,   _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      ESC,     QUOT,    COMQUES, DTEX,    P,       Y,                         F,       G,       C,       R,       L,       _______, \
+      LSFT,    A,       O,       E,       U,       I,                         D,       H,       T,       N,       S,       RSFT, \
+      LSFT,    CSCN,    ALTQ,    GUIJ,    K,       X,       MCTG2,  MCRTG,    B,       M,       GUIW,    ALTV,    MDAZ,    RSFT, \
+      ADJUST,  ENT,     LALT,    ENT,     SPSY,    SPSY,    BSNB,   TBNB,     ENSY,    ENSY,    LEFT,    DOWN,    UP,      RGHT \
       ),
 
 
 
-  [_SYMB] = LAYOUT( \
-      KC________, KC________, KC________, KC________, KC________, KC________,                         KC________, KC________, KC________, KC________, KC________, KC________, \
-      KC________, KC_BSLS,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,                            KC________, KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC________, \
-      KC________, KC_PLUS,    KC_MINS,    KC_ASTR,    KC_SLSH,    KC_EQL,                             KC________, KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC________, \
-      KC________, KC_LBRC,    KC_RBRC,    KC_LPRN,    KC_RPRN,    KC_AMPR,    KC________, KC________, KC_GRV,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC________, \
-      KC________, KC________, KC________, KC________, KC_SPC,     KC_DEL,     KC________, KC________, KC_CAPS,    KC________, KC________, KC________, KC________, KC________ \
+  [_SYMB] = LAYOUT_kc( \
+      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
+      _______, BSLS,    AT,      HASH,    DLR,     PERC,                      _______, F9,      F10,     F11,     F12,     _______, \
+      _______, PLUS,    MINS,    ASTR,    SLSH,    EQL,                       _______, F5,      F6,      F7,      F8,      _______, \
+      _______, LBRC,    RBRC,    LPRN,    RPRN,    AMPR,    _______, _______, GRV,     F1,      F2,      F3,      F4,      _______, \
+      _______, _______, _______, _______, SPC,     DEL,     _______, _______, CAPS,    _______, _______, _______, _______, _______ \
       ),
 
 
-  [_NUMB] = LAYOUT( \
-      KC_GRV,     KC_1,       KC_2,       KC_3,          KC_4,           KC_5,                               KC_6,          KC_7,       KC_8,       KC_9,              KC_0,           KC________, \
-      KC________, KC_PGUP,    KC_PGDN,    KC_HOME,       KC_END,         KC________,                         TD(TD_MINPLS), KC_7,       KC_8,       KC_9,              KC_COLN,        KC________, \
-      KC________, KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,       KC________,                         TD(TD_DIVMLT), KC_4,       KC_5,       KC_6,              C_S_T(KC_COLN), KC________, \
-      KC________, KC________, LGUI(KC_A), TD(TD_MCCCPY), TD(TD_MCPSTIN), KC_DEL,     KC________, KC________, TD(TD_DOTEQL), KC_1,       KC_2,       MT(MOD_LGUI,KC_3), KC_LCTRL,       KC________, \
-      KC________, KC________, KC________, KC________,    KC_SPC,         KC_BSPC,    KC________, KC________, KC________,    KC_0,       KC_0,       KC________,        KC________,     KC________ \
+  [_NUMB] = LAYOUT_kc( \
+      GRV,     1,       2,       3,       4,       5,                         6,       7,       8,       9,       0,       _______, \
+      _______, PGUP,    PGDN,    HOME,    END,     FNDR,                      MINPLS,  7,       8,       9,       COLN,    _______, \
+      _______, LEFT,    UP,      DOWN,    RIGHT,   _______,                   DIVMLT,  4,       5,       6,       CSTC,    _______, \
+      _______, _______, CTLA,    MCCPY,   MCPIN,   DEL,     _______, _______, DOTEQL,  1,       2,       ALT3,    RWIN,    _______, \
+      _______, _______, _______, _______, SPC,     BSPC,    _______, _______, _______, 0,       0,       _______, _______, _______ \
       ),
 
 
-  [_MDIA] =  LAYOUT( \
-      KC________, KC________, KC________, KC________, KC________, KC________,                         KC________, KC________, KC________, KC________, KC________, KC________, \
-      KC________, KC________, KC________, KC________, KC________, KC________,                         KC________, RGB_HUI,    RGB_SAI,    RGB_VAI,    RGB_SPI,    KC________, \
-      KC________, KC________, KC________, KC________, KC________, KC________,                         RGB_MOD,    RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_SPD,    KC________, \
-      KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC_MPLY,    KC_MUTE,    KC_VOLD,    KC_VOLU,    KC________, KC________, \
-      KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________ \
+  [_ADJUST] =  LAYOUT_kc( \
+      _______, _______, _______, _______, _______, _______,                   LRST,    _______, _______, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______,                   _______, LHUI,    LSAI,    LVAI,    LSPI,    _______, \
+      _______, _______, _______, _______, _______, _______,                   LRMOD,   LHUD,    LSAD,    LVAD,    LSPD,    _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, MPLY,    MUTE,    VOLD,    VOLU,    _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
       )
 };
 
-//#else
-//#error "undefined keymaps"
-//#endif
+#else
+#error "undefined keymaps"
+#endif
 
 
 #ifdef AUDIO_ENABLE
@@ -408,7 +501,7 @@ void persistent_default_layer_set(uint16_t default_layer) {
   default_layer_set(default_layer);
 }
 
-// Setting MDIA layer RGB back to default
+// Setting ADJUST layer RGB back to default
 void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   if (IS_LAYER_ON(layer1) && IS_LAYER_ON(layer2)) {
     #ifdef RGBLIGHT_ENABLE
@@ -420,14 +513,12 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
   }
 }
 
-
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
  if (!process_record_dynamic_macro(keycode, record)) {
         return false;
     }
-/*
+
   switch (keycode) {
 
       return false;
@@ -454,14 +545,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           #endif
         }
         layer_on(_SYMB);
-        update_tri_layer_RGB(_SYMB, _NUMB, _MDIA);
+        update_tri_layer_RGB(_SYMB, _NUMB, _ADJUST);
       } else {
         #ifdef RGBLIGHT_ENABLE
           //rgblight_mode(RGB_current_mode);   // revert RGB to initial mode prior to RGB mode change
         #endif
         TOG_STATUS = false;
         layer_off(_SYMB);
-        update_tri_layer_RGB(_SYMB, _NUMB, _MDIA);
+        update_tri_layer_RGB(_SYMB, _NUMB, _ADJUST);
       }
       return false;
       break;
@@ -477,22 +568,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           #endif
         }
         layer_on(_NUMB);
-        update_tri_layer_RGB(_SYMB, _NUMB, _MDIA);
+        update_tri_layer_RGB(_SYMB, _NUMB, _ADJUST);
       } else {
         #ifdef RGBLIGHT_ENABLE
           //rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
         #endif
         layer_off(_NUMB);
         TOG_STATUS = false;
-        update_tri_layer_RGB(_SYMB, _NUMB, _MDIA);
+        update_tri_layer_RGB(_SYMB, _NUMB, _ADJUST);
       }
       return false;
       break;
-    case MDIA:
+    case ADJUST:
         if (record->event.pressed) {
-          layer_on(_MDIA);
+          layer_on(_ADJUST);
         } else {
-          layer_off(_MDIA);
+          layer_off(_ADJUST);
         }
         return false;
         break;
@@ -507,7 +598,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #endif
       return false;
       break;
-
+    case EISU:
+      if (record->event.pressed) {
+        if(keymap_config.swap_lalt_lgui==false){
+          register_code(KC_LANG2);
+        }else{
+          SEND_STRING(SS_LALT("`"));
+        }
+      } else {
+        unregister_code(KC_LANG2);
+      }
+      return false;
+      break;
+    case KANA:
+      if (record->event.pressed) {
+        if(keymap_config.swap_lalt_lgui==false){
+          register_code(KC_LANG1);
+        }else{
+          SEND_STRING(SS_LALT("`"));
+        }
+      } else {
+        unregister_code(KC_LANG1);
+      }
+      return false;
+      break;
     case RGBRST:
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
@@ -517,25 +631,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
-  */
+  }
   return true;
-
-
 }
+
 void matrix_init_user(void) {
     #ifdef AUDIO_ENABLE
         startup_user();
     #endif
-   // #ifdef RGBLIGHT_ENABLE
-   //   RGB_current_mode = rgblight_config.mode;
-   // #endif
+    #ifdef RGBLIGHT_ENABLE
+      RGB_current_mode = rgblight_config.mode;
+    #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
 
-/*
+
 #ifdef AUDIO_ENABLE
 
 void startup_user()
@@ -560,7 +673,7 @@ void music_scale_user(void)
 }
 
 #endif
-*/
+
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
@@ -601,8 +714,8 @@ void matrix_update(struct CharacterMatrix *dest,
 #define L_BASE 0
 #define L_SYMB (1<<_SYMB)
 #define L_NUMB (1<<_NUMB)
-#define L_MDIA (1<<_MDIA)
-#define L_MDIA_TRI (L_MDIA|L_NUMB|L_SYMB)
+#define L_ADJUST (1<<_ADJUST)
+#define L_ADJUST_TRI (L_ADJUST|L_NUMB|L_SYMB)
 
 static void render_logo(struct CharacterMatrix *matrix) {
 
@@ -645,9 +758,9 @@ void render_status(struct CharacterMatrix *matrix) {
         case L_SYMB:
            matrix_write_P(matrix, PSTR("Punctuation"));
            break;
-        case L_MDIA:
-        case L_MDIA_TRI:
-           matrix_write_P(matrix, PSTR("MDIA"));
+        case L_ADJUST:
+        case L_ADJUST_TRI:
+           matrix_write_P(matrix, PSTR("Adjust"));
            break;
         default:
            matrix_write(matrix, buf);
