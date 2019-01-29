@@ -16,6 +16,8 @@ ARMV = 7
 
 OPT_DEFS =
 
+EXTRAFLAGS=-O0
+
 BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = no	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
@@ -24,5 +26,5 @@ COMMAND_ENABLE = no    # Commands for debug and configuration
 SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes # Custom matrix file
-BACKLIGHT_ENABLE = no
-VISUALIZER_ENABLE = no
+NKRO_ENABLE      = yes # USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+UNICODE_ENABLE   = yes # Unicode

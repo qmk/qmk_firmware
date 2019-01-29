@@ -32,7 +32,7 @@ inline void ergodox_led_all_off(void)
   palClearPad(GPIOA, 8);
 }
 
-extern int mcp23017_status;
+extern volatile int mcp23017_status;
 
 uint8_t init_mcp23017(void);
 

@@ -25,7 +25,7 @@
  * but using any other I2C pins should be trivial.
  */
 
-#include "i2c_master.h"
+#include "i2cmaster.h"
 #include "quantum.h"
 #include <string.h>
 
@@ -35,19 +35,14 @@ static uint8_t i2c_address;
 // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 static const I2CConfig i2cconfig = {
   OPMODE_I2C,
-  100000,
-  STD_DUTY_CYCLE,
+  400000,
+  FAST_DUTY_CYCLE_2,
 };
 
 __attribute__ ((weak))
 void i2c_init(void)
 {
   // Try releasing special pins for a short time
-  palSetPadMode(GPIOB, 6, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 7, PAL_MODE_INPUT);
-
-  chThdSleepMilliseconds(10);
-
   palSetPadMode(GPIOB, 6, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
   palSetPadMode(GPIOB, 7, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
 

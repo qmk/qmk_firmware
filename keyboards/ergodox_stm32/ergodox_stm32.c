@@ -9,7 +9,7 @@ extern inline void ergodox_board_led_2_off(void);
 extern inline void ergodox_board_led_3_off(void);
 extern inline void ergodox_led_all_off(void);
 
-int mcp23017_status = 0x20;
+volatile int mcp23017_status = 0x20;
 uint8_t i2c_initializied = 0;
 
 // static THD_WORKING_AREA(testThread1WorkingArea, 128);
