@@ -41,10 +41,4 @@
 
 #define IGNORE_MOD_TAP_INTERRUPT
 
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-
 #endif

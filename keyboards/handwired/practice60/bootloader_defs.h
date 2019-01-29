@@ -7,4 +7,4 @@
 
 // STM32F103* does NOT have an USB bootloader in ROM (only serial),
 //  so setting anything here does not make much sense
-// #define STM32_BOOTLOADER_ADDRESS 0x1FFFC800
+#define STM32_BOOTLOADER_ADDRESS 0x80000000

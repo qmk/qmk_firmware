@@ -54,7 +54,7 @@ int8_t get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
 void set_oneshot_locked_mods(int8_t mods) { oneshot_locked_mods = mods; }
 void clear_oneshot_locked_mods(void) { oneshot_locked_mods = 0; }
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-static int16_t oneshot_time = 0;
+static uint16_t oneshot_time = 0;
 bool has_oneshot_mods_timed_out(void) {
   return TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT;
 }
@@ -79,7 +79,7 @@ inline uint8_t get_oneshot_layer(void) { return oneshot_layer_data >> 3; }
 inline uint8_t get_oneshot_layer_state(void) { return oneshot_layer_data & 0b111; }
 
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-static int16_t oneshot_layer_time = 0;
+static uint16_t oneshot_layer_time = 0;
 inline bool has_oneshot_layer_timed_out() {
     return TIMER_DIFF_16(timer_read(), oneshot_layer_time) >= ONESHOT_TIMEOUT &&
         !(get_oneshot_layer_state() & ONESHOT_TOGGLED);

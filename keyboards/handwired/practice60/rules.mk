@@ -1,7 +1,6 @@
 # project specific files
 SRC =	led.c \
-		  underglow.c \
-		  hsv2rgb.c
+		  ws2812.c
 
 # GENERIC STM32F103C8T6 board - stm32duino bootloader
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000
@@ -50,6 +49,7 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes
+RGBLIGHT_ENABLE = yes
 
 LAYOUTS = 60_ansi
 
