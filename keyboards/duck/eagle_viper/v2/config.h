@@ -21,9 +21,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6050
-#define DEVICE_VER      0x0104
+#define VENDOR_ID       0x444B // Duck ("DK")
+#define PRODUCT_ID      0x4556 // Eagle/Viper ("EV")
+#define DEVICE_VER      0x0002
 #define MANUFACTURER    Duck
 #define PRODUCT         Eagle/Viper V2
 #define DESCRIPTION     60% Korean custom keyboard
@@ -39,11 +39,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* number of backlight levels */
 #define BACKLIGHT_LEVELS 3
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 #define RGBLIGHT_ANIMATIONS
 #define RGB_DI_PIN D6

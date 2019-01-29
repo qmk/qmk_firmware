@@ -60,21 +60,21 @@ Sometimes, you might want to switch between layers in a macro or as part of a ta
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
-|Key       |Aliases               |Description                                         |
-|----------|----------------------|----------------------------------------------------|
-|`LCTL(kc)`|                      |Hold Left Control and press `kc`                    |
-|`LSFT(kc)`|`S(kc)`               |Hold Left Shift and press `kc`                      |
-|`LALT(kc)`|                      |Hold Left Alt and press `kc`                        |
-|`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
-|`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
-|`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|`ALGR(kc)`            |Hold Right Alt and press `kc`                       |
-|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
-|`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
-|`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
-|`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
-|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
-|`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
+|Key       |Aliases                        |Description                                         |
+|----------|-------------------------------|----------------------------------------------------|
+|`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                    |
+|`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                      |
+|`LALT(kc)`|`A(kc)`                        |Hold Left Alt and press `kc`                        |
+|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
+|`RCTL(kc)`|                               |Hold Right Control and press `kc`                   |
+|`RSFT(kc)`|                               |Hold Right Shift and press `kc`                     |
+|`RALT(kc)`|`ALGR(kc)`                     |Hold Right Alt and press `kc`                       |
+|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`         |Hold Right GUI and press `kc`                       |
+|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`              |
+|`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`            |
+|`LCAG(kc)`|                               |Hold Left Control, Alt and GUI and press `kc`       |
+|`MEH(kc)` |                               |Hold Left Control, Shift and Alt and press `kc`     |
+|`HYPR(kc)`|                               |Hold Left Control, Shift, Alt and GUI and press `kc`|
 
 You can also chain them, for example `LCTL(LALT(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
 
@@ -110,20 +110,20 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 |Key         |Aliases                                                          |Description                                            |
 |------------|-----------------------------------------------------------------|-------------------------------------------------------|
 |`LCTL_T(kc)`|`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped               |
-|`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped              |
 |`LSFT_T(kc)`|`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                 |
-|`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                |
 |`LALT_T(kc)`|`ALT_T(kc)`                                                      |Left Alt when held, `kc` when tapped                   |
-|`RALT_T(kc)`|`ALGR_T(kc)`                                                     |Right Alt when held, `kc` when tapped                  |
 |`LGUI_T(kc)`|`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                   |
+|`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped              |
+|`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                |
+|`RALT_T(kc)`|`ALGR_T(kc)`                                                     |Right Alt when held, `kc` when tapped                  |
 |`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                  |
-|`C_S_T(kc)` |                                                                 |Left Control and Shift when held, `kc` when tapped     |
-|`MEH_T(kc)` |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
-|`LCAG_T(kc)`|                                                                 |Left Control, Alt and GUI when held, `kc` when tapped  |
-|`RCAG_T(kc)`|                                                                 |Right Control, Alt and GUI when held, `kc` when tapped |
-|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 |`SGUI_T(kc)`|`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped         |
 |`LCA_T(kc)` |                                                                 |Left Control and Alt when held, `kc` when tapped       |
+|`LCAG_T(kc)`|                                                                 |Left Control, Alt and GUI when held, `kc` when tapped  |
+|`RCAG_T(kc)`|                                                                 |Right Control, Alt and GUI when held, `kc` when tapped |
+|`C_S_T(kc)` |                                                                 |Left Control and Shift when held, `kc` when tapped     |
+|`MEH_T(kc)` |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
+|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 
 ## Caveats
 
