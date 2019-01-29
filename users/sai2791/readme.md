@@ -15,7 +15,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # Overview
 
-This is my personal userspace file.
+This is my personal userspace.
 
 # Shared Keys
 - System wide Mac lock screen Keys (KC_LOCKSCR)
@@ -33,3 +33,7 @@ quantum/keymap_common.c:190:24: error: type of 'fn_actions' does not match origi
 |                         ^
 | keyboards/ergodox_ez/keymaps/sai2791/keymap.c:226:24: note: previously declared here
 |  const uint16_t PROGMEM fn_actions[] = {
+
+  Fixed this by commenting it out in the keymaps.c in the keyboard/keymaps directory, it seems to compile ok,
+  needs testing.
+  
