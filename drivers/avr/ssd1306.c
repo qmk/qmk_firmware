@@ -1,7 +1,7 @@
 #ifdef SSD1306OLED
 
 #include "ssd1306.h"
-#include "i2c.h"
+#include "i2c_master.h"
 #include <string.h>
 #include "print.h"
 #include "glcdfont.c"
@@ -32,53 +32,36 @@ static uint16_t last_flush;
 // Write command sequence.
 // Returns true on success.
 static inline bool _send_cmd1(uint8_t cmd) {
-  bool res = false;
-
-  if (i2c_start_write(SSD1306_ADDRESS)) {
-    xprintf("failed to start write to %d\n", SSD1306_ADDRESS);
-    goto done;
-  }
-
-  if (i2c_master_write(0x0 /* command byte follows */)) {
-    print("failed to write control byte\n");
-
-    goto done;
-  }
-
-  if (i2c_master_write(cmd)) {
-    xprintf("failed to write command %d\n", cmd);
-    goto done;
-  }
-  res = true;
-done:
-  i2c_master_stop();
-  return res;
+return (i2c_writeReg(SSD1306_ADDRESS, 0, &cmd, 1, I2C_TIMEOUT) == I2C_STATUS_SUCCESS);
 }
 
 // Write 2-byte command sequence.
 // Returns true on success
 static inline bool _send_cmd2(uint8_t cmd, uint8_t opr) {
-  if (!_send_cmd1(cmd)) {
-    return false;
-  }
-  return _send_cmd1(opr);
+return (_send_cmd1(cmd) && _send_cmd1(opr));
 }
 
 // Write 3-byte command sequence.
 // Returns true on success
 static inline bool _send_cmd3(uint8_t cmd, uint8_t opr1, uint8_t opr2) {
-  if (!_send_cmd1(cmd)) {
-    return false;
-  }
-  if (!_send_cmd1(opr1)) {
-    return false;
-  }
-  return _send_cmd1(opr2);
+   return (_send_cmd1(cmd) && _send_cmd1(opr1) && _send_cmd1(opr2));
 }
 
 #define send_cmd1(c) if (!_send_cmd1(c)) {goto done;}
 #define send_cmd2(c,o) if (!_send_cmd2(c,o)) {goto done;}
 #define send_cmd3(c,o1,o2) if (!_send_cmd3(c,o1,o2)) {goto done;}
+
+bool i2c_send_start(uint8_t addr) {
+  return (i2c_start(addr, I2C_TIMEOUT));
+}
+
+bool i2c_send_byte(uint8_t data) {
+  return (i2c_write(data, I2C_TIMEOUT));
+}
+
+bool i2c_send_stop() {
+  return(i2c_stop(I2C_TIMEOUT));
+}
 
 static void clear_display(void) {
   matrix_clear(&display);
@@ -88,23 +71,21 @@ static void clear_display(void) {
   send_cmd3(PageAddr, 0, (DisplayHeight / 8) - 1);
   send_cmd3(ColumnAddr, 0, DisplayWidth - 1);
 
-  if (i2c_start_write(SSD1306_ADDRESS)) {
+  if (i2c_send_start(SSD1306_ADDRESS)) {
     goto done;
   }
-  if (i2c_master_write(0x40)) {
+  if (i2c_send_byte(0x40)) {
     // Data mode
     goto done;
   }
-  for (uint8_t row = 0; row < MatrixRows; ++row) {
-    for (uint8_t col = 0; col < DisplayWidth; ++col) {
-      i2c_master_write(0);
-    }
+  for (int i = 0; i < (MatrixRows * DisplayWidth); i++) {
+    i2c_send_byte(0);  
   }
 
   display.dirty = false;
 
 done:
-  i2c_master_stop();
+  i2c_send_stop();
 }
 
 #if DEBUG_TO_SCREEN
@@ -272,10 +253,10 @@ void matrix_render(struct CharacterMatrix *matrix) {
   send_cmd3(PageAddr, 0, MatrixRows - 1);
   send_cmd3(ColumnAddr, 0, (MatrixCols * FontWidth) - 1);
 
-  if (i2c_start_write(SSD1306_ADDRESS)) {
+  if (i2c_send_start(SSD1306_ADDRESS)) {
     goto done;
   }
-  if (i2c_master_write(0x40)) {
+  if (i2c_send_byte(0x40)) {
     // Data mode
     goto done;
   }
@@ -286,18 +267,18 @@ void matrix_render(struct CharacterMatrix *matrix) {
 
       for (uint8_t glyphCol = 0; glyphCol < FontWidth - 1; ++glyphCol) {
         uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-        i2c_master_write(colBits);
+        i2c_send_byte(colBits);
       }
 
       // 1 column of space between chars (it's not included in the glyph)
-      i2c_master_write(0);
+      i2c_send_byte(0);
     }
   }
 
   matrix->dirty = false;
 
 done:
-  i2c_master_stop();
+  i2c_send_stop();
 #if DEBUG_TO_SCREEN
   --displaying;
 #endif

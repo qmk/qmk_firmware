@@ -52,6 +52,8 @@ enum ssd1306_cmds {
 #define SSD1306_ADDRESS 0x3C
 #endif
 
+#define I2C_TIMEOUT 100
+
 #define DisplayHeight 32
 #define DisplayWidth 128
 
@@ -68,6 +70,10 @@ struct CharacterMatrix {
 };
 
 struct CharacterMatrix display;
+
+bool i2c_send_start(uint8_t addr);
+bool i2c_send_byte(uint8_t data);
+bool i2c_send_stop(void);
 
 bool iota_gfx_init(void);
 void iota_gfx_task(void);
