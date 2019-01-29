@@ -7,8 +7,6 @@ before, so bear with me.
 
 * Keymap
 
-TODO qwerty layer
-
 #+BEGIN_COMMENT
 #+NAME: empty-layer
 | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    |
@@ -36,7 +34,10 @@ keymap. No more organizing spaces or converting to and from comments.
 I tried to keep my layout bare bones, just what would be available on a normal
 keyboard, minus some keys I never used. The bottom left copies a normal
 keyboards symbols from shifted numbers, and the rest is placed where convenient,
-with some considerations for one handed use, hence the shortcuts in the top left.
+with some considerations for one handed use, hence the shortcuts in the top
+left.
+
+#+TODO: qwerty layer for ma friends
 
 #+NAME: secondary-layer
 |----+--------+--------+--------+--------+------+------+----+--------+--------+-----+----|
