@@ -1,4 +1,4 @@
-[Planck Layout Image](https://imgur.com/a/8hls3S9)
+![Imgur](https://i.imgur.com/yx9tFUq.png)
 
 # Logan's Ortho 4x12 Layout
 
