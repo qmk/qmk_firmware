@@ -9,7 +9,6 @@
 // Keycode defines
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define C(kc)   LCTL(kc)
 // JIS keyboard
 #define JK_CIRC KC_EQL      // ^
 #define JK_AT   KC_LBRC     // @
