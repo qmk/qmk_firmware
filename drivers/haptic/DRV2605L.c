@@ -104,21 +104,17 @@ void DRV_init(void)
     C4_SET.Bits.C4_AUTO_CAL_TIME = AUTO_CAL_TIME;
     DRV_write(DRV_CTRL_4, (uint8_t) C4_SET.Byte);
   DRV_write(DRV_LIB_SELECTION,LIB_SELECTION);
-  //start autocalibration
+
   DRV_write(DRV_GO, 0x01);
 
   /* 0x00 sets DRV2605 out of standby and to use internal trigger
    * 0x01 sets DRV2605 out of standby and to use external trigger */
   DRV_write(DRV_MODE,0x00); 
-  
-  /* 0x06: LRA library */
-  DRV_write(DRV_WAVEFORM_SEQ_1, 0x01);
 
-  /* 0xB9: LRA, 4x brake factor, medium gain, 7.5x back EMF
-   * 0x39: ERM, 4x brake factor, medium gain, 1.365x back EMF */
-  
-  /* TODO: setup auto-calibration as part of initiation */
-
+//Play greeting sequence
+  DRV_write(DRV_GO, 0x00);
+  DRV_write(DRV_WAVEFORM_SEQ_1, DRV_GREETING);
+  DRV_write(DRV_GO, 0x01);
 }
 
 void DRV_pulse(uint8_t sequence)
@@ -127,4 +123,3 @@ void DRV_pulse(uint8_t sequence)
   DRV_write(DRV_WAVEFORM_SEQ_1, sequence);
   DRV_write(DRV_GO, 0x01);
 }
- 

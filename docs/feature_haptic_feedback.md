@@ -11,6 +11,26 @@ The following options are currently available for haptic feedback:
 
 ## Known Supported Hardware
 
+| Name               | Description                                     |
+|--------------------|-------------------------------------------------|
+| [LV061228B-L65-A](https://www.digikey.com/product-detail/en/jinlong-machinery-electronics-inc/LV061228B-L65-A/1670-1050-ND/7732325) | z-axis 2v LRA |
+| [Mini Motor Disc](https://www.adafruit.com/product/1201)  | small 2-5v ERM |
+
+## Haptic Keycodes
+
+Not all keycodes below will work depending on which haptic mechanism you have chosen.
+
+| Name      | Description                                           |
+|-----------|-------------------------------------------------------|
+|`HPT_ON`   | Turn haptic feedback on                               |
+|`HPT_OFF`  | Turn haptic feedback on                               |
+|`HPT_TOG`  | Toggle haptic feedback on/off                         |
+|`HPT_RST`  | Reset haptic feedback config to default               |
+|`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |
+|`HPT_MODI` | Go to next DRV2605L waveform                          |
+|`HPT_MODD` | Go to previous DRV2605L waveform                      |
+|`HPT_DWLI` | Increase Solenoid dwell time                          |
+|`HPT_DWLD` | Decrease Solenoid dwell time                          |
 
 ### Solenoids
 
@@ -26,14 +46,39 @@ Select a pin that has PWM for the signal pin
 
 DRV2605L is controlled over i2c protocol, and has to be connected to the SDA and SCL pins, these varies depending on the MCU in use.
 
-#### Feedback motors
+#### Feedback motor setup
 
-This driver supports 2 different feedback motors. Set the following in your `config.h`
+This driver supports 2 different feedback motors. Set the following in your `config.h` based on which motor you have selected.
 
-* `FB_ERM_LRA = 0` for ERM
-* `FB_ERM_LRA = 1` for LRA
+##### ERM
 
-Current default is set to LRA
+Eccentric Rotating Mass vibration motors (ERM) is motor with a off-set weight attached so when drive signal is attached, the off-set weight spins and causes a sinusoidal wave that translate into vibrations.
+
+``` #define FB_ERM_LRA 0
+
+/* Please refer to your datasheet for the optimal setting for your specific motor. */
+
+#define FB_ERM_LRA 0
+#define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
+#define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+#define RATED_VOLTAGE 3
+#define V_PEAK 5
+```
+##### LRA
+
+Linear resonant actuators (LRA, also know as a linear vibrator) works different from a ERM. A LRA has a weight and magnet suspended by springs and a voice coil. When the drive signal is applied, the weight would be vibrate on a single axis (side to side or up and down). Since the weight is attached to a spring, there is a resonance effect at a specific frequency. This frequency is where the LRA will operate the most efficiently. Refer to the motor's datasheet for the recommanded range for this frequency.
+
+``` 
+#define FB_ERM_LRA 1
+#define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
+#define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+/* Please refer to your datasheet for the optimal setting for your specific motor. */
+#define RATED_VOLTAGE 2
+#define V_PEAK 2.8
+#define V_RMS 2.0 
+#define V_PEAK 2.1
+#define F_LRA 205 /* resonance freq */
+```
 
 #### DRV2605L waveform library
 
@@ -85,19 +130,14 @@ List of waveform sequences from the datasheet:
 | 40  | lg_dblclick_str_30  | 82  | transition_rampup_long_smooth1    |     |                                      |
 | 41  | lg_dblclick_med     | 83  | transition_rampup_long_smooth2    |     |                                      |
 | 42  | lg_dblclick_med_80  | 84  | transition_rampup_med_smooth1     |     |                                      |
+### Optional DRV2605L defines
 
-## Haptic Keycodes
+```
+#define DRV_GREETING *sequence name or number*
+```
+If haptic feedback is enabled, the keyboard will vibrate to a specific sqeuence during startup. That can be selected using the following define:
 
-Not all keycodes below will work depending on which haptic mechanism you have chosen.
-
-|Name       |Description                                            |
-|-----------|-------------------------------------------------------|
-|`HPT_ON`   | Turn haptic feedback on                               |
-|`HPT_OFF`  | Turn haptic feedback on                               |
-|`HPT_TOG`  | Toggle haptic feedback on/off                         |
-|`HPT_RST`  | Reset haptic feedback config to default               |
-|`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |
-|`HPT_MODI` | Go to next DRV2605L waveform                          |
-|`HPT_MODD` | Go to previous DRV2605L waveform                      |
-|`HPT_DWLI` | Increase Solenoid dwell time                          |
-|`HPT_DWLD` | Decrease Solenoid dwell time                          |
+```
+#define DRV_MODE_DEFAULT *sequence name or number*
+```
+This will set what sequence HPT_RST will set as the active mode. If not defined, mode will be set to 1 when HPT_RST is pressed.

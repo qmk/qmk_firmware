@@ -163,7 +163,7 @@ void haptic_set_dwell(uint8_t dwell) {
 
 void haptic_buzz_toggle(void) {
   bool buzz_stat = !haptic_config.buzz;
-  haptic_config = buzz_stat;
+  haptic_config.buzz = buzz_stat;
   haptic_set_buzz(buzz_stat);
 }
 

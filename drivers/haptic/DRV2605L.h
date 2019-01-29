@@ -31,13 +31,6 @@
 #define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
 #endif
 
-#ifndef RATED_VOLTAGE
-#define RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
-#ifndef V_PEAK
-#define V_PEAK 2.8
-#endif
-#endif
-
 /* LRA specific settings */
 #if FB_ERM_LRA == 1
 #ifndef V_RMS
@@ -49,6 +42,16 @@
 #ifndef F_LRA
 #define F_LRA 205
 #endif
+#ifndef RATED_VOLTAGE
+#define RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
+#endif
+#endif
+
+#ifndef RATED_VOLTAGE
+#define RATED_VOLTAGE 2 /* 2v as safe range in case device voltage is not set */
+#endif
+#ifndef V_PEAK
+#define V_PEAK 2.8
 #endif
 
 /* Library Selection */
@@ -58,6 +61,13 @@
 #else
 #define LIB_SELECTION 1
 #endif
+#endif
+
+#ifndef DRV_GREETING
+#define DRV_GREETING alert_750ms
+#endif
+#ifndef DRV_MODE_DEFAULT
+#define DRV_MODE_DEFAULT strong_click1
 #endif
 
 /* Control 1 register settings */
