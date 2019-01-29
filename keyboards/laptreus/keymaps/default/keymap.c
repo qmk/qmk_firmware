@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "laptreus.h"
 
 enum layer_names {
   _QWERTY = 0,
