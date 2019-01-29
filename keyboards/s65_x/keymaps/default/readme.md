@@ -1,4 +1,4 @@
-﻿### 1  ANSI
+### 1  ANSI
 An ANSI layout that assumes standard sized shifts, enter, and backspace keys.
 
 #### 1.0 Default layer
