@@ -23,5 +23,10 @@ An ANSI layout that assumes standard sized shifts, enter, and backspace keys.
     ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
     │     │▒▒▒▒▒│_UL  │     │     │     │     │     │     │Home │ End │     │▒▒▒▒▒│▒▒▒▒▒│Vol+ │     │
     ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-    │     │     │     │█████│█████│█████│     │█████│█████│█████│     │     │     │Mute │Vol- │Play │
+    │     │AG_SW│AG_NR│█████│█████│█████│     │█████│█████│█████│     │     │     │Mute │Vol- │Play │
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+
+#### MacOS
+
+This keymap supports swapping the GUI and ALT keys using the Fn layer. See the
+AG_SWAP and AG_NORM bindings to swap the two keys.
