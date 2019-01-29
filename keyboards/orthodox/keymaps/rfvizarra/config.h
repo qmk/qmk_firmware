@@ -19,10 +19,8 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
 
-#include "config_common.h"
+#pragma once
 
 #ifdef AUDIO_ENABLE
 #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
@@ -41,5 +39,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_LEFT
 // #define MASTER_RIGHT
 #define EE_HANDS
-
-#endif
