@@ -42,7 +42,7 @@
 #define ISSI_BANK_FUNCTIONREG 0x0B    // FIXME: Not on 3235?
 
 #ifndef ISSI_TIMEOUT
-  #define ISSI_TIMEOUT 100
+  #define ISSI_TIMEOUT 255
 #endif
 
 #ifndef ISSI_PERSISTENCE
@@ -73,9 +73,9 @@ bool g_rgb7seg_buffer_update_required = false;
 bool g_rgb7seg_control_registers_update_required = false;
 
 void IS31FL3235A_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
-    xprintf("IS31FL3235A_write_register(0x%x, 0x%x, 0x%x);\n", addr, reg, data);
     g_3235a_transfer_buffer[0] = reg;
     g_3235a_transfer_buffer[1] = data;
+    xprintf("IS31FL3235A_write_register(0x%x, 0x%x, 0x%x); g_3235a_transfer_buffer:0x%x\n", addr, reg, data, g_3235a_transfer_buffer);
 
     #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
@@ -84,7 +84,13 @@ void IS31FL3235A_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
             }
         }
     #else
-        i2c_transmit(addr << 1, g_3235a_transfer_buffer, 2, ISSI_TIMEOUT);
+        if (i2c_transmit(addr << 1, g_3235a_transfer_buffer, 2, ISSI_TIMEOUT) == -1) {
+            // When we encounter a timeout ChibiOS says the bus must be reset as it's in an unknown state
+            xprintf("i2c transmit timeout, resetting i2c bus!\n");
+            i2c_stop(ISSI_TIMEOUT);
+            wait_ms(5);
+            i2c_start(ISSI_TIMEOUT);
+        }
     #endif
 }
 
@@ -111,9 +117,13 @@ void IS31FL3235A_write_pwm_buffer(uint8_t addr, uint8_t *pwm_buffer) {
           break;
       }
     #else
-      if (!i2c_transmit(addr << 1, g_3235a_transfer_buffer, 17, ISSI_TIMEOUT)) {
-          xprintf("Could not contact i2c device 0x%x!\n", addr << 1);
-      }
+        if (i2c_transmit(addr << 1, g_3235a_transfer_buffer, 17, ISSI_TIMEOUT) == -1) {
+            // When we encounter a timeout ChibiOS says the bus must be reset as it's in an unknown state
+            xprintf("i2c transmit timeout, resetting i2c bus!\n");
+            i2c_stop(ISSI_TIMEOUT);
+            wait_ms(5);
+            i2c_start(ISSI_TIMEOUT);
+        }
     #endif
     }
 }
@@ -132,14 +142,37 @@ void IS31FL3235A_init(uint8_t addr) {
     // this delay was copied from other drivers, might not be needed
     wait_ms(10);
 
+    // This is how the Arduino code does init...
+    uint8_t i = 0;
+
+    for (i=0x2A; i<=0x45; i++) {
+        IS31FL3235A_write_register(addr, i, 0xFF);  // Turn off all LEDs
+    }
+
+    for (i=0x05; i<=0x20; i++) {
+        IS31FL3235A_write_register(addr, i, 0x00);  // Write all PWM set 0x00
+    }
+
+    IS31FL3235A_write_register(addr, 0x25, 0x00);   //update PWM&Control registers
+    IS31FL3235A_write_register(addr, 0x4B, 0x01);   //frequency setting 22KHz
+    IS31FL3235A_write_register(addr, 0x00, 0x01);   //normal operation
+
+    // This is how the Arduino code does LED turn on
+    IS31FL3235A_write_register(addr, 0x05, 0xFF);   // set PWM
+    IS31FL3235A_write_register(addr, 0x25, 0x00);   // update PWM&Control registers
+    IS31FL3235A_write_register(addr, 0x08, 0xFF);   // set PWM
+    IS31FL3235A_write_register(addr, 0x25, 0x00);   // update PWM&Control registers
+    IS31FL3235A_write_register(addr, 0x12, 0xFF);   // set PWM
+    IS31FL3235A_write_register(addr, 0x25, 0x00);   // update PWM&Control registers
+
     // FIXME: This is for testing, turn on OUT1 at full brightness
-    IS31FL3235A_write_register(addr, 0x2A, 0xFF);
-    IS31FL3235A_write_register(addr, 0x05, 0x00);
+    //IS31FL3235A_write_register(addr, 0x2A, 0xFF);
+    //IS31FL3235A_write_register(addr, 0x05, 0x00);
 
     // I think this finally turns it on?
-    IS31FL3235A_write_register(addr, 0x25, 0x00);    //update PWM&Control registers
+    //IS31FL3235A_write_register(addr, 0x25, 0x00);    //update PWM&Control registers
     //IS31FL3235A_write_register(addr, 0x4B, 0x01);  //frequency setting 22KHz
-    IS31FL3235A_write_register(addr, 0x00, 0x01);    //normal operation
+    //IS31FL3235A_write_register(addr, 0x00, 0x01);    //normal operation
 }
 
 void IS31FL3235A_set_value(int index, uint8_t value) {

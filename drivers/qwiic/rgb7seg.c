@@ -128,16 +128,14 @@ void rgb7seg_task(void) {
 }
 
 void rgb7seg_init(void) {
-    #ifdef IS31FL3235A_DRIVER_ADDR_1
-        IS31FL3235A_init(IS31FL3235A_DRIVER_ADDR_1);
-    #endif
-    #ifdef IS31FL3235A_DRIVER_ADDR_2
+    IS31FL3235A_init(IS31FL3235A_DRIVER_ADDR_1);
+    #if IS31FL3235A_COUNT > 1
         IS31FL3235A_init(IS31FL3235A_DRIVER_ADDR_2);
     #endif
-    #ifdef IS31FL3235A_DRIVER_ADDR_3
+    #if IS31FL3235A_COUNT > 2
         IS31FL3235A_init(IS31FL3235A_DRIVER_ADDR_3);
     #endif
-    #ifdef IS31FL3235A_DRIVER_ADDR_4
+    #if IS31FL3235A_COUNT > 3
         IS31FL3235A_init(IS31FL3235A_DRIVER_ADDR_4);
     #endif
 

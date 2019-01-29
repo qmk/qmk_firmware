@@ -65,11 +65,12 @@ uint8_t i2c_start(uint8_t address)
   return 0;
 }
 
-uint8_t i2c_transmit(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)
+int8_t i2c_transmit(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)
 {
   i2c_address = address;
   i2cStart(&I2C_DRIVER, &i2cconfig);
-  return i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, 0, 0, MS2ST(timeout));
+  int8_t result = i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, 0, 0, MS2ST(timeout));
+  return result;
 }
 
 uint8_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)

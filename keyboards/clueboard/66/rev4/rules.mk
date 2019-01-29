@@ -17,6 +17,8 @@ DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 # Build Options
 #   comment out to disable the options.
 #
+QWIIC_ENABLE = RGB7SEG
+
 BACKLIGHT_ENABLE = yes
 BOOTMAGIC_ENABLE = no   # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes   # Mouse keys(+4700)

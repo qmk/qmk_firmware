@@ -131,7 +131,7 @@
 #define BACKLIGHT_LEVELS 10
 
 // For the rgb7seg
-#define IS31FL3235A_COUNT 4
+#define IS31FL3235A_COUNT 1
 #define I2C_DRIVER I2CD2
 #define I2C1_BANK GPIOA
 #define I2C1_SCL 9
