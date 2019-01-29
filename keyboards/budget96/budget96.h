@@ -23,7 +23,7 @@
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
 #define LAYOUT( \
-    k50, k52, k53, k54, k55, k60, k6A, k7A, k70, k5B, k5C, k5D, k5E, k1D, k1E, k0D, k76, k79, k78, \
+    k50, k52, k53, k54, k55, k60, k6A, k7A, k70, k5B, k5C, k5D, k5E, k1D, k2E, k0D, k76, k79, k78, \
     k40, k41, k42, k43, k44, k45, k61, k6B, k7B, k71, k4A, k4B, k4C, k4E, k46, k47, k48, k49, \
     k30, k31, k32, k33, k34, k35, k62, k6C, k7C, k72, k3A, k3B, k3C, k3D, k36, k37, k38, k39,      \
     k20, k21, k22, k23, k24, k25, k63, k6D, k7D, k73, k2A, k2B, k2D, k26, k27, k28, k29,           \
@@ -32,8 +32,8 @@
 ) \
 { \
     { k00, k01,   k02, KC_NO, KC_NO, KC_NO, k06,   KC_NO, k08,   k09,   KC_NO, k0B, KC_NO, k0D,   KC_NO }, \
-    { k10, k11,   k12, k13,   k14,   k15,   k16,   k17,   k18,   KC_NO, k1A,   k1B, KC_NO, k1D,   k1E },   \
-    { k20, k21,   k22, k23,   k24,   k25,   k26,   k27,   k28,   k29,   k2A,   k2B, KC_NO, k2D,  KC_NO }, \
+    { k10, k11,   k12, k13,   k14,   k15,   k16,   k17,   k18,   KC_NO, k1A,   k1B, KC_NO, k1D,   KC_NO },   \
+    { k20, k21,   k22, k23,   k24,   k25,   k26,   k27,   k28,   k29,   k2A,   k2B, KC_NO, k2D,   K2E }, \
     { k30, k31,   k32, k33,   k34,   k35,   k36,   k37,   k38,   k39,   k3A,   k3B, k3C,   k3D,   KC_NO }, \
     { k40, k41,   k42, k43,   k44,   k45,   k46,   k47,   k48,   k49,   k4A,   k4B, k4C,   KC_NO, k4E },   \
     { k50, KC_NO, k52, k53,   k54,   k55,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, k5B, k5C,   k5D,   k5E },   \
