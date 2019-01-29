@@ -12,7 +12,8 @@ Layers
 * BASE: basic dvorak layout
 * KEYNAV: arrow-key navigation. Momentary toggle held by thumb allows the right hand to navigate through text as well as copy/paste/cut, page up/page down
 * KEYSEL: similar to KEYNAV, except for shift-selection
-* COMBINED: this is a layer that combines numbers, brackets and special characters. !@#$%^&*( can be type by shift+COMBINED+1/2/3/etc..
-* MOUSE: mouse navigation, as well as browser tab-left/tab-right shortcuts
+* COMBINED: this is a layer that combines numbers, brackets and special characters. !@#$%^&*( can be typed by shift+COMBINED+1/2/3/etc..
+* BROWSER_CONTROL: primarily browser left/right tab, open new tab/delete tab, but also mouse keys.
 * SHELL_NAV: Linux Bash shortcuts (move forward/backward in command line, Ctrl+C, recall last argument, etc
 * SHELL_SCREEN: Linux screen (run multiple terminals in one window) shortcuts such as open new tabs, switch between tabs
+* SCREEN_NAV: special layer for copy/pasting within Linux screen, allows using various copy/paste buffers

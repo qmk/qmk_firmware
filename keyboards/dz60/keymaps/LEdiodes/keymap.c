@@ -1,5 +1,4 @@
-#include "dz60.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 #define _L0 0
 #define _L1 1
@@ -9,18 +8,24 @@
 
 #define _______ KC_TRNS
 
+enum {
+  TD_SPC_ENT = 0,
+  TD_KC_LSFT_CAPS,
+  TD_KC_RSFT_CAPS
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /*
  * template
- * [_L1] = KEYMAP( 
+ * [_L1] = LAYOUT(
  *      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,    \
  *      _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,        \
  *       _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        _______,        \
  *      _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,   \
  *       _______,_______,_______,        _______,_______,_______,                _______,_______,_______,_______,_______,
- * 
- * 
+ *
+ *
  *\
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -44,12 +49,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Ctrl |  Win  |  Alt  |  _L3[Space]  |LEdiodes|      Space       |Win | _L2|  L |  D |  R |
  * `-----------------------------------------------------------------------------------------'
  */
-[_L0] = KEYMAP(
+[_L0] = LAYOUT(
       KC_GESC,              LT(_L1, KC_1),LT(_L1, KC_2),LT(_L1, KC_3),LT(_L1, KC_4),LT(_L1, KC_5),LT(_L1, KC_6),LT(_L1, KC_7),LT(_L1, KC_8),LT(_L1, KC_9),LT(_L1, KC_0),LT(_L1, KC_MINS),LT(_L1, KC_EQL),KC_BSPC,  KC_DEL,    \
       KC_TAB,              KC_Q,    KC_W,    KC_E,     KC_R,   KC_T,   KC_Y,   KC_U,   KC_I,   KC_O,    KC_P,    KC_LBRC,  KC_RBRC,           KC_BSLS,   \
       KC_CAPS,             KC_A,    KC_S,    KC_D,     KC_F,   KC_G,   KC_H,   KC_J,   KC_K,   KC_L,    KC_SCLN, KC_QUOT,              KC_ENT,    \
       KC_LSPO,   KC_Z,    KC_X,     KC_C,   KC_V,   KC_B,   KC_N,   KC_M,   KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, KC_UP,    TO(_L1), \
-      KC_LCTL,             KC_LGUI, KC_LALT, TD(LT(_L3,KC_SPACE)),BL_TOGG,TD(TD_SPC_ENT),     KC_RGUI, TO(_L2), KC_LEFT,  KC_DOWN,  KC_RIGHT),
+      KC_LCTL,             KC_LGUI, KC_LALT, LT(_L3,KC_SPACE),BL_TOGG,TD(TD_SPC_ENT),     KC_RGUI, TO(_L2), KC_LEFT,  KC_DOWN,  KC_RIGHT),
 
 /* Keymap _L1: (Layer 1) This is function layer 1
  * This layer is activated while the Fn key is being held down.
@@ -65,7 +70,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |       |      |          |       |                |      |      | Home| PgDn| End |
  * `-----------------------------------------------------------------------------------------'
  */
-[_L1] = KEYMAP( 
+[_L1] = LAYOUT(
       RESET,   KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,  KC_F6,    KC_F7,    KC_F8,    KC_F9,     KC_F10,   KC_F11,   KC_F12,  KC_F13,   KC_F14,              \
       _______, KC_WH_U, KC_UP,   KC_WH_D,  _______, _______,_______,  _______,  _______,  _______,   KC_PSCR, _______,  _______,                      _______,   \
       _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______, KC_HOME, _______,  _______,  _______,   KC_HOME, _______,                        _______,   \
@@ -88,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |       |      |          |       |                |      |      | | |  |
  * `-----------------------------------------------------------------------------------------'
  */
-[_L2] = KEYMAP( 
+[_L2] = LAYOUT(
       _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,LCA(KC_TAB),    \
       _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,        MEH(KC_TAB),        \
       _______,        _______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,_______,                \
@@ -121,13 +126,6 @@ void matrix_scan_user(void) {
   // Empty
 };
 
-//Tap Dance Declarations
-enum {
-  TD_SPC_ENT = 0,
-  TD_KC_LSFT_CAPS = 0,
-  TD_KC_RSFT_CAPS = 0
-};
-
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
 
@@ -137,7 +135,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_KC_LSFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_LSFT, KC_CAPS),
   //Tap once for Right Shift, twice for Caps Lock
   [TD_KC_RSFT_CAPS]  = ACTION_TAP_DANCE_DOUBLE(KC_RSFT, KC_CAPS)
-   
+
 // Other declarations would go here, separated by commas, if you have them
-    
+
 };

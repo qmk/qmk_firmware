@@ -1,6 +1,6 @@
 # Swap-Hands Action
 
-The swap-hands action allows support for one-handed typing without requiring a separate layer. Set `ONEHAND_ENABLE` in the Makefile and define a `hand_swap_config` entry in your keymap. Now whenever the `ACTION_SWAP_HANDS` command key is pressed the keyboard is mirrored. For instance, to type "Hello, World" on QWERTY you would type `^Ge^s^s^w^c W^wr^sd`
+The swap-hands action allows support for one-handed typing without requiring a separate layer. Set `SWAP_HANDS_ENABLE` in the Makefile and define a `hand_swap_config` entry in your keymap. Now whenever the `ACTION_SWAP_HANDS` command key is pressed the keyboard is mirrored. For instance, to type "Hello, World" on QWERTY you would type `^Ge^s^s^w^c W^wr^sd`
 
 ## Configuration
 
@@ -17,15 +17,14 @@ const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
 
 Note that the array indices are reversed same as the matrix and the values are of type `keypos_t` which is `{col, row}` and all values are zero-based. In the example above, `hand_swap_config[2][4]` (third row, fifth column) would return `{7, 2}` (third row, eighth column). Yes, this is confusing.
 
-## Advanced Swap Commands
+## Swap Keycodes
 
-|Macro | Description |
-|------|-------------|
-| `ACTION_SWAP_HANDS()` | Swaps hands when pressed, returns to normal when released (momentary). |
-| `ACTION_SWAP_HANDS_TOGGLE()` | Toggles swap on and off with every key press. |
-| `ACTION_SWAP_HANDS_TAP_TOGGLE()` | Toggles with a tap; momentary when held. |
-| `ACTION_SWAP_HANDS_TAP_KEY(key)`| Sends `key` with a tap; momentary swap when held. |
-| `ACTION_SWAP_HANDS_ON_OFF()` | Alias for `ACTION_SWAP_HANDS()` |
-| `ACTION_SWAP_HANDS_OFF_ON()` | Momentarily turns off swap. |
-| `ACTION_SWAP_HANDS_ON()` | Turns on swapping and leaves it on. |
-| `ACTION_SWAP_HANDS_OFF()` | Turn off swapping and leaves it off. Good for returning to a known state. |
+|Key        |Description                                                              |
+|-----------|-------------------------------------------------------------------------|
+|`SH_T(key)`|Sends `key` with a tap; momentary swap when held.                        |
+|`SH_ON`    |Turns on swapping and leaves it on.                                      |
+|`SH_OFF`   |Turn off swapping and leaves it off. Good for returning to a known state.|
+|`SH_MON`   |Swaps hands when pressed, returns to normal when released (momentary).   |
+|`SH_MOFF`  |Momentarily turns off swap.                                              |
+|`SH_TG`    |Toggles swap on and off with every key press.                            |
+|`SH_TT`    |Toggles with a tap; momentary when held.                                 |

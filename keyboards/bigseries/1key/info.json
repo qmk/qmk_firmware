@@ -1,0 +1,12 @@
+{
+  "keyboard_name": "Big Series 1-Key",
+  "url": "",
+  "maintainer": "qmk",
+  "width": 4,
+  "height": 4,
+  "layouts": {
+    "LAYOUT": {
+      "layout": [{"x":0, "y":0, "w":4, "h":4}]
+    }
+  }
+}

@@ -54,6 +54,7 @@ void reset_keyboard_kb(void);
 
 #define LAYOUT_ortho_4x12 KEYMAP
 #define KC_LAYOUT_ortho_4x12 KC_KEYMAP
+#define LAYOUT_kc_ortho_4x12 KC_KEYMAP
 
 #endif
 

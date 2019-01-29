@@ -1,5 +1,6 @@
 // This keymap assumes that the keyboard is recognized as JIS keyboard from the OS.
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "version.h"
 
@@ -8,7 +9,6 @@
 // Keycode defines
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define C(kc)   LCTL(kc)
 // JIS keyboard
 #define JK_CIRC KC_EQL      // ^
 #define JK_AT   KC_LBRC     // @

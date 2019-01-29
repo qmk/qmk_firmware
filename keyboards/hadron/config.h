@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -25,12 +24,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x6060
 #define MANUFACTURER    ishtob
 #define PRODUCT         Hadron Keyboard
-#define DESCRIPTION     A cherry ML ortholinear keyboard
+#define DESCRIPTION     A low profile ortholinear keyboard
 
-
-
-
-//#define AUDIO_VOICES	
+//#define AUDIO_VOICES
 
 //#define BACKLIGHT_PIN B7
 
@@ -47,14 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEBOUNCING_DELAY 5
 
 /* Mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap */
-#define LOCKING_SUPPORT_ENABLE
+//#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
-#define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+//#define LOCKING_RESYNC_ENABLE
 
 /*
  * Feature disable options
@@ -73,11 +64,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 //#define NO_ACTION_MACRO
 //#define NO_ACTION_FUNCTION
-#ifdef SUBPROJECT_ver0
-    #include "ver0/config.h"
-#endif
-#ifdef SUBPROJECT_ver2
-    #include "ver2/config.h"
-#endif
-
-#endif

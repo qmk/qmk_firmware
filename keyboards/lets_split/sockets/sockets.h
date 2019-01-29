@@ -1,5 +1,4 @@
-#ifndef SOCKETS_H
-#define SOCKETS_H
+#pragma once
 #define DISABLE_JTAG // The keyboard uses PF4 and PF7, which are used by JTAG.
 
 #include "lets_split.h"
@@ -21,7 +20,7 @@
 #ifndef FLIP_HALF
 // Standard Keymap
 // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
-#define KEYMAP( \
+#define LAYOUT( \
 	L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \
 	L10, L11, L12, L13, L14, L15, R10, R11, R12, R13, R14, R15, \
 	L20, L21, L22, L23, L24, L25, R20, R21, R22, R23, R24, R25, \
@@ -40,7 +39,7 @@
 #else
 // Keymap with right side flipped
 // (TRRS jack on both halves are to the right)
-#define KEYMAP( \
+#define LAYOUT( \
 	L00, L01, L02, L03, L04, L05, R00, R01, R02, R03, R04, R05, \
 	L10, L11, L12, L13, L14, L15, R10, R11, R12, R13, R14, R15, \
 	L20, L21, L22, L23, L24, L25, R20, R21, R22, R23, R24, R25, \
@@ -58,6 +57,4 @@
 	}
 #endif
 
-#define LAYOUT_ortho_4x12 KEYMAP
-
-#endif
+#define LAYOUT_ortho_4x12 LAYOUT

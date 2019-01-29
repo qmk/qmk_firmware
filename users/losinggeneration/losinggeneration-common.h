@@ -43,7 +43,7 @@
  * This will expand values sent to it to send to the KEYMAP macro so defines
  * can be used by KEYMAP
  */
-#define CATMAP(...) KEYMAP(__VA_ARGS__)
+#define CATMAP(...) LAYOUT(__VA_ARGS__)
 
 /*
   Each layer gets a name for readability, which is then used in the keymap matrix below.

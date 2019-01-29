@@ -3,15 +3,15 @@ JM60
 
 A compact 60% keyboard with full RGB led support.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: JM60
+Keyboard Maintainer: QMK Community  
+Hardware Supported: JM60  
 Hardware Availability: https://kbdfans.myshopify.com/ (is no longer sold)
 
 Make example for this keyboard (after setting up your build environment):
 
     make jm60:default:bin
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 ## Flashing Instructions
 

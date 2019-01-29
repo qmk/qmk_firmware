@@ -1,12 +1,13 @@
 #include "helix.h"
 
 
-#ifdef AUDIO_ENABLE
-    float tone_startup[][2] = SONG(STARTUP_SOUND);
-    float tone_goodbye[][2] = SONG(GOODBYE_SOUND);
-#endif
-
 #ifdef SSD1306OLED
+#include "ssd1306.h"
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
+	return process_record_gfx(keycode,record) && process_record_user(keycode, record);
+}
+
 void led_set_kb(uint8_t usb_led) {
     // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
     //led_set_user(usb_led);
@@ -15,18 +16,6 @@ void led_set_kb(uint8_t usb_led) {
 
 void matrix_init_kb(void) {
 
-    #ifdef AUDIO_ENABLE
-        _delay_ms(20); // gets rid of tick
-        PLAY_SONG(tone_startup);
-    #endif
-
 	matrix_init_user();
 };
 
-void shutdown_kb(void) {
-    #ifdef AUDIO_ENABLE
-        PLAY_SONG(tone_goodbye);
-      	_delay_ms(150);
-      	stop_all_notes();
-    #endif
-}
