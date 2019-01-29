@@ -3,35 +3,29 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x6060
-#define DEVICE_VER      0x0001
-#define MANUFACTURER    James Taylor
-#define PRODUCT         Space Odyssey
-#define DESCRIPTION     Keyboard
-
-#define MOUSEKEY_INTERVAL 16
-#define MOUSEKEY_DELAY 0
-#define MOUSEKEY_TIME_TO_MAX 60
-#define MOUSEKEY_MAX_SPEED 7
-#define MOUSEKEY_WHEEL_DELAY 0
+#define VENDOR_ID    0xFEED
+#define PRODUCT_ID   0x7050
+#define DEVICE_VER   0x0001
+#define MANUFACTURER Exclusive / E - Team
+#define PRODUCT      E7 - V1
+#define DESCRIPTION  E7 - V1 QMK PCB(LED)
 
 /* key matrix size */
 #define MATRIX_ROWS 6
-#define MATRIX_COLS 12
+#define MATRIX_COLS 16
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS { F4, F5, F6, F7, B1, B3 }
-#define MATRIX_COL_PINS { B2, B6, B5, B4, E6, D7, C6, D4, D0, D1, D2, D3 }
+#define MATRIX_ROW_PINS { B0, B1, B2, B3, B4, B5 }
+#define MATRIX_COL_PINS { B6, D0, D1, D2, D3, D4, D5, D6, D7, C6, C7, F4, F5, F6, F7, F1 }
 #define UNUSED_PINS
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
 /* number of backlight levels */
-
+#define BACKLIGHT_PIN B7
 #ifdef BACKLIGHT_PIN
-#define BACKLIGHT_LEVELS 0
+#define BACKLIGHT_LEVELS 6
 #endif
 
 /* Set 0 if debouncing isn't needed */
@@ -43,9 +37,10 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+#define RGB_DI_PIN E6
 #ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 0
+#define RGBLED_NUM 20
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
