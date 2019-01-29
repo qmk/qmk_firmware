@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "arm_atsam_protocol.h"
 #include "tmk_core/common/led.h"
 #include <string.h>
+#include <math.h>
 
 void SERCOM1_0_Handler( void )
 {
@@ -217,6 +218,7 @@ void disp_calc_extents(void)
 
     disp.width = disp.right - disp.left;
     disp.height = disp.top - disp.bottom;
+    disp.max_distance = sqrtf(powf(disp.width, 2) + powf(disp.height, 2));
 }
 
 void disp_pixel_setup(void)
@@ -249,6 +251,7 @@ uint8_t led_animation_breathing;
 uint8_t led_animation_breathe_cur;
 uint8_t breathe_step;
 uint8_t breathe_dir;
+uint8_t led_animation_circular;
 uint64_t led_next_run;
 
 uint8_t led_animation_id;
@@ -265,6 +268,7 @@ void led_matrix_run(void)
     float go;
     float bo;
     float po;
+
     uint8_t led_this_run = 0;
     led_setup_t *f = (led_setup_t*)led_setups[led_animation_id];
 
@@ -327,13 +331,18 @@ void led_matrix_run(void)
             for (fcur = 0; fcur < fmax; fcur++)
             {
 
-                if (led_animation_orientation)
-                {
-                  po = led_cur->py;
+                if (led_animation_circular) {
+                    po = sqrtf((powf(fabsf((disp.width / 2) - (led_cur->x - disp.left)), 2) + powf(fabsf((disp.height / 2) - (led_cur->y - disp.bottom)), 2))) / disp.max_distance * 100;
                 }
-                else
-                {
-                  po = led_cur->px;
+                else {
+                    if (led_animation_orientation)
+                    {
+                        po = led_cur->py;
+                    }
+                    else
+                    {
+                        po = led_cur->px;
+                    }
                 }
 
                 float pomod;
@@ -466,6 +475,7 @@ uint8_t led_matrix_init(void)
     led_animation_breathe_cur = BREATHE_MIN_STEP;
     breathe_step = 1;
     breathe_dir = 1;
+    led_animation_circular = 0;
 
     gcr_min_counter = 0;
     v_5v_cat_hit = 0;

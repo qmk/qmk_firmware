@@ -40,6 +40,7 @@ To change the behaviour of the backlighting, `#define` these in your `config.h`:
 |---------------------|-------------|-------------------------------------------------------------------------------------------------------------|
 |`BACKLIGHT_PIN`      |`B7`         |The pin that controls the LEDs. Unless you are designing your own keyboard, you shouldn't need to change this|
 |`BACKLIGHT_LEVELS`   |`3`          |The number of brightness levels (maximum 15 excluding off)                                                   |
+|`BACKLIGHT_CAPS_LOCK`|*Not defined*|Enable Caps Lock indicator using backlight (for keyboards without dedicated LED)                             |
 |`BACKLIGHT_BREATHING`|*Not defined*|Enable backlight breathing, if hardware PWM is used                                                          |
 |`BREATHING_PERIOD`   |`6`          |The length of one backlight "breath" in seconds                                                              |
 
