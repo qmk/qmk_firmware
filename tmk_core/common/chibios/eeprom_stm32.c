@@ -75,17 +75,13 @@ uint16_t EEPROM_WriteDataByte (uint16_t Address, uint8_t DataByte) {
     }
 
     // calculate which page is affected (Pagenum1/Pagenum2...PagenumN)
-    page = (FEE_PAGE_BASE_ADDRESS + FEE_ADDR_OFFSET(Address)) & 0x00000FFF;
-
-    if (page % FEE_PAGE_SIZE) page = page + FEE_PAGE_SIZE;
-    page = (page / FEE_PAGE_SIZE) - 1;
+    page = FEE_ADDR_OFFSET(Address) / FEE_PAGE_SIZE;
 
     // if current data is 0xFF, the byte is empty, just overwrite with the new one
     if ((*(__IO uint16_t*)(FEE_PAGE_BASE_ADDRESS + FEE_ADDR_OFFSET(Address))) == FEE_EMPTY_WORD) {
 
         FlashStatus = FLASH_ProgramHalfWord(FEE_PAGE_BASE_ADDRESS + FEE_ADDR_OFFSET(Address), (uint16_t)(0x00FF & DataByte));
-    }
-    else {
+    } else {
 
         // Copy Page to a buffer
         memcpy(DataBuf, (uint8_t*)FEE_PAGE_BASE_ADDRESS + (page * FEE_PAGE_SIZE), FEE_PAGE_SIZE); // !!! Calculate base address for the desired page
@@ -96,18 +92,17 @@ uint16_t EEPROM_WriteDataByte (uint16_t Address, uint8_t DataByte) {
         }
 
         // manipulate desired data byte in temp data array if new byte is differ to the current
-        DataBuf[FEE_ADDR_OFFSET(Address)] = DataByte;
+        DataBuf[FEE_ADDR_OFFSET(Address) % FEE_PAGE_SIZE] = DataByte;
 
         //Erase Page
-        FlashStatus = FLASH_ErasePage(FEE_PAGE_BASE_ADDRESS + page);
+        FlashStatus = FLASH_ErasePage(FEE_PAGE_BASE_ADDRESS + (page * FEE_PAGE_SIZE));
 
-        // Write new data (whole page) to flash if data has beed changed
+        // Write new data (whole page) to flash if data has been changed
         for(i = 0; i < (FEE_PAGE_SIZE / 2); i++) {
             if ((__IO uint16_t)(0xFF00 | DataBuf[FEE_ADDR_OFFSET(i)]) != 0xFFFF) {
                 FlashStatus = FLASH_ProgramHalfWord((FEE_PAGE_BASE_ADDRESS + (page * FEE_PAGE_SIZE)) + (i * 2), (uint16_t)(0xFF00 | DataBuf[FEE_ADDR_OFFSET(i)]));
             }
         }
-
     }
     return FlashStatus;
 }
@@ -168,7 +163,7 @@ void eeprom_update_word (uint16_t *Address, uint16_t Value)
 uint32_t eeprom_read_dword (const uint32_t *Address)
 {
     const uint16_t p = (const uint32_t) Address;
-    return EEPROM_ReadDataByte(p) | (EEPROM_ReadDataByte(p+1) << 8) 
+    return EEPROM_ReadDataByte(p) | (EEPROM_ReadDataByte(p+1) << 8)
         | (EEPROM_ReadDataByte(p+2) << 16) | (EEPROM_ReadDataByte(p+3) << 24);
 }
 
