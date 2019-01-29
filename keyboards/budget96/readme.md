@@ -3,7 +3,7 @@
 96 key atmega32a keyboard. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: Budget96 PCB 
+Hardware Supported: Budget96 PCB  
 Hardware Availability: [DonutCables](https://donutcables.com/)  
 
 Make example for this keyboard (after setting up your build environment):
