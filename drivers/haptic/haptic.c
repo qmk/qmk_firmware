@@ -149,10 +149,22 @@ void haptic_set_mode(uint8_t mode) {
   xprintf("haptic_config.mode = %u\n", haptic_config.mode);
 }
 
+void haptic_set_buzz(uint8_t buzz) {
+  haptic_config.buzz = buzz;
+  eeconfig_update_haptic(haptic_config.raw);
+  xprintf("haptic_config.buzz = %u\n", haptic_config.buzz);
+}
+
 void haptic_set_dwell(uint8_t dwell) {
   haptic_config.dwell = dwell;
   eeconfig_update_haptic(haptic_config.raw);
   xprintf("haptic_config.dwell = %u\n", haptic_config.dwell);
+}
+
+void haptic_buzz_toggle(void) {
+  bool buzz_stat = !haptic_config.buzz;
+  haptic_config = buzz_stat;
+  haptic_set_buzz(buzz_stat);
 }
 
 uint8_t haptic_get_mode(void) {

@@ -21,22 +21,21 @@
 #include "haptic.h"
 
 bool solenoid_on = false;
-bool solenoid_buzz = false;
 bool solenoid_buzzing = false;
 uint16_t solenoid_start = 0;
 uint8_t solenoid_dwell = SOLENOID_DEFAULT_DWELL;
 
 
 void solenoid_buzz_on(void) {
-  solenoid_buzz = true;
+  haptic_set_buzz(1);
 }
 
 void solenoid_buzz_off(void) {
-  solenoid_buzz = false;
+  haptic_set_buzz(0);
 }
 
 void solenoid_set_buzz(bool buzz) {
-  solenoid_buzz = buzz;
+  haptic_set_buzz(buzz);
 }
 
 
@@ -59,8 +58,8 @@ void solenoid_stop(void) {
 }
 
 void solenoid_fire(void) {
-  if (!solenoid_buzz && solenoid_on) return;
-  if (solenoid_buzz && solenoid_buzzing) return;
+  if (!haptic_config.buzz && solenoid_on) return;
+  if (haptic_config.buzz && solenoid_buzzing) return;
 
   solenoid_on = true;
   solenoid_buzzing = true;
@@ -82,7 +81,7 @@ void solenoid_check(void) {
   }
 
   //Check whether to buzz the solenoid on and off
-  if (solenoid_buzz) {
+  if (haptic_config.buzz) {
     if (elapsed / SOLENOID_MIN_DWELL % 2 == 0){
       if (!solenoid_buzzing) {
         solenoid_buzzing = true;

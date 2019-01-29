@@ -24,6 +24,67 @@ Select a pin that has PWM for the signal pin
 
 ### DRV2605L
 
+DRV2605L is controlled over i2c protocol, and has to be connected to the SDA and SCL pins, these varies depending on the MCU in use.
+
+#### Feedback motors
+
+This driver supports 2 different feedback motors. Set the following in your `config.h`
+
+* `FB_ERM_LRA = 0` for ERM
+* `FB_ERM_LRA = 1` for LRA
+
+Current default is set to LRA
+
+#### DRV2605L waveform library
+
+DRV2605L comes with preloaded library of various waveform sequences that can be called and played. If writing a macro, these waveforms can be called using ` DRV_pulse(*sequence number*)`
+
+List of waveform sequences from the datasheet:
+
+|seq# | Description         |seq# | Description                       |seq# |Description                           |
+|-----|---------------------|-----|-----------------------------------|-----|--------------------------------------|
+| 1   | strong_click 		| 43  | lg_dblclick_med_60                | 85  | transition_rampup_med_smooth2        |
+| 2   | strong_click_60 	| 44  | lg_dblsharp_tick                  | 86  | transition_rampup_short_smooth1      |
+| 3   | strong_click_30 	| 45  | lg_dblsharp_tick_80               | 87  | transition_rampup_short_smooth2      |
+| 4   | sharp_click 		| 46  | lg_dblsharp_tick_60               | 88  | transition_rampup_long_sharp1        |
+| 5   | sharp_click_60      | 47  | buzz                              | 89  | transition_rampup_long_sharp2        |
+| 6   | sharp_click_30      | 48  | buzz_80				              | 90  | transition_rampup_med_sharp1         |
+| 7   | soft_bump           | 49  | buzz_60		                      | 91  | transition_rampup_med_sharp2         |
+| 8   | soft_bump_60        | 50  | buzz_40				              | 92  | transition_rampup_short_sharp1       |
+| 9   | soft_bump_30        | 51  | buzz_20				              | 93  | transition_rampup_short_sharp2       |
+| 10  | dbl_click           | 52  | pulsing_strong                    | 94  | transition_rampdown_long_smooth1_50  |
+| 11  | dbl_click_60        | 53  | pulsing_strong_80                 | 95  | transition_rampdown_long_smooth2_50  |
+| 12  | trp_click           | 54  | pulsing_medium                    | 96  | transition_rampdown_med_smooth1_50   |
+| 13  | soft_fuzz           | 55  | pulsing_medium_80                 | 97  | transition_rampdown_med_smooth2_50   |
+| 14  | strong_buzz         | 56  | pulsing_sharp                     | 98  | transition_rampdown_short_smooth1_50 |
+| 15  | alert_750ms         | 57  | pulsing_sharp_80                  | 99  | transition_rampdown_short_smooth2_50 |
+| 16  | alert_1000ms        | 58  | transition_click	              | 100 | transition_rampdown_long_sharp1_50   |
+| 17  | strong_click1       | 59  | transition_click_80               | 101 | transition_rampdown_long_sharp2_50   |
+| 18  | strong_click2_80    | 60  | transition_click_60	              | 102 | transition_rampdown_med_sharp1_50    |
+| 19  | strong_click3_60    | 61  | transition_click_40	              | 103 | transition_rampdown_med_sharp2_50    |
+| 20  | strong_click4_30    | 62  | transition_click_20	              | 104 | transition_rampdown_short_sharp1_50  |
+| 21  | medium_click1       | 63  | transition_click_10	              | 105 | transition_rampdown_short_sharp2_50  |
+| 22  | medium_click2_80    | 64  | transition_hum                    | 106 | transition_rampup_long_smooth1_50    |
+| 23  | medium_click3_60    | 65  | transition_hum_80                 | 107 | transition_rampup_long_smooth2_50    |
+| 24  | sharp_tick1         | 66  | transition_hum_60                 | 108 | transition_rampup_med_smooth1_50     |
+| 25  | sharp_tick2_80      | 67  | transition_hum_40                 | 109 | transition_rampup_med_smooth2_50     |
+| 26  | sharp_tick3_60      | 68  | transition_hum_20                 | 110 | transition_rampup_short_smooth1_50   |
+| 27  | sh_dblclick_str     | 69  | transition_hum_10                 | 111 | transition_rampup_short_smooth2_50   |
+| 28  | sh_dblclick_str_80  | 70  | transition_rampdown_long_smooth1  | 112 | transition_rampup_long_sharp1_50     |
+| 29  | sh_dblclick_str_60  | 71  | transition_rampdown_long_smooth2  | 113 | transition_rampup_long_sharp2_50     |
+| 30  | sh_dblclick_str_30  | 72  | transition_rampdown_med_smooth1   | 114 | transition_rampup_med_sharp1_50      |
+| 31  | sh_dblclick_med     | 73  | transition_rampdown_med_smooth2   | 115 | transition_rampup_med_sharp2_50      |
+| 32  | sh_dblclick_med_80  | 74  | transition_rampdown_short_smooth1 | 116 | transition_rampup_short_sharp1_50    |
+| 33  | sh_dblclick_med_60  | 75  | transition_rampdown_short_smooth2 | 117 | transition_rampup_short_sharp2_50    |
+| 34  | sh_dblsharp_tick    | 76  | transition_rampdown_long_sharp1   | 118 | long_buzz_for_programmatic_stopping  |
+| 35  | sh_dblsharp_tick_80 | 77  | transition_rampdown_long_sharp2   | 119 | smooth_hum1_50                       |
+| 36  | sh_dblsharp_tick_60 | 78  | transition_rampdown_med_sharp1    | 120 | smooth_hum2_40                       |
+| 37  | lg_dblclick_str     | 79  | transition_rampdown_med_sharp2    | 121 | smooth_hum3_30                       |
+| 38  | lg_dblclick_str_80  | 80  | transition_rampdown_short_sharp1  | 122 | smooth_hum4_20                       |
+| 39  | lg_dblclick_str_60  | 81  | transition_rampdown_short_sharp2  | 123 | smooth_hum5_10                       |
+| 40  | lg_dblclick_str_30  | 82  | transition_rampup_long_smooth1    |     |                                      |
+| 41  | lg_dblclick_med     | 83  | transition_rampup_long_smooth2    |     |                                      |
+| 42  | lg_dblclick_med_80  | 84  | transition_rampup_med_smooth1     |     |                                      |
 
 ## Haptic Keycodes
 

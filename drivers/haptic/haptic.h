@@ -69,6 +69,8 @@ void haptic_reset(void);
 void haptic_set_feedback(uint8_t feedback);
 void haptic_set_mode(uint8_t mode);
 void haptic_set_dwell(uint8_t dwell);
+void haptic_set_buzz(uint8_t buzz);
+void haptic_buzz_toggle(void);
 uint8_t haptic_get_mode(void);
 uint8_t haptic_get_feedback(void);
 void haptic_dwell_increase(void);
