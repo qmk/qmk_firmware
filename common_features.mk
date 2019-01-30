@@ -240,7 +240,7 @@ ifeq ($(strip $(HAPTIC_ENABLE)), SOLENOID)
     SRC += solenoid.c
     SRC += i2c_master.c
     OPT_DEFS += -DHAPTIC_ENABLE
-    OPT_DEFS += -SOLENOID_ENABLE
+    OPT_DEFS += -DSOLENOID_ENABLE
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)

@@ -15,7 +15,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
 #include <timer.h>
 #include "solenoid.h"
 #include "haptic.h"
@@ -24,6 +23,8 @@ bool solenoid_on = false;
 bool solenoid_buzzing = false;
 uint16_t solenoid_start = 0;
 uint8_t solenoid_dwell = SOLENOID_DEFAULT_DWELL;
+
+haptic_config_t haptic_config;
 
 
 void solenoid_buzz_on(void) {
@@ -34,7 +35,7 @@ void solenoid_buzz_off(void) {
   haptic_set_buzz(0);
 }
 
-void solenoid_set_buzz(bool buzz) {
+void solenoid_set_buzz(int buzz) {
   haptic_set_buzz(buzz);
 }
 
@@ -100,5 +101,3 @@ void solenoid_check(void) {
 void solenoid_setup(void) {
   setPinOutput(SOLENOID_PIN);
 }
-
-#endif

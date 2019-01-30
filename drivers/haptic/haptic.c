@@ -105,9 +105,11 @@ void haptic_mode_increase(void) {
 
 void haptic_mode_decrease(void) {
   uint8_t mode = haptic_config.mode -1;
+  #ifdef DRV2605L
   if (haptic_config.mode < 1) {
     mode = (drv_effect_max - 1);
   }
+  #endif
   haptic_set_mode(mode);
 }
 
@@ -135,9 +137,11 @@ void haptic_dwell_decrease(void) {
 
 void haptic_reset(void){
   uint8_t feedback = HAPTIC_FEEDBACK_DEFAULT;
-  uint8_t mode = HAPTIC_MODE_DEFAULT;
   haptic_config.feedback = feedback;
-  haptic_config.mode = mode;
+  #ifdef DRV2605L
+    uint8_t mode = HAPTIC_MODE_DEFAULT;
+    haptic_config.mode = mode;
+  #endif
   eeconfig_update_haptic(haptic_config.raw);
   xprintf("haptic_config.feedback = %u\n", haptic_config.feedback);
   xprintf("haptic_config.mode = %u\n", haptic_config.mode);

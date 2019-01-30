@@ -18,36 +18,32 @@
 #pragma once
 #include <timer.h>
 
-#ifndef SOLENOID_ACTIVE
+#ifndef SOLENOID_DEFAULT_DWELL
 #define SOLENOID_DEFAULT_DWELL 12
-#ifndef SOLENOID_ACTIVE
+#endif
 
+#ifndef SOLENOID_MAX_DWELL
 #define SOLENOID_MAX_DWELL 100
-#ifndef SOLENOID_ACTIVE
+#endif
 
+#ifndef SOLENOID_MIN_DWELL
 #define SOLENOID_MIN_DWELL 4
+#endif
+
 #ifndef SOLENOID_ACTIVE
-  #define SOLENOID_ACTIVE false
+#define SOLENOID_ACTIVE false
 #endif
+
 #ifndef SOLENOID_PIN
-  #define SOLENOID_PIN F6
+#define SOLENOID_PIN F6
 #endif
-
-
-bool solenoid_enabled = SOLENOID_ACTIVE;
-bool solenoid_on = false;
-bool solenoid_buzz = false;
-bool solenoid_buzzing = false;
-uint16_t solenoid_start = 0;
-uint8_t solenoid_dwell = SOLENOID_DEFAULT_DWELL;
-
 
 void solenoid_buzz_on(void);
 void solenoid_buzz_off(void);
-void solenoid_set_buzz(bool buzz);
+void solenoid_set_buzz(int buzz);
 
-void solenoid_dwell_minus(void);
-void solenoid_dwell_plus(void);
+void solenoid_dwell_minus(uint8_t solenoid_dwell);
+void solenoid_dwell_plus(uint8_t solenoid_dwell);
 void solenoid_set_dwell(uint8_t dwell);
 
 void solenoid_stop(void);
@@ -56,5 +52,3 @@ void solenoid_fire(void);
 void solenoid_check(void);
 
 void solenoid_setup(void);
-
-#endif

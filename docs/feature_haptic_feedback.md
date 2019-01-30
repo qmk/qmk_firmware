@@ -1,5 +1,3 @@
---this document is still under developement---
-
 # Haptic Feedback
 
 ## Haptic feedback rules.mk options
@@ -86,7 +84,7 @@ Linear resonant actuators (LRA, also know as a linear vibrator) works different 
 
 #### DRV2605L waveform library
 
-DRV2605L comes with preloaded library of various waveform sequences that can be called and played. If writing a macro, these waveforms can be played using ` DRV_pulse(*sequence name or number*)`
+DRV2605L comes with preloaded library of various waveform sequences that can be called and played. If writing a macro, these waveforms can be played using `DRV_pulse(*sequence name or number*)`
 
 List of waveform sequences from the datasheet:
 
