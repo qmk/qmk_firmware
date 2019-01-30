@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x0A0C
 #define DEVICE_VER      0x4A1F
-#define MANUFACTURER    Boy_314
+#define MANUFACTURER    di0ib
 #define PRODUCT         half_n_half
 #define DESCRIPTION     A small split ortholinear custom keyboard with 2 thumb buttons
 
