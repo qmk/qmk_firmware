@@ -6,7 +6,7 @@
 LED_TYPE bg[BACKLIGHT_NUM];
 
 bool fg[BACKLIGHT_NUM];
-LED_TYPE fg_color = { .r = 32, .g = 32, .b = 32 };
+LED_TYPE fg_color = { .r = 16, .g = 16, .b = 16 };
 
 LED_TYPE led[RGBLED_NUM];
 int dirty_led_count = 0;
