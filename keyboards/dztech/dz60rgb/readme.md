@@ -4,8 +4,8 @@
 
 A customizable 60% RGB keyboard.
 
-Keyboard Maintainer: DZ  
-Hardware Supported: DZ60  
+Keyboard Maintainer: DZtech  
+Hardware Supported: DZtech
 Hardware Availability: [kbdfans](https://kbdfans.myshopify.com/)
 
 Make example for this keyboard (after setting up your build environment):
