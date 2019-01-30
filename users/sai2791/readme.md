@@ -17,8 +17,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 This is my personal userspace.
 
+30/1/2019
+- New kemaps added desk_l and desk_r, should add these to my keymaps
+- maybe move the window moving, and screen moving stuff to a layer
+
 # Shared Keys
 - System wide Mac lock screen Keys (KC_LOCKSCR)
+- System wide Mac Desktop Left key (DESK_L)
+- System wide Mac Desktop Right Key (DESK_R)
 
 # Shared Keyboards
 - ergodox_ez  Doesnt use the sai2791.c
@@ -26,9 +32,6 @@ This is my personal userspace.
 - ymdk_np21   Doesnt use the sai2791.c
 
 # Notes to myself
-30/1/2019
-- New kemaps added desk_l and desk_r, should add these to my keymaps
-- maybe move the window moving, and screen moving stuff to a layer
 
 28/1/2019
 - If i add the compile time flags flto gives an error about the redefinition
