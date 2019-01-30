@@ -467,6 +467,7 @@ enum quantum_keycodes {
         HPT_TOG,
         HPT_RST,
         HPT_FBK,
+        HPT_BUZ,
         HPT_MODI,
         HPT_MODD,
         HPT_DWLI,

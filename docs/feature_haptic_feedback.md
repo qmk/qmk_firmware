@@ -6,8 +6,9 @@
 
 The following options are currently available for haptic feedback in `rule.mk`:
 
-`HAPTIC_ENABLE = DRV2605L`
-`HAPTIC_ENABLE = SOLENOID`
+`HAPTIC_ENABLE += DRV2605L`
+
+`HAPTIC_ENABLE += SOLENOID`
 
 ## Known Supported Hardware
 
@@ -27,6 +28,7 @@ Not all keycodes below will work depending on which haptic mechanism you have ch
 |`HPT_TOG`  | Toggle haptic feedback on/off                         |
 |`HPT_RST`  | Reset haptic feedback config to default               |
 |`HPT_FBK`  | Toggle feedback to occur on keypress, release or both |
+|`HPT_BUZ`  | Toggle solenoid buzz on/off                           |
 |`HPT_MODI` | Go to next DRV2605L waveform                          |
 |`HPT_MODD` | Go to previous DRV2605L waveform                      |
 |`HPT_DWLI` | Increase Solenoid dwell time                          |
@@ -58,12 +60,10 @@ Eccentric Rotating Mass vibration motors (ERM) is motor with a off-set weight at
 
 ```
 #define FB_ERM_LRA 0
-
-/* Please refer to your datasheet for the optimal setting for your specific motor. */
-
-#define FB_ERM_LRA 0
 #define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
 #define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+
+/* Please refer to your datasheet for the optimal setting for your specific motor. */
 #define RATED_VOLTAGE 3
 #define V_PEAK 5
 ```
@@ -75,6 +75,7 @@ Linear resonant actuators (LRA, also know as a linear vibrator) works different 
 #define FB_ERM_LRA 1
 #define FB_BRAKEFACTOR 3 /* For 1x:0, 2x:1, 3x:2, 4x:3, 6x:4, 8x:5, 16x:6, Disable Braking:7 */
 #define FB_LOOPGAIN 1 /* For  Low:0, Medium:1, High:2, Very High:3 */
+
 /* Please refer to your datasheet for the optimal setting for your specific motor. */
 #define RATED_VOLTAGE 2
 #define V_PEAK 2.8
@@ -85,11 +86,11 @@ Linear resonant actuators (LRA, also know as a linear vibrator) works different 
 
 #### DRV2605L waveform library
 
-DRV2605L comes with preloaded library of various waveform sequences that can be called and played. If writing a macro, these waveforms can be called using ` DRV_pulse(*sequence number*)`
+DRV2605L comes with preloaded library of various waveform sequences that can be called and played. If writing a macro, these waveforms can be played using ` DRV_pulse(*sequence name or number*)`
 
 List of waveform sequences from the datasheet:
 
-|seq# | Description         |seq# | Description                       |seq# |Description                           |
+|seq# | Sequence name          |seq# | Sequence name                  |seq# |Sequence name                           |
 |-----|---------------------|-----|-----------------------------------|-----|--------------------------------------|
 | 1   | strong_click 		| 43  | lg_dblclick_med_60                | 85  | transition_rampup_med_smooth2        |
 | 2   | strong_click_60 	| 44  | lg_dblsharp_tick                  | 86  | transition_rampup_short_smooth1      |

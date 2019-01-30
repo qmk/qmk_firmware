@@ -87,6 +87,12 @@ void haptic_feedback_toggle(void){
   eeconfig_update_haptic(haptic_config.raw);
 }
 
+void haptic_buzz_toggle(void) {
+  bool buzz_stat = !haptic_config.buzz;
+  haptic_config.buzz = buzz_stat;
+  haptic_set_buzz(buzz_stat);
+}
+
 void haptic_mode_increase(void) {
   uint8_t mode = haptic_config.mode + 1;
   #ifdef DRV2605L
@@ -161,12 +167,6 @@ void haptic_set_dwell(uint8_t dwell) {
   xprintf("haptic_config.dwell = %u\n", haptic_config.dwell);
 }
 
-void haptic_buzz_toggle(void) {
-  bool buzz_stat = !haptic_config.buzz;
-  haptic_config.buzz = buzz_stat;
-  haptic_set_buzz(buzz_stat);
-}
-
 uint8_t haptic_get_mode(void) {
   if (!haptic_config.enable){
     return false;
@@ -205,6 +205,7 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     if (keycode == HPT_TOG && record->event.pressed) { haptic_toggle(); }
     if (keycode == HPT_RST && record->event.pressed) { haptic_reset(); }
     if (keycode == HPT_FBK && record->event.pressed) { haptic_feedback_toggle(); }
+    if (keycode == HPT_BUZ && record->event.pressed) { haptic_buzz_toggle(); }
     if (keycode == HPT_MODI && record->event.pressed) { haptic_mode_increase(); }
     if (keycode == HPT_MODD && record->event.pressed) { haptic_mode_decrease(); }
     if (keycode == HPT_DWLI && record->event.pressed) { haptic_dwell_increase(); }
