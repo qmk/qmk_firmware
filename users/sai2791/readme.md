@@ -26,6 +26,11 @@ This is my personal userspace.
 - ymdk_np21   Doesnt use the sai2791.c
 
 # Notes to myself
+30/1/2019
+- New kemaps added desk_l and desk_r, should add these to my keymaps
+- maybe move the window moving, and screen moving stuff to a layer
+
+28/1/2019
 - If i add the compile time flags flto gives an error about the redefinition
 of fn_action
 quantum/keymap_common.c:190:24: error: type of 'fn_actions' does not match original declaration [-Werror]
@@ -36,4 +41,3 @@ quantum/keymap_common.c:190:24: error: type of 'fn_actions' does not match origi
 
   Fixed this by commenting it out in the keymaps.c in the keyboard/keymaps directory, it seems to compile ok,
   needs testing.
-  
