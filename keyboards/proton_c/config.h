@@ -33,7 +33,6 @@
 #define MATRIX_ROW_PINS { B9 }
 #define MATRIX_COL_PINS { B0 }
 
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCE 6
 
@@ -62,11 +61,6 @@
  *
  */
 //#define FORCE_NKRO
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-  keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /*
  * Feature disable options
@@ -118,4 +112,3 @@
 // #define WS2812_DMA_STREAM STM32_DMA1_STREAM2  // DMA stream for TIMx_UP (look up in reference manual under DMA Channel selection)
 //#define WS2812_DMA_CHANNEL 7                  // DMA channel for TIMx_UP
 //#define WS2812_EXTERNAL_PULLUP
-

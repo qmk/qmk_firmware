@@ -15,10 +15,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI,  KC_LALT, KC_SPACE,   KC_TRNS,  KC_RGUI,  KC_RCTRL,                                         BL_TOGG,  BL_DEC,  BL_INC, KC_P0,    KC_PDOT         ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
   // MACRODOWN only works in this function

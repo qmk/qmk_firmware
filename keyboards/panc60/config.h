@@ -41,6 +41,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_ANIMATIONS
 
 #define NO_UART 1
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))

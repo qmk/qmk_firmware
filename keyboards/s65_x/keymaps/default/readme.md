@@ -1,5 +1,5 @@
-﻿### 1  ANSI
-A Mac ANSI layout that assumes standard sized shifts, enter, and backspace keys.
+### 1  ANSI
+An ANSI layout that assumes standard sized shifts, enter, and backspace keys.
 
 #### 1.0 Default layer
     ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -11,7 +11,7 @@ A Mac ANSI layout that assumes standard sized shifts, enter, and backspace keys.
     ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
     │LSHFT│▒▒▒▒▒│  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │  /  │▒▒▒▒▒│RSHFT│ UP  │PG_DN│
     ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-    │LCTRL│L_ALT│L_GUI│█████│█████│█████│ SPC │█████│█████│█████│R_ALT│ FN0 │ APP │LEFT │DOWN │RIGHT│
+    │LCTRL│L_GUI│L_ALT│█████│█████│█████│ SPC │█████│█████│█████│R_ALT│ FN0 │RCTRL│LEFT │DOWN │RIGHT│
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
 #### 1.1 Fn layer
     ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
@@ -23,5 +23,10 @@ A Mac ANSI layout that assumes standard sized shifts, enter, and backspace keys.
     ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
     │     │▒▒▒▒▒│_UL  │     │     │     │     │     │     │Home │ End │     │▒▒▒▒▒│▒▒▒▒▒│Vol+ │     │
     ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-    │     │     │     │█████│█████│█████│     │█████│█████│█████│     │     │     │Mute │Vol- │Play │
+    │     │AG_SW│AG_NR│█████│█████│█████│     │█████│█████│█████│     │     │     │Mute │Vol- │Play │
     └─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┴─────┘
+
+#### MacOS
+
+This keymap supports swapping the GUI and ALT keys using the Fn layer. See the
+AG_SWAP and AG_NORM bindings to swap the two keys.

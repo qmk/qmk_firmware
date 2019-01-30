@@ -50,7 +50,6 @@
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
 
-
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
 
@@ -102,11 +101,6 @@
  *
  */
 
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 #define RGB_BACKLIGHT_ENABLED 1
 
 // This conditionally compiles the backlight code for M6-B specifics
@@ -150,11 +144,14 @@
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x07
+#define EEPROM_VERSION 0x08
 #define EEPROM_VERSION_ADDR 34
 
 // Backlight config starts after EEPROM version
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+37)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 72
-
+// Dynamic keymap starts after backlight config (35+43)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 78
+// Dynamic macro starts after dynamic keymaps (78+(4*6*2)) = (78+48)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 126
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 898
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16

@@ -27,6 +27,8 @@
 #define DESCRIPTION     A split 50 key keyboard
 
 #define USE_SERIAL
+/* serial.c configuration for split keyboard */
+#define SOFT_SERIAL_PIN D0
 
 /* Select hand configuration */
 #define MASTER_LEFT
@@ -118,11 +120,6 @@
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true

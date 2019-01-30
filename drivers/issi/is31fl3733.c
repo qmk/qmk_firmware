@@ -24,10 +24,10 @@
 #include "wait.h"
 #endif
 
+#include "is31fl3733.h"
 #include <string.h>
 #include "i2c_master.h"
 #include "progmem.h"
-#include "rgb_matrix.h"
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
