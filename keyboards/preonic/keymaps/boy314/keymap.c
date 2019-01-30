@@ -32,9 +32,6 @@
 #define LOWER M(_LOWER)
 #define RAISE M(_RAISE)
 #define ARROWS TO(_ARROWS)
-
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
  
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
