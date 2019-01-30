@@ -76,6 +76,7 @@ typedef union {
     bool     is_overwatch     :1;
     bool     nuke_switch      :1;
     uint8_t  unicode_mod      :4;
+    bool     swapped_numbers  :1;
   };
 } userspace_config_t;
 

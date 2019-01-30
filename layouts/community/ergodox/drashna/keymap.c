@@ -27,9 +27,9 @@ extern rgb_config_t rgb_matrix_config;
 #endif
 extern userspace_config_t userspace_config;
 
-//enum more_custom_keycodes {
-//    KC_P00 = NEW_SAFE_RANGE
-//};
+enum more_custom_keycodes {
+   KC_SWAP_NUM = NEW_SAFE_RANGE
+};
 
 //define layer change stuff for underglow indicator
 bool skip_leds = false;
@@ -208,7 +208,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              KC_GRV,  KC_U,    KC_I,    KC_Y,    KC_T,                                                        KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_NO,
                                                           KC_O,    KC_P,                    MAGIC_TOGGLE_NKRO, LGUI(LALT(KC_PSCR)),
                                                                    KC_LGUI,                 KC_HYPR,
-                                                 KC_V,    KC_SPC,  KC_H,                    KC_NO, KC_NO,  KC_NO
+                                                 KC_V,    KC_SPC,  KC_H,                    KC_NO, KC_NO,  KC_SWAP_NUM
             ),
 
 /* Keymap 3:
@@ -280,6 +280,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
+  switch (keycode) {
+    case KC_1:
+      if (IS_LAYER_ON(_GAMEPAD) && userspace_config.swapped_numbers) {
+        if (record->event.pressed) {
+          register_code(KC_2);
+        } else {
+          unregister_code(KC_2);
+        }
+        return false;
+      }
+      break;
+    case KC_2:
+      if (IS_LAYER_ON(_GAMEPAD) && userspace_config.swapped_numbers) {
+        if (record->event.pressed) {
+          register_code(KC_1);
+        } else {
+          unregister_code(KC_1);
+        }
+        return false;
+      }
+      break;
+    case KC_SWAP_NUM:
+      if (record->event.pressed) {
+        userspace_config.swapped_numbers ^= 1;
+        eeconfig_update_user(userspace_config.raw);
+      }
+  }
   //switch (keycode) {
   //  case KC_P00:
   //    if (!record->event.pressed) {
