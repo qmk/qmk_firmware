@@ -42,7 +42,7 @@
 #define ISSI_BANK_FUNCTIONREG 0x0B    // FIXME: Not on 3235?
 
 #ifndef ISSI_TIMEOUT
-  #define ISSI_TIMEOUT 255
+  #define ISSI_TIMEOUT 100
 #endif
 
 #ifndef ISSI_PERSISTENCE
@@ -79,12 +79,12 @@ void IS31FL3235A_write_register(uint8_t addr, uint8_t reg, uint8_t data) {
 
     #if ISSI_PERSISTENCE > 0
         for (uint8_t i = 0; i < ISSI_PERSISTENCE; i++) {
-            if (i2c_transmit(addr << 1, g_3235a_transfer_buffer, 2, ISSI_TIMEOUT) == 0) {
+            if (i2c_transmit(addr, g_3235a_transfer_buffer, 2, ISSI_TIMEOUT) == 0) {
               break;
             }
         }
     #else
-        if (i2c_transmit(addr << 1, g_3235a_transfer_buffer, 2, ISSI_TIMEOUT) == -1) {
+        if (i2c_transmit(addr, g_3235a_transfer_buffer, 2, ISSI_TIMEOUT) == -1) {
             // When we encounter a timeout ChibiOS says the bus must be reset as it's in an unknown state
             xprintf("i2c transmit timeout, resetting i2c bus!\n");
             i2c_stop(ISSI_TIMEOUT);

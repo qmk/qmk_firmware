@@ -39,10 +39,10 @@ OPT_DEFS =
 DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave
 
 # LED Configuration
-#LED_MATRIX_ENABLE = IS31FL3731
+LED_MATRIX_ENABLE = IS31FL3731
 
 # QWIIC Devices
-QWIIC_ENABLE = RGB7SEG
+#QWIIC_ENABLE = RGB7SEG
 
 # Build Options
 #   comment out to disable the options.

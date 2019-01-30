@@ -132,10 +132,12 @@
 
 // For the rgb7seg
 #define IS31FL3235A_COUNT 1
+/*
 #define I2C_DRIVER I2CD2
 #define I2C1_BANK GPIOA
 #define I2C1_SCL 9
 #define I2C1_SDA 10
+*/
 
 // This is a 7-bit address, that gets left-shifted and bit 0
 // set to 0 for write, 1 for read (as per I2C protocol)
@@ -147,10 +149,10 @@
 #define LED_DRIVER_ADDR_1 0b1110100
 
 /* For the LED driver
+ */
 #define I2C1_BANK GPIOB
 #define I2C1_SCL 8
 #define I2C1_SDA 9
- */
 
 #define LED_DRIVER_COUNT 1
 #define LED_DRIVER_LED_COUNT 71
