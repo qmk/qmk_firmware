@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 
-#define LAYOUT_DEFAULT( \
+#define LAYOUT_default( \
 	K500, K502, K503, K504, K505, K600, K610, K710, K700, K511, K512, K513, K514, K113, K214, K013, K706, K709, K708, \
 	K400, K401, K402, K403, K404, K405, K601, K611, K711, K701, K410, K411, K412,       K414, K406, K407, K408, K409, \
     K300,   K301, K302, K303, K304, K305, K602, K612, K712, K702, K310, K311, K312,     K313, K306, K307, K308, K309, \
@@ -44,7 +44,7 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 	{      K700,       K701,       K702,       K703,       K704,       K705,       K706,       KC_NO,      K708,       K709,       K710,       K711,       K712,       K713,      K714  } \
 }
 
-#define LAYOUT_CUSTOM( \
+#define LAYOUT_custom( \
 	K500, K502, K503, K504, K505, K600, K610, K710, K700, K511, K512, K513, K514, K113, K214, K013, K706, K709, K708, \
 	K400, K401, K402, K403, K404, K405, K601, K611, K711, K701, K410, K411, K412,       K414, K406, K407, K408, K409, \
     K300,   K301, K302, K303, K304, K305, K602, K612, K712, K702, K310, K311, K312,     K313, K306, K307, K308, K309, \
