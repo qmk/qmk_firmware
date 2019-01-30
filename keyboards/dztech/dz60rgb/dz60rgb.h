@@ -1,4 +1,4 @@
-#ifndef dz60rgb_H
+#pragma once
 #define dz60rgb_H
 #define XXX KC_NO
 #include "quantum.h"
@@ -15,4 +15,3 @@
     { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, XXX, K3D }, \
     { K40, K41, K42, XXX, XXX, K45, XXX, XXX, K48, K49, K4A, K4B, XXX, K4D }  \
 }
-#endif
