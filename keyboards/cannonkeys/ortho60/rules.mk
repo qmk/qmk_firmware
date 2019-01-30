@@ -1,6 +1,7 @@
 # project specific files
+VPATH += keyboards/cannonkeys/bluepill
 SRC =	led.c \
-		  ws2812.c
+      keyboard.c
 
 # GENERIC STM32F103C8T6 board - stm32duino bootloader
 OPT_DEFS = -DCORTEX_VTOR_INIT=0x2000
@@ -51,6 +52,4 @@ NKRO_ENABLE = yes	    # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 
-LAYOUTS = 60_ansi
-
-DEFAULT_FOLDER = handwired/practice60
+LAYOUTS = ortho_5x12
