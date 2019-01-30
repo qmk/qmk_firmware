@@ -519,11 +519,7 @@ void EVENT_USB_Device_ControlRequest(void)
                     }
 
                     if (Endpoint_BytesInEndpoint() == 2) {
-                      uint8_t report_id = REPORT_ID_KEYBOARD;
-
-                      if (keyboard_protocol) {
-                        report_id = Endpoint_Read_8();
-                      }
+                      uint8_t report_id = Endpoint_Read_8();
 
                       if (report_id == REPORT_ID_KEYBOARD || report_id == REPORT_ID_NKRO) {
                         keyboard_led_stats = Endpoint_Read_8();

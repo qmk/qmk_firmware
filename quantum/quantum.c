@@ -15,6 +15,11 @@
  */
 
 #include "quantum.h"
+
+#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
+	#include "rgb.h"
+#endif
+
 #ifdef PROTOCOL_LUFA
 #include "outputselect.h"
 #endif
@@ -1442,6 +1447,24 @@ void led_set(uint8_t usb_led)
     //     DDRE &= ~(1<<6);
     //     PORTE &= ~(1<<6);
     // }
+
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+  // Use backlight as Caps Lock indicator
+  uint8_t bl_toggle_lvl = 0;
+
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) && !backlight_config.enable) {
+    // Turning Caps Lock ON and backlight is disabled in config
+    // Toggling backlight to the brightest level
+    bl_toggle_lvl = BACKLIGHT_LEVELS;
+  } else if (IS_LED_OFF(usb_led, USB_LED_CAPS_LOCK) && backlight_config.enable) {
+    // Turning Caps Lock OFF and backlight is enabled in config
+    // Toggling backlight and restoring config level
+    bl_toggle_lvl = backlight_config.level;
+  }
+
+  // Set level without modify backlight_config to keep ability to restore state
+  backlight_set(bl_toggle_lvl);
+#endif
 
   led_set_kb(usb_led);
 }

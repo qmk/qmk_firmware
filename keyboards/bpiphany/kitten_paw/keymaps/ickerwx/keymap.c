@@ -3,12 +3,13 @@
 
 #define _______ KC_TRNS
 #define XXXXXXX KC_NO
-#define  C(kc) LCTL(KC_##kc)
+#undef C
+#undef S
+#define C(kc) LCTL(KC_##kc)
+#define S(kc) LSFT(KC_##kc)
 #define RA(kc) RALT(KC_##kc)
 #define KC_SLCT KC_SELECT
 #define MEDAPP LT(MEDIA, KC_APP)
-#undef S
-#define S(kc) LSFT(KC_##kc)
 
 uint8_t current_layer_global = 255;
 
