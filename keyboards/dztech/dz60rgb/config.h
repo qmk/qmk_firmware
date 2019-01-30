@@ -19,11 +19,8 @@
 
 #define DIODE_DIRECTION COL2ROW
 
-#define DEBOUNCE 0
+#define DEBOUNCE 3
 
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 #define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
 #define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
 #define RGB_MATRIX_SKIP_FRAMES 0
