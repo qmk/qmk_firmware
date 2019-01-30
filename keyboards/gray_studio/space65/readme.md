@@ -1,8 +1,6 @@
 # Gray Studio Space65
 
-![space65](imgur.com image replace me!)
-
-A short description of the keyboard/project
+A 65% keyboard with RGB Underglow, Backlight, USB C. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: Gray Studio Space 65  
