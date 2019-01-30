@@ -15,10 +15,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_P0, KC_PDOT, KC_PENT, KC_PPLS
      ),
  [_FUNC]=LAYOUT_ortho_4x4(
-        KC_PSCR, KC_SLCK, KC_PAUS, _______,
+        KC_MPRV, KC_MPLY, KC_MNXT, _______,
+        XXXXXXX, XXXXXXX, XXXXXXX, KC_NLCK,
         KC_INS,  KC_HOME, KC_PGUP, XXXXXXX,
-        KC_DEL,  KC_END,  KC_PGDN, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
+        KC_DEL,  KC_END,  KC_PGDN, XXXXXXX
 
     )
 };
