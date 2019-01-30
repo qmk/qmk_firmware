@@ -1,7 +1,6 @@
 # project specific files
 VPATH += keyboards/cannonkeys/bluepill
 SRC =	led.c \
-		  ws2812.c \
       keyboard.c
 
 # GENERIC STM32F103C8T6 board - stm32duino bootloader
