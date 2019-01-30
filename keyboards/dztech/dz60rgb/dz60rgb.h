@@ -1,5 +1,4 @@
 #pragma once
-#define dz60rgb_H
 #define XXX KC_NO
 #include "quantum.h"
 #define KEYMAP( \
