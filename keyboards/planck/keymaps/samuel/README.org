@@ -350,11 +350,11 @@ break;
 *** RISE and DEL and /
 
 I use the top corners as rise because I decided that I do not like using layers
-with my thumbs. It feels uncomfortable to hold by thumbs there, and only like to
-tap with my thumbs. I pinky is for holding modifiers, so it makes sense to put
-the layer key with the other modifiers. Both my left and right layer keys
-activate the same layer which also makes sense to me. You wouldn't want left and
-right shift to do different things.
+with my thumbs. It feels uncomfortable to hold keys down with the side of my
+thumb, and backspace, tab, enter, and spacebare keep them satisfied. My pinky is for holding modifiers,
+so it makes sense to put the layer key with the other modifiers. Both my left
+and right layer keys activate the same layer which also makes sense to me. You
+wouldn't want left and right shift to do different things
 
 I used to have escape in the top left, but I use delete a lot more, and putting
 escape under a layer has not been a problem at all. I put / in the top right
@@ -403,49 +403,65 @@ left hand like on a qwerty or colemek keyboard.
 #+BEGIN_SRC C :noweb yes
 case KC_EZRGHT:
 if (record->event.pressed) {
-  mod_type(LCTL(KC_LSHIFT), KC_RGHT);
+  register_code(KC_LCTL);
+  mod_type(KC_LSFT, KC_RGHT);
+  unregister_code(KC_LCTL);
+  tap_interupted = true;
  }
 return false;
 break;
 case KC_EZLEFT:
 if (record->event.pressed) {
-  mod_type(LCTL(KC_LSHIFT), KC_LEFT);
+  register_code(KC_LCTL);
+  mod_type(KC_LSFT, KC_LEFT);
+  unregister_code(KC_LCTL);
+  tap_interupted = true;
  }
 return false;
 break;
 case KC_EZDOWN:
 if (record->event.pressed) {
-  mod_type(LCTL(KC_LSHIFT), KC_DOWN);
+  register_code(KC_LCTL);
+  mod_type(KC_LSFT, KC_DOWN);
+  unregister_code(KC_LCTL);
+  tap_interupted = true;
  }
 return false;
 break;
 case KC_EZUP:
 if (record->event.pressed) {
-  mod_type(LCTL(KC_LSHIFT), KC_UP);
+  register_code(KC_LCTL);
+  mod_type(KC_LSFT, KC_UP);
+  unregister_code(KC_LCTL);
+  tap_interupted = true;
  }
 return false;
 break;
 case KC_EZUNDO:
 if (record->event.pressed) {
   mod_type(KC_LCTL, KC_Z);
+  tap_interupted = true;
 }
 return false;
 break;
 case KC_EZCOPY:
 if (record->event.pressed) {
   mod_type(KC_LCTL, KC_C);
+  tap_interupted = true;
 }
 return false;
 break;
 case KC_EZCUT:
 if (record->event.pressed) {
   mod_type(KC_LCTL, KC_X);
+  tap_interupted = true;
 }
 return false;
 break;
 case KC_EZPSTE:
 if (record->event.pressed) {
   mod_type(KC_LCTL, KC_V);
+  tap_interupted = true;
 }
 return false;
 break;

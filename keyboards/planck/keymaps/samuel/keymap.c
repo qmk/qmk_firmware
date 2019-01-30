@@ -229,49 +229,65 @@ break;
 
 case KC_EZRGHT:
 if (record->event.pressed) {
-  mod_type(LCTL(KC_LSHIFT), KC_RGHT);
+  register_code(KC_LCTL);
+  mod_type(KC_LSFT, KC_RGHT);
+  unregister_code(KC_LCTL);
+  tap_interupted = true;
  }
 return false;
 break;
 case KC_EZLEFT:
 if (record->event.pressed) {
-  mod_type(LCTL(KC_LSHIFT), KC_LEFT);
+  register_code(KC_LCTL);
+  mod_type(KC_LSFT, KC_LEFT);
+  unregister_code(KC_LCTL);
+  tap_interupted = true;
  }
 return false;
 break;
 case KC_EZDOWN:
 if (record->event.pressed) {
-  mod_type(LCTL(KC_LSHIFT), KC_DOWN);
+  register_code(KC_LCTL);
+  mod_type(KC_LSFT, KC_DOWN);
+  unregister_code(KC_LCTL);
+  tap_interupted = true;
  }
 return false;
 break;
 case KC_EZUP:
 if (record->event.pressed) {
-  mod_type(LCTL(KC_LSHIFT), KC_UP);
+  register_code(KC_LCTL);
+  mod_type(KC_LSFT, KC_UP);
+  unregister_code(KC_LCTL);
+  tap_interupted = true;
  }
 return false;
 break;
 case KC_EZUNDO:
 if (record->event.pressed) {
   mod_type(KC_LCTL, KC_Z);
+  tap_interupted = true;
 }
 return false;
 break;
 case KC_EZCOPY:
 if (record->event.pressed) {
   mod_type(KC_LCTL, KC_C);
+  tap_interupted = true;
 }
 return false;
 break;
 case KC_EZCUT:
 if (record->event.pressed) {
   mod_type(KC_LCTL, KC_X);
+  tap_interupted = true;
 }
 return false;
 break;
 case KC_EZPSTE:
 if (record->event.pressed) {
   mod_type(KC_LCTL, KC_V);
+  tap_interupted = true;
 }
 return false;
 break;
