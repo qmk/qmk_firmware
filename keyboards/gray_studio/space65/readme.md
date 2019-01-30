@@ -1,10 +1,10 @@
 # Gray Studio Space65
 
-A 65% keyboard with RGB Underglow, Backlight, USB C. 
+A 65% keyboard with RGB underglow, backlighting and USB C, whose design was inspired by the Voyager I space probe and Apple II home computer.
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: Gray Studio Space 65  
-Hardware Availability: [Geekhack Group Buy](https://geekhack.org/index.php?topic=97216.0)
+Hardware Supported: Gray Studio Space65  
+Hardware Availability: [Geekhack Group Buy](https://geekhack.org/index.php?topic=98768.0)
 
 Make example for this keyboard (after setting up your build environment):
 
