@@ -41,6 +41,12 @@ Debian / Ubuntu example:
 Fedora / Red Hat example:
 
     sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs arm-none-eabi-binutils-cs arm-none-eabi-newlib
+    
+Arch / Manjaro example:
+
+    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git
+
+(the `dfu-programmer` package is availble on AUR only so you should download from there or use an AUR helper)
 
 ## Nix
 
@@ -123,24 +129,27 @@ If you have trouble and want to ask for help, it is useful to generate a *Win_Ch
 
 ## Docker
 
-If this is a bit complex for you, Docker might be the turn-key solution you need. After installing [Docker](https://www.docker.com/products/docker), run the following command at the root of the QMK folder to build a keyboard/keymap:
-
+If this is a bit complex for you, Docker might be the turn-key solution you need. After installing [Docker CE](https://docs.docker.com/install/#supported-platforms), run the following command from the `qmk_firmware` directory to build a keyboard/keymap:
 ```bash
-# You'll run this every time you want to build a keymap
-# modify the keymap and keyboard assignment to compile what you want
-# defaults are ergodox/default
+util/docker_build.sh keyboard:keymap 
+# For example: util/docker_build.sh ergodox_ez:steno
+```
+This will compile the targeted keyboard/keymap and leave the resulting `.hex` or `.bin` file in the QMK directory for you to flash. If `:keymap` is omitted, the `default` keymap is used. Note that the parameter format is the same as when building with `make`.
 
-docker run -e keymap=gwen -e keyboard=ergodox_ez --rm -v $('pwd'):/qmk:rw edasque/qmk_firmware
+You can also start the script without any parameters, in which case it will ask you to input the build parameters one by one, which you may find easier to use:
+```bash
+util/docker_build.sh
+# Reads parameters as input (leave blank for defaults)
 ```
 
-On Windows Docker seems to have issues with the VOLUME tag in Dockerfile, and `$('pwd')` won't print a Windows compliant path; use full path instead, like this:
-
+There is also support for building _and_ flashing the keyboard straight from Docker by specifying the `target` as well:
 ```bash
-docker run -e keymap=default -e keyboard=ergodox_ez --rm -v D:/Users/Sacapuces/Documents/Repositories/qmk:/qmk:rw edasque/qmk_firmware
-
+util/docker_build.sh keyboard:keymap:target
+# For example: util/docker_build.sh planck/rev6:default:dfu-util
 ```
+If you're on Linux, this should work out of the box. On Windows and macOS, it requires [Docker Machine](http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos/) to be running. This is tedious to set up, so it's not recommended; use QMK Toolbox instead.
 
-This will compile the targeted keyboard/keymap and leave it in your QMK directory for you to flash.
+!> Docker for Windows requires [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) to be enabled. This means that it cannot work on versions of Windows which don't have Hyper-V, such as Windows 7, Windows 8 and **Windows 10 Home**.
 
 ## Vagrant
 If you have any problems building the firmware, you can try using a tool called Vagrant. It will set up a virtual computer with a known configuration that's ready-to-go for firmware building. OLKB does NOT host the files for this virtual computer. Details on how to set up Vagrant are in the [vagrant guide](getting_started_vagrant.md).

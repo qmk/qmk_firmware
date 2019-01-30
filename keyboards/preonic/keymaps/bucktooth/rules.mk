@@ -15,6 +15,3 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

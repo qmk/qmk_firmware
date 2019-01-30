@@ -1,8 +1,8 @@
 
 
 # project specific files
-SRC =	../zeal60/zeal60.c \
-		../zeal60/rgb_backlight.c \
+SRC =	keyboards/zeal60/zeal60.c \
+		keyboards/zeal60/rgb_backlight.c \
 		quantum/color.c \
 		drivers/issi/is31fl3731.c \
 		drivers/avr/i2c_master.c

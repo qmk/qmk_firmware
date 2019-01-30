@@ -37,11 +37,7 @@ bool process_record_edvorakjp_ext(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
 
-    // left hand and right hand's right side
-    case KC_X:
-    case KC_C:
-    case KC_V:
-    case KC_Z:
+    // left hand up and right hand's right side
     case KC_Y:
     case KC_P:
     case KC_W:
@@ -54,6 +50,18 @@ bool process_record_edvorakjp_ext(uint16_t keycode, keyrecord_t *record) {
         layer_on(_EDVORAKJ2);
       }
       return true;
+    // left hand down
+    // If return true, QMK sends keycode in new layer,
+    // but these keys are only available in old layer.
+    case KC_X:
+    case KC_C:
+    case KC_V:
+    case KC_Z:
+      if (record->event.pressed) {
+        layer_on(_EDVORAKJ2);
+        tap_code(keycode);
+      }
+      return false;
   }
 
   // vowel keys, symbol keys and modifier keys

@@ -52,10 +52,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 // define variables for reactive RGB
 bool TOG_STATUS = false;
 int RGB_current_mode;

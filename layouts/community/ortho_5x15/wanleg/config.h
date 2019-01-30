@@ -1,7 +1,7 @@
 #pragma once
 
 //5x5 powered by Adafruit Feather 32u4 Bluefruit LE
-#if defined(KEYBOARD_5x5) && defined(BLUEFRUIT)
+#if defined(KEYBOARD_40percentclub_5x5) && defined(BLUEFRUIT)
 
 //need to undefine standard 5x5 array before defining alternate Bluefruit array
 #undef MATRIX_ROW_PINS

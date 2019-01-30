@@ -83,6 +83,7 @@ typedef struct led_disp_s {
     float bottom;
     float width;
     float height;
+    float max_distance;
 } led_disp_t;
 
 uint8_t led_matrix_init(void);
@@ -125,9 +126,11 @@ extern uint8_t led_enabled;
 extern float led_animation_speed;
 extern uint8_t led_lighting_mode;
 extern uint8_t led_animation_direction;
+extern uint8_t led_animation_orientation;
 extern uint8_t led_animation_breathing;
 extern uint8_t led_animation_breathe_cur;
 extern uint8_t breathe_dir;
+extern uint8_t led_animation_circular;
 extern const uint8_t led_setups_count;
 
 extern void *led_setups[];

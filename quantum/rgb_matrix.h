@@ -127,6 +127,7 @@ enum rgb_matrix_effects {
 };
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue );
+void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue );
 
 // This runs after another backlight effect and replaces
 // colors already set
@@ -160,20 +161,50 @@ void rgb_matrix_decrease(void);
 
 uint32_t rgb_matrix_get_tick(void);
 
-void rgblight_toggle(void);
-void rgblight_step(void);
-void rgblight_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
-void rgblight_step_reverse(void);
-void rgblight_increase_hue(void);
-void rgblight_decrease_hue(void);
-void rgblight_increase_sat(void);
-void rgblight_decrease_sat(void);
-void rgblight_increase_val(void);
-void rgblight_decrease_val(void);
-void rgblight_increase_speed(void);
-void rgblight_decrease_speed(void);
-void rgblight_mode(uint8_t mode);
-uint32_t rgblight_get_mode(void);
+void rgb_matrix_toggle(void);
+void rgb_matrix_enable(void);
+void rgb_matrix_enable_noeeprom(void);
+void rgb_matrix_disable(void);
+void rgb_matrix_disable_noeeprom(void);
+void rgb_matrix_step(void);
+void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val);
+void rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val);
+void rgb_matrix_step_reverse(void);
+void rgb_matrix_increase_hue(void);
+void rgb_matrix_decrease_hue(void);
+void rgb_matrix_increase_sat(void);
+void rgb_matrix_decrease_sat(void);
+void rgb_matrix_increase_val(void);
+void rgb_matrix_decrease_val(void);
+void rgb_matrix_increase_speed(void);
+void rgb_matrix_decrease_speed(void);
+void rgb_matrix_mode(uint8_t mode);
+void rgb_matrix_mode_noeeprom(uint8_t mode);
+uint8_t rgb_matrix_get_mode(void);
+
+#ifndef RGBLIGHT_ENABLE
+#define rgblight_toggle() rgb_matrix_toggle()
+#define rgblight_enable() rgb_matrix_enable()
+#define rgblight_enable_noeeprom() rgb_matrix_enable_noeeprom()
+#define rgblight_disable() rgb_matrix_disable()
+#define rgblight_disable_noeeprom() rgb_matrix_disable_noeeprom()
+#define rgblight_step() rgb_matrix_step()
+#define rgblight_sethsv(hue, sat, val) rgb_matrix_sethsv(hue, sat, val)
+#define rgblight_sethsv_noeeprom(hue, sat, val) rgb_matrix_sethsv_noeeprom(hue, sat, val)
+#define rgblight_step_reverse() rgb_matrix_step_reverse()
+#define rgblight_increase_hue() rgb_matrix_increase_hue()
+#define rgblight_decrease_hue() rgb_matrix_decrease_hue()
+#define rgblight_increase_sat() rgb_matrix_increase_sat()
+#define rgblight_decrease_sat() rgb_matrix_decrease_sat()
+#define rgblight_increase_val() rgb_matrix_increase_val()
+#define rgblight_decrease_val() rgb_matrix_decrease_val()
+#define rgblight_increase_speed() rgb_matrix_increase_speed()
+#define rgblight_decrease_speed() rgb_matrix_decrease_speed()
+#define rgblight_mode(mode) rgb_matrix_mode(mode)
+#define rgblight_mode_noeeprom(mode) rgb_matrix_mode_noeeprom(mode)
+#define rgblight_get_mode() rgb_matrix_get_mode()
+
+#endif
 
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
