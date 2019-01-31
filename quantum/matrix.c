@@ -108,6 +108,20 @@ uint8_t matrix_cols(void) {
     return MATRIX_COLS;
 }
 
+#if (DIODE_DIRECTION == CUSTOM_MATRIX)
+
+__attribute__ ((weak))
+void custom_matrix_init(void) {
+}
+
+__attribute__ ((weak))
+bool custom_matrix_scan(matrix_row_t current_matrix[]) {
+    bool changed = true;
+    return changed;
+}
+
+#endif
+
 // void matrix_power_up(void) {
 // #if (DIODE_DIRECTION == COL2ROW)
 //     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
@@ -141,6 +155,8 @@ void matrix_init(void) {
 #elif (DIODE_DIRECTION == ROW2COL)
     unselect_cols();
     init_rows();
+#elif (DIODE_DIRECTION == CUSTOM_MATRIX)
+    custom_matrix_init();
 #endif
 
     // initialize matrix state: all keys off
@@ -167,6 +183,8 @@ uint8_t matrix_scan(void)
   for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
     changed |= read_rows_on_col(raw_matrix, current_col);
   }
+#elif (DIODE_DIRECTION == CUSTOM_MATRIX)
+  changed = custom_matrix_scan(raw_matrix);
 #endif
 
   debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
