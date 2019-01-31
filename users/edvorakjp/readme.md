@@ -10,7 +10,7 @@ This is a sample. You can swap any symbol keys and modifier keys.
   //+----+----+----+----+----+----+----+----+----+----+----+----+----+---------+
       `  , !  , @  , #  , $  , %  , ^  , &  , *  , (  , )  , [  , ]  ,  BSPC   ,
   //+----+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-------+
-      TAB  , '  , ,  , .  , P  , Y  , F  , G  , R  , W  , Q  , /  , =  ,   \   ,
+      TAB  , '  , ,  , .  , Y  , P  , F  , G  , R  , W  , Q  , /  , =  ,   \   ,
   //+------++---++---++---++---++---++---++---++---++---++---++---++---+-------+
       CAPS  , A  , O  , E  , I  , U  , D  , T  , N  , S  , M  , -  ,    ENT    ,
   //+-------+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-----------+
@@ -25,7 +25,7 @@ This is a sample. You can swap any symbol keys and modifier keys.
   //+----+----+----+----+----+----+----+----+----+----+----+----+----+---------+
       `  , !  , @  , #  , $  , %  , ^  , &  , *  , (  , )  , [  , ]  ,  BSPC   ,
   //+----+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+-------+
-      TAB  , '  , ,  , .  , P  , Y  , F  , G  , R  , W  , C  , /  , =  ,
+      TAB  , '  , ,  , .  , Y  , P  , F  , G  , R  , W  , C  , /  , =  ,
   //+------++---++---++---++---++---++---++---++---++---++---++---++---++
       CAPS  , A  , O  , E  , I  , U  , D  , T  , N  , S  , M  , ;  , -  , ENT  ,
   //+-------+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+-+--+------+
@@ -78,11 +78,15 @@ This is a sample. You can swap any symbol keys and modifier keys.
 ## for Programmer
 
 - Dvorak 配列をベースに、ショートカットでよく利用される XCV は QWERTY 配列の位置を維持
-- Vimユーザのために、HJKL キーを横並びで配置
+- 一部にVimユーザ用のキー配置を実施
+    - HJKL キーを横並びで配置
+    - Shift押下時と非押下時で、";"キーの挙動を入れ替え（`config.h` 内で `#define SWAP_SCLN` の宣言が必要です）
 - デフォルトレイヤーには、数字キーの代わりに記号 `!@#$%^&*()` を配置
 
 - mainly based on Dvorak layout, but XCV is available in the same position of QWERTY layout
-- HJKL is lining side by side, for Vim users
+- for Vim users
+    - HJKL is lining side by side
+    - swap the ";" key behavior. i.e. send ":" normally and send ";" when you hold shift. (need `#define SWAP_SCLN` in your `config.h`)
 - we can type `!@#$%^&*()` keys without shift keys in base layer
 
 ## License

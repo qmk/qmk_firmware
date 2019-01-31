@@ -1,5 +1,4 @@
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -10,6 +9,7 @@
 #define MANUFACTURER    Fengz
 #define PRODUCT         Tetris
 #define DESCRIPTION     Planck mit
+
 #define QMK_ESC_OUTPUT B0
 #define QMK_ESC_INPUT D7
 #define QMK_LED B7
@@ -36,16 +36,10 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 #define TAPPING_TERM 200
-#define PERMISSIVE_HOLD
 
 #ifdef AUDIO_ENABLE
   #define B5_AUDIO
@@ -53,13 +47,11 @@
   #define NO_MUSIC_MODE
 #endif
 
+#if RGBLIGHT_ENABLE
 #define RGB_DI_PIN F5
-#ifdef RGB_DI_PIN
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_SLEEP
 #define RGBLED_NUM 47
 #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM 12
 //#define RGBLIGHT_LIMIT_VAL 128
-#endif
-
 #endif

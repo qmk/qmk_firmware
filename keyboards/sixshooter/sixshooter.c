@@ -31,25 +31,6 @@ void matrix_scan_kb(void) {
 	matrix_scan_user();
 }
 
-bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
-	// put your per-action keyboard code here
-	// runs for every action, just before processing by the firmware
-  if (record->event.pressed) {
-
-    /* Check for custom keycodes for turning on and off LEDs */
-    switch(keycode) {
-      case SS_LON:
-        sixshooter_led_all_on();
-        return false;
-      case SS_LOFF:
-        sixshooter_led_all_off();
-        return false;
-    }
-  }
-
-	return process_record_user(keycode, record);
-}
-
 void led_set_kb(uint8_t usb_led) {
 	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 

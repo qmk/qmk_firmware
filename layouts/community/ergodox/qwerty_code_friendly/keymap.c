@@ -403,16 +403,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, K80(L1K2), K80(L1K3),
   KC_TRNS, KC_TRNS, KC_TRNS
 ),
-/* Keymap 2: Numbers, media and mouse keys
+/* Keymap 2: FKeys, media & mouse keys
  *
  * .--------------------------------------------------.  .--------------------------------------------------.
- * |        |   1  |   2  |   3  |   4  |   5  |      |  | Mute |   6  |   7  |   8  |   9  |   0  |        |
+ * |        |      |      |      |      |      |      |  | Mute |      |  F10 |  F11 |  F12 |      |        |
  * |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
- * |        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |      |      |      |      |        |
+ * |        |      |      | MsUp |      |      |MWhlUp|  |VolUp |      |  F7  |  F8  |  F9  |      |        |
  * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
- * |        |      |MsLeft|MsDown|MsRght|      |------|  |------| Left | Down | Up   |Right |      |        |
+ * |        |      |MsLeft|MsDown|MsRght|      |------|  |------|      |  F4  |  F5  |  F6  |      |        |
  * |--------+------+------+------+------+------|MWhlDn|  |VolDn |------+------+------+------+------+--------|
- * |        |      | Rclk | Mclk | Lclk |      |      |  |      |      |      |      |      |      |        |
+ * |        |      | Rclk | Mclk | Lclk |      |      |  |      |      |  F1  |  F2  |  F3  |      |        |
  * '--------+------+------+------+------+-------------'  '-------------+------+------+------+------+--------'
  *   |      |      |      |      |      |                              |      |      |      |      |      |
  *   '----------------------------------'                              '----------------------------------'
@@ -427,7 +427,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* MEDIA, MOUSE & NUMBERS */
 [LAYER_MDIA] = LAYOUT_ergodox_76_or_80(
   /* left hand */
-  KC_TRNS, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_TRNS,
+  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_MS_U, KC_TRNS, KC_TRNS, KC_WH_U,
   KC_TRNS, KC_TRNS, KC_MS_L, KC_MS_D, KC_MS_R, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_BTN2, KC_BTN3, KC_BTN1, KC_TRNS, KC_WH_D,
@@ -436,19 +436,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            K80(L2K0), K80(L2K1), KC_TRNS,
                            KC_TRNS,   KC_TRNS,   KC_TRNS,
   /* right hand */
-  KC_MUTE,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_TRNS,
-  KC_VOLU,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-            KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_TRNS, KC_TRNS,
-  KC_VOLD,  KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
+  KC_MUTE,  KC_TRNS, KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_TRNS,
+  KC_VOLU,  KC_TRNS, KC_F7,   KC_F8,   KC_F9,   KC_TRNS, KC_TRNS,
+            KC_TRNS, KC_F4,   KC_F5,   KC_F6,   KC_TRNS, KC_TRNS,
+  KC_VOLD,  KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_TRNS, KC_TRNS,
                      KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_MRWD, KC_MFFD,
   KC_MPRV, K80(L2K2), K80(L2K3),
   KC_MNXT, KC_TRNS, KC_MPLY
 ),
-/* Keymap 3: Entire Words (one for each key)
+/* Keymap 3: Entire Words (one for each key) & Numbers
  *
  * .--------------------------------------------------.  .--------------------------------------------------.
- * |        |  F1  |  F2  |  F3  |  F4  |  F5  |  F11 |  | F12  |  F6  |  F7  |  F8  |  F9  |  F10 |        |
+ * |        |   1  |   2  |   3  |   4  |   5  |      |  |      |   6  |   7  |   8  |   9  |   0  |        |
  * |--------+------+------+------+------+------+------|  |------+------+------+------+------+------+--------|
  * |        |   Q  |   W  |   E  |   R  |   T  |      |  |      |   Y  |   U  |   I  |   O  |   P  |        |
  * |--------+------+------+------+------+------|      |  |      |------+------+------+------+------+--------|
@@ -470,7 +470,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* FKEY & WORDS */
 [LAYER_FKEY] = LAYOUT_ergodox_76_or_80(
   /* left hand */
-  KC_TRNS, KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F11,
+  KC_TRNS, KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_TRNS,
   KC_TRNS, M_WORD_Q, M_WORD_W, M_WORD_E, M_WORD_R, M_WORD_T, KC_TRNS,
   KC_TRNS, M_WORD_A, M_WORD_S, M_WORD_D, M_WORD_F, M_WORD_G,
   KC_TRNS, M_WORD_Z, M_WORD_X, M_WORD_C, M_WORD_V, M_WORD_B, KC_TRNS,
@@ -479,7 +479,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                          K80(L3K0), K80(L3K1), KC_TRNS,
                                          KC_TRNS,   KC_TRNS,   KC_TRNS,
   /* right hand */
-  KC_F12,  KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_TRNS,
+  KC_TRNS, KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_TRNS,
   KC_TRNS, M_WORD_Y, M_WORD_U, M_WORD_I, M_WORD_O, M_WORD_P, KC_TRNS,
            M_WORD_H, M_WORD_J, M_WORD_K, M_WORD_L, KC_TRNS,  KC_TRNS,
   KC_TRNS, M_WORD_N, M_WORD_M, KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,

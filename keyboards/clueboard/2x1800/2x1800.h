@@ -21,7 +21,7 @@
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguments
 // The second converts the arguments into a two-dimensional array
-#define LAYOUT( \
+#define LAYOUT_all( \
       k00, k01, k02, k03,    k04,   k06, k07, k08, k09,   k0a, k60, k61, k62,   k63, k64, k65, k66,    k67, k68, k69, k6a, \
       k10, k11, k12, k13,   k14, k15, k16, k17, k18, k19, k1a, k70, k71, k72, k73, k74, k75,    k76,   k77, k78, k79, k7a, \
       k20, k21, k22, k23,    k24,  k25, k26, k27, k28, k29, k2a, k80, k81, k82, k83, k84, k85,   k86,  k87, k88, k89, k8a, \
@@ -89,5 +89,7 @@
     { ka0, ka1, ka2, ka3, ka4, ka5, ka6, ka7, ka8, ka9, kaa }, \
     { kb0, KC_NO, KC_NO, KC_NO, kb4, kb5, kb6, kb7, kb8, kb9, KC_NO } \
 }
+
+#define LAYOUT LAYOUT_all
 
 #endif

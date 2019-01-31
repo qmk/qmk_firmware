@@ -19,9 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define TAPPING_TERM 150
 
-/* Try to prevent sticky keys */
-#define PREVENT_STUCK_MODIFIERS
-
 /* Use I2C or Serial, not both */
 
 #define USE_SERIAL

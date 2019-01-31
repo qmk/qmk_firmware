@@ -8,6 +8,7 @@ TRAVIS_COMMIT_RANGE="${TRAVIS_COMMIT_RANGE:-HEAD~1..HEAD}"
 set -o errexit -o nounset
 
 rev=$(git rev-parse --short HEAD)
+echo "Using git hash ${rev}"
 
 if [[ "$TRAVIS_BRANCH" == "master" && "$TRAVIS_PULL_REQUEST" == "false" ]] ; then
 
@@ -34,7 +35,7 @@ increment_version ()
   part[2]=$((part[2] + 1))
   new="${part[*]}"
   echo -e "${new// /.}"
-} 
+}
 
 git diff --name-only -n 1 ${TRAVIS_COMMIT_RANGE}
 
@@ -63,7 +64,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	ssh-add -D
 	eval `ssh-agent -s`
 	ssh-add id_rsa_qmk.fm
-	
+
 	# don't delete files in case not all keyboards are built
 	# rm -f compiled/*.hex
 
@@ -74,7 +75,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	for file in ../qmk_firmware/keyboards/*/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
 	bash _util/generate_keyboard_page.sh
 	git add -A
-	git commit -m "generated from qmk/qmk_firmware@${rev}" 
+	git commit -m "generated from qmk/qmk_firmware@${rev}"
 	git push git@github.com:qmk/qmk.fm.git
 
 fi

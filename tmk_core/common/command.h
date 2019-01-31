@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef COMMAND_H
-#define COMMAND
+#pragma once
 
 /* FIXME: Add doxygen comments for the behavioral defines in here. */
 
@@ -35,6 +34,9 @@ bool command_proc(uint8_t code);
 #define command_proc(code)      false
 #endif
 
+#ifndef IS_COMMAND
+#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
+#endif
 
 #ifndef MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS
 #define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -155,5 +157,3 @@ bool command_proc(uint8_t code);
 
 #define XMAGIC_KC(key) KC_##key
 #define MAGIC_KC(key) XMAGIC_KC(key)
-
-#endif

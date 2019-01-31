@@ -95,7 +95,7 @@ enum user_tapdance {
 #define KC_BLD  BL_DEC
 #define KC_BLB  BL_BRTG
 #define KC_BLON BL_ON
-#define KB_BLOF BL_OFF
+#define KC_BLOF BL_OFF
 
 
 #endif

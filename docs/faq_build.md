@@ -17,7 +17,7 @@ or just:
 
 Note that running `make` with `sudo` is generally *not* a good idea, and you should use one of the former methods, if possible.
 
-## Linux `udev` Rules
+### Linux `udev` Rules
 On Linux, you'll need proper privileges to access the MCU. You can either use
 `sudo` when flashing firmware, or place these files in `/etc/udev/rules.d/`.
 
@@ -36,6 +36,14 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
+
+## Unknown Device for DFU Bootloader
+
+If you're using Windows to flash your keyboard, and you are running into issues, check the Device Manager.  If you see an "Unknown Device" when the keyboard is in "bootloader mode", then you may have a driver issue. 
+
+Re-running the installation script for MSYS2 may help (eg run `./util/qmk_install.sh` from MSYS2/WSL) or reinstalling the QMK Toolbox may fix the issue. 
+
+If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, find the device in question, and select the `WinUS(libusb-1.0)` option, and hit "Reinstall driver". Once you've done that, try flashing your board, again. 
 
 ## WINAVR is Obsolete
 It is no longer recommended and may cause some problem.
@@ -97,10 +105,12 @@ The solution is to remove and reinstall all affected modules.
 ```
 brew rm avr-gcc
 brew rm dfu-programmer
+brew rm dfu-util
 brew rm gcc-arm-none-eabi
 brew rm avrdude
 brew install avr-gcc
 brew install dfu-programmer
+brew install dfu-util
 brew install gcc-arm-none-eabi
 brew install avrdude
 ```
@@ -116,5 +126,5 @@ For now, you need to rollback avr-gcc to 7 in brew.
 ```
 brew uninstall --force avr-gcc
 brew install avr-gcc@7
-brew link avr-gcc@7
+brew link --force avr-gcc@7
 ```

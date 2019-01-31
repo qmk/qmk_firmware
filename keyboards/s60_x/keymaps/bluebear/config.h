@@ -38,11 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 3
@@ -104,8 +99,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Space Cadet Rollover - if set, allows to tap opposite shift key to cancel erroneous press
 #define DISABLE_SPACE_CADET_ROLLOVER
-
-// Prevent stuck modifiers
-#define PREVENT_STUCK_MODIFIERS
 
 #endif

@@ -10,17 +10,6 @@
 	{ K00, K01, K02, K03, K04, K05 }, \
 }
 
-
-/*
- * Define keyboard specific keycodes for controlling on/off for all LEDs as they
- * are all on different pins with this PCB, rather than a single backlight pin
- */
-enum keyboard_keycode {
-  SS_LON = SAFE_RANGE,
-  SS_LOFF,
-  SAFE_RANGE_KB
-};
-
 inline void sixshooter_led_0_on(void)    { DDRB |=  (1<<6); PORTB |=  (1<<6); }
 inline void sixshooter_led_1_on(void)    { DDRC |=  (1<<7); PORTC |=  (1<<7); }
 inline void sixshooter_led_2_on(void)    { DDRD |=  (1<<0); PORTD |=  (1<<0); }

@@ -117,9 +117,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 int currentOs = _MAC;
-const uint16_t PROGMEM fn_actions[] = {
-
-};
 
 #ifdef AUDIO_ENABLE
 

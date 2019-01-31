@@ -31,8 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT         ergoinu
 #define DESCRIPTION     An (Not Portable But Small) Ergonomic split keyboard
 
-
-#define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 
@@ -65,11 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B6
