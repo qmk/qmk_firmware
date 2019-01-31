@@ -162,6 +162,7 @@ typedef union {
 typedef struct _rgblight_status_t {
     bool timer_enabled;
     // TODO: add animation syncronizing
+    //       (with integrate timer processing.)
 } rgblight_status_t;
 
 #ifdef RGBLIGHT_SPLIT

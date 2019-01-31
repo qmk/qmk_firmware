@@ -734,6 +734,7 @@ void rgblight_effect_breathing(uint8_t interval) {
   static uint16_t last_timer = 0;
   float val;
 
+  //TODO: Integrate timer processing.
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_BREATHING_INTERVALS[interval])) {
     return;
   }
@@ -754,6 +755,7 @@ void rgblight_effect_rainbow_mood(uint8_t interval) {
   static uint16_t current_hue = 0;
   static uint16_t last_timer = 0;
 
+  //TODO: Integrate timer processing.
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[interval])) {
     return;
   }
@@ -776,6 +778,8 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;
+
+  //TODO: Integrate timer processing.
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2])) {
     return;
   }
@@ -811,6 +815,8 @@ void rgblight_effect_snake(uint8_t interval) {
   if (interval % 2) {
     increment = -1;
   }
+
+  //TODO: Integrate timer processing.
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_SNAKE_INTERVALS[interval / 2])) {
     return;
   }
@@ -848,6 +854,8 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 
 void rgblight_effect_knight(uint8_t interval) {
   static uint16_t last_timer = 0;
+
+  //TODO: Integrate timer processing.
   if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval])) {
     return;
   }
@@ -895,6 +903,8 @@ void rgblight_effect_christmas(void) {
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;
+
+  //TODO: Integrate timer processing.
   if (timer_elapsed(last_timer) < RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL) {
     return;
   }
@@ -918,6 +928,7 @@ void rgblight_effect_rgbtest(void) {
   static uint8_t maxval = 0;
   uint8_t g; uint8_t r; uint8_t b;
 
+  //TODO: Integrate timer processing.
   if (timer_elapsed(last_timer) < pgm_read_word(&RGBLED_RGBTEST_INTERVALS[0])) {
     return;
   }
@@ -943,6 +954,8 @@ void rgblight_effect_rgbtest(void) {
 void rgblight_effect_alternating(void){
   static uint16_t last_timer = 0;
   static uint16_t pos = 0;
+
+  //TODO: Integrate timer processing.
   if (timer_elapsed(last_timer) < 500) {
     return;
   }
