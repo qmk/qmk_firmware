@@ -1,6 +1,5 @@
 #pragma once
 
-#include "../../config.h"
 #include "333fred_config.h"
 
 #define USE_SERIAL
