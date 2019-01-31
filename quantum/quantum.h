@@ -51,16 +51,16 @@
 
 #include "action_layer.h"
 #include "eeconfig.h"
-#include <stddef.h>
 #include "bootloader.h"
 #include "timer.h"
 #include "config_common.h"
 #include "led.h"
 #include "action_util.h"
-#include <stdlib.h>
 #include "print.h"
 #include "send_string_keycodes.h"
 #include "suspend.h"
+#include <stddef.h>
+#include <stdlib.h>
 
 extern uint32_t default_layer_state;
 
