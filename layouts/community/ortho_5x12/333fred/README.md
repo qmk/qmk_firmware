@@ -1,6 +1,6 @@
-# 333fred's Nyquist Layout
+# 333fred's 5x12 Layout
 
-This nyquist layout is based on my Ergodox Infinity Layout, which is [here](../../../../layouts/community/ergodox/333fred/README.md). It doesn't have all of my VS extensions, as I have my nyquist at home, not at work.
+This 5x12 layout is based on my Ergodox Infinity Layout, which is [here](../../ergodox/333fred/README.md). It doesn't have all of my VS extensions.
 
 ## Layers
 
@@ -18,7 +18,7 @@ Qwerty
 |------+------+------+------+------+------|------+------+------+------+------+------|
 | Shift|   Z  |   X  |   C  |   V  |   B  |   N  |   M  |   ,  |   .  |/ Ctrl| Shift|
 |------+------+------+------+------+------+------+------+------+------+------+------|
-| Ctrl |  Alt |  F4  | GUI  |LwrVIM| Bksp | Spc  | Ent  | Lock |   =  | RAlt | Del  |
+| Ctrl |  Alt |  F4  | GUI  | Bksp |LwrVIM| Spc  | Ent  | Lock |   =  | RAlt | Del  |
 `-----------------------------------------------------------------------------------'
 ```
 
@@ -66,7 +66,7 @@ Gaming mode (Raise)
 |------+------+------+------+------+------+------+------+------+------+------+------|
 |      |      |      |      |      |      |      |      |      |      |      |      |
 |------+------+------+------+------+------+------+------+------+------+------+------|
-| CTRL |      |      |      |   F  |      |      |      |      |      |      |      |
+| CTRL |      |      |      |      |      |      |      |      |      |      |      |
 |------+------+------+------+------+------+------+------+------+------+------+------|
 | Shift|   Z  |      |      |      |      |      |      |      |      |      |  GUI |
 |------+------+------+------+------+------+------+------+------+------+------+------|
