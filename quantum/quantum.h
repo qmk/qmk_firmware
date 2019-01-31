@@ -135,48 +135,35 @@ extern uint32_t default_layer_state;
     #include "hd44780.h"
 #endif
 
-//Function substitutions to ease GPIO manipulation
-#ifdef __AVR__
-    #define PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)
+// Function substitutions to ease GPIO manipulation
+#if defined(__AVR__)
+    typedef uint8_t pin_t;
 
-    #define pin_t uint8_t
-    #define setPinInput(pin) PIN_ADDRESS(pin, 1) &= ~ _BV(pin & 0xF)
-    #define setPinInputHigh(pin) ({\
-            PIN_ADDRESS(pin, 1) &= ~ _BV(pin & 0xF);\
-            PIN_ADDRESS(pin, 2) |=   _BV(pin & 0xF);\
-            })
-    #define setPinInputLow(pin) _Static_assert(0, "AVR Processors cannot impliment an input as pull low")
-    #define setPinOutput(pin) PIN_ADDRESS(pin, 1) |= _BV(pin & 0xF)
+    #define PIN_ADDRESS(p, offset)  (_SFR_IO8(ADDRESS_BASE + ((p) >> PORT_SHIFTER) + (offset)))
+    #define setPinInput(pin)        (PIN_ADDRESS(pin, 1) &= ~_BV((pin) & 0xF))
+    #define setPinInputHigh(pin)    (PIN_ADDRESS(pin, 1) &= ~_BV((pin) & 0xF), \
+                                     PIN_ADDRESS(pin, 2) |=  _BV((pin) & 0xF))
+    #define setPinInputLow(pin)     _Static_assert(0, "AVR processors cannot implement an input as pull low")
+    #define setPinOutput(pin)       (PIN_ADDRESS(pin, 1) |=  _BV((pin) & 0xF))
 
-    #define writePinHigh(pin) PIN_ADDRESS(pin, 2) |=  _BV(pin & 0xF)
-    #define writePinLow(pin) PIN_ADDRESS(pin, 2) &= ~_BV(pin & 0xF)
-    static inline void writePin(pin_t pin, uint8_t level){
-        if (level){
-            PIN_ADDRESS(pin, 2) |=  _BV(pin & 0xF);
-        } else {
-            PIN_ADDRESS(pin, 2) &= ~_BV(pin & 0xF);
-        }
-    }
+    #define writePinHigh(pin)       (PIN_ADDRESS(pin, 2) |=  _BV((pin) & 0xF))
+    #define writePinLow(pin)        (PIN_ADDRESS(pin, 2) &= ~_BV((pin) & 0xF))
+    #define writePin(pin, level)    ((level) ? writePinHigh(pin) : writePinLow(pin))
 
-    #define readPin(pin) ((bool)(PIN_ADDRESS(pin, 0) & _BV(pin & 0xF)))
+    #define readPin(pin)            ((bool)(PIN_ADDRESS(pin, 0) & _BV((pin) & 0xF)))
 #elif defined(PROTOCOL_CHIBIOS)
-    #define pin_t ioline_t
-    #define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
-    #define setPinInputHigh(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
-    #define setPinInputLow(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
-    #define setPinOutput(pin) palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
+    typedef ioline_t pin_t;
 
-    #define writePinHigh(pin) palSetLine(pin)
-    #define writePinLow(pin) palClearLine(pin)
-    static inline void writePin(pin_t pin, uint8_t level){
-        if (level){
-            palSetLine(pin);
-        } else {
-            palClearLine(pin);
-        }
-    }
+    #define setPinInput(pin)        palSetLineMode(pin, PAL_MODE_INPUT)
+    #define setPinInputHigh(pin)    palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
+    #define setPinInputLow(pin)     palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
+    #define setPinOutput(pin)       palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
 
-    #define readPin(pin) palReadLine(pin)
+    #define writePinHigh(pin)       palSetLine(pin)
+    #define writePinLow(pin)        palClearLine(pin)
+    #define writePin(pin, level)    ((level) ? writePinHigh(pin) : writePinLow(pin))
+
+    #define readPin(pin)            palReadLine(pin)
 #endif
 
 #define STRINGIZE(z) #z
