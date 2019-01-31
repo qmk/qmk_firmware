@@ -16,28 +16,29 @@
 #ifndef QUANTUM_H
 #define QUANTUM_H
 
-#if defined(__AVR__)
+#ifdef __AVR__
     #include <avr/pgmspace.h>
     #include <avr/io.h>
     #include <avr/interrupt.h>
 #endif
-#if defined(PROTOCOL_CHIBIOS)
+#ifdef PROTOCOL_CHIBIOS
     #include "hal.h"
 #endif
+
 #include "wait.h"
 #include "matrix.h"
 #include "keymap.h"
-#ifdef BACKLIGHT_ENABLE
+
+#if BACKLIGHT_ENABLE
     #include "backlight.h"
 #endif
-#ifdef RGBLIGHT_ENABLE
+
+#if defined(RGBLIGHT_ENABLE)
     #include "rgblight.h"
-#else
-    #ifdef RGB_MATRIX_ENABLE
-        /* dummy define RGBLIGHT_MODE_xxxx */
-        #define RGBLIGHT_H_DUMMY_DEFINE
-        #include "rgblight.h"
-    #endif
+#elif defined(RGB_MATRIX_ENABLE)
+    // Dummy define RGBLIGHT_MODE_xxxx
+    #define RGBLIGHT_H_DUMMY_DEFINE
+    #include "rgblight.h"
 #endif
 
 #ifdef SPLIT_KEYBOARD
@@ -67,18 +68,16 @@ extern uint32_t default_layer_state;
     extern uint32_t layer_state;
 #endif
 
-#ifdef MIDI_ENABLE
-#ifdef MIDI_ADVANCED
+#if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     #include "process_midi.h"
 #endif
-#endif // MIDI_ENABLE
 
 #ifdef AUDIO_ENABLE
     #include "audio.h"
     #include "process_audio.h"
     #ifdef AUDIO_CLICKY
         #include "process_clicky.h"
-    #endif // AUDIO_CLICKY
+    #endif
 #endif
 
 #ifdef STENO_ENABLE
@@ -237,7 +236,7 @@ void tap_code16(uint16_t code);
 void backlight_init_ports(void);
 void backlight_task(void);
 
-#ifdef BACKLIGHT_BREATHING
+    #ifdef BACKLIGHT_BREATHING
 void breathing_enable(void);
 void breathing_pulse(void);
 void breathing_disable(void);
@@ -250,9 +249,9 @@ void breathing_period_default(void);
 void breathing_period_set(uint8_t value);
 void breathing_period_inc(void);
 void breathing_period_dec(void);
+    #endif
 #endif
 
-#endif
 void send_dword(uint32_t number);
 void send_word(uint16_t number);
 void send_byte(uint8_t number);
