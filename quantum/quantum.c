@@ -240,7 +240,7 @@ uint16_t get_event_keycode(keyevent_t event) {
     if (!disable_action_cache) {
       uint8_t layer;
 
-      if (>event.pressed) {
+      if (event.pressed) {
         layer = layer_switch_get_layer(event.key);
         update_source_layers_cache(event.key, layer);
       } else {
