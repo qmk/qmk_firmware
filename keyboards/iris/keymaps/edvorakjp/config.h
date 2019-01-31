@@ -26,5 +26,6 @@
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 20
 
 #define TAPPING_TERM 120
+#define SWAP_SCLN
 
 #endif

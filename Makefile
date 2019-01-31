@@ -548,9 +548,10 @@ endif
 	# it has to be there to allow parallel execution of the submake
 	# This always tries to compile everything, even if error occurs in the middle
 	# But we return the error code at the end, to trigger travis failures
-	$(foreach COMMAND,$(COMMANDS),$(RUN_COMMAND))
+	# The sort at this point is to remove duplicates
+	$(foreach COMMAND,$(sort $(COMMANDS)),$(RUN_COMMAND))
 	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
-	$(foreach TEST,$(TESTS),$(RUN_TEST))
+	$(foreach TEST,$(sort $(TESTS)),$(RUN_TEST))
 	if [ -f $(ERROR_FILE) ]; then printf "$(MSG_ERRORS)" & exit 1; fi;
 
 # These no longer work because of the colon system

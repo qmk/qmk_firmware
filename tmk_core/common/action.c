@@ -653,7 +653,7 @@ void process_action(keyrecord_t *record, action_t action)
 
 #ifndef NO_ACTION_TAPPING
   #ifdef RETRO_TAPPING
-  if (!is_tap_key(record->event.key)) {
+  if (!is_tap_action(action)) {
     retro_tapping_counter = 0;
   } else {
     if (event.pressed) {
@@ -851,6 +851,18 @@ void unregister_code(uint8_t code)
  *
  * FIXME: Needs documentation.
  */
+void tap_code(uint8_t code) {
+  register_code(code);
+  #if TAP_CODE_DELAY > 0
+    wait_ms(TAP_CODE_DELAY);
+  #endif
+  unregister_code(code);
+}
+
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
 void register_mods(uint8_t mods)
 {
     if (mods) {
@@ -887,9 +899,18 @@ void clear_keyboard(void)
  */
 void clear_keyboard_but_mods(void)
 {
+    clear_keys();
+    clear_keyboard_but_mods_and_keys();
+}
+
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
+void clear_keyboard_but_mods_and_keys()
+{
     clear_weak_mods();
     clear_macro_mods();
-    clear_keys();
     send_keyboard_report();
 #ifdef MOUSEKEY_ENABLE
     mousekey_clear();
@@ -908,7 +929,15 @@ void clear_keyboard_but_mods(void)
 bool is_tap_key(keypos_t key)
 {
     action_t action = layer_switch_get_action(key);
+    return is_tap_action(action);
+}
 
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
+bool is_tap_action(action_t action)
+{
     switch (action.kind.id) {
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:

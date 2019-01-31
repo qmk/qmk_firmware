@@ -32,20 +32,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define MASTER_RIGHT
 #define EE_HANDS
 
-
-/* key combination for command */
-#ifdef IS_COMMAND
-#undef IS_COMMAND
-#endif
+/* key combination for magic key command */
 #define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
+    get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_LALT)) \
 )
-
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 16     // Number of LEDs
-#define RGBLIGHT_ANIMATIONS
+
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_VAL_STEP 12
@@ -77,7 +72,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_LED B0
 #define QMK_SPEAKER C6
 
-
 #define SHFT_LED1 5
 #define SHFT_LED2 10
 
@@ -86,4 +80,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define GUI_LED1 8
 #define ALT_LED1 7
-

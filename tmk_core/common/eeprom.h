@@ -20,5 +20,4 @@ void 	eeprom_update_dword (uint32_t *__p, uint32_t __value);
 void 	eeprom_update_block (const void *__src, void *__dst, uint32_t __n);
 #endif
 
-
 #endif /* TMK_CORE_COMMON_EEPROM_H_ */

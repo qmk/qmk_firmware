@@ -11,7 +11,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     case KC_LOCK:
       if (record->event.pressed) {
-        if (edvorakjp_config.enable_kc_lang) {
+        if (get_enable_kc_lang()) {
           SEND_STRING( SS_LCTRL(SS_LSFT(SS_TAP(X_POWER))) );
         } else {
           SEND_STRING( SS_LGUI("l") );
@@ -35,7 +35,7 @@ void matrix_scan_user(void) {
 
 #ifdef RGBLIGHT_ENABLE
 uint32_t layer_state_set_keymap(uint32_t state) {
-  rgblight_mode_noeeprom(1);
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
   switch (biton32(state)) {
     case _EDVORAKJ1:
     case _EDVORAKJ2:
@@ -52,7 +52,7 @@ uint32_t layer_state_set_keymap(uint32_t state) {
       rgblight_sethsv_noeeprom_green();
       break;
     default: //  for any other layers, or the default layer
-      rgblight_mode_noeeprom(28);
+      rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 3);
       rgblight_sethsv_noeeprom_red();
       break;
   }

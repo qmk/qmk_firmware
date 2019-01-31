@@ -1,4 +1,5 @@
 #pragma once
+
 #include "config_common.h"
 
 #define PRODUCT_ID      0x2390
@@ -8,17 +9,9 @@
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 8
 
-// ROWS: Top to bottom, COLS: Left to right
-/* Row pin configuration
-* row: 0  1  2  3  4  5  6  7  8  9
-* pin: B2 C7 C6 B6 B5 B0 B3 D5 D3 D2
+/* ROWS: Top to bottom, COLS: Left to right
 */
-
 #define MATRIX_ROW_PINS { B2, C7, C6, B6, B5, B0, B3, D5, D3, D2 }
-/* Column pin configuration
- * col: 0  1  2  3  4  5  6  7
- * pin: F0 F1 F4 F5 F6 F7 E6 B1
- */
 #define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, E6, B1 }
 #define UNUSED_PINS
 

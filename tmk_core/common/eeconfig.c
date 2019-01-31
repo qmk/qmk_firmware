@@ -3,7 +3,7 @@
 #include "eeprom.h"
 #include "eeconfig.h"
 
-#ifdef STM32F303xC
+#ifdef STM32_EEPROM_ENABLE
 #include "hal.h"
 #include "eeprom_stm32.h"
 #endif
@@ -32,8 +32,8 @@ void eeconfig_init_kb(void) {
  * FIXME: needs doc
  */
 void eeconfig_init_quantum(void) {
-#ifdef STM32F303xC
-    EEPROM_format();
+#ifdef STM32_EEPROM_ENABLE
+    EEPROM_Erase();
 #endif
   eeprom_update_word(EECONFIG_MAGIC,          EECONFIG_MAGIC_NUMBER);
   eeprom_update_byte(EECONFIG_DEBUG,          0);
@@ -73,8 +73,8 @@ void eeconfig_enable(void)
  */
 void eeconfig_disable(void)
 {
-#ifdef STM32F303xC
-    EEPROM_format();
+#ifdef STM32_EEPROM_ENABLE
+    EEPROM_Erase();
 #endif
     eeprom_update_word(EECONFIG_MAGIC, EECONFIG_MAGIC_NUMBER_OFF);
 }
