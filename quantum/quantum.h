@@ -31,7 +31,7 @@
     #include "backlight.h"
 #endif
 #ifdef RGBLIGHT_ENABLE
-  #include "rgblight.h"
+    #include "rgblight.h"
 #else
     #ifdef RGB_MATRIX_ENABLE
         /* dummy define RGBLIGHT_MODE_xxxx */
@@ -106,7 +106,7 @@ extern uint32_t default_layer_state;
 #endif
 
 #ifdef TAP_DANCE_ENABLE
-  #include "process_tap_dance.h"
+    #include "process_tap_dance.h"
 #endif
 
 #ifdef PRINTING_ENABLE
