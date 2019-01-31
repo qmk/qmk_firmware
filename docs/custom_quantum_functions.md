@@ -466,33 +466,16 @@ And you're done.  The RGB layer indication will only work if you want it to. And
 * Keymap: `void eeconfig_init_user(void)`, `uint32_t eeconfig_read_user(void)` and `void eeconfig_update_user(uint32_t val)`
 
 The `val` is the value of the data that you want to write to EEPROM.  And the `eeconfig_read_*` function return a 32 bit (DWORD) value from the EEPROM. 
+
 # Custom Tapping Term
 
 By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or the like.  Instead of using custom key codes for each, this allows for per key configurable `Tapping_Term`.
 
 
 ## Example `get_tapping_term` Implementation
-```c
-uint16_t get_tapping_term(keyevent_t event) {
-  if (event.key.row == 1 && event.ey.col==3)    {
-    return 100;
-  }
-  return TAPPING_TERM;
-}
-```
-If this can be properly mapped, use something like this, instead:
-```c
-uint16_t get_tapping_term(keyevent_t event) {
-  switch (keymap_key_to_keycode(layer_switch_get_layer(event->key), event->key)) {
-    case SFT_T(KC_SPC):
-      return TAPPING_TERM + 1250;
-    case LT(1, KC_GRV):
-      return 130;
-    default:
-      return TAPPING_TERM;
-  }
-```
-And if the post_process_record PR gets merged, we can just use:
+
+To change the `TAPPING TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file: 
+
 ```c
 uint16_t get_tapping_term(keyevent_t event) {
   switch (get_event_keycode(event)) {
@@ -504,7 +487,7 @@ uint16_t get_tapping_term(keyevent_t event) {
       return TAPPING_TERM;
   }
 }
-````
+```
 
 ### `get_tapping_term` Function Documentation
 

@@ -225,27 +225,44 @@ static uint16_t scs_timer[2] = {0, 0};
  */
 static bool grave_esc_was_shifted = false;
 
-bool process_record_quantum(keyrecord_t *record) {
+/* Calls get get_event_keycode to handle the conversion*/
+uint16_t get_record_keycode(keyrecord_t *record) {
+  return get_event_keycode(record->event);
+}
 
-  /* This gets the keycode from the key pressed */
-  keypos_t key = record->event.key;
-  uint16_t keycode;
+
+ /* Convert event into usable keycode, checks the layer cache to ensure that it
+      retains the correct keycode after a layer change, if it's still pressed. */
+uint16_t get_event_keycode(keyevent_t event) {
 
   #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
       uint8_t layer;
 
-      if (record->event.pressed) {
-        layer = layer_switch_get_layer(key);
-        update_source_layers_cache(key, layer);
+      if (>event.pressed) {
+        layer = layer_switch_get_layer(event.key);
+        update_source_layers_cache(event.key, layer);
       } else {
-        layer = read_source_layers_cache(key);
+        layer = read_source_layers_cache(event.key);
       }
-      keycode = keymap_key_to_keycode(layer, key);
+      return keymap_key_to_keycode(layer, event.key);
     } else
   #endif
-    keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
+    return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
+}
+
+ /* Get keycode, and then call keyboard function */
+void post_process_record_quantum(keyrecord_t *record) {
+  uint16_t keycode = get_record_keycode(record);
+  post_process_record_kb(keycode, record);
+}
+
+ /* Core keycode function, hands off handling to other functions,
+    then processes internal quantum keycodes, and then processes
+    ACTIONs.                                                      */
+bool process_record_quantum(keyrecord_t *record) {
+    uint16_t keycode = get_record_keycode(record);
 
     // This is how you use actions here
     // if (keycode == KC_LEAD) {
