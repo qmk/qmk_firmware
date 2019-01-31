@@ -204,7 +204,7 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 
 void tap_random_base64(void);
 
-#define IS_LAYER_ON(layer)  (layer_state & (1UL << (layer)))
+#define IS_LAYER_ON(layer)  ( layer_state & (1UL << (layer)))
 #define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
 
 void matrix_init_kb(void);
@@ -216,10 +216,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
 
 #ifndef BOOTMAGIC_LITE_COLUMN
-  #define BOOTMAGIC_LITE_COLUMN 0
+    #define BOOTMAGIC_LITE_COLUMN   0
 #endif
 #ifndef BOOTMAGIC_LITE_ROW
-  #define BOOTMAGIC_LITE_ROW 0
+    #define BOOTMAGIC_LITE_ROW      0
 #endif
 
 void bootmagic_lite(void);
