@@ -2,7 +2,7 @@
 
 ![jj4x4](https://cdn.shopify.com/s/files/1/2711/4238/products/JJ4x4case-1_1024x1024.jpg?v=1532325339)
 
-A  4x4 ortholinear keypad kit made and KPRepublic on AliExpress. This is a chopped off version of the jj40 with rearranged keys.
+A  4x4 keypad kit made and KPRepublic on AliExpress. This is a chopped off version of the jj40 with rearranged keys.
 
 Keyboard Maintainer: [QMK Community](https://github.com/qmk)  
 Hardware Supported: Atmega32A  
@@ -44,7 +44,7 @@ $ pip install pyusb
 ```
 
 If you prefer (or are having issues with a `program` flash), you can just build it (`make jj40:<keymap-name>` and flash the firmware (`.hex` file) directly with
-`bootloadHID` if you boot the board while holding down `8` (row 2 column 2 when usb plug is at the top) to keep it
+`bootloadHID` if you boot the board while holding down `8` (second from top, second from left, with usb plug is at the top) to keep it
 in the bootloader:
 
 ```
@@ -54,7 +54,7 @@ $ bootloadHID -r jj4x4_default.hex
 
 For Windows 10:
 Windows sometimes doesn't recognize the jj4x4. The easiest way of flashing a new layout is probably using [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
-1. Go to Windows Device Manager and find the keyboard (plug it in while holding down `Backspace` (`Top Right Key`)). It can be found under Human Interface Devices or under Keyboards.
+1. Go to Windows Device Manager and find the keyboard (plug it in while holding down `8` (second from top, second from left, with usb plug is at the top)). It can be found under Human Interface Devices or under Keyboards.
 2. Go to properties and the Details tab to find the hardware ID. You want the VID and the PID (code after the underscore). Plug them into HIDBootFlash and hit Find Device.
 3. Use `make jj4x4:<keymap-name>` to generate the .hex file in the qmk basis folder. Select the .hex file in HIDBootFlash and press Flash Device.
 
