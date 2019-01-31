@@ -79,18 +79,12 @@ int main(void)
      */
     sei();
 
-/* Some keyboards bootup quickly and cannot be initialized with this startup wait.*/
+/* Some keyboards bootup quickly and cannot be initialized with this startup wait.
     // wait for startup of sendchar routine
     while (USB_DeviceState != DEVICE_STATE_Configured) ;
     if (debug_enable) {
         _delay_ms(1000);
     }
-
-
-/*  // wait for USB startup & debug output
-    uint8_t timeout=255
-    while (timeout-- && USB_DeviceState != DEVICE_STATE_Configured) {
-    wait_ms(4);
 */
 
     debug("init: done\n");
