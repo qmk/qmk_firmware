@@ -369,5 +369,6 @@ $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 # Default target.
 all: build check-size
 build: elf cpfirmware
+check-size: build
 
 include $(TMK_PATH)/rules.mk

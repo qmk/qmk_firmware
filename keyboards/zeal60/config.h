@@ -49,11 +49,6 @@
 // Locking resynchronize hack
 #define LOCKING_RESYNC_ENABLE
 
-// key combination for command
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -126,4 +121,3 @@
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 626
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 398
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
-
