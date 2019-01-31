@@ -89,6 +89,12 @@ bool process_tapping(keyrecord_t *keyp)
 {
     keyevent_t event = keyp->event;
 
+#ifdef PERMISSIVE_HOLD  // Because we need to check this, but it doesn't work in a function
+    bool permissive_hold = true;
+#else
+    bool permissive_hold = false;
+#endif
+
     // if tapping
     if (IS_TAPPING_PRESSED()) {
         if (WITHIN_TAPPING_TERM(event)) {
@@ -105,12 +111,11 @@ bool process_tapping(keyrecord_t *keyp)
                     // enqueue
                     return false;
                 }
-#if TAPPING_TERM >= 500 || defined PERMISSIVE_HOLD
                 /* Process a key typed within TAPPING_TERM
                  * This can register the key before settlement of tapping,
                  * useful for long TAPPING_TERM but may prevent fast typing.
                  */
-                else if (IS_RELEASED(event) && waiting_buffer_typed(event)) {
+                else if ( ( permissive_hold || get_tapping_term(event) >= 500) && IS_RELEASED(event) && waiting_buffer_typed(event)) {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
                     process_record(&tapping_key);
                     tapping_key = (keyrecord_t){};
@@ -118,7 +123,6 @@ bool process_tapping(keyrecord_t *keyp)
                     // enqueue
                     return false;
                 }
-#endif
                 /* Process release event of a key pressed before tapping starts
                  * Without this unexpected repeating will occur with having fast repeating setting
                  * https://github.com/tmk/tmk_keyboard/issues/60
