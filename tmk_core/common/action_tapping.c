@@ -21,6 +21,7 @@
 
 __attribute__ ((weak))
 uint16_t get_tapping_term(keyevent_t event) {
+  xprintf("get_tapping_term (main) col: %u, row: %u\n", event.key.col, event.key.row);
   return TAPPING_TERM;
 }
 #define WITHIN_TAPPING_TERM(e)  (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(e))
