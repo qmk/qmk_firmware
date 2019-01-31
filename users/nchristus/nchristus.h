@@ -32,6 +32,10 @@ enum userspace_layers {
 #define SCR_FLL S(LGUI(KC_3))
 #define SCR_CRP S(LGUI(KC_4))
 
+#if (!defined(LAYOUT) && defined(KEYMAP))
+#define LAYOUT KEYMAP
+#endif
+
 #define KEYMAP_wrapper(...) LAYOUT(__VA_ARGS__)
 
 #define ___________________BLANK___________________       _______, _______, _______, _______, _______
@@ -58,7 +62,7 @@ enum userspace_layers {
 #define _________________LOWER_R2__________________       KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______
 
 #define _________________RAISE_L1__________________       KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC
-#define _________________RAISE_L2__________________       KC_MINS, KC_PLUS, KC_LBRC, KC_RBRC, KC_BSLS
+#define _________________RAISE_L2__________________       ___________________BLANK___________________
 
 #define _________________RAISE_R1__________________       KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN
 #define _________________RAISE_R2__________________       KC_UNDS, KC_EQL,  KC_LCBR, KC_RCBR, KC_PIPE
