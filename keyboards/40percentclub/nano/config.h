@@ -31,12 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 2
 #define MATRIX_COLS 4
 
+/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+#define DIODE_DIRECTION CUSTOM_MATRIX
+
 /* ws2812 RGB LED */
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 6    // Number of LEDs
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION COL2ROW
-
-#define TAPPING_TERM 200
