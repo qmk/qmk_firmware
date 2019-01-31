@@ -36,8 +36,13 @@ void haptic_init(void) {
   if (haptic_config.mode < 1){
   haptic_config.mode = 1;
   }
+  if (!haptic_config.mode){
+  dprintf("No haptic config found in eeprom, setting default configs\n");
+  haptic_reset();
+  }
   #ifdef SOLENOID_ENABLE
-  solenoid_setup();
+    solenoid_setup();
+    dprintf("Solenoid driver initialized\n");
   #endif
   #ifdef DRV2605L
     DRV_init();

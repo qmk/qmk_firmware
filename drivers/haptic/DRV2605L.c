@@ -21,7 +21,7 @@
 #include <math.h>
 
 
-uint8_t DRV2605L_transfer_buffer[20];
+uint8_t DRV2605L_transfer_buffer[2];
 uint8_t DRV2605L_tx_register[0];
 uint8_t DRV2605L_read_buffer[0];
 uint8_t DRV2605L_read_register;
