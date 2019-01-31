@@ -166,26 +166,30 @@ extern uint32_t default_layer_state;
     #define readPin(pin)            palReadLine(pin)
 #endif
 
-#define STRINGIZE(z) #z
-#define ADD_SLASH_X(y) STRINGIZE(\x ## y)
-#define SYMBOL_STR(x) ADD_SLASH_X(x)
+// Send string macros
+#define STRINGIZE(z)        #z
+#define ADD_SLASH_X(y)      STRINGIZE(\x ## y)
+#define SYMBOL_STR(x)       ADD_SLASH_X(x)
 
-#define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
-#define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
-#define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
+#define SS_TAP(keycode)     "\1" SYMBOL_STR(keycode)
+#define SS_DOWN(keycode)    "\2" SYMBOL_STR(keycode)
+#define SS_UP(keycode)      "\3" SYMBOL_STR(keycode)
 
-#define SS_LCTRL(string) SS_DOWN(X_LCTRL) string SS_UP(X_LCTRL)
-#define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
-#define SS_LCMD(string) SS_LGUI(string)
-#define SS_LWIN(string) SS_LGUI(string)
-#define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
-#define SS_LSFT(string) SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
-#define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
-#define SS_ALGR(string) SS_RALT(string)
+// `string` arguments must not be parenthesized
+#define SS_LCTRL(string)    SS_DOWN(X_LCTRL)  string SS_UP(X_LCTRL)
+#define SS_LGUI(string)     SS_DOWN(X_LGUI)   string SS_UP(X_LGUI)
+#define SS_LCMD(string)     SS_LGUI(string)
+#define SS_LWIN(string)     SS_LGUI(string)
+#define SS_LALT(string)     SS_DOWN(X_LALT)   string SS_UP(X_LALT)
+#define SS_LSFT(string)     SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
+#define SS_RALT(string)     SS_DOWN(X_RALT)   string SS_UP(X_RALT)
+#define SS_ALGR(string)     SS_RALT(string)
 
-#define SEND_STRING(str) send_string_P(PSTR(str))
-extern const bool ascii_to_shift_lut[0x80];
+#define SEND_STRING(string) send_string_P(PSTR(string))
+
+extern const bool    ascii_to_shift_lut[0x80];
 extern const uint8_t ascii_to_keycode_lut[0x80];
+
 void send_string(const char *str);
 void send_string_with_delay(const char *str, uint8_t interval);
 void send_string_P(const char *str);
