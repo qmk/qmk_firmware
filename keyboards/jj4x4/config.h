@@ -25,11 +25,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // TODO: share these strings with usbconfig.h
 // Edit usbconfig.h to change these.
 #define MANUFACTURER    winkeyless.kr
-#define PRODUCT         jj40
+#define PRODUCT         jj4x4
 
 /* matrix size */
-#define MATRIX_ROWS 8
-#define MATRIX_COLS 15
+#define MATRIX_ROWS 6
+#define MATRIX_COLS 6
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
