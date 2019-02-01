@@ -1,7 +1,3 @@
-ifndef QUANTUM_DIR
-  include ../../../../Makefile
-endif
-
 USER_NAME := bbaserdem-nouserspace
 
 STENO_ENABLE = no      # Additional protocols for Stenography(+1700), requires VIRTSER

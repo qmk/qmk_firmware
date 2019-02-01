@@ -1,4 +1,4 @@
-#include "s65_x.h"
+#include QMK_KEYBOARD_H
 
 #define _QWERTY 0
 #define _COLEMAK 1
@@ -11,10 +11,6 @@ enum planck_keycodes {
   COLEMAK,
   DVORAK
 };
-
-// Helpful defines
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
@@ -37,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   /* 0: ANSI qwerty */
-  [_QWERTY] = LAYOUT_ansi(
+  [_QWERTY] = LAYOUT_65_ansi(
     KC_GESC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,  KC_GRV,  \
     HPR_TAB,  KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_BSLS,  KC_DEL,  \
     CTL_ESC,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,            KC_ENT,   KC_PGUP, \
@@ -59,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   /* 1: ANSI colemak */
-  [_COLEMAK] = LAYOUT_ansi(
+  [_COLEMAK] = LAYOUT_65_ansi(
     KC_GESC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC,  KC_GRV,  \
     HPR_TAB,  KC_Q,     KC_W,     KC_F,     KC_P,     KC_G,     KC_J,     KC_L,     KC_U,     KC_Y,     KC_SCLN,  KC_LBRC,  KC_RBRC,  KC_BSLS,  KC_DEL,  \
     CTL_ESC,  KC_A,     KC_R,     KC_S,     KC_T,     KC_D,     KC_H,     KC_N,     KC_E,     KC_I,     KC_O,     KC_QUOT,            KC_ENT,   KC_PGUP, \
@@ -81,7 +77,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   /* 2: ANSI dvorak */
-  [_DVORAK] = LAYOUT_ansi(
+  [_DVORAK] = LAYOUT_65_ansi(
     KC_GESC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5,     KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_LBRC,  KC_RBRC,  KC_BSPC,  KC_GRV,  \
     HPR_TAB,  KC_QUOT,  KC_COMM,  KC_DOT,   KC_P,     KC_Y,     KC_F,     KC_G,     KC_C,     KC_R,     KC_L,     KC_SLSH,  KC_EQL,   KC_BSLS,  KC_DEL,  \
     CTL_ESC,  KC_A,     KC_O,     KC_E,     KC_U,     KC_I,     KC_D,     KC_H,     KC_T,     KC_N,     KC_S,     KC_MINS,            KC_ENT,   KC_PGUP, \
@@ -103,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   /* 3: ANSI Fn layer */
-  [_FL] = LAYOUT_ansi(
+  [_FL] = LAYOUT_65_ansi(
     KC_GRV,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   KC_F13,   _______, \
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_PSCR,  KC_SLCK,  KC_PAUS,  _______,  _______,  _______,  _______, \
     _______,  _______,  MO(_CL),  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______,  _______, \
@@ -125,7 +121,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   /* 4: ANSI control layer */
-  [_CL] = LAYOUT_ansi(
+  [_CL] = LAYOUT_65_ansi(
     _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______, RGB_TOG, \
     _______,  _______,  _______,  _______,  RESET,    _______,  _______,  QWERTY,   COLEMAK,  DVORAK,   _______,  _______,  _______,  _______, RGB_VAI, \
     _______,  _______,  MO(_CL),  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,            _______, RGB_VAD, \

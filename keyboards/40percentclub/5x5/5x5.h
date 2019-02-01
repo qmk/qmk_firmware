@@ -1,6 +1,4 @@
-
-#ifndef FIVEX5_H
-#define FIVEX5_H
+#pragma once
 
 #include "quantum.h"
 #define ___ KC_NO
@@ -53,5 +51,3 @@
     { K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3a, K3b, K3c, K3d, K3e}, \
     { K40, K41, K42, K43, K44, K45, K46, K47, K48, K49, K4a, K4b, K4c, K4d, K4e} \
 }
-
-#endif

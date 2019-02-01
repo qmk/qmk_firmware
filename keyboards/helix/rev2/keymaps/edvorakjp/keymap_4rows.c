@@ -5,7 +5,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_EDVORAK] = LAYOUT_kc(
   //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
-     LBRC,RBRC,COMM,DOT , P  , Y  ,                F  , G  , R  , W  , Q  ,BSLS,
+     LBRC,RBRC,COMM,DOT , Y  , P  ,                F  , G  , R  , W  , Q  ,BSLS,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|
      EQL , A  , O  , E  , I  , U  ,                D  , T  , N  , S  , M  ,MINS,
   //|----+----+----+----+----+----|              |----+----+----+----+----+----|

@@ -54,6 +54,7 @@
 #include "udi_hid.h"
 #include "udi_hid_kbd.h"
 #include <string.h>
+#include "report.h"
 
 //***************************************************************************
 // KBD
@@ -430,7 +431,7 @@ UDC_DESC_STORAGE udi_hid_exk_report_desc_t udi_hid_exk_report_desc = {
         0x05, 0x01,         // Usage Page (Generic Desktop),
         0x09, 0x80,         // Usage (System Control),
         0xA1, 0x01,         // Collection (Application),
-        0x85, 0x02,         //   Report ID (2) (System),
+        0x85, REPORT_ID_SYSTEM,         //   Report ID (2) (System),
         0x16, 0x01, 0x00,   //   Logical Minimum (1),
         0x26, 0x03, 0x00,   //   Logical Maximum (3),
         0x1A, 0x81, 0x00,   //   Usage Minimum (81) (System Power Down),
@@ -445,7 +446,7 @@ UDC_DESC_STORAGE udi_hid_exk_report_desc_t udi_hid_exk_report_desc = {
         0x05, 0x0C,         // Usage Page (Consumer),
         0x09, 0x01,         // Usage (Consumer Control),
         0xA1, 0x01,         // Collection (Application),
-        0x85, 0x03,         //   Report ID (3) (Consumer),
+        0x85, REPORT_ID_CONSUMER,         //   Report ID (3) (Consumer),
         0x16, 0x01, 0x00,   //   Logical Minimum (1),
         0x26, 0x9C, 0x02,   //   Logical Maximum (668),
         0x1A, 0x01, 0x00,   //   Usage Minimum (1),

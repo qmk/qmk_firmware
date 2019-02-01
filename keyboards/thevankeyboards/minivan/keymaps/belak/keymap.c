@@ -73,8 +73,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     )
 };
 
-const uint16_t PROGMEM fn_actions[] = {};
-
 // Tap dance functions
 void mod_tap_fn(qk_tap_dance_state_t *state, void *user_data) {
     switch (state->count) {

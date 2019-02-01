@@ -60,7 +60,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_MEDIA] = LAYOUT_ortho_5x7(
       KC_MAKE, KC_RESET,MU_TOG,  AU_ON,   AU_OFF,  CK_TOGG, RGB_SAD,
-      MEDIA,   EPRM,    KC_RGB_T,RGB_M_P, RGB_M_B, RGB_M_R, RGB_SAI,
+      MEDIA,   EEP_RST,    KC_RGB_T,RGB_M_P, RGB_M_B, RGB_M_R, RGB_SAI,
       RGB_TOG, RGB_MOD, RGB_RMOD,RGB_M_SW,RGB_M_SN,RGB_M_K, RGB_HUD,
       KC_MPLY, KC_MPRV, KC_MNXT, RGB_M_X, RGB_M_G, RGB_M_P, RGB_HUI,
       KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX, RGB_VAD, RGB_VAI
@@ -87,12 +87,13 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 
 
 
+
 void matrix_init_keymap(void) {
-  DDRD &= ~(1<<5);
-  PORTD &= ~(1<<5);
+  #ifndef CONVERT_TO_PROTON_C
+    setPinOutput(D5);
+    writePinHigh(D5);
 
-  DDRB &= ~(1<<0);
-  PORTB &= ~(1<<0);
+    setPinOutput(B0);
+    writePinHigh(B0);
+  #endif
 }
-
-

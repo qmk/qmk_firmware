@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include "pincontrol.h"
+#include "action.h"
 
 enum ssd1306_cmds {
   DisplayOff = 0xAE,
@@ -90,3 +91,5 @@ void matrix_write_range_ln(struct CharacterMatrix *matrix, const char *data, uin
 void matrix_render(struct CharacterMatrix *fg, struct CharacterMatrix *bg);
 void matrix_push(const struct CharacterMatrix *matrix);
 void matrix_push_background(const struct CharacterMatrix *matrix);
+
+bool process_record_gfx(uint16_t keycode, keyrecord_t *record);

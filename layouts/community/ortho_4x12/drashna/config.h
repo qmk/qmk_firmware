@@ -1,5 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
+#pragma once
 
 
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
@@ -31,11 +30,11 @@
 #define EE_HANDS
 #endif
 
-#if defined(KEYBOARD_planck_rev5)
+#if !defined(KEYBOARD_planck_light)
 #ifdef RGBLIGHT_ENABLE
 #define NO_MUSIC_MODE
 #endif // RGBLIGHT_ENABLE
-#endif // KEYBOARD_planck_rev5
+#endif // KEYBOARD_planck_light
 
 
 /*
@@ -61,5 +60,3 @@
 
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 //#define MIDI_TONE_KEYCODE_OCTAVES 2
-
-#endif

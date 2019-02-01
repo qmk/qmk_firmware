@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   LAYOUT_ortho_3x10
     ( KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0
     , KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,  KC_F10
-    , KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_DEL, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
+    , _______,_______,_______,_______,KC_DEL, _______,_______,_______,_______,_______
     ),
   /* Level 2: Symbols Layer
    * ,-------------------------------------------------------------------------------.
@@ -51,8 +51,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   LAYOUT_ortho_3x10
     ( KC_EXLM,KC_AT,  KC_HASH,KC_DLR, KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN
-    , KC_F11,  KC_F12,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_GRAVE
-    , KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
+    , KC_F11,  KC_F12,_______,_______,_______,_______,_______,_______,_______,KC_GRAVE
+    , _______,_______,_______,_______,_______,_______,_______,_______,_______,_______
     ),
   /* Level 3: RGB Layer
    * ,-------------------------------------------------------------------------------.
@@ -64,9 +64,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * '-------------------------------------------------------------------------------'
    */
   LAYOUT_ortho_3x10
-    ( KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_MINS,KC_EQL, KC_LBRC,KC_RBRC,KC_BSLS
-    , KC_TAB, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_COMM,KC_DOT, KC_SLSH,KC_SCLN,KC_QUOT
-    , KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
+    ( _______,_______,_______,_______,_______,KC_MINS,KC_EQL, KC_LBRC,KC_RBRC,KC_BSLS
+    , KC_TAB, _______,_______,_______,_______,KC_COMM,KC_DOT, KC_SLSH,KC_SCLN,KC_QUOT
+    , _______,_______,_______,_______,_______,_______,KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT
     ),
   /* Level 4: RGB Layer
    * ,-------------------------------------------------------------------------------.
@@ -78,9 +78,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * '-------------------------------------------------------------------------------'
    */
   LAYOUT_ortho_3x10
-    ( KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE
-    , KC_TAB, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_LT,  KC_GT,  KC_QUES,KC_COLN,KC_DQUO
-    , KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_HOME,KC_PGUP,KC_PGDN,KC_END
+    ( _______,_______,_______,_______,_______,KC_UNDS,KC_PLUS,KC_LCBR,KC_RCBR,KC_PIPE
+    , KC_TAB, _______,_______,_______,_______,KC_LT,  KC_GT,  KC_QUES,KC_COLN,KC_DQUO
+    , _______,_______,_______,_______,_______,_______,KC_HOME,KC_PGUP,KC_PGDN,KC_END
     ),
   /* Level 5: RGB Layer
    * ,-------------------------------------------------------------------------------.
@@ -92,25 +92,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * '-------------------------------------------------------------------------------'
    */
   LAYOUT_ortho_3x10
-    ( KC_CALC,KC_WSCH,KC_MAIL,KC_MYCM,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
-    , RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,KC_NO,  KC_NO,  RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD
-    , KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,RESET,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
+    ( KC_CALC,KC_WSCH,KC_MAIL,KC_MYCM,_______,_______,_______,_______,_______,_______
+    , RGB_TOG,RGB_MOD,RGB_HUI,RGB_HUD,XXXXXXX,XXXXXXX,RGB_SAI,RGB_SAD,RGB_VAI,RGB_VAD
+    , _______,_______,_______,_______,RESET,  _______,_______,_______,_______,_______
     ),
-};
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
 };
 
 void matrix_init_user(void) {

@@ -60,7 +60,7 @@
 #    define println(s)         xputs(PSTR(s "\r\n"))
 #    define uprint(s)          print(s)
 #    define uprintln(s)        println(s)
-#    define uprintf(fmt, ...)  xprintf(fmt, ...)
+#    define uprintf(fmt, ...)  xprintf(fmt, ##__VA_ARGS__)
 
 #  endif /* USER_PRINT / NORMAL PRINT */
 
@@ -125,7 +125,7 @@ void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 #    define println(s)         xprintf(s "\r\n")
 #    define uprint(s)          print(s)
 #    define uprintln(s)        println(s)
-#    define uprintf(fmt, ...)  xprintf(fmt, ...)
+#    define uprintf(fmt, ...)  xprintf(fmt, ##__VA_ARGS__)
 
 #  endif /* USER_PRINT / NORMAL PRINT */
 
@@ -141,19 +141,19 @@ void print_set_sendchar(int8_t (*print_sendchar_func)(uint8_t));
 #    define xprintf(fmt, ...)
 
 // Create user print defines
-#    define uprintf(fmt, ...)  __xprintf(fmt, ...)
+#    define uprintf(fmt, ...)  __xprintf(fmt, ##__VA_ARGS__)
 #    define uprint(s)          xprintf(s)
 #    define uprintln(s)        xprintf(s "\r\n")
 
 #  else /* NORMAL PRINT */
 
 // Create user & normal print defines
-#    define xprintf(fmt, ...)  __xprintf(fmt, ...)
+#    define xprintf(fmt, ...)  __xprintf(fmt, ##__VA_ARGS__)
 #    define print(s)           xprintf(s)
 #    define println(s)         xprintf(s "\r\n")
 #    define uprint(s)          print(s)
 #    define uprintln(s)        println(s)
-#    define uprintf(fmt, ...)  xprintf(fmt, ...)
+#    define uprintf(fmt, ...)  xprintf(fmt, ##__VA_ARGS__)
 
 #  endif /* USER_PRINT / NORMAL PRINT */
 
