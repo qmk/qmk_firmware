@@ -2,9 +2,6 @@
 #include "debug.h"
 #include "action_layer.h"
 #include "version.h"
-//#include "keymap_german.h"
-//#include "keymap_nordic.h"
-//#include "rgb_matrix.h"
 
 
 enum custom_keycodes {
