@@ -35,12 +35,10 @@ void matrix_init_user(void);  // TODO port this to other PS2AVRGB boards
 	K31, K32, K33, K34 \
 ) \
 { \
-  { K12, K11, K13, K14 }, \
-  { XXX, XXX, XXX, XXX }, \
-  { XXX, XXX, XXX, XXX }, \
-  { K22, K21, K23, K24 }, \
-  { K32, K31, K33, K34 }, \
-  { K02, K01, K03, K04 } \
+  { K01, K02, K03, K04 }, \
+  { K11, K12, K13, K14 }, \
+  { K21, K22, K23, K24 }, \
+  { K31, K32, K33, K34 } \
 }	
 
 

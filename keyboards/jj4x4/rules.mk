@@ -50,9 +50,7 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
-# custom matrix setup
-CUSTOM_MATRIX = yes
-SRC = matrix.c i2c.c backlight.c
+SRC = i2c.c backlight.c
 
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex

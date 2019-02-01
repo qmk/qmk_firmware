@@ -24,12 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define PRODUCT_ID      0x422D
 // TODO: share these strings with usbconfig.h
 // Edit usbconfig.h to change these.
-#define MANUFACTURER    winkeyless.kr
+#define MANUFACTURER    Kprepublic
 #define PRODUCT         jj4x4
 
 /* matrix size */
-#define MATRIX_ROWS 6
-#define MATRIX_COLS 6
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 4
+#define MATRIX_ROW_PINS { B5, B0, B3, B4 }
+#define MATRIX_COL_PINS { A1, A0, A2, A3 }
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
