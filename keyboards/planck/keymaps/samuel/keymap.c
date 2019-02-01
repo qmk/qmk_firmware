@@ -1,13 +1,10 @@
-#include "planck.h"
-#include "action_layer.h"
-
-#define TAPPING_TERM 250
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
 static uint16_t tap_timers[10]  = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-bool tap_interupted = false;
+char last_mod = -1;
 
 enum planck_layers {
   _DVORAK,
@@ -17,7 +14,6 @@ enum planck_layers {
 // where the 'T_' communicates how the key does something different when tapped.
 enum planck_keycodes {
   DVORAK = SAFE_RANGE,
-  RISE,
   KC_T_LALT,
   KC_T_RALT,
   KC_T_LGUI,
@@ -58,11 +54,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-void mod_type(uint16_t modcode, uint16_t keycode) {
-  register_mods(MOD_BIT(modcode));
-  register_code(keycode);
-  unregister_code(keycode);
-  unregister_mods(MOD_BIT(modcode));
+void mod_press(uint16_t hold_code, int id) {
+    tap_timers[id] = timer_read();
+    last_mod = id;
+    register_code(hold_code);
+}
+
+void mod_lift(uint16_t tap_code, uint16_t hold_code, int id) {
+    unregister_code(hold_code);
+    if (last_mod == id && timer_elapsed(tap_timers[id]) < TAPPING_TERM) {
+      tap_code16(tap_code);
+      last_mod = -1;
+    }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -73,127 +76,71 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case RISE:
-      if (record->event.pressed) {
-        layer_on(_RISE);
-      } else {
-        layer_off(_RISE);
-      }
-      return false;
-      break;
 
 case KC_T_LALT:
 if (record->event.pressed) {
-  tap_timers[0] = timer_read();
-  tap_interupted = false;
-  register_mods(MOD_BIT(KC_LALT));
+  mod_press(KC_LALT, 0);
  } else {
-  unregister_mods(MOD_BIT(KC_LALT));
-  if (!tap_interupted && timer_elapsed(tap_timers[0]) < TAPPING_TERM) {
-    mod_type(KC_LSHIFT, KC_9);
-    tap_interupted = true;
-  }
+  mod_lift(S(KC_9), KC_LALT, 0);
  }
 return false;
 break;
 case KC_T_RALT:
 if (record->event.pressed) {
-  tap_timers[1] = timer_read();
-  tap_interupted = false;
-  register_mods(MOD_BIT(KC_RALT));
+  mod_press(KC_RALT, 1);
  } else {
-  unregister_mods(MOD_BIT(KC_RALT));
-  if (!tap_interupted && timer_elapsed(tap_timers[1]) < TAPPING_TERM) {
-    mod_type(KC_LSHIFT, KC_0);
-    tap_interupted = true;
-  }
+  mod_lift(S(KC_0), KC_RALT, 1);
  }
 return false;
 break;
 
 case KC_T_LGUI:
 if (record->event.pressed) {
-  tap_timers[2] = timer_read();
-  tap_interupted = false;
-  register_mods(MOD_BIT(KC_LGUI));
+  mod_press(KC_LGUI, 2);
  } else {
-  unregister_mods(MOD_BIT(KC_LGUI));
-  if (!tap_interupted && timer_elapsed(tap_timers[2]) < TAPPING_TERM) {
-    SEND_STRING(SS_TAP(X_GRAVE));
-    tap_interupted = true;
-  }
+  mod_lift(KC_GRAVE, KC_LGUI, 2);
  }
 return false;
 break;
 case KC_T_RGUI:
 if (record->event.pressed) {
-  tap_timers[3] = timer_read();
-  tap_interupted = false;
-  register_mods(MOD_BIT(KC_RGUI));
+  mod_press(KC_RGUI, 3);
  } else {
-  unregister_mods(MOD_BIT(KC_RGUI));
-  if (!tap_interupted && timer_elapsed(tap_timers[3]) < TAPPING_TERM) {
-    SEND_STRING(SS_TAP(X_BSLASH));
-    tap_interupted = true;
-  }
+  mod_lift(KC_BSLASH, KC_RGUI, 3);
  }
 return false;
 break;
 
 case KC_T_LCTL:
 if (record->event.pressed) {
-  tap_timers[4] = timer_read();
-  tap_interupted = false;
-  register_mods(MOD_BIT(KC_LCTL));
+  mod_press(KC_LCTL, 4);
  } else {
-  unregister_mods(MOD_BIT(KC_LCTL));
-  if (!tap_interupted && timer_elapsed(tap_timers[4]) < TAPPING_TERM) {
-    SEND_STRING(SS_TAP(X_LBRACKET));
-    tap_interupted = true;
-  }
+  mod_lift(KC_LBRACKET, KC_LCTL, 4);
  }
 return false;
 break;
 case KC_T_RCTL:
 if (record->event.pressed) {
-  tap_timers[5] = timer_read();
-  tap_interupted = false;
-  register_mods(MOD_BIT(KC_RCTL));
+  mod_press(KC_RCTL, 5);
  } else {
-  unregister_mods(MOD_BIT(KC_RCTL));
-  if (!tap_interupted && timer_elapsed(tap_timers[5]) < TAPPING_TERM) {
-    SEND_STRING(SS_TAP(X_RBRACKET));
-    tap_interupted = true;
-  }
+  mod_lift(KC_RBRACKET, KC_RCTL, 5);
  }
 return false;
 break;
 
 case KC_T_LSFT:
 if (record->event.pressed) {
-  tap_timers[6] = timer_read();
-  tap_interupted = false;
-  register_mods(MOD_BIT(KC_LSFT));
+  mod_press(KC_LSFT, 6);
  } else {
-  unregister_mods(MOD_BIT(KC_LSFT));
-  if (!tap_interupted && timer_elapsed(tap_timers[6]) < TAPPING_TERM) {
-    SEND_STRING(SS_TAP(X_EQUAL));
-    tap_interupted = true;
-  }
+  mod_lift(KC_EQUAL, KC_LSFT, 6);
  }
 return false;
 break;
 case KC_T_RSFT:
 if (record->event.pressed) {
-  tap_timers[7] = timer_read();
-  tap_interupted = false;
-  register_mods(MOD_BIT(KC_RSFT));
+  mod_press(KC_RSFT, 7);
  } else {
-  unregister_mods(MOD_BIT(KC_RSFT));
-  if (!tap_interupted && timer_elapsed(tap_timers[7]) < TAPPING_TERM) {
-    SEND_STRING(SS_TAP(X_MINUS));
-    tap_interupted = true;
-  }
+  mod_lift(KC_MINUS, KC_RSFT, 7);
  }
 return false;
 break;
@@ -201,13 +148,13 @@ break;
 case KC_T_LRSE:
 if (record->event.pressed) {
   tap_timers[8] = timer_read();
-  tap_interupted = false;
+  last_mod = 8;
   layer_on(_RISE);
  } else {
   layer_off(_RISE);
-  if (!tap_interupted && timer_elapsed(tap_timers[8]) < TAPPING_TERM) {
-    SEND_STRING(SS_TAP(X_DELETE));
-    tap_interupted = true;
+  if (last_mod == 8 && timer_elapsed(tap_timers[8]) < TAPPING_TERM) {
+    tap_code16(KC_DELETE);
+    last_mod = -1;
   }
  }
 return false;
@@ -215,13 +162,13 @@ break;
 case KC_T_RRSE:
 if (record->event.pressed) {
   tap_timers[9] = timer_read();
-  tap_interupted = false;
+  last_mod = 9;
   layer_on(_RISE);
  } else {
   layer_off(_RISE);
-  if (!tap_interupted && timer_elapsed(tap_timers[9]) < TAPPING_TERM) {
-    SEND_STRING(SS_TAP(X_SLASH));
-    tap_interupted = true;
+  if (last_mod == 9 && timer_elapsed(tap_timers[9]) < TAPPING_TERM) {
+    tap_code16(KC_SLASH);
+    last_mod = -1;
   }
  }
 return false;
@@ -230,69 +177,69 @@ break;
 case KC_EZRGHT:
 if (record->event.pressed) {
   register_code(KC_LCTL);
-  mod_type(KC_LSFT, KC_RGHT);
+  tap_code16(S(KC_RGHT));
   unregister_code(KC_LCTL);
-  tap_interupted = true;
+  last_mod = -1;
  }
 return false;
 break;
 case KC_EZLEFT:
 if (record->event.pressed) {
   register_code(KC_LCTL);
-  mod_type(KC_LSFT, KC_LEFT);
+  tap_code16(S(KC_LEFT));
   unregister_code(KC_LCTL);
-  tap_interupted = true;
+  last_mod = -1;
  }
 return false;
 break;
 case KC_EZDOWN:
 if (record->event.pressed) {
   register_code(KC_LCTL);
-  mod_type(KC_LSFT, KC_DOWN);
+  tap_code16(S(KC_DOWN));
   unregister_code(KC_LCTL);
-  tap_interupted = true;
+  last_mod = -1;
  }
 return false;
 break;
 case KC_EZUP:
 if (record->event.pressed) {
   register_code(KC_LCTL);
-  mod_type(KC_LSFT, KC_UP);
+  tap_code16(S(KC_UP));
   unregister_code(KC_LCTL);
-  tap_interupted = true;
+  last_mod = -1;
  }
 return false;
 break;
 case KC_EZUNDO:
 if (record->event.pressed) {
-  mod_type(KC_LCTL, KC_Z);
-  tap_interupted = true;
+  tap_code16(C(KC_Z));
+  last_mod = -1;
 }
 return false;
 break;
 case KC_EZCOPY:
 if (record->event.pressed) {
-  mod_type(KC_LCTL, KC_C);
-  tap_interupted = true;
+  tap_code16(C(KC_C));
+  last_mod = -1;
 }
 return false;
 break;
 case KC_EZCUT:
 if (record->event.pressed) {
-  mod_type(KC_LCTL, KC_X);
-  tap_interupted = true;
+  tap_code16(C(KC_X));
+  last_mod = -1;
 }
 return false;
 break;
 case KC_EZPSTE:
 if (record->event.pressed) {
-  mod_type(KC_LCTL, KC_V);
-  tap_interupted = true;
+  tap_code16(C(KC_P));
+  last_mod = -1;
 }
 return false;
 break;
 
   }
-  tap_interupted = true;
+  last_mod = -1;
   return true;
 }
