@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
 #define DEFAULT 0 	//Custom ANSI
 #define LAYER1 1 	//Default ANSI (enable with Fn2+D)
 #define LAYER2 2 	//F keys, arrows, custom shortcuts, volume control
