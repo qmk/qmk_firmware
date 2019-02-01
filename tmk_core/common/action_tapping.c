@@ -3,10 +3,8 @@
 #include "action.h"
 #include "action_layer.h"
 #include "action_tapping.h"
-#include "action_code.h"
 #include "keycode.h"
 #include "timer.h"
-#include "keymap.h"
 
 #ifdef DEBUG_ACTION
 #include "debug.h"
@@ -37,11 +35,6 @@ static void waiting_buffer_scan_tap(void);
 static void debug_tapping_key(void);
 static void debug_waiting_buffer(void);
 
-
-uint8_t mod_for_key(keypos_t key) {
-    uint16_t keycode = keymap_key_to_keycode(layer_switch_get_layer(key), key);
-    return mod_config((keycode >> 0x8) & 0x1F);
-}
 
 /** \brief Action Tapping Process
  *
@@ -107,16 +100,12 @@ bool process_tapping(keyrecord_t *keyp)
                     // enqueue
                     return false;
                 }
-#if TAPPING_TERM >= 500 || defined PERMISSIVE_HOLD || defined PERMISSIVE_HOLD_EXCEPT_FOR_SHIFT
+#if TAPPING_TERM >= 500 || defined PERMISSIVE_HOLD
                 /* Process a key typed within TAPPING_TERM
                  * This can register the key before settlement of tapping,
                  * useful for long TAPPING_TERM but may prevent fast typing.
                  */
-                else if (IS_RELEASED(event) && waiting_buffer_typed(event)
-#ifdef PERMISSIVE_HOLD_EXCEPT_FOR_SHIFT
-                         && mod_for_key(event.key) !=  MOD_BIT(KC_LSHIFT)
-#endif
-                ) {
+                else if (IS_RELEASED(event) && waiting_buffer_typed(event)) {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
                     process_record(&tapping_key);
                     tapping_key = (keyrecord_t){};
