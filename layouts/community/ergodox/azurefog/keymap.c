@@ -1,11 +1,8 @@
-#include "ergodox_ez.h"
-#include "debug.h"
-#include "action_layer.h"
-#include "version.h"
+#include QMK_KEYBOARD_H
 
 
 enum custom_keycodes {
-  PLACEHOLDER = SAFE_RANGE, // can always be here
+  RGB_SLD= SAFE_RANGE, // can always be here
   RGB_SLD,
 
 };
