@@ -2,11 +2,6 @@
 #include "ssd1306.h"
 #include "split_util.h"
 
-#define MOD_CTL (MOD_BIT(KC_LCTRL) | MOD_BIT(KC_RCTRL))
-#define MOD_SFT (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT))
-#define MOD_ALT (MOD_BIT(KC_LALT) | MOD_BIT(KC_RALT))
-#define MOD_GUI (MOD_BIT(KC_LGUI) | MOD_BIT(KC_RGUI))
-
 #define KEYFREQ_LOG_UPDATE_INTERVAL 30000 /* 30sec x 20 = 600sec (10min) */
 #define SCREEN_FRAME_INTERVAL 55 /* 18fps */
 #define ANIMATION_ENABLE
@@ -137,10 +132,10 @@ void prepare_next_frame(void) {
     matrix_reset_cursor(&matrix);
     if (is_master) {
         uint8_t mods = get_mods();
-        if (mods & MOD_CTL) matrix_write(&matrix, "C-");
-        if (mods & MOD_ALT) matrix_write(&matrix, "M-");
-        if (mods & MOD_SFT) matrix_write(&matrix, "S-");
-        if (mods & MOD_GUI) matrix_write(&matrix, "A-");
+        if (mods & MOD_MASK_CTRL) matrix_write(&matrix, "C-");
+        if (mods & MOD_MASK_ALT) matrix_write(&matrix, "M-");
+        if (mods & MOD_MASK_SHIFT) matrix_write(&matrix, "S-");
+        if (mods & MOD_MASK_GUI) matrix_write(&matrix, "A-");
         matrix_write_ln(&matrix, get_layer_name());
         matrix_write_range_ln(&matrix, keyfreq_log[0], timer_elapsed(last_keyfreq_update) / (KEYFREQ_LOG_UPDATE_INTERVAL / 6), 120);
         matrix_write_range_ln(&matrix, keyfreq_log[1], timer_elapsed(last_keyfreq_update) / (KEYFREQ_LOG_UPDATE_INTERVAL / 6), 120);
