@@ -225,7 +225,7 @@ static uint16_t scs_timer[2] = {0, 0};
  */
 static bool grave_esc_was_shifted = false;
 
-/* Calls get get_event_keycode to handle the conversion*/
+/* Convert record into usable keycode via the contained event. */
 uint16_t get_record_keycode(keyrecord_t *record) {
   return get_event_keycode(record->event);
 }
