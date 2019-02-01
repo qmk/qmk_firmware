@@ -115,6 +115,7 @@ void wheel_send(void)
 
 void mousekey_send(void)
 {
+    wheel_report.buttons = mouse_report.buttons;
     mouse_send();
     wheel_send();
 }
