@@ -17,8 +17,6 @@
 
 #include "quantum.h"
 
-#define XXX KC_NO
-
 /* This a shortcut to help you visually see your layout.
  *
  * The first section contains all of the arguments representing the physical
