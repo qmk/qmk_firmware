@@ -45,16 +45,16 @@ void matrix_scan_user(void) {
     leading = false;
     leader_end();
     SEQ_ONE_KEY(KC_U) {
-      SEND_STRING("jason.canada@centrify.com");
+      SEND_STRING("");
     }
     SEQ_ONE_KEY(KC_2) {
-      SEND_STRING("P@ssw0rd"SS_TAP(X_ENTER));
+      SEND_STRING(""SS_TAP(X_ENTER));
     }
     SEQ_ONE_KEY(KC_1) {
-      SEND_STRING("Screw you guys!"SS_TAP(X_ENTER));
+      SEND_STRING(""SS_TAP(X_ENTER));
     }
     SEQ_ONE_KEY(KC_5) {
-      SEND_STRING("10933"SS_TAP(X_ENTER));
+      SEND_STRING(""SS_TAP(X_ENTER));
     }
     SEQ_ONE_KEY(KC_0) {
       SEND_STRING("make ergodox_ez:azurefog"SS_TAP(X_ENTER));
@@ -63,10 +63,22 @@ void matrix_scan_user(void) {
       SEND_STRING("azurefog@gmail.com"SS_TAP(X_ENTER));
     }
     SEQ_ONE_KEY(KC_R) {
-      SEND_STRING("https://www.reddit.com"SS_TAP(X_ENTER));
+      SEND_STRING(SS_LGUI("r")"https://www.reddit.com"SS_TAP(X_ENTER));
     }
     SEQ_ONE_KEY(KC_N) {
-      SEND_STRING("https://news.google.com"SS_TAP(X_ENTER));
+      SEND_STRING(SS_LCTRL(SS_LGUI(SS_TAP(X_RIGHT))));
+    }
+    SEQ_ONE_KEY(KC_B) {
+      SEND_STRING(SS_LCTRL(SS_LGUI(SS_TAP(X_LEFT))));
+    }
+    SEQ_ONE_KEY(KC_M) {
+      SEND_STRING(SS_LCTRL(SS_LGUI(SS_TAP(X_D))));
+    }
+    SEQ_ONE_KEY(KC_COMMA) {
+      SEND_STRING(SS_LCTRL(SS_LGUI(SS_TAP(X_F4))));
+    }
+    SEQ_ONE_KEY(KC_C) {
+      SEND_STRING(SS_LGUI("r")"cmd"SS_TAP(X_ENTER));
     }
   }
 }
