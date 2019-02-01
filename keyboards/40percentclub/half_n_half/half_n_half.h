@@ -1,4 +1,4 @@
-/* Copyright 2019 MechMerlin
+/* Copyright 2019 Boy_314
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,17 +26,18 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0A, k0B, k0C, k0D, k0E, k0F, \
-    k10, k12, k13, k14, k15, k16, k17, k18, k19, k1A, k1B, k1C, k1D, k1E, k1F,      \
-    k20, k22, k23, k24, k25, k26, k27, k28, k29, k2A, k2B, k2C, k2D, k2F,           \
-    k30, k31, k32, k33, k34, k35, k36, k37, k38, k39, k3A, k3B, k3D, k3E, k3F,      \
-    k40, k41,      k43,      k45,      k47, k48,      k4A, k4B, k4D, k4E, k4F       \
-) \
-{ \
-    { k00, k01,   k02,   k03, k04,   k05, k06,   k07, k08, k09,   k0A, k0B, k0C,   k0D, k0E,   k0F }, \
-    { k10, KC_NO, k12,   k13, k14,   k15, k16,   k17, k18, k19,   k1A, k1B, k1C,   k1D, k1E,   k1F }, \
-    { k20, KC_NO, k22,   k23, k24,   k25, k26,   k27, k28, k29,   k2A, k2B, k2C,   k2D, KC_NO, k2F }, \
-    { k30, k31,   k32,   k33, k34,   k35, k36,   k37, k38, k39,   k3A, k3B, KC_NO, k3D, k3E,   k3F }, \
-    { k40, k41,   KC_NO, k43, KC_NO, k45, KC_NO, k47, k48, KC_NO, k4A, k4B, KC_NO, k4D, k4E,   k4F }, \
+    K00, K01, K02, K03, K04, K05, K06,     K50, K51, K52, K53, K54, K55, K56, \
+    K10, K11, K12, K13, K14, K15, K16,     K60, K61, K62, K63, K64, K65, K66, \
+    K20, K21, K22, K23, K24, K25, K26,     K70, K71, K72, K73, K74, K75, K76, \
+                        K34,                         K82 \
+) { \
+    { K00,   K01,   K02,   K03,   K04, K05,   K06   }, \
+    { K10,   K11,   K12,   K13,   K14, K15,   K16   }, \
+    { K20,   K21,   K22,   K23,   K24, K25,   K26   }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, K34, KC_NO, KC_NO }, \
+\
+    { K56,   K55,   K54,   K53,   K52, K51,   K50   }, \
+    { K66,   K65,   K64,   K63,   K62, K61,   K60   }, \
+    { K76,   K75,   K74,   K73,   K72, K71,   K70   }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, K82, KC_NO, KC_NO }  \
 }
-

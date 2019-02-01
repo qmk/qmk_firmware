@@ -1,4 +1,4 @@
-/* Copyright 2019 MechMerlin
+/* Copyright 2019 Boy_314
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "space65.h"
+#include "half_n_half.h"
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
@@ -38,11 +38,6 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 void led_set_kb(uint8_t usb_led) {
 	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
-  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-    writePinHigh(E6);
-  } else {
-    writePinLow(E6);
-  }
 
 	led_set_user(usb_led);
 }
