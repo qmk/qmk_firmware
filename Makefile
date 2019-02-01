@@ -125,9 +125,11 @@ generate-keyboards-file:
 	exit 0
 
 clean:
-	echo -n 'Deleting .build ... '
+	echo 'Deleting .build/ ...'
 	rm -rf $(BUILD_DIR)
-	echo 'done'
+	echo 'Deleting *.bin and *.hex ...'
+	rm -f *.bin *.hex
+	echo 'Done.'
 	exit 0
 
 #Compatibility with the old make variables, anything you specify directly on the command line
