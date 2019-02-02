@@ -63,11 +63,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_P0,              RESET,     KC_PENT),
 };
 
-
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = MO(_FL),
-};
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
    switch (keycode) {
       case BL_TOGG:

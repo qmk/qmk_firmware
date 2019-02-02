@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef UNICODEMAP_ENABLE
 #include "drashna_unicode.h"
 #endif // UNICODEMAP_ENABLE
-extern uint8_t input_mode;
 
 #ifdef RGB_MATRIX_ENABLE
 extern bool g_suspend_state;
@@ -425,17 +424,12 @@ void rgb_matrix_indicators_user(void) {
 }
 
 void matrix_init_keymap(void) {
+#if 0
   #ifdef RGB_MATRIX_KEYPRESSES
     rgblight_mode(RGB_MATRIX_MULTISPLASH);
   #else
     rgblight_mode(RGB_MATRIX_RAINBOW_MOVING_CHEVRON);
   #endif
-
-  input_mode = 2;
-}
-
-#else
-void matrix_init_keymap(void) {
-  input_mode = 2;
+#endif
 }
 #endif //RGB_MATRIX_INIT

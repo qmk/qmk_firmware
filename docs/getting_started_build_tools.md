@@ -41,6 +41,12 @@ Debian / Ubuntu example:
 Fedora / Red Hat example:
 
     sudo dnf install gcc unzip wget zip dfu-util dfu-programmer avr-gcc avr-libc binutils-avr32-linux-gnu arm-none-eabi-gcc-cs arm-none-eabi-binutils-cs arm-none-eabi-newlib
+    
+Arch / Manjaro example:
+
+    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git
+
+(the `dfu-programmer` package is availble on AUR only so you should download from there or use an AUR helper)
 
 ## Nix
 

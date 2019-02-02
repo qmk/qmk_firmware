@@ -30,9 +30,6 @@
 #ifdef BACKLIGHT_ENABLE
     #include "backlight.h"
 #endif
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
-	#include "rgb.h"
-#endif
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
 #else
@@ -161,7 +158,7 @@ extern uint32_t default_layer_state;
         }
     }
 
-    #define readPin(pin) (PIN_ADDRESS(pin, 0) & _BV(pin & 0xF))
+    #define readPin(pin) ((bool)(PIN_ADDRESS(pin, 0) & _BV(pin & 0xF)))
 #elif defined(PROTOCOL_CHIBIOS)
     #define pin_t ioline_t
     #define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)

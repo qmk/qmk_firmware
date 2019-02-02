@@ -176,11 +176,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 void hold_shift(void) {
   shift_count = shift_count + 1;
   register_code(KC_LSHIFT);
@@ -358,10 +353,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
   }
   return MACRO_NONE;
 };
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-}
 
 void matrix_init_user(void) {
 }

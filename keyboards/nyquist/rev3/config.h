@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // wiring of each half
 #define MATRIX_ROW_PINS { F0, F5, D7, F6, F7 }
 #define MATRIX_COL_PINS { F1, F4, B7, D2, D3, D4 }
+#define SPLIT_HAND_PIN D5
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -51,18 +52,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B4
-#define RGBLIGHT_TIMER
+#define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 12
 
 /* Backlight LEDs */
-#define BACKLIGHT_PIN D5
+#define BACKLIGHT_PIN B5
 #define BACKLIGHT_LEVELS 7
 
 /*
