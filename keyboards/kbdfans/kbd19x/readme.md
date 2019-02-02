@@ -1,4 +1,4 @@
-# kbd19x
+# KBD19x
 
 ![kbd19x](https://i.imgur.com/0hWTEnh.jpg)
 

@@ -1,4 +1,4 @@
-# KBD 8X
+# KBD8X
 
 ![kbd8x](imgur.com image replace me!)
 

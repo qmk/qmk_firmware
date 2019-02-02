@@ -1,5 +1,4 @@
-KBD75
-===
+# KBD75
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: KBD75 PCB rev 1 and 2  
