@@ -13,7 +13,7 @@
 #define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD // allows rapid mod use after tap event, but sacrifices double-tap to repeat
 #define TAPPING_TERM 200
-#define USE_SERIAL
+// #define USE_SERIAL
 
 // optional configuration:
 
