@@ -22,13 +22,16 @@ extern uint8_t is_master;
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-#define _NICOLA 1 // 親指シフトレイヤー
-#define _LOWER 3
-#define _RAISE 4
+#define _EUCALYN 1
+#define _NICOLA 10 // 親指シフトレイヤー
+#define _LOWER 11
+#define _RAISE 12
 #define _ADJUST 16
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
+  EUCALYN,
+  EISU,
   LOWER,
   RAISE,
   ADJUST,
@@ -57,72 +60,92 @@ enum macro_keycodes {
 #define KC_LVAD  RGB_VAD
 #define KC_LMOD  RGB_MOD
 #define KC_CTLTB CTL_T(KC_TAB)
-#define KC_GUIEI GUI_T(KC_LANG2)
-#define KC_ALTKN ALT_T(KC_LANG1)
+#define KC_GUITB GUI_T(KC_TAB)
 #define KC_NLSHFT NLSHFT // 親指シフトキー
 #define KC_NRSHFT NRSHFT // 親指シフトキー
 #define KC_QWERTY QWERTY
+#define KC_EUCALYN EUCALYN
+#define KC_EISU EISU
 #define KC_NICOLA NICOLA
+#define KC_RESET RESET
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
         ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,NICOLA,\
+      CTLTB,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,  RGUI,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LGUI,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,QWERTY,\
+       LSFT,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  RALT,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,  LALT,   SPC,      ENT,  RSFT, RAISE \
+                                  LOWER,  LSFT,   SPC,      ENT,  RSFT, RAISE \
+                              //`--------------------'  `--------------------'
+  ),
+
+  [_EUCALYN] = LAYOUT_kc( \
+  //,-----------------------------------------.                ,-----------------------------------------.
+        ESC,     Q,     W,  COMM,   DOT,  SCLN,                      M,     R,     D,     Y,     P,  BSPC,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+      CTLTB,     A,     O,     E,     I,     U,                      G,     T,     K,     S,     N,  RGUI,\
+  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
+       LSFT,     Z,     X,     C,     V,     F,                      B,     H,     J,     L,  SLSH,  RALT,\
+  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
+                                  LOWER,  LSFT,   SPC,      ENT,  RSFT, RAISE \
                               //`--------------------'  `--------------------'
   ),
 
   [_NICOLA] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
+      _____,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,NICOLA,\
+      _____,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN, _____,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LGUI,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,QWERTY,\
+      _____,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH, _____,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,NLSHFT,   SPC,      ENT,NRSHFT, RAISE \
+                                  _____,NLSHFT, _____,    _____,NRSHFT, _____ \
                               //`--------------------'  `--------------------'
   ),
 
   [_LOWER] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,     1,     2,     3,     4,     5,                      6,     7,     8,     9,     0,  BSPC,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, XXXXX,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LGUI,   F11,   F12,   F13,   F14,   F15,                    F16,   F17,   F18,   F19,   F20, XXXXX,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,  LALT,   SPC,      ENT,  RSFT, RAISE \
-                              //`--------------------'  `--------------------'
+  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
+  //             !      @      #      $      %                       *                           +       
+      _____,  EXLM,    AT,  HASH,   DLR,  PERC,                   ASTR,     7,     8,     9,  PLUS,   DEL,\
+  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
+  //             ^      &      '      "      ~                       /                           -       
+      XXXXX,  CIRC,  AMPR,  QUOT,  DQUO,  TILD,                   SLSH,     4,     5,     6,  MINS,  EISU,\
+  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
+  //             \      |      `     _       \                                                   =                           
+      XXXXX,  BSLS,  PIPE,   GRV,  UNDS,  JYEN,                      0,     1,     2,     3,   EQL,NICOLA,\
+  //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
+                                  LOWER, XXXXX,   SPC,      ENT, XXXXX, RAISE \
+  //                            +------+------+------+  +------+------+------+
   ),
 
   [_RAISE] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        ESC,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSPC,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      CTLTB, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   MINS,   EQL,  LCBR,  RCBR,  PIPE,   GRV,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LGUI, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   UNDS,  PLUS,  LBRC,  RBRC,  BSLS,  TILD,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,  LALT,   SPC,      ENT,  RSFT, RAISE \
-                              //`--------------------'  `--------------------'
+  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
+  //                           <      >                                                                          
+      _____, XXXXX, XXXXX,    LT,    GT, XXXXX,                  XXXXX, XXXXX,    UP, XXXXX,  PGUP,   DEL,\
+  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
+  //             (      )      {      }                                                                   
+      XXXXX,  LPRN,  RPRN,  LCBR,  RCBR, XXXXX,                  XXXXX,  LEFT,  DOWN,  RGHT,  PGDN,  EISU,\
+  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
+  //                           [      ]                                                     
+      XXXXX, XXXXX, XXXXX,  LBRC,  RBRC, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,NICOLA,\
+  //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
+                                  LOWER, XXXXX,   SPC,      ENT, XXXXX, RAISE \
+  //                            +------+------+------+  +------+------+------+
   ),
 
   [_ADJUST] = LAYOUT_kc( \
-  //,-----------------------------------------.                ,-----------------------------------------.
-        RST,  LRST, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LMOD,  LHUD,  LSAD,  LVAD, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
-  //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LOWER,  LALT,   SPC,      ENT,  RSFT, RAISE \
-                              //`--------------------'  `--------------------'
+  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
+      XXXXX,QWERTY,  WAKE, XXXXX, RESET, XXXXX,                  XXXXX, XXXXX,  VOLU, XXXXX,  BRIU, XXXXX,\
+  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
+      XXXXX, XXXXX, XXXXX,EUCALYN,XXXXX, XXXXX,                  XXXXX,  MRWD,  VOLD,  MFFD,  BRID, XXXXX,\
+  //+------+------+------+------+------+------+                +------+------+------+------+------+------+
+      XXXXX, XXXXX,  SLEP, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX,  MPLY, XXXXX, XXXXX, XXXXX,\
+  //+------+------+------+------+------+------+------+  +------+------+------+------+------+------+------+
+                                  LOWER, XXXXX,   SPC,      ENT, XXXXX, RAISE \
+  //                            +------+------+------+  +------+------+------+
   )
 };
 
@@ -218,6 +241,7 @@ typedef struct {
   char r[4]; // 右シフト
 } ncl_keymap;
 
+// NICOLA on QWERTY
 const ncl_keymap nmap[] = {
   [KC_Q]    = {.t = ".",  .l = "la",  .r = ""},   
   [KC_W]    = {.t = "ka", .l = "e",   .r = "ga"}, 
@@ -285,6 +309,9 @@ void ncl_clear(void) {
   ncl_rshift = false;
 }
 
+static bool lower_pressed = false;
+static bool raise_pressed = false;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 #ifdef SSD1306OLED
@@ -296,11 +323,22 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_QWERTY);
+      }
+      return false;
+      break;
+    case EUCALYN:
+      if (record->event.pressed) {
+        persistent_default_layer_set(1UL<<_EUCALYN);
+      }
+      return false;
+      break;
+    case EISU:
+      if (record->event.pressed) {
         layer_off(_NICOLA);
         register_code(KC_LANG2); // Mac
         // register_code(KC_MHEN); // Win
         is_nicola = false;
-      } else {
         unregister_code(KC_LANG2); // Mac
         // unregister_code(KC_MHEN); // Win
       }
@@ -312,40 +350,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         register_code(KC_LANG1); // Mac
         // register_code(KC_HENK); // Win
         is_nicola = true;
-      } else {
         unregister_code(KC_LANG1); // Mac
         // unregister_code(KC_HENK); // Win
       }
       return false;
       break;
-    case LOWER:
-      if (record->event.pressed) {
-        layer_on(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_LOWER);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
-    case RAISE:
-      if (record->event.pressed) {
-        layer_on(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      } else {
-        layer_off(_RAISE);
-        update_tri_layer_RGB(_LOWER, _RAISE, _ADJUST);
-      }
-      return false;
-      break;
     case ADJUST:
-        if (record->event.pressed) {
-          layer_on(_ADJUST);
-        } else {
-          layer_off(_ADJUST);
-        }
-        return false;
-        break;
+      if (record->event.pressed) {
+        layer_on(_ADJUST);
+      } else {
+        layer_off(_ADJUST);
+      }
+      return false;
+      break;
     case RGB_MOD:
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
@@ -365,6 +382,60 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
+  }
+
+  switch (keycode) {
+    case LOWER:
+      if (record->event.pressed) {
+        if (raise_pressed) {
+          raise_pressed = false;
+        } else {
+          lower_pressed = true;
+        }
+        layer_on(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_LOWER);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        if (lower_pressed) {
+          layer_off(_NICOLA);
+          register_code(KC_LANG2); // Mac
+          // register_code(KC_MHEN); // Win
+          is_nicola = false;
+          unregister_code(KC_LANG2); // Mac
+          // unregister_code(KC_HENK); // Win
+          lower_pressed = false;
+        }
+      }
+      return false;
+      break;
+    case RAISE:
+      if (record->event.pressed) {
+        if (lower_pressed) {
+          lower_pressed = false;
+        } else {
+          raise_pressed = true;
+        }
+        layer_on(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+      } else {
+        layer_off(_RAISE);
+        update_tri_layer(_LOWER, _RAISE, _ADJUST);
+        if (raise_pressed) {
+          layer_on(_NICOLA);
+          register_code(KC_LANG1); // Mac
+          // register_code(KC_HENK); // Win
+          is_nicola = true;
+          unregister_code(KC_LANG1); // Mac
+          // unregister_code(KC_HENK); // Win
+          raise_pressed = false;
+        }
+      }
+      return false;
+      break;
+    default:
+      lower_pressed = false;
+      raise_pressed = false;
   }
 
   // 親指シフトの処理　ここから
