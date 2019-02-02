@@ -85,12 +85,11 @@ The following input modes are available:
 
 The Unicode input mode is stored in two places: in persistent storage (EEPROM) and in memory. The system normally reads the value from EEPROM at init time, and relies on the in-memory value thereafter.
 
-There are three ways to set the input mode for Unicode: with a mode-switching keycode, with a
-function that just changes the value in memory, and with a function that changes the value in
-EEPROM. (The mode-switching keycodes write the change to EEPROM, so once you set them you don't need
-to set them again unless you want to change them)
+There are two ways to change the input mode for unicode: with a mode-switching keycode, or with the
+underlying function that changes the value in the EEPROM. You can also use a #define to lock the
+input mode to a fixed value from a keymap or keyboard, if you need to.
 
-You can switch the input mode at any time by using one of the following keycodes. The easiest way is to add the ones you use to your keymap.
+The relevant keycodes and input modes are listed here, and you can simply add them to your keymap.
 
 |Keycode                |Alias    |Input mode   |Description                              |
 |-----------------------|---------|-------------|-----------------------------------------|
@@ -102,7 +101,11 @@ You can switch the input mode at any time by using one of the following keycodes
 |`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented).   |
 |`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose.|
 
-You can also switch the input mode by calling `set_unicode_input_mode(x)` or `set_unicode_input_mode_noeeprom(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the first of these writes to EEPROM, you shouldn't call it unless the value of the mode has actually changed. If you want to set the value at keyboard power-on time, you can examine the value already loaded from EEPROM with `get_unicode_input_mode`, and set it with `set_unicode_input_mode_noeeprom`, from your `matrix_init_user` function.
+To explicitly change the mode and update the EEPROM in code, call `set_unicode_input_mode(x)` with one of the input modes. To lock the mode to a fixed value in your keymapor keyboard, simply enable input method cycling with only one mode available, e.g. in a `config.h` add
+
+```
+#define UNICODE_SELECTED_MODES UC_OSX
+```
 
 ### Audio Feedback
 
@@ -143,7 +146,7 @@ Additionally, you can customize the keys used to trigger the unicode input for m
 
 #### Input Method Cycling
 
-Also, you can choose which input methods are availble for cycling through.  By default, this is disabled. But if you want to enabled it, then limiting it to just those modes makes sense.  Note that `UNICODE_SELECTED_MODES` define is comma delimited.
+Also, you can choose which input methods are availble for cycling through.  By default, this is disabled. But if you want to enabled it, then limiting it to just those modes makes sense.  Note that `UNICODE_SELECTED_MODES` define is comma delimited, and like all these #defines, should be given in a `config.h` file.
 
 ```c
 #define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WIN, UC_BSD, UC_WINC

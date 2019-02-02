@@ -19,4 +19,5 @@
 // Enable cmd-option-escape on mac.
 #define GRAVE_ESC_ALT_OVERRIDE
 
-// place overrides here
+// Lock the keyboard into OS X Unicode mode. (Other users will probably want to switch this)
+#define UNICODE_SELECTED_MODES UC_OSX
