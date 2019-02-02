@@ -1,4 +1,4 @@
-/* Copyright 2019 'mechmerlin'
+/* Copyright 2019 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,11 +25,15 @@
  * The second converts the arguments into a two-dimensional array which
  * represents the switch matrix.
  */
-#define LAYOUT( \
-    k00, k01, k02, \
-      k10,  k11   \
+#define LAYOUT_ortho_4x4( \
+    k00, k01, k02, k03, \
+    k10, k11, k12, k13, \
+    k20, k21, k22, k23, \
+    k30, k31, k32, k33  \
 ) \
 { \
-    { k00, k01,   k02 }, \
-    { k10, KC_NO, k11 }, \
+    { k00, k01, k02, k03 }, \
+    { k10, k11, k12, k13 }, \
+    { k20, k21, k22, k23 }, \
+    { k30, k31, k32, k33 }, \
 }
