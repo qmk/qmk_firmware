@@ -25,31 +25,37 @@ extern uint8_t is_master;
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
+/*
 enum layer_number {
     _DVORAK = 0,
-    _SYMB,
+    _MACDVK,
+    _QUERTY,
     _NUMB,
+    _MNMB,
+    _SYMB,
     _MDIA
 };
 
 enum custom_keycodes {
 
   DVORAK = SAFE_RANGE,
-  SYMB,
+  MACDVK,
+  QUERTY,
   NUMB,
+  MNMB,
+  SYMB,
   MDIA,
-  BACKLIT,
-  EISU,
-  KANA,
+  //BACKLIT,
+  //EISU,
+  //KANA,
   RGBRST,
-  DYNAMIC_MACRO_RANGE,
+  MAKEK,
+  MAKEKF,
+  //DYNAMIC_MACRO_RANGE,
 };
 
  #include "dynamic_macro.h"
 
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
 
 
 enum {
@@ -80,64 +86,79 @@ enum {
   TD_SCNSP,
   TD_MCCCPY,
   TD_MCPSTIN,
+  TD_ENTAB,
 };
 
-
-#define KC________ KC_TRNS
+#define KC_____ KC_TRNS
 #define KC_XXXXX KC_NO
-
+*/
 
 //#if HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-  [_DVORAK] = LAYOUT( \
-      RGB_MOD,   KC________,           KC________,        KC________,         KC________, KC________,                                            KC________,       KC________, KC________,        KC________,        KC________,     KC________, \
-      KC_ESC,    KC_QUOT,              TD(TD_COMQUES),    TD(TD_DTEX),        KC_P,       KC_Y,                                                  KC_F,             KC_G,       KC_C,              KC_R,              KC_L,           KC________, \
-      KC_LSFT,   KC_A,                 KC_O,              KC_E,               KC_U,       KC_I,                                                  KC_D,             KC_H,       KC_T,              KC_N,              KC_S,           KC_RSFT, \
-      KC_LSFT,   MT(MOD_LCTL,KC_SCLN), MT(MOD_LALT,KC_Q), MT(MOD_LGUI, KC_J), KC_K,       KC_X,             TD(TD_MCROTG2),    TD(TD_MCROTOG),   KC_B,             KC_M,       MT(MOD_LGUI,KC_W), MT(MOD_LALT,KC_V), LT(_MDIA,KC_Z), KC_RSFT, \
-      MO(_MDIA), KC_ENT,               KC_LALT,           KC_ENT,             KC_ENT,     LT(_SYMB,KC_SPC), LT(_NUMB,KC_BSPC), LT(_NUMB,KC_TAB), LT(_SYMB,KC_ENT), KC_LCTL,    KC_LEFT,           KC_DOWN,           KC_UP,          KC_RGHT \
+  [_DVORAK] = LAYOUT_wrapper( \
+      RGB_MOD,   MAKEKF,  ________MAC_MISSION_CTRL__________,                   _________________KC_BLANK__________________, KC_____, \
+      KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
+      KC_LSFT,   _______________DVORAK_L2___________________,                   _______________DVORAK_R2___________________, KC_RSFT, \
+      KC_LSFT,   _______________MACDVK_L3___________________, KC_____, KC_____, _______________MACDVK_R3___________________, KC_RSFT, \
+      MO(_MDIA), KC_ENT, KC_LALT, KC_TAB, KC_ENT,    ________MAC_THUMB_CLUSTER_________, KC_LCTL,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
+      ),
+//In this case, this "alt" Dvorak layout is for Windows
+  [_ALTDVK] = LAYOUT_wrapper( \
+      RGB_MOD,   MAKEKF,  ________MAC_MISSION_CTRL__________,                   _________________KC_BLANK__________________, KC_____, \
+      KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
+      KC_LSFT,   _______________DVORAK_L2___________________,                   _______________DVORAK_R2___________________, KC_RSFT, \
+      KC_LSFT,   _______________WINDVK_L3___________________, KC_____, KC_____, _______________WINDVK_R3___________________, KC_RSFT, \
+      MO(_MDIA), KC_ENT, KC_LALT, KC_TAB, KC_ENT,    ________MAC_THUMB_CLUSTER_________, KC_LCTL,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
+      ),
+
+  [_QUERTY] = LAYOUT_wrapper( \
+      KC_GESC,   _________________NUMBER_L__________________,                   _________________NUMBER_R__________________, MO(_MDIA), \
+      KC_TAB,    _________________QWERTY_L1_________________,                   _________________QWERTY_R1_________________, KC_BSLASH, \
+      KC_CAPS,   _________________QWERTY_L2_________________,                   _________________QWERTY_R2_________________, KC_ENT, \
+      KC_LSPO,   _________________QWERTY_L3_________________, KC_____, KC_____, _________________QWERTY_R3_________________, KC_RSPC, \
+      KC_LCTRL,  KC_LALT, KC_LGUI, KC_SPC, KC_SPC,   ________MAC_THUMB_CLUSTER_________, KC_LGUI,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
+      ),
+
+  [_SYMB] = LAYOUT_wrapper( \
+      KC_____, _________________KC_BLANK__________________,                   _________________KC_BLANK__________________, KC_____, \
+      KC_____, _________________PUNC_L1___________________,                   KC_____, _____________FUNC_1_______________, KC_____, \
+      KC_____, _________________PUNC_L2___________________,                   KC_____, _____________FUNC_1_______________, KC_____, \
+      KC_____, _________________PUNC_L3___________________, KC_____, KC_____, KC_GRV,  _____________FUNC_1_______________, KC_____, \
+      _________________KC_BLANK__________________, KC_SPC,  KC_DEL,  KC_____, KC_CAPS, _________________KC_BLANK__________________ \
       ),
 
 
-
-  [_SYMB] = LAYOUT( \
-      KC________, KC________, KC________, KC________, KC________, KC________,                         KC________, KC________, KC________, KC________, KC________, KC________, \
-      KC________, KC_BSLS,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC,                            KC________, KC_F9,      KC_F10,     KC_F11,     KC_F12,     KC________, \
-      KC________, KC_PLUS,    KC_MINS,    KC_ASTR,    KC_SLSH,    KC_EQL,                             KC________, KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC________, \
-      KC________, KC_LBRC,    KC_RBRC,    KC_LPRN,    KC_RPRN,    KC_AMPR,    KC________, KC________, KC_GRV,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC________, \
-      KC________, KC________, KC________, KC________, KC_SPC,     KC_DEL,     KC________, KC________, KC_CAPS,    KC________, KC________, KC________, KC________, KC________ \
+  [_MNMB] = LAYOUT_wrapper( \
+      KC_____, _________________NUMBER_L__________________,                   _________________NUMBER_R__________________, KC_____, \
+      KC_____, _________________MACNAV_L1_________________,                   _________________NUMB_R1___________________, KC_____, \
+      KC_____, _________________MACNAV_L2_________________,                   _________________NUMB_R2___________________, KC_____, \
+      KC_____, _________________MACNAV_L3_________________, KC_____, KC_____, _________________NUMB_R3_MAC_______________, KC_____, \
+      _________________KC_BLANK__________________, KC_SPC,  KC_BSPC, KC_____, KC_____,  KC_0,   KC_0,   KC_____,  KC_____,  KC_____ \
       ),
 
 
-  [_NUMB] = LAYOUT( \
-      KC_GRV,     KC_1,       KC_2,       KC_3,          KC_4,           KC_5,                               KC_6,          KC_7,       KC_8,       KC_9,              KC_0,           KC________, \
-      KC________, KC_PGUP,    KC_PGDN,    KC_HOME,       KC_END,         KC________,                         TD(TD_MINPLS), KC_7,       KC_8,       KC_9,              KC_COLN,        KC________, \
-      KC________, KC_LEFT,    KC_UP,      KC_DOWN,       KC_RIGHT,       KC________,                         TD(TD_DIVMLT), KC_4,       KC_5,       KC_6,              C_S_T(KC_COLN), KC________, \
-      KC________, KC________, LGUI(KC_A), TD(TD_MCCCPY), TD(TD_MCPSTIN), KC_DEL,     KC________, KC________, TD(TD_DOTEQL), KC_1,       KC_2,       MT(MOD_LGUI,KC_3), KC_LCTRL,       KC________, \
-      KC________, KC________, KC________, KC________,    KC_SPC,         KC_BSPC,    KC________, KC________, KC________,    KC_0,       KC_0,       KC________,        KC________,     KC________ \
-      ),
-
-
-  [_MDIA] =  LAYOUT( \
-      KC________, KC________, KC________, KC________, KC________, KC________,                         RGBRST,     KC________, KC________, KC________, KC________, KC________, \
-      KC________, KC________, KC________, KC________, KC________, KC________,                         KC________, RGB_HUI,    RGB_SAI,    RGB_VAI,    RGB_SPI,    KC________, \
-      KC________, KC________, KC________, KC________, KC________, KC________,                         RGB_MOD,    RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_SPD,    KC________, \
-      KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC_MPLY,    KC_MUTE,    KC_VOLD,    KC_VOLU,    KC________, KC________, \
-      KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________, KC________ \
+  [_MDIA] =  LAYOUT_wrapper( \
+      KC_____, _________________KC_BLANK__________________,                   _________________LYOUT_____________________, KC_____, \
+      KC_____, _________________KC_BLANK__________________,                   _________________RGB_1_____________________, KC_____, \
+      KC_____, _________________KC_BLANK__________________,                   _________________RGB_2_____________________, KC_____, \
+      KC_____, _________________KC_BLANK__________________, KC_____, KC_____, _________________MEDIA_____________________, KC_____, \
+      KC_____, _________________KC_BLANK__________________, KC_____, KC_____, _________________KC_BLANK__________________, KC_____ \
       )
+
 };
 
 //#else
 //#error "undefined keymaps"
 //#endif
 
-
+/*
 #ifdef AUDIO_ENABLE
 
 float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
+float tone_MACDVK[][2]     = SONG(DVORAK_SOUND);
 float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
 float tone_plover[][2]     = SONG(PLOVER_SOUND);
 float tone_plover_gb[][2]  = SONG(PLOVER_GOODBYE_SOUND);
@@ -218,6 +239,8 @@ void ccopy(qk_tap_dance_state_t *state, void *user_data)
     register_code(KC_X);
     unregister_code(KC_X);
     unregister_code(KC_LCTL);
+
+    //SEND_STRING( SS_DOWN(KC_LCTL) SS_TAP(KC_X) SS_UP(KC_LCTL));
   }
   else
   {
@@ -376,6 +399,21 @@ void mcpstin(qk_tap_dance_state_t *state, void *user_data)
   reset_tap_dance(state);
 }
 
+void enttab(qk_tap_dance_state_t *state, void *user_data)
+{
+  if (state->count > 1)
+  {
+    register_code(KC_ENT);
+    unregister_code(KC_ENT);
+  }
+  else
+  {
+    register_code(KC_TAB);
+    unregister_code(KC_TAB);
+  }
+  reset_tap_dance(state);
+}
+
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
 // Other declarations would go here, separated by commas, if you have them
@@ -395,9 +433,10 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_DOTEQL] = ACTION_TAP_DANCE_DOUBLE(KC_DOT,KC_EQL),
   [TD_SCNSP]  = ACTION_TAP_DANCE_FN(SCRNSNP),
   [TD_MCCCPY] = ACTION_TAP_DANCE_FN(mcccpy),
-  [TD_MCPSTIN] = ACTION_TAP_DANCE_FN(mcpstin)
+  [TD_MCPSTIN] = ACTION_TAP_DANCE_FN(mcpstin),
+  [TD_ENTAB] = ACTION_TAP_DANCE_FN(enttab)
 };
-
+*/
 
 // define variables for reactive RGB
 bool TOG_STATUS = false;
@@ -421,7 +460,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 }
 
 
-
+/*
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
  if (!process_record_dynamic_macro(keycode, record)) {
@@ -437,22 +476,37 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           RGB_current_mode = rgblight_config.mode;
         }
       #endif
-      break;
+    break;
+
+    case MAKEK:
+      if (record->event.pressed) {
+        // when keycode QMKBEST is pressed
+        SEND_STRING("make helix:klackygears");
+      }
+    break;
+
+    case MAKEKF:
+      if (record->event.pressed) {
+        // when keycode QMKBEST is pressed
+        SEND_STRING("make helix:klackygears:dfu");
+      }
+
+    break;
   }
 
 
 
       return true;
 }
-/*
 
 
-    case DVORAK:
+
+    case MACDVK:
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
+          PLAY_SONG(tone_MACDVK);
         #endif
-        persistent_default_layer_set(1UL<<_DVRK);
+        persistent_default_layer_set(1UL<<_MACDVK);
       }
       return false;
       break;
@@ -468,18 +522,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           #endif
         }
         layer_on(_SYMB);
-        update_tri_layer_RGB(_SYMB, _NUMB, _MDIA);
+        update_tri_layer_RGB(_SYMB, _MNMB, _MDIA);
       } else {
         #ifdef RGBLIGHT_ENABLE
           //rgblight_mode(RGB_current_mode);   // revert RGB to initial mode prior to RGB mode change
         #endif
         TOG_STATUS = false;
         layer_off(_SYMB);
-        update_tri_layer_RGB(_SYMB, _NUMB, _MDIA);
+        update_tri_layer_RGB(_SYMB, _MNMB, _MDIA);
       }
       return false;
       break;
-    case NUMB:
+    case MNMB:
       if (record->event.pressed) {
         //not sure how to have keyboard check mode and set it to a variable, so my work around
         //uses another variable that would be set to true after the first time a reactive key is pressed.
@@ -490,15 +544,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             //rgblight_mode(RGBLIGHT_MODE_SNAKE);
           #endif
         }
-        layer_on(_NUMB);
-        update_tri_layer_RGB(_SYMB, _NUMB, _MDIA);
+        layer_on(_MNMB);
+        update_tri_layer_RGB(_SYMB, _MNMB, _MDIA);
       } else {
         #ifdef RGBLIGHT_ENABLE
           //rgblight_mode(RGB_current_mode);  // revert RGB to initial mode prior to RGB mode change
         #endif
-        layer_off(_NUMB);
+        layer_off(_MNMB);
         TOG_STATUS = false;
-        update_tri_layer_RGB(_SYMB, _NUMB, _MDIA);
+        update_tri_layer_RGB(_SYMB, _MNMB, _MDIA);
       }
       return false;
       break;
@@ -611,10 +665,11 @@ void matrix_update(struct CharacterMatrix *dest,
 
 //assign the right code to your layers for OLED display
 #define L_BASE 0
+//#define L_QUERTY (1<<_QUERTY)
 #define L_SYMB (1<<_SYMB)
-#define L_NUMB (1<<_NUMB)
+#define L_MNMB (1<<_MNMB)
 #define L_MDIA (1<<_MDIA)
-#define L_MDIA_TRI (L_MDIA|L_NUMB|L_SYMB)
+#define L_MDIA_TRI (L_MDIA|L_MNMB|L_SYMB)
 
 static void render_logo(struct CharacterMatrix *matrix) {
 
@@ -649,17 +704,20 @@ void render_status(struct CharacterMatrix *matrix) {
   matrix_write_P(matrix, PSTR("\nLayer: "));
     switch (layer_state) {
         case L_BASE:
-           matrix_write_P(matrix, PSTR("Dvorak"));
+           matrix_write_P(matrix, PSTR("Base"));
            break;
-        case L_NUMB:
-           matrix_write_P(matrix, PSTR("Numeric"));
+        //case L_QUERTY:
+        //   matrix_write_P(matrix, PSTR("QUERTYty"));
+        //   break;
+        case L_MNMB:
+           matrix_write_P(matrix, PSTR("Number"));
            break;
         case L_SYMB:
            matrix_write_P(matrix, PSTR("Punctuation"));
            break;
         case L_MDIA:
         case L_MDIA_TRI:
-           matrix_write_P(matrix, PSTR("MDIA"));
+           matrix_write_P(matrix, PSTR("RGB & Audio"));
            break;
         default:
            matrix_write(matrix, buf);
