@@ -1,4 +1,4 @@
-/* Copyright 2019 'mechmerlin'
+/* Copyright 2019 MechMerlin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,9 +22,11 @@ enum custom_keycodes {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [0] = LAYOUT( /* Base */
-    KC_A,  KC_1,  KC_H, \
-      KC_TAB,  KC_SPC   \
+  [0] = LAYOUT_ortho_4x4( /* Base */
+    KC_A,  KC_1,  KC_2, KC_4, \
+    KC_A,  KC_1,  KC_2, KC_4, \
+    KC_A,  KC_1,  KC_2, KC_4, \
+    KC_A,  KC_1,  KC_2, KC_4 \
   ),
 };
 
