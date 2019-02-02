@@ -12,10 +12,6 @@ enum planck_keycodes {
   DVORAK
 };
 
-// Helpful defines
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl
 #define HPR_TAB     ALL_T(KC_TAB)               // Tap for Tab, hold for Hyper (Super+Ctrl+Shift+Alt)
