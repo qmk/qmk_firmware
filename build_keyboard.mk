@@ -135,6 +135,10 @@ ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
     OPT_DEFS += -DCONVERT_TO_PROTON_C
 endif
 
+ifneq ($(FORCE_LAYOUT),)
+    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+
 include quantum/mcu_selection.mk
 
 ifdef MCU_FAMILY
