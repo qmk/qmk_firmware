@@ -19,7 +19,7 @@ docker run -e KEYBOARD=crkbd -e KEYMAP=nicola  --rm -v $('pwd'):/qmk_firmware:rw
 
 ## 使い方
 
-英字入力用のQWERTYレイヤーと、親指シフト用のNICOLAレイヤーを切り替えて使い分けます。MacではRAISEキーの単押しで日本語入力へ、LOWERキーで英字入力へ切り替えられます(参考 http://okapies.hateblo.jp/entry/2019/02/02/133953)。日本語入力ではcrkbdの左右の親指3キーのそれぞれ中央のキー(NLSHFT, NRSHFT)が親指シフトキーになります。EUCAYN配列への切り替えもサポートしました(ADJUST+D、EUCALYN配列の時のE)
+英字入力用のQWERTYレイヤーと、親指シフト用のNICOLAレイヤーを切り替えて使い分けます。MacではRAISEキーの単押しで日本語入力へ、LOWERキーで英字入力へ切り替えられます(参考 http://okapies.hateblo.jp/entry/2019/02/02/133953 )。日本語入力ではcrkbdの左右の親指3キーのそれぞれ中央のキー(NLSHFT, NRSHFT)が親指シフトキーになります。EUCA LYN配列への切り替えもサポートしました(ADJUST+D、EUCALYN配列の時のE)
 
 ```
   [_QWERTY] = LAYOUT_kc( \
