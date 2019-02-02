@@ -5,14 +5,14 @@
 
 #include "config_common.h"
 
-#define CONVERT_TO_PROTON_C
+// #define CONVERT_TO_PROTON_C
 #define EE_HANDS
 #define IGNORE_MOD_TAP_INTERRUPT
 #define ONESHOT_TIMEOUT 1000
 #define PERMISSIVE_HOLD
 #define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD // allows rapid mod use after tap event, but sacrifices double-tap to repeat
-#define TAPPING_TERM 150
+#define TAPPING_TERM 200
 #define USE_SERIAL
 
 // optional configuration:
