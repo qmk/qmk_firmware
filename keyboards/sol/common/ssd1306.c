@@ -4,11 +4,13 @@
 #include "i2c.h"
 #include <string.h>
 #include "print.h"
+
 #ifndef LOCAL_GLCDFONT
 #include "common/glcdfont.c"
 #else
 #include <helixfont.h>
 #endif
+
 #ifdef ADAFRUIT_BLE_ENABLE
 #include "adafruit_ble.h"
 #endif
@@ -35,6 +37,7 @@
 static uint8_t displaying;
 #endif
 static uint16_t last_flush;
+static bool display_on;
 
 // Write command sequence.
 // Returns true on success.
@@ -166,6 +169,7 @@ bool iota_gfx_init(bool rotate) {
   clear_display();
 
   success = true;
+  display_on = true;
 
   iota_gfx_flush();
 
@@ -182,6 +186,7 @@ bool iota_gfx_off(void) {
 
   send_cmd1(DisplayOff);
   success = true;
+  display_on = false;
 
 done:
   return success;
@@ -192,6 +197,7 @@ bool iota_gfx_on(void) {
 
   send_cmd1(DisplayOn);
   success = true;
+  display_on = true;
 
 done:
   return success;
@@ -270,7 +276,8 @@ void iota_gfx_clear_screen(void) {
 
 void matrix_render(struct CharacterMatrix *matrix) {
   last_flush = timer_read();
-  iota_gfx_on();
+  if (!display_on)
+    iota_gfx_on();
 #if DEBUG_TO_SCREEN
   ++displaying;
 #endif
@@ -310,6 +317,12 @@ done:
 #endif
 }
 
+void iota_gfx_activity(void) {
+  last_flush = timer_read();
+  if (!display_on)
+    iota_gfx_on();
+}
+
 void iota_gfx_flush(void) {
   matrix_render(&display);
 }
@@ -325,7 +338,7 @@ void iota_gfx_task(void) {
     iota_gfx_flush();
   }
 
-  if (timer_elapsed(last_flush) > ScreenOffInterval) {
+  if (display_on && timer_elapsed(last_flush) > ScreenOffInterval) {
     iota_gfx_off();
   }
 }

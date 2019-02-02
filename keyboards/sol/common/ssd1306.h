@@ -80,6 +80,8 @@ void iota_gfx_clear_screen(void);
 
 void iota_gfx_task_user(void);
 
+void iota_gfx_activity(void);
+
 void matrix_clear(struct CharacterMatrix *matrix);
 void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c);
 void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c);

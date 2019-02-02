@@ -34,61 +34,34 @@ enum custom_keycodes {
   OLEDRST
 };
 
-
-#define FN_ESC  LT(_FN, KC_ESC)
 #define FN_CAPS LT(_FN, KC_CAPS)
 
 // Define your non-alpha grouping in this define's LAYOUT, and all your BASE_LAYERS will share the same mod/macro columns
-  /* Base Layout
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+  /* Qwerty Layout
    * ,------------------------------------------------.  ,------------------------------------------------.
    * | GESC |   1  |   2  |  3   |  4   |  5   |   -  |  |   =  |  6   |  7   |  8   |  9   |  0   | BkSp |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * | Tab  |      |      |      |      |      |   [  |  |   ]  |      |      |      |      |      |   \  |
+   * | Tab  |   Q  |   W  |  E   |  R   |  T   |   [  |  |   ]  |  Y   |  U   |  I   |  O   |  P   |   \  |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |FN(CAPS)|    |      |      |      |      |   `  |  |   '  |      |      |      |      |      | Enter|
+   * |FN(CAPS)| A  |   S  |   D  |  F   |  G   |   `  |  |   '  |  H   |  J   |  K   |  L   |  ;   | Enter|
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |Shift |      |      |      |      |      | RGB  |  |OLEDRST|     |      |      |      |      | Shift|
+   * |Shift |   Z  |   X  |   C  |  V   |  B   | RGB  |  |OLEDRST| N   |  M   |  ,   |  .   |  /   | Shift|
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * | Ctrl |  Win |  ADJ |  FN  | Alt  | Space|RGBMOD|  |RGB_RMOD|Space|Left |  Up  | Down | Right| Ctrl |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    | Space| DEL  |  | Enter| Space|
    *                                    `-------------'  `-------------'
    */
-#define BASE_LAYOUT( \
-  _00, _01, _02, _03, _04,  _05, _06, _07, _08, _09, \
-  _10, _11, _12, _13, _14,  _15, _16, _17, _18, _19, \
-  _20, _21, _22, _23, _24,  _25, _26, _27, _28, _29 \
-) \
-LAYOUT( \
-      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   KC_MINS, KC_EQL,   KC_6,   KC_7,    KC_8,    KC_9,    KC_0,     KC_BSPC, \
-      KC_TAB,  _00,     _01,     _02,     _03,     _04,    KC_LBRC, KC_RBRC,  _05,    _06,     _07,     _08,     _09,      KC_BSLS, \
-      FN_CAPS, _10,     _11,     _12,     _13,     _14,    KC_GRV,  KC_QUOT,  _15,    _16,     _17,     _18,     _19,      KC_ENT, \
-      KC_LSFT, _20,     _21,     _22,     _23,     _24,    RGB_TOG, OLEDRST,  _25,    _26,     _27,     _28,     _29,      KC_RSFT, \
-      KC_LCTL, KC_LGUI, ADJ,     FN,      KC_LALT, KC_SPC, RGB_MOD, RGB_RMOD, KC_SPC, KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT, KC_RCTL, \
-                        KC_VOLU, KC_VOLD,          KC_SPC, KC_DEL,  KC_ENT,   KC_SPC,          KC_VOLU, KC_VOLD \
-)
-
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  /* Qwerty
-   * ,------------------------------------------------.  ,------------------------------------------------.
-   * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
-   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      |   Q  |   W  |   E  |   R  |   T  |      |  |      |   Y  |   U  |   I  |   O  |   P  |      |
-   * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      |   A  |   S  |   D  |   F  |   G  |      |  |      |   H  |   J  |   K  |   L  |   ;  |      |
-   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |      |   Z  |   X  |   C  |   V  |   B  |      |  |      |   N  |   M  |   ,  |   .  |   /  |      |
-   * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |
-   * `------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
-   *                                    |      |      |  |      |      |
-   *                                    `-------------'  `--------=----'
-   */
-  [_QWERTY] = BASE_LAYOUT( \
-      KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
-      KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, \
-      KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH  \
-  ),
+  [_QWERTY] = LAYOUT( \
+      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_EQL,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_BSPC, \
+      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_RBRC,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSLS, \
+      FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_GRV,  KC_QUOT,  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT, \
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RGB_TOG, OLEDRST,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
+      KC_LCTL, KC_LGUI, ADJ,     FN,      KC_LALT, KC_SPC,  RGB_MOD, RGB_RMOD, KC_SPC,  KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT, KC_RCTL, \
+                        KC_VOLU, KC_VOLD,          KC_SPC,  KC_DEL,  KC_ENT,   KC_SPC,           KC_VOLU, KC_VOLD \
+      ),
 
   /* FN
    * ,------------------------------------------------.  ,------------------------------------------------.
@@ -131,12 +104,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
 
   [_ADJ] =  LAYOUT( \
-      _______, _______, _______, _______, _______, _______, KC_PMNS, KC_PPLS, _______, _______, _______,   _______, _______, _______, \
-      _______, RGB_SAI, RGB_VAI, RGB_HUI, RESET,   _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3,   _______, _______, _______, \
-      _______, RGB_SAD, RGB_VAD, RGB_HUD, RGBRST,  _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6,   _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9,   _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_KP_DOT, _______, _______, _______, \
-                        KC_VOLU, KC_VOLD,          _______, _______, _______, _______,          KC_VOLU,   KC_VOLD \
+      _______, _______, _______, _______, _______, _______, KC_PMNS, KC_PPLS, _______, _______, _______, _______, _______, _______, \
+      _______, RGB_SAI, RGB_VAI, RGB_HUI, RESET,   _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, _______, _______, \
+      _______, RGB_SAD, RGB_VAD, RGB_HUD, RGBRST,  _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_PDOT, _______, _______, _______, \
+                        KC_VOLU, KC_VOLD,          _______, _______, _______, _______,          KC_VOLU, KC_VOLD \
       )
 };
 
@@ -146,7 +119,7 @@ bool TOG_STATUS = false;
 int RGB_current_mode;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
+  iota_gfx_activity();
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -281,11 +254,11 @@ void render_status(struct CharacterMatrix *matrix) {
     }
 
   // Host Keyboard LED Status
-  char led[40];
+  char led[34];
   snprintf(led, sizeof(led), "\n%s  %s  %s",
-    (led_usb_state & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-    (led_usb_state & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-    (led_usb_state & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
+    (led_usb_state & (1<<USB_LED_NUM_LOCK)) ? "NUM" : "   ",
+    (led_usb_state & (1<<USB_LED_CAPS_LOCK)) ? "CAP" : "   ",
+    (led_usb_state & (1<<USB_LED_SCROLL_LOCK)) ? "SCR" : "   ");
   matrix_write(matrix, led);
 }
 
