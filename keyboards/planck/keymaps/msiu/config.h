@@ -1,7 +1,5 @@
 #pragma once
-#define CONFIG_USER_H
 
-#include "config_common.h"
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
@@ -40,4 +38,3 @@
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
 
-#endif
