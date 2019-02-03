@@ -67,11 +67,11 @@ static uint8_t move_unit(void)
 {
     uint16_t unit;
     if (mousekey_accel & (1<<0)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) * 1.5;
+        unit = MOUSEKEY_ACCEL0_SPEED((MOUSEKEY_MOVE_DELTA * mk_max_speed));
     } else if (mousekey_accel & (1<<1)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed)/2;
+        unit = MOUSEKEY_ACCEL1_SPEED((MOUSEKEY_MOVE_DELTA * mk_max_speed));
     } else if (mousekey_accel & (1<<2)) {
-        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed);
+        unit = MOUSEKEY_ACCEL2_SPEED((MOUSEKEY_MOVE_DELTA * mk_max_speed));
     } else if (mouse_repeat == 0) {
         unit = MOUSEKEY_MOVE_DELTA;
     } else if (mouse_repeat >= mk_time_to_max) {
