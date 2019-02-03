@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Mod-Tap keys for cleaner code
 #define ESC_CTL LCTL_T(KC_ESC)
