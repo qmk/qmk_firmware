@@ -29,8 +29,9 @@ bool custom_matrix_scan(matrix_row_t current_matrix[]) {
         (PINC&(1<<6) ? 0 : (1<<3));
 
     bool changed = memcmp(current_matrix, matrix_stage, sizeof(matrix_stage)) != 0;
+
     if(changed) {
-        memcpy(matrix_stage, current_matrix, sizeof(matrix_stage));
+        memcpy(current_matrix, matrix_stage, sizeof(matrix_stage));
     }
 
     return changed;
