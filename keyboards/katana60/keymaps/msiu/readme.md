@@ -1,7 +1,3 @@
-# The default keymap for katana60
+# msiu's keymap for katana: standard QWERTY layout with planck like layers
 
-This layout takes my own personal layout (in development at the Colemak forum) and remaps the keys and shortcuts for Windows (I'm a MacOS user).  
-The testing was comducted on my Windows gaming PC, though it was not exhaustive, all the many layers and useful navigation shortcuts worked fine.
-
-# TODO: references to extend layer and symbol layers
-# TODO: more information
+This layout take a standard QWERTY default layer, with raise and lower layers similar to planck. It is for me to easily transition between keyboards. I put a few nav keys in the 'tree' middle, but I have come to realise I rarely use them as I am used to the planck layering. Top of the tree is a toggle for Dvorak layer. 
