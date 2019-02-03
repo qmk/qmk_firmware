@@ -20,9 +20,6 @@
 
 #include QMK_KEYBOARD_H
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-
 // Layer shorthand
 #define _QW 0
 #define _DV 1
