@@ -60,6 +60,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 40
 #endif
 
+#ifndef MOUSEKEY_ACCEL0_SPEED
+#define MOUSEKEY_ACCEL0_SPEED(max_speed) max_speed / 4
+#endif
+#ifndef MOUSEKEY_ACCEL1_SPEED
+#define MOUSEKEY_ACCEL1_SPEED(max_speed) max_speed / 2
+#endif
+#ifndef MOUSEKEY_ACCEL2_SPEED
+#define MOUSEKEY_ACCEL2_SPEED(max_speed) max_speed
+#endif
 
 #ifdef __cplusplus
 extern "C" {
