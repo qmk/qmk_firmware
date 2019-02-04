@@ -70,4 +70,5 @@ BACKLIGHT_ENABLE 	= no
 
 CUSTOM_MATRIX = yes
 SRC = matrix.c \
-      adb.c
+      adb.c \
+			led.c

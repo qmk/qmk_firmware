@@ -97,7 +97,7 @@ uint8_t read_source_layers_cache(keypos_t key);
 action_t store_or_get_action(bool pressed, keypos_t key);
 
 /* return the topmost non-transparent layer currently associated with key */
-int8_t layer_switch_get_layer(keypos_t key);
+uint8_t layer_switch_get_layer(keypos_t key);
 
 /* return action depending on current layer status */
 action_t layer_switch_get_action(keypos_t key);

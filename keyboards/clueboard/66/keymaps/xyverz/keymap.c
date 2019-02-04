@@ -1,7 +1,7 @@
 // Xyverz' keymap.
 // It's based on the default keymap, but Dvorak!
 
-#include "66.h"
+#include QMK_KEYBOARD_H
 #include "action_layer.h"
 #include "eeconfig.h"
 

@@ -17,11 +17,15 @@
 #include QMK_KEYBOARD_H
 
 /* Allow shortcuts for combos like RALT(KC_RBRC) that don't take up more than 7 characters: */
-#define G(kc) RALT(KC_##kc)
-#define A(kc) LALT(KC_##kc)
+/* Original shortcuts (quantum_keycodes.h) take full-sized keycodes: too long! */
+#undef C
+#undef S
+#undef A
+#undef G
 #define C(kc) LCTL(KC_##kc)
-#undef S /* Original shortcut (quantum_keycodes.h) takes full-sized keycodes: too long! */
 #define S(kc) LSFT(KC_##kc)
+#define A(kc) LALT(KC_##kc)
+#define G(kc) RALT(KC_##kc)
 #define CTALDEL LCTL(LALT(KC_DEL))
 
 enum layers {

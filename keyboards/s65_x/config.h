@@ -4,7 +4,7 @@
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define PRODUCT         S65-X-RGB
+#define PRODUCT         S65-X RGB
 #define DESCRIPTION     QMK keyboard firmware for S65-X RGB
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
@@ -22,7 +22,8 @@
 
 /* number of backlight levels */
 #define BACKLIGHT_PIN B7
-#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 5
+#define BACKLIGHT_CAPS_LOCK
 
 #define RGB_DI_PIN D3
 #define RGBLIGHT_ANIMATIONS
@@ -31,6 +32,7 @@
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_EFFECT_KNIGHT_OFFSET 20
+#define RGBLIGHT_SLEEP
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -43,10 +45,5 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 #endif
