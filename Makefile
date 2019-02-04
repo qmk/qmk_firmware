@@ -115,7 +115,6 @@ $(eval $(call GET_KEYBOARDS))
 .PHONY: list-keyboards
 list-keyboards:
 	echo $(KEYBOARDS)
-	exit 0
 
 define PRINT_KEYBOARD
 	$(info $(PRINTING_KEYBOARD))
@@ -124,16 +123,18 @@ endef
 .PHONY: generate-keyboards-file
 generate-keyboards-file:
 	$(foreach PRINTING_KEYBOARD,$(KEYBOARDS),$(eval $(call PRINT_KEYBOARD)))
-	exit 0
 
 .PHONY: clean
 clean:
-	echo 'Deleting .build/ ...'
+	echo -n 'Deleting .build/ ... '
 	rm -rf $(BUILD_DIR)
-	echo 'Deleting *.bin and *.hex ...'
+	echo 'done.'
+
+.PHONY: distclean
+distclean: clean
+	echo -n 'Deleting *.bin and *.hex ... '
 	rm -f *.bin *.hex
-	echo 'Done.'
-	exit 0
+	echo 'done.'
 
 #Compatibility with the old make variables, anything you specify directly on the command line
 # always overrides the detected folders
