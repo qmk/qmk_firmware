@@ -1,11 +1,10 @@
-#1up60hte (Hot Swap Edition - Tsangan)
+# 1up60hte (Hot Swap Edition - Tsangan)
 
 A 60% PCB with USB C, RGB underglow, backlighting, hotswappable switches, and a Tsangan layout.
 
 Keyboard Maintainer: [Bubnick](https://github.com/bubnick)
 Hardware Supported: 1up60hte 60% PCB
-Hardware Availability: [1upkeyboards.com]
-(https://www.1upkeyboards.com/)
+Hardware Availability: [1upkeyboards.com](https://www.1upkeyboards.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
