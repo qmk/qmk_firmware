@@ -119,7 +119,6 @@ void rgb_update (bool force) {
                 rgb_set_bg_disabled();
             } else {
                 rgb_set_bg_gradient(1, 90, 1, 90);
-                rgb_set_underglow_gradient(1, 90, 1, 90);
             }
         } else {
             rgb_set_bg_gradient(1, 90, 250, 95);
