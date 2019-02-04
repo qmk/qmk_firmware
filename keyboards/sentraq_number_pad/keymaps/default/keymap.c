@@ -18,7 +18,8 @@
 #define _BL 0
 #define _FN 1
 
-// Defines the keycodes used by our macros in process_record_user
+// Defines the keycodes used by our macros in process_record_user.
+// Disabled as it isn't used in this keymap, but available for modification.
 // enum custom_keycodes {
 //   QMKBEST = SAFE_RANGE,
 //   QMKURL
@@ -67,6 +68,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+// Handles macros for keycodes defined above.
+// Disabled as it isn't used in this keymap, but available for modification.
 // bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 //   switch (keycode) {
 //     case QMKBEST:
@@ -89,14 +92,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //   return true;
 // }
 
-// void matrix_init_user(void) {
+void matrix_init_user(void) {
 
-// }
+}
 
-// void matrix_scan_user(void) {
+void matrix_scan_user(void) {
 
-// }
+}
 
-// void led_set_user(uint8_t usb_led) {
+void led_set_user(uint8_t usb_led) {
 
-// }
+}
