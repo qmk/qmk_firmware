@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef SENTRAQ_NUMBER_PAD_H
-#define SENTRAQ_NUMBER_PAD_H
+#pragma once
 
 #include "quantum.h"
 
@@ -55,5 +54,3 @@
     { K30, K31, K32, K33 }, \
     { K40, K41, K42, K43 }  \
 }
-
-#endif
