@@ -55,6 +55,9 @@ OPT_DEFS = -DDEBUG_LEVEL=0
 CUSTOM_MATRIX = yes
 SRC = matrix.c i2c.c backlight.c
 
+#Add tapdance
+TAP_DANCE_ENABLE = yes
+
 # programming options
 #This isnt working at the moment and it seems to use the default rules in the keymap directory
 PROGRAM_CMD = 'sudo bootloadHID -r $(TARGET).hex'

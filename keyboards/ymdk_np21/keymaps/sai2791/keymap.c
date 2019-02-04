@@ -9,6 +9,17 @@ enum custom_keycodes {
   BL
 };
 
+//Tap Dance Config
+enum {
+  TD_A_B = 0
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  //Tap Enter for A, twice for B
+  [TD_A_B] = ACTION_TAP_DANCE_DOUBLE(KC_A,KC_B)
+  // Other declarations would go here, separated by commas, if you have them
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Qwerty
  * ,-----------------------------------------.
@@ -59,6 +70,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(_NP), \
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(_BL),  \
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  \
-  KC_A, KC_A, KC_NO, KC_NO,  KC_NO, KC_NO  \
+  TD(TD_A_B), TD(TD_A_B), KC_NO, KC_NO,  KC_NO, KC_NO  \
 )
 };
