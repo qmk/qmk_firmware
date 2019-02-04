@@ -3,7 +3,7 @@
 #include "quantum.h"
 
 // Define layer names and order
-#if defined(KEYBOARD_40percentclub_gherkin) || defined(KEYBOARD_kbd6x)
+#if defined(KEYBOARD_40percentclub_gherkin) || defined(KEYBOARD_kbdfans_kbd6x)
 enum userspace_layers {
   gGK = 0,
   gNUM,
