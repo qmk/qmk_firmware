@@ -127,7 +127,7 @@ void garake0_finished (qk_tap_dance_state_t *state, void *user_data) {
 
 void garake0_reset (qk_tap_dance_state_t *state, void *user_data) {
   if (garake0_raised) {
-    return layer_off(GARARAISE);
+    layer_off(GARARAISE);
     garake0_raised = false;
   }
 }
