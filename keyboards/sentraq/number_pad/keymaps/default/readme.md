@@ -1,1 +1,1 @@
-# The default keymap for sentraq_number_pad
+# The default keymap for Sentraq Number Pad RGB DIY Kit
