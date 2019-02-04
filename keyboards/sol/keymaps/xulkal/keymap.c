@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_EQL,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_BSPC, \
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_RBRC,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSLS, \
       FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_GRV,  KC_QUOT,  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RGB_TOG, OLEDRST,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    OLEDRST, OLEDRST,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
       KC_LCTL, KC_LGUI, ADJ,     FN,      KC_LALT, KC_SPC,  RGB_MOD, RGB_RMOD, KC_SPC,  KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT, KC_RCTL, \
                         KC_VOLU, KC_VOLD,          KC_SPC,  KC_DEL,  KC_ENT,   KC_SPC,           KC_VOLU, KC_VOLD \
       ),
@@ -171,7 +171,7 @@ void matrix_init_user(void) {
 #endif
 //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
-  iota_gfx_init(!has_usb());   // turns on the display
+  //iota_gfx_init(!has_usb());   // turns on the display
 #endif
 }
 
@@ -179,17 +179,17 @@ void matrix_init_user(void) {
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
 
-static void render_logo(void) {
+/*static void render_logo(void) {
   static const char PROGMEM sol_logo[] = {
     0x80,0x81,0x82,0x83,0x84,0x85,0x86,0x87,0x88,0x89,0x8a,0x8b,0x8c,0x8d,0x8e,0x8f,0x90,0x91,0x92,0x93,0x94,
     0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
     0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
 
   iota_gfx_write_P(sol_logo, false);
-}
+}*/
 
 
-static void render_status(void) {
+/*static void render_status(void) {
   // Render to mode icon
   static const char PROGMEM mode_logo[4][4] = {
     {0x95,0x96,0x0a,0},
@@ -229,23 +229,19 @@ static void render_status(void) {
   iota_gfx_write_P(PSTR("CAP"), led_usb_state & (1<<USB_LED_CAPS_LOCK));
   iota_gfx_write_P(PSTR(" "), false);
   iota_gfx_write_P(PSTR("SCR"), led_usb_state & (1<<USB_LED_SCROLL_LOCK));
-}
-
-// hook point for 'led_test' keymap
-//   'default' keymap's led_test_init() is empty function, do nothing
-//   'led_test' keymap's led_test_init() force rgblight_mode_noeeprom(35);
-__attribute__ ((weak))
-void led_test_init(void) { }
+}*/
 
 void matrix_scan_user(void) {
-  led_test_init();
-    
+  if (!iota_gfx_ready())
+    return;
+
   iota_gfx_set_cursor(0, 0);
-  if (is_master)
+  iota_gfx_write_P(PSTR("NUM"), false);
+  //if (is_master)
     render_status();
-  else
-    render_logo();
-  iota_gfx_render();
+  //else
+  //  render_logo();
+  iota_gfx_render(); // slow =(
 }
 
 #endif

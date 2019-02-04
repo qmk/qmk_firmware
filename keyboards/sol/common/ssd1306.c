@@ -43,7 +43,7 @@
 
 
 static struct DisplayBuffer display_buffer;
-
+static bool display_initialized = false;
 
 // Commands are expected to be in Flash memory
 static void SendCommands(const uint8_t *commands, uint8_t length)
@@ -70,16 +70,15 @@ static void SendData(const uint8_t *data, uint16_t length)
 // Wraps to the begining when out of bounds
 static void AdvanceCursor(void)
 {
-    display_buffer.cursor += OLED_FONT_WIDTH;
+    uint16_t index = display_buffer.cursor - &display_buffer.display[0] + OLED_FONT_WIDTH;
+    uint8_t remainingSpace = OLED_DISPLAY_WIDTH - (index % OLED_DISPLAY_WIDTH);
+    if (remainingSpace < OLED_FONT_WIDTH)
+        index += remainingSpace;
 
-    // Room for next character?
-    uint8_t colRemainder = OLED_DISPLAY_WIDTH - ((display_buffer.cursor - &display_buffer.display[0]) % OLED_DISPLAY_WIDTH);
-    if (colRemainder < OLED_FONT_WIDTH)
-        display_buffer.cursor += colRemainder;
+    if (index >= OLED_MATRIX_SIZE)
+        index = 0;
 
-    // Out of bounds?
-    if (display_buffer.cursor - &display_buffer.display[0] > OLED_MATRIX_SIZE)
-        display_buffer.cursor = &display_buffer.display[0];
+    display_buffer.cursor = &display_buffer.display[index];
 }
 
 // Moves the cursor to the begining of the next line
@@ -107,7 +106,7 @@ static void InvertCharacter(uint8_t *cursor)
 }
 
 // Main handler that writes character data to the display buffer
-static void WriteCharToBuffer(const char data, bool invert)
+static void WriteCharToBuffer(const uint8_t data, bool invert)
 {
     static uint8_t oled_temp_buffer[OLED_FONT_WIDTH];
     if (data == '\n')
@@ -122,7 +121,7 @@ static void WriteCharToBuffer(const char data, bool invert)
     }
     else
     {
-        const uint8_t *glyph = font + (data - OLED_FONT_START) * OLED_FONT_WIDTH;
+        const uint8_t *glyph = &font[(data - OLED_FONT_START) * OLED_FONT_WIDTH];
         memcpy(&oled_temp_buffer, display_buffer.cursor, OLED_FONT_WIDTH);
         memcpy_P(display_buffer.cursor, glyph, OLED_FONT_WIDTH);
         if (invert) InvertCharacter(display_buffer.cursor);
@@ -168,6 +167,11 @@ void iota_gfx_init(bool flip180)
         DEACTIVATE_SCROLL,
         DISPLAY_ON };
     SendCommands(display_setup2, sizeof(display_setup2));
+
+    iota_gfx_clear();
+    iota_gfx_render();
+
+    display_initialized = true;
 }
 
 void iota_gfx_clear(void)
@@ -219,5 +223,10 @@ void iota_gfx_write_P(const char *data, bool invert)
         WriteCharToBuffer(c, invert);
         data++;
     }
+}
+
+bool iota_gfx_ready(void)
+{
+    return display_initialized;
 }
 #endif

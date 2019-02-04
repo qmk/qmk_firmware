@@ -50,3 +50,5 @@ void iota_gfx_write(const char *data, bool invert);
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 void iota_gfx_write_P(const char *data, bool invert);
+
+bool iota_gfx_ready(void);
