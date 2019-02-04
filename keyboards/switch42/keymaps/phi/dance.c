@@ -8,6 +8,8 @@
 #define TD_GARAKE8       10
 #define TD_GARAKE9       11
 #define TD_GARAKE0_RAISE 12
+#define TD_CTL_LANG1     13
+#define TD_SFT_LANG2     14
 
 #define send_keycode(key) { register_code(key); unregister_code(key); }
 
@@ -134,6 +136,50 @@ void garake0_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 /* ---- */
 
+bool ctl_pressed = false;
+
+void garake_ctl_lang1 (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->pressed || state->interrupted) {
+    register_code(KC_LCTL);
+    layer_off(TENKEY);
+    ctl_pressed = true;
+    return;
+  } else {
+    send_keycode(KC_LANG1);
+  }
+}
+
+void garake_ctl_lang1_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (ctl_pressed) {
+    unregister_code(KC_LCTL);
+    ctl_pressed = false;
+  }
+}
+
+/* ---- */
+
+bool sft_pressed = false;
+
+void garake_sft_lang2 (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->pressed || state->interrupted) {
+    register_code(KC_LSFT);
+    layer_off(TENKEY);
+    sft_pressed = true;
+    return;
+  } else {
+    send_keycode(KC_LANG2);
+  }
+}
+
+void garake_sft_lang2_reset (qk_tap_dance_state_t *state, void *user_data) {
+  if (ctl_pressed) {
+    unregister_code(KC_LSFT);
+    sft_pressed = false;
+  }
+}
+
+/* ---- */
+
 qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_GARAKE7]       = ACTION_TAP_DANCE_FN(garake7),
     [TD_GARAKE8]       = ACTION_TAP_DANCE_FN(garake8),
@@ -144,5 +190,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_GARAKE1]       = ACTION_TAP_DANCE_FN(garake1),
     [TD_GARAKE2]       = ACTION_TAP_DANCE_FN(garake2),
     [TD_GARAKE3]       = ACTION_TAP_DANCE_FN(garake3),
-    [TD_GARAKE0_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, garake0_finished, garake0_reset)
+    [TD_GARAKE0_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, garake0_finished, garake0_reset),
+    [TD_CTL_LANG1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, garake_ctl_lang1, garake_ctl_lang1_reset),
+    [TD_SFT_LANG2] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, garake_sft_lang2, garake_sft_lang2_reset)
 };

@@ -44,8 +44,8 @@ extern uint8_t is_master;
 #define KC_BASE    TO(BASE)
 #define KC_GARAKE  TG(GARAKE)
 #define KC_TENKEY  TG(TENKEY)
-#define KC_SFT_EN  LSFT_T(KC_ENT)
-#define KC_CTR_SP  LCTL_T(KC_SPC)
+#define KC_ALT_EN  LALT_T(KC_ENT)
+#define KC_CTL_TB  LCTL_T(KC_TAB)
 
 #ifdef TAP_DANCE_ENABLE
 #define KC_GK1     TD(TD_GARAKE1)
@@ -57,7 +57,9 @@ extern uint8_t is_master;
 #define KC_GK7     TD(TD_GARAKE7)
 #define KC_GK8     TD(TD_GARAKE8)
 #define KC_GK9     TD(TD_GARAKE9)
-#define KC_GK0R    TD(TD_GARAKE0_RAISE)
+#define KC_GK0_RA  TD(TD_GARAKE0_RAISE)
+#define KC_CTL_L1  TD(TD_CTL_LANG1)
+#define KC_SFT_L2  TD(TD_SFT_LANG2)
 #else
 #define KC_GK1     KC_1
 #define KC_GK2     KC_2
@@ -68,7 +70,9 @@ extern uint8_t is_master;
 #define KC_GK7     KC_7
 #define KC_GK8     KC_8
 #define KC_GK9     KC_9
-#define KC_GK0R    LT(RAISE, KC_0)
+#define KC_GK0_RA  LT(RAISE, KC_0)
+#define KC_CTL_L1  LCTL_T(KC_LANG1)
+#define KC_SFT_L2  LSFT_T(KC_LANG2)
 #endif
 
 #define KC_RST  RESET
@@ -125,11 +129,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,-----------------------------------------. ,-----------------------------------------.
     ____ , ____ , ____ , ____ , ____ , ____ ,  TENKEY, GK7  , GK8  , GK9  , BSPC , MINS , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    ____ , ____ , ____ , ____ , ____ , ____ ,   LANG2, GK4  , GK5  , GK6  , SCLN , QUOT , \
+    ____ , ____ , ____ , ____ , ____ , ____ ,  CTL_L1, GK4  , GK5  , GK6  , SCLN , QUOT , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    ____ , ____ , ____ , ____ , ____ , ____ ,   LANG1, GK1  , GK2  , GK3  , DOT  , SLSH , \
+    ____ , ____ , ____ , ____ , ____ , ____ ,  SFT_L2, GK1  , GK2  , GK3  , DOT  , SLSH , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
-                         ____ , ____ , BASE ,  CTR_SP,SFT_EN, GK0R  \
+                         ____ , ____ , BASE ,   SPC  ,ALT_EN,GK0_RA\
 //                     `--------------------' `--------------------'
 ),
 
@@ -137,7 +141,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //,-----------------------------------------. ,-----------------------------------------.
     ____ , ____ , ____ , ____ , ____ , ____ ,   ESC  , BTN1 , MUP  , BTN2 , ____ , EQL  , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
-    ____ , ____ , ____ , ____ , ____ , ____ ,   TAB  , MLFT , MDN  , MRGT , UP   , PLUS , \
+    ____ , ____ , ____ , ____ , ____ , ____ ,  CTL_TB, MLFT , MDN  , MRGT , UP   , PLUS , \
 //|------+------+------+------+------+------| |------+------+------+------+------+------|
     ____ , ____ , ____ , ____ , ____ , ____ ,   ____ , WUP  , WDN  , LEFT , DOWN , RGHT , \
 //`------+------+------+------+------+------| |------+------+------+------+------+------'
