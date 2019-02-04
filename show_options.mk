@@ -86,9 +86,6 @@ show_all_features: show_build_options
     ifneq ($(SPLIT_KEYBOARD),)
 	echo "  SPLIT_KEYBOARD = $(SPLIT_KEYBOARD)"
     endif
-    ifneq ($(SPLIT_KEYBOARD),)
-	echo "  SPLIT_KEYBOARD = $(SPLIT_KEYBOARD)"
-    endif
     ifneq ($(STENO_ENABLE),)
 	echo "  STENO_ENABLE = $(STENO_ENABLE)"
     endif
