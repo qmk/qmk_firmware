@@ -25,7 +25,7 @@
 // };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BL] = LAYOUT_numpad(
+  [_BL] = LAYOUT_numpad_5x4(
     /* Base Layer: Number Pad
      * ,---------------.
      * |FN | / | * | - |
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |       |   |LCK|
      * `---------------'
      */
-  [_FN] = LAYOUT_numpad(
+  [_FN] = LAYOUT_numpad_5x4(
     KC_TRNS, RGB_TOG, RGB_MOD, RGB_RMOD, \
     KC_NO,   RGB_HUD, RGB_HUI,   \
     KC_NO,   RGB_SAD, RGB_SAI, KC_NO, \

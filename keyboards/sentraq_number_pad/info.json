@@ -5,7 +5,7 @@
   "width": 4,
   "height": 5,
   "layouts": {
-    "LAYOUT_numpad": {
+    "LAYOUT_numpad_5x4": {
       "keycount": 17,
       "layout": [
         {"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0},
@@ -15,7 +15,7 @@
         {"x":0, "y":4, "w":2}, {"x":2, "y":4}
       ]
     },
-    "LAYOUT_grid": {
+    "LAYOUT_ortho_5x4": {
       "keycount": 20,
       "layout": [
         {"x":0, "y":0}, {"x":1, "y":0}, {"x":2, "y":0}, {"x":3, "y":0},
