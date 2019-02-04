@@ -188,10 +188,15 @@ void matrix_init_user(void) {
   iota_gfx_write_P(sol_logo, false);
 }*/
 
+//assign the right code to your layers for OLED display
+#define L_BASE 0
+#define L_FN (1<<_FN)
+#define L_ADJ (1<<_ADJ)
+#define L_ADJ_TRI (L_ADJ|L_FN)
 
-/*static void render_status(void) {
+static void render_status(void) {
   // Render to mode icon
-  static const char PROGMEM mode_logo[4][4] = {
+  /*static const char PROGMEM mode_logo[4][4] = {
     {0x95,0x96,0x0a,0},
     {0xb5,0xb6,0x0a,0},
     {0x97,0x98,0x0a,0},
@@ -203,40 +208,40 @@ void matrix_init_user(void) {
   } else {
     iota_gfx_write_P(mode_logo[2], false);
     iota_gfx_write_P(mode_logo[3], false);
-  }
+  }*/
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
 
-  iota_gfx_write_P(PSTR("Layer: "), false);
-  switch (biton32(layer_state)) {
-    case _QWERTY:
+  /*iota_gfx_write_P(PSTR("Layer: "), false);
+  switch (layer_state) {
+    case L_BASE:
       iota_gfx_write_P(PSTR("Default\n"), false);
       break;
-    case _FN:
+    case L_FN:
       iota_gfx_write_P(PSTR("FN     \n"), false);
       break;
-    case _ADJ:
+    case L_ADJ:
+    case L_ADJ_TRI:
       iota_gfx_write_P(PSTR("ADJ    \n"), false);
       break;
     default:
       iota_gfx_write_P(PSTR("UNDEF  \n"), false);
-  }
+  }*/
 
   // Host Keyboard LED Status
-  uint8_t led_usb_state = host_keyboard_leds();
+  /*uint8_t led_usb_state = host_keyboard_leds();
   iota_gfx_write_P(PSTR("NUM"), led_usb_state & (1<<USB_LED_NUM_LOCK));
   iota_gfx_write_P(PSTR(" "), false);
   iota_gfx_write_P(PSTR("CAP"), led_usb_state & (1<<USB_LED_CAPS_LOCK));
   iota_gfx_write_P(PSTR(" "), false);
-  iota_gfx_write_P(PSTR("SCR"), led_usb_state & (1<<USB_LED_SCROLL_LOCK));
-}*/
+  iota_gfx_write_P(PSTR("SCR"), led_usb_state & (1<<USB_LED_SCROLL_LOCK));*/
+}
 
 void matrix_scan_user(void) {
   if (!iota_gfx_ready())
     return;
 
   iota_gfx_set_cursor(0, 0);
-  iota_gfx_write_P(PSTR("NUM"), false);
   //if (is_master)
     render_status();
   //else
