@@ -8,12 +8,10 @@ extern keymap_config_t keymap_config;
 enum custom_layers {
   _CMK_DHM,
   _QWERTY,
-  _MEDIA,
+  _SYS,
   _NAV,
   _NUM,
-  _SYM_L,
-  _SYM_R,
-  _SYS
+  _SYM,
 };
 
 enum custom_keycodes {
@@ -21,8 +19,7 @@ enum custom_keycodes {
   QWERTY,
   NAV,
   NUM,
-  SYM_L,
-  SYM_R,
+  SYM,
   ALT_OP,
   CTL_CCB,
   GUI_CP
@@ -62,18 +59,11 @@ enum custom_keycodes {
 #define NUM_LK TG(_NUM)
 #define NUM_SPC LT(_NUM, KC_SPC)
 #define SFT_OS OSM(MOD_LSFT)
-#define SYML_OS OSL(_SYM_L)
-#define SYMR_OS OSL(_SYM_R)
+#define SYM_OS OSL(_SYM)
 #define VOL_DN S(LALT(KC__VOLDOWN))
 #define VOL_UP S(LALT(KC__VOLUP))
 #define XXXXXXX KC_NO
-
-#define SYMBOL_LAYER LAYOUT( \
-  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_QUES, KC_QUOT, \
-  KC_PLUS, CTRL_EQ, ALT_OP,  GUI_CP,  KC_DQT,       KC_COLN, GUI_CB,  ALT_OB,  CTL_CCB, KC_LCBR, \
-  KC_LT,   KC_PIPE, KC_MINS, KC_GT,   KC_BSLS,      KC_GRV,  KC_UNDS, KC_SLSH, KC_TILD, KC_SCLN, \
-                    _______, MAC_EN,  _______,      _______, MAC_EM,  _______                    \
-)
+#define Z_SYS LT(_SYS, KC_Z)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -84,19 +74,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |   A  | CTL/R| ALT/S| GUI/T|   G  |           |   M  | GUI/N| ALT/E| CTL/I|   O  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   Z  |   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
+ * | Z_SYS|   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |SFT_OS|NAV_BK|      |    |      |NUMSPC|SFT_OS|
- *                  `------+------|SYMLOS|    |SYMROS|------+------'
+ *                  `------+------|SYM_OS|    |SYM_OS|------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_CMK_DHM] = LAYOUT( \
   KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
   KC_A,    CTRL_R,  ALT_S,   GUI_TEA, KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O,    \
-  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SFT_OS,  NAV_BK,  SYML_OS,      SYMR_OS, NUM_SPC, SFT_OS                     \
+  Z_SYS,   KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
+                    SFT_OS,  NAV_BK,  SYM_OS,       SYM_OS, NUM_SPC, SFT_OS                     \
 ),
 
 /* QWERTY
@@ -106,29 +96,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |   A  | CTL/S| ALT/D| GUI/F|   G  |           |   H  | GUI/J| ALT/K| CTL/L|   '  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   ;  |
+ * | Z_SYS|   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   ;  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |SFT_OS|NAV_BK|      |    |      |NUMSPC|SFT_OS|
- *                  `------+------|SYMLOS|    |SYMROS|------+------'
+ *                  `------+------|SYM_OS|    |SYM_OS|------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_QWERTY] = LAYOUT( \
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
   KC_A,    CTRL_S,  ALT_D,   GUI_F,   KC_G,         KC_H,    GUI_J,   ALT_K,   CTRL_L,  KC_QUOT, \
-  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SFT_OS,  NAV_BK,  SYML_OS,      SYMR_OS, NUM_SPC, SFT_OS                     \
+  Z_SYS,   KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN, \
+                    SFT_OS,  NAV_BK,  SYM_OS,       SYM_OS, NUM_SPC, SFT_OS                     \
 ),
 
-/* Media + layer lock keys
+/* System, media, and layer lock keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * |      |      | VOLUP| VOLDN|      |           |      | MRWD | MFFD |      |      |
+ * | RESET|DEBUG |QWERTY|CMKDHM|      |           |      | MRWD | MFFD | VOLUP| VOLDN|
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |  DEL | CTRL |  ALT |  GUI |NAV_LK|           | POWER|VOL_DN|VOL_UP| MUTE | MPLY |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      |      |           |      |NUM_LK|      |      |      |
+ * |      |      |      |AU_OFF|AU_ON |           |      |NUM_LK|      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |      |      |      |    |      |      |      |
@@ -136,11 +126,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_MEDIA] = LAYOUT( \
-  _______, _______, KC__VOLUP, KC__VOLDOWN, _______,_______, KC_MRWD, KC_MFFD, _______, _______, \
-  KC_DEL,  KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_POWER,VOL_DN,  VOL_UP,  KC__MUTE,KC_MPLY, \
-  _______, _______, _______, _______, _______,      _______, NUM_LK,  _______, _______, _______, \
-                    _______, _______, _______,      _______, _______, _______                    \
+[_SYS] = LAYOUT( \
+  RESET,   DEBUG,   QWERTY,  CMK_DHM, _______,      _______, KC_MRWD, KC_MFFD, KC__VOLUP, KC__VOLDOWN, \
+  KC_DEL,  KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_POWER,VOL_DN,  VOL_UP,  KC__MUTE,  KC_MPLY,     \
+  _______, _______, _______, AU_OFF,  AU_ON,        _______, NUM_LK,  _______, _______,   _______,     \
+                    _______, _______, _______,      _______, _______, _______                          \
 ),
 
 /* Navigation + mouse keys
@@ -154,7 +144,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |      |      |      |    |      | ENTER|      |
- *                  `------+------|  ESC |    |      |------+------'
+ *                  `------+------|  ESC |    | DEL  |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
@@ -162,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_PSCR, _______, KC_WH_U, KC_WH_D, KC_BSPC,      KC_DEL,  KC_PGDN, KC_PGUP, KC_HOME, KC_END,  \
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
   _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
-                    _______, _______, KC_ESC,       _______, KC_ENT,  _______                    \
+                    _______, _______, KC_ESC,       KC_DEL,  KC_ENT,  _______                    \
 ),
 
 /* Number + function keys
@@ -226,30 +216,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_SYM_L] = SYMBOL_LAYER,
-[_SYM_R] = SYMBOL_LAYER,
-
-/* System
- *
- * ,----------------------------------.           ,----------------------------------.
- * |      |      |      |      |      |           |      |      |      |      |      |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * | RESET| DEBUG|AU_OFF| AU_ON|      |           |      |COLEMK|QWERTY|      |      |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      |      |           |      |      |      |      |      |
- * `----------------------------------'           `----------------------------------'
- *                  ,--------------------.    ,--------------------.
- *                  |      |      |      |    |      |      |      |
- *                  `------+------|      |    |      |------+------'
- *                                |      |    |      |
- *                                `------'    `------'
- */
-[_SYS] = LAYOUT( \
-  _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, \
-  RESET,   DEBUG,   AU_OFF,  AU_ON,   _______,      _______, CMK_DHM, QWERTY,  _______, _______, \
-  _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, \
-                    _______, _______, _______,      _______, _______, _______                    \
-),
+[_SYM] = LAYOUT( \
+  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_QUES, KC_QUOT, \
+  KC_PLUS, CTRL_EQ, ALT_OP,  GUI_CP,  KC_DQT,       KC_COLN, GUI_CB,  ALT_OB,  CTL_CCB, KC_LCBR, \
+  KC_LT,   KC_PIPE, KC_MINS, KC_GT,   KC_BSLS,      KC_GRV,  KC_UNDS, KC_SLSH, KC_TILD, KC_SCLN, \
+                    _______, MAC_EN,  _______,      _______, MAC_EM,  _______                    \
+)
 
 };
 
@@ -264,42 +236,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-    case NAV:
-      if (record->event.pressed) {
-        layer_on(_NAV);
-        update_tri_layer(_NAV, _NUM, _MEDIA);
-      } else {
-        layer_off(_NAV);
-        update_tri_layer(_NAV, _NUM, _MEDIA);
-      }
-      return false;
-    case NUM:
-      if (record->event.pressed) {
-        layer_on(_NUM);
-        update_tri_layer(_NAV, _NUM, _MEDIA);
-      } else {
-        layer_off(_NUM);
-        update_tri_layer(_NAV, _NUM, _MEDIA);
-      }
-      return false;
-    case SYM_L:
-      if (record->event.pressed) {
-        layer_on(_SYM_L);
-        update_tri_layer(_SYM_L, _SYM_R, _SYS);
-      } else {
-        layer_off(_SYM_L);
-        update_tri_layer(_SYM_L, _SYM_R, _SYS);
-      }
-      return false;
-    case SYM_R:
-      if (record->event.pressed) {
-        layer_on(_SYM_R);
-        update_tri_layer(_SYM_L, _SYM_R, _SYS);
-      } else {
-        layer_off(_SYM_R);
-        update_tri_layer(_SYM_L, _SYM_R, _SYS);
       }
       return false;
     case ALT_OP:
