@@ -2,344 +2,222 @@
 
 #include "ssd1306.h"
 #include "i2c.h"
-#include <string.h>
-#include "print.h"
-
-#ifndef LOCAL_GLCDFONT
 #include "common/glcdfont.c"
-#else
-#include <helixfont.h>
-#endif
 
-#ifdef ADAFRUIT_BLE_ENABLE
-#include "adafruit_ble.h"
-#endif
-#ifdef PROTOCOL_LUFA
-#include "lufa.h"
-#endif
-#include "sendchar.h"
-#include "timer.h"
+#include <string.h>
 
-// Set this to 1 to help diagnose early startup problems
-// when testing power-on with ble.  Turn it off otherwise,
-// as the latency of printing most of the debug info messes
-// with the matrix scan, causing keys to drop.
-#define DEBUG_TO_SCREEN 0
+// Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
+// Fundamental Commands
+#define CONTRAST                0x81
+#define DISPLAY_ALL_ON          0xA5
+#define DISPLAY_ALL_ON_RESUME   0xA4
+#define NORMAL_DISPLAY          0xA6
+#define DISPLAY_ON              0xAF
+#define DISPLAY_OFF             0xAE
 
-//static uint16_t last_battery_update;
-//static uint32_t vbat;
-//#define BatteryUpdateInterval 10000 /* milliseconds */
+// Scrolling Commands
+#define DEACTIVATE_SCROLL       0x2E
 
-// 'last_flush' is declared as uint16_t,
-// so this must be less than 65535 
-#define ScreenOffInterval 60000 /* milliseconds */
-#if DEBUG_TO_SCREEN
-static uint8_t displaying;
-#endif
-static uint16_t last_flush;
-static bool display_on;
+// Addressing Setting Commands
+#define MEMORY_MODE             0x20
+#define COLUMN_ADDR             0x21
+#define PAGE_ADDR               0x22
 
-// Write command sequence.
-// Returns true on success.
-static inline bool _send_cmd1(uint8_t cmd) {
-  bool res = false;
+// Hardware Configuration Commands
+#define DISPLAY_START_LINE      0x40
+#define SEGMENT_REMAP           0xA0
+#define SEGMENT_REMAP_INV       0xA1
+#define MULTIPLEX_RATIO         0xA8
+#define COM_SCAN_INC            0xC0
+#define COM_SCAN_DEC            0xC8
+#define DISPLAY_OFFSET          0xD3
+#define COM_PINS                0xDA
 
-  if (i2c_start_write(SSD1306_ADDRESS)) {
-    xprintf("failed to start write to %d\n", SSD1306_ADDRESS);
-    goto done;
-  }
+// Timing & Driving Commands
+#define DISPLAY_CLOCK           0xD5
+#define PRE_CHARGE_PERIOD       0xD9
+#define VCOM_DETECT             0xDB
 
-  if (i2c_master_write(0x0 /* command byte follows */)) {
-    print("failed to write control byte\n");
+// Charge Pump Commands
+#define CHARGE_PUMP             0x8D
 
-    goto done;
-  }
 
-  if (i2c_master_write(cmd)) {
-    xprintf("failed to write command %d\n", cmd);
-    goto done;
-  }
-  res = true;
-done:
-  i2c_master_stop();
-  return res;
+static struct DisplayBuffer display_buffer;
+
+
+// Commands are expected to be in Flash memory
+static void SendCommands(const uint8_t *commands, uint8_t length)
+{
+    i2c_start_write(SSD1306_ADDRESS);
+    i2c_master_write(0x00);
+    while (length--)
+        i2c_master_write(pgm_read_byte(commands++));
+    i2c_master_stop();
 }
 
-// Write 2-byte command sequence.
-// Returns true on success
-static inline bool _send_cmd2(uint8_t cmd, uint8_t opr) {
-  if (!_send_cmd1(cmd)) {
-    return false;
-  }
-  return _send_cmd1(opr);
+// Data is expected to be in SRAM
+static void SendData(const uint8_t *data, uint16_t length)
+{
+    i2c_start_write(SSD1306_ADDRESS);
+    i2c_master_write(0x40);
+    while (length--)
+        i2c_master_write(*data++);
+    i2c_master_stop();
 }
 
-// Write 3-byte command sequence.
-// Returns true on success
-static inline bool _send_cmd3(uint8_t cmd, uint8_t opr1, uint8_t opr2) {
-  if (!_send_cmd1(cmd)) {
-    return false;
-  }
-  if (!_send_cmd1(opr1)) {
-    return false;
-  }
-  return _send_cmd1(opr2);
+// Moves the cursor forward 1 character length
+// Advances lines if there is not enough room for the next character
+// Wraps to the begining when out of bounds
+static void AdvanceCursor(void)
+{
+    display_buffer.cursor += OLED_FONT_WIDTH;
+
+    // Room for next character?
+    uint8_t colRemainder = OLED_DISPLAY_WIDTH - ((display_buffer.cursor - &display_buffer.display[0]) % OLED_DISPLAY_WIDTH);
+    if (colRemainder < OLED_FONT_WIDTH)
+        display_buffer.cursor += colRemainder;
+
+    // Out of bounds?
+    if (display_buffer.cursor - &display_buffer.display[0] > OLED_MATRIX_SIZE)
+        display_buffer.cursor = &display_buffer.display[0];
 }
 
-#define send_cmd1(c) if (!_send_cmd1(c)) {goto done;}
-#define send_cmd2(c,o) if (!_send_cmd2(c,o)) {goto done;}
-#define send_cmd3(c,o1,o2) if (!_send_cmd3(c,o1,o2)) {goto done;}
+// Moves the cursor to the begining of the next line
+// Wraps to the begining when out of bounds
+static void AdvancePage(void)
+{
+    uint8_t pageIndex = (display_buffer.cursor - &display_buffer.display[0]) / OLED_DISPLAY_WIDTH + 1;
 
-static void clear_display(void) {
-  matrix_clear(&display);
+    // Out of bounds?
+    if (pageIndex > OLED_DISPLAY_HEIGHT / 8 - 1)
+        pageIndex = 0;
 
-  // Clear all of the display bits (there can be random noise
-  // in the RAM on startup)
-  send_cmd3(PageAddr, 0, (DisplayHeight / 8) - 1);
-  send_cmd3(ColumnAddr, 0, DisplayWidth - 1);
+    display_buffer.cursor = &display_buffer.display[pageIndex * OLED_DISPLAY_WIDTH];
+}
 
-  if (i2c_start_write(SSD1306_ADDRESS)) {
-    goto done;
-  }
-  if (i2c_master_write(0x40)) {
-    // Data mode
-    goto done;
-  }
-  for (uint8_t row = 0; row < MatrixRows; ++row) {
-    for (uint8_t col = 0; col < DisplayWidth; ++col) {
-      i2c_master_write(0);
+// Flips the rendering bits for a character at the current cursor position
+static void InvertCharacter(uint8_t *cursor)
+{
+    const uint8_t *end = cursor + OLED_FONT_WIDTH;
+    while (cursor < end)
+    {
+        *cursor = ~(*cursor);
+        cursor++;
     }
-  }
-
-  display.dirty = false;
-
-done:
-  i2c_master_stop();
 }
 
-#if DEBUG_TO_SCREEN
-#undef sendchar
-static int8_t capture_sendchar(uint8_t c) {
-  sendchar(c);
-  iota_gfx_write_char(c);
-
-  if (!displaying) {
-    iota_gfx_flush();
-  }
-  return 0;
-}
-#endif
-
-bool iota_gfx_init(bool rotate) {
-  bool success = false;
-
-  i2c_master_init();
-  send_cmd1(DisplayOff);
-  send_cmd2(SetDisplayClockDiv, 0x80);
-  send_cmd2(SetMultiPlex, DisplayHeight - 1);
-
-  send_cmd2(SetDisplayOffset, 0);
-
-
-  send_cmd1(SetStartLine | 0x0);
-  send_cmd2(SetChargePump, 0x14 /* Enable */);
-  send_cmd2(SetMemoryMode, 0 /* horizontal addressing */);
-
-  if(rotate){
-    // the following Flip the display orientation 180 degrees
-    send_cmd1(SegRemap);
-    send_cmd1(ComScanInc);
-  }else{
-    // Flips the display orientation 0 degrees
-    send_cmd1(SegRemap | 0x1);
-    send_cmd1(ComScanDec);
-  }
-
-  send_cmd2(SetComPins, 0x2);
-  send_cmd2(SetContrast, 0x8f);
-  send_cmd2(SetPreCharge, 0xf1);
-  send_cmd2(SetVComDetect, 0x40);
-  send_cmd1(DisplayAllOnResume);
-  send_cmd1(NormalDisplay);
-  send_cmd1(DeActivateScroll);
-  send_cmd1(DisplayOn);
-
-  send_cmd2(SetContrast, 0); // Dim
-
-  clear_display();
-
-  success = true;
-  display_on = true;
-
-  iota_gfx_flush();
-
-#if DEBUG_TO_SCREEN
-  print_set_sendchar(capture_sendchar);
-#endif
-
-done:
-  return success;
-}
-
-bool iota_gfx_off(void) {
-  bool success = false;
-
-  send_cmd1(DisplayOff);
-  success = true;
-  display_on = false;
-
-done:
-  return success;
-}
-
-bool iota_gfx_on(void) {
-  bool success = false;
-
-  send_cmd1(DisplayOn);
-  success = true;
-  display_on = true;
-
-done:
-  return success;
-}
-
-void matrix_write_char_inner(struct CharacterMatrix *matrix, uint8_t c) {
-  *matrix->cursor = c;
-  ++matrix->cursor;
-
-  if (matrix->cursor - &matrix->display[0][0] == sizeof(matrix->display)) {
-    // We went off the end; scroll the display upwards by one line
-    memmove(&matrix->display[0], &matrix->display[1],
-            MatrixCols * (MatrixRows - 1));
-    matrix->cursor = &matrix->display[MatrixRows - 1][0];
-    memset(matrix->cursor, ' ', MatrixCols);
-  }
-}
-
-void matrix_write_char(struct CharacterMatrix *matrix, uint8_t c) {
-  matrix->dirty = true;
-
-  if (c == '\n') {
-    // Clear to end of line from the cursor and then move to the
-    // start of the next line
-    uint8_t cursor_col = (matrix->cursor - &matrix->display[0][0]) % MatrixCols;
-
-    while (cursor_col++ < MatrixCols) {
-      matrix_write_char_inner(matrix, ' ');
+// Main handler that writes character data to the display buffer
+static void WriteCharToBuffer(const char data, bool invert)
+{
+    static uint8_t oled_temp_buffer[OLED_FONT_WIDTH];
+    if (data == '\n')
+        AdvancePage();
+    else if (data < OLED_FONT_START || data > OLED_FONT_END)
+    {
+        memcpy(&oled_temp_buffer, display_buffer.cursor, OLED_FONT_WIDTH);
+        memset(display_buffer.cursor, invert, OLED_FONT_WIDTH);
+        display_buffer.dirty |= memcmp(&oled_temp_buffer, display_buffer.cursor, OLED_FONT_WIDTH) != 0;
+        AdvanceCursor();
+        return;
     }
-    return;
-  }
-
-  matrix_write_char_inner(matrix, c);
-}
-
-void iota_gfx_write_char(uint8_t c) {
-  matrix_write_char(&display, c);
-}
-
-void matrix_write(struct CharacterMatrix *matrix, const char *data) {
-  const char *end = data + strlen(data);
-  while (data < end) {
-    matrix_write_char(matrix, *data);
-    ++data;
-  }
-}
-
-void iota_gfx_write(const char *data) {
-  matrix_write(&display, data);
-}
-
-void matrix_write_P(struct CharacterMatrix *matrix, const char *data) {
-  while (true) {
-    uint8_t c = pgm_read_byte(data);
-    if (c == 0) {
-      return;
+    else
+    {
+        const uint8_t *glyph = font + (data - OLED_FONT_START) * OLED_FONT_WIDTH;
+        memcpy(&oled_temp_buffer, display_buffer.cursor, OLED_FONT_WIDTH);
+        memcpy_P(display_buffer.cursor, glyph, OLED_FONT_WIDTH);
+        if (invert) InvertCharacter(display_buffer.cursor);
+        display_buffer.dirty |= memcmp(&oled_temp_buffer, display_buffer.cursor, OLED_FONT_WIDTH) != 0;
+        AdvanceCursor();
     }
-    matrix_write_char(matrix, c);
-    ++data;
-  }
 }
 
-void iota_gfx_write_P(const char *data) {
-  matrix_write_P(&display, data);
-}
+void iota_gfx_init(bool flip180)
+{
+    static const uint8_t PROGMEM display_setup1[] = {
+        DISPLAY_OFF,
+        DISPLAY_CLOCK, 0x80,
+        MULTIPLEX_RATIO, OLED_DISPLAY_HEIGHT - 1,
+        DISPLAY_OFFSET, 0x00,
+        DISPLAY_START_LINE | 0x00,
+        CHARGE_PUMP, 0x14,
+        MEMORY_MODE, 0x00, };
+    SendCommands(display_setup1, sizeof(display_setup1));
 
-void matrix_clear(struct CharacterMatrix *matrix) {
-  memset(matrix->display, ' ', sizeof(matrix->display));
-  matrix->cursor = &matrix->display[0][0];
-  matrix->dirty = true;
-}
-
-void iota_gfx_clear_screen(void) {
-  matrix_clear(&display);
-}
-
-void matrix_render(struct CharacterMatrix *matrix) {
-  last_flush = timer_read();
-  if (!display_on)
-    iota_gfx_on();
-#if DEBUG_TO_SCREEN
-  ++displaying;
-#endif
-
-  // Move to the home position
-  send_cmd3(PageAddr, 0, MatrixRows - 1);
-  send_cmd3(ColumnAddr, 0, (MatrixCols * FontWidth) - 1);
-
-  if (i2c_start_write(SSD1306_ADDRESS)) {
-    goto done;
-  }
-  if (i2c_master_write(0x40)) {
-    // Data mode
-    goto done;
-  }
-
-  for (uint8_t row = 0; row < MatrixRows; ++row) {
-    for (uint8_t col = 0; col < MatrixCols; ++col) {
-      const uint8_t *glyph = font + (matrix->display[row][col] * FontWidth);
-
-      for (uint8_t glyphCol = 0; glyphCol < FontWidth; ++glyphCol) {
-        uint8_t colBits = pgm_read_byte(glyph + glyphCol);
-        i2c_master_write(colBits);
-      }
-
-      // 1 column of space between chars (it's not included in the glyph)
-      //i2c_master_write(0);
+    if (!flip180)
+    {
+        static const uint8_t PROGMEM display_normal[] = {
+            SEGMENT_REMAP_INV,
+            COM_SCAN_DEC };
+        SendCommands(display_normal, sizeof(display_normal));
     }
-  }
+    else
+    {
+        static const uint8_t PROGMEM display_flipped[] = {
+            SEGMENT_REMAP,
+            COM_SCAN_INC };
+        SendCommands(display_flipped, sizeof(display_flipped));
+    }
 
-  matrix->dirty = false;
-
-done:
-  i2c_master_stop();
-#if DEBUG_TO_SCREEN
-  --displaying;
-#endif
+    static const uint8_t PROGMEM display_setup2[] = {
+        COM_PINS, 0x02,
+        CONTRAST, 0x8F,
+        PRE_CHARGE_PERIOD, 0xF1,
+        VCOM_DETECT, 0x40,
+        DISPLAY_ALL_ON_RESUME,
+        NORMAL_DISPLAY,
+        DEACTIVATE_SCROLL,
+        DISPLAY_ON };
+    SendCommands(display_setup2, sizeof(display_setup2));
 }
 
-void iota_gfx_activity(void) {
-  last_flush = timer_read();
-  if (!display_on)
-    iota_gfx_on();
+void iota_gfx_clear(void)
+{
+    memset(display_buffer.display, 0, sizeof(display_buffer.display));
+    display_buffer.cursor = &display_buffer.display[0];
+    display_buffer.dirty = true;
 }
 
-void iota_gfx_flush(void) {
-  matrix_render(&display);
+void iota_gfx_set_cursor(uint8_t col, uint8_t line)
+{
+    uint16_t index = line * OLED_DISPLAY_WIDTH + col * OLED_FONT_WIDTH;
+    display_buffer.cursor = &display_buffer.display[index];
+
+    // Out of bounds?
+    if (display_buffer.cursor - &display_buffer.display[0] > OLED_MATRIX_SIZE)
+        display_buffer.cursor = &display_buffer.display[0];
 }
 
-__attribute__ ((weak))
-void iota_gfx_task_user(void) {
+void iota_gfx_render(void)
+{
+    static const uint8_t PROGMEM display_start[] = {
+        COLUMN_ADDR, 0, OLED_DISPLAY_WIDTH - 1,
+        PAGE_ADDR, 0, OLED_DISPLAY_HEIGHT / 8 - 1 };
+
+    if (!display_buffer.dirty) return;
+    SendCommands(display_start, sizeof(display_start));
+    SendData(&display_buffer.display[0], sizeof(display_buffer.display));
+    display_buffer.cursor = &display_buffer.display[0];
+    display_buffer.dirty = false;
 }
 
-void iota_gfx_task(void) {
-  iota_gfx_task_user();
+void iota_gfx_write(const char *data, bool invert)
+{
+    const char *end = data + strlen(data);
+    while (data < end)
+    {
+        WriteCharToBuffer(*data, invert);
+        data++;
+    }
+}
 
-  if (display.dirty) {
-    iota_gfx_flush();
-  }
-
-  if (display_on && timer_elapsed(last_flush) > ScreenOffInterval) {
-    iota_gfx_off();
-  }
+void iota_gfx_write_P(const char *data, bool invert)
+{
+    const char *end = data + strlen(data);
+    while (data < end)
+    {
+        uint8_t c = pgm_read_byte(data);
+        WriteCharToBuffer(c, invert);
+        data++;
+    }
 }
 #endif
