@@ -86,7 +86,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
   KC_A,    CTRL_R,  ALT_S,   GUI_TEA, KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O,    \
   Z_SYS,   KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SFT_OS,  NAV_BK,  SYM_OS,       SYM_OS, NUM_SPC, SFT_OS                     \
+                    SFT_OS,  NAV_BK,  SYM_OS,       SYM_OS, NUM_SPC, SFT_OS                      \
 ),
 
 /* QWERTY
@@ -108,7 +108,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
   KC_A,    CTRL_S,  ALT_D,   GUI_F,   KC_G,         KC_H,    GUI_J,   ALT_K,   CTRL_L,  KC_QUOT, \
   Z_SYS,   KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SFT_OS,  NAV_BK,  SYM_OS,       SYM_OS, NUM_SPC, SFT_OS                     \
+                    SFT_OS,  NAV_BK,  SYM_OS,       SYM_OS, NUM_SPC, SFT_OS                      \
 ),
 
 /* System, media, and layer lock keys
@@ -226,7 +226,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
   static uint16_t key_timer;
+  bool tap_not_interrupted = record->tap.count > 0 && !record->tap.interrupted;
+
   switch (keycode) {
     case CMK_DHM:
       if (record->event.pressed) {
@@ -241,15 +244,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ALT_OP:
       if (record->event.pressed) {
         key_timer = timer_read();
-        register_mods(MOD_BIT(KC_LALT));
+        if (!tap_not_interrupted) {
+          register_mods(MOD_BIT(KC_LALT));
+        }
+      }
+      else if (tap_not_interrupted && timer_elapsed(key_timer) < TAPPING_TERM) {
+        add_weak_mods(MOD_BIT(KC_LSFT));
+        tap_code(KC_9);
+        del_weak_mods(MOD_BIT(KC_LSFT));
       }
       else {
         unregister_mods(MOD_BIT(KC_LALT));
-        if (timer_elapsed(key_timer) < TAPPING_TERM) {
-          register_mods(MOD_BIT(KC_LSFT));
-          tap_code(KC_9);
-          unregister_mods(MOD_BIT(KC_LSFT));
-        }
       }
       return false;
     case CTL_CCB:
