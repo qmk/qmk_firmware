@@ -220,12 +220,6 @@ void rgb_matrix_indicators_user(void) {
   }
 }
 
-/*
-const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_TAP_TOGGLE(1)
-};
-*/
-// leaving this in place for compatibilty with old keymaps cloned and re-compiled.
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
       switch(id) {

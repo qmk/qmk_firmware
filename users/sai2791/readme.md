@@ -33,14 +33,6 @@ This is my personal userspace.
 
 # Notes to myself
 
-28/1/2019
-- If i add the compile time flags flto gives an error about the redefinition
-of fn_action
-quantum/keymap_common.c:190:24: error: type of 'fn_actions' does not match original declaration [-Werror]
-|  const uint16_t PROGMEM fn_actions[] = {
-|                         ^
-| keyboards/ergodox_ez/keymaps/sai2791/keymap.c:226:24: note: previously declared here
-|  const uint16_t PROGMEM fn_actions[] = {
-
-  Fixed this by commenting it out in the keymaps.c in the keyboard/keymaps directory, it seems to compile ok,
-  needs testing.
+- fn_action removed
+- Desk_L and Desk_R are not working on the keyboard needs to be investigated, the lock
+screen seems to be working fine.  Checking the code it appears that the define is not in the dev branch
