@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "pointing_device.h"
 
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 // The underscores don't mean anything - you can have a layer called STUFF or any other name.
@@ -16,10 +15,6 @@ enum honeycomb_keycodes {
 	COPY,
 	PASTA
 };
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 extern int8_t encoderValue;
 
@@ -39,44 +34,33 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	)
 };
 
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 report_mouse_t currentReport = {};
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	//uint8_t layer;
-	//layer = biton32(layer_state);  // get the current layer  //Or don't, I didn't use it.
-	bool returnVal = true; //this is to determine if more key processing is needed.
+	//uint8_t layer = biton32(layer_state);  // get the current layer
 
-	// Frankly, I don't need this for the macropad, but I want to leave an example in...
+	// Basic example functions
 	switch (keycode) {
 		case HW:
 			if (record->event.pressed) {
-				SEND_STRING("Hello, world!");
-			} else {
-				SEND_STRING("Goodbye, cruel world!");
-			}
-			returnVal = false;
-		break;
-		case COPY:
-			if (record->event.pressed) {
-				SEND_STRING(SS_LCTRL("c"));
-				SEND_STRING(SS_LGUI("c"));
-			}
-			returnVal = false;
-		break;
-		case PASTA:
-			if (record->event.pressed) {
-				SEND_STRING(SS_LCTRL("v"));
-				SEND_STRING(SS_LGUI("v"));
-			}
-			returnVal = false;
-		break;
+					SEND_STRING("Hello, world!");
+				} else {
+					SEND_STRING("Goodbye, cruel world!");
+				}
+			break;
+			case COPY:
+				if (record->event.pressed) {
+					tap_code16(LCTL(KC_C)); // Replace with tap_code16(LCMD(KC_C)) to enable for Mac
+				}
+			break;
+			case PASTA:
+				if (record->event.pressed) {
+					tap_code16(LCTL(KC_V)); // Replace with tap_code16(LCMD(KC_V)) to enable for Mac
+				}
+			break;
+		return false;
 	}
-	return returnVal;
+	return true;
 };
 
 void matrix_scan_user(void) {
@@ -97,11 +81,11 @@ void matrix_scan_user(void) {
 		blu_led_off;
 	}*/
 	while (encoderValue < 0){
-	    SEND_STRING(SS_TAP(X_AUDIO_VOL_DOWN));
-	    encoderValue++;
+		tap_code(KC_VOLD);
+		encoderValue++;
 	}
 	while (encoderValue > 0){
-	    SEND_STRING(SS_TAP(X_AUDIO_VOL_UP));
-	    encoderValue--;
+		tap_code(KC_VOLU);
+		encoderValue--;
 	}
 };

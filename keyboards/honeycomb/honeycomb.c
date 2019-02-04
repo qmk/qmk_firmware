@@ -65,12 +65,13 @@ void pointing_device_task(void){
 }
 
 void led_init(void) {
-	DDRD  |= (1<<1);
-	PORTD |= (1<<1);
-	DDRF  |= (1<<4) | (1<<5);
-	PORTF |= (1<<4) | (1<<5);
+  setPinOutput(D1);
+  writePinHigh(D1);
+  setPinOutput(F4);
+  writePinHigh(F4);
+  setPinOutput(F5);
+  writePinHigh(F5);
 }
-
 
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here

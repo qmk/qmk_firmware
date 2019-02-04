@@ -1,26 +1,27 @@
-#ifndef honeycomb_H
-#define honeycomb_H
+#pragma once
+
+#define HONEYCOMB_H
 
 #include "quantum.h"
 #include "matrix.h"
 #include "backlight.h"
 #include <stddef.h>
 
-#define red_led_off   PORTF |= (1<<6)
-#define red_led_on    PORTF &= ~(1<<6)
-#define blu_led_off   PORTF |= (1<<5)
-#define blu_led_on    PORTF &= ~(1<<5)
-#define grn_led_off   PORTD |= (1<<1)
-#define grn_led_on    PORTD &= ~(1<<1)
+#define RED_LED_OFF() writePinHigh(F6)
+#define RED_LED_ON()  writePinLow(F6)
+#define BLU_LED_OFF() writePinHigh(F5)
+#define BLU_LED_ON()  writePinLow(F5)
+#define GRN_LED_OFF() writePinHigh(D1)
+#define GRN_LED_ON()  writePinLow(D1)
 
-#define set_led_off     red_led_off; grn_led_off; blu_led_off
-#define set_led_red     red_led_on;  grn_led_off; blu_led_off
-#define set_led_blue    red_led_off; grn_led_off; blu_led_on
-#define set_led_green   red_led_off; grn_led_on;  blu_led_off
-#define set_led_yellow  red_led_on;  grn_led_on;  blu_led_off
-#define set_led_magenta red_led_on;  grn_led_off; blu_led_on
-#define set_led_cyan    red_led_off; grn_led_on;  blu_led_on
-#define set_led_white   red_led_on;  grn_led_on;  blu_led_on
+#define SET_LED_OFF     (RED_LED_OFF(); GRN_LED_OFF(); BLU_LED_OFF(); )
+#define SET_LED_RED     (RED_LED_ON();  GRN_LED_OFF(); BLU_LED_OFF(); )
+#define SET_LED_BLUE    (RED_LED_OFF(); GRN_LED_OFF(); BLU_LED_ON(); )
+#define SET_LED_GREEN   (RED_LED_OFF(); GRN_LED_ON();  BLU_LED_OFF(); )
+#define SET_LED_YELLOW  (RED_LED_ON();  GRN_LED_ON();  BLU_LED_OFF(); )
+#define SET_LED_MAGENTA (RED_LED_ON();  GRN_LED_OFF(); BLU_LED_ON(); )
+#define SET_LED_CYAN    (RED_LED_OFF(); GRN_LED_ON();  BLU_LED_ON(); )
+#define SET_LED_WHITE   (RED_LED_ON();  GRN_LED_ON();  BLU_LED_ON(); )
 
 // This a shortcut to help you visually see your layout.
 // The first section contains all of the arguements
@@ -34,7 +35,3 @@
 { \
 	{ k01, k02, k03, k04, k05, k06, k07, k08, k09, k10, k11, k12, k13, k14, k15, k16 } \
 }
-
-
-
-#endif
