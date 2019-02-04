@@ -16,7 +16,7 @@ See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
 Install Example: (for pro micro)
     `make ergodash/rev2:default:avrdude`
   
-Note: 
+Note:  
   "rev2" is for PCB ver 1.1,1.2  
   "rev1" is from earlier pcb
 
