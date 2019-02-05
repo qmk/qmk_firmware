@@ -16,7 +16,7 @@
 #include "meishi.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = KEYMAP( /* Base */
+[0] = LAYOUT( /* Base */
   LCTL(KC_Z),  LCTL(KC_X),  LCTL(KC_C), LCTL(KC_V) \
 ),
 };
