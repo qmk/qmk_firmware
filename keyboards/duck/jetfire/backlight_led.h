@@ -1,10 +1,7 @@
 #ifndef BACKLIGHT_LED_H
 #define BACKLIGHT_LED_H
 
-enum Device {
-  Device_PCBRGB,
-  Device_STATELED
-};
+#include "ducklib/ducklib.h"
 
 void backlight_init_ports(void);
 void backlight_set_state(bool cfg[7]);

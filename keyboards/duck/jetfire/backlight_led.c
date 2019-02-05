@@ -19,8 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include "backlight_led.h"
 #include "quantum.h"
-#include "ducklib/ducklib.h"
-
 
 #define T1H  900
 #define T1L  600
@@ -100,7 +98,7 @@ void send_bit_d6(bool bitVal)
 void send_value(uint8_t byte, enum Device device)
 {
   for(uint8_t b = 0; b < 8; b++) {
-    if(device == Device_STATELED) {
+    if(device == Device_STATUSLED) {
       send_bit_d4(byte & 0b10000000);
     }
     if(device == Device_PCBRGB) {

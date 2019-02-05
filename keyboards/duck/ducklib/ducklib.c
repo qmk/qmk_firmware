@@ -5,5 +5,3 @@
 void show(void) {
   _delay_us((RES / 1000UL) + 1);
 }
-
-

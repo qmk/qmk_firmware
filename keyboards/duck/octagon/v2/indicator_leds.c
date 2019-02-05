@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <util/delay.h>
 #include "indicator_leds.h"
-#include "ducklib/ducklib.h"
 
 #define T1H  900
 #define T1L  600

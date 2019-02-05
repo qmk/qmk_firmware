@@ -7,5 +7,10 @@
 #define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
 #define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
 
+enum Device {
+  Device_PCBRGB,
+  Device_STATUSLED
+};
+
 void show(void);
 

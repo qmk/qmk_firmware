@@ -1,7 +1,4 @@
-enum Device {
-  Device_PCBRGB,
-  Device_STATUSLED
-};
+#include "ducklib/ducklib.h"
 
 void indicator_leds_set(bool leds[8]);
 void backlight_toggle_rgb(bool enabled);
