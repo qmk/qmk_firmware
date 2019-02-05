@@ -477,8 +477,8 @@ By default, the tapping term is defined globally, and is not configurable by key
 To change the `TAPPING TERM` based on the keycode, you'd want to add something like the following to your `keymap.c` file: 
 
 ```c
-uint16_t get_tapping_term(keyevent_t event) {
-  switch (get_event_keycode(event)) {
+uint16_t get_tapping_term(uint16_t keycode) {
+  switch (keycode) {
     case SFT_T(KC_SPC):
       return TAPPING_TERM + 1250;
     case LT(1, KC_GRV):

@@ -20,11 +20,10 @@
 #define IS_TAPPING_KEY(k)       (IS_TAPPING() && KEYEQ(tapping_key.event.key, (k)))
 
 __attribute__ ((weak))
-uint16_t get_tapping_term(keyevent_t event) {
-  xprintf("get_tapping_term (main) col: %u, row: %u\n", event.key.col, event.key.row);
+uint16_t get_tapping_term(uint16_t keycode) {
   return TAPPING_TERM;
 }
-#define WITHIN_TAPPING_TERM(e)  (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(tapping_key.event))
+#define WITHIN_TAPPING_TERM(e)  (TIMER_DIFF_16(e.time, tapping_key.event.time) < get_tapping_term(get_event_keycode(tapping_key.event)))
 
 static keyrecord_t tapping_key = {};
 static keyrecord_t waiting_buffer[WAITING_BUFFER_SIZE] = {};
@@ -112,7 +111,7 @@ bool process_tapping(keyrecord_t *keyp)
 #ifdef PERMISSIVE_HOLD
                 else if ( IS_RELEASED(event) && waiting_buffer_typed(event))
 #else
-                else if ( ( get_tapping_term(tapping_key.event) >= 500) && IS_RELEASED(event) && waiting_buffer_typed(event))
+                else if ( ( get_tapping_term(get_event_keycode(tapping_key.event)) >= 500) && IS_RELEASED(event) && waiting_buffer_typed(event))
 #endif
                 {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
