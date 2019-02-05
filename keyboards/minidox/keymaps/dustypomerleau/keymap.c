@@ -17,6 +17,7 @@ enum custom_layers {
 enum custom_keycodes {
   CMK_DHM = SAFE_RANGE,
   QWERTY,
+  SYS,
   NAV,
   NUM,
   SYM,
