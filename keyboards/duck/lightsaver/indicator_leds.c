@@ -59,24 +59,26 @@ void send_bit_d4(bool bitVal) {
   }
 }
 
-void send_value(uint8_t byte) {
+void send_value(uint8_t byte, enum Device device) {
   for(uint8_t b = 0; b < 8; b++) {
-    send_bit_d4(byte & 0b10000000);
-    byte <<= 1;
+    if(device == Device_STATUSLED) {
+      send_bit_d4(byte & 0b10000000);
+      byte <<= 1;
+    }
   }
 }
 
-void send_color(uint8_t r, uint8_t g, uint8_t b) {
-  send_value(g);
-  send_value(r);
-  send_value(b);
+void send_color(uint8_t r, uint8_t g, uint8_t b, enum Device device) {
+  send_value(g, device);
+  send_value(r, device);
+  send_value(b, device);
 }
 
 void indicator_leds_set(bool leds[8]) {
   cli();
-  send_color(leds[1] ? 255 : 0, leds[2] ? 255 : 0, leds[0] ? 255 : 0);
-  send_color(leds[4] ? 255 : 0, leds[5] ? 255 : 0, leds[3] ? 255 : 0);
-  send_color(leds[6] ? 255 : 0, leds[7] ? 255 : 0, 0);
+  send_color(leds[1] ? 255 : 0, leds[2] ? 255 : 0, leds[0] ? 255 : 0, Device_STATUSLED);
+  send_color(leds[4] ? 255 : 0, leds[5] ? 255 : 0, leds[3] ? 255 : 0, Device_STATUSLED);
+  send_color(leds[6] ? 255 : 0, leds[7] ? 255 : 0, 0, Device_STATUSLED);
   sei();
   show();
 }
