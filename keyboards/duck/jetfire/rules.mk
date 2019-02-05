@@ -71,4 +71,4 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 
 CUSTOM_MATRIX = yes
 SRC += backlight_led.c \
-			 matrix.c
+			 matrix.c ducklib/ducklib.c
