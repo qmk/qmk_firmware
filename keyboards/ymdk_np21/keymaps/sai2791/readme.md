@@ -1,7 +1,7 @@
 
  # YMDK NP21
 
-![kp21 &mdash; full grid layout](https://ae01.alicdn.com/kf/HTB1d.txfHsTMeJjSszhq6AGCFXaF.jpg?size=35021&height=662&width=1000&hash=62b3a453686e2154dc51a7af67495e28)
+![kp21 &mdash; full grid layout](https://ae01.alicdn.com/kf/HTB1LvJ3grSYBuNjSspiq6xNzpXaO/21-Key-YMDK-Side-printed-Blank-Top-printed-Thick-PBT-ABS-Keycap-For-MX-Switches-Mechanical.jpg)
 
 ps2avrGB based number-pad sold fully assembled by YMDK on Aliexpress.
 
@@ -57,15 +57,15 @@ Hardware Availability: [AliExpress](https://www.aliexpress.com/item/21-Key-NPKC-
   You may have to  sudo to get past the broken pipe message.
 
 	For Windows 10:
-	Windows sometimes doesn't recognize the jj4x4. The easiest way of flashing a new layout is probably using [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
-	1. Go to Windows Device Manager and find the keyboard (plug it in while holding down `8` (second from top, second from left, with usb plug is at the top)). It can be found under Human Interface Devices or under Keyboards.
+	Windows sometimes doesn't recognize the ymdk_np21. The easiest way of flashing a new layout is probably using [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
+	1. Go to Windows Device Manager and find the keyboard (plug it in while holding down `ESC` (top left key, when the usb plug is at the top)). It can be found under Human Interface Devices or under Keyboards.
 	2. Go to properties and the Details tab to find the hardware ID. You want the VID and the PID (code after the underscore). Plug them into HIDBootFlash and hit Find Device.
-	3. Use `make jj4x4:<keymap-name>` to generate the .hex file in the qmk basis folder. Select the .hex file in HIDBootFlash and press Flash Device.
+	3. Use `make ymdk_np21:<keymap-name>` to generate the .hex file in the qmk basis folder. Select the .hex file in HIDBootFlash and press Flash Device.
 
 
 	## Troubleshooting
 
-	1. Try plugging the board in while pressing `8` (usb plug at top, second from top, second from left). This will force it
+	1. Try plugging the board in while pressing `ESC` (usb plug at top, top left key). This will force it
 	   to boot only the bootloader without loading the firmware. Once this is
 	   done, just reflash the board with the original firmware.
 	2. Sometimes USB hubs can act weird, so try connecting the board directly
@@ -73,27 +73,5 @@ Hardware Availability: [AliExpress](https://www.aliexpress.com/item/21-Key-NPKC-
 	3. If you get an error such as "Resource Unavailable" when attemting to flash
 	   on Linux, you may want to compile and run `tools/usb_detach.c`. See `tools/README.md`
 	   for more info.
-
-#additional readme to program on a mac using mac os 10.13
-
-I had lots of problems getting this keyboard to be programmable on a mac, I gave up on
-make ymdk_np21:<layout>:program because it was complaining about a missing Python
-module pyusb
-
-This is how I got it working after a fashion.
-
-This was taken from the ymd75 directory.
-
-$ brew cask install crosspack-avr
-$ brew install --HEAD https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
-```
-
-You can just build it and flash the firmware directly with
-`bootloadHID` if you boot the board while holding down `Left Control` to keep it
-in the bootloader:
-
-```
-$ make ymdk_np21:<layout>
-$ sudo bootloadHID -r <generated file>.hex
 
 copied almost verbatium from [Keyboard] Add support for jj4x4 numpad/macropad by Kprepublic (#5016)
