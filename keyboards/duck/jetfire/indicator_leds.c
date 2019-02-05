@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <util/delay.h>
 #include <stdint.h>
-#include "backlight_led.h"
+#include "indicator_leds.h"
 #include "quantum.h"
 
 #define T1H  900
