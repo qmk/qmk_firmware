@@ -18,17 +18,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/io.h>
 #include <stdbool.h>
 #include <util/delay.h>
+#include "ducklib/ducklib.h"
 
 #define T1H  900
 #define T1L  600
 #define T0H  400
 #define T0L  900
-#define RES 6000
-
-#define NS_PER_SEC (1000000000L)
-#define CYCLES_PER_SEC (F_CPU)
-#define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
-#define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
 
 void send_bit_d4(bool bitVal) {
   if(bitVal) {
@@ -62,10 +57,6 @@ void send_bit_d4(bool bitVal) {
         [onCycles]  "I" (NS_TO_CYCLES(T0H) - 2),
         [offCycles] "I" (NS_TO_CYCLES(T0L) - 2));
   }
-}
-
-void show(void) {
-  _delay_us((RES / 1000UL) + 1);
 }
 
 void send_value(uint8_t byte) {
