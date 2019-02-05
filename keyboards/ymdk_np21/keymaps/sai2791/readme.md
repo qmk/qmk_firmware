@@ -6,7 +6,9 @@
 ps2avrGB based number-pad sold fully assembled by YMDK on Aliexpress.
 
 Keyboard Maintainer: [QMK Community](https://github.com/qmk)
+
 Hardware Supported: Atmega32A
+
 Hardware Availability: [AliExpress](https://www.aliexpress.com/item/21-Key-NPKC-Programmable-Cherry-MX-Kailh-Gateron-Switches-Mechanical-Keyboard-Numpad-Free-shipping/32812732361.html)
 
 	Make example for this keyboard (after setting up your build environment):
@@ -52,7 +54,7 @@ Hardware Availability: [AliExpress](https://www.aliexpress.com/item/21-Key-NPKC-
 	$ make ymdk_np21
 	$ bootloadHID -r ymdk_np21_default.hex
 	```
-  You may have to du  sudo to get past the broken pipe message.
+  You may have to  sudo to get past the broken pipe message.
 
 	For Windows 10:
 	Windows sometimes doesn't recognize the jj4x4. The easiest way of flashing a new layout is probably using [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
