@@ -253,7 +253,7 @@ void matrix_init_keymap(void) {
 #else //RGB_MATRIX_INIT
 
 void matrix_init_keymap(void) {
-  #ifndef CONVERT_TO_PROTON_C
+  #if !defined(CONVERT_TO_PROTON_C) && !defined(KEYBOARD_planck)
     setPinOutput(D5);
     writePinHigh(D5);
 
@@ -262,3 +262,50 @@ void matrix_init_keymap(void) {
   #endif
 }
 #endif //RGB_MATRIX_INIT
+
+#ifdef ENCODER_ENABLE
+void encoder_update(bool clockwise) {
+  switch (biton32(layer_state)) {
+    case _RAISE:
+      clockwise ? tap_code(KC_VOLD) : tap_code(KC_VOLU);
+      break;
+    case _LOWER:
+      #ifdef RGB_MATRIX_ENABLE
+        clockwise ? rgb_matrix_step() : rgblight_step_reverse();
+      #else
+      clockwise ? tap_code(KC_PGDN) : tap_code(KC_PGUP);
+      #endif
+    case _ADJUST:
+      #ifdef AUDIO_CLICKY
+        clockwise ? clicky_freq_up() : clicky_freq_down();
+      #endif
+      break;
+    default:
+      clockwise ? tap_code(KC_DOWN) : tap_code(KC_UP);
+  }
+  #ifdef AUDIO_CLICKY
+    clicky_play();
+  #endif
+}
+#endif // ENCODER_ENABLE
+
+#ifdef KEYBOARD_planck_rev6
+extern audio_config_t audio_config;
+
+void dip_update(uint8_t index, bool active) {
+  switch (index) {
+    case 0:
+      audio_config.enable = active;
+      break;
+    case 1:
+      audio_config.clicky_enable = active;
+      break;
+    case 2:
+      keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = active;
+      break;
+    case 3:
+      userspace_config.nuke_switch = active;
+      break;
+   }
+}
+#endif // KEYBOARD_planck_rev6
