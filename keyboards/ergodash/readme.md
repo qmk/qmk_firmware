@@ -13,6 +13,13 @@ Make example for this keyboard (after setting up your build environment):
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
+Install Example: (for pro micro)
+    `make ergodash/rev2:default:avrdude`
+  
+Note:  
+  "rev2" is for PCB ver 1.1,1.2  
+  "rev1" is from earlier pcb
+
 # Layout
 ![layout](https://github.com/omkbd/picture/blob/master/ergodash-layout.png)
 ![PCB](https://github.com/omkbd/picture/blob/master/Ergodash_PCB.jpg)
