@@ -47,15 +47,15 @@ You can see an example in the `_ML` here: https://github.com/qmk/qmk_firmware/bl
 The default speed for controlling the mouse with the keyboard is intentionally slow. You can adjust these parameters by adding these settings to your keymap's `config.h` file. All times are specified in milliseconds (ms).
 
 ```
-#define MOUSEKEY_DELAY                   300
-#define MOUSEKEY_INTERVAL                50
-#define MOUSEKEY_MAX_SPEED               10
-#define MOUSEKEY_TIME_TO_MAX             20
-#define MOUSEKEY_WHEEL_MAX_SPEED         8
-#define MOUSEKEY_WHEEL_TIME_TO_MAX       40
-#define MOUSEKEY_ACCEL0_SPEED(max_speed) max_speed / 4
-#define MOUSEKEY_ACCEL1_SPEED(max_speed) max_speed / 2
-#define MOUSEKEY_ACCEL2_SPEED(max_speed) max_speed
+#define MOUSEKEY_DELAY             300
+#define MOUSEKEY_INTERVAL          50
+#define MOUSEKEY_MAX_SPEED         10
+#define MOUSEKEY_TIME_TO_MAX       20
+#define MOUSEKEY_WHEEL_MAX_SPEED   8
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 40
+#define MOUSEKEY_ACCEL0_SPEED      4
+#define MOUSEKEY_ACCEL1_SPEED      2
+#define MOUSEKEY_ACCEL2_SPEED      1
 ```
 
 
@@ -85,4 +85,4 @@ How long you want to hold down a scroll key for until `MOUSEKEY_WHEEL_MAX_SPEED`
 
 ### `MOUSEKEY_ACCEL*_SPEED`
 
-How movement is accelerated with acceleration keys (`KC_ACL*`). This macro takes max speed as an argument, which equals to `MOUSEKEY_MOVE_DELTA * MOUSEKEY_MAX_SPEED`, unless it is customized via [Command Console](feature_command.md).
+How movement is accelerated with acceleration keys (`KC_ACL*`). When set `2` for example, it gets half of the max speed immediately after `KC_ACL*` is pressed.

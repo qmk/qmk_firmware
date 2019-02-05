@@ -67,13 +67,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #ifndef MOUSEKEY_ACCEL0_SPEED
-#define MOUSEKEY_ACCEL0_SPEED(max_speed) max_speed / 4
+#define MOUSEKEY_ACCEL0_SPEED 4
 #endif
 #ifndef MOUSEKEY_ACCEL1_SPEED
-#define MOUSEKEY_ACCEL1_SPEED(max_speed) max_speed / 2
+#define MOUSEKEY_ACCEL1_SPEED 2
 #endif
 #ifndef MOUSEKEY_ACCEL2_SPEED
-#define MOUSEKEY_ACCEL2_SPEED(max_speed) max_speed
+#define MOUSEKEY_ACCEL2_SPEED 1
 #endif
 
 #ifdef __cplusplus
