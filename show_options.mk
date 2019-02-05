@@ -62,16 +62,16 @@ show_build_options:
 	@echo " FIRMWARE_FORMAT = $(FIRMWARE_FORMAT)"
 	@echo
 	@echo "Build Options:"
-	$(foreach A_OPTION_NAME,$(BUILD_OPTION_NAMES),\
+	$(foreach A_OPTION_NAME,$(sort $(BUILD_OPTION_NAMES)),\
 		$(call NAME_ECHO,$(A_OPTION_NAME)))
 
 .PHONY: show_all_features
 show_all_features: show_build_options
 	@echo
 	@echo "Hardware Options:"
-	$(foreach A_OPTION_NAME,$(HARDWARE_OPTION_NAMES),\
+	$(foreach A_OPTION_NAME,$(sort $(HARDWARE_OPTION_NAMES)),\
 		$(if $($(A_OPTION_NAME)),$(call NAME_ECHO,$(A_OPTION_NAME))))
 	@echo
 	@echo "Other Options:"
-	$(foreach A_OPTION_NAME,$(OTHER_OPTION_NAMES),\
+	$(foreach A_OPTION_NAME,$(sort $(OTHER_OPTION_NAMES)),\
 		$(if $($(A_OPTION_NAME)),$(call NAME_ECHO,$(A_OPTION_NAME))))
