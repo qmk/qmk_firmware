@@ -3,8 +3,8 @@ S65-X
 
 DIY 65% keyboard from Sentraq.
 
-Keyboard Maintainer: QMK Community
-Hardware Supported: S65-X PCB
+Keyboard Maintainer: QMK Community  
+Hardware Supported: S65-X PCB  
 Hardware Availability: [Sentraq](https://sentraq.com/products/s65-x-rgb-diy-keyboard-kit)
 
 Make example for this keyboard (after setting up your build environment):
