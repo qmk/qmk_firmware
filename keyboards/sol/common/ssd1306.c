@@ -42,27 +42,42 @@
 #define CHARGE_PUMP             0x8D
 
 
+//#define OLED_DEBUGGING
+#ifdef OLED_DEBUGGING
+#include "print.h"
+#define DEBUG_PRINT(Func, Msg) if (!Func) print(Msg)
+#define DEBUG_PRINT_RESULT(Res, Func, Msg) Res &= Func; if (!Res) print(Msg)
+#else
+#define DEBUG_PRINT(Func, Msg) Func;
+#define DEBUG_PRINT_RESULT(Res, Func, Msg) Res &= Func
+#endif
+
+
 static struct DisplayBuffer display_buffer;
 static bool display_initialized = false;
 
 // Commands are expected to be in Flash memory
-static void SendCommands(const uint8_t *commands, uint8_t length)
+static bool SendCommands(const uint8_t *commands, uint8_t length)
 {
-    i2c_start_write(SSD1306_ADDRESS);
-    i2c_master_write(0x00);
-    while (length--)
-        i2c_master_write(pgm_read_byte(commands++));
+    bool res = true;
+    DEBUG_PRINT_RESULT(res, !i2c_start_write(SSD1306_ADDRESS), " i2c ADDRESS Failed\n");
+    DEBUG_PRINT_RESULT(res, !i2c_master_write(0x00), " i2c CMD Failed\n");
+    while (res && length--)
+        DEBUG_PRINT_RESULT(res, !i2c_master_write(pgm_read_byte(commands++)), " i2c CMD Val Failed\n");
     i2c_master_stop();
+    return res;
 }
 
 // Data is expected to be in SRAM
-static void SendData(const uint8_t *data, uint16_t length)
+static bool SendData(const uint8_t *data, uint16_t length)
 {
-    i2c_start_write(SSD1306_ADDRESS);
-    i2c_master_write(0x40);
-    while (length--)
-        i2c_master_write(*data++);
+    bool res = true;
+    DEBUG_PRINT_RESULT(res, !i2c_start_write(SSD1306_ADDRESS), " i2c ADDRESS Failed\n");
+    DEBUG_PRINT_RESULT(res, !i2c_master_write(0x40), " i2c DATA Failed\n");
+    while (res && length--)
+        DEBUG_PRINT_RESULT(res, !i2c_master_write(*data++), " i2c DATA Val Failed\n");
     i2c_master_stop();
+    return res;
 }
 
 // Moves the cursor forward 1 character length
@@ -140,21 +155,21 @@ void iota_gfx_init(bool flip180)
         DISPLAY_START_LINE | 0x00,
         CHARGE_PUMP, 0x14,
         MEMORY_MODE, 0x00, };
-    SendCommands(display_setup1, sizeof(display_setup1));
+    DEBUG_PRINT(SendCommands(display_setup1, sizeof(display_setup1)), "display_setup1 failed\n");
 
     if (!flip180)
     {
         static const uint8_t PROGMEM display_normal[] = {
             SEGMENT_REMAP_INV,
             COM_SCAN_DEC };
-        SendCommands(display_normal, sizeof(display_normal));
+        DEBUG_PRINT(SendCommands(display_normal, sizeof(display_normal)), "display_normal failed\n");
     }
     else
     {
         static const uint8_t PROGMEM display_flipped[] = {
             SEGMENT_REMAP,
             COM_SCAN_INC };
-        SendCommands(display_flipped, sizeof(display_flipped));
+        DEBUG_PRINT(SendCommands(display_flipped, sizeof(display_flipped)), "display_flipped failed\n");
     }
 
     static const uint8_t PROGMEM display_setup2[] = {
@@ -166,10 +181,10 @@ void iota_gfx_init(bool flip180)
         NORMAL_DISPLAY,
         DEACTIVATE_SCROLL,
         DISPLAY_ON };
-    SendCommands(display_setup2, sizeof(display_setup2));
+    DEBUG_PRINT(SendCommands(display_setup2, sizeof(display_setup2)), "display_setup2 failed\n");
 
     iota_gfx_clear();
-    iota_gfx_render();
+    //iota_gfx_render();
 
     display_initialized = true;
 }
@@ -198,8 +213,9 @@ void iota_gfx_render(void)
         PAGE_ADDR, 0, OLED_DISPLAY_HEIGHT / 8 - 1 };
 
     if (!display_buffer.dirty) return;
-    SendCommands(display_start, sizeof(display_start));
-    SendData(&display_buffer.display[0], sizeof(display_buffer.display));
+
+    DEBUG_PRINT(SendCommands(display_start, sizeof(display_start)), "iota_gfx_render command failed\n");
+    DEBUG_PRINT(SendData(&display_buffer.display[0], sizeof(display_buffer.display)), "iota_gfx_render data failed\n");
     display_buffer.cursor = &display_buffer.display[0];
     display_buffer.dirty = false;
 }
@@ -216,12 +232,11 @@ void iota_gfx_write(const char *data, bool invert)
 
 void iota_gfx_write_P(const char *data, bool invert)
 {
-    const char *end = data + strlen(data);
-    while (data < end)
+    uint8_t c = pgm_read_byte(data);
+    while (c != 0)
     {
-        uint8_t c = pgm_read_byte(data);
         WriteCharToBuffer(c, invert);
-        data++;
+        c = pgm_read_byte(++data);
     }
 }
 
