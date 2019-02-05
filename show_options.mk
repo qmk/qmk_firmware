@@ -56,6 +56,8 @@ endef
 
 .PHONY: show_build_options
 show_build_options:
+	@echo " KEYBOARD = $(KEYBOARD)"
+	@echo " KEYMAP   = $(KEYMAP)"
 	@echo " PLATFORM = $(PLATFORM)"
 	@echo " FIRMWARE_FORMAT = $(FIRMWARE_FORMAT)"
 	@echo
