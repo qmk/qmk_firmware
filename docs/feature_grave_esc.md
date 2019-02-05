@@ -6,7 +6,7 @@ If you're using a 60% keyboard, or any other layout with no F-row, you will have
 
 Replace the `KC_GRAVE` key in your keymap (usually to the left of the `1` key) with `KC_GESC`. Most of the time this key will output `KC_ESC` when pressed. However, when Shift or GUI are held down it will output `KC_GRV` instead.
 
-## What Your OS sees
+## What Your OS Sees
 
 If Mary presses GESC on her keyboard, the OS will see an KC_ESC character. Now if Mary holds Shift down and presses GESC it will output `~`, or a shifted backtick. Now if she simply holds GUI/CMD/WIN, it will output a simple <code>&#96;</code> character.
 
