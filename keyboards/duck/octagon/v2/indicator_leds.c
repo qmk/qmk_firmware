@@ -20,10 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <util/delay.h>
 #include "indicator_leds.h"
 
-#define T1H  900
-#define T1L  600
-#define T0H  400
-#define T0L  900
+#define LED_T1H  900
+#define LED_T1L  600
+#define LED_T0H  400
+#define LED_T0L  900
 
 void send_bit_d4(bool bitVal) {
   if(bitVal) {
@@ -39,8 +39,8 @@ void send_bit_d4(bool bitVal) {
         ::
         [port]      "I" (_SFR_IO_ADDR(PORTD)),
         [bit]       "I" (4),
-        [onCycles]  "I" (NS_TO_CYCLES(T1H) - 2),
-        [offCycles] "I" (NS_TO_CYCLES(T1L) - 2));
+        [onCycles]  "I" (NS_TO_CYCLES(LED_T1H) - 2),
+        [offCycles] "I" (NS_TO_CYCLES(LED_T1L) - 2));
   } else {
     asm volatile (
         "sbi %[port], %[bit] \n\t"
@@ -54,8 +54,8 @@ void send_bit_d4(bool bitVal) {
         ::
         [port]      "I" (_SFR_IO_ADDR(PORTD)),
         [bit]       "I" (4),
-        [onCycles]  "I" (NS_TO_CYCLES(T0H) - 2),
-        [offCycles] "I" (NS_TO_CYCLES(T0L) - 2));
+        [onCycles]  "I" (NS_TO_CYCLES(LED_T0H) - 2),
+        [offCycles] "I" (NS_TO_CYCLES(LED_T0L) - 2));
   }
 }
 
@@ -74,8 +74,8 @@ void send_bit_d6(bool bitVal)
         ::
         [port]      "I" (_SFR_IO_ADDR(PORTD)),
         [bit]       "I" (6),
-        [onCycles]  "I" (NS_TO_CYCLES(T1H) - 2),
-        [offCycles] "I" (NS_TO_CYCLES(T1L) - 2));
+        [onCycles]  "I" (NS_TO_CYCLES(LED_T1H) - 2),
+        [offCycles] "I" (NS_TO_CYCLES(LED_T1L) - 2));
   } else {
     asm volatile (
         "sbi %[port], %[bit] \n\t"
@@ -89,8 +89,8 @@ void send_bit_d6(bool bitVal)
         ::
         [port]      "I" (_SFR_IO_ADDR(PORTD)),
         [bit]       "I" (6),
-        [onCycles]  "I" (NS_TO_CYCLES(T0H) - 2),
-        [offCycles] "I" (NS_TO_CYCLES(T0L) - 2));
+        [onCycles]  "I" (NS_TO_CYCLES(LED_T0H) - 2),
+        [offCycles] "I" (NS_TO_CYCLES(LED_T0L) - 2));
   }
 }
 
