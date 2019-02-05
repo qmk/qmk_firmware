@@ -32,7 +32,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Enter| Enter|   +  |   +  |   -  | FN   |
  * `-----------------------------------------'
  */
-[_NP] = LAYOUT( \
+[_NP] = LAYOUT_np21( \
   KC_KP_0,     KC_KP_1,     KC_KP_4,    KC_KP_7,    KC_NUMLOCK,     KC_ESC,    \
   KC_DOT,      KC_KP_2,     KC_KP_5,    KC_KP_8,    KC_KP_SLASH,    KC_TAB,    \
   KC_KP_DOT,   KC_KP_3,     KC_KP_6,    KC_KP_9,    KC_KP_ASTERISK, KC_BSPACE, \
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | BL_DEC  | BL_DEC | BL_INC  | BL_INC |   |   |
  * `---------------------------------------------'
  */
-[_BL] = LAYOUT( \
+[_BL] = LAYOUT_np21( \
   BL_BRTG, _______, _______, _______, _______, KC_NO, \
   _______, BL_OFF,  BL_TOGG, BL_ON,   _______, TO(_NP), \
   _______, _______, _______, _______, _______, TO(_MP), \
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | BL_DEC  | BL_DEC | BL_INC  | BL_INC |   |   |
  * `---------------------------------------------'
  */
-[_MP] = LAYOUT( \
+[_MP] = LAYOUT_np21( \
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(_NP), \
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TO(_BL),  \
   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,  \
