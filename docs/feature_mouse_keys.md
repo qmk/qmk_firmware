@@ -83,6 +83,6 @@ The top speed for scrolling movements.
 
 How long you want to hold down a scroll key for until `MOUSEKEY_WHEEL_MAX_SPEED` is reached. This controls how quickly your scrolling will accelerate.
 
-### `MOUSEKEY_ACCEL*_SPEED`
+### `MOUSEKEY_ACCEL*_SPEED`, `MOUSEKEY_ACCEL*_WHEEL_SPEED`
 
-How movement is accelerated with acceleration keys (`KC_ACL*`). When set `2` for example, it gets half of the max speed immediately after `KC_ACL*` is pressed.
+How movement (scroll) is accelerated with acceleration keys (`KC_ACL*`). When set `2` for example, it gets half of the max speed immediately after `KC_ACL*` is pressed.
