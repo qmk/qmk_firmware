@@ -231,22 +231,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   bool tap_not_interrupted = record->tap.count > 0 && !record->tap.interrupted;
 
   switch (keycode) {
+
     case CMK_DHM:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_CMK_DHM);
       }
       return false;
+
     case QWERTY:
       if (record->event.pressed) {
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
+
     case ALT_OP:
       if (record->event.pressed) {
         key_timer = timer_read();
         if (!tap_not_interrupted) {
           register_mods(MOD_BIT(KC_LALT));
         }
+        reset_oneshot_layer();
       }
       else if (tap_not_interrupted && timer_elapsed(key_timer) < TAPPING_TERM) {
         add_weak_mods(MOD_BIT(KC_LSFT));
@@ -257,35 +261,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         unregister_mods(MOD_BIT(KC_LALT));
       }
       return false;
+
     case CTL_CCB:
       if (record->event.pressed) {
         key_timer = timer_read();
-        register_mods(MOD_BIT(KC_LCTL));
+        if (!tap_not_interrupted) {
+          register_mods(MOD_BIT(KC_LCTL));
+        }
+        reset_oneshot_layer();
+      }
+      else if (tap_not_interrupted && timer_elapsed(key_timer) < TAPPING_TERM) {
+        add_weak_mods(MOD_BIT(KC_LSFT));
+        tap_code(KC_RBRC);
+        del_weak_mods(MOD_BIT(KC_LSFT));
       }
       else {
         unregister_mods(MOD_BIT(KC_LCTL));
-        if (timer_elapsed(key_timer) < TAPPING_TERM) {
-          register_mods(MOD_BIT(KC_LSFT));
-          tap_code(KC_RBRC);
-          unregister_mods(MOD_BIT(KC_LSFT));
-        }
       }
       return false;
+
     case GUI_CP:
       if (record->event.pressed) {
         key_timer = timer_read();
-        register_mods(MOD_BIT(KC_LGUI));
+        if (!tap_not_interrupted) {
+          register_mods(MOD_BIT(KC_LGUI));
+        }
+        reset_oneshot_layer();
+      }
+      else if (tap_not_interrupted && timer_elapsed(key_timer) < TAPPING_TERM) {
+        add_weak_mods(MOD_BIT(KC_LSFT));
+        tap_code(KC_0);
+        del_weak_mods(MOD_BIT(KC_LSFT));
       }
       else {
         unregister_mods(MOD_BIT(KC_LGUI));
-        if (timer_elapsed(key_timer) < TAPPING_TERM) {
-          register_mods(MOD_BIT(KC_LSFT));
-          tap_code(KC_0);
-          unregister_mods(MOD_BIT(KC_LSFT));
-        }
       }
       return false;
+
     default:
       return true;
+
   }
+
 };
