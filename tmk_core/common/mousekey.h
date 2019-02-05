@@ -76,6 +76,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MOUSEKEY_ACCEL2_SPEED 1
 #endif
 
+#ifndef MOUSEKEY_ACCEL0_WHEEL_SPEED
+#define MOUSEKEY_ACCEL0_WHEEL_SPEED 4
+#endif
+#ifndef MOUSEKEY_ACCEL1_WHEEL_SPEED
+#define MOUSEKEY_ACCEL1_WHEEL_SPEED 2
+#endif
+#ifndef MOUSEKEY_ACCEL2_WHEEL_SPEED
+#define MOUSEKEY_ACCEL2_WHEEL_SPEED 1
+#endif
+
 #ifdef __cplusplus
 extern "C" {
 #endif
