@@ -1,5 +1,4 @@
-#ifndef USERSPACE
-#define USERSPACE
+#pragma once
 
 #include "quantum.h"
 
@@ -12,78 +11,39 @@ enum userspace_layers {
   gETC,
   _GK,
   _QW,
-  QW75,
-  GK75,
   ONE,
   SUB,
   SUP,
   NUM,
   DIR,
   ETC,
-  SUB75,
-  SUP75,
-  NUM75,
-  DIR75,
-  ETC75,
-  FN75,
+  _FN,
   PAD,
   GK50,
 };
-#elif KEYBOARD_xd75
-enum userspace_layers {
-  GK75 = 0,
-  PAD,
-  QW75,
-  SUB75,
-  SUP75,
-  NUM75,
-  DIR75,
-  ETC75,
-  FN75,
-  gGK,
-  _GK,
-  _QW,
-  ONE,
-  SUB,
-  SUP,
-  NUM,
-  DIR,
-  ETC,
-  gNUM,
-  gDIR,
-  gETC,
-  GK50,
-};
-#elif KEYBOARD_5x5
+#elif KEYBOARD_40percentclub_5x5
 enum userspace_layers {
   GK50 = 0,
+  _GK,
+  _QW,
+  PAD,
   gNUM,
   gDIR,
   gETC,
-  GK75,
-  QW75,
-  SUB75,
-  SUP75,
-  NUM75,
-  DIR75,
-  ETC75,
-  FN75,
-  PAD,
   gGK,
-  _GK,
-  _QW,
   ONE,
   SUB,
   SUP,
   NUM,
   DIR,
   ETC,
+  _FN,
 };
 #else
   enum userspace_layers {
   _GK = 0,
-  PAD,
   _QW,
+  PAD,
   ONE,
   SUB,
   SUP,
@@ -94,14 +54,7 @@ enum userspace_layers {
   gNUM,
   gDIR,
   gETC,
-  QW75,
-  GK75,
-  SUB75,
-  SUP75,
-  NUM75,
-  DIR75,
-  ETC75,
-  FN75,
+  _FN,
   GK50,
 };
 #endif
@@ -110,8 +63,6 @@ enum userspace_custom_keycodes {
   gGHERKIN = SAFE_RANGE,
   GHERKIN,
   QWERTY,
-  QWERTY75,
-  GHERKIN75,
   ONEHAND,
   SUBTER,
   SUPRA,
@@ -121,12 +72,7 @@ enum userspace_custom_keycodes {
   gNUMBER,
   gDIRECTION,
   gETCETERA,
-  SUBTER75,
-  SUPRA75,
-  NUMBER75,
-  DIRECTION75,
-  ETCETERA75,
-  FUNCTION75,
+  FUNCTION,
   NUMPAD,
   GHERKIN50,
 
@@ -156,11 +102,11 @@ enum {
 #define KEYMAP_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_wrapper(...)                  LAYOUT(__VA_ARGS__)
 #define LAYOUT_ortho_3x10_wrapper(...)       LAYOUT_ortho_3x10(__VA_ARGS__)
-#define LAYOUT_ortho_5x10_wrapper(...)       LAYOUT_ortho_5x10(__VA_ARGS__)
-#define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
-#define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
 #define LAYOUT_ortho_4x4_wrapper(...)        LAYOUT_ortho_4x4(__VA_ARGS__)
+#define LAYOUT_ortho_4x12_wrapper(...)       LAYOUT_ortho_4x12(__VA_ARGS__)
 #define LAYOUT_ortho_5x5_wrapper(...)        LAYOUT_ortho_5x5(__VA_ARGS__)
+#define LAYOUT_ortho_5x10_wrapper(...)       LAYOUT_ortho_5x10(__VA_ARGS__)
+#define LAYOUT_ortho_5x15_wrapper(...)       LAYOUT_ortho_5x15(__VA_ARGS__)
 
 // Blocks for each of the major keyboard layouts
 // Organized so we can quickly adapt and modify all of them
@@ -216,20 +162,20 @@ enum {
 
 /* Et Cetera
  * .-----------------------------------------------------------------------------------------.
- * |  `     | mUP    |        |        | RESET  | SHIFT  | mScrUp | mScrDn |        |  \     |
+ * |  `     | mUP    |        |        | RESET  | SHIFT  | mScrDn | mScrUp |        |  \     |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | mLeft  | mDown  | mRight |        | SHIFT  | mBtn3  | mBtn1  | mBtn2  |  ;     |  '     |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | Sft//Cp| CAPS   |        |        |        | C-A-D  | mScrL  | mScrR  | ALT    |  DEL   |
  * '-----------------------------------------------------------------------------------------'
  */
-#define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,_______, RESET,   KC_RSFT, 			KC_WH_U, KC_WH_D, _______, KC_BSLS
+#define _______________Gherkin_ETC_0_______________			KC_GRV, 		KC_MS_U, _______,_______, RESET,   KC_RSFT, 			KC_WH_D, KC_WH_U, _______, KC_BSLS
 #define _______________Gherkin_ETC_1_______________			KC_MS_L, 		KC_MS_D, KC_MS_R,_______, KC_LSFT, KC_BTN3, 			KC_BTN1, KC_BTN2, KC_SCLN, KC_QUOT
 #define _______________Gherkin_ETC_2_______________			TD(TD_SFT_CAPS),KC_CAPS, _______,_______, _______, LALT(LCTL(KC_DEL)),	KC_WH_L, KC_WH_R, KC_LALT, KC_DEL
 
 /* Gherkin-Like
  * .-----------------------------------------------------------------------------------------------------------.
- * | ESC    | Q//ESC | W      | E      | R      | T      | Y      | U      | I      | O      | P      | BSPC |
+ * | ESC    | Q//ESC | W      | E      | R      | T      | Y      | U      | I      | O      | P      | BSPC   |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * | TAB    | A      | S      | D      | F      | G      | H      | J      | K      | L      | SPACE  |  '     |
  * |        |        |        |        |        |        |        |        |        |        |SFThold |        |
@@ -361,4 +307,3 @@ enum {
 #define _______________NUMPAD_Row__1_______________  KC_KP_4, KC_KP_5, KC_KP_6,   KC_SPC
 #define _______________NUMPAD_Row__2_______________  KC_KP_1, KC_KP_2, KC_KP_3,   KC_PENT
 #define _______________NUMPAD_Row__3_______________  KC_KP_0, TD(LYR_TAP_DANCE), KC_KP_DOT, KC_PMNS
-#endif // !USERSPACE

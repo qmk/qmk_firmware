@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifdef CONSOLE_PRINT
+#ifdef CONSOLE_ENABLE
 
 #include "samd51j18a.h"
 #include "arm_atsam_protocol.h"
@@ -63,4 +63,4 @@ void console_printf(char *fmt, ...) {
     }
 }
 
-#endif //CONSOLE_PRINT
+#endif //CONSOLE_ENABLE

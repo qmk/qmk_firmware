@@ -94,6 +94,56 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			dynamic_keymap_reset();
 			break;
 		}
+		case id_dynamic_keymap_macro_get_count:
+		{
+			command_data[0] = dynamic_keymap_macro_get_count();
+			break;
+		}
+		case id_dynamic_keymap_macro_get_buffer_size:
+		{
+			uint16_t size = dynamic_keymap_macro_get_buffer_size();
+			command_data[0] = size >> 8;
+			command_data[1] = size & 0xFF;
+			break;
+		}
+		case id_dynamic_keymap_macro_get_buffer:
+		{
+			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+			uint16_t size = command_data[2]; // size <= 28
+			dynamic_keymap_macro_get_buffer( offset, size, &command_data[3] );
+			break;
+		}
+		case id_dynamic_keymap_macro_set_buffer:
+		{
+			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+			uint16_t size = command_data[2]; // size <= 28
+			dynamic_keymap_macro_set_buffer( offset, size, &command_data[3] );
+			break;
+		}
+		case id_dynamic_keymap_macro_reset:
+		{
+			dynamic_keymap_macro_reset();
+			break;
+		}
+		case id_dynamic_keymap_get_layer_count:
+		{
+			command_data[0] = dynamic_keymap_get_layer_count();
+			break;
+		}
+		case id_dynamic_keymap_get_buffer:
+		{
+			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+			uint16_t size = command_data[2]; // size <= 28
+			dynamic_keymap_get_buffer( offset, size, &command_data[3] );
+			break;
+		}
+		case id_dynamic_keymap_set_buffer:
+		{
+			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+			uint16_t size = command_data[2]; // size <= 28
+			dynamic_keymap_set_buffer( offset, size, &command_data[3] );
+			break;
+		}
 #endif // DYNAMIC_KEYMAP_ENABLE
 #if RGB_BACKLIGHT_ENABLED
 		case id_backlight_config_set_value:
@@ -160,10 +210,13 @@ void main_init(void)
 #ifdef DYNAMIC_KEYMAP_ENABLE
 		// This resets the keymaps in EEPROM to what is in flash.
 		dynamic_keymap_reset();
+		// This resets the macros in EEPROM to nothing.
+		dynamic_keymap_macro_reset();
 #endif
 		// Save the magic number last, in case saving was interrupted
 		eeprom_set_valid(true);
 	}
+
 #if RGB_BACKLIGHT_ENABLED
 	// Initialize LED drivers for backlight.
 	backlight_init_drivers();
@@ -237,7 +290,19 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record)
 			return false;
 			break;
 	}
-	
+
+#ifdef DYNAMIC_KEYMAP_ENABLE
+	// Handle macros
+	if (record->event.pressed) {
+		if ( keycode >= MACRO00 && keycode <= MACRO15 )
+		{
+			uint8_t id = keycode - MACRO00;
+			dynamic_keymap_macro_send(id);
+			return false;
+		}
+	}
+#endif //DYNAMIC_KEYMAP_ENABLE
+
 	return process_record_user(keycode, record);
 }
 
@@ -261,28 +326,6 @@ uint16_t keymap_function_id_to_action( uint16_t function_id )
 				break;
 		}
 	}
-
-#if USE_KEYMAPS_IN_EEPROM
-
-#if 0
-	// This is how to implement actions stored in EEPROM.
-	// Not yet implemented. Not sure if it's worth the trouble
-	// before we have a nice GUI for keymap editing.
-	if ( eeprom_is_valid() &&
-		 function_id < 32 ) // TODO: replace magic number
-	{
-		uint16_t action = keymap_action_load(function_id);
-
-		// If action is not "empty", return it, otherwise
-		// drop down to return the one in flash
-		if ( action != 0x0000 ) // TODO: replace magic number
-		{
-			return action;
-		}
-	}
-#endif
-
-#endif // USE_KEYMAPS_IN_EEPROM
 
 	return pgm_read_word(&fn_actions[function_id]);
 }

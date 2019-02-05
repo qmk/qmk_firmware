@@ -15,4 +15,3 @@
 #define RGBLED_NUM 16
 #define RGBLIGHT_ANIMATIONS
 /* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))

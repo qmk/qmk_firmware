@@ -103,15 +103,6 @@ enum custom_keycodes {
   CTRL_V
 };
 
-// Enable these functions using FUNC(n) macro.
-// const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
-//     [0] = ,       //Hold for momentary LMouse layer, Tap for Space,
-//     [1] = ,      //Hold for momentary RMouse layer, Tap for Space,
-//     [2] = ,               //Hold for momentary Lower
-//     [3] = ,               //Hold for momentary Raise
-//     [4] = ,               //Hold for momentary Emoji
-//  };
-
 #define SP_LMS LT(_LMOUSE, KC_SPC)
 #define SP_RMS LT(_RMOUSE, KC_SPC)
 #define LOW TT(_LOWER)

@@ -43,8 +43,10 @@ ifeq ($(PLATFORM),CHIBIOS)
     TMK_COMMON_DEFS += -DSTM32_EEPROM_ENABLE
   else
     TMK_COMMON_SRC += $(PLATFORM_COMMON_DIR)/eeprom_teensy.c
-endif
+  endif
   ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
+    TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
+  else ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     TMK_COMMON_SRC += $(CHIBIOS)/os/various/syscalls.c
   endif
 endif
@@ -61,22 +63,50 @@ endif
 
 
 # Option modules
-ifeq ($(strip $(BOOTMAGIC_ENABLE)), yes)
+BOOTMAGIC_ENABLE ?= no
+VALID_MAGIC_TYPES := yes full lite
+ifneq ($(strip $(BOOTMAGIC_ENABLE)), no)
+  ifeq ($(filter $(BOOTMAGIC_ENABLE),$(VALID_MAGIC_TYPES)),)
+    $(error BOOTMAGIC_ENABLE="$(BOOTMAGIC_ENABLE)" is not a valid type of magic)
+  endif
+  ifeq ($(strip $(BOOTMAGIC_ENABLE)), lite)
+      TMK_COMMON_DEFS += -DBOOTMAGIC_LITE
+      TMK_COMMON_DEFS += -DMAGIC_ENABLE
+      TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
+  else
     TMK_COMMON_DEFS += -DBOOTMAGIC_ENABLE
     TMK_COMMON_SRC += $(COMMON_DIR)/bootmagic.c
+  endif
 else
     TMK_COMMON_DEFS += -DMAGIC_ENABLE
     TMK_COMMON_SRC += $(COMMON_DIR)/magic.c
+endif
+
+SHARED_EP_ENABLE = no
+MOUSE_SHARED_EP ?= yes
+ifeq ($(strip $(KEYBOARD_SHARED_EP)), yes)
+    TMK_COMMON_DEFS += -DKEYBOARD_SHARED_EP
+    SHARED_EP_ENABLE = yes
+    # With the current usb_descriptor.c code,
+    # you can't share kbd without sharing mouse;
+    # that would be a very unexpected use case anyway
+    MOUSE_SHARED_EP = yes
 endif
 
 ifeq ($(strip $(MOUSEKEY_ENABLE)), yes)
     TMK_COMMON_SRC += $(COMMON_DIR)/mousekey.c
     TMK_COMMON_DEFS += -DMOUSEKEY_ENABLE
     TMK_COMMON_DEFS += -DMOUSE_ENABLE
+
+    ifeq ($(strip $(MOUSE_SHARED_EP)), yes)
+        TMK_COMMON_DEFS += -DMOUSE_SHARED_EP
+        SHARED_EP_ENABLE = yes
+    endif
 endif
 
 ifeq ($(strip $(EXTRAKEY_ENABLE)), yes)
     TMK_COMMON_DEFS += -DEXTRAKEY_ENABLE
+    SHARED_EP_ENABLE = yes
 endif
 
 ifeq ($(strip $(RAW_ENABLE)), yes)
@@ -97,6 +127,7 @@ endif
 
 ifeq ($(strip $(NKRO_ENABLE)), yes)
     TMK_COMMON_DEFS += -DNKRO_ENABLE
+    SHARED_EP_ENABLE = yes
 endif
 
 ifeq ($(strip $(USB_6KRO_ENABLE)), yes)
@@ -166,6 +197,10 @@ ifeq ($(strip $(KEYMAP_SECTION_ENABLE)), yes)
     else
 	TMK_COMMON_LDFLAGS = $(error no ldscript for keymap section)
     endif
+endif
+
+ifeq ($(strip $(SHARED_EP_ENABLE)), yes)
+    TMK_COMMON_DEFS += -DSHARED_EP_ENABLE
 endif
 
 # Bootloader address

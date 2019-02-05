@@ -14,7 +14,7 @@ MIDI_ENABLE = no                # MIDI controls
 AUDIO_ENABLE = yes               # Audio output on port C6
 UNICODE_ENABLE = no             # Unicode
 BLUETOOTH_ENABLE = no           # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = yes           # Enable WS2812 RGB underlight. 
+RGBLIGHT_ENABLE = yes           # Enable WS2812 RGB underlight.
 RGBLIGHT_CUSTOM_DRIVER = yes    # RGB code is implemented in lefkeyboards, not qmk base
 SLEEP_LED_ENABLE = yes          # Breathing sleep LED during USB suspend
 TAP_DANCE_ENABLE = no
@@ -22,22 +22,6 @@ TAP_DANCE_ENABLE = no
 ISSI_ENABLE = yes               # If the I2C pullup resistors aren't install this must be disabled
 WATCHDOG_ENABLE = no            # Resets keyboard if matrix_scan isn't run every 250ms
 CAPSLOCK_LED = no              # Toggle back light LED of Caps Lock
-
-ifndef QUANTUM_DIR
-    include ../../../../Makefile
-endif
-
-ifeq ($(strip $(ISSI_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DISSI_ENABLE
-endif
-
-ifeq ($(strip $(WATCHDOG_ENABLE)), yes)
-    TMK_COMMON_DEFS += -DWATCHDOG_ENABLE
-endif
-
-ifeq ($(strip $(CAPSLOCK_LED)), yes)
-    TMK_COMMON_DEFS += -DCAPSLOCK_LED
-endif
 
 # Override the LFK78 hardware version:
 #
