@@ -231,8 +231,9 @@ uint16_t get_record_keycode(keyrecord_t *record) {
 }
 
 
- /* Convert event into usable keycode, checks the layer cache to ensure that it
-      retains the correct keycode after a layer change, if it's still pressed. */
+/* Convert event into usable keycode. Checks the layer cache to ensure that it
+ * retains the correct keycode after a layer change, if the key is still pressed.
+ */
 uint16_t get_event_keycode(keyevent_t event) {
 
   #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
@@ -252,9 +253,9 @@ uint16_t get_event_keycode(keyevent_t event) {
     return keymap_key_to_keycode(layer_switch_get_layer(event.key), event.key);
 }
 
- /* Core keycode function, hands off handling to other functions,
-    then processes internal quantum keycodes, and then processes
-    ACTIONs.                                                      */
+/* Main keycode processing function. Hands off handling to other functions,
+ * then processes internal Quantum keycodes, then processes ACTIONs.
+ */
 bool process_record_quantum(keyrecord_t *record) {
     uint16_t keycode = get_record_keycode(record);
 
