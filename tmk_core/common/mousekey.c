@@ -68,11 +68,11 @@ static uint8_t move_unit(void)
 {
     uint16_t unit;
     if (mousekey_accel & (1<<0)) {
-        unit = MOUSEKEY_ACCEL0_SPEED((MOUSEKEY_MOVE_DELTA * mk_max_speed));
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / MOUSEKEY_ACCEL0_SPEED;
     } else if (mousekey_accel & (1<<1)) {
-        unit = MOUSEKEY_ACCEL1_SPEED((MOUSEKEY_MOVE_DELTA * mk_max_speed));
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / MOUSEKEY_ACCEL1_SPEED;
     } else if (mousekey_accel & (1<<2)) {
-        unit = MOUSEKEY_ACCEL2_SPEED((MOUSEKEY_MOVE_DELTA * mk_max_speed));
+        unit = (MOUSEKEY_MOVE_DELTA * mk_max_speed) / MOUSEKEY_ACCEL2_SPEED;
     } else if (mousekey_repeat == 0) {
         unit = MOUSEKEY_MOVE_DELTA;
     } else if (mousekey_repeat >= mk_time_to_max) {
@@ -87,11 +87,11 @@ static uint8_t wheel_unit(void)
 {
     uint16_t unit;
     if (mousekey_accel & (1<<0)) {
-        unit = MOUSEKEY_ACCEL0_SPEED((MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed));
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / MOUSEKEY_ACCEL0_SPEED;
     } else if (mousekey_accel & (1<<1)) {
-        unit = MOUSEKEY_ACCEL1_SPEED((MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed));
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / MOUSEKEY_ACCEL1_SPEED;
     } else if (mousekey_accel & (1<<2)) {
-        unit = MOUSEKEY_ACCEL2_SPEED((MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed));
+        unit = (MOUSEKEY_WHEEL_DELTA * mk_wheel_max_speed) / MOUSEKEY_ACCEL2_SPEED;
     } else if (mousekey_repeat == 0) {
         unit = MOUSEKEY_WHEEL_DELTA;
     } else if (mousekey_repeat >= mk_wheel_time_to_max) {
