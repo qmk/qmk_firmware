@@ -18,7 +18,7 @@ If Mary presses GESC on her keyboard, the OS will see an KC_ESC character. Now i
 
 ### Caveats
 
- * On OSX CMD + KC_GRV is actually mapped to a hot key so it will not output a backtick.
+ * On macOS CMD/GUI + KC_GRV is actually mapped to a hot key so it will not output a backtick.
 
 ## Configuration
 
