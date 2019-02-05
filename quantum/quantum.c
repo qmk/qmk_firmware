@@ -195,6 +195,13 @@ void reset_keyboard(void) {
   #define RSPC_KEY KC_0
 #endif
 
+#ifndef LSPO_MOD
+  #define LSPO_MOD KC_LSFT
+#endif
+#ifndef RSPC_MOD
+  #define RSPC_MOD KC_RSFT
+#endif
+
 // Shift / Enter setup
 #ifndef SFTENT_KEY
   #define SFTENT_KEY KC_ENT
@@ -674,14 +681,27 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       else {
         #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(KC_RSFT)) {
+          if (get_mods() & MOD_BIT(RSPC_MOD)) {
             shift_interrupted[0] = true;
             shift_interrupted[1] = true;
           }
         #endif
         if (!shift_interrupted[0] && timer_elapsed(scs_timer[0]) < TAPPING_TERM) {
+          #ifdef DISABLE_SPACE_CADET_MODIFIER
+            unregister_mods(MOD_BIT(KC_LSFT));
+          #else
+            if( LSPO_MOD != KC_LSFT ){
+              unregister_mods(MOD_BIT(KC_LSFT));
+              register_mods(MOD_BIT(LSPO_MOD));
+            }
+          #endif
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
+          #ifndef DISABLE_SPACE_CADET_MODIFIER
+            if( LSPO_MOD != KC_LSFT ){
+              unregister_mods(MOD_BIT(LSPO_MOD));
+            }
+          #endif
         }
         unregister_mods(MOD_BIT(KC_LSFT));
       }
@@ -696,14 +716,27 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       else {
         #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(KC_LSFT)) {
+          if (get_mods() & MOD_BIT(LSPO_MOD)) {
             shift_interrupted[0] = true;
             shift_interrupted[1] = true;
           }
         #endif
         if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
+          #ifdef DISABLE_SPACE_CADET_MODIFIER
+            unregister_mods(MOD_BIT(KC_RSFT));
+          #else
+            if( RSPC_MOD != KC_RSFT ){
+              unregister_mods(MOD_BIT(KC_RSFT));
+              register_mods(MOD_BIT(RSPC_MOD));
+            }
+          #endif
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
+          #ifndef DISABLE_SPACE_CADET_MODIFIER
+            if ( RSPC_MOD != KC_RSFT ){
+              unregister_mods(MOD_BIT(RSPC_MOD));
+            }
+          #endif
         }
         unregister_mods(MOD_BIT(KC_RSFT));
       }
