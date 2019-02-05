@@ -16,7 +16,7 @@
 #include "jetfire.h"
 #include "indicator_leds.h"
 
-enum backlight_level {
+enum BACKLIGHT_AREAS {
     BACKLIGHT_ALPHA    = 0b0000001,
     BACKLIGHT_MOD      = 0b0000010,
     BACKLIGHT_FROW     = 0b0000100,
