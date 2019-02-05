@@ -60,10 +60,12 @@ void send_bit_d4(bool bitVal) {
   }
 }
 
-void send_value(uint8_t byte) {
+void send_value(uint8_t byte, enum Device device) {
   for(uint8_t b = 0; b < 8; b++) {
-    send_bit_d4(byte & 0b10000000);
-    byte <<= 1;
+    if(device == Device_STATUSLED) {
+      send_bit_d4(byte & 0b10000000);
+      byte <<= 1;
+    }
   }
 }
 
@@ -73,7 +75,8 @@ void indicator_leds_set(bool leds[8]) {
 
   cli();
   for(led_cnt = 0; led_cnt < 8; led_cnt++)
-    send_value(leds[led_cnt] ? 255 : 0);
+    send_value(leds[led_cnt] ? 255 : 0, Device_STATUSLED);
   sei();
   show();
 }
+
