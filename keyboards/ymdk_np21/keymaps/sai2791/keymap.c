@@ -73,3 +73,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   TD(TD_A_B), TD(TD_A_B), KC_NO, KC_NO,  KC_NO, KC_NO  \
 )
 };
+
+uint32_t layer_state_set_user(uint32_t state) {
+    switch (biton32(state)) {
+    case _NP:
+        backlight_set(255);
+        break;
+    case _BL:
+        backlight_set(0);
+        break;
+    case _MP:
+        backlight_set(128);
+        break;
+
+    default: //  for any other layers, or the default layer
+        backlight_set(0);
+        break;
+    }
+  return state;
+}
