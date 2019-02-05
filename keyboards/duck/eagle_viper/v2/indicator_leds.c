@@ -19,18 +19,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdbool.h>
 #include <util/delay.h>
 #include "indicator_leds.h"
-
-#define RES 6000
+#include "ducklib/ducklib.h"
 
 #define LED_T1H	600
 #define LED_T1L 650
 #define LED_T0H 250
 #define LED_T0L 1000
-
-#define NS_PER_SEC (1000000000L)
-#define CYCLES_PER_SEC (F_CPU)
-#define NS_PER_CYCLE (NS_PER_SEC / CYCLES_PER_SEC)
-#define NS_TO_CYCLES(n) ((n) / NS_PER_CYCLE)
 
 void send_bit_d4(bool bitVal) {
   if(bitVal) {
@@ -64,10 +58,6 @@ void send_bit_d4(bool bitVal) {
         [onCycles]  "I" (NS_TO_CYCLES(LED_T0H) - 2),
         [offCycles] "I" (NS_TO_CYCLES(LED_T0L) - 2));
   }
-}
-
-void show(void) {
-  _delay_us((RES / 1000UL) + 1);
 }
 
 void send_value(uint8_t byte) {
