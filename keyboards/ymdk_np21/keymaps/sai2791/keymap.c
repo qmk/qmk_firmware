@@ -4,11 +4,6 @@
 #define _BL  1
 #define _MP 2
 
-enum custom_keycodes {
-  NP = SAFE_RANGE,
-  BL
-};
-
 //Tap Dance Config
 enum {
   TD_A_B = 0,
