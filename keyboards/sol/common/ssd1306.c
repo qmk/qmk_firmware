@@ -157,7 +157,7 @@ static void WriteCharToBuffer(const uint8_t data, bool invert)
     }
 }
 
-void iota_gfx_init(bool flip180)
+void oled_init(bool flip180)
 {
     i2c_init();
     static const uint8_t PROGMEM display_setup1[] = {
@@ -196,18 +196,18 @@ void iota_gfx_init(bool flip180)
         DISPLAY_ON };
     DEBUG_PRINT(I2C_SEND_CMD(display_setup2), "display_setup2 failed\n");
 
-    iota_gfx_clear();
+    oled_clear();
     display_initialized = true;
 }
 
-void iota_gfx_clear(void)
+void oled_clear(void)
 {
     memset(display_buffer, 0, sizeof(display_buffer));
     display_cursor = &display_buffer[0];
     display_dirty = true;
 }
 
-void iota_gfx_set_cursor(uint8_t col, uint8_t line)
+void oled_set_cursor(uint8_t col, uint8_t line)
 {
     uint16_t index = line * OLED_DISPLAY_WIDTH + col * OLED_FONT_WIDTH;
     display_cursor = &display_buffer[index];
@@ -217,7 +217,7 @@ void iota_gfx_set_cursor(uint8_t col, uint8_t line)
         display_cursor = &display_buffer[0];
 }
 
-void iota_gfx_render(void)
+void oled_render(void)
 {
     static const uint8_t PROGMEM display_start[] = {
         COLUMN_ADDR, 0, OLED_DISPLAY_WIDTH - 1,
@@ -225,13 +225,13 @@ void iota_gfx_render(void)
 
     if (!display_dirty) return;
 
-    DEBUG_PRINT(I2C_SEND_CMD(display_start), "iota_gfx_render command failed\n");
-    DEBUG_PRINT(I2C_SEND_DATA(display_buffer), "iota_gfx_render data failed\n");
+    DEBUG_PRINT(I2C_SEND_CMD(display_start), "oled_render command failed\n");
+    DEBUG_PRINT(I2C_SEND_DATA(display_buffer), "oled_render data failed\n");
     display_cursor = &display_buffer[0];
     display_dirty = false;
 }
 
-void iota_gfx_write(const char *data, bool invert)
+void oled_write(const char *data, bool invert)
 {
     const char *end = data + strlen(data);
     while (data < end)
@@ -241,7 +241,7 @@ void iota_gfx_write(const char *data, bool invert)
     }
 }
 
-void iota_gfx_write_P(const char *data, bool invert)
+void oled_write_P(const char *data, bool invert)
 {
     uint8_t c = pgm_read_byte(data);
     while (c != 0)
@@ -251,7 +251,7 @@ void iota_gfx_write_P(const char *data, bool invert)
     }
 }
 
-bool iota_gfx_ready(void)
+bool oled_ready(void)
 {
     return display_initialized;
 }
