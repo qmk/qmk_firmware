@@ -12,8 +12,10 @@ extern keymap_config_t keymap_config;
 
 // control when held; esc when tapped
 #define KC_CESC LCTL_T(KC_ESC)
-// control when held; single quote when tapped
-#define KC_CQUT LCTL_T(KC_QUOT)
+// control when held; enter when tapped
+#define KC_CNTR LCTL_T(KC_ENT)
+// control when held; single quote when tapped; not used as shifted gives @
+//define KC_CQUT LCTL_T(KC_QUOT)
 // just a ^
 #define MY_HAT LSFT(KC_6)
 // less than (<)
@@ -40,14 +42,11 @@ extern keymap_config_t keymap_config;
 // backward word
 #define KC__BWD LCTL(KC_LEFT)
 
+#define ALT_LYR LM(_ALT_LAYER, MOD_LALT)
+
 
 #define MODS_SHIFT_MASK (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT))
 #define SHIFT_HELD (get_mods() & MODS_SHIFT_MASK)
-
-
-enum macro_numbers {
-    M_ENT = 0,
-};
 
 
 enum custom_keycodes {
@@ -55,25 +54,24 @@ enum custom_keycodes {
     LOWER,
     RAISE,
     ADJUST,
-    ALT_LYR,
     VIM_G,
-    ALT_2,
-    ALT_QOT,
+    ANSI_2,
+    ANSI_QT,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(  // Base layer
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                    ┌────────┬────────┬────────┬────────┬────────┬────────┐
-     ALT_LYR, KC_1,    ALT_2,   KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NUBS,
+     ALT_LYR,  KC_1,   ANSI_2,   KC_3,    KC_4,    KC_5,                         KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_NUBS,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
   //├────────┼────────┼────────┼────────┼────────┼────────┤                    ├────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_CESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, ALT_QOT,
+     KC_CESC, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, ANSI_QT,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐  ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LGUI,    KC_RGUI, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
   //└────────┴────────┴────────┴───┬────┴───┬────┴───┬────┴───┬────┘  └───┬────┴───┬────┴───┬────┴───┬────┴────────┴────────┴────────┘
-                                    RAISE  , LOWER,   KC_SPC,              KC_ENT,  ADJUST,   KC_LALT
+                                    RAISE  , LOWER,   KC_SPC,              KC_CNTR,  ADJUST,   KC_LALT
                                 // └────────┴────────┴────────┘           └────────┴────────┴────────┘
   ),
 
@@ -134,11 +132,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-/*
-const uint16_t PROGMEM fn_actions[] = {
-    [M_ENT] = ACTION_MACRO_TAP(M_ENT),
-};*/
-
 
 void key_press(uint8_t key) {
     add_key(key);
@@ -175,33 +168,6 @@ bool action_function_vim_g(keyrecord_t *record) {
 }
 
 
-bool action_function_mods_layer_tap(keyrecord_t *record, uint8_t mods, uint8_t layer, uint8_t key) {
-    xprintf("AFMLT: mods=%u, layer=%u, key=%u\n", mods, layer, key);
-    xprintf("        pressed=%u, tap.count=%u, interrupted=%u\n", record->event.pressed, record->tap.count, record->tap.interrupted);
-    if (record->tap.count == 0 || record->tap.interrupted) {
-        if (record->event.pressed) {
-            layer_on(layer);
-            add_weak_mods(mods);
-            xprintf("        layer on / weak mods added\n");
-        } else {
-            del_weak_mods(mods);
-            layer_off(layer);
-            xprintf("        layer off / weak mods removed\n");
-        }
-    } else {
-        if (record->event.pressed) {
-            key_press(key);
-            xprintf("        key pressed\n");
-        } else {
-            key_release(key);
-            xprintf("        key released\n");
-        }
-    }
-    xprintf("AFMLT: end\n\n");
-    return false;
-}
-
-
 bool action_function_altered_shift(keyrecord_t *record, uint8_t base_key, uint8_t shifted_key) {
     // TODO do we need to worry about the tap count / interrupted states here?
     uint8_t shift_held = SHIFT_HELD;
@@ -216,45 +182,6 @@ bool action_function_altered_shift(keyrecord_t *record, uint8_t base_key, uint8_
     }
     return false;
 }
-
-/*
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-    xprintf("MACRO:  pressed=%u, tap.count=%u, interrupted=%u\n", record->event.pressed, record->tap.count, record->tap.interrupted);
-    xprintf("        id=%u, opt=%u\n", id, opt);
-    switch (id) {
-        case M_ENT:
-            xprintf("enter macro ");
-            if (record->tap.count && !record->tap.interrupted) {
-                if (record->event.pressed) {
-                    uint8_t shift_held = SHIFT_HELD;
-                    if (shift_held) {
-                        add_weak_mods(MOD_RSFT);
-                        add_key(KC_2);
-                        send_keyboard_report();
-                        del_key(KC_2);
-                        send_keyboard_report();
-                        del_weak_mods(MOD_RSFT);
-                    } else {
-                        register_code(KC_QUOTE);
-                        unregister_code(KC_QUOTE);
-                    }
-                }
-                record->tap.count = 0;  
-            } else {
-                if (record->event.pressed) {
-                    xprintf("   pressed reg ctrl\n");
-                    register_mods(MOD_RCTL);
-                } else {
-                    // deactivate the ctrl
-                    unregister_mods(MOD_RCTL);
-                    xprintf("   released reg ctrl\n");
-                }
-            }
-            break;
-    }
-    xprintf("MACRO: end\n\n");
-    return MACRO_NONE;
-}*/
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -296,16 +223,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case VIM_G:
             return action_function_vim_g(record);
             break;
-        case ALT_2:
+        case ANSI_2:
             return action_function_altered_shift(record, KC_2, KC_QUOT);
             break;
-        /*case ALT_QOT:
-            return action_function_mods_tap_altered_shift(record, MOD_BIT(KC_LCTL), KC_QUOT, KC_2);
-            break;*/
-        case ALT_QOT:
+        case ANSI_QT:
             return action_function_altered_shift(record, KC_QUOT, KC_2);  // really want ctrl on hold XXX
-        case ALT_LYR:
-            return action_function_mods_layer_tap(record, MOD_BIT(KC_LALT), _ALT_LAYER, KC_ESC);
             break;
     }
     return true;
