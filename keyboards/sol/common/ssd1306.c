@@ -1,7 +1,7 @@
 #ifdef SSD1306OLED
 
 #include "ssd1306.h"
-#include "i2c.h"
+#include "i2c_master.h"
 #include "common/glcdfont.c"
 
 #include <string.h>
@@ -41,15 +41,19 @@
 // Charge Pump Commands
 #define CHARGE_PUMP             0x8D
 
+#include "timer.h"
 
-//#define OLED_DEBUGGING
+#define I2C_TIMEOUT_TEST 100
+
+#define OLED_DEBUGGING
 #ifdef OLED_DEBUGGING
 #include "print.h"
-#define DEBUG_PRINT(Func, Msg) if (!Func) print(Msg)
-#define DEBUG_PRINT_RESULT(Res, Func, Msg) Res &= Func; if (!Res) print(Msg)
+// These debug prints are designed to work with 0 = success and all other failure.
+#define DEBUG_PRINT(Func, Msg) if (Func) Msg
+#define DEBUG_XPRINTF_RESULT(Func, Msg, Res) if (!Res && (Res = Func)) xprintf(Msg, Res)
 #else
-#define DEBUG_PRINT(Func, Msg) Func;
-#define DEBUG_PRINT_RESULT(Res, Func, Msg) Res &= Func
+#define DEBUG_PRINT(Func, Msg) Func
+#define DEBUG_XPRINTF_RESULT(Func, Msg, Res) Res |= Func
 #endif
 
 
@@ -57,26 +61,47 @@ static struct DisplayBuffer display_buffer;
 static bool display_initialized = false;
 
 // Commands are expected to be in Flash memory
-static bool SendCommands(const uint8_t *commands, uint8_t length)
+static int8_t SendCommands_P(const uint8_t *commands, uint8_t length)
 {
-    bool res = true;
-    DEBUG_PRINT_RESULT(res, !i2c_start_write(SSD1306_ADDRESS), " i2c ADDRESS Failed\n");
-    DEBUG_PRINT_RESULT(res, !i2c_master_write(0x00), " i2c CMD Failed\n");
-    while (res && length--)
-        DEBUG_PRINT_RESULT(res, !i2c_master_write(pgm_read_byte(commands++)), " i2c CMD Val Failed\n");
-    i2c_master_stop();
+    // Status from i2c_master is int16_t, but range is only -2 > 0, so int8_t is fine
+    int8_t res = 0;
+    if (!res && (res = i2c_start((SSD1306_ADDRESS << 1) | I2C_WRITE, I2C_TIMEOUT_TEST)))
+        xprintf("  i2c ADDRESS Failed %d\n", res);
+
+    if (!res && (res = i2c_write(0x00, I2C_TIMEOUT_TEST)))
+        xprintf("  i2c CMD Failed %d\n", res);
+    
+    while (!res && length--)
+    {
+        if (!res && (res = i2c_write(pgm_read_byte(commands++), I2C_TIMEOUT_TEST)))
+            xprintf("  i2c CMD Val Failed %d\n", res);
+    }
+
+    int8_t stopRes = 0;
+    if ((stopRes = i2c_stop(I2C_TIMEOUT_TEST)))
+        xprintf("  i2c CMD stop Failed %d\n", stopRes);
     return res;
 }
 
 // Data is expected to be in SRAM
-static bool SendData(const uint8_t *data, uint16_t length)
+static int8_t SendCommands(const uint8_t *commands, uint16_t length)
 {
-    bool res = true;
-    DEBUG_PRINT_RESULT(res, !i2c_start_write(SSD1306_ADDRESS), " i2c ADDRESS Failed\n");
-    DEBUG_PRINT_RESULT(res, !i2c_master_write(0x40), " i2c DATA Failed\n");
-    while (res && length--)
-        DEBUG_PRINT_RESULT(res, !i2c_master_write(*data++), " i2c DATA Val Failed\n");
-    i2c_master_stop();
+    int8_t res = 0;
+    if (!res && (res = i2c_start((SSD1306_ADDRESS << 1) | I2C_WRITE, I2C_TIMEOUT_TEST)))
+        xprintf("  i2c ADDRESS Failed %d\n", res);
+
+    if (!res && (res = i2c_write(0x40, I2C_TIMEOUT_TEST)))
+        xprintf("  i2c DATA Failed %d\n", res);
+    
+    while (!res && length--)
+    {
+        if (!res && (res = i2c_write(*commands++, I2C_TIMEOUT_TEST)))
+            xprintf("  i2c DATA Val Failed %d\n", res);
+    }
+
+    int8_t stopRes = 0;
+    if ((stopRes = i2c_stop(I2C_TIMEOUT_TEST)))
+        xprintf("  i2c DATA stop Failed %d\n", stopRes);
     return res;
 }
 
@@ -147,6 +172,7 @@ static void WriteCharToBuffer(const uint8_t data, bool invert)
 
 void iota_gfx_init(bool flip180)
 {
+    i2c_init();
     static const uint8_t PROGMEM display_setup1[] = {
         DISPLAY_OFF,
         DISPLAY_CLOCK, 0x80,
@@ -155,21 +181,21 @@ void iota_gfx_init(bool flip180)
         DISPLAY_START_LINE | 0x00,
         CHARGE_PUMP, 0x14,
         MEMORY_MODE, 0x00, };
-    DEBUG_PRINT(SendCommands(display_setup1, sizeof(display_setup1)), "display_setup1 failed\n");
+    DEBUG_PRINT(SendCommands_P(display_setup1, sizeof(display_setup1)), print("display_setup1 failed\n"));
 
     if (!flip180)
     {
         static const uint8_t PROGMEM display_normal[] = {
             SEGMENT_REMAP_INV,
             COM_SCAN_DEC };
-        DEBUG_PRINT(SendCommands(display_normal, sizeof(display_normal)), "display_normal failed\n");
+        DEBUG_PRINT(SendCommands_P(display_normal, sizeof(display_normal)), print("display_normal failed\n"));
     }
     else
     {
         static const uint8_t PROGMEM display_flipped[] = {
             SEGMENT_REMAP,
             COM_SCAN_INC };
-        DEBUG_PRINT(SendCommands(display_flipped, sizeof(display_flipped)), "display_flipped failed\n");
+        DEBUG_PRINT(SendCommands_P(display_flipped, sizeof(display_flipped)), print("display_flipped failed\n"));
     }
 
     static const uint8_t PROGMEM display_setup2[] = {
@@ -181,7 +207,7 @@ void iota_gfx_init(bool flip180)
         NORMAL_DISPLAY,
         DEACTIVATE_SCROLL,
         DISPLAY_ON };
-    DEBUG_PRINT(SendCommands(display_setup2, sizeof(display_setup2)), "display_setup2 failed\n");
+    DEBUG_PRINT(SendCommands_P(display_setup2, sizeof(display_setup2)), print("display_setup2 failed\n"));
 
     iota_gfx_clear();
     //iota_gfx_render();
@@ -214,8 +240,8 @@ void iota_gfx_render(void)
 
     if (!display_buffer.dirty) return;
 
-    DEBUG_PRINT(SendCommands(display_start, sizeof(display_start)), "iota_gfx_render command failed\n");
-    DEBUG_PRINT(SendData(&display_buffer.display[0], sizeof(display_buffer.display)), "iota_gfx_render data failed\n");
+    DEBUG_PRINT(SendCommands_P(display_start, sizeof(display_start)), print("iota_gfx_render command failed\n"));
+    DEBUG_PRINT(SendCommands(&display_buffer.display[0], sizeof(display_buffer.display)), print("iota_gfx_render data failed\n"));
     display_buffer.cursor = &display_buffer.display[0];
     display_buffer.dirty = false;
 }

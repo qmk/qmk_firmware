@@ -26,6 +26,8 @@ IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPa
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
     OPT_DEFS += -DOLED_ENABLE
+    SRC += common/i2c_master.c
+    SRC += common/ssd1306.c
 endif
 
 ifeq ($(strip $(ENCODER_ENABLE_CUSTOM)), yes)

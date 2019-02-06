@@ -37,7 +37,7 @@ void iota_gfx_init(bool flip180);
 // Clears out a display buffer with 0, resets cursor to 0, and sets dirty to true
 void iota_gfx_clear(void);
 
-// Moves cursor to position indicated by col and line, wraps if out of bounds
+// Moves cursor to character position indicated by col and line, wraps if out of bounds
 void iota_gfx_set_cursor(uint8_t col, uint8_t line);
 
 // Renders the buffer to i2c oled and sets dirty to false
