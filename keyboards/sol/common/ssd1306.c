@@ -41,15 +41,20 @@
 // Charge Pump Commands
 #define CHARGE_PUMP             0x8D
 
-#include "timer.h"
+// Misc defines
+#define SSD1306_ADDRESS (0x3C << 1)
+#define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8) * OLED_DISPLAY_WIDTH
 
-#define I2C_TIMEOUT_TEST 100
+// i2c defines
+#define I2C_TIMEOUT 100
+#define I2C_SEND_CMD(data) i2c_writeReg_P(SSD1306_ADDRESS, 0x00, &data[0], sizeof(data), I2C_TIMEOUT)
+#define I2C_SEND_DATA(data) i2c_writeReg(SSD1306_ADDRESS, 0x40, &data[0], sizeof(data), I2C_TIMEOUT)
 
 #define OLED_DEBUGGING
 #ifdef OLED_DEBUGGING
 #include "print.h"
 // These debug prints are designed to work with 0 = success and all other failure.
-#define DEBUG_PRINT(Func, Msg) if (Func) Msg
+#define DEBUG_PRINT(Func, Msg) if (Func) print(Msg)
 #define DEBUG_XPRINTF_RESULT(Func, Msg, Res) if (!Res && (Res = Func)) xprintf(Msg, Res)
 #else
 #define DEBUG_PRINT(Func, Msg) Func
@@ -57,52 +62,34 @@
 #endif
 
 
-static struct DisplayBuffer display_buffer;
-static bool display_initialized = false;
+// Display buffer's is the same as the OLED memory layout
+// this is so we don't end up with rounding errors with 
+// parts of the display unusable or don't get cleared correctly
+// and also allows for drawing & inverting
+static uint8_t  display_buffer[OLED_MATRIX_SIZE];
+static uint8_t* display_cursor;
+static bool     display_dirty = false;
+static bool     display_initialized = false;
 
-// Commands are expected to be in Flash memory
-static int8_t SendCommands_P(const uint8_t *commands, uint8_t length)
+
+// identical to i2c_writeReg, but for PROGMEM since all initialization is in PROGMEM arrays currently
+static i2c_status_t i2c_writeReg_P(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout)
 {
-    // Status from i2c_master is int16_t, but range is only -2 > 0, so int8_t is fine
-    int8_t res = 0;
-    if (!res && (res = i2c_start((SSD1306_ADDRESS << 1) | I2C_WRITE, I2C_TIMEOUT_TEST)))
-        xprintf("  i2c ADDRESS Failed %d\n", res);
+    i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
+    if (status) return status;
 
-    if (!res && (res = i2c_write(0x00, I2C_TIMEOUT_TEST)))
-        xprintf("  i2c CMD Failed %d\n", res);
-    
-    while (!res && length--)
-    {
-        if (!res && (res = i2c_write(pgm_read_byte(commands++), I2C_TIMEOUT_TEST)))
-            xprintf("  i2c CMD Val Failed %d\n", res);
+    status = i2c_write(regaddr, timeout);
+    if (status) return status;
+
+    for (uint16_t i = 0; i < length; i++) {
+        status = i2c_write(pgm_read_byte(data++), timeout);
+        if (status) return status;
     }
 
-    int8_t stopRes = 0;
-    if ((stopRes = i2c_stop(I2C_TIMEOUT_TEST)))
-        xprintf("  i2c CMD stop Failed %d\n", stopRes);
-    return res;
-}
+    status = i2c_stop(timeout);
+    if (status) return status;
 
-// Data is expected to be in SRAM
-static int8_t SendCommands(const uint8_t *commands, uint16_t length)
-{
-    int8_t res = 0;
-    if (!res && (res = i2c_start((SSD1306_ADDRESS << 1) | I2C_WRITE, I2C_TIMEOUT_TEST)))
-        xprintf("  i2c ADDRESS Failed %d\n", res);
-
-    if (!res && (res = i2c_write(0x40, I2C_TIMEOUT_TEST)))
-        xprintf("  i2c DATA Failed %d\n", res);
-    
-    while (!res && length--)
-    {
-        if (!res && (res = i2c_write(*commands++, I2C_TIMEOUT_TEST)))
-            xprintf("  i2c DATA Val Failed %d\n", res);
-    }
-
-    int8_t stopRes = 0;
-    if ((stopRes = i2c_stop(I2C_TIMEOUT_TEST)))
-        xprintf("  i2c DATA stop Failed %d\n", stopRes);
-    return res;
+    return I2C_STATUS_SUCCESS;
 }
 
 // Moves the cursor forward 1 character length
@@ -110,7 +97,7 @@ static int8_t SendCommands(const uint8_t *commands, uint16_t length)
 // Wraps to the begining when out of bounds
 static void AdvanceCursor(void)
 {
-    uint16_t index = display_buffer.cursor - &display_buffer.display[0] + OLED_FONT_WIDTH;
+    uint16_t index = display_cursor - &display_buffer[0] + OLED_FONT_WIDTH;
     uint8_t remainingSpace = OLED_DISPLAY_WIDTH - (index % OLED_DISPLAY_WIDTH);
     if (remainingSpace < OLED_FONT_WIDTH)
         index += remainingSpace;
@@ -118,20 +105,20 @@ static void AdvanceCursor(void)
     if (index >= OLED_MATRIX_SIZE)
         index = 0;
 
-    display_buffer.cursor = &display_buffer.display[index];
+    display_cursor = &display_buffer[index];
 }
 
 // Moves the cursor to the begining of the next line
 // Wraps to the begining when out of bounds
 static void AdvancePage(void)
 {
-    uint8_t pageIndex = (display_buffer.cursor - &display_buffer.display[0]) / OLED_DISPLAY_WIDTH + 1;
+    uint8_t pageIndex = (display_cursor - &display_buffer[0]) / OLED_DISPLAY_WIDTH + 1;
 
     // Out of bounds?
     if (pageIndex > OLED_DISPLAY_HEIGHT / 8 - 1)
         pageIndex = 0;
 
-    display_buffer.cursor = &display_buffer.display[pageIndex * OLED_DISPLAY_WIDTH];
+    display_cursor = &display_buffer[pageIndex * OLED_DISPLAY_WIDTH];
 }
 
 // Flips the rendering bits for a character at the current cursor position
@@ -153,19 +140,19 @@ static void WriteCharToBuffer(const uint8_t data, bool invert)
         AdvancePage();
     else if (data < OLED_FONT_START || data > OLED_FONT_END)
     {
-        memcpy(&oled_temp_buffer, display_buffer.cursor, OLED_FONT_WIDTH);
-        memset(display_buffer.cursor, invert, OLED_FONT_WIDTH);
-        display_buffer.dirty |= memcmp(&oled_temp_buffer, display_buffer.cursor, OLED_FONT_WIDTH) != 0;
+        memcpy(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH);
+        memset(display_cursor, invert, OLED_FONT_WIDTH);
+        display_dirty |= memcmp(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH) != 0;
         AdvanceCursor();
         return;
     }
     else
     {
         const uint8_t *glyph = &font[(data - OLED_FONT_START) * OLED_FONT_WIDTH];
-        memcpy(&oled_temp_buffer, display_buffer.cursor, OLED_FONT_WIDTH);
-        memcpy_P(display_buffer.cursor, glyph, OLED_FONT_WIDTH);
-        if (invert) InvertCharacter(display_buffer.cursor);
-        display_buffer.dirty |= memcmp(&oled_temp_buffer, display_buffer.cursor, OLED_FONT_WIDTH) != 0;
+        memcpy(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH);
+        memcpy_P(display_cursor, glyph, OLED_FONT_WIDTH);
+        if (invert) InvertCharacter(display_cursor);
+        display_dirty |= memcmp(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH) != 0;
         AdvanceCursor();
     }
 }
@@ -181,21 +168,21 @@ void iota_gfx_init(bool flip180)
         DISPLAY_START_LINE | 0x00,
         CHARGE_PUMP, 0x14,
         MEMORY_MODE, 0x00, };
-    DEBUG_PRINT(SendCommands_P(display_setup1, sizeof(display_setup1)), print("display_setup1 failed\n"));
+    DEBUG_PRINT(I2C_SEND_CMD(display_setup1), "display_setup1 failed\n");
 
     if (!flip180)
     {
         static const uint8_t PROGMEM display_normal[] = {
             SEGMENT_REMAP_INV,
             COM_SCAN_DEC };
-        DEBUG_PRINT(SendCommands_P(display_normal, sizeof(display_normal)), print("display_normal failed\n"));
+        DEBUG_PRINT(I2C_SEND_CMD(display_normal), "display_normal failed\n");
     }
     else
     {
         static const uint8_t PROGMEM display_flipped[] = {
             SEGMENT_REMAP,
             COM_SCAN_INC };
-        DEBUG_PRINT(SendCommands_P(display_flipped, sizeof(display_flipped)), print("display_flipped failed\n"));
+        DEBUG_PRINT(I2C_SEND_CMD(display_flipped), "display_flipped failed\n");
     }
 
     static const uint8_t PROGMEM display_setup2[] = {
@@ -207,29 +194,27 @@ void iota_gfx_init(bool flip180)
         NORMAL_DISPLAY,
         DEACTIVATE_SCROLL,
         DISPLAY_ON };
-    DEBUG_PRINT(SendCommands_P(display_setup2, sizeof(display_setup2)), print("display_setup2 failed\n"));
+    DEBUG_PRINT(I2C_SEND_CMD(display_setup2), "display_setup2 failed\n");
 
     iota_gfx_clear();
-    //iota_gfx_render();
-
     display_initialized = true;
 }
 
 void iota_gfx_clear(void)
 {
-    memset(display_buffer.display, 0, sizeof(display_buffer.display));
-    display_buffer.cursor = &display_buffer.display[0];
-    display_buffer.dirty = true;
+    memset(display_buffer, 0, sizeof(display_buffer));
+    display_cursor = &display_buffer[0];
+    display_dirty = true;
 }
 
 void iota_gfx_set_cursor(uint8_t col, uint8_t line)
 {
     uint16_t index = line * OLED_DISPLAY_WIDTH + col * OLED_FONT_WIDTH;
-    display_buffer.cursor = &display_buffer.display[index];
+    display_cursor = &display_buffer[index];
 
     // Out of bounds?
-    if (display_buffer.cursor - &display_buffer.display[0] > OLED_MATRIX_SIZE)
-        display_buffer.cursor = &display_buffer.display[0];
+    if (display_cursor - &display_buffer[0] > OLED_MATRIX_SIZE)
+        display_cursor = &display_buffer[0];
 }
 
 void iota_gfx_render(void)
@@ -238,12 +223,12 @@ void iota_gfx_render(void)
         COLUMN_ADDR, 0, OLED_DISPLAY_WIDTH - 1,
         PAGE_ADDR, 0, OLED_DISPLAY_HEIGHT / 8 - 1 };
 
-    if (!display_buffer.dirty) return;
+    if (!display_dirty) return;
 
-    DEBUG_PRINT(SendCommands_P(display_start, sizeof(display_start)), print("iota_gfx_render command failed\n"));
-    DEBUG_PRINT(SendCommands(&display_buffer.display[0], sizeof(display_buffer.display)), print("iota_gfx_render data failed\n"));
-    display_buffer.cursor = &display_buffer.display[0];
-    display_buffer.dirty = false;
+    DEBUG_PRINT(I2C_SEND_CMD(display_start), "iota_gfx_render command failed\n");
+    DEBUG_PRINT(I2C_SEND_DATA(display_buffer), "iota_gfx_render data failed\n");
+    display_cursor = &display_buffer[0];
+    display_dirty = false;
 }
 
 void iota_gfx_write(const char *data, bool invert)

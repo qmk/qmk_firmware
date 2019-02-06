@@ -230,9 +230,9 @@ static void render_status(void) {
 
   // Host Keyboard LED Status
   uint8_t led_usb_state = host_keyboard_leds();
-  iota_gfx_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR(" NUM") : PSTR("    "), false);
-  iota_gfx_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR(" CAP") : PSTR("    "), false);
-  iota_gfx_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR(" SCR") : PSTR("    "), false);
+  iota_gfx_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUM ") : PSTR("    "), false);
+  iota_gfx_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAP ") : PSTR("    "), false);
+  iota_gfx_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCR ") : PSTR("    "), false);
 }
 
 void matrix_scan_user(void) {
