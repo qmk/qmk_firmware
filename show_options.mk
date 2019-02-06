@@ -50,12 +50,12 @@ OTHER_OPTION_NAMES = \
   VIRTSER_ENABLE
 
 define NAME_ECHO
-	@echo "  $1 = $($1)"
+	@echo "  $1 = $($1)		# $(origin $1)"
 
 endef
 
-.PHONY: show_build_options
-show_build_options:
+.PHONY: show_build_options0 show_build_options
+show_build_options0:
 	@echo " KEYBOARD = $(KEYBOARD)"
 	@echo " KEYMAP   = $(KEYMAP)"
 	@echo " PLATFORM = $(PLATFORM)"
@@ -65,8 +65,13 @@ show_build_options:
 	$(foreach A_OPTION_NAME,$(sort $(BUILD_OPTION_NAMES)),\
 		$(call NAME_ECHO,$(A_OPTION_NAME)))
 
+show_build_options: show_build_options0
+	@echo
+	@echo "If you want to know more, please try 'show_all_features' or 'show_full_features'"
+	@echo
+
 .PHONY: show_all_features
-show_all_features: show_build_options
+show_all_features: show_build_options0
 	@echo
 	@echo "Hardware Options:"
 	$(foreach A_OPTION_NAME,$(sort $(HARDWARE_OPTION_NAMES)),\
@@ -75,3 +80,14 @@ show_all_features: show_build_options
 	@echo "Other Options:"
 	$(foreach A_OPTION_NAME,$(sort $(OTHER_OPTION_NAMES)),\
 		$(if $($(A_OPTION_NAME)),$(call NAME_ECHO,$(A_OPTION_NAME))))
+
+.PHONY: show_full_features
+show_full_features: show_build_options0
+	@echo
+	@echo "Hardware Options:"
+	$(foreach A_OPTION_NAME,$(sort $(HARDWARE_OPTION_NAMES)),\
+		$(call NAME_ECHO,$(A_OPTION_NAME)))
+	@echo
+	@echo "Other Options:"
+	$(foreach A_OPTION_NAME,$(sort $(OTHER_OPTION_NAMES)),\
+		$(call NAME_ECHO,$(A_OPTION_NAME)))
