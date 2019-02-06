@@ -1,4 +1,4 @@
-/* Copyright 2017 Cole Markham, WoodKeys.click
+/* Copyright 2019 Cole Markham, WoodKeys.click
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
