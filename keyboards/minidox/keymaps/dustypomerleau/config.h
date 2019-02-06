@@ -9,7 +9,7 @@
 #define EE_HANDS
 #define IGNORE_MOD_TAP_INTERRUPT
 #define ONESHOT_TIMEOUT 1000
-#define PERMISSIVE_HOLD
+// #define PERMISSIVE_HOLD
 #define PREVENT_STUCK_MODIFIERS
 // #define TAPPING_FORCE_HOLD // allows rapid mod use after tap event, but sacrifices double-tap to repeat
 #define TAPPING_TERM 200
