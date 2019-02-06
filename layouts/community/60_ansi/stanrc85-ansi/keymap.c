@@ -15,10 +15,10 @@
  */
 #include QMK_KEYBOARD_H
 
-#define DEFAULT 0 	//Custom ANSI
+#define DEFAULT 0     //Custom ANSI
 #define LAYER1 1 	  //Default ANSI (enable with Fn2+D)
 #define LAYER2 2 	  //Function keys, arrows, custom shortcuts, volume control
-#define LAYER3 3 	  //Backlight controls and RESET
+#define LAYER3 3 	  //RGB Underglow controls and RESET
 
 //Aliases for longer keycodes
 #define KC_CAD	LALT(LCTL(KC_DEL))
@@ -64,10 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______,                   _______,                   _______, _______, _______, _______),
 
 	[3] = LAYOUT_60_ansi(
-		RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+		_______, RGB_TOG, RGB_MOD, RGB_VAD, RGB_VAI, RGB_SAI, RGB_HUD, RGB_HUI, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,
-		KC_CAPS, _______, _______, TG(1),   _______, _______, BL_STEP, BL_DEC,  BL_INC,  BL_TOGG, _______, _______, _______,
-		_______, _______, _______, RGB_VAD, RGB_VAI, RGB_SAI, RGB_HUD, RGB_HUI, RGB_MOD, RGB_TOG, _______, _______,
+		_______, _______, _______, TG(1),   _______, _______, _______, _______, _______, _______, _______, _______, _______,
+		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______,                   _______,                   _______, _______, _______, _______)
 };
 
