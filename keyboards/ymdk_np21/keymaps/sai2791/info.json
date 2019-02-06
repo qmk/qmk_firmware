@@ -3,7 +3,7 @@
     "url": "",
     "maintainer": "qmk",
     "width": 4,
-    "height": 6.5,
+    "height": 6.25,
     "layouts": {
         "LAYOUT_numpad_6x4": {
             "layout": [{"label":"Esc", "x":0, "y":0},

@@ -5,10 +5,8 @@
 
 ps2avrGB based number-pad sold fully assembled by YMDK on Aliexpress.
 
-Keyboard Maintainer: [QMK Community](https://github.com/qmk)
-
-Hardware Supported: Atmega32A
-
+Keyboard Maintainer: [QMK Community](https://github.com/qmk)  
+Hardware Supported: Atmega32A  
 Hardware Availability: [AliExpress](https://www.aliexpress.com/item/21-Key-NPKC-Programmable-Cherry-MX-Kailh-Gateron-Switches-Mechanical-Keyboard-Numpad-Free-shipping/32812732361.html)
 
 	Make example for this keyboard (after setting up your build environment):
@@ -74,4 +72,7 @@ Hardware Availability: [AliExpress](https://www.aliexpress.com/item/21-Key-NPKC-
 	   on Linux, you may want to compile and run `tools/usb_detach.c`. See `tools/README.md`
 	   for more info.
 
+ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+##Credit
 copied almost verbatium from [Keyboard] Add support for jj4x4 numpad/macropad by Kprepublic (#5016)

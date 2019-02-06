@@ -36,6 +36,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |     Enter   |      +      |   -  | TO(_BL)   |
  * `----------------------------------------------'
  */
+
 [_NP] = LAYOUT_numpad_6x4( \
   KC_KP_0,     KC_KP_1,     KC_KP_4,    KC_KP_7,    KC_NUMLOCK,     KC_ESC,    \
   KC_NO,       KC_KP_2,     KC_KP_5,    KC_KP_8,    KC_KP_SLASH,    KC_TAB,    \
