@@ -30,12 +30,20 @@ F_CPU = 12000000
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = bootloadHID
 
-# build options
+# Build Options
+#   comment out to disable the options.
+#
 BOOTMAGIC_ENABLE = no
 MOUSEKEY_ENABLE = no
-EXTRAKEY_ENABLE = yes
+EXTRAKEY_ENABLE = no  # System and audio keys
 CONSOLE_ENABLE = no
-COMMAND_ENABLE = yes
+COMMAND_ENABLE = no
+
+NKRO_ENABLE = no		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
+MIDI_ENABLE = no 		# MIDI controls
+UNICODE_ENABLE = no 		# Unicode
+BLUETOOTH_ENABLE = no # Enable Bluetooth with the Adafruit EZ-Key HID
+AUDIO_ENABLE = no           # Audio output on port C6
 
 BACKLIGHT_ENABLE = yes
 BACKLIGHT_CUSTOM_DRIVER = yes
@@ -50,6 +58,7 @@ KEY_LOCK_ENABLE = yes
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 OPT_DEFS = -DDEBUG_LEVEL=0
+OPT_DEFS += -flto
 
 # custom matrix setup
 CUSTOM_MATRIX = yes
