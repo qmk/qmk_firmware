@@ -1,6 +1,11 @@
-# @rjhilgefort Planck Layout
+# [🐦 @rjhilgefort](https://twitter.com/rjhilgefort) Planck Layout
 
-A simple and practical layout featuring a numpad/media layer, and a symbols layer that focuses on coding.
+A simple and practical layout featuring:
+
+- Hyper Key === CTRL + ALT + GUI 
+- Ctrl/Esc key that is CTRL when held and ESC when tapped
+- Symbols layer that focuses on coding
+- Numpad + media layer
 
 ![Imgur](https://i.imgur.com/elygxAb.jpg)
 
