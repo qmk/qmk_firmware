@@ -30,8 +30,7 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   FN,
   ADJ,
-  RGBRST,
-  OLEDRST
+  RGBRST
 };
 
 #define FN_CAPS LT(_FN, KC_CAPS)
@@ -47,20 +46,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
    * |FN(CAPS)| A  |   S  |   D  |  F   |  G   |   `  |  |   '  |  H   |  J   |  K   |  L   |  ;   | Enter|
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |Shift |   Z  |   X  |   C  |  V   |  B   | RGB  |  |OLEDRST| N   |  M   |  ,   |  .   |  /   | Shift|
+   * |Shift |   Z  |   X  |   C  |  V   |  B   | RGB  |  |      |  N   |  M   |  ,   |  .   |  /   | Shift|
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Ctrl |  Win |  ADJ |  FN  | Alt  | Space|RGBMOD|  |RGB_RMOD|Space|Left |  Up  | Down | Right| Ctrl |
+   * | Ctrl |  Win |  ADJ |  FN  | Alt  | Space|RGBRMOD| |RGBMOD|Space|Left |  Up  | Down | Right| Ctrl |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    | Space| DEL  |  | Enter| Space|
    *                                    `-------------'  `-------------'
    */
   [_QWERTY] = LAYOUT( \
-      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, KC_EQL,   KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_BSPC, \
-      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC, KC_RBRC,  KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSLS, \
-      FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_GRV,  KC_QUOT,  KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    OLEDRST, OLEDRST,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
-      KC_LCTL, KC_LGUI, ADJ,     FN,      KC_LALT, KC_SPC,  RGB_MOD, RGB_RMOD, KC_SPC,  KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT, KC_RCTL, \
-                        KC_VOLU, KC_VOLD,          KC_SPC,  KC_DEL,  KC_ENT,   KC_SPC,           KC_VOLU, KC_VOLD \
+      KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_BSPC, \
+      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,  KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSLS, \
+      FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_GRV,   KC_QUOT, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT, \
+      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RGB_TOG,  _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
+      KC_LCTL, KC_LGUI, ADJ,     FN,      KC_LALT, KC_SPC,  RGB_RMOD, RGB_MOD, KC_SPC,  KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT, KC_RCTL, \
+                        KC_VOLU, KC_VOLD,          KC_SPC,  KC_DEL,   KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
       ),
 
   /* FN
@@ -120,7 +119,7 @@ int RGB_current_mode;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   //if (record->event.pressed)
-  //  iota_gfx_activity();
+  //  oled_activity();
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -154,13 +153,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       #endif
       break;
-    case OLEDRST:
-      #ifdef SSD1306OLED
-        if (record->event.pressed) {
-          iota_gfx_init(!has_usb());
-        }
-      #endif
-      break;
   }
   return true;
 }
@@ -171,7 +163,7 @@ void matrix_init_user(void) {
 #endif
 //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
-  //iota_gfx_init(!has_usb());   // turns on the display
+  oled_init(!has_usb());   // turns on the display
 #endif
 }
 
@@ -185,7 +177,7 @@ static void render_logo(void) {
     0xa0,0xa1,0xa2,0xa3,0xa4,0xa5,0xa6,0xa7,0xa8,0xa9,0xaa,0xab,0xac,0xad,0xae,0xaf,0xb0,0xb1,0xb2,0xb3,0xb4,
     0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,0};
 
-  iota_gfx_write_P(sol_logo, false);
+  oled_write_P(sol_logo, false);
 }
 
 //assign the right code to your layers for OLED display
@@ -203,48 +195,48 @@ static void render_status(void) {
     {0xb7,0xb8,0x0a,0} };
 
   if (keymap_config.swap_lalt_lgui != false) {
-    iota_gfx_write_P(mode_logo[0], false);
-    iota_gfx_write_P(mode_logo[1], false);
+    oled_write_P(mode_logo[0], false);
+    oled_write_P(mode_logo[1], false);
   } else {
-    iota_gfx_write_P(mode_logo[2], false);
-    iota_gfx_write_P(mode_logo[3], false);
+    oled_write_P(mode_logo[2], false);
+    oled_write_P(mode_logo[3], false);
   }
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
 
-  iota_gfx_write_P(PSTR("Layer: "), false);
+  oled_write_P(PSTR("Layer: "), false);
   switch (layer_state) {
     case L_BASE:
-      iota_gfx_write_P(PSTR("Default\n"), false);
+      oled_write_P(PSTR("Default\n"), false);
       break;
     case L_FN:
-      iota_gfx_write_P(PSTR("FN     \n"), false);
+      oled_write_P(PSTR("FN     \n"), false);
       break;
     case L_ADJ:
     case L_ADJ_TRI:
-      iota_gfx_write_P(PSTR("ADJ    \n"), false);
+      oled_write_P(PSTR("ADJ    \n"), false);
       break;
     default:
-      iota_gfx_write_P(PSTR("UNDEF  \n"), false);
+      oled_write_P(PSTR("UNDEF  \n"), false);
   }
 
   // Host Keyboard LED Status
   uint8_t led_usb_state = host_keyboard_leds();
-  iota_gfx_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUM ") : PSTR("    "), false);
-  iota_gfx_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAP ") : PSTR("    "), false);
-  iota_gfx_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCR ") : PSTR("    "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_NUM_LOCK) ? PSTR("NUM ") : PSTR("    "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_CAPS_LOCK) ? PSTR("CAP ") : PSTR("    "), false);
+  oled_write_P(led_usb_state & (1<<USB_LED_SCROLL_LOCK) ? PSTR("SCR ") : PSTR("    "), false);
 }
 
 void matrix_scan_user(void) {
-  if (!iota_gfx_ready())
+  if (!oled_ready())
     return;
 
-  iota_gfx_set_cursor(0, 0);
+  oled_set_cursor(0, 0);
   if (is_master)
     render_status();
   else
     render_logo();
-  iota_gfx_render(); // slow =(
+  oled_render(); // slow =(
 }
 
 #endif
