@@ -128,10 +128,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_SYS] = LAYOUT( \
-  RESET,   DEBUG,   QWERTY,  CMK_DHM, _______,      _______, KC_MRWD, KC_MFFD, KC__VOLUP, KC__VOLDOWN, \
-  KC_DEL,  KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_POWER,VOL_DN,  VOL_UP,  KC__MUTE,  KC_MPLY,     \
-  _______, _______, _______, AU_OFF,  AU_ON,        _______, NUM_LK,  _______, _______,   _______,     \
-                    _______, _______, _______,      _______, _______, _______                          \
+  RESET,   DEBUG,   QWERTY,  CMK_DHM, _______,      _______,  KC__VOLDOWN, KC__VOLUP, KC_MRWD,  KC_MFFD,     \
+  KC_DEL,  KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_POWER, VOL_DN,      VOL_UP,    KC__MUTE, KC_MPLY,     \
+  _______, _______, _______, AU_OFF,  AU_ON,        _______,  NUM_LK,      _______,   _______,  _______,     \
+                    _______, _______, _______,      _______,  _______,     _______                           \
 ),
 
 /* Navigation + mouse keys
@@ -229,7 +229,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   static uint16_t key_timer;
-  bool tap_not_interrupted = record->tap.count > 0 && !record->tap.interrupted;
+  // bool tap_not_interrupted = record->tap.count > 0 && !record->tap.interrupted;
 
   switch (keycode) {
 
@@ -248,54 +248,54 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ALT_OP:
       if (record->event.pressed) {
         key_timer = timer_read();
-        if (!tap_not_interrupted) {
+        if (!record->tap.interrupted) {
           register_mods(MOD_BIT(KC_LALT));
         }
-        reset_oneshot_layer();
-      }
-      else if (tap_not_interrupted && timer_elapsed(key_timer) < TAPPING_TERM) {
-        add_weak_mods(MOD_BIT(KC_LSFT));
-        tap_code(KC_9);
-        del_weak_mods(MOD_BIT(KC_LSFT));
       }
       else {
         unregister_mods(MOD_BIT(KC_LALT));
+        reset_oneshot_layer();
+        if (timer_elapsed(key_timer) < TAPPING_TERM) {
+          register_mods(MOD_BIT(KC_LSFT));
+          tap_code(KC_9);
+          unregister_mods(MOD_BIT(KC_LSFT));
+        }
       }
       return false;
 
     case CTL_CCB:
       if (record->event.pressed) {
         key_timer = timer_read();
-        if (!tap_not_interrupted) {
+        if (!record->tap.interrupted) {
           register_mods(MOD_BIT(KC_LCTL));
         }
-        reset_oneshot_layer();
-      }
-      else if (tap_not_interrupted && timer_elapsed(key_timer) < TAPPING_TERM) {
-        add_weak_mods(MOD_BIT(KC_LSFT));
-        tap_code(KC_RBRC);
-        del_weak_mods(MOD_BIT(KC_LSFT));
       }
       else {
         unregister_mods(MOD_BIT(KC_LCTL));
+        reset_oneshot_layer();
+        if (timer_elapsed(key_timer) < TAPPING_TERM) {
+          register_mods(MOD_BIT(KC_LSFT));
+          tap_code(KC_RBRC);
+          unregister_mods(MOD_BIT(KC_LSFT));
+        }
       }
       return false;
 
     case GUI_CP:
       if (record->event.pressed) {
         key_timer = timer_read();
-        if (!tap_not_interrupted) {
+        if (!record->tap.interrupted) {
           register_mods(MOD_BIT(KC_LGUI));
         }
-        reset_oneshot_layer();
-      }
-      else if (tap_not_interrupted && timer_elapsed(key_timer) < TAPPING_TERM) {
-        add_weak_mods(MOD_BIT(KC_LSFT));
-        tap_code(KC_0);
-        del_weak_mods(MOD_BIT(KC_LSFT));
       }
       else {
         unregister_mods(MOD_BIT(KC_LGUI));
+        reset_oneshot_layer();
+        if (timer_elapsed(key_timer) < TAPPING_TERM) {
+          register_mods(MOD_BIT(KC_LSFT));
+          tap_code(KC_0);
+          unregister_mods(MOD_BIT(KC_LSFT));
+        }
       }
       return false;
 
