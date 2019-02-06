@@ -1,5 +1,5 @@
 /*
-Copyright 2017 Cole Markham
+Copyright 2019 Cole Markham
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    WoodKeys.click
 #define PRODUCT         Scarlet Bandana Version IV mark.2
-#define DESCRIPTION     What keyboard is that?
+#define DESCRIPTION     65% with macro keys
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -51,5 +51,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Disable music mode to keep the firmware size down
 #define NO_MUSIC_MODE
 #endif
+
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 #define DEBOUNCING_DELAY 5
