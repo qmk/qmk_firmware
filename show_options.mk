@@ -79,7 +79,16 @@ OTHER_OPTION_NAMES = \
   SWAP_HANDS_ENABLE \
   USB_6KRO_ENABLE \
   WATCHDOG_ENABLE \
-  XT_ENABLE
+  XT_ENABLE \
+  ERGOINU \
+  NO_USB_STARTUP_CHECK \
+  DISABLE_PROMICRO_LEDs \
+  MITOSIS_DATAGROK_BOTTOMSPACE \
+  MITOSIS_DATAGROK_SLOWUART \
+  RGB_MATRIX_KEYPRESSES \
+  LED_MIRRORED \
+  RGBLIGHT_FULL_POWER \
+  Link_Time_Optimization
 
 define NAME_ECHO
 	@echo "  $1 = $($1)		# $(origin $1)"
@@ -90,6 +99,8 @@ endef
 show_build_options0:
 	@echo " KEYBOARD = $(KEYBOARD)"
 	@echo " KEYMAP   = $(KEYMAP)"
+	@echo " MCU      = $(MCU)"
+	@echo " MCU_SERIES = $(MCU_SERIES)"
 	@echo " PLATFORM = $(PLATFORM)"
 	@echo " FIRMWARE_FORMAT = $(FIRMWARE_FORMAT)"
 	@echo
