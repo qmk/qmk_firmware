@@ -15,10 +15,10 @@
  */
 #include QMK_KEYBOARD_H
 
-#define DEFAULT 0     //Custom ANSI
-#define LAYER1 1 	  //Default ANSI (enable with Fn2+D)
-#define LAYER2 2 	  //Function keys, arrows, custom shortcuts, volume control
-#define LAYER3 3 	  //RGB Underglow controls and RESET
+#define DEFAULT 0  //Custom ANSI
+#define LAYER1 1   //Default ANSI (enable with Fn2+D)
+#define LAYER2 2   //Function keys, arrows, custom shortcuts, volume control
+#define LAYER3 3   //RGB Underglow controls and RESET
 
 //Aliases for longer keycodes
 #define KC_CAD	LALT(LCTL(KC_DEL))
