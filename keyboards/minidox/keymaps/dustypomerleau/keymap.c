@@ -248,13 +248,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ALT_OP:
       if (record->event.pressed) {
         key_timer = timer_read();
-        if (!record->tap.interrupted) {
-          register_mods(MOD_BIT(KC_LALT));
-        }
+        register_mods(MOD_BIT(KC_LALT));
       }
       else {
         unregister_mods(MOD_BIT(KC_LALT));
-        reset_oneshot_layer();
         if (timer_elapsed(key_timer) < TAPPING_TERM) {
           register_mods(MOD_BIT(KC_LSFT));
           tap_code(KC_9);
