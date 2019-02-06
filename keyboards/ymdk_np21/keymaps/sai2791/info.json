@@ -5,7 +5,7 @@
     "width": 4,
     "height": 6.5,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_numpad_6x4": {
             "layout": [{"label":"Esc", "x":0, "y":0},
                            {"label":"Tab", "x":1, "y":0},
                            {"label":"BSpc", "x":2, "y":0},
