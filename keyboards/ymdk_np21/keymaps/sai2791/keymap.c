@@ -88,13 +88,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _NP:
-        backlight_set(1);
+        backlight_set(0);
         break;
     case _BL:
-        backlight_set(10);
+        backlight_set(20);
         break;
     case _MP:
-        backlight_set(20);
+        backlight_set(60);
         break;
 
     default: //  for any other layers, or the default layer
