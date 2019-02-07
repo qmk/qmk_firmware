@@ -92,7 +92,6 @@ int main(void)
     _delay_ms(4);
     }
 
-
     debug("init: done\n");
 
     for (;;) {

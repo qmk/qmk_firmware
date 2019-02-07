@@ -60,21 +60,21 @@ Sometimes, you might want to switch between layers in a macro or as part of a ta
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
-|Key       |Aliases               |Description                                         |
-|----------|----------------------|----------------------------------------------------|
-|`LCTL(kc)`|                      |Hold Left Control and press `kc`                    |
-|`LSFT(kc)`|`S(kc)`               |Hold Left Shift and press `kc`                      |
-|`LALT(kc)`|                      |Hold Left Alt and press `kc`                        |
-|`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
-|`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
-|`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|`ALGR(kc)`            |Hold Right Alt and press `kc`                       |
-|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
-|`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
-|`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
-|`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
-|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
-|`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
+|Key       |Aliases                        |Description                                         |
+|----------|-------------------------------|----------------------------------------------------|
+|`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                    |
+|`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                      |
+|`LALT(kc)`|`A(kc)`                        |Hold Left Alt and press `kc`                        |
+|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
+|`RCTL(kc)`|                               |Hold Right Control and press `kc`                   |
+|`RSFT(kc)`|                               |Hold Right Shift and press `kc`                     |
+|`RALT(kc)`|`ALGR(kc)`                     |Hold Right Alt and press `kc`                       |
+|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`         |Hold Right GUI and press `kc`                       |
+|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`              |
+|`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`            |
+|`LCAG(kc)`|                               |Hold Left Control, Alt and GUI and press `kc`       |
+|`MEH(kc)` |                               |Hold Left Control, Shift and Alt and press `kc`     |
+|`HYPR(kc)`|                               |Hold Left Control, Shift, Alt and GUI and press `kc`|
 
 You can also chain them, for example `LCTL(LALT(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
 
@@ -110,20 +110,20 @@ For convenience, QMK includes some Mod-Tap shortcuts to make common combinations
 |Key         |Aliases                                                          |Description                                            |
 |------------|-----------------------------------------------------------------|-------------------------------------------------------|
 |`LCTL_T(kc)`|`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped               |
-|`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped              |
 |`LSFT_T(kc)`|`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                 |
-|`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                |
 |`LALT_T(kc)`|`ALT_T(kc)`                                                      |Left Alt when held, `kc` when tapped                   |
-|`RALT_T(kc)`|`ALGR_T(kc)`                                                     |Right Alt when held, `kc` when tapped                  |
 |`LGUI_T(kc)`|`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                   |
+|`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped              |
+|`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                |
+|`RALT_T(kc)`|`ALGR_T(kc)`                                                     |Right Alt when held, `kc` when tapped                  |
 |`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                  |
-|`C_S_T(kc)` |                                                                 |Left Control and Shift when held, `kc` when tapped     |
-|`MEH_T(kc)` |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
-|`LCAG_T(kc)`|                                                                 |Left Control, Alt and GUI when held, `kc` when tapped  |
-|`RCAG_T(kc)`|                                                                 |Right Control, Alt and GUI when held, `kc` when tapped |
-|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 |`SGUI_T(kc)`|`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped         |
 |`LCA_T(kc)` |                                                                 |Left Control and Alt when held, `kc` when tapped       |
+|`LCAG_T(kc)`|                                                                 |Left Control, Alt and GUI when held, `kc` when tapped  |
+|`RCAG_T(kc)`|                                                                 |Right Control, Alt and GUI when held, `kc` when tapped |
+|`C_S_T(kc)` |                                                                 |Left Control and Shift when held, `kc` when tapped     |
+|`MEH_T(kc)` |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
+|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
 
 ## Caveats
 
@@ -160,6 +160,81 @@ For one shot layers, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` 
 For one shot mods, you need to call `set_oneshot_mods(MOD)` to set it, or `clear_oneshot_mods()` to cancel it.
 
 !> If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
+
+## Callbacks
+
+When you'd like to perform custom logic when pressing a one shot key, there are several callbacks you can choose to implement. You could indicate changes in one shot keys by flashing an LED or making a sound, for example.
+
+There is a callback for `OSM(mod)`. It is called whenever the state of any one shot modifier key is changed: when it toggles on, but also when it is toggled off. You can use it like this:
+
+```c
+void oneshot_mods_changed_user(uint8_t mods) {
+  if (mods & MOD_MASK_SHIFT) {
+    println("Oneshot mods SHIFT");
+  }
+  if (mods & MOD_MASK_CTRL) {
+    println("Oneshot mods CTRL");
+  }
+  if (mods & MOD_MASK_ALT) {
+    println("Oneshot mods ALT");
+  }
+  if (mods & MOD_MASK_GUI) {
+    println("Oneshot mods GUI");
+  }
+  if (!mods) {
+    println("Oneshot mods off");
+  }
+}
+```
+
+The `mods` argument contains the active mods after the change, so it reflects the current state.
+
+When you use One Shot Tap Toggle (by adding `#define ONESHOT_TAP_TOGGLE 2` in your `config.h` file), you may lock a modifier key by pressing it the specified amount of times. There's a callback for that, too:
+
+```c
+void oneshot_locked_mods_changed_user(uint8_t mods) {
+  if (mods & MOD_MASK_SHIFT) {
+    println("Oneshot locked mods SHIFT");
+  }
+  if (mods & MOD_MASK_CTRL) {
+    println("Oneshot locked mods CTRL");
+  }
+  if (mods & MOD_MASK_ALT) {
+    println("Oneshot locked mods ALT");
+  }
+  if (mods & MOD_MASK_GUI) {
+    println("Oneshot locked mods GUI");
+  }
+  if (!mods) {
+    println("Oneshot locked mods off");
+  }
+}
+```
+
+Last, there is also a callback for the `OSL(layer)` one shot key:
+
+```c
+void oneshot_layer_changed_user(uint8_t layer) {
+  if (layer == 1) {
+    println("Oneshot layer 1 on");
+  }
+  if (!layer) {
+    println("Oneshot layer off");
+  }
+}
+```
+
+If any one shot layer is switched off, `layer` will be zero. When you're looking to do something on any layer change instead of one shot layer changes, `layer_state_set_user` is a better callback to use.
+
+If you are making your own keyboard, there are also `_kb` equivalent functions:
+
+```c
+void oneshot_locked_mods_changed_kb(uint8_t mods);
+void oneshot_mods_changed_kb(uint8_t mods);
+void oneshot_layer_changed_kb(uint8_t layer);
+```
+
+As with any callback, be sure to call the `_user` variant to allow for further customizability.
 
 # Tap-Hold Configuration Options
 
