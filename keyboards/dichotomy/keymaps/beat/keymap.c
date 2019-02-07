@@ -86,6 +86,30 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			SetBitMask(currentReport.buttons, MOUSE_BTN3, record->event.pressed);
 			pointing_device_set_report(currentReport);
 			return false;
+    case KC_WH_U:
+			currentReport = pointing_device_get_report();
+      if(record->event.pressed)
+      {
+        currentReport.v += 1;
+      }
+      else
+      {
+        currentReport.v = 0;
+      }
+			pointing_device_set_report(currentReport);
+			return false;
+    case KC_WH_D:
+			currentReport = pointing_device_get_report();
+      if(record->event.pressed)
+      {
+        currentReport.v -= 1;
+      }
+      else
+      {
+        currentReport.v = 0;
+      }
+      pointing_device_set_report(currentReport);
+			return false;
 	}
 	return true;
 }
