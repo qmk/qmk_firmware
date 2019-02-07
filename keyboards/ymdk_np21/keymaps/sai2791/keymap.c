@@ -91,10 +91,10 @@ uint32_t layer_state_set_user(uint32_t state) {
         backlight_set(1);
         break;
     case _BL:
-        backlight_set(0);
+        backlight_set(10);
         break;
     case _MP:
-        backlight_set(1);
+        backlight_set(20);
         break;
 
     default: //  for any other layers, or the default layer
