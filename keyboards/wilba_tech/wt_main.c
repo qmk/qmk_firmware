@@ -15,8 +15,11 @@
  */
 
 #include "quantum.h"
+#ifdef WT_MONO_BACKLIGHT
 #include "keyboards/wilba_tech/wt_mono_backlight.h"
+#endif
 #include "keyboards/zeal60/zeal60_api.h" // Temporary hack
+#include "keyboards/zeal60/zeal60_keycodes.h" // Temporary hack
 
 #include "raw_hid.h"
 #include "dynamic_keymap.h"
@@ -91,22 +94,57 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 			dynamic_keymap_reset();
 			break;
 		}
+		case id_dynamic_keymap_macro_get_count:
+		{
+			command_data[0] = dynamic_keymap_macro_get_count();
+			break;
+		}
+		case id_dynamic_keymap_macro_get_buffer_size:
+		{
+			uint16_t size = dynamic_keymap_macro_get_buffer_size();
+			command_data[0] = size >> 8;
+			command_data[1] = size & 0xFF;
+			break;
+		}
+		case id_dynamic_keymap_macro_get_buffer:
+		{
+			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+			uint16_t size = command_data[2]; // size <= 28
+			dynamic_keymap_macro_get_buffer( offset, size, &command_data[3] );
+			break;
+		}
+		case id_dynamic_keymap_macro_set_buffer:
+		{
+			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+			uint16_t size = command_data[2]; // size <= 28
+			dynamic_keymap_macro_set_buffer( offset, size, &command_data[3] );
+			break;
+		}
+		case id_dynamic_keymap_macro_reset:
+		{
+			dynamic_keymap_macro_reset();
+			break;
+		}
+		case id_dynamic_keymap_get_layer_count:
+		{
+			command_data[0] = dynamic_keymap_get_layer_count();
+			break;
+		}
+		case id_dynamic_keymap_get_buffer:
+		{
+			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+			uint16_t size = command_data[2]; // size <= 28
+			dynamic_keymap_get_buffer( offset, size, &command_data[3] );
+			break;
+		}
+		case id_dynamic_keymap_set_buffer:
+		{
+			uint16_t offset = ( command_data[0] << 8 ) | command_data[1];
+			uint16_t size = command_data[2]; // size <= 28
+			dynamic_keymap_set_buffer( offset, size, &command_data[3] );
+			break;
+		}
 #endif // DYNAMIC_KEYMAP_ENABLE
-		case id_backlight_config_set_value:
-		{
-			//backlight_config_set_value(command_data);
-			break;
-		}
-		case id_backlight_config_get_value:
-		{
-			//backlight_config_get_value(command_data);
-			break;
-		}
-		case id_backlight_config_save:
-		{
-			//backlight_config_save();
-			break;
-		}
 		case id_eeprom_reset:
 		{
 			eeprom_reset();
@@ -151,16 +189,20 @@ void main_init(void)
 #ifdef DYNAMIC_KEYMAP_ENABLE
 		// This resets the keymaps in EEPROM to what is in flash.
 		dynamic_keymap_reset();
+		// This resets the macros in EEPROM to nothing.
+		dynamic_keymap_macro_reset();
 #endif
 		// Save the magic number last, in case saving was interrupted
 		eeprom_set_valid(true);
 	}
 
+#ifdef WT_MONO_BACKLIGHT
 	// Initialize LED drivers for backlight.
 	backlight_init_drivers();
 
 	backlight_timer_init();
 	backlight_timer_enable();
+#endif
 }
 
 void bootmagic_lite(void)
@@ -192,7 +234,49 @@ void matrix_init_kb(void)
 
 void matrix_scan_kb(void)
 {
+#ifdef WT_MONO_BACKLIGHT
 	// This only updates the LED driver buffers if something has changed.
 	backlight_update_pwm_buffers();
+#endif
 	matrix_scan_user();
+}
+
+bool process_record_kb(uint16_t keycode, keyrecord_t *record)
+{
+	switch(keycode) {
+		case FN_MO13:
+			if (record->event.pressed) {
+				layer_on(1);
+				update_tri_layer(1, 2, 3);
+			} else {
+				layer_off(1);
+				update_tri_layer(1, 2, 3);
+			}
+			return false;
+			break;
+		case FN_MO23:
+			if (record->event.pressed) {
+				layer_on(2);
+				update_tri_layer(1, 2, 3);
+			} else {
+				layer_off(2);
+				update_tri_layer(1, 2, 3);
+			}
+			return false;
+			break;
+	}
+
+#ifdef DYNAMIC_KEYMAP_ENABLE
+	// Handle macros
+	if (record->event.pressed) {
+		if ( keycode >= MACRO00 && keycode <= MACRO15 )
+		{
+			uint8_t id = keycode - MACRO00;
+			dynamic_keymap_macro_send(id);
+			return false;
+		}
+	}
+#endif //DYNAMIC_KEYMAP_ENABLE
+
+	return process_record_user(keycode, record);
 }

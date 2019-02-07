@@ -80,7 +80,9 @@ float startup_song[][2] = STARTUP_SONG;
 static void gpt_cb8(GPTDriver *gptp);
 
 #define DAC_BUFFER_SIZE 720
+#ifndef DAC_SAMPLE_MAX
 #define DAC_SAMPLE_MAX  65535U
+#endif
 
 #define START_CHANNEL_1() gptStart(&GPTD6, &gpt6cfg1); \
     gptStartContinuous(&GPTD6, 2U)

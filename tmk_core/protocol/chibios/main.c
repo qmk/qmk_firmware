@@ -113,7 +113,7 @@ int main(void) {
   chSysInit();
 
 #ifdef STM32_EEPROM_ENABLE
-  EEPROM_init();
+  EEPROM_Init();
 #endif
 
   // TESTING

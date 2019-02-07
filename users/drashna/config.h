@@ -3,7 +3,7 @@
 
 #ifdef AUDIO_ENABLE
 #define AUDIO_CLICKY
-#define STARTUP_SONG SONG(E1M1_DOOM)
+#define STARTUP_SONG SONG(RICK_ROLL)
 #define GOODBYE_SONG  SONG(SONIC_RING)
 #define DEFAULT_LAYER_SONGS { SONG(QWERTY_SOUND), \
                                   SONG(COLEMAK_SOUND), \
@@ -14,8 +14,12 @@
 #define AUDIO_CLICKY_FREQ_RANDOMNESS 1.5f
 // #ifdef RGBLIGHT_ENABLE
 // #define NO_MUSIC_MODE
-// #endif //RGBLIGHT_ENABLE
-#endif
+// #endif //RGBLIGHT_ENABLE/
+#ifndef __arm__
+#undef  NOTE_REST
+#define NOTE_REST         1.00f
+#endif // !__arm__
+#endif // !AUDIO_ENABLE
 
 #ifdef RGBLIGHT_ENABLE
 #define RGBLIGHT_SLEEP
@@ -44,7 +48,7 @@
 // and when this option isn't enabled, z rapidly followed by x
 // actually sends Ctrl-x. That's bad.)
 #define IGNORE_MOD_TAP_INTERRUPT
-#define PERMISSIVE_HOLD
+#undef PERMISSIVE_HOLD
 //#define TAPPING_FORCE_HOLD
 //#define RETRO_TAPPING
 

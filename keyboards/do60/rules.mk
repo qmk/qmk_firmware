@@ -63,4 +63,4 @@ RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 UNICODE_ENABLE = no         # Unicode
 
-LAYOUTS = 60_ansi 60_ansi_split_bs_rshift
+LAYOUTS = 60_ansi 60_hhkb 60_ansi_split_bs_rshift

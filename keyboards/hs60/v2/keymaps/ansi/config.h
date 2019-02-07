@@ -19,3 +19,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Include overwrites for specific keymap */
 
 #define HS60_ANSI
+#undef  PRODUCT_ID
+#define PRODUCT_ID      0x4854

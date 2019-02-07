@@ -15,6 +15,11 @@
  */
 
 #include "quantum.h"
+
+#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
+	#include "rgb.h"
+#endif
+
 #ifdef PROTOCOL_LUFA
 #include "outputselect.h"
 #endif
@@ -132,6 +137,14 @@ void unregister_code16 (uint16_t code) {
   }
 }
 
+void tap_code16(uint16_t code) {
+  register_code16(code);
+  #if TAP_CODE_DELAY > 0
+    wait_ms(TAP_CODE_DELAY);
+  #endif
+  unregister_code16(code);
+}
+
 __attribute__ ((weak))
 bool process_action_kb(keyrecord_t *record) {
   return true;
@@ -180,6 +193,13 @@ void reset_keyboard(void) {
 #endif
 #ifndef RSPC_KEY
   #define RSPC_KEY KC_0
+#endif
+
+#ifndef LSPO_MOD
+  #define LSPO_MOD KC_LSFT
+#endif
+#ifndef RSPC_MOD
+  #define RSPC_MOD KC_RSFT
 #endif
 
 // Shift / Enter setup
@@ -235,7 +255,7 @@ bool process_record_quantum(keyrecord_t *record) {
     process_key_lock(&keycode, record) &&
   #endif
   #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
-      process_clicky(keycode, record) &&
+    process_clicky(keycode, record) &&
   #endif //AUDIO_CLICKY
     process_record_kb(keycode, record) &&
   #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
@@ -250,11 +270,14 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef STENO_ENABLE
     process_steno(keycode, record) &&
   #endif
-  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
+  #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
+  #endif
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    process_unicode_common(keycode, record) &&
   #endif
   #ifdef LEADER_ENABLE
     process_leader(keycode, record) &&
@@ -262,20 +285,11 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef COMBO_ENABLE
     process_combo(keycode, record) &&
   #endif
-  #ifdef UNICODE_ENABLE
-    process_unicode(keycode, record) &&
-  #endif
-  #ifdef UCIS_ENABLE
-    process_ucis(keycode, record) &&
-  #endif
   #ifdef PRINTING_ENABLE
     process_printer(keycode, record) &&
   #endif
   #ifdef AUTO_SHIFT_ENABLE
     process_auto_shift(keycode, record) &&
-  #endif
-  #ifdef UNICODEMAP_ENABLE
-    process_unicode_map(keycode, record) &&
   #endif
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
@@ -667,14 +681,27 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       else {
         #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(KC_RSFT)) {
+          if (get_mods() & MOD_BIT(RSPC_MOD)) {
             shift_interrupted[0] = true;
             shift_interrupted[1] = true;
           }
         #endif
         if (!shift_interrupted[0] && timer_elapsed(scs_timer[0]) < TAPPING_TERM) {
+          #ifdef DISABLE_SPACE_CADET_MODIFIER
+            unregister_mods(MOD_BIT(KC_LSFT));
+          #else
+            if( LSPO_MOD != KC_LSFT ){
+              unregister_mods(MOD_BIT(KC_LSFT));
+              register_mods(MOD_BIT(LSPO_MOD));
+            }
+          #endif
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
+          #ifndef DISABLE_SPACE_CADET_MODIFIER
+            if( LSPO_MOD != KC_LSFT ){
+              unregister_mods(MOD_BIT(LSPO_MOD));
+            }
+          #endif
         }
         unregister_mods(MOD_BIT(KC_LSFT));
       }
@@ -689,14 +716,27 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       else {
         #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(KC_LSFT)) {
+          if (get_mods() & MOD_BIT(LSPO_MOD)) {
             shift_interrupted[0] = true;
             shift_interrupted[1] = true;
           }
         #endif
         if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
+          #ifdef DISABLE_SPACE_CADET_MODIFIER
+            unregister_mods(MOD_BIT(KC_RSFT));
+          #else
+            if( RSPC_MOD != KC_RSFT ){
+              unregister_mods(MOD_BIT(KC_RSFT));
+              register_mods(MOD_BIT(RSPC_MOD));
+            }
+          #endif
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
+          #ifndef DISABLE_SPACE_CADET_MODIFIER
+            if ( RSPC_MOD != KC_RSFT ){
+              unregister_mods(MOD_BIT(RSPC_MOD));
+            }
+          #endif
         }
         unregister_mods(MOD_BIT(KC_RSFT));
       }
@@ -1001,6 +1041,9 @@ void matrix_init_quantum() {
   #endif
   #ifdef ENCODER_ENABLE
     encoder_init();
+  #endif
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    unicode_input_mode_init();
   #endif
   matrix_init_kb();
 }
@@ -1437,6 +1480,24 @@ void led_set(uint8_t usb_led)
     //     DDRE &= ~(1<<6);
     //     PORTE &= ~(1<<6);
     // }
+
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+  // Use backlight as Caps Lock indicator
+  uint8_t bl_toggle_lvl = 0;
+
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) && !backlight_config.enable) {
+    // Turning Caps Lock ON and backlight is disabled in config
+    // Toggling backlight to the brightest level
+    bl_toggle_lvl = BACKLIGHT_LEVELS;
+  } else if (IS_LED_OFF(usb_led, USB_LED_CAPS_LOCK) && backlight_config.enable) {
+    // Turning Caps Lock OFF and backlight is enabled in config
+    // Toggling backlight and restoring config level
+    bl_toggle_lvl = backlight_config.level;
+  }
+
+  // Set level without modify backlight_config to keep ability to restore state
+  backlight_set(bl_toggle_lvl);
+#endif
 
   led_set_kb(usb_led);
 }
