@@ -1,19 +1,14 @@
 #include QMK_KEYBOARD_H
 
-//layers
-#define _QWERTY 0
-#define _SYMBL  1
-#define _NUMBS  2
-
 //mod tap keys
 #define SHFZ MT(MOD_LSFT, KC_Z)
 #define SHFS MT(MOD_RSFT, KC_SLSH)
 
 enum custom_keycodes
 {
-  QWERTY = SAFE_RANGE,
-  SYMBL,
-  NUMBS,
+  _QWERTY = SAFE_RANGE,
+  _SYMBL,
+  _NUMBS,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] =
