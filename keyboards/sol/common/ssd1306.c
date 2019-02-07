@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ssd1306.h"
 #include "i2c_master.h"
 #include "common/glcdfont.c"
+#include "timer.h"
 
 #include <string.h>
 
@@ -59,12 +60,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Misc defines
 #define SSD1306_ADDRESS (0x3C << 1)
-#define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8) * OLED_DISPLAY_WIDTH
+#define OLED_MATRIX_SIZE ((OLED_DISPLAY_HEIGHT / 8) * OLED_DISPLAY_WIDTH)
+#define OLED_TIMEOUT 60000
+#define OLED_BLOCK_COUNT 8
+#define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
+// TODO: block count is 8 because uint8_t is used, make this adjustable
 
 // i2c defines
+#define I2C_CMD 0x00
+#define I2C_DATA 0x40
 #define I2C_TIMEOUT 100
-#define I2C_SEND_CMD(data) i2c_writeReg_P(SSD1306_ADDRESS, 0x00, &data[0], sizeof(data), I2C_TIMEOUT)
-#define I2C_SEND_DATA(data) i2c_writeReg(SSD1306_ADDRESS, 0x40, &data[0], sizeof(data), I2C_TIMEOUT)
+#define I2C_SEND_P(mode, data) i2c_writeReg_P(SSD1306_ADDRESS, mode, &data[0], sizeof(data), I2C_TIMEOUT)
+#define I2C_SEND(mode, data) i2c_writeReg(SSD1306_ADDRESS, mode, &data[0], sizeof(data), I2C_TIMEOUT)
+#define I2C_SEND_SIZE(mode, data, size) i2c_writeReg(SSD1306_ADDRESS, mode, data, size, I2C_TIMEOUT)
 
 #define OLED_DEBUGGING
 #ifdef OLED_DEBUGGING
@@ -84,11 +92,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // and also allows for drawing & inverting
 static uint8_t  display_buffer[OLED_MATRIX_SIZE];
 static uint8_t* display_cursor;
-static bool     display_dirty = false;
+static uint8_t  display_dirty = 0;
 static bool     display_initialized = false;
-
+static bool     display_active = false;
+static uint16_t last_activity;
 
 // identical to i2c_writeReg, but for PROGMEM since all initialization is in PROGMEM arrays currently
+// probably should move this into i2c_master...
 static i2c_status_t i2c_writeReg_P(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout)
 {
     i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
@@ -158,7 +168,8 @@ static void WriteCharToBuffer(const uint8_t data, bool invert)
     {
         memcpy(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH);
         memset(display_cursor, invert, OLED_FONT_WIDTH);
-        display_dirty |= memcmp(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH) != 0;
+        if (memcmp(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH))
+            display_dirty |= (1 << ((display_cursor - &display_buffer[0]) / OLED_BLOCK_SIZE));
         AdvanceCursor();
         return;
     }
@@ -168,7 +179,8 @@ static void WriteCharToBuffer(const uint8_t data, bool invert)
         memcpy(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH);
         memcpy_P(display_cursor, glyph, OLED_FONT_WIDTH);
         if (invert) InvertCharacter(display_cursor);
-        display_dirty |= memcmp(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH) != 0;
+        if (memcmp(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH))
+            display_dirty |= (1 << ((display_cursor - &display_buffer[0]) / OLED_BLOCK_SIZE));
         AdvanceCursor();
     }
 }
@@ -184,21 +196,21 @@ void oled_init(bool flip180)
         DISPLAY_START_LINE | 0x00,
         CHARGE_PUMP, 0x14,
         MEMORY_MODE, 0x00, };
-    DEBUG_PRINT(I2C_SEND_CMD(display_setup1), "display_setup1 failed\n");
+    DEBUG_PRINT(I2C_SEND_P(I2C_CMD, display_setup1), "display_setup1 failed\n");
 
     if (!flip180)
     {
         static const uint8_t PROGMEM display_normal[] = {
             SEGMENT_REMAP_INV,
             COM_SCAN_DEC };
-        DEBUG_PRINT(I2C_SEND_CMD(display_normal), "display_normal failed\n");
+        DEBUG_PRINT(I2C_SEND_P(I2C_CMD, display_normal), "display_normal failed\n");
     }
     else
     {
         static const uint8_t PROGMEM display_flipped[] = {
             SEGMENT_REMAP,
             COM_SCAN_INC };
-        DEBUG_PRINT(I2C_SEND_CMD(display_flipped), "display_flipped failed\n");
+        DEBUG_PRINT(I2C_SEND_P(I2C_CMD, display_flipped), "display_flipped failed\n");
     }
 
     static const uint8_t PROGMEM display_setup2[] = {
@@ -210,17 +222,18 @@ void oled_init(bool flip180)
         NORMAL_DISPLAY,
         DEACTIVATE_SCROLL,
         DISPLAY_ON };
-    DEBUG_PRINT(I2C_SEND_CMD(display_setup2), "display_setup2 failed\n");
+    DEBUG_PRINT(I2C_SEND_P(I2C_CMD, display_setup2), "display_setup2 failed\n");
 
     oled_clear();
     display_initialized = true;
+    display_active = true;
 }
 
 void oled_clear(void)
 {
     memset(display_buffer, 0, sizeof(display_buffer));
     display_cursor = &display_buffer[0];
-    display_dirty = true;
+    display_dirty = 0xFF;
 }
 
 void oled_set_cursor(uint8_t col, uint8_t line)
@@ -233,18 +246,48 @@ void oled_set_cursor(uint8_t col, uint8_t line)
         display_cursor = &display_buffer[0];
 }
 
+#define BYTE_TO_BINARY_PATTERN "%c%c%c%c%c%c%c%c"
+#define BYTE_TO_BINARY(byte)  \
+  (byte & 0x80 ? '1' : '0'), \
+  (byte & 0x40 ? '1' : '0'), \
+  (byte & 0x20 ? '1' : '0'), \
+  (byte & 0x10 ? '1' : '0'), \
+  (byte & 0x08 ? '1' : '0'), \
+  (byte & 0x04 ? '1' : '0'), \
+  (byte & 0x02 ? '1' : '0'), \
+  (byte & 0x01 ? '1' : '0') 
+
 void oled_render(void)
 {
-    static const uint8_t PROGMEM display_start[] = {
+    if (!display_dirty) {
+        static const uint8_t PROGMEM display_off[] = { DISPLAY_OFF };
+        if (display_active && timer_elapsed(last_activity) > OLED_TIMEOUT) {
+            I2C_SEND_P(I2C_CMD, display_off);
+            display_active = false;
+        }
+        return;
+    }
+
+    static uint8_t display_start[] = {
         COLUMN_ADDR, 0, OLED_DISPLAY_WIDTH - 1,
         PAGE_ADDR, 0, OLED_DISPLAY_HEIGHT / 8 - 1 };
 
-    if (!display_dirty) return;
+    // Find first dirty block
+    uint8_t update_start = 0;
+    while(!(display_dirty & (1 << update_start))) ++update_start;
 
-    DEBUG_PRINT(I2C_SEND_CMD(display_start), "oled_render command failed\n");
-    DEBUG_PRINT(I2C_SEND_DATA(display_buffer), "oled_render data failed\n");
+    // Set column position
+    display_start[1] = (OLED_BLOCK_SIZE * update_start) % OLED_DISPLAY_WIDTH;
+    // Set page position
+    display_start[4] = (OLED_BLOCK_SIZE * update_start) / OLED_DISPLAY_WIDTH;
+
+    DEBUG_PRINT(I2C_SEND(I2C_CMD, display_start), "oled_render command failed\n");
+    DEBUG_PRINT(I2C_SEND_SIZE(I2C_DATA, &display_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE), "oled_render data failed\n");
     display_cursor = &display_buffer[0];
-    display_dirty = false;
+    display_dirty &= ~(1 << update_start);
+
+    // Wake up the oled if the oled cgets new data
+    oled_activity();
 }
 
 void oled_write(const char *data, bool invert)
@@ -270,5 +313,16 @@ void oled_write_P(const char *data, bool invert)
 bool oled_ready(void)
 {
     return display_initialized;
+}
+
+void oled_activity(void)
+{
+    last_activity = timer_read();
+
+    static const uint8_t PROGMEM display_on[] = { DISPLAY_ON };
+    if (!display_active) {
+        I2C_SEND_P(I2C_CMD, display_on);
+        display_active = true;
+    }
 }
 #endif

@@ -118,8 +118,10 @@ bool TOG_STATUS = false;
 int RGB_current_mode;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  //if (record->event.pressed)
-  //  oled_activity();
+  // Wake up oled if user is at the keyboard
+  if (record->event.pressed)
+    oled_activity();
+
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
@@ -203,7 +205,6 @@ static void render_status(void) {
   }
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-
   oled_write_P(PSTR("Layer: "), false);
   switch (layer_state) {
     case L_BASE:
@@ -236,7 +237,7 @@ void matrix_scan_user(void) {
     render_status();
   else
     render_logo();
-  oled_render(); // slow =(
+  oled_render();
 }
 
 #endif

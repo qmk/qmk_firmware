@@ -27,8 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_WIDTH 6
 #define OLED_FONT_HEIGHT 8
 
-#define OLED_MAX_CHARS OLED_DISPLAY_WIDTH / OLED_FONT_WIDTH
-#define OLED_MAX_LINES OLED_DISPLAY_HEIGHT / OLED_FONT_HEIGHT
+#define OLED_MAX_CHARS (OLED_DISPLAY_WIDTH / OLED_FONT_WIDTH)
+#define OLED_MAX_LINES (OLED_DISPLAY_HEIGHT / OLED_FONT_HEIGHT)
 
 // Initialize the oled display
 void oled_init(bool flip180);
@@ -51,3 +51,6 @@ void oled_write(const char *data, bool invert);
 void oled_write_P(const char *data, bool invert);
 
 bool oled_ready(void);
+
+// Wakes up the oled if it is off
+void oled_activity(void);
