@@ -6,9 +6,9 @@
 #define VENDOR_ID    0xFEED
 #define PRODUCT_ID   0x7050
 #define DEVICE_VER   0x0001
-#define MANUFACTURER Exclusive / E - Team
-#define PRODUCT      E7 - V1
-#define DESCRIPTION  E7 - V1 QMK PCB(LED)
+#define MANUFACTURER Exclusive / E-Team
+#define PRODUCT      E7-V1
+#define DESCRIPTION  E7-V1 QMK PCB(LED)
 
 /* key matrix size */
 #define MATRIX_ROWS 6

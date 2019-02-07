@@ -48,7 +48,7 @@ uint8_t init_mcp23018(void);
     { L01,   L11,   L21,  KC_NO},   \
     { L00,   L10,   L20,  KC_NO},   \
                                     \
-    { R10,   KC_NO, R20, R30},      \
+    { KC_NO,   R10, R20, R30},      \
     { R00,   R11,   R21, R31},      \
     { R01,   R12,   R22, R32},      \
     { R02,   R13,   R23, R33},      \
