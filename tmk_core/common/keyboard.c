@@ -165,7 +165,6 @@ void keyboard_init(void) {
     timer_init();
     matrix_init();
 #ifdef QWIIC_ENABLE
-    printf("initializing qwiic\n");
     qwiic_init();
 #endif
 #ifdef PS2_MOUSE_ENABLE
@@ -216,8 +215,6 @@ void keyboard_init(void) {
  */
 void keyboard_task(void)
 {
-      dprintf("kbtask\n");
-
     static matrix_row_t matrix_prev[MATRIX_ROWS];
 #ifdef MATRIX_HAS_GHOST
   //  static matrix_row_t matrix_ghost[MATRIX_ROWS];
