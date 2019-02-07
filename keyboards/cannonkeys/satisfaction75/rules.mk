@@ -52,4 +52,4 @@ QWIIC_ENABLE += MICRO_OLED
 RAW_ENABLE = yes
 DYNAMIC_KEYMAP_ENABLE = yes
 
-DEFAULT_FOLDER = handwired/satisfaction75
+DEFAULT_FOLDER = cannonkeys/satisfaction75
