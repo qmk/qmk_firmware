@@ -197,10 +197,6 @@ Missing still...
  },
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 /* This bit of logic seeds a wee linear congruential random number generator */
 /* lots of prime numbers everywhere... */
 static uint16_t random_value = 157;
