@@ -232,6 +232,10 @@ hex: $(BUILD_DIR)/$(TARGET).hex
 cpfirmware: $(FIRMWARE_FORMAT)
 	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
+	@if $(AUTOGEN); then \
+    $(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to keymaps/$(KEYMAP)/$(TARGET).$(FIRMWARE_FORMAT)\n"; \
+    $(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(KEYMAP_PATH)/$(TARGET).$(FIRMWARE_FORMAT); \
+	fi
 eep: $(BUILD_DIR)/$(TARGET).eep
 lss: $(BUILD_DIR)/$(TARGET).lss
 sym: $(BUILD_DIR)/$(TARGET).sym
@@ -260,10 +264,6 @@ gccversion :
 	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
 	$(eval CMD=$(HEX) $< $@)
 	@$(BUILD_CMD)
-	@if $(AUTOGEN); then \
-		$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to keymaps/$(KEYMAP)/$(TARGET).$(FIRMWARE_FORMAT)\n"; \
-		$(COPY) $@ $(KEYMAP_PATH)/$(TARGET).hex; \
-	fi
 
 %.eep: %.elf
 	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)

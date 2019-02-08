@@ -235,10 +235,6 @@ avrdude-loop: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
 	$(OBJCOPY) -Iihex -Obinary $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).bin
-	@if $(AUTOGEN); then \
-		$(REMOVE) $(KEYMAP_PATH)/$(TARGET).hex | true; \
-    $(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(KEYMAP_PATH)/$(TARGET).$(FIRMWARE_FORMAT); \
-	fi
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
 
 # copy bin to FLASH.bin

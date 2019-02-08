@@ -256,7 +256,3 @@ st-link-cli: $(BUILD_DIR)/$(TARGET).hex sizeafter
 
 bin: $(BUILD_DIR)/$(TARGET).bin sizeafter
 	$(COPY) $(BUILD_DIR)/$(TARGET).bin $(TARGET).bin;
-	@if $(AUTOGEN); then \
-		$(REMOVE) $(KEYMAP_PATH)/$(TARGET).hex | true; \
-    $(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(KEYMAP_PATH)/$(TARGET).$(FIRMWARE_FORMAT); \
-	fi
