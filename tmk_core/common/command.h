@@ -50,12 +50,12 @@ bool command_proc(uint8_t code);
 #define MAGIC_KEY_SWITCH_LAYER_WITH_CUSTOM false
 #endif
 
-#ifndef MAGIC_KEY_HELP1
-#define MAGIC_KEY_HELP1          H
+#ifndef MAGIC_KEY_HELP
+#define MAGIC_KEY_HELP           H
 #endif
 
-#ifndef MAGIC_KEY_HELP2
-#define MAGIC_KEY_HELP2          SLASH
+#ifndef MAGIC_KEY_HELP_ALT
+#define MAGIC_KEY_HELP_ALT       SLASH
 #endif
 
 #ifndef MAGIC_KEY_DEBUG
@@ -86,16 +86,12 @@ bool command_proc(uint8_t code);
 #define MAGIC_KEY_CONSOLE        C
 #endif
 
-#ifndef MAGIC_KEY_LAYER0_ALT1
-#define MAGIC_KEY_LAYER0_ALT1    ESC
-#endif
-
-#ifndef MAGIC_KEY_LAYER0_ALT2
-#define MAGIC_KEY_LAYER0_ALT2    GRAVE
-#endif
-
 #ifndef MAGIC_KEY_LAYER0
 #define MAGIC_KEY_LAYER0         0
+#endif
+
+#ifndef MAGIC_KEY_LAYER0_ALT
+#define MAGIC_KEY_LAYER0_ALT     GRAVE
 #endif
 
 #ifndef MAGIC_KEY_LAYER1
@@ -138,12 +134,20 @@ bool command_proc(uint8_t code);
 #define MAGIC_KEY_BOOTLOADER     B
 #endif
 
+#ifndef MAGIC_KEY_BOOTLOADER_ALT
+#define MAGIC_KEY_BOOTLOADER_ALT ESC
+#endif
+
 #ifndef MAGIC_KEY_LOCK
 #define MAGIC_KEY_LOCK           CAPS
 #endif
 
 #ifndef MAGIC_KEY_EEPROM
 #define MAGIC_KEY_EEPROM         BSPACE
+#endif
+
+#ifndef MAGIC_KEY_EEPROM_ALT
+#define MAGIC_KEY_EEPROM_ALT     E
 #endif
 
 #ifndef MAGIC_KEY_NKRO
@@ -155,5 +159,5 @@ bool command_proc(uint8_t code);
 
 #endif
 
-#define XMAGIC_KC(key) KC_##key
-#define MAGIC_KC(key) XMAGIC_KC(key)
+#define XMAGIC_KC(key)  KC_ ## key
+#define MAGIC_KC(key)   XMAGIC_KC(key)
