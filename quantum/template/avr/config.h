@@ -166,8 +166,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define MAGIC_KEY_BOOTLOADER     B
 //#define MAGIC_KEY_BOOTLOADER_ALT ESC
 //#define MAGIC_KEY_LOCK           CAPS
-//#define MAGIC_KEY_EEPROM         BSPACE
-//#define MAGIC_KEY_EEPROM_ALT     E
+//#define MAGIC_KEY_EEPROM         E
+//#define MAGIC_KEY_EEPROM_ALT     BSPACE
 //#define MAGIC_KEY_NKRO           N
 //#define MAGIC_KEY_SLEEP_LED      Z
 
