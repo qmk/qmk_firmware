@@ -48,9 +48,6 @@ FORMAT = ihex
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT = s
 
-AUTOGEN ?= false
-
-
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
 #     gnu89 = c89 plus GCC extensions
@@ -232,10 +229,6 @@ hex: $(BUILD_DIR)/$(TARGET).hex
 cpfirmware: $(FIRMWARE_FORMAT)
 	$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to qmk_firmware folder" | $(AWK_CMD)
 	$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(TARGET).$(FIRMWARE_FORMAT) && $(PRINT_OK)
-	@if $(AUTOGEN); then \
-    $(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to keymaps/$(KEYMAP)/$(TARGET).$(FIRMWARE_FORMAT)\n"; \
-    $(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(KEYMAP_PATH)/$(TARGET).$(FIRMWARE_FORMAT); \
-	fi
 eep: $(BUILD_DIR)/$(TARGET).eep
 lss: $(BUILD_DIR)/$(TARGET).lss
 sym: $(BUILD_DIR)/$(TARGET).sym
