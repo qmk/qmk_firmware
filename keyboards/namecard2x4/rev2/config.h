@@ -46,8 +46,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
-#define DIODE_DIRECTION COL2ROW
-
+//#define DIODE_DIRECTION COL2ROW
+#define DIODE_DIRECTION ROW2COL
 #define RGB_DI_PIN D4
 #define RGBLED_NUM 8
 #define RGBLIGHT_ANIMATIONS
