@@ -142,7 +142,7 @@ CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #             files -- see avr-libc docs [FIXME: not yet described there]
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
-ASFLAGS += $(ADEFS) 
+ASFLAGS += $(ADEFS)
 ifndef SKIP_DEBUG_INFO
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
@@ -261,8 +261,8 @@ gccversion :
 	$(eval CMD=$(HEX) $< $@)
 	@$(BUILD_CMD)
 	@if $(AUTOGEN); then \
-		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(TARGET).hex\n"; \
-		$(COPY) $@ $(KEYMAP_PATH)/$(TARGET).hex; \
+		$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to keymaps/$(KEYMAP)/$(TARGET).$(FIRMWARE_FORMAT)\n"; \
+		$(COPY) $(BUILD_DIR)/$(TARGET).$(FIRMWARE_FORMAT) $(KEYMAP_PATH)/$(TARGET).$(FIRMWARE_FORMAT); \
 	fi
 
 %.eep: %.elf
@@ -297,7 +297,7 @@ BEGIN = gccversion sizebefore
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
 	$(eval CMD=$(CC) $(ALL_CFLAGS) $(filter-out %.txt,$^) --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
-	
+
 
 define GEN_OBJRULE
 $1_INCFLAGS := $$(patsubst %,-I%,$$($1_INC))
@@ -371,7 +371,7 @@ DEPS = $(patsubst %.o,%.d,$(patsubst %.a,%.o,$(OBJ)))
 .PRECIOUS: $(DEPS)
 # Empty rule to force recompilation if the .d file is missing
 $(DEPS):
-	
+
 
 $(foreach OUTPUT,$(OUTPUTS),$(eval $(call GEN_OBJRULE,$(OUTPUT))))
 
