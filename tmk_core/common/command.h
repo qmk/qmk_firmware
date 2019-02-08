@@ -135,7 +135,7 @@ bool command_proc(uint8_t code);
 #endif
 
 #ifndef MAGIC_KEY_BOOTLOADER
-#define MAGIC_KEY_BOOTLOADER     PAUSE
+#define MAGIC_KEY_BOOTLOADER     B
 #endif
 
 #ifndef MAGIC_KEY_LOCK
@@ -143,7 +143,7 @@ bool command_proc(uint8_t code);
 #endif
 
 #ifndef MAGIC_KEY_EEPROM
-#define MAGIC_KEY_EEPROM         E
+#define MAGIC_KEY_EEPROM         BSPACE
 #endif
 
 #ifndef MAGIC_KEY_NKRO
