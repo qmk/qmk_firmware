@@ -262,7 +262,7 @@ gccversion :
 	@$(BUILD_CMD)
 	@if $(AUTOGEN); then \
 		$(SILENT) || printf "Copying $(TARGET).$(FIRMWARE_FORMAT) to keymaps/$(KEYMAP)/$(TARGET).$(FIRMWARE_FORMAT)\n"; \
-		$(COPY) $(BUILD_DIR)/$(TARGET).hex $(KEYMAP_PATH)/$(TARGET).hex; \
+		$(COPY) $@ $(KEYMAP_PATH)/$(TARGET).hex; \
 	fi
 
 %.eep: %.elf
