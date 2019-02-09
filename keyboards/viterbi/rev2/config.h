@@ -15,15 +15,13 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef REV1_CONFIG_H
-#define REV1_CONFIG_H
+#pragma once
 
-#include "config_common.h"
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xCB10
 #define PRODUCT_ID      0x1157
-#define DEVICE_VER      0x0100
+#define DEVICE_VER      0x0200
 #define MANUFACTURER    Keebio
 #define PRODUCT         The Viterbi Keyboard
 #define DESCRIPTION     Split 5x14 ortholinear keyboard
@@ -35,7 +33,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_ROW_PINS { D4, D7, E6, B4, B5 }
-#define MATRIX_COL_PINS { F5, F6, F7, B1, B3, B2, B6 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B1, B3, B2 }
+#define SPLIT_HAND_PIN D2
 #define SOFT_SERIAL_PIN D0
 
 /* COL2ROW or ROW2COL */
@@ -53,4 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_DI_PIN D3
 #define RGBLED_NUM 14
 
-#endif
+/* Backlight LEDs */
+#define BACKLIGHT_PIN B6
+#define BACKLIGHT_LEVELS 7
