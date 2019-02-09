@@ -45,25 +45,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     extern const matrix_row_t matrix_mask[];
 #endif
 
-#if (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
+#ifdef DIRECT_PINS
+static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
+#elif (DIODE_DIRECTION == ROW2COL) || (DIODE_DIRECTION == COL2ROW)
 static const pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t raw_matrix[MATRIX_ROWS];
-
 static matrix_row_t matrix[MATRIX_ROWS];
 
-
-#if (DIODE_DIRECTION == COL2ROW)
-    static void init_cols(void);
+#ifdef DIRECT_PINS
+    static void init_pins(void);
+    static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
+#elif (DIODE_DIRECTION == COL2ROW)
+    static void init_pins(void);
     static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
     static void unselect_rows(void);
     static void select_row(uint8_t row);
     static void unselect_row(uint8_t row);
 #elif (DIODE_DIRECTION == ROW2COL)
-    static void init_rows(void);
+    static void init_pins(void);
     static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
     static void unselect_cols(void);
     static void unselect_col(uint8_t col);
@@ -134,20 +137,15 @@ uint8_t matrix_cols(void) {
 
 void matrix_init(void) {
 
-    // initialize row and col
-#if (DIODE_DIRECTION == COL2ROW)
-    unselect_rows();
-    init_cols();
-#elif (DIODE_DIRECTION == ROW2COL)
-    unselect_cols();
-    init_rows();
-#endif
+    // initialize key pins
+    init_pins();
 
     // initialize matrix state: all keys off
     for (uint8_t i=0; i < MATRIX_ROWS; i++) {
         raw_matrix[i] = 0;
         matrix[i] = 0;
     }
+
     debounce_init(MATRIX_ROWS);
 
     matrix_init_quantum();
@@ -157,7 +155,7 @@ uint8_t matrix_scan(void)
 {
   bool changed = false;
 
-#if (DIODE_DIRECTION == COL2ROW)
+#if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
   // Set row, read cols
   for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
     changed |= read_cols_on_row(raw_matrix, current_row);
@@ -220,15 +218,34 @@ uint8_t matrix_key_count(void)
 }
 
 
+#ifdef DIRECT_PINS
 
-#if (DIODE_DIRECTION == COL2ROW)
-
-static void init_cols(void)
-{
-    for(uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
+static void init_pins(void) {
+  for (int row = 0; row < MATRIX_ROWS; row++) {
+    for (int col = 0; col < MATRIX_COLS; col++) {
+      pin_t pin = direct_pins[row][col];
+      if (pin != NO_PIN) {
+        setPinInputHigh(pin);
+      }
     }
+  }
 }
+
+static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
+  matrix_row_t last_row_value = current_matrix[current_row];
+  current_matrix[current_row] = 0;
+
+  for (uint8_t col_index = 0; col_index < MATRIX_COLS; col_index++) {
+    pin_t pin = direct_pins[current_row][col_index];
+    if (pin != NO_PIN) {
+      current_matrix[current_row] |= readPin(pin) ? 0 : (ROW_SHIFTER << col_index);
+    }
+  }
+
+  return (last_row_value != current_matrix[current_row]);
+}
+
+#elif (DIODE_DIRECTION == COL2ROW)
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 {
@@ -276,14 +293,14 @@ static void unselect_rows(void)
     }
 }
 
-#elif (DIODE_DIRECTION == ROW2COL)
-
-static void init_rows(void)
-{
-    for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
-    }
+static void init_pins(void) {
+  unselect_rows();
+  for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+    setPinInputHigh(col_pins[x]);
+  }
 }
+
+#elif (DIODE_DIRECTION == ROW2COL)
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 {
@@ -341,6 +358,13 @@ static void unselect_cols(void)
     for(uint8_t x = 0; x < MATRIX_COLS; x++) {
         setPinInputHigh(col_pins[x]);
     }
+}
+
+static void init_pins(void) {
+  unselect_cols();
+  for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
+    setPinInputHigh(row_pins[x]);
+  }
 }
 
 #endif
