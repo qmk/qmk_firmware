@@ -2,7 +2,6 @@
     "keyboard_name": "TKC M0LLY", 
     "url": "", 
     "maintainer": "qmk", 
-    "bootloader": "", 
     "width": 19.5, 
     "height": 5, 
     "layouts": {
