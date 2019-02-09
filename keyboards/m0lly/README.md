@@ -6,7 +6,7 @@ The Key Company M0LLY
 The Key Company's M0LLY keyboard is inspired by the Apple Macintosh M0110A, and utilizes the AT90USB1286 microcontroller.
 
 Keyboard Maintainer: [Terry Mathews](https://github.com/TerryMathews/)  
-Hardware Supported: TKC M0LLY 
+Hardware Supported: TKC M0LLY  
 Hardware Availability: [TheKey.Company](https://thekey.company) 
 
 
