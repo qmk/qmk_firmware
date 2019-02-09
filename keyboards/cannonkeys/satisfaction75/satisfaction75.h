@@ -48,32 +48,36 @@ enum oled_modes {
   _NUM_OLED_MODES
 };
 
-extern uint16_t last_flush;
 
+// Keyboard Information
 extern volatile uint8_t led_numlock;
 extern volatile uint8_t led_capslock;
 extern volatile uint8_t led_scrolllock;
-
 extern uint8_t layer;
 
+// OLED Behavior
+extern uint16_t last_flush;
 extern bool queue_for_send;
-// extern bool clock_set_mode;
-// extern uint8_t oled_mode;
+extern uint8_t oled_mode;
+extern bool oled_sleeping;
 
+// Encoder Behavior
 extern uint8_t encoder_value;
 extern uint8_t encoder_mode;
 
+// RTC
 extern RTCDateTime last_timespec;
 extern uint16_t last_minute;
+
+// RTC Configuration
+// extern bool clock_set_mode;
 extern uint8_t time_config_idx;
 extern uint8_t hour_config;
 extern uint16_t minute_config;
 
+// Backlighting
 extern uint8_t kb_backlight_level;
 
-
-void backlight_init_ports(void);
-void backlight_set(uint8_t level);
 void pre_encoder_mode_change(void);
 void post_encoder_mode_change(void);
 void change_encoder_mode(bool negative);
@@ -83,3 +87,10 @@ uint16_t handle_encoder_press(void);
 
 __attribute__ ((weak))
 void draw_ui(void);
+void draw_default(void);
+void draw_clock(void);
+
+void backlight_init_ports(void);
+void backlight_set(uint8_t level);
+// void backlight_save_to_eeprom(uint8_t level);
+// uint8_t backlight_read_from_eeprom();

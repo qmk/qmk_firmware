@@ -3,6 +3,24 @@
 
 __attribute__ ((weak))
 void draw_ui() {
+  clear_buffer();
+  last_flush = timer_read();
+  send_command(DISPLAYON);
+  switch (oled_mode){
+    default:
+    case OLED_DEFAULT:
+      draw_default();
+      break;
+    case OLED_TIME:
+      draw_clock();
+      break;
+    case OLED_OFF:
+      send_command(DISPLAYOFF);
+      break;
+  }
+}
+
+void draw_default(){
   uint8_t hour = last_minute / 60;
   uint16_t minute = last_minute % 60;
 
@@ -21,11 +39,6 @@ void draw_ui() {
 
   sprintf(hour_str, "%02d", hour);
   sprintf(min_str, "%02d", minute);
-
-
-  clear_buffer();
-  last_flush = timer_read();
-  send_command(DISPLAYON);
 
   uint8_t mods = get_mods();
 
@@ -140,4 +153,39 @@ void draw_ui() {
   }
 
   send_buffer();
+}
+
+void draw_clock(){
+  uint8_t hour = last_minute / 60;
+  uint16_t minute = last_minute % 60;
+
+  if(encoder_mode == ENC_MODE_CLOCK_SET){
+    hour = hour_config;
+    minute = minute_config;
+  }
+
+  bool is_pm = (hour / 12) > 0;
+  hour = hour % 12;
+  if (hour == 0){
+    hour = 12;
+  }
+  char hour_str[2] = "";
+  char min_str[2] = "";
+
+  sprintf(hour_str, "%02d", hour);
+  sprintf(min_str, "%02d", minute);
+
+#define CLOCK_DISPLAY_X 0
+#define CLOCK_DISPLAY_Y 0
+  draw_string(CLOCK_DISPLAY_X, CLOCK_DISPLAY_Y, hour_str, PIXEL_ON, NORM, 1);
+  draw_string(CLOCK_DISPLAY_X + 17, CLOCK_DISPLAY_Y, ":", PIXEL_ON, NORM, 1);
+  draw_string(CLOCK_DISPLAY_X + 25, CLOCK_DISPLAY_Y, min_str, PIXEL_ON, NORM, 1);
+  if(is_pm){
+    draw_string(CLOCK_DISPLAY_X + 41, CLOCK_DISPLAY_Y, "pm", PIXEL_ON, NORM, 1);
+  } else{
+    draw_string(CLOCK_DISPLAY_X + 41, CLOCK_DISPLAY_Y, "am", PIXEL_ON, NORM, 1);
+  }
+
+  send_buffer();
+
 }

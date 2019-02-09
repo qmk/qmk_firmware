@@ -33,7 +33,8 @@ uint8_t layer;
 
 bool queue_for_send = false;
 // static bool clock_set_mode = false;
-// static uint8_t oled_mode = OLED_DEFAULT;
+uint8_t oled_mode = OLED_DEFAULT;
+bool oled_sleeping = false;
 
 uint8_t encoder_value = 32;
 uint8_t encoder_mode = ENC_MODE_VOLUME;
@@ -237,6 +238,13 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         change_encoder_mode(false);
       }
       return false;
+    case OLED_TOGG:
+      if (record->event.pressed) {
+        oled_mode = (oled_mode + 1) % _NUM_OLED_MODES;
+        draw_ui();
+      }
+      printf("OLED MOD: %d",oled_mode);
+      return false;
     case ENC_PRESS:
       if (record->event.pressed) {
         uint16_t mapped_code = handle_encoder_press();
@@ -338,27 +346,20 @@ void matrix_scan_user(void) {
 
   if (minutes_since_midnight != last_minute){
     last_minute = minutes_since_midnight;
-    if(timer_elapsed(last_flush) <= ScreenOffInterval){
+    if(!oled_sleeping){
       queue_for_send = true;
     }
-
-    printf(
-      "%d-%d-%d T %d:%d\n",
-      last_timespec.year + 1980,
-      last_timespec.month,
-      last_timespec.day,
-      minutes_since_midnight / 60,
-      minutes_since_midnight % 60
-    );
   }
 
-  if (queue_for_send) {
+  if (queue_for_send && oled_mode != OLED_OFF) {
+    oled_sleeping = false;
     read_host_led_state();
     draw_ui();
     queue_for_send = false;
   }
-  if (timer_elapsed(last_flush) > ScreenOffInterval) {
+  if (timer_elapsed(last_flush) > ScreenOffInterval && !oled_sleeping) {
     send_command(DISPLAYOFF);      /* 0xAE */
+    oled_sleeping = true;
   }
 }
 
