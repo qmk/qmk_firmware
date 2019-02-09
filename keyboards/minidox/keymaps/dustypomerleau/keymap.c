@@ -286,6 +286,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
     if (state->interrupted || !state->pressed) return SINGLE_TAP;
     else return SINGLE_HOLD;
   }
+  else return 8;
 }
 
 static tap altop_tap_state = {
