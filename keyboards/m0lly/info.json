@@ -5,7 +5,7 @@
     "width": 19.5, 
     "height": 5, 
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_all": {
             "layout": [
 				{"label":"~", "x":0, "y":0},
 				{"label":"!", "x":1, "y":0},
