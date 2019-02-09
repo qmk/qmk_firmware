@@ -168,6 +168,31 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 #elif (DIODE_DIRECTION == COL2ROW)
 
+static void select_row(uint8_t row)
+{
+    setPinOutput(row_pins[row]);
+    writePinLow(row_pins[row]);
+}
+
+static void unselect_row(uint8_t row)
+{
+    setPinInputHigh(row_pins[row]);
+}
+
+static void unselect_rows(void)
+{
+    for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
+        setPinInput(row_pins[x]);
+    }
+}
+
+static void init_pins(void) {
+  unselect_rows();
+  for (uint8_t x = 0; x < MATRIX_COLS; x++) {
+    setPinInputHigh(col_pins[x]);
+  }
+}
+
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 {
     // Store last value of row prior to reading
@@ -196,32 +221,32 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
     return (last_row_value != current_matrix[current_row]);
 }
 
-static void select_row(uint8_t row)
+#elif (DIODE_DIRECTION == ROW2COL)
+
+static void select_col(uint8_t col)
 {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    setPinOutput(col_pins[col]);
+    writePinLow(col_pins[col]);
 }
 
-static void unselect_row(uint8_t row)
+static void unselect_col(uint8_t col)
 {
-    setPinInputHigh(row_pins[row]);
+    setPinInputHigh(col_pins[col]);
 }
 
-static void unselect_rows(void)
+static void unselect_cols(void)
 {
-    for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInput(row_pins[x]);
+    for(uint8_t x = 0; x < MATRIX_COLS; x++) {
+        setPinInputHigh(col_pins[x]);
     }
 }
 
 static void init_pins(void) {
-  unselect_rows();
-  for (uint8_t x = 0; x < MATRIX_COLS; x++) {
-    setPinInputHigh(col_pins[x]);
+  unselect_cols();
+  for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
+    setPinInputHigh(row_pins[x]);
   }
 }
-
-#elif (DIODE_DIRECTION == ROW2COL)
 
 static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
 {
@@ -261,31 +286,6 @@ static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col)
     unselect_col(current_col);
 
     return matrix_changed;
-}
-
-static void select_col(uint8_t col)
-{
-    setPinOutput(col_pins[col]);
-    writePinLow(col_pins[col]);
-}
-
-static void unselect_col(uint8_t col)
-{
-    setPinInputHigh(col_pins[col]);
-}
-
-static void unselect_cols(void)
-{
-    for(uint8_t x = 0; x < MATRIX_COLS; x++) {
-        setPinInputHigh(col_pins[x]);
-    }
-}
-
-static void init_pins(void) {
-  unselect_cols();
-  for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
-    setPinInputHigh(row_pins[x]);
-  }
 }
 
 #endif
