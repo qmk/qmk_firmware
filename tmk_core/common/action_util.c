@@ -353,6 +353,7 @@ void set_oneshot_mods(uint8_t mods) {
         }
     }
 }
+
 /** \brief clear oneshot mods
  *
  * FIXME: needs doc
