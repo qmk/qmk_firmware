@@ -35,7 +35,9 @@ ARMV = 6
 #   comment out to disable the options.
 #
 
-SRC += led.c
+SRC += led.c \
+      satisfaction_encoder.c \
+      satisfaction_oled.c
 
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys

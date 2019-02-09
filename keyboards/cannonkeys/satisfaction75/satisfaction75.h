@@ -20,9 +20,15 @@
 	{ K500,  K501,  K502,  KC_NO, KC_NO, K505,  KC_NO, KC_NO, KC_NO, K509,  K510,  K511,  K512,  K513,  KC_NO,  K515 } \
 }
 
+/* screen off after this many milliseconds */
+#define ScreenOffInterval 60000 /* milliseconds */
+
 enum my_keycodes {
-  ENC_MOD = SAFE_RANGE,
-  ENC_PRESS
+  ENC_NEXT = SAFE_RANGE,
+  ENC_PRESS,
+  ENC_PREV,
+  CLOCK_SET,
+  OLED_TOGG
 };
 
 enum encoder_modes {
@@ -31,9 +37,49 @@ enum encoder_modes {
   ENC_MODE_SCROLL,
   ENC_MODE_BRIGHTNESS,
   ENC_MODE_BACKLIGHT,
-  ENC_MODE_CLOCK_SET,
-  _NUM_ENCODER_MODES
+  _NUM_ENCODER_MODES,
+  ENC_MODE_CLOCK_SET // This shouldn't be included in the default modes, so we put it after NUM_ENCODER_MODES
 };
+
+enum oled_modes {
+  OLED_DEFAULT,
+  OLED_TIME,
+  OLED_OFF,
+  _NUM_OLED_MODES
+};
+
+extern uint16_t last_flush;
+
+extern volatile uint8_t led_numlock;
+extern volatile uint8_t led_capslock;
+extern volatile uint8_t led_scrolllock;
+
+extern uint8_t layer;
+
+extern bool queue_for_send;
+// extern bool clock_set_mode;
+// extern uint8_t oled_mode;
+
+extern uint8_t encoder_value;
+extern uint8_t encoder_mode;
+
+extern RTCDateTime last_timespec;
+extern uint16_t last_minute;
+extern uint8_t time_config_idx;
+extern uint8_t hour_config;
+extern uint16_t minute_config;
+
+extern uint8_t kb_backlight_level;
+
 
 void backlight_init_ports(void);
 void backlight_set(uint8_t level);
+void pre_encoder_mode_change(void);
+void post_encoder_mode_change(void);
+void change_encoder_mode(bool negative);
+uint16_t handle_encoder_clockwise(void);
+uint16_t handle_encoder_ccw(void);
+uint16_t handle_encoder_press(void);
+
+__attribute__ ((weak))
+void draw_ui(void);
