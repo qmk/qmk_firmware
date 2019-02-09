@@ -159,10 +159,8 @@ static void command_common_help(void)
 		STR(MAGIC_KEY_LOCK        ) ":	Lock\n"
 #endif
 
-#ifdef BOOTMAGIC_ENABLE
 		STR(MAGIC_KEY_EEPROM      ) ":	Print EEPROM Settings\n"
 		STR(MAGIC_KEY_EEPROM_CLEAR) ":	Clear EEPROM\n"
-#endif
 
 #ifdef NKRO_ENABLE
 		STR(MAGIC_KEY_NKRO        ) ":	NKRO Toggle\n"
@@ -266,7 +264,6 @@ static void print_status(void)
 	return;
 }
 
-#ifdef BOOTMAGIC_ENABLE
 static void print_eeconfig(void)
 {
 
@@ -306,7 +303,6 @@ static void print_eeconfig(void)
 #endif /* !NO_PRINT */
 
 }
-#endif /* BOOTMAGIC_ENABLE */
 
 static bool command_common(uint8_t code)
 {
@@ -327,8 +323,6 @@ static bool command_common(uint8_t code)
             break;
 #endif
 
-#ifdef BOOTMAGIC_ENABLE
-
 		// print stored eeprom config
         case MAGIC_KC(MAGIC_KEY_EEPROM):
             print("eeconfig:\n");
@@ -340,7 +334,6 @@ static bool command_common(uint8_t code)
             print("Clearing EEPROM\n");
 	    eeconfig_init();
             break;
-#endif
 
 #ifdef KEYBOARD_LOCK_ENABLE
 
