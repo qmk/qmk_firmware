@@ -39,6 +39,7 @@ if [ -n "$target" ]; then
 	else
 		echo "Error: target requires docker-machine to work on your platform" >&2
 		echo "See http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos" >&2
+		echo "Consider flashing with QMK Toolbox (https://github.com/qmk/qmk_toolbox) instead" >&2
 		exit 3
 	fi
 fi
