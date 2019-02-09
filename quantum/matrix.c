@@ -56,23 +56,6 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 static matrix_row_t raw_matrix[MATRIX_ROWS];
 static matrix_row_t matrix[MATRIX_ROWS];
 
-#ifdef DIRECT_PINS
-    static void init_pins(void);
-    static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
-#elif (DIODE_DIRECTION == COL2ROW)
-    static void init_pins(void);
-    static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
-    static void unselect_rows(void);
-    static void select_row(uint8_t row);
-    static void unselect_row(uint8_t row);
-#elif (DIODE_DIRECTION == ROW2COL)
-    static void init_pins(void);
-    static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
-    static void unselect_cols(void);
-    static void unselect_col(uint8_t col);
-    static void select_col(uint8_t col);
-#endif
-
 __attribute__ ((weak))
 void matrix_init_quantum(void) {
     matrix_init_kb();
@@ -109,68 +92,6 @@ uint8_t matrix_rows(void) {
 inline
 uint8_t matrix_cols(void) {
     return MATRIX_COLS;
-}
-
-// void matrix_power_up(void) {
-// #if (DIODE_DIRECTION == COL2ROW)
-//     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-//         /* DDRxn */
-//         _SFR_IO8((row_pins[r] >> 4) + 1) |= _BV(row_pins[r] & 0xF);
-//         toggle_row(r);
-//     }
-//     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
-//         /* PORTxn */
-//         _SFR_IO8((col_pins[c] >> 4) + 2) |= _BV(col_pins[c] & 0xF);
-//     }
-// #elif (DIODE_DIRECTION == ROW2COL)
-//     for (int8_t c = MATRIX_COLS - 1; c >= 0; --c) {
-//         /* DDRxn */
-//         _SFR_IO8((col_pins[c] >> 4) + 1) |= _BV(col_pins[c] & 0xF);
-//         toggle_col(c);
-//     }
-//     for (int8_t r = MATRIX_ROWS - 1; r >= 0; --r) {
-//         /* PORTxn */
-//         _SFR_IO8((row_pins[r] >> 4) + 2) |= _BV(row_pins[r] & 0xF);
-//     }
-// #endif
-// }
-
-void matrix_init(void) {
-
-    // initialize key pins
-    init_pins();
-
-    // initialize matrix state: all keys off
-    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
-        raw_matrix[i] = 0;
-        matrix[i] = 0;
-    }
-
-    debounce_init(MATRIX_ROWS);
-
-    matrix_init_quantum();
-}
-
-uint8_t matrix_scan(void)
-{
-  bool changed = false;
-
-#if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
-  // Set row, read cols
-  for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
-    changed |= read_cols_on_row(raw_matrix, current_row);
-  }
-#elif (DIODE_DIRECTION == ROW2COL)
-  // Set col, read rows
-  for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
-    changed |= read_rows_on_col(raw_matrix, current_col);
-  }
-#endif
-
-  debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
-
-  matrix_scan_quantum();
-  return 1;
 }
 
 bool matrix_is_modified(void)
@@ -368,3 +289,41 @@ static void init_pins(void) {
 }
 
 #endif
+
+void matrix_init(void) {
+
+    // initialize key pins
+    init_pins();
+
+    // initialize matrix state: all keys off
+    for (uint8_t i=0; i < MATRIX_ROWS; i++) {
+        raw_matrix[i] = 0;
+        matrix[i] = 0;
+    }
+
+    debounce_init(MATRIX_ROWS);
+
+    matrix_init_quantum();
+}
+
+uint8_t matrix_scan(void)
+{
+  bool changed = false;
+
+#if defined(DIRECT_PINS) || (DIODE_DIRECTION == COL2ROW)
+  // Set row, read cols
+  for (uint8_t current_row = 0; current_row < MATRIX_ROWS; current_row++) {
+    changed |= read_cols_on_row(raw_matrix, current_row);
+  }
+#elif (DIODE_DIRECTION == ROW2COL)
+  // Set col, read rows
+  for (uint8_t current_col = 0; current_col < MATRIX_COLS; current_col++) {
+    changed |= read_rows_on_col(raw_matrix, current_col);
+  }
+#endif
+
+  debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+
+  matrix_scan_quantum();
+  return 1;
+}
