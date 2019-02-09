@@ -39,7 +39,7 @@
 #define MATRIX_COL_PINS { }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION CUSTOM_MATRIX
 
 /* number of backlight levels */
