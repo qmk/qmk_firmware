@@ -151,12 +151,13 @@ static void command_common_help(void)
 		                            "0-9:	Switch to Layer 0-9\n"
 #endif
 
-		STR(MAGIC_KEY_LAYER0_ALT    ) ":	Switch to Layer 0 (alternate)\n"
+		STR(MAGIC_KEY_LAYER0_ALT  ) ":	Switch to Layer 0 (alternate)\n"
+
 		STR(MAGIC_KEY_BOOTLOADER    ) ":	Jump to Bootloader\n"
 		STR(MAGIC_KEY_BOOTLOADER_ALT) ":	Jump to Bootloader (alternate)\n"
 
 #ifdef KEYBOARD_LOCK_ENABLE
-		STR(MAGIC_KEY_LOCK        ) ":	Lock\n"
+		STR(MAGIC_KEY_LOCK        ) ":	Lock Keyboard\n"
 #endif
 
 		STR(MAGIC_KEY_EEPROM      ) ":	Print EEPROM Settings\n"

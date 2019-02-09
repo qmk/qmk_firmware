@@ -42,8 +42,8 @@ If you would like to change the key assignments for Command, `#define` these in 
 |`MAGIC_KEY_LAYER7`                  |`7`                                                                        |Make layer 7 the default layer                  |
 |`MAGIC_KEY_LAYER8`                  |`8`                                                                        |Make layer 8 the default layer                  |
 |`MAGIC_KEY_LAYER9`                  |`9`                                                                        |Make layer 9 the default layer                  |
-|`MAGIC_KEY_BOOTLOADER`              |`B`                                                                        |Enter the bootloader                            |
-|`MAGIC_KEY_BOOTLOADER_ALT`          |`ESC`                                                                      |Enter the bootloader (alternate)                |
+|`MAGIC_KEY_BOOTLOADER`              |`B`                                                                        |Jump to bootloader                              |
+|`MAGIC_KEY_BOOTLOADER_ALT`          |`ESC`                                                                      |Jump to bootloader (alternate)                  |
 |`MAGIC_KEY_LOCK`                    |`CAPS`                                                                     |Lock the keyboard so nothing can be typed       |
 |`MAGIC_KEY_EEPROM`                  |`E`                                                                        |Print stored EEPROM config to the console       |
 |`MAGIC_KEY_EEPROM_CLEAR`            |`BSPACE`                                                                   |Clear the EEPROM                                |
