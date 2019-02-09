@@ -161,7 +161,7 @@ static void command_common_help(void)
 
 #ifdef BOOTMAGIC_ENABLE
 		STR(MAGIC_KEY_EEPROM      ) ":	Print EEPROM Settings\n"
-		STR(MAGIC_KEY_EEPROM_ALT  ) ":	Print EEPROM Settings (alternate)\n"
+		STR(MAGIC_KEY_EEPROM_CLEAR) ":	Clear EEPROM\n"
 #endif
 
 #ifdef NKRO_ENABLE
@@ -331,9 +331,14 @@ static bool command_common(uint8_t code)
 
 		// print stored eeprom config
         case MAGIC_KC(MAGIC_KEY_EEPROM):
-        case MAGIC_KC(MAGIC_KEY_EEPROM_ALT):
             print("eeconfig:\n");
             print_eeconfig();
+            break;
+
+		// clear eeprom
+        case MAGIC_KC(MAGIC_KEY_EEPROM_CLEAR):
+            print("Clearing EEPROM\n");
+	    eeconfig_init();
             break;
 #endif
 

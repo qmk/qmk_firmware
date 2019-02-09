@@ -146,8 +146,8 @@ bool command_proc(uint8_t code);
 #define MAGIC_KEY_EEPROM         E
 #endif
 
-#ifndef MAGIC_KEY_EEPROM_ALT
-#define MAGIC_KEY_EEPROM_ALT     BSPACE
+#ifndef MAGIC_KEY_EEPROM_CLEAR
+#define MAGIC_KEY_EEPROM_CLEAR   BSPACE
 #endif
 
 #ifndef MAGIC_KEY_NKRO
