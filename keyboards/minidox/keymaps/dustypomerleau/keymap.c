@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* System, media, and layer lock keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * | RESET|DEBUG |QWERTY|CMKDHM|      |           |      | MRWD | MFFD | VOLUP| VOLDN|
+ * | RESET|DEBUG |QWERTY|CMKDHM|      |           |      | VOLUP| VOLDN| MRWD | MFFD |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |  DEL | CTRL |  ALT |  GUI |NAV_LK|           | POWER|VOL_DN|VOL_UP| MUTE | MPLY |
  * |------+------+------+------+------|           |------+------+------+------+------|
