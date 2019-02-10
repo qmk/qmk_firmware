@@ -15,20 +15,20 @@
  */
 #include QMK_KEYBOARD_H
 
-#define DEFAULT 0 	//Custom ANSI
-#define LAYER1 1 	  //Default ANSI (enable with Fn2+D)
-#define LAYER2 2 	  //Function keys, arrows, custom shortcuts, volume control
-#define LAYER3 3 	  //Backlight controls and RESET
+#define DEFAULT 0  //Custom ANSI
+#define LAYER1 1   //Default ANSI (enable with Fn2+D)
+#define LAYER2 2   //Function keys, arrows, custom shortcuts, volume control
+#define LAYER3 3   //RGB Underglow controls and RESET
 
 //Aliases for longer keycodes
 #define KC_CAD	LALT(LCTL(KC_DEL))
 #define KC_LOCK	LGUI(KC_L)
 #define CA_QUOT LCA(KC_QUOT)
 #define CA_SCLN LCA(KC_SCLN)
-#define CA_ESC  LT(2, KC_ESC)
-#define CA_SPCF LT(2, KC_SPC)
-#define CA_TESC TD(TD_ESC)
-#define CA_TWIN TD(TD_WIN)
+#define KC_CTLE LCTL_T(KC_ESC)
+#define LT_SPCF LT(2, KC_SPC)
+#define TD_TESC TD(TD_ESC)
+#define TD_TWIN TD(TD_WIN)
 
 //Tap Dance Declarations
 enum {
@@ -43,11 +43,11 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT_60_ansi(
-		CA_TESC, KC_1,    KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
+		TD_TESC, KC_1,    KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
 		KC_TAB,  KC_Q,    KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,
-		CA_ESC,  KC_A,    KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
+		KC_CTLE, KC_A,    KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,
 		KC_LSFT, KC_Z,    KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,
-		KC_LCTL, KC_LGUI, KC_LALT,          CA_SPCF,          KC_RALT, CA_TWIN, MO(3),   KC_RCTL),
+		KC_LCTL, KC_LGUI, KC_LALT,          LT_SPCF,          KC_RALT, TD_TWIN, MO(3),   KC_RCTL),
 
 	[1] = LAYOUT_60_ansi(
 		KC_GRV,  KC_1,    KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8,    KC_9,   KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
@@ -64,10 +64,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______,                   _______,                   _______, _______, _______, _______),
 
 	[3] = LAYOUT_60_ansi(
-		RESET,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+		_______, RGB_TOG, RGB_MOD, RGB_VAD, RGB_VAI, RGB_SAI, RGB_HUD, RGB_HUI, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,
-		KC_CAPS, _______, _______, TG(1),   _______, _______, BL_STEP, BL_DEC,  BL_INC,  BL_TOGG, _______, _______, _______,
-		_______, _______, _______, RGB_VAD, RGB_VAI, RGB_SAI, RGB_HUD, RGB_HUI, RGB_MOD, RGB_TOG, _______, _______,
+		_______, _______, _______, TG(1),   _______, _______, _______, _______, _______, _______, _______, _______, _______,
+		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______,                   _______,                   _______, _______, _______, _______)
 };
 
