@@ -168,7 +168,7 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
     let col = 0;
     for (let id = 0; id < 105; id++) {
       const adj_x = ((kbd_leds[id].x - MIN_X) / (MAX_X - MIN_X)) * 224;
-      const adj_y = ((kbd_leds[id].y - MIN_Y) / (MAX_X - MIN_Y)) * 64;
+      const adj_y = ((kbd_leds[id].y - MIN_Y) / (MAX_Y - MIN_Y)) * 64;
 
       if ( // must be manually tweaked
         id === 14 + 1 ||
