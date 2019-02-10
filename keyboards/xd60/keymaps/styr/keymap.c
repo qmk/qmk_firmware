@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
 
 #define _BL 0
 #define _FL 1
