@@ -8,25 +8,52 @@ extern keymap_config_t keymap_config;
 enum custom_layers {
   _CMK_DHM,
   _QWERTY,
-  _MEDIA,
+  _SYS,
   _NAV,
-  _NUM,
-  _SYM_L,
-  _SYM_R,
-  _SYS
+  _NUM_E,
+  _NUM_N,
+  _SYM
 };
 
 enum custom_keycodes {
   CMK_DHM = SAFE_RANGE,
   QWERTY,
+  SYS,
   NAV,
-  NUM,
-  SYM_L,
-  SYM_R,
-  ALT_OP,
-  CTL_CCB,
-  GUI_CP
+  NUM_E,
+  NUM_N,
+  SYM
 };
+
+typedef struct {
+  bool is_press_action;
+  int state;
+} tap;
+
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2
+};
+
+enum {
+  ALT_OP = 0,
+  CTL_CCB,
+  GUI_CP,
+  SFT_OCB,
+  SFT_PLS
+};
+
+int cur_dance (qk_tap_dance_state_t *state);
+void altop_finished (qk_tap_dance_state_t *state, void *user_data);
+void altop_reset (qk_tap_dance_state_t *state, void *user_data);
+void ctlccb_finished (qk_tap_dance_state_t *state, void *user_data);
+void ctlccb_reset (qk_tap_dance_state_t *state, void *user_data);
+void guicp_finished (qk_tap_dance_state_t *state, void *user_data);
+void guicp_reset (qk_tap_dance_state_t *state, void *user_data);
+void sftocb_finished (qk_tap_dance_state_t *state, void *user_data);
+void sftocb_reset (qk_tap_dance_state_t *state, void *user_data);
+void sftpls_finished (qk_tap_dance_state_t *state, void *user_data);
+void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 
 #define _______ KC_TRNS
 #define ALT_2 LALT_T(KC_2)
@@ -59,21 +86,23 @@ enum custom_keycodes {
 #define MAC_EN LALT(KC_MINS)
 #define NAV_BK LT(_NAV, KC_BSPC)
 #define NAV_LK TG(_NAV)
-#define NUM_LK TG(_NUM)
-#define NUM_SPC LT(_NUM, KC_SPC)
+#define NUME_SPC LT(_NUM_E, KC_SPC)
+#define NUMLK_E TG(_NUM_E)
+#define NUMLK_N TG(_NUM_N)
+#define NUMN_SPC LT(_NUM_N, KC_SPC)
+#define SFT_0 LSFT_T(KC_0)
+#define SFT_1 LSFT_T(KC_1)
+#define SFT_6 LSFT_T(KC_6)
+#define SFT_7 LSFT_T(KC_7)
+#define SFT_A LSFT_T(KC_A)
+#define SFT_O LSFT_T(KC_O)
 #define SFT_OS OSM(MOD_LSFT)
-#define SYML_OS OSL(_SYM_L)
-#define SYMR_OS OSL(_SYM_R)
+#define SFT_QOT LSFT_T(KC_QUOT)
+#define SYM_OS OSL(_SYM)
 #define VOL_DN S(LALT(KC__VOLDOWN))
 #define VOL_UP S(LALT(KC__VOLUP))
 #define XXXXXXX KC_NO
-
-#define SYMBOL_LAYER LAYOUT( \
-  KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC,      KC_CIRC, KC_AMPR, KC_ASTR, KC_QUES, KC_QUOT, \
-  KC_PLUS, CTRL_EQ, ALT_OP,  GUI_CP,  KC_DQT,       KC_COLN, GUI_CB,  ALT_OB,  CTL_CCB, KC_LCBR, \
-  KC_LT,   KC_PIPE, KC_MINS, KC_GT,   KC_BSLS,      KC_GRV,  KC_UNDS, KC_SLSH, KC_TILD, KC_SCLN, \
-                    _______, MAC_EN,  _______,      _______, MAC_EM,  _______                    \
-)
+#define Z_SYS LT(_SYS, KC_Z)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -82,21 +111,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |   Q  |   W  |   F  |   P  |   B  |           |   J  |   L  |   U  |   Y  |   '  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   A  | CTL/R| ALT/S| GUI/T|   G  |           |   M  | GUI/N| ALT/E| CTL/I|   O  |
+ * | SFT/A| CTL/R| ALT/S| GUI/T|   G  |           |   M  | GUI/N| ALT/E| CTL/I| SFT/O|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   Z  |   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
+ * | SYS/Z|   X  |   C  |   D  |   V  |           |   K  |   H  |   ,  |   .  |   ;  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  |SFT_OS|NAV_BK|      |    |      |NUMSPC|SFT_OS|
- *                  `------+------|SYMLOS|    |SYMROS|------+------'
+ *                  |SFT/OS|NAV/BK|      |    |      |NUM/SP|SFT/OS|
+ *                  `------+------|SYM/OS|    |SYM/OS|------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_CMK_DHM] = LAYOUT( \
-  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT, \
-  KC_A,    CTRL_R,  ALT_S,   GUI_TEA, KC_G,         KC_M,    GUI_N,   ALT_E,   CTRL_I,  KC_O,    \
-  KC_Z,    KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SFT_OS,  NAV_BK,  SYML_OS,      SYMR_OS, NUM_SPC, SFT_OS                     \
+  KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,     KC_U,    KC_Y,    KC_QUOT, \
+  SFT_A,   CTRL_R,  ALT_S,   GUI_TEA, KC_G,         KC_M,    GUI_N,    ALT_E,   CTRL_I,  SFT_O,   \
+  Z_SYS,   KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,     KC_COMM, KC_DOT,  KC_SCLN, \
+                    SFT_OS,  NAV_BK,  SYM_OS,       SYM_OS,  NUME_SPC, SFT_OS                     \
 ),
 
 /* QWERTY
@@ -104,31 +133,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,----------------------------------.           ,----------------------------------.
  * |   Q  |   W  |   E  |   R  |   T  |           |   Y  |   U  |   I  |   O  |   P  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   A  | CTL/S| ALT/D| GUI/F|   G  |           |   H  | GUI/J| ALT/K| CTL/L|   '  |
+ * | SFT/A| CTL/S| ALT/D| GUI/F|   G  |           |   H  | GUI/J| ALT/K| CTL/L| SFT/'|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   Z  |   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   ;  |
+ * | SYS/Z|   X  |   C  |   V  |   B  |           |   N  |   M  |   ,  |   .  |   ;  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  |SFT_OS|NAV_BK|      |    |      |NUMSPC|SFT_OS|
- *                  `------+------|SYMLOS|    |SYMROS|------+------'
+ *                  |SFT/OS|NAV/BK|      |    |      |NUM/SP|SFT/OS|
+ *                  `------+------|SYM/OS|    |SYM/OS|------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_QWERTY] = LAYOUT( \
-  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    \
-  KC_A,    CTRL_S,  ALT_D,   GUI_F,   KC_G,         KC_H,    GUI_J,   ALT_K,   CTRL_L,  KC_QUOT, \
-  KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN, \
-                    SFT_OS,  NAV_BK,  SYML_OS,      SYMR_OS, NUM_SPC, SFT_OS                     \
+  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    \
+  SFT_A,   CTRL_S,  ALT_D,   GUI_F,   KC_G,         KC_H,    GUI_J,    ALT_K,   CTRL_L,  SFT_QOT, \
+  Z_SYS,   KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SCLN, \
+                    SFT_OS,  NAV_BK,  SYM_OS,       SYM_OS,  NUMN_SPC, SFT_OS                     \
 ),
 
-/* Media + layer lock keys
+/* System, media, and layer lock keys
+ * If you use QWERTY + the Vanilla numbers primarily, change NUMLK_E to NUMLK_N here.
  *
  * ,----------------------------------.           ,----------------------------------.
- * |      |      | VOLUP| VOLDN|      |           |      | MRWD | MFFD |      |      |
+ * | RESET|DEBUG |QWERTY|CMKDHM|      |           |      | VOL++| VOL--|      |      |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  DEL | CTRL |  ALT |  GUI |NAV_LK|           | POWER|VOL_DN|VOL_UP| MUTE | MPLY |
+ * |  DEL | CTRL |  ALT |  GUI |NAV LK|           | POWER| VOL+ | VOL- | MUTE | MPLY |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      |      |           |      |NUM_LK|      |      |      |
+ * |      |      |AU OFF| AU ON|      |           |      |NUM LK| MRWD | MFFD |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,------,-------------.
  *                  |      |      |      |    |      |      |      |
@@ -136,43 +166,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_MEDIA] = LAYOUT( \
-  _______, _______, KC__VOLUP, KC__VOLDOWN, _______,_______, KC_MRWD, KC_MFFD, _______, _______, \
-  KC_DEL,  KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_POWER,VOL_DN,  VOL_UP,  KC__MUTE,KC_MPLY, \
-  _______, _______, _______, _______, _______,      _______, NUM_LK,  _______, _______, _______, \
-                    _______, _______, _______,      _______, _______, _______                    \
+[_SYS] = LAYOUT( \
+  RESET,   DEBUG,   QWERTY,  CMK_DHM, _______,       _______,  KC__VOLDOWN, KC__VOLUP, _______,  _______, \
+  KC_DEL,  KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_POWER, VOL_DN,      VOL_UP,    KC__MUTE, KC_MPLY, \
+  _______, _______, AU_OFF,  AU_ON,   _______,       _______,  NUMLK_E,     KC_MRWD,   KC_MFFD,  _______, \
+                    _______, _______, _______,       _______,  _______,     _______                       \
 ),
 
 /* Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * | PSCR |      | WH_U | WH_D | BSPC |           | DEL  | PGDN | PGUP | HOME |  END |
+ * | PSCR |      | WH U | WH D | BSPC |           | DEL  | PGDN | PGUP | HOME |  END |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * | SHIFT| CTRL |  ALT |  GUI |NAV_LK|           | CAPS | LEFT | DOWN |  UP  | RIGHT|
+ * | SHIFT| CTRL |  ALT |  GUI |NAV LK|           | CAPS | LEFT | DOWN |  UP  | RIGHT|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      | ACL0 | ACL1 | ACL2 | BTN2 |           | BTN1 | MS_L | MS_D | MS_U | MS_R |
+ * |      | ACL0 | ACL1 | ACL2 | BTN2 |           | BTN1 | MS L | MS D | MS U | MS R |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |      |      |      |    |      | ENTER|      |
- *                  `------+------|  ESC |    |      |------+------'
+ *                  `------+------|  ESC |    | DEL  |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
 [_NAV] = LAYOUT( \
-  KC_PSCR, _______, KC_WH_U, KC_WH_D, KC_BSPC,      KC_DEL,  KC_PGDN, KC_PGUP, KC_HOME, KC_END,  \
-  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,       KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
-  _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,      KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
-                    _______, _______, KC_ESC,       _______, KC_ENT,  _______                    \
+  KC_PSCR, _______, KC_WH_U, KC_WH_D, KC_BSPC,       KC_DEL,  KC_PGDN, KC_PGUP, KC_HOME, KC_END,  \
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
+  _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,       KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
+                    _______, _______, KC_ESC,        KC_DEL,  KC_ENT,  _______                    \
 ),
 
-/* Number + function keys
+/* Number + function keys (ergonomic number order - default pairing with Colemak)
  *
  * ,----------------------------------.           ,----------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |           |  F6  |  F7  |  F8  |  F9  |  F10 |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   7  | CTL/5| ALT/3| GUI/1|   9  |           |   8  | GUI/0| ALT/2| CTL/4|   6  |
+ * | SFT/7| CTL/5| ALT/3| GUI/1|   9  |           |   8  | GUI/0| ALT/2| CTL/4| SFT/6|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |  F11 |  F12 |      |           |      |NUM_LK|      |      |      |
+ * |      |      |  F11 |  F12 |      |           |      |NUM LK|      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |      | TAB  |      |    |      |      |      |
@@ -180,21 +210,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_NUM] = LAYOUT( \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
-  KC_7,    CTRL_5,  ALT_3,   GUI_1,   KC_9,         KC_8,    GUI_0,   ALT_2,   CTRL_4,  KC_6,     \
-  _______, _______, KC_F11,  KC_F12,  _______,      _______, NUM_LK,  _______, _______, _______,  \
-                    _______, KC_TAB,  KC_ESC,       _______, _______, _______                     \
+[_NUM_E] = LAYOUT( \
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  \
+  SFT_7,   CTRL_5,  ALT_3,   GUI_1,   KC_9,          KC_8,    GUI_0,   ALT_2,   CTRL_4,  SFT_6,   \
+  _______, _______, KC_F11,  KC_F12,  _______,       _______, NUMLK_E, _______, _______, _______, \
+                    _______, KC_TAB,  KC_ESC,        _______, _______, _______                    \
 ),
 
-/* Vanilla numbers + function keys (uncomment if you prefer standard number order)
+/* Number + function keys (numeric number order - default pairing with QWERTY)
  *
  * ,----------------------------------.           ,----------------------------------.
  * |  F1  |  F2  |  F3  |  F4  |  F5  |           |  F6  |  F7  |  F8  |  F9  |  F10 |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   1  | CTL/2| ALT/3| GUI/4|   5  |           |   6  | GUI/7| ALT/8| CTL/9|   0  |
+ * | SFT/1| CTL/2| ALT/3| GUI/4|   5  |           |   6  | GUI/7| ALT/8| CTL/9| SFT/0|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |  F11 |  F12 |      |           |      |NUM_LK|      |      |      |
+ * |      |      |  F11 |  F12 |      |           |      |NUM LK|      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |      | TAB  |      |    |      |      |      |
@@ -202,59 +232,39 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                |      |    |      |
  *                                `------'    `------'
  */
-/*
-* [_NUM] = LAYOUT( \
-*   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,        KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
-*   KC_1,    CTRL_2,  ALT_3,   GUI_4,   KC_5,         KC_6,    GUI_7,   ALT_8,   CTRL_9,  KC_0,     \
-*   _______, _______, KC_F11,  KC_F12,  _______,      _______, NUM_LK,  _______, _______, _______,  \
-*                     _______, KC_TAB,  KC_ESC,       _______, _______, _______                     \
-* ),
-*/
+[_NUM_N] = LAYOUT( \
+  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
+  SFT_1,   CTRL_2,  ALT_3,   GUI_4,   KC_5,          KC_6,    GUI_7,   ALT_8,   CTRL_9,  SFT_0,    \
+  _______, _______, KC_F11,  KC_F12,  _______,       _______, NUMLK_N, _______, _______, _______,  \
+                    _______, KC_TAB,  KC_ESC,        _______, _______, _______                     \
+),
+
 
 /* Symbols
  *
  * ,----------------------------------.           ,----------------------------------.
  * |   !  |   @  |   #  |   $  |   %  |           |   ^  |   &  |   *  |   ?  |   '  |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |   +  | CTL/=| ALT/(| GUI/)|   "  |           |   :  | GUI/]| ALT/[| CTL/}|   {  |
+ * | SFT/+| CTL/=| ALT/(| GUI/)|   "  |           |   :  | GUI/]| ALT/[| CTL/}| SFT/{|
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |   <  |   |  |   -  |   >  |   \  |           |   `  |   _  |   /  |   ~  |   ;  |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
- *                  |      |MAC_EN|      |    |      |MAC_EM|      |
+ *                  |      |ENDASH|      |    |      |EMDASH|      |
  *                  `------+------|      |    |      |------+------'
  *                                |      |    |      |
  *                                `------'    `------'
  */
-[_SYM_L] = SYMBOL_LAYER,
-[_SYM_R] = SYMBOL_LAYER,
-
-/* System
- *
- * ,----------------------------------.           ,----------------------------------.
- * |      |      |      |      |      |           |      |      |      |      |      |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * | RESET| DEBUG|AU_OFF| AU_ON|      |           |      |COLEMK|QWERTY|      |      |
- * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |      |      |      |           |      |      |      |      |      |
- * `----------------------------------'           `----------------------------------'
- *                  ,--------------------.    ,--------------------.
- *                  |      |      |      |    |      |      |      |
- *                  `------+------|      |    |      |------+------'
- *                                |      |    |      |
- *                                `------'    `------'
- */
-[_SYS] = LAYOUT( \
-  _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, \
-  RESET,   DEBUG,   AU_OFF,  AU_ON,   _______,      _______, CMK_DHM, QWERTY,  _______, _______, \
-  _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, \
-                    _______, _______, _______,      _______, _______, _______                    \
-),
+[_SYM] = LAYOUT( \
+  KC_EXLM,     KC_AT,   KC_HASH,    KC_DLR,     KC_PERC,       KC_CIRC, KC_AMPR, KC_ASTR, KC_QUES,     KC_QUOT,     \
+  TD(SFT_PLS), CTRL_EQ, TD(ALT_OP), TD(GUI_CP), KC_DQT,        KC_COLN, GUI_CB,  ALT_OB,  TD(CTL_CCB), TD(SFT_OCB), \
+  KC_LT,       KC_PIPE, KC_MINS,    KC_GT,      KC_BSLS,       KC_GRV,  KC_UNDS, KC_SLSH, KC_TILD,     KC_SCLN,     \
+                        _______,    MAC_EN,     _______,       _______, MAC_EM,  _______                            \
+)
 
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  static uint16_t key_timer;
   switch (keycode) {
     case CMK_DHM:
       if (record->event.pressed) {
@@ -266,85 +276,168 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_single_persistent_default_layer(_QWERTY);
       }
       return false;
-    case NAV:
-      if (record->event.pressed) {
-        layer_on(_NAV);
-        update_tri_layer(_NAV, _NUM, _MEDIA);
-      } else {
-        layer_off(_NAV);
-        update_tri_layer(_NAV, _NUM, _MEDIA);
-      }
-      return false;
-    case NUM:
-      if (record->event.pressed) {
-        layer_on(_NUM);
-        update_tri_layer(_NAV, _NUM, _MEDIA);
-      } else {
-        layer_off(_NUM);
-        update_tri_layer(_NAV, _NUM, _MEDIA);
-      }
-      return false;
-    case SYM_L:
-      if (record->event.pressed) {
-        layer_on(_SYM_L);
-        update_tri_layer(_SYM_L, _SYM_R, _SYS);
-      } else {
-        layer_off(_SYM_L);
-        update_tri_layer(_SYM_L, _SYM_R, _SYS);
-      }
-      return false;
-    case SYM_R:
-      if (record->event.pressed) {
-        layer_on(_SYM_R);
-        update_tri_layer(_SYM_L, _SYM_R, _SYS);
-      } else {
-        layer_off(_SYM_R);
-        update_tri_layer(_SYM_L, _SYM_R, _SYS);
-      }
-      return false;
-    case ALT_OP:
-      if (record->event.pressed) {
-        key_timer = timer_read();
-        register_mods(MOD_BIT(KC_LALT));
-      }
-      else {
-        unregister_mods(MOD_BIT(KC_LALT));
-        if (timer_elapsed(key_timer) < TAPPING_TERM) {
-          register_mods(MOD_BIT(KC_LSFT));
-          tap_code(KC_9);
-          unregister_mods(MOD_BIT(KC_LSFT));
-        }
-      }
-      return false;
-    case CTL_CCB:
-      if (record->event.pressed) {
-        key_timer = timer_read();
-        register_mods(MOD_BIT(KC_LCTL));
-      }
-      else {
-        unregister_mods(MOD_BIT(KC_LCTL));
-        if (timer_elapsed(key_timer) < TAPPING_TERM) {
-          register_mods(MOD_BIT(KC_LSFT));
-          tap_code(KC_RBRC);
-          unregister_mods(MOD_BIT(KC_LSFT));
-        }
-      }
-      return false;
-    case GUI_CP:
-      if (record->event.pressed) {
-        key_timer = timer_read();
-        register_mods(MOD_BIT(KC_LGUI));
-      }
-      else {
-        unregister_mods(MOD_BIT(KC_LGUI));
-        if (timer_elapsed(key_timer) < TAPPING_TERM) {
-          register_mods(MOD_BIT(KC_LSFT));
-          tap_code(KC_0);
-          unregister_mods(MOD_BIT(KC_LSFT));
-        }
-      }
-      return false;
     default:
       return true;
   }
+};
+
+int cur_dance (qk_tap_dance_state_t *state) {
+  if (state->count == 1) {
+    if (state->interrupted || !state->pressed) return SINGLE_TAP;
+    else return SINGLE_HOLD;
+  }
+  else return 8;
+}
+
+static tap altop_tap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void altop_finished (qk_tap_dance_state_t *state, void *user_data) {
+  altop_tap_state.state = cur_dance(state);
+  switch (altop_tap_state.state) {
+    case SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      register_code(KC_9);
+      break;
+    case SINGLE_HOLD:
+      register_mods(MOD_BIT(KC_LALT));
+  }
+}
+
+void altop_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (altop_tap_state.state) {
+    case SINGLE_TAP:
+      unregister_code(KC_9);
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+    case SINGLE_HOLD:
+      unregister_mods(MOD_BIT(KC_LALT));
+  }
+  altop_tap_state.state = 0;
+}
+
+static tap ctlccb_tap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void ctlccb_finished (qk_tap_dance_state_t *state, void *user_data) {
+  ctlccb_tap_state.state = cur_dance(state);
+  switch (ctlccb_tap_state.state) {
+    case SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      register_code(KC_RBRC);
+      break;
+    case SINGLE_HOLD:
+      register_mods(MOD_BIT(KC_LCTL));
+  }
+}
+
+void ctlccb_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (ctlccb_tap_state.state) {
+    case SINGLE_TAP:
+      unregister_code(KC_RBRC);
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+    case SINGLE_HOLD:
+      unregister_mods(MOD_BIT(KC_LCTL));
+  }
+  ctlccb_tap_state.state = 0;
+}
+
+static tap guicp_tap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void guicp_finished (qk_tap_dance_state_t *state, void *user_data) {
+  guicp_tap_state.state = cur_dance(state);
+  switch (guicp_tap_state.state) {
+    case SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      register_code(KC_0);
+      break;
+    case SINGLE_HOLD:
+      register_mods(MOD_BIT(KC_LGUI));
+  }
+}
+
+void guicp_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (guicp_tap_state.state) {
+    case SINGLE_TAP:
+      unregister_code(KC_0);
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+    case SINGLE_HOLD:
+      unregister_mods(MOD_BIT(KC_LGUI));
+  }
+  guicp_tap_state.state = 0;
+}
+
+static tap sftocb_tap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void sftocb_finished (qk_tap_dance_state_t *state, void *user_data) {
+  sftocb_tap_state.state = cur_dance(state);
+  switch (sftocb_tap_state.state) {
+    case SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      register_code(KC_LBRC);
+      break;
+    case SINGLE_HOLD:
+      register_mods(MOD_BIT(KC_LSFT));
+  }
+}
+
+void sftocb_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (sftocb_tap_state.state) {
+    case SINGLE_TAP:
+      unregister_code(KC_LBRC);
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+    case SINGLE_HOLD:
+      unregister_mods(MOD_BIT(KC_LSFT));
+  }
+  sftocb_tap_state.state = 0;
+}
+
+static tap sftpls_tap_state = {
+  .is_press_action = true,
+  .state = 0
+};
+
+void sftpls_finished (qk_tap_dance_state_t *state, void *user_data) {
+  sftpls_tap_state.state = cur_dance(state);
+  switch (sftpls_tap_state.state) {
+    case SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      register_code(KC_EQL);
+      break;
+    case SINGLE_HOLD:
+      register_mods(MOD_BIT(KC_LSFT));
+  }
+}
+
+void sftpls_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (sftpls_tap_state.state) {
+    case SINGLE_TAP:
+      unregister_code(KC_EQL);
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+    case SINGLE_HOLD:
+      unregister_mods(MOD_BIT(KC_LSFT));
+  }
+  sftpls_tap_state.state = 0;
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [ALT_OP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altop_finished, altop_reset),
+  [CTL_CCB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctlccb_finished, ctlccb_reset),
+  [GUI_CP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guicp_finished, guicp_reset),
+  [SFT_OCB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftocb_finished, sftocb_reset),
+  [SFT_PLS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftpls_finished, sftpls_reset)
 };
