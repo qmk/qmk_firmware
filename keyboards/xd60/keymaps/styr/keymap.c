@@ -4,6 +4,10 @@
 #define _FL 1
 #define _LL 2
 
+enum custom_keycodes {
+  MACRO_STRING
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   // 0: Base Layer
@@ -20,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       XXXXXXX,   RGB_TOG,   RGB_MOD,   RGB_RMOD,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  RGB_HUI,  RGB_HUD,  XXXXXXX,  RGB_VAI,  RGB_VAD,  XXXXXXX,    \
       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  \
       XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  KC_MS_BTN1, KC_MS_UP, KC_MS_BTN2, \
-      XXXXXXX,   XXXXXXX,   XXXXXXX,                    XXXXXXX,                                            XXXXXXX,    F(0),    KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT),
+      XXXXXXX,   XXXXXXX,   XXXXXXX,                    MACRO_STRING,                                            XXXXXXX,    F(0),    KC_MS_LEFT, KC_MS_DOWN, KC_MS_RIGHT),
 
   [_LL] = LAYOUT_all(
       XXXXXXX,   KC_F1,   KC_F2,   KC_F3,   KC_F4,  KC_F5,  KC_F6,  KC_F7,  KC_F8,  KC_F9,   KC_F10,  KC_F11,   KC_F12,  KC_F13,   KC_F14,    \
@@ -32,24 +36,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-// Custom Actions
-const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(1),  // to Fn overlay
-};
-
 // Macros
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-
-  // MACRODOWN only works in this function
-  switch(id) {
-    case 0:
-      if (record->event.pressed) { register_code(KC_RSFT); }
-      else { unregister_code(KC_RSFT); }
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case MACRO_STRING:
+      if(record->event.pressed){
+        SEND_STRING("My Custom String");
+      }
+      return false;
       break;
+    default:
+      return true;
   }
-
-  return MACRO_NONE;
-};
+}
 
 // Loop
 void matrix_scan_user(void) {
