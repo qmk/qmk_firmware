@@ -653,7 +653,7 @@ void process_action(keyrecord_t *record, action_t action)
 
 #ifndef NO_ACTION_TAPPING
   #ifdef RETRO_TAPPING
-  if (!is_tap_key(record->event.key)) {
+  if (!is_tap_action(action)) {
     retro_tapping_counter = 0;
   } else {
     if (event.pressed) {
@@ -929,7 +929,15 @@ void clear_keyboard_but_mods_and_keys()
 bool is_tap_key(keypos_t key)
 {
     action_t action = layer_switch_get_action(key);
+    return is_tap_action(action);
+}
 
+/** \brief Utilities for actions. (FIXME: Needs better description)
+ *
+ * FIXME: Needs documentation.
+ */
+bool is_tap_action(action_t action)
+{
     switch (action.kind.id) {
         case ACT_LMODS_TAP:
         case ACT_RMODS_TAP:
