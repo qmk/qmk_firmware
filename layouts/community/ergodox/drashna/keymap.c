@@ -166,6 +166,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _________________WORKMAN_L3________________, _________________WORKMAN_R3________________
   ),
 
+  [_NORMAN] = LAYOUT_ergodox_pretty_base_wrapper(
+    _________________NORMAN_L1_________________, _________________NORMAN_L1_________________,
+    _________________NORMAN_L2_________________, _________________NORMAN_R2_________________,
+    _________________NORMAN_L3_________________, _________________NORMAN_R3_________________
+  ),
+
+  [_MALTRON] = LAYOUT_ergodox_pretty_base_wrapper(
+    _________________MALTRON_L1________________, _________________MALTRON_R1________________,
+    _________________MALTRON_L2________________, _________________MALTRON_R2________________,
+    _________________MALTRON_L3________________, _________________MALTRON_R3________________
+  ),
+
+  [_EUCALYN] = LAYOUT_ergodox_pretty_base_wrapper(
+    _________________EUCALYN_L1________________, _________________EUCALYN_R1________________,
+    _________________EUCALYN_L2________________, _________________EUCALYN_R2________________,
+    _________________EUCALYN_L3________________, _________________EUCALYN_R3________________
+  ),
+
+  [_CARPLAX] = LAYOUT_ergodox_pretty_base_wrapper(
+    _____________CARPLAX_QFMLWY_L1_____________, _____________CARPLAX_QFMLWY_R1_____________,
+    _____________CARPLAX_QFMLWY_L2_____________, _____________CARPLAX_QFMLWY_R2_____________,
+    _____________CARPLAX_QFMLWY_L3_____________, _____________CARPLAX_QFMLWY_R3_____________
+  ),
+
+
 // Reverts OSM(Shift) to normal Shifts. However, may not need since we fixed the issue with RDP (LOCAL RESOURCES)
   [_MODS] = LAYOUT_ergodox_pretty_wrapper(
              _______, _______, _______, _______, _______, _______, _______,                 _______, _______, _______, _______, _______, _______, _______,
@@ -428,6 +453,14 @@ void rgb_matrix_indicators_user(void) {
           rgb_matrix_layer_helper(0x00, 0xFF, 0x00); break;
         case _WORKMAN:
           rgb_matrix_layer_helper(0xD9, 0xA5, 0x21); break;
+        case _NORMAN:
+          rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D); break;
+        case _MALTRON:
+          rgb_matrix_layer_helper(0xFF, 0xFF, 0x00); break;
+        case _EUCALYN:
+          rgb_matrix_layer_helper(0xFF, 0x80, 0xBF); break;
+        case _CARPLAX:
+          rgb_matrix_layer_helper(0x00, 0x00, 0xFF); break;
       }
   }
 #if 0

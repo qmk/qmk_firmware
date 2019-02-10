@@ -315,6 +315,14 @@ uint32_t layer_state_set_rgb(uint32_t state) {
           rgblight_sethsv_noeeprom_springgreen(); break;
         case _WORKMAN:
           rgblight_sethsv_noeeprom_goldenrod(); break;
+        case _NORMAN:
+          rgblight_sethsv_noeeprom_coral(); break;
+        case _MALTRON:
+          rgblight_sethsv_noeeprom_yellow(); break;
+        case _EUCALYN:
+          rgblight_sethsv_noeeprom_pink(); break;
+        case _CARPLAX:
+          rgblight_sethsv_noeeprom_blue(); break;
         default:
           rgblight_sethsv_noeeprom_cyan(); break;
       }

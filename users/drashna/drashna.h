@@ -36,7 +36,11 @@ enum userspace_layers {
   _COLEMAK,
   _DVORAK,
   _WORKMAN,
-  _MODS,
+  _NORMAN,
+  _MALTRON,
+  _EUCALYN,
+  _CARPLAX,
+  _MODS, /* layer 8 */
   _GAMEPAD,
   _DIABLO,
   _MACROS,
