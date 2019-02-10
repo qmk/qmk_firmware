@@ -21,6 +21,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <string.h>
 #include <math.h>
 
+#ifdef USE_MASSDROP_CONFIGURATOR
+__attribute__((weak))
+led_instruction_t led_instructions[] = { { .end = 1 } };
+static void led_matrix_massdrop_config_override(int i);
+#endif // USE_MASSDROP_CONFIGURATOR
+
 void SERCOM1_0_Handler( void )
 {
     if (SERCOM1->I2CM.INTFLAG.bit.ERROR)
@@ -192,6 +198,9 @@ void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b)
         led_buffer[i].r = r;
         led_buffer[i].g = g;
         led_buffer[i].b = b;
+#ifdef USE_MASSDROP_CONFIGURATOR
+        led_matrix_massdrop_config_override(i);
+#endif // USE_MASSDROP_CONFIGURATOR
     }
 }
 
@@ -199,9 +208,7 @@ void led_set_all(uint8_t r, uint8_t g, uint8_t b)
 {
   for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
   {
-    led_buffer[i].r = r;
-    led_buffer[i].g = g;
-    led_buffer[i].b = b;
+    led_set_one(i, r, g, b);
   }
 }
 
@@ -290,3 +297,147 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
   .set_color = led_set_one,
   .set_color_all = led_set_all
 };
+
+/*==============================================================================
+=                           Legacy Lighting Support                            =
+==============================================================================*/
+
+#ifdef USE_MASSDROP_CONFIGURATOR
+// Ported from Massdrop QMK Github Repo
+
+// TODO?: wire these up to keymap.c
+bool led_animation_direction = false;
+bool led_animation_orientation = false;
+
+static void led_run_pattern(led_setup_t *f, float* ro, float* go, float* bo, float pos) {
+    float pomod;
+    pomod = (float)(g_tick % (uint32_t)(1000.0f / (1 << rgb_matrix_config.speed))) / 10.0f * (1 << rgb_matrix_config.speed);
+    pomod *= 100.0f;
+    pomod = (uint32_t)pomod % 10000;
+    pomod /= 100.0f;
+
+    float po;
+
+    while (f->end != 1)
+    {
+        po = pos; //Reset po for new frame
+
+        //Add in any moving effects
+        if ((!led_animation_direction && f->ef & EF_SCR_R) || (led_animation_direction && (f->ef & EF_SCR_L)))
+        {
+            po -= pomod;
+
+            if (po > 100) po -= 100;
+            else if (po < 0) po += 100;
+        }
+        else if ((!led_animation_direction && f->ef & EF_SCR_L) || (led_animation_direction && (f->ef & EF_SCR_R)))
+        {
+            po += pomod;
+
+            if (po > 100) po -= 100;
+            else if (po < 0) po += 100;
+        }
+
+        //Check if LED's po is in current frame
+        if (po < f->hs) { f++; continue; }
+        if (po > f->he) { f++; continue; }
+        //note: < 0 or > 100 continue
+
+        //Calculate the po within the start-stop percentage for color blending
+        po = (po - f->hs) / (f->he - f->hs);
+
+        //Add in any color effects
+        if (f->ef & EF_OVER)
+        {
+            *ro = (po * (f->re - f->rs)) + f->rs;// + 0.5;
+            *go = (po * (f->ge - f->gs)) + f->gs;// + 0.5;
+            *bo = (po * (f->be - f->bs)) + f->bs;// + 0.5;
+        }
+        else if (f->ef & EF_SUBTRACT)
+        {
+            *ro -= (po * (f->re - f->rs)) + f->rs;// + 0.5;
+            *go -= (po * (f->ge - f->gs)) + f->gs;// + 0.5;
+            *bo -= (po * (f->be - f->bs)) + f->bs;// + 0.5;
+        }
+        else
+        {
+            *ro += (po * (f->re - f->rs)) + f->rs;// + 0.5;
+            *go += (po * (f->ge - f->gs)) + f->gs;// + 0.5;
+            *bo += (po * (f->be - f->bs)) + f->bs;// + 0.5;
+        }
+
+        f++;
+    }
+}
+
+static void led_matrix_massdrop_config_override(int i)
+{
+#ifdef RGB_MATRIX_EXTRA_TOG
+    const bool is_key = g_rgb_leds[i].matrix_co.raw != 0xff;
+    if ((rgb_matrix_config.enable == RGB_ZONE_KEYS && !is_key) ||
+        (rgb_matrix_config.enable == RGB_ZONE_UNDER && is_key))
+    {
+        return;
+    }
+#endif
+
+    bool do_override = false;
+
+    float ro = 0;
+    float go = 0;
+    float bo = 0;
+
+    float po = (led_animation_orientation)
+        ? (float)g_rgb_leds[i].point.y / 64.f * 100
+        : (float)g_rgb_leds[i].point.x / 224.f * 100;
+
+    const uint8_t highest_active_layer = biton32(layer_state);
+
+    const led_instruction_t* led_cur_instruction = led_instructions;
+    while (!led_cur_instruction->end) {
+        // Check if this applies to current layer
+        if ((led_cur_instruction->flags & LED_FLAG_MATCH_LAYER) &&
+            (led_cur_instruction->layer != highest_active_layer))
+        {
+            goto next_iter;
+        }
+
+        // Check if this applies to current index
+        if (led_cur_instruction->flags & LED_FLAG_MATCH_ID) {
+            const uint8_t  modid = i / 32;                                //PS: Calculate which id# contains the led bit
+            const uint32_t modidbit = 1 << (i % 32);                      //PS: Calculate the bit within the id#
+            const uint32_t* bitfield = &led_cur_instruction->id0 + modid; //PS: Add modid as offset to id0 address. *bitfield is now idX of the led id
+            if (~(*bitfield) & modidbit) //PS: Check if led bit is not set in idX
+                goto next_iter;
+        }
+
+        if (led_cur_instruction->flags & LED_FLAG_USE_RGB) {
+            ro = led_cur_instruction->r;
+            go = led_cur_instruction->g;
+            bo = led_cur_instruction->b;
+            do_override = true;
+        } else if (led_cur_instruction->flags & LED_FLAG_USE_PATTERN) {
+            led_run_pattern(led_setups[led_cur_instruction->pattern_id], &ro, &go, &bo, po);
+            do_override = true;
+        } else if (led_cur_instruction->flags & LED_FLAG_USE_ROTATE_PATTERN) {
+            // no override
+            do_override = false;
+        }
+
+    next_iter:
+        led_cur_instruction++;
+    }
+
+    if (!do_override)
+        return;
+
+    if (ro > 255) ro = 255; else if (ro < 0) ro = 0;
+    if (go > 255) go = 255; else if (go < 0) go = 0;
+    if (bo > 255) bo = 255; else if (bo < 0) bo = 0;
+
+    led_buffer[i].r = (uint8_t)ro;
+    led_buffer[i].g = (uint8_t)go;
+    led_buffer[i].b = (uint8_t)bo;
+}
+
+#endif // USE_MASSDROP_CONFIGURATOR

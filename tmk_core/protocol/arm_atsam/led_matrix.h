@@ -18,6 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef _LED_MATRIX_H_
 #define _LED_MATRIX_H_
 
+#include "quantum.h"
+
 //From keyboard
 #include "config_led.h"
 
@@ -85,5 +87,57 @@ extern uint8_t gcr_actual_last;
 void gcr_compute(void);
 
 void led_matrix_indicators(void);
+
+/*-------------------------  Legacy Lighting Support  ------------------------*/
+
+#ifdef USE_MASSDROP_CONFIGURATOR
+
+#define EF_NONE         0x00000000  //No effect
+#define EF_OVER         0x00000001  //Overwrite any previous color information with new
+#define EF_SCR_L        0x00000002  //Scroll left
+#define EF_SCR_R        0x00000004  //Scroll right
+#define EF_SUBTRACT     0x00000008  //Subtract color values
+
+typedef struct led_setup_s {
+  float hs;         //Band begin at percent
+  float he;         //Band end at percent
+  uint8_t rs;       //Red start value
+  uint8_t re;       //Red end value
+  uint8_t gs;       //Green start value
+  uint8_t ge;       //Green end value
+  uint8_t bs;       //Blue start value
+  uint8_t be;       //Blue end value
+  uint32_t ef;      //Animation and color effects
+  uint8_t end;      //Set to signal end of the setup
+} led_setup_t;
+
+extern const uint8_t led_setups_count;
+extern void *led_setups[];
+
+//LED Extra Instructions
+#define LED_FLAG_NULL                0x00
+#define LED_FLAG_MATCH_ID            0x01
+#define LED_FLAG_MATCH_LAYER         0x02
+#define LED_FLAG_USE_RGB             0x10
+#define LED_FLAG_USE_PATTERN         0x20
+#define LED_FLAG_USE_ROTATE_PATTERN  0x40
+
+typedef struct led_instruction_s {
+    uint16_t flags; // Bitfield for LED instructions
+    uint32_t id0; // Bitwise id, IDs 0-31
+    uint32_t id1; // Bitwise id, IDs 32-63
+    uint32_t id2; // Bitwise id, IDs 64-95
+    uint32_t id3; // Bitwise id, IDs 96-127
+    uint8_t layer;
+    uint8_t r;
+    uint8_t g;
+    uint8_t b;
+    uint8_t pattern_id;
+    uint8_t end;
+} led_instruction_t;
+
+extern led_instruction_t led_instructions[];
+
+#endif // USE_MASSDROP_CONFIGURATOR
 
 #endif //_LED_MATRIX_H_

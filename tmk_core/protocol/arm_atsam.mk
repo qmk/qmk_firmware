@@ -5,6 +5,7 @@ SRC += $(ARM_ATSAM_DIR)/clks.c
 SRC += $(ARM_ATSAM_DIR)/d51_util.c
 SRC += $(ARM_ATSAM_DIR)/i2c_master.c
 ifeq ($(RGB_MATRIX_ENABLE),custom)
+  SRC += $(ARM_ATSAM_DIR)/led_matrix_programs.c
   SRC += $(ARM_ATSAM_DIR)/led_matrix.c
 endif
 SRC += $(ARM_ATSAM_DIR)/main_arm_atsam.c
