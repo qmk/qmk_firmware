@@ -23,6 +23,15 @@
 /* screen off after this many milliseconds */
 #define ScreenOffInterval 60000 /* milliseconds */
 
+typedef union {
+    uint8_t raw;
+    struct {
+        bool    enable :1;
+        bool    breathing : 1;
+        uint8_t level  :6;
+    };
+} backlight_config_t;
+
 enum my_keycodes {
   ENC_NEXT = SAFE_RANGE,
   ENC_PRESS,
@@ -70,13 +79,18 @@ extern RTCDateTime last_timespec;
 extern uint16_t last_minute;
 
 // RTC Configuration
-// extern bool clock_set_mode;
+extern bool clock_set_mode;
 extern uint8_t time_config_idx;
-extern uint8_t hour_config;
-extern uint16_t minute_config;
+extern int8_t hour_config;
+extern int16_t minute_config;
+extern int8_t year_config;
+extern int8_t month_config;
+extern int8_t day_config;
+extern uint8_t previous_encoder_mode;
 
 // Backlighting
-extern uint8_t kb_backlight_level;
+extern backlight_config_t kb_backlight_config;
+extern bool kb_backlight_breathing;
 
 void pre_encoder_mode_change(void);
 void post_encoder_mode_change(void);
@@ -85,6 +99,8 @@ uint16_t handle_encoder_clockwise(void);
 uint16_t handle_encoder_ccw(void);
 uint16_t handle_encoder_press(void);
 
+void update_time_config(int8_t increment);
+
 __attribute__ ((weak))
 void draw_ui(void);
 void draw_default(void);
@@ -92,5 +108,8 @@ void draw_clock(void);
 
 void backlight_init_ports(void);
 void backlight_set(uint8_t level);
+bool is_breathing(void);
+void breathing_enable(void);
+void breathing_disable(void);
 // void backlight_save_to_eeprom(uint8_t level);
-// uint8_t backlight_read_from_eeprom();
+// uint8_t backlight_config_load();

@@ -42,8 +42,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 //LEDS A6, RGB B15
 #define BACKLIGHT_LEVELS 24
-// #define BACKLIGHT_BREATHING
-// #define BREATHING_PERIOD 6
+#define BACKLIGHT_BREATHING
+#define BREATHING_PERIOD 6
 
 /* define if matrix has ghost */
 //#define MATRIX_HAS_GHOST
@@ -77,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Bump this every time we change what we store
 // This will automatically reset the EEPROM with defaults
 // and avoid loading invalid data from the EEPROM
-#define EEPROM_VERSION 0x04
+#define EEPROM_VERSION 0x01
 #define EEPROM_VERSION_ADDR 34
 
 // Dynamic keymap starts after EEPROM version

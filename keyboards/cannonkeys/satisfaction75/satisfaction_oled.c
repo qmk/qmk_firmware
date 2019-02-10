@@ -6,6 +6,10 @@ void draw_ui() {
   clear_buffer();
   last_flush = timer_read();
   send_command(DISPLAYON);
+  if(clock_set_mode){
+    draw_clock();
+    return;
+  }
   switch (oled_mode){
     default:
     case OLED_DEFAULT:
@@ -18,6 +22,46 @@ void draw_ui() {
       send_command(DISPLAYOFF);
       break;
   }
+}
+
+void draw_encoder(int8_t startX, int8_t startY, bool show_legend){
+  if(show_legend){
+    draw_string(startX + 1, startY + 2, "ENC", PIXEL_ON, NORM, 0);
+  } else {
+    startX -= 22;
+  }
+  draw_rect_filled_soft(startX + 22, startY + 1, 3 + (3 * 6), 9, PIXEL_ON, NORM);
+  switch(encoder_mode){
+    default:
+    case ENC_MODE_VOLUME:
+      draw_string(startX + 24, startY + 2, "VOL", PIXEL_ON, XOR, 0);
+      break;
+    case ENC_MODE_MEDIA:
+      draw_string(startX + 24, startY + 2, "MED", PIXEL_ON, XOR, 0);
+      break;
+    case ENC_MODE_SCROLL:
+      draw_string(startX + 24, startY + 2, "SCR", PIXEL_ON, XOR, 0);
+      break;
+    case ENC_MODE_BRIGHTNESS:
+      draw_string(startX + 24, startY + 2, "BRT", PIXEL_ON, XOR, 0);
+      break;
+    case ENC_MODE_BACKLIGHT:
+      draw_string(startX + 24, startY + 2, "BKL", PIXEL_ON, XOR, 0);
+      break;
+    case ENC_MODE_CLOCK_SET:
+      draw_string(startX + 24, startY + 2, "CLK", PIXEL_ON, XOR, 0);
+      break;
+  }
+}
+
+void draw_layer_section(int8_t startX, int8_t startY, bool show_legend){
+  if(show_legend){
+    draw_string(startX + 1, startY + 2, "LAYER", PIXEL_ON, NORM, 0);
+  } else {
+    startX -= 32;
+  }
+  draw_rect_filled_soft(startX + 32, startY + 1, 9, 9, PIXEL_ON, NORM);
+  draw_char(startX + 34, startY + 2, layer + 0x30, PIXEL_ON, XOR, 0);
 }
 
 void draw_default(){
@@ -43,39 +87,11 @@ void draw_default(){
   uint8_t mods = get_mods();
 
 /* Layer indicator is 41 x 10 pixels */
-#define LAYER_INDICATOR_X 0
-#define LAYER_INDICATOR_Y 0
-
-  draw_string(LAYER_INDICATOR_X + 1, LAYER_INDICATOR_Y + 2, "LAYER", PIXEL_ON, NORM, 0);
-  draw_rect_filled_soft(LAYER_INDICATOR_X + 32, LAYER_INDICATOR_Y + 1, 9, 9, PIXEL_ON, NORM);
-  draw_char(LAYER_INDICATOR_X + 34, LAYER_INDICATOR_Y + 2, layer + 0x30, PIXEL_ON, XOR, 0);
+  draw_layer_section(0,0,true);
 
 #define ENCODER_INDICATOR_X 45
 #define ENCODER_INDICATOR_Y 0
-  draw_string(ENCODER_INDICATOR_X + 1, ENCODER_INDICATOR_Y + 2, "ENC", PIXEL_ON, NORM, 0);
-  draw_rect_filled_soft(ENCODER_INDICATOR_X + 22, ENCODER_INDICATOR_Y + 1, 3 + (3 * 6), 9, PIXEL_ON, NORM);
-  switch(encoder_mode){
-    default:
-    case ENC_MODE_VOLUME:
-      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "VOL", PIXEL_ON, XOR, 0);
-      break;
-    case ENC_MODE_MEDIA:
-      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "MED", PIXEL_ON, XOR, 0);
-      break;
-    case ENC_MODE_SCROLL:
-      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "SCR", PIXEL_ON, XOR, 0);
-      break;
-    case ENC_MODE_BRIGHTNESS:
-      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "BRT", PIXEL_ON, XOR, 0);
-      break;
-    case ENC_MODE_BACKLIGHT:
-      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "BKL", PIXEL_ON, XOR, 0);
-      break;
-    case ENC_MODE_CLOCK_SET:
-      draw_string(ENCODER_INDICATOR_X + 24, ENCODER_INDICATOR_Y + 2, "CLK", PIXEL_ON, XOR, 0);
-      break;
-  }
-
+  draw_encoder(ENCODER_INDICATOR_X, ENCODER_INDICATOR_Y, true);
 /* Matrix display is 19 x 9 pixels */
 #define MATRIX_DISPLAY_X 0
 #define MATRIX_DISPLAY_Y 18
@@ -156,12 +172,18 @@ void draw_default(){
 }
 
 void draw_clock(){
-  uint8_t hour = last_minute / 60;
-  uint16_t minute = last_minute % 60;
+  int8_t hour = last_minute / 60;
+  int16_t minute = last_minute % 60;
+  int16_t year = last_timespec.year + 1980;
+  int8_t month = last_timespec.month;
+  int8_t day = last_timespec.day;
 
   if(encoder_mode == ENC_MODE_CLOCK_SET){
     hour = hour_config;
     minute = minute_config;
+    year = year_config + 1980;
+    month = month_config;
+    day = day_config;
   }
 
   bool is_pm = (hour / 12) > 0;
@@ -171,12 +193,27 @@ void draw_clock(){
   }
   char hour_str[2] = "";
   char min_str[2] = "";
+  char year_str[4] = "";
+  char month_str[2] = "";
+  char day_str[2] = "";
 
   sprintf(hour_str, "%02d", hour);
   sprintf(min_str, "%02d", minute);
+  sprintf(year_str, "%d", year);
+  sprintf(month_str, "%02d", month);
+  sprintf(day_str, "%02d", day);
 
-#define CLOCK_DISPLAY_X 0
-#define CLOCK_DISPLAY_Y 0
+
+#define DATE_DISPLAY_X 6
+#define DATE_DISPLAY_Y 0
+  draw_string(DATE_DISPLAY_X, DATE_DISPLAY_Y, year_str, PIXEL_ON, NORM, 0);
+  draw_string(DATE_DISPLAY_X + 25, DATE_DISPLAY_Y, "-", PIXEL_ON, NORM, 0);
+  draw_string(DATE_DISPLAY_X + 31, DATE_DISPLAY_Y, month_str, PIXEL_ON, NORM, 0);
+  draw_string(DATE_DISPLAY_X + 44, DATE_DISPLAY_Y, "-", PIXEL_ON, NORM, 0);
+  draw_string(DATE_DISPLAY_X + 50, DATE_DISPLAY_Y, day_str, PIXEL_ON, NORM, 0);
+
+#define CLOCK_DISPLAY_X 6
+#define CLOCK_DISPLAY_Y 14
   draw_string(CLOCK_DISPLAY_X, CLOCK_DISPLAY_Y, hour_str, PIXEL_ON, NORM, 1);
   draw_string(CLOCK_DISPLAY_X + 17, CLOCK_DISPLAY_Y, ":", PIXEL_ON, NORM, 1);
   draw_string(CLOCK_DISPLAY_X + 25, CLOCK_DISPLAY_Y, min_str, PIXEL_ON, NORM, 1);
@@ -185,6 +222,41 @@ void draw_clock(){
   } else{
     draw_string(CLOCK_DISPLAY_X + 41, CLOCK_DISPLAY_Y, "am", PIXEL_ON, NORM, 1);
   }
+
+  if(clock_set_mode){
+    switch(time_config_idx){
+      case 0: // hour
+      default:
+        draw_line(CLOCK_DISPLAY_X, CLOCK_DISPLAY_Y + 17, CLOCK_DISPLAY_X + 16, CLOCK_DISPLAY_Y + 17, PIXEL_ON, NORM);
+        break;
+      case 1: // minute
+        draw_line(CLOCK_DISPLAY_X + 25, CLOCK_DISPLAY_Y + 17, CLOCK_DISPLAY_X + 41, CLOCK_DISPLAY_Y + 17, PIXEL_ON, NORM);
+        break;
+      case 2: // year
+        draw_line(DATE_DISPLAY_X, DATE_DISPLAY_Y + 9, DATE_DISPLAY_X + 23, DATE_DISPLAY_Y + 9, PIXEL_ON, NORM);
+        break;
+      case 3: // month
+        draw_line(DATE_DISPLAY_X + 31, DATE_DISPLAY_Y + 9, DATE_DISPLAY_X + 43, DATE_DISPLAY_Y + 9, PIXEL_ON, NORM);
+        break;
+      case 4: //day
+        draw_line(DATE_DISPLAY_X + 50, DATE_DISPLAY_Y + 9, DATE_DISPLAY_X + 61, DATE_DISPLAY_Y + 9,PIXEL_ON, NORM);
+        break;
+    }
+  }
+
+  draw_encoder(80, 0, true);
+  draw_layer_section(80, 11, true);
+
+#define CAPS_DISPLAY_X 86
+#define CAPS_DISPLAY_Y 22
+
+  if (led_capslock == true) {
+    draw_rect_filled_soft(CAPS_DISPLAY_X, CAPS_DISPLAY_Y, 5 + (4 * 6), 9, PIXEL_ON, NORM);
+    draw_string(CAPS_DISPLAY_X + 3, CAPS_DISPLAY_Y +1, "CAPS", PIXEL_OFF, NORM, 0);
+  } else if (led_capslock == false) {
+    draw_string(CAPS_DISPLAY_X + 3, CAPS_DISPLAY_Y +1, "CAPS", PIXEL_ON, NORM, 0);
+  }
+
 
   send_buffer();
 

@@ -32,7 +32,7 @@ volatile uint8_t led_scrolllock = false;
 uint8_t layer;
 
 bool queue_for_send = false;
-// static bool clock_set_mode = false;
+bool clock_set_mode = false;
 uint8_t oled_mode = OLED_DEFAULT;
 bool oled_sleeping = false;
 
@@ -41,12 +41,20 @@ uint8_t encoder_mode = ENC_MODE_VOLUME;
 
 RTCDateTime last_timespec;
 uint16_t last_minute = 0;
+
 uint8_t time_config_idx = 0;
-uint8_t hour_config = 0;
-uint16_t minute_config = 0;
+int8_t hour_config = 0;
+int16_t minute_config = 0;
+int8_t year_config = 0;
+int8_t month_config = 0;
+int8_t day_config = 0;
+uint8_t previous_encoder_mode = 0;
 
-uint8_t kb_backlight_level = BACKLIGHT_LEVELS;
-
+backlight_config_t kb_backlight_config = {
+  .enable = true,
+  .breathing = true,
+  .level = BACKLIGHT_LEVELS
+};
 
 bool eeprom_is_valid(void)
 {
@@ -243,7 +251,23 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
         oled_mode = (oled_mode + 1) % _NUM_OLED_MODES;
         draw_ui();
       }
-      printf("OLED MOD: %d",oled_mode);
+      return false;
+    case CLOCK_SET:
+      if (record->event.pressed) {
+        if(clock_set_mode){
+          pre_encoder_mode_change();
+          clock_set_mode = false;
+          encoder_mode = previous_encoder_mode;
+          post_encoder_mode_change();
+
+        }else{
+          previous_encoder_mode = encoder_mode;
+          pre_encoder_mode_change();
+          clock_set_mode = true;
+          encoder_mode = ENC_MODE_CLOCK_SET;
+          post_encoder_mode_change();
+        }
+      }
       return false;
     case ENC_PRESS:
       if (record->event.pressed) {
