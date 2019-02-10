@@ -26,15 +26,17 @@ void post_encoder_mode_change(){
 
 void change_encoder_mode(bool negative){
   pre_encoder_mode_change();
-  if(negative){
-    if (encoder_mode == 0){
-      encoder_mode = _NUM_ENCODER_MODES - 1;
-    } else{
-      encoder_mode = encoder_mode - 1;
+  do {
+    if(negative){
+      if (encoder_mode == 0){
+        encoder_mode = _NUM_ENCODER_MODES - 1;
+      } else{
+        encoder_mode = encoder_mode - 1;
+      }
+    } else {
+        encoder_mode = (encoder_mode + 1) % _NUM_ENCODER_MODES;
     }
-  } else {
-      encoder_mode = (encoder_mode + 1) % _NUM_ENCODER_MODES;
-  }
+  } while(((1 << encoder_mode) & enabled_encoder_modes) == 0);
   post_encoder_mode_change();
 }
 

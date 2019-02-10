@@ -32,10 +32,9 @@ typedef union {
     };
 } backlight_config_t;
 
+// Start these at the USER code range in VIA
 enum my_keycodes {
-  ENC_NEXT = SAFE_RANGE,
-  ENC_PRESS,
-  ENC_PREV,
+  ENC_PRESS = 0x5F80,
   CLOCK_SET,
   OLED_TOGG
 };
@@ -46,6 +45,9 @@ enum encoder_modes {
   ENC_MODE_SCROLL,
   ENC_MODE_BRIGHTNESS,
   ENC_MODE_BACKLIGHT,
+  ENC_MODE_CUSTOM0,
+  ENC_MODE_CUSTOM1,
+  ENC_MODE_CUSTOM2,
   _NUM_ENCODER_MODES,
   ENC_MODE_CLOCK_SET // This shouldn't be included in the default modes, so we put it after NUM_ENCODER_MODES
 };
@@ -73,6 +75,7 @@ extern bool oled_sleeping;
 // Encoder Behavior
 extern uint8_t encoder_value;
 extern uint8_t encoder_mode;
+extern uint8_t enabled_encoder_modes;
 
 // RTC
 extern RTCDateTime last_timespec;

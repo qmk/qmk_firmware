@@ -38,6 +38,7 @@ bool oled_sleeping = false;
 
 uint8_t encoder_value = 32;
 uint8_t encoder_mode = ENC_MODE_VOLUME;
+uint8_t enabled_encoder_modes = 0x1F;
 
 RTCDateTime last_timespec;
 uint16_t last_minute = 0;
@@ -241,11 +242,6 @@ uint32_t layer_state_set_kb(uint32_t state) {
 bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   queue_for_send = true;
   switch (keycode) {
-    case ENC_NEXT:
-      if (record->event.pressed) {
-        change_encoder_mode(false);
-      }
-      return false;
     case OLED_TOGG:
       if (record->event.pressed) {
         oled_mode = (oled_mode + 1) % _NUM_OLED_MODES;
@@ -354,17 +350,14 @@ void eeprom_init_kb(void)
 void matrix_init_kb(void)
 {
 	eeprom_init_kb();
+  rtcGetTime(&RTCD1, &last_timespec);
+  queue_for_send = true;
+  backlight_init_ports();
 	matrix_init_user();
 }
 
 
-void matrix_init_user(void) {
-  rtcGetTime(&RTCD1, &last_timespec);
-  queue_for_send = true;
-  backlight_init_ports();
-}
-
-void matrix_scan_user(void) {
+void matrix_scan_kb(void) {
   rtcGetTime(&RTCD1, &last_timespec);
   uint16_t minutes_since_midnight = last_timespec.millisecond / 1000 / 60;
 

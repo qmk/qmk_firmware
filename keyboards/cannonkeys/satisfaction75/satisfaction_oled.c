@@ -31,27 +31,38 @@ void draw_encoder(int8_t startX, int8_t startY, bool show_legend){
     startX -= 22;
   }
   draw_rect_filled_soft(startX + 22, startY + 1, 3 + (3 * 6), 9, PIXEL_ON, NORM);
+  char* mode_string = "";
   switch(encoder_mode){
     default:
     case ENC_MODE_VOLUME:
-      draw_string(startX + 24, startY + 2, "VOL", PIXEL_ON, XOR, 0);
+      mode_string = "VOL";
       break;
     case ENC_MODE_MEDIA:
-      draw_string(startX + 24, startY + 2, "MED", PIXEL_ON, XOR, 0);
+      mode_string = "MED";
       break;
     case ENC_MODE_SCROLL:
-      draw_string(startX + 24, startY + 2, "SCR", PIXEL_ON, XOR, 0);
+      mode_string = "SCR";
       break;
     case ENC_MODE_BRIGHTNESS:
-      draw_string(startX + 24, startY + 2, "BRT", PIXEL_ON, XOR, 0);
+      mode_string = "BRT";
       break;
     case ENC_MODE_BACKLIGHT:
-      draw_string(startX + 24, startY + 2, "BKL", PIXEL_ON, XOR, 0);
+      mode_string = "BKL";
       break;
     case ENC_MODE_CLOCK_SET:
-      draw_string(startX + 24, startY + 2, "CLK", PIXEL_ON, XOR, 0);
+      mode_string = "CLK";
+      break;
+    case ENC_MODE_CUSTOM0:
+      mode_string = "CS0";
+      break;
+    case ENC_MODE_CUSTOM1:
+      mode_string = "CS1";
+      break;
+    case ENC_MODE_CUSTOM2:
+      mode_string = "CS2";
       break;
   }
+  draw_string(startX + 24, startY + 2, mode_string, PIXEL_ON, XOR, 0);
 }
 
 void draw_layer_section(int8_t startX, int8_t startY, bool show_legend){
@@ -104,11 +115,6 @@ void draw_default(){
   draw_rect_soft(MATRIX_DISPLAY_X, MATRIX_DISPLAY_Y, 19, 9, PIXEL_ON, NORM);
   /* hadron oled location on thumbnail */
   draw_rect_filled_soft(MATRIX_DISPLAY_X + 14, MATRIX_DISPLAY_Y + 2, 3, 1, PIXEL_ON, NORM);
-/*
-  draw_rect_soft(0, 13, 64, 6, PIXEL_ON, NORM);
-  draw_line_vert(encoder_value, 13, 6, PIXEL_ON, NORM);
-
-*/
 
 /* Mod display is 41 x 16 pixels */
 #define MOD_DISPLAY_X 30
