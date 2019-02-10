@@ -243,7 +243,7 @@ static void unselect_cols(void)
 
 static void init_pins(void) {
   unselect_cols();
-  for (uint8_t x = 0; x < ROWS_PER_HAND; x++) {
+  for (uint8_t x = 0; x < MATRIX_ROWS; x++) {
     setPinInputHigh(row_pins[x]);
   }
 }
