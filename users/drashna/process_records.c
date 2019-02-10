@@ -27,27 +27,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #endif //KEYLOGGER_ENABLE
 
   switch (keycode) {
-  case KC_QWERTY:
+  case KC_QWERTY ... KC_CARPLAX:
     if (record->event.pressed) {
-      set_single_persistent_default_layer(_QWERTY);
+      set_single_persistent_default_layer(keycode - KC_QWERTY);
     }
     break;
-  case KC_COLEMAK:
-    if (record->event.pressed) {
-      set_single_persistent_default_layer(_COLEMAK);
-    }
-    break;
-  case KC_DVORAK:
-    if (record->event.pressed) {
-      set_single_persistent_default_layer(_DVORAK);
-    }
-    break;
-  case KC_WORKMAN:
-    if (record->event.pressed) {
-      set_single_persistent_default_layer(_WORKMAN);
-    }
-    break;
-
 
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
