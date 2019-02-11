@@ -32,7 +32,8 @@ typedef struct {
 
 enum {
   SINGLE_TAP = 1,
-  SINGLE_HOLD = 2
+  SINGLE_HOLD = 2,
+  DOUBLE_SINGLE_TAP = 3
 };
 
 enum {
@@ -286,6 +287,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
     if (state->interrupted || !state->pressed) return SINGLE_TAP;
     else return SINGLE_HOLD;
   }
+  if (state->count == 2) return DOUBLE_SINGLE_TAP;
   else return 8;
 }
 
@@ -303,6 +305,11 @@ void altop_finished (qk_tap_dance_state_t *state, void *user_data) {
       break;
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_LALT));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      tap_code(KC_9);
+      register_code(KC_9);
   }
 }
 
@@ -314,6 +321,10 @@ void altop_reset (qk_tap_dance_state_t *state, void *user_data) {
       break;
     case SINGLE_HOLD:
       unregister_mods(MOD_BIT(KC_LALT));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      unregister_code(KC_9);
+      unregister_mods(MOD_BIT(KC_LSFT));
   }
   altop_tap_state.state = 0;
 }
@@ -332,6 +343,11 @@ void ctlccb_finished (qk_tap_dance_state_t *state, void *user_data) {
       break;
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_LCTL));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      tap_code(KC_RBRC);
+      register_code(KC_RBRC);
   }
 }
 
@@ -343,6 +359,10 @@ void ctlccb_reset (qk_tap_dance_state_t *state, void *user_data) {
       break;
     case SINGLE_HOLD:
       unregister_mods(MOD_BIT(KC_LCTL));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      unregister_code(KC_RBRC);
+      unregister_mods(MOD_BIT(KC_LSFT));
   }
   ctlccb_tap_state.state = 0;
 }
@@ -361,6 +381,11 @@ void guicp_finished (qk_tap_dance_state_t *state, void *user_data) {
       break;
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_LGUI));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      tap_code(KC_0);
+      register_code(KC_0);
   }
 }
 
@@ -372,6 +397,10 @@ void guicp_reset (qk_tap_dance_state_t *state, void *user_data) {
       break;
     case SINGLE_HOLD:
       unregister_mods(MOD_BIT(KC_LGUI));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      unregister_code(KC_0);
+      unregister_mods(MOD_BIT(KC_LSFT));
   }
   guicp_tap_state.state = 0;
 }
@@ -390,6 +419,11 @@ void sftocb_finished (qk_tap_dance_state_t *state, void *user_data) {
       break;
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_LSFT));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      tap_code(KC_LBRC);
+      register_code(KC_LBRC);
   }
 }
 
@@ -400,6 +434,10 @@ void sftocb_reset (qk_tap_dance_state_t *state, void *user_data) {
       unregister_mods(MOD_BIT(KC_LSFT));
       break;
     case SINGLE_HOLD:
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      unregister_code(KC_LBRC);
       unregister_mods(MOD_BIT(KC_LSFT));
   }
   sftocb_tap_state.state = 0;
@@ -419,6 +457,11 @@ void sftpls_finished (qk_tap_dance_state_t *state, void *user_data) {
       break;
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_LSFT));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      register_mods(MOD_BIT(KC_LSFT));
+      tap_code(KC_EQL);
+      register_code(KC_EQL);
   }
 }
 
@@ -429,6 +472,10 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data) {
       unregister_mods(MOD_BIT(KC_LSFT));
       break;
     case SINGLE_HOLD:
+      unregister_mods(MOD_BIT(KC_LSFT));
+      break;
+    case DOUBLE_SINGLE_TAP:
+      unregister_code(KC_EQL);
       unregister_mods(MOD_BIT(KC_LSFT));
   }
   sftpls_tap_state.state = 0;
