@@ -1060,6 +1060,10 @@ void rgb_matrix_mode_noeeprom(uint8_t mode) {
     rgb_matrix_config.mode = mode;
 }
 
+uint32_t rgb_matrix_get_mode(void) {
+    return rgb_matrix_config.mode;
+}
+
 void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
   rgb_matrix_config.hue = hue;
   rgb_matrix_config.sat = sat;
