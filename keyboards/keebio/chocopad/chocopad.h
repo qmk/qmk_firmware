@@ -1,5 +1,4 @@
-#ifndef CHOCOPAD_H
-#define CHOCOPAD_H
+#pragma once
 
 #include "quantum.h"
 
@@ -28,5 +27,3 @@
         KC_##C1, KC_##C2, KC_##C3, KC_##C4, \
         KC_##D1, KC_##D2, KC_##D3, KC_##D4 \
     )
-
-#endif

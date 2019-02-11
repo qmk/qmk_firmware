@@ -35,7 +35,7 @@ enum custom_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_BASE] = KC_KEYMAP(
+  [_BASE] = LAYOUT_kc(
   //,----+----+----+----.
       P7 , P8 , P9 ,BSPC,
   //|----+----+----+----|
@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----'
   ),
 
-  [_FN1] = KC_KEYMAP(
+  [_FN1] = LAYOUT_kc(
   //,----+----+----+----.
      ESC ,MAC1,MAC2,DEL ,
   //|----+----+----+----|
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //`----+----+----+----'
   ),
 
-  [_FN2] = KC_KEYMAP(
+  [_FN2] = LAYOUT_kc(
   //,----+----+----+----.
      RST , XX , XX , XX ,
   //|----+----+----+----|
