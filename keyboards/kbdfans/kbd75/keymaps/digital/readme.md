@@ -1,5 +1,5 @@
-# digital KBD75 Layout
+# digital KBD75 Keymap
 
-ISO KBD75 layout.
+ISO KBD75 keymap.
 
-![KBD75 digital layout](https://i.imgur.com/IMb7eML.png)
+![KBD75 digital keymap](https://i.imgur.com/IMb7eML.png)
