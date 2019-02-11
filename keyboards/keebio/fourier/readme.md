@@ -9,11 +9,11 @@ Hardware Availability: [Keebio](https://keeb.io/collections/frontpage/products/f
 
 Make example for this keyboard (after setting up your build environment):
 
-    make fourier/rev1:default
+    make keebio/fourier:default
 
 Example of flashing this keyboard:
 
-    make fourier/rev1:default:avrdude
+    make keebio/fourier:default:avrdude
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
