@@ -15,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#ifndef _config_led_h_
-#define _config_led_h_
+#pragma once
 
 //Define number of ISSI3733 drivers being used (1...16)
 #define ISSI3733_DRIVER_COUNT 2
@@ -171,4 +170,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define USB_LED_KANA_SCANCODE           255
 #endif //USB_LED_INDICATOR_ENABLE
 
-#endif //_config_led_h_
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_SKIP_FRAMES 1
+#define RGB_MATRIX_EXTRA_TOG

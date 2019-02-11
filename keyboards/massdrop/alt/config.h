@@ -121,6 +121,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_FUNCTION
 
 #include "config_led.h"
-#define RGB_MATRIX_KEYPRESSES
-#define RGB_MATRIX_SKIP_FRAMES 1
-#define RGB_MATRIX_EXTRA_TOG
