@@ -1,6 +1,9 @@
 #pragma once
 
 #include "quantum.h"
+#if defined(RGBLIGHT_ENABLE) || defined(RGBMATRIX_ENABLE)
+  #include "rgb.h"
+#endif
 #ifdef TAP_DANCE_ENABLE
   #include "tap_dance.h"
 #endif
