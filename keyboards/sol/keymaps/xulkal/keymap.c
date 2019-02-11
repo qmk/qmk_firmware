@@ -3,8 +3,8 @@
 #include "lufa.h"
 #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
-  #include "common/ssd1306.h"
+#ifdef OLED_ENABLE
+#include "common/ssd1306.h"
 #endif
 
 extern keymap_config_t keymap_config;
@@ -28,12 +28,12 @@ enum layer_number {
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
-  FN,
-  ADJ,
   RGBRST
 };
 
-#define FN_CAPS LT(_FN, KC_CAPS)
+#define FN_CAPS  LT(_FN, KC_CAPS)
+#define FN       MO(_FN)
+#define ADJ      MO(_ADJ)
 
 // Define your non-alpha grouping in this define's LAYOUT, and all your BASE_LAYERS will share the same mod/macro columns
 
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS,  KC_EQL,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,     KC_BSPC, \
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,  KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSLS, \
       FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_GRV,   KC_QUOT, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RGB_TOG,  _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSFT, \
+      KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RGB_TOG,  _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSPC, \
       KC_LCTL, KC_LGUI, ADJ,     FN,      KC_LALT, KC_SPC,  RGB_RMOD, RGB_MOD, KC_SPC,  KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT, KC_RCTL, \
                         KC_VOLU, KC_VOLD,          KC_SPC,  KC_DEL,   KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
       ),
@@ -114,13 +114,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 // define variables for reactive RGB
-bool TOG_STATUS = false;
 int RGB_current_mode;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  // Wake up oled if user is at the keyboard
-  if (record->event.pressed)
-    oled_activity();
+  #ifdef OLED_ENABLE
+    // Wake up oled if user is at the keyboard
+    if (record->event.pressed)
+      oled_activity();
+  #endif
 
   switch (keycode) {
     case QWERTY:
@@ -129,23 +130,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case FN:
-      if (record->event.pressed) {
-        layer_on(_FN);
-      } else {
-        layer_off(_FN);
-      }
-      return false;
-      break;
-    case ADJ:
-        if (record->event.pressed) {
-          layer_on(_ADJ);
-        } else {
-          layer_off(_ADJ);
-        }
-        return false;
-        break;
-      //led operations - RGB mode change now updates the RGB_current_mode to allow the right RGB mode to be set after reactive keys are released
     case RGBRST:
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
@@ -164,14 +148,14 @@ void matrix_init_user(void) {
   RGB_current_mode = rgblight_config.mode;
 #endif
 //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   oled_init(!has_usb());   // turns on the display
 #endif
 }
 
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 
 static void render_logo(void) {
   static const char PROGMEM sol_logo[] = {

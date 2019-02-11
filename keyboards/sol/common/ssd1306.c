@@ -14,8 +14,6 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifdef SSD1306OLED
-
 #include "ssd1306.h"
 #include "i2c_master.h"
 #include "common/glcdfont.c"
@@ -264,13 +262,23 @@ void oled_render(void) {
   // Set page position
   display_start[4] = (OLED_BLOCK_SIZE * update_start) / OLED_DISPLAY_WIDTH;
 
-  DEBUG_PRINT(I2C_SEND(I2C_CMD, display_start), "oled_render command failed\n");
-  DEBUG_PRINT(I2C_SEND_SIZE(I2C_DATA, &display_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE), "oled_render data failed\n");
-  display_cursor = &display_buffer[0];
-  display_dirty &= ~(1 << update_start);
+  if (I2C_SEND(I2C_CMD, display_start)) {
+    #ifdef OLED_DEBUGGING
+      print("oled_render offset command failed\n");
+    #endif
+    oled_activity();
+    return;
+  }
 
-  // Wake up the oled if the oled cgets new data
-  oled_activity();
+  if (I2C_SEND_SIZE(I2C_DATA, &display_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE)) {
+    #ifdef OLED_DEBUGGING 
+      print("oled_render data failed\n");
+    #endif
+    oled_activity();
+    return;
+  }
+
+  display_dirty &= ~(1 << update_start);
 }
 
 void oled_write(const char *data, bool invert) {
@@ -302,4 +310,3 @@ void oled_activity(void) {
     display_active = true;
   }
 }
-#endif
