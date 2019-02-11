@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID       0xCEEB
+#define VENDOR_ID       0xCB10
 #define PRODUCT_ID      0x1169
 #define DEVICE_VER      0x0100
 #define MANUFACTURER    Keebio
@@ -48,7 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* ws2812 RGB LED */
 #define RGB_DI_PIN B4
-
 #define RGBLED_NUM 20    // Number of LEDs
 
 /*
