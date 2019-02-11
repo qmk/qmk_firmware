@@ -2,4 +2,4 @@
 
 ISO KBD75 layout.
 
-KLE - https://i.imgur.com/IMb7eML.png
+![KBD75 digital layout](https://i.imgur.com/IMb7eML.png)
