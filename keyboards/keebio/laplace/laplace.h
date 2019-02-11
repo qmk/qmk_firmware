@@ -1,5 +1,4 @@
-#ifndef LAPLACE_H
-#define LAPLACE_H
+#pragma once
 
 #include "quantum.h"
 
@@ -32,4 +31,3 @@
         KC_##C1, KC_##C2, KC_##C3, KC_##C4, KC_##C5, KC_##C6, KC_##C7,          KC_##C9, KC_##C10, KC_##C11, KC_##C12, KC_##C13, \
         KC_##D1, KC_##D2, KC_##D3, KC_##D4, KC_##D5,          KC_##D7,                   KC_##D10, KC_##D11, KC_##D12, KC_##D13 \
     )
-#endif
