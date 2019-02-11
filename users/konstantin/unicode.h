@@ -13,9 +13,9 @@
 
 #define UC_KEYCODE(name, code)  name = UC(code),
 
-#define X_NAME(name, code)    X_ ## name,
-#define X_ENTRY(name, code)   [X_ ## name] = code,
-#define X_KEYCODE(name, code) name = X(X_ ## name),
+#define UCM_NAME(name, code)    UCM_ ## name,
+#define UCM_ENTRY(name, code)   [UCM_ ## name] = code,
+#define UCM_KEYCODE(name, code) name = X(UCM_ ## name),
 
 #if defined(UNICODE_ENABLE)
   enum unicode_keycodes {
@@ -23,12 +23,12 @@
   };
 #elif defined(UNICODEMAP_ENABLE)
   enum unicode_names {
-    FOREACH_UNICODE(X_NAME)
+    FOREACH_UNICODE(UCM_NAME)
   };
 
   extern const uint32_t PROGMEM unicode_map[];
 
   enum unicode_keycodes {
-    FOREACH_UNICODE(X_KEYCODE)
+    FOREACH_UNICODE(UCM_KEYCODE)
   };
 #endif
