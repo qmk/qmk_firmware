@@ -29,8 +29,12 @@
 #include "matrix.h"
 #include "keymap.h"
 
-#if BACKLIGHT_ENABLE
-    #include "backlight.h"
+#ifdef BACKLIGHT_ENABLE
+    #ifdef LED_MATRIX_ENABLE
+        #include "ledmatrix.h"
+    #else
+        #include "backlight.h"
+    #endif
 #endif
 
 #if defined(RGBLIGHT_ENABLE)

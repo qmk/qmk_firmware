@@ -11,7 +11,6 @@
 #include "keyboard.h"
 #include "led.h"
 
-
 /* LED ping configuration */
 #define TMK_LED
 //#define LEONARDO_LED
@@ -86,6 +85,12 @@ int main(void)
         _delay_ms(1000);
     }
 */
+
+    /* wait for USB startup to get ready for debug output */
+    uint8_t timeout = 255;  // timeout when USB is not available(Bluetooth)
+    while (timeout-- && USB_DeviceState != DEVICE_STATE_Configured) {
+    _delay_ms(4);
+    }
 
     debug("init: done\n");
 

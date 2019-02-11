@@ -40,6 +40,7 @@
   * [Unit Testing](unit_testing.md)
   * [Useful Functions](ref_functions.md)
   * [Configurator Support](reference_configurator_support.md)
+  * [info.json Format](reference_info_json.md)
 
 * [Features](features.md)
   * [Basic Keycodes](keycodes_basic.md)

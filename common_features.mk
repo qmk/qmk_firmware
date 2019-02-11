@@ -114,8 +114,27 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-RGB_MATRIX_ENABLE ?= no
 VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+
+LED_MATRIX_ENABLE ?= no
+ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
+    ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
+        $(error LED_MATRIX_ENABLE="$(LED_MATRIX_ENABLE)" is not a valid matrix type)
+    else
+        OPT_DEFS += -DLED_MATRIX_ENABLE -DBACKLIGHT_ENABLE -DBACKLIGHT_CUSTOM_DRIVER
+        SRC += $(QUANTUM_DIR)/led_matrix.c
+        SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+    endif
+endif
+
+ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
+    OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3731-simple.c
+    SRC += i2c_master.c
+endif
+
+RGB_MATRIX_ENABLE ?= no
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
@@ -191,7 +210,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-        ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+    ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 endif
