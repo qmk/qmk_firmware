@@ -84,7 +84,7 @@ Define these arrays listing all the LEDs in your `<keyboard>.c`:
 
 Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
 
-From this point forward the configuration is the same for all the drivers. 
+From this point forward the configuration is the same for all the drivers.
 
 	const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 	/* {row | col << 4}
@@ -150,7 +150,7 @@ These are the effects that are currently available:
 	#endif
 	    RGB_MATRIX_EFFECT_MAX
 	};
-    
+
 You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `config.h`:
 
 
@@ -187,12 +187,13 @@ A similar function works in the keymap as `rgb_matrix_indicators_user`.
 
 ## Additional `config.h` Options
 
-	#define RGB_MATRIX_KEYPRESSES // reacts to keypresses (will slow down matrix scan by a lot)
-	#define RGB_MATRIX_KEYRELEASES // reacts to keyreleases (not recommened)
-	#define RGB_DISABLE_AFTER_TIMEOUT 0 // number of ticks to wait until disabling effects
+	#define RGB_MATRIX_KEYPRESSES                // reacts to keypresses (will slow down matrix scan by a lot)
+	#define RGB_MATRIX_KEYRELEASES               // reacts to keyreleases (not recommened)
+	#define RGB_DISABLE_AFTER_TIMEOUT 0          // number of ticks to wait until disabling effects
 	#define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
-    #define RGB_MATRIX_SKIP_FRAMES 1 // number of frames to skip when displaying animations (0 is full effect) if not defined defaults to 1
-    #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+	#define RGB_MATRIX_SKIP_FRAMES 1             // number of frames to skip when displaying animations (0 is full effect) if not defined defaults to 1
+	#define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200    // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
+	#define RGB_MATRIX_EXTRA_TOG                 // RGB_TOG key cycles from ALL > JUST_KEYS > JUST_UNDERGLOW > OFF (instead of just ON > OFF)
 
 ## EEPROM storage
 

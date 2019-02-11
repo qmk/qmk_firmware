@@ -56,15 +56,29 @@ typedef struct
 	uint8_t index;
 } rgb_indicator;
 
+typedef enum {
+  RGB_ZONE_OFF = 0,
+  RGB_ZONE_ALL,
+  RGB_ZONE_KEYS,
+  RGB_ZONE_UNDER,
+} rgb_zone_t;
+
 typedef union {
   uint32_t raw;
   struct {
-    bool     enable  :1;
+#ifdef RGB_MATRIX_EXTRA_TOG
+    uint8_t  enable  :2;
+    uint8_t  mode    :5;
+#else
+    uint8_t  enable  :1;
     uint8_t  mode    :6;
+#endif
     uint16_t hue     :9;
     uint8_t  sat     :8;
     uint8_t  val     :8;
-    uint8_t  speed   :8;//EECONFIG needs to be increased to support this
+    //EECONFIG needs to be increased to support these
+    uint8_t speed;
+    uint8_t custom;
   };
 } rgb_config_t;
 
@@ -106,6 +120,9 @@ enum rgb_matrix_effects {
 #ifndef DISABLE_RGB_MATRIX_DIGITAL_RAIN
     RGB_MATRIX_DIGITAL_RAIN,
 #endif
+#ifndef DISABLE_RGB_MATRIX_BREATHING
+    RGB_MATRIX_BREATHING,
+#endif
 #ifdef RGB_MATRIX_KEYPRESSES
    #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
        RGB_MATRIX_SOLID_REACTIVE,
@@ -123,6 +140,7 @@ enum rgb_matrix_effects {
        RGB_MATRIX_SOLID_MULTISPLASH,
    #endif
 #endif
+    RGB_MATRIX_CUSTOM,
     RGB_MATRIX_EFFECT_MAX
 };
 
@@ -180,7 +198,6 @@ void rgb_matrix_increase_speed(void);
 void rgb_matrix_decrease_speed(void);
 void rgb_matrix_mode(uint8_t mode);
 void rgb_matrix_mode_noeeprom(uint8_t mode);
-uint8_t rgb_matrix_get_mode(void);
 
 #ifndef RGBLIGHT_ENABLE
 #define rgblight_toggle() rgb_matrix_toggle()
@@ -219,5 +236,18 @@ typedef struct {
 } rgb_matrix_driver_t;
 
 extern const rgb_matrix_driver_t rgb_matrix_driver;
+
+extern rgb_config_t rgb_matrix_config;
+
+extern bool g_suspend_state;
+extern uint32_t g_tick;                     // Global tick at 20 Hz
+extern uint8_t g_key_hit[DRIVER_LED_TOTAL]; // Ticks since this key was last hit.
+extern uint32_t g_any_key_hit;              // Ticks since any key was last hit.
+extern uint16_t g_last_keycode;             // Last keycode hit
+
+// Custom Mode support (redefine these in keymap.c)
+typedef void (*rgb_matrix_custom_mode_f)(bool init);
+extern const rgb_matrix_custom_mode_f* rgb_matrix_custom_modes;
+extern const uint8_t rgb_matrix_custom_modes_count;
 
 #endif

@@ -366,7 +366,6 @@ void USB_ExtraSetState(uint8_t state)
     else if (usb_extra_state == USB_EXTRA_STATE_DISABLED)
     {
       CDC_print("USB: Extra disabled\r\n");
-      if (led_animation_breathing) gcr_breathe = gcr_desired;
     }
     else if (usb_extra_state == USB_EXTRA_STATE_DISABLED_UNTIL_REPLUG) CDC_print("USB: Extra disabled until replug\r\n");
     else CDC_print("USB: Extra state unknown\r\n");

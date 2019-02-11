@@ -70,29 +70,40 @@ uint8_t g_key_hit[DRIVER_LED_TOTAL];
 // Ticks since any key was last hit.
 uint32_t g_any_key_hit = 0;
 
+// Last keycode hit
+uint16_t g_last_keycode;
+
 #ifndef PI
 #define PI 3.14159265
 #endif
+
+void eeconfig_debug_rgb_matrix(void);
 
 uint32_t eeconfig_read_rgb_matrix(void) {
   return eeprom_read_dword(EECONFIG_RGB_MATRIX);
 }
 void eeconfig_update_rgb_matrix(uint32_t val) {
   eeprom_update_dword(EECONFIG_RGB_MATRIX, val);
+  eeconfig_debug_rgb_matrix();
 }
 void eeconfig_update_rgb_matrix_default(void) {
   dprintf("eeconfig_update_rgb_matrix_default\n");
   rgb_matrix_config.enable = 1;
+  if (rgb_matrix_custom_modes_count != 0) {
+    rgb_matrix_config.mode = RGB_MATRIX_CUSTOM;
+  } else {
 #ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
   rgb_matrix_config.mode = RGB_MATRIX_CYCLE_LEFT_RIGHT;
 #else
   // fallback to solid colors if RGB_MATRIX_CYCLE_LEFT_RIGHT is disabled in userspace
   rgb_matrix_config.mode = RGB_MATRIX_SOLID_COLOR;
 #endif
+  }
   rgb_matrix_config.hue = 0;
   rgb_matrix_config.sat = 255;
   rgb_matrix_config.val = RGB_MATRIX_MAXIMUM_BRIGHTNESS;
   rgb_matrix_config.speed = 0;
+  rgb_matrix_config.custom = 0;
   eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 void eeconfig_debug_rgb_matrix(void) {
@@ -107,6 +118,7 @@ void eeconfig_debug_rgb_matrix(void) {
 
 // Last led hit
 #define LED_HITS_TO_REMEMBER 8
+#define MAX_SEARCH_LEDS 8
 uint8_t g_last_led_hit[LED_HITS_TO_REMEMBER] = {255};
 uint8_t g_last_led_count = 0;
 
@@ -114,7 +126,7 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i, uint8_t
     rgb_led led;
     *led_count = 0;
 
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL && *led_count < MAX_SEARCH_LEDS; i++) {
         // map_index_to_led(i, &led);
         led = g_rgb_leds[i];
         if (row == led.matrix_co.row && column == led.matrix_co.col) {
@@ -129,20 +141,38 @@ void rgb_matrix_update_pwm_buffers(void) {
 }
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
+#ifdef RGB_MATRIX_EXTRA_TOG
+    const bool is_key = g_rgb_leds[index].matrix_co.raw != 0xff;
+    if (
+        (rgb_matrix_config.enable == RGB_ZONE_KEYS && !is_key) ||
+        (rgb_matrix_config.enable == RGB_ZONE_UNDER && is_key)
+    ) {
+        rgb_matrix_driver.set_color(index, 0, 0, 0);
+        return;
+    }
+#endif
+
     rgb_matrix_driver.set_color(index, red, green, blue);
 }
 
 void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
+#ifdef RGB_MATRIX_EXTRA_TOG
+    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+        rgb_matrix_set_color(i, red, green, blue);
+    }
+#else
     rgb_matrix_driver.set_color_all(red, green, blue);
+#endif
 }
 
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
+    g_last_keycode = keycode;
     if ( record->event.pressed ) {
         uint8_t led[8], led_count;
         map_row_column_to_led(record->event.key.row, record->event.key.col, led, &led_count);
         if (led_count > 0) {
             for (uint8_t i = LED_HITS_TO_REMEMBER; i > 1; i--) {
-                g_last_led_hit[i - 1] = g_last_led_hit[i - 2];
+                g_last_led_hit[i - 1] = g_last_led_hit[i - 2] == led[0] ? 255 : g_last_led_hit[i - 2];
             }
             g_last_led_hit[0] = led[0];
             g_last_led_count = MIN(LED_HITS_TO_REMEMBER, g_last_led_count + 1);
@@ -341,6 +371,8 @@ void rgb_matrix_cycle_all(void) {
             HSV hsv = { .h = offset+offset2, .s = 255, .v = rgb_matrix_config.val };
             RGB rgb = hsv_to_rgb( hsv );
             rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
+        } else {
+            rgb_matrix_set_color( i, 0, 0, 0 );
         }
     }
 }
@@ -365,6 +397,8 @@ void rgb_matrix_cycle_left_right(void) {
             hsv.h = point.x + offset + offset2;
             rgb = hsv_to_rgb( hsv );
             rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
+        } else {
+            rgb_matrix_set_color( i, 0, 0, 0 );
         }
     }
 }
@@ -539,6 +573,22 @@ void rgb_matrix_digital_rain( const bool initialize ) {
     }
 }
 
+void rgb_matrix_breathing(void) {
+    uint8_t offset = ( g_tick << rgb_matrix_config.speed ) & 0xFF;
+    uint8_t breathing_step = offset << 1; // Going up
+    if (offset >> 7) breathing_step = 0xFF - breathing_step; // Going down
+    float f_step = (float)breathing_step;
+    float f_ratio = (f_step * f_step) / 65025;
+    float v = (float)rgb_matrix_config.val * f_ratio;
+    HSV hsv = {
+        .h = rgb_matrix_config.hue,
+        .s = rgb_matrix_config.sat,
+        .v = (uint8_t)v,
+    };
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
+}
+
 void rgb_matrix_multisplash(void) {
     // if (g_any_key_hit < 0xFF) {
         HSV hsv = { .h = rgb_matrix_config.hue, .s = rgb_matrix_config.sat, .v = rgb_matrix_config.val };
@@ -550,11 +600,13 @@ void rgb_matrix_multisplash(void) {
             rgb_led last_led;
             // if (g_last_led_count) {
                 for (uint8_t last_i = 0; last_i < g_last_led_count; last_i++) {
-                    last_led = g_rgb_leds[g_last_led_hit[last_i]];
-                    uint16_t dist = (uint16_t)sqrt(pow(led.point.x - last_led.point.x, 2) + pow(led.point.y - last_led.point.y, 2));
-                    uint16_t effect = (g_key_hit[g_last_led_hit[last_i]] << 2) - dist;
-                    c += MIN(MAX(effect, 0), 255);
-                    d += 255 - MIN(MAX(effect, 0), 255);
+                    if (g_last_led_hit[last_i] < 255) {
+                        last_led = g_rgb_leds[g_last_led_hit[last_i]];
+                        uint16_t dist = (uint16_t)sqrt(pow(led.point.x - last_led.point.x, 2) + pow(led.point.y - last_led.point.y, 2));
+                        uint16_t effect = (g_key_hit[g_last_led_hit[last_i]] << 2) - dist;
+                        c += MIN(MAX(effect, 0), 255);
+                        d += 255 - MIN(MAX(effect, 0), 255);
+                    }
                 }
             // } else {
             //     d = 255;
@@ -587,10 +639,12 @@ void rgb_matrix_solid_multisplash(void) {
             rgb_led last_led;
             // if (g_last_led_count) {
                 for (uint8_t last_i = 0; last_i < g_last_led_count; last_i++) {
-                    last_led = g_rgb_leds[g_last_led_hit[last_i]];
-                    uint16_t dist = (uint16_t)sqrt(pow(led.point.x - last_led.point.x, 2) + pow(led.point.y - last_led.point.y, 2));
-                    uint16_t effect = (g_key_hit[g_last_led_hit[last_i]] << 2) - dist;
-                    d += 255 - MIN(MAX(effect, 0), 255);
+                    if (g_last_led_hit[last_i] < 255) {
+                        last_led = g_rgb_leds[g_last_led_hit[last_i]];
+                        uint16_t dist = (uint16_t)sqrt(pow(led.point.x - last_led.point.x, 2) + pow(led.point.y - last_led.point.y, 2));
+                        uint16_t effect = (g_key_hit[g_last_led_hit[last_i]] << 2) - dist;
+                        d += 255 - MIN(MAX(effect, 0), 255);
+                    }
                 }
             // } else {
             //     d = 255;
@@ -608,22 +662,6 @@ void rgb_matrix_solid_multisplash(void) {
 void rgb_matrix_solid_splash(void) {
     g_last_led_count = MIN(g_last_led_count, 1);
     rgb_matrix_solid_multisplash();
-}
-
-
-// Needs eeprom access that we don't have setup currently
-
-void rgb_matrix_custom(void) {
-//     HSV hsv;
-//     RGB rgb;
-//     for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
-//     {
-//         backlight_get_key_color(i, &hsv);
-//         // Override brightness with global brightness control
-//         hsv.v = rgb_matrix_config.val;
-//         rgb = hsv_to_rgb( hsv );
-//         rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
-//     }
 }
 
 void rgb_matrix_task(void) {
@@ -677,8 +715,10 @@ void rgb_matrix_task(void) {
         // have an optional initialization.
 
         static uint8_t effect_last = 255;
-        bool initialize = (effect != effect_last) || (rgb_matrix_config.enable != toggle_enable_last);
+        static uint8_t custom_last = 255;
+        bool initialize = (effect != effect_last) || (custom_last != rgb_matrix_config.custom) || (rgb_matrix_config.enable != toggle_enable_last);
         effect_last = effect;
+        custom_last = rgb_matrix_config.custom;
         toggle_enable_last = rgb_matrix_config.enable;
     #endif
 
@@ -749,6 +789,11 @@ void rgb_matrix_task(void) {
                 rgb_matrix_digital_rain( initialize );
                 break;
         #endif
+        #ifndef DISABLE_RGB_MATRIX_BREATHING
+            case RGB_MATRIX_BREATHING:
+                rgb_matrix_breathing();
+                break;
+        #endif
         #ifdef RGB_MATRIX_KEYPRESSES
             #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
                 case RGB_MATRIX_SOLID_REACTIVE:
@@ -776,8 +821,14 @@ void rgb_matrix_task(void) {
                     break;
             #endif
         #endif
+        case RGB_MATRIX_CUSTOM:
+            if (rgb_matrix_custom_modes_count == 0) {
+                rgb_matrix_all_off();
+            } else {
+                rgb_matrix_custom_modes[rgb_matrix_config.custom](initialize);
+            }
+        break;
         default:
-            rgb_matrix_custom();
             break;
     }
 
@@ -888,7 +939,7 @@ uint32_t rgb_matrix_get_tick(void) {
 }
 
 void rgb_matrix_toggle(void) {
-	rgb_matrix_config.enable ^= 1;
+    rgb_matrix_config.enable++;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
@@ -911,14 +962,38 @@ void rgb_matrix_disable_noeeprom(void) {
 }
 
 void rgb_matrix_step(void) {
-    rgb_matrix_config.mode++;
+    // some nasty logic for properly looping through custom modes too
+    if (rgb_matrix_config.mode == RGB_MATRIX_CUSTOM) {
+        if (rgb_matrix_custom_modes_count == 0) {
+            rgb_matrix_config.mode++;
+        } else if (rgb_matrix_config.custom == rgb_matrix_custom_modes_count - 1) {
+            rgb_matrix_config.mode++;
+        } else {
+            rgb_matrix_config.custom++;
+        }
+    } else {
+        rgb_matrix_config.mode++;
+    }
+
     if (rgb_matrix_config.mode >= RGB_MATRIX_EFFECT_MAX)
         rgb_matrix_config.mode = 1;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
 void rgb_matrix_step_reverse(void) {
-    rgb_matrix_config.mode--;
+    // some nasty logic for properly looping through custom modes too
+    if (rgb_matrix_config.mode == RGB_MATRIX_CUSTOM) {
+        if (rgb_matrix_custom_modes_count == 0) {
+            rgb_matrix_config.mode--;
+        } else if (rgb_matrix_config.custom == 0) {
+            rgb_matrix_config.mode--;
+        } else {
+            rgb_matrix_config.custom--;
+        }
+    } else {
+        rgb_matrix_config.mode--;
+    }
+
     if (rgb_matrix_config.mode < 1)
         rgb_matrix_config.mode = RGB_MATRIX_EFFECT_MAX - 1;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
@@ -973,10 +1048,6 @@ void rgb_matrix_mode_noeeprom(uint8_t mode) {
     rgb_matrix_config.mode = mode;
 }
 
-uint8_t rgb_matrix_get_mode(void) {
-    return rgb_matrix_config.mode;
-}
-
 void rgb_matrix_sethsv(uint16_t hue, uint8_t sat, uint8_t val) {
   rgb_matrix_config.hue = hue;
   rgb_matrix_config.sat = sat;
@@ -989,3 +1060,9 @@ void rgb_matrix_sethsv_noeeprom(uint16_t hue, uint8_t sat, uint8_t val) {
   rgb_matrix_config.sat = sat;
   rgb_matrix_config.val = val;
 }
+
+__attribute__((weak))
+const rgb_matrix_custom_mode_f* rgb_matrix_custom_modes = NULL;
+
+__attribute__((weak))
+const uint8_t rgb_matrix_custom_modes_count = 0;

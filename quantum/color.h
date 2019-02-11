@@ -51,5 +51,6 @@ typedef struct PACKED
 #endif
 
 RGB hsv_to_rgb( HSV hsv );
+HSV rgb_to_hsv( RGB rgb );
 
 #endif // COLOR_H

@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "arm_atsam_protocol.h"
 #include "tmk_core/common/led.h"
+#include "rgb_matrix.h"
 #include <string.h>
 #include <math.h>
 
@@ -51,12 +52,10 @@ void DMAC_0_Handler( void )
 
 issi3733_driver_t issidrv[ISSI3733_DRIVER_COUNT];
 
-issi3733_led_t led_map[ISSI3733_LED_COUNT+1] = ISSI3733_LED_MAP;
-issi3733_led_t *lede = led_map + ISSI3733_LED_COUNT; //End pointer of mapping
+issi3733_led_t led_map[ISSI3733_LED_COUNT] = ISSI3733_LED_MAP;
+RGB led_buffer[ISSI3733_LED_COUNT];
 
 uint8_t gcr_desired;
-uint8_t gcr_breathe;
-uint8_t gcr_use;
 uint8_t gcr_actual;
 uint8_t gcr_actual_last;
 
@@ -73,11 +72,6 @@ static uint8_t v_5v_cat_hit;
 void gcr_compute(void)
 {
     uint8_t action = ACT_GCR_NONE;
-
-    if (led_animation_breathing)
-        gcr_use = gcr_breathe;
-    else
-        gcr_use = gcr_desired;
 
     //If the 5v takes a catastrophic hit, disable the LED drivers briefly, assert auto gcr mode, min gcr and let the auto take over
     if (v_5v < V5_CAT)
@@ -105,13 +99,13 @@ void gcr_compute(void)
     if (usb_gcr_auto)
     {
         if (v_5v_avg < V5_LOW) action = ACT_GCR_DEC;
-        else if (v_5v_avg > V5_HIGH && gcr_actual < gcr_use) action = ACT_GCR_INC;
-        else if (gcr_actual > gcr_use) action = ACT_GCR_DEC;
+        else if (v_5v_avg > V5_HIGH && gcr_actual < gcr_desired) action = ACT_GCR_INC;
+        else if (gcr_actual > gcr_desired) action = ACT_GCR_DEC;
     }
     else
     {
-        if (gcr_actual < gcr_use) action = ACT_GCR_INC;
-        else if (gcr_actual > gcr_use) action = ACT_GCR_DEC;
+        if (gcr_actual < gcr_desired) action = ACT_GCR_INC;
+        else if (gcr_actual > gcr_desired) action = ACT_GCR_DEC;
     }
 
     if (action == ACT_GCR_NONE)
@@ -150,21 +144,9 @@ void gcr_compute(void)
             //Power successfully cut back from LED drivers
             gcr_actual -= LED_GCR_STEP_AUTO;
             gcr_min_counter = 0;
-
-            //If breathe mode is active, the top end can fluctuate if the host can not supply enough current
-            //So set the breathe GCR to where it becomes stable
-            if (led_animation_breathing == 1)
-            {
-                gcr_breathe = gcr_actual;
-                //PS: At this point, setting breathing to exhale makes a noticebly shorter cycle
-                //    and the same would happen maybe one or two more times. Therefore I'm favoring
-                //    powering through one full breathe and letting gcr settle completely
-            }
         }
     }
 }
-
-led_disp_t disp;
 
 void issi3733_prepare_arrays(void)
 {
@@ -178,283 +160,52 @@ void issi3733_prepare_arrays(void)
         issidrv[i].addr = addrs[i];
     }
 
-    issi3733_led_t *cur = led_map;
-
-    while (cur < lede)
+    for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
     {
         //BYTE: 1 + (SW-1)*16 + (CS-1)
-        cur->rgb.g = issidrv[cur->adr.drv-1].pwm + 1 + ((cur->adr.swg-1)*16 + (cur->adr.cs-1));
-        cur->rgb.r = issidrv[cur->adr.drv-1].pwm + 1 + ((cur->adr.swr-1)*16 + (cur->adr.cs-1));
-        cur->rgb.b = issidrv[cur->adr.drv-1].pwm + 1 + ((cur->adr.swb-1)*16 + (cur->adr.cs-1));
+        led_map[i].rgb.g = issidrv[led_map[i].adr.drv-1].pwm + 1 + ((led_map[i].adr.swg-1)*16 + (led_map[i].adr.cs-1));
+        led_map[i].rgb.r = issidrv[led_map[i].adr.drv-1].pwm + 1 + ((led_map[i].adr.swr-1)*16 + (led_map[i].adr.cs-1));
+        led_map[i].rgb.b = issidrv[led_map[i].adr.drv-1].pwm + 1 + ((led_map[i].adr.swb-1)*16 + (led_map[i].adr.cs-1));
 
         //BYTE: 1 + (SW-1)*2 + (CS-1)/8
         //BIT: (CS-1)%8
-        *(issidrv[cur->adr.drv-1].onoff + 1 + (cur->adr.swg-1)*2+(cur->adr.cs-1)/8) |= (1<<((cur->adr.cs-1)%8));
-        *(issidrv[cur->adr.drv-1].onoff + 1 + (cur->adr.swr-1)*2+(cur->adr.cs-1)/8) |= (1<<((cur->adr.cs-1)%8));
-        *(issidrv[cur->adr.drv-1].onoff + 1 + (cur->adr.swb-1)*2+(cur->adr.cs-1)/8) |= (1<<((cur->adr.cs-1)%8));
-
-        cur++;
-    }
-}
-
-void disp_calc_extents(void)
-{
-    issi3733_led_t *cur = led_map;
-
-    disp.left = 1e10;
-    disp.right = -1e10;
-    disp.top = -1e10;
-    disp.bottom = 1e10;
-
-    while (cur < lede)
-    {
-        if (cur->x < disp.left) disp.left = cur->x;
-        if (cur->x > disp.right) disp.right = cur->x;
-        if (cur->y < disp.bottom) disp.bottom = cur->y;
-        if (cur->y > disp.top) disp.top = cur->y;
-
-        cur++;
-    }
-
-    disp.width = disp.right - disp.left;
-    disp.height = disp.top - disp.bottom;
-    disp.max_distance = sqrtf(powf(disp.width, 2) + powf(disp.height, 2));
-}
-
-void disp_pixel_setup(void)
-{
-    issi3733_led_t *cur = led_map;
-
-    while (cur < lede)
-    {
-        cur->px = (cur->x - disp.left) / disp.width * 100;
-        cur->py = (cur->y - disp.bottom) / disp.height * 100;
-        *cur->rgb.r = 0;
-        *cur->rgb.g = 0;
-        *cur->rgb.b = 0;
-
-        cur++;
+        *(issidrv[led_map[i].adr.drv-1].onoff + 1 + (led_map[i].adr.swg-1)*2+(led_map[i].adr.cs-1)/8) |= (1<<((led_map[i].adr.cs-1)%8));
+        *(issidrv[led_map[i].adr.drv-1].onoff + 1 + (led_map[i].adr.swr-1)*2+(led_map[i].adr.cs-1)/8) |= (1<<((led_map[i].adr.cs-1)%8));
+        *(issidrv[led_map[i].adr.drv-1].onoff + 1 + (led_map[i].adr.swb-1)*2+(led_map[i].adr.cs-1)/8) |= (1<<((led_map[i].adr.cs-1)%8));
     }
 }
 
 void led_matrix_prepare(void)
 {
-    disp_calc_extents();
-    disp_pixel_setup();
+    for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
+    {
+        *led_map[i].rgb.r = 0;
+        *led_map[i].rgb.g = 0;
+        *led_map[i].rgb.b = 0;
+    }
 }
 
-uint8_t led_enabled;
-float led_animation_speed;
-uint8_t led_animation_direction;
-uint8_t led_animation_orientation;
-uint8_t led_animation_breathing;
-uint8_t led_animation_breathe_cur;
-uint8_t breathe_step;
-uint8_t breathe_dir;
-uint8_t led_animation_circular;
-uint64_t led_next_run;
-
-uint8_t led_animation_id;
-uint8_t led_lighting_mode;
-
-issi3733_led_t *led_cur;
-uint8_t led_per_run = 15;
-float breathe_mult;
-
-__attribute__ ((weak))
-void led_matrix_run(void)
+void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b)
 {
-    float ro;
-    float go;
-    float bo;
-    float po;
-
-    uint8_t led_this_run = 0;
-    led_setup_t *f = (led_setup_t*)led_setups[led_animation_id];
-
-    if (led_cur == 0) //Denotes start of new processing cycle in the case of chunked processing
+    if (i < ISSI3733_LED_COUNT)
     {
-        led_cur = led_map;
-
-        disp.frame += 1;
-
-        breathe_mult = 1;
-
-        if (led_animation_breathing)
-        {
-            led_animation_breathe_cur += breathe_step * breathe_dir;
-
-            if (led_animation_breathe_cur >= BREATHE_MAX_STEP)
-                breathe_dir = -1;
-            else if (led_animation_breathe_cur <= BREATHE_MIN_STEP)
-                breathe_dir = 1;
-
-            //Brightness curve created for 256 steps, 0 - ~98%
-            breathe_mult = 0.000015 * led_animation_breathe_cur * led_animation_breathe_cur;
-            if (breathe_mult > 1) breathe_mult = 1;
-            else if (breathe_mult < 0) breathe_mult = 0;
-        }
-    }
-
-    uint8_t fcur = 0;
-    uint8_t fmax = 0;
-
-    //Frames setup
-    while (f[fcur].end != 1)
-    {
-        fcur++; //Count frames
-    }
-
-    fmax = fcur; //Store total frames count
-
-    while (led_cur < lede && led_this_run < led_per_run)
-    {
-        ro = 0;
-        go = 0;
-        bo = 0;
-
-        if (led_lighting_mode == LED_MODE_KEYS_ONLY && led_cur->scan == 255)
-        {
-            //Do not act on this LED
-        }
-        else if (led_lighting_mode == LED_MODE_NON_KEYS_ONLY && led_cur->scan != 255)
-        {
-            //Do not act on this LED
-        }
-        else if (led_lighting_mode == LED_MODE_INDICATORS_ONLY)
-        {
-            //Do not act on this LED (Only show indicators)
-        }
-        else
-        {
-            //Act on LED
-            for (fcur = 0; fcur < fmax; fcur++)
-            {
-
-                if (led_animation_circular) {
-                    po = sqrtf((powf(fabsf((disp.width / 2) - (led_cur->x - disp.left)), 2) + powf(fabsf((disp.height / 2) - (led_cur->y - disp.bottom)), 2))) / disp.max_distance * 100;
-                }
-                else {
-                    if (led_animation_orientation)
-                    {
-                        po = led_cur->py;
-                    }
-                    else
-                    {
-                        po = led_cur->px;
-                    }
-                }
-
-                float pomod;
-                pomod = (float)(disp.frame % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
-
-                //Add in any moving effects
-                if ((!led_animation_direction && f[fcur].ef & EF_SCR_R) || (led_animation_direction && (f[fcur].ef & EF_SCR_L)))
-                {
-                    pomod *= 100.0f;
-                    pomod = (uint32_t)pomod % 10000;
-                    pomod /= 100.0f;
-
-                    po -= pomod;
-
-                    if (po > 100) po -= 100;
-                    else if (po < 0) po += 100;
-                }
-                else if ((!led_animation_direction && f[fcur].ef & EF_SCR_L) || (led_animation_direction && (f[fcur].ef & EF_SCR_R)))
-                {
-                    pomod *= 100.0f;
-                    pomod = (uint32_t)pomod % 10000;
-                    pomod /= 100.0f;
-                    po += pomod;
-
-                    if (po > 100) po -= 100;
-                    else if (po < 0) po += 100;
-                }
-
-                //Check if LED's po is in current frame
-                if (po < f[fcur].hs) continue;
-                if (po > f[fcur].he) continue;
-                //note: < 0 or > 100 continue
-
-                //Calculate the po within the start-stop percentage for color blending
-                po = (po - f[fcur].hs) / (f[fcur].he - f[fcur].hs);
-
-                //Add in any color effects
-                if (f[fcur].ef & EF_OVER)
-                {
-                    ro = (po * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                    go = (po * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                    bo = (po * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                }
-                else if (f[fcur].ef & EF_SUBTRACT)
-                {
-                    ro -= (po * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                    go -= (po * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                    bo -= (po * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                }
-                else
-                {
-                    ro += (po * (f[fcur].re - f[fcur].rs)) + f[fcur].rs;// + 0.5;
-                    go += (po * (f[fcur].ge - f[fcur].gs)) + f[fcur].gs;// + 0.5;
-                    bo += (po * (f[fcur].be - f[fcur].bs)) + f[fcur].bs;// + 0.5;
-                }
-            }
-        }
-
-        //Clamp values 0-255
-        if (ro > 255) ro = 255; else if (ro < 0) ro = 0;
-        if (go > 255) go = 255; else if (go < 0) go = 0;
-        if (bo > 255) bo = 255; else if (bo < 0) bo = 0;
-
-        if (led_animation_breathing)
-        {
-            ro *= breathe_mult;
-            go *= breathe_mult;
-            bo *= breathe_mult;
-        }
-
-        *led_cur->rgb.r = (uint8_t)ro;
-        *led_cur->rgb.g = (uint8_t)go;
-        *led_cur->rgb.b = (uint8_t)bo;
-
-#ifdef USB_LED_INDICATOR_ENABLE
-        if (keyboard_leds())
-        {
-            uint8_t kbled = keyboard_leds();
-            if (
-                #if USB_LED_NUM_LOCK_SCANCODE != 255
-                (led_cur->scan == USB_LED_NUM_LOCK_SCANCODE && kbled & (1<<USB_LED_NUM_LOCK)) ||
-                #endif //NUM LOCK
-                #if USB_LED_CAPS_LOCK_SCANCODE != 255
-                (led_cur->scan == USB_LED_CAPS_LOCK_SCANCODE && kbled & (1<<USB_LED_CAPS_LOCK)) ||
-                #endif //CAPS LOCK
-                #if USB_LED_SCROLL_LOCK_SCANCODE != 255
-                (led_cur->scan == USB_LED_SCROLL_LOCK_SCANCODE && kbled & (1<<USB_LED_SCROLL_LOCK)) ||
-                #endif //SCROLL LOCK
-                #if USB_LED_COMPOSE_SCANCODE != 255
-                (led_cur->scan == USB_LED_COMPOSE_SCANCODE && kbled & (1<<USB_LED_COMPOSE)) ||
-                #endif //COMPOSE
-                #if USB_LED_KANA_SCANCODE != 255
-                (led_cur->scan == USB_LED_KANA_SCANCODE && kbled & (1<<USB_LED_KANA)) ||
-                #endif //KANA
-                (0))
-            {
-                if (*led_cur->rgb.r > 127) *led_cur->rgb.r = 0;
-                else *led_cur->rgb.r = 255;
-                if (*led_cur->rgb.g > 127) *led_cur->rgb.g = 0;
-                else *led_cur->rgb.g = 255;
-                if (*led_cur->rgb.b > 127) *led_cur->rgb.b = 0;
-                else *led_cur->rgb.b = 255;
-            }
-        }
-#endif //USB_LED_INDICATOR_ENABLE
-
-        led_cur++;
-        led_this_run++;
+        led_buffer[i].r = r;
+        led_buffer[i].g = g;
+        led_buffer[i].b = b;
     }
 }
 
-uint8_t led_matrix_init(void)
+void led_set_all(uint8_t r, uint8_t g, uint8_t b)
+{
+  for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
+  {
+    led_buffer[i].r = r;
+    led_buffer[i].g = g;
+    led_buffer[i].b = b;
+  }
+}
+
+void init(void)
 {
     DBGC(DC_LED_MATRIX_INIT_BEGIN);
 
@@ -462,77 +213,80 @@ uint8_t led_matrix_init(void)
 
     led_matrix_prepare();
 
-    disp.frame = 0;
-    led_next_run = 0;
-
-    led_enabled = 1;
-    led_animation_id = 0;
-    led_lighting_mode = LED_MODE_NORMAL;
-    led_animation_speed = 4.0f;
-    led_animation_direction = 0;
-    led_animation_orientation = 0;
-    led_animation_breathing = 0;
-    led_animation_breathe_cur = BREATHE_MIN_STEP;
-    breathe_step = 1;
-    breathe_dir = 1;
-    led_animation_circular = 0;
-
     gcr_min_counter = 0;
     v_5v_cat_hit = 0;
 
-    //Run led matrix code once for initial LED coloring
-    led_cur = 0;
-    rgb_matrix_init_user();
-    led_matrix_run();
-
     DBGC(DC_LED_MATRIX_INIT_COMPLETE);
-
-    return 0;
 }
 
-__attribute__ ((weak))
-void rgb_matrix_init_user(void) {
-
-}
-
-#define LED_UPDATE_RATE 10  //ms
-
-//led data processing can take time, so process data in chunks to free up the processor
-//this is done through led_cur and lede
-void led_matrix_task(void)
+void flush(void)
 {
-    if (led_enabled)
+    // Wait for previous transfer to complete
+    while (i2c_led_q_running)
     {
-        //If an update may run and frame processing has completed
-        if (timer_read64() >= led_next_run && led_cur == lede)
+        CLK_delay_ms(20);
+    }
+
+    // Copy buffer to live DMA region
+    for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
+    {
+        *led_map[i].rgb.r = led_buffer[i].r;
+        *led_map[i].rgb.g = led_buffer[i].g;
+        *led_map[i].rgb.b = led_buffer[i].b;
+    }
+
+    uint8_t drvid;
+
+    //NOTE: GCR does not need to be timed with LED processing, but there is really no harm
+    if (gcr_actual != gcr_actual_last)
+    {
+        for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
+            I2C_LED_Q_GCR(drvid); //Queue data
+        gcr_actual_last = gcr_actual;
+    }
+
+    for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
+        I2C_LED_Q_PWM(drvid); //Queue data
+
+    i2c_led_q_run();
+}
+
+void led_matrix_indicators(void)
+{
+    uint8_t kbled = keyboard_leds();
+    if (kbled && rgb_matrix_config.enable)
+    {
+        for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
         {
-            uint8_t drvid;
-
-            led_next_run = timer_read64() + LED_UPDATE_RATE;  //Set next frame update time
-
-            //NOTE: GCR does not need to be timed with LED processing, but there is really no harm
-            if (gcr_actual != gcr_actual_last)
+            if (
+            #if USB_LED_NUM_LOCK_SCANCODE != 255
+                (led_map[i].scan == USB_LED_NUM_LOCK_SCANCODE && (kbled & (1<<USB_LED_NUM_LOCK))) ||
+            #endif //NUM LOCK
+            #if USB_LED_CAPS_LOCK_SCANCODE != 255
+                (led_map[i].scan == USB_LED_CAPS_LOCK_SCANCODE && (kbled & (1<<USB_LED_CAPS_LOCK))) ||
+            #endif //CAPS LOCK
+            #if USB_LED_SCROLL_LOCK_SCANCODE != 255
+                (led_map[i].scan == USB_LED_SCROLL_LOCK_SCANCODE && (kbled & (1<<USB_LED_SCROLL_LOCK))) ||
+            #endif //SCROLL LOCK
+            #if USB_LED_COMPOSE_SCANCODE != 255
+                (led_map[i].scan == USB_LED_COMPOSE_SCANCODE && (kbled & (1<<USB_LED_COMPOSE))) ||
+            #endif //COMPOSE
+            #if USB_LED_KANA_SCANCODE != 255
+                (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1<<USB_LED_KANA))) ||
+            #endif //KANA
+            (0))
             {
-                for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
-                    I2C_LED_Q_GCR(drvid); //Queue data
-                gcr_actual_last = gcr_actual;
+                led_buffer[i].r = 255 - led_buffer[i].r;
+                led_buffer[i].g = 255 - led_buffer[i].g;
+                led_buffer[i].b = 255 - led_buffer[i].b;
             }
-
-            for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
-                I2C_LED_Q_PWM(drvid); //Queue data
-
-            i2c_led_q_run();
-
-            led_cur = 0; //Signal next frame calculations may begin
         }
     }
-
-    //Process more data if not finished
-    if (led_cur != lede)
-    {
-        //DBG_1_OFF; //debug profiling
-        led_matrix_run();
-        //DBG_1_ON; //debug profiling
-    }
 }
 
+const rgb_matrix_driver_t rgb_matrix_driver = {
+  .init = init,
+  .flush = flush,
+  .set_color = led_set_one,
+  .set_color_all = led_set_all
+};
