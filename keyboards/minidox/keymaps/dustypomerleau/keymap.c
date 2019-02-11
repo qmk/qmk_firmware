@@ -99,10 +99,10 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 #define SFT_OS OSM(MOD_LSFT)
 #define SFT_QOT LSFT_T(KC_QUOT)
 #define SYM_OS OSL(_SYM)
+#define SYS_Z LT(_SYS, KC_Z)
 #define VOL_DN S(LALT(KC__VOLDOWN))
 #define VOL_UP S(LALT(KC__VOLUP))
 #define XXXXXXX KC_NO
-#define Z_SYS LT(_SYS, KC_Z)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_CMK_DHM] = LAYOUT( \
   KC_Q,    KC_W,    KC_F,    KC_P,    KC_B,         KC_J,    KC_L,     KC_U,    KC_Y,    KC_QUOT, \
   SFT_A,   CTRL_R,  ALT_S,   GUI_TEA, KC_G,         KC_M,    GUI_N,    ALT_E,   CTRL_I,  SFT_O,   \
-  Z_SYS,   KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,     KC_COMM, KC_DOT,  KC_SCLN, \
+  SYS_Z,   KC_X,    KC_C,    KC_D,    KC_V,         KC_K,    KC_H,     KC_COMM, KC_DOT,  KC_SCLN, \
                     SFT_OS,  NAV_BK,  SYM_OS,       SYM_OS,  NUME_SPC, SFT_OS                     \
 ),
 
@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = LAYOUT( \
   KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,         KC_Y,    KC_U,     KC_I,    KC_O,    KC_P,    \
   SFT_A,   CTRL_S,  ALT_D,   GUI_F,   KC_G,         KC_H,    GUI_J,    ALT_K,   CTRL_L,  SFT_QOT, \
-  Z_SYS,   KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SCLN, \
+  SYS_Z,   KC_X,    KC_C,    KC_V,    KC_B,         KC_N,    KC_M,     KC_COMM, KC_DOT,  KC_SCLN, \
                     SFT_OS,  NAV_BK,  SYM_OS,       SYM_OS,  NUMN_SPC, SFT_OS                     \
 ),
 
@@ -154,9 +154,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * If you use QWERTY + the Vanilla numbers primarily, change NUMLK_E to NUMLK_N here.
  *
  * ,----------------------------------.           ,----------------------------------.
- * | RESET|DEBUG |QWERTY|CMKDHM|      |           |      | VOL++| VOL--|      |      |
+ * | RESET|DEBUG |QWERTY|CMKDHM|      |           |      | VOL--| VOL++|      |      |
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |  DEL | CTRL |  ALT |  GUI |NAV LK|           | POWER| VOL+ | VOL- | MUTE | MPLY |
+ * | SHIFT| CTRL |  ALT |  GUI |NAV LK|           | POWER| VOL- | VOL+ | MUTE | MPLY |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * |      |      |AU OFF| AU ON|      |           |      |NUM LK| MRWD | MFFD |      |
  * `----------------------------------'           `----------------------------------'
@@ -168,7 +168,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYS] = LAYOUT( \
   RESET,   DEBUG,   QWERTY,  CMK_DHM, _______,       _______,  KC__VOLDOWN, KC__VOLUP, _______,  _______, \
-  KC_DEL,  KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_POWER, VOL_DN,      VOL_UP,    KC__MUTE, KC_MPLY, \
+  KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_POWER, VOL_DN,      VOL_UP,    KC__MUTE, KC_MPLY, \
   _______, _______, AU_OFF,  AU_ON,   _______,       _______,  NUMLK_E,     KC_MRWD,   KC_MFFD,  _______, \
                     _______, _______, _______,       _______,  _______,     _______                       \
 ),
@@ -176,7 +176,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Navigation + mouse keys
  *
  * ,----------------------------------.           ,----------------------------------.
- * | PSCR |      | WH U | WH D | BSPC |           | DEL  | PGDN | PGUP | HOME |  END |
+ * | PSCR |      | WH U | WH D |      |           | BSPC | PGDN | PGUP | HOME |  END |
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | SHIFT| CTRL |  ALT |  GUI |NAV LK|           | CAPS | LEFT | DOWN |  UP  | RIGHT|
  * |------+------+------+------+------|           |------+------+------+------+------|
@@ -189,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                `------'    `------'
  */
 [_NAV] = LAYOUT( \
-  KC_PSCR, _______, KC_WH_U, KC_WH_D, KC_BSPC,       KC_DEL,  KC_PGDN, KC_PGUP, KC_HOME, KC_END,  \
+  KC_PSCR, _______, KC_WH_U, KC_WH_D, _______,       KC_BSPC, KC_PGDN, KC_PGUP, KC_HOME, KC_END,  \
   KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI, NAV_LK,        KC_CAPS, KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, \
   _______, KC_ACL0, KC_ACL1, KC_ACL2, KC_BTN2,       KC_BTN1, KC_MS_L, KC_MS_D, KC_MS_U, KC_MS_R, \
                     _______, _______, KC_ESC,        KC_DEL,  KC_ENT,  _______                    \
@@ -202,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | SFT/7| CTL/5| ALT/3| GUI/1|   9  |           |   8  | GUI/0| ALT/2| CTL/4| SFT/6|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |  F11 |  F12 |      |           |      |NUM LK|      |      |      |
+ * |      |      |  F11 |  F12 | BSPC |           |  DEL |NUM LK|      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |      | TAB  |      |    |      |      |      |
@@ -213,7 +213,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUM_E] = LAYOUT( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  \
   SFT_7,   CTRL_5,  ALT_3,   GUI_1,   KC_9,          KC_8,    GUI_0,   ALT_2,   CTRL_4,  SFT_6,   \
-  _______, _______, KC_F11,  KC_F12,  _______,       _______, NUMLK_E, _______, _______, _______, \
+  _______, _______, KC_F11,  KC_F12,  KC_BSPC,       KC_DEL,  NUMLK_E, _______, _______, _______, \
                     _______, KC_TAB,  KC_ESC,        _______, _______, _______                    \
 ),
 
@@ -224,7 +224,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------|           |------+------+------+------+------|
  * | SFT/1| CTL/2| ALT/3| GUI/4|   5  |           |   6  | GUI/7| ALT/8| CTL/9| SFT/0|
  * |------+------+------+------+------|           |------+------+------+------+------|
- * |      |      |  F11 |  F12 |      |           |      |NUM LK|      |      |      |
+ * |      |      |  F11 |  F12 | BSPC |           |  DEL |NUM LK|      |      |      |
  * `----------------------------------'           `----------------------------------'
  *                  ,--------------------.    ,--------------------.
  *                  |      | TAB  |      |    |      |      |      |
@@ -235,7 +235,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUM_N] = LAYOUT( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
   SFT_1,   CTRL_2,  ALT_3,   GUI_4,   KC_5,          KC_6,    GUI_7,   ALT_8,   CTRL_9,  SFT_0,    \
-  _______, _______, KC_F11,  KC_F12,  _______,       _______, NUMLK_N, _______, _______, _______,  \
+  _______, _______, KC_F11,  KC_F12,  KC_BSPC,       KC_DEL,  NUMLK_N, _______, _______, _______,  \
                     _______, KC_TAB,  KC_ESC,        _______, _______, _______                     \
 ),
 
