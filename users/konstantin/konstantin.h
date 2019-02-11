@@ -7,7 +7,7 @@
 #ifdef TAP_DANCE_ENABLE
   #include "tap_dance.h"
 #endif
-#ifdef UNICODE_ENABLE
+#if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE)
   #include "unicode.h"
 #endif
 
