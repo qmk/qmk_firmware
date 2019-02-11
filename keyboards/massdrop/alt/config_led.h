@@ -31,11 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //Count of LED bodies
 #define ISSI3733_LED_COUNT 105
 
-//Default Global Current Register value (Default brightness 0 - 255)
-#define ISSI3733_GCR_DEFAULT 128
-
 #define LED_GCR_MAX                 165         //Max GCR value (0 - 255) WARNING: Raising this value may overload the LED drivers and USB bus
 #define LED_GCR_STEP                10          //GCR increment/decrement value
+
+//Default Global Current Register value (Default brightness 0 - 255)
+#define ISSI3733_GCR_DEFAULT LED_GCR_MAX
 
 //Automatic power rollback and recovery
 #define V5_HIGH                     2540        //5V high level (After low power detect, point at which LEDs are allowed to use more power )
