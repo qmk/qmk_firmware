@@ -7,7 +7,6 @@
 
 #define EE_HANDS
 #define IGNORE_MOD_TAP_INTERRUPT
-#define ONESHOT_TAP_TOGGLE 2 // not compatible with TAPPING_FORCE_HOLD
 #define ONESHOT_TIMEOUT 1000
 #define PREVENT_STUCK_MODIFIERS
 #define TAPPING_TERM 200
@@ -16,6 +15,7 @@
 // optional configuration:
 
 // #define CONVERT_TO_PROTON_C
+// #define ONESHOT_TAP_TOGGLE 2 // not compatible with TAPPING_FORCE_HOLD
 // #define PERMISSIVE_HOLD
 // #define TAPPING_FORCE_HOLD // allows rapid mod use after tap event, but sacrifices double-tap to repeat
 
