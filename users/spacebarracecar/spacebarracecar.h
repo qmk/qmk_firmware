@@ -88,6 +88,8 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define GUIL LGUI(KC_LEFT)
 #define GUIR RGUI(KC_RIGHT)
 
+#define CTLENT CTL_T(KC_ENT)
+
 /*
 Templates for Keys, with custom shifted and non shifted Characters
 */

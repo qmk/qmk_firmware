@@ -187,10 +187,3 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) { 
 						if (record->event.pressed) { } else { }; break;
     } return MACRO_NONE;
 };
-/*
-		Later use:
-		void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) { }
-		enum function_id { };
-		const uint16_t PROGMEM fn_actions[] = { };
-
-*/

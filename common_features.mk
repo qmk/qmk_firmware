@@ -114,8 +114,27 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-RGB_MATRIX_ENABLE ?= no
 VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+
+LED_MATRIX_ENABLE ?= no
+ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
+    ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
+        $(error LED_MATRIX_ENABLE="$(LED_MATRIX_ENABLE)" is not a valid matrix type)
+    else
+        OPT_DEFS += -DLED_MATRIX_ENABLE -DBACKLIGHT_ENABLE -DBACKLIGHT_CUSTOM_DRIVER
+        SRC += $(QUANTUM_DIR)/led_matrix.c
+        SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+    endif
+endif
+
+ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
+    OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3731-simple.c
+    SRC += i2c_master.c
+endif
+
+RGB_MATRIX_ENABLE ?= no
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
@@ -191,7 +210,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-        ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+    ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 endif
@@ -254,6 +273,7 @@ QUANTUM_SRC:= \
     $(QUANTUM_DIR)/keymap_common.c \
     $(QUANTUM_DIR)/keycode_config.c
 
+# Include the standard or split matrix code if needed
 ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
@@ -262,11 +282,25 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
+# Include the standard debounce code if needed
+ifneq ($(strip $(CUSTOM_DEBOUNCE)), yes)
+    QUANTUM_SRC += $(QUANTUM_DIR)/debounce.c
+endif
+
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
+
+    # Include files used by all split keyboards
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
-                $(QUANTUM_DIR)/split_common/split_util.c
-    QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c
-    QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/serial.c
+                   $(QUANTUM_DIR)/split_common/split_util.c
+
+    # Determine which (if any) transport files are required
+    ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
+        # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
+        # Unused functions are pruned away, which is why we can add both drivers here without bloat.
+        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c \
+                           $(QUANTUM_DIR)/split_common/serial.c
+    endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif

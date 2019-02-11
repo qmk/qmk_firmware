@@ -40,6 +40,7 @@
   * [Unit Testing](unit_testing.md)
   * [Useful Functions](ref_functions.md)
   * [Configurator Support](reference_configurator_support.md)
+  * [info.json Format](reference_info_json.md)
 
 * [Features](features.md)
   * [Basic Keycodes](keycodes_basic.md)
@@ -81,6 +82,8 @@
   * [ISP Flashing Guide](isp_flashing_guide.md)
   * [ARM Debugging Guide](arm_debugging.md)
   * [I2C Driver](i2c_driver.md)
+  * [GPIO Controls](internals_gpio_control.md)
+  * [Proton C Conversion](proton_c_conversion.md)
 
 * For a Deeper Understanding
   * [How Keyboards Work](how_keyboards_work.md)
