@@ -13,6 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#pragma once
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
@@ -89,7 +90,7 @@ enum RGBLIGHT_EFFECT_MODE {
 #endif
 
 #ifndef RGBLIGHT_EFFECT_SNAKE_LENGTH
-#define RGBLIGHT_EFFECT_SNAKE_LENGTH 4
+#define RGBLIGHT_EFFECT_SNAKE_LENGTH 34
 #endif
 
 #ifndef RGBLIGHT_EFFECT_KNIGHT_LENGTH
@@ -112,14 +113,6 @@ enum RGBLIGHT_EFFECT_MODE {
 #define RGBLIGHT_EFFECT_CHRISTMAS_STEP 2
 #endif
 
-#ifndef RGBLIGHT_EFFECT_BEAM_LENGTH
-#define RGBLIGHT_EFFECT_BEAM_LENGTH 16
-#endif
-
-#ifndef RGBLIGHT_EFFECT_HYPER_LENGTH
-#define RGBLIGHT_EFFECT_HYPER_LENGTH  104
-#endif
-
 #ifndef RGBLIGHT_HUE_STEP
 #define RGBLIGHT_HUE_STEP 10
 #endif
@@ -128,6 +121,10 @@ enum RGBLIGHT_EFFECT_MODE {
 #endif
 #ifndef RGBLIGHT_VAL_STEP
 #define RGBLIGHT_VAL_STEP 17
+#endif
+
+#ifndef RGBLIGHT_EFFECT_BEAM_LENGTH
+#define RGBLIGHT_EFFECT_BEAM_LENGTH 16
 #endif
 
 #define RGBLED_TIMER_TOP F_CPU/(256*64)
@@ -175,7 +172,7 @@ void rgblight_enable(void);
 void rgblight_disable(void);
 void rgblight_step(void);
 void rgblight_step_reverse(void);
-uint8_t rgblight_get_mode(void);
+uint32_t rgblight_get_mode(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
 void rgblight_update_dword(uint32_t dword);
@@ -211,14 +208,6 @@ void rgblight_mode_noeeprom(uint8_t mode);
 void rgblight_toggle_noeeprom(void);
 void rgblight_enable_noeeprom(void);
 void rgblight_disable_noeeprom(void);
-void rgblight_step_noeeprom(void);
-void rgblight_step_reverse_noeeprom(void);
-void rgblight_increase_hue_noeeprom(void);
-void rgblight_decrease_hue_noeeprom(void);
-void rgblight_increase_sat_noeeprom(void);
-void rgblight_decrease_sat_noeeprom(void);
-void rgblight_increase_val_noeeprom(void);
-void rgblight_decrease_val_noeeprom(void);
 
 void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
 void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
@@ -237,7 +226,6 @@ void rgblight_effect_breathing(uint8_t interval);
 void rgblight_effect_rainbow_mood(uint8_t interval);
 void rgblight_effect_rainbow_swirl(uint8_t interval);
 void rgblight_effect_beam(uint8_t interval);
-void rgblight_effect_hyper(uint8_t interval);
 void rgblight_effect_snake(uint8_t interval);
 void rgblight_effect_knight(uint8_t interval);
 void rgblight_effect_christmas(void);
@@ -296,6 +284,12 @@ void rgblight_effect_alternating(void);
     _RGBM_TMP_STATIC( static_gradient_33 )
     _RGBM_TMP_STATIC( STATIC_GRADIENT_end )
   #endif
+  #ifdef RGBLIGHT_EFFECT_RGB_TEST
+    _RGBM_SINGLE_DYNAMIC( RGB_TEST )
+  #endif
+  #ifdef RGBLIGHT_EFFECT_ALTERNATING
+    _RGBM_SINGLE_DYNAMIC( ALTERNATING )
+  #endif
   #ifdef RGBLIGHT_EFFECT_BEAM
     _RGBM_MULTI_DYNAMIC( BEAM )
     _RGBM_TMP_DYNAMIC( beam_37 )
@@ -303,20 +297,6 @@ void rgblight_effect_alternating(void);
     _RGBM_TMP_DYNAMIC( beam_39 )
     _RGBM_TMP_DYNAMIC( beam_40 )
     _RGBM_TMP_DYNAMIC( BEAM_end )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_HYPER
-    _RGBM_MULTI_DYNAMIC( HYPER )
-    //_RGBM_TMP_DYNAMIC( hyper_50 )
-    //_RGBM_TMP_DYNAMIC( hyper_90 )
-    //_RGBM_TMP_DYNAMIC( hyper_100 )
-    //_RGBM_TMP_DYNAMIC( hyper_200 )
-    _RGBM_TMP_DYNAMIC( HYPER_end )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_RGB_TEST
-    _RGBM_SINGLE_DYNAMIC( RGB_TEST )
-  #endif
-  #ifdef RGBLIGHT_EFFECT_ALTERNATING
-    _RGBM_SINGLE_DYNAMIC( ALTERNATING )
   #endif
   ////  Add a new mode here.
   // #ifdef RGBLIGHT_EFFECT_<name>

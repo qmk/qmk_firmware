@@ -100,15 +100,15 @@ NOTE: If you do a search/replace
 
 #define _________________WINNAV_L1_________________       KC_PGUP,     KC_PGDN,    KC_HOME,     KC_END,      TD(TD_FNDR)
 #define _________________WINNAV_L2_________________       KC_LEFT,     KC_UP,      KC_DOWN,     KC_RIGHT,    TD(TD_PSTI)
-#define _________________WINNAV_L3_________________       TD(TD_ACCW), KC_CTLA,    TD(TD_CCPY), TD(TD_PTSP), TD(TD_DDEL)
+#define _________________WINNAV_L3_________________       TD(TD_ACCW), LCTL(KC_A),    TD(TD_CCPY), TD(TD_PTSP), TD(TD_DDEL)
 
 #define _________________NUMBER_L__________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _________________NUMBER_R__________________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
 
-#define _________________NUMB_R1___________________       TD(TD_MINPLS), KC_7,       KC_8,       KC_9,               KC_COLN
-#define _________________NUMB_R2___________________       TD(TD_DIVMLT), KC_4,       KC_5,       KC_6,               C_S_T(KC_COLN)
-#define _________________NUMB_R3_MAC_______________       TD(TD_DOTEQL), KC_1,       KC_2,       MT(MOD_LGUI,KC_3),  KC_LCTRL
-#define _________________NUMB_R3_WIN_______________       TD(TD_DOTEQL), KC_1,       KC_2,       MT(MOD_LCTRL,KC_3), KC_LGUI
+#define _________________NUMB_R1___________________       TD(TD_MINPLS), KC_7,       KC_8,       KC_9,              KC_COLN
+#define _________________NUMB_R2___________________       TD(TD_DIVMLT), KC_4,       KC_5,       KC_6,              C_S_T(KC_COLN)
+#define _________________NUMB_R3_MAC_______________       TD(TD_DOTEQL), KC_1,       KC_2,       MT(MOD_LGUI,KC_3), KC_LCTRL
+#define _________________NUMB_R3_WIN_______________       TD(TD_DOTEQL), KC_1,       KC_2,       MT(MOD_LCTL,KC_3), KC_LGUI
 #define _________________NUMB_R4___________________       KC_____,    KC_0,       KC_0,       KC_____,         KC_____
 /*
 #define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
@@ -120,7 +120,7 @@ NOTE: If you do a search/replace
 #define _________________RGB_2_____________________       RGB_MOD,    RGB_HUD,    RGB_SAD,    RGB_VAD,    RGB_SPD
 
 #define _________________MEDIA_____________________       KC_MPLY,    KC_MUTE,     KC_VOLD,     KC_VOLU,     KC_____
-#define _________________LYOUT_____________________       KC_____, TO(_QUERTY), TO(_DVORAK), TO(_ALTDVK), KC_____
+#define _________________LYOUT_____________________       KC_____,    KC_QWERTY,   KC_DVORAK,   KC_ALTDVK,   KC_____
 
 #define _________________PUNC_L1___________________       KC_BSLS,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC
 #define _________________PUNC_L2___________________       KC_PLUS,    KC_MINS,    KC_ASTR,    KC_SLSH,    KC_EQL

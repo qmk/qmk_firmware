@@ -29,7 +29,7 @@ extern uint8_t is_master;
 enum layer_number {
     _DVORAK = 0,
     _MACDVK,
-    _QUERTY,
+    _QWERTY,
     _NUMB,
     _MNMB,
     _SYMB,
@@ -40,7 +40,7 @@ enum custom_keycodes {
 
   DVORAK = SAFE_RANGE,
   MACDVK,
-  QUERTY,
+  QWERTY,
   NUMB,
   MNMB,
   SYMB,
@@ -89,7 +89,7 @@ enum {
   TD_ENTAB,
 };
 
-#define KC_____ KC_TRNS
+#define _______ KC_TRNS
 #define KC_XXXXX KC_NO
 */
 
@@ -114,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MO(_MDIA), KC_ENT, KC_LALT, KC_TAB, KC_ENT,    ________MAC_THUMB_CLUSTER_________, KC_LCTL,   KC_LEFT, KC_DOWN, KC_UP, KC_RGHT \
       ),
 
-  [_QUERTY] = LAYOUT_wrapper( \
+  [_QWERTY] = LAYOUT_wrapper( \
       KC_GESC,   _________________NUMBER_L__________________,                   _________________NUMBER_R__________________, MO(_MDIA), \
       KC_TAB,    _________________QWERTY_L1_________________,                   _________________QWERTY_R1_________________, KC_BSLASH, \
       KC_CAPS,   _________________QWERTY_L2_________________,                   _________________QWERTY_R2_________________, KC_ENT, \
@@ -136,7 +136,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_____, _________________MACNAV_L1_________________,                   _________________NUMB_R1___________________, KC_____, \
       KC_____, _________________MACNAV_L2_________________,                   _________________NUMB_R2___________________, KC_____, \
       KC_____, _________________MACNAV_L3_________________, KC_____, KC_____, _________________NUMB_R3_MAC_______________, KC_____, \
-      _________________KC_BLANK__________________, KC_SPC,  KC_BSPC, KC_____, KC_____,  KC_0,   KC_0,   KC_____,  KC_____,  KC_____ \
+      _________________KC_BLANK__________________, KC_SPC,  KC_BSPC, KC_____, KC_____,  KC_0,   KC_0,   KC_____,  KC_____, KC_____ \
+      ),
+
+  [_NUMB] = LAYOUT_wrapper( \
+      KC_____, _________________NUMBER_L__________________,                   _________________NUMBER_R__________________, _______, \
+      KC_____, _________________WINNAV_L1_________________,                   _________________NUMB_R1___________________, _______, \
+      KC_____, _________________WINNAV_L2_________________,                   _________________NUMB_R2___________________, _______, \
+      KC_____, _________________WINNAV_L3_________________, KC_____, KC_____, _________________NUMB_R3_WIN_______________, _______, \
+      _________________KC_BLANK__________________, KC_SPC,  KC_BSPC, KC_____, KC_____,  KC_0,   KC_0,   KC_____,  KC_____, KC_____ \
       ),
 
 
@@ -639,21 +647,11 @@ void led_test_init(void) {}
 
 
 void matrix_scan_user(void) {
-  //  rgblight_setrgb_at(0,255,0,0);
-  //  rgblight_setrgb_at(0,255,0,1);
-  //  rgblight_setrgb_at(0,255,0,2);
-  //  rgblight_setrgb_at(0,255,0,3);
-  //  rgblight_setrgb_at(0,255,0,4);
-  //  rgblight_setrgb_at(0,255,0,5);
-  //    rgblight_setrgb_at(0,0,255,6);
-  //    rgblight_setrgb_at(10,0,255,17);
-  //    rgblight_setrgb_at(10,0,230,18);
-  //    rgblight_setrgb_at(20,0,220,31);
 
      led_test_init();
      iota_gfx_task();  // this is what updates the display continuously
-
 }
+
 
 void matrix_update(struct CharacterMatrix *dest,
                           const struct CharacterMatrix *source) {
@@ -665,9 +663,9 @@ void matrix_update(struct CharacterMatrix *dest,
 
 //assign the right code to your layers for OLED display
 #define L_BASE 0
-//#define L_QUERTY (1<<_QUERTY)
 #define L_SYMB (1<<_SYMB)
 #define L_MNMB (1<<_MNMB)
+#define L_NUMB (1<<_NUMB)
 #define L_MDIA (1<<_MDIA)
 #define L_MDIA_TRI (L_MDIA|L_MNMB|L_SYMB)
 
@@ -701,23 +699,23 @@ void render_status(struct CharacterMatrix *matrix) {
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   char buf[40];
   snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
-  matrix_write_P(matrix, PSTR("\nLayer: "));
+  matrix_write_P(matrix, PSTR("\nLAYER: "));
     switch (layer_state) {
         case L_BASE:
            matrix_write_P(matrix, PSTR("Base"));
            break;
-        //case L_QUERTY:
-        //   matrix_write_P(matrix, PSTR("QUERTYty"));
-        //   break;
         case L_MNMB:
-           matrix_write_P(matrix, PSTR("Number"));
+           matrix_write_P(matrix, PSTR("MAC Num"));
+           break;
+        case L_NUMB:
+           matrix_write_P(matrix, PSTR("WIN Num"));
            break;
         case L_SYMB:
-           matrix_write_P(matrix, PSTR("Punctuation"));
+           matrix_write_P(matrix, PSTR("Punc"));
            break;
         case L_MDIA:
         case L_MDIA_TRI:
-           matrix_write_P(matrix, PSTR("RGB & Audio"));
+           matrix_write_P(matrix, PSTR("Media"));
            break;
         default:
            matrix_write(matrix, buf);
@@ -725,7 +723,7 @@ void render_status(struct CharacterMatrix *matrix) {
 
   // Host Keyboard LED Status
   char led[40];
-    snprintf(led, sizeof(led), "\n%s  %s  %s",
+  snprintf(led, sizeof(led), "\n%s  %s  %s",
             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");

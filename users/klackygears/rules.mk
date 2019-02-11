@@ -1,6 +1,6 @@
 SRC += klackygears.c
 
-#EXTRAFLAGS += -flto  compiles does weird things to the helix
+#EXTRAFLAGS += -flto  compiles, does weird things to the helix
 
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -10,3 +10,7 @@ endif
 ifeq ($(strip $(MACROS_ENABLED)), yes)
     OPT_DEFS += -DMACROS_ENABLED
 endif
+
+#ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+#  SRC += rgblight.c
+#endif

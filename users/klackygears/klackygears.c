@@ -1,9 +1,6 @@
 #include "klackygears.h"
 
 
-//void my_custom_function(void) {
-//}
-
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 /*
@@ -24,17 +21,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case MAKEK:
       if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
         SEND_STRING("make helix:klackygears");
       }
     break;
 
     case MAKEKF:
       if (record->event.pressed) {
-        // when keycode QMKBEST is pressed
         SEND_STRING("make helix:klackygears:dfu");
       }
 
+    break;
+
+  case KC_DVORAK:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_DVORAK);
+    }
+    break;
+  case KC_ALTDVK:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_ALTDVK);
+    }
+    break;
+  case KC_QWERTY:
+    if (record->event.pressed) {
+      set_single_persistent_default_layer(_QWERTY);
+    }
     break;
   }
 
@@ -42,6 +53,5 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       return true;
 }
-
 
 

@@ -8,7 +8,6 @@
 #include "quantum.h"
 #include "version.h"
 #include "eeprom.h"
-#include "wrappers.h"
 
 #ifdef TAP_DANCE_ENABLE
   #include "tap_dances.h"
@@ -16,13 +15,15 @@
 
 #ifdef RGBLIGHT_ENABLE
 //Following line allows macro to read current RGB settings
+
+//#include "rgblight.h"
 extern rgblight_config_t rgblight_config;
 #endif
 
 enum layer_number {
     _DVORAK = 0,
     _ALTDVK, //for use with Windows or Mac layouts, varies for which OS the keyboard is primarily used on
-    _QUERTY,
+    _QWERTY,
     _NUMB,
     _MNMB,
     _SYMB,
@@ -30,10 +31,9 @@ enum layer_number {
 };
 
 enum custom_keycodes {
-
   DVORAK = SAFE_RANGE,
   ALTDVK,
-  QUERTY,
+  QWERTY,
   NUMB,
   MNMB,
   SYMB,
@@ -47,32 +47,19 @@ enum custom_keycodes {
   //DYNAMIC_MACRO_RANGE,
 };
 
+enum userspace_custom_keycodes {
+  KC_DVORAK,
+  KC_ALTDVK,
+  KC_QWERTY,
+  //NEW_SAFE_RANGE
+};
+
+
 //#include "dynamic_macro.h"
 
 #define KC_____ KC_TRNS
 #define KC_XXXXX KC_NO
 
 int RGB_current_mode;
-
-
-/*
-
-#if defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-  #include "rgb_stuff.h"
-#endif
-*/
-
-
-//void my_custom_function(void);
-
-
-
-
-
-
-
-
-
-
 
 #endif
