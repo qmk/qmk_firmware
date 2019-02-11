@@ -962,40 +962,52 @@ void rgb_matrix_disable_noeeprom(void) {
 }
 
 void rgb_matrix_step(void) {
-    // some nasty logic for properly looping through custom modes too
-    if (rgb_matrix_config.mode == RGB_MATRIX_CUSTOM) {
-        if (rgb_matrix_custom_modes_count == 0) {
-            rgb_matrix_config.mode++;
-        } else if (rgb_matrix_config.custom == rgb_matrix_custom_modes_count - 1) {
-            rgb_matrix_config.mode++;
-        } else {
-            rgb_matrix_config.custom++;
-        }
-    } else {
-        rgb_matrix_config.mode++;
+    const bool on_custom = rgb_matrix_config.mode == RGB_MATRIX_CUSTOM;
+    const bool has_custom = rgb_matrix_custom_modes_count > 0;
+    const bool last_custom = rgb_matrix_config.custom == rgb_matrix_custom_modes_count - 1;
+
+    // iterate through custom modes
+    if (on_custom && has_custom && !last_custom) {
+        rgb_matrix_config.custom++;
+        goto end;
     }
 
+    // iterate through regular modes
+    rgb_matrix_config.mode++;
     if (rgb_matrix_config.mode >= RGB_MATRIX_EFFECT_MAX)
         rgb_matrix_config.mode = 1;
+
+    // properly wrap back into custom modes
+    const bool now_on_custom = rgb_matrix_config.mode == RGB_MATRIX_CUSTOM;
+    if (!on_custom && now_on_custom)
+        rgb_matrix_config.custom = 0;
+
+end:
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
 void rgb_matrix_step_reverse(void) {
-    // some nasty logic for properly looping through custom modes too
-    if (rgb_matrix_config.mode == RGB_MATRIX_CUSTOM) {
-        if (rgb_matrix_custom_modes_count == 0) {
-            rgb_matrix_config.mode--;
-        } else if (rgb_matrix_config.custom == 0) {
-            rgb_matrix_config.mode--;
-        } else {
-            rgb_matrix_config.custom--;
-        }
-    } else {
-        rgb_matrix_config.mode--;
+    const bool on_custom = rgb_matrix_config.mode == RGB_MATRIX_CUSTOM;
+    const bool has_custom = rgb_matrix_custom_modes_count > 0;
+    const bool first_custom = rgb_matrix_config.custom == 0;
+
+    // iterate through custom modes
+    if (on_custom && has_custom && !first_custom) {
+        rgb_matrix_config.custom--;
+        goto end;
     }
 
+    // iterate through regular modes
+    rgb_matrix_config.mode--;
     if (rgb_matrix_config.mode < 1)
         rgb_matrix_config.mode = RGB_MATRIX_EFFECT_MAX - 1;
+
+    // properly wrap back into custom modes
+    const bool now_on_custom = rgb_matrix_config.mode == RGB_MATRIX_CUSTOM;
+    if (!on_custom && now_on_custom)
+        rgb_matrix_config.custom = rgb_matrix_custom_modes_count - 1;
+
+end:
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
