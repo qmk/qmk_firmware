@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#pragma once 
+#pragma once
 
 #define TAPPING_TERM    200
 
@@ -49,4 +49,3 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 547 // **** CHANGE THIS BASED ON MATRIX_ROWS & MATRIX_COLS ****
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 477 // **** CHANGE THIS BASED ON 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR ****
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
-#endif
