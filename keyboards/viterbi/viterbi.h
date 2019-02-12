@@ -1,8 +1,11 @@
-#ifndef VITERBI_H
-#define VITERBI_H
+#pragma once
+
+#include "quantum.h"
 
 #ifdef KEYBOARD_viterbi_rev1
     #include "rev1.h"
+#elif KEYBOARD_viterbi_rev2
+    #include "rev2.h"
 #endif
 
 // Used to create a keymap using only KC_ prefixed keys
@@ -23,6 +26,3 @@
 
 #define LAYOUT_ortho_5x14 LAYOUT
 
-#include "quantum.h"
-
-#endif
