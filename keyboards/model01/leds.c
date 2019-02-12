@@ -125,11 +125,6 @@ static void set_color(int index, uint8_t r, uint8_t g, uint8_t b) {
   led_state[index].b = b;
 }
 
-static void set_color_all(uint8_t r, uint8_t g, uint8_t b) {
-  for (int i=0; i<DRIVER_LED_TOTAL; i++)
-    set_color(i, r, g, b);
-}
-
 static void init(void) {
   // Enable high current pathway to LEDs - this does violate the USB spec though! (1.6 amps...)
   DDRE |= _BV(6);
@@ -161,7 +156,6 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
   .init = init,
   .flush = flush,
   .set_color = set_color,
-  .set_color_all = set_color_all
 };
 
 #endif

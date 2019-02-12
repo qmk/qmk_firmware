@@ -208,14 +208,6 @@ void IS31FL3731_set_color( int index, uint8_t red, uint8_t green, uint8_t blue )
     }
 }
 
-void IS31FL3731_set_color_all( uint8_t red, uint8_t green, uint8_t blue )
-{
-    for ( int i = 0; i < DRIVER_LED_TOTAL; i++ )
-    {
-        IS31FL3731_set_color( i, red, green, blue );
-    }
-}
-
 void IS31FL3731_set_led_control_register( uint8_t index, bool red, bool green, bool blue )
 {
     is31_led led = g_is31_leds[index];

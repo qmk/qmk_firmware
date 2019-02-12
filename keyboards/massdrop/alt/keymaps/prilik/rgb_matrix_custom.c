@@ -6,7 +6,7 @@
 
 /*---------------------------------  Outrun  ---------------------------------*/
 
-static void rgb_matrix_outrun(bool init) {
+static void rgb_matrix_outrun(uint16_t led_i, bool init) {
   const float vpct = rgb_matrix_config.val / 255.f;
   const RGB highlight = {
     0x00 * vpct,
@@ -14,33 +14,31 @@ static void rgb_matrix_outrun(bool init) {
     0x00 * vpct,
   };
 
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-    const rgb_led led = g_rgb_leds[i];
+  const rgb_led led = g_rgb_leds[led_i];
 
-    HSV hsv;
-    switch (led.matrix_co.row) {
-    case 0:  hsv = (HSV){ 144, 200, 255 }; break;
-    case 1:  hsv = (HSV){ 200, 255, 255 }; break;
-    case 2:  hsv = (HSV){ 240, 255, 255 }; break;
-    case 3:  hsv = (HSV){  32, 255, 255 }; break;
-    case 4:  hsv = (HSV){  42, 255, 255 }; break;
-    default: hsv = (HSV){  42, 207, 200 }; break;
-    }
-    hsv.v *= vpct;
-
-
-    RGB rgb = hsv_to_rgb(hsv);
-
-    const uint8_t cuttoff = 160; // 0-255, larger = slower the fade
-    if (g_key_hit[i] <= cuttoff) {
-      float pct = (float)g_key_hit[i] / (float)cuttoff;
-      rgb.r = highlight.r - pct * (highlight.r - rgb.r);
-      rgb.g = highlight.g - pct * (highlight.g - rgb.g);
-      rgb.b = highlight.b - pct * (highlight.b - rgb.b);
-    }
-
-    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+  HSV hsv;
+  switch (led.matrix_co.row) {
+  case 0:  hsv = (HSV){ 144, 200, 255 }; break;
+  case 1:  hsv = (HSV){ 200, 255, 255 }; break;
+  case 2:  hsv = (HSV){ 240, 255, 255 }; break;
+  case 3:  hsv = (HSV){  32, 255, 255 }; break;
+  case 4:  hsv = (HSV){  42, 255, 255 }; break;
+  default: hsv = (HSV){  42, 207, 200 }; break;
   }
+  hsv.v *= vpct;
+
+
+  RGB rgb = hsv_to_rgb(hsv);
+
+  const uint8_t cuttoff = 160; // 0-255, larger = slower the fade
+  if (g_key_hit[led_i] <= cuttoff) {
+    float pct = (float)g_key_hit[led_i] / (float)cuttoff;
+    rgb.r = highlight.r - pct * (highlight.r - rgb.r);
+    rgb.g = highlight.g - pct * (highlight.g - rgb.g);
+    rgb.b = highlight.b - pct * (highlight.b - rgb.b);
+  }
+
+  rgb_matrix_set_color(led_i, rgb.r, rgb.g, rgb.b);
 }
 
 /*----------------------------------  Snake  ---------------------------------*/
@@ -160,7 +158,7 @@ static void snk_update_state(void) {
   snk.led_states[KEY_TO_LED_MAP[snk.apple.row][snk.apple.col]] = SNK_APPLE;
 }
 
-static void snk_run(void) {
+static void snk_run(uint16_t led_i) {
   // check if it's time to run a game state update
   const uint16_t speed = max(100, 300 - snk.len * 20); // <-- tweak difficulty
   if (timer_elapsed(snk.update_timer) > speed) {
@@ -169,34 +167,32 @@ static void snk_run(void) {
   }
 
   // update leds based off game state
-  for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
-    const snk_cell_t cell = snk.led_states[i];
+  const snk_cell_t cell = snk.led_states[led_i];
 
-    RGB rgb;
-    switch(cell.tag) {
-    case SNKC_APPLE_T:
-      rgb = (RGB){ 0, 255, 0 };
-      break;
-    case SNKC_BODY_T:
-      rgb = (RGB){
-        sin(cell.seg * 0.5 + 0) * 127 + 128,
-        sin(cell.seg * 0.5 + 2) * 127 + 128,
-        sin(cell.seg * 0.5 + 4) * 127 + 128
-      };
-      break;
-    case SNKC_EMPTY_T:
-    default:
-      rgb = (RGB){ 0, 0, 0 };
-      break;
-    }
-
-    rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+  RGB rgb;
+  switch(cell.tag) {
+  case SNKC_APPLE_T:
+    rgb = (RGB){ 0, 255, 0 };
+    break;
+  case SNKC_BODY_T:
+    rgb = (RGB){
+      sin(cell.seg * 0.5 + 0) * 127 + 128,
+      sin(cell.seg * 0.5 + 2) * 127 + 128,
+      sin(cell.seg * 0.5 + 4) * 127 + 128
+    };
+    break;
+  case SNKC_EMPTY_T:
+  default:
+    rgb = (RGB){ 0, 0, 0 };
+    break;
   }
+
+  rgb_matrix_set_color(led_i, rgb.r, rgb.g, rgb.b);
 }
 
-static void rgb_matrix_snake(bool init) {
+static void rgb_matrix_snake(uint16_t led_i, bool init) {
   if (init) snk_init();
-  else snk_run();
+  else snk_run(led_i);
 }
 
 /*---------------------------------  Export  ---------------------------------*/

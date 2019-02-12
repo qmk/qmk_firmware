@@ -145,13 +145,11 @@ enum rgb_matrix_effects {
 };
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue );
-void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue );
 
 // This runs after another backlight effect and replaces
 // colors already set
-void rgb_matrix_indicators(void);
-void rgb_matrix_indicators_kb(void);
-void rgb_matrix_indicators_user(void);
+void rgb_matrix_indicators_kb(uint16_t led_i);
+void rgb_matrix_indicators_user(uint16_t led_i);
 
 void rgb_matrix_init(void);
 void rgb_matrix_setup_drivers(void);
@@ -162,12 +160,6 @@ void rgb_matrix_set_indicator_state(uint8_t state);
 
 void rgb_matrix_task(void);
 
-// This should not be called from an interrupt
-// (eg. from a timer interrupt).
-// Call this while idle (in between matrix scans).
-// If the buffer is dirty, it will update the driver with the buffer.
-void rgb_matrix_update_pwm_buffers(void);
-
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record);
 
 void rgb_matrix_increase(void);
@@ -176,8 +168,6 @@ void rgb_matrix_decrease(void);
 // void *backlight_get_key_color_eeprom_address(uint8_t led);
 // void backlight_get_key_color( uint8_t led, HSV *hsv );
 // void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv );
-
-uint32_t rgb_matrix_get_tick(void);
 
 void rgb_matrix_toggle(void);
 void rgb_matrix_enable(void);
@@ -227,11 +217,8 @@ uint32_t rgb_matrix_get_mode(void);
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
     void (*init)(void);
-
     /* Set the colour of a single LED in the buffer. */
     void (*set_color)(int index, uint8_t r, uint8_t g, uint8_t b);
-    /* Set the colour of all LEDS on the keyboard in the buffer. */
-    void (*set_color_all)(uint8_t r, uint8_t g, uint8_t b);
     /* Flush any buffered changes to the hardware. */
     void (*flush)(void);
 } rgb_matrix_driver_t;
@@ -241,13 +228,13 @@ extern const rgb_matrix_driver_t rgb_matrix_driver;
 extern rgb_config_t rgb_matrix_config;
 
 extern bool g_suspend_state;
-extern uint32_t g_tick;                     // Global tick at 20 Hz
+extern uint32_t g_tick;                     // Ticks every frame
 extern uint8_t g_key_hit[DRIVER_LED_TOTAL]; // Ticks since this key was last hit.
 extern uint32_t g_any_key_hit;              // Ticks since any key was last hit.
 extern uint16_t g_last_keycode;             // Last keycode hit
 
 // Custom Mode support (redefine these in keymap.c)
-typedef void (*rgb_matrix_custom_mode_f)(bool init);
+typedef void (*rgb_matrix_custom_mode_f)(uint16_t led_i, bool init);
 extern const rgb_matrix_custom_mode_f* rgb_matrix_custom_modes;
 extern const uint8_t rgb_matrix_custom_modes_count;
 

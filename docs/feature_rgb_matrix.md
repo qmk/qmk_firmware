@@ -179,8 +179,8 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 
 Custom layer effects can be done by defining this in your `<keyboard>.c`:
 
-    void rgb_matrix_indicators_kb(void) {
-        rgb_matrix_set_color(index, red, green, blue);
+    void rgb_matrix_indicators_kb(led_i) {
+        rgb_matrix_set_color(led_i, red, green, blue);
     }
 
 A similar function works in the keymap as `rgb_matrix_indicators_user`.

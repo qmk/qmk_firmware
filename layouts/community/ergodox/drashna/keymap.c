@@ -361,7 +361,10 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
   }
 }
 
-void rgb_matrix_indicators_user(void) {
+// TODO: update to use led_i (instead of one-shot update)
+void rgb_matrix_indicators_user(uint16_t led_i) {
+  if (led_i != DRIVER_LED_TOTAL - 1) return;
+
   if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) return;
 
   switch (biton32(layer_state)) {

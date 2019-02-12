@@ -139,9 +139,9 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 };
 
 #ifdef USB_LED_INDICATOR_ENABLE
-void rgb_matrix_indicators_kb(void)
+void rgb_matrix_indicators_kb(uint16_t led_i)
 {
-  led_matrix_indicators();
+  led_matrix_indicators(led_i);
 }
 #endif // USB_LED_INDICATOR_ENABLE
 

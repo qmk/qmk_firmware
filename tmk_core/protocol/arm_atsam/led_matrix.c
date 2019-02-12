@@ -204,14 +204,6 @@ void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b)
     }
 }
 
-void led_set_all(uint8_t r, uint8_t g, uint8_t b)
-{
-  for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
-  {
-    led_set_one(i, r, g, b);
-  }
-}
-
 void init(void)
 {
     DBGC(DC_LED_MATRIX_INIT_BEGIN);
@@ -228,6 +220,12 @@ void init(void)
 
 void flush(void)
 {
+    // Only update every 10ms
+    // static uint32_t led_next_run = 0;
+    // const uint32_t timer = timer_read32();
+    // if (timer < led_next_run) { return; }
+    // led_next_run = timer + 10;
+
     // Wait for previous transfer to complete
     while (i2c_led_q_running)
     {
@@ -258,35 +256,32 @@ void flush(void)
     i2c_led_q_run();
 }
 
-void led_matrix_indicators(void)
+void led_matrix_indicators(uint16_t led_i)
 {
     uint8_t kbled = keyboard_leds();
     if (kbled && rgb_matrix_config.enable)
     {
-        for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
+        if (
+        #if USB_LED_NUM_LOCK_SCANCODE != 255
+            (led_map[led_i].scan == USB_LED_NUM_LOCK_SCANCODE && (kbled & (1<<USB_LED_NUM_LOCK))) ||
+        #endif //NUM LOCK
+        #if USB_LED_CAPS_LOCK_SCANCODE != 255
+            (led_map[led_i].scan == USB_LED_CAPS_LOCK_SCANCODE && (kbled & (1<<USB_LED_CAPS_LOCK))) ||
+        #endif //CAPS LOCK
+        #if USB_LED_SCROLL_LOCK_SCANCODE != 255
+            (led_map[led_i].scan == USB_LED_SCROLL_LOCK_SCANCODE && (kbled & (1<<USB_LED_SCROLL_LOCK))) ||
+        #endif //SCROLL LOCK
+        #if USB_LED_COMPOSE_SCANCODE != 255
+            (led_map[led_i].scan == USB_LED_COMPOSE_SCANCODE && (kbled & (1<<USB_LED_COMPOSE))) ||
+        #endif //COMPOSE
+        #if USB_LED_KANA_SCANCODE != 255
+            (led_map[led_i].scan == USB_LED_KANA_SCANCODE && (kbled & (1<<USB_LED_KANA))) ||
+        #endif //KANA
+        (0))
         {
-            if (
-            #if USB_LED_NUM_LOCK_SCANCODE != 255
-                (led_map[i].scan == USB_LED_NUM_LOCK_SCANCODE && (kbled & (1<<USB_LED_NUM_LOCK))) ||
-            #endif //NUM LOCK
-            #if USB_LED_CAPS_LOCK_SCANCODE != 255
-                (led_map[i].scan == USB_LED_CAPS_LOCK_SCANCODE && (kbled & (1<<USB_LED_CAPS_LOCK))) ||
-            #endif //CAPS LOCK
-            #if USB_LED_SCROLL_LOCK_SCANCODE != 255
-                (led_map[i].scan == USB_LED_SCROLL_LOCK_SCANCODE && (kbled & (1<<USB_LED_SCROLL_LOCK))) ||
-            #endif //SCROLL LOCK
-            #if USB_LED_COMPOSE_SCANCODE != 255
-                (led_map[i].scan == USB_LED_COMPOSE_SCANCODE && (kbled & (1<<USB_LED_COMPOSE))) ||
-            #endif //COMPOSE
-            #if USB_LED_KANA_SCANCODE != 255
-                (led_map[i].scan == USB_LED_KANA_SCANCODE && (kbled & (1<<USB_LED_KANA))) ||
-            #endif //KANA
-            (0))
-            {
-                led_buffer[i].r = 255 - led_buffer[i].r;
-                led_buffer[i].g = 255 - led_buffer[i].g;
-                led_buffer[i].b = 255 - led_buffer[i].b;
-            }
+            led_buffer[led_i].r = 255 - led_buffer[led_i].r;
+            led_buffer[led_i].g = 255 - led_buffer[led_i].g;
+            led_buffer[led_i].b = 255 - led_buffer[led_i].b;
         }
     }
 }
@@ -295,7 +290,6 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
   .init = init,
   .flush = flush,
   .set_color = led_set_one,
-  .set_color_all = led_set_all
 };
 
 /*==============================================================================
