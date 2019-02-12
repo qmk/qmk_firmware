@@ -68,4 +68,4 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SPLIT_KEYBOARD = yes
 LAYOUTS = ortho_5x12
-DEFAULT_FOLDER = nyquist/rev2
+DEFAULT_FOLDER = keebio/nyquist/rev2
