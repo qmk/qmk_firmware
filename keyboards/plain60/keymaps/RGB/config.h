@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "../../config.h"
+#pragma once
 
 /* RGB Underglow */
 #define RGB_DI_PIN B7
