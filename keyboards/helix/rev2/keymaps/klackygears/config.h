@@ -41,7 +41,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #if defined(LED_ANIMATIONS)
 //   #define RGBLIGHT_EFFECT_BREATHING
 //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
-//     #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+   #define RGBLIGHT_EFFECT_RAINBOW_SPARKLE
 //     #define RGBLIGHT_EFFECT_SNAKE
 //     #undef  RGBLIGHT_EFFECT_SNAKE_LENGTH
 //     #define RGBLIGHT_EFFECT_SNAKE_LENGTH 20

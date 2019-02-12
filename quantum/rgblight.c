@@ -501,6 +501,13 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
         hue = rgblight_config.hue;
       }
 #endif
+#ifdef RGBLIGHT_EFFECT_RAINBOW_SPARKLE
+      else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SPARKLE &&
+               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SPARKLE_end) {
+        // rainbow swirl, ignore the change of hue
+        hue = rgblight_config.hue;
+      }
+#endif
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
       else if (rgblight_config.mode >= RGBLIGHT_MODE_STATIC_GRADIENT &&
                rgblight_config.mode <= RGBLIGHT_MODE_STATIC_GRADIENT_end) {
@@ -664,6 +671,13 @@ void rgblight_task(void) {
                rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SWIRL_end) {
       // rainbow swirl mode
       rgblight_effect_rainbow_swirl(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_SWIRL);
+    }
+#endif
+#ifdef RGBLIGHT_EFFECT_RAINBOW_SPARKLE
+    else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SPARKLE &&
+               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SPARKLE_end) {
+      // rainbow swirl mode
+      rgblight_effect_rainbow_sparkle(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_SPARKLE);
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_SNAKE
@@ -1033,27 +1047,52 @@ void rgblight_effect_hyper(uint8_t interval) {
         k = k + RGBLED_NUM;
       }
       if (i == k) {
-        sethsv(rgblight_config.hue*rand()%290, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
-        //sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val*rand()%360, (LED_TYPE *)&led[i]);
-        //sethsv(rgblight_config.hue, rgblight_config.sat, (uint8_t)(rgblight_config.val*(RGBLIGHT_EFFECT_SNAKE_LENGTH-j)/RGBLIGHT_EFFECT_SNAKE_LENGTH), (LED_TYPE *)&led[i]);
-        //current_hue = current_hue*(uint8_t)(rgblight_config.hue*(pos)) % 360;
-        //current_hue = (current_hue + 1) % 360;
+        sethsv(rgblight_config.hue*rand()%360, rgblight_config.sat, rgblight_config.val*(rand() % 255), (LED_TYPE *)&led[i]);
+
       }
     }
   }
 
   rgblight_set();
   pos = rand() % RGBLED_NUM;
-  /*if (increment == 1) {
-    if (pos - 1 < 0) {
-      pos = RGBLED_NUM - 1;
-    } else {
-      pos -= 1;
-    }
-  } else {
-    pos = (pos + 1) % RGBLED_NUM;
-  }*/
+
 }
 
 
+#endif
+
+#ifdef RGBLIGHT_EFFECT_RAINBOW_SPARKLE
+#ifndef RGBLIGHT_RAINBOW_SPARKLE_RANGE
+  #define RGBLIGHT_RAINBOW_SPARKLE_RANGE 360
+#endif
+
+__attribute__ ((weak))
+const uint8_t RGBLED_RAINBOW_SPARKLE_INTERVALS[] PROGMEM = {200, 150, 75};
+
+void rgblight_effect_rainbow_sparkle(uint8_t interval) {
+  static uint16_t current_hue = 0;
+  static uint16_t current_val = 0;
+  static uint16_t last_timer = 0;
+  uint16_t hue;
+  uint8_t i;
+  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_SPARKLE_INTERVALS[interval / 2])) {
+    return;
+  }
+  last_timer = timer_read();
+  for (i = 0; i < RGBLED_NUM; i++) {
+    hue = (RGBLIGHT_RAINBOW_SPARKLE_RANGE / RGBLED_NUM * i + rand()) % 360;
+    sethsv(hue, rgblight_config.sat, rgblight_config.val*(rand() % 255), (LED_TYPE *)&led[i]);
+  }
+  rgblight_set();
+
+  if (interval % 2) {
+    current_hue = (current_hue + 1) % 360;
+  } else {
+    if (current_hue - 1 < 0) {
+      current_hue = 359;
+    } else {
+      current_hue = current_hue - 1;
+    }
+  }
+}
 #endif

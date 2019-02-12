@@ -24,6 +24,7 @@
 #if defined(RGBLIGHT_EFFECT_BREATHING) || \
     defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || \
     defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) ||	\
+    defined(RGBLIGHT_EFFECT_RAINBOW_SPARKLE) ||	\
     defined(RGBLIGHT_EFFECT_SNAKE) ||		\
     defined(RGBLIGHT_EFFECT_BEAM)  ||  \
     defined(RGBLIGHT_EFFECT_HYPER)  ||  \

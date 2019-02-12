@@ -702,7 +702,7 @@ void render_status(struct CharacterMatrix *matrix) {
   matrix_write_P(matrix, PSTR("\nLAYER: "));
     switch (layer_state) {
         case L_BASE:
-           matrix_write_P(matrix, PSTR("Base"));
+           matrix_write_P(matrix, PSTR("Primary"));
            break;
         case L_MNMB:
            matrix_write_P(matrix, PSTR("MAC Num"));
