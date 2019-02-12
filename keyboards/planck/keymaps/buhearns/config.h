@@ -1,7 +1,11 @@
 #pragma once
 
 #ifdef AUDIO_ENABLE
-    #define STARTUP_SONG SONG(MARIO_MUSHROOM)
+  #define STARTUP_SONG SONG(MARIO_MUSHROOM)
+  #define UNICODE_SONG_OSX SONG(COIN_SOUND)
+  #define UNICODE_SONG_LNX SONG(UNICODE_LINUX)
+  #define UNICODE_SONG_WIN SONG(UNICODE_WINDOWS)
+  #define UNICODE_SONG_WINC SONG(UNICODE_WINDOWS)
 #endif
 
 // Most tactile encoders have detents every 4 stages
