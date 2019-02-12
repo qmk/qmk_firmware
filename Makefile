@@ -112,23 +112,29 @@ $(eval $(call GET_KEYBOARDS))
 # Only consider folders with makefiles, to prevent errors in case there are extra folders
 #KEYBOARDS += $(patsubst $(ROOD_DIR)/keyboards/%/rules.mk,%,$(wildcard $(ROOT_DIR)/keyboards/*/*/rules.mk))
 
+.PHONY: list-keyboards
 list-keyboards:
 	echo $(KEYBOARDS)
-	exit 0
 
 define PRINT_KEYBOARD
 	$(info $(PRINTING_KEYBOARD))
 endef
 
+.PHONY: generate-keyboards-file
 generate-keyboards-file:
 	$(foreach PRINTING_KEYBOARD,$(KEYBOARDS),$(eval $(call PRINT_KEYBOARD)))
-	exit 0
 
+.PHONY: clean
 clean:
-	echo -n 'Deleting .build ... '
+	echo -n 'Deleting .build/ ... '
 	rm -rf $(BUILD_DIR)
-	echo 'done'
-	exit 0
+	echo 'done.'
+
+.PHONY: distclean
+distclean: clean
+	echo -n 'Deleting *.bin and *.hex ... '
+	rm -f *.bin *.hex
+	echo 'done.'
 
 #Compatibility with the old make variables, anything you specify directly on the command line
 # always overrides the detected folders
@@ -577,6 +583,7 @@ lib/%:
 	git submodule sync $?
 	git submodule update --init $?
 
+.PHONY: git-submodule
 git-submodule:
 	git submodule sync --recursive
 	git submodule update --init --recursive --progress
