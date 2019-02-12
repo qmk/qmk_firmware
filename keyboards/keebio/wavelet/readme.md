@@ -9,11 +9,11 @@ Hardware Availability: [Keebio](https://keeb.io)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make wavelet:default
+    make keebio/wavelet:default
 
 Example of flashing this keyboard:
 
-    make wavelet:default:avrdude
+    make keebio/wavelet:default:avrdude
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
