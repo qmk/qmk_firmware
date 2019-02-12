@@ -9,11 +9,11 @@ Hardware Availability: [Keebio](https://keeb.io)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make rorschach/rev1:default
+    make keebio/rorschach/rev1:default
 
 Example of flashing this keyboard:
 
-    make rorschach/rev1:default:avrdude
+    make keebio/rorschach/rev1:default:avrdude
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef KEYBOARD_rorschach_rev1
+#ifdef KEYBOARD_keebio_rorschach_rev1
     #include "rev1.h"
 #endif
 
