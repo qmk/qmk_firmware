@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "keymap.h"
 
 #define _NP 0
 #define _BL  1
@@ -89,6 +90,8 @@ uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _NP:
         backlight_set(0);
+        DDRD  |= NUMLOCK_PORT;
+        PORTD |= NUMLOCK_PORT;
         break;
     case _BL:
         backlight_set(20);
@@ -102,4 +105,32 @@ uint32_t layer_state_set_user(uint32_t state) {
         break;
     }
   return state;
+}
+
+void led_set_user(uint8_t usb_led) {
+  if (usb_led & (1 << USB_LED_NUM_LOCK)) {
+    // turn on
+    DDRD  |= NUMLOCK_PORT;
+    PORTD |= NUMLOCK_PORT;
+  } else {
+    // turn off
+    DDRD  &= ~NUMLOCK_PORT;
+    PORTD &= ~NUMLOCK_PORT;
+  }
+
+  if (usb_led & (1 << USB_LED_CAPS_LOCK)) {
+    DDRD  |= CAPSLOCK_PORT;
+    PORTD |= CAPSLOCK_PORT;
+  } else {
+    DDRD  &= ~CAPSLOCK_PORT;
+    PORTD &= ~CAPSLOCK_PORT;
+  }
+
+  if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+    DDRD  |= SCROLLLOCK_PORT;
+    PORTD |= SCROLLLOCK_PORT;
+  } else {
+    DDRD  &= ~SCROLLLOCK_PORT;
+    PORTD &= ~SCROLLLOCK_PORT;
+  }
 }
