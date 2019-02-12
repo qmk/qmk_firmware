@@ -19,13 +19,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+// Defines that can be overridden based on oled and font values
+#ifndef OLED_DISPLAY_HEIGHT
 #define OLED_DISPLAY_HEIGHT 32
+#endif
+#ifndef OLED_DISPLAY_WIDTH
 #define OLED_DISPLAY_WIDTH 128
+#endif
 
+#ifndef OLED_FONT_START
 #define OLED_FONT_START 0
+#endif
+#ifndef OLED_FONT_END
 #define OLED_FONT_END 224
+#endif
+#ifndef OLED_FONT_WIDTH
 #define OLED_FONT_WIDTH 6
+#endif
+#ifndef OLED_FONT_HEIGHT
 #define OLED_FONT_HEIGHT 8
+#endif
 
 #define OLED_MAX_CHARS (OLED_DISPLAY_WIDTH / OLED_FONT_WIDTH)
 #define OLED_MAX_LINES (OLED_DISPLAY_HEIGHT / OLED_FONT_HEIGHT)
@@ -64,18 +77,33 @@ bool oled_on(void);
 // Can be used to manually turn off the screen if it is on
 bool oled_off(void);
 
+// Basically it's oled_render, but with timeout management and user task calling!
+void oled_task(void);
+
+// Called at the start of oled_task, weak function
+void oled_task_user(void);
+
 
 // compatibility defines
 #ifdef SSD1306OLED
 
 #define iota_gfx_init(v) oled_init(v) // bool return, v is typical void, converts to bool
-#define iota_gfx_task(v) oled_render() // void return
-#define iota_gfx_off(v) // bool return
-#define iota_gfx_on(v) // bool return
+#define iota_gfx_off(v) oled_off() // bool return
+#define iota_gfx_on(v) oled_on() // bool return
 #define iota_gfx_flush(v) oled_render() // void return
 #define iota_gfx_write_char(char_value) oled_write_char(char_value, false) // void return
 #define iota_gfx_write(const_char_pointer) oled_write(const_char_pointer, false) // void return
 #define iota_gfx_write_P(const_char_pointer) oled_write_P(const_char_pointer, false) // void return
 #define iota_gfx_clear_screen(v) oled_clear() // void return
+#define iota_gfx_task(v) oled_task() // void return
+
+void iota_gfx_task_user(void); // void return
+
+#define matrix_clear(matrix) oled_clear() // void return
+#define matrix_write_char_inner(matrix, char_value) oled_write_char(char_value, false) // void return
+#define matrix_write_char(matrix, char_value) oled_write_char(char_value, false) // void return
+#define matrix_write(matrix, const_char_pointer) oled_write(const_char_pointer, false) // void return
+#define matrix_write_P(matrix, const_char_pointer) oled_write_P(const_char_pointer, false) // void return
+#define matrix_render(matrix) oled_render() // void return
 
 #endif

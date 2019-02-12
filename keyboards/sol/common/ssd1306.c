@@ -220,9 +220,6 @@ void oled_set_cursor(uint8_t col, uint8_t line) {
 void oled_render(void) {
   // Do we have work to do?
   if (!display_dirty) {
-    if (display_active && timer_elapsed(last_activity) > OLED_TIMEOUT) {
-      oled_off();
-    }
     return;
   }
 
@@ -337,3 +334,28 @@ bool oled_off(void) {
   }
   return !display_active;
 }
+
+void oled_task(void) {
+#ifdef SSD1306OLED
+  iota_gfx_task_user();
+#endif
+  oled_task_user();
+
+  // Smart render system, no need to check for dirty
+  oled_render();
+
+  // Display timeout check
+  if (display_active && timer_elapsed(last_activity) > OLED_TIMEOUT) {
+    oled_off();
+  }
+}
+
+__attribute__ ((weak))
+void oled_task_user(void) {
+}
+
+#ifdef SSD1306OLED
+__attribute__ ((weak))
+void iota_gfx_task_user(void) {
+}
+#endif
