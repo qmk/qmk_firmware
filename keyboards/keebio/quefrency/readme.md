@@ -9,11 +9,11 @@ Hardware Availability: [Keebio](https://keeb.io/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make quefrency/rev1:default
+    make keebio/quefrency/rev1:default
 
 Example of flashing this keyboard:
 
-    make quefrency/rev1:default:avrdude
+    make keebio/quefrency/rev1:default:avrdude
 
 Handedness detection is already hardwired onto the PCB, so no need to deal with `EE_HANDS` or flashing .eep files.
 
