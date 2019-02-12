@@ -120,7 +120,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     KE1,KC_NO,K1D,K1B,K06,K19,K05,K11,K10,K36,K37,KC_NO,    KC_NO,KE5,      K52,      KC_NO,KC_NO,KC_NO,KC_NO, KC_NO,KC_NO, \
     KE0,KE3,KE2,KC_NO,KC_NO,    K2C,    KC_NO,KC_NO,KC_NO,KE6,KC_NO,KC_NO,KE4,  K50,K51,K4F,  KC_NO,      KC_NO,KC_NO, KC_NO,KC_NO  \
 )
-#endif
 
 #define LAYOUT_BetaPCB( \
   K1E, K1F, K30, K2F, K45, K3B, KE6,          KE2, K3A, K39, K14, K04, K09, K07, \
