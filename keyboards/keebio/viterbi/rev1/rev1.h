@@ -1,9 +1,6 @@
-#ifndef REV1_H
-#define REV1_H
+#pragma once
 
-#include "../viterbi.h"
-
-//void promicro_bootloader_jmp(bool program);
+#include "viterbi.h"
 #include "quantum.h"
 
 
@@ -64,5 +61,3 @@
 #endif
 
 #define LAYOUT_ortho_5x14 LAYOUT
-
-#endif
