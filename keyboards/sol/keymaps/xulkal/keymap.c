@@ -120,7 +120,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   #ifdef OLED_ENABLE
     // Wake up oled if user is at the keyboard
     if (record->event.pressed)
-      oled_activity();
+      oled_on();
   #endif
 
   switch (keycode) {

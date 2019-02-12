@@ -313,7 +313,7 @@ void matrix_scan_user(void) {
   if (!oled_ready())
     return;
 
-  oled_activity();
+  oled_on();
   oled_set_cursor(0, 0);
   if (is_master)
     render_status();
