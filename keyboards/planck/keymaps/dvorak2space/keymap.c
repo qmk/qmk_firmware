@@ -1,0 +1,122 @@
+#include QMK_KEYBOARD_H
+#define TAPPING_TOGGLE 1
+#define PERMISSIVE_HOLD
+#define MOUSEL KC_BTN1
+#define MOUSER KC_BTN2
+#define CTRLL LCTL(KC_LEFT)
+#define CTRLR LCTL(KC_RGHT)
+#define CAD LCTL(LALT(KC_DEL))
+#define IS_LAYER_ON(layer)  (layer_state & (1UL << (layer)))
+
+enum {
+	HK_SLEEP = SAFE_RANGE,
+	HK_IF,
+	HK_ELSE,
+	KC_LSFT,
+	KC_RSFT
+};
+
+enum {
+	TD/ = 0
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+	[TD/] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS)
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+/* Base
+ * ,-----------------------------------------------------------------------------------.
+ * | Tab  |   '  |   ,  |   .  |   p  |   y  |   f  |   g  |   c  |   r  |   l  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * | Nav  |   a  |   o  |   e  |   u  |   i  |   d  |   h  |   t  |   n  |   s  | Enter|
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * | Shft |   ;  |   q  |   j  |   k  |   x  |   b  |   m  |   w  |   v  |   z  | Shft |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * | Esc  | RClk | LClk | Ctrl |    Space    |   Modifier  |  GUI | VolD | VolU |Macros|
+ * `-----------------------------------------------------------------------------------'
+ */
+	[0] = LAYOUT_planck_2x2u(
+		KC_TAB,	KC_QUOT,KC_COMM,KC_DOT,	KC_P,	KC_Y,	KC_F,	KC_G,	KC_C,	KC_R,	KC_L,	KC_BSPC,
+		TT(3),	KC_A,	KC_O,	KC_E,	KC_U,	KC_I,	KC_D,	KC_H,	KC_T,	KC_N,	KC_S,	KC_ENT,
+		KC_LSFT,KC_SCLN,KC_Q,	KC_J,	KC_K,	KC_X,	KC_B,	KC_M,	KC_W,	KC_V,	KC_Z,	KC_RSFT,
+		KC_ESC,	MOUSER,	MOUSEL,	KC_LCTL,		KC_SPC,	MO(2),			KC_LGUI,KC_VOLD,KC_VOLU,OSL(4)
+	),
+/* Custom Shifts
+ * ,-----------------------------------------------------------------------------------.
+ * |      |      |   ?  |   !  |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |      |      |      |      |      |      |      |      |      |      |      |      |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |             |             |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+	[1] = LAYOUT_planck_2x2u(
+		KC_TRNS,KC_TRNS,KC_SLSH,KC_1,	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,		KC_TRNS,KC_TRNS,		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
+	),
+/* Modifier
+ * ,-----------------------------------------------------------------------------------.
+ * |  Tab |   +  |   -  |  / \ |   =  |  if  | else |   (  |   )  |   {  |   }  | Bksp |
+ * |------+------+------+------+------+-------------+------+------+------+------+------|
+ * |   |  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Enter|
+ * |------+------+------+------+------+------|------+------+------+------+------+------|
+ * |   [  |   _  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   <  |   >  |   ]  |
+ * |------+------+------+------+------+------+------+------+------+------+------+------|
+ * |      |      |      |      |    Space    |             |      |      |      |      |
+ * `-----------------------------------------------------------------------------------'
+ */
+	[2] = LAYOUT_planck_2x2u(
+		KC_TAB,	KC_PLUS,KC_PMNS,TD(TD/),KC_PEQL,HK_IF,	HK_ELSE,KC_LPRN,KC_RPRN,KC_LCBR,KC_RCBR,KC_BSPC,
+		KC_PIPE,KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_ENT,
+		KC_LBRC,KC_UNDS,KC_AT,	KC_HASH,KC_DLR,	KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LT,	KC_GT,	KC_RBRC,
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_SPC,	KC_TRNS,		KC_NO,	KC_NO,	KC_NO,	KC_NO
+	),
+	[3] = LAYOUT_planck_2x2u( //Nav
+		KC_TAB,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_HOME,KC_UP,	KC_END,	KC_NO,	KC_BSPC,
+		KC_TRNS,KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	CTRLL,	KC_LEFT,KC_DOWN,KC_RGHT,CTRLR,	KC_ENT,
+		KC_LSFT,KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_SPC,	KC_NO,			KC_NO,	KC_NO,	KC_NO,	KC_NO
+	),
+	[4] = LAYOUT_planck_2x2u( //AHK-Bindable Macros
+		KC_F13,	KC_F14,	KC_F15,	KC_F16,	KC_F17,	KC_F18,	KC_F19,	KC_F20,	KC_F21,	KC_F22,	KC_F23,	KC_F24,
+		LCTL(KC_F13),LCTL(KC_F14),LCTL(KC_F15),LCTL(KC_F16),LCTL(KC_F17),LCTL(KC_F18),LCTL(KC_F19),LCTL(KC_F20),LCTL(KC_F21),LCTL(KC_F22),LCTL(KC_F23),LCTL(KC_F24),
+		LSFT(KC_F13),LSFT(KC_F14),LSFT(KC_F15),LSFT(KC_F16),LSFT(KC_F17),LSFT(KC_F18),LSFT(KC_F19),LSFT(KC_F20),LSFT(KC_F21),LSFT(KC_F22),LSFT(KC_F23),LSFT(KC_F24),
+		LALT(KC_F13),LALT(KC_F14),LALT(KC_F15),LALT(KC_F16),			 CAD,		  LALT(KC_F19),					LALT(KC_F21),LALT(KC_F22),SLEEP,	   KC_TRNS
+	),
+	[5] = LAYOUT_planck_2x2u( //Locked Screen
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_NO,	KC_NO,			KC_NO,	KC_NO,	SLEEP,	KC_NO
+	)
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	switch(keycode) {
+		case KC_LSFT:
+		case KC_RSFT:
+			layer_invert(1); //holding both shifts would output base layer shifts, wrong but shouldn't be an issue
+			break;
+		case HK_SLEEP:
+			if(record->event.pressed && IS_LAYER_ON(5))
+				SEND_STRING(SS_LALT(SS_TAP(X_F23)));
+			if(!record->event.pressed) {
+				if(!IS_LAYER_ON(5))
+					SEND_STRING(SS_LALT(SS_TAP(X_F23)));
+				layer_invert(5);
+			}
+			break;
+		case HK_IF:
+			if(record->event.pressed) SEND_STRING("if");
+			break;
+		case HK_ELSE:
+			if(record->event.pressed) SEND_STRING("else");
+			break;
+	}
+	return true;
+};
