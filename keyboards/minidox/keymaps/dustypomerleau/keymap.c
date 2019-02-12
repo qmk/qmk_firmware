@@ -103,7 +103,6 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 #define SYS_Z LT(_SYS, KC_Z)
 #define VOL_DN S(LALT(KC__VOLDOWN))
 #define VOL_UP S(LALT(KC__VOLUP))
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
