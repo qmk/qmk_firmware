@@ -28,5 +28,5 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 SPLIT_KEYBOARD = yes
 
-DEFAULT_FOLDER = viterbi/rev2
+DEFAULT_FOLDER = keebio/viterbi/rev2
 LAYOUTS = ortho_5x14

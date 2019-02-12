@@ -2,9 +2,9 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_viterbi_rev1
+#ifdef KEYBOARD_keebio_viterbi_rev1
     #include "rev1.h"
-#elif KEYBOARD_viterbi_rev2
+#elif KEYBOARD_keebio_viterbi_rev2
     #include "rev2.h"
 #endif
 
