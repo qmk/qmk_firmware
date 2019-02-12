@@ -4,8 +4,6 @@
 #define _FN1 1
 #define _FN2 2
 
-#define _______ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_BASE] = LAYOUT_ortho_4x4(

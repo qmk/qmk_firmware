@@ -5,8 +5,6 @@
 #define _FN2 2
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define KC_FN1 MO(_FN1)
 #define KC_FN2 MO(_FN2)
 #define KC_SPFN1 LT(_FN1, KC_SPACE)
@@ -33,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|-----`----`----`----`----`----`----`----`----`----`----`--------+
     LSFT   , Z  , X  , C  , V  , B  , N  , M  ,COMM,DOT ,SLSH, RSFT ,
  //|-------`----`----`----`----`----`----`----`----`----`----`------+
-    GRV  ,LCTL,LALT ,LGUI, SPFN1  ,  BSFN2 , FN2 ,RALT ,RCTL , FN1  
+    GRV  ,LCTL,LALT ,LGUI, SPFN1  ,  BSFN2 , FN2 ,RALT ,RCTL , FN1
  //`-----+----+-----+----+--------+--------+-----+-----+-----+------'
   ),
 
@@ -45,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|-----`----`----`----`----`----`----`----`----`----`----`--------+
     RMOD   ,RHUD,RSAD,RVAD,VOLD,LCBR,RCBR, 1  , 2  , 3  , UP ,      ,
  //|-------`----`----`----`----`----`----`----`----`----`----`------+
-    RTOG ,    ,     ,    ,        ,  DEL   ,  0  ,LEFT ,DOWN , RGHT 
+    RTOG ,    ,     ,    ,        ,  DEL   ,  0  ,LEFT ,DOWN , RGHT
  //`-----+----+-----+----+--------+--------+-----+-----+-----+------'
   ),
 
@@ -57,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|-----`----`----`----`----`----`----`----`----`----`----`--------+
            ,    ,    ,DEL ,PGDN,END ,    ,    ,    ,    ,    ,      ,
  //|-------`----`----`----`----`----`----`----`----`----`----`------+
-         ,    ,     ,    ,  DEL   ,        ,     ,     ,     ,      
+         ,    ,     ,    ,  DEL   ,        ,     ,     ,     ,
  //`-----+----+-----+----+--------+--------+-----+-----+-----+------'
   )
 };

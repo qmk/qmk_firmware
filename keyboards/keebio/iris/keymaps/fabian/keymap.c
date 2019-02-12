@@ -24,7 +24,6 @@ enum custom_keycodes {
 #include "dynamic_macro.h"
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_COLE COLEMAK
 #define KC_LOWR LOWER

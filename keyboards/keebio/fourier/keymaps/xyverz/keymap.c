@@ -17,8 +17,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define KC_FN1 MO(_FN1)
 #define KC_FN2 MO(_FN2)
 #define KC_ESFN1 LT(_FN1, KC_ESC)
@@ -46,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|-----`----`----`----`----`----|----`----`----`----`----`--------|
     LSFT   ,SCLN, Q  , J  , K  , X  , B  , M  , W  , V  , Z  , RSFT ,
  //|-------`----`----`----`----`----|----`----`----`----`----`------|
-    LCTL ,LALT,LGUI ,FN2 ,  BSPC  ,   SPC  , FN1 ,RGUI ,RALT , RCTL 
+    LCTL ,LALT,LGUI ,FN2 ,  BSPC  ,   SPC  , FN1 ,RGUI ,RALT , RCTL
  //`-----+----+-----+----+--------|--------+-----+-----+-----+------'
   ),
 
@@ -58,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|-----`----`----`----`----`----|----`----`----`----`----`--------|
     RMOD   ,RHUD,RSAD,RVAD,VOLD,LCBR,RCBR,    ,    ,    , UP ,      ,
  //|-------`----`----`----`----`----|----`----`----`----`----`------|
-    RTOG ,    ,     ,    ,   DEL  ,  INS   ,     ,LEFT ,DOWN , RGHT 
+    RTOG ,    ,     ,    ,   DEL  ,  INS   ,     ,LEFT ,DOWN , RGHT
  //`-----+----+-----+----+--------|--------+-----+-----+-----+------'
   ),
 
@@ -70,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  //|-----`----`----`----`----`----|----`----`----`----`----`--------|
            ,    ,    ,DEL ,PGDN,END , F7 , F8 , F9 ,F10 ,F11 , F12  ,
  //|-------`----`----`----`----`----|----`----`----`----`----`------|
-         ,    ,     ,    ,  DEL   ,  INS   ,     ,     ,     ,      
+         ,    ,     ,    ,  DEL   ,  INS   ,     ,     ,     ,
  //`-----+----+-----+----+--------|--------+-----+-----+-----+------'
   )
 

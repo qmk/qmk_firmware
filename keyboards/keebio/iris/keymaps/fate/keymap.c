@@ -17,7 +17,6 @@ enum {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_LOWR MO(_LOWER)
 #define KC_RASE MO(_RAISE)

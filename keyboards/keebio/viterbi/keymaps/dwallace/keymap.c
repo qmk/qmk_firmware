@@ -23,7 +23,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_SWIN LGUI(KC_TILD)   // Switch between windows
 #define KC_SAPP LGUI(KC_TAB)    // Switch between applications

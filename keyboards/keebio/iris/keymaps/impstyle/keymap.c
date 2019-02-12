@@ -18,7 +18,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 #define KC_LOWR MO(_LOWER) // Lower layer
 #define KC_RASE MO(_RAISE) // Raise layer
 #define KC_TGLW TG(_LOWER) // toggle lower
@@ -47,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LCTL, KC_Z  , KC_X  , KC_C  , KC_V  , KC_B  ,KC_PLUS,         KC_MOUS,KC_N  , KC_M  ,KC_COMM,KC_DOT ,KC_SLSH,KC_BSLASH,
                                      KC_LGUI,KC_RASE,KC_SPC ,         KC_ENT ,KC_LOWR,KC_LALT
   ),
-  
+
   // LOWER Layer
    //,----+----+----+----+----+----.              ,----+----+----+----+----+----.
   // TILD,EXLM, AT ,HASH,DLR ,PERC,               CIRC,AMPR,ASTR,LPRN,RPRN,BSPC,
@@ -59,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //     ,    ,    ,    ,    ,    ,    ,         ,    , P1 , P2 , P3 ,EQL ,UNDS ,
   //`----+----+----+--+-+----+----+----/    \----+----+----+----+----+----+----'
   //                       ,    ,DEL ,        BSPC ,    , P0
-  //                  `----+----+----'        `----+----+----' 
+  //                  `----+----+----'        `----+----+----'
 
   [_LOWER] = LAYOUT(
      KC_TILD,KC_EXLM, KC_AT ,KC_HASH,KC_DLR ,KC_PERC,                        KC_CIRC,KC_AMPR,KC_ASTR,KC_LPRN,KC_RPRN,KC_DEL,

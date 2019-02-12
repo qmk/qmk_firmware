@@ -57,10 +57,6 @@ enum {
 #define PIPE M(R_PIPE)
 #define POINT M(R_POINT)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Colemak

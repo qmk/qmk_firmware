@@ -15,8 +15,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define KC_FN1 MO(_FN1)
 #define KC_FN2 MO(_FN2)
 #define KC_SPFN1 LT(_FN1, KC_SPACE)
@@ -53,7 +51,7 @@ enum {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[_BASE] = LAYOUT( 
+[_BASE] = LAYOUT(
  // ,----+----+----+----+----+----|----+----+----+----+----+----+----.
  // |ESC | Q1 | W2 | E3 | R4 | T5 | Y6 | U7 | I8 | O9 | P0 | -[ | =] |
  // |----`----`----`----`----`----|----`----`----`----`----`----`----|
@@ -63,7 +61,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  // |-------`----`----`----`----`----|----`----`----`----`----`------|
  // | CTL | SYS| ALT | SP    SPACE | SPACE  | FN1 | CTL  | \  | ENT  |
  // `-----+----+-----+----+--------|--------+-----+------+----+------'
- 
+
   TD(ESC_GR), TD(Q_1), TD(W_2), TD(E_3), TD(R_4), TD(T_5), TD(Y_6), TD(U_7), TD(I_8), TD(O_9), TD(P_0),TD(MIN_LB),TD(EQL_RB), \
   KC_TAB, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, TD(SCL_QUO), KC_BSPC, \
   KC_LSPO, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, KC_RSPC, \
@@ -80,11 +78,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  // |-------`----`----`----`----`----|----`----`----`----`----`------|
  // |     |    |     |    |        |        |     |      |    |      |
  // `-----+----+-----+----+--------|--------+-----+------+----+------'
- 
+
    , , UP, , , , , , , , , , , \
    , LEFT, DOWN, RIGHT, , , , , , , QUOT, DEL, \
    , , , , , , , , , , NUBS, , \
-   , , , , , , , , , 
+   , , , , , , , , ,
   ),
 
   [_FN2] = LAYOUT_kc(
@@ -101,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    , , , , , , , , , , , , , \
    , , , , , , , , , , , , \
    , , , , , , , , , , , , \
-   , , , , , , , , ,   
+   , , , , , , , , ,
   )
 
 };

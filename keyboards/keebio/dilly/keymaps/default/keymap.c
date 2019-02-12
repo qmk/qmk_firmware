@@ -9,8 +9,6 @@ extern keymap_config_t keymap_config;
 #define _FN4 4
 #define _FN5 5
 
-#define _______ KC_TRNS
-
 // Tap-Hold keys
 #define KC_ASFT MT(MOD_LSFT, KC_A)
 #define KC_F_L3 LT(_FN3, KC_F)

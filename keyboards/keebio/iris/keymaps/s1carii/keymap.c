@@ -15,7 +15,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_LOWR LOWER
 #define KC_RASE RAISE
@@ -80,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            ,    ,    ,             ,    ,
   //                  `----+----+----'        `----+----+----'
   )
-  
+
  /*
     [_DEVLAYER] = LAYOUT_kc(
   //,----+----+----+--+-+----+----.              ,----+----+-+--+----+----+----.
@@ -95,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            ,    ,    ,             ,    ,
   //                  `----+----+----'        `----+----+----'
   )
-*/ 
+*/
 
 };
 

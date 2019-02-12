@@ -9,11 +9,6 @@
 #define _RAISE 2
 #define _NAVIGATION 3
 
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 //Switch Layouts
 #define SWBASE M(_BASE)
 #define SWQWERTY M(_QWERTY)

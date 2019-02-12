@@ -23,7 +23,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_X1 CODE
 #define KC_X2 NUMB

@@ -7,8 +7,6 @@ extern keymap_config_t keymap_config;
 #define _FN2 2
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define KC_FN1 LT(_FN1, KC_NO)
 #define KC_FN2 LT(_FN2, KC_NO)
 #define KC_SPFN LT(_FN1, KC_SPACE)

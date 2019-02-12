@@ -11,7 +11,6 @@ extern keymap_config_t keymap_config;
 #define _FN 1
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_FN1 MO(_FN)
 #define KC_WD_L LCTL(KC_LEFT)

@@ -41,10 +41,6 @@ enum custom_keycodes {
 #define BSP_RSE FUNC(1)
 #define ARW FUNC(2)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Underglow setup
 #define RGBLIGHT_SLEEP
 #define RGBLIGHT_ANIMATIONS

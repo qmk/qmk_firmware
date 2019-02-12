@@ -36,8 +36,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
-#define KC_XXXX KC_NO
 
 #define KC_Sw2 RALT(KC_2) // Nordic @
 #define KC_Sw3 RALT(KC_3) // Nordic something
