@@ -1,8 +1,8 @@
 Buhearns Keymap (February 11th, 2019)
 =====================================
 
-# Simple QWERTY keymap with hardcoded german Unicode umlauts and special characters (for Windows) and several Linux commands, intended to be working with ENGLISH layout.
-# I may be working on SHIFT modifiers for the umlauts to reduce the number of keys needed (large/lower case). Might even make the switch to GERMAN layout, but this will do for now.
+Simple QWERTY keymap with hardcoded german Unicode umlauts and special characters (for Windows) and several Linux commands, intended to be working with ENGLISH layout.
+I may be working on SHIFT modifiers for the umlauts to reduce the number of keys needed (large/lower case). Might even make the switch to GERMAN layout, but this will do for now.
 
 
 ## Buhearns base layer
