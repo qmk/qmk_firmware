@@ -2,7 +2,7 @@
 
 #include "quantum.h"
 
-#ifdef KEYBOARD_levinson_rev1
+#ifdef KEYBOARD_keebio_levinson_rev1
     #include "rev1.h"
 #else
     #include "rev2.h"
