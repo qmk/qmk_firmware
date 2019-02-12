@@ -2,7 +2,6 @@
 
 #pragma once
 
-#include "config_common.h"
 
 #define EE_HANDS
 #define IGNORE_MOD_TAP_INTERRUPT
