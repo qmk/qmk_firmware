@@ -69,10 +69,9 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 	# rm -f compiled/*.hex
 
 	# ignore errors here
-	for file in ../qmk_firmware/keyboards/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-	for file in ../qmk_firmware/keyboards/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-	for file in ../qmk_firmware/keyboards/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
-	for file in ../qmk_firmware/keyboards/*/*/*/*/keymaps/*/*_default.hex; do mv -v "$file" "compiled/${file##*/}" || true; done
+  # In theory, this is more flexible, and will allow for additional expansion of additional types of files and other names
+  mv ../qmk_firmware/*_default.*[hb][ei][xn] ./compiled/ || true
+
 	bash _util/generate_keyboard_page.sh
 	git add -A
 	git commit -m "generated from qmk/qmk_firmware@${rev}"
