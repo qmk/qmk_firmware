@@ -319,4 +319,4 @@ enum {
  */
 #define _______________Gherkin_FN_0________________			BL_BRTG, BL_DEC,  BL_INC,  BL_TOGG, BL_STEP, BL_ON,   _______, _______, _______, _______
 #define _______________Gherkin_FN_1________________			RGB_M_B, RGB_VAD, RGB_VAI, RGB_TOG, RGB_MOD, _______, _______, _______, _______, _______
-#define _______________Gherkin_FN_2________________			RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, _______, _______, _______, _______, _______, _______
+#define _______________Gherkin_FN_2________________			RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, _______, _______, _______, _______, _______, QWERTY
