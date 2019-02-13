@@ -59,7 +59,7 @@ the keymaps in here are for the 4x5 layout of the keyboard only.
 
 To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing).
 
-Under Windows the most convenient way is installing the drivers `(qmk_driver_installer.*)` and use the [QMK Toolbox](https://github.com/qmk/qmk_driver_installer/releases).
+Under Windows the most convenient way is installing the [QMK Drivers](https://github.com/qmk/qmk_driver_installer/releases) and use the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases).
 
 
 ## Choosing which board to plug the USB cable into (choosing Master)
