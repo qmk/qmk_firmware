@@ -48,9 +48,6 @@ FORMAT = ihex
 #     (Note: 3 is not always the best optimization level. See avr-libc FAQ.)
 OPT = s
 
-AUTOGEN ?= false
-
-
 # Compiler flag to set the C Standard level.
 #     c89   = "ANSI" C
 #     gnu89 = c89 plus GCC extensions
@@ -142,7 +139,7 @@ CPPFLAGS += -Wa,-adhlns=$(@:%.o=%.lst)
 #             files -- see avr-libc docs [FIXME: not yet described there]
 #  -listing-cont-lines: Sets the maximum number of continuation lines of hex
 #       dump that will be displayed for a given single line of source input.
-ASFLAGS += $(ADEFS) 
+ASFLAGS += $(ADEFS)
 ifndef SKIP_DEBUG_INFO
   ASFLAGS += -Wa,-adhlns=$(@:%.o=%.lst),-gstabs,--listing-cont-lines=100
 else
@@ -260,10 +257,6 @@ gccversion :
 	@$(SILENT) || printf "$(MSG_FLASH) $@" | $(AWK_CMD)
 	$(eval CMD=$(HEX) $< $@)
 	@$(BUILD_CMD)
-	@if $(AUTOGEN); then \
-		$(SILENT) || printf "Copying $(TARGET).hex to keymaps/$(KEYMAP)/$(TARGET).hex\n"; \
-		$(COPY) $@ $(KEYMAP_PATH)/$(TARGET).hex; \
-	fi
 
 %.eep: %.elf
 	@$(SILENT) || printf "$(MSG_EEPROM) $@" | $(AWK_CMD)
@@ -297,7 +290,7 @@ BEGIN = gccversion sizebefore
 	@$(SILENT) || printf "$(MSG_LINKING) $@" | $(AWK_CMD)
 	$(eval CMD=$(CC) $(ALL_CFLAGS) $(filter-out %.txt,$^) --output $@ $(LDFLAGS))
 	@$(BUILD_CMD)
-	
+
 
 define GEN_OBJRULE
 $1_INCFLAGS := $$(patsubst %,-I%,$$($1_INC))
@@ -371,7 +364,7 @@ DEPS = $(patsubst %.o,%.d,$(patsubst %.a,%.o,$(OBJ)))
 .PRECIOUS: $(DEPS)
 # Empty rule to force recompilation if the .d file is missing
 $(DEPS):
-	
+
 
 $(foreach OUTPUT,$(OUTPUTS),$(eval $(call GEN_OBJRULE,$(OUTPUT))))
 
