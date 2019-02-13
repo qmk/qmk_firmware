@@ -5,7 +5,7 @@ Regular PCB for the Doro67 having ONLY one layout. This is not the PCB with RGB 
 Do not flash RGB firmware for this board. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: Doro67 
+Hardware Supported: Doro67 Regular PCB  
 Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=97265.0)
 
 Make example for this keyboard (after setting up your build environment):
