@@ -1,57 +1,17 @@
-Dactyl Manuform (4x5, 5x6, 5x7, 6x6)
-======
-the [Dactyl-Manuform](https://github.com/tshort/dactyl-keyboard) is a split curved keyboard based on the design of [adereth dactyl](https://github.com/adereth/dactyl-keyboard) and thumb cluster design of the [manuform](https://geekhack.org/index.php?topic=46015.0) keyboard, the hardware is similar to the let's split keyboard. all information needed for making one is in the first link.
-![Imgur](https://i.imgur.com/7y0Vbyd.jpg)
+# Dactyl
+
+See https://github.com/adereth/dactyl-keyboard
+
+This Dactyl uses the Arduino Pro Mirco (2x).
+Wiring is a 6x6 Matrix like the [Dactyl Manuform]()
 
 
-## First Time Setup
+build the firmware:
 
-Download or clone the `qmk_firmware` repo and navigate to its top level directory. Once your build environment is setup, you'll be able to generate the default .hex using:
+  - Build the firmware with `make handwired/dactyl_promicro:<keymapname>`, for example `make handwired/dactyl:default`
+  - This will result in a hex file called `handwired_dactyl_promicro_<keymapname>.hex`, e.g.
+    `handwired_dactyl_promicro_default.hex`
 
-Depending on your Layout chose one of the follwing commands:
-
-```
-$ make handwired/dactyl_manuform/YOUR_LAYOUT:YOUR_KEYMAP_NAME
-```
-
-example:
-```
-$ make handwired/dactyl_manuform/4x5:default
-```
-
-If everything worked correctly you will see a file:
-
-```
-dactyl_manuform_YOUR_LAYOUT_YOUR_KEYMAP_NAME.hex
-```
-
-For more information on customizing keymaps, take a look at the primary documentation for [Customizing Your Keymap](/docs/faq_keymap.md) in the main readme.md.
-
-
-## Keymaps
-
-### [Keymaps 4x5](/keyboards/handwired/dactyl_manuform/4x5/keymaps/)
-
-#### Default
-Simple QWERTY layout with 3 Layers.
-#### Dvorak
-
-### [Keymaps 5x6](/keyboards/handwired/dactyl_manuform/5x6/keymaps/)
-
-#### Default
-Just a copy of the Impstyle keymap. Feel free to adjust it.
-
-#### Impstyle
-A simple QWERTY keymap with 3 Layers. Both sides are connected via serial and the Left ist the master.
-
-### [Keymaps 5x7 aka almost Ergodox](/keyboards/handwired/dactyl_manuform/5x7/keymaps/)
-#### Default
-Keymap of Loligagger from geekhack.
-
-### [Keymaps 6x6](/keyboards/handwired/dactyl_manuform/6x6/keymaps/)
-
-#### Default
-Simple QWERTY layout with 3 Layers.
 
 ## Required Hardware
 
