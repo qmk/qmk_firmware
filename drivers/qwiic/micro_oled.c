@@ -374,13 +374,13 @@ if (LCDHEIGHT > 32) {
 void send_command(uint8_t command) {
   micro_oled_transfer_buffer[0] = I2C_COMMAND;
   micro_oled_transfer_buffer[1] = command;
-  i2c_transmit(I2C_ADDRESS_SA0_0 << 1, micro_oled_transfer_buffer, 2, 100);
+  i2c_transmit(I2C_ADDRESS_SA0_1 << 1, micro_oled_transfer_buffer, 2, 100);
 }
 
 void send_data(uint8_t data) {
   micro_oled_transfer_buffer[0] = I2C_DATA;
   micro_oled_transfer_buffer[1] = data;
-  i2c_transmit(I2C_ADDRESS_SA0_0 << 1, micro_oled_transfer_buffer, 2, 100);
+  i2c_transmit(I2C_ADDRESS_SA0_1 << 1, micro_oled_transfer_buffer, 2, 100);
 }
 
 /** \brief Set SSD1306 page address.
