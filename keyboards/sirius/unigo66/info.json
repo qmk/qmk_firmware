@@ -77,7 +77,7 @@
                 {"label":"Space", "x":10.5, "y":6}
             ]
         },
-        "LAYOUT_BetaPCB": {
+        "LAYOUT_beta_pcb": {
             "layout": [
                 {"label":"Esc", "x":0, "y":0, "w":1.5},
                 {"label":"1", "x":1.5, "y":0},
