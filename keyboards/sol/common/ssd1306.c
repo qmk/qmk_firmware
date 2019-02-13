@@ -86,8 +86,7 @@ static uint16_t last_activity;
 
 // identical to i2c_writeReg, but for PROGMEM since all initialization is in PROGMEM arrays currently
 // probably should move this into i2c_master...
-static i2c_status_t i2c_writeReg_P(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout)
-{
+static i2c_status_t i2c_writeReg_P(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
   i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
   if (status) return status;
 
@@ -105,38 +104,6 @@ static i2c_status_t i2c_writeReg_P(uint8_t devaddr, uint8_t regaddr, const uint8
   return I2C_STATUS_SUCCESS;
 }
 
-// Moves the cursor forward 1 character length
-// Advances lines if there is not enough room for the next character
-// Wraps to the begining when out of bounds
-static void AdvanceCursor(void)
-{
-  uint16_t index = display_cursor - &display_buffer[0] + OLED_FONT_WIDTH;
-  uint8_t remainingSpace = OLED_DISPLAY_WIDTH - (index % OLED_DISPLAY_WIDTH);
-  if (remainingSpace < OLED_FONT_WIDTH) {
-    index += remainingSpace;
-  }
-
-  if (index >= OLED_MATRIX_SIZE) {
-    index = 0;
-  }
-
-  display_cursor = &display_buffer[index];
-}
-
-// Moves the cursor to the begining of the next line
-// Wraps to the begining when out of bounds
-static void AdvancePage(void)
-{
-  uint8_t pageIndex = (display_cursor - &display_buffer[0]) / OLED_DISPLAY_WIDTH + 1;
-
-  // Out of bounds?
-  if (pageIndex > OLED_DISPLAY_HEIGHT / 8 - 1) {
-    pageIndex = 0;
-  }
-
-  display_cursor = &display_buffer[pageIndex * OLED_DISPLAY_WIDTH];
-}
-
 // Flips the rendering bits for a character at the current cursor position
 static void InvertCharacter(uint8_t *cursor)
 {
@@ -147,8 +114,7 @@ static void InvertCharacter(uint8_t *cursor)
   }
 }
 
-bool oled_init(bool flip180)
-{
+bool oled_init(bool flip180) {
   i2c_init();
   static const uint8_t PROGMEM display_setup1[] = {
     DISPLAY_OFF,
@@ -207,16 +173,6 @@ void oled_clear(void) {
   display_dirty = 0xFF; // TODO: make this max value of defined type
 }
 
-void oled_set_cursor(uint8_t col, uint8_t line) {
-  uint16_t index = line * OLED_DISPLAY_WIDTH + col * OLED_FONT_WIDTH;
-  display_cursor = &display_buffer[index];
-
-  // Out of bounds?
-  if (display_cursor - &display_buffer[0] > OLED_MATRIX_SIZE) {
-    display_cursor = &display_buffer[0];
-  }
-}
-
 void oled_render(void) {
   // Do we have work to do?
   if (!display_dirty) {
@@ -253,13 +209,63 @@ void oled_render(void) {
   display_dirty &= ~(1 << update_start);
 }
 
+void oled_set_cursor(uint8_t col, uint8_t line) {
+  uint16_t index = line * OLED_DISPLAY_WIDTH + col * OLED_FONT_WIDTH;
+
+  // Out of bounds?
+  if (index >= OLED_MATRIX_SIZE) {
+    index = 0;
+  }
+
+  display_cursor = &display_buffer[index];
+}
+
+void oled_advance_page(bool clearPageRemainder) {
+  uint16_t index = display_cursor - &display_buffer[0];
+  uint8_t remaining = (OLED_DISPLAY_WIDTH - (index % OLED_DISPLAY_WIDTH));
+
+  if (clearPageRemainder) {
+    // Remaining Char count
+    remaining = remaining / OLED_FONT_WIDTH;
+
+    // Write empty character until next line
+    while (remaining--)
+      oled_write_char(' ', false);
+  } else {
+    // Next page index out of bounds?
+    if (index + remaining >= OLED_MATRIX_SIZE) {
+      index = 0;
+      remaining = 0;
+    }
+
+    display_cursor = &display_buffer[index + remaining];
+  }
+}
+
+void oled_advance_char(void) {
+  uint16_t nextIndex = display_cursor - &display_buffer[0] + OLED_FONT_WIDTH;
+  uint8_t remainingSpace = OLED_DISPLAY_WIDTH - (nextIndex % OLED_DISPLAY_WIDTH);
+
+  // Do we have enough space on the current line for the next character
+  if (remainingSpace < OLED_FONT_WIDTH) {
+    nextIndex += remainingSpace;
+  }
+
+  // Did we go out of bounds
+  if (nextIndex >= OLED_MATRIX_SIZE) {
+    nextIndex = 0;
+  }
+
+  // Update cursor position
+  display_cursor = &display_buffer[nextIndex];
+}
+
 // Main handler that writes character data to the display buffer
-void oled_write_char(const char data, bool invert)
-{
+void oled_write_char(const char data, bool invert) {
   // Advance to the next line if newline
   if (data == '\n') {
-    // TODO: old lib wrote 0 until end of line...
-    AdvancePage();
+    // Old source wrote ' ' until end of line...
+    oled_advance_page(true);
     return;
   }
 
@@ -285,8 +291,8 @@ void oled_write_char(const char data, bool invert)
     display_dirty |= (1 << ((display_cursor - &display_buffer[0]) / OLED_BLOCK_SIZE));
   }
 
-  // Finally move to the next line
-  AdvanceCursor();
+  // Finally move to the next char
+  oled_advance_char();
 }
 
 void oled_write(const char *data, bool invert) {

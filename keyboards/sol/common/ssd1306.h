@@ -49,11 +49,20 @@ bool oled_init(bool flip180);
 // Clears out a display buffer with 0, resets cursor to 0, and sets dirty to true
 void oled_clear(void);
 
+// Renders the buffer to i2c oled and sets dirty to false
+void oled_render(void);
+
 // Moves cursor to character position indicated by col and line, wraps if out of bounds
 void oled_set_cursor(uint8_t col, uint8_t line);
 
-// Renders the buffer to i2c oled and sets dirty to false
-void oled_render(void);
+// Advances the cursor to the next page, writing ' ' if true
+// Wraps to the begining when out of bounds
+void oled_advance_page(bool clearPageRemainder);
+
+// Moves the cursor forward 1 character length
+// Advance page if there is not enough room for the next character
+// Wraps to the begining when out of bounds
+void oled_advance_char(void);
 
 // Writes a single character to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
@@ -99,7 +108,7 @@ void oled_task_user(void);
 
 void iota_gfx_task_user(void); // void return
 
-#define matrix_clear(matrix) oled_clear() // void return
+#define matrix_clear(matrix) oled_set_cursor(0, 0) // void return
 #define matrix_write_char_inner(matrix, char_value) oled_write_char(char_value, false) // void return
 #define matrix_write_char(matrix, char_value) oled_write_char(char_value, false) // void return
 #define matrix_write(matrix, const_char_pointer) oled_write(const_char_pointer, false) // void return
