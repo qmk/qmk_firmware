@@ -70,7 +70,7 @@ if [[ "$TRAVIS_COMMIT_MESSAGE" != *"[skip build]"* ]] ; then
 
 	# ignore errors here
   # In theory, this is more flexible, and will allow for additional expansion of additional types of files and other names
-  eval `mv -t compiled ../qmk_firmware/*_default.*(hex|bin))`
+  eval `mv -t compiled ../qmk_firmware/*_default.*(hex|bin)`
 
 	bash _util/generate_keyboard_page.sh
 	git add -A
