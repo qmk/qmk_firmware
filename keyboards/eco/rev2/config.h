@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define DEVICE_VER      0x0002
 
-#define USB_MAX_POWER_CONSUMPTION 100
-
 /* ECO V2.1 pin-out */
 #define MATRIX_ROW_PINS { D7, B5, B4, E6 }
 #define MATRIX_COL_PINS { D1, D0, D4, C6, B6, B2, B3, B1, F7, F6, F5, F4, D2, D3 }
