@@ -1,17 +1,18 @@
-# Dactyl
+# Dactyl with Arduino Pro Micro
 
-See https://github.com/adereth/dactyl-keyboard
+See https://github.com/adereth/dactyl-keyboard for the original Version.
 
 This Dactyl uses the Arduino Pro Mirco (2x).
-Wiring is a 6x6 Matrix like the [Dactyl Manuform]()
+Wiring is a 6x6 Matrix like the [Dactyl Manuform](https://github.com/qmk/qmk_firmware/tree/master/keyboards/handwired/dactyl_manuform)
 
 
-build the firmware:
+## Build the Firmware:
 
   - Build the firmware with `make handwired/dactyl_promicro:<keymapname>`, for example `make handwired/dactyl:default`
   - This will result in a hex file called `handwired_dactyl_promicro_<keymapname>.hex`, e.g.
     `handwired_dactyl_promicro_default.hex`
 
+How to setup your build enviroment can be found here: [Installing Build Tools](https://docs.qmk.fm/#/getting_started_build_tools)
 
 ## Required Hardware
 
@@ -56,60 +57,25 @@ the keymaps in here are for the 4x5 layout of the keyboard only.
 
 ## Flashing
 
-To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing)
+To flash your firmware take a look at: [Flashing Instructions and Bootloader Information](https://docs.qmk.fm/#/flashing).
+
+Under Windows the most convenient way is installing the drivers `(qmk_driver_installer.*)` and use the [QMK Toolbox](https://github.com/qmk/qmk_driver_installer/releases).
 
 
 ## Choosing which board to plug the USB cable into (choosing Master)
 
-Because the two boards are identical, the firmware has logic to differentiate the left and right board.
-
-It uses two strategies to figure things out: looking at the EEPROM (memory on the chip) or looking if the current board has the usb cable.
-
-The EEPROM approach requires additional setup (flashing the eeprom) but allows you to swap the usb cable to either side.
-
-The USB cable approach is easier to setup and if you just want the usb cable on the left board, you do not need to do anything extra.
-
-### Setting the left hand as master
-
-If you always plug the usb cable into the left board, nothing extra is needed as this is the default. Comment out `EE_HANDS` and comment out `I2C_MASTER_RIGHT` or `MASTER_RIGHT` if for some reason it was set.
-
-### Setting the right hand as master
+### Setting the right or left hand as master
 
 If you always plug the usb cable into the right board, add an extra flag to your `config.h`
 ```
  #define MASTER_RIGHT
 ```
 
-### Setting EE_hands to use either hands as master
-
-If you define `EE_HANDS` in your `config.h`, you will need to set the
-EEPROM for the left and right halves.
-
-The EEPROM is used to store whether the
-half is left handed or right handed. This makes it so that the same firmware
-file will run on both hands instead of having to flash left and right handed
-versions of the firmware to each half. To flash the EEPROM file for the left
-half run:
-```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:"./quantum/split_common/eeprom-lefthand.eep"
-// or the equivalent in dfu-programmer
+OR
 
 ```
-and similarly for right half
+ #define MASTER_LEFT
 ```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:"./quantum/split_common/eeprom-righthand.eep"
-// or the equivalent in dfu-programmer
-```
-
-NOTE: replace `$(COM_PORT)` with the port of your device (e.g. `/dev/ttyACM0`)
-
-After you have flashed the EEPROM, you then need to set `EE_HANDS` in your config.h, rebuild the hex files and reflash.
-
-Note that you need to program both halves, but you have the option of using
-different keymaps for each half. You could program the left half with a QWERTY
-layout and the right half with a Colemak layout using bootmagic's default layout option.
-Then if you connect the left half to a computer by USB the keyboard will use QWERTY and Colemak when the
-right half is connected.
 
 
 Notes on Using Pro Micro 3.3V
