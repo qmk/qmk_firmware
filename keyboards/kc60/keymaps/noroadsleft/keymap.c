@@ -91,16 +91,13 @@ enum custom_keycodes {
 };
 
 
-// define modifiers
-#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL_MASK   (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
-#define MODS_ALT_MASK    (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
-#define MODS_GUI_MASK    (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
-#define MODS_RALT_MASK   (MOD_BIT(KC_RALT))
+/*******************
+** MODIFIER MASKS **
+*******************/
+#define MOD_MASK_RALT   (MOD_BIT(KC_RALT))
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint8_t modifiers = get_mods();
   switch(keycode) {
     // these are our macros!
     case F_CAPS:
@@ -134,7 +131,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case G_FTCH:
       if (record->event.pressed) {
-        SEND_STRING("git fetch upstream");
+        if ( get_mods() & MOD_MASK_SHIFT ) {
+          clear_mods();
+          SEND_STRING("git pull upstream ");
+        } else {
+          SEND_STRING("git fetch upstream ");
+        }
       };
       return false;
     case G_COMM:
@@ -143,21 +145,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_MACROS);
       };
       return false;
-    case G_RST:
-      if (record->event.pressed) {
-        SEND_STRING("git histt -n 10" SS_TAP(X_ENTER) "git reset --soft ");
-        layer_off(_MACROS);
-      };
-      return false;
-    case G_C10R:
-      if (record->event.pressed) {
-        SEND_STRING("cf/");
-        layer_off(_MACROS);
-      };
-      return false;
     case G_BRCH:
       if (record->event.pressed) {
-        SEND_STRING("$(git branch-name)");
+        if ( get_mods() & MOD_MASK_SHIFT ) {
+          clear_mods();
+          SEND_STRING("master");
+        } else {
+          SEND_STRING("$(git branch-name)");
+        }
         layer_off(_MACROS);
       };
       return false;
@@ -206,7 +201,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case MC_UNDO:
       if (record->event.pressed) {
-        if ( modifiers & MODS_SHIFT_MASK ) {
+        if ( get_mods() & MOD_MASK_SHIFT ) {
           SEND_STRING( SS_DOWN(X_LSHIFT) SS_DOWN(X_LGUI) SS_TAP(X_Z) SS_UP(X_LGUI) SS_UP(X_LSHIFT) );
         } else {
           SEND_STRING( SS_DOWN(X_LGUI) SS_TAP(X_Z) SS_UP(X_LGUI) );
@@ -215,7 +210,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case MC_PSTE:
       if (record->event.pressed) {
-        if ( modifiers & MODS_SHIFT_MASK ) {
+        if ( get_mods() & MOD_MASK_SHIFT ) {
           SEND_STRING( SS_DOWN(X_LSHIFT) SS_DOWN(X_LGUI) SS_DOWN(X_LALT) SS_TAP(X_V) SS_UP(X_LALT) SS_UP(X_LGUI) SS_UP(X_LSHIFT) );
         } else {
           SEND_STRING( SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI) );
@@ -224,7 +219,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
     case NUBS_Z:
       if (record->event.pressed) {
-        if ( modifiers & MODS_RALT_MASK ) {
+        if ( get_mods() & MOD_MASK_RALT ) {
           SEND_STRING( SS_TAP(X_NONUS_BSLASH) );
         } else {
           SEND_STRING( SS_TAP(X_Z) );
@@ -377,8 +372,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
     TG(_MA), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, G_PUSH,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, G_RST,   G_FTCH,  G_COMM,  _______, _______, _______, _______, T_L3DED, _______, _______, _______,          \
-    _______, _______, _______, G_C10R,  _______, G_BRCH,  SIGNA,   _______, _______, _______, _______, _______,                   \
+    _______, _______, _______, G_FTCH,  G_COMM,  _______, _______, _______, _______, T_L3DED, _______, _______, _______,          \
+    _______, _______, _______, _______, _______, G_BRCH,  SIGNA,   _______, _______, _______, _______, _______,                   \
     _______, _______, _______,                   _______,                                     _______, _______, NO_CHNG, _______  \
   ),
 
