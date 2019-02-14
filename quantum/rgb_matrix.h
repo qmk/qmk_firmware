@@ -67,15 +67,13 @@ typedef union {
   uint32_t raw;
   struct {
 #ifdef RGB_MATRIX_EXTRA_TOG
-    uint8_t  enable  :2;
-    uint8_t  mode    :5;
+    uint8_t enable  :2;
+    uint8_t mode    :6;
 #else
-    uint8_t  enable  :1;
-    uint8_t  mode    :6;
+    uint8_t enable  :1;
+    uint8_t mode    :7;
 #endif
-    uint16_t hue     :9;
-    uint8_t  sat     :8;
-    uint8_t  val     :8;
+    HSV hsv;
     //EECONFIG needs to be increased to support these
     uint8_t speed;
     uint8_t custom;

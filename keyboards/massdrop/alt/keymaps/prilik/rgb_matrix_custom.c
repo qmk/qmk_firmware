@@ -7,30 +7,27 @@
 /*---------------------------------  Outrun  ---------------------------------*/
 
 static void rgb_matrix_outrun(uint16_t led_i, bool init) {
-  const float vpct = rgb_matrix_config.val / 255.f;
+  const rgb_led led = g_rgb_leds[led_i];
+
+  const uint8_t hue = (led.matrix_co.raw != 0xFF)
+    ? 0 + 10 * led.matrix_co.row
+    : 32;
+
+  HSV hsv = {
+    hue,
+    0xFF,
+    rgb_matrix_config.hsv.v,
+  };
+  RGB rgb = hsv_to_rgb(hsv);
+
+  const float vpct = rgb_matrix_config.hsv.v / 255.f;
   const RGB highlight = {
     0x00 * vpct,
     0xFF * vpct,
     0x00 * vpct,
   };
 
-  const rgb_led led = g_rgb_leds[led_i];
-
-  HSV hsv;
-  switch (led.matrix_co.row) {
-  case 0:  hsv = (HSV){ 144, 200, 255 }; break;
-  case 1:  hsv = (HSV){ 200, 255, 255 }; break;
-  case 2:  hsv = (HSV){ 240, 255, 255 }; break;
-  case 3:  hsv = (HSV){  32, 255, 255 }; break;
-  case 4:  hsv = (HSV){  42, 255, 255 }; break;
-  default: hsv = (HSV){  42, 207, 200 }; break;
-  }
-  hsv.v *= vpct;
-
-
-  RGB rgb = hsv_to_rgb(hsv);
-
-  const uint8_t cuttoff = 160; // 0-255, larger = slower the fade
+  const uint8_t cuttoff = 200; // 0-255, larger = slower the fade
   if (g_key_hit[led_i] <= cuttoff) {
     float pct = (float)g_key_hit[led_i] / (float)cuttoff;
     rgb.r = highlight.r - pct * (highlight.r - rgb.r);
@@ -42,15 +39,6 @@ static void rgb_matrix_outrun(uint16_t led_i, bool init) {
 }
 
 /*----------------------------------  Snake  ---------------------------------*/
-
-#define __ 255
-static const uint8_t KEY_TO_LED_MAP[MATRIX_ROWS][MATRIX_COLS] = {
-  { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14},
-  {15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29},
-  {30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, __, 42, 43},
-  {44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, __, 56, 57},
-  {58, 59, 60, __, __, __, 61, __, __, __, 62, 63, 64, 65, 66},
-};
 
 // Tagged snake_cell union
 typedef enum { SNKC_EMPTY_T = 0, SNKC_BODY_T, SNKC_APPLE_T } snk_cell_tag_t;
@@ -70,7 +58,7 @@ typedef struct { uint8_t row, col; } snk_pos_t;
 
 // Snake game state
 static struct {
-  uint16_t update_timer;
+  uint32_t last_tick;
 
   snk_pos_t delta;
   uint8_t   len;
@@ -81,7 +69,7 @@ static struct {
 } snk = {0};
 
 static void snk_init(void) {
-  snk.update_timer = timer_read();
+  snk.last_tick = g_tick;
 
   snk.delta = (snk_pos_t){0, 1}; // start going right
   snk.len = 1;
@@ -90,6 +78,25 @@ static void snk_init(void) {
 
   for (int i = 0; i < ISSI3733_LED_COUNT; i++)
     snk.led_states[i] = SNK_EMPTY;
+}
+
+// #define __ 255
+// static const uint8_t KEY_TO_LED_MAP[MATRIX_ROWS][MATRIX_COLS] = {
+//   { 0,  1,  2,  3,  4,  5,  6,  7,  8,  9, 10, 11, 12, 13, 14},
+//   {15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29},
+//   {30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, __, 42, 43},
+//   {44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, __, 56, 57},
+//   {58, 59, 60, __, __, __, 61, __, __, __, 62, 63, 64, 65, 66},
+// };
+
+// less efficient than a LUT, but generalizes across keyboards
+static uint8_t key_to_led(uint8_t row, uint8_t col) {
+  for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+    const rgb_led led = g_rgb_leds[i];
+    if (led.matrix_co.row == row && led.matrix_co.col == col)
+      return i;
+  }
+  return 255;
 }
 
 static void snk_update_state(void) {
@@ -147,22 +154,27 @@ static void snk_update_state(void) {
     do {
       snk.apple.row = rand() % MATRIX_ROWS;
       snk.apple.col = rand() % MATRIX_COLS;
-    } while (KEY_TO_LED_MAP[snk.apple.row][snk.apple.col] == 255);
+    } while (key_to_led(snk.apple.row, snk.apple.col) == 255);
   }
 
   // update LEDs
   for (int i = 0; i < ISSI3733_LED_COUNT; i++)
     snk.led_states[i] = SNK_EMPTY;
-  for (int i = 0; i < snk.len; i++)
-    snk.led_states[KEY_TO_LED_MAP[snk.body[i].row][snk.body[i].col]] = SNK_BODY(i);
-  snk.led_states[KEY_TO_LED_MAP[snk.apple.row][snk.apple.col]] = SNK_APPLE;
+
+  for (int i = 0; i < snk.len; i++) {
+    const uint16_t led_i = key_to_led(snk.body[i].row, snk.body[i].col);
+    if (led_i != 255)
+      snk.led_states[led_i] = SNK_BODY(i);
+  }
+
+  snk.led_states[key_to_led(snk.apple.row, snk.apple.col)] = SNK_APPLE;
 }
 
 static void snk_run(uint16_t led_i) {
   // check if it's time to run a game state update
-  const uint16_t speed = max(100, 300 - snk.len * 20); // <-- tweak difficulty
-  if (timer_elapsed(snk.update_timer) > speed) {
-    snk.update_timer = timer_read();
+  const uint16_t speed = max(10, 30 - snk.len * 2); // <-- tweak difficulty
+  if (g_tick - snk.last_tick > speed) {
+    snk.last_tick = g_tick;
     snk_update_state();
   }
 
