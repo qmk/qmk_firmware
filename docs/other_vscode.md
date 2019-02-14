@@ -10,7 +10,7 @@ Using a full-featured editor such as VS Code provides many advantages over a pla
 * a graphical front end for GIT
 * many other tools such as debugging, code formatting, showing call hierarchies etc.
 
-The purpose of this page is to document how to set-up VS Code for developing QMK Firmware.
+The purpose of this page is to document how to set up VS Code for developing QMK Firmware.
 
 This guide covers how to configure everything needed on Windows and Ubuntu 18.04
 
