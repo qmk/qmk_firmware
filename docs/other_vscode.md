@@ -2,7 +2,7 @@
 
 Visual Studio Code ([VS Code](https://code.visualstudio.com/) is an open-source [Integrated Development Environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE), that supports many different programming languages. 
 
-Using an IDE such as VS Code  provides many advantages over a plain text editor, such as:
+Using a full-featured editor such as VS Code provides many advantages over a plain text editor, such as:
 * intelligent code completion
 * convenient navigation in the code
 * refactoring tools
