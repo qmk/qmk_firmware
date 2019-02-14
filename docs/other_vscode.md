@@ -1,6 +1,6 @@
 # Setting up Visual Studio Code for QMK Development
 
-Visual Studio Code ([VS Code](https://code.visualstudio.com/) is an open-source [Integrated Development Environment](https://en.wikipedia.org/wiki/Integrated_development_environment) (IDE), that supports many different programming languages. 
+[Visual Studio Code](https://code.visualstudio.com/) (VS Code) is an open-source code editor that supports many different programming languages. 
 
 Using a full-featured editor such as VS Code provides many advantages over a plain text editor, such as:
 * intelligent code completion
