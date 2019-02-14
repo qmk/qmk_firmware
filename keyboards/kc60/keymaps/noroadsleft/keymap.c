@@ -122,60 +122,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       };
       return false;
-      break;
     case T_L3DED:
       if (record->event.pressed) {
         SEND_STRING("lavak3DED ");
       };
       return false;
-      break;
     case G_PUSH:
       if (record->event.pressed) {
         SEND_STRING("git push origin ");
       };
       return false;
-      break;
     case G_FTCH:
       if (record->event.pressed) {
         SEND_STRING("git fetch upstream");
       };
       return false;
-      break;
     case G_COMM:
       if (record->event.pressed) {
         SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
         layer_off(_MACROS);
       };
       return false;
-      break;
     case G_RST:
       if (record->event.pressed) {
         SEND_STRING("git histt -n 10" SS_TAP(X_ENTER) "git reset --soft ");
         layer_off(_MACROS);
       };
       return false;
-      break;
     case G_C10R:
       if (record->event.pressed) {
         SEND_STRING("cf/");
         layer_off(_MACROS);
       };
       return false;
-      break;
     case G_BRCH:
       if (record->event.pressed) {
         SEND_STRING("$(git branch-name)");
         layer_off(_MACROS);
       };
       return false;
-      break;
     case SIGNA:
       if (record->event.pressed) {
         SEND_STRING("\\- @noroadsleft" SS_TAP(X_ENTER));
         layer_off(_MACROS);
       };
       return false;
-      break;
     case GO_Q2:
       if (record->event.pressed) {
         //default_layer_set(_QWERTY);
@@ -184,7 +175,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //layer_off(_SYSTEM);
       };
       return false;
-      break;
     case Q2_ON:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ENTER));
@@ -192,7 +182,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_QUAKE2_DVORAK);
       };
       return false;
-      break;
     case Q2_OFF:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ENTER));
@@ -200,7 +189,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_QUAKE2);
       };
       return false;
-      break;
     case Q2_ESC:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESCAPE));
@@ -208,7 +196,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_QUAKE2);
       };
       return false;
-      break;
     case Q2_GRV:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_GRAVE));
@@ -217,7 +204,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_QUAKE2_CONSOLE);
       };
       return false;
-      break;
     case MC_UNDO:
       if (record->event.pressed) {
         if ( modifiers & MODS_SHIFT_MASK ) {
@@ -227,7 +213,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       };
       return false;
-      break;
     case MC_PSTE:
       if (record->event.pressed) {
         if ( modifiers & MODS_SHIFT_MASK ) {
@@ -237,7 +222,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       };
       return false;
-      break;
     case NUBS_Z:
       if (record->event.pressed) {
         if ( modifiers & MODS_RALT_MASK ) {
@@ -247,13 +231,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       };
       return false;
-      break;
     case VRSN:
       if (record->event.pressed) {
         SEND_STRING( QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION );
       }
       return false;
-      break;
   } // switch()
   return true;
 };
