@@ -59,7 +59,7 @@ Once you have saved this file, you will need to reload VS Code, if it was alread
 
 Now, we will set up the MSYS2 window to show up in VSCode as the integrated terminal.  This has a number of advantages. Mostly, you can control+click on errors and jump to those files.  This makes debugging much easier.  It's also nice, in that you don't have to jump to another window. 
 
-1. Click <kbd><kbd>File</kbd> > <kbd>Preferences ></kbd> > <kbd>Preferences</kbd> </kbd>
+1. Click <kbd><kbd>File</kbd> > <kbd>Preferences ></kbd> > <kbd>Settings</kbd> </kbd>
 2. Click on the <kbd>{}</kbd> button, in the top right to open the `settings.json` file. 
 3. Set the file's content to: 
 
