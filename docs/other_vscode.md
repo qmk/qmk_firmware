@@ -44,7 +44,7 @@ Before starting, you will want to make sure that you have all of the build tools
 1. Head to [VS Code](https://code.visualstudio.com/) and download the installer
 2. Run the installer
 
-This part is super simple.  However, there is some configuration that we need to do to make things are configured correctly.
+This part is super simple.  However, there is some configuration that we need to do to ensure things are configured correctly.
 
 ### Configuring VS Code
 
