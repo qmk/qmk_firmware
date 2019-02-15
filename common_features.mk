@@ -282,10 +282,20 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
-# Include the standard debounce code if needed
-ifneq ($(strip $(CUSTOM_DEBOUNCE)), yes)
-    QUANTUM_SRC += $(QUANTUM_DIR)/debounce.c
+DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
+# Debounce Modules. If implemented in matrix.c, don't use these.
+DEBOUNCE_TYPE?= sym_g
+VALID_DEBOUNCE_TYPES := sym_g eager_pk custom
+ifeq ($(filter $(DEBOUNCE_TYPE),$(VALID_DEBOUNCE_TYPES)),)
+    $(error DEBOUNCE_TYPE="$(DEBOUNCE_TYPE)" is not a valid debounce algorithm)
 endif
+ifeq ($(strip $(DEBOUNCE_TYPE)), sym_g)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
+else ifeq ($(strip $(DEBOUNCE_TYPE)), eager_pk)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_eager_pk.c
+endif
+
+
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
