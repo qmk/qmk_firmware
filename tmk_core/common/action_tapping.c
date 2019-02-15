@@ -113,18 +113,12 @@ bool process_tapping(keyrecord_t *keyp)
                  * This can register the key before settlement of tapping,
                  * useful for long TAPPING_TERM but may prevent fast typing.
                  */
-#if defined(TAPPING_TERM_PER_KEY)
+#if defined(TAPPING_TERM_PER_KEY) || (!defined(PER_KEY_TAPPING_TERM) && TAPPING_TERM >= 500) || defined(PERMISSIVE_HOLD)
+#ifdef TAPPING_TERM_PER_KEY
                 else if ( ( get_tapping_term(get_event_keycode(tapping_key.event)) >= 500) && IS_RELEASED(event) && waiting_buffer_typed(event))
-                {
-                    debug("Tapping: End. No tap. Interfered by typing key\n");
-                    process_record(&tapping_key);
-                    tapping_key = (keyrecord_t){};
-                    debug_tapping_key();
-                    // enqueue
-                    return false;
-                }
-#elif !defined(PER_KEY_TAPPING_TERM) && (TAPPING_TERM >= 500 || defined(PERMISSIVE_HOLD))
+#else
                 else if ( IS_RELEASED(event) && waiting_buffer_typed(event))
+#endif
                 {
                     debug("Tapping: End. No tap. Interfered by typing key\n");
                     process_record(&tapping_key);
