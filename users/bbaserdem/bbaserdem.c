@@ -32,7 +32,7 @@ void matrix_init_user (void) {
     set_single_persistent_default_layer(_BA);
 
     // Backlight LED
-#ifdef RGB_MATRIX_ENABLE
+#ifdef BACKLIGHT_ENABLE
     matrix_init_backlight();
 #endif
 
