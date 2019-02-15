@@ -3,11 +3,11 @@
 <!--- This template is entirely optional and can be removed, but is here to help both you and us. -->
 <!--- Anything on lines wrapped in comments like these will not show up in the final text. -->
 
-## Description:
+## Description
 
 <!--- Describe your changes in detail here. -->
 
-## Types of Changes:
+## Types of Changes
 
 <!--- What types of changes does your code introduce? Put an `x` in all the boxes that apply. -->
 - [ ] Core
@@ -18,11 +18,11 @@
 - [ ] Keymap/layout/userspace (addition or update)
 - [ ] Documentation
 
-## Issues Fixed or Closed by This PR:
+## Issues Fixed or Closed by This PR
 
 * 
 
-## Checklist:
+## Checklist
 
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
