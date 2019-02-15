@@ -58,6 +58,7 @@ void bigswitch_fin (qk_tap_dance_state_t *state, void *user_data) {
             register_code(KC_LGUI);
             register_code(KC_ESC);
             break;
+#ifdef RGBLIGHT_ENABLE
         case 2: // Change RGB mode
             rgblight_increase();
             break;
@@ -67,6 +68,7 @@ void bigswitch_fin (qk_tap_dance_state_t *state, void *user_data) {
         case 4: // Toggle RGB
             rgblight_toggle();
             break;
+#endif
         case 5:
             register_code(KC_POWER);
             break;

@@ -15,6 +15,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 bool process_record_double(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
+        case DBL_USC:
+            if( record->event.pressed ) {
+                SEND_STRING("____" SS_TAP(X_LEFT) SS_TAP(X_LEFT) );
+            }
+            return false;
+            break;
         case DBL_SPC:
             if( record->event.pressed ) {
                 SEND_STRING("  "SS_TAP(X_LEFT));

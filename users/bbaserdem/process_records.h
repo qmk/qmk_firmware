@@ -20,6 +20,7 @@ enum userspace_custom_keycodes {
     DBL_QUO,
     DBL_DQT,
     DBL_GRV,
+    DBL_USC,
     // Diagonal mouse movements
     MO_NE,
     MO_NW,
