@@ -187,6 +187,12 @@ uint8_t rgblight_get_val(void);
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
 void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index);
 void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index);
+void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8_t end);
+void rgblight_sethsv_range(uint16_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end);
+void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b);
+void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b);
+void rgblight_sethsv_master(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val);
 
 uint32_t eeconfig_read_rgblight(void);
 void eeconfig_update_rgblight(uint32_t val);
