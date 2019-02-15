@@ -126,6 +126,8 @@ If you define these options you will enable the associated feature, which may in
 
 * `#define TAPPING_TERM 200`
   * how long before a tap becomes a hold, if set above 500, a key tapped during the tapping term will turn it into a hold too
+* `#define TAPPING_TERM_PER_KEY`
+  * enables handling for per key `TAPPING_TERM` settings
 * `#define RETRO_TAPPING`
   * tap anyway, even after TAPPING_TERM, if there was no other key interruption between press and release
   * See [Retro Tapping](feature_advanced_keycodes.md#retro-tapping) for details

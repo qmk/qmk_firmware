@@ -469,7 +469,9 @@ The `val` is the value of the data that you want to write to EEPROM.  And the `e
 
 # Custom Tapping Term
 
-By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or the like.  Instead of using custom key codes for each, this allows for per key configurable `Tapping_Term`.
+By default, the tapping term is defined globally, and is not configurable by key.  For most users, this is perfectly fine.  But in come cases, dual function keys would be greatly improved by different timeouts than `LT` keys, or because some keys may be easier to hold than others.  Instead of using custom key codes for each, this allows for per key configurable `TAPPING_TERM`.
+
+To enable this functionality, you need to add `#define TAPPING_TERM_PER_KEY` to your `config.h`, first.  
 
 
 ## Example `get_tapping_term` Implementation
