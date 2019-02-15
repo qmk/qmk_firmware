@@ -611,6 +611,42 @@ void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index) {
   rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b, index);
 }
 
+void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8_t end) {
+  if (!rgblight_config.enable || start < 0 || start >= end || end > RGBLED_NUM) { return; }
+
+  for (uint8_t i = start; i < end; i++) {
+    led[i].r = r;
+    led[i].g = g;
+    led[i].b = b;
+  }
+  rgblight_set();
+  wait_ms(1);
+}
+
+void rgblight_sethsv_range(uint16_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end) {
+  if (!rgblight_config.enable) { return; }
+
+  LED_TYPE tmp_led;
+  sethsv(hue, sat, val, &tmp_led);
+  rgblight_setrgb_range(tmp_led.r, tmp_led.g, tmp_led.b, start, end);
+}
+
+void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b) {
+  rgblight_setrgb_range(r, g, b, 0 , (uint8_t) RGBLED_NUM/2);
+}
+
+void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b) {
+  rgblight_setrgb_range(r, g, b, (uint8_t) RGBLED_NUM/2, (uint8_t) RGBLED_NUM);
+}
+
+void rgblight_sethsv_master(uint16_t hue, uint8_t sat, uint8_t val) {
+  rgblight_sethsv_range(hue, sat, val, 0, (uint8_t) RGBLED_NUM/2);
+}
+
+void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val) {
+  rgblight_sethsv_range(hue, sat, val, (uint8_t) RGBLED_NUM/2, (uint8_t) RGBLED_NUM);
+}
+
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
   if (rgblight_config.enable) {
