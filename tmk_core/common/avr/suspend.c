@@ -142,20 +142,20 @@ static void power_down(uint8_t wdto) {
 #endif
   suspend_power_down_kb();
 
-  // TODO: more power saving
-  // See PicoPower application note
-  // - I/O port input with pullup
-  // - prescale clock
-  // - BOD disable
-  // - Power Reduction Register PRR
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  sleep_enable();
-  sei();
-  sleep_cpu();
-  sleep_disable();
+    // TODO: more power saving
+    // See PicoPower application note
+    // - I/O port input with pullup
+    // - prescale clock
+    // - BOD disable
+    // - Power Reduction Register PRR
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    sleep_enable();
+    sei();
+    sleep_cpu();
+    sleep_disable();
 
-  // Disable watchdog after sleep
-  wdt_disable();
+    // Disable watchdog after sleep
+    wdt_disable();
 }
 #endif
 
