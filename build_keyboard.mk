@@ -371,4 +371,5 @@ all: build check-size
 build: elf cpfirmware
 check-size: build
 
+include show_options.mk
 include $(TMK_PATH)/rules.mk
