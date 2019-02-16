@@ -10,4 +10,4 @@
 ![Edulpn Keymap for the KBD75 PCB Mac Mode](https://i.imgur.com/t7oTjjc.png)
 
 ## Build
-To build the default keymap, simply run `make kbd75/rev2:edulpn`.
+To build the default keymap, simply run `make kbdfans/kbd75/rev2:edulpn`.

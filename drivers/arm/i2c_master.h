@@ -26,6 +26,16 @@
 #include "ch.h"
 #include <hal.h>
 
+#ifndef I2C1_BANK
+    #define I2C1_BANK GPIOB
+#endif
+#ifndef I2C1_SCL
+    #define I2C1_SCL 6
+#endif
+#ifndef I2C1_SDA
+    #define I2C1_SDA 7
+#endif
+
 #ifndef I2C_DRIVER
   #define I2C_DRIVER I2CD1
 #endif
