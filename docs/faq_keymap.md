@@ -11,8 +11,8 @@ Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_f
 
 There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
 
-<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/070a530eedaed36a2d77f3f6fd455677 -->
-![Keyboard Layout Image](https://i.imgur.com/gvlNUpQ.png)
+<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
+![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
 
 ## Some Of My Keys Are Swapped Or Not Working
 
@@ -211,20 +211,3 @@ here real_mods lost state for 'physical left shift'.
 
 weak_mods is ORed with real_mods when keyboard report is sent.
 https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57
-
-## Timer Functionality
-
-It's possible to start timers and read values for time-specific events - here's an example:
-
-```c
-static uint16_t key_timer;
-key_timer = timer_read();
-
-if (timer_elapsed(key_timer) < 100) {
-  // do something if less than 100ms have passed
-} else {
-  // do something if 100ms or more have passed
-}
-```
-
-It's best to declare the `static uint16_t key_timer;` at the top of the file, outside of any code blocks you're using it in.

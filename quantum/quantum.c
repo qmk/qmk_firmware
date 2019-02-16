@@ -15,6 +15,11 @@
  */
 
 #include "quantum.h"
+
+#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
+	#include "rgb.h"
+#endif
+
 #ifdef PROTOCOL_LUFA
 #include "outputselect.h"
 #endif
@@ -132,6 +137,14 @@ void unregister_code16 (uint16_t code) {
   }
 }
 
+void tap_code16(uint16_t code) {
+  register_code16(code);
+  #if TAP_CODE_DELAY > 0
+    wait_ms(TAP_CODE_DELAY);
+  #endif
+  unregister_code16(code);
+}
+
 __attribute__ ((weak))
 bool process_action_kb(keyrecord_t *record) {
   return true;
@@ -243,7 +256,7 @@ bool process_record_quantum(keyrecord_t *record) {
     process_key_lock(&keycode, record) &&
   #endif
   #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
-      process_clicky(keycode, record) &&
+    process_clicky(keycode, record) &&
   #endif //AUDIO_CLICKY
     process_record_kb(keycode, record) &&
   #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
@@ -258,35 +271,31 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef STENO_ENABLE
     process_steno(keycode, record) &&
   #endif
-  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
+  #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
   #endif
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    process_unicode_common(keycode, record) &&
+  #endif
+
   #ifdef SPACE_CADET_ENABLE                     // temporary position, maintainer, collaborator, contributor can move this above or below, if any keycode conflicts
     process_space_cadet( keycode, record ) &&
   #endif
+
   #ifdef LEADER_ENABLE
     process_leader(keycode, record) &&
   #endif
   #ifdef COMBO_ENABLE
     process_combo(keycode, record) &&
   #endif
-  #ifdef UNICODE_ENABLE
-    process_unicode(keycode, record) &&
-  #endif
-  #ifdef UCIS_ENABLE
-    process_ucis(keycode, record) &&
-  #endif
   #ifdef PRINTING_ENABLE
     process_printer(keycode, record) &&
   #endif
   #ifdef AUTO_SHIFT_ENABLE
     process_auto_shift(keycode, record) &&
-  #endif
-  #ifdef UNICODEMAP_ENABLE
-    process_unicode_map(keycode, record) &&
   #endif
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
@@ -307,6 +316,11 @@ bool process_record_quantum(keyrecord_t *record) {
       if (record->event.pressed) {
           debug_enable = true;
           print("DEBUG: enabled.\n");
+      }
+    return false;
+    case EEPROM_RESET:
+      if (record->event.pressed) {
+          eeconfig_init();
       }
     return false;
   #ifdef FAUXCLICKY_ENABLE
@@ -988,12 +1002,48 @@ void tap_random_base64(void) {
   }
 }
 
+__attribute__((weak))
+void bootmagic_lite(void) {
+  // The lite version of TMK's bootmagic based on Wilba.
+  // 100% less potential for accidentally making the
+  // keyboard do stupid things.
+
+  // We need multiple scans because debouncing can't be turned off.
+  matrix_scan();
+  #if defined(DEBOUNCING_DELAY) && DEBOUNCING_DELAY > 0
+    wait_ms(DEBOUNCING_DELAY * 2);
+  #elif defined(DEBOUNCE) && DEBOUNCE > 0
+    wait_ms(DEBOUNCE * 2);
+  #else
+    wait_ms(30);
+  #endif
+  matrix_scan();
+
+  // If the Esc and space bar are held down on power up,
+  // reset the EEPROM valid state and jump to bootloader.
+  // Assumes Esc is at [0,0].
+  // This isn't very generalized, but we need something that doesn't
+  // rely on user's keymaps in firmware or EEPROM.
+  if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
+    eeconfig_disable();
+    // Jump to bootloader.
+    bootloader_jump();
+  }
+}
+
 void matrix_init_quantum() {
-  if (!eeconfig_is_enabled() && !eeconfig_is_disabled()) {
+  #ifdef BOOTMAGIC_LITE
+    bootmagic_lite();
+  #endif
+  if (!eeconfig_is_enabled()) {
     eeconfig_init();
   }
   #ifdef BACKLIGHT_ENABLE
-    backlight_init_ports();
+    #ifdef LED_MATRIX_ENABLE
+        led_matrix_init();
+    #else
+        backlight_init_ports();
+    #endif
   #endif
   #ifdef AUDIO_ENABLE
     audio_init();
@@ -1003,6 +1053,9 @@ void matrix_init_quantum() {
   #endif
   #ifdef ENCODER_ENABLE
     encoder_init();
+  #endif
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    unicode_input_mode_init();
   #endif
   matrix_init_kb();
 }
@@ -1026,8 +1079,12 @@ void matrix_scan_quantum() {
     matrix_scan_combo();
   #endif
 
-  #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
-    backlight_task();
+  #if defined(BACKLIGHT_ENABLE)
+    #if defined(LED_MATRIX_ENABLE)
+        led_matrix_task();
+    #elif defined(BACKLIGHT_PIN)
+        backlight_task();
+    #endif
   #endif
 
   #ifdef RGB_MATRIX_ENABLE
@@ -1439,6 +1496,24 @@ void led_set(uint8_t usb_led)
     //     DDRE &= ~(1<<6);
     //     PORTE &= ~(1<<6);
     // }
+
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+  // Use backlight as Caps Lock indicator
+  uint8_t bl_toggle_lvl = 0;
+
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) && !backlight_config.enable) {
+    // Turning Caps Lock ON and backlight is disabled in config
+    // Toggling backlight to the brightest level
+    bl_toggle_lvl = BACKLIGHT_LEVELS;
+  } else if (IS_LED_OFF(usb_led, USB_LED_CAPS_LOCK) && backlight_config.enable) {
+    // Turning Caps Lock OFF and backlight is enabled in config
+    // Toggling backlight and restoring config level
+    bl_toggle_lvl = backlight_config.level;
+  }
+
+  // Set level without modify backlight_config to keep ability to restore state
+  backlight_set(bl_toggle_lvl);
+#endif
 
   led_set_kb(usb_led);
 }

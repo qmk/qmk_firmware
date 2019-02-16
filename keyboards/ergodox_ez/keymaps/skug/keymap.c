@@ -80,7 +80,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TG(SYMB),       KC_Y,   KC_U,   KC_I,    KC_O,    KC_P,              NO_AA,
                          KC_H,   KC_J,   KC_K,    KC_L,    LT(MDIA, NO_OSLH), LT(SYMB, NO_AE),
          KC_WFWD,        KC_N,   KC_M,   KC_COMM, KC_DOT,  NO_MINS,           KC_RSPC,
-                                 KC_SPC, KC_BSPC, NO_ALGR, NO_ASTR,           CTL_T(NO_TILD),
+                                 KC_SPC, KC_BSPC, KC_ALGR, NO_ASTR,           CTL_T(NO_TILD),
         KC_HOME,  NO_CIRC,
         KC_PGUP,  KC_UP,         KC_DOWN,
         KC_LGUI,  ALT_T(KC_ESC), CTL_T(KC_ENT)

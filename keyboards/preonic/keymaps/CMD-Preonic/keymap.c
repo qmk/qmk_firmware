@@ -201,10 +201,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-
-};
-
 #ifdef AUDIO_ENABLE
 float start_up[][2] = {
    MUSICAL_NOTE(_B5, 20),

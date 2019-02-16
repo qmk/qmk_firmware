@@ -1,5 +1,10 @@
 /*
  * WARNING: be careful changing this code, it is very timing dependent
+ *
+ * 2018-10-28 checked
+ *  avr-gcc 4.9.2
+ *  avr-gcc 5.4.0
+ *  avr-gcc 7.3.0
  */
 
 #ifndef F_CPU
@@ -65,8 +70,9 @@
  #error serial.c now support ATmega32U4 only
 #endif
 
-#ifndef SERIAL_USE_MULTI_TRANSACTION
-/* --- USE Simple API (OLD API, compatible with let's split serial.c) */
+//////////////// for backward compatibility ////////////////////////////////
+#if !defined(SERIAL_USE_SINGLE_TRANSACTION) && !defined(SERIAL_USE_MULTI_TRANSACTION)
+/* --- USE OLD API (compatible with let's split serial.c) */
   #if SERIAL_SLAVE_BUFFER_LENGTH > 0
   uint8_t volatile serial_slave_buffer[SERIAL_SLAVE_BUFFER_LENGTH] = {0};
   #endif
@@ -106,7 +112,8 @@ int serial_update_buffers()
     return result;
 }
 
-#endif // Simple API (OLD API, compatible with let's split serial.c)
+#endif // end of OLD API (compatible with let's split serial.c)
+////////////////////////////////////////////////////////////////////////////
 
 #define ALWAYS_INLINE __attribute__((always_inline))
 #define NO_INLINE __attribute__((noinline))
@@ -136,38 +143,68 @@ int serial_update_buffers()
 //  5: about 20kbps
 #endif
 
-#define TID_SEND_ADJUST 2
+#if __GNUC__ < 6
+  #define TID_SEND_ADJUST 14
+#else
+  #define TID_SEND_ADJUST 2
+#endif
 
 #if SELECT_SOFT_SERIAL_SPEED == 0
   // Very High speed
   #define SERIAL_DELAY 4             // micro sec
-  #define READ_WRITE_START_ADJUST 33 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 6 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_START_ADJUST 33 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_START_ADJUST 34 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 1
   // High speed
   #define SERIAL_DELAY 6             // micro sec
-  #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_START_ADJUST 30 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_START_ADJUST 33 // cycles
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 2
   // Middle speed
   #define SERIAL_DELAY 12            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 3
   // Low speed
   #define SERIAL_DELAY 24            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 4
   // Very Low speed
   #define SERIAL_DELAY 36            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #elif SELECT_SOFT_SERIAL_SPEED == 5
   // Ultra Low speed
   #define SERIAL_DELAY 48            // micro sec
   #define READ_WRITE_START_ADJUST 30 // cycles
-  #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #if __GNUC__ < 6
+    #define READ_WRITE_WIDTH_ADJUST 3 // cycles
+  #else
+    #define READ_WRITE_WIDTH_ADJUST 7 // cycles
+  #endif
 #else
 #error invalid SELECT_SOFT_SERIAL_SPEED value
 #endif /* SELECT_SOFT_SERIAL_SPEED */
@@ -187,16 +224,19 @@ int serial_update_buffers()
 static SSTD_t *Transaction_table = NULL;
 static uint8_t Transaction_table_size = 0;
 
+inline static void serial_delay(void) ALWAYS_INLINE;
 inline static
 void serial_delay(void) {
   _delay_us(SERIAL_DELAY);
 }
 
+inline static void serial_delay_half1(void) ALWAYS_INLINE;
 inline static
 void serial_delay_half1(void) {
   _delay_us(SERIAL_DELAY_HALF1);
 }
 
+inline static void serial_delay_half2(void) ALWAYS_INLINE;
 inline static
 void serial_delay_half2(void) {
   _delay_us(SERIAL_DELAY_HALF2);
@@ -216,6 +256,7 @@ void serial_input_with_pullup(void) {
   SERIAL_PIN_PORT |= SERIAL_PIN_MASK;
 }
 
+inline static uint8_t serial_read_pin(void) ALWAYS_INLINE;
 inline static
 uint8_t serial_read_pin(void) {
   return !!(SERIAL_PIN_INPUT & SERIAL_PIN_MASK);
@@ -270,7 +311,7 @@ void sync_recv(void) {
 }
 
 // Used by the reciver to send a synchronization signal to the sender.
-static void sync_send(void)NO_INLINE;
+static void sync_send(void) NO_INLINE;
 static
 void sync_send(void) {
   serial_low();
@@ -536,7 +577,14 @@ int soft_serial_get_and_clean_status(int sstd_index) {
 #endif
 
 // Helix serial.c history
-//   2018-1-29 fork from let's split (#2308)
-//   2018-6-28 bug fix master to slave comm (#3255)
-//   2018-8-11 improvements (#3608)
-//   2018-10-21 fix serial and RGB animation conflict (#4191)
+//   2018-1-29 fork from let's split and add PD2, modify sync_recv() (#2308, bceffdefc)
+//   2018-6-28 bug fix master to slave comm and speed up (#3255, 1038bbef4)
+//             (adjusted with avr-gcc 4.9.2)
+//   2018-7-13 remove USE_SERIAL_PD2 macro (#3374, f30d6dd78)
+//             (adjusted with avr-gcc 4.9.2)
+//   2018-8-11 add support multi-type transaction (#3608, feb5e4aae)
+//             (adjusted with avr-gcc 4.9.2)
+//   2018-10-21 fix serial and RGB animation conflict (#4191, 4665e4fff)
+//             (adjusted with avr-gcc 7.3.0)
+//   2018-10-28 re-adjust compiler depend value of delay (#4269, 8517f8a66)
+//             (adjusted with avr-gcc 5.4.0, 7.3.0)

@@ -16,4 +16,8 @@ RGBLIGHT_ENABLE = yes
 TAP_DANCE_ENABLE = no
 AUTO_SHIFT_ENABLE = no
 
+
 SPACE_CADET_ENABLE = yes  # add option for PR #3885, space cadet feature is going to disable default.
+
+SRC += relativity.c
+SRC += customLogic.c

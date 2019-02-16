@@ -19,8 +19,4 @@ RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
 TAP_DANCE_ENABLE = yes      # Enable Tap Dancing function
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
-
 SPACE_CADET_ENABLE = yes  # add option for PR #3885, space cadet feature is going to disable default.
