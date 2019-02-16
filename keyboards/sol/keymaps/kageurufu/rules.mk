@@ -20,6 +20,9 @@ ENCODER_ENABLE_CUSTOM = yes # Enable rotary encoder (+90)
 OLED_ENABLE = no            # OLED_ENABLE (+5000)
 IOS_DEVICE_ENABLE = no      # Limit max brightness to connect to IOS device (iPad,iPhone)
 
+
+SPACE_CADET_ENABLE = yes  # add option for PR #3885, space cadet feature is going to disable default.
+
 # Do not edit past here
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
