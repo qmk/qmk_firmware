@@ -74,6 +74,8 @@ void haptic_dwell_increase(void);
 void haptic_dwell_decrease(void);
 
 void haptic_play(void);
+void haptic_shutdown(void);
+
 
 
 

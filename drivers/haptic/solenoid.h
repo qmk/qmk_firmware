@@ -16,7 +16,6 @@
  */
 
 #pragma once
-#include <timer.h>
 
 #ifndef SOLENOID_DEFAULT_DWELL
 #define SOLENOID_DEFAULT_DWELL 12
@@ -52,3 +51,4 @@ void solenoid_fire(void);
 void solenoid_check(void);
 
 void solenoid_setup(void);
+void solenoid_shutdown(void);

@@ -24,7 +24,7 @@ bool solenoid_buzzing = false;
 uint16_t solenoid_start = 0;
 uint8_t solenoid_dwell = SOLENOID_DEFAULT_DWELL;
 
-haptic_config_t haptic_config;
+extern haptic_config_t haptic_config;
 
 
 void solenoid_buzz_on(void) {
@@ -100,4 +100,10 @@ void solenoid_check(void) {
 
 void solenoid_setup(void) {
   setPinOutput(SOLENOID_PIN);
+  solenoid_fire();
+}
+
+void solenoid_shutdown(void) {
+  writePinLow(SOLENOID_PIN);
+
 }

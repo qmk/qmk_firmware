@@ -141,11 +141,16 @@ void haptic_dwell_decrease(void) {
 }
 
 void haptic_reset(void){
+  haptic_config.enable = true;
   uint8_t feedback = HAPTIC_FEEDBACK_DEFAULT;
   haptic_config.feedback = feedback;
   #ifdef DRV2605L
     uint8_t mode = HAPTIC_MODE_DEFAULT;
     haptic_config.mode = mode;
+  #endif
+  #ifdef SOLENOID_ENABLE
+    uint8_t dwell = SOLENOID_DEFAULT_DWELL;
+    haptic_config.dwell = dwell;
   #endif
   eeconfig_update_haptic(haptic_config.raw);
   xprintf("haptic_config.feedback = %u\n", haptic_config.feedback);
@@ -233,4 +238,11 @@ bool process_haptic(uint16_t keycode, keyrecord_t *record) {
     }
   }
   return true;
+}
+
+void haptic_shutdown(void) {
+  #ifdef SOLENOID_ENABLE
+  solenoid_shutdown();
+  #endif
+
 }

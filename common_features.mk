@@ -238,7 +238,6 @@ ifeq ($(strip $(HAPTIC_ENABLE)), SOLENOID)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
     SRC += haptic.c
     SRC += solenoid.c
-    SRC += i2c_master.c
     OPT_DEFS += -DHAPTIC_ENABLE
     OPT_DEFS += -DSOLENOID_ENABLE
 endif
