@@ -1,5 +1,45 @@
 #include "konstantin.h"
 
+__attribute__((weak))
+void keyboard_pre_init_keymap(void) {}
+
+void keyboard_pre_init_user(void) {
+  keyboard_pre_init_keymap();
+}
+
+__attribute__((weak))
+void eeconfig_init_keymap(void) {}
+
+void eeconfig_init_user(void) {
+  eeconfig_init_keymap();
+}
+
+__attribute__((weak))
+void matrix_init_keymap(void) {}
+
+void matrix_init_user(void) {
+  matrix_init_keymap();
+}
+
+__attribute__((weak))
+void keyboard_post_init_keymap(void) {}
+
+void keyboard_post_init_user(void) {
+  keyboard_post_init_keymap();
+}
+
+__attribute__((weak))
+void matrix_scan_keymap(void) {}
+
+void matrix_scan_user(void) {
+  matrix_scan_keymap();
+}
+
+__attribute__((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+
 #ifdef LAYER_NUMPAD
 static void toggle_numpad(void) {
   layer_invert(L_NUMPAD);
@@ -10,11 +50,6 @@ static void toggle_numpad(void) {
   }
 }
 #endif
-
-__attribute__((weak))
-bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
-  return true;
-}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_record_keymap(keycode, record)) {
@@ -87,4 +122,39 @@ uint32_t layer_state_set_keymap(uint32_t state) {
 
 uint32_t layer_state_set_user(uint32_t state) {
   return layer_state_set_keymap(state);
+}
+
+__attribute__((weak))
+void led_set_keymap(uint8_t usb_led) {}
+
+void led_set_user(uint8_t usb_led) {
+  led_set_keymap(usb_led);
+}
+
+__attribute__((weak))
+void suspend_power_down_keymap(void) {}
+
+void suspend_power_down_user(void) {
+  suspend_power_down_keymap();
+}
+
+__attribute__((weak))
+void suspend_wakeup_init_keymap(void) {}
+
+void suspend_wakeup_init_user(void) {
+  suspend_wakeup_init_keymap();
+}
+
+__attribute__((weak))
+void startup_keymap(void) {}
+
+void startup_user(void) {  // Currently not called anywhere
+  startup_keymap();
+}
+
+__attribute__((weak))
+void shutdown_keymap(void) {}
+
+void shutdown_user(void) {
+  shutdown_keymap();
 }
