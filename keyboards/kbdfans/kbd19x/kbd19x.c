@@ -17,6 +17,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "kbd19x.h"
 
+extern inline void kbd19x_caps_led_on(void);
+extern inline void kbd19x_caps_led_off(void);
+
+extern inline void kbd19x_sclk_led_on(void);
+extern inline void kbd19x_sclk_led_off(void);
+
+extern inline void kbd19x_nmlk_led_on(void);
+extern inline void kbd19x_nmlk_led_off(void);
+
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up

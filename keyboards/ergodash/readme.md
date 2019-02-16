@@ -22,4 +22,10 @@ Note:
 
 # Layout
 ![layout](https://github.com/omkbd/picture/blob/master/ergodash-layout.png)
+
+Layout Note:  
+- In thumb cluster, it is not possible to use all 5 positions as small keys. (as pictured)
+- The top 2 1u keys in the thumb cluster share the same connection.
+- 2u key (center) position shares with the lower 1u key position
+
 ![PCB](https://github.com/omkbd/picture/blob/master/Ergodash_PCB.jpg)
