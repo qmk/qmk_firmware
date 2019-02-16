@@ -63,7 +63,7 @@
  * `------------------------------------------------------------------------'
  */
 #define NUMBERS \
-    _______,KC_GRV, KC_DEL, KC_INS, KC_HOME,KC_END, KC_PGDN,KC_PGUP,DBL_USC,KC_UNDS,KC_EQL, _______, \
+    _______,KC_GRV, KC_DEL, KC_INS, KC_HOME,KC_END, KC_PGDN,KC_PGUP,DBL_USC,KC_MINS,KC_EQL, _______, \
     _______,KC_1,   KC_2,   KC_3,   KC_4,   KC_5,   KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_SLSH, \
     _______,KC_NUBS,DBL_GRV,DBL_QUO,DBL_PAR,DBL_ANG,DBL_SQR,DBL_BRC,DBL_DQT,KC_LBRC,KC_RBRC,_______, \
     _______,_______,_______,_______,_______,_______,_______,KC_CAPS,_______,_______,_______,_______
