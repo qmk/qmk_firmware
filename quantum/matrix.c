@@ -53,8 +53,8 @@ static const pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif
 
 /* matrix state(1:on, 0:off) */
-static matrix_row_t raw_matrix[MATRIX_ROWS];
-static matrix_row_t matrix[MATRIX_ROWS];
+static matrix_row_t raw_matrix[MATRIX_ROWS]; //raw values
+static matrix_row_t matrix[MATRIX_ROWS]; //debounced values
 
 __attribute__ ((weak))
 void matrix_init_quantum(void) {
@@ -94,6 +94,7 @@ uint8_t matrix_cols(void) {
     return MATRIX_COLS;
 }
 
+//Deprecated.
 bool matrix_is_modified(void)
 {
     if (debounce_active()) return false;
