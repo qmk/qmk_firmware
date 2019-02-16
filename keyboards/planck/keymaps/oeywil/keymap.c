@@ -2,7 +2,6 @@
 #include "secret.h"
 extern keymap_config_t keymap_config;
 
-// Layer definitions
 enum planck_layers {
   _DEFAULT,
   _LOWER,
@@ -12,13 +11,11 @@ enum planck_layers {
   _GAMERAISE
 };
 
-// Layer mods
 #define LOWER    MO(_LOWER)
 #define RAISE    MO(_RAISE)
 #define FUNCTION MO(_FUNCTION)
 #define GAMER    MO(_GAMERAISE)
 
-// Norwegian stuff
 #define NO_OE   KC_SCLN
 #define NO_AE   KC_QUOT
 #define NO_AA   KC_LBRC
@@ -46,18 +43,15 @@ enum planck_layers {
 #define NO_PLUS KC_MINS
 #define NO_EQUA LSFT(KC_0)
 
-// Misc
 #define TSKMGR LCTL(LSFT(KC_ESC))
 #define STEAM  LSFT(KC_F7)
 #define WKILL  LALT(KC_F4)
 #define BWORD  LCTL(KC_LEFT)
 #define FWORD  LCTL(KC_RIGHT)
 
-// Sounds
 float onsong[][2] = SONG(MARIO_MUSHROOM);
 float offsong[][2] = SONG(PLOVER_GOODBYE_SOUND);
 
-// Macro definitions
 enum custom_keycodes {
   PWD = SAFE_RANGE,
   MAIL,
@@ -65,7 +59,6 @@ enum custom_keycodes {
   GAMEOFF
 };
 
-// Macro functions
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case PWD:
@@ -98,7 +91,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 };
 
-// Layer functions
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Default
    * ,-----------------------------------------------------------------------------------.
