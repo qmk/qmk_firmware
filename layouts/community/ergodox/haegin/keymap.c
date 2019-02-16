@@ -9,8 +9,6 @@
 #define SYMBOLS 1 // symbols
 #define MEDIA 2 // media keys
 
-#define _______ KC_TRNS
-
 enum {
   TD_BSPC = 0
 };
