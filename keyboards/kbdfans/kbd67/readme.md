@@ -4,7 +4,7 @@ A 65% keyboard sold in two variants. Rev1 was a typical keyboard that had to be 
 Months later, a new version with hotswap was sold. **Firmware files from one, will not work on the other.** Please use the `.hex` appropriate for your board. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: KBD67, KBD65 USB-C PCB
+Hardware Supported: KBD67, KBD65 USB-C PCB  
 Hardware Availability: KBDFans
 
 Make example for this keyboard (after setting up your build environment):
