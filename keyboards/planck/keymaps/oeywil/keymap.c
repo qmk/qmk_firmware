@@ -1,6 +1,4 @@
-#include "planck.h"
-#include "action_layer.h"
-#include "muse.h"
+#include QMK_KEYBOARD_H
 #include "secret.h"
 extern keymap_config_t keymap_config;
 
