@@ -1,6 +1,10 @@
 #include QMK_KEYBOARD_H
 #include "konstantin.h"
 
+void eeconfig_init_keymap(void) {
+  rgblight_sethsv(GODSPEED_BLUE.h, GODSPEED_BLUE.s, GODSPEED_BLUE.v);
+}
+
 enum keycodes_keymap {
   RGB_SET = RANGE_KEYMAP,
 };
