@@ -149,7 +149,8 @@ void matrix_init_user(void) {
 #endif
 //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
 #ifdef OLED_ENABLE
-  oled_init(!has_usb());   // turns on the display
+  // Ive mounted the oleds horizontally at the top, so no need to flip
+  oled_init(false);   // turns on the display
 #endif
 }
 
@@ -217,10 +218,12 @@ void matrix_scan_user(void) {
 }
 
 void oled_task_user(void) {
-  if (is_master)
+  if (is_master) {
     render_status();
-  else
+  } else {
     render_logo();
+    oled_scroll_left();
+  }
 }
 
 #endif

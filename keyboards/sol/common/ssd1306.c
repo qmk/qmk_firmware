@@ -32,7 +32,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DISPLAY_OFF             0xAE
 
 // Scrolling Commands
+#define ACTIVATE_SCROLL         0x2F
 #define DEACTIVATE_SCROLL       0x2E
+#define SCROLL_RIGHT            0x26
+#define SCROLL_LEFT             0x27
+#define SCROLL_RIGHT_UP         0x29
+#define SCROLL_LEFT_UP          0x2A
 
 // Addressing Setting Commands
 #define MEMORY_MODE             0x20
@@ -74,7 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_SEND_SIZE(mode, data, size) i2c_writeReg(SSD1306_ADDRESS, mode, data, size, I2C_TIMEOUT)
 
 // Display buffer's is the same as the OLED memory layout
-// this is so we don't end up with rounding errors with 
+// this is so we don't end up with rounding errors with
 // parts of the display unusable or don't get cleared correctly
 // and also allows for drawing & inverting
 static uint8_t  display_buffer[OLED_MATRIX_SIZE];
@@ -82,6 +87,7 @@ static uint8_t* display_cursor;
 static uint8_t  display_dirty = 0;
 static bool     display_initialized = false;
 static bool     display_active = false;
+static bool     display_scrolling = false;
 static uint16_t last_activity;
 
 // identical to i2c_writeReg, but for PROGMEM since all initialization is in PROGMEM arrays currently
@@ -164,6 +170,7 @@ bool oled_init(bool flip180) {
   oled_clear();
   display_initialized = true;
   display_active = true;
+  display_scrolling = false;
   return true;
 }
 
@@ -175,7 +182,7 @@ void oled_clear(void) {
 
 void oled_render(void) {
   // Do we have work to do?
-  if (!display_dirty) {
+  if (!display_dirty || display_scrolling) {
     return;
   }
 
@@ -282,10 +289,10 @@ void oled_write_char(const char data, bool invert) {
   }
 
   // Invert if needed
-  if (invert) { 
-    InvertCharacter(display_cursor); 
+  if (invert) {
+    InvertCharacter(display_cursor);
   }
-  
+
   // Dirty check
   if (memcmp(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH)) {
     display_dirty |= (1 << ((display_cursor - &display_buffer[0]) / OLED_BLOCK_SIZE));
@@ -341,7 +348,55 @@ bool oled_off(void) {
   return !display_active;
 }
 
+bool oled_scroll_right(void) {
+  // Dont enable scrolling if we need to update the display
+  // This prevents scrolling of bad data from starting the scroll too early after init
+  if (!display_dirty && !display_scrolling) {
+    static const uint8_t PROGMEM display_scroll_right[] = {
+      SCROLL_RIGHT, 0x00, 0x00, 0x00, 0x0F, 0x00, 0xFF, ACTIVATE_SCROLL };
+    if (I2C_SEND_P(I2C_CMD, display_scroll_right) != I2C_STATUS_SUCCESS) {
+      print("oled_scroll_right cmd failed\n");
+      return display_scrolling;
+    }
+    display_scrolling = true;
+  }
+  return display_scrolling;
+}
+
+bool oled_scroll_left(void) {
+  // Dont enable scrolling if we need to update the display
+  // This prevents scrolling of bad data from starting the scroll too early after init
+  if (!display_dirty && !display_scrolling) {
+    static const uint8_t PROGMEM display_scroll_left[] = {
+      SCROLL_LEFT, 0x00, 0x00, 0x00, 0x0F, 0x00, 0xFF, ACTIVATE_SCROLL };
+    if (I2C_SEND_P(I2C_CMD, display_scroll_left) != I2C_STATUS_SUCCESS) {
+      print("oled_scroll_left cmd failed\n");
+      return display_scrolling;
+    }
+    display_scrolling = true;
+  }
+  return display_scrolling;
+}
+
+bool oled_scroll_off(void) {
+  if (display_scrolling) {
+    static const uint8_t PROGMEM display_scroll_off[] = { DEACTIVATE_SCROLL };
+    if (I2C_SEND_P(I2C_CMD, display_scroll_off) != I2C_STATUS_SUCCESS) {
+      print("oled_scroll_off cmd failed\n");
+      return display_scrolling;
+    }
+    display_scrolling = false;
+  }
+  return !display_scrolling;
+}
+
 void oled_task(void) {
+  if (!oled_ready()) {
+    return;
+  }
+
+  oled_set_cursor(0, 0);
+
 #ifdef SSD1306OLED
   iota_gfx_task_user();
 #endif

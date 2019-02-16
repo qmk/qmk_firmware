@@ -92,6 +92,17 @@ void oled_task(void);
 // Called at the start of oled_task, weak function
 void oled_task_user(void);
 
+// Scrolls the entire display right
+// Note, display contents cannot be changed while scrolling
+bool oled_scroll_right(void);
+
+// Scrolls the entire display left
+// Note, display contents cannot be changed while scrolling
+bool oled_scroll_left(void);
+
+// Turns off display scrolling
+bool oled_scroll_off(void);
+
 
 // compatibility defines
 #ifdef SSD1306OLED
