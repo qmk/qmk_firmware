@@ -6,7 +6,7 @@ static void toggle_numpad(void) {
   bool numpad_on = IS_LAYER_ON(L_NUMPAD);
   bool num_lock_on = IS_HOST_LED_ON(USB_LED_NUM_LOCK);
   if (num_lock_on != numpad_on) {
-    tap_code(KC_NLCK); // Toggle Num Lock to match layer state
+    tap_code(KC_NLCK);  // Toggle Num Lock to match layer state
   }
 }
 #endif
@@ -45,7 +45,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case FN_FNLK:
     if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
-      fn_lock = !IS_LAYER_ON(L_FN); // Fn layer will be toggled after this
+      fn_lock = !IS_LAYER_ON(L_FN);  // Fn layer will be toggled after this
     }
     return true;
 #endif
