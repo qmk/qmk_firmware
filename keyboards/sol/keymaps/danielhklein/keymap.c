@@ -310,16 +310,14 @@ void render_status(void) {
 
 
 void matrix_scan_user(void) {
-  if (!oled_ready())
-    return;
+  oled_task();
+}
 
-  oled_on();
-  oled_set_cursor(0, 0);
+void oled_task_user(void) {
   if (is_master)
     render_status();
   else
     render_logo();
-  oled_render();
 }
 
 #endif
