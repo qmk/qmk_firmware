@@ -44,6 +44,8 @@ Select a pin that has PWM for the signal pin
 #define SOLENOID_PIN *pin*
 ```
 
+Beware that some pins may be powered during bootloader (ie. A13 on the STM32F303 chip) and will result in the solenoid kept in the on state through the whole flashing process. This may overheat and damage the solenoid. If you find that the pin the solenoid is connected to is triggering the solenoid during bootloader/DFU, select another pin.
+
 ### DRV2605L
 
 DRV2605L is controlled over i2c protocol, and has to be connected to the SDA and SCL pins, these varies depending on the MCU in use.
