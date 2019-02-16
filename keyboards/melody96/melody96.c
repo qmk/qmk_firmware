@@ -1,5 +1,6 @@
 #include "melody96.h"
 
+__attribute__ ((weak))
 void led_set_user(uint8_t usb_led) {
 
 	if (usb_led & (1 << USB_LED_NUM_LOCK)) {
