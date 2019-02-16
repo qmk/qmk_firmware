@@ -30,7 +30,7 @@ void td_double_mods_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 struct {
-  bool fn_on; // Layer state when tap dance started
+  bool fn_on;  // Layer state when tap dance started
   bool started;
 } td_fn_rctrl_data;
 
