@@ -30,6 +30,7 @@ void matrix_init_kb(void) {
 	matrix_init_user();
 };
 
+__attribute__ ((weak))
 void shutdown_user(void) {
     #ifdef AUDIO_ENABLE
         PLAY_SONG(tone_goodbye);
