@@ -40,21 +40,20 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef LAYER_NUMPAD
-static void toggle_numpad(void) {
-  layer_invert(L_NUMPAD);
-  bool numpad_on = IS_LAYER_ON(L_NUMPAD);
-  bool num_lock_on = IS_HOST_LED_ON(USB_LED_NUM_LOCK);
-  if (num_lock_on != numpad_on) {
-    tap_code(KC_NLCK);  // Toggle Num Lock to match layer state
-  }
-}
-#endif
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (!process_record_keymap(keycode, record)) {
     return false;
   }
+
+#ifdef LAYER_NUMPAD
+  void toggle_numpad(void) {
+    layer_invert(L_NUMPAD);
+    bool numpad = IS_LAYER_ON(L_NUMPAD), num_lock = IS_HOST_LED_ON(USB_LED_NUM_LOCK);
+    if (num_lock != numpad) {
+      tap_code(KC_NLCK);  // Toggle Num Lock to match layer state
+    }
+  }
+#endif
 
   switch (keycode) {
   case CLEAR:
