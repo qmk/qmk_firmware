@@ -22,10 +22,6 @@ enum custom_keycodes {
   SFT_ESC = SAFE_RANGE
 };
 
-// Helpful defines
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define _DEFAULT 0
 #define _FN 1
 
