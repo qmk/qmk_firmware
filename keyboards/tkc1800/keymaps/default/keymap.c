@@ -15,7 +15,7 @@
  */
 #include QMK_KEYBOARD_H
 #include "LUFA/Drivers/Peripheral/TWI.h"
-#include "i2c.h"
+#include "i2c_master.h"
 #include "ssd1306.h"
 
 
@@ -98,7 +98,7 @@ void led_set_user(uint8_t usb_led) {
 
 void matrix_init_user(void) {
   #ifdef USE_I2C
-    i2c_master_init();
+    i2c_init();
     #ifdef SSD1306OLED
       // calls code for the SSD1306 OLED
       _delay_ms(400);
