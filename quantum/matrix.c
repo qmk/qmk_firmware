@@ -235,19 +235,25 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 static void select_row(uint8_t row)
 {
-    setPinOutput(row_pins[row]);
-    writePinLow(row_pins[row]);
+    if (row_pins[row] != NO_PIN) {
+        setPinOutput(row_pins[row]);
+        writePinLow(row_pins[row]);
+    }
 }
 
 static void unselect_row(uint8_t row)
 {
-    setPinInputHigh(row_pins[row]);
+    if (row_pins[row] != NO_PIN) {
+        setPinInputHigh(row_pins[row]);
+    }
 }
 
 static void unselect_rows(void)
 {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInput(row_pins[x]);
+        if (row_pins[x] != NO_PIN) {
+            setPinInput(row_pins[x]);
+        }
     }
 }
 
@@ -256,7 +262,9 @@ static void unselect_rows(void)
 static void init_rows(void)
 {
     for(uint8_t x = 0; x < MATRIX_ROWS; x++) {
-        setPinInputHigh(row_pins[x]);
+        if (row_pins[x] != NO_PIN) {
+            setPinInputHigh(row_pins[x]);
+        }
     }
 }
 
