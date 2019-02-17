@@ -27,19 +27,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_DISPLAY_WIDTH 128
 #endif
 
+// Type to use for segmenting the oled display for smart rendering, use unsigned types only
+#ifndef OLED_BLOCK_TYPE
+#define OLED_BLOCK_TYPE uint8_t
+#endif
 
+// Custom font file to use
 #ifndef OLED_FONT_H
 #define OLED_FONT_H "glcdfont.c"
 #endif
+// unsigned char value of the first character in the font file
 #ifndef OLED_FONT_START
 #define OLED_FONT_START 0
 #endif
+// unsigned char value of the last character in the font file
 #ifndef OLED_FONT_END
 #define OLED_FONT_END 224
 #endif
+// Font render width
 #ifndef OLED_FONT_WIDTH
 #define OLED_FONT_WIDTH 6
 #endif
+// Font render height
 #ifndef OLED_FONT_HEIGHT
 #define OLED_FONT_HEIGHT 8
 #endif

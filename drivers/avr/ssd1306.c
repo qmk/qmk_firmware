@@ -14,8 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "ssd1306.h"
 #include "i2c_master.h"
+#include "ssd1306.h"
 #include OLED_FONT_H
 #include "timer.h"
 #include "print.h"
@@ -68,9 +68,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 #define OLED_MATRIX_SIZE ((OLED_DISPLAY_HEIGHT / 8) * OLED_DISPLAY_WIDTH)
 #define OLED_TIMEOUT 60000
-#define OLED_BLOCK_COUNT 8
+#define OLED_BLOCK_COUNT sizeof(OLED_BLOCK_TYPE)
 #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
-// TODO: block count is 8 because uint8_t is used, make this adjustable
 
 // i2c defines
 #define I2C_CMD 0x00
@@ -84,13 +83,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // this is so we don't end up with rounding errors with
 // parts of the display unusable or don't get cleared correctly
 // and also allows for drawing & inverting
-static uint8_t  display_buffer[OLED_MATRIX_SIZE];
-static uint8_t* display_cursor;
-static uint8_t  display_dirty = 0;
-static bool     display_initialized = false;
-static bool     display_active = false;
-static bool     display_scrolling = false;
-static uint16_t last_activity;
+static uint8_t          display_buffer[OLED_MATRIX_SIZE];
+static uint8_t*         display_cursor;
+static OLED_BLOCK_TYPE  display_dirty = 0;
+static bool             display_initialized = false;
+static bool             display_active = false;
+static bool             display_scrolling = false;
+static uint16_t         last_activity;
 
 // identical to i2c_writeReg, but for PROGMEM since all initialization is in PROGMEM arrays currently
 // probably should move this into i2c_master...
@@ -102,7 +101,7 @@ static i2c_status_t i2c_writeReg_P(uint8_t devaddr, uint8_t regaddr, const uint8
   if (status) return status;
 
   for (uint16_t i = 0; i < length; i++) {
-    status = i2c_write(pgm_read_byte(data++), timeout);
+    status = i2c_write(pgm_read_byte((const char*)data++), timeout);
     if (status) return status;
   }
 
@@ -179,7 +178,7 @@ bool oled_init(bool flip180) {
 void oled_clear(void) {
   memset(display_buffer, 0, sizeof(display_buffer));
   display_cursor = &display_buffer[0];
-  display_dirty = 0xFF; // TODO: make this max value of defined type
+  display_dirty = -1; // -1 will be max value as long as display_dirty is unsigned type
 }
 
 void oled_render(void) {
@@ -190,7 +189,7 @@ void oled_render(void) {
 
   // Find first dirty block
   uint8_t update_start = 0;
-  while(!(display_dirty & (1 << update_start))) { ++update_start; }
+  while (!(display_dirty & (1 << update_start))) { ++update_start; }
 
   // Set column & page position
   static uint8_t display_start[] = {
@@ -200,7 +199,7 @@ void oled_render(void) {
   display_start[4] = (OLED_BLOCK_SIZE * update_start) / OLED_DISPLAY_WIDTH;
 
   // Send column & page position
-  if (I2C_SEND(I2C_CMD, display_start)  != I2C_STATUS_SUCCESS ) {
+  if (I2C_SEND(I2C_CMD, display_start) != I2C_STATUS_SUCCESS) {
     print("oled_render offset command failed\n");
     return;
   }
@@ -283,10 +282,11 @@ void oled_write_char(const char data, bool invert) {
   memcpy(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH);
 
   // set the reder buffer data
-  if (data < OLED_FONT_START || data > OLED_FONT_END) {
+  uint8_t cast_data = (uint8_t)data; // font based on unsigned type for index
+  if (cast_data < OLED_FONT_START || cast_data > OLED_FONT_END) {
     memset(display_cursor, 0x00, OLED_FONT_WIDTH);
   } else {
-    const uint8_t *glyph = &font[(data - OLED_FONT_START) * OLED_FONT_WIDTH];
+    const uint8_t *glyph = &font[(cast_data - OLED_FONT_START) * OLED_FONT_WIDTH];
     memcpy_P(display_cursor, glyph, OLED_FONT_WIDTH);
   }
 
@@ -423,12 +423,12 @@ void oled_task(void) {
   }
 }
 
-__attribute__ ((weak))
+__attribute__((weak))
 void oled_task_user(void) {
 }
 
 #ifdef SSD1306OLED
-__attribute__ ((weak))
+__attribute__((weak))
 void iota_gfx_task_user(void) {
 }
 #endif
