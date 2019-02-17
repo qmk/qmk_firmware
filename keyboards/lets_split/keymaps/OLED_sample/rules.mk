@@ -1,4 +1,5 @@
-SRC += ssd1306.c
+SRC += ssd1306.c \
+    i2c_master.c
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
