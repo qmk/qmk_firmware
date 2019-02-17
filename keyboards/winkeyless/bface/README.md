@@ -8,7 +8,7 @@ Hardware Availability: [Winkeyless](https://winkeyless.kr/product/b-face-x2-pcb/
 
 Make example for this keyboard (after setting up your build environment):
 
-    make bface:default
+    make winkeyless/bface:default
 
 Flashing
 
