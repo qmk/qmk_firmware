@@ -17,9 +17,7 @@
 #include "backlight.h"
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
 #define ___T___ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Layer shorthand
 #define _QW 0

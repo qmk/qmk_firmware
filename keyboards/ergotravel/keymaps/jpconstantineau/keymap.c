@@ -15,7 +15,6 @@ enum custom_keycodes {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_LOWR LOWER
 #define KC_RASE RAISE

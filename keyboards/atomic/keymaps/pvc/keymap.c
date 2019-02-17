@@ -104,8 +104,6 @@ enum keyboard_macros {
 #define TG_NKRO             MAGIC_TOGGLE_NKRO
 #define OS_SHFT             KC_FN0
 
-#define _______             KC_TRNS
-#define XXXXXXX             KC_NO
 #define ________________    _______, _______
 #define XXXXXXXXXXXXXXXX    XXXXXXX, XXXXXXX
 

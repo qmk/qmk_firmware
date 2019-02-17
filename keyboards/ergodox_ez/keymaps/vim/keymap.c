@@ -5,7 +5,6 @@
 #include "vim.h"
 
 #define VERSION_STRING QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION
-#define _______ KC_TRNS
 #define X_____X KC_TRNS
 #define KC_ATM LGUI(LSFT(KC_P))
 #define KC_ATP LGUI(LCTL(KC_P))

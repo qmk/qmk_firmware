@@ -20,8 +20,6 @@ enum planck_keycodes {
   DYNAMIC_MACRO_RANGE,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
 #define FKEYS F(_FKEYS)
 #define NUMSYM F(_NUMSYM)
 #define FKEYGRV F(_FKEYGRV)
@@ -30,7 +28,6 @@ enum planck_keycodes {
 #define LAYERRESET M(7)
 #define BACKLIT M(8)
 #define ADJUST M(9)
-#define XXXXXXX KC_NO
 
 #include "dynamic_macro.h"
 
