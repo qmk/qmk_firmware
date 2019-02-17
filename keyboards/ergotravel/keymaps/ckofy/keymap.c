@@ -31,7 +31,6 @@ enum {
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 #define KC_XXXX KC_NO
 
 #define KC_CMK COLEMAK

@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
 #define FN MO(_FN)
 #define TODO KC_NO
 

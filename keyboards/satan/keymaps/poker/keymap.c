@@ -12,10 +12,6 @@
 #define _FL 1
 #define _RL 2
 
-// readability
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 enum custom_keycodes {
   SFT_ESC = SAFE_RANGE
 };
