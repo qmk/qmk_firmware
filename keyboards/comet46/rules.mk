@@ -1,8 +1,8 @@
 # # project specific files
 SRC += matrix.c \
-       i2c.c \
-       ssd1306.c 
-       
+       i2c_master.c \
+       ssd1306.c
+
 # MCU name
 #MCU = at90usb1287
 MCU = atmega32u4
@@ -40,7 +40,7 @@ F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 # BOOTLOADER = caterina
 

@@ -168,7 +168,7 @@ void matrix_scan_user(void) {
   oled_task();  // this is what updates the display continuously
 }
 
-void render_status() {
+void render_status(void) {
   // Layer state
   char layer_str[22];
   oled_write("Layer: ", false);

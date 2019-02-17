@@ -27,6 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_DISPLAY_WIDTH 128
 #endif
 
+
+#ifndef OLED_FONT_FILE
+#define OLED_FONT_FILE "glcdfont.c"
+#endif
 #ifndef OLED_FONT_START
 #define OLED_FONT_START 0
 #endif
