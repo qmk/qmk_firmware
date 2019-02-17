@@ -64,7 +64,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Misc defines
 #define OLED_TIMEOUT 60000
-#define OLED_BLOCK_COUNT sizeof(OLED_BLOCK_TYPE)
+#define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8)
 #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
 
 // i2c defines
