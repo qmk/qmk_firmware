@@ -1,4 +1,4 @@
-# A personal layout for Play Keyboard60 based on the minila layout
+# A personal keymap for Play Keyboard60 based on the minila layout
 
 ![Mininla layout](https://i.imgur.com/K7ONE1k.jpg)
 
