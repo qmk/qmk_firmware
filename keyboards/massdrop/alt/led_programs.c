@@ -99,23 +99,6 @@ led_setup_t leds_rainbow_s[] = {
     { .end = 1 },
 };
 
-//test
-led_setup_t leds_pleasuretek_s[] = {
-    { .hs = 0,      .he = 8.33,  .rs = 255, .re = 255, .gs = 255,   .ge = 255, .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 8.33,   .he = 16.6,  .rs = 255, .re = 255,   .gs = 255,   .ge = 20,   .bs = 255,   .be = 147,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 16.6,   .he = 24.9,  .rs = 255,   .re = 255,   .gs = 20,   .ge = 20, .bs = 147,   .be = 147,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 24.9,   .he = 33.2,  .rs = 255,   .re = 255,   .gs = 20, .ge = 255,   .bs = 147,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 33.2,   .he = 41.5,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255, .bs = 255,   .be = 255, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 41.5,   .he = 49.8,  .rs = 255,   .re = 255,   .gs = 255, .ge = 255,   .bs = 255, .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 49.8,   .he = 58.1,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 58.1,   .he = 66.4,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255,   .bs = 255,   .be = 255, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 66.4,   .he = 74.7,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 74.7,   .he = 83,    .rs = 255,   .re = 0, .gs = 255,   .ge = 255,   .bs = 255,   .be = 255, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 83,     .he = 91.3,  .rs = 0,   .re = 0,   .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 91.3,   .he = 100,   .rs = 0,   .re = 255, .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .end = 1 },
-};
-
 //Add new LED animations here using one from above as example
 //The last entry must be { .end = 1 }
 //Add the new animation name to the list below following its format
@@ -123,7 +106,6 @@ led_setup_t leds_pleasuretek_s[] = {
 void *led_setups[] = {
     leds_rainbow_s,
     leds_rainbow_ns,
-    leds_pleasuretek_s,
     leds_teal_salmon,
     leds_yellow,
     leds_red,
