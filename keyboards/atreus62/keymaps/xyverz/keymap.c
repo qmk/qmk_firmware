@@ -63,10 +63,6 @@ enum atreus52_keycodes {
   RAISE
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Aliases to make the keymap clearer.
 #define CTL_ENT CTL_T(KC_ENT)
 
