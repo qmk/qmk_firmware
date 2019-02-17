@@ -1,6 +1,7 @@
 #ifdef SSD1306OLED
 #include QMK_KEYBOARD_H
 #include "ssd1306.h"
+#include <stdio.h>
 
 void render_logo(void) {
 

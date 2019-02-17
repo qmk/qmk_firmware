@@ -168,8 +168,7 @@ static inline void update_keymap_status(void) {
     keymap_config.swap_lalt_lgui? "win" : "mac", get_leyer_status());
 }
 
-static inline void render_keymap_status() {
-
+static inline void render_keymap_status(void) {
   oled_write(layer_status_buf, false);
 }
 
@@ -255,7 +254,7 @@ void matrix_scan_user(void) {
   oled_task();  // this is what updates the display continuously
 }
 
-static inline void render_status() {
+static inline void render_status(void) {
   UPDATE_LED_STATUS();
   RENDER_LED_STATUS();
   RENDER_KEYMAP_STATUS();

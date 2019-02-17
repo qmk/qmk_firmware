@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stdio.h>
 #include "oled.h"
 
 // NOTE: Redefined to avoid to use snprintf(); It makes size of firmware big.

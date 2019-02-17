@@ -244,7 +244,7 @@ void matrix_scan_keymap(void) {
    oled_task();
 }
 
-void matrix_render_user() {
+void matrix_render_user(void) {
   if (is_master) {
     //If you want to change the display of OLED, you need to change here
     oled_write_ln(read_layer_state(), false);
