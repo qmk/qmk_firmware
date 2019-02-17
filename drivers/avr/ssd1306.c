@@ -401,7 +401,7 @@ void oled_task(void) {
 
   oled_set_cursor(0, 0);
 
-#ifdef SSD1306OLED
+#ifdef SSD1306OLED_COMPATIBILITY
   iota_gfx_task_user();
 #endif
   oled_task_user();
@@ -419,7 +419,7 @@ __attribute__((weak))
 void oled_task_user(void) {
 }
 
-#ifdef SSD1306OLED
+#ifdef SSD1306OLED_COMPATIBILITY
 __attribute__((weak))
 void iota_gfx_task_user(void) {
 }

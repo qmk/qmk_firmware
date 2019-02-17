@@ -130,7 +130,7 @@ bool oled_scroll_off(void);
 
 
 // compatibility defines
-#ifdef SSD1306OLED
+#ifdef SSD1306OLED_COMPATIBILITY
 
 #define iota_gfx_init(v) oled_init(v) // bool return, v is typical void, converts to bool
 #define iota_gfx_off(v) oled_off() // bool return
