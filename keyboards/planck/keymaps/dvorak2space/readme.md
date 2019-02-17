@@ -2,4 +2,5 @@ IsaacElenbaas's Planck Layout
 
 Split spacebar, Dvorak
 No gaming layer, use .oeu (esdf) and shift instead of right mouse (ctrl)
-KLE layout here: https://bit.ly/2WX31nw
+
+![Keyboard Layout](https://github.com/IsaacElenbaas/qmk_firmware/blob/master/keyboards/planck/keymaps/dvorak2space/keyboard-layout.png)

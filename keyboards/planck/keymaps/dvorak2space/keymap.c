@@ -17,11 +17,15 @@ enum {
 };
 
 enum {
-	TD/ = 0
+	F/B = 0
+	LPN = 0
+	RPN = 0
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-	[TD/] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS)
+	[F/B] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS)
+	[LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, LCBR)
+	[RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, RCBR)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -61,19 +65,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	),
 /* Modifier
  * ,-----------------------------------------------------------------------------------.
- * |  Tab |   +  |   -  |  / \ |   =  |  if  | else |   (  |   )  |   {  |   }  | Bksp |
+ * |  Tab |   +  |   -  |   *  |  / \ |  if  | else |  ( [ |  ) ] |   {  |   }  | Bksp |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |   |  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Enter|
+ * |   =  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Enter|
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   [  |   _  |   @  |   #  |   $  |   %  |   ^  |   &  |   *  |   <  |   >  |   ]  |
+ * |      |   <  |   >  |   &  |   |  |   _  |   $  |   @  |   #  |   %  |   ^  |      |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
  * |      |      |      |      |    Space    |             |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
 	[2] = LAYOUT_planck_2x2u(
-		KC_TAB,	KC_PLUS,KC_PMNS,TD(TD/),KC_PEQL,HK_IF,	HK_ELSE,KC_LPRN,KC_RPRN,KC_LCBR,KC_RCBR,KC_BSPC,
-		KC_PIPE,KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_ENT,
-		KC_LBRC,KC_UNDS,KC_AT,	KC_HASH,KC_DLR,	KC_PERC,KC_CIRC,KC_AMPR,KC_ASTR,KC_LT,	KC_GT,	KC_RBRC,
+		KC_TAB,	KC_PLUS,KC_PMNS,KC_ASTR,TD(F/B),HK_IF,	HK_ELSE,TD(LPN),TD(RPN),KC_LCBR,KC_RCBR,KC_BSPC,
+		KC_PEQL,KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_ENT,
+		KC_NO,	KC_LT,	KC_GT,	KC_AMPR,KC_PIPE,KC_UNDS,KC_DLR,	KC_AT,	KC_HASH,KC_PERC,KC_CIRC,KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_SPC,	KC_TRNS,		KC_NO,	KC_NO,	KC_NO,	KC_NO
 	),
 	[3] = LAYOUT_planck_2x2u( //Nav
