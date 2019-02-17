@@ -190,24 +190,17 @@ const char *read_modifier_state(void);
 const char *read_host_led_state(void);
 
 void matrix_init_user(void) {
-  iota_gfx_init(false);   // turns on the display
+  oled_init(false);   // turns on the display
 }
 
 void matrix_scan_user(void) {
-  iota_gfx_task();  // this is what updates the display continuously
+  oled_task();  // this is what updates the display continuously
 }
 
-void matrix_update(struct CharacterMatrix *dest, const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void render_status(struct CharacterMatrix *matrix) {
+void render_status() {
   // Layer state
   char layer_str[22];
-  matrix_write(matrix, "Layer: ");
+  oled_write("Layer: ", false);
   uint8_t layer = biton32(layer_state);
   uint8_t default_layer = biton32(eeconfig_read_default_layer());
     switch (layer) {
@@ -242,27 +235,17 @@ void render_status(struct CharacterMatrix *matrix) {
       default:
         snprintf(layer_str, sizeof(layer_str), "Undef-%d", layer);
     }
-  matrix_write_ln(matrix, layer_str);
+  oled_write_ln(layer_str, false);
   // Last entered keycode
-  matrix_write_ln(matrix, read_keylog());
+  oled_write_ln(read_keylog(), false);
   // Modifier state
-  matrix_write_ln(matrix, read_modifier_state());
+  oled_write_ln(read_modifier_state(), false);
   // Host Keyboard LED Status
-  matrix_write(matrix, read_host_led_state());
+  oled_write(read_host_led_state(), false);
 }
 
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-
-#if DEBUG_TO_SCREEN
-  if (debug_enable) {
-    return;
-  }
-#endif
-
-  matrix_clear(&matrix);
-  render_status(&matrix);
-  matrix_update(&display, &matrix);
+void oled_task_user(void) {
+  render_status();
 }
 
 #endif//SSD1306OLED

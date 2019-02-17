@@ -28,14 +28,14 @@ enum {
 
 bool screenWorks = 0;
 
-//13 characters max without re-writing the "Layer: " format in iota_gfx_task_user()
+//13 characters max without re-writing the "Layer: " format in oled_task_user()
 static char layer_lookup[][14] = {"Base","Function"};
 
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap BASE: (Base Layer) Default Layer
-   * 
+   *
    * ,-----------------------------------------------------------. .-------------------.
    * | ~ | 1 |  2|  3|  4|  5|  6|  7|  8|  9|  0|  -|  =|Backsp | |NumL| /  | *  | -  |
    * |-----------------------------------------------------------| |-------------------|
@@ -56,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                        KC_RALT, KC_RWIN, MO(FUNCTION), KC_RCTL,                   KC_P0,   XXXXXXX, KC_PDOT, KC_PENT  \
   ),
   /* Keymap FUNCTION: (Function Layer)
-   * 
+   *
    * ,-----------------------------------------------------------. .-------------------.
    * |   |   |   |   |   |   |   |   |   |   |   |   |   | RESET | |    |    |    |    |
    * |-----------------------------------------------------------| |-------------------|
@@ -93,7 +93,7 @@ void matrix_init_user(void) {
       // calls code for the SSD1306 OLED
       _delay_ms(400);
       TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-      if ( iota_gfx_init() ) { // turns on the display
+      if ( oled_init(false) ) { // turns on the display
         screenWorks = 1;
       }
     #endif
@@ -106,37 +106,20 @@ void matrix_init_user(void) {
 void matrix_scan_user(void) {
   #ifdef SSD1306OLED
     if ( screenWorks ) {
-      iota_gfx_task();  // this is what updates the display continuously
+      oled_task();  // this is what updates the display continuously
     };
   #endif
 }
 
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void iota_gfx_task_user(void) {
-  #if DEBUG_TO_SCREEN
-    if (debug_enable) {
-      return;
-    }
-  #endif
-
-  struct CharacterMatrix matrix;
-
-  matrix_clear(&matrix);
-  matrix_write_P(&matrix, PSTR("TKC M0LLY"));
+void oled_task_user(void) {
+  oled_write_P(PSTR("TKC M0LLY"), false);
 
   uint8_t layer = biton32(layer_state);
 
   char buf[40];
   snprintf(buf,sizeof(buf), "Undef-%d", layer);
-  matrix_write_P(&matrix, PSTR("\nLayer: "));
-  matrix_write(&matrix, layer_lookup[layer]);
+  oled_write_P(PSTR("\nLayer: "), false);
+  oled_write(layer_lookup[layer], false);
 
   // Host Keyboard LED Status
   char led[40];
@@ -144,6 +127,5 @@ void iota_gfx_task_user(void) {
             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(&matrix, led);
-  matrix_update(&display, &matrix);
+  oled_write(led, false);
 }

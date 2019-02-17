@@ -455,7 +455,7 @@ void matrix_init_user(void) {
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
-        iota_gfx_init(!has_usb());   // turns on the display
+        oled_init(!has_usb());   // turns on the display
     #endif
 }
 
@@ -559,7 +559,7 @@ uint8_t layer_state_old;
 //runs every scan cycle (a lot)
 void matrix_scan_user(void) {
   #ifdef SSD1306OLED
-    iota_gfx_task();  // this is what updates the display continuously
+    oled_task();  // this is what updates the display continuously
   #endif
 
   if(delay_key_stat && (timer_elapsed(key_timer) > DELAY_TIME)){
@@ -635,16 +635,8 @@ void matrix_scan_user(void) {
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
 #ifdef SSD1306OLED
 
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
 // Render to OLED
-void render_status(struct CharacterMatrix *matrix) {
+void render_status() {
 
   // froggy logo
   static char logo[4][1][17]=
@@ -712,35 +704,25 @@ void render_status(struct CharacterMatrix *matrix) {
   if (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) { rows = 4; } else { rows = 0; }
   if (layer_state == L_FUNC) { rowf = 4; }
 
-  matrix_write(matrix, indctr[rown]  [0]);
-  matrix_write(matrix, indctr[rowf]  [1]);
-  matrix_write(matrix, logo  [0]     [0]);
-  matrix_write(matrix, indctr[rown+1][0]);
-  matrix_write(matrix, indctr[rowf+1][1]);
-  matrix_write(matrix, logo  [1]     [0]);
-  matrix_write(matrix, indctr[rowa+2][0]);
-  matrix_write(matrix, indctr[rows+2][1]);
-  matrix_write(matrix, logo  [2]     [0]);
-  matrix_write(matrix, indctr[rowa+3][0]);
-  matrix_write(matrix, indctr[rows+3][1]);
-  matrix_write(matrix, logo  [3]     [0]);
+  oled_write(indctr[rown]  [0], false);
+  oled_write(indctr[rowf]  [1], false);
+  oled_write(logo  [0]     [0], false);
+  oled_write(indctr[rown+1][0], false);
+  oled_write(indctr[rowf+1][1], false);
+  oled_write(logo  [1]     [0], false);
+  oled_write(indctr[rowa+2][0], false);
+  oled_write(indctr[rows+2][1], false);
+  oled_write(logo  [2]     [0], false);
+  oled_write(indctr[rowa+3][0], false);
+  oled_write(indctr[rows+3][1], false);
+  oled_write(logo  [3]     [0], false);
 
 }
 
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-
-#if DEBUG_TO_SCREEN
-  if (debug_enable) {
-    return;
-  }
-#endif
-
-  matrix_clear(&matrix);
+void oled_task_user(void) {
   if(is_master){
-    render_status(&matrix);
+    render_status();
   }
-  matrix_update(&display, &matrix);
 }
 
 #endif

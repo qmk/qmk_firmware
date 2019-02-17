@@ -11,9 +11,7 @@
 extern uint8_t is_master;
 extern bool japanese_mode;
 
-void matrix_update(struct CharacterMatrix *dest,
-                   const struct CharacterMatrix *source);
-void render_status(struct CharacterMatrix *matrix);
-void iota_gfx_task_user(void);
+void render_status(void);
+void oled_task_user(void);
 
 #endif // OLED_CONFIG_USER_H

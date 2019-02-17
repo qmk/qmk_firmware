@@ -344,7 +344,7 @@ void matrix_init_user(void) {
   // calls code for the SSD1306 OLED
         _delay_ms(400);
         TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-        iota_gfx_init();   // turns on the display
+        oled_init(false);   // turns on the display
   #endif
   #endif
     #ifdef AUDIO_ENABLE
@@ -355,17 +355,10 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
     #ifdef SSD1306OLED
-     iota_gfx_task();  // this is what updates the display continuously
+     oled_task();  // this is what updates the display continuously
     #endif
 }
 
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
 //assign the right code to your layers for OLED display
 #define L_BASE 0
 #define L_LOWER 8
@@ -377,39 +370,30 @@ void matrix_update(struct CharacterMatrix *dest,
 #define L_MOUSECURSOR 256
 #define L_ADJUST 65560
 
-void iota_gfx_task_user(void) {
-#if DEBUG_TO_SCREEN
-  if (debug_enable) {
-    return;
-  }
-#endif
-
-  struct CharacterMatrix matrix;
-
-  matrix_clear(&matrix);
-  matrix_write_P(&matrix, PSTR("USB: "));
+void oled_task_user(void) {
+  oled_write_P(PSTR("USB: "), false);
 #ifdef PROTOCOL_LUFA
   switch (USB_DeviceState) {
     case DEVICE_STATE_Unattached:
-      matrix_write_P(&matrix, PSTR("Unattached"));
+      oled_write_P(PSTR("Unattached"), false);
       break;
     case DEVICE_STATE_Suspended:
-      matrix_write_P(&matrix, PSTR("Suspended"));
+      oled_write_P(PSTR("Suspended"), false);
       break;
     case DEVICE_STATE_Configured:
-      matrix_write_P(&matrix, PSTR("Connected"));
+      oled_write_P(PSTR("Connected"), false);
       break;
     case DEVICE_STATE_Powered:
-      matrix_write_P(&matrix, PSTR("Powered"));
+      oled_write_P(PSTR("Powered"), false);
       break;
     case DEVICE_STATE_Default:
-      matrix_write_P(&matrix, PSTR("Default"));
+      oled_write_P(PSTR("Default"), false);
       break;
     case DEVICE_STATE_Addressed:
-      matrix_write_P(&matrix, PSTR("Addressed"));
+      oled_write_P(PSTR("Addressed"), false);
       break;
     default:
-      matrix_write_P(&matrix, PSTR("Invalid"));
+      oled_write_P(PSTR("Invalid"), false);
   }
 #endif
 
@@ -417,22 +401,22 @@ void iota_gfx_task_user(void) {
 
   char buf[40];
   snprintf(buf,sizeof(buf), "Undef-%ld", layer_state);
-  matrix_write_P(&matrix, PSTR("\n\nLayer: "));
+  oled_write_P(PSTR("\n\nLayer: "), false);
     switch (layer_state) {
         case L_BASE:
-           matrix_write_P(&matrix, PSTR("Default"));
+           oled_write_P(PSTR("Default"), false);
            break;
         case L_RAISE:
-           matrix_write_P(&matrix, PSTR("Raise"));
+           oled_write_P(PSTR("Raise"), false);
            break;
         case L_LOWER:
-           matrix_write_P(&matrix, PSTR("Lower"));
+           oled_write_P(PSTR("Lower"), false);
            break;
         case L_ADJUST:
-           matrix_write_P(&matrix, PSTR("ADJUST"));
+           oled_write_P(PSTR("ADJUST"), false);
            break;
         default:
-           matrix_write(&matrix, buf);
+           oled_write(buf, false);
  }
 
   // Host Keyboard LED Status
@@ -441,8 +425,7 @@ void iota_gfx_task_user(void) {
             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(&matrix, led);
-  matrix_update(&display, &matrix);
+  oled_write(led, false);
 }
 
 #endif

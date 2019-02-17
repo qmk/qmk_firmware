@@ -168,9 +168,9 @@ static inline void update_keymap_status(void) {
     keymap_config.swap_lalt_lgui? "win" : "mac", get_leyer_status());
 }
 
-static inline void render_keymap_status(struct CharacterMatrix *matrix) {
+static inline void render_keymap_status() {
 
-  matrix_write(matrix, layer_status_buf);
+  oled_write(layer_status_buf, false);
 }
 
 #define UPDATE_KEYMAP_STATUS() update_keymap_status()
@@ -244,7 +244,7 @@ void matrix_init_user(void) {
   #endif
   //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
   #ifdef SSD1306OLED
-    iota_gfx_init(!has_usb()); // turns on the display
+    oled_init(!has_usb()); // turns on the display
   #endif
 }
 
@@ -252,44 +252,24 @@ void matrix_init_user(void) {
 #ifdef SSD1306OLED
 
 void matrix_scan_user(void) {
-  iota_gfx_task();  // this is what updates the display continuously
+  oled_task();  // this is what updates the display continuously
 }
 
-static inline void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-static inline void render_status(struct CharacterMatrix *matrix) {
-
+static inline void render_status() {
   UPDATE_LED_STATUS();
-  RENDER_LED_STATUS(matrix);
-  RENDER_KEYMAP_STATUS(matrix);
+  RENDER_LED_STATUS();
+  RENDER_KEYMAP_STATUS();
   UPDATE_LOCK_STATUS();
-  RENDER_LOCK_STATUS(matrix);
-  RENDER_KEY_STATUS(matrix);
+  RENDER_LOCK_STATUS();
+  RENDER_KEY_STATUS();
 }
 
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-
-  #if DEBUG_TO_SCREEN
-    if (debug_enable) {
-      return;
-    }
-  #endif
-
-  matrix_clear(&matrix);
+void oled_task_user(void) {
   if (is_master) {
-    render_status(&matrix);
+    render_status();
   } else {
-    RENDER_LOGO(&matrix);
+    RENDER_LOGO();
   }
-
-  matrix_update(&display, &matrix);
 }
 
 #endif

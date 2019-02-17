@@ -25,11 +25,11 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
 #ifdef SSD1306OLED
 void matrix_init_keymap(void) {
   //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-  iota_gfx_init(!has_usb());   // turns on the display
+  oled_init(!has_usb());   // turns on the display
 }
 
 void matrix_scan_user(void) {
-  iota_gfx_task();  // this is what updates the display continuously
+  oled_task();  // this is what updates the display continuously
 }
 #endif
 

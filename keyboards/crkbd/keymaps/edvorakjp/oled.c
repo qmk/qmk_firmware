@@ -58,25 +58,13 @@ const char *read_host_led_state(void) {
   return led_str;
 }
 
-void matrix_update(struct CharacterMatrix *dest,
-                   const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-
-  matrix_clear(&matrix);
+void oled_task_user(void) {
   if (is_master) {
-    matrix_write(&matrix, read_mode_icon(!get_enable_kc_lang()));
-    matrix_write(&matrix, " ");
-    matrix_write(&matrix, read_layer_state());
-    matrix_write(&matrix, read_host_led_state());
+    oled_write(read_mode_icon(!get_enable_kc_lang()), false);
+    oled_write(" ", false);
+    oled_write(read_layer_state(), false);
+    oled_write(read_host_led_state(), false);
   } else {
-    matrix_write(&matrix, read_logo());
+    oled_write(read_logo(), false);
   }
-  matrix_update(&display, &matrix);
 }

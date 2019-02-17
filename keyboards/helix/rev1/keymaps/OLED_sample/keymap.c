@@ -442,11 +442,11 @@ void matrix_init_user(void) {
 #ifdef SSD1306OLED
 void matrix_master_OLED_init (void) {
     TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-    iota_gfx_init(0);   // turns on the display
+    oled_init(0);   // turns on the display
 }
 
 void matrix_scan_user(void) {
-     iota_gfx_task();  // this is what updates the display continuously
+     oled_task();  // this is what updates the display continuously
 }
 #endif
 

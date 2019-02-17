@@ -26,7 +26,7 @@ enum {
 	FUNCTION,
 };
 
-//13 characters max without re-writing the "Layer: " format in iota_gfx_task_user()
+//13 characters max without re-writing the "Layer: " format in oled_task_user()
 static char layer_lookup[][14] = {"Base","Function"};
 
 
@@ -84,7 +84,7 @@ void matrix_init_user(void) {
       // calls code for the SSD1306 OLED
       _delay_ms(400);
       TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-      iota_gfx_init();   // turns on the display
+      oled_init(false);   // turns on the display
     #endif
   #endif
   #ifdef AUDIO_ENABLE
@@ -94,36 +94,19 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
   #ifdef SSD1306OLED
-    iota_gfx_task();  // this is what updates the display continuously
+    oled_task();  // this is what updates the display continuously
   #endif
 }
 
-void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
-}
-
-void iota_gfx_task_user(void) {
-  #if DEBUG_TO_SCREEN
-    if (debug_enable) {
-      return;
-    }
-  #endif
-
-  struct CharacterMatrix matrix;
-
-  matrix_clear(&matrix);
-  matrix_write_P(&matrix, PSTR("TKC1800"));
+void oled_task_user(void) {
+  oled_write_P(PSTR("TKC1800"), false);
 
   uint8_t layer = biton32(layer_state);
 
   char buf[40];
   snprintf(buf,sizeof(buf), "Undef-%d", layer);
-  matrix_write_P(&matrix, PSTR("\nLayer: "));
-  matrix_write(&matrix, layer_lookup[layer]);
+  oled_write_P(PSTR("\nLayer: "), false);
+  oled_write(layer_lookup[layer], false);
 
   // Host Keyboard LED Status
   char led[40];
@@ -131,6 +114,5 @@ void iota_gfx_task_user(void) {
             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
-  matrix_write(&matrix, led);
-  matrix_update(&display, &matrix);
+  oled_write(led, false);
 }

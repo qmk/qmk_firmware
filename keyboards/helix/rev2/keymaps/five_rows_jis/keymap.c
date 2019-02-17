@@ -333,7 +333,7 @@ void matrix_init_user(void) {
   #endif
   //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
   #ifdef SSD1306OLED
-    iota_gfx_init(!has_usb()); // turns on the display
+    oled_init(!has_usb()); // turns on the display
   #endif
 }
 
@@ -341,15 +341,7 @@ void matrix_init_user(void) {
 #ifdef SSD1306OLED
 
 void matrix_scan_user(void) {
-  iota_gfx_task();  // this is what updates the display continuously
-}
-
-static inline void matrix_update(struct CharacterMatrix *dest,
-                          const struct CharacterMatrix *source) {
-  if (memcmp(dest->display, source->display, sizeof(dest->display))) {
-    memcpy(dest->display, source->display, sizeof(dest->display));
-    dest->dirty = true;
-  }
+  oled_task();  // this is what updates the display continuously
 }
 
 //assign the right code to your layers for OLED display
@@ -368,80 +360,69 @@ const char helix_logo[]={
   0xc0,0xc1,0xc2,0xc3,0xc4,0xc5,0xc6,0xc7,0xc8,0xc9,0xca,0xcb,0xcc,0xcd,0xce,0xcf,0xd0,0xd1,0xd2,0xd3,0xd4,
   0};
 
-static inline void render_logo(struct CharacterMatrix *matrix) {
+static inline void render_logo(void) {
 
-  matrix_write(matrix, helix_logo);
+  oled_write(helix_logo, false);
 }
 
 const char mac_win_logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
 
-static inline void render_status(struct CharacterMatrix *matrix) {
+static inline void render_status() {
 
   char buf[20];
   // Render to mode icon
   if(keymap_config.swap_lalt_lgui==false){
-    matrix_write(matrix, mac_win_logo[0][0]);
-    matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, mac_win_logo[0][1]);
+    oled_write(mac_win_logo[0][0], false);
+    oled_write_P(PSTR("\n"), false);
+    oled_write(mac_win_logo[0][1], false);
   } else {
-    matrix_write(matrix, mac_win_logo[1][0]);
-    matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, mac_win_logo[1][1]);
+    oled_write(mac_win_logo[1][0], false);
+    oled_write_P(PSTR("\n"), false);
+    oled_write(mac_win_logo[1][1], false);
   }
 
   #ifdef RGBLIGHT_ENABLE
     snprintf(buf, sizeof(buf), "  LED mode:%d", (short)RGB_current_mode);
-    matrix_write(matrix, buf);
+    oled_write(buf, false);
   #endif
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
-  matrix_write_P(matrix, PSTR("\nLayer: "));
+  oled_write_P(PSTR("\nLayer: "), false);
   switch (layer_state) {
     case L_BASE:
-      matrix_write_P(matrix, default_layer_state == (1UL<<_BAS_E) ? PSTR("BaseEx") : PSTR("Base"));
+      oled_write_P(default_layer_state == (1UL<<_BAS_E) ? PSTR("BaseEx") : PSTR("Base"), false);
       break;
     case L_RAISE:
-      matrix_write_P(matrix, PSTR("Raise"));
+      oled_write_P(PSTR("Raise"), false);
       break;
     case L_RAI_E:
-      matrix_write_P(matrix, PSTR("RaiseEx"));
+      oled_write_P(PSTR("RaiseEx"), false);
       break;
     case L_LOWER:
-      matrix_write_P(matrix, PSTR("Lower"));
+      oled_write_P(PSTR("Lower"), false);
       break;
     case L_LOW_E:
-      matrix_write_P(matrix, PSTR("LowerEx"));
+      oled_write_P(PSTR("LowerEx"), false);
       break;
     case L_ADJUST:
     case L_ADJUST_TRI:
     case L_ADJUST_TRIE:
-      matrix_write_P(matrix, PSTR("Adjust"));
+      oled_write_P(PSTR("Adjust"), false);
       break;
     default:
       snprintf(buf, sizeof(buf), "%d", (short)layer_state);
-      matrix_write(matrix, buf);
+      oled_write(buf, false);
   }
 
-  matrix_write(matrix, keylog);
+  oled_write(keylog, false);
 }
 
-void iota_gfx_task_user(void) {
-  struct CharacterMatrix matrix;
-
-  #if DEBUG_TO_SCREEN
-    if (debug_enable) {
-      return;
-    }
-  #endif
-
-  matrix_clear(&matrix);
+void oled_task_user(void) {
   if (is_master) {
-    render_status(&matrix);
+    render_status();
   } else {
-    render_logo(&matrix);
+    render_logo();
   }
-
-  matrix_update(&display, &matrix);
 }
 
 #endif
