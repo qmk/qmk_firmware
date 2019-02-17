@@ -1,5 +1,4 @@
-B.mini
-========
+# B.mini
 
 A 75% keyboard with RGB
 
@@ -9,7 +8,7 @@ Hardware Availability: http://winkeyless.kr/product/b-mini-x2-pcb/
 
 Make example for this keyboard (after setting up your build environment):
 
-    make bmini:default
+    make winkeyless/bmini:default
 
 Flashing
 
