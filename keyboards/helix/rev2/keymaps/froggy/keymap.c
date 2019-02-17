@@ -636,7 +636,7 @@ void matrix_scan_user(void) {
 #ifdef SSD1306OLED
 
 // Render to OLED
-void render_status() {
+void render_status(void) {
 
   // froggy logo
   static char logo[4][1][17]=

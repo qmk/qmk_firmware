@@ -480,7 +480,7 @@ static void render_logo(void) {
 
 
 
-void render_status() {
+void render_status(void) {
 
   // Render to mode icon
   static char logo[][2][3]={{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};

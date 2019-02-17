@@ -1,4 +1,4 @@
-SRC += i2c.c
+SRC += i2c_master.c
 SRC += serial.c
 SRC += ssd1306.c
 
