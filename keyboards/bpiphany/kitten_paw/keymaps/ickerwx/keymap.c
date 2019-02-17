@@ -1,8 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "mousekey.h"
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #undef C
 #undef S
 #define C(kc) LCTL(KC_##kc)
