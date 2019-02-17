@@ -957,13 +957,12 @@ void send_char(char ascii_code) {
 
   keycode = pgm_read_byte(&ascii_to_keycode_lut[(uint8_t)ascii_code]);
   if (pgm_read_byte(&ascii_to_shift_lut[(uint8_t)ascii_code])) { is_shifted = true; } else { is_shifted = false; }
- if (pgm_read_byte(&ascii_to_alt_lut[(uint8_t)ascii_code])) { is_alted = true; } else { is_alted = false; }
+  if (pgm_read_byte(&ascii_to_alt_lut[(uint8_t)ascii_code])) { is_alted = true; } else { is_alted = false; }
 
   if (is_shifted) { register_code(KC_LSFT); }
   if (is_alted) { register_code(KC_RALT); }
 
-  register_code(keycode);
-  unregister_code(keycode);
+  tap_code(keycode);
 
   if (is_alted) { unregister_code(KC_RALT); }
   if (is_shifted) { unregister_code(KC_LSFT); }
