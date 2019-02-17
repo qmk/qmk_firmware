@@ -4,7 +4,7 @@
   #include "audio.h"
 #endif
 #ifdef USE_I2C
-#include "i2c.h"
+#include "i2c_master.h"
 #endif
 #ifdef SSD1306OLED
 #include "ssd1306.h"
@@ -331,12 +331,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 void matrix_init_user(void) {
   #ifdef USE_I2C
-    i2c_master_init();
+    i2c_init();
   #ifdef SSD1306OLED
   // calls code for the SSD1306 OLED
         _delay_ms(400);
         TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-        oled_init(false);   // turns on the display
+        oled_init(true);   // turns on the display
   #endif
   #endif
     #ifdef AUDIO_ENABLE
