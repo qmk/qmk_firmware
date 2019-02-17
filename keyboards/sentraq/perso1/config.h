@@ -52,8 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
 
-#define TAPPING_TOGGLE 2
-
 #define RGB_DI_PIN B0
 #ifdef RGB_DI_PIN
   #define RGBLED_NUM 13

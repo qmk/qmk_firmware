@@ -825,7 +825,7 @@ bool process_record_quantum(keyrecord_t *record) {
 }
 
 __attribute__ ((weak))
-const bool ascii_to_shift_lut[0x80] PROGMEM = {
+const bool ascii_to_shift_lut[0x100] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -845,7 +845,7 @@ const bool ascii_to_shift_lut[0x80] PROGMEM = {
 };
 
 __attribute__ ((weak))
-const uint8_t ascii_to_keycode_lut[0x80] PROGMEM = {
+const uint8_t ascii_to_keycode_lut[0x100] PROGMEM = {
     0, 0, 0, 0, 0, 0, 0, 0,
     KC_BSPC, KC_TAB, KC_ENT, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0,
@@ -932,7 +932,14 @@ void send_char(char ascii_code) {
       register_code(keycode);
       unregister_code(keycode);
       unregister_code(KC_LSFT);
-  } else {
+  }
+	if (pgm_read_byte(&ascii_to_altgr_lut[(uint8_t)ascii_code])) {
+      register_code(KC_ALGR);
+      register_code(keycode);
+      unregister_code(keycode);
+      unregister_code(KC_ALGR);
+  }
+   else {
       register_code(keycode);
       unregister_code(keycode);
   }
