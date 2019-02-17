@@ -1071,7 +1071,6 @@ const uint8_t RGBLED_RAINBOW_SPARKLE_INTERVALS[] PROGMEM = {200, 150, 75};
 
 void rgblight_effect_rainbow_sparkle(uint8_t interval) {
   static uint16_t current_hue = 0;
-  static uint16_t current_val = 0;
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;

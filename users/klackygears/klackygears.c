@@ -32,6 +32,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     break;
 
+    case SHRUG:
+      if (record->event.pressed) {
+        SEND_STRING("¯\\_(ツ)_/¯");
+        //send_unicode_hex_string(0x2122);
+      }
+
+    break;
+
   case KC_DVORAK:
     if (record->event.pressed) {
       set_single_persistent_default_layer(_DVORAK);
@@ -53,5 +61,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
       return true;
 }
-
 

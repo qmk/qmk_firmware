@@ -27,6 +27,7 @@ enum layer_number {
     _NUMB,
     _MNMB,
     _SYMB,
+    _FUNC,
     _MDIA
 };
 
@@ -37,6 +38,7 @@ enum custom_keycodes {
   NUMB,
   MNMB,
   SYMB,
+  FUNC,
   MDIA,
   //BACKLIT,
   //EISU,
@@ -44,6 +46,7 @@ enum custom_keycodes {
   RGBRST,
   MAKEK,
   MAKEKF,
+  SHRUG,
   //DYNAMIC_MACRO_RANGE,
 };
 
@@ -54,7 +57,21 @@ enum userspace_custom_keycodes {
   //NEW_SAFE_RANGE
 };
 
+/*
+#ifdef UNICODEMAP_ENABLE
+enum unicode_names {
+  BANG,
+  IRONY,
+  SNEK,
+};
 
+const uint32_t PROGMEM unicode_map[] = {
+  [BANG]  = 0x203D,  // ‽
+  [IRONY] = 0x2E2E,  // ⸮
+  [SNEK]  = 0x1F40D, // 🐍
+};
+#endif // UNICODEMAP_ENABLE
+*/
 //#include "dynamic_macro.h"
 
 #define KC_____ KC_TRNS
