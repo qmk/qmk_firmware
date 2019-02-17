@@ -28,8 +28,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 
-#ifndef OLED_FONT_FILE
-#define OLED_FONT_FILE "glcdfont.c"
+#ifndef OLED_FONT_H
+#define OLED_FONT_H "glcdfont.c"
 #endif
 #ifndef OLED_FONT_START
 #define OLED_FONT_START 0

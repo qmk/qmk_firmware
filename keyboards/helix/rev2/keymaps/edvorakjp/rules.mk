@@ -112,6 +112,7 @@ endif
 
 ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
   OPT_DEFS += -DLOCAL_GLCDFONT
+  OPT_DEFS += -DOLED_FONT_H=\"helixfont.h\"
 endif
 
 ifeq ($(strip $(Link_Time_Optimization)),yes)

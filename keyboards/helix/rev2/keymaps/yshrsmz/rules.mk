@@ -108,6 +108,7 @@ endif
 
 ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
     OPT_DEFS += -DLOCAL_GLCDFONT
+    OPT_DEFS += -DOLED_FONT_H=\"helixfont.h\"
 endif
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE

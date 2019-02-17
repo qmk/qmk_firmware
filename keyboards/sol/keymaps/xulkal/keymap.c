@@ -4,7 +4,7 @@
 #include "split_util.h"
 #endif
 #ifdef OLED_ENABLE
-#include "common/ssd1306.h"
+#include "ssd1306.h"
 #endif
 
 extern keymap_config_t keymap_config;

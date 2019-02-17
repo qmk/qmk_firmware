@@ -16,7 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "ssd1306.h"
 #include "i2c_master.h"
-#include OLED_FONT_FILE
+#include OLED_FONT_H
 #include "timer.h"
 #include "print.h"
 

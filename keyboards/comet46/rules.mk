@@ -47,6 +47,9 @@ F_USB = $(F_CPU)
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+# Custom local font file
+OPT_DEFS += -DOLED_FONT_H=\"lib/glcdfont.c\"
+
 # Build Options
 #   comment out to disable the options.
 #

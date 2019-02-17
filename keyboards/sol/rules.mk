@@ -45,6 +45,9 @@ BOOTLOADER = qmk-dfu
 # Interrupt driven control endpoint task(+60)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+# Custom local font file
+OPT_DEFS += -DOLED_FONT_H=\"common/glcdfont.c\"
+
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
