@@ -63,7 +63,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CHARGE_PUMP             0x8D
 
 // Misc defines
-#define SSD1306_ADDRESS (0x3C << 1)
+#ifndef SSD1306_ADDRESS
+#define SSD1306_ADDRESS 0x3C
+#endif
 #define OLED_MATRIX_SIZE ((OLED_DISPLAY_HEIGHT / 8) * OLED_DISPLAY_WIDTH)
 #define OLED_TIMEOUT 60000
 #define OLED_BLOCK_COUNT 8
@@ -74,9 +76,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_CMD 0x00
 #define I2C_DATA 0x40
 #define I2C_TIMEOUT 100
-#define I2C_SEND_P(mode, data) i2c_writeReg_P(SSD1306_ADDRESS, mode, &data[0], sizeof(data), I2C_TIMEOUT)
-#define I2C_SEND(mode, data) i2c_writeReg(SSD1306_ADDRESS, mode, &data[0], sizeof(data), I2C_TIMEOUT)
-#define I2C_SEND_SIZE(mode, data, size) i2c_writeReg(SSD1306_ADDRESS, mode, data, size, I2C_TIMEOUT)
+#define I2C_SEND_P(mode, data) i2c_writeReg_P((SSD1306_ADDRESS << 1), mode, &data[0], sizeof(data), I2C_TIMEOUT)
+#define I2C_SEND(mode, data) i2c_writeReg((SSD1306_ADDRESS << 1), mode, &data[0], sizeof(data), I2C_TIMEOUT)
+#define I2C_SEND_SIZE(mode, data, size) i2c_writeReg((SSD1306_ADDRESS << 1), mode, data, size, I2C_TIMEOUT)
 
 // Display buffer's is the same as the OLED memory layout
 // this is so we don't end up with rounding errors with
