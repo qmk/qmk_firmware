@@ -63,10 +63,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CHARGE_PUMP             0x8D
 
 // Misc defines
-#ifndef SSD1306_ADDRESS
-#define SSD1306_ADDRESS 0x3C
-#endif
-#define OLED_MATRIX_SIZE ((OLED_DISPLAY_HEIGHT / 8) * OLED_DISPLAY_WIDTH)
 #define OLED_TIMEOUT 60000
 #define OLED_BLOCK_COUNT sizeof(OLED_BLOCK_TYPE)
 #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT)
@@ -83,13 +79,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // this is so we don't end up with rounding errors with
 // parts of the display unusable or don't get cleared correctly
 // and also allows for drawing & inverting
-static uint8_t          display_buffer[OLED_MATRIX_SIZE];
-static uint8_t*         display_cursor;
-static OLED_BLOCK_TYPE  display_dirty = 0;
-static bool             display_initialized = false;
-static bool             display_active = false;
-static bool             display_scrolling = false;
-static uint16_t         last_activity;
+uint8_t          oled_buffer[OLED_MATRIX_SIZE];
+uint8_t*         oled_cursor;
+OLED_BLOCK_TYPE  oled_dirty = 0;
+bool             oled_initialized = false;
+bool             oled_active = false;
+bool             oled_scrolling = false;
+uint16_t         oled_last_activity;
 
 // identical to i2c_writeReg, but for PROGMEM since all initialization is in PROGMEM arrays currently
 // probably should move this into i2c_master...
@@ -169,27 +165,27 @@ bool oled_init(bool flip180) {
   }
 
   oled_clear();
-  display_initialized = true;
-  display_active = true;
-  display_scrolling = false;
+  oled_initialized = true;
+  oled_active = true;
+  oled_scrolling = false;
   return true;
 }
 
 void oled_clear(void) {
-  memset(display_buffer, 0, sizeof(display_buffer));
-  display_cursor = &display_buffer[0];
-  display_dirty = -1; // -1 will be max value as long as display_dirty is unsigned type
+  memset(oled_buffer, 0, sizeof(oled_buffer));
+  oled_cursor = &oled_buffer[0];
+  oled_dirty = -1; // -1 will be max value as long as display_dirty is unsigned type
 }
 
 void oled_render(void) {
   // Do we have work to do?
-  if (!display_dirty || display_scrolling) {
+  if (!oled_dirty || oled_scrolling) {
     return;
   }
 
   // Find first dirty block
   uint8_t update_start = 0;
-  while (!(display_dirty & (1 << update_start))) { ++update_start; }
+  while (!(oled_dirty & (1 << update_start))) { ++update_start; }
 
   // Set column & page position
   static uint8_t display_start[] = {
@@ -205,7 +201,7 @@ void oled_render(void) {
   }
 
   // Send render data chunk
-  if (I2C_SEND_SIZE(I2C_DATA, &display_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
+  if (I2C_SEND_SIZE(I2C_DATA, &oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
     print("oled_render data failed\n");
     return;
   }
@@ -214,7 +210,7 @@ void oled_render(void) {
   oled_on();
 
   // Clear dirty flag
-  display_dirty &= ~(1 << update_start);
+  oled_dirty &= ~(1 << update_start);
 }
 
 void oled_set_cursor(uint8_t col, uint8_t line) {
@@ -225,11 +221,11 @@ void oled_set_cursor(uint8_t col, uint8_t line) {
     index = 0;
   }
 
-  display_cursor = &display_buffer[index];
+  oled_cursor = &oled_buffer[index];
 }
 
 void oled_advance_page(bool clearPageRemainder) {
-  uint16_t index = display_cursor - &display_buffer[0];
+  uint16_t index = oled_cursor - &oled_buffer[0];
   uint8_t remaining = (OLED_DISPLAY_WIDTH - (index % OLED_DISPLAY_WIDTH));
 
   if (clearPageRemainder) {
@@ -246,12 +242,12 @@ void oled_advance_page(bool clearPageRemainder) {
       remaining = 0;
     }
 
-    display_cursor = &display_buffer[index + remaining];
+    oled_cursor = &oled_buffer[index + remaining];
   }
 }
 
 void oled_advance_char(void) {
-  uint16_t nextIndex = display_cursor - &display_buffer[0] + OLED_FONT_WIDTH;
+  uint16_t nextIndex = oled_cursor - &oled_buffer[0] + OLED_FONT_WIDTH;
   uint8_t remainingSpace = OLED_DISPLAY_WIDTH - (nextIndex % OLED_DISPLAY_WIDTH);
 
   // Do we have enough space on the current line for the next character
@@ -265,7 +261,7 @@ void oled_advance_char(void) {
   }
 
   // Update cursor position
-  display_cursor = &display_buffer[nextIndex];
+  oled_cursor = &oled_buffer[nextIndex];
 }
 
 // Main handler that writes character data to the display buffer
@@ -279,25 +275,25 @@ void oled_write_char(const char data, bool invert) {
 
   // copy the current render buffer to check for dirty after
   static uint8_t oled_temp_buffer[OLED_FONT_WIDTH];
-  memcpy(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH);
+  memcpy(&oled_temp_buffer, oled_cursor, OLED_FONT_WIDTH);
 
   // set the reder buffer data
   uint8_t cast_data = (uint8_t)data; // font based on unsigned type for index
   if (cast_data < OLED_FONT_START || cast_data > OLED_FONT_END) {
-    memset(display_cursor, 0x00, OLED_FONT_WIDTH);
+    memset(oled_cursor, 0x00, OLED_FONT_WIDTH);
   } else {
     const uint8_t *glyph = &font[(cast_data - OLED_FONT_START) * OLED_FONT_WIDTH];
-    memcpy_P(display_cursor, glyph, OLED_FONT_WIDTH);
+    memcpy_P(oled_cursor, glyph, OLED_FONT_WIDTH);
   }
 
   // Invert if needed
   if (invert) {
-    InvertCharacter(display_cursor);
+    InvertCharacter(oled_cursor);
   }
 
   // Dirty check
-  if (memcmp(&oled_temp_buffer, display_cursor, OLED_FONT_WIDTH)) {
-    display_dirty |= (1 << ((display_cursor - &display_buffer[0]) / OLED_BLOCK_SIZE));
+  if (memcmp(&oled_temp_buffer, oled_cursor, OLED_FONT_WIDTH)) {
+    oled_dirty |= (1 << ((oled_cursor - &oled_buffer[0]) / OLED_BLOCK_SIZE));
   }
 
   // Finally move to the next char
@@ -330,80 +326,76 @@ void oled_write_ln_P(const char *data, bool invert) {
   oled_advance_page(true);
 }
 
-bool oled_ready(void) {
-  return display_initialized;
-}
-
 bool oled_on(void) {
-  last_activity = timer_read();
+  oled_last_activity = timer_read();
 
   static const uint8_t PROGMEM display_on[] = { DISPLAY_ON };
-  if (!display_active) {
+  if (!oled_active) {
     if (I2C_SEND_P(I2C_CMD, display_on) != I2C_STATUS_SUCCESS) {
       print("oled_on cmd failed\n");
-      return display_active;
+      return oled_active;
     }
-    display_active = true;
+    oled_active = true;
   }
-  return display_active;
+  return oled_active;
 }
 
 bool oled_off(void) {
   static const uint8_t PROGMEM display_off[] = { DISPLAY_OFF };
-  if (display_active) {
+  if (oled_active) {
     if (I2C_SEND_P(I2C_CMD, display_off) != I2C_STATUS_SUCCESS) {
       print("oled_off cmd failed\n");
-      return display_active;
+      return oled_active;
     }
-    display_active = false;
+    oled_active = false;
   }
-  return !display_active;
+  return !oled_active;
 }
 
 bool oled_scroll_right(void) {
   // Dont enable scrolling if we need to update the display
   // This prevents scrolling of bad data from starting the scroll too early after init
-  if (!display_dirty && !display_scrolling) {
+  if (!oled_dirty && !oled_scrolling) {
     static const uint8_t PROGMEM display_scroll_right[] = {
       SCROLL_RIGHT, 0x00, 0x00, 0x00, 0x0F, 0x00, 0xFF, ACTIVATE_SCROLL };
     if (I2C_SEND_P(I2C_CMD, display_scroll_right) != I2C_STATUS_SUCCESS) {
       print("oled_scroll_right cmd failed\n");
-      return display_scrolling;
+      return oled_scrolling;
     }
-    display_scrolling = true;
+    oled_scrolling = true;
   }
-  return display_scrolling;
+  return oled_scrolling;
 }
 
 bool oled_scroll_left(void) {
   // Dont enable scrolling if we need to update the display
   // This prevents scrolling of bad data from starting the scroll too early after init
-  if (!display_dirty && !display_scrolling) {
+  if (!oled_dirty && !oled_scrolling) {
     static const uint8_t PROGMEM display_scroll_left[] = {
       SCROLL_LEFT, 0x00, 0x00, 0x00, 0x0F, 0x00, 0xFF, ACTIVATE_SCROLL };
     if (I2C_SEND_P(I2C_CMD, display_scroll_left) != I2C_STATUS_SUCCESS) {
       print("oled_scroll_left cmd failed\n");
-      return display_scrolling;
+      return oled_scrolling;
     }
-    display_scrolling = true;
+    oled_scrolling = true;
   }
-  return display_scrolling;
+  return oled_scrolling;
 }
 
 bool oled_scroll_off(void) {
-  if (display_scrolling) {
+  if (oled_scrolling) {
     static const uint8_t PROGMEM display_scroll_off[] = { DEACTIVATE_SCROLL };
     if (I2C_SEND_P(I2C_CMD, display_scroll_off) != I2C_STATUS_SUCCESS) {
       print("oled_scroll_off cmd failed\n");
-      return display_scrolling;
+      return oled_scrolling;
     }
-    display_scrolling = false;
+    oled_scrolling = false;
   }
-  return !display_scrolling;
+  return !oled_scrolling;
 }
 
 void oled_task(void) {
-  if (!oled_ready()) {
+  if (!oled_initialized) {
     return;
   }
 
@@ -418,7 +410,7 @@ void oled_task(void) {
   oled_render();
 
   // Display timeout check
-  if (display_active && timer_elapsed(last_activity) > OLED_TIMEOUT) {
+  if (oled_active && timer_elapsed(oled_last_activity) > OLED_TIMEOUT) {
     oled_off();
   }
 }

@@ -19,6 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+// Address to use for tthe i2d oled communication
+#ifndef SSD1306_ADDRESS
+#define SSD1306_ADDRESS 0x3C
+#endif
+
 // Defines that can be overridden based on oled and font values
 #ifndef OLED_DISPLAY_HEIGHT
 #define OLED_DISPLAY_HEIGHT 32
@@ -26,6 +31,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef OLED_DISPLAY_WIDTH
 #define OLED_DISPLAY_WIDTH 128
 #endif
+
+#define OLED_MATRIX_SIZE ((OLED_DISPLAY_HEIGHT / 8) * OLED_DISPLAY_WIDTH)
 
 // Type to use for segmenting the oled display for smart rendering, use unsigned types only
 #ifndef OLED_BLOCK_TYPE
@@ -97,9 +104,6 @@ void oled_write_P(const char *data, bool invert);
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 void oled_write_ln_P(const char *data, bool invert);
-
-// Lets you know if the display is ready to use
-bool oled_ready(void);
 
 // Can be used to manually turn on the screen if it is off
 bool oled_on(void);
