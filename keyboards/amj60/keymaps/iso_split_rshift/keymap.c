@@ -30,10 +30,6 @@
 #define GER_BRC_L RALT(KC_8)    // [
 #define GER_BRC_R RALT(KC_9)    // ]
 
-// increase readability 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* Keymap _DEF: Default Layer
      * ,-----------------------------------------------------------.
