@@ -87,4 +87,3 @@ K30,     K31, K32, K33, K34, K35,      K80, K81, K82, K83, K84, K85, K86,    K87
 {KC_NO,    KC_NO,    KC_##K92, KC_##K93, KC_##K94, KC_##K95, KC_##K96, KC_##K97}\
 }
 
-#endif
