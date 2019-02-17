@@ -1,4 +1,4 @@
-﻿#include "ergotravel.h"
+#include "ergotravel.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #include "mousekey.h"
