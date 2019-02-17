@@ -43,7 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define TAPPING_TERM 200
-#define TAPPING_TOGGLE 1
+#define TAPPING_TOGGLE 2
 
 /*
  * Feature disable options
