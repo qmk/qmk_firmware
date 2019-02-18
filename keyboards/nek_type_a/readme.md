@@ -1,17 +1,17 @@
 # nek_type_a
 
-![nek_type_a](imgur.com image replace me!)
+![nek_type_a](https://i.imgur.com/XFnjlQ9)
 
 Natural Ergonomic Keyboard, Type A
 
-Keyboard Maintainer: [Mike Roberts](https://github.com/ecopoesis)
-Hardware Supported: Custom PCBs from https://github.com/ecopoesis/nek-type-a
-Hardware Availability: https://github.com/ecopoesis/nek-type-a
+Keyboard Maintainer: [Mike Roberts](https://github.com/ecopoesis)  
+Hardware Supported: Custom PCBs from https://github.com/ecopoesis/nek-type-a  
+Hardware Availability: https://github.com/ecopoesis/nek-type-a  
 
 ## Design
 
 This is a column-driven split keyboard using three custom PCBs connected with ribbon cables. The left and right PCBs are
-passive: the only have the diodes and switches to make the matrix. The center PCB has an Adafruit Feather 32u4 and
+passive: they only have the diodes and switches needed to make the matrix. The center PCB has an Adafruit Feather 32u4 and
 MCP23017 expander.
 
 The left matrix has its rows and columns directly connected to the Feather. The right matrix has its rows connect to the
