@@ -55,6 +55,10 @@ extern backlight_config_t backlight_config;
 #include "encoder.h"
 #endif
 
+#ifdef SSD1306OLED
+#include "ssd1306.h"
+#endif
+
 #ifdef AUDIO_ENABLE
   #ifndef GOODBYE_SONG
     #define GOODBYE_SONG SONG(GOODBYE_SOUND)
@@ -253,6 +257,12 @@ bool process_record_quantum(keyrecord_t *record) {
 
   #ifdef TAP_DANCE_ENABLE
     preprocess_tap_dance(keycode, record);
+  #endif
+
+  #if defined(SSD1306OLED) && !defined(OLED_DISABLE_DEFAULT_ACTIVITY)
+    // Wake up oled if user is using those fabulous keys!
+    if (record->event.pressed)
+      oled_on();
   #endif
 
   if (!(

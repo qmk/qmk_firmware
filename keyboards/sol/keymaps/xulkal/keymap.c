@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * |Shift |   Z  |   X  |   C  |  V   |  B   | RGB  |  |      |  N   |  M   |  ,   |  .   |  /   | Shift|
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * | Ctrl |  Win |  ADJ |  FN  | Alt  | Space|RGBRMOD| |RGBMOD| Space| Left | Down |  Up  | Right| Ctrl |
+   * | Ctrl |  Win |  ADJ |  FN  | Alt  | Space|RGBRMOD| |RGBMOD| Space| Left |  Up  | Down | Right| Ctrl |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
    *                                    | Space| DEL  |  | Enter| Space|
    *                                    `-------------'  `-------------'
@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_LBRC,  KC_RBRC, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,     KC_BSLS, \
       FN_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_GRV,   KC_QUOT, KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN,  KC_ENT, \
       KC_LSPO, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    RGB_TOG,  _______, KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_RSPC, \
-      KC_LCTL, KC_LGUI, ADJ,     FN,      KC_LALT, KC_SPC,  RGB_RMOD, RGB_MOD, KC_SPC,  KC_LEFT, KC_DOWN, KC_UP,   KC_RIGHT, KC_RCTL, \
+      KC_LCTL, KC_LGUI, ADJ,     FN,      KC_LALT, KC_SPC,  RGB_RMOD, RGB_MOD, KC_SPC,  KC_LEFT, KC_UP,   KC_DOWN, KC_RIGHT, KC_RCTL, \
                         KC_VOLU, KC_VOLD,          KC_SPC,  KC_DEL,   KC_ENT,  KC_SPC,           KC_VOLU, KC_VOLD \
       ),
 
@@ -90,11 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ,------------------------------------------------.  ,------------------------------------------------.
    * |      |      |      |      |      |      |   -  |  |   +  |      |      |      |      |      |      |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      | SAI  | VAI  | SAI  | RESET|      |      |  |      |  1   |  2   |  3   |      |      |      |
+   * |      | SAI  | VAI  | HUI  | RESET|      |      |  |      |  7   |  8   |  9   |      |      |      |
    * |------+------+------+------+------+------|------|  |------|------+------+------+------+------+------|
-   * |      | SAD  | VAD  | HUI  |RGBRST|      |      |  |      |  4   |  5   |  6   |      |      |      |
+   * |      | SAD  | VAD  | HUD  |RGBRST|      |      |  |      |  4   |  5   |  6   |      |      |      |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-   * |      |      |      |      |      |      |      |  |      |  7   |  8   |  9   |      |      |      |
+   * |      |      |      |      |      |      |      |  |      |  1   |  2   |  3   |      |      |      |
    * |------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
    * |      |      |      |      |      |      |      |  |      |      |  0   |  .   |      |      |      |
    * `------+------+------+------+------+------+------|  |------+------+------+------+------+------+------'
@@ -104,9 +104,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJ] =  LAYOUT( \
       _______, _______, _______, _______, _______, _______, KC_PMNS, KC_PPLS, _______, _______, _______, _______, _______, _______, \
-      _______, RGB_SAI, RGB_VAI, RGB_HUI, RESET,   _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, _______, _______, \
+      _______, RGB_SAI, RGB_VAI, RGB_HUI, RESET,   _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, _______, _______, _______, \
       _______, RGB_SAD, RGB_VAD, RGB_HUD, RGBRST,  _______, _______, _______, KC_KP_4, KC_KP_5, KC_KP_6, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_7, KC_KP_8, KC_KP_9, _______, _______, _______, \
+      _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_1, KC_KP_2, KC_KP_3, _______, _______, _______, \
       _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_KP_0, KC_PDOT, _______, _______, _______, \
                         KC_VOLU, KC_VOLD,          _______, _______, _______, _______,          KC_VOLU, KC_VOLD \
       )
@@ -117,12 +117,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 int RGB_current_mode;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef OLED_ENABLE
-    // Wake up oled if user is at the keyboard
-    if (record->event.pressed)
-      oled_on();
-  #endif
-
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
