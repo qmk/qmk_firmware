@@ -40,9 +40,11 @@ bool updateLayerState(uint16_t keycode, keyrecord_t* record) {
           layer_off(MEDIA);
           layer = 0;
         }
+        return false;
         break;
 
       default:
+        return true;
         break;
     }
   }
