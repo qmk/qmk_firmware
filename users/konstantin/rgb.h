@@ -15,3 +15,4 @@ typedef struct {
 } rgb_t;
 
 extern const hsv_t GODSPEED_BLUE;
+extern const hsv_t GODSPEED_YELLOW;

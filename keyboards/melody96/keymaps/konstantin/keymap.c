@@ -1,8 +1,12 @@
 #include QMK_KEYBOARD_H
 #include "konstantin.h"
 
+static const hsv_t *colors[] = { &GODSPEED_BLUE, &GODSPEED_YELLOW };
+static size_t cnum = sizeof colors / sizeof *colors;
+static size_t cidx;
+
 void eeconfig_init_keymap(void) {
-  rgblight_sethsv(GODSPEED_BLUE.h, GODSPEED_BLUE.s, GODSPEED_BLUE.v);
+  rgblight_sethsv(colors[cidx]->h, colors[cidx]->s, colors[cidx]->v);
 }
 
 enum keycodes_keymap {
@@ -12,7 +16,10 @@ enum keycodes_keymap {
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case RGB_SET:
-    rgblight_sethsv(GODSPEED_BLUE.h, GODSPEED_BLUE.s, GODSPEED_BLUE.v);
+    if (record->event.pressed) {
+      cidx = (cidx + 1) % cnum;
+      rgblight_sethsv(colors[cidx]->h, colors[cidx]->s, colors[cidx]->v);
+    }
     return false;
 
   default:

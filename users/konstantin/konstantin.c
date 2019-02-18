@@ -61,7 +61,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
 
 #ifdef LAYER_FN
-  static bool fn_lock;
+    static bool fn_lock;
 
   case FN_FNLK:
     if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
