@@ -317,6 +317,8 @@ void audio_init() {
 
   if (audio_config.enable) {
     PLAY_SONG(startup_song);
+  } else {
+    stop_all_notes();
   }
 
 }
