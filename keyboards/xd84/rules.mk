@@ -83,4 +83,6 @@ HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 CUSTOM_MATRIX = yes
 SRC = i2c_master.c custom_matrix_helper.c pca9555.c matrix.c
 
+EXTRAFLAGS += -flto
+
 LAYOUTS = 75_ansi 75_iso
