@@ -25,6 +25,10 @@ enum keys {
 };
 
 uint32_t layer = 0;
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+  return updateLayerState(keycode, record);
+}
 
 bool updateLayerState(uint16_t keycode, keyrecord_t* record) {
   if (record-> event.pressed)
