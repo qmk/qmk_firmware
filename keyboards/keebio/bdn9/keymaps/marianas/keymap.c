@@ -63,8 +63,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LEFT, KC_DOWN, KC_RGHT \
     ),
     [MEDIA] = LAYOUT(
-        KC_MUTE, MODESW,    KC_MSTP, \
-        KC_BRIU, KC_CALC,  KC_BRID , \
+        KC_MUTE, MODESW,   KC_MSTP, \
+        KC_BRID, KC_CALC,  KC_BRIU, \
         KC_MPRV, KC_MPLY,  KC_MNXT \
     ),
 };
