@@ -18,17 +18,17 @@
 #define UCM_KEYCODE(name, code) name = X(UCM_ ## name),
 
 #if defined(UNICODE_ENABLE)
-  enum unicode_keycodes {
-    FOREACH_UNICODE(UC_KEYCODE)
-  };
+enum unicode_keycodes {
+  FOREACH_UNICODE(UC_KEYCODE)
+};
 #elif defined(UNICODEMAP_ENABLE)
-  enum unicode_names {
-    FOREACH_UNICODE(UCM_NAME)
-  };
+enum unicode_names {
+  FOREACH_UNICODE(UCM_NAME)
+};
 
-  extern const uint32_t PROGMEM unicode_map[];
+extern const uint32_t PROGMEM unicode_map[];
 
-  enum unicode_keycodes {
-    FOREACH_UNICODE(UCM_KEYCODE)
-  };
+enum unicode_keycodes {
+  FOREACH_UNICODE(UCM_KEYCODE)
+};
 #endif
