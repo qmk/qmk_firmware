@@ -13,7 +13,8 @@ enum {
 	HK_IF,
 	HK_ELSE,
 	KC_LSFT,
-	KC_RSFT
+	KC_RSFT,
+	KC_ENT
 };
 
 enum {
@@ -59,9 +60,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 	[1] = LAYOUT_planck_2x2u(
 		KC_TRNS,KC_TRNS,KC_SLSH,KC_1,	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+		KC_NO,	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,		KC_TRNS,KC_TRNS,		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
+		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,		KC_TRNS,KC_NO,		KC_TRNS,KC_TRNS,KC_TRNS,KC_NO
 	),
 /* Modifier
  * ,-----------------------------------------------------------------------------------.
@@ -104,8 +105,23 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch(keycode) {
 		case KC_LSFT:
 		case KC_RSFT:
-			layer_invert(1); //holding both shifts would output base layer shifts, wrong but shouldn't be an issue
+			//if shift pressed and not shift layer or released and other shift not pressed
+			if((record->event.pressed && !IS_LAYER_ON(3)) || (!record->event.pressed && !(keyboard_report->mods & (MOD_BIT(KC_LSFT)) || keyboard_report->mods & (MOD_BIT(KC_RSFT)))))
+				layer_invert(1);
 			break;
+		case KC_ENT:
+			//make 'enter' shift enter' and 'shift enter' 'enter'
+			if(IS_LAYER_ON(3))
+				SEND_STRING(X_ENT)
+			else
+				SEND_STRING(SS_LSFT(X_ENT))
+			return false;
+		case HK_IF:
+			if(record->event.pressed) SEND_STRING("if");
+			return false;
+		case HK_ELSE:
+			if(record->event.pressed) SEND_STRING("else");
+			return false;
 		case HK_SLEEP:
 			if(record->event.pressed && IS_LAYER_ON(5))
 				SEND_STRING(SS_LALT(SS_TAP(X_F23)));
@@ -114,13 +130,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 					SEND_STRING(SS_LALT(SS_TAP(X_F23)));
 				layer_invert(5);
 			}
-			break;
-		case HK_IF:
-			if(record->event.pressed) SEND_STRING("if");
-			break;
-		case HK_ELSE:
-			if(record->event.pressed) SEND_STRING("else");
-			break;
+			return false;
 	}
 	return true;
-};
+}; //returning true still sends key after macro is executed, false doesn't
