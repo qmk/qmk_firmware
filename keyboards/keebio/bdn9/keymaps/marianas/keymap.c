@@ -30,12 +30,12 @@ uint32_t layer_state_set_user(uint32_t state)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
-        KC_APP , DF(MEDIA),   KC_ENT ,   \
+        KC_APP , LT(MEDIA),   KC_ENT ,   \
         KC_PGUP, KC_UP,   KC_PGDN, \
         KC_LEFT, KC_DOWN, KC_RGHT \
     ),
     [MEDIA] = LAYOUT(
-        KC_MUTE, DF(BASE),    KC_MSTP, \
+        KC_MUTE, LT(MEDIA),    KC_MSTP, \
         KC_BRIU, KC_CALC,  KC_BRID , \
         KC_MPRV, KC_MPLY,  KC_MNXT \
     ),
