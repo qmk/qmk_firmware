@@ -1,5 +1,6 @@
 /* Found at https://www.linuxquestions.org/questions/linux-hardware-18/how-to-unclaim-usb-device-558138/#post3406986 */
 #include <stdio.h>
+#include <sys/ioctl.h>
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
