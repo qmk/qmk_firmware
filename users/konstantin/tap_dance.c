@@ -1,12 +1,12 @@
 #include "tap_dance.h"
 #include "konstantin.h"
 
-#define ACTION_TAP_DANCE_DOUBLE_MODS(mod1, mod2) {                    \
-    .fn        = { td_double_mods_each, NULL, td_double_mods_reset }, \
-    .user_data = &(qk_tap_dance_pair_t){ mod1, mod2 },                \
+#define ACTION_TAP_DANCE_DOUBLE_MOD(mod1, mod2) {                   \
+    .fn        = { td_double_mod_each, NULL, td_double_mod_reset }, \
+    .user_data = &(qk_tap_dance_pair_t){ mod1, mod2 },              \
   }
 
-void td_double_mods_each(qk_tap_dance_state_t *state, void *user_data) {
+void td_double_mod_each(qk_tap_dance_state_t *state, void *user_data) {
   qk_tap_dance_pair_t *data = (qk_tap_dance_pair_t *)user_data;
 
   // Single tap → mod1, double tap → mod2, triple tap etc. → mod1+mod2
@@ -20,7 +20,7 @@ void td_double_mods_each(qk_tap_dance_state_t *state, void *user_data) {
   state->weak_mods &= ~(MOD_BIT(data->kc1) | MOD_BIT(data->kc2));
 }
 
-void td_double_mods_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_double_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
   qk_tap_dance_pair_t *data = (qk_tap_dance_pair_t *)user_data;
 
   if (state->count == 1 || state->count >= 3) {
@@ -107,9 +107,9 @@ void td_layer_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_DST_A_R] = ACTION_TAP_DANCE_DOUBLE(DST_ADD, DST_REM),
 
-  [TD_RAL_LAL] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RALT, KC_LALT),
-  [TD_RAL_RGU] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RALT, KC_RGUI),
-  [TD_RCT_RSF] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RCTL, KC_RSFT),
+  [TD_RAL_LAL] = ACTION_TAP_DANCE_DOUBLE_MOD(KC_RALT, KC_LALT),
+  [TD_RAL_RGU] = ACTION_TAP_DANCE_DOUBLE_MOD(KC_RALT, KC_RGUI),
+  [TD_RCT_RSF] = ACTION_TAP_DANCE_DOUBLE_MOD(KC_RCTL, KC_RSFT),
 
   [TD_LSFT_FN] = ACTION_TAP_DANCE_MOD_LAYER(KC_LSFT, L_FN),
   [TD_RCTL_FN] = ACTION_TAP_DANCE_MOD_LAYER(KC_RCTL, L_FN),
