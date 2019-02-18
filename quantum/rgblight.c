@@ -31,10 +31,6 @@
 #include "debug.h"
 #include "led_tables.h"
 
-#ifndef RGBLIGHT_LIMIT_VAL
-#define RGBLIGHT_LIMIT_VAL 255
-#endif
-
 #define _RGBM_SINGLE_STATIC(sym)   RGBLIGHT_MODE_ ## sym,
 #define _RGBM_SINGLE_DYNAMIC(sym)
 #define _RGBM_MULTI_STATIC(sym)    RGBLIGHT_MODE_ ## sym,
