@@ -57,35 +57,44 @@ void td_mod_layer_reset(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-struct {
-  bool fn_on;  // Layer state when tap dance started
-  bool started;
-} td_fn_rctrl_data;
-
-void td_fn_rctrl_each(qk_tap_dance_state_t *state, void *user_data) {
-  if (!td_fn_rctrl_data.started) {
-    td_fn_rctrl_data.fn_on = IS_LAYER_ON(L_FN);
-    td_fn_rctrl_data.started = true;
+#define ACTION_TAP_DANCE_LAYER_MOD(layer, mod) {                  \
+    .fn        = { td_layer_mod_each, NULL, td_layer_mod_reset }, \
+    .user_data = &(qk_tap_dance_layer_mod_t){ layer, mod },       \
   }
-  // Single tap → Fn, double tap → RCtrl, triple tap etc. → Fn+RCtrl
+
+typedef struct {
+  uint8_t  layer;
+  uint16_t kc;
+  bool     layer_on;  // Layer state when tap dance started
+  bool     started;
+} qk_tap_dance_layer_mod_t;
+
+void td_layer_mod_each(qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_layer_mod_t *data = (qk_tap_dance_layer_mod_t *)user_data;
+  if (!data->started) {
+    data->layer_on = IS_LAYER_ON(data->layer);
+    data->started = true;
+  }
+  // Single tap → layer, double tap → mod, triple tap etc. → layer+mod
   if (state->count == 1 || state->count == 3) {
-    layer_on(L_FN);
+    layer_on(data->layer);
   } else if (state->count == 2) {
-    if (!td_fn_rctrl_data.fn_on) {
-      layer_off(L_FN);
+    if (!data->layer_on) {
+      layer_off(data->layer);
     }
-    register_code(KC_RCTL);
+    register_code(data->kc);
   }
 }
 
-void td_fn_rctrl_reset(qk_tap_dance_state_t *state, void *user_data) {
-  if ((state->count == 1 || state->count >= 3) && !td_fn_rctrl_data.fn_on) {
-    layer_off(L_FN);
+void td_layer_mod_reset(qk_tap_dance_state_t *state, void *user_data) {
+  qk_tap_dance_layer_mod_t *data = (qk_tap_dance_layer_mod_t *)user_data;
+  if ((state->count == 1 || state->count >= 3) && !data->layer_on) {
+    layer_off(data->layer);
   }
   if (state->count >= 2) {
-    unregister_code(KC_RCTL);
+    unregister_code(data->kc);
   }
-  td_fn_rctrl_data.started = false;
+  data->started = false;
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -97,5 +106,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 
   [TD_LSFT_FN] = ACTION_TAP_DANCE_MOD_LAYER(KC_LSFT, L_FN),
   [TD_RCTL_FN] = ACTION_TAP_DANCE_MOD_LAYER(KC_RCTL, L_FN),
-  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(td_fn_rctrl_each, NULL, td_fn_rctrl_reset),
+  [TD_FN_RCTL] = ACTION_TAP_DANCE_LAYER_MOD(L_FN, KC_RCTL),
 };
