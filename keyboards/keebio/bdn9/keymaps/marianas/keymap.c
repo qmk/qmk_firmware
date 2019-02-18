@@ -25,10 +25,6 @@ enum keys {
 };
 
 uint32_t layer = 0;
-bool process_record_user(uint16_t keycode, keyrecord_t *record)
-{
-  return updateLayerState(keycode, record);
-}
 
 bool updateLayerState(uint16_t keycode, keyrecord_t* record) {
   if (record-> event.pressed)
@@ -48,11 +44,17 @@ bool updateLayerState(uint16_t keycode, keyrecord_t* record) {
         break;
 
       default:
-        return true;
         break;
     }
   }
+  return true;
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record)
+{
+  return updateLayerState(keycode, record);
+}
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
