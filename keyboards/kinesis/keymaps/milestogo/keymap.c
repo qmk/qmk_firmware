@@ -7,10 +7,6 @@
 #define _TRANS 3//
 #define _SYMB2 4// old symbol level, more ergodox like
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 /* Macros */
 enum {
   NONE = 0,

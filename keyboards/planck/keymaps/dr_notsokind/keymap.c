@@ -37,8 +37,6 @@ enum planck_keycodes {
 #define SFT_ENT  FUNC(0)    // Tap for enter, hold for right shift
 #define LOCK     FUNC(1)
 #define KC_PSTE  KC_PASTE
-#define _______  KC_TRNS
-#define XXXXXXX  KC_NO
 #define ZOOM_IN  LCTL(KC_EQL)
 #define ZOOM_OUT LCTL(KC_MINS)
 #define ZOOM_NML LCTL(KC_0)

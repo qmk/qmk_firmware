@@ -16,9 +16,6 @@
 
 #include "process_unicodemap.h"
 
-__attribute__((weak))
-const uint32_t PROGMEM unicode_map[] = {};
-
 void register_hex32(uint32_t hex) {
   bool onzerostart = true;
   for(int i = 7; i >= 0; i--) {

@@ -27,7 +27,6 @@
 #define MATRIX_ROWS 5
 #define MATRIX_COLS 15
 
-
 //Audio
 #undef AUDIO_VOICES
 #undef C6_AUDIO
@@ -96,11 +95,6 @@
  */
 //#define FORCE_NKRO
 
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-	keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
@@ -167,7 +161,6 @@
 
 #endif
 
-
 /* Control 1 register settings */
 #define DRIVE_TIME 25
 #define AC_COUPLE 0
@@ -199,4 +192,7 @@
 //#define DRIVER_LED_TOTAL RGBLED_NUM
 
 //#define RGB_MATRIX_KEYPRESSES
+
+#define SOLENOID_PIN A14
+
 #endif
