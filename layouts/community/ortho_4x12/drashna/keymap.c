@@ -290,15 +290,13 @@ void encoder_update(bool clockwise) {
 #endif // ENCODER_ENABLE
 
 #ifdef KEYBOARD_planck_rev6
-extern audio_config_t audio_config;
-
 void dip_update(uint8_t index, bool active) {
   switch (index) {
     case 0:
-      audio_config.enable = active;
+      if(active) { audio_on(); } else { audio_off(); }
       break;
     case 1:
-      audio_config.clicky_enable = active;
+      if(active) { clicky_on(); } else { audio_off(); }
       break;
     case 2:
       keymap_config.swap_lalt_lgui = keymap_config.swap_ralt_rgui = active;
