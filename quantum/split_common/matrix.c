@@ -57,10 +57,6 @@ static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
 static pin_t row_pins[MATRIX_ROWS] = MATRIX_ROW_PINS;
 static pin_t col_pins[MATRIX_COLS] = MATRIX_COL_PINS;
 #endif
-#ifdef DEBUG_PINS
-  #include <util/atomic.h>
-  static pin_t debug_pins[] = DEBUG_PINS;
-#endif
 
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
@@ -146,36 +142,9 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 
 #elif (DIODE_DIRECTION == COL2ROW)
 
-//#define O2L
-
 static void select_row(uint8_t row) {
-#ifndef DEBUG_PINS
   writePinLow(row_pins[row]);
   setPinOutput(row_pins[row]);
-#else
-  if( row == 0 ) {
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-        writePinHigh(debug_pins[0]); // trigger on for oscilloscope
-#ifdef O2L
-        setPinOutput(row_pins[row]);
-#else
-        writePinLow(row_pins[row]);
-#endif
-    }
-    //wait_us(3);
-    ATOMIC_BLOCK(ATOMIC_RESTORESTATE) {
-#ifdef O2L
-        writePinLow(row_pins[row]);
-#else
-        setPinOutput(row_pins[row]);
-#endif
-        writePinLow(debug_pins[0]); // trigger off for oscilloscope
-    }
-  } else {
-      setPinOutput(row_pins[row]);
-      writePinLow(row_pins[row]);
-  }
-#endif
 }
 
 static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
@@ -187,10 +156,6 @@ static void unselect_rows(void) {
 }
 
 static void init_pins(void) {
-#ifdef DEBUG_PINS
-    setPinOutput(debug_pins[0]);
-    writePinLow(debug_pins[0]);
-#endif
   unselect_rows();
   for (uint8_t x = 0; x < MATRIX_COLS; x++) {
     setPinInputHigh(col_pins[x]);
