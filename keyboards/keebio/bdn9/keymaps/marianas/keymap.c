@@ -15,32 +15,50 @@
  */
 #include QMK_KEYBOARD_H
 
+enum layers {
+  BASE,
+  MEDIA
+}
+
+uint32_t layer = BASE;
+
+uint32_t layer_state_set_user(uint32_t state)
+{
+  layer = biton32(state);
+  return state;
+}
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = LAYOUT(
-        KC_MUTE, MO(1),   KC_MPLY,   \
+    [BASE] = LAYOUT(
+        KC_APP , DF(MEDIA),   KC_ENT ,   \
         KC_PGUP, KC_UP,   KC_PGDN, \
         KC_LEFT, KC_DOWN, KC_RGHT \
     ),
-    [1] = LAYOUT(
-        _______,    BL_STEP, KC_STOP, \
-        KC_MPRV, KC_HOME,    KC_MNXT, \
-        _______, KC_END   ,  _______ \
+    [MEDIA] = LAYOUT(
+        KC_MUTE, DF(BASE),    KC_MSTP, \
+        KC_BRIU, KC_CALC,  KC_BRID , \
+        KC_MPRV, KC_MPLY,  KC_MNXT \
     ),
 };
 
 void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
-        if (clockwise) {
+      switch (layer)
+      {
+        case BASE:
+          if (clockwise) {
+            tap_code(KC_UP);
+          } else {
+            tap_code(KC_DOWN);
+          }
+          break;
+        case MEDIA:
+          if (clockwise) {
             tap_code(KC_VOLU);
-        } else {
+          } else {
             tap_code(KC_VOLD);
-        }
-    }
-    else if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
-        }
+          }
+          break;
+      }
     }
 }
