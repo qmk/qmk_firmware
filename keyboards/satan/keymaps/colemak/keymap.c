@@ -12,8 +12,6 @@
 #define _BL 0
 #define _FL 1
 
-#define _______ KC_TRNS
-
 enum custom_keycodes {
   SFT_ESC = SAFE_RANGE
 };

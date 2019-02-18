@@ -192,4 +192,7 @@
 //#define DRIVER_LED_TOTAL RGBLED_NUM
 
 //#define RGB_MATRIX_KEYPRESSES
+
+#define SOLENOID_PIN A14
+
 #endif
