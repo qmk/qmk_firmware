@@ -60,7 +60,7 @@ void td_fn_rctrl_reset(qk_tap_dance_state_t *state, void *user_data) {
   td_fn_rctrl_data.started = false;
 }
 
-void td_lsft_fn_each(qk_tap_dance_state_t *state, void *user_data) {
+void td_lshift_fn_each(qk_tap_dance_state_t *state, void *user_data) {
   // Single tap → LShift, double tap → Fn, triple tap etc. → Fn+LShift
   if (state->count == 1 || state->count == 3) {
     register_code(KC_LSFT);
@@ -72,7 +72,7 @@ void td_lsft_fn_each(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void td_lsft_fn_reset(qk_tap_dance_state_t *state, void *user_data) {
+void td_lshift_fn_reset(qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1 || state->count >= 3) {
     unregister_code(KC_LSFT);
   }
@@ -88,6 +88,6 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_RAL_RGU] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RALT, KC_RGUI),
   [TD_RCT_RSF] = ACTION_TAP_DANCE_DOUBLE_MODS(KC_RCTL, KC_RSFT),
 
-  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(td_fn_rctrl_each, NULL, td_fn_rctrl_reset),
-  [TD_LSFT_FN] = ACTION_TAP_DANCE_FN_ADVANCED(td_lsft_fn_each, NULL, td_lsft_fn_reset),
+  [TD_FN_RCTL] = ACTION_TAP_DANCE_FN_ADVANCED(td_fn_rctrl_each,  NULL, td_fn_rctrl_reset),
+  [TD_LSFT_FN] = ACTION_TAP_DANCE_FN_ADVANCED(td_lshift_fn_each, NULL, td_lshift_fn_reset),
 };
