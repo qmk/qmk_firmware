@@ -1,6 +1,6 @@
 # nek_type_a
 
-![nek_type_a](https://i.imgur.com/XFnjlQ9)
+![NEK Type A Keyboard](https://i.imgur.com/XFnjlQ9.jpg)
 
 Natural Ergonomic Keyboard, Type A
 
