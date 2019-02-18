@@ -38,10 +38,6 @@ enum custom_keycodes {
   DVORAK
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define LS__SPC MT(MOD_LSFT, KC_SPC)
 #define LOWER MO(_LOWER)
 #define RAISE MO(_RAISE)

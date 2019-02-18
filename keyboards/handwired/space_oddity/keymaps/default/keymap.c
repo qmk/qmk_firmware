@@ -38,8 +38,6 @@ enum {
 
 #include "dynamic_macro.h"
 
-#define MOUSE_LAYER 2
-
 // Tap dance actions - double tap for Caps Lock.
 qk_tap_dance_action_t tap_dance_actions[] = {
 
