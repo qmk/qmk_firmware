@@ -1,1 +1,1 @@
-# The default Preonic layout - largely based on the Planck's
+# Egstad's Layout (W.I.P.)
