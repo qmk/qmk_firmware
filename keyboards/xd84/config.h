@@ -20,7 +20,7 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define PRODUCT_ID      0x4084
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KPrepublic
 #define PRODUCT         XD84
@@ -50,12 +50,12 @@
 // TODO: NOT WORKING - original kimera code seems to suggest B6 or C7 in backlight.c
 //                     however tracing seems to suggest this is not true (as C7 is RGB)
 #define BACKLIGHT_PIN B5
-// #define BACKLIGHT_BREATHING
 #define BACKLIGHT_LEVELS 3
+// #define BACKLIGHT_BREATHING
 
 #define RGB_DI_PIN C7
 #define RGBLED_NUM 7
-#define RGBLIGHT_LIMIT_VAL 120
+#define RGBLIGHT_ANIMATIONS
 // #ifdef RGB_DI_PIN
 //   #define RGBLIGHT_HUE_STEP 8
 //   #define RGBLIGHT_SAT_STEP 8
