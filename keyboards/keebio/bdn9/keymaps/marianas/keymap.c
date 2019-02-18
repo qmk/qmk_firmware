@@ -18,24 +18,44 @@
 enum layers {
   BASE,
   MEDIA
-}
+};
 
-uint32_t layer = BASE;
+enum keys {
+  MODESW = SAFE_RANGE,
+};
 
-uint32_t layer_state_set_user(uint32_t state)
-{
-  layer = biton32(state);
-  return state;
+uint32_t layer = 0;
+
+bool updateLayerState(uint16_t keycode, keyrecord_t* record) {
+  if (record-> event.pressed)
+  {
+    switch (keycode)
+    {
+      case MODESW:
+        if (layer == 0)
+        {
+          layer_on(MEDIA);
+          layer = 1;
+        } else {
+          layer_off(MEDIA);
+          layer = 0;
+        }
+        break;
+
+      default:
+        break;
+    }
+  }
 }
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE] = LAYOUT(
-        KC_APP , LT(MEDIA),   KC_ENT ,   \
+        KC_APP , MODESW,   KC_ENT ,   \
         KC_PGUP, KC_UP,   KC_PGDN, \
         KC_LEFT, KC_DOWN, KC_RGHT \
     ),
     [MEDIA] = LAYOUT(
-        KC_MUTE, LT(MEDIA),    KC_MSTP, \
+        KC_MUTE, MODESW,    KC_MSTP, \
         KC_BRIU, KC_CALC,  KC_BRID , \
         KC_MPRV, KC_MPLY,  KC_MNXT \
     ),
@@ -45,14 +65,14 @@ void encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
       switch (layer)
       {
-        case BASE:
+        case 0:
           if (clockwise) {
             tap_code(KC_UP);
           } else {
             tap_code(KC_DOWN);
           }
           break;
-        case MEDIA:
+        case 1:
           if (clockwise) {
             tap_code(KC_VOLU);
           } else {
