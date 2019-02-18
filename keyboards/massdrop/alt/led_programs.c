@@ -100,19 +100,30 @@ led_setup_t leds_rainbow_s[] = {
 };
 
 //test
-led_setup_t leds_pleasuretek_s[] = {
-    { .hs = 0,      .he = 8.33,  .rs = 255, .re = 255, .gs = 255,   .ge = 255, .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 8.33,   .he = 16.6,  .rs = 255, .re = 255,   .gs = 255,   .ge = 20,   .bs = 255,   .be = 147,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 16.6,   .he = 24.9,  .rs = 255,   .re = 255,   .gs = 20,   .ge = 20, .bs = 147,   .be = 147,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 24.9,   .he = 33.2,  .rs = 255,   .re = 255,   .gs = 20, .ge = 255,   .bs = 147,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 33.2,   .he = 41.5,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255, .bs = 255,   .be = 255, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 41.5,   .he = 49.8,  .rs = 255,   .re = 255,   .gs = 255, .ge = 255,   .bs = 255, .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 49.8,   .he = 58.1,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 58.1,   .he = 66.4,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255,   .bs = 255,   .be = 255, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 66.4,   .he = 74.7,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 74.7,   .he = 83,    .rs = 255,   .re = 0, .gs = 255,   .ge = 255,   .bs = 255,   .be = 255, .ef = EF_OVER | EF_SCR_R },
-    { .hs = 83,     .he = 91.3,  .rs = 0,   .re = 0,   .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
-    { .hs = 91.3,   .he = 100,   .rs = 0,   .re = 255, .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
+led_setup_t leds_custom_s[] = {
+    { .hs = 0,      .he = 11,  .rs = 255, .re = 255, .gs = 255,   .ge = 255, .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 11,   .he = 22,  .rs = 255, .re = 255,   .gs = 255,   .ge = 20,   .bs = 255,   .be = 147,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 22,   .he = 33,  .rs = 255,   .re = 255,   .gs = 20,   .ge = 20, .bs = 147,   .be = 147,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 33,   .he = 44,  .rs = 255,   .re = 255,   .gs = 20, .ge = 255,   .bs = 147,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 44,   .he =55,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255, .bs = 255,   .be = 255, .ef = EF_OVER | EF_SCR_R },
+    { .hs = 55,   .he = 66,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 66,   .he = 77,    .rs = 255,   .re = 0, .gs = 255,   .ge = 255,   .bs = 255,   .be = 255, .ef = EF_OVER | EF_SCR_R },
+    { .hs = 77,     .he = 88,  .rs = 0,   .re = 0,   .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 88,   .he = 100,   .rs = 0,   .re = 255, .gs = 255,   .ge = 255,   .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
+    { .end = 1 },
+};
+
+//orange
+led_setup_t leds_cream_s[] = {
+    { .hs = 0,      .he = 11,  .rs = 241, .re = 241, .gs = 167,   .ge = 167, .bs = 54,   .be = 54,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 11,   .he = 22,  .rs = 241, .re = 241, .gs = 167,   .ge = 167, .bs = 54,   .be = 54,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 22,   .he = 33,  .rs = 241, .re = 255, .gs = 167,   .ge = 255, .bs = 54,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 33,   .he = 44,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255, .bs = 255,   .be = 255,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 44,   .he =55,  .rs = 255,   .re = 255,   .gs = 255,   .ge = 255, .bs = 255,   .be = 255, .ef = EF_OVER | EF_SCR_R },
+    { .hs = 55,   .he = 66,  .rs = 255,   .re = 76,   .gs = 255,   .ge = 208,   .bs = 255,   .be = 208,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 66,   .he = 77,    .rs = 76,   .re = 76, .gs = 208,   .ge = 208,   .bs = 208,   .be = 208, .ef = EF_OVER | EF_SCR_R },
+    { .hs = 77,     .he = 88,  .rs = 76,   .re = 76, .gs = 208,   .ge = 208,   .bs = 208,   .be = 208,   .ef = EF_OVER | EF_SCR_R },
+    { .hs = 88,   .he = 100,   .rs = 76,   .re = 241, .gs = 208,   .ge = 167,   .bs = 208,   .be = 54,   .ef = EF_OVER | EF_SCR_R },
     { .end = 1 },
 };
 
@@ -123,7 +134,8 @@ led_setup_t leds_pleasuretek_s[] = {
 void *led_setups[] = {
     leds_rainbow_s,
     leds_rainbow_ns,
-    leds_pleasuretek_s,
+    leds_custom_s,
+    leds_cream_s,
     leds_teal_salmon,
     leds_yellow,
     leds_red,

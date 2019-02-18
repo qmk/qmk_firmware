@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tmk_core/common/led.h"
 #include <string.h>
 #include <math.h>
+#include <print.h>
+#include <inttypes.h>
 
 void SERCOM1_0_Handler( void )
 {
@@ -261,6 +263,32 @@ issi3733_led_t *led_cur;
 uint8_t led_per_run = 15;
 float breathe_mult;
 
+//poppro
+int16_t led_animation_shimmer_matrix[ISSI3733_LED_COUNT];
+int8_t shimmer_dir[ISSI3733_LED_COUNT];
+uint8_t led_animation_shimmer;
+float shimmer_mult;
+
+void led_shimmer_run(float* ro, float* go, float* bo)
+{
+    uint8_t led_id = led_cur->id - 1;
+    led_animation_shimmer_matrix[led_id] += 1 * shimmer_dir[led_id];
+
+    if (led_animation_shimmer_matrix[led_id] >= 255)
+        shimmer_dir[led_id] = -1;
+    else if (led_animation_shimmer_matrix[led_id] <= 0)
+        shimmer_dir[led_id] = 1;
+
+    shimmer_mult = 0.000015 * led_animation_shimmer_matrix[led_id] * led_animation_shimmer_matrix[led_id];
+    if (shimmer_mult > 1) shimmer_mult = 1;
+    else if (shimmer_mult < 0) shimmer_mult = 0;
+
+    *ro *= shimmer_mult;
+    *go *= shimmer_mult;
+    *bo *= shimmer_mult;
+}
+//end poppro
+
 __attribute__ ((weak))
 void led_matrix_run(void)
 {
@@ -413,6 +441,11 @@ void led_matrix_run(void)
             bo *= breathe_mult;
         }
 
+        if(led_animation_shimmer)
+        {
+          led_shimmer_run(&ro, &go, &bo);
+        }
+
         *led_cur->rgb.r = (uint8_t)ro;
         *led_cur->rgb.g = (uint8_t)go;
         *led_cur->rgb.b = (uint8_t)bo;
@@ -477,6 +510,18 @@ uint8_t led_matrix_init(void)
     breathe_dir = 1;
     led_animation_circular = 0;
 
+    //poppro custom
+    for(uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
+    {
+        uint8_t rn = rand() % 255;
+        led_animation_shimmer_matrix[i] = rn;
+        if(i%2)
+            shimmer_dir[i] = 1;
+        else
+            shimmer_dir[i] = -1;
+    }
+    led_animation_shimmer = 0;
+
     gcr_min_counter = 0;
     v_5v_cat_hit = 0;
 
@@ -535,4 +580,3 @@ void led_matrix_task(void)
         //DBG_1_ON; //debug profiling
     }
 }
-
