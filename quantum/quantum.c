@@ -51,6 +51,10 @@ extern backlight_config_t backlight_config;
 #include "velocikey.h"
 #endif
 
+#ifdef HAPTIC_ENABLE
+    #include "haptic.h"
+#endif
+
 #ifdef ENCODER_ENABLE
 #include "encoder.h"
 #endif
@@ -182,6 +186,9 @@ void reset_keyboard(void) {
   shutdown_user();
   wait_ms(250);
 #endif
+#ifdef HAPTIC_ENABLE
+  haptic_shutdown();
+#endif
 // this is also done later in bootloader.c - not sure if it's neccesary here
 #ifdef BOOTLOADER_CATERINA
   *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
@@ -264,6 +271,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
     process_clicky(keycode, record) &&
   #endif //AUDIO_CLICKY
+  #ifdef HAPTIC_ENABLE
+    process_haptic(keycode, record) &&
+  #endif //HAPTIC_ENABLE
     process_record_kb(keycode, record) &&
   #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
     process_rgb_matrix(keycode, record) &&
@@ -1063,6 +1073,9 @@ void matrix_init_quantum() {
   #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
     unicode_input_mode_init();
   #endif
+  #ifdef HAPTIC_ENABLE
+    haptic_init();
+  #endif
   matrix_init_kb();
 }
 
@@ -1103,6 +1116,10 @@ void matrix_scan_quantum() {
 
   #ifdef ENCODER_ENABLE
     encoder_read();
+  #endif
+
+  #ifdef HAPTIC_ENABLE
+    haptic_task();
   #endif
 
   matrix_scan_kb();

@@ -13,8 +13,6 @@
 #define SYMB 2 // symbol layer
 #define MDIA 3 // media keys
 
-#define _______ KC_TRNS
-
 enum custom_keycodes {
     PLACEHOLDER = SAFE_RANGE, // can always be here
     EPRM,

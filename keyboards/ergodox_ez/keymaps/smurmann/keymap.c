@@ -6,8 +6,6 @@
 #define BASE 0 // default layer
 #define MDIA 1 // media keys
 
-#define _______ KC_TRNS
-
 enum custom_keycodes {
   PLACEHOLDER = SAFE_RANGE, // can always be here
   EPRM,
