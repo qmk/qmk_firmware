@@ -1,14 +1,14 @@
-# B.face
+# B.mini
 
-A 60% keyboard with RGB that runs ps2avrgb natively. Please note that the B.face and B.fake have different switch matrices. Firmware on one, will not work on the other. 
+A 75% keyboard with RGB
 
 Keyboard Maintainer: QMK Community  
-Hardware Supported: B.face PCB   
-Hardware Availability: [Winkeyless](https://winkeyless.kr/product/b-face-x2-pcb/)   
+Hardware Supported: B.mini PCB  
+Hardware Availability: http://winkeyless.kr/product/b-mini-x2-pcb/  
 
 Make example for this keyboard (after setting up your build environment):
 
-    make bface:default
+    make winkeyless/bmini:default
 
 Flashing
 
@@ -35,10 +35,9 @@ macOS:
     brew install python
     brew install pyusb
     brew install --HEAD`https://raw.githubusercontent.com/robertgzr/homebrew-tap/master/bootloadhid.rb
-    ```
 
 4. Place your keyboard into reset. 
 5. Flash the board by typing `bootloadHID -r` followed by the path to your `.hex` file. 
 
 
-See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
+See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
