@@ -1,3 +1,3 @@
-#include "../config.h"
+#pragma once
 
-#define TAPPING_TERM 600 // ms	
+#define TAPPING_TERM 600 // ms

@@ -73,6 +73,6 @@
 #define NEO_L1_R DE_HASH
 
 #define NEO_L2_L DE_LESS
-#define NEO_L2_R DE_ALGR
+#define NEO_L2_R KC_ALGR
 
 #endif

@@ -169,6 +169,36 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
+dfu-split-left: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
+	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
+	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) erase --force;\
+		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-lefthand.eep;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) erase;\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-lefthand.eep;\
+	fi
+	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+	$(DFU_PROGRAMMER) $(MCU) reset
+
+dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
+	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
+	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) erase --force;\
+		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) erase;\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-rightand.eep;\
+	fi
+	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+	$(DFU_PROGRAMMER) $(MCU) reset
+
 define EXEC_AVRDUDE
 	USB= ;\
 	if $(GREP) -q -s Microsoft /proc/version; then \
@@ -262,14 +292,7 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 
 bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
-	printf "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "MANUFACTURER\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s Bootloader\n" "`$(GREP) "PRODUCT\s" $(ALL_CONFIGS) -h | tail -1 | tr -d '\r'`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_ESC_OUTPUT\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_ESC_INPUT\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_LED\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_SPEAKER\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "\n#endif" >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	$(TMK_DIR)/make_dfu_header.sh $(ALL_CONFIGS)
 	make -C lib/lufa/Bootloaders/DFU/
 	printf "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
@@ -279,4 +302,3 @@ production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	@cat $(TARGET)_bootloader.hex >> $(TARGET)_production.hex
 	echo "File sizes:"
 	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
-

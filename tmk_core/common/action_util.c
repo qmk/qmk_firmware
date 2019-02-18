@@ -48,13 +48,23 @@ extern inline void del_key(uint8_t key);
 extern inline void clear_keys(void);
 
 #ifndef NO_ACTION_ONESHOT
-static int8_t oneshot_mods = 0;
-static int8_t oneshot_locked_mods = 0;
-int8_t get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
-void set_oneshot_locked_mods(int8_t mods) { oneshot_locked_mods = mods; }
-void clear_oneshot_locked_mods(void) { oneshot_locked_mods = 0; }
+static uint8_t oneshot_mods = 0;
+static uint8_t oneshot_locked_mods = 0;
+uint8_t get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
+void set_oneshot_locked_mods(uint8_t mods) {
+    if (mods != oneshot_locked_mods) {
+        oneshot_locked_mods = mods;
+        oneshot_locked_mods_changed_kb(oneshot_locked_mods);
+    }
+}
+void clear_oneshot_locked_mods(void) {
+    if (oneshot_locked_mods) {
+        oneshot_locked_mods = 0;
+        oneshot_locked_mods_changed_kb(oneshot_locked_mods);
+    }
+}
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-static int16_t oneshot_time = 0;
+static uint16_t oneshot_time = 0;
 bool has_oneshot_mods_timed_out(void) {
   return TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT;
 }
@@ -79,7 +89,7 @@ inline uint8_t get_oneshot_layer(void) { return oneshot_layer_data >> 3; }
 inline uint8_t get_oneshot_layer_state(void) { return oneshot_layer_data & 0b111; }
 
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-static int16_t oneshot_layer_time = 0;
+static uint16_t oneshot_layer_time = 0;
 inline bool has_oneshot_layer_timed_out() {
     return TIMER_DIFF_16(timer_read(), oneshot_layer_time) >= ONESHOT_TIMEOUT &&
         !(get_oneshot_layer_state() & ONESHOT_TOGGLED);
@@ -97,6 +107,7 @@ void set_oneshot_layer(uint8_t layer, uint8_t state)
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_layer_time = timer_read();
 #endif
+    oneshot_layer_changed_kb(get_oneshot_layer());
 }
 /** \brief Reset oneshot layer 
  *
@@ -107,6 +118,7 @@ void reset_oneshot_layer(void) {
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_layer_time = 0;
 #endif
+    oneshot_layer_changed_kb(get_oneshot_layer());
 }
 /** \brief Clear oneshot layer 
  *
@@ -118,9 +130,7 @@ void clear_oneshot_layer_state(oneshot_fullfillment_t state)
     oneshot_layer_data &= ~state;
     if (!get_oneshot_layer_state() && start_state != oneshot_layer_data) {
         layer_off(get_oneshot_layer());
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-    oneshot_layer_time = 0;
-#endif
+        reset_oneshot_layer();
     }
 }
 /** \brief Is oneshot layer active
@@ -243,23 +253,27 @@ void clear_macro_mods(void) { macro_mods = 0; }
  *
  * FIXME: needs doc
  */
-void set_oneshot_mods(uint8_t mods)
-{
-    oneshot_mods = mods;
+void set_oneshot_mods(uint8_t mods) {
+  if (oneshot_mods != mods) {
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_time = timer_read();
 #endif
+    oneshot_mods = mods;
+    oneshot_mods_changed_kb(mods);
+  }
 }
 /** \brief clear oneshot mods
  *
  * FIXME: needs doc
  */
-void clear_oneshot_mods(void)
-{
+void clear_oneshot_mods(void) {
+  if (oneshot_mods) {
     oneshot_mods = 0;
 #if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
     oneshot_time = 0;
 #endif
+    oneshot_mods_changed_kb(oneshot_mods);
+  }
 }
 /** \brief get oneshot mods
  *
@@ -270,6 +284,54 @@ uint8_t get_oneshot_mods(void)
     return oneshot_mods;
 }
 #endif
+
+/** \brief Called when the one shot modifiers have been changed.
+ * 
+ * \param mods Contains the active modifiers active after the change. 
+ */
+__attribute__((weak))
+void oneshot_locked_mods_changed_user(uint8_t mods) { }
+
+/** \brief Called when the locked one shot modifiers have been changed.
+ * 
+ * \param mods Contains the active modifiers active after the change. 
+ */
+__attribute__((weak))
+void oneshot_locked_mods_changed_kb(uint8_t mods) {
+    oneshot_locked_mods_changed_user(mods);
+}
+
+/** \brief Called when the one shot modifiers have been changed.
+ * 
+ * \param mods Contains the active modifiers active after the change.
+ */
+__attribute__((weak))
+void oneshot_mods_changed_user(uint8_t mods) { }
+
+/** \brief Called when the one shot modifiers have been changed.
+ * 
+ * \param mods Contains the active modifiers active after the change.
+ */
+__attribute__((weak))
+void oneshot_mods_changed_kb(uint8_t mods) {
+    oneshot_mods_changed_user(mods);
+}
+
+/** \brief Called when the one shot layers have been changed.
+ * 
+ * \param layer Contains the layer that is toggled on, or zero when toggled off. 
+ */
+__attribute__((weak))
+void oneshot_layer_changed_user(uint8_t layer) { }
+
+/** \brief Called when the one shot layers have been changed.
+ * 
+ * \param layer Contains the layer that is toggled on, or zero when toggled off.
+ */
+__attribute__((weak))
+void oneshot_layer_changed_kb(uint8_t layer) {
+    oneshot_layer_changed_user(layer);
+}
 
 /** \brief inspect keyboard state
  *

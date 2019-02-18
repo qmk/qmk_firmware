@@ -18,6 +18,52 @@
 
 #include "rgblight_reconfig.h"
 
+/***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
+
+ old mode number (before 0.6.117) to new mode name table
+
+|-----------------|-----------------------------------|
+| old mode number | new mode name                     |
+|-----------------|-----------------------------------|
+|        1        | RGBLIGHT_MODE_STATIC_LIGHT        |
+|        2        | RGBLIGHT_MODE_BREATHING           |
+|        3        | RGBLIGHT_MODE_BREATHING + 1       |
+|        4        | RGBLIGHT_MODE_BREATHING + 2       |
+|        5        | RGBLIGHT_MODE_BREATHING + 3       |
+|        6        | RGBLIGHT_MODE_RAINBOW_MOOD        |
+|        7        | RGBLIGHT_MODE_RAINBOW_MOOD + 1    |
+|        8        | RGBLIGHT_MODE_RAINBOW_MOOD + 2    |
+|        9        | RGBLIGHT_MODE_RAINBOW_SWIRL       |
+|       10        | RGBLIGHT_MODE_RAINBOW_SWIRL + 1   |
+|       11        | RGBLIGHT_MODE_RAINBOW_SWIRL + 2   |
+|       12        | RGBLIGHT_MODE_RAINBOW_SWIRL + 3   |
+|       13        | RGBLIGHT_MODE_RAINBOW_SWIRL + 4   |
+|       14        | RGBLIGHT_MODE_RAINBOW_SWIRL + 5   |
+|       15        | RGBLIGHT_MODE_SNAKE               |
+|       16        | RGBLIGHT_MODE_SNAKE + 1           |
+|       17        | RGBLIGHT_MODE_SNAKE + 2           |
+|       18        | RGBLIGHT_MODE_SNAKE + 3           |
+|       19        | RGBLIGHT_MODE_SNAKE + 4           |
+|       20        | RGBLIGHT_MODE_SNAKE + 5           |
+|       21        | RGBLIGHT_MODE_KNIGHT              |
+|       22        | RGBLIGHT_MODE_KNIGHT + 1          |
+|       23        | RGBLIGHT_MODE_KNIGHT + 2          |
+|       24        | RGBLIGHT_MODE_CHRISTMAS           |
+|       25        | RGBLIGHT_MODE_STATIC_GRADIENT     |
+|       26        | RGBLIGHT_MODE_STATIC_GRADIENT + 1 |
+|       27        | RGBLIGHT_MODE_STATIC_GRADIENT + 2 |
+|       28        | RGBLIGHT_MODE_STATIC_GRADIENT + 3 |
+|       29        | RGBLIGHT_MODE_STATIC_GRADIENT + 4 |
+|       30        | RGBLIGHT_MODE_STATIC_GRADIENT + 5 |
+|       31        | RGBLIGHT_MODE_STATIC_GRADIENT + 6 |
+|       32        | RGBLIGHT_MODE_STATIC_GRADIENT + 7 |
+|       33        | RGBLIGHT_MODE_STATIC_GRADIENT + 8 |
+|       34        | RGBLIGHT_MODE_STATIC_GRADIENT + 9 |
+|       35        | RGBLIGHT_MODE_RGB_TEST            |
+|       36        | RGBLIGHT_MODE_ALTERNATING         |
+|-----------------|-----------------------------------|
+ *****/
+
 #define _RGBM_SINGLE_STATIC(sym)   RGBLIGHT_MODE_ ## sym,
 #define _RGBM_SINGLE_DYNAMIC(sym)  RGBLIGHT_MODE_ ## sym,
 #define _RGBM_MULTI_STATIC(sym)    RGBLIGHT_MODE_ ## sym,
@@ -75,6 +121,9 @@ enum RGBLIGHT_EFFECT_MODE {
 #ifndef RGBLIGHT_VAL_STEP
 #define RGBLIGHT_VAL_STEP 17
 #endif
+#ifndef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 255
+#endif
 
 #define RGBLED_TIMER_TOP F_CPU/(256*64)
 // #define RGBLED_TIMER_TOP 0xFF10
@@ -100,6 +149,7 @@ extern const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
 extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
+extern bool is_rgblight_initialized;
 
 typedef union {
   uint32_t raw;
@@ -121,7 +171,7 @@ void rgblight_enable(void);
 void rgblight_disable(void);
 void rgblight_step(void);
 void rgblight_step_reverse(void);
-uint32_t rgblight_get_mode(void);
+uint8_t rgblight_get_mode(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
 void rgblight_update_dword(uint32_t dword);
@@ -140,6 +190,12 @@ uint8_t rgblight_get_val(void);
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
 void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index);
 void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index);
+void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8_t end);
+void rgblight_sethsv_range(uint16_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end);
+void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b);
+void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b);
+void rgblight_sethsv_master(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val);
 
 uint32_t eeconfig_read_rgblight(void);
 void eeconfig_update_rgblight(uint32_t val);
@@ -157,6 +213,14 @@ void rgblight_mode_noeeprom(uint8_t mode);
 void rgblight_toggle_noeeprom(void);
 void rgblight_enable_noeeprom(void);
 void rgblight_disable_noeeprom(void);
+void rgblight_step_noeeprom(void);
+void rgblight_step_reverse_noeeprom(void);
+void rgblight_increase_hue_noeeprom(void);
+void rgblight_decrease_hue_noeeprom(void);
+void rgblight_increase_sat_noeeprom(void);
+void rgblight_decrease_sat_noeeprom(void);
+void rgblight_increase_val_noeeprom(void);
+void rgblight_decrease_val_noeeprom(void);
 
 void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom);
 void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom);
@@ -238,6 +302,10 @@ void rgblight_effect_alternating(void);
   #ifdef RGBLIGHT_EFFECT_ALTERNATING
     _RGBM_SINGLE_DYNAMIC( ALTERNATING )
   #endif
+  ////  Add a new mode here.
+  // #ifdef RGBLIGHT_EFFECT_<name>
+  //    _RGBM_<SINGLE|MULTI>_<STATIC|DYNAMIC>( <name> )
+  // #endif
 #endif
 
 #undef _RGBM_SINGLE_STATIC

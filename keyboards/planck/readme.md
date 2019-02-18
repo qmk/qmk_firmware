@@ -13,4 +13,8 @@ Make example for this keyboard (after setting up your build environment):
 
     make planck/rev4:default
 
+Install examples:
+
+    make planck/rev6:default:dfu-util
+
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

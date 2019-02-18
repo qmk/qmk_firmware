@@ -1,18 +1,29 @@
 #include "spacebarracecar.h"
 
 #ifdef GERMAN_ENABLE
+// These indicate if left and right shift are physically pressed
 bool lshift = false;
 bool rshift = false;
+
+// Interrupt and times for space cadet shift
 bool lshiftp = false;
 bool rshiftp = false;
 uint16_t lshift_timer = 0;
 uint16_t rshift_timer = 0;
 
+// Number of items that are saved in prev_kcs
 uint8_t prev_indx = 0;
+// Used to save the last 6 actual keycodes activated by frankenkeycodes
 uint16_t prev_kcs[6] = {0, 0, 0, 0, 0, 0};
 
+// If true the deadkey characters grave and circonflexe are not automatically escaped
 bool esct = false;
 
+/*
+Used to add a keycode to a prev_kcs to remember it.
+When full the last code gets discarded and replaced by
+the new one.
+*/
 void add_to_prev(uint16_t kc){
   for (int i=0; i<prev_indx; i++){
     if (kc == prev_kcs[i])
@@ -29,6 +40,13 @@ void add_to_prev(uint16_t kc){
   }
 }
 
+/*
+Unregisters all codes saved in prev_kcs and resets prev_indx.
+gets called on multiple occasions mainly when shift is released
+and when frankenkeycodes are pressed. Prevents output of
+wrong characters when really specific key combinations
+that would never occur during normal usage are pressed.
+*/
 void unreg_prev(void){
   if (prev_indx == 0)
     return;
@@ -39,11 +57,14 @@ void unreg_prev(void){
 }
 #endif
 
-// stuff for nav esc
+// Interrupt and times for Nav/Esc
 bool navesc = false;
 uint16_t navesc_timer = 0;
+
+// If true Gui keys and Space Cadet Shift get disabled
 bool game = false;
 
+// Interrupts all timers
 void timer_timeout(void){
   #ifdef GERMAN_ENABLE
   lshiftp = false;
@@ -52,15 +73,19 @@ void timer_timeout(void){
   navesc = false;
 }
 
-bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
   case CU_GAME:
     if(record->event.pressed) {
+      timer_timeout();
       game = !game;
     }
-    return false;
+    // allows keymap to execute further commands when CU_GAME is pressed, for example enabling a macro layer
+    return process_record_keymap(keycode, record) && false;
   case KC_LGUI:
   case KC_RGUI:
+    if (record->event.pressed)
+      timer_timeout();
     if (game)
       return false;
     else
@@ -71,17 +96,27 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
       navesc_timer = timer_read();
       layer_on(_NAV);
     } else {
-      if (timer_elapsed(navesc_timer) < 200 && navesc) {
+      if (timer_elapsed(navesc_timer) < TAPPING_TERM && navesc) {
         register_code(KC_ESC);
         unregister_code(KC_ESC);
       }
       layer_off(_NAV);
     }
-  return false;
+    return false;
+  case KC_P00:
+    if(record->event.pressed) {
+      timer_timeout();
+      register_code(KC_P0);
+      unregister_code(KC_P0);
+      register_code(KC_P0);
+      unregister_code(KC_P0);
+    }
+    return false;
 
   #ifdef RGBLIGHT_ENABLE
   case CU_RGBV:
     if(record->event.pressed) {
+      timer_timeout();
       if (rgblight_get_val()+32>255)
         rgblight_sethsv(rgblight_get_hue(), rgblight_get_sat(), 31);
       else
@@ -99,7 +134,7 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LSFT);
       lshift = true;
     } else {
-      if (timer_elapsed(lshift_timer) < 200 && lshiftp && !game) {
+      if (timer_elapsed(lshift_timer) < TAPPING_TERM && lshiftp && !game) {
         register_code(KC_LSFT);
         register_code(KC_8);
         unregister_code(KC_8);
@@ -119,7 +154,7 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
       register_code(KC_LSFT);
       rshift = true;
     } else {
-      if (timer_elapsed(rshift_timer) < 200 && rshiftp && !game) {
+      if (timer_elapsed(rshift_timer) < TAPPING_TERM && rshiftp && !game) {
         register_code(KC_LSFT);
         register_code(KC_9);
         unregister_code(KC_9);
@@ -133,6 +168,7 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
     return false;
   case CU_ESCT:
     if(record->event.pressed) {
+      timer_timeout();
       esct = !esct;
     }
     return false;
@@ -175,11 +211,11 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
       timer_timeout();
       if (lshift || rshift){
         unregister_code(KC_LSFT);
-        register_code(DE_ALGR);
+        register_code(KC_ALGR);
         unregister_code(DE_PLUS);
         register_code(DE_PLUS);
         unregister_code(DE_PLUS);
-        unregister_code(DE_ALGR);
+        unregister_code(KC_ALGR);
         register_code(KC_LSFT);
       } else {
         register_code(KC_LSFT);
@@ -282,6 +318,7 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
   case KC_LCTL:
   case KC_RCTL:
     if(!record->event.pressed) {
+      timer_timeout();
       unregister_code(KC_Z);
       unregister_code(KC_Y);
     }
@@ -300,6 +337,6 @@ bool process_record_userspace(uint16_t keycode, keyrecord_t *record) {
       #endif
 
     }
-    return true;
+    return process_record_keymap(keycode, record);
   }
 }

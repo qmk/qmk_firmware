@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-
 /* Layer 0: HHKB JP
  * ,-----------------------------------------------------------.
  * |Esc|  1|  2|  3|  4|  5|  6|  7|  8|  9| 10|  -|  =|Yen|Bsp|
@@ -49,7 +47,3 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t macro_id, uint8_t o
 {
     return MACRO_NONE;
 }
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
