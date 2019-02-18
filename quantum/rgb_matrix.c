@@ -209,14 +209,16 @@ void rgb_matrix_solid_color(void) {
 }
 
 void rgb_matrix_solid_reactive(void) {
+  HSV hsv = { .h = rgb_matrix_config.hue, .s = 255, .v = rgb_matrix_config.val };
+  RGB rgb;
 	// Relies on hue being 8-bit and wrapping
 	for ( int i=0; i<DRIVER_LED_TOTAL; i++ )
 	{
 		uint16_t offset2 = g_key_hit[i]<<2;
 		offset2 = (offset2<=130) ? (130-offset2) : 0;
 
-		HSV hsv = { .h = rgb_matrix_config.hue+offset2, .s = 255, .v = rgb_matrix_config.val };
-		RGB rgb = hsv_to_rgb( hsv );
+		hsv.h = rgb_matrix_config.hue + offset2;
+		rgb = hsv_to_rgb( hsv );
 		rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
 	}
 }
@@ -412,12 +414,12 @@ void rgb_matrix_rainbow_beacon(void) {
     HSV hsv = { .h = rgb_matrix_config.hue, .s = rgb_matrix_config.sat, .v = rgb_matrix_config.val };
     RGB rgb;
     Point point;
-    double cos_value = cos(g_tick * PI / 128);
-    double sin_value =  sin(g_tick * PI / 128);
     double speed = 1.5 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed);
+    double cos_value = speed * cos(g_tick * PI / 128);
+    double sin_value = speed * sin(g_tick * PI / 128);
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         point = g_rgb_leds[i].point;
-        hsv.h = speed * (point.y - 32.0)* cos_value + speed * (point.x - 112.0) * sin_value + rgb_matrix_config.hue;
+        hsv.h = (point.y - 32.0) * cos_value + (point.x - 112.0) * sin_value + rgb_matrix_config.hue;
         rgb = hsv_to_rgb( hsv );
         rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
     }
@@ -427,12 +429,12 @@ void rgb_matrix_rainbow_pinwheels(void) {
     HSV hsv = { .h = rgb_matrix_config.hue, .s = rgb_matrix_config.sat, .v = rgb_matrix_config.val };
     RGB rgb;
     Point point;
-    double cos_value = cos(g_tick * PI / 128);
-    double sin_value =  sin(g_tick * PI / 128);
     double speed = 2 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed);
+    double cos_value = speed * cos(g_tick * PI / 128);
+    double sin_value = speed * sin(g_tick * PI / 128);
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         point = g_rgb_leds[i].point;
-        hsv.h = speed * (point.y - 32.0)* cos_value + speed * (66 - abs(point.x - 112.0)) * sin_value + rgb_matrix_config.hue;
+        hsv.h = (point.y - 32.0)* cos_value + (66 - abs(point.x - 112.0)) * sin_value + rgb_matrix_config.hue;
         rgb = hsv_to_rgb( hsv );
         rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
     }
@@ -443,13 +445,13 @@ void rgb_matrix_rainbow_moving_chevron(void) {
     RGB rgb;
     Point point;
     uint8_t r = 128;
-    double cos_value = cos(r * PI / 128);
-    double sin_value =  sin(r * PI / 128);
-    double multiplier = (g_tick / 256.0 * 224);
     double speed = 1.5 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed);
+    double cos_value = speed * cos(r * PI / 128);
+    double sin_value = speed * sin(r * PI / 128);
+    double multiplier = (g_tick / 256.0 * 224);
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         point = g_rgb_leds[i].point;
-        hsv.h = speed * abs(point.y - 32.0) * sin_value + speed * (point.x - multiplier) * cos_value + rgb_matrix_config.hue;
+        hsv.h = abs(point.y - 32.0) * sin_value + (point.x - multiplier) * cos_value + rgb_matrix_config.hue;
         rgb = hsv_to_rgb( hsv );
         rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
     }
