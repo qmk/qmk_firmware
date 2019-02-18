@@ -140,7 +140,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_LAYER_MOMENTARY(_FL),        // Momentary Fn overlay
   [1] = ACTION_LAYER_TOGGLE(_CM),           //Toggle Colemak Layer overlay
   [2] = ACTION_LAYER_TOGGLE(_DV),           // Toggle Dvorak Layer overlay
   [3] = ACTION_LAYER_TOGGLE(_AL),           // Toggle Arrow Layer overlay

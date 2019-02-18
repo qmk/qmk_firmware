@@ -11,20 +11,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       {KC_DELETE,  KC_0,    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    FUNC(1)},
       {KC_O,       KC_G,    KC_S,    KC_U,    KC_T,    FUNC(27),  KC_F21,  KC_F10,  KC_F11,  KC_F7,   KC_F8,   KC_F9},
       {KC_TAB,     FUNC(4), FUNC(5),  FUNC(6),  KC_F1,   FUNC(7),  KC_F18,  KC_F19,  KC_F23,  KC_F20,  KC_F22,  FUNC(9)},
-      {KC_COMM,    KC_DOT,  KC_R, FUNC(11), FUNC(3),  KC_SPC,        FUNC(12), KC_F2,   FUNC(8),  KC_F3,   KC_F14}
+      {KC_COMM,    KC_DOT,  KC_R, FUNC(11), MO(2),    KC_SPC,        FUNC(12), KC_F2,   FUNC(8),  KC_F3,   KC_F14}
 	  },
     [2] = { /* 2: FUNC(3 PHOTOSHOP */
       {KC_ESC,    FUNC(25), FUNC(26),   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO},
       {KC_NO,      KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   KC_NO,   FUNC(19), FUNC(20), FUNC(21)}, 
       {KC_C,       KC_NO,  FUNC(22),  FUNC(5),   KC_NO,   FUNC(23), KC_NO,   KC_NO,   KC_NO,   KC_NO,   FUNC(13), KC_NO},
-      {FUNC(14),    FUNC(15), FUNC(16), FUNC(17), FUNC(3),   KC_SPC,        FUNC(18), KC_NO,   KC_NO,   KC_F24,  KC_NO}
+      {FUNC(14),    FUNC(15), FUNC(16), FUNC(17), MO(2),     KC_SPC,        FUNC(18), KC_NO,   KC_NO,   KC_F24,  KC_NO}
 	  }
 };
 
 const uint16_t PROGMEM fn_actions[] = {
     [1] = ACTION_DEFAULT_LAYER_SET(0),                             // set Qwerty layout
     [2] = ACTION_DEFAULT_LAYER_SET(1),                             // set Photoshop presets
-    [3] = ACTION_LAYER_MOMENTARY(2),                                  // Photoshop function layer
  
     [4] = ACTION_MODS_KEY(MOD_LSFT | MOD_LCTL | MOD_LALT, KC_F9),   // photo folder AHK
     [5] = ACTION_MODS_KEY(MOD_LSFT | MOD_LCTL, KC_I),              // select inverse

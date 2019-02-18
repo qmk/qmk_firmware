@@ -1,11 +1,15 @@
 #include QMK_KEYBOARD_H
 
+#define KC_MO1 MO(1)
+#define KC_MO2 MO(2)
+#define KC_MO3 MO(3)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [0] = LAYOUT_kc(
         ESC, Q, W, F, P, G, J, L, U, Y, SCLN, QUOT, BSPC,
         FN8, A, R, S, T, D, H, N, E, I, O, ENT,
         LSFT, Z, X, C, V, B, K, M, COMM, DOT, SLSH, FN6,
-        FN4, LGUI, FN7, FN2, FN1, SPC, FN5, RALT, FN3, FN0),
+        FN4, LGUI, FN7, MO2, MO1, SPC, FN5, RALT, MO3, FN0),
     [1] = LAYOUT_kc(
         TRNS, FN10, FN11, FN12, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, UP, DEL,
         TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, HOME, PGUP, LEFT, RGHT,
@@ -37,9 +41,6 @@ enum macro_id
 
 const uint16_t PROGMEM fn_actions[] = {
     [0] = ACTION_MODS_TAP_KEY(MOD_LCTL, KC_MINS),
-    [1] = ACTION_LAYER_MOMENTARY(1), // FN1
-    [2] = ACTION_LAYER_MOMENTARY(2), // FN2
-    [3] = ACTION_LAYER_MOMENTARY(3), // FN3
     [4] = ACTION_MODS_TAP_KEY(MOD_LSFT, KC_GRV),
     [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_RGUI),
     [6] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_CAPS),

@@ -29,7 +29,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_ESC,  KC_Q,    KC_W,   KC_F,    KC_P, KC_G, KC_J, KC_L, KC_U,    KC_Z,    DE_SCLN, DE_MINS},
   {KC_BSPC, KC_A,    KC_R,   KC_S,    KC_T, KC_D, KC_H, KC_N, KC_E,    KC_I,    KC_O,    DE_QUOT},
   {M(0),    KC_Y,    KC_X,   KC_C,    KC_V, KC_B, KC_K, KC_M, DE_COMM, DE_DOT,  DE_SLSH, KC_ENT},
-  {KC_LCTL, KC_LGUI, KC_TAB, KC_LALT, F(2), F(3), F(3), F(1), KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
+  {KC_LCTL, KC_LGUI, KC_TAB, KC_LALT, MO(3),F(3), F(3), MO(2),KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
 },
 [1] = { /* Symbols
     * ,-----------------------------------------------------------------------.
@@ -93,7 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {KC_F13, KC_F14,  KC_F15, KC_F16, KC_F17,  KC_F18,  KC_F19,  KC_F20,  KC_F21,  KC_F22,  KC_F23,  KC_F24},
   {KC_F1,  KC_F2,   KC_F3,  KC_F4,  KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12},
   {KC_NO,  KC_NO,   KC_NO,  KC_NO,  KC_NO,   KC_PMNS, KC_PPLS, KC_NO,   KC_NO,   KC_NO,   RESET,   KC_NO},
-  {KC_NO,  BL_TOGG, BL_DEC, BL_INC, FUNC(2), KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY}
+  {KC_NO,  BL_TOGG, BL_DEC, BL_INC, MO(3),   KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY}
 },
 [5] = { /* Gaming
     * ,-----------------------------------------------------------------------.
@@ -131,8 +131,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_MOMENTARY(2),              // to RAISE
-    [2] = ACTION_LAYER_MOMENTARY(3),              // to LOWER
     [3] = ACTION_LAYER_TAP_KEY(4,KC_SPC),         // to Function
     [4] = ACTION_LAYER_TOGGLE(5),                 // toggle Gaming
 	[5] = ACTION_MODS_TAP_KEY(KC_LSFT, KC_CAPS),  //Shift on press, Caps on tap

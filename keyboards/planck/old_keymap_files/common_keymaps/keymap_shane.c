@@ -3,6 +3,9 @@
 #include "action.h"
 #include "action_util.h"
 
+#define KC_MO6 MO(6)
+#define KC_MO8 MO(8)
+
 /*
   Shane's Planck Layout
   http://www.keyboard-layout-editor.com/#/layouts/015d9011102619d7695c86ffe57cf441
@@ -12,7 +15,7 @@ const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     TAB,  Q,  W,  E,  R,  T,  Y,  U,  I,  O,  P,  MINS,
     LCTL, A,  S,  D,  F,  G,  H,  J,  K,  L,  SCLN, BSPC,
     LSFT, Z,  X,  C,  V,  B,  N,  M,  COMM, DOT,  SLSH, FN5,
-    /*ALPHA*/FN3, /*HYPER*/ /*SUPER*/LGUI, /*META*/LALT, LCTL,  FN2,  FN6,  FN1,  LEFT, DOWN, UP, RGHT),
+    /*ALPHA*/FN3, /*HYPER*/ /*SUPER*/LGUI, /*META*/LALT, LCTL,  MO8,  FN6,  MO6,  LEFT, DOWN, UP, RGHT),
   [2] = KEYMAP_AND_SWAP( /* More modifiers */
     TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
     TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS,
@@ -72,8 +75,6 @@ void action_function(keyrecord_t *record, uint8_t id, uint8_t opt)
 
 
 const uint16_t PROGMEM fn_actions[] = {
-  [1] = ACTION_LAYER_MOMENTARY(6),  // to fist Fn overlay
-  [2] = ACTION_LAYER_MOMENTARY(8),  // to second Fn overlay
   [3] = ACTION_LAYER_TOGGLE(2), // toggle more modifiers
   [4] = ACTION_LAYER_TOGGLE(4), // toggle wasd
   [5] = ACTION_MODS_TAP_KEY(MOD_RSFT, KC_ENT),

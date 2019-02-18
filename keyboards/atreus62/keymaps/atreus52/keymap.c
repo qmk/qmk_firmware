@@ -8,13 +8,16 @@
 #define BDO 4
 #define RESETL 5
 
+#define KC_RAIS MO(RAISE)
+#define KC_LOWR MO(LOWER)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [DVORAK] = LAYOUT_kc(
     NO, 1,    2,    3,    4,    5,                6,    7,    8,    9,    0,    NO, \
     NO, QUOT, COMM, DOT,  P,    Y,                F,    G,    C,    R,    L,    NO, \
     NO, A,    O,    E,    U,    I,                D,    H,    T,    N,    S,    NO, \
     NO, SCLN, Q,    J,    K,    X,                B,    M,    W,    V,    Z,    NO, \
-    NO, FN2,  LALT, LCTL, FN1,  LSFT, BSPC, ENT,  SPC,  FN0,  LGUI, LEFT, RGHT, NO
+    NO, FN2,  LALT, LCTL, LOWR, LSFT, BSPC, ENT,  SPC,  RAIS, LGUI, LEFT, RGHT, NO
   ),
 
   [QWERTY] = LAYOUT_kc(
@@ -22,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     NO, Q,    W,    E,    R,    T,                Y,    U,    I,    O,    P,    NO, \
     NO, A,    S,    D,    F,    G,                H,    J,    K,    L,    SCLN, NO, \
     NO, Z,    X,    C,    V,    B,                N,    M,    COMM, DOT,  SLSH, NO, \
-    NO, FN2,  LALT, LCTL, FN1,  LSFT, BSPC, ENT,  SPC,  FN0,  LGUI, LEFT, RGHT, NO
+    NO, FN2,  LALT, LCTL, LOWR, LSFT, BSPC, ENT,  SPC,  RAIS, LGUI, LEFT, RGHT, NO
   ),
 
   [RAISE] = LAYOUT_kc(
@@ -59,8 +62,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 const uint16_t PROGMEM fn_actions[] = {
-  [0] = ACTION_LAYER_MOMENTARY(RAISE), // Raise layer
-  [1] = ACTION_LAYER_MOMENTARY(LOWER), // Lower layer
   [2] = ACTION_LAYER_TOGGLE(BDO), // BDO layer
   [3] = ACTION_LAYER_TOGGLE(RESETL) // RESET layer
 };

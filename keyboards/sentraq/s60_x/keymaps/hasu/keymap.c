@@ -1,5 +1,9 @@
 #include QMK_KEYBOARD_H
 
+#define KC_MO4 MO(4)
+#define KC_MO6 MO(6)
+#define KC_MO7 MO(7)
+
 /*
  * Hasu
  */
@@ -22,7 +26,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB,    Q,    W,   E,   R,   T,   Y,   U,   I,    O,    P, LBRC, RBRC, BSLS,       \
         CAPS,    A,    S,   D,   F,   G,   H,   J,   K,    L,  FN2, QUOT,   NO,  ENT,       \
         LSFT,   NO,    Z,   X,   C,   V,   B,   N,   M, COMM,  DOT,  FN1,   NO,  FN9,   NO, \
-        LCTL, LGUI, LALT,                SPC,                 RALT,  FN3,  FN3,  FN0),
+        LCTL, LGUI, LALT,                SPC,                 RALT,  MO6,  MO6,  MO4),
     /* Keymap 1: colemak
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │GRAVE│  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  -  │  =  │▒▒▒▒▒│BKSPC│
@@ -41,7 +45,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB,    Q,    W,   F,   P,   G,   J,   L,   U,    Y, SCLN, LBRC, RBRC, BSLS,      \
         BSPC,    A,    R,   S,   T,   D,   H,   N,   E,    I,    O, QUOT,   NO,  ENT,      \
         LSFT,   NO,    Z,   X,   C,   V,   B,   K,   M, COMM,  DOT, SLSH,   NO, RSFT,  NO, \
-        LCTL, LGUI, LALT,                SPC,                 RALT, RGUI,  APP,  FN0),
+        LCTL, LGUI, LALT,                SPC,                 RALT, RGUI,  APP,  MO4),
     /* Keymap 2: dvorak
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │GRAVE│  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  [  │  ]  │▒▒▒▒▒│BKSPC│
@@ -60,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB, QUOT, COMM,  DOT,   P,   Y,   F,   G,   C,   R,   L, SLSH,  EQL, BSLS,       \
         CAPS,    A,    O,    E,   U,   I,   D,   H,   T,   N,   S, MINS,   NO,  ENT,       \
         LSFT,   NO, SCLN,    Q,   J,   K,   X,   B,   M,   W,   V,    Z,   NO, RSFT,   NO, \
-        LCTL, LGUI, LALT,                 SPC,               RALT, RGUI,  APP,  FN0),
+        LCTL, LGUI, LALT,                 SPC,               RALT, RGUI,  APP,  MO4),
     /* Keymap 3: workman
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │GRAVE│  1  │  2  │  3  │  4  │  5  │  6  │  7  │  8  │  9  │  0  │  -  │  =  │▒▒▒▒▒│BKSPC│
@@ -79,7 +83,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          TAB,    Q,    D,   R,   W,   B,   J,   F,   U,    P, SCLN, LBRC, RBRC, BSLS,       \
         BSPC,    A,    S,   H,   T,   G,   Y,   N,   E,    O,    I, QUOT,   NO,  ENT,       \
         LSFT,   NO,    Z,   X,   M,   C,   V,   K,   L, COMM,  DOT, SLSH,   NO, RSFT,   NO, \
-        LCTL, LGUI, LALT,                SPC,                 RALT, RGUI,  APP,  FN0),
+        LCTL, LGUI, LALT,                SPC,                 RALT, RGUI,  APP,  MO4),
     /* Overlay 4: HHKB mode
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │Grave│ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │▒▒▒▒▒│ Del │
@@ -98,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         CAPS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, PSCR, SLCK, PAUS,   UP, TRNS,  INS,       \
         LCTL, VOLD, VOLU, MUTE, TRNS, TRNS, PAST, PSLS, HOME, PGUP, LEFT, RGHT, TRNS,  ENT,       \
         LSFT, TRNS, TRNS, TRNS, TRNS, TRNS, TRNS, PPLS, PMNS,  END, PGDN, DOWN, TRNS, RSFT, TRNS, \
-        LCTL, LGUI, LALT,                    SPC,                   RALT, RGUI,  FN4, TRNS),
+        LCTL, LGUI, LALT,                    SPC,                   RALT, RGUI,  MO7, TRNS),
     /* Overlay 5: Vi mode (Slash)
 ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
 │Grave│ F1  │ F2  │ F3  │ F4  │ F5  │ F6  │ F7  │ F8  │ F9  │ F10 │ F11 │ F12 │▒▒▒▒▒│BkSpc│
@@ -169,11 +173,8 @@ Lw: set Workman layout
  * Fn action definition
  */
 const uint16_t PROGMEM fn_actions[] = {
-    [0] = ACTION_LAYER_MOMENTARY(4),
     [1] = ACTION_LAYER_TAP_KEY(5, KC_SLASH),
     [2] = ACTION_LAYER_TAP_KEY(6, KC_SCLN),
-    [3] = ACTION_LAYER_MOMENTARY(6),
-    [4] = ACTION_LAYER_MOMENTARY(7),   // to Layout selector
     [5] = ACTION_DEFAULT_LAYER_SET(0),  // set qwerty layout
     [6] = ACTION_DEFAULT_LAYER_SET(1),  // set colemak layout
     [7] = ACTION_DEFAULT_LAYER_SET(2),  // set dvorak layout
