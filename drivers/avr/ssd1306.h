@@ -130,7 +130,14 @@ bool oled_scroll_off(void);
 
 
 // compatibility defines
-#ifdef SSD1306OLED_COMPATIBILITY
+#ifndef IOTA_COMPATIBILITY_OFF
+
+struct CharacterMatrix {
+  uint8_t display[0];
+  bool dirty;
+};
+
+struct CharacterMatrix display;
 
 #define iota_gfx_init(v) oled_init(v) // bool return, v is typical void, converts to bool
 #define iota_gfx_off(v) oled_off() // bool return
@@ -144,7 +151,7 @@ bool oled_scroll_off(void);
 
 void iota_gfx_task_user(void); // void return
 
-#define matrix_clear(matrix) oled_set_cursor(0, 0) // void return
+#define matrix_clear(matrix) // void return
 #define matrix_write_char_inner(matrix, char_value) oled_write_char(char_value, false) // void return
 #define matrix_write_char(matrix, char_value) oled_write_char(char_value, false) // void return
 #define matrix_write(matrix, const_char_pointer) oled_write(const_char_pointer, false) // void return
