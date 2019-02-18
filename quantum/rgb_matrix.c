@@ -414,7 +414,7 @@ void rgb_matrix_rainbow_beacon(void) {
     Point point;
     double cos_value = cos(g_tick * PI / 128);
     double sin_value =  sin(g_tick * PI / 128);
-    uint8_t speed = 1.5 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed);
+    double speed = 1.5 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed);
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         point = g_rgb_leds[i].point;
         hsv.h = speed * (point.y - 32.0)* cos_value + speed * (point.x - 112.0) * sin_value + rgb_matrix_config.hue;
@@ -429,7 +429,7 @@ void rgb_matrix_rainbow_pinwheels(void) {
     Point point;
     double cos_value = cos(g_tick * PI / 128);
     double sin_value =  sin(g_tick * PI / 128);
-    uint8_t speed = 2 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed);
+    double speed = 2 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed);
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         point = g_rgb_leds[i].point;
         hsv.h = speed * (point.y - 32.0)* cos_value + speed * (66 - abs(point.x - 112.0)) * sin_value + rgb_matrix_config.hue;
@@ -446,7 +446,7 @@ void rgb_matrix_rainbow_moving_chevron(void) {
     double cos_value = cos(r * PI / 128);
     double sin_value =  sin(r * PI / 128);
     double multiplier = (g_tick / 256.0 * 224);
-    uint8_t speed = 1.5 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed);
+    double speed = 1.5 * (rgb_matrix_config.speed == 0 ? 1 : rgb_matrix_config.speed);
     for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
         point = g_rgb_leds[i].point;
         hsv.h = speed * abs(point.y - 32.0) * sin_value + speed * (point.x - multiplier) * cos_value + rgb_matrix_config.hue;
