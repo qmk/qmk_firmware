@@ -143,8 +143,8 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 #elif (DIODE_DIRECTION == COL2ROW)
 
 static void select_row(uint8_t row) {
-  writePinLow(row_pins[row]);
   setPinOutput(row_pins[row]);
+  writePinLow(row_pins[row]);
 }
 
 static void unselect_row(uint8_t row) { setPinInputHigh(row_pins[row]); }
@@ -188,8 +188,8 @@ static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row)
 #elif (DIODE_DIRECTION == ROW2COL)
 
 static void select_col(uint8_t col) {
-  writePinLow(col_pins[col]);
   setPinOutput(col_pins[col]);
+  writePinLow(col_pins[col]);
 }
 
 static void unselect_col(uint8_t col) { setPinInputHigh(col_pins[col]); }
