@@ -23,9 +23,6 @@ enum planck_keycodes {
   EXT_MOUSE
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define LOWER M(1)
 #define RAISE M(2)
 #define WINDOW_SHORTCUT MO(_WINDOW_SHORTCUT)
