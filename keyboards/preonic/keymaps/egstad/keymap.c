@@ -88,7 +88,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_QWERTY] = LAYOUT_preonic_grid( \
-/* ROW 1                  ROW 2           ROW 3           ROW 4           ROW 5           ROW 6           ROW 7                   ROW 8           ROW 9           ROW 10          ROW 11          ROW 12 */
+/* COL 1                  COL 2           COL 3           COL 4           COL 5           COL 6           COL 7                   COL 8           COL 9           COL 10          COL 11          COL 12 */
   TD(TD_GV_ESC),          KC_1,           KC_2,           KC_3,           KC_4,           KC_5,           KC_6,                   KC_7,           KC_8,           KC_9,           KC_0,           TD(TD_MIN),            \
   LT(_RAISE, KC_TAB),     KC_Q,           KC_W,           KC_E,           KC_R,           KC_T,           KC_Y,                   KC_U,           KC_I,           KC_O,           KC_P,           TD(TD_BRC),            \
   LT(_LOWER, KC_ENT),     KC_A,           KC_S,           KC_D,           KC_F,           KC_G,           KC_H,                   KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,               \
@@ -115,7 +115,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_preonic_grid( \
-/* ROW 1          ROW 2           ROW 3           ROW 4           ROW 5           ROW 6           ROW 7           ROW 8           ROW 9           ROW 10          ROW 11          ROW 12   */
+/* COL 1          COL 2           COL 3           COL 4           COL 5           COL 6           COL 7           COL 8           COL 9           COL 10          COL 11          COL 12   */
   _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,   \
   LGUI(KC_TAB),   LGUI(KC_Q),     LGUI(KC_W),     _______,        _______,        LGUI(KC_T),     _______,        _______,        _______,        _______,        _______,        _______,  \
   _______,        LGUI(KC_A),     LGUI(KC_S),     LGUI(KC_D),     LGUI(KC_F),     LGUI(KC_G),     _______,        KC_LEFT,        KC_UP,          KC_DOWN,        KC_RIGHT,       KC_ENTER, \
