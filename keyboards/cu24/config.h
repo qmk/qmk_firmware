@@ -45,7 +45,7 @@
 #define MATRIX_COL_PINS { F0, F1, D0, D1 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION ROW2COL
  
 /* Backlight */

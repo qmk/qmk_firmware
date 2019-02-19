@@ -47,10 +47,8 @@
 /* COL2ROW, ROW2COL */
 //#define DIODE_DIRECTION COL2ROW
 
-// TODO: NOT WORKING - original kimera code seems to suggest B6 or C7 in backlight.c
-//                     however tracing seems to suggest this is not true (as C7 is RGB)
 #define BACKLIGHT_PIN B5
-#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 10
 // #define BACKLIGHT_BREATHING
 
 #define RGB_DI_PIN C7
@@ -239,3 +237,7 @@
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
+
+// LTO options
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
