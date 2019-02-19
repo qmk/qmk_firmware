@@ -4,6 +4,7 @@ Development docs covering the following:
 - Kimera core
 - RGB
 - Backlight
+- Light Through Cat
 
 ## Kimera core
 ![Kimera core](https://gd2.alicdn.com/imgextra/i4/159916802/TB2qsIgdrJkpuFjy1zcXXa5FFXa_!!159916802.jpg)
@@ -77,7 +78,10 @@ Taken from [kimera-config.json](https://github.com/kairyu/tkg/blob/master/keyboa
 - Number of RGB LED 7
 
 # Backlight
-    TODO - not working
+- PIN B6
+
+# Light Through Cat
+    TODO - PWM C6
 
 ## Assumptions
 ### Pin/Port mappings
