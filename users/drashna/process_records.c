@@ -20,34 +20,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
   #if defined(KEYBOARD_ergodox_ez) || defined(KEYBOARD_iris_rev2)
-    xprintf("KL: col: %u, row: %u, pressed: %u\n", record->event.key.row, record->event.key.col, record->event.pressed);
+    xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.row, record->event.key.col, record->event.pressed);
   #else
-    xprintf("KL: col: %u, row: %u, pressed: %u\n", record->event.key.col, record->event.key.row, record->event.pressed);
+    xprintf("KL: kc: %u, col: %u, row: %u, pressed: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed);
   #endif
 #endif //KEYLOGGER_ENABLE
 
   switch (keycode) {
-  case KC_QWERTY:
+  case KC_QWERTY ... KC_CARPLAX:
     if (record->event.pressed) {
-      set_single_persistent_default_layer(_QWERTY);
+      set_single_persistent_default_layer(keycode - KC_QWERTY);
     }
     break;
-  case KC_COLEMAK:
-    if (record->event.pressed) {
-      set_single_persistent_default_layer(_COLEMAK);
-    }
-    break;
-  case KC_DVORAK:
-    if (record->event.pressed) {
-      set_single_persistent_default_layer(_DVORAK);
-    }
-    break;
-  case KC_WORKMAN:
-    if (record->event.pressed) {
-      set_single_persistent_default_layer(_WORKMAN);
-    }
-    break;
-
 
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {

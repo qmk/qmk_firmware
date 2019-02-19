@@ -20,9 +20,6 @@ enum planck_keycodes {
   DVORAK
 };
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Custom macros
 #define ALT_GRV     ALT_T(KC_GRV)               // Tap for Backtick, hold for Alt
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl

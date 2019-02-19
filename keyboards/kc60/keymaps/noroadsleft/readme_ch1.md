@@ -7,8 +7,6 @@
   4. [Function Layers](./readme_ch4.md)
   5. [Other Layers](./readme_ch5.md)
 
-### Last updated: September 2, 2018, 1:03 PM UTC-0700
-
 
 ----
 
