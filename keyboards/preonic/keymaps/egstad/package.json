@@ -4,6 +4,7 @@
   "description": "egstad's layout for his fav keeb",
   "main": "index.js",
   "scripts": {
+    "qmk": "open /Applications/QMK-Toolbox.app",
     "build": "cd ../../../../; make preonic/rev3:egstad",
     "start": "npm run build"
   },
