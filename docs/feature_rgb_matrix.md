@@ -102,8 +102,8 @@ From this point forward the configuration is the same for all the drivers.
 
 The format for the matrix position used in this array is `{row | (col << 4)}`. The `x` is between (inclusive) 0-224, and `y` is between (inclusive) 0-64. The easiest way to calculate these positions is:
 
-    x = 224 / ( NUMBER_OF_ROWS - 1 ) * ROW_POSITION
-    y = 64 / (NUMBER_OF_COLS - 1 ) * COL_POSITION
+    x = 224 / ( NUMBER_OF_COLS - 1 ) * ROW_POSITION
+    y = 64 / (NUMBER_OF_ROWS - 1 ) * COL_POSITION
 
 Where all variables are decimels/floats.
 
