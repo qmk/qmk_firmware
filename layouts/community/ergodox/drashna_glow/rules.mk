@@ -6,4 +6,5 @@ SRC += ../drashna/keymap.c
 ifneq (,$(findstring ergodox_ez,$(KEYBOARD)))
   RGBLIGHT_ENABLE = no
   RGB_MATRIX_ENABLE = yes
+  TAP_DANCE_ENABLE  = no
 endif

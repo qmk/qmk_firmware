@@ -4,10 +4,6 @@
 #define L_QWERTSPLITLY 0
 #define L_FN 1
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Defines for Mac specific key accelerators used in map. Some of these are very awkward to type.
 // These are the default bindings for Mac, some of which may be turned off or changed, check your
 // settings in System Preferences
