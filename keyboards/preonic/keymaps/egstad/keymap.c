@@ -119,7 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_F11,   \
   LGUI(KC_TAB),   LGUI(KC_Q),     LGUI(KC_W),     _______,        _______,        LGUI(KC_T),     _______,        _______,        _______,        _______,        _______,        _______,  \
   _______,        LGUI(KC_A),     LGUI(KC_S),     LGUI(KC_D),     LGUI(KC_F),     LGUI(KC_G),     _______,        KC_LEFT,        KC_UP,          KC_DOWN,        KC_RIGHT,       KC_ENTER, \
-  _______,        LGUI(KC_Z),     LGUI(KC_X),     LGUI(KC_C),     LGUI(KC_V),     _______,        _______,        _______,        _______,        _______,        _______,        MU_TOG,   \
+  _______,        LGUI(KC_Z),     LGUI(KC_X),     LGUI(KC_C),     LGUI(KC_V),     _______,        _______,        _______,        _______,        _______,        MU_MOD,         MU_TOG,   \
   _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______   \
 ),
 
