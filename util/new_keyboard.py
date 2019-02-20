@@ -22,15 +22,10 @@ def prompt(message, default=""):
 
 def get_git_username():
     """Return the username configured in git config, or None."""
-    git = shutil.which('git')
-    if git:
-        devnull = open(os.devnull, 'w')
-        is_git_repo = (subprocess.call([git, 'rev-parse', '--git-dir'], stdout=devnull, stderr=devnull) == 0)
-        if is_git_repo:
-            git_username = subprocess.check_output([git, 'config', '--get', 'user.name']).decode('utf-8').rstrip('\r\n')
-            if git_username:
-                return git_username
-    return None
+    try:
+        return subprocess.check_output(['git', 'config', '--get', 'user.name'], encoding='utf-8').rstrip('\r\n')
+    except subprocess.CalledProcessError:
+        return None
 
 def copy_template(keyboard_dir, keyboard_name, keyboard_type):
     """Copy the template files to the new keyboard's directory."""
