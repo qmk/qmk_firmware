@@ -243,25 +243,25 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
 
 
- void matrix_init_rgb(void) {
+void keyboard_post_init_rgb(void) {
 
-// #ifdef RGBLIGHT_ENABLE
-//   if (userspace_config.rgb_layer_change) {
-//     rgblight_enable_noeeprom();
-//     switch (biton32(eeconfig_read_default_layer())) {
-//       case _COLEMAK:
-//         rgblight_sethsv_noeeprom_magenta(); break;
-//       case _DVORAK:
-//         rgblight_sethsv_noeeprom_springgreen(); break;
-//       case _WORKMAN:
-//         rgblight_sethsv_noeeprom_goldenrod(); break;
-//       default:
-//         rgblight_sethsv_noeeprom_cyan(); break;
-//     }
-//     rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-//   }
-// #endif
- }
+#ifdef RGBLIGHT_ENABLE
+  if (userspace_config.rgb_layer_change) {
+    rgblight_enable_noeeprom();
+    switch (biton32(eeconfig_read_default_layer())) {
+      case _COLEMAK:
+        rgblight_sethsv_noeeprom_magenta(); break;
+      case _DVORAK:
+        rgblight_sethsv_noeeprom_springgreen(); break;
+      case _WORKMAN:
+        rgblight_sethsv_noeeprom_goldenrod(); break;
+      default:
+        rgblight_sethsv_noeeprom_cyan(); break;
+    }
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+  }
+#endif
+}
 
 void matrix_scan_rgb(void) {
 #ifdef RGBLIGHT_TWINKLE
@@ -315,6 +315,14 @@ uint32_t layer_state_set_rgb(uint32_t state) {
           rgblight_sethsv_noeeprom_springgreen(); break;
         case _WORKMAN:
           rgblight_sethsv_noeeprom_goldenrod(); break;
+        case _NORMAN:
+          rgblight_sethsv_noeeprom_coral(); break;
+        case _MALTRON:
+          rgblight_sethsv_noeeprom_yellow(); break;
+        case _EUCALYN:
+          rgblight_sethsv_noeeprom_pink(); break;
+        case _CARPLAX:
+          rgblight_sethsv_noeeprom_blue(); break;
         default:
           rgblight_sethsv_noeeprom_cyan(); break;
       }
@@ -328,6 +336,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
   return state;
 }
 
+#if 0
 uint32_t default_layer_state_set_rgb(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
   if (userspace_config.rgb_layer_change) {
@@ -363,3 +372,4 @@ uint32_t default_layer_state_set_rgb(uint32_t state) {
 #endif // RGBLIGHT_ENABLE
   return state;
 }
+#endif

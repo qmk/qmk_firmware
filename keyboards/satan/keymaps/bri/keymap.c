@@ -5,7 +5,6 @@
 #define _FL 1
 #define _NAV 2
 
-#define _______ KC_TRNS
 #define A_LEFT  LALT(KC_LEFT)
 #define A_RGHT  LALT(KC_RGHT)
 
