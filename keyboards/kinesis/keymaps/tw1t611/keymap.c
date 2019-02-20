@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_ESC ,KC_A   ,KC_S   ,KC_D   ,KC_F   ,KC_G   ,
            DE_HASH,KC_Z   ,KC_X   ,KC_C   ,KC_V   ,KC_B   ,
            DE_TILD,DE_PIPE,DE_BSLS,DE_GRV,
-                   KC_LCTL,KC_LALT,
+                   KC_RCTL,KC_LALT,
                    KC_HOME,
                    KC_LSFT,MO(MOD),KC_BSPC ,
            KC_F9  ,KC_F10 ,KC_F11 ,KC_F12 ,KC_PSCR,KC_SLCK,KC_PAUS,KC_FN0 ,RESET,
@@ -21,7 +21,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            KC_H   ,KC_J   ,KC_K   ,KC_L   ,DE_SLSH,DE_QUOT,
            KC_N   ,KC_M   ,DE_COMM,DE_DOT ,DE_MINS,DE_PLUS,
            DE_AE  ,DE_OE, DE_UE, DE_SS,
-                   KC_LGUI,KC_RCTL,
+                   KC_LGUI,KC_LCTL,
                    KC_END ,
                    KC_DEL,KC_ENTER ,KC_SPC
     ),
@@ -46,22 +46,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                    _______,_______ ,_______
     )
 };
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
-{
-  // MACRODOWN only works in this function
-      switch(id) {
-        case 0:
-          if (record->event.pressed) {
-            register_code(KC_RSFT);
-          } else {
-            unregister_code(KC_RSFT);
-          }
-        break;
-      }
-    return MACRO_NONE;
-};
-
 
 void matrix_init_user(void) {
 
