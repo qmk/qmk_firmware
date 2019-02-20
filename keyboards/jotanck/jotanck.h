@@ -1,4 +1,4 @@
-#ifndef JOTANCK_H
+#pragma once
 #define JOTANCK_H
 
 #include "quantum.h"
