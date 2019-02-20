@@ -21,20 +21,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     case MAKEK:
       if (record->event.pressed) {
-        SEND_STRING("make helix:klackygears");
+        SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP);
       }
     break;
 
     case MAKEKF:
       if (record->event.pressed) {
-        SEND_STRING("make helix:klackygears:dfu");
+        SEND_STRING("make " QMK_KEYBOARD ":" QMK_KEYMAP ":dfu");
       }
 
     break;
 
     case SHRUG:
       if (record->event.pressed) {
-        SEND_STRING("¯\\_(ツ)_/¯");
+        SEND_STRING(":Shrug:");
         //send_unicode_hex_string(0x2122);
       }
 
