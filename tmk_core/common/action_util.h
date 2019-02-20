@@ -14,11 +14,10 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef ACTION_UTIL_H
-#define ACTION_UTIL_H
+#pragma once
 
-#include <stdint.h>
 #include "report.h"
+#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -29,17 +28,11 @@ extern report_keyboard_t *keyboard_report;
 void send_keyboard_report(void);
 
 /* key */
-inline void add_key(uint8_t key) {
-  add_key_to_report(keyboard_report, key);
-}
+inline void add_key(uint8_t key) { add_key_to_report(keyboard_report, key); }
 
-inline void del_key(uint8_t key) {
-  del_key_from_report(keyboard_report, key);
-}
+inline void del_key(uint8_t key) { del_key_from_report(keyboard_report, key); }
 
-inline void clear_keys(void) {
-  clear_keys_from_report(keyboard_report);
-}
+inline void clear_keys(void) { clear_keys_from_report(keyboard_report); }
 
 /* modifier */
 uint8_t get_mods(void);
@@ -81,6 +74,7 @@ typedef enum {
   ONESHOT_START = 0b11,
   ONESHOT_TOGGLED = 0b100
 } oneshot_fullfillment_t;
+
 void set_oneshot_layer(uint8_t layer, uint8_t state);
 uint8_t get_oneshot_layer(void);
 void clear_oneshot_layer_state(oneshot_fullfillment_t state);
@@ -102,6 +96,4 @@ uint8_t has_anymod(void);
 
 #ifdef __cplusplus
 }
-#endif
-
 #endif
