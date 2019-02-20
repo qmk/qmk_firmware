@@ -231,10 +231,10 @@ This can be described by saying the top row is 3 1u keys, and the bottom row is 
     └─────┴─────┘
 ```
 
-The middle column is unused on the bottom row in this example. Our `KEYMAP` definition would look like this:
+The middle column is unused on the bottom row in this example. Our `LAYOUT` definition would look like this:
 
 ```
-    #define KEYMAP( \
+    #define LAYOUT( \
         k00, k01, k02, \
           k10,  k11,   \
     ) \
@@ -256,10 +256,10 @@ Let's say that instead, we wired our keyboard like this (a fair thing to do):
     └─────┴─────┘
 ```
 
-This would require our `KEYMAP` definition to look like this:
+This would require our `LAYOUT` definition to look like this:
 
 ```
-    #define KEYMAP( \
+    #define LAYOUT( \
         k00, k01, k02, \
           k10,  k11,   \
     ) \
@@ -269,7 +269,7 @@ This would require our `KEYMAP` definition to look like this:
     }
 ```
 
-Notice how the `k11` and `KC_NO` switched places to represent the wiring, and the unused final column on the bottom row. Sometimes it'll make more sense to put a keyswitch on a particular column, but in the end, it won't matter, as long as all of them are accounted for. You can use this process to write out the `KEYMAP` for your entire keyboard - be sure to remember that your keyboard is actually backwards when looking at the underside of it.
+Notice how the `k11` and `KC_NO` switched places to represent the wiring, and the unused final column on the bottom row. Sometimes it'll make more sense to put a keyswitch on a particular column, but in the end, it won't matter, as long as all of them are accounted for. You can use this process to write out the `LAYOUT` for your entire keyboard - be sure to remember that your keyboard is actually backwards when looking at the underside of it.
 
 ### `keymaps/<variant>/default.c`
 
@@ -291,7 +291,7 @@ This can be accomplished by using the following `keymaps` definition:
 
 ```
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = KEYMAP( /* Base */
+    [0] = LAYOUT( /* Base */
       KC_A,  KC_1,  KC_H, \
         KC_TAB,  KC_SPC   \
     ),
@@ -300,7 +300,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 Note that the layout of the keycodes is similar to the physical layout of our keyboard - this make it much easier to see what's going on. A lot of the keycodes should be fairly obvious, but for a full list of them, check out [Keycodes](keycodes.md) - there are also a lot of aliases to condense your keymap file.
 
-It's also important to use the `KEYMAP` function we defined earlier - this is what allows the firmware to associate our intended readable keymap with the actual wiring.
+It's also important to use the `LAYOUT` function we defined earlier - this is what allows the firmware to associate our intended readable keymap with the actual wiring.
 
 ## Compiling Your Firmware
 
