@@ -13,9 +13,7 @@ def print_error(message):
     print("[\033[0;91mERROR\033[m] " + message, file=sys.stderr)
 
 def prompt(message, default=""):
-    """
-    Asks the user for input, showing the default value, if any, in brackets.
-    """
+    """Ask the user for input, showing the default value in brackets."""
     if default:
         message += f" [{default}]"
     value = input(message + ": ")
@@ -36,9 +34,7 @@ def get_git_username():
     return None
 
 def copy_template(keyboard_dir, keyboard_name, keyboard_type):
-    """
-    Copies the template files to the new keyboard's directory.
-    """
+    """Copy the template files to the new keyboard's directory."""
     print("Copying base template...", end="")
     copy_tree("quantum/template/base", keyboard_dir)
     print(" done")
@@ -53,9 +49,7 @@ def copy_template(keyboard_dir, keyboard_name, keyboard_type):
     print(" done")
 
 def replace_keyboard_placeholders(keyboard_dir, keyboard_name):
-    """
-    Replaces all occurrences of "%KEYBOARD%" and "%KEYBOARD_UPPERCASE%" with the supplied keyboard name.
-    """
+    """Replace all occurrences of "%KEYBOARD%" with the supplied keyboard name."""
     filenames = [
         f"{keyboard_dir}/config.h",
         f"{keyboard_dir}/{keyboard_name}.c",
@@ -70,9 +64,7 @@ def replace_keyboard_placeholders(keyboard_dir, keyboard_name):
     print(" done")
 
 def replace_name_placeholders(keyboard_dir, keyboard_name, name):
-    """
-    Replaces all occurrences of "REPLACE_WITH_YOUR_NAME" with the supplied name.
-    """
+    """Replace all occurrences of "REPLACE_WITH_YOUR_NAME" with the supplied name."""
     filenames = [
         f"{keyboard_dir}/config.h",
         f"{keyboard_dir}/{keyboard_name}.c",
@@ -88,9 +80,7 @@ def replace_name_placeholders(keyboard_dir, keyboard_name, name):
     print(" done")
 
 def keyboard_name_regex(s, pat=re.compile(r"^[a-z0-9_]+$")):
-    """
-    A type callable for argparse to check the allowed characters in keyboard names.
-    """
+    """Check the allowed characters in keyboard names."""
     if not pat.match(s):
         raise argparse.ArgumentTypeError("Allowed characters are lowercase a-z, 0-9, and underscore (_)")
     return s
