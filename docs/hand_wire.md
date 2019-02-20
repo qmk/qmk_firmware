@@ -185,6 +185,13 @@ When you're done with the columns, start with the rows in the same process, from
 
 As you move along, be sure that the Teensy is staying in place - recutting and soldering the wires is a pain!
 
+## Additional guides
+
+If you're more of a visual learner, or want some additional tips and something more to follow along, these two visual step by step guides may be helpful:
+
+- [BrownFox's step by step guide](https://deskthority.net/viewtopic.php?f=7&t=6050)
+- [Cribbit's modern hand wiring guide](https://geekhack.org/index.php?topic=87689.0)
+
 # Getting Some Basic Firmware Set Up
 
 From here, you should have a working keyboard once you program a firmware. Before we attach the Teensy permanently to the keyboard, let's quickly get some firmware loaded onto the Teensy so we can test each keyswitch.
