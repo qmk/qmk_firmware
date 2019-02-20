@@ -11,6 +11,7 @@ import sys
 from distutils.dir_util import copy_tree
 
 def print_error(message):
+    """Print a message, prefixed with the word "ERROR" in red."""
     print("[\033[0;91mERROR\033[m] " + message, file=sys.stderr)
 
 def prompt(message, default=""):
