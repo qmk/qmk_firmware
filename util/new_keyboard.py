@@ -21,9 +21,7 @@ def prompt(message, default=""):
     return value or default
 
 def get_git_username():
-    """
-    Returns the username configured in git config, if any. Defaults to "qmk".
-    """
+    """Return the username configured in git config, or None."""
     git = shutil.which('git')
     if git:
         devnull = open(os.devnull, 'w')
