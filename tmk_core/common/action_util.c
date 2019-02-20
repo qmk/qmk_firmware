@@ -278,7 +278,6 @@ void clear_oneshot_mods(void) {
  * FIXME: needs doc
  */
 uint8_t get_oneshot_mods(void) { return oneshot_mods; }
-#endif
 
 /** \brief Called when the one shot modifiers have been changed.
  *
@@ -327,6 +326,7 @@ __attribute__((weak))
 void oneshot_layer_changed_kb(uint8_t layer) {
   oneshot_layer_changed_user(layer);
 }
+#endif
 
 /** \brief get all mods (mods + weak mods + macro mods + oneshot mods)
  *
