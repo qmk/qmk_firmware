@@ -1,6 +1,6 @@
 # jotix 4x12 layout
 
-![keymap](https://imgur.com/a/IriHr4X)
+![keymap](https://i.imgur.com/lrFRVn8.png)
 
 This layout has been tested on:
 
