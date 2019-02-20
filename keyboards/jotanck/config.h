@@ -21,7 +21,6 @@
 #define UNUSED_PINS
 
 /* leds */
-#define MATRIX_ROW_PINS { B4, B5, B6, B2 }
 #define QMK_LED E6
 #define BACKLIGHT_LEVELS 3
 
