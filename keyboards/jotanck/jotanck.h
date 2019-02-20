@@ -17,4 +17,3 @@
 
 #define LAYOUT_ortho_4x12 LAYOUT_jotanck
 
-#endif
