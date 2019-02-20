@@ -23,9 +23,6 @@
 #define QMK_LED E6
 #define BACKLIGHT_LEVELS 3
 
-/* tapping */
-#define TAPPING_TERM 250
-
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
@@ -37,9 +34,3 @@
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
