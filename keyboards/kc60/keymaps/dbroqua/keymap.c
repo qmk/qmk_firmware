@@ -1,5 +1,5 @@
 
-#include "kc60.h"
+#include QMK_KEYBOARD_H
 
 #define _QWERTY 0
 #define _FNCAPS 1
@@ -7,7 +7,6 @@
 
 // Fillers to make layering more clear
 #define ______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // Func macro definitions.
 #define S_LED   FUNC(0)

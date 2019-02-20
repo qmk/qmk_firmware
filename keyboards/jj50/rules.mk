@@ -27,7 +27,7 @@ F_CPU = 12000000
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = bootloadHID
 
@@ -36,16 +36,28 @@ BOOTMAGIC_ENABLE = yes
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = no
-COMMAND_ENABLE = no
+COMMAND_ENABLE = yes
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
 RGBLIGHT_CUSTOM_DRIVER = yes
+NKRO_ENABLE = no
+# Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 
-OPT_DEFS = -DDEBUG_LEVEL=0
+
+DISABLE_WS2812 = no
+
+KEY_LOCK_ENABLE = yes
+# Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
+SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+
+
+#OPT_DEFS = -DDEBUG_LEVEL=0
 
 # custom matrix setup
 CUSTOM_MATRIX = yes
-SRC = matrix.c i2c.c
+SRC = matrix.c i2c.c backlight.c
 
 # programming options
 PROGRAM_CMD = ./keyboards/ps2avrGB/program $(TARGET).hex
+
+LAYOUTS = ortho_5x12

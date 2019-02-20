@@ -1,0 +1,1 @@
+teensy-loader-cli -mmcu=atmega32u4 -w $1

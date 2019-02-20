@@ -1,10 +1,14 @@
 # AJP10304 Custom Planck Layout
-# Also available for the JJ40
+# Also available for the Atreus50 and JJ40
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
 
 **Note:** The below tables assume a UK layout.
+
+####Flashing
+Rev <=5: sudo make planck:ajp10304:dfu
+Rev 6: sudo make planck/rev6:ajp10304:dfu-util
 
 ##### Main Qwerty Layer
 
@@ -17,7 +21,7 @@ the second is the output when shift is applied.
 | Esc  |   Q  |   W  |   E  |   R  |   T  |   Y  |   U  |   I  |   O  |   P  | Bksp |
 | Tab  |   A  |   S  |   D  |   F  |   G  |   H  |   J  |   K  |   L  |  ;:  | Enter|
 | Shft |   Z  |   X  |   C  |   V  |   B  |   N  |   M  |  ,<  |  .>  |  /?  | Shft |
-| Fn   | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Raise | Shift| MENU | Ctrl | Fn   |
+| Fn   | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Raise | Shift| MENU | Ctrl | Fn2  |
 
 ##### Function Layer
 Activated when `fn` held in the above `qwerty` layer.
@@ -27,7 +31,7 @@ Activated when `fn` held in the above `qwerty` layer.
 |  F1   |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
 |  1!   |  2"  |  3£  |  4$  |  5%  |  6^  |  7&  |  8*  |  9(  |  0)  |  ~   |INSERT|
 | Shift |  \|  |  `¬  |  #~  |   *  |  -_  |  =+  |  \|  |  [{  |  ]}  |  '@  |Shift |
-| Fn    | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Mouse | MENU | Alt  | Ctrl | Fn   |
+| Fn    | Ctrl | Alt  | GUI  |Lower | Bksp |Space |Mouse | MENU | Alt  | Ctrl | Fn2  |
 
 ##### Lower Layer
 Activated when `Lower` is held in the above `qwerty` layer.
@@ -65,25 +69,40 @@ Activated when `Lower` and `Raise` are held together in the above `qwerty` layer
 * ????: Runs a macro for outputting a text string.  Do not use this store passwords.
 * Reset: Enter bootloader for flashing firmware to the keyboard.
 * CAPS: Toggle caps lock.
+* Macro functions: Allows recording of macros.  To start recording the macro, press either REC1 or REC2. 
+To finish the recording, press STOP. To replay the macro, press either PLAY1 or PLAY2.
 * MAC: Toggle MAC OS extensions to layers. This allows MLWR to be enabled with LOWER,
-MRSE with RAISE and MFNC with FUNC respectively.
-* REC1, REC2: Start recording macro.
-* PLAY1, PLAY2: Playback macro.
-* STOP1, STOP2: Stop recording macro.
+MRSE with RAISE, MFNC with FUNC and MFNC2 with FUNC2 respectively.
 
 |       |      |      |      |      |      |      |      |      |      |      |      |
 | :---: |:----:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
 | ????  | Reset|Qwerty|      |      | REC1 | REC2 |      |      |      |      |  Del |
-| CAPS  |      |      |      |      | PLAY1| PLAY | Mute | Vol+ | Play |      |      |
-| MAC   |      |      |      |      | STOP | STOP | Prev | Vol- | Next |      |      |
-|       |      |      |      |      |      |      |      |      |      |      |      |
- 
-##### Mouse
-Activated when `fn` and `Raise` are held together.
+| CAPS  |      |      |      |      | PLAY1|PLAY2 | Mute | Vol+ | Play |      |      |
+| MAC   |      |      |      |      | STOP1|STOP2 | Prev | Vol- | Next |      |      |
+|       |      |      |      |      |      |      |      | DYN  |      |      |      |
 
-|       |      |      |      |      |      |       |      |      |      |       |      |      
-| :---: |:----:| :---:| :---:| :---:| :---:| :---: | :---:| :---:| :---:| :---: | :---:| 
-|       |      |      |      |      |      |       |      |      |      |       |      |
-| ACC0  | ACC1 | ACC2 |      |      |      |       | BTN1 |  UP  | BTN2 |       |      |
-| ACC0  | ACC1 | ACC2 |      |      |      |       | LEFT | DOWN |RIGHT |       |      |
-|       |      |      |      |      |      |       |      |      |      |       |      |
+##### Function 2 Layer
+Activated when `fn` held in the above `qwerty` layer.
+* WRDSEL: Select the word where the cursor is.
+* LNDEL: Delete the line where the cursor is.
+* LNSEL: Select the line where the cursor is.
+* DUP: Duplicate the selected text.
+* LNJOIN: Join the line where the cursor is with the following line.
+* MODE: Print either `PC` or `OSX` depending on what layer mode is active.
+
+|       |      |      |      |      |      |      |      |      |      |      |      |
+| :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
+|       |      |WRDSEL|      |      |      | LNDEL|      |      |      |      |      |
+|       |      | LNSEL| DUP  |      |      |      |      |LNJOIN|      |      |      |
+|       | UNDO | CUT  | COPY | PASTE|      |      |      |      |      |      | MODE |
+|       |      |      |      |      |      |      |      |      |      |      |      |
+
+##### Mouse Layer
+Activated when `fn` and `raise` held together.
+
+|       |      |      |      |      |      |      |      |      |      |      |      |
+| :---: | :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:| :---:|
+| ESC   |      |      |      |      |      |      |      |      |      |      |      |
+| ACC0  | ACC1 | ACC2 |      |      |      |      | BTN1 |  UP  | BTN2 |      |      |
+| ACC0  | ACC1 | ACC2 |      |      |      |      | LEFT | DOWN | RIGHT|      |      |
+|       |      |      |      |      |      |      |      |      |      |      |      |

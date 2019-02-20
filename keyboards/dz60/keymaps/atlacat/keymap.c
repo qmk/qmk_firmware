@@ -1,7 +1,4 @@
-#include "dz60.h"
-
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+#include QMK_KEYBOARD_H
 
 #define RGB_STA RGB_M_P //rgb static
 #define RGB_BRE RGB_M_B //rgb breathe

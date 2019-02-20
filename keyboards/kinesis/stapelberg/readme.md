@@ -1,7 +1,7 @@
 # kinesis_stapelberg keyboard firmware
 
 This folder contains the firmware customization required to run QMK on the custom controller for the Kinesis Advantage created by Michael Stapelberg.
-It differs from the `alvicstep keyboard in that the existing QMK Kinesis Advantage project uses the existing controller board provided by Kinesis.
+It differs from the `alvicstep` keyboard in that the existing QMK Kinesis Advantage project uses the existing controller board provided by Kinesis.
 
 The controller board hardware is described
 [here](http://michael.stapelberg.de/Artikel/kinesis_custom_controller)

@@ -1,4 +1,4 @@
-#include "v32a.h"
+#include QMK_KEYBOARD_H
 
 // Define Layers
 #define _BASE 0

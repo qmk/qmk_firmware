@@ -39,13 +39,14 @@ F_USB = $(F_CPU)
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 
-# Boot Section Size in *bytes*
-#   Teensy halfKay   512
-#   Teensy++ halfKay 1024
-#   Atmel DFU loader 4096
-#   LUFA bootloader  4096
-#   USBaspLoader     2048
-OPT_DEFS += -DBOOTLOADER_SIZE=512
+# Bootloader selection
+#   Teensy       halfkay
+#   Pro Micro    caterina
+#   Atmel DFU    atmel-dfu
+#   LUFA DFU     lufa-dfu
+#   QMK DFU      qmk-dfu
+#   atmega32a    bootloadHID
+BOOTLOADER = atmel-dfu
 
 
 # Build Options
@@ -67,3 +68,5 @@ UNICODE_ENABLE ?= no         # Unicode
 BLUETOOTH_ENABLE ?= no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE ?= no           # Audio output on port C6
 FAUXCLICKY_ENABLE ?= no      # Use buzzer to emulate clicky switches
+
+LAYOUTS = 60_ansi

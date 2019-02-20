@@ -2,9 +2,7 @@
 // Default ECO Layout
 // KLE here : http://www.keyboard-layout-editor.com/#/gists/0733eca6b4cb88ff9d7de746803f4039
 
-#include "eco.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -25,8 +23,6 @@ enum eco_keycodes {
 
 // Fillers to make layering more clear
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 #define KC_RST RESET
 #define KC_DBUG DEBUG
@@ -50,7 +46,7 @@ enum eco_keycodes {
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = KC_KEYMAP(
+  [_QWERTY] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----+----+----+----+----.
      TAB , Q  , W  , E  , R  , T  ,LPRN,RPRN, Y  , U  , I  , O  , P  ,MINS,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
@@ -63,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 
-  [_LOWER] = KC_KEYMAP(
+  [_LOWER] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----+----+----+----+----.
          , 1  , 2  , 3  , 4  , 5  ,LPRN,RPRN, 6  , 7  , 8  , 9  , 0  ,    ,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
@@ -71,11 +67,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
          ,CPYP,    ,    ,DOWN,LCBR,LCBR,RCBR,RCBR, P1 , P2 , P3 ,MINS,    ,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,DEL ,DEL ,    , P0 ,PDOT,    ,    
+         ,    ,    ,    ,    ,    ,    ,DEL ,DEL ,    , P0 ,PDOT,    ,
   //`----+----+----+----+----+----+----+----+----+----+----+----+----+----'
   ),
 
-  [_RAISE] = KC_KEYMAP(
+  [_RAISE] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----+----+----+----+----.
          ,EXLM, AT ,HASH,DLR ,PERC,    ,    ,CIRC,AMPR,ASTR,LPRN,RPRN,    ,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
@@ -83,11 +79,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
      MUTE,MSTP,MPLY,VOLD,PGDN,MINS,    ,    ,PLUS,END ,    ,    ,    ,    ,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    
+         ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
   //`----+----+----+----+----+----+----+----+----+----+----+----+----+----'
   ),
 
-  [_FN3] = KC_KEYMAP(
+  [_FN3] = LAYOUT_kc(
   //,----+----+----+----+----+----+----+----+----+----+----+----+----+----.
      F12 , F1 , F2 , F3 , F4 , F5 ,    ,    , F6 , F7 , F8 , F9 ,F10 ,F11 ,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
@@ -95,7 +91,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
      RST ,DBUG,RHUD,RSAD,RVAD,    ,    ,    ,    ,    ,    ,    ,    ,    ,
   //|----+----+----+----+----+----+----+----+----+----+----+----+----+----|
-         ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    
+         ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
   //`----+----+----+----+----+----+----+----+----+----+----+----+----+----'
   ),
 

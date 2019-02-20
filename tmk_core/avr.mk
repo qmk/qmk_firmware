@@ -169,7 +169,38 @@ dfu-ee: $(BUILD_DIR)/$(TARGET).hex $(BUILD_DIR)/$(TARGET).eep
 	fi
 	$(DFU_PROGRAMMER) $(MCU) reset
 
-avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+dfu-split-left: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
+	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
+	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) erase --force;\
+		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-lefthand.eep;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) erase;\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-lefthand.eep;\
+	fi
+	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+	$(DFU_PROGRAMMER) $(MCU) reset
+
+dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
+	until $(DFU_PROGRAMMER) $(MCU) get bootloader-version; do\
+		echo "Error: Bootloader not found. Trying again in 5s." ;\
+		sleep 5 ;\
+	done
+	if $(DFU_PROGRAMMER) --version 2>&1 | $(GREP) -q 0.7 ; then\
+		$(DFU_PROGRAMMER) $(MCU) erase --force;\
+		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
+	else\
+		$(DFU_PROGRAMMER) $(MCU) erase;\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-rightand.eep;\
+	fi
+	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
+	$(DFU_PROGRAMMER) $(MCU) reset
+
+define EXEC_AVRDUDE
+	USB= ;\
 	if $(GREP) -q -s Microsoft /proc/version; then \
 		echo 'ERROR: AVR flashing cannot be automated within the Windows Subsystem for Linux (WSL) currently. Instead, take the .hex file generated and flash it using AVRDUDE, AVRDUDESS, or XLoader.'; \
 	else \
@@ -191,6 +222,15 @@ avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 		sleep 1; \
 		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
 	fi
+endef
+
+avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_AVRDUDE)
+
+avrdude-loop: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	while true; do \
+	    $(call EXEC_AVRDUDE) ; \
+	done
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex
@@ -252,16 +292,9 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 
 bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
-	echo -e "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo -e `$(GREP) "MANUFACTURER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo -e `$(GREP) "PRODUCT" $(ALL_CONFIGS) -h | tail -1` Bootloader >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo -e `$(GREP) "QMK_ESC_OUTPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo -e `$(GREP) "QMK_ESC_INPUT" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo -e `$(GREP) "QMK_LED" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo -e `$(GREP) "QMK_SPEAKER" $(ALL_CONFIGS) -h | tail -1` >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	echo -e "\n#endif" >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	$(TMK_DIR)/make_dfu_header.sh $(ALL_CONFIGS)
 	make -C lib/lufa/Bootloaders/DFU/
-	echo -e "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex"
+	printf "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
 
 production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
@@ -269,4 +302,3 @@ production: $(BUILD_DIR)/$(TARGET).hex bootloader cpfirmware
 	@cat $(TARGET)_bootloader.hex >> $(TARGET)_production.hex
 	echo "File sizes:"
 	$(SIZE) $(TARGET).hex $(TARGET)_bootloader.hex $(TARGET)_production.hex
-
