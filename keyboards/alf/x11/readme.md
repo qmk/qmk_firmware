@@ -1,15 +1,13 @@
-# x11
+# Alf X1.1
 
-![x11](imgur.com image replace me!)
+TKL Keyboard made by Alf
 
-A short description of the keyboard/project
-
-Keyboard Maintainer: [You](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+Hardware Supported: Alf X1.1 PCB  
+Hardware Availability: [Massdrop](https://www.massdrop.com/buy/alf-studio-x1-1-custom-mechanical-keyboard-kit)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make x11:default
+    make alf/x11:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
