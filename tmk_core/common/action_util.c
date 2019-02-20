@@ -28,10 +28,10 @@ static uint8_t weak_mods = 0;
 static uint8_t macro_mods = 0;
 
 #ifdef USB_6KRO_ENABLE
-  #define RO_ADD(a, b) (((a) + (b)) % KEYBOARD_REPORT_KEYS)
-  #define RO_SUB(a, b) (((a) - (b) + KEYBOARD_REPORT_KEYS) % KEYBOARD_REPORT_KEYS)
-  #define RO_INC(a) RO_ADD(a, 1)
-  #define RO_DEC(a) RO_SUB(a, 1)
+#define RO_ADD(a, b) (((a) + (b)) % KEYBOARD_REPORT_KEYS)
+#define RO_SUB(a, b) (((a) - (b) + KEYBOARD_REPORT_KEYS) % KEYBOARD_REPORT_KEYS)
+#define RO_INC(a) RO_ADD(a, 1)
+#define RO_DEC(a) RO_SUB(a, 1)
 
 static int8_t cb_head = 0;
 static int8_t cb_tail = 0;
@@ -66,15 +66,15 @@ void clear_oneshot_locked_mods(void) {
   }
 }
 
-  #if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
+#if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
 static uint16_t oneshot_time = 0;
 
 bool has_oneshot_mods_timed_out(void) {
   return TIMER_DIFF_16(timer_read(), oneshot_time) >= ONESHOT_TIMEOUT;
 }
-  #else
+#else
 bool has_oneshot_mods_timed_out(void) { return false; }
-  #endif
+#endif
 #endif
 
 /* oneshot layer */
@@ -90,14 +90,14 @@ static int8_t oneshot_layer_data = 0;
 inline uint8_t get_oneshot_layer(void) { return oneshot_layer_data >> 3; }
 inline uint8_t get_oneshot_layer_state(void) { return oneshot_layer_data & 0b111; }
 
-  #if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
+#if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
 static uint16_t oneshot_layer_time = 0;
 
 inline bool has_oneshot_layer_timed_out() {
   return TIMER_DIFF_16(timer_read(), oneshot_layer_time) >= ONESHOT_TIMEOUT
       && !(get_oneshot_layer_state() & ONESHOT_TOGGLED);
 }
-  #endif
+#endif
 
 /** \brief Set oneshot layer
  *
@@ -106,9 +106,9 @@ inline bool has_oneshot_layer_timed_out() {
 void set_oneshot_layer(uint8_t layer, uint8_t state) {
   oneshot_layer_data = (layer << 3) | state;
   layer_on(layer);
-  #if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
+#if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
   oneshot_layer_time = timer_read();
-  #endif
+#endif
   oneshot_layer_changed_kb(get_oneshot_layer());
 }
 
@@ -118,9 +118,9 @@ void set_oneshot_layer(uint8_t layer, uint8_t state) {
  */
 void reset_oneshot_layer(void) {
   oneshot_layer_data = 0;
-  #if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
+#if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
   oneshot_layer_time = 0;
-  #endif
+#endif
   oneshot_layer_changed_kb(get_oneshot_layer());
 }
 
@@ -251,9 +251,9 @@ void clear_macro_mods(void) { macro_mods = 0; }
  */
 void set_oneshot_mods(uint8_t mods) {
   if (oneshot_mods != mods) {
-  #if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
+#if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
     oneshot_time = timer_read();
-  #endif
+#endif
     oneshot_mods = mods;
     oneshot_mods_changed_kb(mods);
   }
@@ -266,9 +266,9 @@ void set_oneshot_mods(uint8_t mods) {
 void clear_oneshot_mods(void) {
   if (oneshot_mods) {
     oneshot_mods = 0;
-  #if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
+#if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
     oneshot_time = 0;
-  #endif
+#endif
     oneshot_mods_changed_kb(oneshot_mods);
   }
 }
@@ -336,12 +336,12 @@ uint8_t get_all_mods(void) {
   uint8_t mods = real_mods | weak_mods | macro_mods;
 #ifndef NO_ACTION_ONESHOT
   if (oneshot_mods) {
-  #if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
+#if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
     if (has_oneshot_mods_timed_out()) {
       dprintf("Oneshot: timeout\n");
       clear_oneshot_mods();
     }
-  #endif
+#endif
     mods |= oneshot_mods;
     if (has_anykey(keyboard_report)) {
       clear_oneshot_mods();
