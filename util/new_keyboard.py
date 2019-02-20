@@ -24,7 +24,10 @@ def prompt(message, default=""):
 def get_git_username():
     """Return the username configured in git config, or None."""
     try:
-        return subprocess.check_output(['git', 'config', '--get', 'user.name'], encoding='utf-8').rstrip('\r\n')
+        return subprocess.check_output(
+            ['git', 'config', '--get', 'user.name'],
+            encoding='utf-8'
+        ).rstrip('\r\n')
     except subprocess.CalledProcessError:
         return None
 
