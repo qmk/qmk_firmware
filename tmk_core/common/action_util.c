@@ -148,24 +148,7 @@ bool is_oneshot_layer_active(void)
  * FIXME: needs doc
  */
 void send_keyboard_report(void) {
-    keyboard_report->mods  = real_mods;
-    keyboard_report->mods |= weak_mods;
-    keyboard_report->mods |= macro_mods;
-#ifndef NO_ACTION_ONESHOT
-    if (oneshot_mods) {
-#if (defined(ONESHOT_TIMEOUT) && (ONESHOT_TIMEOUT > 0))
-        if (has_oneshot_mods_timed_out()) {
-            dprintf("Oneshot: timeout\n");
-            clear_oneshot_mods();
-        }
-#endif
-        keyboard_report->mods |= oneshot_mods;
-        if (has_anykey(keyboard_report)) {
-            clear_oneshot_mods();
-        }
-    }
-
-#endif
+    keyboard_report->mods = get_all_mods();
     host_keyboard_send(keyboard_report);
 }
 
@@ -331,6 +314,29 @@ void oneshot_layer_changed_user(uint8_t layer) { }
 __attribute__((weak))
 void oneshot_layer_changed_kb(uint8_t layer) {
     oneshot_layer_changed_user(layer);
+}
+
+/** \brief get all mods (mods + weak mods + macro mods + oneshot mods)
+ *
+ * FIXME: needs doc
+ */
+uint8_t get_all_mods(void) {
+    uint8_t mods = real_mods | weak_mods | macro_mods;
+#ifndef NO_ACTION_ONESHOT
+    if (oneshot_mods) {
+  #if defined(ONESHOT_TIMEOUT) && ONESHOT_TIMEOUT > 0
+        if (has_oneshot_mods_timed_out()) {
+            dprintf("Oneshot: timeout\n");
+            clear_oneshot_mods();
+        }
+  #endif
+        mods |= oneshot_mods;
+        if (has_anykey(keyboard_report)) {
+            clear_oneshot_mods();
+        }
+    }
+#endif
+    return mods;
 }
 
 /** \brief inspect keyboard state

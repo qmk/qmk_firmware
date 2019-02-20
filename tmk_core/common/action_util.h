@@ -97,6 +97,7 @@ void oneshot_layer_changed_user(uint8_t layer);
 void oneshot_layer_changed_kb(uint8_t layer);
 
 /* inspect */
+uint8_t get_all_mods(void);
 uint8_t has_anymod(void);
 
 #ifdef __cplusplus
