@@ -1,5 +1,4 @@
 #pragma once
-#define JOTANCK_H
 
 #include "quantum.h"
 #define LAYOUT_jotanck( \
