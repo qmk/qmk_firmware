@@ -16,7 +16,7 @@ extern keymap_config_t keymap_config;
 #define _FUNCTION 3
 #define _ADJUST   4
 
-enum planck_keycodes {
+enum custom_keycodes {
   BACKLIT = SAFE_RANGE
 };
 
