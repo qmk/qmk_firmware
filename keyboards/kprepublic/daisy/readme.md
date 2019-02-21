@@ -1,14 +1,16 @@
 # Daisy
 
+![Daisy](https://cdn.shopify.com/s/files/1/2711/4238/products/HTB1ahNecamgSKJjSsplq6yICpXaY_1024x1024.jpg?v=1515526190)
+
 A 40% keyboard kit sold by KPRepublic.
 
 Keyboard Maintainer: westfoxtrot (https://github.com/westfoxtrot)  
 Hardware Supported: Daisy PCB Rev.1, Daisy PCB Rev.2  
-Hardware Availability: http://tinyurl.com/yc26lq22
+Hardware Availability: https://kprepublic.com/collections/daisy-41/products/daisy-40-custom-keyboard-pcb
 
 Make example for this keyboard (after setting up your build environment):
 
-    make daisy:default
+    make kprepublic/daisy:default
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
@@ -21,7 +23,7 @@ A printable picture showing this layout is available here: https://imgur.com/9mS
 
 
 ```
-$ make daisy:[default|<name>]
+$ make kprepublic/daisy:[default|<name>]
 ```
 
 # Bootloader

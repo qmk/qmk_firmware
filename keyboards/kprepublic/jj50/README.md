@@ -1,5 +1,6 @@
-JJ50
-==========================
+# JJ50
+
+![jj50](https://cdn.shopify.com/s/files/1/2711/4238/products/HTB1xlBMksLJ8KJjy0Fnq6AFDpXar_1024x1024.jpg?v=1515585489)
 
 This is a port of the QMK firmware for boards that are based on the
 ps2avrGB firmware, like the [ps2avrGB keyboard](https://www.keyclack.com/product/gb-ps2avrgb/), for use on the JJ50, a preonic-like board.
@@ -10,10 +11,9 @@ Note that this is a complete replacement for the firmware, so you won't be
 using Bootmapper Client to change any keyboard settings, since not all the
 USB report options are supported.  
 
+Keyboard Maintainer: [Wayne K. Jones](github.com/WarmCatUK).  
 Hardware Supported: JJ50 with the ATmega32a chip.  
 Hardware Availability: [KPrepublic on AliExpress](https://www.aliexpress.com/item/jj50-v1-0-Custom-Mechanical-Keyboard-50-PCB-programmed-50-preonic-layouts-bface-firmware-with-rgb/32848915277.html)
-
-This version by [Wayne K. Jones](github.com/WarmCatUK).
 
 
 ## Installing and Building
@@ -21,7 +21,7 @@ This version by [Wayne K. Jones](github.com/WarmCatUK).
 Make example for this keyboard (after setting up your build environment):
 
 ```
-$ make jj50:default:program
+$ make kprepublic/jj50:default:program
 ```
 It should detect the keyboard and set it to bootloader mode automatically, prior to flashing firmware.
 
@@ -49,7 +49,7 @@ If you prefer, you can just build it and flash the firmware directly with
 in the bootloader:
 
 ```
-$ make jj50
+$ make kprepublic/jj50:default
 $ bootloadHID -r jj50_default.hex
 ```
 I dont use windows personally, but the following is from ymd96 regarding flashing the atmega32a:
@@ -60,7 +60,7 @@ On Windows, I use [MINGw](http://www.mingw.org/) to compile the keymaps. On Linu
 Once you have those two pieces of software:
 Build the keyboard with  
 ```
-$ make jj50:default
+$ make kprepublic/jj50:default
 ```  
 If you make your own layout, change the `default` word to whatever your layout is.  
 
@@ -75,8 +75,8 @@ And flash the compiled hex file with `HIDBootFlash`. Simply put the board in fla
 4. I was occasionally finding that I wasn't flashing changes that I was making to my keymap. If that happens, remove the previous build and simply force rebuild by making with:
 ```
 $ rm jj50_default.hex
-$ make -B jj50:default
-$ make -B jj50:default:program
+$ make -B kprepublic/jj50:default
+$ make -B kprepublic/jj50:default:program
 ```
 
 

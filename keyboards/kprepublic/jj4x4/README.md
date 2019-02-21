@@ -10,7 +10,7 @@ Hardware Availability: [AliExpress](https://www.aliexpress.com/item/jj4x4-jj4X4-
 
 Make example for this keyboard (after setting up your build environment):
 
-    make jj4x4:default:program
+    make kprepublic/jj4x4:default:program
 
 See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
@@ -43,12 +43,12 @@ the bootloader, you'll need Python 2 with PyUSB installed:
 $ pip install pyusb
 ```
 
-If you prefer (or are having issues with a `program` flash), you can just build it (`make jj40:<keymap-name>` and flash the firmware (`.hex` file) directly with
+If you prefer (or are having issues with a `program` flash), you can just build it (`make kprepublic/jj40:<keymap-name>` and flash the firmware (`.hex` file) directly with
 `bootloadHID` if you boot the board while holding down `8` (second from top, second from left, with usb plug is at the top) to keep it
 in the bootloader:
 
 ```
-$ make jj40
+$ make kprepublic/jj40:default
 $ bootloadHID -r jj4x4_default.hex
 ```
 
@@ -56,7 +56,7 @@ For Windows 10:
 Windows sometimes doesn't recognize the jj4x4. The easiest way of flashing a new layout is probably using [HIDBootFlash](http://vusb.wikidot.com/project:hidbootflash).
 1. Go to Windows Device Manager and find the keyboard (plug it in while holding down `8` (second from top, second from left, with usb plug is at the top)). It can be found under Human Interface Devices or under Keyboards.
 2. Go to properties and the Details tab to find the hardware ID. You want the VID and the PID (code after the underscore). Plug them into HIDBootFlash and hit Find Device.
-3. Use `make jj4x4:<keymap-name>` to generate the .hex file in the qmk basis folder. Select the .hex file in HIDBootFlash and press Flash Device.
+3. Use `make kprepublic/jj4x4:<keymap-name>` to generate the .hex file in the qmk basis folder. Select the .hex file in HIDBootFlash and press Flash Device.
 
 
 ## Troubleshooting

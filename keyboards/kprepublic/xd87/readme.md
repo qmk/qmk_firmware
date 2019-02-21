@@ -11,14 +11,14 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make xd87:default
+    make kprepublic/xd87:default
 
 It also supports the tkl_ansi and tkl_iso community layouts:
 
 	  # Build firmware with ANSI layout
-	  make xd87:default_tkl_ansi
+	  make kprepublic/xd87:default_tkl_ansi
 	  # Build firmware with ISO layout
-	  make xd87:default_tkl_iso
+	  make kprepublic/xd87:default_tkl_iso
 
 
 The keyboard can be reset to bootloader by using bootmagic (space+b by default) or short out the small connector between the Delete and End keys.

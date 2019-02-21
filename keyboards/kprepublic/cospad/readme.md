@@ -1,5 +1,6 @@
-COSPAD
-===
+# COSPAD
+
+![COSPAD](https://ae01.alicdn.com/kf/HTB1.lwARFXXXXcKXXXXq6xXFXXXK.jpg?size=289297&height=518&width=750&hash=7c5d826f928b91436cb36dca2746b424)
 
 A DIY Keypad Kit sold by KPRepublic, runs TKG natively.
 
@@ -16,6 +17,6 @@ Supported Layouts:
 
 Make example for this keyboard (after setting up your build environment):
 
-    make cospad:default
+    make kprepublic/cospad:default
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
