@@ -216,7 +216,7 @@ Farther down are `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`. Change their definitio
 
 ### `<project_name>.h`
 
-The next file you'll want to look at is `<project_name>.h`. You're going to want to rewrite the `KEYMAP` definition - the format and syntax here is extremely important, so pay attention to how things are setup. The first half of the definition are considered the arguments - this is the format that you'll be following in your keymap later on, so you'll want to have as many k*xy* variables here as you do keys. The second half is the part that the firmware actually looks at, and will contain gaps depending on how you wired your matrix.
+The next file you'll want to look at is `<project_name>.h`. You're going to want to rewrite the `LAYOUT` definition - the format and syntax here is extremely important, so pay attention to how things are setup. The first half of the definition are considered the arguments - this is the format that you'll be following in your keymap later on, so you'll want to have as many k*xy* variables here as you do keys. The second half is the part that the firmware actually looks at, and will contain gaps depending on how you wired your matrix.
 
 We'll dive into how this will work with the following example. Say we have a keyboard like this:
 
