@@ -17,11 +17,11 @@
 
 // Layer shorthand
 #define _QW 0
-#define LOWER F(1)
-#define RAISE F(2)
+
+#define LOWER LT(1, KC_SPC)
+#define RAISE LT(2, KC_ENT)
 
 #define CTRLESC CTL_T(KC_ESC)
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _QWE: Base Layer (Default Layer) */
@@ -59,9 +59,4 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
            _______, _______, _______, _______,       _______,       _______,       _______, _______, _______, _______
   )
-};
-
-const uint16_t PROGMEM fn_actions[] = {
- [1] = ACTION_LAYER_TAP_KEY(1, KC_SPC),
- [2] = ACTION_LAYER_TAP_KEY(2, KC_ENT)
 };
