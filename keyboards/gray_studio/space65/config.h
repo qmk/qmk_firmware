@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x0000
+#define PRODUCT_ID      0x4502
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    Gray Studio
 #define PRODUCT         Space65
@@ -242,3 +242,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Bootmagic Lite key configuration */
 // #define BOOTMAGIC_LITE_ROW 0
 // #define BOOTMAGIC_LITE_COLUMN 0
+
+#define DYNAMIC_KEYMAP_LAYER_COUNT 4
+
+// EEPROM usage
+
+// TODO: refactor with new user EEPROM code (coming soon)
+#define EEPROM_MAGIC 0x451F
+#define EEPROM_MAGIC_ADDR 32
+// Bump this every time we change what we store
+// This will automatically reset the EEPROM with defaults
+// and avoid loading invalid data from the EEPROM
+#define EEPROM_VERSION 0x08
+#define EEPROM_VERSION_ADDR 34
+
+// Dynamic keymap starts after EEPROM version
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 35
+// Dynamic macro starts after dynamic keymaps (35+(4*5*16*2)) = (35+640)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 675    // **** CHANGE THIS BASED ON MATRIX_ROWS & MATRIX_COLS ****
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 349    // **** CHANGE THIS BASED ON 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR ****
+#define DYNAMIC_KEYMAP_MACRO_COUNT 16
