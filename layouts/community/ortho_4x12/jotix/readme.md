@@ -1,6 +1,8 @@
+# Jotix ortho 4x12 keymap
+
 ![keymap](https://i.imgur.com/EQk9lFQ.jpg)
 
-# Jotix ortho 4x12 keymap
+Tab is 'Func' on hold.
 
 Tested on:
 
