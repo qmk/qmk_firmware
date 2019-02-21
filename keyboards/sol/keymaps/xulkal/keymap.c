@@ -89,12 +89,6 @@ static void render_logo(void) {
   oled_write_P(sol_logo, false);
 }
 
-//assign the right code to your layers for OLED display
-#define L_BASE 0
-#define L_LOWER   (1 << _LOWER)
-#define L_RAISE   (1 << _RAISE)
-#define L_ADJUST  (1 << _ADJUST)
-
 static void render_status(void) {
   // Render to mode icon
   static const char PROGMEM mode_logo[4][4] = {
@@ -108,21 +102,21 @@ static void render_status(void) {
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   oled_write_P(PSTR("Layer: "), false);
-  switch (layer_state) {
-    case L_BASE:
-      oled_write_P(PSTR("DEFAULT\n"), false);
+  switch (biton32(layer_state)) {
+    case _QWERTY:
+      oled_write_P(PSTR("Default\n"), false);
       break;
-    case L_LOWER:
-      oled_write_P(PSTR("LOWER\n"), false);
+    case _LOWER:
+      oled_write_P(PSTR("Lower\n"), false);
       break;
-    case L_RAISE:
-      oled_write_P(PSTR("RAISE\n"), false);
+    case _RAISE:
+      oled_write_P(PSTR("Raise\n"), false);
       break;
-    case L_ADJUST:
-      oled_write_P(PSTR("ADJUST\n"), false);
+    case _ADJUST:
+      oled_write_P(PSTR("Adjust\n"), false);
       break;
     default:
-      oled_write_P(PSTR("UNDEFINED\n"), false);
+      oled_write_P(PSTR("Undeined\n"), false);
   }
 
   // Host Keyboard LED Status
