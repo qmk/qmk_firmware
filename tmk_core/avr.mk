@@ -292,14 +292,7 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 
 bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
-	printf "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "MANUFACTURER\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s Bootloader\n" "`$(GREP) "PRODUCT\s" $(ALL_CONFIGS) -h | tail -1 | tr -d '\r'`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_ESC_OUTPUT\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_ESC_INPUT\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_LED\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_SPEAKER\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "\n#endif" >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	$(TMK_DIR)/make_dfu_header.sh $(ALL_CONFIGS)
 	make -C lib/lufa/Bootloaders/DFU/
 	printf "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex

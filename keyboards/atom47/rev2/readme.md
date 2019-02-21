@@ -20,4 +20,4 @@ To build the default keymap, simply run `make atom47/rev2:default`.
 
 For an alternative, heavily modified layout you would just need to run `make atom47/rev2:LEdiodes`.
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

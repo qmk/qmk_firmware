@@ -68,11 +68,11 @@ This is a C header file that is one of the first things included, and will persi
 * `#define C6_AUDIO`
   * enables audio on pin C6
 * `#define B5_AUDIO`
-  * enables audio on pin B5 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B5 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define B6_AUDIO`
-  * enables audio on pin B6 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B6 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define B7_AUDIO`
-  * enables audio on pin B7 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B7 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight - B5, B6, B7 use PWM, others use softPWM
 * `#define BACKLIGHT_LEVELS 3`
@@ -87,7 +87,7 @@ This is a C header file that is one of the first things included, and will persi
   * mechanical locking support. Use KC_LCAP, KC_LNUM or KC_LSCR instead in keymap
 * `#define LOCKING_RESYNC_ENABLE`
   * tries to keep switch state consistent with keyboard LED state
-* `#define IS_COMMAND() ( keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) )`
+* `#define IS_COMMAND() (get_mods() == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))`
   * key combination that allows the use of magic commands (useful for debugging)
 * `#define USB_MAX_POWER_CONSUMPTION`
   * sets the maximum power (in mA) over USB for the device (default: 500)
@@ -109,9 +109,9 @@ If you define these options you will disable the associated feature, which can s
 * `#define NO_ACTION_ONESHOT`
   * disable one-shot modifiers
 * `#define NO_ACTION_MACRO`
-  * disable all macro handling
+  * disable old style macro handling: MACRO() & action_get_macro
 * `#define NO_ACTION_FUNCTION`
-  * disable the action function (deprecated)
+  * disable calling of action_function() from the fn_actions array (deprecated)
 
 ## Features That Can Be Enabled
 
@@ -143,7 +143,7 @@ If you define these options you will enable the associated feature, which may in
   * Breaks any Tap Toggle functionality (`TT` or the One Shot Tap Toggle)
 * `#define LEADER_TIMEOUT 300`
   * how long before the leader key times out
-    * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped. 
+    * If you're having issues finishing the sequence before it times out, you may need to increase the timeout setting. Or you may want to enable the `LEADER_PER_KEY_TIMING` option, which resets the timeout after each key is tapped.
 * `#define LEADER_PER_KEY_TIMING`
   * sets the timer for leader key chords to run on each key press rather than overall
 * `#define LEADER_KEY_STRICT_KEY_PROCESSING`
@@ -197,6 +197,9 @@ If you define these options you will enable the associated feature, which may in
 
 Split Keyboard specific options, make sure you have 'SPLIT_KEYBOARD = yes' in your rules.mk
 
+* `SPLIT_TRANSPORT = custom`
+  * Allows replacing the standard split communication routines with a custom one. ARM based split keyboards must use this at present.
+
 ### Setting Handedness
 
 One thing to remember, the side that the USB port is plugged into is always the master half. The side not plugged into USB is the slave.
@@ -208,7 +211,7 @@ There are a few different ways to set handedness for split keyboards (listed in 
 3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
 4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
 
-* `#define SPLIT_HAND_PIN B7` 
+* `#define SPLIT_HAND_PIN B7`
   * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
 
 * `#define EE_HANDS` (only works if `SPLIT_HAND_PIN` is not defined)
@@ -302,6 +305,10 @@ Use these to enable or disable building certain features. The more you have enab
   * Current options are AdafruitEzKey, AdafruitBLE, RN42
 * `SPLIT_KEYBOARD`
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
+* `CUSTOM_MATRIX`
+  * Allows replacing the standard matrix scanning routine with a custom one.
+* `CUSTOM_DEBOUNCE`
+  * Allows replacing the standard key debouncing routine with a custom one.
 * `WAIT_FOR_USB`
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`

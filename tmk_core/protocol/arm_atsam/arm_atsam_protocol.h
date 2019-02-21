@@ -21,8 +21,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "samd51j18a.h"
 #include "md_bootloader.h"
 
+#include "timer.h"
 #include "d51_util.h"
 #include "clks.h"
+#include "wait.h"
 #include "adc.h"
 #include "i2c_master.h"
 #include "spi.h"
