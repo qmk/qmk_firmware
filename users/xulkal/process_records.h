@@ -12,7 +12,7 @@ enum {
   COMM_QUOT = 0,
   BACKSPACE,
   TAP_TAB
-} tap_dances;
+};
 
 #define TD_COMM TD(COMM_QUOT)
 #define TD_BSPC TD(BACKSPACE)
