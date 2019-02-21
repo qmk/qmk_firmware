@@ -10,9 +10,11 @@ import sys
 
 from distutils.dir_util import copy_tree
 
+
 def print_error(message):
     """Print a message, prefixed with the word "ERROR" in red."""
     print("[\033[0;91mERROR\033[m] " + message, file=sys.stderr)
+
 
 def prompt(message, default=""):
     """Ask the user for input, showing the default value in brackets."""
@@ -20,6 +22,7 @@ def prompt(message, default=""):
         message += f" [{default}]"
     value = input(message + ": ")
     return value or default
+
 
 def get_git_username():
     """Return the username configured in git config, or None."""
@@ -30,6 +33,7 @@ def get_git_username():
         ).rstrip('\r\n')
     except subprocess.CalledProcessError:
         return None
+
 
 def copy_template(keyboard_dir, keyboard_name, keyboard_type):
     """Copy the template files to the new keyboard's directory."""
@@ -42,12 +46,19 @@ def copy_template(keyboard_dir, keyboard_name, keyboard_type):
     print(" done")
 
     print("Renaming keyboard files... ", end='')
-    shutil.move(f'{keyboard_dir}/template.c', f'{keyboard_dir}/{keyboard_name}.c')
-    shutil.move(f'{keyboard_dir}/template.h', f'{keyboard_dir}/{keyboard_name}.h')
+    shutil.move(
+        f'{keyboard_dir}/template.c',
+        f'{keyboard_dir}/{keyboard_name}.c'
+    )
+    shutil.move(
+        f'{keyboard_dir}/template.h',
+        f'{keyboard_dir}/{keyboard_name}.h'
+    )
     print(" done")
 
+
 def replace_keyboard_placeholders(keyboard_dir, keyboard_name):
-    """Replace all occurrences of "%KEYBOARD%" with the supplied keyboard name."""
+    """Replace all occurrences of "%KEYBOARD%" with the keyboard name."""
     filenames = [
         f'{keyboard_dir}/config.h',
         f'{keyboard_dir}/{keyboard_name}.c',
@@ -56,13 +67,14 @@ def replace_keyboard_placeholders(keyboard_dir, keyboard_name):
     ]
 
     print("Substituting %%KEYBOARD%%...", end='')
-    with fileinput.input(filenames, inplace=True) as f:
-        for line in f:
+    with fileinput.input(filenames, inplace=True) as file:
+        for line in file:
             print(line.replace('%KEYBOARD%', keyboard_name), end='')
     print(" done")
 
+
 def replace_name_placeholders(keyboard_dir, keyboard_name, name):
-    """Replace all occurrences of "REPLACE_WITH_YOUR_NAME" with the supplied name."""
+    """Replace all occurrences of "REPLACE_WITH_YOUR_NAME" with the username."""
     filenames = [
         f'{keyboard_dir}/config.h',
         f'{keyboard_dir}/{keyboard_name}.c',
@@ -72,18 +84,23 @@ def replace_name_placeholders(keyboard_dir, keyboard_name, name):
     ]
 
     print("Substituting your name...", end='')
-    with fileinput.input(filenames, inplace=True) as f:
-        for line in f:
+    with fileinput.input(filenames, inplace=True) as file:
+        for line in file:
             print(line.replace('REPLACE_WITH_YOUR_NAME', name), end='')
     print(" done")
 
-def keyboard_name_regex(s, pat=re.compile(r'^[a-z0-9_]+$')):
-    """Check the allowed characters in keyboard names."""
-    if not pat.match(s):
-        raise argparse.ArgumentTypeError("Allowed characters are lowercase a-z, 0-9, and underscore (_)")
-    return s
 
-if __name__ == '__main__':
+def keyboard_name_regex(string, pattern=re.compile(r'^[a-z0-9_]+$')):
+    """Check the allowed characters in keyboard names."""
+    if not pattern.match(string):
+        raise argparse.ArgumentTypeError(
+            "Allowed characters are lowercase a-z, 0-9, and underscore (_)"
+        )
+    return string
+
+
+def main():
+    """Generate a new QMK keyboard directory structure."""
     # If we've been started from util/, we want to be in qmk_firmware/
     if os.getcwd().endswith('util'):
         os.chdir('..')
@@ -94,12 +111,25 @@ if __name__ == '__main__':
         print_error("Are you sure you are in the right place?")
         exit(1)
 
-    keyboard_types = ["avr", "ps2avrgb"]
+    KEYBOARD_TYPES = ["avr", "ps2avrgb"]
 
     parser = argparse.ArgumentParser()
-    parser.add_argument("keyboard_name", help="The name of the new keyboard", metavar="keyboard", type=keyboard_name_regex)
-    parser.add_argument("--type", help="The type of the new keyboard", dest="keyboard_type", choices=keyboard_types)
-    parser.add_argument("--name", help="Your name (default from git config)")
+    parser.add_argument(
+        "keyboard_name",
+        help="The name of the new keyboard",
+        metavar="keyboard",
+        type=keyboard_name_regex
+    )
+    parser.add_argument(
+        "--type",
+        help="The type of the new keyboard",
+        dest="keyboard_type",
+        choices=KEYBOARD_TYPES
+    )
+    parser.add_argument(
+        "--name",
+        help="Your name (default from git config)"
+    )
     args = parser.parse_args()
 
     keyboard_dir = f"keyboards/{args.keyboard_name}"
@@ -114,8 +144,10 @@ if __name__ == '__main__':
     # Prompt for keyboard type if not supplied as argument
     if not args.keyboard_type:
         args.keyboard_type = prompt("Keyboard Type", "avr")
-        if args.keyboard_type not in keyboard_types:
-            raise ValueError(f"Keyboard type must be one of {str(keyboard_types)}")
+        if args.keyboard_type not in KEYBOARD_TYPES:
+            raise ValueError(
+                f"Keyboard type must be one of {str(KEYBOARD_TYPES)}"
+            )
 
     # Prompt for your name if not supplied as argument
     if not args.name:
@@ -132,5 +164,11 @@ if __name__ == '__main__':
     print()
     print(f"Created a new keyboard called {args.keyboard_name}.")
     print()
-    print(f"To start working on things, cd into keyboards/{args.keyboard_name},")
+    print(
+        f"To start working on things, cd into keyboards/{args.keyboard_name},"
+    )
     print("or open the directory in your favorite text editor.")
+
+
+if __name__ == '__main__':
+    main()
