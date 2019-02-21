@@ -6,7 +6,7 @@ A  4x4 keypad kit made and KPRepublic on AliExpress. This is a chopped off versi
 
 Keyboard Maintainer: [QMK Community](https://github.com/qmk)  
 Hardware Supported: Atmega32A  
-Hardware Availability: [AliExpress](https://www.aliexpress.com/item/jj4x4-jj4X4-16-keys-Custom-Mechanical-Keyboard-PCB-programmed-numpad-layouts-bface-firmware-with-rgb-bottom/32901955446.html?spm=2114.search0104.3.7.3ebf431ae1d9ic&ws_ab_test=searchweb0_0,searchweb201602_4_10065_10130_10068_10547_319_317_10548_10545_10696_453_10084_454_10083_433_10618_431_10307_537_536_10902_10059_10884_10887_321_322_10103,searchweb201603_6,ppcSwitch_0&algo_expid=9d1891dd-80af-4793-a889-5a62e1fdfdd8-1&algo_pvid=9d1891dd-80af-4793-a889-5a62e1fdfdd8&transAbTest=ae803_5)
+Hardware Availability: Hardware Availability: [KPrepublic](https://kprepublic.com/products/jj4x4-jj4x4-16-keys-custom-mechanical-keyboard-pcb-programmed-numpad-layouts-bface-firmware-with-rgb-bottom-underglow-alps-mx); [AliExpress](https://www.aliexpress.com/item/jj4x4-jj4X4-16-keys-Custom-Mechanical-Keyboard-PCB-programmed-numpad-layouts-bface-firmware-with-rgb-bottom/32901955446.html)
 
 Make example for this keyboard (after setting up your build environment):
 

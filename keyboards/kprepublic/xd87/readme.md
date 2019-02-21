@@ -5,9 +5,7 @@
 
 - Keyboard Maintainer: [Alexander Fougner](https://github.com/fougner)  
 - Hardware Supported: XD87 PCB v1.1  
-- Hardware Availability:  
-	- [KPrepublic.com](https://kprepublic.com/products/xd87-xd87-xd80-custom-mechanical-keyboard-kit80-supports-tkg-tools-support-underglow-rgb-pcb-programmed-gh80-kle)
-	- [AliExpress](https://www.aliexpress.com/item/xd87-XD87-XD80-Custom-Mechanical-Keyboard-Kit80-Supports-TKG-TOOLS-Support-Underglow-RGB-PCB-programmed-gh80/32892540743.html)
+- Hardware Availability: [KPrepublic](https://kprepublic.com/products/xd87-xd87-xd80-custom-mechanical-keyboard-kit80-supports-tkg-tools-support-underglow-rgb-pcb-programmed-gh80-kle); [AliExpress](https://www.aliexpress.com/item/xd87-XD87-XD80-Custom-Mechanical-Keyboard-Kit80-Supports-TKG-TOOLS-Support-Underglow-RGB-PCB-programmed-gh80/32892540743.html)
 
 Make example for this keyboard (after setting up your build environment):
 

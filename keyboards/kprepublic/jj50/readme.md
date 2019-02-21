@@ -13,7 +13,7 @@ USB report options are supported.
 
 Keyboard Maintainer: [Wayne K. Jones](github.com/WarmCatUK).  
 Hardware Supported: JJ50 with the ATmega32a chip.  
-Hardware Availability: [KPrepublic on AliExpress](https://www.aliexpress.com/item/jj50-v1-0-Custom-Mechanical-Keyboard-50-PCB-programmed-50-preonic-layouts-bface-firmware-with-rgb/32848915277.html)
+Hardware Availability: [KPrepublic](https://kprepublic.com/collections/jj50-50/products/jj50-50-custom-keyboard-pcb-similar-with-preonic); [AliExpress](https://www.aliexpress.com/item/jj50-v1-0-Custom-Mechanical-Keyboard-50-PCB-programmed-50-preonic-layouts-bface-firmware-with-rgb/32848915277.html)
 
 
 ## Installing and Building

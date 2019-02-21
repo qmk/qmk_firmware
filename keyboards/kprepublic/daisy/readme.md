@@ -6,7 +6,7 @@ A 40% keyboard kit sold by KPRepublic.
 
 Keyboard Maintainer: westfoxtrot (https://github.com/westfoxtrot)  
 Hardware Supported: Daisy PCB Rev.1, Daisy PCB Rev.2  
-Hardware Availability: https://kprepublic.com/collections/daisy-41/products/daisy-40-custom-keyboard-pcb
+Hardware Availability: [KPrepublic](https://kprepublic.com/collections/daisy-41/products/daisy-40-custom-keyboard-pcb); [AliExpress](https://kprepublic.aliexpress.com/store/group/Daisy-40/3034003_512069836.html)
 
 Make example for this keyboard (after setting up your build environment):
 

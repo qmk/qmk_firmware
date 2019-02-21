@@ -10,7 +10,7 @@ Compact With 84 Keys & RGB LED Underglow
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: XD84  
-Hardware Availability: [KPrepublic](https://kprepublic.com/products/xd84-xiudi-70-custom-keyboard-pcb)
+Hardware Availability: [KPrepublic](https://kprepublic.com/products/xd84-xiudi-70-custom-keyboard-pcb); [AliExpress](https://www.aliexpress.com/item/xd84-75-eepw84-Custom-Mechanical-Keyboard-Supports-TKG-TOOLS-Underglow-RGB-PCB-programmed-kle-Kimera-core/32819790747.html)
 
 Make example for this keyboard (after setting up your build environment):
 
