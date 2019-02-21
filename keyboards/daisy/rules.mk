@@ -64,3 +64,8 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight. 
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+
+SRC += keyboards/wilba_tech/wt_main.c
+
+RAW_ENABLE = yes
+DYNAMIC_KEYMAP_ENABLE = yes
