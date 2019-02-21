@@ -15,6 +15,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Base
 ,-----------------------------------------------------------------------------------------------------------------------.
+|`        |1        |2        |3        |4        |5        |6        |7        |8        |9        |0        |\        |
+|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |Tab      |Q        |W        |E        |R        |T        |Z        |U        |I        |O        |P        |Backspace|
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |Esc/Nav  |A        |S        |D        |F        |G        |H        |J        |K        |L        |;        |'        |
@@ -25,7 +27,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 `-----------------------------------------------------------------------------------------------------------------------'
 */
 
-[_BASE] = LAYOUT_ortho_4x12(
+[_BASE] = LAYOUT_preonic_grid(
+  CU_GRV,   DE_1,     DE_2,     CU_3,     DE_4,     DE_5,     CU_6,     CU_7,     CU_8,     CU_9,     CU_0,     CU_BSLS,
   KC_TAB,   DE_Q,     DE_W,     DE_E,     DE_R,     DE_T,     CU_Z,     DE_U,     DE_I,     DE_O,     DE_P,     KC_BSPC,
   CU_NAV,   DE_A,     DE_S,     DE_D,     DE_F,     DE_G,     DE_H,     DE_J,     DE_K,     DE_L,     CU_SCLN,  CU_QUOT,
   CU_LSFT,  CU_Y,     DE_X,     DE_C,     DE_V,     DE_B,     DE_N,     DE_M,     CU_COMM,  CU_DOT,   CU_SLSH,  CU_RSFT,
@@ -34,6 +37,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Lower
 ,-----------------------------------------------------------------------------------------------------------------------.
+|`        |1        |2        |3        |4        |5        |6        |7        |8        |9        |0        |\        |
+|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |~        |!        |"        |#        |$        |%        |^        |&        |*        |(        |)        |         |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |         |@        |Strg+X   |Strg+C   |Strg+V   |         |         |_        |+        |{        |}        ||        |
@@ -43,7 +48,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 |         |         |         |         |         |         |         |         |         |         |         |         |
 `-----------------------------------------------------------------------------------------------------------------------'
 */
-[_LOWER] = LAYOUT_ortho_4x12(
+[_LOWER] = LAYOUT_preonic_grid(
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
   DE_TILD,  DE_EXLM,  DE_DQOT,  DE_HASH,  DE_DLR,   DE_PERC,  CU_CIRC,  DE_AMPR,  DE_ASTR,  DE_LPRN,  DE_RPRN,  _______,
   _______,  DE_AT,    CTRLX,    CTRLC,    CTRLV,    XXXXXXX,  XXXXXXX,  DE_UNDS,  DE_PLUS,  DE_LCBR,  DE_RCBR,  DE_PIPE,
   _______,  DE_EURO,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  DE_MINS,  CU_EQL,   CU_LBRC,  CU_RBRC,  _______,
@@ -52,6 +58,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Raise
 ,-----------------------------------------------------------------------------------------------------------------------.
+|`        |1        |2        |3        |4        |5        |6        |7        |8        |9        |0        |\        |
+|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |`        |1        |2        |3        |4        |5        |6        |7        |8        |9        |0        |         |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |         |F1       |F2       |F3       |F4       |F5       |F6       |-        |=        |[        |]        |\        |
@@ -62,14 +70,16 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 `-----------------------------------------------------------------------------------------------------------------------'
 */
 
-[_RAISE] = LAYOUT_ortho_4x12(
+[_RAISE] = LAYOUT_preonic_grid(
+  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,
   CU_GRV,   DE_1,     DE_2,     CU_3,     DE_4,     DE_5,     CU_6,     CU_7,     CU_8,     CU_9,     CU_0,     _______,
   _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    DE_MINS,  CU_EQL,   CU_LBRC,  CU_RBRC,  CU_BSLS,
   _______,  KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,   XXXXXXX,  _______,  _______,  _______,  _______,
   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______
 ),
 
-[_MUSICMODE] = LAYOUT_ortho_4x12(
+[_MUSICMODE] = LAYOUT_preonic_grid(
+  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
   XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,  XXXXXXX,
@@ -78,6 +88,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Deadkey
 ,-----------------------------------------------------------------------------------------------------------------------.
+|         |         |         |         |         |         |         |         |         |         |         |         |
+|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |         |         |         |         |         |         |         |Ü        |         |Ö        |         |         |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |         |Ä        |ß        |         |         |         |         |         |         |         |         |         |
@@ -88,7 +100,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 `-----------------------------------------------------------------------------------------------------------------------'
 */
 
-[_DEADKEY] = LAYOUT_ortho_4x12(
+[_DEADKEY] = LAYOUT_preonic_grid(
+  CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,
   KC_TAB,   CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_UE,    CU_ED,    CU_OE,    CU_ED,    KC_BSPC,
   CU_NAV,   CU_AE,    CU_SS,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_DDQ,
   CU_LSFT,  CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_ED,    CU_RSFT,
@@ -97,6 +110,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Navigation
 ,-----------------------------------------------------------------------------------------------------------------------.
+|F1       |F2       |F3       |F4       |F5       |F6       |F7       |F8       |F9       |F10      |F11      |F12      |
+|---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |ALT F4   |PageDown |Up       |PageUp   |Home     |         |         |         |Win+Up   |         |         |Del      |
 |---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------+---------|
 |         |Left     |Down     |Right    |End      |         |         |Win+Left |Win+Down |Win+Right|         |Enter    |
@@ -107,7 +122,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 `-----------------------------------------------------------------------------------------------------------------------'
 */
 
-[_NAV] = LAYOUT_ortho_4x12(
+[_NAV] = LAYOUT_preonic_grid(
+  KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
   ALTF4,    KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
   _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  XXXXXXX,  GUIL,     GUID,     GUIR,     EMOJI,    KC_ENT,
   _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  MU_ON,    XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
