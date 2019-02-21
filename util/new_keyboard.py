@@ -56,8 +56,8 @@ def replace_keyboard_placeholders(keyboard_dir, keyboard_name):
     ]
 
     print("Substituting %%KEYBOARD%%...", end='')
-    for filename in filenames:
-        for line in fileinput.input(filename, inplace=True):
+    with fileinput.input(filenames, inplace=True) as f:
+        for line in f:
             print(line.replace('%KEYBOARD%', keyboard_name), end='')
     print(" done")
 
@@ -72,8 +72,8 @@ def replace_name_placeholders(keyboard_dir, keyboard_name, name):
     ]
 
     print("Substituting your name...", end='')
-    for filename in filenames:
-        for line in fileinput.input(filename, inplace=True):
+    with fileinput.input(filenames, inplace=True) as f:
+        for line in f:
             print(line.replace('REPLACE_WITH_YOUR_NAME', name), end='')
     print(" done")
 
