@@ -39,6 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                 KC_VOLU, KC_VOLD,        KC_SPC,  KC_DEL,   KC_ENT,   KC_SPC,        KC_VOLU, KC_VOLD \
   ),
 
+#ifndef GAMELAYER_DISABLE
   [_GAME] = EXPAND_LAYOUT( \
     ___________________GAME_L1_________________,  KC_MINS,  KC_EQL,   ___________________GAME_R1_________________, \
     ___________________GAME_L2_________________,  KC_LBRC,  KC_RBRC,  ___________________GAME_R2_________________, \
@@ -47,6 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ___________________GAME_L5_________________,  RGB_RMOD, RGB_MOD,  ___________________GAME_R5_________________, \
                 KC_VOLU, KC_VOLD,        KC_SPC,  KC_DEL,   KC_ENT,   KC_SPC,        KC_VOLU, KC_VOLD \
   ),
+#endif
 
   [_LOWER] =  EXPAND_LAYOUT( \
     __________________LOWER_L1_________________, KC_PMNS, KC_PPLS, __________________LOWER_R1_________________, \
@@ -113,6 +115,7 @@ static void render_status(void) {
   oled_write_P(PSTR("Layer: "), false);
   switch (biton32(layer_state)) {
     case _QWERTY:
+#ifndef GAMELAYER_DISABLE
       switch (biton32(default_layer_state)) {
         case _QWERTY:
           oled_write_P(PSTR("Default\n"), false);
@@ -124,6 +127,9 @@ static void render_status(void) {
           oled_write_P(PSTR("Undefined\n"), false);
           break;
       }
+#else
+      oled_write_P(PSTR("Default\n"), false);
+#endif
       break;
     case _LOWER:
       oled_write_P(PSTR("Lower\n"), false);
