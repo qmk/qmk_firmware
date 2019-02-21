@@ -31,11 +31,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    *                                    `-------------'  `-------------'
    */
   [_QWERTY] = EXPAND_LAYOUT( \
-    _________________NUMROW_L1_________________,  KC_MINS,  KC_EQL,   _________________NUMROW_R1_________________, \
-    _________________QWERTY_L1_________________,  KC_LBRC,  KC_RBRC,  _________________QWERTY_R1_________________, \
-    _________________QWERTY_L2_________________,  KC_GRV,   KC_QUOT,  _________________QWERTY_R2_________________, \
-    _________________QWERTY_L3_________________,  RGB_TOG,  RGBRST,   _________________QWERTY_R3_________________, \
-    _________________QWERTY_L4_________________,  RGB_RMOD, RGB_MOD,  _________________QWERTY_R4_________________, \
+    _________________QWERTY_L1_________________,  KC_MINS,  KC_EQL,   _________________QWERTY_R1_________________, \
+    _________________QWERTY_L2_________________,  KC_LBRC,  KC_RBRC,  _________________QWERTY_R2_________________, \
+    _________________QWERTY_L3_________________,  KC_GRV,   KC_QUOT,  _________________QWERTY_R3_________________, \
+    _________________QWERTY_L4_________________,  RGB_TOG,  RGBRST,   _________________QWERTY_R4_________________, \
+    _________________QWERTY_L5_________________,  RGB_RMOD, RGB_MOD,  _________________QWERTY_R5_________________, \
+                KC_VOLU, KC_VOLD,        KC_SPC,  KC_DEL,   KC_ENT,   KC_SPC,        KC_VOLU, KC_VOLD \
+  ),
+
+  [_GAME] = EXPAND_LAYOUT( \
+    ___________________GAME_L1_________________,  KC_MINS,  KC_EQL,   ___________________GAME_R1_________________, \
+    ___________________GAME_L2_________________,  KC_LBRC,  KC_RBRC,  ___________________GAME_R2_________________, \
+    ___________________GAME_L3_________________,  KC_GRV,   KC_QUOT,  ___________________GAME_R3_________________, \
+    ___________________GAME_L4_________________,  RGB_TOG,  RGBRST,   ___________________GAME_R4_________________, \
+    ___________________GAME_L5_________________,  RGB_RMOD, RGB_MOD,  ___________________GAME_R5_________________, \
                 KC_VOLU, KC_VOLD,        KC_SPC,  KC_DEL,   KC_ENT,   KC_SPC,        KC_VOLU, KC_VOLD \
   ),
 
@@ -104,7 +113,17 @@ static void render_status(void) {
   oled_write_P(PSTR("Layer: "), false);
   switch (biton32(layer_state)) {
     case _QWERTY:
-      oled_write_P(PSTR("Default\n"), false);
+      switch (biton32(default_layer_state)) {
+        case _QWERTY:
+          oled_write_P(PSTR("Default\n"), false);
+          break;
+        case _GAME:
+          oled_write_P(PSTR("Game\n"), false);
+          break;
+        default:
+          oled_write_P(PSTR("Undefined\n"), false);
+          break;
+      }
       break;
     case _LOWER:
       oled_write_P(PSTR("Lower\n"), false);
@@ -112,11 +131,13 @@ static void render_status(void) {
     case _RAISE:
       oled_write_P(PSTR("Raise\n"), false);
       break;
+#ifdef TRILAYER_ENABLED
     case _ADJUST:
       oled_write_P(PSTR("Adjust\n"), false);
       break;
+#endif
     default:
-      oled_write_P(PSTR("Undeined\n"), false);
+      oled_write_P(PSTR("Undefined\n"), false);
   }
 
   // Host Keyboard LED Status

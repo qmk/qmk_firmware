@@ -14,27 +14,39 @@
   * `-----------------------------------------'  `-----------------------------------------'
   */
 
-#define _________________NUMROW_L1_________________ KC_GESC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5
-#define _________________NUMROW_R1_________________           KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_BSPC
+#define _________________QWERTY_L1_________________ KC_GESC,  KC_1,     KC_2,     KC_3,     KC_4,     KC_5
+#define _________________QWERTY_L2_________________ TD_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T
+#define _________________QWERTY_L3_________________ RIS_CAPS, KC_A,     KC_S,     KC_D,     KC_F,     KC_G
+#define _________________QWERTY_L4_________________ KC_LSPO,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B
+#define _________________QWERTY_L5_________________ KC_LCTL,  KC_LGUI,  LOWER,    RAISE,    KC_LALT,  KC_SPC
 
-#define _________________QWERTY_L1_________________ KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T
-#define _________________QWERTY_L2_________________ RIS_CAPS, KC_A,     KC_S,     KC_D,     KC_F,     KC_G
-#define _________________QWERTY_L3_________________ KC_LSPO,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B
-#define _________________QWERTY_L4_________________ KC_LCTL,  KC_LGUI,  LOWER,    RAISE,    KC_LALT,  KC_SPC
+#define _________________QWERTY_R1_________________           KC_6,    KC_7,      KC_8,     KC_9,     KC_0,     TD_BSPC
+#define _________________QWERTY_R2_________________           KC_Y,    KC_U,      KC_I,     KC_O,     KC_P,     KC_BSLS
+#define _________________QWERTY_R3_________________           KC_H,    KC_J,      KC_K,     KC_L,     KC_SCLN,  KC_ENT
+#define _________________QWERTY_R4_________________           KC_N,    KC_M,      TD_COMM,  KC_DOT,   KC_SLASH, KC_RSPC
+#define _________________QWERTY_R5_________________           KC_SPC,  KC_LEFT,   KC_UP,    KC_DOWN,  KC_RIGHT, KC_RCTL
 
-#define _________________QWERTY_R1_________________           KC_Y,    KC_U,      KC_I,     KC_O,     KC_P,     KC_BSLS
-#define _________________QWERTY_R2_________________           KC_H,    KC_J,      KC_K,     KC_L,     KC_SCLN,  KC_ENT
-#define _________________QWERTY_R3_________________           KC_N,    KC_M,      TD_COMM,  KC_DOT,   KC_SLASH, KC_RSPC
-#define _________________QWERTY_R4_________________           KC_SPC,  KC_LEFT,   KC_UP,    KC_DOWN,  KC_RIGHT, KC_RCTL
+
+#define ___________________GAME_L1_________________ KC_ESC,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5
+#define ___________________GAME_L2_________________ KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T
+#define ___________________GAME_L3_________________ KC_CAPS,  KC_A,     KC_S,     KC_D,     KC_F,     KC_G
+#define ___________________GAME_L4_________________ KC_LSFT,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B
+#define ___________________GAME_L5_________________ KC_LCTL,  KC_LGUI,  LOWER,    RAISE,    KC_LALT,  KC_SPC
+
+#define ___________________GAME_R1_________________           KC_6,    KC_7,      KC_8,     KC_9,     KC_0,     KC_BSPC
+#define ___________________GAME_R2_________________           KC_Y,    KC_U,      KC_I,     KC_O,     KC_P,     KC_BSLS
+#define ___________________GAME_R3_________________           KC_H,    KC_J,      KC_K,     KC_L,     KC_SCLN,  KC_ENT
+#define ___________________GAME_R4_________________           KC_N,    KC_M,      KC_COMM,  KC_DOT,   KC_SLASH, KC_RSFT
+#define ___________________GAME_R5_________________           KC_SPC,  KC_LEFT,   KC_UP,    KC_DOWN,  KC_RIGHT, KC_RCTL
 
 
  /* RAISE Layout
   * ,-----------------------------------------.  ,-----------------------------------------.
   * |  F12 |  F1  |  F2  |  F3  |  F4  |  F5  |  |  F6  |  F7  |  F8  |  F9  |  F10 | F11  |
   * |------+------+------+------+------+------|  |------+------+------+------+------+------|
-  * |      | PGDN |  UP  | PGUP |      |      |  |      | INS  | HOME | PGUP | PRINT|      |
+  * |      | PGDN |  UP  | PGUP |      |QWERTY|  |      | INS  | HOME | PGUP | PRINT|      |
   * |------+------+------+------+------+------|  |------+------+------+------+------+------|
-  * |      | LEFT | DOWN | RIGHT|      |      |  |      | DEL  | END  | PGDN |SCRLCK|      |
+  * |      | LEFT | DOWN | RIGHT|      | GAME |  |      | DEL  | END  | PGDN |SCRLCK|      |
   * |------+------+------+------+------+------|  |------+------+------+------+------+------|
   * |      |      |      |      |      |      |  |      |      |      |      |      |      |
   * |------+------+------+------+------+------|  |------+------+------+------+------+------|
@@ -43,8 +55,8 @@
   */
 
 #define __________________RAISE_L1_________________ KC_F12,   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5
-#define __________________RAISE_L2_________________ _______,  KC_PGDN,  KC_UP,    KC_PGUP,  _______,  _______
-#define __________________RAISE_L3_________________ _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,  _______
+#define __________________RAISE_L2_________________ _______,  KC_PGDN,  KC_UP,    KC_PGUP,  _______,  QWERTY
+#define __________________RAISE_L3_________________ _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  _______,  GAME
 #define __________________RAISE_L4_________________ _______,  _______,  _______,  _______,  _______,  _______
 #define __________________RAISE_L5_________________ _______,  _______,  _______,  _______,  _______,  _______
 
