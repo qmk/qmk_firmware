@@ -1,4 +1,4 @@
-# MechMerlin's Userspace v0.1.1
+# MechMerlin's Userspace v0.2.0
 
 This is a collection of my most commonly used QMK features. 
 
@@ -41,4 +41,4 @@ Ensures that when my computer is in sleep mode, the keyboard underglow lights wi
 
 ### Velocikey
 
-[Velocikey](https://github.com/qmk/qmk_firmware/pull/3754) is an RGBLIGHT feature in which the faster you type, the faster the ARE GEE BEES. 
+[Velocikey](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_velocikey.md) is an RGBLIGHT feature in which the faster you type, the faster the ARE GEE BEES. 

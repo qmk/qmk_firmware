@@ -1,6 +1,8 @@
 # Changelog
 All notable changes to my userspace will be documented in this file.
 
+## [0.2.0] - 2019-02-22
+
 ## [0.1.1] - 2018-10-26
 ### Added
 - Added a changelog, aka THIS VERY FILE! 
