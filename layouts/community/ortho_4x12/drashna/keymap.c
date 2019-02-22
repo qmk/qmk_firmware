@@ -19,6 +19,7 @@
 
 #ifdef RGB_MATRIX_ENABLE
 extern bool g_suspend_state;
+extern rgb_config_t rgb_matrix_config;
 #endif
 
 #ifdef BACKLIGHT_ENABLE
