@@ -58,7 +58,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 
 #ifdef TRILAYER_ENABLED
-  [_RAISE] = EXPAND_LAYOUT( \
+  [_ADJUST] = EXPAND_LAYOUT( \
     _________________ADJUST_L1_________________,  _________________ADJUST_R1_________________, \
     _________________ADJUST_L2_________________,  _________________ADJUST_R2_________________, \
     _________________ADJUST_L3_________________,  _________________ADJUST_R3_________________, \
