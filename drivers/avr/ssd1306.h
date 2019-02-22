@@ -60,8 +60,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_FONT_HEIGHT 8
 #endif
 
+#ifndef OLED_ROTATE90
 #define OLED_MAX_CHARS (OLED_DISPLAY_WIDTH / OLED_FONT_WIDTH)
 #define OLED_MAX_LINES (OLED_DISPLAY_HEIGHT / OLED_FONT_HEIGHT)
+#else
+#define OLED_MAX_CHARS (OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH)
+#define OLED_MAX_LINES (OLED_DISPLAY_WIDTH / OLED_FONT_HEIGHT)
+#endif
 
 // Initialize the oled display
 bool oled_init(bool flip180);

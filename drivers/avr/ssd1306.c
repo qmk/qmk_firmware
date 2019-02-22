@@ -75,6 +75,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define I2C_SEND(mode, data) i2c_writeReg((SSD1306_ADDRESS << 1), mode, &data[0], sizeof(data), I2C_TIMEOUT)
 #define I2C_SEND_SIZE(mode, data, size) i2c_writeReg((SSD1306_ADDRESS << 1), mode, data, size, I2C_TIMEOUT)
 
+// Internal flipped defines for handling 90 degree rotation
+#ifndef OLED_ROTATE90
+#define OLED_HEIGHT OLED_DISPLAY_HEIGHT
+#define OLED_WIDTH OLED_DISPLAY_WIDTH
+#else
+#define OLED_HEIGHT OLED_DISPLAY_WIDTH
+#define OLED_WIDTH OLED_DISPLAY_HEIGHT
+#endif
+
 // Display buffer's is the same as the OLED memory layout
 // this is so we don't end up with rounding errors with
 // parts of the display unusable or don't get cleared correctly
@@ -86,6 +95,8 @@ bool             oled_initialized = false;
 bool             oled_active = false;
 bool             oled_scrolling = false;
 uint16_t         oled_last_activity;
+
+// Internal variables to reduce math instructions
 
 // identical to i2c_writeReg, but for PROGMEM since all initialization is in PROGMEM arrays currently
 // probably should move this into i2c_master...
@@ -126,7 +137,7 @@ bool oled_init(bool flip180) {
     DISPLAY_OFFSET, 0x00,
     DISPLAY_START_LINE | 0x00,
     CHARGE_PUMP, 0x14,
-    MEMORY_MODE, 0x00, };
+    MEMORY_MODE, 0x00, }; // Horizontal addressing mode
   if (I2C_SEND_P(I2C_CMD, display_setup1) != I2C_STATUS_SUCCESS) {
     print("oled_init cmd set 1 failed\n");
     return false;
@@ -177,6 +188,41 @@ void oled_clear(void) {
   oled_dirty = -1; // -1 will be max value as long as display_dirty is unsigned type
 }
 
+#ifndef OLED_ROTATE90
+static void calc_bounds(uint8_t update_start, uint8_t* cmd_array)
+{
+  cmd_array[1] = OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_WIDTH;
+  cmd_array[4] = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_WIDTH;
+  cmd_array[2] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) % OLED_DISPLAY_WIDTH + cmd_array[1];
+  cmd_array[5] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) / OLED_DISPLAY_WIDTH - 1;
+}
+#else
+static void calc_bounds(uint8_t update_start, uint8_t* cmd_array)
+{
+  cmd_array[1] = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_HEIGHT * 8;
+  cmd_array[4] = OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_HEIGHT;
+  cmd_array[2] = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) / OLED_DISPLAY_HEIGHT * 8 - 1 + cmd_array[1];;
+  cmd_array[5] = (OLED_BLOCK_SIZE + OLED_DISPLAY_HEIGHT - 1) % OLED_DISPLAY_HEIGHT / 8;
+}
+
+uint8_t crot(uint8_t a, int8_t n)
+{
+  const uint8_t mask = 0x7;
+  n &= mask;
+  return a << n | a >> (-n & mask);
+}
+
+static void rotate(const uint8_t* src, uint8_t* dest)
+{
+  for (uint8_t i = 0, shift = 7; i < 8; ++i, --shift) {
+    uint8_t selector = (1 << i);
+    for (uint8_t j = 0; j < 8; ++j) {
+      dest[i] |= crot(src[j] & selector, shift - (int8_t)j);
+    }
+  }
+}
+#endif
+
 void oled_render(void) {
   // Do we have work to do?
   if (!oled_dirty || oled_scrolling) {
@@ -191,8 +237,7 @@ void oled_render(void) {
   static uint8_t display_start[] = {
     COLUMN_ADDR, 0, OLED_DISPLAY_WIDTH - 1,
     PAGE_ADDR, 0, OLED_DISPLAY_HEIGHT / 8 - 1 };
-  display_start[1] = (OLED_BLOCK_SIZE * update_start) % OLED_DISPLAY_WIDTH;
-  display_start[4] = (OLED_BLOCK_SIZE * update_start) / OLED_DISPLAY_WIDTH;
+  calc_bounds(update_start, &display_start[0]);
 
   // Send column & page position
   if (I2C_SEND(I2C_CMD, display_start) != I2C_STATUS_SUCCESS) {
@@ -200,11 +245,31 @@ void oled_render(void) {
     return;
   }
 
+  #ifndef OLED_ROTATE90
   // Send render data chunk
   if (I2C_SEND_SIZE(I2C_DATA, &oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
     print("oled_render data failed\n");
     return;
   }
+  #else
+    static uint8_t temp_buffer[OLED_BLOCK_SIZE];
+    memset(temp_buffer, 0, sizeof(temp_buffer));
+    // Do this shit programmatically;
+    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start +  0], &temp_buffer[48]);
+    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start +  8], &temp_buffer[32]);
+    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 16], &temp_buffer[16]);
+    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 24], &temp_buffer[ 0]);
+    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 32], &temp_buffer[56]);
+    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 40], &temp_buffer[40]);
+    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 48], &temp_buffer[24]);
+    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 56], &temp_buffer[ 8]);
+
+    // Send render data chunk
+    if (I2C_SEND_SIZE(I2C_DATA, &temp_buffer[0], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
+      print("oled_render data failed\n");
+      return;
+    }
+  #endif
 
   // Turn on display if it is off
   oled_on();
@@ -214,7 +279,7 @@ void oled_render(void) {
 }
 
 void oled_set_cursor(uint8_t col, uint8_t line) {
-  uint16_t index = line * OLED_DISPLAY_WIDTH + col * OLED_FONT_WIDTH;
+  uint16_t index = line * OLED_WIDTH + col * OLED_FONT_WIDTH;
 
   // Out of bounds?
   if (index >= OLED_MATRIX_SIZE) {
@@ -226,7 +291,7 @@ void oled_set_cursor(uint8_t col, uint8_t line) {
 
 void oled_advance_page(bool clearPageRemainder) {
   uint16_t index = oled_cursor - &oled_buffer[0];
-  uint8_t remaining = (OLED_DISPLAY_WIDTH - (index % OLED_DISPLAY_WIDTH));
+  uint8_t remaining = (OLED_WIDTH - (index % OLED_WIDTH));
 
   if (clearPageRemainder) {
     // Remaining Char count
@@ -248,7 +313,7 @@ void oled_advance_page(bool clearPageRemainder) {
 
 void oled_advance_char(void) {
   uint16_t nextIndex = oled_cursor - &oled_buffer[0] + OLED_FONT_WIDTH;
-  uint8_t remainingSpace = OLED_DISPLAY_WIDTH - (nextIndex % OLED_DISPLAY_WIDTH);
+  uint8_t remainingSpace = OLED_WIDTH - (nextIndex % OLED_WIDTH);
 
   // Do we have enough space on the current line for the next character
   if (remainingSpace < OLED_FONT_WIDTH) {
