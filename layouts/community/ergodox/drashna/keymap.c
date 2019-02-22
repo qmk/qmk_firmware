@@ -414,7 +414,7 @@ void rgb_matrix_layer_helper (uint8_t red, uint8_t green, uint8_t blue) {
 }
 
 void rgb_matrix_indicators_user(void) {
-  if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) return;
+  if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) { return; }
 
   switch (biton32(layer_state)) {
     case _MODS:

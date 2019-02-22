@@ -164,9 +164,11 @@ bool music_mask_user(uint16_t keycode) {
 
 void suspend_power_down_keymap(void) {
     rgb_matrix_set_suspend_state(true);
+    rgb_matrix_config.enable = false;
 }
 
 void suspend_wakeup_init_keymap(void) {
+    rgb_matrix_config.enable = true;
     rgb_matrix_set_suspend_state(false);
 }
 
@@ -186,7 +188,7 @@ void rgb_matrix_indicators_user(void) {
   uint8_t this_mod = get_mods();
   uint8_t this_led = host_keyboard_leds();
   uint8_t this_osm = get_oneshot_mods();
-  if (g_suspend_state) { return; }
+  if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) { return; }
 
   switch (biton32(layer_state)) {
     case _RAISE:
