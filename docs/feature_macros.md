@@ -183,11 +183,11 @@ A macro can include the following commands:
 
 ### Mapping a Macro to a Key
 
-Use the `M()` function within your `KEYMAP()` to call a macro. For example, here is the keymap for a 2-key keyboard:
+Use the `M()` function within your keymap to call a macro. For example, here is the keymap for a 2-key keyboard:
 
 ```c
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = KEYMAP(
+    [0] = LAYOUT(
         M(0), M(1)
     ),
 };
@@ -216,7 +216,7 @@ If you have a bunch of macros you want to refer to from your keymap while keepin
 #define M_BYE M(1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = KEYMAP(
+    [0] = LAYOUT(
         M_HI, M_BYE
     ),
 };

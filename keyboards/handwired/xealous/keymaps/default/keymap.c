@@ -11,9 +11,6 @@ extern keymap_config_t keymap_config;
 #define _NUMPAD 1
 #define _FN 2
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define FN MO(_FN)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {

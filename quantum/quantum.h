@@ -138,6 +138,10 @@ extern uint32_t default_layer_state;
     #include "hd44780.h"
 #endif
 
+#ifdef HAPTIC_ENABLE
+    #include "haptic.h"
+#endif
+
 // Function substitutions to ease GPIO manipulation
 #if defined(__AVR__)
     typedef uint8_t pin_t;
