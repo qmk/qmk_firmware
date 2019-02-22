@@ -30,7 +30,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make handwired/jotpad16:default
 
-### The Defaukt Keymap
+### The Default Keymap
 
 ![Default Keymap](https://i.imgur.com/VJZcFRN.jpg)
 
