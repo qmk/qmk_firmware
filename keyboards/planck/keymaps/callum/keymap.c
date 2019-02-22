@@ -6,8 +6,6 @@ extern keymap_config_t keymap_config;
 
 #define AC(X) A(C(X))
 #define SC(X) S(C(X))
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 enum planck_layers {
     _COLEMAK,

@@ -12,11 +12,6 @@ extern keymap_config_t keymap_config;
 // Macro name shortcuts
 #define NUMPAD M(_NP)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NP] = LAYOUT_numpad_4x4( /* Numpad */
     KC_P7, KC_P8,   KC_P9,   KC_PPLS, \

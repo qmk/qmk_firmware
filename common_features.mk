@@ -114,8 +114,27 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     endif
 endif
 
-RGB_MATRIX_ENABLE ?= no
 VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+
+LED_MATRIX_ENABLE ?= no
+ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
+    ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
+        $(error LED_MATRIX_ENABLE="$(LED_MATRIX_ENABLE)" is not a valid matrix type)
+    else
+        OPT_DEFS += -DLED_MATRIX_ENABLE -DBACKLIGHT_ENABLE -DBACKLIGHT_CUSTOM_DRIVER
+        SRC += $(QUANTUM_DIR)/led_matrix.c
+        SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+    endif
+endif
+
+ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
+    OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3731-simple.c
+    SRC += i2c_master.c
+endif
+
+RGB_MATRIX_ENABLE ?= no
 ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
 ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
@@ -191,7 +210,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-        ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+    ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 endif
@@ -227,14 +246,29 @@ endif
 
 ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
     SRC += DRV2605L.c
     SRC += i2c_master.c
+    OPT_DEFS += -DHAPTIC_ENABLE
     OPT_DEFS += -DDRV2605L
+endif
+
+ifeq ($(strip $(HAPTIC_ENABLE)), SOLENOID)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
+    SRC += solenoid.c
+    OPT_DEFS += -DHAPTIC_ENABLE
+    OPT_DEFS += -DSOLENOID_ENABLE
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
     OPT_DEFS += -DHD44780_ENABLE
+endif
+
+ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
+    OPT_DEFS += -DVELOCIKEY_ENABLE
+    SRC += $(QUANTUM_DIR)/velocikey.c
 endif
 
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
@@ -263,10 +297,20 @@ ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     endif
 endif
 
-# Include the standard debounce code if needed
-ifneq ($(strip $(CUSTOM_DEBOUNCE)), yes)
-    QUANTUM_SRC += $(QUANTUM_DIR)/debounce.c
+DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
+# Debounce Modules. If implemented in matrix.c, don't use these.
+DEBOUNCE_TYPE?= sym_g
+VALID_DEBOUNCE_TYPES := sym_g eager_pk custom
+ifeq ($(filter $(DEBOUNCE_TYPE),$(VALID_DEBOUNCE_TYPES)),)
+    $(error DEBOUNCE_TYPE="$(DEBOUNCE_TYPE)" is not a valid debounce algorithm)
 endif
+ifeq ($(strip $(DEBOUNCE_TYPE)), sym_g)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
+else ifeq ($(strip $(DEBOUNCE_TYPE)), eager_pk)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_eager_pk.c
+endif
+
+
 
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD

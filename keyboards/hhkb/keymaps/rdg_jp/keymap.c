@@ -1,7 +1,5 @@
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
-
 enum
 {
     ZER,

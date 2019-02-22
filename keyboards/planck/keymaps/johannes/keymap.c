@@ -6,9 +6,6 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define QWERTY 0
 #define LOWER 1
 #define RAISE 2
