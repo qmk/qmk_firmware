@@ -16,6 +16,7 @@ enum layers {
 #define KC_BRDN KC_SLCK
 
 // Used to create a keymap using only KC_ prefixed keys
+#ifndef LAYOUT_kc
 #define LAYOUT_kc( \
 	k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, \
 	k10, k11, k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, \
@@ -30,6 +31,7 @@ enum layers {
 		KC_##k30, KC_##k31, KC_##k32, KC_##k33, KC_##k34, KC_##k35, KC_##k36, KC_##k37, KC_##k38, KC_##k39, KC_##k3a, KC_##k3b, \
 		KC_##k40, KC_##k41, KC_##k42, KC_##k43, KC_##k44, KC_##k45, KC_##k46, KC_##k47, KC_##k48, KC_##k49, KC_##k4a, KC_##k4b \
 	)
+#endif
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
