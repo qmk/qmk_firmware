@@ -22,7 +22,7 @@ Hardware Supported: Arduino Pro Micro
 |             | QMK led   | Backlight |
 |-------------|-----------|-----------|
 | Arduino pin | 7         | 6         |
-| QMK pin     | E6        | D7        |
+| qmk pin     | E6        | D7        |
 
 ### Compiling the Firmware
 
