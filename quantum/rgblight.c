@@ -795,7 +795,7 @@ void rgblight_effect_breathing(uint8_t interval) {
   static uint16_t last_timer = 0;
   float val;
 
-  uint8_t interval_time = get_interval_time(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2], 1, 100);
+  uint8_t interval_time = get_interval_time(&RGBLED_BREATHING_INTERVALS[interval], 1, 100);
   
   if (timer_elapsed(last_timer) < interval_time) {
     return;
