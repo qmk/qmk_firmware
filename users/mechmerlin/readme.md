@@ -38,3 +38,7 @@ This is just a wrapper for `CTL_T(KC_CAPS)`. This is a hold for control and tap 
 ### RGBLIGHT_SLEEP
 
 Ensures that when my computer is in sleep mode, the keyboard underglow lights will also be off. 
+
+### Velocikey
+
+[Velocikey](https://github.com/qmk/qmk_firmware/pull/3754) is an RGBLIGHT feature in which the faster you type, the faster the ARE GEE BEES. 
