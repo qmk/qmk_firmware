@@ -14,7 +14,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	LAYOUT_all(
 		KC_ESC         , KC_F1   , KC_F2   , KC_F3   , KC_F4   , KC_F5   , KC_F6   , KC_F7      , KC_F8      , KC_F9       , KC_F10  , KC_F11     , KC_F12     , XXXXXX     , KC_DEL  ,
-		______         , RGB_TOG , RGB_MOD , RGB_HUI , RGB_HUD , RGB_SAI , RGB_SAD , RGB_VAI    , RGB_VAD    , ______      , KC_PSCR , ______     , ______     , ______      ,
+		VLK_TOG        , RGB_TOG , RGB_MOD , RGB_HUI , RGB_HUD , RGB_SAI , RGB_SAD , RGB_VAI    , RGB_VAD    , ______      , KC_PSCR , ______     , ______     , ______      ,
 		______         , ______  , ______  , ______  , ______  , ______  , ______  , ______     , KC_MPLY    , ______      , ______  , ______     , KC_MS_BTN1 ,
 		______         , ______  , ______  , KC_MUTE , KC_VOLD , KC_VOLU , KC_MSTP , KC_MPLY    , KC_MPRV    , KC_MNXT     , ______  , KC_MS_BTN3 , KC_MS_UP   , KC_MS_BTN2 , XXXXXX  ,
 		______         , ______  , ______  , KC_TAB  , ______  , KC_DEL  , ______  , KC_MS_LEFT , KC_MS_DOWN , KC_MS_RIGHT , ______) ,
@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   	LAYOUT_all(
   		RESET          , M(1)    , M(2)    , M(3)    , M(4)    , M(5)    , M(6)    , M(7)       , M(8)       , M(9)        , M(10)   , KC_BRID    , KC_BRIU    , XXXXXX     , KC_DEL  ,
-  		______         , ______  , ______  , ______  , ______  , ______  , ______  , ______     , ______     , ______      , ______  , ______     , ______     , RESET      ,
+  		______         , ______  , ______  , ______  , ______  , ______  , ______  , ______     , ______     , ______      , ______  , ______     , ______     , ______     ,
   		______         , ______  , ______  , ______  , ______  , ______  , ______  , ______     , ______     , ______      , ______  , ______     , ______     ,
   		______         , ______  , ______  , ______  , ______  , ______  , ______  , ______     , ______     , ______      , ______  , ______     , KC_PGUP    , ______     , XXXXXX  ,
   		______         , ______  , ______  , KC_TAB  , ______  , KC_DEL  , ______  , KC_HOME    , KC_PGDOWN  , KC_END      , ______) ,
