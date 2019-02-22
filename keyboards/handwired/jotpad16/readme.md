@@ -2,7 +2,7 @@
 
 ![JotPad16](https://i.imgur.com/RwmqWuS.jpg)
 
-A numpad (4x4) ortholinear keybpad made by jotix.
+A ortholinear keypad (4x4) made by jotix.
 
 Keyboard Maintainer: [jotix](https://github.com/jotix)  
 Hardware Supported: Arduino Pro Micro  
