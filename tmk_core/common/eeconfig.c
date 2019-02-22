@@ -46,6 +46,7 @@ void eeconfig_init_quantum(void) {
   eeprom_update_dword(EECONFIG_RGBLIGHT,      0);
   eeprom_update_byte(EECONFIG_STENOMODE,      0);
   eeprom_update_dword(EECONFIG_HAPTIC,        0);
+  eeprom_update_byte(EECONFIG_VELOCIKEY,      0);
 
   eeconfig_init_kb();
 }
