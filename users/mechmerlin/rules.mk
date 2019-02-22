@@ -1,4 +1,6 @@
 SRC += mechmerlin.c
 
-RGBLIGHT_ENABLE = yes
-VELOCIKEY_ENABLE = yes
+ifdef RGB_DI_PIN
+	RGBLIGHT_ENABLE = yes
+	VELOCIKEY_ENABLE = yes
+endif
