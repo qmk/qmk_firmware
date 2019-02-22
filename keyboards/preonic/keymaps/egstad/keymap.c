@@ -13,42 +13,23 @@
  * 
  * TODO
  * - Convert long key functions into var names
- * - #define FN_CAPS LT(_FL, KC_CAPSLOCK)
- * - Add command enter
- * - Add cmd- and cmd+ leader key for quick zooms!
- * - Add design layer!
- * - Add KC_ASTG to toggle autoshift
+ * —— Right handed delete, zoom in and out, delete
+ * —— Left handed command
  * 
  * I put () on Shift tap, [] on Ctrl, and {} on Alt.
  * That, the home row arrows, numpad layer, and macro recording. Oh, and the TrackPoint, of course.
  */
 
 #include QMK_KEYBOARD_H
-#include "muse.h"
 LEADER_EXTERNS();
 
 
-
-enum preonic_layers {
-  _QWERTY,
-  _LOWER,
-  _RAISE,
-  _ADJUST
-};
-
-
-enum preonic_keycodes {
-  QWERTY = SAFE_RANGE,
-  LOWER,
-  RAISE
-};
-
-
-
-
-
-
-
+// Define layers here and use them in the keymaps matrix below
+#define L_QWERTY  0 
+#define L_LOWER   1 
+#define L_RAISE   2
+#define L_DESIGN  3 
+#define L_ADJUST  4  
 
 
 
@@ -57,8 +38,11 @@ enum preonic_keycodes {
 enum {
   TD_BRC = 0,
   TD_MIN,
-  TD_GV_ESC
+  TD_GV_ESC,
+  TD_BS
 };
+
+
 
 // Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
@@ -87,21 +71,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
  * | TB/RS |   Q   |   W   |   E   |   R   |   T   |   Y   |   U   |   I   |   O   |   P   | [{ }] | 
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * | RN/LW |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   ;   |  RTN  |
+ * | RN/LW |   A   |   S   |   D   |   F   |   G   |   H   |   J   |   K   |   L   |   ;   |   '   |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |  SFT  |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |   /   | ST/QT |
+ * |  SFT  |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |   /   | SF/RN |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |  CTL  |  ALT  |  CMD  |  CMD  |  BSP  |      SPC      |  CMD  |   ←   |   ↑   |   ↓   |   →   |
+ * |  LEAD  |  CTL  |  ALT  |  CMD  |  BSP  |      SPC      |  CMD  |   ←   |   ↑   |   ↓   |   →   |
  * `-----------------------------------------------------------------------------------------------
  */
 
-[_QWERTY] = LAYOUT_preonic_grid( \
-/* COL 1                  COL 2           COL 3           COL 4           COL 5                       COL 6           COL 7                   COL 8           COL 9           COL 10          COL 11          COL 12 */
-  TD(TD_GV_ESC),          KC_1,           KC_2,           KC_3,           KC_4,                       KC_5,           KC_6,                   KC_7,           KC_8,           KC_9,           KC_0,           TD(TD_MIN),            \
-  LT(_RAISE, KC_TAB),     KC_Q,           KC_W,           KC_E,           KC_R,                       KC_T,           KC_Y,                   KC_U,           KC_I,           KC_O,           KC_P,           TD(TD_BRC),            \
-  LT(_LOWER, KC_BSPACE),  KC_A,           KC_S,           KC_D,           KC_F,                       KC_G,           KC_H,                   KC_J,           KC_K,           KC_L,           KC_SCLN,        KC_QUOT,               \
-  KC_LSFT,                KC_Z,           KC_X,           KC_C,           KC_V,                       KC_B,           KC_N,                   KC_M,           KC_COMM,        KC_DOT,         KC_SLSH,        MT(MOD_RSFT, KC_ENT),  \
-  KC_LCTL,                KC_LALT,        KC_LGUI,        KC_LGUI,        KC_BSPACE,                  _______,        KC_SPC,                 KC_LEAD,        KC_LEFT,        KC_UP,          KC_DOWN,        KC_RGHT                \
+[L_QWERTY] = LAYOUT_preonic_grid( \
+/* COL 1                  COL 2           COL 3           COL 4           COL 5                       COL 6           COL 7                   COL 8                          COL 9           COL 10          COL 11          COL 12 */
+  TD(TD_GV_ESC),          KC_1,           KC_2,           KC_3,           KC_4,                       KC_5,           KC_6,                   KC_7,                          KC_8,           KC_9,           KC_0,           TD(TD_MIN),            \
+  LT(L_RAISE, KC_TAB),    KC_Q,           KC_W,           KC_E,           KC_R,                       KC_T,           KC_Y,                   KC_U,                          KC_I,           KC_O,           KC_P,           TD(TD_BRC),            \
+  LT(L_LOWER, KC_BSPACE), KC_A,           KC_S,           KC_D,           KC_F,                       KC_G,           KC_H,                   KC_J,                          KC_K,           KC_L,           KC_SCLN,        KC_QUOT,               \
+  KC_LSFT,                KC_Z,           KC_X,           KC_C,           KC_V,                       KC_B,           KC_N,                   KC_M,                          KC_COMM,        KC_DOT,         KC_SLSH,        MT(MOD_RSFT, KC_ENT),  \
+  KC_LEAD,                _______,        KC_LCTL,        KC_LALT,        KC_LGUI,                    KC_BSPACE,      MT(MOD_LGUI, KC_SPC),   LT(L_LOWER, KC_BSPACE),        KC_LEFT,        KC_UP,          KC_DOWN,        KC_RGHT                \
 ),
 
 
@@ -130,35 +114,63 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * • Kinda missing my delete key at top right... 
  * 
  */
-[_LOWER] = LAYOUT_preonic_grid( \
+[L_LOWER] = LAYOUT_preonic_grid( \
 /* COL 1          COL 2           COL 3           COL 4           COL 5           COL 6           COL 7           COL 8           COL 9           COL 10          COL 11          COL 12   */
   _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_BSPACE,\
   LGUI(KC_TAB),   LGUI(KC_Q),     LGUI(KC_W),     _______,        _______,        LGUI(KC_T),     _______,        KC_MINUS,       KC_PLUS,        KC_ASTERISK,    KC_KP_SLASH,    _______,\
   _______,        LGUI(KC_A),     LGUI(KC_S),     LGUI(KC_D),     LGUI(KC_F),     LGUI(KC_G),     _______,        KC_LEFT,        KC_UP,          KC_DOWN,        KC_RIGHT,       KC_ENTER, \
   KC_CAPS,        LGUI(KC_Z),     LGUI(KC_X),     LGUI(KC_C),     LGUI(KC_V),     _______,        _______,        KC_LBRC,        KC_RBRC,        KC_LCBR,        KC_RCBR,        KC_BSLASH,   \
-  _______,        _______,        _______,        _______,        _______,        _______,        KC_KP_EQUAL,    _______,        _______,        _______,        _______,        _______   
+  TG(L_DESIGN),   _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______   \
 ),
 
-/* Raise
- * ,-----------------------------------------------------------------------------------.
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Bksp |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |   `  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  | Del  |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * | Del  |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   -  |   =  |   [  |   ]  |  \   |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |ISO # |ISO / |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      | Next | Vol- | Vol+ | Play |
- * `-----------------------------------------------------------------------------------'
+/* RAISE
+ * ,-----------------------------------------------------------------------------------------------.
+ * | ASHFT | BTSDN | BTSUP |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |  CAP  |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |   PLAY/PAUSE  |       |       |  VUP  |  VDN  |       |
+ * `-----------------------------------------------------------------------------------------------'
  */
-[_RAISE] = LAYOUT_preonic_grid( \
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-  KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_DEL,  \
-  KC_DEL,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_MINS, KC_EQL,  KC_LBRC, KC_RBRC, KC_BSLS, \
-  KC_CAPS, KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_NUHS, KC_NUBS, KC_PGUP, KC_PGDN, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY  \
+[L_RAISE] = LAYOUT_preonic_grid( \
+  KC_ASTG, KC_F1,   KC_F2, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, KC_MPLY, _______, _______, KC__VOLUP, KC__VOLDOWN, _______ \
 ),
+
+
+/* DESIGN
+ * ,-----------------------------------------------------------------------------------------------.
+ * | ASHFT | BTSDN | BTSUP |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |  CAP  |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |   PLAY/PAUSE  |       |       |  VUP  |  VDN  |       |
+ * `-----------------------------------------------------------------------------------------------'
+ */
+[L_DESIGN] = LAYOUT_preonic_grid( \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSPACE, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
+  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+),
+
+
+
+
+
+
 
 /* Adjust (Lower + Raise)
  * ,-----------------------------------------------------------------------------------.
@@ -173,10 +185,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |             |      |      |      |      |      |
  * `-----------------------------------------------------------------------------------'
  */
-[_ADJUST] = LAYOUT_preonic_grid( \
+[L_ADJUST] = LAYOUT_preonic_grid( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
   _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  _______, _______,  _______, _______, \
+  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, L_QWERTY,  _______, _______,  _______, _______, \
   _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
 )
@@ -184,43 +196,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-
-
-/* ==========================================================================
-   Layers
-   ========================================================================== */
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-        case QWERTY:
-          if (record->event.pressed) {
-            set_single_persistent_default_layer(_QWERTY);
-          }
-          return false;
-          break;
-        case LOWER:
-          if (record->event.pressed) {
-            layer_on(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_LOWER);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-        case RAISE:
-          if (record->event.pressed) {
-            layer_on(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          } else {
-            layer_off(_RAISE);
-            update_tri_layer(_LOWER, _RAISE, _ADJUST);
-          }
-          return false;
-          break;
-      }
-    return true;
-};
 
 
 

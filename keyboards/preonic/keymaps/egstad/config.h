@@ -1,7 +1,7 @@
 #ifndef CONFIG_USER_H
 #define CONFIG_USER_H
 #define TAPPING_TERM 200
-
+#define IGNORE_MOD_TAP_INTERRUPT
 
 
 
@@ -24,7 +24,7 @@
    ========================================================================== */
 
 // This controls how long you have to hold a key before you get the shifted state.
-#define AUTO_SHIFT_TIMEOUT 130
+#define AUTO_SHIFT_TIMEOUT 150
 
 // Do not Auto Shift special keys -_, =+, [{, ]}, ;:, '", ,<, .>, and /?
 // #define NO_AUTO_SHIFT_SPECIAL
@@ -49,7 +49,7 @@
 
 // Turns off the Auto Shift Function
 // KC_ASOFF	 
- 
+
 // Toggles the state of the Auto Shift feature
 // KC_ASTG	  
 
