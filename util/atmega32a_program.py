@@ -42,8 +42,8 @@ def flash_keyboard(firmware_file):
 def print_device_info(dev):
     """Prints all infos for a given USB device"""
     print('Device Information:')
-    print('  idVendor: %d (0x%02x)' % (dev.idVendor, dev.idVendor))
-    print('  idProduct: %d (0x%02x)' % (dev.idProduct, dev.idProduct))
+    print('  idVendor: %d (0x%04x)' % (dev.idVendor, dev.idVendor))
+    print('  idProduct: %d (0x%04x)' % (dev.idProduct, dev.idProduct))
     print('Manufacturer: %s' % (dev.iManufacturer))
     print('Serial: %s' % (dev.iSerialNumber))
     print('Product: %s' % (dev.iProduct), end='\n\n')
@@ -71,8 +71,8 @@ def auto_int(value):
     return int(value, 0)
 
 parser = argparse.ArgumentParser(description='Flash bootloadHID device')
-parser.add_argument('--vendor', type=auto_int, default=0x20A0, help='Non bootloader idVendor to search for (default: 0x%(default)02x)')
-parser.add_argument('--product', type=auto_int, default=0x422D, help='Non bootloader idProduct to search for (default: 0x%(default)02x)')
+parser.add_argument('--vendor', type=auto_int, default=0x20A0, help='Non bootloader idVendor to search for (default: 0x%(default)04x)')
+parser.add_argument('--product', type=auto_int, default=0x422D, help='Non bootloader idProduct to search for (default: 0x%(default)04x)')
 parser.add_argument('firmware_hex', type=argparse.FileType('r'), help='Firmware hex file to flash')
 args = parser.parse_args()
 
