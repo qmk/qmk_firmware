@@ -102,14 +102,12 @@ static void render_logo(void) {
 
 static void render_status(void) {
   // Render to mode icon
-  static const char PROGMEM mode_logo[4][4] = {
-    {0x95,0x96,0x0a,0},
-    {0xb5,0xb6,0x0a,0},
+  static const char PROGMEM mode_logo[2][4] = {
     {0x97,0x98,0x0a,0},
     {0xb7,0xb8,0x0a,0} };
 
-  oled_write_P(mode_logo[0], false);
-  oled_write_P(mode_logo[1], false);
+    oled_write_P(mode_logo[0], false);
+    oled_write_P(mode_logo[1], false);
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   oled_write_P(PSTR("Layer: "), false);
