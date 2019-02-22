@@ -17,6 +17,10 @@
   #define FN_FNLK TT(L_FN)
 #endif
 
+#define KC_SYSR LALT(KC_PSCR)
+#undef  KC_BRK
+#define KC_BRK  LCTL(KC_PAUS)
+
 #define MV_UP   LCTL(KC_UP)
 #define MV_DOWN LCTL(KC_DOWN)
 #define MV_LEFT LCTL(KC_LEFT)
