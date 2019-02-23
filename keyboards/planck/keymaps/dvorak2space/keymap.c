@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#define TAPPING_TOGGLE 1
-#define PERMISSIVE_HOLD
 #define MOUSEL KC_BTN1
 #define MOUSER KC_BTN2
 #define CTRLL LCTL(KC_LEFT)
@@ -18,13 +16,13 @@ enum {
 };
 
 enum {
-	F/B = 0
+	FB = 0
 	LPN = 0
 	RPN = 0
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-	[F/B] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS)
+	[FB] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS)
 	[LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, LCBR)
 	[RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, RCBR)
 };
@@ -76,7 +74,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 	[2] = LAYOUT_planck_2x2u(
-		KC_TAB,	KC_PLUS,KC_PMNS,KC_ASTR,TD(F/B),HK_IF,	HK_ELSE,TD(LPN),TD(RPN),KC_LCBR,KC_RCBR,KC_BSPC,
+		KC_TAB,	KC_PLUS,KC_PMNS,KC_ASTR,TD(FB),HK_IF,	HK_ELSE,TD(LPN),TD(RPN),KC_LCBR,KC_RCBR,KC_BSPC,
 		KC_PEQL,KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_ENT,
 		KC_NO,	KC_LT,	KC_GT,	KC_AMPR,KC_PIPE,KC_UNDS,KC_DLR,	KC_AT,	KC_HASH,KC_PERC,KC_CIRC,KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_SPC,	KC_TRNS,		KC_NO,	KC_NO,	KC_NO,	KC_NO
@@ -91,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_F13,	KC_F14,	KC_F15,	KC_F16,	KC_F17,	KC_F18,	KC_F19,	KC_F20,	KC_F21,	KC_F22,	KC_F23,	KC_F24,
 		LCTL(KC_F13),LCTL(KC_F14),LCTL(KC_F15),LCTL(KC_F16),LCTL(KC_F17),LCTL(KC_F18),LCTL(KC_F19),LCTL(KC_F20),LCTL(KC_F21),LCTL(KC_F22),LCTL(KC_F23),LCTL(KC_F24),
 		LSFT(KC_F13),LSFT(KC_F14),LSFT(KC_F15),LSFT(KC_F16),LSFT(KC_F17),LSFT(KC_F18),LSFT(KC_F19),LSFT(KC_F20),LSFT(KC_F21),LSFT(KC_F22),LSFT(KC_F23),LSFT(KC_F24),
-		LALT(KC_F13),LALT(KC_F14),LALT(KC_F15),LALT(KC_F16),			 CAD,		  LALT(KC_F19),					LALT(KC_F21),LALT(KC_F22),SLEEP,	   KC_TRNS
+		RESET,		 LALT(KC_F14),LALT(KC_F15),LALT(KC_F16),			 CAD,		  LALT(KC_F19),					LALT(KC_F21),LALT(KC_F22),SLEEP,	   KC_TRNS
 	),
 	[5] = LAYOUT_planck_2x2u( //Locked Screen
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
@@ -103,18 +101,27 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch(keycode) {
-		case KC_LSFT:
-		case KC_RSFT:
-			//if shift pressed and not shift layer or released and other shift not pressed
-			if((record->event.pressed && !IS_LAYER_ON(3)) || (!record->event.pressed && !(keyboard_report->mods & (MOD_BIT(KC_LSFT)) || keyboard_report->mods & (MOD_BIT(KC_RSFT)))))
+		//if shift pressed and not shift layer or released and other shift not pressed
+		//in separate things because MOD_BIT probably isn't toggled until after this returns true and shift is actually toggled
+		case KC_LSFT: //if pressed and not shift layer or released and other shift not pressed
+			if((record->event.pressed && !IS_LAYER_ON(3)) || (!record->event.pressed && !(keyboard_report->mods & (MOD_BIT(KC_RSFT)))))
 				layer_invert(1);
 			break;
-		case KC_ENT:
-			//make 'enter' shift enter' and 'shift enter' 'enter'
-			if(IS_LAYER_ON(3))
-				SEND_STRING(X_ENT)
-			else
-				SEND_STRING(SS_LSFT(X_ENT))
+		case KC_RSFT:
+			if((record->event.pressed && !IS_LAYER_ON(3)) || (!record->event.pressed && !(keyboard_report->mods & (MOD_BIT(KC_LSFT)))))
+				layer_invert(1);
+			break;
+		case KC_ENT: //won't repeat on hold and I can't find a solution other than hardcoding timers but I kinda prefer it anyway. Swaps enter and shift enter
+			if(record->event.pressed) {
+				if(IS_LAYER_ON(3)) { //if shifted release correct shift, send, and press same shift
+					if(keyboard_report->mods & (MOD_BIT(KC_LSFT)))
+						SEND_STRING(SS_UP(X_LSFT) SS_TAP(X_ENT) SS_DOWN(X_LSFT));
+					else
+						SEND_STRING(SS_UP(X_RSFT) SS_TAP(X_ENT) SS_DOWN(X_RSFT));
+				}
+				else
+					SEND_STRING(SS_LSFT(SS_TAP(X_ENT)));
+			}
 			return false;
 		case HK_IF:
 			if(record->event.pressed) SEND_STRING("if");
