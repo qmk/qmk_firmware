@@ -1,30 +1,16 @@
-/* EGSTAD keymaps
- *
- * Installation
- * 1. Make edits below 
- * 2. Cd into this directory, run npm start
- * 3. Cd into root (../../../../) to locate bin file "preonic_rev3_egstad.bin"
- * 4. Drop that bin into QMK Toolbox and flash Keeb
- *
- * 
- * LEARNINGS
- * - Don't fuck with combos - they make keys feel sticky
- * 
- * 
- * TODO
- * - Convert long key functions into var names
- * —— Right handed delete, zoom in and out, delete
- * —— Left handed command
- * 
- * I put () on Shift tap, [] on Ctrl, and {} on Alt.
- * That, the home row arrows, numpad layer, and macro recording. Oh, and the TrackPoint, of course.
- */
-
 #include QMK_KEYBOARD_H
-LEADER_EXTERNS();
 
 
-// Define layers here and use them in the keymaps matrix below
+
+
+
+
+/* LAYER NAMES
+   ==========================================================================
+   1. Define a (readable) name here
+   2. Define keymaps within keymaps[]
+   ========================================================================== */
+
 #define L_QWERTY  0 
 #define L_LOWER   1 
 #define L_RAISE   2
@@ -34,7 +20,12 @@ LEADER_EXTERNS();
 
 
 
-// Tap Dance Declarations
+/* TAP DANCE
+   ==========================================================================
+   1. Define TD names here
+   2. Register action in tap_dance_actions[]
+   ========================================================================== */
+
 enum {
   TD_BRC = 0,
   TD_MIN,
@@ -44,28 +35,35 @@ enum {
 
 
 
-// Tap Dance Definitions
-qk_tap_dance_action_t tap_dance_actions[] = {
-  // Tap once for Left Brace, twice for Right Brace
-  [TD_BRC]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
-  //Tap once for Minus, twice for Equal
-  [TD_MIN]  = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL),
-  // Tap once for Grave, tap twice for Escape
-  [TD_GV_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_GRAVE, KC_ESCAPE)
-};
+
+/* CUSTOM KEYMAPS
+   ========================================================================== */
+
+// Tap dances
+#define TD_ESCP TD(TD_GV_ESC)           // Tap for grave, twice for escape
+#define TD_MINS TD(TD_MIN)              // Tap for minus, twice for equal
+#define TD_BRAC TD(TD_BRC)              // Tap for open brace, twice for close
+
+// Layers
+#define LT2_TAB LT(L_RAISE, KC_TAB)     // Tap for tab, hold for RAISE
+#define LT1_BSP LT(L_LOWER, KC_BSPACE)  // Tap for backspace, hold for LOWER
+#define TG3_DSN TG(L_DESIGN)            // Tap to toggle design layer
+
+// Modifiers
+#define MT_SHFT MT(MOD_RSFT, KC_ENT)    // Tap for enter, hold for shift
+#define MT_SPAC MT(MOD_LGUI, KC_SPC)    // Tap for space, hold for command
 
 
 
 
-/*
- * This line indicates the start of the list of Layers.
- * Below that you'll find lines containing either LAYOUT or KEYMAP,
- * and these lines indicate the start of a layer. Below that line
- * is the list of keys that comprise a that particular layer.
- */
+
+
+/* Layer definitions
+   ========================================================================== */
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Qwerty
+/* QWERTY
  * ,-----------------------------------------------------------------------------------------------.
  * | ` ESC |  1 !  |  2 @  |  3 #  |  4 $  |  5 %  |  6 ^  |  7 &  |  8 *  |  9 (  |  0 )  | -_ =+ |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
@@ -75,17 +73,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
  * |  SFT  |   Z   |   X   |   C   |   V   |   B   |   N   |   M   |   ,   |   .   |   /   | SF/RN |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |  LEAD  |  CTL  |  ALT  |  CMD  |  BSP  |      SPC      |  CMD  |   ←   |   ↑   |   ↓   |   →   |
+ * | LEADR |       |  CTL  |  ALT  |  CMD  |  BSP  |  SPC  |  CMD  |   ←   |   ↑   |   ↓   |   →   |    
  * `-----------------------------------------------------------------------------------------------
  */
 
 [L_QWERTY] = LAYOUT_preonic_grid( \
-/* COL 1                  COL 2           COL 3           COL 4           COL 5                       COL 6           COL 7                   COL 8                          COL 9           COL 10          COL 11          COL 12 */
-  TD(TD_GV_ESC),          KC_1,           KC_2,           KC_3,           KC_4,                       KC_5,           KC_6,                   KC_7,                          KC_8,           KC_9,           KC_0,           TD(TD_MIN),            \
-  LT(L_RAISE, KC_TAB),    KC_Q,           KC_W,           KC_E,           KC_R,                       KC_T,           KC_Y,                   KC_U,                          KC_I,           KC_O,           KC_P,           TD(TD_BRC),            \
-  LT(L_LOWER, KC_BSPACE), KC_A,           KC_S,           KC_D,           KC_F,                       KC_G,           KC_H,                   KC_J,                          KC_K,           KC_L,           KC_SCLN,        KC_QUOT,               \
-  KC_LSFT,                KC_Z,           KC_X,           KC_C,           KC_V,                       KC_B,           KC_N,                   KC_M,                          KC_COMM,        KC_DOT,         KC_SLSH,        MT(MOD_RSFT, KC_ENT),  \
-  KC_LEAD,                _______,        KC_LCTL,        KC_LALT,        KC_LGUI,                    KC_BSPACE,      MT(MOD_LGUI, KC_SPC),   LT(L_LOWER, KC_BSPACE),        KC_LEFT,        KC_UP,          KC_DOWN,        KC_RGHT                \
+/*01          02          03          04          05          06          07          08          09          10          11          12         */
+  TD_ESCP,    KC_1,       KC_2,       KC_3,       KC_4,       KC_5,       KC_6,       KC_7,       KC_8,       KC_9,       KC_0,       TD_MINS,    \
+  LT2_TAB,    KC_Q,       KC_W,       KC_E,       KC_R,       KC_T,       KC_Y,       KC_U,       KC_I,       KC_O,       KC_P,       TD_BRAC,    \
+  LT1_BSP,    KC_A,       KC_S,       KC_D,       KC_F,       KC_G,       KC_H,       KC_J,       KC_K,       KC_L,       KC_SCLN,    KC_QUOT,    \
+  KC_LSFT,    KC_Z,       KC_X,       KC_C,       KC_V,       KC_B,       KC_N,       KC_M,       KC_COMM,    KC_DOT,     KC_SLSH,    MT_SHFT,    \
+  KC_LEAD,    _______,    KC_LCTL,    KC_LALT,    KC_LGUI,    KC_BSPACE,  MT_SPAC,    LT1_BSP,    KC_LEFT,    KC_UP,      KC_DOWN,    KC_RGHT     \
 ),
 
 
@@ -93,35 +91,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
- /* Lower
+ /* LOWER
  * ,-----------------------------------------------------------------------------------------------.
- * |  F12  |  FN1  |  FN2  |  FN3  |  FN4  |  FN5  |  FN6  |  FN7  |  FN8  |  FN9  |  F10  |  F11  |
+ * |       |  FN1  |  FN2  |  FN3  |  FN4  |  FN5  |  FN6  |  FN7  |  FN8  |  FN9  |  F10  |  BSP  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |       | CMD+Q | CMD+W |       |       | CMD+T |       |   [   |   ]   |   {   |   }   |  \ |  |
+ * |       |       |       |       |       |       |       |   -   |   +   |   *   |   /   |       |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |       | CMD+A | CMD+S | CMD+D | CMD+F | CMD+G |       |   ←   |   ↑   |   ↓   |   →   |       |
+ * |       |       |       |       |       |       |       |   ←   |   ↑   |   ↓   |   →   |  RTN  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |       | CMD+Z | CMD+X | CMD+C | CMD+V |       |       |   -   |   +   |   *   |   /   | M_TOG |
+ * | CAPLK |       |       |       |       |       |       |   [   |   ]   |   {   |   }   |  \ |  |
  * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
- * |       |       |       |       |       |               |       |       |       |       |       |    
+ * | DSIGN |       |       |       |       |       |       |       |       |       |       |       |    
  * `-----------------------------------------------------------------------------------------------'
  * 
  * TODO
- * • Consider removing command layers.
  * • Perhaps the braces, brackets, and parenths are tap danced?
- * • Hard to reach punctuation beneath arrow keys? (! • # - +)
- * • Press and hold left arrow for raise, and make raise lower
- * • Kinda missing my delete key at top right... 
- * 
  */
+
 [L_LOWER] = LAYOUT_preonic_grid( \
-/* COL 1          COL 2           COL 3           COL 4           COL 5           COL 6           COL 7           COL 8           COL 9           COL 10          COL 11          COL 12   */
-  _______,        KC_F1,          KC_F2,          KC_F3,          KC_F4,          KC_F5,          KC_F6,          KC_F7,          KC_F8,          KC_F9,          KC_F10,         KC_BSPACE,\
-  LGUI(KC_TAB),   LGUI(KC_Q),     LGUI(KC_W),     _______,        _______,        LGUI(KC_T),     _______,        KC_MINUS,       KC_PLUS,        KC_ASTERISK,    KC_KP_SLASH,    _______,\
-  _______,        LGUI(KC_A),     LGUI(KC_S),     LGUI(KC_D),     LGUI(KC_F),     LGUI(KC_G),     _______,        KC_LEFT,        KC_UP,          KC_DOWN,        KC_RIGHT,       KC_ENTER, \
-  KC_CAPS,        LGUI(KC_Z),     LGUI(KC_X),     LGUI(KC_C),     LGUI(KC_V),     _______,        _______,        KC_LBRC,        KC_RBRC,        KC_LCBR,        KC_RCBR,        KC_BSLASH,   \
-  TG(L_DESIGN),   _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______,        _______   \
+/*01          02          03          04          05          06          07          08          09          10          11          12         */
+  _______,    KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_BSPACE,  \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_MINUS,   KC_PLUS,    KC_PAST,    KC_PSLS,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_LEFT,    KC_UP,      KC_DOWN,    KC_RIGHT,   KC_ENTER,   \
+  KC_CAPS,    _______,    _______,    _______,    _______,    _______,    _______,    KC_LBRC,    KC_RBRC,    KC_LCBR,    KC_RCBR,    KC_BSLASH,  \
+  TG3_DSN,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______     \
 ),
+
+
+
+
+
 
 /* RAISE
  * ,-----------------------------------------------------------------------------------------------.
@@ -137,12 +136,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------------------'
  */
 [L_RAISE] = LAYOUT_preonic_grid( \
-  KC_ASTG, KC_F1,   KC_F2, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,  \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  KC_CAPS, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, KC_MPLY, _______, _______, KC__VOLUP, KC__VOLDOWN, _______ \
+/*01          02          03          04          05          06          07          08          09          10          11          12         */
+  KC_ASTG,    KC_F1,      KC_F2,      _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  KC_CAPS,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    KC_MPLY,    _______,    _______,    KC_VOLU,    KC_VOLD,    _______     \
 ),
+
+
+
+
 
 
 /* DESIGN
@@ -158,12 +162,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |       |       |       |       |       |   PLAY/PAUSE  |       |       |  VUP  |  VDN  |       |
  * `-----------------------------------------------------------------------------------------------'
  */
+
 [L_DESIGN] = LAYOUT_preonic_grid( \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_BSPACE, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+/*01          02          03          04          05          06          07          08          09          10          11          12         */
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    KC_BSPACE,  \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______     \
 ),
 
 
@@ -171,28 +177,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-
 /* Adjust (Lower + Raise)
- * ,-----------------------------------------------------------------------------------.
- * |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |  F7  |  F8  |  F9  |  F10 |  F11 |  F12 |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      | Reset|      |      |      |      |      |      |      |      |      |  Del |
- * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |      |      |      |Aud on|AudOff|AGnorm|AGswap|Qwerty|      |      |      |      |
- * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |      |Voice-|Voice+|Mus on|MusOff|MidiOn|MidOff|      |      |      |      |      |
- * |------+------+------+------+------+------+------+------+------+------+------+------|
- * |      |      |      |      |      |             |      |      |      |      |      |
- * `-----------------------------------------------------------------------------------'
+ * ,-----------------------------------------------------------------------------------------------.
+ * |  F12  |  FN2  |  FN3  |  FN4  |  FN5  |  FN6  |  FN7  |  FN8  |  FN9  |  F10  |  F11  |  FN1  |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * `-----------------------------------------------------------------------------------------------'
  */
-[L_ADJUST] = LAYOUT_preonic_grid( \
-  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  \
-  _______, RESET,   DEBUG,   _______, _______, _______, _______, TERM_ON, TERM_OFF,_______, _______, KC_DEL,  \
-  _______, _______, MU_MOD,  AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, L_QWERTY,  _______, _______,  _______, _______, \
-  _______, MUV_DE,  MUV_IN,  MU_ON,   MU_OFF,  MI_ON,   MI_OFF,  _______, _______, _______, _______, _______, \
-  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______  \
-)
 
+[L_ADJUST] = LAYOUT_preonic_grid( \
+/*01          02          03          04          05          06          07          08          09          10          11          12         */
+  KC_F12,     KC_F1,      KC_F2,      KC_F3,      KC_F4,      KC_F5,      KC_F6,      KC_F7,      KC_F8,      KC_F9,      KC_F10,     KC_F11,     \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______     \
+)
 
 };
 
@@ -201,7 +207,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
+/* BLANK
+ * ,-----------------------------------------------------------------------------------------------.
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * |-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------|
+ * |       |       |       |       |       |       |       |       |       |       |       |       |
+ * `-----------------------------------------------------------------------------------------------'
+ */
+/* 
+[L_BLANK] = LAYOUT_preonic_grid( \ 
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    \
+  _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______,    _______     \
+),
+*/
 
+
+
+
+
+
+/* Tap Dance Definitions
+   ========================================================================== */
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  // Tap once for Left Brace, twice for Right Brace
+  [TD_BRC]  = ACTION_TAP_DANCE_DOUBLE(KC_LBRC, KC_RBRC),
+  //Tap once for Minus, twice for Equal
+  [TD_MIN]  = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_EQUAL),
+  // Tap once for Grave, tap twice for Escape
+  [TD_GV_ESC]  = ACTION_TAP_DANCE_DOUBLE(KC_GRAVE, KC_ESCAPE)
+};
 
 
 
