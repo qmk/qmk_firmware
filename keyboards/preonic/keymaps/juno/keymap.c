@@ -1,7 +1,6 @@
 /* Juno's Preonic Layout  */
 
-#include "preonic.h"
-#include "action_layer.h"
+#include QMK_KEYBOARD_H
 
 enum preonic_layers {
   _QWERTY,
