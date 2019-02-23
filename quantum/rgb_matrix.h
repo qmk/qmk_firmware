@@ -21,6 +21,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "rgb_matrix_types.h"
 #include "color.h"
 #include "quantum.h"
 
@@ -30,24 +31,6 @@
     #include "is31fl3733.h"
 #endif
 
-typedef struct Point {
-	uint8_t x;
-	uint8_t y;
-} __attribute__((packed)) Point;
-
-typedef struct rgb_led {
-	union {
-		uint8_t raw;
-		struct {
-			uint8_t row:4; // 16 max
-			uint8_t col:4; // 16 max
-		};
-	} matrix_co;
-	Point point;
-	uint8_t modifier:1;
-} __attribute__((packed)) rgb_led;
-
-
 extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
 
 typedef struct
@@ -55,18 +38,6 @@ typedef struct
 	HSV color;
 	uint8_t index;
 } rgb_indicator;
-
-typedef union {
-  uint32_t raw;
-  struct {
-    bool     enable  :1;
-    uint8_t  mode    :6;
-    uint16_t hue     :9;
-    uint8_t  sat     :8;
-    uint8_t  val     :8;
-    uint8_t  speed   :8;//EECONFIG needs to be increased to support this
-  };
-} rgb_config_t;
 
 enum rgb_matrix_effects {
 	RGB_MATRIX_SOLID_COLOR = 1,
@@ -125,6 +96,8 @@ enum rgb_matrix_effects {
 #endif
     RGB_MATRIX_EFFECT_MAX
 };
+
+void rgb_matrix_map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i, uint8_t *led_count);
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue );
 void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue );
