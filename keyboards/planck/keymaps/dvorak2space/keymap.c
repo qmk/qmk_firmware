@@ -7,24 +7,22 @@
 #define IS_LAYER_ON(layer)  (layer_state & (1UL << (layer)))
 
 enum {
-	HK_SLEEP = SAFE_RANGE,
+	HK_SLP = SAFE_RANGE,
 	HK_IF,
-	HK_ELSE,
-	KC_LSFT,
-	KC_RSFT,
-	KC_ENT
+	HK_ELSE
+	//only needed if not existing key
 };
 
 enum {
-	FB = 0
-	LPN = 0
-	RPN = 0
+	FB = 0,
+	LPN,
+	RPN
 };
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-	[FB] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS)
-	[LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, LCBR)
-	[RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, RCBR)
+	[FB] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS),
+	[LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LCBR),
+	[RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RCBR)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -89,17 +87,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_F13,	KC_F14,	KC_F15,	KC_F16,	KC_F17,	KC_F18,	KC_F19,	KC_F20,	KC_F21,	KC_F22,	KC_F23,	KC_F24,
 		LCTL(KC_F13),LCTL(KC_F14),LCTL(KC_F15),LCTL(KC_F16),LCTL(KC_F17),LCTL(KC_F18),LCTL(KC_F19),LCTL(KC_F20),LCTL(KC_F21),LCTL(KC_F22),LCTL(KC_F23),LCTL(KC_F24),
 		LSFT(KC_F13),LSFT(KC_F14),LSFT(KC_F15),LSFT(KC_F16),LSFT(KC_F17),LSFT(KC_F18),LSFT(KC_F19),LSFT(KC_F20),LSFT(KC_F21),LSFT(KC_F22),LSFT(KC_F23),LSFT(KC_F24),
-		RESET,		 LALT(KC_F14),LALT(KC_F15),LALT(KC_F16),			 CAD,		  LALT(KC_F19),					LALT(KC_F21),LALT(KC_F22),SLEEP,	   KC_TRNS
+		RESET,		 LALT(KC_F14),LALT(KC_F15),LALT(KC_F16),			 CAD,		  LALT(KC_F19),				LALT(KC_F21),LALT(KC_F22),HK_SLP,      KC_TRNS
 	),
 	[5] = LAYOUT_planck_2x2u( //Locked Screen
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
-		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_NO,	KC_NO,			KC_NO,	KC_NO,	SLEEP,	KC_NO
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_NO,	KC_NO,			KC_NO,	KC_NO,	HK_SLP,	KC_NO
 	)
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn't support aliases
 	switch(keycode) {
 		//if shift pressed and not shift layer or released and other shift not pressed
 		//in separate things because MOD_BIT probably isn't toggled until after this returns true and shift is actually toggled
@@ -115,12 +113,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if(record->event.pressed) {
 				if(IS_LAYER_ON(3)) { //if shifted release correct shift, send, and press same shift
 					if(keyboard_report->mods & (MOD_BIT(KC_LSFT)))
-						SEND_STRING(SS_UP(X_LSFT) SS_TAP(X_ENT) SS_DOWN(X_LSFT));
+						SEND_STRING(SS_UP(X_LSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_LSHIFT));
 					else
-						SEND_STRING(SS_UP(X_RSFT) SS_TAP(X_ENT) SS_DOWN(X_RSFT));
+						SEND_STRING(SS_UP(X_RSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_RSHIFT));
 				}
 				else
-					SEND_STRING(SS_LSFT(SS_TAP(X_ENT)));
+					SEND_STRING(SS_LSFT(SS_TAP(X_ENTER)));
 			}
 			return false;
 		case HK_IF:
@@ -129,7 +127,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 		case HK_ELSE:
 			if(record->event.pressed) SEND_STRING("else");
 			return false;
-		case HK_SLEEP:
+		case HK_SLP:
 			if(record->event.pressed && IS_LAYER_ON(5))
 				SEND_STRING(SS_LALT(SS_TAP(X_F23)));
 			if(!record->event.pressed) {
