@@ -169,6 +169,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                 // Breathing animation off
                 led_animation_breathing = 0;
+
+                // Set brightness to twice the min step
+                // and ensure value is less than LED_GCR_MAX
+                if ((LED_GCR_STEP * 2) < LED_GCR_MAX)
+                {
+                    gcr_desired = LED_GCR_STEP * 2;
+                }
             }
 
             return false;
