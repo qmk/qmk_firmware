@@ -46,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,  KC_COPY,
         KC_TAB,   KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,  KC_MUTE,
         KC_ESC,   KC_A,     KC_S,     KC_D,     KC_F,     KC_G,
-        KC_LSPO,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,  KC_FN1,
+        KC_LSPO,  KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,  TT(FN),
         KC_LCTL,  KC_LGUI,  KC_LALT,  KC_LEFT,  KC_RGHT,
                                                        KC_CAPS,  KC_LGUI,
                                                                  KC_HOME,
@@ -87,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_GRV,   KC_1,     KC_2,     KC_3,     KC_4,     KC_5,  KC_COPY,
         KC_TAB,   KC_Q,     KC_W,     KC_F,     KC_P,     KC_B,  KC_MUTE,
         KC_ESC,   KC_A,     KC_R,     KC_S,     KC_T,     KC_G,
-        KC_LSPO,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,  KC_FN1,
+        KC_LSPO,  KC_Z,     KC_X,     KC_C,     KC_D,     KC_V,  TT(FN),
         KC_LCTL,  KC_LGUI,  KC_LALT,  KC_LEFT,  KC_RGHT,
                                                        KC_CAPS,  KC_LGUI,
                                                                  KC_HOME,
@@ -144,10 +144,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS,  KC_TRNS,  KC_TRNS
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(FN)                // FN1 - Momentary Layer 1
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {

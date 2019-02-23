@@ -10,10 +10,6 @@
 #define NUMP 3 // numpad
 #define ARRW 4 // function, media, arrow keys
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Tap Dancing
 void dance_lock (qk_tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) { // Press once for NUMLOCK

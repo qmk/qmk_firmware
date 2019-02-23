@@ -13,8 +13,6 @@
 #define SYMB 2 // symbol layer
 #define MDIA 3 // media keys
 
-#define _______ KC_TRNS
-
 enum custom_keycodes {
     PLACEHOLDER = SAFE_RANGE, // can always be here
     EPRM,
@@ -197,10 +195,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_WBAK, KC_WFWD
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [2] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 2 (Symbols)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

@@ -6,9 +6,6 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define QWERTY 0
 #define LOWER 1
 #define RAISE 2
@@ -87,10 +84,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   {_______,   _______, _______, _______, _______, _______, _______, KC_AUDIO_MUTE, _______, _______, _______, _______},
   {_______,  _______,   _______,   _______,   KC_CAPS,   _______,   _______,   _______, _______,  _______, _______, _______}
 },
-
-};
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 
