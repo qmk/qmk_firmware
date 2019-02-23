@@ -140,6 +140,7 @@ ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
     $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
 endif
     OPT_DEFS += -DRGB_MATRIX_ENABLE
+    COMMON_VPATH += $(QUANTUM_DIR)/rgb_matrix_animations
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
     SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
