@@ -117,7 +117,7 @@
     { k06, k07, k08, k09, k0a, k0b }, \
     { k16, k17, k18, k19, k1a, k1b }, \
     { k26, k27, k28, k29, k2a, k2b }, \
-    { k36, k37, k38, k33, k34, k35 } \
+    { k36, k36, k38, k33, k34, k34 } \
 }
 
 #define LAYOUT_planck_grid( \

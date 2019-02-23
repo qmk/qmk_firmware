@@ -1,4 +1,3 @@
-MCU = atmega32u4
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
 MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
