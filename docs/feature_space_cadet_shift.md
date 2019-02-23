@@ -1,10 +1,12 @@
 # Space Cadet Shift: The Future, Built In
 
-Steve Losh described the [Space Cadet Shift](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) quite well. Essentially, when you tap Left Shift on its own, you get an opening parenthesis; tap Right Shift on its own and you get the closing one. When held, the Shift keys function as normal. Yes, it's as cool as it sounds.
+Steve Losh described the [Space Cadet Shift](http://stevelosh.com/blog/2012/10/a-modern-space-cadet/) quite well. Essentially, when you tap Left Shift on its own, you get an opening parenthesis; tap Right Shift on its own and you get the closing one. When held, the Shift keys function as normal. Yes, it's as cool as it sounds, and now even cooler supporting Ctrl and Alt!
 
 ## Usage
 
 Replace the Left Shift key in your keymap with `KC_LSPO` (Left Shift, Parenthesis Open), and Right Shift with `KC_RSPC` (Right Shift, Parenthesis Close).
+Replace the Left Ctrl key in your keymap with `KC_LCPO` (Left Ctrl, Parenthesis Open), and Right Shift with `KC_RCPC` (Right Ctrl, Parenthesis Close).
+Replace the Left Alt key in your keymap with `KC_LAPO` (Left Alt, Parenthesis Open), and Right Shift with `KC_RAPC` (Right Alt, Parenthesis Close).
 
 ## Keycodes
 
@@ -12,6 +14,10 @@ Replace the Left Shift key in your keymap with `KC_LSPO` (Left Shift, Parenthesi
 |---------|--------------------------------------|
 |`KC_LSPO`|Left Shift when held, `(` when tapped |
 |`KC_RSPC`|Right Shift when held, `)` when tapped|
+|`KC_LCPO`|Left Ctrl when held, `(` when tapped  |
+|`KC_RCPC`|Right Ctrl when held, `)` when tapped |
+|`KC_LAPO`|Left Alt when held, `(` when tapped   |
+|`KC_RAPC`|Right Alt when held, `)` when tapped  |
 
 ## Caveats
 
@@ -30,8 +36,17 @@ Also, by default, the Space Cadet applies modifiers LSPO_MOD and RSPC_MOD to key
 |Define                        |Default      |Description                                                                     |
 |------------------------------|-------------|--------------------------------------------------------------------------------|
 |`LSPO_KEY`                    |`KC_9`       |The keycode to send when Left Shift is tapped                                   |
-|`RSPC_KEY`                    |`KC_0`       |The keycode to send when Right Shift is tapped                                  |
+|`RSPC_KEY`                    |`KC_0`       |The modifier to apply to LSPO_KEY                                               |
 |`LSPO_MOD`                    |`KC_LSFT`    |The keycode to send when Left Shift is tapped                                   |
-|`RSPC_MOD`                    |`KC_RSFT`    |The keycode to send when Right Shift is tapped                                  |
+|`RSPC_MOD`                    |`KC_RSFT`    |The modifier to apply to RSPC_KEY                                               |
+|`LCPO_KEY`                    |`KC_9`       |The keycode to send when Left Ctrl is tapped                                    |
+|`RCPC_KEY`                    |`KC_0`       |The modifier to apply to LCPO_KEY                                               |
+|`LCPO_MOD`                    |`KC_LCTL`    |The keycode to send when Left Ctrl is tapped                                    |
+|`RCPC_MOD`                    |`KC_RCTL`    |The modifier to apply to RCPC_KEY                                               |
+|`LAPO_KEY`                    |`KC_9`       |The keycode to send when Left Alt is tapped                                     |
+|`RAPC_KEY`                    |`KC_0`       |The modifier to apply to LAPO_KEY                                               |
+|`LAPO_MOD`                    |`KC_LALT`    |The keycode to send when Left Alt is tapped                                     |
+|`RAPC_MOD`                    |`KC_RALT`    |The modifier to apply to RAPC_KEY                                               |
 |`DISABLE_SPACE_CADET_ROLLOVER`|*Not defined*|If defined, use the opposite Shift key to cancel Space Cadet                    |
-|`DISABLE_SPACE_CADET_MODIFIER`|*Not defined*|If defined, prevent the Space Cadet to apply a modifier to LSPO_KEY and RSPC_KEY|
+|`DISABLE_SPACE_CADET_MODIFIER`|*Not defined*|If defined, prevent the Space Cadet to apply a modifier to LSPO_
+KEY and RSPC_KEY|
