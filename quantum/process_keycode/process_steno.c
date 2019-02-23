@@ -184,8 +184,10 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
       switch(mode) {
         case STENO_MODE_BOLT:
           update_state_bolt(keycode - QK_STENO, IS_PRESSED(record->event));
+          break;
         case STENO_MODE_GEMINI:
           update_state_gemini(keycode - QK_STENO, IS_PRESSED(record->event));
+          break;
       }
       // allow postprocessing hooks
       if (postprocess_steno_user(keycode, record, mode, chord, pressed)) {
