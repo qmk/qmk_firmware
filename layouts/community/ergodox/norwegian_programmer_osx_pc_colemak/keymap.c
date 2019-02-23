@@ -47,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              NO_EQL,        KC_K,    KC_M, KC_RIGHT,  KC_DOWN,   KC_UP,    NO_BSLS,
                                   KC_LEFT,  NO_UNDS, NO_AMPR,  NO_PIPE,    OSL(2),
              KC_INSERT,  KC_PERC,
-             KC_DELT,
+             KC_DEL,
              KC_BSPC,KC_ENT,KC_SPC
     ),
 /* Keymap 1: Basic layer MAC (Same as pc, except for cmd/ctrl, which are swapped)
