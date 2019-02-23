@@ -90,14 +90,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (record->event.pressed) {
             if (ctrl_pressed) {
                 xt_brk_pressed  = true ;
-                register_code(KC_BRK);
+                register_code(KC_PAUS);
             } else {
                 register_code(KC_SLCK);
             }
         } else {
             if (xt_brk_pressed) {
                 xt_brk_pressed  = false ;
-                unregister_code(KC_BRK);
+                unregister_code(KC_PAUS);
             } else {
                 unregister_code(KC_SLCK);
             }
