@@ -44,7 +44,7 @@ enum {
 };
 */
   // Enable these functions using FUNC(n) macro.
-  const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
+  const uint16_t PROGMEM fn_actions[] = {
       [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space,
       [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_ENT),    //Hold for momentary Mouse layer, Tap for Enter,
       [2] = ACTION_LAYER_MOMENTARY(_FUNCTION),       //Hold for momentary Function

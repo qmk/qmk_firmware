@@ -21,7 +21,7 @@ enum planck_keycodes {
 };
 
 #define FKEYS F(_FKEYS)
-#define NUMSYM F(_NUMSYM)
+#define NUMSYM TT(_NUMSYM)
 #define FKEYGRV F(_FKEYGRV)
 #define MACSLEEP M(5)
 #define PLOVER M(6)
@@ -85,7 +85,6 @@ void persistant_default_layer_set(uint16_t default_layer) {
 const uint16_t PROGMEM fn_actions[] = {
  [_FKEYS] = ACTION_LAYER_TAP_KEY(_FKEYS, KC_TAB),
  [_FKEYGRV] = ACTION_LAYER_TAP_KEY(_FKEYS, KC_GRV),
- [_NUMSYM] = ACTION_LAYER_TAP_TOGGLE(_NUMSYM),
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

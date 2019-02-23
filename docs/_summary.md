@@ -76,6 +76,7 @@
   * [Thermal Printer](feature_thermal_printer.md)
   * [Unicode](feature_unicode.md)
   * [Userspace](feature_userspace.md)
+  * [Velocikey](feature_velocikey.md)
 
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
