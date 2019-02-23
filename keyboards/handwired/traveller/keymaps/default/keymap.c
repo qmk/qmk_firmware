@@ -38,9 +38,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * 
  */
 [_QW] = KEYMAP( 
-  F(_NAV),          KC_GRV, KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_MINS,  KC_EQL,
-  KC_TAB,           KC_Q,    KC_S,    KC_D,    KC_F,    KC_G,            KC_H,    KC_J,    KC_K,    KC_L,    KC_P, 	KC_BSLS,
-  CTL_T(KC_ESC),    KC_A,    KC_X,    KC_C,    KC_V,    KC_B,    KC_RCTL,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN, 	KC_QUOT,
+  TG(_NAV),         KC_GRV, KC_W,    KC_E,    KC_R,    KC_T,             KC_Y,    KC_U,    KC_I,    KC_O,    KC_MINS,  KC_EQL,
+  KC_TAB,           KC_Q,    KC_S,    KC_D,    KC_F,    KC_G,            KC_H,    KC_J,    KC_K,    KC_L,    KC_P,  KC_BSLS,
+  CTL_T(KC_ESC),    KC_A,    KC_X,    KC_C,    KC_V,    KC_B,    KC_RCTL,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SCLN,   KC_QUOT,
   KC_LSFT, KC_Z,    KC_DEL, KC_LGUI, MO(_LW), KC_BSPC, KC_ENTER, KC_SPC,  MO(_HI), KC_RGUI, KC_RALT,    KC_SLSH,   KC_RSFT
  ),
 
@@ -59,7 +59,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_LW] = KEYMAP( 
-  F(_FKEYS),   KC_1,     KC_2,      KC_3,     KC_4,    KC_5,             KC_6,    KC_7,       KC_8,      KC_9,    KC_0,  LCTL(LALT(KC_DEL)) ,
+  TG(_FKEYS),  KC_1,     KC_2,      KC_3,     KC_4,    KC_5,             KC_6,    KC_7,       KC_8,      KC_9,    KC_0,  LCTL(LALT(KC_DEL)) ,
   KC_TRNS,  KC_1,     KC_RBRC,   KC_LPRN,  KC_RPRN, KC_NO,               KC_ASTR, KC_LPRN,    KC_RPRN,    KC_LBRC,    KC_NO, KC_NO,
   KC_CAPS,   KC_LBRC,  KC_NO,     KC_LCBR,  KC_RCBR, KC_TILD,   KC_TRNS,  KC_HASH, KC_LCBR,    KC_RCBR,   KC_NO,    KC_RBRC,   KC_NO,
   KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS, KC_TRNS,    KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS
@@ -81,11 +81,11 @@ Right hand nav keys work pretty well chorded with the Right hand Hi Key
  */
 
 [_HI] = KEYMAP( 
- F(_FKEYS), KC_EXLM,  KC_AT,   KC_HASH,  KC_DLR,   KC_PERC,           KC_CIRC,  KC_AMPR,    KC_ASTR,   KC_LPRN,  KC_RPRN,  KC_PLUS,
+ TG(_FKEYS),KC_EXLM,  KC_AT,   KC_HASH,  KC_DLR,   KC_PERC,           KC_CIRC,  KC_AMPR,    KC_ASTR,   KC_LPRN,  KC_RPRN,  KC_PLUS,
  KC_TRNS, KC_EXLM,  KC_AMPR, KC_PIPE,  KC_DLR,   KC_PERC,             KC_VOLU, KC_MUTE,    KC_NO,     KC_NO,    KC_NO,    KC_NO, 
  KC_CAPS, KC_CIRC,  KC_COLN,  KC_DOT,  KC_ASTR,  KC_MINS,   KC_TRNS,  KC_VOLD, KC_PPLS,    KC_PGUP,   KC_HOME,  KC_UP,    KC_END,
- KC_TRNS, KC_SLSH,  KC_TRNS,  KC_TRNS, F(_LW),   KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,    KC_PGDN,   KC_LEFT,  KC_DOWN,  KC_RIGHT 
-),	
+ KC_TRNS, KC_SLSH,  KC_TRNS,  KC_TRNS, TT(_LW),  KC_TRNS,   KC_TRNS,  KC_TRNS, KC_TRNS,    KC_PGDN,   KC_LEFT,  KC_DOWN,  KC_RIGHT 
+),  
 
 /* NAV - mouse &  navigation
 //gui left and right are line home/end, or fore & back in browser
@@ -103,7 +103,7 @@ Right hand nav keys work pretty well chorded with the Right hand Hi Key
 */
 
 [_NAV] = KEYMAP( 
-  F(_NAV),  KC_NO,         KC_NO,    KC_UP,       KC_NO,     RGUI(KC_RIGHT),            KC_WH_U,  M(MUL), KC_MS_U,   M(MUR), KC_NO, KC_ACL2,
+  TG(_NAV), KC_NO,         KC_NO,    KC_UP,       KC_NO,     RGUI(KC_RIGHT),            KC_WH_U,  M(MUL), KC_MS_U,   M(MUR), KC_NO, KC_ACL2,
   KC_TRNS, RGUI(KC_LEFT),  KC_LEFT,  KC_DOWN,     KC_RIGHT,  LCTL(KC_E),                KC_BTN3,  KC_MS_L,  KC_MS_U,   KC_MS_R,  KC_NO, KC_ACL1,
   KC_TRNS, LCTL(KC_A),     LGUI(KC_X),RGUI(KC_C), RGUI(KC_V),KC_NO,         KC_ENTER,   KC_WH_D,  M(MDL), KC_MS_D,  M(MDR),  KC_UP, KC_ACL0,
   KC_TRNS, RGUI(KC_Z),     KC_TRNS,  KC_TRNS,     KC_TRNS,   KC_TRNS,       KC_BTN2,   KC_BTN1,  KC_TRNS,  KC_TRNS,   KC_LEFT,   KC_DOWN,   KC_RIGHT
@@ -123,10 +123,10 @@ Right hand nav keys work pretty well chorded with the Right hand Hi Key
  */ 
  
 [_FKEYS] = KEYMAP( 
-  F(_FKEYS), KC_F1,    KC_F2,  	KC_F3,      KC_F4,     KC_F5,               KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,    KC_RCTL,
-  KC_TRNS,   KC_NO,    KC_NO,   KC_NO,      KC_NO,     KC_NO,               KC_F11,   KC_F12,   KC_F13,    KC_F14,  KC_F15,  	 KC_LALT ,
-  F(_QW),   KC_NO,     KC_NO,   KC_NO,      KC_NO,     KC_NO,    KC_TRNS,   KC_NO,    KC_NO,    KC_NO,      KC_NO,   KC_NO,    KC_DEL,
-  KC_TRNS, F(RGBLED_TOGGLE),    KC_TRNS,    KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS
+  TG(_FKEYS),KC_F1,    KC_F2,   KC_F3,      KC_F4,     KC_F5,               KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,    KC_RCTL,
+  KC_TRNS,   KC_NO,    KC_NO,   KC_NO,      KC_NO,     KC_NO,               KC_F11,   KC_F12,   KC_F13,    KC_F14,  KC_F15,    KC_LALT ,
+  TO(_QW),  KC_NO,     KC_NO,   KC_NO,      KC_NO,     KC_NO,    KC_TRNS,   KC_NO,    KC_NO,    KC_NO,      KC_NO,   KC_NO,    KC_DEL,
+  KC_TRNS, RGB_TOG,             KC_TRNS,    KC_TRNS,   KC_TRNS,  KC_TRNS,   KC_TRNS,   KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS
 ),
 
 
@@ -145,27 +145,12 @@ Right hand nav keys work pretty well chorded with the Right hand Hi Key
 
 [_TRNS] = {
   {KC_TRNS,  KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_NO,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS},
-  {KC_TRNS,  KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_NO,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS, 	KC_TRNS},
-  {KC_TRNS,  KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS, 	KC_TRNS},
+  {KC_TRNS,  KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_NO,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS},
+  {KC_TRNS,  KC_TRNS,   KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS},
   {KC_TRNS, KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,   KC_TRNS}
  }
 
 
-};
-
-
-const uint16_t PROGMEM fn_actions[] = {
-    [_QW] = ACTION_LAYER_ON(_QW,ON_RELEASE), // return to QWERTY  layer
-    [_LW] = ACTION_LAYER_TAP_TOGGLE(_LW), // Turn on LW when holding, or tap 3 times to switch
-    [_HI] = ACTION_LAYER_TAP_TOGGLE(_HI), // Turn on LW when holding, or tap 3 times to switch               
-    [_NAV] = ACTION_LAYER_TOGGLE(_NAV),                                   
-    [_FKEYS] = ACTION_LAYER_TOGGLE(_FKEYS),  
-    [_LWOUT] = ACTION_LAYER_OFF(_LW,ON_RELEASE),
-    [_HIOUT] = ACTION_LAYER_OFF(_HI,ON_RELEASE),
-    
-    // Functions
-  [RGBLED_TOGGLE]  = ACTION_FUNCTION(RGBLED_TOGGLE),
- 
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
@@ -232,21 +217,6 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
       }
     return MACRO_NONE;
 };
-
-
-
-void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) {
-  switch (id) {
-    case RGBLED_TOGGLE:
-      //led operations
-      if (record->event.pressed) {
-        rgblight_toggle();
-      }
-        break;
-  }
-}
-
- 
 
 void LayerLEDSet(uint8_t layr) {
 

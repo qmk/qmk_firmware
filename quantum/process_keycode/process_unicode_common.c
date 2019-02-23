@@ -216,7 +216,7 @@ bool process_unicode_common(uint16_t keycode, keyrecord_t *record) {
 #if   defined(UNICODE_ENABLE)
   return process_unicode(keycode, record);
 #elif defined(UNICODEMAP_ENABLE)
-  return process_unicode_map(keycode, record);
+  return process_unicodemap(keycode, record);
 #elif defined(UCIS_ENABLE)
   return process_ucis(keycode, record);
 #else

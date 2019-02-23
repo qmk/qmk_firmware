@@ -1,8 +1,6 @@
 #pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 
-//alias for clarity in layering
-#define _______ KC_TRNS
 #define A_BSPC  LALT(KC_BSPC)
 #define A_LEFT  LALT(KC_LEFT)
 #define A_RGHT  LALT(KC_RGHT)

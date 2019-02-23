@@ -19,7 +19,8 @@ install:
 before_script:
   - avr-gcc --version
 script:
-- make test:all AUTOGEN=false
+- git rev-parse --short HEAD
+- make test:all
 - bash util/travis_build.sh
 - bash util/travis_docs.sh
 addons:
@@ -33,7 +34,7 @@ addons:
     - diffutils
     - dos2unix
     - doxygen
-after_success: 
+after_success:
   bash util/travis_compiled_push.sh
 notifications:
   webhooks:

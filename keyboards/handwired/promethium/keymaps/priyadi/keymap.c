@@ -57,10 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "led.h"
 #define COUNT(x) (sizeof (x) / sizeof (*(x)))
 
-// Fillers to make layering clearer
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-#define G(x) LGUI(x)
 #define KC_WWWB KC_WWW_BACK
 #define KC_WWWF KC_WWW_FORWARD
 

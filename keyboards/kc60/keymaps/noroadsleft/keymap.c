@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "version.h"
 #include <sendstring_dvorak.h>
 //#include <sendstring_colemak.h>
 #include <print.h>
@@ -84,19 +85,19 @@ enum custom_keycodes {
   Q2_ESC,
   Q2_GRV,
   MC_UNDO,
-  MC_PSTE
+  MC_PSTE,
+  NUBS_Z,
+  VRSN
 };
 
 
-// define modifiers
-#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL_MASK   (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
-#define MODS_ALT_MASK    (MOD_BIT(KC_LALT)|MOD_BIT(KC_RALT))
-#define MODS_GUI_MASK    (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
+/*******************
+** MODIFIER MASKS **
+*******************/
+#define MOD_MASK_RALT   (MOD_BIT(KC_RALT))
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  uint8_t modifiers = get_mods();
   switch(keycode) {
     // these are our macros!
     case F_CAPS:
@@ -118,60 +119,49 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         }
       };
       return false;
-      break;
     case T_L3DED:
       if (record->event.pressed) {
         SEND_STRING("lavak3DED ");
       };
       return false;
-      break;
     case G_PUSH:
       if (record->event.pressed) {
         SEND_STRING("git push origin ");
       };
       return false;
-      break;
     case G_FTCH:
       if (record->event.pressed) {
-        SEND_STRING("git fetch upstream");
+        if ( get_mods() & MOD_MASK_SHIFT ) {
+          clear_mods();
+          SEND_STRING("git pull upstream ");
+        } else {
+          SEND_STRING("git fetch upstream ");
+        }
       };
       return false;
-      break;
     case G_COMM:
       if (record->event.pressed) {
         SEND_STRING("git commit -m \"\"" SS_TAP(X_LEFT));
         layer_off(_MACROS);
       };
       return false;
-      break;
-    case G_RST:
-      if (record->event.pressed) {
-        SEND_STRING("git histt -n 10" SS_TAP(X_ENTER) "git reset --soft ");
-        layer_off(_MACROS);
-      };
-      return false;
-      break;
-    case G_C10R:
-      if (record->event.pressed) {
-        SEND_STRING("cf/");
-        layer_off(_MACROS);
-      };
-      return false;
-      break;
     case G_BRCH:
       if (record->event.pressed) {
-        SEND_STRING("$(git branch-name)");
+        if ( get_mods() & MOD_MASK_SHIFT ) {
+          clear_mods();
+          SEND_STRING("master");
+        } else {
+          SEND_STRING("$(git branch-name)");
+        }
         layer_off(_MACROS);
       };
       return false;
-      break;
     case SIGNA:
       if (record->event.pressed) {
         SEND_STRING("\\- @noroadsleft" SS_TAP(X_ENTER));
         layer_off(_MACROS);
       };
       return false;
-      break;
     case GO_Q2:
       if (record->event.pressed) {
         //default_layer_set(_QWERTY);
@@ -180,7 +170,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         //layer_off(_SYSTEM);
       };
       return false;
-      break;
     case Q2_ON:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ENTER));
@@ -188,7 +177,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_QUAKE2_DVORAK);
       };
       return false;
-      break;
     case Q2_OFF:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ENTER));
@@ -196,7 +184,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_QUAKE2);
       };
       return false;
-      break;
     case Q2_ESC:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_ESCAPE));
@@ -204,7 +191,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_QUAKE2);
       };
       return false;
-      break;
     case Q2_GRV:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_GRAVE));
@@ -213,27 +199,38 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(_QUAKE2_CONSOLE);
       };
       return false;
-      break;
     case MC_UNDO:
       if (record->event.pressed) {
-        if ( modifiers & MODS_SHIFT_MASK ) {
+        if ( get_mods() & MOD_MASK_SHIFT ) {
           SEND_STRING( SS_DOWN(X_LSHIFT) SS_DOWN(X_LGUI) SS_TAP(X_Z) SS_UP(X_LGUI) SS_UP(X_LSHIFT) );
         } else {
           SEND_STRING( SS_DOWN(X_LGUI) SS_TAP(X_Z) SS_UP(X_LGUI) );
         }
       };
       return false;
-      break;
     case MC_PSTE:
       if (record->event.pressed) {
-        if ( modifiers & MODS_SHIFT_MASK ) {
+        if ( get_mods() & MOD_MASK_SHIFT ) {
           SEND_STRING( SS_DOWN(X_LSHIFT) SS_DOWN(X_LGUI) SS_DOWN(X_LALT) SS_TAP(X_V) SS_UP(X_LALT) SS_UP(X_LGUI) SS_UP(X_LSHIFT) );
         } else {
           SEND_STRING( SS_DOWN(X_LGUI) SS_TAP(X_V) SS_UP(X_LGUI) );
         }
       };
       return false;
-      break;
+    case NUBS_Z:
+      if (record->event.pressed) {
+        if ( get_mods() & MOD_MASK_RALT ) {
+          SEND_STRING( SS_TAP(X_NONUS_BSLASH) );
+        } else {
+          SEND_STRING( SS_TAP(X_Z) );
+        }
+      };
+      return false;
+    case VRSN:
+      if (record->event.pressed) {
+        SEND_STRING( QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION );
+      }
+      return false;
   } // switch()
   return true;
 };
@@ -252,7 +249,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_GESC, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC, \
     KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS, \
     FW_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT, KC_ENT,           \
-    KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                   \
+    KC_LSFT, NUBS_Z,  KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT,                   \
     KC_LCTL, KC_LGUI, KC_LALT,                   KC_SPC,                                      KC_RALT, KC_RGUI, MO(_FW), KC_RCTL  \
   ),
 
@@ -375,15 +372,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
     TG(_MA), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
     _______, _______, _______, G_PUSH,  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, G_RST,   G_FTCH,  G_COMM,  _______, _______, _______, _______, T_L3DED, _______, _______, _______,          \
-    _______, _______, _______, G_C10R,  _______, G_BRCH,  SIGNA,   _______, _______, _______, _______, _______,                   \
+    _______, _______, _______, G_FTCH,  G_COMM,  _______, _______, _______, _______, T_L3DED, _______, _______, _______,          \
+    _______, _______, _______, _______, _______, G_BRCH,  SIGNA,   _______, _______, _______, _______, _______,                   \
     _______, _______, _______,                   _______,                                     _______, _______, NO_CHNG, _______  \
   ),
 
   /* System layer */
   [_SYSTEM] = LAYOUT_60_ansi(
     //       2        3        4        5        6        7        8        9        10       11       12       13       14       15       16
-    TG(_SY), TO(_QW), TO(_DV), TO(_CM), GO_Q2,   XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, DEBUG,   XXXXXXX, XXXXXXX, XXXXXXX, \
+    TG(_SY), TO(_QW), TO(_DV), TO(_CM), GO_Q2,   XXXXXXX, XXXXXXX, XXXXXXX, RESET,   XXXXXXX, DEBUG,   XXXXXXX, VRSN,    XXXXXXX, \
     XXXXXXX, XXXXXXX, TG(_MC), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
     XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,          \
     XXXXXXX, XXXXXXX, XXXXXXX, BL_DEC,  BL_TOGG, BL_INC,  BL_BRTG, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   \

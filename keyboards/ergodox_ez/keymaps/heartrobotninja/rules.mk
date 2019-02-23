@@ -30,6 +30,3 @@ KEYMAP_BRANCH = $(shell \
 
 OPT_DEFS += -DKEYMAP_VERSION=\"$(KEYMAP_VERSION)\\\#$(KEYMAP_BRANCH)\"
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

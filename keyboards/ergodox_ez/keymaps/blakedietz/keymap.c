@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         TG(SYMB),     KC_Y, KC_U,    KC_I,     KC_O,    KC_P,              KC_BSLS,
                       KC_H, KC_J,    KC_K,     KC_L,    LT(MDIA, KC_SCLN), KC_QUOT,
         MEH_T(KC_NO), KC_N, KC_M,    GUI_COMM, ALT_DOT, CTL_SLSH,          KC_RSFT,
-                            KC_DOWN, KC_UP,    KC_LBRC, KC_RBRC,           KC_FN1,
+                            KC_DOWN, KC_UP,    KC_LBRC, KC_RBRC,           TT(SYMB),
 
         KC_PGDN,       KC_PGUP,
         KC_ESC,
@@ -196,10 +196,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
        KC_TRNS,
        KC_TRNS, KC_TRNS, KC_TRNS
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMB)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
 // MACRODOWN only works in this function

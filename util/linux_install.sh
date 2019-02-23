@@ -32,7 +32,7 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 	DEBIAN_FRONTEND=noninteractive
 	DEBCONF_NONINTERACTIVE_SEEN=true
-        export DEBIAN_FRONTEND DEBCONF_NONINTERACTIVE_SEEN
+	export DEBIAN_FRONTEND DEBCONF_NONINTERACTIVE_SEEN
 	sudo apt-get update
 	sudo apt-get install \
 		build-essential \
@@ -70,20 +70,18 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		wget \
 		zip
 	git clone https://aur.archlinux.org/dfu-programmer.git /tmp/dfu-programmer
-	cd /tmp/dfu-programmer
+	cd /tmp/dfu-programmer || exit 1
 	makepkg -sic
 	rm -rf /tmp/dfu-programmer/
 
 elif grep ID /etc/os-release | grep -q gentoo; then
-	echo GENTOO_WARNING | fmt
-	echo -n "Proceed (y/N)? "
-	old_stty_cfg=$(stty -g)
-	stty raw -echo
-	answer=$( while ! head -c 1 | grep -i '[ny]' ;do true ;done )
-	stty $old_stty_cfg
-	if echo "$answer" | grep -iq "^y" ;then
+	echo "$GENTOO_WARNING" | fmt
+	printf "\nProceed (y/N)? "
+	read -r answer
+	if echo "$answer" | grep -iq "^y"; then
 		sudo touch /etc/portage/package.use/qmkfirmware
-		echo "sys-devel/gcc multilib" | sudo tee --append /etc/portage/package.use/qmkfirmware > /dev/null
+		# tee is used here since sudo doesn't apply to >>
+		echo "sys-devel/gcc multilib" | sudo tee --append /etc/portage/package.use/qmkfirmware >/dev/null
 		sudo emerge -auN \
 			app-arch/unzip \
 			app-arch/zip \
