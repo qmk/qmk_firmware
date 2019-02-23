@@ -1,7 +1,4 @@
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "config_common.h"
+#pragma once
 
 #ifdef AUDIO_ENABLE
     #define STARTUP_SONG SONG(PLANCK_SOUND)
@@ -42,5 +39,3 @@
 
 // Reduce power consumption for iOS compatibility
 #define USB_MAX_POWER_CONSUMPTION 100
-
-#endif
