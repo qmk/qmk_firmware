@@ -203,12 +203,11 @@ static matrix_row_t read_cols(uint8_t row) {
     }
     if (mcp23017_status) {
       return 0;
-    } else {
-      data = swapBits3(data, 1, 3);
     }
     return (~data) & 0x3F;
   } else {
-    uint8_t data = GPIOB->IDR & 0x3F;
+      uint8_t data_p = (GPIOB -> IDR & (uint16_t)0x3F);
+        uint8_t data = data_p;
     return ~(data);
   }
 }
@@ -243,6 +242,6 @@ static void select_row(uint8_t row) {
       mcp23017_status = i2c_writeReg(I2C_ADDR, I2C_GPIOA, &data, 1, 10);
     }
   } else {
-    GPIOB->BRR = 0x1 << (MATRIX_ROWS + MATRIX_ROWS_PER_SIDE - row);
+    GPIOB->BRR = 0x1 << (row+1);
   }
 }
