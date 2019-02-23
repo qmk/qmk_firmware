@@ -58,9 +58,9 @@ const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
 #endif
 
 rgblight_config_t rgblight_config;
-rgblight_status_t rgblight_status = { .timer_enabled = false };
 
 LED_TYPE led[RGBLED_NUM];
+bool rgblight_timer_enabled = false;
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
@@ -123,27 +123,6 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
   (*led1).b = b;
 }
 
-#ifdef RGBLIGHT_SPLIT
-/* for split keyboard master side */
-/*  Overwrite with individual code of keyboard. */
-__attribute__ ((weak))
-void rgblight_update_hook(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom) {
-}
-
-/* for split keyboard slave side */
-/*  Call from keyboard individual code. */
-void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom) {
-    // TODO: not yet implemented
-    // if (config != NULL) {
-    //    do sync
-    // }
-    // if (status != NULL) {
-    //    do sync
-    // }
-}
-#else
-#define rgblight_update_hook(dummy1,dummy2,dummy3)
-#endif
 
 uint32_t eeconfig_read_rgblight(void) {
   #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
@@ -349,7 +328,6 @@ void rgblight_disable(void) {
 #ifdef RGBLIGHT_USE_TIMER
       rgblight_timer_disable();
 #endif
-  rgblight_update_hook(&rgblight_config, NULL, true);
   wait_ms(50);
   rgblight_set();
 }
@@ -360,7 +338,6 @@ void rgblight_disable_noeeprom(void) {
 #ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_disable();
 #endif
-  rgblight_update_hook(&rgblight_config, NULL, false);
   wait_ms(50);
   rgblight_set();
 }
@@ -535,7 +512,6 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
     rgblight_config.hue = hue;
     rgblight_config.sat = sat;
     rgblight_config.val = val;
-    rgblight_update_hook(&rgblight_config, NULL, write_to_eeprom);
     if (write_to_eeprom) {
       eeconfig_update_rgblight(rgblight_config.raw);
       xprintf("rgblight set hsv [EEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
@@ -635,22 +611,18 @@ void rgblight_timer_init(void) {
   // OCR3AL = RGBLED_TIMER_TOP & 0xff;
   // SREG = sreg;
 
-  rgblight_status.timer_enabled = true;
-  rgblight_update_hook(NULL, &rgblight_status, false);
+  rgblight_timer_enabled = true;
 }
 void rgblight_timer_enable(void) {
-  rgblight_status.timer_enabled = true;
-  rgblight_update_hook(NULL, &rgblight_status, false);
+  rgblight_timer_enabled = true;
   dprintf("TIMER3 enabled.\n");
 }
 void rgblight_timer_disable(void) {
-  rgblight_status.timer_enabled = false;
-  rgblight_update_hook(NULL, &rgblight_status, false);
+  rgblight_timer_enabled = false;
   dprintf("TIMER3 disabled.\n");
 }
 void rgblight_timer_toggle(void) {
-  rgblight_status.timer_enabled ^= rgblight_status.timer_enabled;
-  rgblight_update_hook(NULL, &rgblight_status, false);
+  rgblight_timer_enabled ^= rgblight_timer_enabled;
   dprintf("TIMER3 toggled.\n");
 }
 
@@ -661,7 +633,7 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void rgblight_task(void) {
-  if (rgblight_status.timer_enabled) {
+  if (rgblight_timer_enabled) {
     // static light mode, do nothing here
     if ( 1 == 0 ) { //dummy
     }
