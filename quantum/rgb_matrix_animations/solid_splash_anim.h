@@ -1,7 +1,7 @@
 #pragma once
 #ifdef RGB_MATRIX_KEYPRESSES
 #include "rgb_matrix_types.h"
-#if !defined(DISABLE_RGB_MATRIX_SOLID_SPLASH) && !defined(DISABLE_RGB_MATRIX_SOLID_MULTISPLASH)
+#if defined(DISABLE_RGB_MATRIX_SOLID_SPLASH) || defined(DISABLE_RGB_MATRIX_SOLID_MULTISPLASH)
 
 #ifndef MAX
     #define MAX(X, Y) ((X) > (Y) ? (X) : (Y))
