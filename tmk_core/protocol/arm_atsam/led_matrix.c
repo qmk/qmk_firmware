@@ -264,10 +264,15 @@ uint8_t led_per_run = 15;
 float breathe_mult;
 
 //poppro
+void (*custom_led_run)(issi3733_led_t*,float*,float*,float*) = 0;
 int16_t led_animation_shimmer_matrix[ISSI3733_LED_COUNT];
 int8_t shimmer_dir[ISSI3733_LED_COUNT];
 uint8_t led_animation_shimmer;
 float shimmer_mult;
+
+uint8_t custom_enabled = 0;
+//end vars
+
 
 void led_shimmer_run(float* ro, float* go, float* bo)
 {
@@ -353,12 +358,15 @@ void led_matrix_run(void)
         {
             //Do not act on this LED (Only show indicators)
         }
+        else if(custom_enabled)
+        {
+        	custom_led_run(led_cur, &ro, &go, &bo);
+        }
         else
         {
             //Act on LED
             for (fcur = 0; fcur < fmax; fcur++)
             {
-
                 if (led_animation_circular) {
                     po = sqrtf((powf(fabsf((disp.width / 2) - (led_cur->x - disp.left)), 2) + powf(fabsf((disp.height / 2) - (led_cur->y - disp.bottom)), 2))) / disp.max_distance * 100;
                 }
@@ -521,6 +529,7 @@ uint8_t led_matrix_init(void)
             shimmer_dir[i] = -1;
     }
     led_animation_shimmer = 0;
+    //end poppro
 
     gcr_min_counter = 0;
     v_5v_cat_hit = 0;

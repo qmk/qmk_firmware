@@ -1,4 +1,4 @@
-#include QMK_KEYBOARD_H
+#include "alt.h"
 
 enum alt_keycodes {
     L_BRI = SAFE_RANGE, //LED Brightness Increase
@@ -13,17 +13,26 @@ enum alt_keycodes {
     L_OFF,              //LED Off
     L_T_BR,             //LED Toggle Breath Effect
     L_T_SH,             //LED Toggle Shimmer Effect
+    L_T_WV,             //LED Toggle Wave Effect
+	L_T_PL,             //LED Toggle Pool Effect
+	L_T_SC,				//LED Toggle Custom Color Schema
+	L_T_CSTM,			//LED Toggle Custom Effect Handler
     L_T_PTD,            //LED Toggle Scrolling Pattern Direction
     U_T_AUTO,           //USB Extra Port Toggle Auto Detect / Always Active
     U_T_AGCR,           //USB Toggle Automatic GCR control
+	C1_U,				//LED Increment C1
+	C1_D,				//LED Decrement C1
+	C2_U,				//LED Increment C2
+	C2_D,				//LED Decrement C2
+	CS_R,				//LED Select Red
+	CS_G,				//LED Select Green
+	CS_B,				//LED Select Blue
     DBG_TOG,            //DEBUG Toggle On / Off
     DBG_MTRX,           //DEBUG Toggle Matrix Prints
     DBG_KBD,            //DEBUG Toggle Keyboard Prints
     DBG_MOU,            //DEBUG Toggle Mouse Prints
     MD_BOOT,            //Restart into bootloader after hold timeout
 };
-
-#define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 
 keymap_config_t keymap_config;
 
@@ -36,11 +45,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_LCTL, KC_LGUI, KC_LALT,                            KC_SPC,                             KC_RALT, MO(1),   KC_LEFT, KC_DOWN, KC_RGHT  \
     ),
     [1] = LAYOUT(
-        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, KC_MUTE, \
-        L_T_BR,  L_PSD,   L_BRI,   L_PSI,   KC_TRNS, KC_TRNS, KC_TRNS, U_T_AUTO,U_T_AGCR,KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS, KC_TRNS, KC_END, \
-        L_T_PTD, L_PTP,   L_BRD,   L_PTN,   KC_TRNS, L_T_SH, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_VOLU, \
-        KC_TRNS, L_T_MD,  L_T_ONF, KC_TRNS, KC_TRNS, MD_BOOT, TG_NKRO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_PGUP, KC_VOLD, \
-        KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END  \
+        KC_GRV,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, L_T_PL, \
+        L_T_BR,  L_T_SH,   L_BRI,   L_T_WV,   CS_R, KC_TRNS, KC_TRNS, U_T_AUTO,U_T_AGCR,KC_TRNS, KC_PSCR, KC_SLCK, KC_PAUS,	  KC_TRNS, L_T_SC, \
+        L_T_PTD, L_PTP,   L_BRD,   L_PTN,   KC_TRNS, CS_G, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,         	 KC_TRNS, KC_VOLU, \
+        C1_U, L_T_MD,  L_T_ONF, L_T_CSTM, KC_TRNS, CS_B, MD_BOOT, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          	 KC_PGUP, KC_VOLD, \
+        C1_D, C2_U, C2_D,                            KC_TRNS,                           			KC_TRNS, KC_TRNS, KC_HOME, KC_PGDN, KC_END \
     ),
     /*
     [X] = LAYOUT(
@@ -53,12 +62,159 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
+//effect variables & handlers
+
+issi3733_led_t *end;
+uint8_t active_key;
+float prev[5][15];
+float curr[5][15];
+
+float led_animation_pool_matrix[ISSI3733_LED_COUNT];
+int8_t pool_dir[ISSI3733_LED_COUNT];
+int8_t pool_speed[ISSI3733_LED_COUNT];
+float pool_mult;
+uint8_t c_templates[][2][3] = {{{24, 215, 204}, {255, 60, 118}}, {{24, 0, 204}, {255, 0, 118}}};
+uint8_t CS = 0; //current schema
+uint8_t schemaCount = 2;
+
+uint16_t count = 1;
+uint8_t colorSelect = 0;
+
+uint8_t led_pool_enabled = 0;
+uint8_t led_wave_enabled = 0;
+
+uint8_t getRow(uint8_t id) {
+	if(id <= 15)
+		return 0;
+	if(id <= 30)
+		return 1;
+	if(id <= 44)
+		return 2;
+	if(id <= 58)
+		return 3;
+	return 4;
+}
+
+uint8_t getCol(uint8_t id) {
+	if(id <= 15)//r1
+		return id-1;
+	if(id <= 30)//r2
+		return (id-1)-15;
+	if(id <= 42)//r3
+		return (id-1)-30;
+	if(id <= 44)//r3
+		return id-30;
+	if(id == 45) //lshift
+		return id-45;
+	if(id <= 58)//r4
+		return id-44 ;
+	if(id <= 61)
+		return id-59;
+	if(id == 62)
+		return id+4-60;
+	return id-53;
+}
+
+void wave_update(void) {
+	if(count%750==0) {
+		//update pos
+		count = 1;
+		for(uint8_t i = 0; i < 5; i++) {
+			for(uint8_t j = 0; j < 15; j++) {
+				float sum = 0;
+				if(i-1>-1)
+					sum += prev[i-1][j];
+				if(i+1<5)
+					sum += prev[i+1][j];
+				if(j-1>-1)
+					sum += prev[i][j-1];
+				if(j+1 < 15)
+					sum += prev[i][j+1];
+
+				curr[i][j]=(sum/2)-curr[i][j];
+				curr[i][j]=curr[i][j]*0.85;
+			}
+		}
+
+		//swap buffers
+		for(uint8_t i = 0; i < 5; i++) {
+			for(uint8_t j = 0; j < 15; j++) {
+				float tmp = prev[i][j];
+				prev[i][j] = curr[i][j];
+				curr[i][j] = tmp;
+			}
+		}
+	}
+	count++;
+}
+
+void run_pool(issi3733_led_t *cur, float* r, float* g, float* b) {
+    uint8_t led_id = led_cur->id - 1;
+    led_animation_pool_matrix[led_id] += ((float)pool_speed[led_id])/2.0 * (float)pool_dir[led_id];
+
+    if (led_animation_pool_matrix[led_id] >= 255)
+    	pool_dir[led_id] = -1;
+    else if (led_animation_pool_matrix[led_id] <= 0)
+    	pool_dir[led_id] = 1;
+
+    pool_mult = (1.0/255.0) * led_animation_pool_matrix[led_id];
+    if (pool_mult > 1) pool_mult = 1;
+    else if (pool_mult < 0) pool_mult = 0;
+
+    float wave_val = 0;
+    if(cur->scan != 255)
+    	wave_val = curr[getRow(cur->id)][getCol(cur->id)];
+
+    float c1Mult = pool_mult-wave_val;
+    float c2Mult = (1-wave_val)-pool_mult;
+
+    //clamp values
+    c1Mult = (c1Mult < 0) ? 0 : c1Mult;
+    c1Mult = (c1Mult > 1) ? 1 : c1Mult;
+    c2Mult = (c2Mult < 0) ? 0 : c2Mult;
+    c2Mult = (c2Mult > 1) ? 1 : c2Mult;
+
+    *r = c_templates[CS][0][0]*(c1Mult)+c_templates[CS][1][0]*(c2Mult);
+    *g = c_templates[CS][0][1]*(c1Mult)+c_templates[CS][1][1]*(c2Mult);
+    *b = c_templates[CS][0][2]*(c1Mult)+c_templates[CS][1][2]*(c2Mult);
+}
+
+void run_led(issi3733_led_t *cur, float* r,float* g, float* b) {
+	if(led_pool_enabled)
+		run_pool(cur, r, g, b);
+	if(led_wave_enabled) {
+	}
+}
+
+//end effect handlers
+
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
+	active_key = 0;
+	end = led_map + ISSI3733_LED_COUNT;
+	custom_led_run = &run_led;
+	for(uint8_t i = 0; i < 5; i++) {
+		for(uint8_t j = 0; j < 15; j++) {
+			curr[i][j] = 0;
+			prev[i][j] = 0;
+		}
+	}
+	srand(1231);
+	for(uint8_t i = 0; i < ISSI3733_LED_COUNT; i++) {
+		uint8_t rn = rand() % 255;
+		led_animation_pool_matrix[i] = rn;
+		pool_speed[i] = rand()%3+1;
+		if(i%2)
+			pool_dir[i] = -1;
+		else
+			pool_dir[i] = 1;
+	}
 };
 
 // Runs constantly in the background, in a loop.
 void matrix_scan_user(void) {
+	if(led_wave_enabled)
+		wave_update();
 };
 
 #define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
@@ -145,11 +301,81 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
               led_animation_shimmer = !led_animation_shimmer;
             }
             return false;
+        case L_T_WV:
+            if(record->event.pressed) {
+            	led_wave_enabled = !led_wave_enabled;
+            }
+            return false;
+        case L_T_PL:
+			if(record->event.pressed) {
+				led_pool_enabled = !led_pool_enabled;
+			}
+			return false;
+        case L_T_CSTM:
+        	if(record->event.pressed) {
+        		custom_enabled = !custom_enabled;
+        	}
+        	return false;
         case L_T_PTD:
             if (record->event.pressed) {
                 led_animation_direction = !led_animation_direction;
             }
             return false;
+        case L_T_SC:
+        	if (record->event.pressed) {
+        		CS++;
+        		CS%=schemaCount;
+        	}
+        	return false;
+        case C1_U:
+        	if (record->event.pressed) {
+        		if(c_templates[CS][0][colorSelect] > 230)
+        			c_templates[CS][0][colorSelect] = 255;
+        		else
+        			c_templates[CS][0][colorSelect]+=25;
+        	}
+        	return false;
+        case C1_D:
+        	if (record->event.pressed) {
+        		if(c_templates[CS][0][colorSelect] < 25)
+        			c_templates[CS][0][colorSelect] = 0;
+        		else
+        		  	c_templates[CS][0][colorSelect]-=25;
+        	}
+        	return false;
+        case C2_U:
+        	if (record->event.pressed) {
+        		if(c_templates[CS][1][colorSelect] > 230)
+         			c_templates[CS][1][colorSelect] = 255;
+        		else
+        			c_templates[CS][1][colorSelect]+=25;
+        	}
+        	return false;
+        case C2_D:
+        	if (record->event.pressed) {
+        		if (record->event.pressed) {
+        			if(c_templates[CS][1][colorSelect] < 25)
+        				c_templates[CS][1][colorSelect] = 0;
+        			else
+        				c_templates[CS][1][colorSelect]-=25;
+        		}
+        	}
+        	return false;
+        case CS_R:
+        	if (record->event.pressed) {
+        		colorSelect = 0;
+        	}
+        	return false;
+        case CS_G:
+        	if (record->event.pressed) {
+        		colorSelect = 1;
+        	}
+        	return false;
+        case CS_B:
+        	if (record->event.pressed) {
+        		colorSelect = 2;
+        	}
+        	return false;
         case U_T_AUTO:
             if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
                 TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
@@ -190,6 +416,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
             return false;
         default:
+        	if(record->event.pressed && led_wave_enabled) {
+        		uint8_t row = record->event.key.row;
+        		uint8_t col = record->event.key.col;
+        		curr[row][col] = 1;
+        	}
             return true; //Process all other keycodes normally
     }
 }

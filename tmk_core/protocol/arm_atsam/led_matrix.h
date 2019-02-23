@@ -102,7 +102,7 @@ void rgb_matrix_init_user(void);
 #define EF_SUBTRACT     0x00000008  //Subtract color values
 
 typedef struct led_setup_s {
-  float hs;         //Band begin at percent
+  float hs;         //Band begin at percentled_enabled
   float he;         //Band end at percent
   uint8_t rs;       //Red start value
   uint8_t re;       //Red end value
@@ -133,6 +133,9 @@ extern uint8_t breathe_dir;
 extern uint8_t led_animation_circular;
 //poppro
 extern uint8_t led_animation_shimmer;
+extern issi3733_led_t led_map[];
+extern void (*custom_led_run)(issi3733_led_t*,float*,float*,float*);
+extern uint8_t custom_enabled;
 //end poppro
 extern const uint8_t led_setups_count;
 

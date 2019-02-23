@@ -3,6 +3,7 @@
 #include "quantum.h"
 #include "config_led.h"
 #include "matrix.h"
+#include "config.h"
 
 #include "i2c_master.h"
 #include "led_matrix.h" //For led keycodes
