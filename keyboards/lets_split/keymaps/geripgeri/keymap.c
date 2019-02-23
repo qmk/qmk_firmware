@@ -334,7 +334,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 }
 
 void led_set_user(uint8_t usb_led) {
-  rgblight_sethsv_noeeprom(38, 247, 127);
+  rgblight_sethsv_noeeprom(0, 255, 255);
   rgblight_mode_noeeprom(rgb_mode);
 }
 
