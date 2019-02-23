@@ -32,7 +32,7 @@ extern bool midi_activated;
 
 void clicky_play(void) {
 #ifndef NO_MUSIC_MODE
-  if (music_activated || midi_activated || audio_config.enable) return;
+  if (music_activated || midi_activated || !audio_config.enable) return;
 #endif // !NO_MUSIC_MODE
   clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + clicky_rand * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
   clicky_song[1][0] = clicky_freq * (1.0f + clicky_rand * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
