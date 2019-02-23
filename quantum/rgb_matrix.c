@@ -24,22 +24,22 @@
 #include <string.h>
 #include <math.h>
 
-#include "rgb_matrix_animations\solid_color_anim.h"
-#include "rgb_matrix_animations\alpha_mods_anim.h"
-#include "rgb_matrix_animations\dual_beacon_anim.h"
-#include "rgb_matrix_animations\gradient_up_down_anim.h"
-#include "rgb_matrix_animations\raindrops_anim.h"
-#include "rgb_matrix_animations\cycle_all_anim.h"
-#include "rgb_matrix_animations\cycle_left_right_anim.h"
-#include "rgb_matrix_animations\cycle_up_down_anim.h"
-#include "rgb_matrix_animations\rainbow_beacon_anim.h"
-#include "rgb_matrix_animations\rainbow_pinwheels_anim.h"
-#include "rgb_matrix_animations\rainbow_moving_chevron_anim.h"
-#include "rgb_matrix_animations\jellybean_raindrops_anim.h"
-#include "rgb_matrix_animations\digital_rain_anim.h"
-#include "rgb_matrix_animations\solid_reactive_anim.h"
-#include "rgb_matrix_animations\splash_anim.h"
-#include "rgb_matrix_animations\solid_splash_anim.h"
+#include "rgb_matrix_animations/alpha_mods_anim.h"
+#include "rgb_matrix_animations/alpha_mods_anim.h"
+#include "rgb_matrix_animations/dual_beacon_anim.h"
+#include "rgb_matrix_animations/gradient_up_down_anim.h"
+#include "rgb_matrix_animations/raindrops_anim.h"
+#include "rgb_matrix_animations/cycle_all_anim.h"
+#include "rgb_matrix_animations/cycle_left_right_anim.h"
+#include "rgb_matrix_animations/cycle_up_down_anim.h"
+#include "rgb_matrix_animations/rainbow_beacon_anim.h"
+#include "rgb_matrix_animations/rainbow_pinwheels_anim.h"
+#include "rgb_matrix_animations/rainbow_moving_chevron_anim.h"
+#include "rgb_matrix_animations/jellybean_raindrops_anim.h"
+#include "rgb_matrix_animations/digital_rain_anim.h"
+#include "rgb_matrix_animations/solid_reactive_anim.h"
+#include "rgb_matrix_animations/splash_anim.h"
+#include "rgb_matrix_animations/solid_splash_anim.h"
 
 rgb_config_t rgb_matrix_config;
 
