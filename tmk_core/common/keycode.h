@@ -104,7 +104,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Commands */
 #define KC_PSCR KC_PSCREEN
 #define KC_PAUS KC_PAUSE
-#define KC_BRK  KC_PAUSE
 #define KC_INS  KC_INSERT
 #define KC_DEL  KC_DELETE
 #define KC_PGDN KC_PGDOWN
