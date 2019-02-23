@@ -28,6 +28,10 @@
 #define NO_MUSIC_MODE
 #define AUDIO_CLICKY
 
+/* Space savings
+ */
+#define NO_ACTION_TAPPING
+
 /* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 1
