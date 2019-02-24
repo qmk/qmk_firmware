@@ -68,11 +68,11 @@ This is a C header file that is one of the first things included, and will persi
 * `#define C6_AUDIO`
   * enables audio on pin C6
 * `#define B5_AUDIO`
-  * enables audio on pin B5 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B5 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define B6_AUDIO`
-  * enables audio on pin B6 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B6 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define B7_AUDIO`
-  * enables audio on pin B7 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B7 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight - B5, B6, B7 use PWM, others use softPWM
 * `#define BACKLIGHT_LEVELS 3`

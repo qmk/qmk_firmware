@@ -11,7 +11,7 @@ People often define custom names using `#define`. For example:
 #define ALT_TAB LALT(KC_TAB)
 ```
 
-This will allow you to use `FN_CAPS` and `ALT_TAB` in your `KEYMAP()`, keeping it more readable.
+This will allow you to use `FN_CAPS` and `ALT_TAB` in your keymap, keeping it more readable.
 
 ## Caveats
 

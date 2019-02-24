@@ -47,6 +47,10 @@ extern backlight_config_t backlight_config;
 #include "process_midi.h"
 #endif
 
+#ifdef VELOCIKEY_ENABLE
+#include "velocikey.h"
+#endif
+
 #ifdef HAPTIC_ENABLE
     #include "haptic.h"
 #endif
@@ -254,6 +258,10 @@ bool process_record_quantum(keyrecord_t *record) {
     //   process_action(record, action);
     //   return false;
     // }
+
+  #ifdef VELOCIKEY_ENABLE
+    if (velocikey_enabled() && record->event.pressed) { velocikey_accelerate(); }
+  #endif
 
   #ifdef TAP_DANCE_ENABLE
     preprocess_tap_dance(keycode, record);
@@ -578,7 +586,14 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
     return false;
   #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    #ifdef PROTOCOL_LUFA
+  #ifdef VELOCIKEY_ENABLE
+    case VLK_TOG:
+      if (record->event.pressed) {
+        velocikey_toggle();
+      }
+      return false;
+  #endif
+  #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {
         set_output(OUTPUT_AUTO);
