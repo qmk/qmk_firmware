@@ -57,10 +57,10 @@ Matrix Scanning runs many times per second. The exact rate varies but typically 
 
 Once we know the state of every switch on our keyboard we have to map that to a keycode. In QMK this is done by making use of C macros to allow us to separate the definition of the physical layout from the definition of keycodes.
 
-At the keyboard level we define a C macro (typically named `KEYMAP()`) which maps our keyboard's matrix to physical keys. Sometimes the matrix does not have a switch in every location, and we can use this macro to pre-populate those with KC_NO, making the keymap definition easier to work with. Here's an example `KEYMAP()` macro for a numpad:
+At the keyboard level we define a C macro (typically named `LAYOUT()`) which maps our keyboard's matrix to physical keys. Sometimes the matrix does not have a switch in every location, and we can use this macro to pre-populate those with KC_NO, making the keymap definition easier to work with. Here's an example `LAYOUT()` macro for a numpad:
 
 ```c
-#define KEYMAP( \
+#define LAYOUT( \
     k00, k01, k02, k03, \
     k10, k11, k12, k13, \
     k20, k21, k22, \
@@ -75,17 +75,17 @@ At the keyboard level we define a C macro (typically named `KEYMAP()`) which map
 }
 ```
 
-Notice how the second block of our `KEYMAP()` macro matches the Matrix Scanning array above? This macro is what will map the matrix scanning array to keycodes. However, if you look at a 17 key numpad you'll notice that it has 3 places where the matrix could have a switch but doesn't, due to larger keys. We have populated those spaces with `KC_NO` so that our keymap definition doesn't have to.
+Notice how the second block of our `LAYOUT()` macro matches the Matrix Scanning array above? This macro is what will map the matrix scanning array to keycodes. However, if you look at a 17 key numpad you'll notice that it has 3 places where the matrix could have a switch but doesn't, due to larger keys. We have populated those spaces with `KC_NO` so that our keymap definition doesn't have to.
 
 You can also use this macro to handle unusual matrix layouts, for example the [Clueboard rev 2](https://github.com/qmk/qmk_firmware/blob/e1203a222bb12ab9733916164a000ef3ac48da93/keyboards/clueboard/66/rev2/rev2.h). Explaining that is outside the scope of this document.
 
 ##### Keycode Assignment
 
-At the keymap level we make use of our `KEYMAP()` macro above to map keycodes to physical locations to matrix locations. It looks like this:
+At the keymap level we make use of our `LAYOUT()` macro above to map keycodes to physical locations to matrix locations. It looks like this:
 
 ```
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = KEYMAP(
+[0] = LAYOUT(
   KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, \
   KC_P7,   KC_P8,   KC_P9,   KC_PPLS, \
   KC_P4,   KC_P5,   KC_P6, \
@@ -94,7 +94,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 ```
 
-Notice how all of these arguments match up with the first half of the `KEYMAP()` macro from the last section? This is how we take a keycode and map it to our Matrix Scan from earlier.
+Notice how all of these arguments match up with the first half of the `LAYOUT()` macro from the last section? This is how we take a keycode and map it to our Matrix Scan from earlier.
 
 ##### State Change Detection
 

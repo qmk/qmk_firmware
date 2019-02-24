@@ -16,7 +16,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F1,         KC_F2,   KC_F3,   KC_LALT, KC_LGUI,
     /*-*/          /*-*/    /*-*/    /*-*/    /*-*/    KC_VOLD, KC_MUTE,
     /*-*/          /*-*/    /*-*/    /*-*/    /*-*/    /*-*/    KC_VOLU,
-    /*-*/          /*-*/    /*-*/    /*-*/    /*-*/    KC_BSPC, CTL_T(KC_ESC), KC_FN1,
+    /*-*/          /*-*/    /*-*/    /*-*/    /*-*/    KC_BSPC, CTL_T(KC_ESC), TT(SYMB),
     //
     /*-*/          KC_F15,  KC_6,    KC_7,    KC_8,    KC_9,    KC_0,          KC_EQL,
     /*-*/          KC_BSLS, KC_J,    KC_U,    KC_R,    KC_L,    KC_SCLN,       KC_MINS,
@@ -25,7 +25,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /*-*/          /*-*/    /*-*/    KC_RGUI, KC_RALT, KC_F4,   KC_F5,         KC_F6,
     KC_MPLY,       KC_MNXT,
     KC_MPRV,
-    KC_FN3,        KC_QUOT, KC_SPC
+    TT(ARRW),      KC_QUOT, KC_SPC
   ),
   [SYMB] = LAYOUT_ergodox(
     KC_TRNS,       KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -84,12 +84,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TRNS,
     KC_TRNS,       KC_TRNS, KC_TRNS
   ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-  [SYMB] = ACTION_LAYER_TAP_TOGGLE(SYMB), // FN1 - Momentary Symbols Layer
-  [PLVR] = ACTION_LAYER_TAP_TOGGLE(PLVR), // FN2 - Momentary Plover Layer
-  [ARRW] = ACTION_LAYER_TAP_TOGGLE(ARRW), // FN3 - Momentary Arrows Layer
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

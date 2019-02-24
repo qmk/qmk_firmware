@@ -266,6 +266,11 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     OPT_DEFS += -DHD44780_ENABLE
 endif
 
+ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
+    OPT_DEFS += -DVELOCIKEY_ENABLE
+    SRC += $(QUANTUM_DIR)/velocikey.c
+endif
+
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
     SRC += $(QUANTUM_DIR)/dynamic_keymap.c
