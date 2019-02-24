@@ -61,8 +61,8 @@ endif
 
 ifeq ($(strip $(STENO_ENABLE)), yes)
     OPT_DEFS += -DSTENO_ENABLE
-	VIRTSER_ENABLE := yes
-	SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
+    VIRTSER_ENABLE := yes
+    SRC += $(QUANTUM_DIR)/process_keycode/process_steno.c
 endif
 
 ifeq ($(strip $(VIRTSER_ENABLE)), yes)
@@ -75,9 +75,9 @@ ifeq ($(strip $(FAUXCLICKY_ENABLE)), yes)
 endif
 
 ifeq ($(strip $(POINTING_DEVICE_ENABLE)), yes)
-	OPT_DEFS += -DPOINTING_DEVICE_ENABLE
-	OPT_DEFS += -DMOUSE_ENABLE
-	SRC += $(QUANTUM_DIR)/pointing_device.c
+    OPT_DEFS += -DPOINTING_DEVICE_ENABLE
+    OPT_DEFS += -DMOUSE_ENABLE
+    SRC += $(QUANTUM_DIR)/pointing_device.c
 endif
 
 ifeq ($(strip $(UCIS_ENABLE)), yes)
@@ -110,17 +110,58 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
     ifeq ($(strip $(RGBLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DRGBLIGHT_CUSTOM_DRIVER
     else
-	    SRC += ws2812.c
+        SRC += ws2812.c
     endif
 endif
 
-ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
-    OPT_DEFS += -DRGB_MATRIX_ENABLE
-    SRC += is31fl3731.c
+VALID_MATRIX_TYPES := yes IS31FL3731 IS31FL3733 custom
+
+LED_MATRIX_ENABLE ?= no
+ifneq ($(strip $(LED_MATRIX_ENABLE)), no)
+    ifeq ($(filter $(LED_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
+        $(error LED_MATRIX_ENABLE="$(LED_MATRIX_ENABLE)" is not a valid matrix type)
+    else
+        OPT_DEFS += -DLED_MATRIX_ENABLE -DBACKLIGHT_ENABLE -DBACKLIGHT_CUSTOM_DRIVER
+        SRC += $(QUANTUM_DIR)/led_matrix.c
+        SRC += $(QUANTUM_DIR)/led_matrix_drivers.c
+    endif
+endif
+
+ifeq ($(strip $(LED_MATRIX_ENABLE)), IS31FL3731)
+    OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3731-simple.c
     SRC += i2c_master.c
+endif
+
+RGB_MATRIX_ENABLE ?= no
+ifneq ($(strip $(RGB_MATRIX_ENABLE)), no)
+ifeq ($(filter $(RGB_MATRIX_ENABLE),$(VALID_MATRIX_TYPES)),)
+    $(error RGB_MATRIX_ENABLE="$(RGB_MATRIX_ENABLE)" is not a valid matrix type)
+endif
+    OPT_DEFS += -DRGB_MATRIX_ENABLE
     SRC += $(QUANTUM_DIR)/color.c
     SRC += $(QUANTUM_DIR)/rgb_matrix.c
+    SRC += $(QUANTUM_DIR)/rgb_matrix_drivers.c
     CIE1931_CURVE = yes
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
+	RGB_MATRIX_ENABLE = IS31FL3731
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3731)
+    OPT_DEFS += -DIS31FL3731
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3731.c
+    SRC += i2c_master.c
+endif
+
+ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
+    OPT_DEFS += -DIS31FL3733
+    COMMON_VPATH += $(DRIVER_PATH)/issi
+    SRC += is31fl3733.c
+    SRC += i2c_master.c
 endif
 
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
@@ -169,7 +210,7 @@ ifeq ($(strip $(BACKLIGHT_ENABLE)), yes)
     ifeq ($(strip $(VISUALIZER_ENABLE)), yes)
         CIE1931_CURVE = yes
     endif
-		ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
+    ifeq ($(strip $(BACKLIGHT_CUSTOM_DRIVER)), yes)
         OPT_DEFS += -DBACKLIGHT_CUSTOM_DRIVER
     endif
 endif
@@ -191,25 +232,64 @@ endif
 ifeq ($(strip $(TERMINAL_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/process_keycode/process_terminal.c
     OPT_DEFS += -DTERMINAL_ENABLE
+    OPT_DEFS += -DUSER_PRINT
 endif
 
 ifeq ($(strip $(USB_HID_ENABLE)), yes)
     include $(TMK_DIR)/protocol/usb_hid.mk
 endif
 
+ifeq ($(strip $(ENCODER_ENABLE)), yes)
+    SRC += $(QUANTUM_DIR)/encoder.c
+    OPT_DEFS += -DENCODER_ENABLE
+endif
+
+ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
+    SRC += DRV2605L.c
+    SRC += i2c_master.c
+    OPT_DEFS += -DHAPTIC_ENABLE
+    OPT_DEFS += -DDRV2605L
+endif
+
+ifeq ($(strip $(HAPTIC_ENABLE)), SOLENOID)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
+    SRC += solenoid.c
+    OPT_DEFS += -DHAPTIC_ENABLE
+    OPT_DEFS += -DSOLENOID_ENABLE
+endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
     SRC += drivers/avr/hd44780.c
-	OPT_DEFS += -DHD44780_ENABLE
+    OPT_DEFS += -DHD44780_ENABLE
 endif
+
+ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
+    OPT_DEFS += -DVELOCIKEY_ENABLE
+    SRC += $(QUANTUM_DIR)/velocikey.c
+endif
+
+ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
+    OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
+    SRC += $(QUANTUM_DIR)/dynamic_keymap.c
+endif
+
+ifeq ($(strip $(LEADER_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/process_keycode/process_leader.c
+  OPT_DEFS += -DLEADER_ENABLE
+endif
+
+include $(DRIVER_PATH)/qwiic/qwiic.mk
 
 QUANTUM_SRC:= \
     $(QUANTUM_DIR)/quantum.c \
     $(QUANTUM_DIR)/keymap_common.c \
-    $(QUANTUM_DIR)/keycode_config.c \
-    $(QUANTUM_DIR)/process_keycode/process_leader.c
+    $(QUANTUM_DIR)/keycode_config.c
 
-ifndef CUSTOM_MATRIX
+# Include the standard or split matrix code if needed
+ifneq ($(strip $(CUSTOM_MATRIX)), yes)
     ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
         QUANTUM_SRC += $(QUANTUM_DIR)/split_common/matrix.c
     else
@@ -217,10 +297,35 @@ ifndef CUSTOM_MATRIX
     endif
 endif
 
+DEBOUNCE_DIR:= $(QUANTUM_DIR)/debounce
+# Debounce Modules. If implemented in matrix.c, don't use these.
+DEBOUNCE_TYPE?= sym_g
+VALID_DEBOUNCE_TYPES := sym_g eager_pk custom
+ifeq ($(filter $(DEBOUNCE_TYPE),$(VALID_DEBOUNCE_TYPES)),)
+    $(error DEBOUNCE_TYPE="$(DEBOUNCE_TYPE)" is not a valid debounce algorithm)
+endif
+ifeq ($(strip $(DEBOUNCE_TYPE)), sym_g)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_sym_g.c
+else ifeq ($(strip $(DEBOUNCE_TYPE)), eager_pk)
+    QUANTUM_SRC += $(DEBOUNCE_DIR)/debounce_eager_pk.c
+endif
+
+
+
 ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     OPT_DEFS += -DSPLIT_KEYBOARD
+
+    # Include files used by all split keyboards
     QUANTUM_SRC += $(QUANTUM_DIR)/split_common/split_flags.c \
-                $(QUANTUM_DIR)/split_common/split_util.c \
-                $(QUANTUM_DIR)/split_common/i2c.c \
-                $(QUANTUM_DIR)/split_common/serial.c  
+                   $(QUANTUM_DIR)/split_common/split_util.c
+
+    # Determine which (if any) transport files are required
+    ifneq ($(strip $(SPLIT_TRANSPORT)), custom)
+        QUANTUM_SRC += $(QUANTUM_DIR)/split_common/transport.c
+        # Functions added via QUANTUM_LIB_SRC are only included in the final binary if they're called.
+        # Unused functions are pruned away, which is why we can add both drivers here without bloat.
+        QUANTUM_LIB_SRC += $(QUANTUM_DIR)/split_common/i2c.c \
+                           $(QUANTUM_DIR)/split_common/serial.c
+    endif
+    COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif

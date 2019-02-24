@@ -24,10 +24,6 @@
 #define _ALT 2
 #define _ADJUST 3
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUMLOCK] = KEYMAP( /* Base */
   KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS,\
@@ -57,10 +53,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______,  _______, _______, _______,   \
     _______,  _______, _______, _______   \
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 void numlock_led_on(void) {

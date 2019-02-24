@@ -7,8 +7,6 @@
 #define _BL 0
 #define _FL 1
 
-#define _______ KC_TRNS
-
 enum custom_keycodes {
   MAC_AE = SAFE_RANGE,
   MAC_OE,

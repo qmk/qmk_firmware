@@ -15,6 +15,11 @@
  */
 
 #include "quantum.h"
+
+#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
+	#include "rgb.h"
+#endif
+
 #ifdef PROTOCOL_LUFA
 #include "outputselect.h"
 #endif
@@ -40,6 +45,18 @@ extern backlight_config_t backlight_config;
 
 #ifdef MIDI_ENABLE
 #include "process_midi.h"
+#endif
+
+#ifdef VELOCIKEY_ENABLE
+#include "velocikey.h"
+#endif
+
+#ifdef HAPTIC_ENABLE
+    #include "haptic.h"
+#endif
+
+#ifdef ENCODER_ENABLE
+#include "encoder.h"
 #endif
 
 #ifdef AUDIO_ENABLE
@@ -127,6 +144,14 @@ void unregister_code16 (uint16_t code) {
   }
 }
 
+void tap_code16(uint16_t code) {
+  register_code16(code);
+  #if TAP_CODE_DELAY > 0
+    wait_ms(TAP_CODE_DELAY);
+  #endif
+  unregister_code16(code);
+}
+
 __attribute__ ((weak))
 bool process_action_kb(keyrecord_t *record) {
   return true;
@@ -161,6 +186,9 @@ void reset_keyboard(void) {
   shutdown_user();
   wait_ms(250);
 #endif
+#ifdef HAPTIC_ENABLE
+  haptic_shutdown();
+#endif
 // this is also done later in bootloader.c - not sure if it's neccesary here
 #ifdef BOOTLOADER_CATERINA
   *(uint16_t *)0x0800 = 0x7777; // these two are a-star-specific
@@ -175,6 +203,13 @@ void reset_keyboard(void) {
 #endif
 #ifndef RSPC_KEY
   #define RSPC_KEY KC_0
+#endif
+
+#ifndef LSPO_MOD
+  #define LSPO_MOD KC_LSFT
+#endif
+#ifndef RSPC_MOD
+  #define RSPC_MOD KC_RSFT
 #endif
 
 // Shift / Enter setup
@@ -196,7 +231,7 @@ bool process_record_quantum(keyrecord_t *record) {
   keypos_t key = record->event.key;
   uint16_t keycode;
 
-  #if !defined(NO_ACTION_LAYER) && defined(PREVENT_STUCK_MODIFIERS)
+  #if !defined(NO_ACTION_LAYER) && !defined(STRICT_LAYER_RELEASE)
     /* TODO: Use store_or_get_action() or a similar function. */
     if (!disable_action_cache) {
       uint8_t layer;
@@ -220,6 +255,10 @@ bool process_record_quantum(keyrecord_t *record) {
     //   return false;
     // }
 
+  #ifdef VELOCIKEY_ENABLE
+    if (velocikey_enabled() && record->event.pressed) { velocikey_accelerate(); }
+  #endif
+
   #ifdef TAP_DANCE_ENABLE
     preprocess_tap_dance(keycode, record);
   #endif
@@ -230,8 +269,11 @@ bool process_record_quantum(keyrecord_t *record) {
     process_key_lock(&keycode, record) &&
   #endif
   #if defined(AUDIO_ENABLE) && defined(AUDIO_CLICKY)
-      process_clicky(keycode, record) &&
+    process_clicky(keycode, record) &&
   #endif //AUDIO_CLICKY
+  #ifdef HAPTIC_ENABLE
+    process_haptic(keycode, record) &&
+  #endif //HAPTIC_ENABLE
     process_record_kb(keycode, record) &&
   #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
     process_rgb_matrix(keycode, record) &&
@@ -245,35 +287,26 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef STENO_ENABLE
     process_steno(keycode, record) &&
   #endif
-  #if ( defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
+  #if (defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))) && !defined(NO_MUSIC_MODE)
     process_music(keycode, record) &&
   #endif
   #ifdef TAP_DANCE_ENABLE
     process_tap_dance(keycode, record) &&
   #endif
-  #ifndef DISABLE_LEADER
-    process_leader(keycode, record) &&
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    process_unicode_common(keycode, record) &&
   #endif
-  #ifndef DISABLE_CHORDING
-    process_chording(keycode, record) &&
+  #ifdef LEADER_ENABLE
+    process_leader(keycode, record) &&
   #endif
   #ifdef COMBO_ENABLE
     process_combo(keycode, record) &&
-  #endif
-  #ifdef UNICODE_ENABLE
-    process_unicode(keycode, record) &&
-  #endif
-  #ifdef UCIS_ENABLE
-    process_ucis(keycode, record) &&
   #endif
   #ifdef PRINTING_ENABLE
     process_printer(keycode, record) &&
   #endif
   #ifdef AUTO_SHIFT_ENABLE
     process_auto_shift(keycode, record) &&
-  #endif
-  #ifdef UNICODEMAP_ENABLE
-    process_unicode_map(keycode, record) &&
   #endif
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
@@ -294,6 +327,11 @@ bool process_record_quantum(keyrecord_t *record) {
       if (record->event.pressed) {
           debug_enable = true;
           print("DEBUG: enabled.\n");
+      }
+    return false;
+    case EEPROM_RESET:
+      if (record->event.pressed) {
+          eeconfig_init();
       }
     return false;
   #ifdef FAUXCLICKY_ENABLE
@@ -445,78 +483,107 @@ bool process_record_quantum(keyrecord_t *record) {
     return false;
   case RGB_MODE_PLAIN:
     if (record->event.pressed) {
-      rgblight_mode(1);
+      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
       #ifdef SPLIT_KEYBOARD
           RGB_DIRTY = true;
       #endif
     }
     return false;
   case RGB_MODE_BREATHE:
+  #ifdef RGBLIGHT_EFFECT_BREATHING
     if (record->event.pressed) {
-      if ((2 <= rgblight_get_mode()) && (rgblight_get_mode() < 5)) {
+      if ((RGBLIGHT_MODE_BREATHING <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_BREATHING_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(2);
+        rgblight_mode(RGBLIGHT_MODE_BREATHING);
       }
     }
+  #endif
     return false;
   case RGB_MODE_RAINBOW:
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
     if (record->event.pressed) {
-      if ((6 <= rgblight_get_mode()) && (rgblight_get_mode() < 8)) {
+      if ((RGBLIGHT_MODE_RAINBOW_MOOD <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_MOOD_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(6);
+        rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
       }
     }
+  #endif
     return false;
   case RGB_MODE_SWIRL:
+  #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
     if (record->event.pressed) {
-      if ((9 <= rgblight_get_mode()) && (rgblight_get_mode() < 14)) {
+      if ((RGBLIGHT_MODE_RAINBOW_SWIRL <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_RAINBOW_SWIRL_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(9);
+        rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL);
       }
     }
+  #endif
     return false;
   case RGB_MODE_SNAKE:
+  #ifdef RGBLIGHT_EFFECT_SNAKE
     if (record->event.pressed) {
-      if ((15 <= rgblight_get_mode()) && (rgblight_get_mode() < 20)) {
+      if ((RGBLIGHT_MODE_SNAKE <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_SNAKE_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(15);
+        rgblight_mode(RGBLIGHT_MODE_SNAKE);
       }
     }
+  #endif
     return false;
   case RGB_MODE_KNIGHT:
+  #ifdef RGBLIGHT_EFFECT_KNIGHT
     if (record->event.pressed) {
-      if ((21 <= rgblight_get_mode()) && (rgblight_get_mode() < 23)) {
+      if ((RGBLIGHT_MODE_KNIGHT <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_KNIGHT_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(21);
+        rgblight_mode(RGBLIGHT_MODE_KNIGHT);
       }
     }
+  #endif
     return false;
   case RGB_MODE_XMAS:
+  #ifdef RGBLIGHT_EFFECT_CHRISTMAS
     if (record->event.pressed) {
-      rgblight_mode(24);
+      rgblight_mode(RGBLIGHT_MODE_CHRISTMAS);
     }
+  #endif
     return false;
   case RGB_MODE_GRADIENT:
+  #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
     if (record->event.pressed) {
-      if ((25 <= rgblight_get_mode()) && (rgblight_get_mode() < 34)) {
+      if ((RGBLIGHT_MODE_STATIC_GRADIENT <= rgblight_get_mode()) &&
+          (rgblight_get_mode() < RGBLIGHT_MODE_STATIC_GRADIENT_end)) {
         rgblight_step();
       } else {
-        rgblight_mode(25);
+        rgblight_mode(RGBLIGHT_MODE_STATIC_GRADIENT);
       }
     }
+  #endif
     return false;
   case RGB_MODE_RGBTEST:
+  #ifdef RGBLIGHT_EFFECT_RGB_TEST
     if (record->event.pressed) {
-      rgblight_mode(35);
+      rgblight_mode(RGBLIGHT_MODE_RGB_TEST);
     }
+  #endif
     return false;
   #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    #ifdef PROTOCOL_LUFA
+  #ifdef VELOCIKEY_ENABLE
+    case VLK_TOG:
+      if (record->event.pressed) {
+        velocikey_toggle();
+      }
+      return false;
+  #endif
+  #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {
         set_output(OUTPUT_AUTO);
@@ -607,6 +674,17 @@ bool process_record_quantum(keyrecord_t *record) {
               PLAY_SONG(ag_norm_song);
             #endif
             break;
+          case MAGIC_TOGGLE_ALT_GUI:
+            keymap_config.swap_lalt_lgui = !keymap_config.swap_lalt_lgui;
+            keymap_config.swap_ralt_rgui = !keymap_config.swap_ralt_rgui;
+            #ifdef AUDIO_ENABLE
+              if (keymap_config.swap_ralt_rgui) {
+                PLAY_SONG(ag_swap_song);
+              } else {
+                PLAY_SONG(ag_norm_song);
+              }
+            #endif
+            break;
           case MAGIC_TOGGLE_NKRO:
             keymap_config.nkro = !keymap_config.nkro;
             break;
@@ -627,14 +705,27 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       else {
         #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(KC_RSFT)) {
+          if (get_mods() & MOD_BIT(RSPC_MOD)) {
             shift_interrupted[0] = true;
             shift_interrupted[1] = true;
           }
         #endif
         if (!shift_interrupted[0] && timer_elapsed(scs_timer[0]) < TAPPING_TERM) {
+          #ifdef DISABLE_SPACE_CADET_MODIFIER
+            unregister_mods(MOD_BIT(KC_LSFT));
+          #else
+            if( LSPO_MOD != KC_LSFT ){
+              unregister_mods(MOD_BIT(KC_LSFT));
+              register_mods(MOD_BIT(LSPO_MOD));
+            }
+          #endif
           register_code(LSPO_KEY);
           unregister_code(LSPO_KEY);
+          #ifndef DISABLE_SPACE_CADET_MODIFIER
+            if( LSPO_MOD != KC_LSFT ){
+              unregister_mods(MOD_BIT(LSPO_MOD));
+            }
+          #endif
         }
         unregister_mods(MOD_BIT(KC_LSFT));
       }
@@ -649,14 +740,27 @@ bool process_record_quantum(keyrecord_t *record) {
       }
       else {
         #ifdef DISABLE_SPACE_CADET_ROLLOVER
-          if (get_mods() & MOD_BIT(KC_LSFT)) {
+          if (get_mods() & MOD_BIT(LSPO_MOD)) {
             shift_interrupted[0] = true;
             shift_interrupted[1] = true;
           }
         #endif
         if (!shift_interrupted[1] && timer_elapsed(scs_timer[1]) < TAPPING_TERM) {
+          #ifdef DISABLE_SPACE_CADET_MODIFIER
+            unregister_mods(MOD_BIT(KC_RSFT));
+          #else
+            if( RSPC_MOD != KC_RSFT ){
+              unregister_mods(MOD_BIT(KC_RSFT));
+              register_mods(MOD_BIT(RSPC_MOD));
+            }
+          #endif
           register_code(RSPC_KEY);
           unregister_code(RSPC_KEY);
+          #ifndef DISABLE_SPACE_CADET_MODIFIER
+            if ( RSPC_MOD != KC_RSFT ){
+              unregister_mods(MOD_BIT(RSPC_MOD));
+            }
+          #endif
         }
         unregister_mods(MOD_BIT(KC_RSFT));
       }
@@ -914,15 +1018,63 @@ void tap_random_base64(void) {
   }
 }
 
+__attribute__((weak))
+void bootmagic_lite(void) {
+  // The lite version of TMK's bootmagic based on Wilba.
+  // 100% less potential for accidentally making the
+  // keyboard do stupid things.
+
+  // We need multiple scans because debouncing can't be turned off.
+  matrix_scan();
+  #if defined(DEBOUNCING_DELAY) && DEBOUNCING_DELAY > 0
+    wait_ms(DEBOUNCING_DELAY * 2);
+  #elif defined(DEBOUNCE) && DEBOUNCE > 0
+    wait_ms(DEBOUNCE * 2);
+  #else
+    wait_ms(30);
+  #endif
+  matrix_scan();
+
+  // If the Esc and space bar are held down on power up,
+  // reset the EEPROM valid state and jump to bootloader.
+  // Assumes Esc is at [0,0].
+  // This isn't very generalized, but we need something that doesn't
+  // rely on user's keymaps in firmware or EEPROM.
+  if (matrix_get_row(BOOTMAGIC_LITE_ROW) & (1 << BOOTMAGIC_LITE_COLUMN)) {
+    eeconfig_disable();
+    // Jump to bootloader.
+    bootloader_jump();
+  }
+}
+
 void matrix_init_quantum() {
+  #ifdef BOOTMAGIC_LITE
+    bootmagic_lite();
+  #endif
+  if (!eeconfig_is_enabled()) {
+    eeconfig_init();
+  }
   #ifdef BACKLIGHT_ENABLE
-    backlight_init_ports();
+    #ifdef LED_MATRIX_ENABLE
+        led_matrix_init();
+    #else
+        backlight_init_ports();
+    #endif
   #endif
   #ifdef AUDIO_ENABLE
     audio_init();
   #endif
   #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_init();
+  #endif
+  #ifdef ENCODER_ENABLE
+    encoder_init();
+  #endif
+  #if defined(UNICODE_ENABLE) || defined(UNICODEMAP_ENABLE) || defined(UCIS_ENABLE)
+    unicode_input_mode_init();
+  #endif
+  #ifdef HAPTIC_ENABLE
+    haptic_init();
   #endif
   matrix_init_kb();
 }
@@ -946,8 +1098,12 @@ void matrix_scan_quantum() {
     matrix_scan_combo();
   #endif
 
-  #if defined(BACKLIGHT_ENABLE) && defined(BACKLIGHT_PIN)
-    backlight_task();
+  #if defined(BACKLIGHT_ENABLE)
+    #if defined(LED_MATRIX_ENABLE)
+        led_matrix_task();
+    #elif defined(BACKLIGHT_PIN)
+        backlight_task();
+    #endif
   #endif
 
   #ifdef RGB_MATRIX_ENABLE
@@ -956,6 +1112,14 @@ void matrix_scan_quantum() {
       rgb_matrix_update_pwm_buffers();
     }
     rgb_matrix_task_counter = ((rgb_matrix_task_counter + 1) % (RGB_MATRIX_SKIP_FRAMES + 1));
+  #endif
+
+  #ifdef ENCODER_ENABLE
+    encoder_read();
+  #endif
+
+  #ifdef HAPTIC_ENABLE
+    haptic_task();
   #endif
 
   matrix_scan_kb();
@@ -1355,6 +1519,24 @@ void led_set(uint8_t usb_led)
     //     DDRE &= ~(1<<6);
     //     PORTE &= ~(1<<6);
     // }
+
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+  // Use backlight as Caps Lock indicator
+  uint8_t bl_toggle_lvl = 0;
+
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK) && !backlight_config.enable) {
+    // Turning Caps Lock ON and backlight is disabled in config
+    // Toggling backlight to the brightest level
+    bl_toggle_lvl = BACKLIGHT_LEVELS;
+  } else if (IS_LED_OFF(usb_led, USB_LED_CAPS_LOCK) && backlight_config.enable) {
+    // Turning Caps Lock OFF and backlight is enabled in config
+    // Toggling backlight and restoring config level
+    bl_toggle_lvl = backlight_config.level;
+  }
+
+  // Set level without modify backlight_config to keep ability to restore state
+  backlight_set(bl_toggle_lvl);
+#endif
 
   led_set_kb(usb_led);
 }

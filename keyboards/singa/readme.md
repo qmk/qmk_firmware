@@ -7,8 +7,8 @@
 A short description of the keyboard/project
 
 
-Keyboard Maintainer: [amnesia0287](https://github.com/amnesia0287)
-Hardware Supported: TGR-Elaine v1.0 PCB
+Keyboard Maintainer: [amnesia0287](https://github.com/amnesia0287)  
+Hardware Supported: TGR-Elaine v1.0 PCB  
 Hardware Availability: http://singakbd.com/
 
 
@@ -46,4 +46,4 @@ macOS:
 5. Flash the board by typing `bootloadHID -r` followed by the path to your `.hex` file. 
 
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.

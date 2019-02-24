@@ -16,6 +16,7 @@ include common.mk
 KEYBOARD_FILESAFE := $(subst /,_,$(KEYBOARD))
 TARGET ?= $(KEYBOARD_FILESAFE)_$(KEYMAP)
 KEYBOARD_OUTPUT := $(BUILD_DIR)/obj_$(KEYBOARD_FILESAFE)
+STM32_PATH := quantum/stm32
 
 # Force expansion
 TARGET := $(TARGET)
@@ -32,6 +33,10 @@ else
     ifneq ($(MASTER),left)
 $(error MASTER does not have a valid value(left/right))
     endif
+endif
+
+ifdef SKIP_VERSION
+    OPT_DEFS += -DSKIP_VERSION
 endif
 
 # Determine which subfolders exist.
@@ -68,6 +73,7 @@ ifneq ("$(wildcard $(KEYBOARD_PATH_1)/)","")
     KEYBOARD_PATHS += $(KEYBOARD_PATH_1)
 endif
 
+
 # Pull in rules.mk files from all our subfolders
 ifneq ("$(wildcard $(KEYBOARD_PATH_5)/rules.mk)","")
     include $(KEYBOARD_PATH_5)/rules.mk
@@ -84,6 +90,62 @@ endif
 ifneq ("$(wildcard $(KEYBOARD_PATH_1)/rules.mk)","")
     include $(KEYBOARD_PATH_1)/rules.mk
 endif
+
+
+MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
+MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
+MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
+MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
+MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
+
+ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
+    -include $(MAIN_KEYMAP_PATH_5)/rules.mk
+    KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
+else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
+    -include $(MAIN_KEYMAP_PATH_4)/rules.mk
+    KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
+else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
+    -include $(MAIN_KEYMAP_PATH_3)/rules.mk
+    KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
+else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_2)/keymap.c)","")
+    -include $(MAIN_KEYMAP_PATH_2)/rules.mk
+    KEYMAP_C := $(MAIN_KEYMAP_PATH_2)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
+else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
+    -include $(MAIN_KEYMAP_PATH_1)/rules.mk
+    KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
+    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
+else ifneq ($(LAYOUTS),)
+    include build_layout.mk
+else
+    $(error Could not find keymap)
+    # this state should never be reached
+endif
+
+ifeq ($(strip $(CTPC)), yes)
+  CONVERT_TO_PROTON_C=yes
+endif
+
+ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
+    TARGET := $(TARGET)_proton_c
+    include $(STM32_PATH)/proton_c.mk
+    OPT_DEFS += -DCONVERT_TO_PROTON_C
+endif
+
+ifneq ($(FORCE_LAYOUT),)
+    TARGET := $(TARGET)_$(FORCE_LAYOUT)
+endif
+
+include quantum/mcu_selection.mk
+
+ifdef MCU_FAMILY
+    OPT_DEFS += -DQMK_STM32
+    KEYBOARD_PATHS += $(STM32_PATH)
+endif
+
 
 # Find all the C source files to be compiled in subfolders.
 KEYBOARD_SRC :=
@@ -110,8 +172,28 @@ ifneq ("$(wildcard $(KEYBOARD_C_1))","")
     KEYBOARD_SRC += $(KEYBOARD_C_1)
 endif
 
-OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE)
+# Generate KEYBOARD_name_subname for all levels of the keyboard folder
+KEYBOARD_FILESAFE_1 := $(subst .,,$(subst /,_,$(KEYBOARD_FOLDER_PATH_1)))
+KEYBOARD_FILESAFE_2 := $(subst .,,$(subst /,_,$(KEYBOARD_FOLDER_PATH_2)))
+KEYBOARD_FILESAFE_3 := $(subst .,,$(subst /,_,$(KEYBOARD_FOLDER_PATH_3)))
+KEYBOARD_FILESAFE_4 := $(subst .,,$(subst /,_,$(KEYBOARD_FOLDER_PATH_4)))
+KEYBOARD_FILESAFE_5 := $(subst .,,$(subst /,_,$(KEYBOARD_FOLDER_PATH_5)))
 
+ifneq ("$(wildcard $(KEYBOARD_PATH_5)/)","")
+    OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE_5)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_4)/)","")
+    OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE_4)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_3)/)","")
+    OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE_3)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_2)/)","")
+    OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE_2)
+endif
+ifneq ("$(wildcard $(KEYBOARD_PATH_1)/)","")
+    OPT_DEFS += -DKEYBOARD_$(KEYBOARD_FILESAFE_1)
+endif
 
 # Setup the define for QMK_KEYBOARD_H. This is used inside of keymaps so
 # that the same keymap may be used on multiple keyboards.
@@ -144,6 +226,9 @@ endif
 ifdef MCU_FAMILY
     FIRMWARE_FORMAT?=bin
     PLATFORM=CHIBIOS
+else ifdef ARM_ATSAM
+    PLATFORM=ARM_ATSAM
+    FIRMWARE_FORMAT=bin
 else
     PLATFORM=AVR
     FIRMWARE_FORMAT?=hex
@@ -200,39 +285,6 @@ PROJECT_DEFS := $(OPT_DEFS)
 PROJECT_INC := $(VPATH) $(EXTRAINCDIRS) $(KEYBOARD_PATHS)
 PROJECT_CONFIG := $(CONFIG_H)
 
-MAIN_KEYMAP_PATH_1 := $(KEYBOARD_PATH_1)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_2 := $(KEYBOARD_PATH_2)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_3 := $(KEYBOARD_PATH_3)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_4 := $(KEYBOARD_PATH_4)/keymaps/$(KEYMAP)
-MAIN_KEYMAP_PATH_5 := $(KEYBOARD_PATH_5)/keymaps/$(KEYMAP)
-
-ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_5)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_5)/rules.mk
-    KEYMAP_C := $(MAIN_KEYMAP_PATH_5)/keymap.c
-    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_5)
-else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_4)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_4)/rules.mk
-    KEYMAP_C := $(MAIN_KEYMAP_PATH_4)/keymap.c
-    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_4)
-else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_3)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_3)/rules.mk
-    KEYMAP_C := $(MAIN_KEYMAP_PATH_3)/keymap.c
-    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_3)
-else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_2)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_2)/rules.mk
-    KEYMAP_C := $(MAIN_KEYMAP_PATH_2)/keymap.c
-    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_2)
-else ifneq ("$(wildcard $(MAIN_KEYMAP_PATH_1)/keymap.c)","")
-    -include $(MAIN_KEYMAP_PATH_1)/rules.mk
-    KEYMAP_C := $(MAIN_KEYMAP_PATH_1)/keymap.c
-    KEYMAP_PATH := $(MAIN_KEYMAP_PATH_1)
-else ifneq ($(LAYOUTS),)
-    include build_layout.mk
-else
-    $(error Could not find keymap)
-    # this state should never be reached
-endif
-
 # Userspace setup and definitions
 ifeq ("$(USER_NAME)","")
     USER_NAME := $(KEYMAP)
@@ -255,6 +307,7 @@ ifneq ("$(wildcard $(KEYMAP_PATH)/config.h)","")
 endif
 
 # # project specific files
+SRC += $(patsubst %.c,%.clib,$(LIB_SRC))
 SRC += $(KEYBOARD_SRC) \
     $(KEYMAP_C) \
     $(QUANTUM_SRC)
@@ -273,6 +326,7 @@ include $(TMK_PATH)/protocol.mk
 include $(TMK_PATH)/common.mk
 include bootloader.mk
 
+SRC += $(patsubst %.c,%.clib,$(QUANTUM_LIB_SRC))
 SRC += $(TMK_COMMON_SRC)
 OPT_DEFS += $(TMK_COMMON_DEFS)
 EXTRALDFLAGS += $(TMK_COMMON_LDFLAGS)
@@ -284,6 +338,11 @@ else
     include $(TMK_PATH)/protocol/lufa.mk
 endif
     include $(TMK_PATH)/avr.mk
+endif
+
+ifeq ($(PLATFORM),ARM_ATSAM)
+    include $(TMK_PATH)/arm_atsam.mk
+    include $(TMK_PATH)/protocol/arm_atsam.mk
 endif
 
 ifeq ($(PLATFORM),CHIBIOS)
@@ -314,5 +373,7 @@ $(KEYBOARD_OUTPUT)_CONFIG := $(PROJECT_CONFIG)
 # Default target.
 all: build check-size
 build: elf cpfirmware
+check-size: build
 
+include show_options.mk
 include $(TMK_PATH)/rules.mk
