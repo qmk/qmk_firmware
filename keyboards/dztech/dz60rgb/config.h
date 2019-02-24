@@ -7,6 +7,7 @@
 #define PRODUCT_ID      0x1219
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    DZTECH
+
 #define PRODUCT         DZ60RGB
 #define DESCRIPTION     DZ60 ARM RGB keyboard
 #define MATRIX_ROWS 5
@@ -30,3 +31,4 @@
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
 #define DRIVER_COUNT 2
+

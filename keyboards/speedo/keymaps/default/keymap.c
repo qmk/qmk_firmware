@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
 #define FN MO(_FN)
 #define TORST TO(_RESET)
 #define TODFT TO(_DEFAULT)

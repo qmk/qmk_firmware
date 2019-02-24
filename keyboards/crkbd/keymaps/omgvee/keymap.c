@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------.                ,-----------------------------------------.
         RST,  LRST, XXXXX, XXXXX, XXXXX, ERST,                    MNXT,  MPRV,  MFFD,  MRWD, XXXXX,  EJCT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LTOG,  LHUI,  LSAI,  LVAI,  PGUP, HOME,                    LEFT,  DOWN,    UP, RIGHT, XXXXX, XXXXX,\
+       LTOG,  LHUI,  LSAI,  LVAI,  PGUP, HOME,                    LEFT,  DOWN,    UP, RIGHT, XXXXX,   INS,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LMOD,  LHUD,  LSAD,  LVAD,  PGDN,  END,                    BRID,  BRIU,  VOLD,  VOLU,  MUTE,  MPLY,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|

@@ -40,6 +40,7 @@
   * [Unit Testing](unit_testing.md)
   * [Useful Functions](ref_functions.md)
   * [Configurator Support](reference_configurator_support.md)
+  * [info.json Format](reference_info_json.md)
 
 * [Features](features.md)
   * [Basic Keycodes](keycodes_basic.md)
@@ -75,6 +76,7 @@
   * [Thermal Printer](feature_thermal_printer.md)
   * [Unicode](feature_unicode.md)
   * [Userspace](feature_userspace.md)
+  * [Velocikey](feature_velocikey.md)
 
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
