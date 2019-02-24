@@ -252,14 +252,13 @@ void oled_render(void) {
     return;
   }
   #else
+    const static uint8_t source_map[] = OLED_SOURCE_MAP;
+    const static uint8_t target_map[] = OLED_TARGET_MAP;
+
     static uint8_t temp_buffer[OLED_BLOCK_SIZE];
     memset(temp_buffer, 0, sizeof(temp_buffer));
-    uint16_t update_width = display_start[2] - display_start[1];
-    for(uint8_t i = 0; i < OLED_BLOCK_SIZE; i+=8) {
-      uint16_t page = i / update_width;
-      uint16_t block = (i - page * update_width) / 8 + 1;
-      uint16_t source = block * OLED_DISPLAY_HEIGHT - page * 8 - 8;
-      rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + source], &temp_buffer[i]);
+    for(uint8_t i = 0; i < sizeof(source_map); ++i) {
+      rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + source_map[i]], &temp_buffer[target_map[i]]);
     }
 
     // Send render data chunk

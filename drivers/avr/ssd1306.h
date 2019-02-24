@@ -19,24 +19,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <stdint.h>
 #include <stdbool.h>
 
+
+#if defined(OLED_DISPLAY_CUSTOM)
+  // Expected user to implement the necessary defines
+#elif defined(OLED_DISPLAY_128X64)
+  // Double height 128x64
+  #define OLED_DISPLAY_WIDTH 128
+  #define OLED_DISPLAY_HEIGHT 64
+  #define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 1024 (compile time mathed)
+  #define OLED_BLOCK_TYPE uint16_t
+  #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 16 (compile time mathed)
+  #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 64 (compile time mathed)
+
+  #ifdef OLED_ROTATE90
+    // For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
+    // The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
+    #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
+    #define OLED_TARGET_MAP { 56, 48, 40, 32, 24, 16, 8, 0 }
+    // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
+    // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 }
+    // #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
+  #endif
+#else
+  // Default 128x32
+  #define OLED_DISPLAY_WIDTH 128
+  #define OLED_DISPLAY_HEIGHT 32
+  #define OLED_MATRIX_SIZE (OLED_DISPLAY_HEIGHT / 8 * OLED_DISPLAY_WIDTH) // 512 (compile time mathed)
+  #define OLED_BLOCK_TYPE uint8_t // Type to use for segmenting the oled display for smart rendering, use unsigned types only
+  #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 8 (compile time mathed)
+  #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 128 (compile time mathed)
+
+  #ifdef OLED_ROTATE90
+    // For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
+    // The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
+    #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
+    #define OLED_TARGET_MAP { 48, 32, 16, 0, 56, 40, 24, 8 }
+  #endif
+#endif
+
 // Address to use for tthe i2d oled communication
 #ifndef SSD1306_ADDRESS
 #define SSD1306_ADDRESS 0x3C
-#endif
-
-// Defines that can be overridden based on oled and font values
-#ifndef OLED_DISPLAY_HEIGHT
-#define OLED_DISPLAY_HEIGHT 32
-#endif
-#ifndef OLED_DISPLAY_WIDTH
-#define OLED_DISPLAY_WIDTH 128
-#endif
-
-#define OLED_MATRIX_SIZE ((OLED_DISPLAY_HEIGHT / 8) * OLED_DISPLAY_WIDTH)
-
-// Type to use for segmenting the oled display for smart rendering, use unsigned types only
-#ifndef OLED_BLOCK_TYPE
-#define OLED_BLOCK_TYPE uint8_t
 #endif
 
 // Custom font file to use
