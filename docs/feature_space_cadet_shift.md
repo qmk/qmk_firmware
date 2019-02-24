@@ -5,7 +5,7 @@ Steve Losh described the [Space Cadet Shift](http://stevelosh.com/blog/2012/10/a
 ## Usage
 
 Replace the Left Shift key in your keymap with `KC_LSPO` (Left Shift, Parenthesis Open), and Right Shift with `KC_RSPC` (Right Shift, Parenthesis Close).
-Replace the Left Control key in your keymap with `KC_LCPO` (Left Control, Parenthesis Open), and Right Shift with `KC_RCPC` (Right Control, Parenthesis Close).
+Replace the Left Control key in your keymap with `KC_LCPO` (Left Control, Parenthesis Open), and Right Control with `KC_RCPC` (Right Control, Parenthesis Close).
 Replace the Left Alt key in your keymap with `KC_LAPO` (Left Alt, Parenthesis Open), and Right Shift with `KC_RAPC` (Right Alt, Parenthesis Close).
 
 ## Keycodes
