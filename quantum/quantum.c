@@ -775,23 +775,6 @@ bool process_record_quantum(keyrecord_t *record) {
       return false;
     }
 
-    case KC_SFTENT: {
-      if (record->event.pressed) {
-        space_cadet_interrupted[1] = false;
-        space_cadet_timer[1] = timer_read ();
-        register_mods(MOD_BIT(KC_RSFT));
-      }
-      else if (!space_cadet_interrupted[1] && timer_elapsed(space_cadet_timer[1]) < TAPPING_TERM) {
-        unregister_mods(MOD_BIT(KC_RSFT));
-        register_code(SFTENT_KEY);
-        unregister_code(SFTENT_KEY);
-      }
-      else {
-        unregister_mods(MOD_BIT(KC_RSFT));
-      }
-      return false;
-    }
-
     case KC_LCPO: {
       process_space_cadet(record, 2, KC_LCTL, LCPO_MOD, RCPC_MOD, LCPO_KEY);
       return false;
@@ -809,6 +792,23 @@ bool process_record_quantum(keyrecord_t *record) {
 
     case KC_RAPC: {
       process_space_cadet(record, 3, KC_RALT, RAPC_MOD, LAPO_MOD, RAPC_KEY);
+      return false;
+    }
+
+    case KC_SFTENT: {
+      if (record->event.pressed) {
+        space_cadet_interrupted[1] = false;
+        space_cadet_timer[1] = timer_read ();
+        register_mods(MOD_BIT(KC_RSFT));
+      }
+      else if (!space_cadet_interrupted[1] && timer_elapsed(space_cadet_timer[1]) < TAPPING_TERM) {
+        unregister_mods(MOD_BIT(KC_RSFT));
+        register_code(SFTENT_KEY);
+        unregister_code(SFTENT_KEY);
+      }
+      else {
+        unregister_mods(MOD_BIT(KC_RSFT));
+      }
       return false;
     }
 
