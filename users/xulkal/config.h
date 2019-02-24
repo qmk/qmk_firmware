@@ -1,8 +1,0 @@
-#pragma once
-
-#define NO_ACTION_MACRO
-#define NO_ACTION_FUNCTION
-
-#define LSPO_KEY KC_LBRC
-#define RSPC_KEY KC_RBRC
-#define DISABLE_SPACE_CADET_MODIFIER
