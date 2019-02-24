@@ -441,10 +441,10 @@ enum quantum_keycodes {
     KC_LAPO,
 
     // Right control, close paren
+KC_RAPC,
 
     // Shift, Enter
     KC_SFTENT,
-    KC_RAPC,
 
     // Printing
     PRINT_ON,
