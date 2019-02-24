@@ -10,10 +10,6 @@ enum layers {
   FV            // Function keys / Cursor control (Vim)
 };
 
-// Abbreviations - general
-#define xxxxxxx         KC_NO
-#define _______         KC_TRNS
-                       
 // Abbreviations - base
 #define KX_P1_BSPC      LT(P1, KC_BSPC)
 #define KX_P2_SPC       LT(P2, KC_SPC)
@@ -45,10 +41,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              '-------'--------'-----'               '-----'-------'-------'
   */                                                               
   [BA] = LAYOUT(                                                   
-    KC_P,     KC_L,     KC_C,     KC_D,       KC_W,      xxxxxxx,   xxxxxxx, KC_U,    KC_O,       KC_Y,        KC_K,     KC_Q,
-    KC_N,     KC_R,     KC_S,     KC_T,       KC_M,      xxxxxxx,   xxxxxxx, KC_A,    KC_E,       KC_I,        KC_H,     KC_V,
-    KX_SFT_Z, KX_CTL_J, KX_ALT_F, KC_G,       KC_B,      xxxxxxx,   xxxxxxx, KC_COMM, KX_ALT_DOT, KX_CTL_SCLN, KX_SFT_X, KC_LGUI,
-    xxxxxxx,  xxxxxxx,  xxxxxxx,  KX_P1_BSPC, KX_P2_SPC, MO(P3),    xxxxxxx, KC_RSFT, xxxxxxx,    xxxxxxx,     xxxxxxx,  xxxxxxx
+    KC_P,     KC_L,     KC_C,     KC_D,       KC_W,      XXXXXXX,   XXXXXXX, KC_U,    KC_O,       KC_Y,        KC_K,     KC_Q,
+    KC_N,     KC_R,     KC_S,     KC_T,       KC_M,      XXXXXXX,   XXXXXXX, KC_A,    KC_E,       KC_I,        KC_H,     KC_V,
+    KX_SFT_Z, KX_CTL_J, KX_ALT_F, KC_G,       KC_B,      XXXXXXX,   XXXXXXX, KC_COMM, KX_ALT_DOT, KX_CTL_SCLN, KX_SFT_X, KC_LGUI,
+    XXXXXXX,  XXXXXXX,  XXXXXXX,  KX_P1_BSPC, KX_P2_SPC, MO(P3),    XXXXXXX, KC_RSFT, XXXXXXX,    XXXXXXX,     XXXXXXX,  XXXXXXX
   ),
 
   /* P1: Punctuation (1)
@@ -63,10 +59,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              '-------'-------'-----'                  '-----'------'-------'
   */
   [P1] = LAYOUT(       
-    KC_ESC,  xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx, xxxxxxx, KX_PIPE, KC_SLSH, KC_CIRC, KC_HASH, KX_TILDA,  
-    KC_TAB,  xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx,    xxxxxxx, xxxxxxx, KC_AMPR, KC_NUBS, KC_GRV,  KC_DLR,  KC_ENT,
-    KC_LSFT, KC_LCTL,    KC_LALT,    KC_DEL,     xxxxxxx,    xxxxxxx, xxxxxxx, KC_PERC, KC_LALT, KC_LCTL, KC_LSFT, _______,
-    xxxxxxx, xxxxxxx,    xxxxxxx,    _______,    xxxxxxx,    xxxxxxx, xxxxxxx, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx
+    KC_ESC,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, KX_PIPE, KC_SLSH, KC_CIRC, KC_HASH, KX_TILDA,  
+    KC_TAB,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX, KC_AMPR, KC_NUBS, KC_GRV,  KC_DLR,  KC_ENT,
+    KC_LSFT, KC_LCTL,    KC_LALT,    KC_DEL,     XXXXXXX,    XXXXXXX, XXXXXXX, KC_PERC, KC_LALT, KC_LCTL, KC_LSFT, _______,
+    XXXXXXX, XXXXXXX,    XXXXXXX,    _______,    XXXXXXX,    XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
   /* P2: Punctuation (2)
@@ -81,10 +77,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             '-------'-------'-----'                   '-----'-------'-------'
   */
   [P2] = LAYOUT(
-    KC_ESC,  xxxxxxx,    TO(NC),     TO(FV),     xxxxxxx,    xxxxxxx, xxxxxxx, KC_LPRN, KC_RPRN, KX_DQUOT, KC_QUES, xxxxxxx,
-    KC_TAB,  LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z), xxxxxxx, xxxxxxx, KC_LCBR, KC_RCBR, KC_QUOT,  KC_EXLM, KC_ENT,
-    KC_LSFT, KC_LCTL,    KC_LALT,    KC_DEL,     KC_ENT,     xxxxxxx, xxxxxxx, KC_NUHS, KC_LALT, KC_LCTL,  KC_LSFT, _______,
-    xxxxxxx, xxxxxxx,    xxxxxxx,    KC_BSPC,    _______,    xxxxxxx, xxxxxxx, _______, xxxxxxx, xxxxxxx,  xxxxxxx, xxxxxxx
+    KC_ESC,  XXXXXXX,    TO(NC),     TO(FV),     XXXXXXX,    XXXXXXX, XXXXXXX, KC_LPRN, KC_RPRN, KX_DQUOT, KC_QUES, XXXXXXX,
+    KC_TAB,  LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_Z), XXXXXXX, XXXXXXX, KC_LCBR, KC_RCBR, KC_QUOT,  KC_EXLM, KC_ENT,
+    KC_LSFT, KC_LCTL,    KC_LALT,    KC_DEL,     KC_ENT,     XXXXXXX, XXXXXXX, KC_NUHS, KC_LALT, KC_LCTL,  KC_LSFT, _______,
+    XXXXXXX, XXXXXXX,    XXXXXXX,    KC_BSPC,    _______,    XXXXXXX, XXXXXXX, _______, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX
   ),
 
   /* P3: Punctuation (3)
@@ -99,10 +95,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             '-------'-------'-----'                 '-----'------'-------'
   */
   [P3] = LAYOUT(
-    KC_ESC,  xxxxxxx, KC_BRK,  KC_PSCR, KC_SLCK, xxxxxxx,           xxxxxxx, KC_LABK, KC_RABK, KC_PLUS, KC_UNDS, KC_EQL,
-    KC_TAB,  xxxxxxx, xxxxxxx, KC_CAPS, xxxxxxx, xxxxxxx,           xxxxxxx, KC_LBRC, KC_RBRC, KC_ASTR, KC_MINS, KC_ENT,
-    KC_LSFT, KC_LCTL, KC_LALT, KC_DEL,  xxxxxxx, xxxxxxx,           xxxxxxx, KX_AT,   KC_LALT, KC_LCTL, KC_LSFT, _______,
-    xxxxxxx, xxxxxxx, xxxxxxx, KC_BSPC, xxxxxxx, _______,           xxxxxxx, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx
+    KC_ESC,  XXXXXXX, KC_BRK,  KC_PSCR, KC_SLCK, XXXXXXX,           XXXXXXX, KC_LABK, KC_RABK, KC_PLUS, KC_UNDS, KC_EQL,
+    KC_TAB,  XXXXXXX, XXXXXXX, KC_CAPS, XXXXXXX, XXXXXXX,           XXXXXXX, KC_LBRC, KC_RBRC, KC_ASTR, KC_MINS, KC_ENT,
+    KC_LSFT, KC_LCTL, KC_LALT, KC_DEL,  XXXXXXX, XXXXXXX,           XXXXXXX, KX_AT,   KC_LALT, KC_LCTL, KC_LSFT, _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, XXXXXXX, _______,           XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
   /* NC: Numerals / Cursor control
@@ -117,10 +113,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                             '------'-------'-----'                  '-----'------'-------'
   */
   [NC] = LAYOUT(
-    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   xxxxxxx,            xxxxxxx, KC_HOME, KC_UP,   KC_END,  KC_PGUP, xxxxxxx,
-    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   xxxxxxx,            xxxxxxx, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, xxxxxxx,
-    KC_LSFT, KC_LCTL, KC_LALT, KC_DEL,  KC_DOT, xxxxxxx,            xxxxxxx, KC_INS,  KC_LALT, KC_LCTL, KC_LSFT, _______,
-    xxxxxxx, xxxxxxx, xxxxxxx, KC_BSPC, TO(BA), xxxxxxx,            xxxxxxx, _______, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx
+    KC_1,    KC_2,    KC_3,    KC_4,    KC_5,   XXXXXXX,            XXXXXXX, KC_HOME, KC_UP,   KC_END,  KC_PGUP, XXXXXXX,
+    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,   XXXXXXX,            XXXXXXX, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, XXXXXXX,
+    KC_LSFT, KC_LCTL, KC_LALT, KC_DEL,  KC_DOT, XXXXXXX,            XXXXXXX, KC_INS,  KC_LALT, KC_LCTL, KC_LSFT, _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, TO(BA), XXXXXXX,            XXXXXXX, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   ),
 
   /* FV: Function keys / Cursor control (Vim)
@@ -135,10 +131,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            '-----'-------'-----'                    '-----'------'-------'
   */
   [FV] = LAYOUT(
-    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  xxxxxxx,            xxxxxxx, KC_0,    KC_K,    KC_DLR,   LCTL(KC_B), xxxxxxx,
-    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, xxxxxxx,            xxxxxxx, KC_H,    KC_J,    KC_L,     LCTL(KC_F), xxxxxxx,
-    KC_LSFT, KC_LCTL, KC_LALT, KC_F11,  KC_F12, xxxxxxx,            xxxxxxx, xxxxxxx, KC_LALT, KC_LCTL,  KC_LSFT,    _______,
-    xxxxxxx, xxxxxxx, xxxxxxx, KC_BSPC, TO(BA), xxxxxxx,            xxxxxxx, _______, xxxxxxx, xxxxxxx,  xxxxxxx,    xxxxxxx
+    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,  XXXXXXX,            XXXXXXX, KC_0,    KC_K,    KC_DLR,   LCTL(KC_B), XXXXXXX,
+    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10, XXXXXXX,            XXXXXXX, KC_H,    KC_J,    KC_L,     LCTL(KC_F), XXXXXXX,
+    KC_LSFT, KC_LCTL, KC_LALT, KC_F11,  KC_F12, XXXXXXX,            XXXXXXX, XXXXXXX, KC_LALT, KC_LCTL,  KC_LSFT,    _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC, TO(BA), XXXXXXX,            XXXXXXX, _______, XXXXXXX, XXXXXXX,  XXXXXXX,    XXXXXXX
   )
 
 };
