@@ -254,15 +254,13 @@ void oled_render(void) {
   #else
     static uint8_t temp_buffer[OLED_BLOCK_SIZE];
     memset(temp_buffer, 0, sizeof(temp_buffer));
-    // Do this shit programmatically;
-    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start +  0], &temp_buffer[48]);
-    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start +  8], &temp_buffer[32]);
-    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 16], &temp_buffer[16]);
-    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 24], &temp_buffer[ 0]);
-    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 32], &temp_buffer[56]);
-    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 40], &temp_buffer[40]);
-    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 48], &temp_buffer[24]);
-    rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + 56], &temp_buffer[ 8]);
+    uint16_t update_width = display_start[2] - display_start[1];
+    for(uint8_t i = 0; i < OLED_BLOCK_SIZE; i+=8) {
+      uint16_t page = i / update_width;
+      uint16_t block = (i - page * update_width) / 8 + 1;
+      uint16_t source = block * OLED_DISPLAY_HEIGHT - page * 8 - 8;
+      rotate(&oled_buffer[OLED_BLOCK_SIZE * update_start + source], &temp_buffer[i]);
+    }
 
     // Send render data chunk
     if (I2C_SEND_SIZE(I2C_DATA, &temp_buffer[0], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
