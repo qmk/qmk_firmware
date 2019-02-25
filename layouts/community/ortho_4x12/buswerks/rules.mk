@@ -5,5 +5,6 @@ CONSOLE_ENABLE    = no         # Console for debug(+400)
 COMMAND_ENABLE    = no        # Commands for debug and configuration
 TAP_DANCE_ENABLE  = no
 AUDIO_ENABLE      = yes
+SPACE_CADET_ENABLE = yes    # Enable Space Cadet functionality
 
 MACROS_ENABLED    = no

@@ -66,6 +66,7 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
+SPACE_CADET_ENABLE = yes   # Enable Space Cadet functionality
 
 CUSTOM_MATRIX = yes
 SRC += matrix.c

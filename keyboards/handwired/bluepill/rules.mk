@@ -6,5 +6,6 @@ SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = yes 	# Custom matrix file
 MOUSEKEY_ENABLE = no
+SPACE_CADET_ENABLE = yes   # Enable Space Cadet functionality
 
 DEFAULT_FOLDER = handwired/bluepill/bluepill70

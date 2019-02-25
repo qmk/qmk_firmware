@@ -68,6 +68,7 @@ NKRO_ENABLE = yes		# USB Nkey Rollover - not yet supported in LUFA
 # MIDI_ENABLE = YES 		# MIDI controls
 UNICODE_ENABLE = YES 		# Unicode
 # BLUETOOTH_ENABLE = yes # Enable Bluetooth with the Adafruit EZ-Key HID
+SPACE_CADET_ENABLE = yes   # Enable Space Cadet functionality
 LAYOUTS = ortho_4x12
 USB = /dev/ttyACM0
 

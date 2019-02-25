@@ -5,6 +5,7 @@ MIDI_ENABLE       = no
 CONSOLE_ENABLE    = no
 NKRO_ENABLE       = yes
 MOUSEKEY_ENABLE   = no
+SPACE_CADET_ENABLE = yes    # Enable Space Cadet functionality
 
 EXTRAFLAGS        = -flto
 

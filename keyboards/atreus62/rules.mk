@@ -37,7 +37,7 @@ F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = caterina
 
@@ -61,3 +61,4 @@ UNICODE_ENABLE = yes         # Unicode
 
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+SPACE_CADET_ENABLE = yes   # Enable Space Cadet functionality

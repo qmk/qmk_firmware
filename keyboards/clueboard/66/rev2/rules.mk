@@ -20,3 +20,4 @@ RGBLIGHT_ENABLE = yes   # Enable keyboard underlight functionality
 MIDI_ENABLE = no 		    # MIDI controls
 UNICODE_ENABLE = no 		# Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
+SPACE_CADET_ENABLE = yes   # Enable Space Cadet functionality

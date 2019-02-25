@@ -26,7 +26,7 @@ F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = caterina
 
@@ -59,11 +59,12 @@ MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
-RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight. 
+RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 BACKLIGHT_CUSTOM_DRIVER = yes
 BACKLIGHT_ENABLE = yes       # Enable keyboard backlight functionality, also set ISSI_ENABLE below for Miera
 ISSI_ENABLE = yes			# If the I2C pullup resistors aren't install this must be disabled
+SPACE_CADET_ENABLE = yes   # Enable Space Cadet functionality
 
 CUSTOM_MATRIX = yes
 

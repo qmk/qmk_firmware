@@ -61,6 +61,7 @@ UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 API_SYSEX_ENABLE = no
+SPACE_CADET_ENABLE = yes    # Enable Space Cadet functionality
 
 SPLIT_KEYBOARD = yes
 

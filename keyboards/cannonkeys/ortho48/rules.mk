@@ -51,5 +51,6 @@ SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 BACKLIGHT_ENABLE = yes
 RGBLIGHT_ENABLE = yes
+SPACE_CADET_ENABLE = yes   # Enable Space Cadet functionality
 
 LAYOUTS = ortho_4x12

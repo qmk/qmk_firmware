@@ -48,7 +48,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
 # QMK Build Options
-#   change to "no" to disable the options, or define them in the Makefile in 
+#   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE = yes       # Virtual DIP switch configuration(+1000)
@@ -62,7 +62,8 @@ MIDI_ENABLE = no            # MIDI support (+2400 to 4200, depending on config)
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight. 
+RGBLIGHT_ENABLE = yes        # Enable WS2812 RGB underlight.
 SLEEP_LED_ENABLE = no       # Breathing sleep LED during USB suspend
+SPACE_CADET_ENABLE = yes    # Enable Space Cadet functionality
 
 LAYOUTS = ortho_5x15

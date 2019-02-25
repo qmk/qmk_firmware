@@ -79,6 +79,7 @@ BACKLIGHT_ENABLE = yes
 LCD_BACKLIGHT_ENABLE = yes
 MIDI_ENABLE = no
 RGBLIGHT_ENABLE = no
+SPACE_CADET_ENABLE = yes   # Enable Space Cadet functionality
 
 LCD_DRIVER = st7565
 LCD_WIDTH = 128

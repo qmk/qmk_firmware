@@ -67,3 +67,4 @@ NKRO_ENABLE = yes			# USB Nkey Rollover - if this doesn't work, see here: https:
 # UNICODE_ENABLE = YES		# Unicode
 # BLUETOOTH_ENABLE = yes	# Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes          # Enable RGB Underglow
+SPACE_CADET_ENABLE = yes    # Enable Space Cadet functionality

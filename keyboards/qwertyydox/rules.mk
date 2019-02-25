@@ -63,6 +63,7 @@ SUBPROJECT_rev1 = yes
 USE_I2C = yes               # I2C is used between the sides
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
+SPACE_CADET_ENABLE = yes    # Enable Space Cadet functionality
 
 SPLIT_KEYBOARD = yes
 

@@ -91,5 +91,6 @@ LEDMAP_IN_EEPROM_ENABLE = no  # Read LED mapping from eeprom
 SWAP_HANDS_ENABLE       = no  # Disable Onehand
 RGBLIGHT_ENABLE         = no
 MIDI_ENABLE             = no
+SPACE_CADET_ENABLE      = yes   # Enable Space Cadet functionality
 
 LAYOUTS = ergodox

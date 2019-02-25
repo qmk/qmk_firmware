@@ -60,6 +60,7 @@ NKRO_ENABLE = no            # Nkey Rollover - if this doesn't work, see here: ht
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+SPACE_CADET_ENABLE = yes    # Enable Space Cadet functionality
 
 CUSTOM_MATRIX = yes
 
