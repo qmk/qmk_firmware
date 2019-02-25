@@ -53,24 +53,12 @@ enum custom_macros {
   R_POINT
 };
 
-  // Enable these functions using FUNC(n) macro.
-  const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
-      [0] = ACTION_LAYER_TAP_KEY(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Space, 
-      [1] = ACTION_LAYER_TAP_KEY(_RAISE, KC_ENT),    //Hold for momentary Mouse layer, Tap for Enter,
-      [2] = ACTION_LAYER_MOMENTARY(_FUNCTION),       //Hold for momentary Function
-      [3] = ACTION_LAYER_MOMENTARY(_MOUSE)           //Hold for momentary MOUSE
-   };
-#define SPC_LW FUNC(0)
-#define ENT_RS FUNC(1)
-#define FNC FUNC(2)
-#define MSE FUNC(3)
+#define SPC_LW LT(_LOWER, KC_SPC)
+#define ENT_RS LT(_RAISE, KC_ENT)
+#define FNC MO(_FUNCTION)
+#define MSE MO(_MOUSE)
 #define PIPE M(R_PIPE)
 #define POINT M(R_POINT)
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /* Colemak -
