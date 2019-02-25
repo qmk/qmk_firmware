@@ -29,7 +29,7 @@ Shared keymap between two 60% PCB:
 ![Base QWERTY Layer](https://imgur.com/lGcyLJx.png)
 
 - Layer 1 is default QWERTY with no custom features used mostly for gaming
-    - Enabled by `Fn2+D` from base layer
+    - Enabled by `Fn2+CAPS` from base layer
 
 ![Default ANSI Layer](https://imgur.com/M7T9PNT.png)
 
@@ -44,9 +44,9 @@ Shared keymap between two 60% PCB:
 ![Function Layer](https://imgur.com/YPl0JrU.png)
 
 - Layer 3 is RGB Underglow control and RESET
-    - `Fn2+D` used to toggle Default QWERTY layer on and off
+    - `Fn2+CAPS` used to toggle Default QWERTY layer on and off
 
-![RGB and RESET Layer](https://imgur.com/V8dREw8.png)
+![RGB and RESET Layer](https://imgur.com/PyB8z7k.png)
 
 ### Build
 To build the firmware file associated with this keymap, simply run `make your_keyboard:stanrc85-ansi`.
