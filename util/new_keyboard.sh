@@ -67,9 +67,8 @@ set_sed_i() {
 # Replace a token with a value in the given list of files.
 replace_placeholders() {
     local replace_token="$1"
-    shift
-    local replace_value="$1"
-    shift
+    local replace_value="$2"
+    shift 2
     local replace_filenames=("$@")
 
     echo -n "Replacing $replace_token with $replace_value..."
