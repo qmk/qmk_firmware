@@ -330,4 +330,7 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
 
-SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
+ifeq ($(strip $(SPACE_CADET_ENABLE)), yes)
+  SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
+  OPT_DEFS += -DSPACE_CADET_ENABLE
+endif

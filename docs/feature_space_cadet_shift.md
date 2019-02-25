@@ -4,6 +4,13 @@ Steve Losh described the [Space Cadet Shift](http://stevelosh.com/blog/2012/10/a
 
 ## Usage
 
+Firstly, enable Space Cadet in your keymap's Makefile.
+
+```make
+SPACE_CADET_ENABLE = yes
+```
+
+Then do one of the following:
 Replace the Left Shift key in your keymap with `KC_LSPO` (Left Shift, Parenthesis Open), and Right Shift with `KC_RSPC` (Right Shift, Parenthesis Close).
 Replace the Left Control key in your keymap with `KC_LCPO` (Left Control, Parenthesis Open), and Right Control with `KC_RCPC` (Right Control, Parenthesis Close).
 Replace the Left Alt key in your keymap with `KC_LAPO` (Left Alt, Parenthesis Open), and Right Alt with `KC_RAPC` (Right Alt, Parenthesis Close).
@@ -30,7 +37,7 @@ COMMAND_ENABLE = no
 ## Configuration
 
 By default Space Cadet assumes a US ANSI layout, but if your layout uses different keys for parentheses, you can redefine them in your `config.h`.
-You can also disable the rollover, allowing you to use the opposite Shift key to cancel the Space Cadet state in the event of an erroneous press, instead of emitting a pair of parentheses when the keys are released.
+You can also disable the rollover, allowing you to use the opposite modifer key to cancel the Space Cadet state in the event of an erroneous press, instead of emitting a pair of parentheses when the keys are released.
 Also, by default, the Space Cadet applies modifiers LSPO_MOD and RSPC_MOD to keys defined by LSPO_KEY and RSPC_KEY. You can override this behavior by redefining those variables in your `config.h`. You can also prevent the Space Cadet to apply a modifier by defining DISABLE_SPACE_CADET_MODIFIER in your `config.h`.
 
 |Define                        |Default      |Description                                                                     |

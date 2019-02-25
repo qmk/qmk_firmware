@@ -283,7 +283,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
   #endif
+  #ifdef SPACE_CADET_ENABLE
     process_space_cadet(keycode, record) &&
+  #endif
       true)) {
     return false;
   }
