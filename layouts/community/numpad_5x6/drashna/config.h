@@ -1,9 +1,9 @@
 #pragma once
 
-#define B6_AUDIO
+// #define B6_AUDIO
 
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
-#define RGB_DI_PIN B1
+#define RGB_DI_PIN B7
 #define RGBLED_NUM 16     // Number of LEDs
 
 #define RGBLIGHT_HUE_STEP 12
