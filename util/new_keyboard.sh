@@ -135,7 +135,7 @@ done
 keyboard_dir="keyboards/$keyboard_name"
 
 if [ -d "$keyboard_dir" ]; then
-    echo_error "$keyboard_dir already exists!"
+    echo_error "Keyboard $keyboard_name already exists!"
     exit 1
 fi
 
@@ -163,5 +163,5 @@ replace_keyboard_placeholders
 echo
 echo_bold "Created a new keyboard called $keyboard_name."
 echo
-echo_bold "To start working on things, cd into keyboards/$keyboard_name, "
+echo_bold "To start working on things, cd into keyboards/$keyboard_name,"
 echo_bold "or open the directory in your favourite text editor."
