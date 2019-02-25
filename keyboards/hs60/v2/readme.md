@@ -34,4 +34,4 @@ See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools)
 - Unplug
 - Hold Escape
 - Plug In
-- Flash using QMK Toolbox or dfu-util (`make hs60/v2:default:dfu-util`)
+- Flash using QMK Toolbox or dfu-util (`make hs60/v2:<keymap>:dfu-util`)
