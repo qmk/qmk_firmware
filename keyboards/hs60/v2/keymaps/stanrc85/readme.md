@@ -39,10 +39,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.-->
 
 ![Function Layer](https://imgur.com/YPl0JrU.png)
 
-- Layer 3 is RGB Underglow, backlight control, and RESET
+- Layer 3 is Backlight control and RESET
     - `Fn2+CAPS` used to toggle Default QWERTY layer on and off
 
-![RGB and RESET Layer](https://imgur.com/V8dREw8.png)
+![RGB and RESET Layer](https://imgur.com/1ScpRE4.png)
 
 ### Build
-To build the firmware file associated with this keymap, simply run `make your_keyboard:stanrc85-ansi`.
+To build the firmware file associated with this keymap, simply run `make your_keyboard:stanrc85`.
