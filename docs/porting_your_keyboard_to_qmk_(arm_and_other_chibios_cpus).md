@@ -1,7 +1,7 @@
 Setting up your ARM based PCB is a little more involved than an Atmel MCU, but is easy enough. Start by running `util/new_keyboard.sh`:
 
 ```
-$ util/new_keyboard.sh
+$ ./util/new_keyboard.sh
 Generating a new QMK keyboard directory
 
 Keyboard Name: mycoolkb
