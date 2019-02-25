@@ -36,3 +36,8 @@
 
 // Most tactile encoders have detents every 4 stages
 #define ENCODER_RESOLUTION 4
+
+
+// setup double tapping to lock layers
+#define TAPPING_TERM 175
+#define TAPPING_TOGGLE 2
