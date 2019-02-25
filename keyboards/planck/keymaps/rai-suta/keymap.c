@@ -6,9 +6,6 @@
 
 #include "sendstring_jis.h"
 
-// Keycode defines
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 // JIS keyboard
 #define JK_CIRC KC_EQL      // ^
 #define JK_AT   KC_LBRC     // @
