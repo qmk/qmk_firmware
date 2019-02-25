@@ -285,7 +285,6 @@ void bootmagic_lite(void)
 
 
 void matrix_init_kb(void) {
-    bootmagic_lite();
     matrix_init_user();
 }
 
