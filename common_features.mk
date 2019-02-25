@@ -329,3 +329,5 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
+
+SRC += $(QUANTUM_DIR)/process_keycode/process_space_cadet.c
