@@ -48,7 +48,7 @@ bool transport_master(matrix_row_t matrix[]) {
   static uint32_t prev_rgb = ~0;
   uint32_t        rgb      = eeconfig_read_rgblight();
   if (rgb != prev_rgb) {
-    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIT_START, (void *)&rgb, sizeof(rgb), TIMEOUT);
+    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_START, (void *)&rgb, sizeof(rgb), TIMEOUT);
     prev_rgb = rgb;
   }
 #  endif
