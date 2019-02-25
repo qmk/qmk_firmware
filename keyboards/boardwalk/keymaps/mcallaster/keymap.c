@@ -1,10 +1,12 @@
-#include "boardwalk.h"
+#include QMK_KEYBOARD_H
 
 // Layer shorthand
-#define _BASE  0
-#define _LOWER 1
-#define _RAISE 2
-#define _FN    3
+enum layer {
+  _BASE,
+  _LOWER,
+  _RAISE,
+  _FN
+};
 
 #define LOWER MO(1)
 #define RAISE MO(2)
