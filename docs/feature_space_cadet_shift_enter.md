@@ -4,7 +4,7 @@ Based on the [Space Cadet Shift](feature_space_cadet_shift.md) feature. Tap the 
 
 ## Usage
 
-Firstly, enable Space Cadet in your keymap's Makefile.
+Firstly, enable Space Cadet in your keymap's `rules.mk`.
 
 ```make
 SPACE_CADET_ENABLE = yes

@@ -4,7 +4,7 @@ Steve Losh described the [Space Cadet Shift](http://stevelosh.com/blog/2012/10/a
 
 ## Usage
 
-Firstly, enable Space Cadet in your keymap's Makefile.
+Firstly, enable Space Cadet in your keymap's `rules.mk`.
 
 ```make
 SPACE_CADET_ENABLE = yes
@@ -37,7 +37,7 @@ COMMAND_ENABLE = no
 ## Configuration
 
 By default Space Cadet assumes a US ANSI layout, but if your layout uses different keys for parentheses, you can redefine them in your `config.h`.
-You can also disable the rollover, allowing you to use the opposite modifer key to cancel the Space Cadet state in the event of an erroneous press, instead of emitting a pair of parentheses when the keys are released.
+You can also disable the rollover, allowing you to use the opposite modifier key to cancel the Space Cadet state in the event of an erroneous press, instead of emitting a pair of parentheses when the keys are released.
 Also, by default, the Space Cadet applies modifiers LSPO_MOD and RSPC_MOD to keys defined by LSPO_KEY and RSPC_KEY. You can override this behavior by redefining those variables in your `config.h`. You can also prevent the Space Cadet to apply a modifier by defining DISABLE_SPACE_CADET_MODIFIER in your `config.h`.
 
 |Define                        |Default      |Description                                                                     |
@@ -54,5 +54,5 @@ Also, by default, the Space Cadet applies modifiers LSPO_MOD and RSPC_MOD to key
 |`RAPC_KEY`                    |`KC_0`       |The keycode to send when Right Alt is tapped                                    |
 |`LAPO_MOD`                    |`KC_LALT`    |The modifier to apply to `LAPO_KEY`                                             |
 |`RAPC_MOD`                    |`KC_RALT`    |The modifier to apply to `RAPC_KEY`                                             |
-|`DISABLE_SPACE_CADET_ROLLOVER`|*Not defined*|If defined, use the opposite modifer key to cancel Space Cadet                  |
+|`DISABLE_SPACE_CADET_ROLLOVER`|*Not defined*|If defined, use the opposite modifier key to cancel Space Cadet                 |
 |`DISABLE_SPACE_CADET_MODIFIER`|*Not defined*|If defined, prevent the Space Cadet from applying a modifier                    |
