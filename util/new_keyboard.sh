@@ -18,10 +18,10 @@ prompt() {
     local message="$1"
     local default="$2"
 
-    [ ! -z "$default" ] && message+=" [$default]"
+    [ -n "$default" ] && message+=" [$default]"
     message+=": "
 
-    read -p "$message" prompt_return
+    read -rp "$message" prompt_return
     [ -z "$prompt_return" ] && prompt_return="$default"
 }
 
@@ -29,7 +29,7 @@ prompt() {
 set_git_username() {
     local git_bin=$(which git)
 
-    if [ ! -z "$git_bin" ]; then
+    if [ -n "$git_bin" ]; then
         local is_git_repo=$($git_bin log >>/dev/null 2>&1; echo $?)
 
         if [ $is_git_repo -eq 0 ]; then
@@ -157,7 +157,7 @@ echo
 copy_templates
 set_sed_i
 replace_keyboard_placeholders
-[ ! -z "$username" ] && replace_name_placeholders
+[ -n "$username" ] && replace_name_placeholders
 
 echo
 echo_bold "Created a new keyboard called $keyboard_name."
