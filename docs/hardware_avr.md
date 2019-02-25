@@ -24,7 +24,7 @@ Replacing REPLACE_WITH_YOUR_NAME with John Smith... done
 
 Created a new keyboard called mycoolkb.
 
-To start working on things, cd into keyboards/mycoolkb, 
+To start working on things, cd into keyboards/mycoolkb,
 or open the directory in your favourite text editor.
 ```
 
