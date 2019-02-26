@@ -18,7 +18,6 @@
 #include "xtonhasvim.h"
 #include "fancylighting.h"
 
-#define _______ KC_TRNS
 #define X_____X KC_NO
 
 enum layers {
