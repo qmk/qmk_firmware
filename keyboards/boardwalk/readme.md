@@ -7,7 +7,7 @@ decided to switch to 1.5u keys so that Ergodox sets would provide excellent comp
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: Boardwalk Ortholinear PCB  
-Hardware Availability: [boardwalk-group-buy](https://www.panc.co/boardwalk-group-buy.html)
+Hardware Availability: [panc.co](https://www.panc.co/boardwalk-group-buy.html)
 
 Make example for this keyboard (after setting up your build environment):
 
