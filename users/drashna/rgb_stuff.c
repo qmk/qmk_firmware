@@ -4,6 +4,7 @@
 
 #if defined(RGBLIGHT_ENABLE)
 extern rgblight_config_t rgblight_config;
+bool has_initialized;
 #elif defined(RGB_MATRIX_ENABLE)
 extern rgb_config_t rgb_matrix_config;
 #endif
@@ -81,7 +82,9 @@ void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
 }
 
 void matrix_scan_indicator(void) {
-  set_rgb_indicators(get_mods(), host_keyboard_leds(), get_oneshot_mods());
+  if (has_initialized) {
+    set_rgb_indicators(get_mods(), host_keyboard_leds(), get_oneshot_mods());
+  }
 }
 #endif //INDICATOR_LIGHTS
 
@@ -244,23 +247,14 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
 
 void keyboard_post_init_rgb(void) {
-
-#ifdef RGBLIGHT_ENABLE
-  if (userspace_config.rgb_layer_change) {
-    rgblight_enable_noeeprom();
-    switch (biton32(eeconfig_read_default_layer())) {
-      case _COLEMAK:
-        rgblight_sethsv_noeeprom_magenta(); break;
-      case _DVORAK:
-        rgblight_sethsv_noeeprom_springgreen(); break;
-      case _WORKMAN:
-        rgblight_sethsv_noeeprom_goldenrod(); break;
-      default:
-        rgblight_sethsv_noeeprom_cyan(); break;
-    }
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-  }
-#endif
+	rgblight_enable_noeeprom();
+	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+	for (uint16_t i = 360; i > 0; i--) {
+		rgblight_sethsv_noeeprom(i, 255, 255);
+    wait_ms(10);
+	}
+	layer_state_set_user(layer_state);
+  has_initialized = true;
 }
 
 void matrix_scan_rgb(void) {
