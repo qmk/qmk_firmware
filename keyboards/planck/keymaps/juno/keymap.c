@@ -234,6 +234,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint32_t layer_state_set_user(uint32_t state) {
 
   // LED control, lighting up when Fn layer is activated
+  
+  state = update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  
   switch (biton32(state)) {
     case _QWERTY:
       backlight_set(0);
@@ -246,7 +249,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       break;
   }
 
-  return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+  return state;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
