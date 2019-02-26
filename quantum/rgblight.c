@@ -52,7 +52,7 @@ static inline int is_static_effect(uint8_t mode) {
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
 #ifdef RGBLIGHT_LED_MAP
-uint8_t led_map[] = RGBLIGHT_LED_MAP;
+const uint8_t led_map[] PROGMEM = RGBLIGHT_LED_MAP;
 #endif
 
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
@@ -670,7 +670,7 @@ void rgblight_set(void) {
     #ifdef RGBLIGHT_LED_MAP
       LED_TYPE led0[RGBLED_NUM];
       for(uint8_t i = 0; i < RGBLED_NUM; i++) {
-          led0[i] = led[led_map[i]];
+          led0[i] = led[pgm_read_byte(&led_map[i])];
       }
       ledp = led0;
     #else
