@@ -22,8 +22,6 @@ extern keymap_config_t keymap_config;
 #define _GAME 1
 #define _RAISE 2
 
-#define _______ KC_TRNS
-
 #define SHIFT_MOD   MOD_BIT(KC_LSFT)
 #define SPACE_RAISE LT(_RAISE, KC_SPC)
 #define ENT_RAISE   LT(_RAISE, KC_ENT)

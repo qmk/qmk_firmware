@@ -33,8 +33,8 @@ The following defines can be used to configure the I2C master driver.
 
 |Variable          |Description                                        |Default|
 |------------------|---------------------------------------------------|-------|
-|`#F_SCL`          |Clock frequency in Hz                              |400KHz |
-|`#Prescaler`      |Divides master clock to aid in I2C clock selection |1      |
+|`F_SCL`           |Clock frequency in Hz                              |400KHz |
+|`Prescaler`       |Divides master clock to aid in I2C clock selection |1      |
 
 AVRs usually have set GPIO which turn into I2C pins, therefore no further configuration is required.
 
@@ -63,20 +63,24 @@ Lastly, we need to assign the correct GPIO pins depending on the I2C hardware dr
 
 By default the I2C1 hardware driver is assumed to be used. If another hardware driver is used,  `#define I2C_DRIVER I2CDX` should be added to the `config.h` file with X being the number of hardware driver used. For example is I2C3 is enabled, the `config.h` file should contain `#define I2C_DRIVER I2CD3`. This aligns the QMK I2C driver with the Chibios I2C driver.
 
-STM32 MCUs allows a variety of pins to be configured as I2C pins depending on the hardware driver used. By default B6 and B7 are set to I2C.
+STM32 MCUs allows a variety of pins to be configured as I2C pins depending on the hardware driver used. By default B6 and B7 are set to I2C. You can use these defines to set your i2c pins:
 
-This can be changed by declaring the `i2c_init` function which intentionally has a weak attribute. Please consult the datasheet of your MCU for the available GPIO configurations. The following is an example initialization function:
+| Variable    | Description                                  | Default |
+|-------------|----------------------------------------------|---------|
+| `I2C1_BANK` | The bank of pins (`GPIOA`, `GPIOB`, `GPIOC`) | `GPIOB` |
+| `I2C1_SCL`  | The pin number for the SCL pin (0-9)         | `6`     |
+| `I2C1_SDA`  | The pin number for the SDA pin (0-9)         | `7`     |
+
+You can also overload the `void i2c_init(void)` function, which has a weak attribute. If you do this the configuration variables above will not be used. Please consult the datasheet of your MCU for the available GPIO configurations. The following is an example initialization function:
 
 ```C
 void i2c_init(void)
 {
   setPinInput(B6); // Try releasing special pins for a short time
   setPinInput(B7);
-  chThdSleepMilliseconds(10); // Wait for the release to happen
+  wait_ms(10); // Wait for the release to happen
 
   palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP); // Set B6 to I2C function
   palSetPadMode(GPIOB, 7, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP); // Set B7 to I2C function
 }
 ```
-
-

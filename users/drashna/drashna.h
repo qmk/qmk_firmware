@@ -36,7 +36,11 @@ enum userspace_layers {
   _COLEMAK,
   _DVORAK,
   _WORKMAN,
-  _MODS,
+  _NORMAN,
+  _MALTRON,
+  _EUCALYN,
+  _CARPLAX,
+  _MODS, /* layer 8 */
   _GAMEPAD,
   _DIABLO,
   _MACROS,
@@ -76,6 +80,7 @@ typedef union {
     bool     is_overwatch     :1;
     bool     nuke_switch      :1;
     uint8_t  unicode_mod      :4;
+    bool     swapped_numbers  :1;
   };
 } userspace_config_t;
 
