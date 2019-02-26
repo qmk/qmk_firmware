@@ -6,8 +6,8 @@ extern keymap_config_t keymap_config;
 #define BASE 0 // Base layer
 #define SYMB 1 // Symbols
 #define SYSH 2 // Symbols, shifted
-#define NUMP 4 // Numpad
-#define FCTN 8 // Functions
+#define NUMP 3 // Numpad
+#define FCTN 4 // Functions
 
 // Tap Dancing
 void dance_lock (qk_tap_dance_state_t *state, void *user_data) {
@@ -138,8 +138,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // Initialize rgblight
 void keyboard_post_init_user(void) {
 	rgblight_enable_noeeprom();
-	for (int i = 360; i > 0; i--) {
-		rgblight_sethsv_noeeprom(i, 255, 255);
+	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
+	layer_state_set_user(layer_state);
+	uint16_t user_hue = rgblight_get_hue();
+	for (uint16_t i = 0; i < 360; ++i) {
+		rgblight_sethsv_noeeprom( (i + user_hue) % 360, 255, 255);
+		wait_ms(4);
 	}
 	layer_state_set_user(layer_state);
 };
