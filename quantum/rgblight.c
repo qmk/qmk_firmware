@@ -158,6 +158,25 @@ void rgblight_check_config(void) {
 /*  Overwrite with individual code of keyboard. */
 __attribute__ ((weak))
 void rgblight_update_hook(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom) {
+    static rgblight_config_t config_old = {};
+    rgblight_status_t status_old = {};
+
+    if( config != NULL ) {
+        if( config_old.enable != config->enable || config_old.mode != config->mode ) {
+            rgblight_status.change_mode = 1;
+        }
+        if( config_old.hue != config->hue || config_old.sat != config->sat ||
+            config_old.val != config->val || config_old.speed != config->speed ) {
+            rgblight_status.change_hsvs = 1;
+        }
+        config_old = *config;
+    }
+    if( status != NULL ) {
+        if( status_old.timer_enabled != status->timer_enabled ) {
+            rgblight_status.change_mode = 1;
+        }
+        status_old.timer_enabled = status->timer_enabled;
+    }
 }
 
 /* for split keyboard slave side */
@@ -510,13 +529,13 @@ void rgblight_decrease_val(void) {
 }
 void rgblight_increase_speed(void) {
     rgblight_config.speed = increment( rgblight_config.speed, 1, 0, 3 );
-    rgblight_update_hook(NULL, &rgblight_status, false);
+    rgblight_update_hook(&rgblight_config, NULL, true);
     eeconfig_update_rgblight(rgblight_config.raw);//EECONFIG needs to be increased to support this
 }
 
 void rgblight_decrease_speed(void) {
     rgblight_config.speed = decrement( rgblight_config.speed, 1, 0, 3 );
-    rgblight_update_hook(NULL, &rgblight_status, false);
+    rgblight_update_hook(&rgblight_config, NULL, true);
     eeconfig_update_rgblight(rgblight_config.raw);//EECONFIG needs to be increased to support this
 }
 
