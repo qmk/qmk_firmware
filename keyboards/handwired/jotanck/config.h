@@ -22,7 +22,7 @@
 /* leds */
 #define QMK_LED E6
 #define BACKLIGHT_LEVELS 3
-#define BACKLIGHT_PIN B7
+#define BACKLIGHT_PIN D7
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
