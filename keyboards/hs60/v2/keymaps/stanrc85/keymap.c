@@ -64,12 +64,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		_______, _______, _______,                   _______,                   _______, _______, _______, _______),
 
 	[3] = LAYOUT_60_ansi(
-		_______, RGB_TOG, RGB_MOD, RGB_VAD, RGB_VAI, RGB_SAI, RGB_HUD, RGB_HUI, _______, _______, _______, _______, _______, _______,
-		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,
-		_______, _______, _______, TG(1),   _______, _______, _______, _______, _______, _______, _______, _______, _______,
+		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+		_______, EF_INC,  ES_INC,  S1_INC,  H1_INC,  S2_INC,  H2_INC,  BR_INC,  _______, _______, _______, _______, _______, RESET,
+		TG(1),   EF_DEC,  ES_DEC,  S1_DEC,  H1_DEC,  S2_DEC,  H2_DEC,  BR_DEC,  _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______,                   _______,                   _______, _______, _______, _______)
 };
+
+// Backlight specific keys:
+//  EF_INC, EF_DEC,   // next/previous backlight effect
+//  H1_INC, H1_DEC,   // Color 1 hue increase/decrease
+//  S1_INC, S1_DEC,   // Color 1 saturation increase/decrease
+//  H2_INC, H2_DEC,   // Color 2 hue increase/decrease
+//  S2_INC, S2_DEC,   // Color 2 saturation increase/decrease
+//  BR_INC, BR_DEC,   // backlight brightness increase/decrease
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
