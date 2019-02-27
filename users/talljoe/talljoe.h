@@ -32,7 +32,6 @@ enum layers {
 enum tap_dancers {
   TD_SEMICOLON,
   TD_GRAVE,
-  TD_QUOTE,
 };
 
 #define MO_NAV    MO(_NAV)
@@ -66,19 +65,18 @@ enum tap_dancers {
 #define US_BSLS   LCA_T(KC_BSLS)
 #define US_SCLN   TD(TD_SEMICOLON)
 #define US_GRV    TD(TD_GRAVE)
-#define US_QUOT   TD(TD_QUOTE)
 #define US_TAB    C_S_T(KC_TAB)
 #define SH_LBRC   LSFT_T(KC_LBRC)
 #define SH_RBRC   RSFT_T(KC_RBRC)
 
 #define MLT_E     LT(_NUM, KC_E)
 
-#define KC_SPC1   LT(_NAV,KC_SPC)
-#ifdef SWAP_HANDS_ENABLE
-  #define KC_SPC2 SH_T(KC_BSPC)
-#else
-  #define KC_SPC2 KC_BSPC
+#ifndef SWAP_HANDS_ENABLE
+#define SH_T
 #endif
+
+#define KC_SPC1   LT(_NAV,KC_SPC)
+#define KC_SPC2   SH_T(KC_BSPC)
 #define KC_SPC3   LT(_NUM,KC_ENT)
 
 #define NV_SPC1   KC_SPC

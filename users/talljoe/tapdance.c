@@ -13,7 +13,6 @@ enum {
 };
 
 static struct {
-  int quote;
   int semicolon;
 } tap_state = {0};
 
@@ -120,27 +119,7 @@ void tap_dance_grave_each(qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-
-void tap_dance_quote_finished(qk_tap_dance_state_t *state, void *user_data) {
-  tap_state.quote = hold_cur_dance(state);
-  switch (tap_state.quote) {
-    case SINGLE_TAP: case DOUBLE_HOLD: register_code(KC_QUOT); break;
-    case SINGLE_HOLD: layer_on(_NAV); break;
-  }
-}
-
-void tap_dance_quote_reset(qk_tap_dance_state_t *state, void *user_data) {
-  switch (tap_state.quote) {
-    case SINGLE_TAP: case DOUBLE_HOLD: unregister_code(KC_QUOTE); break;
-    case DOUBLE_TAP: SEND_STRING("\""); break;
-    case TRIPLE_TAP: layer_invert(_NAV); break;
-    case SINGLE_HOLD: layer_off(_NAV); break;
-  }
-  tap_state.quote = 0;
-}
-
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_SEMICOLON] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_semicolon_finished, tap_dance_semicolon_reset),
   [TD_GRAVE]     = ACTION_TAP_DANCE_FN_ADVANCED(tap_dance_grave_each, tap_dance_grave_finished, NULL),
-  [TD_QUOTE]     = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_quote_finished, tap_dance_quote_reset),
 };

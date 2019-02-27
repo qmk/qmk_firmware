@@ -42,8 +42,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_MALTROFF] = TEMPLATE(
       _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
       _______, KC_Q,    KC_P,    KC_Y,    KC_G,    KC_B   , KC_J,    KC_M,    KC_U,    KC_K,    KC_L,    _______, _______, _______,
-      _______, KC_A,    KC_N,    KC_I,    KC_S,    KC_F   , KC_D,    KC_T,    KC_H,    KC_O,    KC_R   , US_ENT ,          KC_BSPC,
-      _______, KC_Z,    KC_X,    KC_C,    KC_V,    US_QUOT, KC_SCLN, KC_W,    KC_COMM, KC_DOT,  KC_SLSH,          _______, _______,
+      _______, KC_A,    KC_N,    KC_I,    KC_S,    KC_F   , KC_D,    KC_T,    KC_H,    KC_O,    KC_R   , KC_QUOT,          KC_BSPC,
+      _______, KC_Z,    KC_X,    KC_C,    KC_V,    KC_SCLN, US_ENT , KC_W,    KC_COMM, KC_DOT,  KC_SLSH,          _______, _______,
       _______, _______, _______,                   MLT_E  , _______, _______,                   _______, _______, _______, _______),
 #endif
 #ifdef ENABLE_GAME_LAYER
@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_NAV] = TEMPLATE_NAV(
       KC_GRV , KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 , XXXXXXX, XXXXXXX,
       US_TAB , KC_EXLM, KC_AT  , KC_HASH, KC_DLR , KC_PERC, KC_INS , KC_PGUP, KC_UP  , KC_PGDN, KC_BTN1, KC_BTN3, KC_BTN2, KC_DEL ,
-      CTL_ESC, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AMPR, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END , US_QUOT,          TG_ADJ ,
+      CTL_ESC, KC_LCBR, KC_RCBR, KC_LPRN, KC_RPRN, KC_AMPR, KC_HOME, KC_LEFT, KC_DOWN, KC_RGHT, KC_END , KC_QUOT,          TG_ADJ ,
       KC_LSFT, KC_EQL,  KC_PLUS, KC_MINS, KC_UNDS, KC_ASTR, KC_CALC, US_GRV , KC_WBAK, KC_WFWD, KC_WREF,          KC_RSFT, KC_APP ,
       KC_LCTL, KC_LGUI, KC_LALT,                   NV_SPC2, NV_SPC3, NV_SPC1,                   KC_RALT, KC_RGUI, KC_RCTL, KC_PTT ),
   [_NUM] = TEMPLATE_NUM(
@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       MO_RST , FX(1)  , FX(2)  , FX(3)  , FX(4)  , FX(5)  , FX(6)  , FX(7)  , FX(8) ,  FX(9) ,  FX(10) , BR_DEC , BR_INC , XXXXXXX, MO_RST ,
       MO_RST , H1_INC , S1_INC , H2_INC , S2_INC , EF_INC , RGB_HUI, RGB_SAI, RGB_MOD, RGB_M_P, DFAULTS, RGB_VAD, RGB_VAI, MO_RST ,
       XXXXXXX, H1_DEC , S1_DEC , H2_DEC , S2_DEC , EF_DEC , RGB_HUD, RGB_SAD, RGB_RMOD,RGB_M_K, RGB_M_B, RGB_M_G,          TG_ADJ ,
-      TG_NKRO, LY_QWER, LY_WORK, LY_NRMN, LY_DVRK, LY_CLMK, XXXXXXX, LY_MALT, XXXXXXX, XXXXXXX, KC_MAKE,          KC_CAPS, XXXXXXX,
+      TG_NKRO, LY_QWER, LY_WORK, LY_CLMK, LY_DVRK, XXXXXXX, LY_NRMN, LY_MALT, XXXXXXX, XXXXXXX, KC_MAKE,          KC_CAPS, XXXXXXX,
       MO_RST , AG_SWAP, AG_NORM,                   XXXXXXX, BL_TOGG, XXXXXXX,                   RGB_TOG, XXXXXXX, XXXXXXX, TG_GAME),
   // To Reset hit FN + ` + Esc
   [_RESET] = TEMPLATE_RESET,
