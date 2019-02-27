@@ -70,8 +70,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // i2c defines
 #define I2C_CMD 0x00
 #define I2C_DATA 0x40
-#define I2C_TIMEOUT 100
-#define I2C_SEND_P(mode, data) i2c_writeReg_P((SSD1306_ADDRESS << 1), mode, &data[0], sizeof(data), I2C_TIMEOUT)
+#if defined(__AVR__)
+  // already defined on ARM
+  #define I2C_TIMEOUT 100
+#endif
+#if defined(__AVR__)
+  #define I2C_SEND_P(mode, data) i2c_writeReg_P((SSD1306_ADDRESS << 1), mode, &data[0], sizeof(data), I2C_TIMEOUT)
+#else
+  #define I2C_SEND_P(mode, data) i2c_writeReg((SSD1306_ADDRESS << 1), mode, &data[0], sizeof(data), I2C_TIMEOUT)
+#endif
 #define I2C_SEND(mode, data) i2c_writeReg((SSD1306_ADDRESS << 1), mode, &data[0], sizeof(data), I2C_TIMEOUT)
 #define I2C_SEND_SIZE(mode, data, size) i2c_writeReg((SSD1306_ADDRESS << 1), mode, data, size, I2C_TIMEOUT)
 
@@ -98,25 +105,25 @@ uint16_t         oled_last_activity;
 
 // Internal variables to reduce math instructions
 
+#if defined(__AVR__)
 // identical to i2c_writeReg, but for PROGMEM since all initialization is in PROGMEM arrays currently
 // probably should move this into i2c_master...
 static i2c_status_t i2c_writeReg_P(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
   i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
-  if (status) return status;
+  if (status >= 0) {
+    status = i2c_write(regaddr, timeout);
 
-  status = i2c_write(regaddr, timeout);
-  if (status) return status;
-
-  for (uint16_t i = 0; i < length; i++) {
-    status = i2c_write(pgm_read_byte((const char*)data++), timeout);
-    if (status) return status;
+    for (uint16_t i = 0; i < length && status >= 0; i++) {
+      status = i2c_write(pgm_read_byte((const char*)data++), timeout);
+      if (status) break;
+    }
   }
 
-  status = i2c_stop(timeout);
-  if (status) return status;
+  i2c_stop();
 
-  return I2C_STATUS_SUCCESS;
+  return status;
 }
+#endif
 
 // Flips the rendering bits for a character at the current cursor position
 static void InvertCharacter(uint8_t *cursor)

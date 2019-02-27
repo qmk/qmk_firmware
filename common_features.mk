@@ -329,3 +329,10 @@ ifeq ($(strip $(SPLIT_KEYBOARD)), yes)
     endif
     COMMON_VPATH += $(QUANTUM_PATH)/split_common
 endif
+
+ifeq ($(strip $(OLED_ENABLE)), yes)
+    OPT_DEFS += -DOLED_ENABLE
+    COMMON_VPATH += $(DRIVER_PATH)/oled
+    SRC += i2c_master.c
+    SRC += $(DRIVER_PATH)/oled/ssd1306.c
+endif
