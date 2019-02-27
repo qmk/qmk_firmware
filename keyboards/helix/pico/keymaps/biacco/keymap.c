@@ -7,7 +7,7 @@
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   #include "ssd1306.h"
 #endif
 

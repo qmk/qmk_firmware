@@ -1,7 +1,7 @@
 #include QMK_KEYBOARD_H
 #include "split_util.h"
 #include "keymap_xrows.h"
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   #include "oled.h"
 #endif
 
@@ -22,9 +22,9 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 void matrix_init_keymap(void) {
-  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
+  //SSD1306 OLED init
   oled_init(!has_usb());   // turns on the display
 }
 

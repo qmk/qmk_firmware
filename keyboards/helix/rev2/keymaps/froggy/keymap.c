@@ -7,7 +7,7 @@
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   #include "ssd1306.h"
 #endif
 
@@ -449,8 +449,8 @@ void matrix_init_user(void) {
     #ifdef RGBLIGHT_ENABLE
       RGB_current_mode = rgblight_config.mode;
     #endif
-    //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-    #ifdef SSD1306OLED
+    //SSD1306 OLED init
+    #ifdef OLED_ENABLE
         oled_init(!has_usb());   // turns on the display
     #endif
 }
@@ -554,7 +554,7 @@ uint8_t layer_state_old;
 
 //runs every scan cycle (a lot)
 void matrix_scan_user(void) {
-  #ifdef SSD1306OLED
+  #ifdef OLED_ENABLE
     oled_task();  // this is what updates the display continuously
   #endif
 
@@ -628,8 +628,8 @@ void matrix_scan_user(void) {
   #endif
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+//SSD1306 OLED update loop
+#ifdef OLED_ENABLE
 
 // Render to OLED
 void render_status(void) {

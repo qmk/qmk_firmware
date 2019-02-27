@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "LUFA/Drivers/Peripheral/TWI.h"
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   #include "ssd1306.h"
 #endif
 
@@ -289,8 +289,8 @@ void matrix_init_user(void) {
     RGB_current_mode = rgblight_config.mode;
 }
 
-//SSD1306 OLED init and update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+//SSD1306 OLED init and update loop
+#ifdef OLED_ENABLE
 void matrix_master_OLED_init (void) {
     TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
     oled_init(false);   // turns on the display

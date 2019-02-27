@@ -4,7 +4,7 @@
   #include "lufa.h"
   #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   #include "ssd1306.h"
 #endif
 #include "oled_helper.h"
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #define L_ADJUST (1<<_ADJUST)
 #define L_ADJUST_TRI (L_ADJUST|L_RAISE|L_LOWER)
 
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 typedef struct {
   uint8_t state;
   char name[8];
@@ -241,14 +241,14 @@ void matrix_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
     RGB_current_mode = rgblight_config.mode;
   #endif
-  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-  #ifdef SSD1306OLED
+  //SSD1306 OLED init
+  #ifdef OLED_ENABLE
     oled_init(!has_usb()); // turns on the display
   #endif
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+//SSD1306 OLED update loop
+#ifdef OLED_ENABLE
 
 void matrix_scan_user(void) {
   oled_task();  // this is what updates the display continuously

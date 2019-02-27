@@ -3,7 +3,7 @@
 #include "lufa.h"
 #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   #include "ssd1306.h"
 #endif
 
@@ -178,15 +178,15 @@ void matrix_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
   RGB_current_mode = rgblight_config.mode;
 #endif
-//SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+//SSD1306 OLED init
+#ifdef OLED_ENABLE
   oled_init(!has_usb());   // turns on the display
 #endif
 }
 
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+//SSD1306 OLED update loop
+#ifdef OLED_ENABLE
 
 static void render_logo(void) {
   static const char PROGMEM sol_logo[] = {

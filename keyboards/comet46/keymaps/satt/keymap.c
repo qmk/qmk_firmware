@@ -5,7 +5,7 @@
 #include "keymap_jis2us.h"
 #include "action_pseudo_lut.h"
 #include "keymap_jp.h"
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   #include "ssd1306.h"
 #endif
 
@@ -180,8 +180,8 @@ uint32_t layer_state_set_user(uint32_t state) {
   }
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+//SSD1306 OLED update loop
+#ifdef OLED_ENABLE
 
 // You need to add source files to SRC in rules.mk when using OLED display functions
 void set_keylog(uint16_t keycode);
@@ -248,10 +248,10 @@ void oled_task_user(void) {
   render_status();
 }
 
-#endif//SSD1306OLED
+#endif//OLED_ENABLE
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef SSD1306OLED
+  #ifdef OLED_ENABLE
     if (record->event.pressed) {
       set_keylog(keycode);
     }

@@ -1,7 +1,7 @@
 #ifndef OLED_USER_H
 #define OLED_USER_H
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
+//SSD1306 OLED update loop
 #include "ssd1306.h"
 #include "edvorakjp.h"
 

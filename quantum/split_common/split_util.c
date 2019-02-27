@@ -55,7 +55,7 @@ bool is_keyboard_master(void)
 
 static void keyboard_master_setup(void) {
 #if defined(USE_I2C) || defined(EH)
-  #ifdef SSD1306OLED
+  #ifdef OLED_ENABLE
     matrix_master_OLED_init ();
   #endif
 #endif

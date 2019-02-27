@@ -1,4 +1,4 @@
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 #include QMK_KEYBOARD_H
 #include "ssd1306.h"
 #include <stdio.h>

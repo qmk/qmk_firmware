@@ -99,7 +99,7 @@ void led_set_user(uint8_t usb_led) {
 void matrix_init_user(void) {
   #ifdef USE_I2C
     i2c_init();
-    #ifdef SSD1306OLED
+    #ifdef OLED_ENABLE
       // calls code for the SSD1306 OLED
       _delay_ms(400);
       TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
@@ -114,7 +114,7 @@ void matrix_init_user(void) {
 }
 
 void matrix_scan_user(void) {
-  #ifdef SSD1306OLED
+  #ifdef OLED_ENABLE
     if ( screenWorks ) {
       oled_task();  // this is what updates the display continuously
     };

@@ -5,7 +5,7 @@
 #include "lufa.h"
 #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   #include "ssd1306.h"
 #endif
 
@@ -209,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #error "undefined keymaps"
 #endif
 
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 char keylog[24] = {};
 const char code_to_name[60] = {
     ' ', ' ', ' ', ' ', 'a', 'b', 'c', 'd', 'e', 'f',
@@ -266,7 +266,7 @@ void update_tri_layer_RGB(uint8_t layer1, uint8_t layer2, uint8_t layer3) {
 #endif
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  #ifdef SSD1306OLED
+  #ifdef OLED_ENABLE
     if (record->event.pressed) {
       set_keylog(keycode, record);
     }
@@ -327,14 +327,14 @@ void matrix_init_user(void) {
   #ifdef RGBLIGHT_ENABLE
     RGB_current_mode = rgblight_config.mode;
   #endif
-  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-  #ifdef SSD1306OLED
+  //SSD1306 OLED init
+  #ifdef OLED_ENABLE
     oled_init(!has_usb()); // turns on the display
   #endif
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+//SSD1306 OLED update loop
+#ifdef OLED_ENABLE
 
 void matrix_scan_user(void) {
   oled_task();  // this is what updates the display continuously

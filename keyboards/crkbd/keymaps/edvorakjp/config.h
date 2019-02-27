@@ -7,7 +7,6 @@
 // #define MASTER_RIGHT
 // #define EE_HANDS
 
-#define SSD1306OLED
 #define SWAP_SCLN
 
 // #define TAPPING_FORCE_HOLD

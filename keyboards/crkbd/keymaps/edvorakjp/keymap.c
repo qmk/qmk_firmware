@@ -2,7 +2,7 @@
 #ifdef PROTOCOL_LUFA
   #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   #include "oled.h"
 #endif
 
@@ -119,9 +119,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   )
 };
 
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 void matrix_init_keymap(void) {
-  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
+  //SSD1306 OLED init
   oled_init(!has_usb());   // turns on the display
 }
 

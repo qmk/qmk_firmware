@@ -24,7 +24,7 @@ In `qmk_firmware/keyboards/lets_split/rev2/rev2.c`, replace contents with
 #include "lets_split.h"
 
 
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 void led_set_kb(uint8_t usb_led) {
     // put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
     led_set_user(usb_led);

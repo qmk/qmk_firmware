@@ -30,7 +30,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define USE_I2C
-#define SSD1306OLED
 
 /* ws2812 RGB LED*/
 #define RGB_DI_PIN D4

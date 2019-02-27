@@ -1,4 +1,4 @@
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 
 void render_logo(void);
 void update_key_status(uint16_t keycode, keyrecord_t *record);

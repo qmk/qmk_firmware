@@ -4,7 +4,7 @@
   #include "lufa.h"
   #include "split_util.h"
 #endif
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
   #include "ssd1306.h"
 #endif
 
@@ -112,8 +112,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 void matrix_init_keymap(void) {
-  //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-  #ifdef SSD1306OLED
+  //SSD1306 OLED init
+  #ifdef OLED_ENABLE
     oled_init(!has_usb());   // turns on the display
   #endif
 
@@ -126,8 +126,8 @@ void matrix_init_keymap(void) {
   #endif
 }
 
-//SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h
-#ifdef SSD1306OLED
+//SSD1306 OLED update loop
+#ifdef OLED_ENABLE
 
 // When add source files to SRC in rules.mk, you can use functions.
 const char *read_logo(void);

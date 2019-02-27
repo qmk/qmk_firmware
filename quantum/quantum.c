@@ -59,7 +59,7 @@ extern backlight_config_t backlight_config;
 #include "encoder.h"
 #endif
 
-#ifdef SSD1306OLED
+#ifdef OLED_ENABLE
 #include "ssd1306.h"
 #endif
 
@@ -267,7 +267,7 @@ bool process_record_quantum(keyrecord_t *record) {
     preprocess_tap_dance(keycode, record);
   #endif
 
-  #if defined(SSD1306OLED) && !defined(OLED_DISABLE_DEFAULT_ACTIVITY)
+  #if defined(OLED_ENABLE) && !defined(OLED_DISABLE_DEFAULT_ACTIVITY)
     // Wake up oled if user is using those fabulous keys!
     if (record->event.pressed)
       oled_on();
