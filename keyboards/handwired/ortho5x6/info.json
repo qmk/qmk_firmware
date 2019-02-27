@@ -1,0 +1,8 @@
+{
+    "keyboard_name": "ortho5x6",
+    "raw data":
+[{a:7},"Esc","1","2","3","4","5"],
+["Tab","Q","W","E","R","T"],
+["Alt","A","S","D","F","G"],
+["Shift","Z","X","C","V","B"],
+[{w:2},"Ctrl","Super","Meta",{w:2},""]
