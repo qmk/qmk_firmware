@@ -247,6 +247,7 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 
 
 void keyboard_post_init_rgb(void) {
+#ifdef RGBLIGHT_ENABLE
 	rgblight_enable_noeeprom();
 	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 	for (uint16_t i = 360; i > 0; i--) {
@@ -255,6 +256,7 @@ void keyboard_post_init_rgb(void) {
 	}
 	layer_state_set_user(layer_state);
   has_initialized = true;
+#endif
 }
 
 void matrix_scan_rgb(void) {
