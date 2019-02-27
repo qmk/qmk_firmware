@@ -3,6 +3,8 @@
 
 #include "quantum.h"
 #include "tapdance/tapdance.h"
+#include "macros.h"
+#include "combos.h"
 
 enum userspace_custom_keycodes {
   KC_MAKE = SAFE_RANGE, // can always be here
@@ -64,6 +66,7 @@ enum layers {
 #define US_TAB    C_S_T(KC_TAB)
 #define SH_LBRC   LSFT_T(KC_LBRC)
 #define SH_RBRC   RSFT_T(KC_RBRC)
+#define US_LOCK   TD(TD_LOCK)
 
 #define MLT_E     LT(_NUM, KC_E)
 
