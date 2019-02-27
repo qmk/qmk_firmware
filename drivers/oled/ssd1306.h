@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 16 (compile time mathed)
   #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 64 (compile time mathed)
 
-  #ifdef OLED_ROTATE90
+  #ifdef // defined(OLED_ROTATE90)
     // For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
     // The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
     #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
@@ -39,8 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     // If OLED_BLOCK_TYPE is uint8_t, these tables would look like:
     // #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56, 64, 72, 80, 88, 96, 104, 112, 120 }
     // #define OLED_TARGET_MAP { 56, 120, 48, 112, 40, 104, 32, 96, 24, 88, 16, 80, 8, 72, 0, 64 }
-  #endif
-#else
+  #endif // defined(OLED_ROTATE90)
+#else // defined(OLED_DISPLAY_128X64)
   // Default 128x32
   #define OLED_DISPLAY_WIDTH 128
   #define OLED_DISPLAY_HEIGHT 32
@@ -49,47 +49,47 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define OLED_BLOCK_COUNT (sizeof(OLED_BLOCK_TYPE) * 8) // 8 (compile time mathed)
   #define OLED_BLOCK_SIZE (OLED_MATRIX_SIZE / OLED_BLOCK_COUNT) // 128 (compile time mathed)
 
-  #ifdef OLED_ROTATE90
+  #if defined(OLED_ROTATE90)
     // For 90 degree rotation, we map our internal matrix to oled matrix using fixed arrays
     // The OLED writes to it's memory horizontally, starting top left, but our memory starts bottom left in this mode
     #define OLED_SOURCE_MAP { 0, 8, 16, 24, 32, 40, 48, 56 }
     #define OLED_TARGET_MAP { 48, 32, 16, 0, 56, 40, 24, 8 }
-  #endif
-#endif
+  #endif // defined(OLED_ROTATE90)
+#endif // defined(OLED_DISPLAY_CUSTOM)
 
 // Address to use for tthe i2d oled communication
-#ifndef SSD1306_ADDRESS
-#define SSD1306_ADDRESS 0x3C
+#if !defined(SSD1306_ADDRESS)
+  #define SSD1306_ADDRESS 0x3C
 #endif
 
 // Custom font file to use
-#ifndef OLED_FONT_H
-#define OLED_FONT_H "glcdfont.c"
+#if !defined(OLED_FONT_H)
+  #define OLED_FONT_H "glcdfont.c"
 #endif
 // unsigned char value of the first character in the font file
-#ifndef OLED_FONT_START
-#define OLED_FONT_START 0
+#if !defined(OLED_FONT_START)
+  #define OLED_FONT_START 0
 #endif
 // unsigned char value of the last character in the font file
-#ifndef OLED_FONT_END
-#define OLED_FONT_END 224
+#if !defined(OLED_FONT_END)
+  #define OLED_FONT_END 224
 #endif
 // Font render width
-#ifndef OLED_FONT_WIDTH
-#define OLED_FONT_WIDTH 6
+#if !defined(OLED_FONT_WIDTH)
+  #define OLED_FONT_WIDTH 6
 #endif
 // Font render height
-#ifndef OLED_FONT_HEIGHT
-#define OLED_FONT_HEIGHT 8
+#if !defined(OLED_FONT_HEIGHT)
+  #define OLED_FONT_HEIGHT 8
 #endif
 
-#ifndef OLED_ROTATE90
+#if !defined(OLED_ROTATE90)
 #define OLED_MAX_CHARS (OLED_DISPLAY_WIDTH / OLED_FONT_WIDTH)
 #define OLED_MAX_LINES (OLED_DISPLAY_HEIGHT / OLED_FONT_HEIGHT)
-#else
+#else // !defined(OLED_ROTATE90)
 #define OLED_MAX_CHARS (OLED_DISPLAY_HEIGHT / OLED_FONT_WIDTH)
 #define OLED_MAX_LINES (OLED_DISPLAY_WIDTH / OLED_FONT_HEIGHT)
-#endif
+#endif // !defined(OLED_ROTATE90)
 
 // Initialize the oled display
 bool oled_init(bool flip180);
@@ -125,7 +125,7 @@ void oled_write(const char *data, bool invert);
 // Advances the cursor while writing, inverts the pixels if true
 void oled_write_ln(const char *data, bool invert);
 
-#ifdef __AVR__
+#if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 void oled_write_P(const char *data, bool invert);
@@ -133,7 +133,7 @@ void oled_write_P(const char *data, bool invert);
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 void oled_write_ln_P(const char *data, bool invert);
-#endif //__AVR__
+#endif // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off
 bool oled_on(void);

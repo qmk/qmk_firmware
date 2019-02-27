@@ -22,15 +22,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string.h>
 
-#ifdef __AVR__
- #include <avr/io.h>
- #include <avr/pgmspace.h>
+#if defined(__AVR__)
+  #include <avr/io.h>
+  #include <avr/pgmspace.h>
 #elif defined(ESP8266)
- #include <pgmspace.h>
-#else
- #define PROGMEM
- #define memcpy_P(des, src, len) memcpy(des, src, len)
-#endif
+  #include <pgmspace.h>
+#else // defined(ESP8266)
+  #define PROGMEM
+  #define memcpy_P(des, src, len) memcpy(des, src, len)
+#endif // defined(__AVR__)
 
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
 // Fundamental Commands
@@ -80,24 +80,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // i2c defines
 #define I2C_CMD 0x00
 #define I2C_DATA 0x40
-#ifdef __AVR__
+#if defined(__AVR__)
   // already defined on ARM
   #define I2C_TIMEOUT 100
   #define I2C_TRANSMIT_P(data) i2c_transmit_P((SSD1306_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
-#else
+#else // defined(__AVR__)
   #define I2C_TRANSMIT_P(data) i2c_transmit((SSD1306_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
-#endif
+#endif // defined(__AVR__)
 #define I2C_TRANSMIT(data) i2c_transmit((SSD1306_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
 #define I2C_WRITE_REG(mode, data, size) i2c_writeReg((SSD1306_ADDRESS << 1), mode, data, size, I2C_TIMEOUT)
 
 // Internal flipped defines for handling 90 degree rotation
-#ifndef OLED_ROTATE90
+#if !defined(OLED_ROTATE90)
 #define OLED_HEIGHT OLED_DISPLAY_HEIGHT
 #define OLED_WIDTH OLED_DISPLAY_WIDTH
-#else
+#else // !defined(OLED_ROTATE90)
 #define OLED_HEIGHT OLED_DISPLAY_WIDTH
 #define OLED_WIDTH OLED_DISPLAY_HEIGHT
-#endif
+#endif // !defined(OLED_ROTATE90)
 
 // Display buffer's is the same as the OLED memory layout
 // this is so we don't end up with rounding errors with
@@ -204,7 +204,7 @@ void oled_clear(void) {
   oled_dirty = -1; // -1 will be max value as long as display_dirty is unsigned type
 }
 
-#ifndef OLED_ROTATE90
+#if !defined(OLED_ROTATE90)
 static void calc_bounds(uint8_t update_start, uint8_t* cmd_array)
 {
   cmd_array[1] = OLED_BLOCK_SIZE * update_start % OLED_DISPLAY_WIDTH;
@@ -212,7 +212,7 @@ static void calc_bounds(uint8_t update_start, uint8_t* cmd_array)
   cmd_array[2] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) % OLED_DISPLAY_WIDTH + cmd_array[1];
   cmd_array[5] = (OLED_BLOCK_SIZE + OLED_DISPLAY_WIDTH - 1) / OLED_DISPLAY_WIDTH - 1;
 }
-#else
+#else // !defined(OLED_ROTATE90)
 static void calc_bounds(uint8_t update_start, uint8_t* cmd_array)
 {
   cmd_array[1] = OLED_BLOCK_SIZE * update_start / OLED_DISPLAY_HEIGHT * 8;
@@ -237,7 +237,7 @@ static void rotate(const uint8_t* src, uint8_t* dest)
     }
   }
 }
-#endif
+#endif // !defined(OLED_ROTATE90)
 
 void oled_render(void) {
   // Do we have work to do?
@@ -262,13 +262,13 @@ void oled_render(void) {
     return;
   }
 
-  #ifndef OLED_ROTATE90
+  #if !defined(OLED_ROTATE90)
   // Send render data chunk
   if (I2C_WRITE_REG(I2C_DATA, &oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
     print("oled_render data failed\n");
     return;
   }
-  #else
+  #else // !defined(OLED_ROTATE90)
     const static uint8_t source_map[] = OLED_SOURCE_MAP;
     const static uint8_t target_map[] = OLED_TARGET_MAP;
 
@@ -283,7 +283,7 @@ void oled_render(void) {
       print("oled_render data failed\n");
       return;
     }
-  #endif
+  #endif // !defined(OLED_ROTATE90)
 
   // Turn on display if it is off
   oled_on();
@@ -392,7 +392,7 @@ void oled_write_ln(const char *data, bool invert) {
   oled_advance_page(true);
 }
 
-#ifdef __AVR__
+#if defined(__AVR__)
 void oled_write_P(const char *data, bool invert) {
   uint8_t c = pgm_read_byte(data);
   while (c != 0) {
@@ -405,7 +405,7 @@ void oled_write_ln_P(const char *data, bool invert) {
   oled_write_P(data, invert);
   oled_advance_page(true);
 }
-#endif //__AVR__
+#endif // defined(__AVR__)
 
 bool oled_on(void) {
   oled_last_activity = timer_read();
