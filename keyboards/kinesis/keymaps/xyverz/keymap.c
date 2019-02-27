@@ -14,10 +14,6 @@ enum custom_keycodes {
   KEYPAD
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Aliases to make the keymap more uniform
 #define GUI_END GUI_T(KC_END)
 #define KPD_ENT LT(_KEYPAD, KC_ENT)

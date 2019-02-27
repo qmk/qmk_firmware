@@ -40,10 +40,6 @@ enum planck_keycodes {
 #define GUIC LGUI_T(KC_C)
 #define GUIW RGUI_T(KC_W)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Dvorak

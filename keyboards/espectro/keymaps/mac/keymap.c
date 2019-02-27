@@ -132,7 +132,6 @@ ________________________________________________________________________________
 };
 
 
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
     switch (keycode) {
@@ -159,8 +158,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(SS_DOWN(X_LALT) SS_DOWN(X_LGUI) SS_TAP(X_Q) SS_UP(X_LGUI) SS_UP(X_LALT));
         return false;
     }
-    return false;
   }
   return true;
 };
-

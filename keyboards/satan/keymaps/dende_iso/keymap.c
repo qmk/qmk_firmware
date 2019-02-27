@@ -13,9 +13,6 @@
 // dual-role shortcuts
 #define FN_CAPS   LT(_MEDIA, KC_CAPSLOCK)
 
-// increase readability
-#define _______ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap _DEF: Default Layer
   * ,------------------------------------------------------------.
