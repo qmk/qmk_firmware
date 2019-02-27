@@ -336,5 +336,5 @@ ifeq ($(strip $(OLED_ENABLE)), yes)
     OPT_DEFS += -DSSD1306OLED
     COMMON_VPATH += $(DRIVER_PATH)/oled
     SRC += i2c_master.c
-    SRC += $(DRIVER_PATH)/oled/ssd1306.c
+    SRC += ssd1306.c
 endif
