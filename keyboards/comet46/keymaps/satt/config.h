@@ -23,6 +23,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Use I2C or Serial */
 
-#define USE_I2C
-
 #endif
