@@ -82,8 +82,8 @@ replace_placeholders() {
 replace_keyboard_placeholders() {
     local replace_keyboard_filenames=(
         "${keyboard_dir}/config.h"
-        "${keyboard_dir}/${keyboard_name}.c"
         "${keyboard_dir}/readme.md"
+        "${keyboard_dir}/${keyboard_name}.c"
         "${keyboard_dir}/keymaps/default/readme.md"
     )
     replace_placeholders "%KEYBOARD%" "$keyboard_name" "${replace_keyboard_filenames[@]}"
@@ -93,6 +93,7 @@ replace_keyboard_placeholders() {
 replace_name_placeholders() {
     local replace_name_filenames=(
         "${keyboard_dir}/config.h"
+        "${keyboard_dir}/readme.md"
         "${keyboard_dir}/${keyboard_name}.c"
         "${keyboard_dir}/${keyboard_name}.h"
         "${keyboard_dir}/keymaps/default/config.h"
