@@ -109,11 +109,12 @@ int16_t i2c_read_nack(uint16_t timeout) {
   return TWDR;
 }
 
-i2c_status_t i2c_transmit(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout) {
   i2c_status_t status = i2c_start(address | I2C_WRITE, timeout);
 
   for (uint16_t i = 0; i < length && status >= 0; i++) {
     status = i2c_write(data[i], timeout);
+    if (status) break;
   }
 
   i2c_stop();
@@ -126,7 +127,7 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
 
   for (uint16_t i = 0; i < (length - 1) && status >= 0; i++) {
     status = i2c_read_ack(timeout);
-    if (status >= 0) {
+    if (status >= 0) { // TODO: Ask pelrun, this should probably be 'if (status) break;' instead
       data[i] = status;
     }
   }
@@ -143,13 +144,14 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
   return status;
 }
 
-i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout) {
+i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
   i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
   if (status >= 0) {
     status = i2c_write(regaddr, timeout);
 
     for (uint16_t i = 0; i < length && status >= 0; i++) {
       status = i2c_write(data[i], timeout);
+      if (status) break;
     }
   }
 
@@ -173,7 +175,7 @@ i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16
 
   for (uint16_t i = 0; i < (length - 1) && status >= 0; i++) {
     status = i2c_read_ack(timeout);
-    if (status >= 0) {
+    if (status >= 0) { // TODO: Ask pelrun, this should probably be 'if (status) break;' instead
       data[i] = status;
     }
   }

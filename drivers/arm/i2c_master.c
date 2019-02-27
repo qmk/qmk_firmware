@@ -58,28 +58,28 @@ void i2c_init(void)
 }
 
 // This is usually not needed
-uint8_t i2c_start(uint8_t address)
+i2c_status_t i2c_start(uint8_t address)
 {
   i2c_address = address;
   i2cStart(&I2C_DRIVER, &i2cconfig);
   return 0;
 }
 
-uint8_t i2c_transmit(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)
+i2c_status_t i2c_transmit(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout)
 {
   i2c_address = address;
   i2cStart(&I2C_DRIVER, &i2cconfig);
   return i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, 0, 0, MS2ST(timeout));
 }
 
-uint8_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)
+i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16_t timeout)
 {
   i2c_address = address;
   i2cStart(&I2C_DRIVER, &i2cconfig);
   return i2cMasterReceiveTimeout(&I2C_DRIVER, (i2c_address >> 1), data, length, MS2ST(timeout));
 }
 
-uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t length, uint16_t timeout)
+i2c_status_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout)
 {
   i2c_address = devaddr;
   i2cStart(&I2C_DRIVER, &i2cconfig);
@@ -94,15 +94,14 @@ uint8_t i2c_writeReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16_t l
   return i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), complete_packet, length + 1, 0, 0, MS2ST(timeout));
 }
 
-uint8_t i2c_readReg(uint8_t devaddr, uint8_t* regaddr, uint8_t* data, uint16_t length, uint16_t timeout)
+i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t* regaddr, uint8_t* data, uint16_t length, uint16_t timeout)
 {
   i2c_address = devaddr;
   i2cStart(&I2C_DRIVER, &i2cconfig);
   return i2cMasterTransmitTimeout(&I2C_DRIVER, (i2c_address >> 1), regaddr, 1, data, length, MS2ST(timeout));
 }
 
-uint8_t i2c_stop(void)
+void i2c_stop(void)
 {
   i2cStop(&I2C_DRIVER);
-  return 0;
 }
