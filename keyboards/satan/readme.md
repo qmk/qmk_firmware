@@ -4,7 +4,7 @@ A clone of the GH60 60% keyboard, with full backlighting support.
 
 Keyboard Maintainer: QMK Community  
 Hardware Supported: Satan GH60 PCB  
-Hardware Availability: https://1upkeyboards.com/gh60-satan-pcb.html
+Hardware Availability: hhttps://www.1upkeyboards.com/shop/controllers/gh60-satan-pcb/
 
 Make example for this keyboard (after setting up your build environment):
 
