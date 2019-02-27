@@ -75,12 +75,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   #define I2C_TIMEOUT 100
 #endif
 #if defined(__AVR__)
-  #define I2C_SEND_P(mode, data) i2c_writeReg_P((SSD1306_ADDRESS << 1), mode, &data[0], sizeof(data), I2C_TIMEOUT)
+  #define I2C_TRANSMIT_P(data) i2c_transmit_P((SSD1306_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
 #else
-  #define I2C_SEND_P(mode, data) i2c_writeReg((SSD1306_ADDRESS << 1), mode, &data[0], sizeof(data), I2C_TIMEOUT)
+  #define I2C_TRANSMIT_P(data) i2c_transmit((SSD1306_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
 #endif
-#define I2C_SEND(mode, data) i2c_writeReg((SSD1306_ADDRESS << 1), mode, &data[0], sizeof(data), I2C_TIMEOUT)
-#define I2C_SEND_SIZE(mode, data, size) i2c_writeReg((SSD1306_ADDRESS << 1), mode, data, size, I2C_TIMEOUT)
+#define I2C_TRANSMIT(data) i2c_transmit((SSD1306_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
+#define I2C_WRITE_REG(mode, data, size) i2c_writeReg((SSD1306_ADDRESS << 1), mode, data, size, I2C_TIMEOUT)
 
 // Internal flipped defines for handling 90 degree rotation
 #ifndef OLED_ROTATE90
@@ -106,17 +106,14 @@ uint16_t         oled_last_activity;
 // Internal variables to reduce math instructions
 
 #if defined(__AVR__)
-// identical to i2c_writeReg, but for PROGMEM since all initialization is in PROGMEM arrays currently
+// identical to i2c_transmit, but for PROGMEM since all initialization is in PROGMEM arrays currently
 // probably should move this into i2c_master...
-static i2c_status_t i2c_writeReg_P(uint8_t devaddr, uint8_t regaddr, const uint8_t* data, uint16_t length, uint16_t timeout) {
-  i2c_status_t status = i2c_start(devaddr | 0x00, timeout);
-  if (status >= 0) {
-    status = i2c_write(regaddr, timeout);
+static i2c_status_t i2c_transmit_P(uint8_t address, const uint8_t* data, uint16_t length, uint16_t timeout) {
+  i2c_status_t status = i2c_start(address | I2C_WRITE, timeout);
 
-    for (uint16_t i = 0; i < length && status >= 0; i++) {
-      status = i2c_write(pgm_read_byte((const char*)data++), timeout);
-      if (status) break;
-    }
+  for (uint16_t i = 0; i < length && status >= 0; i++) {
+    status = i2c_write(pgm_read_byte((const char*)data++), timeout);
+    if (status) break;
   }
 
   i2c_stop();
@@ -138,6 +135,7 @@ static void InvertCharacter(uint8_t *cursor)
 bool oled_init(bool flip180) {
   i2c_init();
   static const uint8_t PROGMEM display_setup1[] = {
+    I2C_CMD,
     DISPLAY_OFF,
     DISPLAY_CLOCK, 0x80,
     MULTIPLEX_RATIO, OLED_DISPLAY_HEIGHT - 1,
@@ -145,30 +143,33 @@ bool oled_init(bool flip180) {
     DISPLAY_START_LINE | 0x00,
     CHARGE_PUMP, 0x14,
     MEMORY_MODE, 0x00, }; // Horizontal addressing mode
-  if (I2C_SEND_P(I2C_CMD, display_setup1) != I2C_STATUS_SUCCESS) {
+  if (I2C_TRANSMIT_P(display_setup1) != I2C_STATUS_SUCCESS) {
     print("oled_init cmd set 1 failed\n");
     return false;
   }
 
   if (!flip180) {
     static const uint8_t PROGMEM display_normal[] = {
+      I2C_CMD,
       SEGMENT_REMAP_INV,
       COM_SCAN_DEC };
-    if (I2C_SEND_P(I2C_CMD, display_normal) != I2C_STATUS_SUCCESS) {
+    if (I2C_TRANSMIT_P(display_normal) != I2C_STATUS_SUCCESS) {
       print("oled_init cmd normal rotation failed\n");
       return false;
     }
   } else {
     static const uint8_t PROGMEM display_flipped[] = {
+      I2C_CMD,
       SEGMENT_REMAP,
       COM_SCAN_INC };
-    if (I2C_SEND_P(I2C_CMD, display_flipped) != I2C_STATUS_SUCCESS) {
+    if (I2C_TRANSMIT_P(display_flipped) != I2C_STATUS_SUCCESS) {
       print("display_flipped failed\n");
       return false;
     }
   }
 
   static const uint8_t PROGMEM display_setup2[] = {
+    I2C_CMD,
     COM_PINS, 0x02,
     CONTRAST, 0x8F,
     PRE_CHARGE_PERIOD, 0xF1,
@@ -177,7 +178,7 @@ bool oled_init(bool flip180) {
     NORMAL_DISPLAY,
     DEACTIVATE_SCROLL,
     DISPLAY_ON };
-  if (I2C_SEND_P(I2C_CMD, display_setup2) != I2C_STATUS_SUCCESS) {
+  if (I2C_TRANSMIT_P(display_setup2) != I2C_STATUS_SUCCESS) {
     print("display_setup2 failed\n");
     return false;
   }
@@ -242,19 +243,20 @@ void oled_render(void) {
 
   // Set column & page position
   static uint8_t display_start[] = {
+    I2C_CMD,
     COLUMN_ADDR, 0, OLED_DISPLAY_WIDTH - 1,
     PAGE_ADDR, 0, OLED_DISPLAY_HEIGHT / 8 - 1 };
-  calc_bounds(update_start, &display_start[0]);
+  calc_bounds(update_start, &display_start[1]); // Offset from I2C_CMD byte at the start
 
   // Send column & page position
-  if (I2C_SEND(I2C_CMD, display_start) != I2C_STATUS_SUCCESS) {
+  if (I2C_TRANSMIT(display_start) != I2C_STATUS_SUCCESS) {
     print("oled_render offset command failed\n");
     return;
   }
 
   #ifndef OLED_ROTATE90
   // Send render data chunk
-  if (I2C_SEND_SIZE(I2C_DATA, &oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
+  if (I2C_WRITE_REG(I2C_DATA, &oled_buffer[OLED_BLOCK_SIZE * update_start], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
     print("oled_render data failed\n");
     return;
   }
@@ -269,7 +271,7 @@ void oled_render(void) {
     }
 
     // Send render data chunk
-    if (I2C_SEND_SIZE(I2C_DATA, &temp_buffer[0], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
+    if (I2C_WRITE_REG(I2C_DATA, &temp_buffer[0], OLED_BLOCK_SIZE) != I2C_STATUS_SUCCESS) {
       print("oled_render data failed\n");
       return;
     }
@@ -398,9 +400,9 @@ void oled_write_ln_P(const char *data, bool invert) {
 bool oled_on(void) {
   oled_last_activity = timer_read();
 
-  static const uint8_t PROGMEM display_on[] = { DISPLAY_ON };
+  static const uint8_t PROGMEM display_on[] = { I2C_CMD, DISPLAY_ON };
   if (!oled_active) {
-    if (I2C_SEND_P(I2C_CMD, display_on) != I2C_STATUS_SUCCESS) {
+    if (I2C_TRANSMIT_P(display_on) != I2C_STATUS_SUCCESS) {
       print("oled_on cmd failed\n");
       return oled_active;
     }
@@ -410,9 +412,9 @@ bool oled_on(void) {
 }
 
 bool oled_off(void) {
-  static const uint8_t PROGMEM display_off[] = { DISPLAY_OFF };
+  static const uint8_t PROGMEM display_off[] = { I2C_CMD, DISPLAY_OFF };
   if (oled_active) {
-    if (I2C_SEND_P(I2C_CMD, display_off) != I2C_STATUS_SUCCESS) {
+    if (I2C_TRANSMIT_P(display_off) != I2C_STATUS_SUCCESS) {
       print("oled_off cmd failed\n");
       return oled_active;
     }
@@ -426,8 +428,8 @@ bool oled_scroll_right(void) {
   // This prevents scrolling of bad data from starting the scroll too early after init
   if (!oled_dirty && !oled_scrolling) {
     static const uint8_t PROGMEM display_scroll_right[] = {
-      SCROLL_RIGHT, 0x00, 0x00, 0x00, 0x0F, 0x00, 0xFF, ACTIVATE_SCROLL };
-    if (I2C_SEND_P(I2C_CMD, display_scroll_right) != I2C_STATUS_SUCCESS) {
+      I2C_CMD, SCROLL_RIGHT, 0x00, 0x00, 0x00, 0x0F, 0x00, 0xFF, ACTIVATE_SCROLL };
+    if (I2C_TRANSMIT_P(display_scroll_right) != I2C_STATUS_SUCCESS) {
       print("oled_scroll_right cmd failed\n");
       return oled_scrolling;
     }
@@ -441,8 +443,8 @@ bool oled_scroll_left(void) {
   // This prevents scrolling of bad data from starting the scroll too early after init
   if (!oled_dirty && !oled_scrolling) {
     static const uint8_t PROGMEM display_scroll_left[] = {
-      SCROLL_LEFT, 0x00, 0x00, 0x00, 0x0F, 0x00, 0xFF, ACTIVATE_SCROLL };
-    if (I2C_SEND_P(I2C_CMD, display_scroll_left) != I2C_STATUS_SUCCESS) {
+      I2C_CMD, SCROLL_LEFT, 0x00, 0x00, 0x00, 0x0F, 0x00, 0xFF, ACTIVATE_SCROLL };
+    if (I2C_TRANSMIT_P(display_scroll_left) != I2C_STATUS_SUCCESS) {
       print("oled_scroll_left cmd failed\n");
       return oled_scrolling;
     }
@@ -453,8 +455,8 @@ bool oled_scroll_left(void) {
 
 bool oled_scroll_off(void) {
   if (oled_scrolling) {
-    static const uint8_t PROGMEM display_scroll_off[] = { DEACTIVATE_SCROLL };
-    if (I2C_SEND_P(I2C_CMD, display_scroll_off) != I2C_STATUS_SUCCESS) {
+    static const uint8_t PROGMEM display_scroll_off[] = { I2C_CMD, DEACTIVATE_SCROLL };
+    if (I2C_TRANSMIT_P(display_scroll_off) != I2C_STATUS_SUCCESS) {
       print("oled_scroll_off cmd failed\n");
       return oled_scrolling;
     }
