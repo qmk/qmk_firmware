@@ -70,7 +70,3 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 
 EXTRAFLAGS += -flto
-
-
-SRC = i2c_master.c \
-	  ssd1306.c

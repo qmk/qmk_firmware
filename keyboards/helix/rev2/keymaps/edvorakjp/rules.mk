@@ -106,7 +106,6 @@ ifeq ($(strip $(LED_ANIMATIONS)), yes)
 endif
 
 ifeq ($(strip $(OLED_ENABLE)), yes)
-  OPT_DEFS += -DOLED_ENABLE
   SRC += oled.c
 endif
 

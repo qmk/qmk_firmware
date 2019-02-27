@@ -95,10 +95,6 @@ ifeq ($(strip $(LED_ANIMATIONS)), yes)
     OPT_DEFS += -DLED_ANIMATIONS
 endif
 
-ifeq ($(strip $(OLED_ENABLE)), yes)
-    OPT_DEFS += -DOLED_ENABLE
-endif
-
 ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
     OPT_DEFS += -DLOCAL_GLCDFONT
 endif
