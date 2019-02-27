@@ -30,9 +30,10 @@ enum {
 
 bool screenWorks = 0;
 
+#ifdef OLED_ENABLE
 //13 characters max without re-writing the "Layer: " format in oled_task_user()
 static char layer_lookup[][14] = {"Base","Function"};
-
+#endif
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -82,16 +83,13 @@ void led_set_user(uint8_t usb_led) {
 }
 
 void matrix_init_user(void) {
-  #ifdef USE_I2C
-    i2c_init();
-    #ifdef OLED_ENABLE
-      // calls code for the SSD1306 OLED
-      _delay_ms(400);
-      TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
-      if ( oled_init(false) ) { // turns on the display
-        screenWorks = 1;
-      }
-    #endif
+  #ifdef OLED_ENABLE
+    // calls code for the SSD1306 OLED
+    _delay_ms(400);
+    TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
+    if ( oled_init(false) ) { // turns on the display
+      screenWorks = 1;
+    }
   #endif
   #ifdef AUDIO_ENABLE
     startup_user();
@@ -106,6 +104,7 @@ void matrix_scan_user(void) {
   #endif
 }
 
+#ifdef OLED_ENABLE
 void oled_task_user(void) {
   oled_write_P(PSTR("TKC1800"), false);
 
@@ -124,3 +123,4 @@ void oled_task_user(void) {
             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
   oled_write(led, false);
 }
+#endif

@@ -335,14 +335,11 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 #ifdef KEYBOARD_hadron_ver2
 #include "LUFA/Drivers/Peripheral/TWI.h"
 void matrix_init_user(void) {
-  #ifdef USE_I2C
-    i2c_init();
   #ifdef OLED_ENABLE
   // calls code for the SSD1306 OLED
         _delay_ms(400);
         TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
         oled_init(true);   // turns on the display
-  #endif
   #endif
     #ifdef AUDIO_ENABLE
         startup_user();
