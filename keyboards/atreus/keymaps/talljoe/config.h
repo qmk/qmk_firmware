@@ -4,34 +4,34 @@
 #include QMK_KEYBOARD_CONFIG_H
 
 #define PREVENT_STUCK_MODIFIERS
-#define SPACE_COUNT 2
+#define SPACE_COUNT 3
 
-#define TEMPLATE(                                                                     \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K2D,      \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,           \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,                \
-    K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D,           \
-    K40, K41, K42,      K44, K45, K46,      K48, K49,      K4B, K4C                 \
+#define TEMPLATE_TKL( \
+  KESC,       KF01, KF02, KF03, KF04, KF05, KF06, KF07, KF08, KF09, KF10, KF11, KF12,   KSCL, KPRS, KADJ, \
+  KGRV, K_1 , K_2 , K_3 , K_4 , K_5 , K_6 , K_7 , K_8 , K_9 , K_0 , KMIN, KEQL, KBSP,   KINS, KHOM, KPUP, \
+  KTAB, K_Q , K_W , K_E , K_R , K_T , K_Y , K_U , K_I , K_O , K_P , KLBR, KRBR, KBLS,   KDEL, KEND, LPDN, \
+  KCAP, K_A , K_S , K_D , K_F , K_G , K_H , K_J , K_K , K_L , KSMI, KQUO,       KENT,                     \
+  KLSH, K_Z , K_X , K_C , K_V , K_B , K_N , K_M , KCMA, KDOT, KSLS,             KRSH,         K_UP,       \
+  KLCT, KLOS, KLAL,             KSP3, KSP2, KSP1,             KRAL, KROS, KRCT, KPTT,   K_LT, K_DN, K_RT  \
 ) LAYOUT( \
-  K11, K12, K13, K14, K15,           K16, K17, K18, K19, K1A, \
-  K21, K22, K23, K24, K25,           K26, K27, K28, K29, K2A, \
-  K32, K33, K34, K35, K36,           K37, K38, K39, K3A, K3B, \
-  K10, K41, K42, K30, K44, K1D, K20, K46, K3C, K0D, K2B, K3D \
+  K_Q , K_W , K_E , K_R , K_T ,             K_Y , K_U , K_I , K_O , K_P , \
+  K_A , K_S , K_D , K_F , K_G ,             K_H , K_J , K_K , K_L , KSMI, \
+  K_Z , K_X , K_C , K_V , K_B ,             K_N , K_M , KCMA, KDOT, KSLS, \
+  KTAB, KLOS, KLAL, KLSH, KSP3, KSP2, KCAP, KSP1, KRSH, KBLS, KQUO, KADJ \
 )
 
-#define TEMPLATE_NUM(                                                                     \
-    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, K2D,      \
-    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,           \
-    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C,                \
-    K30,      K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D,           \
-    K40, K41, K42,      K44, K45, K46,      K48, K49,      K4B, K4C                 \
+#define TEMPLATE_NUM( \
+  KGRV, K_1 , K_2 , K_3 , K_4 , K_5 , K_6 , K_7 , K_8 , K_9 , K_0 , KMIN, KEQL, KBSL, KESC, \
+  KTAB, K_Q , K_W , K_E , K_R , K_T , K_Y , K_U , K_I , K_O , K_P , KLBR, KRBR,       KBSP, \
+  KCAP, K_A , K_S , K_D , K_F , K_G , K_H , K_J , K_K , K_L , KSMI, KQUO,             KENT, \
+  KLSH, K_Z , K_X , K_C , K_V , K_B , K_N , K_M , KCMA, KDOT, KSLS,             KRSH, KADJ, \
+  KLCT, KLOS, KLAL,             KSP3, KSP2, KSP1,             KRAL, KROS, KRCT, KPTT        \
 ) LAYOUT( \
-  K11, K12, K13, K14, K15,           K16, K17, K18, K19, K1A, \
-  K21, K22, K23, K24, K25,           K26, K27, K28, K29, K2A, \
-  K32, K33, K34, K35, K36,           K37, K38, K39, K3A, K3B, \
-  K10, K41, K42, K30, K44, K1D, K20, K45, K48, K49, K2B, K3D \
+  K_Q , K_W , K_E , K_R , K_T ,             K_Y , K_U , K_I , K_O , K_P , \
+  K_A , K_S , K_D , K_F , K_G ,             K_H , K_J , K_K , K_L , KSMI, \
+  K_Z , K_X , K_C , K_V , K_B ,             K_N , K_M , KCMA, KDOT, KSLS, \
+  KTAB, KLOS, KLAL, KLSH, KSP3, KSP2, KCAP, KSP1, KRAL, KROS, KQUO, KADJ \
 )
-
 
 #define TEMPLATE_RESET LAYOUT( \
   RESET  , XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
