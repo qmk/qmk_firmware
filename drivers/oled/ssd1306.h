@@ -133,6 +133,9 @@ void oled_write_P(const char *data, bool invert);
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 void oled_write_ln_P(const char *data, bool invert);
+#else
+  #define oled_write_P(data, invert) oled_write(data, invert)
+  #define oled_write_ln_P(data, invert) oled_write(data, invert)
 #endif // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off
