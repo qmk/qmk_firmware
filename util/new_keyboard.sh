@@ -89,7 +89,7 @@ replace_keyboard_placeholders() {
     replace_placeholders "%KEYBOARD%" "$keyboard_name" "${replace_keyboard_filenames[@]}"
 }
 
-# Replace REPLACE_WITH_YOUR_NAME with the username.
+# Replace %YOUR_NAME% with the username.
 replace_name_placeholders() {
     local replace_name_filenames=(
         "${keyboard_dir}/config.h"
@@ -98,7 +98,7 @@ replace_name_placeholders() {
         "${keyboard_dir}/keymaps/default/config.h"
         "${keyboard_dir}/keymaps/default/keymap.c"
     )
-    replace_placeholders "REPLACE_WITH_YOUR_NAME" "$username" "${replace_name_filenames[@]}"
+    replace_placeholders "%YOUR_NAME%" "$username" "${replace_name_filenames[@]}"
 }
 
 # Check if an array contains an element.

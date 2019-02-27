@@ -12,7 +12,7 @@ Copying base template files... done
 Copying avr template files... done
 Renaming keyboard files... done
 Replacing %KEYBOARD% with mycoolkb... done
-Replacing REPLACE_WITH_YOUR_NAME with John Smith... done
+Replacing %YOUR_NAME% with John Smith... done
 
 Created a new keyboard called mycoolkb.
 
