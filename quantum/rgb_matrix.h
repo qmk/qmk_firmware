@@ -1,6 +1,7 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2017 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2019 Daniel Prilik
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,8 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef RGB_MATRIX_H
-#define RGB_MATRIX_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -29,56 +29,6 @@
 #elif defined (IS31FL3733)
     #include "is31fl3733.h"
 #endif
-
-typedef struct Point {
-	uint8_t x;
-	uint8_t y;
-} __attribute__((packed)) Point;
-
-typedef struct rgb_led {
-	union {
-		uint8_t raw;
-		struct {
-			uint8_t row:4; // 16 max
-			uint8_t col:4; // 16 max
-		};
-	} matrix_co;
-	Point point;
-	uint8_t modifier:1;
-} __attribute__((packed)) rgb_led;
-
-
-extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
-
-typedef struct
-{
-	HSV color;
-	uint8_t index;
-} rgb_indicator;
-
-typedef enum {
-  RGB_ZONE_OFF = 0,
-  RGB_ZONE_ALL,
-  RGB_ZONE_KEYS,
-  RGB_ZONE_UNDER,
-} rgb_zone_t;
-
-typedef union {
-  uint32_t raw;
-  struct {
-#ifdef RGB_MATRIX_EXTRA_TOG
-    uint8_t enable  :2;
-    uint8_t mode    :6;
-#else
-    uint8_t enable  :1;
-    uint8_t mode    :7;
-#endif
-    HSV hsv;
-    //EECONFIG needs to be increased to support these
-    uint8_t speed;
-    uint8_t custom;
-  };
-} rgb_config_t;
 
 enum rgb_matrix_effects {
 	RGB_MATRIX_SOLID_COLOR = 1,
@@ -142,30 +92,34 @@ enum rgb_matrix_effects {
     RGB_MATRIX_EFFECT_MAX
 };
 
-void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue );
+// Expose built-in effects
+void rgb_matrix_effect_all_off                (uint16_t led_i);
+void rgb_matrix_effect_alphas_mods            (uint16_t led_i);
+void rgb_matrix_effect_breathing              (uint16_t led_i);
+void rgb_matrix_effect_cycle_all              (uint16_t led_i);
+void rgb_matrix_effect_cycle_left_right       (uint16_t led_i);
+void rgb_matrix_effect_cycle_up_down          (uint16_t led_i);
+void rgb_matrix_effect_digital_rain           (uint16_t led_i, bool init);
+void rgb_matrix_effect_dual_beacon            (uint16_t led_i);
+void rgb_matrix_effect_gradient_up_down       (uint16_t led_i);
+void rgb_matrix_effect_jellybean_raindrops    (uint16_t led_i, bool init);
+void rgb_matrix_effect_multisplash            (uint16_t led_i);
+void rgb_matrix_effect_rainbow_beacon         (uint16_t led_i);
+void rgb_matrix_effect_rainbow_moving_chevron (uint16_t led_i);
+void rgb_matrix_effect_rainbow_pinwheels      (uint16_t led_i);
+void rgb_matrix_effect_raindrops              (uint16_t led_i, bool init);
+void rgb_matrix_effect_solid_color            (uint16_t led_i);
+void rgb_matrix_effect_solid_multisplash      (uint16_t led_i);
+void rgb_matrix_effect_solid_reactive         (uint16_t led_i);
+void rgb_matrix_effect_solid_splash           (uint16_t led_i);
+void rgb_matrix_effect_splash                 (uint16_t led_i);
 
-// This runs after another backlight effect and replaces
-// colors already set
-void rgb_matrix_indicators_kb(uint16_t led_i);
-void rgb_matrix_indicators_user(uint16_t led_i);
+// Specify single-led color
+void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
 
 void rgb_matrix_init(void);
-void rgb_matrix_setup_drivers(void);
-
-void rgb_matrix_set_suspend_state(bool state);
-void rgb_matrix_set_indicator_state(uint8_t state);
-
-
 void rgb_matrix_task(void);
-
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record);
-
-void rgb_matrix_increase(void);
-void rgb_matrix_decrease(void);
-
-// void *backlight_get_key_color_eeprom_address(uint8_t led);
-// void backlight_get_key_color( uint8_t led, HSV *hsv );
-// void backlight_set_key_color( uint8_t row, uint8_t column, HSV hsv );
 
 void rgb_matrix_toggle(void);
 void rgb_matrix_enable(void);
@@ -186,6 +140,7 @@ void rgb_matrix_increase_speed(void);
 void rgb_matrix_decrease_speed(void);
 void rgb_matrix_mode(uint8_t mode);
 void rgb_matrix_mode_noeeprom(uint8_t mode);
+void rgb_matrix_set_suspend_state(bool state);
 uint32_t rgb_matrix_get_mode(void);
 
 #ifndef RGBLIGHT_ENABLE
@@ -209,8 +164,65 @@ uint32_t rgb_matrix_get_mode(void);
 #define rgblight_mode(mode) rgb_matrix_mode(mode)
 #define rgblight_mode_noeeprom(mode) rgb_matrix_mode_noeeprom(mode)
 #define rgblight_get_mode() rgb_matrix_get_mode()
-
 #endif
+
+/*-------------------  Globals (mainly used in effects)  ---------------------*/
+
+#ifdef RGB_MATRIX_EXTRA_TOG
+typedef enum {
+  RGB_ZONE_OFF = 0,
+  RGB_ZONE_ALL,
+  RGB_ZONE_KEYS,
+  RGB_ZONE_UNDER,
+} rgb_zone_t;
+#endif
+
+typedef union {
+  uint32_t raw;
+  struct {
+#ifdef RGB_MATRIX_EXTRA_TOG
+    uint8_t enable  :2;
+    uint8_t mode    :6;
+#else
+    uint8_t enable  :1;
+    uint8_t mode    :7;
+#endif
+    HSV hsv;
+    //EECONFIG needs to be increased to support these
+    uint8_t speed;
+    uint8_t custom;
+  };
+} rgb_config_t;
+
+extern rgb_config_t rgb_matrix_config;
+
+extern bool g_suspend_state;
+extern uint32_t g_tick;                     // Ticks every frame
+extern uint8_t g_key_hit[DRIVER_LED_TOTAL]; // Ticks since this key was last hit.
+extern uint32_t g_any_key_hit;              // Ticks since any key was last hit.
+extern uint16_t g_last_keycode;             // Last keycode hit
+
+/*---------------------------  Things to override  ---------------------------*/
+// https://docs.qmk.fm/#/feature_rgb_matrix
+
+typedef struct Point {
+  uint8_t x;
+  uint8_t y;
+} __attribute__((packed)) Point;
+
+typedef struct rgb_led {
+  union {
+    uint8_t raw;
+    struct {
+      uint8_t row:4; // 16 max
+      uint8_t col:4; // 16 max
+    };
+  } matrix_co;
+  Point point;
+  uint8_t modifier:1;
+} __attribute__((packed)) rgb_led;
+
+extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
 
 typedef struct {
     /* Perform any initialisation required for the other driver functions to work. */
@@ -223,17 +235,12 @@ typedef struct {
 
 extern const rgb_matrix_driver_t rgb_matrix_driver;
 
-extern rgb_config_t rgb_matrix_config;
+// This runs after another backlight effect and replaces
+// colors already set
+void rgb_matrix_indicators_kb(uint16_t led_i);
+void rgb_matrix_indicators_user(uint16_t led_i);
 
-extern bool g_suspend_state;
-extern uint32_t g_tick;                     // Ticks every frame
-extern uint8_t g_key_hit[DRIVER_LED_TOTAL]; // Ticks since this key was last hit.
-extern uint32_t g_any_key_hit;              // Ticks since any key was last hit.
-extern uint16_t g_last_keycode;             // Last keycode hit
-
-// Custom Mode support (redefine these in keymap.c)
+// Custom Mode support
 typedef void (*rgb_matrix_custom_mode_f)(uint16_t led_i, bool init);
 extern const rgb_matrix_custom_mode_f* rgb_matrix_custom_modes;
 extern const uint8_t rgb_matrix_custom_modes_count;
-
-#endif

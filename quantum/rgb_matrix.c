@@ -1,6 +1,7 @@
 /* Copyright 2017 Jason Williams
  * Copyright 2017 Jack Humbert
  * Copyright 2018 Yiancar
+ * Copyright 2019 Daniel Prilik
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -388,7 +389,7 @@ void rgb_matrix_jellybean_raindrops(uint16_t led_i, bool initialize) {
 }
 
 // TODO: refactor to allow per-pixel updates
-void rgb_matrix_digital_rain(uint16_t led_i, const bool initialize) {
+void rgb_matrix_digital_rain(uint16_t led_i, bool init) {
     if (led_i != 0) return;
 
     // algorithm ported from https://github.com/tremby/Kaleidoscope-LEDEffect-DigitalRain
@@ -400,7 +401,7 @@ void rgb_matrix_digital_rain(uint16_t led_i, const bool initialize) {
     static uint8_t map[MATRIX_COLS][MATRIX_ROWS] = {{0}};
     static uint8_t drop = 0;
 
-    if (initialize) {
+    if (init) {
         rgb_matrix_set_color(led_i, 0, 0, 0);
         memset(map, 0, sizeof map);
         drop = 0;
@@ -862,12 +863,12 @@ end:
 }
 
 void rgb_matrix_increase_hue(void) {
-    rgb_matrix_config.hsv.h = increment(rgb_matrix_config.hsv.h, 8, 0, 255);
+    rgb_matrix_config.hsv.h += 8;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
 void rgb_matrix_decrease_hue(void) {
-    rgb_matrix_config.hsv.h = decrement(rgb_matrix_config.hsv.h, 8, 0, 255);
+    rgb_matrix_config.hsv.h -= 8;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
