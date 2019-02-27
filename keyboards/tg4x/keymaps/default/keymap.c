@@ -116,16 +116,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void update_led(void) {
   if (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) {
     //if caps lock is on
-    rgblight_sethsv_at(120,100,50, 0);
+    rgblight_sethsv_at(120,100,100, 0);
     //turns the first led green
     switch (biton32(layer_state)) {
-      case _BL:
-      //when the base layer is active, turns the LEDs white
-        rgblight_sethsv_range(0,0,50,1,7);
-        break;
       case _FL:
+      //when the base layer is active, turns the LEDs pink
+        rgblight_sethsv_range(300,50,50,1,7);
+        break;
+      case _BL:
       //when the function layer is active, turns the LEDs blue
-        rgblight_sethsv_range(212,100,50,1,7);
+        rgblight_sethsv_range(240,100,100,1,7);
         break;
       default:
       //if anything else is active, turns the LEDs off. isn't in use, mostly a fallback
@@ -137,11 +137,11 @@ void update_led(void) {
         rgblight_sethsv_at(0,0,0, 0);
         switch (biton32(layer_state)) {
           //same code as above
-          case _BL:
+          case _FL:
             rgblight_sethsv_range(0,0,50,1,7);
             break;
-          case _FL:
-            rgblight_sethsv_range(212,100,50,1,7);
+          case _BL:
+            rgblight_sethsv_range(300,50,50,1,7);
             break;
           default:
             rgblight_sethsv(0,0,0);
