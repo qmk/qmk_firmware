@@ -70,7 +70,11 @@ void iota_gfx_task_user(void) {
   struct CharacterMatrix matrix;
 
   matrix_clear(&matrix);
+#ifdef MASTER_RIGHT
+  if (!is_master) {
+#else
   if (is_master) {
+#endif // MASTER_RIGHT
     matrix_write(&matrix, read_mode_icon(!get_enable_kc_lang()));
     matrix_write(&matrix, " ");
     matrix_write(&matrix, read_layer_state());

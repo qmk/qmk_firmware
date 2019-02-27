@@ -122,7 +122,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #ifdef SSD1306OLED
 void matrix_init_keymap(void) {
   //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
-  iota_gfx_init(!has_usb());   // turns on the display
+#ifdef MASTER_RIGHT
+  iota_gfx_init(has_usb()); // turns on the display
+#else
+  iota_gfx_init(!has_usb());
+#endif // MASTER_RIGHT
 }
 
 void matrix_scan_user(void) {
