@@ -417,8 +417,9 @@ void rgb_matrix_digital_rain(uint16_t led_i, const bool initialize) {
                 map[col][row]--;
             }
             // set the pixel colour
-            uint8_t led, led_count;
-            map_row_column_to_led(row, col, &led, &led_count);
+            uint8_t led, leds[MAX_SEARCH_LEDS], led_count;
+            map_row_column_to_led(row, col, leds, &led_count);
+            led = leds[0];
 
             if (map[col][row] > pure_green_intensity) {
                 const uint8_t boost = (uint8_t) ((uint16_t) max_brightness_boost
@@ -454,7 +455,7 @@ void rgb_matrix_digital_rain(uint16_t led_i, const bool initialize) {
 
 void rgb_matrix_breathing(uint16_t led_i) {
     uint8_t breathing_step = g_tick << 1; // Going up
-    if (g_tick >> 7) breathing_step = 0xFF - breathing_step; // Going down
+    if ((uint8_t)g_tick >> 7) breathing_step = 0xFF - breathing_step; // Going down
     float f_step = (float)breathing_step;
     float f_ratio = (f_step * f_step) / 65025;
     float v = (float)rgb_matrix_config.hsv.v * f_ratio;
@@ -747,7 +748,8 @@ void rgb_matrix_task(void) {
         }
 
     done_effect:
-        cur_led_i = (cur_led_i + 1) % DRIVER_LED_TOTAL;
+        cur_led_i++;
+        cur_led_i %= DRIVER_LED_TOTAL;
     }
 }
 
@@ -890,12 +892,12 @@ void rgb_matrix_decrease_val(void) {
 }
 
 void rgb_matrix_increase_speed(void) {
-    rgb_matrix_config.speed = increment(rgb_matrix_config.speed, 1, 0, 3);
+    rgb_matrix_config.speed = increment(rgb_matrix_config.speed, 1, 0, 10);
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);//EECONFIG needs to be increased to support this
 }
 
 void rgb_matrix_decrease_speed(void) {
-    rgb_matrix_config.speed = decrement(rgb_matrix_config.speed, 1, 0, 3);
+    rgb_matrix_config.speed = decrement(rgb_matrix_config.speed, 1, 0, 10);
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);//EECONFIG needs to be increased to support this
 }
 
