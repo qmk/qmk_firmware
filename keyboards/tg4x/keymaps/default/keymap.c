@@ -141,7 +141,7 @@ void update_led(void) {
             rgblight_sethsv_range(0,0,50,1,7);
             break;
           case _BL:
-            rgblight_sethsv_range(300,50,50,1,7);
+            rgblight_sethsv_range(240,100,100,1,7);
             break;
           default:
             rgblight_sethsv(0,0,0);
