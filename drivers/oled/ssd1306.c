@@ -22,6 +22,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string.h>
 
+#ifdef __AVR__
+ #include <avr/io.h>
+ #include <avr/pgmspace.h>
+#elif defined(ESP8266)
+ #include <pgmspace.h>
+#else
+ #define PROGMEM
+ #define memcpy_P(des, src, len) memcpy(des, src, len)
+#endif
+
 // Used commands from spec sheet: https://cdn-shop.adafruit.com/datasheets/SSD1306.pdf
 // Fundamental Commands
 #define CONTRAST                0x81
@@ -70,11 +80,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // i2c defines
 #define I2C_CMD 0x00
 #define I2C_DATA 0x40
-#if defined(__AVR__)
+#ifdef __AVR__
   // already defined on ARM
   #define I2C_TIMEOUT 100
-#endif
-#if defined(__AVR__)
   #define I2C_TRANSMIT_P(data) i2c_transmit_P((SSD1306_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
 #else
   #define I2C_TRANSMIT_P(data) i2c_transmit((SSD1306_ADDRESS << 1), &data[0], sizeof(data), I2C_TIMEOUT)
@@ -384,6 +392,7 @@ void oled_write_ln(const char *data, bool invert) {
   oled_advance_page(true);
 }
 
+#ifdef __AVR__
 void oled_write_P(const char *data, bool invert) {
   uint8_t c = pgm_read_byte(data);
   while (c != 0) {
@@ -396,6 +405,7 @@ void oled_write_ln_P(const char *data, bool invert) {
   oled_write_P(data, invert);
   oled_advance_page(true);
 }
+#endif //__AVR__
 
 bool oled_on(void) {
   oled_last_activity = timer_read();
@@ -472,7 +482,7 @@ void oled_task(void) {
 
   oled_set_cursor(0, 0);
 
-#ifndef IOTA_COMPATIBILITY_OFF
+#if !defined(IOTA_COMPATIBILITY_OFF) && defined(__AVR__)
   iota_gfx_task_user();
 #endif
   oled_task_user();
@@ -490,7 +500,7 @@ __attribute__((weak))
 void oled_task_user(void) {
 }
 
-#ifndef IOTA_COMPATIBILITY_OFF
+#if !defined(IOTA_COMPATIBILITY_OFF) && defined(__AVR__)
 __attribute__((weak))
 void iota_gfx_task_user(void) {
 }

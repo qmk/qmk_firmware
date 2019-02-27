@@ -125,6 +125,7 @@ void oled_write(const char *data, bool invert);
 // Advances the cursor while writing, inverts the pixels if true
 void oled_write_ln(const char *data, bool invert);
 
+#ifdef __AVR__
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 void oled_write_P(const char *data, bool invert);
@@ -132,6 +133,7 @@ void oled_write_P(const char *data, bool invert);
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
 void oled_write_ln_P(const char *data, bool invert);
+#endif //__AVR__
 
 // Can be used to manually turn on the screen if it is off
 bool oled_on(void);
@@ -157,8 +159,8 @@ bool oled_scroll_left(void);
 bool oled_scroll_off(void);
 
 
-// compatibility defines
-#ifndef IOTA_COMPATIBILITY_OFF
+// compatibility defines, ARM never had these, so don't include them
+#if !defined(IOTA_COMPATIBILITY_OFF) && defined(__AVR__)
 
 struct CharacterMatrix {
   uint8_t display[0];
@@ -188,4 +190,4 @@ void iota_gfx_task_user(void); // void return
 #define matrix_write_ln_P(matrix, const_char_pointer) oled_write_ln_P(const_char_pointer, false) // void return
 #define matrix_render(matrix) oled_render() // void return
 
-#endif
+#endif // !defined(IOTA_COMPATIBILITY_OFF) && defined(__AVR__)
