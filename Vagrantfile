@@ -55,7 +55,7 @@ Vagrant.configure(2) do |config|
   # image, you'll need to: chmod -R a+rw .
   config.vm.provider "docker" do |docker, override|
     override.vm.box = nil
-    docker.image = "jesselang/debian-vagrant:jessie"
+    docker.image = "jesselang/debian-vagrant:stretch"
     docker.has_ssh = true
   end
 
