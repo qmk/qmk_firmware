@@ -73,53 +73,21 @@ enum tap_dancers {
 
 #define MLT_E     LT(_NUM, KC_E)
 
-#ifndef SPACE_COUNT
-  #define SPACE_COUNT 1
-#endif
-#if (SPACE_COUNT == 1)
-  #define KC_SPC1   LT(_NAV, KC_SPC)
-  #define KC_SPC2   XXXXXXX
-  #define KC_SPC3   XXXXXXX
-
-  #define NV_SPC1   _______
-  #define NV_SPC2   _______
-  #define NV_SPC3   _______
-
-  #define NM_SPC1   _______
-  #define NM_SPC2   _______
-  #define NM_SPC3   _______
-#elif (SPACE_COUNT == 2)
-  #define KC_SPC1   LT(_NAV,KC_SPC)
-  #define KC_SPC2   LT(_NUM,KC_ENT)
-
-  #define NV_SPC1   KC_SPC
-  #define NV_SPC2   KC_ENT
-
-  #define NM_SPC1   KC_0
-  #define NM_SPC2   KC_SPC
-
-  #define KC_SPC3   XXXXXXX
-  #define NV_SPC3   XXXXXXX
-  #define NM_SPC3   XXXXXXX
-#elif (SPACE_COUNT == 3)
-  #ifdef SWAP_HANDS_ENABLE
-    #define KC_SPC1 SH_T(KC_BSPC)
-  #else
-    #define KC_SPC1 KC_BSPC
-  #endif
-  #define KC_SPC2   LT(_NUM,KC_ENT)
-  #define KC_SPC3   LT(_NAV,KC_SPC)
-
-  #define NV_SPC1   KC_SPC
-  #define NV_SPC2   KC_ENT
-  #define NV_SPC3   KC_SPC
-
-  #define NM_SPC1   KC_SPC
-  #define NM_SPC2   XXXXXXX
-  #define NM_SPC3   KC_0
+#define KC_SPC1   LT(_NAV,KC_SPC)
+#ifdef SWAP_HANDS_ENABLE
+  #define KC_SPC2 SH_T(KC_BSPC)
 #else
-  #error "Unsupported space count:" SPACE_COUNT
+  #define KC_SPC2 KC_BSPC
 #endif
+#define KC_SPC3   LT(_NUM,KC_ENT)
+
+#define NV_SPC1   KC_SPC
+#define NV_SPC2   KC_ENT
+#define NV_SPC3   KC_SPC
+
+#define NM_SPC1   KC_0
+#define NM_SPC2   XXXXXXX
+#define NM_SPC3   KC_SPC
 
 #ifndef ZEAL_RGB
   #define BR_INC KC_NO

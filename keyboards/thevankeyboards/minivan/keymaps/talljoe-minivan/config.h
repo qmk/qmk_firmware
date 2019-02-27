@@ -15,7 +15,7 @@
     K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1D, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, \
     K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K0D, \
-    K41, K49, K42,      K44, K45,      K3C, K0B, K00, K3D       \
+    K41, K49, K42,      K44, K46,      K3C, K0B, K00, K3D       \
 )
 
 #define TEMPLATE_ALT(                                                              \
@@ -28,7 +28,7 @@
     K00, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1D, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2C, \
     K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, \
-    K41, K49, K42,      K44, K45,      K48, K49, K4B, K4C       \
+    K41, K49, K42,      K44, K46,      K48, K49, K4B, K4C       \
 )
 
 #define TEMPLATE_ADJUST(                                                            \
@@ -41,7 +41,7 @@
     K00, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K2D, \
     K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2C, \
     K30, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, \
-    K40, K41, K42,      K44, K45,      K48, K0B, K0C, K4C       \
+    K40, K41, K42,      K44, K46,      K48, K0B, K0C, K4C       \
 )
 
 #define TEMPLATE_RESET LAYOUT_arrow( \
