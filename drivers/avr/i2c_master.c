@@ -127,7 +127,7 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
 
   for (uint16_t i = 0; i < (length - 1) && status >= 0; i++) {
     status = i2c_read_ack(timeout);
-    if (status >= 0) { // TODO: Ask pelrun, this should probably be 'if (status) break;' instead
+    if (status >= 0) {
       data[i] = status;
     }
   }
@@ -175,7 +175,7 @@ i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16
 
   for (uint16_t i = 0; i < (length - 1) && status >= 0; i++) {
     status = i2c_read_ack(timeout);
-    if (status >= 0) { // TODO: Ask pelrun, this should probably be 'if (status) break;' instead
+    if (status >= 0) {
       data[i] = status;
     }
   }
