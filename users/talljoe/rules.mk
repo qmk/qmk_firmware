@@ -1,4 +1,4 @@
-SRC += talljoe.c tapdance.c
+SRC += talljoe.c $(wildcard users/talljoe/tapdance/*.c)
 
 EXTRAFLAGS+=-flto
 

@@ -2,6 +2,7 @@
 #define USERSPACE
 
 #include "quantum.h"
+#include "tapdance/tapdance.h"
 
 enum userspace_custom_keycodes {
   KC_MAKE = SAFE_RANGE, // can always be here
@@ -27,11 +28,6 @@ enum layers {
     _NUM,
     _ADJUST,
     _RESET = RESET_LAYER,
-};
-
-enum tap_dancers {
-  TD_SEMICOLON,
-  TD_GRAVE,
 };
 
 #define MO_NAV    MO(_NAV)
