@@ -6,7 +6,7 @@
 #include "i2c_master.h"
 #endif
 #ifdef OLED_ENABLE
-#include "ssd1306.h"
+  #include "ssd1306.h"
 #endif
 extern keymap_config_t keymap_config;
 
@@ -352,9 +352,11 @@ void matrix_init_user(void) {
 
 void matrix_scan_user(void) {
     #ifdef OLED_ENABLE
-     oled_task();  // this is what updates the display continuously
+      oled_task();  // this is what updates the display continuously
     #endif
 }
+
+#ifdef OLED_ENABLE
 
 //assign the right code to your layers for OLED display
 #define L_BASE 0
@@ -425,4 +427,5 @@ void oled_task_user(void) {
   oled_write(led, false);
 }
 
+#endif // OLED_ENABLE
 #endif

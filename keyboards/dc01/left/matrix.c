@@ -455,10 +455,10 @@ i2c_status_t i2c_transaction(uint8_t address, uint32_t mask, uint8_t col_offset)
         matrix[MATRIX_ROWS - 1] |= ((uint32_t)err << (MATRIX_COLS_SCANNED + col_offset)); //add new bits at the end
 
     } else {
-        i2c_stop(10);
+        i2c_stop();
         return 1;
     }
 
-    i2c_stop(10);
+    i2c_stop();
     return 0;
 }

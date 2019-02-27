@@ -16,7 +16,9 @@
 #include QMK_KEYBOARD_H
 #include "LUFA/Drivers/Peripheral/TWI.h"
 #include "i2c_master.h"
-#include "ssd1306.h"
+#ifdef OLED_ENABLE
+  #include "ssd1306.h"
+#endif
 
 // Custom macros
 #define CTL_ESC     CTL_T(KC_ESC)               // Tap for Esc, hold for Ctrl

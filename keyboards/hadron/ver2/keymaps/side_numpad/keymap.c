@@ -7,7 +7,7 @@
 #include "i2c_master.h"
 #endif
 #ifdef OLED_ENABLE
-#include "ssd1306.h"
+  #include "ssd1306.h"
 #endif
 extern keymap_config_t keymap_config;
 
