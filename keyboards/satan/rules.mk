@@ -60,4 +60,4 @@ AUDIO_ENABLE = no
 UNICODE_ENABLE = no     # Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
 
-LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift 60_iso_split_bs_rshift 60_ansi_split_rshift 60_iso_split_rshift
+LAYOUTS = 60_ansi 60_iso 60_ansi_split_bs_rshift
