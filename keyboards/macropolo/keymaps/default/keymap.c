@@ -14,19 +14,24 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+//layer defs
 #define _PICK 0
 #define _PREM 1
 #define _PS 2
 #define _KICAD 3
 #define _CODE 4
 #define _MED 5
+#define _MINE 6
+//keycode defs
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*.-----------.-----------.-----------.-----------.
-  |           |           |/         \|/ Layer   \|
+/*                          .-------.   .-------.
+  .-----------.-----------./>NO      \./>NO      \.
+  |           |           ||<NO      |||<NO      ||
   |           |           |\         /|\ Select  /|
   |-----------+-----------+-----------+-----------|
-  | Media     |           |           |           |
+  | Media     | Minecraft |           |           |
   |           |           |           |           |
   |-----------+-----------+-----------+-----------|
   | Premiere  | Photoshop | KiCad     | None      |
@@ -34,11 +39,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   `-----------'-----------'-----------'-----------'*/
   [_PICK] = LAYOUT( /* Layer Select */
     KC_NO, KC_NO, KC_NO, KC_TRNS, \
-    TO(_MED), KC_NO, KC_NO, KC_NO, \
+    TO(_MED), TO(_MINE), KC_NO, KC_NO, \
     TO(_PREM), TO(_PS), TO(_KICAD), TO(_CODE) \
   ),
-/*.-----------.-----------.-----------.-----------.
-  | Timeline  | Timeline  |/ Save    \|/ Layer   \|
+/*                          .-------.   .-------.
+  .-----------.-----------./>Right   \./>Up      \.
+  | Timeline  | Timeline  ||<Left    |||<Down    ||
   | Select    | Cut       |\ Ctrl+S  /|\ Select  /|
   |-----------+-----------+-----------+-----------|
   | Insert    | Overwrite | Delete    | Enter     |
@@ -52,9 +58,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_COMMA,  KC_DOT,  KC_DELETE, KC_ENTER, \
     KC_LSFT,  KC_LCTL,  KC_LALT, KC_SPACE \
   ),
-/*.-----------.-----------.-----------.-----------.
-  | Selection | Wire      |/         \|/ Layer   \|
-  | Tool      | Tool      |\         /|\ Select  /|
+/*                          .-------.   .-------.
+  .-----------.-----------./>Right   \./>Up      \.
+  | Selection | Wire      ||<Left    |||<Down    ||
+  | Tool      | Tool      |\         /|\ Layers  /|
   |-----------+-----------+-----------+-----------|
   | Shift     | New       | Move      | Delete    |
   |           | Track     |           |           |
@@ -67,9 +74,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT,  KC_X,  KC_M, KC_DEL, \
     KC_LCTL,  KC_I,  KC_J, KC_ENT \
   ),
-/*.-----------.-----------.-----------.-----------.
-  | S         | R         |/ C       \|/ Layer   \|
-  |           |           |\         /|\ Select  /|
+/*                          .-------.   .-------.
+  .-----------.-----------./>Right   \./>Wh Up   \.
+  | S         | R         ||<Left    |||<Wh Down ||
+  |           |           |\         /|\ Layers  /|
   |-----------+-----------+-----------+-----------|
   | Shift     | E         | F         | G         |
   |           |           |           |           |
@@ -82,10 +90,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_RSFT,  KC_E,  KC_F, KC_G, \
     KC_RCTL,  KC_LALT,  KC_SPC, KC_K \
   ),
-/*.-----------.-----------.-----------.-----------.
-  | RGB       | B         |/ C       \|/ Layer   \|
-  | Toggle    |           |\         /|\ Select  /|
-  |-----------+-----------+-----------+-----------|
+/*                          .-------.   .-------.
+  .-----------.-----------./>PageUp  \./>Up      \.
+  | Escape    | Tab       ||<PageDown||/<Down    ||
+  |           |           |\ Save    /|\ Layers  /|
+  |-----------+-----------+-'-------'-+-----------|
   | RGB       | E         | F         | G         |
   | Hue+      |           |           |           |
   |-----------+-----------+-----------+-----------|
@@ -97,20 +106,37 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_LSFT, KC_LALT, KC_ASTERISK, KC_SLSH, \
     KC_LCTL, KC_LBRACKET, KC_RBRACKET, KC_ENT \
   ),
-  /*.-----------.-----------.-----------.-----------.
-    | Play      | Stop      |/ Volume  \|/ Layer   \|
-    | Pause     |           |\         /|\ Select  /|
+  /*                          .-------.   .-------.
+    .-----------.-----------./>VolUp   \./>MNXT    \.
+    | Play      | Stop      ||<VolDown |||<MPRV    ||
+    | Pause     |           |\ Player  /|\ Layers  /|
     |-----------+-----------+-----------+-----------|
-    | RGB       | E         | F         | G         |
-    | Hue+      |           |           |           |
+    | Mute      |           | RGB       | RGB Value |
+    |           |           | Toggle    | Increase  |
     |-----------+-----------+-----------+-----------|
-    | RGB       | I         | J         | K         |
-    | Hue-      |           |           |           |
+    | RGB       |           |           | RGB Value |
+    | Hue-      |           |           | Decrease  |
     `-----------'-----------'-----------'-----------'*/
     [_MED] = LAYOUT( /* Media Control */
       KC_MPLY, KC_MSTP,  KC_MEDIA_SELECT, TG(_MED),  \
-      KC_AUDIO_MUTE,  RGB_TOG, RGB_SAI, KC_G, \
-      KC_NO, KC_NO, KC_NO, KC_NO \
+      KC_AUDIO_MUTE,  KC_NO, RGB_TOG, RGB_VAI, \
+      KC_NO, KC_NO, KC_NO, RGB_VAD \
+    ),
+  /*                          .-------.   .-------.
+    .-----------.-----------./>PageUp  \./>Wh Up   \.
+    |           |           ||<PageDown|||<Wh Down ||
+    |           |           |\ F2      /|\         /|
+    |-----------+-----------+-----------+-----------|
+    |           |           |           |           |
+    |           |           |           |           |
+    |-----------+-----------+-----------+-----------|
+    |           |           |           |           |
+    |           |           |           |           |
+    `-----------'-----------'-----------'-----------'*/
+    [_MINE] = LAYOUT( /* Media Control */
+      KC_MPLY, KC_MSTP,  KC_F3, TG(_MINE),  \
+      KC_AUDIO_MUTE,  KC_NO, RGB_TOG, RGB_VAI, \
+      KC_NO, KC_NO, KC_NO, RGB_VAD \
     ),
 };
 
@@ -118,6 +144,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void encoder_update_user(uint8_t index, bool clockwise) {
 if (index == 0) {
     switch(biton32(layer_state)) {
+      case _PICK:
+        clockwise ? tap_code(KC_NO) : tap_code(KC_NO);
+        break;
       case _CODE:
         clockwise ? tap_code(KC_PGUP) : tap_code(KC_PGDN);
         break;
@@ -131,6 +160,9 @@ if (index == 0) {
   }
 else if (index == 1) {
     switch(biton32(layer_state)) {
+      case _PICK:
+        clockwise ? tap_code(KC_NO) : tap_code(KC_NO);
+        break;
       case _CODE:
         clockwise ? tap_code(KC_UP) : tap_code(KC_DOWN);
         break;
@@ -152,22 +184,25 @@ else if (index == 1) {
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _PICK:
-        rgblight_sethsv_range (0,0,0,0,7);
+        rgblight_sethsv_range (0,20,40,0,7);
         break;
     case _PREM:
         rgblight_sethsv_at (50,100,100,0);
         break;
     case _PS:
-        rgblight_sethsv_at (100,100,100,1);
+        rgblight_sethsv_at (100,75,100,1);
         break;
     case _KICAD:
-        rgblight_sethsv_at (150,100,100,2);
+        rgblight_sethsv_at (150,75,100,2);
         break;
     case _CODE:
         rgblight_sethsv_at (200,100,100,3);
         break;
     case _MED:
         rgblight_sethsv_at (250,100,100,4);
+        break;
+    case _MINE:
+        rgblight_sethsv_at (120,100,50,5);
         break;
     default: //  for any other layers, or the default layer
         rgblight_sethsv (0,0,100);
