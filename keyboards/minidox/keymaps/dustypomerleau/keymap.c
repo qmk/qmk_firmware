@@ -56,7 +56,6 @@ void sftocb_reset (qk_tap_dance_state_t *state, void *user_data);
 void sftpls_finished (qk_tap_dance_state_t *state, void *user_data);
 void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 
-#define _______ KC_TRNS
 #define ALT_2 LALT_T(KC_2)
 #define ALT_3 LALT_T(KC_3)
 #define ALT_8 LALT_T(KC_8)

@@ -139,12 +139,12 @@
                 {"label":"Left", "x":13.5, "y":4},
                 {"label":"Down", "x":14.5, "y":4},
                 {"label":"Right", "x":15.5, "y":4},
-                {"label":"Space", "x":5.5, "y":5, "H":2},
+                {"label":"Space", "x":5.5, "y":5, "h":2},
                 {"label":"Ins", "x":6.5, "y":5},
                 {"label":"Del", "x":6.5, "y":6},
                 {"label":"Home", "x":9.5, "y":5},
                 {"label":"End", "x":9.5, "y":6},
-                {"label":"Space", "x":10.5, "y":5, "H":2}
+                {"label":"Space", "x":10.5, "y":5, "h":2}
             ]
         }
     }
