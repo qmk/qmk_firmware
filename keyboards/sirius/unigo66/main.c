@@ -11,7 +11,6 @@
 #include "keyboard.h"
 #include "led.h"
 
-
 /* LED ping configuration */
 #define TMK_LED
 //#define LEONARDO_LED
@@ -85,13 +84,6 @@ int main(void)
     if (debug_enable) {
         _delay_ms(1000);
     }
-
-
-/*  // wait for USB startup & debug output
-    uint8_t timeout=255
-    while (timeout-- && USB_DeviceState != DEVICE_STATE_Configured) {
-    wait_ms(4);
-*/
 
     debug("init: done\n");
 

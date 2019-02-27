@@ -1,0 +1,431 @@
+#+Title: Samuel's Literate QMK Config
+#+PROPERTY: header-args :tangle ~/qmk_firmware/keyboards/planck/keymaps/samuel/keymap.c
+
+This is my qmk firmware for my keyboard. I grew tired of organizing the keycode
+array in plain text so I made it a literate .org file. I've never done this
+before, so bear with me.
+
+* Keymap
+
+#+BEGIN_COMMENT
+#+NAME: empty-layer
+| <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    | <6>    |
+|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+| -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+| -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+| -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+| -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      | -      |
+|--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
+#+END_COMMENT
+
+This is my "pretty" org mode organized table for my main dvorak layer. If you
+don't use org mode, it won't be that exiting, but if you enjoy working in org
+mode, you can edit this table directly, and this file is tangled to the actual
+keymap. No more organizing spaces or converting to and from comments.
+
+#+NAME: home-layer
+|--------+--------+------+------+------+-----+-----+-----+------+-------+--------+--------|
+| T_LRSE | QUOT   | COMM | DOT  | P    | Y   | F   | G   | C    | R     | L      | T_RRSE |
+| T_LSFT | A      | O    | E    | U    | I   | D   | H   | T    | N     | S      | T_RSFT |
+| T_LCTL | SCLN   | Q    | J    | K    | X   | B   | M   | W    | V     | Z      | T_RCTL |
+| T_LGUI | T_LALT | UP   | DOWN | BSPC | TAB | ENT | SPC | LEFT | RIGHT | T_RALT | T_RGUI |
+|--------+--------+------+------+------+-----+-----+-----+------+-------+--------+--------|
+
+I tried to keep my layout bare bones, just what would be available on a normal
+keyboard, minus some keys I never used. The bottom left copies a normal
+keyboards symbols from shifted numbers, and the rest is placed where convenient,
+with some considerations for one handed use, hence the shortcuts in the top
+left.
+
+#+TODO: qwerty layer for ma friends
+
+#+NAME: secondary-layer
+|----+--------+--------+--------+--------+------+------+----+--------+--------+-----+----|
+| -- | EZUNDO | EZCOPY | EZCUT  | EZPSTE | INS  | EQL  |  7 |      8 |      9 | F11 | -- |
+| -- | ESC    | CAPS   | PGUP   | PGDN   | F4   | ASTR |  4 |      5 |      6 | 0   | -- |
+| -- | EXLM   | AT     | HASH   | DLR    | PERC | CIRC |  1 |      2 |      3 | F12 | -- |
+| -- | --     | EZUP   | EZDOWN | --     | AMPR | PIPE | -- | EZLEFT | EZRGHT | --  | -- |
+|----+--------+--------+--------+--------+------+------+----+--------+--------+-----+----|
+
+But wait, we are missing several important keys!? yes, well, the modifier keys
+all do other keys when tapped. More about that in the keymap section.
+
+* Keymap Conversion in Python
+
+This python can convert that table into the array needed for the keymap file. It
+simply prepends every key with "KC_". I used to use a dictionary to convert some
+keys from the table into qmk keycodes, but the double convertion was
+unneccessary so I simply prepended all my macros with KC and moved all the
+implementation to the `process-user-input` function.
+
+#+NAME:layer-to-array
+#+BEGIN_SRC python :var keys=secondary-layer :tangle no
+results = "{"
+row = 0
+while row < len(keys):
+  results += '{ '
+  key = 0
+  while key < len(keys[row]):
+    keyName = str(keys[row][key])
+    if keyName == '--':
+      keyName = 'TRANSPARENT'
+    results += 'KC_' + keyName
+    if key != 11:
+      results += ', '
+    key+=1
+  results += '}'
+  if row != 3:
+    results += ','
+  results += '\n'
+  row+=1
+results += '},\n'
+return results
+#+END_SRC
+
+* keymap.c
+
+Now that we have done all the hard work, lets layout our keymap file then define
+our macros.
+
+** Headers And Layer Declaration
+
+#+BEGIN_SRC C :noweb yes
+#include QMK_KEYBOARD_H
+
+extern keymap_config_t keymap_config;
+
+static uint16_t tap_timers[10]  = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+
+char last_mod = -1;
+
+enum planck_layers {
+  _DVORAK,
+  _RISE
+};
+
+// where the 'T_' communicates how the key does something different when tapped.
+enum planck_keycodes {
+  DVORAK = SAFE_RANGE,
+  KC_T_LALT,
+  KC_T_RALT,
+  KC_T_LGUI,
+  KC_T_RGUI,
+  KC_T_LCTL,
+  KC_T_RCTL,
+  KC_T_LSFT,
+  KC_T_RSFT,
+  KC_T_LRSE,
+  KC_T_RRSE,
+  KC_EZRGHT,
+  KC_EZLEFT,
+  KC_EZUP,
+  KC_EZDOWN,
+  KC_EZUNDO,
+  KC_EZCOPY,
+  KC_EZCUT,
+  KC_EZPSTE
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+#+END_SRC
+
+** Import Key table
+
+#+BEGIN_SRC C :noweb yes
+[_DVORAK] =
+
+#+END_SRC
+
+#+BEGIN_SRC C :noweb yes
+<<layer-to-array(home-layer)>>
+
+#+END_SRC
+
+#+BEGIN_SRC C :noweb yes
+[_RISE] =
+
+#+END_SRC
+
+#+BEGIN_SRC C :noweb yes
+<<layer-to-array(secondary-layer)>>
+
+#+END_SRC
+
+** Process User Input
+*** Tap Key Functionality
+
+These methods define how I implemented the tap mechanic. Basically, I believe
+that /pressing/ any other key should be grounds for the hold functionality to be
+assumed. My natuaral typing style experiences no delays from my method.
+
+#+BEGIN_SRC C :noweb yes
+};
+
+void mod_press(uint16_t hold_code, int id) {
+    tap_timers[id] = timer_read();
+    last_mod = id;
+    register_code(hold_code);
+}
+
+void mod_lift(uint16_t tap_code, uint16_t hold_code, int id) {
+    unregister_code(hold_code);
+    if (last_mod == id && timer_elapsed(tap_timers[id]) < TAPPING_TERM) {
+      tap_code16(tap_code);
+      last_mod = -1;
+    }
+}
+
+#+END_SRC
+
+*** Set DVORAK layout
+
+The function that filter's user inputs and applies macros, the begginning is
+pretty basic, setting our main layer and configuring our secondary layer.
+
+#+BEGIN_SRC C :noweb yes
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case DVORAK:
+      if (record->event.pressed) {
+        set_single_persistent_default_layer(_DVORAK);
+      }
+      return false;
+      break;
+
+#+END_SRC
+
+*** Alt  and ()
+
+Left and right alt are ( and ) when tapped. I put them on alt instead of a more
+conveniant key like control because parentheses do not need to be shift modified
+ever, unlike some other tap keys seen in the next sections.
+
+#+BEGIN_SRC C :noweb yes
+case KC_T_LALT:
+if (record->event.pressed) {
+  mod_press(KC_LALT, 0);
+ } else {
+  mod_lift(S(KC_9), KC_LALT, 0);
+ }
+return false;
+break;
+case KC_T_RALT:
+if (record->event.pressed) {
+  mod_press(KC_RALT, 1);
+ } else {
+  mod_lift(S(KC_0), KC_RALT, 1);
+ }
+return false;
+break;
+
+#+END_SRC
+
+*** Gui  and `\
+
+I place gui in the bottom corner because I believe it is the hardest key to
+reach, so gui seemed like a good fit for a dedicated key that I never want to
+have to spam. For tap keys, I used equally unused keys that are not apart of the
+number pad or shifted number keys.
+
+#+BEGIN_SRC C :noweb yes
+case KC_T_LGUI:
+if (record->event.pressed) {
+  mod_press(KC_LGUI, 2);
+ } else {
+  mod_lift(KC_GRAVE, KC_LGUI, 2);
+ }
+return false;
+break;
+case KC_T_RGUI:
+if (record->event.pressed) {
+  mod_press(KC_RGUI, 3);
+ } else {
+  mod_lift(KC_BSLASH, KC_RGUI, 3);
+ }
+return false;
+break;
+
+#+END_SRC
+
+*** Ctrl and []
+
+Left and right control are [] respectively when they are tapped, making { and }
+also very convenient.
+
+#+BEGIN_SRC C :noweb yes
+case KC_T_LCTL:
+if (record->event.pressed) {
+  mod_press(KC_LCTL, 4);
+ } else {
+  mod_lift(KC_LBRACKET, KC_LCTL, 4);
+ }
+return false;
+break;
+case KC_T_RCTL:
+if (record->event.pressed) {
+  mod_press(KC_RCTL, 5);
+ } else {
+  mod_lift(KC_RBRACKET, KC_RCTL, 5);
+ }
+return false;
+break;
+
+#+END_SRC
+
+*** Shft and =-
+
+I place shift on the home row, so having '-' right of my pinkie is standard, and
+it only felt natural to put its opposite, '=/+' on the other side. I put an
+extra one on the right side in the secondary layer for the num pad.
+
+#+BEGIN_SRC C :noweb yes
+case KC_T_LSFT:
+if (record->event.pressed) {
+  mod_press(KC_LSFT, 6);
+ } else {
+  mod_lift(KC_EQUAL, KC_LSFT, 6);
+ }
+return false;
+break;
+case KC_T_RSFT:
+if (record->event.pressed) {
+  mod_press(KC_RSFT, 7);
+ } else {
+  mod_lift(KC_MINUS, KC_RSFT, 7);
+ }
+return false;
+break;
+
+#+END_SRC
+
+*** Rise, DEL, and /
+
+I use the top corners as rise because I decided that I do not like using layers
+with my thumbs. It feels uncomfortable to hold keys down with the side of my
+thumb, and backspace, tab, enter, and spacebar keep them satisfied. My pinky is
+for holding modifiers, so it makes sense to put the layer key with the other
+modifiers. Both my left and right layer keys activate the same layer which also
+makes sense to me. You wouldn't want left and right shift to do different things
+
+I used to have escape in the top left, but I use delete a lot more, and putting
+escape under a layer has not been a problem at all. I put / in the top right
+corner again mimicing a standard dvorak keyboard.
+
+#+BEGIN_SRC C :noweb yes
+case KC_T_LRSE:
+if (record->event.pressed) {
+  tap_timers[8] = timer_read();
+  last_mod = 8;
+  layer_on(_RISE);
+ } else {
+  layer_off(_RISE);
+  if (last_mod == 8 && timer_elapsed(tap_timers[8]) < TAPPING_TERM) {
+    tap_code16(KC_DELETE);
+    last_mod = -1;
+  }
+ }
+return false;
+break;
+case KC_T_RRSE:
+if (record->event.pressed) {
+  tap_timers[9] = timer_read();
+  last_mod = 9;
+  layer_on(_RISE);
+ } else {
+  layer_off(_RISE);
+  if (last_mod == 9 && timer_elapsed(tap_timers[9]) < TAPPING_TERM) {
+    tap_code16(KC_SLASH);
+    last_mod = -1;
+  }
+ }
+return false;
+break;
+
+#+END_SRC
+
+*** EZ keys
+
+I use ctrl+shift+arrows keys a lot, so when the layer key is pressed they became
+lazy versions of themselves with control and shift already pressed.
+
+I also added undo, copy, paste, and cut to be easily available with only the
+left hand like on a qwerty or colemek keyboard.
+
+#+BEGIN_SRC C :noweb yes
+case KC_EZRGHT:
+if (record->event.pressed) {
+  register_code(KC_LCTL);
+  tap_code16(S(KC_RGHT));
+  unregister_code(KC_LCTL);
+  last_mod = -1;
+ }
+return false;
+break;
+case KC_EZLEFT:
+if (record->event.pressed) {
+  register_code(KC_LCTL);
+  tap_code16(S(KC_LEFT));
+  unregister_code(KC_LCTL);
+  last_mod = -1;
+ }
+return false;
+break;
+case KC_EZDOWN:
+if (record->event.pressed) {
+  register_code(KC_LCTL);
+  tap_code16(S(KC_DOWN));
+  unregister_code(KC_LCTL);
+  last_mod = -1;
+ }
+return false;
+break;
+case KC_EZUP:
+if (record->event.pressed) {
+  register_code(KC_LCTL);
+  tap_code16(S(KC_UP));
+  unregister_code(KC_LCTL);
+  last_mod = -1;
+ }
+return false;
+break;
+case KC_EZUNDO:
+if (record->event.pressed) {
+  tap_code16(C(KC_Z));
+  last_mod = -1;
+}
+return false;
+break;
+case KC_EZCOPY:
+if (record->event.pressed) {
+  tap_code16(C(KC_C));
+  last_mod = -1;
+}
+return false;
+break;
+case KC_EZCUT:
+if (record->event.pressed) {
+  tap_code16(C(KC_X));
+  last_mod = -1;
+}
+return false;
+break;
+case KC_EZPSTE:
+if (record->event.pressed) {
+  tap_code16(C(KC_P));
+  last_mod = -1;
+}
+return false;
+break;
+#+END_SRC
+
+*** Standard inputs interupt tap
+
+Finally, if just a standard key is tapped, set the interupted flag.
+
+#+BEGIN_SRC C :noweb yes
+  }
+  last_mod = -1;
+  return true;
+}
+#+END_SRC

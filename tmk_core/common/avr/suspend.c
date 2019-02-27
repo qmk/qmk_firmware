@@ -102,24 +102,31 @@ static uint8_t wdt_timeout = 0;
  */
 static void power_down(uint8_t wdto) {
 #ifdef PROTOCOL_LUFA
-    if (USB_DeviceState == DEVICE_STATE_Configured) return;
+  if (USB_DeviceState == DEVICE_STATE_Configured) return;
 #endif
-    wdt_timeout = wdto;
+  wdt_timeout = wdto;
 
-    // Watchdog Interrupt Mode
-    wdt_intr_enable(wdto);
+  // Watchdog Interrupt Mode
+  wdt_intr_enable(wdto);
 
 #ifdef BACKLIGHT_ENABLE
-	backlight_set(0);
+  backlight_set(0);
 #endif
 
-	// Turn off LED indicators
-	led_set(0);
+  // Turn off LED indicators
+  uint8_t leds_off = 0;
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+  if (is_backlight_enabled()) {
+    // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
+    leds_off |= (1<<USB_LED_CAPS_LOCK);
+  }
+#endif
+  led_set(leds_off);
 
-	#ifdef AUDIO_ENABLE
-        // This sometimes disables the start-up noise, so it's been disabled
-		// stop_all_notes();
-	#endif /* AUDIO_ENABLE */
+#ifdef AUDIO_ENABLE
+  // This sometimes disables the start-up noise, so it's been disabled
+  // stop_all_notes();
+#endif /* AUDIO_ENABLE */
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_disable();
