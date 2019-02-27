@@ -212,7 +212,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUM_E] = LAYOUT( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  \
   SFT_7,   CTRL_5,  ALT_3,   GUI_1,   KC_9,          KC_8,    GUI_0,   ALT_2,   CTRL_4,  SFT_6,   \
-  _______, _______, KC_F11,  KC_F12,  KC_BSPC,       KC_DEL,  NUMLK_E, _______, _______, _______, \
+  KC_F11,  KC_F12,  KC_MINS, KC_SLSH, KC_BSPC,       KC_DEL,  NUMLK_E, _______, _______, _______, \
                     _______, KC_TAB,  KC_ESC,        _______, _______, _______                    \
 ),
 
@@ -234,7 +234,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUM_N] = LAYOUT( \
   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,         KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,   \
   SFT_1,   CTRL_2,  ALT_3,   GUI_4,   KC_5,          KC_6,    GUI_7,   ALT_8,   CTRL_9,  SFT_0,    \
-  _______, _______, KC_F11,  KC_F12,  KC_BSPC,       KC_DEL,  NUMLK_N, _______, _______, _______,  \
+  KC_F11,  KC_F12,  KC_MINS, KC_SLSH, KC_BSPC,       KC_DEL,  NUMLK_N, _______, _______, _______,  \
                     _______, KC_TAB,  KC_ESC,        _______, _______, _______                     \
 ),
 
