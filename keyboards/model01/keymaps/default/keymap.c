@@ -100,6 +100,9 @@ static void set_numpad_colours(int on, void (*write)(int, uint8_t, uint8_t, uint
 }
 
 #ifdef RGB_MATRIX_ENABLE
+void set_led_to_rgb_matrix(int led, uint8_t r, uint8_t g, uint8_t b) {
+  rgb_matrix_set_color(led, r, g, b);
+}
 /* the RGB matrix effects will overwrite the numpad indicator.
  * this handy mechanism allows to override the matrix effects.
  */
@@ -107,7 +110,7 @@ static void set_numpad_colours(int on, void (*write)(int, uint8_t, uint8_t, uint
 void rgb_matrix_indicators_user(uint16_t led_i) {
   if (led_i != DRIVER_LED_TOTAL - 1) return;
   if (layer_state & (1<<NUM)) {
-    set_numpad_colours(1, &rgb_matrix_set_color);
+    set_numpad_colours(1, &set_led_to_rgb_matrix);
   }
 }
 #else   /* no RGB matrix support */

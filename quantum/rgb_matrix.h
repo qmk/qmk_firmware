@@ -114,8 +114,10 @@ void rgb_matrix_effect_solid_reactive         (uint16_t led_i);
 void rgb_matrix_effect_solid_splash           (uint16_t led_i);
 void rgb_matrix_effect_splash                 (uint16_t led_i);
 
-// Specify single-led color
-void rgb_matrix_set_color(int index, uint8_t red, uint8_t green, uint8_t blue);
+// Specify single-led color (in various formats)
+void rgb_matrix_set_color(uint16_t index, uint8_t red, uint8_t green, uint8_t blue);
+void rgb_matrix_set_color_rgb(uint16_t index, RGB rgb);
+void rgb_matrix_set_color_hsv(uint16_t index, HSV hsv);
 
 void rgb_matrix_init(void);
 void rgb_matrix_task(void);

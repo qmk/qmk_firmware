@@ -11,27 +11,28 @@ enum alt_keycodes {
     MD_BOOT,               //Restart into bootloader after hold timeout
 
     UC_HELP, // URL for QMK unicode help
-    UC_SHRG, // ¯\_(ツ)_/¯ (requires unicode support)
-    #define UC_BBB X(E_B)
-    #define UC_100 X(E_100)
+    UC_SHRG,              // shrug       - ¯\_(ツ)_/¯
+#define UC_BBB  X(E_BBB)  // dat B       - 🅱️
+#define UC_100  X(E_100)  // hundo       - 💯
+#define UC_EYES X(E_EYES) // shifty eyes - 👀
 };
 
+enum unicode_names {
+    E_BBB,
+    E_100,
+    E_EYES,
+};
+const uint32_t PROGMEM unicode_map[] = {
+    [E_BBB]  = 0x1F171,
+    [E_100]  = 0x1F4AF,
+    [E_EYES] = 0x1F440,
+};
 
 enum alt_layers {
     _QWERTY,
     _ACTIONS,
     _MEMES,
 };
-
-enum unicode_names {
-    E_B,   // dat B - '🅱️'
-    E_100, // 100   - '💯'
-};
-const uint32_t PROGMEM unicode_map[] = {
-    [E_B]   = 0x1F171,
-    [E_100] = 0x1F4AF,
-};
-
 
 #define TG_NKRO MAGIC_TOGGLE_NKRO //Toggle 6KRO / NKRO mode
 #define ___X___ XXXXXXX // KC_NO
@@ -55,7 +56,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_MEMES] = LAYOUT(
         ___X___, UC_100,  ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, \
-        ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, \
+        ___X___, ___X___, ___X___, UC_EYES, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, \
         ___X___, ___X___, UC_SHRG, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___, ___X___,          ___X___, ___X___, \
         ___X___, ___X___, ___X___, ___X___, ___X___, UC_BBB,  ___X___, ___X___, ___X___, ___X___, UC_HELP, ___X___,          ___X___, ___X___, \
         UC_M_OS, UC_M_WC, UC_M_LN,                            ___X___,                            ___X___, ___X___, ___X___, ___X___, ___X___  \
@@ -71,17 +72,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 };
 
-// Runs just one time when the keyboard initializes.
-void matrix_init_user(void) {
-};
-
-// Runs constantly in the background, in a loop.
-void matrix_scan_user(void) {
-};
-
-#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
-#define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
+#define MODS_SHIFT (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL)   || get_mods() & MOD_BIT(KC_RCTRL))
+#define MODS_ALT   (get_mods() & MOD_BIT(KC_LALT)   || get_mods() & MOD_BIT(KC_RALT))
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
@@ -97,7 +90,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
             }
             return false;
-        /* Massdrop codes */
+
+        /* Massdrop debug */
         case U_T_AUTO:
             if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
                 TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");

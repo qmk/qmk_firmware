@@ -188,7 +188,6 @@ A similar function works in the keymap as `rgb_matrix_indicators_user`.
 ## Additional `config.h` Options
 
 	#define RGB_MATRIX_KEYPRESSES                // reacts to keypresses (will slow down matrix scan by a lot)
-	#define RGB_MATRIX_KEYRELEASES               // reacts to keyreleases (not recommened)
 	#define RGB_DISABLE_AFTER_TIMEOUT 0          // number of ticks to wait until disabling effects
 	#define RGB_DISABLE_WHEN_USB_SUSPENDED false // turn off effects when suspended
 	#define RGB_MATRIX_SKIP_FRAMES 1             // number of frames to skip when displaying animations (0 is full effect) if not defined defaults to 1
