@@ -6,7 +6,7 @@
 
 
 //MIGHT HAVE TO SPLIT THIS INTO TWO CONDITIONS
-#if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_lets_split_rev2) || defined(KEYBOARD_iris_rev2)
+#if defined(TAP_DANCE_ENABLE) && defined(KEYBOARD_lets_split_rev2) || defined(KEYBOARD_keebio_iris_rev2)
 //Kailh Coppers activate quickly and don't need a long tapping term
 #define TAPPING_TERM 180
 
