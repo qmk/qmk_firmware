@@ -156,28 +156,10 @@ void rgblight_check_config(void) {
 #ifdef RGBLIGHT_SPLIT
 /* for split keyboard master side */
 /*  Overwrite with individual code of keyboard. */
-__attribute__ ((weak))
-void rgblight_update_hook(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom) {
-    static rgblight_config_t config_old = {};
-    rgblight_status_t status_old = {};
 
-    if( config != NULL ) {
-        if( config_old.enable != config->enable || config_old.mode != config->mode ) {
-            rgblight_status.change_mode = 1;
-        }
-        if( config_old.hue != config->hue || config_old.sat != config->sat ||
-            config_old.val != config->val || config_old.speed != config->speed ) {
-            rgblight_status.change_hsvs = 1;
-        }
-        config_old = *config;
-    }
-    if( status != NULL ) {
-        if( status_old.timer_enabled != status->timer_enabled ) {
-            rgblight_status.change_mode = 1;
-        }
-        status_old.timer_enabled = status->timer_enabled;
-    }
-}
+#define RGBLIGHT_SPLIT_SET_CHANGE_MODE	rgblight_status.change_mode = 1
+#define RGBLIGHT_SPLIT_SET_CHANGE_HSVS	rgblight_status.change_hsvs = 1
+#define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE rgblight_status.change_timer_enabled = 1
 
 /* for split keyboard slave side */
 /*  Call from keyboard individual code. */
@@ -191,7 +173,9 @@ void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, 
     // }
 }
 #else
-#define rgblight_update_hook(dummy1,dummy2,dummy3)
+#define RGBLIGHT_SPLIT_SET_CHANGE_MODE
+#define RGBLIGHT_SPLIT_SET_CHANGE_HSVS
+#define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE
 #endif
 
 
@@ -343,6 +327,7 @@ void rgblight_mode_eeprom_helper(uint8_t mode, bool write_to_eeprom) {
   } else {
     rgblight_config.mode = mode;
   }
+  RGBLIGHT_SPLIT_SET_CHANGE_MODE;
   if (write_to_eeprom) {
     eeconfig_update_rgblight(rgblight_config.raw);
     xprintf("rgblight mode [EEPROM]: %u\n", rgblight_config.mode);
@@ -411,7 +396,6 @@ void rgblight_disable(void) {
 #ifdef RGBLIGHT_USE_TIMER
       rgblight_timer_disable();
 #endif
-  rgblight_update_hook(&rgblight_config, NULL, true);
   wait_ms(50);
   rgblight_set();
 }
@@ -422,7 +406,6 @@ void rgblight_disable_noeeprom(void) {
 #ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_disable();
 #endif
-  rgblight_update_hook(&rgblight_config, NULL, false);
   wait_ms(50);
   rgblight_set();
 }
@@ -529,13 +512,13 @@ void rgblight_decrease_val(void) {
 }
 void rgblight_increase_speed(void) {
     rgblight_config.speed = increment( rgblight_config.speed, 1, 0, 3 );
-    rgblight_update_hook(&rgblight_config, NULL, true);
+    RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
     eeconfig_update_rgblight(rgblight_config.raw);//EECONFIG needs to be increased to support this
 }
 
 void rgblight_decrease_speed(void) {
     rgblight_config.speed = decrement( rgblight_config.speed, 1, 0, 3 );
-    rgblight_update_hook(&rgblight_config, NULL, true);
+    RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
     eeconfig_update_rgblight(rgblight_config.raw);//EECONFIG needs to be increased to support this
 }
 
@@ -596,10 +579,14 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
       }
 #endif
     }
+    if( rgblight_config.hue != hue ||
+        rgblight_config.sat != sat ||
+        rgblight_config.val != val ) {
+        RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
+    }
     rgblight_config.hue = hue;
     rgblight_config.sat = sat;
     rgblight_config.val = val;
-    rgblight_update_hook(&rgblight_config, NULL, write_to_eeprom);
     if (write_to_eeprom) {
       eeconfig_update_rgblight(rgblight_config.raw);
       xprintf("rgblight set hsv [EEPROM]: %u,%u,%u\n", rgblight_config.hue, rgblight_config.sat, rgblight_config.val);
@@ -749,21 +736,21 @@ void rgblight_timer_init(void) {
   // SREG = sreg;
 
   rgblight_status.timer_enabled = true;
-  rgblight_update_hook(NULL, &rgblight_status, false);
+  RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
 }
 void rgblight_timer_enable(void) {
   rgblight_status.timer_enabled = true;
-  rgblight_update_hook(NULL, &rgblight_status, false);
+  RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
   dprintf("TIMER3 enabled.\n");
 }
 void rgblight_timer_disable(void) {
   rgblight_status.timer_enabled = false;
-  rgblight_update_hook(NULL, &rgblight_status, false);
+  RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
   dprintf("TIMER3 disabled.\n");
 }
 void rgblight_timer_toggle(void) {
   rgblight_status.timer_enabled ^= rgblight_status.timer_enabled;
-  rgblight_update_hook(NULL, &rgblight_status, false);
+  RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
   dprintf("TIMER3 toggled.\n");
 }
 

@@ -167,6 +167,7 @@ typedef struct _rgblight_status_t {
     bool timer_enabled;
     bool change_mode; // change mode or enable
     bool change_hsvs; // change hue, sat, val or speed
+    bool change_timer_enabled;
     // TODO: add animation syncronizing
     //       (with integrate timer processing.)
 } rgblight_status_t;
