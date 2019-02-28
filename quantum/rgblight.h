@@ -165,18 +165,20 @@ typedef union {
 
 typedef struct _rgblight_status_t {
     bool timer_enabled;
-    bool change_mode; // change mode or enable
-    bool change_hsvs; // change hue, sat, val or speed
-    bool change_timer_enabled;
+#ifdef RGBLIGHT_SPLIT
+    uint8_t change_flags;
     // TODO: add animation syncronizing
     //       (with integrate timer processing.)
+#endif
 } rgblight_status_t;
 
 #ifdef RGBLIGHT_SPLIT
-/* for split keyboard master side */
-void rgblight_update_hook(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom);
-/* for split keyboard slave side */
-void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom);
+  #define RGBLIGHT_STATUS_CHANGE_MODE (1<<0)
+  #define RGBLIGHT_STATUS_CHANGE_HSVS (1<<1)
+  #define RGBLIGHT_STATUS_CHANGE_TIMER (1<<2)
+
+  /* for split keyboard slave side */
+  void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom);
 #endif
 
 void rgblight_init(void);

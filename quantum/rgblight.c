@@ -157,9 +157,9 @@ void rgblight_check_config(void) {
 /* for split keyboard master side */
 /*  Overwrite with individual code of keyboard. */
 
-#define RGBLIGHT_SPLIT_SET_CHANGE_MODE	rgblight_status.change_mode = 1
-#define RGBLIGHT_SPLIT_SET_CHANGE_HSVS	rgblight_status.change_hsvs = 1
-#define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE rgblight_status.change_timer_enabled = 1
+#define RGBLIGHT_SPLIT_SET_CHANGE_MODE	rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_MODE
+#define RGBLIGHT_SPLIT_SET_CHANGE_HSVS	rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_HSVS
+#define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_TIMER
 
 /* for split keyboard slave side */
 /*  Call from keyboard individual code. */
