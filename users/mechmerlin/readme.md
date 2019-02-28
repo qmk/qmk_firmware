@@ -39,6 +39,10 @@ This is just a wrapper for `CTL_T(KC_CAPS)`. This is a hold for control and tap 
 
 Ensures that when my computer is in sleep mode, the keyboard underglow lights will also be off. 
 
+### Audio Clicky
+
+If a board has a speaker, enable beeps and boops per switch actuation. This is currently only available on prototype/gen1 clueboard 66_hotswaps. 
+
 ### Velocikey
 
 [Velocikey](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_velocikey.md) is an RGBLIGHT feature in which the faster you type, the faster the ARE GEE BEES. 
