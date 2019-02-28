@@ -18,10 +18,6 @@
 #define MODS_SHIFT_GUI_MASK (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT)|MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 #define MODS_GUI_MASK   (MOD_BIT(KC_LGUI)|MOD_BIT(KC_RGUI))
 
-// Helpful defines
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define _DEFAULT 0
 #define _FN 1
 

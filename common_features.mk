@@ -246,9 +246,19 @@ endif
 
 ifeq ($(strip $(HAPTIC_ENABLE)), DRV2605L)
     COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
     SRC += DRV2605L.c
     SRC += i2c_master.c
+    OPT_DEFS += -DHAPTIC_ENABLE
     OPT_DEFS += -DDRV2605L
+endif
+
+ifeq ($(strip $(HAPTIC_ENABLE)), SOLENOID)
+    COMMON_VPATH += $(DRIVER_PATH)/haptic
+    SRC += haptic.c
+    SRC += solenoid.c
+    OPT_DEFS += -DHAPTIC_ENABLE
+    OPT_DEFS += -DSOLENOID_ENABLE
 endif
 
 ifeq ($(strip $(HD44780_ENABLE)), yes)
@@ -256,6 +266,10 @@ ifeq ($(strip $(HD44780_ENABLE)), yes)
     OPT_DEFS += -DHD44780_ENABLE
 endif
 
+ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
+    OPT_DEFS += -DVELOCIKEY_ENABLE
+    SRC += $(QUANTUM_DIR)/velocikey.c
+endif
 
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
