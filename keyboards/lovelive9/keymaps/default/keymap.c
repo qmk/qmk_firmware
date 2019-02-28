@@ -58,7 +58,6 @@ enum custom_keycodes {
   RETURN_SCHOOL_IDOL_FESTIVAL
 };
 
-#define _______ KC_TRNS
 
 int long_tap_timer;
 
@@ -194,7 +193,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_DIA);
         LED_default_set();
       }
-      return false;
       break;
 
     case YOU:
@@ -207,7 +205,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_YOU);
         LED_default_set();
       }
-      return false;
       break;
 
     case TIKA:
@@ -220,7 +217,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_TIKA);
         LED_default_set();
       }
-      return false;
       break;
 
     case ZURA:
@@ -233,7 +229,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_ZURA);
         LED_default_set();
       }
-      return false;
       break;
 
     case RUBY:
@@ -246,7 +241,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_RUBY);
         LED_default_set();
       }
-      return false;
       break;
     case RUBY_SUB1:
       if (record->event.pressed) {
@@ -259,7 +253,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RUBY_SUB1);
       }
-      return false;
       break;
     case RUBY_SUB2:
       if (record->event.pressed) {
@@ -272,7 +265,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       } else {
         layer_off(_RUBY_SUB2);
       }
-      return false;
       break;
 
     case YOHANE:
@@ -285,7 +277,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_YOHANE);
         LED_default_set();
       }
-      return false;
       break;
 
     case RIKO:
@@ -298,7 +289,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_RIKO);
         LED_default_set();
       }
-      return false;
       break;
 
     case MARI:
@@ -311,7 +301,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_MARI);
         LED_default_set();
       }
-      return false;
       break;
 
     case KANAN:
@@ -324,7 +313,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(_KANAN);
         LED_default_set();
       }
-      return false;
       break;
 
     case TO_SCHOOL_IDOL_FESTIVAL:
@@ -332,35 +320,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         LED_default_set();
         layer_on(_SCHOOL_IDOL_FESTIVAL);
       }
-      return false;
       break;
     case RETURN_SCHOOL_IDOL_FESTIVAL:
       if (record->event.pressed) {
         layer_off(_SCHOOL_IDOL_FESTIVAL);
       }
-      return false;
       break;
   }
 
   return true;
 }
-void matrix_init_user(void) {
-  //qk_ucis_start();
-  //set_unicode_input_mode(UC_WIN);
-  /*
-  sethsv(aqours_color_h[2], aqours_color_s[2], aqours_color_v[2], (LED_TYPE *)&led[0]);
-  sethsv(aqours_color_h[7], aqours_color_s[7], aqours_color_v[7], (LED_TYPE *)&led[1]);
-  sethsv(aqours_color_h[1], aqours_color_s[1], aqours_color_v[1], (LED_TYPE *)&led[2]);
-  sethsv(aqours_color_h[5], aqours_color_s[5], aqours_color_v[5], (LED_TYPE *)&led[3]);
-  sethsv(aqours_color_h[8], aqours_color_s[8], aqours_color_v[8], (LED_TYPE *)&led[4]);
-  sethsv(aqours_color_h[6], aqours_color_s[6], aqours_color_v[6], (LED_TYPE *)&led[5]);
-  sethsv(aqours_color_h[0], aqours_color_s[0], aqours_color_v[0], (LED_TYPE *)&led[6]);
-  sethsv(aqours_color_h[4], aqours_color_s[4], aqours_color_v[4], (LED_TYPE *)&led[7]);
-  sethsv(aqours_color_h[3], aqours_color_s[3], aqours_color_v[3], (LED_TYPE *)&led[8]);
 
-  rgblight_set();
-  */
-}
 
 void matrix_scan_user(void) {
 
