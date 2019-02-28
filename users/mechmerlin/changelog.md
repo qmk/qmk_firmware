@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to my userspace will be documented in this file.
 
+## [0.2.0] - 2019-02-27
+### Changed
+- Moved `AUDIO_CLICKY` from community layout `66_ansi` into user space. 
+- 
+
 ## [0.1.1] - 2018-10-26
 ### Added
 - Added a changelog, aka THIS VERY FILE! 
