@@ -1,26 +1,24 @@
-# Symbolic general shift ortho 4x12 layout 
+# Symbolic  ortho 4x12 layout 
 
 ## Features
 
 ### QWERTY based 
 
-![QWERTY layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/92d4d5857f4b64e1c529f69e752b25207fae2cd5/QWERTY.png)
-
+![QWERTY layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/2af7fed6f282b6ac278e79433d15887f6b91ba3a/QWERTY.png)
+    
 * Default keymap
 * QWERTY layout
 * Hold and tap 
-    * `Raise Layer` and `Space`
     * `Left Ctrl` and `Tab`
 * Symmetric Modifiers
     * `Shift`
     * `Raise Layer`
     * `Lower Layer`
     * `GUI`
-    * `Reset`
 
 ### symbol charactor layer
 
-![Raise layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/92d4d5857f4b64e1c529f69e752b25207fae2cd5/Raise.png)
+![Raise layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/2af7fed6f282b6ac278e79433d15887f6b91ba3a/Raise.png)
 
 * Raise Layer
 * assigned symbolic(punctuation) characters
@@ -37,7 +35,7 @@
 
 ### numbers and allows layer
 
-![Lower layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/92d4d5857f4b64e1c529f69e752b25207fae2cd5/Lower.png)
+![Lower layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/2af7fed6f282b6ac278e79433d15887f6b91ba3a/Lower.png)
 
 * Lower Layer
 * entrust vim style arrows
@@ -54,13 +52,14 @@
 
 ### Numpads and F key layer
 
-![Neutral layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/92d4d5857f4b64e1c529f69e752b25207fae2cd5/Neutral.png)
+![Neutral layout](https://gist.githubusercontent.com/leico/5bf4d9ff94f2068c5333739f7f1f88b4/raw/2af7fed6f282b6ac278e79433d15887f6b91ba3a/Neutral.png)
 
 * visibled when Raise and Lower layer visibled
 * F keys assigned left hand side
 * Numpads assigned right hand side
     * for that reason, override `RGUI` key
 * transparent mostly modifiers
+* visibled `Reset` key on both hands 
 
 
 ### Goals
@@ -69,7 +68,6 @@
 * entrust more symbols for a left hand
 * simple, minimal, easy learn
 * as soon as possible, don't disable any shortcuts
-
 
 ###  suggestions or find issues
 
