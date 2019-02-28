@@ -27,15 +27,7 @@ prompt() {
 
 # Grab a username from Git config.
 set_git_username() {
-    local git_bin=$(which git)
-
-    if [ -n "$git_bin" ]; then
-        local is_git_repo=$($git_bin log >>/dev/null 2>&1; echo $?)
-
-        if [ $is_git_repo -eq 0 ]; then
-            git_username="$($git_bin config --get user.name)"
-        fi
-    fi
+    git_username="$(git config --get user.name)"
 }
 
 # Copy the template files to the new keyboard directory.
