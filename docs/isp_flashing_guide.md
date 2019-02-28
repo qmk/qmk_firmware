@@ -53,7 +53,7 @@ This is pretty straight-forward - we'll be connecting like-things to like-things
 The only difference between the .hex files below is which pin is connected to RESET. You can use them on other boards as well, as long as you're aware of the pins being used. If for some reason neither of these pins are available, [create an issue](https://github.com/qmk/qmk_firmware/issues/new), and we can generate one for you!
 
 * Teensy 2.0: [`util/teensy_2.0_ISP_B0.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/teensy_2.0_ISP_B0.hex) (`B0`)
-* Pro Micro: [`util/pro_micro_ISP_B6_10.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/pro_mico_ISP_B6_10.hex) (`B6/10`)
+* Pro Micro: [`util/pro_micro_ISP_B6_10.hex`](https://github.com/qmk/qmk_firmware/blob/master/util/pro_micro_ISP_B6_10.hex) (`B6/10`)
 
 **Flash your Teenys/Pro Micro with one of these and continue - you won't need the file after flashing your ISP device.**
 

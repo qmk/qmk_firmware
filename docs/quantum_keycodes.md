@@ -8,15 +8,16 @@ On this page we have documented keycodes between `0x00FF` and `0xFFFF` which are
 
 ## QMK Keycodes
 
-|Key          |Aliases    |Description                                                          |
-|-------------|-----------|---------------------------------------------------------------------|
-|`RESET`      |           |Put the keyboard into DFU mode for flashing                          |
-|`DEBUG`      |           |Toggle debug mode                                                    |
-|`KC_GESC`    |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
-|`KC_LSPO`    |           |Left Shift when held, `(` when tapped                                |
-|`KC_RSPC`    |           |Right Shift when held, `)` when tapped                               |
-|`KC_LEAD`    |           |The [Leader key](feature_leader_key.md)                              |
-|`KC_LOCK`    |           |The [Lock key](feature_key_lock.md)                                  |
-|`FUNC(n)`    |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
-|`M(n)`       |           |Call macro `n`                                                       |
-|`MACROTAP(n)`|           |Macro-tap `n` idk FIXME                                              |
+|Key            |Aliases    |Description                                                          |
+|---------------|-----------|---------------------------------------------------------------------|
+|`RESET`        |           |Put the keyboard into DFU mode for flashing                          |
+|`DEBUG`        |           |Toggle debug mode                                                    |
+|`EEPROM_RESET` |`EEP_RST`  |Resets EEPROM state by reinitializing it                             |
+|`KC_GESC`      |`GRAVE_ESC`|Escape when tapped, <code>&#96;</code> when pressed with Shift or GUI|
+|`KC_LSPO`      |           |Left Shift when held, `(` when tapped                                |
+|`KC_RSPC`      |           |Right Shift when held, `)` when tapped                               |
+|`KC_LEAD`      |           |The [Leader key](feature_leader_key.md)                              |
+|`KC_LOCK`      |           |The [Lock key](feature_key_lock.md)                                  |
+|`FUNC(n)`      |`F(n)`     |Call `fn_action(n)` (deprecated)                                     |
+|`M(n)`         |           |Call macro `n`                                                       |
+|`MACROTAP(n)`  |           |Macro-tap `n` idk FIXME                                              |

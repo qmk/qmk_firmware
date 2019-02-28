@@ -16,9 +16,7 @@
 #include "xd75.h"
 
 /* Fillers to make layering more clear */
-#define _______ KC_TRNS
 #define ___T___ KC_TRNS
-#define XXXXXXX KC_NO
 
 /* Layer shorthand */
 
@@ -195,10 +193,6 @@ Missing still...
   { RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, BL_TOGG, BL_INC,  BL_DEC,   ___T___, ___T___, KC_MS_U, KC_WH_D  },
   { RESET  , _______, DF(_QWERTY), DF(_QWERTY), DF(_QWERTY), KC_BTN1, KC_BTN1, _______, _______, _______, _______, _______, KC_MS_L, KC_MS_D, KC_MS_R  },
  },
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 /* This bit of logic seeds a wee linear congruential random number generator */

@@ -23,8 +23,6 @@ enum eco_keycodes {
 
 // Fillers to make layering more clear
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 #define KC_RST RESET
 #define KC_DBUG DEBUG

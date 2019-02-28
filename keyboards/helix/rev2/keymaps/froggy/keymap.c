@@ -61,10 +61,6 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 
@@ -593,19 +589,39 @@ void matrix_scan_user(void) {
     if(!RGBAnimation){
       switch (layer_state) {
         case L_BASE:
-          led_ripple_effect(0,112,127);
+          #ifdef RGBLED_BACK
+            led_ripple_effect(0,112,127);
+          #else
+            rgblight_setrgb(0,112,127);
+          #endif
           break;
         case L_OPT:
-          led_ripple_effect(127,0,100);
+          #ifdef RGBLED_BACK
+            led_ripple_effect(127,0,100);
+          #else
+            rgblight_setrgb(127,0,100);
+          #endif
           break;
         case L_NUM:
-          led_ripple_effect(127,23,0);
+          #ifdef RGBLED_BACK
+            led_ripple_effect(127,23,0);
+          #else
+            rgblight_setrgb(127,23,0);
+          #endif
           break;
         case L_SYM:
-          led_ripple_effect(0,127,0);
+          #ifdef RGBLED_BACK
+            led_ripple_effect(0,127,0);
+          #else
+            rgblight_setrgb(0,127,0);
+          #endif
           break;
         case L_FUNC:
-          led_ripple_effect(127,0,61);
+          #ifdef RGBLED_BACK
+            led_ripple_effect(127,0,61);
+          #else
+            rgblight_setrgb(127,0,61);
+          #endif
           break;
         }
     }
