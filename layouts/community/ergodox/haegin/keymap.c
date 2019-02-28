@@ -9,8 +9,6 @@
 #define SYMBOLS 1 // symbols
 #define MEDIA 2 // media keys
 
-#define _______ KC_TRNS
-
 enum {
   TD_BSPC = 0
 };
@@ -223,10 +221,6 @@ void dance_backspace_reset (qk_tap_dance_state_t *state, void *user_data) {
 
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_BSPC] = ACTION_TAP_DANCE_FN_ADVANCED (dance_backspace, dance_backspace_ended, dance_backspace_reset)
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMBOLS)                // FN1 - Momentary Layer 1 (Symbols)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

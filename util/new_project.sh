@@ -14,7 +14,7 @@ elif [ -z "$KEYBOARD_TYPE" ]; then
   KEYBOARD_TYPE=avr
 fi
 
-if [ $KEYBOARD_TYPE != "avr" -a $KEYBOARD_TYPE != "ps2avrgb" ]; then
+if [ "$KEYBOARD_TYPE" != "avr" ] && [ "$KEYBOARD_TYPE" != "ps2avrgb" ]; then
   echo "Invalid keyboard type target"
   exit 1
 fi
@@ -24,27 +24,24 @@ if [ -e "keyboards/$1" ]; then
 	exit 1
 fi
 
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/.." || exit
 
-KEYBOARD_UPPERCASE=$(echo $1 | awk '{print toupper($0)}')
-KEYBOARD_NAME=$(basename $1)
-KEYBOARD_NAME_UPPERCASE=$(echo $KEYBOARD_NAME | awk '{print toupper($0)}')
-
-
-cp -r quantum/template/base keyboards/$KEYBOARD
-cp -r quantum/template/$KEYBOARD_TYPE/. keyboards/$KEYBOARD
-
-mv keyboards/${KEYBOARD}/template.c keyboards/${KEYBOARD}/${KEYBOARD_NAME}.c
-mv keyboards/${KEYBOARD}/template.h keyboards/${KEYBOARD}/${KEYBOARD_NAME}.h
+KEYBOARD_NAME=$(basename "$1")
+KEYBOARD_NAME_UPPERCASE=$(echo "$KEYBOARD_NAME" | awk '{print toupper($0)}')
+NEW_KBD=keyboards/${KEYBOARD}
 
 
+cp -r quantum/template/base "$NEW_KBD"
+cp -r "quantum/template/$KEYBOARD_TYPE/." "$NEW_KBD"
 
+mv "${NEW_KBD}/template.c" "${NEW_KBD}/${KEYBOARD_NAME}.c"
+mv "${NEW_KBD}/template.h" "${NEW_KBD}/${KEYBOARD_NAME}.h"
 
 # absorb difference command between GNU sed and BSD sed
 ARGS_NORMAL="s;%KEYBOARD%;${KEYBOARD_NAME};g"
 ARGS_UPPER="s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g"
 
-for file in $(find keyboards/${KEYBOARD} -type f); do 
+for file in $(find "${NEW_KBD}" -type f); do 
 
   if sed --version 2>/dev/null | grep -q GNU; then
     sed -i -e ${ARGS_NORMAL} ${file}     # GNU sed
@@ -55,10 +52,36 @@ for file in $(find keyboards/${KEYBOARD} -type f); do
   fi
 done
 
-# find keyboards/${KEYBOARD} -type f -exec sed -i '' -e "s;%KEYBOARD%;${KEYBOARD_NAME};g" {} \;
-# find keyboards/${KEYBOARD} -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g" {} \;
+# find "${NEW_KBD}" -type f -exec sed -i '' -e "s;%KEYBOARD%;${KEYBOARD_NAME};g" {} \;
+# find "${NEW_KBD}" -type f -exec sed -i '' -e "s;%KEYBOARD_UPPERCASE%;${KEYBOARD_NAME_UPPERCASE};g" {} \;
 
-echo "######################################################"
-echo "# /keyboards/$KEYBOARD project created. To start"
-echo "# working on things, cd into keyboards/$KEYBOARD"
-echo "######################################################"
+
+GIT=$(whereis git)
+if [ "$GIT" != "" ]; then
+  IS_GIT_REPO=$($GIT log >>/dev/null 2>&1; echo $?)
+  if [ "$IS_GIT_REPO" -eq 0 ]; then
+    ID="$($GIT config --get user.name)"
+    read -rp "What is your name? [$ID] " YOUR_NAME
+    if [ -n "$YOUR_NAME" ]; then
+      ID=$YOUR_NAME
+    fi
+    echo "Using $ID as user name"
+
+    for i in "$NEW_KBD/config.h" \
+             "$NEW_KBD/$KEYBOARD_NAME.c" \
+             "$NEW_KBD/$KEYBOARD_NAME.h" \
+             "$NEW_KBD/keymaps/default/config.h" \
+             "$NEW_KBD/keymaps/default/keymap.c"
+    do
+      awk -v id="$ID" '{sub(/%YOUR_NAME%/,id); print}' < "$i" > "$i.$$"
+      mv "$i.$$" "$i"
+    done
+  fi
+fi
+
+cat <<-EOF
+######################################################
+# $NEW_KBD project created. To start
+# working on things, cd into $NEW_KBD
+######################################################
+EOF

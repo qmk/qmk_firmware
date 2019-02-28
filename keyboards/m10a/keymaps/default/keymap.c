@@ -23,10 +23,6 @@ enum layers {
   _LAYER9
 };
 
-// // Fillers to make layering more clear
-// #define _______ KC_TRNS
-// #define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_LAYER0] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},
   [_LAYER1] = {{KC_A, KC_B, KC_C}, {KC_D, KC_E, KC_F}, {KC_G, KC_H, KC_I}, {KC_NO, KC_NO, KC_J}},

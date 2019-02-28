@@ -36,10 +36,6 @@ enum chimera_ergo_layers
 #define LONGPRESS_DELAY 150
 //#define LAYER_TOGGLE_DELAY 300
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_QWERTY] = LAYOUT(
@@ -89,11 +85,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      _______, _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______, _______,
                                          _______, KC_DEL,        _______, _______
   ),
-
-};
-
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 
