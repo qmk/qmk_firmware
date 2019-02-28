@@ -14,35 +14,71 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef PROCESS_UNICODE_COMMON_H
-#define PROCESS_UNICODE_COMMON_H
+#pragma once
 
 #include "quantum.h"
 
-#ifndef UNICODE_TYPE_DELAY
-#define UNICODE_TYPE_DELAY 10
+#if defined(UNICODE_ENABLE) + defined(UNICODEMAP_ENABLE) + defined(UCIS_ENABLE) > 1
+  #error "Cannot enable more than one Unicode method (UNICODE, UNICODEMAP, UCIS) at the same time"
 #endif
 
-__attribute__ ((unused))
-static uint8_t input_mode;
+// Keycodes used for starting Unicode input on different platforms
+#ifndef UNICODE_OSX_KEY
+  #define UNICODE_OSX_KEY  KC_LALT
+#endif
+#ifndef UNICODE_WINC_KEY
+  #define UNICODE_WINC_KEY KC_RALT
+#endif
 
-void set_unicode_input_mode(uint8_t os_target);
-uint8_t get_unicode_input_mode(void);
+// Comma-delimited, ordered list of input modes selected for use (e.g. in cycle)
+// Example: #define UNICODE_SELECTED_MODES UC_WINC, UC_LNX
+#ifndef UNICODE_SELECTED_MODES
+  #define UNICODE_SELECTED_MODES -1
+#endif
+
+// Whether input mode changes in cycle should be written to EEPROM
+#ifndef UNICODE_CYCLE_PERSIST
+  #define UNICODE_CYCLE_PERSIST true
+#endif
+
+// Delay between starting Unicode input and sending a sequence, in ms
+#ifndef UNICODE_TYPE_DELAY
+  #define UNICODE_TYPE_DELAY 10
+#endif
+
+enum unicode_input_modes {
+  UC_OSX,   // Mac OS X using Unicode Hex Input
+  UC_LNX,   // Linux using IBus
+  UC_WIN,   // Windows using EnableHexNumpad
+  UC_BSD,   // BSD (not implemented)
+  UC_WINC,  // Windows using WinCompose (https://github.com/samhocevar/wincompose)
+  UC__COUNT // Number of available input modes (always leave at the end)
+};
+
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t input_mode : 8;
+  };
+} unicode_config_t;
+
+extern unicode_config_t unicode_config;
+
 void unicode_input_mode_init(void);
+uint8_t get_unicode_input_mode(void);
+void set_unicode_input_mode(uint8_t mode);
+void cycle_unicode_input_mode(uint8_t offset);
+void persist_unicode_input_mode(void);
+
 void unicode_input_start(void);
 void unicode_input_finish(void);
+
 void register_hex(uint16_t hex);
 void send_unicode_hex_string(const char *str);
 
-#define UC_OSX 0  // Mac OS X
-#define UC_LNX 1  // Linux
-#define UC_WIN 2  // Windows 'HexNumpad'
-#define UC_BSD 3  // BSD (not implemented)
-#define UC_WINC 4 // WinCompose https://github.com/samhocevar/wincompose
-#define UC_OSX_RALT 5 // Mac OS X using Right Alt key for Unicode Compose
+bool process_unicode_common(uint16_t keycode, keyrecord_t *record);
 
 #define UC_BSPC	UC(0x0008)
-
 #define UC_SPC	UC(0x0020)
 
 #define UC_EXLM	UC(0x0021)
@@ -147,5 +183,3 @@ void send_unicode_hex_string(const char *str);
 #define UC_RCBR	UC(0x007D)
 #define UC_TILD	UC(0x007E)
 #define UC_DEL	UC(0x007F)
-
-#endif

@@ -11,7 +11,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make converter/usb_usb:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 Note that you have to choose the right hardware variant as your subproject, otherwise you will probably have issues.
 

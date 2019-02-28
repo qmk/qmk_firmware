@@ -376,8 +376,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {};
-
 #define UC_MODE_WIN 0
 #define UC_MODE_LINUX 1
 #define UC_MODE_OSX 2

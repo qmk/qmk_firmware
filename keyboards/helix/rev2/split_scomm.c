@@ -7,9 +7,6 @@
 #include <stddef.h>
 #include <split_scomm.h>
 #include "serial.h"
-#ifdef SERIAL_DEBUG_MODE
-#include <avr/io.h>
-#endif
 #ifdef CONSOLE_ENABLE
   #include <print.h>
 #endif
