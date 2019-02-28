@@ -69,26 +69,24 @@
   #define SFTENT_KEY KC_ENT
 #endif
 
-#define SET_BIT(b, n) b |= (1 << n)
-#define CLEAR_BIT(b, n) b &= ~(1 << n)
-#define TEST_BIT(b, n) (b >> n) & 1
+#define test(b, n) (b >> n) & 1
 
 static uint8_t space_cadet_interrupted = 0;
 static uint16_t space_cadet_timer[6] = { 0, 0, 0, 0, 0, 0 };
 
 static void do_space_cadet(keyrecord_t *record, uint8_t index, uint8_t normalMod, uint8_t tapMod, uint8_t rolloverMod, uint8_t keycode) {
   if (record->event.pressed) {
-    CLEAR_BIT(space_cadet_interrupted, index);
+    space_cadet_interrupted &= ~(1 << index);
     space_cadet_timer[index] = timer_read ();
     register_mods(MOD_BIT(normalMod));
   }
   else {
     #ifdef DISABLE_SPACE_CADET_ROLLOVER
       if (get_mods() & MOD_BIT(rolloverMod)) {
-        SET_BIT(space_cadet_interrupted, index);
+        space_cadet_interrupted |= (1 << index);
       }
     #endif
-    if (!TEST_BIT(space_cadet_interrupted, index) && timer_elapsed(space_cadet_timer[index]) < TAPPING_TERM) {
+    if (!((space_cadet_interrupted >> index) & 1) && timer_elapsed(space_cadet_timer[index]) < TAPPING_TERM) {
       #ifdef DISABLE_SPACE_CADET_MODIFIER
         unregister_mods(MOD_BIT(normalMod));
       #else
