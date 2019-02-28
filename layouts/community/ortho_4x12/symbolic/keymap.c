@@ -121,11 +121,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /****  Raise Layer functions *****/
 
-  // RaisePressed function
-  //    called RaiseSwitch
+  /* RaisePressed function */
+    /* called RaiseSwitch  */
 void RaisePressed ( keyevent_t *event, bool brother_state ){ 
   
-  if( brother_state ) return;
+  if( brother_state ) { return; }
 
   layer_on( _RAISE );
   update_tri_layer( _LOWER, _RAISE, _NEUTRAL );
@@ -134,11 +134,11 @@ void RaisePressed ( keyevent_t *event, bool brother_state ){
 }
 
 
-  // RaiseReleased function
-  //    called RaiseSwitch
+  /* RaiseReleased function */
+    /* called RaiseSwitch   */
 void RaiseReleased ( bool brother_state ){ 
   
-  if( brother_state ) return;
+  if( brother_state ) { return };
 
   layer_off( _RAISE );
   update_tri_layer( _LOWER, _RAISE, _NEUTRAL );
@@ -146,15 +146,14 @@ void RaiseReleased ( bool brother_state ){
 }
 
 
-   // RaiseSwitch function
-  //    called process_record_user
+  /* RaiseSwitch function         */
+    /* called process_record_user */
 bool RaiseSwitch ( keyrecord_t *record, bool *key_state, bool brother ){ 
 
   if( record -> event.pressed ) {
     *key_state = true;
     RaisePressed( &(record -> event), brother );
-  }
-  else {
+  } else {
     *key_state = false;
     RaiseReleased( brother );
   }
@@ -169,8 +168,8 @@ bool RaiseSwitch ( keyrecord_t *record, bool *key_state, bool brother ){
 
 /**** Lower layer functions ****/
 
-  // LowerPressed function
-  //    call from LowerSwitch
+  /* LowerPressed function   */
+    /* call from LowerSwitch */
 void LowerPressed ( bool brother_state ){
 
   if( brother_state ) return;
@@ -180,8 +179,8 @@ void LowerPressed ( bool brother_state ){
   return;
 }
 
-  // LowerReleased function
-  //    call from LowerSwitch
+  /* LowerReleased function  */
+    /* call from LowerSwitch */
 void LowerReleased ( bool brother_state ){ 
 
   if( brother_state ) return ;
@@ -191,8 +190,8 @@ void LowerReleased ( bool brother_state ){
   return ;
 }
 
-  // LowerSwitch function
-  //    call from process_record_user
+  /* LowerSwitch function            */
+    /* call from process_record_user */
 bool LowerSwitch ( keyrecord_t *record, bool *key_state, bool brother ){ 
   if ( record -> event.pressed ) {
     *key_state = true;
