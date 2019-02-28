@@ -5,7 +5,7 @@ lovelive9 is 9keys keyboard.
 ![lovelive9](https://user-images.githubusercontent.com/16838187/53496102-a6fc0700-3ae4-11e9-85e4-1e6cd981b410.jpg)
 
 Keyboard Maintainer: [ginjake](https://github.com/ginjake) [Twitter:@sirojake](https://twitter.com/sirojake)  
-Hardware Supported: Pro Micro
+Hardware Supported: Pro Micro, handwired (LED used [CherryMXLEDBitBoard](https://github.com/swanmatch/MxLEDBitPCB) with handwired)
 
 Make example for this keyboard (after setting up your build environment):
 
