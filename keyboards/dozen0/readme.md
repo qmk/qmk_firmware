@@ -1,6 +1,6 @@
 # Dozen0
 
-![Dozen0](imgur.com image replace me!)
+![Dozen0](https://raw.githubusercontent.com/yynmt/Dozen0/master/images/main_image_mx.jpg)
 
 Dozen0 is 12 keys macropad.
 

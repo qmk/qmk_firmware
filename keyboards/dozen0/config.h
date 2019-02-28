@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    yynmt
 #define PRODUCT         Dozen0
-#define DESCRIPTION     dozen keys macropad
+#define DESCRIPTION     12 keys macropad
 
 /* key matrix size */
 #define MATRIX_ROWS 1
