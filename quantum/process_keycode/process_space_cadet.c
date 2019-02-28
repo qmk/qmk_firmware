@@ -69,8 +69,6 @@
   #define SFTENT_KEY KC_ENT
 #endif
 
-#define test(b, n) (b >> n) & 1
-
 static uint8_t space_cadet_interrupted = 0;
 static uint16_t space_cadet_timer[6] = { 0, 0, 0, 0, 0, 0 };
 
