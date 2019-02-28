@@ -69,23 +69,26 @@
   #define SFTENT_KEY KC_ENT
 #endif
 
-static bool space_cadet_interrupted[4] = {0, 0, 0, 0};
-static uint16_t space_cadet_timer[4] = {0, 0, 0, 0};
+#define SET_BIT(b, n) b |= (1 << n)
+#define CLEAR_BIT(b, n) b &= ~(1 << n)
+#define TEST_BIT(b, n) (b >> n) & 1
+
+static uint8_t space_cadet_interrupted = 0;
+static uint16_t space_cadet_timer[6] = { 0, 0, 0, 0, 0, 0 };
 
 static void do_space_cadet(keyrecord_t *record, uint8_t index, uint8_t normalMod, uint8_t tapMod, uint8_t rolloverMod, uint8_t keycode) {
   if (record->event.pressed) {
-    space_cadet_interrupted[index] = false;
+    CLEAR_BIT(space_cadet_interrupted, index);
     space_cadet_timer[index] = timer_read ();
     register_mods(MOD_BIT(normalMod));
   }
   else {
     #ifdef DISABLE_SPACE_CADET_ROLLOVER
       if (get_mods() & MOD_BIT(rolloverMod)) {
-        space_cadet_interrupted[index] = true;
-        space_cadet_interrupted[1] = true; // shift esc
+        SET_BIT(space_cadet_interrupted, index);
       }
     #endif
-    if (!space_cadet_interrupted[index] && timer_elapsed(space_cadet_timer[index]) < TAPPING_TERM) {
+    if (!TEST_BIT(space_cadet_interrupted, index) && timer_elapsed(space_cadet_timer[index]) < TAPPING_TERM) {
       #ifdef DISABLE_SPACE_CADET_MODIFIER
         unregister_mods(MOD_BIT(normalMod));
       #else
@@ -115,7 +118,7 @@ bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
       return false;
     }
     case KC_RSPC: {
-      do_space_cadet(record, 0, KC_RSFT, RSPC_MOD, LSPO_MOD, RSPC_KEY);
+      do_space_cadet(record, 1, KC_RSFT, RSPC_MOD, LSPO_MOD, RSPC_KEY);
       return false;
     }
     case KC_LCPO: {
@@ -123,38 +126,23 @@ bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
       return false;
     }
     case KC_RCPC: {
-      do_space_cadet(record, 2, KC_RCTL, RCPC_MOD, LCPO_MOD, RCPC_KEY);
+      do_space_cadet(record, 3, KC_RCTL, RCPC_MOD, LCPO_MOD, RCPC_KEY);
       return false;
     }
     case KC_LAPO: {
-      do_space_cadet(record, 3, KC_LALT, LAPO_MOD, RAPC_MOD, LAPO_KEY);
+      do_space_cadet(record, 4, KC_LALT, LAPO_MOD, RAPC_MOD, LAPO_KEY);
       return false;
     }
     case KC_RAPC: {
-      do_space_cadet(record, 3, KC_RALT, RAPC_MOD, LAPO_MOD, RAPC_KEY);
+      do_space_cadet(record, 5, KC_RALT, RAPC_MOD, LAPO_MOD, RAPC_KEY);
       return false;
     }
     case KC_SFTENT: {
-      if (record->event.pressed) {
-        space_cadet_interrupted[1] = false;
-        space_cadet_timer[1] = timer_read ();
-        register_mods(MOD_BIT(KC_RSFT));
-      }
-      else if (!space_cadet_interrupted[1] && timer_elapsed(space_cadet_timer[1]) < TAPPING_TERM) {
-        unregister_mods(MOD_BIT(KC_RSFT));
-        register_code(SFTENT_KEY);
-        unregister_code(SFTENT_KEY);
-      }
-      else {
-        unregister_mods(MOD_BIT(KC_RSFT));
-      }
+      do_space_cadet(record, 1, KC_RSFT, KC_RSFT, KC_LSFT, SFTENT_KEY);
       return false;
     }
     default: {
-      space_cadet_interrupted[0] = true;
-      space_cadet_interrupted[1] = true;
-      space_cadet_interrupted[2] = true;
-      space_cadet_interrupted[3] = true;
+      space_cadet_interrupted = 0xFF;
       break;
     }
   }
