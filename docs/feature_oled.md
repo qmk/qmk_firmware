@@ -132,6 +132,7 @@ void oled_task_user(void) {
 | 6 | 7 |   |   |   |   |
 
 However the local buffer is stored as if it was Hight x Width display instead of Width x Height, e.g:
+
 |   |   |   |   |   |   |
 |---|---|---|---|---|---|
 | 3 | 7 |   |   |   |   |
