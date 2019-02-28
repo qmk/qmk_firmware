@@ -38,15 +38,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      ||      |      |      |      |      |      |
  * |Shift |   Z  |   X  |   C  |   V  |   B  ||   N  |   M  |   ,  |   .  |   !  |Shift |
  * |------+------+------+------+------+------++------+------+------+------+------+------|
- * |      |      |      |      |      |LRaise||RRaise|      |      |      |      |      |
- * |Reset | Alt  | GUI  |      |LLower|Space ||Space |RLower|      | GUI  | Del  |Reset |
+ * |      |      |      |      |      |      ||      |      |      |      |      |      |
+ * |LRaise| Alt  | GUI  |      |LLower|Space ||Space |RLower|      | GUI  | Del  |RRaise|
  * `------------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_ortho_4x12( \
   KC_ESC,         KC_Q,     KC_W,     KC_E,     KC_R,     KC_T,     KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_BSPC, \
   LCTL_T(KC_TAB), KC_A,     KC_S,     KC_D,     KC_F,     KC_G,     KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_ENT,  \
   KC_LSFT,        KC_Z,     KC_X,     KC_C,     KC_V,     KC_B,     KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_EXLM,  KC_RSFT, \
-  RESET,          KC_LALT,  KC_LGUI,  XXXXXXX,  L_LOWER,  L_RAISE,  R_RAISE,  R_LOWER,  XXXXXXX,  KC_RGUI,  KC_DEL,   RESET    \
+  L_RAISE,        KC_LALT,  KC_LGUI,  XXXXXXX,  L_LOWER,  KC_SPC,   KC_SPC,   R_LOWER,  XXXXXXX,  KC_RGUI,  KC_DEL,   R_RAISE  \
 ),
 
 /* Raise
@@ -60,14 +60,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      ||      |      |      |      |      |      |
  * |Shift |   `  |   ^  |   @  |   $  |   +  ||   -  |   =  |   _  |   "  |   ?  |Shift |
  * |------+------+------+------+------+------++------+------+------+------+------+------|
- * |      |      |      |      |      |LRaise||RRaise|      |      |      |      |      |
- * |Reset | Alt  | GUI  |      |LLower|Space ||Space |RLower|      | GUI  | Del  |Reset |
+ * |      |      |      |      |      |      ||      |      |      |      |      |      |
+ * |LRaise| Alt  | GUI  |      |LLower|Space ||Space |RLower|      | GUI  | Del  |RRaise|
  * `------------------------------------------------------------------------------------'
  */
 [_RAISE] = LAYOUT_ortho_4x12( \
   _______,  XXXXXXX,  KC_AMPR,  KC_LCBR,  KC_RCBR,  KC_PERC,  KC_BSLS,  KC_LBRC,  KC_RBRC,  KC_HASH,  XXXXXXX,  _______, \
-  _______,  KC_TILD,  KC_PIPE,  KC_LPRN,  KC_RPRN,  KC_ASTR,  KC_SLSH,  KC_LABK,  KC_RABK,  KC_QUOT,  KC_COLN,  _______, \
-  _______,  KC_GRV,   KC_CIRC,  KC_AT,    KC_DLR,   KC_PLUS,  KC_MINS,  KC_EQL,   KC_UNDS,  KC_DQUO,  KC_QUES,  _______, \
+  _______,  KC_TILD,  KC_PIPE,  KC_LPRN,  KC_RPRN,  KC_ASTR,  KC_SLSH,  KC_LABK,  KC_RABK,  KC_DQUO,  KC_COLN,  _______, \
+  _______,  KC_GRV,   KC_CIRC,  KC_AT,    KC_DLR,   KC_PLUS,  KC_MINS,  KC_EQL,   KC_UNDS,  KC_QUOT,  KC_QUES,  _______, \
   _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______  \
 ),
 /* Lower
@@ -81,8 +81,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      ||      |      |      |      |      |      |
  * |Shift |      |      |      |      | PrSc || Home | PgDn | PgUp | End  |      |Shift |
  * |------+------+------+------+------+------++------+------+------+------+------+------|
- * |      |      |      |      |      |LRaise||RRaise|      |      |      |      |      |
- * |Reset | Alt  | GUI  |      |LLower|Space ||Space |RLower|      | GUI  | Del  |Reset |
+ * |      |      |      |      |      |      ||      |      |      |      |      |      |
+ * |LRaise| Alt  | GUI  |      |LLower|Space ||Space |RLower|      | GUI  | Del  |RRaise|
  * `------------------------------------------------------------------------------------'
  */
 [_LOWER] = LAYOUT_ortho_4x12( \
@@ -103,15 +103,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      |      |      |      |      |      ||      |      |      |      |      |      |
  * |Shift |  F9  |  F10 |  F11 |  F12 |      ||   .  |   ,  |   7  |   8  |   9  |Shift |
  * |------+------+------+------+------+------++------+------+------+------+------+------|
- * |      |      |      |      |      |LRaise||RRaise|      |      |      |      |      |
- * |Reset | Alt  | GUI  |      |LLower|Space ||Space |RLower|      | GUI  | Del  |Reset |
+ * |      |      |      |      |      |      ||      |      |      |      |      |      |
+ * |LRaise| Alt  | GUI  |Reset |LLower|Space ||Space |RLower|Reset |   0  | Del  |RRaise|
  * `------------------------------------------------------------------------------------'
  */
 [_NEUTRAL] = LAYOUT_ortho_4x12( \
   _______,  KC_F1,    KC_F2,    KC_F3,    KC_F4,    XXXXXXX,  KC_PPLS,  KC_PMNS,  KC_P1,    KC_P2,    KC_P3,     _______, \
   _______,  KC_F5,    KC_F6,    KC_F7,    KC_F8,    XXXXXXX,  KC_PAST,  KC_PSLS,  KC_P4,    KC_P5,    KC_P6,     _______, \
   _______,  KC_F9,    KC_F10,   KC_F11,   KC_F12,   XXXXXXX,  KC_PDOT,  KC_COMM,  KC_P7,    KC_P8,    KC_P9,     _______, \
-  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  _______,  KC_P0,    _______,   _______  \
+  _______,  _______,  _______,  RESET,    _______,  _______,  _______,  _______,  RESET,    KC_P0,    _______,   _______  \
 )
 
 
@@ -119,44 +119,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-/****  Raise Layer value/functions *****/
-
-/****  Raise Layer value/functions *****/
-/*  
-  //no key event constant
-const static keyevent_t No_event = {
-  .key     = { .col = 255, .row = 255 },
-  .pressed = false,
-  .time    = 0
-};
-*/
-
-#define NO_EVENT ( keyevent_t ) { \
-  .key     = { .col = 255, .row = 255 }, \
-  .pressed = false, \
-  .time    = 0 \
-}
-
-// raise key event value
-static keyevent_t Raise_event = NO_EVENT;
-
-
-
-
-  // matrix_scan_Raise function
-  //    called matrix_scan_user
-void matrix_scan_Raise ( void ){ 
-
-  if( IS_NOEVENT( Raise_event ) ) return;                   // no keyevent, exit function
-
-  if( layer_state_is( _RAISE ) ) return;                    // already enable Raise Layer, exit function
-
-  if( timer_elapsed( Raise_event.time ) > TAPPING_TERM ){   // Elapsed TAPPING_TERM, enable Raise Layer
-    layer_on( _RAISE );
-    update_tri_layer( _LOWER, _RAISE, _NEUTRAL );
-  }
-
-}
+/****  Raise Layer functions *****/
 
   // RaisePressed function
   //    called RaiseSwitch
@@ -164,8 +127,10 @@ void RaisePressed ( keyevent_t *event, bool brother_state ){
   
   if( brother_state ) return;
 
-  Raise_event = *event;         //start hold or tap, register key event
-  
+  layer_on( _RAISE );
+  update_tri_layer( _LOWER, _RAISE, _NEUTRAL );
+  return;
+
 }
 
 
@@ -175,17 +140,8 @@ void RaiseReleased ( bool brother_state ){
   
   if( brother_state ) return;
 
-  if( layer_state_is( _RAISE ) ){                 // enable Raise layer -> Holded Raise key, and released
-    layer_off( _RAISE );                          // Raise layer disabled
-    update_tri_layer( _LOWER, _RAISE, _NEUTRAL );
-  }
-  else {                                // othewise tap, send space key
-      register_code( KC_SPC );
-    unregister_code( KC_SPC );
-  }
-
-  Raise_event = NO_EVENT;               // released keyevent
-
+  layer_off( _RAISE );
+  update_tri_layer( _LOWER, _RAISE, _NEUTRAL );
   return;
 }
 
@@ -252,14 +208,6 @@ bool LowerSwitch ( keyrecord_t *record, bool *key_state, bool brother ){
 }
 
 
-/**** matrix_scan_user ****/
-void matrix_scan_user ( void ){ 
-
-  matrix_scan_Raise();
-}
-
-
-
 
 /**** process_record_user ****/
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -278,19 +226,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case L_RAISE : return RaiseSwitch( record, &l_raise, r_raise ); break;
     case R_RAISE : return RaiseSwitch( record, &r_raise, l_raise ); break;
 
-    default:
-#     if defined PERMISSIVE_HOLD
-        if( IS_NOEVENT( Raise_event ) ) return true;    // no raise event, process normally
-
-        if( layer_state_is( _RAISE ) ) return true;     // raise already enabled also process normally
-
-        layer_on( _RAISE );                             // Raise layer off, Raise is holded, and pushed other key, 
-        update_tri_layer( _LOWER, _RAISE, _NEUTRAL );   // Raise layer enabled
-
-        process_record( record );                       // call process_record to process keycode ones more
-        return false;
-#     endif
-    break;
+    default: break;
 
   }
   return true;
