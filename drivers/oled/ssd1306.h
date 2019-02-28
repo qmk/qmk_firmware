@@ -91,16 +91,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define OLED_MAX_LINES (OLED_DISPLAY_WIDTH / OLED_FONT_HEIGHT)
 #endif // !defined(OLED_ROTATE90)
 
-// Initialize the oled display
+// Initialize the oled display, rotating the rendered output 180 degrees if true.
+// Returns true if the OLED was initialized successfully
 bool oled_init(bool flip180);
 
-// Clears out a display buffer with 0, resets cursor to 0, and sets dirty to true
+// Clears the display buffer, resets cursor position to 0, and sets the buffer to dirty for rendering
 void oled_clear(void);
 
-// Renders the buffer to i2c oled and sets dirty to false
+// Renders the dirty chunks of the buffer to oled display
 void oled_render(void);
 
-// Moves cursor to character position indicated by col and line, wraps if out of bounds
+// Moves cursor to character position indicated by column and line, wraps if out of bounds
+// Max column denoted by 'OLED_MAX_CHARS' define and max lines by 'OLED_MAX_LINES' define
 void oled_set_cursor(uint8_t col, uint8_t line);
 
 // Advances the cursor to the next page, writing ' ' if true
@@ -123,42 +125,57 @@ void oled_write(const char *data, bool invert);
 
 // Writes a string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
+// Advances the cursor to the next page, wiring ' ' to the remainder of the current page
 void oled_write_ln(const char *data, bool invert);
 
 #if defined(__AVR__)
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
+// Remapped to call 'void oled_write(const char *data, bool invert);' on ARM
 void oled_write_P(const char *data, bool invert);
 
 // Writes a PROGMEM string to the buffer at current cursor position
 // Advances the cursor while writing, inverts the pixels if true
+// Advances the cursor to the next page, wiring ' ' to the remainder of the current page
+// Remapped to call 'void oled_write_ln(const char *data, bool invert);' on ARM
 void oled_write_ln_P(const char *data, bool invert);
 #else
+  // Writes a string to the buffer at current cursor position
+  // Advances the cursor while writing, inverts the pixels if true
   #define oled_write_P(data, invert) oled_write(data, invert)
+
+  // Writes a string to the buffer at current cursor position
+  // Advances the cursor while writing, inverts the pixels if true
+  // Advances the cursor to the next page, wiring ' ' to the remainder of the current page
   #define oled_write_ln_P(data, invert) oled_write(data, invert)
 #endif // defined(__AVR__)
 
 // Can be used to manually turn on the screen if it is off
+// Returns true if the screen was on or turns on
 bool oled_on(void);
 
 // Can be used to manually turn off the screen if it is on
+// Returns true if the screen was off or turns off
 bool oled_off(void);
 
-// Basically it's oled_render, but with timeout management and user task calling!
+// Basically it's oled_render, but with timeout management and oled_task_user calling!
 void oled_task(void);
 
-// Called at the start of oled_task, weak function
+// Called at the start of oled_task, weak function overridable by the user
 void oled_task_user(void);
 
 // Scrolls the entire display right
-// Note, display contents cannot be changed while scrolling
+// Returns true if the screen was scrolling or starts scrolling
+// NOTE: display contents cannot be changed while scrolling
 bool oled_scroll_right(void);
 
 // Scrolls the entire display left
-// Note, display contents cannot be changed while scrolling
+// Returns true if the screen was scrolling or starts scrolling
+// NOTE: display contents cannot be changed while scrolling
 bool oled_scroll_left(void);
 
 // Turns off display scrolling
+// Returns true if the screen was not scrolling or stops scrolling
 bool oled_scroll_off(void);
 
 
