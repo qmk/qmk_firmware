@@ -1,5 +1,4 @@
-#ifndef LOVELIVE9_H
-#define LOVELIVE9_H
+#pragma once
 
 #include "quantum.h"
 #ifdef RGBLIGHT_ENABLE
@@ -21,4 +20,3 @@
   { k07 }, \
   { k08 } \
 }
-#endif

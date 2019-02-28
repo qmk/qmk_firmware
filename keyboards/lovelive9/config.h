@@ -1,7 +1,6 @@
 
 
 #pragma once
-#define CONFIG_H
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
@@ -60,4 +59,3 @@
 
 #define TAPPING_TERM 200
 
-#endif
