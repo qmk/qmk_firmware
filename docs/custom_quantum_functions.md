@@ -373,7 +373,7 @@ void keyboard_post_init_user(void) {
   }
 }
 ```
-The above function will use the EEPROM config immediately after reading it, to set the default layer's RGB color. The "raw" value of it is git converted in a usable structure based on the "union" that you created above. 
+The above function will use the EEPROM config immediately after reading it, to set the default layer's RGB color. The "raw" value of it is converted in a usable structure based on the "union" that you created above. 
 
 ```
 uint32_t layer_state_set_user(uint32_t state) {
