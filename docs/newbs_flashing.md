@@ -210,7 +210,7 @@ If you have any issues with this, you may need to this:
     sudo make <my_keyboard>:<my_keymap>:avrdude
 
 
-Additionally, if you want to flash multiple boards, use the following command
+Additionally, if you want to flash multiple boards, use the following command:
 
     make <keyboard>:<keymap>:avrdude-loop
 
