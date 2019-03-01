@@ -22,6 +22,9 @@
 #elif defined(EEPROM_EMU_STM32F103xB)
     #define STM32F103xB
     #include "stm32f1xx.h"
+#elif defined(EEPROM_EMU_STM32F072xB)
+    #define STM32F072xB
+    #include "stm32f0xx.h"
 #else
     #error "not implemented."
 #endif
@@ -193,7 +196,7 @@ void FLASH_Lock(void)
   *   This parameter can be any combination of the following values:
   *     @arg FLASH_FLAG_PGERR: FLASH Programming error flag flag
   *     @arg FLASH_FLAG_WRPERR: FLASH Write protected error flag
-  *     @arg FLASH_FLAG_EOP: FLASH End of Programming flag                
+  *     @arg FLASH_FLAG_EOP: FLASH End of Programming flag
   * @retval None
   */
 void FLASH_ClearFlag(uint32_t FLASH_FLAG)

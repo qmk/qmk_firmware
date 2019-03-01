@@ -44,8 +44,6 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record);
 #define KC_ADJS TT(_ADJUST)
 #define KC_NUMS TT(_LOWER)
 #define KC_GAME TT(_DIABLO)
-#define XXXXXXX KC_NO
-#define _______ KC_TRNS
 
 // Other Keycodes
 #define KC_RST RESET
