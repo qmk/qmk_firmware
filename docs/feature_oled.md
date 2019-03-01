@@ -32,7 +32,7 @@ void matrix_scan_user(void) {
 }
 ```
 
-Then finally implement the user task call and send your data to the oled to render, e.g:
+Then finally implement the user task call and send your data to the OLED to render, e.g:
 ```C++
 #ifdef OLED_ENABLE
 void oled_task_user(void) {
@@ -63,12 +63,12 @@ void oled_task_user(void) {
 
 ## Other Examples
 
-In split keyboards, it is very common to have two oled displays that each render different content. You can do this by switching which content to render by using the return from `has_usb()`, e.g:
+In split keyboards, it is very common to have two OLED displays that each render different content. You can do this by switching which content to render by using the return from `is_keyboard_master()` or `is_keyboard_left()` found in `split_util.h`, e.g:
 
 ```C++
 #ifdef OLED_ENABLE
 void oled_task_user(void) {
-  if (has_usb()) {
+  if (is_keyboard_master()) {
     render_status();     // Renders the current keyboard state (layer, lock, caps, scroll, etc)
   } else {
     render_logo();       // Renders a statuc logo
@@ -109,14 +109,14 @@ void oled_task_user(void) {
 
  ## 90 Degree Rotated Rendering
 
- OLED displays driven by SSD1306 drivers only nativly support in hard ware 0 degree and 180 degree rendering. By enabling the `OLED_ROTATE90` define, this handles rotating the display buffer in the software driver 90 degrees so we can effectivly get 90 and 270 degree rendering. This is useful if you have mounted the OLED display vertically long ways. 
+ OLED displays driven by SSD1306 drivers only natively support in hard ware 0 degree and 180 degree rendering. By enabling the `OLED_ROTATE90` define, this handles rotating the display buffer in the software driver 90 degrees so we can effectivly get 90 and 270 degree rendering. This is useful if you have mounted the OLED display vertically long ways. 
  
  **NOTE:** This is done in software and not free. Enabling this will increase the firmware size as well as the time to calculate what data to send over i2c to the OLED. If you are strapped for cycles, this can cause keycodes to not register. In testing however, the rendering time on an `atmega32u4` board only went from 2ms to 5ms and keycodes not registering was only noticed once we hit 15ms.
 
  
 |Define                 |Default        |Description                                     |
 |-----------------------|---------------|------------------------------------------------|
-|`OLED_ROTATE90`        |*Not defined*  |When defined, rotates the rendered output 90 degrees. **NOTE:** increases firmware size and is slower to render.   |
+|`OLED_ROTATE90`        |*Not defined*  |When defined, rotates the rendered output 90 degrees. **NOTE:** increases firmware size and is slower to render.  |
 |`OLED_SOURCE_MAP`      |`{ 0, ... N }` |Precalculated source array to use for mapping source buffer to target oled memory in 90 degree rendering.         |
 |`OLED_TARGET_MAP`      |`{ 48, ... N }`|Precalculated target array to use for mapping source buffer to target oled memory in 90 degree rendering.         |
 
@@ -131,7 +131,7 @@ void oled_task_user(void) {
 | 4 | 5 |   |   |   |   |
 | 6 | 7 |   |   |   |   |
 
-However the local buffer is stored as if it was Hight x Width display instead of Width x Height, e.g:
+However the local buffer is stored as if it was Height x Width display instead of Width x Height, e.g:
 
 |   |   |   |   |   |   |
 |---|---|---|---|---|---|
@@ -140,7 +140,7 @@ However the local buffer is stored as if it was Hight x Width display instead of
 | 1 | 5 |   |   |   |   |
 | 0 | 4 |   |   |   |   |
 
-So those precalcualted arrays just index the memory offsets in the order in which each one iterates its data.
+So those precalculated arrays just index the memory offsets in the order in which each one iterates its data.
 
  ## OLED API
 
