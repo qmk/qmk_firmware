@@ -68,7 +68,7 @@ uint32_t layer_state_set_user(uint32_t state)
     if (biton32(state) == 1) {
         writePinLow(B3);
 	} else {
-		PORTB &= ~(1<<3);
+        writePinHigh(B3);
     }
     return state;
 }
