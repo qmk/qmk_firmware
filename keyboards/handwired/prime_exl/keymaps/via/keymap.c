@@ -71,7 +71,7 @@ void matrix_scan_user(void) {
 
 void led_set_user(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-    PORTB |= (1<<6);
+    writePinLow(B6);
   } else {
     PORTB &= ~(1<<6);
   }
