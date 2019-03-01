@@ -57,7 +57,7 @@ void matrix_init_user(void) {
   setPinOutput(C6);
   PORTC &= ~(1 << 6);
   // set NumLock LED to output and low
-  DDRB |= (1 << 6);
+  setPinOutput(B6);
   PORTB &= ~(1 << 6);
   // set CapsLock LED to output and low
   DDRB |= (1 << 5);
