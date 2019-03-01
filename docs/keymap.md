@@ -161,7 +161,7 @@ Some interesting things to note:
 * We have used our `_______` definition to turn `KC_TRNS` into `_______`. This makes it easier to spot the keys that have changed on this layer.
 * While in this layer if you press one of the `_______` keys it will activate the key in the next lowest active layer.
 
-### **(DEPRECIATED)** Custom Functions
+### **(DEPRECATED)** Custom Functions
 
 <!-- Maybe we should remove this section, since it's very depreciated -->
 
