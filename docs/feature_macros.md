@@ -149,7 +149,7 @@ SEND_STRING(".."SS_TAP(X_END));
 
 ## Advanced Macro Functions
 
-There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
+There are some functions you may find useful in macro-writing. Keep in mind that while you can write some fairly advanced code within a macro, if your functionality gets too complex you may want to define a custom keycode instead. Macros are meant to be simple.
 
 ### `record->event.pressed`
 
