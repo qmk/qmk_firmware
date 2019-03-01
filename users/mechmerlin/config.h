@@ -18,10 +18,20 @@
 
 // Enable features depending on keyboard
 #if defined(KEYBOARD_clueboard_66_hotswap_prototype)
-    #define RGBLIGHT_ENABLE
-    #define AUDIO_CLICKY
+    #ifndef RGBLIGHT_ENABLE
+        #define RGBLIGHT_ENABLE
+    #endif
+
+    #ifndef AUDIO_CLICKY
+        #define AUDIO_CLICKY
+    #endif
+
 #elif defined(KEYBOARD_clueboard_66_hotswap_gen1)
-    #define AUDIO_CLICKY
+    #ifndef AUDIO_CLICKY
+        #define AUDIO_CLICKY
+    #endif
 #else
-    #define RGBLIGHT_ENABLE
+    #ifndef RGBLIGHT_ENABLE
+        #define RGBLIGHT_ENABLE
+    #endif
 #endif
