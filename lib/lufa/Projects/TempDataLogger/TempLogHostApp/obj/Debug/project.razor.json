@@ -1,0 +1,14 @@
+{
+  "ProjectFilePath": "c:\\kbfirmware\\qmk_firmware\\lib\\lufa\\Projects\\TempDataLogger\\TempLogHostApp\\TempLoggerHostApp.csproj",
+  "TargetFramework": "v3.5",
+  "TagHelpers": [],
+  "Configuration": {
+    "ConfigurationName": "UnsupportedRazor",
+    "LanguageVersion": "1.0",
+    "Extensions": [
+      {
+        "ExtensionName": "UnsupportedRazorExtension"
+      }
+    ]
+  }
+}
