@@ -196,7 +196,7 @@ This will clear all mods currently pressed.
 This will clear all keys besides the mods currently pressed.
 
 
-##  **(DEPRECIATED)** The Old Way: `MACRO()` & `action_get_macro`
+##  **(DEPRECATED)** The Old Way: `MACRO()` & `action_get_macro`
 
 !> This is inherited from TMK, and hasn't been updated - it's recommend that you use `SEND_STRING` and `process_record_user` instead.
 
