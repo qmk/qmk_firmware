@@ -43,9 +43,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLED_NUM 10
 
 // Space Cadet
-#define LSPO_KEY KC_9
-#define RSPC_KEY KC_0
-#define DISABLE_SPACE_CADET_ROLLOVER
+#define KC_LSPO_KEYS SC_KEY(KC_LSFT, KC_LSFT, KC_9)
+#define KC_RSPC_KEYS SC_KEY(KC_RSFT, KC_RSFT, KC_0)
 
 // Auto Shift settings
 #define AUTO_SHIFT_TIMEOUT 165

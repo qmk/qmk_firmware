@@ -57,9 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     get_mods() == (MOD_BIT(KC_LSFT) | MOD_BIT(KC_RSFT)) \
 )
 
-/* fix space cadet rollover issue */
-#define DISABLE_SPACE_CADET_ROLLOVER
-
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCE    15
 

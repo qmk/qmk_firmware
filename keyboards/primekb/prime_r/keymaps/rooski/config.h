@@ -21,7 +21,5 @@
 
 // place overrides here
 
-#define DISABLE_SPACE_CADET_ROLLOVER
-
 
 #endif

@@ -3,8 +3,8 @@
 // Override SpaceCadet Settings
 #undef LSPO_KEY
 #undef RSPC_KEY
-#define LSPO_KEY KC_8 // Nordic Left SpaceCadet
-#define RSPC_KEY KC_9 // Nordic Right SpaceCadet
+#define KC_LSPO_KEYS SC_KEY(KC_LSFT, KC_LSFT, KC_8) // Nordic Left SpaceCadet
+#define KC_RSPC_KEYS SC_KEY(KC_RSFT, KC_RSFT, KC_9) // Nordic Right SpaceCadet
 
 // Audio
 #ifdef AUDIO_ENABLE

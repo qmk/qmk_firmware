@@ -97,7 +97,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* override number of MIDI tone keycodes (each octave adds 12 keycodes and allocates 12 bytes) */
 #define MIDI_TONE_KEYCODE_OCTAVES 2
 
-// Space Cadet Rollover - if set, allows to tap opposite shift key to cancel erroneous press
-#define DISABLE_SPACE_CADET_ROLLOVER
-
 #endif

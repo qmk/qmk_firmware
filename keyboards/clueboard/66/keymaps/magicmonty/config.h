@@ -27,9 +27,9 @@
   Setting the modified Space Cadet Parens for German layout
 
   Default is
-  #define LSPO_KEY KC_9
-  #define RSPC_KEY KC_0
+  #define KC_LSPO_KEYS SC_KEY(KC_LSFT, KC_LSFT, KC_9)
+  #define KC_RSPC_KEYS SC_KEY(KC_RSFT, KC_RSFT, KC_0)
 */
-#define LSPO_KEY KC_8
-#define RSPC_KEY KC_9
+#define KC_LSPO_KEYS SC_KEY(KC_LSFT, KC_LSFT, KC_8)
+#define KC_RSPC_KEYS SC_KEY(KC_RSFT, KC_RSFT, KC_9)
 #define PERMISSIVE_HOLD
