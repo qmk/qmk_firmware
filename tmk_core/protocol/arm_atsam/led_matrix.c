@@ -64,6 +64,11 @@ RGB led_buffer[ISSI3733_LED_COUNT];
 uint8_t gcr_desired;
 uint8_t gcr_actual;
 uint8_t gcr_actual_last;
+#ifdef USE_MASSDROP_CONFIGURATOR
+uint8_t gcr_breathe;
+float breathe_mult;
+float pomod;
+#endif
 
 #define ACT_GCR_NONE    0
 #define ACT_GCR_INC     1
@@ -78,6 +83,14 @@ static uint8_t v_5v_cat_hit;
 void gcr_compute(void)
 {
     uint8_t action = ACT_GCR_NONE;
+    uint8_t gcr_use = gcr_desired;
+
+#ifdef USE_MASSDROP_CONFIGURATOR
+    if (led_animation_breathing)
+    {
+        gcr_use = gcr_breathe;
+    }
+#endif
 
     //If the 5v takes a catastrophic hit, disable the LED drivers briefly, assert auto gcr mode, min gcr and let the auto take over
     if (v_5v < V5_CAT)
@@ -105,13 +118,13 @@ void gcr_compute(void)
     if (usb_gcr_auto)
     {
         if (v_5v_avg < V5_LOW) action = ACT_GCR_DEC;
-        else if (v_5v_avg > V5_HIGH && gcr_actual < gcr_desired) action = ACT_GCR_INC;
-        else if (gcr_actual > gcr_desired) action = ACT_GCR_DEC;
+        else if (v_5v_avg > V5_HIGH && gcr_actual < gcr_use) action = ACT_GCR_INC;
+        else if (gcr_actual > gcr_use) action = ACT_GCR_DEC;
     }
     else
     {
-        if (gcr_actual < gcr_desired) action = ACT_GCR_INC;
-        else if (gcr_actual > gcr_desired) action = ACT_GCR_DEC;
+        if (gcr_actual < gcr_use) action = ACT_GCR_INC;
+        else if (gcr_actual > gcr_use) action = ACT_GCR_DEC;
     }
 
     if (action == ACT_GCR_NONE)
@@ -150,6 +163,18 @@ void gcr_compute(void)
             //Power successfully cut back from LED drivers
             gcr_actual -= LED_GCR_STEP_AUTO;
             gcr_min_counter = 0;
+
+#ifdef USE_MASSDROP_CONFIGURATOR
+            //If breathe mode is active, the top end can fluctuate if the host can not supply enough current
+            //So set the breathe GCR to where it becomes stable
+            if (led_animation_breathing == 1)
+            {
+                gcr_breathe = gcr_actual;
+                //PS: At this point, setting breathing to exhale makes a noticebly shorter cycle
+                //    and the same would happen maybe one or two more times. Therefore I'm favoring
+                //    powering through one full breathe and letting gcr settle completely
+            }
+#endif
         }
     }
 }
@@ -195,12 +220,13 @@ void led_set_one(int i, uint8_t r, uint8_t g, uint8_t b)
 {
     if (i < ISSI3733_LED_COUNT)
     {
+#ifdef USE_MASSDROP_CONFIGURATOR
+        led_matrix_massdrop_config_override(i);
+#else
         led_buffer[i].r = r;
         led_buffer[i].g = g;
         led_buffer[i].b = b;
-#ifdef USE_MASSDROP_CONFIGURATOR
-        led_matrix_massdrop_config_override(i);
-#endif // USE_MASSDROP_CONFIGURATOR
+#endif
     }
 }
 
@@ -228,11 +254,14 @@ void init(void)
 
 void flush(void)
 {
+#ifdef USE_MASSDROP_CONFIGURATOR
+    if (!led_enabled) { return; } //Prevent calculations and I2C traffic if LED drivers are not enabled
+#else
+    if (!sr_exp_data.bit.SDB_N) { return; } //Prevent calculations and I2C traffic if LED drivers are not enabled
+#endif
+
     // Wait for previous transfer to complete
-    while (i2c_led_q_running)
-    {
-        CLK_delay_ms(20);
-    }
+    while (i2c_led_q_running) {}
 
     // Copy buffer to live DMA region
     for (uint8_t i = 0; i < ISSI3733_LED_COUNT; i++)
@@ -241,6 +270,33 @@ void flush(void)
         *led_map[i].rgb.g = led_buffer[i].g;
         *led_map[i].rgb.b = led_buffer[i].b;
     }
+
+#ifdef USE_MASSDROP_CONFIGURATOR
+    breathe_mult = 1;
+
+    if (led_animation_breathing)
+    {
+        //+60us 119 LED
+        led_animation_breathe_cur += BREATHE_STEP * breathe_dir;
+
+        if (led_animation_breathe_cur >= BREATHE_MAX_STEP)
+            breathe_dir = -1;
+        else if (led_animation_breathe_cur <= BREATHE_MIN_STEP)
+            breathe_dir = 1;
+
+        //Brightness curve created for 256 steps, 0 - ~98%
+        breathe_mult = 0.000015 * led_animation_breathe_cur * led_animation_breathe_cur;
+        if (breathe_mult > 1) breathe_mult = 1;
+        else if (breathe_mult < 0) breathe_mult = 0;
+    }
+
+    //This should only be performed once per frame
+    pomod = (float)(g_tick % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+    pomod *= 100.0f;
+    pomod = (uint32_t)pomod % 10000;
+    pomod /= 100.0f;
+
+#endif // USE_MASSDROP_CONFIGURATOR
 
     uint8_t drvid;
 
@@ -306,16 +362,17 @@ const rgb_matrix_driver_t rgb_matrix_driver = {
 // Ported from Massdrop QMK Github Repo
 
 // TODO?: wire these up to keymap.c
-bool led_animation_direction = false;
-bool led_animation_orientation = false;
+uint8_t led_animation_orientation = 0;
+uint8_t led_animation_direction = 0;
+uint8_t led_animation_breathing = 0;
+uint8_t led_animation_id = 0;
+float led_animation_speed = 4.0f;
+uint8_t led_lighting_mode = LED_MODE_NORMAL;
+uint8_t led_enabled = 1;
+uint8_t led_animation_breathe_cur = BREATHE_MIN_STEP;
+uint8_t breathe_dir = 1;
 
 static void led_run_pattern(led_setup_t *f, float* ro, float* go, float* bo, float pos) {
-    float pomod;
-    pomod = (float)(g_tick % (uint32_t)(1000.0f / (1 << rgb_matrix_config.speed))) / 10.0f * (1 << rgb_matrix_config.speed);
-    pomod *= 100.0f;
-    pomod = (uint32_t)pomod % 10000;
-    pomod /= 100.0f;
-
     float po;
 
     while (f->end != 1)
@@ -372,17 +429,6 @@ static void led_run_pattern(led_setup_t *f, float* ro, float* go, float* bo, flo
 
 static void led_matrix_massdrop_config_override(int i)
 {
-#ifdef RGB_MATRIX_EXTRA_TOG
-    const bool is_key = g_rgb_leds[i].matrix_co.raw != 0xff;
-    if ((rgb_matrix_config.enable == RGB_ZONE_KEYS && !is_key) ||
-        (rgb_matrix_config.enable == RGB_ZONE_UNDER && is_key))
-    {
-        return;
-    }
-#endif
-
-    bool do_override = false;
-
     float ro = 0;
     float go = 0;
     float bo = 0;
@@ -391,49 +437,58 @@ static void led_matrix_massdrop_config_override(int i)
         ? (float)g_rgb_leds[i].point.y / 64.f * 100
         : (float)g_rgb_leds[i].point.x / 224.f * 100;
 
-    const uint8_t highest_active_layer = biton32(layer_state);
+    uint8_t highest_active_layer = biton32(layer_state);
 
-    const led_instruction_t* led_cur_instruction = led_instructions;
-    while (!led_cur_instruction->end) {
-        // Check if this applies to current layer
-        if ((led_cur_instruction->flags & LED_FLAG_MATCH_LAYER) &&
-            (led_cur_instruction->layer != highest_active_layer))
-        {
-            goto next_iter;
-        }
-
-        // Check if this applies to current index
-        if (led_cur_instruction->flags & LED_FLAG_MATCH_ID) {
-            const uint8_t  modid = i / 32;                                //PS: Calculate which id# contains the led bit
-            const uint32_t modidbit = 1 << (i % 32);                      //PS: Calculate the bit within the id#
-            const uint32_t* bitfield = &led_cur_instruction->id0 + modid; //PS: Add modid as offset to id0 address. *bitfield is now idX of the led id
-            if (~(*bitfield) & modidbit) //PS: Check if led bit is not set in idX
+    if (led_lighting_mode == LED_MODE_KEYS_ONLY && g_rgb_leds[i].matrix_co.raw == 0xff) {
+        //Do not act on this LED
+    } else if (led_lighting_mode == LED_MODE_NON_KEYS_ONLY && g_rgb_leds[i].matrix_co.raw != 0xff) {
+        //Do not act on this LED
+    } else if (led_lighting_mode == LED_MODE_INDICATORS_ONLY) {
+        //Do not act on this LED (Only show indicators)
+    } else {
+        led_instruction_t* led_cur_instruction = led_instructions;
+        while (!led_cur_instruction->end) {
+            // Check if this applies to current layer
+            if ((led_cur_instruction->flags & LED_FLAG_MATCH_LAYER) &&
+                (led_cur_instruction->layer != highest_active_layer)) {
                 goto next_iter;
+            }
+
+            // Check if this applies to current index
+            if (led_cur_instruction->flags & LED_FLAG_MATCH_ID) {
+                uint8_t modid = i / 32;                                     //Calculate which id# contains the led bit
+                uint32_t modidbit = 1 << (i % 32);                          //Calculate the bit within the id#
+                uint32_t *bitfield = &led_cur_instruction->id0 + modid;     //Add modid as offset to id0 address. *bitfield is now idX of the led id
+                if (~(*bitfield) & modidbit) {                              //Check if led bit is not set in idX
+                    goto next_iter;
+                }
+            }
+
+            if (led_cur_instruction->flags & LED_FLAG_USE_RGB) {
+                ro = led_cur_instruction->r;
+                go = led_cur_instruction->g;
+                bo = led_cur_instruction->b;
+            } else if (led_cur_instruction->flags & LED_FLAG_USE_PATTERN) {
+                led_run_pattern(led_setups[led_cur_instruction->pattern_id], &ro, &go, &bo, po);
+            } else if (led_cur_instruction->flags & LED_FLAG_USE_ROTATE_PATTERN) {
+                led_run_pattern(led_setups[led_animation_id], &ro, &go, &bo, po);
+            }
+
+            next_iter:
+                led_cur_instruction++;
         }
 
-        if (led_cur_instruction->flags & LED_FLAG_USE_RGB) {
-            ro = led_cur_instruction->r;
-            go = led_cur_instruction->g;
-            bo = led_cur_instruction->b;
-            do_override = true;
-        } else if (led_cur_instruction->flags & LED_FLAG_USE_PATTERN) {
-            led_run_pattern(led_setups[led_cur_instruction->pattern_id], &ro, &go, &bo, po);
-            do_override = true;
-        } else if (led_cur_instruction->flags & LED_FLAG_USE_ROTATE_PATTERN) {
-            // no override
-            do_override = false;
-        }
+        if (ro > 255) ro = 255; else if (ro < 0) ro = 0;
+        if (go > 255) go = 255; else if (go < 0) go = 0;
+        if (bo > 255) bo = 255; else if (bo < 0) bo = 0;
 
-    next_iter:
-        led_cur_instruction++;
+        if (led_animation_breathing)
+        {
+            ro *= breathe_mult;
+            go *= breathe_mult;
+            bo *= breathe_mult;
+        }
     }
-
-    if (!do_override)
-        return;
-
-    if (ro > 255) ro = 255; else if (ro < 0) ro = 0;
-    if (go > 255) go = 255; else if (go < 0) go = 0;
-    if (bo > 255) bo = 255; else if (bo < 0) bo = 0;
 
     led_buffer[i].r = (uint8_t)ro;
     led_buffer[i].g = (uint8_t)go;

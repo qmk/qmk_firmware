@@ -236,5 +236,6 @@ typedef struct {
 extern const rgb_matrix_driver_t rgb_matrix_driver;
 
 extern rgb_config_t rgb_matrix_config;
+extern uint32_t g_tick;
 
 #endif
