@@ -94,8 +94,7 @@ static void do_space_cadet(keyrecord_t *record, uint8_t index, uint8_t normalMod
         }
       #endif
 
-      register_code(keycode);
-      unregister_code(keycode);
+      tap_code(keycode);
 
       #ifndef DISABLE_SPACE_CADET_MODIFIER
         if (tapMod != normalMod) {
