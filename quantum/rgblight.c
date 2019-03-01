@@ -154,8 +154,7 @@ void rgblight_check_config(void) {
 }
 
 #ifdef RGBLIGHT_SPLIT
-/* for split keyboard master side */
-/*  Overwrite with individual code of keyboard. */
+/* for split keyboard */
 
 #define RGBLIGHT_SPLIT_SET_CHANGE_MODE	rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_MODE
 #define RGBLIGHT_SPLIT_SET_CHANGE_HSVS	rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_HSVS
@@ -164,13 +163,26 @@ void rgblight_check_config(void) {
 /* for split keyboard slave side */
 /*  Call from keyboard individual code. */
 void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom) {
-    // TODO: not yet implemented
-    // if (config != NULL) {
-    //    do sync
-    // }
-    // if (status != NULL) {
-    //    do sync
-    // }
+    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_MODE ) {
+        if (config->enable) {
+            rgblight_config.enable = 1; // == rgblight_enable_noeeprom();
+            rgblight_mode_noeeprom(config->mode);
+        } else {
+            rgblight_disable_noeeprom();
+        }
+    }
+    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_HSVS ) {
+        rgblight_sethsv_eeprom_helper(config->hue, config->sat, config->val,
+                                      false);
+        // rgblight_config.speed = config->speed; // NEED???
+    }
+    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_TIMER ) {
+        if (status->timer_enabled) {
+            rgblight_timer_enable();
+        } else {
+            rgblight_timer_disable();
+        }
+    }
 }
 #else
 #define RGBLIGHT_SPLIT_SET_CHANGE_MODE
@@ -512,13 +524,13 @@ void rgblight_decrease_val(void) {
 }
 void rgblight_increase_speed(void) {
     rgblight_config.speed = increment( rgblight_config.speed, 1, 0, 3 );
-    RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
+    //RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED?
     eeconfig_update_rgblight(rgblight_config.raw);//EECONFIG needs to be increased to support this
 }
 
 void rgblight_decrease_speed(void) {
     rgblight_config.speed = decrement( rgblight_config.speed, 1, 0, 3 );
-    RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
+    //RGBLIGHT_SPLIT_SET_CHANGE_HSVS; // NEED??
     eeconfig_update_rgblight(rgblight_config.raw);//EECONFIG needs to be increased to support this
 }
 
