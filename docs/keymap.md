@@ -165,7 +165,7 @@ Some interesting things to note:
 
 <!-- Maybe we should remove this section, since it's very depreciated -->
 
-!> Functions are depreciated in favor of [custom macros](feature_macros.md) or have been rolled into keycodes.  
+!> These functions are deprecated in favor of [custom macros](feature_macros.md) or have been rolled into keycodes.  
 
 At the bottom of the file we've defined a single custom function. This function defines a key that sends `KC_ESC` when pressed without modifiers and `KC_GRAVE` when modifiers are held. There are a couple pieces that need to be in place for this to work, and we will go over both of them.
 
