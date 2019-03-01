@@ -198,7 +198,7 @@ This will clear all keys besides the mods currently pressed.
 
 ##  **(DEPRECATED)** The Old Way: `MACRO()` & `action_get_macro`
 
-!> This is inherited from TMK, and hasn't been updated - it's recommend that you use `SEND_STRING` and `process_record_user` instead.
+!> This is inherited from TMK, and hasn't been updated - it's recommended that you use `SEND_STRING` and `process_record_user` instead.
 
 By default QMK assumes you don't have any macros. To define your macros you create an `action_get_macro()` function. For example:
 
