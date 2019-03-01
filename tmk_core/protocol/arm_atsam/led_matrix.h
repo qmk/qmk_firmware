@@ -115,12 +115,12 @@ extern const uint8_t led_setups_count;
 extern void *led_setups[];
 
 //LED Extra Instructions
-#define LED_FLAG_NULL                0x00
-#define LED_FLAG_MATCH_ID            0x01
-#define LED_FLAG_MATCH_LAYER         0x02
-#define LED_FLAG_USE_RGB             0x10
-#define LED_FLAG_USE_PATTERN         0x20
-#define LED_FLAG_USE_ROTATE_PATTERN  0x40
+#define LED_FLAG_NULL                0x00       //Matching and coloring not used (default)
+#define LED_FLAG_MATCH_ID            0x01       //Match on the ID of the LED (set id#'s to desired bit pattern, first LED is id 1)
+#define LED_FLAG_MATCH_LAYER         0x02       //Match on the current active layer (set layer to desired match layer)
+#define LED_FLAG_USE_RGB             0x10       //Use a specific RGB value (set r, g, b to desired output color values)
+#define LED_FLAG_USE_PATTERN         0x20       //Use a specific pattern ID (set pattern_id to desired output pattern)
+#define LED_FLAG_USE_ROTATE_PATTERN  0x40       //Use pattern the user has cycled to manually
 
 typedef struct led_instruction_s {
     uint16_t flags; // Bitfield for LED instructions
@@ -137,6 +137,21 @@ typedef struct led_instruction_s {
 } led_instruction_t;
 
 extern led_instruction_t led_instructions[];
+
+extern uint8_t led_animation_breathing;
+extern uint8_t led_animation_id;
+extern float led_animation_speed;
+extern uint8_t led_lighting_mode;
+extern uint8_t led_enabled;
+extern uint8_t led_animation_breathe_cur;
+extern uint8_t led_animation_direction;
+extern uint8_t breathe_dir;
+
+#define LED_MODE_NORMAL             0   //Must be 0
+#define LED_MODE_KEYS_ONLY          1
+#define LED_MODE_NON_KEYS_ONLY      2
+#define LED_MODE_INDICATORS_ONLY    3
+#define LED_MODE_MAX_INDEX          LED_MODE_INDICATORS_ONLY   //Must be highest value
 
 #endif // USE_MASSDROP_CONFIGURATOR
 

@@ -33,6 +33,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LED_GCR_MAX                 165         //Max GCR value (0 - 255) WARNING: Raising this value may overload the LED drivers and USB bus
 #define LED_GCR_STEP                10          //GCR increment/decrement value
 
+#ifdef USE_MASSDROP_CONFIGURATOR
+#define ANIMATION_SPEED_STEP        1
+
+#define BREATHE_STEP                1
+#define BREATHE_MIN_STEP            0
+#define BREATHE_MAX_STEP            255
+#endif
+
 //Default Global Current Register value (Default brightness 0 - 255)
 #define ISSI3733_GCR_DEFAULT LED_GCR_MAX
 
