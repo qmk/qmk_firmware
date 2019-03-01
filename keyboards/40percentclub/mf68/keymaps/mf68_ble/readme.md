@@ -24,6 +24,6 @@ Below is how you wire the Feather to PCB
 
 Make example for this keyboard (after setting up your build environment):  
 
-    make 40percentclub/mf68_ble:default
+    make 40percentclub/mf68:mf68_ble
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
