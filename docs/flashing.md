@@ -51,7 +51,7 @@ To generate a production-ready .hex file (containing the application and the boo
 
 ### DFU commands
 
-There are a number of DFU commands that you can use to flash firmware to a DFU device
+There are a number of DFU commands that you can use to flash firmware to a DFU device:
 
 * `:dfu` - This is the normal option and waits until a DFU device is available, and then flashes the firmware. This will check every 5 seconds, to see if a DFU device has appeared.
 * `:dfu-ee` - This flashes an `eep` file instead of the normal hex.  This is uncommon. 
