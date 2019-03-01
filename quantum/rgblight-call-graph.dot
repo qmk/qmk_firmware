@@ -41,7 +41,7 @@ rgblight_decrease_speed [style = "rounded,filled", color = green, fillcolor = gr
 rgblight_set
 rgblight_setrgb
 rgblight_sethsv_noeeprom_old
-rgblight_sethsv_eeprom_helper [style = "rounded,filled", color = green, fillcolor = greenyellow]
+rgblight_sethsv_eeprom_helper [style = "rounded,filled", color = blue, fillcolor = greenyellow]
 rgblight_increase_hue_helper
 rgblight_increase_hue_noeeprom
 rgblight_increase_hue
@@ -62,7 +62,7 @@ rgblight_decrease_val_noeeprom
 rgblight_decrease_val
 rgblight_sethsv
 rgblight_sethsv_noeeprom
-rgblight_mode_eeprom_helper
+rgblight_mode_eeprom_helper [style = "rounded,filled", color = blue, fillcolor = greenyellow]
 rgblight_step_helper
 rgblight_step_noeeprom
 rgblight_step
@@ -84,10 +84,10 @@ rgblight_toggle
 rgblight_disable_noeeprom [style = "rounded,filled", color = green, fillcolor = greenyellow]
 rgblight_toggle_noeeprom
 
-rgblight_timer_init
-rgblight_timer_enable
-rgblight_timer_disable
-// rgblight_timer_toggle
+rgblight_timer_init [style = "rounded,filled", color = blue, fillcolor = yellow]
+rgblight_timer_enable [style = "rounded,filled", color = blue, fillcolor = yellow]
+rgblight_timer_disable [style = "rounded,filled", color = blue, fillcolor = yellow]
+rgblight_timer_toggle [style = "rounded,filled", color = blue, fillcolor = yellow]
 rgblight_show_solid_color
 rgblight_effect_breathing
 rgblight_effect_rainbow_mood
