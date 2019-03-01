@@ -1,8 +1,8 @@
 // This is the personal keymap of Jeremy Cowgar (@jcowgar). It is written for the programmer.
 
 // Configuration options
-#define PREVENT_STUCK_MODIFIERS
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #include "eeconfig.h"

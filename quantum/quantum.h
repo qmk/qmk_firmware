@@ -1,4 +1,4 @@
-/* Copyright 2016-2017 Erez Zukerman, Jack Humbert
+/* Copyright 2016-2018 Erez Zukerman, Jack Humbert, Yiancar
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,25 +17,41 @@
 #define QUANTUM_H
 
 #if defined(__AVR__)
-#include <avr/pgmspace.h>
-#include <avr/io.h>
-#include <avr/interrupt.h>
+    #include <avr/pgmspace.h>
+    #include <avr/io.h>
+    #include <avr/interrupt.h>
+#endif
+#if defined(PROTOCOL_CHIBIOS)
+    #include "hal.h"
 #endif
 #include "wait.h"
 #include "matrix.h"
 #include "keymap.h"
 #ifdef BACKLIGHT_ENABLE
-    #include "backlight.h"
-#endif
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE) 
-	#include "rgb.h"
+    #ifdef LED_MATRIX_ENABLE
+        #include "ledmatrix.h"
+    #else
+        #include "backlight.h"
+    #endif
 #endif
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
+#else
+    #ifdef RGB_MATRIX_ENABLE
+        /* dummy define RGBLIGHT_MODE_xxxx */
+        #define RGBLIGHT_H_DUMMY_DEFINE
+        #include "rgblight.h"
+    #endif
 #endif
+
+#ifdef SPLIT_KEYBOARD
+    #include "split_flags.h"
+#endif
+
 #ifdef RGB_MATRIX_ENABLE
-	#include "rgb_matrix.h"
+    #include "rgb_matrix.h"
 #endif
+
 #include "action_layer.h"
 #include "eeconfig.h"
 #include <stddef.h>
@@ -47,78 +63,128 @@
 #include <stdlib.h>
 #include "print.h"
 #include "send_string_keycodes.h"
+#include "suspend.h"
 
 extern uint32_t default_layer_state;
 
 #ifndef NO_ACTION_LAYER
-	extern uint32_t layer_state;
+    extern uint32_t layer_state;
 #endif
 
 #ifdef MIDI_ENABLE
 #ifdef MIDI_ADVANCED
-	#include "process_midi.h"
+    #include "process_midi.h"
 #endif
 #endif // MIDI_ENABLE
 
 #ifdef AUDIO_ENABLE
-	#include "audio.h"
- 	#include "process_audio.h"
-  #ifdef AUDIO_CLICKY
-    #include "process_clicky.h"
-  #endif // AUDIO_CLICKY
+    #include "audio.h"
+    #include "process_audio.h"
+    #ifdef AUDIO_CLICKY
+        #include "process_clicky.h"
+    #endif // AUDIO_CLICKY
 #endif
 
 #ifdef STENO_ENABLE
-	#include "process_steno.h"
+    #include "process_steno.h"
 #endif
 
 #if defined(AUDIO_ENABLE) || (defined(MIDI_ENABLE) && defined(MIDI_BASIC))
-	#include "process_music.h"
+    #include "process_music.h"
 #endif
 
-#ifndef DISABLE_LEADER
-	#include "process_leader.h"
-#endif
-
-#define DISABLE_CHORDING
-#ifndef DISABLE_CHORDING
-	#include "process_chording.h"
+#ifdef LEADER_ENABLE
+    #include "process_leader.h"
 #endif
 
 #ifdef UNICODE_ENABLE
-	#include "process_unicode.h"
+    #include "process_unicode.h"
 #endif
 
 #ifdef UCIS_ENABLE
-	#include "process_ucis.h"
+    #include "process_ucis.h"
 #endif
 
 #ifdef UNICODEMAP_ENABLE
-	#include "process_unicodemap.h"
+    #include "process_unicodemap.h"
 #endif
 
-#include "process_tap_dance.h"
+#ifdef TAP_DANCE_ENABLE
+  #include "process_tap_dance.h"
+#endif
 
 #ifdef PRINTING_ENABLE
-	#include "process_printer.h"
+    #include "process_printer.h"
 #endif
 
 #ifdef AUTO_SHIFT_ENABLE
-	#include "process_auto_shift.h"
+    #include "process_auto_shift.h"
 #endif
 
 #ifdef COMBO_ENABLE
-	#include "process_combo.h"
+    #include "process_combo.h"
 #endif
 
 #ifdef KEY_LOCK_ENABLE
-	#include "process_key_lock.h"
+    #include "process_key_lock.h"
 #endif
 
 #ifdef TERMINAL_ENABLE
-	#include "process_terminal.h"
+    #include "process_terminal.h"
 #else
-	#include "process_terminal_nop.h"
+    #include "process_terminal_nop.h"
+#endif
+
+#ifdef HD44780_ENABLE
+    #include "hd44780.h"
+#endif
+
+#ifdef HAPTIC_ENABLE
+    #include "haptic.h"
+#endif
+
+//Function substitutions to ease GPIO manipulation
+#ifdef __AVR__
+    #define PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)
+
+    #define pin_t uint8_t
+    #define setPinInput(pin) PIN_ADDRESS(pin, 1) &= ~ _BV(pin & 0xF)
+    #define setPinInputHigh(pin) ({\
+            PIN_ADDRESS(pin, 1) &= ~ _BV(pin & 0xF);\
+            PIN_ADDRESS(pin, 2) |=   _BV(pin & 0xF);\
+            })
+    #define setPinInputLow(pin) _Static_assert(0, "AVR Processors cannot impliment an input as pull low")
+    #define setPinOutput(pin) PIN_ADDRESS(pin, 1) |= _BV(pin & 0xF)
+
+    #define writePinHigh(pin) PIN_ADDRESS(pin, 2) |=  _BV(pin & 0xF)
+    #define writePinLow(pin) PIN_ADDRESS(pin, 2) &= ~_BV(pin & 0xF)
+    static inline void writePin(pin_t pin, uint8_t level){
+        if (level){
+            PIN_ADDRESS(pin, 2) |=  _BV(pin & 0xF);
+        } else {
+            PIN_ADDRESS(pin, 2) &= ~_BV(pin & 0xF);
+        }
+    }
+
+    #define readPin(pin) ((bool)(PIN_ADDRESS(pin, 0) & _BV(pin & 0xF)))
+#elif defined(PROTOCOL_CHIBIOS)
+    #define pin_t ioline_t
+    #define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
+    #define setPinInputHigh(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLUP)
+    #define setPinInputLow(pin) palSetLineMode(pin, PAL_MODE_INPUT_PULLDOWN)
+    #define setPinOutput(pin) palSetLineMode(pin, PAL_MODE_OUTPUT_PUSHPULL)
+
+    #define writePinHigh(pin) palSetLine(pin)
+    #define writePinLow(pin) palClearLine(pin)
+    static inline void writePin(pin_t pin, uint8_t level){
+        if (level){
+            palSetLine(pin);
+        } else {
+            palClearLine(pin);
+        }
+    }
+
+    #define readPin(pin) palReadLine(pin)
 #endif
 
 #define STRINGIZE(z) #z
@@ -136,6 +202,7 @@ extern uint32_t default_layer_state;
 #define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
 #define SS_LSFT(string) SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
 #define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
+#define SS_ALGR(string) SS_RALT(string)
 
 #define SEND_STRING(str) send_string_P(PSTR(str))
 extern const bool ascii_to_shift_lut[0x80];
@@ -165,13 +232,23 @@ bool process_action_kb(keyrecord_t *record);
 bool process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
 
+#ifndef BOOTMAGIC_LITE_COLUMN
+  #define BOOTMAGIC_LITE_COLUMN 0
+#endif
+#ifndef BOOTMAGIC_LITE_ROW
+  #define BOOTMAGIC_LITE_ROW 0
+#endif
+
+void bootmagic_lite(void);
+
 void reset_keyboard(void);
 
 void startup_user(void);
 void shutdown_user(void);
 
-void register_code16 (uint16_t code);
-void unregister_code16 (uint16_t code);
+void register_code16(uint16_t code);
+void unregister_code16(uint16_t code);
+void tap_code16(uint16_t code);
 
 #ifdef BACKLIGHT_ENABLE
 void backlight_init_ports(void);

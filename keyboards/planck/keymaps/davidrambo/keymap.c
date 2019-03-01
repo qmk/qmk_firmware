@@ -1,7 +1,6 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 
-//alias for clarity in layering
-#define _______ KC_TRNS
 #define A_BSPC  LALT(KC_BSPC)
 #define A_LEFT  LALT(KC_LEFT)
 #define A_RGHT  LALT(KC_RGHT)
@@ -26,7 +25,7 @@ enum {
 #define SftLck TD(SFT_LCK)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    
+
 /* Colemak
  * ,-----------------------------------------------------------------------------------.
  * | ESC` |   Q  |   W  |   F  |   P  |   G  |   J  |   L  |   U  |   Y  |   ;  | Bksp |
@@ -38,14 +37,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | Del  | GUI  | Ctrl | Alt  | GUI  |    Space    |Symbol| Left | Down |  Up  |Right |
  * `-----------------------------------------------------------------------------------'
 */
-    
+
 [_COLEMAK] = {
   {KC_GESC, KC_Q   , KC_W   , KC_F   , KC_P   , KC_G,    KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSPC},
   {NAV    , KC_A   , KC_R   , KC_S   , KC_T   , KC_D,    KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_QUOT},
   {SftLck , KC_Z   , KC_X   , KC_C   , KC_V   , KC_B,    KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SftEnt },
   {KC_DEL , KC_LGUI, KC_LCTL, KC_LALT, KC_LGUI, KC_SPC,  KC_SPC,  MO(1),   KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT}
   },
-    
+
 /* Symbol
  * ,-----------------------------------------------------------------------------------.
  * |   [  |   1  |   2  |   3  |   4  |   5  |   6  |   7  |   8  |   9  |   0  |   ]  |
@@ -65,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   },
 
 /* Navigation*/
-    
+
 [_NAVIGATION] = {
     {_______, _______, _______, _______, _______, _______, C_TAB  , A_LEFT,  KC_UP,   A_RGHT , KC_DEL , _______},
     {_______, _______, _______, _______, _______, _______, GSL    , KC_LEFT, KC_DOWN, KC_RGHT, GSR    , _______},

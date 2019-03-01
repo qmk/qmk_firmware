@@ -5,7 +5,7 @@
 
 // Number of backlight levels
 #undef  BACKLIGHT_LEVELS
-#define BACKLIGHT_LEVELS 3
+#define BACKLIGHT_LEVELS 8
 
 /* ws2812 RGB LED */
 #undef RGB_DI_PIN

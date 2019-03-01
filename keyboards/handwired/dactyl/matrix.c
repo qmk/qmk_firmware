@@ -48,8 +48,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static const uint8_t onboard_row_pins[MATRIX_ROWS] = MATRIX_ONBOARD_ROW_PINS;
 static const uint8_t onboard_col_pins[MATRIX_COLS] = MATRIX_ONBOARD_COL_PINS;
 static const bool col_expanded[MATRIX_COLS] = COL_EXPANDED;
-static const uint8_t expander_row_pins[MATRIX_ROWS] = MATRIX_EXPANDER_ROW_PINS;
-static const uint8_t expander_col_pins[MATRIX_COLS] = MATRIX_EXPANDER_COL_PINS;
 #endif
 
 /* matrix state(1:on, 0:off) */
@@ -58,12 +56,14 @@ static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 #if (DIODE_DIRECTION == COL2ROW)
+    static const uint8_t expander_col_pins[MATRIX_COLS] = MATRIX_EXPANDER_COL_PINS;
     static void init_cols(void);
     static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row);
     static void unselect_rows(void);
     static void select_row(uint8_t row);
     static void unselect_row(uint8_t row);
 #elif (DIODE_DIRECTION == ROW2COL)
+    static const uint8_t expander_row_pins[MATRIX_ROWS] = MATRIX_EXPANDER_ROW_PINS;
     static void init_rows(void);
     static bool read_rows_on_col(matrix_row_t current_matrix[], uint8_t current_col);
     static void unselect_cols(void);

@@ -1,5 +1,5 @@
 /*
-Copyright 2012 Jun Wako <wakojun@gmail.com>
+Copyright 2017 Danny Nguyen <danny@keeb.io>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -31,6 +31,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config.h"
 #include "timer.h"
 
+#ifdef BACKLIGHT_ENABLE
+    #include "backlight.h"
+    extern backlight_config_t backlight_config;
+#endif
+
 #ifdef USE_I2C
 #  include "i2c.h"
 #else // USE_SERIAL
@@ -57,6 +62,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
 #define ERROR_DISCONNECT_COUNT 5
+
+#define SERIAL_LED_ADDR 0x00
 
 #define ROWS_PER_HAND (MATRIX_ROWS/2)
 
@@ -201,6 +208,15 @@ int i2c_transaction(void) {
     err = i2c_master_write(0x00);
     if (err) goto i2c_error;
 
+#ifdef BACKLIGHT_ENABLE
+    // Write backlight level for slave to read
+    err = i2c_master_write(backlight_config.enable ? backlight_config.level : 0);
+#else
+    // Write zero, so our byte index is the same
+    err = i2c_master_write(0x00);
+#endif
+    if (err) goto i2c_error;
+
     // Start read
     err = i2c_master_start(SLAVE_I2C_ADDRESS + I2C_READ);
     if (err) goto i2c_error;
@@ -233,6 +249,11 @@ int serial_transaction(void) {
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         matrix[slaveOffset+i] = serial_slave_buffer[i];
     }
+
+#ifdef BACKLIGHT_ENABLE
+    // Write backlight level for slave to read
+    serial_master_buffer[SERIAL_LED_ADDR] = backlight_config.enable ? backlight_config.level : 0;
+#endif
     return 0;
 }
 #endif
@@ -273,13 +294,22 @@ void matrix_slave_scan(void) {
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
 
 #ifdef USE_I2C
+#ifdef BACKLIGHT_ENABLE
+    // Read backlight level sent from master and update level on slave
+    backlight_set(i2c_slave_buffer[0]);
+#endif
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
-        i2c_slave_buffer[i] = matrix[offset+i];
+        i2c_slave_buffer[i+1] = matrix[offset+i];
     }
 #else // USE_SERIAL
     for (int i = 0; i < ROWS_PER_HAND; ++i) {
         serial_slave_buffer[i] = matrix[offset+i];
     }
+
+#ifdef BACKLIGHT_ENABLE
+    // Read backlight level sent from master and update level on slave
+    backlight_set(serial_master_buffer[SERIAL_LED_ADDR]);
+#endif
 #endif
 }
 

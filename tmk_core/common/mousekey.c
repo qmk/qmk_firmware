@@ -122,7 +122,9 @@ void mousekey_task(void)
     /* diagonal move [1/sqrt(2)] */
     if (mouse_report.x && mouse_report.y) {
         mouse_report.x = times_inv_sqrt2(mouse_report.x);
+        mouse_report.x = mouse_report.x == 0 ? 1 : mouse_report.x;
         mouse_report.y = times_inv_sqrt2(mouse_report.y);
+        mouse_report.y = mouse_report.y == 0 ? 1 : mouse_report.y;
     }
 
     if (mouse_report.v > 0) mouse_report.v = wheel_unit();

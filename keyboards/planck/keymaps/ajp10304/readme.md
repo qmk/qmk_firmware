@@ -1,10 +1,14 @@
 # AJP10304 Custom Planck Layout
-# Also available for the JJ40
+# Also available for the Atreus50 and JJ40
 
 **Note:** In the tables below where there are two characters on a key,
 the second is the output when shift is applied.
 
 **Note:** The below tables assume a UK layout.
+
+####Flashing
+Rev <=5: sudo make planck:ajp10304:dfu
+Rev 6: sudo make planck/rev6:ajp10304:dfu-util
 
 ##### Main Qwerty Layer
 

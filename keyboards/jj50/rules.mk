@@ -27,7 +27,7 @@ F_CPU = 12000000
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 BOOTLOADER = bootloadHID
 
@@ -57,9 +57,7 @@ SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 CUSTOM_MATRIX = yes
 SRC = matrix.c i2c.c backlight.c
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif
-
 # programming options
 PROGRAM_CMD = ./keyboards/ps2avrGB/program $(TARGET).hex
+
+LAYOUTS = ortho_5x12

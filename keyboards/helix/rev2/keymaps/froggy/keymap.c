@@ -1,12 +1,9 @@
-#include "helix.h"
+#include QMK_KEYBOARD_H
 #include "bootloader.h"
-#include "action_layer.h"
-#include "eeconfig.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
 #endif
-#include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
@@ -64,10 +61,6 @@ enum macro_keycodes {
   KC_SAMPLEMACRO,
 };
 
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 //Macros
 #define M_SAMPLE M(KC_SAMPLEMACRO)
 
@@ -84,10 +77,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Y  |   S  |   N  |   I  |   U  |Space |      |      |      |      |      |      |      |
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * | Ctrl | Alt  | win  | Sym  | Num  |  OPT | Ent  |      |      |      |      |      |      |      |
+   * | Ctrl | Alt  | Gui  | Sym  | Num  | OPT  | Ent  |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_BASE] = KEYMAP( \
+  [_BASE] = LAYOUT( \
       LCTL(KC_Z),    KC_SCLN,       KC_LBRC,       KC_LPRN,   KC_LT,     KC_LCBR,                                _______,  _______,  _______,  _______,  _______,  _______, \
       KANA,          KC_P,          KC_K,          KC_R,      KC_A,      KC_F,                                   _______,  _______,  _______,  _______,  _______,  _______, \
       KC_BSPC,       KC_D,          KC_T,          KC_H,      KC_E,      KC_O,                                   _______,  _______,  _______,  _______,  _______,  _______, \
@@ -108,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |   ,  | DTOP |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_OPT] = KEYMAP( \
+  [_OPT] = LAYOUT( \
       KC_ESC,  KC_COLN,KC_RBRC, KC_RPRN,KC_GT,     KC_RCBR,                   _______,  _______,  _______,  _______,  _______,  _______, \
       EISU,    KC_J,   KC_M,    KC_B,   KC_QUOT,   KC_TAB,                    _______,  _______,  _______,  _______,  _______,  _______, \
       KC_DOT,  KC_V,   KC_C,    KC_L,   KC_Z,      KC_Q,                      _______,  _______,  _______,  _______,  _______,  _______, \
@@ -129,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |RGBOFF|      |      |      |      |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_FUNC] = KEYMAP( \
+  [_FUNC] = LAYOUT( \
       RGBRST,RGB_HUI, _______, RESET,   MAC,     WIN,                         _______,  _______,  _______,  _______,  _______,  _______, \
       RGB1,  RGB_VAI, KC_F7,   KC_F8,   KC_F9,   _______,                     _______,  _______,  _______,  _______,  _______,  _______, \
       RGB2,  RGB_VAD, KC_F4,   KC_F5,   KC_F6,   KC_F12,                      _______,  _______,  _______,  _______,  _______,  _______, \
@@ -150,7 +143,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |  PS  |      |   ~  |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_SYM] = KEYMAP( \
+  [_SYM] = LAYOUT( \
       KC_INS,  KC_GRV,  _______, KC_PGUP, KC_PGDN, KC_CIRC,                   _______,  _______,  _______,  _______,  _______,  _______, \
       _______, KC_BSLS, KC_HASH, KC_EQL,  KC_QUES, KC_PERC,                   _______,  _______,  _______,  _______,  _______,  _______, \
       _______, KC_DLR,  KC_UP,   KC_AT,   KC_EXLM, KC_PIPE,                   _______,  _______,  _______,  _______,  _______,  _______, \
@@ -171,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |  ,   |      |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_NUM] = KEYMAP( \
+  [_NUM] = LAYOUT( \
       _______,  _______, OSL(_FUNC), KC_HOME, KC_END,  _______,                          _______,  _______,  _______,  _______,  _______,  _______, \
       _______,  KC_ASTR, KC_P7,      KC_P8,   KC_P9,   KC_MINS,                          _______,  _______,  _______,  _______,  _______,  _______, \
       KC_PDOT,  KC_SLSH, KC_P4,      KC_P5,   KC_P6,   KC_PLUS,                          _______,  _______,  _______,  _______,  _______,  _______, \
@@ -259,7 +252,30 @@ void register_delay_code(uint8_t layer){
   }
 }
 
+#ifdef RGBLIGHT_ENABLE
+struct keybuf {
+  char col, row;
+  char frame;
+};
+struct keybuf keybufs[256];
+unsigned char keybuf_begin, keybuf_end;
+
+int col, row;
+#endif
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+  #ifdef RGBLIGHT_ENABLE
+    col = record->event.key.col;
+    row = record->event.key.row;
+    if (record->event.pressed && ((row < 5 && is_master) || (row >= 5 && !is_master))) {
+      int end = keybuf_end;
+      keybufs[end].col = col;
+      keybufs[end].row = row % 5;
+      keybufs[end].frame = 0;
+      keybuf_end ++;
+    }
+  #endif
 
   if(tap_timer&&keycode!=OPT_TAP_SP){
     tapping_key = true;
@@ -379,7 +395,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
           RGBAnimation = true;
-          rgblight_mode(6);
+          rgblight_mode(RGBLIGHT_MODE_RAINBOW_MOOD);
           RGB_current_mode = rgblight_config.mode;
         }
       #endif
@@ -388,7 +404,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
           RGBAnimation = true;
-          rgblight_mode(10);
+          rgblight_mode(RGBLIGHT_MODE_RAINBOW_SWIRL + 1);
           RGB_current_mode = rgblight_config.mode;
         }
       #endif
@@ -397,7 +413,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       #ifdef RGBLIGHT_ENABLE
         if (record->event.pressed) {
           RGBAnimation = true;
-          rgblight_mode(21);
+          rgblight_mode(RGBLIGHT_MODE_KNIGHT);
           RGB_current_mode = rgblight_config.mode;
         }
       #endif
@@ -435,7 +451,6 @@ void matrix_init_user(void) {
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
-        TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
@@ -479,6 +494,61 @@ void music_scale_user(void)
 #define L_NFNLAYER 192
 #define L_MOUSECURSOR 256
 
+// LED Effect
+#ifdef RGBLIGHT_ENABLE
+unsigned char rgb[7][5][3];
+void led_ripple_effect(char r, char g, char b) {
+    static int scan_count = -10;
+    static int keys[] = { 6, 6, 6, 7, 7 };
+    static int keys_sum[] = { 0, 6, 12, 18, 25 };
+
+    if (scan_count == -1) {
+      rgblight_enable_noeeprom();
+      rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
+    } else if (scan_count >= 0 && scan_count < 5) {
+      for (unsigned char c=keybuf_begin; c!=keybuf_end; c++) {
+        int i = c;
+        // FIXME:
+
+        int y = scan_count;
+        int dist_y = abs(y - keybufs[i].row);
+        for (int x=0; x<keys[y]; x++) {
+          int dist = abs(x - keybufs[i].col) + dist_y;
+          if (dist <= keybufs[i].frame) {
+            int elevation = MAX(0, (8 + dist - keybufs[i].frame)) << 2;
+            if (elevation) {
+              if ((rgb[x][y][0] != 255) && r) { rgb[x][y][0] = MIN(255, elevation + rgb[x][y][0]); }
+              if ((rgb[x][y][1] != 255) && g) { rgb[x][y][1] = MIN(255, elevation + rgb[x][y][1]); }
+              if ((rgb[x][y][2] != 255) && b) { rgb[x][y][2] = MIN(255, elevation + rgb[x][y][2]); }
+            }
+          }
+        }
+      }
+    } else if (scan_count == 5) {
+      for (unsigned char c=keybuf_begin; c!=keybuf_end; c++) {
+        int i = c;
+        if (keybufs[i].frame < 18) {
+          keybufs[i].frame ++;
+        } else {
+          keybuf_begin ++;
+        }
+      }
+    } else if (scan_count >= 6 && scan_count <= 10) {
+      int y = scan_count - 6;
+      for (int x=0; x<keys[y]; x++) {
+        int at = keys_sum[y] + ((y & 1) ? x : (keys[y] - x - 1));
+        led[at].r = rgb[x][y][0];
+        led[at].g = rgb[x][y][1];
+        led[at].b = rgb[x][y][2];
+      }
+      rgblight_set();
+    } else if (scan_count == 11) {
+      memset(rgb, 0, sizeof(rgb));
+    }
+    scan_count++;
+    if (scan_count >= 12) { scan_count = 0; }
+}
+#endif
 
 uint8_t layer_state_old;
 
@@ -498,42 +568,64 @@ void matrix_scan_user(void) {
   if(layer_state_old != layer_state){
     switch (layer_state) {
       case L_BASE:
-        #ifdef RGBLIGHT_ENABLE
-          if (!RGBAnimation){
-            rgblight_sethsv(187,255,255);
-            rgblight_mode(1);
-          }else{
-            rgblight_mode(RGB_current_mode);
-          }
-        #endif
         break;
       case L_OPT:
         register_delay_code(_OPT);
         break;
       case L_NUM:
         register_delay_code(_NUM);
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_sethsv(25,255,255);
-          rgblight_mode(1);
-        #endif
         break;
       case L_SYM:
         register_delay_code(_SYM);
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_sethsv(96,255,255);
-          rgblight_mode(1);
-        #endif
         break;
       case L_FUNC:
         register_delay_code(_FUNC);
-        #ifdef RGBLIGHT_ENABLE
-          rgblight_sethsv(331,255,255);
-          rgblight_mode(1);
-        #endif
         break;
     }
     layer_state_old = layer_state;
   }
+
+  #ifdef RGBLIGHT_ENABLE
+    if(!RGBAnimation){
+      switch (layer_state) {
+        case L_BASE:
+          #ifdef RGBLED_BACK
+            led_ripple_effect(0,112,127);
+          #else
+            rgblight_setrgb(0,112,127);
+          #endif
+          break;
+        case L_OPT:
+          #ifdef RGBLED_BACK
+            led_ripple_effect(127,0,100);
+          #else
+            rgblight_setrgb(127,0,100);
+          #endif
+          break;
+        case L_NUM:
+          #ifdef RGBLED_BACK
+            led_ripple_effect(127,23,0);
+          #else
+            rgblight_setrgb(127,23,0);
+          #endif
+          break;
+        case L_SYM:
+          #ifdef RGBLED_BACK
+            led_ripple_effect(0,127,0);
+          #else
+            rgblight_setrgb(0,127,0);
+          #endif
+          break;
+        case L_FUNC:
+          #ifdef RGBLED_BACK
+            led_ripple_effect(127,0,61);
+          #else
+            rgblight_setrgb(127,0,61);
+          #endif
+          break;
+        }
+    }
+  #endif
 }
 
 //SSD1306 OLED update loop, make sure to add #define SSD1306OLED in config.h

@@ -2,7 +2,7 @@ JJ50
 ==========================
 
 This is a port of the QMK firmware for boards that are based on the
-ps2avrGB firmware, like the [ps2avrGB keyboard] (https://www.keyclack.com/product/gb-ps2avrgb/), for use on the JJ50, a preonic-like board.
+ps2avrGB firmware, like the [ps2avrGB keyboard](https://www.keyclack.com/product/gb-ps2avrgb/), for use on the JJ50, a preonic-like board.
 
 Most of the code was taken and amended from YMD96, which in itself was taken from ps2avrGB and amended by Andrew Novak.
 
@@ -10,10 +10,10 @@ Note that this is a complete replacement for the firmware, so you won't be
 using Bootmapper Client to change any keyboard settings, since not all the
 USB report options are supported.  
 
-Hardware Supported: JJ50 with the ATmega32a chip.
-Hardware Availability: The JJ50 PCB is available from kprepublic on AliExpress and suchlike.
+Hardware Supported: JJ50 with the ATmega32a chip.  
+Hardware Availability: [KPrepublic on AliExpress](https://www.aliexpress.com/item/jj50-v1-0-Custom-Mechanical-Keyboard-50-PCB-programmed-50-preonic-layouts-bface-firmware-with-rgb/32848915277.html)
 
-This version by Wayne K Jones (github.com/WarmCatUK)
+This version by [Wayne K. Jones](github.com/WarmCatUK).
 
 
 ## Installing and Building
@@ -25,7 +25,7 @@ $ make jj50:default:program
 ```
 It should detect the keyboard and set it to bootloader mode automatically, prior to flashing firmware.
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 Note that this is a complete replacement for the firmware, so you won't be
 using Bootmapper Client to change any keyboard settings, since not all the

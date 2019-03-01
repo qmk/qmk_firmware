@@ -27,7 +27,7 @@ MIDI_ENABLE ?= no       # MIDI controls
 AUDIO_ENABLE ?= no      # Audio output on port C6
 UNICODE_ENABLE ?= no    # Unicode
 BLUETOOTH_ENABLE ?= no  # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE ?= yes  # Enable WS2812 RGB underlight.  Do not enable this with audio at the same time.
+RGBLIGHT_ENABLE ?= yes  # Enable WS2812 RGB underlight. 
 RGBLIGHT_CUSTOM_DRIVER = yes
 TAP_DANCE_ENABLE = no
 
@@ -40,5 +40,5 @@ SRC = matrix.c i2c.c
 # programming options
 PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
 
-LAYOUTS = ortho_4x12 planck_mit planck_grid
+LAYOUTS = planck_mit
 LAYOUTS_HAS_RGB = no

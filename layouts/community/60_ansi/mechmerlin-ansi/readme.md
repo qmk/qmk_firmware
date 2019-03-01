@@ -5,13 +5,14 @@ This is the 60% layout used by u/merlin36, host of the [MechMerlin](www.youtube.
 YouTube channel.
 
 It is used on his   
-[Duck Eagle V2](https://github.com/qmk/qmk_firmware/tree/master/keyboards/eagle_viper/v2)   
-[KBP V60 Type R Polestar](https://github.com/qmk/qmk_firmware/tree/master/keyboards/v60_type_r)   
-[NPKC KC60](https://github.com/qmk/qmk_firmware/tree/master/keyboards/kc60)   
+[Duck Eagle V2](https://github.com/qmk/qmk_firmware/tree/master/keyboards/eagle_viper/v2)     
+[NPKC KC60](https://github.com/qmk/qmk_firmware/tree/master/keyboards/kc60)  
+[1up60HSE](https://github.com/qmk/qmk_firmware/tree/master/keyboards/1upkeyboards/1up60hse)  
+[HS60 V1](https://github.com/qmk/qmk_firmware/tree/master/keyboards/hs60/v1)  
 
 ## Keymap Notes
-- Highly influenced by the KBP V60 and WKL B.Face standard layouts
-- Arrow toggle switch is FN + Space
+- Arrow toggle switch is tapping the `FN` key once. 
+- `Caps Lock` can be held to act as a `Left Control`
 
 ### Build
-To build this keymap, simply run `make your_keyboard:mechmerlin-ansi`.
+To build the firmware file associated with this keymap, simply run `make your_keyboard:mechmerlin-ansi`.

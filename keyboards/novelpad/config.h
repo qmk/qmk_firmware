@@ -53,9 +53,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     false \
 )
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
 #define BACKLIGHT_LEVELS 10
 #define BACKLIGHT_PIN B7
 

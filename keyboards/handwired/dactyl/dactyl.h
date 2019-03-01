@@ -29,9 +29,12 @@ extern bool i2c_initialized;
 void init_dactyl(void);
 void init_expander(void);
 
-#define KEYMAP(                                                         \
+/*
+ *   LEFT HAND: LINES 38-45
+ *  RIGHT HAND: LINES 47-54
+ */
+#define LAYOUT_dactyl(                                                  \
                                                                         \
-    /* left hand, spatial positions */                                  \
     k00,k01,k02,k03,k04,k05,                                            \
     k10,k11,k12,k13,k14,k15,                                            \
     k20,k21,k22,k23,k24,k25,                                            \
@@ -41,7 +44,6 @@ void init_expander(void);
                                 k54,                                    \
                         k53,k52,k51,                                    \
                                                                         \
-    /* right hand, spatial positions */                                 \
             k06,k07,k08,k09,k0A,k0B,                                    \
             k16,k17,k18,k19,k1A,k1B,                                    \
             k26,k27,k28,k29,k2A,k2B,                                    \
@@ -61,7 +63,5 @@ void init_expander(void);
     { k50, k51, k52, k53, k54, k55,     k56, k57, k58, k59, k5A, k5B }, \
    }
 
-
-#define LAYOUT_dactyl KEYMAP
 
 #endif
