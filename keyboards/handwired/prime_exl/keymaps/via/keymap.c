@@ -83,7 +83,7 @@ void led_set_user(uint8_t usb_led) {
   }*/
   
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    PORTB |= (1<<5);
+    writePinLow(B5);
   } else {
     PORTB &= ~(1<<5);
   }
