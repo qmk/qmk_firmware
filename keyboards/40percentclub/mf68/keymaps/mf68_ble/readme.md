@@ -1,6 +1,6 @@
 # mf68_ble
 
-![mf68_ble](https://3.bp.blogspot.com/-0YCA3Hx2Rq0/WD3U3GWhyvI/AAAAAAAB_Uo/RWTeyCPblGcxDrDwT9WL9ck2ZRuR26DgACLcB/s640/IMG_20161129_063741.jpg)
+![mf68_ble](https://i.imgur.com/zuTyy7k.jpg)
 ===
 
 Magicforce 68 with [replacement PCB](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/mf68) designed by [di0ib](https://github.com/di0ib).
