@@ -270,19 +270,6 @@ const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 };
 #endif
 
-void bootmagic_lite(void)
-{
-
-    matrix_scan();
-    wait_ms(10);
-    matrix_scan();
-    if ( ( matrix_get_row(0) & (1<<0) ) )
-       {
-           eeconfig_disable();
-           bootloader_jump();
-       }
-}
-
 
 void matrix_init_kb(void) {
     matrix_init_user();
