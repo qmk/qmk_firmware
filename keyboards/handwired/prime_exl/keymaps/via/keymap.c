@@ -73,7 +73,7 @@ void led_set_user(uint8_t usb_led) {
   if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
     writePinLow(B6);
   } else {
-    PORTB &= ~(1<<6);
+    writePinHigh(B6);
   }
   /*
   if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
