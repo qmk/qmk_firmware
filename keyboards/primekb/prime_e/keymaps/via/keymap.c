@@ -26,14 +26,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_user(void) {
   // set CapsLock LED to output and low
-  DDRB |= (1 << 1);
-  PORTB &= ~(1 << 1);
+  setPinOutput(B1);
+  writePinHigh(B1);
   // set NumLock LED to output and low
-  DDRB |= (1 << 2);
-  PORTB &= ~(1 << 2);
+  setPinOutput(B2);
+  writePinHigh(B2);
   // set ScrollLock LED to output and low
-  DDRB |= (1 << 3);
-  PORTB &= ~(1 << 3);
+  setPinOutput(B3);
+  writePinHigh(B3);
 }
 
 void matrix_scan_user(void) {
@@ -42,32 +42,32 @@ void matrix_scan_user(void) {
 
 
 void led_set_user(uint8_t usb_led) {
-  if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-    PORTB |= (1<<2);
+  if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+    writePinLow(B2);
   } else {
-    PORTB &= ~(1<<2);
+    writePinHigh(B2);
   }
-  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-    PORTB |= (1<<1);
+  if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+    writePinLow(B1);
   } else {
-    PORTB &= ~(1<<1);
+    writePinHigh(B1);
   }
-/*  
-  if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-    PORTB |= (1<<3);
+/*
+  if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+    writePinLow(B3);
   } else {
-    PORTB &= ~(1<<3);
+    writePinHigh(B3);
   }*/
-  
+
 }
 
 //function for layer indicator LED
 uint32_t layer_state_set_user(uint32_t state)
 {
     if (biton32(state) == 1) {
-        PORTB |= (1<<3);
+    writePinLow(B3);
 	} else {
-		PORTB &= ~(1<<3);
+		writePinHigh(B3);
     }
     return state;
 }
