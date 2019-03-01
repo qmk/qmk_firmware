@@ -144,7 +144,7 @@ Flashing sequence:
 
 ### STM32 Commands
 
-There are a number of DFU commands that you can use to flash firmware to a STM32 device
+There are a number of DFU commands that you can use to flash firmware to a STM32 device:
 
 * `:dfu-util` - The default command for flashing to STM32 devices. 
 * `:dfu-util-wait` - This works like the default command, but it gives you a (configurable) 10 second timeout before it attempts to flash the firmware.  You can use `TIME_DELAY=20` from the command line to change the timeout.
