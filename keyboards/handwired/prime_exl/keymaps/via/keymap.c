@@ -61,7 +61,7 @@ void matrix_init_user(void) {
   PORTB &= ~(1 << 6);
   // set CapsLock LED to output and low
   setPinOutput(B5);
-  PORTB &= ~(1 << 5);
+  writePinHigh(B5);
 }
 
 void matrix_scan_user(void) {
