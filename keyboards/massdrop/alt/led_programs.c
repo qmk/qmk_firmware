@@ -70,6 +70,15 @@ led_setup_t leds_white_with_red_stripe[] = {
     { .end = 1 },
 };
 
+//America!!!
+led_setup_t leds_america[] = {
+    { .hs = 0, .he = 100, .rs = 255, .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 255, .ef = EF_NONE },
+    { .hs = 0, .he = 25, .rs = 0, .re = 0, .gs = 0, .ge = 255, .bs = 0, .be = 255, .ef = EF_SCR_R | EF_SUBTRACT },
+    { .hs = 25, .he = 50, .rs = 0, .re = 255, .gs = 255, .ge = 255, .bs = 255, .be = 0, .ef = EF_SCR_R | EF_SUBTRACT },
+	{ .hs = 50, .he = 75, .rs = 255, .re = 0, .gs = 255, .ge = 0, .bs = 0, .be = 0, .ef = EF_SCR_R | EF_SUBTRACT },
+    { .end = 1 },
+};
+
 //Black with moving red stripe
 led_setup_t leds_black_with_red_stripe[] = {
     { .hs = 0, .he = 15, .rs = 0, .re = 255, .gs = 0, .ge = 0, .bs = 0, .be = 0, .ef = EF_SCR_R },
@@ -144,6 +153,7 @@ void *led_setups[] = {
     leds_white,
     leds_white_with_red_stripe,
     leds_black_with_red_stripe,
+	leds_america,
     leds_off
 };
 

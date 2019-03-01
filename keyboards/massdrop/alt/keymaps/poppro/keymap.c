@@ -73,9 +73,9 @@ float led_animation_pool_matrix[ISSI3733_LED_COUNT];
 int8_t pool_dir[ISSI3733_LED_COUNT];
 int8_t pool_speed[ISSI3733_LED_COUNT];
 float pool_mult;
-uint8_t c_templates[][2][3] = {{{24, 215, 204}, {255, 60, 118}}, {{24, 0, 204}, {255, 0, 118}}};
+uint8_t c_templates[][2][3] = {{{24, 215, 204}, {255, 60, 118}}, {{24, 0, 204}, {255, 0, 118}}, {{57, 167, 142}, {57, 255, 50}}};
 uint8_t CS = 0; //current schema
-uint8_t schemaCount = 2;
+uint8_t schemaCount = 3;
 
 uint16_t count = 1;
 uint8_t colorSelect = 0;
