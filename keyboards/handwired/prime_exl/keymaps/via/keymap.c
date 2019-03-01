@@ -55,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void matrix_init_user(void) {
   // set ScrollLock LED to output and low
   setPinOutput(C6);
-  PORTC &= ~(1 << 6);
+  writePinHigh(C6);
   // set NumLock LED to output and low
   setPinOutput(B6);
   PORTB &= ~(1 << 6);
