@@ -161,7 +161,11 @@ Some interesting things to note:
 * We have used our `_______` definition to turn `KC_TRNS` into `_______`. This makes it easier to spot the keys that have changed on this layer.
 * While in this layer if you press one of the `_______` keys it will activate the key in the next lowest active layer.
 
-### Custom Functions
+### **(DEPRECIATED)** Custom Functions
+
+<!-- Maybe we should remove this section, since it's very depreciated -->
+
+!> Functions are depreciated in favor of [custom macros](feature_macros.md) or have been rolled into keycodes.  
 
 At the bottom of the file we've defined a single custom function. This function defines a key that sends `KC_ESC` when pressed without modifiers and `KC_GRAVE` when modifiers are held. There are a couple pieces that need to be in place for this to work, and we will go over both of them.
 
