@@ -66,7 +66,7 @@ void led_set_user(uint8_t usb_led) {
 uint32_t layer_state_set_user(uint32_t state)
 {
     if (biton32(state) == 1) {
-        PORTB |= (1<<3);
+        writePinLow(B3);
 	} else {
 		PORTB &= ~(1<<3);
     }
