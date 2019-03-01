@@ -54,7 +54,7 @@
 static uint8_t sc_last = 0;
 static uint16_t sc_timer = 0;
 
-static void do_space_cadet_simple(keyrecord_t *record, uint8_t normalMod, uint8_t tapMod, uint8_t keycode) {
+static void do_space_cadet(keyrecord_t *record, uint8_t normalMod, uint8_t tapMod, uint8_t keycode) {
   if (record->event.pressed) {
     sc_last = normalMod;
     sc_timer = timer_read ();
@@ -75,34 +75,34 @@ static void do_space_cadet_simple(keyrecord_t *record, uint8_t normalMod, uint8_
   }
 }
 
-bool process_space_cadet_simple(uint16_t keycode, keyrecord_t *record) {
+bool process_space_cadet(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     case KC_LSPO: {
-      do_space_cadet_simple(record, KC_LSPO_KEYS);
+      do_space_cadet(record, KC_LSPO_KEYS);
       return false;
     }
     case KC_RSPC: {
-      do_space_cadet_simple(record, KC_RSPC_KEYS);
+      do_space_cadet(record, KC_RSPC_KEYS);
       return false;
     }
     case KC_LCPO: {
-      do_space_cadet_simple(record, KC_LCPO_KEYS);
+      do_space_cadet(record, KC_LCPO_KEYS);
       return false;
     }
     case KC_RCPC: {
-      do_space_cadet_simple(record, KC_RCPO_KEYS);
+      do_space_cadet(record, KC_RCPO_KEYS);
       return false;
     }
     case KC_LAPO: {
-      do_space_cadet_simple(record, KC_LAPO_KEYS);
+      do_space_cadet(record, KC_LAPO_KEYS);
       return false;
     }
     case KC_RAPC: {
-      do_space_cadet_simple(record, KC_RAPO_KEYS);
+      do_space_cadet(record, KC_RAPO_KEYS);
       return false;
     }
     case KC_SFTENT: {
-      do_space_cadet_simple(record, KC_SFTENT_KEYS);
+      do_space_cadet(record, KC_SFTENT_KEYS);
       return false;
     }
     default: {
