@@ -189,7 +189,7 @@ However, if you have hardware stuff that you need initialized, this is the best 
 
 ### Example `keyboard_pre_init_user()` Implementation
 
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+This example, at the keyboard level, sets up B0, B1, B2, B3, and B4 as LED pins.
 
 ```c
 void keyboard_pre_init_user(void) {
@@ -373,7 +373,7 @@ void keyboard_post_init_user(void) {
   }
 }
 ```
-The above function will use the EEPROM config immediately after reading it, to set the default layer's RGB color. The "raw" value of it is converted in a usable structure based on the "union" that you created above. 
+The above function will use the EEPROM config immediately after reading it, to set the default layer's RGB color. The "raw" value of it is git converted in a usable structure based on the "union" that you created above. 
 
 ```
 uint32_t layer_state_set_user(uint32_t state) {
