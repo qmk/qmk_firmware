@@ -4,7 +4,6 @@
 #include "quantum.h"
 #include "tapdance/tapdance.h"
 #include "macros.h"
-#include "combos.h"
 
 enum userspace_custom_keycodes {
   KC_MAKE = SAFE_RANGE, // can always be here
@@ -31,6 +30,10 @@ enum layers {
     _ADJUST,
     _RESET = RESET_LAYER,
 };
+
+#ifdef VISUALIZER_ENABLE
+  extern const char layer_names[][16];
+#endif
 
 #define MO_NAV    MO(_NAV)
 #define MO_ADJ    MO(_ADJUST)
