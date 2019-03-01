@@ -355,9 +355,9 @@ user_config_t user_config;
 
 This sets up a 32 bit structure that we can store settings with in memory, and write to the EEPROM. Using this removes the need to define variables, since they're defined in this structure. Remember that `bool` (boolean) values use 1 bit, `uint8_t` uses 8 bits, `uint16_t` uses up 16 bits.  You can mix and match, but changing the order can cause issues, as it will change the values that are read and written. 
 
-We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `matrix_init_user` and `process_record_user` to configure everything. 
+We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `keyboard_post_init_user` and `process_record_user` to configure everything. 
 
-Now, using the `matrix_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like: 
+Now, using the `keyboard_post_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like: 
 ```
 void keyboard_post_init_user(void) {
   // Call the keymap level matrix init.
