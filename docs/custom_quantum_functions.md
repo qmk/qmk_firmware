@@ -272,7 +272,6 @@ This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_
 
 ### Example suspend_power_down_user() and suspend_wakeup_init_user() Implementation
 
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
 ```c
 void suspend_power_down_user(void) {
