@@ -5,9 +5,10 @@
 #include "ch.h"
 #include "hal.h"
 
-// #ifdef QWIIC_MICRO_OLED_ENABLE
+#ifdef QWIIC_MICRO_OLED_ENABLE
 #include "micro_oled.h"
 #include "qwiic.h"
+#endif
 
 #include "timer.h"
 
@@ -367,7 +368,7 @@ void matrix_scan_kb(void) {
       queue_for_send = true;
     }
   }
-
+#ifdef QWIIC_MICRO_OLED_ENABLE
   if (queue_for_send && oled_mode != OLED_OFF) {
     oled_sleeping = false;
     read_host_led_state();
@@ -378,5 +379,6 @@ void matrix_scan_kb(void) {
     send_command(DISPLAYOFF);      /* 0xAE */
     oled_sleeping = true;
   }
+#endif
 }
 
