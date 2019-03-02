@@ -14,6 +14,3 @@ ifeq (${FORCE_NKRO},yes)
 OPT_DEFS += -DFORCE_NKRO
 endif
 
-ifndef QUANTUM_DIR
-	include ../../../../Makefile
-endif

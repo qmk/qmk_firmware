@@ -1,6 +1,6 @@
 # IBM 5291 keyboard converter
 
-![5291](https://deskthority.net/wiki/IBM_Model_F#IBM_5291_Keyboard)
+[IBM 5291](https://deskthority.net/wiki/IBM_Model_F#IBM_5291_Keyboard)
 
 A converter for the eponymous keyboard.
 
@@ -14,7 +14,7 @@ Make example for this keyboard (after setting up your build environment):
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 
-the pinout is as follows:
+The pinout is as follows:
 
 IBM−5291−Cable to Pinhead−14 
 
@@ -35,7 +35,8 @@ IBM−5291−Cable to Pinhead−14
 13| Strobe
 14| Out   
 
-the pins on this connector are organized ![here](https://geekhack.org/index.php?action=dlattach;topic=48950.0;attach=36759;image)
+The pins on this connector are organized  
+![here](https://geekhack.org/index.php?action=dlattach;topic=48950.0;attach=36759;image)
 
 IBM−5291−2 Cable with DB15M connector
 
@@ -55,10 +56,11 @@ IBM−5291−2 Cable with DB15M connector
 |14    | PE 
 |15    | NC
 
-the above connector is actually numbered so it should be easier to determine
+The above connector is actually numbered so it should be easier to determine
 where the needed connections are.
 
-to connect to the teensy, the following are pins are needed (if you should choose not set your own):
+To connect to the teensy, the following are pins are needed (if you should choose not set your own):
+
 * PB0 -> PB6 are connected to D0 -> D6
 * +5V is connected to the corresponding teensy pin
 * gnd is as well, only one of the gnd pins needs to be connected though.

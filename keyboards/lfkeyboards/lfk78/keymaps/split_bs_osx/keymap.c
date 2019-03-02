@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// readability
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 enum keymap_layout {
     VANILLA = 0,  // matches MF68 layout
     FUNC,         // 0x02

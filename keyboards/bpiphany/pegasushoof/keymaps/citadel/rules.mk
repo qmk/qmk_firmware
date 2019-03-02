@@ -13,10 +13,5 @@ MIDI_ENABLE      = no   # MIDI controls
 AUDIO_ENABLE     = no   # Audio output on port C6
 UNICODE_ENABLE   = no   # Unicode
 BLUETOOTH_ENABLE = no   # Enable Bluetooth with the Adafruit EZ-Key HID
-RGBLIGHT_ENABLE  = no   # Enable WS2812 RGB underlight. 
+RGBLIGHT_ENABLE  = no   # Enable WS2812 RGB underlight.
 TAP_DANCE_ENABLE = yes  # see https://docs.qmk.fm/#/feature_tap_dance (+1000)
-
-
-ifndef QUANTUM_DIR
-  include ../../../../Makefile
-endif

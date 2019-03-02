@@ -95,8 +95,6 @@ void register_ucis(const char *hex) {
 bool process_ucis (uint16_t keycode, keyrecord_t *record) {
   uint8_t i;
 
-  unicode_input_mode_init();
-
   if (!qk_ucis_state.in_progress)
     return true;
 

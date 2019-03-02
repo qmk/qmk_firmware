@@ -183,11 +183,11 @@ A macro can include the following commands:
 
 ### Mapping a Macro to a Key
 
-Use the `M()` function within your `KEYMAP()` to call a macro. For example, here is the keymap for a 2-key keyboard:
+Use the `M()` function within your keymap to call a macro. For example, here is the keymap for a 2-key keyboard:
 
 ```c
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = KEYMAP(
+    [0] = LAYOUT(
         M(0), M(1)
     ),
 };
@@ -216,7 +216,7 @@ If you have a bunch of macros you want to refer to from your keymap while keepin
 #define M_BYE M(1)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = KEYMAP(
+    [0] = LAYOUT(
         M_HI, M_BYE
     ),
 };
@@ -249,6 +249,8 @@ Parallel to `register_code` function, this sends the `<kc>` keyup event to the c
 ### `tap_code(<kc>);`
 
 This will send `register_code(<kc>)` and then `unregister_code(<kc>)`. This is useful if you want to send both the press and release events ("tap" the key, rather than hold it).
+
+If you're having issues with taps (un)registering, you can add a delay between the register and unregister events by setting `#define TAP_CODE_DELAY 100` in your `config.h` file. The value is in milliseconds.
 
 ### `clear_keyboard();`
 

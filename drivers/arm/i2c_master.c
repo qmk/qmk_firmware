@@ -45,16 +45,14 @@ static const I2CConfig i2cconfig = {
 __attribute__ ((weak))
 void i2c_init(void)
 {
-  //palSetGroupMode(GPIOB, GPIOB_PIN6 | GPIOB_PIN7, 0, PAL_MODE_INPUT);
-
   // Try releasing special pins for a short time
-  palSetPadMode(GPIOB, 6, PAL_MODE_INPUT);
-  palSetPadMode(GPIOB, 7, PAL_MODE_INPUT);
+  palSetPadMode(I2C1_BANK, I2C1_SCL, PAL_MODE_INPUT);
+  palSetPadMode(I2C1_BANK, I2C1_SDA, PAL_MODE_INPUT);
 
   chThdSleepMilliseconds(10);
- 
-  palSetPadMode(GPIOB, 6, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
-  palSetPadMode(GPIOB, 7, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN | PAL_STM32_PUPDR_PULLUP);
+
+  palSetPadMode(I2C1_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN);
+  palSetPadMode(I2C1_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN);
 
   //i2cInit(); //This is invoked by halInit() so no need to redo it.
 }

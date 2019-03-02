@@ -21,6 +21,6 @@ Hardware Availability: [GeekHack.com Group Buy](https://geekhack.org/index.php?t
 ## Build
 To build the default keymap for the latest revision, simply run `make atom47:default`. Specifiy the revision like so: `make atom47/rev3:default`.
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 ![Atom47](https://i.imgur.com/JfYnOba.jpg)
