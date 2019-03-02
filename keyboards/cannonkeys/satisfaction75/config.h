@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
-#define MANUFACTURER QMK
+#define MANUFACTURER CannonKeys
 #define PRODUCT Satisfaction75
 #define DESCRIPTION Satisfaction 75 Keyboard
 
