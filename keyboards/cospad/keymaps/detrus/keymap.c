@@ -6,8 +6,6 @@
 #include "rgblight.h"
 #endif
 
-#define _______ KC_TRNS
-
 // Each layer gets a name for readability, which is then used in the keymap matrix below.
 enum cospad_layers {
 	_QWERTY_LAYER,

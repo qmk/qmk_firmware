@@ -7,7 +7,6 @@
 #define _BL 0
 #define _FL 1
 
-#define _______ KC_TRNS
 // Dual bind caps to left ctrl and escape when held
 #define CAPSDUAL CTL_T(KC_ESC)
 

@@ -1,9 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// readability
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 enum keymap_layout {
     VANILLA = 0,  // matches MF68 layout
     DEFAULT_WKL,  // 0x02 Function in CapsLock location, gui key disabled

@@ -2,7 +2,6 @@
 #include QMK_KEYBOARD_H
 
 // For readability.
-#define _______ KC_TRNS
 #define   _x_   KC_NO
 #define AUD_PRV LCTL(KC_MPRV) // Previous music track
 #define AUD_PLY LCTL(KC_MPLY) // Pause music

@@ -30,14 +30,12 @@
 #define MATRIX_COL_PINS { C6, D7, E6, B4, B5, B6, B7, D6, F7, F6, F5, F4, F1, F0, B3, B1 }
 #define UNUSED_PINS
 
-
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 // #define BACKLIGHT_PIN C7
 // #define BACKLIGHT_BREATHING
 // #define BACKLIGHT_LEVELS 3
-
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
@@ -89,11 +87,6 @@
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
@@ -199,4 +192,3 @@
 #define LCD_E_PIN        1            //< pin  for Enable line
 #endif
 */
-

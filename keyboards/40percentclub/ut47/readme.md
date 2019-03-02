@@ -33,7 +33,7 @@ Go to the [default layout README](keymaps/default/readme.md) for more informatio
 
 Credit: Forked from [di0ib TMK version](https://github.com/di0ib/tmk_keyboard/tree/master/keyboard/gnap)
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 ### Build Guide
 
