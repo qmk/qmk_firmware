@@ -2,6 +2,7 @@
 
 #include "satisfaction75.h"
 
+// This layout is the default - it's what's in VIA
 // ANSI, bottom row 1.25/1.25/1.25/6.25/1/1/1
 #define LAYOUT_default( \
 	K000,       K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013,             \
@@ -89,7 +90,7 @@
 }
 
 
-// Expose All Keys - Split backspace -ISO Extra keys - Split space bottom row
+// Expose All Keys - Split backspace - ISO Extra keys - Split space bottom row
 #define LAYOUT_all( \
 	K000,       K002, K003, K004, K005, K006, K007, K008, K009, K010, K011, K012, K013,             \
 	K100, K101, K102, K103, K104, K105, K106, K107, K108, K109, K110, K111, K112, K113, K114, K115, \
