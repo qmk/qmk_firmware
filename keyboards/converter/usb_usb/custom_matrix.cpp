@@ -115,6 +115,15 @@ extern "C"
         }
     }
 
+    __attribute__ ((weak))
+    void matrix_scan_kb(void) {
+        matrix_scan_user();
+    }
+
+    __attribute__ ((weak))
+    void matrix_scan_user(void) {
+    }
+
     uint8_t matrix_scan(void) {
         static uint16_t last_time_stamp1 = 0;
         static uint16_t last_time_stamp2 = 0;
@@ -169,6 +178,7 @@ extern "C"
                 keyboard_set_leds(host_keyboard_leds());
             }
         }
+        matrix_scan_kb();
         return 1;
     }
 
