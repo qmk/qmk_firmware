@@ -1,5 +1,5 @@
 /*
-Copyright 2018 Holten Campbell
+Copyright 2019 Holten Campbell
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -21,26 +21,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0x5052
-#define PRODUCT_ID      0x6578
+#define PRODUCT_ID      0x0051
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    PrimeKB
-#define PRODUCT         Prime_EXL
-#define DESCRIPTION     Ergo
+#define PRODUCT         Prime_E
+#define DESCRIPTION     Ergo_45
 
 /* key matrix size */
-#define MATRIX_ROWS 10
-#define MATRIX_COLS 9
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 13
 
 /* Keyboard Matrix Assignments */
-#define MATRIX_ROW_PINS { B1, E6, D5, D6, B4, D7, D4, F1, F0, B0 }
-#define MATRIX_COL_PINS { D0, B3, B2, D1, D2, D3, F7, F6, F5 }
+#define MATRIX_ROW_PINS { E6, C7, B5, B4 }
+#define MATRIX_COL_PINS { F0, F1, F4, F5, F6, F7, D6, D4, D5, D3, D2, D1, D0 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL*/
+/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
 #define DIODE_DIRECTION COL2ROW
 
 #define BACKLIGHT_PIN B7
 #define BACKLIGHT_LEVELS 5
+
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
@@ -65,7 +66,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Dynamic keymap starts after EEPROM version
 #define DYNAMIC_KEYMAP_EEPROM_ADDR 35
-// Dynamic macro starts after dynamic keymaps (35+(4*10*9*2)) = (35+720)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 755
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 269    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
+// Dynamic macro starts after dynamic keymaps (35+(4*13*4*2)) = (35+416)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 451
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 573    // 1024-DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16
