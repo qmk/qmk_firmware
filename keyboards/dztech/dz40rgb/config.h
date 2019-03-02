@@ -4,17 +4,16 @@
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1219
+#define PRODUCT_ID      0x1220
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    DZTECH
+#define PRODUCT         DZ40RGB
+#define DESCRIPTION     DZ40 ARM RGB keyboard
+#define MATRIX_ROWS 4
+#define MATRIX_COLS 12
 
-#define PRODUCT         DZ60RGB
-#define DESCRIPTION     DZ60 ARM RGB keyboard
-#define MATRIX_ROWS 5
-#define MATRIX_COLS 14
-
-#define MATRIX_ROW_PINS { B1, B10, B11, B14, B12 }
-#define MATRIX_COL_PINS {A6, A7, B0, B13, B15, A8, A15, B3, B4, B5, B8, B9, C13, C14 }
+#define MATRIX_ROW_PINS { B13, B12, A2, A1 }
+#define MATRIX_COL_PINS {A6, A7, B0, B1, C15, C14, C13, B9, B8, A8, B14, B15 }
 
 /* #define UNUSED_PINS {A0,A1,A2, A3,A4,A9,A10,C15,A13,A14,B2}*/
 
@@ -30,5 +29,6 @@
 #define DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #define DRIVER_ADDR_1 0b1010000
 #define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
+
 #define DRIVER_COUNT 2
 
