@@ -14,21 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
-
-#define DEFAULT 0  //Custom ANSI
-#define LAYER1 1   //Default ANSI (enable with Fn2+D)
-#define LAYER2 2   //Function keys, arrows, custom shortcuts, volume control
-#define LAYER3 3   //RGB Underglow controls and RESET
-
-//Aliases for longer keycodes
-#define KC_CAD	LALT(LCTL(KC_DEL))
-#define KC_LOCK	LGUI(KC_L)
-#define CA_QUOT LCA(KC_QUOT)
-#define CA_SCLN LCA(KC_SCLN)
-#define KC_CTLE LCTL_T(KC_ESC)
-#define LT_SPCF LT(2, KC_SPC)
-#define TD_TESC TD(TD_ESC)
-#define TD_TWIN TD(TD_WIN)
+#include "stanrc85.h"
 
 //Tap Dance Declarations
 enum {
@@ -58,13 +44,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[2] = LAYOUT_60_ansi(
 		KC_TILD, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,
-		_______, _______, CA_QUOT, KC_VOLU, CA_SCLN, _______, _______, KC_HOME, KC_UP,   KC_END,  _______, _______, _______, RESET,
+		_______, _______, CA_QUOT, KC_VOLU, CA_SCLN, _______, _______, KC_HOME, KC_UP,   KC_END,  _______, _______, _______, KC_INS,
 		KC_CAPS, _______, KC_MUTE, KC_VOLD, KC_MPLY, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______,                   _______,                   _______, _______, _______, _______),
 
 	[3] = LAYOUT_60_ansi(
-		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, EEP_RST,
 		_______, EF_INC,  ES_INC,  S1_INC,  H1_INC,  S2_INC,  H2_INC,  BR_INC,  _______, _______, _______, _______, _______, RESET,
 		TG(1),   EF_DEC,  ES_DEC,  S1_DEC,  H1_DEC,  S2_DEC,  H2_DEC,  BR_DEC,  _______, _______, _______, _______, _______,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
