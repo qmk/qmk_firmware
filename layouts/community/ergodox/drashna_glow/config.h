@@ -17,3 +17,6 @@
 // #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 // #define EECONFIG_RGB_MATRIX (uint32_t *)16
 #endif
+
+#undef DEBOUNCE
+#define DEBOUNCE 1
