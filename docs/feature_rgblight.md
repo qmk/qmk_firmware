@@ -186,6 +186,39 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 |`rgblight_decrease_val()`                   |Decrease the value for all LEDs. This wraps around at minimum value                                                                                           |
 |`rgblight_decrease_val_noeeprom()`          |Decrease the value for all LEDs. This wraps around at minimum value (not written to EEPROM)                                                                   |
 
+## Colors
+
+These are shorthands to popular colors. The `RGB` ones can be passed to the `setrgb` functions, while the `HSV` ones to the `sethsv` functions.
+
+|RGB                |HSV                |
+|-------------------|-------------------|
+|`RGB_WHITE`        |`HSV_WHITE`        |
+|`RGB_RED`          |`HSV_RED`          |
+|`RGB_CORAL`        |`HSV_CORAL`        |
+|`RGB_ORANGE`       |`HSV_ORANGE`       |
+|`RGB_GOLDENROD`    |`HSV_GOLDENROD`    |
+|`RGB_GOLD`         |`HSV_GOLD`         |
+|`RGB_YELLOW`       |`HSV_YELLOW`       |
+|`RGB_CHARTREUSE`   |`HSV_CHARTREUSE`   |
+|`RGB_GREEN`        |`HSV_GREEN`        |
+|`RGB_SPRINGGREEN`  |`HSV_SPRINGGREEN`  |
+|`RGB_TURQUOISE`    |`HSV_TURQUOISE`    |
+|`RGB_TEAL`         |`HSV_TEAL`         |
+|`RGB_CYAN`         |`HSV_CYAN`         |
+|`RGB_AZURE`        |`HSV_AZURE`        |
+|`RGB_BLUE`         |`HSV_BLUE`         |
+|`RGB_PURPLE`       |`HSV_PURPLE`       |
+|`RGB_MAGENTA`      |`HSV_MAGENTA`      |
+|`RGB_PINK`         |`HSV_PINK`         |
+
+```c
+rgblight_setrgb(RGB_ORANGE);
+rgblight_sethsv_noeeprom(HSV_GREEN);
+rgblight_setrgb_at(RGB_GOLD, 3);
+rgblight_sethsv_range(HSV_WHITE, 0, 6);
+```
+
+
 Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h) defines several predefined shortcuts for various colors. Feel free to add to this list!
 
 ## Hardware Modification
