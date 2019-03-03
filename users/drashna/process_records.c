@@ -12,10 +12,12 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
+float clicky_sound[][2] = SONG(COIN_SOUND);
 
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) { PLAY_SONG( clicky_sound ); }
 
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
@@ -41,10 +43,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         clear_mods(); clear_oneshot_mods();
       #endif
       send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
-      #if defined(KEYBOARD_viterbi)
-        send_string_with_delay_P(PSTR(":dfu" SS_TAP(X_ENTER)), MACRO_TIMER);
-      #else
-        if (temp_mod & MODS_SHIFT_MASK || temp_osm & MODS_SHIFT_MASK) {
+        if (temp_mod & MODS_SHIFT_MASK || temp_osm & MODS_SHIFT_MASK
+#ifdef MAKE_BOOTLOADER
+          || true )  {
+#else
+          ) {
+#endif
           #if defined(__arm__)
             send_string_with_delay_P(PSTR(":dfu-util"), MACRO_TIMER);
           #elif defined(BOOTLOADER_DFU)
@@ -58,7 +62,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (temp_mod & MODS_CTRL_MASK || temp_osm & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), MACRO_TIMER); }
         send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), MACRO_TIMER);
         set_mods(temp_mod);
-      #endif
     }
     break;
 

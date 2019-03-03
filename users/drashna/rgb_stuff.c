@@ -249,13 +249,14 @@ bool process_record_user_rgb(uint16_t keycode, keyrecord_t *record) {
 void keyboard_post_init_rgb(void) {
 #ifdef RGBLIGHT_ENABLE
 	rgblight_enable_noeeprom();
+	layer_state_set_user(layer_state);
+  uint16_t old_hue = rgblight_config.hue;
 	rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
 	for (uint16_t i = 360; i > 0; i--) {
-		rgblight_sethsv_noeeprom(i, 255, 255);
+		rgblight_sethsv_noeeprom( ( i + old_hue) % 360, 255, 255);
     wait_ms(10);
 	}
 	layer_state_set_user(layer_state);
-  has_initialized = true;
 #endif
 }
 
