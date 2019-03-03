@@ -1,5 +1,4 @@
-#ifndef TRACKPOINT_H
-#define TRACKPOINT_H
+#pragma once
 
 #include "quantum.h"
 
@@ -9,5 +8,3 @@
 { \
   { k00, k01, k02} \
 }
-
-#endif
