@@ -27,6 +27,14 @@ enum my_keycodes {
   OLED_TOGG
 };
 
+enum s75_keyboard_value_id {
+  id_encoder_modes = 0x02,
+  id_oled_default_mode,
+  id_encoder_custom_1,
+  id_encoder_custom_2,
+  id_encoder_custom_3
+};
+
 enum encoder_modes {
   ENC_MODE_VOLUME,
   ENC_MODE_MEDIA,
@@ -102,5 +110,5 @@ void backlight_set(uint8_t level);
 bool is_breathing(void);
 void breathing_enable(void);
 void breathing_disable(void);
-// void backlight_save_to_eeprom(uint8_t level);
-// uint8_t backlight_config_load();
+void load_custom_config(void);
+void save_backlight_config_to_eeprom(void);

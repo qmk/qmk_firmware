@@ -10,6 +10,8 @@ void pre_encoder_mode_change(){
     // timespec.dstflag = last_timespec.dstflag;
     timespec.millisecond = (hour_config * 60 + minute_config) * 60 * 1000;
     rtcSetTime(&RTCD1, &timespec);
+  } else if (encoder_mode == ENC_MODE_BACKLIGHT){
+    save_backlight_config_to_eeprom();
   }
 }
 

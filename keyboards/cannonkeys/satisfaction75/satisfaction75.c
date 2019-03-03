@@ -102,6 +102,16 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 				command_data[3] = (value >> 8 ) & 0xFF;
 				command_data[4] = value & 0xFF;
 			}
+      else if ( command_data[0] == id_oled_default_mode )
+			{
+        uint8_t default_oled = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED);
+        command_data[1] = default_oled;
+      }
+      else if ( command_data[0] == id_oled_default_mode )
+			{
+        uint8_t default_oled = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED);
+        command_data[1] = default_oled;
+      }
 			else
 			{
 				*command_id = id_unhandled;
@@ -326,12 +336,34 @@ void encoder_update_kb(uint8_t index, bool clockwise) {
   }
 }
 
+void dynamic_keymap_custom_reset(void){
+  void *p = (void*)(DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT);
+	void *end = (void*)(DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR);
+	while ( p != end ) {
+		eeprom_update_byte(p, 0);
+		++p;
+	}
+  eeprom_update_byte((uint8_t*)DYNAMIC_KEYMAP_ENABLED_ENCODER_MODES, 0x1F);
+}
+
+void save_backlight_config_to_eeprom(){
+  eeprom_update_byte((uint8_t*)DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT, kb_backlight_config.raw);
+}
+
+void load_custom_config(){
+  kb_backlight_config.raw = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT);
+#ifdef DYNAMIC_KEYMAP_ENABLE
+  oled_mode = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED);
+  enabled_encoder_modes = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_ENABLED_ENCODER_MODES);
+#endif
+}
+
 void eeprom_init_kb(void)
 {
 	// If the EEPROM has the magic, the data is good.
 	// OK to load from EEPROM.
 	if (eeprom_is_valid()) {
-		//backlight_config_load();
+		load_custom_config();
 	} else	{
 		// If the EEPROM has not been saved before, or is out of date,
 		// save the default values to the EEPROM. Default values
@@ -342,6 +374,8 @@ void eeprom_init_kb(void)
 		dynamic_keymap_reset();
 		// This resets the macros in EEPROM to nothing.
 		dynamic_keymap_macro_reset();
+    // Reset the custom stuff
+    dynamic_keymap_custom_reset();
 #endif
 		// Save the magic number last, in case saving was interrupted
 		eeprom_set_valid(true);
