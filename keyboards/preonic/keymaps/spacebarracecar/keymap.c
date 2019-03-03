@@ -124,10 +124,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [_NAV] = LAYOUT_preonic_grid(
   KC_F1,    KC_F2,    KC_F3,    KC_F4,    KC_F5,    KC_F6,    KC_F7,    KC_F8,    KC_F9,    KC_F10,   KC_F11,   KC_F12,
-  ALTF4,    KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
+  _______,  KC_PGDN,  KC_UP,    KC_PGUP,  KC_HOME,  XXXXXXX,  XXXXXXX,  XXXXXXX,  GUIU,     XXXXXXX,  XXXXXXX,  KC_DEL,
   _______,  KC_LEFT,  KC_DOWN,  KC_RGHT,  KC_END,   XXXXXXX,  XXXXXXX,  GUIL,     GUID,     GUIR,     EMOJI,    KC_ENT,
   _______,  KC_MPRV,  KC_MPLY,  KC_MNXT,  KC_VOLD,  KC_VOLU,  KC_MUTE,  MU_ON,    XXXXXXX,  XXXXXXX,  XXXXXXX,  _______,
-  RESET,    CU_ESCT,  _______,  _______,  _______,  KC_SPC,   CTLENT,   _______,  _______,  _______,  _______,  CU_GAME
+  RESET,    CU_ESCT,  ALTF4,    _______,  _______,  KC_SPC,   CTLENT,   _______,  _______,  _______,  _______,  CU_GAME
 )
 
 };
