@@ -46,12 +46,22 @@ typedef struct PACKED {
 	uint8_t modifier:1;
 } rgb_led;
 
+/*typedef union {
+  uint32_t raw;           // 32 bits
+  struct {
+    bool     enable  :1;  // 1 bit
+    uint8_t  mode    :7;  // 7 bits
+    HSV      hsv;         // 24 bits
+    uint8_t  speed;       // 8 bits
+  };                      // 40 bits =(
+} rgb_config_t;*/
+
 typedef union {
   uint32_t raw;
-  struct {
+  struct PACKED {
     bool     enable  :1;
-    uint8_t  mode    :6;
-    uint16_t hue     :9;
+    uint8_t  mode    :7;
+    uint8_t  hue     :8;
     uint8_t  sat     :8;
     uint8_t  val     :8;
     uint8_t  speed   :8;//EECONFIG needs to be increased to support this

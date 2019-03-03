@@ -273,11 +273,11 @@ void rgb_matrix_task(void) {
     // and/or request PWM buffer updates.
     switch ( effect ) {
         case RGB_MATRIX_SOLID_COLOR:
-            rgb_matrix_solid_color(&rgb_matrix_config);
+            rgb_matrix_solid_color();
             break;
         #ifndef DISABLE_RGB_MATRIX_ALPHAS_MODS
             case RGB_MATRIX_ALPHAS_MODS:
-                rgb_matrix_alphas_mods(&g_rgb_leds[0], &rgb_matrix_config);
+                rgb_matrix_alphas_mods();
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_DUAL_BEACON
