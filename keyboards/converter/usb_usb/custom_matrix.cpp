@@ -178,7 +178,7 @@ extern "C"
                 keyboard_set_leds(host_keyboard_leds());
             }
         }
-        matrix_scan_kb();
+        matrix_scan_quantum();
         return 1;
     }
 
