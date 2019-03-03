@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifdef BACKLIGHT_ENABLE         // Backlight LED
     #include "backlight_stuff.h"
 #endif
-#include "double_press.h"       // Double press keys
+#include "macro_stuff.h"       // Double press keys
 #ifdef MOUSEKEY_ENABLE          // Functions for mouse key emulation
     #include "mouse_emulation.h"
 #endif

@@ -26,9 +26,9 @@ __attribute__ ((weak))
 bool process_record_audio(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
-// Double: Double key presses (double_press.h)
+// Macro: Double key presses (double_press.h)
 __attribute__ ((weak))
-bool process_record_double(uint16_t keycode, keyrecord_t *record) {
+bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 // Mouse: Extra mouse codes (mouse_emulation.h)
@@ -70,7 +70,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return process_record_keymap(keycode, record)   &&
     process_record_audio(keycode, record)           &&
-    process_record_double(keycode, record)          &&
+    process_record_macro(keycode, record)           &&
     process_record_mouse(keycode, record)           &&
     process_record_rgb_light(keycode, record)       &&
     process_record_rgb_matrix(keycode, record)      &&

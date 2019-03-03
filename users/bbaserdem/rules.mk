@@ -30,7 +30,7 @@ EXTRAFLAGS += -flto     # Used to make code smaller
 # Use the userspace code unless disabled
 ifndef DISABLE_USERSPACE
   SRC += bbaserdem.c
-  SRC += double_press.c
+  SRC += macro_stuff.c
   SRC += process_records.c
   ifeq ($(strip $(AUDIO_ENABLE)), yes)
     SRC += audio_stuff.c

@@ -14,4 +14,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #pragma once
 #include "bbaserdem.h"
 
-bool process_record_double(uint16_t keycode, keyrecord_t *record);
+bool process_record_macro(uint16_t keycode, keyrecord_t *record);

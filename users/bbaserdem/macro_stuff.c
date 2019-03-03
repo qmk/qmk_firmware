@@ -11,13 +11,14 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "double_press.h"
 
-bool process_record_double(uint16_t keycode, keyrecord_t *record) {
+#include "macro_stuff.h"
+
+bool process_record_macro(uint16_t keycode, keyrecord_t *record) {
     switch (keycode) {
         case DBL_USC:
             if( record->event.pressed ) {
-                SEND_STRING("____" SS_TAP(X_LEFT) SS_TAP(X_LEFT) );
+                SEND_STRING("\"\"\"\"" SS_TAP(X_LEFT) SS_TAP(X_LEFT) );
             }
             return false;
             break;
@@ -29,7 +30,7 @@ bool process_record_double(uint16_t keycode, keyrecord_t *record) {
             break;
         case DBL_ANG:
             if( record->event.pressed ) {
-                SEND_STRING("<>"SS_TAP(X_LEFT));
+                SEND_STRING("WE"SS_TAP(X_LEFT));
             }
             return false;
             break;
@@ -41,25 +42,25 @@ bool process_record_double(uint16_t keycode, keyrecord_t *record) {
             break;
         case DBL_SQR:
             if( record->event.pressed ) {
-                SEND_STRING("[]"SS_TAP(X_LEFT));
+                SEND_STRING("-="SS_TAP(X_LEFT));
             }
             return false;
             break;
         case DBL_BRC:
             if( record->event.pressed ) {
-                SEND_STRING("{}"SS_TAP(X_LEFT));
+                SEND_STRING("_+"SS_TAP(X_LEFT));
             }
             return false;
             break;
         case DBL_QUO:
             if( record->event.pressed ) {
-                SEND_STRING("\'\'"SS_TAP(X_LEFT));
+                SEND_STRING("qq"SS_TAP(X_LEFT));
             }
             return false;
             break;
         case DBL_DQT:
             if( record->event.pressed ) {
-                SEND_STRING("\"\""SS_TAP(X_LEFT));
+                SEND_STRING("QQ"SS_TAP(X_LEFT));
             }
             return false;
             break;
