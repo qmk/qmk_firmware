@@ -1,7 +1,6 @@
 #include "stanrc85.h"
 
 void matrix_init_user(void) {
-  rgblight_enable();
   rgblight_setrgb(0xFF,  0x00, 0x00);
 };
 
