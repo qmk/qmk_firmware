@@ -20,11 +20,6 @@ enum custom_keycodes {
 };
 
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
@@ -138,7 +133,7 @@ void RaisePressed ( keyevent_t *event, bool brother_state ){
     /* called RaiseSwitch   */
 void RaiseReleased ( bool brother_state ){ 
   
-  if( brother_state ) { return };
+  if( brother_state ) { return; }
 
   layer_off( _RAISE );
   update_tri_layer( _LOWER, _RAISE, _NEUTRAL );
@@ -172,7 +167,7 @@ bool RaiseSwitch ( keyrecord_t *record, bool *key_state, bool brother ){
     /* call from LowerSwitch */
 void LowerPressed ( bool brother_state ){
 
-  if( brother_state ) return;
+  if( brother_state ) { return; }
 
   layer_on( _LOWER );
   update_tri_layer(_LOWER, _RAISE, _NEUTRAL );
@@ -183,7 +178,7 @@ void LowerPressed ( bool brother_state ){
     /* call from LowerSwitch */
 void LowerReleased ( bool brother_state ){ 
 
-  if( brother_state ) return ;
+  if( brother_state ) { return; }
 
   layer_off( _LOWER );
   update_tri_layer(_LOWER, _RAISE, _NEUTRAL );
@@ -196,8 +191,7 @@ bool LowerSwitch ( keyrecord_t *record, bool *key_state, bool brother ){
   if ( record -> event.pressed ) {
     *key_state = true;
     LowerPressed( brother );
-  } 
-  else {
+  } else {
     *key_state = false;
     LowerReleased( brother );
   }
