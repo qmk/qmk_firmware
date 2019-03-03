@@ -38,10 +38,6 @@ enum planck_keycodes {
 #define ESCTRL CTL_T(KC_ESC)
 #define TABALT ALT_T(KC_TAB)
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Dvorak Layer
 	,----------------------------------.              ,----------------------------------.

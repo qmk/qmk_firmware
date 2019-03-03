@@ -113,8 +113,25 @@ extern userspace_config_t userspace_config;
 #define K_SE_MO MO(_SE)
 #endif
 
-// Mouse keys
-#ifdef MOUSEKEY_ENABLE
+#define XXX     KC_NO
+
+// Layers
+#define _DV 0 // Base layer
+#define _AL 1 // Alt char overlay
+#define _GA 2 // Game layer
+#define _NU 3 // Numbers layer
+#define _SE 4 // Settings layer
+#define _MO 5 // Mouse emulation
+#define _MU 6 // Music mode
+
+// Define short macros
+#define UNDO    LCTL(KC_Z)
+#define REDO    LCTL(KC_Y)
+#define COPY    LCTL(KC_C)
+#define CUT     LCTL(KC_X)
+#define PASTE   LCTL(KC_V)
+
+// Rename mouse keys with 7 letters
 #define MO_S_N  KC_MS_WH_UP
 #define MO_S_S  KC_MS_WH_DOWN
 #define MO_S_E  KC_MS_WH_RIGHT

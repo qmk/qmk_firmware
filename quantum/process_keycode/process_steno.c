@@ -114,13 +114,13 @@ static void send_steno_chord(void) {
   if (send_steno_chord_user(mode, chord)) {
     switch(mode) {
       case STENO_MODE_BOLT:
-	send_steno_state(BOLT_STATE_SIZE, false);
-	virtser_send(0); // terminating byte
-	break;
+        send_steno_state(BOLT_STATE_SIZE, false);
+        virtser_send(0); // terminating byte
+        break;
       case STENO_MODE_GEMINI:
-	chord[0] |= 0x80; // Indicate start of packet
-	send_steno_state(GEMINI_STATE_SIZE, true);
-	break;
+        chord[0] |= 0x80; // Indicate start of packet
+        send_steno_state(GEMINI_STATE_SIZE, true);
+        break;
     }
   }
   steno_clear_state();
@@ -161,7 +161,7 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QK_STENO_BOLT:
       if (!process_steno_user(keycode, record)) {
-	return false;
+        return false;
       }
       if (IS_PRESSED(record->event)) {
         steno_set_mode(STENO_MODE_BOLT);
@@ -170,7 +170,7 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
 
     case QK_STENO_GEMINI:
       if (!process_steno_user(keycode, record)) {
-	return false;
+        return false;
       }
       if (IS_PRESSED(record->event)) {
         steno_set_mode(STENO_MODE_GEMINI);
@@ -179,25 +179,27 @@ bool process_steno(uint16_t keycode, keyrecord_t *record) {
 
     case STN__MIN...STN__MAX:
       if (!process_steno_user(keycode, record)) {
-	return false;
+        return false;
       }
       switch(mode) {
-	case STENO_MODE_BOLT:
-	  update_state_bolt(keycode - QK_STENO, IS_PRESSED(record->event));
-	case STENO_MODE_GEMINI:
-	  update_state_gemini(keycode - QK_STENO, IS_PRESSED(record->event));
+        case STENO_MODE_BOLT:
+          update_state_bolt(keycode - QK_STENO, IS_PRESSED(record->event));
+          break;
+        case STENO_MODE_GEMINI:
+          update_state_gemini(keycode - QK_STENO, IS_PRESSED(record->event));
+          break;
       }
       // allow postprocessing hooks
       if (postprocess_steno_user(keycode, record, mode, chord, pressed)) {
-	if (IS_PRESSED(record->event)) {
-	  ++pressed;
-	} else {
-	  --pressed;
-	  if (pressed <= 0) {
-	    pressed = 0;
-	    send_steno_chord();
-	  }
-	}
+        if (IS_PRESSED(record->event)) {
+          ++pressed;
+        } else {
+          --pressed;
+          if (pressed <= 0) {
+            pressed = 0;
+            send_steno_chord();
+          }
+        }
       }
       return false;
   }

@@ -219,8 +219,6 @@ const uint16_t PROGMEM fn_actions[] = {
     [BASE] = ACTION_FUNCTION(BASE),
     [PMQ]  = ACTION_FUNCTION(PMQ),
     [PMN]  = ACTION_FUNCTION(PMN),
-    [FMU]  = ACTION_LAYER_TAP_TOGGLE(FMU),
-    [NHL]  = ACTION_LAYER_TAP_TOGGLE(NHL)
 };
 
 

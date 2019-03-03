@@ -26,10 +26,6 @@ extern keymap_config_t keymap_config;
 extern rgblight_config_t rgblight_config;
 #endif
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 enum custom_keycodes {
   RGBRST = SAFE_RANGE
 };

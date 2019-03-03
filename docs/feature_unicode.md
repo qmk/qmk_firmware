@@ -65,6 +65,8 @@ The following input modes are available:
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`), but this can be changed by defining [`UNICODE_OSX_KEY`](#input-key-configuration) with another keycode.
 
+  **Note:** Using the _Unicode Hex Input_ input source may disable some Option based shortcuts, such as: Option + Left Arrow (`moveWordLeftAndModifySelection`) and Option + Right Arrow  (`moveWordRightAndModifySelection`).
+
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
   Enabled by default and works almost anywhere on IBus-enabled distros. Without IBus, this mode works under GTK apps, but rarely anywhere else.
@@ -121,7 +123,7 @@ For instance, you can add these definitions to your `config.h` file:
 
 ### Additional Customization
 
-Because Unicode is such a large and variable feature, there are a number of options that you can customize to work better on your system. 
+Because Unicode is such a large and variable feature, there are a number of options that you can customize to work better on your system.
 
 #### Start and Finish input functions
 
@@ -183,7 +185,7 @@ AutoHotkey inserts the Text right of `Send, ` when this combination is pressed.
 
 ### US International
 
-If you enable the US International layout on the system, it will use punctuation to accent the characters. 
+If you enable the US International layout on the system, it will use punctuation to accent the characters.
 
 For instance, typing "`a" will result in à.
 

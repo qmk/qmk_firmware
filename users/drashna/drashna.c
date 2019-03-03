@@ -122,11 +122,17 @@ void matrix_init_user(void) {
     get_unicode_input_mode();
   #endif //UNICODE_ENABLE
   matrix_init_keymap();
-  #ifdef RGBLIGHT_ENABLE
-    matrix_init_rgb();
-  #endif //RGBLIGHT_ENABLE
 }
 
+__attribute__((weak))
+void keyboard_post_init_keymap(void){ }
+
+void keyboard_post_init_user(void){
+#ifdef RGBLIGHT_ENABLE
+  keyboard_post_init_rgb();
+#endif
+  keyboard_post_init_keymap();
+}
 
 __attribute__ ((weak))
 void shutdown_keymap(void) {}
@@ -208,9 +214,11 @@ uint32_t default_layer_state_set_keymap (uint32_t state) {
 // Runs state check and changes underglow color and animation
 uint32_t default_layer_state_set_user(uint32_t state) {
   state = default_layer_state_set_keymap(state);
+#if 0
 #ifdef RGBLIGHT_ENABLE
   state = default_layer_state_set_rgb(state);
 #endif // RGBLIGHT_ENABLE
+#endif
   return state;
 }
 

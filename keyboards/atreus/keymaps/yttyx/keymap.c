@@ -9,9 +9,6 @@ enum layers {
   R3            // (momentary)
 };
 
-#define xxxxxxx    KC_NO
-#define _______    KC_TRNS
-
 // Aliases from replicaJunction's atreus layout
 #define KCX_LST   LSFT(KC_TAB)
 #define KX_COPY   LCTL(KC_C)
@@ -58,7 +55,7 @@ const uint16_t PROGMEM keymaps[][ MATRIX_ROWS ][ MATRIX_COLS ] = {
   [L1] = LAYOUT(
     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,       KC_8,    KC_9,    KC_0,
     KC_TAB,  KC_QUES, KC_EQL,  KC_MINS, KC_UNDS,                   KC_QUOT, LSFT(KC_2), KC_PLUS, KC_ASTR, KC_ENT,
-    KC_ESC,  KC_EXLM, KC_AMPR, xxxxxxx, xxxxxxx,                   _______, _______,    _______, xxxxxxx, _______,
+    KC_ESC,  KC_EXLM, KC_AMPR, XXXXXXX, XXXXXXX,                   _______, _______,    _______, XXXXXXX, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______,    _______, _______, _______
   ),
 
@@ -74,9 +71,9 @@ const uint16_t PROGMEM keymaps[][ MATRIX_ROWS ][ MATRIX_COLS ] = {
   '---------------------------------------------------------------------------'
   */
   [R1] = LAYOUT(
-    KC_LABK, KC_RABK,  KC_LCBR,  KC_RCBR, KX_AT,                     KC_DLR,  KC_HASH,    xxxxxxx,       xxxxxxx, MO(R3),
+    KC_LABK, KC_RABK,  KC_LCBR,  KC_RCBR, KX_AT,                     KC_DLR,  KC_HASH,    XXXXXXX,       XXXXXXX, MO(R3),
     KC_LBRC, KC_RBRC,  KC_LPRN,  KC_RPRN, KC_NUHS,                   KC_QUOT, LSFT(KC_2), LSFT(KC_NUHS), KC_GRV,  KC_CAPS,
-    KC_SLSH, KC_NUBS,  KC_CIRC,  KX_PIPE, KC_PERC,                   _______, _______,    _______,       xxxxxxx, KC_PSCR,
+    KC_SLSH, KC_NUBS,  KC_CIRC,  KX_PIPE, KC_PERC,                   _______, _______,    _______,       XXXXXXX, KC_PSCR,
     _______, _______,  _______,  KC_DEL,  _______, _______, _______, _______, _______,    _______,       _______, _______
   ),
 
@@ -94,7 +91,7 @@ const uint16_t PROGMEM keymaps[][ MATRIX_ROWS ][ MATRIX_COLS ] = {
   [R2] = LAYOUT(
     KC_F12,  KC_F11,  KC_F10,  KC_F9,  KX_COPY,                   KC_HOME, KC_UP,   KC_END,  KC_PGUP, KC_INS, 
     KC_F8,   KC_F7,   KC_F6,   KC_F5,  KX_PAST,                   KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_ENT,
-    KC_F4,   KC_F3,   KC_F2,   KC_F1,  KX_CUT,                    KCX_LST, xxxxxxx, KC_TAB,  xxxxxxx, xxxxxxx, 
+    KC_F4,   KC_F3,   KC_F2,   KC_F1,  KX_CUT,                    KCX_LST, XXXXXXX, KC_TAB,  XXXXXXX, XXXXXXX, 
     _______, _______, _______, KC_DEL, KX_UNDO, _______, _______, _______, _______, _______, _______, KX_WINR
   ),
 
@@ -110,10 +107,10 @@ const uint16_t PROGMEM keymaps[][ MATRIX_ROWS ][ MATRIX_COLS ] = {
   '---------------------------------------------------------------'
   */
   [R3] = LAYOUT(
-    RESET,   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, _______,
-    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,
-    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx,                   xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, 
-    xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx, xxxxxxx
+    RESET,   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, 
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
   )
 };
 
