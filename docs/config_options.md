@@ -307,8 +307,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `CUSTOM_MATRIX`
   * Allows replacing the standard matrix scanning routine with a custom one.
-* `CUSTOM_DEBOUNCE`
-  * Allows replacing the standard key debouncing routine with a custom one.
+* `DEBOUNCE_TYPE`
+  * Allows replacing the standard key debouncing routine with an alternative or custom one.
 * `WAIT_FOR_USB`
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`
