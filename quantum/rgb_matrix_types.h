@@ -23,9 +23,9 @@ typedef struct PACKED {
   uint32_t any_key_hit;
   // Ticks since any key was last hit.
   uint8_t key_hit[DRIVER_LED_TOTAL];
-  // Last led hit
+  // Last led hit index
   uint8_t last_led_hit[LED_HITS_TO_REMEMBER];
-
+  // num led's hit recently (up to LED_HITS_TO_REMEMBER)
   uint8_t last_led_count;
 } rgb_counters;
 
