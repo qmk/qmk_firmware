@@ -1,66 +1,4 @@
-#include QMK_KEYBOARD_H
-
-extern keymap_config_t keymap_config;
-
-// Layers
-#define BASE 0 // Base layer
-#define SYMB 1 // Symbols
-#define SYSH 2 // Symbols, shifted
-#define NUMP 3 // Numpad
-#define FCTN 4 // Functions
-
-// Tap Dancing
-void dance_lock (qk_tap_dance_state_t *state, void *user_data) {
-	switch (state->count){
-		case 1: // Press once for LGUI
-			tap_code(KC_LGUI);
-			break;
-		case 2: // Press twice for NUMLOCK
-			tap_code(KC_NLCK);
-			break;
-		case 3: // Press thrice for CAPSLOCK
-			tap_code(KC_CAPS);
-			break;
-		case 4: // Press four times for SCROLLOCK
-			tap_code(KC_SLCK);
-			break;
-		default:
-			break;
-	}
-};
-
-void dance_layer (qk_tap_dance_state_t *state, void *user_data) {
-	switch (state -> count) {
-		case 1: // Press once for MENU
-			tap_code(KC_APP);
-			break;
-		case 2: // Press twice for NUMPAD
-			layer_invert(NUMP);
-			break;
-		case 3: // Press thrice for SYMBOLS
-			layer_invert(SYMB);
-			break;
-		case 4: // Press four times for SYMBOLS, SHIFTED
-			layer_invert(SYSH);
-			break;
-		default:
-			break;
-	}
-};
-
-enum tap_dances {LOCKS = 0, LAYERS = 1};
-qk_tap_dance_action_t tap_dance_actions[] = {
-	[LOCKS] = ACTION_TAP_DANCE_FN(dance_lock),
-	[LAYERS] = ACTION_TAP_DANCE_FN(dance_layer)
-};
-
-// Make layering more clear
-#define CC_ESC LCTL_T(KC_ESC)
-#define CC_QUOT RCTL_T(KC_QUOT)
-#define AC_SLSH LALT_T(KC_SLSH)
-#define AC_EQL RALT_T(KC_EQL)
-#define FC_BSLS LT(FCTN, KC_BSLS)
-#define FC_MINS LT(FCTN, KC_MINS)
+#include "nstickney.h"
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -151,19 +89,11 @@ void keyboard_post_init_user(void) {
 // Turn on RGB underglow according to active layer
 uint32_t layer_state_set_user(uint32_t state) {
 	switch (biton32(state)) {
-		case FCTN:
-			rgblight_sethsv_noeeprom(136, 255, 255);
-			break;
-		case NUMP:
-			rgblight_sethsv_noeeprom(228, 255, 255);
-			break;
+		case FCTN: rgblight_sethsv_noeeprom(136, 255, 255); break;
+		case NUMP: rgblight_sethsv_noeeprom(228, 255, 255); break;
 		case SYMB:
-		case SYSH:
-			rgblight_sethsv_noeeprom(320, 255, 255);
-			break;
-		default: //  for any other layers, or the default layer
-			rgblight_sethsv_noeeprom(19, 255, 255);
-			break;
+		case SYSH: rgblight_sethsv_noeeprom(320, 255, 255); break;
+		default: rgblight_sethsv_noeeprom(19, 255, 255); break;
 	}
 	return state;
 };
