@@ -4,7 +4,7 @@
 extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
 extern rgb_config_t rgb_matrix_config;
 
-void rgb_matrix_gradient_up_down() {
+void rgb_matrix_gradient_up_down(void) {
   int16_t h1 = rgb_matrix_config.hue;
   int16_t h2 = (rgb_matrix_config.hue + 180) % 360;
   int16_t deltaH = h2 - h1;

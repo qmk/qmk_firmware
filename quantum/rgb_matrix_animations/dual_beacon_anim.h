@@ -5,7 +5,7 @@ extern rgb_counters g_rgb_counters;
 extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
 extern rgb_config_t rgb_matrix_config;
 
-void rgb_matrix_dual_beacon() {
+void rgb_matrix_dual_beacon(void) {
   HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };
   double cos_value = cos(g_rgb_counters.tick * M_PI / 128) / 32 * 180;
   double sin_value = sin(g_rgb_counters.tick * M_PI / 128) / 112 * 180;
