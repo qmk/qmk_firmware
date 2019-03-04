@@ -36,35 +36,18 @@ bool is_keyboard_left(void) {
 bool is_keyboard_master(void)
 {
 #ifdef __AVR__
+  static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
 
-  
-  // Due to VBUS check not working, use hardcoded left or right master
-	bool isMaster;
-	
-  	if (is_keyboard_left()) {
-		isMaster = true;
-	} else {
-		isMaster = false;
-	}
-  
-  #ifdef TREAT_LEFT_AS_MASTER
-	return isMaster;
-  #else
-	return !isMaster;
-  #endif
-	
-//  static enum { UNKNOWN, MASTER, SLAVE } usbstate = UNKNOWN;
-//
-//  // only check once, as this is called often
-//  if (usbstate == UNKNOWN)
-//  {
-//    USBCON |= (1 << OTGPADE);  // enables VBUS pad
-//    wait_ms(500);
-//
-//    usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
-//  }
+  // only check once, as this is called often
+  if (usbstate == UNKNOWN)
+  {
+    USBCON |= (1 << OTGPADE);  // enables VBUS pad
+    wait_us(5);
 
-//  return (usbstate == MASTER);
+    usbstate = (USBSTA & (1 << VBUS)) ? MASTER : SLAVE;  // checks state of VBUS
+  }
+
+  return (usbstate == MASTER);
 #else
   return true;
 #endif

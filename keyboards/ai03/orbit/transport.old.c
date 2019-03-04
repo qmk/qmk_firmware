@@ -1,9 +1,12 @@
-
 #include "transport.h"
+
 
 #include "config.h"
 #include "matrix.h"
 #include "quantum.h"
+
+extern volatile Serial_s2m_buffer_t serial_s2m_buffer;
+extern volatile Serial_m2s_buffer_t serial_m2s_buffer;
 
 #define ROWS_PER_HAND (MATRIX_ROWS/2)
 
@@ -148,8 +151,7 @@ void transport_slave_init(void) {
 
 
 
-volatile Serial_s2m_buffer_t serial_s2m_buffer = {};
-volatile Serial_m2s_buffer_t serial_m2s_buffer = {};
+
 uint8_t volatile status0 = 0;
 
 SSTD_t transactions[] = {
@@ -160,10 +162,14 @@ SSTD_t transactions[] = {
 };
 
 void transport_master_init(void)
-{ soft_serial_initiator_init(transactions, TID_LIMIT(transactions)); }
+{ 
+	soft_serial_initiator_init(transactions, TID_LIMIT(transactions)); 
+}
 
 void transport_slave_init(void)
-{ soft_serial_target_init(transactions, TID_LIMIT(transactions)); }
+{ 
+	soft_serial_target_init(transactions, TID_LIMIT(transactions)); 
+}
 
 bool transport_master(matrix_row_t matrix[]) {
 
@@ -184,7 +190,7 @@ bool transport_master(matrix_row_t matrix[]) {
     // Write backlight level for slave to read
     serial_m2s_buffer.backlight_level = backlight_config.enable ? backlight_config.level : 0;
   #endif
-
+  
   return true;
 }
 

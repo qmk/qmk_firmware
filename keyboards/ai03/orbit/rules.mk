@@ -1,7 +1,8 @@
 SRC += split_util.c \
 	   split_flags.c \
 	   serial.c \
-	   transport.c
+	   transport.c \
+	   matrix.c
 #SPLIT_KEYBOARD = yes   
 
 # MCU name
@@ -86,7 +87,7 @@ AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 USE_I2C = no                # I2C for split communication
-#CUSTOM_MATRIX = yes
+CUSTOM_MATRIX = yes
 # SPLIT_KEYBOARD = yes        
 # Split keyboard flag disabled as manual edits had to be done to the split common files
 

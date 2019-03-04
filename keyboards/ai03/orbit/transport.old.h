@@ -1,8 +1,10 @@
 #pragma once
 
 #include <common/matrix.h>
-
 #define ROWS_PER_HAND (MATRIX_ROWS/2)
+
+void transport_master_init(void);
+void transport_slave_init(void);
 
 typedef struct _Serial_s2m_buffer_t {
   // TODO: if MATRIX_COLS > 8 change to uint8_t packed_matrix[] for pack/unpack
@@ -23,19 +25,16 @@ typedef struct _Serial_m2s_buffer_t {
     // Otherwise, if the master side MCU drives both sides RGB LED chains,
     // there is no need to communicate.
 #endif
-
-	uint8_t current_layer;
-	uint8_t nlock_led;
-	uint8_t clock_led;
-	uint8_t slock_led;
-
+	// Sync Layer and LED status to slave for the sake of LED indicators
+	uint8_t active_layer;
+	uint8_t clock_led_status;
+	uint8_t slock_led_status;
+	uint8_t nlock_led_status;
+	
 } Serial_m2s_buffer_t;
 
-extern volatile Serial_s2m_buffer_t serial_s2m_buffer;
-extern volatile Serial_m2s_buffer_t serial_m2s_buffer;
-
-void transport_master_init(void);
-void transport_slave_init(void);
+volatile Serial_s2m_buffer_t serial_s2m_buffer;
+volatile Serial_m2s_buffer_t serial_m2s_buffer;
 
 // returns false if valid data not received from slave
 bool transport_master(matrix_row_t matrix[]);

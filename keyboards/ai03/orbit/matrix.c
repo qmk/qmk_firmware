@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define ERROR_DISCONNECT_COUNT 5
 
-#define ROWS_PER_HAND (MATRIX_ROWS / 2)
+//#define ROWS_PER_HAND (MATRIX_ROWS / 2)
 
 #ifdef DIRECT_PINS
 static pin_t direct_pins[MATRIX_ROWS][MATRIX_COLS] = DIRECT_PINS;
