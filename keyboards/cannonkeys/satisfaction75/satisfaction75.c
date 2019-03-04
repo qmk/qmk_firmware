@@ -296,9 +296,11 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
   queue_for_send = true;
   switch (keycode) {
     case OLED_TOGG:
-      if (record->event.pressed) {
-        oled_mode = (oled_mode + 1) % _NUM_OLED_MODES;
-        draw_ui();
+      if(!clock_set_mode){
+        if (record->event.pressed) {
+          oled_mode = (oled_mode + 1) % _NUM_OLED_MODES;
+          draw_ui();
+        }
       }
       return false;
     case CLOCK_SET:
