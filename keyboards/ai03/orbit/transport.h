@@ -1,6 +1,4 @@
 #pragma once
-#ifndef INCLUDE_TRANSPORT_H
-#define INCLUDE_TRANSPORT_H
 
 #include <common/matrix.h>
 #define ROWS_PER_HAND (MATRIX_ROWS/2)
@@ -41,5 +39,3 @@ extern volatile Serial_m2s_buffer_t serial_m2s_buffer;
 // returns false if valid data not received from slave
 bool transport_master(matrix_row_t matrix[]);
 void transport_slave(matrix_row_t matrix[]);
-
-#endif // INCLUDE_TRANSPORT_H
