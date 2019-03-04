@@ -2,7 +2,7 @@
 
 /*
  * This keymap simulates the key limitations of an Iris on an ErgoDox. See the
- * matching iris layout (/keyboards/iris/keymaps/nstickney) for further
+ * matching iris layout (/keyboards/keebio/iris/keymaps/nstickney) for further
  * information.
  */
 
@@ -101,7 +101,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		__________, __________, __________, __________, UC(0x00BF),
 		                                                            __________, __________,
 		                                                                        __________,
-		                                                UC(0x00AC), __________, __________,
+		                                                __________, UC(0x00AC), __________,
 		// right hand
 		__________, UC(0x00BC), UC(0x00BD), UC(0x00BE), UC(0x2018), UC(0x2019), __________,
 		__________, UC(0x00FC), UC(0x00FA), UC(0x00ED), UC(0x00F3), UC(0x00F6), __________,
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		                        UC(0x00D7), __________, __________, __________, __________,
 		__________, __________,
 		__________,
-		__________, __________, UC(0x00B1)
+		__________, UC(0x00B1), __________
 	),
 
 	[SYSH] = LAYOUT_ergodox(
@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		__________, __________, __________, __________, UC(0x203D),
 		                                                            __________, __________,
 		                                                                        __________,
-		                                                UC(0x00A6), __________, __________,
+		                                                __________, UC(0x00A6), __________,
 		// right hand
 		__________, UC(0x00B5), UC(0x00AB), UC(0x00BB), UC(0x201C), UC(0x201D), __________,
 		__________, UC(0x00DC), UC(0x00DA), UC(0x00CD), UC(0x00D3), UC(0x00D6), __________,
@@ -131,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		                        UC(0x00F7), __________, __________, __________, __________,
 		__________, __________,
 		__________,
-		__________, __________, UC(0x00AA)
+		__________, UC(0x00AA), __________
 	),
 
 	[NUMP] = LAYOUT_ergodox(
