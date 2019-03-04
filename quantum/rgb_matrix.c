@@ -282,52 +282,52 @@ void rgb_matrix_task(void) {
         #endif
         #ifndef DISABLE_RGB_MATRIX_DUAL_BEACON
             case RGB_MATRIX_DUAL_BEACON:
-                rgb_matrix_dual_beacon(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                rgb_matrix_dual_beacon();
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
             case RGB_MATRIX_GRADIENT_UP_DOWN:
-                rgb_matrix_gradient_up_down(&g_rgb_leds[0], &rgb_matrix_config);
+                rgb_matrix_gradient_up_down();
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_RAINDROPS
             case RGB_MATRIX_RAINDROPS:
-                rgb_matrix_raindrops(initialize, &g_rgb_counters, &rgb_matrix_config);
+                rgb_matrix_raindrops(initialize);
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
             case RGB_MATRIX_CYCLE_ALL:
-                rgb_matrix_cycle_all(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                rgb_matrix_cycle_all();
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
             case RGB_MATRIX_CYCLE_LEFT_RIGHT:
-                rgb_matrix_cycle_left_right(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                rgb_matrix_cycle_left_right();
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
             case RGB_MATRIX_CYCLE_UP_DOWN:
-                rgb_matrix_cycle_up_down(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                rgb_matrix_cycle_up_down();
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_RAINBOW_BEACON
             case RGB_MATRIX_RAINBOW_BEACON:
-                rgb_matrix_rainbow_beacon(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                rgb_matrix_rainbow_beacon();
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
             case RGB_MATRIX_RAINBOW_PINWHEELS:
-                rgb_matrix_rainbow_pinwheels(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                rgb_matrix_rainbow_pinwheels();
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
             case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
-                rgb_matrix_rainbow_moving_chevron(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                rgb_matrix_rainbow_moving_chevron();
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
             case RGB_MATRIX_JELLYBEAN_RAINDROPS:
-                rgb_matrix_jellybean_raindrops(initialize, &g_rgb_counters, &rgb_matrix_config);
+                rgb_matrix_jellybean_raindrops(initialize);
                 break;
         #endif
         #ifndef DISABLE_RGB_MATRIX_DIGITAL_RAIN
@@ -338,27 +338,27 @@ void rgb_matrix_task(void) {
         #ifdef RGB_MATRIX_KEYPRESSES
             #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
                 case RGB_MATRIX_SOLID_REACTIVE:
-                    rgb_matrix_solid_reactive(&g_rgb_counters, &rgb_matrix_config);
+                    rgb_matrix_solid_reactive();
                     break;
             #endif
             #ifndef DISABLE_RGB_MATRIX_SPLASH
                 case RGB_MATRIX_SPLASH:
-                    rgb_matrix_splash(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                    rgb_matrix_splash();
                     break;
             #endif
             #ifndef DISABLE_RGB_MATRIX_MULTISPLASH
                 case RGB_MATRIX_MULTISPLASH:
-                    rgb_matrix_multisplash(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                    rgb_matrix_multisplash();
                     break;
             #endif
             #ifndef DISABLE_RGB_MATRIX_SOLID_SPLASH
                 case RGB_MATRIX_SOLID_SPLASH:
-                    rgb_matrix_solid_splash(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                    rgb_matrix_solid_splash();
                     break;
             #endif
             #ifndef DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
                 case RGB_MATRIX_SOLID_MULTISPLASH:
-                    rgb_matrix_solid_multisplash(&g_rgb_counters, &g_rgb_leds[0], &rgb_matrix_config);
+                    rgb_matrix_solid_multisplash();
                     break;
             #endif
         #endif
