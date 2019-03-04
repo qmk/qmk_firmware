@@ -5,6 +5,22 @@
 #include "../../../keyboards/wilba_tech/wt_rgb_backlight.h"
 #endif
 
+#ifdef VISUALIZER_ENABLE
+const char layer_names[][16] = {
+  [_BASE] = "QWERTY",
+  [_WORKMAN] = "Workman",
+  [_NORMAN] = "Norman",
+  [_DVORAK] = "Dvorak",
+  [_COLMAK] = "Colmak",
+  [_MALTROFF] = "Maltroff",
+  [_GAME] = "Game",
+  [_NAV] = "Navigation",
+  [_NUM] = "Numpad",
+  [_ADJUST] = "Adjust",
+  [_RESET] = "Reset",
+};
+#endif
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_BASE] = TEMPLATE_TKL(
       US_LOCK,  KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 , KC_F12 ,          KC_PSCR, KC_SLCK, MO_ADJ ,
