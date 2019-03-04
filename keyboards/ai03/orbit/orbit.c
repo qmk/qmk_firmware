@@ -15,6 +15,8 @@
  */
 #include "orbit.h"
 #include "split_util.h"
+#include "transport.h"
+
 
 // Call led_toggle to set LEDs easily
 // LED IDs:
@@ -138,6 +140,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 void led_set_kb(uint8_t usb_led) {
 	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
+	
+	serial_m2s_buffer.nlock_led_status = IS_LED_ON(usb_led, USB_LED_NUM_LOCK);
+	serial_m2s_buffer.clock_led_status = IS_LED_ON(usb_led, USB_LED_CAPS_LOCK);
+	serial_m2s_buffer.slock_led_status = IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK);
 
 	led_set_user(usb_led);
 }
@@ -145,7 +151,8 @@ void led_set_kb(uint8_t usb_led) {
 uint32_t layer_state_set_kb(uint32_t state) {
 	// keymap-unrelated LED toggles
 	
-	current_layer = biton32(state);
+	//current_layer = biton32(state);
+	serial_m2s_buffer.active_layer = biton32(state);
 	
 	return layer_state_set_user(state);
 }

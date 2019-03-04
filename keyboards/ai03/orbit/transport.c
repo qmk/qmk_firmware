@@ -208,8 +208,6 @@ bool transport_master(matrix_row_t matrix[]) {
     serial_m2s_buffer.backlight_level = backlight_config.enable ? backlight_config.level : 0;
   #endif
   
-  // Sync layer and indicator info
-//  serial_m2s_buffer.active_layer = 
   return true;
 }
 
