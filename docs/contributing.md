@@ -91,6 +91,18 @@ int foo(void) {
 }
 ```
 
+# Auto-formatting with clang-format
+
+[Clang-format](https://clang.llvm.org/docs/ClangFormat.html) is part of LLVM and can automatically format your code for you, because ain't nobody got time to do it manually. We supply a configuration file for it that applies most of the coding conventions listed above. It will only change whitespace and newlines, so you will still have to remember to include optional braces yourself.
+
+Use the [full LLVM installer](http://llvm.org/builds/) to get clang-format on Windows, or use `sudo apt install clang-format` on Ubuntu.
+
+If you run it from the command-line, pass `-style=file` as an option and it will automatically find the .clang-format configuration file in the QMK root directory.
+
+If you use VSCode, the standard C/C++ plugin supports clang-format, alternatively there is a [separate extension](https://marketplace.visualstudio.com/items?itemName=LLVMExtensions.ClangFormat) for it.
+
+Some things (like LAYOUT macros) are destroyed by clang-format, so either don't run it on those files, or wrap the sensitive code in `// clang-format off` and `// clang-format on`.
+
 # General Guidelines
 
 We have a few different types of changes in QMK, each requiring a different level of rigor. We'd like you to keep the following guidelines in mind no matter what type of change you're making.
@@ -125,7 +137,7 @@ Most first-time QMK contributors start with their personal keymaps. We try to ke
 * All Keymap PR's are squashed, so if you care about how your commits are squashed you should do it yourself
 * Do not lump features in with keymap PR's. Submit the feature first and then a second PR for the keymap.
 * Do not include `Makefile`s in your keymap folder (they're no longer used)
-* Update copyrights in file headers (look for `REPLACE_WITH_YOUR_NAME `)
+* Update copyrights in file headers (look for `%YOUR_NAME%`)
 
 ## Keyboards
 
@@ -138,7 +150,7 @@ We also ask that you follow these guidelines:
 * Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.
 * Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
 * Do not include `Makefile`s in your keyboard folder (they're no longer used)
-* Update copyrights in file headers (look for `REPLACE_WITH_YOUR_NAME `)
+* Update copyrights in file headers (look for `%YOUR_NAME%`)
 
 ## Quantum/TMK Core
 
