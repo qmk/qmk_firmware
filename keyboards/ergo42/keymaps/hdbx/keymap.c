@@ -141,7 +141,7 @@ uint32_t layer_state_set_keymap (uint32_t state) {
 void matrix_init_user(void) {
 #ifdef RGBLIGHT_ENABLE
   rgblight_enable();
-  rgblight_setrgb_teal();
+  rgblight_setrgb(RGB_TEAL);
 #endif
 }
 
@@ -150,16 +150,16 @@ uint32_t layer_state_set_user(uint32_t state) {
 #ifdef RGBLIGHT_ENABLE
     switch (biton32(state)) {
     case _RAISE:
-      rgblight_setrgb_chartreuse(); // RAISE:シャルトリューズ
+      rgblight_setrgb(RGB_CHARTREUSE); // RAISE:シャルトリューズ
       break;
     case _LOWER:
-      rgblight_setrgb_pink(); // LOWER:ピンク
+      rgblight_setrgb(RGB_PINK); // LOWER:ピンク
       break;
     case _ADJUST:
-      rgblight_setrgb_red(); // ADJUST:レッド
+      rgblight_setrgb(RGB_RED); // ADJUST:レッド
       break;
     default: //  for any other layers, or the default layer
-      rgblight_setrgb_teal(); // 他:ティール
+      rgblight_setrgb(RGB_TEAL); // 他:ティール
       break;
     }
 #endif

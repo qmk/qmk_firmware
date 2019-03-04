@@ -109,9 +109,9 @@ float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
 
 void update_rgblight(uint16_t layer) {
   if (layer & (1UL << _DVORAK)) {
-    rgblight_sethsv_green();
+    rgblight_sethsv(HSV_GREEN);
   } else if (layer & (1UL << _QWERTY)) {
-    rgblight_sethsv_goldenrod();
+    rgblight_sethsv(HSV_GOLDENROD);
   }
 }
 

@@ -40,20 +40,20 @@ uint32_t layer_state_set_keymap(uint32_t state) {
     case _EDVORAKJ1:
     case _EDVORAKJ2:
       // _EDVORAKJ1 & J2 are same colored
-      rgblight_sethsv_noeeprom_white();
+      rgblight_sethsv_noeeprom(HSV_WHITE);
       break;
     case _LOWER:
-      rgblight_sethsv_noeeprom_red();
+      rgblight_sethsv_noeeprom(HSV_RED);
       break;
     case _RAISE:
-      rgblight_sethsv_noeeprom_blue();
+      rgblight_sethsv_noeeprom(HSV_BLUE);
       break;
     case _ADJUST:
-      rgblight_sethsv_noeeprom_green();
+      rgblight_sethsv_noeeprom(HSV_GREEN);
       break;
     default: //  for any other layers, or the default layer
       rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_GRADIENT + 3);
-      rgblight_sethsv_noeeprom_red();
+      rgblight_sethsv_noeeprom(HSV_RED);
       break;
   }
   return state;

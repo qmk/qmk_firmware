@@ -141,7 +141,7 @@ void shutdown_user (void) {
   #ifdef RGBLIGHT_ENABLE
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(1);
-    rgblight_setrgb_red();
+    rgblight_setrgb(RGB_RED);
   #endif // RGBLIGHT_ENABLE
   #ifdef RGB_MATRIX_ENABLE
     uint16_t timer_start = timer_read();

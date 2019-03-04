@@ -240,19 +240,19 @@ void eeconfig_init_user(void) {
 uint32_t layer_state_set_user(uint32_t state) {
 	switch (biton32(state)) {
 		case _SYMB:
-			rgblight_setrgb_orange();
+			rgblight_setrgb(RGB_ORANGE);
 			break;
 		case _NAV:
-			rgblight_setrgb_springgreen();
+			rgblight_setrgb(RGB_SPRINGGREEN);
 			break;
 		case _INTER:
-			rgblight_setrgb_teal();
+			rgblight_setrgb(RGB_TEAL);
 			break;
 		case _ADJUST:
-			rgblight_setrgb_red();
+			rgblight_setrgb(RGB_RED);
 			break;
 		default: //  for any other layers, or the default layer
-			rgblight_setrgb_yellow();
+			rgblight_setrgb(RGB_YELLOW);
 			break;
 	}
 	return state;
