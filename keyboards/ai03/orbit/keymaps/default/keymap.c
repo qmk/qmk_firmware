@@ -51,7 +51,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) 
 			{
 				// Keypress
-				SEND_STRING("https://kb.ai03.me/projects/orbit.html");
+				SEND_STRING("https://kb.ai03.me/redir/orbit");
 			} 
 			else 
 			{
@@ -82,11 +82,6 @@ void matrix_scan_user(void) {
 }
 
 void led_set_user(uint8_t usb_led) {
-	
-	// Right hand LEDs as simple indicator LEDs
-    led_toggle(3, (usb_led & (1 << USB_LED_NUM_LOCK)));
-    led_toggle(4, (usb_led & (1 << USB_LED_CAPS_LOCK)));
-	led_toggle(5, (usb_led & (1 << USB_LED_SCROLL_LOCK)));
 
 }
 

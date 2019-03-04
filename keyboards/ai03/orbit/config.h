@@ -52,10 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define SELECT_SOFT_SERIAL_SPEED 1
 
-// This option makes leftside the master. 
-// Comment it out to use right USB connector instead.
-#define TREAT_LEFT_AS_MASTER
-
 #define UNUSED_PINS
 
 /* COL2ROW, ROW2COL, or CUSTOM_MATRIX */

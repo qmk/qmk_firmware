@@ -5,8 +5,8 @@
 A split ergonomic keyboard project.  
 
 Keyboard Maintainer: [ai03](https://github.com/ai03-2725)  
-Hardware Supported: The [Orbit PCB](https://github.com/ai03-2725/Orbit), running atmega32u4  
-Hardware Availability: The [Orbit Repository](https://github.com/ai03-2725/Orbit) has PCB files. Case group buy orders are currently closed.  
+Hardware Supported: The [Orbit PCB](https://github.com/ai03-2725/Orbit)  
+Hardware Availability: [This repository](https://github.com/ai03-2725/Orbit) has PCB files. Case group buy orders are currently closed.  
 
 Make example for this keyboard (after setting up your build environment):
 
