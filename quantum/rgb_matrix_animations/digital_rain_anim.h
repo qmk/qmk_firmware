@@ -1,6 +1,5 @@
 #pragma once
 #ifndef DISABLE_RGB_MATRIX_DIGITAL_RAIN
-#include "rgb_matrix_types.h"
 
 #ifndef RGB_DIGITAL_RAIN_DROPS
     // lower the number for denser effect/wider keyboard
