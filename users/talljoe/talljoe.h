@@ -36,7 +36,7 @@ enum layers {
 #endif
 
 #define MO_NAV    MO(_NAV)
-#define MO_ADJ    MO(_ADJUST)
+#define MO_ADJ    TD(TD_FUNCTION)
 #define MO_RST    MO(_RESET)
 #define TG_ADJ    TG(_ADJUST)
 #define TG_NUM    TG(_NUM)
