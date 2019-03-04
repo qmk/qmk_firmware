@@ -93,6 +93,44 @@ void set_all_leds(bool leds[6]) {
 	}
 }
 
+void set_layer_indicators(uint8_t layer) {
+	
+	switch (layer)
+	{
+		case 0:
+			led_toggle(0, true);
+			led_toggle(1, false);
+			led_toggle(2, false);
+			break;
+		case 1:
+			led_toggle(0, true);
+			led_toggle(1, true);
+			led_toggle(2, false);
+			break;
+		case 2:
+			led_toggle(0, true);
+			led_toggle(1, true);
+			led_toggle(2, true);
+			break;
+		case 3:
+			led_toggle(0, false);
+			led_toggle(1, true);
+			led_toggle(2, true);
+			break;
+		case 4:
+			led_toggle(0, false);
+			led_toggle(1, false);
+			led_toggle(2, true);
+			break;
+		default:
+			led_toggle(0, true);
+			led_toggle(1, false);
+			led_toggle(2, true);
+			break;
+	}
+	
+}
+
 void matrix_init_kb(void) {
 	// put your keyboard start-up code here
 	// runs once when the firmware starts up
@@ -110,18 +148,10 @@ void matrix_init_kb(void) {
 		DDRF |= (1<<7);
 		DDRC |= (1<<7);
 	}
+
+	set_layer_indicators(0);
 	
-	if(is_keyboard_master()) 
-	{
-		bool allLeds[] = { true, true, true, true, true, true };
-		set_all_leds(allLeds);
-	}
-
 	matrix_init_user();
-}
-
-uint8_t get_current_layer(void) {
-	return current_layer;
 }
 
 void matrix_scan_kb(void) {
@@ -141,18 +171,38 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 void led_set_kb(uint8_t usb_led) {
 	// put your keyboard LED indicator (ex: Caps Lock LED) toggling code here
 	
-	serial_m2s_buffer.nlock_led = IS_LED_ON(usb_led, USB_LED_NUM_LOCK);
-	serial_m2s_buffer.clock_led = IS_LED_ON(usb_led, USB_LED_CAPS_LOCK);
-	serial_m2s_buffer.slock_led = IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK);
+	if (is_keyboard_master()) {
+	
+		serial_m2s_buffer.nlock_led = IS_LED_ON(usb_led, USB_LED_NUM_LOCK);
+		serial_m2s_buffer.clock_led = IS_LED_ON(usb_led, USB_LED_CAPS_LOCK);
+		serial_m2s_buffer.slock_led = IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK);
+
+		led_toggle(3, IS_LED_ON(usb_led, USB_LED_NUM_LOCK));
+		led_toggle(4, IS_LED_ON(usb_led, USB_LED_CAPS_LOCK));
+		led_toggle(5, IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK));
+		
+	}
 
 	led_set_user(usb_led);
 }
 
 uint32_t layer_state_set_kb(uint32_t state) {
-	// keymap-unrelated LED toggles
 	
-	current_layer = biton32(state);
-	serial_m2s_buffer.current_layer = biton32(state);
+	if (is_keyboard_master())
+	{
+		
+		current_layer = biton32(state);
+		serial_m2s_buffer.current_layer = biton32(state);
+		
+		// If left half, do the LED toggle thing
+		if (isLeftHand)
+		{
+			set_layer_indicators(biton32(state));
+		}
+		
+	}
+	// NOTE: Do not set slave LEDs here.
+	// This is not called on slave
 	
 	return layer_state_set_user(state);
 }

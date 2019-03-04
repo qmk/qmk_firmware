@@ -58,8 +58,8 @@
 
 uint8_t current_layer;
 
-void led_toggle(int id, bool on);
+extern void led_toggle(int id, bool on);
 void set_all_leds(bool leds[6]);
-uint8_t get_current_layer(void);
+extern void set_layer_indicators(uint8_t layer);
 
 #endif

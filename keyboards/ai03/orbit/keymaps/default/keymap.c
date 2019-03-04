@@ -91,48 +91,6 @@ void led_set_user(uint8_t usb_led) {
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
-	
-	// Left hand LEDs as layer indicator
-	//
-	// O X X - Layer 0
-	// O O X - Layer 1
-	// O O O - Layer 2
-	// X O O - Layer 3
-	// X X O - Layer 4
-	// O X O - Anything else. Please teach me how you memorize more than 5 layers.
-	
-	switch (biton32(state))
-	{
-		case 0:
-			led_toggle(0, true);
-			led_toggle(1, false);
-			led_toggle(2, false);
-			break;
-		case 1:
-			led_toggle(0, true);
-			led_toggle(1, true);
-			led_toggle(2, false);
-			break;
-		case 2:
-			led_toggle(0, true);
-			led_toggle(1, true);
-			led_toggle(2, true);
-			break;
-		case 3:
-			led_toggle(0, false);
-			led_toggle(1, true);
-			led_toggle(2, true);
-			break;
-		case 4:
-			led_toggle(0, false);
-			led_toggle(1, false);
-			led_toggle(2, true);
-			break;
-		default:
-			led_toggle(0, true);
-			led_toggle(1, false);
-			led_toggle(2, true);
-			break;
-	}
+		
 	return state;
 }
