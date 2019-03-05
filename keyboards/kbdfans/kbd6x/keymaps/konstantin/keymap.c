@@ -56,9 +56,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├─────┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴┬──┴─────┤
    * │      │ ← │ ↓ │ → │PgD│   │   │   │MW↑│M← │M↓ │M→ │        │
    * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
-   * │        │Mut│VoD│VoU│Ply│Prv│Nxt│MW←│MW→│M4 │M5 │      │   │
+   * │        │Mut│Vo-│Vo+│Ply│Prv│Nxt│MW←│MW→│M4 │M5 │      │   │
    * └─────┬──┴┬──┴──┬┴───┴───┴───┴───┴───┴───┴──┬┴───┴┬───┬─┴───┘
-   *       │   │     │            MW↓            │MAcl2│   │
+   *       │DPR│DstNA│            MW↓            │MAcl2│   │
    *       └───┴─────┴───────────────────────────┴─────┴───┘
    */
   [L_FN] = LAYOUT(
@@ -66,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, KC_HOME, KC_UP,   KC_END,  KC_PGUP, _______, _______, _______, _______, KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, KC_DEL,
     _______, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, _______, _______, _______, KC_WH_U, KC_MS_L, KC_MS_D, KC_MS_R, _______,
     _______, KC_MUTE, KC_VOLD, KC_VOLU, KC_MPLY, KC_MPRV, KC_MNXT, KC_WH_L, KC_WH_R, KC_BTN4, KC_BTN5, _______, _______,
-    XXXXXXX, _______, _______,                   KC_WH_D,                   KC_ACL2, _______, XXXXXXX
+    XXXXXXX, DST_P_R, DST_N_A,                   KC_WH_D,                   KC_ACL2, _______, XXXXXXX
   ),
 
   /* RCtrl layer
@@ -79,7 +79,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├──────┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴────┬───┤
    * │        │   │   │   │   │   │   │   │   │   │   │      │   │
    * └─────┬──┴┬──┴──┬┴───┴───┴───┴───┴───┴───┴──┬┴───┴┬───┬─┴───┘
-   *       │Dst│Dstp←│                           │Dstp→│   │
+   *       │DtR│DstA │                           │     │   │
    *       └───┴─────┴───────────────────────────┴─────┴───┘
    */
   [L_RCTRL] = LAYOUT(
@@ -87,6 +87,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, TOP,     MV_UP,   BOTTOM,  PRV_TAB, _______, _______, _______, _______, _______, _______, _______, _______, CLEAR,
     _______, MV_LEFT, MV_DOWN, MV_RGHT, NXT_TAB, _______, _______, _______, _______, _______, _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    XXXXXXX, DESKTOP, DSKTP_L,                   _______,                   DSKTP_R, _______, XXXXXXX
+    XXXXXXX, DST_REM, DST_ADD,                   _______,                   _______, _______, XXXXXXX
   ),
 };
