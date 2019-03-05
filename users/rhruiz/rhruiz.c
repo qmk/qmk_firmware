@@ -57,10 +57,11 @@ void rhruiz_change_leds_to(uint16_t hue, uint8_t sat) {
   rgblight_config_t eeprom_config;
   eeprom_config.raw = eeconfig_read_rgblight();
 
-  uint8_t left_led = RGBLED_NUM / 2;
-  uint8_t right_led = RGBLED_NUM - 1;
+  uint8_t left_led = 0;
+  uint8_t right_led = RGBLED_NUM / 2 - 1;
 
   if (rgblight_get_mode() == false) {
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     rgblight_enable_noeeprom();
     rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     for (uint8_t i = RGBLED_NUM ; i-- > 0 ; ) {
