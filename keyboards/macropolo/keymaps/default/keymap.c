@@ -22,6 +22,7 @@
 #define _CODE 4
 #define _MED 5
 #define _MINE 6
+#define _OSU 7
 //keycode defs
 
 
@@ -138,6 +139,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KC_AUDIO_MUTE,  KC_NO, RGB_TOG, RGB_VAI, \
       KC_NO, KC_NO, KC_NO, RGB_VAD \
     ),
+/*                          .-------.   .-------.
+  .-----------.-----------./>PageUp  \./>Wh Up   \.
+  |           |           ||<PageDown|||<Wh Down ||
+  |           |           |\ F2      /|\         /|
+  |-----------+-----------+-----------+-----------|
+  |           |           |           |           |
+  |           |           |           |           |
+  |-----------+-----------+-----------+-----------|
+  |           |           |           |           |
+  |           |           |           |           |
+  `-----------'-----------'-----------'-----------'*/
+  [_OSU] = LAYOUT( /* Media Control */
+    KC_MPLY, KC_MSTP,  KC_F3, TG(_MINE),  \
+    KC_AUDIO_MUTE,  KC_NO, RGB_TOG, RGB_VAI, \
+    KC_NO, KC_NO, KC_NO, RGB_VAD \
+  ),
 };
 
 #ifdef ENCODER_ENABLE
