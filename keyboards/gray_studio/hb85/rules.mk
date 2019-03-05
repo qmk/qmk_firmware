@@ -42,7 +42,7 @@ RGBLIGHT_CUSTOM_DRIVER = yes
 
 OPT_DEFS = -DDEBUG_LEVEL=0
 
-SRC += i2c_master.c
+SRC += i2c.c
 
 # programming options
 PROGRAM_CMD = ./keyboards/ps2avrGB/program $(TARGET).hex
