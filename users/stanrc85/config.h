@@ -4,5 +4,6 @@
 #define RETRO_TAPPING
 
 #ifdef RGBLIGHT_ENABLE
-#define RGBLIGHT_SLEEP
-#endif // RGBLIGHT_ENABLE
+  #define RGBLIGHT_LIMIT_VAL 175
+  #define RGBLIGHT_SLEEP
+#endif
