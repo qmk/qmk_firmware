@@ -104,7 +104,7 @@ void rhruiz_update_layer_colors() {
   rhruiz_change_leds_to(hue, sat);
 }
 
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
   // Read the user config from EEPROM
   user_config.raw = eeconfig_read_user();
 }
