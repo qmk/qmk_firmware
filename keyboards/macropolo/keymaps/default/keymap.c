@@ -184,25 +184,28 @@ else if (index == 1) {
 uint32_t layer_state_set_user(uint32_t state) {
     switch (biton32(state)) {
     case _PICK:
-        rgblight_sethsv_range (0,15,30,0,7);
+        rgblight_sethsv_range (0,30,70,0,7);
         break;
     case _PREM:
-        rgblight_sethsv_at (50,100,100,0);
+        rgblight_sethsv_at (50,255,255,0);
         break;
     case _PS:
-        rgblight_sethsv_at (100,75,100,1);
+        rgblight_sethsv_at (100,180,255,1);
         break;
     case _KICAD:
-        rgblight_sethsv_at (150,75,100,2);
+        rgblight_sethsv_at (150,180,255,2);
         break;
     case _CODE:
-        rgblight_sethsv_at (200,100,100,3);
+        rgblight_sethsv_at (200,255,255,3);
         break;
     case _MED:
-        rgblight_sethsv_at (250,100,100,4);
+        rgblight_sethsv_at (250,255,255,4);
         break;
     case _MINE:
-        rgblight_sethsv_at (120,100,90,5);
+        rgblight_sethsv_at (120,255,150,5);
+        break;
+    case _OSU:
+        rgblight_sethsv_at (300,255,255,6);
         break;
     default: //  for any other layers, or the default layer
         rgblight_sethsv (0,0,100);
