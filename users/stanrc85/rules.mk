@@ -7,3 +7,8 @@ MOUSEKEY_ENABLE = no
 AUDIO_ENABLE = no
 CONSOLE_ENABLE = no
 NKRO_ENABLE = no
+
+ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
+  # Include my fancy rgb functions source here
+  SRC += layer_rgb.c
+endif
