@@ -8,8 +8,8 @@
 #define PRODUCT_ID      0x2260
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    KBDFans
-#define PRODUCT         DZ60
-#define DESCRIPTION     DZ60 Keyboard
+#define PRODUCT         Hardy Pro
+#define DESCRIPTION     A DZ60 powered keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -36,11 +36,19 @@
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Mouse setup */
+#define MOUSEKEY_MAX_SPEED 10
+#define MOUSEKEY_TIME_TO_MAX 10
+
+/* Lightning controls */
 #define RGB_DI_PIN E2
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 16
 #define RGBLIGHT_HUE_STEP 8
 #define RGBLIGHT_SAT_STEP 8
 #define RGBLIGHT_VAL_STEP 8
+
+/* Tapping */
+#define TAPPING_TOGGLE 3
 
 #endif
