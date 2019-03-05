@@ -1,6 +1,6 @@
 # Gray Studio HB85
 
-![Gray Studio HB85](https://i.imgur.com/cJohEqS.jpg)
+![Gray Studio HB85](https://i.imgur.com/Sk3cupR.jpg)
 
 A HitBit MSX Computer inspired Keyboard.
 
