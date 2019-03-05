@@ -6,10 +6,6 @@
   float  tone_taps[][2]     = SONG( E__NOTE( _A6 ) );
 #endif
 
-/* Fillers to make layering more clear */
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define _BASE  0
 #define _CODE  1
 #define _NAVI  2
