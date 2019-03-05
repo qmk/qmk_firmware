@@ -253,10 +253,10 @@ A similar function works in the keymap as `rgb_matrix_indicators_user`.
 The EEPROM for it is currently shared with the RGBLIGHT system (it's generally assumed only one RGB would be used at a time), but could be configured to use its own 32bit address with:
 
 ```C
-#define EECONFIG_RGB_MATRIX (uint32_t *)16
+#define EECONFIG_RGB_MATRIX (uint32_t *)28
 ```
 
-Where `16` is an unused index from `eeconfig.h`.
+Where `28` is an unused index from `eeconfig.h`.
 
 ## Suspended state
 
