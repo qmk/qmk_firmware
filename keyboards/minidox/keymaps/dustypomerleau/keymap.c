@@ -5,7 +5,7 @@
 
 extern keymap_config_t keymap_config;
 
-enum custom_layers {
+enum my_layers {
   _CMK_DHM,
   _QWERTY,
   _SYS,
@@ -15,7 +15,7 @@ enum custom_layers {
   _SYM
 };
 
-enum layer_keycodes {
+enum my_keycodes {
   CMK_DHM = SAFE_RANGE,
   QWERTY,
   SYS,
