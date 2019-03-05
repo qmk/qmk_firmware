@@ -5,10 +5,7 @@
  https://github.com/arkag/qmk_firmware/blob/master/keyboards/mechmini/v2/keymaps/arkag/keymap.c
 */
 
-// Start: Written by konstantin: vomindoraan
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
+#include <stdbool.h>
 
 // Start: Written by Chris Lewis
 #ifndef MIN
@@ -54,6 +51,7 @@ Color         underglow,
 flashState    flash_state   = no_flash;
 fadeState     fade_state    = add_fade;
 activityState state         = boot;
+bool          aesthetic     = false;
 
 void set_color (Color new, bool update) {
   rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
@@ -225,11 +223,6 @@ void set_os (uint8_t os, bool update) {
   num_extra_flashes_off = 1;
 }
 
-void tap_key(uint8_t keycode) {
-  register_code(keycode);
-  unregister_code(keycode);
-}
-
 // register GUI if Mac or Ctrl if other
 void pri_mod(bool press) {
   if (press) {
@@ -269,13 +262,13 @@ void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
     register_code(KC_LSFT);
   }
   for (int i = 0; i < num_of_chars; i++) {
-    tap_key(keycode);
+    tap_code(keycode);
   }
   if (use_shift) {
     unregister_code(KC_LSFT);
   }
   for (int i = 0; i < (num_of_chars/2); i++) {
-    tap_key(KC_LEFT);
+    tap_code(KC_LEFT);
   }
 }
 
@@ -283,7 +276,7 @@ void long_keystroke(size_t num_of_keys, uint16_t keys[]) {
   for (int i = 0; i < num_of_keys-1; i++) {
     register_code(keys[i]);
   }
-  tap_key(keys[num_of_keys-1]);
+  tap_code(keys[num_of_keys-1]);
   for (int i = 0; i < num_of_keys-1; i++) {
     unregister_code(keys[i]);
   }
@@ -291,7 +284,10 @@ void long_keystroke(size_t num_of_keys, uint16_t keys[]) {
 
 void dance_grv (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    tap_key(KC_GRV);
+    tap_code(KC_GRV);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
   } else if (state->count == 2) {
     surround_type(2, KC_GRAVE, false);
   } else {
@@ -301,11 +297,64 @@ void dance_grv (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_quot (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    tap_key(KC_QUOT);
+    tap_code(KC_QUOT);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
   } else if (state->count == 2) {
     surround_type(2, KC_QUOTE, false);
   } else if (state->count == 3) {
     surround_type(2, KC_QUOTE, true);
+  }
+}
+
+void dance_hyph (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    tap_code(KC_MINS);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
+  } else if (state->count == 2) {
+    register_code(KC_LSFT);
+    tap_code(KC_MINS);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
+    unregister_code(KC_LSFT);
+  } else if (state->count == 3) {
+    send_unicode_hex_string("2014");
+  }
+}
+
+void dance_obrck (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    tap_code(KC_LBRC);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
+  } else if (state->count == 2) {
+    register_code(KC_LSFT);
+    tap_code(KC_9);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
+    unregister_code(KC_LSFT);
+  }
+}
+
+void dance_cbrck (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    tap_code(KC_RBRC);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
+  } else if (state->count == 2) {
+    register_code(KC_LSFT);
+    tap_code(KC_0);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
+    unregister_code(KC_LSFT);
   }
 }
 
@@ -392,18 +441,18 @@ void matrix_scan_user(void) {
     // end format functions
 
     // start fancy functions
-    SEQ_THREE_KEYS(KC_Q, KC_Q, KC_Q) {
+    SEQ_TWO_KEYS(KC_LEAD, KC_LEAD) {
       set_os((current_os+1) % _OS_COUNT, true);
     }
     SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
       surround_type(6, KC_GRAVE, false);
       pri_mod(true);
-      tap_key(KC_V);
+      tap_code(KC_V);
       pri_mod(false);
-      tap_key(KC_RGHT);
-      tap_key(KC_RGHT);
-      tap_key(KC_RGHT);
-      tap_key(KC_ENTER);
+      tap_code(KC_RGHT);
+      tap_code(KC_RGHT);
+      tap_code(KC_RGHT);
+      tap_code(KC_ENTER);
     }
     // end fancy functions
 
@@ -412,8 +461,8 @@ void matrix_scan_user(void) {
       // ™
       send_unicode_hex_string("2122");
     }
-    SEQ_THREE_KEYS(KC_G, KC_G, KC_T) {
-      SEND_STRING("@GrahamGoldenTech.com");
+    SEQ_TWO_KEYS(KC_D, KC_D) {
+      SEND_STRING(".\\Administrator");
     }
     SEQ_THREE_KEYS(KC_L, KC_O, KC_D) {
       // ಠ__ಠ
@@ -440,25 +489,62 @@ void matrix_scan_user(void) {
     }
     // end typing functions
 
+    // begin mode functions
+    SEQ_TWO_KEYS(KC_SCLN, KC_SCLN) {
+      if (aesthetic) {
+        aesthetic = false;
+        num_extra_flashes_off = 2;
+      } else {
+        aesthetic = true;
+      }
+      flash_color           = underglow;
+      flash_state           = flash_off;
+    }
+    // end mode functions
+
   }
 }
 
+bool aesthetic_temp_disable;
+void leader_end(void) {
+  aesthetic_temp_disable = false;
+}
+
+void leader_start(void) {
+  aesthetic_temp_disable  = true;
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (aesthetic && !aesthetic_temp_disable) {
+    switch (keycode) {
+    case KC_A ... KC_0:
+    case KC_SPACE ... KC_SLASH:
+      if (record->event.pressed) {
+        state = active;
+        velocikey_accelerate();
+        tap_code(keycode);
+        tap_code(KC_SPACE);
+      }
+      return false;
+
+    case KC_BSPACE:
+      if (record->event.pressed) {
+        state = active;
+        velocikey_accelerate();
+        tap_code(keycode);
+        tap_code(keycode);
+      }
+      return false;
+    }
+  }
+
   switch (keycode) {
   case M_PMOD:
-    if (record->event.pressed) {
-      pri_mod(true);
-    } else {
-      pri_mod(false);
-    }
+    pri_mod(record->event.pressed);
     return false;
 
   case M_SMOD:
-    if (record->event.pressed) {
-      sec_mod(true);
-    } else {
-      sec_mod(false);
-    }
+    sec_mod(record->event.pressed);
     return false;
 
   default:
@@ -474,8 +560,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_GRV_3GRV]       = ACTION_TAP_DANCE_FN (dance_grv),
   [TD_SING_DOUB]      = ACTION_TAP_DANCE_FN (dance_quot),
-  [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_DOUBLE (KC_MINS, LSFT(KC_MINS)),
-  [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, LSFT(KC_9)),
-  [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, LSFT(KC_0)),
+  [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_FN (dance_hyph),
+  [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_FN (dance_obrck),
+  [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_FN (dance_cbrck),
   [TD_LALT_RALT]      = ACTION_TAP_DANCE_DOUBLE (KC_LALT, KC_RALT),
 };
