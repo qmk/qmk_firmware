@@ -68,7 +68,7 @@ SUBPROJECT_rev1 = yes
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
 CUSTOM_MATRIX = no
-CUSTOM_DEBOUNCE = yes
+DEBOUNCE_TYPE = custom
 
 LAYOUTS = split60
 

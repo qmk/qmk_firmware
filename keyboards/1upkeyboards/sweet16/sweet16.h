@@ -1,5 +1,4 @@
-#ifndef KB_H
-#define KB_H
+#pragma once
 
 #include "quantum.h"
 
@@ -29,4 +28,3 @@
     { KC_NO, K31,   K32,   KC_NO }  \
 }
 
-#endif

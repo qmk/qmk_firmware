@@ -25,10 +25,6 @@ enum telophase_keycodes
 #define LONGPRESS_DELAY 150
 #define LAYER_TOGGLE_DELAY 300
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_QWERTY] = { /*QWERTY*/
 	{KC_ESC,    KC_Q,      KC_W,    KC_E,    KC_R,    KC_T,      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC },

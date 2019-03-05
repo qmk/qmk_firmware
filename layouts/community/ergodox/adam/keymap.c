@@ -11,9 +11,6 @@
 #define SFLOCK 11 // symbols arrows and F keys on F held down
 #define SJLOCK 12 // same as Flock but with fall thru J and mapped to J held down
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Sends macro when key is tapped, presses mod when key is held
 #define tap_mod_macro(record, mod, macro) ( ((record)->event.pressed) ? \
      ( ((record)->tap.count <= 0 || (record)->tap.interrupted) ? MACRO(D(mod), END) : MACRO_NONE ) : \

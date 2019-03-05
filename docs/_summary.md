@@ -60,6 +60,7 @@
   * [Key Lock](feature_key_lock.md)
   * [Layouts](feature_layouts.md)
   * [Leader Key](feature_leader_key.md)
+  * [LED Matrix](feature_led_matrix.md)
   * [Macros](feature_macros.md)
   * [Mouse Keys](feature_mouse_keys.md)
   * [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
@@ -76,6 +77,7 @@
   * [Thermal Printer](feature_thermal_printer.md)
   * [Unicode](feature_unicode.md)
   * [Userspace](feature_userspace.md)
+  * [Velocikey](feature_velocikey.md)
 
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
