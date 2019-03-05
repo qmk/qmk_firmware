@@ -94,71 +94,85 @@ void raw_hid_receive( uint8_t *data, uint8_t length )
 		}
 		case id_get_keyboard_value:
 		{
-			if ( command_data[0] == id_uptime )
-			{
-				uint32_t value = timer_read32();
-				command_data[1] = (value >> 24 ) & 0xFF;
-				command_data[2] = (value >> 16 ) & 0xFF;
-				command_data[3] = (value >> 8 ) & 0xFF;
-				command_data[4] = value & 0xFF;
-			}
-      else if ( command_data[0] == id_oled_default_mode )
-			{
-        uint8_t default_oled = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED);
-        command_data[1] = default_oled;
-      }
-      else if ( command_data[0] == id_oled_mode )
-			{
-        command_data[1] = oled_mode;
-      }
+      switch( command_data[0])
+      {
+        case id_uptime:
+        {
+          uint32_t value = timer_read32();
+          command_data[1] = (value >> 24 ) & 0xFF;
+          command_data[2] = (value >> 16 ) & 0xFF;
+          command_data[3] = (value >> 8 ) & 0xFF;
+          command_data[4] = value & 0xFF;
+          break;
+        }
+        case id_oled_default_mode:
+        {
+          uint8_t default_oled = eeprom_read_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED);
+          command_data[1] = default_oled;
+          break;
+        }
+        case id_oled_mode:
+        {
+          command_data[1] = oled_mode;
+          break;
 
-      else if ( command_data[0] == id_encoder_modes )
-			{
-        command_data[1] = enabled_encoder_modes;
+        }
+        case id_encoder_modes:
+        {
+          command_data[1] = enabled_encoder_modes;
+          break;
+        }
+        case id_encoder_custom:
+        {
+          // uint8_t custom_encoder_idx = command_data[1];
+          // command_data[2] = 0x00;
+          // command_data[3] = 0x00;
+          // command_data[4] = 0x00;
+          // command_data[5] = 0x00;
+          // command_data[6] = 0x00;
+          // command_data[7] = 0x00;
+          break;
+        }
+        default:
+        {
+          *command_id = id_unhandled;
+          break;
+        }
       }
-      else if ( command_data[0] == id_encoder_custom )
-			{
-        // uint8_t custom_encoder_idx = command_data[1];
-        // command_data[2] = 0x00;
-        // command_data[3] = 0x00;
-        // command_data[4] = 0x00;
-				// command_data[5] = 0x00;
-				// command_data[6] = 0x00;
-				// command_data[7] = 0x00;
-      }
-			else
-			{
-				*command_id = id_unhandled;
-			}
 			break;
     }
 #ifdef DYNAMIC_KEYMAP_ENABLE
     case id_set_keyboard_value:
     {
-      if ( command_data[0] == id_oled_default_mode )
-			{
-        eeprom_update_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED, command_data[1]);
+      switch(command_data[0]){
+        case id_oled_default_mode:
+        {
+          eeprom_update_byte((uint8_t*)DYNAMIC_KEYMAP_DEFAULT_OLED, command_data[1]);
+          break;
+        }
+        case id_oled_mode:
+        {
+          oled_mode = command_data[1];
+          draw_ui();
+          break;
+        }
+        case id_encoder_modes:
+        {
+          enabled_encoder_modes = command_data[1];
+          eeprom_update_byte((uint8_t*)DYNAMIC_KEYMAP_ENABLED_ENCODER_MODES, enabled_encoder_modes);
+          break;
+        }
+        case id_encoder_custom:
+        {
+          // uint8_t custom_encoder_idx = command_data[1];
+          break;
+        }
+        default:
+        {
+          *command_id = id_unhandled;
+          break;
+        }
       }
-      if ( command_data[0] == id_oled_mode )
-			{
-        oled_mode = command_data[1];
-        draw_ui();
-      }
-
-      else if ( command_data[0] == id_encoder_modes )
-			{
-        enabled_encoder_modes = command_data[1];
-        eeprom_update_byte((uint8_t*)DYNAMIC_KEYMAP_ENABLED_ENCODER_MODES, enabled_encoder_modes);
-      }
-      else if ( command_data[0] == id_encoder_custom )
-			{
-        // uint8_t custom_encoder_idx = command_data[1];
-      }
-      else
-			{
-				*command_id = id_unhandled;
-			}
-
       break;
     }
 		case id_dynamic_keymap_get_keycode:
