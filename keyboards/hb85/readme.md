@@ -4,9 +4,9 @@
 
 A HitBit MSX Computer inspired Keyboard.
 
-Keyboard Maintainer: [Felipe Coury](https://github.com/fcoury)
-Hardware Supported: Gray Studio HB85
-Hardware Availability: Group buy finished
+Keyboard Maintainer: [Felipe Coury](https://github.com/fcoury)  
+Hardware Supported: Gray Studio HB85  
+Hardware Availability: Group buy finished  
 
 Make example for this keyboard (after setting up your build environment):
 
