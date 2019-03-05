@@ -68,7 +68,7 @@ Winモードでは、該当のキーはどちらも共に Alt + `（日本語IME
 | ---- | ---- | --- |
 |オン／オフ|Adjust + e(Qwerty)|RGB_TOG|
 |      |Adjust + i(Qwerty)|       |
-|モード切り替え|Adjust + d(Qwerty) |RGB_SMOD|
+|モード切り替え|Adjust + d(Qwerty) |RGB_MOD|
 |           |Adjust + k(Qwerty)|       |
 |色相 +|Adjust + Left Control|RGB_HUI|
 |     |Adjust + Right Control|       |

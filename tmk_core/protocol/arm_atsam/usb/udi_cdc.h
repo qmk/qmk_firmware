@@ -365,6 +365,7 @@ extern inbuf_t inbuf;
 #endif //CDC
 
 uint32_t CDC_print(char *printbuf);
+int CDC_printf(const char *_Format, ...);
 uint32_t CDC_input(void);
 void CDC_init(void);
 

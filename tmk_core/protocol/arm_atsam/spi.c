@@ -17,73 +17,70 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "arm_atsam_protocol.h"
 
-Srdata_t srdata;
+sr_exp_t sr_exp_data;
 
-void SPI_WriteSRData(void)
+void SR_EXP_WriteData(void)
 {
-    uint16_t timeout;
+    SR_EXP_RCLK_LO;
 
-    SC2_RCLCK_LO;
+    while (!(SR_EXP_SERCOM->SPI.INTFLAG.bit.DRE)) { DBGC(DC_SPI_WRITE_DRE); }
 
-    timeout = 50000;
-    while (!(SCSPI->SPI.INTFLAG.bit.DRE) && --timeout) { DBGC(DC_SPI_WRITE_DRE); }
+    SR_EXP_SERCOM->SPI.DATA.bit.DATA = sr_exp_data.reg & 0xFF; //Shift in bits 7-0
+    while (!(SR_EXP_SERCOM->SPI.INTFLAG.bit.TXC)) { DBGC(DC_SPI_WRITE_TXC_1); }
 
-    SCSPI->SPI.DATA.bit.DATA = srdata.reg & 0xFF; //Shift in bits 7-0
-    timeout = 50000;
-    while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout) { DBGC(DC_SPI_WRITE_TXC_1); }
+    SR_EXP_SERCOM->SPI.DATA.bit.DATA = (sr_exp_data.reg >> 8) & 0xFF; //Shift in bits 15-8
+    while (!(SR_EXP_SERCOM->SPI.INTFLAG.bit.TXC)) { DBGC(DC_SPI_WRITE_TXC_2); }
 
-    SCSPI->SPI.DATA.bit.DATA = (srdata.reg >> 8) & 0xFF; //Shift in bits 15-8
-    timeout = 50000;
-    while (!(SCSPI->SPI.INTFLAG.bit.TXC) && --timeout) { DBGC(DC_SPI_WRITE_TXC_2); }
-
-    SC2_RCLCK_HI;
+    SR_EXP_RCLK_HI;
 }
 
-void SPI_Init(void)
+void SR_EXP_Init(void)
 {
-    uint32_t timeout;
-
     DBGC(DC_SPI_INIT_BEGIN);
 
     CLK_set_spi_freq(CHAN_SERCOM_SPI, FREQ_SPI_DEFAULT);
 
-    PORT->Group[0].PMUX[6].bit.PMUXE = 2;
-    PORT->Group[0].PMUX[6].bit.PMUXO = 2;
-    PORT->Group[0].PINCFG[12].bit.PMUXEN = 1;
-    PORT->Group[0].PINCFG[13].bit.PMUXEN = 1;
+    //Set up MCU Shift Register pins
+    PORT->Group[SR_EXP_RCLK_PORT].DIRSET.reg = (1 << SR_EXP_RCLK_PIN);
+    PORT->Group[SR_EXP_OE_N_PORT].DIRSET.reg = (1 << SR_EXP_OE_N_PIN);
+    
+    //Set up MCU SPI pins
+    PORT->Group[SR_EXP_DATAOUT_PORT].PMUX[SR_EXP_DATAOUT_PIN / 2].bit.SR_EXP_DATAOUT_MUX_SEL = SR_EXP_DATAOUT_MUX; //MUX select for sercom
+    PORT->Group[SR_EXP_SCLK_PORT].PMUX[SR_EXP_SCLK_PIN / 2].bit.SR_EXP_SCLK_MUX_SEL = SR_EXP_SCLK_MUX; //MUX select for sercom
+    PORT->Group[SR_EXP_DATAOUT_PORT].PINCFG[SR_EXP_DATAOUT_PIN].bit.PMUXEN = 1; //MUX Enable
+    PORT->Group[SR_EXP_SCLK_PORT].PINCFG[SR_EXP_SCLK_PIN].bit.PMUXEN = 1; //MUX Enable
 
-    //Configure Shift Registers
-    SC2_DIRSET;
-    SC2_RCLCK_HI;
-    SC2_OE_DIS;
+    //Initialize Shift Register
+    SR_EXP_OE_N_DIS;
+    SR_EXP_RCLK_HI;
 
-    SCSPI->SPI.CTRLA.bit.DORD = 1;
-    SCSPI->SPI.CTRLA.bit.CPOL = 1;
-    SCSPI->SPI.CTRLA.bit.CPHA = 1;
-    SCSPI->SPI.CTRLA.bit.DIPO = 3;
-    SCSPI->SPI.CTRLA.bit.MODE = 3; //master
+    SR_EXP_SERCOM->SPI.CTRLA.bit.DORD = 1; //Data Order - LSB is transferred first
+    SR_EXP_SERCOM->SPI.CTRLA.bit.CPOL = 1; //Clock Polarity - SCK high when idle. Leading edge of cycle is falling. Trailing rising.
+    SR_EXP_SERCOM->SPI.CTRLA.bit.CPHA = 1; //Clock Phase - Leading Edge Falling, change, Trailing Edge - Rising, sample
+    SR_EXP_SERCOM->SPI.CTRLA.bit.DIPO = 3; //Data In Pinout - SERCOM PAD[3] is used as data input (Configure away from DOPO. Not using input.)
+    SR_EXP_SERCOM->SPI.CTRLA.bit.DOPO = 0; //Data Output PAD[0], Serial Clock PAD[1]
+    SR_EXP_SERCOM->SPI.CTRLA.bit.MODE = 3; //Operating Mode - Master operation
 
-    SCSPI->SPI.CTRLA.bit.ENABLE = 1;
-    timeout = 50000;
-    while (SCSPI->SPI.SYNCBUSY.bit.ENABLE && timeout--) { DBGC(DC_SPI_SYNC_ENABLING); }
+    SR_EXP_SERCOM->SPI.CTRLA.bit.ENABLE = 1; //Enable - Peripheral is enabled or being enabled
+    while (SR_EXP_SERCOM->SPI.SYNCBUSY.bit.ENABLE) { DBGC(DC_SPI_SYNC_ENABLING); }
 
-    srdata.reg = 0;
-    srdata.bit.HUB_CONNECT = 0;
-    srdata.bit.HUB_RESET_N = 0;
-    srdata.bit.S_UP = 0;
-    srdata.bit.E_UP_N = 1;
-    srdata.bit.S_DN1 = 1;
-    srdata.bit.E_DN1_N = 1;
-    srdata.bit.E_VBUS_1 = 0;
-    srdata.bit.E_VBUS_2 = 0;
-    srdata.bit.SRC_1 = 1;
-    srdata.bit.SRC_2 = 1;
-    srdata.bit.IRST = 1;
-    srdata.bit.SDB_N = 0;
-    SPI_WriteSRData();
+    sr_exp_data.reg = 0;
+    sr_exp_data.bit.HUB_CONNECT = 0;
+    sr_exp_data.bit.HUB_RESET_N = 0;
+    sr_exp_data.bit.S_UP = 0;
+    sr_exp_data.bit.E_UP_N = 1;
+    sr_exp_data.bit.S_DN1 = 1;
+    sr_exp_data.bit.E_DN1_N = 1;
+    sr_exp_data.bit.E_VBUS_1 = 0;
+    sr_exp_data.bit.E_VBUS_2 = 0;
+    sr_exp_data.bit.SRC_1 = 1;
+    sr_exp_data.bit.SRC_2 = 1;
+    sr_exp_data.bit.IRST = 1;
+    sr_exp_data.bit.SDB_N = 0;
+    SR_EXP_WriteData();
 
-    //Enable register output
-    SC2_OE_ENA;
+    //Enable Shift Register output
+    SR_EXP_OE_N_ENA;
 
     DBGC(DC_SPI_INIT_COMPLETE);
 }

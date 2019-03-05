@@ -45,6 +45,7 @@ FLASH_Status FLASH_ProgramHalfWord(uint32_t Address, uint16_t Data);
 
 void FLASH_Unlock(void);
 void FLASH_Lock(void);
+void FLASH_ClearFlag(uint32_t FLASH_FLAG);
 
 #ifdef __cplusplus
 }
