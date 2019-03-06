@@ -44,16 +44,31 @@ void matrix_scan_user(void) {
 }
 
 void backlight_init_ports(void) {
-	DDRD |= (1<<0 | 1<<1 | 1<<4 | 1<<6);
-	PORTD &= ~(1<<0 | 1<<1 | 1<<4 | 1<<6);
+    // initialize pins D0, D1, D4 and D6 as output
+    setPinOutput(D0);
+    setPinOutput(D1);
+    setPinOutput(D4);
+    setPinOutput(D6);
+
+    // turn RGB LEDs on
+    writePinHigh(D0);
+    writePinHigh(D1);
+    writePinHigh(D4);
+    writePinHigh(D6);
 }
 
 void backlight_set(uint8_t level) {
 	if (level == 0) {
-		// Turn out the lights
-		PORTD &= ~(1<<0 | 1<<1 | 1<<4 | 1<<6);
+        // turn RGB LEDs off
+        writePinLow(D0);
+        writePinLow(D1);
+        writePinLow(D4);
+        writePinLow(D6);
 	} else {
-		// Turn on the lights
-		PORTD |= (1<<0 | 1<<1 | 1<<4 | 1<<6);
+        // turn RGB LEDs on
+        writePinHigh(D0);
+        writePinHigh(D1);
+        writePinHigh(D4);
+        writePinHigh(D6);
 	}
 }
