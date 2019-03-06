@@ -12,12 +12,9 @@ bool process_record_secrets(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
 
-float clicky_sound[][2] = SONG(COIN_SOUND);
-
 // Defines actions tor my global custom keycodes. Defined in drashna.h file
 // Then runs the _keymap's record handier if not processed here
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) { PLAY_SONG( clicky_sound ); }
 
   // If console is enabled, it will print the matrix position and status of each key pressed
 #ifdef KEYLOGGER_ENABLE
