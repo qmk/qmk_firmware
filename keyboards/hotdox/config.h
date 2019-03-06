@@ -1,4 +1,4 @@
-#ifndef ERGODOX_HOTDOX_CONFIG_H
+#pragma once
 #define ERGODOX_HOTDOX_CONFIG_H
 
 #include "config_common.h"
