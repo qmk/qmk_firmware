@@ -353,11 +353,11 @@ Below your `LAYOUT`, define each of the tapdance functions:
 // determine the tapdance state to return
 int cur_dance (qk_tap_dance_state_t *state) {
   if (state->count == 1) {
-    if (state->interrupted || !state->pressed) return SINGLE_TAP;
-    else return SINGLE_HOLD;
+    if (state->interrupted || !state->pressed) { return SINGLE_TAP; }
+    else { return SINGLE_HOLD; }
   }
-  if (state->count == 2) return DOUBLE_SINGLE_TAP;
-  else return 3; // any number higher than the maximum state value you return above
+  if (state->count == 2) { return DOUBLE_SINGLE_TAP; }
+  else { return 3; } // any number higher than the maximum state value you return above
 }
  
 // handle the possible states for each tapdance keycode you define:
