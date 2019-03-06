@@ -88,7 +88,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_ALTERNATING
 #endif
 
-#define AUDIO_C6
+#define C6_AUDIO
+#define AUDIO_CLICKY
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
