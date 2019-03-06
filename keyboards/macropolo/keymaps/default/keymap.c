@@ -119,13 +119,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     | Mute      |           | RGB       | RGB Value |
     |           |           | Toggle    | Increase  |
     |-----------+-----------+-----------+-----------|
-    | RGB       |           |           | RGB Value |
-    | Hue-      |           |           | Decrease  |
+    | Login     |           |           | RGB Value |
+    | Macro     |           | Decrease  |
     `-----------'-----------'-----------'-----------'*/
     [_MED] = LAYOUT( /* Media Control */
       KC_MPLY, KC_MSTP,  KC_MEDIA_SELECT, TG(_MED),  \
       KC_AUDIO_MUTE,  KC_NO, RGB_TOG, RGB_VAI, \
-      KC_NO, KC_NO, KC_NO, RGB_VAD \
+      LOGIN, KC_NO, KC_NO, RGB_VAD \
     ),
   /*                          .-------.   .-------.
     .-----------.-----------./>PageUp  \./>Wh Up   \.
