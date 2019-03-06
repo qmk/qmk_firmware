@@ -23,6 +23,7 @@
 #define _MED 5
 #define _MINE 6
 #define _OSU 7
+#define _MU 8
 //keycode defs
 
 
@@ -32,7 +33,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |           |           ||<NO      |||<NO      ||
   |           |           |\         /|\ Select  /|
   |-----------+-----------+-----------+-----------|
-  | Media     | Minecraft |           |           |
+  | Media     | Minecraft | Osu!      | Music     |
   |           |           |           |           |
   |-----------+-----------+-----------+-----------|
   | Premiere  | Photoshop | KiCad     | None      |
@@ -40,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   `-----------'-----------'-----------'-----------'*/
   [_PICK] = LAYOUT( /* Layer Select */
     KC_NO, KC_NO, KC_NO, KC_TRNS, \
-    TO(_MED), TO(_MINE), TO(_OSU), KC_NO, \
+    TO(_MED), TO(_MINE), TO(_OSU), TO(_MU), \
     TO(_PREM), TO(_PS), TO(_KICAD), TO(_CODE) \
   ),
 /*                          .-------.   .-------.
@@ -125,8 +126,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
   /*                          .-------.   .-------.
     .-----------.-----------./>PageUp  \./>Wh Up   \.
-    |           |           ||<PageDown|||<Wh Down ||
-    |           |           |\ F2      /|\         /|
+    | E         | Tab       ||<PageDown|||<Wh Down ||
+    |           |           |\ F3      /|\         /|
     |-----------+-----------+-----------+-----------|
     |           |           |           |           |
     |           |           |           |           |
@@ -141,19 +142,35 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 /*                          .-------.   .-------.
   .-----------.-----------./>PageUp  \./>Wh Up   \.
-  |           |           ||<PageDown|||<Wh Down ||
-  |           |           |\ F2      /|\         /|
+  | Esc       |           ||<PageDown|||<Wh Down ||
+  |           |           |\ F3      /|\         /|
   |-----------+-----------+-----------+-----------|
   |           |           |           |           |
   |           |           |           |           |
   |-----------+-----------+-----------+-----------|
-  |           |           |           |           |
+  | G         | H         | J         | K         |
   |           |           |           |           |
   `-----------'-----------'-----------'-----------'*/
   [_OSU] = LAYOUT( /* Osu! */
-    KC_ESC, KC_MSTP,  KC_F3, TG(_MINE),  \
+    KC_ESC, KC_MSTP,  KC_F3, TG(_OSU),  \
     KC_NO, KC_NO, KC_NO, KC_NO, \
     KC_G, KC_H, KC_J, KC_K \
+  ),
+/*                          .-------.   .-------.
+  .-----------.-----------./>PageUp  \./>Wh Up   \.
+  | Clicky    | Music     ||<PageDown|||<Wh Down ||
+  | Toggle    | On        |\ AU_TOG  /|\         /|
+  |-----------+-----------+-----------+-----------|
+  | Clicky    | Music     | Audio     |           |
+  | Up        | Off       | On        |           |
+  |-----------+-----------+-----------+-----------|
+  | Clicky    | Clicky    | Audio     |           |
+  | Down      | Reset     | Off       |           |
+  `-----------'-----------'-----------'-----------'*/
+    [_MU] = LAYOUT( /* Audio */
+    CK_TOGG, MU_ON, AU_TOG, TG(_MU),  \
+    CK_UP, MU_OFF, AU_ON, KC_NO, \
+    CK_DOWN, CK_RST, AU_OFF, KC_NO \
   ),
 };
 
@@ -169,6 +186,9 @@ if (index == 0) {
         break;
       case _MED:
         clockwise ? tap_code(KC_AUDIO_VOL_UP) : tap_code(KC_AUDIO_VOL_DOWN);
+        break;
+      case _MU:
+        clockwise ? tap_code(KC_NO) : tap_code(KC_NO);
         break;
       default:
         clockwise ? tap_code(KC_UP) : tap_code(KC_DOWN);
@@ -188,6 +208,9 @@ else if (index == 1) {
         break;
       case _PS:
         clockwise ? tap_code(KC_MS_WH_UP) : tap_code(KC_MS_WH_DOWN);
+        break;
+      case _MU:
+        clockwise ? tap_code(KC_NO) : tap_code(KC_NO);
         break;
       default:
         clockwise ? tap_code(KC_RIGHT) : tap_code(KC_LEFT);
@@ -223,6 +246,10 @@ uint32_t layer_state_set_user(uint32_t state) {
         break;
     case _OSU:
         rgblight_sethsv_at (300,255,255,6);
+        break;
+    case _MU:
+        rgblight_sethsv_at (110,160,255,1);
+        rgblight_sethsv_at (110,160,255,2);
         break;
     default: //  for any other layers, or the default layer
         rgblight_sethsv (0,0,100);
