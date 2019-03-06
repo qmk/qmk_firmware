@@ -56,11 +56,23 @@ typedef struct
 	uint8_t index;
 } rgb_indicator;
 
+typedef enum {
+  RGB_ZONE_OFF = 0,
+  RGB_ZONE_ALL,
+  RGB_ZONE_KEYS,
+  RGB_ZONE_UNDER,
+} rgb_zone_t;
+
 typedef union {
   uint32_t raw;
   struct {
-    bool     enable  :1;
+#ifdef RGB_MATRIX_EXTRA_TOG
+    uint8_t  enable  :2;
+    uint8_t  mode    :5;
+#else
+    uint8_t  enable  :1;
     uint8_t  mode    :6;
+#endif
     uint16_t hue     :9;
     uint8_t  sat     :8;
     uint8_t  val     :8;
@@ -105,6 +117,9 @@ enum rgb_matrix_effects {
 #endif
 #ifndef DISABLE_RGB_MATRIX_DIGITAL_RAIN
     RGB_MATRIX_DIGITAL_RAIN,
+#endif
+#ifndef DISABLE_RGB_MATRIX_BREATHING
+    RGB_MATRIX_BREATHING,
 #endif
 #ifdef RGB_MATRIX_KEYPRESSES
    #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
@@ -219,5 +234,7 @@ typedef struct {
 } rgb_matrix_driver_t;
 
 extern const rgb_matrix_driver_t rgb_matrix_driver;
+
+extern rgb_config_t rgb_matrix_config;
 
 #endif

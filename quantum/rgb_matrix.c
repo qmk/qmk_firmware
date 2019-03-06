@@ -107,6 +107,7 @@ void eeconfig_debug_rgb_matrix(void) {
 
 // Last led hit
 #define LED_HITS_TO_REMEMBER 8
+#define MAX_SEARCH_LEDS 8
 uint8_t g_last_led_hit[LED_HITS_TO_REMEMBER] = {255};
 uint8_t g_last_led_count = 0;
 
@@ -114,7 +115,7 @@ void map_row_column_to_led( uint8_t row, uint8_t column, uint8_t *led_i, uint8_t
     rgb_led led;
     *led_count = 0;
 
-    for (uint8_t i = 0; i < DRIVER_LED_TOTAL; i++) {
+    for (uint8_t i = 0; i < DRIVER_LED_TOTAL && *led_count < MAX_SEARCH_LEDS; i++) {
         // map_index_to_led(i, &led);
         led = g_rgb_leds[i];
         if (row == led.matrix_co.row && column == led.matrix_co.col) {
@@ -129,11 +130,28 @@ void rgb_matrix_update_pwm_buffers(void) {
 }
 
 void rgb_matrix_set_color( int index, uint8_t red, uint8_t green, uint8_t blue ) {
+#ifdef RGB_MATRIX_EXTRA_TOG
+    const bool is_key = g_rgb_leds[index].matrix_co.raw != 0xff;
+    if (
+        (rgb_matrix_config.enable == RGB_ZONE_KEYS && !is_key) ||
+        (rgb_matrix_config.enable == RGB_ZONE_UNDER && is_key)
+    ) {
+        rgb_matrix_driver.set_color(index, 0, 0, 0);
+        return;
+    }
+#endif
+
     rgb_matrix_driver.set_color(index, red, green, blue);
 }
 
 void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
+#ifdef RGB_MATRIX_EXTRA_TOG
+    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+        rgb_matrix_set_color(i, red, green, blue);
+    }
+#else
     rgb_matrix_driver.set_color_all(red, green, blue);
+#endif
 }
 
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
@@ -341,6 +359,8 @@ void rgb_matrix_cycle_all(void) {
             HSV hsv = { .h = offset+offset2, .s = 255, .v = rgb_matrix_config.val };
             RGB rgb = hsv_to_rgb( hsv );
             rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
+        } else {
+            rgb_matrix_set_color( i, 0, 0, 0 );
         }
     }
 }
@@ -365,6 +385,8 @@ void rgb_matrix_cycle_left_right(void) {
             hsv.h = point.x + offset + offset2;
             rgb = hsv_to_rgb( hsv );
             rgb_matrix_set_color( i, rgb.r, rgb.g, rgb.b );
+        } else {
+            rgb_matrix_set_color( i, 0, 0, 0 );
         }
     }
 }
@@ -537,6 +559,22 @@ void rgb_matrix_digital_rain( const bool initialize ) {
             }
         }
     }
+}
+
+void rgb_matrix_breathing(void) {
+    uint8_t offset = ( g_tick << rgb_matrix_config.speed ) & 0xFF;
+    uint8_t breathing_step = offset << 1; // Going up
+    if (offset >> 7) breathing_step = 0xFF - breathing_step; // Going down
+    float f_step = (float)breathing_step;
+    float f_ratio = (f_step * f_step) / (255.f * 255.f);
+    float v = (float)rgb_matrix_config.val * f_ratio;
+    HSV hsv = {
+        .h = rgb_matrix_config.hue,
+        .s = rgb_matrix_config.sat,
+        .v = (uint8_t)v,
+    };
+    RGB rgb = hsv_to_rgb(hsv);
+    rgb_matrix_set_color_all(rgb.r, rgb.g, rgb.b);
 }
 
 void rgb_matrix_multisplash(void) {
@@ -749,6 +787,11 @@ void rgb_matrix_task(void) {
                 rgb_matrix_digital_rain( initialize );
                 break;
         #endif
+        #ifndef DISABLE_RGB_MATRIX_BREATHING
+            case RGB_MATRIX_BREATHING:
+                rgb_matrix_breathing();
+                break;
+        #endif
         #ifdef RGB_MATRIX_KEYPRESSES
             #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
                 case RGB_MATRIX_SOLID_REACTIVE:
@@ -888,7 +931,7 @@ uint32_t rgb_matrix_get_tick(void) {
 }
 
 void rgb_matrix_toggle(void) {
-	rgb_matrix_config.enable ^= 1;
+    rgb_matrix_config.enable++;
     eeconfig_update_rgb_matrix(rgb_matrix_config.raw);
 }
 
