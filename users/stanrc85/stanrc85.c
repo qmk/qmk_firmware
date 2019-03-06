@@ -15,16 +15,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       clear_oneshot_mods();
       send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), 10);
         if (temp_mod & MODS_SHIFT_MASK || temp_osm & MODS_SHIFT_MASK ) {
+          //RESET board for flashing if SHIFT held or tapped with KC_MAKE
           #if defined(__arm__)
             send_string_with_delay_P(PSTR(":dfu-util"), 10);
             wait_ms(100);
-            tap_code(RESET);
+            reset_keyboard();
           #elif defined(BOOTLOADER_DFU)
             send_string_with_delay_P(PSTR(":dfu"), 10);
           #elif defined(BOOTLOADER_HALFKAY)
             send_string_with_delay_P(PSTR(":teensy"), 10);
           #elif defined(BOOTLOADER_CATERINA)
             send_string_with_delay_P(PSTR(":avrdude"), 10);
+          #else
+            reset_keyboard();
           #endif // bootloader options
         }
         if (temp_mod & MODS_CTRL_MASK || temp_osm & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
