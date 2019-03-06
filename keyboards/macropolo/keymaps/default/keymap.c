@@ -248,8 +248,7 @@ uint32_t layer_state_set_user(uint32_t state) {
         rgblight_sethsv_at (300,255,255,6);
         break;
     case _MU:
-        rgblight_sethsv_at (110,160,255,1);
-        rgblight_sethsv_at (110,160,255,2);
+        rgblight_sethsv_range (270,230,255,0,2);
         break;
     default: //  for any other layers, or the default layer
         rgblight_sethsv (0,0,100);
