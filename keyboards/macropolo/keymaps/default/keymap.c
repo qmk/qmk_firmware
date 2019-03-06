@@ -40,7 +40,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   `-----------'-----------'-----------'-----------'*/
   [_PICK] = LAYOUT( /* Layer Select */
     KC_NO, KC_NO, KC_NO, KC_TRNS, \
-    TO(_MED), TO(_MINE), KC_NO, KC_NO, \
+    TO(_MED), TO(_MINE), TO(_OSU), KC_NO, \
     TO(_PREM), TO(_PS), TO(_KICAD), TO(_CODE) \
   ),
 /*                          .-------.   .-------.
@@ -134,10 +134,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |           |           |           |           |
     |           |           |           |           |
     `-----------'-----------'-----------'-----------'*/
-    [_MINE] = LAYOUT( /* Media Control */
-      KC_MPLY, KC_MSTP,  KC_F3, TG(_MINE),  \
-      KC_AUDIO_MUTE,  KC_NO, RGB_TOG, RGB_VAI, \
-      KC_NO, KC_NO, KC_NO, RGB_VAD \
+    [_MINE] = LAYOUT( /* Minecraft */
+      KC_E, KC_TAB,  KC_F3, TG(_MINE),  \
+      KC_NO, KC_NO, KC_NO, KC_NO, \
+      KC_NO, KC_NO, KC_NO, KC_NO \
     ),
 /*                          .-------.   .-------.
   .-----------.-----------./>PageUp  \./>Wh Up   \.
@@ -150,10 +150,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   |           |           |           |           |
   |           |           |           |           |
   `-----------'-----------'-----------'-----------'*/
-  [_OSU] = LAYOUT( /* Media Control */
-    KC_MPLY, KC_MSTP,  KC_F3, TG(_MINE),  \
-    KC_AUDIO_MUTE,  KC_NO, RGB_TOG, RGB_VAI, \
-    KC_NO, KC_NO, KC_NO, RGB_VAD \
+  [_OSU] = LAYOUT( /* Osu! */
+    KC_ESC, KC_MSTP,  KC_F3, TG(_MINE),  \
+    KC_NO, KC_NO, KC_NO, KC_NO, \
+    KC_G, KC_H, KC_J, KC_K \
   ),
 };
 
