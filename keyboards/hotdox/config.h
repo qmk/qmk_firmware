@@ -80,4 +80,3 @@
 //#define NO_ACTION_FUNCTION
 #define DEBUG_MATRIX_SCAN_RATE
 
-#endif
