@@ -5,7 +5,7 @@
 
 #undef TAPPING_FORCE_HOLD
 #undef TAPPING_TERM
-#define TAPPING_TERM 180
+#define TAPPING_TERM 300
 #define IGNORE_MOD_TAP_INTERRUPT
 
 // If you need more program area, try select and reduce rgblight modes to use.

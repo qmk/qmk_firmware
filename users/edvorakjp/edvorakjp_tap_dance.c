@@ -66,6 +66,8 @@ void td_raise_reset(qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_LOWER] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_lower_finished, td_lower_reset),
-  [TD_RAISE] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, td_raise_finished, td_raise_reset)
+  [TD_LOWER] =
+    ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_lower_finished, td_lower_reset, 100),
+  [TD_RAISE] =
+    ACTION_TAP_DANCE_FN_ADVANCED_TIME(NULL, td_raise_finished, td_raise_reset, 100)
 };

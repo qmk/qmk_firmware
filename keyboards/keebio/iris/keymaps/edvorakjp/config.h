@@ -12,7 +12,7 @@
 // #define EE_HANDS
 
 #define SWAP_SCLN
-#define TAPPING_TERM 180
+#define TAPPING_TERM 300
 #define IGNORE_MOD_TAP_INTERRUPT
 
 #undef RGBLED_NUM
