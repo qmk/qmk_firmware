@@ -3,7 +3,7 @@
 60% keyboard with RGB underglow and backlights
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: MK60 
+Hardware Supported: MK60  
 Hardware Availability: The MK60 was discontinued by [mechkeys.ca](https://mechkeys.ca/)
 
 Make example for this keyboard (after setting up your build environment):
