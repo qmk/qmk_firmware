@@ -181,7 +181,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case LOGIN:
       if (record->event.pressed) {
-        SEND_STRING("43110" SS_TAP(X_ENTER));
+        SEND_STRING("password" SS_TAP(X_ENTER));
       } else {
       }
       break;
