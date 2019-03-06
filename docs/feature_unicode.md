@@ -71,7 +71,7 @@ The following input modes are available:
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_OSX`](#input-key-configuration) with another keycode.
 
-  **Note:** Using the _Unicode Hex Input_ input source may disable some Option based shortcuts, such as: Option + Left Arrow (`moveWordLeftAndModifySelection`) and Option + Right Arrow  (`moveWordRightAndModifySelection`).
+  !> Using the _Unicode Hex Input_ input source may disable some Option based shortcuts, such as Option + Left Arrow and Option + Right Arrow.
 
 * **`UC_LNX`**: Linux built-in IBus Unicode input. Supports code points up to `0x10FFFF` (all possible code points).
 
@@ -80,7 +80,7 @@ The following input modes are available:
 
 * **`UC_WIN`**: _(not recommended)_ Windows built-in hex numpad Unicode input. Supports code points up to `0xFFFF`.
 
-  To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Afterwards, reboot.
+  To enable, create a registry key under `HKEY_CURRENT_USER\Control Panel\Input Method\EnableHexNumpad` of type `REG_SZ` called `EnableHexNumpad` and set its value to `1`. This can be done from the Command Prompt by running `reg add "HKCU\Control Panel\Input Method" -v EnableHexNumpad -t REG_SZ -d 1` with administrator privileges. Reboot afterwards.
   This mode is not recommended because of reliability and compatibility issues; use the `UC_WINC` mode instead.
 
 * **`UC_BSD`**: _(non implemented)_ Unicode input under BSD. Not implemented at this time. If you're a BSD user and want to help add support for it, please [open an issue on GitHub](https://github.com/qmk/qmk_firmware/issues).
@@ -96,15 +96,15 @@ There are two ways to set the input mode for Unicode: by keycode or by function.
 
 You can switch the input mode at any time by using one of the following keycodes. The easiest way is to add the ones you use to your keymap.
 
-|Keycode                |Alias    |Input mode   |Description                              |
-|-----------------------|---------|-------------|-----------------------------------------|
-|`UNICODE_MODE_FORWARD` |`UC_MOD` |             |Cycles forwards through the available modes. [(Disabled by default)](#input-method-cycling)|
-|`UNICODE_MODE_REVERSE` |`UC_RMOD`|             |Cycles forwards through the available modes. [(Disabled by default)](#input-method-cycling)|
-|`UNICODE_MODE_OSX`     |`UC_M_OS`|`UC_OSX`     |Switch to Mac OS X input.                |
-|`UNICODE_MODE_LNX`     |`UC_M_LN`|`UC_LNX`     |Switch to Linux input.                   |
-|`UNICODE_MODE_WIN`     |`UC_M_WI`|`UC_WIN`     |Switch to Windows input.                 |
-|`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented).   |
-|`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose.|
+|Keycode                |Alias    |Input Mode   |Description                                                     |
+|-----------------------|---------|-------------|----------------------------------------------------------------|
+|`UNICODE_MODE_FORWARD` |`UC_MOD` |             |Cycle through [selected](#input-method-cycling) modes           |
+|`UNICODE_MODE_REVERSE` |`UC_RMOD`|             |Cycle through [selected](#input-method-cycling) modes in reverse|
+|`UNICODE_MODE_OSX`     |`UC_M_OS`|`UC_OSX`     |Switch to Mac OS X input                                        |
+|`UNICODE_MODE_LNX`     |`UC_M_LN`|`UC_LNX`     |Switch to Linux input                                           |
+|`UNICODE_MODE_WIN`     |`UC_M_WI`|`UC_WIN`     |Switch to Windows input                                         |
+|`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented)                           |
+|`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose                        |
 
 You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user` (or a similar function). For example:
 
@@ -132,7 +132,7 @@ For instance, you can add these definitions to your `config.h` file:
 
 Because Unicode is such a large and variable feature, there are a number of options that you can customize to work better on your system.
 
-#### Start and Finish input functions
+#### Start and Finish Input Functions
 
 The functions for starting and finishing Unicode input on your platform can be overridden locally. Possible uses include customizing input mode behavior if you don't use the default keys, or adding extra visual/audio feedback to Unicode input.
 
@@ -141,16 +141,15 @@ The functions for starting and finishing Unicode input on your platform can be o
 
 You can find the default implementations of these functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
 
-
 #### Input Key Configuration
 
-You can customize the keys used to trigger Unicode input for Mac, Linux and WinCompose by adding defines to your `config.h`. For example:
+You can customize the keys used to trigger Unicode input for Mac, Linux and WinCompose by adding corresponding defines to your `config.h`. The default values match the platforms' default settings, so you shouldn't need to change this unless Unicode input isn't working, or you want to use a different key (e.g. in order to free up left or right Alt).
 
-```c
-#define UNICODE_KEY_OSX  KC_RALT
-#define UNICODE_KEY_LNX  LCTL(LSFT(KC_E))
-#define UNICODE_KEY_WINC KC_RGUI
-```
+|Define            |Type      |Default           |Example                                    |
+|------------------|----------|------------------|-------------------------------------------|
+|`UNICODE_KEY_OSX` |`uint8_t` |`KC_LALT`         |`#define UNICODE_KEY_OSX  KC_RALT`         |
+|`UNICODE_KEY_LNX` |`uint16_t`|`LCTL(LSFT(KC_U))`|`#define UNICODE_KEY_LNX  LCTL(LSFT(KC_E))`|
+|`UNICODE_KEY_WINC`|`uint8_t` |`KC_RALT`         |`#define UNICODE_KEY_WINC KC_RGUI`         |
 
 #### Input Method Cycling
 
