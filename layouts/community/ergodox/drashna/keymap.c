@@ -360,15 +360,15 @@ void matrix_scan_keymap(void) {  // runs frequently to update info
     // Since we're not using the LEDs here for layer indication anymore,
     // then lets use them for modifier indicators.  Shame we don't have 4...
     // Also, no "else", since we want to know each, independently.
-    if (modifiers & MODS_SHIFT_MASK || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MODS_SHIFT_MASK) {
+    if (modifiers & MOD_MASK_SHIFT || led_usb_state & (1<<USB_LED_CAPS_LOCK) || one_shot & MOD_MASK_SHIFT) {
       ergodox_right_led_2_on();
       ergodox_right_led_2_set( 50 );
     }
-    if (modifiers & MODS_CTRL_MASK || one_shot & MODS_CTRL_MASK) {
+    if (modifiers & MOD_MASK_CTRL || one_shot & MOD_MASK_CTRL) {
       ergodox_right_led_1_on();
       ergodox_right_led_1_set( 10 );
     }
-    if (modifiers & MODS_ALT_MASK || one_shot & MODS_ALT_MASK) {
+    if (modifiers & MOD_MASK_ALT || one_shot & MOD_MASK_ALT) {
       ergodox_right_led_3_on();
       ergodox_right_led_3_set( 10 );
     }
@@ -464,20 +464,20 @@ void rgb_matrix_indicators_user(void) {
       }
   }
 #if 0
-  if (this_mod & MODS_SHIFT_MASK || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MODS_SHIFT_MASK) {
+  if (this_mod & MOD_MASK_SHIFT || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MOD_MASK_SHIFT) {
     rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
     rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
   }
-  if (this_mod & MODS_CTRL_MASK || this_osm & MODS_CTRL_MASK) {
+  if (this_mod & MOD_MASK_CTRL || this_osm & MOD_MASK_CTRL) {
     rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
     rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
     rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
 
   }
-  if (this_mod & MODS_GUI_MASK || this_osm & MODS_GUI_MASK) {
+  if (this_mod & MOD_MASK_GUI || this_osm & MOD_MASK_GUI) {
     rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
   }
-  if (this_mod & MODS_ALT_MASK || this_osm & MODS_ALT_MASK) {
+  if (this_mod & MOD_MASK_ALT || this_osm & MOD_MASK_ALT) {
     rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
   }
 #endif

@@ -40,12 +40,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         clear_mods(); clear_oneshot_mods();
       #endif
       send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
-        if (temp_mod & MODS_SHIFT_MASK || temp_osm & MODS_SHIFT_MASK
-#ifdef MAKE_BOOTLOADER
-          || true )  {
-#else
-          ) {
+#ifndef MAKE_BOOTLOADER
+        if (temp_mod & MOD_MASK_SHIFT || temp_osm & MOD_MASK_SHIFT )
 #endif
+          {
           #if defined(__arm__)
             send_string_with_delay_P(PSTR(":dfu-util"), MACRO_TIMER);
           #elif defined(BOOTLOADER_DFU)
@@ -56,7 +54,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             send_string_with_delay_P(PSTR(":avrdude"), MACRO_TIMER);
           #endif // bootloader options
         }
-        if (temp_mod & MODS_CTRL_MASK || temp_osm & MODS_CTRL_MASK) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), MACRO_TIMER); }
+        if (temp_mod & MOD_MASK_CTRL || temp_osm & MOD_MASK_CTRL) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), MACRO_TIMER); }
         send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), MACRO_TIMER);
         set_mods(temp_mod);
     }
