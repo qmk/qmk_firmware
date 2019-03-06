@@ -25,7 +25,10 @@
 #define _OSU 7
 #define _MU 8
 //keycode defs
-
+enum custom_keycodes {
+  LOGIN = SAFE_RANGE,
+  MACRO
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 /*                          .-------.   .-------.
@@ -173,6 +176,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     CK_DOWN, CK_RST, AU_OFF, KC_NO \
   ),
 };
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case LOGIN:
+      if (record->event.pressed) {
+        SEND_STRING("43110" SS_TAP(X_ENTER));
+      } else {
+      }
+      break;
+    case MACRO:
+      if (record->event.pressed) {
+        SEND_STRING("thisisamacro" SS_TAP(X_ENTER));
+      } else {
+      }
+      break;
+  }
+  return true;
+}
 
 #ifdef ENCODER_ENABLE
 void encoder_update_user(uint8_t index, bool clockwise) {
