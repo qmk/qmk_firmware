@@ -1,7 +1,6 @@
 #pragma once
 
 #include "quantum.h"
-#include "action.h"
 #include "version.h"
 
 #define DEFAULT 0  //Custom ANSI
