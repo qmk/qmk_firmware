@@ -1,12 +1,10 @@
-# mk60
+# mechkeys mk60
 
-![mk60](imgur.com image replace me!)
+60% keyboard with RGB underglow and backlights
 
-A short description of the keyboard/project
-
-Keyboard Maintainer: [%YOUR_NAME%](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
+Hardware Supported: MK60 
+Hardware Availability: The MK60 was discontinued by [mechkeys.ca](https://mechkeys.ca/)
 
 Make example for this keyboard (after setting up your build environment):
 
