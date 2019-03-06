@@ -218,8 +218,8 @@ rgblight_setrgb_at(RGB_GOLD, 3);
 rgblight_sethsv_range(HSV_WHITE, 0, 6);
 ```
 
+These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h). Feel free to add to this list!
 
-Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h) defines several predefined shortcuts for various colors. Feel free to add to this list!
 
 ## Hardware Modification
 
