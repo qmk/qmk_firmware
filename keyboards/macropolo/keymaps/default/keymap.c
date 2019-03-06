@@ -100,11 +100,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   | Escape    | Tab       ||<PageDown||/<Down    ||
   |           |           |\ Save    /|\ Layers  /|
   |-----------+-----------+-'-------'-+-----------|
-  | RGB       | E         | F         | G         |
-  | Hue+      |           |           |           |
+  | Left      | Left      | Asterisk  | Slash     |
+  | Shift     | Alt       |           |           |
   |-----------+-----------+-----------+-----------|
-  | RGB       | I         | J         | K         |
-  | Hue-      |           |           |           |
+  | RGB       | Left      | Right     | Enter     |
+  | Hue-      | Bracket   | Bracket   |           |
   `-----------'-----------'-----------'-----------'*/
   [_CODE] = LAYOUT( /* Coding hotkeys */
     KC_ESC, KC_TAB, LCTL(KC_S), TG(_CODE),  \
@@ -120,7 +120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     |           |           | Toggle    | Increase  |
     |-----------+-----------+-----------+-----------|
     | Login     |           |           | RGB Value |
-    | Macro     |           | Decrease  |
+    | Macro     |           |           | Decrease  |
     `-----------'-----------'-----------'-----------'*/
     [_MED] = LAYOUT( /* Media Control */
       KC_MPLY, KC_MSTP,  KC_MEDIA_SELECT, TG(_MED),  \
