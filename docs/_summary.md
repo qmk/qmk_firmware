@@ -40,6 +40,7 @@
   * [Unit Testing](unit_testing.md)
   * [Useful Functions](ref_functions.md)
   * [Configurator Support](reference_configurator_support.md)
+  * [info.json Format](reference_info_json.md)
 
 * [Features](features.md)
   * [Basic Keycodes](keycodes_basic.md)
@@ -59,6 +60,7 @@
   * [Key Lock](feature_key_lock.md)
   * [Layouts](feature_layouts.md)
   * [Leader Key](feature_leader_key.md)
+  * [LED Matrix](feature_led_matrix.md)
   * [Macros](feature_macros.md)
   * [Mouse Keys](feature_mouse_keys.md)
   * [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys)
@@ -75,12 +77,15 @@
   * [Thermal Printer](feature_thermal_printer.md)
   * [Unicode](feature_unicode.md)
   * [Userspace](feature_userspace.md)
+  * [Velocikey](feature_velocikey.md)
 
 * For Makers and Modders
   * [Hand Wiring Guide](hand_wire.md)
   * [ISP Flashing Guide](isp_flashing_guide.md)
   * [ARM Debugging Guide](arm_debugging.md)
   * [I2C Driver](i2c_driver.md)
+  * [GPIO Controls](internals_gpio_control.md)
+  * [Proton C Conversion](proton_c_conversion.md)
 
 * For a Deeper Understanding
   * [How Keyboards Work](how_keyboards_work.md)

@@ -179,6 +179,9 @@ i2c_status_t i2c_readReg(uint8_t devaddr, uint8_t regaddr, uint8_t* data, uint16
   status = i2c_write(regaddr, timeout);
   if (status) return status;
 
+  status = i2c_stop(timeout);
+  if (status) return status;
+
   status = i2c_start(devaddr | 0x01, timeout);
   if (status) return status;
 

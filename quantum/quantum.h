@@ -28,10 +28,11 @@
 #include "matrix.h"
 #include "keymap.h"
 #ifdef BACKLIGHT_ENABLE
-    #include "backlight.h"
-#endif
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
-	#include "rgb.h"
+    #ifdef LED_MATRIX_ENABLE
+        #include "ledmatrix.h"
+    #else
+        #include "backlight.h"
+    #endif
 #endif
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
@@ -138,6 +139,10 @@ extern uint32_t default_layer_state;
     #include "hd44780.h"
 #endif
 
+#ifdef HAPTIC_ENABLE
+    #include "haptic.h"
+#endif
+
 //Function substitutions to ease GPIO manipulation
 #ifdef __AVR__
     #define PIN_ADDRESS(p, offset) _SFR_IO8(ADDRESS_BASE + (p >> PORT_SHIFTER) + offset)
@@ -161,7 +166,7 @@ extern uint32_t default_layer_state;
         }
     }
 
-    #define readPin(pin) (PIN_ADDRESS(pin, 0) & _BV(pin & 0xF))
+    #define readPin(pin) ((bool)(PIN_ADDRESS(pin, 0) & _BV(pin & 0xF)))
 #elif defined(PROTOCOL_CHIBIOS)
     #define pin_t ioline_t
     #define setPinInput(pin) palSetLineMode(pin, PAL_MODE_INPUT)
