@@ -17,7 +17,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         if (temp_mod & MODS_SHIFT_MASK || temp_osm & MODS_SHIFT_MASK ) {
           #if defined(__arm__)
             send_string_with_delay_P(PSTR(":dfu-util"), 10);
-            send_string_with_delay_P(tap_code(RESET), 10);
+            wait_ms(100);
+            tap_code(RESET);
           #elif defined(BOOTLOADER_DFU)
             send_string_with_delay_P(PSTR(":dfu"), 10);
           #elif defined(BOOTLOADER_HALFKAY)
