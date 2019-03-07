@@ -16,7 +16,7 @@
 
 # # project specific files
 SRC =  matrix.c     \
-	   twimaster.c  \
+	   i2c_master.c \
        left.c
 
 # MCU name

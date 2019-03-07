@@ -1,5 +1,4 @@
-#ifndef ERGODOX_HOTDOX_H
-#define ERGODOX_HOTDOX_H
+#pragma once
 
 #include "quantum.h"
 #include <stdint.h>
@@ -50,16 +49,19 @@ inline void ergodox_right_led_off(uint8_t l) {
              break;
         }
 }
+
 inline void ergodox_led_all_on(void) {
     //ergodox_right_led_1_on();
     //ergodox_right_led_2_on();
     //ergodox_right_led_3_on();
 }
+
 inline void ergodox_led_all_off(void) {
     //ergodox_right_led_1_off();
     //ergodox_right_led_2_off();
     //ergodox_right_led_3_off();
 }
+
 inline void ergodox_right_led_1_set(uint8_t n)          {}
 inline void ergodox_right_led_2_set(uint8_t n)          {}
 inline void ergodox_right_led_3_set(uint8_t n)          {}
@@ -178,4 +180,3 @@ inline void ergodox_led_all_set(uint8_t n)              {}
     { KC_NO,L51,L52,L53,L54,L55,L56,          R50,R51,R52,R53,R54,R55,KC_NO }  \
    }
 
-#endif

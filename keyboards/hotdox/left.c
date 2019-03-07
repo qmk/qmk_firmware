@@ -1,7 +1,5 @@
-#include <stdbool.h>
 #include "action.h"
 #include "left.h"
-#include "debug.h"
 #include "wait.h"
 
 bool i2c_initialized = false;
@@ -37,11 +35,12 @@ void left_init(void)
 
 void left_scan(void)
 {
-    uint8_t ret = i2c_start(I2C_ADDR_WRITE);
+    uint8_t ret = i2c_start(I2C_ADDR_WRITE, HOTDOX_I2C_TIMEOUT);
 
     if (ret == 0)
     {
-        i2c_stop();
+        i2c_stop(HOTDOX_I2C_TIMEOUT);
+
         if (!i2c_initialized)
         {
             i2c_initialized = true;
@@ -68,7 +67,6 @@ uint8_t left_read_cols(void)
     uint8_t data = 0;
 
     left_read(MCP23017_B0_GPIOA, &data);
-    //expander_read(GPIOA, &data);
 
     return data;
 }
@@ -76,13 +74,11 @@ uint8_t left_read_cols(void)
 void left_unselect_rows(void)
 {
     left_write(MCP23017_B0_IODIRB, 0x3F);
-    //left_write(IODIRB, 0x3F);
 }
 
 void left_select_row(uint8_t row)
 {
     left_write(MCP23017_B0_IODIRB, ~(1 << row));
-    //left_write(IODIRB, ~(1 << row));
 }
 
 void left_config(void)
@@ -93,12 +89,6 @@ void left_config(void)
 
   left_write(MCP23017_B0_IODIRB, 0xFF);
   left_write(MCP23017_B0_GPIOB,  0x80);
-
-  //left_write(IODIRA, 0x7F);
-  //left_write(GPPUA,  0x7F);
-  //left_write(IPOLA,  0x7F);
-  //left_write(IODIRB, 0xFF);
-  //left_write(GPIOB,  0x80);
 }
 
 uint8_t left_write(uint8_t reg, uint8_t data)
@@ -110,12 +100,12 @@ uint8_t left_write(uint8_t reg, uint8_t data)
 
   uint8_t ret;
 
-  ret = i2c_start(I2C_ADDR_WRITE);     if (ret) goto out;
-  ret = i2c_write(reg);                if (ret) goto out;
-  ret = i2c_write(data); 
+  ret = i2c_start(I2C_ADDR_WRITE, HOTDOX_I2C_TIMEOUT);     if (ret) goto out;
+  ret = i2c_write(reg, HOTDOX_I2C_TIMEOUT);                if (ret) goto out;
+  ret = i2c_write(data, HOTDOX_I2C_TIMEOUT); 
 
 out:
-  i2c_stop();
+  i2c_stop(HOTDOX_I2C_TIMEOUT);
   return ret;
 }
 
@@ -128,13 +118,13 @@ uint8_t left_read(uint8_t reg, uint8_t *data)
 
   uint8_t ret = 0;
 
-  ret = i2c_start(I2C_ADDR_WRITE);     if (ret) goto out;
-  ret = i2c_write(reg);                if (ret) goto out;
-  ret = i2c_rep_start(I2C_ADDR_READ);  if (ret) goto out;
+  ret = i2c_start(I2C_ADDR_WRITE, HOTDOX_I2C_TIMEOUT);     if (ret) goto out;
+  ret = i2c_write(reg, HOTDOX_I2C_TIMEOUT);                if (ret) goto out;
+  ret = i2c_start(I2C_ADDR_READ, HOTDOX_I2C_TIMEOUT);      if (ret) goto out;
 
-  *data = i2c_readNak();
+  *data = i2c_read_nack(HOTDOX_I2C_TIMEOUT);
 
 out:
-  i2c_stop();
+  i2c_stop(HOTDOX_I2C_TIMEOUT);
   return ret;
 }

@@ -1,10 +1,8 @@
-#ifndef HOTDOX_LEFT_H_H_
-#define HOTDOX_LEFT_H_H_
+#pragma once
 
 #include "quantum.h"
 #include <stdint.h>
-#include <stdbool.h>
-#include "i2cmaster.h"
+#include "i2c_master.h"
 #include <util/delay.h>
 
 #define MCP23017
@@ -40,6 +38,8 @@
 #define MCP23017_B0_OLATA      0x14
 #define MCP23017_B0_OLATB      0x15
 
+#define HOTDOX_I2C_TIMEOUT     100
+
 typedef int16_t i2c_status_t;
 
 void left_init(void);
@@ -55,4 +55,3 @@ void left_select_row(uint8_t row);
 
 uint8_t init_mcp23017(void);
 
-#endif
