@@ -26,10 +26,10 @@ enum my_keycodes {
 };
 
 enum td_keycodes {
-  ALT_OP,
-  CTL_CCB,
-  GUI_CP,
-  SFT_OCB,
+  ALT_LP,
+  CTL_RCB,
+  GUI_RP,
+  SFT_LCB,
   SFT_PLS
 };
 
@@ -41,14 +41,14 @@ typedef enum {
 
 static td_state_t td_state;
 int cur_dance (qk_tap_dance_state_t *state);
-void altop_finished (qk_tap_dance_state_t *state, void *user_data);
-void altop_reset (qk_tap_dance_state_t *state, void *user_data);
-void ctlccb_finished (qk_tap_dance_state_t *state, void *user_data);
-void ctlccb_reset (qk_tap_dance_state_t *state, void *user_data);
-void guicp_finished (qk_tap_dance_state_t *state, void *user_data);
-void guicp_reset (qk_tap_dance_state_t *state, void *user_data);
-void sftocb_finished (qk_tap_dance_state_t *state, void *user_data);
-void sftocb_reset (qk_tap_dance_state_t *state, void *user_data);
+void altlp_finished (qk_tap_dance_state_t *state, void *user_data);
+void altlp_reset (qk_tap_dance_state_t *state, void *user_data);
+void ctlrcb_finished (qk_tap_dance_state_t *state, void *user_data);
+void ctlrcb_reset (qk_tap_dance_state_t *state, void *user_data);
+void guirp_finished (qk_tap_dance_state_t *state, void *user_data);
+void guirp_reset (qk_tap_dance_state_t *state, void *user_data);
+void sftlcb_finished (qk_tap_dance_state_t *state, void *user_data);
+void sftlcb_reset (qk_tap_dance_state_t *state, void *user_data);
 void sftpls_finished (qk_tap_dance_state_t *state, void *user_data);
 void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 
@@ -252,7 +252,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYM] = LAYOUT( \
   KC_EXLM,     KC_AT,   KC_HASH,    KC_DLR,     KC_PERC,       KC_CIRC, KC_AMPR, KC_ASTR, KC_QUES,     KC_QUOT,     \
-  TD(SFT_PLS), CTRL_EQ, TD(ALT_OP), TD(GUI_CP), KC_DQT,        KC_COLN, GUI_CB,  ALT_OB,  TD(CTL_CCB), TD(SFT_OCB), \
+  TD(SFT_PLS), CTRL_EQ, TD(ALT_LP), TD(GUI_RP), KC_DQT,        KC_COLN, GUI_CB,  ALT_OB,  TD(CTL_RCB), TD(SFT_LCB), \
   KC_LT,       KC_PIPE, KC_MINS,    KC_GT,      KC_BSLS,       KC_GRV,  KC_UNDS, KC_SLSH, KC_TILD,     KC_SCLN,     \
                         _______,    MAC_EN,     _______,       _______, MAC_EM,  _______                            \
 )
@@ -285,7 +285,7 @@ int cur_dance (qk_tap_dance_state_t *state) {
   else return 3;
 }
 
-void altop_finished (qk_tap_dance_state_t *state, void *user_data) {
+void altlp_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -300,7 +300,7 @@ void altop_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void altop_reset (qk_tap_dance_state_t *state, void *user_data) {
+void altlp_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_LPRN);
@@ -313,7 +313,7 @@ void altop_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ctlccb_finished (qk_tap_dance_state_t *state, void *user_data) {
+void ctlrcb_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -328,7 +328,7 @@ void ctlccb_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void ctlccb_reset (qk_tap_dance_state_t *state, void *user_data) {
+void ctlrcb_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_RCBR);
@@ -341,7 +341,7 @@ void ctlccb_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void guicp_finished (qk_tap_dance_state_t *state, void *user_data) {
+void guirp_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -356,7 +356,7 @@ void guicp_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void guicp_reset (qk_tap_dance_state_t *state, void *user_data) {
+void guirp_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_RPRN);
@@ -369,7 +369,7 @@ void guicp_reset (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void sftocb_finished (qk_tap_dance_state_t *state, void *user_data) {
+void sftlcb_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
@@ -384,7 +384,7 @@ void sftocb_finished (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void sftocb_reset (qk_tap_dance_state_t *state, void *user_data) {
+void sftlcb_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
       unregister_code16(KC_LCBR);
@@ -426,9 +426,9 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [ALT_OP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altop_finished, altop_reset),
-  [CTL_CCB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctlccb_finished, ctlccb_reset),
-  [GUI_CP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guicp_finished, guicp_reset),
-  [SFT_OCB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftocb_finished, sftocb_reset),
+  [ALT_LP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altlp_finished, altlp_reset),
+  [CTL_RCB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, ctlrcb_finished, ctlrcb_reset),
+  [GUI_RP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, guirp_finished, guirp_reset),
+  [SFT_LCB] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftlcb_finished, sftlcb_reset),
   [SFT_PLS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, sftpls_finished, sftpls_reset)
 };
