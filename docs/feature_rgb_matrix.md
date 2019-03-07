@@ -173,6 +173,7 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`   |Disables `RGB_MATRIX_JELLYBEAN_RAINDROPS`   |
 |`#define DISABLE_RGB_MATRIX_DIGITAL_RAIN`          |Disables `RGB_MATRIX_DIGITAL_RAIN`          |
 |`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE`        |Disables `RGB_MATRIX_SOLID_REACTIVE`        |
+|`#define DISABLE_RGB_MATRIX_REACTIVE_SIMPLE`       |Disables `RGB_MATRIX_REACTIVE_SIMPLE`       |
 |`#define DISABLE_RGB_MATRIX_SPLASH`                |Disables `RGB_MATRIX_SPLASH`                |
 |`#define DISABLE_RGB_MATRIX_MULTISPLASH`           |Disables `RGB_MATRIX_MULTISPLASH`           |
 |`#define DISABLE_RGB_MATRIX_SOLID_SPLASH`          |Disables `RGB_MATRIX_SOLID_SPLASH`          |
