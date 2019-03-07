@@ -55,6 +55,21 @@
 #define HSV_MAGENTA      300, 255, 255
 #define HSV_PINK         330, 128, 255
 
+
+/*
+########################################################################################
+##                                                                                    ##
+##                                                                                    ##
+##                                                                                    ##
+##  The functions below have been deprecated and may be removed in a future release.  ##
+##                                                                                    ##
+##                Please use the values above with the RGB functions.                 ##
+##                                                                                    ##
+##                                                                                    ##
+##                                                                                    ##
+########################################################################################
+*/
+
 /*                            SET RGB List                            */
 #define rgblight_setrgb_white()       rgblight_setrgb (RGB_WHITE)
 #define rgblight_setrgb_red()         rgblight_setrgb (RGB_RED)
