@@ -324,7 +324,7 @@ Below your layers and custom keycodes, add the following:
 ```c
 // tapdance keycodes
 enum td_keycodes {
-  ALT_OP // Our example key: `LALT` when held, `(` when tapped. Add additional keycodes for each tapdance.
+  ALT_LP // Our example key: `LALT` when held, `(` when tapped. Add additional keycodes for each tapdance.
 };
 
 // define a type containing as many tapdance states as you need
@@ -343,8 +343,8 @@ static td_state_t td_state;
 int cur_dance (qk_tap_dance_state_t *state);
 
 // `finished` and `reset` functions for each tapdance keycode
-void altop_finished (qk_tap_dance_state_t *state, void *user_data);
-void altop_reset (qk_tap_dance_state_t *state, void *user_data);
+void altlp_finished (qk_tap_dance_state_t *state, void *user_data);
+void altlp_reset (qk_tap_dance_state_t *state, void *user_data);
 ```
 
 Below your `LAYOUT`, define each of the tapdance functions:
@@ -362,42 +362,38 @@ int cur_dance (qk_tap_dance_state_t *state) {
  
 // handle the possible states for each tapdance keycode you define:
 
-void altop_finished (qk_tap_dance_state_t *state, void *user_data) {
+void altlp_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
-      register_mods(MOD_BIT(KC_LSFT));
-      register_code(KC_9);
+      register_code16(KC_LPRN);
       break;
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_LALT)); // for a layer-tap key, use `layer_on(_MY_LAYER)` here
       break;
     case DOUBLE_SINGLE_TAP: // allow nesting of 2 parens `((` within tapping term
-      register_mods(MOD_BIT(KC_LSFT));
-      tap_code(KC_9);
-      register_code(KC_9);
+      tap_code16(KC_LPRN);
+      register_code16(KC_LPRN);
   }
 }
 
-void altop_reset (qk_tap_dance_state_t *state, void *user_data) {
+void altlp_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
-      unregister_code(KC_9);
-      unregister_mods(MOD_BIT(KC_LSFT));
+      unregister_code16(KC_LPRN);
       break;
     case SINGLE_HOLD:
       unregister_mods(MOD_BIT(KC_LALT)); // for a layer-tap key, use `layer_off(_MY_LAYER)` here
       break;
     case DOUBLE_SINGLE_TAP:
-      unregister_code(KC_9);
-      unregister_mods(MOD_BIT(KC_LSFT));
+      unregister_code16(KC_LPRN);
   }
 }
 
 // define `ACTION_TAP_DANCE_FN_ADVANCED()` for each tapdance keycode, passing in `finished` and `reset` functions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [ALT_OP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altop_finished, altop_reset)
+  [ALT_LP] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, altlp_finished, altlp_reset)
 };
 ```
 
-Wrap each tapdance keycode in `TD()` when including it in your keymap, e.g. `TD(ALT_OP)`.
+Wrap each tapdance keycode in `TD()` when including it in your keymap, e.g. `TD(ALT_LP)`.
