@@ -161,7 +161,6 @@ void rgblight_check_config(void) {
 #define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_TIMER
 
 /* for split keyboard slave side */
-/*  Call from keyboard individual code. */
 void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom) {
     if( status->change_flags & RGBLIGHT_STATUS_CHANGE_MODE ) {
         if (config->enable) {

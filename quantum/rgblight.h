@@ -177,6 +177,9 @@ typedef struct _rgblight_status_t {
   #define RGBLIGHT_STATUS_CHANGE_HSVS (1<<1)
   #define RGBLIGHT_STATUS_CHANGE_TIMER (1<<2)
 
+  extern rgblight_config_t rgblight_config;
+  extern rgblight_status_t rgblight_status;
+
   /* for split keyboard slave side */
   void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom);
 #endif
