@@ -129,6 +129,20 @@ Documentation is one of the easiest ways to get started contributing to QMK. Fin
 
 You'll find all our documentation in the `qmk_firmware/docs` directory, or if you'd rather use a web based workflow you can click "Suggest An Edit" at the top of each page on http://docs.qmk.fm/.
 
+When providing code examples in your documentation, try to observe naming conventions used elsewhere in the docs. For example, standardizing enums as `my_layers` or `my_keycodes` for consistency:
+
+```c
+enum my_layers {
+  _FIRST_LAYER,
+  _SECOND_LAYER
+};
+
+enum my_keycodes {
+  FIRST_LAYER = SAFE_RANGE,
+  SECOND_LAYER
+};
+```
+
 ## Keymaps
 
 Most first-time QMK contributors start with their personal keymaps. We try to keep keymap standards pretty casual (keymaps, after all, reflect the personality of their creators) but we do ask that you follow these guidelines to make it easier for others to discover and learn from your keymap.
