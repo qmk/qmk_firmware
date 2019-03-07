@@ -29,10 +29,12 @@ extern uint8_t is_master;
 // entirely and just use numbers.
 enum layer_number {
     _QWERTY = 0,
+#if 0
     _COLEMAK,
     _DVORAK,
     _EUCALYN,
     _KEYPAD,
+#endif
     _AUX,
     _KAUX,
     _LOWER,
@@ -91,6 +93,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       LOWER, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP,LOWER, LOWER \
       ),
 
+#if 0
   /* Colemak
    * ,-----------------------------------------.             ,-----------------------------------------.
    * | ESC  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Bksp |
@@ -111,7 +114,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       LSFT,   Z,    X,    C,    V,    B,    GRV,  QUOT,   K,    M, COMM,  DOT, SLSH,  RSFT, \
       LOWER, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP,LOWER, LOWER \
       ),
-
+#endif
   /* Dvorak
    * ,-----------------------------------------.             ,-----------------------------------------.
    * | ESC  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Bksp |
@@ -125,6 +128,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Lower | Lower| Caps |  Alt |  GUI | Space|  BS  | Enter| Space| GUI  | Alt  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
+#if 0
   [_DVORAK] = LAYOUT_kc( \
       ESC,    1,    2,    3,    4,    5,                  6,    7,    8,    9,    0,  BSPC, \
       TAB, QUOT, COMM,  DOT,    P,    Y,                  F,    G,    C,    R,    L,  BSLS, \
@@ -132,7 +136,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       LSFT, SCLN,   Q,    J,    K,    X,    GRV,  SLSH,   B,    M,    W,    V,    Z,  RSFT, \
       LOWER, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP,LOWER, LOWER \
       ),
-
+#endif
   /* Eucalyn (http://eucalyn.hatenadiary.jp/entry/about-eucalyn-layout)
    * ,-----------------------------------------.             ,-----------------------------------------.
    * | ESC  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Bksp |
@@ -146,6 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |Lower | Lower| Caps |  Alt |  GUI | Space|  BS  | Enter| Space| GUI  | Alt  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
+#if 0
   [_EUCALYN] = LAYOUT_kc( \
       ESC,    1,    2,    3,    4,    5,                  6,    7,    8,    9,    0,  BSPC, \
       TAB,    Q,    W, COMM,  DOT, SCLN,                  M,    R,    D,    Y,    P,  BSLS, \
@@ -153,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       LSFT,   Z,    X,    C,    V,    F,    GRV,  QUOT,   B,    H,    J,    L, SLSH,  RSFT, \
       LOWER, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP,LOWER, LOWER \
       ),
-
+#endif
   /* Keypad
    * ,-----------------------------------------.             ,-----------------------------------------.
    * | Tab  |   /  |   *  | Del  |  F1  |  F6  |             |  F1  |  F6  | Del  | Tab  |   /  |   *  |
@@ -167,6 +172,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |   0  |   ,  |   .  | Enter|  F5  |  F10 |  F12 |  F12 |  F5  |  F10 | Enter|   0  |  ,   |   .  |
    * `-------------------------------------------------------------------------------------------------'
    */
+#if 0
   [_KEYPAD] = LAYOUT_kc( \
       TAB,  PSLS, PAST, DEL,    F1,   F6,               F1,   F6,  DEL,  TAB, PSLS, PAST, \
       KP_7, KP_8, KP_9, BSPC,   F2,   F7,               F2,   F7, BSPC, KP_7, KP_8, KP_9, \
@@ -174,7 +180,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       KP_1, KP_2, KP_3, PPLS,   F4,   F9,  F11,  F11,   F4,   F9, PPLS, KP_1, KP_2, KP_3, \
       KP_0, COMM, PDOT, PENT,   F5,  F10, FF12, FF12,   F5,  F10, PENT, KP_0, COMM, PDOT \
       ),
-
+#endif
   /*  AUX modifier key layer
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |      |      |      |      |      |      |             |      |      |      |      |      |      |
@@ -188,6 +194,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |  00  |      |      |      |      |      |      |      |      |      |      |  00  |      |
    * `-------------------------------------------------------------------------------------------------'
    */
+#if 0
   [_KAUX] = LAYOUT_kc( \
       ____, ____, ____, ____, ____, ____,             ____, ____, ____, ____, ____, ____, \
       ____, ____, ____, ____, ____, ____,             ____, ____, ____, ____, ____, ____, \
@@ -195,7 +202,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, \
       ____,ZERO2, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ZERO2,____ \
    ),
-
+#endif
   /*  Keypad function layer
    * ,-----------------------------------------.             ,-----------------------------------------.
    * |      |      |      | Pause| ScrLk| PtrSc|             | PtrSc| ScrLk| Pause|      |      |      |
@@ -293,6 +300,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |  BS  | Enter|      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
+#if 0
   [_AUX] = LAYOUT_kc( \
       ____, ____, ____, ____, ____, ____,             ____, ____, ____, ____, ____, ____, \
       ____, ____, ____, ____, ____, ____,             ____, ____, ____, ____, ____, ____, \
@@ -300,6 +308,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, \
       ____, ____, ____, ____, ____, BSPC, RAEN, ____, ____, ____, ____, ____, ____, ____ \
       )
+#endif
 };
 
 #else
@@ -337,14 +346,19 @@ void update_base_layer(int base)
     if( current_default_layer != base ) {
         eeconfig_update_default_layer(1UL<<base);
         default_layer_set(1UL<<base);
+#if 0
         layer_off(_AUX);
         layer_off(_KAUX);
-    } else {
+#endif
+    }
+#if 0
+    else {
         if( base < _KEYPAD )
             layer_invert(_AUX);
         else
             layer_invert(_KAUX);
     }
+#endif
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -359,6 +373,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
       break;
     case COLEMAK:
+#if 0
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
@@ -366,8 +381,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_base_layer(_COLEMAK);
       }
       return false;
+#endif
       break;
     case DVORAK:
+#if 0
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
@@ -375,8 +392,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_base_layer(_DVORAK);
       }
       return false;
+#endif
       break;
     case EUCALYN:
+#if 0
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
@@ -384,8 +403,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_base_layer(_EUCALYN);
       }
       return false;
+#endif
       break;
     case KEYPAD:
+#if 0
       if (record->event.pressed) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
@@ -393,6 +414,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         update_base_layer(_KEYPAD);
       }
       return false;
+#endif
       break;
     case KC_ZERO2:
       if (record->event.pressed) {
@@ -511,6 +533,7 @@ static void render_logo(struct CharacterMatrix *matrix) {
 }
 
 static const char Qwerty_name[]  PROGMEM = " Qwerty";
+#if 0
 static const char Colemak_name[] PROGMEM = " Colemak";
 static const char Dvorak_name[]  PROGMEM = " Dvorak";
 static const char Eucalyn_name[] PROGMEM = " Eucalyn";
@@ -518,6 +541,7 @@ static const char Keypad_name[]  PROGMEM = " Keypad";
 
 static const char AUX_name[]     PROGMEM = ":AUX";
 static const char KAUX_name[]    PROGMEM = ":00";
+#endif
 static const char Padfunc_name[] PROGMEM = ":PadFunc";
 static const char Lower_name[]   PROGMEM = ":Func";
 static const char Raise_name[]   PROGMEM = ":Extra";
@@ -525,12 +549,14 @@ static const char Adjust_name[]  PROGMEM = ":Adjust";
 
 static const char *layer_names[] = {
     [_QWERTY] = Qwerty_name,
+#if 0
     [_COLEMAK] = Colemak_name,
     [_DVORAK] = Dvorak_name,
     [_EUCALYN]= Eucalyn_name,
     [_KEYPAD] = Keypad_name,
     [_AUX]    = AUX_name,
     [_KAUX]   = KAUX_name,
+#endif
     [_LOWER]  = Lower_name,
     [_RAISE]  = Raise_name,
     [_PADFUNC]= Padfunc_name,
