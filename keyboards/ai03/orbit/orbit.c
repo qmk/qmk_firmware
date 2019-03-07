@@ -30,23 +30,29 @@ void led_toggle(int id, bool on) {
 			case 0:
 				// Left hand C6
 				if (on)
-					PORTC |= (1<<6);
+					//PORTC |= (1<<6);
+					writePinHigh(C6);
 				else
-					PORTC &= ~(1<<6);
+					//PORTC &= ~(1<<6);
+					writePinLow(C6);
 				break;
 			case 1:
 				// Left hand B6
 				if (on)
-					PORTB |= (1<<6);
+					//PORTB |= (1<<6);
+					writePinHigh(B6);
 				else
-					PORTB &= ~(1<<6);
+					//PORTB &= ~(1<<6);
+					writePinLow(B6);
 				break;
 			case 2:
 				// Left hand B5
 				if (on)
-					PORTB |= (1<<5);
+					//PORTB |= (1<<5);
+					writePinHigh(B5);
 				else
-					PORTB &= ~(1<<5);
+					//PORTB &= ~(1<<5);
+					writePinLow(B5);
 				break;
 			default:
 				break;
@@ -56,23 +62,29 @@ void led_toggle(int id, bool on) {
 			case 3:
 				// Right hand F6
 				if (on)
-					PORTF |= (1<<6);
+					//PORTF |= (1<<6);
+					writePinHigh(F6);
 				else
-					PORTF &= ~(1<<6);
+					//PORTF &= ~(1<<6);
+					writePinLow(F6);
 				break;
 			case 4:
 				// Right hand F7
 				if (on)
-					PORTF |= (1<<7);
+					//PORTF |= (1<<7);
+					writePinHigh(F7);
 				else
-					PORTF &= ~(1<<7);
+					//PORTF &= ~(1<<7);
+					writePinLow(F7);
 				break;
 			case 5:
 				// Right hand C7
 				if (on)
-					PORTC |= (1<<7);
+					//PORTC |= (1<<7);
+					writePinHigh(C7);
 				else
-					PORTC &= ~(1<<7);
+					//PORTC &= ~(1<<7);
+					writePinLow(C7);
 				break;
 			default:
 				break;
@@ -138,15 +150,21 @@ void matrix_init_kb(void) {
 	// Initialize indicator LEDs to output
 	if (isLeftHand)
 	{
-		DDRC |= (1<<6);
-		DDRB |= (1<<6);
-		DDRB |= (1<<5);
+		setPinOutput(C6);
+		setPinOutput(B6);
+		setPinOutput(B5);
+		//DDRC |= (1<<6);
+		//DDRB |= (1<<6);
+		//DDRB |= (1<<5);
 	}
 	else
 	{
-		DDRF |= (1<<6);
-		DDRF |= (1<<7);
-		DDRC |= (1<<7);
+		setPinOutput(F6);
+		setPinOutput(F7);
+		setPinOutput(C7);
+		//DDRF |= (1<<6);
+		//DDRF |= (1<<7);
+		//DDRC |= (1<<7);
 	}
 
 	set_layer_indicators(0);
