@@ -18,17 +18,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
           //RESET board for flashing if SHIFT held or tapped with KC_MAKE
           #if defined(__arm__)
             send_string_with_delay_P(PSTR(":dfu-util"), 10);
-            wait_ms(100);
-            reset_keyboard();
           #elif defined(BOOTLOADER_DFU)
             send_string_with_delay_P(PSTR(":dfu"), 10);
           #elif defined(BOOTLOADER_HALFKAY)
             send_string_with_delay_P(PSTR(":teensy"), 10);
           #elif defined(BOOTLOADER_CATERINA)
             send_string_with_delay_P(PSTR(":avrdude"), 10);
-          #else
-            reset_keyboard();
           #endif // bootloader options
+          send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
+          reset_keyboard();
         }
         if (temp_mod & MOD_MASK_CTRL || temp_osm & MOD_MASK_CTRL) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), 10); }
         send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
