@@ -13,9 +13,6 @@ enum custom_keycodes {
   NEW_SAFE_RANGE  //use "NEW_SAFE_RANGE" for keymap specific codes
 };
 
-#define MODS_SHIFT_MASK  (MOD_BIT(KC_LSHIFT)|MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL_MASK  (MOD_BIT(KC_LCTL)|MOD_BIT(KC_RCTRL))
-
 //Aliases for longer keycodes
 #define KC_CAD	LALT(LCTL(KC_DEL))
 #define KC_LOCK	LGUI(KC_L)
