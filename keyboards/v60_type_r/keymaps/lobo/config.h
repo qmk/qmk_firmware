@@ -1,4 +1,6 @@
-/* Copyright 2018 Ben Lewis (FollowingGhosts)
+/*
+ *  Adapted from  Ben Lewis (FollowingGhosts) layout
+ *  by fpvmorais (Lobo) Copyright 2018
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,4 +19,4 @@
 
 #define V60_POLESTAR
 #define RGBLIGHT_EFFECT_BREATHING
-#define UNICODE_WINC_KEY KC_RALT
+#define UNICODE_SELECTED_MODES UC_LNX, UC_WINC

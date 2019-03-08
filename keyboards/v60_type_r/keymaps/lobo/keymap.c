@@ -1,4 +1,6 @@
-/* Copyright 2018 Ben Lewis (FollowingGhosts)
+/*
+ *  Adapted from  Ben Lewis (FollowingGhosts) layout
+ *  by fpvmorais (Lobo) Copyright 2018
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -91,14 +93,10 @@ WASD are Up Left Right Down respectively
                 KC_TRNS,   KC_BTN1,  KC_MS_U,    KC_BTN2,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, UC(0x00AA), UC(0x00BA), KC_TRNS, KC_MPLY,    KC_TRNS,          KC_TRNS, \
                 KC_TRNS,   KC_MS_L,  KC_MS_D,  KC_MS_R, KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MNXT,          KC_TRNS,          \
                 KC_TRNS,   KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,  KC_TRNS,           KC_TRNS,  \
-                KC_TRNS,   KC_TRNS,  KC_TRNS,            KC_TRNS,                                                           KC_TRNS,  KC_TRNS, KC_TRNS, KC_TRNS),
+                KC_TRNS,   KC_TRNS,  KC_TRNS,            KC_TRNS,                                                           KC_TRNS,  UC_MOD, KC_TRNS, KC_TRNS),
 
 
 };
-
-void matrix_init_user(){
-  set_unicode_input_mode(UC_WINC);
-}
 
 void led_set_user(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
