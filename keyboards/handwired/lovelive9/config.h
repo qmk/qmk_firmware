@@ -12,15 +12,6 @@
 #define DESCRIPTION     lovelive sunshine Keyboards 9Key
 
 /* key matrix size */
-#define RGBLIGHT_ANIMATIONS
-#define BACKLIGHT_LEVELS 5
-#define RGBLIGHT_EFFECT_SNAKE_LENGTH 4
-#define BREATHING_PERIOD 2
-#define RGBLIGHT_LIMIT_VAL 255
-#define RGBLIGHT_HUE_STEP 10
-#define RGBLIGHT_SAT_STEP 17
-#define RGBLIGHT_VAL_STEP 17
-
 #define MATRIX_ROWS 9
 #define MATRIX_COLS 1
 
@@ -37,18 +28,15 @@
 
 #define RGBLED_NUM 9    // Number of LEDs
 
-#if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
-// USB_MAX_POWER_CONSUMPTION value
-//  120  RGBoff
-//  330  RGB 6
-//  300  RGB 32
- #define USB_MAX_POWER_CONSUMPTION 400
-#else
- // fix iPhone and iPad power adapter issue
- // iOS device need lessthan 100
- #define USB_MAX_POWER_CONSUMPTION 100
-#endif
-
+#define RGBLIGHT_ANIMATIONS
+#define BACKLIGHT_LEVELS 5
+#define RGBLIGHT_EFFECT_SNAKE_LENGTH 4
+#define BREATHING_PERIOD 2
+#define RGBLIGHT_LIMIT_VAL 255
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
+#define USB_MAX_POWER_CONSUMPTION 400
 
 
 /* COL2ROW or ROW2COL */
