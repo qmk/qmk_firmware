@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [2] = LAYOUT(
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, L_BRD,   L_BRI,   L_T_BR,  KC_MUTE, \
-        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, L_PSD,   L_PSI,   L_T_PTD, KC_MPLY, \
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, U_T_AUTO, KC_TRNS, KC_TRNS, KC_TRNS, L_PSD,   L_PSI,   L_T_PTD, KC_MPLY, \
         KC_TRNS, KC_TRNS, KC_TRNS, L_INIT_D,KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, L_PTP,   L_PTN,            L_T_ONF, KC_TRNS, \
         KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, MD_BOOT, TG_NKRO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, L_T_MD,           KC_TRNS, KC_VOLU, \
         KC_TRNS, KC_TRNS, KC_TRNS,                            KC_TRNS,                            KC_TRNS, KC_TRNS, KC_MPRV, KC_VOLD, KC_MNXT  \
@@ -180,7 +180,26 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
             return false;
         case U_T_AUTO:
-            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) {
+            if (record->event.pressed && MODS_SHIFT && MODS_CTRL) 
+            {
+                // if LEDs are off, turn them on
+                if (led_enabled == 0)
+                {
+                    I2C3733_Control_Set(1);
+                }
+                else
+                {
+                    // if LEDs already on, move animation id to the next 
+                    if (led_animation_id == led_setups_count - 1)
+                    {
+                        led_animation_id = 0;
+                    } 
+                    else
+                    {
+                        led_animation_id++;
+                    }
+                }
+
                 TOGGLE_FLAG_AND_PRINT(usb_extra_manual, "USB extra port manual mode");
             }
             return false;
