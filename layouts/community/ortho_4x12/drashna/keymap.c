@@ -228,20 +228,20 @@ void rgb_matrix_indicators_user(void) {
     case _WORKMAN:
       rgb_matrix_set_color(42, 0xD9, 0xA5, 0x21); break;
   }
-  if (this_mod & MOD_MASK_SHIFT || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MOD_MASK_SHIFT) {
+  if ( (this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1<<USB_LED_CAPS_LOCK)) {
     rgb_matrix_set_color(24, 0x00, 0xFF, 0x00);
     rgb_matrix_set_color(36, 0x00, 0xFF, 0x00);
   }
-  if (this_mod & MOD_MASK_CTRL || this_osm & MOD_MASK_CTRL) {
+  if ( (this_mod | this_osm) & MOD_MASK_CTRL) {
     rgb_matrix_set_color(25, 0xFF, 0x00, 0x00);
     rgb_matrix_set_color(34, 0xFF, 0x00, 0x00);
     rgb_matrix_set_color(37, 0xFF, 0x00, 0x00);
 
   }
-  if (this_mod & MOD_MASK_GUI || this_osm & MOD_MASK_GUI) {
+  if ( (this_mod | this_osm) & MOD_MASK_GUI) {
     rgb_matrix_set_color(39, 0xFF, 0xD9, 0x00);
   }
-  if (this_mod & MOD_MASK_ALT || this_osm & MOD_MASK_ALT) {
+  if ( (this_mod | this_osm) & MOD_MASK_ALT) {
     rgb_matrix_set_color(38, 0x00, 0x00, 0xFF);
   }
 }

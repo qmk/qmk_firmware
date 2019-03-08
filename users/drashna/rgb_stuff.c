@@ -18,7 +18,7 @@ void rgblight_sethsv_default_helper(uint8_t index) {
 #ifdef INDICATOR_LIGHTS
 void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
   if (userspace_config.rgb_layer_change && biton32(layer_state) == 0) {
-    if (this_mod & MOD_MASK_SHIFT || this_led & (1<<USB_LED_CAPS_LOCK) || this_osm & MOD_MASK_SHIFT) {
+    if ( (this_mod | this_osm) & MOD_MASK_SHIFT || this_led & (1<<USB_LED_CAPS_LOCK) ) {
       #ifdef SHFT_LED1
         rgblight_sethsv_at(120, 255, 255, SHFT_LED1);
       #endif // SHFT_LED1
@@ -33,7 +33,7 @@ void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
         rgblight_sethsv_default_helper(SHFT_LED2);
       #endif // SHFT_LED2
     }
-    if (this_mod & MOD_MASK_CTRL || this_osm & MOD_MASK_CTRL) {
+    if ( (this_mod | this_osm) & MOD_MASK_CTRL) {
       #ifdef CTRL_LED1
         rgblight_sethsv_at(0, 255, 255, CTRL_LED1);
       #endif // CTRL_LED1
@@ -48,7 +48,7 @@ void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
         rgblight_sethsv_default_helper(CTRL_LED2);
       #endif // CTRL_LED2
     }
-    if (this_mod & MOD_MASK_GUI || this_osm & MOD_MASK_GUI) {
+    if ( (this_mod | this_osm) & MOD_MASK_GUI) {
       #ifdef GUI_LED1
         rgblight_sethsv_at(51, 255, 255, GUI_LED1);
       #endif // GUI_LED1
@@ -63,7 +63,7 @@ void set_rgb_indicators(uint8_t this_mod, uint8_t this_led, uint8_t this_osm) {
         rgblight_sethsv_default_helper(GUI_LED2);
       #endif // GUI_LED2
     }
-    if (this_mod & MOD_MASK_ALT || this_osm & MOD_MASK_ALT) {
+    if ( (this_mod | this_osm) & MOD_MASK_ALT) {
       #ifdef ALT_LED1
         rgblight_sethsv_at(240, 255, 255, ALT_LED1);
       #endif // ALT_LED1
