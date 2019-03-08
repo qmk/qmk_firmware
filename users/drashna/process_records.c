@@ -41,7 +41,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifndef MAKE_BOOTLOADER
         if ( ( temp_mod | temp_osm ) & MOD_MASK_SHIFT )
 #endif
-          {
+        {
           #if defined(__arm__)
             send_string_with_delay_P(PSTR(":dfu-util"), MACRO_TIMER);
           #elif defined(BOOTLOADER_DFU)
