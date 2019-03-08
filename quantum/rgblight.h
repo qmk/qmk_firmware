@@ -68,8 +68,8 @@
 #define _RGBM_SINGLE_DYNAMIC(sym)  RGBLIGHT_MODE_ ## sym,
 #define _RGBM_MULTI_STATIC(sym)    RGBLIGHT_MODE_ ## sym,
 #define _RGBM_MULTI_DYNAMIC(sym)   RGBLIGHT_MODE_ ## sym,
-#define _RGBM_TMP_STATIC(sym)      RGBLIGHT_MODE_ ## sym,
-#define _RGBM_TMP_DYNAMIC(sym)     RGBLIGHT_MODE_ ## sym,
+#define _RGBM_TMP_STATIC(sym, msym)  RGBLIGHT_MODE_ ## sym,
+#define _RGBM_TMP_DYNAMIC(sym, msym) RGBLIGHT_MODE_ ## sym,
 enum RGBLIGHT_EFFECT_MODE {
     RGBLIGHT_MODE_zero = 0,
 #include "rgblight.h"
@@ -164,6 +164,7 @@ typedef union {
 } rgblight_config_t;
 
 typedef struct _rgblight_status_t {
+    uint8_t  base_mode;
     bool timer_enabled;
 #ifdef RGBLIGHT_SPLIT
     uint8_t change_flags;
@@ -272,50 +273,50 @@ void rgblight_effect_alternating(void);
   _RGBM_SINGLE_STATIC( STATIC_LIGHT )
   #ifdef RGBLIGHT_EFFECT_BREATHING
     _RGBM_MULTI_DYNAMIC( BREATHING )
-    _RGBM_TMP_DYNAMIC( breathing_3 )
-    _RGBM_TMP_DYNAMIC( breathing_4 )
-    _RGBM_TMP_DYNAMIC( BREATHING_end )
+    _RGBM_TMP_DYNAMIC( breathing_3, BREATHING )
+    _RGBM_TMP_DYNAMIC( breathing_4, BREATHING )
+    _RGBM_TMP_DYNAMIC( BREATHING_end, BREATHING )
   #endif
   #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
     _RGBM_MULTI_DYNAMIC( RAINBOW_MOOD )
-    _RGBM_TMP_DYNAMIC( rainbow_mood_7 )
-    _RGBM_TMP_DYNAMIC( RAINBOW_MOOD_end )
+    _RGBM_TMP_DYNAMIC( rainbow_mood_7, RAINBOW_MOOD )
+    _RGBM_TMP_DYNAMIC( RAINBOW_MOOD_end, RAINBOW_MOOD )
   #endif
   #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
     _RGBM_MULTI_DYNAMIC( RAINBOW_SWIRL )
-    _RGBM_TMP_DYNAMIC( rainbow_swirl_10 )
-    _RGBM_TMP_DYNAMIC( rainbow_swirl_11 )
-    _RGBM_TMP_DYNAMIC( rainbow_swirl_12 )
-    _RGBM_TMP_DYNAMIC( rainbow_swirl_13 )
-    _RGBM_TMP_DYNAMIC( RAINBOW_SWIRL_end )
+    _RGBM_TMP_DYNAMIC( rainbow_swirl_10, RAINBOW_SWIRL )
+    _RGBM_TMP_DYNAMIC( rainbow_swirl_11, RAINBOW_SWIRL )
+    _RGBM_TMP_DYNAMIC( rainbow_swirl_12, RAINBOW_SWIRL )
+    _RGBM_TMP_DYNAMIC( rainbow_swirl_13, RAINBOW_SWIRL )
+    _RGBM_TMP_DYNAMIC( RAINBOW_SWIRL_end, RAINBOW_SWIRL )
   #endif
   #ifdef RGBLIGHT_EFFECT_SNAKE
     _RGBM_MULTI_DYNAMIC( SNAKE )
-    _RGBM_TMP_DYNAMIC( snake_16 )
-    _RGBM_TMP_DYNAMIC( snake_17 )
-    _RGBM_TMP_DYNAMIC( snake_18 )
-    _RGBM_TMP_DYNAMIC( snake_19 )
-    _RGBM_TMP_DYNAMIC( SNAKE_end )
+    _RGBM_TMP_DYNAMIC( snake_16, SNAKE )
+    _RGBM_TMP_DYNAMIC( snake_17, SNAKE )
+    _RGBM_TMP_DYNAMIC( snake_18, SNAKE )
+    _RGBM_TMP_DYNAMIC( snake_19, SNAKE )
+    _RGBM_TMP_DYNAMIC( SNAKE_end, SNAKE )
   #endif
   #ifdef RGBLIGHT_EFFECT_KNIGHT
     _RGBM_MULTI_DYNAMIC( KNIGHT )
-    _RGBM_TMP_DYNAMIC( knight_22 )
-    _RGBM_TMP_DYNAMIC( KNIGHT_end )
+    _RGBM_TMP_DYNAMIC( knight_22, KNIGHT )
+    _RGBM_TMP_DYNAMIC( KNIGHT_end, KNIGHT )
   #endif
   #ifdef RGBLIGHT_EFFECT_CHRISTMAS
     _RGBM_SINGLE_DYNAMIC( CHRISTMAS )
   #endif
   #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
     _RGBM_MULTI_STATIC( STATIC_GRADIENT )
-    _RGBM_TMP_STATIC( static_gradient_26 )
-    _RGBM_TMP_STATIC( static_gradient_27 )
-    _RGBM_TMP_STATIC( static_gradient_28 )
-    _RGBM_TMP_STATIC( static_gradient_29 )
-    _RGBM_TMP_STATIC( static_gradient_30 )
-    _RGBM_TMP_STATIC( static_gradient_31 )
-    _RGBM_TMP_STATIC( static_gradient_32 )
-    _RGBM_TMP_STATIC( static_gradient_33 )
-    _RGBM_TMP_STATIC( STATIC_GRADIENT_end )
+    _RGBM_TMP_STATIC( static_gradient_26, STATIC_GRADIENT )
+    _RGBM_TMP_STATIC( static_gradient_27, STATIC_GRADIENT )
+    _RGBM_TMP_STATIC( static_gradient_28, STATIC_GRADIENT )
+    _RGBM_TMP_STATIC( static_gradient_29, STATIC_GRADIENT )
+    _RGBM_TMP_STATIC( static_gradient_30, STATIC_GRADIENT )
+    _RGBM_TMP_STATIC( static_gradient_31, STATIC_GRADIENT )
+    _RGBM_TMP_STATIC( static_gradient_32, STATIC_GRADIENT )
+    _RGBM_TMP_STATIC( static_gradient_33, STATIC_GRADIENT )
+    _RGBM_TMP_STATIC( STATIC_GRADIENT_end, STATIC_GRADIENT )
   #endif
   #ifdef RGBLIGHT_EFFECT_RGB_TEST
     _RGBM_SINGLE_DYNAMIC( RGB_TEST )
