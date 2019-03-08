@@ -45,6 +45,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
+/* Underlight Configuration */
+#define RGB_DI_PIN F4
+#define RGBLIGHT_ANIMATIONS
+#define RGBLED_NUM 2  // Number of LEDs
+#define RGBLIGHT_HUE_STEP 10
+#define RGBLIGHT_SAT_STEP 17
+#define RGBLIGHT_VAL_STEP 17
+
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.
