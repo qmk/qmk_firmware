@@ -27,14 +27,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------|
  * |   5  |  6   |
  * |------+------|
- * | FUNC |  8   |
+ * | FUNC | RGB  |
  * `-------------'
  */
 [_QWERTY] = LAYOUT( \
     KC_1,      KC_2, \
     KC_3,      KC_4, \
     KC_5,      KC_6, \
-    MO(_FUNC), KC_8  \
+    MO(_FUNC), TG(_RGB)  \
+),
+
+/* RGB
+ * ,-------------.
+ * | Mode-| Mode+|
+ * |------+------|
+ * | HUE- | HUE+ |
+ * |------+------|
+ * | SAT- | SAT+ |
+ * |------+------|
+ * |RGBTOG|      |
+ * `-------------'
+ */
+[_RGB] = LAYOUT( \
+    RGB_RMOD, RGB_MOD, \
+    RGB_HUD,  RGB_HUI, \
+    RGB_SAD,  RGB_SAI, \
+    RGB_TOG,  KC_TRNS \
 ),
 
 /* Function
@@ -45,32 +63,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------|
  * |   Z  |  X   |
  * |------+------|
- * |  RGB |  C   |
+ * |      |  C   |
  * `-------------'
  */
 [_FUNC] = LAYOUT( \
-    KC_Q,     CALTDEL, \
-    KC_A,     TSKMGR, \
-    KC_Z,     KC_X, \
-    TG(_RGB), KC_C \
-)
-
-/* Function
- * ,-------------.
- * | Mode-| Mode+|
- * |------+------|
- * | HUE- | HUE+ |
- * |------+------|
- * | SAT- | SAT+ |
- * |------+------|
- * |      |RGBTOG|
- * `-------------'
- */
-[_RGB] = LAYOUT( \
-    RGB_RMOD, RGB_MOD, \
-    RGB_HUD,  RGB_HUI, \
-    RGB_SAD,  RGB_SAI, \
-    KC_TRNS,  RGB_TOG \
+    KC_Q, CALTDEL, \
+    KC_A, TSKMGR, \
+    KC_Z, KC_X, \
+    ____, KC_C \
 )
 
 };
