@@ -71,7 +71,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
              TG(1),       KC_F,   KC_G,   KC_C,   KC_R,   KC_L,             NO_AM,
                           KC_D,   KC_H,   KC_T,   KC_N,   KC_S,             NO_AE,
              TG(MDIA),KC_B,   KC_M,   KC_W,   KC_V,   CTL_T(KC_Z),      KC_RSFT,
-                                  KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          KC_FN1,
+                                  KC_UP,  KC_DOWN,KC_LBRC,KC_RBRC,          TT(SYMB),
              LALT(KC_LSFT),        CTL_T(KC_ESC),
              KC_PGUP,
              KC_PGDN,KC_TAB, KC_ENT
