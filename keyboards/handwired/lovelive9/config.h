@@ -12,18 +12,16 @@
 #define DESCRIPTION     lovelive sunshine Keyboards 9Key
 
 /* key matrix size */
-#define MATRIX_ROWS 9
-#define MATRIX_COLS 1
+#define MATRIX_ROWS 1
+#define MATRIX_COLS 9
 
-/* Planck PCB default pin-out */
-#define MATRIX_ROW_PINS { B4, B6, B2, D7, B1, F7, F6, F5, F4 }
-#define MATRIX_COL_PINS { NO_PIN }
+/* default pin-out */
+#define MATRIX_ROW_PINS { NO_PIN }
+#define MATRIX_COL_PINS { B4, B6, B2, D7, B1, F7, F6, F5, F4 }
+
 #define UNUSED_PINS
 
 /* ws2812 RGB LED */
-
-
-#define USE_SERIAL
 #define RGB_DI_PIN D3
 
 #define RGBLED_NUM 9    // Number of LEDs
@@ -37,9 +35,5 @@
 #define RGBLIGHT_SAT_STEP 17
 #define RGBLIGHT_VAL_STEP 17
 #define USB_MAX_POWER_CONSUMPTION 400
-
-
-/* COL2ROW or ROW2COL */
-#define DIODE_DIRECTION ROW2COL
 
 #define TAPPING_TERM 200
