@@ -21,6 +21,7 @@ Known issues:
   * Switched position on Alt and Alt-shift
   * Added tilde character to symbol layer
   * Added Print Screen to keymap 3
+  * Added ' (NO_APOS) to keymap 3
   * Added how to install help in this readme
 
 * 2017-05-16
@@ -41,8 +42,8 @@ Close the Bash command window, and re-open it.
 You are ready to compile and flash the firmware!
 
 3. Build the firmware with:  
-Run make in the root qmk folder just builds everything... takes a long time first time.
-How to only build this layout?? make ergodox_ez:dvorak_programmer_swe  does not work!
+Run the following in the root qmk folder:
+make KEYBOARD=ergodox_ez KEYMAP=dvorak_programmer_swe
 
 
 # Author
