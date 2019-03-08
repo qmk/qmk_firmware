@@ -119,7 +119,7 @@ void check_tap_and_send_key(int MEMBER) {
   if (long_tap_timer < 500) {
     switch (MEMBER) {
       case SEND_DIA:
-        SEND_STRING("KUROSAWA DIYA");
+        SEND_STRING("KUROSAWA DIA");
       break;
       case SEND_YOU:
         SEND_STRING("WATANABE YOU");
