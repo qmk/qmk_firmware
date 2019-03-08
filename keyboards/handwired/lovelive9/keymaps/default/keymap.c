@@ -14,7 +14,7 @@ enum Layer
   _QWERTY,
   _DIA,
   _YOU,
-  _TIKA,
+  _CHIKA,
   _ZURA,
   _RUBY,
   _YOHANE,
@@ -29,7 +29,7 @@ enum Layer
 
 #define SEND_DIA 100
 #define SEND_YOU 101
-#define SEND_TIKA 102
+#define SEND_CHIKA 102
 #define SEND_ZURA 103
 #define SEND_RUBY 104
 #define SEND_YOHANE 105
@@ -42,7 +42,7 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   DIA,
   YOU,
-  TIKA,
+  CHIKA,
   ZURA,
   RUBY,
   RUBY_SUB1,
@@ -61,7 +61,7 @@ int long_tap_timer;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT(
-    DIA, YOU, TIKA, ZURA, RUBY, YOHANE, RIKO, MARI, KANAN
+    DIA, YOU, CHIKA, ZURA, RUBY, YOHANE, RIKO, MARI, KANAN
   ),
   [_DIA] = LAYOUT(
     DIA, KC_A, KC_B, KC_C, KC_D, KC_E, KC_F, KC_G, KC_LSFT
@@ -71,8 +71,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_H, YOU, KC_I, KC_J, KC_K, KC_L, KC_M, KC_N, KC_LSFT
   ),
 
-  [_TIKA] = LAYOUT(
-    KC_O, KC_P, TIKA, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_LSFT
+  [_CHIKA] = LAYOUT(
+    KC_O, KC_P, CHIKA, KC_Q, KC_R, KC_S, KC_T, KC_U, KC_LSFT
   ),
 
   [_ZURA] = LAYOUT(
@@ -122,7 +122,7 @@ void check_tap_and_send_key(int MEMBER) {
       case SEND_YOU:
         SEND_STRING("WATANABE YOU");
       break;
-      case SEND_TIKA:
+      case SEND_CHIKA:
         SEND_STRING("TAKAMI CHIKA");
       break;
       case SEND_ZURA:
@@ -205,14 +205,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       break;
 
-    case TIKA:
+    case CHIKA:
       if (record->event.pressed) {
         long_tap_timer = 1;
-        layer_on(_TIKA);
+        layer_on(_CHIKA);
         LED_layer_set(0);
       } else {
-        check_tap_and_send_key(SEND_TIKA);
-        layer_off(_TIKA);
+        check_tap_and_send_key(SEND_CHIKA);
+        layer_off(_CHIKA);
         LED_default_set();
       }
       break;
