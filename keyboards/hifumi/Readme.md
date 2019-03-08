@@ -2,7 +2,7 @@
 
 A macro pad with 6 keys.
 
-Keyboard Maintainer: riconken, [zk-phi](https://github.com/zk-phi)
+Keyboard Maintainer: riconken, [zk-phi](https://github.com/zk-phi)  
 Hardware Supported: hifumi PCB, Pro Micro
 Hardware Availability: [PCB & Case Data](https://github.com/zk-phi/1x2x3-keyboard)
 
