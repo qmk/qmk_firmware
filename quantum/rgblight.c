@@ -123,34 +123,36 @@ void setrgb(uint8_t r, uint8_t g, uint8_t b, LED_TYPE *led1) {
   (*led1).b = b;
 }
 
-void rgblight_check_config(void) {
+static uint32_t rgblight_check_config(uint32_t raw) {
   /* Add some out of bound checks for RGB light config */
+  rgblight_config_t work_config;
 
-  if (rgblight_config.mode < RGBLIGHT_MODE_STATIC_LIGHT) {
-    rgblight_config.mode = RGBLIGHT_MODE_STATIC_LIGHT;
+  work_config.raw = raw;
+  if (work_config.mode < RGBLIGHT_MODE_STATIC_LIGHT) {
+    work_config.mode = RGBLIGHT_MODE_STATIC_LIGHT;
   }
-  else if (rgblight_config.mode > RGBLIGHT_MODES) {
-    rgblight_config.mode = RGBLIGHT_MODES;
-  }
-
-  if (rgblight_config.hue < 0) {
-    rgblight_config.hue = 0;
-  } else if (rgblight_config.hue > 360) {
-    rgblight_config.hue %= 360;
+  else if (work_config.mode > RGBLIGHT_MODES) {
+    work_config.mode = RGBLIGHT_MODES;
   }
 
-  if (rgblight_config.sat < 0) {
-    rgblight_config.sat = 0;
-  } else if (rgblight_config.sat > 255) {
-    rgblight_config.sat = 255;
+  if (work_config.hue < 0) {
+    work_config.hue = 0;
+  } else if (work_config.hue > 360) {
+    work_config.hue %= 360;
   }
 
-  if (rgblight_config.val < 0) {
-    rgblight_config.val = 0;
-  } else if (rgblight_config.val > RGBLIGHT_LIMIT_VAL) {
-    rgblight_config.val = RGBLIGHT_LIMIT_VAL;
+  if (work_config.sat < 0) {
+    work_config.sat = 0;
+  } else if (work_config.sat > 255) {
+    work_config.sat = 255;
   }
 
+  if (work_config.val < 0) {
+    work_config.val = 0;
+  } else if (work_config.val > RGBLIGHT_LIMIT_VAL) {
+    work_config.val = RGBLIGHT_LIMIT_VAL;
+  }
+  return work_config.raw;
 }
 
 uint32_t eeconfig_read_rgblight(void) {
@@ -163,7 +165,7 @@ uint32_t eeconfig_read_rgblight(void) {
 
 void eeconfig_update_rgblight(uint32_t val) {
   #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
-    rgblight_check_config();
+    val = rgblight_check_config(val);
     eeprom_update_dword(EECONFIG_RGBLIGHT, val);
   #endif
 }
@@ -209,7 +211,7 @@ void rgblight_init(void) {
     eeconfig_update_rgblight_default();
     rgblight_config.raw = eeconfig_read_rgblight();
   }
-  rgblight_check_config();
+  rgblight_config.raw = rgblight_check_config(rgblight_config.raw);
 
   eeconfig_debug_rgblight(); // display current eeprom values
 
