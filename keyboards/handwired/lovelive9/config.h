@@ -34,12 +34,9 @@
 
 #define USE_SERIAL
 #define RGB_DI_PIN D3
-#define RGBLIGHT_TIMER
 
 #define RGBLED_NUM 9    // Number of LEDs
 
-#define ws2812_PORTREG  PORTD
-#define ws2812_DDRREG   DDRD
 #if defined(RGBLIGHT_ENABLE) && !defined(IOS_DEVICE_ENABLE)
 // USB_MAX_POWER_CONSUMPTION value
 //  120  RGBoff

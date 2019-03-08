@@ -1,11 +1,9 @@
 #include QMK_KEYBOARD_H
-#include "process_unicode.h"
 
 //#include "v1.h"
 
 //Following line allows macro to read current RGB settings
 
-extern rgblight_config_t rgblight_config;
 rgblight_config_t RGB_current_config;
 
 #define KC_KANJI KC_GRV
@@ -125,7 +123,7 @@ void check_tap_and_send_key(int MEMBER) {
         SEND_STRING("WATANABE YOU");
       break;
       case SEND_TIKA:
-        SEND_STRING("TAKAMI TIKA");
+        SEND_STRING("TAKAMI CHIKA");
       break;
       case SEND_ZURA:
         SEND_STRING("KUNIKIDA HANAMARU");
