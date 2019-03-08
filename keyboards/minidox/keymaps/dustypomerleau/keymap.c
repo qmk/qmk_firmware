@@ -58,7 +58,7 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 #define ALT_D LALT_T(KC_D)
 #define ALT_E LALT_T(KC_E)
 #define ALT_K LALT_T(KC_K)
-#define ALT_OB LALT_T(KC_LBRC)
+#define ALT_LB LALT_T(KC_LBRC)
 #define ALT_S LALT_T(KC_S)
 #define CTRL_2 LCTL_T(KC_2)
 #define CTRL_4 LCTL_T(KC_4)
@@ -73,7 +73,7 @@ void sftpls_reset (qk_tap_dance_state_t *state, void *user_data);
 #define GUI_1 LGUI_T(KC_1)
 #define GUI_4 LGUI_T(KC_4)
 #define GUI_7 LGUI_T(KC_7)
-#define GUI_CB LGUI_T(KC_RBRC)
+#define GUI_RB LGUI_T(KC_RBRC)
 #define GUI_F LGUI_T(KC_F)
 #define GUI_J LGUI_T(KC_J)
 #define GUI_N LGUI_T(KC_N)
@@ -252,7 +252,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 [_SYM] = LAYOUT( \
   KC_EXLM,     KC_AT,   KC_HASH,    KC_DLR,     KC_PERC,       KC_CIRC, KC_AMPR, KC_ASTR, KC_QUES,     KC_QUOT,     \
-  TD(SFT_PLS), CTRL_EQ, TD(ALT_LP), TD(GUI_RP), KC_DQT,        KC_COLN, GUI_CB,  ALT_OB,  TD(CTL_RCB), TD(SFT_LCB), \
+  TD(SFT_PLS), CTRL_EQ, TD(ALT_LP), TD(GUI_RP), KC_DQT,        KC_COLN, GUI_RB,  ALT_LB,  TD(CTL_RCB), TD(SFT_LCB), \
   KC_LT,       KC_PIPE, KC_MINS,    KC_GT,      KC_BSLS,       KC_GRV,  KC_UNDS, KC_SLSH, KC_TILD,     KC_SCLN,     \
                         _______,    MAC_EN,     _______,       _______, MAC_EM,  _______                            \
 )
