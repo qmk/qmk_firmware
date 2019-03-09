@@ -29,6 +29,9 @@ static uint8_t debouncing = DEBOUNCE;
 static matrix_row_t matrix[MATRIX_ROWS];
 static matrix_row_t matrix_debouncing[MATRIX_ROWS];
 
+void matrix_set_row_status(uint8_t row);
+uint8_t bit_reverse(uint8_t x);
+
 void matrix_init(void) {
     // all outputs for rows high
     DDRB = 0xFF;
@@ -47,18 +50,8 @@ void matrix_init(void) {
         matrix[row] = 0x00;
         matrix_debouncing[row] = 0x00;
     }
-}
 
-void matrix_set_row_status(uint8_t row) {
-    DDRB = (1 << row);
-    PORTB = ~(1 << row);
-}
-
-uint8_t bit_reverse(uint8_t x) {
-    x = ((x >> 1) & 0x55) | ((x << 1) & 0xaa);
-    x = ((x >> 2) & 0x33) | ((x << 2) & 0xcc);
-    x = ((x >> 4) & 0x0f) | ((x << 4) & 0xf0);
-    return x;
+    matrix_init_quantum();
 }
 
 uint8_t matrix_scan(void) {
@@ -93,9 +86,22 @@ uint8_t matrix_scan(void) {
         }
     }
 
-    matrix_scan_user();
+    matrix_scan_quantum();
 
     return 1;
+}
+
+// declarations
+void matrix_set_row_status(uint8_t row) {
+    DDRB = (1 << row);
+    PORTB = ~(1 << row);
+}
+
+uint8_t bit_reverse(uint8_t x) {
+    x = ((x >> 1) & 0x55) | ((x << 1) & 0xaa);
+    x = ((x >> 2) & 0x33) | ((x << 2) & 0xcc);
+    x = ((x >> 4) & 0x0f) | ((x << 4) & 0xf0);
+    return x;
 }
 
 inline matrix_row_t matrix_get_row(uint8_t row) {

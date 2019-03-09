@@ -1,17 +1,17 @@
-#include "helix.h"
+#include QMK_KEYBOARD_H
 #include "bootloader.h"
-#include "action_layer.h"
-#include "eeconfig.h"
 #ifdef PROTOCOL_LUFA
 #include "lufa.h"
 #include "split_util.h"
 #endif
-#include "LUFA/Drivers/Peripheral/TWI.h"
 #ifdef AUDIO_ENABLE
   #include "audio.h"
 #endif
 #ifdef SSD1306OLED
   #include "ssd1306.h"
+#endif
+#ifdef CONSOLE_ENABLE
+  #include <print.h>
 #endif
 
 extern keymap_config_t keymap_config;
@@ -31,6 +31,7 @@ enum layer_number {
     _QWERTY = 0,
     _COLEMAK,
     _DVORAK,
+    _EUCALYN,
     _KEYPAD,
     _AUX,
     _KAUX,
@@ -44,23 +45,27 @@ enum custom_keycodes {
   QWERTY = SAFE_RANGE,
   COLEMAK,
   DVORAK,
+  EUCALYN,
   KEYPAD,
-  EISU,
-  KANA,
-  ZERO2,
+  KC_xEISU,
+  KC_xKANA,
+  KC_ZERO2,
   RGBRST
 };
 
-enum macro_keycodes {
-  KC_SAMPLEMACRO,
-};
-
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 //Macros
-#define M_SAMPLE M(KC_SAMPLEMACRO)
+#define KC_LOWER  MO(_LOWER)
+#define KC_RABS   LT(_RAISE,KC_BSPC)
+#define KC_RAEN   LT(_RAISE,KC_ENT)
+#define KC_FF12   LT(_PADFUNC,KC_F12)
+#define KC_____   _______
+#define KC_XXXX   XXXXXXX
+#define KC_ADJ    MO(_ADJUST)
+#define KC_LSMI   LSFT(KC_MINS)
+#define KC_LSEQ   LSFT(KC_EQL)
+#define KC_LSRB   LSFT(KC_RBRC)
+#define KC_LSLB   LSFT(KC_LBRC)
+#define ___       _______
 
 #if HELIX_ROWS == 5
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -75,16 +80,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   `  |   '  |   N  |   M  |   ,  |   .  |   /  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Lower | Lower| Caps  | GUI  | Alt | Space|  BS  | Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Lower | Lower| Caps |  Alt |  GUI | Space|  BS  | Enter| Space| GUI  | Alt  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_QWERTY] = KEYMAP( \
-      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-      KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,                      KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSLS, \
-      KC_LCTL, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                      KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_RCTL, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_GRV, KC_QUOT,  KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-      MO(_LOWER),MO(_LOWER),  KC_CAPS, KC_LALT, KC_LGUI, KC_SPC, LT(_RAISE,KC_BSPC), \
-                                                         LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,MO(_LOWER),MO(_LOWER) \
+  [_QWERTY] = LAYOUT_kc( \
+      ESC,    1,    2,    3,    4,    5,                  6,    7,    8,    9,    0,  BSPC, \
+      TAB,    Q,    W,    E,    R,    T,                  Y,    U,    I,    O,    P,  BSLS, \
+      LCTL,   A,    S,    D,    F,    G,                  H,    J,    K,    L, SCLN,  RCTL, \
+      LSFT,   Z,    X,    C,    V,    B,    GRV,  QUOT,   N,    M, COMM,  DOT, SLSH,  RSFT, \
+      LOWER, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP,LOWER, LOWER \
       ),
 
   /* Colemak
@@ -97,16 +101,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   Z  |   X  |   C  |   V  |   B  |   `  |   '  |   K  |   M  |   ,  |   .  |   /  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Lower | Lower| Caps  | GUI  | Alt | Space|  BS  | Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Lower | Lower| Caps |  Alt |  GUI | Space|  BS  | Enter| Space| GUI  | Alt  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_COLEMAK] = KEYMAP( \
-      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-      KC_TAB,  KC_Q,    KC_W,    KC_F,    KC_P,    KC_G,                      KC_J,    KC_L,    KC_U,    KC_Y,    KC_SCLN, KC_BSLS, \
-      KC_LCTL, KC_A,    KC_R,    KC_S,    KC_T,    KC_D,                      KC_H,    KC_N,    KC_E,    KC_I,    KC_O,    KC_RCTL, \
-      KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_GRV, KC_QUOT,  KC_K,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_RSFT, \
-      MO(_LOWER),MO(_LOWER),  KC_CAPS, KC_LALT, KC_LGUI, KC_SPC,  LT(_RAISE,KC_BSPC), \
-                                                         LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,MO(_LOWER),MO(_LOWER) \
+  [_COLEMAK] = LAYOUT_kc( \
+      ESC,    1,    2,    3,    4,    5,                  6,    7,    8,    9,    0,  BSPC, \
+      TAB,    Q,    W,    F,    P,    G,                  J,    L,    U,    Y, SCLN,  BSLS, \
+      LCTL,   A,    R,    S,    T,    D,                  H,    N,    E,    I,    O,  RCTL, \
+      LSFT,   Z,    X,    C,    V,    B,    GRV,  QUOT,   K,    M, COMM,  DOT, SLSH,  RSFT, \
+      LOWER, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP,LOWER, LOWER \
       ),
 
   /* Dvorak
@@ -119,16 +122,36 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
    * | Shift|   ;  |   Q  |   J  |   K  |   X  |   `  |   /  |   B  |   M  |   W  |   V  |   Z  | Shift|
    * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-   * |Lower | Lower| Caps  | GUI  | Alt | Space|  BS  | Enter| Space| Alt  | GUI  | Menu |Lower |Lower |
+   * |Lower | Lower| Caps |  Alt |  GUI | Space|  BS  | Enter| Space| GUI  | Alt  | Menu |Lower |Lower |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_DVORAK] = KEYMAP( \
-      KC_ESC,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,                      KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_BSPC, \
-      KC_TAB,  KC_QUOT, KC_COMM, KC_DOT,  KC_P,    KC_Y,                      KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_BSLS, \
-      KC_LCTL, KC_A,    KC_O,    KC_E,    KC_U,    KC_I,                      KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_RCTL, \
-      KC_LSFT, KC_SCLN, KC_Q,    KC_J,    KC_K,    KC_X,    KC_GRV, KC_SLSH,  KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_RSFT, \
-      MO(_LOWER),MO(_LOWER),  KC_CAPS, KC_LALT, KC_LGUI, KC_SPC,  LT(_RAISE,KC_BSPC), \
-                                                         LT(_RAISE,KC_ENT), KC_SPC,  KC_RGUI, KC_RALT, KC_APP,MO(_LOWER),MO(_LOWER) \
+  [_DVORAK] = LAYOUT_kc( \
+      ESC,    1,    2,    3,    4,    5,                  6,    7,    8,    9,    0,  BSPC, \
+      TAB, QUOT, COMM,  DOT,    P,    Y,                  F,    G,    C,    R,    L,  BSLS, \
+      LCTL,   A,    O,    E,    U,    I,                  D,    H,    T,    N,    S,  RCTL, \
+      LSFT, SCLN,   Q,    J,    K,    X,    GRV,  SLSH,   B,    M,    W,    V,    Z,  RSFT, \
+      LOWER, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP,LOWER, LOWER \
+      ),
+
+  /* Eucalyn (http://eucalyn.hatenadiary.jp/entry/about-eucalyn-layout)
+   * ,-----------------------------------------.             ,-----------------------------------------.
+   * | ESC  |   1  |   2  |   3  |   4  |   5  |             |   6  |   7  |   8  |   9  |   0  | Bksp |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * | Tab  |   Q  |   W  |   ,  |   .  |   ;  |             |   M  |   R  |   D  |   Y  |   P  |  \   |
+   * |------+------+------+------+------+------|             |------+------+------+------+------+------|
+   * | Ctrl |   A  |   O  |   E  |   I  |   U  |             |   G  |   T  |   K  |   S  |   N  | Ctrl |
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * | Shift|   Z  |   X  |   C  |   V  |   F  |   `  |   '  |   B  |   H  |   J  |   L  |   /  | Shift|
+   * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+   * |Lower | Lower| Caps |  Alt |  GUI | Space|  BS  | Enter| Space| GUI  | Alt  | Menu |Lower |Lower |
+   * `-------------------------------------------------------------------------------------------------'
+   */
+  [_EUCALYN] = LAYOUT_kc( \
+      ESC,    1,    2,    3,    4,    5,                  6,    7,    8,    9,    0,  BSPC, \
+      TAB,    Q,    W, COMM,  DOT, SCLN,                  M,    R,    D,    Y,    P,  BSLS, \
+      LCTL,   A,    O,    E,    I,    U,                  G,    T,    K,    S,    N,  RCTL, \
+      LSFT,   Z,    X,    C,    V,    F,    GRV,  QUOT,   B,    H,    J,    L, SLSH,  RSFT, \
+      LOWER, LOWER, CAPS, LALT, LGUI, SPC, RABS,  RAEN, SPC, RGUI, RALT,  APP,LOWER, LOWER \
       ),
 
   /* Keypad
@@ -144,13 +167,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |   0  |   ,  |   .  | Enter|  F5  |  F10 |  F12 |  F12 |  F5  |  F10 | Enter|   0  |  ,   |   .  |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_KEYPAD] = KEYMAP( \
-      KC_TAB,  KC_PSLS, KC_PAST, KC_DEL,    KC_F1,   KC_F6,                     KC_F1,   KC_F6, KC_DEL,  KC_TAB,  KC_PSLS, KC_PAST, \
-      KC_KP_7, KC_KP_8, KC_KP_9, KC_BSPC,   KC_F2,   KC_F7,                     KC_F2,   KC_F7, KC_BSPC, KC_KP_7, KC_KP_8, KC_KP_9, \
-      KC_KP_4, KC_KP_5, KC_KP_6, KC_PMNS,   KC_F3,   KC_F8,                     KC_F3,   KC_F8, KC_PMNS, KC_KP_4, KC_KP_5, KC_KP_6, \
-      KC_KP_1, KC_KP_2, KC_KP_3, KC_PPLS,   KC_F4,   KC_F9,  KC_F11,  KC_F11,   KC_F4,   KC_F9, KC_PPLS, KC_KP_1, KC_KP_2, KC_KP_3, \
-      KC_KP_0, KC_COMM, KC_PDOT, KC_PENT,   KC_F5,  KC_F10,  LT(_PADFUNC,KC_F12),
-                                                            LT(_PADFUNC,KC_F12),KC_F5,  KC_F10, KC_PENT, KC_KP_0, KC_COMM, KC_PDOT \
+  [_KEYPAD] = LAYOUT_kc( \
+      TAB,  PSLS, PAST, DEL,    F1,   F6,               F1,   F6,  DEL,  TAB, PSLS, PAST, \
+      KP_7, KP_8, KP_9, BSPC,   F2,   F7,               F2,   F7, BSPC, KP_7, KP_8, KP_9, \
+      KP_4, KP_5, KP_6, PMNS,   F3,   F8,               F3,   F8, PMNS, KP_4, KP_5, KP_6, \
+      KP_1, KP_2, KP_3, PPLS,   F4,   F9,  F11,  F11,   F4,   F9, PPLS, KP_1, KP_2, KP_3, \
+      KP_0, COMM, PDOT, PENT,   F5,  F10, FF12, FF12,   F5,  F10, PENT, KP_0, COMM, PDOT \
       ),
 
   /*  AUX modifier key layer
@@ -166,12 +188,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |  00  |      |      |      |      |      |      |      |      |      |      |  00  |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_KAUX] = KEYMAP( \
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-      _______, ZERO2,   _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, ZERO2,   _______ \
+  [_KAUX] = LAYOUT_kc( \
+      ____, ____, ____, ____, ____, ____,             ____, ____, ____, ____, ____, ____, \
+      ____, ____, ____, ____, ____, ____,             ____, ____, ____, ____, ____, ____, \
+      ____, ____, ____, ____, ____, ____,             ____, ____, ____, ____, ____, ____, \
+      ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, \
+      ____,ZERO2, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ZERO2,____ \
    ),
 
   /*  Keypad function layer
@@ -187,13 +209,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_PADFUNC] = KEYMAP( \
-      XXXXXXX, XXXXXXX, XXXXXXX, KC_PAUS, KC_SLCK, KC_PSCR,                   KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX, XXXXXXX, XXXXXXX, KC_HOME, KC_UP,   KC_PGUP,                   KC_PGUP, KC_UP,   KC_HOME, XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX,  KC_DEL,  KC_INS, KC_LEFT, KC_DOWN, KC_RGHT,                   KC_LEFT, KC_DOWN, KC_RGHT, KC_INS,  KC_DEL,  XXXXXXX, \
-      XXXXXXX, XXXXXXX, XXXXXXX, KC_END,  XXXXXXX, KC_PGDN,MO(_ADJUST),
-                                                                 MO(_ADJUST), KC_PGDN, XXXXXXX, KC_END,  XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX \
+  [_PADFUNC] = LAYOUT_kc( \
+      XXXX, XXXX, XXXX, PAUS, SLCK, PSCR,             PSCR, SLCK, PAUS, XXXX, XXXX, XXXX, \
+      XXXX, XXXX, XXXX, HOME, UP,   PGUP,             PGUP, UP,   HOME, XXXX, XXXX, XXXX, \
+      XXXX,  DEL,  INS, LEFT, DOWN, RGHT,             LEFT, DOWN, RGHT, INS,  DEL,  XXXX, \
+      XXXX, XXXX, XXXX, END,  XXXX, PGDN,  ADJ,  ADJ, PGDN, XXXX, END,  XXXX, XXXX, XXXX, \
+      XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, ____, ____, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX \
    ),
 
   /* Lower
@@ -209,13 +230,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      | PrtSc|      |      |      |      |      |      |      |      | PrtSc|      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_LOWER] = KEYMAP( \
-      XXXXXXX,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,                    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11, \
-      XXXXXXX, XXXXXXX, KC_PAUS, KC_SLCK, KC_INS,  XXXXXXX,                   XXXXXXX, KC_INS,  KC_SLCK, KC_PAUS, XXXXXXX, KC_F12, \
-      _______, KC_HOME, XXXXXXX, KC_UP,   KC_DEL,  KC_PGUP,                   KC_PGUP, KC_DEL,  KC_UP,   XXXXXXX, KC_HOME, _______, \
-      _______, KC_END,  KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,  XXXXXXX, XXXXXXX,KC_PGDN, KC_LEFT, KC_DOWN, KC_RGHT, KC_END,  _______, \
-      _______, _______, KC_PSCR, _______, _______, _______, MO(_ADJUST),
-                                                                 MO(_ADJUST), _______, _______, _______, KC_PSCR, _______, _______ \
+  [_LOWER] = LAYOUT_kc( \
+      XXXX,  F1,   F2,   F3,   F4,   F5,                F6,   F7,   F8,   F9,  F10,  F11, \
+      XXXX, XXXX, PAUS, SLCK, INS,  XXXX,             XXXX,  INS, SLCK, PAUS, XXXX,  F12, \
+      ____, HOME, XXXX, UP,   DEL,  PGUP,             PGUP,  DEL,   UP, XXXX, HOME, ____, \
+      ____, END,  LEFT, DOWN, RGHT, PGDN, XXXX, XXXX, PGDN, LEFT, DOWN, RGHT,  END, ____, \
+      ____, ____, PSCR, ____, ____, ____,  ADJ,  ADJ, ____, ____, ____, PSCR, ____, ____ \
       ),
 
   /* Raise
@@ -231,18 +251,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_RAISE] = KEYMAP( \
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, LSFT(KC_MINS), KC_MINS,         KC_EQL, LSFT(KC_EQL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, LSFT(KC_LBRC), KC_LBRC,       KC_RBRC, LSFT(KC_RBRC), XXXXXXX, XXXXXXX, XXXXXXX, _______, \
-      _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    EISU,    EISU,    KANA,    KANA, KC_MNXT, KC_VOLD, KC_VOLU, KC_MPLY, _______, \
-      MO(_ADJUST),MO(_ADJUST),XXXXXXX, _______, _______, XXXXXXX, _______,
-                                                                _______, XXXXXXX, _______, _______, XXXXXXX,MO(_ADJUST),MO(_ADJUST) \
+  [_RAISE] = LAYOUT_kc( \
+      XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,             XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, \
+      XXXX, XXXX, XXXX, XXXX, LSMI, MINS,              EQL, LSEQ, XXXX, XXXX, XXXX, XXXX, \
+      ____, XXXX, XXXX, XXXX, LSLB, LBRC,             RBRC, LSRB, XXXX, XXXX, XXXX, ____, \
+      ____, XXXX, XXXX, XXXX, XXXX,xEISU,xEISU, xKANA,xKANA,MNXT, VOLD, VOLU, MPLY, ____, \
+      ADJ,   ADJ, XXXX, ____, ____, XXXX, ____, ____, XXXX, ____, ____, XXXX,  ADJ,  ADJ \
       ),
 
   /* Adjust (Lower + Raise)
    * ,-----------------------------------------.             ,-----------------------------------------.
-   * |      |      |Keypad|Dvorak|Colemk|Qwerty|             |Qwerty|Colemk|Dvorak|Keypad|      |      |
+   * |      |Keypad|Dvorak|Colemk|Euclyn|Qwerty|             |Qwerty|Euclyn|Colemk|Dvorak|Keypad|      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
    * |      | Reset|RGBRST|RGB ON|Aud on| Win  |             | Win  |Aud on|RGB ON|RGBRST|      |      |
    * |------+------+------+------+------+------|             |------+------+------+------+------+------|
@@ -253,12 +272,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_ADJUST] =  KEYMAP( \
-      XXXXXXX, XXXXXXX, KEYPAD,   DVORAK, COLEMAK,  QWERTY,                   QWERTY,  COLEMAK,  DVORAK,  KEYPAD, XXXXXXX, XXXXXXX, \
-      XXXXXXX, RESET,   RGBRST,  RGB_TOG,   AU_ON, AG_SWAP,                   AG_SWAP,   AU_ON, RGB_TOG,  RGBRST, XXXXXXX, XXXXXXX, \
-      RGB_HUI, RGB_SAI, RGB_VAI,RGB_SMOD,  AU_OFF, AG_NORM,                   AG_NORM,  AU_OFF,RGB_SMOD, RGB_VAI, RGB_SAI, RGB_HUI, \
-      RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAD, RGB_SAD, RGB_HUD, \
-      _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______ \
+  [_ADJUST] =  LAYOUT( \
+      XXXXXXX, KEYPAD,  DVORAK,  COLEMAK, EUCALYN,  QWERTY,          QWERTY,  EUCALYN, COLEMAK,  DVORAK,  KEYPAD, XXXXXXX, \
+      XXXXXXX, RESET,   RGBRST,  RGB_TOG,   AU_ON, AG_SWAP,          AG_SWAP,   AU_ON, RGB_TOG,  RGBRST, XXXXXXX, XXXXXXX, \
+      RGB_HUI, RGB_SAI, RGB_VAI, RGB_MOD,  AU_OFF, AG_NORM,          AG_NORM,  AU_OFF, RGB_MOD, RGB_VAI, RGB_SAI, RGB_HUI, \
+      RGB_HUD, RGB_SAD, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, ___,___, XXXXXXX, XXXXXXX, XXXXXXX, RGB_VAD, RGB_SAD, RGB_HUD, \
+      _______, _______, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, ___,___, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______, _______ \
    ),
 
   /*  AUX modifier key layer
@@ -274,13 +293,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * |      |      |      |      |      |  BS  | Enter|      |      |      |      |      |      |      |
    * `-------------------------------------------------------------------------------------------------'
    */
-  [_AUX] = KEYMAP( \
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______,                   _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-      _______, _______, _______, _______, _______,  KC_BSPC,  LT(_RAISE,KC_ENT), \
-                                                                     _______, _______, _______, _______, _______, _______, _______ \
+  [_AUX] = LAYOUT_kc( \
+      ____, ____, ____, ____, ____, ____,             ____, ____, ____, ____, ____, ____, \
+      ____, ____, ____, ____, ____, ____,             ____, ____, ____, ____, ____, ____, \
+      ____, ____, ____, ____, ____, ____,             ____, ____, ____, ____, ____, ____, \
+      ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, \
+      ____, ____, ____, ____, ____, BSPC, RAEN, ____, ____, ____, ____, ____, ____, ____ \
       )
 };
 
@@ -307,23 +325,25 @@ uint32_t default_layer_state_set_kb(uint32_t state) {
     current_default_layer = state - 1;
     // 1<<_DVORAK  - 2 == 4 - 2 == _DVORAK (=2)
     if ( current_default_layer == 3 ) current_default_layer -= 1;
-    // 1<<_KEYPAD  - 5 == 8 - 5 == _KEYPAD (=3)
+    // 1<<_EUCALYN - 5 == 8 - 5 == _EUCALYN (=3)
     if ( current_default_layer == 7 ) current_default_layer -= 4;
+    // 1<<_KEYPAD  - 12 == 16 - 12 == _KEYPAD (=4)
+    if ( current_default_layer == 15 ) current_default_layer -= 11;
     return state;
 }
 
 void update_base_layer(int base)
 {
     if( current_default_layer != base ) {
-	eeconfig_update_default_layer(1UL<<base);
-	default_layer_set(1UL<<base);
-	layer_off(_AUX);
-	layer_off(_KAUX);
+        eeconfig_update_default_layer(1UL<<base);
+        default_layer_set(1UL<<base);
+        layer_off(_AUX);
+        layer_off(_KAUX);
     } else {
-	if( base < _KEYPAD )
-	    layer_invert(_AUX);
-	else
-	    layer_invert(_KAUX);
+        if( base < _KEYPAD )
+            layer_invert(_AUX);
+        else
+            layer_invert(_KAUX);
     }
 }
 
@@ -334,7 +354,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_qwerty);
         #endif
-	update_base_layer(_QWERTY);
+        update_base_layer(_QWERTY);
       }
       return false;
       break;
@@ -343,7 +363,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_colemak);
         #endif
-	update_base_layer(_COLEMAK);
+        update_base_layer(_COLEMAK);
       }
       return false;
       break;
@@ -352,7 +372,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
         #endif
-	update_base_layer(_DVORAK);
+        update_base_layer(_DVORAK);
+      }
+      return false;
+      break;
+    case EUCALYN:
+      if (record->event.pressed) {
+        #ifdef AUDIO_ENABLE
+          PLAY_SONG(tone_dvorak);
+        #endif
+        update_base_layer(_EUCALYN);
       }
       return false;
       break;
@@ -361,17 +390,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         #ifdef AUDIO_ENABLE
           PLAY_SONG(tone_dvorak);
         #endif
-	update_base_layer(_KEYPAD);
+        update_base_layer(_KEYPAD);
       }
       return false;
       break;
-    case ZERO2:
+    case KC_ZERO2:
       if (record->event.pressed) {
           SEND_STRING("00");
       }
       return false;
       break;
-    case EISU:
+    case KC_xEISU:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
           register_code(KC_LANG2);
@@ -383,7 +412,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
       break;
-    case KANA:
+    case KC_xKANA:
       if (record->event.pressed) {
         if(keymap_config.swap_lalt_lgui==false){
           register_code(KC_LANG1);
@@ -413,7 +442,6 @@ void matrix_init_user(void) {
     #endif
     //SSD1306 OLED init, make sure to add #define SSD1306OLED in config.h
     #ifdef SSD1306OLED
-        TWI_Init(TWI_BIT_PRESCALE_1, TWI_BITLENGTH_FROM_FREQ(1, 800000));
         iota_gfx_init(!has_usb());   // turns on the display
     #endif
 }
@@ -472,10 +500,10 @@ static void render_logo(struct CharacterMatrix *matrix) {
   char buf[30];
   if(rgblight_config.enable) {
       snprintf(buf, sizeof(buf), " LED %2d: %d,%d,%d ",
-	       rgblight_config.mode,
-	       rgblight_config.hue/RGBLIGHT_HUE_STEP,
-	       rgblight_config.sat/RGBLIGHT_SAT_STEP,
-	       rgblight_config.val/RGBLIGHT_VAL_STEP);
+               rgblight_config.mode,
+               rgblight_config.hue/RGBLIGHT_HUE_STEP,
+               rgblight_config.sat/RGBLIGHT_SAT_STEP,
+               rgblight_config.val/RGBLIGHT_VAL_STEP);
       matrix_write(matrix, buf);
   }
 #endif
@@ -485,6 +513,7 @@ static void render_logo(struct CharacterMatrix *matrix) {
 static const char Qwerty_name[]  PROGMEM = " Qwerty";
 static const char Colemak_name[] PROGMEM = " Colemak";
 static const char Dvorak_name[]  PROGMEM = " Dvorak";
+static const char Eucalyn_name[] PROGMEM = " Eucalyn";
 static const char Keypad_name[]  PROGMEM = " Keypad";
 
 static const char AUX_name[]     PROGMEM = ":AUX";
@@ -498,6 +527,7 @@ static const char *layer_names[] = {
     [_QWERTY] = Qwerty_name,
     [_COLEMAK] = Colemak_name,
     [_DVORAK] = Dvorak_name,
+    [_EUCALYN]= Eucalyn_name,
     [_KEYPAD] = Keypad_name,
     [_AUX]    = AUX_name,
     [_KAUX]   = KAUX_name,
@@ -530,18 +560,18 @@ void render_status(struct CharacterMatrix *matrix) {
        lstate && name_num < sizeof(layer_names)/sizeof(char *);
        lstate >>=1, name_num++ ) {
       if( (lstate & 1) != 0 ) {
-	  if( layer_names[name_num] ) {
-	      matrix_write_P(matrix, layer_names[name_num]);
-	  }
+          if( layer_names[name_num] ) {
+              matrix_write_P(matrix, layer_names[name_num]);
+          }
       }
   }
 
   // Host Keyboard LED Status
   char led[40];
     snprintf(led, sizeof(led), "\n%s  %s  %s",
-            (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
-            (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
-            (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
+             (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NUMLOCK" : "       ",
+             (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
+             (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");
   matrix_write(matrix, led);
 }
 

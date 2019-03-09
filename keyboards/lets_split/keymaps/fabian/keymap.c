@@ -14,9 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "lets_split.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
+
 
 extern keymap_config_t keymap_config;
 
@@ -40,9 +39,6 @@ enum custom_keycodes {
   BACKLIT,
   EXT_PLV,
 };
-
-#define XXXXXXX KC_NO
-#define _______ KC_TRNS
 
 #define CTL_ESC CTL_T(KC_ESC)  // Tap for Escape, hold for Control
 #define HPR_TAB ALL_T(KC_TAB)  // Tap for Tab, hold for Hyper (Super+Ctrl+Alt+Shift)

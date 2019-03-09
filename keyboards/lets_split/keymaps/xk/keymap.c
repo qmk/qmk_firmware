@@ -1,6 +1,5 @@
-#include "lets_split.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
+
 
 extern keymap_config_t keymap_config;
 
@@ -60,9 +59,6 @@ WIN,
 WINSH,
 OSX,
 };
-
-#define _______     KC_TRNS
-#define XXXXXXX     KC_NO
 
 // action-TAP for key/mod behavior LT(layer, KC)
 #define XK_TAB      LT(_FNCTION, KC_TAB)

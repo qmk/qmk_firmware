@@ -1,28 +1,26 @@
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "eeconfig.h"
 
 extern keymap_config_t keymap_config;
 
-#define _QWERTY 0
-#define _COLEMAK 1
-#define _DVORAK 2
+#define _MAC 0
+#define _WINDOWS 1
+#define _TESTMODE 2
 #define _LOWER 3
 #define _RAISE 4
 #define _FKEYS 5
 #define _ADJUST 16
 
 enum custom_keycodes {
-  QWERTY = SAFE_RANGE,
-  COLEMAK,
-  DVORAK,
+  MAC = SAFE_RANGE,
+  WINDOWS,
+  TESTMODE,
   LOWER,
   RAISE,
   ADJUST,
+  PLAY_ALLSTAR,
 };
 
 #define KC_ KC_TRNS
-#define _______ KC_TRNS
 
 #define KC_CAPW LGUI(LSFT(KC_3))        // Capture whole screen
 #define KC_CPYW LGUI(LSFT(LCTL(KC_3)))  // Copy whole screen
@@ -34,79 +32,81 @@ enum custom_keycodes {
 #define KC_GRVF LT(_FKEYS, KC_GRV)
 #define KC_ENTS MT(MOD_LSFT, KC_ENT)
 #define KC_BL_S BL_STEP
+#define KC_BL_T BL_TOGG
+#define KC_RMOD RGB_MOD
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-  [_QWERTY] = LAYOUT_kc_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  [_MAC] = LAYOUT_kc_ortho_4x12(
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
      TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      ESCC, A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,ENTS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
-  [_COLEMAK] = LAYOUT_kc_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-     TAB , Q  , W  , F  , P  , G  ,      J  , L  , U  , Y  ,SCLN,MINS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     ESCC, A  , R  , S  , T  , D  ,      H  , N  , E  , I  , O  ,QUOT,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     LSFT, Z  , X  , C  , V  , B  ,      K  , M  ,COMM,DOT ,SLSH,ENTS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  [_WINDOWS] = LAYOUT_kc_ortho_4x12(
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
+     TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     ESCC, A  , S  , D  , F  , G  ,      H  , J  , K  , L  ,SCLN,QUOT,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,ENTS,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     GRVF,LALT,LGUI,LCTL,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
-  [_DVORAK] = LAYOUT_kc_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
-     TAB ,QUOT,COMM,DOT , P  , Y  ,      F  , G  , C  , R  , L  ,MINS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     ESCC, A  , O  , E  , U  , I  ,      D  , H  , T  , N  , S  ,SLSH,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     LSFT,SCLN, Q  , J  , K  , X  ,      B  , M  , W  , V  , Z  ,ENTS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     GRVF,LCTL,LALT,LGUI,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  [_TESTMODE] = LAYOUT_kc_ortho_4x12(
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
+     TAB , Q  , W  , E  , R  , T  ,      Y  , U  , I  , O  , P  ,MINS,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     RMOD,BL_S, S  , D  , F  , G  ,     RMOD,BL_S, K  , L  ,SCLN,QUOT,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     LSFT, Z  , X  , C  , V  , B  ,      N  , M  ,COMM,DOT ,SLSH,ENTS,
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     GRVF,LALT,LGUI,LCTL,LOWR,SPC ,     BSPC,RASE,LEFT,DOWN, UP ,RGHT
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
   [_LOWER] = LAYOUT_kc_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
          , 1  , 2  , 3  , 4  , 5  ,      6  , 7  , 8  , 9  , 0  ,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      DEL ,CAPP,LEFT,RGHT, UP ,LBRC,     RBRC, P4 , P5 , P6 ,PLUS,PIPE,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
          ,CPYP,    ,    ,DOWN,LCBR,     RCBR, P1 , P2 , P3 ,MINS,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
-     BL_S,    ,    ,    ,    ,DEL ,     DEL ,    , P0 ,PDOT,    ,
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
+     BL_S,BL_T,    ,    ,    ,DEL ,     DEL ,    , P0 ,PDOT,    ,
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
   [_RAISE] = LAYOUT_kc_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
          ,EXLM, AT ,HASH,DLR ,PERC,     CIRC,AMPR,ASTR,LPRN,RPRN,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      DEL ,MPRV,MNXT,VOLU,PGUP,UNDS,     EQL ,HOME,    ,    ,    ,BSLS,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
      MUTE,MSTP,MPLY,VOLD,PGDN,MINS,     PLUS,END ,    ,    ,    ,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
          ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
   [_FKEYS] = LAYOUT_kc_ortho_4x12(
-  //,----+----+----+----+----+----.    ,----+----+----+----+----+----.
+  //┌────┬────┬────┬────┬────┬────┐    ┌────┬────┬────┬────┬────┬────┐
      F12 , F1 , F2 , F3 , F4 , F5 ,      F6 , F7 , F8 , F9 ,F10 ,F11 ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
          ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
          ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,    ,
-  //|----+----+----+----+----+----|    |----+----+----+----+----+----|
+  //├────┼────┼────┼────┼────┼────┤    ├────┼────┼────┼────┼────┼────┤
          ,    ,    ,    ,    ,    ,         ,    ,    ,    ,    ,
-  //`----+----+----+----+----+----'    `----+----+----+----+----+----'
+  //└────┴────┴────┴────┴────┴────┘    └────┴────┴────┴────┴────┴────┘
   ),
 
 /* Adjust (Lower + Raise)
@@ -121,20 +121,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
   [_ADJUST] = LAYOUT_ortho_4x12( \
-    _______, RESET  , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, \
-    _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM, AG_SWAP, QWERTY,  COLEMAK, DVORAK,  _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, \
-    _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______ \
+    _______, RESET  , RGB_TOG, RGB_MOD, RGB_HUD, RGB_HUI,          RGB_SAD, RGB_SAI, RGB_VAD, RGB_VAI, _______, _______, \
+    _______, _______, _______, AU_ON,   AU_OFF,  AG_NORM,          AG_SWAP, MAC,     WINDOWS, TESTMODE,_______, _______, \
+    _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______, \
+    _______, _______, _______, _______, _______, _______,          _______, _______, _______, _______, _______, _______ \
   )
 
 
 };
-
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_dvorak[][2]     = SONG(DVORAK_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-#endif
 
 void persistent_default_layer_set(uint16_t default_layer) {
   eeconfig_update_default_layer(default_layer);
@@ -143,30 +137,21 @@ void persistent_default_layer_set(uint16_t default_layer) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
+    case MAC:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_qwerty);
-        #endif
-        persistent_default_layer_set(1UL<<_QWERTY);
+        persistent_default_layer_set(1UL<<_MAC);
       }
       return false;
       break;
-    case COLEMAK:
+    case WINDOWS:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_colemak);
-        #endif
-        persistent_default_layer_set(1UL<<_COLEMAK);
+        persistent_default_layer_set(1UL<<_WINDOWS);
       }
       return false;
       break;
-    case DVORAK:
+    case TESTMODE:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_SONG(tone_dvorak);
-        #endif
-        persistent_default_layer_set(1UL<<_DVORAK);
+        persistent_default_layer_set(1UL<<_TESTMODE);
       }
       return false;
       break;

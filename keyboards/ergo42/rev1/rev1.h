@@ -20,7 +20,7 @@
 #ifndef FLIP_HALF
 // Standard Keymap
 // (TRRS jack on the left half is to the right, TRRS jack on the right half is to the left)
-#define KEYMAP( \
+#define LAYOUT_ortho_4x14( \
 	L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05, R06, \
 	L10, L11, L12, L13, L14, L15, L16, R10, R11, R12, R13, R14, R15, R16, \
 	L20, L21, L22, L23, L24, L25, L26, R20, R21, R22, R23, R24, R25, R26, \
@@ -39,7 +39,7 @@
 #else
 // Keymap with right side flipped
 // (TRRS jack on both halves are to the right)
-#define KEYMAP( \
+#define LAYOUT_ortho_4x14( \
 	L00, L01, L02, L03, L04, L05, L06, R00, R01, R02, R03, R04, R05, R06, \
 	L10, L11, L12, L13, L14, L15, L16, R10, R11, R12, R13, R14, R15, R16, \
 	L20, L21, L22, L23, L24, L25, L26, R20, R21, R22, R23, R24, R25, R26, \
@@ -57,6 +57,6 @@
 	}
 #endif
 
-#define LAYOUT_ortho_4x14 KEYMAP
+#define LAYOUT LAYOUT_ortho_4x14
 
 #endif

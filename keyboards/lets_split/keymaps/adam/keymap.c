@@ -1,6 +1,5 @@
-#include "lets_split.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
+
 
 extern keymap_config_t keymap_config;
 
@@ -11,10 +10,6 @@ extern keymap_config_t keymap_config;
 #define BASE 0 // default layer
 #define FLOCK 1 // symbols arrows and F keys on F held down
 #define JLOCK 2 // same as Flock but with fall thru J and mapped to J held down
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 

@@ -1,0 +1,10 @@
+.sidebar-toggle {
+  position: absolute;
+  top: 0;
+  bottom: auto;
+  left: 0;
+}
+
+.search {
+  margin-top: 40px;
+}

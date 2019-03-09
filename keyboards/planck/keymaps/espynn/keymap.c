@@ -1,10 +1,10 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #include "eeconfig.h"
 #ifdef BACKLIGHT_ENABLE
   #include "backlight.h"
 #endif
-#define PREVENT_STUCK_MODIFIERS
 extern keymap_config_t keymap_config;
 
 // Symbolic names for macro IDs.
@@ -138,14 +138,14 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 	    return MACRODOWN( DOWN(KC_LSFT), TYPE(KC_I), UP(KC_LSFT), END );
     case _CUS5: // Enter your email here
 	    return MACRODOWN( TYPE(KC_F),
-        DOWN(KC_LSFT), TYPE(KC_2), UP(KC_LSFT), 
+        DOWN(KC_LSFT), TYPE(KC_2), UP(KC_LSFT),
         TYPE(KC_G), TYPE(KC_M), TYPE(KC_A), TYPE(KC_I), TYPE(KC_L), TYPE(KC_DOT), TYPE(KC_C), TYPE(KC_O), TYPE(KC_M), END );
     case _CUT: //cut macro
 	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_X), UP(KC_LCTL), END );
     case _COPY: // copy macro
 	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_C), UP(KC_LCTL), END );
     case _PASTE: // paste macro
-	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_V), UP(KC_LCTL), END ); 
+	    return MACRODOWN( DOWN(KC_LCTL), TYPE(KC_V), UP(KC_LCTL), END );
     };
     return MACRO_NONE;
 }

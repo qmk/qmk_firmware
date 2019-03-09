@@ -1,3 +1,4 @@
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #ifdef BACKLIGHT_ENABLE
 #include "backlight.h"
@@ -7,7 +8,7 @@
 #include "version.h"
 
 /* Each layer is given a name to aid in readability, which is then
-   used in the keymap matrix below.  The underscores do not denote 
+   used in the keymap matrix below.  The underscores do not denote
    anything - you can have a layer called STUFF or any other name.
 
    Layer names don't all need to be of the same length, obviously, and
@@ -20,7 +21,7 @@
 /* This was originally based on planck/keymaps/default/default.c, and
    then cbbrowne has revised things */
 
-/* Things I did not like about the default mapping 
+/* Things I did not like about the default mapping
 
    - I found control too hard to get to.  I use it more than Tab, so
      switched it there.
@@ -33,7 +34,7 @@
 
    - All of the above are done :-)
 
-   - Dropped out support for Dvorak and friends.  They aren't 
+   - Dropped out support for Dvorak and friends.  They aren't
      improvements to me
 */
 
@@ -152,11 +153,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 }
 };
 
-
-/* What is fn_actions actually used for??? */
-const uint16_t PROGMEM fn_actions[] = {
-};
-
 /* This bit of logic seeds a wee linear congruential random number generator */
 /* lots of prime numbers everywhere... */
 static uint16_t random_value = 157;
@@ -177,7 +173,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     } else {
       unregister_code(KC_RSFT);
     }
-    break;	    
+    break;
   case M_USERNAME:
     if (record->event.pressed) {
       SEND_STRING("cbbrowne");
@@ -195,7 +191,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
     if (record->event.pressed) {
       /* Here, we mix the LCRNG with low bits from one of the system
          clocks via XOR in the theory that this may be more random
-         than either separately */ 
+         than either separately */
       rval = (random_value ^ clockbyte) % 10;
       /* Note that KC_1 thru KC_0 are a contiguous range */
       register_code (KC_1 + rval);
@@ -207,7 +203,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
        a letter chosen at random */
     /* Here, we mix the LCRNG with low bits from one of the system
        clocks via XOR in the theory that this may be more random
-       than either separately */ 
+       than either separately */
     random_value = ((random_value + randadd) * randmul) % randmod;
     if (record->event.pressed) {
       rval = (random_value ^ clockbyte) % 26;
@@ -247,7 +243,7 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 	update_tri_layer(_LOWER, _RAISE, _ADJUST);
       }
     break;
-    
+
   }
   return MACRO_NONE;
 };
@@ -366,4 +362,4 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   return true;
 }
-  
+
