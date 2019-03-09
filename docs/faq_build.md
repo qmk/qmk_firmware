@@ -49,6 +49,8 @@ Re-running the installation script for MSYS2 may help (eg run `./util/qmk_instal
 
 If that doesn't work, then you may need to grab the [Zadig Utility](https://zadig.akeo.ie/). Download this, find the device in question, and select the `WinUSB` option, and hit "Reinstall driver". Once you've done that, try flashing your board, again.  If that doesn't work, try all of the options, until one works. 
 
+?> There isn't a best option for which driver should be used here.  Some options work better on some systems than others.  libUSB and WinUSB seem to be the best options here.
+
 If the bootloader doesn't show up in the list for devices, you may need to enable the "List all devices" option in the `Options` menu, and then find the bootloader in question. 
 
 
