@@ -78,8 +78,8 @@ enum layers {
 #endif
 
 #define KC_SPC1   LT(_NAV,KC_SPC)
-#define KC_SPC2   SH_T(KC_BSPC)
-#define KC_SPC3   LT(_NUM,KC_ENT)
+#define KC_SPC2   LT(_NUM,KC_ENT)
+#define KC_SPC3   SH_T(KC_BSPC)
 
 #define NV_SPC1   KC_SPC
 #define NV_SPC2   KC_ENT
