@@ -163,7 +163,7 @@ Some interesting things to note:
 
 ### **(DEPRECATED)** Custom Functions
 
-<!-- Maybe we should remove this section, since it's very depreciated -->
+<!-- Maybe we should remove this section, since it's very deprecated -->
 
 !> These functions are deprecated in favor of [custom macros](feature_macros.md) or have been rolled into keycodes.  
 
