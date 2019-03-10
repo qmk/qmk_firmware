@@ -26,14 +26,14 @@ extern int8_t encoderValue;
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_NAVI] = LAYOUT( /* Base layout, put whatever defaults. */
 		MO(_MDIA), MO(_HORZ), MO(_VERT), KC_MUTE,
-		KC_CTLA,   KC_MCCPY,  KC_MCPIN,  KC_LALT,
+		_______,   _______,  _______,  _______,
     KC_8,    KC_9,    KC_A,    KC_ENT,
 		KC_C,    KC_D,    KC_E,    KC_F
 	),
 
   [_MNAV] = LAYOUT( /* Base layout, put whatever defaults. */
 		MO(_MDIA), MO(_HORZ), MO(_VERT), KC_MUTE,
-		KC_CTLA,   KC_MCCPY,  KC_MCPIN,  KC_LALT,
+		_______,   _______,  _______,  _______,
     KC_8,    KC_9,    KC_A,    KC_ENT,
 		KC_C,    KC_D,    KC_E,    KC_F
 	),
