@@ -27,20 +27,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-  [_DVORAK] = LAYOUT_wrapper( \
 
-      KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
-      KC_LSFT,   _______________DVORAK_L2___________________,                   _______________DVORAK_R2___________________, KC_RSFT, \
-      KC_____,   _______________MACDVK_L3___________________,                   _______________MACDVK_R3___________________, KC_____, \
-                                          __________________MAC_THUMB_CLUSTER_V2______________ \
-      ),
-//In this case, this "alt" Dvorak layout is for Windows
-  [_ALTDVK] = LAYOUT_wrapper( \
+//In this case, this "alt" Dvorak layout is for Mac
+  [_DVORAK] = LAYOUT_wrapper( \
 
       KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
       KC_LSFT,   _______________DVORAK_L2___________________,                   _______________DVORAK_R2___________________, KC_RSFT, \
       KC_____,   _______________WINDVK_L3___________________,                   _______________WINDVK_R3___________________, KC_____, \
                                            __________________WIN_THUMB_CLUSTER_V2______________ \
+      ),
+
+  [_ALTDVK] = LAYOUT_wrapper( \
+
+      KC_ESC,    _______________DVORAK_L1___________________,                   _______________DVORAK_R1___________________, KC_____, \
+      KC_LSFT,   _______________DVORAK_L2___________________,                   _______________DVORAK_R2___________________, KC_RSFT, \
+      KC_____,   _______________MACDVK_L3___________________,                   _______________MACDVK_R3___________________, KC_____, \
+                                          __________________MAC_THUMB_CLUSTER_V2______________ \
       ),
 
   [_QWERTY] = LAYOUT_wrapper( \
@@ -53,18 +55,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_SYMB] = LAYOUT_wrapper( \
 
-      KC_____, _________________PUNC_L1___________________,                   KC_____, SHRUG,   KC_____, KC_____, MAKEK,   KC_____, \
-      KC_____, _________________PUNC_L2___________________,                   KC_____, KC_____, KC_DQT,  KC_____, KC_____, KC_____, \
+      KC_____, _________________PUNC_L1_ALT_______________,                   KC_____, SHRUG,   KC_____, KC_____, MAKEKF,   KC_____, \
+      KC_____, _________________PUNC_L2___________________,                   KC_____, KC_____, KC_BSLS, KC_____, KC_____, KC_____, \
       KC_____, _________________PUNC_L3___________________,                   KC_GRV,  KC_____, KC_____, KC_____, KC_____, KC_____, \
                                           KC_____, KC_____, KC_DEL,  KC_____, KC_CAPS, KC_____ \
       ),
 
   [_FUNC] = LAYOUT_wrapper( \
 
-      KC_____, MAKEK,   KC_____, KC_____, KC_____, KC_____,                   KC_____, _____________FUNC_1_______________, KC_____, \
-      KC_____, KC_____, KC_____, KC_____, KC_____, KC_____,                   KC_____, _____________FUNC_1_______________, KC_____, \
-      KC_____, KC_____, KC_RALT, KC_TAB,  KC_____, KC_____,                   KC_GRV,  _____________FUNC_1_______________, KC_____, \
-                                          KC_____, KC_____, KC_DEL,  KC_____, KC_CAPS, MO(_MDIA) \
+      KC_____, MAKEK,   KC_____, KC_____, KC_____, KC_____,                   KC_ALTDVK, _____________FUNC_1_______________, KC_____, \
+      KC_____, KC_____, KC_____, KC_____, KC_TAB,  KC_____,                   KC_DVORAK, _____________FUNC_2_______________, KC_____, \
+      KC_____, KC_LGUI, KC_RALT, KC_LCTL, KC_____, KC_____,                   KC_GRV,    _____________FUNC_3_______________, KC_____, \
+                                          KC_____, KC_____, KC_DEL,  KC_____, KC_CAPS,   MO(_MDIA) \
       ),
 
   [_MNMB] = LAYOUT_wrapper( \

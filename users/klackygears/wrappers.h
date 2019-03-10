@@ -67,7 +67,7 @@ NOTE: If you do a search/replace
 #define ________________DVORAK_AU_R1_______________        KC_F,    KC_G,    KC_C,    KC_R,    KC_L
 #define ________________DVORAK_AU_R2_______________        KC_D,    KC_H,    KC_T,    KC_N,    KC_S
 #define ________________DVORAK_AU_R3_______________        KC_B,    KC_M,    KC_W,    KC_V,    KC_Z
-*/
+
 
 #define _________________WORKMAN_L1________________        KC_Q,    KC_D,    KC_R,   KC_W,     KC_B
 #define _________________WORKMAN_L2________________        KC_A,    KC_S,    KC_H,   KC_T,     KC_G
@@ -77,7 +77,7 @@ NOTE: If you do a search/replace
 #define _________________WORKMAN_R2________________        KC_Y,    KC_N,    KC_E,           KC_O,        KC_I
 #define _________________WORKMAN_R3________________        KC_K,    KC_L,    TD(TD_COMQUES), TD(TD_DTEX), KC_SLASH
 
-/*
+
 #define _________________NORMAN_L1_________________       KC_Q,    KC_W,    KC_D,    KC_F,    KC_K
 #define _________________NORMAN_L2_________________       KC_A,    KC_S,    KC_E,    KC_T,    KC_G
 #define _________________NORMAN_L3_________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
@@ -101,8 +101,8 @@ NOTE: If you do a search/replace
 #define _________________MACNAV_L3_________________       KC_____, LGUI(KC_A), TD(TD_MCCCPY), TD(TD_MCPSTIN), KC_DEL
 
 #define _________________WINNAV_L1_________________       KC_PGUP,     KC_PGDN,    KC_HOME,     KC_END,      TD(TD_FNDR)
-#define _________________WINNAV_L2_________________       KC_LEFT,     KC_UP,      KC_DOWN,     KC_RIGHT,    TD(TD_PSTI)
-#define _________________WINNAV_L3_________________       TD(TD_ACCW), LCTL(KC_A),    TD(TD_CCPY), TD(TD_PTSP), TD(TD_DDEL)
+#define _________________WINNAV_L2_________________       KC_LEFT,     KC_UP,      KC_DOWN,     KC_RIGHT,    TD(TD_PTSP)
+#define _________________WINNAV_L3_________________       TD(TD_ACCW), LCTL(KC_A),    TD(TD_CCPY), TD(TD_PSTI), TD(TD_DDEL)
 
 #define _________________NUMBER_L__________________       KC_1,    KC_2,    KC_3,    KC_4,    KC_5
 #define _________________NUMBER_R__________________       KC_6,    KC_7,    KC_8,    KC_9,    KC_0
@@ -110,7 +110,7 @@ NOTE: If you do a search/replace
 #define _________________NUMB_R1___________________       TD(TD_MINPLS), KC_7,       KC_8,       KC_9,              KC_COLN
 #define _________________NUMB_R2___________________       TD(TD_DIVMLT), KC_4,       KC_5,       KC_6,              C_S_T(KC_COLN)
 #define _________________NUMB_R3_MAC_______________       TD(TD_DOTEQL), KC_1,       KC_2,       MT(MOD_LGUI,KC_3), KC_LCTRL
-#define _________________NUMB_R3_WIN_______________       TD(TD_DOTEQL), KC_1,       KC_2,       MT(MOD_LCTL,KC_3), KC_LGUI
+#define _________________NUMB_R3_WIN_______________       TD(TD_DOTEQL), KC_1,       MT(MOD_LCTL,KC_2),       MT(MOD_LALT,KC_3), KC_LGUI
 #define _________________NUMB_R4___________________       KC_____,    KC_0,       KC_0,       KC_____,         KC_____
 /*
 #define _________________FUNC_LEFT_________________       KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5
@@ -125,6 +125,7 @@ NOTE: If you do a search/replace
 #define _________________LYOUT_____________________       KC_____,    KC_QWERTY,   KC_DVORAK,   KC_ALTDVK,   KC_____
 
 #define _________________PUNC_L1___________________       KC_BSLS,    KC_AT,      KC_HASH,    KC_DLR,     KC_PERC
+#define _________________PUNC_L1_ALT_______________       KC_DQT,     KC_AT,      KC_HASH,    KC_DLR,     KC_PERC
 #define _________________PUNC_L2___________________       KC_PLUS,    KC_MINS,    KC_ASTR,    KC_SLSH,    KC_EQL
 #define _________________PUNC_L3___________________       KC_LBRC,    KC_RBRC,    KC_LPRN,    KC_RPRN,    KC_AMPR
 
