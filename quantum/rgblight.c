@@ -34,6 +34,17 @@
   #include "velocikey.h"
 #endif
 
+#ifdef RGBLIGHT_SPLIT
+  /* for split keyboard */
+  #define RGBLIGHT_SPLIT_SET_CHANGE_MODE         rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_MODE
+  #define RGBLIGHT_SPLIT_SET_CHANGE_HSVS         rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_HSVS
+  #define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_TIMER
+#else
+  #define RGBLIGHT_SPLIT_SET_CHANGE_MODE
+  #define RGBLIGHT_SPLIT_SET_CHANGE_HSVS
+  #define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE
+#endif
+
 #define _RGBM_SINGLE_STATIC(sym)   RGBLIGHT_MODE_ ## sym,
 #define _RGBM_SINGLE_DYNAMIC(sym)
 #define _RGBM_MULTI_STATIC(sym)    RGBLIGHT_MODE_ ## sym,
@@ -152,45 +163,6 @@ void rgblight_check_config(void) {
   }
 
 }
-
-#ifdef RGBLIGHT_SPLIT
-/* for split keyboard */
-
-#define RGBLIGHT_SPLIT_SET_CHANGE_MODE	rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_MODE
-#define RGBLIGHT_SPLIT_SET_CHANGE_HSVS	rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_HSVS
-#define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_TIMER
-
-/* for split keyboard slave side */
-void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom) {
-    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_MODE ) {
-        if (config->enable) {
-            rgblight_config.enable = 1; // == rgblight_enable_noeeprom();
-            rgblight_mode_noeeprom(config->mode);
-        } else {
-            rgblight_disable_noeeprom();
-        }
-    }
-    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_HSVS ) {
-        rgblight_sethsv_eeprom_helper(config->hue, config->sat, config->val,
-                                      false);
-        // rgblight_config.speed = config->speed; // NEED???
-    }
-#ifdef RGBLIGHT_USE_TIMER
-    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_TIMER ) {
-        if (status->timer_enabled) {
-            rgblight_timer_enable();
-        } else {
-            rgblight_timer_disable();
-        }
-    }
-#endif
-}
-#else
-#define RGBLIGHT_SPLIT_SET_CHANGE_MODE
-#define RGBLIGHT_SPLIT_SET_CHANGE_HSVS
-#define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE
-#endif
-
 
 uint32_t eeconfig_read_rgblight(void) {
   #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
@@ -728,6 +700,33 @@ void rgblight_set(void) {
       ws2812_setleds(led, RGBLED_NUM);
     #endif
   }
+}
+#endif
+
+#ifdef RGBLIGHT_SPLIT
+/* for split keyboard slave side */
+void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom) {
+    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_MODE ) {
+        if (config->enable) {
+            rgblight_config.enable = 1; // == rgblight_enable_noeeprom();
+            rgblight_mode_noeeprom(config->mode);
+        } else {
+            rgblight_disable_noeeprom();
+        }
+    }
+    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_HSVS ) {
+        rgblight_sethsv_eeprom_helper(config->hue, config->sat, config->val, false);
+        // rgblight_config.speed = config->speed; // NEED???
+    }
+  #ifdef RGBLIGHT_USE_TIMER
+    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_TIMER ) {
+        if (status->timer_enabled) {
+            rgblight_timer_enable();
+        } else {
+            rgblight_timer_disable();
+        }
+    }
+  #endif
 }
 #endif
 
