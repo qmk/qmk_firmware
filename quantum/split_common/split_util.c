@@ -11,6 +11,10 @@
 #   include "eeconfig.h"
 #endif
 
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
+#include "rgblight.h"
+#endif
+
 volatile bool isLeftHand = true;
 
 __attribute__((weak))
@@ -70,6 +74,16 @@ static void keyboard_slave_setup(void)
 void matrix_setup(void)
 {
   isLeftHand = is_keyboard_left();
+
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
+  uint8_t num_rgb_leds_split[2] = RGBLED_SPLIT;
+  if (isLeftHand) {
+    rgblight_set_clipping_range(0, num_rgb_leds_split[0]);
+  }
+  else {
+    rgblight_set_clipping_range(num_rgb_leds_split[0], num_rgb_leds_split[1]);
+  }
+#endif
 
   if (is_keyboard_master())
   {

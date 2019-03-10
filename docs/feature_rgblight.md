@@ -23,10 +23,11 @@ RGBLIGHT_ENABLE = yes
 
 At minimum you must define the data pin your LED strip is connected to, and the number of LEDs in the strip, in your `config.h`. If your keyboard has onboard RGB LEDs, and you are simply creating a keymap, you usually won't need to modify these.
 
-|Define      |Description                                  |
-|------------|---------------------------------------------|
-|`RGB_DI_PIN`|The pin connected to the data pin of the LEDs|
-|`RGBLED_NUM`|The number of LEDs connected                 |
+|Define         |Description                                                                                              |
+|---------------|---------------------------------------------------------------------------------------------------------|
+|`RGB_DI_PIN`   |The pin connected to the data pin of the LEDs                                                            |
+|`RGBLED_NUM`   |The number of LEDs connected                                                                             |
+|`RGBLED_SPLIT` |(Optional) For split keyboards, the number of LEDs connected on each half directly wired to `RGB_DI_PIN` |
 
 Then you should be able to use the keycodes below to change the RGB lighting to your liking.
 
