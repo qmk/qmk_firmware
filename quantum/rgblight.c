@@ -541,29 +541,25 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
       if ( 1 == 0 ) { //dummy
       }
 #ifdef RGBLIGHT_EFFECT_BREATHING
-      else if (rgblight_config.mode >= RGBLIGHT_MODE_BREATHING &&
-          rgblight_config.mode <= RGBLIGHT_MODE_BREATHING_end) {
+      else if (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING ) {
         // breathing mode, ignore the change of val, use in memory value instead
         val = rgblight_config.val;
       }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
-      else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_MOOD &&
-                  rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_MOOD_end) {
+      else if (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_MOOD) {
         // rainbow mood, ignore the change of hue
         hue = rgblight_config.hue;
       }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
-      else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SWIRL &&
-               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SWIRL_end) {
+      else if (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_SWIRL) {
         // rainbow swirl, ignore the change of hue
         hue = rgblight_config.hue;
       }
 #endif
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
-      else if (rgblight_config.mode >= RGBLIGHT_MODE_STATIC_GRADIENT &&
-               rgblight_config.mode <= RGBLIGHT_MODE_STATIC_GRADIENT_end) {
+      else if (rgblight_status.base_mode == RGBLIGHT_MODE_STATIC_GRADIENT) {
         // static gradient
         uint16_t _hue;
         int8_t direction = ((rgblight_config.mode - RGBLIGHT_MODE_STATIC_GRADIENT) % 2) ? -1 : 1;
@@ -786,60 +782,55 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void rgblight_task(void) {
-
   if (rgblight_status.timer_enabled) {
+    uint8_t delta = rgblight_config.mode - rgblight_status.base_mode;
     // static light mode, do nothing here
     if ( 1 == 0 ) { //dummy
     }
 #ifdef RGBLIGHT_EFFECT_BREATHING
-    else if (rgblight_config.mode >= RGBLIGHT_MODE_BREATHING  &&
-        rgblight_config.mode <= RGBLIGHT_MODE_BREATHING_end) {
+    else if (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) {
       // breathing mode
-      rgblight_effect_breathing(rgblight_config.mode - RGBLIGHT_MODE_BREATHING );
+      rgblight_effect_breathing(delta);
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
-    else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_MOOD &&
-               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_MOOD_end) {
+    else if (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_MOOD) {
       // rainbow mood mode
-      rgblight_effect_rainbow_mood(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_MOOD);
+      rgblight_effect_rainbow_mood(delta);
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
-    else if (rgblight_config.mode >= RGBLIGHT_MODE_RAINBOW_SWIRL &&
-               rgblight_config.mode <= RGBLIGHT_MODE_RAINBOW_SWIRL_end) {
+    else if (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_SWIRL) {
       // rainbow swirl mode
-      rgblight_effect_rainbow_swirl(rgblight_config.mode - RGBLIGHT_MODE_RAINBOW_SWIRL);
+      rgblight_effect_rainbow_swirl(delta);
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_SNAKE
-    else if (rgblight_config.mode >= RGBLIGHT_MODE_SNAKE &&
-               rgblight_config.mode <= RGBLIGHT_MODE_SNAKE_end) {
+    else if (rgblight_status.base_mode == RGBLIGHT_MODE_SNAKE) {
       // snake mode
-      rgblight_effect_snake(rgblight_config.mode - RGBLIGHT_MODE_SNAKE);
+      rgblight_effect_snake(delta);
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_KNIGHT
-    else if (rgblight_config.mode >= RGBLIGHT_MODE_KNIGHT &&
-               rgblight_config.mode <= RGBLIGHT_MODE_KNIGHT_end) {
+    else if (rgblight_status.base_mode == RGBLIGHT_MODE_KNIGHT) {
       // knight mode
-      rgblight_effect_knight(rgblight_config.mode - RGBLIGHT_MODE_KNIGHT);
+      rgblight_effect_knight(delta);
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_CHRISTMAS
-    else if (rgblight_config.mode == RGBLIGHT_MODE_CHRISTMAS) {
+    else if (rgblight_status.base_mode == RGBLIGHT_MODE_CHRISTMAS) {
       // christmas mode
       rgblight_effect_christmas();
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RGB_TEST
-    else if (rgblight_config.mode == RGBLIGHT_MODE_RGB_TEST) {
+    else if (rgblight_status.base_mode == RGBLIGHT_MODE_RGB_TEST) {
       // RGB test mode
       rgblight_effect_rgbtest();
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_ALTERNATING
-    else if (rgblight_config.mode == RGBLIGHT_MODE_ALTERNATING){
+    else if (rgblight_status.base_mode == RGBLIGHT_MODE_ALTERNATING){
       rgblight_effect_alternating();
     }
 #endif
