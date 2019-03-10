@@ -39,10 +39,12 @@
   #define RGBLIGHT_SPLIT_SET_CHANGE_MODE         rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_MODE
   #define RGBLIGHT_SPLIT_SET_CHANGE_HSVS         rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_HSVS
   #define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE rgblight_status.change_flags |= RGBLIGHT_STATUS_CHANGE_TIMER
+  #define RGBLIGHT_SPLIT_ANIMATION_TICK          rgblight_status.change_flags |= RGBLIGHT_STATUS_ANIMATION_TICK
 #else
   #define RGBLIGHT_SPLIT_SET_CHANGE_MODE
   #define RGBLIGHT_SPLIT_SET_CHANGE_HSVS
   #define RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE
+  #define RGBLIGHT_SPLIT_ANIMATION_TICK
 #endif
 
 #define _RGBM_SINGLE_STATIC(sym)   RGBLIGHT_MODE_ ## sym,
@@ -740,6 +742,9 @@ void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, 
             rgblight_timer_disable();
         }
     }
+    if (status->change_flags & RGBLIGHT_STATUS_ANIMATION_TICK) {
+        animation_status.pos = 0;
+    }
   #endif
 }
 #endif
@@ -858,8 +863,12 @@ void rgblight_task(void) {
     }
 #endif
     if (timer_elapsed(animation_status.last_timer) >= interval_time) {
-        animation_status.last_timer += interval_time;
-        effect_func(&animation_status);
+      uint8_t old_pos = animation_status.pos;
+      animation_status.last_timer += interval_time;
+      effect_func(&animation_status);
+      if ( animation_status.pos == 0 && old_pos != animation_status.pos ) {
+        RGBLIGHT_SPLIT_ANIMATION_TICK;
+      }
     }
   }
 }

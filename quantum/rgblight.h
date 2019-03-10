@@ -177,6 +177,7 @@ typedef struct _rgblight_status_t {
   #define RGBLIGHT_STATUS_CHANGE_MODE (1<<0)
   #define RGBLIGHT_STATUS_CHANGE_HSVS (1<<1)
   #define RGBLIGHT_STATUS_CHANGE_TIMER (1<<2)
+  #define RGBLIGHT_STATUS_ANIMATION_TICK (1<<3)
 
   extern rgblight_config_t rgblight_config;
   extern rgblight_status_t rgblight_status;
