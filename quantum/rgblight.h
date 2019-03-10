@@ -257,14 +257,32 @@ void rgblight_timer_init(void);
 void rgblight_timer_enable(void);
 void rgblight_timer_disable(void);
 void rgblight_timer_toggle(void);
-void rgblight_effect_breathing(uint8_t interval);
-void rgblight_effect_rainbow_mood(uint8_t interval);
-void rgblight_effect_rainbow_swirl(uint8_t interval);
-void rgblight_effect_snake(uint8_t interval);
-void rgblight_effect_knight(uint8_t interval);
-void rgblight_effect_christmas(void);
-void rgblight_effect_rgbtest(void);
-void rgblight_effect_alternating(void);
+
+#ifdef RGBLIGHT_USE_TIMER
+
+typedef struct _animation_status_t {
+    uint16_t last_timer;
+    uint8_t  delta; /* mode - base_mode */
+    union {
+        uint16_t pos;
+        uint16_t current_hue;
+        uint16_t current_offset;
+        int8_t   low_bound;
+    };
+} animation_status_t;
+
+extern animation_status_t animation_status;
+
+void rgblight_effect_breathing(animation_status_t *anim);
+void rgblight_effect_rainbow_mood(animation_status_t *anim);
+void rgblight_effect_rainbow_swirl(animation_status_t *anim);
+void rgblight_effect_snake(animation_status_t *anim);
+void rgblight_effect_knight(animation_status_t *anim);
+void rgblight_effect_christmas(animation_status_t *anim);
+void rgblight_effect_rgbtest(animation_status_t *anim);
+void rgblight_effect_alternating(animation_status_t *anim);
+
+#endif
 
 #endif // #ifndef RGBLIGHT_H_DUMMY_DEFINE
 #endif // RGBLIGHT_H

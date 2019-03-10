@@ -81,6 +81,10 @@ rgblight_config_t rgblight_config;
 rgblight_status_t rgblight_status = { .timer_enabled = false };
 bool is_rgblight_initialized = false;
 
+#ifdef RGBLIGHT_USE_TIMER
+animation_status_t animation_status = {};
+#endif
+
 LED_TYPE led[RGBLED_NUM];
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
@@ -531,6 +535,9 @@ void rgblight_sethsv_noeeprom_old(uint16_t hue, uint8_t sat, uint8_t val) {
 void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool write_to_eeprom) {
   if (rgblight_config.enable) {
     rgblight_status.base_mode = mode_base_table[rgblight_config.mode];
+#ifdef RGBLIGHT_USE_TIMER
+    animation_status.pos = 0;
+#endif
     if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
       // same static color
       LED_TYPE tmp_led;
@@ -739,8 +746,11 @@ void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, 
 
 #ifdef RGBLIGHT_USE_TIMER
 
-// Animation timer -- AVR Timer3
+typedef void (*effect_func_t)(animation_status_t *anim);
+
+// Animation timer -- use system timer (AVR Timer0)
 void rgblight_timer_init(void) {
+  // OLD!!!! Animation timer -- AVR Timer3
   // static uint8_t rgblight_timer_is_init = 0;
   // if (rgblight_timer_is_init) {
   //   return;
@@ -761,18 +771,19 @@ void rgblight_timer_init(void) {
 }
 void rgblight_timer_enable(void) {
   rgblight_status.timer_enabled = true;
+  animation_status.last_timer = timer_read();
   RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
-  dprintf("TIMER3 enabled.\n");
+  dprintf("rgblight timer enabled.\n");
 }
 void rgblight_timer_disable(void) {
   rgblight_status.timer_enabled = false;
   RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
-  dprintf("TIMER3 disabled.\n");
+  dprintf("rgblight timer disable.\n");
 }
 void rgblight_timer_toggle(void) {
   rgblight_status.timer_enabled ^= rgblight_status.timer_enabled;
   RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
-  dprintf("TIMER3 toggled.\n");
+  dprintf("rgblight timer toggle.\n");
 }
 
 void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
@@ -783,57 +794,73 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
 
 void rgblight_task(void) {
   if (rgblight_status.timer_enabled) {
+    effect_func_t effect_func = NULL;
+    uint16_t interval_time = 0;
     uint8_t delta = rgblight_config.mode - rgblight_status.base_mode;
+    animation_status.delta = delta;
+
     // static light mode, do nothing here
     if ( 1 == 0 ) { //dummy
     }
 #ifdef RGBLIGHT_EFFECT_BREATHING
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_BREATHING) {
       // breathing mode
-      rgblight_effect_breathing(delta);
+      interval_time = get_interval_time(&RGBLED_BREATHING_INTERVALS[delta], 1, 100);
+      effect_func = rgblight_effect_breathing;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_MOOD
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_MOOD) {
       // rainbow mood mode
-      rgblight_effect_rainbow_mood(delta);
+      interval_time = get_interval_time(&RGBLED_RAINBOW_MOOD_INTERVALS[delta], 5, 100);
+      effect_func = rgblight_effect_rainbow_mood;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RAINBOW_SWIRL
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_RAINBOW_SWIRL) {
       // rainbow swirl mode
-      rgblight_effect_rainbow_swirl(delta);
+      interval_time = get_interval_time(&RGBLED_RAINBOW_SWIRL_INTERVALS[delta / 2], 1, 100);
+      effect_func = rgblight_effect_rainbow_swirl;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_SNAKE
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_SNAKE) {
       // snake mode
-      rgblight_effect_snake(delta);
+      interval_time = get_interval_time(&RGBLED_SNAKE_INTERVALS[delta / 2], 1, 200);
+      effect_func = rgblight_effect_snake;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_KNIGHT
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_KNIGHT) {
       // knight mode
-      rgblight_effect_knight(delta);
+      interval_time = get_interval_time(&RGBLED_KNIGHT_INTERVALS[delta], 5, 100);
+      effect_func = rgblight_effect_knight;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_CHRISTMAS
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_CHRISTMAS) {
       // christmas mode
-      rgblight_effect_christmas();
+      interval_time = RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL;
+      effect_func = (effect_func_t)rgblight_effect_christmas;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_RGB_TEST
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_RGB_TEST) {
       // RGB test mode
-      rgblight_effect_rgbtest();
+      interval_time = pgm_read_word(&RGBLED_RGBTEST_INTERVALS[0]);
+      effect_func = (effect_func_t)rgblight_effect_rgbtest;
     }
 #endif
 #ifdef RGBLIGHT_EFFECT_ALTERNATING
     else if (rgblight_status.base_mode == RGBLIGHT_MODE_ALTERNATING){
-      rgblight_effect_alternating();
+      interval_time = 500;
+      effect_func = (effect_func_t)rgblight_effect_alternating;
     }
 #endif
+    if (timer_elapsed(animation_status.last_timer) >= interval_time) {
+        animation_status.last_timer += interval_time;
+        effect_func(&animation_status);
+    }
   }
 }
 
@@ -844,23 +871,13 @@ void rgblight_task(void) {
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 
-void rgblight_effect_breathing(uint8_t interval) {
-  static uint8_t pos = 0;
-  static uint16_t last_timer = 0;
+void rgblight_effect_breathing(animation_status_t *anim) {
   float val;
 
-  uint8_t interval_time = get_interval_time(&RGBLED_BREATHING_INTERVALS[interval], 1, 100);
-
-  //TODO: Integrate timer processing.
-  if (timer_elapsed(last_timer) < interval_time) {
-    return;
-  }
-  last_timer = timer_read();
-
   // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
-  val = (exp(sin((pos/255.0)*M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER/M_E)*(RGBLIGHT_EFFECT_BREATHE_MAX/(M_E-1/M_E));
+  val = (exp(sin((anim->pos/255.0)*M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER/M_E)*(RGBLIGHT_EFFECT_BREATHE_MAX/(M_E-1/M_E));
   rgblight_sethsv_noeeprom_old(rgblight_config.hue, rgblight_config.sat, val);
-  pos = (pos + 1) % 256;
+  anim->pos = (anim->pos + 1) % 256;
 }
 #endif
 
@@ -868,19 +885,9 @@ void rgblight_effect_breathing(uint8_t interval) {
 __attribute__ ((weak))
 const uint8_t RGBLED_RAINBOW_MOOD_INTERVALS[] PROGMEM = {120, 60, 30};
 
-void rgblight_effect_rainbow_mood(uint8_t interval) {
-  static uint16_t current_hue = 0;
-  static uint16_t last_timer = 0;
-
-  uint8_t interval_time = get_interval_time(&RGBLED_RAINBOW_MOOD_INTERVALS[interval], 5, 100);
-
-  //TODO: Integrate timer processing.
-  if (timer_elapsed(last_timer) < interval_time) {
-    return;
-  }
-  last_timer = timer_read();
-  rgblight_sethsv_noeeprom_old(current_hue, rgblight_config.sat, rgblight_config.val);
-  current_hue = (current_hue + 1) % 360;
+void rgblight_effect_rainbow_mood(animation_status_t *anim) {
+  rgblight_sethsv_noeeprom_old(anim->current_hue, rgblight_config.sat, rgblight_config.val);
+  anim->current_hue = (anim->current_hue + 1) % 360;
 }
 #endif
 
@@ -892,32 +899,23 @@ void rgblight_effect_rainbow_mood(uint8_t interval) {
 __attribute__ ((weak))
 const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {100, 50, 20};
 
-void rgblight_effect_rainbow_swirl(uint8_t interval) {
-  static uint16_t current_hue = 0;
-  static uint16_t last_timer = 0;
+void rgblight_effect_rainbow_swirl(animation_status_t *anim) {
   uint16_t hue;
   uint8_t i;
 
-  uint8_t interval_time = get_interval_time(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2], 1, 100);
-
-  //TODO: Integrate timer processing.
-  if (timer_elapsed(last_timer) < interval_time) {
-    return;
-  }
-  last_timer = timer_read();
   for (i = 0; i < RGBLED_NUM; i++) {
-    hue = (RGBLIGHT_RAINBOW_SWIRL_RANGE / RGBLED_NUM * i + current_hue) % 360;
+    hue = (RGBLIGHT_RAINBOW_SWIRL_RANGE / RGBLED_NUM * i + anim->current_hue) % 360;
     sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
   }
   rgblight_set();
 
-  if (interval % 2) {
-    current_hue = (current_hue + 1) % 360;
+  if (anim->delta % 2) {
+    anim->current_hue = (anim->current_hue + 1) % 360;
   } else {
-    if (current_hue - 1 < 0) {
-      current_hue = 359;
+    if (anim->current_hue - 1 < 0) {
+      anim->current_hue = 359;
     } else {
-      current_hue = current_hue - 1;
+      anim->current_hue = anim->current_hue - 1;
     }
   }
 }
@@ -927,29 +925,21 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
 __attribute__ ((weak))
 const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 
-void rgblight_effect_snake(uint8_t interval) {
-  static uint8_t pos = 0;
-  static uint16_t last_timer = 0;
+void rgblight_effect_snake(animation_status_t *anim) {
   uint8_t i, j;
   int8_t k;
   int8_t increment = 1;
-  if (interval % 2) {
+
+  if (anim->delta % 2) {
     increment = -1;
   }
 
-  uint8_t interval_time = get_interval_time(&RGBLED_SNAKE_INTERVALS[interval / 2], 1, 200);
-
-  //TODO: Integrate timer processing.
-  if (timer_elapsed(last_timer) < interval_time) {
-    return;
-  }
-  last_timer = timer_read();
   for (i = 0; i < RGBLED_NUM; i++) {
     led[i].r = 0;
     led[i].g = 0;
     led[i].b = 0;
     for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
-      k = pos + j * increment;
+      k = anim->pos + j * increment;
       if (k < 0) {
         k = k + RGBLED_NUM;
       }
@@ -960,13 +950,13 @@ void rgblight_effect_snake(uint8_t interval) {
   }
   rgblight_set();
   if (increment == 1) {
-    if (pos - 1 < 0) {
-      pos = RGBLED_NUM - 1;
+    if (anim->pos - 1 < 0) {
+      anim->pos = RGBLED_NUM - 1;
     } else {
-      pos -= 1;
+      anim->pos -= 1;
     }
   } else {
-    pos = (pos + 1) % RGBLED_NUM;
+    anim->pos = (anim->pos + 1) % RGBLED_NUM;
   }
 }
 #endif
@@ -975,22 +965,16 @@ void rgblight_effect_snake(uint8_t interval) {
 __attribute__ ((weak))
 const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 
-void rgblight_effect_knight(uint8_t interval) {
-  static uint16_t last_timer = 0;
+void rgblight_effect_knight(animation_status_t *anim) {
 
-  uint8_t interval_time = get_interval_time(&RGBLED_KNIGHT_INTERVALS[interval], 5, 100);
-
-  //TODO: Integrate timer processing.
-  if (timer_elapsed(last_timer) < interval_time) {
-    return;
-  }
-  last_timer = timer_read();
-
-  static int8_t low_bound = 0;
   static int8_t high_bound = RGBLIGHT_EFFECT_KNIGHT_LENGTH - 1;
   static int8_t increment = 1;
   uint8_t i, cur;
 
+  if (anim->low_bound == 0) {
+      high_bound = RGBLIGHT_EFFECT_KNIGHT_LENGTH - 1;
+      increment = 1;
+  }
   // Set all the LEDs to 0
   for (i = 0; i < RGBLED_NUM; i++) {
     led[i].r = 0;
@@ -1001,7 +985,7 @@ void rgblight_effect_knight(uint8_t interval) {
   for (i = 0; i < RGBLIGHT_EFFECT_KNIGHT_LED_NUM; i++) {
     cur = (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % RGBLED_NUM;
 
-    if (i >= low_bound && i <= high_bound) {
+    if (i >= anim->low_bound && i <= high_bound) {
       sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[cur]);
     } else {
       led[cur].r = 0;
@@ -1011,32 +995,25 @@ void rgblight_effect_knight(uint8_t interval) {
   }
   rgblight_set();
 
-  // Move from low_bound to high_bound changing the direction we increment each
+  // Move from anim->low_bound to high_bound changing the direction we increment each
   // time a boundary is hit.
-  low_bound += increment;
+  anim->low_bound += increment;
   high_bound += increment;
 
-  if (high_bound <= 0 || low_bound >= RGBLIGHT_EFFECT_KNIGHT_LED_NUM - 1) {
+  if (high_bound <= 0 || anim->low_bound >= RGBLIGHT_EFFECT_KNIGHT_LED_NUM - 1) {
     increment = -increment;
   }
 }
 #endif
 
 #ifdef RGBLIGHT_EFFECT_CHRISTMAS
-void rgblight_effect_christmas(void) {
-  static uint16_t current_offset = 0;
-  static uint16_t last_timer = 0;
+void rgblight_effect_christmas(animation_status_t *anim) {
   uint16_t hue;
   uint8_t i;
 
-  //TODO: Integrate timer processing.
-  if (timer_elapsed(last_timer) < RGBLIGHT_EFFECT_CHRISTMAS_INTERVAL) {
-    return;
-  }
-  last_timer = timer_read();
-  current_offset = (current_offset + 1) % 2;
+  anim->current_offset = (anim->current_offset + 1) % 2;
   for (i = 0; i < RGBLED_NUM; i++) {
-    hue = 0 + ((i/RGBLIGHT_EFFECT_CHRISTMAS_STEP + current_offset) % 2) * 120;
+    hue = 0 + ((i/RGBLIGHT_EFFECT_CHRISTMAS_STEP + anim->current_offset) % 2) * 120;
     sethsv(hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
   }
   rgblight_set();
@@ -1047,55 +1024,39 @@ void rgblight_effect_christmas(void) {
 __attribute__ ((weak))
 const uint16_t RGBLED_RGBTEST_INTERVALS[] PROGMEM = {1024};
 
-void rgblight_effect_rgbtest(void) {
-  static uint8_t pos = 0;
-  static uint16_t last_timer = 0;
+void rgblight_effect_rgbtest(animation_status_t *anim) {
   static uint8_t maxval = 0;
   uint8_t g; uint8_t r; uint8_t b;
-
-  //TODO: Integrate timer processing.
-  if (timer_elapsed(last_timer) < pgm_read_word(&RGBLED_RGBTEST_INTERVALS[0])) {
-    return;
-  }
 
   if( maxval == 0 ) {
       LED_TYPE tmp_led;
       sethsv(0, 255, RGBLIGHT_LIMIT_VAL, &tmp_led);
       maxval = tmp_led.r;
   }
-  last_timer = timer_read();
   g = r = b = 0;
-  switch( pos ) {
+  switch( anim->pos ) {
     case 0: r = maxval; break;
     case 1: g = maxval; break;
     case 2: b = maxval; break;
   }
   rgblight_setrgb(r, g, b);
-  pos = (pos + 1) % 3;
+  anim->pos = (anim->pos + 1) % 3;
 }
 #endif
 
 #ifdef RGBLIGHT_EFFECT_ALTERNATING
-void rgblight_effect_alternating(void){
-  static uint16_t last_timer = 0;
-  static uint16_t pos = 0;
-
-  //TODO: Integrate timer processing.
-  if (timer_elapsed(last_timer) < 500) {
-    return;
-  }
-  last_timer = timer_read();
+void rgblight_effect_alternating(animation_status_t *anim) {
 
   for(int i = 0; i<RGBLED_NUM; i++){
-      if(i<RGBLED_NUM/2 && pos){
+      if(i<RGBLED_NUM/2 && anim->pos){
           sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
-      }else if (i>=RGBLED_NUM/2 && !pos){
+      }else if (i>=RGBLED_NUM/2 && !anim->pos){
           sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[i]);
       }else{
           sethsv(rgblight_config.hue, rgblight_config.sat, 0, (LED_TYPE *)&led[i]);
       }
   }
   rgblight_set();
-  pos = (pos + 1) % 2;
+  anim->pos = (anim->pos + 1) % 2;
 }
 #endif
