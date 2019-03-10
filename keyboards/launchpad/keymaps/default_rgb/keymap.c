@@ -1,7 +1,5 @@
 // Below layout is based upon /u/That-Canadian's planck layout
-#include "launchpad.h"
-#include "action_layer.h"
-#include "eeconfig.h"
+#include QMK_KEYBOARD_H
 
 extern keymap_config_t keymap_config;
 
@@ -19,62 +17,45 @@ extern keymap_config_t keymap_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-/* Qwerty
- * ,-------------.
- * |   1  |  2   |
- * |------+------|
- * |   3  |  4   |
- * |------+------|
- * |   5  |  6   |
- * |------+------|
- * | FUNC | RGB  |
- * `-------------'
- */
-[_QWERTY] = LAYOUT( \
-    KC_1,      KC_2, \
-    KC_3,      KC_4, \
-    KC_5,      KC_6, \
-    MO(_FUNC), TG(_RGB)  \
-),
+    /* Qwerty
+     * ,-------------.
+     * |   1  |  2   |
+     * |------+------|
+     * |   3  |  4   |
+     * |------+------|
+     * |   5  |  6   |
+     * |------+------|
+     * | FUNC | RGB  |
+     * `-------------'
+     */
+    [_QWERTY] = LAYOUT(KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, MO(_FUNC), TG(_RGB)),
 
-/* RGB
- * ,-------------.
- * | Mode-| Mode+|
- * |------+------|
- * | HUE- | HUE+ |
- * |------+------|
- * | SAT- | SAT+ |
- * |------+------|
- * |RGBTOG|      |
- * `-------------'
- */
-[_RGB] = LAYOUT( \
-    RGB_RMOD, RGB_MOD, \
-    RGB_HUD,  RGB_HUI, \
-    RGB_SAD,  RGB_SAI, \
-    RGB_TOG,  KC_TRNS \
-),
+    /* RGB
+     * ,-------------.
+     * | Mode-| Mode+|
+     * |------+------|
+     * | HUE- | HUE+ |
+     * |------+------|
+     * | SAT- | SAT+ |
+     * |------+------|
+     * |RGBTOG|      |
+     * `-------------'
+     */
+    [_RGB] = LAYOUT(RGB_RMOD, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_TOG, KC_TRNS),
 
-/* Function
- * ,-------------.
- * |   Q  |CALDEL|
- * |------+------|
- * |   A  |TSKMGR|
- * |------+------|
- * |   Z  |  X   |
- * |------+------|
- * |      |  C   |
- * `-------------'
- */
-[_FUNC] = LAYOUT( \
-    KC_Q,    CALTDEL, \
-    KC_A,    TSKMGR, \
-    KC_Z,    KC_X, \
-    _______, KC_C \
-)
+    /* Function
+     * ,-------------.
+     * |   Q  |CALDEL|
+     * |------+------|
+     * |   A  |TSKMGR|
+     * |------+------|
+     * |   Z  |  X   |
+     * |------+------|
+     * |      |  C   |
+     * `-------------'
+     */
+    [_FUNC] = LAYOUT(KC_Q, CALTDEL, KC_A, TSKMGR, KC_Z, KC_X, _______, KC_C)
 
 };
 
-void matrix_init_user(void) {
-
-}
+void matrix_init_user(void) {}
