@@ -175,6 +175,7 @@ void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, 
                                       false);
         // rgblight_config.speed = config->speed; // NEED???
     }
+#ifdef RGBLIGHT_USE_TIMER
     if( status->change_flags & RGBLIGHT_STATUS_CHANGE_TIMER ) {
         if (status->timer_enabled) {
             rgblight_timer_enable();
@@ -182,6 +183,7 @@ void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, 
             rgblight_timer_disable();
         }
     }
+#endif
 }
 #else
 #define RGBLIGHT_SPLIT_SET_CHANGE_MODE
