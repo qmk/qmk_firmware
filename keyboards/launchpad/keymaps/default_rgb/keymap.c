@@ -28,7 +28,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * | FUNC | RGB  |
      * `-------------'
      */
-    [_QWERTY] = LAYOUT(KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, MO(_FUNC), TG(_RGB)),
+    [_QWERTY] = LAYOUT( \
+        KC_1,      KC_2, \
+        KC_3,      KC_4, \
+        KC_5,      KC_6, \
+        MO(_FUNC), TG(_RGB) \
+      ),
 
     /* RGB
      * ,-------------.
@@ -41,7 +46,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |RGBTOG|      |
      * `-------------'
      */
-    [_RGB] = LAYOUT(RGB_RMOD, RGB_MOD, RGB_HUD, RGB_HUI, RGB_SAD, RGB_SAI, RGB_TOG, KC_TRNS),
+    [_RGB] = LAYOUT( \
+        RGB_RMOD, RGB_MOD, \
+        RGB_HUD,  RGB_HUI, \
+        RGB_SAD,  RGB_SAI, \
+        RGB_TOG,  KC_TRNS \
+      ),
 
     /* Function
      * ,-------------.
@@ -54,7 +64,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |      |  C   |
      * `-------------'
      */
-    [_FUNC] = LAYOUT(KC_Q, CALTDEL, KC_A, TSKMGR, KC_Z, KC_X, _______, KC_C)
+    [_FUNC] = LAYOUT( \
+        KC_Q,    CALTDEL, \
+        KC_A,    TSKMGR, \
+        KC_Z,    KC_X, \
+        _______, KC_C \
+      )
 
 };
 
