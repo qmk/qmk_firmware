@@ -64,6 +64,7 @@ static uint8_t static_effect_table [] = {
 #define _RGBM_TMP_STATIC(sym, msym)  RGBLIGHT_MODE_ ## msym,
 #define _RGBM_TMP_DYNAMIC(sym, msym) RGBLIGHT_MODE_ ## msym,
 static uint8_t mode_base_table [] = {
+    0, // RGBLIGHT_MODE_zero
 #include "rgblight.h"
 };
 
@@ -538,7 +539,7 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
   if (rgblight_config.enable) {
     rgblight_status.base_mode = mode_base_table[rgblight_config.mode];
 #ifdef RGBLIGHT_USE_TIMER
-    animation_status.pos = 0;
+    animation_status.pos16 = 0;
 #endif
     if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
       // same static color
@@ -743,7 +744,7 @@ void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, 
         }
     }
     if (status->change_flags & RGBLIGHT_STATUS_ANIMATION_TICK) {
-        animation_status.pos = 0;
+        animation_status.pos16 = 0;
     }
   #endif
 }
