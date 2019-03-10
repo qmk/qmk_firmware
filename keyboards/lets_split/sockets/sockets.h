@@ -1,5 +1,4 @@
-#ifndef SOCKETS_H
-#define SOCKETS_H
+#pragma once
 #define DISABLE_JTAG // The keyboard uses PF4 and PF7, which are used by JTAG.
 
 #include "lets_split.h"
@@ -59,5 +58,3 @@
 #endif
 
 #define LAYOUT_ortho_4x12 LAYOUT
-
-#endif

@@ -5,9 +5,6 @@
 #define LOWER 1
 #define RAISE 2
 
-// Alias to make layering more clear
-#define _______ KC_TRNS
-
 // In MacOS, switch between windows within an application
 #define GUI_GRV LGUI(KC_GRV)
 

@@ -18,4 +18,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Include overwrites for specific keymap */
 
-#define HS60_ANSI
+#ifdef KEYBOARD_hs60
+  #define HS60_ANSI
+#endif
