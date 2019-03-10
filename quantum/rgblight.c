@@ -409,6 +409,7 @@ void rgblight_disable(void) {
 #ifdef RGBLIGHT_USE_TIMER
       rgblight_timer_disable();
 #endif
+  RGBLIGHT_SPLIT_SET_CHANGE_MODE;
   wait_ms(50);
   rgblight_set();
 }
@@ -419,6 +420,7 @@ void rgblight_disable_noeeprom(void) {
 #ifdef RGBLIGHT_USE_TIMER
     rgblight_timer_disable();
 #endif
+  RGBLIGHT_SPLIT_SET_CHANGE_MODE;
   wait_ms(50);
   rgblight_set();
 }
