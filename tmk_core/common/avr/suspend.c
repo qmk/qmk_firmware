@@ -11,6 +11,9 @@
 #include "led.h"
 #include "host.h"
 #include "rgblight_reconfig.h"
+#ifdef SPLIT_KEYBOARD
+  #include "split_flags.h"
+#endif
 
 #ifdef PROTOCOL_LUFA
 	#include "lufa.h"
@@ -22,6 +25,9 @@
 
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
   #include "rgblight.h"
+  extern rgblight_config_t rgblight_config;
+  static bool rgblight_enabled;
+  static bool is_suspended;
 #endif
 
 
@@ -46,8 +52,7 @@ __asm__ __volatile__ (  \
  *
  * FIXME: needs doc
  */
-void suspend_idle(uint8_t time)
-{
+void suspend_idle(uint8_t time) {
     cli();
     set_sleep_mode(SLEEP_MODE_IDLE);
     sleep_enable();
@@ -95,32 +100,45 @@ static uint8_t wdt_timeout = 0;
  *
  * FIXME: needs doc
  */
-static void power_down(uint8_t wdto)
-{
+static void power_down(uint8_t wdto) {
 #ifdef PROTOCOL_LUFA
-    if (USB_DeviceState == DEVICE_STATE_Configured) return;
+  if (USB_DeviceState == DEVICE_STATE_Configured) return;
 #endif
-    wdt_timeout = wdto;
+  wdt_timeout = wdto;
 
-    // Watchdog Interrupt Mode
-    wdt_intr_enable(wdto);
+  // Watchdog Interrupt Mode
+  wdt_intr_enable(wdto);
 
 #ifdef BACKLIGHT_ENABLE
-	backlight_set(0);
+  backlight_set(0);
 #endif
 
-	// Turn off LED indicators
-	led_set(0);
+  // Turn off LED indicators
+  uint8_t leds_off = 0;
+#if defined(BACKLIGHT_CAPS_LOCK) && defined(BACKLIGHT_ENABLE)
+  if (is_backlight_enabled()) {
+    // Don't try to turn off Caps Lock indicator as it is backlight and backlight is already off
+    leds_off |= (1<<USB_LED_CAPS_LOCK);
+  }
+#endif
+  led_set(leds_off);
 
-	#ifdef AUDIO_ENABLE
-        // This sometimes disables the start-up noise, so it's been disabled
-		// stop_all_notes();
-	#endif /* AUDIO_ENABLE */
+#ifdef AUDIO_ENABLE
+  // This sometimes disables the start-up noise, so it's been disabled
+  // stop_all_notes();
+#endif /* AUDIO_ENABLE */
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_disable();
 #endif
-  rgblight_disable_noeeprom();
+  if (!is_suspended) {
+    is_suspended = true;
+    rgblight_enabled = rgblight_config.enable;
+    rgblight_disable_noeeprom();
+    #ifdef SPLIT_KEYBOARD
+        RGB_DIRTY = true;
+    #endif
+  }
 #endif
   suspend_power_down_kb();
 
@@ -145,8 +163,7 @@ static void power_down(uint8_t wdto)
  *
  * FIXME: needs doc
  */
-void suspend_power_down(void)
-{
+void suspend_power_down(void) {
 	suspend_power_down_kb();
 
 #ifndef NO_SUSPEND_POWER_DOWN
@@ -156,8 +173,7 @@ void suspend_power_down(void)
 
 __attribute__ ((weak)) void matrix_power_up(void) {}
 __attribute__ ((weak)) void matrix_power_down(void) {}
-bool suspend_wakeup_condition(void)
-{
+bool suspend_wakeup_condition(void) {
     matrix_power_up();
     matrix_scan();
     matrix_power_down();
@@ -186,8 +202,7 @@ void suspend_wakeup_init_kb(void) {
  *
  * FIXME: needs doc
  */
-void suspend_wakeup_init(void)
-{
+void suspend_wakeup_init(void) {
     // clear keyboard state
     clear_keyboard();
 #ifdef BACKLIGHT_ENABLE
@@ -195,10 +210,16 @@ void suspend_wakeup_init(void)
 #endif
 	led_set(host_keyboard_leds());
 #if defined(RGBLIGHT_SLEEP) && defined(RGBLIGHT_ENABLE)
-#ifdef BOOTLOADER_TEENSY
-  wait_ms(10);
-#endif
-  rgblight_enable_noeeprom();
+  is_suspended = false;
+  if (rgblight_enabled) {
+    #ifdef BOOTLOADER_TEENSY
+      wait_ms(10);
+    #endif
+    rgblight_enable_noeeprom();
+    #ifdef SPLIT_KEYBOARD
+        RGB_DIRTY = true;
+    #endif
+  }
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_enable();
 #endif
@@ -208,8 +229,7 @@ void suspend_wakeup_init(void)
 
 #ifndef NO_SUSPEND_POWER_DOWN
 /* watchdog timeout */
-ISR(WDT_vect)
-{
+ISR(WDT_vect) {
     // compensate timer for sleep
     switch (wdt_timeout) {
         case WDTO_15MS:

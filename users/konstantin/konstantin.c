@@ -1,14 +1,25 @@
 #include "konstantin.h"
 
-#ifdef LAYER_NUMPAD
-static void toggle_numpad(void) {
-  layer_invert(L_NUMPAD);
-  bool num_lock = host_keyboard_leds() & 1<<USB_LED_NUM_LOCK;
-  if (num_lock != (bool)IS_LAYER_ON(L_NUMPAD)) {
-    tap_code(KC_NLCK); // Toggle Num Lock to match layer state
-  }
+__attribute__((weak))
+void keyboard_pre_init_keymap(void) {}
+
+void keyboard_pre_init_user(void) {
+  keyboard_pre_init_keymap();
 }
-#endif
+
+__attribute__((weak))
+void eeconfig_init_keymap(void) {}
+
+void eeconfig_init_user(void) {
+  eeconfig_init_keymap();
+}
+
+__attribute__((weak))
+void keyboard_post_init_keymap(void) {}
+
+void keyboard_post_init_user(void) {
+  keyboard_post_init_keymap();
+}
 
 __attribute__((weak))
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
@@ -20,6 +31,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return false;
   }
 
+#ifdef LAYER_NUMPAD
+  void toggle_numpad(void) {
+    layer_invert(L_NUMPAD);
+    bool numpad = IS_LAYER_ON(L_NUMPAD), num_lock = IS_HOST_LED_ON(USB_LED_NUM_LOCK);
+    if (num_lock != numpad) {
+      tap_code(KC_NLCK);  // Toggle Num Lock to match layer state
+    }
+  }
+#endif
+
   switch (keycode) {
   case CLEAR:
     if (record->event.pressed) {
@@ -27,12 +48,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return false;
 
+  case DST_P_R:
+    (record->event.pressed ? register_code16 : unregister_code16)(
+      (get_mods() & DST_MOD_MASK) ? DST_REM : DST_PRV
+    );
+    return false;
+
+  case DST_N_A:
+    (record->event.pressed ? register_code16 : unregister_code16)(
+      (get_mods() & DST_MOD_MASK) ? DST_ADD : DST_NXT
+    );
+    return false;
+
 #ifdef LAYER_FN
-  static bool fn_lock;
+    static bool fn_lock;
 
   case FN_FNLK:
     if (record->event.pressed && record->tap.count == TAPPING_TOGGLE) {
-      fn_lock = !IS_LAYER_ON(L_FN); // Fn layer will be toggled after this
+      fn_lock = !IS_LAYER_ON(L_FN);  // Fn layer will be toggled after this
     }
     return true;
 #endif

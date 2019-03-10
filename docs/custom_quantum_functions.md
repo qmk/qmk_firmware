@@ -106,10 +106,8 @@ There are two ways to get the host LED state:
 
 ## `led_set_user()`
 
-This function will be called when the state of one of those 5 LEDs changes.
-It receives the LED state as parameter.
-Use the `IS_LED_ON(USB_LED, LED_NAME)` and `IS_LED_OFF(USB_LED, LED_NAME)`
-macros to check the LED status.
+This function will be called when the state of one of those 5 LEDs changes. It receives the LED state as a parameter.
+Use the `IS_LED_ON(usb_led, led_name)` and `IS_LED_OFF(usb_led, led_name)` macros to check the LED status.
 
 !> `host_keyboard_leds()` may already reflect a new value before `led_set_user()` is called.
 
@@ -152,40 +150,50 @@ void led_set_user(uint8_t usb_led) {
 
 ## `host_keyboard_leds()`
 
-Call this function to get the last received LED state.
-This is useful for reading the LED state outside `led_set_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
+Call this function to get the last received LED state. This is useful for reading the LED state outside `led_set_*`, e.g. in [`matrix_scan_user()`](#matrix-scanning-code).
+For convenience, you can use the `IS_HOST_LED_ON(led_name)` and `IS_HOST_LED_OFF(led_name)` macros instead of calling and checking `host_keyboard_leds()` directly.
 
-For convenience, you can use the `IS_HOST_LED_ON(LED_NAME)` and `IS_HOST_LED_OFF(LED_NAME)` macros instead of calling `host_keyboard_leds()` directly.
-
-## Setting physical LED state
+## Setting Physical LED State
 
 Some keyboard implementations provide convenience methods for setting the state of the physical LEDs.
 
-### Ergodox and Ergodox EZ
+### Ergodox Boards
 
-The Ergodox EZ implementation provides `ergodox_right_led_``1`/`2`/`3_on`/`off()`
-to turn individual LEDs on and off, as well as
-`ergodox_right_led_on`/`off(uint8_t led)`
-to turn them on and off by their number.
+The Ergodox implementations provide `ergodox_right_led_1`/`2`/`3_on`/`off()` to turn individual LEDs on or off, as well as `ergodox_right_led_on`/`off(uint8_t led)` to turn them on or off by their index.
 
-In addition, it is possible to specify the brightness level with `ergodox_led_all_set(uint8_t n)`,
-for individual LEDs with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`
-or by their number using `ergodox_right_led_set(uint8_t led, uint8_t n)`.
+In addition, it is possible to specify the brightness level of all LEDs with `ergodox_led_all_set(uint8_t n)`; of individual LEDs with `ergodox_right_led_1`/`2`/`3_set(uint8_t n)`; or by index with `ergodox_right_led_set(uint8_t led, uint8_t n)`.
 
-It defines `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness, which is also the default.
+Ergodox boards also define `LED_BRIGHTNESS_LO` for the lowest brightness and `LED_BRIGHTNESS_HI` for the highest brightness (which is the default).
 
-# Matrix Initialization Code
+# Keyboard Initialization Code
 
-Before a keyboard can be used the hardware must be initialized. QMK handles initialization of the keyboard matrix itself, but if you have other hardware like LEDs or i&#xb2;c controllers you will need to set up that hardware before it can be used.
+There are several steps in the keyboard initialization process.  Depending on what you want to do, it will influence which function you should use.
 
+These are the three main initialization functions, listed in the order that they're called.
 
-### Example `matrix_init_user()` Implementation
+* `keyboard_pre_init_*` - Happens before most anything is started. Good for hardware setup that you want running very early.
+* `matrix_init_*` - Happens midway through the firmware's startup process. Hardware is initialized, but features may not be yet.
+* `keyboard_post_init_*` - Happens at the end of the firmware's startup process. This is where you'd want to put "customization" code, for the most part.
+
+!> For most people, the `keyboard_post_init_user` function is what you want to call.  For instance, this is where you want to set up things for RGB Underglow.
+
+## Keyboard Pre Initialization code
+
+This runs very early during startup, even before the USB has been started. 
+
+Shortly after this, the matrix is initialized.
+
+For most users, this shouldn't be used, as it's primarily for hardware oriented initialization. 
+
+However, if you have hardware stuff that you need initialized, this is the best place for it (such as initializing LED pins).
+
+### Example `keyboard_pre_init_user()` Implementation
 
 This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
 ```c
-void matrix_init_user(void) {
-  // Call the keymap level matrix init.
+void keyboard_pre_init_user(void) {
+  // Call the keyboard pre init code.
 
   // Set our LED pins as output
   DDRB |= (1<<1);
@@ -194,10 +202,46 @@ void matrix_init_user(void) {
 }
 ```
 
+### `keyboard_pre_init_*` Function Documentation
+
+* Keyboard/Revision: `void keyboard_pre_init_kb(void)`
+* Keymap: `void keyboard_pre_init_user(void)`
+
+## Matrix Initialization Code
+
+This is called when the matrix is initialized, and after some of the hardware has been set up, but before many of the features have been initialized. 
+
+This is useful for setting up stuff that you may need elsewhere, but isn't hardware related nor is dependant on where it's started. 
+
+
 ### `matrix_init_*` Function Documentation
 
 * Keyboard/Revision: `void matrix_init_kb(void)`
 * Keymap: `void matrix_init_user(void)`
+
+
+## Keyboard Post Initialization code
+
+This is ran as the very last task in the keyboard initialization process. This is useful if you want to make changes to certain features, as they should be initialized by this point.
+
+
+### Example `keyboard_post_init_user()` Implementation
+
+This example, running after everything else has initialized, sets up the rgb underglow configuration.
+
+```c
+void keyboard_post_init_user(void) {
+  // Call the post init code.
+  rgblight_enable_noeeprom(); // enables Rgb, without saving settings
+  rgblight_sethsv_noeeprom(180, 255, 255): // sets the color to teal/cyan without saving
+  rgblight_mode_noeeprom(RGBLIGHT_MODE_BREATHING + 3); // sets mode to Fast breathing without saving
+}
+```
+
+### `keyboard_post_init_*` Function Documentation
+
+* Keyboard/Revision: `void keyboard_post_init_kb(void)`
+* Keymap: `void keyboard_post_init_user(void)`
 
 # Matrix Scanning Code
 
@@ -238,10 +282,9 @@ void suspend_wakeup_init_user(void)
 {
     rgb_matrix_set_suspend_state(false);
 }
-
 ```
 
-### `keyboard_init_*` Function Documentation
+### Keyboard suspend/wake  Function Documentation
 
 * Keyboard/Revision: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
 * Keymap: `void suspend_power_down_kb(void)` and `void suspend_wakeup_init_user(void)`
@@ -278,7 +321,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 ```
 ### `layer_state_set_*` Function Documentation
 
-* Keyboard/Revision: `void uint32_t layer_state_set_kb(uint32_t state)`
+* Keyboard/Revision: `uint32_t layer_state_set_kb(uint32_t state)`
 * Keymap: `uint32_t layer_state_set_user(uint32_t state)`
 
 The `state` is the bitmask of the active layers, as explained in the [Keymap Overview](keymap.md#keymap-layer-status)
@@ -294,7 +337,7 @@ Keep in mind that EEPROM has a limited number of writes. While this is very high
 
 * If you don't understand the example, then you may want to avoid using this feature, as it is rather complicated. 
 
-### Example  Implementation
+### Example Implementation
 
 This is an example of how to add settings, and read and write it. We're using the user keymap for the example here.  This is a complex function, and has a lot going on.  In fact, it uses a lot of the above functions to work! 
 

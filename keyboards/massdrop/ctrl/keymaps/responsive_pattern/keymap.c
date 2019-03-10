@@ -37,7 +37,7 @@ enum ctrl_keycodes {
     DBG_KBD,            //DEBUG Toggle Keyboard Prints
     DBG_MOU,            //DEBUG Toggle Mouse Prints
     MD_BOOT,            //Restart into bootloader after hold timeout
-    
+
     L_SP_PR,            //LED Splash Pattern Select Previous
     L_SP_NE,            //LED Splash Pattern Select Next
 
@@ -178,7 +178,7 @@ static void init_distance_map(void){
                     uint8_t id2 = ktli(KEY_POSITION_MAP[j][i]);
 
                     if(id1 == id2) continue;
-                    
+
                     uint8_t dx = abs(i - x);
                     uint8_t dy = abs(j - y);
                     uint8_t dis = dx + dy;
@@ -277,15 +277,15 @@ void led_matrix_run(void)
         bo = 0;
 
         uint8_t led_index = led_cur - led_map;                  // only this part differs from the original function.
-        if(led_index < KEY_LED_COUNT){                          // 
+        if(led_index < KEY_LED_COUNT){                          //
             user_led_cur = USER_LED[led_index];                 // `struct user_led_t USER_LED[]` is stored globally.
-        }                                                       // 
-                                                                // 
+        }                                                       //
+                                                                //
         if(led_index < KEY_LED_COUNT && user_led_cur.state){    // `user_led_cur` is just for convenience
-            ro = user_led_cur.r;                                // 
-            go = user_led_cur.g;                                // 
-            bo = user_led_cur.b;                                // 
-        }                                                       // 
+            ro = user_led_cur.r;                                //
+            go = user_led_cur.g;                                //
+            bo = user_led_cur.b;                                //
+        }                                                       //
         else if (led_lighting_mode == LED_MODE_KEYS_ONLY && led_cur->scan == 255)
         {
             //Do not act on this LED
@@ -513,7 +513,7 @@ static uint8_t COLOR_PATTERNS[][COLOR_PATTERN_RGB_COUNT][3] = {
         {181, 181, 181}, {164, 164, 164}, {147, 147, 147},
         {128, 128, 128}, {108, 108, 108}, { 88,  88,  88},
         { 66,  66,  66}, { 45,  45,  45}, { 23,  23,  23},
-    }, 
+    },
 };
 static const uint8_t COLOR_PATTERNS_COUNT = (
         sizeof(COLOR_PATTERNS) / sizeof(COLOR_PATTERNS[0]));
@@ -561,7 +561,7 @@ void refresh_color_pattern_indicators(void){
     static uint8_t ZXCVBNM_COMM_DOT[] = {
         KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT,
     };
-    
+
     if(layer_state >= 0x04){
         uint8_t (*c)[3] = &COLOR_PATTERNS[USER_CONFIG.COLOR_PATTERN_INDEX][0];
         for(uint8_t i = 0; i < 9; ++i){
@@ -589,7 +589,7 @@ void matrix_scan_user(void) {
 
     calculate_keystroke_distance();
 
-    
+
     #define USE_PATTERN 0
     #define BLACK_RGB 1
     #define COLOR_RGB 2
@@ -599,7 +599,7 @@ void matrix_scan_user(void) {
     uint8_t distance;
     for(uint8_t i = 1; i <= KEY_LED_COUNT; ++i){
         if(USER_LED[i-1].state >= 2) continue;
-        
+
         handle_type = USE_PATTERN;
         distance = DISTANCE_FROM_LAST_KEYSTROKE[i];
 
@@ -695,9 +695,9 @@ void matrix_scan_user(void) {
 
 };
 
-#define MODS_SHIFT  (keyboard_report->mods & MOD_BIT(KC_LSHIFT) || keyboard_report->mods & MOD_BIT(KC_RSHIFT))
-#define MODS_CTRL  (keyboard_report->mods & MOD_BIT(KC_LCTL) || keyboard_report->mods & MOD_BIT(KC_RCTRL))
-#define MODS_ALT  (keyboard_report->mods & MOD_BIT(KC_LALT) || keyboard_report->mods & MOD_BIT(KC_RALT))
+#define MODS_SHIFT  (get_mods() & MOD_BIT(KC_LSHIFT) || get_mods() & MOD_BIT(KC_RSHIFT))
+#define MODS_CTRL  (get_mods() & MOD_BIT(KC_LCTL) || get_mods() & MOD_BIT(KC_RCTRL))
+#define MODS_ALT  (get_mods() & MOD_BIT(KC_LALT) || get_mods() & MOD_BIT(KC_RALT))
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     static uint32_t key_timer;
@@ -835,7 +835,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 
 
-            
+
         case L_SP_PR: // previous dripple pattern
         case L_SP_NE: // next dripple pattern
             if (record->event.pressed) {
@@ -880,7 +880,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                     USER_CONFIG.WAVE_PERIOD = 10;
                     break;
                 }
-                
+
                 // remove effect after changing pattern
                 for(int i = 0; i < KEY_STROKES_LENGTH; ++i){
                     KEY_STROKES[i].alive = 0;
@@ -903,7 +903,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case L_SP_SL:
             if(record->event.pressed){
                 short incre = keycode == L_SP_FA ? -1 : 1;
-                
+
                 USER_CONFIG.WAVE_PERIOD += 10 * incre;
                 if(USER_CONFIG.WAVE_PERIOD < 10){
                     USER_CONFIG.WAVE_PERIOD = 10;

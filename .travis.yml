@@ -20,7 +20,7 @@ before_script:
   - avr-gcc --version
 script:
 - git rev-parse --short HEAD
-- make test:all AUTOGEN=false
+- make test:all
 - bash util/travis_build.sh
 - bash util/travis_docs.sh
 addons:
