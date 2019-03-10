@@ -1066,6 +1066,8 @@ void rgblight_effect_hyper(uint8_t interval) {
   #define RGBLIGHT_RAINBOW_SPARKLE_RANGE 360
 #endif
 
+//these are dependent on the rand function
+
 __attribute__ ((weak))
 const uint8_t RGBLED_RAINBOW_SPARKLE_INTERVALS[] PROGMEM = {200, 150, 75};
 
