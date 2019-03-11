@@ -69,11 +69,11 @@ NOTE: These are all the same length.  If you do a search/replace
 
 
 #define _________________LOWER_L1__________________       XXXXXXX, KC_UP,   XXXXXXX, XXXXXXX, XXXXXXX
-#define _________________LOWER_L2__________________       KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, TD(TD_L)
+#define _________________LOWER_L2__________________       KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, KC_TD1
 #define _________________LOWER_L3__________________       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_LCBR
 
 #define _________________LOWER_R1__________________       KC_CALC, KC_P7,   KC_P8,   KC_P9,   KC_EQL
-#define _________________LOWER_R2__________________       TD(TD_R),KC_P4,   KC_P5,   KC_P6,   KC_PLUS
+#define _________________LOWER_R2__________________       KC_TD2,  KC_P4,   KC_P5,   KC_P6,   KC_PLUS
 #define _________________LOWER_R3__________________       KC_RCBR, KC_P1,   KC_P2,   KC_P3,   KC_MINS
 
 

@@ -39,8 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define DIODE_DIRECTION COL2ROW
 
 #define NUMBER_OF_ENCODERS 2
-#define ENCODERS_PAD_A { D1, F5 }
-#define ENCODERS_PAD_B { D0, F6 }
+#define ENCODERS_PAD_A { D0, F6 }
+#define ENCODERS_PAD_B { D1, F5 }
 
 
 #define BACKLIGHT_PIN B5

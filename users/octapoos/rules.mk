@@ -1,4 +1,6 @@
-RGBLIGHT_ENABLE = yes
-BACKLIGHT_ENABLE = no
-TAP_DANCE_ENABLE = yes
-UNICODE_ENABLE = yes
+SRC += octapoos.c \
+        process_record.c
+
+ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
+  SRC += tap_dance.c
+endif

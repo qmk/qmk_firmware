@@ -7,10 +7,10 @@
     K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A  \
   ) \
   LAYOUT_wrapper( \
-     KC_TD3,  ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_BSPC, \
+     KC_ESC , ________________NUMBER_LEFT________________,                       ________________NUMBER_RIGHT_______________, KC_BSPC, \
      KC_TAB , K01,    K02,     K03,      K04,     K05,                           K06,     K07,     K08,     K09,     K0A,     KC_DEL, \
      KC_LCTL, K11,    K12,     K13,      K14,     K15,                           K16,     K17,     K18,     K19,     K1A,     KC_QUOT, \
-     KC_LSFT, K21,    K22,     K23,      K24,     K25,  KC_HOME,       ADJUST,   K26,     K27,     K28,     K29,     K2A,     KC_ENT, \
+     KC_LSFT, K21,    K22,     K23,      K24,     K25,  KC_CAPS,       ADJUST,   K26,     K27,     K28,     K29,     K2A,     KC_ENT, \
                                 KC_LALT, LOWER,   KC_SPC,                    KC_SPC,  RAISE,   KC_LGUI                                     \
   )
 #define LAYOUT_iris_base_wrapper(...)       LAYOUT_iris_base(__VA_ARGS__)
