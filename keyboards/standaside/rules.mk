@@ -71,4 +71,3 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
 RGBLIGHT_ENABLE = yes       # Enable RGB underlighting support
 
-LAYOUTS = ortho_4x16 
