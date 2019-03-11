@@ -40,6 +40,7 @@
     get_mods() == MOD_MASK_CTRL || \
     get_mods() == MOD_MASK_SHIFT   \
 )
+#endif
 
 #define BACKLIGHT_PIN B7
 /* number of backlight levels */
