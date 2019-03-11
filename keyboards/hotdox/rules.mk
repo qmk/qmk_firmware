@@ -75,7 +75,6 @@ NKRO_ENABLE             = yes # USB Nkey Rollover - not yet supported in LUFA
 USB_6KRO_ENABLE         = no  # USB 6key Rollover
 BACKLIGHT_ENABLE        = yes # Enable keyboard backlight functionality
 KEYMAP_SECTION_ENABLE   = no  # Fixed address keymap for keymap editor
-SOFTPWM_LED_ENABLE      = no  # Enable SoftPWM to drive backlight
 FADING_LED_ENABLE       = no  # Enable fading backlight
 BREATHING_LED_ENABLE    = no  # Enable breathing backlight
 LEDMAP_ENABLE           = no  # Enable LED mapping
