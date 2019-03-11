@@ -76,7 +76,6 @@ USB_6KRO_ENABLE         = no  # USB 6key Rollover
 BACKLIGHT_ENABLE        = yes # Enable keyboard backlight functionality
 KEYMAP_SECTION_ENABLE   = no  # Fixed address keymap for keymap editor
 BREATHING_LED_ENABLE    = no  # Enable breathing backlight
-LEDMAP_IN_EEPROM_ENABLE = no  # Read LED mapping from eeprom
 SWAP_HANDS_ENABLE       = no  # Disable Onehand
 RGBLIGHT_ENABLE         = no
 MIDI_ENABLE             = no
