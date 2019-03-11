@@ -264,12 +264,12 @@ void rgblight_timer_toggle(void);
 typedef struct _animation_status_t {
     uint16_t last_timer;
     uint8_t  delta; /* mode - base_mode */
+    bool     restart;
     union {
         uint16_t pos16;
         uint8_t  pos;
         uint16_t current_hue;
         uint16_t current_offset;
-        int8_t   low_bound;
     };
 } animation_status_t;
 

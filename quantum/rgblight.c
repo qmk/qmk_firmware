@@ -539,7 +539,7 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
   if (rgblight_config.enable) {
     rgblight_status.base_mode = mode_base_table[rgblight_config.mode];
 #ifdef RGBLIGHT_USE_TIMER
-    animation_status.pos16 = 0;
+    animation_status.restart = true;
 #endif
     if (rgblight_config.mode == RGBLIGHT_MODE_STATIC_LIGHT) {
       // same static color
@@ -744,7 +744,7 @@ void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, 
         }
     }
     if (status->change_flags & RGBLIGHT_STATUS_ANIMATION_TICK) {
-        animation_status.pos16 = 0;
+        animation_status.restart = true;
     }
   #endif
 }
@@ -863,13 +863,39 @@ void rgblight_task(void) {
       effect_func = (effect_func_t)rgblight_effect_alternating;
     }
 #endif
+    if (animation_status.restart) {
+      animation_status.restart = false;
+      animation_status.last_timer = timer_read() - interval_time - 1;
+      animation_status.pos16 = 0;
+    }
     if (timer_elapsed(animation_status.last_timer) >= interval_time) {
-      uint8_t old_pos = animation_status.pos;
+#ifdef RGBLIGHT_SPLIT
+      static bool tick_flag = false;
+      static uint16_t tick_count = 0;
+      uint16_t oldpos16;
+      if (tick_flag) {
+        tick_flag = false;
+        //dprintf("rgblight animation tick\n");
+        tick_count += 1;
+        if (tick_count >= 10) {
+            tick_count = 0;
+            dprintf("rgblight animation tick report to slave\n");
+            RGBLIGHT_SPLIT_ANIMATION_TICK;
+        }
+      }
+      oldpos16 = animation_status.pos16;
+      //dprintf("call func\n");
+#endif
       animation_status.last_timer += interval_time;
       effect_func(&animation_status);
-      if ( animation_status.pos == 0 && old_pos != animation_status.pos ) {
-        RGBLIGHT_SPLIT_ANIMATION_TICK;
+#ifdef RGBLIGHT_SPLIT
+      //dprintf("pos16, oldpos16 = %d %d\n",
+      //        animation_status.pos16,oldpos16);
+      if (animation_status.pos16 == 0 && oldpos16 != 0) {
+          //dprintf("flag on\n");
+          tick_flag = true;
       }
+#endif
     }
   }
 }
@@ -936,10 +962,15 @@ __attribute__ ((weak))
 const uint8_t RGBLED_SNAKE_INTERVALS[] PROGMEM = {100, 50, 20};
 
 void rgblight_effect_snake(animation_status_t *anim) {
+  static uint8_t pos = 0;
   uint8_t i, j;
   int8_t k;
   int8_t increment = 1;
 
+  if (anim->pos == 0) { // restart signal
+    anim->pos = 1;
+    pos = 0;
+  }
   if (anim->delta % 2) {
     increment = -1;
   }
@@ -949,24 +980,28 @@ void rgblight_effect_snake(animation_status_t *anim) {
     led[i].g = 0;
     led[i].b = 0;
     for (j = 0; j < RGBLIGHT_EFFECT_SNAKE_LENGTH; j++) {
-      k = anim->pos + j * increment;
+      k = pos + j * increment;
       if (k < 0) {
         k = k + RGBLED_NUM;
       }
       if (i == k) {
-        sethsv(rgblight_config.hue, rgblight_config.sat, (uint8_t)(rgblight_config.val*(RGBLIGHT_EFFECT_SNAKE_LENGTH-j)/RGBLIGHT_EFFECT_SNAKE_LENGTH), (LED_TYPE *)&led[i]);
+        sethsv(rgblight_config.hue, rgblight_config.sat,
+               (uint8_t)(rgblight_config.val*(RGBLIGHT_EFFECT_SNAKE_LENGTH-j)/RGBLIGHT_EFFECT_SNAKE_LENGTH),
+               (LED_TYPE *)&led[i]);
       }
     }
   }
   rgblight_set();
   if (increment == 1) {
-    if (anim->pos - 1 < 0) {
-      anim->pos = RGBLED_NUM - 1;
+    if (pos - 1 < 0) {
+      pos = RGBLED_NUM - 1;
+      anim->pos = 0;
     } else {
-      anim->pos -= 1;
+      pos -= 1;
     }
   } else {
-    anim->pos = (anim->pos + 1) % RGBLED_NUM;
+    pos = (pos + 1) % RGBLED_NUM;
+    anim->pos = (pos == 0);
   }
 }
 #endif
@@ -977,11 +1012,14 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 
 void rgblight_effect_knight(animation_status_t *anim) {
 
+  static int8_t low_bound = 0;
   static int8_t high_bound = RGBLIGHT_EFFECT_KNIGHT_LENGTH - 1;
   static int8_t increment = 1;
   uint8_t i, cur;
 
-  if (anim->low_bound == 0) {
+  if (anim->pos == 0) { // restart signal
+      anim->pos = 1;
+      low_bound = 0;
       high_bound = RGBLIGHT_EFFECT_KNIGHT_LENGTH - 1;
       increment = 1;
   }
@@ -995,7 +1033,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
   for (i = 0; i < RGBLIGHT_EFFECT_KNIGHT_LED_NUM; i++) {
     cur = (i + RGBLIGHT_EFFECT_KNIGHT_OFFSET) % RGBLED_NUM;
 
-    if (i >= anim->low_bound && i <= high_bound) {
+    if (i >= low_bound && i <= high_bound) {
       sethsv(rgblight_config.hue, rgblight_config.sat, rgblight_config.val, (LED_TYPE *)&led[cur]);
     } else {
       led[cur].r = 0;
@@ -1005,13 +1043,16 @@ void rgblight_effect_knight(animation_status_t *anim) {
   }
   rgblight_set();
 
-  // Move from anim->low_bound to high_bound changing the direction we increment each
+  // Move from low_bound to high_bound changing the direction we increment each
   // time a boundary is hit.
-  anim->low_bound += increment;
+  low_bound += increment;
   high_bound += increment;
 
-  if (high_bound <= 0 || anim->low_bound >= RGBLIGHT_EFFECT_KNIGHT_LED_NUM - 1) {
+  if (high_bound <= 0 || low_bound >= RGBLIGHT_EFFECT_KNIGHT_LED_NUM - 1) {
     increment = -increment;
+    if (low_bound == 0 && increment == 1) {
+        anim->pos = 0;
+    }
   }
 }
 #endif
