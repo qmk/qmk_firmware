@@ -268,7 +268,7 @@ typedef struct _animation_status_t {
     union {
         uint16_t pos16;
         uint8_t  pos;
-        uint16_t current_hue;
+        int16_t  current_hue;
         uint16_t current_offset;
     };
 } animation_status_t;

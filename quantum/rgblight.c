@@ -1059,7 +1059,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
 
   if (high_bound <= 0 || low_bound >= RGBLIGHT_EFFECT_KNIGHT_LED_NUM - 1) {
     increment = -increment;
-    if (low_bound == 0 && increment == 1) {
+    if (increment == 1) {
         anim->pos = 0;
     }
   }
