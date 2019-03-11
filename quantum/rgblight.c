@@ -870,21 +870,20 @@ void rgblight_task(void) {
     }
     if (timer_elapsed(animation_status.last_timer) >= interval_time) {
 #ifdef RGBLIGHT_SPLIT
+      static uint16_t report_last_timer = 0;
       static bool tick_flag = false;
-      static uint16_t tick_count = 0;
       uint16_t oldpos16;
       if (tick_flag) {
         tick_flag = false;
         //dprintf("rgblight animation tick\n");
-        tick_count += 1;
-        if (tick_count >= 10) {
-            tick_count = 0;
+        if (timer_elapsed(report_last_timer) >= 30000) {
+            report_last_timer = timer_read();
             dprintf("rgblight animation tick report to slave\n");
             RGBLIGHT_SPLIT_ANIMATION_TICK;
         }
       }
       oldpos16 = animation_status.pos16;
-      //dprintf("call func\n");
+      //dprintf("call effect function\n");
 #endif
       animation_status.last_timer += interval_time;
       effect_func(&animation_status);
