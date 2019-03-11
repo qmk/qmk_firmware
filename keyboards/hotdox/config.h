@@ -35,6 +35,7 @@
 #define LOCKING_RESYNC_ENABLE
 
 /* key combination for command */
+#ifndef IS_COMMAND
 #define IS_COMMAND() ( \
     get_mods() == MOD_MASK_CTRL || \
     get_mods() == MOD_MASK_SHIFT   \
