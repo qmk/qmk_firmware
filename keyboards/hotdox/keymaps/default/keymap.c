@@ -6,7 +6,7 @@
 #define MDIA 2 // media keys
 
 enum custom_keycodes {
-  VRSN,
+  VRSN = SAFE_RANGE,
   RGB_SLD
 };
 
