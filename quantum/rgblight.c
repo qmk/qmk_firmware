@@ -866,7 +866,7 @@ void rgblight_task(void) {
     if (animation_status.restart) {
       animation_status.restart = false;
       animation_status.last_timer = timer_read() - interval_time - 1;
-      animation_status.pos16 = 0;
+      animation_status.pos16 = 0; // restart signal to local each effect
     }
     if (timer_elapsed(animation_status.last_timer) >= interval_time) {
 #ifdef RGBLIGHT_SPLIT
@@ -967,13 +967,20 @@ void rgblight_effect_snake(animation_status_t *anim) {
   int8_t k;
   int8_t increment = 1;
 
-  if (anim->pos == 0) { // restart signal
-    anim->pos = 1;
-    pos = 0;
-  }
   if (anim->delta % 2) {
     increment = -1;
   }
+
+#ifdef RGBLIGHT_SPLIT
+  if (anim->pos == 0) { // restart signal
+    if (increment == 1) {
+      pos = RGBLED_NUM - 1;
+    } else {
+      pos = 0;
+    }
+    anim->pos = 1;
+  }
+#endif
 
   for (i = 0; i < RGBLED_NUM; i++) {
     led[i].r = 0;
@@ -998,10 +1005,11 @@ void rgblight_effect_snake(animation_status_t *anim) {
       anim->pos = 0;
     } else {
       pos -= 1;
+      anim->pos = 1;
     }
   } else {
     pos = (pos + 1) % RGBLED_NUM;
-    anim->pos = (pos == 0);
+    anim->pos = pos;
   }
 }
 #endif
@@ -1017,12 +1025,14 @@ void rgblight_effect_knight(animation_status_t *anim) {
   static int8_t increment = 1;
   uint8_t i, cur;
 
+#ifdef RGBLIGHT_SPLIT
   if (anim->pos == 0) { // restart signal
       anim->pos = 1;
       low_bound = 0;
       high_bound = RGBLIGHT_EFFECT_KNIGHT_LENGTH - 1;
       increment = 1;
   }
+#endif
   // Set all the LEDs to 0
   for (i = 0; i < RGBLED_NUM; i++) {
     led[i].r = 0;
