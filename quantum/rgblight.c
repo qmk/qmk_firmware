@@ -13,6 +13,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+#ifdef RGBLIGHT_SPLIT_ANIMATION
+  #ifndef RGBLIGHT_SPLIT
+    #define RGBLIGHT_SPLIT
+  #endif
+#endif
 #include <math.h>
 #include <string.h>
 #ifdef __AVR__
@@ -743,9 +748,11 @@ void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, 
             rgblight_timer_disable();
         }
     }
+#ifdef  RGBLIGHT_SPLIT_ANIMATION
     if (status->change_flags & RGBLIGHT_STATUS_ANIMATION_TICK) {
         animation_status.restart = true;
     }
+#endif
   #endif
 }
 #endif
@@ -869,7 +876,7 @@ void rgblight_task(void) {
       animation_status.pos16 = 0; // restart signal to local each effect
     }
     if (timer_elapsed(animation_status.last_timer) >= interval_time) {
-#ifdef RGBLIGHT_SPLIT
+#ifdef RGBLIGHT_SPLIT_ANIMATION
       static uint16_t report_last_timer = 0;
       static bool tick_flag = false;
       uint16_t oldpos16;
@@ -887,7 +894,7 @@ void rgblight_task(void) {
 #endif
       animation_status.last_timer += interval_time;
       effect_func(&animation_status);
-#ifdef RGBLIGHT_SPLIT
+#ifdef RGBLIGHT_SPLIT_ANIMATION
       //dprintf("pos16, oldpos16 = %d %d\n",
       //        animation_status.pos16,oldpos16);
       if (animation_status.pos16 == 0 && oldpos16 != 0) {
@@ -970,7 +977,7 @@ void rgblight_effect_snake(animation_status_t *anim) {
     increment = -1;
   }
 
-#ifdef RGBLIGHT_SPLIT
+#ifdef RGBLIGHT_SPLIT_ANIMATION
   if (anim->pos == 0) { // restart signal
     if (increment == 1) {
       pos = RGBLED_NUM - 1;
@@ -1024,7 +1031,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
   static int8_t increment = 1;
   uint8_t i, cur;
 
-#ifdef RGBLIGHT_SPLIT
+#ifdef RGBLIGHT_SPLIT_ANIMATION
   if (anim->pos == 0) { // restart signal
       anim->pos = 1;
       low_bound = 0;
