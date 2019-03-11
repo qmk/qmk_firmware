@@ -88,7 +88,7 @@ void left_config(void)
   left_write(MCP23017_B0_GPPUA,  0x7F);
 
   left_write(MCP23017_B0_IODIRB, 0xFF);
-  left_write(MCP23017_B0_GPIOB,  0x80);
+  left_write(MCP23017_B0_GPIOB,  0xC0);
 }
 
 uint8_t left_write(uint8_t reg, uint8_t data)

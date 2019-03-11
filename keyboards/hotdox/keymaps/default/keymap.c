@@ -173,16 +173,16 @@ void matrix_scan_user(void) {
 
     uint8_t layer = biton32(layer_state);
 
-    //ergodox_right_led_1_off();
-    //ergodox_right_led_2_off();
-    //ergodox_right_led_3_off();
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
     switch (layer) {
       // TODO: Make this relevant to the ErgoDox EZ.
         case 1:
-            //ergodox_right_led_1_on();
+            ergodox_right_led_1_on();
             break;
         case 2:
-            //ergodox_right_led_2_on();
+            ergodox_right_led_2_on();
             break;
         default:
             // none

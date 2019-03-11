@@ -1,9 +1,10 @@
 HotDox
 ========
 
-![HotDox]
+![HotDox](https://cdn.shopify.com/s/files/1/1994/3097/products/Sunset_Ergodox.jpg?v=1540495379)
 
 The HotDox is a modified version of the ErgoDox & ErgoDone(made by K.T.E.C.).
+
 
 - Keyboard maintainer: [Layne](https://github.com/layne001365/qmk_firmware)
 
