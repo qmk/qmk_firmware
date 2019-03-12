@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |     |  ~  |  `  |  +  |  =  |  |  |  \  |  [  |  ]  |  {  |  }  |     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |     |Mouse|     |     |     |     |
+     * |     |     |     |     |     |     |     |     |     |     |     |     |
      * `-----------------------------------------------------------------------'
      */
     [_SYMB] = {
@@ -124,32 +124,32 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         },
         {
             _______,      _______,      _______,      _______,
-            _______,      _______,      _______,      MOUSE,
+            _______,      _______,      _______,      _______,
             _______,      _______,      _______,      _______
         }
     },
 
     /* MOVE
      * ,-----------------------------------------------------------------------.
-     * |     |     |     |     |     |     |CtrUp|Home | Up  | End |Caps | Esc |
+     * |     |     |     |     |     |     |CtrUp|Home | Up  | End |Caps |Mouse|
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |SpaL |Left |Down |Right|SpaR | Del |
+     * |     |     |     |     |     |     |CtrL |Left |Down |Right|CtrR |     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |     |     |     |     |     |     |CtrDn|PgDn |PgUp |TabL |TabR |     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |Mouse|     |     |     |     |     |     |     |
+     * |     |     |     |     |     |     |     |     |     |     |     |     |
      * `-----------------------------------------------------------------------'
      */
     [_MOVE] = {
         {
             AC(KC_A),     AC(KC_B),     AC(KC_C),     AC(KC_D),
             AC(KC_E),     AC(KC_F),     C(KC_UP),     KC_HOME,
-            KC_UP,        KC_END,       KC_CAPS,      KC_ESC
+            KC_UP,        KC_END,       KC_CAPS,      MOUSE
         },
         {
             AC(KC_G),     AC(KC_H),     AC(KC_I),     AC(KC_J),
             AC(KC_K),     AC(KC_L),     C(KC_LEFT),   KC_LEFT,
-            KC_DOWN,      KC_RGHT,      C(KC_RIGHT),  KC_DEL
+            KC_DOWN,      KC_RGHT,      C(KC_RIGHT),  XXXXXXX
         },
         {
             _______,      AC(KC_M),     AC(KC_N),     AC(KC_O),
@@ -158,7 +158,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         },
         {
             _______,      _______,      _______,      _______,
-            MOUSE,        _______,      _______,      _______,
+            _______,      _______,      _______,      _______,
             _______,      _______,      _______,      _______
         }
     },
@@ -169,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |Power| F11 | F12 | F13 | F14 | F15 | F16 | F17 | F18 | F19 | F20 |VolDn|
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |Home |TabL |TabR |End  |     |     |     |Clmak|Qwrty|     |
+     * |     |     |     |     |     |     |     |     |     |Clmak|Qwrty|     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
      * |     |     |     |     |Prev |Mute |Play |Next |     |     |     |     |
      * `-----------------------------------------------------------------------'
@@ -199,34 +199,34 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /* MOUSE
      * ,-----------------------------------------------------------------------.
-     * |     |     |     |     |     |     |     | ScL |Up   | ScR |     |     |
+     * |     |     |CtrL |CtrU |CtrR | B5  |CtrU | ScL |Up   | ScR |     |     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     | B4  | B3  | B2  | B1  |     |     |Left |Down |Right|     |     |
+     * |     |     | Ac0 | Ac1 | Ac2 | B4  |CtrL |Left |Down |Right|CtrR |     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     | Ac0 | Ac1 | Ac2 |     |     | ScD | ScU |     |     |     |
+     * |     |     |     |Home | End | B3  |CtrD | ScD | ScU |TabL |TabR |     |
      * |-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----|
-     * |     |     |     |     |     |     |     |     |     |     |     |     |
+     * |     |     |     |     |     | B2  | B1  |     |     |     |     |     |
      * `-----------------------------------------------------------------------'
      */
     [_MOUSE] = {
         {
-            _______,      _______,      C(KC_LEFT),   C(KC_UP),
-            C(KC_RIGHT),  _______,      _______,      KC_WH_L,
-            KC_MS_U,      KC_WH_R,      _______,      _______
+            _______,      XXXXXXX,      C(KC_LEFT),   C(KC_UP),
+            C(KC_RIGHT),  KC_BTN5,      C(KC_UP),     KC_WH_L,
+            KC_MS_U,      KC_WH_R,      XXXXXXX,      XXXXXXX
         },
         {
-            _______,      KC_BTN4,      KC_BTN3,      KC_BTN2,
-            KC_BTN1,      _______,      _______,      KC_MS_L,
-            KC_MS_D,      KC_MS_R,      _______,      _______
+            _______,      XXXXXXX,      KC_ACL0,      KC_ACL1,
+            KC_ACL2,      KC_BTN4,      C(KC_LEFT),   KC_MS_L,
+            KC_MS_D,      KC_MS_R,      C(KC_RIGHT),  XXXXXXX
         },
         {
-            _______,      _______,      KC_ACL0,      KC_ACL1,
-            KC_ACL2,      _______,      _______,      KC_WH_D,
-            KC_WH_U,      _______,      _______,      _______
+            _______,      XXXXXXX,      XXXXXXX,      KC_HOME,
+            KC_END,       KC_BTN3,      C(KC_DOWN),   KC_WH_D,
+            KC_WH_U,      SC(KC_TAB),   C(KC_TAB),    _______
         },
         {
             _______,      _______,      _______,      _______,
-            _______,      _______,      _______,      _______,
+            _______,      KC_BTN2,      KC_BTN1,      _______,
             _______,      _______,      _______,      _______
         }
     }
@@ -267,6 +267,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case SYMB:
             if (record->event.pressed) {
+                layer_off(_MOUSE);
                 layer_on(_SYMB);
             } else {
                 layer_off(_SYMB);
@@ -274,6 +275,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case MOVE:
             if (record->event.pressed) {
+                layer_off(_MOUSE);
                 layer_on(_MOVE);
             } else {
                 layer_off(_MOVE);
@@ -281,6 +283,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
         case FUNC:
             if (record->event.pressed) {
+                layer_off(_MOUSE);
                 layer_on(_FUNC);
             } else {
                 layer_off(_FUNC);
@@ -289,8 +292,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case MOUSE:
             if (record->event.pressed) {
                 layer_on(_MOUSE);
-            } else {
-                layer_off(_MOUSE);
             }
             return false;
 
