@@ -5,6 +5,8 @@
 #include "util.h"
 #include "quantum.h"
 
+#include "ws2812.h"
+
 void matrix_init_kb(void){
       /* MOSI pin*/
     palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(0));
