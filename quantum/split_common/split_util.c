@@ -3,7 +3,6 @@
 #include "keyboard.h"
 #include "config.h"
 #include "timer.h"
-#include "split_flags.h"
 #include "transport.h"
 #include "quantum.h"
 
@@ -60,10 +59,6 @@ static void keyboard_master_setup(void) {
   #endif
 #endif
   transport_master_init();
-
-  // For master the Backlight info needs to be sent on startup
-  // Otherwise the salve won't start with the proper info until an update
-  BACKLIT_DIRTY = true;
 }
 
 static void keyboard_slave_setup(void)
