@@ -20,10 +20,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
-#define VENDOR_ID 0xFEED
-#define PRODUCT_ID 0xD901
-#define DEVICE_VER 0x0001
-#define MANUFACTURER Dm9 Records
+/* VID & PID from vusb project, see tmk_core/protocol/vusb/USB-IDs-for-free.txt"*/
+#define VENDOR_ID 0x16c0
+#define PRODUCT_ID 0x27db
+#define DEVICE_VER 0x0002
+#define MANUFACTURER dm9records
 #define PRODUCT plaid
 #define DESCRIPTION 12x4 ortholinear keyboard with through hole components
 
