@@ -321,7 +321,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 ```
 ### `layer_state_set_*` Function Documentation
 
-* Keyboard/Revision: `void uint32_t layer_state_set_kb(uint32_t state)`
+* Keyboard/Revision: `uint32_t layer_state_set_kb(uint32_t state)`
 * Keymap: `uint32_t layer_state_set_user(uint32_t state)`
 
 The `state` is the bitmask of the active layers, as explained in the [Keymap Overview](keymap.md#keymap-layer-status)
