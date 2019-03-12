@@ -43,8 +43,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
 	 * |LShift|;     |Q     |J     |K     |X     |LAlt  |-     |B     |M     |W     |V     |Z     |RShift|
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+<<<<<<< HEAD
 	 *                             |TD Swap Layer|             |Space        |
 	 *                             `-------------'			       `-------------'
+=======
+	 *                             |TD Swap Layer|             |Space        |      
+	 *                             `-------------'             `-------------'
+>>>>>>> fixed formatting in layout visualization
 	 */
 	[_DVORAK] = LAYOUT(/* Base Dvorak */
 	  KC_TAB,           KC_QUOT, KC_COMM, KC_DOT, KC_P, KC_Y, KC_BRIU, KC_EQL,     KC_F, KC_G, KC_C,    KC_R,   KC_L,   KC_BSPC,
@@ -61,8 +66,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
 	 * |LShift|Z     |X     |C     |V     |B     |LAlt  |-     |N     |M     |,     |.     |/     |RShift|
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+<<<<<<< HEAD
 	 *                             |TD Swap Layer|             |Space        |
 	 *                             `-------------'			       `-------------'
+=======
+	 *                             |TD Swap Layer|             |Space        |      
+	 *                             `-------------'             `-------------'
+>>>>>>> fixed formatting in layout visualization
 	 */
 	[_QWERTY] = LAYOUT(/* Base Qwerty */
 	  KC_TAB,           KC_Q,    KC_W,    KC_E,   KC_R, KC_T, KC_BRIU, KC_QUOT,    KC_Y, KC_U, KC_I,    KC_O,   KC_P,    KC_BSPC,
@@ -79,7 +89,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
 	 * |      |F7    |F8    |F9    |F10   |F11   |F12   |Vol Dn|Next  |Home  |PgDn  |PgUp  |End   |      |
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+<<<<<<< HEAD
 	 *                             |             |             |             |
+=======
+	 *                             |             |             |             |      
+>>>>>>> fixed formatting in layout visualization
 	 *                             `-------------'             `-------------'
 	 */
 	[_LOWER] = LAYOUT(/* Numbers, Function Row, Media Control, Shifted Symbols, Dvorak Slash Key */
@@ -97,7 +111,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
 	 * |      |!     |@     |#     |$     |%     |      |      |^     |&     |*     |(     |)     |      |
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
+<<<<<<< HEAD
 	 *                             |             |             |             |
+=======
+	 *                             |             |             |             |      
+>>>>>>> fixed formatting in layout visualization
 	 *                             `-------------'             `-------------'
 	 */
 	[_RAISE] = LAYOUT(/* Arrows, Shifted Numbers, Symbols, Delete, Macros */
