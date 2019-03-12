@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------------
-# make georgi:germ:dfu
+# make georgi:extrakey:dfu
 # Make sure you have dfu-programmer installed!
 #----------------------------------------------------------------------------
 
@@ -10,7 +10,7 @@ DEBUG_MATRIX_SCAN_RATE   = no
 DEBUG_MATRIX			 = no
 KEYBOARD_SHARED_EP       = yes
 CUSTOM_MATRIX			 = yes
-MOUSEKEY_ENABLE			 = yes
+MOUSEKEY_ENABLE			 = no
 SINGLE_LAYER			 = no
 
 
