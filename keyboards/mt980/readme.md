@@ -2,7 +2,7 @@
 
 A mechanical keyboard PCB in the same layout as the Leopold FC980M, sold by Wheat Field Peripherals on Taobao.  This PCB requires soldering, except for the arrow cluster and the Escape key switches, which use Kailh hot swap sockets.
 
-Keyboard Maintainer: [walkerstop](https://github.com/walkerstop)
+Keyboard Maintainer: [walkerstop](https://github.com/walkerstop)  
 Hardware Supported: mt980
 Hardware Availability: Taobao store https://shop110310565.taobao.com  
 
