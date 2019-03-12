@@ -35,7 +35,7 @@ ARMV = 6
 #   comment out to disable the options.
 #
 
-SRC += led.c
+# SRC += led.c
 
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
@@ -45,7 +45,7 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = no # Custom matrix file
-BACKLIGHT_ENABLE = yes
+# BACKLIGHT_ENABLE = yes
 # RGBLIGHT_ENABLE = yes
 
 # RAW_ENABLE = yes
