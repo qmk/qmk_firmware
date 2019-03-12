@@ -16,7 +16,7 @@ static volatile bool slave_has_register_set = false;
 
 void i2c_slave_init(uint8_t address){
     // load address into TWI address register
-    TWAR = (address << 1);
+    TWAR = address;
     // set the TWCR to enable address matching and enable TWI, clear TWINT, enable TWI interrupt
     TWCR = (1 << TWIE) | (1 << TWEA) | (1 << TWINT) | (1 << TWEN);
 }
