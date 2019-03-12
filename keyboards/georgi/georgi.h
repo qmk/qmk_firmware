@@ -30,6 +30,31 @@ void init_ergodox(void);
 uint8_t init_mcp23018(void);
 
 /*  ---------- LEFT HAND -----------   ---------- RIGHT HAND ---------- */
+#define LAYOUT_GEORGI(                                            \
+    L00,L01,L02,L03,L04,L05,            R00,R01,R02,R03,R04,R05,  \
+    L10,L11,L12,L13,L14,L15,            R10,R11,R12,R13,R14,R15,  \
+               	L20,L21,L22,            R20,R21,R22)              \
+                                                                  \
+    {                         \
+    { KC_NO,  R00,   R10,   R21},     \
+    { KC_NO,  R01,   R11,   R20},     \
+    { KC_NO,  R02,   R12,   R22},     \
+    { KC_NO,  R03,   R13,   KC_NO},   \
+    { KC_NO,  R04,   R14,   KC_NO},   \
+    { KC_NO,  R05,   R15,   KC_NO},   \
+    { KC_NO,  KC_NO, KC_NO, KC_NO},     \
+							  \
+    { KC_NO,  L05,   L15,   L22},     \
+    { KC_NO,  L04,   L14,   L21},     \
+    { KC_NO,  L03,   L13,   L20},     \
+    { KC_NO,  L02,   L12,   KC_NO},   \
+    { KC_NO,  L01,   L11,   KC_NO},   \
+    { KC_NO,  L00,   L10,   KC_NO},   \
+    { KC_NO,  KC_NO, KC_NO, KC_NO},     \
+                              \
+}
+
+/*  ---------- LEFT HAND -----------   ---------- RIGHT HAND ---------- 
 #define LAYOUT_GERGO(                                                    \
     L00,L01,L02,L03,L04,L05,                   R00,R01,R02,R03,R04,R05,  \
     L10,L11,L12,L13,L14,L15,L16,           R10,R11,R12,R13,R14,R15,R16,  \
@@ -38,7 +63,6 @@ uint8_t init_mcp23018(void);
                             L30,           R30,                          \
                         L33,L34,           R31,R32)                      \
                                                                          \
-   /* matrix positions */                                                \
     {                               \
     { KC_NO, L16,   L26,  L30},     \
     { L05,   L15,   L25,  L34},     \
@@ -48,11 +72,11 @@ uint8_t init_mcp23018(void);
     { L01,   L11,   L21,  KC_NO},   \
     { L00,   L10,   L20,  KC_NO},   \
                                     \
-    { R10,   KC_NO, R20, R30},      \
+    { KC_NO, R10, R20, R30},      \
     { R00,   R11,   R21, R31},      \
     { R01,   R12,   R22, R32},      \
     { R02,   R13,   R23, R33},      \
     { R03,   R14,   R24, R34},      \
     { R04,   R15,   R25, KC_NO},    \
     { R05,   R16,   R26, KC_NO},    \
-}
+} */

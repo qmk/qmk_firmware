@@ -23,16 +23,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Defaults */
 
+#define VERSION "Alpha 01: Ted "
 #define VERBOSE
+
 #define FORCE_NKRO
+#define NO_ACTION_MACRO
+#define NO_ACTION_FUNCTION
 
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
-#define PRODUCT_ID      0x1307
+#define PRODUCT_ID      0x1337
 #define DEVICE_VER      0x0001
 #define MANUFACTURER    g Heavy Industries 
-#define PRODUCT         Gergo
-#define DESCRIPTION     QMK keyboard firmware for Gergo
+#define PRODUCT         Georgi
+#define DESCRIPTION     QMK keyboard firmware for Georgi
 
 /* key matrix size */
 #define MATRIX_ROWS 14
