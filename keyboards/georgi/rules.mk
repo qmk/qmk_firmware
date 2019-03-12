@@ -18,5 +18,5 @@ CUSTOM_MATRIX 		= yes
 STENO_ENABLE 		= yes
 EXTRAKEY_ENABLE     = yes
 CONSOLE_ENABLE      = yes
-COMMAND_ENABLE      = yes
+COMMAND_ENABLE      = no
 NKRO_ENABLE			= yes
