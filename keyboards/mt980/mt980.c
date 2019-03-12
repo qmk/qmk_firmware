@@ -1,5 +1,25 @@
 #include "mt980.h"
 
+__attribute__ ((weak))
+void matrix_init_keymap(void) {}
+
+__attribute__ ((weak))
+void matrix_scan_keymap(void) {}
+
+__attribute__ ((weak))
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  return true;
+}
+__attribute__ ((weak))
+uint32_t layer_state_set_keymap (uint32_t state) {
+  return state;
+}
+__attribute__ ((weak))
+void led_set_keymap(uint8_t usb_led) {}
+
+__attribute__ ((weak))
+void action_function_keymap(keyrecord_t *record, uint8_t id, uint8_t opt) {}
+
 void keyboard_pre_init_user(void) {
   /* Set NUMLOCK indicator pin as output */
   setPinOutput(C6);
@@ -7,6 +27,10 @@ void keyboard_pre_init_user(void) {
   setPinOutput(C7);
   /* Set SCROLLOCK indicator pin as output */
   setPinOutput(B5);
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  return process_record_keymap(keycode, record);
 }
 
 void led_set_user(uint8_t usb_led) {
@@ -32,4 +56,5 @@ void led_set_user(uint8_t usb_led) {
     writePinHigh(B5);
   }
 
+  led_set_keymap(usb_led);
 }
