@@ -59,7 +59,7 @@
 #define _RGBM_TMP_STATIC(sym, msym)      RGBLIGHT_MODE_ ## sym,
 #define _RGBM_TMP_DYNAMIC(sym, msym)
 static uint8_t static_effect_table [] = {
-#include "rgblight.h"
+#include "rgblight_modes.h"
 };
 
 #define _RGBM_SINGLE_STATIC(sym)   RGBLIGHT_MODE_ ## sym,
@@ -70,7 +70,7 @@ static uint8_t static_effect_table [] = {
 #define _RGBM_TMP_DYNAMIC(sym, msym) RGBLIGHT_MODE_ ## msym,
 static uint8_t mode_base_table [] = {
     0, // RGBLIGHT_MODE_zero
-#include "rgblight.h"
+#include "rgblight_modes.h"
 };
 
 static inline int is_static_effect(uint8_t mode) {
