@@ -191,6 +191,7 @@ void rgb_matrix_indicators_user(void) {
   uint8_t this_osm = get_oneshot_mods();
   if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) { return; }
 
+#if !defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
   switch (biton32(layer_state)) {
     case _RAISE:
       rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
@@ -218,6 +219,8 @@ void rgb_matrix_indicators_user(void) {
           rgb_matrix_layer_helper(0x00, 0x00, 0xFF, true); break;
       }
   }
+#endif
+
   switch (biton32(default_layer_state)) {
     case _QWERTY:
       rgb_matrix_set_color(42, 0x00, 0xFF, 0xFF); break;

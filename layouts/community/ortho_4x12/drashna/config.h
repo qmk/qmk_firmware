@@ -4,7 +4,7 @@
 #if defined(RGBLIGHT_ENABLE) && !defined(RGBLED_NUM)
 #define RGB_DI_PIN B3
 #define RGBLED_NUM 16     // Number of LEDs
-
+#define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
 #define RGBLIGHT_VAL_STEP 12
@@ -20,7 +20,7 @@
 #define RGB_DISABLE_WHEN_USB_SUSPENDED true// turn off effects when suspended
 // #define RGB_MATRIX_SKIP_FRAMES 1 // number of frames to skip when displaying animations (0 is full effect) if not defined defaults to 1
 // #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
-#define EECONFIG_RGB_MATRIX (uint32_t *)28
+#define EECONFIG_RGB_MATRIX (uint32_t *)15
 #endif
 
 #if defined(KEYBOARD_lets_split_rev2)
