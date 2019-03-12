@@ -23,6 +23,7 @@
 <<<<<<< HEAD
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 200
+<<<<<<< HEAD
 =======
 #define PERMISSIVE_HOLD
 >>>>>>> reset rules.mk to default
@@ -34,3 +35,5 @@
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 200
 >>>>>>> fixed typo in config.h, remove excess in rules.mk, revert half_n_half rules.mk
+=======
+>>>>>>> added Boy_.314's layout for halfnhalf keyboard
