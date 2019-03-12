@@ -7,10 +7,8 @@
 
 void matrix_init_kb(void){
       /* MOSI pin*/
-    palSetPadMode(GPIOB, 15, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
-    LED_ON();
+    palSetPadMode(GPIOB, 15, PAL_MODE_ALTERNATE(0));
     wait_ms(500);
-    LED_OFF();
 
 #ifdef RGBLIGHT_ENABLE
     leds_init();

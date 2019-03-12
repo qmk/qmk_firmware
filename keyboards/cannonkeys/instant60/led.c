@@ -68,30 +68,29 @@ static uint16_t cie_lightness(uint16_t v) {
 
 
 void backlight_init_ports(void) {
+  printf("backlight_init_ports()\n");
+  #ifdef BACKLIGHT_ENABLE
   palSetPadMode(GPIOA, 6, PAL_MODE_ALTERNATE(1));
   pwmStart(&PWMD3, &pwmCFG);
-  if(kb_backlight_config.enable){
-    if(kb_backlight_config.breathing){
-      breathing_enable();
-    } else{
-      backlight_set(kb_backlight_config.level);
-    }
-  } else {
-    backlight_set(0);
-  }
+  pwmEnableChannel(&PWMD3, 0, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF,cie_lightness(0xFFFF)));
+  #endif
 }
 
 void backlight_set(uint8_t level) {
-  uint32_t duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / BACKLIGHT_LEVELS));
-  if (level == 0) {
-      // Turn backlight off
-      pwmDisableChannel(&PWMD3, 0);
-  } else {
-    // Turn backlight on
-    if(!is_breathing()){
-      pwmEnableChannel(&PWMD3, 0, PWM_FRACTION_TO_WIDTH(&PWMD3,0xFFFF,duty));
+    printf("backlight_set(%d)\n", level);
+    #ifdef BACKLIGHT_ENABLE
+    uint32_t duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / BACKLIGHT_LEVELS));
+    printf("duty: (%d)\n", duty);
+    if (level == 0) {
+        // Turn backlight off
+        pwmDisableChannel(&PWMD3, 0);
+    } else {
+      // Turn backlight on
+      if(!is_breathing()){
+        pwmEnableChannel(&PWMD3, 0, PWM_FRACTION_TO_WIDTH(&PWMD3,0xFFFF,duty));
+      }
     }
-  }
+    #endif
 }
 
 
@@ -148,7 +147,7 @@ void breathing_enable(void)
 
 void breathing_pulse(void)
 {
-    if (kb_backlight_config.level == 0)
+    if (get_backlight_level() == 0)
       breathing_min();
     else
       breathing_max();
@@ -158,14 +157,15 @@ void breathing_pulse(void)
 
 void breathing_disable(void)
 {
+    printf("breathing_disable()\n");
     breathing_interrupt_disable();
     // Restore backlight level
-    backlight_set(kb_backlight_config.level);
+    backlight_set(get_backlight_level());
 }
 
 void breathing_self_disable(void)
 {
-  if (kb_backlight_config.level == 0)
+  if (get_backlight_level() == 0)
     breathing_halt = BREATHING_HALT_OFF;
   else
     breathing_halt = BREATHING_HALT_ON;
@@ -173,8 +173,10 @@ void breathing_self_disable(void)
 
 void breathing_toggle(void) {
   if (is_breathing()){
+    printf("disable breathing\n");
     breathing_disable();
   } else {
+    printf("enable breathing\n");
     breathing_enable();
   }
 }
@@ -207,7 +209,7 @@ static const uint8_t breathing_table[BREATHING_STEPS] = {0, 0, 0, 0, 0, 0, 0, 0,
 
 // Use this before the cie_lightness function.
 static inline uint16_t scale_backlight(uint16_t v) {
-  return v / BACKLIGHT_LEVELS * kb_backlight_config.level;
+  return v / BACKLIGHT_LEVELS * get_backlight_level();
 }
 
 static void breathing_callback(PWMDriver *pwmp)

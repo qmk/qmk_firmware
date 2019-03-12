@@ -61,7 +61,7 @@ static THD_FUNCTION(ledsThread, arg) {
  */
 void leds_init(void){
   /* MOSI pin*/
-  palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_STM32_ALTERNATE_PUSHPULL);
+  palSetPadMode(PORT_WS2812, PIN_WS2812, PAL_MODE_ALTERNATE(0));
   for(int i = 0; i < RESET_SIZE; i++)
     txbuf[DATA_SIZE+i] = 0x00;
   for (int i=0; i<PREAMBLE_SIZE; i++)
