@@ -8,10 +8,10 @@
  * 
  * Based originally on `dz60/zvecr`
  */
-#define BASE    0    // Layer: Base
+#define BASE    0   // Layer: Base
 #define NRMN    1   // Layer: Norman (!!!!!)
-#define FCTN    2    // Layer: Function
-#define KEYB    3    // Layer: Keyboard
+#define FCTN    2   // Layer: Function
+#define KEYB    3   // Layer: Keyboard
 
 /*
  * 
@@ -47,25 +47,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [FCTN] = LAYOUT__bonfire(
-        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,   KC_F12,  _______,
-        _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, _______, _______, _______, KC_PSCR, KC_SLCK, KC_PAUS, _______,  _______, _______,
-        _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, _______, _______, KC_INS,  KC_HOME, KC_PGUP,  _______,
-        _______, KC_SLEP, KC_WAKE, _______, _______, _______, _______, _______, KC_DEL,  KC_END,  KC_PGDN, MO(KEYB), _______,
-        _______, _______, _______, _______, _______, _______, _______, _______
+        KC_ESC,  KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,    KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  XXXXXXX,
+        XXXXXXX, KC_MUTE, KC_VOLD, KC_VOLU, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_PSCR, KC_SLCK, KC_PAUS, XXXXXXX,
+        XXXXXXX, KC_MPRV, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,  KC_HOME, KC_PGUP, XXXXXXX,
+        XXXXXXX, KC_SLEP, KC_WAKE, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, KC_DEL,  KC_END,  KC_PGDN, _______, _______,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ESC,  MO(KEYB), XXXXXXX, XXXXXXX
     ),
 
     /**
      * This is the KEYB layer. It's for changing how the board itself works.
+     * 
      * Other keymaps call this a NAV layer, but it's more than just NAV-ing the board's layers.
      * It will eventually do a lot of that; right now it's mainly to change RGB, put the board into RESET, and the
+     * 
      * 1 key toggles the Norman layout.
      * More to come later.
+     *
+     * XXXXXXX = Key does nothing.
      */
     [KEYB] = LAYOUT__bonfire(
         XXXXXXX, TG(NRMN), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RESET, 
         XXXXXXX, RGB_TOG,  RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, BL_DEC,   BL_TOGG, BL_INC, BL_STEP,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, BL_DEC,   BL_TOGG, BL_INC,  BL_STEP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, _______,
         XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX
     )
 
