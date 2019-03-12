@@ -18,5 +18,9 @@
 
 // place overrides here
 #define IGNORE_MOD_TAP_INTERRUPT
+<<<<<<< HEAD
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 200
+=======
+#define PERMISSIVE_HOLD
+>>>>>>> reset rules.mk to default
