@@ -41,7 +41,7 @@
 #define _RGBM_TMP_STATIC(sym)      RGBLIGHT_MODE_ ## sym,
 #define _RGBM_TMP_DYNAMIC(sym)
 static uint8_t static_effect_table [] = {
-#include "rgblight.h"
+#include "rgblight_modes.h"
 };
 
 static inline int is_static_effect(uint8_t mode) {
