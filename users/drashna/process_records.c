@@ -34,28 +34,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
   case KC_MAKE:  // Compiles the firmware, and adds the flash command based on keyboard bootloader
     if (!record->event.pressed) {
-        uint8_t temp_mod = get_mods();
-        uint8_t temp_osm = get_oneshot_mods();
-        clear_mods(); clear_oneshot_mods();
+      uint8_t temp_mod = get_mods();
+      uint8_t temp_osm = get_oneshot_mods();
+      clear_mods(); clear_oneshot_mods();
       send_string_with_delay_P(PSTR("make " QMK_KEYBOARD ":" QMK_KEYMAP), MACRO_TIMER);
 #ifndef MAKE_BOOTLOADER
-        if ( ( temp_mod | temp_osm ) & MOD_MASK_SHIFT )
+      if ( ( temp_mod | temp_osm ) & MOD_MASK_SHIFT )
 #endif
-        {
-          #if defined(__arm__)
-            send_string_with_delay_P(PSTR(":dfu-util"), MACRO_TIMER);
-          #elif defined(BOOTLOADER_DFU)
-            send_string_with_delay_P(PSTR(":dfu"), MACRO_TIMER);
-          #elif defined(BOOTLOADER_HALFKAY)
-            send_string_with_delay_P(PSTR(":teensy"), MACRO_TIMER);
-          #elif defined(BOOTLOADER_CATERINA)
-            send_string_with_delay_P(PSTR(":avrdude"), MACRO_TIMER);
-          #endif // bootloader options
-        }
-        if ( ( temp_mod | temp_osm ) & MOD_MASK_CTRL) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), MACRO_TIMER); }
-        send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), MACRO_TIMER);
-        if (temp_mod) { set_mods(temp_mod); }
-        if (temp_osm) { set_oneshot_mods(temp_osm); }
+      {
+        #if defined(__arm__)
+          send_string_with_delay_P(PSTR(":dfu-util"), MACRO_TIMER);
+        #elif defined(BOOTLOADER_DFU)
+          send_string_with_delay_P(PSTR(":dfu"), MACRO_TIMER);
+        #elif defined(BOOTLOADER_HALFKAY)
+          send_string_with_delay_P(PSTR(":teensy"), MACRO_TIMER);
+        #elif defined(BOOTLOADER_CATERINA)
+          send_string_with_delay_P(PSTR(":avrdude"), MACRO_TIMER);
+        #endif // bootloader options
+       }
+      if ( ( temp_mod | temp_osm ) & MOD_MASK_CTRL) { send_string_with_delay_P(PSTR(" -j8 --output-sync"), MACRO_TIMER); }
+      send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), MACRO_TIMER);
+      if (temp_mod) { set_mods(temp_mod); }
+      if (temp_osm) { set_oneshot_mods(temp_osm); }
     }
     break;
 
