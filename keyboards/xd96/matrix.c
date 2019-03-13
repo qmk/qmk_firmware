@@ -33,13 +33,14 @@ static void init_pins(void) {
   // init all cols high - IC2 all input
   pca9555_set_config(IC2, PCA9555_PORT0, ALL_INPUT);//same as initial state
   pca9555_set_config(IC2, PCA9555_PORT1, ALL_INPUT);//same as initial state
+  pca9555_set_config(IC1, PCA9555_PORT1, ALL_INPUT);//same as initial state
 
   // init all rows - IC1 port0 input
   pca9555_set_config(IC1, PCA9555_PORT0, ALL_INPUT);//same as initial state
 }
 
 static void select_row(uint8_t row) {
-  // For the XD84 all rows are on the same IC and port
+  // For the XD96 all rows are on the same IC and port
   // so its safe enough to assume here row == pin
   uint8_t pin = row;
   uint8_t mask = 1 << pin;
@@ -49,13 +50,13 @@ static void select_row(uint8_t row) {
 }
 
 static uint16_t read_cols(void) {
-  uint16_t state_1 = pca9555_readPins(IC2, PCA9555_PORT0);
-  uint16_t state_2 = pca9555_readPins(IC2, PCA9555_PORT1);
+  uint32_t state_1 = pca9555_readPins(IC2, PCA9555_PORT0);
+  uint32_t state_2 = pca9555_readPins(IC2, PCA9555_PORT1);
+  uint32_t state_3 = pca9555_readPins(IC1, PCA9555_PORT1);
 
-  // For the XD84 all cols are on the same IC and mapped sequentially
-  // while this technically gives 16 column reads,
-  // the 16th column can never be set so is safely ignored
-  return ~((state_2 << 8) | state_1);
+  // For the XD96 the pins are mapped to port expanders as follows:
+  //   all 8 pins port 0 IC2, first 6 pins port 1 IC2, first 4 pins port 1 IC1
+  return ~(((state_3 & 0b00001111) << 14) | ((state_2 & 0b00111111) << 8) | state_1);
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
