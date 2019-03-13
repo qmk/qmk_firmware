@@ -219,7 +219,7 @@ define EXEC_AVRDUDE
 			USB=`echo "$$USB" | perl -pne 's/\/dev\/ttyS(\d+)/COM.($$1+1)/e'`; \
 			echo "Remapped MSYS2 USB port to $$USB"; \
 			sleep 1; \
-		else; \
+		else \
 			printf "Waiting for $$USB to become writable."; \
 			while [ ! -w "$$USB" ]; do sleep 0.5; printf "."; done; echo ""; \
 		fi; \
