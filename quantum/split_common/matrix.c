@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "matrix.h"
 #include "split_util.h"
 #include "config.h"
-#include "split_flags.h"
 #include "quantum.h"
 #include "debounce.h"
 #include "transport.h"
