@@ -56,7 +56,8 @@ static uint32_t read_cols(void) {
 
   // For the XD96 the pins are mapped to port expanders as follows:
   //   all 8 pins port 0 IC2, first 6 pins port 1 IC2, first 4 pins port 1 IC1
-  return ~(((state_3 & 0b00001111) << 14) | ((state_2 & 0b00111111) << 8) | state_1);
+  uint32_t state = (((state_3 & 0b00001111) << 14) | ((state_2 & 0b00111111) << 8) | state_1);
+  return (~state) & 0b111111111111111111;
 }
 
 static bool read_cols_on_row(matrix_row_t current_matrix[], uint8_t current_row) {
