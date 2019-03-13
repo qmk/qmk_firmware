@@ -12,11 +12,6 @@ A keymap that can be used with the jj50 ortholinear keyboard.
 - Auto-Shift enabled (long press on alphas and numeric keys outputs shifted character)
 - Full arrow keys available
 
-## Custom Keycodes
-
-- All `______` keycodes are pass-through keycodes. This means that the key on the immediately previous layer will be invoked. See documentation for `KC_TRNS` for more information.  
-
-- All `__XX__` keycodes are no-action keycodes. This means that there will be no action by the keyboard. See documentation for `KC_NO` for more information.
 
 ## Feedback
 

@@ -23,33 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "rgblight.h"
 #include "quantum.h"
 
-#define ______ KC_TRNS
-#define __XX__ KC_NO
-
 #define _QWERTY 0
 #define _COLEMAK 1
 #define _FN 2
 #define _FX 3
-
-/*enum custom_keycodes {
-    P_MACRO = SAFE_RANGE
-};
-
-// GBP £ Macro (sends alt 156 - windows users only)
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch(keycode) {
-            case P_MACRO:
-                SEND_STRING(SS_DOWN(X_LALT));
-                SEND_STRING(SS_TAP(X_KP_1));
-                SEND_STRING(SS_TAP(X_KP_5));
-                SEND_STRING(SS_TAP(X_KP_6));
-                SEND_STRING(SS_UP(X_LALT));
-                return false; break;
-        }
-    }
-    return true;
-};*/
 
 enum {
   TD_BSPC_DEL = 0,
