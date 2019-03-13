@@ -252,7 +252,7 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
     // matrix_write_ln(matrix, read_keylog());
     matrix_write_ln(matrix, read_keylogs());
     // matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
-    matrix_write(matrix, read_host_led_state());
+    // matrix_write(matrix, read_host_led_state());
     //matrix_write_ln(matrix, read_timelog());
   } else {
     matrix_write(matrix, read_logo());
