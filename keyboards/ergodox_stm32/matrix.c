@@ -187,12 +187,12 @@ void matrix_print(void) {
 //    return (lookup[n&0b1111] << 4) | lookup[n>>4];
 // }
 
-static uint8_t swapBits3(uint8_t num, uint8_t nPosition, uint8_t mPosition)
-{
-  uint8_t k = ((num >> nPosition) & 1) - ((num >> mPosition) & 1);
-
-  return num + k*(1<<mPosition) - k*(1<<nPosition);
-}
+//static uint8_t swapBits3(uint8_t num, uint8_t nPosition, uint8_t mPosition)
+//{
+//  uint8_t k = ((num >> nPosition) & 1) - ((num >> mPosition) & 1);
+//
+//  return num + k*(1<<mPosition) - k*(1<<nPosition);
+//}
 
 static matrix_row_t read_cols(uint8_t row) {
   if (row < MATRIX_ROWS_PER_SIDE) {
