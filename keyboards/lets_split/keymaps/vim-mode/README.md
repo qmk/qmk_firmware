@@ -19,3 +19,4 @@ Based on the default keymap.
 
 * Page up, page down, home, and end have been placed directly under the `hjkl` arrow keys, and each key moves the same direction as the key above it. (for instance, `h` moves left. Home has therefore been placed on `n`). You may ask why this was done instead of placing page down on `f` and page up on `b`. Here's why:
   * In short, `f` and `b` are in prime locations for other types of keys, and using those keys for page down and page up would interrupt the space available for other keys. Using vim-style `f` and `b` would require either divide up the list of function keys with unrelated keys, which is unintuitive, or move all the function keys to another later, requiring restructuring that does not lend itself to an intuitive layout.
+* Audio is not tested. If it doesn't work, please open an issue.
