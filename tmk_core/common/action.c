@@ -523,6 +523,11 @@ void process_action(keyrecord_t *record, action_t action)
                             if (action.layer_tap.code == KC_CAPS) {
                                 wait_ms(TAP_HOLD_CAPS_DELAY);
                             }
+                            #if TAP_CODE_DELAY > 0
+                              else {
+                                wait_ms(TAP_CODE_DELAY);
+                              }
+                            #endif
                             unregister_code(action.layer_tap.code);
                         } else {
                             dprint("KEYMAP_TAP_KEY: No tap: Off on release\n");
@@ -618,6 +623,9 @@ void process_action(keyrecord_t *record, action_t action)
                         if (event.pressed) {
                             register_code(action.swap.code);
                         } else {
+                            #if TAP_CODE_DELAY > 0
+                              wait_ms(TAP_CODE_DELAY);
+                            #endif
                             unregister_code(action.swap.code);
                             *record = (keyrecord_t){}; // hack: reset tap mode
                         }
@@ -670,8 +678,7 @@ void process_action(keyrecord_t *record, action_t action)
         retro_tapping_counter = 0;
       } else {
         if (retro_tapping_counter == 2) {
-          register_code(action.layer_tap.code);
-          unregister_code(action.layer_tap.code);
+          tap_code(action.layer_tap.code);
         }
         retro_tapping_counter = 0;
       }
