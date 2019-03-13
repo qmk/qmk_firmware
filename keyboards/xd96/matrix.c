@@ -49,7 +49,7 @@ static void select_row(uint8_t row) {
   pca9555_set_config(IC1, PCA9555_PORT0, ALL_INPUT & (~mask));
 }
 
-static uint16_t read_cols(void) {
+static uint32_t read_cols(void) {
   uint32_t state_1 = pca9555_readPins(IC2, PCA9555_PORT0);
   uint32_t state_2 = pca9555_readPins(IC2, PCA9555_PORT1);
   uint32_t state_3 = pca9555_readPins(IC1, PCA9555_PORT1);
