@@ -14,13 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef CONFIG_USER_H
-#define CONFIG_USER_H
-
-#include "config_common.h"
+#pragma once
 
 // My hand wire diodes are in the opposite direction to the Atreus62 PCB
 #undef DIODE_DIRECTION
 #define DIODE_DIRECTION COL2ROW
-
-#endif
