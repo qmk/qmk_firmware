@@ -21,6 +21,10 @@
 extern bool g_suspend_state;
 extern rgb_config_t rgb_matrix_config;
 #endif
+#ifdef RGBLIGHT_ENABLE
+extern rgblight_config_t rgblight_config;
+#endif
+
 
 #ifdef BACKLIGHT_ENABLE
 enum planck_keycodes {
@@ -189,37 +193,42 @@ void rgb_matrix_indicators_user(void) {
   uint8_t this_mod = get_mods();
   uint8_t this_led = host_keyboard_leds();
   uint8_t this_osm = get_oneshot_mods();
-  if (g_suspend_state || !rgb_matrix_config.enable || !userspace_config.rgb_layer_change) { return; }
 
-#if !defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
-  switch (biton32(layer_state)) {
-    case _RAISE:
-      rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
-    case _LOWER:
-      rgb_matrix_layer_helper(0x00, 0xFF, 0x00, false); break;
-    case _ADJUST:
-      rgb_matrix_layer_helper(0xFF, 0x00, 0x00, false); break;
-    default:
-      switch (biton32(default_layer_state)) {
-        case _QWERTY:
-          rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, true); break;
-        case _COLEMAK:
-          rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, true); break;
-        case _DVORAK:
-          rgb_matrix_layer_helper(0x00, 0xFF, 0x00, true); break;
-        case _WORKMAN:
-          rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, true); break;
-        case _NORMAN:
-          rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D, true); break;
-        case _MALTRON:
-          rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, true); break;
-        case _EUCALYN:
-          rgb_matrix_layer_helper(0xFF, 0x80, 0xBF, true); break;
-        case _CARPLAX:
-          rgb_matrix_layer_helper(0x00, 0x00, 0xFF, true); break;
-      }
-  }
+  if (!g_suspend_state && userspace_config.rgb_layer_change &&
+#if defined(RGBLIGHT_ENABLE) && defined(RGB_MATRIX_ENABLE)
+    (!rgblight_config.enable && rgb_matrix_config.enable)
+#else
+    rgb_matrix_config.enable
 #endif
+    ) {
+    switch (biton32(layer_state)) {
+      case _RAISE:
+        rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
+      case _LOWER:
+        rgb_matrix_layer_helper(0x00, 0xFF, 0x00, false); break;
+      case _ADJUST:
+        rgb_matrix_layer_helper(0xFF, 0x00, 0x00, false); break;
+      default:
+        switch (biton32(default_layer_state)) {
+          case _QWERTY:
+            rgb_matrix_layer_helper(0x00, 0xFF, 0xFF, true); break;
+          case _COLEMAK:
+            rgb_matrix_layer_helper(0xFF, 0x00, 0xFF, true); break;
+          case _DVORAK:
+            rgb_matrix_layer_helper(0x00, 0xFF, 0x00, true); break;
+          case _WORKMAN:
+            rgb_matrix_layer_helper(0xD9, 0xA5, 0x21, true); break;
+          case _NORMAN:
+            rgb_matrix_layer_helper(0xFF, 0x7C, 0x4D, true); break;
+          case _MALTRON:
+            rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, true); break;
+          case _EUCALYN:
+            rgb_matrix_layer_helper(0xFF, 0x80, 0xBF, true); break;
+          case _CARPLAX:
+            rgb_matrix_layer_helper(0x00, 0x00, 0xFF, true); break;
+        }
+    }
+  }
 
   switch (biton32(default_layer_state)) {
     case _QWERTY:
