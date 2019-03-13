@@ -61,7 +61,7 @@ uint8_t init_mcp23018(void) {
     mcp23018_status = i2c_write(0b11111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
 
 out:
-    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+    i2c_stop();
     // SREG=sreg_prev;
     //uprintf("Init %x\n", mcp23018_status);
     return mcp23018_status;
