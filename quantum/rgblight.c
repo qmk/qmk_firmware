@@ -13,11 +13,6 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifdef RGBLIGHT_SPLIT_ANIMATION
-  #ifndef RGBLIGHT_SPLIT
-    #define RGBLIGHT_SPLIT
-  #endif
-#endif
 #include <math.h>
 #include <string.h>
 #ifdef __AVR__

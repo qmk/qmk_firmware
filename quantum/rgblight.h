@@ -16,6 +16,12 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
+#ifdef RGBLIGHT_SPLIT_ANIMATION
+  #ifndef RGBLIGHT_SPLIT
+    #define RGBLIGHT_SPLIT
+  #endif
+#endif
+
 #include "rgblight_reconfig.h"
 
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
