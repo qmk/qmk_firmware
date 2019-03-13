@@ -73,7 +73,7 @@ if len(sys.argv) < 2:
 kb = checkForKeyboardInNormalMode()
 
 if kb is not None:
-    print('Found a keyboad in normal mode. Attempting to send it to bootloader mode ...', end='')
+    print('Found a keyboard in normal mode. Attempting to send it to bootloader mode ...', end='')
     sendDeviceToBootloaderMode(kb)
     print(' done.')
     print("Hint: If your keyboard can't be set to bootloader mode automatically, plug it in while pressing the bootloader key to do so manually.")

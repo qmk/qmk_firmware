@@ -14,7 +14,7 @@ You can make your own traveller  keyboard by using the openscad tools from the a
 
 ## Quantum MK Firmware
 
-For the full Quantum feature list, see [the parent README.md](/README.md).
+For the full Quantum feature list, see [the parent README.md](/readme.md).
 
 ## Building
 

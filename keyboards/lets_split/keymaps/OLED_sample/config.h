@@ -38,8 +38,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SSD1306OLED
 //#define OLED_ROTATE180
 
-
-#define PREVENT_STUCK_MODIFIERS
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 100
 

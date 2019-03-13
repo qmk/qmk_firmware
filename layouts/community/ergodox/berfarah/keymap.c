@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   */
   // If it accepts an argument (i.e, is a function), it doesn't need KC_.
   // Otherwise, it needs KC_*
-  [QWERTY] = KEYMAP(  // layer 0 : default
+  [QWERTY] = LAYOUT_ergodox(  // layer 0 : default
           // left hand
           KC_NO,        KC_NO, KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_NO,
           KC_TAB,       KC_Q,  KC_W,   KC_E,   KC_R,   KC_T,   KC_LBRC,
@@ -92,7 +92,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 |      |      |      |       |      |      |      |
   *                                 `--------------------'       `--------------------'
   */
-  [NUMS] = KEYMAP(
+  [NUMS] = LAYOUT_ergodox(
         // left hand
         KC_TRNS,     KC_F1,  KC_F2,  KC_F3,  KC_F4,  KC_F5,   KC_TRNS,
         LGUI(KC_GRV),KC_GRV, KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS, KC_TRNS,
@@ -135,7 +135,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   *                                 |      |      |      |       |      |      |      |
   *                                 `--------------------'       `--------------------'
   */
-  [MOVE] = KEYMAP(
+  [MOVE] = LAYOUT_ergodox(
         // left hand
         KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
         KC_TRNS,KC_TRNS,VIM_W,  KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
@@ -160,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   /* Keymap: AFK Layer
    * All keys wake
    */
-  [AFK] = KEYMAP(
+  [AFK] = LAYOUT_ergodox(
         // left hand
         BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,
         BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,BF_WAKE,
@@ -183,6 +183,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+#ifdef RGBLIGHT_ENABLE
 /*
  * Led Configuration
  */
@@ -222,6 +223,7 @@ static inline void mod_layer_with_rgb(keyrecord_t *record, uint8_t layer) {
     bf_set_led(currentLayer);
   };
 };
+#endif
 
 /*
  * Custom keycodes
@@ -240,12 +242,14 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         SEND_STRING(" ");
       }
       return false; break;
+    #ifdef RGBLIGHT_ENABLE
     case BF_NUMS:
       mod_layer_with_rgb(record, NUMS);
       return false; break;
     case BF_MOVE:
       mod_layer_with_rgb(record, MOVE);
       return false; break;
+    #endif
   }
 
   return true;
@@ -255,7 +259,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
  * Active Routines
  */
 void matrix_init_user(void) {
+#ifdef RGBLIGHT_ENABLE
   bf_set_led(QWERTY);
+#endif
 };
 
 // Runs constantly in the background, in a loop.

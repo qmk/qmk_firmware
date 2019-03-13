@@ -47,15 +47,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* matrix state(1:on, 0:off) */
 static matrix_row_t matrix[MATRIX_ROWS];
 
-__attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -112,7 +103,7 @@ uint8_t matrix_scan(void)
             if (timeout > 10000){
                 break;
             }
-        } 
+        }
         uart_data[i] = SERIAL_UART_DATA;
     }
 
@@ -134,7 +125,7 @@ uint8_t matrix_scan(void)
 inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 {
-    return (matrix[row] & ((matrix_row_t)1<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline

@@ -9,7 +9,7 @@ Most of the TM2030 features are supported except
 * show desktop key (at the right of the space key)
 * 102/106 modes
 
-Dvorak mode is even supported by pressing [`Magic`](/TMK_readme.md#magic-commands)+`1` (`Magic` is by default `LShift`+`RShift`)
+Dvorak mode is even supported by pressing [`Magic`](/docs/feature_bootmagic.md)+`1` (`Magic` is by default `LShift`+`RShift`)
 
 Some keys had to be moved around to fit into the ErgoDox, especially the `F1`-`F12` keys and the arrow keys.
 

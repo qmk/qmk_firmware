@@ -41,6 +41,12 @@
 #ifdef VISUALIZER_ENABLE
 #include "visualizer/visualizer.h"
 #endif
+#ifdef MIDI_ENABLE
+#include "qmk_midi.h"
+#endif
+#ifdef STM32_EEPROM_ENABLE
+#include "eeprom_stm32.h"
+#endif
 #include "suspend.h"
 #include "wait.h"
 
@@ -65,6 +71,17 @@ host_driver_t chibios_driver = {
   send_consumer
 };
 
+#ifdef VIRTSER_ENABLE
+void virtser_task(void);
+#endif
+
+#ifdef RAW_ENABLE
+void raw_hid_task(void);
+#endif
+
+#ifdef CONSOLE_ENABLE
+void console_task(void);
+#endif
 
 /* TESTING
  * Amber LED blinker thread, times are in milliseconds.
@@ -95,14 +112,24 @@ int main(void) {
   halInit();
   chSysInit();
 
+#ifdef STM32_EEPROM_ENABLE
+  EEPROM_Init();
+#endif
+
   // TESTING
   // chThdCreateStatic(waThread1, sizeof(waThread1), NORMALPRIO, Thread1, NULL);
+
+  keyboard_setup();
 
   /* Init USB */
   init_usb_driver(&USB_DRIVER);
 
   /* init printf */
   init_printf(NULL,sendchar_pf);
+
+#ifdef MIDI_ENABLE
+  setup_midi();
+#endif
 
 #ifdef SERIAL_LINK_ENABLE
   init_serial_link();
@@ -117,10 +144,15 @@ int main(void) {
 
   /* Wait until the USB or serial link is active */
   while (true) {
+#if defined(WAIT_FOR_USB) || defined(SERIAL_LINK_ENABLE)
     if(USB_DRIVER.state == USB_ACTIVE) {
       driver = &chibios_driver;
       break;
     }
+#else
+    driver = &chibios_driver;
+    break;
+#endif
 #ifdef SERIAL_LINK_ENABLE
     if(is_serial_link_connected()) {
       driver = get_serial_link_driver();
@@ -153,6 +185,7 @@ int main(void) {
   /* Main loop */
   while(true) {
 
+#if !defined(NO_USB_STARTUP_CHECK)
     if(USB_DRIVER.state == USB_SUSPENDED) {
       print("[s]");
 #ifdef VISUALIZER_ENABLE
@@ -165,8 +198,8 @@ int main(void) {
 #endif
         suspend_power_down(); // on AVR this deep sleeps for 15ms
         /* Remote wakeup */
-        if((USB_DRIVER.status & 2) && suspend_wakeup_condition()) {
-          send_remote_wakeup(&USB_DRIVER);
+        if(suspend_wakeup_condition()) {
+          usbWakeupHost(&USB_DRIVER);
         }
       }
       /* Woken up */
@@ -180,7 +213,17 @@ int main(void) {
       visualizer_resume();
 #endif
     }
+#endif
 
     keyboard_task();
+#ifdef CONSOLE_ENABLE
+    console_task();
+#endif
+#ifdef VIRTSER_ENABLE
+    virtser_task();
+#endif
+#ifdef RAW_ENABLE
+    raw_hid_task();
+#endif
   }
 }

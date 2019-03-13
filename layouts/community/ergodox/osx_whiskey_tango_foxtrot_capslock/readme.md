@@ -1,10 +1,10 @@
 # The extra special ergodox build for MacOS Sierra caps lock users
 
-###Do you
+### Do you
 - Hate the OSX / MacOS caps lock delay?
 - Have an ergodox?
 
-###Then this might just be for you!
+### Then this might just be for you!
 
 [This](http://apple.stackexchange.com/questions/81234/how-to-remove-caps-lock-delay-on-apple-macbook-pro-aluminum-keyboard)
 and [this](http://sleepycow.org/2014/07/removing-the-caps-lock-delay-on-a-macbook/)
@@ -30,7 +30,7 @@ however there is one known issue:
 
 I have only tested this on an original Ergodox with a Teensy 2.0.
 
-####Some other small tweaks
+#### Some other small tweaks
  - Layer 0 board light is off
  - Layer 1 board light is on solid
  - Layer 2 board light blinks at speed controlled by BLINK_BASE

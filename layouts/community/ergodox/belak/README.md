@@ -1,8 +1,8 @@
 # Belak's Ergodox Layout
 
-This has been based off of [emacs\_osx\_dk](https://github.com/jackhumbert/qmk_firmware/tree/master/keyboards/ergodox/keymaps/emacs_osx_dk)
+This has been based off of [emacs\_osx\_dk](https://github.com/qmk/qmk_firmware/tree/master/layouts/community/ergodox/emacs_osx_dk)
 from the main qmk repo. However, I've taken some of the ideas for the thumbs
-from [dvorak\_emacs](https://github.com/jackhumbert/qmk_firmware/tree/master/keyboards/ergodox/keymaps/dvorak_emacs)
+from [dvorak\_emacs](https://github.com/qmk/qmk_firmware/tree/master/layouts/community/ergodox/dvorak_emacs)
 and tweaked it a bit based on the keycaps I have.
 
 This keyboard is intended for use in emacs (one of the main reasons for easy

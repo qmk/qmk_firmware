@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright 2012 Jun Wako <wakojun@gmail.com>
  * This file is based on:
  *     LUFA-120219/Demos/Device/Lowlevel/KeyboardMouse
@@ -48,9 +48,6 @@
 #include <LUFA/Version.h>
 #include <LUFA/Drivers/USB/USB.h>
 #include "host.h"
-#ifdef MIDI_ENABLE
-  #include "process_midi.h"
-#endif
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -66,11 +63,6 @@ typedef struct {
     uint8_t  report_id;
     uint16_t usage;
 } __attribute__ ((packed)) report_extra_t;
-
-#ifdef MIDI_ENABLE
-  void MIDI_Task(void);
-  MidiDevice midi_device;
-#endif
 
 #ifdef API_ENABLE
   #include "api.h"

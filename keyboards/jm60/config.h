@@ -18,19 +18,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef CONFIG_H
 #define CONFIG_H
 
-#define PREVENT_STUCK_MODIFIERS
-
 /* USB Device descriptor parameter */
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6464
 #define DEVICE_VER      0x0001
 /* in python2: list(u"whatever".encode('utf-16-le')) */
 /*   at most 32 characters or the ugly hack in usb_main.c borks */
-#define MANUFACTURER "JMWS"
-#define USBSTR_MANUFACTURER    'J', '\x00', 'M', '\x00', 'W', '\x00', 'S', '\x00'
-#define PRODUCT "JM60 RGB Keyboard(QMK)"
-#define USBSTR_PRODUCT 'J', '\x00', 'M', '\x00', '6', '\x00', '0', '\x00', ' ', '\x00', 'R', '\x00', 'G', '\x00', 'B', '\x00', ' ', '\x00', 'K', '\x00', 'e', '\x00', 'y', '\x00', 'b', '\x00', 'o', '\x00', 'a', '\x00', 'r', '\x00', 'd', '\x00', '(', '\x00', 'Q', '\x00', 'M', '\x00', 'K', '\x00', ')', '\x00'
-#define DESCRIPTION "QMK keyboard firmware for JM60 RGB Keyboard"
+#define MANUFACTURER JMWS
+#define PRODUCT JM60 RGB Keyboard(QMK)
+#define DESCRIPTION QMK keyboard firmware for JM60 RGB Keyboard
 
 /* key matrix size */
 #define MATRIX_ROWS 5
@@ -53,11 +49,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /*
  * Feature disable options

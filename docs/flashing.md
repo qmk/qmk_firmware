@@ -2,7 +2,7 @@
 
 There are quite a few different types of bootloaders that keyboards use, and just about all of the use a different flashing method. Luckily, projects like the [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) aim to be compatible with all the different types without having to think about it much, but this article will describe the different types of bootloaders, and available methods for flashing them.
 
-If you have a bootloader selected with the `BOOTLOADER` variable in your `rules.mk`, QMK will automatically calculate if your .hex file is the right size to be flashed to the device, and output the total size it bytes (along with the max). To run this process manually, compile with the target `check-size`, eg `make planck/rev4:default:check-size`.
+If you have a bootloader selected with the `BOOTLOADER` variable in your `rules.mk`, QMK will automatically calculate if your .hex file is the right size to be flashed to the device, and output the total size in bytes (along with the max). To run this process manually, compile with the target `check-size`, eg `make planck/rev4:default:check-size`.
 
 ## DFU
 
@@ -20,7 +20,7 @@ Compatible flashers:
 
 * [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
 * [dfu-programmer](https://github.com/dfu-programmer/dfu-programmer) / `:dfu` in QMK (recommended command line)
-* [Atmel's Flip](http://www.atmel.com/tools/flip.aspx) (not recommended)
+* [Atmel's Flip](http://www.microchip.com/developmenttools/productdetails.aspx?partno=flip) (not recommended)
 
 Flashing sequence:
 
@@ -71,12 +71,18 @@ Flashing sequence:
 
 1. Press the `RESET` keycode, or short RST to GND quickly (you only have 7 seconds to flash once it enters)
 2. Wait for the OS to detect the device
-4. Flash a .hex file
-5. Wait for the device to reset automatically
+3. Flash a .hex file
+4. Wait for the device to reset automatically
 
 or
 
     make <keyboard>:<keymap>:avrdude
+
+or if you want to flash multiple boards, use the following command
+
+    make <keyboard>:<keymap>:avrdude-loop
+
+When you're done flashing boards, you'll need to hit Ctrl + C or whatever the correct keystroke is for your operating system to break the loop.
 
 ## Halfkay
 
@@ -100,5 +106,28 @@ Flashing sequence:
 
 1. Press the `RESET` keycode, or short RST to GND quickly (you only have 7 seconds to flash once it enters)
 2. Wait for the OS to detect the device
-4. Flash a .hex file
-5. Reset the device into application mode (may be done automatically)
+3. Flash a .hex file
+4. Reset the device into application mode (may be done automatically)
+
+## STM32
+
+All STM32 chips come preloaded with a factory bootloader that cannot be modified nor deleted. Some STM32 chips have bootloaders that do not come with USB programming (e.g. STM32F103) but the process is still the same.
+
+At the moment, no `BOOTLOADER` variable is needed on `rules.mk` for STM32.
+
+Compatible flashers:
+
+* [QMK Toolbox](https://github.com/qmk/qmk_toolbox/releases) (recommended GUI)
+* [dfu-util](https://github.com/Stefan-Schmidt/dfu-util) / `:dfu-util` (recommended command line)
+
+Flashing sequence:
+
+1. Enter the bootloader using any of the following methods:
+    * Tap the `RESET` keycode (may not work on STM32F042 devices)
+    * If a reset circuit is present, tap the RESET button
+    * Otherwise, you need to bridge BOOT0 to VCC (via BOOT0 button or bridge), short RESET to GND (via RESET button or bridge), and then let go of the BOOT0 bridge
+2. Wait for the OS to detect the device
+3. Flash a .bin file
+    * You will receive a warning about the DFU signature; Just ignore it
+4. Reset the device into application mode (may be done automatically)
+    * If you are building from command line (e.g. `make planck/rev6:default:dfu-util`), make sure that `:leave` is passed to the `DFU_ARGS` variable inside your `rules.mk` (e.g. `DFU_ARGS = -d 0483:df11 -a 0 -s 0x08000000:leave`) so that your device resets after flashing

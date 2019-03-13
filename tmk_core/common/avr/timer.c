@@ -27,6 +27,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // NOTE: union { uint32_t timer32; struct { uint16_t dummy; uint16_t timer16; }}
 volatile uint32_t timer_count;
 
+/** \brief timer initialization
+ *
+ * FIXME: needs doc
+ */
 void timer_init(void)
 {
 #if TIMER_PRESCALER == 1
@@ -60,6 +64,10 @@ void timer_init(void)
 #endif
 }
 
+/** \brief timer clear
+ *
+ * FIXME: needs doc
+ */
 inline
 void timer_clear(void)
 {
@@ -68,6 +76,10 @@ void timer_clear(void)
   }
 }
 
+/** \brief timer read
+ *
+ * FIXME: needs doc
+ */
 inline
 uint16_t timer_read(void)
 {
@@ -80,6 +92,10 @@ uint16_t timer_read(void)
     return (t & 0xFFFF);
 }
 
+/** \brief timer read32
+ *
+ * FIXME: needs doc
+ */
 inline
 uint32_t timer_read32(void)
 {
@@ -92,6 +108,10 @@ uint32_t timer_read32(void)
     return t;
 }
 
+/** \brief timer elapsed
+ *
+ * FIXME: needs doc
+ */
 inline
 uint16_t timer_elapsed(uint16_t last)
 {
@@ -104,6 +124,10 @@ uint16_t timer_elapsed(uint16_t last)
     return TIMER_DIFF_16((t & 0xFFFF), last);
 }
 
+/** \brief timer elapsed32
+ *
+ * FIXME: needs doc
+ */
 inline
 uint32_t timer_elapsed32(uint32_t last)
 {

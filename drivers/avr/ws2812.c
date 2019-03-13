@@ -128,11 +128,11 @@ unsigned char I2C_Write(unsigned char c)
         c <<= 1;
     }
 
-    
+
     I2C_WriteBit(0);
     _delay_us(I2C_DELAY);
     _delay_us(I2C_DELAY);
-  
+
     // _delay_us(I2C_DELAY);
     //return I2C_ReadBit();
     return 0;

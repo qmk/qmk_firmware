@@ -11,12 +11,7 @@
         "*.h": "c",
         "*.c": "c",
         "*.cpp": "cpp",
-        "*.hpp": "cpp"
-    },
-    "editor.wordWrap": "off",
-    "cSpell.words": [
-        "numpad",
-        "spacebar",
-        "unintuitive"
-    ]
+        "*.hpp": "cpp",
+        "xstddef": "c"
+    }
 }

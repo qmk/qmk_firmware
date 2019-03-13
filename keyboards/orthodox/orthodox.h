@@ -5,11 +5,14 @@
     #include "rev1.h"
 #endif
 #ifdef KEYBOARD_orthodox_rev3
-    #include "rev3.h"
+#include "rev3.h"
+#endif
+#ifdef KEYBOARD_orthodox_rev3_teensy
+#include "rev3_teensy.h"
 #endif
 
 // Used to create a keymap using only KC_ prefixed keys
-#define KC_KEYMAP( \
+#define LAYOUT_kc( \
 	L00, L01, L02, L03, L04, L05,                            R00, R01, R02, R03, R04, R05, \
 	L10, L11, L12, L13, L14, L15, L16, L18,       R10, R12, R13, R14, R15, R16, R17, R18,  \
 	L20, L21, L22, L23, L24, L25, L26, L27, L28,  R20, R21, R22, R23, R24, R25, R26, R27, R28 \

@@ -74,15 +74,6 @@ static void unselect_rows(void);
 static void select_row(uint8_t row);
 static void unselect_row(uint8_t row);
 
-__attribute__ ((weak))
-void matrix_init_quantum(void) {
-    matrix_init_kb();
-}
-
-__attribute__ ((weak))
-void matrix_scan_quantum(void) {
-    matrix_scan_kb();
-}
 
 __attribute__ ((weak))
 void matrix_init_kb(void) {
@@ -176,7 +167,7 @@ inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 
 {
-    return (matrix[row] & ((matrix_row_t)1<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline
