@@ -52,10 +52,6 @@ enum functions {
 static uint16_t m_gui_unds_timer;
 static uint16_t m_sft_po_timer;
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Narze : Custom Macros
 #define HPR_ESC ALL_T(KC_ESC)
 #define SFT_ENT SFT_T(KC_ENT)

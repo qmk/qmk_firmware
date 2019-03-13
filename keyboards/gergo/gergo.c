@@ -47,7 +47,7 @@ uint8_t init_mcp23018(void) {
     mcp23018_status = i2c_write(IODIRA, ERGODOX_EZ_I2C_TIMEOUT);            if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b10000000, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b11111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+    i2c_stop();
 
     // set pull-up
     // - unused  : on  : 1
@@ -59,8 +59,26 @@ uint8_t init_mcp23018(void) {
     mcp23018_status = i2c_write(0b11111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
 
 out:
-    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+    i2c_stop();
     // SREG=sreg_prev;
     //uprintf("Init %x\n", mcp23018_status);
     return mcp23018_status;
 }
+
+const keypos_t hand_swap_config[MATRIX_ROWS][MATRIX_COLS] = {
+    { {0,0}, {0,7}, {2,7}, {3,7} },
+    { {0,8}, {1,8}, {2,8}, {3,8} },
+    { {0,9}, {1,9}, {2,9}, {3,9} },
+    { {0,10}, {1,10}, {2,10}, {3,10} },
+    { {0,11}, {1,11}, {2,11}, {3,11} },
+    { {0,12}, {1,12}, {2,12}, {0,0} },
+    { {0,13}, {1,13}, {2,13}, {0,0} },
+
+    { {1,0}, {0,0}, {2,0}, {3,0} },
+    { {0,1}, {1,1}, {2,1}, {3,1} },
+    { {0,2}, {1,2}, {2,2}, {3,2} },
+    { {0,3}, {1,3}, {2,3}, {3,3} },
+    { {0,4}, {1,4}, {2,4}, {3,4} },
+    { {0,5}, {1,5}, {2,5}, {3,5} },
+    { {0,6}, {1,6}, {2,6}, {3,6} }
+};

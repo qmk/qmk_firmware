@@ -44,9 +44,7 @@ Fedora / Red Hat example:
     
 Arch / Manjaro example:
 
-    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git
-
-(the `dfu-programmer` package is availble on AUR only so you should download from there or use an AUR helper)
+    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git dfu-programmer dfu-util
 
 ## Nix
 
@@ -129,12 +127,12 @@ If you have trouble and want to ask for help, it is useful to generate a *Win_Ch
 
 ## Docker
 
-If this is a bit complex for you, Docker might be the turn-key solution you need. After installing [Docker CE](https://docs.docker.com/install/#supported-platforms), run the following command from the `qmk_firmware` directory to build a keyboard/keymap:
+If this is a bit complex for you, Docker might be the turnkey solution you need. After installing [Docker CE](https://docs.docker.com/install/#supported-platforms), run the following command from the `qmk_firmware` directory to build a keyboard/keymap:
 ```bash
-util/docker_build.sh keyboard:keymap 
+util/docker_build.sh keyboard:keymap
 # For example: util/docker_build.sh ergodox_ez:steno
 ```
-This will compile the targeted keyboard/keymap and leave the resulting `.hex` or `.bin` file in the QMK directory for you to flash. If `:keymap` is omitted, the `default` keymap is used. Note that the parameter format is the same as when building with `make`.
+This will compile the desired keyboard/keymap and leave the resulting `.hex` or `.bin` file in the QMK directory for you to flash. If `:keymap` is omitted, the `default` keymap is used. Note that the parameter format is the same as when building with `make`.
 
 You can also start the script without any parameters, in which case it will ask you to input the build parameters one by one, which you may find easier to use:
 ```bash
@@ -147,7 +145,7 @@ There is also support for building _and_ flashing the keyboard straight from Doc
 util/docker_build.sh keyboard:keymap:target
 # For example: util/docker_build.sh planck/rev6:default:dfu-util
 ```
-If you're on Linux, this should work out of the box. On Windows and macOS, it requires [Docker Machine](http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos/) to be running. This is tedious to set up, so it's not recommended; use QMK Toolbox instead.
+If you're on Linux, this should work out of the box. On Windows and macOS, it requires [Docker Machine](http://gw.tnode.com/docker/docker-machine-with-usb-support-on-windows-macos/) to be running. This is tedious to set up, so it's not recommended; use [QMK Toolbox](https://github.com/qmk/qmk_toolbox) instead.
 
 !> Docker for Windows requires [Hyper-V](https://docs.microsoft.com/en-us/virtualization/hyper-v-on-windows/quick-start/enable-hyper-v) to be enabled. This means that it cannot work on versions of Windows which don't have Hyper-V, such as Windows 7, Windows 8 and **Windows 10 Home**.
 
