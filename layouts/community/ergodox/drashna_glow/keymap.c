@@ -1,7 +1,7 @@
 /* placeholder file */
 #include QMK_KEYBOARD_H
 
-#ifdef RGB_MATRIX_EANBLE
+#ifdef RGB_MATRIX_ENABLE
 const rgb_led g_rgb_leds[DRIVER_LED_TOTAL] = {
 
     /*{row | col << 4}
