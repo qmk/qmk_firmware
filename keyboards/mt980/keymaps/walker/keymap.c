@@ -113,6 +113,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         clear_oneshot_layer_state(ONESHOT_OTHER_KEY_PRESSED);
         return false;
       }
+      return true;
     case KC_PPLS:
       if (!numlock_on) {
         if (is_oneshot_layer_active() || layer_state & 0x2) {
