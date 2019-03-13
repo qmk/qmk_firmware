@@ -218,7 +218,7 @@ define EXEC_AVRDUDE
 		if $(GREP) -q -s 'MINGW\|MSYS' /proc/version; then \
 			USB=`echo "$$USB" | perl -pne 's/\/dev\/ttyS(\d+)/COM.($$1+1)/e'`; \
 			echo "Remapped MSYS2 USB port to $$USB"; \
-			sleep 1;
+			sleep 1; \
 		else; \
 			printf "Waiting for $$USB to become writable."; \
 			while [ ! -w "$$USB" ]; do sleep 0.5; printf "."; done; echo ""; \
