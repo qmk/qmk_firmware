@@ -16,8 +16,7 @@ EXTRAFLAGS += -flto
 
 CUSTOM_MATRIX 		= yes
 STENO_ENABLE 		= yes
-CUSTOM_MATRIX       = yes
 EXTRAKEY_ENABLE     = yes
-CONSOLE_ENABLE      = yes
-COMMAND_ENABLE      = yes
+CONSOLE_ENABLE      = no
+COMMAND_ENABLE      = no
 NKRO_ENABLE			= yes
