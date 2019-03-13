@@ -99,14 +99,20 @@ void led_set_keymap(uint8_t usb_led) {
 }
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
+  uint8_t oneshot_layer = get_oneshot_layer();
+
+  /* Always cancel one-shot layer when another key gets pressed */
+  if (record->event.pressed && get_oneshot_layer_state() != ONESHOT_OTHER_KEY_PRESSED)
+    clear_oneshot_layer_state(ONESHOT_START);
+
   switch (keycode) {
     case RESET:
       /* Don't allow reset from oneshot layer state */
-      if (record->event.pressed && get_oneshot_layer() == 1) 
+      if (record->event.pressed && oneshot_layer == 1) 
         return false;  
     case KC_PPLS:
       if (!numlock_on) {
-        if (get_oneshot_layer() == 1 || layer_state & 0x2) {
+        if (oneshot_layer == 1 || layer_state & 0x2) {
           if (record->event.pressed)
             register_code(KC_HOME);
           else
@@ -124,7 +130,7 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
       return true;
     case KC_PENT:
       if (!numlock_on) {
-        if (get_oneshot_layer() == 1 || layer_state & 0x2) {
+        if (oneshot_layer == 1 || layer_state & 0x2) {
           if (record->event.pressed)
             register_code(KC_END);
           else
