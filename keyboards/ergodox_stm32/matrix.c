@@ -13,18 +13,18 @@
 #define DEBOUNCE 10
 #endif
 
-#define DEBUG_MATRIX_SCAN_RATE
+//#define DEBUG_MATRIX_SCAN_RATE
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-uint32_t matrix_timer;
-uint32_t matrix_scan_count;
-#endif
+//#ifdef DEBUG_MATRIX_SCAN_RATE
+//uint32_t matrix_timer;
+//uint32_t matrix_scan_count;
+//#endif
 
 static uint8_t mcp23017_reset_loop = 0;
 
-static volatile matrix_row_t matrix[MATRIX_ROWS];
-static volatile matrix_row_t raw_matrix[MATRIX_ROWS];
-static volatile uint8_t debounce_matrix[MATRIX_ROWS * MATRIX_COLS];
+volatile matrix_row_t matrix[MATRIX_ROWS];
+volatile matrix_row_t raw_matrix[MATRIX_ROWS];
+volatile uint8_t debounce_matrix[MATRIX_ROWS * MATRIX_COLS];
 
 static matrix_row_t read_cols(uint8_t row);
 
@@ -67,16 +67,16 @@ void matrix_init(void) {
     }
   }
 
-#ifdef DEBUG_MATRIX_SCAN_RATE
-  matrix_timer = timer_read32();
-  matrix_scan_count = 0;
-#endif
+//#ifdef DEBUG_MATRIX_SCAN_RATE
+//  matrix_timer = timer_read32();
+//  matrix_scan_count = 0;
+//#endif
 
   matrix_init_quantum();
 }
 
 void matrix_power_up(void) {
-  mcp23017_status = init_mcp23017();
+//  mcp23017_status = init_mcp23017();
 
   init_rows();
   unselect_rows();
@@ -114,44 +114,49 @@ matrix_row_t debounce_read_cols(uint8_t row) {
 }
 
 uint8_t matrix_scan(void) {
-#ifdef DEBUG_MATRIX_SCAN_RATE
-  matrix_scan_count++;
+//#ifdef DEBUG_MATRIX_SCAN_RATE
+//  matrix_scan_count++;
+//
+//  uint32_t timer_now = timer_read32();
+//  if (TIMER_DIFF_32(timer_now, matrix_timer)>1000) {
+//    print("matrix scan frequency: ");
+//    pdec(matrix_scan_count);
+//    print("\n");
+//    matrix_print();
+//
+//    matrix_timer = timer_now;
+//    matrix_scan_count = 0;
+//  }
+//#endif
 
-  uint32_t timer_now = timer_read32();
-  if (TIMER_DIFF_32(timer_now, matrix_timer)>1000) {
-    print("matrix scan frequency: ");
-    pdec(matrix_scan_count);
-    print("\n");
-    matrix_print();
-
-    matrix_timer = timer_now;
-    matrix_scan_count = 0;
-  }
-#endif
-
-  if (mcp23017_status) {
-    if (++mcp23017_reset_loop == 0) {
-      mcp23017_status = init_mcp23017();
-      print("trying to reset mcp23018\n");
-      if (mcp23017_status) {
-        print("left side not responding\n");
-      } else {
-        print("left side attached\n");
-        ergodox_blink_all_leds();
-      }
-    }
-  }
+//  if (mcp23017_status) {
+//    if (++mcp23017_reset_loop == 0) {
+//      mcp23017_status = init_mcp23017();
+//      print("trying to reset mcp23018\n");
+//      if (mcp23017_status) {
+//        print("left side not responding\n");
+//      } else {
+//        print("left side attached\n");
+//        ergodox_blink_all_leds();
+//      }
+//    }
+//  }
   for (uint8_t i = 0; i < MATRIX_ROWS_PER_SIDE; i++) {
-    select_row(i);
+//    select_row(i);
     select_row(i + MATRIX_ROWS_PER_SIDE);
 
-    matrix[i] = debounce_read_cols(i);
+//    matrix[i] = debounce_read_cols(i);
     matrix[i + MATRIX_ROWS_PER_SIDE] = debounce_read_cols(i + MATRIX_ROWS_PER_SIDE);
 
     unselect_rows();
   }
+  if (matrix[10]) {
+      ergodox_board_led_1_on();
+  } else {
+      ergodox_board_led_1_off();
+  }
   matrix_scan_quantum();
-  return 1;
+  return 0;
 }
 
 bool matrix_is_modified(void) {
@@ -206,9 +211,9 @@ static matrix_row_t read_cols(uint8_t row) {
     }
     return (~data) & 0x3F;
   } else {
-      uint8_t data_p = (GPIOB -> IDR & (uint16_t)0x3F);
-        uint8_t data = data_p;
-    return ~(data);
+      uint8_t data_p = (GPIOB -> IDR);
+      uint8_t data = data_p;
+    return ((~data) & 0x3f);
   }
 }
 
@@ -221,7 +226,7 @@ static void init_cols(void) {
   palSetPadMode(GPIOB, 5, PAL_MODE_INPUT_PULLUP);
 }
 
-void init_rows(void) {
+static void init_rows(void) {
   palSetPadMode(GPIOB, 8, PAL_MODE_OUTPUT_PUSHPULL);
   palSetPadMode(GPIOB, 9, PAL_MODE_OUTPUT_PUSHPULL);
   palSetPadMode(GPIOB, 10, PAL_MODE_OUTPUT_PUSHPULL);

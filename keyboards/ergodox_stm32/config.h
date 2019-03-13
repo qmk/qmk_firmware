@@ -19,8 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "config_common.h"
 
-#define VENDOR_ID 0xFFCD
-#define PRODUCT_ID 0xBFCE
+#define VENDOR_ID 0xFEED
+#define PRODUCT_ID 0x1308
 #define DEVICE_VER 0x101
 #define MANUFACTURER ErgoDox
 #define PRODUCT ErgoDox STM

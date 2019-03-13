@@ -6,7 +6,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "hal.h"
-#include "i2c_master.h"
 
 // #define I2C_ADDR 0b01000000
 #define I2C_ADDR 0b01000000

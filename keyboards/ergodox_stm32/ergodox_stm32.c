@@ -1,5 +1,5 @@
-#include QMK_KEYBOARD_H
 #include "i2cmaster.h"
+#include QMK_KEYBOARD_H
 
 extern inline void ergodox_board_led_1_on(void);
 extern inline void ergodox_board_led_2_on(void);
