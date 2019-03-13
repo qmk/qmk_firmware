@@ -21,6 +21,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 RGBLIGHT_ENABLE = no        # Enable WS2812 RGB underlight.
 SWAP_HANDS_ENABLE = no        # Enable one-hand typing
 RGBLIGHT_SPLIT = no
+RGBLIGHT_SPLIT_A = no
 
 define HELIX_CUSTOMISE_MSG
   $(info Helix customize)
@@ -29,7 +30,8 @@ define HELIX_CUSTOMISE_MSG
   $(info -  LED_UNDERGLOW_ENABLE=$(LED_UNDERGLOW_ENABLE))
   $(info -  LED_ANIMATION=$(LED_ANIMATIONS))
   $(info -  IOS_DEVICE_ENABLE=$(IOS_DEVICE_ENABLE))
-  $(info -  IOS_DEVICE_ENABLE=$(RGBLIGHT_SPLIT))
+  $(info -  RGBLIGHT_SPLIT=$(RGBLIGHT_SPLIT))
+  $(info -  RGBLIGHT_SPLIT_A=$(RGBLIGHT_SPLIT_A))
 endef
 
 # Helix keyboard customize
@@ -60,6 +62,9 @@ Link_Time_Optimization = no # if firmware size over limit, try this option
 ifneq ($(strip $(HELIX)),)
   ifeq ($(findstring split,$(HELIX)), split)
     RGBLIGHT_SPLIT = yes
+  endif
+  ifeq ($(findstring splita,$(HELIX)), splita)
+    RGBLIGHT_SPLIT_A = yes
   endif
   ifeq ($(findstring oled,$(HELIX)), oled)
     OLED_ENABLE = yes
@@ -121,6 +126,10 @@ endif
 
 ifeq ($(strip $(RGBLIGHT_SPLIT)), yes)
     OPT_DEFS += -DRGBLIGHT_SPLIT
+endif
+
+ifeq ($(strip $(RGBLIGHT_SPLIT_A)), yes)
+    OPT_DEFS += -DRGBLIGHT_SPLIT_ANIMATION
 endif
 
 ifeq ($(strip $(LOCAL_GLCDFONT)), yes)
