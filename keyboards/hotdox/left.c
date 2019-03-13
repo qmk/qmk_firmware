@@ -39,7 +39,7 @@ void left_scan(void)
 
     if (ret == 0)
     {
-        i2c_stop(HOTDOX_I2C_TIMEOUT);
+        i2c_stop();
 
         if (!i2c_initialized)
         {
@@ -105,7 +105,7 @@ uint8_t left_write(uint8_t reg, uint8_t data)
   ret = i2c_write(data, HOTDOX_I2C_TIMEOUT); 
 
 out:
-  i2c_stop(HOTDOX_I2C_TIMEOUT);
+  i2c_stop();
   return ret;
 }
 
@@ -125,6 +125,6 @@ uint8_t left_read(uint8_t reg, uint8_t *data)
   *data = i2c_read_nack(HOTDOX_I2C_TIMEOUT);
 
 out:
-  i2c_stop(HOTDOX_I2C_TIMEOUT);
+  i2c_stop();
   return ret;
 }
