@@ -364,7 +364,7 @@ static void select_row(uint8_t row)
             mcp23018_status = i2c_write(GPIOA, ERGODOX_EZ_I2C_TIMEOUT);                 if (mcp23018_status) goto out;
             mcp23018_status = i2c_write(0xFF & ~(1<<row), ERGODOX_EZ_I2C_TIMEOUT);      if (mcp23018_status) goto out;
         out:
-            i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+            i2c_stop();
         }
     } else {
         // Output low(DDR:1, PORT:0) to select
