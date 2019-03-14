@@ -150,6 +150,17 @@ bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
         return false;
       }
       return true;
+    case KC_NLCK:
+      /* Shift + NumLock will be treated as shift-Insert */
+      if ((keyboard_report->mods & MOD_BIT (KC_LSFT)) || (keyboard_report->mods & MOD_BIT (KC_RSFT))) {
+        if (record->event.pressed) {
+          register_code(KC_INS);
+          unregister_code(KC_INS);
+        }
+        return false;
+      }
+      else
+        return true;
     default:
       return true;
   }
