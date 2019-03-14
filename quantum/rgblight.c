@@ -572,8 +572,9 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
       else if (rgblight_status.base_mode == RGBLIGHT_MODE_STATIC_GRADIENT) {
         // static gradient
         uint16_t _hue;
-        int8_t direction = ((rgblight_config.mode - RGBLIGHT_MODE_STATIC_GRADIENT) % 2) ? -1 : 1;
-        uint16_t range = pgm_read_word(&RGBLED_GRADIENT_RANGES[(rgblight_config.mode - RGBLIGHT_MODE_STATIC_GRADIENT) / 2]);
+        uint8_t delta = rgblight_config.mode - rgblight_status.base_mode;
+        int8_t direction = (delta % 2) ? -1 : 1;
+        uint16_t range = pgm_read_word(&RGBLED_GRADIENT_RANGES[delta / 2]);
         for (uint8_t i = 0; i < RGBLED_NUM; i++) {
           _hue = (range / RGBLED_NUM * i * direction + hue + 360) % 360;
           dprintf("rgblight rainbow set hsv: %u,%u,%d,%u\n", i, _hue, direction, range);
@@ -583,11 +584,13 @@ void rgblight_sethsv_eeprom_helper(uint16_t hue, uint8_t sat, uint8_t val, bool 
       }
 #endif
     }
+#ifdef RGBLIGHT_SPLIT
     if( rgblight_config.hue != hue ||
         rgblight_config.sat != sat ||
         rgblight_config.val != val ) {
         RGBLIGHT_SPLIT_SET_CHANGE_HSVS;
     }
+#endif
     rgblight_config.hue = hue;
     rgblight_config.sat = sat;
     rgblight_config.val = val;
@@ -743,11 +746,11 @@ void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, 
             rgblight_timer_disable();
         }
     }
-#ifdef  RGBLIGHT_SPLIT_ANIMATION
+    #ifdef  RGBLIGHT_SPLIT_ANIMATION
     if (status->change_flags & RGBLIGHT_STATUS_ANIMATION_TICK) {
         animation_status.restart = true;
     }
-#endif
+    #endif
   #endif
 }
 #endif
