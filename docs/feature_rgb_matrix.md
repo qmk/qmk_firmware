@@ -183,7 +183,11 @@ All RGB keycodes are currently shared with the RGBLIGHT system:
 * `RGB_VAD` - decrease value
 * `RGB_SPI` - increase speed effect (no EEPROM support)
 * `RGB_SPD` - decrease speed effect (no EEPROM support)
-* `RGB_MODE_*` keycodes will generally work, but are not currently mapped to the correct effects for the RGB Matrix system
+
+
+* `RGB_MODE_*` keycodes will not work, since they are not properly mapped
+
+!> By default, if you have both the [RGB Light](feature_rgblight.md) and the RGB Matrix feature enabled, these keycodes will work for both features, at the same time. You can disable the keycode functionality by defining the `*_DISABLE_KEYCODES` option for the specific feature.
 
 ## RGB Matrix Effects
 
@@ -375,6 +379,7 @@ These are defined in [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blo
 #define RGB_MATRIX_LED_FLUSH_LIMIT 16 // limits in milliseconds how frequently an animation will update the LEDs. 16 (16ms) is equivalent to limiting to 60fps (increases keyboard responsiveness)
 #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 200 // limits maximum brightness of LEDs to 200 out of 255. If not defined maximum brightness is set to 255
 #define RGB_MATRIX_STARTUP_MODE RGB_MATRIX_CYCLE_LEFT_RIGHT // Sets the default mode, if none has been set
+#define RGB_MATRIX_DISABLE_KEYCODES // disables control of rgb matrix by keycodes (must use code functions to control the feature)
 ```
 
 ## EEPROM storage
@@ -392,13 +397,11 @@ Where `28` is an unused index from `eeconfig.h`.
 To use the suspend feature, add this to your `<keyboard>.c`:
 
 ```C
-void suspend_power_down_kb(void)
-{
+void suspend_power_down_kb(void) {
     rgb_matrix_set_suspend_state(true);
 }
 
-void suspend_wakeup_init_kb(void)
-{
+void suspend_wakeup_init_kb(void) {
     rgb_matrix_set_suspend_state(false);
 }
 ```
