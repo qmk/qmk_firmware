@@ -6,9 +6,6 @@
 #define _GA 3
 #define _AR 4
 
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 #define LSHIFT OSM(MOD_LSFT)
 #define SPACE LT(_AR, KC_SPC)
 

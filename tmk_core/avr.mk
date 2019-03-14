@@ -214,12 +214,15 @@ define EXEC_AVRDUDE
 			mv /tmp/2 /tmp/1; \
 		done; \
 		echo ""; \
-		echo "Detected controller on USB port at $$USB"; \
+		echo "Device $$USB has appeared; assuming it is the controller."; \
 		if $(GREP) -q -s 'MINGW\|MSYS' /proc/version; then \
 			USB=`echo "$$USB" | perl -pne 's/\/dev\/ttyS(\d+)/COM.($$1+1)/e'`; \
 			echo "Remapped MSYS2 USB port to $$USB"; \
+			sleep 1; \
+		else \
+			printf "Waiting for $$USB to become writable."; \
+			while [ ! -w "$$USB" ]; do sleep 0.5; printf "."; done; echo ""; \
 		fi; \
-		sleep 1; \
 		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
 	fi
 endef
@@ -292,14 +295,7 @@ extcoff: $(BUILD_DIR)/$(TARGET).elf
 
 bootloader:
 	make -C lib/lufa/Bootloaders/DFU/ clean
-	printf "#ifndef QMK_KEYBOARD\n#define QMK_KEYBOARD\n\n" > lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "MANUFACTURER\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s Bootloader\n" "`$(GREP) "PRODUCT\s" $(ALL_CONFIGS) -h | tail -1 | tr -d '\r'`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_ESC_OUTPUT\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_ESC_INPUT\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_LED\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "%s\n" "`$(GREP) "QMK_SPEAKER\s" $(ALL_CONFIGS) -h | tail -1`" >> lib/lufa/Bootloaders/DFU/Keyboard.h
-	printf "\n#endif" >> lib/lufa/Bootloaders/DFU/Keyboard.h
+	$(TMK_DIR)/make_dfu_header.sh $(ALL_CONFIGS)
 	make -C lib/lufa/Bootloaders/DFU/
 	printf "BootloaderDFU.hex copied to $(TARGET)_bootloader.hex\n"
 	cp lib/lufa/Bootloaders/DFU/BootloaderDFU.hex $(TARGET)_bootloader.hex
