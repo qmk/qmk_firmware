@@ -4,7 +4,7 @@
 
 Compact With 96 Keys & RGB LED Underglow
 - Designed by Xiudi
-- Iso and Ansi support
+- ISO and ANSI support
 - Uses Kimera core
 
 Keyboard Maintainer: QMK Community  
