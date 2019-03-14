@@ -60,7 +60,6 @@ uint8_t ps2_error = PS2_ERR_NONE;
 
 static inline uint8_t pbuf_dequeue(void);
 static inline void pbuf_enqueue(uint8_t data);
-static inline bool pbuf_has_data(void);
 static inline void pbuf_clear(void);
 
 
@@ -261,7 +260,7 @@ static inline uint8_t pbuf_dequeue(void)
 
     return val;
 }
-static inline bool pbuf_has_data(void)
+bool pbuf_has_data(void)
 {
     uint8_t sreg = SREG;
     cli();
