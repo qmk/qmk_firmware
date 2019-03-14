@@ -1,5 +1,4 @@
-#ifndef ERGODOX_STM32_H
-#define ERGODOX_STM32_H
+#pragma once
 
 #include "quantum.h"
 #include "action_layer.h"
@@ -113,4 +112,3 @@ void ergodox_blink_all_leds(void);
       R06, R16, R26, R36, R46, KC_NO                                      \
     }                                                                     \
   }
-#endif
