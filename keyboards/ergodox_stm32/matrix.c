@@ -6,7 +6,7 @@
 #include "wait.h"
 #include "print.h"
 #include "matrix.h"
-#include "i2cmaster.h"
+#include "i2c_master.h"
 #include QMK_KEYBOARD_H
 
 #ifndef DEBOUNCE

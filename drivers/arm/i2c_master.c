@@ -32,6 +32,15 @@
 
 static uint8_t i2c_address;
 
+// ChibiOS uses two initialization structure for v1 and v2/v3 i2c APIs.
+// The F1 series uses the v1 api, which have to initialized this way.
+#ifdef STM32F103xB
+static const I2CConfig i2cconfig = {
+  OPMODE_I2C,
+  400000,
+  FAST_DUTY_CYCLE_2,
+};
+#else
 // This configures the I2C clock to 400khz assuming a 72Mhz clock
 // For more info : https://www.st.com/en/embedded-software/stsw-stm32126.html
 static const I2CConfig i2cconfig = {
@@ -41,7 +50,7 @@ static const I2CConfig i2cconfig = {
   0,
   0
 };
-
+#endif
 __attribute__ ((weak))
 void i2c_init(void)
 {
@@ -51,9 +60,13 @@ void i2c_init(void)
 
   chThdSleepMilliseconds(10);
 
+#ifdef STM32F103xB
+  palSetPadMode(I2C1_BANK, I2C1_SCL, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
+  palSetPadMode(I2C1_BANK, I2C1_SDA, PAL_MODE_STM32_ALTERNATE_OPENDRAIN);
+#else
   palSetPadMode(I2C1_BANK, I2C1_SCL, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN);
   palSetPadMode(I2C1_BANK, I2C1_SDA, PAL_MODE_ALTERNATE(4) | PAL_STM32_OTYPE_OPENDRAIN);
-
+#endif
   //i2cInit(); //This is invoked by halInit() so no need to redo it.
 }
 
