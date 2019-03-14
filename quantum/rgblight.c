@@ -777,11 +777,13 @@ void rgblight_timer_init(void) {
   // OCR3AL = RGBLED_TIMER_TOP & 0xff;
   // SREG = sreg;
 
-  rgblight_status.timer_enabled = true;
+  rgblight_status.timer_enabled = false;
   RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
 }
 void rgblight_timer_enable(void) {
-  rgblight_status.timer_enabled = true;
+  if( !is_static_effect(rgblight_config.mode) ) {
+      rgblight_status.timer_enabled = true;
+  }
   animation_status.last_timer = timer_read();
   RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
   dprintf("rgblight timer enabled.\n");
@@ -792,9 +794,12 @@ void rgblight_timer_disable(void) {
   dprintf("rgblight timer disable.\n");
 }
 void rgblight_timer_toggle(void) {
-  rgblight_status.timer_enabled ^= rgblight_status.timer_enabled;
-  RGBLIGHT_SPLIT_SET_CHANGE_TIMER_ENABLE;
   dprintf("rgblight timer toggle.\n");
+  if(rgblight_status.timer_enabled) {
+      rgblight_timer_disable();
+  } else {
+      rgblight_timer_enable();
+  }
 }
 
 void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
@@ -803,10 +808,22 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
   rgblight_setrgb(r, g, b);
 }
 
+static void rgblight_effect_dummy(animation_status_t *anim) {
+    // do nothing
+    /********
+    dprintf("rgblight_task() what happened?\n");
+    dprintf("is_static_effect %d\n", is_static_effect(rgblight_config.mode));
+    dprintf("mode = %d, base_mode = %d, timer_enabled %d, ",
+            rgblight_config.mode, rgblight_status.base_mode,
+            rgblight_status.timer_enabled);
+    dprintf("last_timer = %d\n",anim->last_timer);
+    **/
+}
+
 void rgblight_task(void) {
   if (rgblight_status.timer_enabled) {
-    effect_func_t effect_func = NULL;
-    uint16_t interval_time = 0;
+    effect_func_t effect_func = rgblight_effect_dummy;
+    uint16_t interval_time = 2000; // dummy interval
     uint8_t delta = rgblight_config.mode - rgblight_status.base_mode;
     animation_status.delta = delta;
 
