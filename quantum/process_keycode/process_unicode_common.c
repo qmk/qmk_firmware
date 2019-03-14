@@ -113,11 +113,13 @@ void unicode_input_finish(void) {
     unregister_code(UNICODE_OSX_KEY);
     break;
   case UC_LNX:
-  case UC_WINC:
     tap_code(KC_SPC);
     break;
   case UC_WIN:
     unregister_code(KC_LALT);
+    break;
+  case UC_WINC:
+    tap_code(KC_ENTER);
     break;
   }
 
