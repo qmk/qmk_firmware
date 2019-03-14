@@ -13,7 +13,7 @@ Currently Bluetooth support is limited to AVR based chips. For Bluetooth 2.1 Qmk
 Not Supported Yet but possible:
 * [Bluefruit LE UART Friend](https://www.adafruit.com/product/2479). [Possible tmk implementation found in](https://github.com/tmk/tmk_keyboard/issues/514)
 * HC-05 boards flashed with RN-42 firmware. They apparently both use the CSR BC417 Chip. Flashing it with RN-42 firmware gives it HID capability.
-* [Sparkfun Bluetooth mate](https://www.sparkfun.com/products/14839)
+* Sparkfun Bluetooth mate
 * HM-13 based boards
 
 ### Adafruit BLE SPI Friend
