@@ -19,21 +19,17 @@ volatile bool isLeftHand = true;
 
 __attribute__((weak))
 bool is_keyboard_left(void) {
-  #ifdef SPLIT_HAND_PIN
+  #if defined(SPLIT_HAND_PIN)
     // Test pin SPLIT_HAND_PIN for High/Low, if low it's right hand
     setPinInput(SPLIT_HAND_PIN);
     return readPin(SPLIT_HAND_PIN);
-  #else
-    #ifdef EE_HANDS
-      return eeprom_read_byte(EECONFIG_HANDEDNESS);
-    #else
-      #ifdef MASTER_RIGHT
-        return !is_keyboard_master();
-      #else
-        return is_keyboard_master();
-      #endif
-    #endif
+  #elif defined(EE_HANDS)
+    return eeprom_read_byte(EECONFIG_HANDEDNESS);
+  #elif defined(MASTER_RIGHT)
+    return !is_keyboard_master();
   #endif
+
+  return is_keyboard_master();
 }
 
 bool is_keyboard_master(void)
