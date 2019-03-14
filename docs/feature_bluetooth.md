@@ -6,7 +6,7 @@ Currently Bluetooth support is limited to AVR based chips. For Bluetooth 2.1 Qmk
 
 |Board                                                           |Bluetooth Protocol          |Connection Type |Rules.mk                   |Bluetooth Chip|
 |----------------------------------------------------------------|----------------------------|----------------|---------------------------|--------------|
-|[Adafruit EzKey HID]("https://www.adafruit.com/product/1535")   |Bluetooth Classic           | UART           | BLUETOOTH = AdafruitEZKey |              |
+|[Adafruit EzKey HID](https://www.adafruit.com/product/1535)   |Bluetooth Classic           | UART           | BLUETOOTH = AdafruitEZKey |              |
 |Rover Networks RN-42 (Sparkfun Bluesmirf)                       |Bluetooth Classic           | UART           | BLUETOOTH = RN42          | RN-42        |
 |[Bluefruit LE SPI Friend](https://www.adafruit.com/product/2633)|Bluetooth Low Energy        | SPI            | BLUETOOTH = AdafruitBLE   | nRF5182      |
 
