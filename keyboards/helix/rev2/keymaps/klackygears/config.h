@@ -56,3 +56,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #endif /* CONFIG_USER_H */
+
+
+#define QMK_ESC_OUTPUT F4 // usually COL
+#define QMK_ESC_INPUT D4 // usually ROW
+#define QMK_LED B0
+//#define QMK_SPEAKER C6
+
+# define EE_HANDS
