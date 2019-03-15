@@ -20,6 +20,7 @@
 #define IGNORE_MOD_TAP_INTERRUPT
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 #define PERMISSIVE_HOLD
 #define TAPPING_TERM 200
 =======
@@ -29,3 +30,7 @@
 #define PERMISSIVE_HOLDS
 #define TAPPING_TERM 200
 >>>>>>> update keymap with qwerty layout, and enable tap dancing
+=======
+#define PERMISSIVE_HOLD
+#define TAPPING_TERM 200
+>>>>>>> fixed typo in config.h, remove excess in rules.mk, revert half_n_half rules.mk
