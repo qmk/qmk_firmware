@@ -14,9 +14,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-#define XXXXXXX KC_NO
-
-// Defines the keycodes used by our macros in process_record_user
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* QWERTY
@@ -32,14 +29,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * | `      | \      | LALT   | LCTRL  | LOWER  | SPACE  | LGUI   | DEL    | ENTER  | SPACE  | RAISE  |        |        |        | PrtScr |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
+[_QWERTY] = LAYOUT_ortho_5x15( \
+    KC_ESC,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, XXXXXXX,    KC_EQL,   KC_6,    KC_7,    KC_8,       KC_9,     KC_0, KC_BSPC,  \
+    KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX, XXXXXXX,   KC_LBRC,   KC_Y,    KC_U,    KC_I,       KC_O,     KC_P, KC_RBRC,  \
+     RAISE,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX,   KC_UP,   XXXXXXX,   KC_H,    KC_J,    KC_K,       KC_L,  KC_SCLN, KC_QUOT, \
+   KC_LSFT,     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LEFT, KC_DOWN,   KC_RGHT,   KC_N,    KC_M,    KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT, \
+  KC_GRAVE, KC_GRAVE, KC_LALT, KC_LCTL,   LOWER,  KC_SPC,    KC_LGUI,  KC_DEL,    KC_ENT, KC_SPC,   RAISE,    XXXXXXX, XXXXXXX,  XXXXXXX, KC_PSCR  \
+),
 
- [_QWERTY] = { /* QWERTY */
-  {   KC_ESC,     KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_MINS, XXXXXXX,    KC_EQL,   KC_6,    KC_7,    KC_8,       KC_9,     KC_0, KC_BSPC  },
-  {   KC_TAB,     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX, XXXXXXX,   KC_LBRC,   KC_Y,    KC_U,    KC_I,       KC_O,     KC_P, KC_RBRC  },
-  {    RAISE,     KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX,   KC_UP,   XXXXXXX,   KC_H,    KC_J,    KC_K,       KC_L,  KC_SCLN, KC_QUOT   },
-  {  KC_LSFT,     KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_LEFT, KC_DOWN,   KC_RGHT,   KC_N,    KC_M,    KC_COMM,  KC_DOT,  KC_SLSH, KC_RSFT  },
-  { KC_GRAVE, KC_GRAVE, KC_LALT, KC_LCTL,   LOWER,  KC_SPC,    KC_LGUI,  KC_DEL,    KC_ENT, KC_SPC,   RAISE,    XXXXXXX, XXXXXXX,  XXXXXXX, KC_PSCR  },
- },
 
 /* LOWER
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -54,18 +51,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        | LOWER  |        |  APP   |        |        |        |  RAISE |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
-
- [_LOWER] = { /* FUNCTION */
-  { XXXXXXX,   KC_F1,   KC_F2,   KC_F3, XXXXXXX,   KC_F5, XXXXXXX, XXXXXXX, XXXXXXX,    KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, XXXXXXX  },
-  { XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  {   RAISE, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   LOWER, XXXXXXX,  KC_APP, XXXXXXX, XXXXXXX,  XXXXXXX,   RAISE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
- },
+[_LOWER] = LAYOUT_ortho_5x15( \
+    XXXXXXX,   KC_F1,   KC_F2,   KC_F3, XXXXXXX,   KC_F5, XXXXXXX, XXXXXXX, XXXXXXX,    KC_F6,   KC_F7,   KC_F8,   KC_F9,  KC_F10, XXXXXXX,  \
+    XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  \
+      RAISE, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   LOWER, XXXXXXX,  KC_APP, XXXXXXX, XXXXXXX,  XXXXXXX,   RAISE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+),
 
  /* RAISE
  * .--------------------------------------------------------------------------------------------------------------------------------------.
- * | RESET  |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
+ * |        |        |        |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
  * |        |        |  pgup  |        |        |        |        |        |        |        |        |        |        |        |        |
  * |--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------+--------|
@@ -76,14 +72,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        | LOWER  |        |        |        |        |        |  RAISE |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
+[_RAISE] = LAYOUT_ortho_5x15( \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  \
+    XXXXXXX, XXXXXXX,   KC_UP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  \
+      RAISE, KC_HOME, KC_PGDN,  KC_END, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   LOWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   RAISE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+),
 
- [_RAISE] = { /* FUNCTION */
-  {   RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, KC_PGUP, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  {   RAISE, KC_HOME, KC_PGDN,  KC_END, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   LOWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   RAISE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
- },
 
  /* ADJUST
  * .--------------------------------------------------------------------------------------------------------------------------------------.
@@ -98,25 +94,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |        |        |        |        | LOWER  |        |        |        |        |        |  RAISE |        |        |        |        |
  * '--------------------------------------------------------------------------------------------------------------------------------------'
  */
+[_ADJUST] = LAYOUT_ortho_5x15( \
+    RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RGB_M_P, RGB_M_T, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX,  \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, BL_TOGG, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  \
+    RAISE, XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI,  BL_INC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  EEP_RST, XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD,  BL_DEC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, \
+  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   LOWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   RAISE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  \
+),
 
- [_ADJUST] = { /* FUNCTION */
-  {   RESET, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  RGB_M_P, RGB_M_T, RGB_MOD, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, RGB_TOG, BL_TOGG, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  {   RAISE, XXXXXXX, RGB_HUI, RGB_SAI, RGB_VAI,  BL_INC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { EEP_RST, XXXXXXX, RGB_HUD, RGB_SAD, RGB_VAD,  BL_DEC, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
-  { XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,   LOWER, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,  XXXXXXX,   RAISE, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX  },
- }
 
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
-    case QWERTY:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_QWERTY);
-      }
-      return false;
-      break;
     case LOWER:
       if (record->event.pressed) {
         layer_on(_LOWER);
