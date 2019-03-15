@@ -39,17 +39,19 @@ bool transport_master(matrix_row_t matrix[]) {
   static uint8_t prev_level = ~0;
   uint8_t        level      = get_backlight_level();
   if (level != prev_level) {
-    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIT_START, (void *)&level, sizeof(level), TIMEOUT);
-    prev_level = level;
+    if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIT_START, (void *)&level, sizeof(level), TIMEOUT) >= 0) {
+      prev_level = level;
+    }
   }
 #  endif
 
 #  ifdef RGBLIGHT_ENABLE
   static uint32_t prev_rgb = ~0;
-  uint32_t        rgb      = eeconfig_read_rgblight();
+  uint32_t        rgb      = rgblight_read_dword();
   if (rgb != prev_rgb) {
-    i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_START, (void *)&rgb, sizeof(rgb), TIMEOUT);
-    prev_rgb = rgb;
+    if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_START, (void *)&rgb, sizeof(rgb), TIMEOUT) >= 0) {
+      prev_rgb = rgb;
+    }
   }
 #  endif
 
