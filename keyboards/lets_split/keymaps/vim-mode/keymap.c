@@ -22,8 +22,6 @@ enum custom_keycodes {
 };
 
 // Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 // keys in multiple locations:
 //  - parenteses in both raise and lower
