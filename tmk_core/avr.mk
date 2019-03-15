@@ -214,12 +214,15 @@ define EXEC_AVRDUDE
 			mv /tmp/2 /tmp/1; \
 		done; \
 		echo ""; \
-		echo "Detected controller on USB port at $$USB"; \
+		echo "Device $$USB has appeared; assuming it is the controller."; \
 		if $(GREP) -q -s 'MINGW\|MSYS' /proc/version; then \
 			USB=`echo "$$USB" | perl -pne 's/\/dev\/ttyS(\d+)/COM.($$1+1)/e'`; \
 			echo "Remapped MSYS2 USB port to $$USB"; \
+			sleep 1; \
+		else \
+			printf "Waiting for $$USB to become writable."; \
+			while [ ! -w "$$USB" ]; do sleep 0.5; printf "."; done; echo ""; \
 		fi; \
-		sleep 1; \
 		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
 	fi
 endef

@@ -36,7 +36,7 @@ $ make
 $ sudo cp bootloadHID /usr/bin
 ```
 
-In order to use the `./program` script, which can reboot the board into
+In order to use the `././util/atmega32a_program.py` script, which can reboot the board into
 the bootloader, you'll need Python 2 with PyUSB installed:
 
 ```
