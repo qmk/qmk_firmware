@@ -46,7 +46,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
 #   atmega32a    bootloadHID
-BOOTLOADER = atmel-dfu
+BOOTLOADER = caterina
 
 
 # If you don't know the bootloader type, then you can specify the
@@ -58,7 +58,6 @@ BOOTLOADER = atmel-dfu
 #   USBaspLoader        2048
 # OPT_DEFS += -DBOOTLOADER_SIZE=4096
 
-BOOTLOADER = caterina
 
 # Build Options
 #   change yes to no to disable
