@@ -4,6 +4,9 @@ This keymap modifies the [default keymap](https://github.com/qmk/qmk_firmware/tr
 
 ![Modified Redox keymap](https://github.com/nrichers/qmk_firmware/blob/master/keyboards/redox/keymaps/nrichers/keymap.png)
 
+- ![#99fcbe](https://placehold.it/15/f03c15/000000?text=+) `#99fcbe`
+- ![#99e6fc](https://placehold.it/15/c5f015/000000?text=+) `#99e6fc`
+
 ## Changes to the default keymap
 
 Marked in <span style="background-color:PaleGreen">light green</span>, these are changes to the keymap file:
