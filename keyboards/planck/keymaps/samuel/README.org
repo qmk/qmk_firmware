@@ -19,7 +19,7 @@ before, so bear with me.
 #+END_COMMENT
 
 This is my "pretty" org mode organized table for my main dvorak layer. If you
-don't use org mode, it won't be that exiting, but if you enjoy working in org
+don't use org mode, it won't be that exciting, but if you enjoy working in org
 mode, you can edit this table directly, and this file is tangled to the actual
 keymap. No more organizing spaces or converting to and from comments.
 
@@ -40,12 +40,12 @@ left.
 #+TODO: qwerty layer for ma friends
 
 #+NAME: secondary-layer
-|----+--------+--------+--------+--------+------+------+----+--------+--------+-----+----|
-| -- | EZUNDO | EZCOPY | EZCUT  | EZPSTE | INS  | EQL  |  7 |      8 |      9 | F11 | -- |
-| -- | ESC    | CAPS   | PGUP   | PGDN   | F4   | ASTR |  4 |      5 |      6 | 0   | -- |
-| -- | EXLM   | AT     | HASH   | DLR    | PERC | CIRC |  1 |      2 |      3 | F12 | -- |
-| -- | --     | EZUP   | EZDOWN | --     | AMPR | PIPE | -- | EZLEFT | EZRGHT | --  | -- |
-|----+--------+--------+--------+--------+------+------+----+--------+--------+-----+----|
+|--------+--------+--------+--------+--------+------+------+-----+--------+--------+-------+--------|
+| --     | EZUNDO | EZCOPY | EZCUT  | EZPSTE | INS  | EQL  |   7 |      8 |      9 | --    | --     |
+| EZSHFT | ESC    | CAPS   | PGUP   | PGDN   | HOME | ASTR |   4 |      5 |      6 | 0     | EZSHFT |
+| EZCTRL | EXLM   | AT     | HASH   | DLR    | PERC | CIRC |   1 |      2 |      3 | --    | EZCTRL |
+| EZGUI  | EZALT  | EZUP   | EZDOWN | SPC    | AMPR | PIPE | END | EZLEFT | EZRGHT | EZALT | EZGUI  |
+|--------+--------+--------+--------+--------+------+------+-----+--------+--------+-------+--------|
 
 But wait, we are missing several important keys!? yes, well, the modifier keys
 all do other keys when tapped. More about that in the keymap section.
@@ -96,38 +96,40 @@ extern keymap_config_t keymap_config;
 
 static uint16_t tap_timer = 0;
 
-char oneshot_mod = -1;
-
-char last_mod = -1;
+char last_mod = 10;
 
 uint16_t keys_pressed = 0;
 
 enum planck_layers {
-  _DVORAK,
-  _RISE
+_DVORAK,
+_RISE
 };
 
 // where the 'T_' communicates how the key does something different when tapped.
 enum planck_keycodes {
-  DVORAK = SAFE_RANGE,
-  KC_T_LALT,
-  KC_T_RALT,
-  KC_T_LGUI,
-  KC_T_RGUI,
-  KC_T_LCTL,
-  KC_T_RCTL,
-  KC_T_LSFT,
-  KC_T_RSFT,
-  KC_T_LRSE,
-  KC_T_RRSE,
-  KC_EZRGHT,
-  KC_EZLEFT,
-  KC_EZUP,
-  KC_EZDOWN,
-  KC_EZUNDO,
-  KC_EZCOPY,
-  KC_EZCUT,
-  KC_EZPSTE
+DVORAK = SAFE_RANGE,
+KC_T_LALT,
+KC_T_RALT,
+KC_T_LGUI,
+KC_T_RGUI,
+KC_T_LCTL,
+KC_T_RCTL,
+KC_T_LSFT,
+KC_T_RSFT,
+KC_T_LRSE,
+KC_T_RRSE,
+KC_EZRGHT,
+KC_EZLEFT,
+KC_EZUP,
+KC_EZDOWN,
+KC_EZUNDO,
+KC_EZCOPY,
+KC_EZCUT,
+KC_EZPSTE,
+KC_EZSHFT,
+KC_EZCTRL,
+KC_EZGUI,
+KC_EZALT
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -162,17 +164,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #+END_SRC
 
 ** Process User Input
-*** Tap Key Functionality
+*** Tap Key
 
 These methods define how I implemented the tap mechanic. Basically, I believe
 that /pressing/ any other key should be grounds for the hold functionality to be
 assumed. My natuaral typing style experiences no delays from my method.
 
 #+BEGIN_SRC C :noweb yes
-void mod_press(uint16_t hold_code, uint16_t tap_code, int id) {
-    if (last_mod != id && last_mod != -1) {
+void mod_press(uint16_t tap_code, uint16_t hold_code, int id) {
+    if (last_mod != id && last_mod != 10) {
         tap_code16(tap_code);
-        last_mod = -1;
+        last_mod = 10;
+        send_string("hello");
     } else {
         tap_timer = timer_read();
         last_mod = id;
@@ -184,7 +187,7 @@ void mod_lift(uint16_t tap_code, uint16_t hold_code, int id) {
     unregister_code(hold_code);
     if (last_mod == id && timer_elapsed(tap_timer) < TAPPING_TERM) {
         tap_code16(tap_code);
-        last_mod = -1;
+        last_mod = 10;
     }
 }
 
@@ -197,17 +200,17 @@ pretty basic, setting our main layer and configuring our secondary layer.
 
 #+BEGIN_SRC C :noweb yes
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case DVORAK:
-      if (record->event.pressed) {
-        set_single_persistent_default_layer(_DVORAK);
-      }
-      return false;
-      break;
+    switch (keycode) {
+        case DVORAK:
+            if (record->event.pressed) {
+                set_single_persistent_default_layer(_DVORAK);
+            }
+            return false;
+            break;
 
 #+END_SRC
 
-*** Al``t  and ()
+*** Alt and ()
 
 Left and right alt are ( and ) when tapped. I put them on alt instead of a more
 conveniant key like control because parentheses do not need to be shift modified
@@ -216,24 +219,24 @@ ever, unlike some other tap keys seen in the next sections.
 #+BEGIN_SRC C :noweb yes
 case KC_T_LALT:
 if (record->event.pressed) {
-  mod_press(KC_LALT, 0);
- } else {
-  mod_lift(S(KC_9), KC_LALT, 0);
- }
+    mod_press(S(KC_9), KC_LALT, 0);
+} else {
+    mod_lift(S(KC_9), KC_LALT, 0);
+}
 return false;
 break;
 case KC_T_RALT:
 if (record->event.pressed) {
-  mod_press(KC_RALT, 1);
- } else {
-  mod_lift(S(KC_0), KC_RALT, 1);
- }
+    mod_press(S(KC_0), KC_RALT, 1);
+} else {
+    mod_lift(S(KC_0), KC_RALT, 1);
+}
 return false;
 break;
 
 #+END_SRC
 
-*** Gui  and `\
+*** Gui and `\
 
 I place gui in the bottom corner because I believe it is the hardest key to
 reach, so gui seemed like a good fit for a dedicated key that I never want to
@@ -243,18 +246,18 @@ number pad or shifted number keys.
 #+BEGIN_SRC C :noweb yes
 case KC_T_LGUI:
 if (record->event.pressed) {
-  mod_press(KC_LGUI, 2);
- } else {
-  mod_lift(KC_GRAVE, KC_LGUI, 2);
- }
+    mod_press(KC_GRAVE, KC_LGUI, 2);
+} else {
+    mod_lift(KC_GRAVE, KC_LGUI, 2);
+}
 return false;
 break;
 case KC_T_RGUI:
 if (record->event.pressed) {
-  mod_press(KC_RGUI, 3);
- } else {
-  mod_lift(KC_BSLASH, KC_RGUI, 3);
- }
+    mod_press(KC_BSLASH, KC_RGUI, 3);
+} else {
+    mod_lift(KC_BSLASH, KC_RGUI, 3);
+}
 return false;
 break;
 
@@ -268,18 +271,18 @@ also very convenient.
 #+BEGIN_SRC C :noweb yes
 case KC_T_LCTL:
 if (record->event.pressed) {
-  mod_press(KC_LCTL, 4);
- } else {
-  mod_lift(KC_LBRACKET, KC_LCTL, 4);
- }
+    mod_press(KC_LBRACKET, KC_LCTL, 4);
+} else {
+    mod_lift(KC_LBRACKET, KC_LCTL, 4);
+}
 return false;
 break;
 case KC_T_RCTL:
 if (record->event.pressed) {
-  mod_press(KC_RCTL, 5);
- } else {
-  mod_lift(KC_RBRACKET, KC_RCTL, 5);
- }
+    mod_press(KC_RBRACKET, KC_RCTL, 5);
+} else {
+    mod_lift(KC_RBRACKET, KC_RCTL, 5);
+}
 return false;
 break;
 
@@ -294,18 +297,18 @@ extra one on the right side in the secondary layer for the num pad.
 #+BEGIN_SRC C :noweb yes
 case KC_T_LSFT:
 if (record->event.pressed) {
-  mod_press(KC_LSFT, 6);
- } else {
-  mod_lift(KC_EQUAL, KC_LSFT, 6);
- }
+    mod_press(KC_EQUAL, KC_LSFT, 6);
+} else {
+    mod_lift(KC_EQUAL, KC_LSFT, 6);
+}
 return false;
 break;
 case KC_T_RSFT:
 if (record->event.pressed) {
-  mod_press(KC_RSFT, 7);
- } else {
-  mod_lift(KC_MINUS, KC_RSFT, 7);
- }
+    mod_press(KC_MINUS, KC_RSFT, 7);
+} else {
+    mod_lift(KC_MINUS, KC_RSFT, 7);
+}
 return false;
 break;
 
@@ -327,36 +330,74 @@ corner again mimicing a standard dvorak keyboard.
 #+BEGIN_SRC C :noweb yes
 case KC_T_LRSE:
 if (record->event.pressed) {
-  tap_timers[8] = timer_read();
-  last_mod = 8;
-  layer_on(_RISE);
- } else {
-  layer_off(_RISE);
-  if (last_mod == 8 && timer_elapsed(tap_timers[8]) < TAPPING_TERM) {
-    tap_code16(KC_DELETE);
-    last_mod = -1;
-  }
- }
+    tap_timer = timer_read();
+    last_mod = 8;
+    layer_on(_RISE);
+} else {
+    layer_off(_RISE);
+    if (last_mod == 8 && timer_elapsed(tap_timer) < TAPPING_TERM) {
+        tap_code16(KC_DELETE);
+        last_mod = 10;
+    }
+}
 return false;
 break;
 case KC_T_RRSE:
 if (record->event.pressed) {
-  tap_timers[9] = timer_read();
-  last_mod = 9;
-  layer_on(_RISE);
- } else {
-  layer_off(_RISE);
-  if (last_mod == 9 && timer_elapsed(tap_timers[9]) < TAPPING_TERM) {
-    tap_code16(KC_SLASH);
-    last_mod = -1;
-  }
- }
+    tap_timer = timer_read();
+    last_mod = 9;
+    layer_on(_RISE);
+} else {
+    layer_off(_RISE);
+    if (last_mod == 9 && timer_elapsed(tap_timer) < TAPPING_TERM) {
+        tap_code16(KC_SLASH);
+        last_mod = 10;
+    }
+}
 return false;
 break;
 
 #+END_SRC
 
-*** EZ keys
+*** EZ Keys
+**** One Shot Key
+Since I made modified tap keys occur on press instead of release, I need one
+shot keys to press any key with more than one modifier. More than two modifiers
+is currently impossible, but I imagine implementing it soon.
+
+#+BEGIN_SRC C :noweb yes
+case KC_EZSHFT:
+if (record->event.pressed) {
+    set_oneshot_mods(MOD_LSFT);
+    last_mod = 10;
+}
+return false;
+break;
+case KC_EZCTRL:
+if (record->event.pressed) {
+    set_oneshot_mods(MOD_LCTL);
+    last_mod = 10;
+}
+return false;
+break;
+case KC_EZALT:
+if (record->event.pressed) {
+    set_oneshot_mods(MOD_LALT);
+    last_mod = 10;
+}
+return false;
+break;
+case KC_EZGUI:
+if (record->event.pressed) {
+    set_oneshot_mods(MOD_LGUI);
+    last_mod = 10;
+}
+return false;
+break;
+
+#+END_SRC
+
+**** Arrows
 
 I use ctrl+shift+arrows keys a lot, so when the layer key is pressed they became
 lazy versions of themselves with control and shift already pressed.
@@ -367,65 +408,70 @@ left hand like on a qwerty or colemek keyboard.
 #+BEGIN_SRC C :noweb yes
 case KC_EZRGHT:
 if (record->event.pressed) {
-  register_code(KC_LCTL);
-  tap_code16(S(KC_RGHT));
-  unregister_code(KC_LCTL);
-  last_mod = -1;
- }
+    register_code(KC_LCTL);
+    tap_code16(S(KC_RGHT));
+    unregister_code(KC_LCTL);
+    last_mod = 10;
+}
 return false;
 break;
 case KC_EZLEFT:
 if (record->event.pressed) {
-  register_code(KC_LCTL);
-  tap_code16(S(KC_LEFT));
-  unregister_code(KC_LCTL);
-  last_mod = -1;
- }
+    register_code(KC_LCTL);
+    tap_code16(S(KC_LEFT));
+    unregister_code(KC_LCTL);
+    last_mod = 10;
+}
 return false;
 break;
 case KC_EZDOWN:
 if (record->event.pressed) {
-  register_code(KC_LCTL);
-  tap_code16(S(KC_DOWN));
-  unregister_code(KC_LCTL);
-  last_mod = -1;
- }
+    register_code(KC_LCTL);
+    tap_code16(S(KC_DOWN));
+    unregister_code(KC_LCTL);
+    last_mod = 10;
+}
 return false;
 break;
 case KC_EZUP:
 if (record->event.pressed) {
-  register_code(KC_LCTL);
-  tap_code16(S(KC_UP));
-  unregister_code(KC_LCTL);
-  last_mod = -1;
- }
+    register_code(KC_LCTL);
+    tap_code16(S(KC_UP));
+    unregister_code(KC_LCTL);
+    last_mod = 10;
+}
 return false;
 break;
+#+END_SRC
+
+**** Undo, Copy, Cut, Paste
+
+#+BEGIN_SRC C :noweb yes
 case KC_EZUNDO:
 if (record->event.pressed) {
-  tap_code16(C(KC_Z));
-  last_mod = -1;
+    tap_code16(C(KC_Z));
+    last_mod = 10;
 }
 return false;
 break;
 case KC_EZCOPY:
 if (record->event.pressed) {
-  tap_code16(C(KC_C));
-  last_mod = -1;
+    tap_code16(C(KC_C));
+    last_mod = 10;
 }
 return false;
 break;
 case KC_EZCUT:
 if (record->event.pressed) {
-  tap_code16(C(KC_X));
-  last_mod = -1;
+    tap_code16(C(KC_X));
+    last_mod = 10;
 }
 return false;
 break;
 case KC_EZPSTE:
 if (record->event.pressed) {
-  tap_code16(C(KC_V));
-  last_mod = -1;
+    tap_code16(C(KC_V));
+    last_mod = 10;
 }
 return false;
 break;
@@ -436,8 +482,8 @@ break;
 Finally, if just a standard key is tapped, set the interupted flag.
 
 #+BEGIN_SRC C :noweb yes
-  }
-  last_mod = -1;
-  return true;
+}
+last_mod = 10;
+return true;
 }
 #+END_SRC
