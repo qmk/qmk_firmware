@@ -94,9 +94,13 @@ our macros.
 
 extern keymap_config_t keymap_config;
 
-static uint16_t tap_timers[10]  = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+static uint16_t tap_timer = 0;
+
+char oneshot_mod = -1;
 
 char last_mod = -1;
+
+uint16_t keys_pressed = 0;
 
 enum planck_layers {
   _DVORAK,
@@ -152,6 +156,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #+END_SRC
 
+#+BEGIN_SRC C :noweb yes
+};
+
+#+END_SRC
+
 ** Process User Input
 *** Tap Key Functionality
 
@@ -160,19 +169,22 @@ that /pressing/ any other key should be grounds for the hold functionality to be
 assumed. My natuaral typing style experiences no delays from my method.
 
 #+BEGIN_SRC C :noweb yes
-};
-
-void mod_press(uint16_t hold_code, int id) {
-    tap_timers[id] = timer_read();
-    last_mod = id;
-    register_code(hold_code);
+void mod_press(uint16_t hold_code, uint16_t tap_code, int id) {
+    if (last_mod != id && last_mod != -1) {
+        tap_code16(tap_code);
+        last_mod = -1;
+    } else {
+        tap_timer = timer_read();
+        last_mod = id;
+        register_code(hold_code);
+    }
 }
 
 void mod_lift(uint16_t tap_code, uint16_t hold_code, int id) {
     unregister_code(hold_code);
-    if (last_mod == id && timer_elapsed(tap_timers[id]) < TAPPING_TERM) {
-      tap_code16(tap_code);
-      last_mod = -1;
+    if (last_mod == id && timer_elapsed(tap_timer) < TAPPING_TERM) {
+        tap_code16(tap_code);
+        last_mod = -1;
     }
 }
 
@@ -195,7 +207,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 #+END_SRC
 
-*** Alt  and ()
+*** Al``t  and ()
 
 Left and right alt are ( and ) when tapped. I put them on alt instead of a more
 conveniant key like control because parentheses do not need to be shift modified
@@ -412,7 +424,7 @@ return false;
 break;
 case KC_EZPSTE:
 if (record->event.pressed) {
-  tap_code16(C(KC_P));
+  tap_code16(C(KC_V));
   last_mod = -1;
 }
 return false;
