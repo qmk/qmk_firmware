@@ -4,6 +4,8 @@ This keymap modifies the [default keymap](https://github.com/qmk/qmk_firmware/tr
 
 ## Changes to the default keymap
 
+Marked in <span style="background-color:#99fcbe">light green</span>, these are changes to the keymap file:
+
 - Move `GUI` (`SUPER`) key to where default left `CTRL` and right `ALT` are - gives you two frequently used `CMD` keys on macOS where my brain expects them
 - Move `/?` into usual location next to right `SHIFT` - the default flash from Falbatech put `\|` here (might not be the Redox default?), which felt unintuitive
 - Put `\|` into bottom-left spot where `GUI` (`SUPER`) was - had to go somewhere and this bottom-left placement sort of balances with the almost bottom-right `/?`
@@ -16,7 +18,7 @@ This keymap modifies the [default keymap](https://github.com/qmk/qmk_firmware/tr
 
 ## Changes to the default layout
 
-These are simple physical keycap changes on the board that make reaching the `Layer 1` keys easier and that, subjectively, look cleaner visually:
+Marked in <span style="background-color:#99e6fc">light blue</span>, these are simple physical keycap changes on the board that make reaching the `Layer 1` keys easier and that, subjectively, look cleaner visually:
 
 - Increase the `Layer 1` key sizes from 1U to 1.25U
 - Decrease the 1.5 U key size for `[` and `]` to 1.25U
