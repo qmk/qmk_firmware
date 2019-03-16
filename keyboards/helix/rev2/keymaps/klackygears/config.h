@@ -42,7 +42,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_BREATHING
 //   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
 //   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
-   #define RGBLIGHT_EFFECT_RAINBOW_SPARKLE
 //     #define RGBLIGHT_EFFECT_SNAKE
 //     #undef  RGBLIGHT_EFFECT_SNAKE_LENGTH
 //     #define RGBLIGHT_EFFECT_SNAKE_LENGTH 20
@@ -51,16 +50,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
    //#define RGBLIGHT_EFFECT_RGB_TEST
    //#define RGBLIGHT_EFFECT_ALTERNATING
-     #define RGBLIGHT_EFFECT_BEAM
-     #define RGBLIGHT_EFFECT_HYPER
+   #define RGBLIGHT_EFFECT_BEAM
+   #define RGBLIGHT_EFFECT_HYPER
+   #define RGBLIGHT_EFFECT_RAINBOW_SPARKLE
 #endif
 
 #endif /* CONFIG_USER_H */
 
 
-#define QMK_ESC_OUTPUT F4 // usually COL
-#define QMK_ESC_INPUT D4 // usually ROW
-#define QMK_LED B0
+//#define QMK_ESC_OUTPUT F4 // usually COL
+//#define QMK_ESC_INPUT D4 // usually ROW
+//#define QMK_LED B0
 //#define QMK_SPEAKER C6
 
-# define EE_HANDS
+//#define EE_HANDS
