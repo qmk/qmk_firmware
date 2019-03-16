@@ -149,7 +149,7 @@ const uint8_t music_map[MATRIX_ROWS][MATRIX_COLS] = LAYOUT_ortho_4x12(
 
 You will want to use whichever `LAYOUT` macro that your keyboard uses here.  This maps it to the correct key location.  Start in  the bottom left of the keyboard layout, and  move to the right, and then upwards.  Fill in all the entries until you have a complete matrix.  
 
-
+You can look at the [Planck Keyboard](https://github.com/qmk/qmk_firmware/blob/e9ace1487887c1f8b4a7e8e6d87c322988bec9ce/keyboards/planck/planck.c#L24-L29) as an example of how to implement this. 
 
 ## Audio Click
 
