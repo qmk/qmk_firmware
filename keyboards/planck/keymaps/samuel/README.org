@@ -175,7 +175,6 @@ void mod_press(uint16_t tap_code, uint16_t hold_code, int id) {
     if (last_mod != id && last_mod != 10) {
         tap_code16(tap_code);
         last_mod = 10;
-        send_string("hello");
     } else {
         tap_timer = timer_read();
         last_mod = id;
