@@ -1,7 +1,5 @@
 #include "xd75.h"
 
-//aliases for clarity in layering
-#define _______ KC_TRNS
 #define A_BSPC  LALT(KC_BSPC) // delete whole word in Mac
 // #define C_BSPS  LCTL(KC_BSPC) // delete whole word in PC; currently not in use
 #define A_LEFT  LALT(KC_LEFT)

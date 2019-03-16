@@ -105,13 +105,6 @@ const uint16_t keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-/*
- * Fn action definition
- */
-const uint16_t fn_actions[] = {
-
-};
-
 // Runs just one time when the keyboard initializes.
 void matrix_init_user(void) {
 

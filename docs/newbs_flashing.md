@@ -86,7 +86,7 @@ If you know what bootloader that you're using, then when compiling the firmware,
 
 ### DFU
 
-For the DFU bootloader, when you're ready to compile and flash your firmware, open up your terminal window and run the built command: 
+For the DFU bootloader, when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
     make <my_keyboard>:<my_keymap>:dfu
 
@@ -133,7 +133,7 @@ If you have any issues with this, you may need to this:
 
 ### Caterina 
 
-For Arduino boards and their close (such as the SparkFun ProMicro), when you're ready to compile and flash your firmware, open up your terminal window and run the built command: 
+For Arduino boards and their clones (such as the SparkFun ProMicro), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
     make <my_keyboard>:<my_keymap>:avrdude
 
@@ -201,7 +201,7 @@ If you have any issues with this, you may need to this:
 
 ## HalfKay
 
-For the PJRC devices (Teensy's), when you're ready to compile and flash your firmware, open up your terminal window and run the built command: 
+For the PJRC devices (Teensy's), when you're ready to compile and flash your firmware, open up your terminal window and run the build command: 
 
     make <my_keyboard>:<my_keymap>:teensy
 
