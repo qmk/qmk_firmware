@@ -2,6 +2,8 @@
 
 This keymap modifies the [default keymap](https://github.com/qmk/qmk_firmware/tree/master/keyboards/redox) for the awesome [Redox keyboard](https://github.com/mattdibi/redox-keyboard) designed by Mattia Dal Ben.
 
+![Modified Redox keymap](https://github.com/nrichers/qmk_firmware/blob/master/keyboards/redox/keymaps/nrichers/keymap.png)
+
 ## Changes to the default keymap
 
 Marked in <span style="background-color:#99fcbe">light green</span>, these are changes to the keymap file:
