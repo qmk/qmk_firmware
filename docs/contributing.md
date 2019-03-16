@@ -129,6 +129,20 @@ Documentation is one of the easiest ways to get started contributing to QMK. Fin
 
 You'll find all our documentation in the `qmk_firmware/docs` directory, or if you'd rather use a web based workflow you can click "Suggest An Edit" at the top of each page on http://docs.qmk.fm/.
 
+When providing code examples in your documentation, try to observe naming conventions used elsewhere in the docs. For example, standardizing enums as `my_layers` or `my_keycodes` for consistency:
+
+```c
+enum my_layers {
+  _FIRST_LAYER,
+  _SECOND_LAYER
+};
+
+enum my_keycodes {
+  FIRST_LAYER = SAFE_RANGE,
+  SECOND_LAYER
+};
+```
+
 ## Keymaps
 
 Most first-time QMK contributors start with their personal keymaps. We try to keep keymap standards pretty casual (keymaps, after all, reflect the personality of their creators) but we do ask that you follow these guidelines to make it easier for others to discover and learn from your keymap.
@@ -137,7 +151,7 @@ Most first-time QMK contributors start with their personal keymaps. We try to ke
 * All Keymap PR's are squashed, so if you care about how your commits are squashed you should do it yourself
 * Do not lump features in with keymap PR's. Submit the feature first and then a second PR for the keymap.
 * Do not include `Makefile`s in your keymap folder (they're no longer used)
-* Update copyrights in file headers (look for `REPLACE_WITH_YOUR_NAME `)
+* Update copyrights in file headers (look for `%YOUR_NAME%`)
 
 ## Keyboards
 
@@ -150,7 +164,7 @@ We also ask that you follow these guidelines:
 * Do not lump core features in with new keyboards. Submit the feature first and then submit a separate PR for the keyboard.
 * Name `.c`/`.h` file after the immediate parent folder, eg `/keyboards/<kb1>/<kb2>/<kb2>.[ch]`
 * Do not include `Makefile`s in your keyboard folder (they're no longer used)
-* Update copyrights in file headers (look for `REPLACE_WITH_YOUR_NAME `)
+* Update copyrights in file headers (look for `%YOUR_NAME%`)
 
 ## Quantum/TMK Core
 

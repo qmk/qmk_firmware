@@ -3,14 +3,15 @@
 
 /* Select hand configuration */
 
-#define MASTER_LEFT
-// #define MASTER_RIGHT
+// #define MASTER_LEFT
+#define MASTER_RIGHT
 // #define EE_HANDS
 
 #define SWAP_SCLN
 
 // #define TAPPING_FORCE_HOLD
-#define TAPPING_TERM 120
+#define TAPPING_TERM 300
+#define IGNORE_MOD_TAP_INTERRUPT
 
 #undef RGBLED_NUM
 #define RGBLIGHT_EFFECT_STATIC_GRADIENT

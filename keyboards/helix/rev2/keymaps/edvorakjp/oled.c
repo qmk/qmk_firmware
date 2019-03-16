@@ -26,13 +26,7 @@ void render_status() {
   oled_write_P(PSTR("\nLayer: "), false);
   switch (biton32(layer_state)) {
     case L_BASE:
-      matrix_write_P(matrix,
-          default_layer_state == 1UL<<_EDVORAK ? PSTR("EDVORAK") : PSTR("QWERTY")
-          );
-      break;
-    case _EDVORAKJ1:
-    case _EDVORAKJ2:
-      oled_write_P(PSTR("JP_EXT"), false);
+      oled_write_P(PSTR("Default"), false);
       break;
     case _RAISE:
       oled_write_P(PSTR("Raise"), false);
@@ -40,8 +34,6 @@ void render_status() {
     case _LOWER:
       oled_write_P(PSTR("Lower"), false);
       break;
-    case _ADJUST:
-      oled_write_P(PSTR("Adjust"), false);
       break;
     default:
       oled_write(buf, false);
@@ -49,8 +41,7 @@ void render_status() {
 
   // Host Keyboard LED Status
   char led[40];
-  snprintf(led, sizeof(led), "\n%s %s %s %s",
-      get_enable_jp_extra_layer() && get_japanese_mode() ? "EXT" : "   ",
+  snprintf(led, sizeof(led), "\n%s %s %s",
       (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NMLK" : "    ",
       (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
       (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");

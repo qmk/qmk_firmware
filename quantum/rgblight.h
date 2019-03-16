@@ -174,6 +174,7 @@ void rgblight_step_reverse(void);
 uint8_t rgblight_get_mode(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
+uint32_t rgblight_read_dword(void);
 void rgblight_update_dword(uint32_t dword);
 void rgblight_increase_hue(void);
 void rgblight_decrease_hue(void);

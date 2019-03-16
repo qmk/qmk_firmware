@@ -17,6 +17,7 @@ QMK has a staggering number of features for building your keyboard. It can take 
 * [Key Lock](feature_key_lock.md) - Lock a key in the "down" state.
 * [Layouts](feature_layouts.md) - Use one keymap with any keyboard that supports your layout.
 * [Leader Key](feature_leader_key.md) - Tap the leader key followed by a sequence to trigger custom behavior.
+* [LED Matrix](feature_led_matrix.md) - LED Matrix single color lights for per key lighting (Single Color, not RGB).
 * [Macros](feature_macros.md) - Send multiple key presses when pressing only one physical key.
 * [Mouse keys](feature_mouse_keys.md) - Control your mouse pointer from your keyboard.
 * [One Shot Keys](feature_advanced_keycodes.md#one-shot-keys) - Sticky Keys, lets hit a key rather than holding it.
