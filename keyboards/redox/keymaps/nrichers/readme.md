@@ -4,26 +4,23 @@ This keymap modifies the [default keymap](https://github.com/qmk/qmk_firmware/tr
 
 ![Modified Redox keymap](https://github.com/nrichers/qmk_firmware/blob/master/keyboards/redox/keymaps/nrichers/keymap.png)
 
-- ![#99fcbe](https://placehold.it/15/99fcbe/000000?text=+) `#99fcbe`
-- ![#99e6fc](https://placehold.it/15/99e6fc/000000?text=+) `#99e6fc`
+## Changes to the default keymap ![#99fcbe](https://placehold.it/15/99fcbe/000000?text=+)
 
-## Changes to the default keymap
-
-Marked in <span style="background-color:PaleGreen">light green</span>, these are changes to the keymap file:
+These keymap changes are meant to improve the usability of the layout in everyday use:
 
 - Move `GUI` (`SUPER`) key to where default left `CTRL` and right `ALT` are - gives you two frequently used `CMD` keys on macOS where my brain expects them
 - Move `/?` into usual location next to right `SHIFT` - the default flash from Falbatech put `\|` here (might not be the Redox default?), which felt unintuitive
 - Put `\|` into bottom-left spot where `GUI` (`SUPER`) was - had to go somewhere and this bottom-left placement sort of balances with the almost bottom-right `/?`
 - Change default `ESC` into `ESC` on tap, `CTRL` on hold - Love the UNIX-ey `CTRL` key location and wanted to keep `ESC` in the original position
 - Change default `'` above right `SHIFT` into `'` on tap, `CTRL` on hold - Love the UNIX-ey CTRL key location, but it can give you 'left claw hand', which a second, mirrored `CTRL` key fixes
-- Add `F11` and `F12` keys to two layers - needed on macOS if you want to control volume up and down from your keyboard (not shown, as on a different layer)
+- Add `F11` and `F12` keys to two layers - needed on macOS if you want to control volume up and down from your keyboard (not shown, on a different layer)
 - On thumb clusters: 
   - Left: Move `SPACE` closest to left thumb and move `BACKSPACE` to the right of that - put the key for 'getting it right' closest to your thumb and reduce usage of my right hand (purely personal preference)
   - Right: Move `ENTER` closest to right thumb and move `DEL` to the left of that - put the key for 'getting it right' closest to your thumb
 
-## Changes to the default layout
+## Changes to the Redox layout ![#99e6fc](https://placehold.it/15/99e6fc/000000?text=+)
 
-Marked in <span style="background-color:Cyan">light blue</span>, these are simple physical keycap changes on the board that make reaching the `Layer 1` keys easier and that, subjectively, look cleaner visually:
+These are physical keycap changes on the board that make reaching the `Layer 1` keys easier and that, subjectively, look more balanced visually:
 
 - Increase the `Layer 1` key sizes from 1U to 1.25U
 - Decrease the 1.5 U key size for `[` and `]` to 1.25U
