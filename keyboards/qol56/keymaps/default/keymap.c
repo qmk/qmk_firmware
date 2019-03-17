@@ -33,11 +33,11 @@ enum {
 // Layers
 #define _EUCALYN  0 // default layer
 #define _QWERTY   1
-#define _NICOLA  10 // 親指シフトレイヤー
-#define _LOWER   11
-#define _RAISE   12
-#define _NUMPAD  13
-#define _ADJUST  15
+#define _NICOLA   5 // 親指シフトレイヤー
+#define _NUMPAD   6
+#define _LOWER   10
+#define _RAISE   11
+#define _ADJUST  12
 
 #define _____   KC_TRNS
 #define XXXXX   KC_NO
@@ -49,7 +49,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
      KC_TAB,   KC_Q,   KC_W,KC_COMM, KC_DOT,KC_SCLN,JP_MINS, JP_EQL,   KC_M,   KC_R,   KC_D,   KC_Y,   KC_P,KC_BSPC, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
-    KC_LCTL,   KC_A,   KC_O,   KC_E,   KC_I,   KC_U,JP_LBRC,JP_RBRC,   KC_G,   KC_T,   KC_K,   KC_S,   KC_N,KC_RCTL, \
+    KC_LCTL,   KC_A,   KC_O,   KC_E,   KC_I,   KC_U,JP_LPRN,JP_RPRN,   KC_G,   KC_T,   KC_K,   KC_S,   KC_N,KC_RCTL, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
     KC_LSFT,   KC_Z,   KC_X,   KC_C,   KC_V,   KC_F, JP_GRV,JP_QUOT,   KC_B,   KC_H,   KC_J,   KC_L,KC_SLSH,KC_RALT, \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_RAISE] = LAYOUT( \
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                               <       >       :       
-      XXXXX,  XXXXX,  XXXXX,  JP_LT,  JP_GT,JP_COLN,JP_BSLS,JP_PLUS,  XXXXX,KC_PGUP,  KC_UP,  XXXXX,  XXXXX, KC_DEL,\
+      XXXXX,  XXXXX,  XXXXX,  JP_LT,  JP_GT,JP_COLN,JP_UNDS,JP_PLUS,  XXXXX,KC_PGUP,  KC_UP,  XXXXX,  XXXXX, KC_DEL,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               (       )       {       }                                                                   
       XXXXX,JP_LPRN,JP_RPRN,JP_LCBR,JP_RCBR,  XXXXX,JP_LCBR,JP_RCBR,  XXXXX,KC_LEFT,KC_DOWN,KC_RGHT,  XXXXX,  XXXXX,\
@@ -90,7 +90,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_ESC,JP_EXLM,  JP_AT,JP_HASH, JP_DLR,JP_PERC,JP_BSLS,JP_PLUS,JP_SLSH,   KC_7,   KC_8,   KC_9,JP_MINS, KC_DEL,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //               ^       &       '       "       ~                               *                               +       
-      XXXXX,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,JP_LCBR,JP_RCBR,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS, KC_ENT,\
+      XXXXX,JP_CIRC,JP_AMPR,JP_QUOT, JP_DQT,JP_TILD,JP_LBRC,JP_RBRC,JP_ASTR,   KC_4,   KC_5,   KC_6,JP_PLUS, KC_ENT,\
 // +-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+-------+
 //                       |       `       _       ¥                                                               .
       XXXXX,  XXXXX,JP_PIPE, JP_GRV,JP_UNDS,JP_BSLS,JP_TILD, JP_DQT,   KC_0,   KC_1,   KC_2,   KC_3, KC_DOT,  XXXXX,\
