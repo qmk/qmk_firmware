@@ -22,7 +22,7 @@ const hue_sat_pair hue_sat_pairs[][2] = {
 
   [_FN2] = {
     [false] = { 275, 255 },
-    [true] = { 2, 255 }
+    [true] = { 275, 255 }
   },
 
   [_CFG] = {
