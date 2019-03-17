@@ -111,14 +111,14 @@ case KC_DVORAK:
 if (record->event.pressed) {
     set_single_persistent_default_layer(_DVORAK);
 }
-return false;
+return true;
 break;
 
 case KC_QWERTY:
 if (record->event.pressed) {
     set_single_persistent_default_layer(_QWERTY);
 }
-return false;
+return true;
 break;
 
 case KC_T_LALT:
