@@ -315,10 +315,11 @@ break;
 
 case KC_COM:
 if (record->event.pressed) {
+    layer_on(_COMMAND);
     set_oneshot_layer(_COMMAND, ONESHOT_START);
     last_mod = 10;
 } else {
-    set_oneshot_layer(_COMMAND, ONESHOT_PRESSED);
+    clear_oneshot_layer_state (ONESHOT_PRESSED);
 }
 return false;
 break;
@@ -328,28 +329,28 @@ if (record->event.pressed) {
     send_string("mhostley");
     last_mod = 10;
 }
-return false;
+return true;
 break;
 case KC_EMAIL:
 if (record->event.pressed) {
     send_string("mhostley@gmail.com");
     last_mod = 10;
 }
-return false;
+return true;
 break;
 case KC_NAME:
 if (record->event.pressed) {
     send_string("Samuel Jahnke");
     last_mod = 10;
 }
-return false;
+return true;
 break;
 case KC_DIR:
 if (record->event.pressed) {
     send_string("home/mhostley/");
     last_mod = 10;
 }
-return false;
+return true;
 break;
 
 }
