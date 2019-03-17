@@ -649,7 +649,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |   y   |   x   |   c   |   v   |   b   |               |   n   |   m   |   ,   |   .   |   -   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -669,7 +669,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T1   |   Y   |   X   |   C   |   V   |   B   |               |   N   |   M   |   ;   |   :   |   =   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -689,7 +689,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |   '   |   j   |   y   |   p   |   z   |               |   b   |   m   |   ,   |   .   |   -   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -709,7 +709,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T3   |   "   |   J   |   Y   |   P   |   Z   |               |   B   |   M   |   ;   |   :   |   =   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -729,7 +729,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T4   |   ÷   |   µ   |   Ω   |   ₿   |   §   |               |   ^   |   1   |   2   |   3   |   "   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  XXX  |  L4   | Ctrl  |   .   |   0   |   ,   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  XXX  |  L4   | Ctrl  |   .   |   0   |   ,   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -749,7 +749,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T5   |  F9   |  F10  |  F11  |  F12  |  XXX  |               |  |<<  |play/ps|  >>|  |  XXX  |  XXX  |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  XXX  |  L4   | Ctrl  |  Alt  | Space |  XXX  | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  XXX  |  L4   | Ctrl  |  Alt  | Space |  XXX  | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -769,7 +769,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T6   |   ~   |   &   |   /   |   %   |   ^   |               |   <   |   [   |   §   |   ]   |   >   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  XXX  | Ctrl  |  Alt  | Space |  XXX  | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  XXX  | Ctrl  |  Alt  | Space |  XXX  | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -789,7 +789,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T7   |   »   |   „   |   “   |   ”   |   «   |               |Macro 1|Macro 2|Macro 3|Macro 4|Macro 5|BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  XXX  | Ctrl  |  Alt  | Space |  XXX  | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  XXX  | Ctrl  |  Alt  | Space |  XXX  | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -809,7 +809,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T8   |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               |   ñ   |  XXX  |  XXX  |  XXX  |  XXX  |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -829,7 +829,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T9   |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               |   Ñ   |  XXX  |  XXX  |  XXX  |  XXX  |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -849,7 +849,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T8   |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -869,7 +869,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T9   |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -889,7 +889,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |  XXX  |   ϰ   |   η   |   π   |   ζ   |               |   β   |   μ   |   ϱ   |   θ   |   ϑ   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -909,7 +909,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |  XXX  |  XXX  |   Η   |   Π   |   Ζ   |               |   Β   |   Μ   |  XXX  |   Θ   |  XXX  |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -929,7 +929,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |  XXX  |   ϰ   |   η   |   π   |   ζ   |               |   β   |   μ   |   ϱ   |   θ   |   ϑ   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -949,7 +949,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |  XXX  |  XXX  |   Η   |   Π   |   Ζ   |               |   Β   |   Μ   |  XXX  |   Θ   |  XXX  |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -969,7 +969,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |   ♖   |   ♘   |   ♗   |   ♕   |   ♔   |               |   𝄡   |   𝄞   |   𝄢   |   𝆮   |   𝆯   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -989,7 +989,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |   ♜   |   ♞   |   ♝   |   ♛   |   ♚   |               |   𝄆   |   𝄇   |   𝄋   |   𝄉   |   𝄊   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -1009,7 +1009,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |   ⋃   |   ⋂   |   ∪   |   ∩   |   ⊈   |               |   ⊂   |   ⊆   |   ⊇   |   Ω   |   ∅   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -1029,7 +1029,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |   ℵ   |   ℶ   |   ℂ   |  XXX  |   𝔹   |               |   ℕ   |   𝟏   |   ℱ   |   ℋ   |   ℒ   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -1049,7 +1049,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |   ℵ   |   ℶ   |   r   |   s   |   t   |               |   a   |   𝟏   |   ℱ   |   ℋ   |   ℒ   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -1069,7 +1069,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  T4   |   ÷   |   µ   |   Ω   |   ₿   |   §   |               |   ^   |   1   |   2   |   3   |   "   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  XXX  |  L4   | Ctrl  |   .   |   0   |   ,   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  XXX  |  L4   | Ctrl  |   .   |   0   |   ,   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -1089,7 +1089,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * |  Gui  |   ⟕   |   ⟖   |   ⟗   |   ⊏   |   ⊑   |               |   ∝   |   ∥   |   ∦   |   ⊗   |   ∤   |BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -1101,226 +1101,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		MO(4), X(SQ_LS_EQ), X(ANGLE), X(CIRCLE), X(AB_ARC), X(LESS_LESS), X(DOT_OP), X(CIRC_MID), X(PROP_TO), KC_SPC),
 
 /* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |  XXX  |   ϝ   |   ϛ   |   ͱ   |   ϻ   |               |   ϰ   |   ϙ   |   ͳ   |   ϸ   |  XXX  |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |   ξ   |   ς   |   λ   |   χ   |   ω   |               |   κ   |   ψ   |   γ   |   φ   |   ϕ   | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |   υ   |   ι   |   α   |   ε   |   ο   |               |   σ   |   ν   |   ρ   |   τ   |   δ   |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  Gui  |  XXX  |   ϰ   |   η   |   π   |   ζ   |               |   β   |   μ   |   ϱ   |   θ   |   ϑ   |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, XXXXXXX, X(digamma), X(stigma), X(heta), X(koppa), X(sampi), X(scho), XXXXXXX, KC_DEL,
-		KC_TAB, X(xi), X(sigma2), X(lambda), X(chi), X(psi), X(gamma), X(phi), X(phi2), KC_ENT,
-		MO(1), X(ypsilon), X(iota), X(alpha), X(epsilon), X(ny), X(rho), X(tau), X(delta), MO(1),
-		KC_LGUI, XXXXXXX, X(kappa2), X(eta), X(pi), X(my), X(rho2), X(theta), X(theta2), KC_BSPC,
-		TG(2), KC_LALT, GAME, GREEK, MO(6), MO(8), MATH, SYMBOL, KC_LCTRL, MOUSE,
-		MO(4), X(zeta), X(omikron), X(omega), X(san), X(kappa2), X(kappa), X(sigma), X(beta), KC_SPC),
-
-/* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |  XXX  |   Ϝ   |   Ϛ   |   Ͱ   |   Ϻ   |               |  XXX  |   Ϙ   |   Ͳ   |   Ϸ   |  XXX  |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |   Ξ   |  XXX  |   Λ   |   Χ   |   Ω   |               |   Κ   |   Ψ   |   Γ   |   Φ   |  XXX  | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |   Υ   |   Ι   |   Α   |   Ε   |   Ο   |               |   Σ   |   Ν   |   Ρ   |   Τ   |   Δ   |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  Gui  |  XXX  |  XXX  |   Η   |   Π   |   Ζ   |               |   Β   |   Μ   |  XXX  |   Θ   |  XXX  |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, XXXXXXX, X(DIGAMMA), X(STIGMA), X(HETA), X(KOPPA), X(SAMPI), X(SCHO), XXXXXXX, KC_DEL,
-		KC_TAB, X(XI), XXXXXXX, X(LAMBDA), X(CHI), X(PSI), X(GAMMA), X(PHI), XXXXXXX, KC_ENT,
-		MO(1), X(YPSILON), X(IOTA), X(ALPHA), X(EPSILON), X(NY), X(RHO), X(TAU), X(DELTA), MO(1),
-		KC_LGUI, XXXXXXX, XXXXXXX, X(ETA), X(PI), X(MY), XXXXXXX, X(THETA), XXXXXXX, KC_BSPC,
-		TG(2), KC_LALT, GAME, GREEK, MO(6), MO(8), MATH, SYMBOL, KC_LCTRL, MOUSE,
-		MO(4), X(ZETA), X(OMIKRON), X(OMEGA), X(SAN), XXXXXXX, X(KAPPA), X(SIGMA), X(BETA), KC_SPC),
-
-/* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |  XXX  |   ϝ   |   ϛ   |   ͱ   |   ϻ   |               |   ϰ   |   ϙ   |   ͳ   |   ϸ   |  XXX  |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |   ξ   |   ς   |   λ   |   χ   |   ω   |               |   κ   |   ψ   |   γ   |   φ   |   ϕ   | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |   υ   |   ι   |   α   |   ε   |   ο   |               |   σ   |   ν   |   ρ   |   τ   |   δ   |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  Gui  |  XXX  |   ϰ   |   η   |   π   |   ζ   |               |   β   |   μ   |   ϱ   |   θ   |   ϑ   |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, XXXXXXX, X(digamma), X(stigma), X(heta), X(koppa), X(sampi), X(scho), XXXXXXX, KC_DEL,
-		KC_TAB, X(xi), X(sigma2), X(lambda), X(chi), X(psi), X(gamma), X(phi), X(phi2), KC_ENT,
-		MO(1), X(ypsilon), X(iota), X(alpha), X(epsilon), X(ny), X(rho), X(tau), X(delta), MO(1),
-		KC_LGUI, XXXXXXX, X(kappa2), X(eta), X(pi), X(my), X(rho2), X(theta), X(theta2), KC_BSPC,
-		TG(2), KC_LALT, GAME, GREEK, MO(6), MO(8), MATH, SYMBOL, KC_LCTRL, MOUSE,
-		MO(4), X(zeta), X(omikron), X(omega), X(san), X(kappa2), X(kappa), X(sigma), X(beta), KC_SPC),
-
-/* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |  XXX  |   Ϝ   |   Ϛ   |   Ͱ   |   Ϻ   |               |  XXX  |   Ϙ   |   Ͳ   |   Ϸ   |  XXX  |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |   Ξ   |  XXX  |   Λ   |   Χ   |   Ω   |               |   Κ   |   Ψ   |   Γ   |   Φ   |  XXX  | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |   Υ   |   Ι   |   Α   |   Ε   |   Ο   |               |   Σ   |   Ν   |   Ρ   |   Τ   |   Δ   |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  Gui  |  XXX  |  XXX  |   Η   |   Π   |   Ζ   |               |   Β   |   Μ   |  XXX  |   Θ   |  XXX  |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, XXXXXXX, X(DIGAMMA), X(STIGMA), X(HETA), X(KOPPA), X(SAMPI), X(SCHO), XXXXXXX, KC_DEL,
-		KC_TAB, X(XI), XXXXXXX, X(LAMBDA), X(CHI), X(PSI), X(GAMMA), X(PHI), XXXXXXX, KC_ENT,
-		MO(1), X(YPSILON), X(IOTA), X(ALPHA), X(EPSILON), X(NY), X(RHO), X(TAU), X(DELTA), MO(1),
-		KC_LGUI, XXXXXXX, XXXXXXX, X(ETA), X(PI), X(MY), XXXXXXX, X(THETA), XXXXXXX, KC_BSPC,
-		TG(2), KC_LALT, GAME, GREEK, MO(6), MO(8), MATH, SYMBOL, KC_LCTRL, MOUSE,
-		MO(4), X(ZETA), X(OMIKRON), X(OMEGA), X(SAN), XXXXXXX, X(KAPPA), X(SIGMA), X(BETA), KC_SPC),
-
-/* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |   l   |   m   |   n   |   o   |   j   |               |   ✓   |   ✗   |   w   |   x   |   y   |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |  XXX  |   g   |   h   |   i   |   j   |               |   0   |   1   |   2   |   3   |   4   | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |  💥   |  💥   |  💥   |  💥   |  💥   |               |   5   |   6   |   7   |   8   |   9   |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  Gui  |  💥   |  💥   |  💥   |  💥   |  💥   |               |   a   |   b   |   c   |   d   |   e   |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, KC_L, KC_M, KC_N, KC_O, X(NO), KC_W, KC_X, KC_Y, KC_DEL,
-		KC_TAB, XXXXXXX, KC_G, KC_H, KC_I, KC_1, KC_2, KC_3, KC_4, KC_ENT,
-		MO(1), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_6, KC_7, KC_8, KC_9, MO(1),
-		KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_B, KC_C, KC_D, KC_E, KC_BSPC,
-		TG(2), KC_LALT, GAME, GREEK, MO(6), MO(8), MATH, SYMBOL, KC_LCTRL, MOUSE,
-		MO(4), XXXXXXX, XXXXXXX, KC_J, KC_J, X(YES), KC_0, KC_5, KC_A, KC_SPC),
-
-/* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |   ¡   |   b   |   ¿   |   b   |   j   |               |   u   |   v   |   w   |   x   |   y   |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |   a   |   A   |   0   |   i   |   j   |               |   0   |   1   |   2   |   3   |   4   | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |  💥   |  💥   |  💥   |  💥   |  💥   |               |   5   |   6   |   7   |   8   |   9   |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  Gui  |  💥   |  💥   |  💥   |  💥   |  💥   |               |   a   |   b   |   c   |   d   |   e   |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, X(INV_EXCL), KC_B, X(INV_QST), KC_B, KC_V, KC_W, KC_X, KC_Y, KC_DEL,
-		KC_TAB, KC_A, S(KC_A), KC_0, KC_I, KC_1, KC_2, KC_3, KC_4, KC_ENT,
-		MO(1), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_6, KC_7, KC_8, KC_9, MO(1),
-		KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_B, KC_C, KC_D, KC_E, KC_BSPC,
-		TG(2), KC_LALT, GAME, GREEK, MO(6), MO(8), MATH, SYMBOL, KC_LCTRL, MOUSE,
-		MO(4), XXXXXXX, XXXXXXX, KC_J, KC_J, KC_U, KC_0, KC_5, KC_A, KC_SPC),
-
-/* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |  💥   |  💥   |  💥   |  💥   |  💥   |               |  💥   |  💥   |  💥   |  💥   |  💥   |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |  💥   |  💥   |  💥   |  💥   |  💥   |               |  💥   |  💥   |  💥   |  💥   |  💥   | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |  💥   |  💥   |   +   |  💥   |  💥   |               |  💥   |  💥   |  💥   |  💥   |   ε   |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  Gui  |  💥   |  💥   |  💥   |  💥   |  💥   |               |  💥   |  💥   |  💥   |   Ω   |  💥   |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
-		KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT,
-		MO(1), XXXXXXX, XXXXXXX, S(KC_EQL), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, X(epsilon), MO(1),
-		KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, X(OMEGA), XXXXXXX, KC_BSPC,
-		TG(2), KC_LALT, GAME, GREEK, MO(6), MO(8), MATH, SYMBOL, KC_LCTRL, MOUSE,
-		MO(4), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC),
-
-/* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |  💥   |   Δ   |  💥   |  💥   |  💥   |               |  💥   |  💥   |  💥   |  💥   |  💥   |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |  💥   |  XXX  |  💥   |  💥   |  XXX  |               |  💥   |  💥   |  💥   |  💥   |  💥   | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |  💥   |  💥   |  💥   |  💥   |  XXX  |               |  💥   |  XXX  |  💥   |  💥   |  XXX  |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  Gui  |  💥   |  💥   |  💥   |  XXX  |  💥   |               |  💥   |  💥   |  💥   |  💥   |  💥   |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, XXXXXXX, X(DELTA), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
-		KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT,
-		MO(1), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MO(1),
-		KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
-		TG(2), KC_LALT, GAME, GREEK, MO(6), MO(8), MATH, SYMBOL, KC_LCTRL, MOUSE,
-		MO(4), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC),
-
-/* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |  💥   |   Δ   |  💥   |  💥   |  💥   |               |  💥   |  💥   |  💥   |  💥   |  💥   |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |   a   |   A   |   0   |   i   |   j   |               |   0   |   1   |   2   |   3   |   4   | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |   k   | _PSCR |   m   |   n   |   o   |               |   5   |   6   |   7   |   8   |   9   |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  Gui  |  💥   |  💥   |   r   |   s   |   t   |               |   a   |  💥   |  💥   |  💥   |  💥   |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, XXXXXXX, X(DELTA), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
-		KC_TAB, KC_A, S(KC_A), KC_0, KC_I, KC_1, KC_2, KC_3, KC_4, KC_ENT,
-		MO(1), KC_K, KC_PSCR, KC_M, KC_N, KC_6, KC_7, KC_8, KC_9, MO(1),
-		KC_LGUI, XXXXXXX, XXXXXXX, KC_R, KC_S, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
-		TG(2), KC_LALT, GAME, GREEK, MO(6), MO(8), MATH, SYMBOL, KC_LCTRL, MOUSE,
-		MO(4), KC_T, KC_O, KC_J, XXXXXXX, XXXXXXX, KC_0, KC_5, KC_A, KC_SPC),
-
-/* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |   ¹   |   ²   |   ³   |   ⁻   |   √   |               |   [   |   (   |   %   |   )   |   ]   |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |   ¤   |   :   |   °   |   ʹ   |   ʺ   |               |   *   |   7   |   8   |   9   |   /   | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |   ¢   |   ¥   |   £   |   €   |   $   |               |   +   |   4   |   5   |   6   |   -   |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  T4   |   ÷   |   µ   |   Ω   |   ₿   |   §   |               |   ^   |   1   |   2   |   3   |   "   |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  XXX  |  L4   | Ctrl  |   .   |   0   |   ,   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, X(SUP1), X(SUP2), X(SUP3), X(SUP_MIN), S(KC_9), S(KC_5), S(KC_0), KC_RBRC, KC_DEL,
-		KC_TAB, X(CURRENCY), S(KC_SCLN), X(DEGREE), X(MINUTE), KC_7, KC_8, KC_9, KC_SLSH, KC_ENT,
-		MO(1), X(CENT), X(YEN), X(POUND), X(EURO), KC_4, KC_5, KC_6, KC_MINS, MO(1),
-		TG(4), X(DIVISION), X(MICRO), X(OHM), X(BITCOIN), KC_1, KC_2, KC_3, S(KC_QUOT), KC_BSPC,
-		TG(2), KC_LCTRL, GAME, GREEK, XXXXXXX, KC_COMM, MATH, SYMBOL, KC_DOT, MOUSE,
-		MO(4), X(SECTION), S(KC_4), X(SECOND), X(ROOT), KC_LBRC, S(KC_8), S(KC_EQL), S(KC_6), KC_0),
-
-/* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |  💥   |  💥   |  💥   |  💥   |  💥   |               |  💥   |  💥   |  💥   |  💥   |  💥   |  Del  |
- * -------------------------------------------------               -------------------------------------------------
- * |  Tab  |  XXX  |  XXX  |  💥   |  💥   |  💥   |               |  💥   |  💥   |  💥   |  💥   |  💥   | Enter |
- * -------------------------------------------------               -------------------------------------------------
- * |  L1   |  💥   |  💥   |  💥   |  💥   |  💥   |               |  💥   |  💥   |  💥   |  💥   |  💥   |  L1   |
- * -------------------------------------------------               -------------------------------------------------
- * |  Gui  |  💥   |  💥   |  💥   |  💥   |  💥   |               |  💥   |  💥   |  💥   |  💥   |  💥   |BSpace |
- * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE
- *                                 -------------------------------------------------
- */
-	KEYMAP(
-		KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
-		KC_TAB, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT,
-		MO(1), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MO(1),
-		KC_LGUI, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_BSPC,
-		TG(2), KC_LALT, GAME, GREEK, MO(6), MO(8), MATH, SYMBOL, KC_LCTRL, MOUSE,
-		MO(4), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_SPC),
-
-/* -------------------------------------------------               -------------------------------------------------
  * |  Esc  |   1   |   2   |   3   |   4   |   5   |               |   6   |   7   |   8   |   9   |   0   |  Del  |
  * -------------------------------------------------               -------------------------------------------------
  * |  Tab  |   q   |   w   |   e   |   r   |   t   |               |   y   |   u   |   i   |   o   |   p   | Enter |
@@ -1329,7 +1109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * | Shift |   z   |   x   |   c   |   v   |   b   |               |   n   |   m   |   ,   |< Arrow|v Arrow|> Arrow|
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  Alt  | Space | Ctrl  | Enter |RShift | Ctrl  | MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  Alt  | Space | Ctrl  | Enter |RShift | Ctrl  | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
@@ -1349,7 +1129,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * -------------------------------------------------               -------------------------------------------------
  * | Enter | Undo  |  Cut  | Copy  | Paste |  Del  |               |Macro 1|Macro 2|Macro 3|Macro 4|Macro 5|BSpace |
  * -----------------------------------------------------------------------------------------------------------------
- *    NEO            GAME    GREEK |  Alt  | Space | Ctrl  |Mouse 3|Mouse 1|Mouse 2| MATH   SYMBOL           MOUSE
+ *    NEO            GAME    GREEK |  Alt  | Space | Ctrl  |Mouse 3|Mouse 1|Mouse 2| MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
 	KEYMAP(
