@@ -59,6 +59,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define WS2812_SPI SPID2
 
 
+// EEPROM usage
+// TODO: refactor with new user EEPROM code (coming soon)
+#define EEPROM_MAGIC 0x451F
+#define EEPROM_MAGIC_ADDR 32
+// Bump this every time we change what we store
+// This will automatically reset the EEPROM with defaults
+// and avoid loading invalid data from the EEPROM
+#define EEPROM_VERSION 0x01
+#define EEPROM_VERSION_ADDR 34
+
+#define DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT 804
+
+
 
 /*
  * Feature disable options

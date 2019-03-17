@@ -75,7 +75,17 @@ void backlight_init_ports(void) {
   printf("backlight_init_ports()\n");
   palSetPadMode(GPIOA, 6, PAL_MODE_ALTERNATE(1));
   pwmStart(&PWMD3, &pwmCFG);
-  pwmEnableChannel(&PWMD3, 0, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF,cie_lightness(0xFFFF)));
+  // pwmEnableChannel(&PWMD3, 0, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF,cie_lightness(0xFFFF)));
+  if(kb_backlight_config.enable){
+    if(kb_backlight_config.breathing){
+      breathing_enable();
+    } else{
+      backlight_set(kb_backlight_config.level);
+    }
+  } else {
+    backlight_set(0);
+  }
+
 }
 
 void backlight_set(uint8_t level) {
