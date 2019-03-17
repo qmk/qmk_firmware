@@ -43,7 +43,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_LSFT , MT(MOD_LCTL, KC_Z), MT(MOD_LGUI, KC_X) ,KC_C ,KC_V , KC_B, KC_HOME, KC_END, KC_PGUP ,KC_PGDN ,KC_N    ,KC_M    ,KC_COMM ,KC_DOT  ,KC_BKSL , KC_RSFT ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
-     KC_GRV  ,KC_QUOT ,KC_LEFT ,KC_RGHT ,     KC_SPC  ,    KC_BSPC , KC_RCTL,        KC_RALT  ,KC_SPC  ,    KC_ENT  ,     KC_UP ,  KC_DOWN, KC_LBRC,KC_RBRC
+     KC_GRV  ,KC_QUOT ,KC_LEFT ,KC_RGHT ,     KC_SPC  ,    KC_SPC , KC_BSPC,         KC_RALT  ,KC_ENT  ,    KC_ENT  ,     KC_UP ,  KC_DOWN, KC_LBRC,KC_RBRC
   //└────────┴────────┴────────┴────────┘    └────────┘   └────────┴────────┘       └────────┴────────┘   └────────┘    └────────┴────────┴────────┴────────┘
   )
 };
