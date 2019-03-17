@@ -15,3 +15,22 @@
   {  K30,  K31,  K32,  K33,  K34,    K35,    K36,    K37,    K38,    K39,  K3A,  K3B,  KC_NO,  KC_NO, KC_NO  }, \
   {  K40,  K41,  K42,  KC_NO,  KC_NO,  K45,  KC_NO,  KC_NO,  KC_NO,  K49,  K4A,  K4B,  KC_NO,  KC_NO, K4E  }  \
 }
+
+
+typedef union {
+    uint8_t raw;
+    struct {
+        bool    enable :1;
+        bool    breathing : 1;
+        uint8_t level  :6;
+    };
+} backlight_config_t;
+
+// Backlighting
+extern backlight_config_t kb_backlight_config;
+extern bool kb_backlight_breathing;
+void backlight_init_ports(void);
+void backlight_set(uint8_t level);
+bool is_breathing(void);
+void breathing_enable(void);
+void breathing_disable(void);

@@ -36,8 +36,9 @@ ARMV = 6
 #
 
  SRC += ws2812.c \
- 		hsv2rgb.c
- 
+ 		hsv2rgb.c \
+     led.c
+
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys
 EXTRAKEY_ENABLE = yes	# Audio control and System control
@@ -46,8 +47,8 @@ COMMAND_ENABLE = yes    # Commands for debug and configuration
 SLEEP_LED_ENABLE = yes  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes	    # USB Nkey Rollover
 CUSTOM_MATRIX = no # Custom matrix file
-# BACKLIGHT_ENABLE = yes
- RGBLIGHT_ENABLE = yes
+# BACKLIGHT_ENABLE = yes # This is broken on 072 for some reason
+RGBLIGHT_ENABLE = yes
 
 # RAW_ENABLE = yes
 # DYNAMIC_KEYMAP_ENABLE = yes

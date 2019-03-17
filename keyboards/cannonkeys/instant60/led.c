@@ -67,18 +67,19 @@ static uint16_t cie_lightness(uint16_t v) {
 }
 
 
+uint8_t get_backlight_level(void){
+  return kb_backlight_config.level;
+}
+
 void backlight_init_ports(void) {
   printf("backlight_init_ports()\n");
-  #ifdef BACKLIGHT_ENABLE
   palSetPadMode(GPIOA, 6, PAL_MODE_ALTERNATE(1));
   pwmStart(&PWMD3, &pwmCFG);
   pwmEnableChannel(&PWMD3, 0, PWM_FRACTION_TO_WIDTH(&PWMD3, 0xFFFF,cie_lightness(0xFFFF)));
-  #endif
 }
 
 void backlight_set(uint8_t level) {
     printf("backlight_set(%d)\n", level);
-    #ifdef BACKLIGHT_ENABLE
     uint32_t duty = (uint32_t)(cie_lightness(0xFFFF * (uint32_t) level / BACKLIGHT_LEVELS));
     printf("duty: (%d)\n", duty);
     if (level == 0) {
@@ -90,7 +91,6 @@ void backlight_set(uint8_t level) {
         pwmEnableChannel(&PWMD3, 0, PWM_FRACTION_TO_WIDTH(&PWMD3,0xFFFF,duty));
       }
     }
-    #endif
 }
 
 
