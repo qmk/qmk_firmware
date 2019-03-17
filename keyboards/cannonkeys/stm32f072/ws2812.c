@@ -1,7 +1,6 @@
 #include "ch.h"
 #include "hal.h"
 
-#include "hsv2rgb.h"
 #include "ws2812.h"
 
 #define BYTES_FOR_LED_BYTE 4
@@ -107,18 +106,6 @@ static uint8_t get_protocol_eq(uint8_t data, int pos){
   return eq;
 }
 
-///*
-// * If you want to set a LED's color in the HSV color space, simply call this
-// * function with a hsv_color containing the desired color and the index of the
-// * led on the LED strip (starting from 0, the first one being the closest the
-// * first plugged to the board)
-// *
-// * Only set the color of the LEDs through the functions given by this API
-// * (unless you really know what you are doing)
-// */
-//void set_led_color_hsv(hsv_color color, int pos){
-//  set_led_color_rgb(hsv2rgb(color), pos);
-//}
 //
 ///*
 // * If you want to set a LED's color in the RGB color space, simply call this
@@ -137,22 +124,8 @@ void set_led_color_rgb(LED_TYPE color, int pos){
   for(int j = 0; j < 4; j++)
     txbuf[BYTES_FOR_LED*pos + BYTES_FOR_LED_BYTE*2+j] = get_protocol_eq(color.b, j);
 }
-//
-///*
-// * Same as the two above, but sets all the LEDs in the LED strip (HSV)
-// */
-//void set_leds_color_hsv(hsv_color color){
-//  for(int i = 0; i < NB_LEDS; i++)
-//    set_led_color_hsv(color, i);
-//}
-//
-///*
-// * Same as the two above, but sets all the LEDs in the LED strip (RGB)
-// */
-//void set_leds_color_rgb(rgb_color color){
-//  for(int i = 0; i < NB_LEDS; i++)
-//    set_led_color_rgb(color, i);
-//}
+
+
 void WS2812_init(void) {
  leds_init();
 }
@@ -165,23 +138,6 @@ void ws2812_setleds(LED_TYPE *ledarray, uint16_t number_of_leds) {
  }
 }
 
-/*
-* If you want to set a LED's color in the RGB color space, simply call this
-* function with a hsv_color containing the desired color and the index of the
-* led on the LED strip (starting from 0, the first one being the closest the
-* first plugged to the board)
-*
-* Only set the color of the LEDs through the functions given by this API
-* (unless you really know what you are doing)
-*/
-//void set_led_color_rgb(LED_TYPE color, int pos){
-// for(int j = 0; j < 4; j++)
-//   txbuf[PREAMBLE_SIZE + BYTES_FOR_LED*pos + j] = get_protocol_eq(color.g, j);
-// for(int j = 0; j < 4; j++)
-//   txbuf[PREAMBLE_SIZE + BYTES_FOR_LED*pos + BYTES_FOR_LED_BYTE+j] = get_protocol_eq(color.r, j);
-// for(int j = 0; j < 4; j++)
-//   txbuf[PREAMBLE_SIZE + BYTES_FOR_LED*pos + BYTES_FOR_LED_BYTE*2+j] = get_protocol_eq(color.b, j);
-//}
 
 void set_leds_color_rgb(LED_TYPE color){
  for(int i = 0; i < NB_LEDS; i++)
