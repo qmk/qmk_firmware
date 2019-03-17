@@ -61,9 +61,6 @@ void rhruiz_change_leds_to(uint16_t hue, uint8_t sat) {
   uint8_t right_led = RGBLED_NUM / 2 - 1;
 
   if (rgblight_get_mode() == false) {
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
-    rgblight_enable_noeeprom();
-    rgblight_mode_noeeprom(RGBLIGHT_MODE_STATIC_LIGHT);
     for (uint8_t i = RGBLED_NUM ; i-- > 0 ; ) {
       if (i ==  left_led || i == right_led) {
         continue;
@@ -75,7 +72,12 @@ void rhruiz_change_leds_to(uint16_t hue, uint8_t sat) {
 
   sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[left_led]);
   sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[right_led]);
-  rgblight_set();
+
+  #ifdef RGBW
+    ws2812_setleds_rgbw(led, RGBLED_NUM);
+  #else
+    ws2812_setleds(led, RGBLED_NUM);
+  #endif
 #endif
 }
 
