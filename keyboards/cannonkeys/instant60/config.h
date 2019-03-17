@@ -69,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define EEPROM_VERSION 0x01
 #define EEPROM_VERSION_ADDR 34
 
-#define DYNAMIC_KEYMAP_CUSTOM_BACKLIGHT 804
+#define EEPROM_CUSTOM_BACKLIGHT 804
 
 
 

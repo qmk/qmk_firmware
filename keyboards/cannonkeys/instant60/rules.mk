@@ -35,9 +35,10 @@ ARMV = 6
 #   comment out to disable the options.
 #
 
- SRC += ws2812.c \
- 		hsv2rgb.c \
-     led.c
+# project specific files
+VPATH += keyboards/cannonkeys/stm32f072
+SRC =	keyboard.c \
+      led.c
 
 #BOOTMAGIC_ENABLE = yes	# Virtual DIP switch configuration
 MOUSEKEY_ENABLE = yes	# Mouse keys

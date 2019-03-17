@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "hal.h"
 #include "led_custom.h"
-#include "instant60.h"
+#include "keyboard.h"
 #include "printf.h"
 
 static void breathing_callback(PWMDriver *pwmp);
