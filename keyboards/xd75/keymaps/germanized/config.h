@@ -18,8 +18,6 @@
 
 // place overrides here
 
-// place overrides here
-
 //Tap-Toggle
 #define TAPPING_TOGGLE 3
 
@@ -117,4 +115,3 @@
 
 // Launchy
 #define ALT_SPC LALT(KC_SPC)
-#endif
