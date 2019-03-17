@@ -121,6 +121,9 @@ enum RGBLIGHT_EFFECT_MODE {
 #ifndef RGBLIGHT_VAL_STEP
 #define RGBLIGHT_VAL_STEP 17
 #endif
+#ifndef RGBLIGHT_LIMIT_VAL
+#define RGBLIGHT_LIMIT_VAL 255
+#endif
 
 #define RGBLED_TIMER_TOP F_CPU/(256*64)
 // #define RGBLED_TIMER_TOP 0xFF10
@@ -146,6 +149,7 @@ extern const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_SNAKE_INTERVALS[3] PROGMEM;
 extern const uint8_t RGBLED_KNIGHT_INTERVALS[3] PROGMEM;
 extern const uint16_t RGBLED_RGBTEST_INTERVALS[1] PROGMEM;
+extern bool is_rgblight_initialized;
 
 typedef union {
   uint32_t raw;
@@ -170,6 +174,7 @@ void rgblight_step_reverse(void);
 uint8_t rgblight_get_mode(void);
 void rgblight_mode(uint8_t mode);
 void rgblight_set(void);
+uint32_t rgblight_read_dword(void);
 void rgblight_update_dword(uint32_t dword);
 void rgblight_increase_hue(void);
 void rgblight_decrease_hue(void);
@@ -186,6 +191,12 @@ uint8_t rgblight_get_val(void);
 void rgblight_setrgb(uint8_t r, uint8_t g, uint8_t b);
 void rgblight_setrgb_at(uint8_t r, uint8_t g, uint8_t b, uint8_t index);
 void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index);
+void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8_t end);
+void rgblight_sethsv_range(uint16_t hue, uint8_t sat, uint8_t val, uint8_t start, uint8_t end);
+void rgblight_setrgb_master(uint8_t r, uint8_t g, uint8_t b);
+void rgblight_setrgb_slave(uint8_t r, uint8_t g, uint8_t b);
+void rgblight_sethsv_master(uint16_t hue, uint8_t sat, uint8_t val);
+void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val);
 
 uint32_t eeconfig_read_rgblight(void);
 void eeconfig_update_rgblight(uint32_t val);

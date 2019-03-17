@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { A13, A10, A9, A14, A15, B8, B9, C13, C14, C15, A0, A1, A2, A3 }
 // To enable debugger set A13 A14 -> A5 A6
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
@@ -130,10 +130,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // Backlight config starts after EEPROM version
 #define RGB_BACKLIGHT_CONFIG_EEPROM_ADDR 35
-// Dynamic keymap starts after backlight config (35+31)
-#define DYNAMIC_KEYMAP_EEPROM_ADDR 66
+// Dynamic keymap starts after backlight config (35+32)
+#define DYNAMIC_KEYMAP_EEPROM_ADDR 67
 #define DYNAMIC_KEYMAP_LAYER_COUNT 4
-// Dynamic macro starts after dynamic keymaps (66+(4*5*14*2)) = (66+560)
-#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 626
+// Dynamic macro starts after dynamic keymaps (67+(4*5*14*2)) = (67+560)
+#define DYNAMIC_KEYMAP_MACRO_EEPROM_ADDR 627
 #define DYNAMIC_KEYMAP_MACRO_EEPROM_SIZE 398
 #define DYNAMIC_KEYMAP_MACRO_COUNT 16

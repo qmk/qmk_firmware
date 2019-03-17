@@ -179,10 +179,14 @@ void eeprom_write_dword (uint32_t *Address, uint32_t Value)
 void eeprom_update_dword (uint32_t *Address, uint32_t Value)
 {
     uint16_t p = (const uint32_t) Address;
-    EEPROM_WriteDataByte(p, (uint8_t) Value);
-    EEPROM_WriteDataByte(p+1, (uint8_t) (Value >> 8));
-    EEPROM_WriteDataByte(p+2, (uint8_t) (Value >> 16));
-    EEPROM_WriteDataByte(p+3, (uint8_t) (Value >> 24));
+    uint32_t existingValue = EEPROM_ReadDataByte(p) | (EEPROM_ReadDataByte(p+1) << 8)
+        | (EEPROM_ReadDataByte(p+2) << 16) | (EEPROM_ReadDataByte(p+3) << 24);
+    if(Value != existingValue){
+      EEPROM_WriteDataByte(p, (uint8_t) Value);
+      EEPROM_WriteDataByte(p+1, (uint8_t) (Value >> 8));
+      EEPROM_WriteDataByte(p+2, (uint8_t) (Value >> 16));
+      EEPROM_WriteDataByte(p+3, (uint8_t) (Value >> 24));
+    }
 }
 
 void eeprom_read_block(void *buf, const void *addr, uint32_t len) {

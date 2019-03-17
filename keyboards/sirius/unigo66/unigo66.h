@@ -1,5 +1,22 @@
-#ifndef UNIGO66_H
-#define UNIGO66_H
+/*
+Copyright 2017 Balz Guenat <balz.guenat@gmail.com>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 2 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+#ifndef USB_USB_H
+#define USB_USB_H
 
 #include "quantum.h"
 
@@ -19,9 +36,31 @@
  * |-----------------------------------------------------------| ,-----------. |---------------| |-------|
  * |Ctl|Gui|Alt|MHEN|HNJ| Space  |H/E|HENK|KANA|Alt|Gui|App|Ctl| |Lef|Dow|Rig| |  0    |  .|Ent| |Fnd|Cut|
  * `-----------------------------------------------------------' `-----------' `---------------' `-------'
-
+ *
+ *
+ * App:         Windows Menu key
+ * Gui:         Windows key, Mac ⌘ key or Meta key
+ *
+ * Pwr:         Power for Unix and Mac
+ * VDn,Vup,Mut: Volume control for Unix and Mac
+ * Stp,Agn..:   for Unix
+ *
+ * KP,:         Brazilian Keypad Comma
+ * KP=:         Keypad = for Mac
+ * <,#:         ISO keys(UK legend)
+ * JPY:         Japanese Yen(￥)
+ * RO:          Japanese ろ or Brazilian /
+ * MHEN:        Japanese 無変換 Non Conversion
+ * HENK:        Japanese 変換 Conversion
+ * KANA:        Japanese かな Hiragana/Katakana
+ *              https://en.wikipedia.org/wiki/Keyboard_layout#Japanese
+ * H/E:         Korean 한/영 Hangul/English
+ * HNJ:         Korean 한자 Hanja
+ *              https://en.wikipedia.org/wiki/Keyboard_layout#Hangul_.28for_Korean.29
+ *
+ * TODO: use same keycode to pass through instead of KC_NO?
  */
-#define LAYOUT_ALL( \
+#define LAYOUT_all( \
             K68,K69,K6A,K6B,K6C,K6D,K6E,K6F,K70,K71,K72,K73,                                              \
     K29,    K3A,K3B,K3C,K3D,K3E,K3F,K40,K41,K42,K43,K44,K45,      K46,K47,K48,  K81,K80,K7F,K66, K75,     \
     K35,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,K89,K2A,  K49,K4A,K4B,  K53,K54,K55,K56, K78,K79, \
@@ -64,25 +103,6 @@
       KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO  }, /* F8-FF */ \
 }
 
-/*
- *
- * ,--------------------------------------------------.           ,--------------------------------------------------.
- * | ESC    |   1  |   2  |   3  |   4  |   5  |  -   |           |  =   |   6  |   7  |   8  |   9  |   0  |  Bsp   |
- * |--------+------+------+------+------+-------------|           |------+------+------+------+------+------+--------|
- * | Tab    |   Q  |   W  |   E  |   R  |   T  |  L1  |           |  [   |   Y  |   U  |   I  |   O  |   P  |   \    |
- * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
- * | Caps   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |   ;  |   '    |
- * |--------+------+------+------+------+------|  L2  |           |  ]   |------+------+------+------+------+--------|
- * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |  /   |  Up    |
- * `--------+------+------+---------------------------'           `---------------------------+------+------+--------'
- *   | Ctrl | Super|  Alt |                                                                   | Left |  Down| Right |
- *   `--------------------'                                                                   `--------------------'
- *                                        ,------|------.       ,---------------.
- *                                        |      | PgUp |       | Home |        |
- *                                        | Space|------|       |------|  Enter |
- *                                        |      | PgDn |       | End  |        |
- *                                        `-------------'       `---------------'
- */
 #define LAYOUT( \
   K29,K1E,K1F,K20,K21,K22,K2D,    K2E,K23,K24,K25,K26,K27,K2A,\
   K2B,K14,K1A,K08,K15,K17,K4B,    K2F,K1C,K18,K0C,K12,K13,K31,\
@@ -91,13 +111,31 @@
   KE0,KE3,KE2,                                    K50,K51,K4F,\
                       K2C,K49,    K4A,K28,        \
                       KE6,K4C,    K4D,KE4         \
-) LAYOUT_ALL( \
+) LAYOUT_all( \
             KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,                                              \
-    K29,    KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,      KC_NO,KC_NO,KC_NO,  KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,\
+    K29,    KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,      KC_NO,KC_NO,KC_NO,  KC_NO,KC_NO,KC_NO,KC_NO, KC_NO,     \
     KC_NO,K1E,K1F,K20,K21,K22,K23,K24,K25,K26,K27,K2D,K2E,KC_NO,K2A,  K49,K4A,K4B,  KC_NO,KC_NO,KC_NO,KC_NO, KC_NO,KC_NO, \
     K2B,K14,K1A,K08,K15,K17,K1C,K18,K0C,K12,K13,K2F,K30,    K31,  K4C,K4D,K4E,  KC_NO,KC_NO,KC_NO,KC_NO, KC_NO,KC_NO, \
     K39,K04,K16,K07,K09,K0A,K0B,K0D,K0E,K0F,K33,K34,    KC_NO,K28,                KC_NO,KC_NO,KC_NO,KC_NO, KC_NO,KC_NO, \
     KE1,KC_NO,K1D,K1B,K06,K19,K05,K11,K10,K36,K37,KC_NO,    KC_NO,KE5,      K52,      KC_NO,KC_NO,KC_NO,KC_NO, KC_NO,KC_NO, \
     KE0,KE3,KE2,KC_NO,KC_NO,    K2C,    KC_NO,KC_NO,KC_NO,KE6,KC_NO,KC_NO,KE4,  K50,K51,K4F,  KC_NO,      KC_NO,KC_NO, KC_NO,KC_NO  \
+)
+
+#define LAYOUT_beta_pcb( \
+  K1E, K1F, K30, K2F, K45, K3B, KE6,          KE2, K3A, K39, K14, K04, K09, K07, \
+  K29, K15, K3C, K3D, K3E, K3F, K58,          K50, K2C, K11, K05, K55, K10, K06, \
+  K31, K5F, K5E, K61, K2A, K38,                    K4C, K57, K53, K5B, K5A, K08, \
+  K35, K5D, K17, K1B, K1A, K52, K56,          K51, K4D, K23, K1C, K13, K2E, K0C, \
+  K5C, K0A, K0F,                                                  K36, K0E, K37, \
+                           KE4, K49,          K4B, KE0,                          \
+                                KE5,          KE1\
+) LAYOUT_all( \
+            KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,                          \
+    K29,    K3A,K3B,K3C,K3D,K3E,K3F,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,K45,                 KC_NO,KC_NO,KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO,  KC_NO, \
+    K35,K1E,K1F,KC_NO,KC_NO,KC_NO,K23,KC_NO,KC_NO,KC_NO,KC_NO,KC_NO,K2E,KC_NO, K2A,    K49,KC_NO,K4B,  K53,KC_NO,K55,K56,     KC_NO, KC_NO,  \
+    KC_NO,K14,K1A,K08,K15,K17,K1C,KC_NO,K0C,KC_NO,K13,K2F,K30,       K31,              K4C,K4D,KC_NO,  K5F,KC_NO,K61,K57,     KC_NO, KC_NO,  \
+    K39,K04,KC_NO,K07,K09,K0A,KC_NO,KC_NO,K0E,K0F,KC_NO,KC_NO,    KC_NO,    KC_NO,                     K5C,K5D,K5E,KC_NO,     KC_NO, KC_NO,  \
+    KE1,KC_NO, KC_NO,K1B,K06,KC_NO,K05,K11,K10,K36,K37,K38, KC_NO, KE5,                   K52,         KC_NO,K5A,K5B,KC_NO,   KC_NO, KC_NO,  \
+    KE0,KC_NO,KE2,KC_NO,KC_NO,K2C,KC_NO,KC_NO,KC_NO,KE6,KC_NO,KC_NO, KE4,             K50,K51,KC_NO,   KC_NO,    KC_NO,K58,   KC_NO, KC_NO   \
 )
 #endif
