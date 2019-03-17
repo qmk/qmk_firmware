@@ -118,7 +118,11 @@ uc_dict = SortedDict({
     "sigma2": "0x03c2",
     "sigma3": "0x03f2",
     "phi2": "0x03d5",
+<<<<<<< HEAD
     # non-standard
+=======
+    # non-classical
+>>>>>>> 5a1e11069089ce673afc9150a1d813065f11689c
     "digamma": "0x03dd",
     "stigma": "0x03db",
     "heta": "0x0371",
@@ -162,6 +166,7 @@ uc_dict = SortedDict({
     "SAMPI": "0x0372",
     "SCHO": "0x03f7",
     ## symbol
+<<<<<<< HEAD
     "SHOGI_WD": "0x26c9",
     "FLAG_W": "0x2690",
     "LETTER": "0x2709",
@@ -348,6 +353,14 @@ uc_dict = SortedDict({
     "NOT_PARA": "0x2226",
     "TIMES_OP": "0x2297",
     "NOT_DIV": "0x2224"
+=======
+    "CLUBS": "0x2663",
+    "DIAMS": "0x2666",
+    "HEARTS": "0x2665",
+    "SPADES": "0x2660",
+    "YES": "0x2713",
+    "NO": "0x2717"
+>>>>>>> 5a1e11069089ce673afc9150a1d813065f11689c
 })
 
 # Add all used Keycodes to this list.
@@ -495,29 +508,49 @@ NAV_TYPO = [["Esc", "SQT1", "SQT2", "SQT3", "SQT4", "SQT5",                  "In
 
 # 8
 lang = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Del"],
+<<<<<<< HEAD
         ["Compose", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "ue", "XXX", "oe", "XXX", "Enter"],
         ["L1",  "ae", "sz", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "L1"],
         ["T8", "XXX", "XXX", "XXX", "XXX", "XXX",                  "n_tilde", "XXX", "XXX", "XXX", "XXX", "BSpace"],
+=======
+        ["Compose", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Enter"],
+        ["L1",  "ue", "oe", "ae", "XXX", "XXX",                  "sz", "n_tilde", "XXX", "XXX", "XXX", "L1"],
+        ["T8", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "BSpace"],
+>>>>>>> 5a1e11069089ce673afc9150a1d813065f11689c
                                ["XXX", "XXX", "Ctrl",   "Alt", "Space", "L8"]]
 
 # 9
 LANG = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Del"],
+<<<<<<< HEAD
         ["Compose", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "UE", "XXX", "OE", "XXX", "Enter"],
         ["L1",  "AE", "SZ", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "L1"],
         ["T9", "XXX", "XXX", "XXX", "XXX", "XXX",                  "N_TILDE", "XXX", "XXX", "XXX", "XXX", "BSpace"],
+=======
+        ["Compose", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Enter"],
+        ["L1",  "UE", "OE", "AE", "XXX", "XXX",                  "SZ", "N_TILDE", "XXX", "XXX", "XXX", "L1"],
+        ["T9", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "BSpace"],
+>>>>>>> 5a1e11069089ce673afc9150a1d813065f11689c
                                ["XXX", "XXX", "Ctrl",   "Alt", "Space", "L8"]]
 
 # 10
 neo_lang = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Del"],
         ["Compose", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Enter"],
+<<<<<<< HEAD
         ["L1",  "ue", "XXX", "ae", "XXX", "oe",                  "sz", "n_tilde", "XXX", "XXX", "XXX", "L1"],
+=======
+        ["L1",  "ue", "oe", "ae", "XXX", "XXX",                  "sz", "n_tilde", "XXX", "XXX", "XXX", "L1"],
+>>>>>>> 5a1e11069089ce673afc9150a1d813065f11689c
         ["T8", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "BSpace"],
                                ["XXX", "XXX", "Ctrl",   "Alt", "Space", "L8"]]
 
 # 11
 NEO_LANG = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Del"],
         ["Compose", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Enter"],
+<<<<<<< HEAD
         ["L1",  "UE", "XXX", "AE", "XXX", "OE",                  "SZ", "N_TILDE", "XXX", "XXX", "XXX", "L1"],
+=======
+        ["L1",  "UE", "OE", "AE", "XXX", "XXX",                  "SZ", "N_TILDE", "XXX", "XXX", "XXX", "L1"],
+>>>>>>> 5a1e11069089ce673afc9150a1d813065f11689c
         ["T9", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "BSpace"],
                                ["XXX", "XXX", "Ctrl",   "Alt", "Space", "L8"]]
 
@@ -550,6 +583,7 @@ NEO_GREEK = [["Esc", "XXX", "DIGAMMA", "STIGMA", "HETA", "SAN",                 
                                ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
 
 # 16
+<<<<<<< HEAD
 symbol = [["Esc", "SHOGI_WD", "FLAG_W", "LETTER", "PHONE", "INFO",                  "REWIND", "PLAY", "FORWARD", "STOP", "EJECT", "Del"],
         ["Tab", "SHOGI_W", "FEMALE", "MALE", "NO", "YES",                           "FLAT", "NATURAL", "SHARP", "COMMON_T", "ALLA_BR", "Enter"],
         ["L1",  "PAWN_W", "DIAMS_W", "HEARTS_W", "SPADES_W", "CLUBS_W",                  "WHOLE_N", "HALF_N", "QUART_N", "EIGHTH_N", "SIXT_N", "L1"],
@@ -561,12 +595,29 @@ SYMBOL = [["Esc", "SHOGI_BD", "FLAG_B", "XXX", "XXX", "XXX",                  "S
         ["Tab", "SHOGI_B", "KEY", "LOCK", "LOCK_OPEN", "XXX",                  "STAFF", "BARLINE", "BARLINE_D", "BARLINE_FIN", "CODA", "Enter"],
         ["L1",  "PAWN_B", "DIAMS_B", "HEARTS_B", "SPADES_B", "CLUBS_B",                  "WHOLE_P", "HALF_P", "QUART_P", "EIGHTH_P", "SIXT_P", "L1"],
         ["Gui", "ROOK_B", "KNIGHT_B", "BISHOP_B", "QUEEN_B", "KING_B",                  "REPEAT_S", "REPEAT_E", "SEGNO", "DALSEGNO", "DACAPO", "BSpace"],
+=======
+symbol = [["Esc", "l", "m", "n", "o", "j",                  "YES", "NO", "w", "x", "y", "Del"],
+        ["Tab", "XXX", "g", "h", "i", "j",                  "0", "1", "2", "3", "4", "Enter"],
+        ["L1",  "PAWN_W", "CLUBS_B", "DIAMS_B", "HEARTS_B", "SPADES_B",                  "5", "6", "7", "8", "9", "L1"],
+        ["Gui", "ROOK_W", "KNIGHT_W", "BISHOP_W", "QUEEN_W", "KING_W",                  "a", "b", "c", "d", "e", "BSpace"],
+                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
+
+# 17
+SYMBOL = [["Esc", "INV_EXCL", "b", "INV_QST", "b", "j",                  "u", "v", "w", "x", "y", "Del"],
+        ["Tab", "a", "A", "0", "i", "j",                  "0", "1", "2", "3", "4", "Enter"],
+        ["L1",  "PAWN_B", "CLUBS_W", "DIAMS_W", "HEARTS_W", "SPADES_W",                  "5", "6", "7", "8", "9", "L1"],
+        ["Gui", "ROOK_B", "KNIGHT_B", "BISHOP_B", "QUEEN_B", "KING_B",                  "a", "b", "c", "d", "e", "BSpace"],
+>>>>>>> 5a1e11069089ce673afc9150a1d813065f11689c
                                ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
 
 # 18
 math = [["Esc", "EXISTS", "FORALL", "EQUIV", "CORRESP", "INEQUAL",                  "DEFINE", "TO", "MAPSTO", "SETMINUS", "QED", "Del"],
         ["Tab", "OR_", "AND_", "OR", "AND", "NOT",                  "BICOND", "IMPL_REV", "IMPL", "TOP", "BOTTOM", "Enter"],
+<<<<<<< HEAD
         ["L1",  "SUM_", "PROD_", "+", "MDOT", "NOTIN",                  "IN", "LS_EQ", "GR_EQ", "INFTY", "epsilon", "L1"],
+=======
+        ["L1",  "SUM_", "PROD_", "+", "MDOT", "NOTIN",                  "IN", "LS_EQ", "GR_EQ", "INFINITY", "epsilon", "L1"],
+>>>>>>> 5a1e11069089ce673afc9150a1d813065f11689c
         ["Gui", "UNION_", "INTERS_", "UNION", "INTERS", "NOTSUBS",                  "PR_SUBSET", "SUBSET", "SUBSET_REV", "OMEGA", "EMPTYSET", "BSpace"],
                                ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
 
@@ -582,6 +633,7 @@ NEO_MATHSCRIPT = [["Esc", "LEFT_CEIL", "DELTA", "REAL_P", "NABLA", "RIGHT_CEIL",
         ["Tab", "a", "A", "0", "i", "j",                  "0", "1", "2", "3", "4", "Enter"],
         ["L1",  "k", "KC_PSCR", "m", "n", "o",                  "5", "6", "7", "8", "9", "L1"],
         ["Gui", "ALEPH", "BETH", "r", "s", "t",                  "a", "INDICATOR", "FOURIER", "HAMILTON", "LAPLACE", "BSpace"],
+<<<<<<< HEAD
                                ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
 
 # 21
@@ -598,6 +650,24 @@ MATHEXT = [["Esc", "RIGHT_TACK", "MODELS", "AB_VEC", "AB_LINE", "AB_ARC",       
         ["Gui", "LEFT_OUTER", "RIGHT_OUTER", "FULL_OUTER", "SQ_LS", "SQ_LS_EQ",                  "PROP_TO", "PARALLEL", "NOT_PARA", "TIMES_OP", "NOT_DIV", "BSpace"],
                                ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
 
+=======
+                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
+
+# 21
+mathnum = [["Esc", "SUP1", "SUP2", "SUP3", "SUP_MIN", "ROOT",                  "[", "(", "%", ")", "]", "Del"],
+        ["Tab", "CURRENCY", ":", "DEGREE", "MINUTE", "SECOND",                  "*", "7", "8", "9", "/", "Enter"],
+        ["L1",  "CENT", "YEN", "POUND", "EURO", "$",                  "+", "4", "5", "6", "-", "L1"],
+        ["T4", "DIVISION", "MICRO", "OHM", "BITCOIN", "SECTION",                  "^", "1", "2", "3", "\"", "BSpace"],
+                               ["XXX", "L4", "Ctrl",   ".", "0", ","]]
+
+# 22
+MATHEXT = [["Esc", "RIGHT_TACK", "MODELS", "AB_VEC", "AB_LINE", "AB_ARC",                  "LESS_LESS", "PRED", "EMBED", "SUCC", "GREAT_GREAT", "Del"],
+        ["Tab", "XXX", "XXX", "TRIANGLE", "SQUARE", "CIRCLE",                  "DOT_OP", "PLUS_OP", "MINUS_OP", "ROUGHLY", "ISOMORPH", "Enter"],
+        ["L1",  "LTIMES", "RTIMES", "BOWTIE", "M_ANGLE", "ANGLE",                  "CIRC_MID", "AST_MID", "TIMES", "PLUS_MINUS", "MINUS_PLUS", "L1"],
+        ["Gui", "LEFT_OUTER", "RIGHT_OUTER", "FULL_OUTER", "SQ_LS", "SQ_LS_EQ",                  "PROP_TO", "PARALLEL", "NOT_PARA", "TIMES_OP", "NOT_DIV", "BSpace"],
+                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
+
+>>>>>>> 5a1e11069089ce673afc9150a1d813065f11689c
 # 23
 game = [["Esc", "1", "2", "3", "4", "5",                  "6", "7", "8", "9", "0", "Del"],
         ["Tab", "q", "w", "e", "r", "t",                  "y", "u", "i", "o", "p", "Enter"],
