@@ -121,7 +121,7 @@ void check_state (void) {
 
   case sleeping:
     if (!slept) {
-      rgblight_mode_noeeprom(2);
+      rgblight_mode_noeeprom(5);
       slept = true;
       activated = false;
       deactivated = false;
@@ -359,6 +359,22 @@ void dance_cbrck (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
+void dance_game (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 3) {
+    uint8_t layer = biton32(layer_state);
+    if (layer == _QWERTY) {
+        layer_off(_QWERTY);
+        layer_on(_GAMING);
+        // swirling rgb
+        rgblight_mode_noeeprom(12);
+    } else {
+        layer_off(_GAMING);
+        layer_on(_QWERTY);
+        rgblight_mode_noeeprom(1);
+    }
+  }
+}
+
 void matrix_init_user(void) {
   current_os = eeprom_read_byte(EECONFIG_USERSPACE);
   set_os(current_os, false);
@@ -442,7 +458,7 @@ void matrix_scan_user(void) {
     // end format functions
 
     // start fancy functions
-    SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
+    SEQ_THREE_KEYS(KC_C, KC_C, KC_ENT) {
       surround_type(6, KC_GRAVE, false);
       pri_mod(true);
       tap_code(KC_V);
@@ -491,6 +507,7 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
   if (aesthetic) {
     switch (keycode) {
     case KC_A ... KC_0:
@@ -564,29 +581,27 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if(record->event.pressed){
       if (aesthetic) {
         aesthetic = false;
-        num_extra_flashes_off = 1;
+        rgblight_mode_noeeprom(1);
       } else {
         aesthetic = true;
+        // snake mode
+        rgblight_mode_noeeprom(20);
       }
-      flash_color           = underglow;
-      flash_state           = flash_off;
       return false;
     }
-
 
   case M_SFT:
     if(record->event.pressed){
       if (shifty) {
         shifty = false;
-        num_extra_flashes_off = 1;
+        rgblight_mode_noeeprom(1);
       } else {
         shifty = true;
+        // knight mode
+        rgblight_mode_noeeprom(23);
       }
-      flash_color = underglow;
-      flash_state = flash_off;
       return false;
     }
-
 
   default:
     if (record->event.pressed) {
@@ -605,4 +620,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_FN (dance_obrck),
   [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_FN (dance_cbrck),
   [TD_LALT_RALT]      = ACTION_TAP_DANCE_DOUBLE (KC_LALT, KC_RALT),
+  [TD_GAME]        = ACTION_TAP_DANCE_FN (dance_game),
 };
