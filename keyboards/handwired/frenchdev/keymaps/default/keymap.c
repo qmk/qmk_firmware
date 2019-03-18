@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "mousekey.h"
 #include "keymap_bepo.h"
 
 
@@ -394,5 +393,3 @@ void led_set_user(uint8_t usb_led) {
   }
   return ;
 }
-
-
