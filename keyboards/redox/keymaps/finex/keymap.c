@@ -3,19 +3,21 @@
 extern keymap_config_t keymap_config;
 
 // Layer names
-// - Base layers:
-#define _COLEMAKDHMK 0
-#define _COLEMAKDHMK_MAC 1
-#define _QWERTY 2
-#define _QWERTY_MAC 3
-// - Symbols, numbers, functions and custom shifts:
-#define _SYMB 4
-#define _NUMB 5
-#define _FUNC 6
-#define _RHSH 7 // Righ hand shifted keycodes
-#define _LHSH 8 // Left hand shifted keycodes
-// - Adjust layer:
-#define _ADJUST 9
+enum{
+  // - Base layers:
+  _COLEMAKDHMK,
+  _COLEMAKDHMK_MAC,
+  _QWERTY,
+  _QWERTY_MAC,
+  // - Symbols, numbers, functions and custom shifts:
+  _SYMB,
+  _NUMB,
+  _FUNC,
+  _RHSH, // Righ hand shifted keycodes
+  _LHSH, // Left hand shifted keycodes
+  // - Adjust layer:
+  _ADJUST
+};
 
 // Custom keycodes
 enum custom_keycodes {
