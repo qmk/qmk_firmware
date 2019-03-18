@@ -12,7 +12,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC,
     KC_TAB,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, QUOTE,
     KC_LSFT, KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, KC_ENT,
-    M_PMOD,  LRALT,   M_SMOD,  LOWER,   RAISE,        KC_SPC,      MEDIA,   FUNCT,   XXXXXXX, XXXXXXX, KC_LEAD),
+    M_PMOD,  LRALT,   M_SMOD,  LOWER,   RAISE,        KC_SPC,      MEDIA,   FUNCT,   XXXXXXX, GAME   , KC_LEAD),
 
   [_RAISE] = LAYOUT_2u_space_ortho(
     GRAVE,   _______, _______, _______, _______, _______, _______, KC_7,    KC_8,    KC_9,    _______, _______,
@@ -24,7 +24,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     _______, _______, _______, _______, _______, _______, _______, _______, KC_UP,   _______, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, KC_LEFT, KC_DOWN, KC_RGHT, _______, _______,
     _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-    _______, LRALT,   _______, _______, _______,      _______,     _______, _______, _______, _______, GAME   ),
+    _______, LRALT,   _______, _______, _______,      _______,     _______, _______, _______, _______, _______),
 
   [_MEDIA] = LAYOUT_2u_space_ortho(
     _______, _______, _______, _______, _______, _______, _______, _______, KC_VOLU, _______, _______, KC_MUTE,
@@ -48,6 +48,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESC,  KC_F13,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_TAB,  KC_F14,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
     KC_LSFT, KC_F15,  KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-    KC_LCTL, KC_F16,  KC_Z,    KC_X,    KC_C,         KC_SPC,      XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, GAME   ),
+    KC_LCTL, KC_F16,  KC_Z,    KC_X,    KC_C,         KC_SPC,      XXXXXXX, XXXXXXX, XXXXXXX, GAME,    XXXXXXX),
 
 };
