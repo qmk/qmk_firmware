@@ -16,7 +16,7 @@
 #define SP_MORE LSFT(KC_DOT)         // +
 #define SP_PSCR KC_PSCREEN           // print screen
 #define SP_SPSH MT(MOD_LSFT, KC_SPC) // space or left shift when held
-#define SP_TBCT MT(KC_LCTL, KC_TAB)  // tab or left ctrl when held
+#define SP_TBCT MT(MOD_LCTL, KC_TAB)  // tab or left ctrl when held
 
 extern keymap_config_t keymap_config;
 
