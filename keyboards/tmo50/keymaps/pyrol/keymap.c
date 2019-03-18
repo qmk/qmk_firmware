@@ -15,8 +15,8 @@
  */
 #include QMK_KEYBOARD_H
 
-#define CALTDEL LCTL(LALT(KC_DEL))
-#define TSKMGR LCTL(LSFT(KC_ESC))
+#define CALTDEL LCA(KC_DEL)
+#define TSKMGR C(S(KC_ESC))
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // Default layer
