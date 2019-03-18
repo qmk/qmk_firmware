@@ -9,6 +9,9 @@
 #define SP_NUMB MO(_NUM)
 #define SP_SYMB MO(_SYMB)
 // shortcuts
+#define SP_COPY LCTL(KC_C)           // copy
+#define SP_PSTE LCTL(KC_V)           // paste
+#define SP__CUT LCTL(KC_X)           // cut
 #define SP_LESS LSFT(KC_COMMA)       // -
 #define SP_MORE LSFT(KC_DOT)         // +
 #define SP_PSCR KC_PSCREEN           // print screen
@@ -41,14 +44,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    * │ num │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │  /  │media│
    * ├─────┼─────┼─────┼─────┼─────┴─────┼─────┴─────┼─────┼─────┼─────┼─────┤
-   * │ctrl │ os  │ --- │ alt │  symbols  │space/shift│ alt │ --- │ --- │ --- │
+   * │ctrl │ os  │ --- │ alt │  symbols  │space/shift│ alt │copy │ cut │paste│
    * └─────┴─────┴─────┴─────┴───────────┴───────────┴─────┴─────┴─────┴─────┘
    */
   [_QWERTY] = {
-    {KC_ESC,  KC_Q,    KC_W,   KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,    KC_BSPC},
-    {SP_TBCT, KC_A,    KC_S,   KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_ENT},
-    {SP_NUMB, KC_Z,    KC_X,   KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, SP_MEDI},
-    {KC_LCTL, KC_LGUI, KC_SPC, KC_LALT, SP_SYMB, SP_SYMB, SP_SPSH, SP_SPSH, KC_RALT, KC_SPC, KC_SPC,  KC_SPC}
+    {KC_ESC,  KC_Q,    KC_W,   KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
+    {SP_TBCT, KC_A,    KC_S,   KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT},
+    {SP_NUMB, KC_Z,    KC_X,   KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH, SP_MEDI},
+    {KC_LCTL, KC_LGUI, KC_SPC, KC_LALT, SP_SYMB, SP_SYMB, SP_SPSH, SP_SPSH, KC_RALT, SP_COPY, SP__CUT, SP_PSTE}
   },
 
   /* custom
@@ -59,14 +62,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    * │ num │  W  │  Y  │  G  │  ,  │  Z  │  X  │  .  │  F  │  H  │  /  │media│
    * ├─────┼─────┼─────┼─────┼─────┴─────┼─────┴─────┼─────┼─────┼─────┼─────┤
-   * │ctrl │ os  │ --- │ alt │  symbols  │space/shift│ alt │ --- │ --- │ --- │
+   * │ctrl │ os  │ --- │ alt │  symbols  │space/shift│ alt │copy │ cut │paste│
    * └─────┴─────┴─────┴─────┴───────────┴───────────┴─────┴─────┴─────┴─────┘
    */
   [_CUSTOM] = {
-    {KC_ESC,  KC_B,    KC_M,   KC_P,    KC_Q,    KC_SCLN, KC_K,    KC_V,    KC_C,    KC_D,   KC_J,    KC_BSPC},
-    {SP_TBCT, KC_A,    KC_U,   KC_I,    KC_E,    KC_O,    KC_L,    KC_T,    KC_S,    KC_R,   KC_N,    KC_ENT},
-    {SP_NUMB, KC_W,    KC_Y,   KC_G,    KC_COMM, KC_Z,    KC_X,    KC_DOT,  KC_F,    KC_H,   KC_SLSH, SP_MEDI},
-    {KC_LCTL, KC_LGUI, KC_SPC, KC_LALT, SP_SYMB, SP_SYMB, SP_SPSH, SP_SPSH, KC_RALT, KC_SPC, KC_SPC,  KC_SPC}
+    {KC_ESC,  KC_B,    KC_M,   KC_P,    KC_Q,    KC_SCLN, KC_K,    KC_V,    KC_C,    KC_D,    KC_J,    KC_BSPC},
+    {SP_TBCT, KC_A,    KC_U,   KC_I,    KC_E,    KC_O,    KC_L,    KC_T,    KC_S,    KC_R,    KC_N,    KC_ENT},
+    {SP_NUMB, KC_W,    KC_Y,   KC_G,    KC_COMM, KC_Z,    KC_X,    KC_DOT,  KC_F,    KC_H,    KC_SLSH, SP_MEDI},
+    {KC_LCTL, KC_LGUI, KC_SPC, KC_LALT, SP_SYMB, SP_SYMB, SP_SPSH, SP_SPSH, KC_RALT, SP_COPY, SP__CUT, SP_PSTE}
   },
 
   /* gaming
