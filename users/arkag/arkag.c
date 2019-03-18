@@ -598,7 +598,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode_noeeprom(1);
       } else {
         shifty = true;
-        aestethic = false;
+        aesthetic = false;
         // knight mode
         rgblight_mode_noeeprom(23);
       }
