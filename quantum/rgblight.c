@@ -225,11 +225,14 @@ void rgblight_init(void) {
 
 }
 
+uint32_t rgblight_read_dword(void) {
+  return rgblight_config.raw;
+}
+
 void rgblight_update_dword(uint32_t dword) {
   rgblight_config.raw = dword;
-  eeconfig_update_rgblight(rgblight_config.raw);
   if (rgblight_config.enable)
-    rgblight_mode(rgblight_config.mode);
+    rgblight_mode_noeeprom(rgblight_config.mode);
   else {
 #ifdef RGBLIGHT_USE_TIMER
       rgblight_timer_disable();
