@@ -92,7 +92,8 @@
   * [Understanding QMK](understanding_qmk.md)
 
 * Other Topics
-  * [Using Eclipse with QMK](eclipse.md)
+  * [Using Eclipse with QMK](other_eclipse.md)
+  * [Using VSCode with QMK](other_vscode.md)
   * [Support](support.md)
 
 * QMK Internals (In Progress)

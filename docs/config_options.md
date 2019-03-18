@@ -208,8 +208,12 @@ There are a few different ways to set handedness for split keyboards (listed in 
 
 1. Set `SPLIT_HAND_PIN`: Reads a pin to determine handedness. If pin is high, it's the left side, if low, the half is determined to be the right side
 2. Set `EE_HANDS` and flash `eeprom-lefthand.eep`/`eeprom-righthand.eep` to each half
+   * For boards with DFU bootloader you can use `:dfu-split-left`/`:dfu-split-right` to flash these EEPROM files
+   * For boards with Caterina bootloader (like stock Pro Micros), use `:avrdude-split-left`/`:avrdude-split-right`
 3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
 4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
+
+#### Defines for handedness
 
 * `#define SPLIT_HAND_PIN B7`
   * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
