@@ -584,6 +584,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode_noeeprom(1);
       } else {
         aesthetic = true;
+        shifty = false;
         // snake mode
         rgblight_mode_noeeprom(20);
       }
@@ -597,6 +598,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         rgblight_mode_noeeprom(1);
       } else {
         shifty = true;
+        aestethic = false;
         // knight mode
         rgblight_mode_noeeprom(23);
       }
