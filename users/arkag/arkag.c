@@ -360,7 +360,11 @@ void dance_cbrck (qk_tap_dance_state_t *state, void *user_data) {
 }
 
 void dance_game (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 3) {
+  if (state->count == 1) {
+
+  } else if (state->count == 2) {
+
+  } else if (state->count == 3) {
     uint8_t layer = biton32(layer_state);
     if (layer == _QWERTY) {
         layer_off(_QWERTY);
@@ -622,5 +626,5 @@ qk_tap_dance_action_t tap_dance_actions[] = {
   [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_FN (dance_obrck),
   [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_FN (dance_cbrck),
   [TD_LALT_RALT]      = ACTION_TAP_DANCE_DOUBLE (KC_LALT, KC_RALT),
-  [TD_GAME]        = ACTION_TAP_DANCE_FN (dance_game),
+  [TD_GAME]           = ACTION_TAP_DANCE_FN (dance_game),
 };
