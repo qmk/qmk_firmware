@@ -13,6 +13,7 @@
 #define SP_MORE LSFT(KC_DOT)         // +
 #define SP_PSCR KC_PSCREEN           // print screen
 #define SP_SPSH MT(MOD_LSFT, KC_SPC) // space or left shift when held
+#define SP_TBCT MT(KC_LCTL, KC_TAB)  // tab or left ctrl when held
 
 extern keymap_config_t keymap_config;
 
@@ -36,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
    * │ esc │  Q  │  W  │  E  │  R  │  T  │  Y  │  U  │  I  │  O  │  P  │ bsp │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   * │ tab │  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │  ;  │ ent │
+   * │ct/tb│  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │  ;  │ ent │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    * │ num │  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │  /  │media│
    * ├─────┼─────┼─────┼─────┼─────┴─────┼─────┴─────┼─────┼─────┼─────┼─────┤
@@ -45,7 +46,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_QWERTY] = {
     {KC_ESC,  KC_Q,    KC_W,   KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,   KC_P,    KC_BSPC},
-    {KC_TAB,  KC_A,    KC_S,   KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_ENT},
+    {SP_TBCT, KC_A,    KC_S,   KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,   KC_SCLN, KC_ENT},
     {SP_NUMB, KC_Z,    KC_X,   KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT, KC_SLSH, SP_MEDI},
     {KC_LCTL, KC_LGUI, KC_SPC, KC_LALT, SP_SYMB, SP_SYMB, SP_SPSH, SP_SPSH, KC_RALT, KC_SPC, KC_SPC,  KC_SPC}
   },
@@ -54,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
    * │ esc │  B  │  M  │  P  │  Q  │  ;  │  K  │  V  │  C  │  D  │  J  │ bsp │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   * │ tab │  A  │  U  │  I  │  E  │  O  │  L  │  T  │  S  │  R  │  N  │ ent │
+   * │ct/tb│  A  │  U  │  I  │  E  │  O  │  L  │  T  │  S  │  R  │  N  │ ent │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    * │ num │  W  │  Y  │  G  │  ,  │  Z  │  X  │  .  │  F  │  H  │  /  │media│
    * ├─────┼─────┼─────┼─────┼─────┴─────┼─────┴─────┼─────┼─────┼─────┼─────┤
@@ -63,7 +64,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_CUSTOM] = {
     {KC_ESC,  KC_B,    KC_M,   KC_P,    KC_Q,    KC_SCLN, KC_K,    KC_V,    KC_C,    KC_D,   KC_J,    KC_BSPC},
-    {KC_TAB,  KC_A,    KC_U,   KC_I,    KC_E,    KC_O,    KC_L,    KC_T,    KC_S,    KC_R,   KC_N,    KC_ENT},
+    {SP_TBCT, KC_A,    KC_U,   KC_I,    KC_E,    KC_O,    KC_L,    KC_T,    KC_S,    KC_R,   KC_N,    KC_ENT},
     {SP_NUMB, KC_W,    KC_Y,   KC_G,    KC_COMM, KC_Z,    KC_X,    KC_DOT,  KC_F,    KC_H,   KC_SLSH, SP_MEDI},
     {KC_LCTL, KC_LGUI, KC_SPC, KC_LALT, SP_SYMB, SP_SYMB, SP_SPSH, SP_SPSH, KC_RALT, KC_SPC, KC_SPC,  KC_SPC}
   },
@@ -72,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
    * │ esc │  Q  │  W  │  E  │  R  │  T  │  Y  │  U  │  I  │  O  │  P  │ bsp │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
-   * │ tab │  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │  ;  │ ent │
+   * │ct/tb│  A  │  S  │  D  │  F  │  G  │  H  │  J  │  K  │  L  │  ;  │ ent │
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
    * │shift│  Z  │  X  │  C  │  V  │  B  │  N  │  M  │  ,  │  .  │ up  │media│
    * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┤
@@ -81,7 +82,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_GAMING] = {
     {KC_ESC,  KC_Q,    KC_W,    KC_E,   KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_BSPC},
-    {KC_TAB,  KC_A,    KC_S,    KC_D,   KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT},
+    {SP_TBCT, KC_A,    KC_S,    KC_D,   KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_ENT},
     {KC_LSFT, KC_Z,    KC_X,    KC_C,   KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_UP,   SP_MEDI},
     {KC_LCTL, KC_LGUI, KC_LALT, KC_SPC, SP_SYMB, SP_NUMB, SP_SPSH, SP_SPSH, KC_RALT, KC_LEFT, KC_DOWN, KC_RGHT}
   },
