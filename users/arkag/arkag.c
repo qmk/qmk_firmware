@@ -395,6 +395,7 @@ void matrix_scan_user(void) {
       if (current_os == OS_WIN) {
         long_keystroke(2, (uint16_t[]){KC_LGUI, KC_PAUSE});
       } else {
+        return;
       }
     }
     SEQ_TWO_KEYS(KC_LSFT, M_PMOD) {
@@ -507,7 +508,6 @@ void matrix_scan_user(void) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
   if (aesthetic) {
     switch (keycode) {
     case KC_A ... KC_0:
