@@ -68,11 +68,11 @@ This is a C header file that is one of the first things included, and will persi
 * `#define C6_AUDIO`
   * enables audio on pin C6
 * `#define B5_AUDIO`
-  * enables audio on pin B5 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B5 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define B6_AUDIO`
-  * enables audio on pin B6 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B6 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define B7_AUDIO`
-  * enables audio on pin B7 (duophony is enables if one of B[5-7]_AUDIO is enabled along with one of C[4-6]_AUDIO)
+  * enables audio on pin B7 (duophony is enables if one of B[5-7]\_AUDIO is enabled along with one of C[4-6]\_AUDIO)
 * `#define BACKLIGHT_PIN B7`
   * pin of the backlight - B5, B6, B7 use PWM, others use softPWM
 * `#define BACKLIGHT_LEVELS 3`
@@ -208,8 +208,12 @@ There are a few different ways to set handedness for split keyboards (listed in 
 
 1. Set `SPLIT_HAND_PIN`: Reads a pin to determine handedness. If pin is high, it's the left side, if low, the half is determined to be the right side
 2. Set `EE_HANDS` and flash `eeprom-lefthand.eep`/`eeprom-righthand.eep` to each half
+   * For boards with DFU bootloader you can use `:dfu-split-left`/`:dfu-split-right` to flash these EEPROM files
+   * For boards with Caterina bootloader (like stock Pro Micros), use `:avrdude-split-left`/`:avrdude-split-right`
 3. Set `MASTER_RIGHT`: Half that is plugged into the USB port is determined to be the master and right half (inverse of the default)
 4. Default: The side that is plugged into the USB port is the master half and is assumed to be the left half. The slave side is the right half
+
+#### Defines for handedness
 
 * `#define SPLIT_HAND_PIN B7`
   * For using high/low pin to determine handedness, low = right hand, high = left hand. Replace `B7` with the pin you are using. This is optional, and if you leave `SPLIT_HAND_PIN` undefined, then you can still use the EE_HANDS method or MASTER_LEFT / MASTER_RIGHT defines like the stock Let's Split uses.
@@ -307,8 +311,8 @@ Use these to enable or disable building certain features. The more you have enab
   * Enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
 * `CUSTOM_MATRIX`
   * Allows replacing the standard matrix scanning routine with a custom one.
-* `CUSTOM_DEBOUNCE`
-  * Allows replacing the standard key debouncing routine with a custom one.
+* `DEBOUNCE_TYPE`
+  * Allows replacing the standard key debouncing routine with an alternative or custom one.
 * `WAIT_FOR_USB`
   * Forces the keyboard to wait for a USB connection to be established before it starts up
 * `NO_USB_STARTUP_CHECK`

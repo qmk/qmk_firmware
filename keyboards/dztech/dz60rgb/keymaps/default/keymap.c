@@ -10,7 +10,7 @@ extern bool g_suspend_state;
 #define _LAYER7 7
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		[_LAYER0] = LAYOUT( /* Base */
-			KC_GESC,  KC_1,     KC_2,     KC_3,  KC_4,  KC_5,  KC_6,    KC_7,  KC_8,    KC_9,     KC_0,            KC_MINS,  KC_EQL,  KC_BSPC,\
+				KC_GESC,  KC_1,     KC_2,     KC_3,  KC_4,  KC_5,  KC_6,    KC_7,  KC_8,    KC_9,     KC_0,            KC_MINS,  KC_EQL,  KC_BSPC,\
 		    KC_TAB,   KC_Q,     KC_W,     KC_E,  KC_R,  KC_T,  KC_Y,    KC_U,  KC_I,    KC_O,     KC_P,            KC_LBRC,  KC_RBRC, KC_BSLASH,\
 			CTL_T(KC_CAPS),  KC_A,     KC_S,     KC_D,  KC_F,  KC_G,  KC_H,    KC_J,  KC_K,    KC_L,     KC_SCLN,         KC_QUOT,           KC_ENT, \
 		    KC_LSFT,  KC_Z,     KC_X,     KC_C,  KC_V,  KC_B,  KC_N,    KC_M,  KC_COMM, KC_DOT,   RSFT_T(KC_SLSH), KC_UP,             LT(2, KC_DEL),\
@@ -60,92 +60,90 @@ void rgb_matrix_indicators_user(void) {
 	  if (!g_suspend_state) {
 	    switch (biton32(layer_state)) {
 	      case _LAYER1:
-		    rgb_matrix_layer_helper(0xFF, 0x00, 0x00, false); break;
+          rgb_matrix_layer_helper(0xFF, 0x00, 0x00, false);
+          break;
 	      case _LAYER2:
-	        rgb_matrix_layer_helper(0x00, 0xFF, 0x00, false); break;
+	        rgb_matrix_layer_helper(0x00, 0xFF, 0x00, false);
+          break;
+        case _LAYER3:
+          if ( this_led & (1<<USB_LED_NUM_LOCK)) {
+            rgb_matrix_set_color(13, 0xFF, 0x00, 0x00);
+          } else {
+            rgb_matrix_set_color(13, 0x00, 0x00, 0x00);
+          }
+          rgb_matrix_set_color(0, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(1, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(1, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(2, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(3, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(4, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(5, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(6, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(7, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(8, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(9, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(10, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(11, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(12, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(14, 0x00, 0x00, 0xFF);
+          rgb_matrix_set_color(15, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(16, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(17, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(18, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(19, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(20, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(21, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(22, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(23, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(24, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(25, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(26, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(27, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(28, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(29, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(30, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(31, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(32, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(33, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(34, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(35, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(36, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(37, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(38, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(39, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(40, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(41, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(42, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(43, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(44, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(45, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(46, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(47, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(48, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(49, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(50, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(51, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(52, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(53, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(54, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(55, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(56, 0x00, 0x00, 0x00);
+          rgb_matrix_set_color(57, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(58, 0x00, 0xFF, 0x00);
+          rgb_matrix_set_color(59, 0xFF, 0x00, 0x00);
+          rgb_matrix_set_color(60, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(61, 0xFF, 0xFF, 0x00);
+          rgb_matrix_set_color(62, 0x00, 0x00, 0x00);
+          break;
 	      case _LAYER4:
-	        rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false); break;
-	    							  }
-	                        }
-	  if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
-	        rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
-	  }
+	        rgb_matrix_layer_helper(0xFF, 0xFF, 0x00, false);
+          break;
+      }
+    }
+    if ( this_led & (1<<USB_LED_CAPS_LOCK)) {
+      rgb_matrix_set_color(40, 0xFF, 0xFF, 0xFF);
+    }
 
-	  switch (biton32(layer_state)) {
-	      case _LAYER3:
-	      	  if ( this_led & (1<<USB_LED_NUM_LOCK))
-	      	  {
-	    	 	  rgb_matrix_set_color(13, 0xFF, 0x00, 0x00);
-	      	  }
-	    	  else
-	    	  {
-	    		  rgb_matrix_set_color(13, 0x00, 0x00, 0x00);
-	    	  }
-	  	    rgb_matrix_set_color(0, 0x00, 0xFF, 0x00);
-		    rgb_matrix_set_color(1, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(1, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(2, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(3, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(4, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(5, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(6, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(7, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(8, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(9, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(10, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(11, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(12, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(14, 0x00, 0x00, 0xFF);
-	        rgb_matrix_set_color(15, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(16, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(17, 0x00, 0xFF, 0x00);
-	       	rgb_matrix_set_color(18, 0x00, 0xFF, 0x00);
-	       	rgb_matrix_set_color(19, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(20, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(21, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(22, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(23, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(24, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(25, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(26, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(27, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(28, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(29, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(30, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(31, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(32, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(33, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(34, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(35, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(36, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(37, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(38, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(39, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(40, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(41, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(42, 0x00, 0x00, 0x00);
-	       	rgb_matrix_set_color(43, 0x00, 0xFF, 0x00);
-	       	rgb_matrix_set_color(44, 0x00, 0xFF, 0x00);
-	       	rgb_matrix_set_color(45, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(46, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(47, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(48, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(49, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(50, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(51, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(52, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(53, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(54, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(55, 0x00, 0x00, 0x00);
-	        rgb_matrix_set_color(56, 0x00, 0x00, 0x00);
-	       	rgb_matrix_set_color(57, 0x00, 0xFF, 0x00);
-	       	rgb_matrix_set_color(58, 0x00, 0xFF, 0x00);
-	        rgb_matrix_set_color(59, 0xFF, 0x00, 0x00);
-	        rgb_matrix_set_color(60, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(61, 0xFF, 0xFF, 0x00);
-	        rgb_matrix_set_color(62, 0x00, 0x00, 0x00);
-	        break;
-	    }
 }
 
 
