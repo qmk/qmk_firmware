@@ -194,7 +194,7 @@ dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
 	else\
 		$(DFU_PROGRAMMER) $(MCU) erase;\
-		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-rightand.eep;\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
 	fi
 	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
 	$(DFU_PROGRAMMER) $(MCU) reset
