@@ -724,34 +724,48 @@ void rgblight_set(void) {
 #endif
 
 #ifdef RGBLIGHT_SPLIT
+/* for split keyboard master side */
+uint8_t rgblight_get_change_flags(void) {
+    return rgblight_status.change_flags;
+}
+
+void rgblight_clear_change_flags(void) {
+    rgblight_status.change_flags = 0;
+}
+
+void rgblight_get_syncinfo(rgblight_syncinfo_t *syncinfo) {
+    syncinfo->config = rgblight_config;
+    syncinfo->status = rgblight_status;
+}
+
 /* for split keyboard slave side */
-void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom) {
-    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_MODE ) {
-        if (config->enable) {
+void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom) {
+    if (syncinfo->status.change_flags & RGBLIGHT_STATUS_CHANGE_MODE) {
+        if (syncinfo->config.enable) {
             rgblight_config.enable = 1; // == rgblight_enable_noeeprom();
-            rgblight_mode_noeeprom(config->mode);
+            rgblight_mode_noeeprom(syncinfo->config.mode);
         } else {
             rgblight_disable_noeeprom();
         }
     }
-    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_HSVS ) {
-        rgblight_sethsv_eeprom_helper(config->hue, config->sat, config->val, false);
+    if (syncinfo->status.change_flags & RGBLIGHT_STATUS_CHANGE_HSVS) {
+        rgblight_sethsv_eeprom_helper(syncinfo->config.hue, syncinfo->config.sat, syncinfo->config.val, false);
         // rgblight_config.speed = config->speed; // NEED???
     }
   #ifdef RGBLIGHT_USE_TIMER
-    if( status->change_flags & RGBLIGHT_STATUS_CHANGE_TIMER ) {
-        if (status->timer_enabled) {
+    if (syncinfo->status.change_flags & RGBLIGHT_STATUS_CHANGE_TIMER) {
+        if (syncinfo->status.timer_enabled) {
             rgblight_timer_enable();
         } else {
             rgblight_timer_disable();
         }
     }
-    #ifdef  RGBLIGHT_SPLIT_ANIMATION
-    if (status->change_flags & RGBLIGHT_STATUS_ANIMATION_TICK) {
+    #ifndef RGBLIGHT_SPLIT_NO_ANIMATION_SYNC
+    if (syncinfo->status.change_flags & RGBLIGHT_STATUS_ANIMATION_TICK) {
         animation_status.restart = true;
     }
-    #endif
-  #endif
+    #endif /* RGBLIGHT_SPLIT_NO_ANIMATION_SYNC */
+  #endif /* RGBLIGHT_USE_TIMER */
 }
 #endif
 
@@ -891,7 +905,7 @@ void rgblight_task(void) {
       animation_status.pos16 = 0; // restart signal to local each effect
     }
     if (timer_elapsed(animation_status.last_timer) >= interval_time) {
-#ifdef RGBLIGHT_SPLIT_ANIMATION
+#ifndef RGBLIGHT_SPLIT_NO_ANIMATION_SYNC
       static uint16_t report_last_timer = 0;
       static bool tick_flag = false;
       uint16_t oldpos16;
@@ -909,7 +923,7 @@ void rgblight_task(void) {
 #endif
       animation_status.last_timer += interval_time;
       effect_func(&animation_status);
-#ifdef RGBLIGHT_SPLIT_ANIMATION
+#ifndef RGBLIGHT_SPLIT_NO_ANIMATION_SYNC
       //dprintf("pos16, oldpos16 = %d %d\n",
       //        animation_status.pos16,oldpos16);
       if (animation_status.pos16 == 0 && oldpos16 != 0) {
@@ -1035,7 +1049,7 @@ void rgblight_effect_snake(animation_status_t *anim) {
     increment = -1;
   }
 
-#ifdef RGBLIGHT_SPLIT_ANIMATION
+#ifndef RGBLIGHT_SPLIT_NO_ANIMATION_SYNC
   if (anim->pos == 0) { // restart signal
     if (increment == 1) {
       pos = RGBLED_NUM - 1;
@@ -1089,7 +1103,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
   static int8_t increment = 1;
   uint8_t i, cur;
 
-#ifdef RGBLIGHT_SPLIT_ANIMATION
+#ifndef RGBLIGHT_SPLIT_NO_ANIMATION_SYNC
   if (anim->pos == 0) { // restart signal
       anim->pos = 1;
       low_bound = 0;

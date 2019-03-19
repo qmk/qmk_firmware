@@ -16,12 +16,6 @@
 #ifndef RGBLIGHT_H
 #define RGBLIGHT_H
 
-#ifdef RGBLIGHT_SPLIT_ANIMATION
-  #ifndef RGBLIGHT_SPLIT
-    #define RGBLIGHT_SPLIT
-  #endif
-#endif
-
 #include "rgblight_reconfig.h"
 
 /***** rgblight_mode(mode)/rgblight_mode_noeeprom(mode) ****
@@ -189,11 +183,17 @@ typedef struct _rgblight_status_t {
   #define RGBLIGHT_STATUS_CHANGE_TIMER (1<<2)
   #define RGBLIGHT_STATUS_ANIMATION_TICK (1<<3)
 
-  extern rgblight_config_t rgblight_config;
-  extern rgblight_status_t rgblight_status;
+  typedef struct _rgblight_syncinfo_t {
+    rgblight_config_t config;
+    rgblight_status_t status;
+  } rgblight_syncinfo_t;
 
+  /* for split keyboard master side */
+  uint8_t rgblight_get_change_flags(void);
+  void rgblight_clear_change_flags(void);
+  void rgblight_get_syncinfo(rgblight_syncinfo_t *syncinfo);
   /* for split keyboard slave side */
-  void rgblight_update_sync(rgblight_config_t *config, rgblight_status_t *status, bool write_to_eeprom);
+  void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom);
 #endif
 
 void rgblight_init(void);
