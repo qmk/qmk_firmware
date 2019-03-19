@@ -128,15 +128,11 @@ void tap_dance_choose_layer_reset (qk_tap_dance_state_t *state, void *user_data)
 			layer_off(_RAISE);
 			break;
 		case 3:
-			if (default_layer_state == _DVORAK) {
-				default_layer_set(_QWERTY);
-				layer_on(_QWERTY);
-				layer_off(_DVORAK);
+			if (biton32(default_layer_state) == _DVORAK) {
+				set_single_persistent_default_layer(_QWERTY);
 			}
-			else if (default_layer_state == _QWERTY) {
-				default_layer_set(_DVORAK);
-				layer_on(_DVORAK);
-				layer_off(_QWERTY);
+			else if (biton32(default_layer_state) == _QWERTY) {
+				set_single_persistent_default_layer(_DVORAK);
 			}
 			break;
 	}
