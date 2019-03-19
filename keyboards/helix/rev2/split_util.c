@@ -68,3 +68,9 @@ void split_keyboard_setup(void) {
 void matrix_setup(void) {
     split_keyboard_setup();
 }
+
+#ifdef RGBLIGHT_SPLIT
+bool is_keyboard_master(void) {
+    return isLeftHand;
+}
+#endif
