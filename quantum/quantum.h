@@ -174,27 +174,27 @@ extern uint32_t default_layer_state;
 #endif
 
 // Send string macros
-#define STRINGIZE(z)        #z
-#define ADD_SLASH_X(y)      STRINGIZE(\x ## y)
-#define SYMBOL_STR(x)       ADD_SLASH_X(x)
+#define STRINGIZE(z) #z
+#define ADD_SLASH_X(y) STRINGIZE(\x ## y)
+#define SYMBOL_STR(x) ADD_SLASH_X(x)
 
-#define SS_TAP(keycode)     "\1" SYMBOL_STR(keycode)
-#define SS_DOWN(keycode)    "\2" SYMBOL_STR(keycode)
-#define SS_UP(keycode)      "\3" SYMBOL_STR(keycode)
+#define SS_TAP(keycode) "\1" SYMBOL_STR(keycode)
+#define SS_DOWN(keycode) "\2" SYMBOL_STR(keycode)
+#define SS_UP(keycode) "\3" SYMBOL_STR(keycode)
 
 // `string` arguments must not be parenthesized
-#define SS_LCTRL(string)    SS_DOWN(X_LCTRL)  string SS_UP(X_LCTRL)
-#define SS_LGUI(string)     SS_DOWN(X_LGUI)   string SS_UP(X_LGUI)
-#define SS_LCMD(string)     SS_LGUI(string)
-#define SS_LWIN(string)     SS_LGUI(string)
-#define SS_LALT(string)     SS_DOWN(X_LALT)   string SS_UP(X_LALT)
-#define SS_LSFT(string)     SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
-#define SS_RALT(string)     SS_DOWN(X_RALT)   string SS_UP(X_RALT)
-#define SS_ALGR(string)     SS_RALT(string)
+#define SS_LCTRL(string) SS_DOWN(X_LCTRL) string SS_UP(X_LCTRL)
+#define SS_LGUI(string) SS_DOWN(X_LGUI) string SS_UP(X_LGUI)
+#define SS_LCMD(string) SS_LGUI(string)
+#define SS_LWIN(string) SS_LGUI(string)
+#define SS_LALT(string) SS_DOWN(X_LALT) string SS_UP(X_LALT)
+#define SS_LSFT(string) SS_DOWN(X_LSHIFT) string SS_UP(X_LSHIFT)
+#define SS_RALT(string) SS_DOWN(X_RALT) string SS_UP(X_RALT)
+#define SS_ALGR(string) SS_RALT(string)
 
 #define SEND_STRING(string) send_string_P(PSTR(string))
 
-extern const bool    ascii_to_shift_lut[0x80];
+extern const bool ascii_to_shift_lut[0x80];
 extern const uint8_t ascii_to_keycode_lut[0x80];
 
 void send_string(const char *str);
@@ -211,7 +211,7 @@ void set_single_persistent_default_layer(uint8_t default_layer);
 
 void tap_random_base64(void);
 
-#define IS_LAYER_ON(layer)  ( layer_state & (1UL << (layer)))
+#define IS_LAYER_ON(layer)  (layer_state & (1UL << (layer)))
 #define IS_LAYER_OFF(layer) (~layer_state & (1UL << (layer)))
 
 void matrix_init_kb(void);
@@ -223,10 +223,10 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record);
 bool process_record_user(uint16_t keycode, keyrecord_t *record);
 
 #ifndef BOOTMAGIC_LITE_COLUMN
-    #define BOOTMAGIC_LITE_COLUMN   0
+  #define BOOTMAGIC_LITE_COLUMN 0
 #endif
 #ifndef BOOTMAGIC_LITE_ROW
-    #define BOOTMAGIC_LITE_ROW      0
+  #define BOOTMAGIC_LITE_ROW 0
 #endif
 
 void bootmagic_lite(void);
@@ -244,7 +244,7 @@ void tap_code16(uint16_t code);
 void backlight_init_ports(void);
 void backlight_task(void);
 
-    #ifdef BACKLIGHT_BREATHING
+#ifdef BACKLIGHT_BREATHING
 void breathing_enable(void);
 void breathing_pulse(void);
 void breathing_disable(void);
@@ -257,7 +257,7 @@ void breathing_period_default(void);
 void breathing_period_set(uint8_t value);
 void breathing_period_inc(void);
 void breathing_period_dec(void);
-    #endif
+#endif
 #endif
 
 void send_dword(uint32_t number);
