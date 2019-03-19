@@ -21,10 +21,17 @@ enum {
 };
 
 enum layers {
-	DVORAK,
-	QWERTY,
-	LOWER,
-	RAISE
+	_DVORAK,
+	_QWERTY,
+	_LOWER,
+	_RAISE,
+};
+
+enum halfnhalf_keycodes {
+	NEWTAB = SAFE_RANGE,
+	ALTF4,
+	CLSTAB,
+	PRVWIN,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -50,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	 * ,-------------------------------------------------------------------------------------------------.
 	 * |Tab   |Q     |W     |E     |R     |T     |Brght+|'     |Y     |U     |I     |O     |P     |Bksp  |
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-	 * |LCtrl |A     |S     |D     |F     |G     |Brght-|Ctrl+F|H     |J     |K     |L     |;     |Enter |
+	 * |CtlCps|A     |S     |D     |F     |G     |Brght-|Ctrl+F|H     |J     |K     |L     |;     |Enter |
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
 	 * |LShift|Z     |X     |C     |V     |B     |LAlt  |-     |N     |M     |,     |.     |/     |RShift|
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
@@ -66,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	/* LOWER
 	 * ,-------------------------------------------------------------------------------------------------.
-	 * |Esc   |1     |2     |3     |4     |5     |      |=     |6     |7     |8     |9     |0     |/     |
+	 * |Esc   |1     |2     |3     |4     |5     |      |      |6     |7     |8     |9     |0     |/     |
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
 	 * |Caps  |F1    |F2    |F3    |F4    |F5    |F6    |Vol Up|Play  |_     |+     |{     |}     ||     |
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
@@ -79,14 +86,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	  KC_GESC, KC_1,  KC_2,  KC_3,  KC_4,   KC_5,   KC_TRNS, KC_TRNS, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_SLSH,
 	  KC_CAPS, KC_F1, KC_F2, KC_F3, KC_F4,  KC_F5,  KC_F6,   KC_VOLU, KC_MPLY, KC_UNDS, KC_PLUS, KC_LCBR, KC_RCBR, KC_PIPE,
 	  KC_TRNS, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12,  KC_VOLD, KC_MNXT, KC_HOME, KC_PGDN, KC_PGUP, KC_END,  KC_TRNS,
-									KC_TRNS,    					           KC_TRNS
+									                KC_TRNS,    					            KC_TRNS
 	),
 
 	/* RAISE
 	 * ,-------------------------------------------------------------------------------------------------.
-	 * |Reset |      |      |Up    |      |      |      |      |      |      |      |      |      |Del   |
+	 * |Reset |      |      |Up    |      |      |      |PRVWIN|CLSTAB|      |      |      |      |Del   |
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
-	 * |`     |      |Left  |Down  |Right |      |      |      |      |-     |=     |[     |]     |\     |
+	 * |`     |      |Left  |Down  |Right |      |      |NEWTAB|ALTF4 |-     |=     |[     |]     |\     |
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
 	 * |      |!     |@     |#     |$     |%     |      |      |^     |&     |*     |(     |)     |      |
 	 * |------+------+------+------+------+------+------+------+------+------+------+------+------+------|
@@ -104,10 +111,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 void tap_dance_choose_layer (qk_tap_dance_state_t *state, void *user_data) {
 	switch (state->count) {
 		case 1:
-			layer_on(LOWER);
+			layer_on(_LOWER);
 			break;
 		case 2:
-			layer_on(RAISE);
+			layer_on(_RAISE);
 			break;
 	}
 }
@@ -115,27 +122,22 @@ void tap_dance_choose_layer (qk_tap_dance_state_t *state, void *user_data) {
 void tap_dance_choose_layer_reset (qk_tap_dance_state_t *state, void *user_data) {
 	switch (state->count) {
 		case 1:
-			layer_off(LOWER);
+			layer_off(_LOWER);
 			break;
 		case 2:
-			layer_off(RAISE);
+			layer_off(_RAISE);
 			break;
 		case 3:
-			if (default_layer_state == DVORAK) {
-				default_layer_set(QWERTY);
-				layer_on(QWERTY);
-				layer_off(DVORAK);
+			if (biton32(default_layer_state) == _DVORAK) {
+				set_single_persistent_default_layer(_QWERTY);
 			}
-			else if (default_layer_state == QWERTY) {
-				default_layer_set(DVORAK);
-				layer_on(DVORAK);
-				layer_off(QWERTY);
+			else if (biton32(default_layer_state) == _QWERTY) {
+				set_single_persistent_default_layer(_DVORAK);
 			}
 			break;
 	}
 }
 
 qk_tap_dance_action_t tap_dance_actions[] = {
-	// ACTION_TAP_DANCE_FN_ADVANCED(on_each_tap_fn, on_dance_finished_fn, on_dance_reset_fn)
 	[TD_SWAP_LAYERS] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, tap_dance_choose_layer, tap_dance_choose_layer_reset)
 };
