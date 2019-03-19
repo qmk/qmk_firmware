@@ -66,7 +66,7 @@ Do change the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` lines to accurately r
 #define DESCRIPTION     A custom keyboard
 ```
 
-?> Note: On Windows and macOS the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` fields will be displayed in the list of USB devices. On Linux these values will not be visible in `lsusb`, since Linux takes that information from the list published by the USB-IF.
+?> Note: On Windows and macOS the `MANUFACTURER`, `PRODUCT`, and `DESCRIPTION` fields will be displayed in the list of USB devices. ?> On Linux these values will not be visible in lsusb by default, since Linux takes the information from the list maintained by [USB ID Repository](http://www.linux-usb.org/usb-ids.html) by default. lsusb will show the information reported by the device when executed with -v option. It is also present in kernel logs after plugging in the device.
 
 ### Keyboard Matrix Configuration
 
@@ -87,7 +87,7 @@ Once you've defined the size of your matrix you need to define which pins on you
 
 The number of `MATRIX_ROW_PINS` entries must be the same as the number you assigned to `MATRIX_ROWS`, and likewise for `MATRIX_COL_PINS` and `MATRIX_COLS`. You do not have to specify `UNUSED_PINS`, but you can if you want to document what pins are open.
 
-Finally, you can specify the direction your diodes point. This can be `COL2ROW`, `ROW2COL`, or `CUSTOM_MATRIX`.
+Finally, you can specify the direction your diodes point. This can be `COL2ROW` or `ROW2COL`.
 
 ```c
 #define DIODE_DIRECTION COL2ROW

@@ -33,6 +33,7 @@ typedef struct
     uint8_t state;
 #endif
     uint16_t timer;
+    bool is_active;
 #ifdef COMBO_ALLOW_ACTION_KEYS
     keyrecord_t prev_record;
 #else

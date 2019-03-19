@@ -21,15 +21,6 @@
  // Layer names don't all need to be of the same length, obviously, and you can also skip them
  // entirely and just use numbers.
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
-
-
-
-
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [_NUMLOCK] = KEYMAP( /* Base */
     TG(_NAV), TG(_DIABLO), TG(_MACROS), KC_PSLS,\
@@ -64,7 +55,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_RESET, KC_MUTE, KC_VOLD, KC_VOLU,\
     KC_MAKE, _______, RGB_HUI, RGB_HUD,   \
     KC_MPLY, KC_MSTP, KC_MPRV, KC_MNXT,   \
-    RGB_TOG, RGB_SMOD, RGB_SAI, RGB_VAI,   \
+    RGB_TOG, RGB_MOD, RGB_SAI, RGB_VAI,   \
     _______, KC_RGB_T, RGB_SAD, RGB_VAD   \
 ),
 

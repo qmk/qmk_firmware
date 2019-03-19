@@ -49,19 +49,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
 
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /* Backlight configuration
  */
 #define BACKLIGHT_LEVELS 4
 
 #define RGB_DI_PIN F5    // The pin the LED strip is connected to
 #define RGBLED_NUM 6     // Number of LEDs in your strip
-
+#define RGBLIGHT_ANIMATIONS
 #define QMK_ESC_OUTPUT B7 // usually COL
 #define QMK_ESC_INPUT B3 // usually ROW
 #define QMK_LED E6

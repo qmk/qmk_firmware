@@ -5,14 +5,14 @@ CONSOLE_ENABLE    = no         # Console for debug(+400)
 COMMAND_ENABLE    = no        # Commands for debug and configuration
 TAP_DANCE_ENABLE  = no
 AUDIO_ENABLE      = yes
-ifeq (,$(findstring planck/rev6,$(KEYBOARD)))
+ifeq (,$(findstring planck/rev6,$(KEYBOARD))) # Make sure it's NOT the Planck Rev6
   RGBLIGHT_ENABLE   = yes
   INDICATOR_LIGHTS  = yes
   RGBLIGHT_TWINKLE  = yes
 endif
-ifneq (,$(findstring planck/light,$(KEYBOARD)))
+ifneq (,$(findstring planck/light,$(KEYBOARD))) # Make sure it IS the Planck Light
   RGB_MATRIX_ENABLE   = yes
-  RGBLIGHT_ENABLE     = no
+  RGBLIGHT_ENABLE     = yes
 endif
 
 ifeq ($(strip $(PROTOCOL)), VUSB)
@@ -23,4 +23,3 @@ endif
 
 
 MACROS_ENABLED    = no
-

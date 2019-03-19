@@ -2,7 +2,7 @@
 
 Your keymap can include keycodes that are more advanced than normal, for example keys that switch layers or send modifiers when held, but send regular keycodes when tapped. This page documents the functions that are available to you.
 
-### Assigning Custom Names
+## Assigning Custom Names
 
 People often define custom names using `#define`. For example:
 
@@ -11,21 +11,21 @@ People often define custom names using `#define`. For example:
 #define ALT_TAB LALT(KC_TAB)
 ```
 
-This will allow you to use `FN_CAPS` and `ALT_TAB` in your `KEYMAP()`, keeping it more readable.
+This will allow you to use `FN_CAPS` and `ALT_TAB` in your keymap, keeping it more readable.
 
-### Caveats
+## Caveats
 
-Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Modifiers specified as part of a Layer Tap or Mod Tap's keycode will be ignored.
+Currently, `LT()` and `MT()` are limited to the [Basic Keycode set](keycodes_basic.md), meaning you can't use keycodes like `LCTL()`, `KC_TILD`, or anything greater than `0xFF`. Modifiers specified as part of a Layer Tap or Mod Tap's keycode will be ignored. If you need to apply modifiers to your tapped keycode, [Tap Dance](https://github.com/qmk/qmk_firmware/blob/master/docs/feature_tap_dance.md#example-5-using-tap-dance-for-advanced-mod-tap-and-layer-tap-keys) can be used to accomplish this.
 
 Additionally, if at least one right-handed modifier is specified in a Mod Tap or Layer Tap, it will cause all modifiers specified to become right-handed, so it is not possible to mix and match the two.
 
 # Switching and Toggling Layers
 
-These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see [Keymap Overview](keymap.md#keymap-and-layers)
+These functions allow you to activate layers in various ways. Note that layers are not generally independent layouts -- multiple layers can be activated at once, and it's typical for layers to use `KC_TRNS` to allow keypresses to pass through to lower layers. For a detailed explanation of layers, see [Keymap Overview](keymap.md#keymap-and-layers). When using momentary layer switching with MO(), LM(), TT(), or LT(), make sure to leave the key on the above layers transparent or it may not work as intended.
 
 * `DF(layer)` - switches the default layer. The default layer is the always-active base layer that other layers stack on top of. See below for more about the default layer. This might be used to switch from QWERTY to Dvorak layout. (Note that this is a temporary switch that only persists until the keyboard loses power. To modify the default layer in a persistent way requires deeper customization, such as calling the `set_single_persistent_default_layer` function inside of [process_record_user](custom_quantum_functions.md#programming-the-behavior-of-any-keycode).)
 * `MO(layer)` - momentarily activates *layer*. As soon as you let go of the key, the layer is deactivated. 
-* `LM(layer, mod)` - Momentarily activates *layer* (like `MO`), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers.
+* `LM(layer, mod)` - Momentarily activates *layer* (like `MO`), but with modifier(s) *mod* active. Only supports layers 0-15 and the left modifiers: `MOD_LCTL`, `MOD_LSFT`, `MOD_LALT`, `MOD_LGUI` (note the use of `MOD_` constants instead of `KC_`). These modifiers can be combined using bitwise OR, e.g. `LM(_RAISE, MOD_LCTL | MOD_LALT)`.
 * `LT(layer, kc)` - momentarily activates *layer* when held, and sends *kc* when tapped. Only supports layers 0-15.
 * `OSL(layer)` - momentarily activates *layer* until the next key is pressed. See [One Shot Keys](#one-shot-keys) for details and additional functionality.
 * `TG(layer)` - toggles *layer*, activating it if it's inactive and vice versa
@@ -36,7 +36,7 @@ These functions allow you to activate layers in various ways. Note that layers a
 
 Care must be taken when switching layers, it's possible to lock yourself into a layer with no way to deactivate that layer (without unplugging your keyboard.) We've created some guidelines to help users avoid the most common problems.
 
-### Beginners
+## Beginners
 
 If you are just getting started with QMK you will want to keep everything simple. Follow these guidelines when setting up your layers:
 
@@ -44,11 +44,11 @@ If you are just getting started with QMK you will want to keep everything simple
 * Arrange your layers in a "tree" layout, with layer 0 as the root. Do not try to enter the same layer from more than one other layer.
 * In a layer's keymap, only reference higher-numbered layers. Because layers are processed from the highest-numbered (topmost) active layer down, modifying the state of lower layers can be tricky and error-prone.
 
-### Intermediate Users
+## Intermediate Users
 
 Sometimes you need more than one base layer. For example, if you want to switch between QWERTY and Dvorak, switch between layouts for different countries, or switch your layout for different videogames. Your base layers should always be the lowest numbered layers. When you have multiple base layers you should always treat them as mutually exclusive. When one base layer is on the others are off.
 
-### Advanced Users
+## Advanced Users
 
 Once you have a good feel for how layers work and what you can do, you can get more creative. The rules listed in the beginner section will help you be successful by avoiding some of the tricker details but they can be constraining, especially for ultra-compact keyboard users. Understanding how layers work will allow you to use them in more advanced ways.
 
@@ -60,22 +60,21 @@ Sometimes, you might want to switch between layers in a macro or as part of a ta
 
 These allow you to combine a modifier with a keycode. When pressed, the keydown event for the modifier, then `kc` will be sent. On release, the keyup event for `kc`, then the modifier will be sent.
 
-|Key       |Aliases               |Description                                         |
-|----------|----------------------|----------------------------------------------------|
-|`LCTL(kc)`|                      |Hold Left Control and press `kc`                    |
-|`LSFT(kc)`|`S(kc)`               |Hold Left Shift and press `kc`                      |
-|`LALT(kc)`|                      |Hold Left Alt and press `kc`                        |
-|`LGUI(kc)`|`LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
-|`RCTL(kc)`|                      |Hold Right Control and press `kc`                   |
-|`RSFT(kc)`|                      |Hold Right Shift and press `kc`                     |
-|`RALT(kc)`|                      |Hold Right Alt and press `kc`                       |
-|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`|Hold Right GUI and press `kc`                       |
-|`HYPR(kc)`|                      |Hold Left Control, Shift, Alt and GUI and press `kc`|
-|`MEH(kc)` |                      |Hold Left Control, Shift and Alt and press `kc`     |
-|`LCAG(kc)`|                      |Hold Left Control, Alt and GUI and press `kc`       |
-|`ALTG(kc)`|                      |Hold Right Control and Alt and press `kc`           |
-|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`|Hold Left Shift and GUI and press `kc`              |
-|`LCA(kc)` |                      |Hold Left Control and Alt and press `kc`            |
+|Key       |Aliases                        |Description                                         |
+|----------|-------------------------------|----------------------------------------------------|
+|`LCTL(kc)`|`C(kc)`                        |Hold Left Control and press `kc`                    |
+|`LSFT(kc)`|`S(kc)`                        |Hold Left Shift and press `kc`                      |
+|`LALT(kc)`|`A(kc)`                        |Hold Left Alt and press `kc`                        |
+|`LGUI(kc)`|`G(kc)`, `LCMD(kc)`, `LWIN(kc)`|Hold Left GUI and press `kc`                        |
+|`RCTL(kc)`|                               |Hold Right Control and press `kc`                   |
+|`RSFT(kc)`|                               |Hold Right Shift and press `kc`                     |
+|`RALT(kc)`|`ALGR(kc)`                     |Hold Right Alt and press `kc`                       |
+|`RGUI(kc)`|`RCMD(kc)`, `LWIN(kc)`         |Hold Right GUI and press `kc`                       |
+|`SGUI(kc)`|`SCMD(kc)`, `SWIN(kc)`         |Hold Left Shift and GUI and press `kc`              |
+|`LCA(kc)` |                               |Hold Left Control and Alt and press `kc`            |
+|`LCAG(kc)`|                               |Hold Left Control, Alt and GUI and press `kc`       |
+|`MEH(kc)` |                               |Hold Left Control, Shift and Alt and press `kc`     |
+|`HYPR(kc)`|                               |Hold Left Control, Shift, Alt and GUI and press `kc`|
 
 You can also chain them, for example `LCTL(LALT(KC_DEL))` makes a key that sends Control+Alt+Delete with a single keypress.
 
@@ -93,7 +92,7 @@ The modifiers this keycode and `OSM()` accept are prefixed with `MOD_`, not `KC_
 |`MOD_LGUI`|Left GUI (Windows/Command/Meta key)     |
 |`MOD_RCTL`|Right Control                           |
 |`MOD_RSFT`|Right Shift                             |
-|`MOD_RALT`|Right Alt                               |
+|`MOD_RALT`|Right Alt (AltGr)                       |
 |`MOD_RGUI`|Right GUI (Windows/Command/Meta key)    |
 |`MOD_HYPR`|Hyper (Left Control, Shift, Alt and GUI)|
 |`MOD_MEH` |Meh (Left Control, Shift, and Alt)      |
@@ -108,23 +107,31 @@ This key would activate Left Control and Left Shift when held, and send Escape w
 
 For convenience, QMK includes some Mod-Tap shortcuts to make common combinations more compact in your keymap:
 
-|Key         |Aliases                                |Description                                            |
-|------------|---------------------------------------|-------------------------------------------------------|
-|`LCTL_T(kc)`|`CTL_T(kc)`                            |Left Control when held, `kc` when tapped               |
-|`RCTL_T(kc)`|                                       |Right Control when held, `kc` when tapped              |
-|`LSFT_T(kc)`|`SFT_T(kc)`                            |Left Shift when held, `kc` when tapped                 |
-|`RSFT_T(kc)`|                                       |Right Shift when held, `kc` when tapped                |
-|`LALT_T(kc)`|`ALT_T(kc)`                            |Left Alt when held, `kc` when tapped                   |
-|`RALT_T(kc)`|`ALGR_T(kc)`                           |Right Alt when held, `kc` when tapped                  |
-|`LGUI_T(kc)`|`LCMD_T(kc)`, `RWIN_T(kc)`, `GUI_T(kc)`|Left GUI when held, `kc` when tapped                   |
-|`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`             |Right GUI when held, `kc` when tapped                  |
-|`C_S_T(kc)` |                                       |Left Control and Shift when held, `kc` when tapped     |
-|`MEH_T(kc)` |                                       |Left Control, Shift and Alt when held, `kc` when tapped|
-|`LCAG_T(kc)`|                                       |Left Control, Alt and GUI when held, `kc` when tapped  |
-|`RCAG_T(kc)`|                                       |Right Control, Alt and GUI when held, `kc` when tapped |
-|`ALL_T(kc)` |                                       |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
-|`SGUI_T(kc)`|`SCMD_T(kc)`, `SWIN_T(kc)`             |Left Shift and GUI when held, `kc` when tapped         |
-|`LCA_T(kc)` |                                       |Left Control and Alt when held, `kc` when tapped       |
+|Key         |Aliases                                                          |Description                                            |
+|------------|-----------------------------------------------------------------|-------------------------------------------------------|
+|`LCTL_T(kc)`|`CTL_T(kc)`                                                      |Left Control when held, `kc` when tapped               |
+|`LSFT_T(kc)`|`SFT_T(kc)`                                                      |Left Shift when held, `kc` when tapped                 |
+|`LALT_T(kc)`|`ALT_T(kc)`                                                      |Left Alt when held, `kc` when tapped                   |
+|`LGUI_T(kc)`|`LCMD_T(kc)`, `LWIN_T(kc)`, `GUI_T(kc)`, `CMD_T(kc)`, `WIN_T(kc)`|Left GUI when held, `kc` when tapped                   |
+|`RCTL_T(kc)`|                                                                 |Right Control when held, `kc` when tapped              |
+|`RSFT_T(kc)`|                                                                 |Right Shift when held, `kc` when tapped                |
+|`RALT_T(kc)`|`ALGR_T(kc)`                                                     |Right Alt when held, `kc` when tapped                  |
+|`RGUI_T(kc)`|`RCMD_T(kc)`, `RWIN_T(kc)`                                       |Right GUI when held, `kc` when tapped                  |
+|`SGUI_T(kc)`|`SCMD_T(kc)`, `SWIN_T(kc)`                                       |Left Shift and GUI when held, `kc` when tapped         |
+|`LCA_T(kc)` |                                                                 |Left Control and Alt when held, `kc` when tapped       |
+|`LCAG_T(kc)`|                                                                 |Left Control, Alt and GUI when held, `kc` when tapped  |
+|`RCAG_T(kc)`|                                                                 |Right Control, Alt and GUI when held, `kc` when tapped |
+|`C_S_T(kc)` |                                                                 |Left Control and Shift when held, `kc` when tapped     |
+|`MEH_T(kc)` |                                                                 |Left Control, Shift and Alt when held, `kc` when tapped|
+|`HYPR_T(kc)`|`ALL_T(kc)`                                                      |Left Control, Shift, Alt and GUI when held, `kc` when tapped - more info [here](http://brettterpstra.com/2012/12/08/a-useful-caps-lock-key/)|
+
+## Caveats
+
+Unfortunately, these keycodes cannot be used in Mod-Taps or Layer-Taps, since any modifiers specified in the keycode are ignored.
+
+Additionally, you may run into issues when using Remote Desktop Connection on Windows. Because these codes send shift very fast, Remote Desktop may miss the codes.
+
+To fix this, open Remote Desktop Connection, click on "Show Options", open the the "Local Resources" tab. In the keyboard section, change the drop down to "On this Computer". This will fix the issue, and allow the characters to work correctly.
 
 # One Shot Keys
 
@@ -134,52 +141,165 @@ For example, if you define a key as `OSM(MOD_LSFT)`, you can type a capital A ch
 
 One shot keys also work as normal modifiers. If you hold down a one shot key and type other keys, your one shot will be released immediately after you let go of the key.
 
+Additionally, hitting keys five times in a short period will lock that key. This applies for both One Shot Modifiers and One Shot Layers, and is controlled by the `ONESHOT_TAP_TOGGLE` define.
+
 You can control the behavior of one shot keys by defining these in `config.h`:
 
 ```c
-#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped this number of times again. */
+#define ONESHOT_TAP_TOGGLE 5  /* Tapping this number of times holds the key until tapped once again. */
 #define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
 ```
 
 * `OSM(mod)` - Momentarily hold down *mod*. You must use the `MOD_*` keycodes as shown in [Mod Tap](#mod-tap), not the `KC_*` codes.
 * `OSL(layer)` - momentary switch to *layer*.
 
-Sometimes, you want to activate a one-shot layer as part of a macro or tap dance routine. To do this, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`. For more complicated actions, take a look at the oneshot implementation in [`process_record`](https://github.com/qmk/qmk_firmware/blob/master/tmk_core/common/action.c#L429).
+Sometimes, you want to activate a one-shot key as part of a macro or tap dance routine.  
 
-If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
+For one shot layers, you need to call `set_oneshot_layer(LAYER, ONESHOT_START)` on key down, and `set_oneshot_layer(ONESHOT_PRESSED)` on key up. If you want to cancel the oneshot, call `reset_oneshot_layer()`.
 
-# Permissive Hold
+For one shot mods, you need to call `set_oneshot_mods(MOD)` to set it, or `clear_oneshot_mods()` to cancel it.
+
+!> If you're having issues with OSM translating over Remote Desktop Connection, this can be fixed by opening the settings, going to the "Local Resources" tap, and in the keyboard section, change the drop down to "On this Computer".  This will fix the issue and allow OSM to function properly over Remote Desktop.
+
+## Callbacks
+
+When you'd like to perform custom logic when pressing a one shot key, there are several callbacks you can choose to implement. You could indicate changes in one shot keys by flashing an LED or making a sound, for example.
+
+There is a callback for `OSM(mod)`. It is called whenever the state of any one shot modifier key is changed: when it toggles on, but also when it is toggled off. You can use it like this:
+
+```c
+void oneshot_mods_changed_user(uint8_t mods) {
+  if (mods & MOD_MASK_SHIFT) {
+    println("Oneshot mods SHIFT");
+  }
+  if (mods & MOD_MASK_CTRL) {
+    println("Oneshot mods CTRL");
+  }
+  if (mods & MOD_MASK_ALT) {
+    println("Oneshot mods ALT");
+  }
+  if (mods & MOD_MASK_GUI) {
+    println("Oneshot mods GUI");
+  }
+  if (!mods) {
+    println("Oneshot mods off");
+  }
+}
+```
+
+The `mods` argument contains the active mods after the change, so it reflects the current state.
+
+When you use One Shot Tap Toggle (by adding `#define ONESHOT_TAP_TOGGLE 2` in your `config.h` file), you may lock a modifier key by pressing it the specified amount of times. There's a callback for that, too:
+
+```c
+void oneshot_locked_mods_changed_user(uint8_t mods) {
+  if (mods & MOD_MASK_SHIFT) {
+    println("Oneshot locked mods SHIFT");
+  }
+  if (mods & MOD_MASK_CTRL) {
+    println("Oneshot locked mods CTRL");
+  }
+  if (mods & MOD_MASK_ALT) {
+    println("Oneshot locked mods ALT");
+  }
+  if (mods & MOD_MASK_GUI) {
+    println("Oneshot locked mods GUI");
+  }
+  if (!mods) {
+    println("Oneshot locked mods off");
+  }
+}
+```
+
+Last, there is also a callback for the `OSL(layer)` one shot key:
+
+```c
+void oneshot_layer_changed_user(uint8_t layer) {
+  if (layer == 1) {
+    println("Oneshot layer 1 on");
+  }
+  if (!layer) {
+    println("Oneshot layer off");
+  }
+}
+```
+
+If any one shot layer is switched off, `layer` will be zero. When you're looking to do something on any layer change instead of one shot layer changes, `layer_state_set_user` is a better callback to use.
+
+If you are making your own keyboard, there are also `_kb` equivalent functions:
+
+```c
+void oneshot_locked_mods_changed_kb(uint8_t mods);
+void oneshot_mods_changed_kb(uint8_t mods);
+void oneshot_layer_changed_kb(uint8_t layer);
+```
+
+As with any callback, be sure to call the `_user` variant to allow for further customizability.
+
+# Tap-Hold Configuration Options
+
+While Tap-Hold options are fantastic, they are not without their issues.  We have tried to configure them with reasonal defaults, but that may still cause issues for some people. 
+
+These options let you modify the behavior of the Tap-Hold keys.
+
+## Permissive Hold
 
 As of [PR#1359](https://github.com/qmk/qmk_firmware/pull/1359/), there is a new `config.h` option:
 
-```
+```c
 #define PERMISSIVE_HOLD
 ```
 
-This makes it easier for fast typists to use dual-function keys. Without this, if you let go of a held key inside the tapping term, it won't register.
+This makes tap and hold keys (like Mod Tap) work better for fast typist, or for high `TAPPING_TERM` settings. 
 
-Example: (Tapping Term = 200ms)
+If you press a Mod Tap key, tap another key (press and release) and then release the Mod Tap key, all within the tapping term, it will output the "tapping" function for both keys.
 
-- SHFT_T(KC_A) Down
-- KC_X Down
-- KC_X Up
-- SHFT_T(KC_A) Up
+For Instance:
 
-With defaults, if above is typed within tapping term, this will emit `ax`. With permissive hold, if above is typed within tapping term, this will emit `X` (so, Shift+X).
+- `SHFT_T(KC_A)` Down
+- `KC_X` Down
+- `KC_X` Up
+- `SHFT_T(KC_A)` Up
 
-# Mod tap interrupt
+Normally, if you do all this within the `TAPPING_TERM` (default: 200ms) this will be registered as `ax` by the firmware and host system. With permissive hold enabled, this modifies how this is handled by considering the Mod Tap keys as a Mod if another key is tapped, and would registered as `X` (`SHIFT`+`x`). 
 
-When a dual role key used for a modifier is quickly followed by another keys, it is interpreted as held even before the tapping term elapsed.  This is a problem if a key is used for example inside a rolling combo because the second key will be pressed before the first key is released.
+?> If you have `Ignore Mod Tap Interrupt` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
 
-For example, when trying to type the rolling combo "zx" and z being configured to send Ctrl when hold, z rapidly followed by x actually sends Ctrl-x. That's bad.
+## Ignore Mod Tap Interrupt
 
-You can disable this behavior by defining `IGNORE_MOD_TAP_INTERRUPT` in `config.h`.
+To enable this setting, add this to your `config.h`:
 
-Note that this only concerns modifiers and not layer switching keys.
+```c
+#define IGNORE_MOD_TAP_INTERRUPT
+```
 
-# Hold after tap
+Similar to Permissive Hold, this alters how the firmware processes input for fast typist. If you press a Mod Tap key, press another key, release the Mod Tap key, and then release the normal key, it would normally output the "tapping" function for both keys. This may not be desirable for rolling combo keys. 
 
-When the user holds a key after tap, this repeats the tapped key rather to hold a modifier key.  This allows to use auto repeat for the tapped key.  If you prefer to hold a modifier instead, define `TAPPING_FORCE_HOLD` in `config.h`.
+Setting `Ignore Mod Tap Interrupt` requires  holding both keys for the `TAPPING_TERM` to trigger the hold function (the mod).
+
+For Instance:
+
+- `SHFT_T(KC_A)` Down
+- `KC_X` Down
+- `SHFT_T(KC_A)` Up
+- `KC_X` Up
+
+Normally, this would send `X` (`SHIFT`+`x`). With `Ignore Mod Tap Interrupt` enabled, holding both keys are required for the `TAPPING_TERM` to register the hold action. A quick tap will output `ax` in this case, while a hold on both will still output `X`  (`SHIFT`+`x`).
+
+
+?> __Note__: This only concerns modifiers and not layer switching keys.
+
+?> If you have `Permissive Hold` enabled, as well, this will modify how both work. The regular key has the modifier added if the first key is released first or if both keys are held longer than the `TAPPING_TERM`.
+
+## Tapping Force Hold
+
+To enable `tapping force hold`, add the following to your `config.h`: 
+
+```c
+#define TAPPING_FORCE_HOLD
+```
+
+When the user holds a key after tap, this repeats the tapped key rather to hold a modifier key.  This allows to use auto repeat for the tapped key.  
 
 Example:
 
@@ -195,8 +315,14 @@ With `TAPPING_FORCE_HOLD`, the second press will be interpreted as a Shift, allo
 
 !> `TAPPING_FORCE_HOLD` will break anything that uses tapping toggles (Such as the `TT` layer keycode, and the One Shot Tapping Toggle).
 
-# Retro Tapping
+## Retro Tapping
 
-When you hold a dual function key, and haven't pressed anything when you release the key, normally nothing happens.  However, if you enable this, if you release the key without pressing another key, it will send the original key, even if it is outside of the tapping term. 
+To enable `retro tapping`, add the following to your `config.h`: 
 
-For instance, if you're using `LT(2, KC_SPACE)`, if you hold the key, don't hit anything else and then release it, normally, nothing happens. But with `RETRO_TAPPING` defined in your `config.h`, it will send `KC_SPACE`. 
+```c
+#define RETRO_TAPPING
+```
+
+Holding and releasing a dual function key without pressing another key will result in nothing happening. With retro tapping enabled, releasing the key without pressing another will send the original keycode even if it is outside the tapping term.
+
+For instance, holding and releasing `LT(2, KC_SPACE)` without hitting another key will result in nothing happening. With this enabled, it will send `KC_SPACE` instead.
