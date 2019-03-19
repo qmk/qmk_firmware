@@ -75,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    * ┌─────┬─────┬─────┬─────┬─────┬─────┐ ┌─────┬─────┬─────┬─────┬─────┬─────┐
    * │  ~  │  !  │  @  │  #  │  $  │  %  │ │  ^  │  &  │  *  │  (  │  )  │ del │
    * ├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
-   * │     │  '  │home |pgdwn│pgup │ end │  '  │ │left │down │ up  │right│  "  │
+   * │     │home |pgdwn│pgup │ end │  '  │ │  "  │left │down │ up  │right│     │
    * ├─────┼─────┼─────┼─────┼─────┼─────┤ ├─────┼─────┼─────┼─────┼─────┼─────┤
    * │     │  `  │  {  │  }  │  =  │  +  │ │  _  │  -  │  [  │  ]  │  \  │     │
    * ├─────┼─────┼─────┼─────┼─────┴─────┤ ├─────┴─────┼─────┼─────┼─────┼─────┤
@@ -84,7 +84,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
    */
   [_SYMB] = LAYOUT_ortho_4x12( \
     KC_TILD, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,   KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_DEL , \
-    _______, KC_QUOT, KC_HOME, KC_PGDN, KC_PGUP,  KC_END,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, KC_DQT,  _______, \
+    _______, KC_HOME, KC_PGDN, KC_PGUP, KC_END,   KC_QUOT, KC_DQT,  KC_LEFT, KC_DOWN, KC_UP,   KC_RGHT, _______, \
     _______, KC_GRV,  KC_LCBR, KC_RCBR, KC_EQUAL, KC_PLUS, KC_UNDS, KC_MINS, KC_LBRC, KC_RBRC, KC_BSLS, _______, \
     _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______ \
   ),
