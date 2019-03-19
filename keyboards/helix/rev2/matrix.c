@@ -203,16 +203,12 @@ uint8_t matrix_scan(void)
 {
     if (is_master) {
         matrix_master_scan();
-        serial_update_rgb();
     }else{
         matrix_slave_scan();
-#ifndef RGBLIGHT_SPLIT
         int offset = (isLeftHand) ? ROWS_PER_HAND : 0;
         memcpy(&matrix[offset],
                (void *)serial_master_buffer, sizeof(serial_master_buffer));
-#endif
         matrix_scan_quantum();
-        serial_sync_rgb();
     }
     return 1;
 }
@@ -224,25 +220,22 @@ uint8_t matrix_master_scan(void) {
     int mchanged = 1;
 
 #ifndef KEYBOARD_helix_rev1
-  #ifndef RGBLIGHT_SPLIT
     int offset = (isLeftHand) ? 0 : ROWS_PER_HAND;
-  #endif
-  #ifdef USE_MATRIX_I2C
+
+#ifdef USE_MATRIX_I2C
 //    for (int i = 0; i < ROWS_PER_HAND; ++i) {
         /* i2c_slave_buffer[i] = matrix[offset+i]; */
 //        i2c_slave_buffer[i] = matrix[offset+i];
 //    }
-  #else // USE_SERIAL
-   #ifndef RGBLIGHT_SPLIT
-    #ifdef SERIAL_USE_MULTI_TRANSACTION
+#else // USE_SERIAL
+  #ifdef SERIAL_USE_MULTI_TRANSACTION
     mchanged = memcmp((void *)serial_master_buffer,
 		      &matrix[offset], sizeof(serial_master_buffer));
-    #endif
+  #endif
     memcpy((void *)serial_master_buffer,
 	   &matrix[offset], sizeof(serial_master_buffer));
-   #endif /* RGBLIGHT_SPLIT */
-  #endif /*USE_MATRIX_I2C*/
-#endif /*KEYBOARD_helix_rev1*/
+#endif
+#endif
 
 #ifdef USE_MATRIX_I2C
     if( i2c_transaction() ) {
