@@ -194,7 +194,7 @@ dfu-split-right: $(BUILD_DIR)/$(TARGET).hex cpfirmware check-size
 		$(DFU_PROGRAMMER) $(MCU) flash --eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
 	else\
 		$(DFU_PROGRAMMER) $(MCU) erase;\
-		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-rightand.eep;\
+		$(DFU_PROGRAMMER) $(MCU) flash-eeprom $(QUANTUM_PATH)/split_common/eeprom-righthand.eep;\
 	fi
 	$(DFU_PROGRAMMER) $(MCU) flash $(BUILD_DIR)/$(TARGET).hex
 	$(DFU_PROGRAMMER) $(MCU) reset
@@ -223,7 +223,11 @@ define EXEC_AVRDUDE
 			printf "Waiting for $$USB to become writable."; \
 			while [ ! -w "$$USB" ]; do sleep 0.5; printf "."; done; echo ""; \
 		fi; \
-		avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
+		if [ -z "$(1)" ]; then \
+			avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex; \
+		else \
+			avrdude -p $(MCU) -c avr109 -P $$USB -U flash:w:$(BUILD_DIR)/$(TARGET).hex -U eeprom:w:$(QUANTUM_PATH)/split_common/$(1); \
+		fi \
 	fi
 endef
 
@@ -232,8 +236,14 @@ avrdude: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 
 avrdude-loop: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
 	while true; do \
-	    $(call EXEC_AVRDUDE) ; \
+		$(call EXEC_AVRDUDE) ; \
 	done
+
+avrdude-split-left: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_AVRDUDE,eeprom-lefthand.eep)
+
+avrdude-split-right: $(BUILD_DIR)/$(TARGET).hex check-size cpfirmware
+	$(call EXEC_AVRDUDE,eeprom-righthand.eep)
 
 # Convert hex to bin.
 bin: $(BUILD_DIR)/$(TARGET).hex

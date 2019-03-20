@@ -13,6 +13,12 @@ enum custom_keycodes {
   NEW_SAFE_RANGE  //use "NEW_SAFE_RANGE" for keymap specific codes
 };
 
+//Tap Dance Declarations
+enum {
+	TD_WIN = 0,
+	TD_ESC
+};
+
 //Aliases for longer keycodes
 #define KC_CAD	LALT(LCTL(KC_DEL))
 #define KC_LOCK	LGUI(KC_L)
