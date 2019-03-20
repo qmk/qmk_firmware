@@ -1,4 +1,6 @@
 #include QMK_KEYBOARD_H
+#include "rgblight.h"
+#include <time.h>
 
 #define DEFAULT_LAYER 0
 #define FN_LAYER 1
@@ -6,6 +8,11 @@
 #define LIGHTING_LAYER 3
 #define ______ KC_TRNS
 #define XXXXXX KC_NO
+// #define BACKLIGHT_TIMEOUT 1 // in minutes
+
+// static uint16_t idle_timer = 0;
+// static uint8_t halfmin_counter = 0;
+// static bool led_on = true;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[DEFAULT_LAYER] = LAYOUT_60_b_ansi( \
@@ -37,3 +44,48 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, TO(2), XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX \
   ),
 };
+
+uint32_t layer_state_set_user(uint32_t state) {
+  switch (biton32(state)) {
+    case DEFAULT_LAYER:
+      rgblight_setrgb(0x00, 0x00, 0xFF);
+      break;
+    case FN_LAYER:
+      rgblight_setrgb(0x00, 0xA0, 0xFF);
+      break;
+    case LIGHTING_LAYER:
+      rgblight_setrgb(0xFF, 0x00, 0x00);
+      break;
+    case TO_LAYER:
+      rgblight_setrgb(0xFF, 0x20, 0x00);
+      break;
+  }
+  return state;
+}
+
+// void keyboard_post_init_user(void) {
+//   rgblight_enable();
+// }
+
+// bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+//   if (record->event.pressed) {
+//     if (led_on == false) {
+//       rgblight_enable();
+//       idle_timer = timer_read();
+//       halfmin_counter = 0;
+//     }
+//   }
+//   return true;
+// }
+
+// void matrix_scan_user() {
+//   if (idle_timer == 0) idle_timer = timer_read();
+//   if (led_on && timer_elapsed(idle_timer) > 30000) {
+//     halfmin_counter++;
+//     idle_timer = timer_read();
+//   }
+//   if (led_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2) {
+//     rgblight_disable();
+//     halfmin_counter = 0;
+//   }
+// }
