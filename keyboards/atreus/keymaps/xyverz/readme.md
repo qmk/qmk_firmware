@@ -9,7 +9,7 @@ to a final go with this.
 
 I'm using MOD_TAP quite a bit in this keymap. On all layers, R4 pinky keys use mod-tap and are SHIFT when held
 and their normal keys when tapped. In addition, ESC and TAB are also set as Ctrl and ALT respectively when held,
-and Enter/ALT on the right thumb key for all layers.
+and Enter/ALT on the right thumb key for all alpha layers.
 
 I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck layouts.
 
