@@ -743,13 +743,13 @@ void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom) {
     if (syncinfo->status.change_flags & RGBLIGHT_STATUS_CHANGE_MODE) {
         if (syncinfo->config.enable) {
             rgblight_config.enable = 1; // == rgblight_enable_noeeprom();
-            rgblight_mode_noeeprom(syncinfo->config.mode);
+            rgblight_mode_eeprom_helper(syncinfo->config.mode, write_to_eeprom);
         } else {
             rgblight_disable_noeeprom();
         }
     }
     if (syncinfo->status.change_flags & RGBLIGHT_STATUS_CHANGE_HSVS) {
-        rgblight_sethsv_eeprom_helper(syncinfo->config.hue, syncinfo->config.sat, syncinfo->config.val, false);
+        rgblight_sethsv_eeprom_helper(syncinfo->config.hue, syncinfo->config.sat, syncinfo->config.val, write_to_eeprom);
         // rgblight_config.speed = config->speed; // NEED???
     }
   #ifdef RGBLIGHT_USE_TIMER
