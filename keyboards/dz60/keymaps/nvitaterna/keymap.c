@@ -7,7 +7,7 @@
 #define LIGHTING_LAYER 3
 #define ______ KC_TRNS
 #define XXXXXX KC_NO
-#define BACKLIGHT_TIMEOUT 1 // in minutes
+#define BACKLIGHT_TIMEOUT 15 // in minutes
 
 static uint16_t idle_timer = 0;
 static uint8_t halfmin_counter = 0;
@@ -47,16 +47,20 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 uint32_t layer_state_set_user(uint32_t state) {
   switch (biton32(state)) {
     case DEFAULT_LAYER:
-      rgblight_setrgb(0x00, 0x00, 0xFF);
+      // rgblight_setrgb(0x00, 0x00, 0xFF);
+      rgblight_sethsv(240, 255, 255);
       break;
     case FN_LAYER:
-      rgblight_setrgb(0x00, 0xA0, 0xFF);
+      // rgblight_setrgb(0x00, 0xA0, 0xFF);
+      rgblight_sethsv(202, 255, 255);
       break;
     case LIGHTING_LAYER:
-      rgblight_setrgb(0xFF, 0x00, 0x00);
+      // rgblight_setrgb(0xFF, 0x00, 0x00);
+      rgblight_sethsv(0, 255, 255);
       break;
     case TO_LAYER:
-      rgblight_setrgb(0xFF, 0x20, 0x00);
+      // rgblight_setrgb(0xFF, 0x20, 0x00);
+      rgblight_sethsv(5, 255, 255);
       break;
   }
   return state;
