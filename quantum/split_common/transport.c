@@ -1,3 +1,4 @@
+#include <string.h>
 
 #include "config.h"
 #include "matrix.h"
@@ -59,9 +60,8 @@ bool transport_master(matrix_row_t matrix[]) {
 }
 
 void transport_slave(matrix_row_t matrix[]) {
-  for (int i = 0; i < ROWS_PER_HAND * sizeof(matrix_row_t); ++i) {
-    i2c_slave_reg[I2C_KEYMAP_START + i] = matrix[i];
-  }
+  // Copy matrix to I2C buffer
+  memcpy((void*)(i2c_slave_reg + I2C_KEYMAP_START), (void *)matrix, ROWS_PER_HAND * sizeof(matrix_row_t) );
 
 // Read Backlight Info
 #  ifdef BACKLIGHT_ENABLE
