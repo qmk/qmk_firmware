@@ -1,4 +1,4 @@
-# Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+# Copyright 2019 fcoury <felipe.coury@gmail.com>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -31,7 +31,7 @@ F_CPU = 12000000
 BOOTLOADER = bootloadHID
 
 # build options
-BOOTMAGIC_ENABLE = full
+BOOTMAGIC_ENABLE = lite
 MOUSEKEY_ENABLE = no
 EXTRAKEY_ENABLE = yes
 CONSOLE_ENABLE = yes
