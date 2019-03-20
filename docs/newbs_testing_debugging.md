@@ -15,7 +15,17 @@ Note: These programs are not provided by or endorsed by QMK.
 
 ## Debugging With QMK Toolbox
 
-[QMK Toolbox](https://github.com/qmk/qmk_toolbox) will show messages from your keyboard if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DEBUG` keycode in your keymap, or use the [Command](feature_command.md) feature to enable debug mode.
+[QMK Toolbox](https://github.com/qmk/qmk_toolbox) will show messages from your keyboard if you have `CONSOLE_ENABLE = yes` in your `rules.mk`. By default the output is very limited, but you can turn on debug mode to increase the amount of debug output. Use the `DEBUG` keycode in your keymap, use the [Command](feature_command.md) feature to enable debug mode, or add the following code to your keymap.
+
+```c
+void keyboard_post_init_user(void) {
+  // Customise these values to desired behaviour
+  debug_enable=true;
+  debug_matrix=true;
+  //debug_keyboard=true;
+  //debug_mouse=true;
+}
+```
 
 <!-- FIXME: Describe the debugging messages here. -->
 

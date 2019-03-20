@@ -8,9 +8,6 @@
 #define _LO 1
 #define _RA 2
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty

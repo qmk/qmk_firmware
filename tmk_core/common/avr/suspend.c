@@ -11,9 +11,6 @@
 #include "led.h"
 #include "host.h"
 #include "rgblight_reconfig.h"
-#ifdef SPLIT_KEYBOARD
-  #include "split_flags.h"
-#endif
 
 #ifdef PROTOCOL_LUFA
 	#include "lufa.h"
@@ -135,27 +132,24 @@ static void power_down(uint8_t wdto) {
     is_suspended = true;
     rgblight_enabled = rgblight_config.enable;
     rgblight_disable_noeeprom();
-    #ifdef SPLIT_KEYBOARD
-        RGB_DIRTY = true;
-    #endif
   }
 #endif
   suspend_power_down_kb();
 
-  // TODO: more power saving
-  // See PicoPower application note
-  // - I/O port input with pullup
-  // - prescale clock
-  // - BOD disable
-  // - Power Reduction Register PRR
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  sleep_enable();
-  sei();
-  sleep_cpu();
-  sleep_disable();
+    // TODO: more power saving
+    // See PicoPower application note
+    // - I/O port input with pullup
+    // - prescale clock
+    // - BOD disable
+    // - Power Reduction Register PRR
+    set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+    sleep_enable();
+    sei();
+    sleep_cpu();
+    sleep_disable();
 
-  // Disable watchdog after sleep
-  wdt_disable();
+    // Disable watchdog after sleep
+    wdt_disable();
 }
 #endif
 
@@ -216,9 +210,6 @@ void suspend_wakeup_init(void) {
       wait_ms(10);
     #endif
     rgblight_enable_noeeprom();
-    #ifdef SPLIT_KEYBOARD
-        RGB_DIRTY = true;
-    #endif
   }
 #ifdef RGBLIGHT_ANIMATIONS
   rgblight_timer_enable();
