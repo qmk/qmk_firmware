@@ -140,7 +140,7 @@ bool transport_master(matrix_row_t matrix[]) {
 
 #  if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
   static rgblight_config_t prev_rgb = {~0};
-  uint32_t rgb = eeconfig_read_rgblight();
+  uint32_t rgb = rgblight_read_dword();
   if (rgb != prev_rgb.raw) {
     serial_m2s_buffer.rgblight_config.raw = rgb;
     prev_rgb.raw = rgb;
