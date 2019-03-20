@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "scrabblepad.h"
+#include QMK_KEYBOARD_H
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT( /* Base */
@@ -33,10 +33,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_D,  KC_O,  KC_N, KC_U, KC_T, KC_C, KC_A, KC_T, KC_SPC, KC_R, KC_U, KC_L, KC_E, KC_S, KC_SPC, \
   KC_D,  KC_O,  KC_N, KC_U, KC_T, KC_C, KC_A, KC_T, KC_SPC, KC_R, KC_U, KC_L, KC_E, KC_S, KC_SPC \
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

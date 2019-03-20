@@ -110,6 +110,9 @@ enum rgb_matrix_effects {
    #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
        RGB_MATRIX_SOLID_REACTIVE,
    #endif
+   #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+       RGB_MATRIX_SOLID_REACTIVE_SIMPLE,
+   #endif
    #ifndef DISABLE_RGB_MATRIX_SPLASH
        RGB_MATRIX_SPLASH,
    #endif
@@ -180,7 +183,7 @@ void rgb_matrix_increase_speed(void);
 void rgb_matrix_decrease_speed(void);
 void rgb_matrix_mode(uint8_t mode);
 void rgb_matrix_mode_noeeprom(uint8_t mode);
-uint32_t rgb_matrix_get_mode(void);
+uint8_t rgb_matrix_get_mode(void);
 
 #ifndef RGBLIGHT_ENABLE
 #define rgblight_toggle() rgb_matrix_toggle()

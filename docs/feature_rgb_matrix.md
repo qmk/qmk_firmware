@@ -1,5 +1,9 @@
 # RGB Matrix Lighting
 
+This feature allows you to use RGB LED matrices driven by external drivers. It hooks into the RGBLIGHT system so you can use the same keycodes as RGBLIGHT to control it.
+
+If you want to use single color LED's you should use the [LED Matrix Subsystem](feature_led_matrix.md) instead.
+
 ## Driver configuration
 
 ### IS31FL3731
@@ -63,7 +67,7 @@ Configure the hardware via your `config.h`:
 	#define DRIVER_ADDR_1 0b1010000
 	#define DRIVER_ADDR_2 0b1010000 // this is here for compliancy reasons.
 
-	#define DRIVER_COUNT 1
+	#define DRIVER_COUNT 2
 	#define DRIVER_1_LED_TOTAL 64
 	#define DRIVER_LED_TOTAL DRIVER_1_LED_TOTAL
 
@@ -98,8 +102,8 @@ From this point forward the configuration is the same for all the drivers.
 
 The format for the matrix position used in this array is `{row | (col << 4)}`. The `x` is between (inclusive) 0-224, and `y` is between (inclusive) 0-64. The easiest way to calculate these positions is:
 
-    x = 224 / ( NUMBER_OF_ROWS - 1 ) * ROW_POSITION
-    y = 64 / (NUMBER_OF_COLS - 1 ) * COL_POSITION
+    x = 224 / ( NUMBER_OF_COLS - 1 ) * ROW_POSITION
+    y = 64 / (NUMBER_OF_ROWS - 1 ) * COL_POSITION
 
 Where all variables are decimels/floats.
 
@@ -143,6 +147,7 @@ These are the effects that are currently available:
 	    RGB_MATRIX_DIGITAL_RAIN,
 	#ifdef RGB_MATRIX_KEYPRESSES
 	    RGB_MATRIX_SOLID_REACTIVE,
+	    RGB_MATRIX_REACTIVE_SIMPLE,
 	    RGB_MATRIX_SPLASH,
 	    RGB_MATRIX_MULTISPLASH,
 	    RGB_MATRIX_SOLID_SPLASH,
@@ -169,6 +174,7 @@ You can disable a single effect by defining `DISABLE_[EFFECT_NAME]` in your `con
 |`#define DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS`   |Disables `RGB_MATRIX_JELLYBEAN_RAINDROPS`   |
 |`#define DISABLE_RGB_MATRIX_DIGITAL_RAIN`          |Disables `RGB_MATRIX_DIGITAL_RAIN`          |
 |`#define DISABLE_RGB_MATRIX_SOLID_REACTIVE`        |Disables `RGB_MATRIX_SOLID_REACTIVE`        |
+|`#define DISABLE_RGB_MATRIX_REACTIVE_SIMPLE`       |Disables `RGB_MATRIX_REACTIVE_SIMPLE`       |
 |`#define DISABLE_RGB_MATRIX_SPLASH`                |Disables `RGB_MATRIX_SPLASH`                |
 |`#define DISABLE_RGB_MATRIX_MULTISPLASH`           |Disables `RGB_MATRIX_MULTISPLASH`           |
 |`#define DISABLE_RGB_MATRIX_SOLID_SPLASH`          |Disables `RGB_MATRIX_SOLID_SPLASH`          |

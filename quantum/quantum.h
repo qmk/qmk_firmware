@@ -28,10 +28,11 @@
 #include "matrix.h"
 #include "keymap.h"
 #ifdef BACKLIGHT_ENABLE
-    #include "backlight.h"
-#endif
-#if !defined(RGBLIGHT_ENABLE) && !defined(RGB_MATRIX_ENABLE)
-	#include "rgb.h"
+    #ifdef LED_MATRIX_ENABLE
+        #include "ledmatrix.h"
+    #else
+        #include "backlight.h"
+    #endif
 #endif
 #ifdef RGBLIGHT_ENABLE
   #include "rgblight.h"
@@ -41,10 +42,6 @@
         #define RGBLIGHT_H_DUMMY_DEFINE
         #include "rgblight.h"
     #endif
-#endif
-
-#ifdef SPLIT_KEYBOARD
-    #include "split_flags.h"
 #endif
 
 #ifdef RGB_MATRIX_ENABLE
@@ -136,6 +133,10 @@ extern uint32_t default_layer_state;
 
 #ifdef HD44780_ENABLE
     #include "hd44780.h"
+#endif
+
+#ifdef HAPTIC_ENABLE
+    #include "haptic.h"
 #endif
 
 //Function substitutions to ease GPIO manipulation
