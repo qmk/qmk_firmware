@@ -172,8 +172,6 @@ typedef struct _rgblight_status_t {
     bool timer_enabled;
 #ifdef RGBLIGHT_SPLIT
     uint8_t change_flags;
-    // TODO: add animation syncronizing
-    //       (with integrate timer processing.)
 #endif
 } rgblight_status_t;
 
