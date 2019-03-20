@@ -1,0 +1,84 @@
+#include QMK_KEYBOARD_H
+
+enum my_keycodes {
+  GREEK = SAFE_RANGE,
+	GAME,
+	MOUSE
+};
+
+enum unicode_name {
+//<enum/>
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+//<uc_map/>
+};
+
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+//<keymaps/>
+};
+
+void matrix_init_user(void) {
+	set_unicode_input_mode(UC_WINC);
+}
+
+void matrix_scan_user(void) {}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	switch (keycode) {
+		case GREEK:
+			if (record->event.pressed) {
+				layer_invert(8);
+				layer_off(10);
+				layer_off(11);
+			} else {
+				// Do something else when release
+			}
+			return false; // Skip all further processing of this key
+		case GAME:
+			if (record->event.pressed) {
+				layer_off(1);
+				layer_invert(10);
+				layer_off(11);
+			} else {
+				// Do something else when release
+			}
+			return false; // Skip all further processing of this key
+		case MOUSE:
+			if (record->event.pressed) {
+				layer_off(8);
+				layer_off(10);
+				layer_invert(11);
+			} else {
+				// Do something else when release
+			}
+			return false; // Skip all further processing of this key
+		default:
+			return true; // Process all other keycodes normally
+	}
+}
+
+uint32_t layer_state_set_user(uint32_t state) {
+  state = update_tri_layer_state(state, 1, 2, 3);
+  state = update_tri_layer_state(state, 1, 4, 5);
+  state = update_tri_layer_state(state, 1, 6, 7);
+  state = update_tri_layer_state(state, 1, 8, 9);
+  return state;
+}
+
+void led_set_user(uint8_t usb_led) {
+	if (usb_led & (1 << USB_LED_NUM_LOCK)) {} else {}
+
+	if (usb_led & (1 << USB_LED_CAPS_LOCK)) {} else {}
+
+	if (usb_led & (1 << USB_LED_SCROLL_LOCK)) {
+		DDRB |= (1 << 6); PORTB &= ~(1 << 6);
+	} else {
+		DDRB &= ~(1 << 6); PORTB &= ~(1 << 6);
+	}
+
+	if (usb_led & (1 << USB_LED_COMPOSE)) {} else {}
+
+	if (usb_led & (1 << USB_LED_KANA)) {} else {}
+}

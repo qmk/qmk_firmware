@@ -1,24 +1,5 @@
 from sortedcontainers import SortedDict
 
-# === TODO ===
-# -replace NEO with new layout optimized for German, English, Spanish
-# -optimize punctuation layer
-# -block or reuse Calc-, L3- and L4-modifiers, when one of them is pressed
-# -is it better to put Shift in the middle position?
-# -mouse layer "Beg" = "Begin", what does it do?
-# -should Ctrl and Alt be switched?
-# -add macro rec
-# -complete greek layer
-# -complete lang layer
-# -maybe extend math layer with latin and greek alphabet
-#
-#
-# === optional ===
-# Cyrilic: ???
-#
-# === missing ===
-# Troy's 40%:     special layer (Record Macro, Lock GUI+L) & mouse mode (Print out layers, Config console, Boot), context menu
-
 # Add all used Unicode symbols to this list.
 # The key (e.g. "SNEK") is used in keymap.c for "enum", "unicode_map" and "keymaps", so it needs to be a valid C variable name.
 # The key is also used in this file to define the layout, so use recognizeable names.
@@ -429,180 +410,92 @@ qmk_dict = {
     "NEO": "TG(2)"
 }
 
-static = ["NEO", "GAME", "GREEK", "MATH", "SYMBOL", "MOUSE"]
+# These keys are repeated in all layers.
+# Generate a keymap.c with the python script and refer to the "ASCII"-art comments, to see which positions this concerns.
+# If you want to put different keycodes in these positions for different layers, you need to modify the python script by yourself.
+static = ["NEO", "GREEK", "GREEK", "GREEK", "GREEK", "MOUSE"]
 
-# mutex_layers = {"GREEK": 12, "SYMBOL": 16, "MATH": 18, "GAME": 23, "MOUSE": 24}
+# mutex_layers = {"GREEK": 8, "GAME": 10, "MOUSE": 11}
 # layer_graph = ...
 
 # 0
 qwertz = [["Esc", "!", "@", "#", "$", "?",                  "{", "(", "ACUTE", ")", "}", "Del"],
-        ["Tab", "q", "w", "e", "r", "t",                  "z", "u", "i", "o", "p", "Enter"],
+        ["Tab", "q", "w", "e", "r", "t",                  "y", "u", "i", "o", "p", "Enter"],
         ["L1",  "a", "s", "d", "f", "g",                  "h", "j", "k", "l", "'", "L1"],
-        ["Gui", "y", "x", "c", "v", "b",                  "n", "m", ",", ".", "-", "BSpace"],
-                               ["L6", "L4", "Ctrl",   "Alt", "Space", "L8"]]
+        ["Gui", "z", "x", "c", "v", "b",                  "n", "m", ",", ".", "-", "BSpace"],
+                               ["L4", "L2", "Ctrl",   "Alt", "Space", "L6"]]
 
 # 1
 QWERTZ = [["Esc", "INV_EXCL", "&", "/", "%", "INV_QST",                  "<", "[", "_", "]", ">", "Del"],
-        ["S_Tab", "Q", "W", "E", "R", "T",                  "Z", "U", "I", "O", "P", "S_Enter"],
+        ["S_Tab", "Q", "W", "E", "R", "T",                  "Y", "U", "I", "O", "P", "S_Enter"],
         ["L1",  "A", "S", "D", "F", "G",                  "H", "J", "K", "L", "\"", "L1"],
-        ["T1", "Y", "X", "C", "V", "B",                  "N", "M", ";", ":", "=", "BSpace"],
-                               ["L6", "L4", "Ctrl",   "Alt", "Space", "L8"]]
+        ["T1", "Z", "X", "C", "V", "B",                  "N", "M", ";", ":", "=", "BSpace"],
+                               ["L4", "L2", "Ctrl",   "Alt", "Space", "L6"]]
 
 # 2
-neo = [["Esc", "!", "@", "#", "$", "?",                  "{", "(", "ACUTE", ")", "}", "Del"],
-        ["Tab", "x", "v", "l", "c", "w",                  "k", "h", "g", "f", "q", "Enter"],
-        ["L3",  "u", "i", "a", "e", "o",                  "s", "n", "r", "t", "d", "L3"],
-        ["Gui", "'", "j", "y", "p", "z",                  "b", "m", ",", ".", "-", "BSpace"],
-                               ["L6", "L4", "Ctrl",   "Alt", "Space", "L8"]]
-
-# 3
-NEO = [["Esc", "INV_EXCL", "&", "/", "%", "INV_QST",                  "<", "[", "_", "]", ">", "Del"],
-        ["S_Tab", "X", "V", "L", "C", "W",                  "K", "H", "G", "F", "Q", "S_Enter"],
-        ["L3",  "U", "I", "A", "E", "O",                  "S", "N", "R", "T", "D", "L3"],
-        ["T3", "\"", "J", "Y", "P", "Z",                  "B", "M", ";", ":", "=", "BSpace"],
-                               ["L6", "L4", "Ctrl",   "Alt", "Space", "L8"]]
-
-# 4
 numpad = [["Esc", "SUP1", "SUP2", "SUP3", "SUP_MIN", "ROOT",                  "[", "(", "%", ")", "]", "Del"],
         ["Tab", "CURRENCY", ":", "DEGREE", "MINUTE", "SECOND",                  "*", "7", "8", "9", "/", "Enter"],
         ["L1",  "CENT", "YEN", "POUND", "EURO", "$",                  "+", "4", "5", "6", "-", "L1"],
-        ["T4", "DIVISION", "MICRO", "OHM", "BITCOIN", "SECTION",                  "^", "1", "2", "3", "\"", "BSpace"],
-                               ["XXX", "L4", "Ctrl",   ".", "0", ","]]
+        ["T2", "DIVISION", "MICRO", "OHM", "BITCOIN", "SECTION",                  "^", "1", "2", "3", "\"", "BSpace"],
+                               ["XXX", "L2", "Ctrl",   ".", "0", ","]]
 
-# 5
+# 3
 FN_MEDIA = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "UC_win", "UC_mac", "UC_lnx", "Del"],
         ["Tab", "F1", "F2", "F3", "F4", "altF4",                  "Led +", "Led 0", "Led -", "Led ~", "XXX", "Enter"],
         ["L1",  "F5", "F6", "F7", "F8", "XXX",                  "Vol +", "Vol 0", "Vol -", "Mic 0", "XXX", "L1"],
-        ["T5", "F9", "F10", "F11", "F12", "XXX",                  "|<<", "play/ps", ">>|", "XXX", "XXX", "BSpace"],
-                               ["XXX", "L4", "Ctrl",   "Alt", "Space", "XXX"]]
+        ["T3", "F9", "F10", "F11", "F12", "XXX",                  "|<<", "play/ps", ">>|", "XXX", "XXX", "BSpace"],
+                               ["XXX", "L2", "Ctrl",   "Alt", "Space", "XXX"]]
 
-# 6
+# 4
 punct = [["Esc", "XXX", "XXX", "|", "XXX", "XXX",                  "XXX", "XXX", ":", "XXX", "XXX", "Del"],
         ["Tab", "!", "@", "#", "$", "?",                  "{", "(", ",", ")", "}", "Enter"],
         ["L1",  "'", "*", "\\", "\"", "=",                  "+", ".", "_", ";", "-", "L1"],
-        ["T6", "~", "&", "/", "%", "^",                  "<", "[", "SECTION", "]", ">", "BSpace"],
-                               ["L6", "XXX", "Ctrl",   "Alt", "Space", "XXX"]]
+        ["T4", "~", "&", "/", "%", "^",                  "<", "[", "SECTION", "]", ">", "BSpace"],
+                               ["L4", "XXX", "Ctrl",   "Alt", "Space", "XXX"]]
 
-# 7
+# 5
 NAV_TYPO = [["Esc", "SQT1", "SQT2", "SQT3", "SQT4", "SQT5",                  "Insert", "Scr Lck", "Pr Scr", "Pause", "C+A+Del", "Del"],
         ["Tab", "SUP_A", "SUP_O", "TMARK", "COPYR", "REGTM",                  "Pg Up", "Home", "^ Arrow", "End", "App", "Enter"],
         ["L1",  "DOTS", "CROSS", "BULLET", "EMDASH", "PERMIL",                  "Pg Down", "< Arrow", "v Arrow", "> Arrow", "Menu", "L1"],
-        ["T7", "DQT1", "DQT2", "DQT3", "DQT4", "DQT5",                  "Macro 1", "Macro 2", "Macro 3", "Macro 4", "Macro 5", "BSpace"],
-                               ["L6", "XXX", "Ctrl",   "Alt", "Space", "XXX"]]
+        ["T5", "DQT1", "DQT2", "DQT3", "DQT4", "DQT5",                  "Macro 1", "Macro 2", "Macro 3", "Macro 4", "Macro 5", "BSpace"],
+                               ["L4", "XXX", "Ctrl",   "Alt", "Space", "XXX"]]
 
-# 8
+# 6
 lang = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Del"],
         ["Compose", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "ue", "XXX", "oe", "XXX", "Enter"],
         ["L1",  "ae", "sz", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "L1"],
-        ["T8", "XXX", "XXX", "XXX", "XXX", "XXX",                  "n_tilde", "XXX", "XXX", "XXX", "XXX", "BSpace"],
-                               ["XXX", "XXX", "Ctrl",   "Alt", "Space", "L8"]]
+        ["T6", "XXX", "XXX", "XXX", "XXX", "XXX",                  "n_tilde", "XXX", "XXX", "XXX", "XXX", "BSpace"],
+                               ["XXX", "XXX", "Ctrl",   "Alt", "Space", "L6"]]
 
-# 9
+# 7
 LANG = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Del"],
         ["Compose", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "UE", "XXX", "OE", "XXX", "Enter"],
         ["L1",  "AE", "SZ", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "L1"],
-        ["T9", "XXX", "XXX", "XXX", "XXX", "XXX",                  "N_TILDE", "XXX", "XXX", "XXX", "XXX", "BSpace"],
-                               ["XXX", "XXX", "Ctrl",   "Alt", "Space", "L8"]]
+        ["T7", "XXX", "XXX", "XXX", "XXX", "XXX",                  "N_TILDE", "XXX", "XXX", "XXX", "XXX", "BSpace"],
+                               ["XXX", "XXX", "Ctrl",   "Alt", "Space", "L6"]]
 
-# 10
-neo_lang = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Del"],
-        ["Compose", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Enter"],
-        ["L1",  "ue", "XXX", "ae", "XXX", "oe",                  "sz", "n_tilde", "XXX", "XXX", "XXX", "L1"],
-        ["T8", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "BSpace"],
-                               ["XXX", "XXX", "Ctrl",   "Alt", "Space", "L8"]]
-
-# 11
-NEO_LANG = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Del"],
-        ["Compose", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Enter"],
-        ["L1",  "UE", "XXX", "AE", "XXX", "OE",                  "SZ", "N_TILDE", "XXX", "XXX", "XXX", "L1"],
-        ["T9", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "BSpace"],
-                               ["XXX", "XXX", "Ctrl",   "Alt", "Space", "L8"]]
-
-# 12 - missing: beta2, epsilon2, pi2
+# 8 - missing: beta2, epsilon2, pi2
 greek = [["Esc", "XXX", "digamma", "stigma", "heta", "san",                  "kappa2", "koppa", "sampi", "scho", "XXX", "Del"],
         ["Tab", "xi", "sigma2", "lambda", "chi", "omega",                  "kappa", "psi", "gamma", "phi", "phi2", "Enter"],
         ["L1",  "ypsilon", "iota", "alpha", "epsilon", "omikron",                  "sigma", "ny", "rho", "tau", "delta", "L1"],
         ["Gui", "XXX", "kappa2", "eta", "pi", "zeta",                  "beta", "my", "rho2", "theta", "theta2", "BSpace"],
-                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
+                               ["L4", "L2", "Alt",   "Ctrl", "Space", "L6"]]
 
-# 13 - missing: YPSILON2
+# 9 - missing: YPSILON2
 GREEK = [["Esc", "XXX", "DIGAMMA", "STIGMA", "HETA", "SAN",                  "XXX", "KOPPA", "SAMPI", "SCHO", "XXX", "Del"],
         ["Tab", "XI", "XXX", "LAMBDA", "CHI", "OMEGA",                  "KAPPA", "PSI", "GAMMA", "PHI", "XXX", "Enter"],
         ["L1",  "YPSILON", "IOTA", "ALPHA", "EPSILON", "OMIKRON",                  "SIGMA", "NY", "RHO", "TAU", "DELTA", "L1"],
         ["Gui", "XXX", "XXX", "ETA", "PI", "ZETA",                  "BETA", "MY", "XXX", "THETA", "XXX", "BSpace"],
-                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
+                               ["L4", "L2", "Alt",   "Ctrl", "Space", "L6"]]
 
-# 14 - missing: beta2, epsilon2, pi2
-neo_greek = [["Esc", "XXX", "digamma", "stigma", "heta", "san",                  "kappa2", "koppa", "sampi", "scho", "XXX", "Del"],
-        ["Tab", "xi", "sigma2", "lambda", "chi", "omega",                  "kappa", "psi", "gamma", "phi", "phi2", "Enter"],
-        ["L1",  "ypsilon", "iota", "alpha", "epsilon", "omikron",                  "sigma", "ny", "rho", "tau", "delta", "L1"],
-        ["Gui", "XXX", "kappa2", "eta", "pi", "zeta",                  "beta", "my", "rho2", "theta", "theta2", "BSpace"],
-                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
-
-# 15 - missing: YPSILON2
-NEO_GREEK = [["Esc", "XXX", "DIGAMMA", "STIGMA", "HETA", "SAN",                  "XXX", "KOPPA", "SAMPI", "SCHO", "XXX", "Del"],
-        ["Tab", "XI", "XXX", "LAMBDA", "CHI", "OMEGA",                  "KAPPA", "PSI", "GAMMA", "PHI", "XXX", "Enter"],
-        ["L1",  "YPSILON", "IOTA", "ALPHA", "EPSILON", "OMIKRON",                  "SIGMA", "NY", "RHO", "TAU", "DELTA", "L1"],
-        ["Gui", "XXX", "XXX", "ETA", "PI", "ZETA",                  "BETA", "MY", "XXX", "THETA", "XXX", "BSpace"],
-                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
-
-# 16
-symbol = [["Esc", "SHOGI_WD", "FLAG_W", "LETTER", "PHONE", "INFO",                  "REWIND", "PLAY", "FORWARD", "STOP", "EJECT", "Del"],
-        ["Tab", "SHOGI_W", "FEMALE", "MALE", "NO", "YES",                           "FLAT", "NATURAL", "SHARP", "COMMON_T", "ALLA_BR", "Enter"],
-        ["L1",  "PAWN_W", "DIAMS_W", "HEARTS_W", "SPADES_W", "CLUBS_W",                  "WHOLE_N", "HALF_N", "QUART_N", "EIGHTH_N", "SIXT_N", "L1"],
-        ["Gui", "ROOK_W", "KNIGHT_W", "BISHOP_W", "QUEEN_W", "KING_W",                  "C_CLEF", "G_CLEF", "F_CLEF", "PEDAL", "PEDAL_UP", "BSpace"],
-                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
-
-# 17
-SYMBOL = [["Esc", "SHOGI_BD", "FLAG_B", "XXX", "XXX", "XXX",                  "SPEAKER_UP", "SPEAKER_TG", "SPEAKER_DN", "XXX", "XXX", "Del"],
-        ["Tab", "SHOGI_B", "KEY", "LOCK", "LOCK_OPEN", "XXX",                  "STAFF", "BARLINE", "BARLINE_D", "BARLINE_FIN", "CODA", "Enter"],
-        ["L1",  "PAWN_B", "DIAMS_B", "HEARTS_B", "SPADES_B", "CLUBS_B",                  "WHOLE_P", "HALF_P", "QUART_P", "EIGHTH_P", "SIXT_P", "L1"],
-        ["Gui", "ROOK_B", "KNIGHT_B", "BISHOP_B", "QUEEN_B", "KING_B",                  "REPEAT_S", "REPEAT_E", "SEGNO", "DALSEGNO", "DACAPO", "BSpace"],
-                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
-
-# 18
-math = [["Esc", "EXISTS", "FORALL", "EQUIV", "CORRESP", "INEQUAL",                  "DEFINE", "TO", "MAPSTO", "SETMINUS", "QED", "Del"],
-        ["Tab", "OR_", "AND_", "OR", "AND", "NOT",                  "BICOND", "IMPL_REV", "IMPL", "TOP", "BOTTOM", "Enter"],
-        ["L1",  "SUM_", "PROD_", "+", "MDOT", "NOTIN",                  "IN", "LS_EQ", "GR_EQ", "INFTY", "epsilon", "L1"],
-        ["Gui", "UNION_", "INTERS_", "UNION", "INTERS", "NOTSUBS",                  "PR_SUBSET", "SUBSET", "SUBSET_REV", "OMEGA", "EMPTYSET", "BSpace"],
-                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
-
-# 19
-MATHSCRIPT = [["Esc", "LEFT_CEIL", "DELTA", "REAL_P", "NABLA", "RIGHT_CEIL",                  "LEFT_FLOOR", "BRA", "IMAG_P", "KET", "RIGHT_FLOOR", "Del"],
-        ["Tab", "Q_SET", "XXX", "e_FUN", "R_SET", "XXX",                  "Z_SET", "U_SET", "i_UNIT", "BIG_O", "POWERSET", "Enter"],
-        ["L1",  "A_SET", "INTEGRAL", "PARTIAL", "F_SET", "XXX",                  "H_SET", "XXX", "K_SET", "LENGTH", "XXX", "L1"],
-        ["Gui", "ALEPH", "BETH", "C_SET", "XXX", "B_SET",                  "N_SET", "INDICATOR", "FOURIER", "HAMILTON", "LAPLACE", "BSpace"],
-                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
-
-# 20
-NEO_MATHSCRIPT = [["Esc", "LEFT_CEIL", "DELTA", "REAL_P", "NABLA", "RIGHT_CEIL",                  "LEFT_FLOOR", "BRA", "IMAG_P", "KET", "RIGHT_FLOOR", "Del"],
-        ["Tab", "a", "A", "0", "i", "j",                  "0", "1", "2", "3", "4", "Enter"],
-        ["L1",  "k", "KC_PSCR", "m", "n", "o",                  "5", "6", "7", "8", "9", "L1"],
-        ["Gui", "ALEPH", "BETH", "r", "s", "t",                  "a", "INDICATOR", "FOURIER", "HAMILTON", "LAPLACE", "BSpace"],
-                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
-
-# 21
-mathnum = [["Esc", "SUP1", "SUP2", "SUP3", "SUP_MIN", "ROOT",                  "[", "(", "%", ")", "]", "Del"],
-        ["Tab", "CURRENCY", ":", "DEGREE", "MINUTE", "SECOND",                  "*", "7", "8", "9", "/", "Enter"],
-        ["L1",  "CENT", "YEN", "POUND", "EURO", "$",                  "+", "4", "5", "6", "-", "L1"],
-        ["T4", "DIVISION", "MICRO", "OHM", "BITCOIN", "SECTION",                  "^", "1", "2", "3", "\"", "BSpace"],
-                               ["XXX", "L4", "Ctrl",   ".", "0", ","]]
-
-# 22
-MATHEXT = [["Esc", "RIGHT_TACK", "MODELS", "AB_VEC", "AB_LINE", "AB_ARC",                  "LESS_LESS", "PRED", "EMBED", "SUCC", "GREAT_GREAT", "Del"],
-        ["Tab", "XXX", "XXX", "TRIANGLE", "SQUARE", "CIRCLE",                  "DOT_OP", "PLUS_OP", "MINUS_OP", "ROUGHLY", "ISOMORPH", "Enter"],
-        ["L1",  "LTIMES", "RTIMES", "BOWTIE", "M_ANGLE", "ANGLE",                  "CIRC_MID", "AST_MID", "TIMES", "PLUS_MINUS", "MINUS_PLUS", "L1"],
-        ["Gui", "LEFT_OUTER", "RIGHT_OUTER", "FULL_OUTER", "SQ_LS", "SQ_LS_EQ",                  "PROP_TO", "PARALLEL", "NOT_PARA", "TIMES_OP", "NOT_DIV", "BSpace"],
-                               ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
-
-# 23
+# 10
 game = [["Esc", "1", "2", "3", "4", "5",                  "6", "7", "8", "9", "0", "Del"],
         ["Tab", "q", "w", "e", "r", "t",                  "y", "u", "i", "o", "p", "Enter"],
         ["Caps",  "a", "s", "d", "f", "g",                  "h", "j", "k", "l", "^ Arrow", "Shift"],
         ["Shift", "z", "x", "c", "v", "b",                  "n", "m", ",", "< Arrow", "v Arrow", "> Arrow"],
                                ["Alt", "Space", "Ctrl",   "Enter", "RShift", "Ctrl"]]
 
-# 24
+# 11
 mouse = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "XXX", "XXX", "XXX", "Del"],
         ["Tab", "Menu", "< Tab", "^ Arrow", "> Tab", "Pg Up",                  "Pr Scr", "Mouse 1", "^ Mouse", "Mouse 2", "Scr Lck", "Enter"],
         ["Shift",  "BSpace", "< Arrow", "v Arrow", "> Arrow", "Pg Down",                  "XXX", "< Mouse", "v Mouse", "> Mouse", "XXX", "Shift"],
@@ -610,20 +503,4 @@ mouse = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX
                                ["Alt", "Space", "Ctrl",   "Mouse 3", "Mouse 1", "Mouse 2"]]
 
 
-# # 25
-# cyr = [["Esc", "INV_EXCL", "b", "INV_QST", "b", "j",                  "u", "v", "w", "x", "y", "Del"],
-#         ["Tab", "a", "A", "0", "i", "j",                  "0", "1", "2", "3", "4", "Enter"],
-#         ["L1",  "k", "KC_PSCR", "m", "n", "o",                  "5", "6", "7", "8", "9", "L1"],
-#         ["Gui", "p", "q", "r", "s", "t",                  "a", "b", "c", "d", "e", "BSpace"],
-#                                ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
-#
-# # 26
-# cyrSH = [["Esc", "INV_EXCL", "b", "INV_QST", "b", "j",                  "u", "v", "w", "x", "y", "Del"],
-#         ["Tab", "a", "A", "0", "i", "j",                  "0", "1", "2", "3", "4", "Enter"],
-#         ["L1",  "k", "KC_PSCR", "m", "n", "o",                  "5", "6", "7", "8", "9", "L1"],
-#         ["Gui", "p", "q", "r", "s", "t",                  "a", "b", "c", "d", "e", "BSpace"],
-#                                ["L6", "L4", "Alt",   "Ctrl", "Space", "L8"]]
-
-
-layers = [qwertz, QWERTZ, neo, NEO, numpad, FN_MEDIA, punct, NAV_TYPO, lang, LANG, neo_lang, NEO_LANG, greek, GREEK, neo_greek, NEO_GREEK,
-symbol, SYMBOL, math, MATHSCRIPT, NEO_MATHSCRIPT, mathnum, MATHEXT, game, mouse]
+layers = [qwertz, QWERTZ, numpad, FN_MEDIA, punct, NAV_TYPO, lang, LANG, greek, GREEK, game, mouse]
