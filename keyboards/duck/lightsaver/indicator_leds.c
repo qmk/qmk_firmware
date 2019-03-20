@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <avr/io.h>
 #include <stdbool.h>
 #include <util/delay.h>
-#include "ducklib/ducklib.h"
+#include "duck_led/duck_led.h"
 
 #define LED_T1H  900
 #define LED_T1L  600
