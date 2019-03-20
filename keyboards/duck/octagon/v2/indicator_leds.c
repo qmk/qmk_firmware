@@ -107,8 +107,8 @@ void send_value(uint8_t byte, enum Device device) {
 }
 
 void send_color(uint8_t r, uint8_t g, uint8_t b, enum Device device) {
-  send_value(g, device);
   send_value(r, device);
+  send_value(g, device);
   send_value(b, device);
 }
 
