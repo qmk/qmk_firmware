@@ -116,29 +116,29 @@ Use the `IS_LED_ON(usb_led, led_name)` and `IS_LED_OFF(usb_led, led_name)` macro
 ```c
 void led_set_user(uint8_t usb_led) {
     if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
-        PORTB |= (1<<0);
+        writePinLow(B0);
     } else {
-        PORTB &= ~(1<<0);
+        writePinHigh(B0);
     }
     if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
-        PORTB |= (1<<1);
+        writePinLow(B1);
     } else {
-        PORTB &= ~(1<<1);
+        writePinHigh(B1);
     }
     if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
-        PORTB |= (1<<2);
+        writePinLow(B2);
     } else {
-        PORTB &= ~(1<<2);
+        writePinHigh(B2);
     }
     if (IS_LED_ON(usb_led, USB_LED_COMPOSE)) {
-        PORTB |= (1<<3);
+        writePinLow(B3);
     } else {
-        PORTB &= ~(1<<3);
+        writePinHigh(B3);
     }
     if (IS_LED_ON(usb_led, USB_LED_KANA)) {
-        PORTB |= (1<<4);
+        writePinLow(B4);
     } else {
-        PORTB &= ~(1<<4);
+        writePinHigh(B4);
     }
 }
 ```
@@ -189,16 +189,18 @@ However, if you have hardware stuff that you need initialized, this is the best 
 
 ### Example `keyboard_pre_init_user()` Implementation
 
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
+This example, at the keyboard level, sets up B0, B1, B2, B3, and B4 as LED pins.
 
 ```c
 void keyboard_pre_init_user(void) {
   // Call the keyboard pre init code.
 
   // Set our LED pins as output
-  DDRB |= (1<<1);
-  DDRB |= (1<<2);
-  DDRB |= (1<<3);
+  setPinOutput(B0);
+  setPinOutput(B1);
+  setPinOutput(B2);
+  setPinOutput(B3);
+  setPinOutput(B4);
 }
 ```
 
@@ -270,16 +272,13 @@ This is controlled by two functions: `suspend_power_down_*` and `suspend_wakeup_
 
 ### Example suspend_power_down_user() and suspend_wakeup_init_user() Implementation
 
-This example, at the keyboard level, sets up B1, B2, and B3 as LED pins.
 
 ```c
-void suspend_power_down_user(void)
-{
+void suspend_power_down_user(void) {
     rgb_matrix_set_suspend_state(true);
 }
 
-void suspend_wakeup_init_user(void)
-{
+void suspend_wakeup_init_user(void) {
     rgb_matrix_set_suspend_state(false);
 }
 ```
@@ -356,11 +355,11 @@ user_config_t user_config;
 
 This sets up a 32 bit structure that we can store settings with in memory, and write to the EEPROM. Using this removes the need to define variables, since they're defined in this structure. Remember that `bool` (boolean) values use 1 bit, `uint8_t` uses 8 bits, `uint16_t` uses up 16 bits.  You can mix and match, but changing the order can cause issues, as it will change the values that are read and written. 
 
-We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `matrix_init_user` and `process_record_user` to configure everything. 
+We're using `rgb_layer_change`, for the `layer_state_set_*` function, and use `keyboard_post_init_user` and `process_record_user` to configure everything. 
 
-Now, using the `matrix_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like: 
+Now, using the `keyboard_post_init_user` code above, you want to add `eeconfig_read_user()` to it, to populate the structure you've just created. And you can then immediately use this structure to control functionality in your keymap.  And It should look like: 
 ```
-void matrix_init_user(void) {
+void keyboard_post_init_user(void) {
   // Call the keymap level matrix init.
 
   // Read the user config from EEPROM
@@ -447,6 +446,7 @@ And lastly, you want to add the `eeconfig_init_user` function, so that when the 
 
 ```
 void eeconfig_init_user(void) {  // EEPROM is getting reset! 
+  user_config.raw = 0;
   user_config.rgb_layer_change = true; // We want this enabled by default
   eeconfig_update_user(user_config.raw); // Write default value to EEPROM now
 

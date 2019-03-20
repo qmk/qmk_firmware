@@ -1,4 +1,4 @@
-#include "xd75.h"
+#include QMK_KEYBOARD_H
 
 #define A_BSPC  LALT(KC_BSPC) // delete whole word in Mac
 // #define C_BSPS  LCTL(KC_BSPC) // delete whole word in PC; currently not in use

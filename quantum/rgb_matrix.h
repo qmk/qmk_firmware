@@ -110,6 +110,9 @@ enum rgb_matrix_effects {
    #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
        RGB_MATRIX_SOLID_REACTIVE,
    #endif
+   #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+       RGB_MATRIX_SOLID_REACTIVE_SIMPLE,
+   #endif
    #ifndef DISABLE_RGB_MATRIX_SPLASH
        RGB_MATRIX_SPLASH,
    #endif
