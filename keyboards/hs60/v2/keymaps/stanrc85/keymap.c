@@ -16,17 +16,6 @@
 #include QMK_KEYBOARD_H
 #include "stanrc85.h"
 
-//Tap Dance Declarations
-enum {
-	TD_WIN = 0,
-	TD_ESC
-};
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-	[TD_WIN] = ACTION_TAP_DANCE_DOUBLE(KC_CAD, KC_LOCK),
-	[TD_ESC] = ACTION_TAP_DANCE_DOUBLE(KC_ESC, KC_GRV)
-};
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[0] = LAYOUT_60_ansi(
 		TD_TESC, KC_1,    KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,
@@ -52,7 +41,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[3] = LAYOUT_60_ansi(
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, EEP_RST,
 		_______, EF_INC,  ES_INC,  S1_INC,  H1_INC,  S2_INC,  H2_INC,  BR_INC,  _______, _______, _______, _______, _______, RESET,
-		TG(1),   EF_DEC,  ES_DEC,  S1_DEC,  H1_DEC,  S2_DEC,  H2_DEC,  BR_DEC,  _______, _______, _______, _______, _______,
+		TG(1),   EF_DEC,  ES_DEC,  S1_DEC,  H1_DEC,  S2_DEC,  H2_DEC,  BR_DEC,  _______, _______, _______, _______, KC_MAKE,
 		_______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
 		_______, _______, _______,                   _______,                   _______, _______, _______, _______)
 };
@@ -65,6 +54,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //  S2_INC, S2_DEC,   // Color 2 saturation increase/decrease
 //  BR_INC, BR_DEC,   // backlight brightness increase/decrease
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
