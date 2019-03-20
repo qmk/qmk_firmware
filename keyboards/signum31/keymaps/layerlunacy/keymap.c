@@ -729,7 +729,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		MO(4), X(SECTION), S(KC_4), X(SECOND), X(ROOT), KC_LBRC, S(KC_8), S(KC_EQL), S(KC_6), KC_0),
 
 /* -------------------------------------------------               -------------------------------------------------
- * |  Esc  |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               |  XXX  |  XXX  |  💥   |  💥   |  💥   |  Del  |
+ * |  Esc  |  XXX  |  XXX  |  XXX  |  XXX  |  XXX  |               |  XXX  |UC_win |UC_lnx |UC_osx |  XXX  |  Del  |
  * -------------------------------------------------               -------------------------------------------------
  * |  Tab  |  F1   |  F2   |  F3   |  F4   | altF4 |               | Led + | Led 0 | Led - | Led ~ |  XXX  | Enter |
  * -------------------------------------------------               -------------------------------------------------
@@ -741,7 +741,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 -------------------------------------------------
  */
 	LAYOUT(
-		KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
+		KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, UC_M_WC, UC_M_LN, UC_M_OS, XXXXXXX, KC_DEL,
 		KC_TAB, KC_F1, KC_F2, KC_F3, KC_F4, BL_TOGG, BL_DEC, BL_BRTG, XXXXXXX, KC_ENT,
 		MO(1), KC_F5, KC_F6, KC_F7, KC_F8, KC_MUTE, KC_VOLD, LCTL(KC_M), XXXXXXX, MO(1),
 		TG(5), KC_F9, KC_F10, KC_F11, KC_F12, KC_MPLY, KC_MNXT, XXXXXXX, XXXXXXX, KC_BSPC,
@@ -1131,6 +1131,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 void matrix_init_user(void) {
 	set_unicode_input_mode(UC_WINC);
+}
+
+void unicode_input_finish(void) {
+  SEND_STRING("\n");
 }
 
 void matrix_scan_user(void) {}

@@ -391,7 +391,7 @@ qmk_dict = {
     # Bluetooth
     "OUT_AUTO": "OUT_AUTO", "OUT_USB": "OUT_USB", "OUT_BT": "OUT_BT",
     # Layer Switching missing, Lx -> MO(x), Tx -> TG(x)
-    "qwertz": "DF(0)", "neo": "DF(2)",
+    # "qwertz": "DF(0)", "neo": "DF(2)", TODO remove
     # Mouse Keys
     "^ Mouse": "KC_MS_U", "v Mouse": "KC_MS_D", "< Mouse": "KC_MS_L",
     "> Mouse": "KC_MS_R", "Mouse 1": "KC_BTN1", "Mouse 2": "KC_BTN2",
@@ -410,6 +410,8 @@ qmk_dict = {
     # Swap Hands
     "_sp_swp": "SHT(KC_SPC)",
     # Unicode support (via X()) included implicitly
+    # Switching Unicode Input Modes
+    "UC_win": "UC_M_WC", "UC_lnx": "UC_M_LN", "UC_osx": "UC_M_OS",
 
     # custom keys
     "altF4": "LALT(KC_F4)",
@@ -470,7 +472,7 @@ numpad = [["Esc", "SUP1", "SUP2", "SUP3", "SUP_MIN", "ROOT",                  "[
                                ["XXX", "L4", "Ctrl",   ".", "0", ","]]
 
 # 5
-FN_MEDIA = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "UC_win", "UC_mac", "UC_lnx", "Del"],
+FN_MEDIA = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "UC_win", "UC_lnx", "UC_osx", "XXX", "Del"],
         ["Tab", "F1", "F2", "F3", "F4", "altF4",                  "Led +", "Led 0", "Led -", "Led ~", "XXX", "Enter"],
         ["L1",  "F5", "F6", "F7", "F8", "XXX",                  "Vol +", "Vol 0", "Vol -", "Mic 0", "XXX", "L1"],
         ["T5", "F9", "F10", "F11", "F12", "XXX",                  "|<<", "play/ps", ">>|", "XXX", "XXX", "BSpace"],
