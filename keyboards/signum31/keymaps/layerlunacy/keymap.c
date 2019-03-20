@@ -1,16 +1,4 @@
-#include "kb.h"
-
-/*#define _BASE 0
-#define _SFT 1
-#define _CALC 2
-#define _CALC_SFT 3
-#define _PCNT 4
-#define _PNCT_SFT 5
-#define _LANG 6
-#define _LANG_SFT 7
-#define _GAME 8
-#define _MOUSE 9
-*/
+#include QMK_KEYBOARD_H
 
 enum my_keycodes {
   GREEK = SAFE_RANGE,
@@ -652,7 +640,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_9), X(ACUTE), S(KC_0), S(KC_RBRC), KC_DEL,
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_U, KC_I, KC_O, KC_P, KC_ENT,
 		MO(1), KC_A, KC_S, KC_D, KC_F, KC_J, KC_K, KC_L, KC_QUOT, MO(1),
@@ -672,7 +660,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(INV_EXCL), S(KC_7), KC_SLSH, S(KC_5), KC_LBRC, S(KC_MINS), KC_RBRC, S(KC_DOT), KC_DEL,
 		S(KC_TAB), S(KC_Q), S(KC_W), S(KC_E), S(KC_R), S(KC_U), S(KC_I), S(KC_O), S(KC_P), S(KC_ENT),
 		MO(1), S(KC_A), S(KC_S), S(KC_D), S(KC_F), S(KC_J), S(KC_K), S(KC_L), S(KC_QUOT), MO(1),
@@ -692,7 +680,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_9), X(ACUTE), S(KC_0), S(KC_RBRC), KC_DEL,
 		KC_TAB, KC_X, KC_V, KC_L, KC_C, KC_H, KC_G, KC_F, KC_Q, KC_ENT,
 		MO(3), KC_U, KC_I, KC_A, KC_E, KC_N, KC_R, KC_T, KC_D, MO(3),
@@ -712,7 +700,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(INV_EXCL), S(KC_7), KC_SLSH, S(KC_5), KC_LBRC, S(KC_MINS), KC_RBRC, S(KC_DOT), KC_DEL,
 		S(KC_TAB), S(KC_X), S(KC_V), S(KC_L), S(KC_C), S(KC_H), S(KC_G), S(KC_F), S(KC_Q), S(KC_ENT),
 		MO(3), S(KC_U), S(KC_I), S(KC_A), S(KC_E), S(KC_N), S(KC_R), S(KC_T), S(KC_D), MO(3),
@@ -732,7 +720,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  XXX  |  L4   | Ctrl  |   .   |   0   |   ,   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(SUP1), X(SUP2), X(SUP3), X(SUP_MIN), S(KC_9), S(KC_5), S(KC_0), KC_RBRC, KC_DEL,
 		KC_TAB, X(CURRENCY), S(KC_SCLN), X(DEGREE), X(MINUTE), KC_7, KC_8, KC_9, KC_SLSH, KC_ENT,
 		MO(1), X(CENT), X(YEN), X(POUND), X(EURO), KC_4, KC_5, KC_6, KC_MINS, MO(1),
@@ -752,7 +740,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  XXX  |  L4   | Ctrl  |  Alt  | Space |  XXX  | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
 		KC_TAB, KC_F1, KC_F2, KC_F3, KC_F4, BL_TOGG, BL_DEC, BL_BRTG, XXXXXXX, KC_ENT,
 		MO(1), KC_F5, KC_F6, KC_F7, KC_F8, KC_MUTE, KC_VOLD, LCTL(KC_M), XXXXXXX, MO(1),
@@ -772,7 +760,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  XXX  | Ctrl  |  Alt  | Space |  XXX  | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, XXXXXXX, S(KC_BSLS), XXXXXXX, XXXXXXX, S(KC_SCLN), XXXXXXX, XXXXXXX, KC_DEL,
 		KC_TAB, S(KC_1), S(KC_2), S(KC_3), S(KC_4), S(KC_9), KC_COMM, S(KC_0), S(KC_RBRC), KC_ENT,
 		MO(1), KC_QUOT, S(KC_8), KC_BSLS, S(KC_QUOT), KC_DOT, S(KC_MINS), KC_SCLN, KC_MINS, MO(1),
@@ -792,7 +780,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  XXX  | Ctrl  |  Alt  | Space |  XXX  | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(SQT1), X(SQT2), X(SQT3), X(SQT4), KC_SLCK, KC_PSCR, KC_BRK, LCTL(LALT(KC_DEL)), KC_DEL,
 		KC_TAB, X(SUP_A), X(SUP_O), X(TMARK), X(COPYR), KC_HOME, KC_UP, KC_END, KC_APP, KC_ENT,
 		MO(1), X(DOTS), X(CROSS), X(BULLET), X(EMDASH), KC_LEFT, KC_DOWN, KC_RIGHT, KC_MENU, MO(1),
@@ -812,7 +800,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
 		KC_ALGR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, X(ue), XXXXXXX, X(oe), XXXXXXX, KC_ENT,
 		MO(1), X(ae), X(sz), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MO(1),
@@ -832,7 +820,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
 		KC_ALGR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, X(UE), XXXXXXX, X(OE), XXXXXXX, KC_ENT,
 		MO(1), X(AE), X(SZ), XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, MO(1),
@@ -852,7 +840,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
 		KC_ALGR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT,
 		MO(1), X(ue), XXXXXXX, X(ae), XXXXXXX, X(n_tilde), XXXXXXX, XXXXXXX, XXXXXXX, MO(1),
@@ -872,7 +860,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  XXX  |  XXX  | Ctrl  |  Alt  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
 		KC_ALGR, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_ENT,
 		MO(1), X(UE), XXXXXXX, X(AE), XXXXXXX, X(N_TILDE), XXXXXXX, XXXXXXX, XXXXXXX, MO(1),
@@ -892,7 +880,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, X(digamma), X(stigma), X(heta), X(koppa), X(sampi), X(scho), XXXXXXX, KC_DEL,
 		KC_TAB, X(xi), X(sigma2), X(lambda), X(chi), X(psi), X(gamma), X(phi), X(phi2), KC_ENT,
 		MO(1), X(ypsilon), X(iota), X(alpha), X(epsilon), X(ny), X(rho), X(tau), X(delta), MO(1),
@@ -912,7 +900,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, X(DIGAMMA), X(STIGMA), X(HETA), X(KOPPA), X(SAMPI), X(SCHO), XXXXXXX, KC_DEL,
 		KC_TAB, X(XI), XXXXXXX, X(LAMBDA), X(CHI), X(PSI), X(GAMMA), X(PHI), XXXXXXX, KC_ENT,
 		MO(1), X(YPSILON), X(IOTA), X(ALPHA), X(EPSILON), X(NY), X(RHO), X(TAU), X(DELTA), MO(1),
@@ -932,7 +920,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, X(digamma), X(stigma), X(heta), X(koppa), X(sampi), X(scho), XXXXXXX, KC_DEL,
 		KC_TAB, X(xi), X(sigma2), X(lambda), X(chi), X(psi), X(gamma), X(phi), X(phi2), KC_ENT,
 		MO(1), X(ypsilon), X(iota), X(alpha), X(epsilon), X(ny), X(rho), X(tau), X(delta), MO(1),
@@ -952,7 +940,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, X(DIGAMMA), X(STIGMA), X(HETA), X(KOPPA), X(SAMPI), X(SCHO), XXXXXXX, KC_DEL,
 		KC_TAB, X(XI), XXXXXXX, X(LAMBDA), X(CHI), X(PSI), X(GAMMA), X(PHI), XXXXXXX, KC_ENT,
 		MO(1), X(YPSILON), X(IOTA), X(ALPHA), X(EPSILON), X(NY), X(RHO), X(TAU), X(DELTA), MO(1),
@@ -972,7 +960,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(SHOGI_WD), X(FLAG_W), X(LETTER), X(PHONE), X(PLAY), X(FORWARD), X(STOP), X(EJECT), KC_DEL,
 		KC_TAB, X(SHOGI_W), X(FEMALE), X(MALE), X(NO), X(NATURAL), X(SHARP), X(COMMON_T), X(ALLA_BR), KC_ENT,
 		MO(1), X(PAWN_W), X(DIAMS_W), X(HEARTS_W), X(SPADES_W), X(HALF_N), X(QUART_N), X(EIGHTH_N), X(SIXT_N), MO(1),
@@ -992,7 +980,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(SHOGI_BD), X(FLAG_B), XXXXXXX, XXXXXXX, X(SPEAKER_TG), X(SPEAKER_DN), XXXXXXX, XXXXXXX, KC_DEL,
 		KC_TAB, X(SHOGI_B), X(KEY), X(LOCK), X(LOCK_OPEN), X(BARLINE), X(BARLINE_D), X(BARLINE_FIN), X(CODA), KC_ENT,
 		MO(1), X(PAWN_B), X(DIAMS_B), X(HEARTS_B), X(SPADES_B), X(HALF_P), X(QUART_P), X(EIGHTH_P), X(SIXT_P), MO(1),
@@ -1012,7 +1000,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(EXISTS), X(FORALL), X(EQUIV), X(CORRESP), X(TO), X(MAPSTO), X(SETMINUS), X(QED), KC_DEL,
 		KC_TAB, X(OR_), X(AND_), X(OR), X(AND), X(IMPL_REV), X(IMPL), X(TOP), X(BOTTOM), KC_ENT,
 		MO(1), X(SUM_), X(PROD_), S(KC_EQL), X(MDOT), X(LS_EQ), X(GR_EQ), X(INFTY), X(epsilon), MO(1),
@@ -1032,7 +1020,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(LEFT_CEIL), X(DELTA), X(REAL_P), X(NABLA), X(BRA), X(IMAG_P), X(KET), X(RIGHT_FLOOR), KC_DEL,
 		KC_TAB, X(Q_SET), XXXXXXX, X(e_FUN), X(R_SET), X(U_SET), X(i_UNIT), X(BIG_O), X(POWERSET), KC_ENT,
 		MO(1), X(A_SET), X(INTEGRAL), X(PARTIAL), X(F_SET), XXXXXXX, X(K_SET), X(LENGTH), XXXXXXX, MO(1),
@@ -1052,7 +1040,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(LEFT_CEIL), X(DELTA), X(REAL_P), X(NABLA), X(BRA), X(IMAG_P), X(KET), X(RIGHT_FLOOR), KC_DEL,
 		KC_TAB, KC_A, S(KC_A), KC_0, KC_I, KC_1, KC_2, KC_3, KC_4, KC_ENT,
 		MO(1), KC_K, KC_PSCR, KC_M, KC_N, KC_6, KC_7, KC_8, KC_9, MO(1),
@@ -1072,7 +1060,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  XXX  |  L4   | Ctrl  |   .   |   0   |   ,   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(SUP1), X(SUP2), X(SUP3), X(SUP_MIN), S(KC_9), S(KC_5), S(KC_0), KC_RBRC, KC_DEL,
 		KC_TAB, X(CURRENCY), S(KC_SCLN), X(DEGREE), X(MINUTE), KC_7, KC_8, KC_9, KC_SLSH, KC_ENT,
 		MO(1), X(CENT), X(YEN), X(POUND), X(EURO), KC_4, KC_5, KC_6, KC_MINS, MO(1),
@@ -1092,7 +1080,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  L6   |  L4   |  Alt  | Ctrl  | Space |  L8   | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, X(RIGHT_TACK), X(MODELS), X(AB_VEC), X(AB_LINE), X(PRED), X(EMBED), X(SUCC), X(GREAT_GREAT), KC_DEL,
 		KC_TAB, XXXXXXX, XXXXXXX, X(TRIANGLE), X(SQUARE), X(PLUS_OP), X(MINUS_OP), X(ROUGHLY), X(ISOMORPH), KC_ENT,
 		MO(1), X(LTIMES), X(RTIMES), X(BOWTIE), X(M_ANGLE), X(AST_MID), X(TIMES), X(PLUS_MINUS), X(MINUS_PLUS), MO(1),
@@ -1112,7 +1100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  Alt  | Space | Ctrl  | Enter |RShift | Ctrl  | MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, KC_1, KC_2, KC_3, KC_4, KC_7, KC_8, KC_9, KC_0, KC_DEL,
 		KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_U, KC_I, KC_O, KC_P, KC_ENT,
 		KC_CAPS, KC_A, KC_S, KC_D, KC_F, KC_J, KC_K, KC_L, KC_UP, KC_LSFT,
@@ -1132,7 +1120,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *    NEO            GAME    GREEK |  Alt  | Space | Ctrl  |Mouse 3|Mouse 1|Mouse 2| MATH   SYMBOL           MOUSE  
  *                                 -------------------------------------------------
  */
-	KEYMAP(
+	LAYOUT(
 		KC_ESC, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, KC_DEL,
 		KC_TAB, KC_MENU, LCTL(S(KC_TAB)), KC_UP, LCTL(KC_TAB), KC_BTN1, KC_MS_U, KC_BTN2, KC_SLCK, KC_ENT,
 		KC_LSFT, KC_BSPC, KC_LEFT, KC_DOWN, KC_RIGHT, KC_MS_L, KC_MS_D, KC_MS_R, XXXXXXX, KC_LSFT,
@@ -1140,13 +1128,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		TG(2), KC_LCTRL, GAME, GREEK, KC_LALT, KC_BTN2, MATH, SYMBOL, KC_BTN3, MOUSE,
 		KC_SPC, KC_DEL, KC_PGDN, KC_PGUP, XXXXXXX, XXXXXXX, KC_PSCR, XXXXXXX, KC_1, KC_BTN1)
 };
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-/*	keyevent_t event = record->event;
-	switch (id) {}
-*/	return MACRO_NONE;
-}
 
 void matrix_init_user(void) {
 	set_unicode_input_mode(UC_WINC);

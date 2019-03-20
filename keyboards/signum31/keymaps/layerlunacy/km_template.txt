@@ -1,16 +1,4 @@
-#include "kb.h"
-
-/*#define _BASE 0
-#define _SFT 1
-#define _CALC 2
-#define _CALC_SFT 3
-#define _PCNT 4
-#define _PNCT_SFT 5
-#define _LANG 6
-#define _LANG_SFT 7
-#define _GAME 8
-#define _MOUSE 9
-*/
+#include QMK_KEYBOARD_H
 
 enum my_keycodes {
   GREEK = SAFE_RANGE,
@@ -32,13 +20,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 //<keymaps/>
 };
-
-
-const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) {
-/*	keyevent_t event = record->event;
-	switch (id) {}
-*/	return MACRO_NONE;
-}
 
 void matrix_init_user(void) {
 	set_unicode_input_mode(UC_WINC);

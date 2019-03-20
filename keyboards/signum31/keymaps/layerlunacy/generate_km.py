@@ -44,18 +44,6 @@ def toLgd(s):
     (kc, lgd) = translate(s)
     return lgd
 
-##test = open("test.txt", mode="w")
-##
-##length = len(layout.uc_dict)
-##for k, v, isLast in gen_uc_iter():
-##    length -= 1
-##    if length:
-##        test.write(k+",\n")
-##    else:
-##        test.write(k)
-##
-##test.close()
-
 if __name__ == "__main__":
 
     template = open("km_template.txt", mode="r")
@@ -98,7 +86,7 @@ if __name__ == "__main__":
                 output.write(" *  {6}         {7} {8}|{0}|{1}|{2}|{3}|{4}|{5}|{9} {10}         {11} \n".format(toLgd(L[4][0]), toLgd(L[4][1]), toLgd(L[4][2]), toLgd(L[4][3]), toLgd(L[4][4]), toLgd(L[4][5]), toLgd(S[0]), toLgd(S[1]), toLgd(S[2]), toLgd(S[3]), toLgd(S[4]), toLgd(S[5])))
                 output.write(" *                                 -------------------------------------------------\n")
                 output.write(" */\n")
-                output.write("\tKEYMAP(\n")
+                output.write("\tLAYOUT(\n")
                 output.write("\t\t{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9},\n".format(toKC(L[0][0]), toKC(L[0][1]), toKC(L[0][2]), toKC(L[0][3]), toKC(L[0][4]), toKC(L[0][7]), toKC(L[0][8]), toKC(L[0][9]), toKC(L[0][10]), toKC(L[0][11])))
                 output.write("\t\t{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9},\n".format(toKC(L[1][0]), toKC(L[1][1]), toKC(L[1][2]), toKC(L[1][3]), toKC(L[1][4]), toKC(L[1][7]), toKC(L[1][8]), toKC(L[1][9]), toKC(L[1][10]), toKC(L[1][11])))
                 output.write("\t\t{0}, {1}, {2}, {3}, {4}, {5}, {6}, {7}, {8}, {9},\n".format(toKC(L[2][0]), toKC(L[2][1]), toKC(L[2][2]), toKC(L[2][3]), toKC(L[2][4]), toKC(L[2][7]), toKC(L[2][8]), toKC(L[2][9]), toKC(L[2][10]), toKC(L[2][11])))
