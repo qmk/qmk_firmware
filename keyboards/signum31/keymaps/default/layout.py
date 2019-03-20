@@ -391,6 +391,8 @@ qmk_dict = {
     # Swap Hands
     "_sp_swp": "SHT(KC_SPC)",
     # Unicode support (via X()) included implicitly
+    # Switching Unicode Input Modes
+    "UC_win": "UC_M_WC", "UC_lnx": "UC_M_LN", "UC_osx": "UC_M_OS",
 
     # custom keys
     "altF4": "LALT(KC_F4)",
@@ -440,7 +442,7 @@ numpad = [["Esc", "SUP1", "SUP2", "SUP3", "SUP_MIN", "ROOT",                  "[
                                ["XXX", "L2", "Ctrl",   ".", "0", ","]]
 
 # 3
-FN_MEDIA = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "XXX", "UC_win", "UC_mac", "UC_lnx", "Del"],
+FN_MEDIA = [["Esc", "XXX", "XXX", "XXX", "XXX", "XXX",                  "XXX", "UC_win", "UC_lnx", "UC_osx", "XXX", "Del"],
         ["Tab", "F1", "F2", "F3", "F4", "altF4",                  "Led +", "Led 0", "Led -", "Led ~", "XXX", "Enter"],
         ["L1",  "F5", "F6", "F7", "F8", "XXX",                  "Vol +", "Vol 0", "Vol -", "Mic 0", "XXX", "L1"],
         ["T3", "F9", "F10", "F11", "F12", "XXX",                  "|<<", "play/ps", ">>|", "XXX", "XXX", "BSpace"],

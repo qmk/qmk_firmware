@@ -23,6 +23,10 @@ void matrix_init_user(void) {
 	set_unicode_input_mode(UC_WINC);
 }
 
+void unicode_input_finish(void) {
+  SEND_STRING("\n");
+}
+
 void matrix_scan_user(void) {}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
