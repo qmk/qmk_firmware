@@ -12,6 +12,7 @@
 static uint16_t idle_timer = 0;
 static uint8_t halfmin_counter = 0;
 static bool led_on = true;
+static bool layer_lighting = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[DEFAULT_LAYER] = LAYOUT_60_b_ansi( \
@@ -28,40 +29,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ______, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, KC_RSFT, KC_PGUP, KC_INS, \
     ______, ______, ______, ______, ______, ______, ______, ______, KC_HOME, KC_PGDN, KC_END \
   ),
-	[2] = LAYOUT_60_b_ansi( \
+	[TO_LAYER] = LAYOUT_60_b_ansi( \
     TO(DEFAULT_LAYER), TO(LIGHTING_LAYER), XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, ______, \
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, ______, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX \
   ),
-	[3] = LAYOUT_60_b_ansi( \
+	[LIGHTING_LAYER] = LAYOUT_60_b_ansi( \
     RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, ______, \
-    XXXXXX, XXXXXX, XXXXXX, XXXXXX, TO(2), XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX \
+    XXXXXX, XXXXXX, XXXXXX, XXXXXX, TO(TO_LAYER), XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX \
   ),
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
-  switch (biton32(state)) {
-    case DEFAULT_LAYER:
-      // rgblight_setrgb(0x00, 0x00, 0xFF);
-      rgblight_sethsv(240, 255, 255);
-      break;
-    case FN_LAYER:
-      // rgblight_setrgb(0x00, 0xA0, 0xFF);
-      rgblight_sethsv(202, 255, 255);
-      break;
-    case LIGHTING_LAYER:
-      // rgblight_setrgb(0xFF, 0x00, 0x00);
-      rgblight_sethsv(0, 255, 255);
-      break;
-    case TO_LAYER:
-      // rgblight_setrgb(0xFF, 0x20, 0x00);
-      rgblight_sethsv(5, 255, 255);
-      break;
+  if (layer_lighting) {
+    switch (biton32(state)) {
+      case DEFAULT_LAYER:
+        rgblight_setrgb(0x00, 0x00, 0xFF);
+        break;
+      case FN_LAYER:
+        rgblight_setrgb(0x00, 0xA0, 0xFF);
+        break;
+      case LIGHTING_LAYER:
+        rgblight_setrgb(0xFF, 0x00, 0x00);
+        break;
+      case TO_LAYER:
+        rgblight_setrgb(0xFF, 0x20, 0x00);
+        break;
+    }
   }
   return state;
 }
@@ -92,5 +91,18 @@ void matrix_scan_user() {
     rgblight_disable();
     halfmin_counter = 0;
     led_on = false;
+  }
+}
+
+void matrix_init_user(void) {
+  DDRB |= (1 << 2);
+  PORTB &= ~(1 << 2);
+}
+
+void led_set_user(uint8_t usb_led) {
+  if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
+    PORTB &= ~(1 << 2);
+  } else {
+    PORTB |= (1 << 2);
   }
 }
