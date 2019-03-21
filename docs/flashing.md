@@ -60,7 +60,7 @@ There are a number of DFU commands that you can use to flash firmware to a DFU d
 
 ## Caterina
 
-Arduino boards and their clones use the [Caterina bootloader](https://github.com/arduino/Arduino/tree/master/hardware/arduino/avr/bootloaders/caterina) (any keyboard built with a Pro Micro, or clone), and uses the avr109 protocol to communicate through virtual serial. Bootloaders like [A-Star](https://www.pololu.com/docs/0J61/9) are based on Caterina.
+Arduino boards and their clones use the [Caterina bootloader](https://github.com/arduino/ArduinoCore-avr/tree/master/bootloaders/caterina) (any keyboard built with a Pro Micro, or clone), and uses the avr109 protocol to communicate through virtual serial. Bootloaders like [A-Star](https://www.pololu.com/docs/0J61/9) are based on Caterina.
 
 To ensure compatibility with the Caterina bootloader, make sure this block is present your `rules.mk`:
 
