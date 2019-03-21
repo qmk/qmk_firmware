@@ -93,7 +93,7 @@ typedef struct _Serial_m2s_buffer_t {
   uint8_t           backlight_level;
 #  endif
 #  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-  rgblight_config_t rgblight_config;  // not yet use
+  rgblight_syncinfo_t rgblight_sync;
   //
   // When MCUs on both sides drive their respective RGB LED chains,
   // it is necessary to synchronize, so it is necessary to communicate RGB
@@ -123,18 +123,32 @@ void transport_master_init(void) { soft_serial_initiator_init(transactions, TID_
 void transport_slave_init(void) { soft_serial_target_init(transactions, TID_LIMIT(transactions)); }
 
 bool transport_master(matrix_row_t matrix[]) {
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+  if (rgblight_get_change_flags()) {
+      rgblight_get_syncinfo((rgblight_syncinfo_t *)&serial_m2s_buffer.rgblight_sync);
+  }
+
+  if (soft_serial_transaction() != TRANSACTION_END) {
+    return false;
+  }
+
+  if (serial_m2s_buffer.rgblight_sync.status.change_flags != 0) {
+    if (serial_m2s_buffer.rgblight_sync.status.change_flags ==
+      rgblight_get_change_flags()) {
+      rgblight_clear_change_flags();
+    }
+    serial_m2s_buffer.rgblight_sync.status.change_flags = 0;
+  }
+#else
   if (soft_serial_transaction()) {
     return false;
   }
+#endif
 
   // TODO:  if MATRIX_COLS > 8 change to unpack()
   for (int i = 0; i < ROWS_PER_HAND; ++i) {
     matrix[i] = serial_s2m_buffer.smatrix[i];
   }
-
-#  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-  // Code to send RGB over serial goes here (not implemented yet)
-#  endif
 
 #  ifdef BACKLIGHT_ENABLE
   // Write backlight level for slave to read
@@ -152,9 +166,15 @@ void transport_slave(matrix_row_t matrix[]) {
 #  ifdef BACKLIGHT_ENABLE
   backlight_set(serial_m2s_buffer.backlight_level);
 #  endif
+
+  if (status0 == TRANSACTION_ACCEPTED) { // if data received
 #  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-// Add serial implementation for RGB here
+    if (serial_m2s_buffer.rgblight_sync.status.change_flags) {
+      rgblight_update_sync((rgblight_syncinfo_t *)&serial_m2s_buffer.rgblight_sync, false);
+    }
 #  endif
+      status0 = TRANSACTION_END;
+  }
 }
 
 #endif
