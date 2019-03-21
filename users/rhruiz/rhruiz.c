@@ -56,9 +56,20 @@ void rhruiz_change_leds_to(uint16_t hue, uint8_t sat) {
 #ifdef RGBLIGHT_ENABLE
   rgblight_config_t eeprom_config;
   eeprom_config.raw = eeconfig_read_rgblight();
+  LED_TYPE *ledp;
 
   uint8_t left_led = 0;
   uint8_t right_led = RGBLED_NUM / 2 - 1;
+
+  #ifdef RGBLIGHT_LED_MAP
+    LED_TYPE led0[RGBLED_NUM];
+    for(uint8_t i = 0; i < RGBLED_NUM; i++) {
+        led0[i] = led[pgm_read_byte(&led_map[i])];
+    }
+    ledp = led0;
+  #else
+    ledp = led;
+  #endif
 
   if (rgblight_get_mode() == false) {
     for (uint8_t i = RGBLED_NUM ; i-- > 0 ; ) {
@@ -66,17 +77,17 @@ void rhruiz_change_leds_to(uint16_t hue, uint8_t sat) {
         continue;
       }
 
-      sethsv(0, 0, 0, (LED_TYPE *)&led[i]);
+      sethsv(0, 0, 0, (LED_TYPE *)&ledp[i]);
     }
   }
 
-  sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[left_led]);
-  sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&led[right_led]);
+  sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&ledp[left_led]);
+  sethsv(hue, sat, eeprom_config.val, (LED_TYPE *)&ledp[right_led]);
 
   #ifdef RGBW
-    ws2812_setleds_rgbw(led, RGBLED_NUM);
+    ws2812_setleds_rgbw(ledp, RGBLED_NUM);
   #else
-    ws2812_setleds(led, RGBLED_NUM);
+    ws2812_setleds(ledp, RGBLED_NUM);
   #endif
 #endif
 }
