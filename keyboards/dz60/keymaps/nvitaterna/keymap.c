@@ -3,16 +3,21 @@
 
 #define DEFAULT_LAYER 0
 #define FN_LAYER 1
-#define TO_LAYER 2
+#define TO_LAYER 15
 #define LIGHTING_LAYER 3
 #define ______ KC_TRNS
 #define XXXXXX KC_NO
 #define BACKLIGHT_TIMEOUT 15 // in minutes
 
+enum my_keycodes {
+  L_BL = SAFE_RANGE,
+  L_ID = SAFE_RANGE,
+};
+
 static uint16_t idle_timer = 0;
 static uint8_t halfmin_counter = 0;
 static bool led_on = true;
-static bool layer_lighting = false;
+static bool layer_bl = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[DEFAULT_LAYER] = LAYOUT_60_b_ansi( \
@@ -24,10 +29,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 	[FN_LAYER] = LAYOUT_60_b_ansi( \
     KC_GRV, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL, KC_DEL, \
-    ______, XXXXXX, KC_UP, XXXXXX, XXXXXX, KC_MPLY, KC_MNXT, KC_VOLU, XXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, XXXXXX, \
-    ______, KC_LEFT, KC_DOWN, KC_RGHT, XXXXXX, KC_MSTP, KC_MPRV, KC_VOLD, XXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, ______, \
+    ______, KC_MPLY, KC_MNXT, KC_VOLU, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, KC_BTN3, XXXXXX, \
+    ______, KC_MSTP, KC_MPRV, KC_VOLD, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, ______, \
     ______, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, KC_RSFT, KC_PGUP, KC_INS, \
     ______, ______, ______, ______, ______, ______, ______, ______, KC_HOME, KC_PGDN, KC_END \
+  ),
+	[LIGHTING_LAYER] = LAYOUT_60_b_ansi( \
+    RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, XXXXXX, XXXXXX, XXXXXX, XXXXXX, L_BL, L_BL, \
+    XXXXXX, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
+    XXXXXX, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
+    XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, ______, \
+    XXXXXX, XXXXXX, XXXXXX, XXXXXX, MO(TO_LAYER), XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX \
   ),
 	[TO_LAYER] = LAYOUT_60_b_ansi( \
     TO(DEFAULT_LAYER), TO(LIGHTING_LAYER), XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
@@ -36,17 +48,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, ______, \
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, ______, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX \
   ),
-	[LIGHTING_LAYER] = LAYOUT_60_b_ansi( \
-    RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
-    XXXXXX, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
-    XXXXXX, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
-    XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, ______, \
-    XXXXXX, XXXXXX, XXXXXX, XXXXXX, TO(TO_LAYER), XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX \
-  ),
 };
 
 uint32_t layer_state_set_user(uint32_t state) {
-  if (layer_lighting) {
+  if (layer_bl) {
     switch (biton32(state)) {
       case DEFAULT_LAYER:
         rgblight_setrgb(0x00, 0x00, 0xFF);
@@ -77,6 +82,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       halfmin_counter = 0;
       led_on = true;
     }
+  }
+  switch (keycode) {
+    case L_BL:
+      if (record->event.pressed) {
+        layer_bl = !layer_bl;
+      }
+      return false;
   }
   return true;
 }
