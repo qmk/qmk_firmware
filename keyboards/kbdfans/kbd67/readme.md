@@ -2,7 +2,8 @@
 
 A 65% keyboard sold in two variants. Rev1 was a typical keyboard that had to be soldered together, supporting multiple layouts.
 Months later, a new version with hotswap was sold. **Firmware files from one, will not work on the other.** Please use the `.hex` appropriate for your board.
-The rev1 PCB for the KBD76 is sold under the name "KBD65"
+
+The rev1 PCB for the KBD67 is sold under the name "KBD65."
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
 Hardware Supported: KBD67  
