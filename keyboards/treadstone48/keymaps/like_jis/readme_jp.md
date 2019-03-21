@@ -82,7 +82,7 @@ Tap Danceは指定した二つのキーをシングルタップ、ダブルタ�
 ```c
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_ALPHA_kc( \
+  [_BASE] = LAYOUT_base_kc( \
   //,------------------------------------------------------------------------------------------.
         ESC,     Q,     W,     E,     R,     T,     Y,     U,     I,     O,     P,         MINS,\
   //|------+------+------+------+------+------|------+------+------+------+------+-------------|
@@ -96,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ExtraKey: Split backspace key or it is below the enter key.
   ),
 
-  [_LOWER] = LAYOUT_ALPHA_kc( \
+  [_LOWER] = LAYOUT_base_kc( \
   //,------------------------------------------------------------------------------------------.
       _____,    F1,    F2,    F3,    F4,    F5,  MINS,   EQL,  JYEN,  LBRC,  RBRC,          DEL,\
   //|------+------+------+------+------+------|------+------+------+------+------+-------------|
@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ExtraKey: Split backspace key or it is below the enter key.
   ),
 
-  [_RAISE] = LAYOUT_ALPHA_kc( \
+  [_RAISE] = LAYOUT_base_kc( \
   //,------------------------------------------------------------------------------------------.
       _____,     1,     2,     3,     4,     5,     6,     7,     8,     9,     0,        XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+-------------|
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ExtraKey: Split backspace key or it is below the enter key.
   ),
 
-  [_ADJUST] = LAYOUT_ALPHA_kc( \
+  [_ADJUST] = LAYOUT_base_kc( \
   //,------------------------------------------------------------------------------------------.
       XXXXX,   RST,  LRST,  KNRM,  KSWP, XXXXX, XXXXX,  WH_L,  WH_U,  HOME,  PGUP,        XXXXX,\
   //|------+------+------+------+------+------|------+------+------+------+------+-------------|

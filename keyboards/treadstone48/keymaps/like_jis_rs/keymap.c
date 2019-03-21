@@ -94,7 +94,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [_BASE] = LAYOUT_RS_kc( \
+  [_BASE] = LAYOUT_rs_kc( \
   // Treadstone48                                                                                 Rhymestone
   //,------------------------------------------------------------------------------------------.  ----------------------------------.
         ESC,     Q,     W,     E,     R,     T,     Y,     U,     I,     O,     P,         MINS,      P7,    P8,    P9,  PSLS,  NLCK,\
@@ -109,7 +109,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ExtraKey: Split backspace key or it is below the enter key.
   ),
 
-  [_LOWER] = LAYOUT_RS_kc( \
+  [_LOWER] = LAYOUT_rs_kc( \
   // Treadstone48                                                                                 Rhymestone
   //,------------------------------------------------------------------------------------------.  ----------------------------------.
       _____,    F1,    F2,    F3,    F4,    F5,  MINS,   EQL,  JYEN,  LBRC,  RBRC,          DEL,       A,     B,     C,  JYEN,  HASH,\
@@ -124,7 +124,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ExtraKey: Split backspace key or it is below the enter key.
   ),
 
-  [_BASES] = LAYOUT_RS_kc( \
+  [_BASES] = LAYOUT_rs_kc( \
   // Treadstone48                                                                                 Rhymestone
   //,------------------------------------------------------------------------------------------.  ----------------------------------.
         ESC,     Q,     W,     E,     R,     T,     Y,     U,     I,     O,     P,         MINS,       Q,     W,     E,     R,     T,\
@@ -139,7 +139,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ExtraKey: Split backspace key or it is below the enter key.
   ),
 
-  [_LOWRS] = LAYOUT_RS_kc( \
+  [_LOWRS] = LAYOUT_rs_kc( \
   // Treadstone48                                                                                 Rhymestone
   //,------------------------------------------------------------------------------------------.  ----------------------------------.
       _____,    F1,    F2,    F3,    F4,    F5,  MINS,   EQL,  JYEN,  LBRC,  RBRC,          DEL,      F1,    F2,    F3,    F4,    F5,\
@@ -154,7 +154,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ExtraKey: Split backspace key or it is below the enter key.
   ),
 
-  [_RAISE] = LAYOUT_RS_kc( \
+  [_RAISE] = LAYOUT_rs_kc( \
   // Treadstone48                                                                                 Rhymestone
   //,------------------------------------------------------------------------------------------.  ----------------------------------.
       _____,     1,     2,     3,     4,     5,     6,     7,     8,     9,     0,        XXXXX,   XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
@@ -169,7 +169,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // ExtraKey: Split backspace key or it is below the enter key.
   ),
 
-  [_ADJUST] = LAYOUT_RS_kc( \
+  [_ADJUST] = LAYOUT_rs_kc( \
   // Treadstone48                                                                                 Rhymestone
   //,------------------------------------------------------------------------------------------.  ----------------------------------.
       XXXXX,   RST,  LRST,  KNRM,  KSWP, XXXXX, XXXXX,  WH_L,  WH_U,  HOME,  PGUP,        XXXXX,   XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
