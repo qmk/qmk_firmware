@@ -1,6 +1,6 @@
 # tomholford's layout
 
-This layout is data-driven: I installed WhatPulse a few months ago and generated a heatmap of the most frequently used keys. I also optimized for my most-used programming languages, and muscle memory.
+This layout is data-driven: I installed [WhatPulse](https://whatpulse.org/) a few months ago and generated a heatmap of the most frequently used keys. I also optimized for my most-used programming languages, and muscle memory.
 
 ## Changes
 
