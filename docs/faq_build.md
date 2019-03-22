@@ -41,6 +41,17 @@ Or for Input Club Keyboards:
 # Input Club keyboard bootloader
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
 ```
+## WINAVR is Obsolete   
+It is no longer recommended and may cause some problem. 
+See [TMK Issue #99](https://github.com/tmk/tmk_keyboard/issues/99). 
+
+## USB VID and PID 
+You can use any ID you want with editing `config.h`. Using any presumably unused ID will be no problem in fact except for very low chance of collision with other product. 
+
+Most boards in QMK use `0xFEED` as the vendor ID. You should look through other keyboards to make sure you pick a unique Product ID.  
+
+Also see this.   
+https://github.com/tmk/tmk_keyboard/issues/150
 
 You can buy a really unique VID:PID here. I don't think you need this for personal use.
 - http://www.obdev.at/products/vusb/license.html
