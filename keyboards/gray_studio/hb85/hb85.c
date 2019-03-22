@@ -1,5 +1,6 @@
 /*
-Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>
+Copyright 2017 Luiz Ribeiro <luizribeiro@gmail.com>, 
+          2019 fcoury <felipe.coury@gmail.com>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

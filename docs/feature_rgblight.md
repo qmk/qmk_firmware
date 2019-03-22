@@ -188,6 +188,53 @@ If you need to change your RGB lighting in code, for example in a macro to chang
 
 Additionally, [`rgblight_list.h`](https://github.com/qmk/qmk_firmware/blob/master/quantum/rgblight_list.h) defines several predefined shortcuts for various colors. Feel free to add to this list!
 
+## Changing the order of the LEDs
+
+If you want to make the logical order of LEDs different from the electrical connection order, you can do this by defining the `RGBLIGHT_LED_MAP` macro in your `config.h`.
+
+By defining `RGBLIGHT_LED_MAP` as in the example below, you can specify the LED with addressing in reverse order of the electrical connection order.
+
+```c
+// config.h
+
+#define RGBLED_NUM 10
+#define RGBLIGHT_LED_MAP { 9, 8, 7, 6, 5, 4, 3, 2, 1, 0 }
+
+```
+
+For keyboards that use the RGB LEDs as a backlight for each key, you can also define it as in the example below.
+
+```c
+// config.h
+
+#define RGBLED_NUM 30
+
+/* RGB LED Conversion macro from physical array to electric array */
+#define LED_LAYOUT( \
+    L00, L01, L02, L03, L04, L05,  \
+    L10, L11, L12, L13, L14, L15,  \
+    L20, L21, L22, L23, L24, L25,  \
+    L30, L31, L32, L33, L34, L35,  \
+    L40, L41, L42, L43, L44, L45 ) \
+  { \
+    L05, L04, L03, L02, L01, L00,   \
+    L10, L11, L12, L13, L14, L15,   \
+    L25, L24, L23, L22, L21, L20,   \
+    L30, L31, L32, L33, L34, L35,   \
+    L46, L45, L44, L43, L42, L41    \
+  }
+
+/* RGB LED logical order map */
+/* Top->Bottom, Right->Left */
+#define RGBLIGHT_LED_MAP LED_LAYOUT( \
+  25, 20, 15, 10,  5,  0,       \
+  26, 21, 16, 11,  6,  1,       \
+  27, 22, 17, 12,  7,  2,       \
+  28, 23, 18, 13,  8,  3,       \
+  29, 24, 19, 14,  9,  4 )
+
+```
+
 ## Hardware Modification
 
 If your keyboard lacks onboard underglow LEDs, you may often be able to solder on an RGB LED strip yourself. You will need to find an unused pin to wire to the data pin of your LED strip. Some keyboards may break out unused pins from the MCU to make soldering easier. The other two pins, VCC and GND, must also be connected to the appropriate power pins.

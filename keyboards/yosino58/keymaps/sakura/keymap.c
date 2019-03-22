@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "bootloader.h"
 #ifdef PROTOCOL_LUFA
   #include "lufa.h"
   #include "split_util.h"
@@ -68,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |LCTRL |   .  |   0  |   1  |   2  |   3  |-------.-------.  ,---------------|  Del | End  |PageDN|  Å©  | Num  | Caps |
  * `-----------------------------------------/  F11  /       /   \       \  F12  \----------------------------------------'
  *                          | LAlt | LGUI | /-------/ Space /     \ Enter \-------\  |      |      |
- *                          |      |      |/       /       /       \       \       \ |      |      |
+ *                          |      |      |/ LOWER /       /       \       \       \ |      |      |
  *                          `-----------------------------'         '------------------------------'
  */
  [_LOWER] = LAYOUT( \
@@ -90,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |      | MS_L | MS_D | MS_R |MS_WhD|MS_WhR|-------.-------.  ,---------------|      |      | MODE | HUE- | SAT- | VAL- |
  * `-----------------------------------------/       /       /   \       \       \----------------------------------------'
  *                          |      |      | /-------/ Space /     \ Enter \-------\  |      |      |
- *                          |      |      |/       /       /       \       \       \ |      |      |
+ *                          |      |      |/       /       /       \       \ RAISE \ |      |      |
  *                          `-----------------------------'         '------------------------------'
  */
  [_RAISE] = LAYOUT( \
@@ -98,7 +97,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,    XXXXXXX,                                     KC_MPRV, KC_VOLD, KC_MNXT, XXXXXXX, XXXXXXX, XXXXXXX, \
   XXXXXXX, KC_BTN1, KC_MS_U, KC_BTN2, KC_WH_U,    KC_WH_L,                                     XXXXXXX, XXXXXXX, RGB_TOG, RGB_HUI, RGB_SAI, RGB_VAI, \
   XXXXXXX, KC_MS_L, KC_MS_D, KC_MS_R, KC_WH_D,    KC_WH_R, XXXXXXX, _______, _______, XXXXXXX, XXXXXXX, RGBRST,  RGB_MOD, RGB_HUD, RGB_SAD, RGB_VAD, \
-                                      XXXXXXX,    XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX \
+                                      XXXXXXX,    XXXXXXX, XXXXXXX,                   _______, XXXXXXX, XXXXXXX \
   )
 
 /*   ADJUST
