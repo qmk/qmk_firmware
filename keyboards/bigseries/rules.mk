@@ -1,5 +1,3 @@
-#SRC += rgb_backlight.c
-
 # MCU name
 MCU = atmega32u2
 

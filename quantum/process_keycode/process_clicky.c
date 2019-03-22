@@ -3,11 +3,6 @@
 
 #ifdef AUDIO_CLICKY
 
-#ifdef AUDIO_CLICKY_ON
-bool clicky_enable = true;
-#else // AUDIO_CLICKY_ON
-bool clicky_enable = false;
-#endif // AUDIO_CLICKY_ON
 #ifndef AUDIO_CLICKY_FREQ_DEFAULT
 #define AUDIO_CLICKY_FREQ_DEFAULT 440.0f
 #endif // !AUDIO_CLICKY_FREQ_DEFAULT
@@ -25,7 +20,10 @@ bool clicky_enable = false;
 #endif // !AUDIO_CLICKY_FREQ_RANDOMNESS
 
 float clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT;
+float clicky_rand = AUDIO_CLICKY_FREQ_RANDOMNESS;
 float clicky_song[][2]  = {{AUDIO_CLICKY_FREQ_DEFAULT, 3}, {AUDIO_CLICKY_FREQ_DEFAULT, 1}}; // 3 and 1 --> durations
+
+extern audio_config_t audio_config;
 
 #ifndef NO_MUSIC_MODE
 extern bool music_activated;
@@ -34,38 +32,70 @@ extern bool midi_activated;
 
 void clicky_play(void) {
 #ifndef NO_MUSIC_MODE
-  if (music_activated || midi_activated) return;
+  if (music_activated || midi_activated || !audio_config.enable) return;
 #endif // !NO_MUSIC_MODE
-  clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + AUDIO_CLICKY_FREQ_RANDOMNESS * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
-  clicky_song[1][0] = clicky_freq * (1.0f + AUDIO_CLICKY_FREQ_RANDOMNESS * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
+  clicky_song[0][0] = 2.0f * clicky_freq * (1.0f + clicky_rand * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
+  clicky_song[1][0] = clicky_freq * (1.0f + clicky_rand * ( ((float)rand()) / ((float)(RAND_MAX)) ) );
   PLAY_SONG(clicky_song);
 }
 
+void clicky_freq_up(void) {
+  float new_freq = clicky_freq * AUDIO_CLICKY_FREQ_FACTOR;
+  if (new_freq < AUDIO_CLICKY_FREQ_MAX) {
+    clicky_freq = new_freq;
+  }
+}
+
+void clicky_freq_down(void) {
+  float new_freq = clicky_freq / AUDIO_CLICKY_FREQ_FACTOR;
+  if (new_freq > AUDIO_CLICKY_FREQ_MIN) {
+    clicky_freq = new_freq;
+  }
+}
+
+void clicky_freq_reset(void) {
+  clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT;
+}
+
+void clicky_toggle(void) {
+  audio_config.clicky_enable ^= 1;
+  eeconfig_update_audio(audio_config.raw);
+}
+
+void clicky_on(void) {
+  audio_config.clicky_enable = 1;
+  eeconfig_update_audio(audio_config.raw);
+}
+
+void clicky_off(void) {
+  audio_config.clicky_enable = 0;
+  eeconfig_update_audio(audio_config.raw);
+}
+
+bool is_clicky_on(void) {
+  return (audio_config.clicky_enable != 0);
+}
+
 bool process_clicky(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_enable = !clicky_enable; }
+  if (keycode == CLICKY_TOGGLE && record->event.pressed) { clicky_toggle(); }
 
-    if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq = AUDIO_CLICKY_FREQ_DEFAULT; }
+  if (keycode == CLICKY_ENABLE && record->event.pressed) { clicky_on(); }
+  if (keycode == CLICKY_DISABLE && record->event.pressed) { clicky_off(); }
 
-    if (keycode == CLICKY_UP && record->event.pressed) {
-      float new_freq = clicky_freq * AUDIO_CLICKY_FREQ_FACTOR;
-      if (new_freq < AUDIO_CLICKY_FREQ_MAX) {
-        clicky_freq = new_freq;
+  if (keycode == CLICKY_RESET && record->event.pressed) { clicky_freq_reset(); }
+
+  if (keycode == CLICKY_UP && record->event.pressed) { clicky_freq_up(); }
+  if (keycode == CLICKY_DOWN && record->event.pressed) { clicky_freq_down(); }
+
+
+  if (audio_config.enable && audio_config.clicky_enable) {
+    if (record->event.pressed) { // Leave this separate so it's easier to add upstroke sound
+      if (keycode != AU_OFF && keycode != AU_TOG) { // DO NOT PLAY if audio will be disabled, and causes issuse on ARM
+        clicky_play();
       }
     }
-    if (keycode == CLICKY_DOWN && record->event.pressed) {
-      float new_freq = clicky_freq / AUDIO_CLICKY_FREQ_FACTOR;
-      if (new_freq > AUDIO_CLICKY_FREQ_MIN) {
-        clicky_freq = new_freq;
-      }
-    }
-
-
-    if ( clicky_enable ) {
-      if (record->event.pressed) {
-        clicky_play();;
-      }
-    }
-    return true;
+  }
+  return true;
 }
 
 #endif //AUDIO_CLICKY

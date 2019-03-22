@@ -19,13 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define KEYMAP_COMMON_H
 
 #include "quantum.h"
-
-#ifdef KEYBOARD_ps2avrGB_bfake
-  #include "bfake.h"
-#endif
-
-#ifdef KEYBOARD_ps2avrGB_bmini_x2
-  #include "bmini_x2.h"
-#endif
+#include "bmini.h"
 
 #endif

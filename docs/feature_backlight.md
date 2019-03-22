@@ -40,6 +40,7 @@ To change the behaviour of the backlighting, `#define` these in your `config.h`:
 |---------------------|-------------|-------------------------------------------------------------------------------------------------------------|
 |`BACKLIGHT_PIN`      |`B7`         |The pin that controls the LEDs. Unless you are designing your own keyboard, you shouldn't need to change this|
 |`BACKLIGHT_LEVELS`   |`3`          |The number of brightness levels (maximum 15 excluding off)                                                   |
+|`BACKLIGHT_CAPS_LOCK`|*Not defined*|Enable Caps Lock indicator using backlight (for keyboards without dedicated LED)                             |
 |`BACKLIGHT_BREATHING`|*Not defined*|Enable backlight breathing, if hardware PWM is used                                                          |
 |`BREATHING_PERIOD`   |`6`          |The length of one backlight "breath" in seconds                                                              |
 
@@ -51,3 +52,25 @@ In this way `OCRxx` essentially controls the duty cycle of the LEDs, and thus th
 
 The breathing effect is achieved by registering an interrupt handler for `TIMER1_OVF_vect` that is called whenever the counter resets, roughly 244 times per second.
 In this handler, the value of an incrementing counter is mapped onto a precomputed brightness curve. To turn off breathing, the interrupt handler is simply disabled, and the brightness reset to the level stored in EEPROM.
+
+## Backlight Functions
+
+|Function  |Description                                                |
+|----------|-----------------------------------------------------------|
+|`backlight_toggle()`    |Turn the backlight on or off                 |
+|`backlight_enable()`    |Turn the backlight on                        |
+|`backlight_disable()`   |Turn the backlight off                       |
+|`backlight_step()`      |Cycle through backlight levels               |
+|`backlight_increase()`  |Increase the backlight level                 |
+|`backlight_decrease()`  |Decrease the backlight level                 |
+|`backlight_level(x)`    |Sets the backlight level to specified level  |
+|`get_backlight_level()` |Return the current backlight level           |
+|`is_backlight_enabled()`|Return whether the backlight is currently on |
+
+### Backlight Breathing Functions
+
+|Function  |Description                                               |
+|----------|----------------------------------------------------------|
+|`breathing_toggle()`  |Turn the backlight breathing on or off        |
+|`breathing_enable()`  |Turns on backlight breathing                  |
+|`breathing_disable()` |Turns off backlight breathing                 |

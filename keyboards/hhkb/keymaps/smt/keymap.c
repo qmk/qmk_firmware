@@ -16,10 +16,6 @@ enum planck_keycodes
     HHKB
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Custom macros
 #define CTL_ESC CTL_T(KC_ESC) // Tap for Esc, hold for Ctrl
 #define SFT_ENT SFT_T(KC_ENT) // Tap for Enter, hold for Shift
@@ -120,10 +116,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_VOLD, KC_VOLU, KC_MUTE, _______, _______, KC_PAST, KC_PSLS, KC_HOME, KC_PGUP, KC_LEFT, KC_RGHT, KC_PENT,
         _______, _______, QWERTY, COLEMAK, DVORAK, _______, KC_PPLS, KC_PMNS, KC_END, KC_PGDN, KC_DOWN, _______, _______,
         _______, _______, _______, _______, _______)};
-
-const uint16_t PROGMEM fn_actions[] = {
-
-};
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)
 {
