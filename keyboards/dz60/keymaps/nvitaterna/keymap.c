@@ -3,8 +3,9 @@
 
 #define DEFAULT_LAYER 0
 #define FN_LAYER 1
-#define TO_LAYER 15
+#define NUM_LAYER 2
 #define LIGHTING_LAYER 3
+#define TO_LAYER 15
 #define ______ KC_TRNS
 #define XXXXXX KC_NO
 #define BACKLIGHT_TIMEOUT 15 // in minutes
@@ -34,15 +35,22 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ______, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, KC_RSFT, KC_PGUP, KC_INS, \
     ______, ______, ______, ______, ______, ______, ______, ______, KC_HOME, KC_PGDN, KC_END \
   ),
+	[NUM_LAYER] = LAYOUT_60_b_ansi( \
+    ______, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, KC_NLCK, KC_PSLS, KC_PAST, KC_PMNS, XXXXXX, ______, ______, \
+    ______, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, KC_P7, KC_P8, KC_P9, KC_PPLS, XXXXXX, XXXXXX, XXXXXX, \
+    ______, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, KC_P4, KC_P5, KC_P6, KC_PPLS, XXXXXX, ______, \
+    ______, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, KC_P1, KC_P2, KC_P3, KC_PENT, ______, ______, \
+    ______, ______, ______, ______, ______, KC_P0, KC_PDOT, KC_PENT, ______, ______, ______ \
+  ),
 	[LIGHTING_LAYER] = LAYOUT_60_b_ansi( \
     RGB_TOG, RGB_M_P, RGB_M_B, RGB_M_R, RGB_M_SW, RGB_M_SN, RGB_M_K, RGB_M_X, RGB_M_G, XXXXXX, XXXXXX, XXXXXX, XXXXXX, L_BL, L_BL, \
     XXXXXX, RGB_MOD, RGB_HUI, RGB_SAI, RGB_VAI, RGB_SPI, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, RGB_RMOD, RGB_HUD, RGB_SAD, RGB_VAD, RGB_SPD, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, ______, \
-    XXXXXX, XXXXXX, XXXXXX, XXXXXX, MO(TO_LAYER), XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX \
+    XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX \
   ),
 	[TO_LAYER] = LAYOUT_60_b_ansi( \
-    TO(DEFAULT_LAYER), TO(LIGHTING_LAYER), XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
+    TO(DEFAULT_LAYER), TO(NUM_LAYER), TO(LIGHTING_LAYER), XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, \
     XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, XXXXXX, ______, \
@@ -54,16 +62,19 @@ uint32_t layer_state_set_user(uint32_t state) {
   if (layer_bl) {
     switch (biton32(state)) {
       case DEFAULT_LAYER:
-        rgblight_setrgb(0x00, 0x00, 0xFF);
+        rgblight_setrgb(0, 250, 255);
+        break;
+      case NUM_LAYER:
+        rgblight_setrgb(0, 173, 20);
         break;
       case FN_LAYER:
-        rgblight_setrgb(0x00, 0xA0, 0xFF);
+        rgblight_setrgb(240, 255, 0);
         break;
       case LIGHTING_LAYER:
-        rgblight_setrgb(0xFF, 0x00, 0x00);
+        rgblight_setrgb(255, 0, 229);
         break;
       case TO_LAYER:
-        rgblight_setrgb(0xFF, 0x20, 0x00);
+        rgblight_setrgb(255, 136, 0);
         break;
     }
   }
