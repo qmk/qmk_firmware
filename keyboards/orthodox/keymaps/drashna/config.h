@@ -40,7 +40,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGBLIGHT_ENABLE
 #define RGB_DI_PIN D3
-#define RGBLED_NUM 8     // Number of LEDs
+#define RGBLED_NUM 16     // Number of LEDs
+#define RGBLED_SPLIT { 8, 8 }
 
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 12
