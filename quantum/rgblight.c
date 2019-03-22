@@ -770,7 +770,7 @@ void rgblight_update_sync(rgblight_syncinfo_t *syncinfo, bool write_to_eeprom) {
     #endif /* RGBLIGHT_SPLIT_NO_ANIMATION_SYNC */
   #endif /* RGBLIGHT_USE_TIMER */
 }
-#endif
+#endif /* RGBLIGHT_SPLIT */
 
 #ifdef RGBLIGHT_USE_TIMER
 
@@ -908,7 +908,7 @@ void rgblight_task(void) {
       animation_status.pos16 = 0; // restart signal to local each effect
     }
     if (timer_elapsed(animation_status.last_timer) >= interval_time) {
-#ifndef RGBLIGHT_SPLIT_NO_ANIMATION_SYNC
+#if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
       static uint16_t report_last_timer = 0;
       static bool tick_flag = false;
       uint16_t oldpos16;
@@ -926,7 +926,7 @@ void rgblight_task(void) {
 #endif
       animation_status.last_timer += interval_time;
       effect_func(&animation_status);
-#ifndef RGBLIGHT_SPLIT_NO_ANIMATION_SYNC
+#if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
       //dprintf("pos16, oldpos16 = %d %d\n",
       //        animation_status.pos16,oldpos16);
       if (animation_status.pos16 == 0 && oldpos16 != 0) {
@@ -1009,7 +1009,7 @@ void rgblight_effect_snake(animation_status_t *anim) {
     increment = -1;
   }
 
-#ifndef RGBLIGHT_SPLIT_NO_ANIMATION_SYNC
+#if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
   if (anim->pos == 0) { // restart signal
     if (increment == 1) {
       pos = RGBLED_NUM - 1;
@@ -1040,14 +1040,20 @@ void rgblight_effect_snake(animation_status_t *anim) {
   if (increment == 1) {
     if (pos - 1 < 0) {
       pos = RGBLED_NUM - 1;
+#if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
       anim->pos = 0;
+#endif
     } else {
       pos -= 1;
+#if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
       anim->pos = 1;
+#endif
     }
   } else {
     pos = (pos + 1) % RGBLED_NUM;
+#if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
     anim->pos = pos;
+#endif
   }
 }
 #endif
@@ -1063,7 +1069,7 @@ void rgblight_effect_knight(animation_status_t *anim) {
   static int8_t increment = 1;
   uint8_t i, cur;
 
-#ifndef RGBLIGHT_SPLIT_NO_ANIMATION_SYNC
+#if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
   if (anim->pos == 0) { // restart signal
       anim->pos = 1;
       low_bound = 0;
@@ -1098,9 +1104,11 @@ void rgblight_effect_knight(animation_status_t *anim) {
 
   if (high_bound <= 0 || low_bound >= RGBLIGHT_EFFECT_KNIGHT_LED_NUM - 1) {
     increment = -increment;
+#if defined(RGBLIGHT_SPLIT) && !defined(RGBLIGHT_SPLIT_NO_ANIMATION_SYNC)
     if (increment == 1) {
         anim->pos = 0;
     }
+#endif
   }
 }
 #endif
