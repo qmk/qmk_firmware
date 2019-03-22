@@ -680,14 +680,12 @@ void rgblight_set(void) {
   LED_TYPE *start_led = led + clipping_start_pos;
   uint16_t num_leds = clipping_num_leds;
   if (rgblight_config.enable) {
-      LED_TYPE *ledp;
     #ifdef RGBLIGHT_LED_MAP
       LED_TYPE led0[RGBLED_NUM];
       for(uint8_t i = 0; i < RGBLED_NUM; i++) {
           led0[i] = led[pgm_read_byte(&led_map[i])];
       }
-      ledp = led0;
-      start_led = ledp + clipping_start_pos;
+      start_led = led0 + clipping_start_pos;
     #endif
     #ifdef RGBW
       ws2812_setleds_rgbw(start_led, num_leds);
