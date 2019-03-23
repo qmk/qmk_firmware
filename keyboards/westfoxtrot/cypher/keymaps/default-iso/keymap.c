@@ -15,7 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-#define _______ KC_TRNS
 #define _MA 0
 #define _F1 1
 
