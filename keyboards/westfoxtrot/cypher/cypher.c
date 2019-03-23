@@ -35,21 +35,20 @@ bool process_record_kb(uint16_t keycode, keyrecord_t *record) {
 
 	return process_record_user(keycode, record);
 }
-
-void led_set_kb(uint8_t usb_led) {
-    if (usb_led & (1<<USB_LED_NUM_LOCK)) {
-        PORTF |= (1<<4);
+void led_set_user(uint8_t usb_led) {
+    if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+        writePinLow(F4);
     } else {
-        PORTF &= ~(1<<4);
+        writePinHigh(F4);
     }
-    if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        PORTF |= (1<<1);
+    if (IS_LED_ON(usb_led, USB_LED_CAPS_LOCK)) {
+        writePinLow(F1);
     } else {
-        PORTF &= ~(1<<1);
+        writePinHigh(F1);
     }
-    if (usb_led & (1<<USB_LED_SCROLL_LOCK)) {
-        PORTB |= (1<<5);
+    if (IS_LED_ON(usb_led, USB_LED_SCROLL_LOCK)) {
+        writePinLow(F5);
     } else {
-        PORTB &= ~(1<<5);
+        writePinHigh(F5);
     }
 }
