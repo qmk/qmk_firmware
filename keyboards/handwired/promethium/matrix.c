@@ -167,7 +167,7 @@ inline
 bool matrix_is_on(uint8_t row, uint8_t col)
 
 {
-    return (matrix[row] & ((matrix_row_t)1<col));
+    return (matrix[row] & ((matrix_row_t)1<<col));
 }
 
 inline

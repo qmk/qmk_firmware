@@ -14,7 +14,7 @@ I've largely left the function keys untouched, with the intension of not using t
 
 I use Colemak as my default layout.  I've included QWERTY here as well.
 
-Additionally, I've added gaming/vanilla version of Colemak and QWERTY layouts.  These layouts have no access to the Function or Numbers layers, thus no dual-role keys with layer access, and are mainly used for gaming.
+Additionally, I've added gaming/vanilla version of Colemak and QWERTY layouts.  These layouts have limited access to the Function or Numbers layers, and are mainly used for gaming.
 
 Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/vanilla Colemak and QWERTY can be set as default layer, but will not be persistent.
 
@@ -46,7 +46,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	                    ,-------|-------|-------|                   |-------+-------+-------.
 	                    | Space | Enter |App/Alt|                   |  RGUI | Delete|  Bspc |
 	                    |   /   |   /   |-------|                   |-------|   /   |   /   |
-	                    |  Fn   | Number|  Bspc |                   |  Tab  |Number2|  Fn2  |
+	                    |  Fn   | Number|  Bspc |                   | Enter |Number2|  Fn2  |
 	                    `-----------------------'                   `-----------------------' 
 	
 	
@@ -71,7 +71,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	                    ,-------|-------|-------|                   |-------+-------+-------.
 	                    | Space | Enter |App/Alt|                   |  RGUI | Delete|  Bspc |
 	                    |   /   |   /   |-------|                   |-------|   /   |   /   |
-	                    |  Fn   | Number|  Bspc |                   |  Tab  |Number2|  Fn2  |
+	                    |  Fn   | Number|  Bspc |                   | Enter |Number2|  Fn2  |
 	                    `-----------------------'                   `-----------------------' 
 	
 
@@ -109,9 +109,9 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
 	|        |      |      |  Up  |      |      |                   |      |      |  Up  |Ctrl+Y|      |        |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|        |Ctrl+A| Left | Down | Right|      |                   | PgUp | Right| Down | Left | Home |        |
+	|        |Ctrl+A| Left | Down | Right|C+A+Tb|                   | PgUp | Right| Down | Left | Home |        |
 	|--------+------+------+------+------+------|                   |------+------+------+------+------+--------|
-	|        |Ctrl+Z|Ctrl+X|Ctrl+C|Ctrl+V|      |                   | PgDn | Mute | Vol- | Vol+ |  End |        |
+	|        |Ctrl+Z|Ctrl+X|Ctrl+C|Ctrl+V| Bspc |                   | PgDn | Mute | Vol- | Vol+ |  End |        |
 	`--------+------+------+------+------+------'                   `------+------+------+------+------+--------'
 	         |      |      |      |      |                                 | Prev | Play | Next | Stop |
 	         `---------------------------'                                 `---------------------------'
@@ -120,7 +120,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	                    ,-------|-------|-------|                   |-------+-------+-------.
 	                    |       |       |       |                   |       |       |       |
 	                    |       |       |-------|                   |-------|       |       |
-	                    |       |       |       |                   |C+A+Tab|       |       |
+	                    |       |       |       |                   |       |       |       |
 	                    `-----------------------'                   `-----------------------' 
 	
 
@@ -150,7 +150,7 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	
 
 ### Colemak gaming/vanilla
-	(No access to Function or Numbers layers; mainly used for gaming; double-tap TD(ADJ) for one shot access to Adjust layer)
+	(Limited access to Function or Numbers layers; mainly used for gaming; double-tap and hold TD(ADJ) above LAlt to access Adjust layer)
 	,-----------------------------------------------------------------------------------------------------------.
 	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
 	`-----------------------------------------------------------------------------------------------------------'
@@ -170,12 +170,12 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	                    ,-------|-------|-------|                   |-------+-------+-------.
 	                    |       |       |  LAlt |                   |  RGUI |       |       |
 	                    | Space | Enter |-------|                   |-------| Delete|  Bspc |
-	                    |       |       |  Bspc |                   |  Tab  |       |       |
+	                    |       |       |Bspc/FN|                   | Ent/NS|       |       |
 	                    `-----------------------'                   `-----------------------' 
 	
 
 ### QWERTY gaming/vanilla
-	(No access to Function or Numbers layers; mainly used for gaming; double-tap TD(ADJ) for one shot access to Adjust layer)
+	(Limited access to Function or Numbers layers; mainly used for gaming; double-tap and hold TD(ADJ) above LAlt to access Adjust layer)
 	,-----------------------------------------------------------------------------------------------------------.
 	| ESC |  F1 |  F2 |  F3 |  F4 |  F5 |  F6 |  F7 |  F8 |  F9 | F10 | F11 | F12 | PScr| SLck| Paus|Numpd|Adjst|
 	`-----------------------------------------------------------------------------------------------------------'
@@ -195,11 +195,11 @@ Persistent default layer has been enabled for Colemak and QWERTY.  The gaming/va
 	                    ,-------|-------|-------|                   |-------+-------+-------.
 	                    |       |       |  LAlt |                   |  RGUI |       |       |
 	                    | Space | Enter |-------|                   |-------| Delete|  Bspc |
-	                    |       |       |  Bspc |                   |  Tab  |       |       |
+	                    |       |       |Bspc/FN|                   | Ent/NS|       |       |
 	                    `-----------------------'                   `-----------------------' 
 	
 ### Adjust layer
-	(Press Enter/Number + Delete/Number2 together under non-gaming/vanilla layers; Numpad is a toggle)
+	(Press Enter/Number + Delete/Number2 under non-gaming/vanilla layers or press & hold Adjust key on function row; Numpad is a toggle)
 	,-----------------------------------------------------------------------------------------------------------.
 	|     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |     |
 	`-----------------------------------------------------------------------------------------------------------'

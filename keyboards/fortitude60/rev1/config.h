@@ -58,18 +58,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 /* ws2812 RGB LED */
-/* #define RGB_DI_PIN D3 */
-/* #define RGBLIGHT_TIMER */
-/* #define RGBLED_NUM 16    // Number of LEDs */
-/* #define ws2812_PORTREG  PORTD */
-/* #define ws2812_DDRREG   DDRD */
-
+#ifdef RGBLIGHT_ENABLE
+  #define RGB_DI_PIN B5
+  
+  #define RGBLED_NUM 18    // Number of LEDs */
+#endif
 /*
  * Feature disable options
  *  These options are also useful to firmware size reduction.

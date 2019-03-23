@@ -3,7 +3,6 @@
 
 #include QMK_KEYBOARD_CONFIG_H
 
-#define PREVENT_STUCK_MODIFIERS
 #define ENABLE_GAME_LAYER
 
 #define TEMPLATE(                                                                   \
@@ -20,4 +19,7 @@
          K41, K42,           K45,           K48, K4C                                \
 )
 
+#ifdef RGB_BACKLIGHT_M60_A
+  #define ZEAL_RGB
+#endif
 #endif //CONFIG_USER_H

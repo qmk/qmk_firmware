@@ -93,19 +93,17 @@ This enables MIDI sending and receiving with your keyboard. To enter MIDI send m
 
 `UNICODE_ENABLE`
 
-This allows you to send unicode symbols via `UC(<unicode>)` in your keymap. Only codes up to 0x7FFF are currently supported.
+This allows you to send Unicode characters using `UC(<code point>)` in your keymap. Code points up to `0x7FFF` are supported. This covers characters for most modern languages, as well as symbols, but it doesn't cover emoji.
 
 `UNICODEMAP_ENABLE`
 
-This allows sending unicode symbols using `X(<unicode>)` in your keymap. Codes
-up to 0xFFFFFFFF are supported, including emojis. You will need to maintain
-a separate mapping table in your keymap file.
+This allows you to send Unicode characters using `X(<map index>)` in your keymap. You will need to maintain a mapping table in your keymap file. All possible code points (up to `0x10FFFF`) are supported.
 
-Known limitations:
-- Under Mac OS, only codes up to 0xFFFF are supported.
-- Under Linux ibus, only codes up to 0xFFFFF are supported (but anything important is still under this limit for now).
+`UCIS_ENABLE`
 
-Characters out of range supported by the OS will be ignored.
+This allows you to send Unicode characters by inputting a mnemonic corresponding to the character you want to send. You will need to maintain a mapping table in your keymap file. All possible code points (up to `0x10FFFF`) are supported.
+
+For further details, as well as limitations, see the [Unicode page](feature_unicode.md).
 
 `BLUETOOTH_ENABLE`
 
@@ -117,7 +115,7 @@ This allows you output audio on the C6 pin (needs abstracting). See the [audio p
 
 `FAUXCLICKY_ENABLE`
 
-Uses buzzer to emulate clicky switches. A cheap imitation of the Cherry blue switches. By default, uses the C6 pin, same as AUDIO_ENABLE.
+Uses buzzer to emulate clicky switches. A cheap imitation of the Cherry blue switches. By default, uses the C6 pin, same as `AUDIO_ENABLE`.
 
 `VARIABLE_TRACE`
 
@@ -132,6 +130,22 @@ This consumes about 5390 bytes.
 `KEY_LOCK_ENABLE`
 
 This enables [key lock](feature_key_lock.md). This consumes an additional 260 bytes.
+
+`SPLIT_KEYBOARD`
+
+This enables split keyboard support (dual MCU like the let's split and bakingpy's boards) and includes all necessary files located at quantum/split_common
+
+`SPLIT_TRANSPORT`
+
+As there is no standard split communication driver for ARM-based split keyboards yet, `SPLIT_TRANSPORT = custom` must be used for these. It will prevent the standard split keyboard communication code (which is AVR-specific) from being included, allowing a custom implementation to be used.
+
+`CUSTOM_MATRIX`
+
+Lets you replace the default matrix scanning routine with your own code. You will need to provide your own implementations of matrix_init() and matrix_scan().
+
+`DEBOUNCE_TYPE`
+
+Lets you replace the default key debouncing routine with an alternative one. If `custom` you will need to provide your own implementation.
 
 ## Customizing Makefile Options on a Per-Keymap Basis
 

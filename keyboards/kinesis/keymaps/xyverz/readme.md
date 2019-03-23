@@ -4,17 +4,17 @@
 
 The Dvorak layout shown here stems from my early Kinesis years, using the Contour PS/2 with a Dvorak software layout. Because of this, the RBRC and LBRC were on opposite sides of the board in the corner keys. I've decided to continue using this layout with my QMK Kinesis.
 
-~~After a year of using a planck, I've become accustomed to my / and ? being above the - key, so I've decided to move my [, ], and = to the normal Advantage location and set the two keys above the - to new locations. I'll play with it for a while and see how I like it.~~ I didn't like it, so I've switched back.
-
 The QWERTY layout shown here is based entirely on the Kinesis Advantage layout. The Colemak layout is merely an adaptation of that.
 
 I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar to the default Planck layouts.
 
+Depending on the OS, most of the LEDs are now working in this keymap, but I still have yet to get the Num Pad LED working when switching to the Numpad layer.
+
 ## Still to do:
 
- * Implement the CapsLock, NumLock, and ScrLck LEDs on the off-chance that I decide to actually solder some to the keyboard.
+ * Figure out how to make the Numpad LED work properly.
 
-### Function Keys on All Layers (keypad toggles):
+### Function Keys on All Layers (`keypad` toggles to the keypad layer):
 	,-----------------------------------------------------------------.
 	|  Esc |  F1  |  F2  |  F3  |  F4  |  F5  |  F6  |   F7   |  F8   |
  	`-----------------------------------------------------------------'
@@ -92,9 +92,9 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	|        |      |      |      |      |      ||      |      |      |      |      |        |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	|        |      |      |      |      |      ||      | Mute | Vol- | Vol+ |      |        |
+	|        |      | Mute | Vol- | Vol+ |      ||      |      |      |      |      |        |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	|        |      |      |      |      |      || Stop | Prev | Play | Next | Sel  |        |
+	|        | Stop | Prev | Play | Next | Sel  ||      |      |      |      |      |        |
 	`--------+------+------+------+------+------'`------+------+------+------+------+--------'
 	         |      |      |      |      |              |      |      |      |      |
 	         `---------------------------'              `---------------------------'
@@ -115,12 +115,12 @@ I've enabled persistent keymaps for Qwerty, Dvorak and Colemak layers, similar t
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
 	| Sleep  |      |      |      |      |      ||      | KP 7 | KP 8 | KP 9 | KP - |        |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	| Wake   |      |QWERTY|Colemk|Dvorak|      ||      | KP 4 | KP 5 | KP 6 | KP + |        |
+	| Wake   |      | Mute | Vol- | Vol+ |      ||      | KP 4 | KP 5 | KP 6 | KP + |        |
 	|--------+------+------+------+------+------||------+------+------+------+------+--------|
-	|        |      |      |      |      |      ||      | KP 1 | KP 2 | KP 3 |KP Ent|        |
+	|        | Stop | Prev | Play | Next | Sel  ||      | KP 1 | KP 2 | KP 3 |KP Ent|        |
 	`--------+------+------+------+------+------'`------+------+------+------+------+--------'
-	         |      |      |      |      |              |      |      | KP . |KP Ent|      |
-	         `---------------------------'              `----------------------------------'
+	         |      |QWERTY|Colemk|Dvorak|              |      |      | KP . |KP Ent|
+	         `---------------------------'              `---------------------------'
 	                              ,-------------.,-------------.
 	                              |      |      ||      |      |
 	                       ,------|------|------||------+------+------.

@@ -1,5 +1,4 @@
-#ifndef ERGOTRAVEL_H
-#define ERGOTRAVEL_H
+#pragma once
 
 #ifdef KEYBOARD_ergotravel_rev1
     #include "rev1.h"
@@ -21,4 +20,3 @@
         KC_##L30, KC_##L31, KC_##L32, KC_##L33,           KC_##L34, KC_##L35,       KC_##R30, KC_##R31,           KC_##R32, KC_##R33, KC_##R34, KC_##R35  \
     )
 
-#endif

@@ -28,8 +28,8 @@ Note: By default the V60 Type R uses TMK.  You should know what you're doing and
 
 You will then have to use tkg-toolkit to finish the flashing
 
-Keyboard Maintainer:  QMK Community
-Hardware Supported:  KBP V60 Type R PCB
+Keyboard Maintainer:  QMK Community  
+Hardware Supported:  KBP V60 Type R PCB  
 Hardware Availability: [mechanicalkeyboards.com](https://mechanicalkeyboards.com/search.php?keyword=kbp+v60+type+r), [Massdrop](https://www.massdrop.com/buy/kbparadise-v60-type-r-mechanical-keyboard)
 
 Make example for this keyboard (after setting up your build environment):
@@ -40,7 +40,7 @@ or
 
     make v60_type_r:vimouse
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 
 

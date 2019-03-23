@@ -23,15 +23,10 @@ void render_status(struct CharacterMatrix *matrix) {
 
   // Render to mode icon
   static char logo[][2][3] = {{{0x95,0x96,0},{0xb5,0xb6,0}},{{0x97,0x98,0},{0xb7,0xb8,0}}};
-  if (edvorakjp_config.enable_kc_lang) {
-    matrix_write(matrix, logo[0][0]);
-    matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, logo[0][1]);
-  } else {
-    matrix_write(matrix, logo[1][0]);
-    matrix_write_P(matrix, PSTR("\n"));
-    matrix_write(matrix, logo[1][1]);
-  }
+  int mode_number = get_enable_kc_lang() ? 0 : 1;
+  matrix_write(matrix, logo[mode_number][0]);
+  matrix_write(matrix, "\n");
+  matrix_write(matrix, logo[mode_number][1]);
 
   // Define layers here, Have not worked out how to have text displayed for each layer. Copy down the number you see and add a case for it below
   char buf[40];
@@ -39,13 +34,7 @@ void render_status(struct CharacterMatrix *matrix) {
   matrix_write_P(matrix, PSTR("\nLayer: "));
   switch (biton32(layer_state)) {
     case L_BASE:
-      matrix_write_P(matrix,
-          default_layer_state == 1UL<<_EDVORAK ? PSTR("EDVORAK") : PSTR("QWERTY")
-          );
-      break;
-    case _EDVORAKJ1:
-    case _EDVORAKJ2:
-      matrix_write_P(matrix, PSTR("JP_EXT"));
+      matrix_write_P(matrix, PSTR("Default"));
       break;
     case _RAISE:
       matrix_write_P(matrix, PSTR("Raise"));
@@ -53,17 +42,13 @@ void render_status(struct CharacterMatrix *matrix) {
     case _LOWER:
       matrix_write_P(matrix, PSTR("Lower"));
       break;
-    case _ADJUST:
-      matrix_write_P(matrix, PSTR("Adjust"));
-      break;
     default:
       matrix_write(matrix, buf);
   }
 
   // Host Keyboard LED Status
   char led[40];
-  snprintf(led, sizeof(led), "\n%s %s %s %s",
-      edvorakjp_config.enable_jp_extra_layer && japanese_mode ? "EXT" : "   ",
+  snprintf(led, sizeof(led), "\n%s %s %s",
       (host_keyboard_leds() & (1<<USB_LED_NUM_LOCK)) ? "NMLK" : "    ",
       (host_keyboard_leds() & (1<<USB_LED_CAPS_LOCK)) ? "CAPS" : "    ",
       (host_keyboard_leds() & (1<<USB_LED_SCROLL_LOCK)) ? "SCLK" : "    ");

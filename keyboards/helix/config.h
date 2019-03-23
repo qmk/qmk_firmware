@@ -39,4 +39,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //     ./tmk_core
 //     ......
 
+#ifdef USE_Link_Time_Optimization
+  // LTO has issues with macros (action_get_macro) and "functions" (fn_actions),
+  //  so just disable them
+  #define NO_ACTION_MACRO
+  #define NO_ACTION_FUNCTION
+
+  #define DISABLE_LEADER
+#endif // USE_Link_Time_Optimization
+
 #endif /* CONFIG_H */
