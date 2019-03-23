@@ -60,6 +60,7 @@ extern "C" {
 #ifdef KBD
 extern UDC_DESC_STORAGE udi_api_t udi_api_hid_kbd;
 extern bool udi_hid_kbd_b_report_valid;
+extern volatile bool udi_hid_kbd_b_report_trans_ongoing;
 extern uint8_t udi_hid_kbd_report_set;
 bool udi_hid_kbd_send_report(void);
 #endif //KBD
@@ -70,6 +71,7 @@ bool udi_hid_kbd_send_report(void);
 #ifdef NKRO
 extern UDC_DESC_STORAGE udi_api_t udi_api_hid_nkro;
 extern bool udi_hid_nkro_b_report_valid;
+extern volatile bool udi_hid_nkro_b_report_trans_ongoing;
 bool udi_hid_nkro_send_report(void);
 #endif //NKRO
 
@@ -82,6 +84,17 @@ extern bool udi_hid_exk_b_report_valid;
 extern uint8_t udi_hid_exk_report_set;
 bool udi_hid_exk_send_report(void);
 #endif //EXK
+
+//********************************************************************************************
+// CON Console
+//********************************************************************************************
+#ifdef CON
+extern UDC_DESC_STORAGE udi_api_t udi_api_hid_con;
+extern bool udi_hid_con_b_report_valid;
+extern uint8_t udi_hid_con_report_set[UDI_HID_CON_REPORT_SIZE];
+extern volatile bool udi_hid_con_b_report_trans_ongoing;
+bool udi_hid_con_send_report(void);
+#endif //CON
 
 //********************************************************************************************
 // MOU Mouse

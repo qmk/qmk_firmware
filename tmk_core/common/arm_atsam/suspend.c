@@ -1,17 +1,85 @@
-/* Copyright 2017 Fred Sundvik
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 2 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+#include "matrix.h"
+#include "i2c_master.h"
+#include "led_matrix.h"
+#include "suspend.h"
 
+/** \brief Suspend idle
+ *
+ * FIXME: needs doc
+ */
+void suspend_idle(uint8_t time) {
+    /* Note: Not used anywhere currently */
+}
+
+/** \brief Run user level Power down
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void suspend_power_down_user (void) {
+
+}
+
+/** \brief Run keyboard level Power down
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void suspend_power_down_kb(void) {
+    suspend_power_down_user();
+}
+
+/** \brief Suspend power down
+ *
+ * FIXME: needs doc
+ */
+void suspend_power_down(void)
+{
+    I2C3733_Control_Set(0); //Disable LED driver
+
+    suspend_power_down_kb();
+}
+
+__attribute__ ((weak)) void matrix_power_up(void) {}
+__attribute__ ((weak)) void matrix_power_down(void) {}
+bool suspend_wakeup_condition(void) {
+    matrix_power_up();
+    matrix_scan();
+    matrix_power_down();
+    for (uint8_t r = 0; r < MATRIX_ROWS; r++) {
+        if (matrix_get_row(r)) return true;
+    }
+    return false;
+}
+
+/** \brief run user level code immediately after wakeup
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void suspend_wakeup_init_user(void) {
+
+}
+
+/** \brief run keyboard level code immediately after wakeup
+ *
+ * FIXME: needs doc
+ */
+__attribute__ ((weak))
+void suspend_wakeup_init_kb(void) {
+    suspend_wakeup_init_user();
+}
+
+/** \brief run immediately after wakeup
+ *
+ * FIXME: needs doc
+ */
+void suspend_wakeup_init(void) {
+    /* If LEDs are set to enabled, enable the hardware */
+    if (led_enabled) {
+        I2C3733_Control_Set(1);
+    }
+
+    suspend_wakeup_init_kb();
+}
 

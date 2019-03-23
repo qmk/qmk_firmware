@@ -19,6 +19,7 @@ enum custom_keycodes {
   CONFUSED,
   CRY,
   CLAP,
+  ELIP,
   FLIP,
   FNGLEFT,
   FNGRIGHT,
@@ -35,6 +36,7 @@ enum custom_keycodes {
   THMBDN,
   THMBUP,
   TOUNGE,
+  THANKS,
   WINK
 };
 
@@ -51,10 +53,6 @@ enum custom_keycodes {
 #define HYPR_0 HYPR(KC_TILD)  // Send Hyper + ~.
 #define HYPR_1 HYPR(KC_EXLM)  // Send Hyper + !.
 #define HYPR_2 HYPR(KC_AT)  // Send Hyper + @.
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -114,19 +112,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Emoji Layer
  * ┌─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┬─────┐
- * │HYPR0│  Q  │ ;-) │  E  │  🤣 │ :-P │  Y  │  U  │:'-( │FLIP │  P  │     │
+ * │HYPR0│  Q  │ ;-) │  E  │  🤣 │ :-P │ 🙏🏼  │  U  │:'-( │FLIP │  P  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
  * │HYPR1│  👆 │SHRUG│ GRIN│ :-( │  G  │ <3  │ :-) │  k  │LLAP │  ;  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┼─────┤
- * │HYPR2│🎶^🎶│💭^💭│ 👏 | :-\ │ 🐛  │  n  │ :-D │ SHIT│  .  │  /  │     │
+ * │HYPR2│🎶^🎶│💭^💭│ 👏 | :-\ │ 🐛  │  n  │ :-D │ SHIT│  ...  │  /  │     │
  * ├─────┼─────┼─────┼─────┼─────┼─────┴─────┼─────┼─────┼─────┼─────┼─────┤
  * │     │     │     │     │Brig-│   Sleep   │Brig+│ 👈  │ 👎  |  👍 │ 👉 │
  * └─────┴─────┴─────┴─────┴─────┴───────────┴─────┴─────┴─────┴─────┴─────┘
  */
 [_EMOJI] = LAYOUT_ortho_4x12(
-  HYPR_0,  _______, WINK,    _______, ROFL,     TOUNGE,  _______, _______, CRY,     FLIP,    _______, _______ ,
+  HYPR_0,  _______, WINK,    _______, ROFL,     TOUNGE,  THANKS,  _______, CRY,     FLIP,    _______, _______ ,
   HYPR_1,  ABOVE,   SHRUG,   GRIN,    FROWN,    _______, HEART,   JOY,     _______, LLAP,    _______, _______ ,
-  HYPR_2,  SING,    THINK,   CLAP,    CONFUSED, BUG,     _______, _______, SHIT,    _______, _______, _______ ,
+  HYPR_2,  SING,    THINK,   CLAP,    CONFUSED, BUG,     _______, _______, SHIT,    ELIP,    _______, _______ ,
   _______, _______, _______, _______, KC_SLCK,  KC_SLEP, KC_SLEP, KC_PAUS, FNGLEFT, THMBDN,  THMBUP,  FNGRIGHT
 ),
 };
@@ -171,6 +169,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case CLAP:
       if (record->event.pressed) {
         SEND_STRING("&clap; ");
+      }
+      return false;
+      break;
+    case ELIP:
+      if (record->event.pressed) {
+        SEND_STRING("...");
       }
       return false;
       break;
@@ -243,6 +247,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SHRUG:
       if (record->event.pressed) {
         SEND_STRING("&shrug; ");
+      }
+      return false;
+      break;
+    case THANKS:
+      if (record->event.pressed) {
+        SEND_STRING("&thanks;");
       }
       return false;
       break;
