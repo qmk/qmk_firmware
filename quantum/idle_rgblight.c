@@ -1,42 +1,37 @@
 #include "quantum.h"
-#include "idle_rgblight.h"
+#include "rgblight.h"
 #include "timer.h"
-#include <print.h>
-#include <stdio.h>
+#include "idle_rgblight.h"
 
-bool timed_out = false;
+bool idle_rgblight_timeout = false;
 uint16_t idle_timer;
 uint8_t minute_counter = 0;
+extern rgblight_config_t rgblight_config;
 
-bool is_rgblight_enabled() {
-  return rgblight_get_val() > 0;
-}
-
-void idle_rgblight_setup(void) {
+void idle_rgblight_init(void) {
   idle_timer = timer_read();
 }
 
 void idle_rgblight_press(void) {
-  if (timed_out) {
-    timed_out = false;
+  if (idle_rgblight_timeout) {
+    idle_rgblight_timeout = false;
     rgblight_enable();
   }
   idle_timer = timer_read();
   minute_counter = 0;
 }
 
-void matrix_scan_rgblight_idle(void) {
-  if (!timed_out && is_rgblight_enabled()) {
-    printf("%d timeout", timed_out);
-    printf("%d isrgblightenabled", is_rgblight_enabled());
-    if (timer_elapsed(idle_timer) >= 1000) {
+void idle_rgblight_matrix_scan(void) {
+  if (!idle_rgblight_timeout && rgblight_config.enable) {
+    if (timer_elapsed(idle_timer) >= 60000) {
       minute_counter++;
       idle_timer = timer_read();
     }
     if (minute_counter >= IDLE_RGBLIGHT_TIMEOUT) {
-      timed_out = true;
+      idle_rgblight_timeout = true;
       rgblight_disable();
       minute_counter = 0;
+      idle_timer = 0;
     }
   }
 }

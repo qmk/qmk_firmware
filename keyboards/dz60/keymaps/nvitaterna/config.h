@@ -1,0 +1,1 @@
+#define IDLE_RGBLIGHT_TIMEOUT 10

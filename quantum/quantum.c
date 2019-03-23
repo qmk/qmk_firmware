@@ -1054,6 +1054,9 @@ void matrix_init_quantum() {
   #ifdef HAPTIC_ENABLE
     haptic_init();
   #endif
+  #ifdef IDLE_RGBLIGHT_ENABLE
+    idle_rgblight_init();
+  #endif
   matrix_init_kb();
 }
 
@@ -1101,7 +1104,7 @@ void matrix_scan_quantum() {
   #endif
 
   #ifdef IDLE_RGBLIGHT_ENABLE
-    matrix_scan_rgblight_idle();
+    idle_rgblight_matrix_scan();
   #endif
 
   matrix_scan_kb();

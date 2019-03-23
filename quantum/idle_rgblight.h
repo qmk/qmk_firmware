@@ -2,16 +2,15 @@
 #define IDLE_RGBLIGHT_H
 
 #ifndef IDLE_RGBLIGHT_TIMEOUT
-  #define IDLE_RGBLIGHT_TIMEOUT 1 // in minutes
+  #define IDLE_RGBLIGHT_TIMEOUT 15 // in minutes
 #endif
 
 #include <stdint.h>
 #include <stdbool.h>
 
-void idle_rgblight_setup(void);
+void idle_rgblight_init(void);
 void idle_rgblight_press(void);
-bool is_rgblight_enabled(void);
-void matrix_scan_rgblight_idle(void);
-bool timed_out;
+void idle_rgblight_matrix_scan(void);
+bool idle_rgblight_timeout;
 
 #endif
