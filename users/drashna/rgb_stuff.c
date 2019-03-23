@@ -279,7 +279,7 @@ uint32_t layer_state_set_rgb(uint32_t state) {
     switch (biton32(state)) {
     case _MACROS:
       rgblight_sethsv_noeeprom_orange();
-      userspace_config.is_overwatch ? rgblight_effect_snake(RGBLIGHT_MODE_SNAKE + 2) : rgblight_effect_snake(RGBLIGHT_MODE_SNAKE + 3);
+      userspace_config.is_overwatch ? rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 2) : rgblight_mode_noeeprom(RGBLIGHT_MODE_SNAKE + 3);
       break;
     case _MEDIA:
       rgblight_sethsv_noeeprom_chartreuse();
