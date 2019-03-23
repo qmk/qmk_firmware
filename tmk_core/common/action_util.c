@@ -49,7 +49,7 @@ extern inline void clear_keys(void);
 #ifndef NO_ACTION_ONESHOT
 static uint8_t oneshot_mods        = 0;
 static uint8_t oneshot_locked_mods = 0;
-static bool oneshot_active         = true;
+static bool    oneshot_active      = true;
 uint8_t        get_oneshot_locked_mods(void) { return oneshot_locked_mods; }
 void           set_oneshot_locked_mods(uint8_t mods) {
     if (mods != oneshot_locked_mods) {
