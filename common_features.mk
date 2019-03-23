@@ -271,6 +271,11 @@ ifeq ($(strip $(VELOCIKEY_ENABLE)), yes)
     SRC += $(QUANTUM_DIR)/velocikey.c
 endif
 
+ifeq ($(strip $(IDLE_RGBLIGHT_ENABLE)), yes)
+    OPT_DEFS += -DIDLE_RGBLIGHT_ENABLE
+    SRC += $(QUANTUM_DIR)/idle_rgblight.c
+endif
+
 ifeq ($(strip $(DYNAMIC_KEYMAP_ENABLE)), yes)
     OPT_DEFS += -DDYNAMIC_KEYMAP_ENABLE
     SRC += $(QUANTUM_DIR)/dynamic_keymap.c

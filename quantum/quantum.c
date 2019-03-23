@@ -51,6 +51,10 @@ extern backlight_config_t backlight_config;
 #include "velocikey.h"
 #endif
 
+#ifdef IDLE_RGBLIGHT_ENABLE
+#include "idle_rgblight.h"
+#endif
+
 #ifdef HAPTIC_ENABLE
     #include "haptic.h"
 #endif
@@ -257,6 +261,10 @@ bool process_record_quantum(keyrecord_t *record) {
 
   #ifdef VELOCIKEY_ENABLE
     if (velocikey_enabled() && record->event.pressed) { velocikey_accelerate(); }
+  #endif
+
+  #ifdef IDLE_RGBLIGHT_ENABLE
+    if (record->event.pressed) { idle_rgblight_press(); }
   #endif
 
   #ifdef TAP_DANCE_ENABLE
@@ -1046,6 +1054,9 @@ void matrix_init_quantum() {
   #ifdef HAPTIC_ENABLE
     haptic_init();
   #endif
+  #ifdef IDLE_RGBLIGHT_ENABLE
+    idle_rgblight_init();
+  #endif
   matrix_init_kb();
 }
 
@@ -1090,6 +1101,10 @@ void matrix_scan_quantum() {
 
   #ifdef HAPTIC_ENABLE
     haptic_task();
+  #endif
+
+  #ifdef IDLE_RGBLIGHT_ENABLE
+    idle_rgblight_matrix_scan();
   #endif
 
   matrix_scan_kb();
