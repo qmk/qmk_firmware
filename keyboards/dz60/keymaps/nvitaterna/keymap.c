@@ -8,17 +8,17 @@
 #define TO_LAYER 15
 #define ______ KC_TRNS
 #define XXXXXX KC_NO
-#define BACKLIGHT_TIMEOUT 15 // in minutes
+#define BACKLIGHT_TIMEOUT 5 // in minutes
 
 enum my_keycodes {
   L_BL = SAFE_RANGE,
-  L_ID = SAFE_RANGE,
 };
 
 static uint16_t idle_timer = 0;
 static uint8_t halfmin_counter = 0;
 static bool led_on = true;
-static bool layer_bl = false;
+static bool layer_bl = true;
+static int old_backlight_level = -1;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[DEFAULT_LAYER] = LAYOUT_60_b_ansi( \
@@ -58,41 +58,49 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+void set_layer_color(uint32_t state) {
+  switch (biton32(state)) {
+    case DEFAULT_LAYER:
+      rgblight_setrgb(0, 250, 255);
+      break;
+    case NUM_LAYER:
+      rgblight_setrgb(0, 173, 20);
+      break;
+    case FN_LAYER:
+      rgblight_setrgb(240, 255, 0);
+      break;
+    case LIGHTING_LAYER:
+      rgblight_setrgb(255, 0, 229);
+      break;
+    case TO_LAYER:
+      rgblight_setrgb(255, 136, 0);
+      break;
+  }
+}
+
 uint32_t layer_state_set_user(uint32_t state) {
   if (layer_bl) {
-    switch (biton32(state)) {
-      case DEFAULT_LAYER:
-        rgblight_setrgb(0, 250, 255);
-        break;
-      case NUM_LAYER:
-        rgblight_setrgb(0, 173, 20);
-        break;
-      case FN_LAYER:
-        rgblight_setrgb(240, 255, 0);
-        break;
-      case LIGHTING_LAYER:
-        rgblight_setrgb(255, 0, 229);
-        break;
-      case TO_LAYER:
-        rgblight_setrgb(255, 136, 0);
-        break;
-    }
+    set_layer_color(state);
   }
   return state;
 }
 
 void keyboard_post_init_user(void) {
-  rgblight_enable();
+  backlight_set(.5);
+  rgblight_setrgb(0, 250, 255);
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    if (led_on == false) {
-      rgblight_enable();
-      idle_timer = timer_read();
-      halfmin_counter = 0;
+    if (led_on == false || old_backlight_level == -1) {
+      if (old_backlight_level == -1) {
+        old_backlight_level = get_backlight_level();
+      }
       led_on = true;
+      backlight_set(old_backlight_level);
     }
+    idle_timer = timer_read();
+    halfmin_counter = 0;
   }
   switch (keycode) {
     case L_BL:
@@ -111,11 +119,13 @@ void matrix_scan_user() {
     idle_timer = timer_read();
   }
   if (led_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2) {
-    rgblight_disable();
+    old_backlight_level = get_backlight_level();
+    backlight_set(0);
     halfmin_counter = 0;
     led_on = false;
   }
 }
+
 
 void matrix_init_user(void) {
   DDRB |= (1 << 2);
