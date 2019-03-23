@@ -20,10 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #pragma once
 
-/* Use I2C or Serial */
-
-#define USE_I2C
-#define USE_SERIAL
 //#define USE_MATRIX_I2C
 
 /* Select hand configuration */

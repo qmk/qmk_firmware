@@ -26,7 +26,7 @@ enum {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [DEF] = LAYOUT(
   RESET  , KC_1   , KC_2   , KC_3   , KC_4   , KC_5   ,                      KC_6   , KC_7   , KC_8   , KC_9   , KC_0   , TG(NUM),
-  KC_GRV , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , _______,    _______, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_EQL ,
+  KC_GRV , KC_Q   , KC_W   , KC_E   , KC_R   , KC_T   , RGB_MOD,    _______, KC_Y   , KC_U   , KC_I   , KC_O   , KC_P   , KC_EQL ,
   KC_PGUP, KC_A   , KC_S   , KC_D   , KC_F   , KC_G   , KC_TAB ,    KC_ENT , KC_H   , KC_J   , KC_K   , KC_L   , KC_SCLN, KC_QUOT,
   KC_PGDN, KC_Z   , KC_X   , KC_C   , KC_V   , KC_B   , KC_ESC ,    _______, KC_N   , KC_M   , KC_COMM, KC_DOT , KC_SLSH, KC_MINS,
                                          KC_LCTL,                                 KC_RCTL,
@@ -48,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 [FUN] = LAYOUT(
   _______, KC_F1  , KC_F2  , KC_F3  , KC_F4  , KC_F5  ,                      KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , KC_F11 ,
-  KC_TAB , _______, KC_MS_U, _______, KC_BTN3, _______, _______,    KC_MPRV, KC_MNXT, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_F12 ,
+  KC_TAB , _______, KC_MS_U, _______, KC_BTN3, _______, RGB_TOG,    KC_MPRV, KC_MNXT, KC_LCBR, KC_RCBR, KC_LBRC, KC_RBRC, KC_F12 ,
   KC_HOME, KC_MS_L, KC_MS_D, KC_MS_R, KC_BTN1, _______, _______,    KC_MPLY, KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT, _______, _______,
   KC_END , KC_PSCR, KC_INS , _______, KC_BTN2, _______, _______,    _______, KC_MUTE, KC_VOLD, KC_VOLU, _______, KC_BSLS, KC_PIPE,
                                          _______,                                 _______,
@@ -73,21 +73,52 @@ LAYOUT(
   )
 */
 
+static void set_numpad_colours(int on, void (*write)(int, uint8_t, uint8_t, uint8_t)) {
+  if (!on) {
+    for (int i=44; i<=60; i++)
+      write(i, 0, 0, 0);
+    write(63, 0, 0, 0);
+    return;
+  }
+
+  /* main number keys */
+  for (int i=44; i<=47; i++)
+    write(i, 255, 0, 0);
+  for (int i=49; i<=54; i++)
+    write(i, 255, 0, 0);
+
+  /* accessory keys */
+  write(48, 128, 128, 0);
+  for (int i=55; i<=59; i++)
+    write(i, 128, 128, 0);
+
+  // enter
+  write(63, 0, 128, 0);
+
+  // num key
+  write(60, 128, 0, 128);
+}
+
+#ifdef RGB_MATRIX_ENABLE
+/* the RGB matrix effects will overwrite the numpad indicator.
+ * this handy mechanism allows to override the matrix effects.
+ */
+void rgb_matrix_indicators_user(void) {
+  if (layer_state & (1<<NUM)) {
+    set_numpad_colours(1, &rgb_matrix_set_color);
+  }
+}
+#else   /* no RGB matrix support */
+
 uint32_t layer_state_set_user(uint32_t state) {
-  switch (biton32(state)) {
-    case DEF:
-      set_all_leds_to(0,0,0);
-      break;
-    case NUM:
-      /* highlight the numpad keys when numlock is on */
-      for (int i=44; i<=60; i++) {
-        set_led_to(i, 128,0,0);
-      }
-      set_led_to(63, 128, 0, 0);
-      break;
+  if (state & (1<<NUM)) {
+    set_numpad_colours(1, &set_led_to);
+  } else {
+    set_numpad_colours(0, &set_led_to);
   }
 
   return state;
 }
+#endif
 
 /* vim: set ts=2 sw=2 et: */

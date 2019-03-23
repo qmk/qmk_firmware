@@ -31,6 +31,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //From keyboard's directory
 #include "config_led.h"
 
+uint8_t g_usb_state = USB_FSMSTATUS_FSMSTATE_OFF_Val;   //Saved USB state from hardware value to detect changes
+
+void main_subtasks(void);
 uint8_t keyboard_leds(void);
 void send_keyboard(report_keyboard_t *report);
 void send_mouse(report_mouse_t *report);
@@ -65,7 +68,7 @@ void send_keyboard(report_keyboard_t *report)
     if (!keymap_config.nkro)
     {
 #endif //NKRO_ENABLE
-        dprint("s-kbd\r\n");
+        while (udi_hid_kbd_b_report_trans_ongoing) { main_subtasks(); } //Run other tasks while waiting for USB to be free
 
         irqflags = __get_PRIMASK();
         __disable_irq();
@@ -81,7 +84,7 @@ void send_keyboard(report_keyboard_t *report)
     }
     else
     {
-        dprint("s-nkro\r\n");
+        while (udi_hid_nkro_b_report_trans_ongoing) { main_subtasks(); } //Run other tasks while waiting for USB to be free
 
         irqflags = __get_PRIMASK();
         __disable_irq();
@@ -102,8 +105,6 @@ void send_mouse(report_mouse_t *report)
 #ifdef MOUSEKEY_ENABLE
     uint32_t irqflags;
 
-    dprint("s-mou\r\n");
-
     irqflags = __get_PRIMASK();
     __disable_irq();
     __DMB();
@@ -120,8 +121,6 @@ void send_mouse(report_mouse_t *report)
 void send_system(uint16_t data)
 {
 #ifdef EXTRAKEY_ENABLE
-    dprintf("s-exks %i\r\n", data);
-
     uint32_t irqflags;
 
     irqflags = __get_PRIMASK();
@@ -142,8 +141,6 @@ void send_system(uint16_t data)
 void send_consumer(uint16_t data)
 {
 #ifdef EXTRAKEY_ENABLE
-    dprintf("s-exkc %i\r\n",data);
-
     uint32_t irqflags;
 
     irqflags = __get_PRIMASK();
@@ -160,10 +157,103 @@ void send_consumer(uint16_t data)
 #endif //EXTRAKEY_ENABLE
 }
 
+void main_subtask_usb_state(void)
+{
+    static uint64_t fsmstate_on_delay = 0;                          //Delay timer to be sure USB is actually operating before bringing up hardware
+    uint8_t fsmstate_now = USB->DEVICE.FSMSTATUS.reg;               //Current state from hardware register
+
+    if (fsmstate_now == USB_FSMSTATUS_FSMSTATE_SUSPEND_Val)         //If USB SUSPENDED
+    {
+        fsmstate_on_delay = 0;                                      //Clear ON delay timer
+
+        if (g_usb_state != USB_FSMSTATUS_FSMSTATE_SUSPEND_Val)      //If previously not SUSPENDED
+        {
+            suspend_power_down();                                   //Run suspend routine
+            g_usb_state = fsmstate_now;                             //Save current USB state
+        }
+    }
+    else if (fsmstate_now == USB_FSMSTATUS_FSMSTATE_SLEEP_Val)      //Else if USB SLEEPING
+    {
+        fsmstate_on_delay = 0;                                      //Clear ON delay timer
+
+        if (g_usb_state != USB_FSMSTATUS_FSMSTATE_SLEEP_Val)        //If previously not SLEEPING
+        {
+            suspend_power_down();                                   //Run suspend routine
+            g_usb_state = fsmstate_now;                             //Save current USB state
+        }
+    }
+    else if (fsmstate_now == USB_FSMSTATUS_FSMSTATE_ON_Val)         //Else if USB ON
+    {
+        if (g_usb_state != USB_FSMSTATUS_FSMSTATE_ON_Val)           //If previously not ON
+        {
+            if (fsmstate_on_delay == 0)                             //If ON delay timer is cleared
+            {
+                fsmstate_on_delay = timer_read64() + 250;             //Set ON delay timer
+            }
+            else if (timer_read64() > fsmstate_on_delay)              //Else if ON delay timer is active and timed out
+            {
+                suspend_wakeup_init();                              //Run wakeup routine
+                g_usb_state = fsmstate_now;                         //Save current USB state
+            }
+        }
+    }
+    else                                                            //Else if USB is in a state not being tracked
+    {
+        fsmstate_on_delay = 0;                                      //Clear ON delay timer
+    }
+}
+
+void main_subtask_led(void)
+{
+    if (g_usb_state != USB_FSMSTATUS_FSMSTATE_ON_Val) return; //Only run LED tasks if USB is operating
+
+    led_matrix_task();
+}
+
+void main_subtask_power_check(void)
+{
+    static uint64_t next_5v_checkup = 0;
+
+    if (timer_read64() > next_5v_checkup)
+    {
+        next_5v_checkup = timer_read64() + 5;
+
+        v_5v = adc_get(ADC_5V);
+        v_5v_avg = 0.9 * v_5v_avg + 0.1 * v_5v;
+
+        gcr_compute();
+    }
+}
+
+void main_subtask_usb_extra_device(void)
+{
+    static uint64_t next_usb_checkup = 0;
+
+    if (timer_read64() > next_usb_checkup)
+    {
+        next_usb_checkup = timer_read64() + 10;
+
+        USB_HandleExtraDevice();
+    }
+}
+
+void main_subtasks(void)
+{
+    main_subtask_usb_state();
+    main_subtask_led();
+    main_subtask_power_check();
+    main_subtask_usb_extra_device();
+}
+
 int main(void)
 {
-    led_ena;
-    m15_ena;
+    DBG_LED_ENA;
+    DBG_1_ENA;
+    DBG_1_OFF;
+    DBG_2_ENA;
+    DBG_2_OFF;
+    DBG_3_ENA;
+    DBG_3_OFF;
 
     debug_code_init();
 
@@ -171,7 +261,7 @@ int main(void)
 
     ADC0_init();
 
-    SPI_Init();
+    SR_EXP_Init();
 
     i2c1_init();
 
@@ -189,8 +279,7 @@ int main(void)
 
     while (USB2422_Port_Detect_Init() == 0) {}
 
-    led_off;
-    m15_off;
+    DBG_LED_OFF;
 
     led_matrix_init();
 
@@ -201,8 +290,7 @@ int main(void)
 
     i2c_led_q_init();
 
-    uint8_t drvid;
-    for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
+    for (uint8_t drvid = 0; drvid < ISSI3733_DRIVER_COUNT; drvid++)
         I2C_LED_Q_ONOFF(drvid); //Queue data
 
     keyboard_setup();
@@ -211,11 +299,9 @@ int main(void)
 
     host_set_driver(&arm_atsam_driver);
 
-#ifdef VIRTSER_ENABLE
+#ifdef CONSOLE_ENABLE
     uint64_t next_print = 0;
-#endif //VIRTSER_ENABLE
-    uint64_t next_usb_checkup = 0;
-    uint64_t next_5v_checkup = 0;
+#endif //CONSOLE_ENABLE
 
     v_5v_avg = adc_get(ADC_5V);
 
@@ -223,61 +309,31 @@ int main(void)
 
     while (1)
     {
-        if (usb_state == USB_STATE_POWERDOWN)
-        {
-            uint32_t timer_led = timer_read32();
+        main_subtasks(); //Note these tasks will also be run while waiting for USB keyboard polling intervals
 
-            led_on;
-            if (led_enabled)
+        if (g_usb_state == USB_FSMSTATUS_FSMSTATE_SUSPEND_Val || g_usb_state == USB_FSMSTATUS_FSMSTATE_SLEEP_Val)
+        {
+            if (suspend_wakeup_condition())
             {
-                for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
-                {
-                    I2C3733_Control_Set(0);
-                }
+                udc_remotewakeup(); //Send remote wakeup signal
+                wait_ms(50);
             }
-            while (usb_state == USB_STATE_POWERDOWN)
-            {
-                if (timer_read32() - timer_led > 1000) led_off; //Good to indicate went to sleep, but only for a second
-            }
-            if (led_enabled)
-            {
-                for (drvid=0;drvid<ISSI3733_DRIVER_COUNT;drvid++)
-                {
-                    I2C3733_Control_Set(1);
-                }
-            }
-            led_off;
+
+            continue;
         }
 
         keyboard_task();
 
-        led_matrix_task();
-
-        if (CLK_get_ms() > next_5v_checkup)
+#ifdef CONSOLE_ENABLE
+        if (timer_read64() > next_print)
         {
-            next_5v_checkup = CLK_get_ms() + 5;
-
-            v_5v = adc_get(ADC_5V);
-            v_5v_avg = 0.9 * v_5v_avg + 0.1 * v_5v;
-
-            gcr_compute();
+            next_print = timer_read64() + 250;
+            //Add any debug information here that you want to see very often
+            //dprintf("5v=%u 5vu=%u dlow=%u dhi=%u gca=%u gcd=%u\r\n", v_5v, v_5v_avg, v_5v_avg - V5_LOW, v_5v_avg - V5_HIGH, gcr_actual, gcr_desired);
         }
-
-        if (CLK_get_ms() > next_usb_checkup)
-        {
-            next_usb_checkup = CLK_get_ms() + 10;
-
-            USB_HandleExtraDevice();
-        }
-
-#ifdef VIRTSER_ENABLE
-        if (CLK_get_ms() > next_print)
-        {
-            next_print = CLK_get_ms() + 250;
-            //dpf("5v=%i 5vu=%i dlow=%i dhi=%i gca=%i gcd=%i\r\n",v_5v,v_5v_avg,v_5v_avg-V5_LOW,v_5v_avg-V5_HIGH,gcr_actual,gcr_desired);
-        }
-#endif //VIRTSER_ENABLE
+#endif //CONSOLE_ENABLE
     }
+
 
     return 1;
 }

@@ -77,6 +77,6 @@ endef
 MSG_MAKE_TEST = $(eval $(call GENERATE_MSG_MAKE_TEST))$(MSG_MAKE_TEST_ACTUAL)
 MSG_TEST = Testing $(BOLD)$(TEST_NAME)$(NO_COLOR)
 MSG_CHECK_FILESIZE = Checking file size of $(TARGET).hex
-MSG_FILE_TOO_BIG = $(ERROR_COLOR)Your file is too big!$(NO_COLOR) $(CURRENT_SIZE)/$(MAX_SIZE) ($(OVER_SIZE) over)\n
-MSG_FILE_TOO_SMALL = Your file is too small! $(CURRENT_SIZE)/$(MAX_SIZE)\n
-MSG_FILE_JUST_RIGHT = File size is fine - $(CURRENT_SIZE)/$(MAX_SIZE) ($(FREE_SIZE) free)\n
+MSG_FILE_TOO_BIG = $(ERROR_COLOR)The firmware is too large!$(NO_COLOR) $(CURRENT_SIZE)/$(MAX_SIZE) ($(OVER_SIZE) bytes over)\n
+MSG_FILE_TOO_SMALL = The firmware is too small! $(CURRENT_SIZE)/$(MAX_SIZE)\n
+MSG_FILE_JUST_RIGHT = The firmware size is fine - $(CURRENT_SIZE)/$(MAX_SIZE) ($(FREE_SIZE) bytes free)\n

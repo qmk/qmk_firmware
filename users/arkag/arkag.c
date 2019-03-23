@@ -1,48 +1,58 @@
 #include "arkag.h"
 
-// Start: Written by konstantin: vomindoraan
-#include <ctype.h>
-#include <stdlib.h>
-#include <string.h>
+/*
+ Current Layout and Keeb:
+ https://github.com/arkag/qmk_firmware/blob/master/keyboards/mechmini/v2/keymaps/arkag/keymap.c
+*/
 
-void send_unicode_hex_string(const char *str) {
-  if (!str) { return; } // Saftey net
-  while (*str) {
-          // Find the next code point (token) in the string
-          for (; *str == ' '; str++);
-          size_t n = strcspn(str, " "); // Length of the current token
-          char code_point[n+1];
-          strncpy(code_point, str, n);
-          code_point[n] = '\0'; // Make sure it's null-terminated
+#include <stdbool.h>
 
-          // Normalize the code point: make all hex digits lowercase
-          for (char *p = code_point; *p; p++) {
-                  *p = tolower(*p);
-          }
+// Start: Written by Chris Lewis
+#ifndef MIN
+#define MIN(a,b) (((a)<(b))?(a):(b))
+#endif
+#ifndef MAX
+#define MAX(a,b) (((a)>(b))?(a):(b))
+#endif
 
-          // Send the code point as a Unicode input string
-          unicode_input_start();
-          send_string(code_point);
-          unicode_input_finish();
-          str += n; // Move to the first ' ' (or '\0') after the current token
+#define TYPING_SPEED_MAX_VALUE 200
+uint8_t typing_speed = 0;
+
+void velocikey_accelerate() {
+    if (typing_speed < TYPING_SPEED_MAX_VALUE) typing_speed += (TYPING_SPEED_MAX_VALUE / 50);
+}
+
+void velocikey_decelerate() {
+  static uint16_t decay_timer = 0;
+
+  if (timer_elapsed(decay_timer) > 500 || decay_timer == 0) {
+    if (typing_speed > 0) typing_speed -= 1;
+    //Decay a little faster at half of max speed
+    if (typing_speed > TYPING_SPEED_MAX_VALUE / 2) typing_speed -= 1;
+    //Decay even faster at 3/4 of max speed
+    if (typing_speed > TYPING_SPEED_MAX_VALUE / 4 * 3) typing_speed -= 3;
+    decay_timer = timer_read();
   }
 }
-// End: Written by konstantin: vomindoraan
 
-uint8_t       current_os, mod_primary_mask, fade_delay;
-uint16_t      flash_timer_one, flash_timer_two,
-              fade_timer_one, fade_timer_two,
-              active_timer_one, active_timer_two,
-              elapsed               = 0,
+uint8_t velocikey_match_speed(uint8_t minValue, uint8_t maxValue) {
+  return MAX(minValue, maxValue - (maxValue - minValue) * ((float)typing_speed / TYPING_SPEED_MAX_VALUE));
+}
+// End: Written by Chris Lewis
+
+uint8_t       current_os,
+              mod_primary_mask,
+              fade_interval,
               num_extra_flashes_off = 0;
 Color         underglow,
               flash_color,
               saved_color,
-              hsv_none      = {0,0,0},
-              hsv_white     = {0,0,127};
+              hsv_none      = {0,0,0};
 flashState    flash_state   = no_flash;
 fadeState     fade_state    = add_fade;
 activityState state         = boot;
+bool          aesthetic     = false,
+              shifty        = false;
 
 void set_color (Color new, bool update) {
   rgblight_sethsv_eeprom_helper(new.h, new.s, new.v, update);
@@ -79,134 +89,103 @@ Color mod_color(Color current_color, bool should_add, uint8_t change_amount) {
   return current_color;
 }
 
-void reverse_fade (void) {
-  if (fade_state == add_fade){
-    fade_state = sub_fade;
-  } else {
-    fade_state = add_fade;
+void check_state (void) {
+  static uint16_t active_timer;
+  if (!active_timer) {active_timer = timer_read();}
+  static bool activated, deactivated, slept;
+  switch (state) {
+  case active:
+    if (!activated) {
+      if (slept) {rgblight_mode_noeeprom(1);}
+      activated = true;
+      deactivated = false;
+      slept = false;
+    }
+    fade_interval = velocikey_match_speed(1, 25);
+    if (timer_elapsed(active_timer) < INACTIVE_DELAY) {return;}
+    active_timer = timer_read();
+    state = inactive;
+    return;
+
+  case inactive:
+    if (!deactivated) {
+      deactivated = true;
+      activated = false;
+      slept = false;
+    }
+    velocikey_decelerate();
+    fade_interval = velocikey_match_speed(1, 25);
+    if (timer_elapsed(active_timer) < SLEEP_DELAY) {return;}
+    state = sleeping;
+    return;
+
+  case sleeping:
+    if (!slept) {
+      rgblight_mode_noeeprom(5);
+      slept = true;
+      activated = false;
+      deactivated = false;
+    }
+    return;
+
+  case boot:
+    return;
   }
 }
 
-void check_state (void) {
-        static bool activated, deactivated, slept;
-        switch (state) {
-        case active:
-          if (!activated) {
-            fade_delay = LED_FADE_DELAY;
-            reverse_fade();
-            activated = true;
-            deactivated = false;
-          }
-          active_timer_two = timer_read();
-          elapsed = active_timer_two - active_timer_one;
-          if (elapsed < INACTIVE_DELAY) {return;}
-          state = inactive;
-          return;
-
-        case inactive:
-          if (!deactivated) {
-            fade_delay = LED_FADE_DELAY * 2;
-            reverse_fade();
-            deactivated = true;
-            slept = false;
-            activated = false;
-          }
-          active_timer_two = timer_read();
-          elapsed = active_timer_two - active_timer_one;
-          if (elapsed < SLEEP_DELAY) {return;}
-          state = sleeping;
-          return;
-
-        case sleeping:
-          if (!slept) {
-            fade_delay = LED_FADE_DELAY * 6;
-            reverse_fade();
-            slept = true;
-            deactivated = false;
-            activated = false;
-          }
-          return;
-
-        case boot:
-          return;
-        }
-}
-
 void fade_rgb (void) {
-  static bool ran_once;
-  if (flash_state != no_flash) {return;}
+  static uint16_t fade_timer;
   if (state == boot) {return;}
+  if (!fade_timer) {fade_timer = timer_read();}
+  if (timer_elapsed(fade_timer) < fade_interval) {return;}
   switch (fade_state) {
   case add_fade:
-    if (!ran_once) {
-      fade_timer_one = timer_read();
-      ran_once = true;
-    }
-    fade_timer_two = timer_read();
-    elapsed = fade_timer_two - fade_timer_one;
-    if (elapsed < fade_delay) {return;}
     if (underglow.h == 359) {
       fade_state = sub_fade;
       return;
     }
     underglow.h = underglow.h + 1;
-    set_color(underglow, false);
-    // set_color_at(underglow, 0);
-    fade_timer_one = fade_timer_two;
-    return;
+    break;
 
   case sub_fade:
-    fade_timer_two = timer_read();
-    elapsed = fade_timer_two - fade_timer_one;
-    if (elapsed < fade_delay) {return;}
     if (underglow.h == 0) {
       fade_state = add_fade;
       return;
     }
     underglow.h = underglow.h - 1;
+    break;
+  }
+  fade_timer = timer_read();
+  if (flash_state == no_flash) {
     set_color(underglow, false);
-    // set_color_at(underglow, 0);
-    fade_timer_one = fade_timer_two;
-    return;
   }
 }
 
 void flash_rgb (void) {
-  static bool ran_once;
+  static uint16_t flash_timer;
   switch(flash_state) {
   case no_flash:
     return;
 
   case flash_off:
-    if (!ran_once) {
+    if (!flash_timer) {flash_timer = timer_read();}
+    if (timer_elapsed(flash_timer) >= LED_FLASH_DELAY) {
       set_color(hsv_none, false);
-      flash_timer_one = timer_read();
-      ran_once = true;
-      flash_state = flash_on;
-      return;
-    }
-    flash_timer_two = timer_read();
-    elapsed = flash_timer_two - flash_timer_one;
-    if (elapsed >= LED_FLASH_DELAY) {
-      set_color(hsv_none, false);
-      flash_timer_one = timer_read();
+      flash_timer = timer_read();
       flash_state = flash_on;
     }
     return;
 
   case flash_on:
-    flash_timer_two = timer_read();
-    elapsed = flash_timer_two - flash_timer_one;
-    if (elapsed >= LED_FLASH_DELAY) {
+    if (timer_elapsed(flash_timer) >= LED_FLASH_DELAY) {
       set_color(flash_color, false);
-      flash_timer_one = timer_read();
+      flash_timer = timer_read();
       if (num_extra_flashes_off > 0) {
         flash_state = flash_off;
         num_extra_flashes_off--;
       } else {
         set_color(underglow, false);
         flash_state = no_flash;
-        ran_once = false;
       }
     }
     return;
@@ -239,14 +218,10 @@ void set_os (uint8_t os, bool update) {
     mod_primary_mask = MOD_CTL_MASK;
   }
   set_color(underglow, update);
-  flash_color = underglow;
-  flash_state = flash_off;
+  flash_color           = underglow;
+  flash_state           = flash_off;
+  state                 = boot;
   num_extra_flashes_off = 1;
-}
-
-void tap_key(uint8_t keycode) {
-  register_code(keycode);
-  unregister_code(keycode);
 }
 
 // register GUI if Mac or Ctrl if other
@@ -288,13 +263,13 @@ void surround_type(uint8_t num_of_chars, uint16_t keycode, bool use_shift) {
     register_code(KC_LSFT);
   }
   for (int i = 0; i < num_of_chars; i++) {
-    tap_key(keycode);
+    tap_code(keycode);
   }
   if (use_shift) {
     unregister_code(KC_LSFT);
   }
   for (int i = 0; i < (num_of_chars/2); i++) {
-    tap_key(KC_LEFT);
+    tap_code(KC_LEFT);
   }
 }
 
@@ -302,7 +277,7 @@ void long_keystroke(size_t num_of_keys, uint16_t keys[]) {
   for (int i = 0; i < num_of_keys-1; i++) {
     register_code(keys[i]);
   }
-  tap_key(keys[num_of_keys-1]);
+  tap_code(keys[num_of_keys-1]);
   for (int i = 0; i < num_of_keys-1; i++) {
     unregister_code(keys[i]);
   }
@@ -310,7 +285,10 @@ void long_keystroke(size_t num_of_keys, uint16_t keys[]) {
 
 void dance_grv (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    tap_key(KC_GRV);
+    tap_code(KC_GRV);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
   } else if (state->count == 2) {
     surround_type(2, KC_GRAVE, false);
   } else {
@@ -320,7 +298,10 @@ void dance_grv (qk_tap_dance_state_t *state, void *user_data) {
 
 void dance_quot (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    tap_key(KC_QUOT);
+    tap_code(KC_QUOT);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
   } else if (state->count == 2) {
     surround_type(2, KC_QUOTE, false);
   } else if (state->count == 3) {
@@ -328,35 +309,73 @@ void dance_quot (qk_tap_dance_state_t *state, void *user_data) {
   }
 }
 
-void dance_strk (qk_tap_dance_state_t *state, void *user_data) {
+void dance_hyph (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    surround_type(4, KC_TILDE, true);
-  } else if (state->count == 2) {
-    if (current_os == OS_MAC) {
-      long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_4});
-    } else if (current_os == OS_WIN) {
-      long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_S});
-    } else {
-      return;
+    tap_code(KC_MINS);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
     }
-  }
-}
-
-void dance_3 (qk_tap_dance_state_t *state, void *user_data) {
-  if (state->count == 1) {
-    tap_key(KC_3);
   } else if (state->count == 2) {
-    send_unicode_hex_string("00E8");
+    register_code(KC_LSFT);
+    tap_code(KC_MINS);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
+    unregister_code(KC_LSFT);
   } else if (state->count == 3) {
-    send_unicode_hex_string("00E9");
+    send_unicode_hex_string("2014");
   }
 }
 
-void dance_c (qk_tap_dance_state_t *state, void *user_data) {
+void dance_obrck (qk_tap_dance_state_t *state, void *user_data) {
   if (state->count == 1) {
-    tap_key(KC_C);
+    tap_code(KC_LBRC);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
   } else if (state->count == 2) {
-    send_unicode_hex_string("00E7");
+    register_code(KC_LSFT);
+    tap_code(KC_9);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
+    unregister_code(KC_LSFT);
+  }
+}
+
+void dance_cbrck (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    tap_code(KC_RBRC);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
+  } else if (state->count == 2) {
+    register_code(KC_LSFT);
+    tap_code(KC_0);
+    if (aesthetic) {
+      tap_code(KC_SPACE);
+    }
+    unregister_code(KC_LSFT);
+  }
+}
+
+void dance_game (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+
+  } else if (state->count == 2) {
+
+  } else if (state->count == 3) {
+    uint8_t layer = biton32(layer_state);
+    if (layer == _QWERTY) {
+        layer_off(_QWERTY);
+        layer_on(_GAMING);
+        // swirling rgb
+        rgblight_mode_noeeprom(12);
+    } else {
+        layer_off(_GAMING);
+        layer_on(_QWERTY);
+        rgblight_mode_noeeprom(1);
+    }
   }
 }
 
@@ -365,209 +384,247 @@ void matrix_init_user(void) {
   set_os(current_os, false);
 }
 
+LEADER_EXTERNS();
+
 void matrix_scan_user(void) {
   check_state();
   flash_rgb();
   fade_rgb();
-}
+  LEADER_DICTIONARY() {
+    leading = false;
+    leader_end();
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-  case M_PMOD:
-    if (record->event.pressed) {
-      pri_mod(true);
-    } else {
-      pri_mod(false);
-    }
-    return false;
-
-  case M_SMOD:
-    if (record->event.pressed) {
-      sec_mod(true);
-    } else {
-      sec_mod(false);
-    }
-    return false;
-
-  case M_P_B:
-    if (record->event.pressed) {
+    // begin OS functions
+    SEQ_TWO_KEYS(KC_P, KC_B) {
       if (current_os == OS_WIN) {
-              SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_PAUSE) SS_UP(X_LGUI));
+        long_keystroke(2, (uint16_t[]){KC_LGUI, KC_PAUSE});
+      } else {
+        return;
+      }
+    }
+    SEQ_TWO_KEYS(KC_LSFT, M_PMOD) {
+      if (current_os == OS_WIN) {
+        long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LSFT, KC_ESC});
       } else {
       }
     }
-    return false;
-
-  case M_C_A_D:
-    if (record->event.pressed) {
+    SEQ_TWO_KEYS(KC_S, KC_S) {
+      if (current_os == OS_MAC) {
+        long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_4});
+      } else if (current_os == OS_WIN) {
+        long_keystroke(3, (uint16_t[]){KC_LGUI, KC_LSFT, KC_S});
+      } else {
+        return;
+      }
+    }
+    SEQ_THREE_KEYS(KC_C, KC_A, KC_D) {
       if (current_os == OS_WIN) {
-              SEND_STRING(SS_DOWN(X_LCTRL) SS_DOWN(X_LALT) SS_TAP(X_DELETE) SS_UP(X_LALT) SS_UP(X_LCTRL));
+        long_keystroke(3, (uint16_t[]){KC_LCTL, KC_LALT, KC_DEL});
       } else {
       }
     }
-    return false;
-
-  case M_CALC:
-    if (record->event.pressed) {
+    SEQ_FOUR_KEYS(KC_C, KC_A, KC_L, KC_C) {
       if (current_os == OS_WIN) {
         SEND_STRING(SS_TAP(X_CALCULATOR));
       } else if (current_os == OS_MAC) {
         SEND_STRING(SS_DOWN(X_LGUI) SS_TAP(X_SPACE) SS_UP(X_LGUI) "calculator" SS_TAP(X_ENTER));
       }
     }
-    return false;
+    // end OS functions
 
-  case M_OS:
-    if (record->event.pressed) {
-      set_os((current_os+1) % _OS_COUNT, true);
-    }
-    return false;
-
-  case M_LOD:
-    if (record->event.pressed) {
-      send_unicode_hex_string("0CA0 005F 005F 0CA0");
-    }
-    return false;
-
-  case M_LENNY:
-    if (record->event.pressed) {
-      send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
-    }
-    return false;
-
-
-  case M_TF:
-    if (record->event.pressed) {
-      send_unicode_hex_string("0028 256F 2035 0414 2032 0029 256F 5F61 253B 2501 253B");
-    }
-    return false;
-
-  case M_UF:
-    if (record->event.pressed) {
-      send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 0020 30CE 0029");
-    }
-    return false;
-
-  case M_SHRUG:
-    if (record->event.pressed) {
-      send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
-    }
-    return false;
-
-  case M_TM:
-    if (record->event.pressed) {
-      send_unicode_hex_string("2122");
-    }
-    return false;
-
-  case M_REPO:
-    if (record->event.pressed) {
-      SEND_STRING("https://github.com/arkag/qmk_firmware/tree/master/keyboards/mechmini/v2/keymaps/arkag");
-    }
-    return false;
-
-  case M_GGT:
-    if (record->event.pressed) {
-      SEND_STRING("@GrahamGoldenTech.com");
-    }
-    return false;
-
-  case M_SNIPT:
-    if (record->event.pressed) {
-      surround_type(6, KC_GRAVE, false);
-      pri_mod(true);
-      tap_key(KC_V);
-      pri_mod(false);
-      tap_key(KC_RGHT);
-      tap_key(KC_RGHT);
-      tap_key(KC_RGHT);
-      tap_key(KC_ENTER);
-    }
-    return false;
-
-  case M_BOLD:
-    if (record->event.pressed) {
+    // begin format functions
+    SEQ_ONE_KEY(KC_B) {
       surround_type(4, KC_8, true);
     }
-    return false;
-
-  case M_ITAL:
-    if (record->event.pressed) {
+    SEQ_ONE_KEY(KC_I) {
       surround_type(2, KC_8, true);
     }
-    return false;
-
-  case M_ULIN:
-    if (record->event.pressed) {
+    SEQ_ONE_KEY(KC_U) {
       surround_type(4, KC_MINS, true);
     }
-    return false;
-
-  case KC_LSFT:
-    if (record->event.pressed) {
-      set_color(mod_color(underglow, true, 50), false);
-      SEND_STRING(SS_DOWN(X_LSHIFT));
-    } else {
-      set_color(underglow, false);
-      SEND_STRING(SS_UP(X_LSHIFT));
+    SEQ_ONE_KEY(KC_S) {
+      surround_type(4, KC_GRAVE, true);
     }
-    return false;
-
-  case MEDIA:
-  case LAZY:
-  case KEEB:
-  case RAISE:
-  case LOWER:
-    return true;
-
-  default:
-    if (record->event.pressed) {
-      active_timer_one = timer_read();
-      state = active;
+    SEQ_ONE_KEY(KC_C) {
+      send_unicode_hex_string("00E7");
     }
-    return true;
+    SEQ_TWO_KEYS(KC_C, KC_C) {
+      surround_type(2, KC_GRAVE, false);
+    }
+    SEQ_THREE_KEYS(KC_C, KC_C, KC_C) {
+      surround_type(6, KC_GRAVE, false);
+    }
+    SEQ_ONE_KEY(KC_E) {
+      send_unicode_hex_string("00E8");
+    }
+    SEQ_TWO_KEYS(KC_E, KC_E) {
+      send_unicode_hex_string("00E9");
+    }
+    // end format functions
+
+    // start fancy functions
+    SEQ_THREE_KEYS(KC_C, KC_C, KC_ENT) {
+      surround_type(6, KC_GRAVE, false);
+      pri_mod(true);
+      tap_code(KC_V);
+      pri_mod(false);
+      tap_code(KC_RGHT);
+      tap_code(KC_RGHT);
+      tap_code(KC_RGHT);
+      tap_code(KC_ENTER);
+    }
+    // end fancy functions
+
+    // start typing functions
+    SEQ_TWO_KEYS(KC_T, KC_M) {
+      // ™
+      send_unicode_hex_string("2122");
+    }
+    SEQ_TWO_KEYS(KC_D, KC_D) {
+      SEND_STRING(".\\Administrator");
+    }
+    SEQ_THREE_KEYS(KC_L, KC_O, KC_D) {
+      // ಠ__ಠ
+      send_unicode_hex_string("0CA0 005F 005F 0CA0");
+    }
+    SEQ_FOUR_KEYS(KC_R, KC_E, KC_P, KC_O) {
+      SEND_STRING("https://github.com/qmk/qmk_firmware/tree/master/users/arkag");
+    }
+    SEQ_FOUR_KEYS(KC_F, KC_L, KC_I, KC_P) {
+      // (╯‵Д′)╯彡┻━┻
+      send_unicode_hex_string("0028 256F 2035 0414 2032 0029 256F 5F61 253B 2501 253B");
+    }
+    SEQ_FIVE_KEYS(KC_U, KC_F, KC_L, KC_I, KC_P) {
+      // ┬─┬ノ( º _ º ノ)
+      send_unicode_hex_string("252C 2500 252C 30CE 0028 0020 00BA 0020 005F 0020 00BA 0020 30CE 0029");
+    }
+    SEQ_FIVE_KEYS(KC_L, KC_E, KC_N, KC_N, KC_Y) {
+      // ( ͡° ͜ʖ ͡°)
+      send_unicode_hex_string("0028 0020 0361 00B0 0020 035C 0296 0020 0361 00B0 0029");
+    }
+    SEQ_FIVE_KEYS(KC_S, KC_H, KC_R, KC_U, KC_G) {
+      // ¯\_(ツ)_/¯
+      send_unicode_hex_string("00AF 005C 005F 0028 30C4 0029 005F 002F 00AF");
+    }
+    // end typing functions
+
   }
 }
 
-uint32_t layer_state_set_user(uint32_t state) {
-  switch (biton32(state)) {
-  case _LAZY:
-    save_color(underglow);
-    underglow = mod_color(underglow, true, 50);
-    break;
-  case _MEDIA:
-    save_color(underglow);
-    underglow = mod_color(underglow, true, 150);
-    break;
-  case _KEEB:
-    save_color(underglow);
-    underglow = mod_color(underglow, false, 150);
-    break;
-  case _LOWER:
-    save_color(underglow);
-    underglow = mod_color(underglow, false, 100);
-    break;
-  case _RAISE:
-    save_color(underglow);
-    underglow = mod_color(underglow, true, 100);
-    break;
-  default:
-    reset_color();
-    break;
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (aesthetic) {
+    switch (keycode) {
+    case KC_A ... KC_0:
+    case KC_SPACE ... KC_SLASH:
+      if (record->event.pressed) {
+        state = active;
+        velocikey_accelerate();
+        tap_code(keycode);
+        tap_code(KC_SPACE);
+      }
+      return false;
+
+    case KC_BSPACE:
+      if (record->event.pressed) {
+        state = active;
+        velocikey_accelerate();
+        tap_code(keycode);
+        tap_code(keycode);
+      }
+      return false;
+    default: // Do nothing
+      break;
+    }
   }
-  set_color(underglow, false);
-  return state;
+
+  if (shifty) {
+    switch (keycode) {
+    case KC_A ... KC_Z:
+      if (record->event.pressed) {
+        int shift = rand() % 2;
+        state = active;
+        velocikey_accelerate();
+        if (shift == 1){
+          register_code(KC_LSFT);
+        }
+        tap_code(keycode);
+        if (shift == 1){
+          unregister_code(KC_LSFT);
+        }
+      }
+      return false;
+    case KC_SPC:
+      if (record->event.pressed) {
+        state = active;
+        velocikey_accelerate();
+        tap_code(keycode);
+      }
+      return false;
+    default: // Do nothing
+      break;
+    }
+  }
+
+  switch (keycode) {
+  case M_PMOD:
+    pri_mod(record->event.pressed);
+    return false;
+
+  case M_SMOD:
+    sec_mod(record->event.pressed);
+    return false;
+
+  case M_OS:
+    if (record->event.pressed){
+      set_os((current_os+1) % _OS_COUNT, true);
+    }
+
+    return false;
+
+  case M_SPC:
+    if(record->event.pressed){
+      if (aesthetic) {
+        aesthetic = false;
+        rgblight_mode_noeeprom(1);
+      } else {
+        aesthetic = true;
+        shifty = false;
+        // snake mode
+        rgblight_mode_noeeprom(20);
+      }
+      return false;
+    }
+
+  case M_SFT:
+    if(record->event.pressed){
+      if (shifty) {
+        shifty = false;
+        rgblight_mode_noeeprom(1);
+      } else {
+        shifty = true;
+        aesthetic = false;
+        // knight mode
+        rgblight_mode_noeeprom(23);
+      }
+      return false;
+    }
+
+  default:
+    if (record->event.pressed) {
+      state = active;
+      velocikey_accelerate();
+    }
+    return true;
+  }
 }
 
 //Tap Dance Definitions
 qk_tap_dance_action_t tap_dance_actions[] = {
-  [TD_3_GRV_ACT]      = ACTION_TAP_DANCE_FN (dance_3),
-  [TD_C_CED]          = ACTION_TAP_DANCE_FN (dance_c),
   [TD_GRV_3GRV]       = ACTION_TAP_DANCE_FN (dance_grv),
   [TD_SING_DOUB]      = ACTION_TAP_DANCE_FN (dance_quot),
-  [TD_STRK_SHOT]      = ACTION_TAP_DANCE_FN (dance_strk),
-  [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_DOUBLE (KC_MINS, LSFT(KC_MINS)),
-  [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_DOUBLE (KC_LBRC, LSFT(KC_9)),
-  [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_DOUBLE (KC_RBRC, LSFT(KC_0)),
+  [TD_HYPH_UNDR]      = ACTION_TAP_DANCE_FN (dance_hyph),
+  [TD_BRCK_PARN_O]    = ACTION_TAP_DANCE_FN (dance_obrck),
+  [TD_BRCK_PARN_C]    = ACTION_TAP_DANCE_FN (dance_cbrck),
   [TD_LALT_RALT]      = ACTION_TAP_DANCE_DOUBLE (KC_LALT, KC_RALT),
+  [TD_GAME]           = ACTION_TAP_DANCE_FN (dance_game),
 };

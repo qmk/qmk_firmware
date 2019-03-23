@@ -1,2 +1,3 @@
-# used by default keymap
-MOUSEKEY_ENABLE = yes       # Mouse keys(+4700)
+MOUSEKEY_ENABLE = yes
+EXTRAKEY_ENABLE = no
+CONSOLE_ENABLE  = no

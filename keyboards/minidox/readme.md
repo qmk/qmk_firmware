@@ -12,7 +12,7 @@ Make example for this keyboard (after setting up your build environment):
 
     make minidox/rev1:default
 
-See [build environment setup](https://docs.qmk.fm/build_environment_setup.html) then the [make instructions](https://docs.qmk.fm/make_instructions.html) for more information.
+See [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) then the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information.
 
 ## Build Guide
 
@@ -54,13 +54,13 @@ file will run on both hands instead of having to flash left and right handed
 versions of the firmware to each half. To flash the EEPROM file for the left
 half run:
 ```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:eeprom-lefthand.eep
+avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:"./quantum/split_common/eeprom-lefthand.eep"
 // or the equivalent in dfu-programmer
 
 ```
 and similarly for right half
 ```
-avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:eeprom-righhand.eep
+avrdude -p atmega32u4 -P $(COM_PORT) -c avr109 -U eeprom:w:"./quantum/split_common/eeprom-righthand.eep"
 // or the equivalent in dfu-programmer
 ```
 
