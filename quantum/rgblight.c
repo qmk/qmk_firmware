@@ -193,11 +193,7 @@ void setrgbw(uint8_t r, uint8_t g, uint8_t b, uint8_t w, LED_TYPE *led1) {
 #endif
 
 uint32_t eeconfig_read_rgblight(void) {
-<<<<<<< HEAD
   #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
-=======
-#ifdef __AVR__
->>>>>>> Fix intendation of pre-processor commands
     return eeprom_read_dword(EECONFIG_RGBLIGHT);
 #else
     return 0;
@@ -205,12 +201,8 @@ uint32_t eeconfig_read_rgblight(void) {
 }
 
 void eeconfig_update_rgblight(uint32_t val) {
-<<<<<<< HEAD
   #if defined(__AVR__) || defined(STM32_EEPROM_ENABLE) || defined(PROTOCOL_ARM_ATSAM) || defined(EEPROM_SIZE)
     rgblight_check_config();
-=======
-#ifdef __AVR__
->>>>>>> Fix intendation of pre-processor commands
     eeprom_update_dword(EECONFIG_RGBLIGHT, val);
 #endif
 }
@@ -725,7 +717,6 @@ void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val) {
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
   if (rgblight_config.enable) {
-<<<<<<< HEAD
       LED_TYPE *ledp;
     #ifdef RGBLIGHT_LED_MAP
       LED_TYPE led0[RGBLED_NUM];
@@ -741,13 +732,6 @@ void rgblight_set(void) {
     #else
       ws2812_setleds(ledp, RGBLED_NUM);
     #endif
-=======
-#ifdef RGBW
-      ws2812_setleds_rgbw(led, RGBLED_NUM);
-#else
-      ws2812_setleds(led, RGBLED_NUM);
-#endif
->>>>>>> Fix intendation of pre-processor commands
   } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
       led[i].r = 0;
