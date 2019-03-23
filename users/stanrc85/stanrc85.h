@@ -14,9 +14,9 @@ enum custom_keycodes {
 };
 
 //Tap Dance Declarations
-enum {
-	TD_WIN = 0,
-	TD_ESC,
+enum tap_dance {
+	TD_ESC = 0,
+  TD_WIN,
   TD_RCTL
 };
 
