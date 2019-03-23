@@ -48,13 +48,10 @@
 #define CALC KC_CALC  // Open default calculator app
 #define MYCM KC_MYCM  // Open default file manager
 
-<<<<<<< HEAD
 // increase readability
 #define _______  KC_TRNS
 #define XXXXX    KC_NO
 
-=======
->>>>>>> upstream
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Keymap BASE: (Base Layer) Default Layer
