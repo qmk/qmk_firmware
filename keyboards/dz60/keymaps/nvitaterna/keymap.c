@@ -8,7 +8,7 @@
 #define TO_LAYER 15
 #define ______ KC_TRNS
 #define XXXXXX KC_NO
-#define BACKLIGHT_TIMEOUT 5 // in minutes
+#define BACKLIGHT_TIMEOUT 10 // in minutes
 
 enum my_keycodes {
   L_BL = SAFE_RANGE,
@@ -16,9 +16,8 @@ enum my_keycodes {
 
 static uint16_t idle_timer = 0;
 static uint8_t halfmin_counter = 0;
-static bool led_on = true;
-static bool layer_bl = true;
-static int old_backlight_level = -1;
+static bool layer_mode = true;
+static bool timed_out = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[DEFAULT_LAYER] = LAYOUT_60_b_ansi( \
@@ -58,46 +57,45 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-void set_layer_color(uint32_t state) {
-  switch (biton32(state)) {
-    case DEFAULT_LAYER:
-      rgblight_setrgb(0, 250, 255);
-      break;
-    case NUM_LAYER:
-      rgblight_setrgb(0, 173, 20);
-      break;
-    case FN_LAYER:
-      rgblight_setrgb(240, 255, 0);
-      break;
-    case LIGHTING_LAYER:
-      rgblight_setrgb(255, 0, 229);
-      break;
-    case TO_LAYER:
-      rgblight_setrgb(255, 136, 0);
-      break;
-  }
+bool is_rgblight_enabled(void) {
+  return rgblight_get_val() > 0;
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
-  if (layer_bl) {
-    set_layer_color(state);
+  if (layer_mode && !timed_out && is_rgblight_enabled()) {
+    switch (biton32(state)) {
+      case DEFAULT_LAYER:
+        rgblight_sethsv_noeeprom_cyan();
+        break;
+      case NUM_LAYER:
+        rgblight_sethsv_noeeprom_blue();
+        break;
+      case FN_LAYER:
+        rgblight_sethsv_noeeprom_orange();
+        break;
+      case LIGHTING_LAYER:
+        rgblight_sethsv_noeeprom_magenta();
+        break;
+      case TO_LAYER:
+        rgblight_sethsv_noeeprom_red();
+        break;
+    }
   }
   return state;
 }
 
-void keyboard_post_init_user(void) {
-  backlight_set(.5);
-  rgblight_setrgb(0, 250, 255);
+void set_layer_mode(bool active) {
+  layer_mode = active;
+  if (active) {
+    rgblight_mode(0);
+  }
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
-    if (led_on == false || old_backlight_level == -1) {
-      if (old_backlight_level == -1) {
-        old_backlight_level = get_backlight_level();
-      }
-      led_on = true;
-      backlight_set(old_backlight_level);
+    if (timed_out) {
+      timed_out = false;
+      rgblight_enable();
     }
     idle_timer = timer_read();
     halfmin_counter = 0;
@@ -105,24 +103,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case L_BL:
       if (record->event.pressed) {
-        layer_bl = !layer_bl;
+        set_layer_mode(true);
       }
       return false;
   }
   return true;
 }
 
+void keyboard_post_init_user(void) {
+  // rgblight_disable();
+}
+
 void matrix_scan_user() {
-  if (idle_timer == 0) idle_timer = timer_read();
-  if (led_on && timer_elapsed(idle_timer) > 30000) {
-    halfmin_counter++;
+  if (idle_timer == 0) {
     idle_timer = timer_read();
   }
-  if (led_on && halfmin_counter >= BACKLIGHT_TIMEOUT * 2) {
-    old_backlight_level = get_backlight_level();
-    backlight_set(0);
-    halfmin_counter = 0;
-    led_on = false;
+  if (!timed_out && is_rgblight_enabled()) {
+    if (timer_elapsed(idle_timer) > 30000) {
+      halfmin_counter++;
+      idle_timer = timer_read();
+    }
+    if (halfmin_counter >= BACKLIGHT_TIMEOUT * 2) {
+      timed_out = true;
+      rgblight_disable();
+      halfmin_counter = 0;
+    }
   }
 }
 

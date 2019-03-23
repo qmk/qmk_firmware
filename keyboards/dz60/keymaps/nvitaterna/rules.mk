@@ -1,1 +1,6 @@
 # CONSOLE_ENABLE = yes
+# COMMAND_ENABLE = no
+# EXTRAKEY_ENABLE = no
+# LAYOUTS = 60_ansi
+# EXTRAFLAGS += -flto
+# UNICODE_ENABLE = no
