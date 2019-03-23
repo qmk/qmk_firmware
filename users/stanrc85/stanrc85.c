@@ -22,26 +22,25 @@ void ctl_copy_finished (qk_tap_dance_state_t *state, void *user_data) {
   td_state = cur_dance(state);
   switch (td_state) {
     case SINGLE_TAP:
-      register_code16(KC_C);
+      SEND_STRING(SS_LCTRL("c"));
       break;
     case SINGLE_HOLD:
       register_mods(MOD_BIT(KC_RCTL));
       break;
-    case DOUBLE_TAP: // allow nesting of 2 parens `((` within tapping term
-      register_code16(KC_V);
+    case DOUBLE_TAP:
+      SEND_STRING(SS_LCTRL("v"));
   }
 }
 
 void ctl_copy_reset (qk_tap_dance_state_t *state, void *user_data) {
   switch (td_state) {
     case SINGLE_TAP:
-      unregister_code16(KC_C);
       break;
     case SINGLE_HOLD:
       unregister_mods(MOD_BIT(KC_RCTL));
       break;
     case DOUBLE_TAP:
-      unregister_code16(KC_V);
+      break;
   }
 }
 
