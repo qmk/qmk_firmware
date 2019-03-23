@@ -4,7 +4,7 @@
 
 PCB for the cypher keyboard
 
-Keyboard Maintainer: [westfoxtrot](https://github.com/westfoxtrot)
+Keyboard Maintainer: [westfoxtrot](https://github.com/westfoxtrot)  
 Hardware Supported: Cypher PCB
 Hardware Availability: with group buy + Files released here (https://github.com/westfoxtrot/Cypher_PCB)
 
