@@ -1,5 +1,8 @@
+#define IDLE_RGBLIGHT_TIMEOUT
+
 #include QMK_KEYBOARD_H
 #include "rgblight.h"
+#include "idle_rgblight.h"
 
 #define DEFAULT_LAYER 0
 #define FN_LAYER 1
@@ -8,16 +11,12 @@
 #define TO_LAYER 15
 #define ______ KC_TRNS
 #define XXXXXX KC_NO
-#define BACKLIGHT_TIMEOUT 10 // in minutes
 
 enum my_keycodes {
   L_BL = SAFE_RANGE,
 };
 
-static uint16_t idle_timer = 0;
-static uint8_t halfmin_counter = 0;
 static bool layer_mode = true;
-static bool timed_out = false;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[DEFAULT_LAYER] = LAYOUT_60_b_ansi( \
@@ -57,10 +56,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
-bool is_rgblight_enabled(void) {
-  return rgblight_get_val() > 0;
-}
-
 uint32_t layer_state_set_user(uint32_t state) {
   if (layer_mode && !timed_out && is_rgblight_enabled()) {
     switch (biton32(state)) {
@@ -92,14 +87,6 @@ void set_layer_mode(bool active) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    if (timed_out) {
-      timed_out = false;
-      rgblight_enable();
-    }
-    idle_timer = timer_read();
-    halfmin_counter = 0;
-  }
   switch (keycode) {
     case L_BL:
       if (record->event.pressed) {
@@ -108,27 +95,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       return false;
   }
   return true;
-}
-
-void keyboard_post_init_user(void) {
-  // rgblight_disable();
-}
-
-void matrix_scan_user() {
-  if (idle_timer == 0) {
-    idle_timer = timer_read();
-  }
-  if (!timed_out && is_rgblight_enabled()) {
-    if (timer_elapsed(idle_timer) > 30000) {
-      halfmin_counter++;
-      idle_timer = timer_read();
-    }
-    if (halfmin_counter >= BACKLIGHT_TIMEOUT * 2) {
-      timed_out = true;
-      rgblight_disable();
-      halfmin_counter = 0;
-    }
-  }
 }
 
 
