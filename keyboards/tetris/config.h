@@ -52,4 +52,3 @@
 #define RGBLIGHT_VAL_STEP 8
 #define RGBLIGHT_EFFECT_KNIGHT_LED_NUM 12
 
-#endif
