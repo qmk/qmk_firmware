@@ -55,6 +55,6 @@ SLEEP_LED_ENABLE = no  # Breathing sleep LED during USB suspend
 NKRO_ENABLE = yes		# USB Nkey Rollover - if this doesn't work, see here: https://github.com/tmk/tmk_keyboard/wiki/FAQ#nkro-doesnt-work
 BACKLIGHT_ENABLE ?= no  # Enable keyboard backlight functionality
 AUDIO_ENABLE ?= yes
-RGBLIGHT_ENABLE ?= yes
+RGBLIGHT_ENABLE = yes
 EXTRAFLAGS        = -flto 
 ENCODER_ENABLE = yes
