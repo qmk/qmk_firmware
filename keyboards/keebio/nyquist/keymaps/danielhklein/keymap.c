@@ -31,7 +31,7 @@ enum custom_keycodes {
 };
 
   // Enable these functions using FUNC(n) macro.
-  const uint16_t PROGMEM fn_actions[] = { //ACTION_LAYER_TAP_TOGGLE requires that number of taps be defined in *config.h* - default set to 5
+  const uint16_t PROGMEM fn_actions[] = {
       [0] = LT(_LOWER, KC_SPC),    //Hold for momentary Lower layer, Tap for Backspace,
       [1] = LT(_RAISE, KC_BSPC),     //Hold for momentary Raise layer, Tap for Space,
       [2] = MO(_ARROW), //Hold for momentary Arrow

@@ -19,6 +19,7 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_QW] = LAYOUT_planck_grid_wrapper(QWERTY_4x12),
+    [_GAME] = LAYOUT_planck_grid_wrapper(GAME_4x12),
     [_LW] = LAYOUT_planck_grid_wrapper(LOWER_4x12),
     [_NV] = LAYOUT_planck_grid_wrapper(NAV_4x12),
     [_NP] = LAYOUT_planck_grid_wrapper(NUMPAD_4x12),

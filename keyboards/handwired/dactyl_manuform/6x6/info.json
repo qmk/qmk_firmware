@@ -5,7 +5,7 @@
     "width": 17,
     "height": 9,
     "layouts": {
-        "LAYOUT": {
+        "LAYOUT_6x6": {
             "layout": [
                 {"label":"L00", "x":0, "y":0},
                 {"label":"L01", "x":1, "y":0},

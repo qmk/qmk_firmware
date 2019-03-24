@@ -30,6 +30,9 @@
 #include "rgblight.h"
 #include "debug.h"
 #include "led_tables.h"
+#ifdef VELOCIKEY_ENABLE
+  #include "velocikey.h"
+#endif
 
 #define _RGBM_SINGLE_STATIC(sym)   RGBLIGHT_MODE_ ## sym,
 #define _RGBM_SINGLE_DYNAMIC(sym)
@@ -48,6 +51,10 @@ static inline int is_static_effect(uint8_t mode) {
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
+#ifdef RGBLIGHT_LED_MAP
+const uint8_t led_map[] PROGMEM = RGBLIGHT_LED_MAP;
+#endif
+
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
 __attribute__ ((weak))
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
@@ -58,6 +65,15 @@ bool is_rgblight_initialized = false;
 
 LED_TYPE led[RGBLED_NUM];
 bool rgblight_timer_enabled = false;
+
+static uint8_t clipping_start_pos = 0;
+static uint8_t clipping_num_leds = RGBLED_NUM;
+
+void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
+  clipping_start_pos = start_pos;
+  clipping_num_leds = num_leds;
+}
+
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
@@ -222,11 +238,14 @@ void rgblight_init(void) {
 
 }
 
+uint32_t rgblight_read_dword(void) {
+  return rgblight_config.raw;
+}
+
 void rgblight_update_dword(uint32_t dword) {
   rgblight_config.raw = dword;
-  eeconfig_update_rgblight(rgblight_config.raw);
   if (rgblight_config.enable)
-    rgblight_mode(rgblight_config.mode);
+    rgblight_mode_noeeprom(rgblight_config.mode);
   else {
 #ifdef RGBLIGHT_USE_TIMER
       rgblight_timer_disable();
@@ -607,6 +626,19 @@ void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index) {
   rgblight_setrgb_at(tmp_led.r, tmp_led.g, tmp_led.b, index);
 }
 
+#if defined(RGBLIGHT_EFFECT_BREATHING) || defined(RGBLIGHT_EFFECT_RAINBOW_MOOD) || defined(RGBLIGHT_EFFECT_RAINBOW_SWIRL) \
+  || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT)
+
+static uint8_t get_interval_time(const uint8_t* default_interval_address, uint8_t velocikey_min, uint8_t velocikey_max) {
+  return
+#ifdef VELOCIKEY_ENABLE
+    velocikey_enabled() ? velocikey_match_speed(velocikey_min, velocikey_max) :
+#endif
+    pgm_read_byte(default_interval_address);
+}
+
+#endif
+
 void rgblight_setrgb_range(uint8_t r, uint8_t g, uint8_t b, uint8_t start, uint8_t end) {
   if (!rgblight_config.enable || start < 0 || start >= end || end > RGBLED_NUM) { return; }
 
@@ -645,11 +677,20 @@ void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val) {
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
+  LED_TYPE *start_led = led + clipping_start_pos;
+  uint16_t num_leds = clipping_num_leds;
   if (rgblight_config.enable) {
+    #ifdef RGBLIGHT_LED_MAP
+      LED_TYPE led0[RGBLED_NUM];
+      for(uint8_t i = 0; i < RGBLED_NUM; i++) {
+          led0[i] = led[pgm_read_byte(&led_map[i])];
+      }
+      start_led = led0 + clipping_start_pos;
+    #endif
     #ifdef RGBW
-      ws2812_setleds_rgbw(led, RGBLED_NUM);
+      ws2812_setleds_rgbw(start_led, num_leds);
     #else
-      ws2812_setleds(led, RGBLED_NUM);
+      ws2812_setleds(start_led, num_leds);
     #endif
   } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
@@ -658,9 +699,9 @@ void rgblight_set(void) {
       led[i].b = 0;
     }
     #ifdef RGBW
-      ws2812_setleds_rgbw(led, RGBLED_NUM);
+      ws2812_setleds_rgbw(start_led, num_leds);
     #else
-      ws2812_setleds(led, RGBLED_NUM);
+      ws2812_setleds(start_led, num_leds);
     #endif
   }
 }
@@ -707,6 +748,7 @@ void rgblight_show_solid_color(uint8_t r, uint8_t g, uint8_t b) {
 }
 
 void rgblight_task(void) {
+
   if (rgblight_timer_enabled) {
     // static light mode, do nothing here
     if ( 1 == 0 ) { //dummy
@@ -778,7 +820,9 @@ void rgblight_effect_breathing(uint8_t interval) {
   static uint16_t last_timer = 0;
   float val;
 
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_BREATHING_INTERVALS[interval])) {
+  uint8_t interval_time = get_interval_time(&RGBLED_BREATHING_INTERVALS[interval], 1, 100);
+
+  if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
   last_timer = timer_read();
@@ -798,7 +842,9 @@ void rgblight_effect_rainbow_mood(uint8_t interval) {
   static uint16_t current_hue = 0;
   static uint16_t last_timer = 0;
 
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_MOOD_INTERVALS[interval])) {
+  uint8_t interval_time = get_interval_time(&RGBLED_RAINBOW_MOOD_INTERVALS[interval], 5, 100);
+
+  if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
   last_timer = timer_read();
@@ -820,7 +866,10 @@ void rgblight_effect_rainbow_swirl(uint8_t interval) {
   static uint16_t last_timer = 0;
   uint16_t hue;
   uint8_t i;
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2])) {
+
+  uint8_t interval_time = get_interval_time(&RGBLED_RAINBOW_SWIRL_INTERVALS[interval / 2], 1, 100);
+
+  if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
   last_timer = timer_read();
@@ -855,7 +904,10 @@ void rgblight_effect_snake(uint8_t interval) {
   if (interval % 2) {
     increment = -1;
   }
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_SNAKE_INTERVALS[interval / 2])) {
+
+  uint8_t interval_time = get_interval_time(&RGBLED_SNAKE_INTERVALS[interval / 2], 1, 200);
+
+  if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
   last_timer = timer_read();
@@ -892,7 +944,10 @@ const uint8_t RGBLED_KNIGHT_INTERVALS[] PROGMEM = {127, 63, 31};
 
 void rgblight_effect_knight(uint8_t interval) {
   static uint16_t last_timer = 0;
-  if (timer_elapsed(last_timer) < pgm_read_byte(&RGBLED_KNIGHT_INTERVALS[interval])) {
+
+  uint8_t interval_time = get_interval_time(&RGBLED_KNIGHT_INTERVALS[interval], 5, 100);
+
+  if (timer_elapsed(last_timer) < interval_time) {
     return;
   }
   last_timer = timer_read();
