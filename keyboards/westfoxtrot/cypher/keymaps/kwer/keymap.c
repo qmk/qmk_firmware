@@ -64,3 +64,16 @@ void matrix_scan_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   return true;
 }
+
+void led_set_user(uint8_t usb_led) {
+  // Insert custom handling for CAPS_LOCK, NUM_LOCK, SCROLL_LOCK here
+      if (IS_LED_ON(usb_led, USB_LED_NUM_LOCK)) {
+        writePinHigh(F4);
+        writePinHigh(F1);
+        writePinHigh(F5);
+    } else {
+        writePinLow(F4);
+        writePinLow(F1);
+        writePinLow(F5);
+    }
+}
