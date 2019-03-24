@@ -386,7 +386,7 @@
     { k40,   k41,   KC_NO, k43,  KC_NO, KC_NO, k46,  KC_NO, KC_NO, KC_NO, KC_NO, k4b,  KC_NO, k4d,  k4e   }  \
 }^
 
-/* LAYOUT_60_olligranlund_iso
+/* LAYOUT_60_iso_split_space_bs_rshift
  * ┌───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┬───┐
  * │00 │01 │02 │03 │04 │05 │06 │07 │08 │09 │0a │0b │0c │0d │0e │
  * ├───┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴─┬─┴───┤
@@ -399,7 +399,7 @@
  * │40  │41  │43  │44      │46  │48        │4a  │4b  │4d  │4e  │
  * └────┴────┴────┴────────┴────┴──────────┴────┴────┴────┴────┘
 */
-#define LAYOUT_60_olligranlund_iso( \
+#define LAYOUT_60_iso_split_space_bs_rshift( \
     k00, k01, k02, k03, k04, k05, k06, k07, k08, k09, k0a, k0b, k0c, k0d, k0e, \
     k10,      k12, k13, k14, k15, k16, k17, k18, k19, k1a, k1b, k1c, k1d,      \
     k20,      k22, k23, k24, k25, k26, k27, k28, k29, k2a, k2b, k2c, k1e, k2d, \
