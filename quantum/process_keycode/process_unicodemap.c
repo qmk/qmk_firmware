@@ -59,9 +59,7 @@ bool process_unicodemap(uint16_t keycode, keyrecord_t *record) {
     uint32_t code = pgm_read_dword(unicode_map + unicodemap_index(keycode));
     uint8_t input_mode = get_unicode_input_mode();
 
-    if (code > 0x10FFFF
-        || (code > 0xFFFF  && input_mode == UC_WIN)
-        || (code > 0xFFFFF && input_mode == UC_WINC)) {
+    if (code > 0x10FFFF || (code > 0xFFFF && input_mode == UC_WIN)) {
       // Character is out of range supported by the platform
       unicode_input_cancel();
     } else if (code > 0xFFFF && input_mode == UC_OSX) {
