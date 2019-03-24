@@ -77,6 +77,14 @@ void convert_rgb_to_rgbw(uint8_t* r, uint8_t* g, uint8_t* b, uint8_t* w) {
 }
 #endif
 
+static uint8_t clipping_start_pos = 0;
+static uint8_t clipping_num_leds = RGBLED_NUM;
+
+void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
+  clipping_start_pos = start_pos;
+  clipping_num_leds = num_leds;
+}
+
 void convert_hsv_to_rgb(uint16_t hue, uint8_t sat, uint8_t val, uint8_t *r_p, uint8_t *g_p, uint8_t *b_p) {
     uint8_t r, g, b, base, color;
 
@@ -716,36 +724,35 @@ void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val) {
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
+  LED_TYPE *start_led = led + clipping_start_pos;
+  uint16_t num_leds = clipping_num_leds;
   if (rgblight_config.enable) {
-      LED_TYPE *ledp;
     #ifdef RGBLIGHT_LED_MAP
       LED_TYPE led0[RGBLED_NUM];
       for(uint8_t i = 0; i < RGBLED_NUM; i++) {
           led0[i] = led[pgm_read_byte(&led_map[i])];
       }
-      ledp = led0;
-    #else
-      ledp = led;
+      start_led = led0 + clipping_start_pos;
     #endif
     #ifdef RGBW
-      ws2812_setleds_rgbw(ledp, RGBLED_NUM);
+      ws2812_setleds_rgbw(start_led, num_leds);
     #else
-      ws2812_setleds(ledp, RGBLED_NUM);
+      ws2812_setleds(start_led, num_leds);
     #endif
   } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
       led[i].r = 0;
       led[i].g = 0;
       led[i].b = 0;
-#ifdef RGBW
+    #ifdef RGBW
       led[i].w = 0;
-#endif
+    #endif
     }
-#ifdef RGBW
-      ws2812_setleds_rgbw(led, RGBLED_NUM);
-#else
-      ws2812_setleds(led, RGBLED_NUM);
-#endif
+    #ifdef RGBW
+      ws2812_setleds_rgbw(start_led, num_leds);
+    #else
+      ws2812_setleds(start_led, num_leds);
+    #endif
   }
 }
 #endif
