@@ -75,6 +75,10 @@ static inline int is_static_effect(uint8_t mode) {
 #define MIN(a,b) (((a)<(b))?(a):(b))
 #define MAX(a,b) (((a)>(b))?(a):(b))
 
+#ifdef RGBLIGHT_LED_MAP
+const uint8_t led_map[] PROGMEM = RGBLIGHT_LED_MAP;
+#endif
+
 #ifdef RGBLIGHT_EFFECT_STATIC_GRADIENT
 __attribute__ ((weak))
 const uint16_t RGBLED_GRADIENT_RANGES[] PROGMEM = {360, 240, 180, 120, 90};
@@ -89,6 +93,15 @@ animation_status_t animation_status = {};
 #endif
 
 LED_TYPE led[RGBLED_NUM];
+
+static uint8_t clipping_start_pos = 0;
+static uint8_t clipping_num_leds = RGBLED_NUM;
+
+void rgblight_set_clipping_range(uint8_t start_pos, uint8_t num_leds) {
+  clipping_start_pos = start_pos;
+  clipping_num_leds = num_leds;
+}
+
 
 void sethsv(uint16_t hue, uint8_t sat, uint8_t val, LED_TYPE *led1) {
   uint8_t r = 0, g = 0, b = 0, base, color;
@@ -658,7 +671,7 @@ void rgblight_sethsv_at(uint16_t hue, uint8_t sat, uint8_t val, uint8_t index) {
   || defined(RGBLIGHT_EFFECT_SNAKE) || defined(RGBLIGHT_EFFECT_KNIGHT)
 
 static uint8_t get_interval_time(const uint8_t* default_interval_address, uint8_t velocikey_min, uint8_t velocikey_max) {
-  return 
+  return
 #ifdef VELOCIKEY_ENABLE
     velocikey_enabled() ? velocikey_match_speed(velocikey_min, velocikey_max) :
 #endif
@@ -705,11 +718,20 @@ void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val) {
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
+  LED_TYPE *start_led = led + clipping_start_pos;
+  uint16_t num_leds = clipping_num_leds;
   if (rgblight_config.enable) {
+    #ifdef RGBLIGHT_LED_MAP
+      LED_TYPE led0[RGBLED_NUM];
+      for(uint8_t i = 0; i < RGBLED_NUM; i++) {
+          led0[i] = led[pgm_read_byte(&led_map[i])];
+      }
+      start_led = led0 + clipping_start_pos;
+    #endif
     #ifdef RGBW
-      ws2812_setleds_rgbw(led, RGBLED_NUM);
+      ws2812_setleds_rgbw(start_led, num_leds);
     #else
-      ws2812_setleds(led, RGBLED_NUM);
+      ws2812_setleds(start_led, num_leds);
     #endif
   } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
@@ -718,9 +740,9 @@ void rgblight_set(void) {
       led[i].b = 0;
     }
     #ifdef RGBW
-      ws2812_setleds_rgbw(led, RGBLED_NUM);
+      ws2812_setleds_rgbw(start_led, num_leds);
     #else
-      ws2812_setleds(led, RGBLED_NUM);
+      ws2812_setleds(start_led, num_leds);
     #endif
   }
 }

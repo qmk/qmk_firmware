@@ -1,3 +1,4 @@
+#include <string.h>
 
 #include "config.h"
 #include "matrix.h"
@@ -59,9 +60,8 @@ bool transport_master(matrix_row_t matrix[]) {
 }
 
 void transport_slave(matrix_row_t matrix[]) {
-  for (int i = 0; i < ROWS_PER_HAND * sizeof(matrix_row_t); ++i) {
-    i2c_slave_reg[I2C_KEYMAP_START + i] = matrix[i];
-  }
+  // Copy matrix to I2C buffer
+  memcpy((void*)(i2c_slave_reg + I2C_KEYMAP_START), (void *)matrix, ROWS_PER_HAND * sizeof(matrix_row_t) );
 
 // Read Backlight Info
 #  ifdef BACKLIGHT_ENABLE
@@ -92,12 +92,13 @@ typedef struct _Serial_m2s_buffer_t {
 #  ifdef BACKLIGHT_ENABLE
   uint8_t           backlight_level;
 #  endif
-#  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+#  if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
   rgblight_config_t rgblight_config;  // not yet use
   //
   // When MCUs on both sides drive their respective RGB LED chains,
   // it is necessary to synchronize, so it is necessary to communicate RGB
-  // information. In that case, define the RGBLIGHT_SPLIT macro.
+  // information. In that case, define RGBLED_SPLIT with info on the number
+  // of LEDs on each half.
   //
   // Otherwise, if the master side MCU drives both sides RGB LED chains,
   // there is no need to communicate.
@@ -132,13 +133,18 @@ bool transport_master(matrix_row_t matrix[]) {
     matrix[i] = serial_s2m_buffer.smatrix[i];
   }
 
-#  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-  // Code to send RGB over serial goes here (not implemented yet)
-#  endif
-
 #  ifdef BACKLIGHT_ENABLE
   // Write backlight level for slave to read
   serial_m2s_buffer.backlight_level = backlight_config.enable ? backlight_config.level : 0;
+#  endif
+
+#  if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
+  static rgblight_config_t prev_rgb = {~0};
+  uint32_t rgb = rgblight_read_dword();
+  if (rgb != prev_rgb.raw) {
+    serial_m2s_buffer.rgblight_config.raw = rgb;
+    prev_rgb.raw = rgb;
+  }
 #  endif
 
   return true;
@@ -152,8 +158,9 @@ void transport_slave(matrix_row_t matrix[]) {
 #  ifdef BACKLIGHT_ENABLE
   backlight_set(serial_m2s_buffer.backlight_level);
 #  endif
-#  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-// Add serial implementation for RGB here
+#  if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
+  // Update RGB config with the new data
+  rgblight_update_dword(serial_m2s_buffer.rgblight_config.raw);
 #  endif
 }
 
