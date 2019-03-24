@@ -1,5 +1,5 @@
 //
-// calculate rgblight_effect_breath_table[] values
+// calculate rgblight_effect_breathe_table[] values
 //
 // this is host program for quantum/rgblight.c:void rgblight_effect_breathing();
 //
@@ -22,9 +22,9 @@ int main(void) {
               * (RGBLIGHT_EFFECT_BREATHE_MAX/(M_E-1/M_E))
               );
     }
-    printf("#ifdef RGBLIGHT_EFFECT_BREATH_TABLE\n");
+    printf("#ifdef RGBLIGHT_EFFECT_BREATHE_TABLE\n");
     printf("__attribute__ ((weak))\n");
-    printf("const uint8_t rgblight_effect_breath_table[] PROGMEM = {\n");
+    printf("const uint8_t rgblight_effect_breathe_table[] PROGMEM = {\n");
     printf("  /* %d byte table */\n", TABLE_SIZE);
 #if TABLE_SIZE == 256
     step = 1;
@@ -41,7 +41,7 @@ int main(void) {
             printf("\n");
     }
     printf("};\n");
-    printf("\nstatic const table_scale = 256/sizeof(rgblight_effect_breath_table);\n");
+    printf("\nstatic const table_scale = 256/sizeof(rgblight_effect_breathe_table);\n");
     printf("#endif\n");
     return 0;
 }

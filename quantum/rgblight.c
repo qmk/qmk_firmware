@@ -813,9 +813,9 @@ void rgblight_task(void) {
 // Effects
 #ifdef RGBLIGHT_EFFECT_BREATHING
 
-#ifdef RGBLIGHT_EFFECT_BREATH_TABLE
+#ifdef RGBLIGHT_EFFECT_BREATHE_TABLE
 __attribute__ ((weak))
-const uint8_t rgblight_effect_breath_table[] PROGMEM = {
+const uint8_t rgblight_effect_breathe_table[] PROGMEM = {
   /* 128 byte table */
   0x22,  0x25,  0x28,  0x2a,
   0x2d,  0x30,  0x33,  0x36,
@@ -851,7 +851,7 @@ const uint8_t rgblight_effect_breath_table[] PROGMEM = {
   0x2c,  0x29,  0x26,  0x23,
 };
 
-static const int table_scale = 256/sizeof(rgblight_effect_breath_table);
+static const int table_scale = 256/sizeof(rgblight_effect_breathe_table);
 #endif
 
 __attribute__ ((weak))
@@ -870,8 +870,8 @@ void rgblight_effect_breathing(uint8_t interval) {
   last_timer = timer_read();
 
   // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
-#ifdef RGBLIGHT_EFFECT_BREATH_TABLE
-  val = pgm_read_byte(&rgblight_effect_breath_table[pos / table_scale]);
+#ifdef RGBLIGHT_EFFECT_BREATHE_TABLE
+  val = pgm_read_byte(&rgblight_effect_breathe_table[pos / table_scale]);
 #else
   val = (exp(sin((pos/255.0)*M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER/M_E)*(RGBLIGHT_EFFECT_BREATHE_MAX/(M_E-1/M_E));
 #endif

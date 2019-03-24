@@ -78,7 +78,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //   #define RGBLIGHT_EFFECT_RGB_TEST
 //   #define RGBLIGHT_EFFECT_ALTERNATING
 // /*== use breath table instead of exp() and sin() ==*/
-//   #define RGBLIGHT_EFFECT_BREATH_TABLE
+//   #define RGBLIGHT_EFFECT_BREATHE_TABLE
 // #endif
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
