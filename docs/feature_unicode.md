@@ -98,17 +98,17 @@ There are two ways to set the input mode for Unicode: by keycode or by function.
 
 You can switch the input mode at any time by using one of the following keycodes. The easiest way is to add the ones you use to your keymap.
 
-|Keycode                |Alias    |Input Mode   |Description                                                     |
-|-----------------------|---------|-------------|----------------------------------------------------------------|
-|`UNICODE_MODE_FORWARD` |`UC_MOD` |             |Cycle through [selected](#input-method-cycling) modes           |
-|`UNICODE_MODE_REVERSE` |`UC_RMOD`|             |Cycle through [selected](#input-method-cycling) modes in reverse|
-|`UNICODE_MODE_OSX`     |`UC_M_OS`|`UC_OSX`     |Switch to macOS input                                           |
-|`UNICODE_MODE_LNX`     |`UC_M_LN`|`UC_LNX`     |Switch to Linux input                                           |
-|`UNICODE_MODE_WIN`     |`UC_M_WI`|`UC_WIN`     |Switch to Windows input                                         |
-|`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented)                           |
-|`UNICODE_MODE_WINC`    |`UC_M_WC`|`UC_WINC`    |Switch to Windows input using WinCompose                        |
+|Keycode               |Alias    |Input Mode  |Description                                                   |
+|----------------------|---------|------------|--------------------------------------------------------------|
+|`UNICODE_MODE_FORWARD`|`UC_MOD` |Next in list|[Cycle](#input-mode-cycling) through selected modes           |
+|`UNICODE_MODE_REVERSE`|`UC_RMOD`|Prev in list|[Cycle](#input-mode-cycling) through selected modes in reverse|
+|`UNICODE_MODE_OSX`    |`UC_M_OS`|`UC_OSX`    |Switch to macOS input                                         |
+|`UNICODE_MODE_LNX`    |`UC_M_LN`|`UC_LNX`    |Switch to Linux input                                         |
+|`UNICODE_MODE_WIN`    |`UC_M_WI`|`UC_WIN`    |Switch to Windows input                                       |
+|`UNICODE_MODE_BSD`    |`UC_M_BS`|`UC_BSD`    |Switch to BSD input (not implemented)                         |
+|`UNICODE_MODE_WINC`   |`UC_M_WC`|`UC_WINC`   |Switch to Windows input using WinCompose                      |
 
-You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user` (or a similar function). For example:
+You can also switch the input mode by calling `set_unicode_input_mode(x)` in your code, where _x_ is one of the above input mode constants (e.g. `UC_LNX`). Since the function only needs to be called once, it's recommended that you do it in `eeconfig_init_user()` (or a similar function). For example:
 
 ```c
 void eeconfig_init_user(void) {
@@ -153,9 +153,9 @@ You can customize the keys used to trigger Unicode input for macOS, Linux and Wi
 |`UNICODE_KEY_LNX` |`uint16_t`|`LCTL(LSFT(KC_U))`|`#define UNICODE_KEY_LNX  LCTL(LSFT(KC_E))`|
 |`UNICODE_KEY_WINC`|`uint8_t` |`KC_RALT`         |`#define UNICODE_KEY_WINC KC_RGUI`         |
 
-#### Input Method Cycling
+#### Input Mode Cycling
 
-Also, you can choose which input methods are availble for cycling through.  By default, this is disabled. But if you want to enabled it, then limiting it to just those modes makes sense.  Note that `UNICODE_SELECTED_MODES` define is comma delimited.
+You can choose which input modes are available for cycling through. By default, this is disabled. If you want to enable it, then limiting it to just the modes you use makes sense. Note that the input mode constants in `UNICODE_SELECTED_MODES` are comma delimited.
 
 ```c
 #define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WIN, UC_WINC
