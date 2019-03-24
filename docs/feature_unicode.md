@@ -66,7 +66,7 @@ Unicode input in QMK works by inputting a sequence of characters to the OS, sort
 
 The following input modes are available:
 
-* **`UC_OSX`**: Mac OS X built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with `UNICODEMAP`).
+* **`UC_OSX`**: macOS built-in Unicode hex input. Supports code points up to `0xFFFF` (`0x10FFFF` with `UNICODEMAP`).
 
   To enable, go to _System Preferences > Keyboard > Input Sources_, add _Unicode Hex Input_ to the list (it's under _Other_), then activate it from the input dropdown in the Menu Bar.
   By default, this mode uses the left Option key (`KC_LALT`) for Unicode input, but this can be changed by defining [`UNICODE_KEY_OSX`](#input-key-configuration) with another keycode.
@@ -100,7 +100,7 @@ You can switch the input mode at any time by using one of the following keycodes
 |-----------------------|---------|-------------|----------------------------------------------------------------|
 |`UNICODE_MODE_FORWARD` |`UC_MOD` |             |Cycle through [selected](#input-method-cycling) modes           |
 |`UNICODE_MODE_REVERSE` |`UC_RMOD`|             |Cycle through [selected](#input-method-cycling) modes in reverse|
-|`UNICODE_MODE_OSX`     |`UC_M_OS`|`UC_OSX`     |Switch to Mac OS X input                                        |
+|`UNICODE_MODE_OSX`     |`UC_M_OS`|`UC_OSX`     |Switch to macOS input                                           |
 |`UNICODE_MODE_LNX`     |`UC_M_LN`|`UC_LNX`     |Switch to Linux input                                           |
 |`UNICODE_MODE_WIN`     |`UC_M_WI`|`UC_WIN`     |Switch to Windows input                                         |
 |`UNICODE_MODE_BSD`     |`UC_M_BS`|`UC_BSD`     |Switch to BSD input (not implemented)                           |
@@ -136,14 +136,14 @@ Because Unicode is such a large and variable feature, there are a number of opti
 
 The functions for starting and finishing Unicode input on your platform can be overridden locally. Possible uses include customizing input mode behavior if you don't use the default keys, or adding extra visual/audio feedback to Unicode input.
 
-* `void unicode_input_start(void)` – This sends the initial sequence that tells your platform to enter Unicode input mode. For example, it presses Ctrl+Shift+U on Linux and holds the Option key on Mac.
+* `void unicode_input_start(void)` – This sends the initial sequence that tells your platform to enter Unicode input mode. For example, it presses Ctrl+Shift+U on Linux and holds the Option key on macOS.
 * `void unicode_input_finish(void)` – This is called to exit Unicode input mode, for example by pressing Space or releasing the Option key.
 
 You can find the default implementations of these functions in [`process_unicode_common.c`](https://github.com/qmk/qmk_firmware/blob/master/quantum/process_keycode/process_unicode_common.c).
 
 #### Input Key Configuration
 
-You can customize the keys used to trigger Unicode input for Mac, Linux and WinCompose by adding corresponding defines to your `config.h`. The default values match the platforms' default settings, so you shouldn't need to change this unless Unicode input isn't working, or you want to use a different key (e.g. in order to free up left or right Alt).
+You can customize the keys used to trigger Unicode input for macOS, Linux and WinCompose by adding corresponding defines to your `config.h`. The default values match the platforms' default settings, so you shouldn't need to change this unless Unicode input isn't working, or you want to use a different key (e.g. in order to free up left or right Alt).
 
 |Define            |Type      |Default           |Example                                    |
 |------------------|----------|------------------|-------------------------------------------|
@@ -156,7 +156,7 @@ You can customize the keys used to trigger Unicode input for Mac, Linux and WinC
 Also, you can choose which input methods are availble for cycling through.  By default, this is disabled. But if you want to enabled it, then limiting it to just those modes makes sense.  Note that `UNICODE_SELECTED_MODES` define is comma delimited.
 
 ```c
-#define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WIN, UC_BSD, UC_WINC
+#define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WIN, UC_WINC
 ```
 
 ## `send_unicode_hex_string`
