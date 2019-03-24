@@ -1,4 +1,5 @@
 #include <string.h>
+#include <stddef.h>
 
 #include "config.h"
 #include "matrix.h"
@@ -20,10 +21,17 @@ extern backlight_config_t backlight_config;
 #  include "i2c_master.h"
 #  include "i2c_slave.h"
 
-#  define I2C_BACKLIT_START 0x00
-// Need 4 bytes for RGB (32 bit)
-#  define I2C_RGB_START 0x01
-#  define I2C_KEYMAP_START 0x05
+typedef struct _I2C_slave_buffer_t {
+    uint8_t      backlit_level;
+    uint32_t     rgb_config;
+    matrix_row_t smatrix[ROWS_PER_HAND];
+} I2C_slave_buffer_t;
+
+static I2C_slave_buffer_t * const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
+
+#  define I2C_BACKLIT_START offsetof(I2C_slave_buffer_t, backlit_level)
+#  define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgb_config)
+#  define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
 
 #  define TIMEOUT 100
 
@@ -33,7 +41,7 @@ extern backlight_config_t backlight_config;
 
 // Get rows from other half over i2c
 bool transport_master(matrix_row_t matrix[]) {
-  i2c_readReg(SLAVE_I2C_ADDRESS, I2C_KEYMAP_START, (void *)matrix, ROWS_PER_HAND * sizeof(matrix_row_t), TIMEOUT);
+  i2c_readReg(SLAVE_I2C_ADDRESS, I2C_KEYMAP_START, (void *)matrix, sizeof(i2c_buffer->smatrix), TIMEOUT);
 
   // write backlight info
 #  ifdef BACKLIGHT_ENABLE
@@ -61,17 +69,16 @@ bool transport_master(matrix_row_t matrix[]) {
 
 void transport_slave(matrix_row_t matrix[]) {
   // Copy matrix to I2C buffer
-  memcpy((void*)(i2c_slave_reg + I2C_KEYMAP_START), (void *)matrix, ROWS_PER_HAND * sizeof(matrix_row_t) );
+  memcpy((void*)i2c_buffer->smatrix, (void *)matrix, sizeof(i2c_buffer->smatrix));
 
 // Read Backlight Info
 #  ifdef BACKLIGHT_ENABLE
-  backlight_set(i2c_slave_reg[I2C_BACKLIT_START]);
+  backlight_set(i2c_buffer->backlit_level);
 #  endif
 
 #  ifdef RGBLIGHT_ENABLE
-  uint32_t rgb = *(uint32_t *)(i2c_slave_reg + I2C_RGB_START);
   // Update the RGB with the new data
-  rgblight_update_dword(rgb);
+  rgblight_update_dword(i2c_buffer->rgb_config);
 #  endif
 }
 
