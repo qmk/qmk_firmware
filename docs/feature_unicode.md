@@ -132,7 +132,7 @@ For instance, you can add these definitions to your `config.h` file:
 
 ### Additional Customization
 
-Because Unicode is such a large and variable feature, there are a number of options that you can customize to work better on your system.
+Because Unicode is a large and versatile feature, there are a number of options you can customize to make it work better on your system.
 
 #### Start and Finish Input Functions
 
@@ -155,11 +155,21 @@ You can customize the keys used to trigger Unicode input for macOS, Linux and Wi
 
 #### Input Mode Cycling
 
-You can choose which input modes are available for cycling through. By default, this is disabled. If you want to enable it, then limiting it to just the modes you use makes sense. Note that the input mode constants in `UNICODE_SELECTED_MODES` are comma delimited.
+You can choose which input modes are available for cycling through. By default, this is disabled. If you want to enable it, limiting it to just the modes you use makes sense. Note that the values in the list are comma-delimited.
 
 ```c
 #define UNICODE_SELECTED_MODES UC_OSX, UC_LNX, UC_WIN, UC_WINC
 ```
+
+You can cycle through the selected modes by using the `UC_MOD`/`UC_RMOD` keycodes, or by calling `cycle_unicode_input_mode(offset)` in your code (`offset` is how many modes to move forward by, so +1 corresponds to `UC_MOD`).
+
+By default, when the keyboard boots, it will initialize the input mode to the last one you used. You can disable this and make it start with the first mode in the list every time by adding the following to your `config.h`:
+
+```c
+#define UNICODE_CYCLE_PERSIST false
+```
+
+!> Using `UNICODE_SELECTED_MODES` means you don't have to initially set the input mode in `matrix_init_user()` (or a similar function); the Unicode system will do that for you on startup. This has the added benefit of avoiding unnecessary writes to EEPROM.
 
 ## `send_unicode_hex_string`
 
