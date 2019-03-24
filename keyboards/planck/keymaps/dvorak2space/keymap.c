@@ -21,7 +21,7 @@ enum {
 };
 
 void backspace(qk_tap_dance_state_t *state, void *user_data) {
-  if(state->count == 1)
+  if(state->count == 1 || keyboard_report->mods & (MOD_BIT(KC_LSFT)) || keyboard_report->mods & (MOD_BIT(KC_RSFT)))
     SEND_STRING(SS_TAP(X_BSPACE));
   else
     SEND_STRING(SS_LCTRL(SS_TAP(X_BSPACE)));
@@ -86,23 +86,26 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_NO,	KC_LT,	KC_GT,	KC_AMPR,KC_PIPE,KC_UNDS,KC_DLR,	KC_AT,	KC_HASH,KC_PERC,KC_CIRC,KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_SPC,	KC_TRNS,		KC_NO,	KC_NO,	KC_NO,	KC_NO
 	),
-	[3] = LAYOUT_planck_2x2u( //Nav
+//Nav
+	[3] = LAYOUT_planck_2x2u(
 		KC_TAB,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_HOME,KC_UP,	KC_END,	KC_NO,	TD(BCK),
 		KC_TRNS,KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	CTRLL,	KC_LEFT,KC_DOWN,KC_RGHT,CTRLR,	KC_ENT,
 		KC_LSFT,KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_SPC,	KC_NO,			KC_NO,	KC_NO,	KC_NO,	KC_NO
 	),
-	[4] = LAYOUT_planck_2x2u( //AHK-Bindable Macros
+//AHK-Bindable Macros
+	[4] = LAYOUT_planck_2x2u(
 		KC_F13,	KC_F14,	KC_F15,	KC_F16,	KC_F17,	KC_F18,	KC_F19,	KC_F20,	KC_F21,	KC_F22,	KC_F23,	KC_F24,
 		LCTL(KC_F13),LCTL(KC_F14),LCTL(KC_F15),LCTL(KC_F16),LCTL(KC_F17),LCTL(KC_F18),LCTL(KC_F19),LCTL(KC_F20),LCTL(KC_F21),LCTL(KC_F22),LCTL(KC_F23),LCTL(KC_F24),
 		LSFT(KC_F13),LSFT(KC_F14),LSFT(KC_F15),LSFT(KC_F16),LSFT(KC_F17),LSFT(KC_F18),LSFT(KC_F19),LSFT(KC_F20),LSFT(KC_F21),LSFT(KC_F22),LSFT(KC_F23),LSFT(KC_F24),
-		RESET,		 LALT(KC_F14),LALT(KC_F15),LALT(KC_F16),			 CAD,		  LALT(KC_F19),				LALT(KC_F21),LALT(KC_F22),HK_SLP,      KC_TRNS
+		RESET,			 LALT(KC_F14),LALT(KC_F15),LALT(KC_F16),											CAD,LALT(KC_F19),							LALT(KC_F21),LALT(KC_F22),HK_SLP,      KC_TRNS
 	),
-	[5] = LAYOUT_planck_2x2u( //Locked Screen
+//Locked Screen
+	[5] = LAYOUT_planck_2x2u(
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
-		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_NO,	KC_NO,			KC_NO,	KC_NO,	HK_SLP,	KC_NO
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,					KC_NO,	KC_NO,					KC_NO,	KC_NO,	HK_SLP,	KC_NO
 	)
 };
 
@@ -141,10 +144,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 				SEND_STRING(SS_LALT(SS_TAP(X_F23)));
 			if(!record->event.pressed) {
 				if(!IS_LAYER_ON(5))
-					SEND_STRING(SS_LALT(SS_TAP(X_F23)));
+					SEND_STRING(SS_LALT(SS_TAP(X_F24)));
 				layer_invert(5);
 			}
 			return false;
 	}
 	return true;
-}; //returning true still sends key after macro is executed, false doesn't
+};
