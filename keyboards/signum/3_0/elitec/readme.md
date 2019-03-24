@@ -1,7 +1,5 @@
 # Signum 3.0
 
-Do not use this, yet. Major updates and fixes coming this week.
-
 ![Signum 3.0 Top](https://i.redd.it/vl54yl36bpz11.jpg)
 
 An ergonomic 40% PCB.
