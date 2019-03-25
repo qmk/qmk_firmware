@@ -16,7 +16,7 @@
  */
 
 #include QMK_KEYBOARD_H
-#include "keymap_extras/keymap_german.h"
+#include "keymap_german.h"
 
 #define _DL 0
 #define _FN 1
