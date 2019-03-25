@@ -14,6 +14,7 @@
 #ifdef LAYER_FN
   #define FN      MO(L_FN)
   #define FN_CAPS LT(L_FN, KC_CAPS)
+  #define FN_ESC  LT(L_FN, KC_ESC)
   #define FN_FNLK TT(L_FN)
 #endif
 
