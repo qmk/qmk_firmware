@@ -12,7 +12,7 @@ ifeq (,$(findstring planck/rev6,$(KEYBOARD))) # Make sure it's NOT the Planck Re
 endif
 ifneq (,$(findstring planck/light,$(KEYBOARD))) # Make sure it IS the Planck Light
   RGB_MATRIX_ENABLE   = yes
-  RGBLIGHT_ENABLE     = no
+  RGBLIGHT_ENABLE     = yes
 endif
 
 ifeq ($(strip $(PROTOCOL)), VUSB)
