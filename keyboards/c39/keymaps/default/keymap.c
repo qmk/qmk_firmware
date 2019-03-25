@@ -5,12 +5,7 @@
 // Layer names don't all need to be of the same length, obviously, and you can also skip them
 // entirely and just use numbers.
 #define _QWERTY 0
-
-#define _FN1 2
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+#define _FN1 1
 
 // Defines for task manager and such
 #define CALTDEL LCTL(LALT(KC_DEL))
