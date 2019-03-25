@@ -113,6 +113,14 @@ void matrix_scan_user(void) {
   rhruiz_update_layer_colors();
 }
 
+bool rhruiz_is_layer_indicator_led(uint8_t index) {
+  if (user_config.version_1_1) {
+    return index == 0 || index == RGBLED_NUM / 2 - 1;
+  } else {
+    return index == RGBLED_NUM / 2 || index == RGBLED_NUM - 1;
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch(keycode) {
     case KC_KBVSN: {

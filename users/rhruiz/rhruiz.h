@@ -39,6 +39,7 @@ enum rhruiz_layers {
 
 void rhruiz_update_layer_colors(void);
 uint32_t rhruiz_layer_state_set_user(uint32_t state);
+bool rhruiz_is_layer_indicator_led(uint8_t index);
 
 /* underglow control */
 #ifdef RGBLIGHT_ENABLE
