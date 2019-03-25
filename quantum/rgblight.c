@@ -812,6 +812,11 @@ void rgblight_task(void) {
 
 // Effects
 #ifdef RGBLIGHT_EFFECT_BREATHING
+
+#ifndef RGBLIGHT_EFFECT_BREATHE_CENTER
+#include <rgblight_breathe_table.h>
+#endif
+
 __attribute__ ((weak))
 const uint8_t RGBLED_BREATHING_INTERVALS[] PROGMEM = {30, 20, 10, 5};
 
@@ -828,7 +833,11 @@ void rgblight_effect_breathing(uint8_t interval) {
   last_timer = timer_read();
 
   // http://sean.voisen.org/blog/2011/10/breathing-led-with-arduino/
+#ifdef RGBLIGHT_EFFECT_BREATHE_TABLE
+  val = pgm_read_byte(&rgblight_effect_breathe_table[pos / table_scale]);
+#else
   val = (exp(sin((pos/255.0)*M_PI)) - RGBLIGHT_EFFECT_BREATHE_CENTER/M_E)*(RGBLIGHT_EFFECT_BREATHE_MAX/(M_E-1/M_E));
+#endif
   rgblight_sethsv_noeeprom_old(rgblight_config.hue, rgblight_config.sat, val);
   pos = (pos + 1) % 256;
 }
