@@ -128,7 +128,7 @@ uint8_t init_mcp23018(void) {
     mcp23018_status = i2c_write(IODIRA, ERGODOX_EZ_I2C_TIMEOUT);            if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b00000000, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
     mcp23018_status = i2c_write(0b00111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
-    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+    i2c_stop();
 
     // set pull-up
     // - unused  : on  : 1
@@ -140,7 +140,7 @@ uint8_t init_mcp23018(void) {
     mcp23018_status = i2c_write(0b00111111, ERGODOX_EZ_I2C_TIMEOUT);        if (mcp23018_status) goto out;
 
 out:
-    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+    i2c_stop();
 
 #ifdef LEFT_LEDS
     if (!mcp23018_status) mcp23018_status = ergodox_left_leds_update();
@@ -179,7 +179,7 @@ uint8_t ergodox_left_leds_update(void) {
     if (mcp23018_status) goto out;
 
  out:
-    i2c_stop(ERGODOX_EZ_I2C_TIMEOUT);
+    i2c_stop();
     return mcp23018_status;
 }
 #endif

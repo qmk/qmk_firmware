@@ -44,9 +44,7 @@ Fedora / Red Hat example:
     
 Arch / Manjaro example:
 
-    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git
-
-(the `dfu-programmer` package is availble on AUR only so you should download from there or use an AUR helper)
+    pacman -S base-devel gcc unzip wget zip avr-gcc avr-binutils avr-libc dfu-util arm-none-eabi-gcc arm-none-eabi-binutils arm-none-eabi-newlib git dfu-programmer dfu-util
 
 ## Nix
 
