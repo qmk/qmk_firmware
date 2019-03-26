@@ -1,10 +1,10 @@
 # E6-V2 Bootmapper Client (ps2avrgb)
 
-These docs are for the BMC version of the E6-V2 PCB. [More info on qmk.fm](http://qmk.fm/)
+These docs are for the BMC version of the E6-V2 PCB which has an atmega32a microcontroller. Please do not flash this `.hex` file on your atmega32u4 equipped E6-V2. 
 
 Keyboard Maintainer: [MechMerlin](https://github.com/mechmerlin)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Hardware Supported: ps2avrgb E6-V2 with atmega32a microcontroller  
+Hardware Availability: [geekhack.org/index.php?topic=90787.0](https://geekhack.org/index.php?topic=90787.0)  
 
 Make example for this keyboard (after setting up your build environment):
 
