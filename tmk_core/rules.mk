@@ -383,6 +383,8 @@ show_path:
 	@echo OBJ=$(OBJ)
 
 ifeq ($(findstring avr-gcc,$(CC)),avr-gcc)
+SIZE_MARGIN = 1024
+
 check-size:
 	$(eval MAX_SIZE=$(shell n=`$(CC) -E -mmcu=$(MCU) $(CFLAGS) $(OPT_DEFS) tmk_core/common/avr/bootloader_size.c 2> /dev/null | sed -ne '/^#/n;/^AVR_SIZE:/,$${s/^AVR_SIZE: //;p;}'` && echo $$(($$n)) || echo 0))
 	$(eval CURRENT_SIZE=$(shell if [ -f $(BUILD_DIR)/$(TARGET).hex ]; then $(SIZE) --target=$(FORMAT) $(BUILD_DIR)/$(TARGET).hex | $(AWK) 'NR==2 {print $$4}'; else printf 0; fi))
@@ -393,7 +395,7 @@ check-size:
 		if [ $(CURRENT_SIZE) -gt $(MAX_SIZE) ]; then \
 		    printf "\n * $(MSG_FILE_TOO_BIG)"; $(PRINT_ERROR_PLAIN); \
 		else \
-		    if [ $(FREE_SIZE) -lt 512 ]; then \
+		    if [ $(FREE_SIZE) -lt $(SIZE_MARGIN) ]; then \
 			$(PRINT_WARNING_PLAIN); printf " * $(MSG_FILE_NEAR_LIMIT)"; \
 		    else \
 			$(PRINT_OK); $(SILENT) || printf " * $(MSG_FILE_JUST_RIGHT)"; \
