@@ -15,6 +15,6 @@ enum macos_keycodes {
 // Useful Defines
 #define FN_CAPS   LT(FUNCT, KC_CAPS)
 // MacOS
-#define SLP_DSPLY LCTL(LSFT(KC_POWER))
+#define MC_SLPD   LCTL(LSFT(KC_POWER))
 
 #endif
