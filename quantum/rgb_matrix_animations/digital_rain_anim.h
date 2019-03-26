@@ -6,7 +6,7 @@
     #define RGB_DIGITAL_RAIN_DROPS 24
 #endif
 
-bool rgb_matrix_digital_rain(bool init, uint8_t iter) {
+bool rgb_matrix_digital_rain(effect_params_t* params) {
   // algorithm ported from https://github.com/tremby/Kaleidoscope-LEDEffect-DigitalRain
   const uint8_t drop_ticks           = 28;
   const uint8_t pure_green_intensity = 0xd0;
@@ -16,7 +16,7 @@ bool rgb_matrix_digital_rain(bool init, uint8_t iter) {
   static uint8_t map[MATRIX_COLS][MATRIX_ROWS] = {{0}};
   static uint8_t drop = 0;
 
-  if (init) {
+  if (params->init) {
     rgb_matrix_set_color_all(0, 0, 0);
     memset(map, 0, sizeof map);
     drop = 0;

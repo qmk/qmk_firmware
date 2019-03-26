@@ -2,7 +2,7 @@
 
 extern rgb_config_t rgb_matrix_config;
 
-bool rgb_matrix_solid_color(bool init, uint8_t iter) {
+bool rgb_matrix_solid_color(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
   HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };

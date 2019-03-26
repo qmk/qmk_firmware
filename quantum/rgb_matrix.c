@@ -211,8 +211,8 @@ void rgb_matrix_test(void) {
   }
 }
 
-static bool rgb_matrix_none(bool init, uint8_t iter) {
-  if (!init) {
+static bool rgb_matrix_none(effect_params_t* params) {
+  if (!params->init) {
     return false;
   }
 
@@ -225,7 +225,7 @@ static bool rgb_matrix_none(bool init, uint8_t iter) {
 
 static uint8_t rgb_last_enable = UINT8_MAX;
 static uint8_t rgb_last_effect = UINT8_MAX;
-static uint8_t rgb_anim_iter = 0;
+static effect_params_t rgb_effect_params = { 0, 0 };
 static rgb_task_states rgb_task_state = SYNCING;
 
 static void rgb_task_timers(void) {
@@ -261,7 +261,7 @@ static void rgb_task_sync(void) {
 
 static void rgb_task_start(void) {
   // reset iter
-  rgb_anim_iter = 0;
+  rgb_effect_params.iter = 0;
 
   // update double buffers
   g_rgb_counters.tick = rgb_counters_buffer;
@@ -275,112 +275,112 @@ static void rgb_task_start(void) {
 
 static void rgb_task_render(uint8_t effect) {
   bool rendering = false;
-  bool initialize = (effect != rgb_last_effect) || (rgb_matrix_config.enable != rgb_last_enable);
+  rgb_effect_params.init = (effect != rgb_last_effect) || (rgb_matrix_config.enable != rgb_last_enable);
 
   // each effect can opt to do calculations
   // and/or request PWM buffer updates.
   switch (effect) {
     case RGB_MATRIX_NONE:
-      rendering = rgb_matrix_none(initialize, rgb_anim_iter);
+      rendering = rgb_matrix_none(&rgb_effect_params);
       break;
 
     case RGB_MATRIX_SOLID_COLOR:
-      rendering = rgb_matrix_solid_color(initialize, rgb_anim_iter);           // Max 1ms Avg 0ms
+      rendering = rgb_matrix_solid_color(&rgb_effect_params);           // Max 1ms Avg 0ms
       break;
 #ifndef DISABLE_RGB_MATRIX_ALPHAS_MODS
     case RGB_MATRIX_ALPHAS_MODS:
-      rendering = rgb_matrix_alphas_mods(initialize, rgb_anim_iter);           // Max 2ms Avg 1ms
+      rendering = rgb_matrix_alphas_mods(&rgb_effect_params);           // Max 2ms Avg 1ms
       break;
 #endif // DISABLE_RGB_MATRIX_ALPHAS_MODS
 #ifndef DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
     case RGB_MATRIX_GRADIENT_UP_DOWN:
-      rendering = rgb_matrix_gradient_up_down(initialize, rgb_anim_iter);      // Max 4ms Avg 3ms
+      rendering = rgb_matrix_gradient_up_down(&rgb_effect_params);      // Max 4ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_GRADIENT_UP_DOWN
 #ifndef DISABLE_RGB_MATRIX_BREATHING
     case RGB_MATRIX_BREATHING:
-      rendering = rgb_matrix_breathing(initialize, rgb_anim_iter);             // Max 1ms Avg 0ms
+      rendering = rgb_matrix_breathing(&rgb_effect_params);             // Max 1ms Avg 0ms
       break;
 #endif // DISABLE_RGB_MATRIX_BREATHING
 #ifndef DISABLE_RGB_MATRIX_CYCLE_ALL
     case RGB_MATRIX_CYCLE_ALL:
-      rendering = rgb_matrix_cycle_all(initialize, rgb_anim_iter);             // Max 4ms Avg 3ms
+      rendering = rgb_matrix_cycle_all(&rgb_effect_params);             // Max 4ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_CYCLE_ALL
 #ifndef DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
     case RGB_MATRIX_CYCLE_LEFT_RIGHT:
-      rendering = rgb_matrix_cycle_left_right(initialize, rgb_anim_iter);      // Max 4ms Avg 3ms
+      rendering = rgb_matrix_cycle_left_right(&rgb_effect_params);      // Max 4ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
 #ifndef DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
     case RGB_MATRIX_CYCLE_UP_DOWN:
-      rendering = rgb_matrix_cycle_up_down(initialize, rgb_anim_iter);         // Max 4ms Avg 3ms
+      rendering = rgb_matrix_cycle_up_down(&rgb_effect_params);         // Max 4ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_CYCLE_UP_DOWN
 #ifndef DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
     case RGB_MATRIX_RAINBOW_MOVING_CHEVRON:
-      rendering = rgb_matrix_rainbow_moving_chevron(initialize, rgb_anim_iter); // Max 4ms Avg 3ms
+      rendering = rgb_matrix_rainbow_moving_chevron(&rgb_effect_params); // Max 4ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
 #ifndef DISABLE_RGB_MATRIX_DUAL_BEACON
     case RGB_MATRIX_DUAL_BEACON:
-      rendering = rgb_matrix_dual_beacon(initialize, rgb_anim_iter);           // Max 4ms Avg 3ms
+      rendering = rgb_matrix_dual_beacon(&rgb_effect_params);           // Max 4ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_DUAL_BEACON
 #ifndef DISABLE_RGB_MATRIX_RAINBOW_BEACON
     case RGB_MATRIX_RAINBOW_BEACON:
-      rendering = rgb_matrix_rainbow_beacon(initialize, rgb_anim_iter);        // Max 4ms Avg 3ms
+      rendering = rgb_matrix_rainbow_beacon(&rgb_effect_params);        // Max 4ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_RAINBOW_BEACON
 #ifndef DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
     case RGB_MATRIX_RAINBOW_PINWHEELS:
-      rendering = rgb_matrix_rainbow_pinwheels(initialize, rgb_anim_iter);     // Max 4ms Avg 3ms
+      rendering = rgb_matrix_rainbow_pinwheels(&rgb_effect_params);     // Max 4ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_RAINBOW_PINWHEELS
 #ifndef DISABLE_RGB_MATRIX_RAINDROPS
     case RGB_MATRIX_RAINDROPS:
-      rendering = rgb_matrix_raindrops(initialize, rgb_anim_iter);             // Max 1ms Avg 0ms
+      rendering = rgb_matrix_raindrops(&rgb_effect_params);             // Max 1ms Avg 0ms
       break;
 #endif // DISABLE_RGB_MATRIX_RAINDROPS
 #ifndef DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
     case RGB_MATRIX_JELLYBEAN_RAINDROPS:
-      rendering = rgb_matrix_jellybean_raindrops(initialize, rgb_anim_iter);   // Max 1ms Avg 0ms
+      rendering = rgb_matrix_jellybean_raindrops(&rgb_effect_params);   // Max 1ms Avg 0ms
       break;
 #endif // DISABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
 #ifndef DISABLE_RGB_MATRIX_DIGITAL_RAIN
     case RGB_MATRIX_DIGITAL_RAIN:
-      rendering = rgb_matrix_digital_rain(initialize, rgb_anim_iter);         // Max 9ms Avg 8ms | this is expensive, fix it
+      rendering = rgb_matrix_digital_rain(&rgb_effect_params);         // Max 9ms Avg 8ms | this is expensive, fix it
       break;
 #endif // DISABLE_RGB_MATRIX_DIGITAL_RAIN
 #if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
-      rendering = rgb_matrix_solid_reactive_simple(initialize, rgb_anim_iter);// Max 4ms Avg 3ms
+      rendering = rgb_matrix_solid_reactive_simple(&rgb_effect_params);// Max 4ms Avg 3ms
       break;
 #endif
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
     case RGB_MATRIX_SOLID_REACTIVE:
-      rendering = rgb_matrix_solid_reactive(initialize, rgb_anim_iter);       // Max 4ms Avg 3ms
+      rendering = rgb_matrix_solid_reactive(&rgb_effect_params);       // Max 4ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE
 #ifndef DISABLE_RGB_MATRIX_SPLASH
     case RGB_MATRIX_SPLASH:
-      rendering = rgb_matrix_splash(initialize, rgb_anim_iter);               // Max 5ms Avg 3ms
+      rendering = rgb_matrix_splash(&rgb_effect_params);               // Max 5ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_SPLASH
 #ifndef DISABLE_RGB_MATRIX_MULTISPLASH
     case RGB_MATRIX_MULTISPLASH:
-      rendering = rgb_matrix_multisplash(initialize, rgb_anim_iter);          // Max 10ms Avg 5ms
+      rendering = rgb_matrix_multisplash(&rgb_effect_params);          // Max 10ms Avg 5ms
       break;
 #endif // DISABLE_RGB_MATRIX_MULTISPLASH
 #ifndef DISABLE_RGB_MATRIX_SOLID_SPLASH
     case RGB_MATRIX_SOLID_SPLASH:
-      rendering = rgb_matrix_solid_splash(initialize, rgb_anim_iter);         // Max 5ms Avg 3ms
+      rendering = rgb_matrix_solid_splash(&rgb_effect_params);         // Max 5ms Avg 3ms
       break;
 #endif // DISABLE_RGB_MATRIX_SOLID_SPLASH
 #ifndef DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
     case RGB_MATRIX_SOLID_MULTISPLASH:
-      rendering = rgb_matrix_solid_multisplash(initialize, rgb_anim_iter);    // Max 10ms Avg 5ms
+      rendering = rgb_matrix_solid_multisplash(&rgb_effect_params);    // Max 10ms Avg 5ms
       break;
 #endif // DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif // defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
@@ -393,12 +393,12 @@ static void rgb_task_render(uint8_t effect) {
       return;
   }
 
-  rgb_anim_iter++;
+  rgb_effect_params.iter++;
 
   // next task
   if (!rendering) {
     rgb_task_state = FLUSHING;
-    if (!initialize && effect == RGB_MATRIX_NONE) {
+    if (!rgb_effect_params.init && effect == RGB_MATRIX_NONE) {
       // We only need to flush once if we are RGB_MATRIX_NONE
       rgb_task_state = SYNCING;
     }

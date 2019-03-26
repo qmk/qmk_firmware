@@ -40,7 +40,7 @@
 #endif
 
 #if defined(RGB_MATRIX_LED_PROCESS_LIMIT) && RGB_MATRIX_LED_PROCESS_LIMIT > 0 && RGB_MATRIX_LED_PROCESS_LIMIT < DRIVER_LED_TOTAL
-#define RGB_MATRIX_USE_LIMITS(min, max) uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * iter; \
+#define RGB_MATRIX_USE_LIMITS(min, max) uint8_t min = RGB_MATRIX_LED_PROCESS_LIMIT * params->iter; \
   uint8_t max = min + RGB_MATRIX_LED_PROCESS_LIMIT; \
   if (max > DRIVER_LED_TOTAL) \
     max = DRIVER_LED_TOTAL;

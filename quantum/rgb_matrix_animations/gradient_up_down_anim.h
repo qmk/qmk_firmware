@@ -4,7 +4,7 @@
 extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
 extern rgb_config_t rgb_matrix_config;
 
-bool rgb_matrix_gradient_up_down(bool init, uint8_t iter) {
+bool rgb_matrix_gradient_up_down(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
   HSV hsv = { 0, rgb_matrix_config.sat, rgb_matrix_config.val };

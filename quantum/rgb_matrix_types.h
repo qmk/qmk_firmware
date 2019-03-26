@@ -35,6 +35,14 @@ typedef enum rgb_task_states {
   SYNCING
 } rgb_task_states;
 
+typedef uint8_t led_flags_t;
+
+typedef struct PACKED {
+  uint8_t iter;
+  led_flags_t flags;
+  bool init;
+} effect_params_t;
+
 typedef struct PACKED {
   // Global tick at 20 Hz
   uint32_t tick;
@@ -60,16 +68,6 @@ typedef struct PACKED {
 	point_t point;
 	uint8_t modifier:1;
 } rgb_led;
-
-/*typedef union {
-  uint32_t raw;           // 32 bits
-  struct {
-    bool     enable  :1;  // 1 bit
-    uint8_t  mode    :7;  // 7 bits
-    HSV      hsv;         // 24 bits
-    uint8_t  speed;       // 8 bits
-  };                      // 40 bits =(
-} rgb_config_t;*/
 
 typedef union {
   uint32_t raw;

@@ -5,7 +5,7 @@ extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
 extern rgb_config_t rgb_matrix_config;
 
 // alphas = color1, mods = color2
-bool rgb_matrix_alphas_mods(bool init, uint8_t iter) {
+bool rgb_matrix_alphas_mods(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
   HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, rgb_matrix_config.val };

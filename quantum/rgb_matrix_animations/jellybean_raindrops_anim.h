@@ -11,8 +11,8 @@ static void jellybean_raindrops_set_color(int i) {
   rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
 }
 
-bool rgb_matrix_jellybean_raindrops(bool init, uint8_t iter) {
-  if (!init) {
+bool rgb_matrix_jellybean_raindrops(effect_params_t* params) {
+  if (!params->init) {
     // Change one LED every tick, make sure speed is not 0
     if (scale16by8(g_rgb_counters.tick, qadd8(rgb_matrix_config.speed, 16)) % 5 == 0) {
       jellybean_raindrops_set_color(rand() % DRIVER_LED_TOTAL);

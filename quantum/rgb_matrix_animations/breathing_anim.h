@@ -3,7 +3,7 @@
 
 extern rgb_config_t rgb_matrix_config;
 
-bool rgb_matrix_breathing(bool init, uint8_t iter) {
+bool rgb_matrix_breathing(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
   uint16_t time = scale16by8(g_rgb_counters.tick, rgb_matrix_config.speed / 8);

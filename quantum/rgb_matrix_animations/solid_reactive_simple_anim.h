@@ -5,7 +5,7 @@
 extern rgb_config_t rgb_matrix_config;
 extern last_hit_t g_last_hit_tracker;
 
-bool rgb_matrix_solid_reactive_simple(bool init, uint8_t iter) {
+bool rgb_matrix_solid_reactive_simple(effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
   HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, 0 };

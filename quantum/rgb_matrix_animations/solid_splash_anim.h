@@ -6,7 +6,7 @@ extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
 extern rgb_config_t rgb_matrix_config;
 extern last_hit_t g_last_hit_tracker;
 
-static bool rgb_matrix_solid_multisplash_range(uint8_t start, uint8_t iter) {
+static bool rgb_matrix_solid_multisplash_range(uint8_t start, effect_params_t* params) {
   RGB_MATRIX_USE_LIMITS(led_min, led_max);
 
   HSV hsv = { rgb_matrix_config.hue, rgb_matrix_config.sat, 0 };
@@ -30,12 +30,12 @@ static bool rgb_matrix_solid_multisplash_range(uint8_t start, uint8_t iter) {
   return led_max < DRIVER_LED_TOTAL;
 }
 
-bool rgb_matrix_solid_multisplash(bool init, uint8_t iter) {
-  return rgb_matrix_solid_multisplash_range(0, iter);
+bool rgb_matrix_solid_multisplash(effect_params_t* params) {
+  return rgb_matrix_solid_multisplash_range(0, params);
 }
 
-bool rgb_matrix_solid_splash(bool init, uint8_t iter) {
-  return rgb_matrix_solid_multisplash_range(qsub8(g_last_hit_tracker.count, 1), iter);
+bool rgb_matrix_solid_splash(effect_params_t* params) {
+  return rgb_matrix_solid_multisplash_range(qsub8(g_last_hit_tracker.count, 1), params);
 }
 
 #endif // !defined(DISABLE_RGB_MATRIX_SPLASH) && !defined(DISABLE_RGB_MATRIX_MULTISPLASH)
