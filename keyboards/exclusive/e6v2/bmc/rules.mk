@@ -1,6 +1,10 @@
 # MCU name
 #MCU = at90usb1286
-MCU = atmega32u4
+MCU = atmega32a
+PROTOCOL = VUSB
+
+NO_UART = yes
+NO_SUSPEND_POWER_DOWN = yes
 
 # Processor frequency.
 #     This will define a symbol, F_CPU, in all source code files equal to the
@@ -13,14 +17,14 @@ MCU = atmega32u4
 #     does not *change* the processor frequency - it should merely be updated to
 #     reflect the processor speed set externally so that the code can use accurate
 #     software delays.
-F_CPU = 16000000
+F_CPU = 12000000
 
 
 #
 # LUFA specific
 #
 # Target architecture (see library "Board Types" documentation).
-ARCH = AVR8
+# ARCH = AVR8
 
 # Input clock frequency.
 #     This will define a symbol, F_USB, in all source code files equal to the
@@ -33,10 +37,10 @@ ARCH = AVR8
 #
 #     If no clock division is performed on the input clock inside the AVR (via the
 #     CPU clock adjust registers or the clock division fuses), this will be equal to F_CPU.
-F_USB = $(F_CPU)
+# F_USB = $(F_CPU)
 
 # Interrupt driven control endpoint task(+60)
-OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
+OPT_DEFS = -DDEBUG_LEVEL=0
 
 
 # Bootloader selection
@@ -46,7 +50,7 @@ OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 #   LUFA DFU     lufa-dfu
 #   QMK DFU      qmk-dfu
 #   atmega32a    bootloadHID
-BOOTLOADER = atmel-dfu
+BOOTLOADER = bootloadHID
 
 
 # If you don't know the bootloader type, then you can specify the
@@ -79,3 +83,7 @@ BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
 AUDIO_ENABLE = no           # Audio output on port C6
 FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 HD44780_ENABLE = no 		# Enable support for HD44780 based LCDs (+400)
+
+SRC += i2c.c
+
+PROGRAM_CMD = ./util/atmega32a_program.py $(TARGET).hex
