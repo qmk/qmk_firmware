@@ -9,7 +9,7 @@
 
 // Macros
 enum macos_keycodes {
-  LAUNCHPAD = SAFE_RANGE,
+  KC_LHPD = SAFE_RANGE,
 };
 
 // Useful Defines
