@@ -95,7 +95,7 @@ void ergodox_blink_all_leds(void);
                 k49,k4A,k4B,k4C,k4D,                            \
     k57,k58,                                                    \
     k59,                                                        \
-    k5C,k5B,k5A )                                               \
+    k5A,k5B,k5C )                                               \
                                                                 \
    /* matrix positions */                                       \
    {                                                            \
@@ -129,7 +129,7 @@ void ergodox_blink_all_leds(void);
                 k49,k4A,k4B,k4C,k4D,                            \
     k57,k58,                                                    \
     k59,k47,k48,                                                \
-    k5C,k5B,k5A )                                               \
+    k5A,k5B,k5C )                                               \
                                                                 \
    /* matrix positions */                                       \
    {                                                            \
@@ -151,7 +151,7 @@ void ergodox_blink_all_leds(void);
     L40,L41,L42,L43,L44,                               R42,R43,R44,R45,R46,     \
                             L55,L56,       R50,R51,                             \
                                 L54,       R52,                                 \
-                        L53,L52,L51,       R55,R54,R53 )                        \
+                        L51,L52,L53,       R53,R54,R55 )                        \
                                                                                 \
    /* matrix positions */                                                       \
    {                                                                            \
@@ -173,7 +173,7 @@ void ergodox_blink_all_leds(void);
     L40,L41,L42,L43,L44,                               R42,R43,R44,R45,R46,    \
                             L55,L56,       R50,R51,                            \
                         L45,L46,L54,       R52,R40,R41,                        \
-                        L53,L52,L51,       R55,R54,R53 )                       \
+                        L51,L52,L53,       R53,R54,R55 )                       \
                                                                                \
    /* matrix positions */                                                      \
    {                                                                           \

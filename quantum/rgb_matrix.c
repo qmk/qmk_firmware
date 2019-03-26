@@ -221,6 +221,20 @@ void rgb_matrix_solid_reactive(void) {
 	}
 }
 
+void rgb_matrix_solid_reactive_simple(void)
+{
+    HSV hsv = {.h = rgb_matrix_config.hue, .s = rgb_matrix_config.sat, .v = rgb_matrix_config.val};
+    RGB rgb;
+    
+    for (int i = 0; i < DRIVER_LED_TOTAL; i++) {
+        uint16_t offset2 = g_key_hit[i] << 2;
+        offset2 = (offset2 <= 255) ? (255 - offset2) : 0;
+        hsv.v = offset2 * rgb_matrix_config.val / RGB_MATRIX_MAXIMUM_BRIGHTNESS;
+        rgb = hsv_to_rgb(hsv);
+        rgb_matrix_set_color(i, rgb.r, rgb.g, rgb.b);
+    }
+}
+
 // alphas = color1, mods = color2
 void rgb_matrix_alphas_mods(void) {
 
@@ -753,6 +767,11 @@ void rgb_matrix_task(void) {
             #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE
                 case RGB_MATRIX_SOLID_REACTIVE:
                     rgb_matrix_solid_reactive();
+                    break;
+            #endif
+            #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
+                case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
+                    rgb_matrix_solid_reactive_simple();
                     break;
             #endif
             #ifndef DISABLE_RGB_MATRIX_SPLASH
