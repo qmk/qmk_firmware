@@ -23,14 +23,16 @@ extern backlight_config_t backlight_config;
 
 typedef struct _I2C_slave_buffer_t {
     uint8_t      backlit_level;
-    uint32_t     rgb_config;
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+    rgblight_syncinfo_t rgblight_sync;
+#endif
     matrix_row_t smatrix[ROWS_PER_HAND];
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t * const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
 
 #  define I2C_BACKLIT_START offsetof(I2C_slave_buffer_t, backlit_level)
-#  define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgb_config)
+#  define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
 #  define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
 
 #  define TIMEOUT 100
@@ -54,12 +56,13 @@ bool transport_master(matrix_row_t matrix[]) {
   }
 #  endif
 
-#  ifdef RGBLIGHT_ENABLE
-  static uint32_t prev_rgb = ~0;
-  uint32_t        rgb      = rgblight_read_dword();
-  if (rgb != prev_rgb) {
-    if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_START, (void *)&rgb, sizeof(rgb), TIMEOUT) >= 0) {
-      prev_rgb = rgb;
+#  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+  if (rgblight_get_change_flags()) {
+    rgblight_syncinfo_t rgblight_sync;
+    rgblight_get_syncinfo(&rgblight_sync);
+    if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_RGB_START,
+                     (void *)&rgblight_sync, sizeof(rgblight_sync), TIMEOUT) >= 0) {
+      rgblight_clear_change_flags();
     }
   }
 #  endif
@@ -76,9 +79,12 @@ void transport_slave(matrix_row_t matrix[]) {
   backlight_set(i2c_buffer->backlit_level);
 #  endif
 
-#  ifdef RGBLIGHT_ENABLE
+#  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
   // Update the RGB with the new data
-  rgblight_update_dword(i2c_buffer->rgb_config);
+  if (i2c_buffer->rgblight_sync.status.change_flags != 0) {
+      rgblight_update_sync(&i2c_buffer->rgblight_sync, false);
+      i2c_buffer->rgblight_sync.status.change_flags = 0;
+  }
 #  endif
 }
 
