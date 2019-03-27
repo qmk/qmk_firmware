@@ -99,12 +99,12 @@ typedef struct _Serial_m2s_buffer_t {
 #  ifdef BACKLIGHT_ENABLE
   uint8_t           backlight_level;
 #  endif
-#  if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
+#  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
   rgblight_config_t rgblight_config;  // not yet use
   //
   // When MCUs on both sides drive their respective RGB LED chains,
   // it is necessary to synchronize, so it is necessary to communicate RGB
-  // information. In that case, define RGBLED_SPLIT with info on the number
+  // information. In that case, define RGBLIGHT_SPLIT with info on the number
   // of LEDs on each half.
   //
   // Otherwise, if the master side MCU drives both sides RGB LED chains,
@@ -145,7 +145,7 @@ bool transport_master(matrix_row_t matrix[]) {
   serial_m2s_buffer.backlight_level = backlight_config.enable ? backlight_config.level : 0;
 #  endif
 
-#  if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
+#  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
   static rgblight_config_t prev_rgb = {~0};
   uint32_t rgb = rgblight_read_dword();
   if (rgb != prev_rgb.raw) {
@@ -165,7 +165,7 @@ void transport_slave(matrix_row_t matrix[]) {
 #  ifdef BACKLIGHT_ENABLE
   backlight_set(serial_m2s_buffer.backlight_level);
 #  endif
-#  if defined(RGBLIGHT_ENABLE) && defined(RGBLED_SPLIT)
+#  if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
   // Update RGB config with the new data
   rgblight_update_dword(serial_m2s_buffer.rgblight_config.raw);
 #  endif
