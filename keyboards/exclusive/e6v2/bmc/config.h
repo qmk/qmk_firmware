@@ -51,3 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_UART 1
 #define BOOTLOADHID_BOOTLOADER 1
+
+// Set bootmagic lite key to the key commonly programmed as Esc. 
+#define BOOTMAGIC_LITE_ROW 5
+#define BOOTMAGIC_LITE_COLUMN 0
