@@ -8,8 +8,9 @@
 #define FUNCT 1
 
 // Macros
-enum macos_keycodes {
+enum custom_keycodes {
   KC_LHPD = SAFE_RANGE,
+  KEYMAP_SAFE_RANGE
 };
 
 // Useful Defines
