@@ -36,7 +36,7 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
-Or for Input Club Keyboards:
+**/etc/udev/rules.d/54-input-club-keyboard.rules:**
 
 ```
 # Input Club keyboard bootloader
