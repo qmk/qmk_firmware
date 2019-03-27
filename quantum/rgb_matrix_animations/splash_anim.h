@@ -1,5 +1,5 @@
 #pragma once
-#ifdef RGB_MATRIX_KEYPRESSES
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #if !defined(DISABLE_RGB_MATRIX_SPLASH) || !defined(DISABLE_RGB_MATRIX_MULTISPLASH)
 
 extern const rgb_led g_rgb_leds[DRIVER_LED_TOTAL];
@@ -41,4 +41,4 @@ bool rgb_matrix_splash(effect_params_t* params) {
 }
 
 #endif // !defined(DISABLE_RGB_MATRIX_SPLASH) || !defined(DISABLE_RGB_MATRIX_MULTISPLASH)
-#endif // RGB_MATRIX_KEYPRESSES
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED

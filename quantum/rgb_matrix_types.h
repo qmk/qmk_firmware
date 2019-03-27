@@ -18,7 +18,7 @@
   #define LED_HITS_TO_REMEMBER 8
 #endif // LED_HITS_TO_REMEMBER
 
-#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 typedef struct PACKED {
   uint8_t count;
   uint8_t x[LED_HITS_TO_REMEMBER];
@@ -26,7 +26,7 @@ typedef struct PACKED {
   uint8_t index[LED_HITS_TO_REMEMBER];
   uint16_t tick[LED_HITS_TO_REMEMBER];
 } last_hit_t;
-#endif // defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
 typedef enum rgb_task_states {
   STARTING,

@@ -1,5 +1,5 @@
 #pragma once
-#ifdef RGB_MATRIX_KEYPRESSES
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 
 extern rgb_config_t rgb_matrix_config;
@@ -29,4 +29,4 @@ bool rgb_matrix_solid_reactive_simple(effect_params_t* params) {
 }
 
 #endif // DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
-#endif // RGB_MATRIX_KEYPRESSES
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED

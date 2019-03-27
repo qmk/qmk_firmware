@@ -85,10 +85,10 @@ rgb_config_t rgb_matrix_config;
 rgb_counters_t g_rgb_counters;
 static uint32_t rgb_counters_buffer;
 
-#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
   last_hit_t g_last_hit_tracker;
   static last_hit_t last_hit_buffer;
-#endif // defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
 uint32_t eeconfig_read_rgb_matrix(void) {
   return eeprom_read_dword(EECONFIG_RGB_MATRIX);
@@ -150,7 +150,7 @@ void rgb_matrix_set_color_all( uint8_t red, uint8_t green, uint8_t blue ) {
 }
 
 bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
-#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
   uint8_t led[LED_HITS_TO_REMEMBER];
   uint8_t led_count = 0;
 
@@ -182,7 +182,7 @@ bool process_rgb_matrix(uint16_t keycode, keyrecord_t *record) {
     last_hit_buffer.tick[index] = 0;
     last_hit_buffer.count++;
   }
-#endif // defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED
   return true;
 }
 
@@ -241,7 +241,7 @@ static void rgb_task_timers(void) {
   }
 
   // Update double buffer last hit timers
-#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
   uint8_t count = last_hit_buffer.count;
   for (uint8_t i = 0; i < count; ++i) {
     if (UINT16_MAX - deltaTime < last_hit_buffer.tick[i]) {
@@ -250,7 +250,7 @@ static void rgb_task_timers(void) {
     }
     last_hit_buffer.tick[i] += deltaTime;
   }
-#endif // defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 }
 
 static void rgb_task_sync(void) {
@@ -265,9 +265,9 @@ static void rgb_task_start(void) {
 
   // update double buffers
   g_rgb_counters.tick = rgb_counters_buffer;
-#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
   g_last_hit_tracker = last_hit_buffer;
-#endif // defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
   // next task
   rgb_task_state = RENDERING;
@@ -352,7 +352,7 @@ static void rgb_task_render(uint8_t effect) {
       rendering = rgb_matrix_digital_rain(&rgb_effect_params);         // Max 9ms Avg 8ms | this is expensive, fix it
       break;
 #endif // DISABLE_RGB_MATRIX_DIGITAL_RAIN
-#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
 #ifndef DISABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     case RGB_MATRIX_SOLID_REACTIVE_SIMPLE:
       rendering = rgb_matrix_solid_reactive_simple(&rgb_effect_params);// Max 4ms Avg 3ms
@@ -383,7 +383,7 @@ static void rgb_task_render(uint8_t effect) {
       rendering = rgb_matrix_solid_multisplash(&rgb_effect_params);    // Max 10ms Avg 5ms
       break;
 #endif // DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
-#endif // defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
     // Factory default magic value
     case UINT8_MAX: {
@@ -461,7 +461,7 @@ void rgb_matrix_init(void) {
 
   // TODO: put the 1 second startup delay here?
 
-#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+#ifdef RGB_MATRIX_KEYREACTIVE_ENABLED
   g_last_hit_tracker.count = 0;
   for (uint8_t i = 0; i < LED_HITS_TO_REMEMBER; ++i) {
     g_last_hit_tracker.tick[i] = UINT16_MAX;
@@ -471,7 +471,7 @@ void rgb_matrix_init(void) {
   for (uint8_t i = 0; i < LED_HITS_TO_REMEMBER; ++i) {
     last_hit_buffer.tick[i] = UINT16_MAX;
   }
-#endif
+#endif // RGB_MATRIX_KEYREACTIVE_ENABLED
 
   if (!eeconfig_is_enabled()) {
     dprintf("rgb_matrix_init_drivers eeconfig is not enabled.\n");
