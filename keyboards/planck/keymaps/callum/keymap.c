@@ -211,8 +211,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MOUSE] = {
         {
             _______,      XXXXXXX,      C(KC_LEFT),   C(KC_UP),
-            C(KC_RIGHT),  KC_BTN5,      C(KC_UP),     KC_WH_L,
-            KC_MS_U,      KC_WH_R,      XXXXXXX,      XXXXXXX
+            C(KC_RIGHT),  KC_BTN5,      C(KC_UP),     KC_WH_R,
+            KC_MS_U,      KC_WH_L,      XXXXXXX,      XXXXXXX
         },
         {
             _______,      XXXXXXX,      KC_ACL0,      KC_ACL1,
@@ -221,8 +221,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         },
         {
             _______,      XXXXXXX,      XXXXXXX,      KC_HOME,
-            KC_END,       KC_BTN3,      C(KC_DOWN),   KC_WH_D,
-            KC_WH_U,      SC(KC_TAB),   C(KC_TAB),    _______
+            KC_END,       KC_BTN3,      C(KC_DOWN),   KC_WH_U,
+            KC_WH_D,      SC(KC_TAB),   C(KC_TAB),    _______
         },
         {
             _______,      _______,      _______,      _______,
