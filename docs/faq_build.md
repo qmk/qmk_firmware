@@ -36,6 +36,12 @@ SUBSYSTEMS=="usb", ATTRS{idVendor}=="03eb", ATTRS{idProduct}=="2ff0", MODE:="066
 # tmk keyboard products     https://github.com/tmk/tmk_keyboard
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="feed", MODE:="0666"
 ```
+**/etc/udev/rules.d/54-input-club-keyboard.rules:**
+
+```
+# Input Club keyboard bootloader
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="1c11", MODE:="0666"
+```
 
 ### Serial device is not detected in bootloader mode on Linux
 Make sure your kernel has appropriate support for your device. If your device uses USB ACM, such as
