@@ -153,7 +153,7 @@ uint8_t matrix_scan(void) {
     matrix_scan_count = 0;
   }
 #endif
-  bool changed = false;
+
 #ifdef LEFT_LEDS
   mcp23018_status = ergodox_left_leds_update();
 #endif  // LEFT_LEDS
@@ -164,22 +164,15 @@ uint8_t matrix_scan(void) {
 
     // we don't need a 30us delay anymore, because selecting a
     // left-hand row requires more than 30us for i2c.
-    matrix_row_t temp;
 
-    // grab left cols.
-    temp = read_cols(i);
-    if (temp != raw_matrix[i]) changed = true;
-    raw_matrix[i] = temp;
-
-    // grab right cols.
-    temp = read_cols(i+MATRIX_ROWS_PER_SIDE);
-    if (temp != raw_matrix[i+MATRIX_ROWS_PER_SIDE]) changed = true;
-    raw_matrix[i] = temp;
+    // grab left + right cols.
+    raw_matrix[i] = read_cols(i);    
+    raw_matrix[i] = read_cols(i+MATRIX_ROWS_PER_SIDE);
     
     unselect_rows();
   }
   
-  debounce(raw_matrix, matrix, MATRIX_ROWS, changed);
+  debounce(raw_matrix, matrix, MATRIX_ROWS, true);
   matrix_scan_quantum();
 
   return 1;
