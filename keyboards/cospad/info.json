@@ -1,0 +1,67 @@
+{
+  "keyboard_name": "Cospad",
+  "keyboard_folder": "cospad",
+  "url": "",
+  "maintainer": "qmk",
+  "width": 4,
+  "height": 6,
+  "layouts": {
+    "LAYOUT_numpad_6x4": {
+      "layout": [
+        {"label":"Esc", "x":0, "y":0},
+        {"label":"Tab", "x":1, "y":0},
+        {"label":"Fn", "x":2, "y":0},
+        {"label":"Back", "x":3, "y":0},
+        {"label":"Num Lock", "x":0, "y":1},
+        {"label":"/", "x":1, "y":1},
+        {"label":"*", "x":2, "y":1},
+        {"label":"-", "x":3, "y":1},
+        {"label":"7", "x":0, "y":2},
+        {"label":"8", "x":1, "y":2},
+        {"label":"9", "x":2, "y":2},
+        {"label":"4", "x":0, "y":3},
+        {"label":"5", "x":1, "y":3},
+        {"label":"6", "x":2, "y":3},
+        {"label":"+", "x":3, "y":2, "h":2},
+        {"label":"1", "x":0, "y":4},
+        {"label":"2", "x":1, "y":4},
+        {"label":"3", "x":2, "y":4},
+        {"label":"0", "x":0, "y":5, "w":2},
+        {"label":".", "x":2, "y":5},
+        {"label":"Enter", "x":3, "y":4, "h":2}
+      ]
+    },
+
+    "LAYOUT_gamepad_6x4": {
+      "layout": [
+        {"label":"k00", "x":5, "y":0},
+        {"label":"k01", "x":5, "y":1},
+        {"label":"k02", "x":5, "y":2},
+        {"label":"k03", "x":5, "y":3},
+        {"label":"k10", "x":4, "y":0},
+        {"label":"k11", "x":4, "y":1},
+        {"label":"k12", "x":4, "y":2},
+        {"label":"k13", "x":4, "y":3},
+        {"label":"k20", "x":3, "y":0},
+        {"label":"k21", "x":3, "y":1},
+        {"label":"k22", "x":3, "y":2},
+        {"label":"k30", "x":2, "y":0},
+        {"label":"k31", "x":2, "y":1},
+        {"label":"k32", "x":2, "y":2},
+        {"label":"k23", "x":2, "y":3, "w":2},
+        {"label":"k40", "x":1, "y":0},
+        {"label":"k41", "x":1, "y":1},
+        {"label":"k42", "x":1, "y":2},
+        {"label":"k43", "x":1, "y":3},
+        {"label":"k50", "x":0, "y":0},
+        {"label":"k51", "x":0, "y":1},
+        {"label":"k52", "x":0, "y":2},
+        {"label":"k53", "x":0, "y":3}
+      ]
+    },
+
+    "LAYOUT_ortho_6x4": {
+      "layout": [{"label":"Esc", "x":0, "y":0}, {"label":"Tab", "x":1, "y":0}, {"label":"Fn", "x":2, "y":0}, {"label":"Back", "x":3, "y":0}, {"label":"Num Lock", "x":0, "y":1}, {"label":"/", "x":1, "y":1}, {"label":"*", "x":2, "y":1}, {"label":"-", "x":3, "y":1}, {"label":"7", "x":0, "y":2}, {"label":"8", "x":1, "y":2}, {"label":"9", "x":2, "y":2}, {"label":"+", "x":3, "y":2}, {"label":"4", "x":0, "y":3}, {"label":"5", "x":1, "y":3}, {"label":"6", "x":2, "y":3}, {"x":3, "y":3}, {"label":"1", "x":0, "y":4}, {"label":"2", "x":1, "y":4}, {"label":"3", "x":2, "y":4}, {"label":"Enter", "x":3, "y":4}, {"label":"0", "x":0, "y":5}, {"x":1, "y":5}, {"label":".", "x":2, "y":5}, {"x":3, "y":5}]
+    }
+  }
+}

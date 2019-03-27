@@ -14,12 +14,14 @@ When enabled, a `> ` prompt will appear, where you'll be able to type, backspace
 
 `#define TERMINAL_HELP` enables some other output helpers that aren't really needed with this page.
 
+Pressing "up" and "down" will allow you to cycle through the past 5 commands entered.
+
 ## Future Ideas
 
 * Keyboard/user-extensible commands
 * Smaller footprint
 * Arrow key support
-* Command history
+* Command history - Done
 * SD card support
 * LCD support for buffer display
 * Keycode -> name string LUT
@@ -43,14 +45,39 @@ QMK Firmware
   Built: 2017-08-29-20:24:44
 ```
 
+
+### `print-buffer`
+
+Outputs the last 5 commands entered
+
+```
+> print-buffer
+0. print-buffer
+1. help
+2. about
+3. keymap 0
+4. help 
+5. flush-buffer
+```
+
+### `flush-buffer`
+
+Clears command buffer
+```
+> flush-buffer
+Buffer cleared!
+```
+
+
 ### `help`
+
 
 Prints out the available commands:
 
 ```
 > help
 commands available:
-  about help keycode keymap exit
+  about help keycode keymap exit print-buffer flush-buffer
 ```
 
 ### `keycode <layer> <row> <col>`

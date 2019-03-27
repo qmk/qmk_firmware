@@ -11,8 +11,8 @@ Keycodes are actually defined in [common/keycode.h](https://github.com/qmk/qmk_f
 
 There are 3 standard keyboard layouts in use around the world- ANSI, ISO, and JIS. North America primarily uses ANSI, Europe and Africa primarily use ISO, and Japan uses JIS. Regions not mentioned typically use either ANSI or ISO. The keycodes corresponding to these layouts are shown here:
 
-<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/9ce023dc6caadc0cf11c88c782350a8c -->
-![Keyboard Layout Image](https://i.imgur.com/45m4mRf.png)
+<!-- Source for this image: http://www.keyboard-layout-editor.com/#/gists/bf431647d1001cff5eff20ae55621e9a -->
+![Keyboard Layout Image](https://i.imgur.com/5wsh5wM.png)
 
 ## Some Of My Keys Are Swapped Or Not Working
 
@@ -34,12 +34,11 @@ See [issue #168](https://github.com/tmk/tmk_keyboard/issues/168) and
 * http://en.wikipedia.org/wiki/Magic_SysRq_key
 * http://en.wikipedia.org/wiki/System_request
 
-## Power Key Doesn't Work
-Use `KC_PWR` instead of `KC_POWER` or vice versa.
-* `KC_PWR` works with Windows and Linux, not with OSX.
-* `KC_POWER` works with OSX and Linux, not with Windows.
+## Power Keys Aren't Working
 
-More info: http://geekhack.org/index.php?topic=14290.msg1327264#msg1327264
+Somewhat confusingly, there are two "Power" keycodes in QMK: `KC_POWER` in the Keyboard/Keypad HID usage page, and `KC_SYSTEM_POWER` (or `KC_PWR`) in the Consumer page.
+
+The former is only recognized on macOS, while the latter, `KC_SLEP` and `KC_WAKE` are supported by all three major operating systems, so it is recommended to use those instead. Under Windows, these keys take effect immediately, however on macOS they must be held down until a dialog appears.
 
 ## One Shot Modifier
 Solves my personal 'the' problem. I often got 'the' or 'THe' wrongly instead of 'The'.  One Shot Shift mitigates this for me.
@@ -87,14 +86,14 @@ On **Xorg** you can use `compose` key, instead.
 And see this for **Unicode** input.
 * http://en.wikipedia.org/wiki/Unicode_input
 
+## `Fn` Key on macOS
 
-## Apple/Mac Keyboard `Fn`
-Not supported.
+Unlike most Fn keys, the one on Apple keyboards actually has its own keycode... sort of. It takes the place of the sixth keycode in a basic 6KRO HID report -- so an Apple keyboard is in fact only 5KRO.
 
-Apple/Mac keyboard sends keycode for Fn unlike most of other keyboards.
-I think you can send Apple Fn key using Apple venter specific Page 0xff01 and usage 0x0003. But you have to change HID Report Descriptor for this, of course.
+It is technically possible to get QMK to send this key. However, doing so requires modification of the report format to add the state of the Fn key.
+Even worse, it is not recognized unless the keyboard's VID and PID match that of a real Apple keyboard. The legal issues that official QMK support for this feature may create mean it is unlikely to happen.
 
-https://opensource.apple.com/source/IOHIDFamily/IOHIDFamily-606.1.7/IOHIDFamily/AppleHIDUsageTables.h
+See [this issue](https://github.com/qmk/qmk_firmware/issues/2179) for detailed information.
 
 
 ## Media Control Keys in Mac OSX
@@ -152,13 +151,13 @@ This turns right modifier keys into arrow keys when the keys are tapped while st
  */
 const uint8_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     /* 0: qwerty */
-    [0] = KEYMAP( \
+    [0] = LAYOUT( \
         ESC, 1,   2,   3,   4,   5,   6,   7,   8,   9,   0,   MINS,EQL, NUHS,BSPC, \
         TAB, Q,   W,   E,   R,   T,   Y,   U,   I,   O,   P,   LBRC,RBRC,BSLS, \
         LCTL,A,   S,   D,   F,   G,   H,   J,   K,   L,   SCLN,QUOT,ENT,  \
         LSFT,NUBS,Z,   X,   C,   V,   B,   N,   M,   COMM,DOT, SLSH,FN0, ESC, \
         FN4, LGUI,LALT,          SPC,                     APP, FN2, FN1, FN3),
-    [1] = KEYMAP( \
+    [1] = LAYOUT( \
         GRV, F1,  F2,  F3,  F4,  F5,  F6,  F7,  F8,  F9,  F10, F11, F12, TRNS,TRNS, \
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,\
         TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS,TRNS, \
@@ -212,20 +211,3 @@ here real_mods lost state for 'physical left shift'.
 
 weak_mods is ORed with real_mods when keyboard report is sent.
 https://github.com/tmk/tmk_core/blob/master/common/action_util.c#L57
-
-## Timer Functionality
-
-It's possible to start timers and read values for time-specific events - here's an example:
-
-```c
-static uint16_t key_timer;
-key_timer = timer_read();
-
-if (timer_elapsed(key_timer) < 100) {
-  // do something if less than 100ms have passed
-} else {
-  // do something if 100ms or more have passed
-}
-```
-
-It's best to declare the `static uint16_t key_timer;` at the top of the file, outside of any code blocks you're using it in.

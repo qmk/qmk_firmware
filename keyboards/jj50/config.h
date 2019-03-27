@@ -35,11 +35,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 15
 #define DIODE_DIRECTION ROW2COL
 
-#define BACKLIGHT_PIN D4
-#define BACKLIGHT_LEVELS 3
+//#define BACKLIGHT_PIN D4
+#define BACKLIGHT_LEVELS 12
 
-//#define RGB_DI_PIN C0
-#define RGBLED_NUM 5
+#define RGB_DI_PIN E2
+#define RGBLED_NUM 12
 #define RGBLIGHT_ANIMATIONS
 #define RGBLIGHT_HUE_STEP 12
 #define RGBLIGHT_SAT_STEP 15
@@ -47,8 +47,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define NO_UART 1
 #define BOOTLOADHID_BOOTLOADER 1
-
-/* key combination for command */
-#define IS_COMMAND() (keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)))
 
 #endif

@@ -49,10 +49,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Locking resynchronize hack */
 //#define LOCKING_RESYNC_ENABLE
 
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
+#ifdef HHKB_RN42_ENABLE
+// rn42 support -- acquired from the tmk repo. This is almost certainly not
+// integrated with qmk in the correct way.
+
+#define SUART_OUT_PORT  PORTD
+#define SUART_OUT_BIT   0
+#define SUART_IN_PIN    PIND
+#define SUART_IN_BIT    1
+
+#ifdef __AVR_ATmega32U4__
+    /* iom32u4.h has no definition of UCSR1D. copy from iom32u2.h */
+    #define UCSR1D _SFR_MEM8(0xCB)
+    #define RTSEN 0
+    #define CTSEN 1
+
+    #define SERIAL_UART_BAUD        115200
+    #define SERIAL_UART_DATA        UDR1
+    #define SERIAL_UART_UBRR        ((F_CPU/(16.0*SERIAL_UART_BAUD)-1+0.5))
+    #define SERIAL_UART_RXD_VECT    USART1_RX_vect
+    #define SERIAL_UART_TXD_READY   (UCSR1A&(1<<UDRE1))
+    #define SERIAL_UART_INIT()      do { \
+        UBRR1L = (uint8_t) SERIAL_UART_UBRR;       /* baud rate */ \
+        UBRR1H = ((uint16_t)SERIAL_UART_UBRR>>8);  /* baud rate */ \
+        UCSR1B |= (1<<RXCIE1) | (1<<RXEN1); /* RX interrupt, RX: enable */ \
+        UCSR1B |= (0<<TXCIE1) | (1<<TXEN1); /* TX interrupt, TX: enable */ \
+        UCSR1C |= (0<<UPM11) | (0<<UPM10);  /* parity: none(00), even(01), odd(11) */ \
+        UCSR1D |= (0<<RTSEN) | (0<<CTSEN);  /* RTS, CTS(no flow control by hardware) */ \
+        DDRD |= (1<<5); PORTD &= ~(1<<5);   /* RTS for flow control by firmware */ \
+        sei(); \
+    } while(0)
+    #define SERIAL_UART_RTS_LO()    do { PORTD &= ~(1<<5); } while (0)
+    #define SERIAL_UART_RTS_HI()    do { PORTD |=  (1<<5); } while (0)
+#else
+    #error "USART configuration is needed."
+#endif
+
+/* power control of key switch board */
+#define HHKB_POWER_SAVING
+
+#endif
 
 /*
  * Feature disable options

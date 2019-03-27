@@ -185,11 +185,18 @@ When you're done with the columns, start with the rows in the same process, from
 
 As you move along, be sure that the Teensy is staying in place - recutting and soldering the wires is a pain!
 
+## Additional guides
+
+If you're more of a visual learner, or want some additional tips and something more to follow along, these two visual step by step guides may be helpful:
+
+- [BrownFox's step by step guide](https://deskthority.net/viewtopic.php?f=7&t=6050)
+- [Cribbit's modern hand wiring guide](https://geekhack.org/index.php?topic=87689.0)
+
 # Getting Some Basic Firmware Set Up
 
 From here, you should have a working keyboard once you program a firmware. Before we attach the Teensy permanently to the keyboard, let's quickly get some firmware loaded onto the Teensy so we can test each keyswitch.
 
-To start out, download [the firmware](https://github.com/qmk/qmk_firmware/) - we'll be using my (Jack's) fork of TMK called QMK/Quantum. We'll be doing a lot from the Terminal/command prompt, so get that open, along with a decent text editor like [Sublime Text](http://www.sublimetext.com/).
+To start out, download [the firmware](https://github.com/qmk/qmk_firmware/) - we'll be using my (Jack's) fork of TMK called QMK/Quantum. We'll be doing a lot from the Terminal/command prompt, so get that open, along with a decent text editor like [Sublime Text](http://www.sublimetext.com/) (paid) or [Visual Studio Code](https://code.visualstudio.com) (free).
 
 The first thing we're going to do is create a new project using the script in the root directory of the firmware. In your terminal, run this command with `<project_name>` replaced by the name of your project - it'll need to be different from any other project in the `keyboards/` folder:
 
@@ -209,7 +216,7 @@ Farther down are `MATRIX_ROW_PINS` and `MATRIX_COL_PINS`. Change their definitio
 
 ### `<project_name>.h`
 
-The next file you'll want to look at is `<project_name>.h`. You're going to want to rewrite the `KEYMAP` definition - the format and syntax here is extremely important, so pay attention to how things are setup. The first half of the definition are considered the arguments - this is the format that you'll be following in your keymap later on, so you'll want to have as many k*xy* variables here as you do keys. The second half is the part that the firmware actually looks at, and will contain gaps depending on how you wired your matrix.
+The next file you'll want to look at is `<project_name>.h`. You're going to want to rewrite the `LAYOUT` definition - the format and syntax here is extremely important, so pay attention to how things are setup. The first half of the definition are considered the arguments - this is the format that you'll be following in your keymap later on, so you'll want to have as many k*xy* variables here as you do keys. The second half is the part that the firmware actually looks at, and will contain gaps depending on how you wired your matrix.
 
 We'll dive into how this will work with the following example. Say we have a keyboard like this:
 
@@ -231,10 +238,10 @@ This can be described by saying the top row is 3 1u keys, and the bottom row is 
     └─────┴─────┘
 ```
 
-The middle column is unused on the bottom row in this example. Our `KEYMAP` definition would look like this:
+The middle column is unused on the bottom row in this example. Our `LAYOUT` definition would look like this:
 
 ```
-    #define KEYMAP( \
+    #define LAYOUT( \
         k00, k01, k02, \
           k10,  k11,   \
     ) \
@@ -256,10 +263,10 @@ Let's say that instead, we wired our keyboard like this (a fair thing to do):
     └─────┴─────┘
 ```
 
-This would require our `KEYMAP` definition to look like this:
+This would require our `LAYOUT` definition to look like this:
 
 ```
-    #define KEYMAP( \
+    #define LAYOUT( \
         k00, k01, k02, \
           k10,  k11,   \
     ) \
@@ -269,7 +276,7 @@ This would require our `KEYMAP` definition to look like this:
     }
 ```
 
-Notice how the `k11` and `KC_NO` switched places to represent the wiring, and the unused final column on the bottom row. Sometimes it'll make more sense to put a keyswitch on a particular column, but in the end, it won't matter, as long as all of them are accounted for. You can use this process to write out the `KEYMAP` for your entire keyboard - be sure to remember that your keyboard is actually backwards when looking at the underside of it.
+Notice how the `k11` and `KC_NO` switched places to represent the wiring, and the unused final column on the bottom row. Sometimes it'll make more sense to put a keyswitch on a particular column, but in the end, it won't matter, as long as all of them are accounted for. You can use this process to write out the `LAYOUT` for your entire keyboard - be sure to remember that your keyboard is actually backwards when looking at the underside of it.
 
 ### `keymaps/<variant>/default.c`
 
@@ -291,7 +298,7 @@ This can be accomplished by using the following `keymaps` definition:
 
 ```
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-    [0] = KEYMAP( /* Base */
+    [0] = LAYOUT( /* Base */
       KC_A,  KC_1,  KC_H, \
         KC_TAB,  KC_SPC   \
     ),
@@ -300,7 +307,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 Note that the layout of the keycodes is similar to the physical layout of our keyboard - this make it much easier to see what's going on. A lot of the keycodes should be fairly obvious, but for a full list of them, check out [Keycodes](keycodes.md) - there are also a lot of aliases to condense your keymap file.
 
-It's also important to use the `KEYMAP` function we defined earlier - this is what allows the firmware to associate our intended readable keymap with the actual wiring.
+It's also important to use the `LAYOUT` function we defined earlier - this is what allows the firmware to associate our intended readable keymap with the actual wiring.
 
 ## Compiling Your Firmware
 

@@ -3,9 +3,6 @@
 
 /* Custom keys & combinations to be shorter for keymaps */
 #define KC_LCA LCA(KC_NO)
-/* Fillers to make layering more clear */
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 #define OSM_LSFT OSM(MOD_LSFT)
 #define TD_CTL TD(TD_CTL_CTLALT)
@@ -43,7 +40,7 @@
  * This will expand values sent to it to send to the KEYMAP macro so defines
  * can be used by KEYMAP
  */
-#define CATMAP(...) KEYMAP(__VA_ARGS__)
+#define CATMAP(...) LAYOUT(__VA_ARGS__)
 
 /*
   Each layer gets a name for readability, which is then used in the keymap matrix below.

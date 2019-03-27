@@ -8,21 +8,33 @@ If you have closed and reopened your terminal window since following the first p
 
 Start by navigating to the `keymaps` folder for your keyboard.
 
-{% hint style='info' %}
-If you are on macOS or Windows there are commands you can use to easily open the keymaps folder.
+?> If you are on macOS or Windows there are commands you can use to easily open the keymaps folder.
 
-macOS:
+?> macOS:
 
     open keyboards/<keyboard_folder>/keymaps
 
-Windows:
+?> Windows:
 
-    start keyboards/<keyboard_folder>/keymaps
-{% endhint %}
+    start .\\keyboards\\<keyboard_folder>\\keymaps
 
 ## Create a Copy Of The `default` Keymap
 
 Once you have the `keymaps` folder open you will want to create a copy of the `default` folder. We highly recommend you name your folder the same as your GitHub username, but you can use any name you want as long as it contains only lower case letters, numbers, and the underscore character.
+
+To automate the process, you also have the option to run the `new_keymap.sh` script. 
+
+Navigate to the `qmk_firmware/util` directory and type the following:
+
+```
+./new_keymap.sh <keyboard path> <username>
+```
+
+For example, for a user named John, trying to make a new keymap for the 1up60hse, they would type in
+
+```
+./new_keymap.sh 1upkeyboards/1up60hse john
+```
 
 ## Open `keymap.c` In Your Favorite Text Editor
 
@@ -32,9 +44,7 @@ Open up your `keymap.c`. Inside this file you'll find the structure that control
 
 This line indicates the start of the list of Layers. Below that you'll find lines containing either `LAYOUT` or `KEYMAP`, and these lines indicate the start of a layer. Below that line is the list of keys that comprise a that particular layer.
 
-{% hint style='danger' %}
-When editing your keymap file be careful not to add or remove any commas. If you do you will prevent your firmware from compiling and it may not be easy to figure out where the extra, or missing, comma is.
-{% endhint %}
+!> When editing your keymap file be careful not to add or remove any commas. If you do you will prevent your firmware from compiling and it may not be easy to figure out where the extra, or missing, comma is.
 
 ## Customize The Layout To Your Liking
 
@@ -44,9 +54,7 @@ How to complete this step is entirely up to you. Make the one change that's been
 * [Features](features.md)
 * [FAQ](faq.md)
 
-{% hint style='info' %}
-While you get a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.
-{% endhint %}
+?> While you get a feel for how keymaps work, keep each change small. Bigger changes make it harder to debug any problems that arise.
 
 ## Build Your Firmware
 

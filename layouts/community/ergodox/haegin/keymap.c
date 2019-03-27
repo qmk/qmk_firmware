@@ -9,7 +9,9 @@
 #define SYMBOLS 1 // symbols
 #define MEDIA 2 // media keys
 
-#define _______ KC_TRNS
+enum {
+  TD_BSPC = 0
+};
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -46,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         LT(SYMBOLS,KC_GRV),  KC_QUOT,            KC_SLSH,         KC_LALT,  SFT_T(KC_RGHT),
                                                                                              KC_HOME,            KC_END,
                                                                                                                  KC_PGUP,
-                                                                            GUI_T(KC_SPC),   CTL_T(KC_BSPC),     LGUI(KC_SPC),
+                                                                            GUI_T(KC_SPC),   TD(TD_BSPC),     LGUI(KC_SPC),
 
         // Right hand
         KC_RGHT,        KC_6,              KC_7,                KC_8,        KC_9,        KC_0,                LGUI(KC_SPC),
@@ -136,19 +138,89 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                     _______,
                                   _______, _______, _______,
     // right hand
-       _______,  _______, _______, _______, _______, _______, _______,
-       _______,  _______, _______,   KC_UP, _______, _______, _______,
-                 KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_MPLY,
-       _______,  KC_VOLD, KC_MPRV, KC_MPLY, KC_MFFD, _______, _______,
-                          KC_MUTE, _______, _______, _______, _______,
+       _______, _______, _______, _______, _______, _______, _______,
+       _______, _______, KC_HOME,   KC_UP,  KC_END, KC_PGUP, _______,
+                KC_VOLU, KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN, KC_MPLY,
+       KC_MUTE, KC_VOLD, KC_MPRV, KC_MPLY, KC_MFFD, _______, _______,
+                          _______, _______, _______, _______, _______,
        _______, _______,
        _______,
        _______, _______,  KC_WBAK
 ),
 };
 
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(SYMBOLS)                // FN1 - Momentary Layer 1 (Symbols)
+enum {
+  BSPC_LETTER = 0,
+  BSPC_WORD = 1,
+  HOLD_CTRL = 2
+};
+
+typedef struct {
+  int a;
+  int b;
+  int state;
+} fib_tap;
+
+static fib_tap fib_bspc = {
+  .a = 0,
+  .b = 1,
+  .state = BSPC_LETTER
+};
+
+void cur_backspace (qk_tap_dance_state_t *state) {
+  int next_fib = fib_bspc.a + fib_bspc.b;
+  fib_bspc.a = fib_bspc.b;
+  fib_bspc.b = next_fib;
+  for (int i=0; i < next_fib; i++) {
+    unregister_code(KC_BSPC);
+    register_code(KC_BSPC);
+  }
+}
+
+void dance_backspace (qk_tap_dance_state_t *state, void *user_data) {
+  // If we're at the fifth tap, switch to deleting by words, and reset the fib
+  // counter
+  if (state->count == 4) {
+    register_code(KC_LALT);
+    fib_bspc.state = BSPC_WORD;
+    fib_bspc.a = 0;
+    fib_bspc.b = 1;
+  }
+  // If we're on the first press, wait to find out if it's being held
+  // If we're on the second tap, process the first tap, because we're past
+  // holding for ctrl now, then act normally
+  if (state->count == 2) {
+    register_code(KC_BSPC);
+  }
+  if (state->count > 1) {
+    cur_backspace(state);
+  }
+};
+
+void dance_backspace_ended (qk_tap_dance_state_t *state, void *user_data) {
+  if (state->count == 1) {
+    if (state->pressed) {
+      fib_bspc.state = HOLD_CTRL;
+      register_code(KC_LCTRL);
+    } else {
+      register_code(KC_BSPC);
+    }
+  }
+};
+
+void dance_backspace_reset (qk_tap_dance_state_t *state, void *user_data) {
+  switch (fib_bspc.state) {
+    case HOLD_CTRL: unregister_code(KC_LCTRL); break;
+    case BSPC_WORD: unregister_code(KC_BSPC); unregister_code(KC_LALT); break;
+    case BSPC_LETTER: unregister_code(KC_BSPC); break;
+  }
+  fib_bspc.a = 0;
+  fib_bspc.b = 1;
+  fib_bspc.state = BSPC_LETTER;
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+  [TD_BSPC] = ACTION_TAP_DANCE_FN_ADVANCED (dance_backspace, dance_backspace_ended, dance_backspace_reset)
 };
 
 const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt)

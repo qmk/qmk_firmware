@@ -1,4 +1,5 @@
-#include "satan.h"
+#include QMK_KEYBOARD_H
+
 
 static uint16_t key_timer;
 
@@ -120,28 +121,28 @@ bool checktime(void){
 #define SCAN	KC_TRNS // Scandinavian keys, the Row 5 key 5 is actually Row 1 key 15 on the PCB
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[ norm ] = KEYMAP( // Normal scandinavian mapping (danish has QUOT and SCLN wapped)
+[ norm ] = LAYOUT_all( // Normal scandinavian mapping (danish has QUOT and SCLN wapped)
         GRAV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, MINS, EQUL, BSPC, DELE,\
         DUTB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, LBRC, RBRC, DEAD,\
         ALTR, KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, SCLN, QUOT, NUHS, ENTE,\
 				SADL, NUBS, KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, COMM, FSTO, SLSH, SADR, DEAD,\
 				CADL, ALTL, GUIL,           		DUSP,             	    GUIR, MEDI, MENO, CADR),
 
-[ elev ] = KEYMAP( // The f-Row (with f13-14), Special keys and media keys
+[ elev ] = LAYOUT_all( // The f-Row (with f13-14), Special keys and media keys
 				LOCK, FK01, FK02, FK03, FK04, FK05, FK06, FK07, FK08, FK09, FK10, FK11, FK12, FK13, FK14,\
 				XXXX, XXXX, XXXX, XXXX, MAIL, XXXX, XXXX, HOME, INSE, PSCR, SLCK, PAUS, PGUP, XXXX,\
 			    XXXX, XXXX, XXXX, XXXX, MYCM, XXXX, XXXX, MPRV, PAUS, MNXT, XXXX, XXXX, PGDN, ENDI,\
 				XXXX, XXXX, XXXX, XXXX, CALC, XXXX, XXXX, XXXX, MUTE, VOLD, VOLU, XXXX, ARUP, DEAD,\
 				XXXX, XXXX, XXXX, 					PLPS,			  		XXXX, ARLF, ARDN, ARRT),
 
-[ spac ] = KEYMAP( // The space controls (by pressing space)
+[ spac ] = LAYOUT_all( // The space controls (by pressing space)
 				XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,\
 				XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,\
 			    XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,\
 				XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, DEAD,\
 				XXXX, XXXX, XXXX, 					XXXX,			        XXXX, XXXX, XXXX, XXXX),
 
-[ supr ] = KEYMAP( // Additional layer for later use.
+[ supr ] = LAYOUT_all( // Additional layer for later use.
 				XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,\
 				XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,\
 			    XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX, XXXX,\
@@ -186,10 +187,3 @@ const macro_t *action_get_macro(keyrecord_t *record, uint8_t id, uint8_t opt) { 
 						if (record->event.pressed) { } else { }; break;
     } return MACRO_NONE;
 };
-/*
-		Later use:
-		void action_function(keyrecord_t *record, uint8_t id, uint8_t opt) { }
-		enum function_id { };
-		const uint16_t PROGMEM fn_actions[] = { };
-
-*/

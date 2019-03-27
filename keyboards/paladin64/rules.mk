@@ -58,3 +58,5 @@ RGBLIGHT_ENABLE ?= yes
 #PS2_MOUSE_ENABLE ?= yes
 #PS2_USE_USART ?= yes
 #PS2_USE_INT ?= yes
+
+LAYOUTS = 60_ansi

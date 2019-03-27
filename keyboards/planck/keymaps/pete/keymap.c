@@ -1,4 +1,5 @@
 
+#pragma message "You may need to add LAYOUT_planck_grid to your keymap layers - see default for an example"
 #include "planck.h"
 #include "action_layer.h"
 #ifdef AUDIO_ENABLE
@@ -46,10 +47,6 @@ extern keymap_config_t keymap_config;
 #define CYCLWIN LGUI(KC_GRV)
 #define MACSLEEP LSFT(LCTL(KC_POWER))
 #define WINSLEEP KC_SLEP
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -116,9 +113,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 };
 
 int currentOs = _MAC;
-const uint16_t PROGMEM fn_actions[] = {
-
-};
 
 #ifdef AUDIO_ENABLE
 
