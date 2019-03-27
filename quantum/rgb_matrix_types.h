@@ -13,6 +13,10 @@
 #pragma pack( push, 1 )
 #endif
 
+#if defined(RGB_MATRIX_KEYPRESSES) || defined(RGB_MATRIX_KEYRELEASES)
+  #define RGB_MATRIX_KEYREACTIVE_ENABLED
+#endif
+
 // Last led hit
 #ifndef LED_HITS_TO_REMEMBER
   #define LED_HITS_TO_REMEMBER 8
