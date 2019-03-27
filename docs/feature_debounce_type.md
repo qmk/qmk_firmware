@@ -33,7 +33,9 @@ The debounce code is compatible with split keyboards.
 # Changing between included debouncing methods
 You can either use your own code, by including your own debounce.c, or switch to another included one.
 Included debounce methods are:
-* eager_pk - debouncing per key. On any state change, response is immediate, followed by ```DEBOUNCE_DELAY``` millseconds of no further input for that key
+* eager_pr - debouncing per row. On any state change, response is immediate, followed by locking the row ```DEBOUNCE_DELAY``` milliseconds of no further input for that key. 
+For use in keyboards where refreshing ```NUM_KEYS``` 8-bit counters is computationally expensive / low scan rate, and fingers usually only hit one row at a time.
+* eager_pk - debouncing per key. On any state change, response is immediate, followed by ```DEBOUNCE_DELAY``` milliseconds of no further input for that key
 * sym_g - debouncing per keyboard. On any state change, a global timer is set. When ```DEBOUNCE_DELAY``` milliseconds of no changes has occured, all input changes are pushed.
 
 
