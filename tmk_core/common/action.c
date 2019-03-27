@@ -518,7 +518,7 @@ void process_action(keyrecord_t *record, action_t action)
                         if (tap_count > 0) {
                             dprint("KEYMAP_TAP_KEY: Tap: unregister_code\n");
                             if (action.layer_tap.code == KC_CAPS) {
-                                wait_ms(80);
+                                wait_ms(200);
                             }
                             unregister_code(action.layer_tap.code);
                         } else {
