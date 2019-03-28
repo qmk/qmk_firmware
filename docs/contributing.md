@@ -73,7 +73,7 @@ Most of our style is pretty easy to pick up on, but right now it's not entirely 
 * We use `#pragma once` at the start of header files rather than old-style include guards (`#ifndef THIS_FILE_H`, `#define THIS_FILE_H`, ..., `#endif`)
 * We accept both forms of pre-processor if's: `#ifdef DEFINED` and `#if defined(DEFINED)`
   * If you are not sure which to prefer use the `#if defined(DEFINED)` form.
-  * Do not change existing code from one style to the other
+  * Do not change existing code from one style to the other, except when moving to a multiple condition `#if`.
 
 Here is an example for easy reference:
 
