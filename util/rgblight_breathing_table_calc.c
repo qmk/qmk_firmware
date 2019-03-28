@@ -12,10 +12,9 @@
 #include <math.h>
 #include <stdint.h>
 
-/// custumize part /////////////////////////////////////////////
+/// customize breeathing effect part ///////////////////////////
 #define RGBLIGHT_EFFECT_BREATHE_CENTER 1.85  // 1 to 2.7
 #define RGBLIGHT_EFFECT_BREATHE_MAX    255   // 0 to 255
-#define TABLE_SIZE                     256   // 64 or 128 or 256
 ////////////////////////////////////////////////////////////////
 
 int main(void) {
@@ -32,20 +31,16 @@ int main(void) {
     printf("const uint8_t rgblight_effect_breathe_table[] PROGMEM = {\n");
     printf("  /* #define RGBLIGHT_EFFECT_BREATHE_CENTER   %.2f */\n", RGBLIGHT_EFFECT_BREATHE_CENTER);
     printf("  /* #define RGBLIGHT_EFFECT_BREATHE_MAX      %d */\n", RGBLIGHT_EFFECT_BREATHE_MAX);
-    printf("  /* %d byte table */\n", TABLE_SIZE);
-#if TABLE_SIZE == 256
-    step = 1;
-#elif TABLE_SIZE == 128
-    step = 2;
-#elif TABLE_SIZE == 64
-    step = 4;
-#else
-    #error invalid TABLE_SIZE
-#endif
-    for (pos = 0; pos < 256; pos += step ) {
-        printf("  0x%x%s", table[pos], pos==255?"":"," );
-        if ((pos+step) % 8 == 0)
-            printf("\n");
+
+    for (int s = 0, step = (1<<s); s < 3 ; s += 1, step = (1<<s) ) {
+        printf("\n #if RGBLIGHT_BREATHE_TABLE_SIZE == %d\n",
+               s == 0 ? 256:(s== 1 ? 128: 64));
+        for (pos = 0; pos < 256; pos += step ) {
+            printf("  0x%x%s", table[pos], (pos+step)>=256?"":"," );
+            if ((pos+step) % 8 == 0)
+                printf("\n");
+        }
+        printf(" #endif /* %d bytes table */\n", s == 0 ? 256:(s== 1 ? 128: 64));
     }
     printf("};\n");
     printf("\nstatic const int table_scale = 256/sizeof(rgblight_effect_breathe_table);\n");

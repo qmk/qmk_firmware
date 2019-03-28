@@ -814,7 +814,10 @@ void rgblight_task(void) {
 #ifdef RGBLIGHT_EFFECT_BREATHING
 
 #ifndef RGBLIGHT_EFFECT_BREATHE_CENTER
-#include <rgblight_breathe_table.h>
+  #ifndef RGBLIGHT_BREATHE_TABLE_SIZE
+    #define RGBLIGHT_BREATHE_TABLE_SIZE 256 // 256 or 128 or 64
+  #endif
+  #include <rgblight_breathe_table.h>
 #endif
 
 __attribute__ ((weak))
