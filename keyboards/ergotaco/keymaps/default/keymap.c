@@ -8,7 +8,6 @@
 
 #include QMK_KEYBOARD_H
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define FIESTA   0 // default layer
 #define TACOTIME 1 // symbols
 
