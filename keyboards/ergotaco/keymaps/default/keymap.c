@@ -8,7 +8,6 @@
 
 #include QMK_KEYBOARD_H
 
-#define IGNORE_MOD_TAP_INTERRUPT
 #define FIESTA   0 // default layer
 #define TACOTIME 1 // symbols
 
@@ -19,7 +18,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------------.           ,--------------------------------------------.
  * |       |      |      |      |      |      |      |           |       |      |      |      |      |        |
  * `-------+------+------+------+------+-------------'           `-------+------+------+------+------+--------' */
-[FIESTA] = LAYOUT_TACO(  
+[FIESTA] = LAYOUT(  
    KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y,        KC_A, KC_S, KC_D, KC_F, KC_G, KC_H
 ),
 };
