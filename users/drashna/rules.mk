@@ -28,6 +28,9 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   ifeq ($(strip $(RGBLIGHT_NOEEPROM)), yes)
     OPT_DEFS += -DRGBLIGHT_NOEEPROM
   endif
+  ifeq ($(strip $(RGBLIGHT_STARTUP_ANIMATION)), yes)
+    OPT_DEFS += -RGBLIGHT_STARTUP_ANIMATION
+  endif
 endif
 
 ifeq ($(strip $(RGB_MATRIX_ENABLE)), yes)
