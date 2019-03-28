@@ -109,7 +109,7 @@ uint8_t i2c_readReg(uint8_t devaddr, uint8_t* regaddr, uint8_t* data, uint16_t l
 }
 
 // This is usually not needed. It releases the driver to allow pins to become GPIO again.
-uint8_t i2c_stop(uint16_t timeout)
+uint8_t i2c_stop(void)
 {
   i2cStop(&I2C_DRIVER);
   return 0;
