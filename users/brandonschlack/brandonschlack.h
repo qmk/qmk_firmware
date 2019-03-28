@@ -19,6 +19,7 @@ enum custom_keycodes {
 
 // Useful Defines
 #define FN_CAPS   LT(FUNCT, KC_CAPS)
+#define HY_CAPS   ALL_T(KC_CAPS)
 // MacOS
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
 #define MC_LHPD   HYPR(KC_F4)          // Launchpad: Configure karabiner for HYPER -> fn
