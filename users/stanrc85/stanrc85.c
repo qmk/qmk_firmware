@@ -79,20 +79,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     return false;
     break;
-  case KC_BACK: //Common key for "BACK" in browser
-    if (!record->event.pressed) {
-      register_code(KC_LALT);
-      tap_code(KC_LEFT);
-      unregister_code(KC_LALT);
-    }
-    break;
-  case KC_FWD: //Common key for "FORWARD" in browser
-    if (!record->event.pressed) {
-      register_code(KC_LALT);
-      tap_code(KC_RGHT);
-      unregister_code(KC_LALT);
-    }
-    break;
   case KC_RDP: //Opens Windows RDP
     if (!record->event.pressed) {
       register_code(KC_LGUI);

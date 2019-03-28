@@ -21,8 +21,6 @@
 
 enum cust_keys {
 	KC_MAKE = SAFE_RANGE,
-  KC_BACK,
-  KC_FWD,
   KC_RDP
 };
 
