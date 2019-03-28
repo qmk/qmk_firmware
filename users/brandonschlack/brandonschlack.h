@@ -7,6 +7,10 @@
 #define BASE  0
 #define FUNCT 1
 
+// Config
+#define TAPPING_TOGGLE 2
+#define PERMISSIVE_HOLD
+
 // Macros
 enum custom_keycodes {
   KC_LHPD = SAFE_RANGE,
