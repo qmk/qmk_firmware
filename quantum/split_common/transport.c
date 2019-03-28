@@ -39,6 +39,7 @@ typedef struct __attribute__ ((__packed__)) {
   uint8_t matrix_start[0];
 } transport_values_t;
 
+__attribute__ ((unused))
 static transport_values_t transport_values;
 
 #ifdef BACKLIGHT_ENABLE
