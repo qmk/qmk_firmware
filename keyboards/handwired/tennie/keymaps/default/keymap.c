@@ -39,63 +39,63 @@
 
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [base] = LAYOUT_kc(
+  [base] = LAYOUT(
   //         ┌────────┬────────┬────────┐
 
-                DEL   ,  SPC   ,   ENT  ,
+                KC_DEL,  KC_SPC,  KC_ENT,
 
   //    ├────────┼────────┼────────┼────────┼
 
-          LEFT   ,  DOWN  ,   UP   ,  RGHT ,
+          KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,
 
   //    ├────────┼────────┼────────┼────────┼
 
-                SHRK  ,  OGRE  ,   TCP
+               KC_SHRK,  KCOGRE, KC_TCP
 
   //         └────────┴────────┴────────┘
   ),
-  [shrek] = LAYOUT_kc(
+  [shrek] = LAYOUT(
   //         ┌────────┬────────┬────────┐
 
-                MPRV  ,  MPLY  ,  MNXT  ,
+               KC_MPRV, KC_MPLY, KC_MNXT,
 
   //    ├────────┼────────┼────────┼────────┼
 
-           BRID  ,  VOLD  ,  VOLU  ,  BRIU  ,
+          KC_BRID, KC_VOLD, KC_VOLU, KC_BRIU,
 
   //    ├────────┼────────┼────────┼────────┼
 
-               oooo   ,  oooo  , oooo
+               KC_oooo, KC_oooo, KC_oooo
 
   //         └────────┴────────┴────────┘
   ),
-  [ogre] = LAYOUT_kc(
+  [ogre] = LAYOUT(
   //         ┌────────┬────────┬────────┐
 
-                RNXT  ,  RTOG   ,   RPRV  ,
+               KC_RNXT, KC_RTOG, KC_RPRV,
 
   //    ├────────┼────────┼────────┼────────┼
 
-           F13   ,   F14  ,   F15  ,  F16   ,
+           KC_F13,  KC_F14,  KC_F15,  KC_F16,
 
   //    ├────────┼────────┼────────┼────────┼
 
-               oooo   ,  oooo  , oooo
+               KC_oooo, KC_oooo, KC_oooo
 
   //         └────────┴────────┴────────┘
   ),
-  [tcp] = LAYOUT_kc(
+  [tcp] = LAYOUT(
   //         ┌────────┬────────┬────────┐
 
-                WBAK  ,  WREF  ,  WFWD  ,
+               KC_WBAK, KC_WREF, KC_WFWD,
 
   //    ├────────┼────────┼────────┼────────┼
 
-           XXXX  ,  PGDN  ,  PGUP  ,  XXXX  ,
+          KC_XXXX, KC_PGDN, KC_PGUP, KC_XXXX,
 
   //    ├────────┼────────┼────────┼────────┼
 
-               oooo   ,  oooo  , oooo
+               KC_oooo, KC_oooo, KC_oooo
 
   //         └────────┴────────┴────────┘
   ),

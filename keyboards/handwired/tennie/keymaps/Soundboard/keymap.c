@@ -23,20 +23,18 @@
 #define base  0
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  // LAYOUT_kc() allows you to ommit the KC_ in front of a keycode.
-  // If you want to use 'KC_', use LAYOUT() instead
-  [base] = LAYOUT_kc(
+  [base] = LAYOUT(
   //         ┌────────┬────────┬────────┐
 
-              F13  , F14 ,  F15 ,
+               KC_F13 , KC_F14 , KC_F15 ,
 
   //    ├────────┼────────┼────────┼────────┼
 
-            F16  ,   F17    ,    F18   ,    F19   ,
+          KC_F16 , KC_F17 , KC_F18 , KC_F19 ,
 
   //    ├────────┼────────┼────────┼────────┼
 
-                  F20 ,  F21   ,   F22
+                KC_F20, KC_F21 , KC_F22
 
   //         └────────┴────────┴────────┘
   ),

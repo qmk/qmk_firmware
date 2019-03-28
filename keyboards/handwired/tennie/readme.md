@@ -1,10 +1,11 @@
 # Tennie
 
-![tennie](imgur.com image replace me!)
+![tennie](https://raw.githubusercontent.com/StoutIEEE/macropad-workshop/master/images/macropad.jpg)
 
 A ten key macropad for a club workshop! More information, and build instructions can be found [here](https://github.com/StoutIEEE/macropad-workshop)
 
 Keyboard Maintainer: [Jack Hildebrandt](https://github.com/onemorebyte), [UW Stout IEEE](https://github.com/StoutIEEE)
+
 Hardware Supported: ProMicro
 
 Make example for this keyboard (after setting up your build environment):
