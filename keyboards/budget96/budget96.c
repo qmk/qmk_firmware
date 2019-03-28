@@ -25,7 +25,7 @@
 #include <avr/pgmspace.h>
 
 #include "action_layer.h"
-#include "i2c_master.h"
+#include "i2c.h"
 #include "quantum.h"
 
 __attribute__ ((weak))
@@ -45,7 +45,7 @@ void rgblight_set(void) {
     }
 
     i2c_init();
-    i2c_transmit(0xb0, (uint8_t*)led, 3 * RGBLED_NUM, 100);
+    i2c_send(0xb0, (uint8_t*)led, 3 * RGBLED_NUM);
 }
 #endif
 
