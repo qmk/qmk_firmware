@@ -79,6 +79,24 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
     return false;
     break;
+  case KC_BACK:
+    register_code(KC_LALT);
+    tap_code(KC_LEFT);
+    unregister_code(KC_LALT);
+    break;
+  case KC_FWD:
+    register_code(KC_LALT);
+    tap_code(KC_RGHT);
+    unregister_code(KC_LALT);
+    break;
+  case KC_RDP:
+    register_code(KC_LGUI);
+    tap_code(KC_R);
+    unregister_code(KC_LGUI);
+    wait_ms(500);
+    send_string_with_delay_P(PSTR("mstsc"), 10);
+    send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
+    break;
   }
   return process_record_keymap(keycode, record);
 }
