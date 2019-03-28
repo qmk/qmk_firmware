@@ -683,32 +683,30 @@ void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val) {
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
-  LED_TYPE *start_led = led + clipping_start_pos;
+  LED_TYPE led_frame[RGBLED_NUM];
+  LED_TYPE *start_led = led_frame + clipping_start_pos;
   uint16_t num_leds = clipping_num_leds;
   if (rgblight_config.enable) {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-      led[i].r = pgm_read_byte(&CIE1931_CURVE[led[i].r]);
-      led[i].g = pgm_read_byte(&CIE1931_CURVE[led[i].g]);
-      led[i].b = pgm_read_byte(&CIE1931_CURVE[led[i].b]);
+      #ifdef RGBLIGHT_LED_MAP
+      uint8_t src_led_idx = pgm_read_byte(&led_map[i]);
+      #else
+      uint8_t src_led_idx = i;
+      #endif
+      led_frame[i].r = pgm_read_byte(&CIE1931_CURVE[led[src_led_idx].r]);
+      led_frame[i].g = pgm_read_byte(&CIE1931_CURVE[led[src_led_idx].g]);
+      led_frame[i].b = pgm_read_byte(&CIE1931_CURVE[led[src_led_idx].b]);
       #ifdef RGBW
-      led[i].w = pgm_read_byte(&CIE1931_CURVE[led[i].w]);
+      led_frame[i].w = pgm_read_byte(&CIE1931_CURVE[led[src_led_idx].w]);
       #endif
     }
-
-    #ifdef RGBLIGHT_LED_MAP
-      LED_TYPE led0[RGBLED_NUM];
-      for(uint8_t i = 0; i < RGBLED_NUM; i++) {
-          led0[i] = led[pgm_read_byte(&led_map[i])];
-      }
-      start_led = led0 + clipping_start_pos;
-    #endif
   } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-      led[i].r = 0;
-      led[i].g = 0;
-      led[i].b = 0;
+      led_frame[i].r = 0;
+      led_frame[i].g = 0;
+      led_frame[i].b = 0;
       #ifdef RGBW
-      led[i].w = 0;
+      led_frame[i].w = 0;
       #endif
     }
   }
