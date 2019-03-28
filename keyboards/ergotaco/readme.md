@@ -9,11 +9,13 @@ Hardware Supported: ErgoTaco
 Hardware Availability: [gboards.ca](http://gboards.ca)  
 
 ## Firmware building
-After cloning the QMK repo and installing dfu-programmer build and flash with. Be sure to reset your keyboard!
+Clone the QMK Repo and install dfu-programmer, flash with:
 
     make ergotaco:default:dfu
 
-To just test your build with the default keymap
+And reset your keyboard!
+
+To just test if your build system is sane, try compiling the default keymap using:
    
     make ergotaco:default
 

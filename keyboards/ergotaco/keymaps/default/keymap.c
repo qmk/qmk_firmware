@@ -28,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * ,-------------------------------------------------.           ,--------------------------------------------.
  * |       |      |      |      |      |      |      |           |       |      |      |      |      |        |
  * `-------+------+------+------+------+-------------'           `-------+------+------+------+------+--------'
-[FIESTA] = LAYOUT_TACO(  
+[FIESTA] = LAYOUT(  
    KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 ),
  */
