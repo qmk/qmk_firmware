@@ -47,6 +47,10 @@ extern backlight_config_t backlight_config;
 #include "process_midi.h"
 #endif
 
+#ifdef VELOCIKEY_ENABLE
+#include "velocikey.h"
+#endif
+
 #ifdef HAPTIC_ENABLE
     #include "haptic.h"
 #endif
@@ -251,6 +255,10 @@ bool process_record_quantum(keyrecord_t *record) {
     //   return false;
     // }
 
+  #ifdef VELOCIKEY_ENABLE
+    if (velocikey_enabled() && record->event.pressed) { velocikey_accelerate(); }
+  #endif
+
   #ifdef TAP_DANCE_ENABLE
     preprocess_tap_dance(keycode, record);
   #endif
@@ -352,9 +360,6 @@ bool process_record_quantum(keyrecord_t *record) {
     if (!record->event.pressed) {
     #endif
       rgblight_toggle();
-      #ifdef SPLIT_KEYBOARD
-          RGB_DIRTY = true;
-      #endif
     }
     return false;
   case RGB_MODE_FORWARD:
@@ -366,9 +371,6 @@ bool process_record_quantum(keyrecord_t *record) {
       else {
         rgblight_step();
       }
-      #ifdef SPLIT_KEYBOARD
-          RGB_DIRTY = true;
-      #endif
     }
     return false;
   case RGB_MODE_REVERSE:
@@ -380,9 +382,6 @@ bool process_record_quantum(keyrecord_t *record) {
       else {
         rgblight_step_reverse();
       }
-      #ifdef SPLIT_KEYBOARD
-          RGB_DIRTY = true;
-      #endif
     }
     return false;
   case RGB_HUI:
@@ -393,9 +392,6 @@ bool process_record_quantum(keyrecord_t *record) {
     if (!record->event.pressed) {
     #endif
       rgblight_increase_hue();
-      #ifdef SPLIT_KEYBOARD
-          RGB_DIRTY = true;
-      #endif
     }
     return false;
   case RGB_HUD:
@@ -406,9 +402,6 @@ bool process_record_quantum(keyrecord_t *record) {
     if (!record->event.pressed) {
     #endif
       rgblight_decrease_hue();
-      #ifdef SPLIT_KEYBOARD
-          RGB_DIRTY = true;
-      #endif
     }
     return false;
   case RGB_SAI:
@@ -419,9 +412,6 @@ bool process_record_quantum(keyrecord_t *record) {
     if (!record->event.pressed) {
     #endif
       rgblight_increase_sat();
-      #ifdef SPLIT_KEYBOARD
-          RGB_DIRTY = true;
-      #endif
     }
     return false;
   case RGB_SAD:
@@ -432,9 +422,6 @@ bool process_record_quantum(keyrecord_t *record) {
     if (!record->event.pressed) {
     #endif
       rgblight_decrease_sat();
-      #ifdef SPLIT_KEYBOARD
-          RGB_DIRTY = true;
-      #endif
     }
     return false;
   case RGB_VAI:
@@ -445,9 +432,6 @@ bool process_record_quantum(keyrecord_t *record) {
     if (!record->event.pressed) {
     #endif
       rgblight_increase_val();
-      #ifdef SPLIT_KEYBOARD
-          RGB_DIRTY = true;
-      #endif
     }
     return false;
   case RGB_VAD:
@@ -458,9 +442,6 @@ bool process_record_quantum(keyrecord_t *record) {
     if (!record->event.pressed) {
     #endif
       rgblight_decrease_val();
-      #ifdef SPLIT_KEYBOARD
-          RGB_DIRTY = true;
-      #endif
     }
     return false;
   case RGB_SPI:
@@ -476,9 +457,6 @@ bool process_record_quantum(keyrecord_t *record) {
   case RGB_MODE_PLAIN:
     if (record->event.pressed) {
       rgblight_mode(RGBLIGHT_MODE_STATIC_LIGHT);
-      #ifdef SPLIT_KEYBOARD
-          RGB_DIRTY = true;
-      #endif
     }
     return false;
   case RGB_MODE_BREATHE:
@@ -568,7 +546,14 @@ bool process_record_quantum(keyrecord_t *record) {
   #endif
     return false;
   #endif // defined(RGBLIGHT_ENABLE) || defined(RGB_MATRIX_ENABLE)
-    #ifdef PROTOCOL_LUFA
+  #ifdef VELOCIKEY_ENABLE
+    case VLK_TOG:
+      if (record->event.pressed) {
+        velocikey_toggle();
+      }
+      return false;
+  #endif
+  #ifdef PROTOCOL_LUFA
     case OUT_AUTO:
       if (record->event.pressed) {
         set_output(OUTPUT_AUTO);
