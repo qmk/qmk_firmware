@@ -102,7 +102,7 @@ void matrix_init(void) {
   matrix_timer      = timer_read32();
   matrix_scan_count = 0;
 #endif
-
+  debounce_init(MATRIX_ROWS);
   matrix_init_quantum();
 }
 
@@ -167,7 +167,7 @@ uint8_t matrix_scan(void) {
 
     // grab left + right cols.
     raw_matrix[i] = read_cols(i);    
-    raw_matrix[i] = read_cols(i+MATRIX_ROWS_PER_SIDE);
+    raw_matrix[i+MATRIX_ROWS_PER_SIDE] = read_cols(i+MATRIX_ROWS_PER_SIDE);
     
     unselect_rows();
   }
