@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "passwords.c" //Instead of extern just to cut down on compile time.
 #define MOUSEL KC_BTN1
 #define MOUSER KC_BTN2
 #define CTRLL LCTL(KC_LEFT)
@@ -47,10 +48,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 	[0] = LAYOUT_planck_2x2u(
-		KC_TAB,	KC_QUOT,KC_COMM,KC_DOT,	KC_P,	KC_Y,	KC_F,	KC_G,	KC_C,	KC_R,	KC_L,	TD(BCK),
-		TT(3),	KC_A,	KC_O,	KC_E,	KC_U,	KC_I,	KC_D,	KC_H,	KC_T,	KC_N,	KC_S,	KC_ENT,
-		KC_LSFT,KC_SCLN,KC_Q,	KC_J,	KC_K,	KC_X,	KC_B,	KC_M,	KC_W,	KC_V,	KC_Z,	KC_RSFT,
-		KC_ESC,	MOUSER,	MOUSEL,	KC_LCTL,		KC_SPC,	TT(2),			KC_LGUI,KC_VOLD,KC_VOLU,OSL(4)
+		KC_TAB,	KC_QUOT,KC_COMM,KC_DOT,	KC_P,		KC_Y,		KC_F,		KC_G,		KC_C,		KC_R,		KC_L,		TD(BCK),
+		TT(3),	KC_A,		KC_O,		KC_E,		KC_U,		KC_I,		KC_D,		KC_H,		KC_T,		KC_N,		KC_S,		KC_ENT,
+		KC_LSFT,KC_SCLN,KC_Q,		KC_J,		KC_K,		KC_X,		KC_B,		KC_M,		KC_W,		KC_V,		KC_Z,		KC_RSFT,
+		KC_ESC,	MOUSER,	MOUSEL,	KC_LCTL,				KC_SPC,	TT(2),					KC_LGUI,KC_VOLD,KC_VOLU,OSL(4)
 	),
 /* Custom Shifts
  * ,-----------------------------------------------------------------------------------.
@@ -64,10 +65,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 	[1] = LAYOUT_planck_2x2u(
-		KC_TRNS,KC_TRNS,KC_SLSH,KC_1,	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
+		KC_TRNS,KC_TRNS,KC_SLSH,KC_1,		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 		KC_NO,	KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
 		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,
-		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,		KC_TRNS,KC_NO,			KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
+		KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS,				KC_TRNS,KC_NO,					KC_TRNS,KC_TRNS,KC_TRNS,KC_TRNS
 	),
 /* Modifier
  * ,-----------------------------------------------------------------------------------.
@@ -81,24 +82,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `-----------------------------------------------------------------------------------'
  */
 	[2] = LAYOUT_planck_2x2u(
-		KC_TAB,	KC_PLUS,KC_PMNS,KC_ASTR,TD(FB),HK_IF,	HK_ELSE,TD(LPN),TD(RPN),KC_LCBR,KC_RCBR,TD(BCK),
-		KC_PEQL,KC_1,	KC_2,	KC_3,	KC_4,	KC_5,	KC_6,	KC_7,	KC_8,	KC_9,	KC_0,	KC_ENT,
+		KC_TAB,	KC_PLUS,KC_PMNS,KC_ASTR,TD(FB),	HK_IF,	HK_ELSE,TD(LPN),TD(RPN),KC_LCBR,KC_RCBR,TD(BCK),
+		KC_PEQL,KC_1,		KC_2,		KC_3,		KC_4,		KC_5,		KC_6,		KC_7,		KC_8,		KC_9,		KC_0,		KC_ENT,
 		KC_NO,	KC_LT,	KC_GT,	KC_AMPR,KC_PIPE,KC_UNDS,KC_DLR,	KC_AT,	KC_HASH,KC_PERC,KC_CIRC,KC_NO,
-		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_SPC,	KC_TRNS,		KC_NO,	KC_NO,	KC_NO,	KC_NO
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,					KC_SPC,	KC_TRNS,				KC_NO,	KC_NO,	KC_NO,	KC_NO
 	),
 //Nav
 	[3] = LAYOUT_planck_2x2u(
 		KC_TAB,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_HOME,KC_UP,	KC_END,	KC_NO,	TD(BCK),
 		KC_TRNS,KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	CTRLL,	KC_LEFT,KC_DOWN,KC_RGHT,CTRLR,	KC_ENT,
 		KC_LSFT,KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
-		KC_NO,	KC_NO,	KC_NO,	KC_NO,			KC_SPC,	KC_NO,			KC_NO,	KC_NO,	KC_NO,	KC_NO
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,					KC_SPC,	KC_NO,					KC_NO,	KC_NO,	KC_NO,	KC_NO
 	),
 //AHK-Bindable Macros
 	[4] = LAYOUT_planck_2x2u(
-		KC_F13,	KC_F14,	KC_F15,	KC_F16,	KC_F17,	KC_F18,	KC_F19,	KC_F20,	KC_F21,	KC_F22,	KC_F23,	KC_F24,
+		KC_F13,			 KC_F14,			KC_F15,			 KC_F16,			KC_F17,			 KC_F18,			KC_F19,			 KC_F20,			KC_F21,			 KC_F22,			KC_F23,			 KC_F24,
 		LCTL(KC_F13),LCTL(KC_F14),LCTL(KC_F15),LCTL(KC_F16),LCTL(KC_F17),LCTL(KC_F18),LCTL(KC_F19),LCTL(KC_F20),LCTL(KC_F21),LCTL(KC_F22),LCTL(KC_F23),LCTL(KC_F24),
 		LSFT(KC_F13),LSFT(KC_F14),LSFT(KC_F15),LSFT(KC_F16),LSFT(KC_F17),LSFT(KC_F18),LSFT(KC_F19),LSFT(KC_F20),LSFT(KC_F21),LSFT(KC_F22),LSFT(KC_F23),LSFT(KC_F24),
-		RESET,			 LALT(KC_F14),LALT(KC_F15),LALT(KC_F16),											CAD,LALT(KC_F19),							LALT(KC_F21),LALT(KC_F22),HK_SLP,      KC_TRNS
+		RESET,			 LALT(KC_F14),LALT(KC_F15),TG(6),															CAD,LALT(KC_F19),							LALT(KC_F21),LALT(KC_F22),HK_SLP,      KC_TRNS
 	),
 //Locked Screen
 	[5] = LAYOUT_planck_2x2u(
@@ -106,6 +107,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,					KC_NO,	KC_NO,					KC_NO,	KC_NO,	HK_SLP,	KC_NO
+	),
+//Passwords (by first letter of service name, at least better than just 1)
+	[6] = LAYOUT_planck_2x2u(
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_P,		KC_Y,		KC_F,		KC_G,		KC_C,		KC_R,		KC_L,		KC_NO,
+		KC_NO,	KC_A,		KC_O,		KC_E,		KC_U,		KC_I,		KC_D,		KC_H,		KC_T,		KC_N,		KC_S,		KC_NO,
+		KC_NO,	KC_NO,	KC_Q,		KC_J,		KC_K,		KC_X,		KC_B,		KC_M,		KC_W,		KC_V,		KC_Z,		KC_NO,
+		KC_NO,	KC_NO,	KC_NO,	KC_NO,					KC_NO,	KC_NO,					KC_NO,	KC_NO,	KC_NO,	TG(6)
 	)
 };
 
@@ -148,6 +156,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 				layer_invert(5);
 			}
 			return false;
+		default:
+			if(IS_LAYER_ON(6) && keycode <= KC_Z) {
+				SEND_STRING(passwords[keycode - KC_A]);
+				layer_invert(6);
+				return false;
+			}
 	}
 	return true;
 };
