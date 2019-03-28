@@ -127,7 +127,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case SSRCB:
       if (record->event.pressed) {
-        // SEND_STRING(SS_TAP(X_HOME));
         register_code(KC_LCTL);
         register_code(KC_LGUI);
         register_code(KC_LSFT);
