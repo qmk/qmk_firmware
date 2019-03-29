@@ -118,16 +118,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 		//if shift pressed and not shift layer or released and other shift not pressed
 		//in separate things because MOD_BIT probably isn't toggled until after this returns true and shift is actually toggled
 		case KC_LSFT: //if pressed and not shift layer or released and other shift not pressed
-			if((record->event.pressed && !IS_LAYER_ON(3)) || (!record->event.pressed && !(keyboard_report->mods & (MOD_BIT(KC_RSFT)))))
+			if((record->event.pressed && !IS_LAYER_ON(1)) || (!record->event.pressed && !(keyboard_report->mods & (MOD_BIT(KC_RSFT)))))
 				layer_invert(1);
 			break;
 		case KC_RSFT:
-			if((record->event.pressed && !IS_LAYER_ON(3)) || (!record->event.pressed && !(keyboard_report->mods & (MOD_BIT(KC_LSFT)))))
+			if((record->event.pressed && !IS_LAYER_ON(1)) || (!record->event.pressed && !(keyboard_report->mods & (MOD_BIT(KC_LSFT)))))
 				layer_invert(1);
 			break;
 		case KC_ENT: //won't repeat on hold and I can't find a solution other than hardcoding timers but I kinda prefer it anyway. Swaps enter and shift enter
 			if(record->event.pressed) {
-				if(IS_LAYER_ON(3)) { //if shifted release correct shift, send, and press same shift
+				if(IS_LAYER_ON(1)) { //if shifted release correct shift, send, and press same shift
 					if(keyboard_report->mods & (MOD_BIT(KC_LSFT)))
 						SEND_STRING(SS_UP(X_LSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_LSHIFT));
 					else
@@ -176,12 +176,8 @@ int cur_dance(qk_tap_dance_state_t *state) {
 void back_tap(qk_tap_dance_state_t *state, void *user_data) { tap_code(KC_BSPACE); }
 
 void back_finished(qk_tap_dance_state_t *state, void *user_data) {
-  int td_state = cur_dance(state);
-  switch(td_state) {
-    case SINGLE_HOLD:
+  if(!(state->interrupted || !state->pressed))
       tap_code16(LCTL(KC_BSPACE));
-      break;
-  }
 }
 
 void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
@@ -201,11 +197,6 @@ void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
     case DOUBLE_TAP:
       tap_code(KC_PMNS);
       tap_code(KC_PMNS);
-			break;
-		case TRIPLE_TAP:
-      tap_code(KC_PMNS);
-      tap_code(KC_PMNS);
-			tap_code(KC_PMNS);
   }
 }
 
