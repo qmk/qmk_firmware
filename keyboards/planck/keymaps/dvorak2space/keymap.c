@@ -5,7 +5,6 @@
 #define CTRLL LCTL(KC_LEFT)
 #define CTRLR LCTL(KC_RGHT)
 #define CAD LCTL(LALT(KC_DEL))
-#define IS_LAYER_ON(layer)  (layer_state & (1UL << (layer)))
 
 enum {
 	HK_SLP = SAFE_RANGE,
@@ -118,17 +117,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 		//if shift pressed and not shift layer or released and other shift not pressed
 		//in separate things because MOD_BIT probably isn't toggled until after this returns true and shift is actually toggled
 		case KC_LSFT: //if pressed and not shift layer or released and other shift not pressed
-			if((record->event.pressed && !IS_LAYER_ON(1)) || (!record->event.pressed && !(keyboard_report->mods & (MOD_BIT(KC_RSFT)))))
+			if((record->event.pressed && IS_LAYER_OFF(1)) || (!record->event.pressed && !(get_mods() & (MOD_BIT(KC_RSFT)))))
 				layer_invert(1);
 			break;
 		case KC_RSFT:
-			if((record->event.pressed && !IS_LAYER_ON(1)) || (!record->event.pressed && !(keyboard_report->mods & (MOD_BIT(KC_LSFT)))))
+			if((record->event.pressed && IS_LAYER_OFF(1)) || (!record->event.pressed && !(get_mods() & (MOD_BIT(KC_LSFT)))))
 				layer_invert(1);
 			break;
 		case KC_ENT: //won't repeat on hold and I can't find a solution other than hardcoding timers but I kinda prefer it anyway. Swaps enter and shift enter
 			if(record->event.pressed) {
 				if(IS_LAYER_ON(1)) { //if shifted release correct shift, send, and press same shift
-					if(keyboard_report->mods & (MOD_BIT(KC_LSFT)))
+					if(get_mods() & (MOD_BIT(KC_LSFT)))
 						SEND_STRING(SS_UP(X_LSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_LSHIFT));
 					else
 						SEND_STRING(SS_UP(X_RSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_RSHIFT));
@@ -147,7 +146,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 			if(record->event.pressed && IS_LAYER_ON(5))
 				SEND_STRING(SS_LALT(SS_TAP(X_F23)));
 			if(!record->event.pressed) {
-				if(!IS_LAYER_ON(5))
+				if(IS_LAYER_OFF(5))
 					SEND_STRING(SS_LALT(SS_TAP(X_F24)));
 				layer_invert(5);
 			}
@@ -187,14 +186,12 @@ void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
       tap_code(KC_PMNS);
       break;
     case SINGLE_HOLD:
-			SEND_STRING(
-				SS_DOWN(X_LALT)
-				SS_TAP(X_KP_0)
-				SS_TAP(X_KP_1)
-				SS_TAP(X_KP_5)
-				SS_TAP(X_KP_1)
-				SS_UP(X_LALT)
-			);
+			register_mods(MOD_BIT(KC_LALT));
+			tap_code(KC_KP_0);
+			tap_code(KC_KP_1);
+			tap_code(KC_KP_5);
+			tap_code(KC_KP_1);
+			unregister_mods(MOD_BIT(KC_LALT));
       break;
     case DOUBLE_TAP:
       tap_code(KC_PMNS);
