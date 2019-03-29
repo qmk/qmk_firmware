@@ -16,12 +16,12 @@
 #ifndef QUANTUM_H
 #define QUANTUM_H
 
-#ifdef __AVR__
+#if defined(__AVR__)
     #include <avr/pgmspace.h>
     #include <avr/io.h>
     #include <avr/interrupt.h>
 #endif
-#ifdef PROTOCOL_CHIBIOS
+#if defined(PROTOCOL_CHIBIOS)
     #include "hal.h"
 #endif
 
