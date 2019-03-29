@@ -181,7 +181,7 @@ If you define these options you will enable the associated feature, which may in
 * `#define RGBLED_SPLIT { 6, 6 }`
   * number of LEDs connected that are directly wired to `RGB_DI_PIN` on each half of a split keyboard
   * First value indicates number of LEDs for left half, second value is for the right half
-  * When RGBLED_SPLIT is defined, it is considered that RGBLIGHT_SPLIT is defined implicitly.
+  * When RGBLED_SPLIT is defined, RGBLIGHT_SPLIT is implicitly defined.
 * `#define RGBLIGHT_HUE_STEP 12`
   * units to step when in/decreasing hue
 * `#define RGBLIGHT_SAT_STEP 25`
