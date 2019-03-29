@@ -683,36 +683,52 @@ void rgblight_sethsv_slave(uint16_t hue, uint8_t sat, uint8_t val) {
 
 #ifndef RGBLIGHT_CUSTOM_DRIVER
 void rgblight_set(void) {
-  LED_TYPE led_frame[RGBLED_NUM];
-  LED_TYPE *start_led = led_frame + clipping_start_pos;
+  #ifdef RGBLIGHT_LED_MAP
+    LED_TYPE led_buffer[RGBLED_NUM];
+    LED_TYPE *led_dst = led_buffer;
+  #else
+    LED_TYPE *led_dst = led;
+  #endif
+  LED_TYPE *start_led = led_dst + clipping_start_pos;
   uint16_t num_leds = clipping_num_leds;
+
   if (rgblight_config.enable) {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
       #ifdef RGBLIGHT_LED_MAP
-      uint8_t src_led_idx = pgm_read_byte(&led_map[i]);
+        uint8_t led_src_idx = pgm_read_byte(&led_map[i]);
       #else
-      uint8_t src_led_idx = i;
+        uint8_t led_src_idx = i;
       #endif
-      led_frame[i].r = pgm_read_byte(&CIE1931_CURVE[led[src_led_idx].r]);
-      led_frame[i].g = pgm_read_byte(&CIE1931_CURVE[led[src_led_idx].g]);
-      led_frame[i].b = pgm_read_byte(&CIE1931_CURVE[led[src_led_idx].b]);
-      #ifdef RGBW
-      led_frame[i].w = pgm_read_byte(&CIE1931_CURVE[led[src_led_idx].w]);
+
+      #ifdef USE_CIE1931_CURVE
+        led_dst[i].r = pgm_read_byte(&CIE1931_CURVE[led[led_src_idx].r]);
+        led_dst[i].g = pgm_read_byte(&CIE1931_CURVE[led[led_src_idx].g]);
+        led_dst[i].b = pgm_read_byte(&CIE1931_CURVE[led[led_src_idx].b]);
+        #ifdef RGBW
+          led_dst[i].w = pgm_read_byte(&CIE1931_CURVE[led[led_src_idx].w]);
+        #endif
+      #else
+        led_dst[i].r = led[led_src_idx].r;
+        led_dst[i].g = led[led_src_idx].g;
+        led_dst[i].b = led[led_src_idx].b;
+        #ifdef RGBW
+          led_dst[i].w = led[led_src_idx].w;
+        #endif
       #endif
     }
   } else {
     for (uint8_t i = 0; i < RGBLED_NUM; i++) {
-      led_frame[i].r = 0;
-      led_frame[i].g = 0;
-      led_frame[i].b = 0;
+      led_dst[i].r = 0;
+      led_dst[i].g = 0;
+      led_dst[i].b = 0;
       #ifdef RGBW
-      led_frame[i].w = 0;
+        led_dst[i].w = 0;
       #endif
     }
   }
 
   #ifdef RGBW_BB_TWI
-  ledbbtwi_setleds(start_led, num_leds);
+    ledbbtwi_setleds(start_led, num_leds);
   #endif
 
   ws2812_setleds(start_led, num_leds);
