@@ -35,7 +35,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [9key](/keyboards/9key) &mdash; A 9-key minipad sold by Bishop Keyboards.
 * [Alps64](/keyboards/alps64) &mdash; A 60% keyboard for Alps keyswitches.
 * [AMJ60](/keyboards/amj60) &mdash; DIY/Assembled compact 60% keyboard.
-* [Arrow Pad](/keyboards/arrow_pad) &mdash; A custom creation by IBNobody.
+* [Arrow Pad](/keyboards/handwired/arrow_pad) &mdash; A custom creation by IBNobody.
 * [Atreus](/keyboards/atreus) &mdash; Made by Technomancy.
 * [Bantam44](/keyboards/bantam44) &mdash; It is a 44-key 40% staggered keyboard.
 * [DataHand](/keyboards/handwired/datahand) &mdash; DataHand keyboard converted to use a Teensy board.
@@ -53,7 +53,7 @@ These keyboards are part of the QMK repository, but their manufacturers are not 
 * [The Kitten Paw](/keyboards/kitten_paw) &mdash; A replacement controller (2016 revision) for the Filco Majestouch by [Bathroom Epiphanies](https://github.com/BathroomEpiphanies).
 * [Lets Split](/keyboards/lets_split) - Split ortholinear 40% keyboard.
 * [Phantom](/keyboards/phantom) &mdash; A tenkeyless kit by Teel, also from Geekhack.
-* [Retro Refit](/keyboards/retro_refit) &mdash; Another creation by IBNobody.
+* [Retro Refit](/keyboards/handwired/retro_refit) &mdash; Another creation by IBNobody.
 * [S60-x](/keyboards/s60_x) &mdash; DIY compact keyboard designed by VinnyCordeiro for Sentraq.
 * [Satan](/keyboards/satan) &mdash; A GH60 variant.
 * [SixKeyBoard](/keyboards/sixkeyboard) &mdash; A 6-key keyboard made by TechKeys.
