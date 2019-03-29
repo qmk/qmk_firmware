@@ -88,4 +88,13 @@ CONSOLE_ENABLE = no        # Console for debug(+400)
 COMMAND_ENABLE = no        # Commands for debug and configuration
 
 SPLIT_KEYBOARD = yes
-DEFAULT_FOLDER = handwired/pdhelix/pd0
+DEFAULT_FOLDER = handwired/pdhelix/pd2
+
+ifeq ($(strip $(RGBLIGHT_TEST)), 1)
+  RGBLIGHT_ENABLE = no  # disable rgblight
+else ifeq ($(strip $(RGBLIGHT_TEST)), 2)
+  RGBLIGHT_ENABLE = yes # enable rgblight without sync
+else ifeq ($(strip $(RGBLIGHT_TEST)), 3)
+  RGBLIGHT_ENABLE = yes
+  OPT_DEFS += -DRGBLIGHT_SPLIT # enable rgblight with sync
+endif
