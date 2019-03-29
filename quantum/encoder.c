@@ -17,10 +17,8 @@
 
 #include "encoder.h"
 
-#ifdef SPLIT_KEYBOARD
-  // for memcpy
-  #include <string.h>
-#endif
+// for memcpy
+#include <string.h>
 
 
 #ifndef ENCODER_RESOLUTION
