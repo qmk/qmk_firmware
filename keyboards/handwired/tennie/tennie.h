@@ -13,8 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef TENNIE_H
-#define TENNIE_H
+#pragma once
 
 #include "quantum.h"
 
@@ -36,17 +35,3 @@
     { K10, K11, K12, K13   }, \
     { K20, K21, K22, KC_NO }, \
 }
-
-#define LAYOUT_kc( \
-         K00, K01, K02,    \
-      K10,  K11, K12, K13, \
-         K20, K21, K22     \
-) \
-{ \
-    { KC_##K00, KC_##K01, KC_##K02, KC_NO }, \
-    { KC_##K10, KC_##K11, KC_##K12, KC_##K13   }, \
-    { KC_##K20, KC_##K21, KC_##K22, KC_NO }, \
-}
-
-
-#endif

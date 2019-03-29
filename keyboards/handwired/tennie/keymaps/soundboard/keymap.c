@@ -15,10 +15,6 @@
  */
 #include QMK_KEYBOARD_H
 
-// Custom keycode definitions, and keycode renames
-#define KC_oooo KC_TRNS
-#define KC_XXXX KC_NO
-
 // Layer names
 #define base  0
 

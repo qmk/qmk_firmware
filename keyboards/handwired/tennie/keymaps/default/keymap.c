@@ -17,13 +17,6 @@
 
 #define TAPPING_TOGGLE 2
 
-// Custom keycode definitions, and keycode renames
-#define KC_LTST RGB_MODE_RGBTEST
-#define KC_RTOG RGB_TOG
-#define KC_RNXT RGB_MODE_FORWARD
-#define KC_RPRV RGB_MODE_REVERSE
-#define KC_oooo KC_TRNS
-#define KC_XXXX KC_NO
 
 // Layer names
 #define base  0
@@ -46,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   //    ├────────┼────────┼────────┼────────┼
 
-          KC_LEFT, KC_DOWN,   KC_UP, KC_RGHT,
+          KC_LEFT, KC_DOWN, KC_UP  , KC_RGHT,
 
   //    ├────────┼────────┼────────┼────────┼
 
@@ -65,14 +58,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   //    ├────────┼────────┼────────┼────────┼
 
-               KC_oooo, KC_oooo, KC_oooo
+              _______, _______, _______
 
   //         └────────┴────────┴────────┘
   ),
   [ogre] = LAYOUT(
   //         ┌────────┬────────┬────────┐
 
-               KC_RNXT, KC_RTOG, KC_RPRV,
+              RGB_MOD, RGB_TOG,RGB_RMOD,
 
   //    ├────────┼────────┼────────┼────────┼
 
@@ -80,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   //    ├────────┼────────┼────────┼────────┼
 
-               KC_oooo, KC_oooo, KC_oooo
+               _______, _______, _______
 
   //         └────────┴────────┴────────┘
   ),
@@ -91,11 +84,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   //    ├────────┼────────┼────────┼────────┼
 
-          KC_XXXX, KC_PGDN, KC_PGUP, KC_XXXX,
+          XXXXXXX, KC_PGDN, KC_PGUP, XXXXXXX,
 
   //    ├────────┼────────┼────────┼────────┼
 
-               KC_oooo, KC_oooo, KC_oooo
+              _______, _______, _______
 
   //         └────────┴────────┴────────┘
   ),
