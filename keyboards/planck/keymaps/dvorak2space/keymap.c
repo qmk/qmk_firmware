@@ -11,28 +11,24 @@ enum {
 	HK_SLP = SAFE_RANGE,
 	HK_IF,
 	HK_ELSE
-	//only needed if not existing key
 };
 
 enum {
 	FB = 0,
 	LPN,
 	RPN,
-	BCK
+	BCK,
+	DSH
 };
 
-void backspace(qk_tap_dance_state_t *state, void *user_data) {
-  if(state->count == 1 || keyboard_report->mods & (MOD_BIT(KC_LSFT)) || keyboard_report->mods & (MOD_BIT(KC_RSFT)))
-    SEND_STRING(SS_TAP(X_BSPACE));
-  else
-    SEND_STRING(SS_LCTRL(SS_TAP(X_BSPACE)));
-}
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-	[FB] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS),
-	[LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LCBR),
-	[RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RCBR),
-	[BCK] = ACTION_TAP_DANCE_FN(backspace)
+enum {
+  SINGLE_TAP = 1,
+  SINGLE_HOLD = 2,
+  DOUBLE_TAP = 3,
+  DOUBLE_HOLD = 4,
+  DOUBLE_SINGLE_TAP = 5, //Distinguishes between double tapping and typing, "tapping", for example
+  TRIPLE_TAP = 6,
+  TRIPLE_HOLD = 7
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -164,4 +160,59 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 			}
 	}
 	return true;
+};
+
+//tapdance state evaluation
+int cur_dance(qk_tap_dance_state_t *state) {
+  if(state->count == 1) {
+    if(state->interrupted || !state->pressed) { return SINGLE_TAP; }
+    else { return SINGLE_HOLD; }
+  }
+  else if(state->count == 2) { return DOUBLE_TAP; }
+	else if(state->count == 3) { return TRIPLE_TAP; }
+  else { return false; }
+}
+
+void back_tap(qk_tap_dance_state_t *state, void *user_data) { tap_code(KC_BSPACE); }
+
+void back_finished(qk_tap_dance_state_t *state, void *user_data) {
+  int td_state = cur_dance(state);
+  switch(td_state) {
+    case SINGLE_HOLD:
+      tap_code16(LCTL(KC_BSPACE));
+      break;
+  }
+}
+
+void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
+  int td_state = cur_dance(state);
+  switch(td_state) {
+    case SINGLE_TAP:
+      tap_code(KC_PMNS);
+      break;
+    case SINGLE_HOLD:
+      register_mods(MOD_BIT(KC_LALT));
+			tap_code(KC_KP_0);
+			tap_code(KC_KP_1);
+			tap_code(KC_KP_5);
+			tap_code(KC_KP_1);
+			unregister_mods(MOD_BIT(KC_LALT));
+      break;
+    case DOUBLE_TAP:
+      tap_code(KC_PMNS);
+      tap_code(KC_PMNS);
+			break;
+		case TRIPLE_TAP:
+      tap_code(KC_PMNS);
+      tap_code(KC_PMNS);
+			tap_code(KC_PMNS);
+  }
+}
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+	[FB] = ACTION_TAP_DANCE_DOUBLE(KC_SLSH, KC_NUBS),
+	[LPN] = ACTION_TAP_DANCE_DOUBLE(KC_LPRN, KC_LCBR),
+	[RPN] = ACTION_TAP_DANCE_DOUBLE(KC_RPRN, KC_RCBR),
+	[BCK] = ACTION_TAP_DANCE_FN_ADVANCED(back_tap, back_finished, NULL), //each tap, on finished, and reset. Normally register_code on press unregister on reset so keys
+	[DSH] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dash_finished, NULL) //can be held down, but in both cases a trigger I'm using is holding them down so no point.
 };
