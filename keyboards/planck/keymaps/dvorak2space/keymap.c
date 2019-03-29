@@ -191,21 +191,18 @@ void dash_finished(qk_tap_dance_state_t *state, void *user_data) {
       tap_code(KC_PMNS);
       break;
     case SINGLE_HOLD:
-      register_mods(MOD_BIT(KC_LALT));
-			tap_code(KC_KP_0);
-			tap_code(KC_KP_1);
-			tap_code(KC_KP_5);
-			tap_code(KC_KP_1);
-			unregister_mods(MOD_BIT(KC_LALT));
+			SEND_STRING(
+				SS_DOWN(X_LALT)
+				SS_TAP(X_KP_0)
+				SS_TAP(X_KP_1)
+				SS_TAP(X_KP_5)
+				SS_TAP(X_KP_1)
+				SS_UP(X_LALT)
+			);
       break;
     case DOUBLE_TAP:
       tap_code(KC_PMNS);
       tap_code(KC_PMNS);
-			break;
-		case TRIPLE_TAP:
-      tap_code(KC_PMNS);
-      tap_code(KC_PMNS);
-			tap_code(KC_PMNS);
   }
 }
 
