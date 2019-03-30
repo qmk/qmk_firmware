@@ -128,9 +128,15 @@ volatile Serial_s2m_buffer_t serial_s2m_buffer = {};
 volatile Serial_m2s_buffer_t serial_m2s_buffer = {};
 uint8_t volatile status0                       = 0;
 
+enum serial_transaction_id {
+    GET_SLAVE_MATRIX = 0,
+#if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
+    PUT_RGBLIGHT,
+#endif
+};
+
 SSTD_t transactions[] = {
-    {
-#define GET_SLAVE_MATRIX 0
+    [GET_SLAVE_MATRIX] = {
         (uint8_t *)&status0,
         sizeof(serial_m2s_buffer),
         (uint8_t *)&serial_m2s_buffer,
@@ -138,12 +144,11 @@ SSTD_t transactions[] = {
         (uint8_t *)&serial_s2m_buffer,
     },
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
-#define PUT_RGBLIGHT  1
-    {
+    [PUT_RGBLIGHT] = {
         (uint8_t *)&status_rgblight,
         sizeof(serial_rgblight),
         (uint8_t *)&serial_rgblight,
-        0, NULL
+        0, NULL // no slave to master transfer
     },
 #endif
 };
