@@ -4,7 +4,7 @@
 #include "claw44.h"
 
 #define L_BASE 0
-#define L_LOWER 2
+#define L_LOWER (1<<_LOWER)
 #define L_RAISE 4
 #define L_ADJUST 65536
 #define L_ADJUST_TRI 65560
