@@ -13,7 +13,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#include "2x1800.h"
+#include "2018.h"
 
 void matrix_init_kb(void) {
 	// Set our LED pins as output
