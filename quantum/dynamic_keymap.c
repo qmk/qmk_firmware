@@ -224,7 +224,7 @@ void dynamic_keymap_macro_send( uint8_t id )
 		}
 		// If the char is magic (tap, down, up),
 		// add the next char (key to use) and send a 2 char string.
-		if ( data[0] == 1 || data[0] == 2 || data[0] == 3 ) {
+		if ( data[0] == SS_TAP_CODE || data[0] == SS_DOWN_CODE || data[0] == SS_UP_CODE ) {
 			data[1] = eeprom_read_byte(p++);
 			if ( data[1] == 0 ) {
 				break;
