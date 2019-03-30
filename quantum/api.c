@@ -67,7 +67,7 @@ void process_api(uint16_t length, uint8_t * data) {
                 case DT_RGBLIGHT: {
                     #ifdef RGBLIGHT_ENABLE
                         uint32_t rgblight = bytes_to_dword(data, 2);
-                        rgblight_update_dword(rgblight);
+                        eeconfig_update_rgblight(rgblight);
                     #endif
                     break;
                 }

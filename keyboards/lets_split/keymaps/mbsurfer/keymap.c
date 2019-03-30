@@ -24,10 +24,6 @@ enum custom_keycodes {
   ADJUST,
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Tap Dance Declarations
 enum {
   SFT_CAP = 0,

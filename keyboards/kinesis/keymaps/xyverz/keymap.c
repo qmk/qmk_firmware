@@ -16,10 +16,6 @@ enum custom_keycodes {
   KEYPAD
 };
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 // Aliases to make the keymap more uniform
 #define GUI_END GUI_T(KC_END)
 #define MED_DEL LT(_MEDIA, KC_DEL)
@@ -267,11 +263,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
            _______,
            _______, _______, KC_P0
     )
-
-};
-
-
-const uint16_t PROGMEM fn_actions[] = {
 
 };
 

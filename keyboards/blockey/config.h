@@ -46,7 +46,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COL_PINS { D0, B4, C6, D7, F4, F5, F7 }
 #define UNUSED_PINS
 
-/* COL2ROW, ROW2COL, or CUSTOM_MATRIX */
+/* COL2ROW, ROW2COL*/
 #define DIODE_DIRECTION COL2ROW
 
 /* ws2812 RGB LED */
@@ -57,8 +57,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGBLIGHT_SAT_STEP 17
 
 #define RGBLIGHT_ANIMATIONS
-
-
 
 /* Debounce reduces chatter (unintended double-presses) - set 0 if debouncing is not needed */
 #define DEBOUNCING_DELAY 5
@@ -110,11 +108,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  * useful if your keyboard/keypad is missing keys and you want magic key support.
  *
  */
-
-/* key combination for magic key command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
 
 /* control how magic key switches layers */
 //#define MAGIC_KEY_SWITCH_LAYER_WITH_FKEYS  true
