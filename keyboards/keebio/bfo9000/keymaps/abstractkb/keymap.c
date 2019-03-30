@@ -1,12 +1,9 @@
 #include QMK_KEYBOARD_H
 
-// LAYER NAME MACROSS
-#define _BASE 0
-#define _LIST 1
-
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
+enum layers {
+	_BASE,
+	_LIST
+};
 
 enum my_keycodes {
 	MYRGB_TG = SAFE_RANGE
@@ -39,12 +36,9 @@ bool rgbon = true;
 
 const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {1,5,5}; //only using the first one
 
-void matrix_scan_user(void) {
-  if (rgbinit) {
-    rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom(0,0,255);
-    rgbinit = false;
-  }
+void matrix_post_init_user(void) {
+  rgblight_enable_noeeprom();
+  led_set_user(host_keyboard_leds());
 }
 
 uint32_t layer_state_set_user(uint32_t state) {

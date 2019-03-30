@@ -19,14 +19,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include QMK_KEYBOARD_H
-#include "action_layer.h"
-#include "rgblight.h"
 
-#define ______ KC_TRNS
-#define _DEFLT 0
-#define _RAISE 1
-#define _LOWER 2
-#define _FN 3
+enum layers {
+  _DEFLT,
+  _RAISE,
+  _LOWER,
+  _FN
+};
 
 enum custom_keycodes {
   MYRGB_TG = SAFE_RANGE
@@ -37,12 +36,9 @@ bool rgbon = true;
 
 const uint8_t RGBLED_RAINBOW_SWIRL_INTERVALS[] PROGMEM = {1,5,5}; //only using the first one
 
-void matrix_scan_user(void) {
-  if (rgbinit) {
-    rgblight_enable_noeeprom();
-    rgblight_sethsv_noeeprom(0,0,255);
-    rgbinit = false;
-  }
+void keyboard_post_init_user(void) {
+  rgblight_enable_noeeprom();
+  led_set_user(host_keyboard_leds());
 }
 
 uint32_t layer_state_set_user(uint32_t state) {
@@ -70,10 +66,10 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 void led_set_user(uint8_t usb_led) {
   if (usb_led & (1<<USB_LED_CAPS_LOCK)) {
-        rgblight_mode_noeeprom(RGBLIGHT_MODE_ALTERNATING);
-    } else {
+    rgblight_mode_noeeprom(RGBLIGHT_MODE_ALTERNATING);
+  } else {
     layer_state_set_user(layer_state);
-    }
+  }
 }
 
 void myrgb_toggle(void) {
