@@ -20,7 +20,7 @@ uint32_t cChord = 0;
 
 //i.e) S(teno)R(ight)F
 enum ORDER { 
-		SFN = 0, SPWR, SST1, SST2, SST3, SST4, SNUM,
+		SFN = 0, SPWR, SST1, SST2, SST3, SST4, SNUML, SNUMR,
 		SLSU, SLSD, SLT, SLK, SLP, SLW, SLH, SLR, SLA, SLO, 
 		SRE, SRU, SRF, SRR, SRP, SRB, SRL, SRG, SRT, SRS, SRD, SRZ
 };
@@ -32,7 +32,8 @@ enum ORDER {
 #define ST2 STN(SST2)
 #define ST3 STN(SST3)
 #define ST4 STN(SST4)
-#define NUM STN(SNUM) // No distinction between left and right
+#define LNO STN(SNUML) // STN1-6
+#define RNO STN(SNUMR) // STN7-C
 
 #define LSU STN(SLSU)
 #define LSD STN(SLSD)
@@ -124,7 +125,7 @@ bool send_steno_chord_user(steno_mode_t mode, uint8_t chord[6]) {
 	}
 
 	// Handle Gaming Toggle,
-	if (cChord == (PWR | FN | ST2 | ST3) && getKeymapCount() > 1) {
+	if (cChord == (PWR | FN | ST4 | ST3) && getKeymapCount() > 1) {
 		uprintf("Switching to QMK\n");
 		layer_on(1);
 		goto out;
@@ -188,8 +189,8 @@ bool process_steno_user(uint16_t keycode, keyrecord_t *record) {
 			case STN_ST4:			pr ? (cChord |= (ST4)): (cChord &= ~(ST4)); break;
 			case STN_FN:			pr ? (cChord |= (FN)) : (cChord &= ~(FN)); break;
 			case STN_PWR:			pr ? (cChord |= (PWR)): (cChord &= ~(PWR)); break;
-			case STN_N1...STN_N6: 
-			case STN_N7...STN_NC:	pr ? (cChord |= (NUM)): (cChord &= ~(NUM)); break;
+			case STN_N1...STN_N6:	pr ? (cChord |= (LNO)): (cChord &= ~(LNO)); break;
+			case STN_N7...STN_NC:	pr ? (cChord |= (RNO)): (cChord &= ~(RNO)); break;
 
 			// All the letter keys
 			case STN_S1:			pr ? (cChord |= (LSU)) : (cChord &= ~(LSU));  break;
@@ -263,7 +264,8 @@ bool processFakeSteno(void) {
 	PJ( RG,				SEND(KC_L););
 	PJ( RS,				SEND(KC_SCLN););
 	PJ( RZ,				SEND(KC_COMM););
-	PJ( NUM,			SEND(KC_1););
+	PJ( LNO,			SEND(KC_1););
+	PJ( RNO,			SEND(KC_1););
 
 	return false;
 }

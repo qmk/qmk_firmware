@@ -29,7 +29,7 @@ int getKeymapCount(void);
  * | PWR | LSD | LK  | LW | LR | ST2 |    | ST4 | RR | RG | RB | RS | RZ |
  * `---------------------------------'    `------------------------------'
  *                   ,---------------,    .---------------.
- *                   | NUM | LA | LO |    | RE | RU | NUM |
+ *                   | LNO | LA | LO |    | RE | RU | RNO |
  *                   `---------------'    `---------------'
  */
 
@@ -43,22 +43,22 @@ int getKeymapCount(void);
 // http://docs.gboards.ca
 bool processQwerty(void) {
 	// Place P's that would be trashed by PJ's here
-	P( RT  | RS  | RD  | RZ | NUM,		SEND_STRING(VERSION); SEND_STRING(__DATE__));
-	P( NUM | LA  | LO  | RE | RU,		SEND(KC_MPLY));
+	P( RT  | RS  | RD  | RZ | LNO,		SEND_STRING(VERSION); SEND_STRING(__DATE__));
+	P( LNO | RNO | LA  | LO  | RE | RU,	SEND(KC_MPLY));
 	P( ST1 | ST2 | ST3 | ST4,			SEND(KC_BSPC));
 
 	// Thumb Chords
 	P(  LA  | LO  | RE  | RU,			SEND(KC_CAPS));
 	P(  LA  | RU,						SEND(KC_ESC));
 	PJ( LO  | RE,						SEND(KC_LCTL));
-	PJ( NUM | LA | RU,					SEND(KC_LCTL); SEND(KC_LSFT));
-	PJ( NUM | LA | RE,					SEND(KC_LCTL); SEND(KC_LSFT); SEND(KC_LALT));
+	PJ( LNO | RNO | LA | RU,			SEND(KC_LCTL); SEND(KC_LSFT));
+	PJ( LNO | LA | RE,					SEND(KC_LCTL); SEND(KC_LSFT); SEND(KC_LALT));
 	
 	// Mods 
 	PJ( RT | RD | RS | RZ,				SEND(KC_LGUI));
 	PJ( RT | RD,						SEND(KC_LCTL));
 	PJ( RS | RZ,						SEND(KC_LALT));
-	PJ( LA | NUM,						SEND(KC_LCTL));
+	PJ( LA | LNO,						SEND(KC_LCTL));
 	PJ( LA | LO,						SEND(KC_LALT));
 	PJ( LO,								SEND(KC_LSFT));
 
@@ -97,28 +97,43 @@ bool processQwerty(void) {
 	P( LP | LH,							clickMouse(KC_MS_BTN1));
 	P( LW | LR,							clickMouse(KC_MS_BTN2));
 	
-	// Number Row
-	P( NUM | LSU,						SEND(KC_1));
-	P( NUM | LFT,						SEND(KC_2));
-	P( NUM | LP,						SEND(KC_3));
-	P( NUM | LH,						SEND(KC_4));
-	P( NUM | ST1,						SEND(KC_5));
-	P( NUM | ST3,						SEND(KC_6));
-	P( NUM | RF,						SEND(KC_7));
-	P( NUM | RP,						SEND(KC_8));
-	P( NUM | RL,						SEND(KC_9));
-	P( NUM | RT,						SEND(KC_0));
-	P( NUM | LA,						SEND(KC_5));
-	P( NUM | RT,						SEND(KC_0));
+	// Number Row, Left
+	P( LNO | LSU,						SEND(KC_1));
+	P( LNO | LFT,						SEND(KC_2));
+	P( LNO | LP,						SEND(KC_3));
+	P( LNO | LH,						SEND(KC_4));
+	P( LNO | ST1,						SEND(KC_5));
+	P( LNO | ST3,						SEND(KC_6));
+	P( LNO | RF,						SEND(KC_7));
+	P( LNO | RP,						SEND(KC_8));
+	P( LNO | RL,						SEND(KC_9));
+	P( LNO | RT,						SEND(KC_0));
+	P( LNO | LA,						SEND(KC_5));
+	P( LNO | RT,						SEND(KC_0));
+
+	// Number Row, Right
+	P( RNO | LSU,						SEND(KC_1));
+	P( RNO | LFT,						SEND(KC_2));
+	P( RNO | LP,						SEND(KC_3));
+	P( RNO | LH,						SEND(KC_4));
+	P( RNO | ST1,						SEND(KC_5));
+	P( RNO | ST3,						SEND(KC_6));
+	P( RNO | RF,						SEND(KC_7));
+	P( RNO | RP,						SEND(KC_8));
+	P( RNO | RL,						SEND(KC_9));
+	P( RNO | RT,						SEND(KC_0));
+	P( RNO | LA,						SEND(KC_5));
+	P( RNO | RT,						SEND(KC_0));
 	
 	// Specials
-	P( LA | NUM,						SEND(KC_ESC));
-	P( RU | NUM,						SEND(KC_TAB));
+	P( LA | LNO,						SEND(KC_ESC));
+	P( RU | RNO,						SEND(KC_TAB));
 	P( RE | RU,							SEND(KC_BSPC));
 	P( RD | RZ,							SEND(KC_ENT));
 	P( RE,								SEND(KC_ENT));
 	P( RD,								SEND(KC_BSPC));	
-	P( NUM,								SEND(KC_BSPC));
+	P( LNO,								SEND(KC_BSPC));
+	P( RNO,								SEND(KC_BSPC));
 	P( LA,								SEND(KC_SPC));
 	P( RU,								SEND(KC_SPC));
 	P( RZ,								SEND(KC_ESC));
@@ -210,7 +225,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [STENO_LAYER] = LAYOUT_georgi(  
 STN_FN,  STN_S1, STN_TL, STN_PL, STN_HL, STN_ST1,       STN_ST3, STN_FR, STN_PR, STN_LR, STN_TR, STN_DR,
 STN_PWR, STN_S2, STN_KL, STN_WL, STN_RL, STN_ST2,       STN_ST4, STN_RR, STN_BR, STN_GR, STN_SR, STN_ZR,
-						 STN_N1, STN_A,  STN_O,			STN_E,   STN_U,  STN_N1)
+						 STN_N1, STN_A,  STN_O,			STN_E,   STN_U,  STN_N7)
 ,
 // Gaming layer with Numpad, Very limited
 [GAMING] = LAYOUT_georgi(  
