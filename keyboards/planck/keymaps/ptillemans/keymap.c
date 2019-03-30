@@ -36,27 +36,27 @@ enum planck_keycodes {
   EXT_PLV
 };
 
-#define LOWER TT(_LOWER)
-#define RAISE TT(_RAISE)
+#define LOWER MO(_LOWER)
+#define RAISE MO(_RAISE)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 /* Qwerty
  * ,-----------------------------------------------------------------------------------.
- * |   Q  |   W  |   E  |   R  |   T  |   {  |   }  |   Y  |   U  |   I  |   O  |   P  |
+ * |   Q  |   W  |   E  |   R  |   T  | PgUp |  Up  |   Y  |   U  |   I  |   O  |   P  |
  * |------+------+------+------+------+-------------+------+------+------+------+------|
- * |   A  |   S  |   D  |   F  |   G  |   (  |   )  |   H  |   J  |   K  |   L  |   ;  |
+ * |   A  |   S  |   D  |   F  |   G  | PgDn | Down |   H  |   J  |   K  |   L  |   ;  |
  * |------+------+------+------+------+------|------+------+------+------+------+------|
- * |   Z  |   X  |   C  |   V  |   B  |   [  |   ]  |   N  |   M  |   ,  |   .  |   /  |
+ * |   Z  |   X  |   C  |   V  |   B  | Home |  End |   N  |   M  |   ,  |   .  |   /  |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Raise| Tab  | super| Alt  |  BS  |   Ctrl/Esc  |Space | Lower| Down |  Up  |Right |
+ * | Raise| Tab  | super| Alt  |  BS  |   Ctrl/Esc |Spc/Alt| Lower|   '  |   \  |Sh/Ent|
  * `-----------------------------------------------------------------------------------'
  */
 [_QWERTY] = LAYOUT_planck_grid(
     KC_Q,    KC_W,    KC_E,    KC_R,    KC_T, KC_PGUP,   KC_UP,    KC_Y,    KC_U,   KC_I,    KC_O,    KC_P,
     KC_A,    KC_S,    KC_D,    KC_F,    KC_G, KC_PGDN, KC_DOWN,    KC_H,    KC_J,   KC_K,    KC_L, KC_SCLN,
-    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_INS,  KC_DEL,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,
-    LOWER, KC_TAB, KC_LGUI, KC_LSFT, KC_BSPC,    F(2),    F(2),  F(3),   RAISE, KC_QUOT, KC_LBRC,  F(1)
+    KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,  KC_HOME, KC_END,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,
+    LOWER, KC_TAB, KC_LGUI, KC_LSFT, KC_BSPC,    F(2),    F(2),  KC_SPC,   RAISE, KC_QUOT, KC_MINUS,  F(1)
 ),
 
 /* Dvorak
@@ -67,7 +67,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |------+------+------+------+------+------|------+------+------+------+------+------|
  * | Shift|   ;  |   Q  |   J  |   K  |   X  |   B  |   M  |   W  |   V  |   Z  |Enter |
  * |------+------+------+------+------+------+------+------+------+------+------+------|
- * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Right |
+ * | Brite| Ctrl | Alt  | GUI  |Lower |    Space    |Raise | Left | Down |  Up  |Shft/Ent|
  * `-----------------------------------------------------------------------------------'
  */
 [_DVORAK] = LAYOUT_planck_grid(
