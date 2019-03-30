@@ -6,6 +6,14 @@
 #define CTRLR LCTL(KC_RGHT)
 #define CAD LCTL(LALT(KC_DEL))
 
+#define BASE_L	0
+#define SHFT_L	1
+#define MOD_L		2
+#define NAV_L		3
+#define AHK_L		4
+#define LOCK_L	5
+#define PASS_L	6
+
 enum {
 	HK_SLP = SAFE_RANGE,
 	HK_IF,
@@ -44,9 +52,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 	[0] = LAYOUT_planck_2x2u(
 		KC_TAB,	KC_QUOT,KC_COMM,KC_DOT,	KC_P,		KC_Y,		KC_F,		KC_G,		KC_C,		KC_R,		KC_L,		TD(BCK),
-		TT(3),	KC_A,		KC_O,		KC_E,		KC_U,		KC_I,		KC_D,		KC_H,		KC_T,		KC_N,		KC_S,		KC_ENT,
+		TT(NAV_L),KC_A,	KC_O,		KC_E,		KC_U,		KC_I,		KC_D,		KC_H,		KC_T,		KC_N,		KC_S,		KC_ENT,
 		KC_LSFT,KC_SCLN,KC_Q,		KC_J,		KC_K,		KC_X,		KC_B,		KC_M,		KC_W,		KC_V,		KC_Z,		KC_RSFT,
-		KC_ESC,	MOUSER,	MOUSEL,	KC_LCTL,				KC_SPC,	TT(2),					KC_LGUI,KC_VOLD,KC_VOLU,OSL(4)
+		KC_ESC,	MOUSER,	MOUSEL,	KC_LCTL,				KC_SPC,	TT(MOD_L),			KC_LGUI,KC_VOLD,KC_VOLU,OSL(AHK_L)
 	),
 /* Custom Shifts
  * ,-----------------------------------------------------------------------------------.
@@ -94,7 +102,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_F13,			 KC_F14,			KC_F15,			 KC_F16,			KC_F17,			 KC_F18,			KC_F19,			 KC_F20,			KC_F21,			 KC_F22,			KC_F23,			 KC_F24,
 		LCTL(KC_F13),LCTL(KC_F14),LCTL(KC_F15),LCTL(KC_F16),LCTL(KC_F17),LCTL(KC_F18),LCTL(KC_F19),LCTL(KC_F20),LCTL(KC_F21),LCTL(KC_F22),LCTL(KC_F23),LCTL(KC_F24),
 		LSFT(KC_F13),LSFT(KC_F14),LSFT(KC_F15),LSFT(KC_F16),LSFT(KC_F17),LSFT(KC_F18),LSFT(KC_F19),LSFT(KC_F20),LSFT(KC_F21),LSFT(KC_F22),LSFT(KC_F23),LSFT(KC_F24),
-		RESET,			 LALT(KC_F14),LALT(KC_F15),TG(6),															CAD,LALT(KC_F19),							LALT(KC_F21),LALT(KC_F22),HK_SLP,      KC_TRNS
+		RESET,			 LALT(KC_F14),LALT(KC_F15),OSL(PASS_L),							 CAD,					LALT(KC_F19),							LALT(KC_F21),LALT(KC_F22),HK_SLP,      KC_TRNS
 	),
 //Locked Screen
 	[5] = LAYOUT_planck_2x2u(
@@ -103,12 +111,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_NO,
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,					KC_NO,	KC_NO,					KC_NO,	KC_NO,	HK_SLP,	KC_NO
 	),
-//Passwords (by first letter of service name, at least better than just 1)
+//Passwords (by first letter of service name, at least better than just one)
 	[6] = LAYOUT_planck_2x2u(
 		KC_NO,	KC_NO,	KC_NO,	KC_NO,	KC_P,		KC_Y,		KC_F,		KC_G,		KC_C,		KC_R,		KC_L,		KC_NO,
 		KC_NO,	KC_A,		KC_O,		KC_E,		KC_U,		KC_I,		KC_D,		KC_H,		KC_T,		KC_N,		KC_S,		KC_NO,
 		KC_NO,	KC_NO,	KC_Q,		KC_J,		KC_K,		KC_X,		KC_B,		KC_M,		KC_W,		KC_V,		KC_Z,		KC_NO,
-		KC_NO,	KC_NO,	KC_NO,	KC_NO,					KC_NO,	KC_NO,					KC_NO,	KC_NO,	KC_NO,	TG(6)
+		KC_NO,	KC_NO,	KC_NO,	OSL(PASS_L),		KC_NO,	KC_NO,					KC_NO,	KC_NO,	KC_NO,	KC_NO
 	)
 };
 
@@ -117,16 +125,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 		//if shift pressed and not shift layer or released and other shift not pressed
 		//in separate things because MOD_BIT probably isn't toggled until after this returns true and shift is actually toggled
 		case KC_LSFT: //if pressed and not shift layer or released and other shift not pressed
-			if((record->event.pressed && IS_LAYER_OFF(1)) || (!record->event.pressed && !(get_mods() & MOD_BIT(KC_RSFT))))
-				layer_invert(1);
+			if((record->event.pressed && IS_LAYER_OFF(SHFT_L)) || (!record->event.pressed && !(get_mods() & MOD_BIT(KC_RSFT))))
+				layer_invert(SHFT_L);
 			break;
 		case KC_RSFT:
-			if((record->event.pressed && IS_LAYER_OFF(1)) || (!record->event.pressed && !(get_mods() & MOD_BIT(KC_LSFT))))
-				layer_invert(1);
+			if((record->event.pressed && IS_LAYER_OFF(SHFT_L)) || (!record->event.pressed && !(get_mods() & MOD_BIT(KC_LSFT))))
+				layer_invert(SHFT_L);
 			break;
 		case KC_ENT: //won't repeat on hold and I can't find a solution other than hardcoding timers but I kinda prefer it anyway. Swaps enter and shift enter
 			if(record->event.pressed) {
-				(IS_LAYER_ON(1)) //if shifted release correct shift, send, and press same shift, else send shift enter
+				(IS_LAYER_ON(SHFT_L)) //if shifted release correct shift, send, and press same shift, else send shift enter
 					? (get_mods() & MOD_BIT(KC_LSFT))
 						? SEND_STRING(SS_UP(X_LSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_LSHIFT))
 						: SEND_STRING(SS_UP(X_RSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_RSHIFT))
@@ -140,18 +148,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 			if(record->event.pressed) SEND_STRING("else");
 			return false;
 		case HK_SLP:
-			if(record->event.pressed && IS_LAYER_ON(5))
+			if(record->event.pressed && IS_LAYER_ON(LOCK_L))
 				SEND_STRING(SS_LALT(SS_TAP(X_F23)));
 			if(!record->event.pressed) {
-				if(IS_LAYER_OFF(5))
+				if(IS_LAYER_OFF(LOCK_L))
 					SEND_STRING(SS_LALT(SS_TAP(X_F24)));
-				layer_invert(5);
+				layer_invert(LOCK_L);
 			}
 			return false;
 		default:
-			if(IS_LAYER_ON(6) && keycode <= KC_Z) {
+			if(IS_LAYER_ON(PASS_L) && keycode <= KC_Z) {
 				SEND_STRING(passwords[keycode - KC_A]);
-				layer_invert(6);
+				layer_invert(PASS_L);
 				return false;
 			}
 	}
