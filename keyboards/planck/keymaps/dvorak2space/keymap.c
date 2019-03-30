@@ -1,5 +1,5 @@
 #include QMK_KEYBOARD_H
-#include "passwords.c" //Instead of extern just to cut down on compile time.
+#include "passwords.c" //Instead of extern just to cut down on compile time. Holds a single array.
 #define MOUSEL KC_BTN1
 #define MOUSER KC_BTN2
 #define CTRLL LCTL(KC_LEFT)
@@ -25,7 +25,7 @@ enum {
   SINGLE_HOLD = 2,
   DOUBLE_TAP = 3,
   DOUBLE_HOLD = 4,
-  DOUBLE_SINGLE_TAP = 5, //Distinguishes between double tapping and typing, "tapping", for example
+  DOUBLE_SINGLE_TAP = 5, //Distinguishes between double tapping and typing, "tapping", for example. Not sure how accurate it is, and I have no need, so avoiding it at the moment.
   TRIPLE_TAP = 6,
   TRIPLE_HOLD = 7
 };
@@ -117,23 +117,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 		//if shift pressed and not shift layer or released and other shift not pressed
 		//in separate things because MOD_BIT probably isn't toggled until after this returns true and shift is actually toggled
 		case KC_LSFT: //if pressed and not shift layer or released and other shift not pressed
-			if((record->event.pressed && IS_LAYER_OFF(1)) || (!record->event.pressed && !(get_mods() & (MOD_BIT(KC_RSFT)))))
+			if((record->event.pressed && IS_LAYER_OFF(1)) || (!record->event.pressed && !(get_mods() & MOD_BIT(KC_RSFT))))
 				layer_invert(1);
 			break;
 		case KC_RSFT:
-			if((record->event.pressed && IS_LAYER_OFF(1)) || (!record->event.pressed && !(get_mods() & (MOD_BIT(KC_LSFT)))))
+			if((record->event.pressed && IS_LAYER_OFF(1)) || (!record->event.pressed && !(get_mods() & MOD_BIT(KC_LSFT))))
 				layer_invert(1);
 			break;
 		case KC_ENT: //won't repeat on hold and I can't find a solution other than hardcoding timers but I kinda prefer it anyway. Swaps enter and shift enter
 			if(record->event.pressed) {
-				if(IS_LAYER_ON(1)) { //if shifted release correct shift, send, and press same shift
-					if(get_mods() & (MOD_BIT(KC_LSFT)))
-						SEND_STRING(SS_UP(X_LSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_LSHIFT));
-					else
-						SEND_STRING(SS_UP(X_RSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_RSHIFT));
-				}
-				else
-					SEND_STRING(SS_LSFT(SS_TAP(X_ENTER)));
+				(IS_LAYER_ON(1)) //if shifted release correct shift, send, and press same shift, else send shift enter
+					? (get_mods() & MOD_BIT(KC_LSFT))
+						? SEND_STRING(SS_UP(X_LSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_LSHIFT))
+						: SEND_STRING(SS_UP(X_RSHIFT) SS_TAP(X_ENTER) SS_DOWN(X_RSHIFT))
+					: SEND_STRING(SS_LSFT(SS_TAP(X_ENTER)));
 			}
 			return false;
 		case HK_IF:
@@ -163,13 +160,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
 
 //tapdance state evaluation
 int cur_dance(qk_tap_dance_state_t *state) {
-  if(state->count == 1) {
-    if(state->interrupted || !state->pressed) { return SINGLE_TAP; }
-    else { return SINGLE_HOLD; }
-  }
-  else if(state->count == 2) { return DOUBLE_TAP; }
-	else if(state->count == 3) { return TRIPLE_TAP; }
-  else { return false; }
+	int press = 0;
+	switch(state->count) {
+  	case 1:
+			press = (state->interrupted || !state->pressed)
+				? SINGLE_TAP
+				: SINGLE_HOLD;
+			break;
+ 		case 2:
+			press = DOUBLE_TAP;
+			break;
+		case 3:
+			press = TRIPLE_TAP;
+	}
+	return press;
 }
 
 void back_tap(qk_tap_dance_state_t *state, void *user_data) { tap_code(KC_BSPACE); }
