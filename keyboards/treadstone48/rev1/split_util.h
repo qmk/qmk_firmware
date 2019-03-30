@@ -1,5 +1,4 @@
-#ifndef SPLIT_KEYBOARD_UTIL_H
-#define SPLIT_KEYBOARD_UTIL_H
+#pragma once
 
 #include <stdbool.h>
 #include "eeconfig.h"
@@ -15,5 +14,3 @@ void split_keyboard_setup(void);
 bool has_usb(void);
 
 void matrix_master_OLED_init (void);
-
-#endif
