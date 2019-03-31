@@ -31,14 +31,14 @@ This keymap is to serve as an example of how you could make a multi-layer keymap
 
 //    ├────────┼────────┼────────┼────────┼
 
-             oooo   ,  oooo  , oooo
+             _______, _______, _______
 
 //         └────────┴────────┴────────┘
 ),
 [ogre] = LAYOUT_kc(
 //         ┌────────┬────────┬────────┐
 
-              RNXT  ,  RTOG   ,   RPRV  ,
+             RGB_MOD, RGB_TOG, RGB_RMOD
 
 //    ├────────┼────────┼────────┼────────┼
 
@@ -46,7 +46,7 @@ This keymap is to serve as an example of how you could make a multi-layer keymap
 
 //    ├────────┼────────┼────────┼────────┼
 
-             oooo   ,  oooo  , oooo
+             _______, _______, _______
 
 //         └────────┴────────┴────────┘
 ),
@@ -57,11 +57,11 @@ This keymap is to serve as an example of how you could make a multi-layer keymap
 
 //    ├────────┼────────┼────────┼────────┼
 
-         XXXX  ,  PGDN  ,  PGUP  ,  XXXX  ,
+       XXXXXXX ,  PGDN  ,  PGUP  , XXXXXXX ,
 
 //    ├────────┼────────┼────────┼────────┼
 
-             oooo   ,  oooo  , oooo
+             _______, _______, _______
 
 //         └────────┴────────┴────────┘
 ),

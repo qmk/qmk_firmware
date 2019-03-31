@@ -1,4 +1,4 @@
-# Test keymap
+# Simple numberpad keymap
 
 This keymap is to test the soldering work of workshop participants. It can also be used as a simple base for a macropad keymap.
 ```

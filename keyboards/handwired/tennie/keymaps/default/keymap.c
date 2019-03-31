@@ -65,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [ogre] = LAYOUT(
   //         ┌────────┬────────┬────────┐
 
-              RGB_MOD, RGB_TOG,RGB_RMOD,
+               RGB_MOD, RGB_TOG, RGB_RMOD
 
   //    ├────────┼────────┼────────┼────────┼
 
