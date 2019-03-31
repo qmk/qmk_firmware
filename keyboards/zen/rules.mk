@@ -2,8 +2,8 @@ ifneq ($(strip $(USE_PROTON_C)),)
   # Proton-C
   MCU = STM32F303
 
-  SPLIT_KEYBOARD = no
-  RGBLIGHT_ENABLE = no       # Enable WS2812 RGB underlight.
+  SPLIT_KEYBOARD = no       # currently unsupported on ARM
+  RGBLIGHT_ENABLE = no      # currently unsupported on ARM
 
   EXTRAFLAGS += -DUSE_PROTON_C
   LDFLAGS += -specs=nano.specs -specs=nosys.specs
@@ -19,7 +19,6 @@ else
   # Currently moved to Pro Micro only section because of lack of Proton-C support
   SPLIT_KEYBOARD = yes
   RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
-  ENCODER_ENABLE = yes
 endif
 
 
