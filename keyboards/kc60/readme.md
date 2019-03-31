@@ -24,7 +24,6 @@ $ make [default|jack|<name>]
 Keymaps follow the format **__\<name\>.c__** and are stored in the `keymaps` folder.
 
 ## WS2812 Support
-![Image of KC60 with RGB Underglow](keymaps/ws2812/ws2812_example.jpg)
 
 Build with WS2812 Support by running `make ws2812`.
 
