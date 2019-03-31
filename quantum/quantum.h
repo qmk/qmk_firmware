@@ -117,6 +117,10 @@ extern uint32_t default_layer_state;
     #include "process_auto_shift.h"
 #endif
 
+#ifdef KOMBO_ENABLE
+    #include "process_kombo.h"
+#endif
+
 #ifdef COMBO_ENABLE
     #include "process_combo.h"
 #endif

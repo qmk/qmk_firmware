@@ -188,6 +188,14 @@ ifeq ($(strip $(AUTO_SHIFT_ENABLE)), yes)
     endif
 endif
 
+ifeq ($(strip $(KOMBO_ENABLE)), yes)
+    OPT_DEFS += -DKOMBO_ENABLE
+    SRC += $(QUANTUM_DIR)/process_keycode/process_kombo.c
+    ifeq ($(strip $(KOMBO_MODIFIERS)), yes)
+        OPT_DEFS += -DKOMBO_MODIFIERS
+    endif
+endif
+
 ifeq ($(strip $(SERIAL_LINK_ENABLE)), yes)
     SRC += $(patsubst $(QUANTUM_PATH)/%,%,$(SERIAL_SRC))
     OPT_DEFS += $(SERIAL_DEFS)

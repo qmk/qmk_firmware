@@ -308,6 +308,9 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef AUTO_SHIFT_ENABLE
     process_auto_shift(keycode, record) &&
   #endif
+  #ifdef KOMBO_ENABLE
+    process_kombo(keycode, record) &&
+  #endif
   #ifdef TERMINAL_ENABLE
     process_terminal(keycode, record) &&
   #endif

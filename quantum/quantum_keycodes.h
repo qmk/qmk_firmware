@@ -129,6 +129,11 @@ enum quantum_keycodes {
     KC_ASON,
     KC_ASOFF,
 
+    // Kombo setup
+    KC_CCTG,
+    KC_CCON,
+    KC_CCOFF,
+
     // Audio on/off/toggle
     AU_ON,
     AU_OFF,
