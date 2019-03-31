@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #endif
 
 #undef PRODUCT
-#ifdef KEYBOARD_iris_rev2
+#ifdef KEYBOARD_keebio_iris_rev2
 #define PRODUCT         Drashna Hacked Iris Rev.2 (16 LED)
 #endif
 

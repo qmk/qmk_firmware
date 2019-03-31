@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define QMK_SPEAKER C6
 
 #undef PRODUCT
-#ifdef KEYBOARD_iris_rev2
+#ifdef KEYBOARD_keebio_iris_rev2
 #define PRODUCT         Drashna Hacked Iris Rev.2
 #endif
 
