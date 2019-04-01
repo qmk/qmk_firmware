@@ -26,15 +26,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_4, KC_5, KC_6, \
 		KC_1, KC_2, KC_3, \
 		MO(_FN1), KC_0, KC_ENT \
-    
 	),
   
 	[_FN1] = LAYOUT(
 		KC_TRNS, KC_HOME, KC_PGUP, \
 		KC_TRNS, KC_END, KC_PGDN, \
 		KC_TRNS, KC_TRNS, KC_TRNS, \
-		KC_TRNS, KC_TRNS, KC_DOT \
-    
+		KC_TRNS, KC_TRNS, KC_DOT \ 
 	)
 
 };
