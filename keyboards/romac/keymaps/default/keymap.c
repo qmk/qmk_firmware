@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "romac.h"
+#include QMK_KEYBOARD_H
 
 #define _BASE 0
 #define _FN1 1
