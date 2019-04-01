@@ -2,16 +2,16 @@
 #include "konstantin.h"
 
 static const hsv_t *colors[] = { &GODSPEED_BLUE, &GODSPEED_YELLOW };
-static size_t cnum = sizeof colors / sizeof *colors;
+static const size_t cnum = sizeof colors / sizeof *colors;
 static size_t cidx = 0;
-
-void eeconfig_init_keymap(void) {
-  rgblight_sethsv(colors[cidx]->h, colors[cidx]->s, colors[cidx]->v);
-}
 
 enum keycodes_keymap {
   RGB_SET = RANGE_KEYMAP,
 };
+
+void eeconfig_init_keymap(void) {
+  rgblight_sethsv(colors[cidx]->h, colors[cidx]->s, colors[cidx]->v);
+}
 
 bool process_record_keymap(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
