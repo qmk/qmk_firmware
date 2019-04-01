@@ -1,3 +1,5 @@
+#pragma once
+
 #include "config_common.h"
 
 /* USB Device descriptor parameter */
@@ -21,7 +23,6 @@
 
 /* number of backlight levels */
 
-#pragma once
 #define BACKLIGHT_LEVELS 0
 
 /* Set 0 if debouncing isn't needed */
