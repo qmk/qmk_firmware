@@ -38,7 +38,7 @@ F_USB = $(F_CPU)
 
 # Bootloader
 #     This definition is optional, and if your keyboard supports multiple bootloaders of
-#     different sizes, comment this out, and the correct address will be loaded 
+#     different sizes, comment this out, and the correct address will be loaded
 #     automatically (+60). See bootloader.mk for all options.
 ifeq ($(strip $(KEYBOARD)), preonic/rev1)
     BOOTLOADER = atmel-dfu
@@ -51,7 +51,7 @@ endif
 OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
 # Build Options
-#   change to "no" to disable the options, or define them in the Makefile in 
+#   change to "no" to disable the options, or define them in the Makefile in
 #   the appropriate keymap folder that will get included automatically
 #
 BOOTMAGIC_ENABLE = no       # Virtual DIP switch configuration(+1000)
