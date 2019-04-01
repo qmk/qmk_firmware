@@ -22,6 +22,7 @@ build/
 .vagrant/
 quantum/version.h
 .idea/
+**/.directory
 CMakeLists.txt
 cmake-build-debug
 doxygen/
