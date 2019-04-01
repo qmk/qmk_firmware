@@ -38,9 +38,6 @@
 
 /* key combination for command */
 
-/* prevent stuck modifiers */
-#define PREVENT_STUCK_MODIFIERS
-
 
 #define RGBLED_NUM 0
 #define RGBLIGHT_HUE_STEP 8
