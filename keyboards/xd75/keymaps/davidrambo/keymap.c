@@ -2,7 +2,7 @@
 
 //aliases for clarity in layering
 #define A_BSPC  LALT(KC_BSPC) // delete whole word in Mac
-#define C_BSPS  LCTL(KC_BSPC) // delete whole word in PC
+#define C_BSPC  LCTL(KC_BSPC) // delete whole word in PC
 #define A_LEFT  LALT(KC_LEFT)
 #define A_RGHT  LALT(KC_RGHT)
 #define C_RGHT  LCTL(KC_RGHT)
