@@ -1,4 +1,4 @@
-#ifndef CONFIG_H
+#pragma once
 #define CONFIG_H
 
 #include "config_common.h"
@@ -24,7 +24,7 @@
 
 /* number of backlight levels */
 
-#ifdef BACKLIGHT_PIN
+#pragma once
 #define BACKLIGHT_LEVELS 0
 #endif
 
@@ -46,7 +46,7 @@
 #define PREVENT_STUCK_MODIFIERS
 
 
-#ifdef RGB_DI_PIN
+#pragma once
 #define RGBLIGHT_ANIMATIONS
 #define RGBLED_NUM 0
 #define RGBLIGHT_HUE_STEP 8
