@@ -5,9 +5,9 @@
 
 A “Plaid” Inspired 12-Key (3x4) Macropad.
 
-Keyboard Maintainer: [Garret G.](https://github.com/garretgartnwr)
-Hardware Supported: RoMac rev.1, rev.2, Pro Micro, Elite-C, Proton C, BlueMicro
-Hardware Availability: Through GB orDirect Message(If Extra Stock is available.
++ Keyboard Maintainer: [Garret G.](https://github.com/garretgartnwr)
++ Hardware Supported: RoMac rev.1, rev.2, Pro Micro, Elite-C, Proton C, BlueMicro
++ Hardware Availability: Through GB orDirect Message(If Extra Stock is available.
 
 Make example for this keyboard (after setting up your build environment):
 
