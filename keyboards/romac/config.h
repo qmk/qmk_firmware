@@ -6,7 +6,7 @@
 #define VENDOR_ID       0xFEED
 #define PRODUCT_ID      0x6060
 #define DEVICE_VER      0x0001
-#define MANUFACTURER    qmkbuilder
+#define MANUFACTURER    TheRoyalSweatshirt
 #define PRODUCT         romac
 #define DESCRIPTION     A *Plaid inspired twelve-key macropad 
 /* key matrix size */
