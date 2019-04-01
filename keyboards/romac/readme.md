@@ -1,7 +1,7 @@
 
 # RoMac
 
-![RoMac](https://imgur.com/a/W7LUCvS)
+![RoMac](https://i.imgur.com/hAOyoqj.jpg)
 
 A “Plaid” Inspired 12-Key (3x4) Macropad.
 
