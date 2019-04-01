@@ -25,7 +25,6 @@
 
 #pragma once
 #define BACKLIGHT_LEVELS 0
-#endif
 
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
