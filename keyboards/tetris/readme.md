@@ -2,7 +2,7 @@ Tetris
 ===
 A compact 40% (12x4) ortholinear keyboard (Planck Mit layout) with per switch RGB and encoder made by Fengz. 
 
-Fake keys at the 4th row is to config the encoder's keycode.
+Fake keys on the 5th row are for configuring the encoder's keycode.
 
 ![TetrisPhoto](https://i.imgur.com/quwEY0f.jpg)
 
