@@ -26,15 +26,10 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    EWR, DWR, CWR, BWR, AWR, FXR,   \
-         DXR, CXR, BXR, AXR, FZR,   \
-    EZR, DYR, CYR, BYR, AYR, DVR,   \
-         DZR, CZR, BZR, AZR, FYR,   \
-                                    \
-    FYL, AZL, BZL, CZL, DZL,        \
-    DVL, AYL, BYL, CYL, DYL, EZL,   \
-    FZL, AXL, BXL, CXL, DXL,        \
-    FXL, AWL, BWL, CWL, DWL, EWL    \
+    EWR, DWR, CWR, BWR, AWR, FXR,   FYL, AZL, BZL, CZL, DZL,        \
+         DXR, CXR, BXR, AXR, FZR,   DVL, AYL, BYL, CYL, DYL, EZL,   \
+    EZR, DYR, CYR, BYR, AYR, DVR,   FZL, AXL, BXL, CXL, DXL,        \
+         DZR, CZR, BZR, AZR, FYR,   FXL, AWL, BWL, CWL, DWL, EWL    \
 ) \
 { \
     { EWR,   DWR,   CWR,   BWR,   AWR,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
