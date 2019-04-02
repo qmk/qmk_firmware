@@ -142,21 +142,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
       return false;
     case HK_IF:
       if(record->event.pressed) { SEND_STRING("if"); }
-      return false;
+      break;
     case HK_ELSE:
       if(record->event.pressed) { SEND_STRING("else"); }
-      return false;
+      break;
     case HK_COSL:
-      if(IS_LAYER_ON(AHK_L)) { layer_invert(AHK_L); }
-      if(IS_LAYER_ON(PASS_L)) { layer_invert(PASS_L); }
-      return false;
+      break;
     case HK_SLP:
       if(record->event.pressed && IS_LAYER_ON(LOCK_L)) { SEND_STRING(SS_LALT(SS_TAP(X_F23))); }
       if(!record->event.pressed) {
         if(IS_LAYER_OFF(LOCK_L)) { SEND_STRING(SS_LALT(SS_TAP(X_F24))); }
         layer_invert(LOCK_L);
       }
-      return false;
+      break;
     default:
       if(IS_LAYER_ON(PASS_L) && keycode <= KC_Z) {
         SEND_STRING(passwords[keycode - KC_A]);
