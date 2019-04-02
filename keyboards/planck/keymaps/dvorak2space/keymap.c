@@ -147,7 +147,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
       if(record->event.pressed) { SEND_STRING("else"); }
       return false;
     case HK_COSL:
-      reset_oneshot_layer();
       if(IS_LAYER_ON(AHK_L)) { layer_invert(AHK_L); }
       if(IS_LAYER_ON(PASS_L)) { layer_invert(PASS_L); }
       return false;
