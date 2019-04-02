@@ -3,5 +3,5 @@
 #include "duck_led.h"
 
 void show(void) {
-  _delay_us((RES / 1000UL) + 1);
+  wait_us((RES / 1000UL) + 1);
 }
