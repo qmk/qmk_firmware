@@ -1,6 +1,6 @@
 #pragma once
 
-#define TAPPING_TERM 200
+#define TAPPING_TERM 300
 #define RETRO_TAPPING
 
 #ifdef RGBLIGHT_ENABLE
