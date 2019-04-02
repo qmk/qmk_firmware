@@ -6,7 +6,7 @@ Vagrant.configure(2) do |config|
   config.vm.define "qmk_firmware"
 
   # VMware/Virtualbox ( and also Hyperv/Parallels) 64 bit
-  config.vm.box = "bento/ubuntu-16.04"
+  config.vm.box = "generic/debian9"
 
   # This section allows you to customize the Virtualbox VM
   # settings, ie showing the GUI or upping the memory
@@ -55,7 +55,7 @@ Vagrant.configure(2) do |config|
   # image, you'll need to: chmod -R a+rw .
   config.vm.provider "docker" do |docker, override|
     override.vm.box = nil
-    docker.image = "jesselang/debian-vagrant:jessie"
+    docker.image = "jesselang/debian-vagrant:stretch"
     docker.has_ssh = true
   end
 
