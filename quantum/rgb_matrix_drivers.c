@@ -33,7 +33,7 @@ static void init( void )
 #ifdef IS31FL3731
     IS31FL3731_init( DRIVER_ADDR_1 );
     IS31FL3731_init( DRIVER_ADDR_2 );
-#elif defined(IS31FL37313)
+#elif defined(IS31FL3733)
     IS31FL3733_init( DRIVER_ADDR_1 );
 #else
     IS31FL3737_init( DRIVER_ADDR_1 );
