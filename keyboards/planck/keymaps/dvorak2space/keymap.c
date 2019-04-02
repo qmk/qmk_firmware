@@ -17,7 +17,8 @@
 enum {
   HK_SLP = SAFE_RANGE,
   HK_IF,
-  HK_ELSE
+  HK_ELSE,
+  HK_COSL
 };
 
 enum {
@@ -102,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_F13,      KC_F14,      KC_F15,      KC_F16,      KC_F17,      KC_F18,      KC_F19,      KC_F20,      KC_F21,      KC_F22,      KC_F23,      KC_F24,
     LCTL(KC_F13),LCTL(KC_F14),LCTL(KC_F15),LCTL(KC_F16),LCTL(KC_F17),LCTL(KC_F18),LCTL(KC_F19),LCTL(KC_F20),LCTL(KC_F21),LCTL(KC_F22),LCTL(KC_F23),LCTL(KC_F24),
     LSFT(KC_F13),LSFT(KC_F14),LSFT(KC_F15),LSFT(KC_F16),LSFT(KC_F17),LSFT(KC_F18),LSFT(KC_F19),LSFT(KC_F20),LSFT(KC_F21),LSFT(KC_F22),LSFT(KC_F23),LSFT(KC_F24),
-    RESET,       LALT(KC_F14),LALT(KC_F15),OSL(PASS_L),              CAD,         LALT(KC_F19),             LALT(KC_F21),LALT(KC_F22),HK_SLP,      KC_TRNS
+    RESET,       LALT(KC_F14),LALT(KC_F15),OSL(PASS_L),              CAD,         LALT(KC_F19),             LALT(KC_F21),LALT(KC_F22),HK_SLP,      HK_COSL
   ),
 //Locked Screen
   [5] = LAYOUT_planck_2x2u(
@@ -116,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_NO,  KC_NO,  KC_NO,  KC_NO,  KC_P,    KC_Y,    KC_F,    KC_G,    KC_C,    KC_R,    KC_L,    KC_NO,
     KC_NO,  KC_A,   KC_O,   KC_E,   KC_U,    KC_I,    KC_D,    KC_H,    KC_T,    KC_N,    KC_S,    KC_NO,
     KC_NO,  KC_NO,  KC_Q,   KC_J,   KC_K,    KC_X,    KC_B,    KC_M,    KC_W,    KC_V,    KC_Z,    KC_NO,
-    KC_NO,  KC_NO,  KC_NO,  OSL(PASS_L),     KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO,   KC_NO
+    KC_NO,  KC_NO,  KC_NO,  HK_COSL,     KC_NO,   KC_NO,            KC_NO,   KC_NO,   KC_NO,   KC_NO
   )
 };
 
@@ -144,6 +145,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) { //X_KEY doesn'
       return false;
     case HK_ELSE:
       if(record->event.pressed) { SEND_STRING("else"); }
+      return false;
+    case HK_COSL:
+      reset_oneshot_layer();
+      if(IS_LAYER_ON(AHK_L)) { layer_invert(AHK_L); }
+      if(IS_LAYER_ON(PASS_L)) { layer_invert(PASS_L); }
       return false;
     case HK_SLP:
       if(record->event.pressed && IS_LAYER_ON(LOCK_L)) { SEND_STRING(SS_LALT(SS_TAP(X_F23))); }
