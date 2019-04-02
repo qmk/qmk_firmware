@@ -1,9 +1,7 @@
-Doro67
+Doro67 Multi PCB
 ===
 
-A custom 65% keyboard with multiple layout support. This firmware is known to
-support the multi layout PCBs shipped internationally as well as the basic PCB
-shipped to some in the Chinese group buy.
+A custom 65% keyboard with multiple layout support.
 
 Do not flash RGB firmware for this board. 
 
