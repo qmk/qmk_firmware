@@ -16,11 +16,10 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		arm-none-eabi-gcc-cs \
 		arm-none-eabi-newlib \
 		avr-binutils \
-		avr-gcc \
 		avr-libc \
-		binutils-avr32-linux-gnu \
+		avr-gcc \
+		base-devel \
 		dfu-util \
-		dfu-programmer \
 		diffutils \
 		git \
 		gcc \
@@ -33,6 +32,10 @@ if grep ID /etc/os-release | grep -qE "fedora"; then
 		unzip \
 		wget \
 		zip
+	git clone https://aur.archlinux.org/dfu-programmer.git /tmp/dfu-programmer
+	cd /tmp/dfu-programmer || exit 1
+	makepkg -sic
+	rm -rf /tmp/dfu-programmer/
 
 elif grep ID /etc/os-release | grep -qE 'debian|ubuntu'; then
 	DEBIAN_FRONTEND=noninteractive
@@ -65,21 +68,23 @@ elif grep ID /etc/os-release | grep -q 'arch\|manjaro'; then
 		arm-none-eabi-newlib \
 		avrdude \
 		avr-binutils \
-		avr-libc \
 		avr-gcc \
-		base-devel \
+		avr-libc \
+		binutils-avr32-linux-gnu \
 		dfu-util \
+		dfu-programmer \
 		diffutils \
-		gcc \
 		git \
+		gcc \
+		glibc-headers \
+		kernel-devel \
+		kernel-headers \
+		make \
+		perl \
 		python \
 		unzip \
 		wget \
 		zip
-	git clone https://aur.archlinux.org/dfu-programmer.git /tmp/dfu-programmer
-	cd /tmp/dfu-programmer || exit 1
-	makepkg -sic
-	rm -rf /tmp/dfu-programmer/
 
 elif grep ID /etc/os-release | grep -q gentoo; then
 	echo "$GENTOO_WARNING" | fmt
