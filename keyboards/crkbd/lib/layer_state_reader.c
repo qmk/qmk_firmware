@@ -3,6 +3,7 @@
 #include <stdio.h>
 #include "crkbd.h"
 
+// in the future, should use (1U<<_LAYER_NAME) instead, but needs to be moved to keymap,c
 #define L_BASE 0
 #define L_LOWER 2
 #define L_RAISE 4
