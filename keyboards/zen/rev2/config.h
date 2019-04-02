@@ -29,51 +29,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // Rows are doubled-up
 
 // wiring of each half
-#ifdef USE_PROTON_C
+#ifdef CONVERT_TO_PROTON_C
   #define MATRIX_ROWS 5
   #define MATRIX_COLS 7
-
-  #define MATRIX_ROW_PINS { B4, B2, B0, B3, B1 }
-  #define MATRIX_COL_PINS { A2, A1, A0, B8, B14, B13, B15 }
-
-  #define NUMBER_OF_ENCODERS 1
-
-  #define ENCODERS_PAD_A  { B5 }
-  #define ENCODERS_PAD_B  { A10 }
-
-  #define SOFT_SERIAL_PIN   A9
-  #define RGB_DI_PIN        B9
 #else
   #define MATRIX_ROWS 10
   #define MATRIX_COLS 7
-
-  #define MATRIX_ROW_PINS { C6, E6, B5, D7, B4 }
-  #define MATRIX_COL_PINS { F4, F5, F6, F7, B3, B1, B2 }
-
-  #define NUMBER_OF_ENCODERS 1
-
-  #define ENCODERS_PAD_A  { D4 }
-  #define ENCODERS_PAD_B  { D2 }
-
-  #define RGB_DI_PIN         B6
-  #define SOFT_SERIAL_PIN    D3
 #endif
 
-/*
-  PM     PC         PM     PC
-  D3  -> A9         RAW -> 5V
-  D2  -> A10        GND -> GND
-  GND -> GND        RST -> DFU
-  GND -> GND        VCC -> 3.3v
-  D1  -> B7         F4  -> A2
-  D0  -> B6         F5  -> A1
-  D4  -> B5         F6  -> A0
-  C6  -> B4         F7  -> B8
-  D7  -> B3         B1  -> B13
-  E6  -> B2         B3  -> B14
-  B4  -> B1         B2  -> B15
-  B5  -> B0         B6  -> B9
- */
+// Proton-C does pin conversion
+#define MATRIX_ROW_PINS { C6, E6, B5, D7, B4 }
+#define MATRIX_COL_PINS { F4, F5, F6, F7, B3, B1, B2 }
+
+#define NUMBER_OF_ENCODERS 1
+
+#define ENCODERS_PAD_A  { D4 }
+#define ENCODERS_PAD_B  { D2 }
+
+#define RGB_DI_PIN         B6
+#define SOFT_SERIAL_PIN    D3
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
@@ -88,12 +62,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LOCKING_SUPPORT_ENABLE
 /* Locking resynchronize hack */
 #define LOCKING_RESYNC_ENABLE
-
-/* key combination for command */
-#define IS_COMMAND() ( \
-    keyboard_report->mods == (MOD_BIT(KC_LSHIFT) | MOD_BIT(KC_RSHIFT)) \
-)
-
 
 /* ws2812 RGB LED */
 #define RGBLED_NUM 34    // Number of LEDs

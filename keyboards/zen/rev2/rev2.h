@@ -16,7 +16,7 @@
 
 //void promicro_bootloader_jmp(bool program);
 
-#ifdef USE_PROTON_C
+#ifdef CONVERT_TO_PROTON_C
   #define LAYOUT( \
       k00, k01, k02, k03, k04, k05,             k55, k54, k53, k52, k51, k50, \
       k10, k11, k12, k13, k14, k15,             k65, k64, k63, k62, k61, k60, \

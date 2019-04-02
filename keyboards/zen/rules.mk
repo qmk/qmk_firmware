@@ -1,26 +1,26 @@
-ifneq ($(strip $(USE_PROTON_C)),)
-  # Proton-C
-  MCU = STM32F303
+# Pro Micro or Elite-C
+# Automagically converted to Proton-C
+MCU = atmega32u4
+F_CPU = 16000000
+ARCH = AVR8
+F_USB = $(F_CPU)
+BOOTLOADER = dfu
+OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
 
+ifeq ($(strip $(CTPC)), yes)
+  CONVERT_TO_PROTON_C=yes
+endif
+
+ifeq ($(strip $(CONVERT_TO_PROTON_C)), yes)
   SPLIT_KEYBOARD = no       # currently unsupported on ARM
   RGBLIGHT_ENABLE = no      # currently unsupported on ARM
 
   EXTRAFLAGS += -DUSE_PROTON_C
-  LDFLAGS += -specs=nano.specs -specs=nosys.specs
 else
-  # Pro Micro or Elite-C
-  MCU = atmega32u4
-  F_CPU = 16000000
-  ARCH = AVR8
-  F_USB = $(F_CPU)
-  BOOTLOADER = dfu
-  OPT_DEFS += -DINTERRUPT_CONTROL_ENDPOINT
-
   # Currently moved to Pro Micro only section because of lack of Proton-C support
   SPLIT_KEYBOARD = yes
   RGBLIGHT_ENABLE = yes       # Enable WS2812 RGB underlight.
 endif
-
 
 # Build Options
 #   change to "no" to disable the options, or define them in the Makefile in
@@ -36,9 +36,7 @@ MIDI_ENABLE = no            # MIDI controls
 AUDIO_ENABLE = no           # Audio output on port C6
 UNICODE_ENABLE = no         # Unicode
 BLUETOOTH_ENABLE = no       # Enable Bluetooth with the Adafruit EZ-Key HID
-SUBPROJECT_rev2 = yes
 
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
-
 
 DEFAULT_FOLDER = zen/rev2

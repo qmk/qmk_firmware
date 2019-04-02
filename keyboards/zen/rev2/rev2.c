@@ -1,7 +1,7 @@
 #include "rev2.h"
-#include "split_util.h"
 
 #ifdef OLED_DRIVER_ENABLE
+#include "split_util.h"
 #include "oled_driver.h"
 
 __attribute__((weak))

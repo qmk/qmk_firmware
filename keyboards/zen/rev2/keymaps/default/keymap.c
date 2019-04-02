@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "quantum.h"
 
 extern keymap_config_t keymap_config;
 
@@ -69,11 +68,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 };
 
-#ifdef AUDIO_ENABLE
-float tone_qwerty[][2]     = SONG(QWERTY_SOUND);
-float tone_colemak[][2]    = SONG(COLEMAK_SOUND);
-#endif
-
 void encoder_update_user(uint8_t index, bool clockwise) {
   if (index == 0) { /* First encoder */
     if (clockwise) {
@@ -94,18 +88,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   switch (keycode) {
     case QWERTY:
       if (record->event.pressed) {
-        #ifdef AUDIO_ENABLE
-          PLAY_NOTE_ARRAY(tone_qwerty, false, 0);
-        #endif
         set_single_persistent_default_layer(1UL<<_QWERTY);
       }
       return false;
       break;
     //case COLEMAK:
       //if (record->event.pressed) {
-        //#ifdef AUDIO_ENABLE
-          //PLAY_NOTE_ARRAY(tone_colemak, false, 0);
-        //#endif
         //set_single_persistent_default_layer(1UL<<_COLEMAK);
       //}
       //return false;
