@@ -26,26 +26,26 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    EWR, DWR, CWR, BWR, AWR, FWR,   \
-         DXR, CXR, BXR, AXR, FXR,   \
+    EWR, DWR, CWR, BWR, AWR, FXR,   \
+         DXR, CXR, BXR, AXR, FZR,   \
     EZR, DYR, CYR, BYR, AYR, DVR,   \
-         DZR, CZR, BZR, AZR, FZR,   \
+         DZR, CZR, BZR, AZR, FYR,   \
                                     \
-    FZL, AZL, BZL, CZL, DZL,        \
+    FYL, AZL, BZL, CZL, DZL,        \
     DVL, AYL, BYL, CYL, DYL, EZL,   \
-    FXL, AXL, BXL, CXL, DXL,        \
-    FWL, AWL, BWL, CWL, DWL, EWL    \
+    FZL, AXL, BXL, CXL, DXL,        \
+    FXL, AWL, BWL, CWL, DWL, EWL    \
 ) \
 { \
-    { EWR,   DWR,   CWR,   BWR,   AWR,   FWR,     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+    { EWR,   DWR,   CWR,   BWR,   AWR,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
     { KC_NO, DXR,   CXR,   BXR,   AXR,   FXR,     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
-    { KC_NO, DYR,   CYR,   BYR,   AYR,   KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
+    { KC_NO, DYR,   CYR,   BYR,   AYR,   FYR,     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
     { EZR,   DZR,   CZR,   AZR,   BZR,   FZR,     KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
     { KC_NO, DVR,   KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO }, \
                                                                                               \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   FZL,   BZL,   AZL,   CZL,   DZL,   KC_NO }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO, AYL,   BYL,   CYL,   DYL,   EZL   }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   FZL,   BZL,   AZL,   CZL,   DZL,   EZL   }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   FYL,   AYL,   BYL,   CYL,   DYL,   KC_NO }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   FXL,   AXL,   BXL,   CXL,   DXL,   KC_NO }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   FWL,   AWL,   BWL,   CWL,   DWL,   EWL   }, \
+    { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO, AWL,   BWL,   CWL,   DWL,   EWL   }, \
     { KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,   KC_NO, KC_NO, KC_NO, KC_NO, DVL,   KC_NO }  \
 }
