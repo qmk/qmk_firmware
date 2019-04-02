@@ -1,12 +1,17 @@
 # hacked_motospeed
 
-![hacked_motospeed](imgur.com image replace me!)
+This is a
+    tiny (44key),
+    budget (~50€ total expense),
+    easy diy (little wiring & soldering needed),
+mechanical keyboard.
+It is made by wiring two Motospeed K22 numpads to a Teensy++ 2.0, while reusing as much of the original PCB as possible.
+A detailed guide will be posted and linked.
 
-A short description of the keyboard/project
 
-Keyboard Maintainer: [%YOUR_NAME%](https://github.com/yourusername)  
-Hardware Supported: The PCBs, controllers supported  
-Hardware Availability: links to where you can find this hardware
+Keyboard Maintainer: [Vladislav Opara](https://github.com/Deckweiss)
+Hardware Supported: Motospeed K22 numpads wired to Teensy++ 2.0 according to my guide (upcoming).
+Hardware Availability: Ebay, AliExpress (fuck Amazon though)
 
 Make example for this keyboard (after setting up your build environment):
 
