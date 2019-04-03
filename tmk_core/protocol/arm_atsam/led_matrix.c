@@ -28,6 +28,7 @@ static void led_matrix_massdrop_config_override(int i);
 #endif // USE_MASSDROP_CONFIGURATOR
 
 extern rgb_config_t rgb_matrix_config;
+extern rgb_counters_t g_rgb_counters;
 
 void SERCOM1_0_Handler( void )
 {
@@ -293,7 +294,7 @@ void flush(void)
     }
 
     //This should only be performed once per frame
-    pomod = (float)(g_tick % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
+    pomod = (float)((g_rgb_counters.tick / 10) % (uint32_t)(1000.0f / led_animation_speed)) / 10.0f * led_animation_speed;
     pomod *= 100.0f;
     pomod = (uint32_t)pomod % 10000;
     pomod /= 100.0f;
