@@ -17,7 +17,4 @@ TAP_DANCE_ENABLE = yes
 # Do not enable SLEEP_LED_ENABLE. it uses the same timer as BACKLIGHT_ENABLE
 SLEEP_LED_ENABLE = no    # Breathing sleep LED during USB suspend
 
-LAYOUTS = ortho_4x12 planck_mit planck_grid planck_1x2uC planck_1x2uR planck_1x2uL planck_2x2u
 LAYOUTS_HAS_RGB = no
-
-DEFAULT_FOLDER = planck/rev6
