@@ -14,7 +14,3 @@ ifeq ($(strip $(RGBLIGHT_ENABLE)), yes)
   # Include my fancy rgb functions source here
   SRC += layer_rgb.c
 endif
-
-ifeq ($(strip $(KEYBOARD)), hs60/v2)
-  SRC += rgb_backlight.c
-endif
