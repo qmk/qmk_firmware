@@ -13,10 +13,6 @@ extern keymap_config_t keymap_config;
 #define _FL 1
 #define _MC 2
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
-
 bool git_duet = false;
 bool backlight_arrows = false;
 bool backlight_gaming = false;

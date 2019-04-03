@@ -14,8 +14,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef CONFIG_H
-#define CONFIG_H
+#pragma once
 
 #include "config_common.h"
 
@@ -32,43 +31,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_COLS 5
 
 /* key matrix pins */
-#define MATRIX_ROW_PINS {  }
+#define MATRIX_ROW_PINS { NO_PIN }
 #define MATRIX_COL_PINS { D0, D1, D2, D3, D4 }
 #define UNUSED_PINS
-
-// from light_ws2812_config @
-// https://github.com/kairyu/tmk_keyboard_custom/tree/master/keyboard/staryu
-#define RGB_DI_PIN C6
-#define RGBLIGHT_ANIMATIONS
-#define RGBLED_NUM 1     // Number of LEDs
 
 /* COL2ROW or ROW2COL */
 #define DIODE_DIRECTION COL2ROW
 
+#define RGB_DI_PIN C6
+#define RGBLED_NUM 1     // Number of LEDs
+#define RGBLIGHT_ANIMATIONS
+// #ifdef RGB_DI_PIN
+//   #define RGBLIGHT_HUE_STEP 8
+//   #define RGBLIGHT_SAT_STEP 8
+//   #define RGBLIGHT_VAL_STEP 8
+//   #define RGBLIGHT_LIMIT_VAL 255 /* The maximum brightness level */
+//   #define RGBLIGHT_SLEEP  /* If defined, the RGB lighting will be switched off when the host goes to sleep */
+// /*== all animations enable ==*/
+//   #define RGBLIGHT_ANIMATIONS
+// /*== or choose animations ==*/
+//   #define RGBLIGHT_EFFECT_BREATHING
+//   #define RGBLIGHT_EFFECT_RAINBOW_MOOD
+//   #define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+//   #define RGBLIGHT_EFFECT_SNAKE
+//   #define RGBLIGHT_EFFECT_KNIGHT
+//   #define RGBLIGHT_EFFECT_CHRISTMAS
+//   #define RGBLIGHT_EFFECT_STATIC_GRADIENT
+//   #define RGBLIGHT_EFFECT_RGB_TEST
+//   #define RGBLIGHT_EFFECT_ALTERNATING
+// #endif
+
+#define BACKLIGHT_LEVELS 1 // either on/off
+#define RGBLIGHT_LIMIT_VAL 200
+
 /* Set 0 if debouncing isn't needed */
 #define DEBOUNCING_DELAY 5
-
-// TODO backlighting
-#define BACKLIGHT_LEVELS 10
-// #define BACKLIGHT_PIN B7
-/*
-Backlight: C2, C7, D5, D6, B0
-switch (index) {
-    case 0:
-        PORTC &= ~(1<<PC2);
-        break;
-    case 1:
-        PORTC &= ~(1<<PC7);
-        break;
-    case 2:
-        PORTD &= ~(1<<PD5);
-        break;
-    case 3:
-        PORTD &= ~(1<<PD6);
-        break;
-    case 4:
-        PORTB &= ~(1<<PB0);
-        break;
-*/
-
-#endif
