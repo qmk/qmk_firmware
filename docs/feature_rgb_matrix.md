@@ -5,7 +5,7 @@ This feature allows you to use RGB LED matrices driven by external drivers. It h
 If you want to use single color LED's you should use the [LED Matrix Subsystem](feature_led_matrix.md) instead.
 
 ## Driver configuration
-
+---
 ### IS31FL3731
 
 There is basic support for addressable RGB matrix lighting with the I2C IS31FL3731 RGB controller. To enable it, add this to your `rules.mk`:
@@ -52,6 +52,7 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 
 Where `Cx_y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3731.pdf) and the header file `drivers/issi/is31fl3731.h`. The `driver` is the index of the driver you defined in your `config.h` (`0` or `1` right now).
 
+---
 ###  IS31FL3733/IS31FL3737
 
 !> For the IS31FL3737, replace all instances of `IS31FL3733` below with `IS31FL3737`.
@@ -101,6 +102,27 @@ const is31_led g_is31_leds[DRIVER_LED_TOTAL] = {
 ```
 
 Where `X_Y` is the location of the LED in the matrix defined by [the datasheet](http://www.issi.com/WW/pdf/31FL3733.pdf) and the header file `drivers/issi/is31fl3733.h`. The `driver` is the index of the driver you defined in your `config.h` (Only `0` right now).
+
+---
+
+### WS2812 (AVR only)
+
+There is basic support for addressable RGB matrix lighting with a WS2811/WS2812{a,b,c} addressable LED strand. To enable it, add this to your `rules.mk`:
+
+```C
+RGB_MATRIX_ENABLE = WS2812
+```
+
+Configure the hardware via your `config.h`:
+
+```C
+// The pin connected to the data pin of the LEDs
+#define RGB_DI_PIN D7
+// The number of LEDs connected
+#define DRIVER_LED_TOTAL 70
+```
+
+---
 
 From this point forward the configuration is the same for all the drivers. 
 
