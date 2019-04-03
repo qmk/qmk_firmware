@@ -24,5 +24,9 @@ enum custom_keycodes {
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
 #define MC_MSSN   HYPR(KC_F3)          // Mission Control: Configure karabiner for HYPER -> fn
 #define MC_LHPD   HYPR(KC_F4)          // Launchpad: Configure karabiner for HYPER -> fn
+// MacOS Media Alias
+#define MC_MUTE   KC__MUTE
+#define MC_VOLD   KC__VOLDOWN
+#define MC_VOLU   KC__VOLUP
 
 #endif
