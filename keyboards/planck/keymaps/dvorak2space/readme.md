@@ -1,4 +1,4 @@
-![Keyboard Layout](https://github.com/IsaacElenbaas/qmk_firmware/blob/master/keyboards/planck/keymaps/dvorak2space/keyboard-layout.png)
+![Keyboard Layout](https://i.imgur.com/9jYjllM.png)
 
 # IsaacElenbaas's Planck Layout
 
