@@ -16,8 +16,6 @@
 
 #pragma once
 
-#include "../../config.h"
-
 #define V60_POLESTAR
 
 // place overrides here
