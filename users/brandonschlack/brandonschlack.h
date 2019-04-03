@@ -4,8 +4,8 @@
 #include "quantum.h"
 
 // Define layer names
-#define BASE  0
-#define FUNCT 1
+#define BL 0
+#define FL 1
 
 // Config
 #define TAPPING_TOGGLE 2
@@ -18,7 +18,7 @@ enum custom_keycodes {
 };
 
 // Useful Defines
-#define FN_CAPS   LT(FUNCT, KC_CAPS)
+#define FN_CAPS   LT(FL, KC_CAPS)
 #define HY_CAPS   ALL_T(KC_CAPS)
 // MacOS
 #define MC_SLPD   LCTL(LSFT(KC_POWER)) // Sleep Display
