@@ -2,6 +2,8 @@
 
 This page describes setting up the build environment for QMK. These instructions cover AVR processors (such as the atmega32u4).
 
+After cloning the repo of QMK run `make git-submodule` once to download 3rd party libraries like ChibiOS.
+
 <!-- FIXME: We should have ARM instructions somewhere. -->
 
 Note: If it is your first time here, Check out the "Complete Newbs guide" instead
