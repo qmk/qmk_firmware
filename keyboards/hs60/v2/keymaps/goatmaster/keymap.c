@@ -65,6 +65,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (!record->event.pressed) {
       send_string_with_delay_P(PSTR("example@email.com"), 10); //change email value here
     }
+  return false;
+  break;
   }
   return true;
 }
