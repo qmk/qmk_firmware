@@ -1,1 +1,1 @@
-# The default keymap for kyuu
+# The default keymap for Kyuu
