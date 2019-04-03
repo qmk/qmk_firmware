@@ -3,14 +3,16 @@
 This is a
    - tiny (44key),
    - budget (~50€ total expense),
-   - easy diy (little wiring & soldering needed),         
+   - portable (HID bluetooth & 5aH battery)
+   - easy to diy (little wiring & soldering needed),         
    
 mechanical keyboard.   
-It is made by wiring two Motospeed K22 numpads to a Teensy++ 2.0, while reusing as much of the original PCB as possible.  
+It is made by wiring two Motospeed K22 numpads to a Teensy++ 2.0, while reusing as much of the original PCB as possible.
+The numpads come with Outemu red linear switches.  
 (A detailed guide will be posted and linked later)
 
 
-Keyboard Maintainer: [Vladislav Opara](https://github.com/Deckweiss)  
+Keyboard Maintainer: [Deckweiss](https://github.com/Deckweiss)  
 Hardware Supported: Motospeed K22 numpads wired to Teensy++ 2.0 according to my guide (upcoming).  
 Hardware Availability: Ebay, AliExpress  
 
