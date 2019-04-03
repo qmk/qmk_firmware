@@ -6,7 +6,7 @@ A custom 65% keyboard with multiple layout support.
 Do not flash RGB firmware for this board. 
 
 Keyboard Maintainer: [ShadeDream](https://github.com/shadedream)  
-Hardware Supported: Doro67 Multi PCB
+Hardware Supported: Doro67 Multi PCB  
 Hardware Availability: [Geekhack GB](https://geekhack.org/index.php?topic=97265.0)
 
 Make example for this keyboard (after setting up your build environment):
