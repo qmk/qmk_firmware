@@ -17,10 +17,6 @@
 
 #include "quantum.h"
 
-// This a shortcut to help you visually see your layout.
-// The following is an example using the Planck MIT layout
-// The first section contains all of the arguments
-// The second converts the arguments into a two-dimensional array
 #define LAYOUT_96_ansi( \
     k50, k52, k53, k54, k55, k60, k6A, k7A, k70, k5B, k5C, k5D, k5E, k1D, k2E, k0D, k76, k79, k78, \
     k40, k41, k42, k43, k44, k45, k61, k6B, k7B, k71, k4A, k4B, k4C, k4E, k46, k47, k48, k49,      \
