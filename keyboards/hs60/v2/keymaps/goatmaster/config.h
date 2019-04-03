@@ -32,3 +32,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_2 0b0011000000000001
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_3 0b0011000000000001
 #define RGB_BACKLIGHT_ALPHAS_MODS_ROW_4 0b0011100000000111
+
+#undef RGB_BACKLIGHT_CAPS_LOCK_INDICATOR
+#define RGB_BACKLIGHT_CAPS_LOCK_INDICATOR { .color = { .h = 0, .s = 255 }, .index = 3-1 } //red
