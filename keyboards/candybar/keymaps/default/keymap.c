@@ -14,7 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include "candybar.h"
+#include QMK_KEYBOARD_H
 
 #define _BL 0
 #define _FL 1

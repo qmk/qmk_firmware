@@ -72,7 +72,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                            KC_ENT,KC_TAB,MT((MOD_LALT | MOD_LSFT), KC_F3),
         // right hand
                     KC_EQL,    KC_6,   KC_7,   KC_8,   KC_9,   KC_0,   KC_MINUS,
-                    KC_FN1,    KC_F,   KC_G,   KC_C,   KC_H,   KC_L,   ALL_T(KC_RBRACKET),
+                    TT(AUX),   KC_F,   KC_G,   KC_C,   KC_H,   KC_L,   ALL_T(KC_RBRACKET),
                                KC_D,   KC_R,   KC_T,   KC_N,   KC_S,   CTL_T(KC_QUOTE),
                     KC_RALT,   KC_B,   KC_M,   KC_W,   KC_V,   KC_Z,   M(CBRACE),
                                        KC_LEFT,KC_DOWN,KC_UP,  KC_RGHT,M(CBRACK),
@@ -166,10 +166,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         MT((MOD_LALT | MOD_LCTL), KC_F11),
         MT((MOD_LALT | MOD_LSFT), KC_F12),KC_BSPC, KC_SPC
 ),
-};
-
-const uint16_t PROGMEM fn_actions[] = {
-    [1] = ACTION_LAYER_TAP_TOGGLE(AUX)                // FN1 - Momentary Layer 1 (Aux)
 };
 
 static uint16_t key_timer;

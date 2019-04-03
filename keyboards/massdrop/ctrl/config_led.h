@@ -191,5 +191,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define USB_LED_KANA_SCANCODE           255
 #endif //USB_LED_INDICATOR_ENABLE
 
-#define RGB_MATRIX_SKIP_FRAMES 1
+#define RGB_MATRIX_KEYPRESSES
+#define RGB_MATRIX_LED_PROCESS_LIMIT 15
 #define RGB_MATRIX_EXTRA_TOG
