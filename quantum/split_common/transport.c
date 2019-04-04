@@ -16,17 +16,24 @@
 extern backlight_config_t backlight_config;
 #endif
 
+#ifdef ENCODER_ENABLE
+#  include "encoder.h"
+#endif
+
 #if defined(USE_I2C) || defined(EH)
 
 #  include "i2c_master.h"
 #  include "i2c_slave.h"
 
 typedef struct _I2C_slave_buffer_t {
+    matrix_row_t smatrix[ROWS_PER_HAND];
     uint8_t      backlit_level;
 #if defined(RGBLIGHT_ENABLE) && defined(RGBLIGHT_SPLIT)
     rgblight_syncinfo_t rgblight_sync;
 #endif
-    matrix_row_t smatrix[ROWS_PER_HAND];
+#ifdef ENCODER_ENABLE
+    uint8_t encoder_state[NUMBER_OF_ENCODERS];
+#endif
 } I2C_slave_buffer_t;
 
 static I2C_slave_buffer_t * const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_reg;
@@ -34,6 +41,7 @@ static I2C_slave_buffer_t * const i2c_buffer = (I2C_slave_buffer_t *)i2c_slave_r
 #  define I2C_BACKLIT_START offsetof(I2C_slave_buffer_t, backlit_level)
 #  define I2C_RGB_START offsetof(I2C_slave_buffer_t, rgblight_sync)
 #  define I2C_KEYMAP_START offsetof(I2C_slave_buffer_t, smatrix)
+#  define I2C_ENCODER_START offsetof(I2C_slave_buffer_t, encoder_state)
 
 #  define TIMEOUT 100
 
@@ -47,11 +55,10 @@ bool transport_master(matrix_row_t matrix[]) {
 
   // write backlight info
 #  ifdef BACKLIGHT_ENABLE
-  static uint8_t prev_level = ~0;
-  uint8_t        level      = get_backlight_level();
-  if (level != prev_level) {
+  uint8_t level = get_backlight_level();
+  if (level != i2c_buffer->backlight_level) {
     if (i2c_writeReg(SLAVE_I2C_ADDRESS, I2C_BACKLIT_START, (void *)&level, sizeof(level), TIMEOUT) >= 0) {
-      prev_level = level;
+      i2c_buffer->backlight_level = level;
     }
   }
 #  endif
@@ -65,6 +72,11 @@ bool transport_master(matrix_row_t matrix[]) {
       rgblight_clear_change_flags();
     }
   }
+#  endif
+
+#  ifdef ENCODER_ENABLE
+  i2c_readReg(SLAVE_I2C_ADDRESS, I2C_ENCODER_START, (void *)i2c_buffer->encoder_state, sizeof(I2C_slave_buffer_t.encoder_state), TIMEOUT);
+  encoder_update_raw(i2c_buffer->encoder_state);
 #  endif
 
   return true;
@@ -86,6 +98,10 @@ void transport_slave(matrix_row_t matrix[]) {
       i2c_buffer->rgblight_sync.status.change_flags = 0;
   }
 #  endif
+
+#  ifdef ENCODER_ENABLE
+  encoder_state_raw(i2c_buffer->encoder_state);
+#  endif
 }
 
 void transport_master_init(void) { i2c_init(); }
@@ -99,6 +115,11 @@ void transport_slave_init(void) { i2c_slave_init(SLAVE_I2C_ADDRESS); }
 typedef struct _Serial_s2m_buffer_t {
   // TODO: if MATRIX_COLS > 8 change to uint8_t packed_matrix[] for pack/unpack
   matrix_row_t smatrix[ROWS_PER_HAND];
+
+#  ifdef ENCODER_ENABLE
+  uint8_t encoder_state[NUMBER_OF_ENCODERS];
+#  endif
+
 } Serial_s2m_buffer_t;
 
 typedef struct _Serial_m2s_buffer_t {
@@ -205,6 +226,10 @@ bool transport_master(matrix_row_t matrix[]) {
   serial_m2s_buffer.backlight_level = backlight_config.enable ? backlight_config.level : 0;
 #  endif
 
+#  ifdef ENCODER_ENABLE
+  encoder_update_raw(serial_s2m_buffer.encoder_state);
+#  endif
+
   return true;
 }
 
@@ -217,6 +242,11 @@ void transport_slave(matrix_row_t matrix[]) {
 #  ifdef BACKLIGHT_ENABLE
   backlight_set(serial_m2s_buffer.backlight_level);
 #  endif
+
+#  ifdef ENCODER_ENABLE
+  encoder_state_raw(serial_s2m_buffer.encoder_state);
+#  endif
+
 }
 
 #endif

@@ -29,6 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "debounce.h"
 #include "transport.h"
 
+#ifdef ENCODER_ENABLE
+  #include "encoder.h"
+#endif
+
 #if (MATRIX_COLS <= 8)
 #  define print_matrix_header() print("\nr/c 01234567\n")
 #  define print_matrix_row(row) print_bin_reverse8(matrix_get_row(row))
@@ -320,6 +324,9 @@ uint8_t matrix_scan(void) {
     matrix_scan_quantum();
   } else {
     transport_slave(matrix + thisHand);
+#ifdef ENCODER_ENABLE
+    encoder_read();
+#endif
     matrix_slave_scan_user();
   }
 

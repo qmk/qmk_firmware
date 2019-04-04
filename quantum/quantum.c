@@ -274,10 +274,10 @@ bool process_record_quantum(keyrecord_t *record) {
   #ifdef HAPTIC_ENABLE
     process_haptic(keycode, record) &&
   #endif //HAPTIC_ENABLE
-    process_record_kb(keycode, record) &&
-  #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYPRESSES)
+  #if defined(RGB_MATRIX_ENABLE) && defined(RGB_MATRIX_KEYREACTIVE_ENABLED)
     process_rgb_matrix(keycode, record) &&
   #endif
+    process_record_kb(keycode, record) &&
   #if defined(MIDI_ENABLE) && defined(MIDI_ADVANCED)
     process_midi(keycode, record) &&
   #endif
@@ -1049,12 +1049,6 @@ void matrix_init_quantum() {
   matrix_init_kb();
 }
 
-uint8_t rgb_matrix_task_counter = 0;
-
-#ifndef RGB_MATRIX_SKIP_FRAMES
-  #define RGB_MATRIX_SKIP_FRAMES 1
-#endif
-
 void matrix_scan_quantum() {
   #if defined(AUDIO_ENABLE) && !defined(NO_MUSIC_MODE)
     matrix_scan_music();
@@ -1078,10 +1072,6 @@ void matrix_scan_quantum() {
 
   #ifdef RGB_MATRIX_ENABLE
     rgb_matrix_task();
-    if (rgb_matrix_task_counter == 0) {
-      rgb_matrix_update_pwm_buffers();
-    }
-    rgb_matrix_task_counter = ((rgb_matrix_task_counter + 1) % (RGB_MATRIX_SKIP_FRAMES + 1));
   #endif
 
   #ifdef ENCODER_ENABLE

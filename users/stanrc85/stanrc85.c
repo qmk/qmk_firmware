@@ -77,7 +77,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
         set_mods(mods);
       }
-    return false;
     break;
   case KC_RDP: //Opens Windows RDP
     if (!record->event.pressed) {
@@ -88,7 +87,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       send_string_with_delay_P(PSTR("mstsc"), 10);
       send_string_with_delay_P(PSTR(SS_TAP(X_ENTER)), 10);
     }
-    return false;
     break;
   }
   return process_record_keymap(keycode, record);
