@@ -75,6 +75,7 @@ Your RGB lighting can be configured by placing these `#define`s in your `config.
 |`RGBLIGHT_VAL_STEP`  |`17`         |The number of steps to increment the brightness by                           |
 |`RGBLIGHT_LIMIT_VAL` |`255`        |The maximum brightness level                                                 |
 |`RGBLIGHT_SLEEP`     |*Not defined*|If defined, the RGB lighting will be switched off when the host goes to sleep|
+|`RGBLIGHT_SPLIT`     |*Not defined*|If defined, synchronization functionality for split keyboards is added|
 
 ## Animations
 
