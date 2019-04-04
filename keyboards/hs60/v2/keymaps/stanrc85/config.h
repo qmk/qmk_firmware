@@ -30,3 +30,12 @@
 #define RGB_BACKLIGHT_LAYER_1_INDICATOR { .color = { .h = 100, .s = 255 }, .index = 60-1 } //green
 #define RGB_BACKLIGHT_LAYER_2_INDICATOR { .color = { .h = 150, .s = 255 }, .index = 60-1 } //blue
 #define RGB_BACKLIGHT_LAYER_3_INDICATOR { .color = { .h = 0, .s = 0 }, .index = 60-1 } //white
+
+#undef RGB_BACKLIGHT_BRIGHTNESS
+#define RGB_BACKLIGHT_BRIGHTNESS 175
+
+#undef RGB_BACKLIGHT_COLOR_1
+#undef RGB_BACKLIGHT_COLOR_2
+
+#define RGB_BACKLIGHT_COLOR_1 { .h = 0, .s = 255 }
+#define RGB_BACKLIGHT_COLOR_2 { .h = 150, .s = 255 }
