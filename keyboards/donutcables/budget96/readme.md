@@ -8,7 +8,7 @@ Hardware Availability: [DonutCables](https://donutcables.com/)
 
 Make example for this keyboard (after setting up your build environment):
 
-    make budget96:default
+    make donutcables/budget96:default
 
 Flashing
 
