@@ -164,6 +164,14 @@ ifeq ($(strip $(RGB_MATRIX_ENABLE)), IS31FL3733)
     SRC += i2c_master.c
 endif
 
+ifeq ($(strip $(RGB_MATRIX_CUSTOM_KB)), yes)
+    OPT_DEFS += -DRGB_MATRIX_CUSTOM_KB
+endif
+
+ifeq ($(strip $(RGB_MATRIX_CUSTOM_USER)), yes)
+    OPT_DEFS += -DRGB_MATRIX_CUSTOM_USER
+endif
+
 ifeq ($(strip $(TAP_DANCE_ENABLE)), yes)
     OPT_DEFS += -DTAP_DANCE_ENABLE
     SRC += $(QUANTUM_DIR)/process_keycode/process_tap_dance.c

@@ -45,6 +45,19 @@
 #include "rgb_matrix_animations/solid_splash_anim.h"
 #include "rgb_matrix_animations/breathing_anim.h"
 
+#if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
+  #define RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+    #define RGB_MATRIX_EFFECT(name, ...)
+    #ifdef RGB_MATRIX_CUSTOM_KB
+      #include "rgb_matrix_kb.inc"
+    #endif
+    #ifdef RGB_MATRIX_CUSTOM_USER
+      #include "rgb_matrix_user.inc"
+    #endif
+    #undef RGB_MATRIX_EFFECT
+  #undef RGB_MATRIX_CUSTOM_EFFECT_IMPLS
+#endif
+
 #ifndef RGB_DISABLE_AFTER_TIMEOUT
   #define RGB_DISABLE_AFTER_TIMEOUT 0
 #endif
@@ -401,6 +414,20 @@ static void rgb_task_render(uint8_t effect) {
       break;
 #endif // DISABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif // RGB_MATRIX_KEYREACTIVE_ENABLED
+
+#if defined(RGB_MATRIX_CUSTOM_KB) || defined(RGB_MATRIX_CUSTOM_USER)
+  #define RGB_MATRIX_EFFECT(name, ...) \
+    case RGB_MATRIX_CUSTOM_##name: \
+      rendering = name(&rgb_effect_params); \
+      break;
+  #ifdef RGB_MATRIX_CUSTOM_KB
+    #include "rgb_matrix_kb.inc"
+  #endif
+  #ifdef RGB_MATRIX_CUSTOM_USER
+    #include "rgb_matrix_user.inc"
+  #endif
+  #undef RGB_MATRIX_EFFECT
+#endif
 
     // Factory default magic value
     case UINT8_MAX: {
