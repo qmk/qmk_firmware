@@ -16,6 +16,7 @@
 #pragma once
 
 #include "quantum.h"
+#define ___ KC_NO
 
 /* This a shortcut to help you visually see your layout.
  *
@@ -26,18 +27,22 @@
  * represents the switch matrix.
  */
 #define LAYOUT( \
-    K00, K01, K02, K03, K04, K05, K06,     K50, K51, K52, K53, K54, K55, K56, \
-    K10, K11, K12, K13, K14, K15, K16,     K60, K61, K62, K63, K64, K65, K66, \
-    K20, K21, K22, K23, K24, K25, K26,     K70, K71, K72, K73, K74, K75, K76, \
-                        K34,                         K82 \
+    L00, L01, L02, L03, L04, L05, L06,     R00, R01, R02, R03, R04, R05, R06, \
+    L10, L11, L12, L13, L14, L15, L16,     R10, R11, R12, R13, R14, R15, R16, \
+    L20, L21, L22, L23, L24, L25, L26,     R20, R21, R22, R23, R24, R25, R26, \
+                        L34,                         R32 \
 ) { \
-    { K00,   K01,   K02,   K03,   K04, K05,   K06   }, \
-    { K10,   K11,   K12,   K13,   K14, K15,   K16   }, \
-    { K20,   K21,   K22,   K23,   K24, K25,   K26   }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, K34, KC_NO, KC_NO }, \
+    { L00, L01, L02, L03, L04, L05, L06 }, \
+    { L10, L11, L12, L13, L14, L15, L16 }, \
+    { L20, L21, L22, L23, L24, L25, L26 }, \
+    { ___, ___, ___, ___, L34, ___, ___ }, \
 \
-    { K56,   K55,   K54,   K53,   K52, K51,   K50   }, \
-    { K66,   K65,   K64,   K63,   K62, K61,   K60   }, \
-    { K76,   K75,   K74,   K73,   K72, K71,   K70   }, \
-    { KC_NO, KC_NO, KC_NO, KC_NO, K82, KC_NO, KC_NO }  \
+    { R06, R05, R04, R03, R02, R01, R00 }, \
+    { R16, R15, R14, R13, R12, R11, R10 }, \
+    { R26, R25, R24, R23, R22, R21, R20 }, \
+    { ___, ___, ___, ___, R32, ___, ___ }  \
 }
+
+#ifdef USE_I2C
+  #error "I2C not Supported"
+#endif

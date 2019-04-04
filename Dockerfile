@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:9
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     avr-libc \
@@ -26,4 +26,4 @@ VOLUME /qmk_firmware
 WORKDIR /qmk_firmware
 COPY . .
 
-CMD make $KEYBOARD:$KEYMAP
+CMD make clean ; make git-submodule ; make $KEYBOARD:$KEYMAP
