@@ -206,6 +206,9 @@ By setting `RGB_MATRIX_CUSTOM_USER` (and/or `RGB_MATRIX_CUSTOM_KB`) in `rule.mk`
 
 To declare new effects, create a new `rgb_matrix_user/kb.inc` that looks something like this:
 
+`rgb_matrix_user.inc` should go in the root of the keymap directory.
+`rgb_matrix_kb.inc` should go in the root of the keyboard directory.
+
 ```C
 // !!! DO NOT ADD #pragma once !!! //
 
