@@ -73,11 +73,18 @@ typedef struct PACKED {
 	uint8_t modifier:1;
 } rgb_led;
 
+typedef enum {
+  RGB_ZONE_OFF = 0,
+  RGB_ZONE_ALL,
+  RGB_ZONE_KEYS,
+  RGB_ZONE_UNDER,
+} rgb_zone_t;
+
 typedef union {
   uint32_t raw;
   struct PACKED {
-    bool     enable  :1;
-    uint8_t  mode    :7;
+    uint8_t  enable  :2;
+    uint8_t  mode    :6;
     uint8_t  hue     :8;
     uint8_t  sat     :8;
     uint8_t  val     :8;
