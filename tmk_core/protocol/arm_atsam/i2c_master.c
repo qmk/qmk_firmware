@@ -17,7 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "arm_atsam_protocol.h"
 
-#ifndef MD_BOOTLOADER
+#if !defined(MD_BOOTLOADER) && defined(RGB_MATRIX_ENABLE)
 
 #include <string.h>
 
@@ -37,7 +37,7 @@ static uint8_t dma_sendbuf[I2C_DMA_MAX_SEND]; //Data being written to I2C
 
 volatile uint8_t i2c_led_q_running;
 
-#endif //MD_BOOTLOADER
+#endif // !defined(MD_BOOTLOADER) && defined(RGB_MATRIX_ENABLE)
 
 void i2c0_init(void)
 {
@@ -112,7 +112,7 @@ void i2c0_stop(void)
     }
 }
 
-#ifndef MD_BOOTLOADER
+#if !defined(MD_BOOTLOADER) && defined(RGB_MATRIX_ENABLE)
 void i2c1_init(void)
 {
     DBGC(DC_I2C1_INIT_BEGIN);
@@ -265,12 +265,12 @@ uint8_t I2C3733_Init_Control(void)
     //USB state machine will enable driver when communication is ready
     I2C3733_Control_Set(0);
 
-    CLK_delay_ms(1);
+    wait_ms(1);
 
-    srdata.bit.IRST = 0;
-    SPI_WriteSRData();
+    sr_exp_data.bit.IRST = 0;
+    SR_EXP_WriteData();
 
-    CLK_delay_ms(1);
+    wait_ms(1);
 
     DBGC(DC_I2C3733_INIT_CONTROL_COMPLETE);
 
@@ -357,8 +357,8 @@ void I2C3733_Control_Set(uint8_t state)
 {
     DBGC(DC_I2C3733_CONTROL_SET_BEGIN);
 
-    srdata.bit.SDB_N = (state == 1 ? 1 : 0);
-    SPI_WriteSRData();
+    sr_exp_data.bit.SDB_N = (state == 1 ? 1 : 0);
+    SR_EXP_WriteData();
 
     DBGC(DC_I2C3733_CONTROL_SET_COMPLETE);
 }
@@ -489,7 +489,7 @@ uint8_t i2c_led_q_request_room(uint8_t request_size)
 
         if (i2c_led_q_full >= 100) //Give the queue a chance to clear up
         {
-            led_on;
+            DBG_LED_ON;
             I2C_DMAC_LED_Init();
             i2c_led_q_init();
             return 1;
@@ -583,4 +583,4 @@ uint8_t i2c_led_q_run(void)
 
     return 1;
 }
-#endif //MD_BOOTLOADER
+#endif // !defined(MD_BOOTLOADER) && defined(RGB_MATRIX_ENABLE)

@@ -1,4 +1,4 @@
-# Shift Fn Clueboard Layout
+# Shift Fn Clueboard 66% Layout
 
 This is an experimental layout. It makes the left shift key a dual roll key.
 For most keys it acts as a shift key, but for some keys it activates an 

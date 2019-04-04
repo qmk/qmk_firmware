@@ -8,9 +8,6 @@
 #define _FN 1
 #define _ULCK 2
 
-// Fillers to make layering more clear
-#define _______ KC_TRNS
-#define XXXXXXX KC_NO
 #define HYP_TIC ALL_T(KC_GRV)
 #define EQ_LOCK TD(TD_EQ_LOCK)
 #define MIN_ULK TD(TD_MIN_ULOCK)

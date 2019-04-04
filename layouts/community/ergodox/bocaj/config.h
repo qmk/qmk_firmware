@@ -2,5 +2,5 @@
 
 #include QMK_KEYBOARD_CONFIG_H
 
-#undef PRODUCT
-#define PRODUCT   BocajEZ - Frankensteined ErgoDox EZ
+#define LEADER_TIMEOUT 250
+#define LEADER_PER_KEY_TIMING
